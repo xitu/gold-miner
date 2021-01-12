@@ -13,7 +13,7 @@
 - [全新 Android 注入器 : Dagger 2 （二）](https://github.com/xitu/gold-miner/blob/master/TODO/new-android-injector-with-dagger-2-part-2.md)
 
 在上一篇博客中我尝试解释了 `dagger-android` 注入。收到了一些评论，有的人说太复杂了没必要
-为了使用新特性去升级。我想到会发生这种情况，但我还是觉得有必要去解释dagger在幕后所做的工作。在阅读这篇博客之前
+为了使用新特性去升级。我想到会发生这种情况，但我还是觉得有必要去解释 dagger 在幕后所做的工作。在阅读这篇博客之前
 我强烈建议先阅读第一篇博客。本文中我会使用 `**_@ContributesAndroidInjector_**` 注解来简化上篇博客中的代码。
 
 

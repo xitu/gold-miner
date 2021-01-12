@@ -354,7 +354,7 @@ import PrimaryButton from 'primaryButton';
 
 [![](http://o7ts2uaks.bkt.clouddn.com/1_i3hPOj27LTt0ZPn5TQuhZg.png)](http://bit.ly/codeburst)
 
-> ✉️ **订阅 CodeBurst的每周邮件** [**_Email Blast_**](http://bit.ly/codeburst-email), 🐦可以在[**_Twitter_**](http://bit.ly/codeburst-twitter) 上关注 CodeBurst, 浏览 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap), 和 🕸️ [**学习 Web 全栈开发**](http://bit.ly/learn-web-dev-codeburst)。
+> ✉️ **订阅 CodeBurst 的每周邮件** [**_Email Blast_**](http://bit.ly/codeburst-email), 🐦可以在[**_Twitter_**](http://bit.ly/codeburst-twitter) 上关注 CodeBurst, 浏览 🗺️ [**_The 2018 Web Developer Roadmap_**](http://bit.ly/2018-web-dev-roadmap), 和 🕸️ [**学习 Web 全栈开发**](http://bit.ly/learn-web-dev-codeburst)。
 
 
 ---

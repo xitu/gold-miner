@@ -64,7 +64,7 @@ JavaScript 是多范式语言，意味着它支持多种风格的编程。其他
 
 Monads 的问题是，尽管它的使用很简单，但是对一个不是很熟悉它的人解释清楚它有点像“对牛谈琴”。
 
-> “Monad说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的?” ～James Iry 所引用 Philip Wadler 的话，解释一个 Saunders Mac Lane 说过的名言。[**“编程语言简要、不完整之黑历史”**](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
+> “Monad 说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的?” ～James Iry 所引用 Philip Wadler 的话，解释一个 Saunders Mac Lane 说过的名言。[**“编程语言简要、不完整之黑历史”**](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
 
 典型的，这是在调侃这有趣的一点。在上面的引用中，关于 Monads 的解释相比最初的有了很大的简化，原来是下面这样：
 
@@ -125,7 +125,7 @@ JavaScript 的真正优势在于其生态系统中的思想和用户的多样性
 
 我同意 JavaScript 并不是对函数式编程者最好的语言。但是，没有任何其他语言可以声称他们可以被所有人使用，同时正如 ES6 所述：JavaScript 可以满足到更与喜欢函数式编程的人的需要，同时也越来越好。相比于抛弃 JavaScript 和世界上几乎每家公司都使用的令人难以置信的生态系统，为什么不拥抱它，把它变成一个更适合软件组合化的语言？
 
-现在，JavaScript 已经是一门**足够优秀**的函数式编程语言，意味着人们可以使用 JavaScript 的函数式编程方法来构造很多有趣的和有用的东西。Netflix（和其他使用 Angular 2+ 的应用）使用基于 RxJS 的函数式功能。[Facebook](https://github.com/facebook/react/wiki/sites-using-react)在 React 中使用纯函数、高阶函数和高级组件来开发 Facebook 和 Instagram，[PayPal、KhanAcademy、和Flipkart](https://github.com/reactjs/redux/issues/310)使用 Redux 来进行状态管理。
+现在，JavaScript 已经是一门**足够优秀**的函数式编程语言，意味着人们可以使用 JavaScript 的函数式编程方法来构造很多有趣的和有用的东西。Netflix（和其他使用 Angular 2+ 的应用）使用基于 RxJS 的函数式功能。[Facebook](https://github.com/facebook/react/wiki/sites-using-react)在 React 中使用纯函数、高阶函数和高级组件来开发 Facebook 和 Instagram，[PayPal、KhanAcademy、和 Flipkart](https://github.com/reactjs/redux/issues/310)使用 Redux 来进行状态管理。
 
 它们并不孤单：Angular、React、Redux 和 Lodash 是 JavaScript 生态系统中主要的框架和库，同时它们都被函数式编程很深的影响到— 在 Lodash 和 Redux 中，明确地表达是为了在实际的 JavaScript 应用中使用函数式编程模式。
 

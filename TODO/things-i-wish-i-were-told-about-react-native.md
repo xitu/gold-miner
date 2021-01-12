@@ -14,7 +14,7 @@
 
 ## NO. 3 选择合适的导航组件
 
-  我不得不承认我浪费了大量的时间在把我的代码从`NavigatorOS` 和  `Navigator` 之间来回切换 。事实React Native 提供了相当 [ 详细的对比](https://facebook.github.io/react-native/docs/navigator-comparison.html) ,当然在我把时间浪费之前我也没读过它。简而言之就是 NavigatorOS 更像原生的组件，但提供了有限的 API 并且 bug 比较多。
+  我不得不承认我浪费了大量的时间在把我的代码从`NavigatorOS` 和  `Navigator` 之间来回切换 。事实 React Native 提供了相当 [ 详细的对比](https://facebook.github.io/react-native/docs/navigator-comparison.html) ,当然在我把时间浪费之前我也没读过它。简而言之就是 NavigatorOS 更像原生的组件，但提供了有限的 API 并且 bug 比较多。
 
 ## No. 4 你的代码不是运行在 nodejs 上的
 
@@ -28,13 +28,13 @@
 	
 	这样的要求是简单易懂的，但想要明白个中缘由，绝非易事。直到最近的[文档](https://facebook.github.io/react-native/docs/image.html)中才提及这点。浪费了我好多时间。
   
-  Modal 构件是专门为混合 React Native 框架和 Native 应用而度身定做的。因此，很多 React Native 框架下的构件都不能与Modal兼容使用。PickerIOS无法渲染的问题。
+  Modal 构件是专门为混合 React Native 框架和 Native 应用而度身定做的。因此，很多 React Native 框架下的构件都不能与 Modal 兼容使用。PickerIOS 无法渲染的问题。
 
 ## No. 7 读源码
 
   React Native 发展的很快,以至于文档过（包括这篇文章）很快就失去参考价值了。许多的特性（比如[键盘事件](https://github.com/facebook/react-native/blob/master/React/Base/RCTKeyboardObserver.m),`EventEmitter`以及`Subscribable`) 都没有写在文档里。因此，为了更清楚如何完成属于自己的构件，你必须事先通过阅读源码来了解 React 是怎样实现的。
-## No. 8 学习Objective C
+## No. 8 学习 Objective C
 
-  迟早你会用到 Objective C 的。对于任何优秀的app，写原生模块和组件都是不可避免的。因此，至少你得能读懂 Objective C 代码。我知道这可能有些吓人，但一旦你习惯了它的语法就好了。
+  迟早你会用到 Objective C 的。对于任何优秀的 app，写原生模块和组件都是不可避免的。因此，至少你得能读懂 Objective C 代码。我知道这可能有些吓人，但一旦你习惯了它的语法就好了。
 
 

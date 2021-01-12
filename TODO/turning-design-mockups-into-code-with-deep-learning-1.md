@@ -7,8 +7,8 @@
 
 # 使用深度学习自动生成 HTML 代码 - 第 1 部分
 
-- [使用深度学习自动生成HTML代码 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
-- [使用深度学习自动生成HTML代码 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
+- [使用深度学习自动生成 HTML 代码 - 第 1 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-1.md)
+- [使用深度学习自动生成 HTML 代码 - 第 2 部分](https://github.com/xitu/gold-miner/blob/master/TODO/turning-design-mockups-into-code-with-deep-learning-2.md)
 
 在未来三年来，深度学习将改变前端的发展。它将会加快原型设计的速度和降低开发软件的门槛。
 
@@ -190,7 +190,7 @@ Tony Beltramelli 去年发布了[pix2code 论文](https://arxiv.org/abs/1705.079
 
 * **在理解输入与输出数据之前，其它部分都似懂非懂。**输入 X 是屏幕的截图和以前标记的标签，输出 Y 是下一个标记的标签。当我理解这一点时，其它问题都更加容易弄清了。此外，尝试其它不同的架构也将更加容易。
 
-* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程RNNs，太着迷于嵌入向量空间，并被一些奇奇怪怪的实现方法所诱惑。
+* **注意兔子洞。**由于这个项目与深度学习有关联的，我在这个过程中被很多兔子洞卡住了。我花了一个星期从无到有的编程 RNNs，太着迷于嵌入向量空间，并被一些奇奇怪怪的实现方法所诱惑。
 
 * **图片到代码的网络其实就是自动描述图像的模型。**即使我意识到了这一点，但仍然错过了很多自动图像摘要方面的论文，因为它们看起来不够炫酷。一旦我意识到了这一点，我对问题空间的理解就变得更加深刻了。
 

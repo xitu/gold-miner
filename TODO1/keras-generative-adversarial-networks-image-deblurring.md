@@ -213,7 +213,7 @@ def discriminator_model():
     return model
 ```
 
-Keras实现判别模型
+Keras 实现判别模型
 
 最后一步是构建完整模型。这个 GAN 的 **特殊性**在于输入是真实图像而不是噪声。因此，我们能获得生成模型输出的直接反馈。 
 
@@ -239,7 +239,7 @@ def generator_containing_discriminator_multiple_outputs(generator, discriminator
 
 我们在两个层级抽取损失值，一个是在生成模型的末端，另一个在整个模型的末端。
 
-首先是直接根据生成模型的输出计算**感知损失（perceptual loss）**。该损失值确保了 GAN 模型是面向去模糊任务的。它比较了VGG的 **第一个卷积**输出。
+首先是直接根据生成模型的输出计算**感知损失（perceptual loss）**。该损失值确保了 GAN 模型是面向去模糊任务的。它比较了 VGG 的 **第一个卷积**输出。
 
 ```python
 import keras.backend as K

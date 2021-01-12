@@ -28,7 +28,7 @@
 
 ### 第 2 步 —— 远程访问管理： ###
 
-#### **SSH服务:** ####
+#### **SSH 服务:** ####
 
 Ubuntu 桌面版默认并没有安装 ssh 服务，因此如果需要远程管理你的服务器还需要手动安装，安装命令如下：
 
@@ -237,7 +237,7 @@ Jenkins 解锁后需要安装插件，点击 “**Select plugins to Install**”
 
 #### **创建 “Jenkins 任务”** ####
 
-Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备了一个 “Hello Jenkins” 的 Android 工程，如果你是跟着本教程做的，你可以用来测试你的Jenkins配置。这只是一个简单的多模块 app，包括单元测试、Android 测试 以及 JaCoCo 和 SonarQube 插件。
+Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备了一个 “Hello Jenkins” 的 Android 工程，如果你是跟着本教程做的，你可以用来测试你的 Jenkins 配置。这只是一个简单的多模块 app，包括单元测试、Android 测试 以及 JaCoCo 和 SonarQube 插件。
 
 [**pamartineza/helloJenkins**](https://github.com/pamartineza/helloJenkins)
 
@@ -275,7 +275,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 构建可以被以下方式触发：手动的、远程的、周期性的、另一个任务构建、检测到变更时等等。
 
-理想的最好的情景是，当新的变更推送到仓库是触发构建，GitHub 提供了一个叫 Webhooks的系统
+理想的最好的情景是，当新的变更推送到仓库是触发构建，GitHub 提供了一个叫 Webhooks 的系统
 
 [**Webhooks | GitHub Developer Guide**](https://developer.github.com/webhooks/)
 
@@ -358,7 +358,7 @@ Gradle 任务配置
 
 ### 第 5 步 —— SonarQube ###
 
-这部分我将介绍使用 Docker 容器安装配置 SonarQube 和它的伴侣 MySQL数据库。
+这部分我将介绍使用 Docker 容器安装配置 SonarQube 和它的伴侣 MySQL 数据库。
 
 [**Continuous Code Quality | SonarQube**](https://www.sonarqube.org/)
 
@@ -448,7 +448,7 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 
 #### 运行 SonarQube 分析: ####
 
-现在 SonarQube 已经配置好，接下来只需要添加 Gradle 任务， **sonarqube**，并在 Jenkins任务的最后一步执行：
+现在 SonarQube 已经配置好，接下来只需要添加 Gradle 任务， **sonarqube**，并在 Jenkins 任务的最后一步执行：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*EDAjalNzmdU-ptjhWzuCcQ.png">
 

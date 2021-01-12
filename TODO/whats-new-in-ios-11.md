@@ -41,7 +41,7 @@ __注意： 在 iPhone 上拖放被限制在单个 app 内 —— 你不能把�
 - 创建两个 `tableView` ,并且创建两个分别包含`Left` 和 `Right` 元素的字符串数组。
 - 制定两个 `tableView` 都使用 `view controller` 来作为它们的数据源，给他们写死位置宽高，注册一个可重用的 `cell` ，把它们两个都添加到这个 `view` 上。
 - 实现 `numberOfRowsInSection` 方法，确保每个 table view 都根据其字符串数组有正确的行数。
-- 实现 `cellForRowAt` 来排列，这时 cell根据 table 来从两个字符串数组中选出对应的数据源正确展示。
+- 实现 `cellForRowAt` 来排列，这时 cell 根据 table 来从两个字符串数组中选出对应的数据源正确展示。
 
 然后，这是 iOS 11 之前的所有代码，应该没有你不熟悉的代码。将 ViewController.swift 类的内容用下面的代码替换：
 
@@ -534,7 +534,7 @@ func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NF
 
 当你下载好模型后，先把它拖到你的 Xcode 工程中，再选择它，这时你就可以看到 Core ML 的模型查看器。你会看到它是由 MIT 制作的神经网络分类器，还有可以根据知识共享许可证使用。在这个下面，你将看到它有 “sceneImage” 作为输入，还有 “sceneLabelProbs ” 和 “sceneLabel” 作为输出 —— 输入一张图片，输出一些计算机识别这张图片的文本描述。
 
-你还将看到 “Model class” 和 “Swift generated source” —— Xcode为我们生成了一个类，只包含几行代码，这一点非常显著，你将很快看到。
+你还将看到 “Model class” 和 “Swift generated source” —— Xcode 为我们生成了一个类，只包含几行代码，这一点非常显著，你将很快看到。
 
 现在，我们有一个可以识别的图像和一个可以检查它的训练好的模型。 我们现在需要做的是将两者放在一起：加载图片，为模型准备图片，最后询问模型的预测。
 

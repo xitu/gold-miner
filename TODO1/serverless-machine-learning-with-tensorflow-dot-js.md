@@ -30,7 +30,7 @@
 TensorFlow.js 库不包括在 Apache OpenWhisk 提供的 [Node.js 运行时的库](https://github.com/apache/incubator-openwhisk-runtime-nodejs)
 
 
-外部库可以通过从zip文件中部署应用程序的方式[导入到运行时](http://jamesthom.as/blog/2016/11/28/npm-modules-in-openwhisk/)时。zip 文件中包含自定义文件夹 `node_modules` 被提取到运行时中。Zip 文件的大小最大[限制为 48 MB](https://github.com/apache/incubator-openwhisk/blob/master/docs/reference.md#actions)。
+外部库可以通过从 zip 文件中部署应用程序的方式[导入到运行时](http://jamesthom.as/blog/2016/11/28/npm-modules-in-openwhisk/)时。zip 文件中包含自定义文件夹 `node_modules` 被提取到运行时中。Zip 文件的大小最大[限制为 48 MB](https://github.com/apache/incubator-openwhisk/blob/master/docs/reference.md#actions)。
 
 #### 库大小
 

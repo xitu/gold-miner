@@ -198,7 +198,7 @@
     
     </android.support.constraint.ConstraintLayout>
 
-在了解更多细节之前，我要告诉你一个关于 ConstraintLayout 的秘密武器：如何阅读XML。
+在了解更多细节之前，我要告诉你一个关于 ConstraintLayout 的秘密武器：如何阅读 XML。
 
 就像在 RelativeLayout 中，当我们使用 **android:layout_toRightOf="@id/abc"** 就代表着当前的视图在源视图的右边。这意味着编辑器自动地识别出了我们指的是当前的视图。我不需要额外的声明我操作的是哪个视图，只需要通过 id 引用其它视图就好了。
 

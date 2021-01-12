@@ -129,7 +129,7 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-result)结果
 
-最后，所生成的脚本文件是一个结合了 Babel， Browserify 和 Uglifyjs三个模块的文件。
+最后，所生成的脚本文件是一个结合了 Babel， Browserify 和 Uglifyjs 三个模块的文件。
 
     // package.json
     "prepublish": "

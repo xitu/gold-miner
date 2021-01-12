@@ -17,28 +17,28 @@
 * [5. 数据竞争](#Race)
 * [6. 互斥锁](#Lock)
 * [7. 检测数据竞争](#Race2)
-* [8. Select标识符](#Select)
+* [8. Select 标识符](#Select)
 * [9. 最基本的并发实例](#Match)
 * [10. 并行计算](#Parallel)
 
 这篇文章将会以[Go](https://golang.org)语言举例介绍并发编程,包括以下内容
 
 * 线程的并发执行(goroutines)
-* 基本的同步技术(channel和锁)
-* Go中的基本并发模式
+* 基本的同步技术(channel 和锁)
+* Go 中的基本并发模式
 * 死锁和数据竞争
 * 并行计算
 
-开始之前，你需要去了解怎样写最基本的 Go 程序。 如果你已经对 C/C++，Java 或者Python比较熟悉，[A tour of go](https://tour.golang.org/)将会给你一些帮助。你也可以看一下[Go for C++ programmers](https://code.google.com/p/go-wiki/wiki/GoForCPPProgrammers) 或者[Go for Java programmers](http://www.nada.kth.se/~snilsson/go_for_java_programmers/)。
+开始之前，你需要去了解怎样写最基本的 Go 程序。 如果你已经对 C/C++，Java 或者 Python 比较熟悉，[A tour of go](https://tour.golang.org/)将会给你一些帮助。你也可以看一下[Go for C++ programmers](https://code.google.com/p/go-wiki/wiki/GoForCPPProgrammers) 或者[Go for Java programmers](http://www.nada.kth.se/~snilsson/go_for_java_programmers/)。
 
 ## 1.多线程执行
 
-[goroutine](https://golang.org/ref/spec#Go_statements) 是 go 的一种调度机制。 Go 使用 go 进行声明，以 goroutine 调度机制开启一个新的执行线程。它会在新创建的 goroutine 执行程序。在单个程序中，所有goroutines都是共享相同的地址空间。
+[goroutine](https://golang.org/ref/spec#Go_statements) 是 go 的一种调度机制。 Go 使用 go 进行声明，以 goroutine 调度机制开启一个新的执行线程。它会在新创建的 goroutine 执行程序。在单个程序中，所有 goroutines 都是共享相同的地址空间。
 
 
-相比于分配栈空间，goroutine 更加轻量，花销更小。栈空间初始化很小,需要通过申请和释放堆空间来扩展内存。Goroutines 内部是被复用在多个操作系统线程上。如果一个goroutine阻塞了一个操作系统线程，比如正在等待输入，此时，这个线程中的其他 goroutine 为了保证继续运行，将会迁移到其他线程中，而你不需要去关心这些细节。
+相比于分配栈空间，goroutine 更加轻量，花销更小。栈空间初始化很小,需要通过申请和释放堆空间来扩展内存。Goroutines 内部是被复用在多个操作系统线程上。如果一个 goroutine 阻塞了一个操作系统线程，比如正在等待输入，此时，这个线程中的其他 goroutine 为了保证继续运行，将会迁移到其他线程中，而你不需要去关心这些细节。
 
-下面的程序将会打印 `"Hello from main goroutine"`. 是否打印`"Hello from another goroutine"`，取决于两个goroutines谁先完成.
+下面的程序将会打印 `"Hello from main goroutine"`. 是否打印`"Hello from another goroutine"`，取决于两个 goroutines 谁先完成.
 
 ```
 func main() {
@@ -46,21 +46,21 @@ func main() {
     go fmt.Println("Hello from another goroutine")
     fmt.Println("Hello from main goroutine")
 
-    // 程序执行到这,所有活着的goroutines都会被杀掉
+    // 程序执行到这,所有活着的 goroutines 都会被杀掉
 
 }
 ```
 
 [goroutine1.go](https://www.nada.kth.se/~snilsson/concurrency/src/goroutine1.go)
 
-下一段程序 `"Hello from main goroutine"` 和 `"Hello from another goroutine"` 可能会以任何顺序打印。但有一种可能性是第二个goroutine运行的非常慢，以至于到程序结束之前都不会打印。
+下一段程序 `"Hello from main goroutine"` 和 `"Hello from another goroutine"` 可能会以任何顺序打印。但有一种可能性是第二个 goroutine 运行的非常慢，以至于到程序结束之前都不会打印。
 
 ```
 func main() {
     go fmt.Println("Hello from another goroutine")
     fmt.Println("Hello from main goroutine")
 
-    time.Sleep(time.Second) // 为其他goroutine完成等1秒钟
+    time.Sleep(time.Second) // 为其他 goroutine 完成等1秒钟
 }
 ```
 
@@ -106,7 +106,7 @@ BREAKING NEWS: A goroutine starts a new thread of execution.
 Ten seconds later: I’m leaving now.
 ```
 
-一般来说，我们不可能让线程休眠去等待对方。在下一节中, 我们将会介绍 Go 的一种同步机制, __channels__ 。然后演示如何使用channel来让一个 goruntine 等待另外的 goruntine。
+一般来说，我们不可能让线程休眠去等待对方。在下一节中, 我们将会介绍 Go 的一种同步机制, __channels__ 。然后演示如何使用 channel 来让一个 goruntine 等待另外的 goruntine。
 
 ## 2. Channels
 
@@ -115,7 +115,7 @@ Ten seconds later: I’m leaving now.
 寿司输送带
 
 [channel](https://golang.org/ref/spec#Channel_types) 是一种 Go 语言结构,它通过传递特定元素类型的值来为两个 goroutines 提供同步执行和交流数据的机制
-。 `<-` 标识符表示了channel的传输方向，接收或者发送。如果没有指定方向。那么 channel 就是双向的。
+。 `<-` 标识符表示了 channel 的传输方向，接收或者发送。如果没有指定方向。那么 channel 就是双向的。
 
 
 ```
@@ -134,8 +134,8 @@ wc := make(chan *Work, 10)  // 带缓冲工作的 channel
 通过 channel 发送值，可使用 <- 作为二元运算符。通过 channel 接收值，可使用它作为一元运算符。
 
 ```
-ic <- 3       // 向channel中发送3
-work := <-wc  // 从channel中接收指针到work
+ic <- 3       // 向 channel 中发送3
+work := <-wc  // 从 channel 中接收指针到 work
 ```
 
 如果 channel 是无缓冲的，发送者会一直阻塞直到有接收者从中接收值。如果是带缓冲的，只有当值被拷贝到缓冲区且缓冲区已满时，发送者才会阻塞直到有接收者从中接收。接收者会一直阻塞直到 channel 中有值可被接收。
@@ -181,11 +181,11 @@ func Producer() <-chan Sushi {
 
 ## 3.同步
 
-下一个例子中，`Publish` 函数返回一个channel，它会把发送的文本当做消息广播出去。
+下一个例子中，`Publish` 函数返回一个 channel，它会把发送的文本当做消息广播出去。
 
 ```
-// 指定时间过期后函数Publish将会打印文本到标准输出.
-// 当文本被发布channel将会被关闭.
+// 指定时间过期后函数 Publish 将会打印文本到标准输出.
+// 当文本被发布 channel 将会被关闭.
 func Publish(text string, delay time.Duration) (wait <-chan struct{}) {
     ch := make(chan struct{})
     go func() {
@@ -227,7 +227,7 @@ The news is out, time to leave.
 
 [![traffic jam](https://www.nada.kth.se/~snilsson/concurrency/traffic-jam.jpg)](http://www.flickr.com/photos/lasgalletas/263909727/)
 
-让我们去介绍 `Publish` 函数中的一个bug。
+让我们去介绍 `Publish` 函数中的一个 bug。
 
 ```
 func Publish(text string, delay time.Duration) (wait <-chan struct{}) {
@@ -256,7 +256,7 @@ func main() {
 
 >_deadlock_ 是线程之间相互等待而都不能继续执行的一种情况
 
-在运行时，Go 对于运行时死锁检测具有良好支持。但在某种情况下goroutine无法取得任何进展，这时Go程序会提供一个详细的错误信息. 下面就是我们崩溃程序的日志:
+在运行时，Go 对于运行时死锁检测具有良好支持。但在某种情况下 goroutine 无法取得任何进展，这时 Go 程序会提供一个详细的错误信息. 下面就是我们崩溃程序的日志:
 
 ```
 Waiting for the news...
@@ -302,7 +302,7 @@ func race() {
 
 [datarace.go](https://www.nada.kth.se/~snilsson/concurrency/src/datarace.go)
 
-两个goroutines, `g1` 和 `g2`, 在竞争过程中，我们无法知道他们执行的顺序.下面只是许多可能的结果性的一种.
+两个 goroutines, `g1` 和 `g2`, 在竞争过程中，我们无法知道他们执行的顺序.下面只是许多可能的结果性的一种.
 
 * `g1` 从`n`变量中读取值`0`
 * `g2` 从`n`变量中读取值`0`
@@ -310,15 +310,15 @@ func race() {
 * `g1` 把它的值把`1`赋值给`n`
 * `g2` 增加它的值从`0`到`1`
 * `g2` 把它的值把`1`赋值给`n`
-* 这段程序将会打印n的值,它的值为`1`
+* 这段程序将会打印 n 的值,它的值为`1`
 
 "数据竞争” 的称呼多少有些误导，不仅仅是他的执行顺序无法被设定，而且也无法保证接下来会发生的情况。编译器和硬件时常会为了更好的性能而调整代码的顺序。如果你仔细观察一个正在运行的线程,那么你才可能会看到更多细节。
 
 [![mid action](https://www.nada.kth.se/~snilsson/concurrency/mid-action.jpg)](http://www.flickr.com/photos/brandoncwarren/2953838847/)
 
-避免数据竞争的唯一方式是同步操作在线程间所有共享的可变数据。存在几种方式，在Go中,可能最多使用 channel 或者 lock。较底层的操作可使用 [`sync`](https://golang.org/pkg/sync/) and [`sync/atomic`](https://golang.org/pkg/sync/atomic/) 包，这里不再讨论。
+避免数据竞争的唯一方式是同步操作在线程间所有共享的可变数据。存在几种方式，在 Go 中,可能最多使用 channel 或者 lock。较底层的操作可使用 [`sync`](https://golang.org/pkg/sync/) and [`sync/atomic`](https://golang.org/pkg/sync/atomic/) 包，这里不再讨论。
 
-在Go中，处理并发数据访问的首选方式是使用一个 channel，它将数据从一个goroutine传递到另一个goroutine。有一句经典的话:"不要通过共享内存来传递数据;而要通过传递数据来共享内存"。
+在 Go中，处理并发数据访问的首选方式是使用一个 channel，它将数据从一个 goroutine 传递到另一个 goroutine。有一句经典的话:"不要通过共享内存来传递数据;而要通过传递数据来共享内存"。
 
 ```
 func sharingIsCaring() {
@@ -338,7 +338,7 @@ func sharingIsCaring() {
 
 在这份代码中 channel 充当了双重角色。它作为一个同步点，在不同 goroutine 中传递数据。发送的 goroutine 将会等待其它的 goroutine 去接收数据,而接收的 goroutine 将会等待其他的 goroutine 去发送数据。
 
-[Go内存模型](https://golang.org/ref/mem) - 当一个 goroutine 在读一个变量,另外一个goroutine在写相同的变量，这个过程实际上是非常复杂的,但是只要你用 channel 在不同goroutines中共享数据,那么这个操作就是安全的。
+[Go 内存模型](https://golang.org/ref/mem) - 当一个 goroutine 在读一个变量,另外一个 goroutine 在写相同的变量，这个过程实际上是非常复杂的,但是只要你用 channel 在不同 goroutines 中共享数据,那么这个操作就是安全的。
 
 ## 6. 互斥锁
 
@@ -348,10 +348,10 @@ func sharingIsCaring() {
 
 要让这种类型的锁正确工作，所有对于共享数据的操作（包括读和写）必须在一个 goroutine 持有该锁时进行。这一点至关重要，goroutine 的一次错误就足以破坏程序和导致数据竞争。
 
-因此你需要为API去设计一种定制化的数据结构，并且确保所有同步操作都在内部执行。在这个例子中，我们构建了一种安全易用的并发数据结构，`AtomicInt`，它存储了单个整型，任何goroutines 都能安全的通过 `Add` 和 `Value` 方法访问数字。
+因此你需要为 API 去设计一种定制化的数据结构，并且确保所有同步操作都在内部执行。在这个例子中，我们构建了一种安全易用的并发数据结构，`AtomicInt`，它存储了单个整型，任何 goroutines 都能安全的通过 `Add` 和 `Value` 方法访问数字。
 
 ```
-// AtomicInt 是一种持有int类型的支持并发的数据结构。
+// AtomicInt 是一种持有 int 类型的支持并发的数据结构。
 // 它的初始化值为0.
 type AtomicInt struct {
     mu sync.Mutex // 同一时间只能有一个 goroutine 持有锁。
@@ -359,14 +359,14 @@ type AtomicInt struct {
 }
 
 // Add adds n to the AtomicInt as a single atomic operation.
-// 原子性的将n增加到AtomicInt中
+// 原子性的将 n 增加到 AtomicInt 中
 func (a *AtomicInt) Add(n int) {
     a.mu.Lock() // 等待锁被释放然后获取。
     a.n += n
     a.mu.Unlock() // 释放锁。
 }
 
-// 返回a的值.
+// 返回 a 的值.
 func (a *AtomicInt) Value() int {
     a.mu.Lock()
     n := a.n
@@ -391,7 +391,7 @@ func lockItUp() {
 
 ## 7. 检测数据竞争
 
-竞争有时候难以检测。当我执行这段存在数据竞争的程序,它打印`55555`。再试一次,可能会得到不同的结果。 [`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup)是go标准库的一部分;它等待一系列 goroutines 执行结束。
+竞争有时候难以检测。当我执行这段存在数据竞争的程序,它打印`55555`。再试一次,可能会得到不同的结果。 [`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup)是 go 标准库的一部分;它等待一系列 goroutines 执行结束。
 
 ```
 func race() {
@@ -399,11 +399,11 @@ func race() {
     wg.Add(5)
     for i := 0; i < 5; **i++** {
         go func() {
-            **fmt.Print(i)** // 局部变量i被6个goroutine共享
+            **fmt.Print(i)** // 局部变量 i 被6个 goroutine 共享
             wg.Done()
         }()
     }
-    wg.Wait() // 等待5个goroutine执行结束
+    wg.Wait() // 等待5个 goroutine 执行结束
     fmt.Println()
 }
 ```
@@ -412,7 +412,7 @@ func race() {
 
 对于输出 `55555` 较为合理的解释是执行 `i++` 操作的 goroutine 在其他 goroutines 打印之前就已经执行了5次。事实上，更新后的 `i` 对于其他 goroutines 可见是随机的。
 
-一个非常简单的解决办法是通过使用本地变量作为参数的方式去启动另外的goroutine。
+一个非常简单的解决办法是通过使用本地变量作为参数的方式去启动另外的 goroutine。
 
 ```
 func correct() {
@@ -489,7 +489,7 @@ Found 1 data race(s)
 exit status 66
 ```
 
-这个工具发现在程序20行存在数据竞争，一个goroutine向某个变量写值，而22行存在另外一个 goroutine 在不同步的读取这个变量的值。
+这个工具发现在程序20行存在数据竞争，一个 goroutine 向某个变量写值，而22行存在另外一个 goroutine 在不同步的读取这个变量的值。
 
 注意这个工具只能找到实际执行时发生的数据竞争。
 
@@ -500,7 +500,7 @@ exit status 66
 这有一个例子,显示了如何用 select 去随机生成数字.
 
 ```
-// RandomBits 返回产生随机位数的channel
+// RandomBits 返回产生随机位数的 channel
 func RandomBits() <-chan int {
     ch := make(chan int)
     go func() {
@@ -590,9 +590,9 @@ No one received Dave’s message.
 
 多 CPU 上的分布式计算不仅仅是一门科学，更是一门艺术。
 
-* 每个计算单元执行时间大约在100us至1ms之间.如果这些单元太小,那么分配问题和管理子模块的开销可能会增大。如果这些单元太大，整个的计算体系可能会被一个小的耗时操作阻塞。很多因素都会影响计算速度，比如调度，程序终端，内存布局(注意工作单元的个数和 CPU 的个数无关)。
+* 每个计算单元执行时间大约在100us 至1ms 之间.如果这些单元太小,那么分配问题和管理子模块的开销可能会增大。如果这些单元太大，整个的计算体系可能会被一个小的耗时操作阻塞。很多因素都会影响计算速度，比如调度，程序终端，内存布局(注意工作单元的个数和 CPU 的个数无关)。
 
-* 尽量减少数据共享的量。并发写入是非常消耗性能的，特别是多个 goroutines 在不同CPU上执行时。共享数据读操作对性能影响不是很大。
+* 尽量减少数据共享的量。并发写入是非常消耗性能的，特别是多个 goroutines 在不同 CPU 上执行时。共享数据读操作对性能影响不是很大。
 
 * 数据的合理组织是一种高效的方式。如果数据保存在缓存中，数据的加载和存储的速度将会大大加快。再次强调，这对写操作来说是非常重要的。
 
@@ -632,7 +632,7 @@ func Convolve(u, v Vector) Vector {
     n := len(u) + len(v) - 1
     w := make(Vector, n)
 
-    // 将w划分为多个将会计算100us-1ms时间计算的工作单元
+    // 将 w 划分为多个将会计算100us-1ms 时间计算的工作单元
     size := max(1, 1000000/n)
 
     var wg sync.WaitGroup
@@ -640,7 +640,7 @@ func Convolve(u, v Vector) Vector {
         if j > n {
             j = n
         }
-        // goroutines只为读共享内存.
+        // goroutines 只为读共享内存.
         wg.Add(1)
         go func(i, j int) {
             for k := i; k < j; k++ {

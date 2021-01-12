@@ -37,7 +37,7 @@
 
 我建议不要从 Solidity 或者 EVM 能做些什么开始考虑你的应用。相反，试着想象一下，当数字资产转移给其他人而无需中间的银行或经纪人时，你可以做些什么。试着想象一下如何在应用中以对用户友好的方式表示这些功能。
 
-如果不在应用中构建钱包，那么和钱包 API 进行交互将会很难处理。例如，在 Ethereum 上，你必须使用 [Web3 API](https://web3js.readthedocs.io/en/1.0/) 来触发需要用户交互的钱包交易。到目前为止，好像一直都是坏消息，因为它要求用户下载 [Metamask 扩展](https://metamask.io/) ，或者支持 Ethereum 的浏览器，如 [Trust Wallet](https://trustwallet.com/) 或 [Coinbase Wallet](https://wallet.coinbase.com/)。Trust Wallet 和Coinbase Wallet 都仅仅只是具有内置钱包和交易批准 UI 的 Web3 感知浏览器。
+如果不在应用中构建钱包，那么和钱包 API 进行交互将会很难处理。例如，在 Ethereum 上，你必须使用 [Web3 API](https://web3js.readthedocs.io/en/1.0/) 来触发需要用户交互的钱包交易。到目前为止，好像一直都是坏消息，因为它要求用户下载 [Metamask 扩展](https://metamask.io/) ，或者支持 Ethereum 的浏览器，如 [Trust Wallet](https://trustwallet.com/) 或 [Coinbase Wallet](https://wallet.coinbase.com/)。Trust Wallet 和 Coinbase Wallet 都仅仅只是具有内置钱包和交易批准 UI 的 Web3 感知浏览器。
 
 让用户安装和使用扩展程序或是全新的浏览器非常困难，几乎没有潜在用户会这样做。到目前为止，这已经严重影响了 DApp 行业，并严重限制了 Web3 的用户群体。
 

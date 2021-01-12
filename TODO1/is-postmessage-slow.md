@@ -19,7 +19,7 @@
 
 在开始度量之前，我们需要了解**什么是** `postMessage()`，以及我们想度量它的哪一部分。否则，[我们最终将收集无意义的数据](https://dassur.ma/things/deep-copy/)并得出无意义的结论。
 
-`postMessage()` 是 [HTML规范](https://html.spec.whatwg.org/multipage/) 的一部分（而不是 [ECMA-262](http://www.ecma-international.org/ecma-262/10.0/index.html#Title)！）正如我在 [deep-copy 一文](https://dassur.ma/things/deep-copy/)中提到的，`postMessage()` 依赖于结构化克隆数据，将消息从一个 JavaScript 空间复制到另一个 JavaScript 空间。仔细研究一下 [`postMessage()` 的规范](https://html.spec.whatwg.org/multipage/webmessaging.html#message-port-post-message-steps)，就会发现结构化克隆是一个分两步的过程：
+`postMessage()` 是 [HTML 规范](https://html.spec.whatwg.org/multipage/) 的一部分（而不是 [ECMA-262](http://www.ecma-international.org/ecma-262/10.0/index.html#Title)！）正如我在 [deep-copy 一文](https://dassur.ma/things/deep-copy/)中提到的，`postMessage()` 依赖于结构化克隆数据，将消息从一个 JavaScript 空间复制到另一个 JavaScript 空间。仔细研究一下 [`postMessage()` 的规范](https://html.spec.whatwg.org/multipage/webmessaging.html#message-port-post-message-steps)，就会发现结构化克隆是一个分两步的过程：
 
 ### 结构化克隆算法
 
@@ -32,7 +32,7 @@
 
 上面的算法没有明确说明的是，**序列化会阻塞发送方，而反序列化会阻塞接收方。** 另外还有：Chrome 和 Safari 都推迟了运行 `StructuredDeserialize()`，直到你实际访问了 `MessageEvent` 上的 `.data` 属性。另一方面，Firefox 在派发事件之前会反序列化。
 
-> **注意：** 这两个行为**都是**兼容规范的，并且完全有效。[我在 Mozilla 上提了一个bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1564880)，询问他们是否愿意调整他们的实现，因为这可以让开发人员去控制什么时候应该受到反序列化大负载的“性能冲击”。
+> **注意：** 这两个行为**都是**兼容规范的，并且完全有效。[我在 Mozilla 上提了一个 bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1564880)，询问他们是否愿意调整他们的实现，因为这可以让开发人员去控制什么时候应该受到反序列化大负载的“性能冲击”。
 
 考虑到这一点，我们必须选择对**什么**来进行基准测试：我们可以端到端进行度量，所以可以度量一个 worker 发送消息到主线程所花费的时间。然而，这个数字将捕获序列化和反序列化的时间总和，但是它们却分别发生在不同的空间下。记住：**与 worker 的整个通信的都是主动的，这是为了保持主线程自由和响应性。** 或者，我们可以将基准测试限制在 Chrome 和 Safari 上，并单独测量从 `StructuredDeserialize()` 到访问 `.data` 属性的时间，这个需要把 Firefox 排除在基准测试之外。我还没有找到一种方法来单独测量 `StructuredSerialize()`，除非运行的时候调试跟踪代码。这两种选择都不理想，但本着构建弹性 web 应用程序的精神，**我决定运行端到端基准测试，为 `postMessage()` 提供一个上限。**
 
@@ -58,7 +58,7 @@
 
 ![](https://dassur.ma/things/is-postmessage-slow/macbook-safari.svg)
 
-这一基准测试是在 2018 款的 MacBook Pro上的 Firefox、 Safari、和 Chrome 上运行，在 Pixel 3XL 上的 Chrome 上运行，在 诺基亚 2 上的 Chrome 上运行。
+这一基准测试是在 2018 款的 MacBook Pro 上的 Firefox、 Safari、和 Chrome 上运行，在 Pixel 3XL 上的 Chrome 上运行，在 诺基亚 2 上的 Chrome 上运行。
 
 > **注意：** 你可以在 [gist](https://gist.github.com/surma/08923b78c42fab88065461f9f507ee96) 中找到基准数据、生成基准数据的代码和可视化代码。而且，这是我人生中第一次编写 Python。别对我太苛刻。
 

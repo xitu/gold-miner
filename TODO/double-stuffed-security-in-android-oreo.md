@@ -19,7 +19,7 @@ Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](htt
 
 谈到硬件，我们添加了防伪硬件支持，例如在每一个 Piexl 2 和 Piexl 2 XL 设备中内嵌的[安全模块](https://android-developers.googleblog.com/2017/11/how-pixel-2s-security-module-delivers.html)。这种物理芯片可以防止很多软硬件攻击，并且还抵抗物理渗透攻击. 安全模块防止推导设备密码及限制解锁尝试的频率，使得很多攻击由于时间限制而失效。
 
-新的 Pixel 设备配有特殊的安全模块，所有搭载Android Oreo 的[谷歌移动服务(GMS)](https://www.android.com/gms/)的设备也需要实现[密钥验证](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html)。这提供了一种强[验证标识符](https://source.android.com/security/keystore/attestation#id-attestation)机制，例如硬件标识符。
+新的 Pixel 设备配有特殊的安全模块，所有搭载 Android Oreo 的[谷歌移动服务(GMS)](https://www.android.com/gms/)的设备也需要实现[密钥验证](https://android-developers.googleblog.com/2017/09/keystore-key-attestation.html)。这提供了一种强[验证标识符](https://source.android.com/security/keystore/attestation#id-attestation)机制，例如硬件标识符。
 
 我们也为企业管理设备添加了新的功能。当配置文件或者公司管理员远程锁定配置文件时，加密密钥会从内存（RAM）中移除.这有助于保护企业数据的安全。
 
@@ -27,14 +27,14 @@ Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](htt
 
 作为[ Project Treble ](https://android-developers.googleblog.com/2017/05/here-comes-treble-modular-base-for.html)的一部分，为了使设备厂商可以更简单、低成本地更新，我们对 Android 的框架也进行了重构。将平台和供应商代码分离的目的也是为了提高安全性，根据[最小特权原则](https://en.wikipedia.org/wiki/Principle_of_least_privilege)，这些硬件抽象层(HALs)运行在[自己的沙盒中](https://android-developers.googleblog.com/2017/07/shut-hal-up.html)，只对有权限的驱动设备开放。
 
-追随着Android Nougat 中[媒体堆栈加固](https://android-developers.googleblog.com/2016/05/hardening-media-stack.html)，我们在Android Oreeo 媒体框架中移除了许多直接访问硬件的模块，从而创造了更好的隔离环境。此外，此外我们启用了所有媒体组件中的控制流完整性（Control Flow Integrity, CFI）保护。这种缺陷可以通过破坏应用的正常控制流，从而利用这种特权执行恶意的活动。 CFI 拥有健全的安全验证机制，不允许随意更改原来编译后二进制文件的控制流程图，也使得这样的攻击难以执行。
+追随着 Android Nougat 中[媒体堆栈加固](https://android-developers.googleblog.com/2016/05/hardening-media-stack.html)，我们在 Android Oreeo 媒体框架中移除了许多直接访问硬件的模块，从而创造了更好的隔离环境。此外，此外我们启用了所有媒体组件中的控制流完整性（Control Flow Integrity, CFI）保护。这种缺陷可以通过破坏应用的正常控制流，从而利用这种特权执行恶意的活动。 CFI 拥有健全的安全验证机制，不允许随意更改原来编译后二进制文件的控制流程图，也使得这样的攻击难以执行。
 
-除了这些架构改变和CFI以外，Android Oreo 还带来了其他平台安全性相关的提升：
+除了这些架构改变和 CFI 以外，Android Oreo 还带来了其他平台安全性相关的提升：
 
 * **[Seccomp（Secure computing mode, 安全计算模式）过滤](https://android-developers.googleblog.com/2017/07/seccomp-filter-in-android-o.html)**: 一些系统层的调用不再对应用开放，从而减少潜在损害应用途径。
 * **[加固用户拷贝](https://lwn.net/Articles/695991/)**: 一个最新的 Android [安全漏洞掉渣](https://events.linuxfoundation.org/sites/events/files/slides/Android-%20protecting%20the%20kernel.pdf)显示：在内核漏洞中，失效的或者无边界检查情况约占 45%。在 Android 内核 3.18 及以上版本中，我们新增了一个边界检查的补丁，使得利用这个漏洞变得更困难，同时还同帮助开发者在他们代码中查找问题并修复问题。
 * **Privileged Access Never(PAN)仿真**: 同时针对 3.18 以上的内核新增了补丁，这个功能禁止内核直接访问用户空间，同时确保开发者利用加固后的方式开访问用户空间。
-* **内核地址空间布局随机化(KASLR)**：虽然Android已经支持地址空间布局随机化（ASLR）好多年了，我们仍针对 Android 内核 4.4 及以上版本提供了内核地址空间布局随机化（KASLR）补丁减少风险。内核地址空间布局随机化（KASLR）将在每次设备启动加载内核代码时随机分配地址，使得代码复用攻击，尤其是远程攻击更加难以执行。
+* **内核地址空间布局随机化(KASLR)**：虽然 Android 已经支持地址空间布局随机化（ASLR）好多年了，我们仍针对 Android 内核 4.4 及以上版本提供了内核地址空间布局随机化（KASLR）补丁减少风险。内核地址空间布局随机化（KASLR）将在每次设备启动加载内核代码时随机分配地址，使得代码复用攻击，尤其是远程攻击更加难以执行。
 
 ### 应用程序安全性及设备标示变更
 
@@ -47,7 +47,7 @@ Oreo 还包括新的[原始设备制造商锁(OEM Lock)硬件抽象层(HAL)](htt
 * 静态的 Android ID 和 Widevine 将变为基于应用变化的值，这有助于限制设备中无法重置的标识符的使用。
 * 依照 [IETF RFC 7844](https://tools.ietf.org/html/rfc7844#section-3.7)，现在 `net.hostname` 将为空且 DHCP 客户端也将不再发送主机名称（hostname)。
 * 对于需要设备标识符的应用，我们新增了一个 `Build.getSerial() API` 并且通过权限对其进行保护。
-* 我们与安全研究人员一起 <sup>1</sup> 在各种芯片组固件中的 Wi-Fi 扫描环节中新增一个健全的MAC地址随机化功能.
+* 我们与安全研究人员一起 <sup>1</sup> 在各种芯片组固件中的 Wi-Fi 扫描环节中新增一个健全的 MAC 地址随机化功能.
 
 Android Oreo 带来远不止这些改进，还有[更多](https://www.android.com/versions/oreo-8-0/)。一如既往，如果您有关于 Android 的反馈或是改进建议。欢迎发送邮件至 security@android.com。
 

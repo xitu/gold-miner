@@ -23,7 +23,7 @@
 ## 消减尺寸
 我们需要一个支持透明 alpha 通道而且比 PNG 小的图片格式。偶然发现了 Google 的 [WebP](https://developers.google.com/speed/webp)  。经过我们的测试显示 WebP 格式化的图片仅有原来 PNG 参考版本的十分之一大小，他们也同样支持透明 alpha 通道。这样就在下载和缓存新图片的时候省下来带宽和磁盘空间。其主要的不足在于 WebP 图片需要更长的解码，而 iOS 原生系统并不支持这种格式。我们感觉图片大小的减少值得花更长时间解码，于是致力于为 iOS 构建一个 WebP 图片查看器。
 
-我们开始开发 WebP 的 C 程序源代码作为框架（其实更像是 Swift 框架）。之后利用 WebP C API 耦合在一个 Object-C 的类当中（一个Swift 的版本是在工作中！）来创建一个叫做 `WebPImage` 的类。之后用 `WebPImage`更像是在利用标准 `UIImage` 类。主要的不同在于 `WebPImage`是解决缓慢异步解码 WebP 图片数据的。它同时支持所有原生 iOS 格式，像 PNG 和 JPEG ，还有一些非标准的，例如动态 GIF 和 WebP 图片数据的，因为我们的 app 当中也有惊艳的动态图像。
+我们开始开发 WebP 的 C 程序源代码作为框架（其实更像是 Swift 框架）。之后利用 WebP C API 耦合在一个 Object-C 的类当中（一个 Swift 的版本是在工作中！）来创建一个叫做 `WebPImage` 的类。之后用 `WebPImage`更像是在利用标准 `UIImage` 类。主要的不同在于 `WebPImage`是解决缓慢异步解码 WebP 图片数据的。它同时支持所有原生 iOS 格式，像 PNG 和 JPEG ，还有一些非标准的，例如动态 GIF 和 WebP 图片数据的，因为我们的 app 当中也有惊艳的动态图像。
 
 
     WebPImageView *imgView = [[WebPImageView alloc] initWithFrame:CGRectMake(0, 30, 300, 300)];
@@ -42,7 +42,7 @@
     CGFloat pad = 20;
     imgView.loadingInset = UIEdgeInsetsMake(pad, pad, pad*2, pad*2);
 
-你可以[在github里面找到上述代码](https://github.com/dollarshaveclub/ImageButter)
+你可以[在 github 里面找到上述代码](https://github.com/dollarshaveclub/ImageButter)
 
 之后我们创建了 `WebPImageView` ，也就是功能升级了的 `UIImageView` 。它提供远程缓存图片和下载解码进度条的 URL 。这样我们就可以用我们的 `WebPImageView`  替换所有的 `UIImageView` ，充分利用 WebP 格式的优势，进行“网络可用”的图片查看。
 

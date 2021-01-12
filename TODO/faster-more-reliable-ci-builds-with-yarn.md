@@ -74,7 +74,7 @@ Yarn 最主要的依赖是 Node，并且 **Homebrew 并不是安装 Node 的最�
 
 Windows 下那又是别有洞天了，由于我并不了解，所以我暂不评论 Windows 下的安装如何。
 
-你知道什么包管理软件能够在Mac、Windows和Linux下用法相同却没有跨平台的烦恼呢？ **npm**。
+你知道什么包管理软件能够在 Mac、Windows 和 Linux 下用法相同却没有跨平台的烦恼呢？ **npm**。
 
 ### 使用 Yarn
 

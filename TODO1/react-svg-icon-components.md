@@ -378,7 +378,7 @@ module.exports = {
 };
 ```
 
-有了这个功能，SVGR的模板功能将向每个生成的图标组件添加 [自定义 hook](https://github.com/the-road-to-learn-react/use-with-viewbox) 。这个 hook 只在没有 `viewBox` 属性的图标组件中执行。此时再次运行应用，就会发现所有图标组件都能正确显示了 —— 即使你可能已经从某个组件中删除了 `viewBox` 属性。
+有了这个功能，SVGR 的模板功能将向每个生成的图标组件添加 [自定义 hook](https://github.com/the-road-to-learn-react/use-with-viewbox) 。这个 hook 只在没有 `viewBox` 属性的图标组件中执行。此时再次运行应用，就会发现所有图标组件都能正确显示了 —— 即使你可能已经从某个组件中删除了 `viewBox` 属性。
 
 ---
 

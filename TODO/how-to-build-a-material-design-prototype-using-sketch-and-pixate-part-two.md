@@ -31,13 +31,13 @@
 
 <span>在“ Layers ”菜单，点击“ + ”小按钮来创建一个新的层。这时在你的空白矩形上方会出现一个灰色的小格子。重命名这个层为“ Login Screen ”，好让我们知道这是什么。然后扩展这个格子让它填充满整个白色矩形背景。</span>
 
-<span>这个灰色矩形将要成为 Login Screen （登录页面）的载体。在选中左手边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。这个时候我们通过点击Appearance一栏右侧的“ + ”小图标（译者注：在这个栏的右边）来选择我们从 Sketch 导出的 _Login Screen_ 图片。</span>
+<span>这个灰色矩形将要成为 Login Screen （登录页面）的载体。在选中左手边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。这个时候我们通过点击 Appearance 一栏右侧的“ + ”小图标（译者注：在这个栏的右边）来选择我们从 Sketch 导出的 _Login Screen_ 图片。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41trxrhhpj20ke0egjsu.jpg)
 
 ## 你能框住疼痛吗（译者注：关于介绍文本框的有趣说法）?!
 
-<span>现在我们要加入文本框了，再一次点击“ Add a layer ”，再一次的，我们得到了一个相似的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我（译者注：本文原作者的设备）来说是 328 x 48 。使用右手边的“ Properties ”菜单的“ Size ”属性来调整尺寸大小。我们也将使用 Sketch 中的定位，我的 _email text field_ 的x坐标为16，y坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们通过之前导出 _Login Screen_ 图片一样的操作来从 Sketch 导出 _email text field_  图片。</span>
+<span>现在我们要加入文本框了，再一次点击“ Add a layer ”，再一次的，我们得到了一个相似的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我（译者注：本文原作者的设备）来说是 328 x 48 。使用右手边的“ Properties ”菜单的“ Size ”属性来调整尺寸大小。我们也将使用 Sketch 中的定位，我的 _email text field_ 的 x 坐标为16，y 坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们通过之前导出 _Login Screen_ 图片一样的操作来从 Sketch 导出 _email text field_  图片。</span>
 
 <span>我们需要移动 _email text field_ 使它成为 _Login Screen_ 的一部分。在左边“ Layers ”菜单中点击并且拖动 _email text field_ 放置到  _Login Screen_ 上面，我们就能看到 _email text field_ 已经成为 _Login Screen_ 的一部分了。</span>  
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tsa8p9tj20ke0eg75g.jpg)
@@ -56,7 +56,7 @@
 
 <span>接下来你需要把已经填充好的栏目加进来。最简单的方法就是点击我们想要加入填充状态的输入框所属的层。然后点击“ Layers ”菜单顶部的“ Duplicate layer ”按钮。这将给你选择的东西创建一个拷贝。所以让我们对 _email text field with input_ 执行上述操作。在拷贝好之后,你需要点击并且拖动它，确保它位于 _email text field_ 下面。然后你可能需要翻看你的 Sketch 项目找出正确的大小和位置，从而修改它的尺寸确保它不会超出规模，然后还要把它移动到合适的位置。</span>
 
-<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio中没有必要花费注意力在这些层的可见性设置上。</span>
+<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio 中没有必要花费注意力在这些层的可见性设置上。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tt3hbjvj20ke0eggmv.jpg)
 
@@ -68,7 +68,7 @@
 
 <span>在左边“ Layers ”菜单下面是两个格子 —— “Interactions”和 “Animations”，这两个格子各自包含了不同的互动和动画。互动有类似“ Tap ”（类似“点击打开”的意思）和“ Drag ”（拖动）。动画有类似“ Scale ”（缩放）和“ Move ”（移动）。为了使用它们，我们需要把它们拖动到我们想要互动和动画发生的层上面，真是简单好用。</span>
 
-<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”格子中点击并拖动“ Tap ”，并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐变），像对 _email text field_ 操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”下面能看到一个小的 Tap 图标，在Animations ”下面看到“ Fade ”。</span>
+<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”格子中点击并拖动“ Tap ”，并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐变），像对 _email text field_ 操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”下面能看到一个小的 Tap 图标，在 Animations ”下面看到“ Fade ”。</span>
 
 <span>我们现在想要设置当我们点击 _email text field_ 时使其渐出。在右边菜单的“ Fade ”下点击“ Based On ”（基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”，点击格子并输入 “ 0 ”。</span>
 

@@ -402,7 +402,7 @@ const myNode: VirtualNode =
 
 ## `--declaration` 和 `--allowJs`
 
-TypeScript 中的 `--declaration` 标志允许我们从 TypeScript 源文件（例如 `.ts` 和 `.tsx`）生成 `.d.ts` 文件（声明文件）。这些 `.d.ts` 文件很重要，因为它们允许TypeScript 对其他项目进行类型检查，而无需重新检查/构建原始源代码。出于相同的目的，使用项目引用时**需要**这个设置。
+TypeScript 中的 `--declaration` 标志允许我们从 TypeScript 源文件（例如 `.ts` 和 `.tsx`）生成 `.d.ts` 文件（声明文件）。这些 `.d.ts` 文件很重要，因为它们允许 TypeScript 对其他项目进行类型检查，而无需重新检查/构建原始源代码。出于相同的目的，使用项目引用时**需要**这个设置。
 
 不幸的是，`--declaration` 不能和 `--allowJs`（允许混合 TypeScript 和 JavaScript 的输入文件） 一起使用。这是一个令人沮丧的限制，因为它意味着即便是 JSDoc 注释，在用户在迁移代码库时也无法使用。
 

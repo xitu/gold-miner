@@ -8,7 +8,7 @@
 
 我们已经习惯了移动应用丰富的交互方式，如滑动手势去选择、拖拽。但是我们没有察觉到，统一用户的跨平台体验是一个正在发生的趋势。
 
-早期时候，iOS 和 Android 都有其独特的体验，但是在近期，这两个平台上的应用体验和交互在逐渐的靠拢。[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)和分屏的特性已经成为Android Nougat版本的特性，Android 和 iOS 已经有了很多相同的地方了。
+早期时候，iOS 和 Android 都有其独特的体验，但是在近期，这两个平台上的应用体验和交互在逐渐的靠拢。[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)和分屏的特性已经成为 Android Nougat 版本的特性，Android 和 iOS 已经有了很多相同的地方了。
 
 对于设计者而言，设计语言的融合意味着在一个平台上流行的特性可以适配到另一个平台。
 
@@ -30,7 +30,7 @@
 
 ### **1. 选择最佳开发工具** ###
 
-很明显，在 Canvas 上渲染这样一个快速的动画效果不够高效，所以我们决定使用OpenGL (Open Graphics Library)。 OpenGL 是一个提供 2D 或 3D 图形渲染的、跨平台的应用程序接口。幸运的是，Android 支持一些 OpenGL 的版本。
+很明显，在 Canvas 上渲染这样一个快速的动画效果不够高效，所以我们决定使用 OpenGL (Open Graphics Library)。 OpenGL 是一个提供 2D 或 3D 图形渲染的、跨平台的应用程序接口。幸运的是，Android 支持一些 OpenGL 的版本。
 
 我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但我们的特殊需求使得做出选择格外困难：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使项目结构适应它们。经过一些研究，我们发现了 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的 body（换句话说，它不是为了200个或更多的对象设计的），我们可以使用 Java 端口而不是原生引擎。
 

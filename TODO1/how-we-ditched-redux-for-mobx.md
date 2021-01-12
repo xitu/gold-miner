@@ -225,7 +225,7 @@ Emmm…等一下。
 
 这只是本地状态。
 
-我们仍需要从真正的 API 获取数据。Redux 要求 actions 为纯函数；他们必须立即可执行。什么不会立即执行？像从API获取数据这样的异步操作。因此，Redux 必须与其他库配合来实现此功能。有不少可选用的库，比如 [thunks](https://github.com/reduxjs/redux-thunk)、[effects](https://github.com/redux-effects/redux-effects)、[loops](https://github.com/redux-loop/redux-loop)、[sagas](https://github.com/redux-saga/redux-saga)，每一个都有些差别。这不仅仅意味着在原本就陡峭的学习曲线上又增加坡度，并且意味着更多的模板。
+我们仍需要从真正的 API 获取数据。Redux 要求 actions 为纯函数；他们必须立即可执行。什么不会立即执行？像从 API 获取数据这样的异步操作。因此，Redux 必须与其他库配合来实现此功能。有不少可选用的库，比如 [thunks](https://github.com/reduxjs/redux-thunk)、[effects](https://github.com/redux-effects/redux-effects)、[loops](https://github.com/redux-loop/redux-loop)、[sagas](https://github.com/redux-saga/redux-saga)，每一个都有些差别。这不仅仅意味着在原本就陡峭的学习曲线上又增加坡度，并且意味着更多的模板。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*x2FqXWuYcGN_Pso4MRfafg.jpeg)
 

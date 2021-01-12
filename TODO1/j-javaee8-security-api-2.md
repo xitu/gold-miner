@@ -239,7 +239,7 @@ public class CustomAuthenticationMechanism implements HttpAuthenticationMechanis
 这个注解有 8 个配置选项，每一个选项都有合理的默认值，因此您不必手动实现它们：
 
 *   **`cookieMaxAgeSeconds`** 设置 “remember me” cookie 的生命周期。
-*   **`cookieMaxAgeSecondsExpression`** 是 cookieMaxAgeSeconds的 EL 版本。
+*   **`cookieMaxAgeSecondsExpression`** 是 cookieMaxAgeSeconds 的 EL 版本。
 *   **`cookieSecureOnly`** 指定只能通过安全方法（HTTPS）访问 cookie。
 *   **`cookieSecureOnlyExpression`** 是 cookieSecureOnly 的 EL 版本。
 *   **`cookieHttpOnly`** 表示只有 HTTP 请求才能发送 cookie。

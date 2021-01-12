@@ -52,7 +52,7 @@
 
 东南亚消费者使用各种设备 —— 从高端智能手机到入门级 Android 手机。为了确保入门级设备的最佳用户体验，许多开发人员通过减少 APK 大小和优化内存使用来优化他们的应用程序。这与 [Google 对 Android 用户的调查](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2)的结果一致：新兴市场中约有 70％ 的人认为是应用程序之前下载它出于对数据成本和手机存储空间的担忧。
 
-> **[Garena Free Fire](https://play.google.com/store/apps/details?id=com.dts.freefireth) 的开发者通过音频，图像和视频缩小 APK 尺寸，为新兴市场优化了这款游戏数据压缩。开发人员还根据图形质量使用不同的纹理分辨率优化了内存使用。因此，Free Fire一直是东南亚最受欢迎的游戏之一。**
+> **[Garena Free Fire](https://play.google.com/store/apps/details?id=com.dts.freefireth) 的开发者通过音频，图像和视频缩小 APK 尺寸，为新兴市场优化了这款游戏数据压缩。开发人员还根据图形质量使用不同的纹理分辨率优化了内存使用。因此，Free Fire 一直是东南亚最受欢迎的游戏之一。**
 
 您可以针对 [Android Oreo（Go 版）](https://www.android.com/versions/oreo-8-0/go-edition/)。进一步优化您的应用。通过减少 APK 大小，优化内存使用和减少应用启动时间来做到这一点。[Viki](https://play.google.com/store/apps/details?id=com.viki.android)、[Shopback](https://play.google.com/store/apps/details?id=com.shopback.app)、[Tokopedia](https://play.google.com/store/search?q=Tokopedia&c=apps&sticky_source_country=ID) 和 [Picmix](https://play.google.com/store/apps/details?id=com.picmix.mobile) 是东南亚流行的应用程序的示例，这些应用程序已针对 Android Oreo（Go版）进行了优化，以更好地为该地区的人们提供服务。
 

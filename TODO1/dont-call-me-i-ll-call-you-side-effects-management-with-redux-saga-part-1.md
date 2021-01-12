@@ -80,7 +80,7 @@ function* mySaga(){
 }
 ```
 
-这个 Saga 的函数名叫做 `mySaga`。它调用了 Redux-Saga [effect](https://redux-saga.js.org/docs/api/#effect-creators) 的 [`take`](https://redux-saga.js.org/docs/api/#takepattern) 方法，这个方法会**阻塞**Saga的执行，直到有人调用了作为参数的那个 action，Saga 的执行也会结束，就像我们前面看到的 Generator 一样（done 变为 true）。
+这个 Saga 的函数名叫做 `mySaga`。它调用了 Redux-Saga [effect](https://redux-saga.js.org/docs/api/#effect-creators) 的 [`take`](https://redux-saga.js.org/docs/api/#takepattern) 方法，这个方法会**阻塞**Saga 的执行，直到有人调用了作为参数的那个 action，Saga 的执行也会结束，就像我们前面看到的 Generator 一样（done 变为 true）。
 
 现在我们要让页面展示 loading 提示来响应这个 action。可以通过 [`put`](https://redux-saga.js.org/docs/api/#putaction) 方法调用另一个 action，然后分配 reducer 来处理，从而完成上述功能。如下：
 

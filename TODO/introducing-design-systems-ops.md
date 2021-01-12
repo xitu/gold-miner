@@ -90,7 +90,7 @@ Design Systems Ops 是设计团队的一部分，他需要足够了解设计，�
 *   性能测试（资源大小、服务器加载、CDN 响应时间等等）
 *   版本流程（比如 git、SemVer）
 *   发布流程 （比如 [持续开发](http://radar.oreilly.com/2009/03/continuous-deployment-5-eas.html)、[持续集成](http://guide.agilealliance.org/guide/ci.html)）
-*   Testing/Staging阶段环境
+*   Testing/Staging 阶段环境
 *   展现测试和性能结果（比如 仪表板、邮件）
 
 或者，更靠近市场营销这边的事情（开发宣传）：
@@ -107,7 +107,7 @@ Design Systems Ops 是设计团队的一部分，他需要足够了解设计，�
 
 *   **Design Systems Ops 能在其他方面做些什么？**
 *   **什么工具能帮助小型团队在成本有限的情况下遵循这个路线呢？**
-*   **除了开发速度，还有那些方面应该是Design Systems Ops应该评判的？**
+*   **除了开发速度，还有那些方面应该是 Design Systems Ops 应该评判的？**
 
 我非常乐意听听你的看法，如果你也在旧金山，来[喝杯咖啡](https://twitter.com/kaelig)聊一聊。
 

@@ -39,7 +39,7 @@ Starlight 会解析所有含有以下 `type` 的标签：
 
 脚本会按照在页面出现的顺序进行解析。要实现非阻塞的加载，你可以添加一个 `defer` 属来将某个脚本的加载动作延迟到其余所有脚本都加载完毕之后。在内联脚本标签中，`defer` 会被忽略。
 
-### 在JavaScript中直接执行Lua代码
+### 在 JavaScript 中直接执行 Lua 代码
 
 使用 starlight.parser.parse() ，就可以用 Starlight 在 JavaScript 中执行任意 Lua 代码。
 

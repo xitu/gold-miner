@@ -78,7 +78,7 @@ JavaScript 可能是过去几年最强大和增长最快的编程语言之一。
 
 如今，JavaScript 几乎无处不在。由于 JavaScript 的占比很高，并且没有竞争，因此，我们无法预见它不久的将来会走向何方。
 
-**Express** 以快速、无约束、极简的 Node.js web框架而闻名。它基于 JavaScript 构建，学习曲线相对较平缓。如今，大多数开发人员都选择 Express 是因为它的灵活性、简单性和可扩展性。更不用说，Express 是 MEAN（软件捆绑包）技术栈的一部分，该技术栈是基于 JavaScript 技术开发 web 应用程序的完整全栈技术的集合。
+**Express** 以快速、无约束、极简的 Node.js web 框架而闻名。它基于 JavaScript 构建，学习曲线相对较平缓。如今，大多数开发人员都选择 Express 是因为它的灵活性、简单性和可扩展性。更不用说，Express 是 MEAN（软件捆绑包）技术栈的一部分，该技术栈是基于 JavaScript 技术开发 web 应用程序的完整全栈技术的集合。
 
 你应该考虑使用，当：
 

@@ -213,7 +213,7 @@ private void onAudioFocusChange(int focusChange) {
 
 *   [AudioFocusRequestCompat](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusrequestcompat-java)：使用这个类来描述您的音频焦点类型
 *   [AudioFocusHelper](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocushelper-java)：这个类帮助您处理音频焦点，您可以把它加入您的代码，但是必须确保在您的播放 service 中使用 AudioFocusAwarePlayer 这个接口。
-*   [AudioFocusAwarePlayer](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusawareplayer-java)：这个接口应该在 service 中实现，来管理您的播放组件（MediaPlayer或者ExoPlayer），它可以确保 AudioFocusHelper 正常工作。
+*   [AudioFocusAwarePlayer](https://gist.github.com/nic0lette/c360dd353c451d727ea017890cbaa521#file-audiofocusawareplayer-java)：这个接口应该在 service 中实现，来管理您的播放组件（MediaPlayer 或者 ExoPlayer），它可以确保 AudioFocusHelper 正常工作。
 
 #### 完整的代码示例
 
@@ -227,7 +227,7 @@ private void onAudioFocusChange(int focusChange) {
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZiD8Wht_tAyFC4WDwVhcjg.png)
 
-### Android多媒体开发资源
+### Android 多媒体开发资源
 
 *   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
 *   [示例代码 — MediaSession Controller Test （带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)

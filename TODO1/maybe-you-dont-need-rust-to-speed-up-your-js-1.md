@@ -110,7 +110,7 @@ Overhead  Symbol
 
 ### 优化排序 — 参数适配
 
-在性能分析器中出现了一些可疑内容，分别是 `Builtin:ArgumentsAdaptorTrampoline` 和 `Builtin:CallFunction_ReceiverIsNullOrUndefined`，它们似乎是V8实现的一部分。如果我们让 `perf report` 追加与它们关联的调用链信息，那么我们会注意到这些函数大多也是从排序代码中调用的：
+在性能分析器中出现了一些可疑内容，分别是 `Builtin:ArgumentsAdaptorTrampoline` 和 `Builtin:CallFunction_ReceiverIsNullOrUndefined`，它们似乎是 V8实现的一部分。如果我们让 `perf report` 追加与它们关联的调用链信息，那么我们会注意到这些函数大多也是从排序代码中调用的：
 
 ```
 - Builtin:ArgumentsAdaptorTrampoline

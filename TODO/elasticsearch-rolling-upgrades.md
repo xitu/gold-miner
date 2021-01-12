@@ -9,7 +9,7 @@
 
 滚动升级允许 Elasticsearch 集群在业务不中断的情况下更新一个节点。集群中不支持同时运行多个版本，因为分片不会从新版本分配到旧版本的节点上。
 
-从这个列表[table](setup-upgrade.html "Upgrading")中检查当前版本的ES是否支持滚动升级。
+从这个列表[table](setup-upgrade.html "Upgrading")中检查当前版本的 ES 是否支持滚动升级。
 
 滚动升级步骤如下：
 
@@ -48,10 +48,10 @@ POST /_flush/synced
 
 *  使用 `rpm` 或 `dpkg` 安装新包，所有的目录都会被放到合理的位置，配置文件不会被覆盖。
 
-使用zip或tar包解压安装：
+使用 zip 或 tar 包解压安装：
 
 *   解压安装包，确保不要覆盖 `config` 和 `data` 目录。
-*   从旧的安装目录拷贝 `conf` 目录到新安装目录，或者使用 `--path.conf` 选项到外部的config目录
+*   从旧的安装目录拷贝 `conf` 目录到新安装目录，或者使用 `--path.conf` 选项到外部的 config 目录
 *   从旧的安装目录拷贝 `data` 目录到新的安装目录，或修改 `config/elasticsearch.yml` 中的 `path.data` 设置 data 目录为原来的目录。
 
 ## 第四步：启动升级过的节点

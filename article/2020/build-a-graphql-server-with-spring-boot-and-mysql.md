@@ -72,7 +72,7 @@ localhost:8080/graphql
 
 我正着手开发一个 APP，实现获取用户和他们发的帖子的功能。我把这个项目命名为 **WriteUp**，以后还要进行二次开发。
 
-我从头开始开发这个 APP。如果你熟悉 Spring Boot，可以快速浏览这部分基础的内容。第一步，我们需要使用 [Spring Initializr](https://start.spring.io/) 或IntelliJ idea 新建 Spring Boot 工程。
+我从头开始开发这个 APP。如果你熟悉 Spring Boot，可以快速浏览这部分基础的内容。第一步，我们需要使用 [Spring Initializr](https://start.spring.io/) 或 IntelliJ idea 新建 Spring Boot 工程。
  
 ![](https://cdn-images-1.medium.com/max/3190/1*DEPldJV7a6gZfG_VGlr1HQ.png)
 

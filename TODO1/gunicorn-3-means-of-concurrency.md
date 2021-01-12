@@ -34,7 +34,7 @@ Gunicorn 实现了一个 UNIX 的预分发 web 服务端。
 
 建议的 [`workers` 数量](http://docs.gunicorn.org/en/latest/design.html#how-many-workers)是 `(2*CPU)+1`。
 
-对于一个双核（两个CPU）机器，5 就是建议的 worker 数量。
+对于一个双核（两个 CPU）机器，5 就是建议的 worker 数量。
 
 ```bash
 gunicorn --workers=5 main:app
@@ -84,7 +84,7 @@ gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 main:app
 
 > worker-connections 是对于 gevent worker 类的特殊设置。
 
-`(2*CPU)+1` 仍然是建议的`workers` 数量。因为我们仅有一核，我们将会使用 3 个worker。
+`(2*CPU)+1` 仍然是建议的`workers` 数量。因为我们仅有一核，我们将会使用 3 个 worker。
 
 在这种情况下，最大的并发请求数量是 3000。（3 个 worker * 1000 个连接/worker）
 
@@ -99,7 +99,7 @@ gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 main:app
 
 ## 实际案例
 
-通过调整Gunicorn设置，我们希望优化应用程序性能。
+通过调整 Gunicorn 设置，我们希望优化应用程序性能。
 
  1. 如果这个应用是 [I/O 受限](https://en.wikipedia.org/wiki/I/O_bound)，通常可以通过使用“伪线程”（gevent 或 asyncio）来得到最佳性能。正如我们了解到的，Gunicorn 通过设置合适的 **worker 类** 并将 `workers`数量调整到 `(2*CPU)+1` 来支持这种编程范式。
  2. 如果这个应用是 [CPU 受限](https://en.wikipedia.org/wiki/CPU-bound)，那么应用程序处理多少并发请求就并不重要。唯一重要的是并行请求的数量。因为 [Python’s GIL](https://wiki.python.org/moin/GlobalInterpreterLock)，线程和“伪线程”并不能以并行模式执行。实现并行性的唯一方法是增加**`workers`** 的数量到建议的 `(2*CPU)+1`，理解到最大的并行请求数量其实就是核心数。
@@ -120,7 +120,7 @@ gunicorn --worker-class=gevent --worker-connections=1000 --workers=3 main:app
 
  1. **Gunicorn 是从 Ruby 的 [Unicorn](https://bogomips.org/unicorn/) 项目移植而来。它的[设计大纲](https://bogomips.org/unicorn/DESIGN.html)有助于澄清一些最基本的概念。[Gunicorn 架构](http://docs.gunicorn.org/en/latest/design.html) 进一步巩固了其中一些概念。**
  2. **[有态度的博文报道](https://tomayko.com/blog/2009/unicorn-is-unix)关于 Unicorn 怎么讲一些关键的特性基于 Unix 表述的非常好。**
- 3. **Stack Overflow里有关预分发 Web 服务模型的回答。**
+ 3. **Stack Overflow 里有关预分发 Web 服务模型的回答。**
  4. **[一些](https://github.com/benoitc/gunicorn/issues/1045)[更多](https://stackoverflow.com/questions/38425620/gunicorn-workers-and-threads)[参考](http://docs.gunicorn.org/en/stable/settings.html)来理解怎么微调 Gunicorn。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。

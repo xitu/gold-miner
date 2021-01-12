@@ -75,7 +75,7 @@
 </bean>
 ```
 
-`ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的JMS监听器容器：
+`ConnectionFactory` 不需要知道要与哪个事务管理器同步，因为在需要时只有一个事务处于活动状态，而 Spring 可以在内部处理它。驱动事务由 `data-source-context.xml` 中配置的普通 `DataSourceTransactionManager` 处理。需要了解的是事务管理器的组件是将轮询和接收消息的 JMS 监听器容器：
 
 ```xml
 <jms:listener-container transaction-manager="transactionManager">
@@ -117,7 +117,7 @@ public void maybeFail(String msg) {
 
 示例包还包括在 `AsynchronousMessageTriggerSunnyDayTests` 类中成功提交所有事务工作的单元测试。
 
-相同的JMS配置和相同的业务逻辑也可以在同步设置中使用，其中消息在业务逻辑内的阻塞调用中接收，而不是委托给侦听器容器。这种方法也在 `best-jms-db` 示例项目中得到了证明。sunny-day 案例和完整回滚分别在 `SynchronousMessageTriggerSunnyDayTests` 和 `SynchronousMessageTriggerAndRollbackTests` 中进行测试。
+相同的 JMS 配置和相同的业务逻辑也可以在同步设置中使用，其中消息在业务逻辑内的阻塞调用中接收，而不是委托给侦听器容器。这种方法也在 `best-jms-db` 示例项目中得到了证明。sunny-day 案例和完整回滚分别在 `SynchronousMessageTriggerSunnyDayTests` 和 `SynchronousMessageTriggerAndRollbackTests` 中进行测试。
 
 ## 链接事务管理器
 

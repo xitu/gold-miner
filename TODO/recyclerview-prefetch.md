@@ -19,7 +19,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1200/1*X9E34oKRhAJbG-uSrhv-TA.png)
 
-一次典型的 RecyclerView 内容滚动中的各个渲染阶段（在 [Lollipop](https://developer.android.com/about/versions/lollipop.html) 版本时的情况）。在UI线程，我们处理输入事件和动画，完成布局，并且记录绘图操作。接下来渲染线程把指令送往GPU。
+一次典型的 RecyclerView 内容滚动中的各个渲染阶段（在 [Lollipop](https://developer.android.com/about/versions/lollipop.html) 版本时的情况）。在 UI 线程，我们处理输入事件和动画，完成布局，并且记录绘图操作。接下来渲染线程把指令送往 GPU。
 在一次滚动的大多数帧中，RecyclerView 可以没问题地完成它需要做的事，因为不需要处理新的内容。在这些帧中，UI 线程处理输入事件和动画，完成布局，记录绘图操作。接下来它把绘图信息与渲染线程同步（在 Lollipop 版本时的情况，之前的版本在 UI 线程完成所有工作），渲染线程把指令送往 GPU。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)
@@ -64,7 +64,7 @@
 
 如果你使用 RecyclerView 提供的默认 layout manager，你将自动获得这种优化。然而，如果你使用嵌套 RecyclerView 或者自己写 layout manager，你需要改变你的代码来利用这个特性。
 
-对于嵌套 RecyclerView 而言，要获取最佳的性能，在内部的 LayoutManager 中调用 LinearLayoutManager 的 [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)方法（25.1版本起可用）。例如，如果你竖直方向的list至少展示三个条目，调用 setInitialItemPrefetchCount(4)。
+对于嵌套 RecyclerView 而言，要获取最佳的性能，在内部的 LayoutManager 中调用 LinearLayoutManager 的 [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)方法（25.1版本起可用）。例如，如果你竖直方向的 list 至少展示三个条目，调用 setInitialItemPrefetchCount(4)。
 
 如果你实现了自己的 LayoutManager，你需要重写 [LayoutManager.collectAdjacentPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectAdjacentPrefetchPositions%28int,%20int,%20android.support.v7.widget.RecyclerView.State,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)方法。该方法在数据预取开启时被 RecyclerView 调用（LayoutManager 的默认实现什么都不做）。第二，在嵌套的内层 RecyclerView 中，如果你想让你的 LayoutManager 预取数据，你同样应当实现 [LayoutManager.collectInitialPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectInitialPrefetchPositions%28int,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)。
 
@@ -74,7 +74,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gmuFD82uYJmGVVEPFxs6ag.png)
 
-Systrace 显示数据预取在UI线程空闲时预取数据。
+Systrace 显示数据预取在 UI 线程空闲时预取数据。
 ### GOTO 结尾
 
 查看 [最新的 Support Library](https://developer.android.com/topic/libraries/support-library/revisions.html)并和能预取数据的 RecyclerView 一起玩耍。同时，我将继续不清理我的房间。

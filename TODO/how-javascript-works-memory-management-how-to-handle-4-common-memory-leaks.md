@@ -96,9 +96,9 @@ int n = readInput(); // reads input from the user
 
 #### JavaScript 中的内存分配
 
-现在我们将解释第一步（**分配内存**）是如何在JavaScript中工作的。
+现在我们将解释第一步（**分配内存**）是如何在 JavaScript 中工作的。
 
-JavaScript 减轻了开发人员处理内存分配的责任 - JavaScript自己执行了内存分配，同时声明了值。
+JavaScript 减轻了开发人员处理内存分配的责任 - JavaScript 自己执行了内存分配，同时声明了值。
 
 ```
 var n = 374; // allocates memory for a number
@@ -169,7 +169,7 @@ var a3 = a1.concat(a2);
 
 在内存管理的上下文中，如果一个对象可以访问另一个对象（可以是隐式的或显式的），则称该对象引用另一个对象。例如, 一个 JavaScript 引用了它的 [prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) (**隐式引用**)和它的属性值(**显式引用**)。
 
-在这种情况下，“对象”的概念扩展到比普通JavaScript对象更广泛的范围，并包含函数作用域（或全局**词法范围**）。
+在这种情况下，“对象”的概念扩展到比普通 JavaScript 对象更广泛的范围，并包含函数作用域（或全局**词法范围**）。
 
 > 词法作用域定义了变量名如何在嵌套函数中解析：即使父函数已经返回，内部函数仍包含父函数的作用域。
 
@@ -361,7 +361,7 @@ element.parentNode.removeChild(element);
 
 3：闭包
 
-JavaScript开发的一个关键方面是闭包：一个内部函数可以访问外部（封闭）函数的变量。由于JavaScript运行时的实现细节，可能以如下方式泄漏内存：
+JavaScript 开发的一个关键方面是闭包：一个内部函数可以访问外部（封闭）函数的变量。由于 JavaScript 运行时的实现细节，可能以如下方式泄漏内存：
 
 ```
 var theThing = null;
@@ -420,7 +420,7 @@ function removeImage() {
 
 通过 SessionStack，你可以像视频一样回放 web 应用程序中的问题，并查看所有的用户行为。所有这些都必须在您的网络应用程序没有性能影响的情况下进行。
 
-由于用户可以重新加载页面或导航你的应用程序，所有的观察者，拦截器，变量分配等都必须正确处理，这样它们才不会导致任何内存泄漏，也不会增加我们正在整合的Web应用程序的内存消耗。
+由于用户可以重新加载页面或导航你的应用程序，所有的观察者，拦截器，变量分配等都必须正确处理，这样它们才不会导致任何内存泄漏，也不会增加我们正在整合的 Web 应用程序的内存消耗。
 
 这里有一个免费的计划所以你可以[试试看](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-3-v8-getStarted).
 

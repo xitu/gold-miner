@@ -47,7 +47,7 @@ React 成为[最受开发者欢迎的](https://insights.stackoverflow.com/survey
 
 #### 性能表现
 
-性能是React Native 最大的问题之一。但是，实践中遇到这个问题的机会不大。我们的大多数使用了 React Native 的屏幕都像原生的一样流畅。我们往往会总在一个单一的维度中去考虑性能。我们经常看到移动端工程师认为 JS，“比Java慢”。然而，在很多情况下，移动端主线程的业务逻辑和[布局](https://github.com/facebook/yoga)都可以提高渲染性能。
+性能是 React Native 最大的问题之一。但是，实践中遇到这个问题的机会不大。我们的大多数使用了 React Native 的屏幕都像原生的一样流畅。我们往往会总在一个单一的维度中去考虑性能。我们经常看到移动端工程师认为 JS，“比 Java 慢”。然而，在很多情况下，移动端主线程的业务逻辑和[布局](https://github.com/facebook/yoga)都可以提高渲染性能。
 
 当我们确实发现性能问题时，大多数是由过度渲染引起的，这可以通过有效地使用 [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)，[removeClippedSubviews](https://facebook.github.io/react-native/docs/view.html#removeclippedsubviews)，和使用 Redux 来解决。
 

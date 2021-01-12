@@ -55,7 +55,7 @@
 
 ![Octane score (Navier Stokes)](http://benediktmeurer.de/images/2016/octane-navier-stokes-20161125.png)
 
-别急， Ignition 和 TurboFan的性能未来更值得期待。 我们一直在加强 TurboFan，直追 Crankshaft，甚至要求它在旧标准上也依旧出色（例如传统的 ES3/ES5 高峰性能标准）。我们亦在谷歌内部就 TurboFan 和相关话题上进行了一些演说：
+别急， Ignition 和 TurboFan 的性能未来更值得期待。 我们一直在加强 TurboFan，直追 Crankshaft，甚至要求它在旧标准上也依旧出色（例如传统的 ES3/ES5 高峰性能标准）。我们亦在谷歌内部就 TurboFan 和相关话题上进行了一些演说：
 
 - [An overview of the TurboFan compiler](https://docs.google.com/document/d/1VoYBhpDhJC4VlqMXCKvae-8IGuheBGxy32EOgC2LnT8)
 - [TurboFan IR](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM)
@@ -65,7 +65,7 @@
 - [TurboFan IR](https://docs.google.com/presentation/d/1Z9iIHojKDrXvZ27gRX51UxHD-bKf1QcPzSijntpMJBM)
 - [CodeStubAssembler: Redux](https://docs.google.com/presentation/d/1u6bsgRBqyVY3RddMfF1ZaJ1hWmqHZiVMuPRw_iKpHlY)
 
-现如今，我们也在将这些讯息尽可能的传达给公众（更多资料可以查找 [TurboFan](https://github.com/v8/v8/wiki/TurboFan)  和 V8 的wiki）。我们也打算明年在各种 JavaScript 和 Node.js 会议上发表演讲（如果想让我们在某些会议上聊聊 Ignition 和 TurboFan 尽请戳[我](https://twitter.com/bmeurer) ）。
+现如今，我们也在将这些讯息尽可能的传达给公众（更多资料可以查找 [TurboFan](https://github.com/v8/v8/wiki/TurboFan)  和 V8 的 wiki）。我们也打算明年在各种 JavaScript 和 Node.js 会议上发表演讲（如果想让我们在某些会议上聊聊 Ignition 和 TurboFan 尽请戳[我](https://twitter.com/bmeurer) ）。
 
 ##ES2015 和未来标准的态势
 
@@ -103,7 +103,7 @@ function fn() {
 
 ### 细看 `instanceof`
 
-除了 [six-speed](https://github.com/fhinkel/six-speed) 表所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
+除了 [six-speed](https://github.com/fhinkel/six-speed) 表所展现的，我们也积极提升了其他新语言特性的交互，这些提升乍一看或许并不起眼。我在这里想提及的是 ES2015 里的 `instanceof` 操作符和新引入的 symbol [@@hasInstance](https://tc39.github.io/ecma262/#sec-symbol.hasinstance) 。一开始在 V8 上实现 ES2015 时，我们无法充分优化每一个特性，我们也不想因为 ES2015 新的语言特性就减少工作量、降低标准（当时我们还没有 100% 地实现 ES2015，但去年年底，在保证没有任何性能明显衰退的前提下，我们基本上实现了 ES2015）。然而，新加入的 symbol 类型也导致了一些麻烦。
 
 ![InstanceofOperator EcmaScript specification](http://benediktmeurer.de/images/2016/instanceof-20161125.png)
 

@@ -33,7 +33,7 @@ public class MyViewModel extends AndroidViewModel {
 正如 [Sergey](https://twitter.com/ZelenetS) 在评论中指出的那样 [comments](https://issuetracker.google.com/issues/111961971#comment2)，推荐的方法是**公开要加载的资源的 ID ，并在视图中这样做**。由于视图（活动、片段等）具有生命周期意识，因此它将在配置更改后重新创建，以便正确地重新加载资源。
 
 ```Java
-// 显示资源ID
+// 显示资源 ID
 public class MyViewModel extends ViewModel {
     public final MutableLiveData<Int> statusLabel = new MutableLiveData<>();
     

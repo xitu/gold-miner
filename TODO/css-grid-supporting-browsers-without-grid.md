@@ -169,7 +169,7 @@ UC 浏览器不支持网格布局。它不仅针对低功耗设备进行了优�
 
 [![BrowserStack 可以访问到许多不同的浏览器和操作系统](https://www.smashingmagazine.com/wp-content/uploads/2017/11/browserstack-example-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/browserstack-example-large-opt.png)
 
-BrowserStack可以访问到许多不同的浏览器和操作系统。 ([预览大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/browserstack-example-large-opt.png))
+BrowserStack 可以访问到许多不同的浏览器和操作系统。 ([预览大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/browserstack-example-large-opt.png))
 
 我看到有人建议切换特征查询值来测试一些不存在的东西。比如测试 `display: gridx`。这是能正常工作，但是你需要把所有的网格代码放到特征查询的代码块里边，而不是忽略浏览器会跳过不支持的 CSS 代码的事实。如果你不知道有些网格代码可能会结束在特征查询之外，那么你很容易会得到一个虚假的正确结果。即使你在使用这个方法进行快速检查，我仍然强烈建议你做一些真机测试。
 
@@ -180,7 +180,7 @@ BrowserStack可以访问到许多不同的浏览器和操作系统。 ([预览�
 *   “[创造者讲述 CSS Grid 的故事](https://alistapart.com/article/the-story-of-css-grid-from-its-creators),” Aaron Gustafson, A List Apart
 *   “[Internet Explorer 和 Edge 的测试虚拟机](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/),” Microsoft
 *   “[BrowserStack](https://www.browserstack.com),” 跨浏览器测试工具
-*   “[我应该尝试使用IE浏览器实现网格布局？](https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/)” Rachel Andrew
+*   “[我应该尝试使用 IE 浏览器实现网格布局？](https://rachelandrew.co.uk/archives/2016/11/26/should-i-try-to-use-the-ie-implementation-of-css-grid-layout/)” Rachel Andrew
 *   [CSS 布局的反英雄 — “display:table”](https://colintoh.com/blog/display-table-anti-hero),” Colin Toh
 *   “[CSS 网格回退和替代备忘录](https://rachelandrew.co.uk/css/cheatsheets/grid-fallbacks)” Rachel Andrew
 *   “[在 CSS 中使用特征查询](https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/),” Jen Simmons, Mozilla Hacks

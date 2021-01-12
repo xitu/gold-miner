@@ -713,7 +713,7 @@ async function loadData() {
 }
 ```
 
-4. **栈帧:** 和 `async/await` 不同的是，根据promise链返回的错误堆栈信息，并不能发现哪出错了。来看看下面的代码：
+4. **栈帧:** 和 `async/await` 不同的是，根据 promise 链返回的错误堆栈信息，并不能发现哪出错了。来看看下面的代码：
 
 ```js
 function loadData() {
@@ -759,7 +759,7 @@ loadData()
 
 这一切都发生在你的生产环境中而不会影响你的用户体验。我们需要对我们的代码进行大量的优化，使其尽可能的异步，这样我们就能增加被事件循环处理的事件。
 
-而且这不仅是个库！当你在 SessionStack 要恢复一个用户的会话时，我们必须重现所有在用户的浏览器上出现的问题，我们必须重现整个状态，允许你在会话的事件轴上来回跳转。为了做到这一点，我们大量地使用了JavaScript 提供的异步操作。
+而且这不仅是个库！当你在 SessionStack 要恢复一个用户的会话时，我们必须重现所有在用户的浏览器上出现的问题，我们必须重现整个状态，允许你在会话的事件轴上来回跳转。为了做到这一点，我们大量地使用了 JavaScript 提供的异步操作。
 
 我们有一个免费的计划可以让你[免费开始](https://www.sessionstack.com/?utm_source=medium&utm_medium=blog&utm_content=Post-4-eventloop-GetStarted)。
 

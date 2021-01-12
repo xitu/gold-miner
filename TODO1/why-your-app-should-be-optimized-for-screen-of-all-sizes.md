@@ -44,7 +44,7 @@ Chrome OS 的演变为开发者在提升多类型设备和屏幕上的研究能�
 
 [Evernote 应用](https://developer.android.com/stories/apps/evernote)的一个关键功能是可以将触摸屏上的手写转化成文本，用户更倾向于在更大屏幕上使用这一功能。为了让应用更易于跨设备和平台使用，Evernote 的开发团队使用谷歌的低延迟手写笔 API 接口来快速实现触摸屏手写和更大屏幕上的增强布局。这些 API 能够让应用实现跨平台调用，并能允许用户在展示屏上直接书写并即时呈现出来，这样 Evernote 应用的用户就能有像在纸面上书写的良好体验。
 
-得益于Chrome OS的新体验，Evernote 用户的平均使用时长在更大屏幕上增加了 3 倍，在 Google 的 Pixelbook 上增加了 4 倍。
+得益于 Chrome OS 的新体验，Evernote 用户的平均使用时长在更大屏幕上增加了 3 倍，在 Google 的 Pixelbook 上增加了 4 倍。
 
 同样的，Slack 应用的开发团队为 Chrome OS 系统上运行的其流行的通讯软件做了键盘快捷键来快速启动常用功能的优化适配。当用户在 Chromebook 上编写消息时，他们可以简单的敲击『Enter』键（就像在手机上做的那样），而不需要再用鼠标多点一步『Send』键。
 

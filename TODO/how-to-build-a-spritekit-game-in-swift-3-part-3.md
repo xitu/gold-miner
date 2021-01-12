@@ -710,7 +710,7 @@ view.showsNodeCount = true
 提供了编辑文章的帮助，这的确是一项大工程。
 - [Jeff Moon](https://www.thirteen23.com/about/#jeffrey-moon)
 
-提供了第三课的编辑工作和乒乓球，很多的乒乓球（译者注：这里原文就是ping-pong，译者的理解是，可能他们写代码有点累，所以打了会乒乓球。）
+提供了第三课的编辑工作和乒乓球，很多的乒乓球（译者注：这里原文就是 ping-pong，译者的理解是，可能他们写代码有点累，所以打了会乒乓球。）
 - [Tom Nelson](https://www.thirteen23.com/about/#tom-nelson)
 
 正因为这些帮助，教程才会像预计的那样完成。

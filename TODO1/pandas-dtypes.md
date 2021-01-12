@@ -49,7 +49,7 @@ Pandas `dtype` 映射：
 
 数据类型是在你遇到错误或意外结果之前并不会关心的事情之一。不过当你将新数据加载到 Pandas 进行进一步分析时，这也是你应该检查的第一件事情。
 
-我将使用一个非常简单的 [CSV文件](https://github.com/chris1610/pbpython/blob/master/data/sales_data_types.csv) 来说明在 Pandas 中可能会遇到的一些常见的由数据类型导致的错误。另外，在 github 上也一个示例 [notbook](https://github.com/chris1610/pbpython/blob/master/notebooks/Pandas_Data_Types.ipynb)。
+我将使用一个非常简单的 [CSV 文件](https://github.com/chris1610/pbpython/blob/master/data/sales_data_types.csv) 来说明在 Pandas 中可能会遇到的一些常见的由数据类型导致的错误。另外，在 github 上也一个示例 [notbook](https://github.com/chris1610/pbpython/blob/master/notebooks/Pandas_Data_Types.ipynb)。
 
 ```
 import numpy as np
@@ -271,7 +271,7 @@ def convert_currency(val):
     return float(new_val)
 ```
 
-该代码使用python的字符串函数去掉 `$` 和 `,`，然后将该值转换为浮点数。在这个特定情况下，我们可以将值转换为整数，但我选择在这种情况下使用浮点数。
+该代码使用 python 的字符串函数去掉 `$` 和 `,`，然后将该值转换为浮点数。在这个特定情况下，我们可以将值转换为整数，但我选择在这种情况下使用浮点数。
 
 我也怀疑有人会建议我们对货币使用 `Decimal` 类型。这不是 Pandas 的本地数据类型，所以我故意坚持使用 float 方式。
 

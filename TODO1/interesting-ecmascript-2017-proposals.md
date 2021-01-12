@@ -146,7 +146,7 @@ Babel 目前还没有提供私有类字段与方法的 polyfill，[但是不久�
 
 提案在被引入后也可能发生翻天覆地的变化，装饰器就是一个很好的例子。Babel 的第五代版本实现了[原本 stage 2 阶段装饰器的规范](https://github.com/wycats/javascript-decorators)，其将装饰器定义为接收 target，name 与属性描述的函数。现在最流行的转译装饰器方式是通过 Babel 的[transform-legacy-decorators](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) 插件，其实现的是旧版的规范。
 
-[新的提案](https://tc39.github.io/proposal-decorators/) 大不相同。不再作为具有三个属性的函数，现在我们对改变描述符的类成员 —— 装饰器进行了正式描述。新的“成员描述符”与ES5中引入的属性描述符接口非常相似。
+[新的提案](https://tc39.github.io/proposal-decorators/) 大不相同。不再作为具有三个属性的函数，现在我们对改变描述符的类成员 —— 装饰器进行了正式描述。新的“成员描述符”与 ES5中引入的属性描述符接口非常相似。
 
 现在有两种具有不同 API 的不同类型的装饰器：成员装饰器与类装饰器。
 

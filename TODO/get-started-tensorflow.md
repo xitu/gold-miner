@@ -29,10 +29,10 @@ TensorFlow 使用的主要编程语言是 Python。为 `C`++、 Java® 语言和
 
 TensorFlow 为开发者提供了很多的好处：
 
-*   计算流图模型。TensorFlow使用名为有向图的数据流图来表示计算模型。这让开发者能够简易直接的使用原生工具查看神经网络层间发生了什么，并能够交互式地调整参数和配置来完善他们的神经网络结构。
+*   计算流图模型。TensorFlow 使用名为有向图的数据流图来表示计算模型。这让开发者能够简易直接的使用原生工具查看神经网络层间发生了什么，并能够交互式地调整参数和配置来完善他们的神经网络结构。
 *   简单易用的 API。Python 开发者既可以使用 TensorFlow 原生的底层 API 接口或者核心 API 来开发他们自己的模型，也可以使用高级 API 库来构建内置模型。TensorFlow 有很多内建和社区的库，它也可以覆盖更高级的深度学习框架比如 Keras 上充当一个高级 API。
 *   灵活的架构。使用 TensorFlow 的一个主要有点是它具有模块化，可扩展和灵活的设计。开发者只需更改很少的一些代码，就可以轻松地 CPU， GPU 或 TPU 处理器之间转换模型。尽管最初是为了大规模分布式训练和推测而设计的，开发者也可以使用 TensorFlow 来尝试其他机器学习模型和现有模型的系统优化。
-*   分布式处理。Google 从零设计了 TensorFlow，目的是让它能在定制的 ASIC TPU 上分布式运行。另外，TensorFlow 可以在多种 NVIDIA GPU 内核上运行。开发人员能够充分利用基于 Intel Xeon 和 Xeon Phi 的 X64 CPU 架构或者基于 ARM64 的CPU 架构的优势。TensorFlow 可以在多架构和多核心系统上像在分布式进程中一样运行，它能将计算密集型进程当做生产任务移交。开发者能够创建 TensorFlow 集群。并将这些计算流图分发到这些集群中进行训练。Tensor 可以同步或异步执行分布式训练，既可以在流图内部，也可以跨流图进行，并且可以在网络计算节点间共享内存中的公共数据。
+*   分布式处理。Google 从零设计了 TensorFlow，目的是让它能在定制的 ASIC TPU 上分布式运行。另外，TensorFlow 可以在多种 NVIDIA GPU 内核上运行。开发人员能够充分利用基于 Intel Xeon 和 Xeon Phi 的 X64 CPU 架构或者基于 ARM64 的 CPU 架构的优势。TensorFlow 可以在多架构和多核心系统上像在分布式进程中一样运行，它能将计算密集型进程当做生产任务移交。开发者能够创建 TensorFlow 集群。并将这些计算流图分发到这些集群中进行训练。Tensor 可以同步或异步执行分布式训练，既可以在流图内部，也可以跨流图进行，并且可以在网络计算节点间共享内存中的公共数据。
 *   运行性能。性能通常是一个有争议的话题，但是大部分开发者都明白，任何深度学习框架都依赖于底层硬件，才能达到最优化运行，以低能耗实现高性能。通常，任何框架在其原生开发平台都应该实现最佳优化。TensorFlow 在 Google TPU 上表现良好，但更令人高兴的是，不管是在服务器和台式机上，还是在嵌入式系统和移动设备上，它都能在各种平台上达到高性能。该框架同样还支持了各种编程语言，数量令人惊讶。尽管另一个框架在原生环境（比如 在 IBM 平台上运行的  IBM Watson®）上运行有时可能会胜过 TensorFlow，但它仍然是开发人员的最爱，因为人工只能项目会跨越平台和编程语言，并以多样的终端应用为设计目标，并且所有这些都需要生成一致的结果。
 
 ## TensorFlow 应用
@@ -107,7 +107,7 @@ Google TPU 是矩阵处理器而不是矢量处理器，并且神经网络不需
 *   GPU 挂载:
     *   只能在 Type-1 管理程序上运行，例如  Citrix Xen， VMware ESXi， Kernel Virtual Machine， 和 IBM Power。
     *   挂载的开销会根据 CPU，芯片组，管理程序和操作系统的特定组合而变化。一般来说，最新一代硬件的开销要小得多。
-    *   给定的管理程序-操作系统组合支持特定的NVIDIA GPU。
+    *   给定的管理程序-操作系统组合支持特定的 NVIDIA GPU。
 *   GPU 虚拟化:
     *   支持所有的主流 GPU 供应商，比如 NVIDIA（GRID），AMD（MxGPU）和 Intel（GVT-G）。
     *   在特定的新 GPU 上支持最新版本的 OpenCL（TensorFlow 没有官方支持 OpenCL）。
@@ -123,18 +123,18 @@ Google TPU 是矩阵处理器而不是矢量处理器，并且神经网络不需
 
 TensorFlow 云安装有几种选项：
 
-*   Google Cloud TPU。对于研究人员来说，Google 有一个Alpha 版本的 TensorFlow Research Cloud，可以提供在线的 TPU 实例。
+*   Google Cloud TPU。对于研究人员来说，Google 有一个 Alpha 版本的 TensorFlow Research Cloud，可以提供在线的 TPU 实例。
 *   Google Cloud。Google 在一些特定的区域提供了自定义的 TensorFlow 机器实例，可以访问一个，四个或者八个 NVIDIA GPU 设备。
 *   IBM Cloud 数据科学与管理。IBM 提供了一个附带 Jupyter Notebook 和 Spark 的 Python 环境。TensorFlow 已经预安装了。
 *   Amazon Web Services (AWS)。Amazon 提供 AWS Deep Learning Amazon 机器镜像（AMIs)，可选 NVIDIA GPU 支持，可在各种 Amazon Elastic Compute Cloud 实例上运行。TensorFlow， Keras 和其他的深度学习框架都已经预装。AMI 可以支持多达 64 个 CPU 内核和 8 个 NVIDIA GPU（K80）。
-*   Azure。可以在使用 Azure 容器服务的 Docker 实例上或者一个 Ubuntu 服务器上设置 TensorFlow。Azure 机器实例可以支持 24 个 CPU内核和多达 4 个 NVIDIA GPU（M60 或 K80）。
+*   Azure。可以在使用 Azure 容器服务的 Docker 实例上或者一个 Ubuntu 服务器上设置 TensorFlow。Azure 机器实例可以支持 24 个 CPU 内核和多达 4 个 NVIDIA GPU（M60 或 K80）。
 *   IBM Cloud Kubernetes 集群。IBM Clound 上的 Kubernetes 集群 可以运行 TensorFlow。一个社区构建的 Docker 镜像可用。POWERAI 服务器提供 GPU 支持。
 
 ## TensorFlow 支持那些编程语言？
 
 尽管 Google 在 `C`++ 中实现了 TensorFlow 核心代码，但是它的主要编程语言是 Python，而且这个 API 是最完整的，最强大的，最易用的。更多有关信息，请参阅 [Python API 文档](https://www.tensorflow.org/api_docs/python)。Python API 还具有最广泛的文档和可扩展性选项以及广泛的社区支持。
 
-除了 Python 之外，TensorFlow还支持以下语言的 API，但不保证稳定性：
+除了 Python 之外，TensorFlow 还支持以下语言的 API，但不保证稳定性：
 
 *   `C`++。TensorFlow `C`++ API 是下一个最强大的 API，可用于构建和执行数据流图以及 TensorFlow 服务。更多有关 `C`++ API 的信息，请参阅[C++ API](https://www.tensorflow.org/api_guides/cc/guide)。有关 `C`++ 服务 API 的更多信息，请参阅 [TensorFlow 服务 API 参考](https://www.tensorflow.org/api_docs/serving)。
 *   Java 语言。尽管这个 API 是实验性的，但最新发布的 Android Oreo 支持 TensorFlow 可能会使这个 API 更加突出。更多有关信息，请参考[tensorflow.org](https://www.tensorflow.org/api_docs/java/reference/org/tensorflow/package-summary)。

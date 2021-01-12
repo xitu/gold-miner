@@ -45,7 +45,7 @@
 我发现构建简单的游戏比用数据驱动的严肃的 web 应用程序能更好地展示 React 的思想。这就是为什么在我的 [**React.js 入门课程**](https://www.pluralsight.com/courses/react-js-getting-started)中，我专注于构建简单的游戏。我还在我的[**《简洁的 React.js》**](https://www.syncfusion.com/resources/techportal/details/ebooks/Reactjs_Succinctly)中构建了另一个[不同的游戏](http://jscomplete.com/react-examples/memory-grid-game/)，你可以免费阅读。尝试在[ JavaScript 在线开发平台](https://jscomplete.com/repl) 中实现其他类似的游戏，这是一个好的开始，你不需要服务器，也不需要管理那些烦人的 state。
 
 [ **JavaScript REPL 和 React.js 开发平台**
-**通过jsComplete交互式实验学习 JavaScript 和 React.js** jscomplete.com](https://jscomplete.com/repl)
+**通过 jsComplete 交互式实验学习 JavaScript 和 React.js** jscomplete.com](https://jscomplete.com/repl)
 
 最近，我为 jsComplate 创建了一个交互式的音频学习工具。我测试这工具的第一个实验是一个 [React.js 的例子](http://jscomplete.com/interactive-learning-demo/)。如果你有做实验，请务必留下你的反馈意见。
 

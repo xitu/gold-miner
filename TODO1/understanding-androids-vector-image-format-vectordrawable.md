@@ -109,7 +109,7 @@
 
 如果你曾经使用矢量图像格式，你可能会遇到网络上的行业标准 SVG 格式（可缩放矢量图形）。它是强大、成熟的建模工具，它同时也是一个强大的标准。它包括许多复杂的功能，如执行任意 javascript，模糊和滤镜效果或嵌入其他图像，甚至 GIF 动画。Android 在受限制的移动设备上运行，因此支持整个 SVG 规范并不是一个现实的目标。
 
-然而，SVG 包含一个 [路径规范](https://www.w3.org/TR/SVG/paths.html)，它定义了如何描述和绘制形状。使用此 API，您可以表达大多数矢量形状。这基本上和Android 支持的 SVG 路径规范相同，只不过Android中增加了一些内容。
+然而，SVG 包含一个 [路径规范](https://www.w3.org/TR/SVG/paths.html)，它定义了如何描述和绘制形状。使用此 API，您可以表达大多数矢量形状。这基本上和 Android 支持的 SVG 路径规范相同，只不过 Android 中增加了一些内容。
 
 此外，通过定义自己的格式，VectorDrawable 可以与 Android 平台功能集成。例如，使用 Android 资源系统引用 @colors、@dimens 或 @strings，使用标准 Animators 处理主题属性或 AnimatedVectorDrawable。
 
@@ -266,7 +266,7 @@
 所以希望这篇文章可以让您了解什么是矢量资源、使用矢量资源的好处以及使用时的权衡取舍。Android 的矢量格式已经得到广泛的支持。鉴于市场上的设备种类繁多，你应该将矢量资源作为默认选择，仅在特殊情况下使用位图资源。阅读我们的下一篇文章，了解更多信息：
 
 **即将到来: 绘制路径  
-即将到来: 创建Android矢量资源  
+即将到来: 创建 Android 矢量资源  
 即将到来: 在 Android 应用中使用 vector assets  
 即将到来:分析 Android 中的 `VectorDrawable`**
 

@@ -14,7 +14,7 @@
 
 Yarn 为你提供在离线模式下工作的能力。如果你在之前安装过一个包，你可以不依赖网络连接再次安装。下面是一个示例:
 
-当连接到网络时，我用Yarn 安装了两个包，如下:
+当连接到网络时，我用 Yarn 安装了两个包，如下:
 
 ![Yarn init](https://cdn.auth0.com/blog/blog/yarn-int.png) <b>使用 yarn init 创建一个 package.json</b>
 

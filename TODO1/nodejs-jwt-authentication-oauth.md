@@ -5,7 +5,7 @@
 > * 译者：[HytonightYX](https://github.com/HytonightYX)
 > * 校对者：[HZNU-Qiu](https://github.com/HZNU-Qiu),[xionglong58](https://github.com/xionglong58)
 
-# 🛑你不需要 passport.js — node.js认证指南 ✌️
+# 🛑你不需要 passport.js — node.js 认证指南 ✌️
 
 ![](https://softwareontheroad.com/static/24082354f482634f69457ebac008be39/2f86d/passport.jpg)
 
@@ -15,13 +15,13 @@
 
 这一系列关于 node.js 认证的文章，旨在让你搞清楚一些概念，比如 JSON Web Token (JWT)、社交账号登录 (OAuth2)、用户模仿（一个管理员无需密码便能作为特定用户登录）。
 
-当然，文末也给你准备好了一个完整的 node.js 认证流程的代码库，放在GitHub上了，你可以作为你自己项目的基础来使用。
+当然，文末也给你准备好了一个完整的 node.js 认证流程的代码库，放在 GitHub 上了，你可以作为你自己项目的基础来使用。
 
 # 前置知识 ✍️
 
 在阅读之前，你需要先了解：
 
-* 数据库中如何存储用户的 email 和密码，或者客户端ID和客户端密钥，或者其他的密钥对。
+* 数据库中如何存储用户的 email 和密码，或者客户端 ID 和客户端密钥，或者其他的密钥对。
 * 至少一种健壮且高效的加密算法。
 
 在我写下这篇文章之时，我认为 Argon2 是目前最好的加密算法，请不要用 SHA256，SHA512 或者 MD5 这类简单的加密算法了。
@@ -108,7 +108,7 @@ class AuthService {
 
 接下来我们将讨论一下如何生成 JWT。
 
-# 但是，JWT到底是啥？ 👩‍🏫
+# 但是，JWT 到底是啥？ 👩‍🏫
 
 一个 JSON Web Token or JWT 是一个以字符串或者 Token 形式存储的、经过编码的 JSON 对象。
 
@@ -296,7 +296,7 @@ export default (requiredRole) => {
   }
 ```
 
-所以，这里并没有什么黑魔法，超级管理员只需要知道需要被模拟的用户的Email（并且这里的逻辑与登录十分相似，只是无需检查口令的正确性）就可以模拟这个用户了。
+所以，这里并没有什么黑魔法，超级管理员只需要知道需要被模拟的用户的 Email（并且这里的逻辑与登录十分相似，只是无需检查口令的正确性）就可以模拟这个用户了。
 
 当然，也正是因为不需要密码，这个路径的安全性就得靠 roleRequired 中间件来保证了。
 

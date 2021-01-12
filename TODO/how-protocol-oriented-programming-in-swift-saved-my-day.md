@@ -6,7 +6,7 @@
 
 # Swift 中的面向协议编程是如何点亮我的人生的
 
-面向对象编程至今已经使用了数十年了，并且成为了构建大型软件约定俗成的标准。作为iOS编程的中心思想，遵循面向对象规范来编写一个 iOS 的应用几乎不可能实现。虽然面向对象有很多优点比如封装性，访问控制和抽象性，但是它也自带有固有的缺点。
+面向对象编程至今已经使用了数十年了，并且成为了构建大型软件约定俗成的标准。作为 iOS 编程的中心思想，遵循面向对象规范来编写一个 iOS 的应用几乎不可能实现。虽然面向对象有很多优点比如封装性，访问控制和抽象性，但是它也自带有固有的缺点。
 
 1.  大多数类的情况下，当一个单继承的类需要更多不同类中的函数功能时，你会倾向于使用多继承来实现。 但是大部分的编程语言不支持这一特性，而且会导致类的继承关系变得复杂。
 2.  在多线程环境下，如果所有对象在函数中都是通过引用来传递会导致意想不到的问题。
@@ -25,7 +25,7 @@ Swift 尝试引入一种叫做面向协议的编程新规范来解决传统的�
 
 [![](https://i.ytimg.com/vi_webp/g2LwFZatfTI/hqdefault.webp)](https://www.youtube.com/embed/g2LwFZatfTI?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2Ff137712b1f42988c4a0a99675aa7c26d%3FmaxWidth%3D700&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-Swift 在最初的时候是包含值类型的概念。结构体和枚举都是 Swift 中的[一等公民](https://en.wikipedia.org/wiki/First-class_citizen)，还拥有很多像 propertites, methods 和 extensions 等在大多数语言只有类才有的特点。虽然在Swift中值类型不支持继承，但是通过遵循协议的方式一样能够享受到面向协议的好处。
+Swift 在最初的时候是包含值类型的概念。结构体和枚举都是 Swift 中的[一等公民](https://en.wikipedia.org/wiki/First-class_citizen)，还拥有很多像 propertites, methods 和 extensions 等在大多数语言只有类才有的特点。虽然在 Swift 中值类型不支持继承，但是通过遵循协议的方式一样能够享受到面向协议的好处。
 
 Ray Wunderlich 的面向协议编程的教程展示了它的能力。
 

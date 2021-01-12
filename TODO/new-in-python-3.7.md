@@ -10,32 +10,32 @@
 - 版本：3.7.0a1
 - 日期：2017年9月27日
 
-本文阐述了Python 3.7所具有的新特性（与3.6版本对比）。
+本文阐述了 Python 3.7所具有的新特性（与3.6版本对比）。
 
 详见[更新日志](https://docs.python.org/3.7/whatsnew/changelog.html#changelog)。
 
-**注意：** 预发布版本的用户要留意，本文档目前还属于草案。随着Python 3.7的发布，后续将会有很显著的更新，所以即使阅读过早期版本，也值得再回来看看。
+**注意：** 预发布版本的用户要留意，本文档目前还属于草案。随着 Python 3.7的发布，后续将会有很显著的更新，所以即使阅读过早期版本，也值得再回来看看。
 
 ## 版本亮点总结
 ### 新特性
 
-#### PEP 538：遗留的C语言本地化编码自动强制转换问题
+#### PEP 538：遗留的 C 语言本地化编码自动强制转换问题
 
-在 Python 3 系列版本中，确定一个合理的默认策略来处理当前位于非 Windows 平台上默认C语言本地化编码隐式采用的“7位 ASCII”，是个永不停歇的挑战。
+在 Python 3 系列版本中，确定一个合理的默认策略来处理当前位于非 Windows 平台上默认 C 语言本地化编码隐式采用的“7位 ASCII”，是个永不停歇的挑战。
 
-[**PEP 538**](https://www.python.org/dev/peps/pep-0538) 更新了默认的解释器命令行界面，从而能自动地将本地化编码强制转换为一种可用的且基于 UTF-8的编码，它就是文档里所描述的新环境变量 [`PYTHONCOERCECLOCALE`](https://docs.python.org/3.7/using/cmdline.html#envvar-PYTHONCOERCECLOCALE)。用这种方式自动设置 `LC_CTYPE` 意味着核心解释器和关于本地化识别的C语言扩展（如 [`readline`](https://docs.python.org/3.7/library/readline.html#module-readline)）将会采用 UTF-8 作为默认的文本编码，而不是 ASCII。
+[**PEP 538**](https://www.python.org/dev/peps/pep-0538) 更新了默认的解释器命令行界面，从而能自动地将本地化编码强制转换为一种可用的且基于 UTF-8的编码，它就是文档里所描述的新环境变量 [`PYTHONCOERCECLOCALE`](https://docs.python.org/3.7/using/cmdline.html#envvar-PYTHONCOERCECLOCALE)。用这种方式自动设置 `LC_CTYPE` 意味着核心解释器和关于本地化识别的 C 语言扩展（如 [`readline`](https://docs.python.org/3.7/library/readline.html#module-readline)）将会采用 UTF-8 作为默认的文本编码，而不是 ASCII。
 
 [**PEP 11**](https://www.python.org/dev/peps/pep-0011) 中有关平台支持的定义也已经更新，限制了对于全文处理的支持，变为适当的基于非 ASCII 的本地化编码配置。
 
 作为变化的一部分，当使用任一强制转换的已定义目标编码（当前为 `C.UTF-8`，`C.utf8` 和 `UTF-8`），`stdin` 及 `stdout` 的默认错误处理器现在为 `surrogateescape`（而不是 `strict`）；而 `stderr` 的默认错误处理器仍然是 `backslashreplace`，与语言环境无关。
 
-默认的本地化编码强制转换是隐式的，但是为了能帮助调试潜在的与本地化相关的集成问题，可以通过设置 `PYTHONCOERCECLOCALE=warn` 来请求直接用 `stderr` 发出明确的警告。当核心解释器初始化时，如果遗留的C语言本地化编码仍是活动状态，那么该设置会导致 Python 运行时发出警告。
+默认的本地化编码强制转换是隐式的，但是为了能帮助调试潜在的与本地化相关的集成问题，可以通过设置 `PYTHONCOERCECLOCALE=warn` 来请求直接用 `stderr` 发出明确的警告。当核心解释器初始化时，如果遗留的 C 语言本地化编码仍是活动状态，那么该设置会导致 Python 运行时发出警告。
 
 **另见：**
 
 <dl class="last docutils">
 
-[**PEP 538**](https://www.python.org/dev/peps/pep-0538) —— 把遗留的C语言本地化编码强制转换为基于 UTF-8 的编码。
+[**PEP 538**](https://www.python.org/dev/peps/pep-0538) —— 把遗留的 C 语言本地化编码强制转换为基于 UTF-8 的编码。
 
 PEP 由 Nick Coghlan 撰写及实施。
 
@@ -100,7 +100,7 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 增加了对 [`fwalk()`](https://docs.python.org/3.7/library/os.html#os.fwalk) 中 [`bytes`](https://docs.python.org/3.7/library/stdtypes.html#bytes) 路径的支持。(由 Serhiy Storchaka 参与贡献的 [bpo-28682](https://bugs.python.org/issue28682)。)
  (Contributed by Serhiy Storchaka in [bpo-28682](https://bugs.python.org/issue28682).)
 
-在Unix平台上，增加了对 [`scandir()`](https://docs.python.org/3.7/library/os.html#os.scandir) 中 [file descriptors](https://docs.python.org/3.7/library/os.html#path-fd) 的支持。(由 Serhiy Storchaka 参与贡献的 [bpo-25996](https://bugs.python.org/issue25996)。)
+在 Unix 平台上，增加了对 [`scandir()`](https://docs.python.org/3.7/library/os.html#os.scandir) 中 [file descriptors](https://docs.python.org/3.7/library/os.html#path-fd) 的支持。(由 Serhiy Storchaka 参与贡献的 [bpo-25996](https://bugs.python.org/issue25996)。)
 
 新的 [`os.register_at_fork()`](https://docs.python.org/3.7/library/os.html#os.register_at_fork) 函数允许注册 Python 的回调在进程的分支上执行。(由 Antoine Pitrou 参与贡献的 [bpo-16500](https://bugs.python.org/issue16500)。)
 
@@ -139,14 +139,14 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 
 * 添加了两个新的操作码：`LOAD_METHOD` 及 `CALL_METHOD`，从而避免为了方法调用的绑定方法对象的实例化，这将导致方法调用的速度提升20%。(由 Yury Selivanov 及 INADA Naoki 参与贡献的 [bpo-26110](https://bugs.python.org/issue26110)。)
 * 当在一字符串内查找某些特殊的 Unicode 字符（如乌克兰大写字母 “Є”）时，将会比查找其他字符慢25倍，但现在最差情况下也只慢了3倍。(由 Serhiy Storchaka 参与贡献的 [bpo-24821](https://bugs.python.org/issue24821)。)
-* 标准C语言库的快速执行现在能用于 [`math`](https://docs.python.org/3.7/library/math.html#module-math) 模块内的 [`erf()`](https://docs.python.org/3.7/library/math.html#math.erf) 和 [`erfc()`](https://docs.python.org/3.7/library/math.html#math.erfc) 函数。(由 Serhiy Storchaka 参与贡献的 [bpo-26121](https://bugs.python.org/issue26121)。)
+* 标准 C 语言库的快速执行现在能用于 [`math`](https://docs.python.org/3.7/library/math.html#module-math) 模块内的 [`erf()`](https://docs.python.org/3.7/library/math.html#math.erf) 和 [`erfc()`](https://docs.python.org/3.7/library/math.html#math.erfc) 函数。(由 Serhiy Storchaka 参与贡献的 [bpo-26121](https://bugs.python.org/issue26121)。)
 * 由于使用了 [`os.scandir()`](https://docs.python.org/3.7/library/os.html#os.scandir) 函数，[`os.fwalk()`](https://docs.python.org/3.7/library/os.html#os.fwalk) 函数的效率已经提升了2倍。 (由 Serhiy Storchaka 参与贡献的 [bpo-25996](https://bugs.python.org/issue25996)。)
 * 优化了对于大小写忽略的匹配及对于 [`regular expressions`](https://docs.python.org/3.7/library/re.html#module-re) 的查找。 对一些字符的查找速度现在能提升至原来的20倍。(由 Serhiy Storchaka 参与贡献的 [bpo-30285](https://bugs.python.org/issue30285)。)
 * 在较重负荷下，`selectors.EpollSelector.modify()`，`selectors.PollSelector.modify()` 及 `selectors.DevpollSelector.modify()` 将比原来快10%左右。(由 Giampaolo Rodola’ 参与贡献的 [bpo-30014](https://bugs.python.org/issue30014)。)
 
-## 编译生成及C语言API的更改
+## 编译生成及 C 语言 API 的更改
 
-* 在非OSX、UNIX平台上，当构建 [`_ctypes`](https://docs.python.org/3.7/library/ctypes.html#module-ctypes) 模块时不会再打包 libffi 的完整副本以使用。现在在这些平台上构建 ` _ctypes` 时需要已安装的 libffi 副本。(由 Zachary Ware 参与贡献的 [bpo-27979](https://bugs.python.org/issue27979)。)
+* 在非 OSX、UNIX 平台上，当构建 [`_ctypes`](https://docs.python.org/3.7/library/ctypes.html#module-ctypes) 模块时不会再打包 libffi 的完整副本以使用。现在在这些平台上构建 ` _ctypes` 时需要已安装的 libffi 副本。(由 Zachary Ware 参与贡献的 [bpo-27979](https://bugs.python.org/issue27979)。)
 * 结构 [`PyMemberDef`](https://docs.python.org/3.7/c-api/structures.html#c.PyMemberDef)，[`PyGetSetDef`](https://docs.python.org/3.7/c-api/structures.html#c.PyGetSetDef)，[`PyStructSequence_Field`](https://docs.python.org/3.7/c-api/tuple.html#c.PyStructSequence_Field)，[`PyStructSequence_Desc`](https://docs.python.org/3.7/c-api/tuple.html#c.PyStructSequence_Desc) 及 `wrapperbase` 的 `name` 和 `doc` 字段的类型现在为 `const char *` 而非 `char *`。(由 Serhiy Storchaka 参与参与贡献的 [bpo-28761](https://bugs.python.org/issue28761)。)
 * [`PyUnicode_AsUTF8AndSize()`](https://docs.python.org/3.7/c-api/unicode.html#c.PyUnicode_AsUTF8AndSize) 及 [`PyUnicode_AsUTF8()`](https://docs.python.org/3.7/c-api/unicode.html#c.PyUnicode_AsUTF8) 返回的类型是 `const char *` 而非 `char *`。(由 Serhiy Storchaka 参与贡献的 [bpo-28769](https://bugs.python.org/issue28769)。)
 * 新增了函数 [`PySlice_Unpack()`](https://docs.python.org/3.7/c-api/slice.html#c.PySlice_Unpack) 和 [`PySlice_AdjustIndices()`](https://docs.python.org/3.7/c-api/slice.html#c.PySlice_AdjustIndices)。 (由 Serhiy Storchaka 参与贡献的 [bpo-27867](https://bugs.python.org/issue27867)。)
@@ -167,19 +167,19 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 * 在 [`gettext`](https://docs.python.org/3.7/library/gettext.html#module-gettext) 中通过使用非整型值来筛选复数形式的值已被弃用，它不会再起作用。(由 Serhiy Storchaka 参与贡献的 [bpo-28692](https://bugs.python.org/issue28692)。)
 * [`macpath`](https://docs.python.org/3.7/library/macpath.html#module-macpath) 模块已被弃用，且它将会在 Python 3.8 版本中被移除。
 
-### C语言API的更改
+### C 语言 API 的更改
 
 * `PyThread_start_new_thread()` 和 `PyThread_get_thread_ident()` 返回结果的类型, 及 [`PyThreadState_SetAsyncExc()`](https://docs.python.org/3.7/c-api/init.html#c.PyThreadState_SetAsyncExc) 中参数 *id* 的类型从 `long` 变为 `unsigned long`。(由 Serhiy Storchaka 参与贡献的 [bpo-6532](https://bugs.python.org/issue6532)。)
 * 如果 [`PyUnicode_AsWideCharString()`](https://docs.python.org/3.7/c-api/unicode.html#c.PyUnicode_AsWideCharString) 的第二个实参是 _NULL_ 且 `wchar_t*` 字符串包含空字符，就会引起一个 [`ValueError`](https://docs.python.org/3.7/library/exceptions.html#ValueError) 的报错。(由 Serhiy Storchaka 参与贡献的 [bpo-30708](https://bugs.python.org/issue30708)。)
 
-### 仅Windows平台
+### 仅 Windows 平台
 
-* Python 启动器（py.exe）能接收32及64位说明符，且无需指定次要版本。所以 `py -3-32` 与 `py -3-64` 也会和 `py -3.7-32` 一样有效，并且现在能接受 -*m*-64 与 -*m.n*-64 来强制使用64位 Python，即使32位在使用中也是如此。如果指定版本不可用，py.exe将会报错退出。(由 Steve Barnes 参与贡献的 [bpo-30291](https://bugs.python.org/issue30291)。)
+* Python 启动器（py.exe）能接收32及64位说明符，且无需指定次要版本。所以 `py -3-32` 与 `py -3-64` 也会和 `py -3.7-32` 一样有效，并且现在能接受 -*m*-64 与 -*m.n*-64 来强制使用64位 Python，即使32位在使用中也是如此。如果指定版本不可用，py.exe 将会报错退出。(由 Steve Barnes 参与贡献的 [bpo-30291](https://bugs.python.org/issue30291)。)
 * 启动器可以通过命令 “py -0” 运行，生成已安装 Python 的版本列表，*标有星号的是为默认*，运行 “py -0p” 将包含安装路径。如果 py 使用无法匹配的版本说明符运行，也会打印*缩略形式*的可用说明符列表。(由 Steve Barnes 参与贡献的 [bpo-30362](https://bugs.python.org/issue30362)。)
 
 ## 移除的内容
 
-### 移除的API及特性
+### 移除的 API 及特性
 
 * 在使用 [`re.sub()`](https://docs.python.org/3.7/library/re.html#re.sub) 的替换模板中，由 `'\'` 及一个 ASCII 字母组成的未知转义符已在 Python 3.5 中被弃用，现在使用将会报错。
 * 移除了 [`tarfile.TarFile.add()`](https://docs.python.org/3.7/library/tarfile.html#tarfile.TarFile.add) 中的实参 _exclude_ 。它已在 Python 2.7 和 3.2 版本被弃用，取而代之的是使用实参 *filter*。
@@ -190,9 +190,9 @@ README.rst 现已包含在 distutils 的标准自述文件列表中，进而它�
 
 ## 移植到 Python 3.7
 
-本小节列出了之前描述的一些更改，以及一些其他bug修复，因而你可能需要对你的代码进行更改。
+本小节列出了之前描述的一些更改，以及一些其他 bug 修复，因而你可能需要对你的代码进行更改。
 
-### Python API的更改
+### Python API 的更改
 
 * 如果 *path* 是一个字符串，[`pkgutil.walk_packages()`](https://docs.python.org/3.7/library/pkgutil.html#pkgutil.walk_packages) 现在会引起 ValueError 报错，之前会返回一个空列表。(由 Sanyam Khurana 参与贡献的 [bpo-24744](https://bugs.python.org/issue24744)。)
 * [`string.Formatter.format()`](https://docs.python.org/3.7/library/string.html#string.Formatter.format) 的格式化字符串参数现在是 [positional-only](https://docs.python.org/3.7/glossary.html#positional-only-parameter)，将它作为关键字参数传递已在 Python 3.5 时被弃用。(由 Serhiy Storchaka 参与贡献的 [bpo-29193](https://bugs.python.org/issue29193)。)

@@ -5,11 +5,11 @@
 > * 译者：[pcdack](https://github.com/pcdack)
 > * 校对者：[hanliuxin5](https://github.com/hanliuxin5)
 
-# 使用 MVI 开发响应式 APP — 第四部分 — 独立的UI组件
+# 使用 MVI 开发响应式 APP — 第四部分 — 独立的 UI 组件
 
-在这篇博客我们将讨论如何构建独立UI组件，并且要弄清楚为什么在我看来子类和父类关系充满着坏代码的味道。此外，我们将讨论为什么我认为这种关系是不必要的。
+在这篇博客我们将讨论如何构建独立 UI 组件，并且要弄清楚为什么在我看来子类和父类关系充满着坏代码的味道。此外，我们将讨论为什么我认为这种关系是不必要的。
 
-不时的出现诸如 Model-View-Intent，Model-View-Presenter 或 Model-View-ViewModel 之类的架构设计模式的一个问题是,Presenter(或ViewModels) 之间是如何通信的?甚至更具体一点，"子-Presenter"如何与它的"父-Presenter"进行沟通？
+不时的出现诸如 Model-View-Intent，Model-View-Presenter 或 Model-View-ViewModel 之类的架构设计模式的一个问题是,Presenter(或 ViewModels) 之间是如何通信的?甚至更具体一点，"子-Presenter"如何与它的"父-Presenter"进行沟通？
 
 ![wtf](http://hannesdorfmann.com/images/mvi-mosby3/wtf.jpg)
 
@@ -19,7 +19,7 @@
 
 ![Presenter-Businesslogic](http://hannesdorfmann.com/images/mvi-mosby3/mvp-business-logic.png)
 
-无论何时一个事件X发生了(例如:一个用户点击了在View1上的按钮), 这个 Presenter 会让信息下沉到业务逻辑。既然其他的 Presenter 观察相同的业务逻辑, 他们从已经变化的业务逻辑（model 已经发生变化）里得到通知。
+无论何时一个事件 X 发生了(例如:一个用户点击了在 View1上的按钮), 这个 Presenter 会让信息下沉到业务逻辑。既然其他的 Presenter 观察相同的业务逻辑, 他们从已经变化的业务逻辑（model 已经发生变化）里得到通知。
 
 ![Presenter-Businesslogic](http://hannesdorfmann.com/images/mvi-mosby3/mvp-business-logic2.png)
 
@@ -29,7 +29,7 @@
 
 ![](https://i.loli.net/2018/03/02/5a98f0759859f.gif)
 
-如果我们可以把这个大的页面分离成很多小的，独立的并且可复用的UI组件，那岂不是很酷？比如说一个 Toolbar，它显示被选择的 item 的数量,和一个用来显示购物车里的商品项列表的 RecyclerView。
+如果我们可以把这个大的页面分离成很多小的，独立的并且可复用的 UI 组件，那岂不是很酷？比如说一个 Toolbar，它显示被选择的 item 的数量,和一个用来显示购物车里的商品项列表的 RecyclerView。
 
 ```
 <LinearLayout>
@@ -117,7 +117,7 @@ return new SelectedCountToolbarPresnter(selectedCount);
 
 ## 总结
 
-这篇博客的目的是为了演示，父子关系通常来说是不需要的，并且可以避免，通过简单的观察你业务逻辑的相同部分。 不用 EventBus, 不需要从你的父 Activity/Fragment 中 findViewById(),不需要Presenter.getParentPresenter() 或者其他需要其他的解决办法。仅仅需要观察者模式。伴有 RxJava 的帮助，RxJava 是实现观察者模式的基础，我们可以很轻松的构建这样的响应式 UI 组件。
+这篇博客的目的是为了演示，父子关系通常来说是不需要的，并且可以避免，通过简单的观察你业务逻辑的相同部分。 不用 EventBus, 不需要从你的父 Activity/Fragment 中 findViewById(),不需要 Presenter.getParentPresenter() 或者其他需要其他的解决办法。仅仅需要观察者模式。伴有 RxJava 的帮助，RxJava 是实现观察者模式的基础，我们可以很轻松的构建这样的响应式 UI 组件。
 
 ### 另外的思考
 
@@ -152,7 +152,7 @@ return new SelectedCountToolbarPresenter(
 
 乍一看这似乎是一种有效的方法，但它不是父子关系的变体吗？ 当然，这不是一个传统的分层父子关系，它更像是一个洋葱（内部的给外部状态），这似乎更好，但仍然是一个紧密耦合的关系，不是吗？我还没有下定决心，但我认为现在避免这种类似洋葱的关系更好。 如果您有不同的意见，请在下面留言。 我很想听听你的想法。
 
-**这篇博客是“用 MVI 开发响应式App”的一部分。
+**这篇博客是“用 MVI 开发响应式 App”的一部分。
 下面是内容表:**
 
 *   [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)

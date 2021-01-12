@@ -8,7 +8,7 @@
 
 过去 5 年里你一直使用 REST 接口。或者你一直在优化搜索公司里庞大的数据库。又或者你一直在给微波炉写嵌入式软件。自从你用 Prototype.js 来对浏览器进行面向对象编程已经过去很久了，现在你想提升一下你的前端技能，你看了一下发现情况是[这样](https://thefullfool.files.wordpress.com/2010/09/wheres-waldo1.jpg)。
 
-当然你不是要从一堆徐峥里找出葛优，你在找 25 个连名字都不知道的人。这种情况在 JavaScript 社区特别常见，以至于存在 “JavaScript 疲劳” 这个词。当你有时间去看一些关于这个主题的有趣的东西的时候，你会看到[在2016年学习JavaScript是怎样的体验？](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.c7g9ng4e7)绝妙的反映了这个现象。
+当然你不是要从一堆徐峥里找出葛优，你在找 25 个连名字都不知道的人。这种情况在 JavaScript 社区特别常见，以至于存在 “JavaScript 疲劳” 这个词。当你有时间去看一些关于这个主题的有趣的东西的时候，你会看到[在2016年学习 JavaScript 是怎样的体验？](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.c7g9ng4e7)绝妙的反映了这个现象。
 
 但你现在没时间了，你在一个大迷宫里，你需要一张地图，所以我做了一张。
 
@@ -30,7 +30,7 @@
 * 原因：NPM 是目前相当多的软件包管理器。Yarn 基于 NPM 但是优化了依赖的解决方案，并且维护一个锁文件（lock file），用来保存库确切的版本号（它可以集成在 NPM 中，它们是相辅相成而不是单独存在的）。
 * 可选：暂时未知。
 
-### JavaScript风格
+### JavaScript 风格
 
 * 问题：ECMAScript5 (老版本 JavaScript) 太烂。
 * 解决办法：ES6
@@ -81,7 +81,7 @@
 
 * 问题：猜猜看？当你在选择元素和执行操作 DOM 节点时你仍然需要一点权宜之计。
 * 解决办法：原生 ES6 或者 jQuery。
-* 原因：是的，jQuery还活着，React 和 jQuery 并不冲突，你的大多数需求都可以用 vanilla React 来实现 (和`querySelector`)。添加 jQuery 将会使你的打包速度变慢，我想说在 React 上使用 jQuery 不是很好你应当避免他。如果你被 ES6 和 React 不能解决的问题卡住了，或者你正在处理讨厌的跨浏览器问题，也许需要使用一下jQuery。
+* 原因：是的，jQuery 还活着，React 和 jQuery 并不冲突，你的大多数需求都可以用 vanilla React 来实现 (和`querySelector`)。添加 jQuery 将会使你的打包速度变慢，我想说在 React 上使用 jQuery 不是很好你应当避免他。如果你被 ES6 和 React 不能解决的问题卡住了，或者你正在处理讨厌的跨浏览器问题，也许需要使用一下 jQuery。
 * 可选：Dojo (不知还在不？)。
 
 ### 样式

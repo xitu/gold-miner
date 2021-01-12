@@ -225,7 +225,7 @@ def transform(X):
 
 ---
 
-**特别感谢参与这项工作的Data Science＆ML Infra团队的成员：**[*Aaron Keys*](https://www.linkedin.com/in/aaronkeys/)*, *[*Brad Hunter*](https://www.linkedin.com/in/brad-hunter-497621a/)*, *[*Hamel Husain*](https://www.linkedin.com/in/hamelhusain/)*, *[*Jiaying Shi*](https://www.linkedin.com/in/jiaying-shi-a2142733/)*, *[*Krishna Puttaswamy*](https://www.linkedin.com/in/krishnaputtaswamy/)*, *[*Michael Musson*](https://www.linkedin.com/in/michael-m-a37b1932/)*, *[*Nick Handel*](https://www.linkedin.com/in/nicholashandel/)*, *[*Varant Zanoyan*](https://www.linkedin.com/in/vzanoyan/)*, *[*Vaughn Quoss*](https://www.linkedin.com/in/vquoss/)* 等人。另外感谢 *[*Gary Tang*](https://www.linkedin.com/in/thegarytang/)*, *[*Jason Goodman*](https://medium.com/@jasonkgoodman)*, *[*Jeff Feng*](https://twitter.com/jtfeng)*, *[*Lindsay Pettingill*](https://medium.com/@lpettingill)* 给本文提的意见。*
+**特别感谢参与这项工作的 Data Science＆ML Infra 团队的成员：**[*Aaron Keys*](https://www.linkedin.com/in/aaronkeys/)*, *[*Brad Hunter*](https://www.linkedin.com/in/brad-hunter-497621a/)*, *[*Hamel Husain*](https://www.linkedin.com/in/hamelhusain/)*, *[*Jiaying Shi*](https://www.linkedin.com/in/jiaying-shi-a2142733/)*, *[*Krishna Puttaswamy*](https://www.linkedin.com/in/krishnaputtaswamy/)*, *[*Michael Musson*](https://www.linkedin.com/in/michael-m-a37b1932/)*, *[*Nick Handel*](https://www.linkedin.com/in/nicholashandel/)*, *[*Varant Zanoyan*](https://www.linkedin.com/in/vzanoyan/)*, *[*Vaughn Quoss*](https://www.linkedin.com/in/vquoss/)* 等人。另外感谢 *[*Gary Tang*](https://www.linkedin.com/in/thegarytang/)*, *[*Jason Goodman*](https://medium.com/@jasonkgoodman)*, *[*Jeff Feng*](https://twitter.com/jtfeng)*, *[*Lindsay Pettingill*](https://medium.com/@lpettingill)* 给本文提的意见。*
 
 
   ---

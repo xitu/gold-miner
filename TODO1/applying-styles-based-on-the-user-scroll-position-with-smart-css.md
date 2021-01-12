@@ -31,7 +31,7 @@ document.addEventListener('scroll', () => {
 现在我们可以使用此属性来设置页面上的元素样式。
 
 ```
-/* 保证 header标签始终高于 3em */
+/* 保证 header 标签始终高于 3em */
 header {
   min-height: 3em;
   width: 100%;

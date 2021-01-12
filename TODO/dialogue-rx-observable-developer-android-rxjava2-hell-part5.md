@@ -5,7 +5,7 @@
 > * 校对者：[Phoenix](https://github.com/wbinarytree)、J[erryMissTom](https://github.com/JerryMissTom)
 
 
-## 开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分 ##
+## 开发者（也就是我）与 Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分 ##
 
 又是新的一天，是时候学点新东来西来让今天变得酷炫了🙂。
 
@@ -173,7 +173,7 @@ Integer[] values= {1,2,3,4,5};
 3. create():
 
 
-你可以把任何东西强行转为 Observable 对象。这个 API 过于强大，所以个人建议使用这个API之前，应该先找找有没有其他的解决方式。大约99%的情况下，你可以用其他的 API 来解决问题。但如果实在找不到，那么就用它也可以。
+你可以把任何东西强行转为 Observable 对象。这个 API 过于强大，所以个人建议使用这个 API 之前，应该先找找有没有其他的解决方式。大约99%的情况下，你可以用其他的 API 来解决问题。但如果实在找不到，那么就用它也可以。
 
 **(校对 wbinarytree 注：这里可能作者对 RxJava 2 的 create 还停留在 RxJava 1 的阶段。 RxJava 1.x 确实不推荐 create 方法。而 RxJava 2 的 create 方法是推荐方法。并不是 99% 的情况都可以被取代。 RxJava 1.x 的 create 方法现已经成为 RxJava 2.x 的 unsafeCreate ，RxJava 1.2.9 版本也加入了新的安全的 create 重载方法。)**
 

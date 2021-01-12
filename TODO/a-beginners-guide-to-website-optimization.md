@@ -41,7 +41,7 @@
 
 Optimizilla 并不是您图片压缩需求的唯一选择。您可以使用一些独立的开源软件，Mac 环境下的 [ImageOptim](https://imageoptim.com/mac) 或者 Windows 环境下的 [FileOptimizer](https://sourceforge.net/projects/nikkhokkho/files/FileOptimizer/)。如果您更喜欢用构建工具进行压缩，那么可以使用 [Gulp](https://www.npmjs.com/package/gulp-imagemin) 和 [WebPack](https://github.com/Klathmon/imagemin-webpack-plugin) 插件。无论您怎么做，只要做了，那么即使是最小的努力，也会在性能上获取提升。
 
-根据您的情况，可能还需要查看文件格式。一般来说，jpg 会比 png更小。我是否使用其中一个的主要区别是我是否需要图片背后的透明度：如果我需要透明度就使用 png，否则使用 jpg。您可以在 [这里](https://www.digitaltrends.com/photography/jpeg-vs-png-photo-format/)更深入地了解这两者的利弊。
+根据您的情况，可能还需要查看文件格式。一般来说，jpg 会比 png 更小。我是否使用其中一个的主要区别是我是否需要图片背后的透明度：如果我需要透明度就使用 png，否则使用 jpg。您可以在 [这里](https://www.digitaltrends.com/photography/jpeg-vs-png-photo-format/)更深入地了解这两者的利弊。
 
 此外，Google 已经推出了一种非常贴心的 webp 格式，但由于目前没有在所有浏览器被支持，所以我还在犹豫是否使用它。会留意未来是否有进一步地更新支持！
 

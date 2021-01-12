@@ -9,9 +9,9 @@
 [PostCSS](http://postcss.org)起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。如果你尚未接触过**PostCSS**，这篇文章正适合你。
 > **PostCSS**是一个使用**JavaScript**插件来转换**CSS**的工具。
 
-**PostCSS**本身很小，其只包含**CSS**解析器，操作**CSS**节点树的API，资源生成器（译者注1：原文是source map），以及一个节点树字符串化工具。所有的黑魔法都是通过利用插件实现的。
+**PostCSS**本身很小，其只包含**CSS**解析器，操作**CSS**节点树的 API，资源生成器（译者注1：原文是 source map），以及一个节点树字符串化工具。所有的黑魔法都是通过利用插件实现的。
 
-截止目前，**PostCSS**的生态圈内已经拥有超过100种[插件](http://postcss.parts/ "PostCSS Plugins")。这些插件可以做太多的事情，比如**lint**（译者注2：一种用来检测CSS代码的工具），添加**vendor prefixes**（译者注3：添加浏览器内核前缀，可以使用浏览器的一些独有特性），允许使用最新的CSS特性，在你的**CSS**里提供统计数据，或者是允许你使用**Sass**，**Less**或是**Stylus**等**CSS**预处理器。
+截止目前，**PostCSS**的生态圈内已经拥有超过100种[插件](http://postcss.parts/ "PostCSS Plugins")。这些插件可以做太多的事情，比如**lint**（译者注2：一种用来检测 CSS 代码的工具），添加**vendor prefixes**（译者注3：添加浏览器内核前缀，可以使用浏览器的一些独有特性），允许使用最新的 CSS 特性，在你的**CSS**里提供统计数据，或者是允许你使用**Sass**，**Less**或是**Stylus**等**CSS**预处理器。
 
 ### 让我们看看以下十种插件
 
@@ -37,7 +37,7 @@
 
 [PostCSS Flexbugs Fixes](https://github.com/luisrudge/postcss-flexbugs-fixes "PostCSS Flexbug FIxes")
 
-> 一种用于修复**flexbug**的bug的插件。
+> 一种用于修复**flexbug**的 bug 的插件。
 
 [PostCSS CSSnext](https://github.com/MoOx/postcss-cssnext "PostCSS CSSnext")
 
@@ -49,7 +49,7 @@
 
 [PostCSS SVGO](https://github.com/ben-eb/postcss-svgo "PostCSS SVGO")
 
-> 优化在**PostCSS**中内联SVG。
+> 优化在**PostCSS**中内联 SVG。
 
 [PostCSS Style Guide](https://github.com/morishitter/postcss-style-guide "PostCSS Style Guide")
 

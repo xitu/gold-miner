@@ -322,7 +322,7 @@ connection.on('close', function(reasonCode, description) {
 
 正如我们之前提到的，HTTP/2 引入了 [Server Push](https://en.wikipedia.org/wiki/Push_technology?oldformat=true) 来允许服务器主动地发送资源到客户端缓存中。但是，并不允许直接发送数据到客户端应用程序中。服务器推送的内容只能被浏览器处理，而不是客户端应用程序代码，这意味着应用中没有 API 能够感知到推送。
 
-这也让 Server-Sent Events（SSE）变得很有用。当客户端和服务器的连接建立后，SSE 这个机制能够让服务器异步地推送数据到客户端。之后，服务器随时都可以在准备好后发送数据。这可以被看作是单向的 [发布-订阅](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) 模型。SSE 还提供了一个叫做 EventSource 的标准 JavaScript 客户端 API，这个 API 已经被大多数现代浏览器作为 [W3C](https://www.w3.org/TR/eventsource/) 所制定的HTML5 标准的一部分所实现了。对于那些不支持 [EventSource API](http://caniuse.com/#feat=eventsource) 的浏览器来说，这些 API 也能被轻易地 polyfill。
+这也让 Server-Sent Events（SSE）变得很有用。当客户端和服务器的连接建立后，SSE 这个机制能够让服务器异步地推送数据到客户端。之后，服务器随时都可以在准备好后发送数据。这可以被看作是单向的 [发布-订阅](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) 模型。SSE 还提供了一个叫做 EventSource 的标准 JavaScript 客户端 API，这个 API 已经被大多数现代浏览器作为 [W3C](https://www.w3.org/TR/eventsource/) 所制定的 HTML5 标准的一部分所实现了。对于那些不支持 [EventSource API](http://caniuse.com/#feat=eventsource) 的浏览器来说，这些 API 也能被轻易地 polyfill。
 
 由于 SSE 是基于 HTTP 的，所以它天然亲和 HTTP/2，因此可以组合二者，以吸取各自精华：HTTP/2 通过多路复用流来提高传输层的效率，SSE 则为客户端应用程序提供了接收推送的 API。
 

@@ -25,7 +25,7 @@ Web 开发一直是一个快速发展的领域 —— 我们很难跟上在过�
 
 ### JS 语言的新特性
 
-与之前的版本相比，ECMAScript 2018 的功能相当简单，只添加了[对象 rest/spread 属性](https://github.com/tc39/proposal-object-rest-spread)，[异步 iteration](https://github.com/tc39/proposal-async-iteration) 和 [Promise.finally](https://github.com/tc39/proposal-promise-finally)，Babel 和 [core-js](https://github.com/zloirock/core-js#stage-3-proposals) 现在已经支持了所有这些新特性。[大多数浏览器](http://kangax.github.io/compat-table/es2016plus/#test-Asynchronous_Iterators)和 [Node.js](https://node.green/) 全部都支持了ES2018，除了 Edge，它只支持 Promise.finally。对于许多开发人员来说，这意味着他们所需的所有语言特性都被他们需要兼容的浏览器支持了 —— 甚至有人怀疑 Babel 是否真的是必需的了。
+与之前的版本相比，ECMAScript 2018 的功能相当简单，只添加了[对象 rest/spread 属性](https://github.com/tc39/proposal-object-rest-spread)，[异步 iteration](https://github.com/tc39/proposal-async-iteration) 和 [Promise.finally](https://github.com/tc39/proposal-promise-finally)，Babel 和 [core-js](https://github.com/zloirock/core-js#stage-3-proposals) 现在已经支持了所有这些新特性。[大多数浏览器](http://kangax.github.io/compat-table/es2016plus/#test-Asynchronous_Iterators)和 [Node.js](https://node.green/) 全部都支持了 ES2018，除了 Edge，它只支持 Promise.finally。对于许多开发人员来说，这意味着他们所需的所有语言特性都被他们需要兼容的浏览器支持了 —— 甚至有人怀疑 Babel 是否真的是必需的了。
 
 ### 新的正则表达式特性
 
@@ -58,7 +58,7 @@ Rust 已成为编译 WebAssembly 的最佳语言。它提供了一个健壮的�
 
 现代 JavaScript 应用程序经常把大量的计算放在 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) 中，以避免其阻塞主线程并中断浏览体验。虽然 Worker 已经推出几年了，但它的局限性使他们无法更广泛地采用。Worker 可以使用 [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage) 方法在其他线程之间传输数据，该方法克隆发送的数据（较慢）或使用[可传输的对象](https://developer.mozilla.org/en-US/docs/Web/API/Transferable)（更快）。因此，线程之间的通信要么是慢速的，要么是单向的。对于简单的应用程序没有太大问题，但它限制了使用 Worker 构建更复杂的架构。
 
-[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
+[SharedArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) 和 [Atomics](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics) 是允许 JavaScript 应用程序在上下文之间共享固定内存缓冲区并对它们执行原子操作的新功能。但是，在发现共享内存使浏览器容易受到以前未知的被称为 [Spectre](https://meltdownattack.com/) 的定时攻击后，浏览器对该特性的支持被暂时删除了。Chrome 在 7 月发布了一项[新的安全功能](https://www.techrepublic.com/article/google-enabled-site-isolation-in-chrome-67-heres-why-and-how-it-affects-users/)，可以缓解该漏洞，从而重新启用了 SharedArrayBuffers 功能。在 Firefox 中，该功能默认情况下是禁用的，但可以[重新启用](https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/)。Edge [完全取消了对 SharedArrayBuffers 的支持](https://blogs.windows.com/msedgedev/2018/01/03/speculative-execution-mitigations-microsoft-edge-internet-explorer/#Yr2pGlOHTmaRJrLl.97)，微软尚未表示何时会重新启用。希望到明年所有浏览器都会采用缓解策略，以便可以使用这个关键的缺失功能。
 
 ### Canvas
 
@@ -147,7 +147,7 @@ Babel 现在也[支持 Typescript 语法](https://blogs.msdn.microsoft.com/types
 
 #### Typescript
 
-在去年，[Typescript](https://www.typescriptlang.org/) 的受欢迎程度大大提高，成为了JavaScript 统治地位的 ES6 的主要挑战者。自微软每月发布新版本以来，开发在过去一年中取得了相当快的进展。Typescript 团队非常关注开发人员的体验，包括语言本身和围绕它的编辑器工具。
+在去年，[Typescript](https://www.typescriptlang.org/) 的受欢迎程度大大提高，成为了 JavaScript 统治地位的 ES6 的主要挑战者。自微软每月发布新版本以来，开发在过去一年中取得了相当快的进展。Typescript 团队非常关注开发人员的体验，包括语言本身和围绕它的编辑器工具。
 
 最近的版本增加了更多开发人员友好的[错误格式](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#improved-errors-and-ux)和强大的重构功能，如[自动导入更新](https://blogs.msdn.microsoft.com/typescript/2018/05/31/announcing-typescript-2-9/#rename-move-file)和[导入组织](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#organize-imports)等。与此同时，TypeScript 继续在提升类型系统上发力，如近期的[条件类型](https://blogs.msdn.microsoft.com/typescript/2018/03/27/announcing-typescript-2-8/#conditional-types)和[未知类型](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#the-unknown-type)两个新功能。
 
@@ -155,7 +155,7 @@ JavaScript 2018 趋势报告指出，[近一半的受访者](https://2018.stateo
 
 * * *
 
-### 题外话：[LogRocket](https://logrocket.com/signup/)，一个用于 web 应用程序的DVR
+### 题外话：[LogRocket](https://logrocket.com/signup/)，一个用于 web 应用程序的 DVR
 
 [![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)](https://logrocket.com/signup/)
 

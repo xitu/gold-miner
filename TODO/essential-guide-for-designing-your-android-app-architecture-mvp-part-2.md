@@ -62,11 +62,11 @@ MVP 项目的 GitHub repo 地址:
 
 1. 研究 build.gradle 并寻找它使用的所有依赖。
 2. 探索 data 包以及 helper 类的实现。
-3. ui base 包创建了Activity, Fragment, SubView 和 Presenter 的基类。所有其他相关的组件都应该从这些类派生。
+3. ui base 包创建了 Activity, Fragment, SubView 和 Presenter 的基类。所有其他相关的组件都应该从这些类派生。
 4. di 包是应用中负责提供依赖的类。要理解依赖注入，请浏览我发表的由两部分组成的文章，[**Dagger2 part 1**](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-1-223289c2a01b#.bse4rt4mz) 和 [**Dagger2 part 2**](https://blog.mindorks.com/introduction-to-dagger-2-using-dependency-injection-in-android-part-2-b55857911bcd#.lahv7yh36)。
 5. 资源：Styles, fonts, drawable。
 
-如有任何问题，请在Twitter上联系我：
+如有任何问题，请在 Twitter 上联系我：
 
 [**janishar ali (@janisharali) | Twitter**
 The latest Tweets from janishar ali (@janisharali): "Check out the new release of Android-Debug-Database with complete…](https://twitter.com/janisharali)

@@ -87,7 +87,7 @@ proxy = new Proxy({}, {
 
 以前面的例子为基础 —— 我们仍使用 `[[Get]]` 自陷：只需要再施加一点魔法，我们就能构建一个拥有无数方法的 API，当你最终调用其中某个方法时，将返回所有你被你链接的值。[fluent API（流畅 API）](https://en.wikipedia.org/wiki/Fluent_interface) 为 web 请求构建了各个 URL，[Chai](https://github.com/chaijs/chai) 这类的测试框架将各个英文单词链接组成高可读的测试断言，通过这些，我们知道可无限链接的 API 是多么有用。
 
-为了实现这个 API，我们就需要钩子勾住 `[[Get]]`，将取到的属性保存到数组中。代理 ( Proxy ) 将包装一个函数，返回所有检索到的支持的Array，并清空数组，以便可以重用它。我们也会勾住 `[[HasProperty]]`，因为我们想告诉 API 的使用者，任何属性都是存在的。
+为了实现这个 API，我们就需要钩子勾住 `[[Get]]`，将取到的属性保存到数组中。代理 ( Proxy ) 将包装一个函数，返回所有检索到的支持的 Array，并清空数组，以便可以重用它。我们也会勾住 `[[HasProperty]]`，因为我们想告诉 API 的使用者，任何属性都是存在的。
 
 ```js
 function urlBuilder(domain) {

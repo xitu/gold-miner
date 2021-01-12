@@ -262,7 +262,7 @@
 
 
 
-AutoValue的另一个强大功能是它的各种**拓展**，你可以创建一个自己的拓展。本文难以赘述这个功能，但是有很多其他不错的文章你可以参考，例如 Jake’s Wharton 的 [AutoValue Extensions](http://jakewharton.com/auto-value-extensions-ny-android-meetup/).
+AutoValue 的另一个强大功能是它的各种**拓展**，你可以创建一个自己的拓展。本文难以赘述这个功能，但是有很多其他不错的文章你可以参考，例如 Jake’s Wharton 的 [AutoValue Extensions](http://jakewharton.com/auto-value-extensions-ny-android-meetup/).
 
 ## Guava
 

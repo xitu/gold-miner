@@ -13,7 +13,7 @@
 >
 > 我希望文章里的所有代码能够对您有所帮助，但**不作任何担保**。也不保证代码的性能以及它适用于某种功能。有关更多细节，请参阅 GNU 通用公共许可证。
 
-本文研究NestJS 和认证策略，并记录了我使用Node知识在NestJS 中实现认证策略的过程。**但是，这不意味着您在实际项目中要像我这么做**。
+本文研究 NestJS 和认证策略，并记录了我使用 Node 知识在 NestJS 中实现认证策略的过程。**但是，这不意味着您在实际项目中要像我这么做**。
 
 在本文中，我们将探讨如何在 [NestJS](https://docs.nestjs.com/)中使用 [passport.js](https://github.com/jaredhanson/passport) 来轻松地实现基本的身份验证和会话管理。
 
@@ -26,7 +26,7 @@
 
 * [Swagger](https://swagger.io/) —— 它能为您的应用生成对应的 REST API 接口的最终文档。同时还是一个快速测试 API 的好工具。您可以在 NestJS 网站浏览到有关 Swagger 的[文档](https://docs.nestjs.com/recipes/swagger)，以便在我们的项目中使用 Swagger。
 * [Exception Filters](https://docs.nestjs.com/exception-filters) —— 它是 NestJS 内置的异常处理模块，负责处理整个应用中抛出的所有异常。当应用程序捕获到未处理的异常时，用户得到的响应是友好得体的。这意味着我们在应用中的任何地方抛出的异常，都会被全局异常处理程序捕获并且返回预定义的 JSON 响应。
-* [TypeORM](http://typeorm.io/#/) —— 它是一个健壮性极好、成熟的ORM框架，虽然是不久前面世的。它使用 TypeScript 编写。同时支持 [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。并使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
+* [TypeORM](http://typeorm.io/#/) —— 它是一个健壮性极好、成熟的 ORM 框架，虽然是不久前面世的。它使用 TypeScript 编写。同时支持 [ActiveRecord 和 DataMapper](http://typeorm.io/#/active-record-data-mapper) 模式，还支持缓存等许多其他功能。它的文档也十分优秀。TypeORM 支持大多数 SQL 和 NoSQL 数据库。对于本项目，我们将使用 sqlite 数据库。并使用 ActiveRecord 模式。[TypeORM TypeDocs（类似 javadocs）](http://typeorm-doc.exceptionfound.com/)
 * [Custom Decorator](https://docs.nestjs.com/custom-decorators) —— 我们将创建一个自定义的路由装饰器来在 session 中访问用户对象。
 * Basic Auth —— 使用 Basic Auth Header 的用户身份验证。
 * [Sessions](https://github.com/expressjs/session) —— 一旦用户通过身份验证，就会创建一个 session 和一个 cookie，这样在每个需要用户信息的请求中，我们都能够从 session 对象中访问登录的用户。
@@ -77,7 +77,7 @@ nest g co user
 nest g s user
 ```
 
-这将创建一个 user 服务并更新 user 模块。但是我的 user 服务最终被放置在根项目文件夹下而不是 user 文件夹中，我不是很清楚这是个 **bug 还是 Nestjs的框架特性**？如果您也碰上了这种情况，请手动将其移动到 user 文件夹中，并更新 user 模块中 user 服务的引用路径。
+这将创建一个 user 服务并更新 user 模块。但是我的 user 服务最终被放置在根项目文件夹下而不是 user 文件夹中，我不是很清楚这是个 **bug 还是 Nestjs 的框架特性**？如果您也碰上了这种情况，请手动将其移动到 user 文件夹中，并更新 user 模块中 user 服务的引用路径。
 
 ###### 创建 user 实体
 
@@ -155,7 +155,7 @@ export class UserEntity extends BaseEntity {
 
 #### 创建 project 模块
 
-创建 project 模块的方式与创建 **user 模块**的方式相同。也需要创建一个project 服务和一个 project 控制器。
+创建 project 模块的方式与创建 **user 模块**的方式相同。也需要创建一个 project 服务和一个 project 控制器。
 
 ###### 创建 project 实体
 

@@ -126,7 +126,7 @@ ES2015 也给 `String` 新增了一些方法。他们主要归为两类:
 
 ## endsWith
 
-[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) 和startswith相似: 它也需要两个参数：一个是要搜索的字符串，一个是位置。
+[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) 和 startswith 相似: 它也需要两个参数：一个是要搜索的字符串，一个是位置。
 
 然而 `String.prototype.endsWith` 位置参数会告诉函数要搜索的字符串在原始字符串中被当做结尾处理。
 
@@ -213,7 +213,7 @@ ES2015 新增了一些集合类型:
 1.  [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和 [WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
 2.  [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) 和 [WeakSet](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet)。
 
-合适的 Map 和 Set 类型十分方便使用，还有弱变量是一个令人兴奋的改动，虽然它对Javascript来说像舶来品一样。
+合适的 Map 和 Set 类型十分方便使用，还有弱变量是一个令人兴奋的改动，虽然它对 Javascript 来说像舶来品一样。
 
 ## Map
 
@@ -252,11 +252,11 @@ _map_ 就是简单的键值对。最简单的理解方式就是和 object 类似
     console.log(scotch_inventory.get('The Dalmore')); // 1
     console.log(scotch_inventory.get('Glenfiddich 18')); // undefined
 
-    // Map.prototype.has(K) :: 如果 map 里包含键 K 返回true，否则返回 false
+    // Map.prototype.has(K) :: 如果 map 里包含键 K 返回 true，否则返回 false
     console.log(scotch_inventory.has('The Dalmore')); // true
     console.log(scotch_inventory.has('Glenfiddich 18')); // false
 
-    // Map.prototype.delete(K) :: 从 map 里删除键 K。成功返回true，不存在返回 false
+    // Map.prototype.delete(K) :: 从 map 里删除键 K。成功返回 true，不存在返回 false
     console.log(scotch_inventory.delete('The Dalmore')); // true -- breaks my heart
 
     // Map.prototype.clear() :: 清楚 map 中的所有键值对
@@ -303,7 +303,7 @@ _map_ 就是简单的键值对。最简单的理解方式就是和 object 类似
 
 另一方面，如果符合以下_任意_条件，你可能会想使用一个 map。
 
-1.  你需要遍历整个map -- 然而这对 object 来说是难以置信的.
+1.  你需要遍历整个 map -- 然而这对 object 来说是难以置信的.
 2.  当你写代码的时候不需要知道键的名字或数量。
 3.  你需要复杂的键，像 Object 或 别的 Map (!).
 
@@ -357,7 +357,7 @@ _map_ 就是简单的键值对。最简单的理解方式就是和 object 类似
 
 这样当应用失去不需要的元素的引用时，垃圾回收系统可以自动重用那些元素。
 
-WeakMap 的API 和Map 相似，但有如下几点不同:
+WeakMap 的 API 和 Map 相似，但有如下几点不同:
 
 1.  在 WeakMap 里你可以使用 object 作为键。 这意味着不能以 String 和 Symbol 做键。
 2.  WeakMap 只有 `set`，`get`，`has`，和 `delete` 方法 -- 那意味着 **你不能遍历 weak map**.
@@ -365,7 +365,7 @@ WeakMap 的API 和Map 相似，但有如下几点不同:
 
 不能遍历或检查 WeakMap 的长度的原因是，在遍历过程中可能会遇到垃圾回收系统的运行: 这一瞬间是满的，下一秒就没了。
 
-这种不可预测的行为需要谨慎对待，TC39(ECMA第39届技术委员会) 曾试图避免禁止 WeakMap 的遍历和长度检测。
+这种不可预测的行为需要谨慎对待，TC39(ECMA 第39届技术委员会) 曾试图避免禁止 WeakMap 的遍历和长度检测。
 
 其他的案例，可以在这里找到 [Use Cases for WeakMap](http://exploringjs.com/es6/ch_maps-sets.html#_use-cases-for-weakmaps)，来自 Exploring ES6.
 
@@ -446,7 +446,7 @@ WeakSet 相对于 Set 就像 WeakMap 相对于 Map :
 2.  WeakSet 没有 property 属性。
 3.  不能遍历 WeakSet。
 
-Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html) 称呼它们为 "perfect for branding" -- 意思就是标记一个对象以满足其他需求。
+Weak set 的用例并不多，但是这儿有一些 [Domenic Denicola](https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html) 称呼它们为 "perfect for branding" -- 意思就是标记一个对象以满足其他需求。
 
 这儿是他给的例子:
 
@@ -475,7 +475,7 @@ Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://ma
 
 ## 总结
 
-这篇文章里，我们已经了解了 ES2015 带来的一些好处，从 `string` 的便捷方法和模板变量到适当的Map 和 Set 实现。
+这篇文章里，我们已经了解了 ES2015 带来的一些好处，从 `string` 的便捷方法和模板变量到适当的 Map 和 Set 实现。
 
 `String` 方法 和 模板字符串易于上手。同时你很快也就不用到处用 weak set 了，我认为你很快就会喜欢上 Set 和 Map。
 

@@ -7,7 +7,7 @@
 
 # 用 SwiftUI 的 Paths 创建折线图
 
-> 在iOS程序中创建美观的股票图表
+> 在 iOS 程序中创建美观的股票图表
 
 ![Photo by [Chris Liverani](https://unsplash.com/@chrisliverani?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8064/0*eZh1HfzXfAjD_9ME)
 

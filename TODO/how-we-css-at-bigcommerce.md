@@ -7,7 +7,7 @@
 
 # 在 BigCommerce 我们如何编写 CSS
 
-[我们的《SASS风格指南 - SASS Style Guide》现在已经可以在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)
+[我们的《SASS 风格指南 - SASS Style Guide》现在已经可以在 GitHub 上找到](https://github.com/bigcommerce/sass-style-guide)
 
 CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于巨大的代码库写出好的 CSS 代码，更是难上加难。
 
@@ -43,7 +43,7 @@ CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于�
 
 > 分解复杂的组件，并使得它们由简单的组件构成
 
-不可否认，这是在 HTML 和 CSS 样式中撰写时最为重要的事情。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化非常方便的工具，但是过分遵从这些“规范”会在处理一些深层嵌套的子元素时产生一些非常长非常复杂的类名。
+不可否认，这是在 HTML 和 CSS 样式中撰写时最为重要的事情。BEM，SUITCSS，SMACSS 等命名规范都是保持你代码模块化非常方便的工具，但是过分遵从这些“规范”会在处理一些深层嵌套的子元素时产生一些非常长非常复杂的类名。
 
 尽早抽象出通用的子样式以防止产生像这样的可怕的选择器：
 
@@ -51,7 +51,7 @@ CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于�
         …
     }
 
-> 使用混合（mixin）构建你的组件以便输出可定义的CSS
+> 使用混合（mixin）构建你的组件以便输出可定义的 CSS
 
 这是一个很有趣的点。我们作为一个团队，以一种特定的方式编写样式、公共标记和 CSS 规则以在 UI 中显示一种特定类型的数据。我们的框架不会默认输出 CSS，你必须选择你想要的组件。
 
@@ -76,7 +76,7 @@ CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于�
 
 尽量使用具有低特殊性的选择器。这会帮助你把组件抽象成小块，并更容易重用和重混合样式。同时，这能防止你的代码在将来产生很多特殊性冲突（Specificity Clash）。
 
-    /* 避免使用ID */
+    /* 避免使用 ID */
     #component { … }
 
     /* 避免使用子标签 */
@@ -149,7 +149,7 @@ CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于�
 
 #### 映射（Map）以及映射函数（Map Function） [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
 
-正如 Erskine Design 的[《SASS映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)所描述的，我们使用 SASS 映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
+正如 Erskine Design 的[《SASS 映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)所描述的，我们使用 SASS 映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
 
 SASS 为映射提供了一个简单且可预测的 API，并且可以用于大量属性类似 z-index，font-weight 和 line-height。我们会在将来的一篇博客中更详细讲述这个主题。
 
@@ -192,15 +192,15 @@ SASS 为映射提供了一个简单且可预测的 API，并且可以用于大�
 
 #### 优化
 
-关于输出优化，我们在每次部署核心CSS库的时候使用 [CSSO](http://css.github.io/csso/)来优化我们的代码。CSSO 会做一些常见的操作如通过删除空白符来压缩文件等，但是 CSSO 也会对我们的代码进行一些结构优化：从不同的组件中将相似的选择器分组，尽量缩减语法，并除去由于我们使用更多“共识”和“清晰高于精巧”原则所带来的影响。我知道这听起来有些风险，但是到目前为止我们都没有发现任何问题并且 CSSO 一直都运作良好。
+关于输出优化，我们在每次部署核心 CSS 库的时候使用 [CSSO](http://css.github.io/csso/)来优化我们的代码。CSSO 会做一些常见的操作如通过删除空白符来压缩文件等，但是 CSSO 也会对我们的代码进行一些结构优化：从不同的组件中将相似的选择器分组，尽量缩减语法，并除去由于我们使用更多“共识”和“清晰高于精巧”原则所带来的影响。我知道这听起来有些风险，但是到目前为止我们都没有发现任何问题并且 CSSO 一直都运作良好。
 
-我知道你们中的一些人会在阅读指南的时候惊讶于我们一些规则引入的“重复代码”。然而 CSSO 帮助我们处理这些问题，并且我们依赖Gzip来移除可能剩下的重复代码片段。这使得我们的代码库可读，清晰并且容易理解。让工具来帮你做事。
+我知道你们中的一些人会在阅读指南的时候惊讶于我们一些规则引入的“重复代码”。然而 CSSO 帮助我们处理这些问题，并且我们依赖 Gzip 来移除可能剩下的重复代码片段。这使得我们的代码库可读，清晰并且容易理解。让工具来帮你做事。
 
 #### 审查
 
 最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的 Pull Request 规则在大多数时候是有效的，但是对于一个大团队来说这并不只是一个小团队规则的放大版本。
 
-当我们编写代码和在核心库上创建 Pull Request 时，我们使用 [scss-lint](https://github.com/brigade/scss-lint) 来分析我们的代码。如果代码不符合风格指南，你的代码不会在你的机器上构建，Travis 会失败，你的 Pull Request 也会被标记为失败。我们使用[YAML文件描述我们的规则 set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml)，这帮助我们非常接近风格指南，所以任何人都可以遵守。这个配置也被储存在我们开始所有新前端项目的公共 Grunt 任务上，所以你的 CSS 代码总是能被审查。
+当我们编写代码和在核心库上创建 Pull Request 时，我们使用 [scss-lint](https://github.com/brigade/scss-lint) 来分析我们的代码。如果代码不符合风格指南，你的代码不会在你的机器上构建，Travis 会失败，你的 Pull Request 也会被标记为失败。我们使用[YAML 文件描述我们的规则 set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml)，这帮助我们非常接近风格指南，所以任何人都可以遵守。这个配置也被储存在我们开始所有新前端项目的公共 Grunt 任务上，所以你的 CSS 代码总是能被审查。
 
 ## 到底发生了什么
 
@@ -212,7 +212,7 @@ SASS 为映射提供了一个简单且可预测的 API，并且可以用于大�
 
 在大团队中基于大代码库编写 CSS 是非常困难的，但是你可以通过使用一些指南，工具和训练来帮助你的团队成员保持一致。总体来说，我觉得我们到目前为止都做得很好。
 
-我知道你们一些人可能会说“可是X把这个处理得更好”。我希望能介绍一些出色的人在这个问题上是怎么做的，参考[《JavaScript 中 的CSS - CSS in JavaScript》](https://github.com/MicheleBertoli/css-in-js)，[《内联 CSS - Inline CSS》](https://speakerdeck.com/vjeux/react-css-in-js)以及[《CSS 模块 - CSS Modules》](http://glenmaddern.com/articles/css-modules)。我不会通过贬损这些处理方法，来保护那种编写CSS的老式方法，然而的确有一些原因使得我们没有按照那些方法去做。有一些问题是我们无法解决的；有一些问题我们真的很喜欢使用CSS来解决，比如使用媒体查询（Media Query）。大多数上面的观点和方法都是 从React 这个我们不使用的生态环境中来的。大多数也是来自于一些更幸运的环境比如大多数前端都已经是 JavaScript，但我们的并不是。只是因为你们的代码库比我们的更新，更小，或者你们有更多钱和更多工程师，但这并不意味着我们是错的或者你们是错的。
+我知道你们一些人可能会说“可是 X 把这个处理得更好”。我希望能介绍一些出色的人在这个问题上是怎么做的，参考[《JavaScript 中 的 CSS - CSS in JavaScript》](https://github.com/MicheleBertoli/css-in-js)，[《内联 CSS - Inline CSS》](https://speakerdeck.com/vjeux/react-css-in-js)以及[《CSS 模块 - CSS Modules》](http://glenmaddern.com/articles/css-modules)。我不会通过贬损这些处理方法，来保护那种编写 CSS 的老式方法，然而的确有一些原因使得我们没有按照那些方法去做。有一些问题是我们无法解决的；有一些问题我们真的很喜欢使用 CSS 来解决，比如使用媒体查询（Media Query）。大多数上面的观点和方法都是 从 React 这个我们不使用的生态环境中来的。大多数也是来自于一些更幸运的环境比如大多数前端都已经是 JavaScript，但我们的并不是。只是因为你们的代码库比我们的更新，更小，或者你们有更多钱和更多工程师，但这并不意味着我们是错的或者你们是错的。
 
 #### 总结
 

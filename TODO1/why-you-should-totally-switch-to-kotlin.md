@@ -25,7 +25,7 @@ Kotlin 与 **Java 是 100% 可互操作的**。你可以使用 Kotlin 继续你�
 
 #### **1#** [**熟悉的语法**](https://kotlinlang.org/docs/reference/basic-syntax.html)
 
-Kotlin 并不是诞生于学术界中的一种奇怪的语言。它的语法对于任何来自 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) 领域的程序员来说都不陌生，并且从一开始就能或多或少地理解。当然，Java也有**一些**不同之处，比如重写构造函数或者是 `val` 、 `var` 变量的声明。下面的代码介绍了大部分基础知识：
+Kotlin 并不是诞生于学术界中的一种奇怪的语言。它的语法对于任何来自 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming) 领域的程序员来说都不陌生，并且从一开始就能或多或少地理解。当然，Java 也有**一些**不同之处，比如重写构造函数或者是 `val` 、 `var` 变量的声明。下面的代码介绍了大部分基础知识：
 
 ```
 class Foo {

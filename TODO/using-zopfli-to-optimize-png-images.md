@@ -4,9 +4,9 @@
 * 译者 : [cyseria](https://github.com/cyseria)
 * 校对者:[yifili09](https://github.com/yifili09), [rccoder](https://github.com/rccoder)
 
-# 使用使用Zopfli优化PNG图片
+# 使用使用 Zopfli 优化 PNG 图片
 
-[PNG格式](http://www.libpng.org/pub/png/) 在图片存储中是个很有用的格式，因为他能够保护截图的颜色不失真，能够很好地还原所有图片信息。然而，有许多图像应用并不提供导出较小 PNG 格式图片的功能。幸好，我们可以用一个 Google 发布的扩展工具 [Zopfli](https://en.wikipedia.org/wiki/Zopfli) 来解决这个问题。
+[PNG 格式](http://www.libpng.org/pub/png/) 在图片存储中是个很有用的格式，因为他能够保护截图的颜色不失真，能够很好地还原所有图片信息。然而，有许多图像应用并不提供导出较小 PNG 格式图片的功能。幸好，我们可以用一个 Google 发布的扩展工具 [Zopfli](https://en.wikipedia.org/wiki/Zopfli) 来解决这个问题。
 
 Zopfli 是实现 DEFLATE 的编码器，这是一个 PNG 格式中常用的压缩方法（当然也有很多其他的方法来压缩 png，像 ZIP 等等），用来输出可能的最小压缩文件。由于他是一种无损转换，用 Zopfli 做再次压缩的 PNG 文件仍有预期中的像素。
 
@@ -36,7 +36,7 @@ Zopfli 是实现 DEFLATE 的编码器，这是一个 PNG 格式中常用的压�
 ```
 $ zopflipng screenshot.png screenshot_small.png
 ```
-注意，由于 Zopfli 压缩是[CPU密集型操作](https://developers.googleblog.com/2013/02/compress-data-more-densely-with-zopfli.html)，过程中往往需要几秒钟。
+注意，由于 Zopfli 压缩是[CPU 密集型操作](https://developers.googleblog.com/2013/02/compress-data-more-densely-with-zopfli.html)，过程中往往需要几秒钟。
 
 对于批量转换，需要一个简单的脚本来做辅助。我写了一个简单的脚本 `png-press.sh`
 ```
@@ -52,7 +52,7 @@ $ zopflipng screenshot.png screenshot_small.png
     $ find . -iname *.png  | xargs -I % ./png-press.sh %
 ```
 
-作为一个插画网站，这个博客有超过280张png图片（大多都是截图），总共占了  24.4MB 的空间。执行上述步骤之后，空间占用量减少到了 19.1MB。节省了整整 5MB 空间！
+作为一个插画网站，这个博客有超过280张 png 图片（大多都是截图），总共占了  24.4MB 的空间。执行上述步骤之后，空间占用量减少到了 19.1MB。节省了整整 5MB 空间！
 
 现在，你有什么理由不使用 Zopfliy 优化去优化你的截图呢？
 

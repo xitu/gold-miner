@@ -51,14 +51,14 @@ markdown 文件：
 
 ![Average bytes per page by content type chart](https://www.voorhoede.nl/assets/images/average-bytes-per-page-chart-l.jpg)
 
-来自httparchive.org对2016年7月不同种类内容在页面的平均大小的统计
+来自 httparchive.org 对2016年7月不同种类内容在页面的平均大小的统计
 ### WebP
  
-WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损或有损压缩。比起其他的格式 WebP 的体积大幅度的减小，有时可以比 JPEG 对照图片体积要小25%。 WebP 经常被忽视和很少被使用。在写这篇文章的时候， WebP 只有[Chrome, Opera and Android](http://caniuse.com/#feat=webp)支持（对于用户来说仍然超过了50%的份额），但我们可以优雅降级到JPG/PNG。
+WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损或有损压缩。比起其他的格式 WebP 的体积大幅度的减小，有时可以比 JPEG 对照图片体积要小25%。 WebP 经常被忽视和很少被使用。在写这篇文章的时候， WebP 只有[Chrome, Opera and Android](http://caniuse.com/#feat=webp)支持（对于用户来说仍然超过了50%的份额），但我们可以优雅降级到 JPG/PNG。
 
 ### `<picture>` 元素
 
-通过使用图片元素，我们可以从WebP优雅降级到更广泛支持的格式如JPEG：
+通过使用图片元素，我们可以从 WebP 优雅降级到更广泛支持的格式如 JPEG：
 
 
     <picture>
@@ -70,9 +70,9 @@ WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损
         <source srcset="image-s.jpg">
         <img alt="Description of the image" src="image-l.jpg">
     </picture>
-我们使用 [ Scott Jehl的 picturefill ](https://github.com/scottjehl/picturefill)去给不支持 `<picture>`元素的浏览器加上兼容补丁使其可以在所有浏览器都能有一样的表现。
+我们使用 [ Scott Jehl 的 picturefill ](https://github.com/scottjehl/picturefill)去给不支持 `<picture>`元素的浏览器加上兼容补丁使其可以在所有浏览器都能有一样的表现。
 
-我们使用`<img>`格式来防止浏览器不支持`picture`元素或者JavaScript。
+我们使用`<img>`格式来防止浏览器不支持`picture`元素或者 JavaScript。
 
 ### 生成
 
@@ -92,7 +92,7 @@ WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损
 - 第二， SVG 本质就是响应式的，可以完美的保持清晰。因此不需要图片转换和`<picture>`元素;
 - 最后一点我们可以通过 CSS 让他运动和变化！这是为了性能而设计的完美例子。 [我们的页面作品集](https://www.voorhoede.nl/en/portfolio/)有可以被综述页重新使用的一个自定义的动态 SVG 。它在我们的作品集中呈现了一个反复出现的风格，让我们的设计连贯一致，对性能的只有很小的影响。
 
-来看下我们的动画和我们是怎样通过CSS来调整它的
+来看下我们的动画和我们是怎样通过 CSS 来调整它的
 
 
 
@@ -111,7 +111,7 @@ WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损
 ###  Font face observer
 
 
-[Bram Stein的Font face observer](https://github.com/bramstein/fontfaceobserver)是一个了不起的用于判断字体是否加载的辅助脚本。你的字体是怎么被加载的是很难确定的，或许是通过网络字体服务，或许是你自己提供。在 font face observer脚本通知我们所有自定义脚本文件加载完成后，我们给`<html>`元素增加一个`fonts-loaded`类。我们以此给页面加入样式：
+[Bram Stein 的 Font face observer](https://github.com/bramstein/fontfaceobserver)是一个了不起的用于判断字体是否加载的辅助脚本。你的字体是怎么被加载的是很难确定的，或许是通过网络字体服务，或许是你自己提供。在 font face observer 脚本通知我们所有自定义脚本文件加载完成后，我们给`<html>`元素增加一个`fonts-loaded`类。我们以此给页面加入样式：
 
 
 
@@ -138,7 +138,7 @@ WebP 是一个现代的图片格式，可以对网络图片进行优秀的无损
 
 在设计上，我们的网站没有大量的 JavaScript 文件。为了我们已有或是将来打算使用的 js 文件，我们研发了一种 JavaScript 工作流。
 
-JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。 JavaScript 只应该用来提升用户体验。它对用户来说并不是必要的。一个简单的避免 JavaScript 阻塞渲染的方式是把它放到你的页面的尾部。缺点是只有整个 HTML 都下载完成后才会开始下载脚本。
+JavaScript 放在`<head>`的话会阻塞渲染，然而我们不希望这样。 JavaScript 只应该用来提升用户体验。它对用户来说并不是必要的。一个简单的避免 JavaScript 阻塞渲染的方式是把它放到你的页面的尾部。缺点是只有整个 HTML 都下载完成后才会开始下载脚本。
 
 一个替代方案是把脚本放到头部并通过在`<script>`标签上增加`defer`属性来延缓它的执行。这让脚本不会阻塞并几乎可以立刻被下载，不用在整个页面被加载后才执行代码。
 
@@ -151,7 +151,7 @@ JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。 J
     }
     </script>
 
-我们把这个小巧的内嵌脚本放到页面的头部来侦测原生的`document.querySelector` 和 `window.addEventListener`JavaScript是否被支持。如果是这样的话，我们通过在页面直接写`script`标签来加载脚本，然后使用`defer`属性让它不阻塞。
+我们把这个小巧的内嵌脚本放到页面的头部来侦测原生的`document.querySelector` 和 `window.addEventListener`JavaScript 是否被支持。如果是这样的话，我们通过在页面直接写`script`标签来加载脚本，然后使用`defer`属性让它不阻塞。
 
 
 ### 懒加载 CSS
@@ -164,16 +164,16 @@ JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。 J
 
 ### 关键 CSS
 
-关键 CSS 的定义就是*让页面可以被用户辨识的最小体积的阻塞CSS*。我们关注`首屏`的内容。显然这个位置会根据设备不同而变化，所以我们做了最好的预测。
+关键 CSS 的定义就是*让页面可以被用户辨识的最小体积的阻塞 CSS*。我们关注`首屏`的内容。显然这个位置会根据设备不同而变化，所以我们做了最好的预测。
 
-人工决定关键 CSS 是一个很消耗时间的过程，特别是未来样式改变的时候。这里有一个可以在你的构建过程中生成关键 CSS 的一个很棒的脚本。我们使用了强大的[Addy Osmani的critical](https://github.com/addyosmani/critical)。
+人工决定关键 CSS 是一个很消耗时间的过程，特别是未来样式改变的时候。这里有一个可以在你的构建过程中生成关键 CSS 的一个很棒的脚本。我们使用了强大的[Addy Osmani 的 critical](https://github.com/addyosmani/critical)。
 
 
 看下面的分别使用关键 CSS 和完整 CSS 渲染的我们的主页。注意看在边缘下面的页面是仍然没有样式的。![Fold illustration](https://www.voorhoede.nl/assets/images/voorhoede-fold-l.jpg)左边的页面是只用关键 CSS 渲染的主页，而右边的页面使用完整的 CSS，红线代表边缘线。
 
 ## 服务器
 
-我们自己架构了 de Voorhoede站点，因为我们想要控制服务器的环境。我们想实验一下我们可以怎样通过改变服务器配置来提升性能。在这个时候我们有一个 Apache 网站服务器并且我们把我们站点设置为 HTTPS 服务。
+我们自己架构了 de Voorhoede 站点，因为我们想要控制服务器的环境。我们想实验一下我们可以怎样通过改变服务器配置来提升性能。在这个时候我们有一个 Apache 网站服务器并且我们把我们站点设置为 HTTPS 服务。
 
 ### 配置
 
@@ -187,16 +187,16 @@ JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。 J
 
 在你的网站使用 HTTPS 服务会对性能有影响。这个不良影响主要来自于设置 SSL 握手，导致大量的等待时间。但是，跟其他地方一样，我们可以在这方面做些工作！
 
-**HTTP严格传输安全**是一个 HTTP 头，可以让服务器告诉浏览器它只允许使用 HTTPS 通讯。这个方法避免了 HTTP 请求被重定向为 HTTPS 。所有试图连接到这个网站的 HTTP 应该自动被转换。它节省了一个来回。
+**HTTP 严格传输安全**是一个 HTTP 头，可以让服务器告诉浏览器它只允许使用 HTTPS 通讯。这个方法避免了 HTTP 请求被重定向为 HTTPS 。所有试图连接到这个网站的 HTTP 应该自动被转换。它节省了一个来回。
 
 **TLS 错误开端** 允许客户端在第一个 TLS 来回之后立刻发送加密数据。这个优化对于新的 TLS 链接把握手减少到了一个来回。一旦客户端知道密钥便可以开始传输应用数据。剩下的握手用于确认没人在篡改握手记录，并可以并行执行。
 
-**TLS会话恢复** 通过确认浏览器和服务器在过去是否在 TLS 上通信过的节约了另一个来回，浏览器可以记忆 session 标识符，在下一次建立连接时，标识符可以重新使用并节约一个来回。
+**TLS 会话恢复** 通过确认浏览器和服务器在过去是否在 TLS 上通信过的节约了另一个来回，浏览器可以记忆 session 标识符，在下一次建立连接时，标识符可以重新使用并节约一个来回。
 
 我听起来像一个开发运营工程师，但我不是。我只是读了一些东西并看了一些视频。我喜欢来自 Google I/O 2016的[Mythbusting HTTPS: Squashing security’s urban legends by Emily Stark](https://www.youtube.com/watch?v=YMfW1bfyGSY)
 ### cookies 的使用
 
-我们没有服务器端的语言，只有静态的Apache网络服务器。但一个 Apache 网络服务器仍然可以执行 server side includes（SSI）和阅读 cookies。通过巧妙的使用 cookies 和分发部分被 Apache 重写的 HTML，我们可以加速前端的性能。看下面的例子（我们实际的代码要复杂一点，但可以归纳为一样的想法）：
+我们没有服务器端的语言，只有静态的 Apache 网络服务器。但一个 Apache 网络服务器仍然可以执行 server side includes（SSI）和阅读 cookies。通过巧妙的使用 cookies 和分发部分被 Apache 重写的 HTML，我们可以加速前端的性能。看下面的例子（我们实际的代码要复杂一点，但可以归纳为一样的想法）：
 
 
     <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"-->
@@ -222,7 +222,7 @@ Apache 服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。�
 - `$HTTP_COOKIE!=/css-loaded/` 检查是否没有 CSS 缓存 cookie 存在
 - `$HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css'` 检查 CSS 缓存的版本是否最新的版本
 - If `<!-- #if expr="..." -->` 如果这是访问者的第一次浏览，我们赋值为`true`
-- 对于第一次浏览，我们增加一个 `<noscript>` 标签带有阻塞的`<link rel="stylesheet">`。我们为了可以通过 JavaScript 来异步加载完整CSS而这样做。如果 JavaScript 被禁止了，这是不可能完成的。这代表着一种后备方案，我们 `按照常规` 用阻塞方式加载 CSS.。
+- 对于第一次浏览，我们增加一个 `<noscript>` 标签带有阻塞的`<link rel="stylesheet">`。我们为了可以通过 JavaScript 来异步加载完整 CSS 而这样做。如果 JavaScript 被禁止了，这是不可能完成的。这代表着一种后备方案，我们 `按照常规` 用阻塞方式加载 CSS.。
 - 我们增加一个带有懒加载 CSS 和 `onloadCSS` 回调及设置 cookies 的函数的嵌入脚本
 - 在同一个脚本我们异步载入完整 CSS。
 - 在 `onloadCSS` 回调我们把带有版本哈希的 cookie 值设置成 cookie。
@@ -233,9 +233,9 @@ Apache 服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。�
 ![Cookie overview screenshot](https://www.voorhoede.nl/assets/images/voorhoede-cookies-l.jpg)看我们的 cookies 是如何被用于区分第一次浏览和重复浏览。
 ## 文件级别缓存
 
-因为我们在重复浏览中很依赖于浏览器缓存，我们需要确认我们的缓存是正确的。我们在理想情况下想永久缓存资源（css,js,fonts,images），仅在文件改变的时候让缓存无效。如果URL是独特的话，缓存是无效的。当我们发布新版本时，我们`git tag`我们的网站，最简单的方式是增加一个带版本号的查询参数来请 URLs。像`https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`。但是，这个方法的缺点是当我们需要写一个新的博客推送（这是我们的代码库的一部分，不是存放在外部的 CMS），我们所有的资源的缓存会无效化，尽管这些资源没有变化。
+因为我们在重复浏览中很依赖于浏览器缓存，我们需要确认我们的缓存是正确的。我们在理想情况下想永久缓存资源（css,js,fonts,images），仅在文件改变的时候让缓存无效。如果 URL 是独特的话，缓存是无效的。当我们发布新版本时，我们`git tag`我们的网站，最简单的方式是增加一个带版本号的查询参数来请 URLs。像`https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`。但是，这个方法的缺点是当我们需要写一个新的博客推送（这是我们的代码库的一部分，不是存放在外部的 CMS），我们所有的资源的缓存会无效化，尽管这些资源没有变化。
 
-当尝试升级我们的方法时，我们偶然发现 [gulp-rev](https://github.com/sindresorhus/gulp-rev) 和 [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace)。这些脚本通过在文件名加上内容哈希来帮助我们修订文件版本。这意味着只有文件实际变化时URL请求才会变化。现在我们有了基于每个文件的缓存无效化处理。这让我的心跳变得猛烈了！
+当尝试升级我们的方法时，我们偶然发现 [gulp-rev](https://github.com/sindresorhus/gulp-rev) 和 [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace)。这些脚本通过在文件名加上内容哈希来帮助我们修订文件版本。这意味着只有文件实际变化时 URL 请求才会变化。现在我们有了基于每个文件的缓存无效化处理。这让我的心跳变得猛烈了！
 
 ## 结果
 
@@ -245,9 +245,9 @@ Apache 服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。�
 ![Network analysis for de Voorhoede site for the first page view](https://www.voorhoede.nl/assets/images/voorhoede-network-analysis-l.jpg)一个关于页面第一次浏览时演化的总览。
 在 50KB/S 的 GPRS 网络下首次访问我们的网站的第 2.27 秒，我们的首屏渲染的情况可以在幻灯片的第一张图片和与黄线对应的瀑布流上观察。黄线在 HTML 被加载后的右侧绘制。 HTML 包括关键 CSS，保证了页面是可用的。所有其他的阻塞资源被设置为懒加载的，因此我们可以在别的部分被下载后再跟页面进行交互。这就是我们想要的！
 
-另一个需要注意的是自定义字体在这样的慢连接下是不会被加载的。font face observer 会关注这一点，如果我们不异步加载字体，在大多数浏览器你会在FOIT等待一段时间。
+另一个需要注意的是自定义字体在这样的慢连接下是不会被加载的。font face observer 会关注这一点，如果我们不异步加载字体，在大多数浏览器你会在 FOIT 等待一段时间。
 
-完整的 CSS 文件在 8 秒后才被加载。相反，如果我们使用阻塞方式加载完整CSS而不是嵌入关键 CSS，我们可能会盯着白屏页面 8 秒。
+完整的 CSS 文件在 8 秒后才被加载。相反，如果我们使用阻塞方式加载完整 CSS 而不是嵌入关键 CSS，我们可能会盯着白屏页面 8 秒。
 
 如果你好奇这些时间跟不那么关注性能的页面相比是怎样的结果，就去试试吧。加载时间会涨破屋顶！
 

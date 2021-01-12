@@ -6,7 +6,7 @@
 
 # 世界级的 Android 测试流程（二）
 
-在我们的上一篇博客文章，[“世界级的Android测试开发流程（一）”，我们开始讨论一个Android的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
+在我们的上一篇博客文章，[“世界级的 Android 测试开发流程（一）”，我们开始讨论一个 Android 的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
 
 * 自动化测试是成功的软件开发的关键。
 * 为了写特定类型的测试，可测试的代码是必须的。
@@ -17,7 +17,7 @@
 相应地，任何应用的测试关键部分是：
 
 * 独立于框架或者库去测试业务逻辑。
-* 测试服务器端的API集成。
+* 测试服务器端的 API 集成。
 * 在黑盒场景测试下，从用户角度写的的接收准则。
 
 在这篇文章中，我们将会看到几个测试方法，它们覆盖了上述部分并保证了一个稳若盘石的测试开发流程。
@@ -30,9 +30,9 @@
 
 通常在构造中传递类依赖是最有效的应用依赖倒置的机制。该机制足够用来引入测试替身。在构造中传递类依赖会帮助我们创建实例来替代对应测试替身的依赖。**尽管并不是强制的，记住[服务定位器(Service Locator)或者依赖注入](http://martinfowler.com/articles/injection.html)框架的用法对帮助减少样板代码以应用依赖倒置仍然很重要。**
 
-**我们将会用一个具体的例子 (**关于 [我几个月前开始做的Android GameBoy模拟器](https://github.com/pedrovgs/AndroidGameBoyEmulator) 的测试**) 来展示如何测试我们的业务需求。**
+**我们将会用一个具体的例子 (**关于 [我几个月前开始做的 Android GameBoy 模拟器](https://github.com/pedrovgs/AndroidGameBoyEmulator) 的测试**) 来展示如何测试我们的业务需求。**
 
-以下测试有关于GameBoy内存管理单元和GameBoy BIOS执行。我们将会检查产品需求（硬件模拟）是否被正确实现。
+以下测试有关于 GameBoy 内存管理单元和 GameBoy BIOS 执行。我们将会检查产品需求（硬件模拟）是否被正确实现。
 
     public class MMUTest {  
       private static final int MMU_SIZE = 65536;
@@ -64,7 +64,7 @@
       }
     }
 
-前三个测试是检查GameBoy MMU（内存管理单元）是否正确实现。成功的关键在于检查测试执行的最后MMU状态是否正确。所有的测试检查MMU是否被正确初始化。如果reset后，MMU被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们缩小了测试范围，仅有一个类作为测试对象。
+前三个测试是检查 GameBoy MMU（内存管理单元）是否正确实现。成功的关键在于检查测试执行的最后 MMU 状态是否正确。所有的测试检查 MMU 是否被正确初始化。如果 reset后，MMU 被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们缩小了测试范围，仅有一个类作为测试对象。
 
     public class GameBoyBIOSExecutionTest {
 
@@ -97,17 +97,17 @@
 
     }
 
-在这两个测试中，我们检查了跨越不同阶段的BIOS是否执行正确。在BIOS执行的最后，内存中具体位置的一个字节必须被初始化为具体的一个值。接着，在第三阶段的最后，任天堂的logo必须被读取到VRAM。我们决定扩大测试的范围，因为整个BIOS执行是任何模拟器开发的关键部分之一。关于该测试的主题是CPU，CPU指令集的部分（只包括BIOS执行相关的指令），以及MMU。为了检查执行的状态是否正确，我们必须在MMU状态上进行assert。**一个能显著提升测试质量的关键就是检查执行最后的软件状态，而避免去验证和其他组件的交互。这是因为即便和你的组件交互正确，状态仍然可能错误。** 知道这些测试的部分是独立的也很重要，像是CPU指令。
+在这两个测试中，我们检查了跨越不同阶段的 BIOS 是否执行正确。在 BIOS 执行的最后，内存中具体位置的一个字节必须被初始化为具体的一个值。接着，在第三阶段的最后，任天堂的 logo 必须被读取到 VRAM。我们决定扩大测试的范围，因为整个 BIOS 执行是任何模拟器开发的关键部分之一。关于该测试的主题是 CPU，CPU 指令集的部分（只包括 BIOS 执行相关的指令），以及 MMU。为了检查执行的状态是否正确，我们必须在 MMU 状态上进行 assert。**一个能显著提升测试质量的关键就是检查执行最后的软件状态，而避免去验证和其他组件的交互。这是因为即便和你的组件交互正确，状态仍然可能错误。** 知道这些测试的部分是独立的也很重要，像是 CPU 指令。
 
-这些测试的另一个主要亮点是使用了测试替身，以模拟Android SDK使用相关的那些代码。在执行BIOS之前，GameBoy游戏必须被读取到GameBoy MMU里。然后，在测试期间，Android SDK将会变得不可用，作为一种变通方法，我们将不得不替换为从测试环境读取GameBoy rom。_* 我们使用了依赖倒置原则不仅仅是为了隐藏实现细节或者定义边界，—_* 也是为了替代实际生产环境的AndroidGameReader为FakeGameReader，一个测试替身，**从而不依赖于框架和库去测试代码。这样，我们创建了一个隔离的测试环境，并调整了测试范围。**
+这些测试的另一个主要亮点是使用了测试替身，以模拟 Android SDK 使用相关的那些代码。在执行 BIOS 之前，GameBoy 游戏必须被读取到 GameBoy MMU 里。然后，在测试期间，Android SDK 将会变得不可用，作为一种变通方法，我们将不得不替换为从测试环境读取 GameBoy rom。_* 我们使用了依赖倒置原则不仅仅是为了隐藏实现细节或者定义边界，—_* 也是为了替代实际生产环境的 AndroidGameReader 为 FakeGameReader，一个测试替身，**从而不依赖于框架和库去测试代码。这样，我们创建了一个隔离的测试环境，并调整了测试范围。**
 
 ### **范围：**
 
-调整测试范围是极其重要的。在写测试前，我们必须记住测试范围会帮助我们认识代码里的缺陷（取决于测试范围的大小）。简化的范围将会给我们更丰富的错误反馈，而大范围的测试则无法提供bug位置的准确信息。**测试的粒度必须跟考虑中的测试范围一样小。**
+调整测试范围是极其重要的。在写测试前，我们必须记住测试范围会帮助我们认识代码里的缺陷（取决于测试范围的大小）。简化的范围将会给我们更丰富的错误反馈，而大范围的测试则无法提供 bug 位置的准确信息。**测试的粒度必须跟考虑中的测试范围一样小。**
 
 ### **基础：**
 
-写这些测试的基础很明确。我们需要写出在依赖倒置原则下可测试的代码，并结合mocking库使用测试框架。mocking库将会帮助我们创建模拟场景下的测试替身，或替换我们部分的生产代码。请注意这些框架和库的使用不是必须的，但我们推荐使用。
+写这些测试的基础很明确。我们需要写出在依赖倒置原则下可测试的代码，并结合 mocking 库使用测试框架。mocking 库将会帮助我们创建模拟场景下的测试替身，或替换我们部分的生产代码。请注意这些框架和库的使用不是必须的，但我们推荐使用。
 
 ### **结果：**
 
@@ -117,8 +117,8 @@
 
 参考：
 
-* 世界级的Android测试开发流程（一）by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
+* 世界级的 Android 测试开发流程（一）by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
 * Android GameBoy 模拟器 GitHub Repository by Pedro Vicente Gómez Sánchez. [https://github.com/pedrovgs/AndroidGameBoyEmulator](https://github.com/pedrovgs/AndroidGameBoyEmulator)
 * 控制反转容器和依赖注入模式 by Martin Fowler. [http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html)
-* 在野外的DIP by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
+* 在野外的 DIP by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
 * 测试替身 by Martin Fowler. [http://www.martinfowler.com/bliki/TestDouble.html](http://www.martinfowler.com/bliki/TestDouble.html)

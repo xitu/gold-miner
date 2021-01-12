@@ -26,7 +26,7 @@
 > 
 > - [Callum Jefferies 在尝试通过 BEM 命名方式使用超分子 CSS 之后发表的言论](https://madebymany.com/stories/takeaways-from-trying-out-tachyons-css-after-ages-using-bem)
 
-[原子 CSS](https://css-tricks.com/lets-define-exactly-atomic-css/) 提供了一套直接、明显并且简单的方法论。类是不可变的，你不可以改变类名。这使得s使用 CSS 是可预见的和可靠的，因为类总是做**完全**相同的事情。在 HTML 文件中添加或者移除一个有作用域范围的公用类是明确的，它让你确信你不会破坏其他任何东西。这可以减少认知负荷和精神负担。
+[原子 CSS](https://css-tricks.com/lets-define-exactly-atomic-css/) 提供了一套直接、明显并且简单的方法论。类是不可变的，你不可以改变类名。这使得 s 使用 CSS 是可预见的和可靠的，因为类总是做**完全**相同的事情。在 HTML 文件中添加或者移除一个有作用域范围的公用类是明确的，它让你确信你不会破坏其他任何东西。这可以减少认知负荷和精神负担。
 
 给组件命名是出了的困难。想出一个既有意义又足够通用的类名费时又费力。
 

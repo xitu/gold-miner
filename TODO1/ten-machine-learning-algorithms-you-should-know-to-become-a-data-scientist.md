@@ -91,7 +91,7 @@ Sigmod 函数图像如下：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Sb5O5yzsZmfVgiePgGln1Q.jpeg)
 
-可以使用LR来训练简单但非常健壮的分类器。
+可以使用 LR 来训练简单但非常健壮的分类器。
 
 ### 工具库：
 

@@ -78,7 +78,7 @@ let hey: String = "world"
 hey = "no"
 ```
 
-通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。可为空的变量在 Swift 中称为 **可选项**。
+通过为这两个变量增加类型标注，你已经将 `hello` 设置为 **可为空** 的 String，由 `String?` 中的 `?` 表示，而 `hey` 是一个 **非空** 的 String。可为空的变量在 Swift 中称为 **可选项**。
 
 为什么这个细节很重要？空值通常会导致应用程序中出现令人讨厌的崩溃，尤其是当你的数据源并不是始终在客户端中进行定义时（例如，如果你希望服务器获得某个值而且它并没有返回）。使用 `let` 和 `var` 之类的简单前缀允许你进行内置的动态检查以防止程序在值为空时进行编译。有关更多信息，请参阅有关 Swift 中函数编程的 [相关教程](https://www.raywenderlich.com/693-an-introduction-to-functional-programming-in-swift)。
 
@@ -203,7 +203,7 @@ private fun passwordIsValid(passwordInput: String): Boolean {
 2.  用 `this` 而不是 `self`
 3.  用 `string =` 而不是 `string:`
 
-请注意，在Kotlin 中不需要 `string =` 方法，它有助于保持本教程中两种语言之间的相似性。在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。阅读有关 `@JvmOverloads` 函数的 [更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 以了解有关默认参数的更多信息！
+请注意，在 Kotlin 中不需要 `string =` 方法，它有助于保持本教程中两种语言之间的相似性。在其他实践里的标签是 Kotlin 为了使 Java 代码可以访问默认函数参数而包含的更多细节。阅读有关 `@JvmOverloads` 函数的 [更多信息](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.jvm/-jvm-overloads/index.html) 以了解有关默认参数的更多信息！
 
 **错误展示**
 
@@ -330,9 +330,9 @@ private fun bearAttack() {
 1.  调用 `setImageDrawable` 函数将 `bear_image_view` 的图像资源设置为 *bear5.png* 可绘制的资源，该资源已包含在 *app ▸ res ▸ drawable* 目录下。
 2.  然后调用 `setBackgroundColor` 函数将 `bear_container` 视图的背景设置为预先定义的颜色 `R.color.red`。
 3.  将 `isHidden` 属性更改为 `visibility`，而不是将按钮的可见性切换为 `View.INVISIBLE`。
-4.  也许你对代码的最不直观的改变是重写 `DispatchQueue`，但不要害怕！Android的 `asyncAfter` 是一个简单的 `postDelayed` 动作，你在 `bear_container` 视图上设置。
+4.  也许你对代码的最不直观的改变是重写 `DispatchQueue`，但不要害怕！Android 的 `asyncAfter` 是一个简单的 `postDelayed` 动作，你在 `bear_container` 视图上设置。
 
-几乎就要完成了！还有另一个要从 Swift 转换为 Kotlin 的功能。复制 Swift `reset` 函数的主体并将其粘贴到Android项目的 `BearActivity` 类重置中来重复这个转换过程：
+几乎就要完成了！还有另一个要从 Swift 转换为 Kotlin 的功能。复制 Swift `reset` 函数的主体并将其粘贴到 Android 项目的 `BearActivity` 类重置中来重复这个转换过程：
 
 ```swift
 self.tapCount = 0
@@ -365,7 +365,7 @@ if (this.tapCount == 3) {
 }
 ```
 
-> **额外声明**：这个if/else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如 `switch`，也就是在 Kotlin 中的 `when`。
+> **额外声明**：这个 if/else 阶梯语句可以很容易地用更具表现力的 [控制流语句](https://kotlinlang.org/docs/reference/control-flow.html) 替换，比如 `switch`，也就是在 Kotlin 中的 `when`。
 
 如果你想简化逻辑，请尝试一下。
 

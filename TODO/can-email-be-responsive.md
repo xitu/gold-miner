@@ -55,13 +55,13 @@
 
 ## 进化的收件箱
 
-就像Web的其他部分一样，收件箱也开始走向移动化。在2013年，[51%的用户在移动设备上打开邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013)。而且还考虑到 [越来越多人](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) 使用移动设备来连接互联网，无论出于爱好与习性，这一数字还在持续增长。
+就像 Web 的其他部分一样，收件箱也开始走向移动化。在2013年，[51%的用户在移动设备上打开邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013)。而且还考虑到 [越来越多人](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) 使用移动设备来连接互联网，无论出于爱好与习性，这一数字还在持续增长。
 
 好消息是，Web 设计人员现有的创造一个对大多数用户所重视的良好的用户体验的技能也适用于邮件广告，这也是被许多设计者忽略的。
 
-## HTML邮件的原理是什么
+## HTML 邮件的原理是什么
 
-通常来讲，假设 web 设计与 [遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards) 无关，那么 HTML 邮件与网页设计很类似。HTML 邮件基于三样东西：表格，HTML 属性，内联样式。在你学习写 HTML 邮件的时候要知道。由于电子邮件客户端渲染引擎的限制，我们只能使用 HTML 与 CSS 中非常有限的一部分子集。Campaign Monitor 在维护一份有关大多数主流邮件客户端所支持的 CSS 属性的 [非常好的图表](http://www.campaignmonitor.com/css/)。
+通常来讲，假设 web 设计与 [遵循 Web 标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards) 无关，那么 HTML 邮件与网页设计很类似。HTML 邮件基于三样东西：表格，HTML 属性，内联样式。在你学习写 HTML 邮件的时候要知道。由于电子邮件客户端渲染引擎的限制，我们只能使用 HTML 与 CSS 中非常有限的一部分子集。Campaign Monitor 在维护一份有关大多数主流邮件客户端所支持的 CSS 属性的 [非常好的图表](http://www.campaignmonitor.com/css/)。
 
 在我们讲如何构建自适应的邮件前我们先回顾一下 HTML 邮件的基础。举个例子，我曾改编过我们在 Litmus 中通讯用的邮件模板。多亏了 Litmus 和我们出色的设计师 [Kevin Mandeville](http://dribbble.com/KEVINgotbounce)，A List Apart 的读者们可以学习并且使用我们在许多电子邮件广告中使用的代码，这些现在都在 [A List Apart 的 Github 账号](https://github.com/alistapart/salted) 上。你可以查看 [Litmus tests](https://litmus.com/pub/d5586ad/screenshots) 的全部示例来看他在跨客户端中的表现。
 
@@ -129,7 +129,7 @@ HTML 邮件的主要优势之一就是可以使用超链接。HTML 邮件允许�
 
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)
 
-即使图片被禁用，Bulletproof buttons依旧表现良好。
+即使图片被禁用，Bulletproof buttons 依旧表现良好。
 
 一旦你掌握了这些基础，我们就可以继续了解如何让邮件在一系列不同的设备尺寸上依旧表现良好。
 
@@ -139,7 +139,7 @@ HTML 邮件的主要优势之一就是可以使用超链接。HTML 邮件允许�
 
 网页与邮件唯一不同的是这三种技术的实现方式。
 
-在邮件设计中，我们只能使用 HTML 和 CSS 的一部分。我们不能依靠使用在响应式网页中的那些属性；margin，float和 em 在许多客户端上无效。所以我们必须另辟蹊径。
+在邮件设计中，我们只能使用 HTML 和 CSS 的一部分。我们不能依靠使用在响应式网页中的那些属性；margin，float 和 em 在许多客户端上无效。所以我们必须另辟蹊径。
 
 ### 弹性布局图片
 
@@ -224,7 +224,7 @@ img[class="img-max”] {
 
 上述的这些技巧都仅仅是入门。前卫的邮件开发者正在研究在邮件中使用 Web 字体，SVG，和 CSS3 动画。当然，邮件设计依旧十分困难而且常常违背预期，但是这不应该阻止你去探索更多能提高你和你的用户体验的技术。
 
-我唯一的建议是非常严格地测试你的邮件。从渲染能力和对HTML/CSS的支持程度，邮件客户端还远不及浏览器。既要在真机测试，也要使用邮件预览服务测试。邮件预览服务例如 [Litmus](http://litmus.com)、[Email on Acid](http://emailonacid.com)，你自己的 [测试环境](http://stylecampaign.com/blog/2012/09/mobile-email-testing-rig/)，或者其他一些能在你发送给海量订阅者前帮助你找到并修复问题的工具。
+我唯一的建议是非常严格地测试你的邮件。从渲染能力和对 HTML/CSS 的支持程度，邮件客户端还远不及浏览器。既要在真机测试，也要使用邮件预览服务测试。邮件预览服务例如 [Litmus](http://litmus.com)、[Email on Acid](http://emailonacid.com)，你自己的 [测试环境](http://stylecampaign.com/blog/2012/09/mobile-email-testing-rig/)，或者其他一些能在你发送给海量订阅者前帮助你找到并修复问题的工具。
 
 非常严格的测试你编写的任意邮件，还要跟踪你的用户对 [哪种内容](http://mailchimp.com/resources/guides/how-to-create-an-email-marketing-plan/html/)、副本、设计和 [发送频率](http://www.campaignmonitor.com/guides/planning/qanda/) 的满意程度。
 

@@ -122,7 +122,7 @@ const promise1 = new Promise((resolve, reject) => setTimeout(() => resolve('prom
 const promise2 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 2 resolved!'), 200))
 const promise3 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 3 resolved!'), 300))
 
-// promise 4 和 6 将会resolved, 但是 promise 5 将被 rejected
+// promise 4 和 6 将会 resolved, 但是 promise 5 将被 rejected
 const promise4 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 4 resolved!'), 1100))
 const promise5 = new Promise((resolve, reject) => setTimeout(() => reject('promise 5 rejected!'), 1200))
 const promise6 = new Promise((resolve, reject) => setTimeout(() => resolve('promise 6 resolved!'), 1300))

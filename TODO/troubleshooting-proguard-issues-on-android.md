@@ -96,7 +96,7 @@ OkHttp 库在 3.8.0 版本的类中添加了新的注解（`javax.annotation.Nul
 
 现在您可能会尝试使用 **-**[**ignorewarnings**](https://www.guardsquare.com/en/proguard/manual/usage#ignorewarnings) 选项直接忽略所有的警告，但这通常不是个好注意。在某些情况下，ProGuard 的警告确实有助于您发现闪退的罪魁祸首和关于[您配置上的其他问题](https://www.guardsquare.com/en/proguard/manual/troubleshooting#dynamicalclass)。
 
-您可能需要了解一下 Progard的 _notes_ （优先级低于警告的消息），它可以帮您发现一些反射相关的问题。虽然它不会打断您的构建，但是在运行时可能会闪退。这会在下面的场景中发生：
+您可能需要了解一下 Progard 的 _notes_ （优先级低于警告的消息），它可以帮您发现一些反射相关的问题。虽然它不会打断您的构建，但是在运行时可能会闪退。这会在下面的场景中发生：
 
 ## 当 ProGuard 移除过多的类
 

@@ -13,7 +13,7 @@
 
 我在 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO1/exploratory-statistical-data-analysis-with-a-kaggle-dataset-using-pandas.md) 中，展示了如何了解一个数据集的完整性，并绘制一些变量，以及查看随时间变化的趋势和倾向。
 
-为此，我在 Jupyter Notebook 上使用了 [Python 的 Pandas 框架](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 进行数据分析和处理，并使用Seaborn 框架进行可视化。
+为此，我在 Jupyter Notebook 上使用了 [Python 的 Pandas 框架](https://towardsdatascience.com/exploratory-data-analysis-with-pandas-and-jupyter-notebooks-36008090d813) 进行数据分析和处理，并使用 Seaborn 框架进行可视化。
 
 和本文一样，前一篇文章中我们使用了 [Kaggle 上 120 年奥运会数据集](https://www.kaggle.com/heesoo37/120-years-of-olympic-history-athletes-and-results#athlete_events.csv)，研究了女性运动员随时间推进的参与情况、运动员的体重和身高分布以及其它一些变量的分析，但没有使用到每一位运动员参与运动项目的数据。
 

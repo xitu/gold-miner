@@ -447,7 +447,7 @@ _注意_: 如果你打开 _`PhotoCollectionImageCell.cs`_，你无法看见新�
 ```
 
 
-之后，打开 _`ViewController.cs`_ z且增加以下框架 
+之后，打开 _`ViewController.cs`_ z 且增加以下框架 
 
 ```
     using Photos;

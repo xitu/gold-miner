@@ -51,7 +51,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 这里我们创建了一个初始化方法有缺陷的结构体 `Person` 。如果我们在初始化中不给实例提供 `first name` 和 `last name` 的值的话，那么初始化将会失败。
 
-在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**，在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 `init!` 。因为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
+在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**，在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为 nil 的实例时所产生的异常，那么你可以使用 `init!` 。因为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
 
 在 '.*' 中，这个初始化方法将会生成一个 `ImplicitlyUnwrappedOptional<Person>` 。如果初始化失败，所有基于 `Person` 的实例将会产生异常。
 
@@ -162,7 +162,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ## 一些想说的话
 
-`ImplicitlyUnwrappedOptional` 的改变可能是处于这样一种原因：我们通常在 **macOS** 或者 **iOS** 上操作利用 **Objective-C** 所编写的API，在这些API中，某些情况下，它们的返回值可能是为 `nil`，对于 **Swift** 来讲，这种情况是不安全的。
+`ImplicitlyUnwrappedOptional` 的改变可能是处于这样一种原因：我们通常在 **macOS** 或者 **iOS** 上操作利用 **Objective-C** 所编写的 API，在这些 API中，某些情况下，它们的返回值可能是为 `nil`，对于 **Swift** 来讲，这种情况是不安全的。
 
 因此，**Swift** 正在避免这样的不安全的情况发生。非常感谢 **Swift** 开发者对于 `ImplicitlyUnwrappedOptional` 所进行的改进。我们现在可以非常方便的去编写健壮的代码。也许在未来某一天，`ImplicitlyUnwrappedOptional` 可能会彻底的从我们视野里消失。=
 

@@ -26,7 +26,7 @@
 
 根据[维基百科](https://www.wikipedia.org/)给出的定义，“[协程](https://en.wikipedia.org/wiki/Coroutine) 是为非抢占式多任务产生子程序的计算机程序组件，协程允许不同入口点在不同位置暂停或开始执行程序”。从技术的角度来说，“协程就是你可以暂停执行的函数”。如果你把它理解成“就像生成器一样”，那么你就想对了。
 
-退回到 [Python 2.2](https://docs.python.org/3/whatsnew/2.2.html)，生成器第一次在[PEP 255](https://www.python.org/dev/peps/pep-0255/)中提出（那时也把它成为迭代器，因为它实现了[迭代器协议](https://docs.python.org/3/library/stdtypes.html#iterator-types)）。主要是受到[Icon编程语言](http://www.cs.arizona.edu/icon/)的启发，生成器允许创建一个在计算下一个值时不会浪费内存空间的迭代器。例如你想要自己实现一个 `range()` 函数，你可以用立即计算的方式创建一个整数列表：
+退回到 [Python 2.2](https://docs.python.org/3/whatsnew/2.2.html)，生成器第一次在[PEP 255](https://www.python.org/dev/peps/pep-0255/)中提出（那时也把它成为迭代器，因为它实现了[迭代器协议](https://docs.python.org/3/library/stdtypes.html#iterator-types)）。主要是受到[Icon 编程语言](http://www.cs.arizona.edu/icon/)的启发，生成器允许创建一个在计算下一个值时不会浪费内存空间的迭代器。例如你想要自己实现一个 `range()` 函数，你可以用立即计算的方式创建一个整数列表：
 
 
     def eager_range(up_to):
@@ -123,13 +123,13 @@ Python 2.2 中的生成器让代码执行过程可以暂停。Python 2.5 中可�
 
 如果你想了解 `async`/`await`，那么理解什么是事件循环以及它是如何让异步编程变为可能就相当重要了。如果你曾做过 GUI 编程 - 包括网页前端工作 - 那么你已经和事件循环打过交道。但是由于异步编程的概念作为 Python 语言结构的一部分还是最近才有的事，你刚好不知道什么是事件循环也很正常。
 
-回到维基百科，[事件循环](https://en.wikipedia.org/wiki/Event_loop) “是一种等待程序分配事件或消息的编程架构”。基本上来说事件循环就是，“当A发生时，执行B”。或许最简单的例子来解释这一概念就是用每个浏览器中都存在的JavaScript事件循环。当你点击了某个东西（“当A发生时”），这一点击动作会发送给JavaScript的事件循环，并检查是否存在注册过的 `onclick` 回调来处理这一点击（“执行B”）。只要有注册过的回调函数就会伴随点击动作的细节信息被执行。事件循环被认为是一种循环是因为它不停地收集事件并通过循环来发如何应对这些事件。
+回到维基百科，[事件循环](https://en.wikipedia.org/wiki/Event_loop) “是一种等待程序分配事件或消息的编程架构”。基本上来说事件循环就是，“当 A 发生时，执行 B”。或许最简单的例子来解释这一概念就是用每个浏览器中都存在的 JavaScript 事件循环。当你点击了某个东西（“当 A 发生时”），这一点击动作会发送给 JavaScript 的事件循环，并检查是否存在注册过的 `onclick` 回调来处理这一点击（“执行 B”）。只要有注册过的回调函数就会伴随点击动作的细节信息被执行。事件循环被认为是一种循环是因为它不停地收集事件并通过循环来发如何应对这些事件。
 
-对 Python 来说，用来提供事件循环的 `asyncio` 被加入标准库中。`asyncio` 重点解决网络服务中的问题，事件循环在这里将来自套接字（socket）的 I/O 已经准备好读和/或写作为“当A发生时”（通过[`selectors`模块](https://docs.python.org/3/library/selectors.html#module-selectors)）。除了 GUI 和 I/O，事件循环也经常用于在别的线程或子进程中执行代码，并将事件循环作为调节机制（例如，[合作式多任务](https://en.wikipedia.org/wiki/Cooperative_multitasking)）。如果你恰好理解 Python 的 GIL，事件循环对于需要释放 GIL 的地方很有用。
+对 Python 来说，用来提供事件循环的 `asyncio` 被加入标准库中。`asyncio` 重点解决网络服务中的问题，事件循环在这里将来自套接字（socket）的 I/O 已经准备好读和/或写作为“当 A 发生时”（通过[`selectors`模块](https://docs.python.org/3/library/selectors.html#module-selectors)）。除了 GUI 和 I/O，事件循环也经常用于在别的线程或子进程中执行代码，并将事件循环作为调节机制（例如，[合作式多任务](https://en.wikipedia.org/wiki/Cooperative_multitasking)）。如果你恰好理解 Python 的 GIL，事件循环对于需要释放 GIL 的地方很有用。
 
 ## 总结
 
-事件循环提供一种循环机制，让你可以“在A发生时，执行B”。基本上来说事件循环就是监听当有什么发生时，同时事件循环也关心这件事并执行相应的代码。Python 3.4 以后通过标准库 `asyncio` 获得了事件循环的特性。
+事件循环提供一种循环机制，让你可以“在 A 发生时，执行 B”。基本上来说事件循环就是监听当有什么发生时，同时事件循环也关心这件事并执行相应的代码。Python 3.4 以后通过标准库 `asyncio` 获得了事件循环的特性。
 
 ## `async` 和 `await` 是如何运作的
 
@@ -158,9 +158,9 @@ Python 2.2 中的生成器让代码执行过程可以暂停。Python 2.5 中可�
 
 Python 3.4 中，[`asyncio.coroutine` 修饰器](https://docs.python.org/3/library/asyncio-task.html#asyncio.coroutine)用来标记作为[协程](https://docs.python.org/3/reference/datamodel.html?#coroutine-objects)的函数，这里的协程是和`asyncio`及其事件循环一起使用的。这赋予了 Python 第一个对于协程的明确定义：实现了[PEP 342](https://www.python.org/dev/peps/pep-0342/)添加到生成器中的这一方法的对象，并通过[`collections.abc.Coroutine`这一抽象基类]表征的对象。这意味着突然之间所有实现了协程接口的生成器，即便它们并不是要以协程方式应用，都符合这一定义。为了修正这一点，`asyncio` 要求所有要用作协程的生成器必须[由`asyncio.coroutine`修饰](https://docs.python.org/3/library/asyncio-task.html#asyncio.coroutine)。
 
-有了对协程明确的定义（能够匹配生成器所提供的API），你可以对任何[`asyncio.Future`对象](https://docs.python.org/3/library/asyncio-task.html#future)使用 `yield from`，从而将其传递给事件循环，暂停协程的执行来等待某些事情的发生（ future 对象并不重要，只是`asyncio`细节的实现）。一旦 future 对象获取了事件循环，它会一直在那里监听，直到完成它需要做的一切。当 future 完成自己的任务之后，事件循环会察觉到，暂停并等待在那里的协程会通过`send()`方法获取future对象的返回值并开始继续执行。
+有了对协程明确的定义（能够匹配生成器所提供的 API），你可以对任何[`asyncio.Future`对象](https://docs.python.org/3/library/asyncio-task.html#future)使用 `yield from`，从而将其传递给事件循环，暂停协程的执行来等待某些事情的发生（ future 对象并不重要，只是`asyncio`细节的实现）。一旦 future 对象获取了事件循环，它会一直在那里监听，直到完成它需要做的一切。当 future 完成自己的任务之后，事件循环会察觉到，暂停并等待在那里的协程会通过`send()`方法获取 future 对象的返回值并开始继续执行。
 
-以上面的代码为例。事件循环启动每一个 `countdown()` 协程，一直执行到遇见其中一个协程的 `yield from` 和 `asyncio.sleep()` 。这样会返回一个 `asyncio.Future`对象并将其传递给事件循环，同时暂停这一协程的执行。事件循环会监控这一future对象，直到倒计时1秒钟之后（同时也会检查其它正在监控的对象，比如像其它协程）。1秒钟的时间一到，事件循环会选择刚刚传递了future对象并暂停了的 `countdown()` 协程，将future对象的结果返回给协程，然后协程可以继续执行。这一过程会一直持续到所有的  `countdown()` 协程执行完毕，事件循环也被清空。稍后我会给你展示一个完整的例子，用来说明协程/事件循环之类的这些东西究竟是如何运作的，但是首先我想要解释一下`async`和`await`。
+以上面的代码为例。事件循环启动每一个 `countdown()` 协程，一直执行到遇见其中一个协程的 `yield from` 和 `asyncio.sleep()` 。这样会返回一个 `asyncio.Future`对象并将其传递给事件循环，同时暂停这一协程的执行。事件循环会监控这一 future 对象，直到倒计时1秒钟之后（同时也会检查其它正在监控的对象，比如像其它协程）。1秒钟的时间一到，事件循环会选择刚刚传递了 future 对象并暂停了的 `countdown()` 协程，将 future 对象的结果返回给协程，然后协程可以继续执行。这一过程会一直持续到所有的  `countdown()` 协程执行完毕，事件循环也被清空。稍后我会给你展示一个完整的例子，用来说明协程/事件循环之类的这些东西究竟是如何运作的，但是首先我想要解释一下`async`和`await`。
 
 ## Python 3.5 从 `yield from` 到 `await`
 
@@ -184,7 +184,7 @@ Python 3.4 中，[`asyncio.coroutine` 修饰器](https://docs.python.org/3/libra
 
 你将发现不仅仅是 `async`，Python 3.5 还引入 `await` 表达式（只能用于`async def`中）。虽然`await`的使用和`yield from`很像，但`await`可以接受的对象却是不同的。`await` 当然可以接受协程，因为协程的概念是所有这一切的基础。但是当你使用 `await` 时，其接受的对象必须是[_awaitable_ 对象](https://docs.python.org/3/reference/datamodel.html?#awaitable-objects)：必须是定义了`__await__()`方法且这一方法必须返回一个**不是**协程的迭代器。协程本身也被认为是 awaitable 对象（这也是`collections.abc.Coroutine` 继承 `collections.abc.Awaitable`的原因）。这一定义遵循 Python 将大部分语法结构在底层转化成方法调用的传统，就像 `a + b` 实际上是`a.__add__(b)` 或者 `b.__radd__(a)`。
 
-`yield from` 和 `await` 在底层的差别是什么（也就是`types.coroutine`与`async def`的差别）？让我们看一下上面两则Python 3.5代码的例子所产生的字节码在本质上有何差异。`py34_coro()`的字节码是：
+`yield from` 和 `await` 在底层的差别是什么（也就是`types.coroutine`与`async def`的差别）？让我们看一下上面两则 Python 3.5代码的例子所产生的字节码在本质上有何差异。`py34_coro()`的字节码是：
 
 
     >>> dis.dis(py34_coro)
@@ -212,25 +212,25 @@ Python 3.4 中，[`asyncio.coroutine` 修饰器](https://docs.python.org/3/libra
                  15 RETURN_VALUE
 
 
-忽略由于`py34_coro()`的`asyncio.coroutine` 修饰器所带来的行号的差别，两者之间唯一可见的差异是[`GET_YIELD_FROM_ITER`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_YIELD_FROM_ITER) 对比[`GET_AWAITABLE`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_AWAITABLE)。两个函数都被标记为协程，因此在这里没有差别。`GET_YIELD_FROM_ITER` 只是检查参数是生成器还是协程，否则将对其参数调用`iter()`方法（只有用在协程内部的时候`yield from`所对应的操作码才可以接受协程对象，在这个例子里要感谢`types.coroutine`修饰符将这个生成器在C语言层面标记为`CO_ITERABLE_COROUTINE`）。
+忽略由于`py34_coro()`的`asyncio.coroutine` 修饰器所带来的行号的差别，两者之间唯一可见的差异是[`GET_YIELD_FROM_ITER`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_YIELD_FROM_ITER) 对比[`GET_AWAITABLE`操作码](https://docs.python.org/3/library/dis.html#opcode-GET_AWAITABLE)。两个函数都被标记为协程，因此在这里没有差别。`GET_YIELD_FROM_ITER` 只是检查参数是生成器还是协程，否则将对其参数调用`iter()`方法（只有用在协程内部的时候`yield from`所对应的操作码才可以接受协程对象，在这个例子里要感谢`types.coroutine`修饰符将这个生成器在 C 语言层面标记为`CO_ITERABLE_COROUTINE`）。
 
-但是 `GET_AWAITABLE`的做法不同，其字节码像`GET_YIELD_FROM_ITER`一样接受协程，但是**不**接受没有被标记为协程的生成器。就像前面讨论过的一样，除了协程以外，这一字节码还可以接受_awaitable_对象。这使得`yield from`和`await`表达式都接受协程但分别接受一般的生成器和awaitable对象。
+但是 `GET_AWAITABLE`的做法不同，其字节码像`GET_YIELD_FROM_ITER`一样接受协程，但是**不**接受没有被标记为协程的生成器。就像前面讨论过的一样，除了协程以外，这一字节码还可以接受_awaitable_对象。这使得`yield from`和`await`表达式都接受协程但分别接受一般的生成器和 awaitable 对象。
 
-你可能会想，为什么基于`async`的协程和基于生成器的协程会在对应的暂停表达式上面有所不同？主要原因是出于最优化Python性能的考虑，确保你不会将刚好有同样API的不同对象混为一谈。由于生成器默认实现协程的API，因此很有可能在你希望用协程的时候错用了一个生成器。而由于并不是所有的生成器都可以用在基于协程的控制流中，你需要避免错误地使用生成器。但是由于 Python 并不是静态编译的，它最好也只能在用基于生成器定义的协程时提供运行时检查。这意味着当用`types.coroutine`时，Python 的编译器将无法判断这个生成器是用作协程还是仅仅是普通的生成器（记住，仅仅因为`types.coroutine`这一语法的字面意思，并不意味着在此之前没有人做过`types = spam`的操作），因此编译器只能基于当前的情况生成有着不同限制的操作码。
+你可能会想，为什么基于`async`的协程和基于生成器的协程会在对应的暂停表达式上面有所不同？主要原因是出于最优化 Python 性能的考虑，确保你不会将刚好有同样 API 的不同对象混为一谈。由于生成器默认实现协程的 API，因此很有可能在你希望用协程的时候错用了一个生成器。而由于并不是所有的生成器都可以用在基于协程的控制流中，你需要避免错误地使用生成器。但是由于 Python 并不是静态编译的，它最好也只能在用基于生成器定义的协程时提供运行时检查。这意味着当用`types.coroutine`时，Python 的编译器将无法判断这个生成器是用作协程还是仅仅是普通的生成器（记住，仅仅因为`types.coroutine`这一语法的字面意思，并不意味着在此之前没有人做过`types = spam`的操作），因此编译器只能基于当前的情况生成有着不同限制的操作码。
 
-关于基于生成器的协程和`async`定义的协程之间的差异，我想说明的关键点是只有基于生成器的协程可以真正的暂停执行并强制性返回给事件循环。你可能不了解这些重要的细节，因为通常你调用的像是[`asyncio.sleep()` function](https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep) 这种事件循环相关的函数，由于事件循环实现他们自己的API，而这些函数会处理这些小的细节。对于我们绝大多数人来说，我们只会跟事件循环打交道，而不需要处理这些细节，因此可以只用`async`定义的协程。但是如果你和我一样好奇为什么不能在`async`定义的协程中使用`asyncio.sleep()`，那么这里的解释应该可以让你顿悟。
+关于基于生成器的协程和`async`定义的协程之间的差异，我想说明的关键点是只有基于生成器的协程可以真正的暂停执行并强制性返回给事件循环。你可能不了解这些重要的细节，因为通常你调用的像是[`asyncio.sleep()` function](https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep) 这种事件循环相关的函数，由于事件循环实现他们自己的 API，而这些函数会处理这些小的细节。对于我们绝大多数人来说，我们只会跟事件循环打交道，而不需要处理这些细节，因此可以只用`async`定义的协程。但是如果你和我一样好奇为什么不能在`async`定义的协程中使用`asyncio.sleep()`，那么这里的解释应该可以让你顿悟。
 
 ### 总结
 
 让我们用简单的话来总结一下。用`async def`可以定义得到_协程_。定义协程的另一种方式是通过`types.coroutine`修饰器 -- 从技术实现的角度来说就是添加了 `CO_ITERABLE_COROUTINE`标记 -- 或者是`collections.abc.Coroutine`的子类。你只能通过基于生成器的定义来实现协程的暂停。
 
-_awaitable 对象_要么是一个协程要么是一个定义了`__await__()`方法的对象 -- 也就是`collections.abc.Awaitable` -- 且`__await__()`必须返回一个不是协程的迭代器。`await`表达式基本上与`yield from`相同但只能接受awaitable对象（普通迭代器不行）。`async`定义的函数要么包含`return`语句 -- 包括所有Python函数缺省的`return None` -- 和/或者 `await`表达式（`yield`表达式不行）。`async`函数的限制确保你不会将基于生成器的协程与普通的生成器混合使用，因为对这两种生成器的期望是非常不同的。
+_awaitable 对象_要么是一个协程要么是一个定义了`__await__()`方法的对象 -- 也就是`collections.abc.Awaitable` -- 且`__await__()`必须返回一个不是协程的迭代器。`await`表达式基本上与`yield from`相同但只能接受 awaitable 对象（普通迭代器不行）。`async`定义的函数要么包含`return`语句 -- 包括所有 Python 函数缺省的`return None` -- 和/或者 `await`表达式（`yield`表达式不行）。`async`函数的限制确保你不会将基于生成器的协程与普通的生成器混合使用，因为对这两种生成器的期望是非常不同的。
 
 ## 将 `async`/`await` 看做异步编程的 API
 
 我想要重点指出的地方实际上在我看[David Beazley's Python Brasil 2015 keynote](https://www.youtube.com/watch?v=lYe8W04ERnY)之前还没有深入思考过。在他的演讲中，David 指出 `async`/`await` 实际上是异步编程的 API （[他在 Twitter 上向我重申过](https://twitter.com/dabeaz/status/696028946220056576)）。David 的意思是人们不应该将`async`/`await`等同于`asyncio`，而应该将`asyncio`看作是一个利用`async`/`await` API 进行异步编程的框架。
 
-David 将 `async`/`await` 看作是异步编程的API创建了 [`curio` 项目](https://pypi.python.org/pypi/curio)来实现他自己的事件循环。这帮助我弄清楚 `async`/`await` 是 Python 创建异步编程的原料，同时又不会将你束缚在特定的事件循环中也无需与底层的细节打交道（不像其他编程语言将事件循环直接整合到语言中）。这允许像 `curio` 一样的项目不仅可以在较低层面上拥有不同的操作方式（例如 `asyncio` 利用 future 对象作为与事件循环交流的 API，而 `curio` 用的是元组），同时也可以集中解决不同的问题，实现不同的性能特性（例如 `asyncio` 拥有一整套框架来实现运输层和协议层，从而使其变得可扩展，而 `curio` 只是简单地让用户来考虑这些但同时也让它运行地更快）。
+David 将 `async`/`await` 看作是异步编程的 API 创建了 [`curio` 项目](https://pypi.python.org/pypi/curio)来实现他自己的事件循环。这帮助我弄清楚 `async`/`await` 是 Python 创建异步编程的原料，同时又不会将你束缚在特定的事件循环中也无需与底层的细节打交道（不像其他编程语言将事件循环直接整合到语言中）。这允许像 `curio` 一样的项目不仅可以在较低层面上拥有不同的操作方式（例如 `asyncio` 利用 future 对象作为与事件循环交流的 API，而 `curio` 用的是元组），同时也可以集中解决不同的问题，实现不同的性能特性（例如 `asyncio` 拥有一整套框架来实现运输层和协议层，从而使其变得可扩展，而 `curio` 只是简单地让用户来考虑这些但同时也让它运行地更快）。
 
 考虑到 Python 异步编程的（短暂）历史，可以理解人们会误认为 `async`/`await` == `asyncio`。我是说`asyncio`帮助我们可以在 Python 3.4 中实现异步编程，同时也是 Python 3.5 中引入`async`/`await`的推动因素。但是`async`/`await` 的设计意图就是为了让其足够灵活从而**不需要**依赖`asyncio`或者仅仅是为了适应这一框架而扭曲关键的设计决策。换句话说，`async`/`await` 延续了 Python 设计尽可能灵活的传统同时又非常易于使用（实现）。
 
@@ -343,16 +343,16 @@ David 将 `async`/`await` 看作是异步编程的API创建了 [`curio` 项目](
         main()
 
 
-就像我说的，这是伪造出来的，但是如果你用 Python 3.5 去运行，你会发现这三个协程在同一个线程内独立运行，并且总的运行时间大约是5秒钟。你可以将`Task`，`SleepingLoop`和`sleep()`看作是事件循环的提供者，就像`asyncio`和`curio`所提供给你的一样。对于一般的用户来说，只有`countdown()`和`main()`函数中的代码才是重要的。正如你所见，`async`和`await`或者是这整个异步编程的过程并没什么黑科技；只不过是 Python 提供给你帮助你更简单地实现这类事情的API。
+就像我说的，这是伪造出来的，但是如果你用 Python 3.5 去运行，你会发现这三个协程在同一个线程内独立运行，并且总的运行时间大约是5秒钟。你可以将`Task`，`SleepingLoop`和`sleep()`看作是事件循环的提供者，就像`asyncio`和`curio`所提供给你的一样。对于一般的用户来说，只有`countdown()`和`main()`函数中的代码才是重要的。正如你所见，`async`和`await`或者是这整个异步编程的过程并没什么黑科技；只不过是 Python 提供给你帮助你更简单地实现这类事情的 API。
 
 ## 我对未来的希望和梦想
 
 现在我理解了 Python 中的异步编程是如何运作的了，我想要一直用它！这是如此绝妙的概念，比你之前用过的线程好太多了。但是问题在于 Python 3.5 还太新了，`async`/`await`也太新了。这意味着还没有太多库支持这样的异步编程。例如，为了实现 HTTP 请求你要么不得不自己徒手构建 ，要么用像是 [`aiohttp` 之类的框架](https://pypi.python.org/pypi/aiohttp) 将 HTTP 添加在另外一个事件循环的顶端，或者寄希望于更多像[`hyper` 库](https://pypi.python.org/pypi/hyper)一样的项目不停涌现，可以提供对于 HTTP 之类的抽象，可以让你随便用任何 I/O 库 来实现你的需求（虽然可惜的是 `hyper`目前只支持 HTTP/2）。
 
-对于我个人来说，我希望更多像`hyper`一样的项目可以脱颖而出，这样我们就可以在从 I/O中读取与解读二进制数据之间做出明确区分。这样的抽象非常重要，因为Python多数 I/O 库中处理 I/O 和处理数据是紧紧耦合在一起的。[Python 的标准库 `http`](https://docs.python.org/3/library/http.html#module-http)就有这样的问题，它不提供 HTTP解析而只有一个连接对象为你处理所有的 I/O。而如果你寄希望于`requests`可以支持异步编程，[那你的希望已经破灭了](https://github.com/kennethreitz/requests/issues/2801)，因为 `requests` 的同步 I/O 已经烙进它的设计中了。Python 在网络堆栈上很多层都缺少抽象定义，异步编程能力的改进使得 Python 社区有机会对此作出修复。我们可以很方便地让异步代码像同步一样执行，这样一些填补异步编程空白的工具可以安全地运行在两种环境中。
+对于我个人来说，我希望更多像`hyper`一样的项目可以脱颖而出，这样我们就可以在从 I/O 中读取与解读二进制数据之间做出明确区分。这样的抽象非常重要，因为 Python 多数 I/O 库中处理 I/O 和处理数据是紧紧耦合在一起的。[Python 的标准库 `http`](https://docs.python.org/3/library/http.html#module-http)就有这样的问题，它不提供 HTTP 解析而只有一个连接对象为你处理所有的 I/O。而如果你寄希望于`requests`可以支持异步编程，[那你的希望已经破灭了](https://github.com/kennethreitz/requests/issues/2801)，因为 `requests` 的同步 I/O 已经烙进它的设计中了。Python 在网络堆栈上很多层都缺少抽象定义，异步编程能力的改进使得 Python 社区有机会对此作出修复。我们可以很方便地让异步代码像同步一样执行，这样一些填补异步编程空白的工具可以安全地运行在两种环境中。
 
 我希望 Python 可以让 `async` 协程支持 `yield`。或者需要用一个新的关键词来实现（可能像 `anticipate`之类？），因为不能仅靠`async`就实现事件循环让我很困扰。幸运的是，[我不是唯一一个这么想的人](https://twitter.com/dabeaz/status/696014754557464576)，而且[PEP 492](https://www.python.org/dev/peps/pep-0492/)的作者也和我意见一致，我觉得还是有机会可以移除掉这点小瑕疵。
 
 ## 结论
 
-基本上 `async` 和 `await` 产生神奇的生成器，我们称之为协程，同时需要一些额外的支持例如 awaitable 对象以及将普通生成器转化为协程。所有这些加到一起来支持并发，这样才使得 Python 更好地支持异步编程。相比类似功能的线程，这是一个更妙也更简单的方法。我写了一个完整的异步编程例子，算上注释只用了不到100行 Python 代码 -- 但仍然非常灵活与快速（[curio FAQ](http://curio.readthedocs.org/en/latest/#questions-and-answers) 指出它比 `twisted` 要快 30-40%，但是要比 `gevent` 慢 10-15%，而且全部都是有纯粹的 Python 实现的；记住[Python 2 + Twisted 内存消耗更少同时比Go更容易调试](https://news.ycombinator.com/item?id=10402307)，想象一下这些能帮你实现什么吧！）。我非常高兴这些能够在 Python 3 中成为现实，我也非常期待 Python 社区可以接纳并将其推广到各种库和框架中区，可以使我们都能够受益于 Python 异步编程带来的好处！
+基本上 `async` 和 `await` 产生神奇的生成器，我们称之为协程，同时需要一些额外的支持例如 awaitable 对象以及将普通生成器转化为协程。所有这些加到一起来支持并发，这样才使得 Python 更好地支持异步编程。相比类似功能的线程，这是一个更妙也更简单的方法。我写了一个完整的异步编程例子，算上注释只用了不到100行 Python 代码 -- 但仍然非常灵活与快速（[curio FAQ](http://curio.readthedocs.org/en/latest/#questions-and-answers) 指出它比 `twisted` 要快 30-40%，但是要比 `gevent` 慢 10-15%，而且全部都是有纯粹的 Python 实现的；记住[Python 2 + Twisted 内存消耗更少同时比 Go 更容易调试](https://news.ycombinator.com/item?id=10402307)，想象一下这些能帮你实现什么吧！）。我非常高兴这些能够在 Python 3 中成为现实，我也非常期待 Python 社区可以接纳并将其推广到各种库和框架中区，可以使我们都能够受益于 Python 异步编程带来的好处！

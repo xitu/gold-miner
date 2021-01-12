@@ -15,7 +15,7 @@ Google I/O 2018 还有一周就开始了，Flutter 将会在大会中通过会�
 
 *   5 月 8 日，星期二下午 2:00 PDT—[为你的产品定制化 Material 组件](https://events.google.com/io/schedule/?section=may-8&sid=247e7a44-c632-464e-954c-303ede5befd5&livestream=true&topic=flutter)
 *   5 月 8 日，星期二下午 5:00 PDT — [跨平台构建优秀的 Material Design 产品](https://events.google.com/io/schedule/?section=may-8&sid=03c677fd-d082-4bf9-ae38-06829cfdada9&livestream=true&topic=flutter)
-*   5 月 9 日，星期三上午 8:30 PDT — [用 Flutter 和 Material Design 编写漂亮的UI](https://events.google.com/io/schedule/?section=may-8&sid=086cd75d-8f7a-45d7-99bb-69dd3709535a&livestream=true&topic=flutter)
+*   5 月 9 日，星期三上午 8:30 PDT — [用 Flutter 和 Material Design 编写漂亮的 UI](https://events.google.com/io/schedule/?section=may-8&sid=086cd75d-8f7a-45d7-99bb-69dd3709535a&livestream=true&topic=flutter)
 *   5 月 9 日，星期三下午 2:30 PDT  — [使用 Flutter 和 Firebase 让统计移动开发数据充满乐趣](https://events.google.com/io/schedule/?section=may-8&sid=94f05260-0dfd-4867-8d04-399e96595035&livestream=true&topic=flutter)
 *   5 月 10 日，星期四上午 10:30 PDT— [使用 Flutter 构建响应式移动应用程序](https://events.google.com/io/schedule/?section=may-8&sid=dab2bf45-6e44-4605-a997-9d446f95ef38&livestream=true&topic=flutter)
 *   5 月 10 日，星期四下午 3:30 PDT— [将 Firebase 添加到您的跨平台 React Native 或 Flutter 应用](https://events.google.com/io/schedule/?section=may-8&sid=c8374ad6-94f3-47bb-99fd-164c0d0a81bc&livestream=true&topic=flutter)

@@ -11,7 +11,7 @@
 
 CSS 看起来是一种非常直接且不易犯错的语言。只需要添加规则以对网站进行样式设置就可以了，对吗？对于只需要几个 CSS 文件的小型站点，可能是这种情况。但是在大型程序中，这样可能会使样式迅速失控。如何让它们更可控？
 
-事实是，就像其他任何语言一样，CSS的细微差别可以使你的设计有天壤之别。这是 CSS 的 10 条技巧 —— 可以帮助你从样式中获得最大收益的最佳实践。
+事实是，就像其他任何语言一样，CSS 的细微差别可以使你的设计有天壤之别。这是 CSS 的 10 条技巧 —— 可以帮助你从样式中获得最大收益的最佳实践。
 
 ## 1. 你真的需要框架吗？
 
@@ -188,7 +188,7 @@ CSS 中有一些非标准或实验性功能的前缀。不同的浏览器为其�
 
 你可以使用 `PostCSS` 来自动为 CSS 规则添加前缀，就必担心会遗漏主要的浏览器。他们使用 [Can I Use](https://caniuse.com/) 中的值，因此它始终保持最新的。
 
-另一个很好的后处理器是 `[autoprefixer](https://www.npmjs.com/package/autoprefixer)`。使用 `autoprefixer`，当您要支持最新四个版本时 — 无需在CSS文件中写入任何前缀就可以完成所有工作！
+另一个很好的后处理器是 `[autoprefixer](https://www.npmjs.com/package/autoprefixer)`。使用 `autoprefixer`，当您要支持最新四个版本时 — 无需在 CSS 文件中写入任何前缀就可以完成所有工作！
 
 ```JavaScript
 const autoprefixer = require('autoprefixer')({
@@ -367,12 +367,12 @@ span.heading {
 ```CSS
 /* 移动优先的媒体查询，所有 600px 以上的设备都会获得以下样式 */
 @media (min-width: 600px) {
-    /* 你的CSS规则 */
+    /* 你的 CSS 规则 */
 }
 
 /* 非移动优先媒体查询，所有 600px 以下的设备都会获得以下样式 */
 @media (max-width: 600px) {
-    /* 你的CSS规则 */
+    /* 你的 CSS 规则 */
 }
 ```
 

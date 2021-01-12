@@ -236,7 +236,7 @@ promiseThatResolves()
 
 你可以执行所有的代码示例，并通过实践应用学的更多。一个好的学习方法是将 promise 通过基于回调的函数重新实现。如果你使用 Node，那么在 `fs` 和其他模块中的很多函数都是基于回调的。在 Node 中确实存在可以自动将基于回调的函数转换为 promise 的实用工具，例如 [util.promisify](https://nodejs.org/api/util.html#util_util_promisify_original) 和 [pify](https://github.com/sindresorhus/pify)。但是，**如果你还在学习阶段**，请考虑遵循 WET（Write Everything Twice）原则，并重新实现或阅读尽可能多的库/函数的代码。如果不是在学习阶段，特别是在生产环境下，请每隔一段时间就要使用 [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)（Don’t Repeat Yourself） 原则激励自己。
 
-还有很多其他的 promise 相关知识我没有提及，比如 `Promise.all` 、`Promise.race` 和其他静态方法，以及如何处理 promise 中出现的错误，还有一些在创建一个promise 时应该注意的一些常见的反模式（anti-patterns）和细节。你可以参考下面的文章，以便可以更好地了解这些主题。
+还有很多其他的 promise 相关知识我没有提及，比如 `Promise.all` 、`Promise.race` 和其他静态方法，以及如何处理 promise 中出现的错误，还有一些在创建一个 promise 时应该注意的一些常见的反模式（anti-patterns）和细节。你可以参考下面的文章，以便可以更好地了解这些主题。
 
 如果你希望我在另一篇文章中涵盖这些主题，请回复本文！:)
 

@@ -15,7 +15,7 @@
 如果你不熟悉 JUnit，请查看下面的教程：
 [http://www.vogella.com/tutorials/JUnit/article.html](http://www.vogella.com/tutorials/JUnit/article.html)
 
-## 2\. 使用mock对象来进行测试
+## 2\. 使用 mock 对象来进行测试
 
 ### 2.1\. 单元测试的目标和挑战
 
@@ -47,7 +47,7 @@ Mock 对象可以被提供来进行测试。因此，我们测试的类应该避
 
 ### 2.4\. 使用 Mockito 生成 Mock 对象
 
-_Mockito_ 是一个流行 mock 框架，可以和JUnit结合起来使用。Mockito 允许你创建和配置 mock 对象。使用Mockito可以明显的简化对外部依赖的测试类的开发。
+_Mockito_ 是一个流行 mock 框架，可以和 JUnit 结合起来使用。Mockito 允许你创建和配置 mock 对象。使用 Mockito 可以明显的简化对外部依赖的测试类的开发。
 
 一般使用 Mockito 需要执行下面三步
 
@@ -85,7 +85,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 ![orbit p2 mockito](http://ww2.sinaimg.cn/large/72f96cbagw1f5b2jlbr97j20ny0hg77c)
 
-## 4\. 使用Mockito API
+## 4\. 使用 Mockito API
 
 ### 4.1\. 静态引用
 
@@ -123,7 +123,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 2. Mockito 通过 @mock 注解创建 mock 对象
 
-3. 使用已经创建的mock初始化这个类
+3. 使用已经创建的 mock 初始化这个类
 
 4. 在测试环境下，执行测试类中的代码
 
@@ -149,7 +149,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
             // 自定义 getUniqueId() 的返回值
             when(test.getUniqueId()).thenReturn(43);
 
-            // 在测试中使用mock对象
+            // 在测试中使用 mock 对象
             assertEquals(test.getUniqueId(), 43);
     }
 
@@ -198,7 +198,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
     import static org.mockito.Mockito.*;
     import static org.junit.Assert.*;
 
-    // 下面测试用例描述了如何使用doThrow()方法
+    // 下面测试用例描述了如何使用 doThrow()方法
 
     @Test(expected=IOException.class)
     public void testForIOException() {
@@ -224,7 +224,7 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
             MyClass test = Mockito.mock(MyClass.class);
             when(test.getUniqueId()).thenReturn(43);
 
-            // 调用mock对象里面的方法并传入参数为12
+            // 调用 mock 对象里面的方法并传入参数为12
             test.testing(12);
             test.getUniqueId();
             test.getUniqueId();
@@ -244,7 +244,7 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
     }
 
 ### 4.5\. 使用 Spy 封装 java 对象
-@Spy或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 _stub_），否则都会真正的调用对象里面的每一个方法
+@Spy 或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 _stub_），否则都会真正的调用对象里面的每一个方法
 
 
     import static org.mockito.Mockito.*;
@@ -301,14 +301,14 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
            }
     }
 
-1. 创建ArticleManager实例并注入Mock对象
+1. 创建 ArticleManager 实例并注入 Mock 对象
 
 更多的详情可以查看
 [http://docs.mockito.googlecode.com/hg/1.9.5/org/mockito/InjectMocks.html](http://docs.mockito.googlecode.com/hg/1.9.5/org/mockito/InjectMocks.html).
 
 ### 4.7\. 捕捉参数
 
-`ArgumentCaptor`类允许我们在verification期间访问方法的参数。得到方法的参数后我们可以使用它进行测试。
+`ArgumentCaptor`类允许我们在 verification 期间访问方法的参数。得到方法的参数后我们可以使用它进行测试。
 
 ```
 import static org.hamcrest.Matchers.hasItem;
@@ -346,9 +346,9 @@ public class MockitoTests {
 }
 ```
 
-### 4.8\. Mockito的限制
+### 4.8\. Mockito 的限制
 
-Mockito当然也有一定的限制。而下面三种数据类型则不能够被测试
+Mockito 当然也有一定的限制。而下面三种数据类型则不能够被测试
 
 *   final classes
 
@@ -357,7 +357,7 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 *   primitive types
 
  
-## 5\. 在Android中使用Mockito
+## 5\. 在 Android 中使用 Mockito
 
 在 Android 中的 Gradle 构建文件中加入 Mockito 依赖后就可以直接使用 Mockito 了。若想使用 Android Instrumented tests 的话，还需要添加 dexmaker 和 dexmaker-mockito 依赖到 Gradle 的构建文件中。（需要 Mockito 1.9.5版本以上）
 
@@ -372,15 +372,15 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
     }
 
 
-## 6\. 实例：使用Mockito写一个Instrumented Unit Test
+## 6\. 实例：使用 Mockito 写一个 Instrumented Unit Test
 
-### 6.1\. 创建一个测试的Android 应用
+### 6.1\. 创建一个测试的 Android 应用
 
-创建一个包名为`com.vogella.android.testing.mockito.contextmock`的Android应用，添加一个静态方法
-，方法里面创建一个包含参数的Intent，如下代码所示：
+创建一个包名为`com.vogella.android.testing.mockito.contextmock`的 Android 应用，添加一个静态方法
+，方法里面创建一个包含参数的 Intent，如下代码所示：
 
     public static Intent createQuery(Context context, String query, String value) {
-        // 简单起见，重用MainActivity
+        // 简单起见，重用 MainActivity
         Intent i = new Intent(context, MainActivity.class);
         i.putExtra("QUERY", query);
         i.putExtra("VALUE", value);
@@ -388,7 +388,7 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
     }
 
 
-### 6.2\. 在app/build.gradle文件中添加Mockito依赖
+### 6.2\. 在 app/build.gradle 文件中添加 Mockito 依赖
 
     dependencies {
         // Mockito 和 JUnit 的依赖
@@ -447,7 +447,7 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 
 创建一个 Api，它可以被 Mockito 来模拟并做一些工作
 
-### 7.2\. 创建一个Twitter API 的例子
+### 7.2\. 创建一个 Twitter API 的例子
 
 实现 `TwitterClient`类，它内部使用到了 `ITweet` 的实现。但是`ITweet`实例很难得到，譬如说他需要启动一个很复杂的服务来得到。
 
@@ -550,7 +550,7 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
     }
 
 
-### 8.2\.用封装的方法代替Powermock  
+### 8.2\.用封装的方法代替 Powermock  
 
 有时候我们可以在静态方法周围包含非静态的方法来达到和 Powermock 同样的效果。
 
@@ -569,6 +569,6 @@ https://github.com/mockito/mockito- Mockito Github
 
 https://github.com/mockito/mockito/blob/master/doc/release-notes/official.md - Mockito 发行说明
 
-http://martinfowler.com/articles/mocksArentStubs.html 与Mocks，Stub有关的文章
+http://martinfowler.com/articles/mocksArentStubs.html 与 Mocks，Stub 有关的文章
 
-http://chiuki.github.io/advanced-android-espresso/ 高级android教程（竟然是个妹子）
+http://chiuki.github.io/advanced-android-espresso/ 高级 android 教程（竟然是个妹子）

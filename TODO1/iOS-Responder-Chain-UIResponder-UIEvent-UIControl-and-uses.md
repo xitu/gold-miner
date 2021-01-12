@@ -54,7 +54,7 @@ button.addTarget(myView, action: #selector(myMethod), for: .touchUpInside)
 在内部，触摸此按钮会产生以下结果：
 
 ```swift
-let event = UIEvent(...) //包含触摸位置和属性的UIKit生成的触摸事件。
+let event = UIEvent(...) //包含触摸位置和属性的 UIKit 生成的触摸事件。
 //派发一个触摸事件。
 //通过 `hitTest()` 确定哪个 UIView 被 选中。
 //因为选择了 UIControl，所以直接调用：

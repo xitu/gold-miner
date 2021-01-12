@@ -294,14 +294,14 @@ return nonceHash;
 }
 ```
 
-同样，这是简化的，但是一旦收到一定量的交易，这个挖矿算法会为区块计算一个工作量证明的哈希。该算法简单地循环并创建块的SHA-256散列，直到产生前导数字哈希。
+同样，这是简化的，但是一旦收到一定量的交易，这个挖矿算法会为区块计算一个工作量证明的哈希。该算法简单地循环并创建块的 SHA-256散列，直到产生前导数字哈希。
 
-这可能需要很多时间，这就是为什么特定的GPU微处理器已经被实现来尽可能快地执行和解决这个问题的原因。
+这可能需要很多时间，这就是为什么特定的 GPU 微处理器已经被实现来尽可能快地执行和解决这个问题的原因。
 
 
 ### 单元测试
 
-你可以在 GitHub上看到结合了这些概念的 Java 示例的 JUnit 测试。
+你可以在 GitHub 上看到结合了这些概念的 Java 示例的 JUnit 测试。
 [![](https://i2.wp.com/keyholesoftware.com/wp-content/uploads/junittestsblockchain.png?resize=782%2C490&ssl=1)](https://keyholesoftware.com/2018/04/10/blockchain-with-java/junittestsblockchain/)
 
 运行一下，看看这个简单的区块链是如何工作的。

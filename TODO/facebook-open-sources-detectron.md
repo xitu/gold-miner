@@ -5,7 +5,7 @@
 > * 译者：[SeanW20](https://github.com/SeanW20)
 > * 校对者：[noahziheng](https://github.com/noahziheng)、[dazhi1011](https://github.com/dazhi1011)
 
-# Facebook开源Detectron
+# Facebook 开源 Detectron
 
 ![](https://i.loli.net/2018/01/24/5a682bb6c9193.png)
 

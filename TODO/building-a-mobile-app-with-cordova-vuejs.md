@@ -9,7 +9,7 @@
 [获取代码](https://github.com/coligo-io/random-word-generator-cordova-vuejs)
 
 
-[Cordova](https://cordova.apache.org/) 是一个你可以使用HTML, JavaScript 和 CSS 等 web 技术开发移动应用的框架。它支持使用一套基本代码面向多平台，如 Android 和 iOS 。尽管你在开发中仍然需要用到该平台特定的技术，例如 Android SDK 或 Xcode ，你也无需再编写任何 Android 或 iOS 代码就能完成应用开发。
+[Cordova](https://cordova.apache.org/) 是一个你可以使用 HTML, JavaScript 和 CSS 等 web 技术开发移动应用的框架。它支持使用一套基本代码面向多平台，如 Android 和 iOS 。尽管你在开发中仍然需要用到该平台特定的技术，例如 Android SDK 或 Xcode ，你也无需再编写任何 Android 或 iOS 代码就能完成应用开发。
 
 既然你能够掌握 HTML 和 JavaScript 代码的编写，使用[Vue.js](https://vuejs.org/) 这样配有 Cordova 的  JavaScript 库就是小菜一碟了。
 

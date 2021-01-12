@@ -69,7 +69,7 @@ let element = document.getElementById('2x-container');
 
 ![](https://cdn-images-1.medium.com/max/800/1*l7ujPmSWwpH7QtXCZ-jk2Q.png)
 
-我打开了一些元素节点。清晰的展示了 DOM 节点，一览无余，而且我们还可以跳转到子DOM节点。但是 `console.dir(element)` 给我们一个意外不同的输出。
+我打开了一些元素节点。清晰的展示了 DOM 节点，一览无余，而且我们还可以跳转到子 DOM 节点。但是 `console.dir(element)` 给我们一个意外不同的输出。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CERwy7Fs7tdijOxugLW54A.png)
 
@@ -177,7 +177,7 @@ console.assert(tx.buyer !== 'WAL0412', tx);
 
 ### console.count()
 
-另外一个合适的用法是，将console作为一个计数器使用。
+另外一个合适的用法是，将 console 作为一个计数器使用。
 
 ```
 for(let i = 0; i < 10000; i++) {

@@ -217,7 +217,7 @@ console.log(add10(20))
 *   使用 `Object.keys` 并使用数组的 `reduce` 方法迭代键，访问 iterator 函数中的对象值，提供给 `reduce` 的迭代函数中对象值，以减少 iterator 是箭头函数的位置 (**函数式箭头函数 Object.keys**)
 *  循环访问使用 `for` 循环从 `Object.keys` 返回的数组的每个对象值  (**for 循环 Object.keys **)
 
-我们还为V8 5.8、5.9、 6.0 和 6.1 增加了三个额外的基准测试案例
+我们还为 V8 5.8、5.9、 6.0 和 6.1 增加了三个额外的基准测试案例
 
 *   使用 `Object.values` 和数组 `reduce`方法遍历值, (**函数式 Object.values**)
 *  使用 `Object.values` 和数组 `reduce` 方法遍历值,其中提供给 `reduce` 的 iterator 函数是箭头函数 (**函数式箭头函数 Object.values**)
@@ -318,7 +318,7 @@ Turbofan 背后的运行原理似乎是对直观的编码行为进行优化。�
 
 除了微基准测试，我们还可以通过使用 Node.js 最流行的日志（Matteo 和我创建的 [Pino](http://getpino.io/) 时编写的）来查看 V8 版本的整体效果。
 
-下面的条形图表明在Node.js 6.11 (Crankshaft) 中最受欢迎的 logger 记录1万行(更低些会更好) 日志所用时间：
+下面的条形图表明在 Node.js 6.11 (Crankshaft) 中最受欢迎的 logger 记录1万行(更低些会更好) 日志所用时间：
 
 ![](https://cdn-images-1.medium.com/max/800/0*lsRsaA4cIuC7z7y3.png)
 

@@ -15,7 +15,7 @@
 
 有些人已经对它很熟悉了。但是，在我向您展示如何建立您自己的 sitemap 之前，我会给您一个关于 sitemap 基础知识的速成课程。
 
-简单来说，sitemap，或者说 XML sitemap，是网站上不同页面的列表。XML是“extensible markup language”的缩写，这是在站点上显示信息的一种方式。 
+简单来说，sitemap，或者说 XML sitemap，是网站上不同页面的列表。XML 是“extensible markup language”的缩写，这是在站点上显示信息的一种方式。 
   
 我咨询过很多站长，他们之所以被吓到是因为他们认为 sitemap 是 SEO 的技术组成部分。但实际上，创建 sitemap 并不需要您成为一个技术大牛或是有技术背景的人。看完这篇教程之后，您很快就会发现这实际上并不难。
 
@@ -43,13 +43,13 @@ XML sitemap 使搜索引擎爬虫更容易读取站点上的内容并相应地�
 
 但说到 SEO，并不是所有页面的排名都是一样的。当您处理页面的 SEO 时，您必须记住您网站的深度。要明白一点：离您的网站主页越远的页面排名越靠后。
 
-根据 [搜索引擎日志](https://www.searchenginejournal.com/website-structure-affects-seo/186553/) 这篇文章的说法，您应该致力于创建深度较浅的 sitemap，这意味着只需单击三下即可导航到您网站上的任何页面。对于SEO而言，这会是极好的。
+根据 [搜索引擎日志](https://www.searchenginejournal.com/website-structure-affects-seo/186553/) 这篇文章的说法，您应该致力于创建深度较浅的 sitemap，这意味着只需单击三下即可导航到您网站上的任何页面。对于 SEO 而言，这会是极好的。
 
 因此，您需要基于页面的重要级别和您希望的它们被索引的方式，来创建一个页面层次结构。按照逻辑层次决定你的内容的优先顺序。如果您不太明白，可以看看这个[例子](https://blog.hubspot.com/marketing/build-sitemap-website)。
 
 ![页面层次结构](https://quicksprout-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/page-hierarchy.png)
 
-正如您所看到的，ABOUT页面链接到 Our Team 页面以及 Mission & Values 页面。然后，Our Team 页面链接到  Management 页面和 Contact Us 页面。
+正如您所看到的，ABOUT 页面链接到 Our Team 页面以及 Mission & Values 页面。然后，Our Team 页面链接到  Management 页面和 Contact Us 页面。
 
 [“关于”页面是最重要的](https://www.quicksprout.com/how-to-create-about-page/)，这就是为什么它位于顶级导航层。将 Management 页面放在与 PRODUCTS 页面、PRICING 页面和 BLOGS 页面同一级别是不合理的，这就是为什么它属于第三级层次。
 

@@ -25,7 +25,7 @@
 
 *  `nonZero` 和 `evenOdd` 路径 `fillTypes` —— [定义形状“内部”](https://www.sitepoint.com/understanding-svg-fill-rule-property/)的两种常见方法，通常用于 SVGs（`evenOdd` 在 API 24 中得以实现）
 * 渐变（Gradient）& `ColorStateList` 填充 / 画笔（在 API 24 中被添加实现）
-* Bug修复
+* Bug 修复
 
 事实上，AndroidX 将使用 compat 实现，甚至在一些存在本地实现的平台上（[当前是 api 21-23](https://android.googlesource.com/platform/frameworks/support/+/androidx-master-dev/appcompat/src/main/java/androidx/appcompat/widget/AppCompatDrawableManager.java#100)）也可以实现上述优点。否则，它将委托给平台实现，因此仍然可以接收对新版本的任何改进（例如，为了提高性能，`VectorDrawable` 在 API 24 的 C 中重新实现)。
 

@@ -64,7 +64,7 @@ iOS 中 `tableViewCell` 复用队列图解（[查看大图](https://cloud.netlif
 
 [![Launch screen and first view look similar](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5cf91d55-0418-45e0-8019-3be8f875086e/ios-performance-tricks-2-launchscreen.png)](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5cf91d55-0418-45e0-8019-3be8f875086e/ios-performance-tricks-2-launchscreen.png)
 
-比较：Safari APP的启动页和第一个页面（[查看大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5cf91d55-0418-45e0-8019-3be8f875086e/ios-performance-tricks-2-launchscreen.png)）
+比较：Safari APP 的启动页和第一个页面（[查看大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/5cf91d55-0418-45e0-8019-3be8f875086e/ios-performance-tricks-2-launchscreen.png)）
 
 启动页的 `storyboard` 与任何其他 `storyboard` 文件一样，除了您只能使用标准的 `UIKit` 类，如 `UIViewController`、`UITabBarController` 和 `UINavigationController`。如果你尝试使用任何其他自定义子类（例如 `UserViewController`），Xcode 将提示你禁止使用自定义类名。
 
@@ -80,7 +80,7 @@ Apple 的人机界面指南还建议我们不要在启动页上包含文本，�
 
 ### 3. 视图控制器的状态恢复
 
-视图控制器的状态保存和恢复，允许用户在离开应用程序后可以返回到之前完全相同的用户界面状态。有时，由于内存不足，操作系统可能需要在应用程序处于后台时从内存中删除应用程序，如果不保留状态，应用程序可能会丢失其对最后一个UI状态的跟踪，可能会导致用户丢失正在进行的操作！
+视图控制器的状态保存和恢复，允许用户在离开应用程序后可以返回到之前完全相同的用户界面状态。有时，由于内存不足，操作系统可能需要在应用程序处于后台时从内存中删除应用程序，如果不保留状态，应用程序可能会丢失其对最后一个 UI 状态的跟踪，可能会导致用户丢失正在进行的操作！
 
 在多任务屏幕中，我们可以看到已放在后台的应用程序列表。我们可以假设这些应用程序仍在后台运行；实际上，由于内存的需求，一些应用程序可能会被系统杀死并重新启动。我们在多任务视图中看到的应用程序快照实际上是系统在退出应用程序时截取到的屏幕截图。（即转到主屏幕或多任务屏幕）。
 
@@ -193,10 +193,10 @@ extension MyViewController {
 
 要测试状态保存和恢复是否正常，请按照以下步骤操作：
 
-1. 使用Xcode构建和启动应用程序。
+1. 使用 Xcode 构建和启动应用程序。
 2. 跳转到要测试状态保留和恢复的页面。
 3. 返回主屏幕（通过向上滑动或双击 `home` 按钮，或者在用模拟器时键入 `Shift ⇧` + `Cmd ⌘` + `H`）将应用程序发送到后台。
-4. 通过在Xcode中点击 ⏹ 按钮，停止程序运行。
+4. 通过在 Xcode 中点击 ⏹ 按钮，停止程序运行。
 5. 再次启动应用程序并检查状态是否已成功还原。
 
 由于本节仅涵盖了状态保存和恢复的基础知识，因此我推荐 Apple Inc. 上的以下文章。了解更多有关状态恢复的知识：
@@ -245,7 +245,7 @@ view.isOpaque = true
 
 许多 label 以红色突出显示，因为它们的背景颜色是透明的，导致 iOS 通过混合背后的视图来计算背景颜色。（[查看大图](https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/56fc5367-3cca-49f1-a5bd-a5fd15eb1cc0/ios-performance-tricks-8-redgreen.png)）
 
-你可能已经注意到，即使你已将 UIImageView 设置为不透明并为其指定了背景颜色，模拟器仍将在 imageView 上显示红色。这可能是因为你用于 imageView 的图像具有Alpha通道。
+你可能已经注意到，即使你已将 UIImageView 设置为不透明并为其指定了背景颜色，模拟器仍将在 imageView 上显示红色。这可能是因为你用于 imageView 的图像具有 Alpha 通道。
 
 要删除图像的 Alpha 通道，可以使用预览应用程序复制图像（`Shift⇧` + `Cmd⌘`+ `S`），并在保存时取消选中 `Alpha` 复选框。
 
@@ -256,9 +256,9 @@ view.isOpaque = true
 ### 5. 在后台线程中处理繁重的功能（GCD）
 
 因为 UIKit 仅适用于主线程，所以在主线程上执行繁重的处理工作会降低 UI 的速度。主线程使用 UIKit 不仅要处理和响应用户的交互，还需要绘制屏幕。
-> 译者注：将touch input 翻译成交互，是因为点击和输入属于交互范畴。
+> 译者注：将 touch input 翻译成交互，是因为点击和输入属于交互范畴。
 
-使应用程序保持响应的关键是尽可能多的将繁重处理任务放到后台线程。应当尽量避免在主线程上执行复杂的计算，网络和繁重的IO操作（例如，磁盘的读取和写入）。
+使应用程序保持响应的关键是尽可能多的将繁重处理任务放到后台线程。应当尽量避免在主线程上执行复杂的计算，网络和繁重的 IO 操作（例如，磁盘的读取和写入）。
 
 你可能曾经使用过突然对你的操作停止响应的应用程序，就好像应用程序已挂起。这很可能是因为应用程序在主线程上运行繁重的计算任务。
 
@@ -294,7 +294,7 @@ DispatchQueue.global(qos: .default).async {
 
 Apple 提供了 [一个简单的表格](https://developer.apple.com/library/archive/documentation/Performance/Conceptual/EnergyGuide-iOS/PrioritizeWorkWithQoS.html#//apple_ref/doc/uid/TP40015243-CH39-SW1) 其中包含用于不同任务的 QoS 值的示例。
 
-需要记住，所有 UIKit 代码始终都应该在主线程上执行。在后台线程上修改 UIKit 对象（例如 `UILabel` 和 `UIImageView`）可能会产生意想不到的后果，例如UI实际上没有更新，发生崩溃等等。
+需要记住，所有 UIKit 代码始终都应该在主线程上执行。在后台线程上修改 UIKit 对象（例如 `UILabel` 和 `UIImageView`）可能会产生意想不到的后果，例如 UI 实际上没有更新，发生崩溃等等。
 
 在 Apple 的 [主线程检查器](https://developer.apple.com/documentation/code_diagnostics/main_thread_checker) 文章中提及：
 

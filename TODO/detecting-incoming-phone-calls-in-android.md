@@ -63,7 +63,7 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 创建一个名为 **PhoneStateReceiver** 的 Java 类文件，并继承 **BroadcastReceiver** 类。
 
-要注册 Broadcast Receiver的话，需要将以下代码写入 ```AndroidMainifest.xml``` 文件
+要注册 Broadcast Receiver 的话，需要将以下代码写入 ```AndroidMainifest.xml``` 文件
 
 ```
 <receiver android:name=".PhoneStateReceiver">
@@ -115,7 +115,7 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 加油……努力……你离答案只有一步之遥了……
 
-是的，就是你猜的那样。_**onReceive()**_ 使用 **Intent** 对象参数来接收每个消息。我们已经声明并在 **AndroidManifest.xml** 中注册了Broadcast Receiver。
+是的，就是你猜的那样。_**onReceive()**_ 使用 **Intent** 对象参数来接收每个消息。我们已经声明并在 **AndroidManifest.xml** 中注册了 Broadcast Receiver。
 
 现在，让我们将目光转向 **PhoneStateReciver.java** 文件来看看我们要在 _**onReceive()**_ 方法中做些什么。
 

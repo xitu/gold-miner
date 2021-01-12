@@ -5,17 +5,17 @@
 > * 译者：[PTHFLY](https://github.com/pthtc)
 > * 校对者：[ryouaki](https://github.com/ryouaki)
 
-# 想帮助用户做决定？你的APP可以这样设计！
+# 想帮助用户做决定？你的 APP 可以这样设计！
 
 ## _简单化，触发器，激励 — 一个优化用户行为的三步走方法_<sup><a href="#note1">[1]</a></sup>
 
 ![](https://cdn-images-1.medium.com/max/800/1*wsvauosvxPMm0R6rlKXR_g.jpeg)
 
-如果你从事移动APP行业，每一天你都有潜在机会影响几百万人的行动。无论是参与使用一个新功能，每天访问你的应用，或是订阅你的增值服务， 你往往很可能在心里有一个希望更多用户会做的关键行为。但是你如何才能增加用户行动的机会呢？
+如果你从事移动 APP 行业，每一天你都有潜在机会影响几百万人的行动。无论是参与使用一个新功能，每天访问你的应用，或是订阅你的增值服务， 你往往很可能在心里有一个希望更多用户会做的关键行为。但是你如何才能增加用户行动的机会呢？
 
 无论你希望的行为是什么， 这篇博文将会把一个优化用户行为结果的三步走方法介绍给你，分别是简化、触发器、积极性（其中的第一部分借鉴了来自于行为经济学、心理学和游戏化的理念）。特别地，在这篇博文中我们将覆盖前两步，也就是简化和触发器。
 
-当考虑鼓励某个特定的用户行为策略的时候，你应该从哪里开始？斯坦福 [Persuasive Tech Lab](http://captology.stanford.edu/) 的院长，BJ Fogg博士创建了 Fogg 行为模型，来评估三个因素（能力、触发器、积极性）对于给定行为发生可能性的影响：
+当考虑鼓励某个特定的用户行为策略的时候，你应该从哪里开始？斯坦福 [Persuasive Tech Lab](http://captology.stanford.edu/) 的院长，BJ Fogg 博士创建了 Fogg 行为模型，来评估三个因素（能力、触发器、积极性）对于给定行为发生可能性的影响：
 
 ![](https://cdn-images-1.medium.com/max/800/0*dP-BAPMCWX9uKBuj.)
 
@@ -51,7 +51,7 @@ Fogg 行为模型
 
 降低花费不是意味着你应该全盘降低价格！真实含义是每个预期的购买者有一个不同的『甜蜜点』，根据应用匹配程度、用户位置以及用户综合支付能力反映出他们认为合适的价格。
 
-Tamzin Taylor，Google Play的西欧应用主管，曾经讲出了一些有关于价格优化的最佳关键实践，比如使用 [Big Mac Index](http://www.economist.com/content/big-mac-index) 进行购买力对比，从而评估每个市场的实际支付能力。
+Tamzin Taylor，Google Play 的西欧应用主管，曾经讲出了一些有关于价格优化的最佳关键实践，比如使用 [Big Mac Index](http://www.economist.com/content/big-mac-index) 进行购买力对比，从而评估每个市场的实际支付能力。
 
 [![Watch the video](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](https://www.youtube.com/embed/LQ6MsPmUa38)
 
@@ -94,7 +94,7 @@ Dan Ariely 通过一个在他的书《Predictably Irrational.》中一个现在�
 
 ### Step 2. 触发积极用户的行为
 
-鼓励所需用户行为的第二步是在主动用户的相关路径中设置相关触发，从而表现出可操作性。BJ Fogg有一个一个值得纪念名言：『在积极用户的使用路径上放置热点触发器』。触发器往往对于用户来说是陌生的，因为它是一个从开发者角度给出的想要影响用户下一步行为的提示、提醒或者行为召唤。一个推送在这个意义上是一个触发器，并且当它是可操作、定制化、时间合适的时候会非常有效。
+鼓励所需用户行为的第二步是在主动用户的相关路径中设置相关触发，从而表现出可操作性。BJ Fogg 有一个一个值得纪念名言：『在积极用户的使用路径上放置热点触发器』。触发器往往对于用户来说是陌生的，因为它是一个从开发者角度给出的想要影响用户下一步行为的提示、提醒或者行为召唤。一个推送在这个意义上是一个触发器，并且当它是可操作、定制化、时间合适的时候会非常有效。
 
 语言学习软件的 [Busuu](https://play.google.com/store/apps/dev?id=8335366955203612525) 的产品主管 [Antoine Sakho](https://medium.com/@antoinesakho) 在他的 [Medium 文章](https://medium.com/@antoinesakho/designing-push-notifications-that-dont-suck-af6aaa0ea85) 中介绍了他们如何在他们的推送策略中应用 [Nir Eyal](https://medium.com/@nireyal)的[钩子模型](http://www.nirandfar.com/hooked) ，从而获得推送打开率300%的增长。他写道：
 
@@ -107,7 +107,7 @@ Dan Ariely 通过一个在他的书《Predictably Irrational.》中一个现在�
 尽管推送对于有效召回用户有一定保证，你还是应该避开这些常见陷阱：
 
 1. 在不合适的时间推送通知或者推送与用户环境无关的信息，只会产生巨大的反作用。
-2. 总是推送相同消息会很快被用户厌烦：跟随Busuu的指引，永远不要把同一条通知推送两遍。
+2. 总是推送相同消息会很快被用户厌烦：跟随 Busuu 的指引，永远不要把同一条通知推送两遍。
 3. 不要归于依赖推送来驱动用户行为。当无需提醒用户也能主动参与应用内容的时候，应用习惯才会最终养成。[Nir Eyal](https://medium.com/@nireyal) 在他 [Medium 文章](https://medium.com/behavior-design/the-psychology-of-notifications-how-to-send-triggers-that-work-25c7be3d84d3#.e4sbkzj7l)中总结了这些：
 
 > _能让人养成习惯的产品会在内部触发被感知的时候（比如不确定感或者无聊感）结合外部触发器（例如推送），让用户养成习惯。_
@@ -133,7 +133,7 @@ Dan Ariely 通过一个在他的书《Predictably Irrational.》中一个现在�
 
 #### 你怎么想?
 
-你有关于在优化用户决定方面的问题或者想法吗？在下面评论区继续讨论或者通过井号标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在Google Play成功的话题分享新闻和小贴士）上回复。
+你有关于在优化用户决定方面的问题或者想法吗？在下面评论区继续讨论或者通过井号标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在 Google Play 成功的话题分享新闻和小贴士）上回复。
 * * *
 
 _在我_ [第二篇博文](https://medium.com/googleplaydev/the-right-app-rewards-to-boost-motivation-c1ec86390450)_，我会解释一些行为改变第三步 —— 激发用户积极性的细节。我将探索积极性心理，它与游戏化的关系以及，正确的奖励方法。_

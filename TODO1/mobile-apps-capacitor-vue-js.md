@@ -454,7 +454,7 @@ $ npm run build
 $ npx cap copy
 ```
 
-最后，你可以使用 Capacitor CLI 的 `open` 命令在本地 IDE（在我们的示例中为Android Studio）中打开你的原生项目（在我们的示例中为Android）：
+最后，你可以使用 Capacitor CLI 的 `open` 命令在本地 IDE（在我们的示例中为 Android Studio）中打开你的原生项目（在我们的示例中为 Android）：
 
 ```
 $ npx cap open android

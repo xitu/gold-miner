@@ -26,7 +26,7 @@
 
 ### 新版本
 
-随着 web 的发展，新的框架诞生，规范也在更新升级，在 Crankshaft 基础上扩展变得非常困难。有的代码不会被 Crankshaft 优化，比如操作 arguments 对象的某些方法（安全的方式有 unmonkey-patched Function.prototype.apply、length属性、未越界的下标），try-catch 语句和[其它](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)。幸运的是，新的架构 Ignition 和 TurboFan 可以解决其中一些性能瓶颈。现在，有一些模式可以得到更好的优化。如前文所述，优化也是有成本的，需要耗费一些资源（在低端的移动设备上资源可能很有限）。但在多数情况下，你还是希望你的函数能够得到优化。
+随着 web 的发展，新的框架诞生，规范也在更新升级，在 Crankshaft 基础上扩展变得非常困难。有的代码不会被 Crankshaft 优化，比如操作 arguments 对象的某些方法（安全的方式有 unmonkey-patched Function.prototype.apply、length 属性、未越界的下标），try-catch 语句和[其它](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)。幸运的是，新的架构 Ignition 和 TurboFan 可以解决其中一些性能瓶颈。现在，有一些模式可以得到更好的优化。如前文所述，优化也是有成本的，需要耗费一些资源（在低端的移动设备上资源可能很有限）。但在多数情况下，你还是希望你的函数能够得到优化。
 
 引入 TurboFan 的[原因](https://docs.google.com/presentation/d/1H1lLsbclvzyOF3IUR05ZUaZcqDxo7_-8f4yJoxdMooU/edit#slide=id.g18ceb14721_0_39)有：
 
@@ -235,7 +235,7 @@ RelocInfo (size = 169)
 
 Smi 本质上就是小整数的缩写（small integer）。它与 V8 中其它对象有很多不同。在 V8 的源码中位于 objects.h: https://chromium.googlesource.com/v8/v8.git/+/master/src/objects.h
 
-你会发现，Smi不是堆对象。
+你会发现，Smi 不是堆对象。
 
 堆对象，指所有分配于堆上的变量的超类。我们（前端开发者）能够存取的变量本质上是 JSReceiver 的子类。
 

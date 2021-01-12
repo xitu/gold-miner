@@ -9,7 +9,7 @@
 ![](https://cdn-images-1.medium.com/max/2000/1*2_mUAwAihjBYMszQCCL0Mw.png)
 
 
-Android手机支持多个应用同时播放音频。操作系统会把多个音频流混合在一起播放，但是多个应用同时播放音频，给用户带来的体验往往不佳。为了提供更友好的用户体验，Android提供了一个[API](https://developer.android.com/guide/topics/media-apps/audio-focus.html)，让应用程序可以共享**音频焦点**，旨在保证同一时段内只有一个应用可以维持音频聚焦。
+Android 手机支持多个应用同时播放音频。操作系统会把多个音频流混合在一起播放，但是多个应用同时播放音频，给用户带来的体验往往不佳。为了提供更友好的用户体验，Android 提供了一个[API](https://developer.android.com/guide/topics/media-apps/audio-focus.html)，让应用程序可以共享**音频焦点**，旨在保证同一时段内只有一个应用可以维持音频聚焦。
 
 本系列文章旨在让您深入理解音频焦点的含义，使用方法和其对用户体验的重要性。本篇文章是该系列的第一部分，该系列三篇文章包含了：
 
@@ -68,14 +68,14 @@ Android手机支持多个应用同时播放音频。操作系统会把多个音�
 
 [**理解音频焦点 (第3/3部分) - Nazmul Idris (Naz) - Medium**](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
 
-### Android多媒体开发资源
+### Android 多媒体开发资源
 
 *   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
 *   [示例代码 — MediaSession Controller Test （带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
 *   [了解 MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
-*   [多媒体API指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-*   [多媒体API指南 — 使用MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
-*   [使用MediaPlayer构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
+*   [多媒体 API 指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
+*   [多媒体 API 指南 — 使用 MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+*   [使用 MediaPlayer 构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
 
 
 ---

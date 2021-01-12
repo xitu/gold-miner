@@ -312,7 +312,7 @@
 
 #### [**No 35**](https://github.com/itsmeichigo/DateTimePicker)
 
-**DateTimePicker: 一个漂亮的用于选择时间和日期的iOS UI 组件[Github 上有 455 个 stars]。**
+**DateTimePicker: 一个漂亮的用于选择时间和日期的 iOS UI 组件[Github 上有 455 个 stars]。**
 
 ![](https://cdn-images-1.medium.com/max/800/0*hdfLv7NTX8kYmj5M.png)
 
@@ -364,7 +364,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*f6aNZSu1PcblXFQT4FgHGQ.png)
 
-[所有的 iOS 10 编程课程: 开发 21 个应用包括Uber、Instagram 和 Tinder](https://goo.gl/lhGClQ)
+[所有的 iOS 10 编程课程: 开发 21 个应用包括 Uber、Instagram 和 Tinder](https://goo.gl/lhGClQ)
 
 **[22,575 次推荐, 4.7/5 评分]**
 

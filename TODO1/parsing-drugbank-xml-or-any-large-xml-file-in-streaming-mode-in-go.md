@@ -108,7 +108,7 @@ type ExternalIdentifier struct {
 *   如前所述，后面单引号内的内容代表 XML 中要映射到特定字段的结构。
 *   请注意，对于嵌套层次结构，我们需要多个结构类型，例如 “Property” 和 “ExternalIdentifier” ...然后把它们链接到主 “Drug” 结构体中。
 *   我们还需要一个架构体来表示最高级别元素 <`drugbank>`。
-*   每个结构体都需要有一个 xml.Name 类型的字段（为了简单起见，命名为 XMLName ），该字段在XML中定义了它的名字，这样我们就有地方可以添加我们的 XML 映射标签了。
+*   每个结构体都需要有一个 xml.Name 类型的字段（为了简单起见，命名为 XMLName ），该字段在 XML 中定义了它的名字，这样我们就有地方可以添加我们的 XML 映射标签了。
 *   注意，当我们有一些字段的切片（“列表”）时，比如 “Drug” 结构体中的 “CalculatedProperties” 字段，我们需要指定一个二级路径（`xml:"calculated-properties**>**property"`）并将其放入 XML 结构体中，以便能获取到位于分组 ”calculate-properties“ 元素内的单个 ”property“ XML 元素。
 
 设置好结构体之后，我们就可以写 Go 代码了，这份代码会按照 David 的[博客](http://blog.davidsingleton.org/parsing-huge-xml-files-with-go/)以流的方式循环遍历读取一个 XML 文件，同时也会创建一个 TSV 写入器，这样我们就可以用流的方式将提取到的输出写入到一个 drugbank_extracted.tsv 新文件（为简洁起见，导入和主函数都省略了）。

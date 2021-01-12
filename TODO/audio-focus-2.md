@@ -76,13 +76,13 @@
 
 [**理解音频焦点 (第 3/3 部分) - Nazmul Idris (Naz) - Medium**](https://github.com/xitu/gold-miner/blob/master/TODO/audio-focus-3.md)
 
-### Android多媒体开发资源
+### Android 多媒体开发资源
 
 *   [示例代码 — MediaBrowserService](https://github.com/googlesamples/android-MediaBrowserService)
 *   [示例代码 — MediaSession Controller Test（带有音频焦点测试）](https://github.com/googlesamples/android-media-controller)
 *   [了解 MediaSession](https://medium.com/google-developers/understanding-mediasession-part-1-3-e4d2725f18e4)
 *   [多媒体 API 指南 — 多媒体应用程序概述](https://developer.android.com/guide/topics/media-apps/media-apps-overview.html)
-*   [多媒体 API 指南 — 使用MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
+*   [多媒体 API 指南 — 使用 MediaSession](https://developer.android.com/guide/topics/media-apps/working-with-a-media-session.html)
 *   [使用 MediaPlayer 构建简单的音频应用程序](https://medium.com/google-developers/building-a-simple-audio-app-in-android-part-1-3-c14d1a66e0f1)
 
 

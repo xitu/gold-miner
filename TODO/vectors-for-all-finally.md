@@ -107,7 +107,7 @@ _AnimatedVectorDrawableCompat_ 又是怎样的呢？让我们再次看看 [Styli
 
 这是对该兼容库的总结：该兼容库的表现相当棒，且集成到你当前的应用中也非常容易。感谢 Chris 和其他为此工作的团队成员，为我们带来了如此实用的功能。
 
-因此，让我们关注下在我们的应用中使用矢量图需要注意的其他部分——将 SVG 资源转换成 _VectorDrawable_ 。据我们了解，过去 SVG 支持是有一些疏漏的，这意味着我们无法通过 Android Studio 的导入功能或者  [第三方 SVG 转 VectorDrawable 工具](http://inloop.github.io/svg2android/) 来导入官方的SVG Logo （这本应被认为是对基础 SVG 支持的一个基准）。现在这有好消息也有坏消息。
+因此，让我们关注下在我们的应用中使用矢量图需要注意的其他部分——将 SVG 资源转换成 _VectorDrawable_ 。据我们了解，过去 SVG 支持是有一些疏漏的，这意味着我们无法通过 Android Studio 的导入功能或者  [第三方 SVG 转 VectorDrawable 工具](http://inloop.github.io/svg2android/) 来导入官方的 SVG Logo （这本应被认为是对基础 SVG 支持的一个基准）。现在这有好消息也有坏消息。
 
 第一个坏消息是：Android Studio 仍然不能正确导入这个官方 SVG 标志——我已经测试了 Android Studio 2.0 beat 6 版本，仍然不支持。
 

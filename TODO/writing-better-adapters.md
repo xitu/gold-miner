@@ -6,7 +6,7 @@
 
 # 关于 Android Adapter，你的实现方式可能一直都有问题
 
-对Android 开发者来说实现 adapter 是最常见的任务之一。它是每一个列表的基础。看看市面上的应用，列表是大部分应用的基础。
+对 Android 开发者来说实现 adapter 是最常见的任务之一。它是每一个列表的基础。看看市面上的应用，列表是大部分应用的基础。
 
 
 我们实现列表 view  的方式通常是一样的：一个 view 搭配一个装载着数据的 adapter。一直这样做可能会让我们忽视了我们正在写的东西，甚至是糟糕的代码。更糟的是，我们通常会一直重复那些糟糕的代码。
@@ -93,7 +93,7 @@ RecyclerView （ ListView 也适用）基本使用方式如下：
 
 许多的 instance-of 检查和转型，这真是一团糟。这两个都是坏代码的味道，这种写法，通常被认为是[反面模式](http://www.yegor256.com/2015/04/02/class-casting-is-anti-pattern.html)的例子。
 
-许多年前，我在我的显示器上贴了许多的名言。其中的一个来自  Scott Meyers 写的[《Effective C++》 ](https://books.google.de/books/about/Effective_C++.html?id=eQq9AQAAQBAJ&source=kp_cover&redir_esc=y) 这本书（最好的IT书籍之一），它是这么说的：
+许多年前，我在我的显示器上贴了许多的名言。其中的一个来自  Scott Meyers 写的[《Effective C++》 ](https://books.google.de/books/about/Effective_C++.html?id=eQq9AQAAQBAJ&source=kp_cover&redir_esc=y) 这本书（最好的 IT 书籍之一），它是这么说的：
 
 > 不管什么时候，只要你发现自己写的代码类似于 “ if the object is of type T1, then do something, but if it’s of type T2, then do something else ”，就给自己一耳光。
 
@@ -172,7 +172,7 @@ RecyclerView （ ListView 也适用）基本使用方式如下：
 所以你可以简单包装下 model ,完全不需要修改它们，然后在新的 ViewModel 中保留它对应的 model ，这样你还可以添加所有的逻辑代码并且还能使用 Android 最新的 [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)。
 
 
-在 adapter 里使用 ViewModel list 而不是 Model 的这个点子很有用，尤其是当你需要额外添加的 item 的时候，类似 divider ，header或者只是广告 item。
+在 adapter 里使用 ViewModel list 而不是 Model 的这个点子很有用，尤其是当你需要额外添加的 item 的时候，类似 divider ，header 或者只是广告 item。
 
 
 这是解决这个问题的一个方法，但不是唯一的一个。

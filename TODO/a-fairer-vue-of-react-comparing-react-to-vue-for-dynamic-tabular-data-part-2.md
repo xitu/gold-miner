@@ -48,7 +48,7 @@ React:
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/29bf60c3f146eab2c6dc.png)
-##### 50 场比赛，1s的延迟
+##### 50 场比赛，1s 的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/b0b15f794c9a2070a533.png)
 

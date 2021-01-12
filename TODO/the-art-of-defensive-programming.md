@@ -59,9 +59,9 @@
 
 在许多人参与的大项目中，我们可以有许多不同的方式来编写和组织代码。 这也可能导致混乱，甚至更多的错误。 这就是为什么我们统一编码风格和使用代码检测器会使我们的生活更加轻松。
 
-### 写SOLID代码 ###
+### 写 SOLID 代码 ###
 
-这是对一个防守式程序员困难的地方，**[writing code that doesn’t suck](https://medium.com/web-engineering-vox/how-to-write-solid-code-that-doesnt-suck-2a3416623d48)**。这是许多人知道和谈论的事情，但没有人真正关心或投入正确的注意力和努力来实现 **SOLID代码**。
+这是对一个防守式程序员困难的地方，**[writing code that doesn’t suck](https://medium.com/web-engineering-vox/how-to-write-solid-code-that-doesnt-suck-2a3416623d48)**。这是许多人知道和谈论的事情，但没有人真正关心或投入正确的注意力和努力来实现 **SOLID 代码**。
 
 让我们来看一些不好的例子。
 
@@ -147,7 +147,7 @@ $joeMailer->sendMessage();
 $bobMailer->sendMessage();
 ```
 
-在这种情况下，**消息**通过引用传递，结果将在两种情况下都是 *“joe message”* 。 解决方案是在 Mailer 构造函数中克隆消息对象。 但是我们应该总是尝试使用一个（**不可变的**）[值对象](https://en.wikipedia.org/wiki/Value_object)去替代一个简单的 _Message_ mutable对象。**当你可以的时候使用不可变对象**。
+在这种情况下，**消息**通过引用传递，结果将在两种情况下都是 *“joe message”* 。 解决方案是在 Mailer 构造函数中克隆消息对象。 但是我们应该总是尝试使用一个（**不可变的**）[值对象](https://en.wikipedia.org/wiki/Value_object)去替代一个简单的 _Message_ mutable 对象。**当你可以的时候使用不可变对象**。
 
 ```
 

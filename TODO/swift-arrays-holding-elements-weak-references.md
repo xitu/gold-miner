@@ -4,7 +4,7 @@
 > * 译者：[zhangqippp](https://github.com/zhangqippp)
 > * 校对者：[ZhangRuixiang](https://github.com/ZhangRuixiang)，[Danny1451](https://github.com/Danny1451)
 
-# [对元素持有弱引用的Swift数组](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/) #
+# [对元素持有弱引用的 Swift 数组](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/) #
 
 ![](https://marcosantadev.com/wp-content/uploads/header-1.jpg)
 
@@ -14,7 +14,7 @@
 
 **在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)是学习内存管理的一个好的起点。如果你有其它疑问，请留言，我会尽快给予回复。**
 
-`Array` 是Swift中使用最多的集合。它会默认地对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
+`Array` 是 Swift 中使用最多的集合。它会默认地对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
 
 在开始研究这个类之前，我们先通过一个例子来了解为什么我们需要使用它。
 
@@ -205,7 +205,7 @@ if let firstObject=array.object(at:0)as?MyClass{// Cast to MyClass
 
 如果我们想使用一个类型安全的数组替代品，我们就不能使用 `NSPointerArray` 了。 
 
-一个可行的方案是创建一个新类 `WeakRef` ，它带有一个普通的weak属性 `value`：
+一个可行的方案是创建一个新类 `WeakRef` ，它带有一个普通的 weak 属性 `value`：
 
 ```
 class WeakRef<T>whereT: AnyObject{

@@ -25,7 +25,7 @@
 
 你不会看到：
 
-* MVVM、VIPER、Clean等架构之间的比较
+* MVVM、VIPER、Clean 等架构之间的比较
 * 一个能解决所有问题的万能方案
 
 所有这些架构都有优点和缺点，但都是为了使代码变得更简单更清晰。所以我们决定把重点放在**为什么**我们选择 MVVM 而不是 MVC，以及我们**如何**从 MVC 转到 MVVM。如果您对 MVVM 的缺点有什么观点，请参阅本文最后的讨论。
@@ -213,7 +213,7 @@ viewModel.propChanged = { in
 
 #### 在 ViewModel 中进行绑定的接口
 
-现在，让我们开始设计我们的 ViewModel，**PhotoListViewModel**。给定以下三个UI组件：
+现在，让我们开始设计我们的 ViewModel，**PhotoListViewModel**。给定以下三个 UI 组件：
 
 1. tableView
 2. cells
@@ -404,7 +404,7 @@ private func processFetchedPhoto( photos: [Photo] ) {
 
 #### 从小处着手
 
-总会存在更好的解决方案。作为专业的工程师，我们一直在学习如何提高代码质量。许多像我一样的开发者曾经被这么多架构所淹没，不知道如何开始编写单元测试。所以 MVVM 是一个很好的开始。很简单，可测试性还是很不错的。在另一篇 Soroush Khanlou 的文章中，[8 Patterns to Help You Destroy Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/)，这里有有很多好的模式，其中一些也被MVVM所采用。与其受一个巨大的架构所阻碍，我们何不开始用小而强大的 MVVM 模式开始编写测试呢？
+总会存在更好的解决方案。作为专业的工程师，我们一直在学习如何提高代码质量。许多像我一样的开发者曾经被这么多架构所淹没，不知道如何开始编写单元测试。所以 MVVM 是一个很好的开始。很简单，可测试性还是很不错的。在另一篇 Soroush Khanlou 的文章中，[8 Patterns to Help You Destroy Massive View Controller](http://khanlou.com/2014/09/8-patterns-to-help-you-destroy-massive-view-controller/)，这里有有很多好的模式，其中一些也被 MVVM 所采用。与其受一个巨大的架构所阻碍，我们何不开始用小而强大的 MVVM 模式开始编写测试呢？
 
 
 > “The secret to getting ahead is getting started.” — Mark Twain

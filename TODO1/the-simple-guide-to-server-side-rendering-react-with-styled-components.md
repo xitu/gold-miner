@@ -208,7 +208,7 @@ yarn build，然后 yarn start，成功后访问 [http://localhost:3000](http://
 import React from 'react';
 import styled from 'styled-components';
 
-// 我们的单个styled component 定义
+// 我们的单个 styled component 定义
 const AppContaienr = styled.div`
   display: flex;
   align-items: center;
@@ -311,7 +311,7 @@ export default Html;
 
 感谢您阅读本指南到最后。希望它能帮助你理解并开始使用 React / SSR 和 styled-components。如果您认识任何可能从本指南中受益的人，我会很乐意推荐给他们！
 
-如果您希望看到使用样式化组件的服务端渲染的较大代码库，则可以查看我的另一个项目，[Jobeir, on Github](https://github.com/Jobeir/jobeir). 最重要的是，[styled-components文档](https://www.styled-components.com/docs/advanced#server-side-rendering)总是一个不错的去处。
+如果您希望看到使用样式化组件的服务端渲染的较大代码库，则可以查看我的另一个项目，[Jobeir, on Github](https://github.com/Jobeir/jobeir). 最重要的是，[styled-components 文档](https://www.styled-components.com/docs/advanced#server-side-rendering)总是一个不错的去处。
 
 ### 在 [Jobeir](https://jobeir.com) 的在 SSR React 中使用 styled-components
 

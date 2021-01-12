@@ -5,7 +5,7 @@
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
 > * 校对者：[cyz980908](https://github.com/cyz980908)，[z0gSh1u](https://github.com/z0gSh1u)
 
-# 使用JavaScript中的蹦床函数实现安全递归
+# 使用 JavaScript 中的蹦床函数实现安全递归
 
 ![来自[Charles Cheng](https://unsplash.com/@charlesc7?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7274/0*9Sxt2ppwVpNELxC0)
 
@@ -42,7 +42,7 @@ function traverseDOM(tree) {
 }
 ```
 
-#### 蹦床函数 —— JavaScript中的安全递归方式
+#### 蹦床函数 —— JavaScript 中的安全递归方式
 
 使用 `蹦床函数`，你可以将递归函数转化为 `while` 循环：
 

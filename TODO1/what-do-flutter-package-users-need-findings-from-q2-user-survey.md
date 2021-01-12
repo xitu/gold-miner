@@ -7,7 +7,7 @@
 
 # 用户需要什么样的 Flutter 依赖包? 来自 Q2 用户调查的结果
 
-![用Q2调查评论结果做出的词云](https://cdn-images-1.medium.com/max/3200/0*JGPtcSX7QYbN8Dvn)
+![用 Q2调查评论结果做出的词云](https://cdn-images-1.medium.com/max/3200/0*JGPtcSX7QYbN8Dvn)
 
 > 用 Q2 调查评论做出的词云 ☁️ （原始的 [图片](https://raw.githubusercontent.com/timsneath/wordcloud_flutter/master/flutter_wordcloud.png)，[代码](https://github.com/timsneath/wordcloud_flutter) 链接）。
 
@@ -23,7 +23,7 @@
 
 ![对生态系统的满意度](https://cdn-images-1.medium.com/max/2400/0*MjrAD-ZGebXA-xaX)
 
-![对Flutter的总体满意度](https://cdn-images-1.medium.com/max/2400/0*LDgXRVH9t_ZteWDV)
+![对 Flutter 的总体满意度](https://cdn-images-1.medium.com/max/2400/0*LDgXRVH9t_ZteWDV)
 
 当被问及对 Flutter 生态系统的不满时，大多数受访者选择的原因是“我需要的关键包**不存在**”（18％），这可能是对较新技术的期待。
 

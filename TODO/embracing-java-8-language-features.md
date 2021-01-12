@@ -196,7 +196,7 @@ public interface MyView {
 
 ## 支持的特性
 
-虽然并不是所有的 Java 8 特性都已经被向后移植，但是Android Studio 3.0 提供了很多其他的特性：
+虽然并不是所有的 Java 8 特性都已经被向后移植，但是 Android Studio 3.0 提供了很多其他的特性：
 
 - [静态接口方法](https://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html)
 - [类型注解](https://docs.oracle.com/javase/tutorial/java/annotations/type_annotations.html)

@@ -813,7 +813,7 @@ Dispatch Sources 是处理系统级别异步事件（比如内核信号或系统
 - **Memory Dispatch Sources:** **用于注册与内存使用状态相关的通知 (DispatchSourceMemoryPressure)。**
 - **Descriptor Dispatch Sources:** **用于注册与文件和套接字相关的不同事件 (DispatchSourceFileSystemObject, DispatchSourceRead, DispatchSourceWrite)。**
 - **Process dispatch sources:** **用于监视与执行状态有关的某些事件的外部进程 (DispatchSourceProcess)。**
-- **Mach related dispatch sources:** **用于处理与Mach内核的 [IPC 设备](http://fdiv.net/2011/01/14/machportt-inter-process-communication)有关的事件 (DispatchSourceMachReceive, DispatchSourceMachSend)。**
+- **Mach related dispatch sources:** **用于处理与 Mach 内核的 [IPC 设备](http://fdiv.net/2011/01/14/machportt-inter-process-communication)有关的事件 (DispatchSourceMachReceive, DispatchSourceMachSend)。**
 
 如果有需要，你也可以构建你自己的调度源。所有调度源都符合 `DispatchSourceProtocol` 协议，它定义了注册处理程序所需的基本操作，并修改了调度源的激活状态。
 

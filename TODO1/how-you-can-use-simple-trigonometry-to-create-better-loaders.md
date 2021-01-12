@@ -375,7 +375,7 @@ currentAnimationTime += 0.15;
 
 * * *
 
-我有个**我的第一个在线课程**用于讲授 Git 和 GitHub 的使用技巧！你可以使用[这个链接获得免费的2个月Skillshare会员资格](https://skl.sh/2riYNbD)（需要信用卡支付来支持一下我😸），或者使用[这个链接来查看免费课程](https://skl.sh/2HPQVIR)。
+我有个**我的第一个在线课程**用于讲授 Git 和 GitHub 的使用技巧！你可以使用[这个链接获得免费的2个月 Skillshare 会员资格](https://skl.sh/2riYNbD)（需要信用卡支付来支持一下我😸），或者使用[这个链接来查看免费课程](https://skl.sh/2HPQVIR)。
 
 * * *
 

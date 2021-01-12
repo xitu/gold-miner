@@ -1,7 +1,7 @@
 >* 原文链接 : [Why drop-down lists are bad for the user experience.](https://medium.com/apegroup-texts/why-drop-down-lists-are-bad-for-the-user-experience-eeda5cbbd315#.p1yny0k15)
 * 原文作者 : [Nils Sköld](https://medium.com/@NilsSkold)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [邵辉Vista](https://github.com/shaohui10086)
+* 译者 : [邵辉 Vista](https://github.com/shaohui10086)
 * 校对者:[L9m](https://github.com/L9m), [circlelove](https://github.com/circlelove)
 ![](https://cdn-images-1.medium.com/fit/t/1200/504/0*gY3MGKcuxGcVrBwJ.png)
 
@@ -25,7 +25,7 @@
 
 #### 2\. 两个选项应作为一个开关按钮
 
-如果只有两个选项，应该把下拉菜单替换成一个开关，并且最普遍的那个选项应该被预选上，一个很好的例子就是在一个注册表单里选择性别，如果用一个下拉菜单，每个用户都需要做两次点击--选择这个菜单然后选择这个选项，用开关的话，女性（全部人口的51%）被预选上，那么只有9%的人需要做1次点击，这是一个巨大的差别，这里就有一个很糟糕的例子，来自Yahoo.com：
+如果只有两个选项，应该把下拉菜单替换成一个开关，并且最普遍的那个选项应该被预选上，一个很好的例子就是在一个注册表单里选择性别，如果用一个下拉菜单，每个用户都需要做两次点击--选择这个菜单然后选择这个选项，用开关的话，女性（全部人口的51%）被预选上，那么只有9%的人需要做1次点击，这是一个巨大的差别，这里就有一个很糟糕的例子，来自 Yahoo.com：
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f2w3s0eu0nj20m805a74f.jpg)
 
@@ -33,11 +33,11 @@
 
 一个被广泛接受的观点就是下拉列表里最多的选项数应该在15个左右（有人说是12，另一些人说是16），如果超过了一个范围，很容易产生迷惑性，对用户来说是一个很艰难的抉择，浏览一个那么长的选项列表，那么多的选项放在用户手里。我们应该努力尽可能地去除很多选项，因为我们已经在后台做了很多工作，这样用户要想的越少，越好。
 
-一个很好的例子就是国家选择器，到现在为止，当你选择你的国家时，使用下拉列表仍是一个绝对的标准。[ludacris](http://open.spotify.com/track/77dC7dKzMm65Y9jkJs0Ssd),Smashing Mag一年前就这个问题写过一篇很好的文章，叫做[《重新设计国家选择器》](http://uxdesign.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/)，当有很多可能的选项时，使用自动完成控件，让系统去完成这样的工作，而不是用户。
+一个很好的例子就是国家选择器，到现在为止，当你选择你的国家时，使用下拉列表仍是一个绝对的标准。[ludacris](http://open.spotify.com/track/77dC7dKzMm65Y9jkJs0Ssd),Smashing Mag 一年前就这个问题写过一篇很好的文章，叫做[《重新设计国家选择器》](http://uxdesign.smashingmagazine.com/2011/11/10/redesigning-the-country-selector/)，当有很多可能的选项时，使用自动完成控件，让系统去完成这样的工作，而不是用户。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f2w3sl6tm8j2077065glw.jpg)
 
-所以，有没有哪些位置用一个下拉列表才是最佳的选择呢？是的，当然有，在任意一种你有多个选项的情况下，你都可以在你的表单里使用多个单选按钮，用户根本就不知道他们当前选的是哪一个的，但是这种情况发生得很少，如果这种事情真的发生了，那么重新思考一下，利用多样的控件来让用户使用起来更简单才是明智的，作为一个很好的表单应该怎么设计的例子，[浏览一下Typeform](http://www.typeform.com/)，他们做的每一件事情都是对的。
+所以，有没有哪些位置用一个下拉列表才是最佳的选择呢？是的，当然有，在任意一种你有多个选项的情况下，你都可以在你的表单里使用多个单选按钮，用户根本就不知道他们当前选的是哪一个的，但是这种情况发生得很少，如果这种事情真的发生了，那么重新思考一下，利用多样的控件来让用户使用起来更简单才是明智的，作为一个很好的表单应该怎么设计的例子，[浏览一下 Typeform](http://www.typeform.com/)，他们做的每一件事情都是对的。
 
 最后几句，我想说几句虽然有些偏离主题但是需要说的：如果这个字段是可选的，那它就不应该出现在表单里，移除所有不必要的注册流程和对用户来说不必要的东西。这就通常意味着你需要在必选的模块那加一个*（如果在某些情况下，你仍然需要可选的输入框，标出它们是可选的）*。
 

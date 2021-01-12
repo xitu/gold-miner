@@ -34,7 +34,7 @@ Parcel benchmarks
 [来源](https://github.com/TheLarkInn/bundler-performance-benchmark/blob/master/README.md)
 
 * Parcel 支持 JS，CSS，HTML，文件资源等 —— **无需插件 —— 对用户更加友好。**
-* 无需配置。开箱即用的代码拆分，热模块更新，css预处理，开发服务器，缓存等等！
+* 无需配置。开箱即用的代码拆分，热模块更新，css 预处理，开发服务器，缓存等等！
 * 更友好的错误日志。
 
 ![](https://cdn-images-1.medium.com/max/800/1*miFAZZhZpaloYs1fj3jB0A.png)
@@ -231,7 +231,7 @@ npm i --save typescript
 
 准备好了就去做吧！
 
-### [Github源码](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
+### [Github 源码](https://github.com/wesharehoodies/parcel-examples-vue-react-ts)
 
 * * *
 

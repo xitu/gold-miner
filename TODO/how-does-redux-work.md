@@ -19,7 +19,7 @@ Actions，reducers，action creators（Action 创建函数），middleware（中
 
 ## 第一：明白 React 的状态 state
 
-我们将从一个简单的使用 React 状态的例子开始，然后一点一点地添加Redux。
+我们将从一个简单的使用 React 状态的例子开始，然后一点一点地添加 Redux。
 
 这是一个计数器：
 
@@ -195,7 +195,7 @@ export default connect(mapStateToProps)(Counter);
 
 返回的组件另一个名字叫做[高阶组件](https://daveceddia.com/extract-state-with-higher-order-components/) (又叫做 “HOC”)。高阶组件被指责有很多的缺点，但是他们仍然非常有用，`connect` 就是一个很好的例子。
 
-`connect` 连接整个状态到了Redux，通过你自己提供的 `mapStateToProps` 函数， 这需要一个自定义的函数因为只有你自己知道状态在 Redux 中的模型。
+`connect` 连接整个状态到了 Redux，通过你自己提供的 `mapStateToProps` 函数， 这需要一个自定义的函数因为只有你自己知道状态在 Redux 中的模型。
 
 `connect` 连接了所有的状态，“嘿，告诉我你需要从混乱的状态中得到什么”。
 
@@ -461,7 +461,7 @@ Redux 使用一些简单的规则去避免了这样的问题，State 是只读�
 
 让人迷惑的一部分仍然存在：我们需要一个方式去让一个 action 进入到我们的 reducer 中，我们才能增加或者减少这个计数器。
 
-Action 不是被生成的，它们是被**dispatched**的，有一个小巧的函数叫做dispatch。
+Action 不是被生成的，它们是被**dispatched**的，有一个小巧的函数叫做 dispatch。
 
 `dispatch` 函数由 Redux store 的实例提供，也就是说，你不可以仅仅通过 `import { dispatch }`获得 `dispatch` 函数。你可以调用 `store.dispatch(someAction)`，但是那不是很方便，因为 `store` 的实例只在一个文件里面可以被获得。
 

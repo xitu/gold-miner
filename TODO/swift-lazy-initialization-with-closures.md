@@ -248,7 +248,7 @@ rightCornerButton.layer.masksToBounds = true
 ```
 class IntenseMathProblem {
  lazy var complexNumber: Int = {
-  // 请想象这儿要耗费很多CPU资源
+  // 请想象这儿要耗费很多 CPU 资源
   1 * 1
  }()
 }
@@ -258,7 +258,7 @@ class IntenseMathProblem {
 
 ```
 let problem = IntenseMathProblem 
-problem()  // 此时complexNumber没有值
+problem()  // 此时 complexNumber 没有值
 ```
 
 没错，现在 `complexNumber` 没有值。然而，一旦你访问这个属性：

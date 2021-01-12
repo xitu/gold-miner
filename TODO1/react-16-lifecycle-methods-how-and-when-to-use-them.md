@@ -374,7 +374,7 @@ static getDerivedStateFromError(error) {
 
 请注意，你必须返回更新的 state 对象。不要将此方法作用于任何其他操作。而是使用下面的 `componentDidCatch`。
 
-**getDerivedStateFromError的最常见用例：** 更新 state 以显示错误在屏幕上。
+**getDerivedStateFromError 的最常见用例：** 更新 state 以显示错误在屏幕上。
 
 #### componentDidCatch
 

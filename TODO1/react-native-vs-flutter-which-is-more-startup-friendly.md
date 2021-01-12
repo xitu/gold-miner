@@ -15,7 +15,7 @@
 
 现在，跨平台应用开发正在创业公司中变得越来越流行。开发者可以用它来设计电子商务应用、各种交互应用和社交应用。
 
-因此，react native 和 flutter这两个移动应用开发框架引起了广泛的讨论，并且互相竞争，试图证明自己是跨平台移动应用的最合适的宿主。
+因此，react native 和 flutter 这两个移动应用开发框架引起了广泛的讨论，并且互相竞争，试图证明自己是跨平台移动应用的最合适的宿主。
 
 React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，使得公司从中获益。Google 的 flutter 是移动应用开发的新技术，但它能够创建美丽的原生应用，并且帮助开发者轻松创建跨平台应用。
 
@@ -51,7 +51,7 @@ React native 是被 Facebook 开发的，并且很快获得了大众的欢迎，
 
 ![](https://cdn-images-1.medium.com/max/800/1*Nu2WBSE8G_GilhJ0gzqmmw.png)
 
-对这些框架（比如react native 和 flutter）的一个好的比较，可以给我们很有信息量的结果，特别是在性能方面。了解这些语言的移动应用开发者们，会同意在这方面给 Google 的 Flutter 加分的。由于 Dart 框架的存在，Flutter 和它的竞争对手相比是有优势的。而且，Javascript 层可以使开发者更容易地和原生组件通信。
+对这些框架（比如 react native 和 flutter）的一个好的比较，可以给我们很有信息量的结果，特别是在性能方面。了解这些语言的移动应用开发者们，会同意在这方面给 Google 的 Flutter 加分的。由于 Dart 框架的存在，Flutter 和它的竞争对手相比是有优势的。而且，Javascript 层可以使开发者更容易地和原生组件通信。
 
 在另一方面，React Native 有很多的支持者，但开发者们知道创建 hybrid 应用的痛苦。但是，对于 native 应用而言，这个框架特别能够适应需求。这个框架意味着开发者在创建具有 native 环境的应用时不会遇到问题。
 
@@ -99,7 +99,7 @@ React Native，目前在业界的流行程度是不用说的。对于各种年�
 
 所以，我们已经看到了两个[**移动应用开发框架**](https://www.valuecoders.com/mobile-application-development?utm_source=home_reactflutter_medium&utm_medium=mantra)是否适用于创业公司的一个详细的比较。如上所述，他们在稳定性、性能、文档等方面都各有优缺点。
 
-然而，很难确定其中哪一个是胜者，因为它们各自都有优缺点。按我的观点，Flutter 是新框架，它需要一些时间稳定下来，并且和已经很流行的移动应用开发框架 React native相比还有一段路要走。因此，React native 是一个好的选择。在目前可以被视为胜者。
+然而，很难确定其中哪一个是胜者，因为它们各自都有优缺点。按我的观点，Flutter 是新框架，它需要一些时间稳定下来，并且和已经很流行的移动应用开发框架 React native 相比还有一段路要走。因此，React native 是一个好的选择。在目前可以被视为胜者。
 
 无疑，Flutter 也可作为一个好的选择，因为它可以创建漂亮的移动应用，并能帮助创业公司在更少的时间中获取收入。而且，它有一个好的未来。如果你计划开发出色的移动应用，从像 ValueCoders 那样顶尖、可靠的移动应用开发公司[**雇用专业的应用开发者**](https://www.valuecoders.com/hire-developers/hire-mobile-app-developers?utm_source=hiremobile_reactflutter_medium&utm_medium=mantra)吧。
 

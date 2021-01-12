@@ -29,7 +29,7 @@ _译注：新版 Chrome 已经没有放大镜图标了，相应的 css 文件和
 
 ![](http://mo.github.io/assets/devtools-blackbox-third-party-script.png)
 
-* 你可以使用 `ctrl-p` （后面还可以跟 `:` 加行号跳转到特定行）快速跳转到一个引用文件（就像在atom 编辑器里一样）
+* 你可以使用 `ctrl-p` （后面还可以跟 `:` 加行号跳转到特定行）快速跳转到一个引用文件（就像在 atom 编辑器里一样）
 
 _译注：这些 Chrome 开发者工具提供的快捷键里面的 `ctrl` 在 Mac 系统下对应为 `⌘`。_
 

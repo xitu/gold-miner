@@ -329,7 +329,7 @@ internal let ignoreBottomDeltaYTransformer: ContentOffsetDeltaYTransformer = { p
 }
 ```
 
-- `cutOutStateRangeDeltaYTransformer` — 删除那些超过BarController支持的状态（最小值/最大值）限制的 delta Y。
+- `cutOutStateRangeDeltaYTransformer` — 删除那些超过 BarController 支持的状态（最小值/最大值）限制的 delta Y。
 
 ```
 internal let cutOutStateRangeDeltaYTransformer: ContentOffsetDeltaYTransformer = { params -> CGFloat in

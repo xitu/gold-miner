@@ -484,7 +484,7 @@ withTime.execute(fs.readFile, __filename);
 
 关于本文或者我写的其它文章有任何问题，欢迎在 [slack](https://slack.jscomplete.com/) 找我，也可以在 #questions room 向我提问。
 
-作者在 [Pluralsight](https://www.pluralsight.com/search?q=samer+buna&amp;categories=course) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 上有开设线上课程，最近的课程有[React.js入门](https://www.pluralsight.com/courses/react-js-getting-started)，[Node.js进阶](https://www.pluralsight.com/courses/nodejs-advanced)，[JavaScript全栈](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)，有兴趣的可以试听。
+作者在 [Pluralsight](https://www.pluralsight.com/search?q=samer+buna&amp;categories=course) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 上有开设线上课程，最近的课程有[React.js 入门](https://www.pluralsight.com/courses/react-js-getting-started)，[Node.js 进阶](https://www.pluralsight.com/courses/nodejs-advanced)，[JavaScript 全栈](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)，有兴趣的可以试听。
 
 ---
 

@@ -15,7 +15,7 @@
 
 ### 从 Plaid 中吸取的教训
 
-Plaid 实际上是研究 ProGuard 问题的一个很好的主题，因为它包含使用注解处理与代码生成、反射、Java资源加载和原生代码（JNI）的第三方库的混合体。我提取并记录下了一些适用于其他应用的实用建议：
+Plaid 实际上是研究 ProGuard 问题的一个很好的主题，因为它包含使用注解处理与代码生成、反射、Java 资源加载和原生代码（JNI）的第三方库的混合体。我提取并记录下了一些适用于其他应用的实用建议：
 
 ### 数据类
 
@@ -145,7 +145,7 @@ ProGuard 默认会删除代码中的所有注解甚至一些剩余的类型信�
 -keepattributes *Annotation*, Signature, Exception
 ```
 
-> 如果你使用默认的Android ProGuard 配置文件（`getDefaultProguardFile('proguard-android.txt')`），那么前两个选项 —— 注解和签名 —— 是专门为你准备的。如果你没有使用默认的配置文件，那么你必须保证你自己添加它们（如果你知道你的应用需要他们，那么重复它们也没有什么坏处）。
+> 如果你使用默认的 Android ProGuard 配置文件（`getDefaultProguardFile('proguard-android.txt')`），那么前两个选项 —— 注解和签名 —— 是专门为你准备的。如果你没有使用默认的配置文件，那么你必须保证你自己添加它们（如果你知道你的应用需要他们，那么重复它们也没有什么坏处）。
 
 ### 将所有内容移至默认包
 

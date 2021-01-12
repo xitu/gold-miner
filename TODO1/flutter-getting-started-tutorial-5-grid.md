@@ -28,7 +28,7 @@
 
 ### 使用代码
 
-我将以我之前的文章为基础 [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524)，我已经创建了基于 ListView 的应用程序，这里是初始项目结构和初始UI。
+我将以我之前的文章为基础 [Flutter Getting Started: Tutorial 4 ListView](https://medium.com/@thatsalok/flutter-getting-started-tutorial-4-listview-8326c9ed5524)，我已经创建了基于 ListView 的应用程序，这里是初始项目结构和初始 UI。
 
 这是我们开始构建的初始代码
 
@@ -165,7 +165,7 @@ _getGridViewItems(BuildContext context){
 *   `children` 属性将包含您希望在加载页面时显示的所有小部件
 *   `childAspectRatio`，它是每个子节点的横轴与主轴范围的比率，因为我显示的是名称，所以我统一设置为 8.0，以便减少两个图块之间的边距 
 
-这是UI的样子
+这是 UI 的样子
 
 ![](https://cdn-images-1.medium.com/max/800/1*E9Q1cPyQ0hWJEC1uNvqGtQ.png)
 

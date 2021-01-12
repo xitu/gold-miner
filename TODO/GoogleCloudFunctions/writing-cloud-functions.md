@@ -32,7 +32,7 @@ module.exports = {
 
 你定义的 Cloud Functions 必须收俩个参数：context 以及 data。
 
-###Context参数
+###Context 参数
 
 context 函数包含执行环境的信息并且包括一个回调函数来标示你的函数运行完成
 

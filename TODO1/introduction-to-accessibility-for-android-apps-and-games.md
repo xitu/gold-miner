@@ -93,7 +93,7 @@
 
 ### 你怎么看？
 
-你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在Google Play上取得成功的新闻和提示。
+你有没有想过设计无障碍访问的应用程序？请在下面的评论中告诉我们，或者使用 #AskPlayDev 发微博，我们会回复 [@GooglePlayDev](http://twitter.com/googleplaydev), 我们会定期分享有关如何在 Google Play 上取得成功的新闻和提示。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -33,30 +33,30 @@
 - [必备知识](#必备知识)
 - [算法复杂度 / Big-O / 渐进分析法](#算法复杂度--big-o--渐进分析法)
 - [数据结构](#数据结构)
-    - [数组（Arrays）](#数组arrays)
-    - [链表（Linked Lists）](#链表linked-lists)
-    - [堆栈（Stack）](#堆栈stack)
-    - [队列（Queue）](#队列queue)
-    - [哈希表（Hash table）](#哈希表hash-table)
+    - [数组（Arrays）](#数组 arrays)
+    - [链表（Linked Lists）](#链表 linked-lists)
+    - [堆栈（Stack）](#堆栈 stack)
+    - [队列（Queue）](#队列 queue)
+    - [哈希表（Hash table）](#哈希表 hash-table)
 - [更多的知识](#更多的知识)
-    - [二分查找（Binary search）](#二分查找binary-search)
-    - [按位运算（Bitwise operations）](#按位运算bitwise-operations)
-- [树（Trees）](#树trees)
+    - [二分查找（Binary search）](#二分查找 binary-search)
+    - [按位运算（Bitwise operations）](#按位运算 bitwise-operations)
+- [树（Trees）](#树 trees)
     - [树 —— 笔记 & 背景](#树--笔记--背景)
-    - [二叉查找树（Binary search trees）：BSTs](#二叉查找树binary-search-treesbsts)
-    - [堆（Heap） / 优先级队列（Priority Queue） / 二叉堆（Binary Heap）](#堆heap--优先级队列priority-queue--二叉堆binary-heap)
-    - [字典树（Tries）](#字典树tries)
-    - [平衡查找树（Balanced search trees）](#平衡查找树balanced-search-trees)
-    - [N 叉树（K 叉树、M 叉树）](#n-叉树k-叉树m-叉树)
-- [排序](#排序sorting)
-- [图（Graphs）](#图graphs)
+    - [二叉查找树（Binary search trees）：BSTs](#二叉查找树 binary-search-treesbsts)
+    - [堆（Heap） / 优先级队列（Priority Queue） / 二叉堆（Binary Heap）](#堆 heap--优先级队列 priority-queue--二叉堆 binary-heap)
+    - [字典树（Tries）](#字典树 tries)
+    - [平衡查找树（Balanced search trees）](#平衡查找树 balanced-search-trees)
+    - [N 叉树（K 叉树、M 叉树）](#n-叉树 k-叉树 m-叉树)
+- [排序](#排序 sorting)
+- [图（Graphs）](#图 graphs)
 - [更多知识](#更多知识)
-    - [递归](#递归recursion)
-    - [动态规划](#动态规划dynamic-programming)
-    - [组合 & 概率](#组合combinatorics-n-中选-k-个--概率probability)
+    - [递归](#递归 recursion)
+    - [动态规划](#动态规划 dynamic-programming)
+    - [组合 & 概率](#组合 combinatorics-n-中选-k-个--概率 probability)
     - [NP, NP-完全和近似算法](#np-np-完全和近似算法)
-    - [缓存](#缓存cache)
-    - [进程和线程](#进程processe和线程thread)
+    - [缓存](#缓存 cache)
+    - [进程和线程](#进程 processe 和线程 thread)
     - [系统设计、可伸缩性、数据处理](#系统设计可伸缩性数据处理)
     - [论文](#论文)
     - [测试](#测试)
@@ -99,10 +99,10 @@
     - [不相交集 & 联合查找](#不相交集--联合查找)
     - [快速处理数学](#math-for-fast-processing)
     - [树堆 (Treap)](#树堆-treap)
-    - [线性规划](#线性规划linear-programming视频)
-    - [几何：凸包（Geometry, Convex hull）](#几何凸包geometry-convex-hull视频)
+    - [线性规划](#线性规划 linear-programming 视频)
+    - [几何：凸包（Geometry, Convex hull）](#几何凸包 geometry-convex-hull 视频)
     - [离散数学](#离散数学)
-    - [机器学习](#机器学习machine-learning)
+    - [机器学习](#机器学习 machine-learning)
     - [Go 语言](#go-语言)
 - [一些主题的额外内容](#一些主题的额外内容)
 - [视频系列](#视频系列)
@@ -235,7 +235,7 @@
 
 [在此查看相关语言的资源](programming-language-resources.md)
 
-由于，我正在学习C、C++ 和 Python。因此，在下面你会看到部分关于它们的学习资料。相关书籍请看文章的底部。
+由于，我正在学习 C、C++ 和 Python。因此，在下面你会看到部分关于它们的学习资料。相关书籍请看文章的底部。
 
 ## 在你开始之前
 
@@ -1114,7 +1114,7 @@
         - [Pratt 算法](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)
         - [教程: Knuth-Morris-Pratt (KMP) 字符串匹配算法](https://www.youtube.com/watch?v=2ogqPWJSftE)
     - [ ] Boyer–Moore 字符串搜索算法
-        - [Boyer-Moore字符串搜索算法](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)
+        - [Boyer-Moore 字符串搜索算法](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)
         - [Boyer-Moore-Horspool 高级字符串搜索算法 (video)](https://www.youtube.com/watch?v=QDZpzctPf10)
     - [ ] [Coursera: 字符串的算法](https://www.coursera.org/learn/algorithms-on-strings/home/week/1)
 
@@ -1335,9 +1335,9 @@
 - ### 信息资源 (视频)
     - [ ] [Khan Academy 可汗学院](https://www.khanacademy.org/computing/computer-science/informationtheory)
     - [ ] 更多有关马尔可夫的内容:
-        - [ ] [Core Markov Text Generation马尔可夫内容生成](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/waxgx/core-markov-text-generation)
-        - [ ] [Core Implementing Markov Text Generation马尔可夫内容生成补充](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/gZhiC/core-implementing-markov-text-generation)
-        - [ ] [Project = Markov Text Generation Walk Through一个马尔可夫内容生成器的项目](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/EUjrq/project-markov-text-generation-walk-through)
+        - [ ] [Core Markov Text Generation 马尔可夫内容生成](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/waxgx/core-markov-text-generation)
+        - [ ] [Core Implementing Markov Text Generation 马尔可夫内容生成补充](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/gZhiC/core-implementing-markov-text-generation)
+        - [ ] [Project = Markov Text Generation Walk Through 一个马尔可夫内容生成器的项目](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/EUjrq/project-markov-text-generation-walk-through)
     - 关于更多信息，请参照下方 MIT 6.050J 信息和系统复杂度的内容.
 
 - ### 奇偶校验位 & 汉明码 (视频)
@@ -1411,7 +1411,7 @@
     - [ ] [论并行/并发编程如何提高 Python 执行效率 (视频)](https://www.youtube.com/watch?v=uY85GkaYzBk)
 
 - ### 设计模式
-    - [ ] [UML统一建模语言概览 (视频)](https://www.youtube.com/watch?v=3cmzqZzwNDM&list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc&index=3)
+    - [ ] [UML 统一建模语言概览 (视频)](https://www.youtube.com/watch?v=3cmzqZzwNDM&list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc&index=3)
     - [ ] 主要有如下的设计模式:
         - [ ] s(strategy)
         - [ ] singleton
@@ -1435,7 +1435,7 @@
     - [ ] [第六章 (第 3 部分 ) - Adapter, Facade, Immutable, Read-Only Interface, Proxy (video)](https://www.youtube.com/watch?v=7sduBHuex4c&index=13&list=PLJ9pm_Rc9HesnkwKlal_buSIHA-jTZMpO)
     - [ ] [视频](https://www.youtube.com/playlist?list=PLF206E906175C7E07)
     - [ ] [Head Fisrt 设计模型](https://www.amazon.com/Head-First-Design-Patterns-Freeman/dp/0596007124)
-        - 尽管这本书叫做设计模式：重复使用模块，但是我还是认为Head First是对于新手来说很不错的书。
+        - 尽管这本书叫做设计模式：重复使用模块，但是我还是认为 Head First 是对于新手来说很不错的书。
     - [ ] [基于实际操作对于入门开发者的建议](https://sourcemaking.com/design-patterns-and-tips)
 
 - ### 信息传输, 序列化,和队列化的系统
@@ -1444,15 +1444,15 @@
     - [ ] [协议缓冲](https://developers.google.com/protocol-buffers/)
         - [教程](https://developers.google.com/protocol-buffers/docs/tutorials)
     - [ ] [gRPC](http://www.grpc.io/)
-        - [gRPC 对于JAVA开发者的入门教程（视频）](https://www.youtube.com/watch?v=5tmPvSe7xXQ&list=PLcTqM9n_dieN0k1nSeN36Z_ppKnvMJoly&index=1)
+        - [gRPC 对于 JAVA 开发者的入门教程（视频）](https://www.youtube.com/watch?v=5tmPvSe7xXQ&list=PLcTqM9n_dieN0k1nSeN36Z_ppKnvMJoly&index=1)
     - [ ] [Redis](http://redis.io/)
         - [教程](http://try.redis.io/)
-    - [ ] [Amazon的 SQS 系统 (队列)](https://aws.amazon.com/sqs/)
-    - [ ] [Amazon的 SNS 系统 (pub-sub)](https://aws.amazon.com/sns/)
+    - [ ] [Amazon 的 SQS 系统 (队列)](https://aws.amazon.com/sqs/)
+    - [ ] [Amazon 的 SNS 系统 (pub-sub)](https://aws.amazon.com/sns/)
     - [ ] [RabbitMQ](https://www.rabbitmq.com/)
         - [入门教程](https://www.rabbitmq.com/getstarted.html)
     - [ ] [Celery](http://www.celeryproject.org/)
-        - [Celery入门](http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html)
+        - [Celery 入门](http://docs.celeryproject.org/en/latest/getting-started/first-steps-with-celery.html)
     - [ ] [ZeroMQ](http://zeromq.org/)
         - [入门教程](http://zeromq.org/intro:read-the-manual)
     - [ ] [ActiveMQ](http://activemq.apache.org/)
@@ -1467,7 +1467,7 @@
     - [ ] [FTT 是什么](http://jakevdp.github.io/blog/2013/08/28/understanding-the-fft/)
 
 - ### 布隆过滤器
-    - 给一个布隆过滤器m比特和k个哈希函数，所有的注入和相关测试都会是通过。
+    - 给一个布隆过滤器 m 比特和 k 个哈希函数，所有的注入和相关测试都会是通过。
     - [布隆过滤器](https://www.youtube.com/watch?v=-SuTGoFYjZs)
     - [布隆过滤器 | 数据挖掘 | Stanford University](https://www.youtube.com/watch?v=qBTdukbzc78)
     - [教程](http://billmill.org/bloomfilter-tutorial/)
@@ -1475,7 +1475,7 @@
 
 - ### van Emde Boas 树
     - [ ] [争论: van Emde Boas 树 (视频)](https://www.youtube.com/watch?v=hmReJCupbNU&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=6)
-    - [ ] [MIT课堂笔记](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2012/lecture-notes/MIT6_046JS12_lec15.pdf)
+    - [ ] [MIT 课堂笔记](https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-design-and-analysis-of-algorithms-spring-2012/lecture-notes/MIT6_046JS12_lec15.pdf)
 
 - ### 更深入的数据结构
     - [ ] [CS 61B 第 39 课: 更深入的数据结构](https://youtu.be/zksIj9O8_jc?list=PL4BBB74C7D2A1049C&t=950)
@@ -1486,7 +1486,7 @@
     - [ ] [更生动详细的解释](https://en.wikipedia.org/wiki/Skip_list)
 
 - ### 网络流
-    - [ ] [5分钟简析Ford-Fulkerson (视频)](https://www.youtube.com/watch?v=v1VgJmkEJW0)
+    - [ ] [5分钟简析 Ford-Fulkerson (视频)](https://www.youtube.com/watch?v=v1VgJmkEJW0)
     - [ ] [Ford-Fulkerson 算法 (视频)](https://www.youtube.com/watch?v=v1VgJmkEJW0)
     - [ ] [网络流 (视频)](https://www.youtube.com/watch?v=2vhN4Ice5jI)
 

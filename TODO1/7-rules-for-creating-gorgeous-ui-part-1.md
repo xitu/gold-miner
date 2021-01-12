@@ -206,7 +206,7 @@ UX 设计师现在真的是“移动优先”来进行设计。这意味着您�
 
 > **让我们用下颜色代码 — 等等，什么是色调？**
 
-> 网页上大体将颜色作为 RGB 十六进制代码进行讨论。其实忽略他们才是最有用的。RGB 并不是适合着色设计的一个有用的框架。[HSB](https://learnui.design/blog/the-hsb-color-system-practicioners-primer.html)（与HSV同义，与HSL类似）更有用。
+> 网页上大体将颜色作为 RGB 十六进制代码进行讨论。其实忽略他们才是最有用的。RGB 并不是适合着色设计的一个有用的框架。[HSB](https://learnui.design/blog/the-hsb-color-system-practicioners-primer.html)（与 HSV 同义，与 HSL 类似）更有用。
 
 > HSB 比 RGB 更好，因为它符合我们对颜色自然的看法，并且您可以预测 HSB 值的变化所给您看到颜色来带的影响。
 
@@ -246,7 +246,7 @@ UX 设计师现在真的是“移动优先”来进行设计。这意味着您�
 
 在规则 2中，我说使用白或者黑原则迫使设计者在考虑颜色之前考虑**间距**和**布局**，为什么这是件好事，那么，现在就是讨论如何进行间距和布局的构造。 
 
-如果您从头开始编写 HTML 代码，你可能很熟悉HTML在页面上默认的布局方式。
+如果您从头开始编写 HTML 代码，你可能很熟悉 HTML 在页面上默认的布局方式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fS6ixQIk88MJlEmph7PeJA.png)
 

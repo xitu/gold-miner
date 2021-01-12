@@ -4,7 +4,7 @@
 > * 译者：[mnikn](https://github.com/mnikn)
 > * 校对者：[phxnirvana](https://github.com/phxnirvana)，[stormrabbit](https://github.com/stormrabbit)
 
-# 通过测试来解耦Activity
+# 通过测试来解耦 Activity
 
 `Activity` 和 `Fragment`，可能是因为一些[奇怪的历史巧合](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)，从 Android 推出之时起就被视为构建 Android 应用的**最佳**构件。我们把`Activity` 和 `Fragment` 是应用的最佳构件这种想法称为“android-centric”架构。
 

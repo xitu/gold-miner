@@ -35,7 +35,7 @@ let mine = new MyClass();
 ```
 你生成了一个‘_object_’。但是你别忘了 Javascript 不是一个基于类的语言，他用的是原型方法（阅读下面的文章或者其他的解释这个的东西来掌握所有的这些是怎么回事）。
 
-- [**关于 Javascript 原型的简单英文指南 - Sebastian的博客**(http://sporto.github.io/blog/2013/02/22/a-plain-english-guide-to-javascript-prototypes/)
+- [**关于 Javascript 原型的简单英文指南 - Sebastian 的博客**(http://sporto.github.io/blog/2013/02/22/a-plain-english-guide-to-javascript-prototypes/)
 
 * * *
 
@@ -64,7 +64,7 @@ interface MyInterface{
 
 > Javascript 的类，在 ECMAScript 2015的介绍中，主要是 Javascript 基于原型继承的语法糖。类的语法没有想 Javascript 中引入一个新的面向对象的继承模型。
 
-你不能对 Javascript 中的类更清楚了（扩展一下，在 Typescript中也是一样）
+你不能对 Javascript 中的类更清楚了（扩展一下，在 Typescript 中也是一样）
 
 ### 接口 vs 类
 

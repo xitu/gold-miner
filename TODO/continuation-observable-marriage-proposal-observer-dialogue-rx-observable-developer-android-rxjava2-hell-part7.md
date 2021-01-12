@@ -724,7 +724,7 @@ public class ObserverLecture {
 }
 ```
 
-所以你也看到了，第三个参数其实是 Action 而不是Consumer。请牢记。
+所以你也看到了，第三个参数其实是 Action 而不是 Consumer。请牢记。
 
 最后一个是 Disposable。当我想分离时，我如何获得一个 Disposable 呢，这时我们可以用泛型 T 为 Disposable 的 Consumer 作为订阅的第四个参数。
 

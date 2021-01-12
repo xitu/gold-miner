@@ -64,7 +64,7 @@
 *   Content（内容）: 一个包含所有通知需要展示的信息的 `UNNotificationContent` 对象，包括标题，子标题和应用的标记数.
 *   Trigger（触发器）:一个系统用来确定什么时候该发送你的通知给你的应用的 `UNNotificationTrigger` 对象。
 
-首先，我们将看一下那些可以用来创建本地推送的不同种类的触发器。`UNNotificationTrigger` 类是个抽象类，意味着你不能直接创建它的实例。所以你只能使用那些可以用的子类。目前，UserNotifications 的framework提供了下面三种：
+首先，我们将看一下那些可以用来创建本地推送的不同种类的触发器。`UNNotificationTrigger` 类是个抽象类，意味着你不能直接创建它的实例。所以你只能使用那些可以用的子类。目前，UserNotifications 的 framework 提供了下面三种：
 
 *   `UNTimeIntervalNotificationTrigger`, 能够在一定时间后触发发送通知。
 *   `UNCalendarNotificationTrigger`, 能在特定日期和时间的触发发送通知，不管通知是什么时候创建的。

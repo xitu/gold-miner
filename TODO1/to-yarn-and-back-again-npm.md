@@ -37,7 +37,7 @@ Yarn 解决了我们在使用 npm 时所遇到的一些烦人的问题，但是�
 
 ### 速度
 
-我们很高兴地发现，在每个包管理器试用五个案例后，npm的平均成绩与 Yarn 相当：
+我们很高兴地发现，在每个包管理器试用五个案例后，npm 的平均成绩与 Yarn 相当：
 
 *   Yarn：`$ rm -rf node_modules && time yarn`：126s
 *   npm：`$ rm -rf node_modules && time npm i`：132s

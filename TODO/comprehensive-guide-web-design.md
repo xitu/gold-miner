@@ -33,7 +33,7 @@
 4.  [滚动行为 Scrolling Behavior](#scrolling-behavior)
 5.  [内容加载 Content Loading](#content-loading)
 6.  [按钮 Buttons](#buttons)
-7.  [图像 Imagery](#图片来源ry)
+7.  [图像 Imagery](#图片来源 ry)
 8.  [视频 Video](#video)
 9.  [CTA 按钮 Call-to-Action Buttons](#call-to-action-buttons)
 10.  [网页表单 Web Forms](#web-forms)
@@ -227,7 +227,7 @@ Basecamp 使用的“Z-形”布局 ([点击查看大图](https://www.smashingma
 
 *   **鼓励用户的滚动行为** 尽管用户实际在页面加载时就开始[滚动滑轮](http://www.lukew.com/ff/entry.asp?1946)，页面顶端的内容同样非常重要。顶端的内容限定了用户对网站的印象和期望。用户的确会向下拉滚动条，但仅仅会发生在非隐藏内容足够吸引人。因而，记得将最引人注目的内容放在页面顶端：
     *   **展示好的[网站介绍](https://www.nngroup.com/articles/blah-blah-text-keep-cut-or-kill/).** 优秀的网站简介创造了良好的内容场景，回答用户最初的疑问“这是干什么的网站？”
-    *   **使用[吸引人的影像](https://www.smashingmagazine.com/2017/01/more-than-just-pretty-how-图片来源ry-drives-user-experience/)** 用户会对相关的图片影像特别感兴趣。
+    *   **使用[吸引人的影像](https://www.smashingmagazine.com/2017/01/more-than-just-pretty-how-图片来源 ry-drives-user-experience/)** 用户会对相关的图片影像特别感兴趣。
 *   **固定导航栏** 当你需要建一个长页面时，记住：用户需要有定位感（当前位置）和方向感（访问其他路径）。长页面会使用户有定位困难。当页面很深时，如果下滑时顶部导航消失，用户必须持续向上滑动返回顶端。 显然， [粘性导航栏](https://www.smashingmagazine.com/2012/09/sticky-menus-are-quicker-to-navigate/) 既可以显示当前位置，又可以使屏幕长时间保持一致性。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/14-A-Comprehensive-Guide-To-Web-Design.gif)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/14-A-Comprehensive-Guide-To-Web-Design.gif)
@@ -238,7 +238,7 @@ Basecamp 使用的“Z-形”布局 ([点击查看大图](https://www.smashingma
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/04-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/04-A-Comprehensive-Guide-to-Web-Design-800w-opt.png)
 
-细节动画（例：Tumblr的加载提示）告诉用户更多内容正在加载。
+细节动画（例：Tumblr 的加载提示）告诉用户更多内容正在加载。
 
 *   **不要绑架用户的滚动行为** 对滚动行为进行绑架最烦人了，由于这种行为从用户手里抢夺了控制权，使其对滚动行为无法预知。设计网站时，请让用户能够主动控制浏览和滚动行为。
 
@@ -302,7 +302,7 @@ Facebook 使用网站骨架，填充页面时内容逐步加载。([点击查看
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/45-A-Comprehensive-Guide-To-Web-Design-800w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/45-A-Comprehensive-Guide-To-Web-Design-large-opt.png)
 
-低质量的照片 VS 高质量不失焦的图片 (图片来源： [Adobe](https://blogs.adobe.com/creativecloud/more-than-just-pretty-how-图片来源ry-drives-ux/)) ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/45-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
+低质量的照片 VS 高质量不失焦的图片 (图片来源： [Adobe](https://blogs.adobe.com/creativecloud/more-than-just-pretty-how-图片来源 ry-drives-ux/)) ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/45-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
 #### Video 视频
 
@@ -329,7 +329,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 #### Call-to-Action Buttons CTA 按钮
 
-召唤行动 Calls to action (CTA) 指的是引导用户实现转化率的按钮。CTA 重点在于引导用户执行我们期望的行为。 常见的CTA的例如：
+召唤行动 Calls to action (CTA) 指的是引导用户实现转化率的按钮。CTA 重点在于引导用户执行我们期望的行为。 常见的 CTA 的例如：
 
 *   开始试用
 *   立即下载查看
@@ -499,7 +499,7 @@ Facebook 的视频会在用户访问时自动播放，除非用户主动打开�
 
 ([点击查看大图](https://www.smashingmagazine.com/wp-content/uploads/2017/11/19-A-Comprehensive-Guide-To-Web-Design-large-opt.png))
 
-第二个例子是 ASOS 网站。同样是销售T恤的网页，它为商品提供了准确的文字表述。这有助于使用屏幕阅读器的用户想象商品的外观。
+第二个例子是 ASOS 网站。同样是销售 T 恤的网页，它为商品提供了准确的文字表述。这有助于使用屏幕阅读器的用户想象商品的外观。
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/11/48-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/11/48-A-Comprehensive-Guide-To-Web-Design-preview-opt.png)
 

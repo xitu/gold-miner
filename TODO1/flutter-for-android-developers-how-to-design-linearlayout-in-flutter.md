@@ -266,13 +266,13 @@ LinearLayout 在 Android 中大量使用，与 Row/Column 小部件相同。希�
 
 看看这里的 android 例子。
 
-[burhanrashid52 / FlutterForAndroidExample：通过在GitHub上创建一个帐户，为 FlutterForAndroidExample 开发做出贡献。](https://github.com/burhanrashid52/FlutterForAndroidExample)
+[burhanrashid52 / FlutterForAndroidExample：通过在 GitHub 上创建一个帐户，为 FlutterForAndroidExample 开发做出贡献。](https://github.com/burhanrashid52/FlutterForAndroidExample)
 
 **谢谢 ！！！**
 
 **如果您觉得这篇文章有帮助。请收藏，分享和拍手，这样其他人会在中看到这一点。如果您有任何问题或建议，请在博客上自由发表评论，或在 Twitter，Github 或 Reddit 上给我点赞。**
 
-**要获取我即将发布的博客的最新更新，请在 Medium，Twitter，Github 或Reddit 上关注我。**
+**要获取我即将发布的博客的最新更新，请在 Medium，Twitter，Github 或 Reddit 上关注我。**
 
 * [**Burhanuddin Rashid (@burhanrashid52) | Twitter**](https://twitter.com/burhanrashid52)
 

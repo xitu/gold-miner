@@ -200,7 +200,7 @@ public class MainActivityModule {
 
 #### Fragment Components
 
-如果在 `DetailActivity` 中有两个 Fragment，那我们应该怎么办呢？实际上这一点都不难想到。先想想 Activity 和 Application 之间的关系，Application 通过映射的 Module（在我的示例中就是ActivityBuilder）知道所有的 Activity，并且将所有的 Activity 作为子 Component 加入到 AppModule 中。
+如果在 `DetailActivity` 中有两个 Fragment，那我们应该怎么办呢？实际上这一点都不难想到。先想想 Activity 和 Application 之间的关系，Application 通过映射的 Module（在我的示例中就是 ActivityBuilder）知道所有的 Activity，并且将所有的 Activity 作为子 Component 加入到 AppModule 中。
 
 Activity 和 Fragment 也是如此，首先创建一个 FragmentBuilder Module 加入到 DetailActivityComponent 中。
 

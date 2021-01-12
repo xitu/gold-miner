@@ -30,7 +30,7 @@
 
 因此导入和转换 SVG 资料作为 VectorDrawable 还是有问题的。但公平来讲比上次我尝试的时候已经有很大的进步了。上次，我只得到了一堆没有意义的错误信息并不能帮助我定位问题。我猜对于不依赖本地 IRI 引用的 SVG 材料会有很大的概率成功-也就是说确实有提升。
 
-那么把注意力放在工具链的另一部分：在编译时期将 _VectorDrawable_ 生成 PNG 文件。重述一下：如果你将 minSDKVersion 设为 21 以下，这将是构建工具的一部分，VectorDrawable 会自动生成对应的PNG 文件。当你的 APK 运行在 API 21 或者之后的设备上将会使用 VectorDrawable，在之前的设备上将会使用对应的 PNG 文件。换句话说，你只需要添加 VectorDrawable 文件编译工具会需要的时候自动帮你转换。
+那么把注意力放在工具链的另一部分：在编译时期将 _VectorDrawable_ 生成 PNG 文件。重述一下：如果你将 minSDKVersion 设为 21 以下，这将是构建工具的一部分，VectorDrawable 会自动生成对应的 PNG 文件。当你的 APK 运行在 API 21 或者之后的设备上将会使用 VectorDrawable，在之前的设备上将会使用对应的 PNG 文件。换句话说，你只需要添加 VectorDrawable 文件编译工具会需要的时候自动帮你转换。
 
 之前当我尝试这个的时候，我发现 _VectorDrawable_  中的 `<group></group>` 元素会被忽略，因此很多应用在 group 级的转译也会被忽略，最后 PNG 图片不会被正确渲染。
 

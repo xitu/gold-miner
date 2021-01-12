@@ -9,7 +9,7 @@
 
 Photo credit : [http://www.magic4walls.com/crop-image?id=14269](http://www.magic4walls.com/crop-image?id=14269) 
 
-两年半之前，在一个由四个人组成的 Android 团队的帮助下，我开始从后端开发转向移动开发。一年之后，我加入了一个已经完成了B轮融资的初创公司，在那里主要做 Android 开发的工作。在一个小团队里工作，既能很好地保持独立，还不耽误向同事学习。
+两年半之前，在一个由四个人组成的 Android 团队的帮助下，我开始从后端开发转向移动开发。一年之后，我加入了一个已经完成了 B 轮融资的初创公司，在那里主要做 Android 开发的工作。在一个小团队里工作，既能很好地保持独立，还不耽误向同事学习。
 
 但随后，五个月前，我从原本的小团队跳槽到了一个“根本没有团队”的地方，我去的这家是刚刚成立的创业公司，只有六个人，而我是其中 **唯一的** Android 工程师。在这个新的岗位，我从零开始完成了 [Winnie](https://winnie.com/)，这个 APP 最近已经[发布](https://winnie.com/android) 了！
 
@@ -37,13 +37,13 @@ Photo credit : [http://www.magic4walls.com/crop-image?id=14269](http://www.magic
 
 虽然在某些情况下打破你的模式是有意义的，但是当你发现更好的东西时，最好留心去重构并且改变之前的代码来使整体保持一致。这可能听起来很明显但是仅仅把新的模式用到新的代码中更为简单，所以当你一个人工作的时候可能会倾向这么干。但是这样会在你察觉到之前迅速让你的代码变得蜜汁混乱！**即使这个模式并不是很棒，保持代码的一致性会让之后的修补变得更容易**。
 
-#### **墙裂建议使用Kotlin** ####
+#### **墙裂建议使用 Kotlin** ####
 
 除非你是从头开始，不然的话，考虑一下在下一个你将要写的类里试试吧。
 
 我最终没有在 Winnie 中使用 [Kotlin](https://kotlinlang.org/) ，因为我当时没有经验所以对这个想法不够自信，加之不想打击团队中的 Java 后端工程师向代码库中贡献代码的热情。
 
-然而，在看过 [Christina的关于 Kotlin 的演讲](https://www.youtube.com/watch?v=mDpnc45WwlI)  并且做了一些研究之后，**如果能重来，我至少会试试这门语言**。 Kotlin 有很多优点 —— 即使只是防止 null pointer 引起的异常和不与 Java 笨拙的模式化代码同流合污（Kotlin 的语法比 Java 要精炼得多 —— 译注）就让我佩服得五体投地。 Jake Wharton 的 [这个讲座](https://realm.io/news/oredev-jake-wharton-kotlin-advancing-android-dev/) 是个很好的学习 Kotlin 的起点。
+然而，在看过 [Christina 的关于 Kotlin 的演讲](https://www.youtube.com/watch?v=mDpnc45WwlI)  并且做了一些研究之后，**如果能重来，我至少会试试这门语言**。 Kotlin 有很多优点 —— 即使只是防止 null pointer 引起的异常和不与 Java 笨拙的模式化代码同流合污（Kotlin 的语法比 Java 要精炼得多 —— 译注）就让我佩服得五体投地。 Jake Wharton 的 [这个讲座](https://realm.io/news/oredev-jake-wharton-kotlin-advancing-android-dev/) 是个很好的学习 Kotlin 的起点。
 
 #### **掌握自己的代码 不要过分依赖第三方库** ####
 

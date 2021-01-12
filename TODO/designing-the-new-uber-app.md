@@ -115,4 +115,4 @@ Uber 起初的愿景很简单。“轻触屏幕，即刻接驾。”无需设置
 
 年底，有着更多功能的更新会在全球各应用市场分批上线。 希望你和我们一样激动。如果你读到这里的话，可以看看下面介绍新应用的短视频：
 <iframe width="1514" height="851" src="https://www.youtube.com/embed/I1DdoN6NLDg" frameborder="0" allowfullscreen></iframe>
-[点这里](https://www.youtube.com/embed/I1DdoN6NLDg)（Youtube地址，需自备梯子）
+[点这里](https://www.youtube.com/embed/I1DdoN6NLDg)（Youtube 地址，需自备梯子）

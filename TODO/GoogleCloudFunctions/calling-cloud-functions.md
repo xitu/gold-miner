@@ -24,9 +24,9 @@ Cloud Functions 可以通过 [Cloud Pub/Sub topic](https://cloud.google.com/pubs
 
 参数|描述
 ----|----
---trigger-topic|函数要订阅的Cloud Pub/Sub 主题名
+--trigger-topic|函数要订阅的 Cloud Pub/Sub 主题名
 
-由 Cloud Pub/Sub 触发器调用的 Cloud Functions 会接收到一个发布到 Pub/Sub 主题的 message，message必须是 JSON 格式。
+由 Cloud Pub/Sub 触发器调用的 Cloud Functions 会接收到一个发布到 Pub/Sub 主题的 message，message 必须是 JSON 格式。
 
 ##Google Cloud Storege
 
@@ -79,4 +79,4 @@ Google Cloud Logging 事件可以输出到任何可以被 Cloud Functions 消费
 
 ###GMail
 
-使用 [GMail推送通知 API](https://developers.google.com/gmail/api/guides/push) 你可以把 GMail 事件发送给 loud Pub/Sub 主题并交给 Cloud Functions 处理。
+使用 [GMail 推送通知 API](https://developers.google.com/gmail/api/guides/push) 你可以把 GMail 事件发送给 loud Pub/Sub 主题并交给 Cloud Functions 处理。

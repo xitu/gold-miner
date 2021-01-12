@@ -18,7 +18,7 @@ Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码�
 
 这是使用 Dagger 2 的一系列其它优势：
 
- * **简化共享实例访问**。就像 [ButterKnife](https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife) 库简化了引用View， event handler 和 resources 的方式一样，Dagger 2 提供了一个简单的方式获取对共享对象的引用。例如，一旦我们在 Dagger 中声明了  `MyTwitterApiClient` 或 `SharedPreferences` 的单例，就可以用一个简单的 `@Inject` 标注来声明域：
+ * **简化共享实例访问**。就像 [ButterKnife](https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife) 库简化了引用 View， event handler 和 resources 的方式一样，Dagger 2 提供了一个简单的方式获取对共享对象的引用。例如，一旦我们在 Dagger 中声明了  `MyTwitterApiClient` 或 `SharedPreferences` 的单例，就可以用一个简单的 `@Inject` 标注来声明域：
 
 ```java
 public class MainActivity extends Activity {
@@ -52,7 +52,7 @@ dependencies {
 }
 ```
 
-注意 `provided` 关键词是指只在编译时需要的依赖。Dagger 编译器生成了用于生成依赖图的类，而这个依赖图是在你的源代码中定义的。这些类在编译过程中被添加到你的IDE classpath。`annotationProcessor` 关键字可以被 Android Gradle 插件理解。它不把这些类添加到 classpath 中，而只是把它们用于处理注解。这可以避免不小心引用它们。
+注意 `provided` 关键词是指只在编译时需要的依赖。Dagger 编译器生成了用于生成依赖图的类，而这个依赖图是在你的源代码中定义的。这些类在编译过程中被添加到你的 IDE classpath。`annotationProcessor` 关键字可以被 Android Gradle 插件理解。它不把这些类添加到 classpath 中，而只是把它们用于处理注解。这可以避免不小心引用它们。
 
 ### 创建单例
 ![Dagger 注入概要](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_general.png)

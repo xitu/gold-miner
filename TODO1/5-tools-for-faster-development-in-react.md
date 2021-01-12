@@ -67,7 +67,7 @@ React [Styleguidist](https://github.com/styleguidist/react-styleguidist) 是一�
 
 ![](https://cdn-images-1.medium.com/max/800/1*9V2nSEgH1VUbmXd5Dq-hnA.gif)
 
-它支持ES6，Flow 和 TypeScript，并且可以使用开箱即用的 Create React App。自动生成的使用文档可以让 Styleguidist 充当团队不同组件的文档门户。
+它支持 ES6，Flow 和 TypeScript，并且可以使用开箱即用的 Create React App。自动生成的使用文档可以让 Styleguidist 充当团队不同组件的文档门户。
 
 * 另请查看由 Formidable Labs 提供的 [**React Live**](https://github.com/FormidableLabs/react-live)。这个组件渲染环境也用在了 [Bit 的实时组件 playground](https://bitsrc.io/bit/movie-app/components/hero) 上。
 
@@ -126,7 +126,7 @@ npx create-react-app my-app
 
 #### [React Slingshot](https://github.com/coryhouse/react-slingshot) (8.5k stars)
 
-[Cory House](https://medium.com/@housecor) 的这个极好的项目是 React + Redux 入门套件/样板，带有Babel、热重载、测试和 linting 等等。
+[Cory House](https://medium.com/@housecor) 的这个极好的项目是 React + Redux 入门套件/样板，带有 Babel、热重载、测试和 linting 等等。
 
 与 React Boilerplate 非常相似，这个入门套件专注于快速开发的开发人员体验。每次点击“保存”时，更改都会热重载，并且会运行自动化测试。
 

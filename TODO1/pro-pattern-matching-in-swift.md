@@ -250,7 +250,7 @@ func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
 
 这篇文章中的所有例子都可以在 [gist](https://gist.github.com/nteissler/a9d2b00beddcc309445ebebf1a373b49) 中找到。代码可以在 Playground 运行，也可以根据你的需要进行挑选。
 
-[1] 该指南要求使用具有关联值的枚举，“对应的枚举用例模式必须指定一个元组模式，其中包含每个关联值的一个元素。”如果您不需要关联的值，只需包含没有任何关联值的enum情况就可以编译和匹配。
+[1] 该指南要求使用具有关联值的枚举，“对应的枚举用例模式必须指定一个元组模式，其中包含每个关联值的一个元素。”如果您不需要关联的值，只需包含没有任何关联值的 enum 情况就可以编译和匹配。
 
 另一个小的更正是，自定义表达式操作符 `~=` 可能 “仅出现在 switch 语句大小写标签中”。在上述例子中，我们也在一个 `if` 语句中使用到它。[Swift 语法](https://docs.swift.org/swift-book/ReferenceManual/Statements.html#//appleref/swift/grammar/condition-list)正确地说明了上述两种用法，这个小错误只在本文中。
 

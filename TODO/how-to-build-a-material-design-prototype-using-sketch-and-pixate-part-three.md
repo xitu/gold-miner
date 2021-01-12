@@ -144,7 +144,7 @@
 当用户摁下登陆按钮时，我们添加一个简单的 scale 动画。为 _Login Screen_ 画布添加一个 “ Scale ” 动画，确保它作用于整个 _Login Screen_ 画布，并不是某个部分。按照以下要求设置动画：
 ![Login Screen scale settings](http://createdineden.com/media/1762/part-3-image-11.png?width=305&height=452)</span>
 
-只有当用户已经完成了两个输入框的操作后，点击登陆按钮才会触发这个动画。我们通过因素和相连的X和Y进行缩放（因为我们想要均匀的缩放效果）。我们设置 “ Scale ” 到“0x”，意味着 _Login Screen_ 将会消失，然后我们设置“ ease out ” 和  “ Duration ” “0.3”，防止动画执行过快。
+只有当用户已经完成了两个输入框的操作后，点击登陆按钮才会触发这个动画。我们通过因素和相连的 X 和 Y 进行缩放（因为我们想要均匀的缩放效果）。我们设置 “ Scale ” 到“0x”，意味着 _Login Screen_ 将会消失，然后我们设置“ ease out ” 和  “ Duration ” “0.3”，防止动画执行过快。
 
 现在我们可以看到:
 

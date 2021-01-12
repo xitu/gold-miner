@@ -89,7 +89,7 @@ Intercom 的 webhook 管理面板
 
 [Slack](https://medium.com/u/26d90a99f605) 两种都支持。
 
-它提供了一个精巧的UI，这使创建订阅很容易，并且它也提供了一个稳定的事件 API（仍然没有提供尽可能多的事件，比如说他们的实时消息传递 API ，但我相信他们的工作）
+它提供了一个精巧的 UI，这使创建订阅很容易，并且它也提供了一个稳定的事件 API（仍然没有提供尽可能多的事件，比如说他们的实时消息传递 API ，但我相信他们的工作）
 
 在选择是否为 Webhooks 提供 API 时，需要记住的一件重要的事情是，订阅将以什么规模和粒度提供，以及谁将会配置它们。
 
@@ -111,7 +111,7 @@ Intercom 的 webhook 管理面板
 
 如果消费者的应用程序会暴露敏感信息，那么它可以（可选）验证请求是否由你的服务生成的，而不是第三方假装是你。这种验证不是必需的，但为消息传输提供了一个额外的验证层。
 
-现在有很多方法可以实现安全性，如果你想把安全性处理放在消费者一方，你可以选择给他一个白名单来接受指定IP地址的请求，但更容易的方法是设置一个秘密令牌并验证相关信息。
+现在有很多方法可以实现安全性，如果你想把安全性处理放在消费者一方，你可以选择给他一个白名单来接受指定 IP 地址的请求，但更容易的方法是设置一个秘密令牌并验证相关信息。
 
 这方面可以从不同程度的复杂性开始做，比如说就像 Slack 或 Facebook 做的那样，在一开始使用一个纯文本共享的秘钥。
 
@@ -133,7 +133,7 @@ Intercom 的 webhook 管理面板
 
 webhook 领域的设计仍然是分散的，但是常见的模式终究会显露出来。
 
-在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger ，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持webhook 场景。
+在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger ，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持 webhook 场景。
 
 所以如果你正在考虑实现 webhooks ，我邀请你想想他们的使用说明，看看例子
 [GitHub](https://medium.com/u/d18563e4f2b9), [Stripe](https://medium.com/u/3ecae35d6d66), [Intercom](https://medium.com/u/7ca8972daf76) 和 [Slack API](https://medium.com/u/272cd95a3742).

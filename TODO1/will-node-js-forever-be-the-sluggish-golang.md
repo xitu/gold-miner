@@ -50,7 +50,7 @@ Express 是 Node.js 生态中最古老的所谓“网络框架”之一。它构
 
 ![Internal sub layers of µSockets](https://cdn-images-1.medium.com/max/2000/0*KYceR1fpeHeUZE2E.png)
 
-这和 Node.js 的实现有很大的不同，其设计的实现为“把一切都堆在一起”。在 Node.js 的一个源文件中，你可以找到 libuv 调用，系统调用，OpenSSL调用，V8 调用。这一切都混成一团而没有试图去接耦分离使模块独立。这使得它很难做出任何真正的改变。
+这和 Node.js 的实现有很大的不同，其设计的实现为“把一切都堆在一起”。在 Node.js 的一个源文件中，你可以找到 libuv 调用，系统调用，OpenSSL 调用，V8 调用。这一切都混成一团而没有试图去接耦分离使模块独立。这使得它很难做出任何真正的改变。
 
 ### 简而言之，为 µWebSockets.js 编码
 

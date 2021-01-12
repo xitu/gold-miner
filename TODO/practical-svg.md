@@ -61,7 +61,7 @@ Fig 6.2: viewport 变大而 `viewBox` 保持不变，图片放大来适应 viewp
 <svg width="300" height="75" viewBox="0 0 100 100">
 ```
 
-默认情况下，SVG将尽可能大的展现自己，沿着最长的尺寸居中(**Fig 6.3**)。
+默认情况下，SVG 将尽可能大的展现自己，沿着最长的尺寸居中(**Fig 6.3**)。
 [CodePen Embed](//codepen.io/chriscoyier/embed/vLdpdN?height=265&amp;theme-id=0&amp;slug-hash=vLdpdN&amp;default-tab=html%2Cresult&amp;user=chriscoyier&amp;embed-version=2")
 
 Fig 6.3: viewport 变大了，但不再匹配 `viewBox` 的纵横比。所以默认情况下，图片在没被裁剪的情况下尽可能大的展现出来，并在比例大的方向居中。
@@ -223,7 +223,7 @@ Fig 6.14: Joe Harrison 的不同尺寸迪斯尼图标的 demo。
 
 Fig 6.15: 在 Adobe Illustrator 中命名的层和形状。
 
-对应的CSS像这样：
+对应的 CSS 像这样：
 ```
 @media (max-width: 1000px) {
   .magic-castle {

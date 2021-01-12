@@ -65,7 +65,7 @@ Steve Souders 对[每个指标都进行了详细的解释](https://speedcurve.co
 
 [![Introducing the slowest day of the week](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dfe1a4ec-2088-4e39-8a39-9f2010380a53/tuesday-2g-opt.png)](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)
 
-引入一周中最慢的一天。Facebook推出了[周二 2G 计划](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，以提高对低速连接的能见度和灵敏度。（[图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T)）
+引入一周中最慢的一天。Facebook 推出了[周二 2G 计划](https://www.theverge.com/2015/10/28/9625062/facebook-2g-tuesdays-slow-internet-developing-world)，以提高对低速连接的能见度和灵敏度。（[图片来源](http://www.businessinsider.com/facebook-2g-tuesdays-to-slow-employee-internet-speeds-down-2015-10?IR=T)）
 
 幸运地是，有许多很好的选项可以帮助你自动的收集数据，并根据这些指标来衡量在一段时间内你的网站的运行情况。请记住，良好的性能指标是被动和主动监测工具的组合：
 
@@ -102,7 +102,7 @@ Steve Souders 对[每个指标都进行了详细的解释](https://speedcurve.co
 
 请注意，当谈到**可交互时间**时，最好来区分一下[首次交互和一致性交互](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)以避免对它们之间的误解。前者是在主要内容已经渲染出来后最早出现的点（窗口至少需要 5s，页面才开始响应）。后者是期望页面可以一直进行输入响应的点。
 
-HTML 的前 14~15kb 加载是**是最关键的有效载荷块**  —— 也是第一次往返（这是在400 ms 往返延时下 1秒内所得到的）预算中唯一可以交付的部分。一般来说，为了实现上述目标，我们必须在关键的文件大小内进行操作。[最高预算 170 Kb gzip](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) (0.8-1MB decompressed)（0.8-1MB解压缩），它已经占用多达 1s （取决于资源类型）来解析和在普通电话上进行编译。稍微高于这个值是可以的，但是要尽可能地降低这些值。
+HTML 的前 14~15kb 加载是**是最关键的有效载荷块**  —— 也是第一次往返（这是在400 ms 往返延时下 1秒内所得到的）预算中唯一可以交付的部分。一般来说，为了实现上述目标，我们必须在关键的文件大小内进行操作。[最高预算 170 Kb gzip](https://infrequently.org/2017/10/can-you-afford-it-real-world-web-performance-budgets/) (0.8-1MB decompressed)（0.8-1MB 解压缩），它已经占用多达 1s （取决于资源类型）来解析和在普通电话上进行编译。稍微高于这个值是可以的，但是要尽可能地降低这些值。
 
 不过你也可以超出包大小的预算。例如，你可以在浏览器主线程的活动中设置性能预算，即：在开始渲染前的绘制时间或者[跟踪前端 CPU](https://calendar.perfplanet.com/2017/tracking-cpu-with-long-tasks-api/) 。[Calibre](https://calibreapp.com/)，[SpeedCurve](https://speedcurve.com/) 和 [Bundlesize](https://github.com/siddharthkp/bundlesize) 这些工具可以帮助你保持你的预算控制，并集成到你的构建过程。
 
@@ -114,7 +114,7 @@ HTML 的前 14~15kb 加载是**是最关键的有效载荷块**  —— 也是�
 
 8. **选择和设置你的构建工具。**
 
-[不要太在意那些很酷的东西](https://24ways.org/2017/all-that-glisters/)。坚持使用你的构建工具，无论是Grunt，Gulp，Webpack，Parcel，还是工具间的组合。只需要你能快速的得到结果，并且维护你的构建过程保证没问题。那么，你就做的很好了。
+[不要太在意那些很酷的东西](https://24ways.org/2017/all-that-glisters/)。坚持使用你的构建工具，无论是 Grunt，Gulp，Webpack，Parcel，还是工具间的组合。只需要你能快速的得到结果，并且维护你的构建过程保证没问题。那么，你就做的很好了。
 
 9. **渐进式增强。**
 
@@ -138,7 +138,7 @@ HTML 的前 14~15kb 加载是**是最关键的有效载荷块**  —— 也是�
 
 [![JavaScript parsing costs can differ significantly](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/8a36eef0-083f-4652-9814-95ffe7848982/parse-costs-opt.png)](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)
 
-JavaScript 解析成本可能有很大差异。[本来就很快的: 现代化加载的最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)来自Addy Osmani (幻灯片 10)。
+JavaScript 解析成本可能有很大差异。[本来就很快的: 现代化加载的最佳实践](https://speakerdeck.com/addyosmani/fast-by-default-modern-loading-best-practices)来自 Addy Osmani (幻灯片 10)。
 
 请记住，在移动设备上，与台式计算机相比，你会预计有 4x-5x 的减速。因为移动设备具有不同的 GPU，CPU，内存及电池特性。在手机上的解析时间[比桌面设备的要高 36%](https://github.com/GoogleChromeLabs/discovery/issues/1)。所以总在一个[普通的设备上测试](https://www.webpagetest.org/easy-load) —— 一种最能代表你的观众的设备。
 

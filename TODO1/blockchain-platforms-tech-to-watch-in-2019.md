@@ -67,7 +67,7 @@ no.thisispatrick — “Electric Water” (CC BY-NC-ND 2.0)
 
 据 [DappRadar](https://dappradar.com/) 称，2018 年最受欢迎的以太坊 dApp 目前每日活跃用户**不足一千**。但是，一种新的加密应用程序正在显现。
 
-支持加密的 [**Brave Browser**](https://brave.com/) （由Mozilla的联合创始人兼web 平台编程语言 JavaScript 的创建者 Brendan Eich 领导）已经在 Google Play 商店中有着超过 1000 万的安装量。Brave 使用户可以轻松获得并使用 [**BAT**](https://basicattentiontoken.org/) 加密货币。您可以通过浏览自己喜欢的网站获得加密币。如果您选择加入，Brave 将使用不会跟踪您的行为的广告替换广告网络商投放的具有潜在危险的跟踪型广告。作为交换，你将自动获得 BAT，只是为了做你以前总做的事情。
+支持加密的 [**Brave Browser**](https://brave.com/) （由 Mozilla 的联合创始人兼 web 平台编程语言 JavaScript 的创建者 Brendan Eich 领导）已经在 Google Play 商店中有着超过 1000 万的安装量。Brave 使用户可以轻松获得并使用 [**BAT**](https://basicattentiontoken.org/) 加密货币。您可以通过浏览自己喜欢的网站获得加密币。如果您选择加入，Brave 将使用不会跟踪您的行为的广告替换广告网络商投放的具有潜在危险的跟踪型广告。作为交换，你将自动获得 BAT，只是为了做你以前总做的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kbd-a9fDJdFenZ8couEOFw.png)
 
@@ -89,7 +89,7 @@ Sliver.tv 是一个非常有前途的开端，但它使用中心化的托管钱�
 
 Cent 截图
 
-Cent 用提供奖励来获得工作的方式 - 任何类型的工作 - 由 Cent 生态系统的用户完成。您可以提出问题并提供回答的悬赏。您可以要求提供 logo 设计帮助，或者请求帮助编辑您的最新帖子。任何对您来说物有所值的东西。您可以控制您悬赏的金额以及将获得这笔钱的人数，因此就算您的提议病毒式传播，您也不会意外地超出预算。Cent背后的想法是创造一种经济形式，允许其用户日常工作之外只使用他们的才能和 Cent 平台在线挣钱。我不确定人们每小时在 Cent 上赚多少钱，但我确信它看起来非常有前途。
+Cent 用提供奖励来获得工作的方式 - 任何类型的工作 - 由 Cent 生态系统的用户完成。您可以提出问题并提供回答的悬赏。您可以要求提供 logo 设计帮助，或者请求帮助编辑您的最新帖子。任何对您来说物有所值的东西。您可以控制您悬赏的金额以及将获得这笔钱的人数，因此就算您的提议病毒式传播，您也不会意外地超出预算。Cent 背后的想法是创造一种经济形式，允许其用户日常工作之外只使用他们的才能和 Cent 平台在线挣钱。我不确定人们每小时在 Cent 上赚多少钱，但我确信它看起来非常有前途。
 
 它也是我迄今为止看到的最用户友好的 dApp 之一，到目前为止，我没有看到任何迹象表明它被以太坊扩展问题所困扰。要使用 Cent,你需要一个 Web3 浏览器比如  [**Trust**](https://trustwallet.com/) 或者 [**Coinbase Wallet**](https://wallet.coinbase.com/)。
 
@@ -133,7 +133,7 @@ dApp 经常需要通过网络进行交易。为此，他们通常依赖区块链
 
 #### dApp 用户体验
 
-dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集成了 dApp 支持功能，因此不需要考虑浏览器扩展：[**Trust**](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp)（最近被 [Binance](https://www.binance.com/) 收购）和 [**Coinbase Wallet**](https://www.coinbase.com)（直到 [Coinbase](https://www.coinbase.com) 在收购Trust后不久收购了它的 Toshi）。两者都比  [Metamask](https://metamask.io/) 等替代品具有更好的用户体验，并提供与 [**Web3 API**](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的集成，这有助于 dApp 与以太坊区块链集成。
+dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集成了 dApp 支持功能，因此不需要考虑浏览器扩展：[**Trust**](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp)（最近被 [Binance](https://www.binance.com/) 收购）和 [**Coinbase Wallet**](https://www.coinbase.com)（直到 [Coinbase](https://www.coinbase.com) 在收购 Trust 后不久收购了它的 Toshi）。两者都比  [Metamask](https://metamask.io/) 等替代品具有更好的用户体验，并提供与 [**Web3 API**](https://github.com/ethereum/wiki/wiki/JavaScript-API) 的集成，这有助于 dApp 与以太坊区块链集成。
 
 我最喜欢的 dApp 使用区块链来达成一致，但它们也连接到快速数据库并且加载非常迅速。我最喜欢的 dApp 也不需要用户批准可能在区块链上发生的每一笔事务。良好的 dApp 用户体验的关键是选择你所遇到的区块链。例如，可以拥有一个由数据库支持的虚拟帐户，该数据库只需要定期同步到区块链，用于结算或安全，或两者兼而有之。
 
@@ -141,14 +141,14 @@ dApp 用户体验正在变得越来越好。现在有两个流行的浏览器集
 
 #### 智能合约平台
 
-[Solidity](https://en.wikipedia.org/wiki/Solidity) 自从其可用以来已经统治了智能合约编程语言生态系统。它在以太坊虚拟机（EVM）上的智能合约编程中无处不在。但Solidity有一些严重的问题，包括[算术溢出和下溢](https://blog.sigmaprime.io/solidity-security.html)，[类型错误](https://blog.sigmaprime.io/solidity-security.html#short-vuln)，以及[冻结 3 亿美元](https://medium.com/chain-cloud-company-blog/parity-multisig-hack-again-b46771eaa838)的 [delegatecall 漏洞](https://blog.sigmaprime.io/solidity-security.html#dc-example)。所有这些漏洞都是编程语言级别存在的问题的例子。换句话说，更好的编程语言可以创建更加安全的智能合约。
+[Solidity](https://en.wikipedia.org/wiki/Solidity) 自从其可用以来已经统治了智能合约编程语言生态系统。它在以太坊虚拟机（EVM）上的智能合约编程中无处不在。但 Solidity 有一些严重的问题，包括[算术溢出和下溢](https://blog.sigmaprime.io/solidity-security.html)，[类型错误](https://blog.sigmaprime.io/solidity-security.html#short-vuln)，以及[冻结 3 亿美元](https://medium.com/chain-cloud-company-blog/parity-multisig-hack-again-b46771eaa838)的 [delegatecall 漏洞](https://blog.sigmaprime.io/solidity-security.html#dc-example)。所有这些漏洞都是编程语言级别存在的问题的例子。换句话说，更好的编程语言可以创建更加安全的智能合约。
 
 挑战者来了。
 
 *   [**Waves RIDE**](https://docs.wavesplatform.com/en/technical-details/ride-language.html)：一种图灵不完整（无循环或递归）的类 Haskell 式函数式程序语言，用于 Waves 区块链。它具有静态类型、延迟评估、模式匹配和用于确定是否允许事务完成的谓词表达式。图灵完整版本也在开发中。Waves 的智能合约支持目前正在主网上运行。我们应该能在 2019 年看到第一批 Waves dApp 出现。
 *  [**Plutus**](https://cardanodocs.com/technical/plutus/introduction/) ([**Cardano**](https://www.cardano.org/en/home/)) 是另一种受 Haskell 启发的函数式编程语言，它是为了 Cardano 区块链而生。Cardano 计划在 2019 年推出两个重要版本：Shelley，它提供完全的去中心化和赌注，以及 Cardano-CL，它是支持可编程智能合约的虚拟机。
 *  [**Scilla**](https://scilla-lang.org/) ([**Zilliqa**](https://zilliqa.com/)) 是一种经过正式验证的智能合约语言，其设计考虑了计算和效果的分离。这意味着状态转换的计算和通信是严格隔离的，这使得 Scilla 智能合约更容易测试和静态验证以最大限度地减少出错的可能性。Zilliqa 的主网计划于 2019 年 1 月底推出。
-*  [**ewasm**](https://github.com/ewasm/design) (Ethereum) 并不是一个智能合约语言，而是一个编译器目标，它将允许以太坊程序员用其他语言编程（如Rust，C ++，也许某一天是智能合约特定语言，如 [Simplicity](http://chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://blockstream.com/simplicity.pdf)），并编译成以太坊风格的 WebAssembly。ewasm 是 WebAssembly 的一个更安全的子集，它是 Web 平台相对较新的低级编译目标。方便的是，wasm（以及 ewasm）模块可以在任何 JavaScript 项目中使用。对于大多数区块链代码，通常超过 75％ 的代码根本不在智能合约中 — 它在 JavaScript 中必须与智能合约进行通信。ewasm 和 JavaScript 共享绑定和模块支持的共同基础。
+*  [**ewasm**](https://github.com/ewasm/design) (Ethereum) 并不是一个智能合约语言，而是一个编译器目标，它将允许以太坊程序员用其他语言编程（如 Rust，C ++，也许某一天是智能合约特定语言，如 [Simplicity](http://chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/https://blockstream.com/simplicity.pdf)），并编译成以太坊风格的 WebAssembly。ewasm 是 WebAssembly 的一个更安全的子集，它是 Web 平台相对较新的低级编译目标。方便的是，wasm（以及 ewasm）模块可以在任何 JavaScript 项目中使用。对于大多数区块链代码，通常超过 75％ 的代码根本不在智能合约中 — 它在 JavaScript 中必须与智能合约进行通信。ewasm 和 JavaScript 共享绑定和模块支持的共同基础。
 
 *   **JavaScript** ([**Lisk**](https://lisk.io/)) Lisk 是一个区块链开发平台，允许开发人员使用 JavaScript 编写代码并为特定应用程序创建自定义区块链，从而避免以太网的大规模扩展问题。Lisk 允许开发人员创建自己的支链来管理所有特定应用程序的区块链操作，因此它不必与其他任何应用程序竞争主链的计算资源。目前，Lisk 没有开发智能合约编程语言或 虚拟机，区块链交易功能与比特币相似。
 

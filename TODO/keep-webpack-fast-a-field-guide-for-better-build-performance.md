@@ -147,7 +147,7 @@ new UglifyJsPlugin({
       typeofs: false,
       unused: false,
 
-      // 除非声明了正在使用生产版本的react-devtools，
+      // 除非声明了正在使用生产版本的 react-devtools，
       // 否则关闭所有类型的压缩。
       conditionals: true,
       dead_code: true,
@@ -182,7 +182,7 @@ webpack 会在查找依赖关系的同时，将每个 JavaScript 文件解析为
 
 #### **使用记录来稳定模块 ID**
 
-webpack 为依赖关系树中的每个模块分配一个 ID。随着新模块的添加以及其他模块的移除，树会发生变化，同时也会改变其中每个模块的 ID。这些 ID 被置入每个 webpack 发出的文件中，而高级别的模块混合（译者注：应指交叉依赖，npm 一直以来的的一大严重问题）可能导致不必要的重建。 通过使用 [records](https://webpack.js.org/configuration/other-options/#recordspath) 来防止这种情况，在构建之间稳定您的模块ID。
+webpack 为依赖关系树中的每个模块分配一个 ID。随着新模块的添加以及其他模块的移除，树会发生变化，同时也会改变其中每个模块的 ID。这些 ID 被置入每个 webpack 发出的文件中，而高级别的模块混合（译者注：应指交叉依赖，npm 一直以来的的一大严重问题）可能导致不必要的重建。 通过使用 [records](https://webpack.js.org/configuration/other-options/#recordspath) 来防止这种情况，在构建之间稳定您的模块 ID。
 
 #### **创建一个清单块**
 
@@ -201,7 +201,7 @@ webpack 为依赖关系树中的每个模块分配一个 ID。随着新模块的
 
 默认情况下，webpack 将在它添加到每个打包文件顶部的样板代码中包含这个摘要。然而这是有问题的，因为每次添加或删除模块时摘要都必须更新 —— 这种情况我们每天都会发生。每当摘要发生变化时，我们不仅需要等待所有打包文件的重建，而且还要破坏缓存，迫使我们的客户重新下载它们。
 
-仅仅保持模块ID稳定是不够的。我们需要将模块摘要完全提取到一个单独的文件中；在我们或是我们的客户没有花费重建和重新下载任何东西的成本的情况下，就能够定期改变。所以我们用CommonsChunk插件创建了一个 [manifest文件](https://webpack.js.org/plugins/commons-chunk-plugin/#manifest-file)。这大大减少了重建的频率，而且还让我们只发送了一个 webpack 的样板代码的副本。
+仅仅保持模块 ID 稳定是不够的。我们需要将模块摘要完全提取到一个单独的文件中；在我们或是我们的客户没有花费重建和重新下载任何东西的成本的情况下，就能够定期改变。所以我们用 CommonsChunk 插件创建了一个 [manifest 文件](https://webpack.js.org/plugins/commons-chunk-plugin/#manifest-file)。这大大减少了重建的频率，而且还让我们只发送了一个 webpack 的样板代码的副本。
 
 #### **Source maps**
 
@@ -225,7 +225,7 @@ webpack 所做的很多工作都在加载器/插件执行之外，而且大部�
 
 在 webpack 生态系统中，保持最新状态是值得的。核心团队近期已经做了很多工作来提高构建速度，如果你没有使用最新版本的依赖项，你可能会错过大量的性能提升。 当我们从 webpack 3.0 升级到 3.4 时，我们发现加速了几十秒钟，而我们完全没有改变配置，并且这样的改进还在继续。
 
-定期升级并跟上前面提到的如并行性等新功能的更新。在 Slack ，我们尽我们所能地留意 Github 上的发布，[webpack团队博客](https://medium.com/webpack), [babel团队博客](https://github.com/babel/notes)以及其他有关他们工作的博客。
+定期升级并跟上前面提到的如并行性等新功能的更新。在 Slack ，我们尽我们所能地留意 Github 上的发布，[webpack 团队博客](https://medium.com/webpack), [babel 团队博客](https://github.com/babel/notes)以及其他有关他们工作的博客。
 
 不要忘记让你的 Node 保持在最新的版本 — 软件包不是唯一的改进途径。
 

@@ -106,7 +106,7 @@ HTTP 请求大概是最常见的副作用了。下面是一个使用 redux-thunk
 每当你想“被通知某事”你只要使用一个输入流（被称作**sources**）并且遍历一次流的值就能知道发生了什么。
 
 这形成一种 **反应式** **循环**，相比于一般的命令式代码，你需要一个不同的思维来理解它。
-让我们使用这个范例来建模一个HTTP请求/响应生命周期：
+让我们使用这个范例来建模一个 HTTP 请求/响应生命周期：
 
     function main(sources) {
       const response$ = sources.HTTP
@@ -129,7 +129,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 之后这个 dirver 知道要执行请求，并且将返回值作为 sources（sources.HTTP）返回给 main 函数 — 注意 sinks 和 sources 使用相同的键值。
 
-让我们再解释一次：**我们用** **`sources.HTTP`** 来 **“被通知 HTTP 已经返回了”，并且我们返回了`sinks.HTTP` 来“发送 HTTP请求”**。
+让我们再解释一次：**我们用** **`sources.HTTP`** 来 **“被通知 HTTP 已经返回了”，并且我们返回了`sinks.HTTP` 来“发送 HTTP 请求”**。
 
 这里有一个动画来解释这一重要的响应式循环：
 
@@ -155,7 +155,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 #### 拦截并且调度 Redux 行为
 
-使用 Redux 时你需要 dispatch actions 来告诉你的 reducers 你需要一个新的state。 
+使用 Redux 时你需要 dispatch actions 来告诉你的 reducers 你需要一个新的 state。 
 
 这是一个同步的流程，意味着一旦你想执行异步行为（为了副作用）你需要使用一些中间件来拦截这些 actions，相应的，你要触发其他的 actions 来执行这个异步副作用。
 
@@ -184,7 +184,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 在上面这个例子里有一个新的 source 和 sink - **`ACTION`**。但是数据通信的模式是一致的。
 
-它使用 `sources.ACTION` 来监听被 Redux 调用的 actions。并且通过返回 `sinks.ACTION` 来dispatch 新的 actions。
+它使用 `sources.ACTION` 来监听被 Redux 调用的 actions。并且通过返回 `sinks.ACTION` 来 dispatch 新的 actions。
 
 具体点说它是触发了标准的 [Flux Actions objects](https://github.com/acdlite/flux-standard-action)。
 

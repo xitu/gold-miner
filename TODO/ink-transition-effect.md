@@ -63,7 +63,7 @@
 
 ## 增加样式
 
-这`.cd-modal` 窗口最初的CSS属性 visibility: hidden， height: 100% 和 width: 100% 并且使用固定定位。
+这`.cd-modal` 窗口最初的 CSS 属性 visibility: hidden， height: 100% 和 width: 100% 并且使用固定定位。
 当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为 1 （使用 `.visible` 类）。
 
     .cd-modal {

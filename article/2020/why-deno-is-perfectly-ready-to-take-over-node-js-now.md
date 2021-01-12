@@ -9,7 +9,7 @@
 
 ![Photo by [Thao Le Hoang](https://unsplash.com/@h4x0r3) on [Unsplash](https://unsplash.com/).](https://cdn-images-1.medium.com/max/2000/0*NGYfX_xdVnytqcM1)
 
-Deno 是一个编写服务端 JavaScript 的新工具。它的功能与 Node 不相上下。它的发明者同时也是 Node.js 的发明者。跟 Node.js 类似，它使用的是 v8 JavaScript 引擎。也有一部分功能基于 Rust 和 JavaScript 实现。Deno自面世以来就非常受欢迎。你可以通过访问它的 Github 仓库来了解相关内容。
+Deno 是一个编写服务端 JavaScript 的新工具。它的功能与 Node 不相上下。它的发明者同时也是 Node.js 的发明者。跟 Node.js 类似，它使用的是 v8 JavaScript 引擎。也有一部分功能基于 Rust 和 JavaScript 实现。Deno 自面世以来就非常受欢迎。你可以通过访问它的 Github 仓库来了解相关内容。
 
 ![图 1: [GitHub repository](https://github.com/denoland/deno)](https://cdn-images-1.medium.com/max/2668/1*rqRR-dNjpDO0qcF1pfEB4g.png)
 
@@ -25,7 +25,7 @@ curl -fsSL https://deno.land/x/install/install.sh | sh
 iwr https://deno.land/x/install/install.ps1 -useb | iex
 ```
 
-你也可以使用包管理工具来安装 Deno， 比如 Mac 系统中的 Homwbrew，Windows 系统中的 Chocolatey、scoop，或 Cargo（Windows,macOS,Linux均有相应版本）：
+你也可以使用包管理工具来安装 Deno， 比如 Mac 系统中的 Homwbrew，Windows 系统中的 Chocolatey、scoop，或 Cargo（Windows,macOS,Linux 均有相应版本）：
 
 ```bash
 brew install deno
@@ -89,7 +89,7 @@ Deno 提供了 window 对象，这个对象包含了可监听的生命周期事�
 window.onload = e => console.log('good bye nodejs');
 ```
 
-哦，我想起来了。Deno 也可执行 WebAssembly 程序。正如 [WebAssembly 官网](https://webassembly.org/)上所说，“WebAssembly（缩写为Wasm）是一种基于堆栈的虚拟机的二进制指令格式。”
+哦，我想起来了。Deno 也可执行 WebAssembly 程序。正如 [WebAssembly 官网](https://webassembly.org/)上所说，“WebAssembly（缩写为 Wasm）是一种基于堆栈的虚拟机的二进制指令格式。”
 
 ```js
 const wbs = new Uint8Array([61,63,73]);

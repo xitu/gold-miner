@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)
 > * 译者：[zhmhhu](https://github.com/zhmhhu)
 
-# WOFF文件格式 1.0
+# WOFF 文件格式 1.0
 
 ## W3C 2012 年 12 月 13 日推荐
 
@@ -34,7 +34,7 @@ WOFF 格式并不准备取代其他格式，例如 TrueType/OpenType/Open Font F
 
 ## 本文档的状态
 
-本节介绍本文件发布时的状态。其他文件可能会取代本文件。当前的 W3C 出版物清单和此技术报告的最新版本可以在[W3C技术报告索引](http://www.w3.org/TR/) http://www.w3.org/TR/ 中找到。
+本节介绍本文件发布时的状态。其他文件可能会取代本文件。当前的 W3C 出版物清单和此技术报告的最新版本可以在[W3C 技术报告索引](http://www.w3.org/TR/) http://www.w3.org/TR/ 中找到。
 
 这是“ WOFF 文件格式1.0 ”的 W3C 推荐标准。本文档已由 W3C 会员，软件开发人员以及其他 W3C 团体和有关各方进行了审核，并由署长确认为 W3C 的推荐标准。它是一个稳定的文件，可以用作参考资料或由其他文件引用。W3C 在制定建议书时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能和互操作性。W3C 在制定推荐标准时的角色是引起对规范的关注并促进其广泛部署。这增强了 Web 的功能性和互操作性。
 
@@ -42,9 +42,9 @@ WOFF 格式并不准备取代其他格式，例如 TrueType/OpenType/Open Font F
 
 相对于[2011年10月11日提议的推荐标准](http://www.w3.org/TR/2012/PR-WOFF-20121011/)，本规范已经进行了编辑，纳入了对互联网媒体类型注册的微小更改,这是 IANA 专家审核的结果。[更改附录](#changes)描述了所做的更改。
 
-CR退出标准是：
+CR 退出标准是：
 
-1. 已经收集了足够的实施经验报告来证明“ WOFF文件格式 1.0 ”的语法和特征是可实施的并且以一致的方式解释。为此，工作组将确保所有功能都至少以两种实现方式以可互操作的方式实施。
+1. 已经收集了足够的实施经验报告来证明“ WOFF 文件格式 1.0 ”的语法和特征是可实施的并且以一致的方式解释。为此，工作组将确保所有功能都至少以两种实现方式以可互操作的方式实施。
 
 2. 这些实现是独立开发的。
 
@@ -61,9 +61,9 @@ CR退出标准是：
 
 [用户代理实施报告](http://w3c-test.org/framework/review/woff-ua/)和[创作工具实施报告](http://w3c-test.org/framework/review/woff-at/)是可用的。
 
-本文档最初由[www-font@w3.org](mailto:www-font@w3.org) 邮件列表的贡献者撰写。试用后，它成为 [WOFF 提交](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/)的内容，并由W3C的 [WebFonts工作组](http://www.w3.org/Fonts/WG/)进一步开发。
+本文档最初由[www-font@w3.org](mailto:www-font@w3.org) 邮件列表的贡献者撰写。试用后，它成为 [WOFF 提交](http://www.w3.org/Submission/2010/SUBM-WOFF-20100408/)的内容，并由 W3C 的 [WebFonts 工作组](http://www.w3.org/Fonts/WG/)进一步开发。
 
-本文档由 [2004 年 2 月 5 日 W3C 专利政策](http://www.w3.org/Consortium/Patent-Policy-20040205/)下运营的小组编制。W3C保留与工作组交付内容有关的[任何专利公开清单](http://www.w3.org/2004/01/pp-impl/44556/status)；该页面还包括披露专利的说明。具有专利实际知识的个人认为其包含[基本要求](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) ，必须根据 [W3C 专利政策第 6 部分](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure)披露信息。
+本文档由 [2004 年 2 月 5 日 W3C 专利政策](http://www.w3.org/Consortium/Patent-Policy-20040205/)下运营的小组编制。W3C 保留与工作组交付内容有关的[任何专利公开清单](http://www.w3.org/2004/01/pp-impl/44556/status)；该页面还包括披露专利的说明。具有专利实际知识的个人认为其包含[基本要求](http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential) ，必须根据 [W3C 专利政策第 6 部分](http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure)披露信息。
 
 ## 1.简介
 
@@ -81,7 +81,7 @@ WOFF 格式是一个容器，用于 比如 TrueType [[TrueType](#ref-TT)]，Open
 
 ## 2. 一般要求
 
-WOFF 格式的主要目的是通过 CSS @ font-face 规则打包并链接到 Web文档。支持 WOFF 文件格式的链接字体的用户代理必须遵守 CSS3 字体规范（[[CSS3-Fonts](#ref-CSS3-Fonts)] [第 4.1 节：@ font-face 规则](http://www.w3.org/TR/css3-fonts/#font-face-rule)）的要求。特别是，这种链接的字体只适用于引用它们的文档；它们不能被用户系统上的其他应用程序或文档使用。
+WOFF 格式的主要目的是通过 CSS @ font-face 规则打包并链接到 Web 文档。支持 WOFF 文件格式的链接字体的用户代理必须遵守 CSS3 字体规范（[[CSS3-Fonts](#ref-CSS3-Fonts)] [第 4.1 节：@ font-face 规则](http://www.w3.org/TR/css3-fonts/#font-face-rule)）的要求。特别是，这种链接的字体只适用于引用它们的文档；它们不能被用户系统上的其他应用程序或文档使用。
 
 WOFF 格式旨在与 @ font-face 一起使用，以提供链接字体到特定的 Web 文档。因此，在桌面操作系统或类似的环境中，不得将 WOFF 文件视为可安装的字体格式。WOFF 封装的数据通常会被解码为 sfnt 格式，以供预期使用 OpenType 字体数据的字体渲染 API 使用，但此类解码字体不得暴露给其他文档或应用程序。
 
@@ -103,7 +103,7 @@ TableDirectory（表索引）：字体表的索引，指示 WOFF 文件内每个
 
 FontTables（字体表）：来自输入 sfnt 字体的字体数据表，经过压缩以减少带宽需求。
 
-ExtendedMetadata（扩展元数据）：扩展元数据的可选块，以XML格式表示并被压缩以便存储在 WOFF 文件中。
+ExtendedMetadata（扩展元数据）：扩展元数据的可选块，以 XML 格式表示并被压缩以便存储在 WOFF 文件中。
 
 PrivateData（专有数据）：可供字体设计师，机构或供应商使用的可选的专有数据块。
 
@@ -127,7 +127,7 @@ UInt32：signature  0x774F4646 `'wOFF'`
 
 UInt32：flavor  输入字体的“ SFNT 版本”
 
-UInt32：length  WOFF文件的总大小。
+UInt32：length  WOFF 文件的总大小。
 
 UInt16：numTables 字体表索引中的条目数。
 
@@ -135,29 +135,29 @@ UInt16：reserved 保留；设置为零。
 
 UInt32：totalSfntSize  未压缩字体数据所需的总大小，包括 sfnt 头，索引和字体表（包括填充）。
 
-UInt16：majorVersion WOFF文件的主要版本。
+UInt16：majorVersion WOFF 文件的主要版本。
 
-UInt16：minorVersion WOFF文件的次要版本。
+UInt16：minorVersion WOFF 文件的次要版本。
 
-UInt32：metaOffset 从WOFF文件开始到元数据块的偏移量。
+UInt32：metaOffset 从 WOFF 文件开始到元数据块的偏移量。
 
 UInt32：metaLength 压缩元数据块的长度。
 
 UInt32：metaOrigLength 元数据块的未压缩长度。
 
-UInt32：privOffset 从WOFF文件开始到专有数据块的偏移量。
+UInt32：privOffset 从 WOFF 文件开始到专有数据块的偏移量。
 
 UInt32：privLength 专有数据块的长度。
 
-WOFF头中的 `signature` 字段必须包含“幻数” 0x774F4646。如果该字段不包含此值，则用户代理必须拒绝该文件为无效。
+WOFF 头中的 `signature` 字段必须包含“幻数” 0x774F4646。如果该字段不包含此值，则用户代理必须拒绝该文件为无效。
 
-'flavor' 字段对应于在 sfnt 文件开始处找到的 “sfnt version”字段，表示包含的字体数据的类型。虽然目前仅支持类型 0x00010000（版本号 1.0 作为16.16定点值，表示 TrueType 字形数据）和 0x4F54544F（表示 CFF 字形数据的标签“OTTO”）的字体，但是如果 `flavor` 字段包含不同的值(（表示不同 sfnt flavor 的 WOFF打包版本），那么在 WOFF 文件也不会出错。（例如，值 0x74727565 `true`已被用于 Mac OS上的某些 TrueType-flavored 字体）。客户端软件是否实际上支持其他类型的 sfnt 字体数据不在 WOFF 规范的范围之内，该规范仅描述 sfnt 如何重新打包以供 Web 使用。
+'flavor' 字段对应于在 sfnt 文件开始处找到的 “sfnt version”字段，表示包含的字体数据的类型。虽然目前仅支持类型 0x00010000（版本号 1.0 作为16.16定点值，表示 TrueType 字形数据）和 0x4F54544F（表示 CFF 字形数据的标签“OTTO”）的字体，但是如果 `flavor` 字段包含不同的值(（表示不同 sfnt flavor 的 WOFF 打包版本），那么在 WOFF 文件也不会出错。（例如，值 0x74727565 `true`已被用于 Mac OS 上的某些 TrueType-flavored 字体）。客户端软件是否实际上支持其他类型的 sfnt 字体数据不在 WOFF 规范的范围之内，该规范仅描述 sfnt 如何重新打包以供 Web 使用。
 
 WOFF 的 “majorVersion” 和 “minorVersion” 字段表示给定的 WOFF 文件的版本号，该版本号可以基于输入字体的版本号，但不是必需的。这些字段对用户代理中的字体加载或使用行为没有影响。
 
 `totalSfntSize` 字段是未压缩字体表大小的总和，每个大小填充4个字节的倍数，再加上 sfnt 头和表索引的大小。因此，这是将完整的 WOFF 打包字体（而不是元数据，不是输入 sfnt 文件的一部分）解码为标准 sfnt 结构所需的缓冲区大小。这个值必须是4的倍数，因为包括最后一个的所有字体表都被填充到一个4字节的边界内。如果此值不正确，则符合规范的用户代理必须视该文件为无效并拒绝。
 
-sfnt头文件包含三个字段（`searchRange`，`entrySelector` 和 `rangeShift`），用于简化表索引的二进制搜索。由于每个字段的正确值可以直接从字体表中计算出来，因此它们不会存储在 WOFF 文件中。因此，将 WOFF 文件解码为 sfnt 结构的用户代理必须按照 OpenType / OFF 规范中的描述，计算 sfnt 头中这些字段的正确值。[[OFF]（#ref-OFF)]
+sfnt 头文件包含三个字段（`searchRange`，`entrySelector` 和 `rangeShift`），用于简化表索引的二进制搜索。由于每个字段的正确值可以直接从字体表中计算出来，因此它们不会存储在 WOFF 文件中。因此，将 WOFF 文件解码为 sfnt 结构的用户代理必须按照 OpenType / OFF 规范中的描述，计算 sfnt 头中这些字段的正确值。[[OFF]（#ref-OFF)]
 
 注意：`totalSfntSize`的正确值可以用如下所示的伪代码进行计算：
 
@@ -180,7 +180,7 @@ for each table:
 
 UInt32：tag 4 字节的 sfnt 表标识符。
 
-UInt32：offset 从WOFF文件开始到数据的偏移量。
+UInt32：offset 从 WOFF 文件开始到数据的偏移量。
 
 UInt32：compLength 压缩数据的长度，不包括填充。
 
@@ -202,7 +202,7 @@ sfnt 字体为表索引中的每个表存储校验和，以及为在 `head` 表�
 
 WOFF 文件包含一组与创建它的输入字体相同的字体表。这意味着，从符合规范的 WOFF 文件解压缩字体的总体字体校验和将始终与格式正确的输入字体中的校验和相匹配。在输入字体包含未引用数据（这些未引用数据在实际表之间或之后）的情况下，这会影响输入字体的总体校验和，但在创建 WOFF 文件时会丢失。
 
-格式正确的输入字体没有结构异常，比如填充不正确，字体表重叠，表（将由WOFF生成器丢弃）之间的外部数据或校验和不正确。
+格式正确的输入字体没有结构异常，比如填充不正确，字体表重叠，表（将由 WOFF 生成器丢弃）之间的外部数据或校验和不正确。
 
 一个格式良好的输入字体应符合 OpenType/OFF 规范中并不严格要求的某些规范，以确保从 sfnt 到 WOFF 和 back 的无损往返转换是可能的，尽管它们是常用的做法：
 
@@ -212,7 +212,7 @@ OpenType/OFF 规范并不完全清楚 sfnt 字体中的 **所有** 表是否必�
 
 **无"隐藏"数据**
 
-OpenType/OFF 规范没有明确禁止在字体表之间存在“额外”的数据或填充；由于表索引包含每个实际表的偏移量和长度，这些数据将被忽略。然而，在打包字体时，WOFF格式没有规定保留这种非字体表数据，因此在格式互相转换时它不会被保留。
+OpenType/OFF 规范没有明确禁止在字体表之间存在“额外”的数据或填充；由于表索引包含每个实际表的偏移量和长度，这些数据将被忽略。然而，在打包字体时，WOFF 格式没有规定保留这种非字体表数据，因此在格式互相转换时它不会被保留。
 
 **Header 字段是正确的**
 
@@ -224,13 +224,13 @@ WOFF 规范规定，表的 checksums 必须由 WOFF 创建者验证（并在必�
 
 **无重叠表**
 
-输入sfnt表索引中的偏移量和长度值不能指示输入字体的重叠字节范围。
+输入 sfnt 表索引中的偏移量和长度值不能指示输入字体的重叠字节范围。
 
-创建一个 WOFF 文件然后解码这个文件以重新生成一个 sfnt 字体的结果必须产生一个最终字体，该字体与格式正确的输入字体按位相同。如果输入字体有缺陷或异常使得这个不可能，WOFF生成工具**应该**拒绝字体或发出适当的警告，即无法进行无损往返转换。
+创建一个 WOFF 文件然后解码这个文件以重新生成一个 sfnt 字体的结果必须产生一个最终字体，该字体与格式正确的输入字体按位相同。如果输入字体有缺陷或异常使得这个不可能，WOFF 生成工具**应该**拒绝字体或发出适当的警告，即无法进行无损往返转换。
 
 ## 6. 字体数据表
 
-WOFF 文件中的字体数据表与输入字体中的表完全相同，只是每个表可能已被压缩。如果是压缩的，那么它必须是被 zlib [[Compress2](ref-Compress2)]（或等效的兼容算法）的 `compress2（）` 函数压缩。用户代理使用zlib [[Uncompress](#ref-Uncompress)]（或等效的兼容算法）的 `uncompress（）` 函数对每个表进行解压缩。这些函数使用的基础格式在 ZLIB 规范[[ZLib](#ref-ZLIB)]中有描述。用户代理或解码 WOFF 文件的其他程序必须能够处理已压缩的表。如果任何表的解压缩函数失败，则 WOFF 文件无效并且不能被加载。
+WOFF 文件中的字体数据表与输入字体中的表完全相同，只是每个表可能已被压缩。如果是压缩的，那么它必须是被 zlib [[Compress2](ref-Compress2)]（或等效的兼容算法）的 `compress2（）` 函数压缩。用户代理使用 zlib [[Uncompress](#ref-Uncompress)]（或等效的兼容算法）的 `uncompress（）` 函数对每个表进行解压缩。这些函数使用的基础格式在 ZLIB 规范[[ZLib](#ref-ZLIB)]中有描述。用户代理或解码 WOFF 文件的其他程序必须能够处理已压缩的表。如果任何表的解压缩函数失败，则 WOFF 文件无效并且不能被加载。
 
 字体数据表**必须**存储在表索引之后，除了所需的任何填充（每个表末尾最多三个空字节）以确保4字节对齐之外，不能有间隙。
 
@@ -260,9 +260,9 @@ WOFF 文件可能包含一个扩展的元数据块。这可能比 sfnt 表格中
 
 元数据块必须紧跟在最后一个字体表之后。由于如果需要达到 4 字节的边界，所有字体数据表都填充了多达三个空字节，元数据块的开始始终是 4 字节对齐的。如果元数据块是 WOFF 文件中的最后一个块，那么在块结束后不应该有额外的填充。
 
-扩展元数据**必须**是以 UTF-8 编码的格式良好的XML。
+扩展元数据**必须**是以 UTF-8 编码的格式良好的 XML。
 
-下面描述扩展元数据XML的模式。如果扩展元数据与该模式不匹配，则它是无效的。如果它不能通过 zlib 的 `uncompress（）` 函数（或等价的）解压缩，或者解压缩数据的长度与 WOFF 头中指定的 `metaOrigLength` 值不匹配，那么它也是无效的。因此，有效的元数据应该是格式良好，符合以下模式，并以压缩形式存储在 WOFF 文件中。符合规范的用户代理必须忽略无效的元数据块，就好像该块不存在一样。
+下面描述扩展元数据 XML 的模式。如果扩展元数据与该模式不匹配，则它是无效的。如果它不能通过 zlib 的 `uncompress（）` 函数（或等价的）解压缩，或者解压缩数据的长度与 WOFF 头中指定的 `metaOrigLength` 值不匹配，那么它也是无效的。因此，有效的元数据应该是格式良好，符合以下模式，并以压缩形式存储在 WOFF 文件中。符合规范的用户代理必须忽略无效的元数据块，就好像该块不存在一样。
 
 [符合 RelaxNG 模式](metadata/woffmeta.rng) 的描述也是对的。如果 RelaxNG 模式与规范文本之间存在差异，则文本优先。
 
@@ -272,7 +272,7 @@ WOFF 文件可能包含一个扩展的元数据块。这可能比 sfnt 表格中
 
 用户代理**应当**选择可用的 `text` 元素显示如下：
 
-1. 如果可用的text元素与用户的首选语言相匹配（通过显式偏好确定或由当前语言环境确定），请使用此语言。
+1. 如果可用的 text 元素与用户的首选语言相匹配（通过显式偏好确定或由当前语言环境确定），请使用此语言。
 2. 如果用户代理具有“可接受”语言或默认列表的概念，请依次尝试每种方法并使用匹配的第一个。
 3. 如果有一个没有 `xml：lang` 属性的 `text` 元素，就使用这个：如果存在多个，请使用其中的第一个。
 4. 如果尚未找到匹配项，请使用第一个 `text` 元素。（因此，元数据创建者可以简单地通过在每个文本元素组中选择首先放置哪种语言来确定“最后的本地化手段”。）
@@ -367,7 +367,7 @@ class：一组用空格任意分隔的令牌。该属性是**可选的**。
 
 **属性**
 
-url：有关字体设计，历史等的更多信息的URL。此属性是**可选的**。
+url：有关字体设计，历史等的更多信息的 URL。此属性是**可选的**。
 
 **子元素**
 
@@ -375,7 +375,7 @@ text：一个或多个包含字符数据的子元素，以及可选的 `div` 和
 
 ** `license` 元素**
 
-字体的许可信息。这个元素是**可选的**。如果存在，它必须是 `metadata` 元素的子元素。这个元素可以使用 `text` 子元素进行本地化；但是，它被允许为空（例如，如果供应商更喜欢仅提供许可证URL而不包括许可证的实际文本）。
+字体的许可信息。这个元素是**可选的**。如果存在，它必须是 `metadata` 元素的子元素。这个元素可以使用 `text` 子元素进行本地化；但是，它被允许为空（例如，如果供应商更喜欢仅提供许可证 URL 而不包括许可证的实际文本）。
 
 **属性**
 
@@ -469,7 +469,7 @@ dir：  文本方向，可以是`ltr`（用于“从左到右”）或`rtl`（�
 
 class：一组任意空格分隔的令牌。该属性是**可选的**。
 
-在使用'text'元素来包含（可本地化）内容的地方，也可以使用 `div` 和 `span` 子元素来提供进一步的结构，类似于HTML中使用的元素。
+在使用'text'元素来包含（可本地化）内容的地方，也可以使用 `div` 和 `span` 子元素来提供进一步的结构，类似于 HTML 中使用的元素。
 
 ** `text` 元素**
 
@@ -633,7 +633,7 @@ software. If you have any questions, please contact Ascender Corp.</text>
 </metadata>
 ```
 
-下面是一个如何使用 div 元素的例子，可以从[Gentium Plus的XML文件](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata .xml)的一部分修改，当以纯文本格式查看时，它具有段落格式。
+下面是一个如何使用 div 元素的例子，可以从[Gentium Plus 的 XML 文件](http://dev.w3.org/webfonts/WOFF/spec/metadata/GentiumPlus-WOFF-metadata .xml)的一部分修改，当以纯文本格式查看时，它具有段落格式。
 
 原始的元数据文件包含：
 
@@ -725,23 +725,23 @@ WOFF 使用 gzip 压缩。WOFF 标题包含每个压缩表的未压缩长度。�
 
 WOFF 在内部不提供隐私保护；如果需要，这些应该在外部提供。
 
-WOFF 有一个专有数据块设施，可能包含任意的二进制数据。WOFF不提供访问这个或者执行其中包含的任何代码的手段。WOFF [要求](#conform-private-noeffect)该块的内容不会以任何方式影响字体呈现。
+WOFF 有一个专有数据块设施，可能包含任意的二进制数据。WOFF 不提供访问这个或者执行其中包含的任何代码的手段。WOFF [要求](#conform-private-noeffect)该块的内容不会以任何方式影响字体呈现。
 
 **互操作性考虑：**
 
-**发布的规范：** 此媒体类型注册摘自W3C的[WOFF规范](http://www.w3.org/TR/WOFF)。
+**发布的规范：** 此媒体类型注册摘自 W3C 的[WOFF 规范](http://www.w3.org/TR/WOFF)。
 
-**使用此媒体类型的应用程序：** WOFF由 Web 浏览器使用，通常与HTML 和 CSS 一起使用。
+**使用此媒体类型的应用程序：** WOFF 由 Web 浏览器使用，通常与 HTML 和 CSS 一起使用。
 
 **附加信息：**
 
-**幻数：** WOFF标题中的签名字段必须包含“幻数” 0x774F4646
+**幻数：** WOFF 标题中的签名字段必须包含“幻数” 0x774F4646
 
 **文件扩展名：** woff
 
 **Macintosh 文件类型代码：**（不指定代码）
 
-**Macintosh通用类型标识符代码：**  org.w3c.woff
+**Macintosh 通用类型标识符代码：**  org.w3c.woff
 
 **片段标识符：** 无。
 
@@ -751,26 +751,26 @@ WOFF 有一个专有数据块设施，可能包含任意的二进制数据。WOF
 
 **使用限制：** 无
 
-**作者：** WOFF规范是万维网联盟 WebFonts 工作组的工作产品。
+**作者：** WOFF 规范是万维网联盟 WebFonts 工作组的工作产品。
 
-**更改控制权：** W3C对本规范有更改控制权。
+**更改控制权：** W3C 对本规范有更改控制权。
 
 ## 附录 C：修订记录
 
 相对于[2010年7月27日的第一次公开工作草案](http://www.w3.org/TR/2010/WD-WOFF-20100727)，已做出以下更改。除了元数据格式的增强选项功能外，没有添加任何新的功能；剩下的更改是对现有功能的澄清和更正。
 
-* 澄清 WOFF是一种字体**打包**或封装格式，而不是一种新的字体格式。
+* 澄清 WOFF 是一种字体**打包**或封装格式，而不是一种新的字体格式。
 * 澄清填充和字节对齐的需求
 * 首选术语 “input font” 而不是 “original file” 来描述转换为 WOFF 的字体
-* 澄清在 WOFF 转换之前的任何subsetting（子集）、checksum-correction（校验和校正）或DSIG无效更改超出了WOFF规范的范围。
+* 澄清在 WOFF 转换之前的任何 subsetting（子集）、checksum-correction（校验和校正）或 DSIG 无效更改超出了 WOFF 规范的范围。
 * 澄清 totalSfntSize 的含义。
 * 定义了格式良好的输入字体的含义。
 * 澄清“无效元数据”的含义 —— 必须格式良好，压缩并符合模式。
-* 澄清了XML中的哪些元素和属性是必需的；对于某些元素，澄清了他们需要的父元素。
-* 澄清了 id 属性不是 XML 意义上的类型ID
+* 澄清了 XML 中的哪些元素和属性是必需的；对于某些元素，澄清了他们需要的父元素。
+* 澄清了 id 属性不是 XML 意义上的类型 ID
 * 添加到 RelaxNG 语法的链接，该语法试图以机器可读的方式表达与文本相同的约束。如果有任何差异，文本是必须是规范的。
 * 在解压缩时增加提醒检查是否溢出。
-* 根据[W3C媒体类型注册]（http://www.w3.org/2002/06/registering-mediatype.html）策略的要求增加了媒体类型注册模板。
+* 根据[W3C 媒体类型注册]（http://www.w3.org/2002/06/registering-mediatype.html）策略的要求增加了媒体类型注册模板。
 * 分开了规范性和信息性参考。
 * 把 RFC-2119关键字转换成了大写字母。
 * 为所有可测试的断言添加了 id 和 class 属性。
@@ -814,17 +814,17 @@ WOFF 有一个专有数据块设施，可能包含任意的二进制数据。WOF
 
 [OFF]：[开放字体格式规范](http://standards.iso.org/ittf/PubliclyAvailableStandards/c052136_ISO_IEC_14496-22_2009(E).zip) (ISO/IEC 14496-22:2009).
 
-[RFC-2119]：[RFC 2119:](http://tools.ietf.org/html/rfc2119) 在RFC中用于指示需求级别的关键词。S. Bradner，编辑。互联网工程任务组，1997年3月。
+[RFC-2119]：[RFC 2119:](http://tools.ietf.org/html/rfc2119) 在 RFC 中用于指示需求级别的关键词。S. Bradner，编辑。互联网工程任务组，1997年3月。
 
-[ZLIB]：[RFC 1950](http://tools.ietf.org/html/rfc1950)  ZLIB压缩数据格式规范。P. Deutsch，J-L。Gailly，编辑。互联网工程任务组，1996年5月。
+[ZLIB]：[RFC 1950](http://tools.ietf.org/html/rfc1950)  ZLIB 压缩数据格式规范。P. Deutsch，J-L。Gailly，编辑。互联网工程任务组，1996年5月。
 
 ### 信息性参考
 
 [Compress2]：[zlib compress2() function](http://refspecs.linuxbase.org/LSB_3.0.0/LSB-Core-generic/LSB-Core-generic/zlib-compress2-1.html)
 
-[CSS3-Fonts]：[CSS 字体模块级别 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, 编辑。万维网联盟，2011年10月4日。[最新版本的CSS3字体](http://www.w3.org/TR/css3-fonts/) 可在http://www.w3.org/TR/css3-fonts/上找到。（工作正在进行中）。
+[CSS3-Fonts]：[CSS 字体模块级别 3](http://www.w3.org/TR/css3-fonts/). J. Daggett, 编辑。万维网联盟，2011年10月4日。[最新版本的 CSS3字体](http://www.w3.org/TR/css3-fonts/) 可在 http://www.w3.org/TR/css3-fonts/上找到。（工作正在进行中）。
 
-[OpenType]：[微软 OpenTyp e规范](http://www.microsoft.com/typography/otspec/),版本1.6。Microsoft，2009。OpenType是微软公司的注册商标。
+[OpenType]：[微软 OpenTyp e 规范](http://www.microsoft.com/typography/otspec/),版本1.6。Microsoft，2009。OpenType 是微软公司的注册商标。
 
 [TrueType]：[Apple TrueType 参考手册](http://developer.apple.com/fonts/TTRefMan/)。
 Apple，2002。TrueType 是苹果有限公司的注册商标。

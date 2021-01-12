@@ -49,7 +49,7 @@ ReactDOM.render(<Button label="Save" />, mountNode)
 
 - 组件名称首字母大写，`Button`。必须要这样做是因为我们将处理 HTML 元素和 React 元素的混合。小写名称是为 HTML 元素保留的。事实上，将 React 组件命名为 “button” 然后你就会发现 ReactDOM 会忽略这个函数，仅仅是将其作为一个普通的空 HTML 按钮来渲染。
 - 每个组件都接收一个属性列表，就像 HTML 元素一样。在 React 中，这个列表被称为**属性**。虽然你可以将一个函数随意命名。
-- 在上面 Button 函数组件的返回输出中，我们奇怪地写了段看上去像 HTML 的代码。这实际上既不是 JavaScript 也不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [**JSX**](https://facebook.github.io/jsx/)，这是一个JavaScript 的扩展。JSX 也是一个**折中方案**！继续尝试并在上面的函数中返回其他 HTML 元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
+- 在上面 Button 函数组件的返回输出中，我们奇怪地写了段看上去像 HTML 的代码。这实际上既不是 JavaScript 也不是 HTML，老实说，这甚至不是 React.js。然而它非常流行，以至于成为 React 应用程序中的默认值。这就是所谓的 [**JSX**](https://facebook.github.io/jsx/)，这是一个 JavaScript 的扩展。JSX 也是一个**折中方案**！继续尝试并在上面的函数中返回其他 HTML 元素，看看它们是如何被支持的（例如，返回一个文本输入元素）。
 
 #### 2 JSX 输出的是什么？
 

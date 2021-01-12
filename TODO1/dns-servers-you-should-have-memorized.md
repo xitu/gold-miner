@@ -32,7 +32,7 @@
 
 > Cisco 收购了 OpenDNS 公司，Umbrella 便来自于此。
 
-## Google DNS的替代品
+## Google DNS 的替代品
 
 在某些时候，我转而使用 Cisco 的 Umbrella 服务器，因为它们会为你进行 URL 过滤。他们维护一个危险 URL 列表并自动阻止它们，这有助于阻止恶意软件。
 

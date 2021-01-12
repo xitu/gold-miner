@@ -61,7 +61,7 @@ HTTP/1.1 已经在 Web 上服役了十五年以上，但其劣势也开始显现
 
 HTTP/2 是由 [IETF](http://www.ietf.org/) 的 [HTTP 工作组](https://httpwg.github.io/)开发的，该组织负责维护 HTTP 协议。该组织由众多 HTTP 实现者、用户、网络运营商和 HTTP 专家组成。
 
-值得注意的是，虽然[工作组的邮件列表](http://lists.w3.org/Archives/Public/ietf-http-wg/)托管在 W3C 网站上，不过这并不是 W3C 的功劳。但是， Tim Berners-Lee 和 W3C TAG与 WG 的进度保持一致。
+值得注意的是，虽然[工作组的邮件列表](http://lists.w3.org/Archives/Public/ietf-http-wg/)托管在 W3C 网站上，不过这并不是 W3C 的功劳。但是， Tim Berners-Lee 和 W3C TAG 与 WG 的进度保持一致。
 
 许多人为这项工作做出了自己的贡献，尤其是一些来自“大”项目的工程师，例如 Firefox、Chrome、Twitter、Microsoft 的 HTTP stack、Curl 和 Akamai。以及若干 Python、Ruby 和 NodeJS 的 HTTP 实现者。
 
@@ -95,7 +95,7 @@ HTTP/2 第一次出现并被讨论的时候，SPDY 正得到厂商 (像 Mozilla 
 
 和 HTTP/1.x 这样的文本协议相比，二进制协议解析起来更高效、“线上”更紧凑，更重要的是错误更少。因为它们对如空白字符的处理、大小写、行尾、空链接等的处理很有帮助。
 
-举个栗子 🌰，HTTP/1.1 定义了[四种不同的方法来解析一条消息](http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.4)；而在HTTP/2中，仅需一个代码路径即可。
+举个栗子 🌰，HTTP/1.1 定义了[四种不同的方法来解析一条消息](http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.4)；而在 HTTP/2中，仅需一个代码路径即可。
 
 HTTP/2 在 telnet 中不可用，但是我们已经有一些工具可以提供支持，例如 [Wireshark plugin](https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=9042)。
 
@@ -143,11 +143,11 @@ HTTP/1.1 尝试使用管线化（pipelining）来解决这个问题，但是效�
 
 SPDY/2 提出在每一方都使用一个单独的 GZIP 上下文用于消息头压缩，这实现起来很容易，也很高效。
 
-从那时起，一个重要的攻击方式 [CRIME](http://en.wikipedia.org/wiki/CRIME) 诞生了，这种方式可以攻击加密文件内部的所使用的压缩流（如GZIP）。
+从那时起，一个重要的攻击方式 [CRIME](http://en.wikipedia.org/wiki/CRIME) 诞生了，这种方式可以攻击加密文件内部的所使用的压缩流（如 GZIP）。
 
-使用 CRIME，那些具备向加密数据流中注入数据能力的攻击者获得了“探测”明文并还原的可能性。因为是 Web，JavaScript 使其成为了可能，而且已经有了通过对受到 TLS 保护的 HTTP 资源的使用CRIME来还原出 cookies 和认证令牌（Toekn）的案例。
+使用 CRIME，那些具备向加密数据流中注入数据能力的攻击者获得了“探测”明文并还原的可能性。因为是 Web，JavaScript 使其成为了可能，而且已经有了通过对受到 TLS 保护的 HTTP 资源的使用 CRIME 来还原出 cookies 和认证令牌（Toekn）的案例。
 
-因此，我们不应该使用 GZIP 进行压缩。由于找不到其它适合在这种用例下使用的安全有效的算法，所以我们创造了一种新的，针对消息头的，进行粗粒度操作的压缩模式；因为HTTP消息头并不常常需要改变，我们仍然可以得到很好的压缩效率，而且更加的安全。
+因此，我们不应该使用 GZIP 进行压缩。由于找不到其它适合在这种用例下使用的安全有效的算法，所以我们创造了一种新的，针对消息头的，进行粗粒度操作的压缩模式；因为 HTTP 消息头并不常常需要改变，我们仍然可以得到很好的压缩效率，而且更加的安全。
 
 ### HTTP/2 可以让 cookies（或者其他消息头）变得更好吗？
 
@@ -191,7 +191,7 @@ HTTP/2 定义了所需的 TLS 文档，包括版本，密码套件黑名单和�
 
 ### 我现在可以使用 HTTP/2 吗？
 
-浏览器中，最新版本的 Edge、Safari、Firefox 和 Chrome都支持 HTTP/2。其他基于 Blink 的浏览器也将支持HTTP/2（例如 Opera 和 Yandex 浏览器）。详见 [caniuse](http://caniuse.com/#feat=http2)。
+浏览器中，最新版本的 Edge、Safari、Firefox 和 Chrome 都支持 HTTP/2。其他基于 Blink 的浏览器也将支持 HTTP/2（例如 Opera 和 Yandex 浏览器）。详见 [caniuse](http://caniuse.com/#feat=http2)。
 
 还有几个可用的服务器（包括来自 [Akamai](https://http2.akamai.com/)，[Google](https://www.google.com/) 和 [Twitter](https://twitter.com/) 的主要站点的 beta 支持），以及许多可以部署和测试的开源实现。
 

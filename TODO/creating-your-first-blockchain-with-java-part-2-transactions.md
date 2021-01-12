@@ -81,7 +81,7 @@ public class Wallet {
 			// 初始化 KeyGenerator 并且生成一对 KeyPair
 			keyGen.initialize(ecSpec, random);   //256 字节大小是可接受的安全等级
 	        	KeyPair keyPair = keyGen.generateKeyPair();
-	        	// 从 KeyPair中获取公钥和私钥
+	        	// 从 KeyPair 中获取公钥和私钥
 	        	privateKey = keyPair.getPrivate();
 	        	publicKey = keyPair.getPublic();
 		}catch(Exception e) {
@@ -282,7 +282,7 @@ public class NoobChain {
 
 ```
 public class TransactionInput {
-	public String transactionOutputId; //把 TransactionOutputs 标识为对应的transactionId
+	public String transactionOutputId; //把 TransactionOutputs 标识为对应的 transactionId
 	public TransactionOutput UTXO; //包括了所有未花费的交易输出
 	
 	public TransactionInput(String transactionOutputId) {
@@ -377,7 +377,7 @@ public boolean processTransaction() {
 			NoobChain.UTXOs.put(o.id , o);
 		}
 		
-		//从 UTXO list里面移除已花费的交易输出
+		//从 UTXO list 里面移除已花费的交易输出
 		for(TransactionInput i : inputs) {
 			if(i.UTXO == null) continue; //if Transaction can't be found skip it 
 			NoobChain.UTXOs.remove(i.UTXO.id);
@@ -410,7 +410,7 @@ public boolean processTransaction() {
 
 通过这个方法进行一些检查，去验证交易合法性，然后整合输入并生成输出（看看代码里的注释会清楚点）。
 
-重要的一点，在最后，我们把 Inputs 从 _UTXO_ list里面移除了，说明一个**交易输出**作为一个输入只能使用一次。因此，输入的总数值必须都花出去，这样发送方才有剩余“零钱”可拿回来。
+重要的一点，在最后，我们把 Inputs 从 _UTXO_ list 里面移除了，说明一个**交易输出**作为一个输入只能使用一次。因此，输入的总数值必须都花出去，这样发送方才有剩余“零钱”可拿回来。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*4wZbhhT98hIyt4jtLdePgQ.png)
 
@@ -418,7 +418,7 @@ public boolean processTransaction() {
 
 最后更新我们的钱包：
 
-* 收集我们的余额（通过循环 UTXO list并检查一个交易输出是否是自己的钱币）
+* 收集我们的余额（通过循环 UTXO list 并检查一个交易输出是否是自己的钱币）
 * 为我们生成交易
 
 ```
@@ -606,7 +606,7 @@ public class NoobChain {
 	public static Transaction genesisTransaction;
 
 	public static void main(String[] args) {	
-		//添加我们的区块到区块链 ArrayList中
+		//添加我们的区块到区块链 ArrayList 中
 		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //设置 Bouncey castle 为 Security Provider
 		
 		//生成钱包
@@ -656,7 +656,7 @@ public class NoobChain {
 		Block currentBlock; 
 		Block previousBlock;
 		String hashTarget = new String(new char[difficulty]).replace('\0', '0');
-		HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //对给定的区块状态，一个临时的未花费交易输出list
+		HashMap<String,TransactionOutput> tempUTXOs = new HashMap<String,TransactionOutput>(); //对给定的区块状态，一个临时的未花费交易输出 list
 		tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
 		
 		//循环区块链去检查哈希值

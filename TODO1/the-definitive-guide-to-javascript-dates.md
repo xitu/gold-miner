@@ -56,7 +56,7 @@ new Date(timestamp * 1000)
 new Date(0)
 ```
 
-如果我们传值一个字符串而不是数字，那么Date对象将会调用 `parse` 去确定你想传入的日期。例如：
+如果我们传值一个字符串而不是数字，那么 Date 对象将会调用 `parse` 去确定你想传入的日期。例如：
 
 ```
 new Date('2018-07-22')
@@ -257,7 +257,7 @@ new Date(2018, 6, 40) //Thu Aug 09 2018 00:00:00 GMT+0200 (Central European Summ
 
 ## 基于你的地点来格式化 Date
 
-全球化的API，在现代化的浏览器中[被很好地支持](https://caniuse.com/internationalization)（值得注意的例外：UC 浏览器），而这允许你去转化（世界各地的）日期。
+全球化的 API，在现代化的浏览器中[被很好地支持](https://caniuse.com/internationalization)（值得注意的例外：UC 浏览器），而这允许你去转化（世界各地的）日期。
 
 这些方法由 `Intl` 项目公布，它同时也帮助我们本地化数字，字符串和货币。
 

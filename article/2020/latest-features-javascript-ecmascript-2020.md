@@ -9,7 +9,7 @@
 
 ![JavaScriptT2 Light_1200x303](https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/templates/javascriptt2-light_1200x303.png?sfvrsn=cc305226_2 "JavaScriptT2 Light_1200x303")
 
-JavaScript 是最流行的编程语言之一，每年都会添加新的特性。本文介绍了添加在 ECMAScript 2020（又称ES11）中的新特性。
+JavaScript 是最流行的编程语言之一，每年都会添加新的特性。本文介绍了添加在 ECMAScript 2020（又称 ES11）中的新特性。
 
 在引入 ECMAScript 2015（又称 ES6）之前，JavaScript 发展的非常缓慢。但自 2015 年起，每年都有新特性添加进来。需要注意的是，不是所有特性都被现代浏览器支持，但是由于 JavaScript 编译器 [Babel](https://babeljs.io/) 的存在，我们已经可以使用新特性了。本文将介绍 ECMAScript 2020（ES11）的一些最新特性。
 
@@ -302,7 +302,7 @@ const evenBiggerNumber = BigInt(9007199254740991)
 
 ## 结论
 
-我希望这篇文章对您有用，并像我一样期待 JavaScript 即将到来的新特性。如果想了解更多，可以看看 tc39 委员会的[官方Github仓库](https://github.com/tc39/proposals/blob/master/finished-proposals.md)。
+我希望这篇文章对您有用，并像我一样期待 JavaScript 即将到来的新特性。如果想了解更多，可以看看 tc39 委员会的[官方 Github 仓库](https://github.com/tc39/proposals/blob/master/finished-proposals.md)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

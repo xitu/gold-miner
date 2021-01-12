@@ -9,7 +9,7 @@
 
 如果你想了解更多 http 头信息的知识，请关注 5 月 22 号[安德鲁在伦敦的演讲](https://www.fastly.com/altitude/2018/london)。
 
-http 头信息是控制缓存和浏览器处理web内容的一种重要方式。但很多时候它都被错误或冗余地使用，这不仅没有达成我们的使用目的，还增加了加载页面时的运行开销。这篇 http 头信息的系列博文中的第一篇文章，让我们先来扒一扒那些不必要的 http 头信息。
+http 头信息是控制缓存和浏览器处理 web 内容的一种重要方式。但很多时候它都被错误或冗余地使用，这不仅没有达成我们的使用目的，还增加了加载页面时的运行开销。这篇 http 头信息的系列博文中的第一篇文章，让我们先来扒一扒那些不必要的 http 头信息。
 
 大多数开发者都了解一些 HTTP 头信息，并利用它去处理内容。如大家熟知的 `Content-Type` 和 `Content-Length`，它们都是通用的。但最近，`Content-Security-Policy` 和 `Strict-Transport-Security` 这样的头信息已经开始用于提高安全性，`Link rel=preload` 用于提高性能。只是极少数网站使用他们，尽管它们被浏览器广泛支持。
 
@@ -79,7 +79,7 @@ X-Frame-Options: SAMEORIGIN
 
 `P3P` 是个让人好奇的东东。我对它不了解，甚至很好奇，它最常见的值居然是 “this is not a p3p policy”。那它是，还是不是啊？
 
-这要追溯到[试图使机器可读的隐私政策标准化](https://en.wikipedia.org/wiki/P3P#User_agent_support)，当时大家对于如何在浏览器中显示数据存在分歧，并且只有一个浏览器实现了这个 http 头信息 -- IE 浏览器。即使在 IE 浏览器中，`P3P` 也不会给用户带去任何视觉效果，它只需要在 iframe 中允许访问第三方cookie。有些网站甚至设置了一个不符合标准的 P3P 规则，比如上面的一个，即使这样做是[不合法律规定的](https://www.cylab.cmu.edu/_files/pdfs/tech_reports/CMUCyLab10014.pdf)。
+这要追溯到[试图使机器可读的隐私政策标准化](https://en.wikipedia.org/wiki/P3P#User_agent_support)，当时大家对于如何在浏览器中显示数据存在分歧，并且只有一个浏览器实现了这个 http 头信息 -- IE 浏览器。即使在 IE 浏览器中，`P3P` 也不会给用户带去任何视觉效果，它只需要在 iframe 中允许访问第三方 cookie。有些网站甚至设置了一个不符合标准的 P3P 规则，比如上面的一个，即使这样做是[不合法律规定的](https://www.cylab.cmu.edu/_files/pdfs/tech_reports/CMUCyLab10014.pdf)。
 
 不用说，读取第三方 cookie 通常是不可取的，所以如果你打算不这样做，你也不需要设置一个 `P3P` 头信息
 

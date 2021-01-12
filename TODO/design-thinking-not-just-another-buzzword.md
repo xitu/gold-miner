@@ -89,7 +89,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lPIWX8-cw9AEb-VOwlR8BA.png)
 
-头脑风暴 = 被释放的想法 + 没有约束（译者：unleash通常用来被释放恶魔）
+头脑风暴 = 被释放的想法 + 没有约束（译者：unleash 通常用来被释放恶魔）
  
 一旦当一个问题/机会被清楚的定义之后，我们便开始寻找解决它的办法。**尽可能的想出多的解决方案。** 在这一阶段，我们不应当因为解决方式太简单或者太基础就抛弃他们。任何一个想法都可能是另外一个想法的种子，所以认真的对待这些种子吧！
 
@@ -147,7 +147,7 @@
 [**13种面对初创公司的测试原型方法**](http://thenextweb.com/dd/2013/08/10/13-ways-to-master-ux-testing-for-your-startup/)
 
 
-[**UX必须掌握的测试工具**](https://uxdesign.cc/ux-tools-for-user-research-and-user-testing-a720131552e1)
+[**UX 必须掌握的测试工具**](https://uxdesign.cc/ux-tools-for-user-research-and-user-testing-a720131552e1)
 
 
 #### 最后说点什么 ####

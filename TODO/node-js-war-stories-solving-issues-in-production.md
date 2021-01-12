@@ -76,7 +76,7 @@ Netflix 的底层代码包含了每 6 分钟运行的定时代码，从拓展资
 
 作为一个在 PaaS 运行的 早期 Trace 版本，它通过公共云来与我们的其他服务通信。
 
-为了确保我们的请求是完整的，我们决定对所有请求进行签名。为了实现这个，我们看了 Joyent 的 [HTTP signing library](https://github.com/joyent/node-http-signature)。很棒的是，[request](https://www.npmjs.com/package/request) 这一模块支持开箱即用的HTTP签名。
+为了确保我们的请求是完整的，我们决定对所有请求进行签名。为了实现这个，我们看了 Joyent 的 [HTTP signing library](https://github.com/joyent/node-http-signature)。很棒的是，[request](https://www.npmjs.com/package/request) 这一模块支持开箱即用的 HTTP 签名。
 
 **解决方案代价不仅很大，而且会对我们的响应速度造成不好的影响。**
 

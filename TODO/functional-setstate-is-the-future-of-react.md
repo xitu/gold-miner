@@ -231,7 +231,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 至此，我们已经深入探讨了为什么多次函数式 setState 在 React 中是安全的。但是我们还没有给函数式 setState 下一个完整的定义：“独立于组件类之外声明 state 的变化”。
 
-过去几年，setting-state 的逻辑（即传递给 `setState()` 的对象或函数）一直都存在于组件类内部，这更像是命令式（imperative）而非 声明式（declarative）。（译者注：imperative 和 declarative 的区别参见 [stackoverflow上的问答](http://stackoverflow.com/questions/1784664/what-is-the-difference-between-declarative-and-imperative-programming)）
+过去几年，setting-state 的逻辑（即传递给 `setState()` 的对象或函数）一直都存在于组件类内部，这更像是命令式（imperative）而非 声明式（declarative）。（译者注：imperative 和 declarative 的区别参见 [stackoverflow 上的问答](http://stackoverflow.com/questions/1784664/what-is-the-difference-between-declarative-and-imperative-programming)）
 
 不过，今天我将向你展示新出土的宝藏 —— **React 最为深藏不露的秘密**：
 

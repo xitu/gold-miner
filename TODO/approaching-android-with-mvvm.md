@@ -10,35 +10,35 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*jI0Qc7-8vYy7UpKuTLWrKg.png)
 
-这篇文章通过一款简单的App来论证MVVM模式，我建议你先看看这个[项目](https://github.com/hitherejoe/MVVM_Hacker_News)，让你大概了解下它。
+这篇文章通过一款简单的 App 来论证 MVVM 模式，我建议你先看看这个[项目](https://github.com/hitherejoe/MVVM_Hacker_News)，让你大概了解下它。
 
 
-### 什么是MVVM模式?
-**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以取出 **Model** 的数据同时帮忙处理 **View** 中由于需要展示内容而涉及的业务逻辑。
+### 什么是 MVVM 模式?
+**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将 UI 和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以取出 **Model** 的数据同时帮忙处理 **View** 中由于需要展示内容而涉及的业务逻辑。
 
-MVVM模式是通过以下三个核心组件组成，每个都有它自己独特的角色：
+MVVM 模式是通过以下三个核心组件组成，每个都有它自己独特的角色：
 
 *   **Model** - 包含了业务和验证逻辑的数据模型
-*   **View** - 定义屏幕中View的结构，布局和外观
+*   **View** - 定义屏幕中 View 的结构，布局和外观
 *   **ViewModel** - 扮演“View”和“Model”之间的使者，帮忙处理 **View** 的全部业务逻辑
 
 ![](https://cdn-images-1.medium.com/max/1600/1*VLhXURHL9rGlxNYe9ydqVg.png)
 
-那这和我们曾经用过的MVC模式有什么不同呢？以下是MVC的结构
+那这和我们曾经用过的 MVC 模式有什么不同呢？以下是 MVC 的结构
 
 *   **View** 在 **Controller** 的顶端，而 **Model** 在 **Controller** 的底部
 *   **Controller** 需要同时关注 **View** 和 **Model**
-*   **View** 只能知道 **Model** 的存在并且能在Model的值变更时收到通知
+*   **View** 只能知道 **Model** 的存在并且能在 Model 的值变更时收到通知
 
-MVVM模式和MVC有些类似，但有以下不同：
+MVVM 模式和 MVC 有些类似，但有以下不同：
 
-*   **ViewModel** 替换了 **Controller**，在UI层之下
+*   **ViewModel** 替换了 **Controller**，在 UI 层之下
 *   **ViewModel** 向 **View** 暴露它所需要的数据和指令对象
 *   **ViewModel** 接收来自 **Model** 的数据 
 
-你可以看到这两种模式有着相似的结构，但新加入的 **ViewModel** 是用不同的方法将组件们联系起来的，它是双向的，而MVC只能单向连接。
+你可以看到这两种模式有着相似的结构，但新加入的 **ViewModel** 是用不同的方法将组件们联系起来的，它是双向的，而 MVC 只能单向连接。
 
-概括起来，MVVM是由MVC发展而来 - 通过在 **Model** 之上而在 **View** 之下增加一个非视觉的组件将来自 **Model** 的数据映射到 **View** 中。接下来，我们将更多地看到MVVM的这种特性。
+概括起来，MVVM 是由 MVC 发展而来 - 通过在 **Model** 之上而在 **View** 之下增加一个非视觉的组件将来自 **Model** 的数据映射到 **View** 中。接下来，我们将更多地看到 MVVM 的这种特性。
 
 ### The Hacker News reader
 
@@ -61,12 +61,12 @@ MVVM模式和MVC有些类似，但有以下不同：
 
 每个帖子信息都用 **RecyclerView** 所包含的 **CardView** 包装起来，正如上图展示的。
 
-使用MVVM我们可以将不同层抽象出来很好的实现这些卡片，这意味着每个MVVM组件只要处理它被分配的任务即可。通过使用前面介绍的MVVM的不同组件，组合在一起后能构造出我们的帖子卡片实例，那么我们该如何将它们从布局中抽离出来？
+使用 MVVM 我们可以将不同层抽象出来很好的实现这些卡片，这意味着每个 MVVM 组件只要处理它被分配的任务即可。通过使用前面介绍的 MVVM 的不同组件，组合在一起后能构造出我们的帖子卡片实例，那么我们该如何将它们从布局中抽离出来？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*W5rJoOlz6YpZn6s36BLvSw.png)
 
 ### Model
-简单来说，**Model** 由那些帖子的业务逻辑组成，包括一些像 id，name，text之类的属性，以下代码展示了该类的部分代码：
+简单来说，**Model** 由那些帖子的业务逻辑组成，包括一些像 id，name，text 之类的属性，以下代码展示了该类的部分代码：
 
 ```
 
@@ -111,12 +111,12 @@ public class Post {
 
 }
 ```
-为了可读性，上面的 **POST** 类中去掉了一些Parcelable变量和方法
+为了可读性，上面的 **POST** 类中去掉了一些 Parcelable 变量和方法
 这里你可以看到**Post**类只包含所有它的属性，没有一点别的逻辑 - 别的组件会处理它们。
 
 ##View
-**View** 的任务是定义布局，外观和结构。**View** 最好能完全通过XML来定义，即使它包含些许java代码也不应该有业务逻辑部分，
-**View** 会通过绑定从 **ViewModel**中取出数据。在运行时，若 **ViewModel**的属性的值有变化的话它会通知 **View**来更新UI。
+**View** 的任务是定义布局，外观和结构。**View** 最好能完全通过 XML 来定义，即使它包含些许 java 代码也不应该有业务逻辑部分，
+**View** 会通过绑定从 **ViewModel**中取出数据。在运行时，若 **ViewModel**的属性的值有变化的话它会通知 **View**来更新 UI。
 
 首先，我们先给 **RecyclerView** 传入一个自定义的适配器。为此，我们需要让我们的 **BindingHolder** 类持有对 **Binding** 的引用。
 
@@ -197,7 +197,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder>
 }
 ```
 
-看下我们的XML布局，首先我们要将所有的布局都包含在layout标签下，同时使用data标签来声明我们的 **ViewModel**:
+看下我们的 XML 布局，首先我们要将所有的布局都包含在 layout 标签下，同时使用 data 标签来声明我们的 **ViewModel**:
 
 ```
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -342,9 +342,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder>
 在这里，[PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java) 用 **Post** 对象来处理 **CardView** 需要显示的内容，在下面的类中，你可以看到一系列的方法，每个方法对最终作用于我们的帖子视图。
 
 *   **getPostTitle()** - 通过 **Post** 对象返回一个帖子的标题
-*   **getPostAuthor()** - 这个方法首先会从应用的resources中获取相应的字符串，然后传入**Post**对象的**author**属性对它进行格式化，如果**isUserPosts** 等于true我们就需要加入下划线，最终返回该字符串。
-*   **getCommentsVisibility()** - 该方法决定是否显示有关评论的TextView
-*   **onClickPost()** - 该方法返回相应View需要的**OnClickListener**
+*   **getPostAuthor()** - 这个方法首先会从应用的 resources 中获取相应的字符串，然后传入**Post**对象的**author**属性对它进行格式化，如果**isUserPosts** 等于 true 我们就需要加入下划线，最终返回该字符串。
+*   **getCommentsVisibility()** - 该方法决定是否显示有关评论的 TextView
+*   **onClickPost()** - 该方法返回相应 View 需要的**OnClickListener**
 
 这些例子表明不同的业务逻辑都有我们的 **ViewModel** 来处理。下面就是我们[PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java)类的完整代码以及那些被[item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml)布局引用的方法。
 
@@ -428,17 +428,17 @@ public class PostViewModel extends BaseObservable {
 
 *   维护 **Post** 对象的属性，最终会在 **View** 中展示
 *   对这些属性进行相应的格式化
-*   通过 **onclick** 属性给相应的views对提供点击事件的支持
-*   通过 **Post** 对象的属性处理相关views的显示
+*   通过 **onclick** 属性给相应的 views 对提供点击事件的支持
+*   通过 **Post** 对象的属性处理相关 views 的显示
 
 ### 测试 ViewModel
 
-使用MVVM的一大好处是我们可以很容易对 **ViewModel** 进行单元测试。在 **PostViewModel** 中，可以写些简单的测试方法来验证我们的 **ViewModel** 是否正确实现。
+使用 MVVM 的一大好处是我们可以很容易对 **ViewModel** 进行单元测试。在 **PostViewModel** 中，可以写些简单的测试方法来验证我们的 **ViewModel** 是否正确实现。
 
-*   **shouldGetPostScore()** - 测试getPostScore()方法，确认该帖子的得分是否正确地格式化成字符串对象并返回。
-*   **shouldGetPostTitle()** - 测试getPostTitle()方法，确认该帖子的标题被正确返回。
-*   **shouldGetPostAuthor()** - 测试getPostAuthor()方法，确认返回的帖子的作者被正确地格式化了
-*   **shouldGetCommentsVisiblity()** - 测试getCommentsVisibility()方法是否正确返回了visibility属性的值，它将会用在帖子的 `Comments` 按钮中。我们传入一个包含不同状态的ArrayLists来确认它是否能正确返回。
+*   **shouldGetPostScore()** - 测试 getPostScore()方法，确认该帖子的得分是否正确地格式化成字符串对象并返回。
+*   **shouldGetPostTitle()** - 测试 getPostTitle()方法，确认该帖子的标题被正确返回。
+*   **shouldGetPostAuthor()** - 测试 getPostAuthor()方法，确认返回的帖子的作者被正确地格式化了
+*   **shouldGetCommentsVisiblity()** - 测试 getCommentsVisibility()方法是否正确返回了 visibility 属性的值，它将会用在帖子的 `Comments` 按钮中。我们传入一个包含不同状态的 ArrayLists 来确认它是否能正确返回。
 
 ```
 
@@ -543,7 +543,7 @@ if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {
 
 ### 总结
 
-如果正确使用，数据绑定类库可能会改变我们开发应用的方式。当然，还有其他方法实现数据的绑定，使用MVVM模式只是其中的一种途径。
+如果正确使用，数据绑定类库可能会改变我们开发应用的方式。当然，还有其他方法实现数据的绑定，使用 MVVM 模式只是其中的一种途径。
 
 比如，你可以在布局中引用我们的 **Model** 然后通过它的变量引用直接访问它的属性：
 
@@ -556,7 +556,7 @@ if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {
     android:text="@{post.title}"/>
 ```
 
-同时我们可以很容易从adapers和classes中移除一些基础的显示逻辑。下面有种很新颖的方法实现我们这种需求：
+同时我们可以很容易从 adapers 和 classes 中移除一些基础的显示逻辑。下面有种很新颖的方法实现我们这种需求：
 
 ```
 <data>
@@ -573,6 +573,6 @@ if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {
 
 我认为这是数据绑定类库中不好的地方，它将 **View** 的显示逻辑包含到了 **View** 中。不仅会造成混乱，也让我们的测试和调试变的更加困难，因为它将逻辑和布局混淆在一起。
 
-当然，认定MVVM是开发应用的正确方式还为时过早，但这次尝试也让我有机会见识到未来项目的一种趋势。如果你想阅读更多有关数据绑定类库的文章，你可以看[这里](https://developer.android.com/tools/data-binding/guide.html)。同时微软也有一篇关于MVVM通俗易懂的[文章](https://msdn.microsoft.com/en-gb/library/hh848246.aspx).
+当然，认定 MVVM 是开发应用的正确方式还为时过早，但这次尝试也让我有机会见识到未来项目的一种趋势。如果你想阅读更多有关数据绑定类库的文章，你可以看[这里](https://developer.android.com/tools/data-binding/guide.html)。同时微软也有一篇关于 MVVM 通俗易懂的[文章](https://msdn.microsoft.com/en-gb/library/hh848246.aspx).
 
 我很愿意听取你们想法，如果你们有任何的看法和建议可以随时发 Tweet 和我讨论！

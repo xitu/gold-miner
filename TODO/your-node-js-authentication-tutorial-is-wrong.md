@@ -91,7 +91,7 @@ API 令牌是凭据。它们与密码或重置令牌一样敏感。大多数开�
 ![](https://cdn-images-1.medium.com/max/1600/1*5KcDyNtIfWXVe9uVUD0A_g.png)
 
 我喜欢在明文的密码中使用令牌。
-现在，任何一个包括存储在 Mongoose 模型**甚至过期的令牌**都有你的密码。鉴于这个来自HTTP，我可以把它从线上找出来。
+现在，任何一个包括存储在 Mongoose 模型**甚至过期的令牌**都有你的密码。鉴于这个来自 HTTP，我可以把它从线上找出来。
 
 下一个教程怎么样呢？下一个教程，[**针对初学者的 Express、Passport 和 JSON Web 令牌（jwt)**](https://jonathanmh.com/express-passport-json-web-token-jwt-authentication-beginners/)，包含相同的信息泄露漏洞。下篇教程来自 [SlatePeak 的一篇做了同样的序列化文章](http://blog.slatepeak.com/creating-a-simple-node-express-api-authentication-system-with-passport-and-jwt/)。在这一点上，我放弃了阅读。
 

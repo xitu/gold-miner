@@ -22,7 +22,7 @@ plish this, although we are much more experienced with React than we are with Vu
 
 
 
-你可以在我们的 GitHub上查看我们的代码 - [https://github.com/footballradar/VueReactPerf](https://github.com/footballradar/VueReactPerf).
+你可以在我们的 GitHub 上查看我们的代码 - [https://github.com/footballradar/VueReactPerf](https://github.com/footballradar/VueReactPerf).
 
 The output of both view libs will look like this:  
 

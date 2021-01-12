@@ -38,7 +38,7 @@ value = new TypeError();  // OK
 value = Symbol("type");   // OK
 ```
 
-`any` 类型本质上是类型系统的一个逃逸舱。作为开发者，这给了我们很大的自由：TypeScript允许我们对 `any` 类型的值执行任何操作，而无需事先执行任何形式的检查。
+`any` 类型本质上是类型系统的一个逃逸舱。作为开发者，这给了我们很大的自由：TypeScript 允许我们对 `any` 类型的值执行任何操作，而无需事先执行任何形式的检查。
 
 在上述例子中，变量 `value` 被定义成类型 `any`。也是因此，TypeScript 认为以下所有操作都是类型正确的：
 
@@ -235,7 +235,7 @@ type IntersectionType5 = unknown & any;        // any
 
 如果要对类型为 `unknown` 的值使用任何其他运算符，则必须先指定类型（或使用类型断言强制编译器信任你）。
 
-## 示例：从 `localStorage` 中读取JSON
+## 示例：从 `localStorage` 中读取 JSON
 
 这是我们如何使用 `unknown` 类型的真实例子。
 
@@ -310,7 +310,7 @@ if (result.success) {
 1. `null` 值是一个有效的 JSON 值。因此，我们无法区分是对值 `null` 进行了反序列化，还是由于缺少参数或语法错误而导致整个操作失败。
 2. 如果我们从函数返回 `null`，我们无法同时返回错误。因此，我们函数的调用者不知道操作失败的原因。
 
-为了完整性，这种方法的更成熟的替代方案是使用[类型解码器](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc)进行安全的 JSON 解析。解码器需要我们指定要反序列化的值的预期数据结构。如果持久化的JSON结果与该数据结构不匹配，则解码将以明确定义的方式失败。这样，我们的函数总是返回有效或失败的解码结果，就不再需要 `unknown` 类型了。
+为了完整性，这种方法的更成熟的替代方案是使用[类型解码器](https://dev.to/joanllenas/decoding-json-with-typescript-1jjc)进行安全的 JSON 解析。解码器需要我们指定要反序列化的值的预期数据结构。如果持久化的 JSON 结果与该数据结构不匹配，则解码将以明确定义的方式失败。这样，我们的函数总是返回有效或失败的解码结果，就不再需要 `unknown` 类型了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

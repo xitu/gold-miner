@@ -104,7 +104,7 @@ int WINAPI HookedMessageBox(HWND hWnd, LPCTSTR lpText, LPCTSTR lpCaption, UINT u
 }
 ```
 
-一旦触发中间函数，代码执行流将被重定向至某个特定位置。要想在 `MessageBox` 方法中进行挂钩，我们可以补充代码的前几个字节（请记住，我们必须备份原本的字节，以便于在中间函数执行后恢复原始函数）。以下是在MsgBox方法中相应模块 `user32.dll` 中的原始编码指令：
+一旦触发中间函数，代码执行流将被重定向至某个特定位置。要想在 `MessageBox` 方法中进行挂钩，我们可以补充代码的前几个字节（请记住，我们必须备份原本的字节，以便于在中间函数执行后恢复原始函数）。以下是在 MsgBox 方法中相应模块 `user32.dll` 中的原始编码指令：
 
 ```
 ; MessageBox

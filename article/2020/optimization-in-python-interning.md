@@ -5,7 +5,7 @@
 > * 译者：[samyu2000](https://github.com/samyu2000)
 > * 校对者：[caiyundong](https://github.com/caiyundong)
 
-# Python的优化 — 驻留机制
+# Python 的优化 — 驻留机制
 
 ![Photo by [George Stewart](https://unsplash.com/@_stewart_) on [Unsplash](https://unsplash.com/photos/D8gtlT7j1v4)](https://cdn-images-1.medium.com/max/2000/0*TVH3cYeJ4s6F-4F3)
 

@@ -378,7 +378,7 @@ async function foo() {
 }
 ```
 
-注意我们并没有使用 `await` 或 `return`。`foo` 函数运行结果为**返回值是 `undefined` 的 resolved**，并且函数执行不会**延迟 1 秒钟**。但是canRejectOrReturn() 中的 promise 的确被执行了。如果没有副作用产生，**这的确会发生**。如果 canRejectOrReturn() 抛出错误或者状态转移为 rejected，UnhandledPromiseRejectionWarning 错误将会产生。
+注意我们并没有使用 `await` 或 `return`。`foo` 函数运行结果为**返回值是 `undefined` 的 resolved**，并且函数执行不会**延迟 1 秒钟**。但是 canRejectOrReturn() 中的 promise 的确被执行了。如果没有副作用产生，**这的确会发生**。如果 canRejectOrReturn() 抛出错误或者状态转移为 rejected，UnhandledPromiseRejectionWarning 错误将会产生。
 
 ### 在回调中使用 async 函数
 

@@ -60,7 +60,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 ![图 5: 左图是我们正在尝试优化的二次函数图。右图显示了运行 scikit-optimize 时选择进行评估的连续点（从紫色到红色），以使用具有高斯过程的贝叶斯优化对该函数进行归一化。随着迭代次数的增加，算法会更紧密地探索最小值附近的区域。](https://cdn-images-1.medium.com/max/2000/0*lq0fph2PwufGxPQU)
 
-替代模型有不同的选择，包括高斯过程，随机森林 and [Tree Parzen 预估器](https://papers.nips.cc/paper/4443-algorithms-for-hyper-parameter-optimization.pdf). 作者选取 [RoBo](https://github.com/AutoML/RoBO) 和高斯过程，[SMAC](https://github.com/AutoML/SMAC3) 和随机森林、[Hyperopt](https://github.com/hyperopt/hyperopt)和Tree Parzen 预估器 测试 SMBO。
+替代模型有不同的选择，包括高斯过程，随机森林 and [Tree Parzen 预估器](https://papers.nips.cc/paper/4443-algorithms-for-hyper-parameter-optimization.pdf). 作者选取 [RoBo](https://github.com/AutoML/RoBO) 和高斯过程，[SMAC](https://github.com/AutoML/SMAC3) 和随机森林、[Hyperopt](https://github.com/hyperopt/hyperopt)和 Tree Parzen 预估器 测试 SMBO。
 
 #### 其他搜索方法
 
@@ -76,7 +76,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 一种流行的方法是使用低保真度评估。这可以是对数据样本进行训练，也可以对模型进行较少的迭代训练-因为这是一种快速了解每种配置性能的方法，因此可以尽早测试更多的配置，并且只有大多数有前途的配置经过全部训练。
 
-一个很好的例子是 [**hyperband**](https://medium.com/data-from-the-trenches/a-slightly-better-budget-allocation-for-hyperband-bbd45af14481)。[BOHB](https://github.com/AutoML/HpBandSter) 是一种结合了hyperband 和贝叶斯优化的工具，并且包含在此基准测试中。
+一个很好的例子是 [**hyperband**](https://medium.com/data-from-the-trenches/a-slightly-better-budget-allocation-for-hyperband-bbd45af14481)。[BOHB](https://github.com/AutoML/HpBandSter) 是一种结合了 hyperband 和贝叶斯优化的工具，并且包含在此基准测试中。
 
 **元学习**
 

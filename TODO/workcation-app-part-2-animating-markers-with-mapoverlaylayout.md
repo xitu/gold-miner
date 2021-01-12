@@ -34,9 +34,9 @@ GIF 1 **“动画效果”**
 
 1. 在点击底部菜单栏最右方的菜单后，我们会跳转到一个新界面。在此界面中，地图通过缩放和渐显的转场动画在屏幕上方加载，Recycleview 的 item 随着转场动画从底部加载，地图上的标记点在转场动画执行的同时被添加到地图上.
 
-2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里序列的位置。)
+2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是 show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里序列的位置。)
 
-3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
+3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的 item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
 
 4. 当后退时，详情页通过转场变成普通的 RecycleView Item，所有的地图标记再次显示，同时路径一起消失。
 
@@ -75,7 +75,7 @@ GoogleMap map=...// 获得地图
 
 该怎么办呢？其实很简单，但我还是花了点时间才弄明白。我们需要在 SupportMapFragment 上（注：也就是上一篇提到的 MapFragment）添加一层使用谷歌地图 API 所获得的 MapOverlayLayout，在该层上添加地图的映射（映射是用来转换屏幕上的的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection)）。
 
-**注：此处作者 via以后就没东西了，我估计是手滑写错了。下面有个一模一样的句子，但是多了一个说明，故此处按照下文翻译。**
+**注：此处作者 via 以后就没东西了，我估计是手滑写错了。下面有个一模一样的句子，但是多了一个说明，故此处按照下文翻译。**
 
 类 MapOverlayLayout 是一个自定义的 帧布局（FrameLayout），该布局和 MapFragment 大小位置完全相同。当地图加载完毕的时候，我们可以将 MapOverlayLayout 作为参数传递给 MapFragment，通过它用动画加载自定义的 View 、根据手势移动地图镜头之类的事情。当然了，我们可以做现在需要的事情 —— 通过缩放和渐显动画添加标记 （也就是现在的自定义 View)、隐藏标记、当滑动 RecycleView 让标记开始闪烁。
 
@@ -406,7 +406,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 }
 ```
 
-解释一下在 **moveMapAndAddMarker** 里调用的方法：为 CameraListeners 监听提供了 set 方法；**刷新**方法是为了更新标记的位置；**addMarker** 和 **removeMarker** 是用来添加 MarkerView (也就是上文所说的自定义 view )到布局和列表中。通过这个方案，MapOverlayLayout持有了所有被添加到自身的 View 引用。在类的最上面的是继承自 自定义 View —— MarkerView —— 的泛型。MarkerView 是一个继承自 View 的抽象类，看起来像这样：
+解释一下在 **moveMapAndAddMarker** 里调用的方法：为 CameraListeners 监听提供了 set 方法；**刷新**方法是为了更新标记的位置；**addMarker** 和 **removeMarker** 是用来添加 MarkerView (也就是上文所说的自定义 view )到布局和列表中。通过这个方案，MapOverlayLayout 持有了所有被添加到自身的 View 引用。在类的最上面的是继承自 自定义 View —— MarkerView —— 的泛型。MarkerView 是一个继承自 View 的抽象类，看起来像这样：
 
 ```
 public abstract class MarkerView extends View{

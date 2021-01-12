@@ -227,7 +227,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
   android:endColor="#a242b4"/>
 ```
 
-扫描渐变必须指定一个中心点坐标 X/ Y和 `type="sweep"`。
+扫描渐变必须指定一个中心点坐标 X/ Y 和 `type="sweep"`。
 
 #### 起止颜色
 
@@ -297,7 +297,7 @@ val drawable = AppCompatResources.getDrawable(themedContext, R.drawable.vector)
 
 加入我们下一部分关于矢量图形的探索：
 
-- [**在 Android 应用中使用矢量资源**：在之前的文章中我们已经了解了 Android 的VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
+- [**在 Android 应用中使用矢量资源**：在之前的文章中我们已经了解了 Android 的 VectorDrawable 图像格式和它的功能](https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9 "https://medium.com/androiddevelopers/using-vector-assets-in-android-apps-4318fd662eb9")
 
 即将展示：为 Android 创建矢量资源
 即将展示：分析 Android 的 `VectorDrawable`

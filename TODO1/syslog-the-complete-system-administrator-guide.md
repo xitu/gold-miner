@@ -222,7 +222,7 @@ Syslog 是一个规范，但不是 Linux 系统中的实际实现。
 
 * **Syslog-ng**：syslog-ng 于 1998 年发布，它扩展了原始 syslog daemon 的功能集，包括 TCP 转发（从而增强了可靠性）、TLS 加密和基于内容的过滤器。你还可以将日志存储到本地数据库中以供进一步分析。
 
-![Syslog-ng演示卡片](https://devconnected.com/wp-content/uploads/2019/08/syslog-ng.png)
+![Syslog-ng 演示卡片](https://devconnected.com/wp-content/uploads/2019/08/syslog-ng.png)
 
 * **Rsyslog**：rsyslog 于 2004 年由 Rainer Gerhards 发布，是大多数实际 Linux 发行版（ Ubuntu、RHEL、Debian 等）上的默认 syslog 实现）。它提供了与 syslog-ng 相同的转发功能，但是它允许开发人员从更多的来源（例如 Kafka、文件或者 Docker）中选择数据
 

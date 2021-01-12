@@ -142,7 +142,7 @@ window.addEventListener('message', onMessage);
 
 ## 自动的内存泄漏分析
 
-在此之前，我要说的是，我还没有找到一个自动检测内存泄漏的好方法。Chrome 提供了非标准的 [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API，但是由于隐私原因[没有一个非常精确的粒度](https://bugs.webkit.org/show_bug.cgi?id=80444)，所以你不能在生产中真正使用它来识别泄漏。[W3C Web 性能工作组](https://github.com/w3c/web-performance) 曾讨论了 [内存](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [工具](https://github.com/WICG/memory-pressure)，但尚未达成新的标准来取代这个API。
+在此之前，我要说的是，我还没有找到一个自动检测内存泄漏的好方法。Chrome 提供了非标准的 [performance.memory](https://webplatform.github.io/docs/apis/timing/properties/memory/) API，但是由于隐私原因[没有一个非常精确的粒度](https://bugs.webkit.org/show_bug.cgi?id=80444)，所以你不能在生产中真正使用它来识别泄漏。[W3C Web 性能工作组](https://github.com/w3c/web-performance) 曾讨论了 [内存](https://docs.google.com/document/d/1tFCEOMOUg4zmqeHNg1Xo11Xpdm7Bmxl5y98_ESLCLgM/edit) [工具](https://github.com/WICG/memory-pressure)，但尚未达成新的标准来取代这个 API。
 
 在实验环境或综合测试环境中，你可以通过使用 Chrome 标志 [`--enable-precise-memory-info`](https://github.com/paulirish/memory-stats.js/blob/master/README.md)来增加这个 API 的粒度。你还可以通过调用专用的 Chromedriver 命令 [`:takeHeapSnapshot`](https://webdriver.io/docs/api/chromium.html#takeheapsnapshot) 来创建堆快照文件。不过，这也有上面提到的限制 —— 你可能想要连续取三个，并丢弃前两个。
 

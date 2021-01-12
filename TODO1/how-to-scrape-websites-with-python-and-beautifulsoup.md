@@ -177,7 +177,7 @@ with open(‘index.csv’, ‘a’) as csv_file:
  writer.writerow([name, price, datetime.now()])
 ```
 
-如果你现在运行你的程序，你应该可以导出一个index.csv文件，然后你可以用 Excel 打开它，在里面可以看到一行数据。
+如果你现在运行你的程序，你应该可以导出一个 index.csv 文件，然后你可以用 Excel 打开它，在里面可以看到一行数据。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*d-27jLzy2GrxmvlLRJ4yVw.png)
 

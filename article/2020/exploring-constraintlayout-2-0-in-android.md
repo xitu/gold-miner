@@ -15,7 +15,7 @@
 
  `ConstraintLayout` 的一大优点是我们可以使用单层视图层次结构（无嵌套视图）构建复杂的布局。由于绘制的视图层数更少，性能自然就提高了。
 
-#### ConstraintLayout的一些关键功能
+#### ConstraintLayout 的一些关键功能
 
 1. 我们可以指定视图的相对位置。
 2. 我们可以使用偏移或其他视图来居中视图。
@@ -44,9 +44,9 @@ implementation “androidx.constraintlayout:constraintlayout:2.0.1”
 
 ## Flow
 
-`Flow` 是 v2 版本中新增的虚拟布局方式，类似于v1版本中的 `group` 。它是 `Chain` 和 `Group` 布局的一个结合，具有特殊的功能。简而言之就是 `Flow` 在运行时根据布局的大小动态链接视图。
+`Flow` 是 v2 版本中新增的虚拟布局方式，类似于 v1版本中的 `group` 。它是 `Chain` 和 `Group` 布局的一个结合，具有特殊的功能。简而言之就是 `Flow` 在运行时根据布局的大小动态链接视图。
 
-与 `Group` 类似，`Flow` 同样也是通过获取视图的ID并创建 `Chain` 所具有的行为。使用 `Flow` 布局重要优势之一是 `wrapMode`（一种在视图溢出时配置视图的方法）。添加该布局属性即可使用，我们提供三种模式供您选择：`none`，`aligned` 和 `chain`。
+与 `Group` 类似，`Flow` 同样也是通过获取视图的 ID 并创建 `Chain` 所具有的行为。使用 `Flow` 布局重要优势之一是 `wrapMode`（一种在视图溢出时配置视图的方法）。添加该布局属性即可使用，我们提供三种模式供您选择：`none`，`aligned` 和 `chain`。
 
 ![Flow mode : none, chain and aligned](https://cdn-images-1.medium.com/max/2000/0*RK2f87Te_cm259Gg)
 

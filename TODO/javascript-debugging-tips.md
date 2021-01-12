@@ -156,7 +156,7 @@ func1();
 
 [![](https://raygun.com/upload/Debugging%204.png)](https://raygun.com/upload/Debugging%204.png)
 
-现在我们知道 **func1** 调用了 **func2** ， **它又调用了func4**。 **func4** 接着创建了一个 **Car** 的实例并调用了 **car.funcX**，等等。
+现在我们知道 **func1** 调用了 **func2** ， **它又调用了 func4**。 **func4** 接着创建了一个 **Car** 的实例并调用了 **car.funcX**，等等。
 
 即便你认为对你的代码很熟悉，这也仍然非常有用。假设你想优化你的代码。获取到函数堆栈踪迹以及所有相关的其他函数，每一个函数都是可点击的，你可以在他们之间来回跳转，就像一个菜单一样。
 

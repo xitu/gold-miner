@@ -19,7 +19,7 @@
 
 **[摩尔定律](http://www.investopedia.com/terms/m/mooreslaw.asp)正在失效。**
 
-英特尔公司在 [2004 年推出](http://www.informit.com/articles/article.aspx?p=339073)了第一款具有 3.0 GHz时钟速度的奔腾 4 处理器。如今，我的 [2016款 MacBook Pro](http://www.apple.com/macbook-pro/specs/) 的时钟速度为 2.9 GHz。因此，差不多十年，原始处理能力都没有太多的增加。你可以在下图中看到处理能力的增长与时间的关系。
+英特尔公司在 [2004 年推出](http://www.informit.com/articles/article.aspx?p=339073)了第一款具有 3.0 GHz 时钟速度的奔腾 4 处理器。如今，我的 [2016款 MacBook Pro](http://www.apple.com/macbook-pro/specs/) 的时钟速度为 2.9 GHz。因此，差不多十年，原始处理能力都没有太多的增加。你可以在下图中看到处理能力的增长与时间的关系。
 
 ![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902125732.png)
 

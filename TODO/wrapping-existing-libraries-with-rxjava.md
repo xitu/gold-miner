@@ -8,7 +8,7 @@
 
 [RxJava](https://github.com/ReactiveX/RxJava) 是最近 Android 世界里十分流行的一个库，并且有着充分的流行的理由。虽然函数式响应编程的学习曲线十分陡峭，但学会之后的好处是相当巨大的。
 
-我曾遇到的一个问题是我需要使用一个不支持 RxJava，而是使用了监听模式的库，因此无法享受Rx的很多在可组合性方面的便利。
+我曾遇到的一个问题是我需要使用一个不支持 RxJava，而是使用了监听模式的库，因此无法享受 Rx 的很多在可组合性方面的便利。
 
 我碰到这个实际问题是在[集成 OpenIAB](http://ryanharter.com/blog/2015/07/04/using-all-the-app-stores/) 至最新版本的 [Fragment](https://play.google.com/store/apps/details?id=com.pixite.fragment) 时。更困难的是,[OpenIAB](http://onepf.org/openiab/) 使用`startActivityForResult`来启动一个新的 Activity 并返回一个结果。这使我开始思考，如何将 OpenIAB 和 RxJava 结合在一起使用呢？
 
@@ -139,5 +139,5 @@ public boolean handleActivityResult(int requestCode, int resultCode, Intent data
 
 再次强调，我们需要检查`subscriber.isUnsubscribed()`来确保还有观察者需要我们的结果。
 
-## Rx无处不在
+## Rx 无处不在
 这些只是几个简单的例子来演示如何用 RxJava 将现有的库封装起来。这能帮你灵活地在你的 Android 应用中使用函数式响应编程，并享受它的诸多好处。

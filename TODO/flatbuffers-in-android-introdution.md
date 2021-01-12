@@ -28,7 +28,7 @@ _但是，嘿。。哥们，在你转移所有数据到 FlatBuffers 之前，请
 
 该文将介绍在 Android app 中使用 FlatBuffers 最简单的方法。
 
-*   在app项目以外的_某个地方_，JSON 数据将被转换成 FlatBuffers 格式的数据（如，API 会返回一个二进制文件或者目录）
+*   在 app 项目以外的_某个地方_，JSON 数据将被转换成 FlatBuffers 格式的数据（如，API 会返回一个二进制文件或者目录）
 *   数据模型（Java 类）是使用 **flatc**（FlatBuffers 编译器）手动生成的
 *   对 JSON 文件的一些限制条件（不能使用空字段，日期类型将被解析成字符串类型）
 
@@ -173,7 +173,7 @@ ProgressBar 用来展示不正确的数据处理（在 UI 主线程中）将会�
 
 `$ mvn install`
 
-现在，将.jar文件放在Android项目的 `app/libs/` 目录下。
+现在，将.jar 文件放在 Android 项目的 `app/libs/` 目录下。
 
 好，现在我们所需要做的是去实现 `MainActivity` 类，该文件的完整代码如下所示：
 
@@ -282,5 +282,5 @@ JSON - 平均加载时间为 200ms（波动范围在：180ms - 250ms），JSON �
 [Miroslaw Stanek](http://about.me/froger_mcs)
 [Azimo Money Transfer](https://azimo.com) 公司_移动开发主管_
 
-如果你喜欢这篇文章，请在 Twitter上 [分享给你们的粉丝](https://twitter.com/intent/tweet?url=http://frogermcs.github.io/flatbuffers-in-android-introdution/&text=FlatBuffers%20in%20Android%20-%20introduction&via=froger_mcs)，或者在 Twitter 上[关注](https://twitter.com/froger_mcs)我！
+如果你喜欢这篇文章，请在 Twitter 上 [分享给你们的粉丝](https://twitter.com/intent/tweet?url=http://frogermcs.github.io/flatbuffers-in-android-introdution/&text=FlatBuffers%20in%20Android%20-%20introduction&via=froger_mcs)，或者在 Twitter 上[关注](https://twitter.com/froger_mcs)我！
 

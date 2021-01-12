@@ -135,7 +135,7 @@
 
 1. 用 `createChild()` 创建一个 child
 2. 10秒之后，`DispatchQueue.global()` 并发队列上的 handler 被调用
-3. handler启动但还没有进入 `s.queue.sync`
+3. handler 启动但还没有进入 `s.queue.sync`
 4. 这时再次调用 `createChild()`，进入队列创建新的 child 和计时器，然后退出队列。
 5. 第3步中的 handler，本应删除旧的 child，进入 `s.queue.sync` 之后却删掉了*新的* child。
 

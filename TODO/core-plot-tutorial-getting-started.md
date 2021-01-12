@@ -7,7 +7,7 @@
 # iOS 开源图形库 Core Plot 使用教程 
 
 
-![Alt 使用Core Plot绘制饼图，柱状图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
+![Alt 使用 Core Plot 绘制饼图，柱状图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
 
 _注意_ ：本篇教程已被 Attila Hegedüs 更新，可适用于 iOS 9 和 Swift 2.2。原始教程出自教程组成员 Steve Baranski。
 
@@ -18,7 +18,7 @@ _注意_ ：本篇教程已被 Attila Hegedüs 更新，可适用于 iOS 9 和 S
 
 但是如果你不想花费时间和精力从零开始写(代码)，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库 [Core Plot](https://github.com/core-plot/core-plot)！
 
-Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用了像 Quartz 和 Core Animation 这样的苹果应用框架，同时有着全面的测试覆盖，而且是遵照BSD这个比较宽松的许可证进行发布的。
+Core Plot 是一个2D 绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用了像 Quartz 和 Core Animation 这样的苹果应用框架，同时有着全面的测试覆盖，而且是遵照 BSD 这个比较宽松的许可证进行发布的。
 
 在这个教程中，你将学习到如何使用 Core Plot 来创建饼图和柱状图，同时还会实现一些很酷的图表交互！
 
@@ -35,7 +35,7 @@ Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用�
 *   _DataStore.swift_ 这是一个从 [Fixer.io](http://fixer.io/) 请求货币汇率数据的帮助类。
 *   _Rate.swift_ 这是一个模型，表示给定日期里的货币汇率。
 *   _Currency.swift_ 这是一个表示货币类型的模型。支持的货币类型定义在 _Resources/Currencies.plist_ 里。
-*   _MenuViewController.swift_ 这是一个app启动后展示的第一个视图控制器。它让用户选择一个货币作为基准然后再选两个对照。
+*   _MenuViewController.swift_ 这是一个 app 启动后展示的第一个视图控制器。它让用户选择一个货币作为基准然后再选两个对照。
 *   _HostViewController.swift_ 这是一个容器视图控制器，基于它的分段选项选中状态去控制展示 `PieChartViewController` 或者 `BarGraphViewController` 的内容。它还会去检查从 `DataStore` 请求来的汇率数据，因为它们也将在这个视图控制器里展现。
 *   _PieChartViewController.swift_ 这个控制器将用饼图的形式展示一个给定日期里的汇率。当然你首先要实现它！
 *   _BarGraphViewController.swift_ 这个控制器将以柱状图的形式展示几天的汇率。当你掌握绘制饼图的方法后，这个图简直小菜一碟！（看到我做的事情了吗？拜托，这真的有点意思！）;]
@@ -205,7 +205,7 @@ Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用�
 2.  接下来就是通过创建和配置一个 `CPTMutableTextStyle` 实例来设置该图标标题的文本样式。
 3.  最后，就是给你刚刚创建的图表实例设置标题和其样式。同样你还需要指定标题锚点为该视图的上边界。
 
-构建并运行app，你应该就可以看到这个图表的标题展示在屏幕上了：
+构建并运行 app，你应该就可以看到这个图表的标题展示在屏幕上了：
 
 ![Core Plot Tutorial](http://ac-Myg6wSTV.clouddn.com/fd0411a63ef0affb512a.png)
 

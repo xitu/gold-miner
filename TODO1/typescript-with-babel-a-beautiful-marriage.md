@@ -301,7 +301,7 @@ Babel 和 TypeScript 组合可以快速编译，并允许你专注地编码，�
 
 ## 预测：TypeScript 使用将会上升
 
-根据最新的 [Stack Overflow 开发者调查](https://insights.stackoverflow.com/survey/2018/#technology-programming-scripting-and-markup-languages)，JavaScript 是最流行的语言，TypeScript 排在第 12 位。 对于TypeScript 来说，这仍然是一项伟大的成就，击败了 Ruby、Swift 和 Go。
+根据最新的 [Stack Overflow 开发者调查](https://insights.stackoverflow.com/survey/2018/#technology-programming-scripting-and-markup-languages)，JavaScript 是最流行的语言，TypeScript 排在第 12 位。 对于 TypeScript 来说，这仍然是一项伟大的成就，击败了 Ruby、Swift 和 Go。
 
 ![Developer survey results](https://iamturns.com/static/dev-survey-7e7416c3e24796eb8de66d34164a8777-aef05.png)
 

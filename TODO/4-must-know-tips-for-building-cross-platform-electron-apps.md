@@ -10,7 +10,7 @@
 
 
 
-这是我 2016 年 5月 在 Amsterdam 的 Electron Meetup 上演讲的手抄版，加入了对 api 变化的考虑。注意，以下内容会很深入细节，并假设你对 Electron有一定了解。
+这是我 2016 年 5月 在 Amsterdam 的 Electron Meetup 上演讲的手抄版，加入了对 api 变化的考虑。注意，以下内容会很深入细节，并假设你对 Electron 有一定了解。
 
 **首先，我是谁**
 

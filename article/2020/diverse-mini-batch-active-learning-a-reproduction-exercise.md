@@ -104,7 +104,7 @@
 
 这是一个在 CIFAR 10 数据集上的图像分类实验。由于运行这个任务需要更广的训练集，主动学习从 1,000 个样本开始，然后逐步增加 1,000 个样本，直到 10,000 个（总数 50,000），达到了大约 0.60 的准确率。我们对这个实验的配置是：
 
-* 我们使用 Keras 而不是 MXNet，使用Resnet 50 v2 而不是 Resnet 34 v2，因为它不是 Keras 原生提供的。因为论文没有指定优化器，我们使用 RMSprop 运行了 3 个 epoch。
+* 我们使用 Keras 而不是 MXNet，使用 Resnet 50 v2 而不是 Resnet 34 v2，因为它不是 Keras 原生提供的。因为论文没有指定优化器，我们使用 RMSprop 运行了 3 个 epoch。
 * 我们使用了 50,000 个训练样本和 10,000 个测试样本，与论文一致。
 
 ![Figure 5. Results of the original paper (left) and our experiment (right) on the MNIST dataset. The performance measure is accuracy, the solid line is the average over 20 runs, and the confidence intervals are 10th and 90th percentiles.](https://cdn-images-1.medium.com/max/3522/1*dP5Ku8S3mfCVgBBc_bZIyQ.png)

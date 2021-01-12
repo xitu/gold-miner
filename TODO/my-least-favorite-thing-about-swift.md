@@ -95,11 +95,11 @@ Swift 的 `for..in` 语法结构是特殊的。任何符合 `SequenceType` 的�
 
 在某种程度上来说，Swift 的可选类型类似于 C 语言的可空性， Swift 的错误处理也类似于 C 语言的异常处理。Swift 的错误处理引入了一些新的关键词：`do`, `try`, `throw`, `throws`, `rethrows`, 和 `catch`。
 
-使用 `throws` 标记的函数和方法可以 `return` 一个值或者 `throw` 一个 `ErrorType`。被抛出的错误将会在 `catch` blocks函数中被捕捉到。在这种机制下，你可以想象 Swift 是通过内部隐含的代表成功或者失败的 `_Result` 类型 （就像 [`antitypical/Result`](https://github.com/antitypical/Result)）来重写一个函数的返回值的。
+使用 `throws` 标记的函数和方法可以 `return` 一个值或者 `throw` 一个 `ErrorType`。被抛出的错误将会在 `catch` blocks 函数中被捕捉到。在这种机制下，你可以想象 Swift 是通过内部隐含的代表成功或者失败的 `_Result` 类型 （就像 [`antitypical/Result`](https://github.com/antitypical/Result)）来重写一个函数的返回值的。
 
     func doThing(with: Property) throws -> Value
 
-（事实上，这种 `_Result` 类型并没有被显式定义，而是[在编译器中被隐式的处理了]((https://marc.ttias.be/swift-evolution/2016-08/msg00322.php))。这对于我们的例子并没有造成太多的不同。）在调用函数的内部，传入成功的值的时候将会通过 `try` 语句，而发生错误的时候，则会跳入并执行 `catch` block函数。
+（事实上，这种 `_Result` 类型并没有被显式定义，而是[在编译器中被隐式的处理了]((https://marc.ttias.be/swift-evolution/2016-08/msg00322.php))。这对于我们的例子并没有造成太多的不同。）在调用函数的内部，传入成功的值的时候将会通过 `try` 语句，而发生错误的时候，则会跳入并执行 `catch` block 函数。
 
 对比这个与之前的例子中有用的语言特性在语言内部被定义的地方，再 **在上面** 加上语法（例如操作符和 `SequenceType`）和语法糖（例如 `Optional`（可选性））,那么这个代码就变的像我们所期待的那样了。相反的，Swift 的错误处理并没有暴露它的内部 `_Result` 模型，所以用户无法使用或者改变它。
 
@@ -152,7 +152,7 @@ Swift 4 承诺很快异步的语言特性就会可以使用。目前还不清楚
 
 异步/等待 能够以相似的方式工作。定义一个 `Promise` 或者 `Task` 协议，而符合这些协议的将会可以 `await` 的。 `then` 或者 `flatMap` 将会是类型中可用的部分，根据用户的需求，它们能够根据需要以不同的程度使用语言的特性。
 
-我想要去更加多的认识元编程，我已经写了具有扩展性的[关于 Objective-C 中的元编程](http://genius.com/Soroush-khanlou-metaprogramming-isnt-a-scary-word-not-even-in-objective-c-annotated)，但是它与我们正着手在做的东西很相似。代码和元代码之间的界限是模糊的。Swift 编译器中的代码是元代码，并且 Swift 本身也是代码。如果定义一个 operator 函数的实现（就像Ruby所做的）就是代码，那么定义一个全新的运算符看起来就像是元代码。
+我想要去更加多的认识元编程，我已经写了具有扩展性的[关于 Objective-C 中的元编程](http://genius.com/Soroush-khanlou-metaprogramming-isnt-a-scary-word-not-even-in-objective-c-annotated)，但是它与我们正着手在做的东西很相似。代码和元代码之间的界限是模糊的。Swift 编译器中的代码是元代码，并且 Swift 本身也是代码。如果定义一个 operator 函数的实现（就像 Ruby 所做的）就是代码，那么定义一个全新的运算符看起来就像是元代码。
 
 作为一种面向协议的语言，Swift 很独特的被专门设置来让我们挖掘这门语言的语法魅力，就像我们用 `BooleanType` 和 `SequenceType` 所做的一样。我很乐意去看一下这些被扩展的能力。 
 

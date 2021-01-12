@@ -23,7 +23,7 @@
 
 ✅ Angular 没有用于生产环境。之前实战应用仓库列出的示例应用使用的是一个开发版本，感谢 [Jonathan Faircloth](https://medium.com/@jafaircl)，它现在已经是生产版本！
 
-✅ Vue 没有包含在实战应用仓库，因此未包括在对比中。正如你可以想象的那样，Vue 在前端引起了很大的热度。怎么可以不考虑 Vue 呢？你到底是怎么想的？这一次我们加入了Vue.js！谢谢 [Emmanuel Vilsbol](https://medium.com/@evilsbol)。
+✅ Vue 没有包含在实战应用仓库，因此未包括在对比中。正如你可以想象的那样，Vue 在前端引起了很大的热度。怎么可以不考虑 Vue 呢？你到底是怎么想的？这一次我们加入了 Vue.js！谢谢 [Emmanuel Vilsbol](https://medium.com/@evilsbol)。
 
 #### 我们比较哪些库/框架？
 

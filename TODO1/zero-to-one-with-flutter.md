@@ -7,7 +7,7 @@
 # Flutter 从 0 到 1 
 
 2016 年夏末，丹麦奥古斯谷歌办公室。我来谷歌的第一个任务，是使用 [_Flutter_](https://flutter.io) 和 [_Dart_](https://www.dartlang.org) 在 Android/iOS 应用程序中实现动画图表。除了是一个谷歌新人之外，我对 Flutter，Dart，动画都不熟悉。事实上，我之前从未做过移动应用程序。我的第一部智能手机也只有几个月的历史——我是在一阵恐慌中买的，因为担心使用我的老诺基亚可能会导致电话面试失败...
-我确实对桌面Java中的图表有过一些经验，但哪些图表并不是动画的。我感到...不可思议。部分是恐龙，部分重生。
+我确实对桌面 Java 中的图表有过一些经验，但哪些图表并不是动画的。我感到...不可思议。部分是恐龙，部分重生。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2t8GffL0BcNoGLU-IgHT9w.jpeg)
 
@@ -148,9 +148,9 @@ MaterialApp                    (navigation)
         Icon                   (graphics)
 ```
 
-*   使用不可变 widget 的不可变树定义用户界面，更改该界面的唯一方法是重建 widget 树。当下一帧到期时，Flutter 会处理这个问题。我们所要做的就是告诉 Flutter 一个子树所依赖的状态已经改变了。这种**状态依赖子树**的根必须是`StatefulWidget`。像任何 widget 一样，`StatefulWidget` 是不可变的，但是它的子树是由 `State` 对象构建的。Flutter 在树重建期间保留 “State” 对象，并在构建期间将每个对象附加到新树中的各自 widget 上。然后，他们决定 widget 的子树是如何构建的。在我们的应用程序中，`ChartPage` 是一个 `StatefulWidget`，`ChartPageState` 作为它的 `State`。每当用户按下按钮时，我们执行一些代码来改变 `ChartPageState`。我们用 `setState` 界定变化，以便 Flutter 可以进行内部处理并安排widget树进行重建。当发生这种情况时，`ChartPageState` 将构建一个稍微不同的子树，该子树以新的 `ChartPage` 实例为根。
+*   使用不可变 widget 的不可变树定义用户界面，更改该界面的唯一方法是重建 widget 树。当下一帧到期时，Flutter 会处理这个问题。我们所要做的就是告诉 Flutter 一个子树所依赖的状态已经改变了。这种**状态依赖子树**的根必须是`StatefulWidget`。像任何 widget 一样，`StatefulWidget` 是不可变的，但是它的子树是由 `State` 对象构建的。Flutter 在树重建期间保留 “State” 对象，并在构建期间将每个对象附加到新树中的各自 widget 上。然后，他们决定 widget 的子树是如何构建的。在我们的应用程序中，`ChartPage` 是一个 `StatefulWidget`，`ChartPageState` 作为它的 `State`。每当用户按下按钮时，我们执行一些代码来改变 `ChartPageState`。我们用 `setState` 界定变化，以便 Flutter 可以进行内部处理并安排 widget 树进行重建。当发生这种情况时，`ChartPageState` 将构建一个稍微不同的子树，该子树以新的 `ChartPage` 实例为根。
 
-不可变 widget 和状态相关子树是 Flutter，为了解决UI异步响应事件，如按钮按下，计时器滴答或传入数据这样复杂的状态管理，而提供的主要工具。 从我的桌面应用开发经验来看，我会说这种复杂性是非常真实的。评估 Flutter 的优势，应该是读者去实践它：尝试一些非平凡的事情。
+不可变 widget 和状态相关子树是 Flutter，为了解决 UI 异步响应事件，如按钮按下，计时器滴答或传入数据这样复杂的状态管理，而提供的主要工具。 从我的桌面应用开发经验来看，我会说这种复杂性是非常真实的。评估 Flutter 的优势，应该是读者去实践它：尝试一些非平凡的事情。
 
 * * *
 
@@ -225,7 +225,7 @@ class BarChartPainter extends CustomPainter {
 }
 ```
 
-`CustomPaint` 是一个widget，它将绘画委托给 `CustomPainter`，执行后只画出一个条形图。
+`CustomPaint` 是一个 widget，它将绘画委托给 `CustomPainter`，执行后只画出一个条形图。
 
 下一步是添加动画。每当数据集发生变化时，我们都希望条图形平滑而不是突然地改变高度。Flutter 有一个用于编排动画的`AnimationController` 类，通过注册一个监听器，我们被告知动画值(从 0 到 1 的 double 值)何时发生变化。每当发生这种情况时，我们可以像以前一样调用 `setState` 并更新 `ChartPageState`。
 
@@ -342,7 +342,7 @@ class BarChartPainter extends CustomPainter {
 
 * * *
 
-**tweens**，虽然远非Flutter独有，但它们是构造动画代码的一个非常简单的概念。他们的主要贡献是用函数试方法取代上面的命令式方法。tween 是一个值。它描述了空间中的两个点之间的路径，如条形图一样，动画值从 0 到 1 运行。
+**tweens**，虽然远非 Flutter 独有，但它们是构造动画代码的一个非常简单的概念。他们的主要贡献是用函数试方法取代上面的命令式方法。tween 是一个值。它描述了空间中的两个点之间的路径，如条形图一样，动画值从 0 到 1 运行。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3KpUQjhZLrvwvjF0daKg9g.jpeg)
 

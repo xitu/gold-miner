@@ -79,7 +79,7 @@ driver.find_elements(By.NAME, "menu")
 
 ## 还不错的选择器： XPath
 
-XPath 是一种灵活多变的选择器策略。这是我个人很喜欢的。XPath 可以选择页面中的任意元素，无论它有没有 class 和 id （虽然没有 class 和 id 的话很难维护）。该选项非常灵活有用，因为你可以选择 [父元素](https://www.w3schools.com/jsref/prop_node_parentelement.asp)。XPath也有许多内置的功能，可以让你自定义元素选择。
+XPath 是一种灵活多变的选择器策略。这是我个人很喜欢的。XPath 可以选择页面中的任意元素，无论它有没有 class 和 id （虽然没有 class 和 id 的话很难维护）。该选项非常灵活有用，因为你可以选择 [父元素](https://www.w3schools.com/jsref/prop_node_parentelement.asp)。XPath 也有许多内置的功能，可以让你自定义元素选择。
 
 但是，多功能性也带来了复杂性。鉴于 XPath 可以做这么多事，相比于其它选择器，它的学习曲线也更陡峭。这一不足是可以被它非常赞的在线文档抵消的。在 [W3Schools.com 上找到的 XPath 入门指南](https://www.w3schools.com/xml/xpath_intro.asp) 是一个很不错的资源。
 

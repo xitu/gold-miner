@@ -238,7 +238,7 @@ for post in Post.objects.annotate(document=vector):
     post.save(update_fields=['search_vector'])
 ```
 
-**注意：** 这将为表中的每一行触发一次UPDATE，如果我们的表有很多行，这过程将会持续很久很久。如果我们仅需要在文档中包含来自单个模型的字段，那么这么做会更有效率：
+**注意：** 这将为表中的每一行触发一次 UPDATE，如果我们的表有很多行，这过程将会持续很久很久。如果我们仅需要在文档中包含来自单个模型的字段，那么这么做会更有效率：
 
 ```
 vector=SearchVector('title', weight='A') + \
@@ -389,7 +389,7 @@ def post_tags_changed(sender, instance, action, **kwargs):
 
 ## 使用触发器 ##
 
-也可以为数据库安装一些当数据改变时会自动更新 search_vector 的触发器。我不会描述太多的细节，但它们看起来会像下面这样。我们可以将它们添加到一次迁移中，使用 RunSQL 命令将它们安装到数据库。这个想法与上述完全一样，但是由于数据库可以在本地执行所有操作，并且不必将数据来回发送到Django，它将执行得更好。
+也可以为数据库安装一些当数据改变时会自动更新 search_vector 的触发器。我不会描述太多的细节，但它们看起来会像下面这样。我们可以将它们添加到一次迁移中，使用 RunSQL 命令将它们安装到数据库。这个想法与上述完全一样，但是由于数据库可以在本地执行所有操作，并且不必将数据来回发送到 Django，它将执行得更好。
 
 ```
 -- Trigger on insert or update of blog.Post
@@ -446,7 +446,7 @@ CREATE TRIGGER search_vector_update AFTER INSERT OR UPDATE OR DELETE ON blog_pos
 
 - [Official PostgreSQL Full-Text Search Documentation](https://www.postgresql.org/docs/9.6/static/textsearch.html)
 - [Official Django Postgres Search Documentation](https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/)
-- [Postgres full-text search is Good Enough](http://rachbelaid.com/postgres-full-text-search-is-good-enough/): 关于Postgres 全文搜索基础很棒的文章。
+- [Postgres full-text search is Good Enough](http://rachbelaid.com/postgres-full-text-search-is-good-enough/): 关于 Postgres 全文搜索基础很棒的文章。
 - [An example project](https://github.com/nshafer/pgfulltext) 这个帖子所描述的例子。
 
 

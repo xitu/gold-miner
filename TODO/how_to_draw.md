@@ -252,7 +252,7 @@ function drawPath(index) {
 
 ##### **为何要校准参数？**
 
-因为你可能要在Canvas当中对图形进行比例缩放、调整尺寸、移动，这就意味着路径数据也应该随着你的改动来变化。但实际上它不能，所以我们才需要校准参数。
+因为你可能要在 Canvas 当中对图形进行比例缩放、调整尺寸、移动，这就意味着路径数据也应该随着你的改动来变化。但实际上它不能，所以我们才需要校准参数。
 
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/panel.png" alt="draw in javascript" /></p>
 <p align="center"><strong>图 2.1</strong>所谓面板</p>

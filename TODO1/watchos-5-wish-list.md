@@ -58,7 +58,7 @@ watchOS 上的控制中心始于“设置”一瞥，然后才将整个概念视
 
 ### 还有
 
-当然，还有许多其他的改变和新功能将会在watchOS上受到欢迎。去年针对备忘录应用的[需求](https://9to5mac.com/2017/04/12/wwdc-apple-watch-watchos-4/)还在呢，日历需求还得再等一年。第三方应用程序的状态，证明开发人员需要新的工具和激励措施，第三方表盘仍然还有机会。
+当然，还有许多其他的改变和新功能将会在 watchOS 上受到欢迎。去年针对备忘录应用的[需求](https://9to5mac.com/2017/04/12/wwdc-apple-watch-watchos-4/)还在呢，日历需求还得再等一年。第三方应用程序的状态，证明开发人员需要新的工具和激励措施，第三方表盘仍然还有机会。
 
 我喜欢 Matt Birchler 的 [watchOS 5 概念](https://9to5mac.com/2018/01/16/watchos-5-apple-watch/)，有着全新的表面布局，一个特定环境常亮显示屏，内置睡眠跟踪。苹果在[近一年前买下了 Beddit](https://9to5mac.com/2017/05/09/apple-acquires-popular-apple-watch-sleep-tracking-app-beddit/)，不过我们还没有看到这次收购的结果。
 

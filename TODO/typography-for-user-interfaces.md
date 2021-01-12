@@ -16,7 +16,7 @@
 
 
 
-##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs")
+##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个 GUIs")
 
 
 尽管排版的历史可以追溯到大概[五千多年](https://viljamis.com/2013/prototyping-responsive-typography/)，我们的图形用户界面只有四十年的发展。一个关键转折点在1973年，当 [Xerox](https://en.wikipedia.org/wiki/Xerox) 引入了 [Alto](https://en.wikipedia.org/wiki/Xerox_Alto)，它从本质上创建了我们现代图形用户界面的基础。_Alto_ 比其他 GUI 早十年踏入市场，被视为计算机的未来。
@@ -32,7 +32,7 @@
 
 ![](http://ac-Myg6wSTV.clouddn.com/9172afe82db3c54f6e84.gif)
 
-Macintosh 的发布意味着用户排版对于大众来说有史以来第一次变得触手可及。[初代Mac](https://en.wikipedia.org/wiki/Macintosh_128K)预装了很多 [图标字体](https://en.wikipedia.org/wiki/Fonts_on_Macintosh)，在接下来几年里面，许多字体工厂开始设计发行他们的数字版本的流行字体。
+Macintosh 的发布意味着用户排版对于大众来说有史以来第一次变得触手可及。[初代 Mac](https://en.wikipedia.org/wiki/Macintosh_128K)预装了很多 [图标字体](https://en.wikipedia.org/wiki/Fonts_on_Macintosh)，在接下来几年里面，许多字体工厂开始设计发行他们的数字版本的流行字体。
 
 ![](http://ac-Myg6wSTV.clouddn.com/7f17f13d792c5b467d6a.gif)
 
@@ -111,7 +111,7 @@ Macintosh 的发布意味着用户排版对于大众来说有史以来第一次�
 
 ![](http://ac-Myg6wSTV.clouddn.com/d8a68ba28736039ee717.jpg)](http://legibilityapp.com/)
 
-利用近期项目中[我构建的工具](http://legibilityapp.com/)我们可以了解到更多关于给定字体易读性的信息。[Legibility App](http://legibilityapp.com/) 让你可以通过引入各种滤镜模拟不同的 _(often harsh)_ 视图状况--例如 模糊、滤镜、像素画化。这个 app 还处在测试版，今后将用在Chrome](https://www.google.com/chrome/browser/desktop/), [Opera](http://www.opera.com/) 和 [Safari](http://www.apple.com/safari/)上.
+利用近期项目中[我构建的工具](http://legibilityapp.com/)我们可以了解到更多关于给定字体易读性的信息。[Legibility App](http://legibilityapp.com/) 让你可以通过引入各种滤镜模拟不同的 _(often harsh)_ 视图状况--例如 模糊、滤镜、像素画化。这个 app 还处在测试版，今后将用在 Chrome](https://www.google.com/chrome/browser/desktop/), [Opera](http://www.opera.com/) 和 [Safari](http://www.apple.com/safari/)上.
 
 ## 在 UI 界面找什么?[#](https://viljamis.com/2016/typography-for-user-interfaces/#what-to-look-for-in-a-nbsp-ui-typeface "Right click to copy a link to #what-to-look-for-in-a-nbsp-ui-typeface")
 
@@ -120,10 +120,10 @@ Macintosh 的发布意味着用户排版对于大众来说有史以来第一次�
 
 ### 1\. 易读性[#](https://viljamis.com/2016/typography-for-user-interfaces/#1-legibility "Right click to copy a link to #1-legibility")
 
-易读性是要考虑的首要因素。字母形式要清晰可辨。可辨的字母形式在用户界面元素中效果更好。<sup>[[5](https://prowebtype.com/picking-ui-type/)]</sup> 许多[无衬线字体](https://en.wikipedia.org/wiki/Sans-serif) 包括 [Helvetica](https://en.wikipedia.org/wiki/Helvetica), 其大写的I和小写的l无法分辨，使得它们不适合作为用户界面。
+易读性是要考虑的首要因素。字母形式要清晰可辨。可辨的字母形式在用户界面元素中效果更好。<sup>[[5](https://prowebtype.com/picking-ui-type/)]</sup> 许多[无衬线字体](https://en.wikipedia.org/wiki/Sans-serif) 包括 [Helvetica](https://en.wikipedia.org/wiki/Helvetica), 其大写的 I 和小写的 l 无法分辨，使得它们不适合作为用户界面。
 ![](https://viljamis.com/type-for-ui/img/legibility.svg)。
 
-[Source Sans Pro](https://github.com/adobe-fonts/source-sans-pro)字体 在左，Helvetica 字体在右。Helvetica 字体的前三个字母几乎无法辨认。Source Sans Pro 字体就显得相当不错。有些人认为 Helvetica在任何的 UI 作字体都糟透了，因为它不是为了屏幕而设计的。
+[Source Sans Pro](https://github.com/adobe-fonts/source-sans-pro)字体 在左，Helvetica 字体在右。Helvetica 字体的前三个字母几乎无法辨认。Source Sans Pro 字体就显得相当不错。有些人认为 Helvetica 在任何的 UI 作字体都糟透了，因为它不是为了屏幕而设计的。
 
 
 > Helvetica 糟透了。它不是为了屏幕上的小字设计的. 像 ‘milliliter’就很难辨认.”

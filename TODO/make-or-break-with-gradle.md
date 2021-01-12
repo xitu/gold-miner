@@ -153,7 +153,7 @@ testReleaseUnitTest - Run unit tests for the release build.
 
 所以, 接下来，我阅读了 [PMD](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-pmd.gradle), [Findbugs](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-findbugs.gradle) 同时发现了 Facebook 的 [Infer](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-infer.gradle).
 
-**PMD** 是一个代码分析工具. 它能发现常见的编程缺陷，如未使用的变量，空的 catch 块，不必要的对象创建等等。 PMD 工作在源代码层，因此会发现以下问题：违反命名规则，缺少花括号，错误的 null 检查，长参数列表，不必要的构造函数，switch 中缺少 break 等。PMD还会告诉您代码的循环复杂性，这我觉得非常有帮助。
+**PMD** 是一个代码分析工具. 它能发现常见的编程缺陷，如未使用的变量，空的 catch 块，不必要的对象创建等等。 PMD 工作在源代码层，因此会发现以下问题：违反命名规则，缺少花括号，错误的 null 检查，长参数列表，不必要的构造函数，switch 中缺少 break 等。PMD 还会告诉您代码的循环复杂性，这我觉得非常有帮助。
 
 为了添加 PMD 作为分析器，我们需要在 build.gradle 文件中追加一些内容。我们可以添加下面的代码段
 

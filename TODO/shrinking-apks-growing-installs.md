@@ -5,9 +5,9 @@
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
 > * 校对者：[swants](http://www.swants.cn), [corresponding](https://github.com/corresponding)
 
-# 缩小APK，增加下载量
+# 缩小 APK，增加下载量
 
-## 你的APK大小是如何影响下载转化率的
+## 你的 APK 大小是如何影响下载转化率的
 
 ![](https://cdn-images-1.medium.com/max/800/0*f1gQ1k1n3_d4-x9t.)
 

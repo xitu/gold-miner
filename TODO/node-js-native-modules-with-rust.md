@@ -115,7 +115,7 @@ url = "1.6"
 
 我们还要为工程添加 `libc`依赖，`libc` 是遵从 ANSI C 标准的 C 语言标准库。
 
-`libc` crate 是 Rust 的一个库，它具有与各种系统（包括libc）中常见类型和函数的本地绑定。这允许我们在 Rust 代码中使用 C 语言类型，我们想在 Rust 函数中接收或返回任何 C 类型数据，我们都必须使用它。
+`libc` crate 是 Rust 的一个库，它具有与各种系统（包括 libc）中常见类型和函数的本地绑定。这允许我们在 Rust 代码中使用 C 语言类型，我们想在 Rust 函数中接收或返回任何 C 类型数据，我们都必须使用它。
 
 我们的代码相当简单 —— 我使用 `extern crate` 关键字来引用 `url` 和 `libc` crate。我们要把函数标记为 `pub extern` 使得这些函数可以通过 FFI 被暴漏给外部。我们的函数持有一个代表 Node.js 中 `String` 类型的 `c_char` 指针。
 
@@ -231,7 +231,7 @@ let url = call.arguments.require(scope, 0)?.check::<JsString>()?.value();
 
 ![Rust-Node-js-success-screen](/content/images/2017/11/Rust-Node-js-success-screen.png)
 
-测试程序解析了100个URL（随机产生），我们的应用只需要一次运行就可以解析出结果。如果你想做基准测试，请增加 URL 数量（urlParser.js 中的 `tryCount`）或次数（urlGenerator.js 中的 `urlLength`）。
+测试程序解析了100个 URL（随机产生），我们的应用只需要一次运行就可以解析出结果。如果你想做基准测试，请增加 URL 数量（urlParser.js 中的 `tryCount`）或次数（urlGenerator.js 中的 `urlLength`）。
 
 显而易见，在基准测试中表现最好的是 Rust neon 版本，但是随之数组长度的增加，V8 有越来越多的优化空间，他们之间的成绩会接近。最终它将超过 Rust neon 实现。
 

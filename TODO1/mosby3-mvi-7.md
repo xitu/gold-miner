@@ -5,11 +5,11 @@
 > * 译者：[pcdack](https://github.com/pcdack)
 > * 校对者：[hanliuxin5](https://github.com/hanliuxin5)，[allenlongbaobao](https://github.com/allenlongbaobao)
 
-# 使用MVI构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)
+# 使用 MVI 构建响应式 APP — 第七部分 — TIMING (SINGLELIVEEVENT 问题)
 
 在我[前面](http://hannesdorfmann.com/android/arch-components-purist)系列博客中， 我们讨论了正确的状态管理的重要性，并且也阐述了为什么我认为一个像在[谷歌架构组件的 github 中讨论](https://github.com/googlesamples/android-architecture-components/issues/63)的 SingleLiveEvent 不是一个好的主意。因为，它仅仅隐藏了真正底部的问题：状态管理。在这篇博客中，我想去讨论，SingleLiveEvent 声称能解决的问题，使用 Model-View-Intent 和正确的状态管理是如何解决的。
 
-这个问题可以用一个常见的场景来举例说明：当一个错误发生的时候弹出一个snackbar。SnackBar 不会一直保持在一个位置，一两秒后它就会消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
+这个问题可以用一个常见的场景来举例说明：当一个错误发生的时候弹出一个 snackbar。SnackBar 不会一直保持在一个位置，一两秒后它就会消失。这个问题是我们如何用 model 来控制错误状态和让其消失？
 
 让我们看下下面的的视频，这样可以让你们更好的理解，我在说什么：
 
@@ -184,7 +184,7 @@ repositroy.reload().switchMap(repoState -> {
 
 dome app 的源代码已经在 [Github](https://github.com/sockeqwe/mvi-timing) 上了。
 
-**这篇博客是 "用 MVI 开发响应式App"中的一篇博客。下面是内容表:**
+**这篇博客是 "用 MVI 开发响应式 App"中的一篇博客。下面是内容表:**
 
 *   [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)
 *   [Part 2: View and Intent](http://hannesdorfmann.com/android/mosby3-mvi-2)

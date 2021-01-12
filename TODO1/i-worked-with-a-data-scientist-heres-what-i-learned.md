@@ -29,7 +29,7 @@ Photo by [Daniel Cheung](https://unsplash.com/@danielkcheung?utm_source=medium&u
 
 Photo by [rawpixel](https://unsplash.com/@rawpixel?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
 
-就在这个时候，我们聘请了一位数据科学家，他拥有非常丰富的相关经验，我后来从他那里学到了很多。当发现大部分机器学习的问题可以通过 Python 解决时，我只好不情愿地学起了这门语言的基础知识。后来我发现很多问题使用Python更容易实现，这是由于 Python 社区对机器学习提供了巨大的支持。
+就在这个时候，我们聘请了一位数据科学家，他拥有非常丰富的相关经验，我后来从他那里学到了很多。当发现大部分机器学习的问题可以通过 Python 解决时，我只好不情愿地学起了这门语言的基础知识。后来我发现很多问题使用 Python 更容易实现，这是由于 Python 社区对机器学习提供了巨大的支持。
 
 我们从小型课堂学起，就在这时，我们团队的其他成员也因为兴趣加入了进来。数据科学家向我们介绍了[Jupyter Notebooks](https://jupyter.org/install)和[Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/docs/tensorflow/getting-started-training-prediction)。我们立即行动起来，着手尝试这个使用[花卉的数据集](https://cloud.google.com/ml-engine/docs/tensorflow/flowers-tutorial)来进行图像分类的案例。
 
@@ -73,7 +73,7 @@ Photo by [Jonny Caspari](https://unsplash.com/@jonnysplsh?utm_source=medium&utm_
 
 ![](https://i.loli.net/2019/01/08/5c34b69bf3c36.png)
 
-我也经历了其他一些挑战，有一项比较常见：将Python的解决方案翻译为 Java。由于 Python 已经内置了对于数据科学任务的诸多支持，所以 Python 代码更简洁。我依然记得当我试图逐字翻译一条命令时的紧张：scaling a 2D array and adding it as a transparent layer to an image。最终指令生效了，大家兴奋异常。
+我也经历了其他一些挑战，有一项比较常见：将 Python 的解决方案翻译为 Java。由于 Python 已经内置了对于数据科学任务的诸多支持，所以 Python 代码更简洁。我依然记得当我试图逐字翻译一条命令时的紧张：scaling a 2D array and adding it as a transparent layer to an image。最终指令生效了，大家兴奋异常。
 
 现在，通常情况下这些模型在生产环境运行稳定，但是一旦它产生了错误结果，将会错得非常离谱。这让我想起了我在一篇[优秀文章](https://www.oreilly.com/ideas/lessons-learned-turning-machine-learning-models-into-real-products-and-services)中读到的关于如何将机器学习模型投入真实生产和服务的引言：
 

@@ -86,7 +86,7 @@ html:not(&) {
 
 而现在，任何人浏览 avatar 都会从页面上具体元素获得数据。以下就是 avatarURL 做的：
 
-这看起来像是过去流行的的老式 SQL 注入，但是使用了CSS。我们真的生活在未来啊。
+这看起来像是过去流行的的老式 SQL 注入，但是使用了 CSS。我们真的生活在未来啊。
 
 ```
 const avatarURL = `blue;}
@@ -120,7 +120,7 @@ const avatarURL = `blue;}
 `
 ```
 
-你可以在 [基于CSS的攻击：滥用 @font-face 的 unicode-range](http://mksben.l0.cm/2015/10/css-based-attack-abusing-unicode-range.html) 阅读更多类似的攻击。
+你可以在 [基于 CSS 的攻击：滥用 @font-face 的 unicode-range](http://mksben.l0.cm/2015/10/css-based-attack-abusing-unicode-range.html) 阅读更多类似的攻击。
 
 链接文章的作者向 chrome 团队[报告](https://code.google.com/p/chromium/issues/detail?id=543078)了一个错误，但它已被标记为 WontFix 。
 

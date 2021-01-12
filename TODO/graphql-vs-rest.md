@@ -18,7 +18,7 @@ GraphQL 常常被认为是一种全新的 API 方式。你可以通过发送一�
 
 ### 资源
 
-REST 的核心理念就是资源。每个资源都由一个 URL 定义，然后通过向指定 URL发送 `GET` 请求来获取资源。目前大部分 API 会得到的一个 JSON 响应。这个请求和响应如下：
+REST 的核心理念就是资源。每个资源都由一个 URL 定义，然后通过向指定 URL 发送 `GET` 请求来获取资源。目前大部分 API 会得到的一个 JSON 响应。这个请求和响应如下：
 
     GET /books/1
 
@@ -88,7 +88,7 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 - **不同：** 在 REST 中，你所访问的终端就是所需对象的身份，在 GraphQL 中，对象的身份和获取的方式是独立存在的
 - **不同：** 在 REST 中，资源的形式和大小是由服务器所决定的。在 GraphQL 中，服务器声明哪些资源可以获得，而客户端会对其所需资源作出请求。
 
-好吧，如果你之前使用过 GraphQL 和／或 REST的话这些看上去很基础。如果你之前没用过 GraphQL，你可以使用 Launchpad 来试试[这个实例](https://launchpad.graphql.com/1jzxrj179) 。这是一个用于在浏览器中创造和探索 GraphQL 实例的工具。
+好吧，如果你之前使用过 GraphQL 和／或 REST 的话这些看上去很基础。如果你之前没用过 GraphQL，你可以使用 Launchpad 来试试[这个实例](https://launchpad.graphql.com/1jzxrj179) 。这是一个用于在浏览器中创造和探索 GraphQL 实例的工具。
 
 ### URL 路径 vs GraphQL 模版
 
@@ -139,7 +139,7 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 - **相同：** REST API 中的一列终端和 GraphQL API 中的 Query 和 Mutation 类的字段很像，都是数据的切入点。
 - **相同：** 两种 API 都可以区分数据的读取和写入。
 - **不同：** 在 GraphQL 中，你可以使用由模板定义的关系，通过发送一次请求从初始点一直走到相关数据。然而在 REST 中，你必须要使用多个终端来获取相关资源。
-- **不同：** 在 GraphQL 中，除了在每个请求的根源处所能获取的类型都是 Query 类外，Query 的字段和其他类的字段没有本质区别。比方说，你可以在 Query 的每个字段里放一个参数。而在 REST 中，嵌套的URL里没有第一类这个概念。
+- **不同：** 在 GraphQL 中，除了在每个请求的根源处所能获取的类型都是 Query 类外，Query 的字段和其他类的字段没有本质区别。比方说，你可以在 Query 的每个字段里放一个参数。而在 REST 中，嵌套的 URL 里没有第一类这个概念。
 - **不同：** 在 REST 中，你通过将 HTTP 术语 GET 改为 POST 来指定写入，但在 GraphQL 里需要改变请求里的关键字
 
 由于第一个相似点，很多人把 GraphQL 的 Query 类中的字段当作“终端”或者“请求”。虽然这的确是一个合理的比较，但这种理解可能会误导别人认为 Query 类和其他类的工作方式不同，这种理解是错误的。
@@ -150,13 +150,13 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 
 在接下来的对比中我会使用 JavaScript，因为这是我最熟悉的语言。不过你当然可以用其他语言去实现 REST 或者 GraphQL。我会省略设置服务器的步骤，因为这不是重点。
 
-来看看这个用 experss 写的 hello world 例子，express 是 Node 里很火的 API库 之一。
+来看看这个用 experss 写的 hello world 例子，express 是 Node 里很火的 API 库 之一。
 
     app.get('/hello', function (req, res) {
       res.send('Hello World!')
     })
 
-我们首先创建了一个能够返回hello world字串符的／hello 终端。通过这个例子中我们可以得知使用 REST API 来写服务器时一个 HTTP 请求的生命周期：
+我们首先创建了一个能够返回 hello world 字串符的／hello 终端。通过这个例子中我们可以得知使用 REST API 来写服务器时一个 HTTP 请求的生命周期：
 
 1. 服务器接收请求并解析 HTTP 术语 （这个例子中术语为 ‘GET’）和其 URL
 2. API  库将术语和路径相结合并在服务器代码中找到与之相匹配的函数
@@ -234,7 +234,7 @@ GraphQL 的工作方式极为相似，对于同一个 [hello world](https://laun
 
 最终我们可以得知，REST 和 GraphQL API 都可以在网络中通过不同方式使用函数。如果你对如何搭建 REST API 很熟悉，那么使用 GraphQL API 应该不会很不一样。不过 GraphQL 有很大的优势，因为你可以使用它去执行多个相关函数，而且全程不需要多次请求往返。
 
-- **相同：** REST的终端和 GraphQL 的字段都会在服务器端运行函数
+- **相同：** REST 的终端和 GraphQL 的字段都会在服务器端运行函数
 - **相同：** 两者本质上都需要依靠框架和库来使用和处理网络模板。
 - **不同：** 在 REST 中，每次请求通常只使用一个路径处理函数。在 GraphQL 中，同一 Query 可以使用多个 resolver 来使用多个资源创造嵌套在一起的回应。
 - **不同：** 在 REST 中，你可以自己创造每个回应的形式。在 GraphQL 中，回应的模式通过 GraphQL 的执行库来与请求的形式相匹配。

@@ -136,7 +136,7 @@ Twitter 的 "Tweet" 按钮是个很好的示例，它可以通过沙箱更安全
 window.addEventListener('message',
     function (e) {
       // iframe 的 sandbox 属性值不为“allow-same-origin”时，
-      // 嵌入内容的来源将被视为一个null而不是有效来源。
+      // 嵌入内容的来源将被视为一个 null 而不是有效来源。
       // 这意味着你必须小心那些通过 API 接收的数据。
       // 这种情况下，你需要检查源，并验证输入。
       var frame = document.getElementById('sandboxed');

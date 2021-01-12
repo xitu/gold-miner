@@ -89,7 +89,7 @@ YugaByte DB 是一个具备自动分片功能和高度弹性的高性能分布�
 
 ### 基于范围的分片
 
-SQL 表可以在主键的第一列中设置自动递增和自动递减。这让数据能够按照预先选择的顺序存储在单个分片（即子表）中。目前，项目组正在开发[动态分割子表](https://github.com/YugaByte/yugabyte-db/issues/1004)（基于多种标准，如范围边界和负载），和用于明确指明特定范围的[增强SQL语法](https://github.com/YugaByte/yugabyte-db/issues/1486)这些功能。
+SQL 表可以在主键的第一列中设置自动递增和自动递减。这让数据能够按照预先选择的顺序存储在单个分片（即子表）中。目前，项目组正在开发[动态分割子表](https://github.com/YugaByte/yugabyte-db/issues/1004)（基于多种标准，如范围边界和负载），和用于明确指明特定范围的[增强 SQL 语法](https://github.com/YugaByte/yugabyte-db/issues/1486)这些功能。
 
 ## 总结
 

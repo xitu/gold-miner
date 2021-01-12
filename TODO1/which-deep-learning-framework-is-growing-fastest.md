@@ -53,7 +53,7 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 在职位列表中，TensorFlow 的增长略微高于 PyTorch。Keras 也有增长，大致是 TensorFlow 的一半。Fastai 仍然是没有什么需求量。
 
-值得注意的是除了 LinkedIn 以外，在其他的求职网站上 PyTorch 相较于 TensorFlow 都有明显的增长。但是在绝对的数量上，TensorFlow 的职位数量接近PyTorch 或者 Keras 的 3 倍。
+值得注意的是除了 LinkedIn 以外，在其他的求职网站上 PyTorch 相较于 TensorFlow 都有明显的增长。但是在绝对的数量上，TensorFlow 的职位数量接近 PyTorch 或者 Keras 的 3 倍。
 
 ## 谷歌平均搜索活跃度的变化
 
@@ -77,13 +77,13 @@ PyTorch 1.0 版本在 2018 年 10 月预先发布，同一时间 fastai 1.0 版�
 
 作为高级 API 的 Keras 和 fastai 在新框架的实践者中十分流行，有很多教程都是在向人们展示如何很好的使用这些新框架。
 
-## arXiv新增文章
+## arXiv 新增文章
 
 [arXiv](https://arxiv.org/) 是当前大多数深度学习学术论文选择发表的在线仓储。我使用谷歌搜索了过去 6 个月新发表的新论文中提到的框架，结果是  TensorFlow 遥遥领先。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HTe-PCY7rvpSAKwsEzF3lg.png)
 
-## GitHub新增活跃度
+## GitHub 新增活跃度
 
 Git 的近期活跃度是框架流行度的另一个指标。下面的图表展示了点赞、克隆、粉丝以及贡献者的数量。
 
@@ -93,7 +93,7 @@ TensorFlow 在各个选项上都是领先的。尽管如此，PyTorch 在关注�
 
 毫无疑问，一些 Keras 的贡献者还在努力的挖掘 TensorFlow 库。同时值得注意的是，这两个开源项目都是由谷歌的员工发起的。
 
-## Quora的新增粉丝数
+## Quora 的新增粉丝数
 
 我将之前遗漏的一个参考指标 —— Quora 新话题的粉丝数量也加入进来。
 
@@ -135,7 +135,7 @@ TensorFlow 在各个选项上都是领先的。尽管如此，PyTorch 在关注�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c67KMUJj3waIlxnUJ1enTw.png)
 
-TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内，这个局面不会发生变化。PyTorch 的增长也十分迅猛，大量的职位需求就是它需求量和使用量增长的最好证明。当然，Keras在过去的6个月也有长足的进步。最后，fastai 的增长就不那么的理想了，但是需要说明的是，它是这几个框架中最年轻的一个。
+TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内，这个局面不会发生变化。PyTorch 的增长也十分迅猛，大量的职位需求就是它需求量和使用量增长的最好证明。当然，Keras 在过去的6个月也有长足的进步。最后，fastai 的增长就不那么的理想了，但是需要说明的是，它是这几个框架中最年轻的一个。
 所以，TensorFlow 和 PyTorch 都是十分值得学习的框架。
 
 ## 学习建议
@@ -150,9 +150,9 @@ TensorFlow 是目前需求量最大且增长速度最快的框架，短时间内
 
 我常听人说，PyTorch 比 TensorFlow 更好用。这是因为 PyTorch 有更稳定的 API 并且更贴近 Python 的用法。同时还有原生的模型转换工具 [ONNX](https://onnx.ai/supported-tools)，可以用来提高推理的速度。并且，Pytorch 共用了许多 [numpy](https://github.com/wkentaro/pytorch-for-numpy-users) 的命令，可以降低学习的门槛。
 
-对于 TensorFlow 2.0 的所有改进都是针对于用户体验这点，谷歌的首席人工智能决策官 [Cassie Kozyrkov](undefined) 有如下的 [解释](https://hackernoon.com/tensorflow-is-dead-long-live-tensorflow-49d3e975cf04?sk=37e6842c552284444f12c71b871d3640)。TensorFlow 现在有更直观的API,更合理的 Keras 集成，以及更直接的执行选项。这些改变以及 TensorFlow 的广泛使用，都将帮助它在未来几年继续流行。
+对于 TensorFlow 2.0 的所有改进都是针对于用户体验这点，谷歌的首席人工智能决策官 [Cassie Kozyrkov](undefined) 有如下的 [解释](https://hackernoon.com/tensorflow-is-dead-long-live-tensorflow-49d3e975cf04?sk=37e6842c552284444f12c71b871d3640)。TensorFlow 现在有更直观的 API,更合理的 Keras 集成，以及更直接的执行选项。这些改变以及 TensorFlow 的广泛使用，都将帮助它在未来几年继续流行。
 
-此外，TensorFlow 最近公布了一项令人激动的计划：开发针对于 [Swift的TensorFlow版本](https://www.tensorflow.org/swift)。[Swift](https://swift.org/) 最初是由苹果公司构建的编程语言。相较于 Python，Swift 在执行和开发速度上有很多的优势。fast.ai 的联合创始人 Jeremy Howard 发布的 [消息](https://www.fast.ai/2019/03/06/fastai-swift/)，fast.ai 将在部分的进阶 MOOC 中使用 [TensorFLow的Swift版本](https://www.tensorflow.org/swift)。这个语言可能在最近的一两年不会完成，但是它一定会改进现存的深度学习框架。可以看到，语言和框架之间的合作和交叉学习正在进行着。
+此外，TensorFlow 最近公布了一项令人激动的计划：开发针对于 [Swift 的 TensorFlow 版本](https://www.tensorflow.org/swift)。[Swift](https://swift.org/) 最初是由苹果公司构建的编程语言。相较于 Python，Swift 在执行和开发速度上有很多的优势。fast.ai 的联合创始人 Jeremy Howard 发布的 [消息](https://www.fast.ai/2019/03/06/fastai-swift/)，fast.ai 将在部分的进阶 MOOC 中使用 [TensorFLow 的 Swift 版本](https://www.tensorflow.org/swift)。这个语言可能在最近的一两年不会完成，但是它一定会改进现存的深度学习框架。可以看到，语言和框架之间的合作和交叉学习正在进行着。
 
 [量子计算](https://en.wikipedia.org/wiki/Quantum_computing) 的进步也将影响深度学习框架。虽然可用的量子计算机还需要几年才能出现，但是 [Google](https://ai.google/research/teams/applied-science/quantum-ai/)、[IBM](https://www.ibm.com/blogs/research/2019/03/machine-learning-quantum-advantage/)、Microsoft 和其他的公司已经在思考如何将量子计算和深度学习结合起来了。框架需要去慢慢适应这种新的技术。
 

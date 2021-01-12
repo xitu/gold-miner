@@ -45,7 +45,7 @@ git log -1
 有时，我把某个与我的分支不相关文件搞坏了。这通常发生在锁文件上（`mix.lock`、`package-lock.json` 等等）。我只是将这个文件“重置”回旧版本而不是还原一个可能包含许多其他内容的提交：
 
 ```bash
-git checkout hash值 mix.lock
+git checkout hash 值 mix.lock
 ```
 
 接着我就可以提交修复！
@@ -55,19 +55,19 @@ git checkout hash值 mix.lock
 我偶尔会使用这个被低估的命令。当一个分支变得老旧，有时候从中只获取真正需要的东西，比让整个分支跟上进度简单。举个例子，这个分支有关于 UI 或后端的冗余代码。在这种情况下，我可能只想从分支中挑选出特定的提交：
 
 ```bash
-git cherry-pick hash值
+git cherry-pick hash 值
 ```
 
 这将会把提交带到你所处的分支。你也可以使用列表！
 
 ```bash
-git cherry-pick 第一个hash值 第二个hash值 第三个hash值
+git cherry-pick 第一个 hash 值 第二个 hash 值 第三个 hash 值
 ```
 
 你也可以使用区间：
 
 ```bash
-git cherry-pick 开始的hash值..结束的hash值
+git cherry-pick 开始的 hash 值..结束的 hash 值
 ```
 
 ### 参考日志

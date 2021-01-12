@@ -66,7 +66,7 @@ StarSpace 通过以下格式进行文件的输入。
 
     $./starspace train -trainFile data.txt -model modelSaveFile
 
-这里的 data.txt 是一个包含utf-8编码文本的训练文件。在优化结束时，程序将保存两个文件：model 和 modelSaveFile.tsv。modelSaveFile.tsv 是一个包含实体嵌入向量的标准tsv格式文件，每行一个。modelSaveFile 是一个二进制文件，包含模型的参数以及字典，还包括所有超参数。二进制文件稍后可用于计算实体嵌入的向量或运行评估任务。
+这里的 data.txt 是一个包含 utf-8编码文本的训练文件。在优化结束时，程序将保存两个文件：model 和 modelSaveFile.tsv。modelSaveFile.tsv 是一个包含实体嵌入向量的标准 tsv 格式文件，每行一个。modelSaveFile 是一个二进制文件，包含模型的参数以及字典，还包括所有超参数。二进制文件稍后可用于计算实体嵌入的向量或运行评估任务。
 
 在更普遍的情况下，每个标签也会包含单词：
 
@@ -135,13 +135,13 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
 ### 示例脚本：
 
-我们将该模型应用于 [AG的新闻主题分类数据集](https://github.com/mhjabreel/CharCNN/tree/master/data/ag_news_csv) 的文本分类问题。在这一问题中我们的标签是新闻文章类别，我们使用 hit@1 度量来衡量分类的准确性。[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/classification_ag_news.sh) 下载数据并在示例目录下运行StarSpace模型：
+我们将该模型应用于 [AG 的新闻主题分类数据集](https://github.com/mhjabreel/CharCNN/tree/master/data/ag_news_csv) 的文本分类问题。在这一问题中我们的标签是新闻文章类别，我们使用 hit@1 度量来衡量分类的准确性。[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/classification_ag_news.sh) 下载数据并在示例目录下运行 StarSpace 模型：
 
     $bash examples/classification_ag_news.sh
 
 ## PageSpace 用户和页面的嵌入
 
-**用途：** 在Facebook上，用户可以粉（关注）他们感兴趣的公共页面。当用户浏览页面时，用户可以在 Facebook 上收到所有页面发布的内容。 我们希望根据用户的喜爱数据学习页面嵌入，并用它来推荐用户可能感兴趣（可能关注）的新页面。 这个用法可以推广到其他推荐问题：例如，根据过去观看的电影记录学习嵌入，向用户推荐电影; 根据过去用户登录的餐厅学习嵌入，向用户推荐餐馆等。
+**用途：** 在 Facebook上，用户可以粉（关注）他们感兴趣的公共页面。当用户浏览页面时，用户可以在 Facebook 上收到所有页面发布的内容。 我们希望根据用户的喜爱数据学习页面嵌入，并用它来推荐用户可能感兴趣（可能关注）的新页面。 这个用法可以推广到其他推荐问题：例如，根据过去观看的电影记录学习嵌入，向用户推荐电影; 根据过去用户登录的餐厅学习嵌入，向用户推荐餐馆等。
 
 **模型：** 用户被表示为他们关注的页面（粉了）。也就是说，我们不直接学习用户的嵌入，相反，每个用户都会有一个嵌入，这个嵌入就是用户煽动的页面的平均嵌入。页面直接嵌入（在字典中具有独特的功能）。在用户数量大于页面数量的情况下，这种设置可以更好地工作，并且每个用户喜欢的页面平均数量较少（即用户和页面之间的边缘相对稀疏）。它也推广到新用户而无需再重新训练。 也可以使用更传统的推荐设置。
 
@@ -210,7 +210,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
 
 ### 示例脚本：
 
-[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching.sh) 会下载一些数据，其中每个示例都是来自同一维基百科页面的一组语句，并在其上运行StarSpace模型：
+[这个示例脚本](https://github.com/facebookresearch/Starspace/blob/master/examples/wikipedia_sentence_matching.sh) 会下载一些数据，其中每个示例都是来自同一维基百科页面的一组语句，并在其上运行 StarSpace 模型：
 
     $bash examples/wikipedia_sentence_matching.sh
 
@@ -287,16 +287,16 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
       -similarity      选择 [cosine, dot] 中的一个，用于在 hinge loss 选定相似度函数。
                        只在 loss 为 hinge 时有意义，默认为 cosine。
       -adagrad         是否在训练中使用 adagrad，默认为 1。
-      -shareEmb        是否对LHS和RHS使用相同的嵌入矩阵，默认为 1。
+      -shareEmb        是否对 LHS 和 RHS 使用相同的嵌入矩阵，默认为 1。
       -ws              在 trainMode 5 时有效，单词级别训练的上下文窗口大小，默认为 5。
-      -dropoutLHS      LHS特征的放弃概率，默认为 0。
-      -dropoutRHS      RHS特征的放弃概率，默认为 0。
+      -dropoutLHS      LHS 特征的放弃概率，默认为 0。
+      -dropoutRHS      RHS 特征的放弃概率，默认为 0。
       -initRandSd      嵌入的初始值是从正态分布随机生成的，其中均值为 0，标准差为 initRandSd，默认为 0.001。
 
     以下参数是测试时可选的：
       -basedoc         一组标签的文件路径与真实标签进行比较。 -fileFormat='labelDoc' 时需要。
                        在 -fileFormat ='fastText' 且 不提供 -basedoc 的情况下，我们将会对真正的标签与字典中的所有其他标签进行比较。
-      -predictionFile  保存预测的文件路径。如果不为空，则将保存每个示例的前K个预测。
+      -predictionFile  保存预测的文件路径。如果不为空，则将保存每个示例的前 K 个预测。
       -K               如果 -predictionFile 参数非空，为每个实例进行的顶层的 K 预测将被保存。
 
     以下参数是可选的：
@@ -342,7 +342,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
     make print_ngrams
     ./print_ngrams <model>
 
-其中 `<model>` 指定了的参数 -ngrams > 1 的受过训练的StarSpace模型。
+其中 `<model>` 指定了的参数 -ngrams > 1 的受过训练的 StarSpace 模型。
 
 ### 打印句子/文档嵌入
 

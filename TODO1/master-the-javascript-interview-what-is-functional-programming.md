@@ -177,7 +177,7 @@ Tries 使用了**共享结构**在不可变对象被复制之后为对象共享�
 
 JavaScript 中有几个库使用到了 tries，包括 [Immutable.js](https://github.com/facebook/immutable-js) 和 [Mori](https://github.com/swannodette/mori)。
 
-我尝试过这两种方法，并且倾向于在需要大量不可变状态的大型项目中使用 Immutable.js。有关更多信息，请参见[“10个更好的Redux架构技巧”](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44)。
+我尝试过这两种方法，并且倾向于在需要大量不可变状态的大型项目中使用 Immutable.js。有关更多信息，请参见[“10个更好的 Redux 架构技巧”](https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44)。
 
 ## 副作用
 

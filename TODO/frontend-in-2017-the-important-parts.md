@@ -92,7 +92,7 @@ WebAssembly (或者 WASM) 提供一种用其他语言编写然后编译成可以
 
 同时已经有[很多有趣的 WebAssembly 项目](https://github.com/mbasso/awesome-wasm)。有一个针对 C++ 的 [虚拟 DOM 实现](https://github.com/mbasso/asm-dom)，允许用 C++ 创建整个前端应用。如果你的项目使用 Webpack，有一个 [wasm-loader](https://github.com/ballercat/wasm-loader) 就不需要手动的操作 fetch，直接解释 `.wasm` 类型的文件。[WABT](https://github.com/WebAssembly/wabt) 提供了一堆将二进制和 WASM 二进制的文本格式，打印信息之间转换的工具，以及 merge `.wasm` 文件。
 
-预计 WebAssembly 将在未来一年变得更加流行，因为更多的工具已经开发出来，JavaScript社区也在意识到它的可能性。它现在还在 “试验” 阶段，浏览器也刚开始支持。它将成为优化 CPU 密集型任务和图像及 3D 处理的好工具。最终，随着它的成熟，我推测会在日常应用中获得更多的使用案例。
+预计 WebAssembly 将在未来一年变得更加流行，因为更多的工具已经开发出来，JavaScript 社区也在意识到它的可能性。它现在还在 “试验” 阶段，浏览器也刚开始支持。它将成为优化 CPU 密集型任务和图像及 3D 处理的好工具。最终，随着它的成熟，我推测会在日常应用中获得更多的使用案例。
 
 **总结：** WebAssembly 最终会改变一切，但它现在还很新。
 
@@ -239,7 +239,7 @@ GraphQL 是一个可以实时查询接口语言，因为数据源的原因提�
 
 微软新的基于 V8 之上的多线程 JavaScript 运行时库。[NapaJS](https://github.com/Microsoft/napajs) 提供了一种在 Node 环境运行多线程的方式，在现有 Node 架构下更好的支持 CPU 密集型任务的执行。它提供了一种 Node  多任务模型的备选方案，用一个模块来实现。现在可以在 NPM 上像其他库那样下载了。
 
-Napa使用 [node-webworker-threads](https://github.com/audreyt/node-webworker-threads) 库来利用 Node 中的线程与底层语言结合，通过使用添加从工作线程内部使用 Node 模块系统的能力来无缝的融合 Node 生态链。它还提供了不同 workers 间通信的全面的接口，与新发布的共享内存标准非常类似。
+Napa 使用 [node-webworker-threads](https://github.com/audreyt/node-webworker-threads) 库来利用 Node 中的线程与底层语言结合，通过使用添加从工作线程内部使用 Node 模块系统的能力来无缝的融合 Node 生态链。它还提供了不同 workers 间通信的全面的接口，与新发布的共享内存标准非常类似。
 
 这个项目是微软为 Node 生态系统应用高性能架构所做的努力。它目前正在被 Bing 搜索引擎作为后端栈的一部分所使用。
 

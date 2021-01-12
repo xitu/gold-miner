@@ -114,7 +114,7 @@ Hacktoberfest —— 由 DigitalOcean 与 GitHub 和 Twilio 合作推出 —— 
 
 **规则和奖品**
 
-首先在 Hacktoberfest 网站上注册。如果你在 10 月 1 日到 10 月 31 日期间提出五个 Pull 请求，你将免费获得一件限量版 Hacktoberfest T恤。（Pull 请求不必合并和接受；只要它们在 10 月 1 日到 10 月 31 日之间被打开，他们就会计入一件免费的 T 恤。）
+首先在 Hacktoberfest 网站上注册。如果你在 10 月 1 日到 10 月 31 日期间提出五个 Pull 请求，你将免费获得一件限量版 Hacktoberfest T 恤。（Pull 请求不必合并和接受；只要它们在 10 月 1 日到 10 月 31 日之间被打开，他们就会计入一件免费的 T 恤。）
 
 通过在您选择的社交媒体平台上使用话题 #hacktoberfest，与其他 Hacktoberfest 参与者（Hacktobefestants？）联系。
 
@@ -181,7 +181,7 @@ Hacktoberfest 向全球社区的每个人开放！
 
 **规则是什么？**
 
-要赢得一件衬衫，你必须在 Hacktoberfest 网站上注册，并在 10 月 31 日之前在 GitHub 上完成五个 Pull 请求。（Pull 请求不必合并和接受;只要它们在 10 月 1 日到 10 月 31 日之间被打开，它们就会计入一件免费的T恤。）
+要赢得一件衬衫，你必须在 Hacktoberfest 网站上注册，并在 10 月 31 日之前在 GitHub 上完成五个 Pull 请求。（Pull 请求不必合并和接受;只要它们在 10 月 1 日到 10 月 31 日之间被打开，它们就会计入一件免费的 T 恤。）
 
 **在哪里发起 Pull 请求？**
 

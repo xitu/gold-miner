@@ -15,7 +15,7 @@
 
 有了 alexa-sdk，我们的目标是帮助你在能够避免不必要的复杂度的情况下，更快捷地开发 skills。今天我们要发布的这个最新版本的 SDK 具备以下几个特点：  
 
-*   新版SDK是可托管的 NPM 安装包，简化了在任何 Node.js 环境下的开发
+*   新版 SDK 是可托管的 NPM 安装包，简化了在任何 Node.js 环境下的开发
 *   可以通过内置事件创建 Alexa 的回复
 *   为新的 session 内置帮助事件（Helper events），并且添加了未处理事件（unhandled events）来捕捉所有异常
 *   提供了能构建基于状态机的用户意图（intent）处理的帮助函数（Helper function）

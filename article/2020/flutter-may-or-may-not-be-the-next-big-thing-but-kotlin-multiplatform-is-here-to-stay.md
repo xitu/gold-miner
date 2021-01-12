@@ -39,7 +39,7 @@ Flutter 的迅速崛起无疑让 Android 开发人员的心里担忧，因为没
 
 在深入探讨 Kotlin 充满希望的未来之前，让我们先分析一下 Google 为什么会先引入 Flutter（一项与原生 Android 竞争的技术）。
 
-## 引入Flutter不是为了消灭原生 Android 开发者，只是未雨绸缪。
+## 引入 Flutter 不是为了消灭原生 Android 开发者，只是未雨绸缪。
 
 对于不了解它的人来说，Flutter 是 Google 的跨平台框架，用于构建可在 Android，iOS，Web 和 Desktop 上运行的应用。它使用 Google 的 Dart 语言，与 Java 虚拟机（JVM）不兼容。
 

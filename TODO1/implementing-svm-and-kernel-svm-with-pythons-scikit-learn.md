@@ -217,7 +217,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
 
 #### 算法训练
 
-同样使用 Scikit-Learn 的 `svm` 模块中的 `SVC` 类。区别在于类 `SVC` 的核函数类型参数的值不一样。在简单 SVM 中我们使用的核函数类型是 “linear”。然而，kernel SVM 你可以使用 高斯、多项式、sigmoid或者其他可计算的核。我们将实现多项式、高斯和 sigmoid 核并检验哪一个表现更好。
+同样使用 Scikit-Learn 的 `svm` 模块中的 `SVC` 类。区别在于类 `SVC` 的核函数类型参数的值不一样。在简单 SVM 中我们使用的核函数类型是 “linear”。然而，kernel SVM 你可以使用 高斯、多项式、sigmoid 或者其他可计算的核。我们将实现多项式、高斯和 sigmoid 核并检验哪一个表现更好。
 
 #### 1. 多项式核
 

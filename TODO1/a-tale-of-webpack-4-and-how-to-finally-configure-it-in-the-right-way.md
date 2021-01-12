@@ -872,7 +872,7 @@ module.exports = {
 };
 ```
 
-> 现在，当我编辑 main.scss 时，会生成 style.css 的新哈希。当我编辑 css 时只有 css 的哈希更改，当我编辑 ./src/script.js 时，只有script.js 的哈希更改！
+> 现在，当我编辑 main.scss 时，会生成 style.css 的新哈希。当我编辑 css 时只有 css 的哈希更改，当我编辑 ./src/script.js 时，只有 script.js 的哈希更改！
 
 ### 整合 PostCSS
 

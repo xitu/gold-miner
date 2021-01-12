@@ -589,7 +589,7 @@ df.hist(column='petalWidth', by='species', grid=None, ax=ax)
 
 ![](https://dansaber.files.wordpress.com/2016/09/qeaagabshsaaiafkg0aaaawolqbaabygnigaabggf8hne3tvwwy5qaaaaasuvork5cyii.png)
 
-**GG和ALT举手击掌然后祝贺P；高呼「棒极了！」，「就该这样！」，「就这么干！」**
+**GG 和 ALT 举手击掌然后祝贺 P；高呼「棒极了！」，「就该这样！」，「就这么干！」**
 
 **SB (假装很热情)**:  喔喔喔。很赞。同时呢，分布对我非常重要，所以我为它准备了一些特殊方法。比如，我的 `boxplot` 方法只需要 x 变量、y 变量和数据就可以得到这个：
 
@@ -649,7 +649,7 @@ g
 
 **ALT （看上去坚定又自信）**:  我要忏悔……
 
-**四周安静了下来 —— GG停了下来，把盘子撞到了地上。**
+**四周安静了下来 —— GG 停了下来，把盘子撞到了地上。**
 
 **ALT：（沉重地喘气）** 我……我……我不会画箱线图。从来没学过怎么画，不过我相信我的源语言 JavaScript 的语法不支持箱线图肯定是有原因的。不过我会画直方图……
 

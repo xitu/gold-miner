@@ -245,7 +245,7 @@ dbscan = DBSCAN()
 # 拟合
 dbscan.fit(iris.data)
 
-# 使用PCA进行转换
+# 使用 PCA 进行转换
 pca = PCA(n_components=2).fit(iris.data)
 pca_2d = pca.transform(iris.data)
 

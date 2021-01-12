@@ -25,7 +25,7 @@
 
 2. **你需要使用 instrumentation 工具来做测试**。根据定义，你的 binding adapter 不会有返回值，它们接收一个输入参数后设置 view 的属性。这就意味着你必须使用 instrumentation 来测试你的自定义逻辑，这样会使得测试变得既缓慢又难以维护。
 
-3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)]，你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))，这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter的情况。
+3. **自定义 binding adapter 代码（通常）不是最佳选项**。如果你查看内建文本绑定[[参考这里](https://android.googlesource.com/platform/frameworks/data-binding/+/master/extensions/baseAdapters/src/main/java/android/databinding/adapters/TextViewBindingAdapter.java#63)]，你将会看到已经做了许多检查来避免调用 [`TextView.setText()`](https://developer.android.com/reference/android/widget/TextView.html#setText(java.lang.CharSequence))，这样就节省了被浪费的布局检测。我觉得自己陷入了这样的思维困境：DB 库将会自动优化我的 view 更新。它确实可以做到，但**仅限于**你使用被谨慎优化的内建 binding adapter 的情况。
 
 相反的，把你的方法的逻辑抽象为内聚类（我称之为文本创建者类），然后将它们传递给 binding。这样你就可以调用你的文本创建者类并使用内建 view binding：
 
@@ -67,7 +67,7 @@
 
 所以问题是什么？由于我们只有一个输入变量，所有的 binding 表达式将会引用变量，这就意味着『DB 库』将无法自由选择运行哪个表达式。在实际过程中，这意味着每次变量变化（不管多小的变化）发生时所有的 binding 表达式都会运行。
 
-**这个问题与 MVI 这点无关，特别是它只是组合状态的 artifact，与data binding 结合在一起使用。**
+**这个问题与 MVI 这点无关，特别是它只是组合状态的 artifact，与 data binding 结合在一起使用。**
 
 ### 那么你能怎么做呢？
 

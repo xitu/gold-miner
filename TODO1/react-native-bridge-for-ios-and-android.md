@@ -24,7 +24,7 @@ $ react-native init LightApp
 $ cd LightApp
 ```
 
-接下来，我们将在 Swift 和 Java 中创建一个 `Bulb` 类，稍后将在 React 组件中使用它。**这是一个跨平台的示例，相同的 React 代码将同时适用于iOS和Android。**
+接下来，我们将在 Swift 和 Java 中创建一个 `Bulb` 类，稍后将在 React 组件中使用它。**这是一个跨平台的示例，相同的 React 代码将同时适用于 iOS 和 Android。**
 
 现在我们已经创建了项目的基本框架，接下来我们将本文分为两部分：
 
@@ -46,7 +46,7 @@ $ cd LightApp
 
 首先，我们将在 swift 中创建一个 Bulb 类，它将具有一个静态类变量 `isOn` 和一些其他函数。然后我们将从 Javascript 访问这个 swift 类。让我们首先在 ios 文件夹中打开 _LightApp.xcodeproj_ 文件。此时 Xcode 应该会被打开。
 
-在 Xcode 中打开项目后，创建一个新的 Swift文件 Bulb.swift，如下所示：
+在 Xcode 中打开项目后，创建一个新的 Swift 文件 Bulb.swift，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*FxPFgst2EC5MBA0bx0OcJA.gif)
 
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-现在运行iOS模拟器：
+现在运行 iOS 模拟器：
 
 ![](https://cdn-images-1.medium.com/max/800/1*hJrsUtQqoewxbrBm1wLbtg.png)
 
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
 
 ![](https://cdn-images-1.medium.com/max/800/1*g_GBqo8jCm_DThSX-QkIPQ.png)
 
-**步骤 2) 理解 GCD Queue并且解决出现的警告**
+**步骤 2) 理解 GCD Queue 并且解决出现的警告**
 
 现在让我们修复模拟器底部和浏览器控制台中显示的警告：
 
@@ -165,7 +165,7 @@ static func requiresMainQueueSetup() -> Bool {
 
 您可以明确提及 _return false_ 以让它在单独的线程中运行。
 
-**步骤 3) 从Swift和Callbacks访问JavaScript中的变量**
+**步骤 3) 从 Swift 和 Callbacks 访问 JavaScript 中的变量**
 
 现在让我们将 Bulb 的开关（ON 或 OFF）值添加到 React 屏幕。为此，我们将 _getStatus_ 函数添加到 _Bulb.swift_ 并从 JavaScript 代码调用该方法。 我们将创建此方法作为回调。
 
@@ -217,7 +217,7 @@ RCT_EXTERN_METHOD(getStatus: (RCTResponseSenderBlock)callback)
 
 我们已将 (RCTResponseSenderBlock)_callback_ 暴露为函数 _getStatus_ 的参数
 
-然后最后更新React代码：
+然后最后更新 React 代码：
 
 ```
 import React, {Component} from 'react';

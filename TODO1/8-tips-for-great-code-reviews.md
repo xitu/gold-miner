@@ -46,7 +46,7 @@
 
 如果计算机可以决定并执行一条规则的话，那就让计算机完成它。争论应使用空格还是 tabs 属于浪费时间。相反，应把时间花在制定规则上并且达成一致。这也是观察团队如何在低风险情景下处理“反对还是提交代码”的机会。
 
-编程语言和现代工具流不缺乏执行规则（的辅助检查程序）并反复应用它们的方法。在 Ruby 中，有 [Rubocop](https://github.com/rubocop-hq/rubocop)；在JavaScript中，有 [eslint](https://eslint.org/)。找到语言这类辅助检查程序，并将其嵌入到构建流中。
+编程语言和现代工具流不缺乏执行规则（的辅助检查程序）并反复应用它们的方法。在 Ruby 中，有 [Rubocop](https://github.com/rubocop-hq/rubocop)；在 JavaScript中，有 [eslint](https://eslint.org/)。找到语言这类辅助检查程序，并将其嵌入到构建流中。
 
 如果你发现现有的辅助检查程序存在不足，那么可以自己编写！定制规则相当简单。在 Gusto 中，我们使用定制的辅助检查规则来捕获类的废弃用法，或者适当地提醒人们遵守某些 [Sidekiq](https://sidekiq.org/) 最佳实践。
 

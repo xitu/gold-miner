@@ -62,7 +62,7 @@ By the end of this article, you'll be able to:
 
     const file = fs.readFileSync(`${__dirname}/${filename}`); 
     
-    //这段代码只会在readFileSync返回结果后才执行 。。。
+    //这段代码只会在 readFileSync 返回结果后才执行 。。。
     console.log('Done reading file.');
 
     //而这段永远打印的是 `file` 的内容。

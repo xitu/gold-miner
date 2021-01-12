@@ -15,7 +15,7 @@
 
 ## 1) 学习数据结构和算法
 
-JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结构实现它都有，yin'y性能对前端来说很重要。决定 Web 应用的性能的因素中，有 45% 来自前端（来自 Steve Souders 的《[High Performance Web Sites: Essential Knowledge For Front-End Engineers](http://shop.oreilly.com/product/9780596529307.do)》）。你身边的后端开发者很有可能在用数据结构和算法，所以你也应该用得上它们。使用良好的、可扩展的数据结构和算法极其重要，这样你的应用也是可扩展的。
+JavaScript 已经不再是一个弱小的语言了。你想要的每个数据结构实现它都有，yin'y 性能对前端来说很重要。决定 Web 应用的性能的因素中，有 45% 来自前端（来自 Steve Souders 的《[High Performance Web Sites: Essential Knowledge For Front-End Engineers](http://shop.oreilly.com/product/9780596529307.do)》）。你身边的后端开发者很有可能在用数据结构和算法，所以你也应该用得上它们。使用良好的、可扩展的数据结构和算法极其重要，这样你的应用也是可扩展的。
 
 最有用的数据结构就是 [ES6 Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 和栈，它们有效地帮我提升了网站性能。哈希 Map 简直太令人惊艳了，它应该被用于频繁的访问某个键的地方。在前端开发中，我们需要花大量时间检查显示条件（比如鉴权）。我发现缓存数据是非常有用的，我们可以把每个页面中需要通过数组多次访问的数据缓存到 Map 中。这个优化能把时间复杂度从 O(n) 降到 O(1)，这是一个非常显著的性能提升。堆栈对于像向导（Wizard）这样经常需要执行“撤消”操作的场景非常有用。递归也是必知必会的概念，特别是处理对象时。使用分而治之策略，我用良好的递归函数（具有固定的基线条件）替换了大量缓慢的函数。
 

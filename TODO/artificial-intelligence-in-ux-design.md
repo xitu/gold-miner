@@ -10,9 +10,9 @@
 
   ![AI Powered UX](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/1501567920icDqSo2.jpg)
 
-马克·扎克伯格在 2016 年的重要新年决定之一就是建立属于自己的「[简单 AI 机器人](http://www.vanityfair.com/news/2016/12/mark-zuckerberg-spent-100-hours-building-his-own-robot-butler)」，来帮助他解决家务。还记得钢铁侠的管家 Jarvis 吗？这就是一个关于AI如何发挥作用的好莱坞经典范例。
+马克·扎克伯格在 2016 年的重要新年决定之一就是建立属于自己的「[简单 AI 机器人](http://www.vanityfair.com/news/2016/12/mark-zuckerberg-spent-100-hours-building-his-own-robot-butler)」，来帮助他解决家务。还记得钢铁侠的管家 Jarvis 吗？这就是一个关于 AI 如何发挥作用的好莱坞经典范例。
 
-那么，人工智能（artificial intelligence, AI）究竟是什么？它又如何能解决当今最常见的UX问题呢
+那么，人工智能（artificial intelligence, AI）究竟是什么？它又如何能解决当今最常见的 UX 问题呢
 
 ![Tony Stark using Jarvis](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/07/150156788652646.jpg)
 Tony Stark 在使用 Jarvis。

@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-iii-a-complete-dashboard.md](https://github.com/xitu/gold-miner/blob/master/TODO1/data-visualization-with-bokeh-in-python-part-iii-a-complete-dashboard.md)
 > * 译者：[YueYong](https://github.com/YueYongDev)
 
-# 利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘
+# 利用 Python 中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘
 
 **在 Bokeh 中创建交互式可视化应用程序**
 
@@ -18,11 +18,11 @@
 
 为[我的研究](https://arpa-e.energy.gov/?q=slick-sheet-project/virtual-building-energy-audits)构建的 Bokeh 仪表盘的例子
 
-虽然说并不是每一个你在 Twitter上看到的想法都可能对你的职业生涯产生帮助，但我可以负责的说，了解更多的数据科学技术不会有什么坏处。沿着这些思路，我开始了本系列文章，以展示 Bokeh 的功能，[Bokeh](https://bokeh.pydata.org/en/latest/) 是 Python 中一个强大的绘图库，他可以允许你制作交互式绘图和仪表盘。尽管我不能向你展示我的研究的仪表盘，但是我可以使用公开可用的数据集展示在 Bokeh 中构建可视化的基础知识。第三篇文章是我的 Bokeh 系列文章的延续，[第一部分着重于构建一个简单的图](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4)，[第二部分展示如何向 Bokeh 图中添加交互](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-ii-interactions-a4cf994e2512)。在这篇文章中，我们将看到如何设置一个完整的 Bokeh 应用程序，并在您的浏览器中运行可访问的本地 Bokeh 服务器!
+虽然说并不是每一个你在 Twitter 上看到的想法都可能对你的职业生涯产生帮助，但我可以负责的说，了解更多的数据科学技术不会有什么坏处。沿着这些思路，我开始了本系列文章，以展示 Bokeh 的功能，[Bokeh](https://bokeh.pydata.org/en/latest/) 是 Python 中一个强大的绘图库，他可以允许你制作交互式绘图和仪表盘。尽管我不能向你展示我的研究的仪表盘，但是我可以使用公开可用的数据集展示在 Bokeh 中构建可视化的基础知识。第三篇文章是我的 Bokeh 系列文章的延续，[第一部分着重于构建一个简单的图](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-one-getting-started-a11655a467d4)，[第二部分展示如何向 Bokeh 图中添加交互](https://towardsdatascience.com/data-visualization-with-bokeh-in-python-part-ii-interactions-a4cf994e2512)。在这篇文章中，我们将看到如何设置一个完整的 Bokeh 应用程序，并在您的浏览器中运行可访问的本地 Bokeh 服务器!
 
 本文将重点介绍 Bokeh 应用程序的结构，而不是具体的细节，但是你可以在 [GitHub](https://github.com/WillKoehrsen/Bokeh-Python-Visualization) 上找到所有内容的完整代码。我们将会使用 [NYCFlights13 数据集](https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf)，这是一个 2013 年从纽约 3 个机场起飞的航班的真实信息数据集。这个数据集中有超过 300,000 个航班信息，对于我们的仪表盘，我们将主要关注于到达延迟信息的统计。
 
-为了能完整运行整个应用程序，你需要先确保你已经安装了 Bokeh（使用 `pip install bokeh`），从 GitHub上 [下载](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip) `[bokeh_app.zip](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip)` [文件夹](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip)，解压，并在当前目录打开一个命令窗口，并输入 `bokeh serve --show bokeh_app`。这会设置一个 [Bokeh 的本地服务](https://bokeh.pydata.org/en/latest/docs/user_guide/server.html) 同时还会在你的浏览器中打开一个应用（当然你也可以使用 Bokeh 的在线服务，但是目前对我们来说本地主机足矣）。
+为了能完整运行整个应用程序，你需要先确保你已经安装了 Bokeh（使用 `pip install bokeh`），从 GitHub 上 [下载](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip) `[bokeh_app.zip](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip)` [文件夹](https://github.com/WillKoehrsen/Bokeh-Python-Visualization/blob/master/bokeh_app.zip)，解压，并在当前目录打开一个命令窗口，并输入 `bokeh serve --show bokeh_app`。这会设置一个 [Bokeh 的本地服务](https://bokeh.pydata.org/en/latest/docs/user_guide/server.html) 同时还会在你的浏览器中打开一个应用（当然你也可以使用 Bokeh 的在线服务，但是目前对我们来说本地主机足矣）。
 
 ### 最终产品
 

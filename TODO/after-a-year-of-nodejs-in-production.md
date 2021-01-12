@@ -46,7 +46,7 @@ NPM 有些包只有不足十行代码，每天会被下载数千次。开什么�
 
 我意识到许多语言都没有严格的结构，但是这些语言的维护者却都给出了编程标准。
 
-我唯一能想到的还不错的 Javascript编程标准来自 [Mozilla](https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style)。
+我唯一能想到的还不错的 Javascript 编程标准来自 [Mozilla](https://developer.mozilla.org/en-US/docs/Mozilla/Developer_guide/Coding_Style)。
 
 ### Node 终极感想
 

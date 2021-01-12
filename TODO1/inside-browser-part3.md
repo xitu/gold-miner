@@ -43,7 +43,7 @@ DOM 是一个页面在浏览器内部表现，也是 Web 开发人员可以通�
 
 ### JavaScript 阻塞解析
 
-当 HTML 解析器遇到 `<script>` 标记时，会暂停解析 HTML 文档，开始加载、解析并执行 JavaScript 代码。为什么？因为JavaScript 可以使用诸如 `document.write()` 的方法来改写文档，这会改变整个 DOM 结构（HTML 规范里的 [overview of the parsing model](https://html.spec.whatwg.org/multipage/parsing.html#overview-of-the-parsing-model) 中有一张不错的图片）。这就是 HTML 解析器必须等待 JavaScript 运行后再继续解析 HTML 文档原因。如果你对 JavaScript 执行中发生的事情感到好奇，可以看看 [V8 团队就此发表的演讲和博客文章](https://mathiasbynens.be/notes/shapes-ics)。
+当 HTML 解析器遇到 `<script>` 标记时，会暂停解析 HTML 文档，开始加载、解析并执行 JavaScript 代码。为什么？因为 JavaScript 可以使用诸如 `document.write()` 的方法来改写文档，这会改变整个 DOM 结构（HTML 规范里的 [overview of the parsing model](https://html.spec.whatwg.org/multipage/parsing.html#overview-of-the-parsing-model) 中有一张不错的图片）。这就是 HTML 解析器必须等待 JavaScript 运行后再继续解析 HTML 文档原因。如果你对 JavaScript 执行中发生的事情感到好奇，可以看看 [V8 团队就此发表的演讲和博客文章](https://mathiasbynens.be/notes/shapes-ics)。
 
 ## 提示浏览器如何加载资源
 

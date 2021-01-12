@@ -81,7 +81,7 @@ Experiencor 还有一个 [keras-yolo2](https://github.com/experiencor/keras-yolo
 
 这里是 [创作本文时的代码分支](https://github.com/jbrownlee/keras-yolo3)，以防仓库发生变化或被删除（这在第三方开源项目中可能会发生）。
 
-## 用YOLOv3进行对象检测
+## 用 YOLOv3进行对象检测
 
 keras-yolo3 项目提供了很多使用 YOLOv3 的模型，包括对象检测、迁移学习、从头开始训练模型等。
 
@@ -321,7 +321,7 @@ loading weights of convolution #105
 
 ### 做预测
 
-我们需要一张用于对象检测的新照片，理想情况下图片中的对象是我们知道的模型从 [MSCOCO数据集](http://cocodataset.org/) 可识别的对象。
+我们需要一张用于对象检测的新照片，理想情况下图片中的对象是我们知道的模型从 [MSCOCO 数据集](http://cocodataset.org/) 可识别的对象。
 
 这里使用一张三匹斑马的图片，是 [Boegh](https://www.flickr.com/photos/boegh/5676993427/) 在旅行时拍摄的，且带有发布许可。
 

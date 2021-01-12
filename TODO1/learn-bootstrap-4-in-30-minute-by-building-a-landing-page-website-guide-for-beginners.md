@@ -36,17 +36,17 @@ Bootstrap 有不少版本，其中最新的是第四版。在这篇文章里我�
 *   [Bootstrap 4 的下载及安装](#下载及安装-bootstrap-4)
 *   [Bootstrap 4 的新特性](#bootstrap-4-的新特性)
 *   [Bootstrap 网格系统](#bootstrap-网格系统-grid-system)
-*   [导航栏](#导航栏navbar)
-*   [标题](#标题header)
-*   [按钮](#按钮buttons)
-*   [“关于我”版块](#关于我版块about)
-*   [作品集版块](#作品集版块portfolio)
-*   [博客版块](#博客版块blog)
-*   [卡片](#卡片card)
-*   [团队版块](#团队版块team)
-*   [联系表单](#联络表单contact-form)
+*   [导航栏](#导航栏 navbar)
+*   [标题](#标题 header)
+*   [按钮](#按钮 buttons)
+*   [“关于我”版块](#关于我版块 about)
+*   [作品集版块](#作品集版块 portfolio)
+*   [博客版块](#博客版块 blog)
+*   [卡片](#卡片 card)
+*   [团队版块](#团队版块 team)
+*   [联系表单](#联络表单 contact-form)
 *   [字体](#字体-font)
-*   [划动效果](#划动效果scroll-effect)
+*   [划动效果](#划动效果 scroll-effect)
 *   [总结](#总结)
 
 ### 下载及安装 Bootstrap 4
@@ -332,7 +332,7 @@ $(document).ready(function(){
 ![](https://cdn-images-1.medium.com/max/800/1*VWnyo3Jg4brsW5YRZToCiQ.png)
 
 咱们会用一些 Bootstrap 网格来将这个板块一分为二。
-开始使用网格的前提在于，咱们必须让 `.row` 这个 class 成为 parent `div`。（译者注：把这个div放在最外面）
+开始使用网格的前提在于，咱们必须让 `.row` 这个 class 成为 parent `div`。（译者注：把这个 div 放在最外面）
 
 ```
 <div class="row></div>

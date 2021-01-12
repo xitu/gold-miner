@@ -9,7 +9,7 @@
 
 目的：实现 Python 对象和 JSON 字符串间的相互转化。
 
-`json` 模块提供了一个类似于 [`pickle`](https://pymotw.com/3/pickle/index.html#module-pickle) 的 API，用于将内存中的 Python 对象转换为 JavaScript Object Notation（JSON）的序列化表示形式。相较于 pickle，JSON 优势之一就是被许多语言实现和应用（特别是 JavaScript）。它被广泛用于 REST API 中Web服务器和客户端之间的通信，此外也可用于其他应用程序间的通信。
+`json` 模块提供了一个类似于 [`pickle`](https://pymotw.com/3/pickle/index.html#module-pickle) 的 API，用于将内存中的 Python 对象转换为 JavaScript Object Notation（JSON）的序列化表示形式。相较于 pickle，JSON 优势之一就是被许多语言实现和应用（特别是 JavaScript）。它被广泛用于 REST API 中 Web 服务器和客户端之间的通信，此外也可用于其他应用程序间的通信。
 
 ## 编码和解码简单的数据类型
 
@@ -600,9 +600,9 @@ $ python3 -m json.tool --sort-keys example.json
 参阅
 
 * [json 的标准库文档](https://docs.python.org/3.5/library/json.html)
-* [<span class="std std-ref">从Python2 迁移到 3 json 相关的笔记</span>](../porting_notes.html#porting-json)
+* [<span class="std std-ref">从 Python2 迁移到 3 json 相关的笔记</span>](../porting_notes.html#porting-json)
 * [JavaScript 对象表示法](http://json.org/) – JSON 主页, 内含相关文档和在其他语言中的实现。
-* [jsonpickle](http://code.google.com/p/jsonpickle/) – `<span class="pre">jsonpickle</span>` 支持将任意 Python 对象序列化为 json字符串。
+* [jsonpickle](http://code.google.com/p/jsonpickle/) – `<span class="pre">jsonpickle</span>` 支持将任意 Python 对象序列化为 json 字符串。
 
 
 ---

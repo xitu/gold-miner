@@ -12,7 +12,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2100/1*i3hzpSEiEEMTuWIYviYweQ.png)
 
-React 核心算法的更新已经进行了多年了 —— 这次更新提供了一个从底层重写了 React 的 reconciliation 算法（译注：reconciliation 算法，是 React 用来比较两棵 DOM 树差异、从而觉得哪一部分应当被更新的算法）。React将维护相同的公共API，并允许大多数项目立即升级（假设您已经修复了弃用警告）。新版本的发布主要有如下目的：
+React 核心算法的更新已经进行了多年了 —— 这次更新提供了一个从底层重写了 React 的 reconciliation 算法（译注：reconciliation 算法，是 React 用来比较两棵 DOM 树差异、从而觉得哪一部分应当被更新的算法）。React 将维护相同的公共 API，并允许大多数项目立即升级（假设您已经修复了弃用警告）。新版本的发布主要有如下目的：
 
 * 能够将渲染流程中可中断的工作（interruptible work）换划分为一个个的 chunk。 
 

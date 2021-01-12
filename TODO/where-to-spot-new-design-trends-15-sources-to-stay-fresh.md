@@ -37,7 +37,7 @@
 
 图为 Dribbble 的 Hot Shots of the Week
 
-**Abduzeedo** 的 [**Weekly Roundup**](http://abduzeedo.com/tags/weekly-roundup) **和** [**Daily Inspiration**](http://abduzeedo.com/tags/daily-inspiration) **系列** 为你列出的都是值得注意的新兴的创意作品。他们选择的作品是多样性的，涵盖了从3D作品到建筑美术。除了订阅 RSS ，你现在也可以通过[订阅他们的 newsletter](http://abduzeedo.com/mailchimp-subscribe-abduzeedo-mailing-list) 来定期的获取灵感。
+**Abduzeedo** 的 [**Weekly Roundup**](http://abduzeedo.com/tags/weekly-roundup) **和** [**Daily Inspiration**](http://abduzeedo.com/tags/daily-inspiration) **系列** 为你列出的都是值得注意的新兴的创意作品。他们选择的作品是多样性的，涵盖了从3D 作品到建筑美术。除了订阅 RSS ，你现在也可以通过[订阅他们的 newsletter](http://abduzeedo.com/mailchimp-subscribe-abduzeedo-mailing-list) 来定期的获取灵感。
 
 [**Sidebar.io**](https://sidebar.io) 每天都会为你列出5个需要查看的设计相关的链接，并且以干净的界面展示他们。你也可以订阅他们的电子邮件，在你的收件箱里接收这些推送。
 
@@ -69,7 +69,7 @@ Zurb 创办的 [**Pattern Tap**](https://zurb.com/patterntap) 精心收集了很
 
 Swissmiss 的 [**The Friday Link Pack**](http://www.swiss-miss.com/link-pack) 是一个让你在不同领域保持持续灵感的地方。Swissmiss 是 Tina Roth Eisenberg 创办的非常受欢迎的设计类博客，同时 Tina Roth Eisenberg 也是 Creative Mornings 的天才设计师。如果你觉着自己是个设计的多面手，那么你一定要看看 Tina 的建议 —— 它们来源于设计师的生活和琐碎花絮，这些够你周末看的了。
 
-[**CO.DESIGN**](https://www.fastcodesign.com/90148702/google-is-building-a-new-kind-of-clipart) 更像是集创新、管理、设计新闻等于一身的商业性的出版物。这个网站由 Fast Company 编辑，它帮助你了解设计决策和业务转换是如何共存的，为什么某些公司会出现新的创新性路径，以及如何从发散性的创意领域中汲取经验。CO.DESIGN 并不会告诉你例如3D图形正成为设计的趋势，而是会向你解释 [为什么 Google 正在这个方向进行探索](https://www.fastcodesign.com/90148702/google-is-building-a-new-kind-of-clipart)。如果你想抓住那些更广泛的具有直接性商业意义的设计趋势，一定要阅读它。
+[**CO.DESIGN**](https://www.fastcodesign.com/90148702/google-is-building-a-new-kind-of-clipart) 更像是集创新、管理、设计新闻等于一身的商业性的出版物。这个网站由 Fast Company 编辑，它帮助你了解设计决策和业务转换是如何共存的，为什么某些公司会出现新的创新性路径，以及如何从发散性的创意领域中汲取经验。CO.DESIGN 并不会告诉你例如3D 图形正成为设计的趋势，而是会向你解释 [为什么 Google 正在这个方向进行探索](https://www.fastcodesign.com/90148702/google-is-building-a-new-kind-of-clipart)。如果你想抓住那些更广泛的具有直接性商业意义的设计趋势，一定要阅读它。
 
 从 **Product Hunt 网站的** [**Design Tools**](https://www.producthunt.com/topics/design-tools) **和** [**Design Books**](https://www.producthunt.com/topics/design-books) 页面你可以找到一些新的对生活很有影响的作品。页面顶部有一个「本月热门」标签，可以帮你发现最新和最棒的作品。同时它也支持通过受欢迎度、创建时间、评论或者点赞等排序。
 

@@ -336,7 +336,7 @@ class _PostPageState extends State<PostPage>{
   // ...
 }
 ```
-> 如果 IntelliJ IDEA 在 `PostState` 下显示红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按Alt + Enter，然后选择导入。
+> 如果 IntelliJ IDEA 在 `PostState` 下显示红色下划线，这意味着 `PostState` 类没有在当前文件中定义。所以你需要导入它。将光标移至红色下划线部分，然后按 Alt + Enter，然后选择导入。
 
 现在，让我们定义一个方法，当我们成功获取 `Post` 列表时就返回一个 Widget ：
 

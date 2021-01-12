@@ -100,7 +100,7 @@ C r 0 8 196 android.support.v4.view.ViewPager
 
 输出结果显示了 (P)ackages，(C)lasses 以及 (M)ethods（上文第 1 列中的 _P / C / M_ ）是被这个文件所 (d)efined（定义）又或者仅仅被 (r)eferenced（引用）（上文第 2 列中的 _s / r_ ）。
 
-_referenced_ 类只能来自两个地方：Android 框架或其他模块，这取决于...答对了！使用一点 shell 魔法（我在后面的所有命令都是基于 Linux 系统的 bash命令），我们可以得到 ProGuard（混淆）规则中需要保留的类的列表：
+_referenced_ 类只能来自两个地方：Android 框架或其他模块，这取决于...答对了！使用一点 shell 魔法（我在后面的所有命令都是基于 Linux 系统的 bash 命令），我们可以得到 ProGuard（混淆）规则中需要保留的类的列表：
 
 ```
 $ apkanalyzer dex packages detail-debug.apk | grep "^C r" | cut -f4
@@ -166,7 +166,7 @@ com.example.android.unsplash.ui.pager.DetailViewPagerAdapter
 
 有两种方法可以做到这一点。更好的方法是在完整的，可安装的应用程序中重新使用 ProGuard（混淆）映射文件，但设置和维护起来很困难。更简单的方法是简单地禁用非基本特征中的混淆。因此，由于类和方法名较长，你的 APK 会稍微大一点，但你仍然享受这删除代码带来的好处，这是最重要的部分。
 
-要为非基本模块禁用混淆处理，请将此规则添加到其ProGuard（混淆）配置中：
+要为非基本模块禁用混淆处理，请将此规则添加到其 ProGuard（混淆）配置中：
 
 ```
 -dontobfuscate

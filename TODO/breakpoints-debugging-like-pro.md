@@ -9,7 +9,7 @@
 
 ![](https://s3.amazonaws.com/ckl-website-static/wp-content/uploads/2017/06/Banner_xcode3.png)
 
-当我刚开始成为一名iOS开发者的时候，我最大的问题是：当应用崩溃时，我真的不知道 iOS 、 Swift 、Objective-C 都是如何工作的。那时候，我写了很多烂代码，从不担心内存使用、内存访问、 ARC （译者注：Automatic Reference Counting ）。那仅仅是因为我不知道那些事情。看在上帝的份上，我是个菜鸟。
+当我刚开始成为一名 iOS 开发者的时候，我最大的问题是：当应用崩溃时，我真的不知道 iOS 、 Swift 、Objective-C 都是如何工作的。那时候，我写了很多烂代码，从不担心内存使用、内存访问、 ARC （译者注：Automatic Reference Counting ）。那仅仅是因为我不知道那些事情。看在上帝的份上，我是个菜鸟。
 
 就像许多新手一样， [Stack Overflow](http://www.stackoverflow.com "Stack Overflow") 社区教会我许多关于『如何做正确的事情』的方法。我学到了许多帮助提升工作过程的窍门。在这篇文章中，我将分享在这一阶段过程中最重要的一些工具，那就是**断点**！
 

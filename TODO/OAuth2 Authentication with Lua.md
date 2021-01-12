@@ -12,7 +12,7 @@
 
 用于验证用户的方法最初是被在运用在 PHP 框架 [Laravel](https://laravel.com/) 所搭建的 [moltin](https://moltin.com)  相关的 API 当中。这就意味着在认证身份、驳回请求或验证消息从而导致高度延时的用户请求之前需启动大量的代码。
 
-我不会详细地去介绍一个PHP框架需要花多长时间才能给出一个基本响应，但如果我们将它和其他语言/框架进行比较，也许你就可以理解相关的差异。
+我不会详细地去介绍一个 PHP 框架需要花多长时间才能给出一个基本响应，但如果我们将它和其他语言/框架进行比较，也许你就可以理解相关的差异。
 
 以下是它所呈现的大致情景：
 
@@ -31,14 +31,14 @@
 
 那么，我们决定将所有逻辑提升一层至 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) ，便能实现如下几点：
 
-*   解除与Monolitic API之间的耦合关系。
+*   解除与 Monolitic API 之间的耦合关系。
 *   改进认证次数和生成的访问/刷新令牌。
 *   改进拒绝非法访问令牌和身份验证证书的次数。
-*   改进身份验证访问令牌时的次数和重定向后再次向API发送请求的次数。
+*   改进身份验证访问令牌时的次数和重定向后再次向 API 发送请求的次数。
 
 我们希望并需要在请求 API 之前更好地控制每个请求，因此我们决定采用速度足够快的工具，使我们能对每个请求进行预处理，并可以十分灵活地将它们集成到我们的实际系统中。最终，我们选择了 OpenResty（一个 [Nginx](https://www.nginx.com/) 的修改版本），这使得我们可以使用 [Lua](http://www.lua.org) 来预先处理这些请求。因为 [Lua](http://www.lua.org) 强大并且速度快，足以解决这些问题，并且 [Lua](http://www.lua.org) 是许多大公司每天都在使用的一种受到高度认可的脚本语言。
 
-我们跟随Kong背后的思想使用 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 脚本，[Kong](https://github.com/Mashape/kong) 提供了一些可插入到你的API项目中的微服务。然而，我们发现Kong仍处于一个非常初期的阶段，实际上kong正在试图提供更多我们需要的东西。因此，我们决定实现自己的验证层，使我们对它有更多的控制权。
+我们跟随 Kong 背后的思想使用 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 脚本，[Kong](https://github.com/Mashape/kong) 提供了一些可插入到你的 API 项目中的微服务。然而，我们发现 Kong 仍处于一个非常初期的阶段，实际上 kong 正在试图提供更多我们需要的东西。因此，我们决定实现自己的验证层，使我们对它有更多的控制权。
 
 
 ### 基础架构
@@ -85,11 +85,11 @@ So for each of those endpoints we have to:
     }
     ...
 
-我们利用OpenResty的这两条指令 [content_by_lua_file](https://github.com/openresty/lua-nginx-module#content_by_lua_file) 和[access_by_lua_file](https://github.com/openresty/lua-nginx-module#access_by_lua_file)。
+我们利用 OpenResty 的这两条指令 [content_by_lua_file](https://github.com/openresty/lua-nginx-module#content_by_lua_file) 和[access_by_lua_file](https://github.com/openresty/lua-nginx-module#access_by_lua_file)。
 
 #### Lua 脚本
 
-这是个不可思议的环节。我们需要编写两个lua脚本来做到这一点：
+这是个不可思议的环节。我们需要编写两个 lua 脚本来做到这一点：
 
 **get_oauth_access.lua**
 
@@ -143,12 +143,12 @@ So for each of those endpoints we have to:
 
 #### 缓存层
 
-在这创建并且存储访问的令牌。我们可以按照自己的意愿对其进行删除、终止或刷新。我们将Redis作为存储层，使用 [openresty/lua-resty-redis](https://github.com/openresty/lua-resty-redis) 把Lua连接到Redis上。
+在这创建并且存储访问的令牌。我们可以按照自己的意愿对其进行删除、终止或刷新。我们将 Redis 作为存储层，使用 [openresty/lua-resty-redis](https://github.com/openresty/lua-resty-redis) 把 Lua 连接到 Redis 上。
 
 ### 资源
 
 
-以下是我们在创建验证层时所用到的一些与Lua相关的有趣资源。
+以下是我们在创建验证层时所用到的一些与 Lua 相关的有趣资源。
 
 #### Lua
 

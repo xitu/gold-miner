@@ -653,7 +653,7 @@ console.log(operate(10, 2, sum, multiply));    // 必须返回 32 -> (10 + 2) + 
 
 下面列出一些帮你了解 `this` 如何使用的书籍：
 
-*   [编写高质量 JavaScript代码的68个有效方法](http://amzn.to/2HGhsDP)：虽然是本古董，但此书确实写得挺好而且还提供了简单易懂的示例，教你怎么用好 this、apply、call 和 bind 来写出好代码。书的作者是 [TC39](https://www.ecma-international.org/memento/TC39-M.htm) 的一个成员 Dave Hermann，所以你大可放心，他对 JavaScript 肯定理解深刻。
+*   [编写高质量 JavaScript 代码的68个有效方法](http://amzn.to/2HGhsDP)：虽然是本古董，但此书确实写得挺好而且还提供了简单易懂的示例，教你怎么用好 this、apply、call 和 bind 来写出好代码。书的作者是 [TC39](https://www.ecma-international.org/memento/TC39-M.htm) 的一个成员 Dave Hermann，所以你大可放心，他对 JavaScript 肯定理解深刻。
 *   [你不知道的 JS —— this 和对象原型](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)：Kyle Simpson 以一种清晰明了、对初学者很友好的方式，解释了对象和原型是怎么相互影响运作起来的，写得很棒！
 
 ## 总结

@@ -45,7 +45,7 @@ d3.select("body")
   .text(title);
 ```
 
-在继续操作之前，先添加一些自定义CSS。
+在继续操作之前，先添加一些自定义 CSS。
 
 ```css
 body {

@@ -64,7 +64,7 @@ BK 首创的分布式 VCS 打破了这种模式。Git、Mercurial 和 Monotone �
 
 ## 指定一名维护人员
 
-在编写了 Git 之后，Torvalds 将其开放给开源社区进行审查和贡献。在那些参与者中，有一位开发人员特别引人注目：Junio Hamano。因此，仅仅几个月后，Torvalds 就可以[抽出身来](https://marc.info/?l=git&m=112243466603239)，专注于Linux，把维护 Git 的责任移交给 Hamano。**“当涉及到代码和功能时，他有明显的、非常重要但难以具体描述的‘好品味’。”**Torvalds 说，**“Junio 确实应该接受所有的荣誉，作为发起人，我理应获得设计 Git 的荣誉。但作为一个项目，Junio 是维护它的人，让它成为一个非常好用的工具。”** 
+在编写了 Git 之后，Torvalds 将其开放给开源社区进行审查和贡献。在那些参与者中，有一位开发人员特别引人注目：Junio Hamano。因此，仅仅几个月后，Torvalds 就可以[抽出身来](https://marc.info/?l=git&m=112243466603239)，专注于 Linux，把维护 Git 的责任移交给 Hamano。**“当涉及到代码和功能时，他有明显的、非常重要但难以具体描述的‘好品味’。”**Torvalds 说，**“Junio 确实应该接受所有的荣誉，作为发起人，我理应获得设计 Git 的荣誉。但作为一个项目，Junio 是维护它的人，让它成为一个非常好用的工具。”** 
 
 显然，Junio 是一个不错的选择，因为 15 年后，他仍然作为一个[仁慈的独裁者]((http://oss-watch.ac.uk/resources/benevolentdictatorgovernancemodel))来主导并维护 Git，这意味着他控制着 Git 未来发展的方向，对代码的修改拥有最终的决定权，并且他保持着最多提交的记录。
 
@@ -167,7 +167,7 @@ Schindelin 在 Git for Windows 上工作了多年，而微软没有任何人注�
 不过，Torvalds 并不这么认为。**“我对微软的收购没有任何保留意见，部分原因是 Git 的基本分布式特性 —— 它避免了政治问题，另一方面也避免了可怕的‘托管公司控制项目’。我不担心的另一个原因是，我认为微软现在是一家不同的公司...微软根本不是开源的敌人。”**他说，**“在纯粹个人层面上，当我听说微软在 GitHub 上花了很多钱时，我只是说，‘现在我开始的两个项目已经变成了价值数十亿美元的产业’，没有多少人能这么说。我也不只是一个“昙花一现的人”。**
 **“这是‘生活幸福’的一部分。我很高兴我对世界产生了积极而有意义的影响。我个人可能没有直接从 Git 上赚到任何钱，但它给了我能够做我真正的工作和激情，[Linux]。我不再是一个饥肠辘辘的学生了，我作为一个受人尊敬的程序员做得很好。所以其他人在 Git 上获得的成功绝不会让我感到沮丧。”**
 
-**贡献者。感谢：Linus Torvalds，Git 和 Linux 的创始人；Johannes Schindelin，微软软件工程师，Git for Windows 的维护者；Jeff King， GitHub 的 OSS 开发人员；Tom Preston Werner，Chatterbug 的联合创始人，GitHub 的联合创始人；Edward Thomson，GitHub 的产品经理，以及 libgit2 的维护者；Ben Straub，Pro Git 的作者；Evan Phoenix，Rubinius 的创建者；GitLab 高级后端工程师 Christian Couder；GitLab首席营销官 Todd Barr；EPAM 交付管理总监 Patrick Stephens。**
+**贡献者。感谢：Linus Torvalds，Git 和 Linux 的创始人；Johannes Schindelin，微软软件工程师，Git for Windows 的维护者；Jeff King， GitHub 的 OSS 开发人员；Tom Preston Werner，Chatterbug 的联合创始人，GitHub 的联合创始人；Edward Thomson，GitHub 的产品经理，以及 libgit2 的维护者；Ben Straub，Pro Git 的作者；Evan Phoenix，Rubinius 的创建者；GitLab 高级后端工程师 Christian Couder；GitLab 首席营销官 Todd Barr；EPAM 交付管理总监 Patrick Stephens。**
 
 **本文出自 Behind the Code —— 由开发者创建的服务于开发者的媒体平台。通过访问 [Behind the Code](https://www.welcometothejungle.com/collections/behind-the-code)，可以发现更多的文章和视频！**
 

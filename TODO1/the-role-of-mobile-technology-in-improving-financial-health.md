@@ -19,9 +19,9 @@
 
 ### **移动技术的作用**
 
-多亏了行业的进步，移动技术可以帮助缩小那些受到的经济服务不足的人与能够获得高质量金融解决方案的人之间的差距。根据 [最近的尼尔森调查](http://www.nielsen.com/us/en/insights/news/2016/millennials-are-top-smartphone-users.html)，Android操作系统是用户最多的操作系统，51％的美国智能手机运行在该系统上。因此，Android正处于一个有利的位置，可以帮助缩小这个差距，并为历史上获得服务不足的人群提供优质的财务解决方案。
+多亏了行业的进步，移动技术可以帮助缩小那些受到的经济服务不足的人与能够获得高质量金融解决方案的人之间的差距。根据 [最近的尼尔森调查](http://www.nielsen.com/us/en/insights/news/2016/millennials-are-top-smartphone-users.html)，Android 操作系统是用户最多的操作系统，51％的美国智能手机运行在该系统上。因此，Android 正处于一个有利的位置，可以帮助缩小这个差距，并为历史上获得服务不足的人群提供优质的财务解决方案。
 
-改善获得服务欠缺者的财务状况的挑战已经引起了金融科技企业家的共鸣。Jimmy Chen，[Propel](https://www.joinpropel.com/)的创始人和CEO，创建了 [Fresh EBT](https://play.google.com/store/apps/details?id=com.propel.ebenefits&hl=en_GB&e=-EnableAppDetailsPageRedesign)，一个金融科技移动服务应用程序，旨在帮助数百万食品券收件人管理他们的收益，省钱，找工作，并评论道：
+改善获得服务欠缺者的财务状况的挑战已经引起了金融科技企业家的共鸣。Jimmy Chen，[Propel](https://www.joinpropel.com/)的创始人和 CEO，创建了 [Fresh EBT](https://play.google.com/store/apps/details?id=com.propel.ebenefits&hl=en_GB&e=-EnableAppDetailsPageRedesign)，一个金融科技移动服务应用程序，旨在帮助数百万食品券收件人管理他们的收益，省钱，找工作，并评论道：
 
 _“ Android 被用于社会经济范围的每个部分，使其成为达到目标人群的理想平台，Google Play 工具帮助我们优化了信息并为用户创造了高质量的体验。通过 Android 和 Play，我们能够覆盖并帮助财务状况不足的社区重新站起来。”_
 
@@ -29,7 +29,7 @@ _“ Android 被用于社会经济范围的每个部分，使其成为达到目�
 
 ### **使开发人员有兴趣开发和开发一个财务健康应用的 6 个原则**
 
-在四月 25 号，[#财务健康关键](https://cfsinnovation.org/news/finhealth-matters-day-2/) 日，我们希望通过关注学生的财务健康来提高对 `美国人` 财务状况的认识。学生是我们国家的未来，而且，[根据CFSI最近的一项研究](https://s3.amazonaws.com/cfsi-innovation-files/wp-content/uploads/2017/12/18203926/CommCollegeJourney-FINAL.pdf)，63% 的社区大学学生靠工资生活，75% 的学生甚至没有 1000 美元的应急基金。去年早些时候，我们与消费者财务健康权威、创始人CFSI合作，制定了6条原则，帮助您构建最佳的类别金融解决方案。[财务管理方案实验室](http://finlab.cfsinnovation.com/) 创始人CFSI合作, 制定了6条原则，帮助您构建最佳的不同类别金融解决方案。如果您是有兴趣处理财务健康的开发人员或企业家，并希望有所作为，请查看以下6条原则：
+在四月 25 号，[#财务健康关键](https://cfsinnovation.org/news/finhealth-matters-day-2/) 日，我们希望通过关注学生的财务健康来提高对 `美国人` 财务状况的认识。学生是我们国家的未来，而且，[根据 CFSI 最近的一项研究](https://s3.amazonaws.com/cfsi-innovation-files/wp-content/uploads/2017/12/18203926/CommCollegeJourney-FINAL.pdf)，63% 的社区大学学生靠工资生活，75% 的学生甚至没有 1000 美元的应急基金。去年早些时候，我们与消费者财务健康权威、创始人 CFSI 合作，制定了6条原则，帮助您构建最佳的类别金融解决方案。[财务管理方案实验室](http://finlab.cfsinnovation.com/) 创始人 CFSI 合作, 制定了6条原则，帮助您构建最佳的不同类别金融解决方案。如果您是有兴趣处理财务健康的开发人员或企业家，并希望有所作为，请查看以下6条原则：
 
 #### **1) 理解你的受众**
 
@@ -37,7 +37,7 @@ _“ Android 被用于社会经济范围的每个部分，使其成为达到目�
 
 #### **2) Focus on access**
 
-记住，那些获得的服务不到位的消费者往往从事多份工作，可能没有多少时间来管理日常财务。思考一下如何将产品的用途无缝地融入到他们的日常生活中。认识到这些消费者可能会不成比例地使用低端手机，因此可能会面临设备性能和存储能力有限的问题。他们也可能只有有限的流量，因此请注意整体流量消耗。最后，请记住，许多获得的服务不足的人可能不是母语为英语的人; 因此，app 和 Play 商店列表内容应翻译为战略性二级语言。Google Play为Android开发人员整合了大量资源，以应对这些挑战，这也是 “[为全球人建设计划](https://developer.android.com/topic/billions/index.html)” 的一部分。
+记住，那些获得的服务不到位的消费者往往从事多份工作，可能没有多少时间来管理日常财务。思考一下如何将产品的用途无缝地融入到他们的日常生活中。认识到这些消费者可能会不成比例地使用低端手机，因此可能会面临设备性能和存储能力有限的问题。他们也可能只有有限的流量，因此请注意整体流量消耗。最后，请记住，许多获得的服务不足的人可能不是母语为英语的人; 因此，app 和 Play 商店列表内容应翻译为战略性二级语言。Google Play 为 Android 开发人员整合了大量资源，以应对这些挑战，这也是 “[为全球人建设计划](https://developer.android.com/topic/billions/index.html)” 的一部分。
 
 #### **3) 建立并维护信托**
 

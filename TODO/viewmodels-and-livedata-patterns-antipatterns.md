@@ -15,9 +15,9 @@
 
 *用 Architecture Components 构建的 APP 中实体的典型交互* 
 
-理想情况下，ViewModel 不应该知道任何关于 Android 的事情（如Activity、Fragment）。 这样会大大改善可测试性，有利于模块化，并且能够减少内存泄漏的风险。一个通用的法则是，你的 ViewModel 中没有导入像 `android.*`这样的包（像 `android.arch.*` 这样的除外)。这个经验也同样适用于 MVP 模式中的 Presenter 。
+理想情况下，ViewModel 不应该知道任何关于 Android 的事情（如 Activity、Fragment）。 这样会大大改善可测试性，有利于模块化，并且能够减少内存泄漏的风险。一个通用的法则是，你的 ViewModel 中没有导入像 `android.*`这样的包（像 `android.arch.*` 这样的除外)。这个经验也同样适用于 MVP 模式中的 Presenter 。
 
-> ❌ 不要让 ViewModel（或Presenter）直接使用 Android 框架内的类
+> ❌ 不要让 ViewModel（或 Presenter）直接使用 Android 框架内的类
 
 条件语句、循环和一般的判定等语句应该在 ViewModel 或者应用程序的其他层中完成，而不是在 Activity 或 Fragment 里。视图层通常是没有经过单元测试的（除非你用上了  [Robolectric](http://robolectric.org/)），所以在里面写的代码越少越好。View 应该仅仅负责展示数据以及发送各种事件给 ViewModel 或 Presenter。这被称为 [ Passive _View_](https://martinfowler.com/eaaDev/PassiveScreen.html) 模式。（忧郁的 View，哈哈哈）
 

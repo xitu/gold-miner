@@ -121,7 +121,7 @@ NotificationCompat.Action action =
 
 如果你为 Android Wear 创建了 [堆通知](https://developer.android.com/training/wearables/notifications/stacks.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog)，这里使用的 API 是完全一样的。只需将 [setGroup()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroup(java.lang.String)) 添加到每个单独通知中，将那些通知“绑定”到一起。不仅限于绑定成一组，所有捆绑通知是十分灵活的。对于邮件应用，可能考虑每个账户的邮件“捆”成一组。
 
-创建概要通知也是很重要的。这个概要通知，通过 [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean)) 展示通知，这也是唯一支持 Marshmallow 和更低版本的设备的通知，会归纳所有个人通知（你猜对了）。这是使用 InboxStyle 的最佳时机，虽然没有要求用它。在 Android N 或更高版本设备上，从概要通知上提取的某些信息（如 subtext、content intent 和 delete intent），来为捆绑通知生成 collapsed 通知，所以你应该继续在所有 API级别上生成概要通知。
+创建概要通知也是很重要的。这个概要通知，通过 [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean)) 展示通知，这也是唯一支持 Marshmallow 和更低版本的设备的通知，会归纳所有个人通知（你猜对了）。这是使用 InboxStyle 的最佳时机，虽然没有要求用它。在 Android N 或更高版本设备上，从概要通知上提取的某些信息（如 subtext、content intent 和 delete intent），来为捆绑通知生成 collapsed 通知，所以你应该继续在所有 API 级别上生成概要通知。
 
 为了提升所有 Android N 设备的用户体验，**发送 4 个或者更多通知时没有以组的方式，这些通知将自动合并成一组**
 

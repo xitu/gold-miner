@@ -23,7 +23,7 @@ GraphQL 是一种 API 查询语言。虽然它和 REST 完全不同，但是 Gra
 
 ![Normal Image](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/05/1494257477001-TraditionalWebserver.png)
 
-## REST: API的兴起
+## REST: API 的兴起
 
 快速前往 2007 年，当时乔布斯在展示 iPhone。智能手机除了对世界各地的文化、交流造成深远的影响，它还让开发者的工作变得更加复杂了。智能手机改变了当时开发的模式，在短短几年，我们突然间有了台式机、iPhone、Android 和平板电脑。
 
@@ -55,7 +55,7 @@ GraphQL 是一种由 Facebook 设计并开源的 **API 查询语言**。在构�
 
 ## 使用 REST 来查询
 
-我们的 RESTful API包含了一些路径：
+我们的 RESTful API 包含了一些路径：
 
 ![Markdown](http://i4.buimg.com/1949/6c5d1503224ef6b2.png)
 

@@ -27,7 +27,7 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 
 ### 更干净、精简的代码
 
-旧的 slack.com 和我们基于 web 的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的UI框架，名为 :spacesuit: **👩🏾‍🚀**。
+旧的 slack.com 和我们基于 web 的 Slack 客户端共享了很多代码和资源依赖。我们的目标之一就是将网站和 “web app” 解耦，以简化我们的代码库。通过只包含我们运行 slack.com 所需要的资源的方式，可以提高站点的稳定性，减少开发人员的困惑，创建一个更容易迭代的代码库。这项工作的基本部分之一就是创建我们新的 UI 框架，名为 :spacesuit: **👩🏾‍🚀**。
 
 :spacesuit: 框架包含基于类(class)的可重用组件和用于标准化我们营销页面的工具类。它降低了我们的 CSS 载荷，在一种情况下降低了近70%(从 416kB 降低至 132kB).
 
@@ -147,7 +147,7 @@ Slack.com (从左到右: 2013 年 8 月, 2017 年 1 月, 2017 年 8 月)
 
 ### 流式排版
 
-一旦我们有响应式的布局，我们需要同样适应性的排版。我们使用了[Less mixins](http://lesscss.org/features/#mixins-feature) 来帮助我们微调排版。排版是一个可以作为所有排版设置单一来源的 mixin。对于每种类型的样式，mixin中都会创建一个包含样式名称或者用途的新行，后跟每种类型样式的设置列表。它们的顺序是：`font-family`，min 和 max `font-size` (默认单位是rem)，`line-height`，`font-weight`，以及任何的 `text-transforms`。例如 `uppercase`。为了清楚起见，每种类型名称都以 `display-as-`作为前缀，确保其目的明确。
+一旦我们有响应式的布局，我们需要同样适应性的排版。我们使用了[Less mixins](http://lesscss.org/features/#mixins-feature) 来帮助我们微调排版。排版是一个可以作为所有排版设置单一来源的 mixin。对于每种类型的样式，mixin 中都会创建一个包含样式名称或者用途的新行，后跟每种类型样式的设置列表。它们的顺序是：`font-family`，min 和 max `font-size` (默认单位是 rem)，`line-height`，`font-weight`，以及任何的 `text-transforms`。例如 `uppercase`。为了清楚起见，每种类型名称都以 `display-as-`作为前缀，确保其目的明确。
 
 下面是 mixin 的简化版本：
 

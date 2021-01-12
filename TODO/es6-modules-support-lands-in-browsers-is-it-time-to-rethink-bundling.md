@@ -203,7 +203,7 @@ import dep1 from './dep-1.js';
 
 还没完！我们现在能为 Chrome 提供压缩过的代码包，但是还不能为 Safari Preview 提供单独压缩过的文件。我们如何让这些文件变得更小呢？UglifyJS 能完成这项任务吗？
 
-然而必须指出，UglifyJS 并不能完全处理好 ES6 代码。虽然它有个 `harmony` 开发版分支（[地址](https://github.com/mishoo/UglifyJS2/tree/harmony)）支持ES6，但不幸的是在我写这 3 个 JavaScript 文件的时候它并不能正常工作。
+然而必须指出，UglifyJS 并不能完全处理好 ES6 代码。虽然它有个 `harmony` 开发版分支（[地址](https://github.com/mishoo/UglifyJS2/tree/harmony)）支持 ES6，但不幸的是在我写这 3 个 JavaScript 文件的时候它并不能正常工作。
 
 ```
 $ uglifyjs dep-1.js -o dep-1.min.js

@@ -273,7 +273,7 @@ class GameViewController: UIViewController {
 
 `GameViewController` 与 `SquareShapeView` 紧密耦合，这将不能为以后使用不同的视图来表示正方形或引入第二个形状留出余地。
 
-你的第一个任务是使用 **抽象工厂** 设计模式给你的`GameViewController` 进行简化和解耦。你将要在代码中使用此模式，该代码建立用于构造一组相关对象的API，例如你将暂时使用的 shape view，而无需对特定类进行硬编码。
+你的第一个任务是使用 **抽象工厂** 设计模式给你的`GameViewController` 进行简化和解耦。你将要在代码中使用此模式，该代码建立用于构造一组相关对象的 API，例如你将暂时使用的 shape view，而无需对特定类进行硬编码。
 
 新建一个 Swift 文件，命名为 **ShapeViewFactory.swift** 并保存，然后添加以下代码：
 

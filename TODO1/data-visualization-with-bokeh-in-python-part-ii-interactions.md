@@ -158,7 +158,7 @@ def make_plot(src):
 
 #### 创建可交互的小部件
 
-一旦我们在 Bokeh 中创建一个基础图形，通过小部件添加交互就相对简单了。我们需要的第一个小部件是允许用户选择要显示的航空公司的选择框。这是一个允许根据需要进行尽可能多的选择的复选框控件，在 Bokeh 中称为T `CheckboxGroup.`。为了制作这个可选工具，我们需要导入 `CheckboxGroup` 类来创建带有两个参数的实例，`labels`：我们希望显示每个框旁边的值以及 `active`：检查选中的初始框。以下创建的 `CheckboxGroup` 代码中附有所需的运营商。
+一旦我们在 Bokeh 中创建一个基础图形，通过小部件添加交互就相对简单了。我们需要的第一个小部件是允许用户选择要显示的航空公司的选择框。这是一个允许根据需要进行尽可能多的选择的复选框控件，在 Bokeh 中称为 T `CheckboxGroup.`。为了制作这个可选工具，我们需要导入 `CheckboxGroup` 类来创建带有两个参数的实例，`labels`：我们希望显示每个框旁边的值以及 `active`：检查选中的初始框。以下创建的 `CheckboxGroup` 代码中附有所需的运营商。
 
 ```Python
 from bokeh.models.widgets import CheckboxGroup

@@ -7,7 +7,7 @@
 
 # 你 Ladar 中该珍藏的：iOS 布局语言
 
-如果你在iOS开发时使用 `Auto Layout` 来纯代码布局的话，你很容易就会感到啰嗦和乏味。DSL（译者注：原意为「领域特定语言」，在本文中根据语境译为「布局语言」）能够将基础的API转换成可以简单、快速开发和阅读的代码。有很多这类布局语言支持 Auto Layout，甚至有几个还支持手动 frame 布局。
+如果你在 iOS 开发时使用 `Auto Layout` 来纯代码布局的话，你很容易就会感到啰嗦和乏味。DSL（译者注：原意为「领域特定语言」，在本文中根据语境译为「布局语言」）能够将基础的 API 转换成可以简单、快速开发和阅读的代码。有很多这类布局语言支持 Auto Layout，甚至有几个还支持手动 frame 布局。
 
 我可以给你推荐一些我偶然遇到并且保存到我的 Ladar 书签中的布局语言（别忘了你可以在 Github 中 star 这些库，并且可以自动更新到你的 Lardar 账户中）。
 
@@ -237,10 +237,10 @@ constrain(view1, view2, view3) { view1, view2, view3 in
 
 你可能还会喜欢下面这些库：
 
-*   [LayoutKit](https://github.com/linkedin/LayoutKit) [Swift, Objective-C]，自动布局的另一种选择，LinkedIn开发。
+*   [LayoutKit](https://github.com/linkedin/LayoutKit) [Swift, Objective-C]，自动布局的另一种选择，LinkedIn 开发。
 *   [PinLayout](https://github.com/layoutBox/PinLayout) [Swift]，一个手动 frame 布局的布局语言。
 *   [FlexLayout](https://github.com/layoutBox/FlexLayout) [Swift]，Yoga/Flexbox 的 Swift 版本接口, 由 PinLayout 背后的团队开发。
-*   [Layout](https://github.com/schibsted/layout) [Swift]，使用XML模板文件布局的框架。
+*   [Layout](https://github.com/schibsted/layout) [Swift]，使用 XML 模板文件布局的框架。
 
 * * *
 

@@ -519,7 +519,7 @@ umbrellaNode.update(deltaTime: dt)
 
 再次运行程序，雨伞应该能够正确地跟着点击和拖动手势进行移动了。
 
-嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞响应我们的手势。你可以在 [GitHub上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[\[27\]](#note-27)</sup> 第一课内容所涉及的源代码。
+嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞响应我们的手势。你可以在 [GitHub 上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[\[27\]](#note-27)</sup> 第一课内容所涉及的源代码。
 
 你完成的怎么样？你的代码实现是否和我的示例几乎一样？哪里有不同呢？你是否优化了示例代码？教程中是否有阐述不清晰的地方？请在评论中写下你的想法。
 

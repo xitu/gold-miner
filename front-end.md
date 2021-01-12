@@ -400,7 +400,7 @@
 * [将项目迁移到 Yarn 然后又迁回到 npm](https://juejin.im/post/5b3b5735f265da0f894b443d)（[zhongdeming428](https://github.com/zhongdeming428) 翻译）
 * [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第二部分](https://juejin.im/post/5b357c20f265da595f0d3f91)（[geniusq1981](https://github.com/geniusq1981) 翻译）
 * [怎样使用简单的三角函数来创建更好的加载动画](https://juejin.im/post/5b33055f518825748871c590)（[zhongdeming428](https://github.com/zhongdeming428) 翻译）
-* [WOFF文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)（[zhmhhu](https://github.com/zhmhhu) 翻译）
+* [WOFF 文件格式 1.0](https://github.com/xitu/gold-miner/blob/master/TODO1/recommendation-woff-2012-12-13.md)（[zhmhhu](https://github.com/zhmhhu) 翻译）
 * [Vue.js 还是 React？你会选择哪一个？为什么?](https://juejin.im/post/5b25b3a16fb9a00e70686180)（[allenlongbaobao](https://github.com/allenlongbaobao) 翻译）
 * [或许你并不需要 Rust 和 WASM 来提升 JS 的执行效率 — 第一部分](https://juejin.im/post/5b24cf7e51882574c2652f61)（[shery15](https://github.com/shery15) 翻译）
 * [从零开始，在 Redux 中构建时间旅行式调试](https://juejin.im/post/5b24c0bce51d4558ba1a5584)（[weberpan](https://github.com/weberpan) 翻译）
@@ -496,7 +496,7 @@
 * [🚀webpack 4 测试版 —— 现在让我们先一睹为快吧!](https://juejin.im/post/5a72d569f265da3e3a6e2118)（[FateZeros](https://github.com/FateZeros) 翻译）
 * [Object Composition 中的宝藏](https://juejin.im/post/5a648ed0518825733201b818)（[yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译）
 * [Angular 安全 —— 使用 JSON 网络令牌（JWT）验证：完全指南](https://juejin.im/post/5a64267c518825734e3e5c22)（[Raoul1996](https://github.com/Raoul1996) 翻译）
-* [使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)（[sakila1012](https://github.com/sakila1012) 翻译）
+* [使用深度学习自动生成 HTML 代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)（[sakila1012](https://github.com/sakila1012) 翻译）
 * [JavaScript 自动化爬虫入门指北（Chrome + Puppeteer + Node JS）：和 Headless Chrome 一起带你装逼带你飞](https://juejin.im/post/5a4e1038f265da3e591e1247)（[pot-code](https://github.com/pot-code) 翻译）
 * [JavaScript 是如何工作的：深入 WebSockets 和使用了 SSE+ 的 HTTP/2，如何在二者当中做出选择](https://juejin.im/post/5a522647518825732d7f6cbb)（[yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译）
 * [Redux-recompose 介绍：优雅的编写 Redux 中的 action 和 reducer](https://juejin.im/post/5a4e0d7651882573315c28a1)（[pot-code](https://github.com/pot-code) 翻译）
@@ -628,7 +628,7 @@
 * [同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[lsvih](https://github.com/lsvih) 翻译）
 * [webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[reid3290](https://github.com/reid3290) 翻译）
 * [写给“老派” Web 开发者的“现代” JavaScript 指南](https://juejin.im/post/58ebab0c8d6d81006191376f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[SunCafe](http://suncafe.cc/) 翻译）
-* [CSS很棒，只是真的太难了](https://juejin.im/entry/58eae24a61ff4b0061a6a102?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[ZhangFe](https://github.com/ZhangFe) 翻译）
+* [CSS 很棒，只是真的太难了](https://juejin.im/entry/58eae24a61ff4b0061a6a102?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[ZhangFe](https://github.com/ZhangFe) 翻译）
 * [Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[gy134340](http://gy134340.com/) 翻译）
 * [setState() 门事件](https://juejin.im/post/58e5aeccb123db15eb80ecb0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[reid3290](https://github.com/reid3290) 翻译）
 * [如何使用 JavaScript 构建响应式引擎 —— Part 2：计算属性和依赖追踪](https://juejin.im/post/58ddeb1a570c3500579016ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[IridescentMia](https://github.com/IridescentMia) 翻译）

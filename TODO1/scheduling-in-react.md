@@ -222,7 +222,7 @@ function sendDeferredAnalyticsNotification(value) {
 这就是说，调度器有两个限制：
 
 1.  **资源抢夺。** 调度器尝试所有使用所有的可用资源。如果调度器的多个实例运行在同一个线程上并争夺资源，就会导致问题。我们需要确保应用程序的所有部分使用的是同一个调度器实例。
-2.  **通过浏览器工作平衡用户定义的任务。** 由于调度器在浏览器中运行，因此它只能访问浏览器公开的API。文档生命周期（如渲染或垃圾回收）可能会以无法控制的方式干扰工作。
+2.  **通过浏览器工作平衡用户定义的任务。** 由于调度器在浏览器中运行，因此它只能访问浏览器公开的 API。文档生命周期（如渲染或垃圾回收）可能会以无法控制的方式干扰工作。
 
 为了消除这些限制，Google Chrome 团队正在与 React、Polymer、Ember、Google Maps 和 Web Standards Community 合作，在浏览器中创建 [Scheduling API](https://github.com/spanicker/main-thread-scheduling)。是不是很让人兴奋！
 

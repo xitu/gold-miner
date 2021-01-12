@@ -65,7 +65,7 @@
 
 ![](http://matthewwear.xyz/content/images/2016/05/Screenshot-2016-05-31-10-24-05.png)
 
-当然，如果一会你想在代码里改变状态栏的颜色或`ScrimInsetLayout`的颜色，你可以在`DrawerLayout`中通过setters方法来获取并改变。
+当然，如果一会你想在代码里改变状态栏的颜色或`ScrimInsetLayout`的颜色，你可以在`DrawerLayout`中通过 setters 方法来获取并改变。
 
     drawerLayout.setStatusBarBackgroundColor(ContextCompat.getColor(this, R.color.wierd_green));  
 

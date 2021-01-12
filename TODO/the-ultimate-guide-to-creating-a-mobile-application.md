@@ -129,7 +129,7 @@ UI 阶段的原型是建立用来展示应用大概样式的而不是测试和�
 
 在 Tubik ，我们和其它的 iOS 开发者一样，使用高效、灵活、功能齐全的 Xcode 进行实际的编码。就像在 [官方网站](http://help.apple.com/xcode/mac/8.0/#/devc8c2a6be1) 上描述的那样，**Xcode 是 Apple 的集成开发环境（IDE）。使用 Xcode 来为苹果设备开发软件，包括 iPad、iPhone、Apple Watch、Apple TV 和 Mac。Xcode 提供管理整个工作流的工具，从建立应用到测试、优化和在 Apple Store 上架。**
 
-Xcode 只在 Mac 设备上运行，并且拥有开发 iOS 应用所需的一切。官方没有提供在 Windows 或者 Linux 上运行的方式。这意味着如果想为iPad、iPhone、Apple Watch、Apple TV 和 Mac 开发应用而没有 Mac 的话，就必须买一台去。
+Xcode 只在 Mac 设备上运行，并且拥有开发 iOS 应用所需的一切。官方没有提供在 Windows 或者 Linux 上运行的方式。这意味着如果想为 iPad、iPhone、Apple Watch、Apple TV 和 Mac 开发应用而没有 Mac 的话，就必须买一台去。
 
 iOS 开发者最常用的两种语言是 Objective-C 和 Swift ——我们在 [早期的博文](http://tubikstudio.com/swift-or-objective-c-tool-tips-for-ios-developers/) 里对比了两者的优缺点。从 2014 年开始，Swift 在开发中开始被更多的使用，因为 Objective-C 对于开发者而言是一种较难上手的语言。尽管如此，Objective-C 对于早期低 RAM 和处理器的 iPhone 硬件来说有着良好适配性，并且更易维护基于 Objective-C 开发的应用。Swift 紧跟最新设备的步伐，让编程人员在编码过程中更快（译者特别保留的校对注：真的能更快啊，语义精简，语法糖多），它也更易用、更精简、更安全。创建 iOS 10 的应用时，需要安装 Xcode 8 和 iOS 10 SDK，也可以在 Apple 找到。在这个版本的 Xcode 上 Swift 和 SDK 有些重要更新。
 

@@ -110,7 +110,7 @@ body {
 
 ![](https://cdn-images-1.medium.com/max/800/1*AF1rXY_iumutiVOMSXf_LQ.gif)
 
-我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。默认情况下，`HTML` 元素不会被切分。所有HTML元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
+我们可以看到 loading 圆环一半是蓝色，另一半是灰色的。默认情况下，`HTML` 元素不会被切分。所有 HTML 元素可以看作*盒子*。第一个真正的挑战是如何使 class 为 `.loading__anim` 的元素包含两种边框颜色。
 
 如果你现在还没有太明白，不要担心。后面会继续进行讲解。
 

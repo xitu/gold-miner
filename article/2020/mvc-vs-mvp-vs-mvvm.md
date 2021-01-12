@@ -58,7 +58,7 @@ MVP 是 MVC 设计模式的衍生品，该模式专注于改进展示逻辑。�
 
 ## Model-View-ViewModel
 
-MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation（WPF）和 Silverlight，由 John Grossman 于 2005 年在有关 Avalon（WPF的代号）的博客文章中正式提出。这种基于 MVC 和 MVP 的模式致力于将应用中 UI 的开发与业务逻辑的开发分离。
+MVVM 最初是由 Microsoft 提出的，用于 Windows Presentation Foundation（WPF）和 Silverlight，由 John Grossman 于 2005 年在有关 Avalon（WPF 的代号）的博客文章中正式提出。这种基于 MVC 和 MVP 的模式致力于将应用中 UI 的开发与业务逻辑的开发分离。
 
 ![](https://cdn-images-1.medium.com/max/2730/1*j6dM1iDMAn3d94g4tvuLFg.png)
 

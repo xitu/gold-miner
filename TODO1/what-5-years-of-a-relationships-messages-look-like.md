@@ -96,7 +96,7 @@ df[‘WordCount’].rolling(window = x).mean()
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2_iBufQhAZMq7sJK1zkrZw.png)
 
-原始的Python并不兼容这些字符，然而有一个[小的第三方库（可以称为 “emoji”）](https://pypi.org/project/emoji/)支持识别、计算和解码字符串中的表情符号。
+原始的 Python 并不兼容这些字符，然而有一个[小的第三方库（可以称为 “emoji”）](https://pypi.org/project/emoji/)支持识别、计算和解码字符串中的表情符号。
 
 如果我们研究“非文本”消息，可以发现表情符号对于我女朋友是一种非常重要的沟通方式。另一方面，我通过分享照片、链接（通常是 Reddit 的）和[贴纸]。
 ![](https://cdn-images-1.medium.com/max/2000/1*fZAjwVn3eED7un7BDeCbYA.png)（Telegram 较早推出的一个功能）来增加消息量。

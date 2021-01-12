@@ -59,7 +59,7 @@
 这些步骤可以很容易的通过 `TransitionManager` 类来实现。通过简单调用 [`TransitionManager.beginDelayedTransition()`](http://alexstyl.com/exposing-the-searchbar/) ，然后修改这个视图的属性。这个框架会自动的把这些改变应用到视图里。这对搜索栏的扩展和折叠都起作用。渐隐的效果也是用这种方式实现的，但是我们所做的却是正在改变多个视图的可视性。现在唯一欠缺的事是如何在一个操作步骤里实现无缝隙地跳转到搜索 activity。
 
 
-幸运的是，我记得在一个 Android 开发者视频里见过类似的东西。在名为 [DevBytes: Custom Activity Animations](https://www.youtube.com/watch?v=CPxkoe2MraA) 的视频里 Cheet Haase 展示了在 activity 开始或是结束的时候如何覆写系统的动画。最后一点,这点也很重要，我们可以对这个Transition 进一步的修饰让它进行的更快，在 Transition 一开始的时候就显示出键盘。实现这个的简单方式是在应用的 Manifest 文件里声明正确的 windowSoftInputMode。通过这种方式，当第二个 activity 开始的时候键盘就变得可见了。
+幸运的是，我记得在一个 Android 开发者视频里见过类似的东西。在名为 [DevBytes: Custom Activity Animations](https://www.youtube.com/watch?v=CPxkoe2MraA) 的视频里 Cheet Haase 展示了在 activity 开始或是结束的时候如何覆写系统的动画。最后一点,这点也很重要，我们可以对这个 Transition 进一步的修饰让它进行的更快，在 Transition 一开始的时候就显示出键盘。实现这个的简单方式是在应用的 Manifest 文件里声明正确的 windowSoftInputMode。通过这种方式，当第二个 activity 开始的时候键盘就变得可见了。
 
 ### 最终的结果
 

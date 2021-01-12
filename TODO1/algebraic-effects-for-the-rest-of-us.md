@@ -154,7 +154,7 @@ function getName(user) {
 try {
   makeFriends(arya, gendry);
 } handle (effect) {
-  // 2. 我们跳到了handler（就像 try/catch）
+  // 2. 我们跳到了 handler（就像 try/catch）
   if (effect === 'ask_name') {
   	// 3. 然而我们可以 resume with 一个值（这就不像 try / catch 了！）
   	resume with 'Arya Stark';

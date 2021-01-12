@@ -193,7 +193,7 @@ JS 引擎处理队列中内容的方式是等待执行栈变空。因此，每�
 
 ### fiber 节点的单链表
 
-一个fiber 节点代表一个栈帧，也代表一个 React 组件的实例。一个fiber 节点包括以下成员：
+一个 fiber 节点代表一个栈帧，也代表一个 React 组件的实例。一个 fiber 节点包括以下成员：
 
 #### 类型
 
@@ -372,7 +372,7 @@ describe('ReactUnderstanding', () => {
 });
 ```
 
-在初始渲染中，React创建一个当前树，该树是最初被渲染的树。
+在初始渲染中，React 创建一个当前树，该树是最初被渲染的树。
 
 `[createFiberFromTypeAndProps()](https://github.com/facebook/react/blob/f6b8d31a76cbbcbbeb2f1d59074dfe72e0c82806/packages/react-reconciler/src/ReactFiber.js#L593)` 是使用来自特定 React 元素的数据创建每个 React fiber 的函数。当我们运行测试时，在此函数处放置一个断点，并查看调用栈，它看起来像这样：
 

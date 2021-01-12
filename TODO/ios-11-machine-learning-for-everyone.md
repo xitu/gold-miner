@@ -107,7 +107,7 @@ Apple 提供了很多已经训练好的模型[可供下载](http://developer.app
 
 **注意:** 示例程序在模拟器上工作正常，但是设备上运行就会崩溃。继续阅读来看看为什么会发生这种情况 ;-)
 
-当然，我想知道发生了什么事情。事实证明 **mlmodel** 实际上被编译进应用程序 bundle 的 **mlmodelc** 文件夹中了。这个文件夹里包含了一堆不同的文件，一些二进制文件，一些 JSON文件。所以你你可以看到 Core ML 是如何将 mlmodel 在实际部署到应用中之前进行转换的。
+当然，我想知道发生了什么事情。事实证明 **mlmodel** 实际上被编译进应用程序 bundle 的 **mlmodelc** 文件夹中了。这个文件夹里包含了一堆不同的文件，一些二进制文件，一些 JSON 文件。所以你你可以看到 Core ML 是如何将 mlmodel 在实际部署到应用中之前进行转换的。
 
 例如，MobileNet Caffe 模型使用了批量归一化（Batch Normalization）层，我验证了这些转换也存在于 **mlmodel** 文件中。但是在编译的 mlmodelc 中，这些批量归一化 layer 似乎就被移除了。这是个好消息：Core ML 优化了该模型。
 
@@ -217,13 +217,13 @@ MPS 中对于机器学习来说的最大的变化是：
 
 **性能改进**。现有的内核变得更快。这总是好消息。 🏎
 
-**图 API**。这是我最关心的消息。手动创建所有 layer 和（临时）图像总是令人讨厌的。现在你可以描述一个图，就像你在Keras 中一样。 MPS 将自动计算出图像需要多大，如何处理填充，如何设置 MPS 内核的 `offset` 等等。甚至可以通过融合不同的 layer 来优化整个图。
+**图 API**。这是我最关心的消息。手动创建所有 layer 和（临时）图像总是令人讨厌的。现在你可以描述一个图，就像你在 Keras 中一样。 MPS 将自动计算出图像需要多大，如何处理填充，如何设置 MPS 内核的 `offset` 等等。甚至可以通过融合不同的 layer 来优化整个图。
 
 看起来所有的 MPS 内核都可以使用 `NSSecureCoding` 进行序列化，这意味着你可以将图保存到文件中，然后将其还原。并且使用这个图来推断现在只是一个单一的方法调用。它不像 Core ML 那么简单，但使用 MPS 绝对比以前好用得多。
 
 有一件事情我目前还不太清楚，那就是我不知道你是否可以编写自己的 kernel 并在这个图中使用。在我客户的工作中，我发现通常需要使用 Metel Shading 语言编写的自定义着色器来进行预处理步骤。据我所知，似乎没有一个「`MPSNNCustomKernelNode`」类。这还要再多研究一下！
 
-结论：用于机器学习的 Metal Performance Shaders 已经在 iOS 11 中变得更加强大，但是大多数开发人员应该转而使用 Core ML（对于那些使用MPS的来说）。
+结论：用于机器学习的 Metal Performance Shaders 已经在 iOS 11 中变得更加强大，但是大多数开发人员应该转而使用 Core ML（对于那些使用 MPS 的来说）。
 
 **注意**：新的图 API 使我的 [Forge 库](http://github.com/hollance/Forge)基本上过时了，除非你希望在 App 中继续支持 iOS 10。我将尽快将示例应用移植到新的图 API 上，然后将写一个更详细的博客文章。
 
@@ -233,7 +233,7 @@ MPS 中对于机器学习来说的最大的变化是：
 
 **Accelerate 框架:** 似乎 [Accelerate 框架中的 BNNS](http://machinethink.net/blog/apple-deep-learning-bnns-versus-metal-cnn/) 并没有获得太多功能上的更新。它终于有了 Softmax 层，但 MPS 却没有新的 layer 类型。也许无关紧要：使用 CPU 进行深层神经网络可能不是一个好主意。也就是说，我喜欢 Accelerate，它有很多好玩的东西。而今年，它确实获得了对稀疏矩阵的更多支持，很棒。
 
-**自然语言处理:** Core ML不仅仅只能处理图像，它还可以处理大量不同类型的数据，包括文本。 使用的 API `NSLinguisticTagger` 类已经存在了一段时间，但是与 iOS 11 相比变得更加有效了。`NSLinguisticTagger` 现在已经能进行语言鉴别，词法分析，词性标注，词干提取和命名实体识别。
+**自然语言处理:** Core ML 不仅仅只能处理图像，它还可以处理大量不同类型的数据，包括文本。 使用的 API `NSLinguisticTagger` 类已经存在了一段时间，但是与 iOS 11 相比变得更加有效了。`NSLinguisticTagger` 现在已经能进行语言鉴别，词法分析，词性标注，词干提取和命名实体识别。
 
 我没有什么 NLP 的经验，所以我没办法比较它与其他 NLP 框架的区别，但`NSLinguisticTagger` 看起来相当强大。 如果要将 NLP 添加到 App 中，此 API 似乎是一个好的起点。
 

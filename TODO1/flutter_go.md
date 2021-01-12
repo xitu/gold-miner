@@ -834,7 +834,7 @@ func (m *MyHomePage) incrementCounter() {
 
 #### 与 Vecty 的相似点
 
-我不禁注意到，我的最终实现的结果跟 [Vecty](https://github.com/gopherjs/vecty) 框架所提供的非常相似。基本上，通用的设计几乎是一样的，都只是向 DOM/CSS 中输出，而 Flutter 则成熟地深入到底层的渲染层，用漂亮的小组件提供非常流畅的 120fps 体验（并解决了许多其他问题）。我认为 Vecty 的设计堪称典范，难怪我实现的结果也是一个“基于Flutter 的 Vecty 变种” :)
+我不禁注意到，我的最终实现的结果跟 [Vecty](https://github.com/gopherjs/vecty) 框架所提供的非常相似。基本上，通用的设计几乎是一样的，都只是向 DOM/CSS 中输出，而 Flutter 则成熟地深入到底层的渲染层，用漂亮的小组件提供非常流畅的 120fps 体验（并解决了许多其他问题）。我认为 Vecty 的设计堪称典范，难怪我实现的结果也是一个“基于 Flutter 的 Vecty 变种” :)
 
 #### 更好的理解 Flutter 的设计
 

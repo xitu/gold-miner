@@ -438,9 +438,9 @@ this.winEvent._amount = parseInt(result.args._amount, 10)
 
 更新：[增加以太坊平衡显示](https://github.com/kyriediculous/dapp-tutorial/commit/a07edf3182a3d6c7284e830f709d79b61a40ab0e)
 
-**欢迎在Twitter上关注我们，访问我们的网站，如果您喜欢本教程，请留下提示！**
+**欢迎在 Twitter 上关注我们，访问我们的网站，如果您喜欢本教程，请留下提示！**
 
-- [**Alt Street(@Alt_strt)Twitter**：Alt Street的最新消息(@Alt_strt)。区块链是爱，区块链是生命。我们开发概念证明和...twitter.com](https://twitter.com/Alt_Strt)
+- [**Alt Street(@Alt_strt)Twitter**：Alt Street 的最新消息(@Alt_strt)。区块链是爱，区块链是生命。我们开发概念证明和...twitter.com](https://twitter.com/Alt_Strt)
 
 - [**Alt Street-区块链咨询公司**：区块链概念证明和象征性销售...AltStreet.io](https://altstreet.io)
 

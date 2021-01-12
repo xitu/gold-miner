@@ -243,7 +243,7 @@ function sayAge () {
 }
 ```
 
-非常神奇，不是吗？这就是第 4 条规则为什么是 `window 绑定` 的原因。如果其它规则都没满足，JavaScript就会默认 `this` 指向 `window` 对象。
+非常神奇，不是吗？这就是第 4 条规则为什么是 `window 绑定` 的原因。如果其它规则都没满足，JavaScript 就会默认 `this` 指向 `window` 对象。
 
 * * *
 

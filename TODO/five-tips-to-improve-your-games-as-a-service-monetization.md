@@ -156,7 +156,7 @@
 
 #### 你怎么想？
 
-对于增加游戏收入，你还有什么问题和想法吗？在下面评论区继续讨论或者通过标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在Google Play成功的话题分享新闻和小贴士）上回复。
+对于增加游戏收入，你还有什么问题和想法吗？在下面评论区继续讨论或者通过标签 #AskPlayDev 通知我们，我们会在 [@GooglePlayDev](http://twitter.com/googleplaydev) （我们会定期分享在上面就如何在 Google Play 成功的话题分享新闻和小贴士）上回复。
 
 
 ---

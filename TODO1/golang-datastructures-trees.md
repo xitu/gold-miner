@@ -365,7 +365,7 @@ func findAllByClassName(root *Node, className string) []*Node {
 
 ## 删除节点 🗑
 
-另一个在 Dom 中经常使用的功能就是删除节点。就像 DOM 可以做到这个一样，我们的MyDOM（TM）也应该可以进行这种操作。
+另一个在 Dom 中经常使用的功能就是删除节点。就像 DOM 可以做到这个一样，我们的 MyDOM（TM）也应该可以进行这种操作。
 
 在 Javascript 中执行这个操作的最简单方法是：
 

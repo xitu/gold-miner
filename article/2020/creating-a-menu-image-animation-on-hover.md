@@ -85,7 +85,7 @@
 
 ## 使用 JavaScript
 
-我们将使用 [GSAP](https://greensock.com/gsap/)，除了悬停动画外，还将使用[自定义光标](https://tympanus.net/codrops/2020/03/24/animated-custom-cursor-effects/)和平滑滚动。为此，我们将使用获得年度最佳代理荣誉的Locomotive开发的[平滑滚动库](https://github.com/locomotivemtl/locomotive-scroll)。由于这些都是可选的，并且超出了我们要展示的菜单效果范围，所以在这里就不再赘述。
+我们将使用 [GSAP](https://greensock.com/gsap/)，除了悬停动画外，还将使用[自定义光标](https://tympanus.net/codrops/2020/03/24/animated-custom-cursor-effects/)和平滑滚动。为此，我们将使用获得年度最佳代理荣誉的 Locomotive 开发的[平滑滚动库](https://github.com/locomotivemtl/locomotive-scroll)。由于这些都是可选的，并且超出了我们要展示的菜单效果范围，所以在这里就不再赘述。
 
 首先，我们要预加载所有图像。出于本演示目的，我们在页面加载时执行此操作，但这是可选的。
 
@@ -276,7 +276,7 @@ initEvents() {
 
 我们可以为此创建一个 `GSAP` 时间轴。让我们首先将 `reveal` 元素的不透明度设置为 1。另外，为了使图像出现在所有其他菜单项的顶部，让我们将该项目的 `z-index` 设置为较高的值。
 
-接下来，我们可以对图像出现的方式进行动画处理。让我们这样做：根据鼠标 `x` 轴的移动方向（在 direction.x 中有此方向）来决定图像在左侧还是右侧显示。为此，图像元素（revealImage）需要将其 `translationX` 值动画化为其父元素（revealInner元素）的相对侧。
+接下来，我们可以对图像出现的方式进行动画处理。让我们这样做：根据鼠标 `x` 轴的移动方向（在 direction.x 中有此方向）来决定图像在左侧还是右侧显示。为此，图像元素（revealImage）需要将其 `translationX` 值动画化为其父元素（revealInner 元素）的相对侧。
 
 主要内容就这些：
 
@@ -334,7 +334,7 @@ hideImage() {
 
 现在，我们只需要更新 `animatableProperties` 对象属性，以便图像可以平滑地移动，旋转和改变其亮度。我们在 `requestAnimationFrame` 循环中执行此操作。在每个周期中，我们都会插值先前值和当前值，因此事情会轻松进行。
 
-我们要旋转图像并根据鼠标x轴的速度（或从上一个循环开始的距离） 来旋转图像并改变其亮度。因此，我们需要计算每个周期的距离，这可以通过从缓存的鼠标位置中减去鼠标位置来获得。
+我们要旋转图像并根据鼠标 x 轴的速度（或从上一个循环开始的距离） 来旋转图像并改变其亮度。因此，我们需要计算每个周期的距离，这可以通过从缓存的鼠标位置中减去鼠标位置来获得。
 
 我们也想知道鼠标移动的方向，因为旋转依赖于该方向。向左移动时，图像旋转为负值；向右移动时，图像旋转为正值。
 

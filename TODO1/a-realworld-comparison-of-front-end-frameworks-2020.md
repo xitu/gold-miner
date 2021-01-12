@@ -141,7 +141,7 @@ Svelte 和 Stencil 社区完成的 RealWorld 应用太棒了，把需要加载�
 
 同样，请参阅问题 1 和问题 3。以该框架为基础构建的 RealWorld 应用尚未在 [RealWorld 仓库](https://github.com/gothinkster/realworld) 上出现或按照规范构建完成；原因就是这么简单。
 
-> 如果你喜欢这篇文章，请 [在Twitter上关注我](https://twitter.com/JacekSchae)。我只写/推有关编程和技术的文章。
+> 如果你喜欢这篇文章，请 [在 Twitter 上关注我](https://twitter.com/JacekSchae)。我只写/推有关编程和技术的文章。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -137,7 +137,7 @@ NSQ 的理念是守护进程应该与发送者应用程序一起运行。这样�
 
 我将在这里介绍一些基础知识，但不会过多介绍细节。如果你想了解更多，可阅读的整本书：[Kubernetes Up And Running](http://shop.oreilly.com/product/0636920043874.do)。另外，如果你足够大胆，你可以看看这个文档：[Kubernetes Documentation](https://kubernetes.io/docs/)。
 
-Kubernetes 是一个容器化的服务和应用程序管理平台。它容易扩展，可管理一大堆容器，最重要的是，它可以通过基于 yaml 的模板文件高度配置。人们经常将 Kubernetes 与Docker 集群进行比较，但 Kubernetes 确实不止于此！例如：它可以管理不同的容器。你可以使用 Kubernetes 来对LXC 进行管理和编排，同时也可以使用相同的方式管理 Docker。它提供了一个高于管理已部署服务和应用程序集群的层。怎么样？让我们快速浏览一下 Kubernetes 的构建模块吧。
+Kubernetes 是一个容器化的服务和应用程序管理平台。它容易扩展，可管理一大堆容器，最重要的是，它可以通过基于 yaml 的模板文件高度配置。人们经常将 Kubernetes 与 Docker 集群进行比较，但 Kubernetes 确实不止于此！例如：它可以管理不同的容器。你可以使用 Kubernetes 来对 LXC 进行管理和编排，同时也可以使用相同的方式管理 Docker。它提供了一个高于管理已部署服务和应用程序集群的层。怎么样？让我们快速浏览一下 Kubernetes 的构建模块吧。
 
 在 Kubernetes 中，您将描述应用程序的期望状态，Kubernetes 会做一些事情，使之达到这个状态。状态可能是部署、暂停、重复两次等等。
 
@@ -153,7 +153,7 @@ Kubernetes 的基础知识之一是它为所有组件使用标签和注解。Ser
 
 ### Pods
 
-Pods 是一个逻辑上分组的容器，也就意味着一个 Pod 可以容纳多个容器。一个 Pod 在创建后会获得自己的 DNS 和虚拟 IP 地址，这样Kubernetes 就可以为其平衡流量。你很少需要直接处理容器，即使在调试时（比如查看日志），通常也会调用 `kubectl logs deployment / your-app -f` 而不是查看特定的容器。尽管有可能会调用 `-c container_name`。 `-f` 参数会持续显示日志文件的末尾部分。
+Pods 是一个逻辑上分组的容器，也就意味着一个 Pod 可以容纳多个容器。一个 Pod 在创建后会获得自己的 DNS 和虚拟 IP 地址，这样 Kubernetes 就可以为其平衡流量。你很少需要直接处理容器，即使在调试时（比如查看日志），通常也会调用 `kubectl logs deployment / your-app -f` 而不是查看特定的容器。尽管有可能会调用 `-c container_name`。 `-f` 参数会持续显示日志文件的末尾部分。
 
 ### Deployments
 
@@ -161,7 +161,7 @@ Pods 是一个逻辑上分组的容器，也就意味着一个 Pod 可以容纳�
 
 ### Services
 
-默认情况下，Pod 会得到一个 IP 地址。然而，因为 Pods 在 Kubernetes 中是一个不稳定的东西，所以你需要更持久的东西。队列、mysql、内部API、前端，这些需要长时间运行并且需要在一个静态的，不变的IP或最好是 DNS 记录之后。
+默认情况下，Pod 会得到一个 IP 地址。然而，因为 Pods 在 Kubernetes 中是一个不稳定的东西，所以你需要更持久的东西。队列、mysql、内部 API、前端，这些需要长时间运行并且需要在一个静态的，不变的 IP 或最好是 DNS 记录之后。
 
 为此，Kubernetes 提供可定义可访问模式的 Services。负载均衡，简单 IP 或内部 DNS。
 
@@ -171,14 +171,14 @@ Kubernetes 如何知道服务是否正确运行？你可以配置运行状况检
 
 ### DNS / Service Discovery
 
-如果您在集群中创建服务，该服务将获取由特殊的Kubernetes Deployments 对象（被称作为 kube-proxy 和 kube-dns）提供的在 Kubernetes 中的 DNS 记录。这两个对象在集群中提供了服务发现。如果您运行了mysql服务并设置了 `clusterIP：none`，那么集群中的每个人都可以通过 ping `mysql.default.svc.cluster.local` 来访问该服务。 其中：
+如果您在集群中创建服务，该服务将获取由特殊的 Kubernetes Deployments 对象（被称作为 kube-proxy 和 kube-dns）提供的在 Kubernetes 中的 DNS 记录。这两个对象在集群中提供了服务发现。如果您运行了 mysql 服务并设置了 `clusterIP：none`，那么集群中的每个人都可以通过 ping `mysql.default.svc.cluster.local` 来访问该服务。 其中：
 
 *   `mysql` – 服务的名称
 *   `default` – 命名空间名称
 *   `svc` – 服务本身
 *   `cluster.local` – 本地集群域名
 
-该域名可以通过自定义来更改。要访问集群外部的服务，必须有 DNS 提供者，再使用Nginx（例如）将IP地址绑定到记录。可以使用以下命令查询服务的公共IP地址：
+该域名可以通过自定义来更改。要访问集群外部的服务，必须有 DNS 提供者，再使用 Nginx（例如）将 IP 地址绑定到记录。可以使用以下命令查询服务的公共 IP 地址：
 
 *   NodePort – `kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services mysql`
 *   LoadBalancer – `kubectl get -o jsonpath="{.spec.ports[0].LoadBalancer}" services mysql`
@@ -230,13 +230,13 @@ ReplicaSet 是低级复制管理器。 它确保为应用程序运行正确数�
 
 ### DaemonSet
 
-还记得我说的Kubernetes是如何持续使用标签的吗？DaemonSet 是一个控制器，用于确保守护程序应用程序始终在具有特定标签的节点上运行。
+还记得我说的 Kubernetes 是如何持续使用标签的吗？DaemonSet 是一个控制器，用于确保守护程序应用程序始终在具有特定标签的节点上运行。
 
 例如：您希望所有标有 `logger` 或 `mission_critical` 的节点运行记录器/审计服务守护程序。然后你创建一个 DaemonSet，并给它一个名为 `logger` 或 `mission_critical` 的节点选择器。Kubernetes 将寻找具有该标签的节点。始终确保它将有一个守护进程的实例在其上运行。因此，在该节点上运行的每个实例都可以在本地访问该守护进程。
 
 在我的应用程序中，NSQ 守护进程可能是一个 DaemonSet。为了确保它在具有接收器组件的节点上运行，我采用 `receiver` 标记一个节点，并用 `receiver` 应用程序选择器指定一个 DaemonSet。
 
-DaemonSet 具有 ReplicaSet 的所有优点。它是可扩展的并由Kubernetes管理它。这意味着，所有的生命周期事件都由 Kube 处理，确保它永不消亡，并且一旦发生，它将立即被替换。
+DaemonSet 具有 ReplicaSet 的所有优点。它是可扩展的并由 Kubernetes 管理它。这意味着，所有的生命周期事件都由 Kube 处理，确保它永不消亡，并且一旦发生，它将立即被替换。
 
 ### Scaling
 
@@ -252,7 +252,7 @@ Kubernetes 现在支持所有主要的云提供商，它完全是开源的，随
 
 ## Minikube
 
-我将使用 [Minikube](https://github.com/kubernetes/minikube/)。Minikube 是一个本地 Kubernetes 集群模拟器。尽管模拟多个节点并不是很好，但如果只是着手去学习并在本地折腾一下的话，这种方式不需要任何的开销，是极好的。Minikube是基于虚拟机的，如果需要的话，可以使用 VirtualBox 等进行微调。
+我将使用 [Minikube](https://github.com/kubernetes/minikube/)。Minikube 是一个本地 Kubernetes 集群模拟器。尽管模拟多个节点并不是很好，但如果只是着手去学习并在本地折腾一下的话，这种方式不需要任何的开销，是极好的。Minikube 是基于虚拟机的，如果需要的话，可以使用 VirtualBox 等进行微调。
 
 所有我将要使用的 kube 模板文件可以在这里找到：[Kube files](https://github.com/Skarlso/kube-cluster-sample/tree/master/kube_files)。
 
@@ -264,7 +264,7 @@ kubectl get nodes -o yaml
 
 ## 创建容器
 
-Kubernetes 支持大部分容器。我将要使用 Docker。对于我构建的所有服务，存储库中都包含一个 Dockerfile。我鼓励你去研究它们。他们大多数都很简单。对于 Go 服务，我正在使用最近引入的多阶段构建。Go 服务是基于 Alpine Linux 的。人脸识别服务是 Python实现的。NSQ 和 MySQL 正在使用他们自己的容器。
+Kubernetes 支持大部分容器。我将要使用 Docker。对于我构建的所有服务，存储库中都包含一个 Dockerfile。我鼓励你去研究它们。他们大多数都很简单。对于 Go 服务，我正在使用最近引入的多阶段构建。Go 服务是基于 Alpine Linux 的。人脸识别服务是 Python 实现的。NSQ 和 MySQL 正在使用他们自己的容器。
 
 ## 上下文
 
@@ -308,13 +308,13 @@ data:
     mysql_password: base64codehere
 ```
 
-我通过以下命令创建了base64代码：
+我通过以下命令创建了 base64代码：
 
 ```
 echo -n "ubersecurepassword" | base64
 ```
 
-这是您将在我的部署yaml文件中看到的内容：
+这是您将在我的部署 yaml 文件中看到的内容：
 
 ```
 ...
@@ -473,7 +473,7 @@ matchLabels:
 
 无头服务在这里详细描述：[Headless Service](https://kubernetes.io/docs/concepts/services-networking/service/#headless-services)。
 
-基本上它和 MySQ L一样，只是稍作修改。如前所述，我使用的是 NSQ 自己的 Docker 镜像，名为 `nsqio / nsq`。所有的 nsq 命令都在那里，所以 nsqd 也将使用这个镜像，只是命令有所不同。对于 nsqlookupd，命令是：
+基本上它和 MySQ L 一样，只是稍作修改。如前所述，我使用的是 NSQ 自己的 Docker 镜像，名为 `nsqio / nsq`。所有的 nsq 命令都在那里，所以 nsqd 也将使用这个镜像，只是命令有所不同。对于 nsqlookupd，命令是：
 
 ```
 command: ["/nsqlookupd"]
@@ -482,7 +482,7 @@ args: ["--broadcast-address=nsqlookup.default.svc.cluster.local"]
 
 你可能会问什么是 `--broadcast-address`？默认情况下，nsqlookup 将使用 `hostname` 作为广播地址 当消费者运行回调时，它会尝试连接到类似于 `http://nsqlookup-234kf-asdf:4161/lookup?topics=image` 的 url。请注意 `nsqlookup-234kf-asdf` 是容器的主机名。通过将广播地址设置为内部 DNS，回调将为：`http://nsqlookup.default.svc.cluster.local:4161/lookup?topic=images`。这将按预期工作。
 
-NSQ 查找还需要两个端口进行转发：一个用于广播，一个用于 nsqd 回调。这些在 Dockerfile 中公开，然后 在Kubernetes 模板中使用。像这个：
+NSQ 查找还需要两个端口进行转发：一个用于广播，一个用于 nsqd 回调。这些在 Dockerfile 中公开，然后 在 Kubernetes 模板中使用。像这个：
 
 在容器模板中：
 
@@ -529,7 +529,7 @@ kubectl apply -f nsqlookup.yaml
 
 #### Deployments
 
-它创建的第一个 deployment 对象是它自己的。Receiver的容器是 `skarlso / kube-receiver-alpine`。
+它创建的第一个 deployment 对象是它自己的。Receiver 的容器是 `skarlso / kube-receiver-alpine`。
 
 #### Nsq 守护进程
 
@@ -668,7 +668,7 @@ spec:
 
 更有趣的部分是它需要两个 volume。这两 volume 是 `known_people` 和 `unknown_people`。你能猜到他们将包含什么吗？是的，图像。“known_people” volume 包含与数据库中已知人员关联的所有图像。`unknown_people` volume 将包含所有新图像。这就是我们从接收器发送图像时需要使用的路径; 那就是挂载点所指向的地方，在我的情况下是 `/ unknown_people`。 基本上，路径必须是人脸识别服务可以访问的路径。
 
-现在，通过 Kubernetes 和 Docker部署 volume 很容易。它可以是挂载的 S3 或某种类型的 nfs，也可以是从主机到客户机的本地挂载。也会存在其他可能性。为了简单起见，我将使用本地安装。
+现在，通过 Kubernetes 和 Docker 部署 volume 很容易。它可以是挂载的 S3 或某种类型的 nfs，也可以是从主机到客户机的本地挂载。也会存在其他可能性。为了简单起见，我将使用本地安装。
 
 安装一个 volume 分两部分完成。首先，Dockerfile 必须指定 volume：
 
@@ -879,7 +879,7 @@ func PostImage(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-那么，命名可能会更好，但你应该得到基本的想法。我正在修改传入的单个路径，将它包装成新的格式并发送给新的端点处理程序。就是这样！ 还有一些修改。要查看它们，请查看此PR：[Rolling Update Bulk Image Path PR](https://github.com/Skarlso/kube-cluster-sample/pull/1)。
+那么，命名可能会更好，但你应该得到基本的想法。我正在修改传入的单个路径，将它包装成新的格式并发送给新的端点处理程序。就是这样！ 还有一些修改。要查看它们，请查看此 PR：[Rolling Update Bulk Image Path PR](https://github.com/Skarlso/kube-cluster-sample/pull/1)。
 
 现在，可以通过两种方式调用接收器：
 

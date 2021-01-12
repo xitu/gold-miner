@@ -14,7 +14,7 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 - C++ 源码：底层和高层的具体功能由 C ++ 源码实现，它是真正 Tensorflow 的核心。
 
-- Python 封装与Python 库：由 C++ 实现自动生成的封装版本，通过这种方式我们可以直接用 Python 来调用 C++ 函数：这也是 numpy 的核心实现方式。
+- Python 封装与 Python 库：由 C++ 实现自动生成的封装版本，通过这种方式我们可以直接用 Python 来调用 C++ 函数：这也是 numpy 的核心实现方式。
 
   Python 库通过将 Python 封装版的各种调用结合起来，组成了各种广为人知的高层 API。
 
@@ -340,7 +340,7 @@ input/Placeholder input_1/Placeholder
 ```
 成功了！
 
-下面是 `attempt3` 的完整代码，你可以编译并运行它。（这是一个 Gist，如果你发现有啥可以改进的话欢迎来https://gist.github.com/galeone/09657143df49a90536f4ac4893c64696贡献代码）
+下面是 `attempt3` 的完整代码，你可以编译并运行它。（这是一个 Gist，如果你发现有啥可以改进的话欢迎来 https://gist.github.com/galeone/09657143df49a90536f4ac4893c64696贡献代码）
 
 ```
 package main                                        

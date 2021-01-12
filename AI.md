@@ -49,9 +49,9 @@
 * [提取图像中的文字、人脸或者条形码 — 形状检测 API](https://juejin.im/post/5c64026fe51d457f963d249c)（[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ) 翻译）
 * [Python 的时间序列分析：简介](https://juejin.im/post/5c6c12def265da2ddc3c70ce)（[ppp-man](https://github.com/ppp-man) 翻译）
 * [从 Instagram 上的故事和反馈机器学习中收获的一些经验](https://juejin.im/post/5c683dfce51d45164c7599fb)（[TrWestdoor](https://github.com/TrWestdoor) 翻译）
-* [利用 Python中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0)（[Starriers](https://github.com/Starriers) 翻译）
-* [利用 Python中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)（[Starriers](https://github.com/Starriers) 翻译）
-* [利用 Python中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [利用 Python 中的 Bokeh 实现数据可视化，第一部分：入门](https://juejin.im/post/5c3c83c7f265da612d197bf0)（[Starriers](https://github.com/Starriers) 翻译）
+* [利用 Python 中的 Bokeh 实现数据可视化，第二部分：交互](https://juejin.im/post/5c34a9dee51d4551d044efce)（[Starriers](https://github.com/Starriers) 翻译）
+* [利用 Python 中的 Bokeh 实现数据可视化，第三部分：制作一个完整的仪表盘](https://juejin.im/post/5c3ae4656fb9a049d9757021)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [降维技术中常用的几种降维方法](https://juejin.im/post/5c4513a06fb9a049dc028d0c)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
 * [如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c)（[Starriers](https://github.com/Starriers) 翻译）
 * [时间序列异常检测算法](https://juejin.im/post/5c19f4cb518825678a7bad4c)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
@@ -90,7 +90,7 @@
 * [利用 Keras 深度学习库进行词性标注教程](https://juejin.im/post/5ae4613a5188256727742d7d)（[luochen1992](https://github.com/luochen1992) 翻译）
 * [Facebook 的 AI 万金油：StarSpace 神经网络模型简介](https://juejin.im/post/5a83af7c6fb9a0633c661404)（[noahziheng](https://github.com/noahziheng) 翻译）
 * [Facebook 开源了物体检测研究项目 Detectron](https://juejin.im/post/5a6c2ba56fb9a01cb64f0591)（[SeanW20](https://github.com/SeanW20) 翻译）
-* [使用深度学习自动生成HTML代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)（[sakila1012](https://github.com/sakila1012) 翻译）
+* [使用深度学习自动生成 HTML 代码 - 第 1 部分](https://juejin.im/post/5a72744e6fb9a01cb64f1d66)（[sakila1012](https://github.com/sakila1012) 翻译）
 * [IBM 工程师的 TensorFlow 入门指北](https://juejin.im/post/5a3d1ecb518825256362de6a)（[JohnJiangLA](https://github.com/JohnJiangLA) 翻译）
 * [如何使用 Golang 中的 Go-Routines 写出高性能的代码](https://juejin.im/post/5a17c0f9f265da431a42e060)（[tmpbook](https://github.com/tmpbook) 翻译）
 * [RNN 循环神经网络系列 4: 注意力机制](https://juejin.im/post/59f72f61f265da432002871c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[TobiasLee](https://github.com/TobiasLee) 翻译）

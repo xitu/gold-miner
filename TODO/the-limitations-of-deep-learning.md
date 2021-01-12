@@ -16,7 +16,7 @@
 正文
 ---
 
-这篇文章修改自我的书[《Deep Learning with Python (manning出版社)》](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)的第九章第二部分。这是关于当前的深度学习的局限性与未来展望的两篇系列文章之一。
+这篇文章修改自我的书[《Deep Learning with Python (manning 出版社)》](https://www.manning.com/books/deep-learning-with-python?a_aid=keras&amp;a_bid=76564dff)的第九章第二部分。这是关于当前的深度学习的局限性与未来展望的两篇系列文章之一。
 
 这篇文章的目标受众是那些已经在深度学习领域有着一定的经验（例如，那些已经读完 1-8 章的人们）。我们默认你已经知道了很多前置的知识。  
 

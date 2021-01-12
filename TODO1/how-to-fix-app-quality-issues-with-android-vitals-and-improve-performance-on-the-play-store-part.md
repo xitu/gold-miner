@@ -110,7 +110,7 @@ Android vitals 可以提醒你的问题包括崩溃、应用程序无响应（AN
 
 查找 ANR 的原因可能会非常棘手，就拿 [URL](https://docs.oracle.com/javase/7/docs/api/java/net/URL.html) 类来说吧。 你觉得确定两个 URL 是否相同的 [URL#equals](https://docs.oracle.com/javase/7/docs/api/java/net/URL.html#equals%28java.lang.Object%29) 方法是否会被阻塞？SharedPreferences 又会怎样？如果你在后台从中读取值，可以在主线程上调用 [getSharedPreferences](https://developer.android.com/reference/android/content/Context.html#getSharedPreferences%28java.lang.String,%20int%29) 方法吗？在这两种情况下，答案是这些都可能是长时间阻塞操作。
 
-幸运的是，[StrictMode](https://developer.android.com/reference/android/os/StrictMode.html) 使查找 ANR 不再靠猜的。在调试版本中使用这个工具可以捕获主线程上意外的磁盘和网络访问。在应用程序启动时使用 [StrictMode＃setThreadPolicy](https://developer.android.com/reference/android/os/StrictMode.html#setThreadPolicy%28android.os.StrictMode.ThreadPolicy%29) 可以自定义你想要检测的内容，包括磁盘和网络读写，甚至可以通过 [StrictMode＃noteSlowCall](http://link) 在应用程序中触发自定义的慢速调用。你还可以选择 StrictMode 在检测到阻塞调用时如何提醒你：通过让应用程序崩溃、Log 信息或者是显示对话框。更多详细信息，请参阅 [ThreadPolicy.Builder类](https://developer.android.com/reference/android/os/StrictMode.ThreadPolicy.Builder.html)。
+幸运的是，[StrictMode](https://developer.android.com/reference/android/os/StrictMode.html) 使查找 ANR 不再靠猜的。在调试版本中使用这个工具可以捕获主线程上意外的磁盘和网络访问。在应用程序启动时使用 [StrictMode＃setThreadPolicy](https://developer.android.com/reference/android/os/StrictMode.html#setThreadPolicy%28android.os.StrictMode.ThreadPolicy%29) 可以自定义你想要检测的内容，包括磁盘和网络读写，甚至可以通过 [StrictMode＃noteSlowCall](http://link) 在应用程序中触发自定义的慢速调用。你还可以选择 StrictMode 在检测到阻塞调用时如何提醒你：通过让应用程序崩溃、Log 信息或者是显示对话框。更多详细信息，请参阅 [ThreadPolicy.Builder 类](https://developer.android.com/reference/android/os/StrictMode.ThreadPolicy.Builder.html)。
 
 一旦你消除了主线程中的阻塞调用，记得在将你的应用程序发布到 Play Store 之前关闭 StrictMode。
 

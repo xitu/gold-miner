@@ -43,7 +43,7 @@
 
     mocha test/some-class-test.js
 
-要在浏览器里打开这个测试栗子，你需要一个 `<script>` 标签的HTML文件来加载 JavaScript，并且因为浏览器并不知道 `require` 语句是啥，你还要[browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/) 打包工具来处理依赖管理。 
+要在浏览器里打开这个测试栗子，你需要一个 `<script>` 标签的 HTML 文件来加载 JavaScript，并且因为浏览器并不知道 `require` 语句是啥，你还要[browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/) 打包工具来处理依赖管理。 
 
     browserify test/*-test.js > test/index.js
 
@@ -345,7 +345,7 @@ Sauce Connect 在设计的时候就考虑到了安全性，任何一个第三方
 
     npm install ngrok
 
-你也可以通过程序从 Node 来启动 ngrok，请看下面的代码（如果你想完整的了解细节的话，这里是 [API文档](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing) )：
+你也可以通过程序从 Node 来启动 ngrok，请看下面的代码（如果你想完整的了解细节的话，这里是 [API 文档](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing) )：
 
     const ngrok = require('ngrok');
 
@@ -413,7 +413,7 @@ Sauce Connect 在设计的时候就考虑到了安全性，任何一个第三方
 
 **脚注**
 
-1.  使用连接器的另一个不足之处就是，目前为止内存追踪和 source map兼容的还不是很好。Chrome 浏览器下的一个解决方案是使用[node-source-map-support](https://github.com/evanw/node-source-map-support#browser-support)。
+1.  使用连接器的另一个不足之处就是，目前为止内存追踪和 source map 兼容的还不是很好。Chrome 浏览器下的一个解决方案是使用[node-source-map-support](https://github.com/evanw/node-source-map-support#browser-support)。
 
 2.  ngrok 生成的链接（URL）是公共的，这意味着理论上互联网上的任何一个人都可以访问这个链接。不过，因为这个链接是随机生成的，而且通常你的测试只需要几分钟就可以了，所以其他人找到这个链接的可能性微乎其微。从这个角度看，虽然 ngrok 的安全性比 Sauce
 Connect 稍弱一些，但仍然是一个相对安全的解决方案。

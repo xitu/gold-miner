@@ -24,7 +24,7 @@
 
 [YOLO](https://pjreddie.com/darknet/yolo/) 是一个用来处理实时物体检测的聪明的神经网络。
 
-在这篇博客里面我将介绍如何通过 Metal Performance Shaders 让“迷你”版的 YOLOv2 在 iOS 上运行（译：MetalPerformanceShaders 是 iOS 9 中 Metal Kit新增的方法）。
+在这篇博客里面我将介绍如何通过 Metal Performance Shaders 让“迷你”版的 YOLOv2 在 iOS 上运行（译：MetalPerformanceShaders 是 iOS 9 中 Metal Kit 新增的方法）。
 
 在你继续看下去之前，务必先看下这个[令人震惊的 YOLOv2 预告](https://www.youtube.com/watch?v=VOC3huqHrss)。 😎
 
@@ -352,7 +352,7 @@ var result = NeuralNetworkResult<Prediction>()
 - [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) by Joseph Redmon, Santosh Divvala, Ross Girshick, Ali Farhadi (2015)
 - [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242) by Joseph Redmon and Ali Farhadi (2016)
 
-我的实现是部分基于 TensorFlow 的 Android demo [TF Detect](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android)， Allan Zelener 的[YAD2K](https://github.com/allanzelener/YAD2K/), 和 [Darknet的源码](https://github.com/pjreddie/darknet)。
+我的实现是部分基于 TensorFlow 的 Android demo [TF Detect](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android)， Allan Zelener 的[YAD2K](https://github.com/allanzelener/YAD2K/), 和 [Darknet 的源码](https://github.com/pjreddie/darknet)。
 
 ---
 

@@ -31,7 +31,7 @@ Image: Mr Hasgaha (CC BY-NC 2.0)
 
 同时微软和苹果也在手机设备平台上竞争。如果我们把时间停留在 2010 年，你可能觉得苹果赢得了市场。但今天，开源的 Linux 操作系统主导了市场 [Android 设备占据了全球移动智能手机市场的 86%](https://www.statista.com/statistics/236027/global-smartphone-os-market-share-of-android/)。
 
-在 20 世纪 90 年代，主导市场的是收取证书费用（或版税）的商业软件。今天，如果有人创建了一个闭源GUI工具包并试图收取许可费用，很少有人会愿意放弃开源的 React 生态系统。
+在 20 世纪 90 年代，主导市场的是收取证书费用（或版税）的商业软件。今天，如果有人创建了一个闭源 GUI 工具包并试图收取许可费用，很少有人会愿意放弃开源的 React 生态系统。
 
 但是为了应用程序能存活，我们开发的应用程序仍依赖于像 Facebook、Google 或 Twitter 的集中式公司。一场即将改变一切的“海啸”就要到来。
 
@@ -73,7 +73,7 @@ Napster 是一家由中心化的公司拥有和运营的公司，在 2000 年，
 
 到 2017 年底，投资热潮达到顶峰，2018 年大部分时间，价格都已回落至现实水平。2018 年的价格下跌是一个历史性的现象，每次比特币价格达到另一个数量级的增长时都会出现这种现象。相信我，相对以前以后会有更大的增长。
 
-与此同时，第一代可扩展的 dApps 也开始出现，包括 [Sliver.tv](https://www.sliver.tv/) 和[合作伙伴腾讯游戏](https://www.ccn.com/tencent-games-forms-partnership-with-blockchain-esports-platform/)，该公司通过加密货币奖励电视观众和流媒体，可以在Sliver平台上花费并用于游戏内购买。
+与此同时，第一代可扩展的 dApps 也开始出现，包括 [Sliver.tv](https://www.sliver.tv/) 和[合作伙伴腾讯游戏](https://www.ccn.com/tencent-games-forms-partnership-with-blockchain-esports-platform/)，该公司通过加密货币奖励电视观众和流媒体，可以在 Sliver 平台上花费并用于游戏内购买。
 
 同时，[Waves Platform](https://wavesplatform.com/)使任何人都可以轻松创建加密货币。它基于 Leased Proof of Stake（LPoS）共识运行自己的区块链 — 比比特币和以太坊使用的工作证明（PoW）模型更快的基层扩展解决方案。钱包软件具有内置的 Decentralized EXchange（DEX），用户可以在其中交易令牌。Waves 钱包在 Android 商店中下载量超过 100,000。
 

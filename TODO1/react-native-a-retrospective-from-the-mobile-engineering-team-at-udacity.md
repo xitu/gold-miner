@@ -230,7 +230,7 @@ React Native 是可以做字符串的本地化的，但需要额外的设置。�
 
 在我们之前的一篇文章中介绍过，在 Android 这边并不是那么直观。
 
-[在 Android 上发布版本时的 React Native 打包: 在 Android 发布build_engineering.udacity.com 时如何运行 React Native 打包命令行](https://engineering.udacity.com/bundling-react-native-during-android-release-builds-43d5c825d296)
+[在 Android 上发布版本时的 React Native 打包: 在 Android 发布 build_engineering.udacity.com 时如何运行 React Native 打包命令行](https://engineering.udacity.com/bundling-react-native-during-android-release-builds-43d5c825d296)
 
 一旦我们的构建过程包含了所需的 React Native 任务，它让 CircleCI 的发行版构建时间增加了约 20%。
 

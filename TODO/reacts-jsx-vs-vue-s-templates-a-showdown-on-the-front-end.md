@@ -83,7 +83,7 @@ Vue 采用了不同的方式，它使用的是类 HTML 模板。使用 Vue 的�
 
     );
 
-这里你告诉 React 将 `displayNewHires` 里的内容渲染到 ID 为 root的 `div` 元素中。
+这里你告诉 React 将 `displayNewHires` 里的内容渲染到 ID 为 root 的 `div` 元素中。
 
 你最终的 React 代码应该看起来像这样：
 

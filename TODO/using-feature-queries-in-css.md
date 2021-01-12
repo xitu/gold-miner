@@ -24,7 +24,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 即便如此，我仍然觉得 `@supports` 非常有用。如果没有 `@supports` 规则的帮助，我对多个 CSS 新规则的使用就会被推迟很多。
 
-多年来，开发者都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，Modernizr 的构建的CSS 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快、更健壮、使用起来更加简单。
+多年来，开发者都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本很小，Modernizr 的构建的 CSS 需要 JavaScript 文件的下载、执行并且要在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果 JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快、更健壮、使用起来更加简单。
 
 你可能会注意到，特征查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
 ```
@@ -113,7 +113,7 @@ CSS 中有一个你可能还没有听说过的工具。它很强大。它已经�
 
 那么特征查询的支持情况如何呢？
 
-自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特征查询。
+自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在 Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC 浏览器中都不支持特征查询。
 
 [![Can I use 网站支持特征查询的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)特征查询的支持可以查看：[特征查询在 Can I Use 上的结果](http://caniuse.com/#feat=css-featurequeries)
 
@@ -178,7 +178,7 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 问题是这第 4 个组合 —— 虽然特征查询所包含的测试没有运行，但是浏览器确实支持该特性时，并且应该运行该代码。
 
-例如，`object-fit` 由 Safari 7.1（Mac）和 8（Mac和iOS）支持，但这两个浏览器都不支持功能查询。这同样适用于 Opera Mini —— 它将支持 `object-fit`，但不支持 `@supports`。
+例如，`object-fit` 由 Safari 7.1（Mac）和 8（Mac 和 iOS）支持，但这两个浏览器都不支持功能查询。这同样适用于 Opera Mini —— 它将支持 `object-fit`，但不支持 `@supports`。
 
 会发生什么呢？这些浏览器进入这个代码块，但并未使用代码，在图片上应用 `object-fit:cover`，并将这个 `div` 的背景设置为绿色，它跳过了整个代码块，留下黄色作为背景颜色。
 
@@ -199,7 +199,7 @@ Edge 不支持 `object-fit`，但它支持 `@supports`，因此该测试将运�
 
 同时，可以很容易的在 `@supports` 中用最新的 CSS 特性 —— 例如 CSS Grid、首字母。没有哪个浏览器会在不支持特征查询时就支持 CSS Grid 的。我们不必担心那个包含新特性时问题多多的第四种组合，在以后这使得功能查询非常有用的。
 
-所有这一切都意味着IE11 虽然仍会存在很多年，我们还是可以同时使用特征查询和 CSS 的最新特性。
+所有这一切都意味着 IE11 虽然仍会存在很多年，我们还是可以同时使用特征查询和 CSS 的最新特性。
 
 ## 最佳实践
 

@@ -157,7 +157,7 @@ const x = fromIterator(from_array([1,2,3,4,5]))
 
 在本文中，我向您展示了如何使用生成器和迭代器来创建功能强大且非常高效的库来处理大量数据。当然，迭代器并不是解决所有问题的金钥匙。效率的提高是由于节省了不必要的计算。实际上提升了多少，完全取决于可以优化多少计算、这些计算有多繁重以及要处理多少数据。当没有要保存的计算或集合相对较小时，你可能会因为库的开销而损失性能。
 
-完整的源代码可以在 [Github](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods) 找到并包含本文中包含的更多特性。我很想听听你对此的意见。你是否认为 JavaScript 不对数组方法使用惰性迭代是很可惜的？你是否认为使用生成器是 JavaScript 集合的前进方向？如果JavaScript在默认情况下使用惰性迭代器，则它们应该能够优化开销（就像其他语言一样），同时仍然保持效率的潜在优势。
+完整的源代码可以在 [Github](https://github.com/WimJongeneel/ts-lazy-collections#collection-methods) 找到并包含本文中包含的更多特性。我很想听听你对此的意见。你是否认为 JavaScript 不对数组方法使用惰性迭代是很可惜的？你是否认为使用生成器是 JavaScript 集合的前进方向？如果 JavaScript 在默认情况下使用惰性迭代器，则它们应该能够优化开销（就像其他语言一样），同时仍然保持效率的潜在优势。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

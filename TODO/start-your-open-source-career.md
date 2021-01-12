@@ -107,7 +107,7 @@ _向全世界展示你的新项目_
 
 为了解决这个问题，我们创建了 [algolia/expect-jsx](https://github.com/algolia/expect-jsx)，他让我们可以在单元测试中使用 JSX 字符串做比较，而不是那些不可读的对象树。测试的输入和输出将使用相同的语义。我们并没有到此为止，我们并不是仅仅发布一个库，而是两个库，其中一个是在第一个的基础上提炼出来的。
 
-* [algolia/react-element-to-jsx-string](https://github.com/algolia/react-element-to-jsx-string) 将JSX函数返回转换为 JSX 字符串
+* [algolia/react-element-to-jsx-string](https://github.com/algolia/react-element-to-jsx-string) 将 JSX 函数返回转换为 JSX 字符串
 * [algolia/expect-jsx](https://github.com/algolia/expect-jsx) 用于关联 react-element-to-jsx-string 和断言库 [mjackson/expect](https://github.com/mjackson/expect)
 
 通过发布两个共同解决一个问题的模块，你可以使社区受益于你的底层解决方案，这些方案可以应用在许多不同的项目中，还有一些你甚至想不到的应用方式。

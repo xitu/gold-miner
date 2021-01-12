@@ -180,7 +180,7 @@ val intentCharSequence = intent.getCharSequenceExtra(TEXT_EXTRA)
 
 2.  **创建一个继承了** `LeadingMarginSpan` **的** `CustomBulletSpan` 并重新实现着重号功能。当 span 通过复制文字或在 Activity 间跳转而传递时，附着于文字的 span 将会是 `LeadingMarginSpan`。 这意味着如果文字被绘制，它将失去所有的样式。
 
-如果想要的样式可以通过框架自带的 span 实现， 尽可能使用多个框架中的 span取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。这样，你可以防止在进程内或跨进程传递时，框架的实现被应用到 spannable。
+如果想要的样式可以通过框架自带的 span 实现， 尽可能使用多个框架中的 span 取代你自己的 span。否则，尽量在自定义 span 时实现一些基础的接口或抽象类。这样，你可以防止在进程内或跨进程传递时，框架的实现被应用到 spannable。
 
 * * *
 

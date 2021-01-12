@@ -16,7 +16,7 @@
 
 也许某个可能的原因是，Python 是一门非常容易上手的语言，所以经验较少的程序员会犯下错误，而那些错误也会 [一直存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
 
-但是我认为也许更重要的原因是，Python有时会惩罚你，因为你试图去做「正确的事情」。
+但是我认为也许更重要的原因是，Python 有时会惩罚你，因为你试图去做「正确的事情」。
 
 在对象设计的背景下做「正确的事」是让许多小的，独立的类，[只做一件事](https://en.wikipedia.org/wiki/Single_responsibility_principle) 并 [做好](https://www.destroyallsoftware.com/talks/boundaries)。例如，如果你发现你的对象累积了大量的私有方法，也许你应该让私有属性的方法公开。但是如果这样做很麻烦，你可能就不想公开了。
 
@@ -377,7 +377,7 @@ class Bag:
 
 ```
 
-还有一些其他的功能， `attrs` 提供了让你的类更加方便准确的机会。另一个例子？如果你想让与对象无关的属性更严格（或者在 CPython 上有更高的内存效率），你可以在类的层次上把 slots设置为 True，例如 `@attr.s(slots=True)` 自动开启 `attrs` 的声明匹配 [`__slots__` ](https://docs.python.org/3.5/reference/datamodel.html#object.__slots__)属性。所有的这些方便的功能让你使用你的 `attr.ib()` 声明做出更好，更强大的东西。
+还有一些其他的功能， `attrs` 提供了让你的类更加方便准确的机会。另一个例子？如果你想让与对象无关的属性更严格（或者在 CPython 上有更高的内存效率），你可以在类的层次上把 slots 设置为 True，例如 `@attr.s(slots=True)` 自动开启 `attrs` 的声明匹配 [`__slots__` ](https://docs.python.org/3.5/reference/datamodel.html#object.__slots__)属性。所有的这些方便的功能让你使用你的 `attr.ib()` 声明做出更好，更强大的东西。
 
 * * *
 

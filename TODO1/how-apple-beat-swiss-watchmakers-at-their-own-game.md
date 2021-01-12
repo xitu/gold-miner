@@ -67,11 +67,11 @@ Pebble 智能手表。Photo：[Orde Saunders via flickr](https://www.flickr.com/
 
 不幸的是，Pebble 将会很快败给一个即将入场的智能手表新玩家。
 
-在 2014 年初，新闻报道披露苹果公司试图与瑞士制表商展开合作的消息。斯沃琪集团的 CEO [Nicolas Hayek告诉媒体](https://www.ft.com/content/bd77bd76-b600-11e3-b40e-00144feabdc0)“我们找不到任何理由去参与合作协议的讨论。”
+在 2014 年初，新闻报道披露苹果公司试图与瑞士制表商展开合作的消息。斯沃琪集团的 CEO [Nicolas Hayek 告诉媒体](https://www.ft.com/content/bd77bd76-b600-11e3-b40e-00144feabdc0)“我们找不到任何理由去参与合作协议的讨论。”
 
 Hayek 曾因早先与微软的一次智能手表失败合作被指责，他坚定地相信技术限制最终将毁灭这类设备。
 
-2014 年，就在苹果公司产品发布前的一周，[Jonathan Ive告诉《纽约时报》](https://www.nytimes.com/2014/09/04/fashion/intel-and-opening-ceremony-collaborate-on-mica-a-stylish-tech-bracelet.html) ，瑞士人将会遇到麻烦。几天之后，人们将有机会亲眼见到。
+2014 年，就在苹果公司产品发布前的一周，[Jonathan Ive 告诉《纽约时报》](https://www.nytimes.com/2014/09/04/fashion/intel-and-opening-ceremony-collaborate-on-mica-a-stylish-tech-bracelet.html) ，瑞士人将会遇到麻烦。几天之后，人们将有机会亲眼见到。
 
 在 2014 年的 9 月，就在展示 iPhone 6 之后，Tim Cook 走上舞台，告诉拥挤的观众，苹果公司还有一款产品将要展示。他以 Apple Watch 的名称揭开神秘面纱，而不是预料中的 iWatch。Cook 称它为“……[苹果公司的下一篇章](https://www.techtimes.com/articles/15267/20140912/apple-watch-unveiled-next-chapter-in-apples-story.htm)”。
 

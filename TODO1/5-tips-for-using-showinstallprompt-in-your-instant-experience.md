@@ -85,7 +85,7 @@ val cookieData: ByteArray = byteArrayOf()
 // 使用 PackageManagerCompat 去访问 Cookie API。
 val packageManager = InstantApps.getPackageManagerCompat(applicationContext)
 
-// 在设置值之前，确保cookie数据可以适合存储。
+// 在设置值之前，确保 cookie 数据可以适合存储。
 if (cookieData.length <= packageManager.getInstantAppCookieMaxSize()) {
    packageManager.setInstantAppCookie(cookieData)
 }

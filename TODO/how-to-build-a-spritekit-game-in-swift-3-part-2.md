@@ -595,7 +595,7 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 
 把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)<sup>[\[15\]](#note-15)</sup>)
 
-在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个group 然后点击 “Add Files to RainCat…” 选项。
+在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个 group 然后点击 “Add Files to RainCat…” 选项。
 
 [![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)<sup>[\[16\]](#note-16)</sup>
 
@@ -756,7 +756,7 @@ SoundManager.sharedInstance.startPlaying()
 
 在本课中，我们主要实现了两个部分：精灵动画和声音。我们使用了一个基于帧的动画来使精灵可以动起来，用了 SKAction 来实现，并使用了一些方法来重设我们被雨滴击中的小猫。我们使用了 `SKAction` 来添加了音效，并指定了当小猫被雨击中时来播放音效。 最后，我们为我们的游戏添加了初始背景音乐。
 
-到这里，恭喜！我们的游戏即将完成！如果你有什么不明白的地方，请仔细检查我们在 [在Github](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)<sup>[\[31\]](#note-31)</sup> 上的代码。
+到这里，恭喜！我们的游戏即将完成！如果你有什么不明白的地方，请仔细检查我们在 [在 Github](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)<sup>[\[31\]](#note-31)</sup> 上的代码。
 
 你做的怎么样了？你的代码和我的差不多吗？如果你做了一些修改，或者有更好的更新，可以通过评论让我知道。
 

@@ -75,7 +75,7 @@ Activity 未搜索时及搜索后的状态示例。
 用户离开一个 activity 有两种常用的方式，用户期望的也是两种不同的结果：
 
 *  第一个是用户是否**彻底关闭**了 activity。如果用户将一个 activity 从 [recents screen](https://developer.android.com/guide/components/activities/recents.html) 中滑出或者[导航出去或退出](https://developer.android.com/training/design-navigation/ancestral-temporal.html)一个 activity 就可以彻底关闭它。这两种情形都假设**用户永久退出了这个 activity，如果重新进入那个 activity，他们所期望的是一个干净的页面**。对我们的音乐应用来说，如果用户完全关闭了音乐搜索的 activity 然后重新打开它，音乐搜索框和搜索结果都将被清除。
-*  另一方面，如果用户旋转手机或者 在activity 进入后台然后回来，用户希望搜索结果和他们想搜索的音乐仍存在，就像进入后台前那样。用户有数种途径可以使 activity 进入后台。他们可以按 home 键或者通过应用的其他地方导航（出去）。抑或在查看搜索结果的时候电话打了进来或收到通知。然而用户最终希望的是当他们返回到那个 activity 的时候页面状态与离开前完全一样。
+*  另一方面，如果用户旋转手机或者 在 activity 进入后台然后回来，用户希望搜索结果和他们想搜索的音乐仍存在，就像进入后台前那样。用户有数种途径可以使 activity 进入后台。他们可以按 home 键或者通过应用的其他地方导航（出去）。抑或在查看搜索结果的时候电话打了进来或收到通知。然而用户最终希望的是当他们返回到那个 activity 的时候页面状态与离开前完全一样。
 
 为了实现这两种情形下的行为，用可以将本地持久化、ViewModel 和 `onSaveInstanceState()` 一起使用。每一种都会存储 activity 中使用的不同数据：
 
@@ -99,7 +99,7 @@ Activity 未搜索时及搜索后的状态示例。
 **当 activity 被创建的时候 —** 可能出现三种不同的方式：
 
 *   **Activity 是第一次被创建**：在这种情况下，`onSaveInstanceState()`方法中的 bundle 里是没有数据的，ViewModel 也是空的。创建 ViewModel 时，你传入一个空查询，ViewModel 会意识到还没有数据可以加载。这个 activity 以一种全新的状态启动起来。
-*   **Activity 在被系统终止后创建**：activity 的 `onSaveInstanceState()` 的 bundle 中保存了查询。Activity 会将这个查询传入 ViewModel。ViewModel发现缓存中没有搜索结果，就会使用给定的搜索查询代理加载搜索结果。
+*   **Activity 在被系统终止后创建**：activity 的 `onSaveInstanceState()` 的 bundle 中保存了查询。Activity 会将这个查询传入 ViewModel。ViewModel 发现缓存中没有搜索结果，就会使用给定的搜索查询代理加载搜索结果。
 *   **Activity 在配置更改后被创建**：Activity 会将本次查询保存在 `onSaveInstanceState()` 的 bundle 参数中并且 ViewModel 也会将搜索结果缓存起来。你通过 `onSaveInstanceState()` 的 bundle 将查询传入 ViewModel，这将决定它已加载了必须的数据从而**不**需要重新查询数据库。
 
 这是一个良好的保存和恢复 activity 状态的方法。基于你的 activity 的实现，你可能根本不需要 `onSaveInstanceState()`。例如，有些 activity 在被用户关闭后不会以一个全新的状态打开。一般地，当我在 Android 手机上关闭然后重新打开 Chrome 时，返回到了关闭 Chrome 之前正在浏览的页面。如果你的 activity 行为如此，你可以不使用 `onSaveInstanceState()` 而在本地持久化所有数据。同样以音乐搜索为例，那意味着在例如 [Shared Preferences](https://developer.android.com/reference/android/content/SharedPreferences.html) 中持久化最近的查询。

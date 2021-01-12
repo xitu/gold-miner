@@ -39,7 +39,7 @@
 
 最近的令牌 B、E 和 I 分别代表了用户 1、2、3 的最终授权和付账的订阅。只有这些最近的令牌才有相应的权利。然而对于 Google Play 来讲，如果初始的过期时间还没到，所有的令牌都是“有效的”。
 
-也就是说，如果你通过 [获取订阅 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/get#response) 来查询这些令牌，包括上面的图表内的 A, D, F, G和H，你会得到 [订阅资源响应](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource) ，响应里表明订阅还没有过期并且付款已经收到，即便如此你也只应该根据最近的令牌来授权。
+也就是说，如果你通过 [获取订阅 API](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions/get#response) 来查询这些令牌，包括上面的图表内的 A, D, F, G 和 H，你会得到 [订阅资源响应](https://developers.google.com/android-publisher/api-ref/purchases/subscriptions#resource) ，响应里表明订阅还没有过期并且付款已经收到，即便如此你也只应该根据最近的令牌来授权。
 
 第一眼看上去很奇怪：为什么最初的令牌还是在被更新后还是有效的？简单来说是这样实现能让开发者更灵活地提供内容和服务，也让 Google 更好的保护用户隐私。然而这也确实需要你在后端服务器上进行重点记录
 

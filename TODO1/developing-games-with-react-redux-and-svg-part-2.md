@@ -572,7 +572,7 @@ export default Title;
 
 现在，要将该组件添加到画布中，只需将 `<title/>` 组件添加到 `svg` 元素中，并在 `Canvas.jsx` 文件的顶部添加 import 语句即可（`import Title from './Title';`）。但是，如果您现在运行您的应用程序，您将发现您的新组件没有出现在屏幕上。这是因为您的应用程序还没有足够的垂直空间用于显示。
 
-## 让您的 React Game游戏自适应
+## 让您的 React Game 游戏自适应
 
 为了改变游戏的尺寸并使其自适应，您将需要做以下两件事。首先，您将需要添加 `onresize` 事件监听器到全局 `window` 对象上。很简单，您仅需要打开 `./src/App.js` 文件并将如下代码添加到  `componentDidMount()` 方法中：
 

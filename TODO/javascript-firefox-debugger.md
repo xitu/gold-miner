@@ -9,7 +9,7 @@
 
 `console.log` 可以告诉你很多关于应用程序的信息，但它不能真正调试你的代码。因此，你需要一个完整的 JavaScript 调试器。新的 Firefox JavaScript 调试器能够帮你写快速且无缺陷的代码。下面来介绍它的用法。
 
-在这个例子中，我们将用 Debugger 打开一个非常简单的应用程序。此[应用程序](https://mozilladevelopers.github.io/sample-todo/01-variables/)是基于一个基础的 JavaScript 开源框架开发的。在最新版本的[Firefox Developer Edition](https://www.mozilla.org/firefox/developer/)中打开此程序，Mac系统按 `Option` + `Cmd` + `S` 或者 Windows系统按 `Shift` + `Ctrl` + `S` 启动 `debugger.html`。调试器共分为三个窗格：源列表窗格，源代码窗格和工具窗格。
+在这个例子中，我们将用 Debugger 打开一个非常简单的应用程序。此[应用程序](https://mozilladevelopers.github.io/sample-todo/01-variables/)是基于一个基础的 JavaScript 开源框架开发的。在最新版本的[Firefox Developer Edition](https://www.mozilla.org/firefox/developer/)中打开此程序，Mac 系统按 `Option` + `Cmd` + `S` 或者 Windows 系统按 `Shift` + `Ctrl` + `S` 启动 `debugger.html`。调试器共分为三个窗格：源列表窗格，源代码窗格和工具窗格。
 
 ![](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_2000/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/dd605d5c-e94d-43e3-a7ef-94eea52cff9e/image2.png)
 
@@ -69,7 +69,7 @@
 
 [`debugger.html` project](https://github.com/devtools-html/debugger.html)大约于两年前推出，同时对所有 Firefox DevTools 进行了全面改进。我们希望使用现代网络技术重建 DevTools，并对全世界的开发者开放。当一项技术开放的时候，能够自由扩展到我们 Mozilla 小团队所能想象的范围之外的任何地方。
 
-JavaScript对于任何高级 Web 应用程序都是必不可少的，所以强大的调试器是工具集的关键部分。我们希望构建一些快速，易于使用且适应性强 —— 能够调试未来可能出现的任何新 JavaScript 框架的产品。我们决定使用流行的网络技术，因为我们想与社区紧密合作。这种方法也将改善调试器本身 —— 如果我们采用了 WebPack 并开始在内部使用构建工具和 Source Map，我们希望改进 Source Map 生成和热加载。
+JavaScript 对于任何高级 Web 应用程序都是必不可少的，所以强大的调试器是工具集的关键部分。我们希望构建一些快速，易于使用且适应性强 —— 能够调试未来可能出现的任何新 JavaScript 框架的产品。我们决定使用流行的网络技术，因为我们想与社区紧密合作。这种方法也将改善调试器本身 —— 如果我们采用了 WebPack 并开始在内部使用构建工具和 Source Map，我们希望改进 Source Map 生成和热加载。
 
 `debugger.html` 是用 React，Redux 和 Babel 构建的。React 组件轻量，可测试又易于设计。我们使用 React Storybook 进行快速的 UI 原型设计和记录共享组件。我们的组件使用 Jest 和 Enzyme 进行测试，这使得在 UI 上迭代更容易。这让使用各种 JavaScript 框架（如 React ）更容易。Babel 前端能让我们做一些像显示左侧边栏中 Component 类和它功能的事情。我们也可以做一些很酷的事情，例如把断点固定到函数中，当你改变你的代码时，它们不会移动。
 

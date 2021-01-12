@@ -135,7 +135,7 @@ class Promise<Value>: Future<Value> {
 
 正如你看到的，Futures & Promises 的基本实现非常简单。我们从使用这些方法中获得的很多神奇之处在于，这些扩展可以增加连锁和改变未来的方式，使我们能够构建这些漂亮的操作链，就像我们在 UserLoader 中所做的那样。
 
-但是，如果不添加用于链式操作的api，我们就可以构造用户加载异步链的第一部分 - `urlSession.request(url:)`。在异步抽象中，一个常见的做法是在 SDK 和 Swift 标准库之上提供方便的 API，所以我们也会在这里做这些。`request(url:)` 方法将是 `URLSession` 的一个扩展，让它可以用作基于 Future/Promise 的 API。
+但是，如果不添加用于链式操作的 api，我们就可以构造用户加载异步链的第一部分 - `urlSession.request(url:)`。在异步抽象中，一个常见的做法是在 SDK 和 Swift 标准库之上提供方便的 API，所以我们也会在这里做这些。`request(url:)` 方法将是 `URLSession` 的一个扩展，让它可以用作基于 Future/Promise 的 API。
 
 ```
 extension URLSession {
@@ -252,7 +252,7 @@ extension Future {
 
 正如你在上面看到的，转换实际上是一个链式操作的同步版本，因为它的值是直接已知的 - 它构建时只是将它传递给一个新 `Promise` 。
 
-使用我们新的变换 API, 我们现在可以添加支持，将 `Data` 类型 的 future 转变为一个 `Unboxable` 类型(JSON可解码) 的 future类型，像这样：
+使用我们新的变换 API, 我们现在可以添加支持，将 `Data` 类型 的 future 转变为一个 `Unboxable` 类型(JSON 可解码) 的 future 类型，像这样：
 
 ```
 extension Future where Value == Data {
@@ -304,7 +304,7 @@ class UserLoader {
 
 在编写异步代码时，Futures & Promises 是一个非常强大的工具，特别是当您需要将多个操作和转换组合在一起时。它几乎使您能够像同步那样去编写异步代码，这可以提高可读性，并使在需要时可以更容易地移动。
 
-然而，就像大多数抽象化一样，你本质上是在掩盖复杂性，把大部分的重举移到幕后。因此，尽管 `urlSession.request(url:)` 从外部看，API看起来很好，但调试和理解到底发生了什么都会变得更加困难。
+然而，就像大多数抽象化一样，你本质上是在掩盖复杂性，把大部分的重举移到幕后。因此，尽管 `urlSession.request(url:)` 从外部看，API 看起来很好，但调试和理解到底发生了什么都会变得更加困难。
 
 我的建议是，如果你在使用 Futures & Promises，那就是让你的调用链尽可能精简。记住，好的文档和可靠的单元测试可以帮助你避免很多麻烦和棘手的调试。
 

@@ -15,7 +15,7 @@
 
 - [**7 Steps To Room**: A step by step guide on how to migrate your app to Room medium.com](https://medium.com/google-developers/7-steps-to-room-27a5fe5f99b2)
 
-不过，如果你的数据库较大或者有复杂的查询操作的话，实现所有 entity 类，DAO 类，DAO的测试类并且替换 `SQLiteOpenHelper` 的使用就会耗费很多时间。你最终会需要一个大改动的 pull request，去实现这些和检查。让我们看看你怎么通过可管理的 PR（pull request），逐步从 SQLite 迁移到 Room。 
+不过，如果你的数据库较大或者有复杂的查询操作的话，实现所有 entity 类，DAO 类，DAO 的测试类并且替换 `SQLiteOpenHelper` 的使用就会耗费很多时间。你最终会需要一个大改动的 pull request，去实现这些和检查。让我们看看你怎么通过可管理的 PR（pull request），逐步从 SQLite 迁移到 Room。 
 
 #### 文长不读的话，可以看下面的概括点：
 

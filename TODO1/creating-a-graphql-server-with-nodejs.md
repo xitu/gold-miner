@@ -51,7 +51,7 @@ https://swapi.co/api/people/
 }
 ```
 
-REST API 的响应格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。它于 2015 年开源，正在改变着开发人员在服务器端编写API以及在客户端处理API的方式**。并由 Facebook 开发并积极维护。
+REST API 的响应格式未必会是 JSON，但是这是目前大多数 API 的首选方法。**除了 REST，还出现了另一种处理网络请求的方法：GraphQL。它于 2015 年开源，正在改变着开发人员在服务器端编写 API 以及在客户端处理 API 的方式**。并由 Facebook 开发并积极维护。
 
 ### REST 的弊端
 
@@ -522,7 +522,7 @@ const SERVER = new ApolloServer({
 });
 ```
 
-`playground` 属性有很多功能，例如定义 playground 的默认端点（endpoint）以更改主题。你甚至可以在生产模式启用 playground。更多配置项可以在Apollo Server 的官方文档中找到，[**这里**](https://www.apollographql.com/docs/apollo-server/v2/features/graphql-playground.html)。
+`playground` 属性有很多功能，例如定义 playground 的默认端点（endpoint）以更改主题。你甚至可以在生产模式启用 playground。更多配置项可以在 Apollo Server 的官方文档中找到，[**这里**](https://www.apollographql.com/docs/apollo-server/v2/features/graphql-playground.html)。
 
 更改主题后我们获取下面的结果。
 

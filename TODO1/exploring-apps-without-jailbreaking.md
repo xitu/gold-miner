@@ -9,7 +9,7 @@
 
 ## 学习如何构建其他应用的五种简单技巧
 
-Medium 的 iOS应用是一个带伪导航条的原生应用，而 Product Hunt 则是用 React Native 构建的。
+Medium 的 iOS 应用是一个带伪导航条的原生应用，而 Product Hunt 则是用 React Native 构建的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*OW-khVXV7oFfBpwdtOD_hw.png)
 
@@ -205,7 +205,7 @@ VoiceOver 有另一个我们更感兴趣的效果：它在当前选定的元素�
 
 在主屏幕上，选择帖子的标题只能读取标题的一半。首先它说，“Color Contrast Crash C”，然后选择标题的底部读取“Course for Interface Design”。这说明 label 的布局肯定有一些自定义的部分，这使得 VoiceOver 认为标题被分成多个 label，每行一个 label。（我的猜测是他们为自定义行间距的 label 构建了一个变通方案，而通常的解决方案是使用 `attributedString` 属性，并且他们的方案可能会导致以后出现复杂问题。）
 
-选择描述 label 后，我们可以看到 VoiceOver 揭示隐藏信息的威力。对于大多数用户来说，label 只是显示“估计有 2.85 亿...”。但是VoiceOver告诉我们更多的信息：“估计有 2.85 亿人视力受损。这个数字包括从法律上来看这些人的人数“。在这种情况下说明，所有数据都存储在标签中，但视觉上被截断了。
+选择描述 label 后，我们可以看到 VoiceOver 揭示隐藏信息的威力。对于大多数用户来说，label 只是显示“估计有 2.85 亿...”。但是 VoiceOver 告诉我们更多的信息：“估计有 2.85 亿人视力受损。这个数字包括从法律上来看这些人的人数“。在这种情况下说明，所有数据都存储在标签中，但视觉上被截断了。
 
 * YouTube 视频链接：https://youtu.be/7iiah_J_N0A
 
@@ -317,7 +317,7 @@ App Store 在飞行模式下。图像（即使在同一页面上）似乎是懒�
 
 * * *
 
-喜欢这个故事？在 Medium 上留言，并与 iOS 设计/开发者朋友分享。想要了解最新的移动应用设计/开发？在 Twitter上关注我：[twitter.com/nathangitter](https://twitter.com/nathangitter)
+喜欢这个故事？在 Medium 上留言，并与 iOS 设计/开发者朋友分享。想要了解最新的移动应用设计/开发？在 Twitter 上关注我：[twitter.com/nathangitter](https://twitter.com/nathangitter)
 
 感谢 [David Okun](https://twitter.com/dokun24) 修改本文的草稿。
 

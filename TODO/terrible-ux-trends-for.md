@@ -66,7 +66,7 @@ Adobe 的新型设计机器人 CC™ 的偷跑模型
 
 #### **初级眼动追踪者(Associate Eye Trackers)** ####
 
-眼动追踪领域真是太TM重要了，你不能浅尝辄止。你往往做不到像 Amy Adams 在 **《降临》** 中的那么成功。
+眼动追踪领域真是太 TM 重要了，你不能浅尝辄止。你往往做不到像 Amy Adams 在 **《降临》** 中的那么成功。
 
 ![](ttps://cdn-images-1.medium.com/max/800/1*nx8Mw2r_g2bMCx9VLUgVeQ.png)
 
@@ -110,7 +110,7 @@ Adobe 的新型设计机器人 CC™ 的偷跑模型
 
 ![](https://cdn-images-1.medium.com/max/600/1*_lw8ajalS14yXARJFuKXbw.png)
 
-VR重设计前/后。我选择我们的基本法设计师。
+VR 重设计前/后。我选择我们的基本法设计师。
 
 #### 残酷的设计 ####
 

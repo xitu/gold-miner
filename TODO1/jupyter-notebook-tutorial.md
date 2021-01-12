@@ -11,7 +11,7 @@ Jupyter Notebook 是一个非常强大的工具，常用于交互式地开发和
 
 Jupyter 项目是早期 IPython Notebook 的继承者，它在 2010 年首次作为原型发布。尽管在 Jupyter Notebook 中可以使用许多不同的编程语言，但本文将重点介绍 Python，因为在 Jupyter Notebook 中 python 是最常见的。
 
-为了充分理解本教程，你应该熟悉编程，特别是 Python 和 [pandas](https://pandas.pydata.org/)（译者注：Pandas 是python的一个数据分析包）。也就是说，如果你有编程经验，这篇文章中的 Python 不会太陌生，而 pandas 也是容易理解的。Jupyter Notebooks 也可以作为一个灵活的平台来运行 pandas 甚至是 Python，这将在这篇文章中体现。
+为了充分理解本教程，你应该熟悉编程，特别是 Python 和 [pandas](https://pandas.pydata.org/)（译者注：Pandas 是 python 的一个数据分析包）。也就是说，如果你有编程经验，这篇文章中的 Python 不会太陌生，而 pandas 也是容易理解的。Jupyter Notebooks 也可以作为一个灵活的平台来运行 pandas 甚至是 Python，这将在这篇文章中体现。
 
 我们将会：
 
@@ -36,7 +36,7 @@ Jupyter 项目是早期 IPython Notebook 的继承者，它在 2010 年首次作
 1. [下载](https://www.anaconda.com/download/)支持 Python 3 （就不用 Python 2.7 了）的最新版本 Anaconda。
 2. 按照下载页面或可执行文件中的说明安装 Anaconda。
 
-如果你是已经安装了 Python 的更高级的用户，并且更喜欢手动管理你的软件包，那么你可以使用pip:
+如果你是已经安装了 Python 的更高级的用户，并且更喜欢手动管理你的软件包，那么你可以使用 pip:
 
 ```
 pip3 install jupyter
@@ -54,7 +54,7 @@ pip3 install jupyter
 
 这是 Notebook Dashboard，专门用于管理 Jupyter Notebooks。把它看作是探索，编辑和创建 notebooks 的启动面板。你可以把它看作是探索、编辑和创造你的 notebook 的发射台。
 
-请注意，仪表板将只允许您访问 Jupyter 启动目录中包含的文件和子文件夹；但是，启动目录是[可以更改的](https://stackoverflow.com/q/35254852/604687)。还可以通过输入 `jupyter notebook` 命令在任何系统上启动指示板(或在Unix系统上的终端);在这种情况下，当前工作目录将是启动目录。
+请注意，仪表板将只允许您访问 Jupyter 启动目录中包含的文件和子文件夹；但是，启动目录是[可以更改的](https://stackoverflow.com/q/35254852/604687)。还可以通过输入 `jupyter notebook` 命令在任何系统上启动指示板(或在 Unix 系统上的终端);在这种情况下，当前工作目录将是启动目录。
 
 聪明的读者可能已经注意到，仪表板的 URL 类似于 `http://localhost:8888/tree`。Localhost 不是一个网站，而是表示从你的*本地*机器(你自己的计算机)中服务的内容。Jupyter notebook 和仪表板都是 web 应用程序，Jupyter 启动了一个本地的 Python 服务器，将这些应用程序提供给你的 web 浏览器，使其从根本上独立于平台，并打开了更容易在 web 上共享的大门。
 
@@ -246,7 +246,7 @@ y = 10
 
 你可能已经注意到，Jupyter 提供了更改内核的选项，实际上有许多不同的选项可供选择。当你通过选择 Python 版本从仪表板中创建一个新的笔记时，你实际上是在选择使用哪个内核。
 
-不仅有不同版本的 Python 的内核，还有[(超过 100 种语言)](https://github.com/jupyter/jupyter/jupyter/wiki/jupyter-kernel)，包括 Java 、C ，甚至 Fortran。数据科学家可能特别感兴趣的是 [R](https://irkernel.github.io/) 和 [Julia](https://github.com/JuliaLang/IJulia.jl)，以及 [imatlab](https://github.com/imatlab/imatlab) 和 [Calysto MATLAB内核](https://github.com/calysto/matlab_kernel) 。[SoS 内核](https://github.com/vatlab/SOS)在一个 notebook 中提供多语言支持。每个内核都有自己的安装指令，但可能需要您在计算机上运行一些命令。
+不仅有不同版本的 Python 的内核，还有[(超过 100 种语言)](https://github.com/jupyter/jupyter/jupyter/wiki/jupyter-kernel)，包括 Java 、C ，甚至 Fortran。数据科学家可能特别感兴趣的是 [R](https://irkernel.github.io/) 和 [Julia](https://github.com/JuliaLang/IJulia.jl)，以及 [imatlab](https://github.com/imatlab/imatlab) 和 [Calysto MATLAB 内核](https://github.com/calysto/matlab_kernel) 。[SoS 内核](https://github.com/vatlab/SOS)在一个 notebook 中提供多语言支持。每个内核都有自己的安装指令，但可能需要您在计算机上运行一些命令。
 
 ## 实例分析
 
@@ -529,7 +529,7 @@ Jupyter 内置支持导出 HTML 和 PDF 以及其他几种格式，你可以在 
 
 截止到 2018 年初，GitHub 上的公共 notebook 数量超过了 180 万，它无疑是最受欢迎的与世界分享 Jupyter 项目的独立平台。GitHub 已经集成了对 `.ipynb` 的文件渲染的支持，你可以直接将其存储在其网站的仓库和 gists 中。如果你还不知道，[GitHub](https://github.com) 是一个代码托管平台，用于为使用 [Git](https://git-scm.com/) 创建的存储库进行版本控制和协作。你需要创建一个帐户来使用他们的服务，同时 Github 标准帐户是免费的。
 
-当你有了 GitHub 账户，在 GitHub 上共享一个 notebook 最简单的方法甚至都不需要 Git。自 2008 年以来， GitHub 为托管和共享代码片段提供了Gist 服务，每个代码段都有自己的存储库。使用 Gists 共享一个 notebook：
+当你有了 GitHub 账户，在 GitHub 上共享一个 notebook 最简单的方法甚至都不需要 Git。自 2008 年以来， GitHub 为托管和共享代码片段提供了 Gist 服务，每个代码段都有自己的存储库。使用 Gists 共享一个 notebook：
 
 1. 登录并且浏览 [gist.github.com](https://gist.github.com)。
 2. 用文件编辑器打开 `.ipynb` 文件,  全选并且拷贝里面的 JSON 。
@@ -555,7 +555,7 @@ NBViewer 显示的 notebook 的 URL 是基于正在渲染的 notebook 的 URL �
 
 ## 结语
 
-从基础知识入手，我们已经掌握了 Jupyter Notebook 的工作流程，深入研究了IPython 的更多高级功能，并最终学会如何与朋友、同事和世界分享我们的工作。我们从一个笔记上完成了这一切!
+从基础知识入手，我们已经掌握了 Jupyter Notebook 的工作流程，深入研究了 IPython 的更多高级功能，并最终学会如何与朋友、同事和世界分享我们的工作。我们从一个笔记上完成了这一切!
 
 可以看到，notebook 是如何通过减少上下文切换和在项目中模拟自然的思维发展的方式来提高工作经验的。Jupyter Notebook。Jupyter Notebook 的功能也应该是显而易见的，我们已经介绍了大量的资源，让你开始在自己的项目中探索更高级的特性。
 

@@ -103,7 +103,7 @@ cityOfCustomer('Wade');//California
 cityOfCustomer('Max');//Unknown
 ```
 
-上述例子中，在闭包的帮助下，返回给变量 `cityOfCustomer` 的内部函数可以访问外部函数 `findCustomerCity()` 的常量。并且当调用内部函数并传参 name 时，不需要再次实例化这些常量。如果想要对闭包有更多了解，我建议你浏览Prashant的这篇[博客](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4)。
+上述例子中，在闭包的帮助下，返回给变量 `cityOfCustomer` 的内部函数可以访问外部函数 `findCustomerCity()` 的常量。并且当调用内部函数并传参 name 时，不需要再次实例化这些常量。如果想要对闭包有更多了解，我建议你浏览 Prashant 的这篇[博客](https://medium.com/@prashantramnyc/javascript-closures-simplified-d0d23fa06ba4)。
 
 ## 6. 最小化 DOM 的访问
 
@@ -158,13 +158,13 @@ object.age = undefined;
 
 **等等…**
 
-> JavaScript默认是同步的，**也是单线程的**。
+> JavaScript 默认是同步的，**也是单线程的**。
 
 为什么在单一线程上运行，还能运行异步代码？这是很多人感到困惑的地方。这要归功于浏览器外壳下运行的 JavaScript 引擎。JavaScript 引擎是执行 JavaScript 代码的计算机程序或解释器。JavaScript 引擎可以用多种语言编写。例如，支持 Chrome 浏览器的 V8 引擎是用 c++ 编写的，而支持 Firefox 浏览器的 SpiderMonkey 引擎是用 C 和 c++ 编写的。
 
 这些 JavaScript 引擎可以在后台处理任务。根据 [Brian](https://dev.to/steelvoltage/if-javascript-is-single-threaded-how-is-it-asynchronous-56gd)，调用栈识别 Web API 的函数，并将它们交给浏览器处理。一旦浏览器处理完成这些任务，它们将返回并作为回调推到堆栈上。
 
-你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js真的是单线程吗](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
+你有时可能想知道，Node.js 在没有浏览器帮助的情况下是如何运行的。事实上，为 Chrome 提供动力的 V8 引擎同样也为 Node.js 提供动力。下面是一篇由 Salil 撰写的非常棒的博客文章：[Node.js 真的是单线程吗](https://medium.com/better-programming/is-node-js-really-single-threaded-7ea59bcc8d64)，它解释了节点生态系统上的这个过程。
 
 ## 12. 使用代码分割
 

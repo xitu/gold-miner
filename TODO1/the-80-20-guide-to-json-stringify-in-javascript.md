@@ -11,7 +11,7 @@
 
 ## 开始
 
-几乎所有现代的 JavaScript 运行环境都支持 `JSON.stringify()`。甚至 IE 浏览器自从 [IE8 起就支持JSON.stringify()](https://blogs.msdn.microsoft.com/ie/2008/09/10/native-json-in-ie8/)。下面是一个把普通的 object 转换成 JSON 的例子：
+几乎所有现代的 JavaScript 运行环境都支持 `JSON.stringify()`。甚至 IE 浏览器自从 [IE8 起就支持 JSON.stringify()](https://blogs.msdn.microsoft.com/ie/2008/09/10/native-json-in-ie8/)。下面是一个把普通的 object 转换成 JSON 的例子：
 
 ```javascript
 const obj = { answer: 42 };

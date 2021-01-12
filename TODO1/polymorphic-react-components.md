@@ -207,7 +207,7 @@ function Button<P extends ButtonProps>({
 
 ### 回到多余属性检查
 
-正如我们之前所发现的，过量属性检查来带问题是，我们所有的props都会成为类型参数 `P` 的一部分。我们需要一个类型参数，以便将 `tagName` 推断为字符串文字单位类型，而不是一个联合类型，可能其他属性根本不需要是泛型的：
+正如我们之前所发现的，过量属性检查来带问题是，我们所有的 props 都会成为类型参数 `P` 的一部分。我们需要一个类型参数，以便将 `tagName` 推断为字符串文字单位类型，而不是一个联合类型，可能其他属性根本不需要是泛型的：
 
 ```tsx
 interface ButtonProps<T extends 'a' | 'button'> {
@@ -379,7 +379,7 @@ Button.defaultProps = defaultProps;
 这样可以确保正确合并类名，如果 `ButtonInjectedProps` 扩展其定义来注入自己的 `onKeyDown`，则将运行此处提供的注入的类名和控制台日志记录的类名。
 
 - [^1]:
-  如果需要，你可以通过查看 React 类型并注释掉 [ref属性](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/86303f134e12cf701a3f3f5e24867c3559351ea2/types/react/index.d.ts#L97) 来发现这一点。编译器错误仍然存在，只是将 `onCopy` 替换为前面所说的 `ref`。
+  如果需要，你可以通过查看 React 类型并注释掉 [ref 属性](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/86303f134e12cf701a3f3f5e24867c3559351ea2/types/react/index.d.ts#L97) 来发现这一点。编译器错误仍然存在，只是将 `onCopy` 替换为前面所说的 `ref`。
 - [^2]: 
 我试图直观地解释这种关系，但这是因为参数是函数签名中的逆变位置。关于这个话题有几个[很好](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-6.html)的[解释](https://www.stephanboyer.com/post/132/what-are-covariance-and-contravariance)。
 

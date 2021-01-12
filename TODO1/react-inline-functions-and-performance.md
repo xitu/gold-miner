@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div>
         
-        {/* 1. 一个内联的“DOM组件”事件处理程序 */}
+        {/* 1. 一个内联的“DOM 组件”事件处理程序 */}
         <button
           onClick={() => {
             this.setState({ clicked: true })
@@ -158,7 +158,7 @@ class Avatar extends Component {
 }
 ```
 
-如果你的组件定义了 `shouldComponentUpdate` ，那么在 React 进行新旧元素对比之前，它会询问 `shouldComponentUpdate` 有没有变更发生。如果返回了false，那么React将会直接跳过元素diff检查，从而节省一些时间。如果你的组件足够大，这会对性能产生相当大的影响。
+如果你的组件定义了 `shouldComponentUpdate` ，那么在 React 进行新旧元素对比之前，它会询问 `shouldComponentUpdate` 有没有变更发生。如果返回了 false，那么 React 将会直接跳过元素 diff 检查，从而节省一些时间。如果你的组件足够大，这会对性能产生相当大的影响。
 
 优化组件的最常见方法是扩展 "React.PureComponent" 而不是 "React.Component" 。一个 `PureComponent` 会在 `shouldComponentUpdate` 中比较 props 和 state ，这样你就不用手动执行了。
 
@@ -274,7 +274,7 @@ class Dashboard extends Component {
 
 通常，在 buttons，inputs，和其他 DOM 组件的事件处理程序中，除了 `setState` 以外，不会做其他的事情。这让内联函数成为了通常情况下最干净的方法。它们不是在文件中跳来跳去寻找事件处理程序，而是把内容放在同一位置。React 社区通常欢迎这种方式。
 
-`button` 组件（以及所有其他的DOM组件）甚至都算不上是 `PureComponent`，所以这里也不存在 `shouldComponentUpdate` 引用标识的问题。
+`button` 组件（以及所有其他的 DOM 组件）甚至都算不上是 `PureComponent`，所以这里也不存在 `shouldComponentUpdate` 引用标识的问题。
 
 所以，认为这个过程很慢的唯一原因是，你是否认为简单地定义一个函数会产生足以让人担心的开销。我们已经讨论过，这在任何地方都未被证实。这只是纸上谈兵的性能假设。在被证实之前，这样做没问题。
 
@@ -385,7 +385,7 @@ const App = (props) => (
       <div>
         {/*
           prop.name 是从路由外部传入的，它不是作为 prop 传递进来的，
-          因此路由不能可靠地成为一个PureComponent，它
+          因此路由不能可靠地成为一个 PureComponent，它
           不知道在组件内部会渲染什么
         */}
         <h1>Hey, {props.name}, let's get started!</h1>

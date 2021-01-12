@@ -34,7 +34,7 @@
 但更具体地说，怎样才能被称为健壮且可扩展呢？
 
 *   **面向组件** - 处理 UI 复杂性的最佳实践就是将 UI 分割成一个个的小组件。如果你正在使用一个合理的框架，JavaScript 方面就将原生支持（组件化）。举个例子，[React](https://facebook.github.io/react/) 就鼓励高度组件化和分割。我们希望有一个 CSS 架构去匹配。
-*   **沙箱化（Sandboxed）** - 如果一个组件的样式会对其他组件产生不必要以及意想不到的影响，那么将 UI 分割成组件并不会对我们的认知负荷起到帮助作用。就这方面而言，CSS的基本功能，如[层叠（cascade）](https://developer.mozilla.org/en/docs/Web/Guide/CSS/Getting_started/Cascading_and_inheritance)以及一个针对标识符的独立全局命名空间，都会给你造成负担。如果你熟悉 Web 组件规范的话，那么就可以认为它（此架构）有着 [Shadow DOM 的样式隔离好处](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) ，而无需关心浏览器支持（或者规范是否经过严格的推敲）。
+*   **沙箱化（Sandboxed）** - 如果一个组件的样式会对其他组件产生不必要以及意想不到的影响，那么将 UI 分割成组件并不会对我们的认知负荷起到帮助作用。就这方面而言，CSS 的基本功能，如[层叠（cascade）](https://developer.mozilla.org/en/docs/Web/Guide/CSS/Getting_started/Cascading_and_inheritance)以及一个针对标识符的独立全局命名空间，都会给你造成负担。如果你熟悉 Web 组件规范的话，那么就可以认为它（此架构）有着 [Shadow DOM 的样式隔离好处](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) ，而无需关心浏览器支持（或者规范是否经过严格的推敲）。
 *   **方便** - 我们想要所有好的东西，并且还不想因它们而产生更多的工作。也就是说，我们不想因为采用这个架构而让我们的开发者体验变得更糟。可能的话，我们想（开发者体验）变得更好。
 *   **安全性错误** - 结合之前的一点，我们想要所有东西都可以**默认局部化**，并且全局化只是一个特例。工程师都是很懒的，所以为了得到最容易的方法往往都需要使用合适的解决方案。
 
@@ -65,7 +65,7 @@
     |   ├── Button.js              // ...and so on, you get the idea
     |   └── Button.scss
 
-当你写代码的时候，只需要简单地打开项目的浏览工具，组件的所有其他内容都唾手可得了。样式代码和生成DOM的JavaScript之间有着天然的耦合性，而且我敢打赌你在修改完其中一个之后不久肯定会去修改另外一个。举例来说，这同样适用于组件及其测试代码。可以认为这就是 UI 组件的[访问局部性原理](https://en.wikipedia.org/wiki/Locality_of_reference)。我以前也会细致地去维护各种独立的镜像文件，它们各自存在 `styles/`、 `tests/` 和 `docs/` 等目录下面，直到我意识到，实际上我一直这么做的唯一原因是因为我就是一直这样做的。
+当你写代码的时候，只需要简单地打开项目的浏览工具，组件的所有其他内容都唾手可得了。样式代码和生成 DOM 的 JavaScript 之间有着天然的耦合性，而且我敢打赌你在修改完其中一个之后不久肯定会去修改另外一个。举例来说，这同样适用于组件及其测试代码。可以认为这就是 UI 组件的[访问局部性原理](https://en.wikipedia.org/wiki/Locality_of_reference)。我以前也会细致地去维护各种独立的镜像文件，它们各自存在 `styles/`、 `tests/` 和 `docs/` 等目录下面，直到我意识到，实际上我一直这么做的唯一原因是因为我就是一直这样做的。
 
 ### [](#3-use-consistent-class-namespacing)3\. 使用一致的类命名空间
 
@@ -402,7 +402,7 @@ CSS 对类名及其他标识符（如 ID、动画名称等）都有一个独立�
 *   只需强制覆盖它：如果你为每个组件的每个元素去引入一个 [CSS 重置样式](http://cssreset.com/what-is-a-css-reset/)，并且使用一个优先级总是高于其他第三方库的选择器，那么就非常棒了。但是除非是一个小应用（假设一个第三方“共享”按钮可以嵌入到网站上那种），否则这种方法将会迅速失控。这不算是一个好主意，只是在这里列出来等待完善。
 *   [`all: initial`](https://developer.mozilla.org/en/docs/Web/CSS/all) 是一个很少人知道的新 CSS 属性，它专门为了这个问题而设计。它可以[阻止继承属性流入](https://jsfiddle.net/0d9htatc/)，并且[只要它赢得了特性之争](https://jsfiddle.net/e7rw4L8L/)（并且只要你为每个想保护的属性重复使用它），还可以作为一个本地重置生效。它的实现[有些错综复杂](https://speakerdeck.com/csswizardry/refactoring-css-without-losing-your-mind?slide=39)，而且还不是所有浏览器都[支持](http://caniuse.com/#feat=css-all)，但是 `all: initial` 最后或许可以成为样式隔离的有效方法。
 *   Shadow DOM 已经被提到过，而它正是为你解决问题的一个工具，因为它允许为 JS 和 CSS 声明组件边界。尽管最近有[一丝希望的微光](https://developer.apple.com/library/content/releasenotes/General/WhatsNewInSafari/Articles/Safari_10_0.html)，Web 组件规范还是没有在今年取得很大的进步，并且除非你使用的是一些已知可支持的浏览器，否则还是不能将 Shadow DOM 列入考虑范围。
-*   最后，还有 `<iframe>`。它提供了 Web 运行环境所能提供的最强的隔离形式（既为 JS 也为 CSS），但同样为运行成本（潜在因素）和维护（保留的内存）带来了巨大的消耗。不过，通常代价是值得的，并且最著名的网络嵌入（Facebook、Twitter、Disqus等等）事实上也是用 iframe 实现的。然而本文档的目的是隔离成千上百个小组件，就此而言，这个方法将数以百倍地消耗我们的性能。
+*   最后，还有 `<iframe>`。它提供了 Web 运行环境所能提供的最强的隔离形式（既为 JS 也为 CSS），但同样为运行成本（潜在因素）和维护（保留的内存）带来了巨大的消耗。不过，通常代价是值得的，并且最著名的网络嵌入（Facebook、Twitter、Disqus 等等）事实上也是用 iframe 实现的。然而本文档的目的是隔离成千上百个小组件，就此而言，这个方法将数以百倍地消耗我们的性能。
 
 不管怎样，这个题外话跑得有点远了，回到我们的 CSS 规则。
 

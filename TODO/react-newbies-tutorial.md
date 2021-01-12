@@ -17,7 +17,7 @@
 
 React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.github.io/react/](https://facebook.github.io/react/))。它通过将应用分为一些动态的、可复用的 **组件**，来使我们可以创建单页应用([Single Page Applications (SPA)](http://www.leanpanda.com/blog/2015/05/25/single-page-application-development/))。
 
-一个 React 组件是一个继承了由 React 提供的 **Component** 的 JS 类。一个组件代表并定义了一块 HTML 代码，以及任何与这块代码相关的行为，比如点击事件。组件就像是乐高积木，可以用来组建成所需的复杂应用。完全由 JS 代码构成的组件，可以被隔离和复用。基本方法是 **render()**，它简单地返回一片HTML代码。
+一个 React 组件是一个继承了由 React 提供的 **Component** 的 JS 类。一个组件代表并定义了一块 HTML 代码，以及任何与这块代码相关的行为，比如点击事件。组件就像是乐高积木，可以用来组建成所需的复杂应用。完全由 JS 代码构成的组件，可以被隔离和复用。基本方法是 **render()**，它简单地返回一片 HTML 代码。
 
 这种用来定义 React 组件的语法被称为 **JSX**。该语法由 React 的创建者们所开发，被用来简化 JS-HTML 代码的组件内交互。使用该语法写的代码在变成实际 JS 代码前必须被编译。
 
@@ -63,7 +63,7 @@ See the Pen [State1](http://codepen.io/makhenzi/pen/qbZbxR/) by Makhenzi ([@makh
 
 在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用 React 方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态 key 的对象，并在后者括号内分配给它们新的相关联值。
 
-总的来说，每次一个日期被点击，被选中的div的onClick属性会调用 `HandClick()` 方法，该方法会调用 setState() 方法来修改组件的状态。
+总的来说，每次一个日期被点击，被选中的 div 的 onClick 属性会调用 `HandClick()` 方法，该方法会调用 setState() 方法来修改组件的状态。
 
 每次状态改变，一旦发生 React 就会自动检查组件的 `render()` 函数的返回，以寻找基于新状态需要更新的内容。一旦有那样的数据， React 就会自动触发一次新的 `render()` 来更新那些有变更的 HTML 片段。
 

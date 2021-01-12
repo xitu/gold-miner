@@ -69,7 +69,7 @@ VINE 还可以与其他神经进化算法（如 GA）无缝协作，这些算法
 
 **致谢：** 我们感谢 Uber AI 实验室，尤其是 Joel Lehman、Xingwen Zhang、Felipe Petroski Such 和 Vashisht Madhavan 为我们提供了宝贵的建议和有益的讨论。 
 
-图 1，左图来源：例如Felipe Petroski。
+图 1，左图来源：例如 Felipe Petroski。
 
 
 ---

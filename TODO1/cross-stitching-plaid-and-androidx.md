@@ -41,7 +41,7 @@ Plaid 是一款呈现 Material Design 风格和丰富交互界面的有趣应用
 
 依赖于一个旧版 support 库的第三方库可能与 AndroidX 不兼容，这很有可能导致你的应用在迁移到 AndroidX 后无法编译。检查你的应用任意依赖是否兼容的一个方法是访问这些依赖的项目站点。一个更直接的方法是开始迁移，并且检查可能出现的报错。
 
-对于 Plaid 应用，我们使用了一个与AndroidX 不兼容的图形加载库 [Glide](https://bumptech.github.io/glide/) 的旧版本（4.7.1）。这导致迁移后出现一个让应用无法构建的代码生成问题（这是一个记录在 Glide 工程下的类似[问题](https://github.com/bumptech/glide/issues/3126)），在开始迁移之前我们把 Glide 更新到版本 4.8.0（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/6b23efa838d4e9f60a3e78ae324c0c4a43ec8de0)），这个版本添加了对 AndroidX 注解的支持。
+对于 Plaid 应用，我们使用了一个与 AndroidX 不兼容的图形加载库 [Glide](https://bumptech.github.io/glide/) 的旧版本（4.7.1）。这导致迁移后出现一个让应用无法构建的代码生成问题（这是一个记录在 Glide 工程下的类似[问题](https://github.com/bumptech/glide/issues/3126)），在开始迁移之前我们把 Glide 更新到版本 4.8.0（参考这次[提交](https://github.com/nickbutcher/plaid/pull/524/commits/6b23efa838d4e9f60a3e78ae324c0c4a43ec8de0)），这个版本添加了对 AndroidX 注解的支持。
 
 关于这一点，请尽可能地更新到你的应用所依赖第三方库的最新版本。这对 Support 库而言尤其是一个好主意，因为升级到 28.0.0（截至撰写本文的最终版本）将使迁移更加顺畅。
 

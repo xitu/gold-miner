@@ -69,11 +69,11 @@ Firebase 为云存储、云功能、实时数据库、托管、身份验证等�
 
 它还可以直接与一个工具结合使用来自动化你的开发和发布过程以促进持续交付（例如 Fastlane）。因此，你不必在团队中提供专门的 DevOps 支持。
 
-**7. 大量 IDE支持 Flutter**
+**7. 大量 IDE 支持 Flutter**
 
-在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE，你无需切换就可以开始 Flutter 的工作。
+在使用 Flutter 进行编程时，你可以从许多集成开发环境中进行选择。一开始我使用的是 Android Studio，但后来我看 Flutter Live 时使用的是 VS Code。这让我很疑惑，因为我发现很多 Flutter 开发人员都在使用 Visual Studio Code。当我尝试之后，我明白为什么这么多人喜欢它了。VS Code 相较于 Android Studio 和 IntelliJ 更加轻量，速度也快得多，并且具有两者中的大部分特性。就我个人而言，我已经转向 VS Code，但是你也可以使用许多其他的 IDE，你无需切换就可以开始 Flutter 的工作。
 
-**8. UI遵从性 — —一切都是一个小部件**
+**8. UI 遵从性 — —一切都是一个小部件**
 
 在 flutter 中，所有的东西都是一个小部件，例如 Appbar、Drawer、Snackbar 和 Scaffold 等等。开发者可以很容易地将一个小部件包装在另一个小部件中以实现一些效果，例如将一个部件包装在一个 Center 小部件中，就可以让其居中。
 
@@ -120,7 +120,7 @@ Code magic 是 2018 年 12 月 4 日在 Flutter Live 中使用的一个开源工
 
 同样是在 Flutter live 2018 期间推出的惊人的在线工具，可以轻松创建非常棒的 UI 或动画。它弥补了 UI 设计人员和开发人员之间的差距，减少了应用 UI 或动画相关更改所需的时间。
 
-Flare的学习曲线很浅，我在使用了它之后，对创建动画的简单性感到惊讶！ 你可以看到 app 在这里工作，我甚至在球上加了一个反射，给它一个更逼真的外观。
+Flare 的学习曲线很浅，我在使用了它之后，对创建动画的简单性感到惊讶！ 你可以看到 app 在这里工作，我甚至在球上加了一个反射，给它一个更逼真的外观。
 
 **12. 运行在桌面和 Web 端的 Flutter**
 
@@ -134,7 +134,7 @@ Flutter 团队现在已经有了可以在 web 浏览器中工作的 Flutter 原�
 
 ![](https://cdn-images-1.medium.com/max/800/1*6fuFPHO1w15e3kPk8qp7GA.jpeg)
 
-这是我参加 #HumpDayQandA 的照片。来自 Flutter Egypt 的创始人，谷歌开发者 Amed Abu Eldahab的推文。
+这是我参加 #HumpDayQandA 的照片。来自 Flutter Egypt 的创始人，谷歌开发者 Amed Abu Eldahab 的推文。
 
 使用 Flutter 的价值很明显，也很有吸引力，因为它减轻了初创公司试图将产品发布到多个平台所面临的许多困难；特别是处理在有限的时间和预算内将软件产品推向市场的时候。
 

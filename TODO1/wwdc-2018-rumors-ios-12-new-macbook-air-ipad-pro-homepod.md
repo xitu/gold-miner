@@ -17,11 +17,11 @@
 
 ## 可能会发布新的 iPad Pro、MacBook 及更多的硬件
 
-当苹果公司 CEO 蒂姆库克 (Tim Cook) 在 6 月 4 日站在发布会舞台上时，不要期望能够看到新的高端 iPhone 或者新版本的 Mac Pro。[iPhone X](https://www.cnet.com/products/apple-iphone-x/review/)、[iPhone 8](https://www.cnet.com/products/apple-iphone-8-review/) 和[iPhone 8 Plus](https://www.cnet.com/products/apple-iphone-8-plus/review/) 已经如期在去年 9 月份发布了，同时苹果也已经确认了 [新的Mac Pro将于2019年发布](https://www.cnet.com/news/the-new-mac-pro-is-coming-in-2019/)。同样的，[HomePod](https://www.cnet.com/products/apple-homepod/review/) 音响和 [入门级别的iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/) 也分别于2月和3月刚刚全新发布。
+当苹果公司 CEO 蒂姆库克 (Tim Cook) 在 6 月 4 日站在发布会舞台上时，不要期望能够看到新的高端 iPhone 或者新版本的 Mac Pro。[iPhone X](https://www.cnet.com/products/apple-iphone-x/review/)、[iPhone 8](https://www.cnet.com/products/apple-iphone-8-review/) 和[iPhone 8 Plus](https://www.cnet.com/products/apple-iphone-8-plus/review/) 已经如期在去年 9 月份发布了，同时苹果也已经确认了 [新的 Mac Pro 将于2019年发布](https://www.cnet.com/news/the-new-mac-pro-is-coming-in-2019/)。同样的，[HomePod](https://www.cnet.com/products/apple-homepod/review/) 音响和 [入门级别的 iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/) 也分别于2月和3月刚刚全新发布。
 
 但这里有 4 个产品类别，极有可能在 6 月份进行发布：
 
-**MacBooks and iMacs:** 在去年的WWDC中，苹果几乎将整条笔记本和台式机的产品线进行了更新。现在，一年过去了，将全部产品升级到最新的 [第8代Intel处理器](https://www.cnet.com/news/kaby-lake-coffee-lake-and-beyond-what-we-know-about-the-next-intel-chips/)，尽管有些枯燥，但确实是最简单的升级做法。但是否需要更大规模的设计改革 - 例如重新思考 [蝴蝶键盘的问题](https://www.cnet.com/news/apple-macbook-keyboard-issue-prompts-lawsuit/) 和在 [MacBook Pro笔记本](https://www.cnet.com/products/apple-macbook-pro-with-touch-bar-15-inch-2017/review/) 上 [仍然存在争议的Touch Bar功能](https://www.cnet.com/news/apple-macbook-pro-touch-problems-commentary/)，仍然有待观察。同样的问题也适用于 MacBook Air，一直有预测说该系列将会迎来新的型号。
+**MacBooks and iMacs:** 在去年的 WWDC中，苹果几乎将整条笔记本和台式机的产品线进行了更新。现在，一年过去了，将全部产品升级到最新的 [第8代 Intel 处理器](https://www.cnet.com/news/kaby-lake-coffee-lake-and-beyond-what-we-know-about-the-next-intel-chips/)，尽管有些枯燥，但确实是最简单的升级做法。但是否需要更大规模的设计改革 - 例如重新思考 [蝴蝶键盘的问题](https://www.cnet.com/news/apple-macbook-keyboard-issue-prompts-lawsuit/) 和在 [MacBook Pro 笔记本](https://www.cnet.com/products/apple-macbook-pro-with-touch-bar-15-inch-2017/review/) 上 [仍然存在争议的 Touch Bar 功能](https://www.cnet.com/news/apple-macbook-pro-touch-problems-commentary/)，仍然有待观察。同样的问题也适用于 MacBook Air，一直有预测说该系列将会迎来新的型号。
 
 阅读：[2018 MacBook Air：所有关于规格、价格以及发布时间的预测](https://www.cnet.com/news/2018-macbook-air-all-the-rumors-on-specs-price-release-date/)
 
@@ -29,7 +29,7 @@
 
 Sarah Tew/CNET
 
-**iPad Pros:** 苹果刚刚在 3 月给 [iPad Pro](https://www.cnet.com/products/apple-ipad-pro-10-5-inch-2017/review/) 产品线引入了一个重要的功能，就是让新的 [入门级iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/) 兼容手写笔。人们认为这种举措将使价格更高的 iPad Pro 可以向 iPhone X 的风格迈进：去掉 home 键，同时添加 Face ID。
+**iPad Pros:** 苹果刚刚在 3 月给 [iPad Pro](https://www.cnet.com/products/apple-ipad-pro-10-5-inch-2017/review/) 产品线引入了一个重要的功能，就是让新的 [入门级 iPad](https://www.cnet.com/products/apple-ipad-2018-9-7-inch/review/) 兼容手写笔。人们认为这种举措将使价格更高的 iPad Pro 可以向 iPhone X 的风格迈进：去掉 home 键，同时添加 Face ID。
 
 阅读：[iPad Pro 2018：所有关于规格、价格以及发布时间的预测](https://www.cnet.com/news/ipad-pro-2018-all-the-rumors-on-specs-price-release-date/)
 
@@ -45,17 +45,17 @@ Sarah Tew/CNET
 
 AirPower 早在 2017 年的 9 月份就发布了，但到现在还没有发售。
 
-截图来自Alexandra Able/CNET
+截图来自 Alexandra Able/CNET
 
-**其他我们不用指望在6月4日出现的产品：** 对于其他的苹果硬件，恐怕它们都需要一个长期的过程。不要期望会看到新的苹果手表，苹果电视盒，[第二代的AirPods](https://www.cnet.com/news/apple-airpods-2-wireless-charging-things-we-expect/) 或者 [小型HomePod音响](https://www.cnet.com/news/homepod-slow-sales-homepod-mini-homepod-price-cut/)。也许苹果会花一些时间去安利 [AR Kit](https://www.cnet.com/pictures/best-arkit-apps/) — 它是一个软件工具集，将增强现实带进iOS — 同时 [Mac里的虚拟现实](https://www.cnet.com/news/apple-bringing-vr-external-graphics-and-game-engines-to-mac/)，但绝对不用期待任何关于 [苹果AR/VR头戴式设备](https://www.cnet.com/news/apple-is-working-on-an-ar-augmented-reality-vr-virtual-reality-headset-powered-by-a-wireless-wigig-hub/)，苹果公司显然在暗地里进行研发 - 即使真的要期待一下，这些都需要直到 2020 年才能知晓。
+**其他我们不用指望在6月4日出现的产品：** 对于其他的苹果硬件，恐怕它们都需要一个长期的过程。不要期望会看到新的苹果手表，苹果电视盒，[第二代的 AirPods](https://www.cnet.com/news/apple-airpods-2-wireless-charging-things-we-expect/) 或者 [小型 HomePod 音响](https://www.cnet.com/news/homepod-slow-sales-homepod-mini-homepod-price-cut/)。也许苹果会花一些时间去安利 [AR Kit](https://www.cnet.com/pictures/best-arkit-apps/) — 它是一个软件工具集，将增强现实带进 iOS — 同时 [Mac 里的虚拟现实](https://www.cnet.com/news/apple-bringing-vr-external-graphics-and-game-engines-to-mac/)，但绝对不用期待任何关于 [苹果 AR/VR 头戴式设备](https://www.cnet.com/news/apple-is-working-on-an-ar-augmented-reality-vr-virtual-reality-headset-powered-by-a-wireless-wigig-hub/)，苹果公司显然在暗地里进行研发 - 即使真的要期待一下，这些都需要直到 2020 年才能知晓。
 
 你将看到的，将是针对上文提到的所有硬件而更新的大量软件以及操作系统。以下是可以期待的内容。
 
 ## iOS 12：质量高于数量
 
-在经历了一系列 [持续的](https://www.cnet.com/news/how-to-fix-the-ios-11-1-autocorrect-bug/) [缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/) [和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/) [小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) 后，这些问题都导致iOS11口碑不佳 — 包括 [关于故意降低 iPhones 性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) — 苹果 [称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features) 在它即将到来的移动操作系统中，也就是所谓的 iOS 12。
+在经历了一系列 [持续的](https://www.cnet.com/news/how-to-fix-the-ios-11-1-autocorrect-bug/) [缺陷](https://www.cnet.com/news/apple-updates-operating-systems-to-fix-app-crashing-bug/) [和](https://www.cnet.com/how-to/why-you-should-avoid-your-iphones-calculator/) [小故障](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) 后，这些问题都导致 iOS11口碑不佳 — 包括 [关于故意降低 iPhones 性能的有争议功能](https://www.cnet.com/news/apple-slows-down-older-iphone-battery-issues/) — 苹果 [称将会把质量放在比创新更重要的位置](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features) 在它即将到来的移动操作系统中，也就是所谓的 iOS 12。
 
-这也许将推迟一些计划中的升级，包括重新设计的主屏，摄像头的增强以及针对AR游戏的多媒体播放器的支持，该消息来自 [彭博社](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)，它也是目前为止所有这些预测的主要来源。
+这也许将推迟一些计划中的升级，包括重新设计的主屏，摄像头的增强以及针对 AR 游戏的多媒体播放器的支持，该消息来自 [彭博社](https://www.bloomberg.com/news/articles/2018-01-30/apple-is-said-to-push-back-some-key-iphone-software-features)，它也是目前为止所有这些预测的主要来源。
 
 [![iphone-8-rendering-armend.png](https://cnet2.cbsistatic.com/img/H0LiIaasuxLf5kdAoMYgFrmTEZA=/724x407/2018/02/28/909a855f-937f-4d63-920b-83e3fa456607/iphone-x2.jpg)](https://www.cnet.com/pictures/iphone-2018-most-wanted-features/)
 
@@ -65,7 +65,7 @@ iPhone 2018：最需要的功能
 
 ## MacOS: 加倍关注安全
 
-存在安全问题的不仅仅是 iOS 系统。在 2017 年 11 月，[研究人员已经发现了一个巨大的安全漏洞](https://www.cnet.com/news/apple-flaw-allows-macos-high-sierra-logins-without-passwords/)，它位于苹果的 Mac 操作系统，允许用户能够在任何 Mac 笔记本或者台式机上虚拟登陆，并且不需要密码。([如果你近期没有更新MacOS，这里是如何防止此类访问的方法](https://support.apple.com/en-us/HT204012)) 诸如此类，我们期待苹果能够投入更多的时间和精力付诸行动改善安全问题，而不仅仅只在今年的WWDC中简单一提。
+存在安全问题的不仅仅是 iOS 系统。在 2017 年 11 月，[研究人员已经发现了一个巨大的安全漏洞](https://www.cnet.com/news/apple-flaw-allows-macos-high-sierra-logins-without-passwords/)，它位于苹果的 Mac 操作系统，允许用户能够在任何 Mac 笔记本或者台式机上虚拟登陆，并且不需要密码。([如果你近期没有更新 MacOS，这里是如何防止此类访问的方法](https://support.apple.com/en-us/HT204012)) 诸如此类，我们期待苹果能够投入更多的时间和精力付诸行动改善安全问题，而不仅仅只在今年的 WWDC 中简单一提。
 
 ![apple-watch-faces.jpg](https://cnet4.cbsistatic.com/img/JsfogWRVDuQhU5AF9zZFW3caio0=/970x0/2014/11/27/2a3d4179-935d-459a-9c19-25d6a3eee158/apple-watch-faces.jpg)
 

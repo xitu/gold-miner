@@ -19,7 +19,7 @@
 
 ## 准备工作
 
-作为学习这个系列的先决条件，您将需要一些 web 开发的知识 (主要是 JavaScript) 和一台 [安装了Node.js and NPM](https://nodejs.org/en/download/) 的电脑。您可以在没有很深的 JavaScript 编程语言知识，甚至不知晓 React、Redux 和 SVG 是如何工作的情况下学习本系列的内容。但是，如果您具备这些，您将花更少的时间来领会不同的主题以及它们是如何组合在一起的。
+作为学习这个系列的先决条件，您将需要一些 web 开发的知识 (主要是 JavaScript) 和一台 [安装了 Node.js and NPM](https://nodejs.org/en/download/) 的电脑。您可以在没有很深的 JavaScript 编程语言知识，甚至不知晓 React、Redux 和 SVG 是如何工作的情况下学习本系列的内容。但是，如果您具备这些，您将花更少的时间来领会不同的主题以及它们是如何组合在一起的。
 
 然而，更值得关注的是本系列包含的相关文章、帖子和文档，它们为主题提供了更好的补充说明。
 

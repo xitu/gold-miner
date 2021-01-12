@@ -244,7 +244,7 @@ private func centerCurrentView() {
 }
 ```
 
-上面的代码考虑了 scrollView 的当前偏移量以及 view 的尺寸和填充以便计算当前view 与中心的距离。最后一行很重要：一旦 view 居中，就通知代理所选的 view 已变更。
+上面的代码考虑了 scrollView 的当前偏移量以及 view 的尺寸和填充以便计算当前 view 与中心的距离。最后一行很重要：一旦 view 居中，就通知代理所选的 view 已变更。
 
 要检测用户是否在 scrollView 内完成了拖动，你需要实现一些 `UIScrollViewDelegate` 的方法，将以下类扩展添加到文件的底部。记住一定要在主类声明的花括号 **下面** 添加！
 
@@ -646,7 +646,7 @@ func saveAlbums() {
 
 就像使用 `caches` 一样，你将在此定义一个 URL 用来保存文件目录，它是一个存储文件名路径的常量，然后就是将你的专辑数据写入文件的方法，事实上你并不用编写很多的代码！
 
-该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 [此JSON文件](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip) 并将其添加到你的项目中。
+该方案的另一部分是将数据解码回具体对象。你现在需要替换掉创建专辑并从文件中加载它们的很长一段的那个方法。下载并解压 [此 JSON 文件](https://koenig-media.raywenderlich.com/uploads/2017/07/albums.json_.zip) 并将其添加到你的项目中。
 
 现在用以下代码替换 **PersistencyManager.swift** 中的 `init` 方法体：
 

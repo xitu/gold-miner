@@ -39,7 +39,7 @@ Web 分享 API 是填补这种缺失的第一步，它将把原生的分享能�
 
 # Web 分享 API
 
-如今的 Web 分享 API 是基于 [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) 的非阻塞API 的最佳实践。
+如今的 Web 分享 API 是基于 [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) 的非阻塞 API 的最佳实践。
 
 正如其他大多数分享 API 一样，你能够分享的数据包括 `title`, `url` 和 `text`（三者至少一项为必填项）。
 下面是允许分享图片数据或/和文件对象的方案。

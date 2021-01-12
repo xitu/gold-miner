@@ -52,7 +52,7 @@
 
 空值检查可以用，但是这个方法较为繁琐。
 
-## Elvis运算符
+## Elvis 运算符
 我们可以通过结合[ Elvis 运算符](https://kotlinlang.org/docs/reference/null-safety.html#elvis-operator)将空值检查的解法压缩为单行代码:
 
     map[key] = (map[key] ?: 0) + 1

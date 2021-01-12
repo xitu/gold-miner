@@ -436,7 +436,7 @@ protected void onStart() {
 
 ## 观察文本改变 ##
 
-如果你想在用户键入一些文字时自动执行搜索，就想Google一样，该怎样做呢？
+如果你想在用户键入一些文字时自动执行搜索，就想 Google 一样，该怎样做呢？
 
 首先, 你需要订阅 `TextView` 的文本改变. 在 `CheeseActivity` 类中添加如下代码:
 

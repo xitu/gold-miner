@@ -124,7 +124,7 @@
 
 只需解压缩文件夹并运行 `run.bat` 文件即可。
 
-如果它不起作用，请尝试安装C ++运行时文件：([https://aka.ms/vs/15/release/vc_redist.x64.exe](https://aka.ms/vs/15/release/vc_redist.x64.exe))
+如果它不起作用，请尝试安装 C ++运行时文件：([https://aka.ms/vs/15/release/vc_redist.x64.exe](https://aka.ms/vs/15/release/vc_redist.x64.exe))
 
 * * *
 

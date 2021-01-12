@@ -144,7 +144,7 @@ Bert Sutherland 撰写的运营商组成图
 
 Transducer 作为一般概念（不是 Hickey 的协议规范）来讲，对计算机科学的重要分支产生了相当大的影响，包括数据流编程、科学和媒体应用的信号处理、网络、人工智能等等。随着我们开发更好的工具和技术在我们打应用代码中阐释 transducer，它们开始帮助我们更好的理解各种软件组合，包括 Web 和 易用应用程序中的用户界面行为，并且在将来，还可以很好地帮助我们管理复杂的 AR（augmented reality），自主设备和车辆等。
 
-为了讨论起见，当我说 “transducer” 时，我并不是指 SICP transducer，尽管如果你已经熟悉了 SICP transducer，可能听起来像是在讲述它们。我也没有**具体**提到 Clojure 的 transducer，或者已经成为 JavaScript 事实标准的 transducer 协议（由 Ramda、Transducer-JS、RxJS等支持...）。我指的是**高阶 reducer**的一般概念 —— 变幻的转换。
+为了讨论起见，当我说 “transducer” 时，我并不是指 SICP transducer，尽管如果你已经熟悉了 SICP transducer，可能听起来像是在讲述它们。我也没有**具体**提到 Clojure 的 transducer，或者已经成为 JavaScript 事实标准的 transducer 协议（由 Ramda、Transducer-JS、RxJS 等支持...）。我指的是**高阶 reducer**的一般概念 —— 变幻的转换。
 
 在我看来，transducer 协议的特定细节比 transducer 的一般原理和基本数学特性重要的多，但是如果你想在生产中使用 transducer，为了满足互操作性，我目前的建议是使用现有的库来实现 transducer 协议。
 

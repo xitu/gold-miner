@@ -89,13 +89,13 @@
   }
 
   func usingC(c: C) {
-     c.array1[i] = ... //可以直接使用C.array而不用通过动态调用
-     c.doSomething() = ... //可以直接调用C.doSomething而不用通过虚函数表访问
+     c.array1[i] = ... //可以直接使用 C.array 而不用通过动态调用
+     c.doSomething() = ... //可以直接调用 C.doSomething 而不用通过虚函数表访问
   }
 
   func usingD(d: D) {
-     d.array1[i] = ... //可以直接使用D.array1而不用通过动态调用
-     d.array2[i] = ... //将通过动态调用使用D.array2
+     d.array1[i] = ... //可以直接使用 D.array1而不用通过动态调用
+     d.array2[i] = ... //将通过动态调用使用 D.array2
   }
 
 建议：当声明不需要被文件外部访问到的时候，使用'private'
@@ -215,7 +215,7 @@
 泛型
 ========
 
-Swift通过使用泛型类型，提供了一种十分强大的抽象机制。 Swift 编译器发出一个具体的代码块，从而可以对任何 ``T`` 执行 ``MySwiftFunc<T>``。生成的代码需要一个函数指针表和一个包含 ``T`` 的封装作为额外参数。通过传递不同的函数指针表及封装提供的抽象大小，从而来说明 ``MySwiftFunc<Int>`` 和 ``MySwiftFunc<String>`` 之间的不同行为。一个泛型的例子：
+Swift 通过使用泛型类型，提供了一种十分强大的抽象机制。 Swift 编译器发出一个具体的代码块，从而可以对任何 ``T`` 执行 ``MySwiftFunc<T>``。生成的代码需要一个函数指针表和一个包含 ``T`` 的封装作为额外参数。通过传递不同的函数指针表及封装提供的抽象大小，从而来说明 ``MySwiftFunc<Int>`` 和 ``MySwiftFunc<String>`` 之间的不同行为。一个泛型的例子：
 
 ::
 

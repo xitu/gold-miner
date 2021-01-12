@@ -27,7 +27,7 @@
 
 在最高级别的压缩下，Brotli 的速度会变得非常慢，以至于服务器在等待动态压缩资源时开始发送响应所花费的时间可能会使文件大小的任何潜在收益都无效。但是，对于静态压缩，[高压缩比的设置比较受欢迎](https://css-tricks.com/brotli-static-compression/) —— （**感谢 Jeremy!**）
 
-或者，你可以考虑使用 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)，将数据编码为 Deflate，Gzip 和 Zlib 格式。Zopfli 改进的 Deflate 编码使得任何使用 Gzip 压缩的文件受益，因为这些文件大小比 用Zlib 最强压缩后还要小 3％ 到 8％。问题在于压缩文件的时间是原来的大约 80倍。这就是为什么虽然 使用 Zopfli 是一个好主意但是变化并不大，文件都需要设计为只压缩一次可以多次下载的。
+或者，你可以考虑使用 [Zopfli 的压缩算法](https://blog.codinghorror.com/zopfli-optimization-literally-free-bandwidth/)，将数据编码为 Deflate，Gzip 和 Zlib 格式。Zopfli 改进的 Deflate 编码使得任何使用 Gzip 压缩的文件受益，因为这些文件大小比 用 Zlib 最强压缩后还要小 3％ 到 8％。问题在于压缩文件的时间是原来的大约 80倍。这就是为什么虽然 使用 Zopfli 是一个好主意但是变化并不大，文件都需要设计为只压缩一次可以多次下载的。
 
 比较好的方法是你可以绕过动态压缩静态资源的成本。Brotli 和 Zopfli 都可以用于明文传输 —— HTML，CSS，SVG，JavaScript 等。
 
@@ -50,9 +50,9 @@ On Smashing Magazine, we use the postfix `-opt` for image names — for example,
 24. **将图像优化到下一个级别**
 现在有一个至关重要着陆页，有一个特定的图片的加载速度非常关键，确保 JPEGs 是渐进式的并且使用 [Adept](https://github.com/technopagan/adept-jpg-compressor)、 [mozJPEG](https://github.com/mozilla/mozjpeg) （通过操纵扫描级来改善开始渲染时间）或者 [Guetzli](https://github.com/google/guetzli) 压缩，谷歌新的开源编码器重点是能够感官的性能，并借鉴 Zopfli 和 WebP。唯一的 [不足](https://medium.com/@fox/talk-the-state-of-the-web-3e12f8e413b3) 是：处理的时间慢（每百万像素 CPU 一分钟）。至于 png，我们可以使用 [Pingo](http://css-ig.net/pingo)，和 [svgo](https://www.npmjs.com/package/svgo)，对于 SVG 的处理，我们使用 [SVGO](https://www.npmjs.com/package/svgo) 或 [SVGOMG](https://jakearchibald.github.io/svgomg/)
 
-每一个图像优化的文章会说明，但始终保持保持矢量资产清洁总是值得提醒的。确保清理未使用的资源，删除不必要的元数据，并减少图稿中的路径点数量（从而减少SVG代码）。（**感谢，Jeremy！**）
+每一个图像优化的文章会说明，但始终保持保持矢量资产清洁总是值得提醒的。确保清理未使用的资源，删除不必要的元数据，并减少图稿中的路径点数量（从而减少 SVG 代码）。（**感谢，Jeremy！**）
 
-到目前为止，这些优化只涵盖了基础知识。 Addy Osmani 已经发布了 [一个非常详细的基本图像优化指南](https://images.guide/)，深入到图像压缩和颜色管理的细节。 例如，您可以模糊图像中不必要的部分（通过对其应用高斯模糊滤镜）以减小文件大小，最终甚至可以开始移除颜色或将图像变成黑白色，以进一步缩小图像尺寸。 对于背景图像， 从Photoshop 导出的照片质量为 0 到 10％ 也是绝对可以接受的。
+到目前为止，这些优化只涵盖了基础知识。 Addy Osmani 已经发布了 [一个非常详细的基本图像优化指南](https://images.guide/)，深入到图像压缩和颜色管理的细节。 例如，您可以模糊图像中不必要的部分（通过对其应用高斯模糊滤镜）以减小文件大小，最终甚至可以开始移除颜色或将图像变成黑白色，以进一步缩小图像尺寸。 对于背景图像， 从 Photoshop 导出的照片质量为 0 到 10％ 也是绝对可以接受的。
 
 那么 GIF 图片呢？我们可以使用 [循环的 HTML5 视频](https://bitsofco.de/optimising-gifs/)，而不是影响渲染性能和带宽的重度 GIF 动画，而使用循环的 HTML5 视频，[`<video>`](https://calendar.perfplanet.com/2017/animated-gif-without-the-gif/#-but-we-already-have-video-tags) 会使得 [浏览器的性能很慢](https://calendar.perfplanet.com/2017/animated-gif-without-the-gif/#-but-we-already-have-video-tags)，而且与图像不同的是，浏览器不会预先加载 `<video>` 内容。 至少我们可以使用 [Lossy GIF](https://kornel.ski/lossygif), [gifsicle](https://github.com/kohler/gifsicle) 或者 [giflossy](https://github.com/pornel/giflossy) 添加有损压缩 GIF。
 
@@ -60,20 +60,20 @@ On Smashing Magazine, we use the postfix `-opt` for image names — for example,
 
 还不够好？那么，你也可以使用 [多种](http://csswizardry.com/2016/10/improving-perceived-performance-with-multiple-background-images/) [背景](https://jmperezperez.com/medium-image-progressive-loading-placeholder/) [图像](https://manu.ninja/dominant-colors-for-lazy-loading-images#tiny-thumbnails) [技术](https://css-tricks.com/the-blur-up-technique-for-loading-background-images/) 提高图像的感知性能。 记着，[减少对比度](https://css-tricks.com/contrast-swap-technique-improved-image-performance-css-filters/)  和模糊不必要的细节（或消除颜色）也可以减小文件的大小。 你需要放大一个小照片而不失真？考虑使用 [Letsenhance.io](https://letsenhance.io)
 
-![Zach Leatherman的字体加载策略综合指南](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/eb634666-55ab-4db3-aa40-4b146a859041/font-loading-strategies-opt.png)
+![Zach Leatherman 的字体加载策略综合指南](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/eb634666-55ab-4db3-aa40-4b146a859041/font-loading-strategies-opt.png)
 
 Zach Leatherman 的 [字体加载策略综合指南](https://www.zachleat.com/web/comprehensive-webfonts/) 提供了十几种更好的网页字体发送选项
 
-25. **Web字体是否优化？**
+25. **Web 字体是否优化？**
 首先需要问一个问题，你是否能不使用 [UI 系统字体](https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/)。 如果不可以，那么你有很大可能使用 Web 网络字体，会包含字形和额外的功能以及用不到的加粗。 如果您使用的是开源字体（例如，通过仅包含带有某些特殊的重音字形的拉丁语），则可以只选择部分 Web 字体来减少其文件大小。
 
-[WOFF2](http://caniuse.com/#search=woff2) 非常好，你可以使用 WOFF 和 OTF 作为不支持它的浏览器的备选。另外，从 Zach Leatherman 的《[字体加载策略综合指南](https://www.zachleat.com/web/comprehensive-webfonts/)》（代码片段也可以作为 [Web字体加载片段](https://github.com/zachleat/web-font-loading-recipes)）中选择一种策略，并使用服务器缓存持久地缓存字体。是不是感觉小有成就？Pixel Ambacht 有一个 [快速教程和案例研究](https://pixelambacht.nl/2016/font-awesome-fixed/)，让你的字体按顺序排列。
+[WOFF2](http://caniuse.com/#search=woff2) 非常好，你可以使用 WOFF 和 OTF 作为不支持它的浏览器的备选。另外，从 Zach Leatherman 的《[字体加载策略综合指南](https://www.zachleat.com/web/comprehensive-webfonts/)》（代码片段也可以作为 [Web 字体加载片段](https://github.com/zachleat/web-font-loading-recipes)）中选择一种策略，并使用服务器缓存持久地缓存字体。是不是感觉小有成就？Pixel Ambacht 有一个 [快速教程和案例研究](https://pixelambacht.nl/2016/font-awesome-fixed/)，让你的字体按顺序排列。
 
-如果你无法从你的服务器拿到字体并依赖于第三方主机，请确保使用 [字体加载事件](https://www.igvita.com/2014/01/31/optimizing-web-font-rendering-performance/#font-load-events)（或对不支持它的浏览器使用 [Web字体加载器](https://github.com/typekit/webfontloader)）[FOUT 要优于 FOIT](https://www.filamentgroup.com/lab/font-events.html); 立即开始渲染文本，并异步加载字体 —— 也可以使用 [loadCSS](https://github.com/filamentgroup/loadCSS)。 你也可以 [摆脱本地安装的操作系统字体](https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/)，也可以使用 [可变的](https://alistapart.com/blog/post/variable-fonts-for-responsive-design) [字体](https://www.smashingmagazine.com/2017/09/new-font-technologies-improve-web/)。
+如果你无法从你的服务器拿到字体并依赖于第三方主机，请确保使用 [字体加载事件](https://www.igvita.com/2014/01/31/optimizing-web-font-rendering-performance/#font-load-events)（或对不支持它的浏览器使用 [Web 字体加载器](https://github.com/typekit/webfontloader)）[FOUT 要优于 FOIT](https://www.filamentgroup.com/lab/font-events.html); 立即开始渲染文本，并异步加载字体 —— 也可以使用 [loadCSS](https://github.com/filamentgroup/loadCSS)。 你也可以 [摆脱本地安装的操作系统字体](https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/)，也可以使用 [可变的](https://alistapart.com/blog/post/variable-fonts-for-responsive-design) [字体](https://www.smashingmagazine.com/2017/09/new-font-technologies-improve-web/)。
 
 怎么才能是一个无漏洞的字体加载策略？ 从 `font-display` 开始，然后回到 Font Loading API，**然后**回到 Bram Stein 的 [Font Face Observer](https://github.com/bramstein/fontfaceobserver)（**感谢 Jeremy！**）如果你有兴趣从用户的角度来衡量字体加载的性能， Andreas Marschke 探索了 [使用 Font API 和 UserTiming API 进行性能跟踪](ttps://www.andreas-marschke.name/posts/2017/12/29/Fonts-API-UserTiming-Boomerang.html)
 
-此外，不要忘记包含 [`font-display：optional`](https://font-display.glitch.me/) 描述符来提供弹性和快速的字体回退，[`unicode-range`](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2015/august/how-to-subset-fonts-with-unicode-range/) 将大字体分解成更小的语言特定的字体，以及Monica Dinculescu [的字体样式匹配器](https://meowni.ca/font-style-matcher/) 用来解决由于两种字体之间的大小差异，最大限度地减少了布局上的震动的问题。
+此外，不要忘记包含 [`font-display：optional`](https://font-display.glitch.me/) 描述符来提供弹性和快速的字体回退，[`unicode-range`](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2015/august/how-to-subset-fonts-with-unicode-range/) 将大字体分解成更小的语言特定的字体，以及 Monica Dinculescu [的字体样式匹配器](https://meowni.ca/font-style-matcher/) 用来解决由于两种字体之间的大小差异，最大限度地减少了布局上的震动的问题。
 
 
 ### 交付优化
@@ -97,11 +97,11 @@ Zach Leatherman 的 [字体加载策略综合指南](https://www.zachleat.com/we
 通常，我们会使用懒加载来处理所有代价较大的组件，如 字体，JavaScript，轮播，视频和 iframe。 你甚至可以根据网络质量调整内容服务。[网络信息 API](https://googlechrome.github.io/samples/network-information/)，特别是 `navigator.connection.effectiveType`（Chrome 62+）使用 RTT 和下行链路值来更准确地表示连接和用户可以处理的数据。 您可以使用它来完全删除视频自动播放，背景图片或 Web 字体，以便连接速度太慢。
 
 28. **你是否优先加载关键的 CSS？**
-为确保浏览器尽快开始渲染页面，[通常](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 会收集开始渲染页面的第一个可见部分所需的所有 CSS（称为 “关键CSS” 或 “上一层CSS”）并将其内联添加到页面的 `<head>` 中，从而减少往返。 由于在慢启动阶段交换包的大小有限，所以关键 CSS 的预算大约是 14 KB。
+为确保浏览器尽快开始渲染页面，[通常](https://www.smashingmagazine.com/2015/08/understanding-critical-css/) 会收集开始渲染页面的第一个可见部分所需的所有 CSS（称为 “关键 CSS” 或 “上一层 CSS”）并将其内联添加到页面的 `<head>` 中，从而减少往返。 由于在慢启动阶段交换包的大小有限，所以关键 CSS 的预算大约是 14 KB。
 
 如果超出这个范围，浏览器将需要额外往返取得更多样式。  [CriticalCSS](https://github.com/filamentgroup/criticalCSS) 和 [Critical](https://github.com/addyosmani/critical) 可以做到这一点。 你可能需要为你使用的每个模板执行此操作。 如果可能的话，考虑使用 Filament Group 使用的 [条件内联方法](https://www.filamentgroup.com/lab/modernizing-delivery.html)。
 
-使用 HTTP/2，关键 CSS 可以存储在一个单独的 CSS 文件中，并通过 [服务器推送](https://www.filamentgroup.com/lab/modernizing-delivery.html) 来传递，而不会增大 HTML 的大小。 问题在于，服务器推送是很 [麻烦](https://twitter.com/jaffathecake/status/867699157150117888)，因为浏览器中存在许多问题和竞争条件。 它一直不被支持，并有一些缓存问题（参见 [Hooman Beheshti介绍的文章]([Hooman Beheshti's presentation](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)) 114 页内容）。事实上，这种影响可能是 [负面的](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/)，会使网络缓冲区膨胀，从而阻止文档中的真实帧被传送。 而且，由于 TCP 启动缓慢，似乎服务器推送在热连接上 [更加有效](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)。
+使用 HTTP/2，关键 CSS 可以存储在一个单独的 CSS 文件中，并通过 [服务器推送](https://www.filamentgroup.com/lab/modernizing-delivery.html) 来传递，而不会增大 HTML 的大小。 问题在于，服务器推送是很 [麻烦](https://twitter.com/jaffathecake/status/867699157150117888)，因为浏览器中存在许多问题和竞争条件。 它一直不被支持，并有一些缓存问题（参见 [Hooman Beheshti 介绍的文章]([Hooman Beheshti's presentation](http://www.slideshare.net/Fastly/http2-what-no-one-is-telling-you)) 114 页内容）。事实上，这种影响可能是 [负面的](https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/)，会使网络缓冲区膨胀，从而阻止文档中的真实帧被传送。 而且，由于 TCP 启动缓慢，似乎服务器推送在热连接上 [更加有效](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)。
 
 即使使用 HTTP/1，将关键 CSS 放在根目录上的单独文件中也是有 [好处的](http://www.jonathanklein.net/2014/02/revisiting-cookieless-domain.html)，有时甚至比缓存和内联更为有效。 Chrome 请求这个页面的时候会再发送一个 HTTP 连接到根目录，从而不需要 TCP 连接来获取这个 CSS（**感谢 Philip！**）
 

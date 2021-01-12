@@ -142,7 +142,7 @@ bar; //"1,2,3"
 
 如果你的代码写得够好的话，其实很少需要这样做。我们已经看到，在典型的用法中，只有一种方法可以获得不可解析的引用：使用既不是属性也不是变量的仅在语法上正确的引用。在大多数情况下，确保记住 var 关键字可以避免这种情况。只有在引用只存在于某些浏览器或第三方代码中的变量时，才会出现运行时异常。
 
-一个很好的例子是 **console**。在 Webkit 浏览器中，console 是内置的，console 的属性总是可用的。然而 firefox 中的 console 依赖于安装和打开Firebug（或其他附加组件）。IE7 没有 console，IE8 有 console，但 console 属性只在 IE 开发工具启动时存在。显然 Opera 有 console，但我从来没有使用过。
+一个很好的例子是 **console**。在 Webkit 浏览器中，console 是内置的，console 的属性总是可用的。然而 firefox 中的 console 依赖于安装和打开 Firebug（或其他附加组件）。IE7 没有 console，IE8 有 console，但 console 属性只在 IE 开发工具启动时存在。显然 Opera 有 console，但我从来没有使用过。
 
 结论是，下面的代码片段在浏览器中运行时很可能会抛出 ReferenceError：
 

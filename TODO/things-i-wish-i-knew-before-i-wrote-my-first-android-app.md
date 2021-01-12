@@ -69,11 +69,11 @@
 
 这段代码存在很多问题. 我将把重点放在其中的一个上.  在 Java 中, (非静态的) 内部类对包含它的类对象有一个隐式的引用.
 
-在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有个DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
+在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有个 DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
 
 这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当地创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它隐式引用的对象也无法被回收.
 
-这有一个非常棒的Google IO 视频  [that explains why this sort of thing happens]
+这有一个非常棒的 Google IO 视频  [that explains why this sort of thing happens]
 (https://www.youtube.com/watch?v=_CruQY55HOk).
 
 ## 3\. 让 Android Studio 为你服务
@@ -90,7 +90,7 @@
 
 [![Screen Shot 2015-07-09 at 4.16.13 PM](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png?resize=620%2C432)](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png)
 
-Android Studio可以做很多事情. [学习快捷键](http://www.developerphil.com/android-studio-tips-of-the-day-roundup-1/)和[活动模版](https://www.jetbrains.com/idea/help/live-templates.html)是很好的入门.
+Android Studio 可以做很多事情. [学习快捷键](http://www.developerphil.com/android-studio-tips-of-the-day-roundup-1/)和[活动模版](https://www.jetbrains.com/idea/help/live-templates.html)是很好的入门.
 
 ## 4\. 每个方法应该只做一件事
 
@@ -115,7 +115,7 @@ Android Studio可以做很多事情. [学习快捷键](http://www.developerphil.
 1. 收听 [Google IO Fragmented podcast episode](http://fragmentedpodcast.com/episodes/9/). 在这集中, 有一些要求开发了解的第三方 Android 库. 
 剧透: 大部分都是 Dagger, Retrofit, Picasso, and Mockito.
 2. 订阅[to Android Weekly](http://androidweekly.net/). 这里有一个板块包含最新的 Android 库. 留心那些对你有用的库.
-3. 寻找解决类似问题的开源应用. 你可能发现它们用了第三方的库或者用了你并没有在意的标准Java库
+3. 寻找解决类似问题的开源应用. 你可能发现它们用了第三方的库或者用了你并没有在意的标准 Java 库
 
 ##总结
 

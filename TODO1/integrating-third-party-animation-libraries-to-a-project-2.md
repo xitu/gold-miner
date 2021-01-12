@@ -201,7 +201,7 @@ methods: {
 <div :class="[{animated: isBounce, bounce: isBounce}, 'infinite']">bounce</div>
 ```
 
-在 pulse 效果中，当布尔变量 `isPulse` 的值为 true 时，就会给元素添加两个类名。在 bounce 效果中，当布尔变量 `isBounce` 的值为 true 时，就会给元素添加 `animated` 类和 `bounce` 类。`infinite` 这个类是默认启用的，这样在布尔变量 `isBounce` 的值变为 false 之前，bounce效果会一直持续。
+在 pulse 效果中，当布尔变量 `isPulse` 的值为 true 时，就会给元素添加两个类名。在 bounce 效果中，当布尔变量 `isBounce` 的值为 true 时，就会给元素添加 `animated` 类和 `bounce` 类。`infinite` 这个类是默认启用的，这样在布尔变量 `isBounce` 的值变为 false 之前，bounce 效果会一直持续。
 
 ### 过渡动画
 

@@ -103,8 +103,8 @@
 * [Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c)（[Mirosalva](https://github.com/Mirosalva) 翻译）
 * [Node.js 会永远只是慢的 Golang 吗？](https://juejin.im/post/5cc811fc6fb9a0322415a70d)（[steinliber](https://github.com/steinliber) 翻译）
 * [用 Rust 打造你的第一个命令行工具](https://juejin.im/post/5cb33b94e51d456e63760453)（[JackEggie](https://github.com/JackEggie) 翻译）
-* [Spring 的分布式事务实现 — 使用和不使用XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff)（[radialine](https://github.com/radialine) 翻译）
-* [Spring 的分布式事务实现 — 使用和不使用XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)（[xiantang](https://github.com/xiantang) 翻译）
+* [Spring 的分布式事务实现 — 使用和不使用 XA — 第三部分](https://juejin.im/post/5caee1ee6fb9a068890f1eff)（[radialine](https://github.com/radialine) 翻译）
+* [Spring 的分布式事务实现 — 使用和不使用 XA — 第二部分](https://juejin.im/post/5cae93ddf265da03a85aaac3)（[xiantang](https://github.com/xiantang) 翻译）
 * [Java 和 etcd：因为 jetcd 最终走到了一起](https://juejin.im/post/5cae92f8f265da0360239b89)（[mingxing47](https://github.com/mingxing47) 翻译）
 * [多线程简介](https://juejin.im/post/5ca351da6fb9a05e6a08745b)（[steinliber](https://github.com/steinliber) 翻译）
 * [用 Apache Shiro 来强化一个 Spring Boot 应用](https://juejin.im/post/5c9f60c7e51d451cf929305d)（[lihanxiang](https://github.com/lihanxiang) 翻译）
@@ -147,8 +147,8 @@
 * [Node.js 高性能和可扩展应用程序的最佳实践 [第 1/3 部分]](https://juejin.im/post/5bc0f68af265da0abe2720bf)（[jianboy](https://github.com/jianboy) 翻译）
 * [使用 Node 和 OAuth 2.0 构建一个简单的 REST API](https://juejin.im/post/5bb1d3f95188255c6a044d9a)（[Starriers](https://github.com/Starriers) 翻译）
 * [容器，虚拟机以及 Docker 的初学者入门介绍](https://juejin.im/entry/5bada97f6fb9a05d0e2e7014/detail)（[steinliber](https://github.com/steinliber) 翻译）
-* [如何在六个月或更短的时间内成为DevOps 工程师，第2部分：配置](https://juejin.im/post/5baf677df265da0a951ee8f5)（[jianboy](https://github.com/jianboy) 翻译）
-* [如何在六个月或更短的时间内成为DevOps 工程师，第三部分：版本控制](https://juejin.im/post/5bb067bfe51d450e905a0aa4)（[jianboy](https://github.com/jianboy) 翻译）
+* [如何在六个月或更短的时间内成为 DevOps 工程师，第2部分：配置](https://juejin.im/post/5baf677df265da0a951ee8f5)（[jianboy](https://github.com/jianboy) 翻译）
+* [如何在六个月或更短的时间内成为 DevOps 工程师，第三部分：版本控制](https://juejin.im/post/5bb067bfe51d450e905a0aa4)（[jianboy](https://github.com/jianboy) 翻译）
 * [2018 年度最佳数据库即服务解决方案](https://juejin.im/post/5ba784e3e51d450e9d64984d)（[cf020031308](https://github.com/cf020031308) 翻译）
 * [SmartyStreets 的 Go 测试探索之路](https://juejin.im/post/5ba83f2ff265da0a867c3818)（[kasheemlew](https://github.com/kasheemlew) 翻译）
 * [使用 Go 编写微服务及其 GraphQL 网关](https://juejin.im/post/5b94cf476fb9a05d26593f07)（[changkun](https://github.com/changkun) 翻译）
@@ -214,7 +214,7 @@
 * [如何用 Python 写一个 Discord 机器人](https://juejin.im/post/5ac1b9796fb9a028c42e5a61)（[Starriers](https://github.com/Starriers) 翻译）
 * [Web 爬虫下的 Python 数据分析：中情局全球概况图解](https://juejin.im/post/5ab9fcebf265da238e0dc349)（[Starriers](https://github.com/Starriers) 翻译）
 * [Elasticsearch 滚动升级](https://juejin.im/post/5ab5f53f518825556b6cbdea)（[rpgmakervx](https://github.com/rpgmakervx) 翻译）
-* [这可能是 2018 年最好的一篇 PHP 性能测评（包含 5.6 到 7.2，以及HHVM）](https://juejin.im/post/5ab4bac9518825557b4caec6)（[Albertao](https://github.com/Albertao) 翻译）
+* [这可能是 2018 年最好的一篇 PHP 性能测评（包含 5.6 到 7.2，以及 HHVM）](https://juejin.im/post/5ab4bac9518825557b4caec6)（[Albertao](https://github.com/Albertao) 翻译）
 * [斐波那契数列中的偶数（Python vs. JavaScript）](https://juejin.im/post/5aaa61f8f265da237b21d258)（[zephyrJS](https://github.com/zephyrJS) 翻译）
 * [将项目迁移到 Python 3](https://juejin.im/post/5a9e3ff06fb9a028d2077434)（[Starriers](https://github.com/Starriers) 翻译）
 * [GraphQL API 设计最佳实践](https://juejin.im/entry/5aab36936fb9a028d7005a3f/detail)（[AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译）
@@ -232,7 +232,7 @@
 * [为 Flask Web 应用配置 Nginx](https://juejin.im/post/5a795febf265da4e94499949)（[lsvih](https://github.com/lsvih) 翻译）
 * [为 Django Framework 贡献你的力量并没有想象中的那么难](https://juejin.im/post/5a77cd6e5188257a79247fe1)（[JayZhaoBoy](https://github.com/JayZhaoBoy) 翻译）
 * [8 个技巧让你在 2018 年构建更好的 Node.js 应用程序](https://juejin.im/post/5a617c436fb9a01c9e46074f)（[PLDaily](https://github.com/PLDaily) 翻译）
-* [状态管理的未来: 在 Apollo Client 中使用 apollo-link-state管理本地数据](https://juejin.im/post/5a728da26fb9a01cb74eb328)（[yct21](https://github.com/yct21) 翻译）
+* [状态管理的未来: 在 Apollo Client 中使用 apollo-link-state 管理本地数据](https://juejin.im/post/5a728da26fb9a01cb74eb328)（[yct21](https://github.com/yct21) 翻译）
 * [使用 Rust 开发一个简单的 Web 应用之总结篇：还是先把 Rust 放一边吧](https://juejin.im/post/5a71cf15f265da3e4f0a7d0a)（[mysterytony](https://github.com/mysterytony) 翻译）
 * [使用 Rust 开发一个简单的 Web 应用，第 1 部分](https://juejin.im/post/5a673ba16fb9a01ca5609f35)（[LeopPro](https://github.com/LeopPro) 翻译）
 * [通过后台数据预获取技术实现性能提升](https://juejin.im/post/5a71a9c3f265da3e2f01459b)（[NeoyeElf](https://github.com/NeoyeElf) 翻译）
@@ -243,7 +243,7 @@
 * [使用 helmet 库来保护你的 Express 网站](https://juejin.im/post/5a24fd8f51882509e5438247)（[lsvih](https://github.com/lsvih) 翻译）
 * [Python 3.7 的新特性](https://juejin.im/post/5a127e60f265da430f31b45b)（[winjeysong](https://github.com/winjeysong) 翻译）
 * [HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[yct21](https://github.com/yct21) 翻译）
-* [Go并发编程中的那些事](https://juejin.im/post/59ecb058f265da43346f10e5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[kobehaha](https://github.com/kobehaha) 翻译）
+* [Go 并发编程中的那些事](https://juejin.im/post/59ecb058f265da43346f10e5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[kobehaha](https://github.com/kobehaha) 翻译）
 * [CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[mnikn](https://github.com/mnikn) 翻译）
 * [你不知道的 Node](https://juejin.im/post/59cf06caf265da0665640008?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[lampui](https://github.com/lampui) 翻译）
 * [SQL 指引：如何写出更好的查询](https://juejin.im/post/59c1d402518825396f4f6321?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[zyziyun](https://github.com/zyziyun) 翻译）

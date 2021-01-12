@@ -84,7 +84,7 @@ Jupyter Notebook 支持用户界面主题。以下命令将主题设置为 [Ches
 $ jt -t chesterish
 ```
 
-下面命令列出当前安装的主题。内置的主题在 GitHub上都有[屏幕截图](https://github.com/dunovank/jupyter-themes/tree/master/screens)。
+下面命令列出当前安装的主题。内置的主题在 GitHub 上都有[屏幕截图](https://github.com/dunovank/jupyter-themes/tree/master/screens)。
 
 ```
 $ jt -l
@@ -307,7 +307,7 @@ CREATE EXTERNAL TABLE weather_orc (
 
 下面的 Python 代码是 Airflow 作业（也称为[DAG](https://en.wikipedia.org/wiki/Directed_acyclic_graph)）。每隔 30 分钟，它将执行以下操作。
 
-*   清除 HDFS上 /weather_csv/ 文件夹中的任何现有数据。
+*   清除 HDFS 上 /weather_csv/ 文件夹中的任何现有数据。
 *   将 ~/data 文件夹中的 CSV 文件复制到 HDFS 上的 /weather_csv/ 文件夹中。
 *   使用 Hive 将 HDFS 上的 CSV 数据转换为 ORC 格式。
 *   使用 Presto 将 ORC 格式的数据导出为 Microsoft Excel 2013 格式。

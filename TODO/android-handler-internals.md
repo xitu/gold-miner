@@ -6,7 +6,7 @@
 
 # 探索 Android 大杀器—— Handler
 
-如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但该操作只能在UI线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。Android 为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
+如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新 UI 组件的显示，但该操作只能在 UI 线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。Android 为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
 
 虽然 Handler 被使用的频率非常高，它的工作原理却很容易被忽视。本篇文章深入地剖析 Handler 众多内部组件的实现，它将会向您揭示 Handler 的强大之处，而不仅仅作为一个工作线程和 UI 线程通信的工具。
 
@@ -504,6 +504,6 @@ onCreate() 方法构造了一个 HandlerThread，当 HandlerThread 启动后，�
 
 Android 中的 Handler 在应用的生命周期中扮演着不可缺少的角色。它是构成半同步/半异步模式架构的基础。许多内部和外部的代码都依赖 Handler 去异步地分发事件，它能以最小的代价去维持线程安全。
 
-更深入地理解组件的工作方式能够帮助解决疑难杂症。这也能让我们以最佳的方法使用组件的 API。我们通常将 Handler 作为工作线程和UI线程间的通信机制，但 Handler 并不仅限于此。它出现在 [IntentService[6]](https://developer.android.com/reference/android/app/IntentService.html), 和  [Camera2[7]](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession.html) 和许多其它的 API 中。在这些 API 调用中，Handler 更多情形下是被用作任意线程间的通信工具。
+更深入地理解组件的工作方式能够帮助解决疑难杂症。这也能让我们以最佳的方法使用组件的 API。我们通常将 Handler 作为工作线程和 UI 线程间的通信机制，但 Handler 并不仅限于此。它出现在 [IntentService[6]](https://developer.android.com/reference/android/app/IntentService.html), 和  [Camera2[7]](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession.html) 和许多其它的 API 中。在这些 API 调用中，Handler 更多情形下是被用作任意线程间的通信工具。
 
 在深入理解了 Handler 的原理后，我们能运用其构建更有效率、更简洁、更健壮的应用程序。

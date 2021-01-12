@@ -74,7 +74,7 @@ Babel logo
 
 还有很多例子，不过希望这些已经足够让你认识到自定义 Babel 插件所带来的可能性了。
 
-哦对了，你知道那些随着框架和工具主要更新一起推出的 codemods 吗？它们会像施魔法一样 ✨ 把你的代码更新到最新的API（比如 [React 的这个 codemod](https://github.com/reactjs/react-codemod) 或者 [webpack 的这个 codemod](https://github.com/webpack/webpack-cli/blob/master/lib/migrate.js)）。你可以把那些工具写成 babel 插件然后通过 [babel-codemod](https://github.com/square/babel-codemod) 运行（看看[这个 babel-codemod 的演示](https://www.youtube.com/watch?v=Vj9MOXbC43A&amp;index=1&amp;list=PLV5CVI1eNcJipUVm6RDsOQti_MzHImUMD)）。（[通过这篇演讲深入了解 codemods](https://www.youtube.com/watch?v=d0pOgY8__JM)，演讲者 [Chirstoph](https://medium.com/@cpojer)）。
+哦对了，你知道那些随着框架和工具主要更新一起推出的 codemods 吗？它们会像施魔法一样 ✨ 把你的代码更新到最新的 API（比如 [React 的这个 codemod](https://github.com/reactjs/react-codemod) 或者 [webpack 的这个 codemod](https://github.com/webpack/webpack-cli/blob/master/lib/migrate.js)）。你可以把那些工具写成 babel 插件然后通过 [babel-codemod](https://github.com/square/babel-codemod) 运行（看看[这个 babel-codemod 的演示](https://www.youtube.com/watch?v=Vj9MOXbC43A&amp;index=1&amp;list=PLV5CVI1eNcJipUVm6RDsOQti_MzHImUMD)）。（[通过这篇演讲深入了解 codemods](https://www.youtube.com/watch?v=d0pOgY8__JM)，演讲者 [Chirstoph](https://medium.com/@cpojer)）。
 
 > 我不管你的正则表达式用得有多好，自定义 babel 插件可以让你做得更好。
 

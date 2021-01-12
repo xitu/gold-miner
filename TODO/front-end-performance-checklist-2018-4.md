@@ -105,7 +105,7 @@ DevTools 中的 "Priority" 列。图片来源于：Ben Schwarz，[重要的请�
 
 39. **使用了 HPACK 压缩吗？**
 
-如果你使用 HTTP/2，请再次检查，确保您的服务针对 HTTP 响应头部[实现 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)以减少不必要的开销。由于 HTTP/2 服务相对较新，它们可能不完全支持该规范，HPACK 就是一个例子。可以使用 [H2spec](https://github.com/summerwind/h2spec) 这个伟大的（如果技术上很详细）工具来检查。[HPACK作品](https://www.keycdn.com/blog/http2-hpack-compression/)。
+如果你使用 HTTP/2，请再次检查，确保您的服务针对 HTTP 响应头部[实现 HPACK 压缩](https://blog.cloudflare.com/hpack-the-silent-killer-feature-of-http-2/)以减少不必要的开销。由于 HTTP/2 服务相对较新，它们可能不完全支持该规范，HPACK 就是一个例子。可以使用 [H2spec](https://github.com/summerwind/h2spec) 这个伟大的（如果技术上很详细）工具来检查。[HPACK 作品](https://www.keycdn.com/blog/http2-hpack-compression/)。
 
 ![h2spec](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/efc02119-9155-4126-b7b9-bc83c4b16436/h2spec-example-750w-opt.png)
 
@@ -164,7 +164,7 @@ Jake 的 [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) �
 
 ### 清单下载（PDF, Apple Pages）
 
-记住了这个清单，您就已经为任何类型的前端性能项目做好了准备。请随意下载该清单的打印版PDF，以及一个**可编辑的苹果页面文档**，以定制您需要的清单：
+记住了这个清单，您就已经为任何类型的前端性能项目做好了准备。请随意下载该清单的打印版 PDF，以及一个**可编辑的苹果页面文档**，以定制您需要的清单：
 
 * [Download the checklist PDF](https://www.dropbox.com/s/8h9lo8ee65oo9y1/front-end-performance-checklist-2018.pdf?dl=0) (PDF, 0.129 MB)
 * [Download the checklist in Apple Pages](https://www.dropbox.com/s/yjedzbyj32gzd9g/performance-checklist-1.1.pages?dl=0) (.pages, 0.236 MB)

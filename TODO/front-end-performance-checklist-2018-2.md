@@ -22,7 +22,7 @@
 
 对于用户而言，这些技术主要的优势是确保性能，但是有时他们宁愿喜欢 AMP-/Apple News/Instant Pages 链路，也不愿是“常规”和潜在的臃肿页面。对于以内容为主的网站，主要处理很多第三方法内容，这些选择极大地加速渲染的时间。
 
-对于网站的所有者而言优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可见性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过把 AMP 作为你的 PWA 数据源来构建[渐进增强的 Web 体验](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。缺点？显然，在一个有围墙的区域里，开发者可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。（**谢谢** _Addy，Jeremy_）
+对于网站的所有者而言优势是明显的：在各个平台规范的可发现性和[增加搜索引擎的可见性](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过把 AMP 作为你的 PWA 数据源来构建[渐进增强的 Web 体验](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。缺点？显然，在一个有围墙的区域里，开发者可以创造并维持其内容的单独版本，防止 Instant Articles 和 Apple News [没有实际的 URLs](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)。（**谢谢** _Addy，Jeremy_）
 
 12. **明智地选择你的 CDN**
 
@@ -48,7 +48,7 @@
 
 但我们处理单页面应用时，在你可以渲染页面时，你需要一些时间来初始化 app。寻找模块和技术加快初始化渲染时间（例如：[这里是如何调试 React 性能](https://building.calibreapp.com/debugging-react-performance-with-react-16-and-chrome-devtools-c90698a522ad)，以及[如何提高 Angular 性能](https://www.youtube.com/watch?v=p9vT0W31ym8)），因为大多数性能问题来自于启动应用程序的初始解析时间。
 
-[JavaScript 有成本](https://youtu.be/_srJ7eHS3IM?t=9m33s)，但不一定是文件大小会影响性能。解析和执行时间的不同很大程度依赖设备的硬件。在一个普通的手机上（Moto G4），仅解析 1MB （未压缩的）的 JavaScript 大概需要 1.3-1.4 秒，会有 15 - 20% 的时间耗费在手机的解析上。在执行编译过程中，只是用在JavaScript准备平均需要 4 秒，在手机上绘排需要 11 秒。解释：在低端移动设备上，[解析和执行时间可以轻松提高 2 至 5 倍](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
+[JavaScript 有成本](https://youtu.be/_srJ7eHS3IM?t=9m33s)，但不一定是文件大小会影响性能。解析和执行时间的不同很大程度依赖设备的硬件。在一个普通的手机上（Moto G4），仅解析 1MB （未压缩的）的 JavaScript 大概需要 1.3-1.4 秒，会有 15 - 20% 的时间耗费在手机的解析上。在执行编译过程中，只是用在 JavaScript 准备平均需要 4 秒，在手机上绘排需要 11 秒。解释：在低端移动设备上，[解析和执行时间可以轻松提高 2 至 5 倍](https://medium.com/reloading/javascript-start-up-performance-69200f43b201)。
 
 Ember 最近推出了一个实验，一种使用[二进制模板](https://emberjs.com/blog/2017/10/10/glimmer-progress-report.html#toc_binary-templates)巧妙的避免解析开销的方式。这些模板不需要解析。（**感谢**，_Leonardo！_）
 

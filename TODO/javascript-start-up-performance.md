@@ -50,7 +50,7 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 ### JavaScript 解析、编译是普通网站的瓶颈吗？ ###
 
-『（你说的都对……）但是，我的网站又不是Facebook』，你可能会这样说。 **『外面的一般网站的解析和编译时间所占比例有多大？』**，你可能会这样问。现在我们来研究一下！
+『（你说的都对……）但是，我的网站又不是 Facebook』，你可能会这样说。 **『外面的一般网站的解析和编译时间所占比例有多大？』**，你可能会这样问。现在我们来研究一下！
 
 我花了两个月时间测试了一系列（6000+）使用了不同库和框架（如 React、Angular、Ember 和 Vue）构建的大型生产站点的性能。其中大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
 
@@ -70,7 +70,7 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GvwfE2GjKQyLBKPmmfRwuA.png">
 
-**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会减少 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
+**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会减少 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的 JS 文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
 
 ### **当前如何测量 JavaScript 的解析和编译** ###
 
@@ -116,7 +116,7 @@ Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log 可以帮助我们�
 
 **DeviceTiming**
 
-Etsy的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming) 工具可以帮助测量受控环境中脚本的解析和执行时间。它的工作原理是用测试代码封装本地脚本，以便每次页面被不同的设备（例如笔记本电脑、手机、平板电脑）访问时，我们可以本地比较解析、执行时间。Daniel Espeset的文章 [Benchmarking JS Parsing and Execution on Mobile Devices](http://talks.desp.in/unpacking-the-black-box) 详细介绍了这个工具。
+Etsy 的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming) 工具可以帮助测量受控环境中脚本的解析和执行时间。它的工作原理是用测试代码封装本地脚本，以便每次页面被不同的设备（例如笔记本电脑、手机、平板电脑）访问时，我们可以本地比较解析、执行时间。Daniel Espeset 的文章 [Benchmarking JS Parsing and Execution on Mobile Devices](http://talks.desp.in/unpacking-the-black-box) 详细介绍了这个工具。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FFzrH2QUiQZFX2rlF5e2-g.jpeg">
 
@@ -138,7 +138,7 @@ Nolan Lawson 的 [『解决 Web 性能危机』](https://channel9.msdn.com/Blogs
 
 ### **当前 *浏览器* 为了减少解析和编译时间在做什么?** ###
 
-并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现 Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数是冷启动代码）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是不合理的。
+并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现 Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数是冷启动代码）来说不是一个好的工具。这两个用例对于 web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是不合理的。
 
 V8 团队一直努力改善启动时间，并且已经在这些地方取得了一些胜利：
 
@@ -165,7 +165,7 @@ Chrome 42 引入了[Code caching](http://v8project.blogspot.com/2015/07/code-cac
 - 对于通过 Service Worker 存储在 Cache Storage 中的脚本：**首次执行** 脚本就会触发 Code caching。
 
 所以，结论是， **如果我们的代码是在缓存中，V8 会在第 3 次加载时跳过解析和编译。**
-我们可以在 *chrome://flags/#v8-cache-strategies-for-cache-storage* 中查看这些差异。 我们还可以设置 `js-flags=profile-deserialization` 后运行Chrome，看看项目是否从代码缓存中加载（在日志中显示为反序列化事件）。
+我们可以在 *chrome://flags/#v8-cache-strategies-for-cache-storage* 中查看这些差异。 我们还可以设置 `js-flags=profile-deserialization` 后运行 Chrome，看看项目是否从代码缓存中加载（在日志中显示为反序列化事件）。
 
 使用 Code caching 需要注意的一个点是，它只缓存可预编译的代码。通常只是运行一次以设置全局变量的顶层代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。
 

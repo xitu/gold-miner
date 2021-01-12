@@ -197,7 +197,7 @@ preload 利于下载与执行的解耦，多亏其对文档 onload 事件的支�
 
 FilamentGroup 也有一个 [preload](https://github.com/filamentgroup/loadCSS/blob/master/src/cssrelpreload.js#L8-L14) 检测器 ，作为他们的异步 CSS 加载库 [loadCSS](https://github.com/filamentgroup/loadCSS) 的一部分。
 
-### 你可以让 preload的 CSS 样式表立即生效吗？
+### 你可以让 preload 的 CSS 样式表立即生效吗？
 
 当然，preload 支持基于异步加载的标记，使用 `<link rel=”preload”>` 的样式表使用 `onload` 事件立即应用到文档：
 

@@ -55,7 +55,7 @@ Angular 中的定义：
 
 状态表示应用程序中会更改的所有数据。
 
-你访问一个URL，这是状态，发出一个 Ajax 请求来获取电影列表，这是也状态，将信息持久化到本地存储，同上，也是状态。
+你访问一个 URL，这是状态，发出一个 Ajax 请求来获取电影列表，这是也状态，将信息持久化到本地存储，同上，也是状态。
 
 状态由一系列**不变对象**组成
 
@@ -93,11 +93,11 @@ export type Article = {
 
 现在，让我们使用工厂函数模式创建 **articleService**。
 
-> 查看 @mpjme 的这个[视频](https://www.youtube.com/watch?v=ImwrezYhw4w)，了解更多关于JS中的工厂函数知识。
+> 查看 @mpjme 的这个[视频](https://www.youtube.com/watch?v=ImwrezYhw4w)，了解更多关于 JS 中的工厂函数知识。
 
 由于在我们的应用程序中只需要一个**articleService**，我们将把它导出为一个单例。
 
-**createArticle** 允许我们创建 **Article** 的[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)。每一篇新文章都会有一个唯一的自动生成的id和零收藏，我们仅需要提供作者和标题。
+**createArticle** 允许我们创建 **Article** 的[冻结对象](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)。每一篇新文章都会有一个唯一的自动生成的 id 和零收藏，我们仅需要提供作者和标题。
 
 > `**Object.freeze()**` 方法可冻结一个对象：即无法给它新增属性。 [5]
 
@@ -105,7 +105,7 @@ export type Article = {
 
 > [Maybe](https://flow.org/en/docs/types/maybe) 类型强制你在操作 **Article** 对象前先检查它是否存在。
 
-如果创建文章所需要的任一字段校验失败，那么 **createArticle** 方法将返回null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么做，但上层不实现catch块，那么程序将在运行时终止。
+如果创建文章所需要的任一字段校验失败，那么 **createArticle** 方法将返回 null。这里可能有人会说，最好抛出一个用户定义的异常。如果我们这么做，但上层不实现 catch块，那么程序将在运行时终止。
 **updateLikes** 方法会帮我们更新现存文章的收藏数，将返回一个拥有新计数的副本。
 
 最后，**isTitleValid** 和 **isAuthorValid** 方法能帮助 **createArticle** 隔离非法数据。
@@ -368,7 +368,7 @@ if (article1 && article2) {
 
 ### 应用服务层
 
-这一层用于执行与状态流相关的各种操作，如Ajax从服务器或状态镜像中获取数据。
+这一层用于执行与状态流相关的各种操作，如 Ajax 从服务器或状态镜像中获取数据。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZVstPN2LBFjdPoRaFq4SEw.png)
 

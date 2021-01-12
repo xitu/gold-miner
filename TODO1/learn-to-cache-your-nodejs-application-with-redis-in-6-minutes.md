@@ -169,7 +169,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 npm start
 ```
 
-**注意**，如前所述，我们的 Redis 服务端应该运行在另一个终端上，以便成功地将我们的NodeJS 应用连接到 Redis。
+**注意**，如前所述，我们的 Redis 服务端应该运行在另一个终端上，以便成功地将我们的 NodeJS 应用连接到 Redis。
 
 您现在应该能够在终端上看到以下输出，它表明您的 web 服务器正在 **5000 端口** 上运行。
 
@@ -261,7 +261,7 @@ app.listen(port, () => console.log(`Server running on Port ${port}`));
 
 #### 添加到缓存
 
-由于Redis 将数据以键值对的形式进行储存，我们需要确保无论何时向 Star Wars API 发出请求并成功接收到响应，我们就马上将星际飞船的 id 与其数据一起存储在缓存中。
+由于 Redis 将数据以键值对的形式进行储存，我们需要确保无论何时向 Star Wars API 发出请求并成功接收到响应，我们就马上将星际飞船的 id 与其数据一起存储在缓存中。
 
 为此，我们将添加以下代码到接收到的来自 Star Wars API 的响应的那段代码后。
 

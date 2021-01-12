@@ -153,7 +153,7 @@ Node 已经有内置的 IP 地址校验器。我以前不止一次自己写正�
 
 `require(`net`).isIP(`cats`)` will return `0`.
 
-因为`cats`并不是一个IP地址
+因为`cats`并不是一个 IP 地址
 
 如果你没注意到，我正经历着这么个阶段，字符串使用反引号包起来， 它在我身上越来越多，但我知道它看起来很奇怪，所以我特意提到它。。。（作者的唠叨）
 
@@ -248,7 +248,7 @@ _Much of the Node.js core API is built around an idiomatic asynchronous event-dr
 [**Console | Node.js v7.0.0 Documentation**  
 _The console functions are usually asynchronous unless the destination is a file. Disks are fast and operating systems…_nodejs.org](https://nodejs.org/api/console.html#console_new_console_stdout_stderr "https://nodejs.org/api/console.html#console_new_console_stdout_stderr")
 
-### DNS查询结果
+### DNS 查询结果
 
 Node [不缓存 DNS 返回的结果](https://github.com/nodejs/node/issues/5893).所以当你一次又一次地查询同一个 URL 的时候，其实已经浪费了很多宝贵的时间。这种情况下，你完全可以自己调用`dns.lookup()`并缓存结果的。或者可以[这么](https://www.npmjs.com/package/dnscache)做，这个是先前有人实现的。
 
@@ -273,7 +273,7 @@ _2) Functions that connect to an actual DNS server to perform name resolution, a
 *   `fs.watch()` 选项`recursive`只能在 macOS 和 Windows 中使用。
 *   `fs.watch()` 在 Windows 和 Linux 上，回调只会接受一个文件名
 *   `fs.open()` 打开一个文件夹，在 FreeBSD 和 Windows 上使用`a+`属性是可以的，但是在 macOS 和 Linux 上是不行的。
-*   `fs.write()` 在linux上，当文件是以append的方式打开的，参数`position`是会被直接忽视掉的，直接在文件末尾添加。
+*   `fs.write()` 在 linux上，当文件是以 append 的方式打开的，参数`position`是会被直接忽视掉的，直接在文件末尾添加。
 
 (我还算挺赶时髦的，我已经改用`macOS`了，`OS X`只用了 49 天)
 
@@ -423,7 +423,7 @@ _birthtime “Birth Time” – Time of file creation. Set once when the file is
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html "https://nodejs.org/api/net.html")
 
-### REPL技巧
+### REPL 技巧
 
 1.  当你处于 REPL（那是你在控制台敲入`node`，并按了回车键的情形），你可以敲入`.load someFile.js`，这时，它会将这个文件的内容加载进来。（比如，你可以加载一个包含大量常量的文件）。
 2.  当你设置环境变量`NODE_REPL_HISTORY=""`，这样可以禁止 repl 的历史写入文件中。同时我也学到（至少是被提醒了）REPL 的历史默认是写到`~/.node_repl_history`中，当你想回忆起之前的 REPL 历史时，可以上这儿查。

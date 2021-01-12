@@ -78,7 +78,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 列表里面我最推荐的 TOP 3 是：
 
 *   **[使用 TensorFlow 编写深度学习创意应用](https://www.class-central.com/mooc/6679/kadenze-creative-applications-of-deep-learning-with-tensorflow)**，Kadenze
-*   **[用于机器学习的神经网络](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)**，多伦多大学 (Geoffrey Hinton执教) 发布于 Coursera
+*   **[用于机器学习的神经网络](https://www.class-central.com/mooc/398/coursera-neural-networks-for-machine-learning)**，多伦多大学 (Geoffrey Hinton 执教) 发布于 Coursera
 *   **[深度学习 A-Z™：手把手教你写人工神经网络](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdeeplearning%2F)**，Kirill Eremenko，Hadelin de Ponteves 和 SuperDataScience Team 发布于 Udemy
 
 ### 推荐的先修课程
@@ -188,7 +188,7 @@ Eremenko 和 SuperDataScience team 最受学员爱戴的是他们有能力“把
 
 [《在 Azure HDInsight 中使用 Spark 实现预测分析》](https://www.class-central.com/mooc/4151/edx-implementing-predictive-analytics-with-spark-in-azure-hdinsight)（微软与 edX）：介绍了机器学习的核心概念和一些算法；利用了一些大数据友好的工具，包括 Apache Spark、 Scala 和 Hadoop；Python 和 R 都用到了；预计 6 周，每周 4 课时；可自愿购买经过认证的证书；有 6 条评论，4.5 星。
 
-[《使用 Python 学习数据科学和机器学习：手把手教你！》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-with-python-hands-on%2F)（Frank Kane 于 Udemy）：使用 Python；Kane 在亚马逊公司和 IMDb有 9 年工作经验；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；有 4139 条评论，4.5 星。
+[《使用 Python 学习数据科学和机器学习：手把手教你！》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fdata-science-and-machine-learning-with-python-hands-on%2F)（Frank Kane 于 Udemy）：使用 Python；Kane 在亚马逊公司和 IMDb 有 9 年工作经验；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；有 4139 条评论，4.5 星。
 
 [用于大数据和机器学习的 Scala 和 Spark 技术](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Fscala-and-spark-for-big-data-and-machine-learning%2F)（何塞波蒂利亚大学于 Udemy）：关注“大数据”，尤其是使用 Scala 和 Spark 实现；10 小时的按需视频；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；607 条评论，4.5 星。
 
@@ -216,7 +216,7 @@ Caltech 和 Yaser Abu-Mostafa 的[从数据中学习](https://www.class-central.
 
 Coursera 上华盛顿大学正在上这门[《机器学习规范》](https://www.class-central.com/certificate/machine-learning-specialization)。
 
-[《从 0 到 1：机器学习和NLP，使用 Python 切入正题》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Ffrom-0-1-machine-learning%2F)（Loony Corn 于 Udemy）：“一种脚踏实地，害羞但自信的机器学习技巧”；由具有数十年工业经验的四人小组授课；使用 Python；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；494 条评论，4.2 星。
+[《从 0 到 1：机器学习和 NLP，使用 Python 切入正题》](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14538&RD_PARM1=https%3A%2F%2Fwww.udemy.com%2Ffrom-0-1-machine-learning%2F)（Loony Corn 于 Udemy）：“一种脚踏实地，害羞但自信的机器学习技巧”；由具有数十年工业经验的四人小组授课；使用 Python；价格根据 Udemy 账户级别进行折扣，这在 Udemy 很常见；494 条评论，4.2 星。
 
 [《机器学习的原则》](https://www.class-central.com/mooc/6511/edx-principles-of-machine-learning)（微软于 edX）：使用 R、Python 和 微软 Azure 机器学习工具；是微软数据科学专业课程认证的一部分；6 周，每周 3-4 小时；可自愿购买经过认证的证书；11 条评论，4.09 星。
 

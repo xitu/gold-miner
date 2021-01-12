@@ -5,11 +5,11 @@
 > * 译者：[radialine](https://github.com/radialine)
 > * 校对者：[kezhenxu94](https://github.com/kezhenxu94)
 
-# Spring 的分布式事务实现-使用和不使用XA — 第三部分
+# Spring 的分布式事务实现-使用和不使用 XA — 第三部分
 
-> * [Spring 的分布式事务实现-使用和不使用XA — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
-> * [Spring 的分布式事务实现-使用和不使用XA — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
-> * [Spring 的分布式事务实现-使用和不使用XA — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
+> * [Spring 的分布式事务实现-使用和不使用 XA — 第一部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-1.md)
+> * [Spring 的分布式事务实现-使用和不使用 XA — 第二部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-2.md)
+> * [Spring 的分布式事务实现-使用和不使用 XA — 第三部分](https://github.com/xitu/gold-miner/blob/master/TODO1/distributed-transactions-in-spring-with-and-without-xa-part-3.md)
 
 ## 其它建议
 

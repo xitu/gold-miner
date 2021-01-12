@@ -90,7 +90,7 @@ PWM’s 是一组用来帮助检测性能瓶颈的指标。除开 `load` 和 `DO
 
 ![First Paint of msn.com](https://cdn-images-1.medium.com/max/800/1*IuI-OeOiJByd_kbOnQ4T6A.png)
 
-为了弄明白它是如何工作的，我们以 Chromium 中 Graphic Layer 的底层实现作为例子（译者注：关于GraphicsLayer，可以参考 [WEBKIT 渲染不可不知的这四棵树](https://juejin.im/entry/57f9eb9e0bd1d00058bc0a1b)或[无线性能优化：Composite](http://taobaofed.org/blog/2016/04/25/performance-composite/) 中相关内容）。
+为了弄明白它是如何工作的，我们以 Chromium 中 Graphic Layer 的底层实现作为例子（译者注：关于 GraphicsLayer，可以参考 [WEBKIT 渲染不可不知的这四棵树](https://juejin.im/entry/57f9eb9e0bd1d00058bc0a1b)或[无线性能优化：Composite](http://taobaofed.org/blog/2016/04/25/performance-composite/) 中相关内容）。
 
 ![Simplified Chromium Graphics Layer](https://cdn-images-1.medium.com/max/800/1*w0ejDtPxaRfJsyGRgoE02A.png)
 

@@ -1,4 +1,4 @@
->* 原文链接 : [为什么Spotify的付费转化率比Dropbox高了667%](https://www.process.st/freemium-conversion-rate/)
+>* 原文链接 : [为什么 Spotify 的付费转化率比 Dropbox 高了667%](https://www.process.st/freemium-conversion-rate/)
 * 原文作者 : [Benjamin Brandall](https://www.process.st/author/ben/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [SatanWoo](https://github.com/satanwoo)
@@ -24,7 +24,7 @@
 
 我用了一个新账号并且从一个新用户的视角来使用 Spotify，一个个去剖析那些容易激发用户付费的诱因，并调查这些诱因是如何保证如此高的转化率以及用户留存率。
 
-_在我们开始前，我们需要留意一点:_ [Slack](https://www.process.st/slack-review/) 也因为它那令人咋舌的用户转化率而出名，[最新的数据](http://www.nirandfar.com/2014/11/slack.html)显示它们的转化率达到了 30% 左右。但要注意的是，Slack 是一个 B2B 软件，它的用户群体相对来说是付费能力和意愿比较强的高端用户。但是Spotify 有超过 [20%](http://www.statista.com/statistics/475821/spotify-users-age-usa/)的用户是处于 13 到 18 岁年龄段。与企业精英不惜代价寻找一种合适的解决方案相比，这个年龄段的用户一般能成为付费用户的可能性很低的...所以，Spotify 真的很令人难以置信。
+_在我们开始前，我们需要留意一点:_ [Slack](https://www.process.st/slack-review/) 也因为它那令人咋舌的用户转化率而出名，[最新的数据](http://www.nirandfar.com/2014/11/slack.html)显示它们的转化率达到了 30% 左右。但要注意的是，Slack 是一个 B2B 软件，它的用户群体相对来说是付费能力和意愿比较强的高端用户。但是 Spotify 有超过 [20%](http://www.statista.com/statistics/475821/spotify-users-age-usa/)的用户是处于 13 到 18 岁年龄段。与企业精英不惜代价寻找一种合适的解决方案相比，这个年龄段的用户一般能成为付费用户的可能性很低的...所以，Spotify 真的很令人难以置信。
 
 ## 步骤 1：减少使用障碍，通过 Facebook 注册来形成病毒式营销
 
@@ -82,7 +82,7 @@ Spotify 通过一些描述性的分类，并在其中播放与描述非常贴切
 我之前看过一篇关于[ Flipboard 的入职流程](http://usabilitygeek.com/first-time-use-how-to-reduce-initial-friction-of-app-usage/)的分析，让用户将应用“培养”
 成迎合他们自身的喜好是一个久经考验能够提升用户留存率的办法。因为在这个过程中，用户相当于在应用内做了一笔“投资”：如果他们不升级成付费用户，就意味着他们之前所耗费的精力和时间都白白浪费了。
 
-Spotify 也采用了这个策略。他们的做法是允许用户将音乐存储到自己的账户中、建立自己的音乐合集、通过 Facebook 以及Spotify 自己的社交网络和朋友进行分享。
+Spotify 也采用了这个策略。他们的做法是允许用户将音乐存储到自己的账户中、建立自己的音乐合集、通过 Facebook 以及 Spotify 自己的社交网络和朋友进行分享。
 
 **当然，这种投资并是金钱投资，因此你不会感到是被强制消费了。（事实上，现在如果还采用收费合同来绑定用户的行为是不能被容忍的）。但是这种投资对于个人来说，却显得更为重要，因为这是一种跟时间相关的投资，每个人都很珍惜时间，不是吗?**
 
@@ -92,7 +92,7 @@ Spotify 并不会强求你选择一个你喜欢的音乐类型，也不会给你
 
 ![Spotify Personalization](http://7lrzqz.com1.z0.glb.clouddn.com/6.png)
 
-当你在你自己的设备上使用 Spotify 的时候，除了生成个性化的播放列表，Spotify 并不会耗费你大量的精力。事实上，它根本就不需要。Spotify 的推荐算法已经足够强大，能够理解你的需求。而且多半时候，推荐出来的东西都正是你想要的。所以，你只需要在培养属于你自己喜好的 Spotify 的时候耗费一点精力而已。**_你的_Spotify其实比你自己更懂你的喜好**
+当你在你自己的设备上使用 Spotify 的时候，除了生成个性化的播放列表，Spotify 并不会耗费你大量的精力。事实上，它根本就不需要。Spotify 的推荐算法已经足够强大，能够理解你的需求。而且多半时候，推荐出来的东西都正是你想要的。所以，你只需要在培养属于你自己喜好的 Spotify 的时候耗费一点精力而已。**_你的_Spotify 其实比你自己更懂你的喜好**
 
 ## 这些要求你进行付费的广告并不会让人感到特别烦扰，但是却巧妙的破坏了听音乐时候的代入感
 

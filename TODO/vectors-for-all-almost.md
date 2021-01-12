@@ -8,11 +8,11 @@
 
 经常阅读 Styling Android 的读者会知道我有多么喜欢用 _VectorDrawable_ 和 _AnimatedVectorDrawable_ 。直到我在写这篇文章之前我还在等待 _VectorDrawableCompat_ （译者注：之前大家以为官方会出兼容 Support ，后来官方使用了另外一种方案，详细内容可戳该[链接](http://blog.chengyunfeng.com/?p=836&utm_source=tuicool&utm_medium=referral)），所以目前矢量图只能够在 API 21+ (Lollipop) 上面使用。然而，Android Studio 1.4 增加了对旧 android 的兼容，所以，实际上可以在低于 Lollipop 版本的机器上面使用 _VectorDrawable_ 。
 
-在使用之前先来快速回顾一下什么是 _VectorDrawable_ 。 本质上来说它其实就是安卓对 SVG path data 的一层封装。而 SVG paths 是一种以 xml 方式描述复杂图形元素的东西。(译者注：感兴趣的可以阅读 W3C 的[官方文档](http://www.w3school.com.cn/svg/svg_reference.asp)) SVG 很适合用来储存线条和矢量图像，但不适合用来储存摄影图像。通常在Android中 _ShapeDrawable_ 可以实现一些线条和形状的[绘画](https://blog.stylingandroid.com/more-vector-drawables-part-2/)。 但大多数情况我们会将这些矢量图转换成不同像素密度位图来使用。在这篇文章中，我们将会一起来探索如何使用它。
+在使用之前先来快速回顾一下什么是 _VectorDrawable_ 。 本质上来说它其实就是安卓对 SVG path data 的一层封装。而 SVG paths 是一种以 xml 方式描述复杂图形元素的东西。(译者注：感兴趣的可以阅读 W3C 的[官方文档](http://www.w3school.com.cn/svg/svg_reference.asp)) SVG 很适合用来储存线条和矢量图像，但不适合用来储存摄影图像。通常在 Android 中 _ShapeDrawable_ 可以实现一些线条和形状的[绘画](https://blog.stylingandroid.com/more-vector-drawables-part-2/)。 但大多数情况我们会将这些矢量图转换成不同像素密度位图来使用。在这篇文章中，我们将会一起来探索如何使用它。
 
-Android Studio 1.4 介绍了如何将SVG图像导入到 Android Studio 然后再自动转换为 _VectorDrawable_ 。这些图标可以来自 [material icons pack](https://www.google.com/design/icons/) 或者是单独的 SVG 文件。导入 material icons 的确可以和 VectorDrawable 配合的天衣无缝，同时 google 也提供了大量的 icon 供我们选择。然而，导入单独的 SVG 文件会产生诸多的问题。产生这些问题的主要原因是 _VectorDrawable_ 只支持一部分的 SVG 特性，而像图像渐变，填充和本地 IRI 引用（能够给元素一个唯一的索引，然后在 SVG 内通过索引重用）以及图像的变换等一些我们经常使用的特性都不支持。
+Android Studio 1.4 介绍了如何将 SVG 图像导入到 Android Studio 然后再自动转换为 _VectorDrawable_ 。这些图标可以来自 [material icons pack](https://www.google.com/design/icons/) 或者是单独的 SVG 文件。导入 material icons 的确可以和 VectorDrawable 配合的天衣无缝，同时 google 也提供了大量的 icon 供我们选择。然而，导入单独的 SVG 文件会产生诸多的问题。产生这些问题的主要原因是 _VectorDrawable_ 只支持一部分的 SVG 特性，而像图像渐变，填充和本地 IRI 引用（能够给元素一个唯一的索引，然后在 SVG 内通过索引重用）以及图像的变换等一些我们经常使用的特性都不支持。
 
-举个例子，即使是如官网 LOGO 这样简单的一个[SVG图像](http://www.w3.org/2009/08/svg-logos.html)(如下图所示)都不能导入到 Android 中，因为他使用了本地的IRI引用。
+举个例子，即使是如官网 LOGO 这样简单的一个[SVG 图像](http://www.w3.org/2009/08/svg-logos.html)(如下图所示)都不能导入到 Android 中，因为他使用了本地的 IRI 引用。
 
 [![](http://ww2.sinaimg.cn/large/a490147fjw1f3qekctzbxj208c08cgm3.jpg)](https://blog.stylingandroid.com/wp-content/uploads/2015/10/svg_logo.svg)
 
@@ -30,7 +30,7 @@ Android Studio 1.4 介绍了如何将SVG图像导入到 Android Studio 然后再
 
 [![](http://ww3.sinaimg.cn/large/a490147fjw1f3qenekno5j208c069aa3.jpg)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/10/SVGLogo.png?ssl=1)
 
-使用 Juraj Novák 所开发的 [svg2android](http://inloop.github.io/svg2android/) 工具可以方便的将 SVG 转换成 _VectorDrawable_ 。该工具也有限制，那就是不能处理渐变和本地 IRI 引用的问题。但是可以省去我们手动微调的工作还是很不错的，像我刚才提到的宽高的问题，使用该工具转换则没有抛出错误。该工具开启实验性模式后还支持图像的变换（Transformation）并且支持的很好。但是对于本地的IRI引用还是需要我们手动的去修改原生的 SVG 文件。
+使用 Juraj Novák 所开发的 [svg2android](http://inloop.github.io/svg2android/) 工具可以方便的将 SVG 转换成 _VectorDrawable_ 。该工具也有限制，那就是不能处理渐变和本地 IRI 引用的问题。但是可以省去我们手动微调的工作还是很不错的，像我刚才提到的宽高的问题，使用该工具转换则没有抛出错误。该工具开启实验性模式后还支持图像的变换（Transformation）并且支持的很好。但是对于本地的 IRI 引用还是需要我们手动的去修改原生的 SVG 文件。
 
 将转换后的文件放到 `res/drawable` 文件夹后，我们可以直接当成 drawable 来引用，如下代码所示：
 
@@ -55,7 +55,7 @@ Android Studio 1.4 介绍了如何将SVG图像导入到 Android Studio 然后再
 
 假如我们使用的 gradle plugin 版本是 1.4.0 或者更高的话（截至到我写这篇文章之前，还未正式发布1.4.0，但是 `1.4.0-beta6` 已经可以实现这个效果了），那么他将适配到 Android API 1。
 
-那么，适配低版本的原因是什么呢？让我们来看一下Build文件夹里面所生成的代码，答案就已经很明显了。
+那么，适配低版本的原因是什么呢？让我们来看一下 Build 文件夹里面所生成的代码，答案就已经很明显了。
 
 [![Screen Shot 2015-10-03 at 15.20.33](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png?resize=386%2C509&ssl=1)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/10/Screen-Shot-2015-10-03-at-15.20.33.png?ssl=1)
 

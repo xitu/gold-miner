@@ -37,7 +37,7 @@
 
 ![](https://cdn-images-1.medium.com/max/3976/1*EJh3hdqmn81tZEBTpfw6LQ.png)
 
-在上面的代码中，我们首先检查 Service Worker API是否存在。如果存在，我们将通过上面刚刚写的 Javascript 文件的路径使用 register 方法来注册 Service Worker。因此，一旦页面被加载，您的 Service Worker 就会被注册。
+在上面的代码中，我们首先检查 Service Worker API 是否存在。如果存在，我们将通过上面刚刚写的 Javascript 文件的路径使用 register 方法来注册 Service Worker。因此，一旦页面被加载，您的 Service Worker 就会被注册。
 
 ## Service Worker 的生命周期
 

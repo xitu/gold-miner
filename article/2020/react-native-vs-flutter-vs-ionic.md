@@ -19,7 +19,7 @@
 * **游戏应用程序：** Google Play 游戏，Pokemon Go，Candy Crush Saga，和 Lucky Money 是最受欢迎的 iOS 应用分类，[占活跃应用的 25%](https://www.statista.com/statistics/580150/most-popular-us-gaming-apps-ranked-by-audience/) 并且在美国的用户一个月超过 1874 万。
 * **在线送餐应用程序：** 在叫外卖时，Grubhub，Doordash，UberEats，Postmates，Instacart 等是其中一些龙头应用的名字。
 * **社交媒体应用程序：** Instagram，Facebook，Messenger，Whatsapp 等。
-* **娱乐应用程序：** 每月[有 570 亿以上的用户](https://www.statista.com/statistics/579479/most-popular-us-music-video-apps-ranked-by-audience/)访问YouTube，Netflix，Apple Music，Spotify，Pandora Radio，Amazon Prime Video，Google Play 音乐，Hulu 等。
+* **娱乐应用程序：** 每月[有 570 亿以上的用户](https://www.statista.com/statistics/579479/most-popular-us-music-video-apps-ranked-by-audience/)访问 YouTube，Netflix，Apple Music，Spotify，Pandora Radio，Amazon Prime Video，Google Play 音乐，Hulu 等。
 
 关键问题是究竟什么使他们成功，并帮助他们在市场上独树一帜？可能许多人迫切想跟风模仿他们的应用，但在此之前，你需要先找到他们成功的秘诀。
 

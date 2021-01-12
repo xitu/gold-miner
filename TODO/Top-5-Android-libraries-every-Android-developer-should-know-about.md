@@ -21,7 +21,7 @@
 
 通过注解，你可以轻松地添加请求体，操作 URL 或请求头并添加查询参数。
 
-为方法添加返回类型会使该方法同步执行，然而添加Callback（回调）会使之异步执行，完成后回调 success 或 failure 方法。
+为方法添加返回类型会使该方法同步执行，然而添加 Callback（回调）会使之异步执行，完成后回调 success 或 failure 方法。
 
 ```java
 public interface RetrofitInterface {
@@ -177,7 +177,7 @@ class DripCoffeeModule {
 
 ### 附加链接
 
-[Android 周报](http://androidweekly.net/) 仍然是学习 Android 库最好的资源之一。这是关于Android开发的每周时事资讯。
+[Android 周报](http://androidweekly.net/) 仍然是学习 Android 库最好的资源之一。这是关于 Android 开发的每周时事资讯。
 
 此外，下面是 Android 行业经常发关于 Android 开发文章的大咖们：
 

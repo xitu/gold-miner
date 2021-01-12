@@ -130,6 +130,6 @@ Oh, you wanna know what this is? [Well you’re in luck!](https://medium.com/@Ba
 
 此文的作者是 Nimber 的设计团队的 [Chris](https://twitter.com/BashaChris) 和 [Andrew](https://twitter.com/ckor)，请记得在 Twitter 上关注我们！
 
-同时请也尝试下 [Nimber](http://nimber.com)，[Facebook主页](http://facebook.com/easybring) - [Twitter账号](http://twitter.com/nimber)
+同时请也尝试下 [Nimber](http://nimber.com)，[Facebook 主页](http://facebook.com/easybring) - [Twitter 账号](http://twitter.com/nimber)
 
 点个 ♥️，让世间充满爱！

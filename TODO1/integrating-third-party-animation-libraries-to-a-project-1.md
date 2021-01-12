@@ -31,7 +31,7 @@ JavaScript 函数将根据 **mouseover** 和 **mouseout** 事件更改 src 属�
 
 大约在 1997 年，就可根据浏览器版本选择行为。
 
-![来自 Dreamweaver 应用程序的屏幕截图，显示了在HTML中切换元素行为的选项面板。](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
+![来自 Dreamweaver 应用程序的屏幕截图，显示了在 HTML 中切换元素行为的选项面板。](https://css-tricks.com/wp-content/uploads/2019/05/s_EBCAC238906FAA6EECC38BE5A80726DC08BADA1B9C984153FFCE3F96AC775B6A_1554670455957_mm_swap.png)
 
 Macromedia Dreamweaver 1.2a 中的交换图像行为面板
 

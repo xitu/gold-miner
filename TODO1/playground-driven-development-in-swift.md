@@ -219,7 +219,7 @@ Xcode 底部面板上有一个按钮。这是你可以在 `Automatically Run` �
 //! AppFramework 的项目版本号。
 FOUNDATION_EXPORT double AppFrameworkVersionNumber;
 
-//! AppFramework的项目版本字符串。
+//! AppFramework 的项目版本字符串。
 FOUNDATION_EXPORT const unsigned char AppFrameworkVersionString[];
 
 // 在这个头文件中，你可以像 #import <AppFramework/PublicHeader.h> 这样导入你框架中所需的全部公共头文件

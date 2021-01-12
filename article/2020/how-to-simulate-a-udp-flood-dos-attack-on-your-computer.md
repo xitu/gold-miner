@@ -108,7 +108,7 @@ while time.time() < timeout:
 
 #### Linux 设置
 
-想缓解 UDP 洪水攻击很难。但是我们可以更改操作系统每秒发送的 ICMP 数据包的数量。我们在Linux中使用这两个命令，例如：
+想缓解 UDP 洪水攻击很难。但是我们可以更改操作系统每秒发送的 ICMP 数据包的数量。我们在 Linux 中使用这两个命令，例如：
 
 ```bash
 sudo sysctl -w net.ipv4.icmp_ratelimit=0

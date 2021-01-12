@@ -72,7 +72,7 @@ function median() { }
 
 ## Teleport
 
-Teleports 在之前被称为 portals ，是一种子节点渲染到父组件以外的 DOM 节点的方式，比如用于弹出窗口甚至 modals 。以前，在 CSS 中处理这个问题通常会很麻烦，现在 Vue 允许你在模板部分使用 \<Teleport> 来处理这个问题。我相信 teleport 的灵感来自React portals，它将与 Vue JS 3.0.0 版本一起发布。
+Teleports 在之前被称为 portals ，是一种子节点渲染到父组件以外的 DOM 节点的方式，比如用于弹出窗口甚至 modals 。以前，在 CSS 中处理这个问题通常会很麻烦，现在 Vue 允许你在模板部分使用 \<Teleport> 来处理这个问题。我相信 teleport 的灵感来自 React portals，它将与 Vue JS 3.0.0 版本一起发布。
 
 ## Suspense
 

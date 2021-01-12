@@ -66,7 +66,7 @@ class MyActivity extends Activity implements MyView {
 
 剧透: 我认为我们需要 service。
 
-**这篇博客是 "用 MVI 开发响应式App"中的一篇博客。下面是内容表:**
+**这篇博客是 "用 MVI 开发响应式 App"中的一篇博客。下面是内容表:**
 
 *   [Part 1: Model](http://hannesdorfmann.com/android/mosby3-mvi-1)
 *   [Part 2: View and Intent](http://hannesdorfmann.com/android/mosby3-mvi-2)

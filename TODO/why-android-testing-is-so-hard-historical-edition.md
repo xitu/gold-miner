@@ -46,7 +46,7 @@
 > 
 > 大概把 Android API 称为“系统框架”会更合适。大多数情况下，我们提供的平台 API 是用于定义一个应用如何与操作系统互动的；但对于任何从纯粹在应用内部运行的东西而言，这些 API 和它并没有什么关系。
 
-Chet Haase在他的 *Developing for Android* medium 博客中重新强调了这一点：
+Chet Haase 在他的 *Developing for Android* medium 博客中重新强调了这一点：
 
 > 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。<sup>[\[4\]](#note4)</sup>
 

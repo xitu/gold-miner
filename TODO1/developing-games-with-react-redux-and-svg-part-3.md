@@ -17,7 +17,7 @@
 
 如果你有些疑惑，你可以发现[完成了的游戏并在这里运行它](http://bang-bang.digituz.com.br/)。但是不要玩的太多，你还有工作必须做。
 
-> “我正在用 React，Redux 和 SVG元素
+> “我正在用 React，Redux 和 SVG 元素
 
 创建一个游戏。”
 
@@ -25,7 +25,7 @@
 
 在[这个系列的第一部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-1/)，你已经使用 [`create-react-app`](https://github.com/facebookincubator/create-react-app) 来启动你的 React 应用，你已经安装和配置了 Redux 来管理游戏的状态。之后，在创建游戏的元素时，例如  `Sky`， `Ground`， `CannonBase` 和 `CannonPipe`, 你已经学习了如何在 React 组件中使用 SVG。最终，你通过使用事件监听方法给你的大炮添加动画效果和一个 [JavaScript interval](https://www.w3schools.com/jsref/met_win_setinterval.asp) 来触发 Redux 的 _action_ 更新 `CannonBase` 的角度。
 
-这些为你提供了理解如何使用React,Redux和SVG来创建你的游戏（和其他动画）的方法。
+这些为你提供了理解如何使用 React,Redux 和 SVG 来创建你的游戏（和其他动画）的方法。
 
 在 [第二部分](https://auth0.com/blog/developing-games-with-react-redux-and-svg-part-2/)，你已经创建了游戏中其他的必须元素（例如 `Heart`， `FlyingObject` 和 `CannonBall`），使你的玩家能够开始游戏，并使用 CSS 动画让飞行物体飞起来（这就是他们应该做的事，对么？）。
 
@@ -425,8 +425,8 @@ export default Rank;
 
 这样做很简单。前往 [你的 Auth0 仪表盘的 APIs 页面](https://manage.auth0.com/#/apis) 并且点击  _Create API_ 按钮，Auth0 会想你展示一个有三个信息需要填的表单：
 
-1. API的 _Name_ ：这里，你仅仅需要声明一个友好的名字使你不至于忘掉这个 API 代表的什么。所以，在这个区域输入 _Aliens, Go Home!_ 就好啦。
-2. API的 _Identifier_ ：这里建议的值是你游戏的最终 URL，但是事实上这可以是任何东西，虽然这样，在这里输入 `https://aliens-go-home.digituz.com.br`。
+1. API 的 _Name_ ：这里，你仅仅需要声明一个友好的名字使你不至于忘掉这个 API 代表的什么。所以，在这个区域输入 _Aliens, Go Home!_ 就好啦。
+2. API 的 _Identifier_ ：这里建议的值是你游戏的最终 URL，但是事实上这可以是任何东西，虽然这样，在这里输入 `https://aliens-go-home.digituz.com.br`。
 3. _Signing Algorithm_ ：这里有两个选项， _RS256_ 和 _HS256_ 。你最好不要修改这个字段（例如，保持 _RS256_）。你过你想要学习他们之间的不同，查看 [这个答案](https://community.auth0.com/answers/6945/view)。
 
 ![为 Socket.IO 实时服务创建 Auth0 API](https://cdn.auth0.com/blog/aliens-go-home/creating-the-auth0-api-for-the-socket-io-server.png)

@@ -73,7 +73,7 @@ Gabs 和 Paul 站在一起，Paul 把手机贴在眼前，右手胡乱摆弄着�
 
 ![](https://cdn-images-1.medium.com/max/800/1*X4cj_1S7CQHX8Yb6iLY8Sw.jpeg)
 
-“GTM（Go-to-market）策略打算为 B2B GA（正式发布版本）准备一个MVP，这个 GA 基于我们的 R&D（Research And Development 研究与开发），所以我们可以通过 SAAS 的 IP 获得 ROI（投资回报率）。”
+“GTM（Go-to-market）策略打算为 B2B GA（正式发布版本）准备一个 MVP，这个 GA 基于我们的 R&D（Research And Development 研究与开发），所以我们可以通过 SAAS 的 IP 获得 ROI（投资回报率）。”
 
 Frances 和 Paul 站在一张木桌旁边，桌子上有几个水平对齐的按钮，从左到右画着从愤怒到快乐的面孔。Frances 很好奇。
 

@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*5n_vLiGTQ-RTWW-hdIT6XQ.jpeg)
 
-Flutter Challenges 是一项尝试利用 Flutter 重新创建特定的应用程序UI或设计的挑战。
+Flutter Challenges 是一项尝试利用 Flutter 重新创建特定的应用程序 UI 或设计的挑战。
 
 此次挑战将尝试 Whatsapp Android 应用程序的主界面。请注意将重点放在 UI 上而不是实际获取消息。
 
@@ -326,7 +326,7 @@ itemBuilder: (context, position) {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WZq07uhmt7L-NYemQaRSRA.png)
 
-我们可以类似地在其他屏幕上的屏幕上创建其他选项卡。完整的示例托管在GitHub上。
+我们可以类似地在其他屏幕上的屏幕上创建其他选项卡。完整的示例托管在 GitHub 上。
 
 GitHub 链接 : [https://github.com/deven98/WhatsappFlutter](https://github.com/deven98/WhatsappFlutter)
 

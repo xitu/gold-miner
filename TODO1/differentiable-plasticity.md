@@ -35,7 +35,7 @@
 
 [![](https://eng.uber.com/wp-content/uploads/2018/04/anim0.gif)](http://eng.uber.com/wp-content/uploads/2018/04/anim0.gif)
 
-图 1：图像补全任务（每一行都是单独的重建过程（episode））。在显示三张图像之后，网络获得部分图像并且必须从记忆中重建缺失的部分。非塑性网络（包括LSTM）无法解决此任务。源图像来自 [CIFAR10 数据集](https://www.cs.toronto.edu/~kriz/cifar.html)
+图 1：图像补全任务（每一行都是单独的重建过程（episode））。在显示三张图像之后，网络获得部分图像并且必须从记忆中重建缺失的部分。非塑性网络（包括 LSTM）无法解决此任务。源图像来自 [CIFAR10 数据集](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 我们还训练了可塑性网络来解决 [Omniglot 任务](https://github.com/brendenlake/omniglot)（一个标准的“学会学习”任务）这需要学习从每人单独绘制的符号中识别一组陌生的手写符号。此外，该方法还可以应用于强化学习问题：可塑性网络在迷宫探索任务中胜过非塑性网络，其中智能体必须发现、记忆并反复到达迷宫内的奖励位置（图 2）。通过这种方式，将可塑性系数添加到神经网络这一简单的思想提供了一种真正新颖的方法 —— 有时是最好的方法 —— 解决广泛的需要从持续经验中不断学习的问题。
 

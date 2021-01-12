@@ -32,7 +32,7 @@ Flutter 提供了一些非常棒的预制组件，用于处理触摸事件，如
 | `onVerticalDragCancel`   | 当用户突然停止拖动时调用。 |
 | `onHorizontalDragDown`   | 当用户/指针与屏幕接触并开始水平移动时调用。 |
 | `onHorizontalDragStart`  | 用户/指针已与屏幕接触并 _开始_ 沿水平方向移动。 |
-| `onHorizontalDragUpdate` | 每次指针在水平方向/x轴上的位置发生变化时调用。 |
+| `onHorizontalDragUpdate` | 每次指针在水平方向/x 轴上的位置发生变化时调用。 |
 | `onHorizontalDragEnd`    | 在水平拖动结束时，将调用此事件。 |
 | `onHorizontalDragCancel` | 当指针未成功触发 `onHorizontalDragDown` 时调用。 |
 | `onPanDown`              | 当指针与屏幕接触时调用。 |

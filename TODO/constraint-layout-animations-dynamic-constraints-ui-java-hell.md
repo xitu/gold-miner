@@ -11,7 +11,7 @@
 
 
 各位读者朋友你们好，希望各位一切顺利。我们之前已经在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)和 [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)
-中学习了许多关于 Constraint Layout 的新东西。现在是时候学习这个令人惊讶的布局剩下的部分了。这一篇很有可能是关于 Constraint Layout系列的最后一篇文章了。
+中学习了许多关于 Constraint Layout 的新东西。现在是时候学习这个令人惊讶的布局剩下的部分了。这一篇很有可能是关于 Constraint Layout 系列的最后一篇文章了。
 
 
 **动机：**

@@ -111,7 +111,7 @@ addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存
 *   [你的第一个离线 webapp](https://developers.google.com/web/fundamentals/getting-started/your-first-offline-web-app/?hl=en)，web 基本原理编程实验室
 *   [Udacity 基于 Service Worker 的离线 Web 应用教程](https://www.udacity.com/course/offline-web-applications--ud899)
 *   推荐 [Jake Archibald 的离线小书](https://jakearchibald.com/2014/offline-cookbook/)。
-*   [基于 Webpack 的渐进式 Web 应用](http://michalzalecki.com/progressive-web-apps-with-webpack/) 也是一个很棒的指南，学h会如何用基础 Service Worker 代码启用离线缓存（如果你不喜欢用库的话）。
+*   [基于 Webpack 的渐进式 Web 应用](http://michalzalecki.com/progressive-web-apps-with-webpack/) 也是一个很棒的指南，学 h 会如何用基础 Service Worker 代码启用离线缓存（如果你不喜欢用库的话）。
 
 **如果第三方 API 想要部署他们自己的 Service Worker 来处理其他域传来的请求，[Foreign Fetch](https://developers.google.com/web/updates/2016/09/foreign-fetch?hl=en) 可以帮忙。这对于网络化逻辑自定义和单个缓存实例响应定义都有帮助。**
 
@@ -191,7 +191,7 @@ Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成�
 
 #### sw-precache 对比 offline-plugin
 
-正如上文提到，[offline-plugin](https://github.com/NekR/offline-plugin) 是另一个库，用于添加 Service Worker 缓存到页面。它设计理念是最小化配置（目标是零配置) 和 Webpack的深度整合。当 Webpack 的 publicPath 配置了，它能够自动为缓存生成 relativePaths，而不需要再指定其他配置。对静态网站来说，offline-plugin 是一个很好的 sw-precache 的替代品。如果你用的是 HtmlWebpackPlugin，offline-plugin 还能缓存 .html 页面。
+正如上文提到，[offline-plugin](https://github.com/NekR/offline-plugin) 是另一个库，用于添加 Service Worker 缓存到页面。它设计理念是最小化配置（目标是零配置) 和 Webpack 的深度整合。当 Webpack 的 publicPath 配置了，它能够自动为缓存生成 relativePaths，而不需要再指定其他配置。对静态网站来说，offline-plugin 是一个很好的 sw-precache 的替代品。如果你用的是 HtmlWebpackPlugin，offline-plugin 还能缓存 .html 页面。
 
     module.exports = {
       plugins: [

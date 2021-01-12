@@ -8,13 +8,13 @@
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p3jimjllj31jk0dwqft.jpg)
 
-上周，我读了 [@nickoneill](https://medium.com/@nickoneill) 一篇优秀的帖子 [Speeding Up Slow Swift Build Times](https://medium.com/swift-programming/speeding-up-slow-swift-build-times-922feeba5780#.k0pngnkns) 之后，我发现用一个略不同以往的角度去读Swift代码，并不是很难。
+上周，我读了 [@nickoneill](https://medium.com/@nickoneill) 一篇优秀的帖子 [Speeding Up Slow Swift Build Times](https://medium.com/swift-programming/speeding-up-slow-swift-build-times-922feeba5780#.k0pngnkns) 之后，我发现用一个略不同以往的角度去读 Swift 代码，并不是很难。
 
 一行之前很简洁的代码，现在却出现了新的问题——它是否应该重构为9行代码来达到更快的编译速度？ (_nil coalescing 运算符就是一个例子_)孰轻孰重？简洁的代码还是对编译器友好的代码？ 我觉得，它取决于项目的大小和开发者的想法。
 
-#### 但请等等... 这里有一个Xcode插件
+#### 但请等等... 这里有一个 Xcode 插件
 
-在讲一些例子之前，我首先想到了通过手工提取日志信息是非常耗时的事情。通过命令行工具实现会相对容易一些，但是我把它往前推进了一步：集成为[Xcode插件](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)。
+在讲一些例子之前，我首先想到了通过手工提取日志信息是非常耗时的事情。通过命令行工具实现会相对容易一些，但是我把它往前推进了一步：集成为[Xcode 插件](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)。
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f3p3hhivppj30m809lwis.jpg)
 
@@ -73,7 +73,7 @@
 
 #### 三元运算符
 
-仅仅是通过替换三元运算符为 if else 语句就能减少 **92.9%** 的构建时间。如果使用一个for循环替换 _map_ 函数，它又能减少另一个 75%（但是我的眼睛可就受不了咯😉）。
+仅仅是通过替换三元运算符为 if else 语句就能减少 **92.9%** 的构建时间。如果使用一个 for 循环替换 _map_ 函数，它又能减少另一个 75%（但是我的眼睛可就受不了咯😉）。
 
     // 构建时间： 239.0ms
     let labelNames = type == 0 ? (1...5).map{type0ToString($0)} : (0...2).map{type1ToString($0)}

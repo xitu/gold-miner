@@ -4,7 +4,7 @@
 * 译者：[xiaoheiai4719](https://github.com/xiaoheiai4719)
 * 校对者：[Romeo0906](https://github.com/Romeo0906) [XHShirley](https://github.com/XHShirley)
 
-# React Native 使用OneSignal 进行推送
+# React Native 使用 OneSignal 进行推送
 
 
 
@@ -38,11 +38,11 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 在下面的两个链接中 你可以获取到关于你的设备的一些指导。
 
 
-*   [关于iOS的介绍](https://facebook.github.io/react-native/docs/running-on-device-ios.html#accessing-the-development-server-from-device)
+*   [关于 iOS 的介绍](https://facebook.github.io/react-native/docs/running-on-device-ios.html#accessing-the-development-server-from-device)
 *   [关于安卓的介绍](https://facebook.github.io/react-native/docs/running-on-device-android.html)
 
 
-#### 创建OneSignal帐号&创建App
+#### 创建 OneSignal 帐号&创建 App
 
 
 接下来你要前往 [OneSignal](https://onesignal.com/) 注册一个账号，在这个阶段你将按照提示设置你的 app。
@@ -82,7 +82,7 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 
 
 
-你可能想直接点击 save 去创建你的 .p12 文件(下面我们马上会讲)但是我们实际上 [在苹果开发者中心创建了我们自己的app](https://developer.apple.com/account/ios/identifier/bundle)。
+你可能想直接点击 save 去创建你的 .p12 文件(下面我们马上会讲)但是我们实际上 [在苹果开发者中心创建了我们自己的 app](https://developer.apple.com/account/ios/identifier/bundle)。
 
 
 如果你从没有做过上面的事情的话。需要注意的是你需要设置一个不冲突的 App ID 才能使推送正常工作。
@@ -108,7 +108,7 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 既然我们已经创建证书了。我们可以继续使用 OneSignal 有一个叫做 [**The Provisionator**](https://onesignal.com/provisionator) 的工具帮助我们处理下面的事情。
 
 
-> 如果你对这个工具获取到你的App账号的使用权感到不安。你可以 [手动的创建证书。](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually) 
+> 如果你对这个工具获取到你的 App 账号的使用权感到不安。你可以 [手动的创建证书。](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually) 
 
 
 **高级技巧：如果你的账号开启了二次身份验证。为了使用 [**The Provisionator**](https://onesignal.com/provisionator)。你需要关闭它。为了保持账号的安全我通常会在使用前和使用后去更改密码。所以尽情的使用它。**
@@ -152,11 +152,11 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 
 #### 生成 Google Server API Key
 
-对于Android如果要是使用 Google 设置 OnesSiganl，我们需要来到 OneSignal 里面的 App 设置界面，然后点击设置。
+对于 Android 如果要是使用 Google 设置 OnesSiganl，我们需要来到 OneSignal 里面的 App 设置界面，然后点击设置。
 ![](https://cdn-images-1.medium.com/max/1600/1*wRzI1Z49dEjr8zD0Z1FKvA.png)
 
 
-现在可以看到我们需要一个Google Server API Key 和一个 Google Project Number。下面我们开始获取这两个东西。
+现在可以看到我们需要一个 Google Server API Key 和一个 Google Project Number。下面我们开始获取这两个东西。
 
 
 
@@ -193,7 +193,7 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 
 
 
-一旦允许之后，你就可以获取到你的 API 和你的项目 ID(也叫Sender ID),把这些填在 OneSignal 上。
+一旦允许之后，你就可以获取到你的 API 和你的项目 ID(也叫 Sender ID),把这些填在 OneSignal 上。
 
 
 
@@ -267,7 +267,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 > 高级技巧: 确保添加一个 npm 脚本在你的 app 里面，用它打开你的 iOS 工程文件. [像这样](https://gist.github.com/spencercarli/7cc7ec369fd4d8778021a6d92cea05dd)。
 
-现在让我们在Xcode里面设置我们的功能
+现在让我们在 Xcode 里面设置我们的功能
 
 
 
@@ -323,7 +323,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 
 
-好的。跳转到 Build Settings 搜索“Header Search Paths”，双击value，然后点击“+” ，添加 **$(SRCROOT)/../node_modules/react-native-onesignal** 然后设置为 “recursive”。
+好的。跳转到 Build Settings 搜索“Header Search Paths”，双击 value，然后点击“+” ，添加 **$(SRCROOT)/../node_modules/react-native-onesignal** 然后设置为 “recursive”。
 
 
 
@@ -415,7 +415,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 现在我们要试着运行。你可能需要做一些处理。
 
-确保将您的BundleID设置为您在设置应用时使用的BundleID。
+确保将您的 BundleID 设置为您在设置应用时使用的 BundleID。
 
 
 
@@ -492,7 +492,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 #### [配置 Android](https://github.com/geektimecoil/react-native-onesignal#android-installation)
 
 
-现在设置 Android！在我们开始之前，我需要提醒大家，这些指令假设React Native的版本 > = v0.29。 如果您仍然是早期版本 [请按照这里去做]（https://github.com/geektimecoil/react-native-onesignal#rn--029）。 好的，让我们开始...（它比 iOS 容易）
+现在设置 Android！在我们开始之前，我需要提醒大家，这些指令假设 React Native 的版本 > = v0.29。 如果您仍然是早期版本 [请按照这里去做]（https://github.com/geektimecoil/react-native-onesignal#rn--029）。 好的，让我们开始...（它比 iOS 容易）
 
 首先，我们需要为 AndroidManifest.xml 添加一些必要的权限，可以在**android / app / src / main / AndroidManifest.xml.**
 
@@ -524,7 +524,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
     zipStorePath=wrapper/dists
     distributionUrl=https://services.gradle.org/distributions/gradle-2.10-all.zip
 
-现在我们告诉Android应用程序关于 OneSignal包在 **settings.gradle **（** android / settings.gradle）。**
+现在我们告诉 Android 应用程序关于 OneSignal 包在 **settings.gradle **（** android / settings.gradle）。**
 
 
     nclude ':react-native-onesignal'
@@ -578,7 +578,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
     }
 
 
-请记住，您想要更改 **YOUR_ONESIGNAL_ID** （用于iOS的相同）和 **YOUR_GOOGLE_PROJECT_NUMBER** （这是你先前生成并添加到OneSignal里面的那个）。
+请记住，您想要更改 **YOUR_ONESIGNAL_ID** （用于 iOS 的相同）和 **YOUR_GOOGLE_PROJECT_NUMBER** （这是你先前生成并添加到 OneSignal 里面的那个）。
 
 
 
@@ -711,7 +711,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
     export default App;
 
-必须注意的是空的object是必须的在配置中。 [这里是全部的文件](https://gist.github.com/spencercarli/3f430c7b5d3f3603371e52beb2377866) 。
+必须注意的是空的 object 是必须的在配置中。 [这里是全部的文件](https://gist.github.com/spencercarli/3f430c7b5d3f3603371e52beb2377866) 。
 
 然后，我们可以在 iOS 和 Android 上刷新或启动我们的应用程序。 如果一切都按预期工作，你应该在 OneSignal 的仪表板上看到类似的东西。
 
@@ -733,7 +733,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 
 
-继续，把机器锁屏，来到OneSiganl的仪表盘发送一条消息。
+继续，把机器锁屏，来到 OneSiganl 的仪表盘发送一条消息。
 
 
 
@@ -826,11 +826,11 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 
 
-[全部的代码在GitHub。](https://github.com/spencercarli/react-native-onesignal-example)
+[全部的代码在 GitHub。](https://github.com/spencercarli/react-native-onesignal-example)
 
 
 
->这个帖子是一个更大的目标的是让更多的人知道React Native。 有兴趣了解更多吗？ [欢迎注册我的邮箱服务]（http://eepurl.com/bXLcvT），我保证提供有及多的油价值的 React 的知识！
+>这个帖子是一个更大的目标的是让更多的人知道 React Native。 有兴趣了解更多吗？ [欢迎注册我的邮箱服务]（http://eepurl.com/bXLcvT），我保证提供有及多的油价值的 React 的知识！
 
 
 帖子中的一些链接是推广链接，如果你从他们那里买东西，我可以赚一些佣金。

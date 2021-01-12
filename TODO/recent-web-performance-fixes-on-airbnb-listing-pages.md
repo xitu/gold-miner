@@ -26,7 +26,7 @@ airbnb.com 的清单详情页: [https://www.airbnb.com/rooms/8357](https://www.a
 
 ### 方法
 
-这些配置项通过Chrome的性能工具被记录下来:
+这些配置项通过 Chrome 的性能工具被记录下来:
 
 1. 打开隐身窗口（这样我的浏览器扩展工具不会干扰我的解析）。
 2. 使用 `?react_perf` 在查询字符串中进行配置访问本地开发页面（启用 React 的 User Timing 注释，并禁用一些会使页面变慢的 dev-only 功能，例如 [axe-core](https://www.axe-core.org/)）

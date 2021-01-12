@@ -99,7 +99,7 @@ Twitter 和 Facebook 都没有在默认浏览器中加载链接的内容。他�
 
 ![](https://www.kirupa.com/apps/images/word_wikipedia_2.png)
 
-WebView 中显示的实际内容来自[此URL](https://wikipedia.firstpartyapps.oaspapps.com/wikipedia/wikipedia_dev.html)。当你在浏览器中访问该页面时，你并没有真正看到很多内容。是原生应用功能和 Web 代码（通过 WebView 暴露）的功能之间的交集使体验工作完整。作为 Word 应用内维基百科扩展的用户，你可能永远不会有疑问幕后发生了什么，因为功能已经被很好地集成，**我们要的仅仅是它能正常工作**。
+WebView 中显示的实际内容来自[此 URL](https://wikipedia.firstpartyapps.oaspapps.com/wikipedia/wikipedia_dev.html)。当你在浏览器中访问该页面时，你并没有真正看到很多内容。是原生应用功能和 Web 代码（通过 WebView 暴露）的功能之间的交集使体验工作完整。作为 Word 应用内维基百科扩展的用户，你可能永远不会有疑问幕后发生了什么，因为功能已经被很好地集成，**我们要的仅仅是它能正常工作**。
 
 ## WebView（通常）并不特别
 
@@ -110,7 +110,7 @@ WebView 非常棒。虽然看起来它们看起来像是完全特殊和独特的
 3. 在 Windows，Linux 和 macOS 上，由于这些是更宽松的桌面平台，因此在选择 WebView 风格和渲染引擎时会有很大的灵活性。你看到的流行渲染引擎将是 Blink（Chrome）和 Trident（Internet Explorer），但是没有一个引擎可以依赖。这完全取决于应用以及它正在使用的 WebView 引擎。
 
 
-我们可以花更多的时间来了解 WebView，并更深入地了解它们提供的一些特殊行为，但这会让我们偏离主题。对于我们在本篇文章要讲的东西，不偏离主题并宽泛了解WebView 才是正确的——至少到目前为止。
+我们可以花更多的时间来了解 WebView，并更深入地了解它们提供的一些特殊行为，但这会让我们偏离主题。对于我们在本篇文章要讲的东西，不偏离主题并宽泛了解 WebView 才是正确的——至少到目前为止。
 
 如果你对此主题或任何其他主题有疑问，最简单的方法是通过[我们的论坛](http://forum.kirupa.com)，这里有一群最友好的人等着你的到来，并且会乐于帮助你解决问题！
 

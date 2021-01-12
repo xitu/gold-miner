@@ -169,7 +169,7 @@ export default compose(withPhrases, withHypernovaBootstrap);
 1. 它接收一个引导数据作为普通的旧对象的规范形式，并且正确地初始化所有支持的工具，用于服务器渲染和客户端渲染。
 2. 它吞噬除了 `bootstrapData` 的一切 ，它是另一个简单的对象，必要时把 `<App>` 组件传入 Redux 作为 children 使用。
 
-单纯来看，我们删除了 `add_bootstrap_data`，并阻止工程师将任意键传递到顶级的 React 组件。秩序被重新恢复，以前我们在客户端中动态地导航到路由，并且渲染材料复杂的 content，而不需要Rails来支持它。
+单纯来看，我们删除了 `add_bootstrap_data`，并阻止工程师将任意键传递到顶级的 React 组件。秩序被重新恢复，以前我们在客户端中动态地导航到路由，并且渲染材料复杂的 content，而不需要 Rails 来支持它。
 
 ### 进击的前端 ###
 

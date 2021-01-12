@@ -22,7 +22,7 @@
 让我们使用一个具体的例子来理解这个问题。例如我们准备做一个 App，它包含了个人主页、好友列表、聊天窗口等组成部分。很显然，我们可以注意到在很多 Controller 里都需要通过页面跳转去显示用户的个主页，如果这个逻辑只实现一次，并且能复用的话，那就非常好了。我们记得 [**DRY**](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)！
 我们无法使用一些 storyboard 来实现它，你可以想象一下，它在 storyboard 里面看起像什么 —— weeeeb 页面. 😬
 
-现在我们使用的是 **MVVM + Router** 的架构，由 **ViewModel** 告诉 **Router** 需要跳转到一个其他的模块，然后 router 去执行。在我们的例子中，为了避免 view controller（或者View model）臃肿，**Router** 仅仅携带了所有的跳转逻辑。如果你一开始不是很明白，不用担心！我将会用一种比较浅显的方式来解释这种解决方案，所以它也会很容易地被应用到简单的 **MVC** 中去。
+现在我们使用的是 **MVVM + Router** 的架构，由 **ViewModel** 告诉 **Router** 需要跳转到一个其他的模块，然后 router 去执行。在我们的例子中，为了避免 view controller（或者 View model）臃肿，**Router** 仅仅携带了所有的跳转逻辑。如果你一开始不是很明白，不用担心！我将会用一种比较浅显的方式来解释这种解决方案，所以它也会很容易地被应用到简单的 **MVC** 中去。
 
 * * *
 
@@ -250,9 +250,9 @@ final class ProfileViewController: UIViewController {
 
 ![](https://cdn-images-1.medium.com/max/800/1*s9Rzi_gHLe5rllzlj5ox1A.png)
 
-这是编译ITC过程中的我。
+这是编译 ITC 过程中的我。
 
-在 [Rosberry](http://www.rosberry.com) 的粗野iOS工程师。Reactive、开源爱好者和循环引用检测家。
+在 [Rosberry](http://www.rosberry.com) 的粗野 iOS 工程师。Reactive、开源爱好者和循环引用检测家。
 
 感谢 [Anton Kovalev](https://medium.com/@totowkos?source=post_page) 和 [Rosberry](https://medium.com/@Rosberry?source=post_page)。
 

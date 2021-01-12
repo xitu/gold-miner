@@ -390,7 +390,7 @@ const ExpandableForm = ({ onExpand, expanded, children }) => {
 
 看起来非常得时髦，但这里的函数实际上未命名。
 
-如果Babel设置正确，这里未命名不会造成问题。但是如果Babel设置错了的话，任何错误都会以 << anonymous >> 的方式呈现，这对于调错是非常糟糕的体验。
+如果 Babel 设置正确，这里未命名不会造成问题。但是如果 Babel 设置错了的话，任何错误都会以 << anonymous >> 的方式呈现，这对于调错是非常糟糕的体验。
 
 未命名的函数也可以会伴随 Jest （一个 React 测试库）出现问题。由于这些难以理解的 bugs 的潜在问题，我们建议使用 *function 代替 const.*
 

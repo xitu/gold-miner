@@ -85,7 +85,7 @@ temp=country_names.pop(0) # To remove the first entry 'World'
 
 ![](https://cdn-images-1.medium.com/max/800/1*vYfbPogbxVdPhX9hoSUc6g.png)
 
-这意味着有一个固定的URL，您必须附加两个字符的国家代码，并获得该国家的页面网址。因此，我们只需遍历国家代码列表，使用 BeautifulSoup 提取所有文本并存储在本地词典中。这是代码片，
+这意味着有一个固定的 URL，您必须附加两个字符的国家代码，并获得该国家的页面网址。因此，我们只需遍历国家代码列表，使用 BeautifulSoup 提取所有文本并存储在本地词典中。这是代码片，
 
 ```
 # 基础 URL
@@ -213,7 +213,7 @@ df_filtered = df_combined[filter_gdp][filter_low_income][filter_high_income]
 
 本文通过一个 Python 笔记本演示来说明如何通过使用 BeautifulSoup 进行 HTML 解析来抓取用于下载原始信息的网页。在此基础上，阐述了如何利用正则表达式模块来搜索和提取用户所需要的重要信息。
 
-> 最重要的是，它演示了在挖掘杂乱的HTML解析文本时，如何或为什么不可能有简单、通用的规则或程序结构。我们必须检查文本结构，并设置适当的错误处理检查，以便恰当地处理所有情况，以维护程序的流程（而不是崩溃），即使它无法提取所有这些场景的数据。
+> 最重要的是，它演示了在挖掘杂乱的 HTML 解析文本时，如何或为什么不可能有简单、通用的规则或程序结构。我们必须检查文本结构，并设置适当的错误处理检查，以便恰当地处理所有情况，以维护程序的流程（而不是崩溃），即使它无法提取所有这些场景的数据。
 
 我希望读者能从提供的笔记本文件中获益，并根据自己的需求和想象力在此基础上构建。更多 Web 数据分析笔记 [**请查看我的仓库**](https://github.com/tirthajyoti/Web-Database-Analytics-Python)
 

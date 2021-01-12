@@ -157,7 +157,7 @@ images.forEach(image=>{
 })
 ```
 
-现在，制作[这个](https://tympanus.net/Tutorials/webgl-mouseover-effects/step1.html)[HTML-3D混合结构](https://tympanus.net/Tutorials/webgl-mouseover-effects/step2.html)非常简单。
+现在，制作[这个](https://tympanus.net/Tutorials/webgl-mouseover-effects/step1.html)[HTML-3D 混合结构](https://tympanus.net/Tutorials/webgl-mouseover-effects/step2.html)非常简单。
 
 关于 `mouseVelocity` 我想补充的是，我用它来改变效果的半径，鼠标移动得越快，半径越大。
 

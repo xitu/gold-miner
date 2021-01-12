@@ -13,7 +13,7 @@
 
 ES8 或者说是 ES2017 已经在今年6月底的时候被 TC39 正式发布。似乎我们在最近的一年里就已经谈论了很多有关 ECMA 的事情。现在的 ES 标准每年发布一次。我们都知道 ES6 是在2015年发布的，ES7 是在2016年发布的，但是估计会有很少数人知道 ES5 是在何时发布的。答案是2009年，是在 JavaScript 逐渐变的流行之前发布的。
 
-JavaScript，作为一门处于高速发展期的开发语言，正在变的越来越完善、稳定。我们必须拥抱这些变化，并且我们需要把ES8加入到我们的技术栈中。
+JavaScript，作为一门处于高速发展期的开发语言，正在变的越来越完善、稳定。我们必须拥抱这些变化，并且我们需要把 ES8加入到我们的技术栈中。
 
 ![](https://ws2.sinaimg.cn/large/006tKfTcgy1fhh0w51hshj30ji07iaaq.jpg)
 
@@ -53,7 +53,7 @@ str.padEnd(targetLength [, padString])
 
 ---
 
-### values和entries函数
+### values 和 entries 函数
 
 在 Object 中，ES8 也新增了两个新的函数，分别是 `Object.values` 函数和 `Object.entries` 函数。`Object.values` 函数将会返回一个数组，该数组的内容是函数参数（一个对象）可遍历属性的属性值。数组中得到的属性值的顺序与你在对参数对象使用 `for in ` 语句时获取到的属性值的顺序一致。函数声明如下：
 
@@ -107,7 +107,7 @@ Object.entries('es8'); // [['0', 'e'], ['1', 's'], ['2', '8']]
 
 ---
 
-### getOwnPropertyDescriptors函数
+### getOwnPropertyDescriptors 函数
 
 Object 中还有一个新成员，那就是 `Object.getOwnPropertyDescriptors` 函数。该函数返回指定对象（参数）的所有**自身属性描述符**。所谓自身属性描述符就是在对象自身内定义，不是通过原型链继承来的属性。函数声明如下：
 
@@ -171,7 +171,7 @@ ES8的这项新特性受启发于对象或者数组中最后一项内容之后�
 ### 异步函数
 
 由 `async` 关键字定义的函数声明定义了一个可以异步执行的函数，它返回一个 `AsyncFunction` 类型的对象。异步函数的内在运行机制和 `Generator` 函数非常类似，但是不能转化为 `Generator` 函数。
-> ps: 不理解 `Generator` 函数的读者可以参考[阮一峰大师的ES6入门中关于Generator函数的讲解](http://es6.ruanyifeng.com/#docs/generator)
+> ps: 不理解 `Generator` 函数的读者可以参考[阮一峰大师的 ES6入门中关于 Generator 函数的讲解](http://es6.ruanyifeng.com/#docs/generator)
 
 示例代码如下：
 
@@ -209,7 +209,7 @@ Hello, es8 // after 2 seconds
 之所以会打印上述内容，那是因为异步函数不会阻塞程序的继续执行。
 > 译者注：
 > 
-> 此处打个小广告，如果有读者对于 JavaScript 的异步机制还有不明白的地方，可以参考本人的一篇博客[javascript异步机制](https://github.com/ToBeNumerOne/blog/blob/master/js-async.md)，里面是本人关于异步机制的一点拙见,相信会对您有一点启发。欢迎指正与交流！
+> 此处打个小广告，如果有读者对于 JavaScript 的异步机制还有不明白的地方，可以参考本人的一篇博客[javascript 异步机制](https://github.com/ToBeNumerOne/blog/blob/master/js-async.md)，里面是本人关于异步机制的一点拙见,相信会对您有一点启发。欢迎指正与交流！
 
 异步函数的浏览器支持情况如下（信息来自 MDN ）：
 
@@ -223,7 +223,7 @@ Hello, es8 // after 2 seconds
 
 `Atomic` 对象类似于 `Math` 对象，拥有许多静态方法，所以我们不能把它当做构造函数。 `Atomic` 对象有如下常用的静态方法：
 
-* add /sub - 为某个指定的value值在某个特定的位置增加或者减去某个值
+* add /sub - 为某个指定的 value 值在某个特定的位置增加或者减去某个值
 * and / or /xor - 进行位操作
 * load - 获取特定位置的值
 

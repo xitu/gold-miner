@@ -202,7 +202,7 @@ class SlideExplode : Visibility() {
 
 ### 第三站：原来是 TransitionSet 的锅！
 
-我再次深入研究源代码。这次我发现每当我将插值器设置为 `TransitionSet` 时，它都不会在过渡的时候将插值器分配给它。这仅在标准 `TransitionSet中` 发生。它的支持版本（`android.support.transition.TransitionSet`）正常工作。要解决此问题，我们可以切换到支持版本，或者使用下面的扩展函数将插值器明确地传递给包含的转换。
+我再次深入研究源代码。这次我发现每当我将插值器设置为 `TransitionSet` 时，它都不会在过渡的时候将插值器分配给它。这仅在标准 `TransitionSet 中` 发生。它的支持版本（`android.support.transition.TransitionSet`）正常工作。要解决此问题，我们可以切换到支持版本，或者使用下面的扩展函数将插值器明确地传递给包含的转换。
 
 ```
 fun TransitionSet.setCommonInterpolator(interpolator: Interpolator): TransitionSet {
@@ -319,7 +319,7 @@ override fun onSaveInstanceState(outState: Bundle) {
 
 回到我们的具体问题，通常有两种可能性取决于每个应用程序处理此类情况的方法：（1）忽略丢失的数据并重新获取数据，以及（2）保留数据并恢复数据。由于这篇文章主要是关于过渡动画，所以我不打算讨论在什么情况下哪种方法更好以及为什么等。如果采用方法（1），则不应该进行反向转换，因为我们不知道先前被点击的电子邮件项目是否会被取回，即使知道，我们不知道它在列表中的位置。如果采用方法（2），我们可以像定向改变方案那样进行转换。
 
-方法（1）是我在这种特定情况下的偏好，因为新的电子邮件可能每分钟都会出现，因此在活动销毁或处理死亡之后重新加载过时的电子邮件列表是没有用的，这通常发生在用户离开应用程序一段时间之后。在我们的设置中，当activity 被销毁或进程被杀死后后重新创建电子邮件列表片段时，将自动获取电子邮件数据，因此不需要做太多工作。我们只需要确保在呈现 `InProgress` 状态时调用 `startPostponedEnterTransition`：
+方法（1）是我在这种特定情况下的偏好，因为新的电子邮件可能每分钟都会出现，因此在活动销毁或处理死亡之后重新加载过时的电子邮件列表是没有用的，这通常发生在用户离开应用程序一段时间之后。在我们的设置中，当 activity 被销毁或进程被杀死后后重新创建电子邮件列表片段时，将自动获取电子邮件数据，因此不需要做太多工作。我们只需要确保在呈现 `InProgress` 状态时调用 `startPostponedEnterTransition`：
 
 ```
 is InProgress -> {

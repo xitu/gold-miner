@@ -388,7 +388,7 @@ npm run deploy
 
 既然添加 npm 包到你的 Apps 脚本项目中如此容易，那我们可以开始创建一些 npm 包了。
 
-封装 Google APIs、Gmail、Google 表格、Google Docs和其它公共的 API 的包，将会带来很多的乐趣！
+封装 Google APIs、Gmail、Google 表格、Google Docs 和其它公共的 API 的包，将会带来很多的乐趣！
 
 另一个重要的部分还没说到。目前我们看到 web 应用只是一个简单的文本界面。试试使用现代化 CSS 框架，bootstrap、bulma、material design 以及 VueJS 和 React，并用 Apps 脚本创建一些单页面 Web 应用？对，我们会这样做的。我们会在客户端使用 bootstrap 和 Vuejs，在服务端使用 Apps 脚本，并构建一个单页应用。
 

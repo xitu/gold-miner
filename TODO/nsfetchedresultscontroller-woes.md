@@ -28,9 +28,9 @@ _NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要�
 一次快速的谷歌搜索获得一些答案。一个特别的答案对[ _NSFetchedResultsController_ 是怎么出错的](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1)提供一份详细的解释.这里是给出的解释（备注: FRC = _NSFetchedResultsController_ ）
 > 1\. 一个 FRC 设置的过滤条件并不能匹配所有的对象（这样可以避免不符合过滤条件的对象被注册到 FRCs context 里）
 
-> 2\.第二个 context 使一个对象做产生了一个变化，这意味着它现在符合FRC的过滤条件。第二个 context 被保存下来。
+> 2\.第二个 context 使一个对象做产生了一个变化，这意味着它现在符合 FRC 的过滤条件。第二个 context 被保存下来。
 
-> 3\. FRC context 处理 _NSManagedObjectContextDidSaveNotification_ 的方法只是更新它已经注册过的对象。所以，FRC 无法更新现在符合FRC过滤条件的对象。
+> 3\. FRC context 处理 _NSManagedObjectContextDidSaveNotification_ 的方法只是更新它已经注册过的对象。所以，FRC 无法更新现在符合 FRC 过滤条件的对象。
 
 > 4\. 当有一个保存发生时，FRC 不进行再一次的抓取，所以它意识不到更新了的对象应该被包括在内。
 
@@ -62,7 +62,7 @@ _NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要�
 
 这个研究使用一个单机的 iOS 应用进行，它按照如下内容进行设置：
 
-#### Core Data栈
+#### Core Data 栈
 
 这个 Core Data 栈是一个非常基础的 _“sibling”_ 栈，它有着以下内容：
 
@@ -72,11 +72,11 @@ _NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要�
 
 主要 context 和后台 context 是同级关系并且都直接连接到 _NSPersistentStoreCoordinator_ 上。当在后台存储变化的时候，这些变化通过调用 _mergeChangesFromContextDidSaveNotification() 方法被自动合并到主要 context 。
 
-#### Core Data模型
+#### Core Data 模型
 
 我们使用一个包含一个单独实体 _TestDummy_ 的简单模型，它有三个属性：_id: Int_ , _name: String_, _isEven: Bool_.
 
-#### UI和主要视图控制器
+#### UI 和主要视图控制器
 
 我们有一个单独的视图控制器，它有在 Core Data 栈获得两个 context 的权限并且允许其中的一个有以下的功能：
 
@@ -114,7 +114,7 @@ _NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要�
 
 
 1.  后台的 _insertedObjects_ 属性内容在保存操作之前与 _registeredObjects_ 的属性内容是匹配的。
-2.  后台FRC获取的对象与 _registeredObjects_ 集合是匹配的。
+2.  后台 FRC 获取的对象与 _registeredObjects_ 集合是匹配的。
 
 正如预期的那样，在后台 context 保存的所有变化被推送到主要 context ：
 
@@ -393,7 +393,7 @@ extension NSFetchedResultsController {
 
 1.  告知每一个 FRC 去监控一个特定 context 的保存过程 (尤其是后台 context )。
 2.  当收到监控的 context 的 _NSManagedObjectContextDidSaveNotification_ 时, 检查 FRC 的过滤条件是否过滤出实体。如果没有, 不做任何事. FRC 将像预想的那样工作。
-3.  从消息通知队列中取回所有的插入和更新过的实体,只保存符合FRC实体和过滤条件对象的 _objectID_ 。
+3.  从消息通知队列中取回所有的插入和更新过的实体,只保存符合 FRC 实体和过滤条件对象的 _objectID_ 。
 4.  从这个对象集合中，删除掉所有已经在 FRC context 注册过的对象。被注册过的这些对象将按照默认设置进行正确的管理。
 5.  每一个保留的对象都是在被监控的 context 中新插入的并且没有在 FRC 中注册过: 调用 _refreshObject(_, mergeChanges:false)_ 方法。  _mergeChanges:false_ 的设置工作的很完美: 对象不存在与 FRC 的 context，这样的情况下不在内存中的对象也不会带来负面的影响。
 

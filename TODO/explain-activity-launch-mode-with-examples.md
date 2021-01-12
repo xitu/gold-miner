@@ -16,7 +16,7 @@
 
 从图中可以看出，有两个 Task (#103, #102) 。
 
-Task #103 : affinity = “cn.six.task2”, size = 3 (它里面有三个activity)
+Task #103 : affinity = “cn.six.task2”, size = 3 (它里面有三个 activity)
 
 — Activity One    
 — Activity Three    

@@ -18,7 +18,7 @@
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f3j83hmmrij30jk0dvjsn.jpg)
 
-我执着于增加团队效率，也深知保持一致性的代码能增速团队反馈和减少无效沟通。我们最近开始了一个整理代码的项目，准备把许多陈旧的 JavaScript 代码转化得符合我们的代码风格，亦使我们的代码检验器有更多用武之地。若全都手动完成，会是件十分无聊和耗时的苦差，所以我们借助工具帮我们自动化此工作。虽说使用 _`eslint -fix`_ 是个不错的开始，但[它现在所能有限](https://github.com/eslint/eslint/issues/5329)。尽管他们[最近开始接受修复所有规则的PR](https://twitter.com/geteslint/status/723909416957829122)，也准备[构建 JavaScript 的具体语法树](https://github.com/cst/cst)，但等这些功能完成还需要些时间。感谢上苍我们发现了 Facebook 的 [jscodeshift](https://github.com/facebook/jscodeshift)，这是一个重构工具（协助大型代码库的自动化重构）。如果代码库是个花园，那么 jscodeshift 就像个除草机器人。
+我执着于增加团队效率，也深知保持一致性的代码能增速团队反馈和减少无效沟通。我们最近开始了一个整理代码的项目，准备把许多陈旧的 JavaScript 代码转化得符合我们的代码风格，亦使我们的代码检验器有更多用武之地。若全都手动完成，会是件十分无聊和耗时的苦差，所以我们借助工具帮我们自动化此工作。虽说使用 _`eslint -fix`_ 是个不错的开始，但[它现在所能有限](https://github.com/eslint/eslint/issues/5329)。尽管他们[最近开始接受修复所有规则的 PR](https://twitter.com/geteslint/status/723909416957829122)，也准备[构建 JavaScript 的具体语法树](https://github.com/cst/cst)，但等这些功能完成还需要些时间。感谢上苍我们发现了 Facebook 的 [jscodeshift](https://github.com/facebook/jscodeshift)，这是一个重构工具（协助大型代码库的自动化重构）。如果代码库是个花园，那么 jscodeshift 就像个除草机器人。
 
 此工具将 JavaScript 解析为一棵 [抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)，并在其上进行变换，然后输出符合指定代码风格的新 JavaScript 代码。转换过程是用 JavaScript 本身实现的，所以我们团队很乐意使用此工具。寻找或是创建转换代码能加速我们乏味的重构，让我们团队能够专注于更有意义的工作。
 
@@ -193,7 +193,7 @@
 *   [逐步改进复杂系统](https://www.youtube.com/watch?v=d0pOgY8__JM)：来自 Christoph Pojer 于 JSConf EU 2015 上关于 Facebook 的重构件的演讲。（亦可见[高效的 JavaScript 重构件](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb)）。
 *   [如何写重构件](https://vramana.github.io/blog/2015/12/21/codemod-tutorial/): 带你写一个把字符串串联转化为字符串模板字面量的重构件的教程。
 *   [AST 探索](https://astexplorer.net/): 可查看由多种语法分析程序产生的 AST 的工具。好东西，可以查看你想转换的代码的 AST。
-*   [NFL ♥ C重构件: 海量代码迁移](https://medium.com/nfl-engineers/nfl-codemods-migrating-a-monolith-1e3363571707): 关于 NFL 如何使用重构件的一个使用案例。
+*   [NFL ♥ C 重构件: 海量代码迁移](https://medium.com/nfl-engineers/nfl-codemods-migrating-a-monolith-1e3363571707): 关于 NFL 如何使用重构件的一个使用案例。
 *   [react-codemod](https://github.com/reactjs/react-codemod): 一系列关于 React 的重构件。
 *   [js-codemod](https://github.com/cpojer/js-codemod): 一系列常用的 JavaScript 重构件。
 

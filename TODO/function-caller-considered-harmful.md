@@ -33,7 +33,7 @@ JavaScript 在历史上曾提供了一个有魔力的 foo.caller 属性，它可
 
 * * *
 
-这是我们目前如何在 V8 中实现这些（有误导性的）特性 —— 也正是如何在 Chrome 和 Node.js 中运行的。"caller" 这个属性在非严格模式函数中是一个特殊的访问器，其实现方法 [FunctionCallerGetter](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1044) 在 accessors.cc 源码文件中实现，同时在该文件实现的还有核心的逻辑方法 [FindCaller](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1000)。要理解下面这些规则可以说是比较困难的，但这就是当你在非严格模式下访问 foo.caller时我们底层代码所做的事： 
+这是我们目前如何在 V8 中实现这些（有误导性的）特性 —— 也正是如何在 Chrome 和 Node.js 中运行的。"caller" 这个属性在非严格模式函数中是一个特殊的访问器，其实现方法 [FunctionCallerGetter](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1044) 在 accessors.cc 源码文件中实现，同时在该文件实现的还有核心的逻辑方法 [FindCaller](https://cs.chromium.org/chromium/src/v8/src/accessors.cc?type=cs&l=1000)。要理解下面这些规则可以说是比较困难的，但这就是当你在非严格模式下访问 foo.caller 时我们底层代码所做的事： 
 
 1.  首先找到函数 foo 的最近一次的调用，例如 foo 的最后一次还没返回给调用方的调用。
 2.  如果当前 foo 不存在被调用的情况，则立即返回 null。

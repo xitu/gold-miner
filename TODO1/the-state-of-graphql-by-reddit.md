@@ -31,7 +31,7 @@
 [Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enpb6fg/)（8）描述了他在 GraphQL 领域内看到的三个发展方向：
 
 > * 巨石应用：这就是阿波罗现在所推动的。每家公司都有一个且只有一个 api endpoint 和 schema 代理其他所有东西（[https://principledgraphql.com/](https://principledgraphql.com/)）。我完完全全不同意这个思路，但不会在这里重复我的论点（如果想了解的话，您可以挖掘我的评论历史）
-> * 数据库 api：出于一些奇怪的原因，人们已经开始向数据库添加插件，这些插件可以通过 graphql 直接访问数据库。由于很多原因，Graphql 非常棒，但是它还不能与原生数据库查询语言相媲美。更重要的是，这去掉了您的业务层，使调用者可以直接访问您的 store。除了一个微服务应用，其余任何人都不应拥有访问store的权限 —— 其他人应该通过您的 api 调用服务。
+> * 数据库 api：出于一些奇怪的原因，人们已经开始向数据库添加插件，这些插件可以通过 graphql 直接访问数据库。由于很多原因，Graphql 非常棒，但是它还不能与原生数据库查询语言相媲美。更重要的是，这去掉了您的业务层，使调用者可以直接访问您的 store。除了一个微服务应用，其余任何人都不应拥有访问 store 的权限 —— 其他人应该通过您的 api 调用服务。
 > * 中间路线：经典的 API 做法，每个应用程序都有自己的 API（在本例中为 GraphQL）。它可能将业务逻辑或代理隔离到微服务（通过 rest 或通过 schema stitching 到另一个 Graphql 架构）。这是我们走的路，目前为止还没让我后悔。
 
 # React & Apollo 状况
@@ -66,7 +66,7 @@ React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://
 
 [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/) (23) 写道：
 
-> 虽然您可以将 GraphQL 配置为以各种方式工作，但实际上它们始终是 POST 请求。这意味着所有依赖于 GET 幂等而 POST 不幂等这一约定的浏览器缓存、CDN 缓存、代理缓存在默认情况下都将失效。一切都被视为新请求。虽然您可以在客户端自行做一些更智能的缓存，但这实际上只是在解决您自己产生（指引入GraphQL）的问题。
+> 虽然您可以将 GraphQL 配置为以各种方式工作，但实际上它们始终是 POST 请求。这意味着所有依赖于 GET 幂等而 POST 不幂等这一约定的浏览器缓存、CDN 缓存、代理缓存在默认情况下都将失效。一切都被视为新请求。虽然您可以在客户端自行做一些更智能的缓存，但这实际上只是在解决您自己产生（指引入 GraphQL）的问题。
 
 [Scruffles360](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/enokkzb/) (11) 回复：
 
@@ -108,7 +108,7 @@ React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://
 >
 > 您必须花时间在前端和实际数据存储之间的所有 N 多层中，寻找数据的位置。
 
-[Kollektiv](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enng3ba/)（44）列出了很多GraphQL问题：
+[Kollektiv](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enng3ba/)（44）列出了很多 GraphQL 问题：
 
 > * 查询限速和权限评估等很难实现。
 > * 类型和数据加载器的工作方式，如果不编写完整的 module 就分组查询，则难以有效的方式将查询绑定到数据库层。
@@ -116,9 +116,9 @@ React 和 Apollo 的组合获得了很多关注。此外 [Wronglyzorro](https://
 > * GraphQL 查询只允许 left join，因此像 INNER JOIN 加过滤这种重新创建 SQL 就变得很棘手了。
 > * 来自像 Relay 这样的框架强加的分页（连接）还是一团糟。
 
-关于我对GraphQL的初步研究 [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/)（24）写道：
+关于我对 GraphQL 的初步研究 [SwiftOneSpeaks](https://www.reddit.com/r/reactjs/comments/bozrg1/graphql_vs_rest_putting_rest_to_rest/eno3ovb/)（24）写道：
 
-> 我认为我们看到了很多「GraphQL 很棒」报告主要是因为**任何新服务都很棒** —— 随着时间的推移，因为假设条件被违背 **（译注：假设条件的概念可以参考[浅谈Architectural Assumption（软件架构设计的假设条件）](https://blog.csdn.net/ytomc/article/details/80728132)）**、需求变更和代码变更，它们肯定会变得逐渐笨拙。不过这并不意味着 GraphQL不好 —— 只是说意味着我不能过多地信任早期报告。
+> 我认为我们看到了很多「GraphQL 很棒」报告主要是因为**任何新服务都很棒** —— 随着时间的推移，因为假设条件被违背 **（译注：假设条件的概念可以参考[浅谈 Architectural Assumption（软件架构设计的假设条件）](https://blog.csdn.net/ytomc/article/details/80728132)）**、需求变更和代码变更，它们肯定会变得逐渐笨拙。不过这并不意味着 GraphQL 不好 —— 只是说意味着我不能过多地信任早期报告。
 
 最后，我选择了 [Mando0975](https://www.reddit.com/r/node/comments/bozsb1/graphql_vs_rest_putting_rest_to_rest/enopzpk/) （28）的观点来总结这篇文章：
 

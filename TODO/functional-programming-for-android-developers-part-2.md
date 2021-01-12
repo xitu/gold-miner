@@ -70,7 +70,7 @@ public final class Car {
 
 但是 *getName()* 方法呢？它在把名称返回给外部世界对吧？如果有人在通过 getter 取得引用之后修改了 *name* 的值怎么办？
 
-在 Java 中，[string在默认情况下是不可变的](http://stackoverflow.com/questions/1552301/immutability-of-strings-in-java)。哪怕有人获得了对 *name*  string 的引用并修改它，他们也只能得到 *name*  string 的拷贝，原先的 string 保持不变。
+在 Java 中，[string 在默认情况下是不可变的](http://stackoverflow.com/questions/1552301/immutability-of-strings-in-java)。哪怕有人获得了对 *name*  string 的引用并修改它，他们也只能得到 *name*  string 的拷贝，原先的 string 保持不变。
 
 但是可变的东西怎么办？比如一个 list？我们修改一下 *Car* 类，使它具有一个驾驶员的 list。
 
@@ -88,7 +88,7 @@ public final class Car {
 
 在这种情况下，有人可以通过 *getListOfDrivers()* 方法取得我们内部 list 的一个引用，并修改这个 list。这样，我们的类就是**可变**的了。
 
-要让它不可变，我们必须在 getter 中返回一个 list 的深度拷贝。这样，新的 list 就可以被调用者安全地修改。深度拷贝的含义是我们递归地复制所有依赖它的数据。例如，如果这是一个 *Driver* 类的 list而不是简单的 string 列表，我们就必须复制每一个 *Driver* 对象。否则，我们就会创建一个新的 list，其内容是对原先 *Driver* 对象的引用，而这些对象是可变的。在我们的类中，由于这个 list 是由不可变的 string 组成的，我们可以这样创建一个深度拷贝：
+要让它不可变，我们必须在 getter 中返回一个 list 的深度拷贝。这样，新的 list 就可以被调用者安全地修改。深度拷贝的含义是我们递归地复制所有依赖它的数据。例如，如果这是一个 *Driver* 类的 list 而不是简单的 string 列表，我们就必须复制每一个 *Driver* 对象。否则，我们就会创建一个新的 list，其内容是对原先 *Driver* 对象的引用，而这些对象是可变的。在我们的类中，由于这个 list 是由不可变的 string 组成的，我们可以这样创建一个深度拷贝：
 
     public final class Car {
         private final List<String> listOfDrivers;

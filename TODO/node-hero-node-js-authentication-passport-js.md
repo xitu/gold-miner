@@ -15,7 +15,7 @@
 1.  [从 Node.js 开始](/node-hero-tutorial-getting-started-with-node-js) 
 
 
-2.  [使用NPM](/node-hero-npm-tutorial)
+2.  [使用 NPM](/node-hero-npm-tutorial)
 
 
 3.  [理解异步程序](/node-hero-async-programming-in-node-js)
@@ -79,7 +79,7 @@ Passport.js 是 Node.js 的身份验证中间件，我们可以用它来进行�
 ### 项目结构
 
 
-我们已经在前一个章节 Node Hero中学了 [如何构建 passport.js 项目 ](https://blog.risingstack.com/node-hero-node-js-project-structure-tutorial/) ，因此让我们应用这些知识吧！
+我们已经在前一个章节 Node Hero 中学了 [如何构建 passport.js 项目 ](https://blog.risingstack.com/node-hero-node-js-project-structure-tutorial/) ，因此让我们应用这些知识吧！
 
 我们将利用以下结构
 

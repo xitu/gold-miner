@@ -16,7 +16,7 @@
 - [背景](#背景)
 - [注册](#注册)
 - [安装事件](#安装事件)
-- [Fetch 事件](#Fetch事件)
+- [Fetch 事件](#Fetch 事件)
 - [缓存策略](#缓存策略)
 - [激活事件](#激活事件)
 - [同步事件](#同步事件)
@@ -24,9 +24,9 @@
 - [通知推送](#通知推送)
 - [通知](#通知)
 - [消息推送](#消息推送)
-- [使用 Ember.js 实现](#使用Ember.js实现)
-- [了解 ember-service-worker 的约定](#了解ember-service-worker的约定)
-- [构建基于 Ember 和 Service-Workers 的App](#构建基于Ember和Service-Workers的App)
+- [使用 Ember.js 实现](#使用 Ember.js 实现)
+- [了解 ember-service-worker 的约定](#了解 ember-service-worker 的约定)
+- [构建基于 Ember 和 Service-Workers 的 App](#构建基于 Ember 和 Service-Workers 的 App)
 - [结论](#结论)
 
 ## 背景
@@ -41,7 +41,7 @@
 
 因此，网站在离线状态时候的表现，以便用户不受网络可用性的限制，已变得非常有价值。
 
-[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) 最初是作为 HTML5 规范的一部分引入，用以解决离线 web 应用程序的问题。它包含以 **Cache Manifest** 配置文件为中心的HTML和JS的组合，配置文件以声明式语言来编写。 
+[AppCache](https://developer.mozilla.org/en-US/docs/Web/HTML/Using_the_application_cache) 最初是作为 HTML5 规范的一部分引入，用以解决离线 web 应用程序的问题。它包含以 **Cache Manifest** 配置文件为中心的 HTML 和 JS 的组合，配置文件以声明式语言来编写。 
 
 AppCache 最终被发现是 [不实用的和充满陷阱的](https://alistapart.com/article/application-cache-is-a-douchebag)。因此它已被废弃，被 Service Workers 有效的取代。
 
@@ -116,7 +116,7 @@ self.addEventListener('install', event => {
 
 在 Chrome 开发者工具中查看缓存数据
 
-#### Fetch事件
+#### Fetch 事件
 
 **Fetch** 事件是在每次网页发出请求的时候触发的，触发该事件的时候 Service Worker 能够 '拦截' 请求，并决定返回内容 ———— 是返回缓存的数据，还是返回真实请求响应的数据。
 
@@ -171,7 +171,7 @@ self.addEventListener('fetch', event => {
 
 `event.respondWith` 用于提供对请求的响应。这里我们打开缓存找到匹配的响应，如果它不存在，我们会走网络请求。
 
-随后，我们将调用 `event.waitUntil` 方法以允许在 Service Worker 上下文终止之前 resolve 一个异步Promise。这里会走一个网络请求，然后缓存其响应。一旦这个异步操作完成，`waitUntil` 将会 resolve，操作将会终止。
+随后，我们将调用 `event.waitUntil` 方法以允许在 Service Worker 上下文终止之前 resolve 一个异步 Promise。这里会走一个网络请求，然后缓存其响应。一旦这个异步操作完成，`waitUntil` 将会 resolve，操作将会终止。
 
 #### 激活事件
 
@@ -285,7 +285,7 @@ self.addEventListener('notificationclose', event => {
 
 这是一个稍微复杂的过程，超出了本文的范围。但如果你想了解更多，可以参考 [introduction to push notifications](https://developers.google.com/web/ilt/pwa/introduction-to-push-notifications) 这篇文章 。
 
-## 使用Ember.js实现
+## 使用 Ember.js 实现
 
 用 Ember.js 实现 Service Workers 的 APP 是非常容易的，凭借其脚手架工具 [ember-cli](https://ember-cli.com/) 和其插件体系 [Ember Add-ons](https://www.emberaddons.com) 社区的支持，你可以以一种即插即拔的方式在你的 Web App 中增加 Service Worker。
 
@@ -372,7 +372,7 @@ self.addEventListener('fetch', (event) => {
 
 有几个插件 [several add-ons](https://www.emberaddons.com/?query=service-worker) 也使用 **ember-service-worker** 该插件的结构，允许你自定义和微调对应的 Service Worker 的表现和缓存策略。
 
-#### 构建基于Ember和Service-Workers的App
+#### 构建基于 Ember 和 Service-Workers 的 App
 
 首先，你需要下载 [ember-cli](https://ember-cli.com/)，然后在命令行中执行下面的语句操作：
 
@@ -393,7 +393,7 @@ $ ember install ember-service-worker-asset-cache
 
 ## 结论
 
-我希望你能够对 Service Workers 和其底层架构有一个更深入理解，以及怎样利用他们创建用户体验更好的Web App。
+我希望你能够对 Service Workers 和其底层架构有一个更深入理解，以及怎样利用他们创建用户体验更好的 Web App。
 
 `ember-service-worker` 插件让你能在你的 Ember.js 应用程序中很容易地实现他们。如果你发现需要实现一个自己的 Service Worker 的逻辑，你可以很容易的创建自己的插件，来实现你需要的行为所对应的事件处理程序，这是我想在不久的将来解决的问题，敬请关注！
 

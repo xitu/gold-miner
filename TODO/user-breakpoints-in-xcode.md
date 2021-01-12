@@ -38,7 +38,7 @@
 
 - **Symbol:**`UIViewAlertForUnsatisfiableConstraints`
 
-    当出现自动布局约束的问题时自动停止。这会比仅仅在Xcode的控制台输出一条打印信息更让你注意这个问题。它有助于我们及早地发现布局问题。
+    当出现自动布局约束的问题时自动停止。这会比仅仅在 Xcode 的控制台输出一条打印信息更让你注意这个问题。它有助于我们及早地发现布局问题。
 
 - **Symbol:**`NSKVODeallocateBreak`
 

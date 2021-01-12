@@ -26,15 +26,15 @@ RedMonk 的排名将 Stack Overflow 的数据与 GitHub 上的 pull request 结�
 
 『毫无疑问，我们与 Angular 团队的合作有助于 TypeScript 的推广』，TypeScript 核心成员 [Anders Hejlsberg ](https://twitter.com/ahejlsberg?lang=en) 向 New Stack 说到。『但即便如此，我认为真正重要的点在于这是一次代表了行业力量重大信心的信任投票。』
 
-他指出，这种信任投票带来的影响不仅仅在于 Angular。『目前，许多其它框架也在使用 TypeScript。[Aurelia](http://aurelia.io/)、[Ionic](https://ionicframework.com/)、NativeScript都以某种方式使用了 TypeScript。[Ember](https://www.emberjs.com/) 框架与 [Glimmer](https://github.com/glimmerjs) 框架的最新发布版本就是使用 TypeScript 编写的。』
+他指出，这种信任投票带来的影响不仅仅在于 Angular。『目前，许多其它框架也在使用 TypeScript。[Aurelia](http://aurelia.io/)、[Ionic](https://ionicframework.com/)、NativeScript 都以某种方式使用了 TypeScript。[Ember](https://www.emberjs.com/) 框架与 [Glimmer](https://github.com/glimmerjs) 框架的最新发布版本就是使用 TypeScript 编写的。』
 
 > 『我们看到许多来自在这个行业经验丰富的人的信任投票。我想这可能是每个在大公司的人都会注意到的』—— Anders Hejlsberg
 
-这种信任投票也给框架的使用者带来了机会。『我们做了很多努力以成为 [React 生态](https://facebook.github.io/react/)中的重要一员。我们支持 [JSX](https://jsx.github.io/)，支持所有你在重构或是浏览 JSX 代码时想要用到的类型系统的高级特性。我们还正在和 [Vue.js](https://vuejs.org/) 社区合作以更好的支持这个框架中用到的各种模式。』 Hejlsberg说到。
+这种信任投票也给框架的使用者带来了机会。『我们做了很多努力以成为 [React 生态](https://facebook.github.io/react/)中的重要一员。我们支持 [JSX](https://jsx.github.io/)，支持所有你在重构或是浏览 JSX 代码时想要用到的类型系统的高级特性。我们还正在和 [Vue.js](https://vuejs.org/) 社区合作以更好的支持这个框架中用到的各种模式。』 Hejlsberg 说到。
 
 为新框架提供支持是在开发者中保持流行度的一项重要手段。『我们一直都在关注框架领域。我们知道这是一个不断变化的生态系统。它在不断变化，你必须时刻准备着并保证一切都能正常工作。』
 
-对于工具链来说也是如此，尤其是在 ECMAScript 模块愈发流行的情况下。『许多人使用模块编写现代风格的 JavaScript 应用，当你使用 ECMAScript 6 模块的时候，你需要使用一个类似 [Webpack](https://webpack.github.io/) 或 [Rollup.js](https://rollupjs.org/) 这样的打包工具将代码打包起来以便能在浏览器中运行。我们要确保 TypeScript 可以与这些工具配合使用以保证我们可以融入整个工具链之中』 Hejlsberg说到。
+对于工具链来说也是如此，尤其是在 ECMAScript 模块愈发流行的情况下。『许多人使用模块编写现代风格的 JavaScript 应用，当你使用 ECMAScript 6 模块的时候，你需要使用一个类似 [Webpack](https://webpack.github.io/) 或 [Rollup.js](https://rollupjs.org/) 这样的打包工具将代码打包起来以便能在浏览器中运行。我们要确保 TypeScript 可以与这些工具配合使用以保证我们可以融入整个工具链之中』 Hejlsberg 说到。
 
 [![](https://cdn.thenewstack.io/media/2017/04/940acc19-stateofthenation.png)](http://vmob.me/DE1Q17)
 
@@ -55,7 +55,7 @@ Hejlsberg 指出 TypeScript 还是在 Stack Overflow 的调查中排在 Rust 和
 
 人们很容易把 TypeScript 的成功视为微软通过熟悉的工具把已经在微软世界中的企业开发者引入 JavaScript 的结果。
 
-『我们有一个围绕着 C#、C++ 以及 Visual Basic 的大型开发者生态系统。许多企业在使用微软的工具同时也有前端开发的需求，当我们开始改善前端开发的时候，他们就坐下来，关注并开始使用了。』Hejlsberg坦言。
+『我们有一个围绕着 C#、C++ 以及 Visual Basic 的大型开发者生态系统。许多企业在使用微软的工具同时也有前端开发的需求，当我们开始改善前端开发的时候，他们就坐下来，关注并开始使用了。』Hejlsberg 坦言。
 
 但是，虽然很多 TypeScript 的开发工作是在 [Visual Studio](https://www.visualstudio.com/) 中进行的，和使用 [Visual Studio Code](https://code.visualstudio.com/) —— 微软开源的，跨平台的 IDE —— 的一样多。『那是一个和我们没有太多联系的社区。以 Visual Studio Code 来说，一半的用户来自非 Windows 系统，因此突然间我们就与一个之前没什么交流的开发者社区建立了联系。』
 
@@ -79,7 +79,7 @@ TypeScript 团队最近宣布发布频率将由每季度改为每两个月，Hel
 
 除了任何一个单一因素以外，驱使 TypeScript 愈发流行的真实原因可能是现如今 JavaScript 开发越来越高的复杂性以及越来越强大的能力。
 
-『我们的行业和 JavaScript 的使用都发生了巨大的变化。』 Hejlsberg指出。『以前我们生活在一个同质的世界。所有人都使用 Windows 和浏览器，这就是你如何使用 JavaScript 的。现在世界已经变得非常多元化。有各种不同的设备 —— 手机和平板电脑，还在后端使用 node 运行 JavaScript。JavaScript 还挣脱了浏览器，通过使用 NativeScript、React Native 或是 Cordova 你已经可以使用 JavaScript 构建原生应用。』
+『我们的行业和 JavaScript 的使用都发生了巨大的变化。』 Hejlsberg 指出。『以前我们生活在一个同质的世界。所有人都使用 Windows 和浏览器，这就是你如何使用 JavaScript 的。现在世界已经变得非常多元化。有各种不同的设备 —— 手机和平板电脑，还在后端使用 node 运行 JavaScript。JavaScript 还挣脱了浏览器，通过使用 NativeScript、React Native 或是 Cordova 你已经可以使用 JavaScript 构建原生应用。』
 
 『是的，它变得更复杂，但也有着无限多的能力。』 Hejlsberg 谈到 JavaScript 时说道。『利用 JavaScript，你可以使用同一种语言和工具开发出如此多种类的应用。对我而言，这正是推动所有这一切的原因：你可以开发不同类型应用的多样性以及你能从这个不断进化的生态系统中获得的可重用性。它不仅仅变得更复杂了，也更强大了。』
 

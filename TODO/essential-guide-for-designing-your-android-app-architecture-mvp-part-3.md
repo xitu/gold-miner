@@ -74,7 +74,7 @@ Android MVP 架构系列文章的第1部分和第2部分自发布以来非常受
 (在[项目](https://github.com/MindorksOpenSource/android-mvp-architecture)的 [com.mindorks.framework.mvp.ui.base](https://github.com/MindorksOpenSource/android-mvp-architecture/tree/master/app/src/main/java/com/mindorks/framework/mvp/ui/base) 包里面查看代码 )
 
 1. **BaseDialog**：这个类里面我们添加 `Dialog` 的模板代码，以及一些通用的方法。实际项目用到的 `Dialog` 可以通过扩展该基类来实现。
-2. **DialogMvpView**：这个接口定义了 `Presenter` 与 `Dialogs` 交互的API。
+2. **DialogMvpView**：这个接口定义了 `Presenter` 与 `Dialogs` 交互的 API。
 3. **BaseViewHolder**：它定义了 `RecyclerView` 绑定框架，并实现了 `ViewHolder` 被复用时自动清理视图的功能。
 
 ``` java
@@ -88,7 +88,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 #### [评分对话框](https://github.com/MindorksOpenSource/android-mvp-architecture/tree/master/app/src/main/java/com/mindorks/framework/mvp/ui/main/rating):
 
 1. 可以通过左侧抽屉的菜单列表打开这个对话框。
-2. 它的实现和[**第二篇**](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637)博客里面的MVP组件很相似。
+2. 它的实现和[**第二篇**](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637)博客里面的 MVP 组件很相似。
 
 **在你浏览器的新标签中打开**[**project repo**](https://github.com/MindorksOpenSource/android-mvp-architecture/tree/master/app/src/main/java/com/mindorks/framework/mvp/ui/main/rating)**，彻底研究评分对话框部分在项目中的实现**
 
@@ -109,7 +109,7 @@ public abstract class BaseDialog extends DialogFragment implements DialogMvpView
 
 > `API` 数据分页和网络状态的处理就留给你作为练习。
 
-**现在请通过项目来研究代码，仔细研究XML中的布局以及如何通过代码操作视图。**
+**现在请通过项目来研究代码，仔细研究 XML 中的布局以及如何通过代码操作视图。**
 
 如果您觉得有困难或需要任何帮助或改善，请在 `Mindorks` 社区提出你的问题：点击[**这里**](https://mindorks.com/join-community)加入 `Mindorks Android` 社区，在这里我们可以相互学习。
 

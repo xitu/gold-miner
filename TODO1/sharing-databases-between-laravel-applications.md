@@ -20,7 +20,7 @@ CRM 是在我为现在的老板打工之前建立起来的，而会员区是我�
 
 ### Eloquent 模型
 
-数据库模型是最容易处理的部分。为此，我们使用 Composer 为每个共享数据库表创建模型创建一个包，并将它们作为 [vcs 存储库](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository)。这使我们能够无需通过Packagist发布就可以共享这些模型。
+数据库模型是最容易处理的部分。为此，我们使用 Composer 为每个共享数据库表创建模型创建一个包，并将它们作为 [vcs 存储库](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository)。这使我们能够无需通过 Packagist 发布就可以共享这些模型。
 
 这个包中的模型每个都从它们自己的基础模型扩展而来，它为每个数据库设置连接，并包含可以将它们连接在一起的最少量的逻辑。
 
@@ -44,7 +44,7 @@ Laravel 在` `config/database.php` 文件中附带多个数据库连接，向您
 
 我花了很长时间把类似 Artisan 的工具集中在一起，这个工具只关注迁移和数据库填充功能 —— [Nomad](https://github.com/michaeldyrynda/nomad)。为了管理许多应用程序的数据库迁移，Nomad 可以被引入独立的 Composer 项目 - 例如 [Vagabond](https://github.com/michaeldyrynda/vagabond)。
 
-Vagabond项目随后被作为一个包，您可以将其作为 VCS 存储库使用，并使用服务提供者，指导 Laravel 加载迁移，以及使用它的应用程序中可能存在的所有迁移。
+Vagabond 项目随后被作为一个包，您可以将其作为 VCS 存储库使用，并使用服务提供者，指导 Laravel 加载迁移，以及使用它的应用程序中可能存在的所有迁移。
 
 ```
 // 在你的 Vagabond 项目的服务提供者中
@@ -116,7 +116,7 @@ Laravel 实际上很容易将第三方软件包的配置合并到主配置中。
 
 由于我们现有的数据库包含很多 `ENUM` 字段（我不建议使用它们，尤其是因为它们不受这个库的支持 —— `doctrine/dbal` —— Laravel 用于迁移功能），我们必须在我们的测试环境中使用 MySQL。
 
-在CI管道中使用容器可以轻松启动 MySQL 服务，但是，如何配置多个数据库却并不是显而易见的。由于我们使用的 MariaDB 映像不允许指定绑定的端口，因此多个数据库服务都尝试侦听同一个端口（3306），随后无法启动，从而导致测试套件失败。
+在 CI 管道中使用容器可以轻松启动 MySQL 服务，但是，如何配置多个数据库却并不是显而易见的。由于我们使用的 MariaDB 映像不允许指定绑定的端口，因此多个数据库服务都尝试侦听同一个端口（3306），随后无法启动，从而导致测试套件失败。
 
 解决方案非常简单，只是我之前没发现：在测试套件运行之前使用 MySQL 客户端创建数据库。
 
@@ -182,7 +182,7 @@ definitions:
 
 感谢 [Keith Damiani](https://twitter.com/keithdamiani) 和 [Sepehr Lajevardi](https://twitter.com/sepehrlajevardi) 指出我拼图中缺失的最后一块。
 
-[Jake Bennett](https://twitter.com/jacobbennett) 和我在North Meets South网络播客的 [episode 43](http://www.northmeetssouth.audio/43) 中讨论了这种迁移行为。
+[Jake Bennett](https://twitter.com/jacobbennett) 和我在 North Meets South 网络播客的 [episode 43](http://www.northmeetssouth.audio/43) 中讨论了这种迁移行为。
 
 
 如果您对本文中涵盖的任何内容有任何疑问，或有任何改进建议，请随时在 Twitter 上[提出](https://twitter.com/michaeldyrynda)。

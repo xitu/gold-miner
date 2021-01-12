@@ -5,7 +5,7 @@
 > * 译者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 > * 校对者：[Park-ma](https://github.com/Park-ma), [haiyang-tju](https://github.com/haiyang-tju)
 
-# 提取图片中的文字、人脸或者条形码 —— 形状检测API
+# 提取图片中的文字、人脸或者条形码 —— 形状检测 API
 
 > 注意：我们目前正在使用此 API 的规范作为[功能项目](https://developers.google.com/web/updates/capabilities)的一部分，随着这个新的 API 从设计转向实现，我们将保持这篇文章的不断更新。
 

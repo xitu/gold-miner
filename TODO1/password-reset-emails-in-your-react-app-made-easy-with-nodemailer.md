@@ -221,7 +221,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 **如果您喜欢阅读本文，您可能还会喜欢我的其他一些博客：**
 
 * [调试 Node.js 的绝对最简单的方法 —— 使用 VS Code](https://itnext.io/the-absolute-easiest-way-to-debug-node-js-with-vscode-2e02ef5b1bad)
-* [使用 React 在 JavaScrip t应用程序中实现 JSON Web Tokens 和 Passport.js](https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436)
+* [使用 React 在 JavaScrip t 应用程序中实现 JSON Web Tokens 和 Passport.js](https://itnext.io/implementing-json-web-tokens-passport-js-in-a-javascript-application-with-react-b86b1f313436)
 * [Sequelize：像 Mongoose 但是相对于 SQL](https://medium.com/@paigen11/sequelize-the-orm-for-sql-databases-with-nodejs-daa7c6d5aca3)
 
 ***
@@ -231,7 +231,7 @@ NPM 包 `[dotenv](https://www.npmjs.com/package/dotenv)` 用于读取文件的�
 * Nodemailer: [https://nodemailer.com/about/](https://nodemailer.com/about/)
 * Nodemailer, Github: [https://github.com/nodemailer/nodemailer](https://github.com/nodemailer/nodemailer)
 * Nodemailer, NPM: [https://www.npmjs.com/package/nodemailer](https://www.npmjs.com/package/nodemailer)
-* 使用 Nodemailer Repo 的MERN应用程序: [https://github.com/paigen11/mysql-registration-passport](https://github.com/paigen11/mysql-registration-passport)
+* 使用 Nodemailer Repo 的 MERN 应用程序: [https://github.com/paigen11/mysql-registration-passport](https://github.com/paigen11/mysql-registration-passport)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

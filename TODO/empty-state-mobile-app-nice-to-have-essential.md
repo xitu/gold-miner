@@ -70,7 +70,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*8rPDEnwRzQnReRL0CKdLzA.gif)
 
-**Workmates**  —动物在单独页面用可爱的hi和hello和你打招呼呢。
+**Workmates**  —动物在单独页面用可爱的 hi 和 hello 和你打招呼呢。
 
 或者你可能编个笑话？
 
@@ -121,6 +121,6 @@
 
 * 如果 empty state 是出错后出现的，解释清楚怎样解决这个问题和返回到之前的页面
 
- empty state 和其他设计组件一样重要，因为用户体验是所有能和谐地起作用的部分的总和。用户界面需要信息和操作之间精细的平衡。 empty state 将用户和设计完善的UI界面相连接起来，以此来保留用户的注意力。
+ empty state 和其他设计组件一样重要，因为用户体验是所有能和谐地起作用的部分的总和。用户界面需要信息和操作之间精细的平衡。 empty state 将用户和设计完善的 UI 界面相连接起来，以此来保留用户的注意力。
 
 _Follow UX Planet:_ [_Twitter_](https://twitter.com/101babich) _|_ [_Facebook_](https://www.facebook.com/uxplanet/)

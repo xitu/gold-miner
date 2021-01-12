@@ -71,7 +71,7 @@ JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大
 
 外边的圆括号开始发功了。
 
-在`function() { }()` 外的圆括号使得此处成为合法JavaScript。你要是不信我，就打开开发者工具的控制台自己输入看看。
+在`function() { }()` 外的圆括号使得此处成为合法 JavaScript。你要是不信我，就打开开发者工具的控制台自己输入看看。
 
 这样就是我们一开始看到的。
 
@@ -432,9 +432,9 @@ JSHint 对我们样例代码的报错。
       });
     });
 
-最终版本"通过"了 JSHint 的测试。虽然实际上并不完美。注意到我两个检验函数一个叫 `validAge` 一个叫 `invalidEmail` ，一个返回肯定一个返回否定。更好的做法是保持语义一致性。还有每次这个验证函数运行的时候，jQuery 需要获取DOM 中的三个元素，其实它们只需要被获取一次。我应该在表单提交回调函数外创建这些变量，每次验证的时候重复使用。如我所言，JSHint 不是完美的，但代码最终版本绝对比第一版要好很多，我的修改也没有花多少时间。
+最终版本"通过"了 JSHint 的测试。虽然实际上并不完美。注意到我两个检验函数一个叫 `validAge` 一个叫 `invalidEmail` ，一个返回肯定一个返回否定。更好的做法是保持语义一致性。还有每次这个验证函数运行的时候，jQuery 需要获取 DOM 中的三个元素，其实它们只需要被获取一次。我应该在表单提交回调函数外创建这些变量，每次验证的时候重复使用。如我所言，JSHint 不是完美的，但代码最终版本绝对比第一版要好很多，我的修改也没有花多少时间。
 
-不同用途的代码检验器有 JavaScript([JSLint](http://www.jslint.com)和 [JSHint](http://www.jshint.com))，HTML([HTMLHint](http://htmlhint.com/)和 [W3C Validator](https://validator.w3.org/))和CSS ([CSSLint](http://csslint.net/))。如果编辑器支持，而你还是个"前端潮人"，还可以用 Grunt 和 Gulp 工具对这些进行自动化。
+不同用途的代码检验器有 JavaScript([JSLint](http://www.jslint.com)和 [JSHint](http://www.jshint.com))，HTML([HTMLHint](http://htmlhint.com/)和 [W3C Validator](https://validator.w3.org/))和 CSS ([CSSLint](http://csslint.net/))。如果编辑器支持，而你还是个"前端潮人"，还可以用 Grunt 和 Gulp 工具对这些进行自动化。
 
 ## 测试
 
@@ -499,7 +499,7 @@ xunit 创建的测试。
 
     }());
 
-你马上看出问题了？还是放弃了？当输入9999的时候，会返回10K。尽管此精简可能有用，但代码对于所有小于10K的数字应该一视同仁，都返回它们的原始值。这个修正很简单，我们正好当作添加测试的机会。关于测试框架我选择 [Jasmine](http://jasmine.github.io/)。Jasmine 的测试易于编写和运行。最快的使用方法是下载这个库。解压后你会发现 SpecRunner.html 文件。此文件负责引入我们的代码，引入测试，而后运行测试和生成漂亮的报告。它依赖于压缩包中的 lib 文件夹，你一开始可以把 SpecRunner 和 lib 文件夹一起复制到你的服务器某处。
+你马上看出问题了？还是放弃了？当输入9999的时候，会返回10K。尽管此精简可能有用，但代码对于所有小于10K 的数字应该一视同仁，都返回它们的原始值。这个修正很简单，我们正好当作添加测试的机会。关于测试框架我选择 [Jasmine](http://jasmine.github.io/)。Jasmine 的测试易于编写和运行。最快的使用方法是下载这个库。解压后你会发现 SpecRunner.html 文件。此文件负责引入我们的代码，引入测试，而后运行测试和生成漂亮的报告。它依赖于压缩包中的 lib 文件夹，你一开始可以把 SpecRunner 和 lib 文件夹一起复制到你的服务器某处。
 
 打开 SpecRunner.html 你会看到。
 

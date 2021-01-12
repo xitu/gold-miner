@@ -61,7 +61,7 @@ fastlane 的替代者 Top 5
 *   [codesign](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/codesign.1.html): 管理 iOS app 的代码签名。
 *   [security](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/security.1.html): 管理证书, 钥匙串和 Profiles。
 
-有一些辅助工具像 [simctl](https://medium.com/xcblog/simctl-control-ios-simulators-from-command-line-78b9006a20dc)，[PlistBuddy](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/PlistBuddy.8.html)，[xcode-select](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/xcode-select.1.html) 等，在处理模拟器、Plist 文件和 Xcode 版本等有时也会需要。一旦熟悉了这些工具，你就会对自己编写 iOS 发布流水线有信心，并且这些工具能够解决任何问题。在大多数情况下，几行代码就可以将你的 iOS 应用发送到 iTunes Connect。我写了一篇[文章](https://medium.com/xcblog/xcodebuild-deploy-ios-app-from-command-line-c6defff0d8b8)关于通过命令行发布 iOS 应用。我们也需要知道一些 [代码签名](https://developer.apple.com/support/code-signing/) 以理解整个流程.。学习在iOS构建过程中应用苹果开发者工具需要一些时间，但这是一次性的，你不需要学习任何第三方框架，比如 fastlane。
+有一些辅助工具像 [simctl](https://medium.com/xcblog/simctl-control-ios-simulators-from-command-line-78b9006a20dc)，[PlistBuddy](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man8/PlistBuddy.8.html)，[xcode-select](https://developer.apple.com/legacy/library/documentation/Darwin/Reference/ManPages/man1/xcode-select.1.html) 等，在处理模拟器、Plist 文件和 Xcode 版本等有时也会需要。一旦熟悉了这些工具，你就会对自己编写 iOS 发布流水线有信心，并且这些工具能够解决任何问题。在大多数情况下，几行代码就可以将你的 iOS 应用发送到 iTunes Connect。我写了一篇[文章](https://medium.com/xcblog/xcodebuild-deploy-ios-app-from-command-line-c6defff0d8b8)关于通过命令行发布 iOS 应用。我们也需要知道一些 [代码签名](https://developer.apple.com/support/code-signing/) 以理解整个流程.。学习在 iOS 构建过程中应用苹果开发者工具需要一些时间，但这是一次性的，你不需要学习任何第三方框架，比如 fastlane。
 
 ### 2. Xcode Server
 
@@ -79,7 +79,7 @@ fastlane 的替代者 Top 5
 
 ### 5. Swift 选项（未准备好）
 
-fastlane 最近添加了使用 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 而不是 Ruby 来配置通道的支持。但目前这并不是真正的 Swift 实现，因为在底层还是用 Swift 来执行 Ruby 命令而已。它在项目中添加了许多不相关的 Swift 文件，这些文件理想情况下应该作为可通过 CocoaPods，Carthage 或 Swift Package Manager 分发的 Swift 包（SDK）提供。我写了我对Fastlane Swift [第一印象](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios)。另一个解决方案是 [Autobahn](https://github.com/AutobahnSwift/Autobahn)，它是纯 Swift 实现的 fastlane，但是它还处在开发阶段，在开发完成之前无法使用。遗憾的是，我们不得不等待这些基于 Swift 的解决方案，他们还没有准备好在当前的 iOS 项目中使用。但是，我们期待迟早会有可行的解决方案，这将允许 iOS 开发人员使用 Swift 编写配置代码。在我看来 Swift 不是脚本语言，但可以在需要时用作脚本。
+fastlane 最近添加了使用 [Swift](https://docs.fastlane.tools/getting-started/ios/fastlane-swift/) 而不是 Ruby 来配置通道的支持。但目前这并不是真正的 Swift 实现，因为在底层还是用 Swift 来执行 Ruby 命令而已。它在项目中添加了许多不相关的 Swift 文件，这些文件理想情况下应该作为可通过 CocoaPods，Carthage 或 Swift Package Manager 分发的 Swift 包（SDK）提供。我写了我对 Fastlane Swift [第一印象](https://dzone.com/articles/first-impressions-of-fastlane-swift-for-ios)。另一个解决方案是 [Autobahn](https://github.com/AutobahnSwift/Autobahn)，它是纯 Swift 实现的 fastlane，但是它还处在开发阶段，在开发完成之前无法使用。遗憾的是，我们不得不等待这些基于 Swift 的解决方案，他们还没有准备好在当前的 iOS 项目中使用。但是，我们期待迟早会有可行的解决方案，这将允许 iOS 开发人员使用 Swift 编写配置代码。在我看来 Swift 不是脚本语言，但可以在需要时用作脚本。
 
 ### 选择的小建议
 

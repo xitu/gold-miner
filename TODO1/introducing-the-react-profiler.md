@@ -18,7 +18,7 @@ React 16.5 添加了对新的 profiler DevTools 插件的支持。这个插件�
     *   [火焰图](#火焰图)
     *   [排序图](#排序图)
     *   [Component 图](#component-图)
-    *   [交互动作（Interactions）](#交互动作interactions)
+    *   [交互动作（Interactions）](#交互动作 interactions)
 *   [常见问题 & 解决方法](#常见问题--解决方法)
     *   [选择的根元素下没有 profile 数据被记录](#选择的根元素下没有-profile-数据被记录)
     *   [选中的 commit 记录没有展示时间数据](#选中的-commit-记录没有时间数据可以展示)
@@ -125,7 +125,7 @@ profiler DevTools 是在 commit 阶段收集性能数据的。各次 commit 会�
 
 ### 交互动作（Interactions）
 
-React 最近添加了一个 [实验性 API](https://fb.me/react-interaction-tracking)，目的是为了追踪引起更新的原因。被这些API所追踪的“交互动作”也会展示在 profiler 里：
+React 最近添加了一个 [实验性 API](https://fb.me/react-interaction-tracking)，目的是为了追踪引起更新的原因。被这些 API 所追踪的“交互动作”也会展示在 profiler 里：
 
 [![The interactions panel](https://reactjs.org/static/interactions-a91a39ac076b71aa7a202aaf46f8bd5a-acf85.png)](https://reactjs.org/static/interactions-a91a39ac076b71aa7a202aaf46f8bd5a-53c76.png) 
 

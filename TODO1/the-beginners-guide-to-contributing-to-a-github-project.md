@@ -111,7 +111,7 @@ Lorna Mitchell 的文章[代码审查：在你运行代码之前](http://www.lor
 1.  Fork 原项目并克隆到本地。
 2.  创建一个 **upstream** 远端并在你创建分支之前同步更新到你的本地副本。
 3.  为每项单独的工作创建分支。
-4.  做好你的工作，编写[良好的提交信息](https://blogs.gnome.org/danni/2011/10/25/a-guide-to-writing-git-commit-messages/)，并阅读CONTRIBUTING文件（如果有的话）。
+4.  做好你的工作，编写[良好的提交信息](https://blogs.gnome.org/danni/2011/10/25/a-guide-to-writing-git-commit-messages/)，并阅读 CONTRIBUTING 文件（如果有的话）。
 5.  推送到 **origin** 仓库。
 6.  在 GitHub 中创建一个新的 PR。
 7.  回应每一条[代码审查](http://www.lornajane.net/posts/2015/code-reviews-before-you-even-run-the-code)的反馈信息。

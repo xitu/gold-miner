@@ -75,7 +75,7 @@ npm 生态系统的当前状态以及无法将经典 JavaScript 与现代 JavaSc
 
 绝大多数 JavaScript 应用的转译系统是一次性的或者为每个项目单独定制的，没有统一的中心位置可以修改它们。一个可被我们考虑的缓慢地将社区推向现代 JS-friendly 配置方法的选择是：使得当从 `node_modules` 导入的 JavaScript 资源未被处理时，修改后的 Webpack 对此显示警告。去年 Bable [宣布了一些新功能](https://babeljs.io/blog/2018/06/26/on-consuming-and-publishing-es2015+-packages)，允许在 `node_modules` 中做一些选择性地转换，同时 Create React App 工具最近开始使用保守配置来做转换 `node_modules`。同样，可以创建工具来检查我们打包的 JavaScript，看看它有多少是过度填充或低效的传统语法。
 
-## The last piece最后一块
+## The last piece 最后一块
 
 假设我们可以将自动化和指导服务转译到我们的工具中，这样做最终会将使用这些工具的成千上万（甚至是百万）个应用迁移到允许在 `node_modules` 中使用现代语法的配置上。为了使这个方法产生效果，我们需要提出一致的规范来指定他们现代 JS 资源的位置，并且在该上下文中对什么是『现代』达成共识。对于 3 年前发布的软件包，『现代』可能意味着 ES2015。对于一个现今发布的包，『现代』大概会包括 [class fields](https://developers.google.com/web/updates/2018/12/class-fields)、[BigInt](https://developers.google.com/web/updates/2018/05/bigint) 或者 [Dynamic Import](https://developers.google.com/web/updates/2017/11/dynamic-import) 吧？这很难说清楚，毕竟浏览器支持程度、各个规范所处阶段都各不相同。
 

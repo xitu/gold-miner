@@ -164,7 +164,7 @@ dump("🏭💨" as CustomStringConvertible) // "🏭💨"
 
 如果你对第三方依赖库不满意，只需 fork 它的源代码，然后去除你不想要的东西再使用它。你甚至可以尝试让他们上游做出一些改变。
 
-> 不幸的是，这种策略不适用于闭源模块，包括 Apple 的 SDK 中的模块。[“雷达或GTFO”](https://nshipster.com/bug-reporting/)。我想你可以试试 [“Radar or GTFO”](https://nshipster.com/bug-reporting/)。
+> 不幸的是，这种策略不适用于闭源模块，包括 Apple 的 SDK 中的模块。[“雷达或 GTFO”](https://nshipster.com/bug-reporting/)。我想你可以试试 [“Radar or GTFO”](https://nshipster.com/bug-reporting/)。
 
 ## API 提供者的策略
 
@@ -180,7 +180,7 @@ dump("🏭💨" as CustomStringConvertible) // "🏭💨"
 
 如果这样做是有意义的，请考虑模块中类型和方法提供的打包功能，你需要将该模块与你为内置类型提供的任何扩展分开，以提高其可用性。在可以从模块中挑选和选择我们想要的功能之前，最好的解决方案是让调用者可以选择在可能导致下游问题的情况下选择性地加入功能。
 
-### Avoid Collisions Altogether完全避免碰撞
+### Avoid Collisions Altogether 完全避免碰撞
 
 当然，如果你能够知情地避免冲突，那就太棒了...但是这会进入整个 [“不知之不知”](https://en.wikipedia.org/wiki/There_are_known_knowns)，我们现在没有时间讨论认识论。
 

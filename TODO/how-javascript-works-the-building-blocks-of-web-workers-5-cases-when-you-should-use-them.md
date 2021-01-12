@@ -340,7 +340,7 @@ self.addEventListener('message', function(e) {
 
 * **数据预获取：** 为优化你的网站或 web 应用的数据加载时长，你可以使用 Web Worker 预先获取一些数据，存储起来以备后续使用。Web Worker 在这里发挥着重要作用，因为它绝不会影响应用的 UI 体验，若不使用 Web Worker 情况会变得异常糟糕。
 
-* **Progressive Web App：** 当网络状态不是很理想时，你仍需保证 PWA 有较快的加载速度。这就意味着 PWA 的数据需要被持久化到本地浏览器中。在此背景下，一些与 [IndexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 类似的 API 便应运而生了。从根本上来说，客户端一侧需要有数据存储能力。为保证存取时不阻塞 UI 线程，这部分工作理应交给 Web Worker 完成。好吧，在 IndexDB 中你可以不使用 Web Worker，因为它提供的异步 API 同样不会阻塞 UI。但是在这之前，IndexDB 提供的是同步API（可能会被再次引入），这种情况使用 Web Worker 还是非常有必要的。
+* **Progressive Web App：** 当网络状态不是很理想时，你仍需保证 PWA 有较快的加载速度。这就意味着 PWA 的数据需要被持久化到本地浏览器中。在此背景下，一些与 [IndexDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) 类似的 API 便应运而生了。从根本上来说，客户端一侧需要有数据存储能力。为保证存取时不阻塞 UI 线程，这部分工作理应交给 Web Worker 完成。好吧，在 IndexDB 中你可以不使用 Web Worker，因为它提供的异步 API 同样不会阻塞 UI。但是在这之前，IndexDB 提供的是同步 API（可能会被再次引入），这种情况使用 Web Worker 还是非常有必要的。
 
 * **拼写检查：** 进行拼写检查的基本流程如下 — 程序首先从词典文件中读取一系列拼写正确的单词。整个词典的单词会被解析为一个搜索树用于实际的文本搜索。当待测词语被输入后，程序会检查已建立的搜索树中是否存在该词。如果在搜索树中没有匹配到待测词语，程序会替换字符组成新的词语，并测试新的词语是否是用户期待输入的，如果是则会返回该词语。整个检测过程可以被轻松 “下放” 给 Web Worker 完成，Worker 会完成所有的词语检索和词语联想工作，这样一来用户的输入就不会阻塞 UI 了。
 

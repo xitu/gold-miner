@@ -10,7 +10,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7bG_2QAIOzbKNeesEkkTzg.png)
 
-沃尔玛大家庭由多个不同的品牌组成，其中包括 [Sam’s Club](https://www.samsclub.com/)， [Asda](http://www.asda.com/)，和例如 [Walmart Canada](http://www.walmart.ca/en) 之类的地区分支。电商应用通常会使用大量类似的功能，例如信用卡组件、登录表单、新手引导、轮播图、导航栏等等。然而为每一个独立的品牌开发他们的电商应用将会降低代码的复用率，这将导致在相似功能的组件上耗费大量的时间进行重复性的工作。在 @WalmartLabs ， [代码的复用性对我们非常重要](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh)。这就是为什么我们的产品架构是基于多租户或者说多重品牌来构建的 —— 其实就是在为一个品牌构建组件的同时把这些组件应用在其他拥有不同外观和内容的品牌上的一种行为。接下来，你将会看到我们的React组件的多重品牌策略。
+沃尔玛大家庭由多个不同的品牌组成，其中包括 [Sam’s Club](https://www.samsclub.com/)， [Asda](http://www.asda.com/)，和例如 [Walmart Canada](http://www.walmart.ca/en) 之类的地区分支。电商应用通常会使用大量类似的功能，例如信用卡组件、登录表单、新手引导、轮播图、导航栏等等。然而为每一个独立的品牌开发他们的电商应用将会降低代码的复用率，这将导致在相似功能的组件上耗费大量的时间进行重复性的工作。在 @WalmartLabs ， [代码的复用性对我们非常重要](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh)。这就是为什么我们的产品架构是基于多租户或者说多重品牌来构建的 —— 其实就是在为一个品牌构建组件的同时把这些组件应用在其他拥有不同外观和内容的品牌上的一种行为。接下来，你将会看到我们的 React 组件的多重品牌策略。
 
 就像上面说的，我们的大部分服务都是建立在不同类型的多租户上的。当你访问服务的时候，通常情况下你会在标头或者有效载荷上传递租户，然后该服务会给特定的租户提供数据。举例来说对于 samsclub.com 和 walmart.com，服务会拉取不同的项目数据。
 

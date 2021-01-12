@@ -19,7 +19,7 @@
 
 ### 这……一言难尽啊。
 
-代码很明了，在显示图片方面并没有用什么黑科技或者第三方库。我开始在不同Android版本的 GenyMotion 和 Android Virtual Device （ AVD ，Android 虚拟机）上运行（React Native应用）。
+代码很明了，在显示图片方面并没有用什么黑科技或者第三方库。我开始在不同 Android 版本的 GenyMotion 和 Android Virtual Device （ AVD ，Android 虚拟机）上运行（React Native 应用）。
 
 *   **我的手机**：只能在第一屏看到图片
 *   **GenyMotion (API 21, API 22)**：部分节点有问题
@@ -128,7 +128,7 @@
 
 
 
-即使第一屏使用的内存已经在124MB左右时，**堆大小**也并没有明显超过124MB的迹象。但垃圾回收却开始执行：
+即使第一屏使用的内存已经在124MB 左右时，**堆大小**也并没有明显超过124MB 的迹象。但垃圾回收却开始执行：
 
     I/art(27035): Background partial concurrent mark sweep GC freed 1584(69KB) AllocSpace objects, 2(30KB) LOS objects, 12% free, 108MB/124MB, paused 3.874ms total 182.718ms
 
@@ -214,7 +214,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 
 
-3\. 将 Android 转储文件转换成 Memory Analyzer 可以读取的格式。 (你需要 Android SDK的 **platform-tools** )
+3\. 将 Android 转储文件转换成 Memory Analyzer 可以读取的格式。 (你需要 Android SDK 的 **platform-tools** )
 
     hprof-conv com.leak_sample.hprof com.leak_sample_converted.hprof
 

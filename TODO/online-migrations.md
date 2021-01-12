@@ -97,7 +97,7 @@ Stripe 有数亿的订阅对象。运行一次涉及所有这些对象的大规�
 
 我们使用 [Scalding](https://github.com/twitter/scalding) 来管理我们的 MapReduce 任务。Scalding 是一个由 Scala 编写的有用的库，可以帮助我们方便的编写 MapReduce 的 Job (您可以用 10 行代码编写一个简单的 Job)。在这里，我们将会使用 Scalding 来帮助我们识别所有的订阅。我们将会遵循以下步骤：
 
-- 编写一个Scalding job，该 job 提供需要复制的所有订阅数据 ID 的列表。
+- 编写一个 Scalding job，该 job 提供需要复制的所有订阅数据 ID 的列表。
 - 运行大型多线程迁移，通过一系列可以有效对我们的数据并行操作的进程来复制这些订阅。
 - 迁移完成后，再次运行 Scalding Job，以确保订阅表中没有遗漏的订阅。
 

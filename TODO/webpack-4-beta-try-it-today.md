@@ -106,7 +106,7 @@ UglifyJS2 现在支持 ES6 JavaScript 语法！
 * `javascript/esm`: EcmaScript 模块，所有的其他模块系统不可用（默认 .mjs 文件）
 * `javascript/dynamic`: 只有 CommonJS 和，EcmaScript 模块不可用
 * `json`: JSON 数据，它可以通过 require 和 import 来引入使用（默认 .json 的文件）
-* `webassembly/experimental`: WebAssembly模块（当前为 .wasm 文件的实验文件和默认文件）
+* `webassembly/experimental`: WebAssembly 模块（当前为 .wasm 文件的实验文件和默认文件）
 * 另外 webpack 现在支持查找 `.wasm`, `.mjs`, `.js` 和 `.json` 拓展文件来解析
 
 **这个功能最让人兴奋的是，我们可以继续使用 CSS 和 HTML 模块模型 （4.x）。**这将允许像 HTML 这样的功能作为你的入口点！

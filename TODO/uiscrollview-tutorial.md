@@ -7,7 +7,7 @@
 
 # UIScrollView 新手教程
 
-__Ray的温馨提示__：这是本站原先 Objective-C 热门教程的 Swift 升级版。Corinne Krych 将教程升级到了Swift, iOS 9 和 Xcode 7.1.1；[原文](https://www.raywenderlich.com/?p=10518)由教程团队成员 [Matt Galloway](http://www.raywenderlich.com/u/mattjgalloway) 编写。阅读愉快！
+__Ray 的温馨提示__：这是本站原先 Objective-C 热门教程的 Swift 升级版。Corinne Krych 将教程升级到了 Swift, iOS 9 和 Xcode 7.1.1；[原文](https://www.raywenderlich.com/?p=10518)由教程团队成员 [Matt Galloway](http://www.raywenderlich.com/u/mattjgalloway) 编写。阅读愉快！
 
 `UIScrollView` 是 iOS 中最灵活和有用的控件之一。它是十分流行的 `UITableView` 控件的基础，能够友好地展示超过一屏的内容。在这份 `UIScrollView` 教程中，通过构建一个类似自带的「照片」应用，你将会掌握以下内容：
 
@@ -191,7 +191,7 @@ __注意__：自动布局的规则必须完备地定义滚动视图的 `contentS
 
 在 __Container View__ 内新建的标签下方添加一个 __Text Field__ 。在 __Container View__ 中添加值为 8 的首尾约束，无外边距。添加与标签的竖直间距约束为30。
 
-最后，通过联线 (segue) 连接新建的视图控制器和另一个屏幕。移除已有的 __Photo Scroll__ 场景和 __Zoomed Photo View Controller__ 场景之间的push联线。不要担心，你在 __Zoomed Photo View Controller__ 中所做的会在后面加回到应用中。
+最后，通过联线 (segue) 连接新建的视图控制器和另一个屏幕。移除已有的 __Photo Scroll__ 场景和 __Zoomed Photo View Controller__ 场景之间的 push 联线。不要担心，你在 __Zoomed Photo View Controller__ 中所做的会在后面加回到应用中。
 
 在 __Photo Scroll__ 场景中，将 __PhotoCell__ 拖到视图控制器中，添加一个 __show__ 联线. 命名为 __showPhotoPage__ 。
 
@@ -387,10 +387,10 @@ class ManagePageViewController: UIPageViewController {
 
 这段代码做了这两件微小的事情：
 
-1.  `viewPhotoCommentController(_:_)` 通过Storyboard创建了 `PhotoCommentViewController` 的一个实例。你将图像的名字作为参数传递，这样视图中显示的图片和前一屏中选中的会是同一张。
+1.  `viewPhotoCommentController(_:_)` 通过 Storyboard 创建了 `PhotoCommentViewController` 的一个实例。你将图像的名字作为参数传递，这样视图中显示的图片和前一屏中选中的会是同一张。
 2.  通过传入一个数组，包含刚创建的各个视图控制器，你完成了 `UIPageViewController` 的设置。
 
-你会发现Xcode报了一个错，提示 `delegate` 的值不能被设为 `self` 。这是因为现在 `ManagePageViewController` 还没有遵从 `UIPageViewControllerDataSource` 。在 __ManagePageViewController.swift__ 中， `ManagePageViewController` 定义外添加下面的代码：
+你会发现 Xcode 报了一个错，提示 `delegate` 的值不能被设为 `self` 。这是因为现在 `ManagePageViewController` 还没有遵从 `UIPageViewControllerDataSource` 。在 __ManagePageViewController.swift__ 中， `ManagePageViewController` 定义外添加下面的代码：
 
 ```swift
 //MARK: implementation of UIPageViewControllerDataSource
@@ -447,7 +447,7 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
 你现在可以通过水平滑动切换不同的详情视图。:]
 
-__显示PageControl指示__
+__显示 PageControl 指示__
 
 在这份 `UIScrollView` 教程的最后一节中，你将会为应用添加一个 `UIPageControl` 。
 

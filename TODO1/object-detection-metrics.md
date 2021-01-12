@@ -64,7 +64,7 @@ IOU 是预测的矩形框和标签矩形框的重叠部分面积与两者并集�
 <img src="http://latex.codecogs.com/gif.latex?%5Ctext%7BIOU%7D%20%3D%20%5Cfrac%7B%5Ctext%7Barea%7D%20%5Cleft%28B_p%20%5Ccap%20B_%7Bgt%7D%5Cright%29%7D%7B%5Ctext%7Barea%7D%20%5Cleft%28B_p%20%5Ccup%20B_%7Bgt%7D%5Cright%29%7D">
 </p>
 
-下图阐述了标签矩形框（绿色）和预测矩形框（红色）之间的IOU。
+下图阐述了标签矩形框（绿色）和预测矩形框（红色）之间的 IOU。
 
 <!--- IOU --->
 <p align="center">
@@ -293,7 +293,7 @@ AP 是通过计算 11 个点处的精度的平均值得到的。每个点的精�
 
 两种方法的 AP 有些许不同：24.56%（完全插值） 和 26.84%（11 点插值）。  
 
-我们默认的实现方式与 VOC PASCAL相同：每个点都进行插值。如果你想使用 11 点插值法，将函数的参数 ```method=MethodAveragePrecision.EveryPointInterpolation``` 改为 ```method=MethodAveragePrecision.ElevenPointInterpolation``` 即可。   
+我们默认的实现方式与 VOC PASCAL 相同：每个点都进行插值。如果你想使用 11 点插值法，将函数的参数 ```method=MethodAveragePrecision.EveryPointInterpolation``` 改为 ```method=MethodAveragePrecision.ElevenPointInterpolation``` 即可。   
 
 如果你想重现这些结果， 参考 **[例 2](https://github.com/rafaelpadilla/Object-Detection-Metrics/tree/master/samples/sample_2/)**.
 <!--为了评估你的检测结果，你只需要一个“检测”对象的简单列表。一个“检测”对象是一个包含类别 id，类别概率和矩形包围框的简单的类。标签值也是同样的格式。-->

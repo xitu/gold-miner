@@ -28,19 +28,19 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 
 ### 统一渲染(Universal rendering)
 
-那么，话说回来，什么是 [服务端渲染](http://andrewhfarmer.com/server-side-render/) SSR？现代 Web 应用通常是在客户端使用 JavaScript 来呈现其大部分或全部内容。 这意味着，首次渲染不仅会被下载 HTML 文件（及其依赖的 JS 和 CSS）阻塞，而且会在执行 JavaScript 代码时被阻塞。使用 SSR，让页面的初始内容在服务器上生成，这样的话浏览器可以直接获取已经存在HTML内容的页面。
+那么，话说回来，什么是 [服务端渲染](http://andrewhfarmer.com/server-side-render/) SSR？现代 Web 应用通常是在客户端使用 JavaScript 来呈现其大部分或全部内容。 这意味着，首次渲染不仅会被下载 HTML 文件（及其依赖的 JS 和 CSS）阻塞，而且会在执行 JavaScript 代码时被阻塞。使用 SSR，让页面的初始内容在服务器上生成，这样的话浏览器可以直接获取已经存在 HTML 内容的页面。
 
 [统一 JavaScript (Universal JavaScript)](https://strongloop.com/strongblog/node-js-react-isomorphic-javascript-why-it-matters) 就是在服务器端用 JavaScript 里的模板渲染，然后把它作为完整的 HTML 输出到浏览器。然后在客户端上，JavaScript 可以接管页面来处理页面交互。这种方式能有效地使服务器和客户端上的代码共享，在 React 中，我们一种方式实现服务器端渲染，给我们 “自由” 渐进增强。
 
-这个概念在React社区 [流行](https://www.smashingmagazine.com/2015/04/react-to-the-future-with-isomorphic-apps/) 有下面几个原因：应用程序可以以更快的速度在页面上呈现内容，没有网络太差这个大瓶颈；即使 JavaScript 无法加载，他也会正常工作；它使得客户端代码逐步生效，以达到更好的交互体验。
+这个概念在 React 社区 [流行](https://www.smashingmagazine.com/2015/04/react-to-the-future-with-isomorphic-apps/) 有下面几个原因：应用程序可以以更快的速度在页面上呈现内容，没有网络太差这个大瓶颈；即使 JavaScript 无法加载，他也会正常工作；它使得客户端代码逐步生效，以达到更好的交互体验。
 
-因为 [renderToString](http://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 函数 (这个函数将组件渲染成初始 HTML) ，React 做统一渲染相对很自然， 虽然要达到这一点还有不少步骤要完成。 关于怎样设置SSR 有一些 [指南](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/) ，下文我们会简要阐述其中一个。
+因为 [renderToString](http://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 函数 (这个函数将组件渲染成初始 HTML) ，React 做统一渲染相对很自然， 虽然要达到这一点还有不少步骤要完成。 关于怎样设置 SSR 有一些 [指南](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/) ，下文我们会简要阐述其中一个。
 
-注：统一路由(Universal routing)指从客户端和服务端都可以用同一路由找到对应的视图（ [React Router支持这个很好](https://github.com/ReactTraining/react-router/blob/master/docs/guides/ServerRendering.md)。统一数据(Universal data)获取指从客户端和服务端都可以访问数据，比如通过一个 API。我使用  [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch)（基于Fetch API polyfill）去做这件事。
+注：统一路由(Universal routing)指从客户端和服务端都可以用同一路由找到对应的视图（ [React Router 支持这个很好](https://github.com/ReactTraining/react-router/blob/master/docs/guides/ServerRendering.md)。统一数据(Universal data)获取指从客户端和服务端都可以访问数据，比如通过一个 API。我使用  [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch)（基于 Fetch API polyfill）去做这件事。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*hXtLt6n7FYlkLQ-pd3e3Yg.png)
 
-渐进式Web应用程序 [Selio](https://selio.com/) 中如果网络加载需要一定时间, 统一渲染会先加载一个不需 JS 即可运行的静态的版本，静态文件可以被脚本接管，以改善体验。
+渐进式 Web 应用程序 [Selio](https://selio.com/) 中如果网络加载需要一定时间, 统一渲染会先加载一个不需 JS 即可运行的静态的版本，静态文件可以被脚本接管，以改善体验。
 
 
 具体到[Application Shell 架构](https://developers.google.com/web/fundamentals/architecture/app-shell)，您可以使用统一渲染在服务器上呈现您 Shell，以及那些你认为对用户很重要的内容 (比如文章正文)，你将会自然而然的选择使用这种服务器端渲染。
@@ -59,7 +59,7 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 
 [Pro React](http://www.pro-react.com/)（Cassio Zen 著作）中有一个关于 Isomorphic JS 与 React 的精彩章节，我建议你读一下他。本文这一节就是基于这一章节实现的一个简化版本。
 
-React已经使用 [ReactDOMServer.renderToString()](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 对服务器渲染组件提供了支持。 给定一个组件，它将生成要发送到浏览器的HTML标记。 React使用这些标记，并使用 [ReactDOM.render（）](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 加强它，监听事件来实现交互并渲染出一些内容。
+React 已经使用 [ReactDOMServer.renderToString()](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 对服务器渲染组件提供了支持。 给定一个组件，它将生成要发送到浏览器的 HTML 标记。 React 使用这些标记，并使用 [ReactDOM.render（）](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 加强它，监听事件来实现交互并渲染出一些内容。
 
 假想我们来实现一个第三方的 Hacker News 应用，使用 Express 渲染 React 组件可能看起来像这样:
 
@@ -89,7 +89,7 @@ app.get('/', (request, response) => {
 
 #### 统一渲染(Universal mounting)
 
-与服务器渲染组件一起渲染 React 工作，需要我们 **在客户端和服务器上提供相同的 props**，否则 React将无法选择，只能重新渲染 DOM，你会感觉 React 在抱怨你的这个愚蠢写法。它还将对感知的用户体验产生影响。 但问题是：我们如何使服务器作为 `props` 传递的数据也可在客户端上使用，然后把它作为 `props` 传播？一个常见的模式是将所有需要的 `props` 放到我们主 HTML 文件的一个 `script` 标签中，这样我们的客户端 JS 就可以直接使用了。 我们将其称为 “启动数据” 或 “初始数据”。
+与服务器渲染组件一起渲染 React 工作，需要我们 **在客户端和服务器上提供相同的 props**，否则 React 将无法选择，只能重新渲染 DOM，你会感觉 React 在抱怨你的这个愚蠢写法。它还将对感知的用户体验产生影响。 但问题是：我们如何使服务器作为 `props` 传递的数据也可在客户端上使用，然后把它作为 `props` 传播？一个常见的模式是将所有需要的 `props` 放到我们主 HTML 文件的一个 `script` 标签中，这样我们的客户端 JS 就可以直接使用了。 我们将其称为 “启动数据” 或 “初始数据”。
 
 下面是使用 EJS 模板的索引页面的示例，其中一个脚本具有我们的 React 组件所需的初始数据(initial data) 和 `props`，另一个脚本包含我们的 React 应用程序包的其余部分。
 
@@ -136,9 +136,9 @@ render(, document.getElementById('container'));
 
 #### 统一的数据请求(Universal Data-fetching)
 
-典型的SPA将有许多路由，但是一次为我们的所有路由加载所有数据是没有意义的。 相反，我们需要通过路由的映射来告知服务当前路由的组件需要什么数据，以便我们可以准确满足需要。如果用户从一个路由过渡到另一个路由，我们还需要动态拉取数据，这意味着我们需要一个支持在客户端上拉取数据和在服务器预拉取数据的策略。
+典型的 SPA 将有许多路由，但是一次为我们的所有路由加载所有数据是没有意义的。 相反，我们需要通过路由的映射来告知服务当前路由的组件需要什么数据，以便我们可以准确满足需要。如果用户从一个路由过渡到另一个路由，我们还需要动态拉取数据，这意味着我们需要一个支持在客户端上拉取数据和在服务器预拉取数据的策略。
 
-统一数据请求的常见解决方案是使用 [React对`statics`的支持](https://facebook.github.io/react/docs/component-specs.html) 在每个组件上创建静态 `fetchData` 方法，定义它需要什么数据。此方法可以随时访问，即使组件尚未实例化，这对于预拉取工作很重要。
+统一数据请求的常见解决方案是使用 [React 对`statics`的支持](https://facebook.github.io/react/docs/component-specs.html) 在每个组件上创建静态 `fetchData` 方法，定义它需要什么数据。此方法可以随时访问，即使组件尚未实例化，这对于预拉取工作很重要。
 
 下面是一个简单的组件使用静态 `fetchData` 方法的代码片段。我们还可以利用客户端上的 `componentDidMount` 来检查服务器是否提供了我们的启动数据，否则我们是否需要自己获取启动数据。
 ``` javascript
@@ -297,11 +297,11 @@ render((
 
 * [**componentWillMount**](https://facebook.github.io/react/docs/component-specs.html#mounting-componentwillmount) 在客户端和服务端都能被调用，并且这个调用发生在组件渲染之前，你可以在这个生命周期里面请求数据
 * 允许你在组件里面请求数据，然后在服务器渲染之前访问他。这就意味着像 `Component.fetchData()` (一些你会在组件里面定义的东西)会在渲染之前请求数据，这种方式也会和 React-Route 配合使用。请求在服务器上执行，然后等待，最后渲染。这与在客户端在重新渲染之前等待请求数据不同。
-* 对于 [React Router 上的异步数据流]，我在 SSR 中使用了几次。您在您的顶层组件中使用一个静态 fetchData 函数，它位于服务器端，并在渲染之前调用。 感谢 React Router的`match()`，我们可以找回包含我们匹配的组件的所有 `renderProps`，并且循环遍历它们以捕获所有 `fetchData` 函数并在服务器上运行它们。 [ifelse](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/）也记录了包含数据获取的 React Router 的另一个 SSR 策略。
+* 对于 [React Router 上的异步数据流]，我在 SSR 中使用了几次。您在您的顶层组件中使用一个静态 fetchData 函数，它位于服务器端，并在渲染之前调用。 感谢 React Router 的`match()`，我们可以找回包含我们匹配的组件的所有 `renderProps`，并且循环遍历它们以捕获所有 `fetchData` 函数并在服务器上运行它们。 [ifelse](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/）也记录了包含数据获取的 React Router 的另一个 SSR 策略。
 * [React Resolver](https://github.com/ericclemmons/react-resolver) 允许你在在每个组件级别定义数据需求，在客户端和服务器上处理嵌套的异步渲染。 它旨在产生纯净，无状态和易于测试的组件，详细请看 [Resolving on the server](https://github.com/ericclemmons/react-resolver/blob/master/docs/getting-started/ServerRendering.md) 
-* 你也可以在服务端使用 Redux Store 让数据变得容易管理。一种常见的方法是使用异步Action Creators 从服务器请求数据。 这可以在 `componentWillMount` 上调用，您可以使用 Redux reducer 存储操作中的数据，将组件连接到 Redux reducer 并触发渲染更改。 关于他们的几个想法，参见[这个](https://www.reddit.com/r/reactjs/comments/3gplr2/how_do_you_guys_fetch_data_for_a_react_app_fully)的Reddit线程。 Static[也由Redux推荐](http://redux.js.org/docs/recipes/ServerRendering.html)，如果使用 React Route, “您可能还想把您的数据获取依赖作为静态 `fetchData()` 方法作为路由处理组件。 他们可能返回异步动作，所以你的handleRender 函数可以匹配路由到路由处理程序组件类，dispatch `fetchData()` 之后产生结果，并只有在 Promises `resolved` 之后才渲染。
+* 你也可以在服务端使用 Redux Store 让数据变得容易管理。一种常见的方法是使用异步 Action Creators 从服务器请求数据。 这可以在 `componentWillMount` 上调用，您可以使用 Redux reducer 存储操作中的数据，将组件连接到 Redux reducer 并触发渲染更改。 关于他们的几个想法，参见[这个](https://www.reddit.com/r/reactjs/comments/3gplr2/how_do_you_guys_fetch_data_for_a_react_app_fully)的 Reddit 线程。 Static[也由 Redux 推荐](http://redux.js.org/docs/recipes/ServerRendering.html)，如果使用 React Route, “您可能还想把您的数据获取依赖作为静态 `fetchData()` 方法作为路由处理组件。 他们可能返回异步动作，所以你的 handleRender 函数可以匹配路由到路由处理程序组件类，dispatch `fetchData()` 之后产生结果，并只有在 Promises `resolved` 之后才渲染。
 * [异步 Props](https://github.com/ryanflorence/async-props#server)提供在屏幕加载之前获取它的本地数据。它还支持在服务器上工作
-* Heroku 的 [React Refetch](https://github.com/heroku/react-refetch) 是另外一个试图帮助这个领域的项目。它将组件包装在 `connect()` 装饰器中，而不是映射state到 `props`，它将 `props` 映射到 URL（允许组件是无状态的）
+* Heroku 的 [React Refetch](https://github.com/heroku/react-refetch) 是另外一个试图帮助这个领域的项目。它将组件包装在 `connect()` 装饰器中，而不是映射 state 到 `props`，它将 `props` 映射到 URL（允许组件是无状态的）
 
 ### 警惕使用全局变量(Guarding against globals)
 
@@ -354,21 +354,21 @@ saveSession() {
 
 没有 JS，链接指向是这样的：`/story/:id`，有 JS 的情况下，链接的指向是这样的：`#/story/:id`
 
-[ReactHN](https://react-hn.appspot.com/)通过提供我们的主页和评论页面的服务器端渲染解决了PE。 **可以使用常规锚标签**在这两个之间导航。 当加载路由的 JavaScript 时，它将接管页面，所有后续导航将使用 SPA 样式模型进行导航 - 使用 JS 提取内容，并利用已使用Service Worker 缓存的应用程序 shell。 由于基于路由的分块，我们的[下一个版本](https://twitter.com/addyosmani/status/784957162128744448)还确保ReactHN变得很快交互。
+[ReactHN](https://react-hn.appspot.com/)通过提供我们的主页和评论页面的服务器端渲染解决了 PE。 **可以使用常规锚标签**在这两个之间导航。 当加载路由的 JavaScript 时，它将接管页面，所有后续导航将使用 SPA 样式模型进行导航 - 使用 JS 提取内容，并利用已使用 Service Worker 缓存的应用程序 shell。 由于基于路由的分块，我们的[下一个版本](https://twitter.com/addyosmani/status/784957162128744448)还确保 ReactHN 变得很快交互。
 
 **一些其他我们需要学习的东西：**
 
-* **在服务器和客户端的PWA之间寻求100％的平衡是没有必要的。**在 React HN 中，我们注意到两个最受欢迎的页面是故事和评论。 我们为这两个部分实现了服务器渲染，其他像用户主页这样的访问量小的页面，就完全用客户端渲染。如用户配置文件。 当我们使用 Service Worker 缓存它们时，他们仍然可以立即加载重复访问。
+* **在服务器和客户端的 PWA 之间寻求100％的平衡是没有必要的。**在 React HN 中，我们注意到两个最受欢迎的页面是故事和评论。 我们为这两个部分实现了服务器渲染，其他像用户主页这样的访问量小的页面，就完全用客户端渲染。如用户配置文件。 当我们使用 Service Worker 缓存它们时，他们仍然可以立即加载重复访问。
 * **留下一些功能(明智的)**。我们的客户端评论页面可以实时更新，用黄色突出显示新发布的评论。这样把这部分 JS 留在服务器上更有意义。
 
 ### 测试渐进式增强(Testing Progressive Enhancement)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*oWnsYNhEtyc3Sc8dtoWbAg.png)
 
-Chrome DevTools 支持通过“设置”面板设置网络限制和禁用JS
+Chrome DevTools 支持通过“设置”面板设置网络限制和禁用 JS
 
 
-尽管现代调试工具（如Chrome DevTools）支持直接禁用 JavaScript，但我强烈建议使用 [网络限制](https://developers.google.com/web/tools/chrome-devtools/network-performance/network-conditions)进行测试。 这更好地反映了用户多长时间后能看到您的渐进式增强应用并开始交互。 它还提供了一个视图来观测加载最小启动路由功能带来的影响，服务端渲染实现的性能等等。
+尽管现代调试工具（如 Chrome DevTools）支持直接禁用 JavaScript，但我强烈建议使用 [网络限制](https://developers.google.com/web/tools/chrome-devtools/network-performance/network-conditions)进行测试。 这更好地反映了用户多长时间后能看到您的渐进式增强应用并开始交互。 它还提供了一个视图来观测加载最小启动路由功能带来的影响，服务端渲染实现的性能等等。
 
 ### 阅读拓展
 

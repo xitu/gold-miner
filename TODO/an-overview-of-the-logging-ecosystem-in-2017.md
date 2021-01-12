@@ -46,7 +46,7 @@
 
 ### sidecar 应用
 
-这是一个被称为 **sidecar应用** 的崭新（至少对于我来说）概念。如果你以前没有听说过，那么告诉你它是与部署容器类应用相关的，同样地它非常适合基于容器的部署。
+这是一个被称为 **sidecar 应用** 的崭新（至少对于我来说）概念。如果你以前没有听说过，那么告诉你它是与部署容器类应用相关的，同样地它非常适合基于容器的部署。
 
 [Garland Kan 在 Loggly](https://www.loggly.com/blog/how-to-implement-logging-in-docker-with-a-sidecar-approach/) 中把 sidercar 简洁地描述为:
 
@@ -54,7 +54,7 @@
 
 [他们通过这种方式描述它](https://www.voxxed.com/blog/2015/01/use-container-sidecar-microservices/) ，Voxxed　提供了更加详细的解释：
 
-> 一个　sidecar　应用是被部署在每一个已经开发或者部署服务器/集群实例的微服务的旁边。它是概念上依附着"父母"服务，就像三轮摩托车的边座位依附着三轮摩托车一样 - 因此而得名。sidecar作为第二进程和你的程序一起运行并通过暴露类似 REST 的 API 接口(如 HTTP 的 REST )来提供‘平台基础设施功能’。
+> 一个　sidecar　应用是被部署在每一个已经开发或者部署服务器/集群实例的微服务的旁边。它是概念上依附着"父母"服务，就像三轮摩托车的边座位依附着三轮摩托车一样 - 因此而得名。sidecar 作为第二进程和你的程序一起运行并通过暴露类似 REST 的 API 接口(如 HTTP 的 REST )来提供‘平台基础设施功能’。
 
 在日志的上下文环境中，一个额外的容器被加载进了堆空间，同时堆空间是日志应用存储的地方以及可以转发日志记录到像 LogEntries 和 Splunk 外部服务。从我的理解，虽然 sidecar 能适合较小的应用程序，但是比较困难去有效地测量。总的来说，这是非常有趣的概念。
 
@@ -110,7 +110,7 @@
 
  1. 日志时间戳
  2. 购物者的用户名
- 3. 用户的IP地址
+ 3. 用户的 IP 地址
  4. 请求的方法
  5. 请求的资源
  6. 请求的网管或者路径
@@ -122,13 +122,13 @@
 
 ## 服务 & 工具的选项
 
-现在，让我们通过观察一些目前提供日志服务市场的厂商来完成这个课题。这些当中是托管的Saas和自我托管的解决方案的混合。其中一些令人注意，目前越来越强大的厂商已经存在好些时候了。它们包括以下公司像 **Loggly**，**Graylog**，**Splunk**，**ElasticSearch**， **LogEntries**， **Logz.io**，**LogStash**，**SumoLogic**，和 **Retrace** 。
+现在，让我们通过观察一些目前提供日志服务市场的厂商来完成这个课题。这些当中是托管的 Saas 和自我托管的解决方案的混合。其中一些令人注意，目前越来越强大的厂商已经存在好些时候了。它们包括以下公司像 **Loggly**，**Graylog**，**Splunk**，**ElasticSearch**， **LogEntries**， **Logz.io**，**LogStash**，**SumoLogic**，和 **Retrace** 。
 
 虽然它们都有具有像搜索和分析，主动检测，创建结构化和非结构化数据，自定义解析规则，和实时指示界面等特征，但是他们还在创建自己的核心功能，并扩展它们产品和特征集。
 
 它们的定价模式也有很大的不同，包括免费的选择版本，价格在90美元左右的标准计划和高达200美元的企业套餐。
 
-但在2017年，商业化不会是唯一的选择。一些开源工具也逐渐成熟起来。事实上，Linux基金会第三季度的 [开放云报告指南](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr) 中有两个比较引人注意：[Fluentd](http://www.fluentd.org) 统一日志层的数据收集器，和 [LogStash](https://www.elastic.co/products/logstash)，服务端数据处理管道。其他值得考虑的开源工具是 [syslog-ng](https://syslog-ng.org/)， [LOGalyze](http://www.logalyze.com/)，和 [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home)。
+但在2017年，商业化不会是唯一的选择。一些开源工具也逐渐成熟起来。事实上，Linux 基金会第三季度的 [开放云报告指南](http://go.linuxfoundation.org/l/6342/2016-10-31/3krbjr) 中有两个比较引人注意：[Fluentd](http://www.fluentd.org) 统一日志层的数据收集器，和 [LogStash](https://www.elastic.co/products/logstash)，服务端数据处理管道。其他值得考虑的开源工具是 [syslog-ng](https://syslog-ng.org/)， [LOGalyze](http://www.logalyze.com/)，和 [Apache Flume](https://cwiki.apache.org/confluence/display/FLUME/Home)。
 
 鉴于此，取决于你的经验，需求和预算，今年你的选择是非常充足的。未来将会有大量的选项可以让你选择到最符合你的需求的开源工具。
 

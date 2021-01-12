@@ -195,21 +195,21 @@ Flutter 官方文档指出该平台对[快速分配](https://flutter.io/faq/#why
 #### 未优化的代码
 
 *   CPU 使用率：28%
-*   内存使用率：32 MB （App启动后的基准线为 17 MB）
+*   内存使用率：32 MB （App 启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*F1GR6mVtVEwRjaJptEuEwQ.png)
 
 #### 优化方案 1（独立的定时文本控件）
 
 *   CPU 使用率：25%
-*   内存使用率：25 MB （App启动后的基准线为 17 MB）
+*   内存使用率：25 MB （App 启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*dTO3vThMfGx0LYrLqAIlAQ.png)
 
 #### 优化方案 2（独立的分钟、秒、分秒控件）
 
 *   CPU Usage: 15% to 25%
-*   内存使用率：26 MB （App启动后的基准线为 17 MB）
+*   内存使用率：26 MB （App 启动后的基准线为 17 MB）
 
 ![](https://cdn-images-1.medium.com/max/800/1*JFnMDRT8utbB9C4ETPklOg.png)
 

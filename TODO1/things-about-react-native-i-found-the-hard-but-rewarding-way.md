@@ -117,7 +117,7 @@ Android 和 iOS 上的 React Native 使用 JavascriptCore 执行 Javascript。�
 
 你是否开发过带有身份验证的移动应用程序？如果用户收到一条推送通知，并且只有先在登录界面登录后才能看到推送通知内容界面，会怎么样？或者，如果你当前已经在一个应用程序中的深层次界面并希望跳转到另一个应用程序中的完全不同的区域作为对用户操作的响应，又该怎么办？
 
-使用原生的方法可以解决这一问题，但需要花费一些努力。而使用 [React Navigation](https://reactnavigation.org/)，它们甚至都不是问题。深层的链接和导航跳转能让用户感觉自然而流畅。虽然还有其他导航库，但 React Navigation 被认为是事实上的标准。你应该试一试，这是 React Native 比 iOS 和Android 更好的**地方**。
+使用原生的方法可以解决这一问题，但需要花费一些努力。而使用 [React Navigation](https://reactnavigation.org/)，它们甚至都不是问题。深层的链接和导航跳转能让用户感觉自然而流畅。虽然还有其他导航库，但 React Navigation 被认为是事实上的标准。你应该试一试，这是 React Native 比 iOS 和 Android 更好的**地方**。
 
 ### React Native 不是银色子弹（灵丹妙药）
 

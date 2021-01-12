@@ -55,7 +55,7 @@
 
 ![Alt text](https://vinta-cms.s3.amazonaws.com/media/filer_public/fb/08/fb08867f-2c67-4bed-a7ee-d66839d92cae/dead.gif)
 
-**更多来自Vinta**
+**更多来自 Vinta**
 
 - [**Controlling access: a Django permission apps comparison**](https://www.vinta.com.br/blog/2016/controlling-access-a-django-permission-apps-comparison/)
 - [**Python API clients with Tapioca**](https://www.vinta.com.br/blog/2016/python-api-clients-with-tapioca/)

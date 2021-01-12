@@ -8,7 +8,7 @@
 
 ## 1. 特性查询（Feature Queries）
 
-不久前，我写过一篇关于特性查询的文章 —— [《一个我十分期待的CSS特性 - the one CSS feature I really want》](https://bitsofco.de/the-one-css-feature/)。如今果然出现了。除了 IE浏览器之外，所有主流浏览器（包括 Opera Mini）均已支持特性查询。
+不久前，我写过一篇关于特性查询的文章 —— [《一个我十分期待的 CSS 特性 - the one CSS feature I really want》](https://bitsofco.de/the-one-css-feature/)。如今果然出现了。除了 IE 浏览器之外，所有主流浏览器（包括 Opera Mini）均已支持特性查询。
 
 特性查询采用 `@supports` 规则，它使得我们可以将 CSS 代码包裹一个条件块中。只有当浏览器的用户代理（user agent）支持某个特定的 CSS 属性-值对时，该条件块中的样式代码才会生效。下面举个简单的例子来说：只有支持 display: flex 的浏览器才会应用 Flexbox 样式
 ```
@@ -37,7 +37,7 @@
 
 一个栅格由栅格容器（由 `display: grid` 所创建）和栅格项（子元素）组成。在 CSS 中，我们可以简单且显式地组织栅格项的位置及顺序，并独立于 markup 语言中元素的位置。
 
-在[《CSS栅格实现圣杯布局》](https://bitsofco.de/holy-grail-layout-css-grid/)这篇文章中，我演示了如何使用栅格布局模块来创建万恶的“圣杯布局”。
+在[《CSS 栅格实现圣杯布局》](https://bitsofco.de/holy-grail-layout-css-grid/)这篇文章中，我演示了如何使用栅格布局模块来创建万恶的“圣杯布局”。
 
 ![Holy Grail Layout Demo](https://bitsofco.de/content/images/2016/03/Holy_Grail_CSS_Grid.gif)
 

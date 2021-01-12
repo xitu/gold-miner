@@ -55,7 +55,7 @@
 
 ### 结论
 
-1. 消息同步 API 将请求的延迟减少了一半。相对于旧的API（下面突出的蓝线），新的API的网络请求更加稳定。
+1. 消息同步 API 将请求的延迟减少了一半。相对于旧的 API（下面突出的蓝线），新的 API 的网络请求更加稳定。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SbTsdzUkh9miVCbZScBKCQ.png)
 

@@ -9,7 +9,7 @@
 
 ![](https://kinsta.com/wp-content/uploads/2018/02/php-7-hhvm-benchmarks-1.png)
 
-每年我们都会在大量不同的平台上尝试并深入研究 PHP 不同版本以及 HHVM 在性能方面的差异。而今年，我们一鼓作气在 20 个不同的平台/配置下评测了四个不同版本的 PHP 引擎以及 HHVM，测评使用的应用包括了 WordPress，Drupal，Joomla!，Laravel，Symfony以及其他各种各样的应用。此外，我们也测试了近些年流行的一些电子商务解决方案如 WooCommerce，Easy Digital Downloads，Magento，和 PrestaShop。
+每年我们都会在大量不同的平台上尝试并深入研究 PHP 不同版本以及 HHVM 在性能方面的差异。而今年，我们一鼓作气在 20 个不同的平台/配置下评测了四个不同版本的 PHP 引擎以及 HHVM，测评使用的应用包括了 WordPress，Drupal，Joomla!，Laravel，Symfony 以及其他各种各样的应用。此外，我们也测试了近些年流行的一些电子商务解决方案如 WooCommerce，Easy Digital Downloads，Magento，和 PrestaShop。
 
 想看这篇文章的西班牙语版本吗？[我是传送门](https://kinsta.com/es/blog/php-7-hhvm-rendimiento/)
 
@@ -27,7 +27,7 @@
 *   **操作系统:** Ubuntu 16.04.3 LTS
 *   **Docker 栈:** Debian 8, Nginx 1.13.8, MariaDB 10.1.31
 *   **PHP 引擎版本:** 5.6, 7.0, 7.1, 7.2
-*   **HHVM版本:** 3.24.2
+*   **HHVM 版本:** 3.24.2
 *   **OPCache:** 对于 WordPress， Joomla，和 Drupal，我们使用了官方的 Docker 镜像。对于其他的评测应用，我们使用了与 OPcache 相同的镜像配置。OPcache 应用了如下的 [php.ini 推荐设置](https://secure.php.net/manual/en/opcache.installation.php)。 
 
 ```
@@ -209,7 +209,7 @@ Joomla! 测试
 
 ### Magento 2 (CE) 2.1.11 + 2.2.2
 
-[Magento](https://magento.com/) 是一款使用 PHP 编写的流行的开源电子商务平台，最初发布于 2008 年 3 月 31 日。根据 W3Techs的数据，它驱动了互联网上 [1.2% 的站点](https://w3techs.com/technologies/details/cm-magento/all/all)。
+[Magento](https://magento.com/) 是一款使用 PHP 编写的流行的开源电子商务平台，最初发布于 2008 年 3 月 31 日。根据 W3Techs 的数据，它驱动了互联网上 [1.2% 的站点](https://w3techs.com/technologies/details/cm-magento/all/all)。
 
 ![Magento](https://kinsta.com/wp-content/uploads/2018/02/magento.png)
 
@@ -557,7 +557,7 @@ Fork CMS 测试
 
 就像你很清晰地从上面所有测试中看到的一样，**PHP 7.2 在多个平台的性能上已经成为了领头羊**. 🏋
 
-*   在上面测试的20种配置中，PHP 7.2 有 14 次是速度最快的引擎。其中还有两个（Drupal 和 Magento ）不支持PHP 7.2，所以这个比例可能高达 16/20。
+*   在上面测试的20种配置中，PHP 7.2 有 14 次是速度最快的引擎。其中还有两个（Drupal 和 Magento ）不支持 PHP 7.2，所以这个比例可能高达 16/20。
 *   **而对于 WordPress 来说，PHP 7.2 是所有测试中最快的** (包含 WordPress 站点，WooCommerce，和 Easy Digital Downloads).
 *   在许多基准测试结果中，你可以很轻易地发现 PHP 新版本与性能提升是成正比的。这也就是为什么测试你的站点、插件并坚持定期升级计划是如此的重要。你的访问者和客户将会因为他们享受到的速度而感谢你！
 *   如果你的空间提供商并没有提供新版本的 PHP，那你可能是时候要考虑进行迁移了。

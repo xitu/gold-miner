@@ -606,7 +606,7 @@ ReactDOM.render(
 condition ? expr_if_true : expr_if_false
 ```
 
-该运算符用大括号包裹，表达式可以包含JSX，可选择将其包含在圆括号中以提高可读性。
+该运算符用大括号包裹，表达式可以包含 JSX，可选择将其包含在圆括号中以提高可读性。
 
 它可以应用于组件的不同部分。让我们将它应用到示例中，以便您可以看到这个实例。
 
@@ -1117,7 +1117,7 @@ ReactDOM.render(
 
 ### If 组件
 
-有像 [jsx-control-statements](https://github.com/AlexGilleran/jsx-control-statements) 这样的库可以扩展JSX来添加如下条件语句：
+有像 [jsx-control-statements](https://github.com/AlexGilleran/jsx-control-statements) 这样的库可以扩展 JSX 来添加如下条件语句：
 
 ```
 <If condition={ true }>
@@ -1341,7 +1341,7 @@ const withEditContionalRendering = withEither(isViewConditionFn, EditComponent);
 const EditSaveWithConditionalRendering = withEditContionalRendering(SaveComponent);
 ```
 
-这样一来你就只需在render方法中使用该组件，并向它传递所有需要用到的属性：
+这样一来你就只需在 render 方法中使用该组件，并向它传递所有需要用到的属性：
 
 ```
 render () {    
@@ -1449,7 +1449,7 @@ ReactDOM.render(
 
 然而，在大多数时候这种差别是不成问题的。但当它确实造成问题时，你将需要深入理解 React 的虚拟 DOM 的工作原理，并且使用一些技巧来[优化性能](https://reactjs.org/docs/optimizing-performance.html)。
 
-这里有一篇关于很好的文章，关于 [优化React的条件渲染](https://medium.com/@cowi4030/optimizing-conditional-rendering-in-react-3fee6b197a20)，我非常推荐你读一下。
+这里有一篇关于很好的文章，关于 [优化 React 的条件渲染](https://medium.com/@cowi4030/optimizing-conditional-rendering-in-react-3fee6b197a20)，我非常推荐你读一下。
 
 基本的思想是条件渲染导致改变组件的位置将会引起回流，从而导致应用内组件的解绑/绑定。
 
@@ -1577,13 +1577,13 @@ ReactDOM.render(
 
 就像编程中的很多事情一样，在 React 中有很多种方式实现条件渲染。
 
-我会说除了第一种方式（有多种返回的if/else），你可以任选你喜欢的方式。
+我会说除了第一种方式（有多种返回的 if/else），你可以任选你喜欢的方式。
 
 基于下面的原则，你可以决定哪一种方式在你的实际情况中是最好的：
 
 *   你的编程风格
 *   条件逻辑的复杂程度
-*   使用 JavaScript、JSX和高级的 React 概念（比如高阶组件）的舒适度。
+*   使用 JavaScript、JSX 和高级的 React 概念（比如高阶组件）的舒适度。
 
 如果所有的事情都是相当的，那么就追求简明度和可读性。
 
@@ -1593,9 +1593,9 @@ ReactDOM.render(
 
 [![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)](http://logrocket.com)
 
-[LogRocket](https://logrocket.com) 是一款前端日志工具，能够在你自己的浏览器上复现问题。而不是去猜为什么发生错误或者向用户要截图和日志，LogRocket 帮助你复现场景来快速理解发生了什么错误。 它适用于任何应用程序，且和框架无关，并且具有从Redux，Vuex和@ngrx/store记录其他上下文的插件。
+[LogRocket](https://logrocket.com) 是一款前端日志工具，能够在你自己的浏览器上复现问题。而不是去猜为什么发生错误或者向用户要截图和日志，LogRocket 帮助你复现场景来快速理解发生了什么错误。 它适用于任何应用程序，且和框架无关，并且具有从 Redux，Vuex 和@ngrx/store 记录其他上下文的插件。
 
-除了记录Redux动作和状态之外，LogRocket 还记录控制台日志，JavaScript 错误，堆栈跟踪，带有头信息+主体的网络请求/响应，浏览器元数据和自定义日志。它还可以检测 DOM 来记录页面上的 HTML 和 CSS，即使是最复杂的单页面应用，也能还原出像素级的视频。
+除了记录 Redux 动作和状态之外，LogRocket 还记录控制台日志，JavaScript 错误，堆栈跟踪，带有头信息+主体的网络请求/响应，浏览器元数据和自定义日志。它还可以检测 DOM 来记录页面上的 HTML 和 CSS，即使是最复杂的单页面应用，也能还原出像素级的视频。
 
 免费试用。
 

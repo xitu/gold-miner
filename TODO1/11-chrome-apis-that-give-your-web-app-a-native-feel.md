@@ -44,7 +44,7 @@ if ('sms' in navigator) {
 const code = sms.content.match(/^[\s\S]*otp=([0-9]{6})[\s\S]*$/m)[1];
 ```
 
-3. 提交OTP：一旦检索到 OTP，就将其发送到服务器进行 OTP 验证。
+3. 提交 OTP：一旦检索到 OTP，就将其发送到服务器进行 OTP 验证。
 
 ![来自：[https://web.dev/sms-receiver-api-announcement/](https://web.dev/sms-receiver-api-announcement/)](https://cdn-images-1.medium.com/max/2000/0*Gjiw69Zc0oTeQkDG)
 
@@ -221,7 +221,7 @@ if (request.hasEnrolledInstrument) {
 
 许多类型的设备被设定为在空闲或未使用状态下自动休眠。虽然这在不使用时很好，但当用户使用屏幕时，设备关闭并锁定屏幕，就会很烦人。
 
-唤醒锁API有两种类型：屏幕和系统。当应用在屏幕上运行时，屏幕唤醒锁可以防止设备关闭它，系统唤醒锁可以防止设备的 CPU 进入待机模式。
+唤醒锁 API 有两种类型：屏幕和系统。当应用在屏幕上运行时，屏幕唤醒锁可以防止设备关闭它，系统唤醒锁可以防止设备的 CPU 进入待机模式。
 
 页面可见性和全屏模式负责激活或释放唤醒锁。屏幕上的变化（例如进入全屏模式，最小化当前窗口或从选项卡切换开）将释放唤醒锁。
 
@@ -285,7 +285,7 @@ Service worker 是一个 JavaScript 文件，用于拦截网络请求、执行�
 
 需要清除设置的 Cache-Control 才能访问版本化和未版本化的 URL。如果将版本化的 URL 添加到 cache 缓存中，浏览器会避免对这些 URL 进行额外的网络请求。
 
-HTTP缓存、Service worker 和缓存存储 API 的组合可以使开发人员这样做：
+HTTP 缓存、Service worker 和缓存存储 API 的组合可以使开发人员这样做：
 
 1. 在浏览器后台重新请求缓存的内容。
 2. 对要缓存的最大资产数设置上限。

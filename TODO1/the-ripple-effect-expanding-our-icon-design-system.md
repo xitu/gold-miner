@@ -59,7 +59,7 @@
 
 ---
 
-**如果想要跟踪 Microsoft Design的最新动向，请在 [Instagram](https://www.instagram.com/microsoft_design/)、[Twitter](http://www.twitter.com/microsoftdesign) 和 [Facebook](http://www.facebook.com/microsoftdesign) 关注我们，或者加入 [Windows 预览体验计划](https://insider.windows.com/)。如果你有意加入 Microsoft 团队，请点击 [aka.ms/DesignCareers](http://aka.ms/designcareers)。**
+**如果想要跟踪 Microsoft Design 的最新动向，请在 [Instagram](https://www.instagram.com/microsoft_design/)、[Twitter](http://www.twitter.com/microsoftdesign) 和 [Facebook](http://www.facebook.com/microsoftdesign) 关注我们，或者加入 [Windows 预览体验计划](https://insider.windows.com/)。如果你有意加入 Microsoft 团队，请点击 [aka.ms/DesignCareers](http://aka.ms/designcareers)。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

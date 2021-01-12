@@ -181,7 +181,7 @@ def get_list_of_latest_posts_ids(usernames):
 
 有了帖子的列表，我通过 `https://medium.com/_/api/posts/<post_id>/responses` 提取了所有的评论。
 
-这个函数参数是帖子 ID Python 列表然后返回评论的Python列表。
+这个函数参数是帖子 ID Python 列表然后返回评论的 Python 列表。
 
 ```python
 def get_post_responses(posts):

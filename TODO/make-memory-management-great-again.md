@@ -82,7 +82,7 @@ RAM 就像个冰箱，你可以放吃的喝的，甚至衣服，就像我一样�
 
 ![](https://cdn-images-1.medium.com/max/1600/1*onm_nN7Cyd9D2fNUZbVyCQ.png)
 
-myPassport 持有了一个Passport 对象的引用/关系
+myPassport 持有了一个 Passport 对象的引用/关系
 
 在你通过 `Passport` 对象自己创建它的时候，它**没有引用/关系的计数**。现在，在 `myPassport` 和 `Passport` 之间有了一个关系，引用计数现在是**一**。
 

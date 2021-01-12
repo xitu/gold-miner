@@ -123,8 +123,8 @@ typedef struct SnapshotData
      * 对于大多数的元组，xmin 被存储起来是个优化的操作，这样避免去搜索 XID 数组。
      * 
      */
-    TransactionId xmin;            /* id小于xmin的所有事务更改在当前快照中可见 */
-    TransactionId xmax;            /* id大于xmax的所有事务更改在当前快照中可见 */
+    TransactionId xmin;            /* id 小于 xmin 的所有事务更改在当前快照中可见 */
+    TransactionId xmax;            /* id 大于 xmax 的所有事务更改在当前快照中可见 */
 
     /*
      * 对于普通的 MVCC 快照，它包含了程序中所有的 xact IDs
@@ -134,7 +134,7 @@ typedef struct SnapshotData
      *
      * 注意: 所有在 xip[] 的 ids 都满足 xmin <= xip[i] < xmax
      */
-    TransactionId *xip; /* 所有正在运行的事务的id列表 */
+    TransactionId *xip; /* 所有正在运行的事务的 id 列表 */
     uint32        xcnt; /* 正在运行的事务的计数 */
 
     ...
@@ -213,7 +213,7 @@ typedef uint32 TransactionId;
 
 ...
 
-/* 提前一个事务ID变量, 直接操作 */
+/* 提前一个事务 ID 变量, 直接操作 */
 #define TransactionIdAdvance(dest)    \
     do { \
         (dest)++; \
@@ -495,7 +495,7 @@ heapgettup(HeapScanDesc scan,
             return;
         }
 
-        ++lpp;            /* 这个页面的itemId数组向前移动一个索引 */
+        ++lpp;            /* 这个页面的 itemId 数组向前移动一个索引 */
         ++lineoff;
     }
 

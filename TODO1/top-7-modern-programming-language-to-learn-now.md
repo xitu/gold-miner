@@ -135,7 +135,7 @@ Go 已经是一个主流编程语言。最近，Go 团队对外宣布了他们�
 
 ![来源：[Stackoverflow](https://insights.stackoverflow.com/survey/2019#most-loved-dreaded-and-wanted)](https://cdn-images-1.medium.com/max/2000/1*AlZjgpQhANe7uJ_pJMQmdQ.jpeg)
 
-根据GitHub Octoverse，Go 也是发展最快的十大编程语言之一：
+根据 GitHub Octoverse，Go 也是发展最快的十大编程语言之一：
 
 ![来源：[Octoverse](https://octoverse.github.com/)](https://cdn-images-1.medium.com/max/2000/1*avYTdU-SuMxL3qMufe9Xag.jpeg)
 
@@ -228,7 +228,7 @@ TypeScript 会在编译时转为 JavaScript。在 2014 年首次发布后，它�
 
 **关键特性：**
 
-* 像本名单中的 Go 和 Kotlin，TypeScript 的重要特性就是语言设计。它清晰而简洁的代码，使之成为**最优雅的编程语言之一**。至于开发者生产力，它与 Kotlin、Go、Python并驾齐驱。TypeScript 是最具生产力的 JavaScript 超集。
+* 像本名单中的 Go 和 Kotlin，TypeScript 的重要特性就是语言设计。它清晰而简洁的代码，使之成为**最优雅的编程语言之一**。至于开发者生产力，它与 Kotlin、Go、Python 并驾齐驱。TypeScript 是最具生产力的 JavaScript 超集。
 * TypeScript 是强类型的 JavaScript 超集。它非常适合大型项目，不负“可规模化的 JavaScript” 的美誉。
 * 单页应用程序框架“三巨头”（**Angular、React、Vue.js**）都提供优秀的 TypeScript 支持。在 Angular 中，TypeScript 是建议使用的语言。在其他两个框架中，TypeScript 也逐渐流行起来。
 * 科技公司的两个巨头：**微软和谷歌**正在合作，与活跃的开源社区一起开发 TypeScript。因此，TypeScript 的工具支持在最优行列之中。

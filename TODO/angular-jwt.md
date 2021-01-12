@@ -9,9 +9,9 @@
 
 这篇推送是手把手教你在 Angular 应用中使用基于 JWT 验证用户身份两部曲的第一部分（也适用于企业应用程序）
 
-本文的目标是先让我们了解 **JSON Web Tokens（或 JWT）具体是如何工作的**，包括如何将它们用于Web应用程序中的用户身份验证和会话管理。
+本文的目标是先让我们了解 **JSON Web Tokens（或 JWT）具体是如何工作的**，包括如何将它们用于 Web 应用程序中的用户身份验证和会话管理。
 
-第二部分，我们将会看到在具有特定上下文的Angular应用中，基于JWT的认证是怎样运用的，但这篇文章只关于 JWTs。
+第二部分，我们将会看到在具有特定上下文的 Angular 应用中，基于 JWT 的认证是怎样运用的，但这篇文章只关于 JWTs。
 
 ### 为什么需要深入探讨 JWT
 
@@ -45,7 +45,7 @@ JWTs 最大的优势（相对于用户会话管理中使用内存里的随机令
 
 此外，应用服务器可以 **完全无状态**，因为不需要在请求之间保留内存中的令牌。身份验证服务器可以发出令牌，将其发送回，然后立即丢弃它！
 
-此外，也**不需要在应用程序数据库的存储密码摘要**，因此能被盗的东西更少，而与安全性相关的bug也会更少。
+此外，也**不需要在应用程序数据库的存储密码摘要**，因此能被盗的东西更少，而与安全性相关的 bug 也会更少。
 
 在这个点上，你可能会想：我有一个公司内部的应用，JWTs 是不是一个很好的解决方案？对，在这篇文章的最后一部分会讲到 jwts 在典型的预认证企业中的使用情况。
 
@@ -53,12 +53,12 @@ JWTs 最大的优势（相对于用户会话管理中使用内存里的随机令
 
 在这文章中，我们将涵盖如下章节：
 
-* 什么是JWTs
-* JWT的在线认证工具
+* 什么是 JWTs
+* JWT 的在线认证工具
 * JSON Web Token 的规范
 * 简单地说下什么是 JWTs：Header, Payload, Signature
 * Base64Url （vs Base64）
-* 使用JWT的用户会话管理：主体和过期时间
+* 使用 JWT 的用户会话管理：主体和过期时间
 * HS256 JWT 签名 - 是如何运作的
 * 数字签名
 * hash 函数和 SHA-256
@@ -66,14 +66,14 @@ JWTs 最大的优势（相对于用户会话管理中使用内存里的随机令
 * RS256 vs HS256 签名 - 哪一个更好？
 * WKS （JSON Web Key Set）密钥集端点
 * 如何实现 JWT 签名周期性的密钥刷新
-* jwt在企业中的应用
+* jwt 在企业中的应用
 * 结语
 
-### 什么是JWTs
+### 什么是 JWTs
 
-JSON Web Token（ JWT ）只是一个包含特定声明的 JSON 有效内容。 JWTs的 *关键属性* 在于确认令牌本身是否有效。
+JSON Web Token（ JWT ）只是一个包含特定声明的 JSON 有效内容。 JWTs 的 *关键属性* 在于确认令牌本身是否有效。
 
-我们不需要连接第三方服务器，也不需要在请求间保存JWTs到内存中，来确认它们携带的声明是有效的。
+我们不需要连接第三方服务器，也不需要在请求间保存 JWTs 到内存中，来确认它们携带的声明是有效的。
 
 一个 jwt 分为3个部分：头部 header, 载荷 payload, 签名 signature。让我们从载荷开始一个个介绍吧。
 
@@ -93,7 +93,7 @@ JWT 的载荷只是一个简单的 JavaScript 对象。这是一个载荷的例�
 
 这种关于令牌本身的技术元数据信息被放置在一个单独的 JavaScript 对象中，并与载荷一起发送。
 
-这个单独的JSON对象被称为JWT头，这里是一个有效头的例子：
+这个单独的 JSON 对象被称为 JWT头，这里是一个有效头的例子：
 
 正如我们所看到的，它也只是一个简单的 Javascript 对象。在这个头文件中，我们可以看到用于这个 JWT 的签名类型是 RS256。
 
@@ -101,7 +101,7 @@ JWT 的载荷只是一个简单的 JavaScript 对象。这是一个载荷的例�
 
 #### JWT 签名 - 它们是怎么被运用到用户认证的？
 
-JWT的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 的签名只能由同时拥有载荷（加上头）和密钥的人生成。
+JWT 的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 的签名只能由同时拥有载荷（加上头）和密钥的人生成。
 
 下面是如何使用签名来确保身份验证：
 
@@ -111,9 +111,9 @@ JWT的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 
 * 浏览器发送到我们应用服务器的每一个 HTTP 请求都会携带着已签名的 JWT
 * 已签名的 JWT 扮演着临时用户凭证，它取代了永久用户凭证，即用户名和密码的组合
 
-看看这里我们的应用服务器和JWT令牌做了什么：
+看看这里我们的应用服务器和 JWT 令牌做了什么：
 
-* 我们的应用服务器检查JWT签名并确认确实拥有密钥的用户签署了这个特定的Payload
+* 我们的应用服务器检查 JWT 签名并确认确实拥有密钥的用户签署了这个特定的 Payload
 * 载荷通过技术标识符识别特定的用户
 * 只有认证服务器拥有私钥，并且认证服务器仅向提交正确密码的用户发出令牌
 * 因此我们的应用程序服务器可以安全地确定这个令牌确实是由认证服务器给予这个特定用户的，这意味着它的确是那个有正确的密码的用户
@@ -123,11 +123,11 @@ JWT的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 
 
 正如我们看到的，签名才是 JWT 的关键部分！
 
-该签名使得完全无状态的服务器能够确定特定的 HTTP 请求属于特定的用户，可以只看请求本身中存在的JWT令牌，并且不强制每次发送请求都带上密码。
+该签名使得完全无状态的服务器能够确定特定的 HTTP 请求属于特定的用户，可以只看请求本身中存在的 JWT 令牌，并且不强制每次发送请求都带上密码。
 
 #### JWTs 的目标是使服务器无状态吗？
 
-使服务器无状态是只一个不错的副作用，JWTs 关键的好处是，发送JWT的服务器和验证JWT的服务器可以是两个完全独立的服务器。
+使服务器无状态是只一个不错的副作用，JWTs 关键的好处是，发送 JWT 的服务器和验证 JWT 的服务器可以是两个完全独立的服务器。
 
 这意味着我们只需要最小的验证逻辑，即检查 JWT 就能胜任这个水平上服务器的身份验证工作。
 
@@ -137,13 +137,13 @@ JWT的最后一部分是签名，它是一个消息认证码（或 MAC）。JWT 
 
 现在我们已经知道 JWT 是如何启用无状态的第三方认证的，让我们来详细介绍它们的实现。
 
-### 一个JSON Web Token长什么样子呢？
+### 一个 JSON Web Token 长什么样子呢？
 
-为了了解JWT的3个组成部分，这里有一个展示代码和一个在线 JWT 验证工具的[视频](https://www.youtube.com/embed/4dmvQlBmr34)
+为了了解 JWT 的3个组成部分，这里有一个展示代码和一个在线 JWT 验证工具的[视频](https://www.youtube.com/embed/4dmvQlBmr34)
 
 
 
-让我们看一个JWT的案例，取自在线JWT验证工具[jwt.io](https://jwt.io):
+让我们看一个 JWT 的案例，取自在线 JWT 验证工具[jwt.io](https://jwt.io):
 
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
@@ -173,7 +173,7 @@ TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 
 如果你想要确认这部分信息确实是存在的，只要把整句 JWT 字符串复制到官方的 JWT 验证工具[jwt.io](https://jwt.io/)即可。
 
-但这些字符是什么，我们应该怎么读取JWT中的信息来排查问题呢？jwt.io 是怎么取回 JSON 对象的？
+但这些字符是什么，我们应该怎么读取 JWT 中的信息来排查问题呢？jwt.io 是怎么取回 JSON 对象的？
 
 ### 是 Base64 还是 Base64Url？
 
@@ -223,18 +223,18 @@ eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9
 * 用户验证
 * 会话过期
 
-这是一对最常用的JWT载荷特性：
+这是一对最常用的 JWT 载荷特性：
 
 以下是这些标准属性的含义：
 
 * `iss` 指的是发行实体，在这种情况下是我们的认证服务器
-* `iat` 是JWT创建的时间戳（从 Epoch 时间纪元开始的秒数）
+* `iat` 是 JWT 创建的时间戳（从 Epoch 时间纪元开始的秒数）
 * `sub` 包含用户的验证码
 * `exp` 包含令牌的过期时间戳
 
 这就是所谓的 Bearer Token，它隐含的意思是：
 
-> 认证服务器确认这个令牌的主人的ID被定义了 `sub` 的属性：让这个用户访问
+> 认证服务器确认这个令牌的主人的 ID 被定义了 `sub` 的属性：让这个用户访问
 
 现在我们已经充分理解到载荷在典型的用户验证中是怎么使用的了，现在让我们重点了解下签名。
 
@@ -268,7 +268,7 @@ hash 函数有点像绞肉机：你把牛排放在一端，就可以从另一端
 
 这意味着如果我们靠头部和载荷运行这个函数，是得不到相同输出的。
 
-想要查看SHA-256的输出示例，可以用这个[在线hash计算器](http://www.xorbin.com/tools/sha256-hash-calculator)实验下：
+想要查看 SHA-256的输出示例，可以用这个[在线 hash 计算器](http://www.xorbin.com/tools/sha256-hash-calculator)实验下：
 
 ```
 3f306b76e92c8a8fbae88a3ef1c0f9b0a81fe3a953fa9320d5d0281b059887c3
@@ -290,7 +290,7 @@ hash 函数的另一个有趣特性是，如果我们多次向它提交不同的
 
 这意味着如果我们 hash 头跟载荷，我们通常会得到完全相同的结果，而不是不同的数据也能得到相同的 hash 输出————hash 输出实际上输入数据的唯一表现形式。
 
-#### hash函数的特征4————不可预测性
+#### hash 函数的特征4————不可预测性
 
 我们将要讨论的是关于 hash 函数的最后一个属性是，根据已知输出是不可能用连续增量逼近的方法来猜测输入的。
 
@@ -360,7 +360,7 @@ TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ=
 
 这个等号会以 `%3D` 在 url 栏显示，这是其中一个麻烦，但它也充分说明了 Base64Url 的重要性，
 
-没有很多在线 Base64Url 转换器可用，但是我们可以在命令行中进行。所以要真正确认这个HS256签名，这里有个[ npm 包](https://www.npmjs.com/package/base64url)，可以实现 Base64Url，以及Base64的正向/反向转换。
+没有很多在线 Base64Url 转换器可用，但是我们可以在命令行中进行。所以要真正确认这个 HS256签名，这里有个[ npm 包](https://www.npmjs.com/package/base64url)，可以实现 Base64Url，以及 Base64的正向/反向转换。
 
 #### base64url NPM 包
 
@@ -378,7 +378,7 @@ node
 TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 ```
 
-所以最后我们得到了这个我们一直试图复现的HS256 JWT签名字符串：
+所以最后我们得到了这个我们一直试图复现的 HS256 JWT 签名字符串：
 
 > 这要求 JWT 签名上的每个字母都一摸一样！
 
@@ -416,9 +416,9 @@ TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
 
 ### RS256 JWT 签名
 
-使用RS256，我们仍然会像以前一样生成一个认证码，但是我们的目标仍然是创建一个数字签名来证明给定的 JWT 是有效的。
+使用 RS256，我们仍然会像以前一样生成一个认证码，但是我们的目标仍然是创建一个数字签名来证明给定的 JWT 是有效的。
 
-但是在这个签名的情况下，我们将分离创建有效令牌的能力，只有验证服务器才能验证JWT令牌，只有我们的应用服务器才能从中受益。
+但是在这个签名的情况下，我们将分离创建有效令牌的能力，只有验证服务器才能验证 JWT 令牌，只有我们的应用服务器才能从中受益。
 
 我们要做的是，我们将创建两个密钥来取代它：
 
@@ -442,7 +442,7 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDdlatRjRjogo3WojgGHFHYLugdUWAY9iR3fy4arWNA
 -----END PUBLIC KEY-----  
 ```
 
-它看起来有一点可怕，但它其实只是一个像 OpenSSL 这样的命令行工具或[像这个](http://travistidwell.com/jsencrypt/demo/)在线RSA密钥生成工具生成的唯一密钥，
+它看起来有一点可怕，但它其实只是一个像 OpenSSL 这样的命令行工具或[像这个](http://travistidwell.com/jsencrypt/demo/)在线 RSA 密钥生成工具生成的唯一密钥，
 
 同样，这个密钥 _可以被公开_，它实际上就是公开的，因此攻击者不需要猜测这个密钥：通常他们早已拥有了它。
 
@@ -460,7 +460,7 @@ MIICWwIBAAKBgQDdlatRjRjogo3WojgGHFHYLugdUWAY9iR3fy4arWNA1KoS8kVw33cJibXr8bvwUAUp
 
 ### 为什么不只对载荷 RSA 加密？
 
-下面是使用 RSA 创建数字签名的一个尝试：我们对 Header 和 Payload 使用 RSA 私钥加密，然后发送JWT。
+下面是使用 RSA 创建数字签名的一个尝试：我们对 Header 和 Payload 使用 RSA 私钥加密，然后发送 JWT。
 
 接收者得到 JWT，用公钥解密，然后检查结果。
 
@@ -517,11 +517,11 @@ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4
 
 这个模块内置了[RSA-SHA256 函数](https://nodejs.org/api/crypto.html#crypto_class_sign) 和许多其他签名函数，我们可以使用它们尝试重现签名。
 
-为了重现它，我们要做的第一件事是，我们需要取得RSA私钥并保存到一个叫 `private.key` 的 text 文件。
+为了重现它，我们要做的第一件事是，我们需要取得 RSA 私钥并保存到一个叫 `private.key` 的 text 文件。
 
-然后在命令行中，我们通过node shell执行这个小程序
+然后在命令行中，我们通过 node shell 执行这个小程序
 
-如果您使用的JWT与我们使用的测试JWT不同，那么您只需将这两个部分复制/粘贴到 `write` 调用中，而不需要 JWT 签名。
+如果您使用的 JWT 与我们使用的测试 JWT 不同，那么您只需将这两个部分复制/粘贴到 `write` 调用中，而不需要 JWT 签名。
 
 这是返回的结果：
 
@@ -549,7 +549,7 @@ EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHe
 
 这验证了我们对 RS256 JWT 签名的理解，现在我们知道如何在需要时对它进行故障排除。
 
-总之，RS256 JWT签名只是一个被RSA加密过同时被SHA-256 hash的头和载荷。
+总之，RS256 JWT 签名只是一个被 RSA 加密过同时被 SHA-256 hash 的头和载荷。
 
 所以我们现在知道 RS256 签名是如何工作的，但为什么这些签名比 HS256 更好呢？
 
@@ -557,7 +557,7 @@ EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHe
 
 通过 RS256 攻击者可以很容易地做到签名创建过程的第一步，即根据被盗的 JWT 头和有效负载的值创建 SHA-256 hash。
 
-但想要从那重新生成签名，就不得不破解RSA，但对一个好的密钥来说破解是[不可能的事](https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa)。
+但想要从那重新生成签名，就不得不破解 RSA，但对一个好的密钥来说破解是[不可能的事](https://crypto.stackexchange.com/questions/3043/how-much-computing-resource-is-required-to-brute-force-rsa)。
 
 但是对于大多数应用，这并不是我们为什么要选择 RS256 而不是 HS256 的最实际的原因。
 
@@ -585,7 +585,7 @@ EkN-DOsnsuRjRO6BxXemmJDm3HbxrbRzXglbN2S4sOkopdU4IsDxTI8jO19W_A4K8ZPJijNLis4EZsHe
 使用一些 npm 包来占用这些端点并验证 JWT，我们将在第二部分看到。
 这些端点可以发布一系列公钥，而不仅仅是一个公钥。
 
-如果您想知道这种类型的端点是什么样子的，请看一下这个活生生的[例子](https://angularuniv-security-course.auth0.com/.well-known/jwks.json)，在这我们收到HTTP GET request的response。
+如果您想知道这种类型的端点是什么样子的，请看一下这个活生生的[例子](https://angularuniv-security-course.auth0.com/.well-known/jwks.json)，在这我们收到 HTTP GET request 的 response。
 
 `kid` 属性是关键标识符，而 `x5c` 属性是一个特定公钥的表现形式。
 
@@ -605,9 +605,9 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 
 之后，它会将所有请求转发到应用程序服务器，并简单地添加一个 HTTP 头来标识用户。
 
-> 问题是，通过这种设置，实际上网络中的任何人都可以通过设置相同的HTTP头轻松地模拟用户！
+> 问题是，通过这种设置，实际上网络中的任何人都可以通过设置相同的 HTTP 头轻松地模拟用户！
 
-有些解决方案，比如应用服务器层级的代理服务器IP白名单，或者使用客户端证书，但实际上大多数公司没有这个措施
+有些解决方案，比如应用服务器层级的代理服务器 IP 白名单，或者使用客户端证书，但实际上大多数公司没有这个措施
 
 #### 一个更好的预认证配置版本
 
@@ -615,9 +615,9 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 
 预认证使我们不需要受困于安全性问题，让我们的应用程序更完备，哪怕只是在私人网络里。难道能够快捷设置预认证不是一件好事吗？
 
-很容易想象到加入JWT的场景：让HTTP头成为一个jwt，而不是仅仅像过往的预认证那样仅仅把用户名放进头部。
+很容易想象到加入 JWT 的场景：让 HTTP 头成为一个 jwt，而不是仅仅像过往的预认证那样仅仅把用户名放进头部。
 
-让我们把用户名取代JWT的载荷，并在验证服务器中签名。
+让我们把用户名取代 JWT 的载荷，并在验证服务器中签名。
 
 应用服务器将会第一步验证 JWT，而不仅仅从 header 中提取用户名：
 
@@ -629,7 +629,7 @@ JWT 也适用于企业，在大家对安全措施的认知里，预认证设置�
 
 ### 结语
 
-在这篇文章里，我们对 JWT 有了一个全面的了解，它是什么，它们是怎么被运用于用户验证的。JWTs仅仅是具有易于验证和不可伪造特性的JSON 载荷。
+在这篇文章里，我们对 JWT 有了一个全面的了解，它是什么，它们是怎么被运用于用户验证的。JWTs 仅仅是具有易于验证和不可伪造特性的 JSON 载荷。
 
 而且，JWT 不是身份验证独有的，我们可以使用它们在网络任何地方发送任何声明。
 

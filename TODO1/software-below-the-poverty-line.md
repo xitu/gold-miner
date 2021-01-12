@@ -77,7 +77,7 @@ dat://bf7b912fff1e64a52b803444d871433c5946c990ae51f2044056bf6f9655ecbf
 
 [Tidelift 已经收到了 4000 万美元](https://www.crunchbase.com/organization/tidelift) 的资金，用于“帮助开源创建者和维护者获得公平的工作报酬”[（引用）](https://tidelift.com/docs/lifting/paying)。他们有一个 [27 人的团队](https://tidelift.com/about)，其中一些人是大公司（如 Google 和 GitHub）的前雇员。他们的工资可能没有那么低。然而，他们在网站上[展示的许多开源项目](https://tidelift.com/subscription)在捐赠收入方面都低于贫困线。实际上，我们并不清楚 Tidelift 为这些项目的维护者提供了多少资金，但是他们的[订阅价格](https://tidelift.com/subscription/pricing)非常高。不透明的价格和成本结构历来帮助企业掩盖这种不平等现象。
 
-GitHub 被[微软以 75 亿美元收购](https://venturebeat.com/2018/06/04/microsoft-confirms-it-will-acquire-github-for-7-5-billion/)。为了让这个数字更容易理解，微软收购 GitHub 的金额是开源社区年收益的 **3000** 多倍。换句话说，如果开源社区把他们收到的每一分钱都存起来，那么在几千年后，他们也许就有足够的钱来一起买下 GitHub。现在GitHub也有了自己的[开源经济团队 ](https://www.youtube.com/watch?v=n47rCa9dxf8)（这个团队有多大，他们的薪水是多少？），但 GitHub 新的赞助功能远不如 OpenCollective 透明。不同于 GitHub 开放数据的一贯做法（如提交日历或贡献者图表），当涉及到捐赠时，用户无法知道每个开源维护者得到了多少。它是不透明的。
+GitHub 被[微软以 75 亿美元收购](https://venturebeat.com/2018/06/04/microsoft-confirms-it-will-acquire-github-for-7-5-billion/)。为了让这个数字更容易理解，微软收购 GitHub 的金额是开源社区年收益的 **3000** 多倍。换句话说，如果开源社区把他们收到的每一分钱都存起来，那么在几千年后，他们也许就有足够的钱来一起买下 GitHub。现在 GitHub 也有了自己的[开源经济团队 ](https://www.youtube.com/watch?v=n47rCa9dxf8)（这个团队有多大，他们的薪水是多少？），但 GitHub 新的赞助功能远不如 OpenCollective 透明。不同于 GitHub 开放数据的一贯做法（如提交日历或贡献者图表），当涉及到捐赠时，用户无法知道每个开源维护者得到了多少。它是不透明的。
 
 如果 Microsoft GitHub 真的想为开源项目提供资金，他们应该把钱花在刀刃上：至少为开源项目捐赠 10 亿美元。即使每年仅仅 150 万美元也足以使本研究中的所有项目变成绿色。GitHub 赞助商的[匹配基金](https://help.github.com/en/articles/about-github-sponsors#about-the-github-sponsors-matching-fund)是不够的，它每年给一个维护者最多仅 $5k,这不足以将维护人员从贫困线下提高到行业标准。
 

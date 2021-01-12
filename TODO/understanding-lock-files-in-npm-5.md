@@ -52,7 +52,7 @@ NPM 的下个主版本（NPM 5）在速度、安全性和一堆其他[时髦的�
 
 接下来，您可能会想知道在已经包含 `package-lock.json` 的目录中运行 `npm shrinkwrap` 时会发生什么。答案很简单，NPM 仅仅会把 `package-lock.json` 重命名为 `npm-shrinkwrap.json`。因为文件的格式是完全一样的。
 
-最好奇的还会问，当两个文件都存在时会发生什么。 在这种情况下，NPM将完全忽略 `package-lock.json`，只使用 `npm-shrinkwrap.json`。 当只使用 NPM 操纵文件时，这种情况不应该发生。
+最好奇的还会问，当两个文件都存在时会发生什么。 在这种情况下，NPM 将完全忽略 `package-lock.json`，只使用 `npm-shrinkwrap.json`。 当只使用 NPM 操纵文件时，这种情况不应该发生。
 
 ### 总结:
 

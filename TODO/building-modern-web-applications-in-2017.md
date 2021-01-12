@@ -68,7 +68,7 @@ Ember 社区在 Ember.js 核心团队的领导下，于 2013 年 8 月发布了 
 
 组件是返回 DOM 的函数 —— 原文 [https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components](https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components)
 
-当一个参数的值改变时，组件的 `render` 函数被调用并返回一个新的组件树。 React 将返回的组件树与虚拟 DOM 树进行比较，以确定如何更新真实的DOM。这种重新渲染所有内容并将结果与虚拟 DOM 进行比较的技术经实践证明是非常有效的。
+当一个参数的值改变时，组件的 `render` 函数被调用并返回一个新的组件树。 React 将返回的组件树与虚拟 DOM 树进行比较，以确定如何更新真实的 DOM。这种重新渲染所有内容并将结果与虚拟 DOM 进行比较的技术经实践证明是非常有效的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cV-klTo3DKl0Uo2Znk3V6g.png)
 

@@ -839,7 +839,7 @@ BasicSourceMapConsumer.prototype.destroy = function () {
 
 精明的读者可能会留意到，扩大后的 source-map 分别多出 9 个和 1 个字符，这多出的字符数量恰好是在扩大过程中将 suorce-map 分隔开的 `;`。
 
-我们把目光集中到 Scala.JS source map，它是不经过人为扩大时体积最大的版本。另外，它还是我们所测试的过的浏览器环境中体积最大的。用 Chrome 测试体积最大的 source-map 时什么数据也没有 (扩大 2 倍的 Scala.JS source map)。用 JavaScript 实现的版本，我们没法通过组合模拟出 Chrome 标签的内容进行崩溃；用 WebAssembly 实现的版本，Chrome 将会抛出 `运行时错误：内存访问超出界限`，使用 Chrome 的 debugger 工具，可以发现是由于 `.wasm` 文件缺少内存泄漏时的处理指令。其他浏览器在 WebAssembly 实现的版本都能成功通过基准测试，所以，我只能认为这是 Chrome 浏览器的一个bug
+我们把目光集中到 Scala.JS source map，它是不经过人为扩大时体积最大的版本。另外，它还是我们所测试的过的浏览器环境中体积最大的。用 Chrome 测试体积最大的 source-map 时什么数据也没有 (扩大 2 倍的 Scala.JS source map)。用 JavaScript 实现的版本，我们没法通过组合模拟出 Chrome 标签的内容进行崩溃；用 WebAssembly 实现的版本，Chrome 将会抛出 `运行时错误：内存访问超出界限`，使用 Chrome 的 debugger 工具，可以发现是由于 `.wasm` 文件缺少内存泄漏时的处理指令。其他浏览器在 WebAssembly 实现的版本都能成功通过基准测试，所以，我只能认为这是 Chrome 浏览器的一个 bug
 
 **对于基准测试，值越小测试效果越好**
 
@@ -867,7 +867,7 @@ WebAssembly 的实现在浏览器中的执行性能要全面优于 JavaScript �
 
 再一次的，在所有浏览器对 WebAssembly 和 JavaScript 这两种实现多维评估模型测试，WebAssembly 在运行时间上遥遥领先。对比 Scala.JS source map，在 Chrome 浏览器中 WebAssembly 实现的版本只需要花费 JavaScript 的 0.23x。在 Firefox 浏览器和 Safari 浏览器中只需要花费 0.17x。Safari 浏览器运行 WebAssembly 最快 (305ms)，紧接着是 Firefox 浏览器 (397ms)，最后是 Chrome 浏览器 (486ms)。
 
-WebAssembly 实现的结果误差值也更小，对比 Scala.JS 的实现，在 Chrome浏览器中相对误差值从 ±4.04% 降到 2.35±%，在 Firefox 浏览器从 ±13.75% 降到 ±2.03%，在 Safari 浏览器从 ±6.65% 降到 ±3.86%。
+WebAssembly 实现的结果误差值也更小，对比 Scala.JS 的实现，在 Chrome 浏览器中相对误差值从 ±4.04% 降到 2.35±%，在 Firefox 浏览器从 ±13.75% 降到 ±2.03%，在 Safari 浏览器从 ±6.65% 降到 ±3.86%。
 
 ### 伴随断点和异常暂停的基准测试
 
@@ -895,7 +895,7 @@ WebAssembly 实现的结果误差值也更小，对比 Scala.JS 的实现，在 
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.mean_.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.mean_.png) [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.scalajs.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/01/iterate.already.parsed.scalajs.png)
 
-事实证明，我们的担心是多余的。 WebAssembly 实现不仅满足 JavaScript 实现的性能，即使 source-map 已被解析，也超过了 JavaScript 实现的性能。对于分析迭代和迭代已解析的基准测试，WebAssembly 在 Chrome 浏览器中的时间花费是 JavaScript 的 0.61 倍和 0.71 倍。在 Firefox 浏览器中，WebAssembly 的时间花费 JavaScript 的 0.56 倍和 0.77 倍。在 Safari 浏览器中，WebAssembly 实现是 JavaScript 实现的时间 0.63 倍和 0.87倍。 Safari 浏览器再一次以最快的速度运行 WebAssembly 实现，Firefox 浏览器和 Chrome 浏览器基本上排在第二位。 Safari 浏览器在迭代已解析的基准测试中值得对 JavaScript 性能给予特别优化：除了超越其他浏览器的 JavaScript 时间之外，Safari 浏览器运行 JavaScript 的速度比其他浏览器运行WebAssembly 的速度还要快！
+事实证明，我们的担心是多余的。 WebAssembly 实现不仅满足 JavaScript 实现的性能，即使 source-map 已被解析，也超过了 JavaScript 实现的性能。对于分析迭代和迭代已解析的基准测试，WebAssembly 在 Chrome 浏览器中的时间花费是 JavaScript 的 0.61 倍和 0.71 倍。在 Firefox 浏览器中，WebAssembly 的时间花费 JavaScript 的 0.56 倍和 0.77 倍。在 Safari 浏览器中，WebAssembly 实现是 JavaScript 实现的时间 0.63 倍和 0.87倍。 Safari 浏览器再一次以最快的速度运行 WebAssembly 实现，Firefox 浏览器和 Chrome 浏览器基本上排在第二位。 Safari 浏览器在迭代已解析的基准测试中值得对 JavaScript 性能给予特别优化：除了超越其他浏览器的 JavaScript 时间之外，Safari 浏览器运行 JavaScript 的速度比其他浏览器运行 WebAssembly 的速度还要快！
 
 这符合早期基准测试趋势，我们还看到 WebAssembly 相对误差比 JavaScript 的相对误差要小。经过解析和遍历，Chrome 浏览器的相对误差从 ±1.80% 降到 ±0.33%，Firefox 浏览器从 ±11.63% 降到 ±1.41%，Safari 浏览器从 ±2.73% 降到 ±1.51%。当遍历一个已经解析完的映射，Firefox 浏览器的相对误差从 ±12.56% 降到 ±1.40%，Safari 浏览器从 ±1.97% 降到 ±1.40%。Chrome 浏览器的相对误差从 ±0.61% 升到 ±1.18%，这是基准测试中唯一一个趋势上升的浏览器。
 

@@ -54,7 +54,7 @@ React 多年来发展迅捷，并且使开发人员的工作变得更轻松，�
 1. [**Single-SPA** “元框架”](https://github.com/CanopyTax/single-spa) 无须刷新，便可将多个框架组合在同一页面（参考组合了 React、 Vue、 Angular 1 与 Angular 2 等框架的[示例](https://single-spa.surge.sh/)）。[在这里参考 Bret Little 的解释](https://medium.com/@blittle/great-article-d618ef46161c)。
 2. [**存在于不同 URL 的多个单页应用程序**](https://news.ycombinator.com/item?id=13011795)。 这些应用程序使用 NPM 或 Bower 组件来共享功能。
 3. 通过[第三方库与 Window.postMessage API 配合](https://news.ycombinator.com/item?id=13009285)，将微应用隔离到 **IFrames** 中。
-4. [**Web组件**作为集成层](https://technologyconversations.com/2015/08/09/including-front-end-web-components-into-microservices/)。
+4. [**Web 组件**作为集成层](https://technologyconversations.com/2015/08/09/including-front-end-web-components-into-microservices/)。
 5. [**React** 的“黑盒”组件](https://news.ycombinator.com/item?id=13012916)。
 
 阅读愉快！

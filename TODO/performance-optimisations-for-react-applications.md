@@ -397,7 +397,7 @@ class Foo extends React.Component {
 
 class Item extends React.Component {
 
-    // 即便前后两个对象的值相同，检查也总会返回true，因为 `data` 每次都会得到一个新的引用
+    // 即便前后两个对象的值相同，检查也总会返回 true，因为 `data` 每次都会得到一个新的引用
     shouldComponentUpdate(nextProps) {
         return isObjectEqual(this.props, nextProps);
     }

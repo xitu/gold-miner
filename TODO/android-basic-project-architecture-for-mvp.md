@@ -7,25 +7,25 @@
 
 # Android 的一个 MVP 基础项目模板
 
-迄今为止，我阅读了很多有关Android软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现**MVP(Model View Presenter)**模式，这对Android开发者也是非常重要的。
+迄今为止，我阅读了很多有关 Android 软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现**MVP(Model View Presenter)**模式，这对 Android 开发者也是非常重要的。
 
-我在其他开发者的技术博客和项目中学到了一些有用的东西，现在我决定开发一个基本的项目架构来用于实现我们的客户端软件[mobiwise](https://medium.com/u/8d64c93a5e63). 我选择了MVP模式作为项目架构，让我们开始了解一下。
+我在其他开发者的技术博客和项目中学到了一些有用的东西，现在我决定开发一个基本的项目架构来用于实现我们的客户端软件[mobiwise](https://medium.com/u/8d64c93a5e63). 我选择了 MVP 模式作为项目架构，让我们开始了解一下。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*OX-xyuKXFOyQSdUKNZRGVg.jpeg)
 
 
-#### 什么是MVP?
+#### 什么是 MVP?
 
-你能在网上找到很多MVP相关解释和定义，让我来说一下我对MVP的理解。MVP是一种分离**展示层和业务逻辑层的模式，使两者独立存在**的模式。我相信分离这些部分的代码的过程属实令人厌烦。
+你能在网上找到很多 MVP 相关解释和定义，让我来说一下我对 MVP 的理解。MVP 是一种分离**展示层和业务逻辑层的模式，使两者独立存在**的模式。我相信分离这些部分的代码的过程属实令人厌烦。
 
 为了这个实践，我们应该在项目中提供出各个抽象层。
 
 ### 层
 
-为了使项目易于理解，我们首先做的是抽象出各个层面。这对开发测试和维护代码都非常重要。在任何Android项目中为了开发需要都会抽象出很多层，这里我说下重点！
+为了使项目易于理解，我们首先做的是抽象出各个层面。这对开发测试和维护代码都非常重要。在任何 Android 项目中为了开发需要都会抽象出很多层，这里我说下重点！
 
-项目中特有的业务逻辑部分，这里称之为**Domain layer**, 数据模型、网络相关、数据库操作部分，这里称之为**Model layer**，只有Android特有的部分，称之为**Presentation or App Layer。** 最后一个，也很重要，用于第三方library或者项目中共用的、基础工具类等，称之 **Common Layer.**
+项目中特有的业务逻辑部分，这里称之为**Domain layer**, 数据模型、网络相关、数据库操作部分，这里称之为**Model layer**，只有 Android 特有的部分，称之为**Presentation or App Layer。** 最后一个，也很重要，用于第三方 library 或者项目中共用的、基础工具类等，称之 **Common Layer.**
 
 我觉得，抽象出这么多层，在开始阶段，似乎难以理解和实现。
 
@@ -50,7 +50,7 @@ public interface GetPopularTitlesUsecase extends Usecase {
 }
 ```
 
-定义好接口，开始写class来实现**GetPopularTitlesUsecase**。下面是个基本的实现类。
+定义好接口，开始写 class 来实现**GetPopularTitlesUsecase**。下面是个基本的实现类。
 
 ```java
 public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecase {
@@ -90,15 +90,15 @@ public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecas
 
 #### Model Layer
 
-开发者都知道的，在项目中必须有一个Model Layer来处理**网络请求和数据库存取**相关的工作。我一般把这些部分的代码分成三个包，分别叫entity, rest和database。对于大部分项目分成这样已经足够。也许你需要创建有别于数据层的业务相关层。比如，你想展示用户的全称，就不应该通过在数据层中获取用户的姓和用户的名再通过指定的adapter类或者view类等方式做一个拼接处理，这很笨拙，此时应该定义业务层来实现这个操作。定义两个不同的数据层很笨拙。但是仍然重要。
+开发者都知道的，在项目中必须有一个 Model Layer 来处理**网络请求和数据库存取**相关的工作。我一般把这些部分的代码分成三个包，分别叫 entity, rest 和 database。对于大部分项目分成这样已经足够。也许你需要创建有别于数据层的业务相关层。比如，你想展示用户的全称，就不应该通过在数据层中获取用户的姓和用户的名再通过指定的 adapter 类或者 view 类等方式做一个拼接处理，这很笨拙，此时应该定义业务层来实现这个操作。定义两个不同的数据层很笨拙。但是仍然重要。
 
 #### Presentation or App Layer
 
-这是最基本和熟知的抽象层，指代了Android程序开发中特有组件的部分。
+这是最基本和熟知的抽象层，指代了 Android 程序开发中特有组件的部分。
 
 ##View
 
-View在MVP中代表UI组件部分。
+View 在 MVP 中代表 UI 组件部分。
 
 ```java
 public interface PopularTitlesView extends MVPView {
@@ -114,7 +114,7 @@ public interface PopularTitlesView extends MVPView {
 
 #### Presenter
 
-Presenter在MVP中类似于连接**view和model**的桥梁。常用的实现方式，我们需要创建model接口来处理特定的场景。
+Presenter 在 MVP 中类似于连接**view 和 model**的桥梁。常用的实现方式，我们需要创建 model 接口来处理特定的场景。
 
 ```java
 public interface RadioListPresenter extends Presenter {
@@ -123,7 +123,7 @@ public interface RadioListPresenter extends Presenter {
   void onRadioListLoaded(RadioWrapper radioWrapper);
 }
 ```
-创建完简单的RadioListPresenter接口，我们来实现这个接口。
+创建完简单的 RadioListPresenter 接口，我们来实现这个接口。
 
 
 ```java
@@ -176,7 +176,7 @@ public class RadioListPresenterImp implements RadioListPresenter {
 
 ### 如何实践
 
-每一个Activity,Fragment要根据逻辑功能来实现一个View接口，以我项目中的例子来说，RadioListFragment应该实现**RadioListView**接口，覆写相关的方法并让相关的presentar的方法来处理对应逻辑。
+每一个 Activity,Fragment 要根据逻辑功能来实现一个 View 接口，以我项目中的例子来说，RadioListFragment 应该实现**RadioListView**接口，覆写相关的方法并让相关的 presentar 的方法来处理对应逻辑。
 
 ```java
 public class RadioListFragment extends Fragment implements RadioListView, SwipeRefreshLayout.OnRefreshListener {
@@ -263,29 +263,29 @@ public class RadioListFragment extends Fragment implements RadioListView, SwipeR
 
 #### 包组织结构的想法
 
-当我第一次在网上搜索这方面的内容时，我发现很多开发者给每一层都分别创建了不同的modules。这个方法似乎适用于很多开发者，但是我不喜欢。是为什么我没有这么做的原因。我给每个module或者层创建了不同的包，相信这不适用于所有人，只是我的方式，我感觉这样很舒服。
+当我第一次在网上搜索这方面的内容时，我发现很多开发者给每一层都分别创建了不同的 modules。这个方法似乎适用于很多开发者，但是我不喜欢。是为什么我没有这么做的原因。我给每个 module 或者层创建了不同的包，相信这不适用于所有人，只是我的方式，我感觉这样很舒服。
 
 ![](http://ww3.sinaimg.cn/large/005SiNxyjw1eymj1ql90mj30cd0lwmyn.jpg)
 
 
 ### 值得一提
 
-最后，我写了Android-base-project项目
+最后，我写了 Android-base-project 项目
 
 [**mobiwiseco/Android-Base-Project** _Android-Base-Project - An Android Base Project which can be example for every Android project._github.com](https://github.com/mobiwiseco/Android-Base-Project "https://github.com/mobiwiseco/Android-Base-Project")
 
-我写了一个适用于很多开发项目的基础项目（不是library,只是一个指导的project）包括基础Fragment,Activity和Retrofit网络层相关类，工具类和常见**Gradle**文件结构。是时候让更多的类基于MVP模式来开发。
+我写了一个适用于很多开发项目的基础项目（不是 library,只是一个指导的 project）包括基础 Fragment,Activity 和 Retrofit 网络层相关类，工具类和常见**Gradle**文件结构。是时候让更多的类基于 MVP 模式来开发。
 
 
 ### 结论
 
 ![](https://cdn-images-1.medium.com/max/800/1*Rt3vsG8LWHB8LPGrhRftAA.gif)
 
-我并不是想推荐给你在Android项目开发中使用的那些libraries，诸如Dagger 2, RxJava等。我只希望一切简单就好，把重点放在项目的结构设计上。
+我并不是想推荐给你在 Android 项目开发中使用的那些 libraries，诸如 Dagger 2, RxJava 等。我只希望一切简单就好，把重点放在项目的结构设计上。
 
-我相信MVP有很多的不同的实现方式，我经常会去学习其他开发者的方式，找出我认为最好的来实践。
+我相信 MVP 有很多的不同的实现方式，我经常会去学习其他开发者的方式，找出我认为最好的来实践。
 
-重要的一点是我们应该开发一个可以独立于其他libraries、UI层、数据库和网络层的项目。如果你开发的项目基本满足以上，这个项目一定是易于开发，测试和维护的。
+重要的一点是我们应该开发一个可以独立于其他 libraries、UI 层、数据库和网络层的项目。如果你开发的项目基本满足以上，这个项目一定是易于开发，测试和维护的。
 
 
 **Resources**:

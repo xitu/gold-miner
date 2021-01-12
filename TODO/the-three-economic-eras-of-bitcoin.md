@@ -81,7 +81,7 @@
 
 尽管这次危机是完全能够根据第一原则预测而且埋藏在比特币的基石中，它仍可能产生意想不到的结果。即使比特币的供应是受限制的_[31]_，其戏剧性却是无穷的_[32]_。
 
-_披露:_ [_作者持有比特币而且为Blockstream工作。_](https://medium.com/@rusty_lightning/disclosure-cryptocurrency-interests-4c2d16c72c9d)
+_披露:_ [_作者持有比特币而且为 Blockstream 工作。_](https://medium.com/@rusty_lightning/disclosure-cryptocurrency-interests-4c2d16c72c9d)
 
 * * *
 
@@ -97,9 +97,9 @@ _披露:_ [_作者持有比特币而且为Blockstream工作。_](https://medium.
 
 [5] 费用取决于交易的大小而不是交易金额的大小。这类似于根据重量收钱的快递：寄 1000 个一美分将会比寄100美元纸币贵。虽然很有道理，但对于不知道自己拿的是纸币还是硬币的人来说还是不好估计。
 
-[6] 近来区块的默认大小增加到 75 万字节[https://blockchain.info/charts/avg-block-size?timespan=all](https://blockchain.info/charts/avg-block-size?timespan=all)。矿工抱怨他们的“孤儿率”在增加：区块连不上整个区块链因为他们到达其他矿工所需的时间太长。对大的矿工这个问题并不大，而且他们也更可能找到下个区块。这似乎是驱动Ghash.io成长的原因：在最大的矿工群里孤儿率是最低的。[https://www.coindesk.com/bitcoin-mining-detente-ghash-io-51-issue/](https://www.coindesk.com/bitcoin-mining-detente-ghash-io-51-issue/)
+[6] 近来区块的默认大小增加到 75 万字节[https://blockchain.info/charts/avg-block-size?timespan=all](https://blockchain.info/charts/avg-block-size?timespan=all)。矿工抱怨他们的“孤儿率”在增加：区块连不上整个区块链因为他们到达其他矿工所需的时间太长。对大的矿工这个问题并不大，而且他们也更可能找到下个区块。这似乎是驱动 Ghash.io 成长的原因：在最大的矿工群里孤儿率是最低的。[https://www.coindesk.com/bitcoin-mining-detente-ghash-io-51-issue/](https://www.coindesk.com/bitcoin-mining-detente-ghash-io-51-issue/)
 
-[7] 2017 年 11 月，尽管Segregated Witness这项技术早在2015年年底完成，blockchain.info和Coinbase（两个都拥有大交易容量）都没有采用该项技术。
+[7] 2017 年 11 月，尽管 Segregated Witness 这项技术早在2015年年底完成，blockchain.info 和 Coinbase（两个都拥有大交易容量）都没有采用该项技术。
 
 [8] 这个趋势在匿名创始人中本聪离开计划的时候开始。
 
@@ -119,7 +119,7 @@ _披露:_ [_作者持有比特币而且为Blockstream工作。_](https://medium.
 
 [16] 隔离见证把交易签名转移到区块的其他地方。新颖的地方在于该设计中记录签名的个数仿佛这些签名只有四分之一多。如果现有的交易所有人都用这种交易，这意味着区块大小会平均在 2MB 的大小。[https://bitcoincore.org/en/2016/01/26/segwit-benefits/](https://bitcoincore.org/en/2016/01/26/segwit-benefits/)
 
-[17] 虽然每个交易需要时间核对，但低配置的CPU也足以处理这种运算：主要限制是网络带宽还有长期的储存需求。[https://bitcoincore.org/en/2016/06/24/segwit-next-steps/#schnorr-signatures](https://bitcoinco
+[17] 虽然每个交易需要时间核对，但低配置的 CPU 也足以处理这种运算：主要限制是网络带宽还有长期的储存需求。[https://bitcoincore.org/en/2016/06/24/segwit-next-steps/#schnorr-signatures](https://bitcoinco
 dff
 [18] 数字货币集团（Digital Currency Group）的纽约协议的是通过很大的努力才能达成的。[https://medium.com/@DCGco/bitcoin-scaling-agreement-at-consensus-2017-133521fe9a77](https://medium.com/@DCGco/bitcoin-scaling-agreement-at-consensus-2017-133521fe9a77)
 

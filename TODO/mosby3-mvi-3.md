@@ -15,9 +15,9 @@
 
 ![](https://i.loli.net/2018/02/24/5a9114deeb147.gif)
 
-正如你所见，上面的演示内容，就是根据不同的类型显示商品列表。这个 APP 中每个类型只显示三个项,用户可以点击加载更多，来加载更多的商品（http请求）。另外，用户可以使用下拉刷新去更新不同类型下的商品，并且，当用户加载到最底端的时候，可以加载更多类型的商品（加载下一页的商品）。当然，当出现异常的时候，所有的这些动作执行过程与正常加载时候类似，只不过显示的内容不同（例如：显示网络错误）。
+正如你所见，上面的演示内容，就是根据不同的类型显示商品列表。这个 APP 中每个类型只显示三个项,用户可以点击加载更多，来加载更多的商品（http 请求）。另外，用户可以使用下拉刷新去更新不同类型下的商品，并且，当用户加载到最底端的时候，可以加载更多类型的商品（加载下一页的商品）。当然，当出现异常的时候，所有的这些动作执行过程与正常加载时候类似，只不过显示的内容不同（例如：显示网络错误）。
 
-让我们一步一步实现这个页面。第一步定义View的接口。
+让我们一步一步实现这个页面。第一步定义 View 的接口。
 
 ```
 public interface HomeView {
@@ -25,21 +25,21 @@ public interface HomeView {
   /**
    * 加载首页意图
    *
-   * @return 发射的值可以被忽略，无论true或者false都没有其他任何不一样的意义
+   * @return 发射的值可以被忽略，无论 true 或者 false 都没有其他任何不一样的意义
    */
   public Observable<Boolean> loadFirstPageIntent();
 
   /**
    * 加载下一页意图
    *
-   * @return 发射的值可以被忽略，无论true或者false都没有其他任何不一样的意义
+   * @return 发射的值可以被忽略，无论 true 或者 false 都没有其他任何不一样的意义
    */
   public Observable<Boolean> loadNextPageIntent();
 
   /**
    * 下拉刷新意图
    *
-   * @return 发射的值可以被忽略，无论true或者false都没有其他任何不一样的意义
+   * @return 发射的值可以被忽略，无论 true 或者 false 都没有其他任何不一样的意义
   */
   public Observable<Boolean> pullToRefreshIntent();
 
@@ -57,7 +57,7 @@ public interface HomeView {
 }
 ```
 
-View的具体实现灰常简单，并且我不想把代码贴在这里(你可以在[github上看到](https://github.com/sockeqwe/mosby/blob/master/sample-mvi/src/main/java/com/hannesdorfmann/mosby3/sample/mvi/view/home/HomeFragment.java))。下一步，让我们聚焦Model。我前面的文章也说过Model应该代表状态(State)。因此让我们去实现我们的 **HomeViewState**:
+View 的具体实现灰常简单，并且我不想把代码贴在这里(你可以在[github 上看到](https://github.com/sockeqwe/mosby/blob/master/sample-mvi/src/main/java/com/hannesdorfmann/mosby3/sample/mvi/view/home/HomeFragment.java))。下一步，让我们聚焦 Model。我前面的文章也说过 Model 应该代表状态(State)。因此让我们去实现我们的 **HomeViewState**:
 
 ```
 public final class HomeViewState {
@@ -66,7 +66,7 @@ public final class HomeViewState {
   private final Throwable firstPageError; //如果不为 null，就显示状态错误的 View
   private final List<FeedItem> data;   // 在 recyclerview 显示的项
   private final boolean loadingNextPage; // 加载下一页时，显示加载指示器
-  private final Throwable nextPageError; // 如果！=null，显示加载页面错误的Toast
+  private final Throwable nextPageError; // 如果！=null，显示加载页面错误的 Toast
   private final boolean loadingPullToRefresh; // 显示下拉刷新指示器 
   private final Throwable pullToRefreshError; // 如果！=null，显示下拉刷新错误
 
@@ -75,13 +75,13 @@ public final class HomeViewState {
 }
 ```
 
-注意 **FeedItem**  是每一个 RecyclerView 所展示的子项所需要实现的接口。例如**Product 就是实现了 FeedItem 这个接口**。另外展示类别标签的 **SectionHeader同样也实现FeedItem**。加载更多的UI元素也是需要实现FeedItem，并且，它内部有一个小的状态，去标示我们在当前类型下是否加载更多项:
+注意 **FeedItem**  是每一个 RecyclerView 所展示的子项所需要实现的接口。例如**Product 就是实现了 FeedItem 这个接口**。另外展示类别标签的 **SectionHeader 同样也实现 FeedItem**。加载更多的 UI 元素也是需要实现 FeedItem，并且，它内部有一个小的状态，去标示我们在当前类型下是否加载更多项:
 
 ```
 public class AdditionalItemsLoadable implements FeedItem {
   private final int moreItemsAvailableCount;
   private final String categoryName;
-  private final boolean loading; // 如果为true，那么正在下载
+  private final boolean loading; // 如果为 true，那么正在下载
   private final Throwable loadingError; // 用来表示，当加载过程中出现的错误
 
    // ... constructor ...
@@ -107,7 +107,7 @@ public class HomeFeedLoader {
 }
 ```
 
-现在让我们一步一步的将上面分开的部分用Presenter连接起来。请注意，当在正式环境中这里展现的一部分Presenter的代码需要被移动到一个Interactor中（我没按照规范写是因为可以更好理解）。第一，让我们开始加载初始化数据
+现在让我们一步一步的将上面分开的部分用 Presenter 连接起来。请注意，当在正式环境中这里展现的一部分 Presenter 的代码需要被移动到一个 Interactor中（我没按照规范写是因为可以更好理解）。第一，让我们开始加载初始化数据
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -155,9 +155,9 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-使用Observable.merge（）将多个意图合并在一起。
+使用 Observable.merge（）将多个意图合并在一起。
 
-但是等等: **feedLoader.loadNewestPage()** 仅仅返回"最新"的项，但是关于前面我们已经加载的项如何处理？在"传统"的MVP中，那么可以通过调用类似于 **view.addNewItems(newItems)** 来处理这个问题。但是我们已经在这个系列的[第一篇(已翻译)](https://juejin.im/post/5a52e4445188257334228b28)中讨论过这为什么是一个不好的办法（“状态问题”）。现在我们面临的问题是下拉刷新依赖于先前的HomeViewState,我们想当下拉刷新完成以后，将新取得的项与原来的项合并。
+但是等等: **feedLoader.loadNewestPage()** 仅仅返回"最新"的项，但是关于前面我们已经加载的项如何处理？在"传统"的 MVP中，那么可以通过调用类似于 **view.addNewItems(newItems)** 来处理这个问题。但是我们已经在这个系列的[第一篇(已翻译)](https://juejin.im/post/5a52e4445188257334228b28)中讨论过这为什么是一个不好的办法（“状态问题”）。现在我们面临的问题是下拉刷新依赖于先前的 HomeViewState,我们想当下拉刷新完成以后，将新取得的项与原来的项合并。
 
 **女士们，先生们让我们掌声有请--Mr.状态折叠器（STATE REDUCER）**
 
@@ -173,7 +173,7 @@ public State reduce( State previous, Foo foo ){
 }
 ```
 
-这个想法是这样一个 reduce() 函数结合了前一个状态和 foo 来计算一个新的状态。Foo类型代表我们想让先前状态发生的变化。在这个案例中，我们通过下拉刷新，想"减少(reduce)"HomeViewState的先前状态生成我们希望的结果。你猜如何，RxJava提供了一个操作符叫做 **scan()**. 让我们重构一点我们的代码。我们不得不去描述另一个代表部分变化（在先前的代码片段中，我们称之为 Foo）的类，这个类将用来计算新的状态。
+这个想法是这样一个 reduce() 函数结合了前一个状态和 foo 来计算一个新的状态。Foo 类型代表我们想让先前状态发生的变化。在这个案例中，我们通过下拉刷新，想"减少(reduce)"HomeViewState 的先前状态生成我们希望的结果。你猜如何，RxJava 提供了一个操作符叫做 **scan()**. 让我们重构一点我们的代码。我们不得不去描述另一个代表部分变化（在先前的代码片段中，我们称之为 Foo）的类，这个类将用来计算新的状态。
 
 ```
 class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
@@ -209,7 +209,7 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-因此，我们这里在做的是。每个意图(Intent)现在会返回一个 Observable<PartialState> 而不是直接返回 Observable<HomeViewState>。然后，我们用 Observable.merge() 去合并它们到一个观察流，最后再应用减少(reducer)方法(Observable.scan())。这也就意味着，无论何时用户开启一个意图，这个意图将生成一个 **PartialState** 对象，这个对象将被"减少(reduced)"成为 **HomeViewState** 然后将被显示到View上(HomeView.render(HomeViewState))。还有一点剩下的部分，就是reducer函数自己的状态。HomeViewState 类它自己没有变化(向上滑动你可看到这个类的定义)。但是我们需要添加一个 Builder(Builder模式)因此我们可以创建一个新的 HomeViewState 对象用一种比较方便的方式。因此让我们实现状态折叠器(state reducer)的方法:
+因此，我们这里在做的是。每个意图(Intent)现在会返回一个 Observable<PartialState> 而不是直接返回 Observable<HomeViewState>。然后，我们用 Observable.merge() 去合并它们到一个观察流，最后再应用减少(reducer)方法(Observable.scan())。这也就意味着，无论何时用户开启一个意图，这个意图将生成一个 **PartialState** 对象，这个对象将被"减少(reduced)"成为 **HomeViewState** 然后将被显示到 View 上(HomeView.render(HomeViewState))。还有一点剩下的部分，就是 reducer 函数自己的状态。HomeViewState 类它自己没有变化(向上滑动你可看到这个类的定义)。但是我们需要添加一个 Builder(Builder 模式)因此我们可以创建一个新的 HomeViewState 对象用一种比较方便的方式。因此让我们实现状态折叠器(state reducer)的方法:
 
 ```
 private HomeViewState viewStateReducer(HomeViewState previousState, PartialState changes){
@@ -260,7 +260,7 @@ private HomeViewState viewStateReducer(HomeViewState previousState, PartialState
 }
 ```
 
-我知道，所有的 **instanceof** 检查不是一个特别好的方法，但是，这个不是这篇博客的重点。为啥技术博客就不能写"丑"的代码？我仅仅是想让我的观点能够让读者很快的理解和明白。我认为这是一个好的方法去避免一些博客写的一手好代码但是没几个人能看懂。我们这篇博客的聚焦点在状态折叠器上。通过 instanceof 检查所有的东西，我们可以理解状态折叠器到底是什么玩意。你应该用 instanceof 检查在你的 APP 中么？不应该，用设计模式或者其他的解决方法像定义 PartialState 作为接口带有一个 **public HomeViewState computeNewState(previousState)**。方法。通常情况下Paco Estevez 的 [RxSealedUnions](https://github.com/pakoito/RxSealedUnions) 库变得十分有用当我们使用MVI构建App的时候。
+我知道，所有的 **instanceof** 检查不是一个特别好的方法，但是，这个不是这篇博客的重点。为啥技术博客就不能写"丑"的代码？我仅仅是想让我的观点能够让读者很快的理解和明白。我认为这是一个好的方法去避免一些博客写的一手好代码但是没几个人能看懂。我们这篇博客的聚焦点在状态折叠器上。通过 instanceof 检查所有的东西，我们可以理解状态折叠器到底是什么玩意。你应该用 instanceof 检查在你的 APP 中么？不应该，用设计模式或者其他的解决方法像定义 PartialState 作为接口带有一个 **public HomeViewState computeNewState(previousState)**。方法。通常情况下 Paco Estevez 的 [RxSealedUnions](https://github.com/pakoito/RxSealedUnions) 库变得十分有用当我们使用 MVI 构建 App 的时候。
 
 好的，我认为你已经理解了状态折叠器(state reducer)的工作原理。让我们实现剩下的方法：当前种类加载更多的功能:
 
@@ -372,7 +372,7 @@ class HomePresenter extends MviBasePresenter<HomeView, HomeViewState> {
 }
 ```
 
-实现分页功能（加载下一页的项）类似于下拉刷新，除了在下拉刷新中，我们把数据是更新到上面，而在这里我们把数据更新到当前分类数据的后面。当然，显示加载指示器，错误/重试按钮的实现，我们仅仅只需需要找到对应的 AdditionalltemsLoadable 对象在 FeedItems 列表中。然后，我们改变项的显示为错误/重新加载按钮。如果我们已经成功的加载了当前分类的所有的项，我们找到 SectionHeader和 AdditionaltemsLoadable，并且替换所有的项在新的项加载项之前。
+实现分页功能（加载下一页的项）类似于下拉刷新，除了在下拉刷新中，我们把数据是更新到上面，而在这里我们把数据更新到当前分类数据的后面。当然，显示加载指示器，错误/重试按钮的实现，我们仅仅只需需要找到对应的 AdditionalltemsLoadable 对象在 FeedItems 列表中。然后，我们改变项的显示为错误/重新加载按钮。如果我们已经成功的加载了当前分类的所有的项，我们找到 SectionHeader 和 AdditionaltemsLoadable，并且替换所有的项在新的项加载项之前。
 
 ## 总结
 

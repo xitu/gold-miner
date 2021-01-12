@@ -94,7 +94,7 @@ WHERE
 
 ### 鸣谢
 
-我们想感谢尽心尽力发表这篇博文的 Google 同事们。感谢 [Minhaz Kazi](https://twitter.com/_mkazi_)（Data Studio 主导开发者），[Megan Risdal](https://twitter.com/MeganRisdal)（Kaggle 数据科学家），[Sohier Dane](https://github.com/sohierdane)（Kaggle数据科学家）和[Hatem Nawar](https://twitter.com/hnawar)（云服务工程师）
+我们想感谢尽心尽力发表这篇博文的 Google 同事们。感谢 [Minhaz Kazi](https://twitter.com/_mkazi_)（Data Studio 主导开发者），[Megan Risdal](https://twitter.com/MeganRisdal)（Kaggle 数据科学家），[Sohier Dane](https://github.com/sohierdane)（Kaggle 数据科学家）和[Hatem Nawar](https://twitter.com/hnawar)（云服务工程师）
 
 
 ---

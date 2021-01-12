@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-youtube.md](https://github.com/xitu/gold-miner/blob/master/TODO1/flutter-challenge-youtube.md)
 > * 译者：[MeFelixWang](https://github.com/MeFelixWang)
 
-# 挑战Flutter之YouTube（画中画）
+# 挑战 Flutter 之 YouTube（画中画）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_sC2115-tUgSig4Urh1jvQ.jpeg)
 
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
  AppBar 左侧有 YouTube 的 logo 和名称，右侧有三个 action ，即记录、搜索和打开配置文件。
 
-重新创建AppBar：
+重新创建 AppBar：
 
 ```
 appBar: new AppBar(

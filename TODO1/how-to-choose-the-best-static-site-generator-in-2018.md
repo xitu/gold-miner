@@ -71,7 +71,7 @@ SSG 对技术要求可能会稍高，但自由度同样也高。他们中的大�
 
 **内容管理和管理任务**对于没有技术背景的用户来说可能并不简单。但好消息是，现在有大量的 headless CMS（无头 CMS） 可以[完善](https://snipcart.com/blog/headless-ecommerce-guide)你的 SSG。headless 和传统 CMS 之间的区别在于，您只能将前者用于“内容管理”任务，而不是模板和前端内容生成。你总会发现一个适合你的需求。
 
-一些静态站点 CMS 直接支持SSG。例如，Jekyll 和 Hugo 的 [Forestry](https://forestry.io/#/) 或者普遍适用的 [DatoCMS](https://www.datocms.com/)。
+一些静态站点 CMS 直接支持 SSG。例如，Jekyll 和 Hugo 的 [Forestry](https://forestry.io/#/) 或者普遍适用的 [DatoCMS](https://www.datocms.com/)。
 
 如果你需要一些**动态的特性**，也有很多很棒的服务可供选择：
 
@@ -124,7 +124,7 @@ Jekyll 用 Ruby 构建，并集成到 GitHub Pages 中，因此被黑客攻击�
 
 ![](https://cdn-images-1.medium.com/max/800/0*QtVY1u5_t419rHWH.png)
 
-Gatsby 将静态页面带到前端技术栈，依靠浏览器端 JavaScript，可重用 API 和预构建标记。这是一个易用的解决方案，可以使用React.js，Webpack，现代 JavaScript，CSS 等创建 SPA（单页应用程序）。
+Gatsby 将静态页面带到前端技术栈，依靠浏览器端 JavaScript，可重用 API 和预构建标记。这是一个易用的解决方案，可以使用 React.js，Webpack，现代 JavaScript，CSS 等创建 SPA（单页应用程序）。
 
 Gatsby.js 是一个静态 PWA（Progressive Web App）生成器。它仅提取关键的 HTML，CSS，数据和 JavaScript，以便您的网站尽可能快地加载。
 
@@ -148,7 +148,7 @@ Gatsby 应用广泛，对于需要利用来自多个来源的数据的站点而�
 
 一个易于设置，用户友好的 SSG，部署运行网站不需要太多配置。
 
-Hugo 以其构建速度而闻名，而其[数据驱动内容](https://gohugo.io/templates/data-templates/)的特性可以轻松地基于 JSON/CSV 源生成HTML。你通过很少的代码就能使用预先构建的模板快速设置 SEO，评论，分析和其他功能。
+Hugo 以其构建速度而闻名，而其[数据驱动内容](https://gohugo.io/templates/data-templates/)的特性可以轻松地基于 JSON/CSV 源生成 HTML。你通过很少的代码就能使用预先构建的模板快速设置 SEO，评论，分析和其他功能。
 
 此外，Hugo 为多语言网站提供全面的 i18n 支持，受众面大大增加。这对于想要本地化的电商网站特别有用。
 
@@ -242,7 +242,7 @@ Jekyll 在这方面就不怎么样了 —— 许多开发人员抱怨它的构�
 
 → **电子商务**：
 
-您还可以用 SSG 生成电商网站（如前面的教程中所示）。但电商网站不好做，需要考量的东西十分多：用户体验方面，例如速度和UI定制，搜索引擎优化也是必不可少的。
+您还可以用 SSG 生成电商网站（如前面的教程中所示）。但电商网站不好做，需要考量的东西十分多：用户体验方面，例如速度和 UI 定制，搜索引擎优化也是必不可少的。
 
 大型电商网站需要 CMS 进行产品管理，这个时候就要思考哪个 SSG 更适合你选择的无头 CMS。
 

@@ -20,7 +20,7 @@ beesandbombs 展示的[多边形绕圈](https://beesandbombs.tumblr.com/post/161
 * 我们想要使另一个物体绕着多边形运动。这个当然也可以通过 `AVD` 实现。但它还是需要很多事前工作去计算想生成的轨迹。
 * 我们想把绕多边形物体的运动进度与多边形的显示分离开来，独立控制。
 
-因此我选择用自定义 [Drawable](https://developer.android.com/reference/android/graphics/drawable/Drawable.html) 来实现，其中包含多个 [Path](https://developer.android.com/reference/android/graphics/Path.html) 对象。`Path` 是对图形形状的基本描绘（AVD 中实际也使用了 Path！），而且 Android [Canvas](https://developer.android.com/reference/android/graphics/Canvas.html) 的 API也是借助 Path 来生成各种有趣的效果。在实现一些效果之前，我想强烈推荐 [Romain Guy](https://medium.com/@romainguy) 这篇写得很好的文章，里面展示的很多技巧就是我在本文所用到的：
+因此我选择用自定义 [Drawable](https://developer.android.com/reference/android/graphics/drawable/Drawable.html) 来实现，其中包含多个 [Path](https://developer.android.com/reference/android/graphics/Path.html) 对象。`Path` 是对图形形状的基本描绘（AVD 中实际也使用了 Path！），而且 Android [Canvas](https://developer.android.com/reference/android/graphics/Canvas.html) 的 API 也是借助 Path 来生成各种有趣的效果。在实现一些效果之前，我想强烈推荐 [Romain Guy](https://medium.com/@romainguy) 这篇写得很好的文章，里面展示的很多技巧就是我在本文所用到的：
 
 [**Android Recipe #4, path tracing**](http://www.curious-creature.com/2013/12/21/android-recipe-4-path-tracing/)
 
@@ -149,7 +149,7 @@ canvas.drawPath(polygon.path, dotPaint)
 
 ![](https://cdn-images-1.medium.com/max/800/1*Wc2bErgxb68pCBrODWD8Ag.gif)
 
-当PathDashPathEffect.Style的类型为 `MORPH` 
+当 PathDashPathEffect.Style 的类型为 `MORPH` 
 
 有趣的是，某些情况下，在 path 的开头或紧密的角落，stamp 的形状有点扭曲。
 

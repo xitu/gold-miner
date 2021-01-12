@@ -563,7 +563,7 @@ expect(listItems.length).toBe(3);
 
 ### 在测试中处理页面请求
 
-让我们看看 Puppeteer 在测试中如何处理页面请求。在 `App.js` 文件中，我会添加一个异步的 `componentDidMount` 方法。此方法会从Pokemon API 中获取数据。这个请求的响应会使用 JSON 文件的形式。我也会将这些数据添加到组件的状态中。
+让我们看看 Puppeteer 在测试中如何处理页面请求。在 `App.js` 文件中，我会添加一个异步的 `componentDidMount` 方法。此方法会从 Pokemon API 中获取数据。这个请求的响应会使用 JSON 文件的形式。我也会将这些数据添加到组件的状态中。
 
 ```
 async componentDidMount() {

@@ -36,9 +36,9 @@ GIF 1 **“动画效果”**
 
 1. 在点击底部菜单栏最右方的菜单后，我们会跳转到一个新界面。在此界面中，地图通过缩放和渐显的转场动画在屏幕上方加载，Recycleview 的 item 随着转场动画从底部加载，地图上的标记点在转场动画执行的同时被添加到地图上.
 
-2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里的位置。)
+2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是 show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里的位置。)
 
-3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
+3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的 item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
 
 4. 当后退时，详情页通过转场变成普通的 RecycleView Item，所有的地图标记再次显示，同时路径一起消失。
 
@@ -312,7 +312,7 @@ public class MapBitmapCache extends LruCache<String,Bitmap>{
 
 此处我使用了 **LruCache** ，因为这是比较推荐的做法，[此处](https://developer.android.com/topic/performance/graphics/cache-bitmap.html)有详细解释。
 
-现在我们把bitmap 存到了缓存里，剩下唯一要做的事情就是自定义一个缩放和渐进效果的转场动画。
+现在我们把 bitmap 存到了缓存里，剩下唯一要做的事情就是自定义一个缩放和渐进效果的转场动画。
 毛毛雨洒洒水啦~(译者注: 原文为 Easy peasy lemon squeezy。是一个比较有意思的、以俏皮的语气表达“轻而易举”或者“手到擒来”概念的短语。)
 
 ## 自定义一个包含缩放和渐显效果的转场
@@ -480,7 +480,7 @@ public class ScaleDownImageTransition extends Transition{
 
 为了编写转场动画，我们必须继承一个 Transition 类。然后重写 **captureStartValues** 和 **captureEndValues** 方法。猜猜发生了啥？
 
-Transition 框架使用了属性动画的 API ，通过改变 view 开始和结束时的属性值来产生动画。如果你不熟悉属性动画，强烈推荐阅读[这篇文章](https://developer.android.com/guide/topics/graphics/prop-animation.html)。就像刚才解释的那样，我们要缩放图片。开始值是 scaleFactor ,结束值是期望 scaleX 和 scaleY的值，通常情况下是1。
+Transition 框架使用了属性动画的 API ，通过改变 view 开始和结束时的属性值来产生动画。如果你不熟悉属性动画，强烈推荐阅读[这篇文章](https://developer.android.com/guide/topics/graphics/prop-animation.html)。就像刚才解释的那样，我们要缩放图片。开始值是 scaleFactor ,结束值是期望 scaleX 和 scaleY 的值，通常情况下是1。
 
 怎么传递这些值呢？如前所述，很简单。我们把 TransitionValues 对象当作参数传进 **captureStart** 和 **captureEnd** 方法里。它包括一个 view 的引用和一个可以保存值的 Map 对象，在我们的项目中需要保存的值就是 scaleX 和 scaleY。
 
@@ -524,7 +524,7 @@ public static Fragment newInstance(final Context ctx){
     android:transitionName="@string/mapPlaceholderTransition"/>
 ```
 
-然后我们通过 **setEnterTransition()** 把fragment 传递进去, 看吧!效果出现啦:
+然后我们通过 **setEnterTransition()** 把 fragment 传递进去, 看吧!效果出现啦:
 
 ![](https://www.thedroidsonroids.com/wp-content/uploads/2017/03/map_transiton.gif?x77083)
 

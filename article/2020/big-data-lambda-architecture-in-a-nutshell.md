@@ -21,7 +21,7 @@
 
 2011年，内森·马兹（Nathan Marz）在他的博客中提出了一种解决 CAP 定理局限性的重要方法，即 Lambda 架构。
 
-![Lambda架构](https://cdn-images-1.medium.com/max/2730/1*RX4WviL_wF7vVChcQUgyzg.png)
+![Lambda 架构](https://cdn-images-1.medium.com/max/2730/1*RX4WviL_wF7vVChcQUgyzg.png)
 
 ## 工作原理
 

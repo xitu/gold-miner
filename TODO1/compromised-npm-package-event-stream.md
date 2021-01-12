@@ -19,7 +19,7 @@
 
 该恶意 npm 包是一种针对性很强的攻击。它最终会对一个开源 App [bitpay/copay](https://github.com/bitpay/copay) 发起攻击。该 App 的 README 中提到：**Copay 是一个支持桌面端和移动端的安全比特币钱包平台**。我们知道恶意 npm 包只针对这个应用是因为其会读取项目 `package.json` 文件中的 `description` 字段，并用其去解码一个 **AES256** 加密的代码段。
 
-对于其他项目，`description` 字段不能够用于给加密代码段解密，之后 hack 操作将会悄悄终止。而 [bitpay/copay的 description 字段](https://github.com/bitpay/copay/blob/90336ef9fb4cc3a90a026827be27a32348d3615c/package.json#L3)，也就是 `A Secure Bitcoin Wallet`，是解密这些数据（加密代码段）的 key。
+对于其他项目，`description` 字段不能够用于给加密代码段解密，之后 hack 操作将会悄悄终止。而 [bitpay/copay 的 description 字段](https://github.com/bitpay/copay/blob/90336ef9fb4cc3a90a026827be27a32348d3615c/package.json#L3)，也就是 `A Secure Bitcoin Wallet`，是解密这些数据（加密代码段）的 key。
 
  `flatmap-stream` 这个包巧妙地将数据隐藏在了 `test` 文件夹中。这个文件夹在 GitHub 不可见但却出现在了实际的 [`flatmap-stream-0.1.1.tgz`](https://registry.npmjs.org/flatmap-stream/-/flatmap-stream-0.1.1.tgz) 包中。这些加密的数据以一个数组的形式存储，数据的每一部分都被压缩及混淆过，同时也以不同的参数进行了加密。一部分加密的数据包括了一些会被静态数据统计工具警告为恶意行为的方法名，例如 `_compile` 这个在 `require` 中意味着创建一个新 Module 的字符串。在下面两段示例代码中，我尽我所能去清理了这些文件让代码更易读。
 

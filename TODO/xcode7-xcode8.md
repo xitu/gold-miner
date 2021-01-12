@@ -212,7 +212,7 @@ Swift 2.3 将过去的一些[非正式协议](https://developer.apple.com/librar
 
 例如，为了做一个 `CALayer` 授权，你只要从 `NSObject` 提取即可，无需宣称遵守 `CALayerDelegate` 。事实上， Xcode 7 上甚至不存在什么协议。不过现在有了。
 
-那么，可选编译类的直观解决方案声明行不起作用。但是你可以在你的Swift 2.2当中的虚拟协议中声明，就像这样：
+那么，可选编译类的直观解决方案声明行不起作用。但是你可以在你的 Swift 2.2当中的虚拟协议中声明，就像这样：
 
 
 ```
@@ -234,9 +234,9 @@ class MyView: NSView, CALayerDelegate { . . . }
 
 1.   仅仅使用 `@available(iOS 10, *)` 和 `if #available(iOS 10, *)` 是不够的。首先，不在正式版应用当中编译任何  iOS 10 代码会更加安全。但是更关键地，当编译器需要这些检查来保证安全 API 使用，还是需要了解这个 API 是否存在 。如果你提到任何 iOS 9 SDK 中不存在的方法或类，代码就无法在 Xcode 7 中编译。
 
-2.  因此，你需要在 `#if swift(>=2.3)` 中封装所有你的 iOS 10 特有代码（你可以安全地认为Swift 2.3 和 iOS 10 现在是等价的）
+2.  因此，你需要在 `#if swift(>=2.3)` 中封装所有你的 iOS 10 特有代码（你可以安全地认为 Swift 2.3 和 iOS 10 现在是等价的）
 
-3.  通常，你需要两个都条件编译（就不会出现 Xcode 7 上无效编译的情况）以及` @available/#available `（来在Xcode 8上通过安全检查）。
+3.  通常，你需要两个都条件编译（就不会出现 Xcode 7 上无效编译的情况）以及` @available/#available `（来在 Xcode 8上通过安全检查）。
 
 4.   当你在 iOS 10 特有特性下工作时，提取所有相关代码为零散的文件最简单了————如此你就可以只在 `#if swift…` 检查封装完整的文件了。（文件可能触及 Xcode 7编译器，但是所有的内容都会被忽略）
 
@@ -303,7 +303,7 @@ configure_extensions add MyApp.xcodeproj MyAppTarget NotificationsUI Intents
 祝你好运！
 
 
-发布于July 28, 2016。[反馈](http://radex.io/xcode7-xcode8/)。
+发布于 July 28, 2016。[反馈](http://radex.io/xcode7-xcode8/)。
 
 
 

@@ -106,7 +106,7 @@ var characters = response.results;
 var characterInfo = [];  
 ```
 
-***我们可以将数组中的数组直接放到 ZingChart 中，并使用x轴和y轴的值来绘制图表。这非常有用。***
+***我们可以将数组中的数组直接放到 ZingChart 中，并使用 x 轴和 y 轴的值来绘制图表。这非常有用。***
 
 ### 遍历响应
 

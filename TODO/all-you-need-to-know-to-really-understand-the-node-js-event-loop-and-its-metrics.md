@@ -213,7 +213,7 @@ Node.js 应用程序在单个线程上运行。在多核机器上，这意味着
 
 我希望这篇文章使大家在事件循环上有新的认知。请在 Twitter 上关注我 [@dkhan](https://twitter.com/dkhan)。我很乐意回答您在 Twitter 里或下面评论区中的提出的一切问题。
 
-最后和以往一样：[下载免费试用版去监控您的完整堆栈，包括Node.js](https://www.dynatrace.com/technologies/nodejs-monitoring/)。
+最后和以往一样：[下载免费试用版去监控您的完整堆栈，包括 Node.js](https://www.dynatrace.com/technologies/nodejs-monitoring/)。
 
 ---
 

@@ -225,7 +225,7 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 
 应用内商品（in-app products）。
 
-> Noom [国际收入增长了 80%](https://developer.android.com/stories/apps/noom-health.html) 通过将其应用在Google Play 上本地化。
+> Noom [国际收入增长了 80%](https://developer.android.com/stories/apps/noom-health.html) 通过将其应用在 Google Play 上本地化。
 
 本部分的最后一个选项是**翻译服务**（**translation service**）。Play 控制台让你可以通过可靠的经过审核的翻译人员，将你的应用翻译成新的语言。当你的应用程序以当地的语言提供时，这将有很大的可能提高商品详情转换率以及增加定的国家/地区的安装次数。Play 控制台中有一些工具可帮助识别要翻译成哪些合适的语言。例如，通过使用收入报告，你可以识别哪些访问商品详情较多但安装量却较低的国家/地区。如果您的技术团队正在通过此服务翻译应用的用户界面，那么你也可以得到翻译文本。通过在提交翻译之前在 strings.xml 文件中包含商店列表元数据，应用内商品名称和通用应用推广文本来实现这一点。
 
@@ -282,7 +282,7 @@ Android vitals（只有 Play 有足够的关于您应用的数据时，才会显
 > - [打消付费用户获取的疑虑](https://medium.com/googleplaydev/taking-the-guesswork-out-of-paid-user-acquisition-720d9d74882e) (来自 Medium)
 > - [缩小 APK，增加安装量](https://medium.com/googleplaydev/shrinking-apks-growing-installs-5d3fcba23ce2) (来自 Medium)
 > - [如何针对新兴市场优化您的 Android 应用程序](https://medium.com/googleplaydev/how-to-optimize-your-android-app-for-emerging-markets-7124c4180fc) (来自 Medium)
-> - [在 Google Play上制作有帮助的数据](https://www.youtube.com/watch?v=Dr82cv6Lj0c) (I/O ‘17 大会)
+> - [在 Google Play 上制作有帮助的数据](https://www.youtube.com/watch?v=Dr82cv6Lj0c) (I/O ‘17 大会)
 
 * * *
 

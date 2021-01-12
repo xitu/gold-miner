@@ -16,7 +16,7 @@ Basecamp 是这么做的，Wordpress 是这么做的，甚至连 Mac App Store �
 
 对于那些所谓的“应用”，我是再讨厌不过了。我理解大公司的选择，他们**不喜欢**跨平台。设计师们需要专门做设计，QA 需要测试更多的环境，而文职人员们则要费力去翻译那些“原生视图”到更为工业界接受的“页面视图”。那些大公司一直不愿意费力气去替代跨平台的 Html 5 应用也毫不奇怪了。
 
-如果说，还要什么别的原因的话，那就是：这也不仅仅是一个“编译到OS X”的简单工作，你需要雇佣专门的 OS X 开发者，且维护一个新的代码库。
+如果说，还要什么别的原因的话，那就是：这也不仅仅是一个“编译到 OS X”的简单工作，你需要雇佣专门的 OS X 开发者，且维护一个新的代码库。
 
 这并不是说大公司抠门。比如 Sketch ，他们也一直没有开发 iOS 的版本，见 [引用](https://www.designernews.co/comments/173706)。
 
@@ -67,9 +67,9 @@ TV 上应用的交互方式和触摸屏上的方式差太多了，极有可能�
 
 鉴于此，如果想要在 iOS 和 Mac 之间移植，情况也是类似的。如果苹果能使 Mac 和 iOS 的用户体验更相似一些，你很可能可以把 Mac 和 iOS 应用放在同一个包里。
 
-对于开发者而言，一个应用意味着一份 Bundle ID，这使得共享不同设备之间的信息变得更简单。这所有一切的目的，都是为了简化在新平台 (macOS) 上开发与iOS 应用相应的(桌面)应用的流程”
+对于开发者而言，一个应用意味着一份 Bundle ID，这使得共享不同设备之间的信息变得更简单。这所有一切的目的，都是为了简化在新平台 (macOS) 上开发与 iOS 应用相应的(桌面)应用的流程”
 
-那需要下载的文件的大小呢？一边是运行在 x86上面的，另外一边是运行在 ARM 上的，所以需要把两个不同的架构编译到同一个二进制源码里面，类似于Mac 开始采用 intel 的时候的方案 [fat binaries](https://en.wikipedia.org/wiki/Universal_binary)。不过，iOS9里，Apple 引进了[App Thinning](https://developer.apple.com/library/tvos/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html), 所以你只用下载你所需要的平台上的源代码就可以了。
+那需要下载的文件的大小呢？一边是运行在 x86上面的，另外一边是运行在 ARM 上的，所以需要把两个不同的架构编译到同一个二进制源码里面，类似于 Mac 开始采用 intel 的时候的方案 [fat binaries](https://en.wikipedia.org/wiki/Universal_binary)。不过，iOS9里，Apple 引进了[App Thinning](https://developer.apple.com/library/tvos/documentation/IDEs/Conceptual/AppDistributionGuide/AppThinning/AppThinning.html), 所以你只用下载你所需要的平台上的源代码就可以了。
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f4w49p8mtcj20m80ck75n.jpg)
 
@@ -81,7 +81,7 @@ TV 上应用的交互方式和触摸屏上的方式差太多了，极有可能�
 
 #### 沙箱
 
-2011年苹果添加了 [sandboxing](https://developer.apple.com/library/mac/documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html) 到 OS X 里。理论上，你“可以”通过这个功能移植 iOS 应用到 OS X上面。
+2011年苹果添加了 [sandboxing](https://developer.apple.com/library/mac/documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html) 到 OS X 里。理论上，你“可以”通过这个功能移植 iOS 应用到 OS X 上面。
 
 #### 解决更大的屏幕和页面
 
@@ -103,7 +103,7 @@ TV 上应用的交互方式和触摸屏上的方式差太多了，极有可能�
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f4w4aq64lpj208r0e6mxc.jpg)
 
-比方说你正在使用 Facebook，你希望在屏幕的一边能够一直看到更新的话题，而你的屏幕上还空了一大块。你可以把它设定成“普通的”宽度。那为什么要这么大费周章，而不是简简单单的看一下这是不是一台iPad呢？这是因为只需要把应用从“普通的”宽度切换到“紧凑的”宽度，就可以让用户方便的在 iPad 上开启多任务模式了。
+比方说你正在使用 Facebook，你希望在屏幕的一边能够一直看到更新的话题，而你的屏幕上还空了一大块。你可以把它设定成“普通的”宽度。那为什么要这么大费周章，而不是简简单单的看一下这是不是一台 iPad呢？这是因为只需要把应用从“普通的”宽度切换到“紧凑的”宽度，就可以让用户方便的在 iPad 上开启多任务模式了。
 
 Mac 也可以做类似的事情，当窗口小于一定阙值以后，就可以改变窗口的类型。
 
@@ -113,10 +113,10 @@ Mac 也可以做类似的事情，当窗口小于一定阙值以后，就可以�
 
 其实苹果公司比任何人都更渴望让 Sketch 这样的应用运行在 iOS 上面。比如说 iOS 上的 Lightroom ， 它却不支持“RAW”格式，这对专业的摄影师来说 iPad “pro”就是个笑话。而对比微软的 Surface，上面则运行了**真正的**lightroom。
 
-看起来，Apple 像是放弃了 OS X。他们没有雇佣更多的 AppKit 的开发者，而 Mac 的 App Store 多年来就是破烂不堪了。那么如果他们终于决定放弃旧的平台转而将所有的资源注入到一个(iOS与macOS)统一的平台上会产生怎样的效果呢？
+看起来，Apple 像是放弃了 OS X。他们没有雇佣更多的 AppKit 的开发者，而 Mac 的 App Store 多年来就是破烂不堪了。那么如果他们终于决定放弃旧的平台转而将所有的资源注入到一个(iOS 与 macOS)统一的平台上会产生怎样的效果呢？
 
 这五年来，苹果改变很多，iOS 7 显示了他们愿意打破传统。Apple Watch 显示他们愿意承担风险。为什么不呢？他们在2010年就开始在 “Back to the mac” 上承担风险了。
 
 他们说，在 WWDC2016 上 OS X 会被重命名为 macOS，今年会是时候了吧。
 
-**译注: "Back to the mac" 是苹果在2010年的一项活动，那次发布了Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是“Back to the mac”**
+**译注: "Back to the mac" 是苹果在2010年的一项活动，那次发布了 Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是“Back to the mac”**

@@ -123,7 +123,7 @@ UglifyJS [不支持 ES6](https://github.com/mishoo/UglifyJS2/issues/448)（又�
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FS50WgvWgoi3hxY_IPqTXw.png)
 
-最重要的是让 ES6 模块不受 Babel 预设（preset）的影响。Webpack 认识 ES6 模块，只有当保留 ES6 模块语法时才能够应用 tree-shaking。如果将其转换为 CommonJS 语法，Webpack 不知道哪些代码是使用过的，哪些不是（就不能应用 tree-shaking了）。最后，Webpack将把它们转换为 CommonJS 语法。
+最重要的是让 ES6 模块不受 Babel 预设（preset）的影响。Webpack 认识 ES6 模块，只有当保留 ES6 模块语法时才能够应用 tree-shaking。如果将其转换为 CommonJS 语法，Webpack 不知道哪些代码是使用过的，哪些不是（就不能应用 tree-shaking了）。最后，Webpack 将把它们转换为 CommonJS 语法。
 
 我们需要告诉 Babel 预设（在这个例子中是[babel-preset-env](https://github.com/babel/babel-preset-env)）不要转换 module。
 

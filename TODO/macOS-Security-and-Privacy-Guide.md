@@ -815,7 +815,7 @@ $ ps A | grep '[d]nscrypt'
    83   ??  Ss     0:00.27 /Users/drduh/homebrew/opt/dnscrypt-proxy/sbin/dnscrypt-proxy --local-address=127.0.0.1:5355 --ephemeral-keys --resolvers-list=/Users/drduh/homebrew/opt/dnscrypt-proxy/share/dnscrypt-proxy/dnscrypt-resolvers.csv --resolver-name=dnscrypt.eu-dk --user=nobody
 ```
 
-> 默认情况下，dnscrypt-proxy 运行在本地 (127.0.0.1) ，53 端口，并且 "nobody" 身份使用dnscrypt.eu-dk DNSCrypt-enabled
+> 默认情况下，dnscrypt-proxy 运行在本地 (127.0.0.1) ，53 端口，并且 "nobody" 身份使用 dnscrypt.eu-dk DNSCrypt-enabled
 resolver。如果你想改变这些设置，你得编辑 plist 文件 (例如, --resolver-address, --provider-name, --provider-key, 等。)
 
 通过编辑 `homebrew.mxcl.dnscrypt-proxy.plist` 也能完成

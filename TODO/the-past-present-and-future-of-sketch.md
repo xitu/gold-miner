@@ -2,9 +2,9 @@
 * 原文作者 : [Geoff Teehan](https://medium.com/@gt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [lfkdsk](https://github.com/lfkdsk)
-* 校对者:[邵辉Vista](https://github.com/shaohui10086), [lihenair](https://github.com/lihenair)
+* 校对者:[邵辉 Vista](https://github.com/shaohui10086), [lihenair](https://github.com/lihenair)
 
-# Sketch的过去现在和未来
+# Sketch 的过去现在和未来
 
 在一次 Adobe 的活动上有人问我对 [Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s) 有什么看法。这让我想起了 Comet 对 [Sketch](https://www.sketchapp.com/) 意味着什么。
 
@@ -145,7 +145,7 @@ Sketch 和 Photoshop 已经成为产品设计者的首选工具，而且大部�
 
 顾客不喜欢订购软件的方式。当 Adobe 终止 Fireworks 的时候，那是我们卖的最多的日子之一。 Adobe 的定位十分基础，你可以现在选择 Photoshop 。而且很多人说，我真的不是喜欢 Photoshop ，而且我不想每个月支付，所以这让我了解了其他的收费方式。在最开始， Adobe 引入了订购的方式作为一种相对于传统方式的可供替代的方式。在那几年之后，他们选择了仅支持订购的方式，这是我们又一次卖的最多的日子。如果他们不了解一个非常明显的理由，我们可以清楚的发现人们不喜欢订购这种方式。
 
-当你开发一个以服务器为基础的产品时，每个月支付的方式更容易被接受，但是如果这只是一个应用仅仅用在你的Mac上而不和服务器进行交互直接做一些事情，人们就不理解为什么他们每个月都要付费。
+当你开发一个以服务器为基础的产品时，每个月支付的方式更容易被接受，但是如果这只是一个应用仅仅用在你的 Mac 上而不和服务器进行交互直接做一些事情，人们就不理解为什么他们每个月都要付费。
 
 
 

@@ -7,9 +7,9 @@
 
 # 每个 Android 开发者都应该读的 Android Studio Tips
 
-欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
+欢迎来到 Phillipe Breault 发布的 Android Studio 技巧 wiki 页面。
 
-我创建了这个仓库是因为我认为Phillipe Breault发布的每一个Android Studio技巧都应该被记录下来。
+我创建了这个仓库是因为我认为 Phillipe Breault 发布的每一个 Android Studio 技巧都应该被记录下来。
 
 随着新技巧的发布，我将会一直保持更新。
 
@@ -30,7 +30,7 @@
 
 # 2. 堆栈追踪分析（Analyze Stacktrace）
 
-- **描述：** 这个操作读取一份堆栈追踪信息，并且使它像logcat中那样可以点击。当你从bug报告中或者终端复制了一份堆栈追踪，使用该操作可以很方便地调试。
+- **描述：** 这个操作读取一份堆栈追踪信息，并且使它像 logcat 中那样可以点击。当你从 bug 报告中或者终端复制了一份堆栈追踪，使用该操作可以很方便地调试。
 - **调用：**Menu → Analyze → Analyze Stacktrace
 - **快捷键：**无，可以在设置中指定。
 - **更多：**通过使用“ProGuard Unscramble Plugin”插件，也可以分析混淆过的堆栈追踪。
@@ -39,8 +39,8 @@
 
 # 3.  关联调试程序（Attach Debugger）
 
-- **描述：**随时启动调试程序，即使你没有以调试模式启动你的应用。这是一个很方便的操作，因为你不必为了调试程序而以调试模式重新部署你的应用。当别人正在测试应用，突然遇到一个bug而将设备交给你时，你也可以很快地进入调试模式。
-- **调用：**点击工具栏图标或者Menu → Build → Attach to Android Process
+- **描述：**随时启动调试程序，即使你没有以调试模式启动你的应用。这是一个很方便的操作，因为你不必为了调试程序而以调试模式重新部署你的应用。当别人正在测试应用，突然遇到一个 bug 而将设备交给你时，你也可以很快地进入调试模式。
+- **调用：**点击工具栏图标或者 Menu → Build → Attach to Android Process
 - **快捷键：**无，可以在设置中指定，或者点击工具栏对应的图标。
 
 ![](https://lh3.googleusercontent.com/-yOySWA1dWPU/VBgiH8KnkGI/AAAAAAAANfU/0E6-y0u5sic/w378-h236-no/26-attachdebugger.gif)
@@ -54,22 +54,22 @@
     - 添加/移除书签(带标记)：Alt + F3(OS X)、Ctrl + F11(Windows/Linux);
     - 显示全部书签：Cmd + F3(OS X) 、Shift + F11(Windows/Linux)，显示所有的书签列表，并且是可以搜索的。
     - 上一个/下一个书签：无，可以在设置中设置快捷键。
-- **更多：**当你为某个书签指定了标记，你可以使用快捷键 Ctrl + 标记 来快速跳转到标记处，比如输入Ctrl + 1，跳到标记为1的书签处。
+- **更多：**当你为某个书签指定了标记，你可以使用快捷键 Ctrl + 标记 来快速跳转到标记处，比如输入 Ctrl + 1，跳到标记为1的书签处。
 
 ![](https://lh4.googleusercontent.com/-Srf301d5soU/U_M7Y6YtTpI/AAAAAAAAM2w/o5cIvPjGwNo/w848-h371-no/07-bookmarks.gif)
 
 # 5. 折叠/展开代码块（Collapse Expand Code Block）
 
-- **描述：**该操作提供一种方法，让你隐藏你不关心的部分代码，以一种较为简洁的格式显示关键代码。一个有意思的用法是隐藏匿名内部类的代码，让其看起来像一个Lambda表达式。
+- **描述：**该操作提供一种方法，让你隐藏你不关心的部分代码，以一种较为简洁的格式显示关键代码。一个有意思的用法是隐藏匿名内部类的代码，让其看起来像一个 Lambda 表达式。
 - **快捷键：**Cmd + "+"/"-"(OS X)、Ctrl + Shift + "+"/"-"(Windows/Linux);
-- **更多：**可以在Settig → Editor → General → Code Folding 中设置折叠规则。
+- **更多：**可以在 Settig → Editor → General → Code Folding 中设置折叠规则。
 
 ![](https://lh4.googleusercontent.com/-sx5EajIBZsY/U_HpxtCFalI/AAAAAAAAM1Q/T-8P33ntdlE/w268-h147-no/06-codefolding.gif)
 
 # 6. 列选择/块选择（Column Selection）
 
 - **描述：**正常选择时，当你向下选择时，会直接将当前行到行尾都选中，而块选择模式下，则是根据鼠标选中的矩形区域来选择。
-- **调用：**按住Alt，然后拖动鼠标选择。
+- **调用：**按住 Alt，然后拖动鼠标选择。
 - 开启/关闭块选择：Menu → Edit → Column Selection Mode 
 - **快捷键：**切换块选择模式：Cmd + Shift + 8(OS X)、Shift + Alt + Insert﻿(Windows/Linux);
 
@@ -77,7 +77,7 @@
 
 # 7. 与分支比对（Compare With Branch (Git)）
 
-- **描述：**假如你的项目是使用git来管理的，你可以将当前文件或者文件夹与其他的分支进行比对。比较有用的是可以让你了解到你与主分支有多少差别。
+- **描述：**假如你的项目是使用 git 来管理的，你可以将当前文件或者文件夹与其他的分支进行比对。比较有用的是可以让你了解到你与主分支有多少差别。
 - **调用：**Menu → VCS → Git → Compare With Branch 
 
 ![](https://lh6.googleusercontent.com/-xW1J3BBZHZc/VC6FVCMexWI/AAAAAAAAN8M/GEJqszoqzXk/w570-h328-no/38-comparewithbranch.gif)
@@ -93,7 +93,7 @@
 
 - **描述：**这个方法将会生成缺失的代码来补全语句，常用的使用场景如下：
     - 在行末添加一个分号，即使光标不在行末；
-    - 为if、while、for 语句生成圆括号和大括号；
+    - 为 if、while、for 语句生成圆括号和大括号；
     - 方法声明后，添加大括号；
 - **调用：**Menu → Edit → Compelete Current Statement
 - **快捷键：**Cmd + Shift + Enter(OS X)、Ctrl + Shift + Enter(Windows/Linux)；
@@ -103,14 +103,14 @@
 
 # 10. 条件断点（Conditional Breakpoints）
 
-- **描述：**简单说，就是当设定的条件满足时，才会触发断点。你可以基于当前范围输入一个java布尔表达式，并且条件输入框内是支持代码补全的。
+- **描述：**简单说，就是当设定的条件满足时，才会触发断点。你可以基于当前范围输入一个 java 布尔表达式，并且条件输入框内是支持代码补全的。
 - **调用：**右键需要填写表达式的断点，然后输入布尔表达式。
 
 ![](https://lh6.googleusercontent.com/-p9k6JiNLQmY/VBAweflrkYI/AAAAAAAANX8/gCaufjGbd1c/w514-h264-no/22-conditionalbreakpoint.gif)
 
 # 11. 上下文信息（Context Info）
 
-- **描述：**当前作用域定义超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在xml文件中同样适用。
+- **描述：**当前作用域定义超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在 xml 文件中同样适用。
 - **调用：**Menu → View → Context Info
 - **快捷键：**Alt + Q (Windows/Linux)
 - **更多：**个人认为，这个功能更好的用法是快速查看当前类继承的父类或者实现的接口。
@@ -127,7 +127,7 @@
 # 13. 禁用断点（Disable Breakpoints）
 
 - 这个操作将使得断点。当你有一个设置过复杂条件的断点或者是日志断点，当前不需要，但是下次又不用重新创建，该操作是很方便的。
-- **调用：**按住Alt，然后单击断点即可。
+- **调用：**按住 Alt，然后单击断点即可。
 
 ![](https://lh3.googleusercontent.com/-hNk0kuL1WBM/VBbQXamG8-I/AAAAAAAANeM/ynfSJ5hqCvA/w365-h235-no/25-diablebreakpoint.gif)
 
@@ -140,28 +140,28 @@
 
 # 15. 编写正则表达式（Edit Regex）
 
-- **描述：**使用Java编写正则表达式是一件很困难的事，主要原因是：
+- **描述：**使用 Java 编写正则表达式是一件很困难的事，主要原因是：
     - 你必须得避开反斜杠；
     - 说实话，正则很难；
     - 看第二条。
 
-IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试正则啦~
+IDE 能帮我们干点啥呢？当然是一个舒服的界面来编写和测试正则啦~
 - **快捷键：**Alt + Enter → check regexp
 
 ![](https://lh4.googleusercontent.com/-zinVQioQi0c/VGX3txYe0iI/AAAAAAAAO5c/D5nhpSSyImk/w419-h170-no/68-checkregexp.gif)
 
-# 16. 使用Enter和Tab进行代码补全的差别（Enter vs Tab for Code Completion）
+# 16. 使用 Enter 和 Tab 进行代码补全的差别（Enter vs Tab for Code Completion）
 
-- **描述：**代码补全时，可以使用Enter或Tab来进行补全操作，但是两者是有差别的。
-- 使用Enter时：从光标处插入补全的代码，对原来的代码不做任何操作。
-- 使用Tab时：从光标处插入补全的代码，并删除后面的代码，直到遇到点号、圆括号、分号或空格为止。
+- **描述：**代码补全时，可以使用 Enter 或 Tab 来进行补全操作，但是两者是有差别的。
+- 使用 Enter时：从光标处插入补全的代码，对原来的代码不做任何操作。
+- 使用 Tab时：从光标处插入补全的代码，并删除后面的代码，直到遇到点号、圆括号、分号或空格为止。
 
 ![](https://lh3.googleusercontent.com/-zkDYRijGp4A/VD0KtdkrqFI/AAAAAAAAOJE/wEr134jmFxE/w252-h123-no/45-codecompletionentertab.gif)
 
 # 17. 计算表达式（Evaluate Expression）
 
-- **描述：**这个操作可以用来查看变量的内容并且计算几乎任何有效的java表达式。需要注意的是，如果你修改了变量的状态，这个状态在你恢复代码执行后依然会保留。
-- **快捷键：**处在断点状态时，光标放在变量处，按Alt + F8，即可显示计算表达式对话框。
+- **描述：**这个操作可以用来查看变量的内容并且计算几乎任何有效的 java 表达式。需要注意的是，如果你修改了变量的状态，这个状态在你恢复代码执行后依然会保留。
+- **快捷键：**处在断点状态时，光标放在变量处，按 Alt + F8，即可显示计算表达式对话框。
 
 ![](https://lh5.googleusercontent.com/-yVa3T6tUVJE/VBls7HooneI/AAAAAAAANg0/MtJpIKCVEws/w739-h215-no/27-evaluateexpression.gif)
 
@@ -188,7 +188,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 - **描述：**这是一个提取变量的快捷操作。当你在没有写变量声明的直接写下值的时候，这是一个很方便生成变量声明的操作，同时还会给出一个建议的变量命名。
 - **调用：**Menu → Refactor → Extract → Variable
 - **快捷键：**Cmd + Alt + V(OS X)、Ctrl + Alt + V(Windows/Linux)；
-- **更多：**当你需要改变变量声明的类型，例如使用 List 替代 ArrayList，可以按下Shift + Tab，就会显示所有可用的变量类型。
+- **更多：**当你需要改变变量声明的类型，例如使用 List 替代 ArrayList，可以按下 Shift + Tab，就会显示所有可用的变量类型。
 
 ![](https://lh3.googleusercontent.com/-76GH8fwlP8w/VEeXW1x5qcI/AAAAAAAAOV0/Y_DTUoO5V-c/w368-h269-no/51-extractvariable.gif)
 
@@ -225,7 +225,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
     - 如果高亮一个方法的`return`或`throw`语句，将会高亮这个方法的所有出口/结束点；
     - 如果高亮某个类定义处的`extend`或`implements`语句，将会高亮继承的或实现的方法；
     - 高亮一个`import`语句也会高亮使用到的地方；
-    - 按下Esc可以退出高亮模式；
+    - 按下 Esc 可以退出高亮模式；
 
 ![](https://lh4.googleusercontent.com/-PHQFYqcYi58/U-tQtazuCbI/AAAAAAAAMrE/SGNBmtGwMAk/w198-h184-no/01-highlight.gif)
 
@@ -240,7 +240,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 # 26. 审查变量（Inspect Variable）
 
 - **描述：**该操作可以在不打开计算表达式对话框就能审查表达式的值。
-- **快捷键：**调试状态下，按住Alt键，然后单击表达式即可。
+- **快捷键：**调试状态下，按住 Alt键，然后单击表达式即可。
 
 ![](https://lh3.googleusercontent.com/-e8FaMIQ-o4g/VBq_YKo27NI/AAAAAAAANiQ/RLl4c4nQCMQ/w783-h250-no/28-mouse_evaluate_expression.gif)
 
@@ -272,7 +272,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 # 30. 动态模板（Live Templates）
 
 - **描述：**动态模板是一种快速插入代码片段的方法，使用动态模板比较有意思的是你可以使用合适的默认值将模板参数化，当你插入代码片段时，这可以指导你完成参数。
-- **更多：**如果你知道模板的缩写，就可以不必使用快捷键，只需要键入缩写并使用Tab键补全即可。
+- **更多：**如果你知道模板的缩写，就可以不必使用快捷键，只需要键入缩写并使用 Tab 键补全即可。
 - **快捷键：**Cmd + J(OS X)、Ctrl + J(Windows/Linux);
 
 ![](https://lh5.googleusercontent.com/-uDazeA2SuDU/VABeDd244gI/AAAAAAAANL0/LvID7zv5dbA/w456-h258-no/15-live_templates.gif)
@@ -288,7 +288,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 - **描述：**当你在调试的时候，这个操作可以让你给某个特殊的对象添加一个标签，方便你后面很快地辨认。在调试时，当你从一堆相似的对象中查看某个对象是否和之前是一样的，这就是一个非常有用的操作。
 - **调用：**右键你需要标记的对象，选中`Mark Object`，输入标签；
-- **快捷键：**选中对象时，按F3(OS X)、F11(Windows/Linux)；
+- **快捷键：**选中对象时，按 F3(OS X)、F11(Windows/Linux)；
 
 ![](https://lh5.googleusercontent.com/-YucV0sOVgXE/VBwUt3L0gWI/AAAAAAAANjk/24G70gPtFv0/w607-h301-no/29-markobject.gif)﻿
 
@@ -339,15 +339,15 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 39. 根据编号打开面板（Open a Panel by Its Number）
 
-- **描述：**你可能已经注意到某些面板的名称左边有一个数字，这里有个快捷操作可以打开它们。如果你没看到面板的名称，请点击IDE的左下角的切换按钮。
+- **描述：**你可能已经注意到某些面板的名称左边有一个数字，这里有个快捷操作可以打开它们。如果你没看到面板的名称，请点击 IDE 的左下角的切换按钮。
 - **快捷键：**Cmd + 数字(OS X)、Alt + 数字(Windows/Linux);
 
 ![](https://lh3.googleusercontent.com/-9qiNX0P0KSk/VDfBFEAKW8I/AAAAAAAAOD4/HytPoJV07BA/w567-h387-no/42-openpanelbynumber.gif)
 
 # 40. 在外部打开文件（Open File Externally）
 
-- **描述：**通过这个快捷键，简单地点击Tab，就可以打开当前文件所在的位置或者该文件的任意上层路径。
-- **快捷键：**Cmd + 单击Tab(OS X)、Ctrl + 点击Tab(Windows/Linux);
+- **描述：**通过这个快捷键，简单地点击 Tab，就可以打开当前文件所在的位置或者该文件的任意上层路径。
+- **快捷键：**Cmd + 单击 Tab(OS X)、Ctrl + 点击 Tab(Windows/Linux);
 
 ![](https://lh5.googleusercontent.com/-EAoir3ZP1bM/VFtyO5OaU_I/AAAAAAAAOug/b6jeKDVT-BM/w418-h268-no/62-openfinder.gif)
 
@@ -362,12 +362,12 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 - **描述：**你可以认为该操作是一种代码补全，它会在点号之前生成代码，而不是在点号之后。实际上你调用这个操作和正常的代码补全操作一样：在一个表达式之后输入点号。
 
-例如对一个列表进行遍历，你可以输入`myList.for`，然后按下Tab键，就会自动生成`for`循环代码。
+例如对一个列表进行遍历，你可以输入`myList.for`，然后按下 Tab键，就会自动生成`for`循环代码。
 - **调用：** 
 你可以在某个表达式后面输入点号，出现一个候选列表，在常规的代码补全提示就可以看到一系列后缀补全关键字，同样的，你也可以在`Editor → Postfix Completion`中看到一系列后缀补全关键字。
 
 - 常用的有后缀补全关键字有：
-    - **.for** (补全foreach语句)
+    - **.for** (补全 foreach 语句)
     - **.format** (使用`String.format()`包裹一个字符串)
     - **.cast** (使用类型转化包裹一个表达式)
 
@@ -406,7 +406,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 47. 相关文件（Related File）
 
-- **描述：**该操作有助于在布局文件和Activity/Fragment之间轻松跳转。这也是一个快捷操作，在类名/布局顶端的左侧。
+- **描述：**该操作有助于在布局文件和 Activity/Fragment 之间轻松跳转。这也是一个快捷操作，在类名/布局顶端的左侧。
 - **快捷键：**Ctrl + Cmd + Up(OS X)、Ctrl + Alt + Home(Windows/Linux)
 
 ![](https://lh5.googleusercontent.com/-S_zwUzYS4gk/VEZBrBGH0lI/AAAAAAAAOUw/n7QoGhegtZQ/w480-h206-no/50-relatedfile.gif)
@@ -433,7 +433,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 50. Select In
 
-- **描述：**拿着当前文件然后问你在哪里选中该文件。恕我直言，最有用的就是在项目结构或者资源管理器中打开该文件。每一个操作都有数字或者字母作为前缀，可以通过这个前缀来快速跳转。通常，我会 Alt + F1 然后 回车(Enter) 来打开项目视图，然后 再用 Alt + F1 在OS X的Finder里找到文件。你可以在文件中或者直接在项目视图里使用该操作。
+- **描述：**拿着当前文件然后问你在哪里选中该文件。恕我直言，最有用的就是在项目结构或者资源管理器中打开该文件。每一个操作都有数字或者字母作为前缀，可以通过这个前缀来快速跳转。通常，我会 Alt + F1 然后 回车(Enter) 来打开项目视图，然后 再用 Alt + F1 在 OS X 的 Finder 里找到文件。你可以在文件中或者直接在项目视图里使用该操作。
 
 - **快捷键：**Alt + F1；
 
@@ -441,7 +441,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 51. 分号/点 补全（Semicolon Dot Completion）
 
-- **描述：**代码补全这个功能太棒啦！我们大概都对以下这种情况很熟悉：开始输入点什么东西，接着从IDE得到一些建议的选项，然后通过Enter或者Tab来选择我们想要的补全代码。其实还有另外一种方法来选择补全的代码：我们可以输入一个点(.)或者一个分号(;)。这样就会完成补全，添加所选字符。这在结束一条语句补全或者快速链式调用方法的时候特别有用。
+- **描述：**代码补全这个功能太棒啦！我们大概都对以下这种情况很熟悉：开始输入点什么东西，接着从 IDE 得到一些建议的选项，然后通过 Enter 或者 Tab 来选择我们想要的补全代码。其实还有另外一种方法来选择补全的代码：我们可以输入一个点(.)或者一个分号(;)。这样就会完成补全，添加所选字符。这在结束一条语句补全或者快速链式调用方法的时候特别有用。
 - **注意点：**如果你要代码补全的方法需要参数，这些参数会被略过。
 - **快捷键：**Autocomplete + "." 或者 ";"
 
@@ -449,7 +449,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 52. 显示当前运行点（Show Execution Point）
 
-- **描述：**该操作会立刻把你的光标移回到当前debug处。
+- **描述：**该操作会立刻把你的光标移回到当前 debug 处。
 
 通常的情况是：
 1. 你在某处触发了断点
@@ -457,7 +457,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 3. 直接调用这个快捷键，快速返回之前逐步调试的地方。
 
 
-- **快捷键：**（Debug时) Alt + F10；
+- **快捷键：**（Debug 时) Alt + F10；
 
 ![](https://lh3.googleusercontent.com/-sXEoJvHd_QQ/VCvo5CMmOuI/AAAAAAAAN5c/zq_9YB05-3U/w443-h287-no/36-executionpoint.gif)
 
@@ -475,7 +475,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh4.googleusercontent.com/-6i3EY9IZJBg/VCqVy_ab3EI/AAAAAAAAN4U/ebD7lM9J68Q/w451-h265-no/35-stoprocess.gif)
 
-# 55. Sublime Text式的多处选择（Sublime Text Multi Selection）
+# 55. Sublime Text 式的多处选择（Sublime Text Multi Selection）
 
 - **描述：**这个功能超级赞！该操作会识别当前选中字符串，选择下一个同样的字符串，并且添加一个光标。这意味着你可以在同一个文件里拥有多个光标，你可以同时在所有光标处输入任何东西。
 - **快捷键：**Ctrl + G(OS X)、Alt + Ｊ（Windows、Linux）
@@ -484,7 +484,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 56. 包裹代码（Surround With）
 
-- **描述：** 该操作可以用特定代码结构包裹住选中的代码块，通常是if语句，循环，try/catch语句或者runnable语句。
+- **描述：** 该操作可以用特定代码结构包裹住选中的代码块，通常是 if 语句，循环，try/catch 语句或者 runnable 语句。
 如果你没有选中任何东西，该操作会包裹当前一整行。
 
 - **快捷键：**Cmd + Alt + T(OS X)、Ctrl + Alt + T(Windows/Linux)
@@ -513,7 +513,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 - **更多：**
     - 你在输入字符的时候可以用驼峰风格来过滤选项。比如输入"oCr"会找到"onCreate"
-    - 你可以通过勾选多选框来决定是否显示匿名类。这在某些情况下很有用，比如你想直接跳转到一个OnClickListener的onClick方法。
+    - 你可以通过勾选多选框来决定是否显示匿名类。这在某些情况下很有用，比如你想直接跳转到一个 OnClickListener 的 onClick 方法。
 
 - **快捷键：**Cmd + F12(OS X)、Ctrl + F12(Windows/Linux)
 - **调用：**Menu → Navigate → File Structure
@@ -522,7 +522,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 60. 切换器（The Switcher）
 
-- **描述：**该快捷键基本上就是IDE的alt+tab/cmd+tab命令。你可以用它在导航tab或者面板切换。一旦打开这个窗口，只要一直按着ctrl键，你可以通过对应的数字或者字母快捷键快速选择。你也可以通过backspace键来关闭一个已选中的tab或者面板。
+- **描述：**该快捷键基本上就是 IDE 的 alt+tab/cmd+tab 命令。你可以用它在导航 tab 或者面板切换。一旦打开这个窗口，只要一直按着 ctrl键，你可以通过对应的数字或者字母快捷键快速选择。你也可以通过 backspace 键来关闭一个已选中的 tab 或者面板。
 
 - **快捷键：**Ctrl + Tab
 
@@ -530,7 +530,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 61. 移除包裹代码（Unwrap Remove）
 
-- **描述：**该操作会移除周围的代码，它可能是一条if语句，一个while循环，一个try/catch语句甚至是一个runnable语句。该操作恰恰和包裹代码（Surround With）相反。
+- **描述：**该操作会移除周围的代码，它可能是一条 if 语句，一个 while 循环，一个 try/catch 语句甚至是一个 runnable 语句。该操作恰恰和包裹代码（Surround With）相反。
 
 - **快捷键：**Cmd + Shift + Delete(OS X)、Ctrl + Shift + Delete(Windows/Linux)
 
@@ -538,7 +538,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 62. 版本控制操作弹窗（VCS Operations Popup）
 
-- **描述：**该操作会给你显示最常用的版本控制操作。如果你的项目没有用git等版本控制软件进行管理，它至少会给你提供一个由IDE维护的本地历史记录。
+- **描述：**该操作会给你显示最常用的版本控制操作。如果你的项目没有用 git 等版本控制软件进行管理，它至少会给你提供一个由 IDE 维护的本地历史记录。
 - **快捷键：**Ctrl + V(OS X)、Alt + `(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-ECCa5aqBxCk/VC02T6rz1gI/AAAAAAAAN7E/dtD24CNJbdg/w450-h329-no/37-vcspopup.gif)

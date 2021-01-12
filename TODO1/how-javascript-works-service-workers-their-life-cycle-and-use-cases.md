@@ -53,7 +53,7 @@ Service Worker 的生命周期与你的网页是完全分开的，它由以下�
 
 #### 安装
 
-要为你的Web应用程序安装 Service Worker，你必须先注册它，你可以在 JavaScript 代码中进行注册。当注册 Service Worker 时，它会提示浏览器在后台启动 Service Worker 安装步骤。
+要为你的 Web 应用程序安装 Service Worker，你必须先注册它，你可以在 JavaScript 代码中进行注册。当注册 Service Worker 时，它会提示浏览器在后台启动 Service Worker 安装步骤。
 
 通过注册 Service Worker，你可以告诉浏览器你的 Service Worker 的 JavaScript 文件在哪里。我们来看下面的代码：
 
@@ -71,7 +71,7 @@ if ('serviceWorker' in navigator) {
 }
 ```
 
-该代码检查当前环境中是否支持Service Worker API。如果是，则 `/sw.js` 这个 Service Worker 就被注册了。
+该代码检查当前环境中是否支持 Service Worker API。如果是，则 `/sw.js` 这个 Service Worker 就被注册了。
 
 每次页面加载时都可以调用 `register()` 方法，浏览器会判断 Service Worker 是否已经注册，并且会正确处理。
 

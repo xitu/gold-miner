@@ -20,7 +20,7 @@
 
 - [设置切实可行的目标](#设置切实可行的目标)
   - [7. 100 毫秒响应时间，60 fps](#7-100-毫秒响应时间60-fps)
-  - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](#8-速度指数--1250tti交互时间--5s3g关键文件大小--170kbgzip-压缩后)
+  - [8. 速度指数 < 1250，TTI（交互时间） < 5s（3G），关键文件大小 < 170KB（gzip 压缩后）](#8-速度指数--1250tti 交互时间--5s3g 关键文件大小--170kbgzip-压缩后)
 - [定义环境](#定义环境)
   - [9. 选择并设置你的构建工具](#9-选择并设置你的构建工具)
   - [10. 默认使用渐进增强](#10-默认使用渐进增强)
@@ -51,7 +51,7 @@
 
 请注意，当谈到互动指标时，最好区分 [First CPU Idle 以及 Time to Interactive](https://calendar.perfplanet.com/2017/time-to-interactive-measuring-more-of-the-user-experience/)，以避免误解。前者是主要内容渲染后的最早点（其中页面至少有 5 秒的响应时间）。后者是页面可以始终响应输入的时间。（**感谢 Philip Walton ！**）
 
-我们有两个主要限制因素，限制我们制定一个 **合理的** 目标来保证网络内容的快速传输。一方面，由于 [TCP 慢启动](https://hpbn.co/building-blocks-of-tcp/#slow-start)，我们有着网络传输的限制。HTML 的前 14 KB是最关键的有效负载块——并且是第一次往返中唯一可以提供的预算（由于手机唤醒时间，这是在 400ms RTT 情况下 1 秒内获得的）。
+我们有两个主要限制因素，限制我们制定一个 **合理的** 目标来保证网络内容的快速传输。一方面，由于 [TCP 慢启动](https://hpbn.co/building-blocks-of-tcp/#slow-start)，我们有着网络传输的限制。HTML 的前 14 KB 是最关键的有效负载块——并且是第一次往返中唯一可以提供的预算（由于手机唤醒时间，这是在 400ms RTT 情况下 1 秒内获得的）。
 
 另一方面，内存和 CPU 有 **硬件限制**（稍后我们将详细讨论它们），原因是 JavaScript 的解析时间。为了实现第一段中所述目标，我们必须考虑 JavaScript 关键文件大小的预算。关于预算应该是多少有很多不同的意见（这应该由你的项目的本身决定），但是 gzip 压缩后预算为 170KB 的 JavaScript 已经需要花费 1s 才能在普通手机上进行解析和编译。假设解压缩时 170KB 扩展到 3 倍大小，那么解压缩后（0.7MB）时，那已经可能是 Moto G4 或 Nexus 2 上“用户体验的丧钟”。
 
@@ -125,7 +125,7 @@ Inian Parameshwaran [测量了排名前 50 的框架的性能足迹](https://you
 
 #### 13. 考虑使用 PRPL 模式以及应用程序 shell 架构
 
-不同的框架会对性能产生不同的影响，并且不需要不同的优化策略，因此你必须清楚地了解你将依赖的框架的所有细节。构建 Web 应用程序时，请查看 [PRPL模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 和 [应用程序 shell 体系结构](https://developers.google.com/web/updates/2015/11/app-shell)。这个想法非常简单：推送初始路由交互所需的最少代码，以便快速渲染，然后使用 service worker 进行缓存和预缓存资源，然后异步地延迟加载所需的路由。
+不同的框架会对性能产生不同的影响，并且不需要不同的优化策略，因此你必须清楚地了解你将依赖的框架的所有细节。构建 Web 应用程序时，请查看 [PRPL 模式](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 和 [应用程序 shell 体系结构](https://developers.google.com/web/updates/2015/11/app-shell)。这个想法非常简单：推送初始路由交互所需的最少代码，以便快速渲染，然后使用 service worker 进行缓存和预缓存资源，然后异步地延迟加载所需的路由。
 
 [![PRPL Pattern in the application shell architecture](https://res.cloudinary.com/indysigner/image/fetch/f_auto,q_auto/w_400/https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/bb4716e5-d25b-4b80-b468-f28d07bae685/app-build-components-dibweb-c-scalew-879-opt.png)](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)
 
@@ -157,15 +157,15 @@ REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与�
 
 对于用户来说，这些技术最直观的的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
 
-[除非他们不这样做](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/)。例如，根据 Tim Kadlec的说法，“AMP 文档往往比同行更快，但并不一定意味着页面具有高性能。在性能方面，AMP 不是最大的差异。”
+[除非他们不这样做](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/)。例如，根据 Tim Kadlec 的说法，“AMP 文档往往比同行更快，但并不一定意味着页面具有高性能。在性能方面，AMP 不是最大的差异。”
 
-站长的好处显而易见：这些格式在各自平台上的可发现性以及[搜索引擎的可见性提高](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过重复使用 AMP 作为 PWA 的数据源来[构建渐进式 web APM](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。至于缺点？显然，因为各个平台的不同的要求和限制，开发人员需要对他们的内容，在不同平台制作和维护不同的版本，如果是 Instant Articles 和 Apple News [没有实际的URL](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)（感谢 Addy，Jeremy）。
+站长的好处显而易见：这些格式在各自平台上的可发现性以及[搜索引擎的可见性提高](https://ethanmarcotte.com/wrote/ampersand/)。你也可以通过重复使用 AMP 作为 PWA 的数据源来[构建渐进式 web APM](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)。至于缺点？显然，因为各个平台的不同的要求和限制，开发人员需要对他们的内容，在不同平台制作和维护不同的版本，如果是 Instant Articles 和 Apple News [没有实际的 URL](https://www.w3.org/blog/TAG/2017/07/27/distributed-and-syndicated-content-whats-wrong-with-this-picture/)（感谢 Addy，Jeremy）。
 
 #### 16. 明智地选择你的 CDN
 
 根据你拥有的动态数据量，你可以将内容的某些部分“外包”到 [静态站点生成器](https://www.smashingmagazine.com/2015/11/static-website-generators-jekyll-middleman-roots-hugo-review/)，将其推送到 CDN 并从中提供静态版本，从而避免数据库请求。你甚至可以选择基于 CDN 的[静态托管平台](https://www.smashingmagazine.com/2015/11/modern-static-website-generators-next-big-thing/)，通过交互式组件丰富你的页面作为增强功能（[JAMStack](https://jamstack.org/)）。事实上，其中一些生成器（如 Reats 之上的 [Gatsby](https://www.gatsbyjs.org/blog/2017-09-13-why-is-gatsby-so-fast/)）实际上是[网站编译器](https://tomdale.net/2017/09/compilers-are-the-new-frameworks/)，提供了许多自动优化功能。随着编译器随着时间的推移添加优化，编译后的输出随着时间的推移变得越来越小，越来越快。
 
-请注意，CDN 也可以提供（和卸载）动态内容。因此，不必将CDN限制为只有静态文件。仔细检查你的 CDN 是否执行压缩和转换（例如，在格式，压缩和边缘大小调整方面的图像优化），对 [servers workers](https://www.filamentgroup.com/lab/servers-workers.html) 的支持，包括边缘，在 CDN 边缘组装页面的静态和动态部分（即最接近用户的服务器）和其他任务。
+请注意，CDN 也可以提供（和卸载）动态内容。因此，不必将 CDN 限制为只有静态文件。仔细检查你的 CDN 是否执行压缩和转换（例如，在格式，压缩和边缘大小调整方面的图像优化），对 [servers workers](https://www.filamentgroup.com/lab/servers-workers.html) 的支持，包括边缘，在 CDN 边缘组装页面的静态和动态部分（即最接近用户的服务器）和其他任务。
 
 注意：基于 Patrick Meenan 和 Andy Davies 的研究，HTTP/2 [在许多 CDN 上被破坏](https://github.com/andydavies/http2-prioritization-issues#cdns--cloud-hosting-services)，所以我们不应该对那里的性能提升过于乐观。
 

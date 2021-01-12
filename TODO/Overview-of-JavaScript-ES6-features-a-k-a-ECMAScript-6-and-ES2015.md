@@ -138,7 +138,7 @@ console.log(private2); // Uncaught ReferenceError
 
 如果你看一看 jQuery/loadsh 或其他开源项目，你会注意到他们用 IIFE 来避免污染全局环境而且只在全局中定义了诸如 `_`，`$`和`jQuery`。 
 
-在 ES6 上则一目了然，我们可以只用代码块和 `let`，也不再需要使用 IIFE了。
+在 ES6 上则一目了然，我们可以只用代码块和 `let`，也不再需要使用 IIFE 了。
 
 ```
 // ES6

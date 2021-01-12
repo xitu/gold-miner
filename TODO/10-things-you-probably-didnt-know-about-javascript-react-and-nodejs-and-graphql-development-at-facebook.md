@@ -6,7 +6,7 @@
 
 # 10 个你可能不知道的事，关于 Facebook 内部开发环境是如何使用 JavaScript 和 GraphQL 的
 
-最近, 来自 Facebook 的 Lee Byron ([@leebyron](https://hashnode.com/@leebyron)) 在Hashnode上主办了一场 [AMA](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)( Ask Me Anything )。 这里提出了许多有趣的问题，并且 Lee 透露了一些关于 Facebook 如何使用 React 、GraphQL 、和 React Native 的惊人事实与细节。我拜读了他在 AMA 上的回答，思考并总结出了十条有趣的重点。
+最近, 来自 Facebook 的 Lee Byron ([@leebyron](https://hashnode.com/@leebyron)) 在 Hashnode 上主办了一场 [AMA](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)( Ask Me Anything )。 这里提出了许多有趣的问题，并且 Lee 透露了一些关于 Facebook 如何使用 React 、GraphQL 、和 React Native 的惊人事实与细节。我拜读了他在 AMA 上的回答，思考并总结出了十条有趣的重点。
 
 那么，开始吧。
 
@@ -14,7 +14,7 @@
 
 React 一定程度上受到了 [XHP](https://github.com/facebook/xhp-lib) 的启发，来自 Facebook 的 Marcel Laverdet 在2009年创建了此项目，用于模块化 Facebook 的用户界面。详见[这里](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin120uib00edlv533i6d8yd7)。
 
-## Facebook计划用React Native 重写他的移动应用吗？
+## Facebook 计划用 React Native 重写他的移动应用吗？
 
 好吧, 答案是 : _他们已经这样做了_。 有一部分 Facebook 的应用使用了 React Native 构建，也有一部分不是。 详细的答案见这个[讨论](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin6vg5r201wqjh53ne77tao1).
 
@@ -43,7 +43,7 @@ GraphQL 诞生于2012年，当时 Lee 正在 IOS 组致力于 News Feed 。 当�
 
 ## Facebook 正在什么场景使用 GraphQL ？
 
-Facebook的 Android 和 IOS 应用 几乎全部依赖于 GraphQL 支持。 在一些情况下, 如Ads Manager，整个应有都在使用 Relay + GraphQL 。
+Facebook 的 Android 和 IOS 应用 几乎全部依赖于 GraphQL 支持。 在一些情况下, 如 Ads Manager，整个应有都在使用 Relay + GraphQL 。
 
 是的, Facebook 重度依赖 SSR 。尽管如此，Lee 说他们很少有在服务器使用 React 渲染组件的场景。这个主要取决于他们的服务器环境。
 
@@ -52,6 +52,6 @@ Facebook的 Android 和 IOS 应用 几乎全部依赖于 GraphQL 支持。 在�
 Lee 说他们有许多客户端的工具由 Javascript 编写并通过 Node 运行。[remodel](https://github.com/facebook/remodel) 就是这样一个通过 npm 安装的工具.他们所有的 IOS 和 android 上的内部 GraphQL 客户端工具都在使用 Node 。但是他们在服务器端使用 Node 并不多，因为迄今都没有一个强烈的需求。 即使某一天他们想在服务器端使用 Javascript (例如：在服务器上渲染 React )，他们也会直接使用 V8 引擎而非 Node 。
 
 ## Falcor (by Netflix) 对比 GraphQL 如何？
-据 Lee 所说, 两个工具都在尝试解决类似的问题。当 GraphQL 团队第一次听说 Falcor 时，他们与 Netflix 团队见了一面并交换了一些想法。虽然如此，Falcor 与GraphQL 之间还是有许多区别的。阅读 [此处](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cinj7lim4002lid53x47g060n) 的回答可以知道更多。
+据 Lee 所说, 两个工具都在尝试解决类似的问题。当 GraphQL 团队第一次听说 Falcor 时，他们与 Netflix 团队见了一面并交换了一些想法。虽然如此，Falcor 与 GraphQL 之间还是有许多区别的。阅读 [此处](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cinj7lim4002lid53x47g060n) 的回答可以知道更多。
 
 我希望你能喜欢这份非常简短的总结。 详细的回答与讨论请移步 [AMA 页面](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)。

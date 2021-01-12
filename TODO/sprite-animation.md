@@ -85,7 +85,7 @@ TimelineMax 提供一个很方便的方法定义我们如何更新背景位置�
 
     var finalPosition = '-' + (frameWidth * totalFrames) + 'px 0px';
 
-然后创建TimelineMax 和 SteppedEase 的实例，定义我们的时间轴将耗费多少帧
+然后创建 TimelineMax 和 SteppedEase 的实例，定义我们的时间轴将耗费多少帧
 
     var svgTL = new TimelineMax() 
     var svgEase = new SteppedEase(totalFrames)

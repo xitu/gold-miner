@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/easy-coroutines-in-android-viewmodelscope.md](https://github.com/xitu/gold-miner/blob/master/TODO1/easy-coroutines-in-android-viewmodelscope.md)
 > * 译者：[twang1727](https://github.com/twang1727)
 
-# Android中的简易协程：viewModelScope
+# Android 中的简易协程：viewModelScope
 
 ![](https://cdn-images-1.medium.com/max/2560/1*8Dyf1lQkPqZa08juZk6lKw.png)
 
@@ -14,7 +14,7 @@
 
 **声明**：`viewModelScope` 将会在尚在 alpha 阶段的 AndroidX Lifecycle v2.1.0 中引入。正因为在 alpha 阶段，API 可能会更改，可能会有 bug。点[这里](https://issuetracker.google.com/issues?q=componentid:413132)报错。
 
-### ViewModel的作用域
+### ViewModel 的作用域
 
 [CoroutineScope](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/) 会跟踪所有它创建的协程。因此，当你取消一个作用域的时候，所有它创建的协程也会被取消。当你在 [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) 中运行协程的时候这一点尤其重要。如果你的 ViewModel 即将被销毁，那么它所有的异步工作也必须被停止。否则，你将浪费资源并有可能泄漏内存。如果你觉得某项异步任务应该在 ViewModel 销毁后保留，那么这项任务应该放在应用架构的较低一层。
 
@@ -31,7 +31,7 @@ class MyViewModel : ViewModel() {
     
     /**
      * 这是 MainViewModel 启动的所有协程的主作用域。
-     * 因为我们传入了 viewModelJob，你可以通过调用viewModelJob.cancel() 
+     * 因为我们传入了 viewModelJob，你可以通过调用 viewModelJob.cancel() 
      * 来取消所有 uiScope 启动的协程。
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -95,9 +95,9 @@ implementation “androidx.lifecycle.lifecycle-viewmodel-ktx$lifecycle_version�
 
 我们来看一下底层是如何实现的。
 
-###  深入viewModelScope
+###  深入 viewModelScope
 
-[AOSP有分享](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt)的代码。`viewModelScope` 是这样实现的：
+[AOSP 有分享](https://android.googlesource.com/platform/frameworks/support/+/refs/heads/androidx-master-dev/lifecycle/viewmodel/ktx/src/main/java/androidx/lifecycle/ViewModel.kt)的代码。`viewModelScope` 是这样实现的：
 
 ```
 private const val JOB_KEY = "androidx.lifecycle.ViewModelCoroutineScope.JOB_KEY"

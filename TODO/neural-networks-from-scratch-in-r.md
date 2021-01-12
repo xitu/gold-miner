@@ -23,7 +23,7 @@ Andrej Karpathy 在 CS231n 课程中[这样说道](https://medium.com/@karpathy/
     model.compile(loss=’categorical_crossentropy’, optimizer=RMSprop())
     model.fit()
 
-Karpathy教授,将“智力上的好奇”或者“你可能想要晚些提升核心算法”的论点抽象出来，认为计算实际上是一种[泄漏抽象](https://en.wikipedia.org/wiki/Leaky_abstraction)（译者注：“抽象泄漏”是软件开发时，本应隐藏实现细节的抽象化不可避免地暴露出底层细节与局限性。抽象泄露是棘手的问题，因为抽象化本来目的就是向用户隐藏不必要公开的细节--维基百科）：
+Karpathy 教授,将“智力上的好奇”或者“你可能想要晚些提升核心算法”的论点抽象出来，认为计算实际上是一种[泄漏抽象](https://en.wikipedia.org/wiki/Leaky_abstraction)（译者注：“抽象泄漏”是软件开发时，本应隐藏实现细节的抽象化不可避免地暴露出底层细节与局限性。抽象泄露是棘手的问题，因为抽象化本来目的就是向用户隐藏不必要公开的细节--维基百科）：
 
 >“人们很容易陷入这样的误区中-认为你可以简单地将任意的神经层组合在一起然后反向传播算法会‘令它们自己在你的数据上工作起来’。”
 
@@ -171,7 +171,7 @@ GD 仅仅使用了 [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_
 ![](https://cdn-images-1.medium.com/max/800/1*iJWZqkYxBTXwyotU2daAmQ.jpeg)
 
 要想知道为什么-记住对于二项分类（如之前的例子）我们有两个类别：j = 2，在每个类别是互斥的，a1 + a2 = 1 且 y 是[一位有效编码（one-hot）](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)所以 y1+y2=1，我们可以将通用公式重写为：
-（译者注：one-hot是将分类的特征转化为更加适合分类和回归算法的数据格式（Quora-Håkon Hapnes Strand），[中文资料可见此](http://blog.csdn.net/google19890102/article/details/44039761)）
+（译者注：one-hot 是将分类的特征转化为更加适合分类和回归算法的数据格式（Quora-Håkon Hapnes Strand），[中文资料可见此](http://blog.csdn.net/google19890102/article/details/44039761)）
 
 ![](https://cdn-images-1.medium.com/max/800/1*M_zxupHutdBfXE0pg_ZkRg.jpeg)
 
@@ -195,7 +195,7 @@ GD 仅仅使用了 [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_
 
 如果将神经网络看作两个东西的结合会很有用：1）很多的逻辑回归堆叠在一起形成‘特征生成器’ 2）一个 softmax 回归函数构成的单个读出层。近来深度学习的成功可归功于‘特征生成器’。例如：在以前的计算机视觉领域，我们需要痛苦地声明我们需要找到各种长方形，圆形，颜色和结合方式（与经济学家们如何决定哪些相互作用需要用于线性回归中相似）。现在，隐藏层是对决定哪个特征（哪个‘相互作用’）需要提取的优化器。很多的深度学习实际上是通过用一个训练好的模型，去掉读出层，然后用那些特征作为输入（或者是促进决策树（boosted decision-trees））来生成的。
 
-隐藏层同时也意味着我们的损失函数在参数中不是一个凸函数，我们不能够通过一个平滑的山坡来到达底部。我们会用随机梯度下降（SGD）而不是梯度下降（GD），不像我们之前在逻辑回归中做的一样，这样基本上在每一次小批量（mini-batch）（比观察总数小很多）被在神经网络中传播后都会重编观察（随机）并更新梯度。[这里](http://sebastianruder.com/optimizing-gradient-descent)有很多 SGD 的替代方法，Sebastian Ruder 为我们做了很多工作。我认为这确实是个迷人的话题，不过却超出这篇博文所讨论的范围了，很遗憾。简要来讲，大多数优化方法是一阶的（包括 SGD，Adam，RMSprop和 Adagrad）因为计算二阶函数的计算难度过高。然而，一些一阶方法有一个固定的学习频率（SGD）而有一些拥有适应性学习频率（Adam），这意味着我们通过成为损失函数所更新权重的‘数量’-将会在开始有巨大的变化而随着我们接近目标而逐渐变小。
+隐藏层同时也意味着我们的损失函数在参数中不是一个凸函数，我们不能够通过一个平滑的山坡来到达底部。我们会用随机梯度下降（SGD）而不是梯度下降（GD），不像我们之前在逻辑回归中做的一样，这样基本上在每一次小批量（mini-batch）（比观察总数小很多）被在神经网络中传播后都会重编观察（随机）并更新梯度。[这里](http://sebastianruder.com/optimizing-gradient-descent)有很多 SGD 的替代方法，Sebastian Ruder 为我们做了很多工作。我认为这确实是个迷人的话题，不过却超出这篇博文所讨论的范围了，很遗憾。简要来讲，大多数优化方法是一阶的（包括 SGD，Adam，RMSprop 和 Adagrad）因为计算二阶函数的计算难度过高。然而，一些一阶方法有一个固定的学习频率（SGD）而有一些拥有适应性学习频率（Adam），这意味着我们通过成为损失函数所更新权重的‘数量’-将会在开始有巨大的变化而随着我们接近目标而逐渐变小。
 
 需要弄清楚的一点是，最小化训练数据上的损失并非我们的主要目标-理论上我们希望最小化‘不可见的’（测试）数据的损失；因此所有的优化方法都代表着已经一种假设之下，即训练数据的的低损失会以同样的（损失）分布推广至‘新’的数据。这意味着我们可能更青睐于一个有着更高的训练数据损失的神经网络；因为它在验证数据上的损失很低（即那些未曾被用于训练的数据）-我们则会说该神经网络在这种情况下‘过度拟合’了。这里有一些近期的[论文](https://arxiv.org/abs/1705.08292)声称，他们发现了很多很尖的最小值点，所以适应性优化方法并不像 SGD 一样能够很好的推广。（译者注：即算法在一些验证数据中表现地出奇的差）
 
@@ -320,7 +320,7 @@ GD 仅仅使用了 [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_
 
 ![](https://cdn-images-1.medium.com/max/800/1*1-jeLcRrMSoUEL9YTMYpCw.jpeg)
 
-在这里，我们只会简单地测试卷积神经网络（CNN）中的**正向传播**。CNN 首次受到关注是因为1998年的[LeCun的精品论文](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)。自此之后，CNN 被证实是在图像、声音、视频甚至文字中最好的算法。
+在这里，我们只会简单地测试卷积神经网络（CNN）中的**正向传播**。CNN 首次受到关注是因为1998年的[LeCun 的精品论文](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)。自此之后，CNN 被证实是在图像、声音、视频甚至文字中最好的算法。
 
 图像识别开始时是一个手动的过程，研究者们需要明确图像的哪些比特（特征）对于识别有用。例如，如果我们希望将一张图片归类进‘猫’或‘篮球’，我们可以写一些代码提取出颜色（如篮球是棕色）和形状（猫有着三角形耳朵）。这样我们或许就可以在这些特征上跑一个线性回归，来得到三角形个数和图像是猫还是树的关系。这个方法很受图片的大小、角度、质量和光线的影响，有很多问题。[规模不变的特征变换(SIFT)](https://en.wikipedia.org/wiki/Scale-invariant_feature_transform) 在此基础上做了大幅提升并曾被用来对一个物体提供‘特征描述’，这样可以被用来训练线性回归（或其他的关系型学习器）。然而，这个方法有个一成不变的规则使其不能被为特定的领域而优化。
 

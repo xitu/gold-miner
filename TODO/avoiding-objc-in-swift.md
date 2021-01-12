@@ -6,12 +6,12 @@
 
 # iOS 开发者在 Swift 中应避免过度使用
 
-就在前几天，我终于把项目迁移到了Swift2.2，在使用[SE-0022](https://github.com/apple/swift-evolution/blob/master/proposals/0022-objc-selectors.md)建议的`#selector`语句时，我遇到了一些问题。如果在protocol extension中使用`#selector`，这个protocol必须添加`@Objc`修饰符。而之前的`Selector("method:")`语句则不需要添加。
+就在前几天，我终于把项目迁移到了 Swift2.2，在使用[SE-0022](https://github.com/apple/swift-evolution/blob/master/proposals/0022-objc-selectors.md)建议的`#selector`语句时，我遇到了一些问题。如果在 protocol extension 中使用`#selector`，这个 protocol 必须添加`@Objc`修饰符。而之前的`Selector("method:")`语句则不需要添加。
 
 
 ### 通过协议的扩展配置视图控制器
 
-为了达到本文的目的，我简化了工作中项目的代码，但所有核心的思想都保留着。一种我经常在swift里用的模式是：为了重用的配置写protocols(协议)和extensions(扩展)，特别是有Uikit的时候
+为了达到本文的目的，我简化了工作中项目的代码，但所有核心的思想都保留着。一种我经常在 swift 里用的模式是：为了重用的配置写 protocols(协议)和 extensions(扩展)，特别是有 Uikit 的时候
 
 假设我们有一组视图控制器，每个控制器都需要一个 view model 和 一个“取消”按钮。每一个控制器需要各自响应
 “cancel”按钮的点击事件。我们可以这样写：
@@ -91,25 +91,25 @@
 
 ### 当`@objc`试图破坏所有的东西
 
-因为一系列的原因， 在原始的`ViewControllerType`协议中，我们并不能简单的给这个方法添加一个`@objc`修饰符。如果我们这么做了，那么所有的protocol都需要用`@objc`来标记，这将意味着：
+因为一系列的原因， 在原始的`ViewControllerType`协议中，我们并不能简单的给这个方法添加一个`@objc`修饰符。如果我们这么做了，那么所有的 protocol 都需要用`@objc`来标记，这将意味着：
 
-*   所有这个protocol的父protocol都需要用`@objc`来标记。
-*   所有继承自这个protocol的protocol都会被自动添加`@objc`。
-*   我们在protocol中的结构体(`ViewModel`)不能用Objective-C来表示。
+*   所有这个 protocol 的父 protocol 都需要用`@objc`来标记。
+*   所有继承自这个 protocol 的 protocol 都会被自动添加`@objc`。
+*   我们在 protocol 中的结构体(`ViewModel`)不能用 Objective-C 来表示。
 
-到目前，`@objc`在这里的唯一功能就是定义了一个普通的target-action selectors。尽管我们可以使用swift的强大功能，但是因为Cocoa依然贯穿我们的代码[Cocoa all the way down](http://inessential.com/2016/05/25/oldie_complains_about_the_old_old_ways)，我们并没有正真的在写纯粹的swift - 除非我们开始在各个地方引入@objc。
+到目前，`@objc`在这里的唯一功能就是定义了一个普通的 target-action selectors。尽管我们可以使用 swift 的强大功能，但是因为 Cocoa 依然贯穿我们的代码[Cocoa all the way down](http://inessential.com/2016/05/25/oldie_complains_about_the_old_old_ways)，我们并没有正真的在写纯粹的 swift - 除非我们开始在各个地方引入@objc。
 
-我们在这的例子很简单，但是想象一下更复杂的类依赖关系图，大量使用Swift的值类型和当这个协议处在多个协议的中间层时。把引入`@objc`作为解决方案真是app的末日。如果我们这样做，`@objc`这种做法会让我们的Swift代码毫无美感并变得乱糟糟。这会毁了所有的东西。
+我们在这的例子很简单，但是想象一下更复杂的类依赖关系图，大量使用 Swift 的值类型和当这个协议处在多个协议的中间层时。把引入`@objc`作为解决方案真是 app 的末日。如果我们这样做，`@objc`这种做法会让我们的 Swift 代码毫无美感并变得乱糟糟。这会毁了所有的东西。
 
 但是希望还是有的。
 
 ### 不使用`@objc`来避免乱糟糟
 
-我们大可不必让为了让我们的Swifit代码能使用Objcetive-C的语法而使用`@objc`。
+我们大可不必让为了让我们的 Swifit 代码能使用 Objcetive-C 的语法而使用`@objc`。
 
-我们可以把protocol分解成多个protocol来去除`@objc`，然后我们再重组这些protocol。事实上，我们可以让编译器顺利编译和避免更改任何视图控制器的代码。
+我们可以把 protocol 分解成多个 protocol 来去除`@objc`，然后我们再重组这些 protocol。事实上，我们可以让编译器顺利编译和避免更改任何视图控制器的代码。
 
-第一步，我们把protocol拆成2个。`ViewModelConfigurable` 和 `NavigationItemConfigurable`。把`ViewControllerType `里的extension放到`NavigationItemConfigurable`。
+第一步，我们把 protocol 拆成2个。`ViewModelConfigurable` 和 `NavigationItemConfigurable`。把`ViewControllerType `里的 extension 放到`NavigationItemConfigurable`。
 
 
     protocol ViewModelConfigurable {
@@ -122,18 +122,18 @@
 
 
 
-最终，我们可以把原`ViewControllerType` protocol定义成`typealias`。
+最终，我们可以把原`ViewControllerType` protocol 定义成`typealias`。
 
 
     typealias ViewControllerType = protocol<ViewModelConfigurable, NavigationItemConfigurable>
 
 
 
-和迁移到Swift2.2之前比一切都很正常，而且我们定义的原视图控制器也没有发生任何改变，没有东西被破坏。如果你曾经遇到类似的情况，或者你也想阻止`@objc`带来的破坏（你应该这么做），我强烈建议采用这个策略。
+和迁移到 Swift2.2之前比一切都很正常，而且我们定义的原视图控制器也没有发生任何改变，没有东西被破坏。如果你曾经遇到类似的情况，或者你也想阻止`@objc`带来的破坏（你应该这么做），我强烈建议采用这个策略。
 
 ### 这并不是显而易见的
 
 
-现在的代码，我还是觉得有点不爽，当然，针对这个问题，这就是最Swift化的答案。当Xcode突然开始提示你并且很快的应用它的修复方案依然会把所有都破坏掉。特别是当Xcode提供的修复方案正中你下怀的时候，这个时候，上面说的到的这类解决方案并不能立即很清楚。
+现在的代码，我还是觉得有点不爽，当然，针对这个问题，这就是最 Swift 化的答案。当 Xcode 突然开始提示你并且很快的应用它的修复方案依然会把所有都破坏掉。特别是当 Xcode 提供的修复方案正中你下怀的时候，这个时候，上面说的到的这类解决方案并不能立即很清楚。
 
 最后，在做了以上那些更改之后，我意识到总的来说这其实是一个很好的解决方案。。没有什么理由在一个地方只用一个协议。像`ViewModelConfigurable` 和 `NavigationItemConfigurable`这两个协议分工明确。把不同的协议组合在一起始终都是最优雅、最适当的设计。

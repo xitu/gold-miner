@@ -31,7 +31,7 @@ Flutter 是基于 Dart 编程语言来做开发的，同时 Flutter 的开放社
 ```dart
 import 'package:http/http.dart' as http;
 
-# POST请求
+# POST 请求
 var url = 'https://example.com/whatsit/create';
 var data = {'name': 'Jack', 'age': 38};
 
@@ -40,7 +40,7 @@ var response = await http.post(url, body: data);
 print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
 
-# GET请求
+# GET 请求
 print(await http.read('https://example.com/foobar.txt'));
 ```
 
@@ -56,7 +56,7 @@ print(await http.read('https://example.com/foobar.txt'));
 
 这个插件自带有很多开箱即用的特性，同时这不限制开发者对其进行个性化的定制，以下是其主要特性：
 
-* 接受primary（左/上）和secondary（右/下）窗口小部件列表作为操作列表
+* 接受 primary（左/上）和 secondary（右/下）窗口小部件列表作为操作列表
 * 滑动状态可以取消
 * 内建有四个操作按钮位
 * 内建有两个滑动部件
@@ -210,7 +210,7 @@ p.join('directory', 'file.txt');
 仓库地址：[https://pub.dev/packages/location](https://pub.dev/packages/location)
 支持平台：iOS、Android、Web、MacOS
 
-手机的一大优点是它的便携性与精确定位能力相结合，这一能力已经为我们创造了非常多的应用。这款location定位插件使得定位用户当前位置变得更新简单轻松。它既支持监听用户定位改变的回调，又提供了 API 接口以便在适当时机向系统申请用户地址访问权限。
+手机的一大优点是它的便携性与精确定位能力相结合，这一能力已经为我们创造了非常多的应用。这款 location 定位插件使得定位用户当前位置变得更新简单轻松。它既支持监听用户定位改变的回调，又提供了 API 接口以便在适当时机向系统申请用户地址访问权限。
 
 ![ Flutter 应用中使用 location 插件示例图片 ([访问源码](https://pub.dev/packages/location))](https://cdn-images-1.medium.com/max/2000/1*8QvqbmxMjOoj9aOsbjRbiw.gif)
 

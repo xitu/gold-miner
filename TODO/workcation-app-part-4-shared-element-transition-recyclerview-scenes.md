@@ -38,9 +38,9 @@ GIF 1 **“动画效果”**
 
 1. 在点击底部菜单栏最右方的菜单后，我们会跳转到一个新界面。在此界面中，地图通过缩放和渐显的转场动画在屏幕上方加载，Recycleview 的 item 随着转场动画从底部加载，地图上的标记点在转场动画执行的同时被添加到地图上.
 
-2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里的位置。)
+2. 当滑动底部的 RecycleView item 的时候，地图上的标记会通过闪烁来显示它们的位置(译者注：原文是 show their **position** on the map，个人认为 position 有两层含义：一代表标记在地图上的位置，二代表标记所对应的 item 在 RecycleView 里的位置。)
 
-3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
+3. 在点击一个 item 以后，我们会进入到新界面。在此界面中，地图通过动画方式来显示出路径以及起始/结束标记。同时此 RecyclerView 的 item 会通过转场动画展示一些关于此地点的描述，背景图片也会放大，还附有更详细的信息和一个按钮。
 
 4. 当后退时，详情页通过转场变成普通的 RecycleView Item，所有的地图标记再次显示，同时路径一起消失。
 
@@ -48,11 +48,11 @@ GIF 1 **“动画效果”**
 
 # 需求
 
-好吧，我们已经看过上面的GIF了。在点击了RecycleView 的 item 以后，我们进入了详情页面，上面显示了旅行目的地的一些信息。这确实是一个共享元素的转场动画：view 和 Textview 同时改变自身的大小、填充详情内容，含有红色按钮的详情介绍从底部向上滑动显示。多亏了转场动画框架（Transition Framework），我们可以用代码实现这种酷炫的动画效果。
+好吧，我们已经看过上面的 GIF 了。在点击了 RecycleView 的 item 以后，我们进入了详情页面，上面显示了旅行目的地的一些信息。这确实是一个共享元素的转场动画：view 和 Textview 同时改变自身的大小、填充详情内容，含有红色按钮的详情介绍从底部向上滑动显示。多亏了转场动画框架（Transition Framework），我们可以用代码实现这种酷炫的动画效果。
 
 我最初的想法和 90%的 网上设计一样 —— 声明一个 activities 之间的共享元素转场动画（Shared Element Transition）。然而让我们看一下地图，详情布局下面还有一个动画 —— 绘制路径同时地图缩放至特定位置。所以创建另一个背景透明 activity 并试图在此 activity 上绘制地图的动画效果的做法是不合适的。
 
-我第二个想法是创建一个 fragment 之间的共享元素转场动画（Shared Element Transition）—— 将 DetailsFragment 添加在顶端，在两个 view 之间添加一个转场动画 —— 就是 RecycleView 的 item 和 DetailFragment 的容器。这么做是更好一些 —— 但是对我来说，又是同样的屏幕啊、fragment什么的，有所不同的只是最上层又添了一层布局。那么，有满足我需求的办法吗？
+我第二个想法是创建一个 fragment 之间的共享元素转场动画（Shared Element Transition）—— 将 DetailsFragment 添加在顶端，在两个 view 之间添加一个转场动画 —— 就是 RecycleView 的 item 和 DetailFragment 的容器。这么做是更好一些 —— 但是对我来说，又是同样的屏幕啊、fragment 什么的，有所不同的只是最上层又添了一层布局。那么，有满足我需求的办法吗？
 
 当然有！自从 Android 4.4 以来（Workcation App 的 SDK 是 Android 5.0 以上的版本）我们就有了这么一个选择 —— 场景（Scenes）！当使用转场框架（Transition Framework）的时候，它们确实很勥。我们可以用非常精妙的方式管理用户界面。最重要的是 —— 完全符合我们的需求！看看它是怎么实现的吧!
 
@@ -72,7 +72,7 @@ BaliPlacesAdapter(OnPlaceClickListener listener,Context context){
 }
 ```
 
-接着在 **onBindViewHolder** 方法中，点击 RecycleView item 以后触发 *onPlaceClicked*。我们简单的通过给item 设置 **onClickListener** 来实现：
+接着在 **onBindViewHolder** 方法中，点击 RecycleView item 以后触发 *onPlaceClicked*。我们简单的通过给 item 设置 **onClickListener** 来实现：
 
 ```
 @Override
@@ -152,7 +152,7 @@ static class BaliViewHolder extends RecyclerView.ViewHolder{
 }
 ```
 
-含有有 RecycleView 和 Map 的DetailsFragment 实现了 OnPlaceClickListener 接口。让我们看一下具体的 **onPlaceClicked** 方法：
+含有有 RecycleView 和 Map 的 DetailsFragment 实现了 OnPlaceClickListener 接口。让我们看一下具体的 **onPlaceClicked** 方法：
 
 ```
 Java
@@ -444,7 +444,7 @@ public class TransitionBuilder{
 }
 ```
 
-好了，现在我们可以开始编写 ShowDetailsTransitionSet 了，正是这个类实现了酷炫的转场效果。在构造函数中，我们传递了一个上下文对象，转场名 —— 就是以 RecyclerView 的 item 的位置命名的那个，转场开始的View对象以及转场结束的DetailsLayout。我们还调用了 **addTransition** 方法，通过该方法传递了通过 TransitionBuilder 的具体的方法 —— *textResize(), slide()* 和 *shared()* —— 创建的转场动画。
+好了，现在我们可以开始编写 ShowDetailsTransitionSet 了，正是这个类实现了酷炫的转场效果。在构造函数中，我们传递了一个上下文对象，转场名 —— 就是以 RecyclerView 的 item 的位置命名的那个，转场开始的 View 对象以及转场结束的 DetailsLayout。我们还调用了 **addTransition** 方法，通过该方法传递了通过 TransitionBuilder 的具体的方法 —— *textResize(), slide()* 和 *shared()* —— 创建的转场动画。
 
 ```
 Java
@@ -546,11 +546,11 @@ class ShowDetailsTransitionSet extends TransitionSet{
 
 所以，总结一下上面做的事情。
 
-1. 让RecyclerView item 的标题执行了 SharedElementTransition 中的 [TextResize](https://github.com/googlesamples/android-unsplash/blob/master/app/src/main/java/com/example/android/unsplash/transition/TextResize.java)  动画（这是一个特定的项目,[这里](https://www.youtube.com/watch?v=4L4fLrWDvAU)有详细解释）。
+1. 让 RecyclerView item 的标题执行了 SharedElementTransition 中的 [TextResize](https://github.com/googlesamples/android-unsplash/blob/master/app/src/main/java/com/example/android/unsplash/transition/TextResize.java)  动画（这是一个特定的项目,[这里](https://www.youtube.com/watch?v=4L4fLrWDvAU)有详细解释）。
 
 2. 整个布局执行了一个滑动的转场动画，实现了某种意义上的延迟加载。
 
-3. RecycleView 的item 的标题和内容有一个共享元素转场动画（Shared Element Transition），它实现了Android 框架默认的转场动画 —— Move transition。
+3. RecycleView 的 item 的标题和内容有一个共享元素转场动画（Shared Element Transition），它实现了 Android 框架默认的转场动画 —— Move transition。
 ```
 XHTML
 
@@ -743,7 +743,7 @@ class HideDetailsTransitionSet extends TransitionSet{
 ```
 
 在这个项目，我们又一次编写了 **textResize()** 和 **shared()** 。如果你仔细检查两个方法的话，你会发现 TranstionBuilder 有 **link()**
- 方法。这种方法接收了3个参数 —— 源头 view、目标 view 和动画名字。它把转场动画的名字添加给了 源头 View 和目标 view，就像把它指定到了一个转场对象上。所以它用来“连接（link）” 两个view。
+ 方法。这种方法接收了3个参数 —— 源头 view、目标 view 和动画名字。它把转场动画的名字添加给了 源头 View 和目标 view，就像把它指定到了一个转场对象上。所以它用来“连接（link）” 两个 view。
 
 剩下的部分就一样啦，我们又创建了一个场景对象，调用 TransitionManager.**go()** 然后哈利路亚~我们就可以返回之前的状态了。
 

@@ -19,7 +19,7 @@ Android 系统的目的是让用户增强控制权并且让他们简便地使用
 
 [**第三部分： Fragments** — activity 和 fragment 的生命周期](https://medium.com/@JoseAlcerreca/the-android-lifecycle-cheat-sheet-part-iii-fragments-afc87d4f37fd)
 
-它们的图表也提供了 [PDF格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)，以方便查阅。
+它们的图表也提供了 [PDF 格式备忘录](https://github.com/JoseAlcerreca/android-lifecycles)，以方便查阅。
 
 * * *
 

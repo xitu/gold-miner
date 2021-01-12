@@ -44,7 +44,7 @@ composer require the-don-himself/gremlin-ogm
 
 ### 如何使用 Gremlin-OGM
 
-要开始使用 Gremlin-OGM ，我们首先需要在我们的源文件夹中创建一个名为 Graph 的目录，例如 `src/Graph`。在这个目录下，我们需要创建两个不同的目录：一个叫做 Vertices ，另一个叫做 Edges 。这两个目录现在将包含定义我们图表元素的PHP类。
+要开始使用 Gremlin-OGM ，我们首先需要在我们的源文件夹中创建一个名为 Graph 的目录，例如 `src/Graph`。在这个目录下，我们需要创建两个不同的目录：一个叫做 Vertices ，另一个叫做 Edges 。这两个目录现在将包含定义我们图表元素的 PHP 类。
 
 顶点文件夹中的每个类主要使用注释描述顶点标签，关联索引和属性。对于更高级的用例，如果您使用 MongoDB 并拥有一个保存嵌入式文档的类（例如注释集合），则还可以定义最适合的嵌入边缘。
 
@@ -52,7 +52,7 @@ composer require the-don-himself/gremlin-ogm
 
 ### 一个实际的例子：推特
 
-Twitter和图形数据库真的是天生一对。像用户和推文这样的对象可以形成顶点，而诸如 follow ，likes ，tweeted 和 retweets 等操作可以形成边缘。请注意，边缘 `tweeted` 是以这种方式命名的，以避免与顶点 `tweets` 发生冲突。这个简单的模型的图形表示可以如下图所示。
+Twitter 和图形数据库真的是天生一对。像用户和推文这样的对象可以形成顶点，而诸如 follow ，likes ，tweeted 和 retweets 等操作可以形成边缘。请注意，边缘 `tweeted` 是以这种方式命名的，以避免与顶点 `tweets` 发生冲突。这个简单的模型的图形表示可以如下图所示。
 
 ![](https://res.cloudinary.com/dyyck73ly/image/upload/v1517108900/lvd2gsstbh57ebsjikto.png)
 
@@ -311,7 +311,7 @@ php bin/graph twittergraph:schema:create
 
 上述命令将递归遍历我们的 `TwitterGraph/Graph` 目录并查找所有 `@Graph` 注释来构建模型定义。如果发现异常将被抛出;否则，它将启动一个 Graph 事务来一次提交所有属性、边缘和顶点，或者在失败时回滚。
 
-同样的命令也会询问您是否要执行 `dry run`。如果指定，则不会将命令发送到 gremlin 服务器，而是将其转储到您可以检查的 `command.groovy` 文件中。对于Twitter示例，这 26 行是根据您的配置发送或转储的命令（如janusgraph _self 本机）。
+同样的命令也会询问您是否要执行 `dry run`。如果指定，则不会将命令发送到 gremlin 服务器，而是将其转储到您可以检查的 `command.groovy` 文件中。对于 Twitter 示例，这 26 行是根据您的配置发送或转储的命令（如 janusgraph _self 本机）。
 
 ```
 mgmt = graph.openManagement()  
@@ -375,7 +375,7 @@ all your questions, but we listen to all of them!"
 }
 ```
 
-序列化的 PHP 对象现在已经开始在各自的顶点和边缘中形成。但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将PHP `DateTime` 转换为 JanusGraph 所期望的格式。`GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
+序列化的 PHP 对象现在已经开始在各自的顶点和边缘中形成。但是，我们只能将 gremlin 命令作为字符串发送，所以我们仍然需要将对象序列化为命令字符串。我们将使用一个方便命名的类`GraphSerializer` 来执行此操作。将反序列化的对象传递给`GraphSerializer` 的一个实例，该实例将处理复杂的序列化，如剥离新行，添加斜杠，将 PHP `DateTime` 转换为 JanusGraph 所期望的格式。`GraphSerializer` 也优雅地处理 Geopoint 和 Geoshape 序列化。
 
 ```
 // Get Default Serializer
@@ -431,7 +431,7 @@ if (g.V().hasLabel('users').has('users_id',5).hasNext() == true
 
 ### JanusGraph 查询
 
-我们处理了抓取和保存的数据。数据查询也是库帮助完成的。`TheDonHimself\Traversal\TraversalBuilder` 类提供了几乎与 gremlin 完美匹配的本地API。例如，在 TwitterGraph 中获取用户可以实现如下。
+我们处理了抓取和保存的数据。数据查询也是库帮助完成的。`TheDonHimself\Traversal\TraversalBuilder` 类提供了几乎与 gremlin 完美匹配的本地 API。例如，在 TwitterGraph 中获取用户可以实现如下。
 
 ```
 $user_id = 12345;

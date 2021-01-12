@@ -12,7 +12,7 @@
 
 ## 概述
 
-总的来说，我们将会向不同的网络服务(或APIs)发起请求，对响应结果做[反向地理编码](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html)后再聚合展示。![](http://ac-Myg6wSTV.clouddn.com/2442a3bd132f453eb9eb.png)
+总的来说，我们将会向不同的网络服务(或 APIs)发起请求，对响应结果做[反向地理编码](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html)后再聚合展示。![](http://ac-Myg6wSTV.clouddn.com/2442a3bd132f453eb9eb.png)
 
 ## 比较 [Geonames](http://www.geonames.org/) 和 [OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100)
 
@@ -20,7 +20,7 @@
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f5raumu7jtj20gw09ujt1.jpg)
 
-二者用途不同。Geonomes 用于城市/行政区/国家数据，可被用于[地理编码](http://www.geonames.org/export/geonames-search.html)。OpenStreetMap 拥有更加详尽的数据(使用者基本上都可以从 OpenStreetMap 中提取出Geonames数据)，这些数据可被用作地理编码，路线规划以及[这些](http://wiki.openstreetmap.org/wiki/Applications_of_OpenStreetMap)和[基于 OpenStreetMap 的服务](http://wiki.openstreetmap.org/wiki/List_of_OSM-based_services)。
+二者用途不同。Geonomes 用于城市/行政区/国家数据，可被用于[地理编码](http://www.geonames.org/export/geonames-search.html)。OpenStreetMap 拥有更加详尽的数据(使用者基本上都可以从 OpenStreetMap 中提取出 Geonames 数据)，这些数据可被用作地理编码，路线规划以及[这些](http://wiki.openstreetmap.org/wiki/Applications_of_OpenStreetMap)和[基于 OpenStreetMap 的服务](http://wiki.openstreetmap.org/wiki/List_of_OSM-based_services)。
 
 ## 发送给地理位置服务的异步请求
 
@@ -192,7 +192,7 @@ Geonames 数据被导入到3个表中:
 
 ### 设计一个城市周边查询函数
 
-在大多数嵌套 `SELECT` 语句中，我们都确保城市是在以参考点为圆心，以大约23km为半径的区域内，再对结果应用国家过滤器和城市模式过滤器(这两个过滤器均为可选)，最后仅得到接近50个结果。下一步，我们用人口数据对结果重新排序，因为有时候会在较大城市附近有一些区和邻域 <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.4)</sup>，而 Geonames 不会用特定的方式标记他们，我们只是想选出较大的城市而不是一个区域(比如说地理位置服务返回了经纬度信息，该信息可被解析为一个较大城市的地区。于我而言，我比较愿意去把它解析成经纬度相对应的大城市)。我们也创建了一个 gist 索引(`@>` 该符号将会使用 gist 索引 )，用于寻找以参照点为圆心，特定半径范围内的点。这个查询函数接受一个点(以纬度和经度表示)作为输入，返回该输入点相关联的城市，地区和国家。
+在大多数嵌套 `SELECT` 语句中，我们都确保城市是在以参考点为圆心，以大约23km 为半径的区域内，再对结果应用国家过滤器和城市模式过滤器(这两个过滤器均为可选)，最后仅得到接近50个结果。下一步，我们用人口数据对结果重新排序，因为有时候会在较大城市附近有一些区和邻域 <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.4)</sup>，而 Geonames 不会用特定的方式标记他们，我们只是想选出较大的城市而不是一个区域(比如说地理位置服务返回了经纬度信息，该信息可被解析为一个较大城市的地区。于我而言，我比较愿意去把它解析成经纬度相对应的大城市)。我们也创建了一个 gist 索引(`@>` 该符号将会使用 gist 索引 )，用于寻找以参照点为圆心，特定半径范围内的点。这个查询函数接受一个点(以纬度和经度表示)作为输入，返回该输入点相关联的城市，地区和国家。
 
     CREATE INDEX geo_geoname_latlong_idx ON geo_geoname USING gist(ll_to_earth(latitude,longitude));
     CREATE OR REPLACE FUNCTION geo_find_nearest_city_and_region(
@@ -240,7 +240,7 @@ Geonames 数据被导入到3个表中:
 
 ## 总结
 
-我们从系统设计着手，让这个系统可以查询多个Geoip 服务，可以收集这些服务返回的数据对其[聚合](https://en.wikipedia.org/wiki/Aggregate_data)后得到一个更加可靠的结果。我们首先考虑了唯一确定位置的几种方式。随后选取了一种可以在确认位置时消除歧义的方法。第二部分中，我们着眼于构建，存储以及查询PostgreSQL中地理数据的不同方法。然后我们建立了一个视图和函数，用来找出参考点附近的允许我们用来进行反向编码的城市。
+我们从系统设计着手，让这个系统可以查询多个 Geoip 服务，可以收集这些服务返回的数据对其[聚合](https://en.wikipedia.org/wiki/Aggregate_data)后得到一个更加可靠的结果。我们首先考虑了唯一确定位置的几种方式。随后选取了一种可以在确认位置时消除歧义的方法。第二部分中，我们着眼于构建，存储以及查询 PostgreSQL 中地理数据的不同方法。然后我们建立了一个视图和函数，用来找出参考点附近的允许我们用来进行反向编码的城市。
 
 ## 附注:
 

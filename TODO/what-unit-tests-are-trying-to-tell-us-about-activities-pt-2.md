@@ -214,7 +214,7 @@ public class SessionDetailFragmentTest {
 
 ```
 
-这是我能想到的最简单的测试。现在已经有了一些问题，因为 `displaySessionData` 是一个 private 方法，所以我们必须通过public `SessionDetailFragment.displayData` 方法间接测试它。看起来不那么傻逼。不幸的是，我们运行它时，将会得到这个结果：
+这是我能想到的最简单的测试。现在已经有了一些问题，因为 `displaySessionData` 是一个 private 方法，所以我们必须通过 public `SessionDetailFragment.displayData` 方法间接测试它。看起来不那么傻逼。不幸的是，我们运行它时，将会得到这个结果：
 
 ```
 java.lang.NullPointerException

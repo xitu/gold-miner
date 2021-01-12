@@ -216,7 +216,7 @@ Narrator 根本没有显示出 `figure` 的 role。但是，原生元素和 `rol
 
 目前，移动屏幕阅读器不会显示 `figure`，Edge 浏览器也不会，除非与 Narrator（类似）配对使用，或任何浏览器与 NVDA 配对使用。但不要让这些差距阻碍你按照规范的预期使用元素。
 
-随着 Edge 转为 Chromium内核，更好的支持在不久的将来可能成为现实。虽然 NVDA 和移动屏幕阅读器没有声明语义，但内容仍然是可访问的。[把 bug 记录下来](https://github.com/nvaccess/nvda/issues/9177) 是我们目前能为这些漏洞带来改变做的最好的事情。
+随着 Edge 转为 Chromium 内核，更好的支持在不久的将来可能成为现实。虽然 NVDA 和移动屏幕阅读器没有声明语义，但内容仍然是可访问的。[把 bug 记录下来](https://github.com/nvaccess/nvda/issues/9177) 是我们目前能为这些漏洞带来改变做的最好的事情。
 
 感谢大家点击 [Steve Faulkner](https://twitter.com/stevefaulkner) 来评审我的测试并阅读本篇文章。
 

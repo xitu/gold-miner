@@ -43,7 +43,7 @@ EndPointType 协议。
 
 ### HTTP 协议
 
-我们的 **EndPointType** 具有构建整个 endPoint 所需的大量HTTP协议。让我们来探索这些协议的含义。
+我们的 **EndPointType** 具有构建整个 endPoint 所需的大量 HTTP 协议。让我们来探索这些协议的含义。
 
 #### HTTPMethod
 
@@ -173,7 +173,7 @@ buildRequest 方法的代码。
 
 configureParameters 方法的实现。
 
-这个函数负责编码我们的参数。由于我们的API期望所有 **bodyParameters** 是 JSON 格式的，以及 **URLParameters** 是 URL 编码的，我们将相应的参数传递给其指定的编码器即可。如果您正在处理具有不同编码风格的 API，我会建议修改 **HTTPTask** 以获取编码器枚举。这个枚举应该有你需要的所有不同风格的编码器。然后在 configureParameters 里面添加编码器枚举的附加参数。适当地调用枚举并编码参数。
+这个函数负责编码我们的参数。由于我们的 API 期望所有 **bodyParameters** 是 JSON 格式的，以及 **URLParameters** 是 URL 编码的，我们将相应的参数传递给其指定的编码器即可。如果您正在处理具有不同编码风格的 API，我会建议修改 **HTTPTask** 以获取编码器枚举。这个枚举应该有你需要的所有不同风格的编码器。然后在 configureParameters 里面添加编码器枚举的附加参数。适当地调用枚举并编码参数。
 
 #### 添加额外的 header
 

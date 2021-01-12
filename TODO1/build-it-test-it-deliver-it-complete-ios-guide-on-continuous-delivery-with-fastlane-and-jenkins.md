@@ -222,7 +222,7 @@ importCertificate(
 )
 ```
 
-keychainName是你的钥匙串的名称，默认名称是『登录』。**keychainPassword** 是你钥匙串的密码，fastlane 使用它来解锁你的钥匙串。由于我们将 Fastfile.swift 提交到仓库以确保交付代码在每台计算机中都是一致的，因此在 Fastfile.swift 中将密码写为字符串文字可不是一个好主意。因此，我们使用环境变量来替换字符串文字。在系统中，我们用这个方式来保存环境变量：
+keychainName 是你的钥匙串的名称，默认名称是『登录』。**keychainPassword** 是你钥匙串的密码，fastlane 使用它来解锁你的钥匙串。由于我们将 Fastfile.swift 提交到仓库以确保交付代码在每台计算机中都是一致的，因此在 Fastfile.swift 中将密码写为字符串文字可不是一个好主意。因此，我们使用环境变量来替换字符串文字。在系统中，我们用这个方式来保存环境变量：
 
 ```
 export KEYCHAIN_NAME=”KEYCHAIN_NAME”;
@@ -298,7 +298,7 @@ bundle exec fastlane developerRelease
 
 ### Jenkins 今晚将为你服务
 
-Jenkins是一个自动化服务器，可帮助你执行 CI 与 CD 任务。它运行一个 Web GUI 界面，并且很容易定制，所以它对于敏捷团队来说是一个很好的选择。Jenkins 在我们项目中的规则如图所示：
+Jenkins 是一个自动化服务器，可帮助你执行 CI 与 CD 任务。它运行一个 Web GUI 界面，并且很容易定制，所以它对于敏捷团队来说是一个很好的选择。Jenkins 在我们项目中的规则如图所示：
 
 ![](https://cdn-images-1.medium.com/max/800/0*9grv9Y-KdYv5vHGk.)
 

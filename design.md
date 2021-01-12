@@ -144,8 +144,8 @@
 * [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第二部分](http://gold.xitu.io/entry/574eb491d342d300434cec1c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[zhangzhaoqi](https://github.com/joddiy) 翻译）
 * [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第一部分](http://gold.xitu.io/entry/574d062b2e958a0069335d8e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Sausure](https://github.com/Sausure) 翻译）
 * [我是如何为 Mac 应用 Flinto 设计 UI 图标的](http://gold.xitu.io/entry/57315d571ea4930064f6bd45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[edvardHua](https://github.com/edvardHua) 翻译）
-* [下拉菜单为何是一种不好的用户体验？](http://gold.xitu.io/entry/573154c249830c0061bdc180?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[邵辉Vista](https://github.com/shaohui10086) 翻译）
-* [Sketch的过去现在和未来](http://gold.xitu.io/entry/5721e59771cfe40057521079?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[lfkdsk](https://github.com/lfkdsk) 翻译）
+* [下拉菜单为何是一种不好的用户体验？](http://gold.xitu.io/entry/573154c249830c0061bdc180?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[邵辉 Vista](https://github.com/shaohui10086) 翻译）
+* [Sketch 的过去现在和未来](http://gold.xitu.io/entry/5721e59771cfe40057521079?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[lfkdsk](https://github.com/lfkdsk) 翻译）
 * [为什么我们喜欢丑的、一团糟的界面以及你为什么也要这样](http://gold.xitu.io/entry/57172a4f2e958a0054a8ffcf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[circlelove](https://github.com/circlelove) 翻译）
 * [写给设计师的字偶距调整指南](http://gold.xitu.io/entry/570e5530c4c971005496adc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[cdpath](https://github.com/cdpath) 翻译）
 * [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Adam Shen](https://github.com/shenxn) 翻译）
@@ -157,4 +157,4 @@
 * [Animated SVG vs GIF](http://gold.xitu.io/entry/56cb0c95efa631005c3a50f2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[rainyear](https://github.com/rainyear) 翻译）
 * [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56c7cad1d342d30054334db5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[CaesarPan](https://github.com/CaesarPan) 翻译）
 * [苹果正在带坏整个设计圈](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)（[crackhy](https://github.com/crackhy) 翻译）
-* [Slack如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Boyce Chang](https://github.com/boycechang) 翻译）
+* [Slack 如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)（[Boyce Chang](https://github.com/boycechang) 翻译）

@@ -5,7 +5,7 @@
 * 校对者: [void-main](https://github.com/void-main)、[根号三](https://github.com/sqrthree)
 * 状态 :  完成
 
-Web 应用这些年来变得越来越强大，但相比于桌面应用能够完全访问计算机硬件，Web 应用还有一些差距。现在，你能够通过已经熟悉了的HTML、JavaScript 和 Node.js 来创建桌面应用，然后打包成可执行文件，并在 Windows、OS X 和 Linux 上发布它。
+Web 应用这些年来变得越来越强大，但相比于桌面应用能够完全访问计算机硬件，Web 应用还有一些差距。现在，你能够通过已经熟悉了的 HTML、JavaScript 和 Node.js 来创建桌面应用，然后打包成可执行文件，并在 Windows、OS X 和 Linux 上发布它。
 
 目前已经有两个流行的开源项目实现了这个想法。首先是 [NW.js](http://nwjs.io/)，[我们在几个月前讨论过它](http://tutorialzine.com/2015/01/your-first-node-webkit-app/ "Creating Your First Desktop App With HTML, JS and Node-WebKit")；然后是更新一些的 [Electron](http://electron.atom.io/), 也就是我们今天所使用到的（可以在[这里](https://github.com/atom/electron/blob/master/docs/development/atom-shell-vs-node-webkit.md)查看它与 NW.js 的不同之处）。我们将用 Electron 重写旧的 NW.js 版本的应用，这样你就能轻易的对比它们了。
 
@@ -138,7 +138,7 @@ app.on('ready', function() {
 
 ```
 
-这个 HTML 文件同样也引入了所需的 CSS 文件、JS库和其它的脚本。注意，jQuery 需要以一种奇怪的方式引入。更多相关信息可以参考[这里](http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined)。
+这个 HTML 文件同样也引入了所需的 CSS 文件、JS 库和其它的脚本。注意，jQuery 需要以一种奇怪的方式引入。更多相关信息可以参考[这里](http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined)。
 
 最后，这是这个应用实际的 Javascript 文件。在这里面，我们访问 Tutorialzine 的 RSS 源，获取最新的文章并把它们显示出来。直接在浏览器中这样做是没有效果的，因为从不同的域名获取 RSS 订阅是被禁止的（参见[同源策略](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)）。但在 Electron 中并没有这个限制，我们可以通过 AJAX 请求轻松的获取到我们想要的信息。
 
@@ -226,13 +226,13 @@ $(function(){
 
 ### 打包和发布
 
-还有一件重要的事情：让你的应用准备好面对最终的用户。你需要把它打包成一个在用户电脑上双击就可以使用的可执行文件。由于 Electron 应用能够在多个操作系统上运行，每个操作系统又各不相同，所以需要为 Windows、Linux和 OS X 分别打包。使用像这个 npm 模块一样的工具可以很好的帮助你开始 – [Electron Packager](https://github.com/maxogden/electron-packager).
+还有一件重要的事情：让你的应用准备好面对最终的用户。你需要把它打包成一个在用户电脑上双击就可以使用的可执行文件。由于 Electron 应用能够在多个操作系统上运行，每个操作系统又各不相同，所以需要为 Windows、Linux 和 OS X 分别打包。使用像这个 npm 模块一样的工具可以很好的帮助你开始 – [Electron Packager](https://github.com/maxogden/electron-packager).
 
 考虑到要将所有的资源文件、所有需要的 npm 模块、以及一个迷你的 WebKit 浏览器打包进一个可执行文件，所有的这些打包完后（的大小约）有 50MB。对于像这样一个简单的应用来说这是相当大的了，是不现实的。但当我们创建更大、更复杂的应用时，这个问题就变的无关紧要了。
 
 ### 结论
 
-通过我们的例子，你可以看到 NW.js 与 Electron 最主要的不同是：NW.js 直接打开了一个 HTML页面；而 Electron 是通过 JavaScript 文件启动并通过代码来创建应用程序窗口。 Electron 的方式给了你更多控制的权利，你能够轻松地创建多窗口应用程序并组织它们之间的通信。
+通过我们的例子，你可以看到 NW.js 与 Electron 最主要的不同是：NW.js 直接打开了一个 HTML 页面；而 Electron 是通过 JavaScript 文件启动并通过代码来创建应用程序窗口。 Electron 的方式给了你更多控制的权利，你能够轻松地创建多窗口应用程序并组织它们之间的通信。
 
 总而言之 Electron 是一种非常令人激动的通过 Web 技术来创建桌面应用的方式。这是你接下来可能需要阅读的内容：
 

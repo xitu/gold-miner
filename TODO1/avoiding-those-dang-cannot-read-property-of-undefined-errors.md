@@ -87,7 +87,7 @@ const favoriteAudiobook = ((favorites.audio||{}).audiobooks||[])[0]; // undefine
 const favoritePodcast = ((favorites.audio||{}).podcasts||[])[0]; // 'Shop Talk Show'
 ```
 
-与上面的短路例子类似，这个方法通过检查值是否为假来生效。如果值为假，它会尝试取得空对象的属性。在上面的例子中，favorites.reading 的值是 null，所以从一个空对象上获得books属性。这会返回一个 undefined 结果，所以0会被用于获取空数组中的成员。
+与上面的短路例子类似，这个方法通过检查值是否为假来生效。如果值为假，它会尝试取得空对象的属性。在上面的例子中，favorites.reading 的值是 null，所以从一个空对象上获得 books 属性。这会返回一个 undefined 结果，所以0会被用于获取空数组中的成员。
 
 这个方法相较于 `&&` 方法的优势是它避免了属性名的重复。在深层嵌套的对象中，这会成为显著的优势。而主要的缺点在于可读性 — 这不是一个普通的模式，所以这或许需要阅读者花一点时间理解它是怎么运作的。
 

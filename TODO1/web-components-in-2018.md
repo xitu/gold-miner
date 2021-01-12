@@ -214,7 +214,7 @@ attributeChangedCallback(attributeName, oldValue, newValue) {
 
 历史上，Web Component 最大的支持者之一是 Polymer 库。Polymer 针对 Web Component API 添加了一些语法糖使得定义和传递组件变得更加容易。在最新版本 [Polymer](https://www.polymer-project.org/)3 中，它与时俱进用上了 ES2015 的模块特性并且使用 npm 作为标准的包管理工具，跟上了其他的现代框架。Web Component 编码工具的另一种形态则更像是编译器而非框架。[Stencil](https://stenciljs.com/docs/introduction/) 和 [Svelte](https://svelte.technology/guide) 这两个框架就是这样。它们使用各自的工具 API 来书写组件，然后编译成原生的 Web Component。一些框架比如 [Dojo 2,](https://dojo.io/) 则选择允许开发者编写特定框架的组件，不过也允许编译成原生 Web Component 就是了。在 Dojo2 中这是用 [@dojo/cli tools](https://github.com/dojo/cli-build-widget) 来实现的。
 
-努力实现原生的 Web Component 的一个愿景，是希望跨越不同团队不同项目来共用组件，即使它们用的是不同的框架。当下不同的框架和 Web Component 规范有不同的关系，有些更贴近规范有些则不然。已经有一些指引告诉我们怎么在诸如 [React](https://www.sitepen.com/blog/2017/08/08/wrapping-web-components-with-react/) 和 [Angular](https://www.sitepen.com/blog/2017/09/14/using-web-components-with-angular/) 这样的框架中用上原生的 Web Component ，但它们的实现上还是带着浓浓的框架特色。有一个很好的资源可以帮你理解这些关系，那就是 Rod Dodson 的 [Custom Elements Everywhere](https://custom-elements-everywhere.com)，它通过测试用例测出不同框架想和 Custom Element（Web组件规范的核心） 结合的难易程度。
+努力实现原生的 Web Component 的一个愿景，是希望跨越不同团队不同项目来共用组件，即使它们用的是不同的框架。当下不同的框架和 Web Component 规范有不同的关系，有些更贴近规范有些则不然。已经有一些指引告诉我们怎么在诸如 [React](https://www.sitepen.com/blog/2017/08/08/wrapping-web-components-with-react/) 和 [Angular](https://www.sitepen.com/blog/2017/09/14/using-web-components-with-angular/) 这样的框架中用上原生的 Web Component ，但它们的实现上还是带着浓浓的框架特色。有一个很好的资源可以帮你理解这些关系，那就是 Rod Dodson 的 [Custom Elements Everywhere](https://custom-elements-everywhere.com)，它通过测试用例测出不同框架想和 Custom Element（Web 组件规范的核心） 结合的难易程度。
 
 ## 最后的想法
 

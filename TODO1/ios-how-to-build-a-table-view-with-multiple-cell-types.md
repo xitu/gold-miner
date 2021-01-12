@@ -15,7 +15,7 @@
 
 只包含一种内容类型的动态 Cell 的表视图：Cell 的数量和顺序是动态变化的，但所有 Cell 都有相同类型的内容。在这里你可以使用可复用 Cell 。这也是最常见的表视图样式。
 
-包含具有不同内容类型的动态 Cell 的表视图：数量，顺序和 Cel l类型是动态的。实现这种表视图是最有趣和最具挑战性的。
+包含具有不同内容类型的动态 Cell 的表视图：数量，顺序和 Cel l 类型是动态的。实现这种表视图是最有趣和最具挑战性的。
 
 想象一下这个应用程序，你必须构建这样的页面：
 
@@ -69,7 +69,7 @@ if indexPath.row == 0 {
 
 #### 第1部分： Model
 
-首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将ViewController 嵌入到 NavigationController 中，并确保项目能按预期编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
+首先，创建一个新项目，将 TableView 添加到默认的 ViewController 中，ViewController 绑定该 tableView，并将 ViewController 嵌入到 NavigationController 中，并确保项目能按预期编译和运行。这是基本步骤，此处不予介绍。如果你在这部分遇到麻烦，那对你来说深入研究这个话题可能太早了。
 
 你的 ViewController 类应该像这样子：
 
@@ -125,7 +125,7 @@ public func dataFromFile(_ filename: String) -> Data? {
 }
 ```
 
-使用 Data 对象，我们可以初始化 Profile 类。原生或第三方库中有许多不同的方可以在 Swift 中解析JSON，你可以使用你喜欢的那个。我坚持使用标准的 Swift JSONSerialization 库来保持项目的精简，不使用任何第三方库：
+使用 Data 对象，我们可以初始化 Profile 类。原生或第三方库中有许多不同的方可以在 Swift 中解析 JSON，你可以使用你喜欢的那个。我坚持使用标准的 Swift JSONSerialization 库来保持项目的精简，不使用任何第三方库：
 
 ```
 class Profile {
@@ -371,7 +371,7 @@ class ProfileViewModeFriendsItem: ProfileViewModelItem {
 
 对于 _ProfileViewModeAttributeItem_ 和 _ProfileViewModeFriendsItem_，我们可能会有多个 Cell，所以 _RowCount_ 将是相应的 Attributes 数量和 Friends 数量。
 
-这就是数据项所需的全部内容。最后一步是创建 _ViewModel_ 类。这个类可以被任何 _ViewController_ 使用，这也是MVVM结构背后的关键思想之一：你的 _ViewModel_ 对 _View_ 一无所知，但它提供了 _View_ 可能需要的所有数据。
+这就是数据项所需的全部内容。最后一步是创建 _ViewModel_ 类。这个类可以被任何 _ViewController_ 使用，这也是 MVVM 结构背后的关键思想之一：你的 _ViewModel_ 对 _View_ 一无所知，但它提供了 _View_ 可能需要的所有数据。
 
 _ViewModel_拥有的唯一属性是 item 数组，它对应着 _UITableView_ 包含的 section 数组：
 

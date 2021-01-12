@@ -37,7 +37,7 @@
 
 快乐的狗狗
 
-在名为 *DynamicFeaturesInSwift-Starter* 的入门项目代码目录中，你将看到三个 Playground 页面：*DogMirror*、*DogCatcher* 和 *KennelsKeyPath*。Playground 在macOS上运行。本教程与平台无关，仅侧重于 Swift 语言。
+在名为 *DynamicFeaturesInSwift-Starter* 的入门项目代码目录中，你将看到三个 Playground 页面：*DogMirror*、*DogCatcher* 和 *KennelsKeyPath*。Playground 在 macOS 上运行。本教程与平台无关，仅侧重于 Swift 语言。
 
 ## 使用 Mirror 的反射机制与调试输出
 
@@ -416,7 +416,7 @@ print("Dog's speed is \(speed).")
 Dog's speed is 12.
 ```
 
-是不是太棒了。即使你需要访问其他编程语言（如Python），这也是一个强大的功能，可以使代码保持良好状态。如前所述，有一个问题...
+是不是太棒了。即使你需要访问其他编程语言（如 Python），这也是一个强大的功能，可以使代码保持良好状态。如前所述，有一个问题...
 
 ![](https://koenig-media.raywenderlich.com/uploads/2018/06/dog_ears_perk_up2_small.jpg)
 

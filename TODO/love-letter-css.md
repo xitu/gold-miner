@@ -21,7 +21,7 @@
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/css-mug.jpg)
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/css-blinds.gif)
 
-但是今天我要给你们洗洗脑了。我要说服你相信 CSS 是你日常所使用的最好的技术之一，CSS设计精美，每次你打开 `.css` 文件的时候都应该心存感激！
+但是今天我要给你们洗洗脑了。我要说服你相信 CSS 是你日常所使用的最好的技术之一，CSS 设计精美，每次你打开 `.css` 文件的时候都应该心存感激！
 
 我的论点相当简单明了：为构建复杂的用户界面创建一个全面的样式系统是非常困难的，任何 CSS 的替代方案都只会比 CSS 更糟而已。
 

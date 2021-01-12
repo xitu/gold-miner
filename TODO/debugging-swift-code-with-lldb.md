@@ -97,7 +97,7 @@ LLDB 是一个庞大的工具，内置了很多有用的命令。我不会全部
 我会在下列 `expression` 的标志上多停留一会儿：
 
 - `-D <count>` (`--depth <count>`)  — 设置在转储聚合类型时的最大递归深度（默认为无穷大）。
-- `-O` (`--object-description`)  — 如果可能的话，使用指定语言的描述API来显示。
+- `-O` (`--object-description`)  — 如果可能的话，使用指定语言的描述 API 来显示。
 - `-T` (`--show-types`)  — 在转储值的时候显示变量类型。
 - `-f <format>` (`--format <format>`) — 指定一种用于显示的格式。
 - `-i <boolean>` (`--ignore-breakpoints <boolean>`) — 在运行表达式时忽略断点。
@@ -175,7 +175,7 @@ frame #0: 0x000000010bbe4b4d LLDB-Debugger-Exploration`ViewController.valueOfLif
 
 ![](https://cdn-images-1.medium.com/max/1000/1*uLXBPbMvpDGU3Y9ElPQPsA.png)
 
-LLDB 有几个指定语言的命令，包括C++，Objective-C，Swift 和 RenderScript。在这篇文章中，我们重点关注 Swift。这是两个命令：`demangle` 和 `refcount`。
+LLDB 有几个指定语言的命令，包括 C++，Objective-C，Swift 和 RenderScript。在这篇文章中，我们重点关注 Swift。这是两个命令：`demangle` 和 `refcount`。
 
 `demangle` 正如其名字而言，就是用来重组 Swift 类型名的（因为 Swift 在编译的时候会生成类型名来避免命名空间的问题）。如果你想了解多一点的话，我建议你看 WWDC14 的这个分享会 —  [“Advanced Swift Debugging in LLDB”](https://developer.apple.com/videos/play/wwdc2014/410/)。
 

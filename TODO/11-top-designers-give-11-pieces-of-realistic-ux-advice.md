@@ -72,7 +72,7 @@ Mike 最初从事平面设计，之后转而做网站设计。他与 Twitter、�
 
 ### **设计灵感**
 
-[Hipopotam Studio](http://hipopotamstudio.pl)，我喜欢这个网站以及它纯粹的、富有创意和乐趣的UI。
+[Hipopotam Studio](http://hipopotamstudio.pl)，我喜欢这个网站以及它纯粹的、富有创意和乐趣的 UI。
 
 ![image13](https://studio.uxpin.com/wp-content/uploads/2016/02/image13-1024x525.png)
 
