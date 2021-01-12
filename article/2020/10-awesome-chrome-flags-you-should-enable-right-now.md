@@ -29,13 +29,14 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Impulsive-Style Scroll Animations
 
-重建其 Edge 浏览器后，Microsoft 将其自然的滚动运动带到了 Chromium 中。
+重构其 Edge 浏览器后，Microsoft 将其开发的自然滑动运动带到了 Chromium 中。
 
-> "主要理念是，鼠标滚轮的每个"滴答声"都会让浏览器模仿一个现实生活中的操作，在该世界中，内容开始快速滚动，然后由于摩擦而变慢。" —— 微软
+> "鼠标滚轮的每个"滴答声"都会让浏览器模仿一个现实生活中的操作，在该世界中，内容开始快速滚动，然后由于摩擦的作用而减速。" —— 微软
 
 ![chrome://flags/#impulse-scroll-animations](https://cdn-images-1.medium.com/max/2000/0*mTrSM7M_NaV4CUCw.gif)
 
-## Tab Groups 选项卡组（译者注：似乎没了）
+## Tab Groups 选项卡组
+> 译者注：无须再在 chrome://flags 中启用，已默认在 Canary 中启用
 
 选项卡组用于将多个选项卡分组和管理在一起，例如用于合并不同类型的奶酪。
 
