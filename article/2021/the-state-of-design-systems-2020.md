@@ -52,8 +52,8 @@
    
 而大多数受访者（74％）还告诉我们听，说他们的设计系统具有组件代码库。
 
-![图1：组织设计系统中包含的特定工件的响应百分比（465份数据）](https://lh3.googleusercontent.com/AKw04XIMdyldM0BgMh_GSNEgiLaVHxMs0JUqiM8JhrODhtCBcXnOSW5nNUJOGfeihWWStyk_JSYl4_R37hCDRTxuBtxOFgNU7EpR4A=w1064-v0)
-<div style="text-align: center;"><small>图1：组织设计系统中包含的特定工件的响应百分比（465份数据）</small></div>
+![图1：组织设计系统中包含的特定组成部分的百分比（465份数据）](https://lh3.googleusercontent.com/AKw04XIMdyldM0BgMh_GSNEgiLaVHxMs0JUqiM8JhrODhtCBcXnOSW5nNUJOGfeihWWStyk_JSYl4_R37hCDRTxuBtxOFgNU7EpR4A=w1064-v0)
+<div style="text-align: center;"><small>图1：组织设计系统中包含的特定组成部分的百分比（465份数据）</small></div>
 
 这里我们可以获取到两个值得考虑的关键信息 —— 首先，有 75％ 的调查受访者是专注于产品或设计系统的设计工作的。
 
@@ -79,26 +79,25 @@
 
 ## 使用了哪些设计系统？
 
-在去年的调查中，当我们问到"您使用了哪些设计系统？"，选择的前三大设计系统是：Google 的Material Design（28％），内部构建的设计系统（21％）和 Apple 的 Human-Interface
-Guidelines（15％）。
+在去年的调查中，当我们问到"您使用了哪些设计系统？"，选择的前三大设计系统是：Google 的Material Design（28％），内部构建的设计系统（21％）和 Apple 的 Human-Interface Guidelines（HIG）（15％）。
 
-今年，当我们问到"过去两年中您使用了哪些设计系统"时，我们扩展了选项列表，添加了其他设计系统和工具包（例如 Bootstrap 和 Fluent Design）。这有助于我们了解受访者使用的设计系统的范围以及如何使用这些设计系统。
+今年，"过去两年中您使用了哪些设计系统"问题中我们添加了其他的选项 —— 我们添加了其他设计系统和工具包（例如 Bootstrap 和 Fluent Design）。这有助于我们了解受访者使用的设计系统的范围以及如何使用这些设计系统。
 
 在过去两年中，我们的受访者使用的前三大设计系统是：
-
 1. Google 的 Material Design
 2. Apple 的 Human-Interface-Guidelines（HIG）
 3. Bootstrap
-   ![图3：过去两年中使用或尝试过的设计系统选择的百分比（1259 份数据）](https://lh3.googleusercontent.com/el4uqW9Lgy30RRxU91SJyFm_Xaql4D3uXi-EwjeZoElhjR6IVWaUSJzVUXsh5rSRBXFPJ-cEabCh7jmwCx4X68lrFAmJwg8_tMRNcw=w1064-v0)
+   
+![图3：过去两年中使用或尝试过的设计系统选择的百分比（1259 份数据）](https://lh3.googleusercontent.com/el4uqW9Lgy30RRxU91SJyFm_Xaql4D3uXi-EwjeZoElhjR6IVWaUSJzVUXsh5rSRBXFPJ-cEabCh7jmwCx4X68lrFAmJwg8_tMRNcw=w1064-v0)
 
 <div style="text-align: center;"><small>图3：过去两年中使用或尝试过的设计系统选择的百分比（1259 份数据）</small></div>
-在今年的结果中，新增加的选项 Bootstrap 位列 Google 的 Material Design 和 Apple 的HIG之后，在我们的调查结果中排名第三。
+在今年的结果中，新增加的选项 Bootstrap 位列 Google 的 Material Design 和 Apple 的 HIG 之后，在我们的调查结果中排名第三。
 
-当我们考虑到绝大多数（80％）的报告称其组织已经创建了自己的内部设计系统并审查了仅那些受访者使用的不同设计系统时，我们可以得出结论，大多数人将这些设计系统用作在房屋设计系统中影响和告知自己的参考。
+当我们考虑到绝大多数（80％）的报告称其组织已经创建了自己的内部设计系统并查看了那些受访者使用的不同设计系统时，我们可以得出结论，在自己的设计系统的设计中，大多数人都参考和借鉴了这些设计系统。
 
-这进一步证实了去年调查中记录的一项发现："......公司越来越希望开发自己的设计系统，但将使用现成的设计系统作为参考和影响。"<a href="#ref2"><sup>[2]</sup></a>
+这进一步证实了去年调查中记录的一项发现："......公司越来越希望开发自己的设计系统，但将借鉴参考现成的设计系统。"<a href="#ref2"><sup>[2]</sup></a>
 
-## 设计数字产品时使用的顶级工具是什么？
+## 设计数字产品时最多使用的工具是什么？
 
 今年，我们为设计系统创建者和消费者增加了有关工具的几个问题。我们询问了专注于设计工作的受访者，他们使用哪些工具来创建设计。
 
@@ -112,7 +111,7 @@ Guidelines（15％）。
 
 <div style="text-align: center;"><small>图4：选择使用的设计工具的响应百分比（497 份数据）</small></div>
 
-当我们将工具偏好与公司规模进行比较时（参见图 5），Figma 是拥有 500 名以下员工的公司的偏好，而 Sketch 是拥有 10000 名及以上员工的大型跨国公司的首选。
+当我们将工具偏好与公司规模进行比较时（参见图 5），我们发现，大多数拥有 500 名以下员工的公司偏好使用 Figma，而 Sketch 是拥有 10000 名及以上员工的大型跨国公司的首选。
 
 ![图5：选择受访者公司规模所使用的特定设计工具的回应百分比（453 份数据）](https://lh3.googleusercontent.com/wT1mWNKXhtJQEi6dZSiLxApsBEJGiQiHo5HFPD4k4rROyXEiM-I0qlPyPTp3VvxMC7EkqCaya61jRdCiwRo4g9X3Xi2vozP71w1R=w1064-v0)
 <div style="text-align: center;"><small>图5：选择受访者公司规模所使用的特定设计工具的回应百分比（453 份数据）</small></div>
@@ -121,10 +120,9 @@ Guidelines（15％）。
 
 设计与工程之间的交接是产品设计与开发过程中协作与沟通的关键时刻。
 
-在去年的调查中，这种移交被确定为设计领导希望通过使用设计系统来缓解的痛点。今年，我们添加了一个新问题，并向所有受访者询问了用于移交UX文档的工具，以了解有关此设计系统接触点的更多信息。
+在去年的调查中，这种移交被确定为设计领导希望通过使用设计系统来缓解的痛点。今年，我们添加了一个新问题，并向所有受访者询问了用于移交 UX 文档的工具，以了解有关此设计系统接触点的更多信息。
 
 受访者选择的前3种工具是：
-
 1. Figma（26％）
 2. InVision（18％）
 3. Zeplin（13％）
@@ -132,16 +130,16 @@ Guidelines（15％）。
 ![图6：选择使用的移交UX文档工具的响应百分比（451 份数据）](https://lh3.googleusercontent.com/694HlV4aDWOjC3tNxm8q3AWQlDD1upPAjiug9eg-KNBo-MZVM_v2N6vjyZzT8B_5T0JgTseqS5oYXbApoBmMOLW65S3nl7KQtVMZLA=w1064-v0)
 <div style="text-align: center;"><small>图6：选择使用的移交UX文档工具的响应百分比（451 份数据）</small></div>
 
-当我们比较用于将UX文档使用情况的工具与公司规模进行比较时，几乎所有公司规模都选择了 Figma，除了大型公司（大型公司更频繁地使用 InVision）。
+当我们比较用于将UX文档使用情况的工具与公司规模进行比较时，除了大型公司（大型公司更频繁地使用 InVision）以外，几乎所有公司规模都选择了 Figma。
 
 ![图7：被调查者的公司规模所使用的选择特定交接工具的回应百分比（451 份数据）](https://lh3.googleusercontent.com/D2lfas45m1fhpySXuR_YF4ndCSZjlxAWEz7PH3BkKh-PIeMVExEuiuYyv_vYi6QKhg5mCUhkAhuoXKtZTQ_0PB1A6ZPmKWKuNlkOpg=w1064-v0)
 <div style="text-align: center;"><small>图7：被调查者的公司规模所使用的选择特定交接工具的回应百分比（451 份数据）</small></div>
 
 ## 什么是用于管理设计系统的顶级工具？
 
-随着越来越多的组织创建设计系统，用于组织和管理设计系统工件和文档的工具越来越多。
+随着越来越多的组织创建设计系统，用于组织和管理设计系统组成内容和文档的工具越来越多。
 
-在2019年，当我们询问管理设计系统的工具时，选择的顶级工具是Sketch。但是，今年的头把交椅是Figma（25％），其次是Sketch（21％）和Storybook（17％）。
+在2019年，当我们询问管理设计系统的工具时，选择的顶级工具是 Sketch。但是，今年的头把交椅是 Figma（25％），其次是 Sketch（21％）和 Storybook（17％）。
 
 ![图8：选择使用的设计系统管理工具的响应百分比（452 份数据）](https://lh3.googleusercontent.com/sZaXGaLmEClcGscSvw2n4YEr-ITZNOXxp6hcIGQcor7699k0nxdwzdBRmDOGPqg95Ys5GrLTfY_JXX-d_EWiXl-Kl2Qd-AVtQReq=w1064-v0)
 <div style="text-align: center;"><small>图8：选择使用的设计系统管理工具的响应百分比（452 份数据）</small></div>
@@ -152,41 +150,35 @@ Guidelines（15％）。
 <div style="text-align: center;"><small>图9：按受访者公司规模划分的选择设计管理工具的响应百分比（452 份数据）</small></div>
 
 ## 您如何支持设计系统？
-
-随着组织内部设计系统的发展，需要积极的支持来帮助他们发展和成功。今年的调查增加了一个有关团队为支持其设计系统的演变而进行的特定活动的问题。
+随着组织内部设计系统的发展，系统更需要更多的积极支持来帮助他们发展和成功。今年我们的调查增加了一个新的有关团队为支持其设计系统的演变而进行的特定活动的问题。
 
 报告的主要支持活动包括：
-
-1. 个别和重复设计审查（16％）
-2. 入门介绍如何使用组织的设计系统（14％）
-3. 能够针对系统提交错误（13％）
+1. 单人、多次检查设计内容（16％）
+2. 提供有关如何使用组织的设计系统的介绍（14％）
+3. 能够针对错误提交 bug（13％）
 
 ![图10：选择使用的设计系统支持活动的响应百分比（371 份数据）](https://lh3.googleusercontent.com/_9KH_iW7Mho5RkAZsqxwV_lljdbvqRqWtRr5sMrFM0m4eDS1ZvjhxBDFXYnWnY3CnMb6Vr2OzmlsRJnjkqhWTtCXV6RDrjoNwE0dFg=w1064-v0)
 <div style="text-align: center;"><small>图10：选择使用的设计系统支持活动的响应百分比（371 份数据）</small></div>
+
 设计系统启动后，成功的下一步就是产品团队采用设计系统。提供入职培训以展示如何使用设计系统并演示系统的价值可以帮助提高知名度和采用率。
 
 另外，使用设计系统的既定目标是保持产品一致性。让设计系统团队成员在产品设计审查期间提供反馈，或者使产品团队能够针对设计系统本身提交错误，提供机制和机会来保持设计系统及其相关产品的一致性和同步性。
 
-设计系统当前的增长趋势是什么？ 除了了解有关内部设计系统增长趋势的更多信息之外，我们还了解了受访者的设计系统在组织中已经使用了多长时间。大约25％的受访者表示他们的设计系统已经使用了1-2年，这使它们相当新。
+设计系统当前的增长趋势是什么？ 除了了解有关内部设计系统增长趋势的更多信息之外，我们还了解了受访者的设计系统在组织中已经使用了多长时间。大约 25％ 的受访者表示他们的设计系统已经使用了 1 - 2 年，这使它们相当新。
 
 ![图11：选择使用年数设计系统的响应百分比（533 份数据）](https://lh3.googleusercontent.com/7-WOzOVI0ksZSDxwjMllR4H5kGDU36zCt162e38UXBFqpEH6iSPhJAXNNiMavBM_tSmy1h00yx7vscYNv9uaFNEmMRLCIkmW4ihC=w1064-v0)
-<div style="text-align: center;"><small>图11：选择使用年数设计系统的响应百分比（533 份数据）</small></div>
+<div style="text-align: center;"><small>图 11：选择使用年数设计系统的响应百分比（533 份数据）</small></div>
 
+我们将权属数据合并为两个集群（0~2 年；2~4+ 年）并按公司规模进行分析（请参见图 12），该数据表明，大的区域型企业（最多 5000 名员工）正在创建的设计系统比大型跨国企业（拥有 5000 多名员工）创建的多。 而越来越多的中型公司（50 至 1500 名员工）使用设计系统来改善其产品的设计和开发团队流程、产品一致性和质量。
 
-将权属数据合并为两个集群（0-2年； 2-4年+ 2年）并按公司规模进行分析（请参见图12），该数据表明，大小区域公司（最多5,000名员工）正在创建更多的设计系统比大型跨国公司（拥有5,000多名员工）大。
+![图12：按受访者公司规模划分的设计系统数（389 份数据） 下一步是什么？](https://lh3.googleusercontent.com/FKhJYw6e2mgIYWSxBaY9EOPyN_NkwZRh8aPnDqipGTDQ1wLFmesvWAAFuikkbO0uYX8E45-J8yueJJ52rr-HsS1mnF7iqFDlxNnt=w1064-v0)
+<div style="text-align: center;"><small>图12：按受访者公司规模划分的设计系统数（389 份数据） 下一步是什么？</small></div>
 
-越来越多的中型公司（50至1500名员工）越来越多地使用设计系统来改善其产品的设计和开发团队流程，产品一致性和质量。
-
-![图12：按受访者公司规模划分的设计系统数（响应= 389） 下一步是什么？](https://lh3.googleusercontent.com/FKhJYw6e2mgIYWSxBaY9EOPyN_NkwZRh8aPnDqipGTDQ1wLFmesvWAAFuikkbO0uYX8E45-J8yueJJ52rr-HsS1mnF7iqFDlxNnt=w1064-v0)
-<div style="text-align: center;"><small>图12：按受访者公司规模划分的设计系统数（响应= 389） 下一步是什么？</small></div>
-
-无论是在团队级别，组织级别还是在更广泛的设计系统社区中，设计系统总是在不断发展。当我们将这些系统应用到我们的工作中时，重要的是要问有关系统如何形成，如何得到支持以及如何变化的问题。这样，对于流程新手来说，他们可以根据自己的挑战和成功继续向社区学习。敬请关注
-Material Design 博客，以在2021年初进行更深入的探讨。
+无论是在团队级别，组织级别还是在更广泛的设计系统社区中，设计系统总是在不断发展。当我们将这些系统应用到我们的工作中时，重要的是要问有关系统如何形成，如何得到支持以及如何变化的问题。这样，对于流程新手来说，他们可以根据自己的挑战和成功继续向社区学习。敬请关注 Material Design 博客，以在 2021 年初能够获得更深入的有关设计系统的调查结果。
 
 感谢阅读，晚安～
 
-## 引文
-
+## 参考资料
 * 1. <a name="ref1"></a> [Klein, Nikolas. “The spectrum of maturity of design systems” \[Editorial post\]](https://www.designsystems.com/the-spectrum-of-maturity-for-design-systems/)
 * 2. <a name="ref2"></a> [Yew, Jude (2019, Dec 23). “State of Design Systems 2019” \[Editorial post\]](https://github.com/xitu/gold-miner/blob/master/article/2021/the-state-of-design-systems-2020.md)
 
