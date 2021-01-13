@@ -21,7 +21,7 @@ Marc-André Zöller 和 Marco F. Huber 的论文，[Benchmark and Survey of Auto
 
 在本文中，我们将讨论可以构建数据预处理，模型选择和超参数调整的工作流的 AutoML 工具。
 
-我们可以将此流程分解为以下步骤：结构搜索以及组合算法选择和超参数搜索（CASH），如图1所示。
+我们可以将此流程分解为以下步骤：结构搜索以及组合算法选择和超参数搜索（CASH），如图 1 所示。
 
 ![图 1: 机器学习管道的自动创建可以分为对管道结构的搜索以及组合的算法选择和超参数优化。[1]](https://cdn-images-1.medium.com/max/2000/0*xrpOs9x1LxmjK6xT)
 
