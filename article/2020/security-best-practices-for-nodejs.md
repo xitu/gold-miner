@@ -2,7 +2,7 @@
 > * 原文作者：[Diogo Souza](https://twitter.com/diogosouzac)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/security-best-practices-for-nodejs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/security-best-practices-for-nodejs.md)
-> * 译者：
+> * 译者：Ashira
 > * 校对者：
 
 # Nodejs 安全编程的最佳实践
@@ -201,7 +201,7 @@ app.get('/users', (req, res) => {
 
 ## 不安全的反序列化
 
-这一情况大多发生在您的应用接受一个不可信来源的序列化对象的时候，因为这样的序列化对象有可能被攻击者篡改。
+这一情况大多发生在您的应用接受一个来源不可信的序列化对象的时候，因为这样的序列化对象有可能被攻击者篡改。
 
 例如，想象这样一个情况，您的 Node 应用和客户端交互，在客户登陆之后返回一个序列化的对象长时间存储在 cookie 中用作用户的 session ，这里存放着用户的 id 和权限之类的信息
 
