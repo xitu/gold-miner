@@ -74,7 +74,7 @@ var a = Buffer.compare(buf1, buf2)
 console.log(a) // 这会打印 1
 ```
 
-#### `Buffer.concat`
+#### `Buffer.concat()`
 
 顾名思义，您可以使用此方法连接两个缓冲区。当然，就像字符串一样，您也可以连接两个以上的缓冲区。
 
