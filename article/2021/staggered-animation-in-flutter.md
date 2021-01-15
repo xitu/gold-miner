@@ -72,7 +72,7 @@ final Animation<double> textOpacity;
 final Animation<double> imageOpacity;
 ```
 
-> 我们应该在控件的定义中覆写 `initState` 方法以在其中完成对 `AnimationController` 的初始化，在定义语句中，我们实际是在设置动画的参数。下面的例子我们将动画时长设置为 3 秒.
+> 我们应该在控件的定义中覆写 `initState` 方法以在其中完成对 `AnimationController` 的初始化，在定义语句中，我们实际是在设置动画的参数。下面的例子我们将动画时长设置为 3 秒。
 
 ```dart
 // 译者注：代码从 Flutter 库中截取，路径 /lib/src/animation/animation_controller.dart:150
