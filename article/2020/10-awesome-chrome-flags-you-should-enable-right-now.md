@@ -50,7 +50,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Force Dark Mode for Web Contents 对 Web 内容强制使用暗黑模式
 
-这会迫使所有网站以深色主题呈现，即使是尚无主题的网站（例如 Medium）也是如此。是的，我在凝视着你，亲爱的 Medium （译者注：原文发布的平台）
+这会迫使所有网站以深色主题呈现，即使是尚无主题的网站（例如 Medium）也是如此。
 
 ![chrome://flags/#enable-force-dark](https://cdn-images-1.medium.com/max/2000/0*D5u7w-98tffTZ-Ma.gif)
 
