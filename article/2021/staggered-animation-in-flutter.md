@@ -43,7 +43,7 @@
 
 **如何在 Flutter 中使用交织动画:**
 
-下面的代码为 avatarSize 这一属性定义了一个补间动画。它构造了一个  [**CurvedAnimation**](https://api.flutter.cn/flutter/animation/CurvedAnimation-class.html) 动画类并且指定了动画曲线为一条 elasticOut 曲线. 要查看更多的预设动画曲线，请访问网页 [**Curves**](https://api.flutter.cn/flutter/animation/Curves-class.html) 。
+下面的代码为 avatarSize 这一属性定义了一个补间动画。它构造了一个 [**CurvedAnimation**](https://api.flutter.cn/flutter/animation/CurvedAnimation-class.html) 动画类并且指定了动画曲线为一条 elasticOut 曲线。要查看更多的预设动画曲线，请访问网页 [**Curves**](https://api.flutter.cn/flutter/animation/Curves-class.html) 。
 
 ```dart
 avatarSize = Tween<double>(
