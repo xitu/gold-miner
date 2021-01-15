@@ -2,8 +2,8 @@
 > * 原文作者：[Shaiq khan](https://medium.com/@shaiq_khan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md)
-> * 译者：PassionPenguin
-> * 校对者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # Flutter 中的交织动画
 
@@ -11,11 +11,11 @@
 
 交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行的动画的每个属性，我们都应该创建一个补间（Tween）。
 
-所谓交织动画，直接来说就是：视觉变化发生在一系列操作中，而不是一次性发生。这个动画纯粹可能只是一个顺序的，而在随后的动画中会发生一些变更，或者可能部分或完全重叠。当然，交织的动画同样可能会有一些地方空着，有着间隙，没有发生任何动画。
+所谓交织动画，直接来说就是：并非在同一时刻发生全部的视觉变化，而是让其随着任务的进行逐步发生。这个动画可能纯粹只是一个顺序动画，视觉上的变化一个接一个的出现；也可能有部分的动画重叠出现，乃至完全重叠。当然，交织动画的动画中同样可能会有一些时刻空着，即在一些间隙中没有发生任何动画。
 
 [**这里是一段有关交织动画的样例视频**](https://youtu.be/0fFvnZemmh8)
 
-在这个视频中，您可以看到单独一个控件从一个带边框的，略微有圆角的蓝色矩形的出现开始的动画，这个矩形会按照以下顺序变化：
+在这个视频中，您可以看到发生在一控件上，从一个带边框而略微有圆角的蓝色矩形的出现开始的动画。这个矩形会按照以下顺序变化：
 
 * 淡入
 * 水平上变宽
@@ -39,7 +39,7 @@
 * 为每一个有动画的属性创建一个 `Tween`。
 * 为 `Tween` 设置不同的值。
 * `Tween` 的 `animate()` 方法需要一个 `AnimationController` 来用这些属性生成一个动画。
-* 指定动画的 `curve` 属性的间隔
+* 通过修改 `Animation` 构造器中的 `curve` 属性指定动画的间隔时间
 
 **如何在 Flutter 中使用交织动画:**
 
@@ -86,11 +86,14 @@ void initState() {
 }
 ```
 
-**如何在 dart 文件中实现：**
+**如何在代码中实现：**
 
-您需要分别在代码中实现它：
+您需要在代码中实现以下内容：
 
-* 添加一个有状态的 `StatefulWidget` 控件，然后 mixin 这个控件与 `SingleTickerProviderStateMixin` ，以让 `AnimationController` 确定它的动画时长为 3500 毫秒。控制器播放一个动画，然后在 widget 树上创建一个无动画的部分。当在屏幕上检测到一个点击时，动画开始。动画向前播放，然后向后播放。
+* 添加一个 `StatefulWidget` （带有状态的）控件
+* 然后将这个控件与 `SingleTickerProviderStateMixin` Mixin，以让 `AnimationController` 确定它的动画时长为 3500 毫秒。
+
+控制器将会播放一个动画，然后会在 widget 树上创建一个无动画的部分。当在屏幕上检测到点击事件时，开始播放动画。动画一开始会顺序播放，然后会倒序播放。
 
 ```Dart
 import 'package:flutter/material.dart';
