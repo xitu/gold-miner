@@ -5,7 +5,7 @@
 > * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
 > * 校对者：
 
-# 10 个你应该现在启用的绝佳的 Chrome Flags
+# 10 个你应该现在启用的绝佳的 Chrome Flag
 
 ![图源作者](https://cdn-images-1.medium.com/max/4480/1*nnoOXTFecfO8aW0LqCaN5w.png)
 
