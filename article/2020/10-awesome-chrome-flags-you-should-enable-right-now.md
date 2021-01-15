@@ -62,7 +62,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Tab Hover Cards 标签悬停预览
 
-"Tab 悬停预览"能够在鼠标悬停时显示预览。当您打开了超过 30 个标签页并且不能再阅读标签页标题时，它可能会派上用场。
+“Tab 悬停预览”功能能够让鼠标在 tab 上悬停时显示其内容的预览。当你打开了超过 30 个标签页导致看不到标签页的标题时，它可能会派上用场。
 
 ![chrome://flags/#tab-hover-cards **&** chrome://flags/#tab-hover-card-images](https://cdn-images-1.medium.com/max/2000/0*G_0Ja03m0pykQWBS.gif)
 
