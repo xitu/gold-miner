@@ -76,7 +76,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Parallel Downloading 并行下载
 
-Chrome 将会建立多个连接下载单个文件，从而提高了下载速度。
+Chrome 将会建立多个连接分块下载单个文件，从而提高了下载速度。
 
 ![chrome://flags/#enable-parallel-downloading](https://cdn-images-1.medium.com/max/2000/1*e1CZu3rjlntGfMW-3QE-Zg.png)
 
