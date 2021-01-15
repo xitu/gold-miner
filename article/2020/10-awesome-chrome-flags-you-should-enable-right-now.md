@@ -38,7 +38,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 ## Tab Groups 选项卡组
 > 译者注：无须再在 chrome://flags 中启用，已默认在 Canary 中启用
 
-选项卡组用于将多个选项卡分组和管理在一起，例如用于合并不同类型的奶酪。
+选项卡组功能用于将多个选项卡分组并在一起管理，就像合并不同类型的奶酪一样。
 
 ![chrome://flags/#tab-groups](https://cdn-images-1.medium.com/max/2000/0*7OEk4z2uvyg8MO3f.gif)
 
