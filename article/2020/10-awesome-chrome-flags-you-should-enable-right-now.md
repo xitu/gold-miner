@@ -2,18 +2,18 @@
 > * 原文作者：[Sanjeet Chatterjee](https://medium.com/@thesanjeetc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/10-awesome-chrome-flags-you-should-enable-right-now.md](https://github.com/xitu/gold-miner/blob/master/article/2020/10-awesome-chrome-flags-you-should-enable-right-now.md)
-> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# 10 个你应该现在启用的绝佳的 Chrome Flag
+# 10 个你应该现在启用的绝佳的 Chrome Flags
 
 ![图源作者](https://cdn-images-1.medium.com/max/4480/1*nnoOXTFecfO8aW0LqCaN5w.png)
 
 如果您可以神奇地升级浏览器来使用 Chrome 普通用户不知道的功能，那会很酷吗？
 
-以下是 10 个 Chrome Flag，可帮助您做到这一点。
+以下是 10 个 Chrome Flags，可帮助您做到这一点。
 
-Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看情况，有的 Flag 默认是启用的）。要启用这些功能，请访问 `chrome://flags`。以下 Flags 可能会在不久的将来正式发布。但是，截至翻译本文时，它们仍在测试中。
+Chrome Flag 是实验性功能，其中大部分的 Flag 都是默认被禁用的。要启用这些功能，请访问 `chrome://flags`。以下的 Flag 可能会在不久的将来正式发布。但是，截至翻译本文时，它们仍在测试中。
 
 ## Reader Mode 阅读模式
 
@@ -22,7 +22,6 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 ![chrome://flags/#enable-reader-mode](https://cdn-images-1.medium.com/max/2000/0*TkZOJVvj8nX1dh9c.gif)
 
 ## Focus Mode 沉浸模式（译者注：似乎没了）
-
 沉浸模式会在新的窗口中打开选项卡，该窗口省略了选项卡条和搜索栏以提供更简洁的界面。
 
 ![chrome://flags/#focus-mode](https://cdn-images-1.medium.com/max/2000/0*HTBhDshB0IkpRZo5.gif)
@@ -31,7 +30,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 重构其 Edge 浏览器后，Microsoft 将其开发的自然滑动运动带到了 Chromium 中。
 
-> "鼠标滚轮的每个"滴答声"都会让浏览器模仿一个现实生活中的操作，在该世界中，内容开始快速滚动，然后由于摩擦的作用而减速。" —— 微软
+> “鼠标滚轮的每个‘滴答声’都会让浏览器模拟真实的世界中产生的操作。在这个世界里，页面内容受到推力的冲击而开始快速地滚动，然后由于摩擦力而减速。” —— 微软
 
 ![chrome://flags/#impulse-scroll-animations](https://cdn-images-1.medium.com/max/2000/0*mTrSM7M_NaV4CUCw.gif)
 
@@ -62,13 +61,13 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Tab Hover Cards 标签悬停预览
 
-“Tab 悬停预览”功能能够让鼠标在 tab 上悬停时显示其内容的预览。当你打开了超过 30 个标签页导致看不到标签页的标题时，它可能会派上用场。
+“Tab 悬停预览”功能能够让鼠标在标签上悬停时显示其内容的预览。当你打开了超过 30 个标签页而导致你看不到标签页的标题时，这个 Flag 就可能会派上用场。
 
 ![chrome://flags/#tab-hover-cards **&** chrome://flags/#tab-hover-card-images](https://cdn-images-1.medium.com/max/2000/0*G_0Ja03m0pykQWBS.gif)
 
 ## Enable Page Sharing via QR Code 通过QR码启用页面共享
 
-该标志使您可以共享带有QR码的网页，以便轻松地将内容链接发送到手机。当然，二维码中间是 Dino 小恐龙吉祥物。
+该 Flag 可以让您通过扫描生成的 QR 码共享网页，以便轻松地将内容链接发送到手机。当然，二维码中间是 Dino 小恐龙吉祥物。
 
 **注意:** 翻译的时候似乎该功能仅在 [Chrome Canary](https://www.google.com/intl/en_uk/chrome/canary/) 上可用。
 
@@ -76,7 +75,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Parallel Downloading 并行下载
 
-Chrome 将会建立多个连接分块下载单个文件，从而提高了下载速度。
+Chrome 将会建立多个连接分块下载单个文件，从而提高下载速度。
 
 ![chrome://flags/#enable-parallel-downloading](https://cdn-images-1.medium.com/max/2000/1*e1CZu3rjlntGfMW-3QE-Zg.png)
 
@@ -84,7 +83,7 @@ Chrome 将会建立多个连接分块下载单个文件，从而提高了下载�
 
 还有更多的 Chrome Flag 正在测试中、更多功能尚未推出。如果您希望生活在新功能的海洋中，请使用 [Chrome Canary](https://www.google.com/chrome/canary/) 。
 
-**谢谢阅读。**
+**感谢您的阅读。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
