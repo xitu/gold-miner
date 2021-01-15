@@ -56,7 +56,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Quieter Notification Permission Prompts 更安静的权限提示
 
-这是一个可减少权限提示，不会中断您的工作的简单的功能。
+这个简单的功能可以减少权限请求的提示，以防止这些提示打断你的思路。
 
 ![chrome://flags/#quiet-notification-prompts](https://cdn-images-1.medium.com/max/2000/0*vY-Jg_mSlk2hLCUs)
 
