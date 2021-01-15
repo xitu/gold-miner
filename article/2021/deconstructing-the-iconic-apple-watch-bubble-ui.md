@@ -3,19 +3,19 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/deconstructing-the-iconic-apple-watch-bubble-ui.md](https://github.com/xitu/gold-miner/blob/master/article/2021/deconstructing-the-iconic-apple-watch-bubble-ui.md)
 > - 译者：[ZhiZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[Hoarfroster](https://github.com/PassionPenguin)
 
 # 解构标志性的 Apple Watch Bubble UI
 
 ![Photo by [Raagesh C](https://unsplash.com/@raagesh?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*N-GwBFwqZbDSNOYy)
 
-当 2015 年推出第一款 [**Apple Watch**](https://en.wikipedia.org/wiki/Apple_Watch) 时，我对 [**WatchOS**](https://en.wikipedia.org/wiki/WatchOS) 的主屏幕设计感到震惊。它的布局不同于标准的网格式布局，而是提出了一种原始的视觉动态界面。
+当第一款 [**Apple Watch**](https://en.wikipedia.org/wiki/Apple_Watch) 在 2015 年推出的时候，我对 [**WatchOS**](https://en.wikipedia.org/wiki/WatchOS) 的主屏幕设计感到震惊。它的布局不同于标准的网格式布局，而是提出了一种原始的视觉动态界面。
 
 五年后，当我打开这款具有光滑又时尚 UI 的手表时，仍然感到敬畏。但是，从工程学的角度来看，我仍然对这种布局的底层原理感到困惑。
 
 作为一名经验丰富的应用程序开发人员，我知道构造导航流程和布局对于任何应用程序的基础都至关重要。Apple 全部都做到了，并且还具有一定的灵活性，用户的满意度和好奇心。
 
-当然，我喜欢使用 [**CSS Grid**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout) 以及 **[Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)**，以及其他 Web 和移动端技术来构建可靠的应用程序布局，但是 Apple Watch Bubble UI 背后的复杂性并不适合这些模型。**我决定研究这种布局的各个方面，尤其是探索可以编排布局的视觉设计的几何形状和设计的数学原理。**
+当然，我喜欢使用 [**CSS Grid**](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout)、 **[Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)** 以及其他 Web 和移动端技术来构建可靠的应用程序布局，但是由于 Apple Watch Bubble UI 背后涉及的复杂性，这些方法并不适用。**我决定研究这种布局的各个方面，尤其是探索可以编排布局的视觉设计的几何形状和设计的数学原理。**
 
 免责声明：**此用户界面的基本功能和设计的讨论仅源于我的个人见解；苹果很有可能已经实现了这一布局，甚至可能有很大不同。**
 
@@ -89,7 +89,7 @@ distance_to_center = max(abs(bubble.x), abs(bubble.y))
 
 所有气泡的当前大小变化都**与气泡通过边缘区域的进度成比例**。换句话说，距离外边缘 30％ 的气泡已进行了 30％ 的放大，而距离内边缘 20％ 的气泡已进行了 80％ 的放大。
 
-因此，计算出气泡的当前大小是通过将气泡到中间区域的距离（从范围(0，`边缘宽度`)到范围(`最大大小`，`最小大小`)）进行插值（内插或称插值（英语：interpolation）是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。）来完成的。计算如下：
+因此，计算出气泡的当前大小是通过将气泡到中间区域的距离（从范围(0，`边缘宽度`)到范围(`最大大小`，`最小大小`)）进行插值来完成的。计算如下：
 
 ```
 current_size = max_size + distance_to_middle_region / fringe_width * (min_size - max_size)
@@ -115,7 +115,7 @@ max(abs(bubble.x)- x_radius, abs(bubble.y)- y_radius))
 
 我不经意间注意到 Apple Watch UI 可以优化气泡的紧凑性。每当气泡在边缘区域发生尺寸转换时，它们都与最近的气泡保持相同的装订线宽度。
 
-![[Gifer]上的动画(https://gifer.com/en/XbVD)](https://cdn-images-1.medium.com/max/2000/1*23GQLo9bhAzjCWcbpzGuFA.gif)
+![[Gifer] 上的动画(https://gifer.com/en/XbVD)](https://cdn-images-1.medium.com/max/2000/1*23GQLo9bhAzjCWcbpzGuFA.gif)
 
 当前，我们的模型始终会使气泡之间保持恒定的距离。下面的图表显示了我们当前的进度与最终目标的对比（前瞻）。
 
@@ -131,10 +131,10 @@ max(abs(bubble.x)- x_radius, abs(bubble.y)- y_radius))
 
 ![基于画布上的位置平移的方向](https://cdn-images-1.medium.com/max/3164/1*RjPI_7Bfb3PHZc1xeUFxxQ.png)
 
-边缘区域再次负责这**两个状态之间的过渡**。就像气泡的大小一样，气泡平移距离的多少由到中心区域的距离（范围(`边缘宽度`，0)到范围(`最大大小`，0)）插值（内插或称插值（英语：interpolation）是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。））得出。
+边缘区域再次负责这**两个状态之间的过渡**。就像气泡的大小一样，气泡平移距离的多少由到中心区域的距离（范围 (`边缘宽度`，0) 到范围 (`最大大小`，0)）的插值得出。（内插或称插值（英语：interpolation）是一种通过已知的、离散的数据点，在范围内推求新数据点的过程或方法。）
 
 ```
-translation_magnitude = distance_to_middle_region / fringe_width *     max_size
+translation_magnitude = distance_to_middle_region / fringe_width * max_size
 ```
 
 之前的方向规则同样适用。
@@ -173,7 +173,7 @@ distance_to_middle_region - fringe_width
 
 具有所有讨论的可控变量（甚至更多）的这种抽象是高度可配置的。该布局还允许使用自定义气泡组件以实现基本的可定制性。我迫不及待想看到您使用此布局创建属于你的内容！
 
-![取自 [**React-Bubble-UI**](https://bubbleui.blakesanie.com/) 的现场演示，精美的展示了 S&P 500 公司,](https://cdn-images-1.medium.com/max/2000/1*Hq0zEG3n8dsY-8hAhk-byQ.gif)
+![取自 [**React-Bubble-UI**](https://bubbleui.blakesanie.com/) 的现场演示，精美的展示了美国股市前 500 强公司,](https://cdn-images-1.medium.com/max/2000/1*Hq0zEG3n8dsY-8hAhk-byQ.gif)
 
 ## 结论
 
