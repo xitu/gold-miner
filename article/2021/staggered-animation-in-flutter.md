@@ -203,7 +203,7 @@ class StaggeredTrekkingEnterAnimation {
 
 这就是交织动画的基本示例。在这里我们做了一个简单的示例，您可以学习它。
 
-**单击下面的 GitHub 链接以找到交织动画的源代码:**
+**单击下面的 GitHub 链接以找到交织动画的源代码：**
 
 [**flutter-devs/Flutter-StaggeredAnimation**](https://github.com/flutter-devs/Flutter-StaggeredAnimation)
 
