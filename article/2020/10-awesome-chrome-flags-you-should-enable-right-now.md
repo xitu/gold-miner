@@ -82,7 +82,7 @@ Chrome 将会建立多个连接分块下载单个文件，从而提高了下载�
 
 ## 结论
 
-有更多的Chrome标志正在测试中，还有更多功能尚未推出。如果您希望生活在新功能的海洋中，请使用 [Chrome Canary](https://www.google.com/chrome/canary/) 。
+还有更多的 Chrome Flag 正在测试中、更多功能尚未推出。如果您希望生活在新功能的海洋中，请使用 [Chrome Canary](https://www.google.com/chrome/canary/) 。
 
 **谢谢阅读。**
 
