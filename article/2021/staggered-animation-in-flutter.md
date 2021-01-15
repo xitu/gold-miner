@@ -36,7 +36,7 @@
 #### 要设置这样一个动画：
 
 * 创建一个 `AnimationController` 管理所有的 `Animations`。
-* 为每一个有动画的属性创建一个 `Tween`
+* 为每一个有动画的属性创建一个 `Tween`。
 * 为 `Tween` 设置不同的值。
 * `Tween` 的 `animate()` 方法需要一个 `AnimationController` 来用这些属性生成一个动画。
 * 指定动画的 `curve` 属性的间隔
