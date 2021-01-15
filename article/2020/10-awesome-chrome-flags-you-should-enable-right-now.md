@@ -17,7 +17,7 @@ Chrome Flags 是实验性功能，默认情况下是禁用的（译者注：看�
 
 ## Reader Mode 阅读模式
 
-"阅读模式" 移除了不必要的视觉干扰，实现了无干扰的阅读 —— 当众多视觉元素吸引我们的注意力时，这一点至关重要。好的，他很棒！让我们继续往下看
+“阅读模式”移除了不必要的视觉干扰，实现了无干扰的阅读 —— 当众多视觉元素吸引我们的注意力时，这一点至关重要。
 
 ![chrome://flags/#enable-reader-mode](https://cdn-images-1.medium.com/max/2000/0*TkZOJVvj8nX1dh9c.gif)
 
