@@ -50,7 +50,7 @@ RotationTransition(
 
 ## 创建一个 `AnimationController` 动画控制器
 
-或许获得一个 `Animation<double>` 值最有效的方法是创建一个 [`AnimationController` 动画控制器](https://api.flutter.dev/flutter/animation/AnimationController-class.html). 这个控制器将会为我们控制每一帧的动画。
+得到一个 `Animation<double>` 值最有效的方法是创建一个 [`AnimationController` 动画控制器](https://api.flutter.dev/flutter/animation/AnimationController-class.html)。这个控制器将会为我们控制每一帧的动画。
 
 我们必须在有状态的控件 `StatefulWidget` 中进行设置，以保证我们能够持续访问并操作动画控制器。由于 `AnimationController` 同样具有自己的状态要管理，因此我们需要在 `initState()` 中对其进行初始化，并在 `dispose()` 中对其进行处理。
 
