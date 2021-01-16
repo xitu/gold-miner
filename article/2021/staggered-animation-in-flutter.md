@@ -15,7 +15,7 @@
 
 [**这里是一段有关交织动画的样例视频**](https://youtu.be/0fFvnZemmh8)
 
-在这个视频中，您可以看到发生在一控件上，从一个带边框而略微有圆角的蓝色矩形的出现开始的动画。这个矩形会按照以下顺序变化：
+在这个视频中，你可以看到发生在一控件上，从一个带边框而略微有圆角的蓝色矩形的出现开始的动画。这个矩形会按照以下顺序变化：
 
 * 淡入
 * 水平上变宽
@@ -88,7 +88,7 @@ void initState() {
 
 **如何在代码中实现：**
 
-您需要在代码中实现以下内容：
+你需要在代码中实现以下内容：
 
 * 添加一个 `StatefulWidget` （带有状态的）控件
 * 然后将这个控件与 `SingleTickerProviderStateMixin` Mixin，以让 `AnimationController` 确定它的动画时长为 3500 毫秒。
@@ -151,7 +151,7 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 
 在 Staggered Trekking Enter 动画中，我们使用了补间去决定动画的进展。
 
-接下来，您会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** 。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 **builder** 属性.
+接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** 。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 **builder** 属性.
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -200,11 +200,11 @@ class StaggeredTrekkingEnterAnimation {
 
 `AnimatedBuilder` 将侦听来自动画控制器的通知，然后会标记该控件的值的改变。对于动画的每一帧，这些值会因为调用 `_buildAnimation()` 而都被更新。
 
-在下面发布的视频中，您将看到交织动画的工作方式。当您在屏幕上的任意位置点击时，它将启动动画并在向前播放动画之后自动向后播放动画。在这代码中，您还可以控制动画播放的速度。
+在下面发布的视频中，你将看到交织动画的工作方式。当你在屏幕上的任意位置点击时，它将启动动画并在向前播放动画之后自动向后播放动画。在这代码中，你还可以控制动画播放的速度。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vQm1tBYamr7UZSaoApsAdg.gif)
 
-这就是交织动画的基本示例。在这里我们做了一个简单的示例，您可以学习它。
+这就是交织动画的基本示例。在这里我们做了一个简单的示例，你可以尝试学习它。
 
 **单击下面的 GitHub 链接以找到交织动画的源代码：**
 
