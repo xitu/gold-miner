@@ -86,7 +86,7 @@ _animationController = AnimationController(
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qmRBKLFSVNTvW8-uWFvbKw.gif)
 
-这只是我们对 Flutter 中的显式动画的第一次尝试。我们看到了 Transition 控件如何运行，以及学会了使用 `AnimationController` 来命令动画修改方向或其他动画属性。在以后的文章中，我们将进一步剖析显式动画以及介绍如何客制化使用显示动画。
+这只是我们对 Flutter 中的显式动画的第一次尝试。我们看到了 Transition 控件如何运行，以及学会了使用 `AnimationController` 来命令动画修改方向或其他动画属性。在以后的文章中，我们将进一步剖析显式动画以及介绍如何自定义使用显式动画。
 
 在下面的视频中，您将看到这个显式动画的运行结果 —— 当您在屏幕上的任意位置点击时，将暂停动画，整个动画将冻结。而在屏幕任意位置再次点击就会恢复动画的播放。同样的，您可以通过修改代码来控制动画的速度以及播放的方向。
 
