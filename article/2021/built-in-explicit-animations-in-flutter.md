@@ -54,7 +54,7 @@ RotationTransition(
 
 我们必须在有状态的控件 `StatefulWidget` 中进行设置 —— 以保证我们能够持续访问并操作动画控制器。由于 `AnimationController` 同样具有自己的状态要管理，因此我们需要在 `initState()` 中对其进行初始化，并在 `dispose()` 中对其进行处理。
 
-我们应为“动画控制器”提供两个参数，第一个是动画的持续长度。Dart为我们提供了一个`Duration` 类供使用。对于这个例子，每转一次太阳的图片，动画应该持续 5 秒，然后暂停 15 秒，会怎么样？
+我们应为“动画控制器”提供两个参数，第一个是动画的持续长度。Dart 为我们提供了一个 `Duration` 类供使用。对于这个例子，每转一次太阳的图片，动画应该持续 5 秒，然后暂停 15 秒，会怎么样？
 
 ```dart
 _animationController = AnimationController(
