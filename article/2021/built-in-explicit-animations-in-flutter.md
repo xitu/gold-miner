@@ -11,7 +11,7 @@
 
 在我们的 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md) 中，我们弄清楚了如何利用 Flutter 的交织动画编写一些完美的动画。`AnimatedFoo` 和 `TweenAnimationBuilder` 使您能够将一些基本动画运用在应用程序中。这些动画通常从头到尾使用补间进行渲染，而在这背后，Flutter 代替了您控制好了这一切，满足您对动画的预期效果，也让您不用再担心动画的播放顺序。
 
-对于部分的动画来说，使用补间动画是极好的选择。当然，我们也可以用另外一种方式重新开始制作新的动画。
+对于部分动画来说，使用补间动画是极好的选择。当然，我们也可以用另外一种方式重新开始制作新的动画。
 
 Flutter 有很多带有过渡动画的控件，而它们都以 Transition 结尾。 [`ScaleTransition`](https://api.flutter.cn/flutter/widgets/ScaleTransition-class.html), [`SizeTransition`](https://api.flutter.cn/flutter/widgets/SizeTransition-class.html) 、 [`DecoratedBoxTransition`](https://api.flutter.cn/flutter/widgets/DecoratedBoxTransition-class.html) 。但这只是开始，它们看起来和感觉非常像我们的 `AnimateBlah` 控件。
 
