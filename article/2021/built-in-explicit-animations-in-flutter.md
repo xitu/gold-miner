@@ -15,7 +15,7 @@
 
 Flutter 有很多带有过渡动画的控件，而它们都以 Transition 结尾。[`ScaleTransition`](https://api.flutter.cn/flutter/widgets/ScaleTransition-class.html)、[`SizeTransition`](https://api.flutter.cn/flutter/widgets/SizeTransition-class.html)、[`DecoratedBoxTransition`](https://api.flutter.cn/flutter/widgets/DecoratedBoxTransition-class.html) 等。它们与我们的 `AnimateBlah` 控件非常类似。
 
-[`PositionedTransition`](https://api.flutter.cn/flutter/widgets/PositionedTransition-class.html) 可以使小部件在各个位置之间的变换动画化。这个与补间动画很是相像，但是有一个明显的对比：这些 Transition 控件应该在 [`AnimatedWidget`](https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.htmlhttps://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html) 的构造中使用，而它们就是显式动画。
+例如，[`PositionedTransition`](https://api.flutter.cn/flutter/widgets/PositionedTransition-class.html) 可以产生小部件在各个位置移动的动画。它们与补间动画很是相像，但是有明显的不同：这些 Transition 控件应该在 [`AnimatedWidget`](https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.htmlhttps://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html) 的构造中使用，而这就是显式动画。
 
 ![一张太阳的图片，没有旋转](https://cdn-images-1.medium.com/max/5760/1*Rj0MJbE-gRj3gmUTwSkKog.jpeg)
 
