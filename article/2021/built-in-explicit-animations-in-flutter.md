@@ -42,7 +42,7 @@ RotationTransition(
 ),
 ```
 
-无需担心，这就是使 `RotationTransition` 和各种 Transition 控件成为显式动画的原因。我们通过简单调用 `AnimatedContainer` 控件并进行更改就可以简简单单实现旋转。在我们旋转一次图片后，我们将要控制时间与旋转次数，使太阳不断旋转。
+这就是使 `RotationTransition` 和各种 Transition 控件构成的动画被称为显式动画的原因。我们只需通过调用 `AnimatedContainer` 控件并进行更改就可以轻松实现旋转动画。借助显式动画，我们可以控制时间与旋转次数，使太阳不断旋转。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*oeGSTGSJwkqzQueCykTggw.gif)
 
