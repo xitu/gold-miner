@@ -2,8 +2,8 @@
 > * 原文作者：[Shaiq khan](https://medium.com/@shaiq_khan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/built-in-explicit-animations-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/built-in-explicit-animations-in-flutter.md)
-> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：
+> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # Flutter 中内置的显式动画
 
