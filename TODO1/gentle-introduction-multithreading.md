@@ -25,7 +25,7 @@
 
 ![进程 vs 线程](https://raw.githubusercontent.com/monocasual/internalpointers-files/master/2019/02/processes-threads.png)
 
-图1：操作系统可以被看作一个包含进程的盒子，进程又可以被看作包含一个或多个线程的盒子。
+图 1：操作系统可以被看作一个包含进程的盒子，进程又可以被看作包含一个或多个线程的盒子。
 
 ### 进程和线程之间的区别
 
