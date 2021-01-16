@@ -92,7 +92,7 @@ _animationController = AnimationController(
 
 ![](https://cdn-images-1.medium.com/max/2000/1*y7sP1wxW1UHb_42Wv2foUw.gif)
 
-这就是显式动画的基本入门了，我们做了一个简单的示例，您可以轻易学会制作这样一个动画。
+这就是显式动画的基本入门了，我们做了一个简单的示例，您可以轻松学会制作这样一个动画。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
