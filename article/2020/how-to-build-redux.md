@@ -250,7 +250,7 @@ const reducer = (state = initialState, action) => {
 
 原则上，修改状态使得组建自己的 reducer （也可能包括应用的其他部分）更困难。纯函数是可预测的，因为他们在同样的输入下产生同样的输出。如果你养成了修改状态的习惯，一切就都完了。函数调用变得不确定。你必须在头脑中记住整棵函数调用树。
 
-这种可预测性的代价很高，尤其是因为 JavaScript 原生不支持不可变对象。在我们的例子中，我们将使用纯 JavaScript，这将造成冗余的代码。以下是我们写 reducer 的正确方式：
+这种可预测性的代价很高，尤其是因为 JavaScript 原生不支持不可变对象。在我们的例子中，我们将使用原生的 JavaScript，这将造成冗余的代码。以下是我们写 reducer 的正确方式：
 
 ```js
 const reducer = (state = initialState, action) => {
@@ -290,7 +290,7 @@ const reducer = (state = initialState, action) => {
 };
 ```
 
-我在使用 [对象扩展语法](https://github.com/tc39/proposal-object-rest-spread?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) (`...`)，它严格来讲并不是 ECMAScript 的一部分，但将会是的。如果你想避免非标准特性，可以使用 `Object.assign`。概念都是一样的：不要改变状态。要创建状态和任何嵌套对象/数组的浅拷贝。对于任何不改变的对象，我们只引用存在的部分。如果我们再仔细看一下这部分代码：
+我在使用 [对象扩展语法](https://github.com/tc39/proposal-object-rest-spread?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) (`...`)，它严格来讲并不是 ECMAScript 的一部分，但将会是的。如果你想避免非标准特性，可以使用 `Object.assign`。理念都是一样的：不要改变状态。要创建状态和任何嵌套对象、数组的浅拷贝。对于任何不变的对象，我们只引用存在的部分。如果我们再仔细看一下这部分代码：
 
 ```js
 return {
@@ -549,7 +549,7 @@ const createStore = (reducer) => {
 };
 ```
 
-现在你可以看到，我们为什么使用常量而不是字符串。我们对于 action 的检测比 Redux 更宽松，但也足以保证我们不拼错 action 类型。如果我们传入字符串，action 将会直接进入 reducer 的默认分支，什么都不会发生，错误可能会被忽视。但如果我们使用常量，拼写错误将会成为 `undefined`，这将会抛出一个错误。所以我们会马上知道，并且修复它。
+现在你可以看到，我们为什么使用常量而不是字符串。我们对于 action 的检测比 Redux 更宽松，但也足以保证我们不拼错 action 类型。如果我们传入字符串，action 将会直接进入 reducer 的默认分支，什么都不会发生，错误可能会被忽视。但如果我们使用常量，拼写错误将会导致返回 `undefined` 并会抛出错误，让我们立刻发现错误并修复它。
 
 我们来创建一个 store 并且使用吧。
 
@@ -573,7 +573,7 @@ store.getState();
 // }
 ```
 
-现在已经相当可用了。我们有了一个 store，它可以使用任何我们提供的 reducer 来管理状态。但是还缺一个重要的部分：一种订阅改变的方式。没有了它，我们就需要一些笨拙的命令式代码。如果将来我们引入了异步操作，它就完全不能用了。所以我们来实现订阅吧。
+现在已经相当可用了。我们有了一个 store，它可以使用任何我们提供的 reducer 来管理状态。但是还缺一个重要的部分：一种订阅状态改变的方法。没有了它，我们就需要一些笨拙的命令式代码。如果将来我们引入了异步 actions，它就完全不能用了。所以我们来实现订阅吧。
 
 ```js
 const createStore = reducer => {
@@ -725,7 +725,7 @@ store.dispatch({
 });
 ```
 
-[使用这些代码](https://jsfiddle.net/justindeal/8cpu4ydj/27/) 并发出更多的 action。渲染的 HTML 将总是反映 store 状态。当然，对于真正的应用，我们将会把 `dispatch` 绑定到用户的 action 上。我们将会很快讲到这部分。
+[示例代码](https://jsfiddle.net/justindeal/8cpu4ydj/27/) 并发出更多的 action。渲染的 HTML 将总是反映 store 状态。当然，对于真正的应用，我们将会把 `dispatch` 函数和用户的 action 联系起来。我们将会很快讲到这部分。
 
 ## 创建自己的组件
 
@@ -797,7 +797,7 @@ const NoteApp = ({
 );
 ```
 
-没什么好看的。我们可以把 props 输入给这些组件，并且渲染它们。但是我们来看一下 `openNoteId` 属性以及这些 `onOpenNote` 和 `onCloseNote` 回调。我们需要决定状态和回调在哪里。我们可以使用组件状态，没问题。一旦你开始使用 Redux，就没有规定说 **所有** 的状态都需要放到 Redux store 中。如果你想知道什么时候使用 store 状态，只要问自己：
+没什么好看的。我们可以把 props 输入给这些组件，并且渲染它们。但是我们来看一下传入的 `openNoteId` 属性以及这些 `onOpenNote` 和 `onCloseNote` 回调。我们需要决定状态和回调在哪里。我们可以使用组件状态，没问题。一旦你开始使用 Redux，就没有规定说**所有**的状态都需要放到 Redux store 中。如果你想知道什么时候使用 store 状态，只要问自己：
 
 > 组件卸载后，这个状态还需要存在吗？
 
@@ -851,7 +851,7 @@ const reducer = (state = initialState, action) => {
 
 ## 手动组装起来
 
-好了，现在我们可以把整个东西组装起来。我们不会碰已有的组件。我们将会创建新的容器组件，从 store 获取状态并传递给 `NoteApp`。
+好了，现在我们可以把整个东西组装起来。我们不会修改现有的组件。我们将会创建新的容器组件，从 store 获取状态并传递给 `NoteApp`。
 
 ```jsx
 class NoteAppContainer extends React.Component {
