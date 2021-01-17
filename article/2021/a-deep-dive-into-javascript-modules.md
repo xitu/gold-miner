@@ -7,17 +7,11 @@
 
 # A Deep Dive Into JavaScript Modules
 
-#### Understanding the various JavaScript module types.
-
 ![Image by [HeungSoon](https://pixabay.com/users/heungsoon-4523762/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440)](https://cdn-images-1.medium.com/max/3840/1*Dya93Aqh8dXO4ngaaxHsug.jpeg)
 
 All JavaScript developers know how to import a module, if you haven’t done it before, then you’ve not gone past the basic “hello world” example. Modules are the cornerstone of the JavaScript ecosystem.
 
 But did you know there are different module systems in JavaScript though? If you’ve only been working with Node.js for example, you’re probably familiar with using `require` and if you’ve been dealing with React, maybe you’re more of an `import` developer. Truth is, they all get the job done, however, not all of them do it in the same way.
-
-These different module types are something to be aware of, especially when configuring your compiler to produce modules to be consumed by other hosting environments. For example, when using [Bit](https://bit.dev) to share your reusable JS components (Node modules, [React components](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357), etc.) with other web projects.
-[**A Better Way to Share Code Between Your Node.js Projects**
-**Learn why you’ve probably been sharing code modules the wrong way.**blog.bitsrc.io](https://blog.bitsrc.io/a-better-way-to-share-code-between-your-node-js-projects-af6fbadc3102)
 
 The best way to review the various differences between the JS module types is to start from a commonplace, in our case, that would be ES6, the new standard for the language. And because not all runtimes are still fully compatible with it, I’ll be using Babel to transpile the code into its different flavors, whenever required.
 
@@ -45,8 +39,6 @@ And to compile it with Babel, I’ll use the following configuration:
  }
 ```
 
----
-
 ## CommonJS
 
 If you’re a Node.js developer, you’ve probably used this one before. This is the standard adopted by Node and thus, the one that makes use of the `require` function.
@@ -72,7 +64,7 @@ exports.dummyFunction = dummyFunction;
 
 The first thing we see, is that it adds two properties to the `exports` object. This object is the one that will contain the “public” code. In other words, anything that’s not part of this object will not be accessible from outside. One more way of thinking about this object is as the return value from the `require` function. If you add properties to it, you can then access them directly when you require the module:
 
-```
+```js
 //yourmodule.js
 exports.prop1 = 42
 exports.myFn = () => console.log(42)
@@ -81,11 +73,11 @@ exports.myFn = () => console.log(42)
 const {prop1, myFn} = require("./yourmodule.js")
 ```
 
-The second highlight from the above code sample, is that we’re adding the `__esModule` property (with a value of `true` ). This property can be used by a helper function on the importing side, to determine how to access the needed method when dealing with default exports.
+The second highlight from the above code sample, is that we’re adding the `__esModule` property (with a value of `true`). This property can be used by a helper function on the importing side, to determine how to access the needed method when dealing with default exports.
 
 You see, CommonJS has no concept of “default” export. Everything you add to the `exports` object will be exported and if you `require` it like this:
 
-```
+```js
 const myModule = require('yourmdoule.js')
 ```
 
@@ -107,7 +99,6 @@ export default {
     //your logic here...
   }
 }
-
 ```
 
 That code is telling you that you’re exporting 3 things:
@@ -179,7 +170,7 @@ _sample.default.mainMethod();
 console.log((0, _sample.dummyFunction)());
 ```
 
-I know that looks like a lot of code, but just focus on the last two lines for now. Notice how our `mainMethod`, which was the default export, is inside a new property called `default` . We didn’t declare it, but Babel added it to add compatibility with CommonJS. Also notice how the `dummyFunction` method is not inside the `default` property, since it was exported as a separate entity and was in fact, imported separately as well.
+I know that looks like a lot of code, but just focus on the last two lines for now. Notice how our `mainMethod`, which was the default export, is inside a new property called `default`. We didn’t declare it, but Babel added it to add compatibility with CommonJS. Also notice how the `dummyFunction` method is not inside the `default` property, since it was exported as a separate entity and was in fact, imported separately as well.
 
 The `_interopRequiredWilcard` helper function just takes care of returning the object we’re going to be using with the proper shape (in other words, it adds the `default` property if it doesn’t already have it).
 
@@ -193,13 +184,11 @@ One major difference, is that while `require` works dynamically from anywhere in
 
 However, there is one downside: because `require` works during runtime, you can have dynamically defined importing routes, such as:
 
-```
+```js
 const myMod = require('./src/' + pathToFile);
 ```
 
 Assuming of course that `pathToFile` is a string, this will work without a problem. But `import` will not allow for that since there is no runtime execution when they’re parsed.
-
----
 
 ## AMD
 
@@ -235,8 +224,6 @@ This ensures two major issues in front-end world:
 2. That our code is running inside a safe scope. By having our module being written inside a function, we avoid naming conflicts, specially between our dependencies.
 
 Remember, AMD is nothing but a standard, so you’ll need a framework around it that will provide you with the API and [RequireJS](https://requirejs.org/) is one of those frameworks.
-
----
 
 ## UMD
 
@@ -289,8 +276,6 @@ The second function, which as you can see, contains our example module, remains 
 
 This pattern might require adding a bit more code to wrap your modules, but it’ll make sure it works with multiple systems. It’s definitely an interesting option if you’re distributing a library to be used by many users. If on the other hand, you’re just creating a module for your own system, the extra work and lines of code, might not be worth it.
 
----
-
 ## SystemJS
 
 The last module loader I’ll cover here is [SystemJS](https://github.com/systemjs/systemjs) which provides yet another way of loading ES6 compatible code into non-compatible runtimes. In other words, by using a custom `import` function, you can load your ES6 code directly without translating it into anything.
@@ -325,30 +310,6 @@ This is definitely a good alternative if we’re hoping to re-use all of our ES6
 There are many options when it comes to writing and using JavaScript modules, depending on your needs and your preferences, but truth be told, all runtimes should be migrating to be ES6-compatible in the near future, since that is the path the language is taking. This in turn, means that unless you’re writing code for outdated systems, your best bet is to go for the natively supported format.
 
 **Now, let me ask you: which one is your favorite module loader?**
-
----
-
-## Tip: Share your reusable components between projects using Bit (Github).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.**
-
-Use it to maximize code reuse, keep a consistent design, speed-up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![](https://cdn-images-1.medium.com/max/2000/0*ts2H9aUxg_7StOpJ.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
-## Related Stories
-[**A Better Way to Share Code Between Your Node.js Projects**
-**Learn why you’ve probably been sharing code modules the wrong way.**blog.bitsrc.io](https://blog.bitsrc.io/a-better-way-to-share-code-between-your-node-js-projects-af6fbadc3102)
-[**NPM 7: This Is What I Call An Update**
-**NPM version 7 released two new features that really made a difference for me: workspaces and better peer dependency…**blog.bitsrc.io](https://blog.bitsrc.io/npm-7-this-is-what-i-call-an-update-de17a34ab787)
-[**11 Great Tools for a Monorepo in 2021**
-**Probably the best tools to develop and build your monorepo.**blog.bitsrc.io](https://blog.bitsrc.io/11-tools-to-build-a-monorepo-in-2021-7ce904821cc2)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
