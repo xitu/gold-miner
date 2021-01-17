@@ -7,8 +7,6 @@
 
 # Have a design portfolio? Great, but that’s not enough
 
-#### The secrets to getting your work noticed isn’t always the obvious.
-
 After working “in the field” as a visual designer for almost a decade, I started teaching design in college and vocational schools. The number one question I always get from students is — **how do I build my portfolio (so I can get a job)?**
 
 ![Mobile view of [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*zUi3lI3_1Ji7fjtU.jpg)
@@ -27,7 +25,7 @@ Yes, but there is more.
 
 The problem is even if we become one of the super talented designers who produce incredible work, we are just one of them. If you spend some more time on these sites, everything starts to look the same.
 
-> # …a great portfolio won’t necessarily get you work.
+>  …a great portfolio won’t necessarily get you work.
 
 That is exactly how a recruiter, a hiring manager, a client feels when they have to review hundreds of thousands of portfolios. And that is why a great portfolio won’t necessarily get you work.
 
@@ -41,7 +39,7 @@ I realized very early on that [**my portfolio site**](https://www.stellaguan.com
 
 Instead of trying to look like everybody else’s beautifully minimal site, I decided to tell my own story with a visual style that speaks to my personality.
 
-> # I realized very early on that my portfolio site is probably the only project I will have complete control over and have lots of fun with.
+>  I realized very early on that my portfolio site is probably the only project I will have complete control over and have lots of fun with.
 
 In order to create that look, I asked myself these questions:
 
@@ -65,7 +63,7 @@ Now you may have noticed that I have quite a few photos of myself in “fancy at
 
 Knowing that it may leave the impression of me being a narcissist, I still decided to put them up there. My reason is simple — I love fashion and see personal styling as an extension of my creativity.
 
-> # One of the strongest personal statements we can make is to show others what we love with confidence and not apologize for it.
+>  One of the strongest personal statements we can make is to show others what we love with confidence and not apologize for it.
 
 It certainly took me a while to get comfortable with it — after all, I am not an extrovert.
 
@@ -85,7 +83,7 @@ After I defined the visual style of my site, I decided to have a little extra fu
 
 If we look at content that performs well on social media or any other platforms, we will see some commonalities among them. People love hearing stories that are relatable. They want to hear your struggles and they want to know how you did what you did, despite the struggles. **Nobody wants to hear how amazing you are now.**
 
-> # They want to hear your struggles and they want to know how you did what you did, despite the struggles.
+>  They want to hear your struggles and they want to know how you did what you did, despite the struggles.
 
 If we watch enough movies, we will realize that people love rooting for the underdog. The unlikely champion, the one who struggled, and the one who is a work-in-progress despite having achieved something.
 
@@ -93,7 +91,7 @@ Through my life experience, I also found that self-deprecation can be a quite po
 
 If we can laugh at ourselves, it will make it impossible for others to laugh at us (I will have to admit that I borrowed this quote from one of my favorite TV shows, [Scandal](https://abc.com/shows/scandal)). **What it will do is make others resonate with our flaws, mishaps and create an instant bond called shared human experience.**
 
-> # If we can laugh at ourselves, it will make it impossible for others to laugh at us.
+>  If we can laugh at ourselves, it will make it impossible for others to laugh at us.
 
 With that knowledge in mind, I told my own life stories in visualized forms instead of writing a bland personal statement listing my past employers and my skill sets.
 
@@ -107,11 +105,11 @@ While there is nothing wrong with this type of personal statements, it just does
 
 But if you tell people your personal stories in concise formats, they are more likely to stop for a second because it’s almost like you are presenting them with a trailer of a movie to watch. It will become a much-welcomed distraction (the good kind) from endless portfolio sites that look identical, however beautiful they might be.
 
-> # If you tell people your personal stories in concise formats, they are more likely to stop for a second because it’s almost like you are presenting them with a trailer of a movie to watch.
+>  If you tell people your personal stories in concise formats, they are more likely to stop for a second because it’s almost like you are presenting them with a trailer of a movie to watch.
 
 What’s more important is that you are now showing them who they are hiring. People like to work with other people who they like as a person. And your storytelling page will convince them you are that person (or not).
 
-> # People like to work with other people who they like as a person.
+>  People like to work with other people who they like as a person.
 
 In fact, I have established working relationships with quite a few companies with founders who liked my stories. They didn’t even mention my work. Instead, we swapped stories about our lives and commenced the project.
 
@@ -143,7 +141,7 @@ The possibilities are limitless. The question is, are you actually going to do i
 
 **There is a reason that some of the most successful designers and other creative professionals don’t work for other companies.** They work for themselves by establishing a strong personal brand. They share their work and thoughts consistently; they built an audience over time; they reach out and stay connected; and the work starts coming and keeps coming.
 
-> # There is a reason that some of the most successful designers and other creative professionals don’t work for other companies.
+>  There is a reason that some of the most successful designers and other creative professionals don’t work for other companies.
 
 When you doubt whether or not you should start a blog, create content and be active on social media as part of your brand building routine, ask yourself this question — **do you want to be someone who doesn’t depend on one paycheck?** If you do, you have to get started creating content and sharing today.
 
@@ -163,7 +161,7 @@ The more you slack off on updating, the more overwhelming it will be when you do
 
 Another reason, perhaps a more important one, is that if you don’t reassess your brand every year, you are not setting yourself up for progress in the new year.
 
-> # If you don’t reassess your brand every year, you are not setting yourself up for progress in the new year.
+>  If you don’t reassess your brand every year, you are not setting yourself up for progress in the new year.
 
 Just because I am using my own site as a case study in this article doesn’t mean that my work is done. I know I will be making changes and there is always something I can improve or change.
 
@@ -181,11 +179,11 @@ It doesn’t mean anything tangible or specific — rather, it is the synergy th
 
 The power of a personal brand is that if people love hearing from you, they will buy what you sell.
 
-> # The power of a personal brand is that if people love hearing from you, they will buy what you sell.
+>  The power of a personal brand is that if people love hearing from you, they will buy what you sell.
 
 I am a strong believer in that your “work does **not** speak for itself.” Here is why.
 
-> # Instead of letting the work do the talking, we need to do the work well and then talk about them, a lot.
+>  Instead of letting the work do the talking, we need to do the work well and then talk about them, a lot.
 
 When designers think their work speak for themselves, they are actually setting themselves up for commercial failure. Instead of letting the work do the talking, we need to do the work well and then talk about them, a lot.
 
