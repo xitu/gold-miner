@@ -24,7 +24,7 @@ const initialState = {
 };
 ```
 
-首先，注意我们的数据只是一个简单的 JS 对象。 Redux 帮助我们 **管理状态的改变**，但它并不太关心状态本身。
+首先，注意我们的数据只是一个简单的 JS 对象。 Redux 帮助我们**管理状态的改变**，但它并不太关心状态本身。
 
 ## 为何使用 Redux？
 
@@ -115,7 +115,7 @@ const renderApp = () => {
 renderApp();
 ```
 
-不是一个很有用的应用，但是能正常工作。看起来我们已经证明了不用 Redux 也行。所以这篇文章已经完成了，对吧？
+虽然不是一个很有用的应用，但是能正常工作。看起来我们已经证明了不用 Redux 也行。所以这篇文章已经完成了，对吧？
 
 还没有…
 
@@ -1046,7 +1046,7 @@ ReactDOM.render(
 
 ## 中间件
 
-现在我们已经写了一些很实用的东西。但是还缺了一块。在某些环节，我们需要和服务器通信。我们的 action 是同步的。我们如何发出**异步** action 呢？很好，我们可以在组件中获取数据，但是这有一些问题。
+现在我们已经写了一些很实用的东西，但是还缺了一块。在某些环节，我们需要和服务器通信。我们的 action 是同步的。我们如何发出**异步** action 呢？很好，我们可以在组件中获取数据，但是这有一些问题。
 
 1. Redux（除了 `Provider` 和 `connect`）并不是专用于 React 的。最好有一个 Redux 解决方案。
 2. 在拉取数据时，我们有时候需要访问状态。我们并不想把状态传递得到处都是。所以我们想要写一个类似于 `connect` 的东西来获取数据。
@@ -1104,7 +1104,7 @@ if (middleware) {
 }
 ```
 
-我们创建一个“重新 dispatch ”的函数。
+我们创建一个”重新派发 action“的函数。
 
 ```js
 const dispatch = action => store.dispatch(action);
@@ -1394,15 +1394,15 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 );
 ```
 
-这创建了一个冻结了结果的 reducer。这样，如果你想要改变组件中的 store状态，它将会在开发环境报错。过一段时间，你将能够避免这些错误。但如果你新接触不可变数据，这可能是最容易的练习方式了，对于你和你的团队来说都是如此。
+这创建了一个冻结了结果的 reducer。这样，如果你想要改变组件中的 store 状态，它将会在开发环境报错。过一段时间，你将能够避免这些错误。但如果你新接触不可变数据，这可能是最容易的练习方式了，对于你和你的团队来说都是如此。
 
 ### 服务端渲染
 
-除了性能以外，我们还在我们的`connect` 实现上偷了懒，忽略了服务端渲染。`componentWillMount` 在服务端调用，但是我们不想在服务端设置监听。Redux 使用 `componentDidMount` 和一些其他技巧来使它在浏览器中正常工作。
+除了性能以外，我们还在我们的 `connect` 实现上偷了懒，忽略了服务端渲染。`componentWillMount` 在服务端调用，但是我们不想在服务端设置监听。Redux 使用 `componentDidMount` 和一些其他技巧来使它在浏览器中正常工作。
 
 ### Store 增强
 
-就好像我们的高阶函数还是不够多一样，Redux 还有一个我们遗漏掉的。“store 增强器” 是一个高阶函数，接收一个 store 创建器并返回一个 “增强版” store 创建器。这不是一个常见的操作，但它可以被用来创造 Redux 开发者工具之类的东西。 `applyMidleware` [**真正的**实现](https://github.com/reactjs/redux/blob/4d8700c9631b152f0dff384d528a6c7f74024418/src/applyMiddleware.js?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 就是一个 store 增强器。
+就好像我们的高阶函数还是不够多一样，Redux 还有一个我们遗漏掉的。“store 增强器”是一个高阶函数，接收一个 store 创建器并返回一个“增强版” store 创建器。这不是一个常见的操作，但它可以被用来创造 Redux 开发者工具之类的东西。`applyMidleware` [**真正的**实现](https://github.com/reactjs/redux/blob/4d8700c9631b152f0dff384d528a6c7f74024418/src/applyMiddleware.js?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 就是一个 store 增强器。
 
 ### 测试
 
@@ -1420,7 +1420,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 store.dispatch(fetch('/something'));
 ```
 
-别这样做。一个返回了 promise 的函数已经开始做这个操作了(除非它是个不正常的延迟 promise)。这意味着我们阻止了任何中间件来处理这个 action。比如，我们就不能使用节流中间件。另外我们也不能正常使用回放，因为这需要关闭 dispatch 函数。但是任何调用这个 `dispatch` 的代码都已经完成了工作，所以不能把它停掉。
+别这样做。一个返回了 promise 的函数已经开始做这个操作了（除非它是个不正常的延迟 promise）。这意味着我们阻止了任何中间件来处理这个 action。比如，我们就不能使用节流中间件。另外我们也不能正常使用回放，因为这需要关闭 dispatch 函数。但是任何调用这个 `dispatch` 的代码都已经完成了工作，所以不能把它停掉。
 
 确保你的 action 是对副作用的一种描述，本身不是副作用。Thunk 是不透明的，不是最好的描述，但是他们是对副作用的描述而不是副作用本身。
 
