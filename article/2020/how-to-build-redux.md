@@ -179,7 +179,7 @@ const SomeEvilComponent = () => {
 
 ## Reducer
 
-所以 Redux 怎样提供这些限制并帮助你管理状态呢？好，你可以从一个简单的输入当前状态，返回新状态的函数开始。所以对于我们的笔记应用，如果我们提供一个添加笔记的操作，应当得到有一个有加入笔记以后的新状态。
+所以 Redux 怎样提供这些限制并帮助你管理状态呢？它会从一个输入当前状态并返回新状态的简单函数开始。所以对于我们的笔记应用，如果我们提供一个添加笔记的动作，应当得到一个添加新笔记后的状态。
 
 ```js
 const CREATE_NOTE = 'CREATE_NOTE';
@@ -246,7 +246,7 @@ const reducer = (state = initialState, action) => {
 };
 ```
 
-实际上，如果你像这样改变状态，Redux 将不会工作。因为你在改变状态，对象的引用不会改变，所以你的应用将不会正确地更新。使用一些 Redux 开发者工具也将成为不可能，因为这些工具监控先前的状态。如果你在持续性地修改状态，就将失去回到先前状态的可能。
+实际上，如果你像这样改变状态，Redux 将不会正常工作。因为虽然你在改变状态，但是对象的引用不会改变（组件绑定状态是绑定对象的引用），所以你的应用将不会正确地更新。也会导致不能使用一些 Redux 开发者工具，因为这些工具跟踪的是先前的状态。如果你在持续性地修改状态，将不能进行状态回退。
 
 原则上，修改状态使得组建自己的 reducer （也可能包括应用的其他部分）更困难。纯函数是可预测的，因为他们在同样的输入下产生同样的输出。如果你养成了修改状态的习惯，一切就都完了。函数调用变得不确定。你必须在头脑中记住整棵函数调用树。
 
@@ -323,7 +323,7 @@ const reducer = (state = initialState, action) => {
 
 你又得到了简练的修改对象的代码，而且**实际上** Redux 可以在这种情况下正常工作，但是将无法进行优化。每个对象和数组在每次状态改变时都会是全新的，所以任何取决于这些对象和数组的组件将会重新渲染，哪怕你实际上不做任何修改。
 
-我们不可变的 reducer 肯定需要打更多的字，也会有更多的学习成本。但以后，你将会为改变状态的函数是孤立的，而且容易测试而感到高兴。对于一个真实的应用，你 **可能** 想要看一下 [lodash-fp](https://github.com/lodash/lodash/wiki/FP-Guide?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier), 或 [Ramda](http://ramdajs.com/) 或 [Immutable.js](https://facebook.github.io/immutable-js/)。在这里，我们使用 [immutability-helper](https://github.com/kolodny/immutability-helper?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 的一个变种，它很简单。我警告你，这是一个很大的坑。我甚至开始写了 [一个新的库](https://github.com/jdeal/qim?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier)。纯 JS 也很好，而且可以和强状态的方案，如 [Flow](https://flow.org/) 和 [TypeScript](https://www.typescriptlang.org/) 合作得很好。确保使用较小的函数。就像你使用 React 时的情况一样：比 jQuery 方案使用更多代码，但是每个组件都更容易预测。
+我们不可变的 reducer 肯定需要更多的类型定义，也会有更高的学习成本。但以后，你将会为改变状态的函数是独立的，而且容易测试而感到高兴。对于一个真实的应用，你**可能**想要看一下像 [lodash-fp](https://github.com/lodash/lodash/wiki/FP-Guide?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier), 或 [Ramda](http://ramdajs.com/) 或 [Immutable.js](https://facebook.github.io/immutable-js/)。在这里，我们使用 [immutability-helper](https://github.com/kolodny/immutability-helper?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 的一个变种，它很简单。我警告你，这是一个很大的坑。我甚至开始写了 [一个新的库](https://github.com/jdeal/qim?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier)。原生的 JS 也很不错，而且有很好且强壮的类型定义解决方案，如 [Flow](https://flow.org/) 和 [TypeScript](https://www.typescriptlang.org/)。确保使用较小的函数。就像你使用 React 时的情况一样：虽然比 jQuery 方案使用更多代码，但是每个组件都更容易预测。
 
 ### 使用我们的 Reducer
 
@@ -923,7 +923,7 @@ ReactDOM.render(
 
 1. 感觉绑定是命令式的。
 2. 容器组件中有很多重复代码。
-3. 每次把 store 绑定到组件时，需要使用全局 `store` 对象。否则，我们就需要穿过整个树传递一个 `store`。或者我们要在顶部节点绑定一次，然后把 **所有东西** 通过树传递下去。这在大型应用中可不太好。
+3. 每次把 store 绑定到组件时，需要使用全局 `store` 对象。否则，我们就需要将 `store` 传遍整个组件树。或者我们要在顶部节点绑定一次，然后把 **所有东西** 通过树传递下去。这在大型应用中可不太好。
 
 所以我们需要 React Redux 中提供的 `Provider` 和 `connect`。首先，来创建一个 `Provider` 组件。
 
@@ -1364,7 +1364,7 @@ const mapDispatchToProps = dispatch => ({
 
 ## 就这样！
 
-你自己写了一个 Redux！看起来我们写了很多代码，但是主要是我们的 reducer 和组件。我们实际的 Redux 实现还不到140 [140 行](https://gist.githubusercontent.com/jdeal/c224026df3bae5803fd9e58cbbd4a60b/raw/623150cb62a7076e78904881b61d4c948639abe8/mini-redux.js)。这包括了我们的 thunk 和日志中间件，空行，和注释！
+你自己写了一个 Redux！看起来我们写了很多代码，但是主要是我们的 reducer 和组件。我们实际的 Redux 实现还不到 [140 行代码](https://gist.githubusercontent.com/jdeal/c224026df3bae5803fd9e58cbbd4a60b/raw/623150cb62a7076e78904881b61d4c948639abe8/mini-redux.js)。这包括了我们的 thunk 和日志中间件，空行，和注释！
 
 是的，真实的 Redux 和真实的应用比这复杂一些。继续阅读，我们将讨论其中一些事情。如果你觉得自己掉进 Redux 的坑里了，但愿这能给你带来一些希望。
 
@@ -1410,7 +1410,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 
 ### 排序
 
-我们在有数字键的对象中保存我们的笔记。这意味着每一个 JS 引擎都会按照创建的顺序来给它们排序。如果我们的服务器返回 GUID 或者其它未排序的键，我们将很难排序。我们不想把笔记存放在数组中，因为要通过 id 获取特定笔记就不容易了。所以对于真实应用而言，我们可能需要用数组存放排好序的 id。另外，我们也可能可以使用数组，如果用 `reselect` 来缓存 `find` 操作结果的话。
+这款笔记应用目前是将数据保存在以数字作为 key 的对象中。这意味着每一个 JS 引擎都会按照创建的顺序来给它们排序。如果我们的服务器返回 GUID 或者其它未排序的键，我们将很难排序。我们不想把笔记存放在数组中，因为要通过 id 获取特定笔记就不容易了。所以对于真实应用而言，我们可能需要用数组存放排好序的 id。另外，我们也可能可以使用数组，如果用 `reselect` 来缓存 `find` 操作结果的话。
 
 ### Action 创建器的副作用
 
