@@ -121,7 +121,7 @@ renderApp();
 
 让我们再向下展望一下。我们加入了一些新的特性，开发了一个很好的服务端，成立了一个公司来销售它，得到了大量用户，添加了大量新特性，赚了些钱，扩大公司……好吧，似乎想太多了。
 
-很难以在这个简单的例子中看到，但是在我们通向成功的路上，我们的应用可能成长到具有几百个人组件和几百个文件。我们的应用会支持异步操作，所以我们将会有这样的代码：
+在这个简单的例子中很难看出来，但是在我们通向成功的路上，我们的应用可能不断的增大，包含数百个文件中的数百个组件。我们的应用会执行异步操作，所以我们将会有这样的代码：
 
 ```js
 const onAddNote = () => {
@@ -168,12 +168,12 @@ const SomeEvilComponent = () => {
 };
 ```
 
-在一个有很多开发者的大型代码库中，长期累积的问题将会有很多：
+在很长一段时间内，很多开发者在大型代码库中共同添加代码，我们将会遇到了一系列的问题：
 
 1. 渲染可能在任何地方触发。将会有奇怪的 UI 卡顿或卡死，而且看起来似乎是随机的。
-2. 隐藏的 Race condition，甚至在我们看到的这一点代码里就有。
-3. 太混乱以至于几乎不可能测试。你必须让 **整个** 应用处于特定状态，然后戳一下，看看 **整个** 应用的状态是否如你所料。
-4. 如果你有一个 bug，你可以有根据地猜测查看哪里，但最终，你的应用中的每一行代码都有嫌疑。
+2. 潜伏的竞态条件，甚至在我们看到的少量代码里就存在。
+3. 状态太混乱几乎不能进行测试。你必须让**整个**应用处于特定状态，然后不断调试状态，看看**整个**应用的状态是否如你所料。
+4. 如果你发现一个 bug，你可以有根据地猜测去哪修复，但最终，你的应用中的每一行代码都有嫌疑。
 
 最后一点是最糟糕的问题，也是我们选择 Redux 的主要原因。如果你想要降低整个应用的复杂性，最好（我个人的观点）要限制在哪里、怎样可以改变应用的状态。Redux 不是解决其它问题的万灵药，但是由于有了这些限制，其它的问题也会较少出现。
 
@@ -188,16 +188,16 @@ const UPDATE_NOTE = 'UPDATE_NOTE';
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_NOTE:
-      return // 有新笔记的新状态
+      return // 有新笔记的状态
     case UPDATE_NOTE:
-      return // 更新笔记之后的新状态
+      return // 更新笔记之后的状态
     default:
       return state
   }
 };
 ```
 
-如果 `switch` 语句让你作呕，你不必这样写你的 reducer。我经常使用一个对象，和用一个key 指向每种类型的 handler，像这样：
+如果 `switch` 语句让你作呕，你也可以用其他方式写 reducer。我经常使用一个对象，并让 key 指向每种类型的 handler，像这样：
 
 ```js
 const handlers = {
@@ -217,11 +217,11 @@ const reducer = (state = initialState, action) => {
 };
 ```
 
-这并不太重要。Reducer 是你自己的函数，你可以用任何方式实现它。Redux 真的不关心。
+这并不太重要。reducer 是你自己写的函数，你可以用任何方式来实现。Redux 真的不关心这个。
 
 ### 不可变性
 
-Redux 关心的是，你的 reducer 必须是 **纯函数**。意味着你必须永远永远不要这样写：
+Redux 关心的是，你的 reducer 必须是 **纯函数**。意味着你绝对不能这样写：
 
 ```js
 const reducer = (state = initialState, action) => {
@@ -302,7 +302,7 @@ return {
 };
 ```
 
-我们只改变 `notes` 状态。所以其他的 `state` 特性将保持不变。 `...state` 的意思是，复用这些已经存在的属性。相似的是，在 `notes` 中，我们只改变我们正在编辑的部分。`...state.notes` 中的笔记将不会改变。这样，我们可以利用 [`shouldComponentUpdate`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) 或 [`PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent)。如果一个组件有未改变的笔记作为属性，它可以避免重新渲染。记住，我们还需要避免像这样写 reducer：
+我们只改变 `notes` 属性。所以其他的 `state` 属性将保持不变。 `...state` 的意思是，复用已经存在的属性。类似地，在 `notes` 中，我们只改变我们正在编辑的部分。`...state.notes` 中的其他部分将不会改变。这样，我们可以借助 [`shouldComponentUpdate`](https://reactjs.org/docs/react-component.html#shouldcomponentupdate) 或 [`PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent)，使得有未改变的 note 作为 props 的组件避免重复渲染。记住，我们还需要避免像这样写 reducer：
 
 ```js
 const reducer = (state = initialState, action) => {
@@ -321,13 +321,13 @@ const reducer = (state = initialState, action) => {
 };
 ```
 
-你又得到了简练的修改对象的代码，而且 Redux **实际上** 可以在这种情况下正常工作，但是你将错过所有的优化。每个对象和数组在每次状态改变时都会是全新的，所以任何取决于这些对象和数组的组件将会重新渲染，哪怕你实际上不做修改。
+你又得到了简练的修改对象的代码，而且**实际上** Redux 可以在这种情况下正常工作，但是将无法进行优化。每个对象和数组在每次状态改变时都会是全新的，所以任何取决于这些对象和数组的组件将会重新渲染，哪怕你实际上不做任何修改。
 
 我们不可变的 reducer 肯定需要打更多的字，也会有更多的学习成本。但以后，你将会为改变状态的函数是孤立的，而且容易测试而感到高兴。对于一个真实的应用，你 **可能** 想要看一下 [lodash-fp](https://github.com/lodash/lodash/wiki/FP-Guide?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier), 或 [Ramda](http://ramdajs.com/) 或 [Immutable.js](https://facebook.github.io/immutable-js/)。在这里，我们使用 [immutability-helper](https://github.com/kolodny/immutability-helper?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier) 的一个变种，它很简单。我警告你，这是一个很大的坑。我甚至开始写了 [一个新的库](https://github.com/jdeal/qim?utm_source=zapier.com&utm_medium=referral&utm_campaign=zapier)。纯 JS 也很好，而且可以和强状态的方案，如 [Flow](https://flow.org/) 和 [TypeScript](https://www.typescriptlang.org/) 合作得很好。确保使用较小的函数。就像你使用 React 时的情况一样：比 jQuery 方案使用更多代码，但是每个组件都更容易预测。
 
 ### 使用我们的 Reducer
 
-我们来把一个  action 接入我们的 reducer，并生成一个新的 state。
+我们来把一个 action 接入我们的 reducer，并生成一个新的 state。
 
 ```js
 const state0 = reducer(undefined, {
@@ -521,11 +521,11 @@ ReactDOM.render(
 );
 ```
 
-现在，你可以理解为什么 Redux 自称为 "一个可预测的 JavaScript 应用状态容器"。输入同样的一系列 action，你将得到同样的状态。函数式编程必胜！如果你听说过 Redux 可以复现之前的状态，这就是大致的原理。虽然本来 Redux 并不引用一个 action 列表，而是使用一个变量指向状态对象，然后不断改变这个变量指向下一个状态。这是一个很重要的，在你的应用中允许的改变。但是我们会把这种改变控制在一个 store 中。
+现在，你可以理解为什么 Redux 自称为“一个可预测的 JavaScript 应用状态容器”。输入一系列相同的 action，你将得到相同的状态。函数式编程必胜！如果你听说过 Redux 可以复现之前的状态，这就是大致的原理。虽然本来 Redux 并不引用一个 action 列表，而是使用一个变量指向状态对象，然后不断改变这个变量指向下一个状态。这是在你的应用中允许的一个重要改变。但是我们会把这种改变控制在 store 中。
 
 ## Store
 
-我们来创建一个 store 吧。它可以保存我们的状态变量，并有一些存取状态的有用方法。
+我们来创建一个 store 吧。它可以保存我们单个的状态变量，并有一些存取状态的有用方法。
 
 ```js
 const validateAction = action => {
@@ -601,7 +601,7 @@ const createStore = reducer => {
 };
 ```
 
-一点点额外的代码，并不 **太** 难理解。其中的 `subscribe` 函数接收一个 `handler` 函数并把它添加到 `subscribers` 列表中。它也返回一个取消订阅的函数。 任何时间我们调用了 `dispatch`，我们就通知所有这些 handler。现在每次状态改变时，重新渲染就很简单了。
+一点点额外的代码，并不 **太** 难理解。其中的 `subscribe` 函数接收一个 `handler` 函数并把它添加到 `subscribers` 列表中。它也返回一个取消订阅的函数。任何时间我们调用了 `dispatch`，我们就通知所有这些 handler。现在每次状态改变时，重新渲染就很简单了。
 
 ```jsx
 ///////////////////////////////
@@ -801,9 +801,9 @@ const NoteApp = ({
 
 > 组件卸载后，这个状态还需要存在吗？
 
-如果不需要，很可能组件状态是合适的。对于需要保存在服务器，或者跨组件（各组件独立加载和卸载）分享的状态而言，Redux 很可能是更好的选择。
+如果不需要，很可能采用组件自身的 state 存储状态更合适。对于需要保存在服务器，或者跨组件（各组件独立加载和卸载）共享的状态而言，Redux 很可能是更好的选择。
 
-有时候 Redux 很适用于易变的状态。特别是状态需要随着 store 的改变而改变时，把它存放在 store 中可能更容易一些。对于我们的应用而言，当我们创建一个笔记时，我们需要把 `openNoteId` 赋值给它的 id。在组件中做这件事很笨拙，因为我们需要在 `componentWillReceiveProps` 中监控 store 状态的变化。我并不是说这是错的，只是这样很笨拙。所以对于我们的应用，我们将把 `openNoteId` 保存在 store 状态中。(在真实的 app 中，我们可能需要路由。看一下 [这个帖子的结尾](#routing) 来了解一下。
+有时候 Redux 很适用于易变的状态。特别是状态需要随着 store 中状态的改变而改变时，把它存放在 store 中可能更容易一些。对于我们的应用而言，当我们创建一个笔记时，我们需要把 `openNoteId` 设置为新的笔记 id。在组件中做这件事很笨拙，因为我们需要在 `componentWillReceiveProps` 中监控 store 状态的变化。我并不是说这是错的，只是这样很笨拙。所以对于我们的应用，我们将把 `openNoteId` 保存在 store 状态中。(在真实的 app 中，我们可能需要路由。看一下[这个帖子的结尾](#routing)来了解一下。）
 
 你可能需要把易变状态放在 store 中，只是为了容易从 Redux 开发者工具中访问它。很容易看到 store 状态的内容，而且像 replay 这样有趣的东西也可以用。从组件内部状态开始，再切换到 store 状态是很容易的。只要确保给本地状态提供组件来封装，就像用 store 来封装全局状态一样。
 
@@ -925,7 +925,7 @@ ReactDOM.render(
 2. 容器组件中有很多重复代码。
 3. 每次把 store 绑定到组件时，需要使用全局 `store` 对象。否则，我们就需要穿过整个树传递一个 `store`。或者我们要在顶部节点绑定一次，然后把 **所有东西** 通过树传递下去。这在大型应用中可不太好。
 
-所以我们需要 React Redux 中的 `Provider` 和 `connect`。首先，来创建一个 `Provider` 组件。
+所以我们需要 React Redux 中提供的 `Provider` 和 `connect`。首先，来创建一个 `Provider` 组件。
 
 ```js
 class Provider extends React.Component {
@@ -950,7 +950,7 @@ Provider.childContextTypes = {
 
 这就是我们的实现不需要直接使用 context 的原因。我们把这个试验 API 封装起来，这样如果它变了，我们可以改变自己的实现，并不要求开发者修改代码。
 
-所以我们需要一种方式把S context 转化成 prop。这就是 `connect` 的作用。
+所以我们需要一种方式把 context 转化成 props。这就是 `connect` 的作用。
 
 ```js
 const connect = (
@@ -992,7 +992,7 @@ const connect = (
 }
 ```
 
-这有一点点复杂。说实话，和真正的实现相比，我们偷懒了 **很多**。（我们将在 [结尾](#performance)讨论。）但这已经和大概的原理很接近了。 `connect` 是一个 [高阶组件](https://facebook.github.io/react/docs/higher-order-components.html)。实际上，它更像是高阶组件的工厂。它接收两个函数，并返回一个以组件为输入，新的组件为输出的函数。这个组件订阅 store，并且在发生改变时更新你的组件的 prop。开始使用它吧，它会变得更实用的。
+这有一点点复杂。说实话，和真正的实现相比，我们偷懒了**很多**。（我们将在[结尾](#performance)讨论。）但这已经和大概的原理很接近了。`connect` 是一个[高阶组件](https://facebook.github.io/react/docs/higher-order-components.html)。实际上，它更像是高阶函数。它接收两个函数，并返回一个以组件为输入，新的组件为输出的函数。这个组件订阅 store，并且在发生改变时更新你的组件的 props。开始使用它吧，它会变得更实用的。
 
 ## 自动组装
 
@@ -1028,7 +1028,7 @@ const NoteAppContainer = connect(
 
 嘿，看上去好多了！
 
-传给 `connect` 的首个函数 (`mapStateToProps`) 从我们的 `store` 中获取当前的 `state` 并返回一些 prop。第二个传给 `connect` 的函数 (`mapDispatchToProps`) 获取我们 `store` 的 `dispatch` 方法，并返回一些 prop。这给了我们一个新的函数，并且我们的组件传给这个函数。我们把组件传给这个函数。这给了我们一个新的组件，它将会自动获取所有这些 prop（加上我们额外传入的部分）。
+传给 `connect` 的首个函数 (`mapStateToProps`) 从我们的 `store` 中获取当前的 `state` 并返回一些 props。第二个传给 `connect` 的函数（`mapDispatchToProps`）获取我们 `store` 的 `dispatch` 方法，并返回一些 props。这给了我们一个新的函数，并且我们的组件传给这个函数。我们把组件传给这个函数。这给了我们一个新的组件，它将会自动获取所有这些 props（加上我们额外传入的部分）。
 
 现在我们需要使用我们的 `Provider` 组件，以使得 `connect` 不必把 store 放在 `context` 中。
 
@@ -1042,13 +1042,13 @@ ReactDOM.render(
 
 ```
 
-很好！我们的 `store` 被在顶部传入一次，然后 `connect` 把它接过来完成了所有的工作。声明式编程万岁！ [这是我们的应用](https://jsfiddle.net/justindeal/srnf5n20/10/)，他已经用 `Provider` 和 `connect` 清理过了。
+很好！我们的 `store` 被在顶部传入一次，然后 `connect` 接收 `store` 来完成所有的工作。声明式编程万岁！[这是我们的应用](https://jsfiddle.net/justindeal/srnf5n20/10/)，他已经用 `Provider` 和 `connect` 整理好了。
 
 ## 中间件
 
-现在我们已经写了一些很实用的东西。但是还缺了一块。在某些环节，我们需要和服务器交流。我们的 action 是同步的。我们如何发出 **异步** action呢？很好，我们可以在组件中获取数据，但是这有一些问题。
+现在我们已经写了一些很实用的东西。但是还缺了一块。在某些环节，我们需要和服务器通信。我们的 action 是同步的。我们如何发出**异步** action 呢？很好，我们可以在组件中获取数据，但是这有一些问题。
 
-1. Redux (除了 `Provider` 和 `connect`) 并不是专用于 React 的。最好有一个 Redux 解决方案。
+1. Redux（除了 `Provider` 和 `connect`）并不是专用于 React 的。最好有一个 Redux 解决方案。
 2. 在拉取数据时，我们有时候需要访问状态。我们并不想把状态传递得到处都是。所以我们想要写一个类似于 `connect` 的东西来获取数据。
 3. 我们在测试涉及到数据获取的状态变化时，必须要通过组件来测试。我们应该尽量把数据获取解耦。
 4. 又有一些工具不能用了。
@@ -1176,14 +1176,14 @@ const applyMiddleware = (...middlewares) => store => {
 };
 ```
 
-这不是个优雅的函数，但你应该可以跟得上。首先需要注意的是它接收一个中间件的列表，并返回一个中间件函数。这个新的中间件函数和早先的中间件有同样的签名。它接收一个 store (只是我们的重新 `dispatch` 和 `getState` 方法，不是整个 store） 并返回另一个函数。对于这个函数：
+这不是个优雅的函数，但你应该可以跟得上。首先需要注意的是它接收一个中间件的列表，并返回一个中间件函数。这个新的中间件函数和之前的中间件有同样的签名。它接收一个 store（只包含新的派发 action 的 `dispatch` 和 `getState` 方法，不是整个 store）并返回另一个函数。对于这个函数：
 
-1. 如果我们没有中间件，返回一个恒等函数。基本上只是一个什么都不做的中间件。很蠢，但我们只是防止人们搞破坏。
+1. 如果我们没有中间件，返回和原来一样的函数。基本上只是一个什么都不做的中间件。很蠢，但我们只是防止人们搞破坏。
 2. 如果我们有一个中间件，返回这个中间件函数。也很蠢，只是搬运而已。
 3. 我们把所有中间件绑定在我们假的 store 上。Okay，终于有趣起来了。
 4. 我们把这些函数一个个绑定到下一个 dispatch 函数上。这就是我们的中间件有这么多箭头的原因。我们有一个能够接收 action，并不断调用下一个 dispatch 函数直至抵达最原始的 dispatch 函数的函数。
 
-好了，现在我们可以使用所有想用的中间件了。
+好了，现在我们可以按预期使用所有的中间件了。
 
 ```js
 const store = createStore(reducer, applyMiddleware(
@@ -1198,7 +1198,7 @@ const store = createStore(reducer, applyMiddleware(
 
 ## Thunk 中间件
 
-我们来做些真的异步操作吧。在此介绍一种 "thunk" 中间件：
+我们来做些真的异步操作吧。在此介绍一种“thunk”中间件：
 
 ```js
 const thunkMiddleware = ({dispatch, getState}) => next => action => {
@@ -1209,7 +1209,7 @@ const thunkMiddleware = ({dispatch, getState}) => next => action => {
 };
 ```
 
-"Thunk" 真的只是 "函数" 的另一个名称，但是它通常意味着 "封装了一些未来处理的工作的函数"。如果我们加入 `thunkMiddleware`：
+“Thunk”真的只是“函数”的另一个名称，但是它通常意味着“封装了一些未来处理的工作的函数”。如果我们加入 `thunkMiddleware`：
 
 ```js
 const store = createStore(reducer, applyMiddleware(
@@ -1222,12 +1222,12 @@ const store = createStore(reducer, applyMiddleware(
 
 ```js
 store.dispatch(({getState, dispatch}) => {
-  // 从 state 中获取东西
+  // 从 state 中取数据
   const someId = getState().someId;
-  // 根据获取到的东西从服务端拉取数据
+  // 根据获取到的数据从服务端拉取数据
   fetchSomething(someId)
     .then((something) => {
-      // 任何时候都可以发出去
+      // 任何时候都可以派发 action
       dispatch({
         type: 'someAction',
         something
@@ -1236,7 +1236,7 @@ store.dispatch(({getState, dispatch}) => {
 });
 ```
 
-Thunk 中间件是一柄大锤。我们可以把任何东西从 state 中拉出来，并在任何时候把任何 action 派发出去。很有弹性，但随着你的 app 变得越来越大，它 **可能** 变得危险。但从这里开始挺好的。我们用它来做一些异步操作吧。
+Thunk 中间件是一柄大锤。我们可以把任何东西从 state 中拉出来，并在任何时候把任何 action 派发出去。这十分方便灵活，但随着你的 app 变得越来越大，它**可能**变得危险。但从这里开始挺好的。我们用它来做一些异步操作吧。
 
 首先，创建一个假的 API。
 
@@ -1372,7 +1372,7 @@ const mapDispatchToProps = dispatch => ({
 
 ### 性能
 
-我们的实现所缺少的是，监听特定属性是否真的改变了的能力。对于我们的示例应用而言，这没关系，因为每个状态变化都造成了属性的改变。但对于有很多 `mapStateToProps` 函数的大型应用而言，我们只想要在组件真的接收新属性时更新。要扩展我们的 `connect` 函数来实现这一点是很容易的。我们只需要在调用 `setState` 时比较前后的数据即可。我们需要更聪明地使用 `mapDispatchToProps` 。注意，我们每次都在创建新的函数。真实的 React Redux 实现会检查函数的参数，看看它是否依赖`属性`。这样，如果属性没有真的改变，就不需要再做一次映射。
+我们的实现所缺少的是，监听特定属性是否真的改变了的能力。对于我们的示例应用而言，这没关系，因为每个状态变化都造成了属性的改变。但对于有很多 `mapStateToProps` 函数的大型应用而言，我们只想要在组件真的接收新属性时更新。要扩展我们的 `connect` 函数来实现这一点是很容易的。我们只需要在调用 `setState` 时比较前后的数据即可。我们需要更聪明地使用 `mapDispatchToProps`。注意，我们每次都在创建新的函数。真正的 React Redux 库会检查函数的参数，看看它是否依赖`属性`。这样，如果属性没有真的改变，就不需要再做一次映射。
 
 你也需要注意，当我们在属性或者 store 状态改变时，会调用我们的函数。它们可能瞬间同时发生，所以会浪费一些性能。React Redux 优化了这一点，也优化了很多其他东西。
 
@@ -1380,7 +1380,7 @@ const mapDispatchToProps = dispatch => ({
 
 ### 冻结状态
 
-如果你使用纯 JS 数据（不是像 Immutable.js 这样的东西），那么我遗漏的一个很重要的细节是在开发时冻结 reducer 状态。因为这是 JavaScript，没有什么阻止你在从 store 中获取状态之后改变它。你可以在 `render` 方法或者别的任何东西中改变它。这会造成非常糟糕的结果，并且毁坏一些正在通过 Redux 加入的可预见性。我是这样做的：
+如果你使用原始 JS 数据（不是像 Immutable.js 这样的东西），那么我遗漏的一个很重要的细节是在开发时冻结 reducer 状态。因为这是 JavaScript，没有什么阻止你在从 store 中获取状态之后改变它。你可以在 `render` 方法或者别的任何东西中改变它。这会造成非常糟糕的结果，并且毁坏一些正在通过 Redux 加入的可预见性。我是这样做的：
 
 ```js
 import deepFreeze from 'deep-freeze';
@@ -1394,7 +1394,7 @@ const frozenReducer = process.env.NODE_ENV === 'production' ? reducer : (
 );
 ```
 
-这创建了一个冻结了结果的 reducer。这样，如果你想要改变组件中的 store状态，它将会在开发时抛出错误。过一段时间，你将能够避免这些错误。但如果你新接触不可变数据，这可能是最容易的练习方式了，对于你和你的团队来说都是如此。
+这创建了一个冻结了结果的 reducer。这样，如果你想要改变组件中的 store状态，它将会在开发环境报错。过一段时间，你将能够避免这些错误。但如果你新接触不可变数据，这可能是最容易的练习方式了，对于你和你的团队来说都是如此。
 
 ### 服务端渲染
 
