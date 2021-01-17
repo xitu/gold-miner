@@ -203,7 +203,6 @@ It also added a major improvement: instead of having to include all your app’s
 Back to our example, if we wanted to add the same simple ES6 module but using AMD, we would do something like this:
 
 ```JavaScript
-
 define(['lodash'], function(_lodash) {
 
   const dummyFunction = () => {
@@ -213,7 +212,7 @@ define(['lodash'], function(_lodash) {
   return {
     dummyFunction
   }
-}
+})
 ```
 
 The framework using AMD will provide a `define` function that takes a first parameter which is a list of dependencies. Once the dependencies are loaded, our function will be executed. Also notice how we did away with the `export` statement, since anything that is returned by our function will be exported.
