@@ -7,17 +7,11 @@
 
 # A Beginner’s Guide to Memoization with JavaScript
 
-#### Start implementing efficient functions with memoization
-
 ![Photo by [Tamanna Rumee](https://unsplash.com/@tamanna_rumee?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*ppVRXfrCk7iBldw8)
-
----
 
 One of the best things about being a software developer is that you never stop learning. There is always something to learn especially with something like JavaScript. When our applications become complex, the need for speed becomes a major deal-breaker. Performance optimization becomes a necessity when our application code grows in scale. Memoization is a concept that helps you build efficient applications even when the complexity is higher. The concept of memoization is very much associated with pure functions and functional programming in JavaScript.
 
 **You must keep in mind that memoization is merely a concept and is not dependent on JavaScript or any specific programming language. We will be looking at memoization from JavaScript’s perspective in this article.**
-
----
 
 ## What is Memoization?
 
@@ -27,23 +21,9 @@ If you break this definition down further, you will notice that there are three 
 
 * **caching the results** — cache is a temporary data storage that enables faster data access in the future.
 * **expensive computations** — this refers to computations or process which are expensive. By the term “expensive”, it is meant that these processes consume a lot of memory or take a lot of time, both of which are precious in the world of computing.
-* **when the same inputs are passed** — This is a straightforward statement. But this statement confirms the connection between memoization and pure functions as stated before. The fundamental concept of pure functions is that the result returned is always the same as the associated input argument. You can read more about pure functions over here.
-[**Basics of JavaScript Pure Functions**
-**Write cleaner, programmer-friendly code with pure functions**blog.bitsrc.io](https://blog.bitsrc.io/basics-of-javascript-pure-functions-3e6f3437066)
+* **when the same inputs are passed** — This is a straightforward statement. But this statement confirms the connection between memoization and pure functions as stated before. The fundamental concept of pure functions is that the result returned is always the same as the associated input argument.
 
 With the help of our divide and conquer approach, we should have a basic understanding of memoization by now. If you still didn’t understand, don’t worry, I’ve got you covered.
-
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)). Bit makes it simple to share, document, and organize independent components from any project**.**
-
-Use it to maximize code reuse, collaborate on independent components, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*TqmigZrRHV5rYml9.gif)
-
----
 
 ## When and Why Should You Memoize Your Functions?
 
@@ -64,8 +44,6 @@ Furthermore, there are several instances where you can memoize your functions.
 * They are recursive functions with input values being repeated.
 * The function calls are expensive
 
----
-
 ## Key Takeaways
 
 ![Photo by [Matthew Cabret](https://unsplash.com/@majinmdub?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8320/0*m5L_0XBWVSlIUumn)
@@ -77,8 +55,6 @@ There are three main points you should keep in mind about memoization. Memoizati
 * **Closures** — the cache that exists within the function can remember its values thanks to closures and higher-order functions.
 
 You will see these concepts in action in the example down below.
-
----
 
 ## Memoization in Action
 
@@ -100,15 +76,11 @@ You can clearly see that the above factorial function is a **pure function** as 
 
 We can now see how a function can be memoized with three important concepts being applied to it.
 
----
-
 ## Caching vs Memoization
 
 You might start wondering about the difference between caching and memoization. Well, in fact, caching can be possible in various ways like HTTP cache, image cache, etc. But memoization is more concerned with a specific type of caching, **caching return values of a function**.
 
 **You must also note that I have already mentioned the key takeaways of memoization. Therefore caching is only a part of memoization, not memoization itself.**
-
----
 
 ## Libraries for Memoization
 
@@ -121,8 +93,6 @@ There are several libraries that help you memoize your functions but they differ
 
 You can have a look at all the libraries and their features in this [stack overflow answer](https://stackoverflow.com/a/61402805) by Venryx.
 
----
-
 ## Should You Always Memoize Your Functions?
 
 **TLDR; No**
@@ -133,26 +103,17 @@ It is very important for you to understand that you have to balance between two 
 
 Therefore, I believe that it is suitable to implement memoization when the input range is fixed and it can be assured that they will be often repetitive.
 
----
-
-## Learn More
-[**JavaScript Dynamic Programming with Ugly Numbers**
-**Understand the concepts of dynamic programming**blog.bitsrc.io](https://blog.bitsrc.io/javascript-dynamic-programming-with-ugly-numbers-63d5658113e4)
-[**What’s Wrong with Classes in JavaScript?**
-**I’m all for syntactic sugar, but we’re still missing a few things.**blog.bitsrc.io](https://blog.bitsrc.io/whats-wrong-with-javascript-s-classes-3378c73205af)
-[**JavaScript Decorators From Scratch**
-**Understand all varieties of decorator functions**blog.bitsrc.io](https://blog.bitsrc.io/javascript-decorators-from-scratch-c4cfd6c33d70)
-
----
+----
 
 Thank you for reading and happy coding
 
-**Resources
-**[Article by Philip](https://scotch.io/tutorials/understanding-memoization-in-javascript)
-[Article by Codesmith](https://codeburst.io/understanding-memoization-in-3-minutes-2e58daf33a19)
-[Article by Divyanshu](https://www.freecodecamp.org/news/understanding-memoize-in-javascript-51d07d19430e/)
-[Lecture Notes — Carnegie Mellon University](https://www.cs.cmu.edu/~rwh/introsml/techniques/memoization.htm)
-[MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+**Resources**
+
+- [Article by Philip](https://scotch.io/tutorials/understanding-memoization-in-javascript)
+- [Article by Codesmith](https://codeburst.io/understanding-memoization-in-3-minutes-2e58daf33a19)
+- [Article by Divyanshu](https://www.freecodecamp.org/news/understanding-memoize-in-javascript-51d07d19430e/)
+- [Lecture Notes — Carnegie Mellon University](https://www.cs.cmu.edu/~rwh/introsml/techniques/memoization.htm)
+- [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
