@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-complete-guide-of-node-js-buffer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-complete-guide-of-node-js-buffer.md)
 > * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：
+> * 校对者：[flashhu](https://github.com/flashhu) 与 [regon-cao](https://github.com/regon-cao)
 
 # Node.js 缓冲区的完整指南
 
@@ -74,7 +74,7 @@ var a = Buffer.compare(buf1, buf2)
 console.log(a) // 这会打印 1
 ```
 
-#### `Buffer.concat`
+#### `Buffer.concat()`
 
 顾名思义，您可以使用此方法连接两个缓冲区。当然，就像字符串一样，您也可以连接两个以上的缓冲区。
 
