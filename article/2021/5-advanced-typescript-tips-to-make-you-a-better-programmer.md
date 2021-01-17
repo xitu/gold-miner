@@ -14,11 +14,7 @@ Typescript is an amazing language — one that allows us to do everything JavaSc
 * reducing bugs, by writing more explicit and understandable code
 * pack more value into your code without reinventing the wheel.
 
-If you already know these, then congrats! You’re a TS Legend — maybe share some of your wisdom with me in the comments ([and read my other article with 5 seperate tips](https://levelup.gitconnected.com/5-tips-for-better-typescript-code-5603c26206ef)!).
-
 Here’s 5 advanced TypeScript tips that will allow you to write better TypeScript Code.
-
----
 
 #### 1. The “is” operator / Type Guards
 
@@ -28,13 +24,13 @@ Unfortunately, there’s no way to catch these at compile time if you don’t kn
 
 API’s are often an entrypoint for errors for typescript — API call results are usually casted like the following:
 
-```
+```ts
 const myApiResult = await callApi("url.com/endpoint") as IApiResult
 ```
 
 or even worse…
 
-```
+```ts
 const myApiResult = await callApi("url.com/endpoint") as any
 ```
 
@@ -44,7 +40,7 @@ But what if the API gives us something that isn’t a `IApiResult` ? What if it 
 
 We can utilize TS Type Guards:
 
-```
+```ts
 interface IApiResponse { 
    bar: string
 }
@@ -74,7 +70,7 @@ As a generic explication to the “is” operator: `value is type` is actually a
 
 This one is a simpler, more syntactic sugar type thing. Most people know that when assigning an interface, you can write “readonly” to make that property immutable.
 
-```
+```ts
 interface MyInterface {
   readonly myProperty: string
 }
@@ -90,7 +86,7 @@ this is great, until you end up with really big data classes, maybe from API res
 
 Typescript supports “as const” after a declaration so that we add readonly to every single property.
 
-```
+```ts
 let t = {
  myProperty: "hi" 
  myArr: [1, 2, 3]
@@ -101,7 +97,7 @@ Now, every property of T is immutable. for instance, `t.myArr.push(1)` won’t c
 
 The usecases where I see this being the most helpful is the same as the previous — instead of returning an interface, though, we just want to proxy the object called from the API and change some properties around, making it a data object. So, combining with the previous tip:
 
-```
+```ts
 const callFooApi = async () => {
  let response = await httpRequest('foo.api/barEndpoint') //returns unknown
  if (responseIsbar(response)) {
@@ -129,7 +125,7 @@ Many languages solve this by forcing switch cases to either be exhaustive, or ha
 
 Say we have a situation like this:
 
-```
+```ts
 enum Directions {
    Left,
    Right
@@ -151,7 +147,7 @@ Even the most rookie programmer can say that we are turning either left, or righ
 
 Say in two years, a developer decides to add a new direction: Forward. Now, the enum looks like this:
 
-```
+```ts
 enum Directions {
    Left,
    Right,
@@ -163,7 +159,7 @@ The switch case knows that, but it **doesn’t care.** it will happy attempt to 
 
 so we add this default case:
 
-```
+```ts
 default:
    const exhaustiveCheck: never = myDirection
    throw new Error(exhaustiveCheck)
@@ -183,7 +179,7 @@ It can be pretty difficult to tell if a field is undefined by design, or if we a
 
 Here’s an example:
 
-```
+```ts
 interface Foo {
    bar?: string
 }
@@ -191,7 +187,7 @@ interface Foo {
 
 property bar ends with a question mark, which means that the field can be undefined, so doing `let baz: Foo = {}`compiles (as an added note, `let baz: Foo = {bar: null} `also compiles). Developers down the line, though, might not know if I intentionally left bar blank, or if I accidentally did. A better way to broadcast my intentions would be to create my interface like this:
 
-```
+```ts
 interface Foo {
   bar: string | null
 }
@@ -201,7 +197,7 @@ and now, we have to **explicitly state that bar is null.** There can be no confu
 
 This isn’t only good for declaring interfaces — I also use it when it’s possible to return nothing from a function. This helps at compile time:
 
-```
+```ts
 //if we forget to return something, compiler will let 
 const myFunc = (): string | void => {
    console.log('blah')
@@ -225,7 +221,7 @@ I’ll go through my favorites and the ones I use the most, but the more you kno
 
 Sets all of the types fields to optional. This is useful when you want to perform updates on an object, like:
 
-```
+```ts
 function updateBook<T extends Book>(book: T, updates: Partial<T>) {
    const updatedBook = {...book, ...updates }
    notifyServer(updatedBook)
@@ -237,7 +233,7 @@ function updateBook<T extends Book>(book: T, updates: Partial<T>) {
 
 this one sets all the fields to readonly. I use this as a return value, mostly when returning data classes.
 
-```
+```ts
 function generateData(): Readonly<T>
 ```
 
@@ -245,7 +241,7 @@ function generateData(): Readonly<T>
 
 creates a new type that removes null / undefined. This is useful if we’re enriching or filling out some data, and we now guarantee it’s there.
 
-```
+```ts
 interface IPerson {
   name: string
 }
@@ -259,7 +255,7 @@ const fillMaybePerson = (maybe: MaybePerson): NonNullable<MaybePerson> ...
 
 Type is the return type of a function. useful if you’re writing an API over functions, and don’t want to constrain the functions.
 
-```
+```ts
 const getMoney = (): number => {
   return 100000
 }
@@ -271,7 +267,7 @@ ReturnType<getMoney> //number
 
 removes the ? from all fields of an interface.
 
-```
+```ts
 interface T {
   maybeName?: string
 }
@@ -282,8 +278,6 @@ type CertainT = Required<T> // equal to { maybeName: string }
 ---
 
 And that’s it! If you see a mistake anywhere, please let me know ASAP so I can fix it before anyone else learns something incorrect. If you think that I’m missing something, then go ahead and let me know!
-
-Otherwise, I hope you learned something that you can take away to be a better programmer.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
