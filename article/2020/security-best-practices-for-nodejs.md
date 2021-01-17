@@ -71,7 +71,7 @@ OWASP 很注重身份认证。像 [OAuth](https://oauth.net/) 这样的标准（
 
 如果您需要在 Node.js 的项目中[实现 OAuth2](https://blog.logrocket.com/implementing-oauth-2-0-in-node-js/) 协议，为了避免从头开发，可以从众多的开源和成熟的第三方库中选择某个来使用，比如著名的 [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server) 模块。
 
-无论所选用的模块或者框架是开源的还是付费的，您都需要经常浏览官方文档。。另外，在为身份认证功能添加安全模块时，不要选用近期面世的小型开源项目（因为这样的风险对于应用程序中的关键模块而言实在太大）。
+无论所选用的模块或者框架是开源的还是付费的，您都需要经常浏览官方文档。另外，在为身份认证功能添加安全模块时，不要选用近期面世的小型开源项目（因为这样的风险对于应用程序中的关键模块而言实在太大）。
 
 ## 敏感信息泄露
 
@@ -113,7 +113,7 @@ app.use(hsts({
 
 ## （旧） XML 外部实体注入
 
-攻击者可能会通过定义外部实体，利用应用程序解析 XML 文件的过程中的漏洞把那些外部实体注入到应用程序中。旧版本的 XML 解析器比较容易受到这种攻击，我们称之为[XXE 外部实体注入](https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing)
+攻击者可能会通过定义外部实体，利用应用程序解析 XML 文件的过程中的漏洞把那些外部实体注入到应用程序中。旧版本的 XML 解析器比较容易受到这种攻击，我们称之为 [XXE 外部实体注入](https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing)
 
 如果解析器的配置不够强大，攻击者就能够窃取类似敏感数据和机密信息，比如服务器密码等。
 
