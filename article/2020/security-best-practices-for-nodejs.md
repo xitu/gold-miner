@@ -2,8 +2,8 @@
 > * 原文作者：[Diogo Souza](https://twitter.com/diogosouzac)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/security-best-practices-for-nodejs.md](https://github.com/xitu/gold-miner/blob/master/article/2020/security-best-practices-for-nodejs.md)
-> * 译者：Ashira
-> * 校对者：
+> * 译者：[Ashira97](https://github.com/Ashira97)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[samyu2000](https://github.com/samyu2000)
 
 # Node.js 安全编程的最佳实践
 
