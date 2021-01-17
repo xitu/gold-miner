@@ -6911,10 +6911,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：46.5 当前积分：46.5
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：47.5 当前积分：47.5 二零二零：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|12 月推荐后端文章 1 篇|奖励|1|
 |[初创公司的数据科学：简介](https://juejin.im/post/5bd55b76f265da0ae472ce1b)|校对|2.5|
 |[开源项目之 Nginx](https://juejin.im/post/5bc55a25f265da0ae8014147)|校对|5|
 |[数据科学和机器学习面试问题](https://juejin.im/post/5bbb104f5188255c960c4d7e)|校对|1.5|
@@ -10254,10 +10255,11 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：138.5 当前积分：138.5 二零二零：138.5
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：140.5 当前积分：140.5 二零二零：140.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|12 月推荐前端文章 2 篇|奖励|2|
 |[单体应用与微前端开发对比](https://juejin.cn/post/6906021856210321422)|翻译|6|
 |[提高开发效率的五个 Chrome 扩展程序](https://juejin.cn/post/6903831004034072589)|翻译|1|
 |[继承 vs 组合：哪一个更适合你的 JavaScript 项目？](https://juejin.cn/post/6906288659742654478)|校对|2|
@@ -10647,10 +10649,11 @@
 |[增量 DOM 与虚拟 DOM 的对比使用](https://juejin.cn/post/6903765877296988174)|校对|2|
 |[理解 JavaScript 中模块的导入和导出](https://juejin.cn/post/6904980094998020109)|校对|3|
 
-## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：6 当前积分：6 二零二零：6
+## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：7 当前积分：7 二零二零：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|12 月推荐 AI 文章 1 篇|奖励|1|
 |[WebTransport 会在不久的将来取代 WebRTC 吗？](https://juejin.cn/post/6910186017190313991)|校对|2|
 |[SwiftUI 黑暗模式——最简单的方法](https://juejin.cn/post/6905925634552233998)|翻译|2|
 |[黑暗主题 — 现代 UI 设计](https://juejin.cn/post/6901856999235911688)|校对|2|
