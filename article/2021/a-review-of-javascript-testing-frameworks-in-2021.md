@@ -7,8 +7,6 @@
 
 # A Review of JavaScript Testing Frameworks in 2021
 
-#### Based on the State of JS 2020 Survey
-
 ![Usage of JS Testing Frameworks. Source: State of JS 2020](https://cdn-images-1.medium.com/max/3060/1*bpLclR6tFirmgc0bs3BvHQ.png)
 
 Testing is one of the essential parts of Software Engineering. If you are new to testing, you might ask the same question as everybody does. Why the hell should I write tests? If the functionality is just working perfectly.
@@ -21,7 +19,7 @@ In this article, we will closely look at some of the popular testing frameworks 
 
 #### 1. Jest
 
-**Github Stars:**** 38.3k**
+**Github Stars**: **38.3k**
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ORx4FzFx1702SS1x.png)
 
@@ -30,8 +28,6 @@ Jest is a delightful JavaScript Testing Framework with a focus on simplicity. It
 Jest is one of my favorite frameworks. It is fast, safe, easy to use, and well documented. Based on the [State of JS survey 2020](https://2020.stateofjs.com/en-US/), it is one of the most used testing frameworks among javascript developers. And, the surveys show that most of the developers are interested in learning it.
 
 ![](https://cdn-images-1.medium.com/max/3002/1*ABMiYTBr54hUQ0z70H5DGw.png)
-
----
 
 #### 2. Mocha
 
@@ -45,8 +41,6 @@ Simple, flexible, fun javascript test framework for both node.js & the browser. 
 
 Based on the [State of JS survey 2020](https://2020.stateofjs.com/en-US/), it is one of the second most used testing frameworks among javascript developers after jest.
 
----
-
 #### 3. Jasmine
 
 **GitHub Stars**: **15k**
@@ -59,8 +53,6 @@ The survey shows a lot of developers are using Jasmine. But the interest of deve
 
 ![Usage of the Testing frameworks. Source: State of JS 2020](https://cdn-images-1.medium.com/max/NaN/1*bpLclR6tFirmgc0bs3BvHQ.png)
 
----
-
 #### 4. AVA
 
 **GitHub Stars**: **18.6k**
@@ -68,8 +60,6 @@ The survey shows a lot of developers are using Jasmine. But the interest of deve
 ![](https://cdn-images-1.medium.com/max/2000/0*_MnNTc5DD3wLQJMu)
 
 AVA is a test runner for Node.js with a concise API, detailed error output, embrace of new language features, and process isolation that lets you develop with confidence.
-
----
 
 #### 5. Puppeteer
 
@@ -88,8 +78,6 @@ Other popular testing library includes [Sinon.js](https://github.com/sinonjs/), 
 Don’t be confused with these frameworks. All they do is provide a nice environment to test your code. The survey also shows that Jest has become a favorite among the developers. I’ve been using Jest to test my Node applications as well.
 
 If you are a Node developer or React developer I highly recommend using Jest.
-
-If you enjoyed reading, be sure to like and comment.
 
 Happy learning!
 
