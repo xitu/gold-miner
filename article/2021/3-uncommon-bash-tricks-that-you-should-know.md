@@ -7,8 +7,6 @@
 
 # 3 Uncommon Bash Tricks That You Should Know
 
-#### Type less on the terminal with these underused Bash patterns
-
 ![Image by author — Matera, Italy](https://cdn-images-1.medium.com/max/4000/0*-UdH52A57htDgdu0.png)
 
 **Good developers type less** — allowing them to:
@@ -30,15 +28,13 @@ All of these tricks are also compatible with zsh.
 
 **This post follows the convention of starting shell commands with a** `$`. **For commands that would be expanded by the shell, I will show the expanded command below without a** `$`.
 
----
-
 ## Parameter Expansion With {a,b}
 
 When writing a single command, it’s common to repeat yourself.
 
 Take the example of changing the suffix on a file, which we can do using `mv`:
 
-```
+```bash
 $ mv README.txt README.md
 ```
 
@@ -46,7 +42,7 @@ Notice how we write `README` twice?
 
 Parameter expansion will avoid this repetition — allowing us to change the suffix on our file without typing `README` twice:
 
-```
+```bash
 $ mv README.{txt,md}
 mv README.txt README.md
 ```
@@ -55,7 +51,7 @@ The parameter expansion we use is `{txt,md}`, which is expanded to two arguments
 
 **Parameter expansion creates one argument for each element inside the curly braces, separated by a comma**:
 
-```
+```bash
 $ echo {1,2,3}
 1 2 3
 
@@ -65,49 +61,47 @@ pre1fix pre2fix pre3fix
 
 An empty entry will create an argument with nothing substituted:
 
-```
+```bash
 $ echo pre{,1,2}fix
 prefix pre1fix pre2fix
 ```
 
 Another example — renaming a `models` folder to `ml` inside a `data` folder:
 
-```
+```bash
 $ mv data/models data/ml
 ```
 
 We can save retyping `data/` by using parameter expansion:
 
-```
+```bash
 $ mv data/{models,ml}
 mv data/models data/ml
 ```
 
 We can use parameter expansion with a sequence of numbers — useful to create numbered directories:
 
-```
+```bash
 $ mkdir data{0..2}
 mkdir data0 data1 data2
 ```
 
 **We can also do parameter expansion inside an argument** — for example, to change a folder halfway up a path:
 
-```
+```bash
 $ cat models/{baseline,final}/data.csv
 cat models/baseline/data.csv models/final/data.csv
 ```
 
 A final example, using three parameters — moving two Python test files into a `tests` folder:
 
-```
+```bash
 $ mv test_unit.py test_system.py tests
 ```
 
 #### Summary
 
 **Any time you are retyping something multiple times in a single command, it’s likely parameter expansion can help save your exhausted hands.**
-
----
 
 ## Accessing the Last Argument With $_
 
@@ -117,7 +111,7 @@ Our previous tip, parameter expansion, is about typing less on a single command 
 
 Take the simple case of making a folder and moving into it:
 
-```
+```bash
 $ mkdir temp
 $ cd temp
 ```
@@ -126,7 +120,7 @@ Notice that we reuse the argument `temp` again in our second command?
 
 **We can save retyping** `temp` **and bring it forward from the previous command using** `$_`:
 
-```
+```bash
 $ mkdir temp
 $ cd $_
 cd temp
@@ -138,7 +132,7 @@ This use case of wanting to reuse the last argument of the last command (here `t
 
 Another example of using `$_`— moving a file and printing to `STDOUT` using `cat`:
 
-```
+```bash
 $ mv main.py src/main.py 
 $ cat src/main.py
 ```
@@ -147,7 +141,7 @@ Notice how we are again reusing the last argument `src/main.py`?
 
 You can rewrite this using `$_` to automatically bring forward `src/main.py` into your second command:
 
-```
+```bash
 $ mv main.py src/main.py 
 $ cat $_
 cat src/main.py
@@ -159,8 +153,6 @@ Using `$_` means you don't need to rewrite a complicated file path, giving you n
 
 **Any time you are retyping something multiple times across multiple commands, it’s likely using** `$_` **can help reduce the strain on your weary hands.**
 
----
-
 ## Quick Substitution With ^old^new
 
 Sometimes (often in our case) we run a command in the Shell and quickly realize we made a mistake.
@@ -169,20 +161,20 @@ Rather than retyping the command again, we can use **quick substitution to fix t
 
 An example — you are SSHing into a server and run the command to connect — only to realise it should have been`user` instead of `ubuntu` all along!
 
-```
+```bash
 $ ssh ubuntu@198.compute.com
 ```
 
 Instead of retyping the entire command again, you can use quick substitution to change just the part you want — here to change `ubuntu` into `user`:
 
-```
+```bash
 $ ^ubuntu^user
 ssh user@198.compute.com
 ```
 
 The pattern in quick substitution is `^old^new`. It is the equivalent of doing:
 
-```
+```bash
 $ !!:s/old/new
 ```
 
