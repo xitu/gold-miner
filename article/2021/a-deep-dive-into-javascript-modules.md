@@ -9,9 +9,9 @@
 
 ![Image by [HeungSoon](https://pixabay.com/users/heungsoon-4523762/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440)](https://cdn-images-1.medium.com/max/3840/1*Dya93Aqh8dXO4ngaaxHsug.jpeg)
 
-所有 JavaScript 开发人员都知道如何导入模块，如果你以前没有这么做过，那么你还没有通过基本的 “helloworld” 示例。模块是 JavaScript 生态系统的基石。
+所有 JavaScript 开发人员都知道如何导入模块，如果你以前没有这么做过，那么你还没有看过基本的 “helloworld” 示例。模块是 JavaScript 生态系统的基石。
 
-但是你知道 JavaScript 中有不同的模块系统吗？如果你一直使用 Node.js 开发, 你可能很熟练的使用 `require`，如果你一直和 React 打交道，你可能更多的是一个 `import` 开发者。事实上，它们都能完成任务，但是完成的方式并不相同。
+但是你知道 JavaScript 中有不同的模块系统吗？如果你一直使用 Node.js 开发, 你能够很熟练地使用 `require`，如果你一直和 React 打交道，你可能更多的是一个 `import` 开发者。事实上，它们都能完成任务，但是完成的方式并不相同。
 
 检查 JS 模块类型之间的各种差异的最佳方法是从大家熟悉的地方开始，在这里我们以这门语言的新标准 ES6 为例。因为不是所有的运行时都兼容 ES6，所以在需要时我会用 Babel 将代码转换成不同的风格。
 
@@ -41,7 +41,7 @@ export const dummyFunction = () => {
 
 ## CommonJS
 
-如果你是一个 Node.js 开发者，你以前可能用过它。CommonJS 是 Node 采用的标准，采用 `require` 函数。
+如果你是一个 Node.js 开发者，你以前可能用过它。CommonJS 是 Node 采用的标准，而它使用的是 `require` 函数。
 
 我们示例的输出如下：
 
@@ -65,23 +65,23 @@ exports.dummyFunction = dummyFunction;
 我们首先看到，它向 `exports` 对象添加了两个属性。这个对象将会包含“公共”代码。换句话说，任何不属于此对象的内容都无法从外部访问。考虑此对象可以作为 `require` 函数的返回值。如果向其中添加属性，在加载模块时可以直接访问它们：
 
 ```js
-//你的模块.js
+//yourmodule.js
 exports.prop1 = 42;
 exports.myFn = () => console.log(42);
 
-//... 客户端 代码
+//... 客户端的代码
 const { prop1, myFn } = require("./yourmodule.js");
 ```
 
 上面代码示例的第二个重点是，我们添加了 `__esModule` 属性（值为 `true`）。导入端的辅助函数可以在处理默认导出时利用此属性来确定如何访问所需的方法。
 
-你知道的，CommonJs 没有“默认”导出的概念，如果你像下面一样使用 `require`，那么 `exports` 上的所有属性都将被导出：
+你知道的，CommonJS 没有“默认”导出的概念，如果你像下面一样使用 `require`，那么 `exports` 上的所有属性都将被导出：
 
 ```js
 const myModule = require("yourmdoule.js");
 ```
 
-结果，你将得到一个包含一系列属性和方法的对象（即导出的所有内容）。但是，ES6 定义了一种方法来区分默认导出的内容和单独导出的内容。所以你可以这样做：
+你将得到一个包含一系列属性和方法的对象（即导出的所有内容）。但是，ES6 定义了一种方法来区分默认导出的内容和单独导出的内容。所以你可以这样做：
 
 ```JavaScript
 //mymodule.js
@@ -101,10 +101,10 @@ export default {
 }
 ```
 
-这段代码告诉你正在导出 3 个东西：
+这段代码导出 3 个东西：
 
-- 默认的导出了包含一个 `mainMethod` 方法的对象。
-- 同时也导出了一个 `dummyFunction` 函数和一个 `dummyConst` 值。
+- 默认导出包含一个 `mainMethod` 方法的对象。
+- 同时也导出一个 `dummyFunction` 函数和一个 `dummyConst` 值。
 
 在导入端，你可以这样做：
 
@@ -115,7 +115,7 @@ myModule.mainMethod()
 dummyFunction()
 ```
 
-这就是 ES6 和 CommonJS 提供的默认导出之间的主要区别。上面的代码不能直接转译成 CommonJS，因为它没有默认导出的概念。然而，诸如 Babel 之类的工具通过添加 “相互操作” 代码（比如 `__esModule` 属性）来解决这个问题。
+这就是 ES6 和 CommonJS 提供的默认导出之间的主要区别。上面的代码不能直接转译成 CommonJS，因为它没有默认导出的概念。然而，诸如 Babel 之类的工具会通过添加 “相互操作” 代码（比如 `__esModule` 属性）来解决这个问题。
 
 因此，当把上面的代码段转译后，可以得到下面的：
 
@@ -170,9 +170,9 @@ _sample.default.mainMethod();
 console.log((0, _sample.dummyFunction)());
 ```
 
-我知道这看起来有很多代码，但现在只关注最后两行。请注意，我们的 `mainMethod` 是默认导出，它位于名为 `default` 的新属性中。我们没有声明它，但是 Babel 添加它是为了增加与 CommonJS 的兼容性。还要注意 `dummyFunction` 方法不在 `default` 属性中，因为它是作为单独的实体导出的，实际上也是单独导入的。
+我知道这看起来有很多代码，但现在只关注最后两行。请注意，我们的 `mainMethod` 是默认导出的函数，它位于名为 `default` 的新属性中。我们没有声明它，而是 Babel 为了维护与 CommonJS 的兼容性而添加的属性。还要注意 `dummyFunction` 方法不在 `default` 属性中，因为它是作为单独的实体导出的，实际上也是单独导入的。
 
-`__interopRequiredWilcard` 辅助函数只负责返回将要使用的具有正确形状的对象（换句话说，如果还没有 `default` 属性，它会添加该属性）。
+`__interopRequiredWilcard` 辅助函数只负责返回将要使用的具有正确格式的对象（换句话说，如果还没有 `default` 属性，它会添加该属性）。
 
 #### CommonJS 和 ES6 之间还有什么不同？
 
@@ -180,17 +180,17 @@ console.log((0, _sample.dummyFunction)());
 
 另一个主要区别是，虽然它们看起来是相同的，但 `require` 和 `import` 的工作方式却不同。
 
-一个主要区别是，`require` 在代码中的任何地方都能动态工作，但 `import` 不能。可以将 `require` 语句视为函数调用，因此，它需要运行才能执行。但是 `import` 语句是静态的，它在解析文件时执行。与 `require` 的工作方式相比，这是一个重大的性能改进。
+一个主要区别是，`require` 在代码中的任何地方都能动态执行，但 `import` 不能。你可以将 `require` 语句视为函数调用，因此，它需要运行才能执行。但是 `import` 语句是静态的，它在解析文件时执行。与 `require` 的工作方式相比，这是一个重大的性能改进。
 
-但是，也有一个缺点：由于 `require` 在运行时工作，因此可以动态定义导入路由，例如：
+但是，也有一个缺点：由于 `require` 在运行时工作，我们可以动态定义导入路由，例如：
 
 ```js
 const myMod = require("./src/" + pathToFile);
 ```
 
-当然，假设 `pathToFile` 是一个字符串，这将毫无问题地工作。但是 `import` 不允许这么做，因为在解析它们时没有在运行时执行。
+当然，假设 `pathToFile` 是一个字符串，这将正常地工作。但是 `import` 不允许这么做，因为并不是在运行时解析的它们。
 
-## AMD
+## AMD（异步模块定义）
 
 它代表了[异步模块定义](https://en.wikipedia.org/wiki/Asynchronous_module_definition)，这是一种为前端项目加载模块的模式。过去，在浏览器中定义一系列代码依赖的唯一方法是添加一堆 `script` 标记，并确保它们的顺序正确。一旦文档及其所有资源被完全加载，你的代码就可以运行了。
 
@@ -217,18 +217,18 @@ define(['lodash'], function(_lodash) {
 
 使用 AMD 的框架将提供一个 `define` 函数，该函数接受第一个参数，即依赖项列表。一旦加载了依赖项，我们的函数就会被执行。还要注意我们是如何去掉 `export` 语句的，因为函数返回的任何内容都将被导出。
 
-这确保了前端世界的两个主要问题：
+这解决了前端世界的两个主要问题：
 
 1. 在我们需要它们之前，所有依赖项都已正确加载。
 2. 我们的代码在安全作用域内运行。通过在函数中编写模块，我们可以避免命名冲突，特别是在依赖项之间。
 
 请记住，AMD 只是一个标准，因此你需要一个实现它的框架为你提供 API，[RequireJS](https://requirejs.org/)就是其中一个框架。
 
-## UMD
+## UMD（通用模块定义）
 
 就像 AMD 试图定义更好的模块加载模式一样，[UMD](https://github.com/umdjs/umd)定义了通用模块定义。换言之，它试图提供一种方法，以一种稍后可以由多个加载程序加载的格式编写模块。
 
-一个 UMD 的声明主要是由两个部分组成：
+一个 UMD 声明主要是由两个部分组成：
 
 1. 一个立即执行函数，它接收两个参数：`root` 是对全局作用域的引用，`factory` 函数是模块的代码。
 2. 我们的 `factory` 函数。它接收依赖项并可以在单独的作用域内执行，就像 AMD 模式一样。
@@ -277,7 +277,7 @@ define(['lodash'], function(_lodash) {
 
 ## SystemJS
 
-我将在这里介绍的最后一个模块加载器是[SystemJS](https://github.com/systemjs/systemjs)。它提供了将 ES6 兼容的代码加载到运行时不兼容的另一种方法。换句话说，通过使用自定义的 `import` 函数，你可以直接加载 ES6 代码，而无需将其转换为任何内容。
+我将在这里介绍的最后一个模块加载器是 [SystemJS](https://github.com/systemjs/systemjs)。它提供了将 ES6 兼容的代码加载到运行时不兼容的另一种方法。换句话说，通过使用自定义的 `import` 函数，你可以直接加载 ES6 代码，而无需将其转换为任何内容。
 
 你可以写出下面的代码：
 
