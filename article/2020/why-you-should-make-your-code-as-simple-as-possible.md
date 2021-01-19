@@ -1,168 +1,168 @@
-> * 原文地址：[Why You Should Make Your Code as Simple as Possible](https://medium.com/better-programming/why-you-should-make-your-code-as-simple-as-possible-3b35e89f137)
-> * 原文作者：[Dr. Derek Austin 🥳](https://medium.com/@DoctorDerek)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Why You Should Make Your Code as Simple as Possible](https://medium.com/better-programming/why-you-should-make-your-code-as-simple-as-possible-3b35e89f137)
+> - 原文作者：[Dr. Derek Austin 🥳](https://medium.com/@DoctorDerek)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-you-should-make-your-code-as-simple-as-possible.md)
+> - 译者：[NieZhuZhu](https://github.com/NieZhuZhu)
+> - 校对者：[Yuxiao Alisa Shi](https://github.com/Yuxiao-Shi)、[flashhu](https://github.com/flashhu)、[lsvih](https://github.com/lsvih)
 
-# Why You Should Make Your Code as Simple as Possible
+# 为什么要让你的代码尽可能简单
 
 ![Photo by [Simon Berger](https://unsplash.com/@8moments?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/wallpapers/design/simple?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/7844/1*Fe3m631Fw9jUsAPM7rTu0g.jpeg)
 
-Programming is a lot like writing — you should start with a “[bad first draft](https://medium.com/@jeffgoins/dont-waste-your-words-how-to-write-a-first-draft-that-is-crappy-but-usable-c5dbf977f5a5)” that solves the problem, then immediately edit it two or three times before you move on to the next problem.
+编程很像写作 —— 你应该从一个能用的“[不完美的初稿](https://medium.com/@jeffgoins/dont-waste-your-words-how-to-write-a-first-draft-that-is-crappy-but-usable-c5dbf977f5a5)”开始，再通过两三次修改，逐个解决初稿中存在的问题。
 
-Engineers scoff at being compared to measly “writers” — but who wrote the documentation that you used earlier today? And don’t you “write code?”
+工程师们肯定会嘲笑自己居然被轻率地比作了”作家“—— 但是今天早上的文档又是谁写的呢？你不是在“写代码”吗?
 
-Software developers have the luxury of working in the most creative type of engineering. After all, software engineers get to call a lot more shots when building an app than civil engineers do when building a bridge.
+软件开发人员从事着最具创意的工程类型的工作。毕竟，与构建桥梁的土木工程师相比，软件工程师在构建应用程序时可以发挥更多自己的创意。
 
-Working in a creative profession means that you can learn a great deal from writers whose words will never execute. And one of the best pieces of writing advice is something typically recommended to solve writer’s block.
+在具有创意性的行业中工作意味着你可以向那些写文章的作者身上学习到很多的东西。那些常常被推荐用于解决写作困难的方法也是最好的写作建议之一。
 
-Let me introduce you to the “bad first draft” — because it will make you a much faster coder than ever before.
+下面让我来向你推荐“不完美初稿”的技巧 —— 因为它让你成为效率更高的 “coder”。
 
-## The “Bad First Draft” Method
+## ”不完美初稿”的诀窍
 
-The idea of a “bad first draft” is so commonplace that you’ve probably heard about it at some point in an English class even if you’ve never gone down the rabbit hole of internet bloggers offering tips about writer’s block.
+“不完美初稿”的诀窍非常普遍，即使没读过网上那些各式各样的关于写作的博客，那你也可能早在英语课堂上就听说过。
 
-The idea of a “bad first draft” is that you just need to finish the first draft even if it completely sucks — because any first draft is better than a blank page.
+“不完美的初稿”的关键就是，即使你的初稿写的非常的糟糕，但是你也只需完成初稿就够了 —— 因为任何初稿都比什么都没有的空白页强。
 
-Editing your own work is easier than writing from scratch, so you need to try to write something (anything!), right now. Just make the code work.
+编辑修整自己的作品要比从头开始编写要容易的多，所以，你应该立即尝试地编写一些内容（不管是什么内容都可以）只要能让自己的代码可以正常的工作。
 
-To put it another way, would you rather have written 100 lines of bad code (that works) or zero lines of perfect code by lunch today?
+换句话说，你今天要在午饭前写完 100 行（有效）的不完美的代码还是 0 行的完美代码呢？
 
-Sure, at the end of the day, you may still end up with 50 lines of perfect code either way. But there’s a psychological advantage to writing a “bad first draft:” **you’ll feel more successful with less stress.**
+当然，最后的结果都是，你会用以上任何一种方式完成 50 行完美的代码。但是编写“不完美的初稿”能带来心理上的优势：**你将在承受较少压力的情况下获得更大的成就感。**
 
-**You’ll write code and have fun doing it!** What beats that?
+**你将会享受编码的快乐！**难道还有什么比这个更重要？
 
-## How I Approach First Drafts
+## 我该如何开始创作一份初稿
 
-I prefer to think that I should aim to start with a “simple first draft” because a “bad first draft” seems to carry a negative judgment about my abilities.
+我更倾向于以“简单的初稿”为编码的起点，因为“不完美的初稿”似乎是对我的编码能力的一种否认。
 
-Do you want to be a “bad programmer” writing “bad code” because you read a tip about writing a “bad first draft”?
+你是否想成为一位写“不良代码”的“不良程序员”，因为你读过有关编写“不完美的初稿”的建议？
 
-No, you want to be a “successful programmer” writing “great code” because you are following this tip about starting with a “simple first draft.”
+不，你想成为一名“成功的程序员”，编写“出色的代码”，因为你正在遵循从“简单的初稿”开始编码的技巧。
 
-If you’ve ever copied a code sample and then tweaked it for your own use, then you’ve actually already done the “simple first draft.”
+如果你曾经复制过一个代码示例，然后对其进行了调整以供自己使用，那么实际上你已经学会了“简单的初稿”的诀窍。
 
-When using a code sample, you inevitably change things quite a bit, but the key is to get it working first and then immediately improve upon it.
+使用代码示例时，你不可避免地要进行很多更改，但关键是首先要使代码能够工作，然后马上对其进行改进。
 
-You can use the concept of a “simple first draft” to complete any programming task — whether you’re brand new to coding or already an expert.
+无论你是编码的新手还是专家，你都可以使用“简单的初稿”的方法来完成任何的编程任务。
 
-## Why the “Simple First Draft” Works
+## 为什么“简单的初稿”非常有用
 
-When you write code that works, you feel successful, which puts you in a better mindset. Simple code is more likely to work the first time.
+当你编写了有效的代码时，你就会感到很有成就感，这使你拥有了更好的心态。简单的代码更有可能第一次编写就能成功。
 
-Plus, simple code is straightforward to write, saving you time. Yes, it may feel repetitious, and the clever part of your brain is going to be begging you for a “better” solution with greater micro-performance in fewer lines of code.
+另外，简单的代码易于编写，从而节省了时间。的确，它可能看起来重复又啰嗦，你机智的大脑也会恳求你去找出一个更简洁、高效的“更好”的解决方案。
 
-**Ignore it.**
+**忽略它**
 
-The trick is to sip a beverage when you get those feelings, then forge ahead in the pursuit of simplicity. Once the code works, you’re going to refactor it right away — and you can be as clever as you want once you have a working copy. But until you get there, keep things as simple as possible.
+诀窍是在有这些感觉时先喝点饮料，然后在追求简单的道路中勇往直前。等到代码生效后，你将立即对其进行重构 —— 在拥有能够正常工作的版本之后，你就可以让自己想法变得更加复杂。但是在这之前，请让事情尽可能的简单。
 
-Writing coach [August Birch](undefined) calls this “[leapfrog writing](https://medium.com/@augustbirch/why-writing-crappy-first-drafts-is-terrible-advice-fa5d7f53cdd):” Write the whole thing, then edit it immediately. You alternate writing and editing.
+写作教练[August Birch](undefined)把这个称作“[分步式写作](https://medium.com/@augustbirch/why-writing-crappy-first-drafts-is-terrible-advice-fa5d7f53cdd)”：写下整个内容，接着立即将它修改润色，完善和修改不断交替。
 
-Here’s where programming differs from writing, though: Developers know when the first draft is “good enough” because the code executes successfully. When your code works, that’s your cue to immediately edit your “simple first draft,” polishing it up a few times before you move on.
+但是在这一点上，编程和写作有所不同：因为代码必须可以成功执行，所以开发人员都知道什么时候第一稿算是“足够好”。当你的代码正常工作时，这就是立即修改“简单的初稿”的信号，并在进行下一步之前对其进行多次的完善。
 
-For anyone just learning to code, this approach improves two crucial skills: writing code that works, and improving existing code without breaking it.
+对于任何只是学习编码的人，这个方法都会提高两项关键技能：编写有效的代码，并在不破坏正常运行的前提下改进代码。
 
-## A Code Example
+## 简单的代码示例
 
-I was recently mentoring a junior engineer via LinkedIn, and he was struggling with an overly-complicated coding challenge. While such coding challenges become less useful once you have real projects to work on, they’re a great example of how to write a “simple first draft.”
+我最近通过领英平台指导了一名初级工程师，他正为一个过于复杂的编码挑战而苦苦挣扎。尽管一旦你需要在真实的项目中实践时，这样的编码挑战就变得没那么有用，但它是如何编写“简单的初稿”的一个很好的例子。
 
-Since the problem was complicated, he tried to write a complicated solution. Let’s take a look at the challenge:
+由于问题很复杂，所以他打算尝试编写一个复杂的解决方案。让我们来看看这个挑战：
 
-> “Write a function `addWeirdStuff`, which adds the sum of all the odd numbers in `arrayTwo` to each element under 10 in `arrayOne`.
+> “编写一个函数 `addWeirdStuff`，该函数将 `arrayTwo` 中所有奇数的和与 `arrayOne` 中每个 10 以下的元素相加。
 >
-> Similarly, `addWeirdStuff` should also add the sum of all the even numbers in `arrayTwo` to those elements 10 or greater in `arrayOne`.
+> 类似地，`addWeirdStuff` 还需要将 `arrayTwo` 中所有偶数之和与 `arrayOne` 中等于或大于 10 的那些元素相加。
 >
-> Bonus: If any element in `arrayTwo` is greater than 20, add 1 to every element in `arrayOne`.”
+> 另外：如果 `arrayOne` 中的元素与 `arrayTwo` 中大于 20 的元素相加时，还需要额外加上 1。
 
-Note that, just like in real life, he got incomplete instructions: The function `addWeirdStuff` is supposed to return a new array containing the items from `arrayOne` followed by the items from `arrayTwo`.
+值得注意的是，就像在现实生活中一样，他得到了不完整的需求说明：函数 `addWeirdStuff` 应该返回一个新数组，新数组包含来自 `arrayOne` 以及 `arrayTwo` 的项。
 
-He initially tried to solve it with a single [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop, which was setting himself up for failure. That’s a complex cognitive task guaranteed to challenge your working memory, and he was getting nowhere with it.
+他最开始尝试用一个 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环来解决这个问题，但是最终没有成功。 这是一项复杂的认知任务，对人的工作记忆（工作记忆是短期记忆的另一个称呼）一定是个挑战，而他对此一筹莫展。
 
-This particular individual had contacted me previously for help with another coding challenge where he’d accidentally put the return statement into the body of a complex [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loop. He’s not ready to write concise code just yet.
+这个人曾经为了解决另一个代码难题联系过我，因为他不小心将 `return` 语句放入复杂的 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环中。他还没有准备好编写简洁的代码。
 
-I told him that he needed to use two separate [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) loops and that he should make them [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops for simplicity’s sake. Here’s the JavaScript code, including the tests he was given to check if the code works:
+我告诉他，他需要使用两个单独的 [`for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) 循环，为了简单他应该使用 [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) 进行循环。以下是 JavaScript 代码，以及为检查他的代码是否有效的测试：
 
 ![[View the raw code](https://gist.github.com/djD-REK/9c0ac6c85465c28c8e1d800436c89cf0) as a GitHub gist](https://cdn-images-1.medium.com/max/3004/1*-ALV_1zyyKAnmKUr1ekiIg.png)
 
-It’s ugly, and it performs poorly, but it works! And it’s super-readable, especially for a brand-new coder struggling with basic concepts.
+这个代码写得很丑陋，效果很差，但是它可以用！并且它具有超强的可读性，特别是对于那些刚刚开始努力学习基本概念的初学者来说。
 
-The next step is to polish up this “simple first draft.”
+下一步就是完善这个“简单的初稿”。
 
-## Time to Refactor
+## 重构时间
 
-Refactoring, love it or hate it, is better known to writers as the editing process. In both programming and other types of writing, editing is easier when you’ve written the text yourself, especially when done right away.
+重构，不管你对它是爱是恨，单对于写文章的作者们来说，就相当于一个编辑和修改的过程。在编程和其他类型的写作中，如果是你自己编写的文本（尤其是立即完成），修改会变得更加容易。
 
-Use simple language in order to reduce the complexity of the text at first, and then edit immediately. It works for all types of writing, including coding.
+首先使用简单的语言来降低文本的复杂性，然后立即进行编辑修改。这个方法适用于所有类型的写作，包括编码。
 
-Taking our “simple first draft” from above, I refactored to the following:
+我从上面的“简单的初稿”进行了重构：
 
 ![[View the raw code](https://gist.github.com/djD-REK/a6c16202a8d2a441f1f750f883853476) as a GitHub gist](https://cdn-images-1.medium.com/max/3180/1*eVSyFkneW5d9joK4ytU2Zw.png)
 
-This is still a challenging problem, and there are a ton of other ways to approach it, but this revision felt like a step in the right direction.
+这仍然是一个具有挑战性的问题，还有很多其他方法可以解决此问题，但是这个版本朝着正确方向迈出了重要的一步。
 
-In this version of the first draft, I added [the reducer pattern](https://reedbarger.com/what-is-a-reducer-in-javascript/) because I prefer to use [functional programming](https://medium.com/javascript-in-plain-english/what-are-javascript-programming-paradigms-3ef0f576dfdb) techniques in my code.
+在此版本的初稿中，我加了 [reduce 函数](https://reedbarger.com/what-is-a-reducer-in-javascript/)因为我更喜欢在代码中使用[函数式编程](https://medium.com/javascript-in-plain-english/what-are-javascript-programming-paradigms-3ef0f576dfdb)
 
-Remember: “Perfect is the enemy of good.” This is just your first draft, and you can edit it again! That’s the leapfrogging process.
+记住：“完美是好的敌人。”这只是你的初稿，你可以再次编辑！那是分步式的过程。
 
-I’m also prioritizing readability over performance since I now call [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some) inside each iteration of a loop. That’s a loop within a loop, for [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) run-time. For small arrays, that won’t matter a bit, but it probably won’t get you that job at Google. It’s also trivial to refactor out in my next edit of this first draft.
+我还将可读性的优先级提高了，可读性高于性能， 因为我在每个内部循环中使用了 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)。这是 [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) 的双层循环。对于小型的数组矩阵，这对性能没什么影响，但是这样的操作可能会让你找不着工作。在我的下一次重构的版本中，这也不是重要的优化项。
 
-I made one more round of changes to add the [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) method before I decided I was done with my “simple first draft:”
+我决定在完成“简单的初稿”前，我又使用 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 进行了一轮变更：
 
 ![[View the raw code](https://gist.github.com/djD-REK/b93a5480e648778fd27284980e937f6b) as a GitHub gist](https://cdn-images-1.medium.com/max/3108/1*Yluuogf6Co9gsr5tTtgybw.png)
 
-That’s a “polished first draft.” I’ve changed two [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops to a [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce), a [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some), and a [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map). I prefer this style of coding, but honestly, there was nothing “wrong” with my very first draft — it worked, didn’t it?
+这是一个 “被改善的初稿”。我将两个 [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) 循环改成使用一次 [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)、一次 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)、以及一次 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)。我更喜欢这种编码风格。但是老实说，我的初稿没有什么“错”，因为它是能用的，不是吗？
 
-Now, this would be a great time to switch tasks and plan to review this particular code again tomorrow.
+现在，是切换编码任务并决定明天再次审阅此段代码的好时机。
 
-## The Application to Real Code
+## 应用于的真实编码场景
 
-In our real work, we often receive confusing instructions combined with deadline pressure, particularly when working with new APIs. Every coder wonders at times, “Why doesn’t this code work the way it should?”
+在实际工作中，我们经常会收到混乱的需求说明以及最晚交付日期的压力，特别是在使用新的 API 时。每个编码人员有时都会想：“为什么这段代码不能正常的工作？”
 
-For the student I was mentoring, he went from being unable to conceptualize a problem to solving it easily because he started with simple [`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) loops. Instead of feeling challenged and like a failure, he was left feeling successful and accomplished, all thanks to the “simple first draft.”
+对于我指导的这个学生来说，他从无法将问题概念化到轻松解决问题，因为他是从简单的[`for…of`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of) 循环开始的。得益于“简单的初稿”，他没有感到困难和挫败，反而感到成功和成就。
 
-If you’re more experienced, and writing [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce) the first time feels natural, go for it! But if you need to look up the syntax, see if you can do without it and then refactor to it later. In coding, you can always edit later.
+如果你更有经验，很自然的就能使用 [`.reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)来解决问题，那就大胆试试吧！但是如果你需要查找语法，看看是否在不查找语法的情况，对代码进行重构。因为在编码阶段你是可以一直对代码进行修改的。
 
-Similarly, you will probably want to go back to add [type checking](https://medium.com/javascript-in-plain-english/the-best-way-to-type-check-in-vanilla-js-55197b4f45ec) if you’re working in JavaScript. For a coding challenge, that’s not going to be necessary, but that’s something to consider adding the next day.
+同样地，如果你用的是 JavaScript，你可能希望能在在返回中增加[类型检查](https://medium.com/javascript-in-plain-english/the-best-way-to-type-check-in-vanilla-js-55197b4f45ec)。这作为一个编码挑战，这不是必需的，可以第二天再考虑加上。
 
-The other real-world carryover of the “simple first draft” approach to coding is that you’ll be making frequent [git commits](https://www.git-tower.com/learn/git/commands/git-commit): at a minimum, you should commit each version of the first draft as you’re leapfrogging. You may have three or four working versions committed by the time you’ve polished up the first draft.
+在现实世界的其他场景中，“简单初稿”编码方法的缺点在于你将频繁进行 [git commit](https://www.git-tower.com/learn/git/commands/git-commit)：至少，在进行分步式开发时，需要频繁提交初稿的每个版本。在完成初稿前，你可能已经提交了三四个工作版本。
 
-You’ll appreciate having the commits if you find a bug when working on the code later because you’ll have a few solutions to review in the repository.
+如果在后续的工作中发现了问题，你会对之前的多次提交感到庆幸，因为你可以根据提交发现问题所在并找到解决方案。
 
-Plus, making commits **feels** super productive to me, especially when I’m working as part of a remote team. There’s that positive psychology again.
+另外，代码的提交次数能给我超级大的驱动力，特别是当我远程办公时。
 
-## What About Testing?
+## 测试
 
-Depending on your personal preferences for testing, it’s totally fine to write your tests before the code. Just follow the same approach: Write the simplest tests possible, and then refactor them as soon as they work.
+根据你对测试的个人偏好，完全可以在写代码之前写测试。只需遵循相同的方法即可：写尽可能简单的测试，然后在测试代码可以正常工作后立即对其进行重构。
 
-Or, like most programmers, you probably prefer testing after you have a working piece of code — and that’s totally fine. After you write your code and refactor it once or twice, write some simple tests, then refactor them.
+或者，像大多数程序员一样，你可能更喜欢在有一段可以工作的代码之后进行测试 —— 这也完全可以，在编写代码并将其重构一次或两次之后，编写一些简单的测试，然后再对测试代码进行重构。
 
-The fastest way I know to write code is to do exactly the following:
+我知道写代码的最快方法是完全执行以下操作：
 
-1. Write simple code
-2. Write simple tests
-3. Refactor simple code, using simple tests
-4. Refactor simple tests
+1. 写简单的代码
+2. 写简单的测试
+3. 用简单的测试重构简单的代码
+4. 重构简单的测试
 
-Personally, I find that focusing on a “bad first draft” (or a “simple first draft” as I like to say) makes me much more likely to write tests in the first place because I’m not worried about writing perfect tests.
+就个人而言，我发现专注于“不完美的初稿”（或我喜欢说的“简单初稿”）使我更有可能先写测试，因为我并不在乎写的测试是否是完美的。
 
-You might even consider testing to be creating a “second draft” of your work and put off that task until tomorrow. Do whatever works for you, your project, and your organization — just don’t forget about testing.
+你甚至可以考虑将测试视为工作的“第二稿”，把测试任务推迟到明天。千万别忘了测试，就当是一切都为了你自己，你的项目和你的公司。
 
-## Conclusion
+## 结论
 
-Whether you’re a code newbie, junior engineer, or expert, you’re going to write more code faster if you don’t focus on perfection. Start with a “simple first draft” then immediately edit your code once it works.
+无论你是代码新手，初级工程师还是专家，只要你不专注于完美，都将可以更快地写更多代码。从“简单的初稿”开始，然后在代码生效后立即对其进行修整。
 
-Take it from a technical writer who’s worked with 10 programming languages professionally and written 100,000 words about JavaScript in the last year — this writing tip works just as well for developers as for writers.
+从一位技术作家那里获取经验，该作家去年使用 10 种编程语言撰写了 100,000 个有关 JavaScript 的文字 —— 这个写作技巧对开发人员和作家均适用。
 
-My genuine advice for programmers of all levels is that your first draft should be repetitious and even feel like a “hack.” Forget about [coding principles](https://medium.com/dailyjs/principles-to-code-by-3c516ad61fcc) like “DRY” (Don’t Repeat Yourself) at first, and stick with the most basic rule of coding:
+我对所有级别的程序员的真正建议是，你的初稿应该重复，甚至感觉像是“黑客”。首先忘记[基本的编码原则](https://medium.com/dailyjs/principles-to-code-by-3c516ad61fcc)这篇文中所倡导的（不要自我重复），然后再坚持最基本的编码规则：
 
 **“KISS” (Keep It Simple, Stupid!)**
 
-You will be able to make your code beautiful once it works, but your whole day will be shot if you have to spend hours debugging — before you even get that piece of code to work even one time. **Trust me, I’ve been there!**
+一旦你做到了这一点，你就可以使你的代码变得漂亮，但是如果你必须花费数小时的调试时间，那么一整天的工作就会花光了 —— 甚至无法让那段代码正常工作。**相信我，我就经历过！**
 
-And, if you’re just learning a new programming language, development tool, or codebase, then this advice is mandatory, not optional.
+而且，如果你只是在学习新的编程语言，开发工具或代码库，则此建议是强制性的、必选的。
 
-Happy coding!
+编程快乐！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
