@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[Zilin Zhu](https://github.com/zhuzilin)
 
 # 我们应该在什么时候使用 \@State、\@Binding、\@ObservedObject、\@EnvironmentObject 和 \@Environment？
 
@@ -17,9 +17,9 @@ SwiftUI 引入了一系列新的属性包装器，你的代码可以通过它们
  @Environment
 ```
 
-这只是其中一部分。还有其他用于 Core Data 获取请求和手势识别器的属性包装器。 但本文与其他包装器无关。与上面的包装器不同，`@FetchRequest` 和`@GestureState` 的用例是明确的，然而，何时使用 `@State` 还是 `@Binding`，或 `@ObservedObject` 还是 `@EnvironmentObject` ，等等，会非常令人困惑。
+这只是其中一部分。还有其他用于 Core Data 获取请求和用于识别手势的属性包装器。但本文与其他包装器无关。与上面的包装器不同，`@FetchRequest` 和`@GestureState` 的用例是明确的，然而，何时使用 `@State` 还是 `@Binding`，或 `@ObservedObject` 还是 `@EnvironmentObject` ，等等，会令人非常困惑。
 
-本文试图通过简单、可重复的术语来定义每个包装器合适的使用时机。在这里我可能有点过于规定性，但我从这些规则中已经得到了一些不错的收获。 此外，过度规范是一个由来已久的程序员编写博客的传统，因此尽管偶尔会令人讨厌，但我的处境还是不错的。
+本文试图通过简单、重复性的术语来定义每个包装器合适的使用时机。在这里我可能有点过于规定性，但我从这些规则中已经有了不错的收获。此外，过度规范是一个由来已久的程序员编写博客的传统，因此尽管偶尔会令人讨厌，但我想遵循规范应该会对你有所帮助。
 
 下面的所有代码示例代码都可以在 [GitHub repo](https://github.com/jaredsinclair/swiftui-property-wrappers) 中找到。
 
@@ -28,10 +28,10 @@ SwiftUI 引入了一系列新的属性包装器，你的代码可以通过它们
 ## 速查表
 
 1. 当你的视图需要改变它自己的属性时，请使用 `@State`。
-2. 当你的视图需要更改祖先视图所拥有的属性或祖先引用的可观察对象所拥有的属性时，请使用 `@Binding` 。
-3. 当你的视图依赖于可观察对象时，请使用 `@ObservedObject`，该对象可以创建自己，也可以传递给该视图的初始值设定项。
-4. 当通过视图所有祖先的初始化器传递一个可观察对象太麻烦时，请使用 `@EnvironmentObject`。
-5. 当视图所依赖的类型不符合 observeObject 时，请使用 `@Environment`。
+2. 当你的视图需要更改祖先视图所拥有的属性或祖先视图所引用的可观察对象所拥有的属性时，请使用 `@Binding` 。
+3. 当你的视图依赖于可观察对象时，请使用 `@ObservedObject`，该对象可以自我创建，也可以当做参数传递给该视图的构造方法。
+4. 当通过视图所有祖先视图的构造方法传递一个可观察对象太麻烦时，请使用 `@EnvironmentObject`。
+5. 当视图所依赖的类型不符合 ObserveObject 时，请使用 `@Environment`。
 6. 当视图依赖于多个相同类型的实例时，只要该类型不需要被用作可观察对象，也可以使用 `@Environment`。
 7. 如果你的视图需要同一个可观察对象类的多个实例，那么不走运了。您不能使用 `@EnvironmentObject` 或 `@Environment` 来解决问题。(不过，在这篇文章的底部有一个简单的变通方法)。
 
@@ -52,9 +52,9 @@ struct CustomButton<Label>: View where Label : View {
 }
 ```
 
-### …当需要向子视图提供对其某个属性进行读/写访问。
+### …当需要让子视图可以对某个属性进行读/写访问时。
 
-视图通过传递 @State-wrapped 属性的 `projectedValue`来实现这一点，该属性是该值的绑定  [1]。一个很好的例子是 SwiftUI.Alert。视图负责通过改变一些 @State 的值来显示 Alert 弹框，比如一个 `isPresentingAlert` 的布尔属性。但是视图不能隐藏 Alert 弹框本身，因为 Alert 弹框并不知道它所弹出的视图。通过绑定解决了这个难题。通过使用编译器生成的 `self.$isPresentingAlert` 属性，视图与 Alert 弹框的 `isPresentingAlert` 属性做了一个绑定，这是 @State 包装器的预测值的语法糖。`.alert(isPresented:content:)` 修饰符接受了这个绑定，随后，Alert 弹框将它的 `isPresentingAlert` 属性设为 false，从而实现了弹框的自动解散。
+视图通过传递 @State-wrapped 属性的 `projectedValue` 来实现这一点，该属性是该值的绑定 [1]。一个很好的例子是 SwiftUI.Alert。视图负责通过改变一些 @State 修饰的属性的值来显示 Alert 弹框，比如一个 `isPresentingAlert` 的布尔属性。但是视图不能隐藏 Alert 弹框本身，因为 Alert 弹框并不知道它所弹出的视图。通过使用 `@State` 属性解决了这个难题。通过使用编译器生成的 `self.$isPresentingAlert` 属性，视图与 Alert 弹框的 `isPresentingAlert` 属性做了一个绑定，这是 @State 包装器的预测值的语法糖。`.alert(isPresented:content:)` 修饰符接受了这个绑定，随后，Alert 弹框将它的 `isPresentingAlert` 属性设为 false，从而实现了弹框的自动消失。
 
 ```swift
 struct MyView: View {
@@ -77,9 +77,9 @@ struct MyView: View {
 
 ## 你的视图需要一个 `@Binding` 属性，如果…
 
-### …它需要对祖先视图的 `State`包装属性进行读/写访问
+### …它需要对祖先视图的 `State` 包装属性进行读/写访问
 
-就像上述 Alert 弹框的反例一样。如果你的视图类似于 Alert 弹框，它依赖于祖先所拥有的值，并且关键的是，需要对该值的可变访问，那么视图需要一个 @Binding 到该值。
+与上述 Alert 弹框的场景相反。如果你的视图类似于 Alert 弹框，它依赖于祖先所拥有的值，并且关键的是，需要对该值的可变访问，那么该视图需要一个 @Binding 到该值。
 
 ```swift
 struct MyView: View {
@@ -108,13 +108,13 @@ struct CustomAlertView: View {
 
 ### …它需要对符合 `ObservableObject` 的对象的属性进行读/写访问，但是对该对象的引用是由其祖先拥有的。
 
-天啊，真拗口。在这种情况下，有三件事：
+天啊，这可真拗口。在这种情况下，有三件事：
 
 1. 一个可观察的物体
 2. 具有引用该对象的 @-Something 包装器的祖先视图
 3. **你的**视图是 #2 的后代。
 
-你的视图需要具有对该可观察对象的某些成员的读/写访问权限，但是你的视图没有（也不应）具有对该可观察对象的访问权限。然后，视图将为该值定义一个@Binding 属性，该属性将在视图初始化时由其祖先视图提供。这方面的一个很好的例子是任何可重用的输入视图，如选择器或文本框。 一个文本框需要能够对另一个对象上的一些字符串属性有读/写访问权，但是文本框不应该与那个特定的对象有紧密耦合。相反，文本框的 @Binding 属性将提供对字符串属性的读/写访问权限，而无需将该属性直接暴露给文本框。
+你的视图需要具有对该可观察对象的某些成员的读/写访问权限，但是它没（也不应）具有对该可观察对象的访问权限。然后，视图将为该值定义一个@Binding 属性，该属性将在视图初始化时由其祖先视图提供。这方面的一个很好的例子是任何可复用的输入视图们，如选择器或文本框。 一个文本框需要能够对另一个对象上的一些字符串属性有读/写访问权，但是文本框不应该与那个特定的对象紧密耦合。相反，文本框的 @Binding 属性将提供对字符串属性的读/写访问权限，而无需将该属性直接暴露给文本框。
 
 ```swift
 struct MyView: View {
@@ -145,7 +145,7 @@ struct NamePicker: View {
 
 ### …它取决于可实例化的可观察对象。
 
-假设你有一个视图，用来展示从网络服务获取的项目列表。SwiftUI 的视图是暂时的、可丢弃的值类型。它们很适合展示内容，但不适合进行网络服务请求。此外，你不应该将用户界面代码与其他任务混在一起，因为那样会违反[单一职责原则](https://en.wikipedia.org/wiki/Single-responsibility_principle)。取而代之的是，你可能会将这些责任转移给另一个对象，该对象可以协调发出请求，解析响应并将响应映射到用户界面模型值所需的值。视图将通过 @ObservedObject 包装器拥有对该对象的引用。
+假设你有一个视图，用来展示从网络服务获取的项目列表。SwiftUI 的视图是临时的、可丢弃的值类型。它们很适合展示内容，但不适合进行网络服务请求。此外，你不应该将用户界面代码与其他任务混在一起，因为那样会违反[单一职责原则](https://en.wikipedia.org/wiki/Single-responsibility_principle)。取而代之的是，你可能会将这些责任转移给另一个对象，该对象可以协调发出请求，解析响应并将响应映射到用户界面模型值所需的值。视图将通过 @ObservedObject 包装器拥有对该对象的引用。
 
 ```swift
 struct MyView: View {
@@ -200,7 +200,7 @@ extension UIViewController {
 
 ### …将观察到的对象传递给视图所有祖先的所有构造器，这样太麻烦了
 
-让我们回到上面 @ObservedObject 部分的第二个示例，其中需要一个可观察对象来代表你的视图执行某些任务，但是视图无法自己初始化该对象。但是现在让我们假设你的视图不是根视图，而是深深地嵌套在许多祖先视图中的后代视图。如果所有祖先视图都不需要该被观察对象，那么要求视图链中的每个视图都将被观察对象包含在它们的构造器参数中，只为了让一个后代视图能够访问它，这将非常尴尬的。相反，你可以通过将其放入视图周围的  SwiftUI 环境来间接提供该值。视图可以通过 @EnvironmentObject 包装器访问当前环境实例。注意，一旦 @EnvironmentObject 的值被解析，这个用例在功能上与使用包装在 @ObservedObject 中的对象是相同的。
+让我们回到上面 @ObservedObject 部分的第二个示例，其中需要一个可观察对象来代表你的视图执行某些任务，但是视图无法自己初始化该对象。但是现在让我们假设你的视图不是根视图，而是深深地嵌套在许多祖先视图中的后代视图。如果所有祖先视图都不需要该被观察对象，那么要求视图链中的每个视图都将被观察对象包含在它们的构造器参数中，只为了让某一个后代视图能够访问它，这将非常尴尬。相反，你可以通过将其放入视图周围的  SwiftUI 环境来间接提供该值。视图可以通过 @EnvironmentObject 包装器访问当前环境实例。注意，一旦 @EnvironmentObject 的值被解析，这个用例在功能上与使用包装在 @ObservedObject 中的对象是相同的。
 
 ```swift
 struct SomeChildView: View {
