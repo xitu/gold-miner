@@ -3,30 +3,30 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/widgets-on-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2020/widgets-on-ios.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[zenblo](https://github.com/zenblo)
 
 # iOS 中的 widget
 
-苹果最近在 iOS 中支持了 widget。它们可以让用户在不访问应用程序的情况下获取有限但有用的信息。
+苹果最近在 iOS 中支持了 widget（应用小插件）。它们可以让用户在不访问应用程序的情况下获取有限但有用的信息。
 
 ![source: [computer world](https://www.computerworld.com/article/3564605/ios-14-how-to-use-widgets-on-ipad-and-iphone.html)](https://cdn-images-1.medium.com/max/2400/1*TRYbj13rl7VonfzuVL46RQ.jpeg)
 
 本文旨在介绍 widget。我们将在本文中广泛探究 WidgetKit SDK，并带你了解构建 widget 所需的组件和流程。
-本文需要你已经熟悉 SwiftUI，因为构建 widget 的过程中会大量使用它。由于 widget 自身并不是一个完整的应用程序，因此它不使用应用代理（app delegate）或导航栈（navigation stacks）。此外，widget 不能独立存在，而是需要一个父应用程序。
-总而言之，小部件为用户提供了应用信息的快照。操作系统会在你设置的时刻快速触发 widget 以刷新其视图。
+本文需要你已经熟悉 SwiftUI，因为构建 widget 的过程中会大量使用它。由于 widget 自身并不是一个完整的应用程序，因此它不使用应用代理（app delegates）或导航栈（navigation stacks）。此外，widget 不能独立存在，而是需要依赖一个父应用程序。
+总而言之，widget 为用户提供了应用信息的快照。操作系统会在你设置的时刻快速触发 widget 以刷新其视图。
 
 #### 使用要求
 
 首先，在开发 widget 之前，你需要满足以下条件：
 
 1. Mac OS 10.15.5 或更高版本。
-2. Xcode 12 或更高版本，Xcode  12 的[链接](https://developer.apple.com/download/more/)（如果不能从应用商店更新的话可以使用这个链接，不能直接更新的原因一般是磁盘空间不足）
+2. Xcode 12 或更高版本，Xcode 12 的[链接](https://developer.apple.com/download/more/)（如果不能从应用商店更新的话可以使用这个链接，不能直接更新的原因一般是磁盘空间不足）
 
 ## 基本配置
 
 如前文所述，widget 必须依赖于一个父应用程序。所以，让我们先来创建一个单页面应用。
 对于生命周期选项，我选择了 SwiftUI，这将使用 @main 属性来确定代码入口。
-完成构建应用后，我们现在需要添加一个 widget 扩展，widget 的代码就将放在这个扩展里。
+完成构建应用后，我们现在需要添加一个 widget 扩展 以存放 widget 的代码。
 
 > **Select File -> New -> Target -> Widget extension.**
 
@@ -67,7 +67,7 @@
 
 #### 支持不同尺寸的 widget
 
-WidgetKit支持小、中、大三种尺寸。
+WidgetKit 支持小、中、大三种尺寸。
 在 widget 启动时可以使用 **‘supportedFamilies’** 选项来确定你打算支持的尺寸，默认情况下，所有尺寸都会被启用。
 
 ```
@@ -113,7 +113,7 @@ func placeholder(in context: Context) -> SimpleEntry
 
 **快照**是 OS 在需要尽快返回视图，而无需加载任何数据或进行网络通信的时候使用的。widget gallery 就会使用快照，让用户可以在把 widget 添加到主屏幕之前进行预览。理想的快照是 widget 的模拟视图（mocked view）。
 
-**getTimeline函数**用于告诉 widget 在不同时间需要显示什么内容。**时间线** 基本上是遵从 **TimelineEntry** 协议的对象的数组。例如，如果你想做一个显示特定事件的倒计时天数的 widget，你就需要创建从现在到那个事件发生日的一系列视图。
+**getTimeline函数** 用于告诉 widget 在不同时间需要显示什么内容。**时间线** 基本上是遵从 **TimelineEntry** 协议的对象的数组。例如，如果你想做一个显示特定事件的倒计时天数的 widget，你就需要创建从现在到那个事件发生日的一系列视图。
 
 ![source: wwdc video](https://cdn-images-1.medium.com/max/5760/1*kgxFM7tdR4AZYHjVmWqHYw.png)
 
@@ -158,7 +158,7 @@ struct Provider: TimelineProvider {
 到目前为止，我们的 widget 基本是静态的，用户无法与它交互，也无法在运行时决定 widget 显示的内容。使用 Intent 配置，我们将能够使我们的 widget 动态化。
 在我们最初的项目设置中，取消选中了 “**Include Configuration Intent**” 选项来让 widget 可自定义，现在让我们看看如何使 widget 更具交互性。
 
-在本次演示中，我们将实现一个让用户可以从一系列城市中进行选择的 widget。
+在本次演示中，我们将实现一个 widget，它的功能是可以让用户从一个有关城市的列表中进行选择。
 
 ## 设置自定义 intent
 
@@ -213,7 +213,7 @@ struct ConfigurableProvider: IntentTimelineProvider {
 ```
 
 我们要做的最后一件事是将小部件的定义从 StaticConfiguration 更新为 IntentConfiguration。
-在 **Static_Widget** 的定义部分中，添加一个新的 IntentConfiguration。它需要一个 intent 实例，把 **CityNameIntent** 传给它。对于 Provider，请使用我们创建的 **ConfigurableProvider**。其余的保持不变。
+在 **Static_Widget** 的定义部分中，把 StaticConfiguration 替换为 IntentConfiguration。它需要一个 intent 实例，把 **CityNameIntent** 传给它。对于 Provider，请使用我们创建的 **ConfigurableProvider**。其余的保持不变。
 
 ```Swift
 @main
