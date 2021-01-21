@@ -2,222 +2,216 @@
 > * 原文作者：[Stella Guan](https://medium.com/@stellaguan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md)
-> * 译者：
+> * 译者：想念苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Have a design portfolio? Great, but that’s not enough
+# 有设计作品集吗？很好，但这还不够
+## 让别人引起对你的作品注意的秘密并不总是显而易见的。
 
-After working “in the field” as a visual designer for almost a decade, I started teaching design in college and vocational schools. The number one question I always get from students is — **how do I build my portfolio (so I can get a job)?**
+在“现场”担任视觉设计师近十年后，我开始在大学和职业学校教授设计。我总是从学生那里得到的第一个问题是 —— **如何建立一个自己的作品集（这样我才能找到一份工作）**？
 
-![Mobile view of [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*zUi3lI3_1Ji7fjtU.jpg)
+![移动端 [stellaguan.com](https://www.stellaguan.com) 的视图](https://cdn-images-1.medium.com/max/2048/0*zUi3lI3_1Ji7fjtU.jpg)
 
-I was tempted to give them the generic answers. You know, do great work; put them up on a website; design the layout nicely; write well thought-out case studies; create attractive thumbnails; add some interactivity and animation, so on and so forth.
+我很想给他们通用的答案。你应该会清楚，这个做法会有奇效：将作品挂在网站上、精心设计布局、撰写周到的案例研究、创建精美的缩略图、添加一些交互性和动画，等等。
 
-I still give these advice to students. After all, they are the basics and have to be noted and worked on.
+我仍然给学生这些建议。毕竟，它们是基础知识，必须加以注意和研究。
 
-However, if we take a little “field trip” to design showcase websites like [Dribbble](https://www.dribbble.com) and [Behance](https://www.behance.net), or award sites like [Awwwards](https://www.awwwards.com) and [CSS Design Awards](https://www.cssdesignawards.com), we’ll see the problem.
+但是，如果我们花一点“实地考察”来设计 Dribbble 和 Behance 之类的展示网站，或者像Awwwards 和 CSS Design Awards 这样的奖项网站，我们就会发现问题所在。
 
-There are millions of incredibly beautiful, highly-imaginative and functional design work there. Granted a lot of them are eye-candy design concepts with no actual implementation, we can still find plenty of highly-accomplished work with real business results.
+那里有数以百万计令人难以置信的美丽的，极富想象力和实际效应的设计作品。尽管其中许多都是没有实际实现的，令人眼花缭乱的设计概念，但我们仍然可以找到大量具有实际成果的出色案例。
 
-As designers, we should strive to become one of them, right?
+作为设计师，我们应该努力成为其中一员，对吗？
 
-Yes, but there is more.
+是的，但是还有更多。
 
-The problem is even if we become one of the super talented designers who produce incredible work, we are just one of them. If you spend some more time on these sites, everything starts to look the same.
+现在有个问题是，即使我们成为能够制作令人难以置信的作品的超级才华设计师之一，我们也只是其中之一。如果您在这些站点上花费更多的时间，一切看起来仍然会一样。
 
->  …a great portfolio won’t necessarily get you work.
+> ……优秀的作品集不一定会提供给你一份工作
 
-That is exactly how a recruiter, a hiring manager, a client feels when they have to review hundreds of thousands of portfolios. And that is why a great portfolio won’t necessarily get you work.
+这就是招聘人员，招聘经理，客户在必须审查成千上万个投资组合时的感受，这就是为什么优秀的作品集不一定能提供给你一份工作的原因。
 
-So what does?
+那是什么呢？
 
-## Establish A Unique Visual Style
+## 建立独特的视觉风格
 
-I looked at my own design journey and one thing consistently stood out — [**my personal brand**](https://www.stellaguan.com) has always come to people’s attention.
+我回顾了自己的设计历程，一件事始终令人瞩目 —— [**我的个人品牌**](https://www.stellaguan.com) 一直受到人们的关注。
 
-I realized very early on that [**my portfolio site**](https://www.stellaguan.com) is probably the only project I will have complete control over and have lots of fun with.
+我很早就意识到，[**我的作品集**](https://www.stellaguan.com) 可能是我唯一可以完全控制并乐在其中的项目。
 
-Instead of trying to look like everybody else’s beautifully minimal site, I decided to tell my own story with a visual style that speaks to my personality.
+我没有试图制作一个看起来和别人一样的一个的美丽的极简网站，而是决定以一种能表达我个性的视觉风格来讲述自己的故事。
 
->  I realized very early on that my portfolio site is probably the only project I will have complete control over and have lots of fun with.
+为了创建外观，我向自己问了以下问题：
+1. 我被吸引到什么颜色？
+2. 什么样的形状和形式很好地表达了我的个性？
+3. 我想讲什么样的故事？
 
-In order to create that look, I asked myself these questions:
+前两个问题帮助我定义了网站的图形样式。
 
-1. **What colors am I drawn to?**
-2. **What kind of shapes and forms represent my personality well?**
-3. **What kind of story do I want to tell?**
+长期以来，我一直迷恋上世纪中叶的现代建筑和家具设计。这就是我决定将在许多中世纪设计中看到的变形和流体的几何形状作为主要形式的方式。
 
-The first two questions helped me define the graphical style of my website.
+![图源 [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*iSS3gia1_v_Y5Ih0.jpg)
 
-I have been drawn to mid-century modern architecture and furniture design for a long time. That’s how I decided to incorporate morphing and fluid geometric shapes seen in many mid-century design as my main form.
+然后，我回顾了自己对 60 年代和 70 年代的时尚和音乐的欣赏 —— 橘红色、黄色、米色和浅粉红色是对我来说是最喜欢的颜色，因为它们代表了复古的温暖色调，完全符合我的审美观。
 
-![From [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*iSS3gia1_v_Y5Ih0.jpg)
+![图源 [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*L2OxUfYFUCsddQfq.jpg)
 
-Then, I reflected on my appreciation for fashion and music from the 60s and 70s. Orange red, yellow, beige and light pink stood out to me as my main colors of choice as they represent a vintage warm tone that speaks true to my aesthetics.
+我们可以做出的最有力的个人风格展示之一就是向别人展示我们所爱的东西，且并不为此道歉。
 
-![From [stellaguan.com](https://www.stellaguan.com)](https://cdn-images-1.medium.com/max/2048/0*L2OxUfYFUCsddQfq.jpg)
+现在，您可能已经注意到，我在站点上散布着很多“化装”的照片。我当然不是在建立时尚博客（尽管我在 2018 年有过一段短暂的时尚之旅，导致了其中一些照片有关这些内容），那我为什么要把它们放在那儿呢？
 
-One of the strongest personal statements we can make is to show others what we love with confidence and not apologize for it.
-
-Now you may have noticed that I have quite a few photos of myself in “fancy attire” scattered throughout the site. I was certainly not building a fashion blog (despite [**my brief fashion journey**](https://www.instagram.com/stella.guan) in 2018, which resulted in some of these photos), so why did I put them up there?
-
-Knowing that it may leave the impression of me being a narcissist, I still decided to put them up there. My reason is simple — I love fashion and see personal styling as an extension of my creativity.
+知道这可能会给我留下自恋的印象，所以我仍然决定将它们放置在那里。我的理由很简单 —— 我热爱时尚，并将个人风格视为创造力的延伸。
 
 >  One of the strongest personal statements we can make is to show others what we love with confidence and not apologize for it.
 
-It certainly took me a while to get comfortable with it — after all, I am not an extrovert.
+当然，我花了一些时间来适应它-毕竟，我不是一个外向的人。
 
-Like many people, I identify as an introvert. It wasn’t until my mid-20s when I realized the incredible power of confidence.
+像许多人一样，我认为自己是一个内向的人。直到我 20 岁 - 30 岁中，我才从自身上发现了令我难以置信的自信。
 
-Growing up, I hated a lot of things about myself.
+长大后，我讨厌很多关于自己的事情。
 
-A few years into my professional career, I met a colleague who made it into senior roles in companies despite being much younger than me and without a college degree. Her secret was her confidence. Every interview she walked into, she was able to command it as if she already had the job. As a result, she was able to fast track her career progression. I took that as an inspiration and worked on my confidence.
+在我职业生涯的几年中，我遇到了一位同事，尽管他比我年轻，并且没有大学学位，但他还是公司的高级职位。她的秘密是她的自信。她走进的每一次面试中，她都可以指挥自己，好像已经有了工作。这导致她能够快速追踪自己的职业发展。我以此为灵感致力于提升自信心。
 
-Fast forward to my late twenties, I had built up enough confidence to not feel shy or embarrassed about being in front of the camera or speaking in front of a group of people. And I translated that into building my personal brand as visualized in my website.
+在快到二十多快三十岁时，我已经建立了足够的自信，不会对在镜头前或在一群人面前讲话感到害羞或为难。然后，我将其转化为在网站上形象化地建立自己的个人品牌。
 
-## Tell Your Story Like You Are Writing A Biopic
+## 就像写传记片一样讲故事
+定义网站的外观样式后，我决定在 [About](https://www.stellaguan.com/about) 页面上增加一些小乐趣 —— 我用相互关联的小片段和使用了叙事语气讲述了自己的人生故事。
 
-After I defined the visual style of my site, I decided to have a little extra fun at my [about page](https://www.stellaguan.com/about). I told my life stories in small, interconnected snippets with a narrative tone of voice.
+![图源 [stellaguan.com/about](https://www.stellaguan.com/about)](https://cdn-images-1.medium.com/max/2048/0*bPGcutdSSef1Sn9A.jpg)
 
-![From [stellaguan.com/about](https://www.stellaguan.com/about)](https://cdn-images-1.medium.com/max/2048/0*bPGcutdSSef1Sn9A.jpg)
-
-If we look at content that performs well on social media or any other platforms, we will see some commonalities among them. People love hearing stories that are relatable. They want to hear your struggles and they want to know how you did what you did, despite the struggles. **Nobody wants to hear how amazing you are now.**
+如果我们查看在社交媒体或任何其他平台上表现良好的内容，就会发现它们之间的一些共性。人们喜欢听与之相关的故事 —— 他们想听听您的奋斗，他们想知道您如何做（尽管有奋斗）。没有人愿意听到你现在有多棒。
 
 >  They want to hear your struggles and they want to know how you did what you did, despite the struggles.
 
-If we watch enough movies, we will realize that people love rooting for the underdog. The unlikely champion, the one who struggled, and the one who is a work-in-progress despite having achieved something.
+如果我们看足够多的电影，我们将意识到人们喜欢为失败者加油—— 一个不大可能成为冠军的人，一个奋斗的人，一个尽管取得了一些成就仍在进步的人。
 
-Through my life experience, I also found that self-deprecation can be a quite powerful tool to connect with others emotionally.
+通过我的生活经历，我还发现自卑可能是一种在情感上与他人联系的强大工具。
 
-If we can laugh at ourselves, it will make it impossible for others to laugh at us (I will have to admit that I borrowed this quote from one of my favorite TV shows, [Scandal](https://abc.com/shows/scandal)). **What it will do is make others resonate with our flaws, mishaps and create an instant bond called shared human experience.**
+如果我们可以嘲笑自己，那么其他人就不可能嘲笑我们（我不得不承认，我从我最喜欢的电视节目之— —— [丑闻 Scandal](https://abc.com/shows/scandal) 中借用了这句话）。**它要做的是使其他人对我们的缺点，不幸事故产生共鸣，并建立一种称为共享人类经验的即时纽带**。
 
 >  If we can laugh at ourselves, it will make it impossible for others to laugh at us.
 
-With that knowledge in mind, I told my own life stories in visualized forms instead of writing a bland personal statement listing my past employers and my skill sets.
+考虑到这些关键，我以可视化的形式讲述了自己的人生故事，而不是写下平淡的个人陈述来列出我过去的雇主和我的技能。
 
-I drew from my undergraduate training in broadcast television and film. I remember my favorite college class was screenwriting taught by a hilarious but strict professor named [Bill Wine](https://www.criticschoice.com/members/bwine/), who is a renown film critic in Philadelphia. Despite having written horrible screenplays at the time, I learned how to tell stories. **In retrospect, this single skill set is far more important than many others I have acquired later.**
+我从广播电视和电影的本科培训中受益。我记得我最喜欢的大学课程是由一位名叫比尔·韦恩（Bill Wine）的滑稽而严格的教授执教的，他是费城著名的电影评论家。尽管他当时写了糟糕的剧本，但我还是从他身上学会了讲故事。回想起来，这种单一技能远比我后来获得的许多其他技能更为重要。
+太多的设计师几乎像套用信函那样写关于自己的陈述。
 
-There are far too many designers who wrote statements about themselves almost like form letters.
+"我是一名在 [某个地方] 的 UI / UX 设计人员。我专职为全球客户设计漂亮且用户友好的界面，其中包括... [一长串令人印象深刻的客户]。"
 
-**“I am a UI/UX designer based in [geo location]. I specialized in designing beautiful and user-friendly interfaces for a global roster of clients, including [name dropping a long list of impressive clients].”**
+尽管此类个人陈述没有错，但并不能使你脱颖而出 —— 它没有灵魂。
 
-While there is nothing wrong with this type of personal statements, it just doesn’t stand out. It reads empty and soulless.
-
-But if you tell people your personal stories in concise formats, they are more likely to stop for a second because it’s almost like you are presenting them with a trailer of a movie to watch. It will become a much-welcomed distraction (the good kind) from endless portfolio sites that look identical, however beautiful they might be.
+但是，如果您以简洁的格式告诉别人您的个人故事，他们很可能会愣住一秒钟 —— 因为这就像您要向他们展示电影的预告片一样。不管看起来多么漂亮，一个不停止更新的作品集网站都将成为一种令人分心的好习惯。
 
 >  If you tell people your personal stories in concise formats, they are more likely to stop for a second because it’s almost like you are presenting them with a trailer of a movie to watch.
 
-What’s more important is that you are now showing them who they are hiring. People like to work with other people who they like as a person. And your storytelling page will convince them you are that person (or not).
+更重要的是，您现在正在向他们展示他们正在招聘的人。人们喜欢与自己喜欢的其他人一起工作。您的讲故事的页面将使他们相信您是那个他们要的雇员（或不是）。
 
 >  People like to work with other people who they like as a person.
 
-In fact, I have established working relationships with quite a few companies with founders who liked my stories. They didn’t even mention my work. Instead, we swapped stories about our lives and commenced the project.
+实际上，我已经与多家公司建立了工作关系，这些公司的创始人都喜欢我的故事。他们甚至没有提到我的工作。相反，我们交换了有关自己生活的故事并开始了各自的项目。
 
-We live in an interconnected world where interpersonal relationship is the bedrock of our society. People love to know how you became the person you are today. Don’t be afraid to show them.
+我们生活在一个相互联系的世界中，人际关系是我们社会的基石。人们喜欢知道您如何成为今天的人。不要害怕给他们看。
 
-Just as a side note, not everyone has to put up their giant faces on their website like I did. Storytelling and personal branding can be done without any photos and it is up to your creativity as a designer to make that work for you.
+顺便提一句，并不是每个人都像我一样在自己的网站上摆出张大脸。讲故事和个人品牌塑造无需任何照片即可完成，这取决于您作为设计师的创造力来为您完成这项工作。
 
-## Content Creation Is Your New Best Friend
+## 内容创作是您的新好朋友
+并非我们每个人都是伟大的作家。我当然不是一个人，但是我写不管。
 
-Not every one of us is a great writer. I am certainly not one, but I write regardless.
+实际上，在成为电视制片人之前的短暂职业生涯中，我的写作能力非常差。我因为无法完成我的写作工作量（每天大约 5,000 个单词）而感到恐慌而无法正常工作。
 
-In fact, I was extremely bad at writing at the beginning of my brief career as a TV producer before becoming a designer. I had panic attacks going to work because I was so afraid of not being able to finish my writing workload, which was about 5,000 words a day.
+当我成为设计师时，写作成为几乎无关紧要的技能，这让我很高兴。
 
-When I became a designer, writing became a skill set that is almost irrelevant, much to my delight.
+但是，当我有关 [移民经验](https://medium.com/s/story/my-fast-and-furious-journey-to-getting-a-green-card-51dd0a9e4511) 的第一篇发布在社交媒体上的文章在一夜之间风靡一时的时候，我意识到了写作的作用。我收到了很多人的评论，分享给了他们海关上的奋斗和询问。
 
-However, I realized the power of writing when my first article on Medium about [**my immigration experience**](https://medium.com/s/story/my-fast-and-furious-journey-to-getting-a-green-card-51dd0a9e4511) went viral overnight. I received many comments from people sharing their struggles and inquiries about potential coaching services.
+![图源 [stellaguan.com/blog-and-news](https://www.stellaguan.com/blog-and-news)](https://cdn-images-1.medium.com/max/2048/0*cqe3pvaUgo3HTSBl.jpg)
 
-![From [stellaguan.com/blog-and-news](https://www.stellaguan.com/blog-and-news)](https://cdn-images-1.medium.com/max/2048/0*cqe3pvaUgo3HTSBl.jpg)
+从那时起，我意识到自己不讨厌写作-我讨厌写对自己没有热情和对他人的工作充满热情的主题。
 
-It was then when I realized that I didn’t hate writing — I hate writing on subjects that I didn’t feel passionate about and on assignment for other people.
+当我分享自己的经验时，写作就变得很愉快。
 
-When I share my own experience, writing became enjoyable.
+可能仍然不是您的事，这没关系。如果您是设计师，那么创造力就是您的事情。
 
-It may still not be your thing and that is okay. If you are a designer, creativity is your thing.
+内容创建并不仅限于写作。您可以制作内容丰富的视频；将您的旧工作变为为可分享的社交职位；制作播客；参加活动小组并分享您的专业知识，以启发他人并向他们学习。
 
-Content creation doesn’t have to be limited to writing. You can produce informative videos; reorganize your old work as sharable social posts; produce a podcast; get on event panels and share your expertise to inspire others and learn from them.
+可能性是无限的。问题是，您实际上要这样做吗？入门是最困难的事情，正如母亲所正确指出的那样，我和其他所有人一样都感到拖延。
 
-The possibilities are limitless. The question is, are you actually going to do it? Getting started is the hardest thing and I am guilty of procrastination as everybody else, as correctly pointed out by my mother.
-
-**There is a reason that some of the most successful designers and other creative professionals don’t work for other companies.** They work for themselves by establishing a strong personal brand. They share their work and thoughts consistently; they built an audience over time; they reach out and stay connected; and the work starts coming and keeps coming.
+**有一个原因，就是一些最成功的设计师和其他创意专业人士不在其他公司工作**。他们通过建立强大的个人品牌为自己工作。他们始终如一地分享自己的工作和思想；他们随着时间的推移建立了观众群；他们伸出手并保持联系；然后工作就开始了，并且一直在继续。
 
 >  There is a reason that some of the most successful designers and other creative professionals don’t work for other companies.
 
-When you doubt whether or not you should start a blog, create content and be active on social media as part of your brand building routine, ask yourself this question — **do you want to be someone who doesn’t depend on one paycheck?** If you do, you have to get started creating content and sharing today.
+当您不确定是否应该建立博客，创建内容并在社交媒体上积极参与作为品牌建立常规的一部分时，请问自己一个问题-您想成为**一个不依赖薪水的人**吗？如果这样做，则必须立即开始创建内容和共享。
 
-## Instead of Making New Year’s Resolution, Do This
+## 不是制定新的一年的计划，而是落实
+我注意到一种趋势，当一些设计师开始有酬工作时，他们停止更新其投资组合网站。实际上，我见过 20 年没有更新网站的设计师。
 
-I noticed a trend that happens when some designers became gainfully employed, they stopped updating their portfolio sites. In fact, I have seen designers who haven’t updated their sites in 20 years.
+您可以想象结果在视觉上或技术上都不是很好。
 
-You can imagine the result, visually or technologically, wasn’t very good.
+如果您 20 年来都没有更新过房屋，那么不管当时的房屋多么伟大，它现在都是固定器鞋面，随时可供投资者廉价购买。
 
-If you haven’t updated a house in 20 years, no matter how great it was back then, it is now a fixer upper ready to be bought dirt cheap by an investor.
+你真的想成为那所房子吗？我知道我宁愿成为维护良好并及时更新的另一座房子，该更新将像烤饼一样出售。
 
-Do you really want to be that house? I know I’d rather be the other house down the block that’s well-maintained with timely updates that will sell like a hotcake.
+您的个人品牌与网站上显示的相同。
 
-It’s the same for your personal brand as manifested in your website.
+您对更新的懈怠越多，最终由于新的工作机会或其他原因而最终对其进行更新时，就会感到不堪重负。
 
-The more you slack off on updating, the more overwhelming it will be when you do eventually update it either for new job opportunities or other reasons.
-
-Another reason, perhaps a more important one, is that if you don’t reassess your brand every year, you are not setting yourself up for progress in the new year.
+另一个原因，也许是更重要的原因，是如果您不每年重新评估品牌，就不会为新的一年做好准备。
 
 >  If you don’t reassess your brand every year, you are not setting yourself up for progress in the new year.
 
-Just because I am using my own site as a case study in this article doesn’t mean that my work is done. I know I will be making changes and there is always something I can improve or change.
+仅仅因为我将自己的站点用作案例研究并不意味着我的工作已经完成。我知道我会做出改变，总会有一些我可以改进或改变的地方。
 
-Instead of making a New Year’s resolution list, I have set up a new ritual to update my personal brand every year before December 31.
+我没有制定新年决议列表，而是建立了一种新的仪式来每年 12 月 31 日之前更新我的个人品牌。
 
-This year, I’m happy to say I did just that.
+今年，我很高兴地说我做到了。
 
-## Your Work Does Not Speak For Itself
+# 您的作品并不能说明一切
 
-When you do all of the above, you will start having something called a “personal brand.”
+完成上述所有操作后，您将开始拥有一个称为“个人品牌”的东西。
 
-It doesn’t mean anything tangible or specific — rather, it is the synergy that you created by crafting a message about yourself visually and with words.
+这并不意味着任何有形或具体的含义，而是通过视觉和言语传达有关自己的信息而创建的协同作用。
 
-**That synergy will draw people who share the same value and interests as you to your side.** They will become your clients, customers, business partners, followers and friends.
+**这种协同作用将吸引与您拥有相同价值和利益的人们支持**。他们将成为您的客户，客户，业务合作伙伴，关注者和朋友。
 
-The power of a personal brand is that if people love hearing from you, they will buy what you sell.
+个人品牌的力量在于，如果人们喜欢您的来信，他们就会购买您出售的产品。
 
 >  The power of a personal brand is that if people love hearing from you, they will buy what you sell.
 
-I am a strong believer in that your “work does **not** speak for itself.” Here is why.
+我坚信您的“作品本身并不能说明一切”。这就是为什么。
 
 >  Instead of letting the work do the talking, we need to do the work well and then talk about them, a lot.
 
-When designers think their work speak for themselves, they are actually setting themselves up for commercial failure. Instead of letting the work do the talking, we need to do the work well and then talk about them, a lot.
+当设计师认为自己的作品能说明问题时，他们实际上是在为商业失败做好准备。除了让工作进行讨论之外，我们还需要做好工作，然后再谈论它们。
 
-Next time you look for a job, projects or clients, don’t show them your portfolio. **Have your portfolio embedded in your personal brand.**
+下次您寻找工作，项目或客户时，请勿向他们展示您的投资组合。将您的作品集**嵌入您的个人品牌中**。
 
-To wrap up, I’d like to share a few examples of designers and professionals from other disciplines who have great personal brands.
+最后，我想分享一些其他领域的设计师和专业人士的示例，这些设计师和专业人士都拥有出色的个人品牌。
 
 1. [**Timothy Goodman**](https://www.tgoodman.com/)
 
 ![From [tgoodman.com](https://www.tgoodman.com)](https://cdn-images-1.medium.com/max/2048/0*_f3NnINKvVhkqWwB.png)
 
-Timothy Goodman is a New York-based illustrator, designer, muralist and artist running his own studio. His work has appeared in numerous publications, merchandise for brands and public spaces. He is known for being very open in sharing his personal life and his social activism. His brand is a good example that you don’t have to put your face up in the homepage to have a strong brand.
+蒂莫西·古德曼（Timothy Goodman）是纽约的插画家，设计师，壁画家和艺术家，经营着自己的工作室。他的作品出现在众多出版物，品牌商品和公共场所的商品中。他在分享个人生活和社交活动方面非常开放。他的品牌就是一个很好的例子，您不必为了拥有强大的品牌而在首页上露面。
 
 2. [**Marie Forleo**](https://www.marieforleo.com)
 
 ![From [marieforleo.com](https://www.marieforleo.com)](https://cdn-images-1.medium.com/max/2048/0*X_98u5Qm0Ps4Vyyb.png)
 
-Marie Forleo is not a designer. She is a successful businesswoman who runs multiple coaching businesses. Her personal brand stands out with a clean visual look and her purposeful brand message. As we craft our stories, we can look to Marie for inspiration on how she connects with her audience.
+Marie Forleo 不是设计师。她是一位成功的女商人，曾经营多个教练业务。她的个人品牌以清晰的视觉外观和有目的的品牌信息脱颖而出。在制作故事时，我们可以向玛丽寻求灵感，以了解玛丽与观众的关系。
 
 3. [**Ankit Bhatnagar**](https://creativeankit.com/)
 
 ![From [creativeankit.com](https://creativeankit.com)](https://cdn-images-1.medium.com/max/2048/0*SmVYKTlmCM1v6tqv.png)
 
-Ankit Bhatnagar is a UI/UX designer with a great personal brand. He keeps it simple but highly-effective in showcasing his skill sets while giving you a glimpse of who he is as a person. He does not lean heavy on the story telling side, but his visual branding makes his site a lot more interesting than a simple white minimal template with a collection of work in it.
+Ankit Bhatnagar是拥有出色个人品牌的UI / UX设计师。他保持简单，但在展示自己的技能方面非常有效，同时让您瞥见自己是谁。他在讲故事的方面并不偏于沉重，但他的视觉品牌使他的网站比一个简单的白色最小模板（其中包含一些工作）更加有趣。
 
 4. [**Shawn Park**](https://www.designbyroka.com)
 
 ![](https://cdn-images-1.medium.com/max/2048/0*_zc0nm9n5JCa-80o.png)
 
-Shawn Park is a product designer. He did an excellent showcase of [**his portfolio redesign journey**](https://www.designbyroka.com/timeline) that reaffirms our understanding of its importance. His site also stands out because he artfully incorporates cultural elements of his Korean heritage without making them overwhelm his design work.
+Shawn Park是产品设计师。他很好地展示了他的投资组合重新设计之旅，重申了我们对其重要性的理解。他的网站也很抢眼，因为他巧妙地融合了他的韩国文化底蕴，而又没有使他们的设计工作不知所措。
 
 ---
 
-**Originally published at [https://www.stellaguan.com](https://www.stellaguan.com/dont-show-me-your-design-portfolio/) on January 4, 2021.**
+**最初发布于 2021 年 1 月 4 日在 [https://www.stellaguan.com](https://www.stellaguan.com/dont-show-me-your-design-portfolio/) 上**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
