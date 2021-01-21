@@ -5,7 +5,7 @@
 > * 译者：想念苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 2021年JavaScript测试框架回顾
+# 2021 年 JavaScript 测试框架回顾
 
 ![JavaScript 测试框架的使用情况，数据来源《2020 年 Javascript 状况调查》](https://github.com/PassionPenguin/gold-miner-images/blob/master/a-review-of-javascript-testing-frameworks-in-2021-UsageRanking.jpg?raw=true)
 
@@ -32,7 +32,7 @@ Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供
 
 **GitHub Stars**：**20.2k**
 
-![摩卡徽标](https://cdn-images-1.medium.com/max/2000/1*if41jUf_RLXNEjCSz-2aBQ.png)
+![Mocha Logo](https://cdn-images-1.medium.com/max/2000/1*if41jUf_RLXNEjCSz-2aBQ.png)
 
 Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。 
 
