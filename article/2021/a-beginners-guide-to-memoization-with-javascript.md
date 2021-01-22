@@ -2,112 +2,112 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-beginners-guide-to-memoization-with-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-beginners-guide-to-memoization-with-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[regon-cao](https://github.com/regon-cao), [Ashira97](https://github.com/Ashira97), [PassionPenguin](https://github.com/PassionPenguin)
 
-# A Beginner’s Guide to Memoization with JavaScript
+# JavaScript Memoization 入门指南
 
 ![Photo by [Tamanna Rumee](https://unsplash.com/@tamanna_rumee?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*ppVRXfrCk7iBldw8)
 
-One of the best things about being a software developer is that you never stop learning. There is always something to learn especially with something like JavaScript. When our applications become complex, the need for speed becomes a major deal-breaker. Performance optimization becomes a necessity when our application code grows in scale. Memoization is a concept that helps you build efficient applications even when the complexity is higher. The concept of memoization is very much associated with pure functions and functional programming in JavaScript.
+作为一名软件开发者，需要不断学习。永远存在需要学习的新事物，特别是 JavaScript 相关技术。当我们的应用程序变得复杂起来，运行速度就显得尤为重要了。当应用程序代码量不断增加，就需要进行性能优化。Memoization 是一种概念，它能帮助你构建高效的应用，即使在应用程序变得越来越庞大的情况下也是如此。Memoization 概念跟 JavaScript 中纯函数和函数式编程密切相关。
 
-**You must keep in mind that memoization is merely a concept and is not dependent on JavaScript or any specific programming language. We will be looking at memoization from JavaScript’s perspective in this article.**
+**务必记住，Memoization 只是一种概念，跟任何编程语言都无关。在本文中，我们从 JavaScript 的视角来讨论 Memoization。**
 
-## What is Memoization?
+## 什么是 Memoization
 
-By [definition](https://www.cs.cmu.edu/~rwh/introsml/techniques/memoization.htm), Memoization is a programming technique for caching the results of previous expensive computations so that they can be quickly retrieved without repeated effort when the same inputs are passed.
+从[定义](https://www.cs.cmu.edu/~rwh/introsml/techniques/memoization.htm)上来说，Memoization 是一种编程技术，它把某个函数复杂的运算结果保存起来，使得下一次以相同的输入调用这个函数时，不需要重复进行处理，直接快速返回已保存的结果。
 
-If you break this definition down further, you will notice that there are three main points.
+如果把这个定义进一步分解，你应该注意到，有三个要点：
 
-* **caching the results** — cache is a temporary data storage that enables faster data access in the future.
-* **expensive computations** — this refers to computations or process which are expensive. By the term “expensive”, it is meant that these processes consume a lot of memory or take a lot of time, both of which are precious in the world of computing.
-* **when the same inputs are passed** — This is a straightforward statement. But this statement confirms the connection between memoization and pure functions as stated before. The fundamental concept of pure functions is that the result returned is always the same as the associated input argument.
+* **把结果缓存** — 缓存是一种临时保存数据的方式，它可以加快下次访问的速度。
+* **复杂的运算** — 这里是指复杂的运算或处理过程。复杂是指该过程耗费的系统资源大或需要很长时间，这两者都是计算机世界中重要的衡量标准。
+* **输入数据相同** — 这是一种直白的说法。但它确立了 Memoization 和纯函数之间的联系。从基本概念上来说，如果一个函数对于相同的输入数据总能得到相同的结果，这样的函数就称为纯函数。
 
-With the help of our divide and conquer approach, we should have a basic understanding of memoization by now. If you still didn’t understand, don’t worry, I’ve got you covered.
+把这个概念分解后，我们应该对 Memoization 有了基本的认识。如果你仍然不理解，不必担心，我会深入讲解，让你明白的。
 
-## When and Why Should You Memoize Your Functions?
+## 何时以及为何需要对你的函数进行 Memoize？
 
-#### Why?
+#### 为什么？
 
-Let’s start with the why. Memoization can immensely help you improve the performance of your expensive function calls. When a function receives input and returns an output after heavy computation, this return value can be cached. If the same inputs are received again, it is logical to return the same outputs rather than do the computations from scratch.
+我们先来了解为什么需要 Memoize。Memoization 能在很大程度上帮助你提升调用复杂函数时的性能。当某个函数接收输入，接着进行一些复杂的运算，返回输出结果，这个输出值可以被缓存。如果这个函数再次接收到相同的输入，就顺理成章地返回相同的输出值，而不是再次从头进行运算。
 
-There are several resources online that discuss performance improvements due to memoization. You can have a look at the resources at the end of this article to know more.
+网上有不少关于使用 Memoization 进行性能优化的资料。你也可以通过查看本文结尾列出的那些资料去了解更多信息。
 
-#### When?
+#### 何时？
 
-Memoizing functions is only possible when your functions are pure. If your function returns different outputs for the same inputs, then there is no use memoizing it. Have a look at the code below.
+只有纯函数才可以进行 Memoize。如果函数的输入数据相同，却可能产生不同的结果，对这样的函数进行 Memoize 是没有实际用途的。看一看下面的代码。 
 
-Even though the input is the same, the output is different each time the function is called. Memoizing a function like this is useless.
+虽然输入的数据相同，但每次调用函数输出的结果却不同。对这样的函数进行 Memoize 是没有实际意义的。
 
-Furthermore, there are several instances where you can memoize your functions.
+更进一步，在这些情况下，你可能需要对函数进行 Memoize：
 
-* They are recursive functions with input values being repeated.
-* The function calls are expensive
+* 函数是递归的，并且输入的数据是重复的。
+* 调用函数耗费的时间或资源较多的情况。
 
-## Key Takeaways
+## 重点
 
 ![Photo by [Matthew Cabret](https://unsplash.com/@majinmdub?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8320/0*m5L_0XBWVSlIUumn)
 
-There are three main points you should keep in mind about memoization. Memoization will not exist without the below concepts.
+关于 Memoization，有三个要点你需要记住。必须满足这些先决条件，Memoization 才是有意义的。
 
-* **Pure functions** — although I did mention this earlier, it is essential for a function to be pure in order to be memoized.
-* **Higher-order functions** —these functions return another function that can be invoked later.
-* **Closures** — the cache that exists within the function can remember its values thanks to closures and higher-order functions.
+* **纯函数** — 虽然已经提到过，但还是需要强调：欲对函数进行 Memoize，这个函数必须是纯函数。
+* **高阶函数** — 这类函数返回另一个可以再次被调用的函数。
+* **闭包** — 由于闭包和高阶函数的存在，函数内部的缓存可以记住它的值。
 
-You will see these concepts in action in the example down below.
+学习以下的例子，可以理解这些概念在实践中的应用。
 
-## Memoization in Action
+## Memoization 的应用
 
-A commonly used example for memoization would be the calculation of the factorials. Let’s have a look.
+关于 Memoization 的应用，常用的例子是阶乘的计算。我们来了解一下。
 
-In the above example, the calculations are done every time. In the second call of the `factorial(100)` the whole process is repeated. If we had implemented memoization, there is no such need to run the calculations again as we would have the return value of `factorial(100)` stored in the cache.
+在上面的例子中，每次调用都要重新进行计算。第二次调用 `factorial(100)` 时，整个过程都会重复执行。如果我们在这里实施 Memoization，由于我们已经把 `factorial(100)` 的计算结果存在缓存里，就不需要再次计算了。
 
-Let’s have a look at the above example implemented with memoization.
+我们来研究一下这个使用 Memoization 的例子。
 
-In the above example, you can clearly see that the cache values are referred to, whenever required. This allows you to skip certain calculations as their values have been calculated previously.
+在这个例子中，你可以清楚地看到，无论何时都会取缓存的值。这使你能方便地跳过那些计算过程，因为在这之前结果已经计算出来，并被保存起来，而且耗费了大量资源。
 
-If you closely look at the call, you can see that the calculation of `factorial(50)` is pretty quick as there is no computation involved. This is due to the value of `factorial(50)` already being computed and cached in the `factorial(60)` execution.
+如果你仔细观察调用过程，你会发现，由于不涉及计算过程，就很快得到了 `factorial(50)` 的值。这是因为 `factorial(50)` 已经计算完毕，并且缓存在 `factorial(60)` 的内存空间。
 
-You can play around with this example over [here](https://jsfiddle.net/2u7rofyp/1/).
+你可以在[这里](https://jsfiddle.net/2u7rofyp/1/)运行这个例子。
 
-#### Things to note about the above example
+#### 关于上面的例子需要注意的东西
 
-You can clearly see that the above factorial function is a **pure function** as it always returns the same output value for the same input. You can also note that the memoize function is a **higher-order function** in the above example as it returns a function that can be invoked later and also uses the function passed in as an argument. Furthermore, it can also be noted that due to the higher-order function being used, a **closure** is created that allows for the cache object to be accessed by the inner function.
+你可以清楚地看到，factorial 函数是一个**纯函数**，因为对于相同的输入，输出值永远是相同的。你也应当注意到，Memoize 函数是一个**高阶函数**，这是因为它返回的是一个将来需要调用、也会把函数用作输入参数的函数。更进一步，我们也可以看到，由于正在使用高阶函数，会创建一个闭包，它允许内部嵌套函数访问缓存对象。
 
-We can now see how a function can be memoized with three important concepts being applied to it.
+现在，我们能理解如何使用三个要点对函数进行 Memoize。
 
-## Caching vs Memoization
+## Caching 和 Memoization 的区别
 
-You might start wondering about the difference between caching and memoization. Well, in fact, caching can be possible in various ways like HTTP cache, image cache, etc. But memoization is more concerned with a specific type of caching, **caching return values of a function**.
+你可能想知道 Caching 和 Memoization 的区别在哪里。实际上，Caching 是各种形式的缓存的总称，例如 HTTP 缓存、图片缓存等。但 Memoization 在大多数情况下是一种特定类型的缓存，**它缓存的是函数返回值**。
 
-**You must also note that I have already mentioned the key takeaways of memoization. Therefore caching is only a part of memoization, not memoization itself.**
+**你应当注意到，我已经提及了 Memoization 的要点。因此 Caching 只是 Memoization 的一部分，不是 Memoization 本身。**
 
-## Libraries for Memoization
+## Memoization 相关的库
 
-There are several libraries that help you memoize your functions but they differ from one another with the way the memoization is implemented.
+有这样一些库，你可以使用它们进行函数 Memoization，但是它们实现 Memoization 的方式各不相同。
 
 * Moize
 * Lodash
 * Underscore
 * Memoize Immutable and more.
 
-You can have a look at all the libraries and their features in this [stack overflow answer](https://stackoverflow.com/a/61402805) by Venryx.
+你可以在[stack overflow 的问答版块](https://stackoverflow.com/a/61402805)看一看所有的库以及它们的特性。
 
-## Should You Always Memoize Your Functions?
+## 需要对所有的函数进行 Memoization 吗？
 
-**TLDR; No**
+**不是的**
 
-Although memoization increases your performance by a huge margin, there is something else you should keep in mind. The cache **stores** the values, implying that there is data being stored. If your function inputs vary with a huge range, then your cache will become larger and larger. Typically, memoized functions have a space complexity of O(n). But there are algorithms that can improve the space complexity of memoized functions.
+虽然 Memoization 可以大大提高程序的性能，还是有一些你需要记住的事项。缓存**存储**了相关的值，这表明数据被存储了。如果函数的输入范围太大，你的缓存就会越来越大。通常 Memoization 函数的空间复杂度为O(n)。也可以使用一些算法来改进 Memoization 函数的空间复杂度。
 
-It is very important for you to understand that you have to balance between two important resources - time and space. Although memoization reduces the time complexity of a function, it increases the space complexity on the other hand.
+你需要理解，必须平衡两种资源 —— 时间和空间，这很重要。虽然 Memoization 可以减少函数的时间复杂度，但另一方面，空间复杂度却增大了。
 
-Therefore, I believe that it is suitable to implement memoization when the input range is fixed and it can be assured that they will be often repetitive.
+因此，我认为，当函数的输入值范围固定，并且确定这个函数会反复调用时，对函数进行 Memoization 是恰当的选择。
 
 ----
 
-Thank you for reading and happy coding
+感谢您阅读本文。编码快乐！
 
-**Resources**
+**相关资源**
 
 - [Article by Philip](https://scotch.io/tutorials/understanding-memoization-in-javascript)
 - [Article by Codesmith](https://codeburst.io/understanding-memoization-in-3-minutes-2e58daf33a19)
