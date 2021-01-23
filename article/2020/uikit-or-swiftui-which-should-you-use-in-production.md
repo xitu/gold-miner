@@ -333,7 +333,7 @@ class HomeViewController: UIViewController {
 
 过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 中仍然充满着苦难的部分。这里发生着各种故障和崩溃，并且不支持自定义。
 
-随着时间与 SwiftUI 开发的推进，这肯定会得到解决，但是到目前为止，我丝毫不相信 SwiftUI 具有页面间导航功能。
+随着时间的流逝，这些问题肯定会得到解决，但是到目前为止，我丝毫不相信 SwiftUI 的页面间导航功能。
 
 停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 得到 UIKit 的支持，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
 
