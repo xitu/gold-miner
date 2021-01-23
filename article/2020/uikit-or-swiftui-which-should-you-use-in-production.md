@@ -2,22 +2,22 @@
 > * 原文作者：[Alexey Naumov](https://medium.com/@nalexn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md)
-> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：
+> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Zilin Zhu](https://github.com/zhuzilin)
 
 # UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？
 
 ![图自 [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) 源于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
 
-Apple 最近刚发布了 iOS 14 —— 这意味着开发者们已经花了一年时间缓冲使用 SwiftUI 了。而且这意味着 SwiftUI 不仅可以被爱好者们在其闲余的项目中使用，而且可以被企业团队在其发布的应用中使用。
+Apple 最近发布了 iOS 14 —— 这意味着 Apple 已经给了开发者们一年时间缓冲决定是否使用 SwiftUI 了。而且这意味着 SwiftUI 不仅可以被爱好者们在其闲余的项目中使用，而且要被企业团队评估是否能在其发布的应用中使用了。
 
-从每个人的评论的字面上看，大家都说编写 SwiftUI 代码很有趣，但是 SwiftUI 究竟是仅仅只能充当一个玩具喂饱开发者们的好奇心，还是真的可以当作一个专业的工具在实际生产中使用？而如果我们需要在实际生产中使用 SwiftUI，那我们就需要以对待一个专业工具而非对待玩物的态度，开始着手考虑它的稳定性和灵活性了。
+从每个人的评论的字面上看，大家都说编写 SwiftUI 代码很有趣，但是 SwiftUI 究竟是仅仅只能充当一个玩具喂饱开发者们的好奇心，还是真的可以当作一个专业的工具在实际生产中使用呢？而如果我们需要在实际生产中使用 SwiftUI，那我们就需要以对待一个专业工具而非对待玩物的态度，开始着手考虑它的稳定性和灵活性了。
 
 那我们应该在什么时候开始在实际生产的应用的代码中使用 SwiftUI？
 
 如果您准备在 2020 年至 2022 年之间开始一个新的重大项目，这个问题着实很难回答。
 
-SwiftUI 带来了不少创新，但是即使在 iOS 14 上运行使用 SwiftUI 构建的应用，我们[仍然会遇到错误，并且 SwiftUI 缺少客制化的能力](https://steipete.com/posts/state-of-swiftui/) 。
+SwiftUI 带来了不少创新，但是即使在 iOS 14 上运行使用 SwiftUI 构建的应用，我们[仍然会遇到错误，并且 SwiftUI 的自定义灵活性不足](https://steipete.com/posts/state-of-swiftui/) 。
 
 尽管可以适时地使用 UIKit 来缓解这些问题，但您能否估计有多少代码最终是用 UIKit 写的呢？从长远来看，SwiftUI 有没有可能成为负担，使您觉得不如单纯使用 UIKit 呢？
 
@@ -26,31 +26,31 @@ SwiftUI 带来了不少创新，但是即使在 iOS 14 上运行使用 SwiftUI �
 在本文中，我将详细介绍如何在如下两种情况下搭建项目：
 
 1.如果您希望您的应用支持 iOS 11 或 iOS 12，但考虑在未来将应用程序迁移到 SwiftUI。
-2.如果您的应用只用支持 iOS 13+，但希望控制与 SwiftUI 库可能会带来的相关的风险，并希望能够同时无缝使用 UIKit。
+2.如果您的应用只用支持 iOS 13+，但希望控制 SwiftUI 库可能会带来的相关的风险，并希望能够同时无缝回退至 UIKit。
 
 ## 这是个黏糊糊的 UI 框架
 
-从过往的经验上看，UI 框架对于移动应用程序的结构体系有着非常大的影响 —— 在 iOS 开发上，我们使用 UIKit 并围绕它构建几乎所有其他的代码。
+从过往的经验上看，UI 框架对于移动应用程序的结构体系有着非常大的影响 —— 在 iOS 开发上，我们使用 UIKit 并围绕它构建了几乎所有其他的代码。
 
 回忆一下您上一个使用了 UIKit 的项目，并尝试评估一下，如果要完全摆脱 UIKit，将其替换为另一个UI框架（例如 [AsyncDisplayKit](https://github.com/texturegroup/texture/) 需要耗费多少精力？
 
 —— 对于大多数项目，这可能意味着要完全重写代码。
 
-网络开发者们会嘲笑我们，毕竟他们总是在各种 UI 框架中切换着使用。因此，他们早已定下了应用与依赖库之间的原则，并将 UI 仅仅当作表示层，就像他们使用的数据访问层的数据库类型一样。
+网络开发者们会嘲笑我们，毕竟他们总是在各种 UI 框架中切换着使用。因此，他们早已定下了应用与依赖库之间的原则，并将 UI 仅仅当作程序的其中一小部分，就像具体使用哪种数据库一样，无关紧要。
 
-这是否意味着我们（移动开发人员）将表示层与业务逻辑层捆绑的太死了？可是我们应该做到了啊 —— MVC、MVVM、VIPER 等框架都在帮助着我们。
+这是否意味着我们（移动开发人员）将 UI 与业务逻辑层捆绑的太死了？可是我们应该做到了啊 —— MVC、MVVM、VIPER 等框架都在帮助着我们。
 
 但我们仍然受困于 UI 库啊。
 
-移动应用很少负责任何核心的计算 —— 例如计算贷款利息并批准贷款。每个企业希望在这里最大程度地减少各种风险，因此他们会让应用程序上传数据并在后端完成计算。
+移动应用很少负责任何核心的业务逻辑 —— 例如计算贷款利息并批准贷款。每个企业希望最大程度地减少各种风险，因此他们会让应用程序上传数据并在后端完成计算。
 
-但是，现代移动应用程序上仍然有很多计算内容，但是这种计算与上面提到的那些计算是不同的 —— 它只专注于 UI 的渲染，而不是业务运行的核心计算。
+但是，现代移动应用程序上仍然有很多业务逻辑，但是这种计算与上面提到的那些计算是不同的 —— 它只专注于 UI 的呈现，而不是业务运行的核心逻辑。
 
-这意味着我们需要做得更好 —— 将与 UI 渲染相关的计算与正在使用的 UI 框架分离。
+这意味着我们需要做得更好 —— 将与 UI 呈现相关的计算与正在使用的 UI 框架分离。
 
 如果我们不这样做，也难怪框架会完全捆绑到代码库中。
 
-UIKit 和 SwiftUI 的 API 都粘在了别的非表示层代码中 —— 这些框架正在迫使开发人员将表示层变成业务逻辑层和数据访问层所要围绕的核心，推动将表示层与其他所有的东西紧密联系，甚至是在根本不是 UI 的地方也要与 UI 捆绑使用！
+UIKit 和 SwiftUI 的 API 都粘在了别的非表示层代码中 —— 这些框架正在迫使开发人员将他们变成应用的核心，推动将表示层与其他所有的东西紧密联系，甚至是在根本不是 UI 的地方也要与 UI 捆绑使用！
 
 以 SwiftUI 中的 `@FetchRequest` 为例。它在表示层中捆绑了 `CoreData` 模型。看起来的确很是方便。但这同时严重违背了 CS 中的多种软件设计原则和最佳做法 —— 这样的代码可以在短期内节省时间，但从长远来看可能会对项目造成极大的危害。
 
@@ -60,17 +60,17 @@ UIKit 和 SwiftUI 的 API 都粘在了别的非表示层代码中 —— 这些�
 
 那不同界面之间的导航又会如何表现呢？
 
-UIKit 总是对我们耳语："噢 Pssst！你快点用 `presentViewController(:，animation：，completion :);` 代码替换掉旧代码吧！不要再使用那些代码了！”
+UIKit 总是对我们耳语："噢！你快点用 `presentViewController(:，animation：，completion :);` 代码替换掉旧代码吧！不要再使用那些代码了！”
 
 而 SwiftUI 不会低语 —— 它只会在向我们大声嚷嚷："听我的，除非你按照我想要的方式来做，要么我就会以精心设计的方式搞垮你的应用！"
 
 有没有一种方法可以保护我们的代码库免受这些野蛮的 API 的侵害？
 
-当然是有的！这种什么都管的 API 通常情况下是挺好的 —— 让我们程序员犯错误的机会能够变得更少。但是，当此类 API 无法正常工作时，这就会变成一个巨大的问题，例如 SwiftUI 的自动化页面导航就出现了问题。
+当然是有的！这种大声嚷嚷的 API 通常情况下是挺好的 —— 让程序员更不容易犯错。但是，当此类 API 无法正常工作时，这就会变成一个巨大的问题，例如 SwiftUI 的自动化页面导航就出现了问题。
 
 ## 布置 UI 界面
 
-如您所见，框架无处不在，您使用框架越多的功能，你就越难在特定屏幕或整个应用程序中停止使用此框架。
+如您所见，框架中处处是陷阱，您使用框架越多的功能，你就越难在特定屏幕或整个应用程序中停止使用此框架。
 
 如果我们希望应用足够的顽强，可以忍耐 UIKit 与 SwiftUI 之间的痛苦过渡（反之亦然），则需要确保表示层和其他层之间不是简简单单的一个木栅栏分割，而是一堵巨墙完全割裂它们。
 
@@ -80,23 +80,23 @@ UIKit 总是对我们耳语："噢 Pssst！你快点用 `presentViewController(:
 
 UI 框架在屏幕之间的导航的 API 是否会让视图粘合其他代码？就让我们把导航隔离开！
 
-我们不仅需要从 UI 层中提取尽可能多的计算，而且还需要使 UIKit 组件或 SwiftUI 组件与获取数据的函数完全兼容。
+我们不仅需要从 UI 层中提取尽可能多的逻辑，而且还需要使 UIKit 组件或 SwiftUI 组件与获取数据的函数完全兼容。
 
 我们如何让 UIKit 和 SwiftUI 之间兼容？
 
-我们知道，SwiftUI 完全由数据驱动 —— 需要提供可改变的数据的绑定。幸运的是，UIKit 可以与 MVVM 和数据更改框架一起变换。
+我们知道，SwiftUI 是完全由数据驱动的 —— 需要提供响应式数据的绑定。幸运的是，UIKit 可以与 MVVM 和响应式框架一起变换。
 
 这意味着数据源，委托，目标操作以及其他 UIKit API 应该在 UI 层中被隔离开。
 
 —— `import UIKit` 不应出现在任何的 ViewModel 中。
 
-我应该注意，只要 UI 组件是完全由数据驱动的，则显示模块的确切架构模式并不重要。为了简化示例，我将在本文中提及 MVVM。
+我要提醒一下，只要 UI 组件是完全由数据驱动的，则显示模块的确切架构模式并不重要。为了简化示例，我将在本文中提及 MVVM。
 
-现在。我们应该为 ViewModel 使用哪个反应式框架？我们知道 SwiftUI 仅可以与 [Combine](https://developer.apple.com/documentation/combine) 一起使用，而 UIKit 最好与 RxCocoa 一起使用。
+现在。我们应该为 ViewModel 使用哪一个响应式框架？我们知道 SwiftUI 仅可以与 [Combine](https://developer.apple.com/documentation/combine) 一起使用，而 UIKit 最好与 RxCocoa 一起使用。
 
 —— 两种方法都可行，因此这取决于您是否支持 iOS 13 即 Combine 以及您对 RxSwift 的喜爱程度。
 
-让我们同时考虑下这两个方法的使用！
+让我们同时考虑下这两个方法吧！
 
 ## 构建 RxSwift 和 SwiftUI 之间的桥梁
 
@@ -249,7 +249,7 @@ struct HomeView: View {
 }
 ```
 
-这里的 `viewModel.isLoadingData` 是是重要的程序，也因此我们需要将其从 Combine 转换为 `Publisher`。
+这里的 `viewModel.isLoadingData` 是一个 `Driver`，也因此我们需要将其转化为 Combine 中的 `Publisher`。
 
 开源社区中已经发布了 [RxCombine](https://github.com/CombineCommunity/RxCombine) 库，该库支持从 `Observable` 到 `Publisher` 的桥接，因此使用该库支持 `Driver` 会很简单：
 
@@ -269,7 +269,7 @@ extension Driver {
 
 ## 将 UIKit 与 Combine 连接
 
-如果您有足够多支持 iOS 13+ 的功能，则可以考虑在应用程序中使用 Combine 构建网络和其他非 UI 模块。
+如果您可以只支持 iOS 13+，则可以考虑在应用程序中使用 Combine 构建网络和其他非 UI 模块。
 
 即使将 Combine 与 UIKit 绑定起来有些不便，但从长远来看，当项目完全迁移到 SwiftUI 时，选择 Combine 作为驱动应用程序中数据的核心框架总是有所裨益的。
 
@@ -315,7 +315,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel
-            .$isLoadingData // 包含 Publisher
+            .$isLoadingData // 获取 Publisher
             .asObservable() // 转换到 Observable
             .bind(to: loadingIndicator.rx.isAnimating) // RxCocoa 绑定
             .disposed(by: disposeBag)
@@ -327,17 +327,17 @@ class HomeViewController: UIViewController {
 }
 ```
 
-当需要在SwiftUI中重建此屏幕时，一切都将为您完成：在 ViewModel 中无需进行任何更改。
+当需要在 SwiftUI 中重建此屏幕时，一切都将为您完成：在 ViewModel 中无需进行任何更改。
 
 ## 关于页面导航的想法
 
-过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 中仍然充满着苦难的部分。这里发生着各种故障和崩溃，并且不支持自定义。
+过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 中仍然充满着苦难的部分。这里发生着各种故障和崩溃，并且不支持动画的自定义。
 
-随着时间的流逝，这些问题肯定会得到解决，但是到目前为止，我丝毫不相信 SwiftUI 的页面间导航功能。
+随着时间的流逝，这些问题肯定会得到解决，但是到目前为止，我丝毫不信任 SwiftUI 的页面间导航功能。
 
 停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 得到 UIKit 的支持，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
 
-在为本文构建的示例项目中，我使用了传统的协调器模式 （MVVM-R），该模式适用于使用 SwiftUI 中的 `UIHostingController` 构建的页面。
+在为本文构建的示例项目中，我使用了传统的协调器模式（MVVM-R），该模式适用于使用 SwiftUI 中的 `UIHostingController` 构建的页面。
 
 ## 结论
 
@@ -345,9 +345,9 @@ class HomeViewController: UIViewController {
 
 SwiftUI 存在的问题不应阻止您至少在可预见的将来准备将您的项目要迁移到此框架。
 
-从 UI 层中提取尽可能多的业务逻辑，并使 UIKit 屏幕由数据驱动。这样，迁移到SwiftUI变得轻而易举。
+从 UI 层中提取尽可能多的业务逻辑，并使 UIKit 屏幕由数据驱动。这样，迁移到 SwiftUI 变得轻而易举。
 
-我用普通的登录/主页/细节屏幕构建了一个 [示例项目](https://github.com/nalexn/uikit-swiftui)，该屏幕说明了 UIKit 和 SwiftUI 视图如何成为外围虚拟细节，您可以轻松分离并更换。
+我用普通的登录/主页/细节屏幕构建了一个 [示例项目](https://github.com/nalexn/uikit-swiftui)，该屏幕演示了 UIKit 和 SwiftUI 视图如何变得不再重要，让你可以轻松分离并更换。
 
 有两个目标 —— 一个在 UIKit 上运行，另一个在 SwiftUI 上，其他都共享代码库的基本部分。
 
