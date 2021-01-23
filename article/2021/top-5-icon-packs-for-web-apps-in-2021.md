@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-5-icon-packs-for-web-apps-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-5-icon-packs-for-web-apps-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 2021 年 Web 应用开发常用的五个图标库
 
@@ -19,7 +19,7 @@
 
 ## 图标库
 
-图标或许很小，但却能给用户提供强有力的信息，即便是没有一个单词文本的图标。说到图标，我们可以使用现成的图标库，或者独立构建图标。然而，鉴于以下原因，我建议使用图标库。
+图标或许很小，但即便是没有一个单词文本的图标，也能给用户提供强有力的信息。说到图标，我们可以使用现成的图标库，或者独立构建图标。然而，鉴于以下原因，我建议使用图标库。
 
 * 图标库能使得整个应用程序保持独特的外观。
 * 图标库能节省应用开发时间，因为你不需要从头开始构建图标。
@@ -69,7 +69,7 @@
 #### Flaticon 的主要特点
 
 * 提供 SVG、EPS、PSD、BASE 64 和 PNG 格式。
-* CC 套件有一个 Adobe 扩展。
+* 为 Adobe 的创意云套件（CC）提供了扩展。（校对者注：目前并没有搜索到相关扩展，官网链接已失效，可能是该扩展已下架）
 * 能在下载之前进行自定义图标设计。
 * 高级套餐的价格为每月 9.99 欧元。
 * 高级套装提供无限数量的图标，包括三百万多个高级图标的集合。
@@ -90,7 +90,7 @@
 
 顾名思义，Font Awesome 使用字体而不是图像，因此在免费版和专业版中，它都提供了像素完美的图标，简单的 CSS 样式，托管的工具包，强大的转换以及轻松的升级。 Font Awesome 没有提供 Icon8 或 Flaticoin 之类的编辑选项，但为你提供了 CSS 类，可以直接在 HTML 中定义使用。
 
-使用免费版，你只能下载所选择图标的完整版本，如果你希望使用常规、浅色或双色调等更多版本，则需要切换到专业版。
+使用免费版，你只能下载所选择图标的完整版本，如果你希望使用 Regular、Light 或 Duotone 等字体，则需要切换到专业版。
 
 ![Screenshot by Auther: Customizing icons in Font Awesome](https://cdn-images-1.medium.com/max/3614/1*_GvBDBIHrbXi82AmPWXYxg.png)
 
