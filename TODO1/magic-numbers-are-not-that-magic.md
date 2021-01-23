@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md)
 > * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：
+> * 校对者：[fltenwall](https://github.com/fltenwall)
 
 # 幻数并没有我们想象中的那么奇幻
 
