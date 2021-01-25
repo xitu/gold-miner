@@ -335,7 +335,7 @@ class HomeViewController: UIViewController {
 
 随着时间的流逝，这些问题肯定会得到解决，但是到目前为止，我丝毫不信任 SwiftUI 的页面间导航功能。
 
-停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 得到 UIKit 的支持，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
+停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 仍是由 UIKit 支持的，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
 
 在为本文构建的示例项目中，我使用了传统的协调器模式（MVVM-R），该模式适用于使用 SwiftUI 中的 `UIHostingController` 构建的页面。
 
