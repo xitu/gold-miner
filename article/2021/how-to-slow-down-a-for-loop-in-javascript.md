@@ -7,17 +7,11 @@
 
 # How To Slow Down A For-Loop in JavaScript
 
-#### JavaScript Quicky
-
-#### Yes, it’s possible due to a simple trick.
-
 ![Photo by [Charlotte Coneybeer](https://unsplash.com/@she_sees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*kcAWzuiAUolF3Zkr)
 
-For loops are indispensable. They help us to program sequences. 
-But there is one problem with them — the for loop runs through as fast as possible. If we iterate through an array, this is, of course, desirable.
+For loops are indispensable. They help us to program sequences. But there is one problem with them — the for loop runs through as fast as possible. If we iterate through an array, this is, of course, desirable.
 
-But if we do, e.g., requests in the loop, this can lead to problems. 
-It would be nice if each loop's execution takes a fixed time interval — for example, one pass per second.
+But if we do, e.g., requests in the loop, this can lead to problems. It would be nice if each loop's execution takes a fixed time interval — for example, one pass per second.
 
 I will show you how to do this — here is how to time a for-loop.
 
@@ -55,8 +49,6 @@ The Promise is ready. Now we can add it to our for-loop:
 The log is executed once per second. So to output all numbers of the loop, we need 100 seconds. So we have successfully slowed down our for-loop.
 
 Thank you for reading!
-
-#### Join my newsletter to stay up to date
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
