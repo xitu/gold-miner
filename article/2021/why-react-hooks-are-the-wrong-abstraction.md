@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md)
 > * 译者：[fltenwall](https://github.com/fltenwall)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo) [Hoarfroster](https://github.com/Hoarfroster)
 
 # 为什么 React Hooks 是错误的抽象
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5576/1*LVjLXZ8-mBmhJZoJj3w_3w.png)
 
-再开始之前, 我想表达我对 React 团队多年来所付出的努力的感激。他们创建了一个很棒的框架，从很多方面来说，它是我现代 Web 的入门。他们为我铺平了道路，让我确信我的想法是正确的，如果没有他们的聪明才智，我不可能得出这些结论。
+在开始之前, 我想表达我对 React 团队多年来所付出的努力的感激。他们创建了一个很棒的框架，从很多方面来说，它是我对现代 Web 开发的引路人。他们为我铺平了道路，让我确信我的想法是正确的，如果没有他们的聪明才智，我不可能得出这些结论。
 
-在今天的文章中，我将提出我所观察到的 Hooks 的缺点，并提出一种同样强大但不需要太多注意事项的替代 API 。我要说的是，这个 [替代 API](https://malerba118.github.io/elementos-docs/) 有点冗长，但它对计算的浪费较少，概念上更准确，而且与框架无关。
+在今天的文章中，我将提出我所观察到的 Hooks 的缺点，并提出一种同样强大但不需要太多注意事项的替代 API 。我要说的是，这个 [替代API](https://malerba118.github.io/elementos-docs/) 有点冗长，但它对计算的浪费较少，概念上更准确，而且与框架无关。
 
 ## Hooks 的问题 #1: 附加渲染
 
@@ -85,7 +85,7 @@ const App = createComponent(() => {
 
 ## 响应式编程
 
-响应式编程已经存在很长一段时间了，但最近在UI框架中成为一种流行的编程范式。
+响应式编程已经存在很长一段时间了，但最近在 UI 框架中成为一种流行的编程范式。
 
 响应式编程的核心思想是，变量是可观察的，当一个可观察对象的值发生变化时，观察者会通过回调函数来通知这个变化:
 
@@ -106,7 +106,7 @@ count$.set(7)
 
 注意，当我们修改可观察的 `count$` 值时，传递给 `observe` 的回调函数是如何执行的。您可能想知道 `count$` 后面的 `$`。这就是所谓的 [Finnish Notation](https://medium.com/@benlesh/observables-and-finnish-notation-df8356ed1c9b)，它简单地指出变量包含一个可观察对象。
 
-在响应式编程中，还有一个计算 / 派生的可观察对象的概念，它既可以观察也可以被观察。下面是一个派生的可观察对象的例子，它跟踪另一个可观察对象的值，并对它应用`转换”:
+在响应式编程中，还有一个计算或派生的可观察对象的概念，它既可以观察也可以被观察。下面是一个派生的可观察对象的例子，它跟踪另一个可观察对象的值，并对它应用 `transform`:
 
 ```JavaScript
 const count$ = observable(5)
@@ -211,7 +211,7 @@ const App = createComponent(({ setState }) => {
 });
 ```
 
-在上面的例子中，我们在构造函数中创建的可观察对象通过闭包在 render 函数中可用，闭包允许我们设置它们的值以响应单击事件。只有当 `countwo $` 的值改变时,`doubledCountTwo$` 观察 `countwo $` 并将其值加倍。注意，我们不是在渲染过程中而是在渲染之前获得重复计数。最后，当任何可观察对象发生变化时，我们使用 `observe` 函数重新渲染组件。
+在上面的例子中，我们在构造函数中创建的可观察对象通过闭包在 render 函数中可用，闭包允许我们设置它们的值以响应单击事件。只有当 `countwo$` 的值改变时,`doubledCountTwo$` 观察 `countwo$` 并将其值加倍。注意，我们不是在渲染过程中而是在渲染之前获得重复计数。最后，当任何可观察对象发生变化时，我们使用 `observe` 函数重新渲染组件。
 
 这是一个优雅的解决方案，有以下几个原因:
 
@@ -219,7 +219,7 @@ const App = createComponent(({ setState }) => {
 2. 我们的可观察对象只在构造时进行初始化，所以我们不必担心违反 Hooks 规则或在呈现期间不必要地重新运行 Hooks 逻辑。
 3.通过选择仅在依赖项发生变化时重新派生值，我们避免了在不必要的时候重新运行派生逻辑。
 
-通过对 React API进行一些修改，我们可以实现上面的代码。
+通过对 React API 进行一些修改，我们可以实现上面的代码。
 
 [**在这个沙盒中尝试我们的演示!**](https://codesandbox.io/s/alternate-react-api-kyutz)
 
@@ -293,7 +293,7 @@ const App = createComponent(() => {
 });
 ```
 
-当然，我的 `observable`，`derived`，和 `observe` 的实现都有 bug，并没有形成一个完整的状态管理解决方案。更不用说这些精心设计的示例忽略了一些考虑因素，但不用担心:我在这个问题上花了很多心思，我的想法在名为 [Elementos](https://malerba118.github.io/elementos-docs/)的新响应式状态管理库中达到了顶峰!
+当然，我的 `observable`，`derived`，和 `observe` 的实现都有 bug，并没有形成一个完整的状态管理解决方案。更不用说这些精心设计的示例忽略了一些考虑因素，但不用担心：我在这个问题上花了很多心思，我的想法在名为 [Elementos](https://malerba118.github.io/elementos-docs/)的新响应式状态管理库中达到了顶峰!
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5020/1*k1YTEm4t8HpWLaUcM7yfmg.png)
 
