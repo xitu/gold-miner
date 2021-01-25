@@ -7,15 +7,11 @@
 
 # Demystify Graph Coloring Algorithms
 
-#### Solve edge coloring, map coloring, and other fun problems
-
 ![Photo by [salvatore ventura](https://unsplash.com/@salvoventura?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12032/0*nMi_GsBxeMO5LlkM)
 
 Graph coloring is a problem where certain colors are assigned to a particular constraint in a graph. For instance, it could be that you must color a graph, either vertices or edges, so that no two identical colors are adjacent to each other — no two adjacent vertices or edges will have the same color.
 
 I stumbled upon this algorithm and I was thinking about what its purpose was. As I look more deeply into graph coloring problems and their use cases, I realized that they’re widely used in the applications we use. This article will briefly talk about this algorithm and use cases of graph coloring.
-
----
 
 ## The Algorithm
 
@@ -56,8 +52,6 @@ The algorithm is as follows:
 
 Now that you get a glimpse of what a graph coloring algorithm looks like, you may be wondering, what’s the use of doing this?
 
----
-
 ## Use Cases
 
 Usually, the graph coloring algorithm is used to solve problems where you have a limited amount of resources and other restrictions. The color is just an abstraction of whatever resources you are trying to optimize. The graph is an abstraction of your problem.
@@ -65,8 +59,6 @@ Usually, the graph coloring algorithm is used to solve problems where you have a
 Graphs are often model as real-world problems, and we can use algorithms to find any attributes within the graph to answer some of our questions.
 
 Let’s look at some use cases for graph coloring.
-
----
 
 ## Scheduling Algorithm
 
@@ -76,15 +68,11 @@ Another example is making a schedule or time table. You want to make an exam sch
 
 Usually, there are shared resources in this type of problem, and we want to have a scheduler to ensure that no two entities in your system are conflicted. The color usually represents the time slot or workers.
 
----
-
 ## Map Coloring
 
 ![](https://cdn-images-1.medium.com/max/2000/0*fiE_-5ZC7cQZdSxN.gif)
 
 Geographical map coloring is a problem where no two adjacent cities or states can be assigned the same color on a map. According to the [four-color theorem](https://mathworld.wolfram.com/Four-ColorTheorem.html#:~:text=The%20four%2Dcolor%20theorem%20states,conjectured%20the%20theorem%20in%201852.), four colors are sufficient to color any map. In this case, the vertex represents each region, and each of its adjacents can be classified as an edge.
-
----
 
 ## Sudoku Puzzle
 
@@ -92,15 +80,11 @@ Geographical map coloring is a problem where no two adjacent cities or states ca
 
 Sudoku is a variation of the graph coloring problem where every cell represents a vertex. An edge is formed within two vertices if they are in the same row, column and block. Each block will have a different color.
 
----
-
 ## Register Allocation for Compiler
 
 A compiler is a program that transforms source code from high-level (Java, Scala) to machine level code. This is usually done in separate steps. One of the very last steps is to allocate registers to the most frequent values of the programs while putting other ones in memory. We can model the symbolic registers (variables) as vertices, and an edge is formed if two variables are needed simultaneously. If the graph can be colored in K color, then the variables can be stored in k registered.
 
 There are many other use cases of graph coloring algorithms. I hope you learned something!
-
----
 
 ## Resources
 
