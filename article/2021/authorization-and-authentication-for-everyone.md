@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Authorization and Authentication For Everyone](https://dev.to/kimmaida/authorization-and-authentication-for-everyone-27j3)
+> * 原文作者：[Kim Maida](https://dev.to/kimmaida)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/authorization-and-authentication-for-everyone.md](https://github.com/xitu/gold-miner/blob/master/article/2021/authorization-and-authentication-for-everyone.md)
 > * 译者：
 > * 校对者：
 
@@ -13,17 +13,17 @@ Maybe you got the job done, but you really weren't clear on **what** was happeni
 
 ---
 
-****Authentication is hard.**** Why is this? Auth standards are well defined — but challenging to get right. And that's okay! We're going to go through it in an approachable way. We'll address the **concepts of identity step by step, building on our knowledge as we go along.** By the time we're done, you should have a foundation and know where you might want to dig deeper.
+**Authentication is hard.** Why is this? Auth standards are well defined — but challenging to get right. And that's okay! We're going to go through it in an approachable way. We'll address the **concepts of identity step by step, building on our knowledge as we go along.** By the time we're done, you should have a foundation and know where you might want to dig deeper.
 
 > **This post is meant to be read from beginning to end. We'll build on top of each concept to layer knowledge when it makes sense to introduce new topics. Please keep that in mind if you're jumping around in the content.**
 
-# [](#introduction)Introduction
+## Introduction
 
 When I told family or friends that I "work in identity," they often assumed that meant I was employed by the government issuing driver's licenses, or that I helped people resolve credit card fraud.
 
 However, neither were true. I [formerly worked for Auth0](https://auth0.com), a company that manages **digital identity**. (I'm now a member of the [Auth0 Ambassadors program](https://auth0.com/ambassador-program), and a [Google Developer Expert](https://developers.google.com/) in SPPI: Security, Privacy, Payments, and Identity.)
 
-### [](#digital-identity)Digital Identity
+#### Digital Identity
 
 **Digital identity** refers to a set of attributes that define an individual user in the context of a function delivered by a particular application.
 
@@ -33,41 +33,41 @@ Say you run an online shoe retail company. The **digital identity** of your app'
 
 This leads us to...
 
-### [](#authentication)Authentication
+#### Authentication
 
 In a broad sense, **authentication** refers to the process of verifying that a user is who they say they are.
 
 Once a system has been able to establish this, we come to...
 
-### [](#authorization)Authorization
+#### Authorization
 
 **Authorization** deals with granting or denying rights to access resources.
 
-### [](#standards)Standards
+#### Standards
 
 You may recall that I mentioned that auth is guided by clearly-defined standards. But where do these standards come from in the first place?
 
 There are many different standards and organizations that govern how things work on the internet. Two bodies that are of **particular interest to us in the context of authentication and authorization** are the Internet Engineering Task Force (IETF) and the OpenID Foundation (OIDF).
 
-#### [](#ietf-internet-engineering-task-force)IETF (Internet Engineering Task Force)
+##### IETF (Internet Engineering Task Force)
 
 The [IETF](https://ietf.org) is a large, open, international community of network designers, operators, vendors, and researchers who are concerned with the evolution of internet architecture and the smooth operation of the internet.
 
 Really, that's a fancy way to say that **dedicated professionals cooperate to write technical documents that guide us in how things should be done on the internet.**
 
-#### [](#oidf-openid-foundation)OIDF (OpenID Foundation)
+##### OIDF (OpenID Foundation)
 
 The [OIDF](https://openid.net/foundation/) is a non-profit, international organization of people and companies who are committed to enabling, promoting, and protecting OpenID technologies.
 
 Now that we are aware of the specs and who writes them, let's circle back around to **authorization** and talk about:
 
-# [](#oauth-20)OAuth 2.0
+## OAuth 2.0
 
 [OAuth 2.0](https://tools.ietf.org/html/rfc6749) is one of the most frequently mentioned specs when it comes to the web — and also one that is **often mis-represented or misunderstood**. How so?
 
 **OAuth is not an authentication spec.** OAuth deals with **delegated authorization**. Remember that authentication is about verifying the identity of a user. Authorization deals with granting or denying access to resources. OAuth 2.0 grants access to applications on the behalf of users. (Don't worry, we'll get to the authentication part in a little bit!)
 
-## [](#before-oauth)Before OAuth
+### Before OAuth
 
 To understand the purpose of OAuth, we need to do go back in time. OAuth 1.0 was established in December 2007. Before then, if we needed to **access third party resources**, it looked like this:
 
@@ -79,7 +79,7 @@ Once you were logged into HireMe123, HireMe123 would **ask you for your MyCalApp
 
 HireMe123 then used your MyCalApp login to gain access to MyCalApp's API, and could then create calendar events using **your** MyCalApp credentials.
 
-### [](#sharing-credentials-is-bad)Sharing Credentials is Bad!
+#### Sharing Credentials is Bad!
 
 This approach relied on sharing a user's personal credentials from one app with a completely different app, and this is **not good**. How so?
 
@@ -87,7 +87,7 @@ For one thing, HireMe123 had **much less at stake** in the protection of your My
 
 HireMe123 also had **way too much access** to MyCalApp. HireMe123 had the same amount of access that you did, because they used your credentials to gain that access. That meant that HireMe123 could read all your calendar events, delete events, modify your calendar settings, etc.
 
-## [](#enter-oauth)Enter OAuth
+### Enter OAuth
 
 This leads us to OAuth.
 
@@ -95,7 +95,7 @@ This leads us to OAuth.
 
 Using OAuth, the user can now **delegate** HireMe123 to call MyCalApp on the user's behalf. MyCalApp can limit access to its API when called by third party clients without the risks of sharing login information or providing **too much** access. It does this using an:
 
-## [](#authorization-server)Authorization Server
+### Authorization Server
 
 An **authorization server** is a set of endpoints to interact with the user and issue tokens. How does this help?
 
@@ -117,19 +117,19 @@ MyCalApp will then issue an **access token** to HireMe123. HireMe123 can use tha
 
 **Nothing insidious is happening now!** **MyCalApp is asking the user to log in with MyCalApp**. HireMe123 is **not** asking for the user's MyCalApp credentials. The issues with sharing credentials and too much access are no longer a problem.
 
-#### [](#what-about-authentication)What About Authentication?
+##### What About Authentication?
 
 At this point, I hope it's been made clear that **OAuth is for delegated access**. It doesn't cover **authentication**. At any point where authentication was involved in the processes we covered above, login was managed by whatever login process HireMe123 or MyCalApp had implemented at their own discretion. OAuth 2.0 **didn't prescribe how** this should be done: it only covered authorizing third party API access.
 
 So why are authentication and OAuth so often mentioned in the same breath?
 
-# [](#the-login-problem)The Login Problem
+## The Login Problem
 
 The thing that happened after OAuth 2.0 established a way to access third party APIs was that **apps also wanted to log users in with other accounts**. Using our example: let's say HireMe123 wanted a MyCalApp user to be able to **log into HireMe123 using their MyCalApp account**, despite not having signed up for a HireMe123 account.
 
 But as we mentioned above, **OAuth 2.0 is for delegated access**. It is **not** an authentication protocol. That didn't stop people from trying to use it like one though, and this presented problems.
 
-## [](#problems-with-using-access-tokens-for-authentication)Problems with Using Access Tokens for Authentication
+### Problems with Using Access Tokens for Authentication
 
 If HireMe123 assumes successfully calling MyCalApp's API with an access token means the **user** can be considered authenticated with HireMe123, we run into problems because we have no way to verify the access token was issued to a particular individual.
 
@@ -142,23 +142,23 @@ This is called the **confused deputy problem**. HireMe123 doesn't know **where**
 
 As mentioned, this didn't stop people from misusing access tokens and OAuth 2.0 for authentication anyway. It quickly became evident that formalization of authentication **on top of OAuth 2.0** was necessary to allow logins with third party applications while keeping apps and their users safe.
 
-# [](#openid-connect)OpenID Connect
+## OpenID Connect
 
 This brings us to the specification called [OpenID Connect](https://openid.net/specs), or OIDC. OIDC is a spec **on top of OAuth 2.0** that says how to authenticate users. The [OpenID Foundation (OIDF)](https://openid.net/foundation/) is the steward of the OIDC standards.
 
 OIDC is an identity layer for authenticating users with an authorization server. Remember that an authorization server **issues tokens**. **Tokens** are encoded pieces of data for transmitting information between parties (such as an authorization server, application, or resource API). In the case of OIDC and authentication, the authorization server issues **ID tokens**.
 
-## [](#id-tokens)ID Tokens
+### ID Tokens
 
 **ID tokens** provide information about the authentication event and they identify the user. ID tokens are **intended for the client**. They're a fixed format that the client can parse and validate to extract identity information from the token and thereby authenticate the user.
 
 OIDC declares a **fixed format** for ID tokens, which is:
 
-### [](#json-web-token-jwt)JSON Web Token (JWT)
+#### JSON Web Token (JWT)
 
 [JSON Web Tokens](https://tools.ietf.org/html/rfc7519), or [JWT](https://jwt.io) (sometimes pronounced "jot"), are composed of three URL-safe string segments concatenated with periods `.`
 
-#### [](#header-segment)Header Segment
+##### Header Segment
 
 The first segment is the **header segment**. It might look something like this:
 
@@ -176,7 +176,7 @@ Decoded, it looks something like this:
 
 ```
 
-#### [](#payload-segment)Payload Segment
+##### Payload Segment
 
 The second segment is the **payload segment**. It might look like this:
 
@@ -196,7 +196,7 @@ This is a JSON object containing data **[claims](#claims)**, which are statement
 
 This is also `base64Url` encoded.
 
-#### [](#crypto-segment)Crypto Segment
+##### Crypto Segment
 
 The final segment is the **crypto segment**, or **signature**. JWTs are signed so they can't be modified in transit. When an authorization server issues a token, it signs it using a key.
 
@@ -204,11 +204,11 @@ When the client receives the ID token, the client **validates the signature** us
 
 > **Don't worry if this seems confusing. The details of how this works shouldn't trouble you or keep you from effectively using an authorization server with token-based authentication. If you're interested in demystifying the terms, jargon, and details behind JWT signing, check out my article on [Signing and Validating JSON Web Tokens (JWT) for Everyone](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb).**
 
-### [](#claims)Claims
+#### Claims
 
 Now that we know about the **anatomy** of a JWT, let's talk more about the **claims**, those statements from the [Payload Segment](#payload-segment). As per their moniker, ID tokens provide **identity** information, which is present in the claims.
 
-#### [](#authentication-claims)Authentication Claims
+##### Authentication Claims
 
 We'll start with **[statements about the authentication event](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)**. Here are a few examples of these claims:  
 
@@ -233,7 +233,7 @@ Some of the required authentication claims in an ID token include:
 
 A `nonce` **binds the client's authorization request to the token it receives**. The nonce is a [cryptographically random string](https://auth0.com/docs/api-auth/tutorials/nonce) that the client creates and sends with an authorization request. The authorization server then places the nonce in the token that is sent back to the app. The app verifies that the nonce in the token matches the one sent with the authorization request. This way, the app can verify that the token came from the place it requested the token from in the first place.
 
-#### [](#identity-claims)Identity Claims
+##### Identity Claims
 
 Claims also include **[statements about the end user](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)**. Here are a few examples of these claims:  
 
@@ -259,7 +259,7 @@ Some of the standard profile claims in an ID token include:
 
 We've now been through a crash-course on the important specifications ([OAuth 2.0](#oauth-20) and [OpenID Connect](#openid-connect)) and it's time to see how to **put our identity knowledge to work**.
 
-# [](#authentication-with-id-tokens)Authentication with ID Tokens
+## Authentication with ID Tokens
 
 Let's see OIDC authentication in practice.
 
@@ -280,23 +280,23 @@ Once we've established the authenticity of the ID token, the user is **authentic
 
 Now the user is **authenticated**. It's time to interact with an API.
 
-# [](#accessing-apis-with-access-tokens)Accessing APIs with Access Tokens
+## Accessing APIs with Access Tokens
 
 We talked a bit about access tokens earlier, back when we were looking at how delegated access works with [OAuth 2.0 and authorization servers](#authorization-server). Let's look at some of the **details** of how that works, going back to our scenario with HireMe123 and MyCalApp.
 
-## [](#access-tokens)Access Tokens
+### Access Tokens
 
 **Access tokens** are used for **granting access to resources**. With an access token issued by MyCalApp's authorization server, HireMe123 can access MyCalApp's API.
 
 Unlike [ID tokens](#id-tokens), which [OIDC](#openid-connect) declares as [JSON Web Tokens](#json-web-token-jwt), **access tokens have no specific, defined format**. They do not have to be (and aren't necessarily) JWT. However, many identity solutions use JWTs for access tokens because the format enables validation.
 
-### [](#access-tokens-are-opaque-to-the-client)Access Tokens are Opaque to the Client
+#### Access Tokens are Opaque to the Client
 
 Access tokens are for the **resource API** and it is important that they are **opaque to the client.** Why?
 
 Access tokens can change at any time. They should have short expiration times, so a user may frequently get new ones. They can also be re-issued to access different APIs or exercise different permissions. The **client** application should never contain code that relies on the contents of the access token. Code that does so would be brittle, and is almost guaranteed to break.
 
-## [](#accessing-resource-apis)Accessing Resource APIs
+### Accessing Resource APIs
 
 Let's say we want to use an access token to call an API from a Single Page Application. What does this look like?
 
@@ -316,7 +316,7 @@ The authorized request is then sent to the API, which verifies the token using m
 
 This is great, but there's something that may be occurring to you right about now. Earlier, we stated that [OAuth solves problems with too much access](#enter-oauth). So how is that being addressed here?
 
-## [](#delegation-with-scopes)Delegation with Scopes
+### Delegation with Scopes
 
 How does the API know what level of access it should give to the application that's requesting use of its API? We do this with **scopes**.
 
@@ -340,7 +340,7 @@ But MyCalApp hosts calendar accounts for **hundreds of thousands of users**. In 
 
 In the context of delegated authorization, scopes express what an application can do on the user's behalf. They're a subset of the user's total capabilities.
 
-### [](#granting-consent)Granting Consent
+#### Granting Consent
 
 Remember when the [authorization server asked the HireMe123 user for their consent](#authorization-server) to allow HireMe123 to use the user's privileges to access MyCalApp?
 
@@ -360,9 +360,7 @@ In general, we should avoid overloading scopes with user-specific privileges. Sc
 
 > **With **RBAC**, you can set up user roles with specific permissions in your authorization server. Then when the authorization server issues access tokens, it can include a specific user's roles in their scopes.**
 
----
-
-# [](#resources-and-whats-next)Resources and What's Next?
+## Resources and What's Next?
 
 We covered a **lot** of material, and it still wasn't anywhere close to everything. I do hope this was a helpful crash course in identity, authorization, and authentication.
 
@@ -370,7 +368,7 @@ To further demystify JWT, read my article [Signing and Validating JSON Web Token
 
 If you'd like to learn much, much more on these topics, here are some great resources for you to further your knowledge:
 
-## [](#learn-more)Learn More
+### Learn More
 
 The **[Learn Identity](https://auth0.com/docs/videos/learn-identity) video series** in the [Auth0 docs](https://auth0.com/docs) is the lecture portion of the new hire identity training for engineers at [Auth0](https://auth0.com), presented by Principal Architect [Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/). If you'd like to learn identity the way it’s done at Auth0, it's completely free and available to everyone (you don't even have to pay with a tweet or email!).
 
