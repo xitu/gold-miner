@@ -7,8 +7,6 @@
 
 # I Got Into MIT, Refused the Offer, and Still Became a Highly Valued Developer
 
-#### No matter how good of an education you get, your own success is always in your hands
-
 ![Photo by [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/11232/0*pqI507rUeD-sclHu)
 
 As a kid, I always dreamed of getting into MIT (Massachusetts Institute of Technology), which I’m sure many of you hoped to get into as well at a time when you were still applying for colleges.
@@ -24,8 +22,6 @@ Still, I don’t see enough people who are actually going out of their way to le
 That’s the way you should pursue your personal growth as a developer. After all, Elon was a self-starter himself. When asked how he learned to build rockets, he simply said, “I read books.” Be a self-starter.
 
 **What you shouldn’t do, on the other hand, is this.**
-
----
 
 ## Do Not Depend on Your Circumstances to Define Your Personal Growth as an Engineer
 
@@ -51,8 +47,6 @@ Rather, I look at all these choices and realize that they were my own. They were
 Not complain. Not wish I was somewhere better.
 
 **What you need to realize is this.**
-
----
 
 ## You Are the Only One Responsible for the Ultimate Outcome of Your Career
 
@@ -94,8 +88,6 @@ I’ve done this by sharing my personal goals and philosophies with them. I’ve
 
 I displayed my ambition. I demonstrated my drive. I showed my commitment. I proved that I was highly competent and worthy of my position. I didn’t just wait around for them to notice my output and my qualities by just showing up — I made them realize those qualities.
 
----
-
 ## What’s the Point of All This?
 
 You are responsible for the future that you create.
@@ -107,8 +99,6 @@ Don’t feel like you are growing fast enough at your current job? Spend time ou
 There is always a way to grow. There is always a way to make yourself more valuable. There is always a way to get yourself recognized.
 
 You just have to realize that you must make the decisions and run the initiatives to bring these things to reality. You cannot just stand idly by and wait for everything to just magically fall into place.
-
----
 
 ## Conclusion
 
