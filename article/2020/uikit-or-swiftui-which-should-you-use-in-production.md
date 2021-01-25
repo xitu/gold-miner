@@ -32,7 +32,7 @@ SwiftUI 带来了不少创新，但是即使在 iOS 14 上运行使用 SwiftUI �
 
 从过往的经验上看，UI 框架对于移动应用程序的结构体系有着非常大的影响 —— 在 iOS 开发上，我们使用 UIKit 并围绕它构建了几乎所有其他的代码。
 
-回忆一下您上一个使用了 UIKit 的项目，并尝试评估一下，如果要完全摆脱 UIKit，将其替换为另一个UI框架（例如 [AsyncDisplayKit](https://github.com/texturegroup/texture/) 需要耗费多少精力？
+回忆一下您上一个使用了 UIKit 的项目，并尝试评估一下，如果要完全摆脱 UIKit，将其替换为另一个 UI 框架（例如 [AsyncDisplayKit](https://github.com/texturegroup/texture/) 需要耗费多少精力？
 
 —— 对于大多数项目，这可能意味着要完全重写代码。
 
