@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md)
 > * 译者：[fltenwall](https://github.com/fltenwall)
-> * 校对者：[zenblo](https://github.com/zenblo) [PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo) [Hoarfroster](https://github.com/Hoarfroster)
 
 # 为什么 React Hooks 是错误的抽象
 
@@ -106,7 +106,7 @@ count$.set(7)
 
 注意，当我们修改可观察的 `count$` 值时，传递给 `observe` 的回调函数是如何执行的。您可能想知道 `count$` 后面的 `$`。这就是所谓的 [Finnish Notation](https://medium.com/@benlesh/observables-and-finnish-notation-df8356ed1c9b)，它简单地指出变量包含一个可观察对象。
 
-在响应式编程中，还有一个计算或派生的可观察对象的概念，它既可以观察也可以被观察。下面是一个派生的可观察对象的例子，它跟踪另一个可观察对象的值，并对它应用 `transform`:
+在响应式编程中，还有一个计算或派生的可观察对象的概念，它既可以观察也可以被观察。下面是一个派生的可观察对象的例子，它跟踪另一个可观察对象的值，并对它应用 `transform`：
 
 ```JavaScript
 const count$ = observable(5)
@@ -130,7 +130,7 @@ count$.set(7)
 
 在介绍了响应式编程的基础知识之后，让我们看一下 React 中的一个示例，并通过使其更具响应性来改进它。
 
-考虑一个应用程序有两个计数器和一个依赖于其中一个计数器的派生状态:
+考虑一个应用程序有两个计数器和一个依赖于其中一个计数器的派生状态：
 
 ```JSX
 const App = () => {
@@ -165,7 +165,7 @@ const App = () => {
 
 在这里，我们有逻辑将 `countTwo` 的值在渲染两次，但如果 `useMemo` 发现 `countTwo` 的值与它在前一个渲染上的值相同，那么再次渲染的值将不会在该渲染上重新派生。
 
-结合我们早期的想法，我们可以从 React 中提取状态职责，并在构造函数中将状态设置为可观察对象的图形。当 `observable` 发生变化时，它就会通知组件，这样组件就知道要重新渲染了:
+结合我们早期的想法，我们可以从 React 中提取状态职责，并在构造函数中将状态设置为可观察对象的图形。当 `observable` 发生变化时，它就会通知组件，这样组件就知道要重新渲染了：
 
 ```JSX
 const App = createComponent(({ setState }) => {
@@ -211,13 +211,13 @@ const App = createComponent(({ setState }) => {
 });
 ```
 
-在上面的例子中，我们在构造函数中创建的可观察对象通过闭包在 render 函数中可用，闭包允许我们设置它们的值以响应单击事件。只有当 `countwo$` 的值改变时,`doubledCountTwo$` 观察 `countwo$` 并将其值加倍。注意，我们不是在渲染过程中而是在渲染之前获得重复计数。最后，当任何可观察对象发生变化时，我们使用 `observe` 函数重新渲染组件。
+在上面的例子中，我们在构造函数中创建的可观察对象通过闭包在 render 函数中可用，闭包允许我们设置它们的值以响应单击事件。只有当 `countwo$` 的值改变时，`doubledCountTwo$` 观察 `countwo$` 并将其值加倍。注意，我们不是在渲染过程中而是在渲染之前获得重复计数。最后，当任何可观察对象发生变化时，我们使用 `observe` 函数重新渲染组件。
 
-这是一个优雅的解决方案，有以下几个原因:
+这是一个优雅的解决方案，有以下几个原因：
 
 1. 状态和效果不再是 React 的责任，而是一个专用的状态管理库的责任，这个库可以跨框架使用，甚至不需要框架。
 2. 我们的可观察对象只在构造时进行初始化，所以我们不必担心违反 Hooks 规则或在呈现期间不必要地重新运行 Hooks 逻辑。
-3.通过选择仅在依赖项发生变化时重新派生值，我们避免了在不必要的时候重新运行派生逻辑。
+3. 通过选择仅在依赖项发生变化时重新派生值，我们避免了在不必要的时候重新运行派生逻辑。
 
 通过对 React API 进行一些修改，我们可以实现上面的代码。
 
@@ -257,7 +257,7 @@ watchEffect(() => {
 })
 ```
 
-如果这还不够令人信服，看看当我们引入一个构造函数层来反应函数组件时，“引用”变得多么简单:
+如果这还不够令人信服，看看当我们引入一个构造函数层来反应函数组件时，“引用”变得多么简单：
 
 ```JSX
 const App = createComponent(() => {  
@@ -274,7 +274,7 @@ const App = createComponent(() => {
 
 实际上，我们不需要使用 `useRef`，因为我们可以在构造函数中声明变量，然后在组件的生命周期中从任何地方读写它们。
 
-也许更酷的是，我们可以很容易地将 `refs` 变成可观察的:
+也许更酷的是，我们可以很容易地将 `refs` 变成可观察的：
 
 ```JSX
 const App = createComponent(() => {  
@@ -293,11 +293,11 @@ const App = createComponent(() => {
 });
 ```
 
-当然，我的 `observable`，`derived`，和 `observe` 的实现都有 bug，并没有形成一个完整的状态管理解决方案。更不用说这些精心设计的示例忽略了一些考虑因素，但不用担心：我在这个问题上花了很多心思，我的想法在名为 [Elementos](https://malerba118.github.io/elementos-docs/)的新响应式状态管理库中达到了顶峰!
+当然，我的 `observable`，`derived`，和 `observe` 的实现都有 bug，并没有形成一个完整的状态管理解决方案。更不用说这些精心设计的示例忽略了一些考虑因素，但不用担心：我在这个问题上花了很多心思，我的想法在名为 [Elementos](https://malerba118.github.io/elementos-docs/)的新响应式状态管理库中达到了顶峰！
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5020/1*k1YTEm4t8HpWLaUcM7yfmg.png)
 
-Elementos 是一个与框架无关的响应式状态管理库，强调状态的可组合性和封装性。如果你喜欢这篇文章，我强烈建议你去看看!
+Elementos 是一个与框架无关的响应式状态管理库，强调状态的可组合性和封装性。如果你喜欢这篇文章，我强烈建议你去看看！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
