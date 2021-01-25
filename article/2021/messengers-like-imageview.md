@@ -515,8 +515,6 @@ And the result of our work:
 
 ## Afterwords
 
-![](https://cdn-images-1.medium.com/max/2000/0*RAgg6bb37jZ_uGjJ.gif)
-
 If you liked that article, don’t forget to support me by clapping and if you have any questions, comment me and let’s have a discussion. Happy coding!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
