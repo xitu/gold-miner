@@ -182,7 +182,7 @@ The second segment is the **payload segment**. It might look like this:
 
 `eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0`
 
-This is a JSON object containing data **[claims](#claims)**, which are statements about the user and the authentication event. For example:  
+This is a JSON object containing data ****claims****, which are statements about the user and the authentication event. For example:  
 
 ```
 {
@@ -206,7 +206,7 @@ When the client receives the ID token, the client **validates the signature** us
 
 #### Claims
 
-Now that we know about the **anatomy** of a JWT, let's talk more about the **claims**, those statements from the [Payload Segment](#payload-segment). As per their moniker, ID tokens provide **identity** information, which is present in the claims.
+Now that we know about the **anatomy** of a JWT, let's talk more about the **claims**, those statements from the **Payload Segment**. As per their moniker, ID tokens provide **identity** information, which is present in the claims.
 
 ##### Authentication Claims
 
@@ -257,7 +257,7 @@ Some of the standard profile claims in an ID token include:
 * `birthdate`
 * **etc.**
 
-We've now been through a crash-course on the important specifications ([OAuth 2.0](#oauth-20) and [OpenID Connect](#openid-connect)) and it's time to see how to **put our identity knowledge to work**.
+We've now been through a crash-course on the important specifications ([OAuth 2.0](#oauth-20) and **OpenID Connect**) and it's time to see how to **put our identity knowledge to work**.
 
 ## Authentication with ID Tokens
 
@@ -269,14 +269,14 @@ Let's see OIDC authentication in practice.
 
 Our entities here are: the **browser**, an **application** running in the browser, and the **authorization server**. When a user wants to log in, the app sends an authorization request to the authorization server. The user's credentials are verified by the authorization server, and if everything checks out, the authorization server issues an ID token to the application.
 
-The client application then decodes the ID token (which is a [JWT](#json-web-token-jwt)) and verifies it. This includes [validating the signature](#validating-jwt-signature), and we must also verify the claims. Some examples of claim verification include:
+The client application then decodes the ID token (which is a **JWT**) and verifies it. This includes **validating the signature**, and we must also verify the claims. Some examples of claim verification include:
 
 * issuer (`iss`): was this token issued by the expected authorization server?
 * audience (`aud`): is our app the target recipient of this token?
 * expiration (`exp`): is this token within a valid timeframe for use?
 * nonce (`nonce`): can we tie this token back to the authorization request our app made?
 
-Once we've established the authenticity of the ID token, the user is **authenticated**. We also now have access to the [identity claims](#identity-claims) and know **who** this user is.
+Once we've established the authenticity of the ID token, the user is **authenticated**. We also now have access to the **identity claims** and know **who** this user is.
 
 Now the user is **authenticated**. It's time to interact with an API.
 
@@ -288,7 +288,7 @@ We talked a bit about access tokens earlier, back when we were looking at how de
 
 **Access tokens** are used for **granting access to resources**. With an access token issued by MyCalApp's authorization server, HireMe123 can access MyCalApp's API.
 
-Unlike [ID tokens](#id-tokens), which [OIDC](#openid-connect) declares as [JSON Web Tokens](#json-web-token-jwt), **access tokens have no specific, defined format**. They do not have to be (and aren't necessarily) JWT. However, many identity solutions use JWTs for access tokens because the format enables validation.
+Unlike **ID tokens**, which **OIDC** declares as **JSON Web Tokens**, **access tokens have no specific, defined format**. They do not have to be (and aren't necessarily) JWT. However, many identity solutions use JWTs for access tokens because the format enables validation.
 
 #### Access Tokens are Opaque to the Client
 
@@ -300,7 +300,7 @@ Access tokens can change at any time. They should have short expiration times, s
 
 Let's say we want to use an access token to call an API from a Single Page Application. What does this look like?
 
-We've covered [authentication](#authentication-with-id-tokens) above, so let's assume the user is logged into our JS app in the browser. The app sends an authorization request to the authorization server, requesting an access token to call an API.
+We've covered **authentication** above, so let's assume the user is logged into our JS app in the browser. The app sends an authorization request to the authorization server, requesting an access token to call an API.
 
 [![Accessing an API with an access token](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)
 
@@ -314,7 +314,7 @@ Authorization: 'Bearer eyj[...]'
 
 The authorized request is then sent to the API, which verifies the token using middleware. If everything checks out, then the API returns data (e.g., JSON) to the application running in the browser.
 
-This is great, but there's something that may be occurring to you right about now. Earlier, we stated that [OAuth solves problems with too much access](#enter-oauth). So how is that being addressed here?
+This is great, but there's something that may be occurring to you right about now. Earlier, we stated that **OAuth solves problems with too much access**. So how is that being addressed here?
 
 ### Delegation with Scopes
 
@@ -326,7 +326,7 @@ Scopes **delegate access control** to the API or resource. The API is then respo
 
 Let's walk through this with an example.
 
-I'm using the HireMe123 app and HireMe123 wants to access the third party MyCalApp API to create events on my behalf. HireMe123 has already requested an [access token](#access-tokens) for MyCalApp from MyCalApp's authorization server. This token has some important information in it, such as:
+I'm using the HireMe123 app and HireMe123 wants to access the third party MyCalApp API to create events on my behalf. HireMe123 has already requested an **access token** for MyCalApp from MyCalApp's authorization server. This token has some important information in it, such as:
 
 * `sub`: (my MyCalApp user ID)
 * `aud`: `MyCalAppAPI` (audience stating this token is intended for the MyCalApp API)
@@ -374,9 +374,9 @@ The **[Learn Identity](https://auth0.com/docs/videos/learn-identity) video serie
 
 The **OAuth 2.0 and OpenID Connect specifications** are dense, but once you're familiar with the terminology and have foundational identity knowledge, they're helpful, informative, and become much more digestible. Check them out here: [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749) and [OpenID Connect Specifications](https://openid.net/developers/specs/).
 
-**[JWT.io](https://jwt.io)** is a [JSON Web Token](#json-web-token-jwt) resource that provides a debugger tool and directory of JWT signing/verification libraries for various technologies.
+**[JWT.io](https://jwt.io)** is a **JSON Web Token** resource that provides a debugger tool and directory of JWT signing/verification libraries for various technologies.
 
-The **[OpenID Connect Playground](https://openidconnect.net/)** is a debugger that lets developers explore and test [OIDC](#openid-connect) calls and responses step-by-step.
+The **[OpenID Connect Playground](https://openidconnect.net/)** is a debugger that lets developers explore and test **OIDC** calls and responses step-by-step.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
