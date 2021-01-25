@@ -2,7 +2,7 @@
 > * 原文作者：[Maneesha Erandi](https://medium.com/@maneesha-erandi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md)
-> * 译者：
+> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # 使用 Flutter 的 Container 控件构建优美的用户界面
