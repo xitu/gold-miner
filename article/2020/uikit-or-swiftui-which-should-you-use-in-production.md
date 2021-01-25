@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md)
 > * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[Zilin Zhu](https://github.com/zhuzilin)
+> * 校对者：[Zilin Zhu](https://github.com/zhuzilin)、[lsvih](https://github.com/lsvih)
 
 # UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？
 
