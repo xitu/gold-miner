@@ -2,26 +2,26 @@
 > * 原文作者：[Austin Malerba](https://medium.com/@austinmalerba)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-react-hooks-are-the-wrong-abstraction.md)
-> * 译者：
-> * 校对者：
+> * 译者：[fltenwall](https://github.com/fltenwall)
+> * 校对者：[zenblo](https://github.com/zenblo) [PassionPenguin](https://github.com/PassionPenguin)
 
-# Why React Hooks Are the Wrong Abstraction
+# 为什么 React Hooks 是错误的抽象
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5576/1*LVjLXZ8-mBmhJZoJj3w_3w.png)
 
-Before I get started, I’d like to express how grateful I am for all of the work that the React team has put in over the years. They’ve created an awesome framework that, in many ways, was my introduction to the modern web. They have paved the path for me to believe in the ideas I’m about to present and I would not have arrived at these conclusions without their ingenuity.
+在开始之前, 我想表达我对 React 团队多年来所付出的努力的感激。他们创建了一个很棒的框架，从很多方面来说，它是我对现代 Web 开发的引路人。他们为我铺平了道路，让我确信我的想法是正确的，如果没有他们的聪明才智，我不可能得出这些结论。
 
-In today’s article, I would like to walk through my observed shortcomings of Hooks and propose an alternative API that is as capable but with fewer caveats. I’ll say right now that this [alternative API](https://malerba118.github.io/elementos-docs/) is a bit verbose, but it is less computationally wasteful, more conceptually accurate, and it’s framework-agnostic.
+在今天的文章中，我将提出我所观察到的 Hooks 的缺点，并提出一种同样强大但不需要太多注意事项的替代 API 。我要说的是，这个 [替代API](https://malerba118.github.io/elementos-docs/) 有点冗长，但它对计算的浪费较少，概念上更准确，而且与框架无关。
 
-## Hooks Problem #1: Attached During Render
+## Hooks 的问题 #1: 附加渲染
 
-As a general rule of design, I’ve found that we should always first try to disallow our users from making mistakes. Only if we’re unable to prevent the user from making a mistake should we then inform them of the mistake after they’ve made it.
+作为设计的一般规则，我认识到我们应该首先禁止用户犯错误。只有当我们无法阻止用户犯错误时，我们才应该在他们犯了错误后通知他们。
 
-For example, when allowing a user to enter a quantity in an input field, we could allow them to enter alphanumeric characters and then show them an error message if we find an alphabetic character in their input. However, we could provide better UX if we only allowed them to enter numeric characters in the field, which would eliminate the need to check whether they have included alphabetic characters.
+举个例子，当允许用户在输入字段中输入数量时，我们可以允许他们输入字母数字字符，如果在他们的输入中发现字母字符，就向他们显示错误消息。但是，如果我们只允许用户在字段中输入数字字符，我们就可以提供更好的用户体验，这样就不需要检查是否包含字母字符了。
 
-React behaves quite similarly. If we think about Hooks conceptually, they are static through the lifetime of a component. By this, I mean that once declared, we cannot remove them from a component or change their position in relation to other Hooks. React uses lint rules and will throw errors to try to prevent developers from violating this detail of Hooks.
+React 的行为与此非常相似。如果我们从概念上考虑 Hooks，它们在组件的整个生命周期内都是静态的。我的意思是说，一旦声明了，我们就不能从组件中移除它们，也不能改变它们相对于其他 Hooks 的位置。 React 使用 lint 规则并抛出错误，试图阻止开发人员违反这个 Hooks 的细节。
 
-In this sense, React allows the developer to make mistakes and then tries to warn the user of their mistakes afterward. To see what I mean, consider the following example:
+从这个意义上说，React 允许开发者犯错误，然后试图警告用户他们的错误。为了说明白我的意思，看下这个例子:
 
 ```JSX
 const App = () => {
@@ -42,17 +42,17 @@ const App = () => {
 };
 ```
 
-This produces an error on the second render when the counter is incremented because the component will remove the second `useState` hook:
+当计数器增加时，会在第二次渲染时产生一个错误，因为组件将删除第二个 `useState` Hooks:
 
 ```
 Error: Rendered fewer hooks than expected. This may be caused by an accidental early return statement.
 ```
 
-The placement of our Hooks during a component’s first render determines where the Hooks must be found by React on every subsequent render.
+组件第一次渲染时，Hooks 的位置决定了 React 在后续渲染时必须在哪里找到 Hooks。
 
-Given that Hooks are static through the lifetime of a component, wouldn’t it make more sense for us to declare them on component construction as opposed to during the render phase? If we attach Hooks during the construction of a component, we no longer need to worry about enforcing the rules of Hooks because a hook would never be given another chance to change positions or be removed during the lifetime of a component.
+既然 Hooks 在组件的生命周期内都是静态的，那么我们在组件构造时声明它们不是比在渲染阶段声明它们更有意义吗？如果我们在组件的构造过程中附加了 Hooks，我们就不再需要担心强制执行 Hooks 的规则，因为在组件的生命周期中，Hooks 不会再有机会改变位置或被移除。
 
-Unfortunately, function components were given no concept of a constructor, but let’s pretend that they were. I imagine that it would look something like the following:
+不幸的是，函数组件没有构造函数的概念，但是让我们假设它们是构造函数。我想它会像下面这样:
 
 ```JSX
 const App = createComponent(() => {
@@ -71,23 +71,23 @@ const App = createComponent(() => {
 });
 ```
 
-By attaching our Hooks to the component in a constructor, we wouldn’t have to worry about them shifting during re-renders.
+通过在构造函数中将 Hooks 附加到组件上，我们不必担心它们在重新渲染时发生移位。
 
-If you’re thinking, “You can’t just move Hooks to a constructor. They **need** to run on every render to grab the latest value” at this point, then you’re totally correct!
+如果你在想，“你不能仅仅将 Hooks 移动到构造函数。他们**需要**在每次渲染时运行，以获取最新的值”在这一点上，那么你是完全正确的!
 
-We can’t just move Hooks out of the render function because we will break them. That’s why we’ll have to replace them with something else. But first, the second major problem of Hooks.
+我们不能只是将 Hooks 移出渲染函数，因为我们会破坏它们。所以我们要用别的东西来代替它们。但首先，Hooks 的第二个主要问题是：
 
-## Hooks Problem #2: Assumed State Changes
+## Hooks 的问题 #2: 假设状态改变
 
-We know that any time a component’s state changes, React will re-render that component. This becomes problematic when our components become bloated with lots of state and logic. Say we have a component that has two unrelated pieces of state: A and B. If we update state A, our component re-renders due to the state change. Even though B has not changed, any logic that depends on it will re-run unless we wrap that logic with `useMemo`/`useCallback`.
+我们知道，任何时候组件的状态发生变化，React 都会重新渲染该组件。当我们的组件因大量的状态和逻辑而变得臃肿时，这就会成为一个问题。假设我们有一个组件，它有两个不相关的状态: A 和 B。如果我们更新状态 A，我们的组件会因为状态的改变而重新呈现。即使B没有改变，任何依赖于它的逻辑都会重新运行，除非我们用 `useMemo`/`useCallback` 包装这个逻辑。
 
-This is wasteful because React essentially says “OK, recompute all these values in the render function” and then it walks back that decision and bails out on bits and pieces whenever it encounters `useMemo` or `useCallback`. However, it would make more sense if React would only run exactly what it needed to run.
+这是一种浪费，因为 React 本质上是说“好吧，在渲染函数中重新计算所有这些值”，然后当它遇到 `useMemo` 或者 `useCallback` 时，它就会返回那个决定，并在碎片上退出。但是，如果 React 只运行它需要运行的内容，那就更有意义了。
 
-## Reactive Programming
+## 响应式编程
 
-Reactive programming has been around for a long time but has recently become a popular programming paradigm among UI frameworks.
+响应式编程已经存在很长一段时间了，但最近在 UI 框架中成为一种流行的编程范式。
 
-The core idea of reactive programming is that variables are observable, and whenever an observable’s value changes, observers will be notified of this change via a callback function:
+响应式编程的核心思想是，变量是可观察的，当一个可观察对象的值发生变化时，观察者会通过回调函数来通知这个变化:
 
 ```JavaScript
 const count$ = observable(5)
@@ -104,9 +104,9 @@ count$.set(7)
 // 7
 ```
 
-Note how the callback function passed to `observe` executes any time that we change the `count$` observable's value. You might be wondering about the `$` on the end of `count$`. This is known as [Finnish Notation](https://medium.com/@benlesh/observables-and-finnish-notation-df8356ed1c9b) and simply indicates that the variable holds an observable.
+注意，当我们修改可观察的 `count$` 值时，传递给 `observe` 的回调函数是如何执行的。您可能想知道 `count$` 后面的 `$`。这就是所谓的 [Finnish Notation](https://medium.com/@benlesh/observables-and-finnish-notation-df8356ed1c9b)，它简单地指出变量包含一个可观察对象。
 
-In reactive programming, there is also a concept of computed/derived observables that can both observe and be observed. Below is an example of a derived observable that tracks the value of another observable and applies a `transform` to it:
+在响应式编程中，还有一个计算或派生的可观察对象的概念，它既可以观察也可以被观察。下面是一个派生的可观察对象的例子，它跟踪另一个可观察对象的值，并对它应用 `transform`：
 
 ```JavaScript
 const count$ = observable(5)
@@ -124,13 +124,13 @@ count$.set(7)
 // 14
 ```
 
-This is similar to our previous example, except now we will log a doubled count.
+这与我们前面的示例类似，只是现在我们将记录重复的计数。
 
-## Improving React With Reactivity
+## 用响应式来改造 React
 
-With the basics of reactive programming covered, let’s look at an example in React and improve upon it by making it more reactive.
+在介绍了响应式编程的基础知识之后，让我们看一下 React 中的一个示例，并通过使其更具响应性来改进它。
 
-Consider an app with two counters and a piece of derived state that depends on one of the counters:
+考虑一个应用程序有两个计数器和一个依赖于其中一个计数器的派生状态：
 
 ```JSX
 const App = () => {
@@ -163,9 +163,9 @@ const App = () => {
 };
 ```
 
-Here, we have logic to double the value of `countTwo` on each render, but if `useMemo` finds that `countTwo` holds the same value that it did on the previous render, then the doubled value will not be re-derived on that render.
+在这里，我们有逻辑将 `countTwo` 的值在渲染两次，但如果 `useMemo` 发现 `countTwo` 的值与它在前一个渲染上的值相同，那么再次渲染的值将不会在该渲染上重新派生。
 
-Combining our earlier ideas, we can pull state responsibilities out of React and instead set up our state as a graph of observables in a constructor function. The observables will notify the component whenever an observable changes so that it knows to re-render:
+结合我们早期的想法，我们可以从 React 中提取状态职责，并在构造函数中将状态设置为可观察对象的图形。当 `observable` 发生变化时，它就会通知组件，这样组件就知道要重新渲染了：
 
 ```JSX
 const App = createComponent(({ setState }) => {
@@ -211,22 +211,22 @@ const App = createComponent(({ setState }) => {
 });
 ```
 
-In the example above, the observables we create in the constructor are available in the render function via closure, which allows us to set their values in response to click events. `doubledCountTwo$` observes `countTwo$` and doubles its value **only** when the value of `countTwo$` changes. Notice how we don't derive the doubled count during the render but prior to it. Lastly, we use the `observe` function to re-render our component any time that any of the observables change.
+在上面的例子中，我们在构造函数中创建的可观察对象通过闭包在 render 函数中可用，闭包允许我们设置它们的值以响应单击事件。只有当 `countwo$` 的值改变时，`doubledCountTwo$` 观察 `countwo$` 并将其值加倍。注意，我们不是在渲染过程中而是在渲染之前获得重复计数。最后，当任何可观察对象发生变化时，我们使用 `observe` 函数重新渲染组件。
 
-This is an elegant solution for several reasons:
+这是一个优雅的解决方案，有以下几个原因：
 
-1. State and effects are no longer the responsibility of React but rather that of a dedicated state management library that can be used across frameworks or even without a framework.
-2. Our observables are initialized only on construction, so we don’t have to worry about violating the rules of Hooks or re-running Hook logic unnecessarily during renders.
-3. We avoid re-running derivational logic at unnecessary times by choosing to re-derive values only when their dependencies change.
+1. 状态和效果不再是 React 的责任，而是一个专用的状态管理库的责任，这个库可以跨框架使用，甚至不需要框架。
+2. 我们的可观察对象只在构造时进行初始化，所以我们不必担心违反 Hooks 规则或在呈现期间不必要地重新运行 Hooks 逻辑。
+3. 通过选择仅在依赖项发生变化时重新派生值，我们避免了在不必要的时候重新运行派生逻辑。
 
-With a little hacking on the React API, we can make the code above a reality.
+通过对 React API 进行一些修改，我们可以实现上面的代码。
 
-[**Try our demo in this sandbox!**](https://codesandbox.io/s/alternate-react-api-kyutz)
+[**在这个沙盒中尝试我们的演示!**](https://codesandbox.io/s/alternate-react-api-kyutz)
 
-This is actually quite similar to the way Vue 3 works with its composition API. Though the naming is different, look how strikingly similar this Vue snippet is:
+这实际上与 Vue 3 使用其组合API的方式非常相似。尽管命名不同，但是可以看到这个 Vue 代码片段惊人地相似:
 
 ```JavaScript
-// Example taken from https://composition-api.vuejs.org/#usage-in-components
+// 示例来自 https://composition-api.vuejs.org/#usage-in-components
 import { reactive, computed, watchEffect } from 'vue'
 
 function setup() {
@@ -257,7 +257,7 @@ watchEffect(() => {
 })
 ```
 
-If this isn’t convincing enough, look how simple `refs` become when we introduce a constructor layer to React function components:
+如果这还不够令人信服，看看当我们引入一个构造函数层来反应函数组件时，“引用”变得多么简单：
 
 ```JSX
 const App = createComponent(() => {  
@@ -272,9 +272,9 @@ const App = createComponent(() => {
 });
 ```
 
-We actually eliminate the need for `useRef` because we can declare variables in the constructor and then read/write them from anywhere through the lifetime of the component.
+实际上，我们不需要使用 `useRef`，因为我们可以在构造函数中声明变量，然后在组件的生命周期中从任何地方读写它们。
 
-Perhaps cooler yet, we could easily make `refs` observable:
+也许更酷的是，我们可以很容易地将 `refs` 变成可观察的：
 
 ```JSX
 const App = createComponent(() => {  
@@ -293,11 +293,11 @@ const App = createComponent(() => {
 });
 ```
 
-Of course, my implementations of `observable`, `derived`, and `observe` here are buggy and do not form a complete state management solution. Not to mention these contrived examples leave out several considerations, but no worries: I have put a lot of thought into this matter, and my thoughts have culminated in a new reactive state management library called [Elementos](https://malerba118.github.io/elementos-docs/)!
+当然，我的 `observable`，`derived`，和 `observe` 的实现都有 bug，并没有形成一个完整的状态管理解决方案。更不用说这些精心设计的示例忽略了一些考虑因素，但不用担心：我在这个问题上花了很多心思，我的想法在名为 [Elementos](https://malerba118.github.io/elementos-docs/)的新响应式状态管理库中达到了顶峰！
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/5020/1*k1YTEm4t8HpWLaUcM7yfmg.png)
 
-Elementos is a framework-agnostic, reactive state management library with an emphasis on state composability and encapsulation. If you’ve enjoyed this article, I’d highly encourage you to check it out!
+Elementos 是一个与框架无关的响应式状态管理库，强调状态的可组合性和封装性。如果你喜欢这篇文章，我强烈建议你去看看！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
