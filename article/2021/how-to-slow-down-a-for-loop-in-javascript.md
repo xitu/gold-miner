@@ -22,6 +22,14 @@ I want to explain why common solutions don’t work.
 
 Thanks to setTimeout,d we can specify that a certain code should be executed only after x-time. This sounds like the solution to our problem. Just put the timeout in the for-loop, and the loop is less fast:
 
+```js
+for (let i = 0; i < 100; i++) {
+  setTimeout(() => {
+    console.log(i)
+  }, 1000)
+}
+```
+
 When we run the code with **setTimeout**, the following happens: 
 nothing happens for 1 second; then all the logs come up in a flash. 
 Not really what we had hoped for.
@@ -29,22 +37,60 @@ Not really what we had hoped for.
 The reason for this is a small error in thinking. It seems like the timeout doesn’t apply to every element — yes, it does.
 
 But we forget how JavaScript executes code. The loop creates all timeouts immediately, not sequentially. Of course, this is very fast — so all timeouts have almost the same **start time**. 
+
 As soon as the time is up, the logs are made — all at once.
 
 We see the same effect when we rewrite the code minimally.
 
-From the idea, this would work in some other programming languages. 
-The loop starts to create the timeout. Only when it has been executed does it continue — at least in other programming languages. In JavaScript, however, the timeout is created, and the code continues to execute immediately. 
-So JavaScript creates two flows that run parallel.
+```js
+for (let i = 0; i < 100; i++) {
+  setTimeout(() => {}, 1000)
+  console.log(i)
+}
+```
+
+From the idea, this would work in some other programming languages. The loop starts to create the timeout. Only when it has been executed does it continue — at least in other programming languages. In JavaScript, however, the timeout is created, and the code continues to execute immediately. So JavaScript creates two flows that run parallel.
 
 ## How to slow down the for-loop properly
 
-So with a **setTimeout,** it does not work as it should. 
+So with a **setTimeout**, it does not work as it should. 
+
 The rescue is a simple promise.
+
+```js
+const sleep = (time) => {
+  return new Promise((resolve) => {
+    return setTimeout(function () {
+      resolve()
+    }, time)
+  })
+}
+```
 
 We call the Promise via a function. It gets the time in milliseconds that the **setTimeout** should receive. All the timeout does after the time expires is to execute the resolve function. This means the promise is fulfilled — it can continue. We can simplify the code shown above:
 
+```js
+const sleep = (time) => {
+  return new Promise(resolve => setTimeout(resolve, time))
+}
+```
+
 The Promise is ready. Now we can add it to our for-loop:
+
+```js
+const sleep = (time) => {
+  return new Promise((resolve) => setTimeout(resolve, time))
+}
+
+const doSomething = async () => {
+  for (let i = 0; i < 100; i++) {
+    await sleep(1000)
+    console.log(i)
+  }
+}
+
+doSomething()
+```
 
 The log is executed once per second. So to output all numbers of the loop, we need 100 seconds. So we have successfully slowed down our for-loop.
 
