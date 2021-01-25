@@ -2,131 +2,131 @@
 > * 原文作者：[Jeff Delaney](https://medium.com/@jeffdelaney)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-become-a-google-developer-expert-gde-a-practical-guide.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-become-a-google-developer-expert-gde-a-practical-guide.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[zenblo](https://github.com/zenblo)
 
-# How to Become a Google Developer Expert (GDE) — A Practical Guide
+# 如何成为谷歌开发专家（GDE）— 实用指南
 
-Becoming a [Google Developer Expert](https://developers.google.com/programs/experts/)(GDE) is not a goal I ever set out to achieve, but rather **it** found me. The following guide is for developers starting from scratch who want to someday join this career-changing invite-only program 👇
+成为 [谷歌开发专家](https://developers.google.com/programs/experts/)  (GDE) 并不是我当初想要实现的目标，而是**它**找到了我。以下指南是为那些从零开始，希望有一天能加入这个只接受邀请，而且会改变职业生涯的项目的开发人员准备的👇
 
-> A global program to recognize individuals who are experts and thought leaders in one or more Google technologies. These professionals actively contribute and support the developer and startup ecosystems around the world, helping them build and launch highly innovative apps.
+> 这是一项全球计划，旨在表彰具有一种或多种谷歌技术的专家和思想领袖。这些专业人士积极贡献和支持世界各地的开发者和创业生态系统，帮助他们构建和推出高度创新的应用程序。
 
-## A Step-by-Step Guide
+## 分步指引
 
-You become a GDE with a **nomination** from a Googler or Google Partner who notices the awesome work you’re doing.
+在成为 GDE 之前，你需要获得那些注意到你在当前领域的卓越贡献的谷歌员工或谷歌合作伙伴的提名。
 
-You **don’t** need to be an exceptionally talented hacker.
+你**不需要**是一个极有天赋的黑客。
 
-You **do** need to love sharing knowledge.
+你**需要**热衷于分享你所在领域的知识。
 
-I was nominated mostly for creating the [Fireship YouTube channel](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA) and building a educational community for developers working with Angular & Firebase.
+我被提名的主要原因是创建了 [Fireship YouTube 频道](https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA)，并为 Angular 和 Firebase 的开发者建立了一个教育社区。
 
-#### Step 0 — The Mindset
+#### 第零步 — 心态
 
-It starts with the right mindset. Consider the goals below:
+从正确的心态开始。思考以下几个目标:
 
-* I **need** to deliver my talk to a huge audience.
-* I **need** this video to go viral.
-* I **need** a huge Twitter following.
-* I **need** to be Internet famous.
+* 我**需要**面向大众发表演讲。
+* 我**需要**自己分享的视频被大量传播。
+* 我**需要**大量的推特粉丝。
+* 我**需要**成为网络红人。
 
-While these are reasonable goals that might help you become a GDE, they are **NOT** the right goals. Superficial numbers help, but that’s not how you go the distance.
+尽管以上这些都是可以帮助你成为 GDE 的合理目标，但它们**不是**正确的目标。表面的这些数字也许对你有所帮助，但这并非长远之道。
 
-Every GDE I’ve met **enjoys the craft** of creating technical content and sharing it with the community.
+我遇到但每一个 GDE 都是热衷于创作技术内容并与社区分享，他们**专注于技术探究**。
 
-People often ask me **how do you produce so many videos?** The simple answer is that I **enjoy the creative process**, no matter the outcome. I have just as much fun making a video with 500 views as one with 500K.
+人们经常问我**你怎么制作了这么多视频？** 简单一点的答案就是我**享受创作的过程**，不管结果如何。我做一个浏览量为 500 次和一个浏览量为 50万 次的视频一样开心。
 
-Let’s refactor our goals…
+让我们重新梳理下我们的目标……
 
-* I **want** to change someone’s life with my talk.
-* I **want** this video to be unbelievably helpful to developers like me.
-* I **want** Twitter followers because they find my insight valuable.
-* I **want** people to trust me as a real human being.
+* 我**希望**通过我的演讲改变人们的生活。
+* 我**希望**我分享的视频对和我一样的开发者有莫大的帮助。
+* 我**希望**人们在推特上关注我是因为我的见解很有价值。
+* 我**希望**人们相信我是一个真正的人。
 
-If these goals drive you, continue ahead to Step 1.
+如果是这些目标驱动着你，请接着看第一步。
 
-#### Step 1 — Mission
+#### 第一步 — 任务
 
-Set a clear mission. Something that you’re passionate about. The more specialized the better. I set out to be…
+设立一个明确的任务。你热衷的事情。越专业化越好。例如我打算成为……
 
-> The best consultant, YouTuber, content creator, and advanced resource for developers building apps with Angular & Firebase.
+> 对于使用 Angular 和 Firebase 构建应用程序的开发人员而言，你是优秀的技术顾问、YouTuber、内容创建者和高级资源提供者。
 
-Your chances of standing out are much greater if you specialize. Big product areas like Web and Android are much harder to stand out in versus smaller areas like Google Pay, Assistant, Tensorflow, etc.
+如果你擅长于此，那么你脱颖而出的机会就会大得多。而相对于谷歌 Pay、Assistant、Tensorflow 等小众产品领域，Web 和 Android 等大型产品领域更难脱颖而出。
 
-#### Step 2 — Build a Portfolio
+#### 第二步 — 创建一个作品集
 
-You need to have a certain amount of reach within the developer community. Choose two or three of the metrics below and try to maximize them with **hard data** where you think you can make the biggest impact.
+你需要在开发者社区中拥有一定的影响力。选择如下 2 或 3 个目标，尝试使用你认为可以产生最大化影响力的**核心数据** 。
 
-* Article Reads
-* Video Views
-* Public Speaking Audience Size
-* Podcast Downloads
-* Book or Course Purchases
-* Github Contributions
-* StackOverflow Rep
-* Social Media Engagement
+* 文章阅读量
+* 视频播放次数
+* 公开演讲的观众人数
+* 播客的下载量
+* 书籍或者课程的购买量
+* Github 贡献统计
+* StackOverflow 的声誉
+* 社交媒体参与度
 
-#### Step 3 — Create Quality Content Consistently
+#### 第三步 — 持续创作高质量的内容
 
-The two most important keys to success in my opinion are **quality & consistency.**
+在我看来，成功最重要的两个因素是**质量和持续性**
 
-The most efficient path is **public speaking.** If you manage to get a CFP accepted at a few good conferences you will likely get noticed by the right people. Start small with local meetups, and if your area doesn’t already have a meetup, start one!
+最有效的方法是**公开演讲。** 如果你能在一些不错的会议上获得 CFP 证书，你就有可能被相关的人注意到。从小规模的当地的会议开始，如果你所在的地区还没有这样的会议，那就组织一个吧!
 
-But speaking only reaches a very small slice of the total audience. You can still become a GDE without ever landing a big speaker spot. **Start a YouTube channel, blog, book, course, Twitch stream, or podcast** — just do it well and strive to be the absolute best in your niche. It also helps to guest post content in places that already have traction, like why not [contribute a post on fireship.io](https://fireship.io/contributors/) 😎.
+但是演讲只占总听众的一小部分。你仍然可以成为 GDE，不用大规模的演讲。**开通 YouTube 频道，博客，书籍，课程，Twitch 流或播客** - 做到最好，力争在你所在的领域中做到卓越。它还有助于在已经具有影响力的领域发送邀请帖相关的内容，例如可以尝试在 [fireship.io上发表帖子](https://fireship.io/contributors/) 😎。
 
-It also helps to have a track record [contributing to open source](https://github.com/codediodeio). Help **maintain the open source projects on Github** that are closely tied to your product area and/or write your own supporting projects. An **impressive Stack Overflow profile** is also a powerful asset.
+拥有一个跟踪记录平台 [开源贡献](https://github.com/codediodeio) 也是有帮助的。你也可以帮助**维护一个 Github 上的开源项目**，它可能和你所做的产品或者你的代码语言相关。 如果你拥有一个**出色的 Stack Overflow 个人主页**也是一个强有力的资源。
 
-#### Step 4 — Network
+#### 第四步 — 网络
 
-As you start building an impressive portfolio you need the right people to take notice. The best way to make that happen is to attend conferences and live events, or better yet, speak at them.
+当你开始创建一个令人印象深刻的作品集时，你需要吸引合适的人的注意。最好的办法是参加会议和现场活动，最好能在会上发言。
 
-Reach out to other GDEs or leaders of Google Developer Groups. Tell people about your mission from Step 1 and the cool stuff you’re working on. Don’t be afraid to ask for advice and express your interest in becoming a GDE.
+你可以联系其他 GDEs 或谷歌开发团队的领导。告诉他们你从第一步开始的任务和你正在做很酷的事情。不要担心征求他人的意见，适当表达你对成为 GDE 的兴趣。
 
-Most of the tech community prefers **Twitter** for professional networking. Use it as a tool to share your content and connect with the [right people](https://twitter.com/Jeffdelaney23). Not critical, but the more followers you have the better.
+大多数科技界的人更喜欢使用**推特**进行职业社交活动。将其作为分享内容的工具，并与 [合适的人](https://twitter.com/Jeffdelaney23) 联系。这里没有贬低的成分，但你的追随者越多越好。
 
-In my case, the Googler who nominated me was familiar with my YouTube channel and reached out one day…
+拿我来说，提名我的谷歌员工对我的 YouTube 频道很熟悉，有一天他联系了我……
 
-> “Yo! Do you have any interest in becoming a GDE?”
+> “嗨！你有兴趣成为 GDE 吗？”
 
-Umm, yes. I was highly skeptical I would even be qualified, but at that point the hard work was already done. Moral of the story — If you’re doing the right things the networking aspect should just fall into place.
+嗯，是的。我当时非常怀疑自己是否有资格，但在那一刻，所有有难度的工作已经完成了。这个故事的寓意——如果你在做正确的事情，人际关系方面就应该水到渠成。
 
-## Preparing for the GDE Interviews
+## 准备 GDE 面试
 
-Congrats 🎉 you’ve been nominated! But you’re not done yet… it may take a few more months for an internal review, at least two interviews, and possibly other hoops to jump through before it’s official. The first interview is with an experienced GDE and the second is with a Googler from your product area.
+恭喜🎉你被提名了！但你还没有完成，可能还需要几个月的时间进行内部审核，至少需要两次面试，可能还需要经历其他一些艰难的过程才会正式发布声明。第一次面试的是和你有类似经验的 GDE，第二次面试的是你所在产品领域的谷歌员工。
 
-At this point, Impostor Syndrome will be hitting critical levels as you prep for what feels like a once-in-a-lifetime high-pressure job interview— you’re over thinking it! If you made it this far, just be yourself. They already like your moves, no need for whiteboard problems or brain teasers.
+在这一点上，冒充者综合症将达到临界水平，因为你正在准备一次千载难逢的高压工作面试——你想太多了！如果你能走到这一步，做你自己就好。他们已经对你感兴趣了，不需要在白板上写问题或脑筋急转弯。
 
-My first interview took place in person over lunch with a GDE based here in Phoenix, AZ. We chatted about tech and ate tacos— it was fun. My second interview was with a developer advocate from Firebase over video chat. Again, an easy and fun conversation.
+我的第一次面试是在和一个在凤凰城的 GDE 共进午餐时进行的。我们聊了聊科技，吃了墨西哥煎玉米卷 —— 很有趣。我的第二次面试是与 Firebase 的开发者使用视频聊天进行的。同样，这也是一个轻松有趣的对话。
 
-## What it’s like to be a GDE
+## 成为一名 GDE 是什么感觉
 
-Welcome to the club 🥂 The perks of the GDE program depend on what you value. You can be a completely passive participant or highly-involved.
+欢迎加入我们的俱乐部🥂，GDE 课程的福利取决于你所看重的东西。你可以是一个被动的参与者，也可以是一个重度的参与者或者活跃的参与者。
 
-#### The Badge
+#### 徽章
 
-Use the GDE badge on your personal profile. As a content creator, it is extremely valuable because validates your qualifications. Put it on your resume to stand out and negotiate a higher salary.
+在你的个人简介中使用 GDE 标记。作为一个内容创作者，它是非常有价值的，因为它表明了你的资质。把它写在你的简历上，这样你就能脱颖而出，获取更高的薪水。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KcIpcJq_OX3CPKrYQx-_Gg.png)
 
-#### Travel & Public Speaking
+#### 旅行和演讲
 
-Want to travel the world and give conference talks? When speaking about your product area, Google may reimburse your travel costs. I don’t give live talks often, but this is an amazing perk for public speakers. Not to mention, being GDE will likely increase your CFP acceptance rate.
+想通过做会议演讲环游世界吗？当谈到你所在产品领域时，谷歌可能会报销你的旅行费用。我不经常做现场演讲，但这对公开演讲的人来说是一个惊人的福利。更不用说，成为 GDE 很可能会提高 CFP 的接受率。
 
-#### Access
+#### 连接
 
-You sign a non-disclosure agreement when becoming a GDE that may provide access to private alpha programs for your product specialty. This is fun if you’re a big fan of something (like Firebase) because it gives you some influence over the direction of the product. You will make friends with Googlers and be invited to conference calls to chat about cool new features before they become public.
+当你成为可能为你所在的产品专业提供私有 alpha 程序的 GDE 时，你需要签署保密协议。如果你是某款游戏 (如 Firebase ) 的忠实粉丝，这便很有趣，因为这能够让你对产品的发展方向产生一定的影响。你将与谷歌员工成为朋友，并被邀请参加电话会议，在新功能公开之前与他们讨论。
 
-#### Events and Networking
+#### 相关事宜和工作
 
-Google hosts an all-expenses-paid GDE summit every year, which is a great networking opportunity to meet fellow experts. Last year there there were summits in Mountain View and Toronto, but it was in Poland the year prior. You might also get a ticket to Google I/O (not guaranteed).
+谷歌每年都会举办一个针对 GDE 免费的峰会，这是一个与其他专家交流的好机会。去年在山景城和多伦多有峰会，但前年是在波兰。你可能还会得到到谷歌 I/O 的门票 (不保证可以获取该门票)。
 
-#### Validation
+#### 职业认证
 
-Perhaps the most profound benefit that nobody talks about is **career validation**. Programmers suffer from Impostor Syndrome, and while there is no cure, being knighted by Google helps. At the very least, you should feel less pressure to prove your aptitude as a developer.
+也许没有人谈论的最大的好处是**职业认证**。程序员患有冒充者综合症，虽然无法治愈，但被谷歌授予“骑士”称号是有帮助的。至少，你应该不会觉得有那么大的压力去证明自己是一名开发人员。
 
-## Summary
+## 总结
 
-It sounds cliché, but **if I can do it you can too.** I have no special talents or advantages. I did not start with any contacts at Google. I simply love the craft of software development and work hard to share what I’ve learned with the world.
+这听起来很老套，但是**如果我能做到，你也可以**。我没有什么特殊的才能或优势。我一开始和谷歌没有任何联系。我只是喜欢软件开发的技艺，并努力与世界分享我所学到的东西。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
