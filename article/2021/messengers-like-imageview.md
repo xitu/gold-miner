@@ -7,8 +7,6 @@
 
 # Messengers-like ImageView
 
-#### Controlling the size and sometimes aspect ratio
-
 ![](https://cdn-images-1.medium.com/max/2372/1*eUsCLT2MWPgMMc_7ltldOw.png)
 
 In the previous story, I wrote about the [Uploading animation for sending image messages and how we have built it](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63). Today I decided to write about the images themselves. How can we show them inside the message history?
@@ -195,8 +193,6 @@ Now let’s look at the result:
 Everything looks super but it seems like small images are too small. And our wish to make them a little bit bigger than right now. You can say “Just increase the minimum size”. Well, we can do that, but in that case, we will see no difference between the small and the smaller image, since they will use equally minimum size.
 
 Instead of that, we can add a bit of magic
-
-![](https://cdn-images-1.medium.com/max/2000/1*gR_L9TPH-kdWaiygzI3qGA.gif)
 
 The magic concludes in the increasing small images by some magic constant or formula to be a bit bigger and keep the differences in the size between small and smaller images :)
 
@@ -522,14 +518,6 @@ And the result of our work:
 ![](https://cdn-images-1.medium.com/max/2000/0*RAgg6bb37jZ_uGjJ.gif)
 
 If you liked that article, don’t forget to support me by clapping and if you have any questions, comment me and let’s have a discussion. Happy coding!
-
-Also, there are other articles, that can be interesting:
-[**Auto fetching string resources**
-**How to make PM’s dream come true**proandroiddev.com](https://proandroiddev.com/auto-fetching-string-resources-31788ceecf04)
-[**Declarative Adapter Building**
-**Or how to use Decoration in favor of declarative adapter’s delegates building**proandroiddev.com](https://proandroiddev.com/declarative-adapter-building-91888f23b979)
-[**Test everything with Kotlin**
-**How we write consistent tests**proandroiddev.com](https://proandroiddev.com/test-everything-with-kotlin-1cb4bce8f9ac)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
