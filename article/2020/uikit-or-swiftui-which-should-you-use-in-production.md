@@ -60,7 +60,7 @@ UIKit 和 SwiftUI 的 API 都粘在了别的非表示层代码中 —— 这些�
 
 那不同界面之间的导航又会如何表现呢？
 
-UIKit 总是对我们耳语："噢！你快点用 `presentViewController(:，animation：，completion :);` 代码替换掉旧代码吧！不要再使用那些代码了！”
+UIKit 总是对我们耳语：“噢！你快点用 `presentViewController(:，animation：，completion :);` 代码替换掉旧代码吧！不要再使用那些代码了！”
 
 而 SwiftUI 不会低语 —— 它只会在向我们大声嚷嚷：“听我的，除非你按照我想要的方式来做，要么我就会以精心设计的方式搞垮你的应用！”
 
