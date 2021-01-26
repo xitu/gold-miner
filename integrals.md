@@ -7874,10 +7874,11 @@
 |[避免那些可恶的 "cannot read property of undefined" 错误](https://juejin.im/post/5c810170e51d450a453fb48e)|翻译|3|
 |[写给 React 开发者的自定义元素指南](https://juejin.im/post/5c0873a8e51d451de96890dc)|校对|3|
 
-## 译者：[newraina](https://github.com/newraina) 历史贡献积分：13 当前积分：13
+## 译者：[newraina](https://github.com/newraina) 历史贡献积分：14 当前积分：14 二零二一：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|1 月推荐前端文章 1 篇|奖励|1|
 |推荐英文文章一篇|奖励|1|
 |[用 Shadow DOM v1 和 Custom Elements v1 实现一个原生 Web Component](https://juejin.im/post/5c1a401b6fb9a049c042fa07)|翻译|9|
 |[以太坊入门：互联网政府](https://juejin.im/post/5c03c68851882551236eaa82)|翻译|3|
@@ -8011,10 +8012,11 @@
 |[世界比以往任何时候都更需要 Web 可访问性](https://juejin.im/post/6872684910058930189)|翻译|5|
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|校对|2.5|
 
-## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：35 当前积分：35
+## 译者：[SHERlocked93](https://github.com/SHERlocked93) 历史贡献积分：36 当前积分：36 二零二一：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|1 月推荐后端文章 1 篇|奖励|1|
 |推荐前端文章 1 篇|奖励|1|
 |8 月推荐前端文章 2 篇|奖励|2|
 |[监测与调试 Vue.js 的响应式系统：计算属性树（Computed Tree）](https://juejin.im/post/5c9ca62e5188251d80672b0d)|翻译|5|
@@ -10648,10 +10650,11 @@
 |------|-------|-------|
 |[在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)|校对|4.5|
 
-## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：9 当前积分：9 二零二一：5
+## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：11 当前积分：11 二零二一：7
 
 |文章|类型|积分|
 |------|-------|-------|
+|1 月推荐安卓文章 1 篇、其他文章 1 篇|奖励|2|
 |[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|翻译|5|
 |[SwiftUI 黑暗模式——最简单的方法](https://juejin.cn/post/6905925634552233998)|校对|1|
 |[探索 Android 中的 ConstraintLayout 2.0](https://juejin.cn/post/6906770827228741646)|翻译|3|
@@ -10708,10 +10711,11 @@
 |[增量 DOM 与虚拟 DOM 的对比使用](https://juejin.cn/post/6903765877296988174)|校对|2|
 |[理解 JavaScript 中模块的导入和导出](https://juejin.cn/post/6904980094998020109)|校对|3|
 
-## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：31.5 当前积分：31.5 二零二一：24.5
+## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：32.5 当前积分：32.5 二零二一：25.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|1 月推荐 iOS 文章 1 篇|奖励|1|
 |[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|校对|2.5|
 |[iOS 中的 widget](https://juejin.cn/post/6920017496497979399)|翻译|7|
 |[DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)|翻译|12|
@@ -10727,10 +10731,13 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：34 当前积分：34 二零二一：34
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：40 当前积分：40 二零二一：40
 
 |文章|类型|积分|
 |------|-------|-------|
+|1 月推荐安卓（Kotlin）文章 1 篇|奖励|1|
+|1 月推荐 Flutter 文章 2 篇|奖励|2|
+|1 月推荐设计文章 3 篇|奖励|3|
 |[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|校对|2|
 |[深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)|校对|3|
 |[Flutter 中内置的显式动画](https://juejin.cn/post/6918698096109191175)|翻译|5.5|
