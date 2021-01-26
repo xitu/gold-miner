@@ -89,7 +89,7 @@ $ cat models/{baseline,final}/data.csv
 cat models/baseline/data.csv models/final/data.csv
 ```
 
-最后一个示例：我们对 `mv` 命令使用了3个参数 —— 将两个 Python 测试文件移动到一个 tests 文件夹中：
+最后一个示例：通过 `mv` 命令使用了 3 个参数 —— 将两个 Python 文件移动到 tests 文件夹中：
 
 ```bash
 $ mv test_unit.py test_system.py tests
