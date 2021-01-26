@@ -2975,10 +2975,13 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：455 当前积分：375
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：458.5 当前积分：378.5 二零二一：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 中内置的显式动画](https://juejin.cn/post/6918698096109191175)|校对|2.5|
+|[Flutter 中的交织动画](https://juejin.cn/post/6918693294083932173)|校对|1|
+|[DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)|校对|0|
 |由于 [7246](https://github.com/xitu/gold-miner/pull/7246) 减去积分|减去积分|6|
 |[2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展](https://juejin.cn/post/6910570256645914637)|校对|2|
 |[提高开发效率的五个 Chrome 扩展程序](https://juejin.cn/post/6903831004034072589)|校对|0.5|
@@ -3994,10 +3997,11 @@
 |[结构体指针](https://juejin.im/post/59a60cc1f265da249a201ae9)|校对|1|
 |[iOS 响应式编程：Swift 中的轻量级状态容器](https://juejin.im/post/599652ee6fb9a024903a8d59)|校对|1|
 
-## 译者：[laampui](https://github.com/laampui) 历史贡献积分：52.5 当前积分：37.5
+## 译者：[laampui](https://github.com/laampui) 历史贡献积分：58.5 当前积分：43.5 二零二一：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在 Node.js 中避免内存泄漏：性能最佳实践](https://juejin.cn/post/6911488842079928327)|翻译|6|
 |[Python 是解决任何问题的完美工具](https://juejin.im/post/5aa74bf95188255568686ae0)|校对|1|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|4.5|
 |[14 个你可能不知道的 JavaScript 调试技巧](https://juejin.im/entry/5a0001b86fb9a0451a75c591)|校对|1|
@@ -6122,10 +6126,11 @@
 |[使用 Swift 实现原型动画](https://juejin.im/post/5ae28a9b6fb9a07aaa10fa1e)|校对|2|
 |[不使用 fastlane 实现持续交付的 5 种选项](https://juejin.im/post/5acf47cb6fb9a028c523944c)|翻译|5|
 
-## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：61.5 当前积分：16.5
+## 译者：[luochen1992](https://github.com/luochen1992) 历史贡献积分：67.5 当前积分：22.5 二零二一：6
 
 |文章|类型|积分|
 |------|-------|-------|
+|[DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)|校对|6|
 |[Python List 使用注意事项](https://juejin.cn/post/6886633614717485070)|校对|2|
 |[通过“四不要”掌握 Python 中的 Lambda 函数](https://juejin.cn/post/6883389756269395975)|校对|1|
 |[哪一个深度学习框架增长最迅猛？TensorFlow 还是 PyTorch？](https://juejin.im/post/5caefef45188251b070f7d70)|校对|1.5|
@@ -6919,10 +6924,11 @@
 |------|-------|-------|
 |[通过 SSH 远程使用 Python 解释器来运行 Flask](https://juejin.im/post/5b3e25a8e51d45191716d187)|校对|1.5|
 
-## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：47.5 当前积分：47.5
+## 译者：[yqian1991](https://github.com/yqian1991) 历史贡献积分：52.5 当前积分：52.5 二零二一：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Elasticsearch 新手指南](https://juejin.cn/post/6913725535717851144)|翻译|5|
 |12 月推荐后端文章 1 篇|奖励|1|
 |[初创公司的数据科学：简介](https://juejin.im/post/5bd55b76f265da0ae472ce1b)|校对|2.5|
 |[开源项目之 Nginx](https://juejin.im/post/5bc55a25f265da0ae8014147)|校对|5|
@@ -7289,10 +7295,11 @@
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|8|
 |[用 Scikit-Learn 实现 SVM 和 Kernel SVM](https://juejin.im/post/5b7fd39af265da43831fa136)|校对|2|
 
-## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：43 当前积分：20
+## 译者：[TrWestdoor](https://github.com/TrWestdoor) 历史贡献积分：45.5 当前积分：22.5 二零二一：2.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Elasticsearch 新手指南](https://juejin.cn/post/6913725535717851144)|校对|2.5|
 |2020 年 10 月 兑换 鼠标垫 1 个|减去积分|13|
 |[人工智能何以留存](https://juejin.im/post/5d4c1155e51d4562061159d1)|校对|2|
 |[由浅入深理解主成分分析](https://juejin.im/post/5d41321df265da03c926d65a)|校对|2|
@@ -9178,10 +9185,11 @@
 |[Android中的简易协程：viewModelScope](https://juejin.im/post/5cf35ec76fb9a07ed657bbcd)|翻译|3|
 |[C++ 和 Android 本地 Activity 初探](https://juejin.im/post/5ce62d4851882532e9631b63)|翻译|2|
 
-## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：51.5 当前积分：31.5
+## 译者：[ZavierTang](https://github.com/ZavierTang) 历史贡献积分：53.5 当前积分：33.5 二零二一：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Web 应用缓存的基础知识](https://juejin.cn/post/6913898149740281870)|校对|2|
 |[继承 vs 组合：哪一个更适合你的 JavaScript 项目？](https://juejin.cn/post/6906288659742654478)|校对|2|
 |[页面生命周期 API：每一个前端开发者都应该知道的浏览器 API](https://juejin.cn/post/6906779518040539144)|校对|2|
 |[TypeScript 的 5 个建议](https://juejin.cn/post/6906307187816349703)|翻译|5.5|
@@ -10008,10 +10016,15 @@
 |------|-------|-------|
 |[Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)|校对|3|
 
-## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：47 当前积分：47
+## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：76.5 当前积分：76.5 二零二一：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|翻译|5|
+|[理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)|翻译|4.5|
+|[Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)|校对|4|
+|[DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)|校对|6|
+|[使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序](https://juejin.cn/post/6899241103682502670)|翻译|10|
 |[2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展](https://juejin.cn/post/6910570256645914637)|校对|2|
 |[为什么如今 Deno 正全面取代 Node.js](https://juejin.cn/post/6897420951592534030)|翻译|5|
 |[迪米特法则](https://juejin.cn/post/6890050952049950733)|翻译|3|
@@ -10276,10 +10289,16 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：140.5 当前积分：140.5
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：160.5 当前积分：160.5 二零二一：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[减少 Web 应用程序中 CORS 预检时间的 4 种方法](https://juejin.cn/post/6914561805465419784)|校对|2|
+|[如何使用 Node.js 执行多线程](https://juejin.cn/post/6915255619926622222)|翻译|3|
+|[如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)|校对|2|
+|[iOS 中的 widget](https://juejin.cn/post/6920017496497979399)|校对|3|
+|[GitHub Package Registry 是否值得尝试](https://juejin.cn/post/6915255280959750152)|翻译|5|
+|[使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序](https://juejin.cn/post/6899241103682502670)|校对|5|
 |12 月推荐前端文章 2 篇|奖励|2|
 |[单体应用与微前端开发对比](https://juejin.cn/post/6906021856210321422)|翻译|6|
 |[提高开发效率的五个 Chrome 扩展程序](https://juejin.cn/post/6903831004034072589)|翻译|1|
@@ -10513,10 +10532,11 @@
 |[Python logging 使用指南](https://juejin.im/post/6881981250203353095)|校对|2|
 |[我的网站加载时间不到 1 秒，这是我如何做到的！](https://juejin.cn/post/6870329885034807310)|翻译|3.5|
 
-## 译者：[Eminlin](https://github.com/Eminlin) 历史贡献积分：3 当前积分：3
+## 译者：[Eminlin](https://github.com/Eminlin) 历史贡献积分：5 当前积分：5 二零二一：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)|校对|2|
 |[Golang 切片综合指南](https://juejin.cn/post/6883398632071462919)|校对|3|
 
 ## 译者：[leexgh](https://github.com/leexgh) 历史贡献积分：5 当前积分：5
@@ -10560,10 +10580,18 @@
 |[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|校对|1|
 |[如何在 Nextjs 中使用 cookies 来持久化保存用户信息](https://juejin.cn/post/6896062683263860749)|校对|2|
 
-## 译者：[regon-cao](https://github.com/regon-cao) 历史贡献积分：53.5 当前积分：53.5
+## 译者：[regon-cao](https://github.com/regon-cao) 历史贡献积分：83 当前积分：83 二零二一：29.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|校对|2|
+|[深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)|翻译|6.5|
+|[减少 Web 应用程序中 CORS 预检时间的 4 种方法](https://juejin.cn/post/6914561805465419784)|翻译|5|
+|[如何使用 Node.js 执行多线程](https://juejin.cn/post/6915255619926622222)|校对|1.5|
+|[Web 应用缓存的基础知识](https://juejin.cn/post/6913898149740281870)|翻译|4|
+|[使用 CSS 提升页面渲染速度](https://juejin.cn/post/6911689122759475208)|校对|3|
+|[在 Node.js 中避免内存泄漏：性能最佳实践](https://juejin.cn/post/6911488842079928327)|校对|2.5|
+|[使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序](https://juejin.cn/post/6899241103682502670)|校对|5|
 |[2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展](https://juejin.cn/post/6910570256645914637)|翻译|4|
 |[单体应用与微前端开发对比](https://juejin.cn/post/6906021856210321422)|校对|3|
 |[继承 vs 组合：哪一个更适合你的 JavaScript 项目？](https://juejin.cn/post/6906288659742654478)|翻译|5|
@@ -10583,10 +10611,12 @@
 |[使用 JavaScript 解构让代码更优雅](https://juejin.cn/post/6901081096260648974)|校对|2|
 |[使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)|校对|1|
 
-## 译者：[NieZhuZhu](https://github.com/NieZhuZhu) 历史贡献积分：37 当前积分：37
+## 译者：[NieZhuZhu](https://github.com/NieZhuZhu) 历史贡献积分：47 当前积分：47 二零二一：10
 
 |文章|类型|积分|
 |------|-------|-------|
+|[解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)|翻译|7|
+|[使用 CSS 提升页面渲染速度](https://juejin.cn/post/6911689122759475208)|校对|3|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 |[你不可错过的 10 个 Xcode 技巧和快捷键](https://juejin.cn/post/6913888065937211399)|校对|2|
 |[理解 JavaScript 中模块的导入和导出](https://juejin.cn/post/6904980094998020109)|翻译|7|
@@ -10605,10 +10635,11 @@
 |------|-------|-------|
 |[酷毙了的算法：日志结构存储](https://juejin.cn/post/6898766259584761864)|校对|3|
 
-## 译者：[chzh9311](https://github.com/chzh9311) 历史贡献积分：3 当前积分：3
+## 译者：[chzh9311](https://github.com/chzh9311) 历史贡献积分：5 当前积分：5 二零二一：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)|校对|2|
 |[酷毙了的算法：日志结构存储](https://juejin.cn/post/6898766259584761864)|校对|3|
 
 ## 译者：[hncboy](https://github.com/hncboy) 历史贡献积分：4.5 当前积分：4.5
@@ -10617,10 +10648,11 @@
 |------|-------|-------|
 |[在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)|校对|4.5|
 
-## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：4 当前积分：4
+## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：9 当前积分：9 二零二一：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|翻译|5|
 |[SwiftUI 黑暗模式——最简单的方法](https://juejin.cn/post/6905925634552233998)|校对|1|
 |[探索 Android 中的 ConstraintLayout 2.0](https://juejin.cn/post/6906770827228741646)|翻译|3|
 
@@ -10642,10 +10674,12 @@
 |------|-------|-------|
 |[为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)|校对|4|
 
-## 译者：[flashhu](https://github.com/flashhu) 历史贡献积分：4 当前积分：4
+## 译者：[flashhu](https://github.com/flashhu) 历史贡献积分：10.5 当前积分：10.5 二零二一：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[不同类型的浏览器存储](https://juejin.cn/post/6915263201882046472)|翻译|5|
+|[如何使用 Node.js 执行多线程](https://juejin.cn/post/6915255619926622222)|校对|1.5|
 |[为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)|校对|4|
 
 ## 译者：[kaikanwu](https://github.com/kaikanwu) 历史贡献积分：1 当前积分：1
@@ -10661,19 +10695,27 @@
 |[你不可错过的 10 个 Xcode 技巧和快捷键](https://juejin.cn/post/6913888065937211399)|翻译|5|
 |[SwiftUI 中的 PageTabViewStyle](https://juejin.cn/post/6906289114300039182)|翻译|2|
 
-## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：12 当前积分：12
+## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：27.5 当前积分：27.5 二零二一：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)|翻译|4|
+|[Web 应用缓存的基础知识](https://juejin.cn/post/6913898149740281870)|校对|2|
+|[使用 CSS 提升页面渲染速度](https://juejin.cn/post/6911689122759475208)|翻译|6.5|
+|[在 Node.js 中避免内存泄漏：性能最佳实践](https://juejin.cn/post/6911488842079928327)|校对|3|
 |[WebTransport 会在不久的将来取代 WebRTC 吗？](https://juejin.cn/post/6910186017190313991)|翻译|4|
 |[单体应用与微前端开发对比](https://juejin.cn/post/6906021856210321422)|校对|3|
 |[增量 DOM 与虚拟 DOM 的对比使用](https://juejin.cn/post/6903765877296988174)|校对|2|
 |[理解 JavaScript 中模块的导入和导出](https://juejin.cn/post/6904980094998020109)|校对|3|
 
-## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：7 当前积分：7
+## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：31.5 当前积分：31.5 二零二一：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|校对|2.5|
+|[iOS 中的 widget](https://juejin.cn/post/6920017496497979399)|翻译|7|
+|[DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)|翻译|12|
+|[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|校对|3|
 |12 月推荐 AI 文章 1 篇|奖励|1|
 |[WebTransport 会在不久的将来取代 WebRTC 吗？](https://juejin.cn/post/6910186017190313991)|校对|2|
 |[SwiftUI 黑暗模式——最简单的方法](https://juejin.cn/post/6905925634552233998)|翻译|2|
@@ -10684,3 +10726,41 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
+
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：34 当前积分：34 二零二一：34
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|校对|2|
+|[深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)|校对|3|
+|[Flutter 中内置的显式动画](https://juejin.cn/post/6918698096109191175)|翻译|5.5|
+|[Flutter 中的交织动画](https://juejin.cn/post/6918693294083932173)|翻译|3|
+|[解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)|校对|3|
+|[不同类型的浏览器存储](https://juejin.cn/post/6915263201882046472)|校对|2|
+|[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|校对|2.5|
+|[如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)|校对|2|
+|[Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)|校对|4|
+|[iOS 中的 widget](https://juejin.cn/post/6920017496497979399)|校对|3|
+|[GitHub Package Registry 是否值得尝试](https://juejin.cn/post/6915255280959750152)|校对|2|
+|[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|校对|2|
+
+## 译者：[Ashira97](https://github.com/Ashira97) 历史贡献积分：15 当前积分：15 二零二一：15
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|校对|2|
+|[深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)|校对|3|
+|[减少 Web 应用程序中 CORS 预检时间的 4 种方法](https://juejin.cn/post/6914561805465419784)|校对|2|
+|[Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)|翻译|8|
+
+## 译者：[LoneyIsError](https://github.com/LoneyIsError) 历史贡献积分：5 当前积分：5 二零二一：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|翻译|5|
+
+## 译者：[k8scat](https://github.com/k8scat) 历史贡献积分：2 当前积分：2 二零二一：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[不同类型的浏览器存储](https://juejin.cn/post/6915263201882046472)|校对|2|
