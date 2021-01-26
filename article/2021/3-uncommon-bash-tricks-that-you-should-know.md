@@ -36,7 +36,7 @@
 $ mv README.txt README.md
 ```
 
-注意我们写了两次 README，而参数扩展将会避免这种重复 —— 允许我们更改文件的后缀而无需键入 README 两次：
+注意到我们写了两次 README，而参数扩展可以避免这种重复 —— 更改文件的后缀而无需输入 README 两次：
 
 ```bash
 $ mv README.{txt,md}
