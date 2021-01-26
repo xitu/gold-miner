@@ -2,20 +2,20 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-you-should-use-picture-tag-instead-of-img-tag.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-you-should-use-picture-tag-instead-of-img-tag.md)
-> * 译者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
 > * 校对者：
 
-# Why You Should Use Picture Tag Instead of  Img Tag
+# 为什么应该使用 Picture 标签而不是 img 标签
 
 ![](https://cdn-images-1.medium.com/max/5760/1*Sv9aXzgr2N6IiblcW_lFPg.jpeg)
 
-Using images and animations in user interfaces has become a common thing in modern web applications. Although these modern designs are focused on improving your application’s user experience, things can get backfired if those images are not responsive for all devices.
+现代 Web 应用程序中，在用户界面中使用大量图片和动画是一件很常见的事情。虽然这些现代设计聚焦于提升应用的用户体验，但是如果没有做好多设备对图片的响应式设计，则可能适得其反。
 
-As developers, we must fulfill all these requirements. But most of the time, we are missing out on some small things which can make a huge difference since we are searching for solutions at a higher level.
+作为开发者，我们必须完成所有的需求。但是，在大多数情况下，我们会错过一些能产生巨大改变的微小事物，因为我们站在了更高层次来解决问题。
 
-Choosing between `picture` tag and `img` tag can be such a tiny decision, but you will be able to improve both user experience and performance if you make the right choice.
+选择 `picture` 或者 `img` 标签就是这么一个微小的事物/考量/抉择，但是如果你做出了正确的选择，就可以同时提升用户体验以及应用的性能。
 
-This article will discuss the difference between the `picture` and `img` tags and what makes `picture` tag more prominent than `img` tag.
+本文接下来会讨论 `picture` 与 `img` 标签之间的差异，以及 `picture` 标签优于  `img` 标签之处。
 
 ## Why img Tag is Not Enough for Modern Web Applications?
 
