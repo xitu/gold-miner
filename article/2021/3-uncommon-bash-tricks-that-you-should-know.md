@@ -62,7 +62,7 @@ $ echo pre{,1,2}fix
 prefix pre1fix pre2fix
 ```
 
-另一个示例 —— 将 `data` 文件夹中的 `models` 文件夹重命名为文件夹 `ml`：
+另一个示例 —— 将 `data` 文件夹中的 `models` 文件夹重命名为 `ml`：
 
 ```bash
 $ mv data/models data/ml
