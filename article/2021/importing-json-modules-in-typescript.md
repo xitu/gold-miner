@@ -2,16 +2,16 @@
 > * 原文作者：[Marius Schulz](https://mariusschulz.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md)
-> * 译者：
+> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Importing JSON Modules in TypeScript
+# 在 TypeScript 中引入 JSON 模块
 
-TypeScript 2.9 introduced a new `--resolveJsonModule` compiler option that lets us import JSON modules from within TypeScript modules.
+TypeScript 2.9 版本引入了一个新的 `--resolveJsonModule` 编译器，让我们可以在 TypeScript 模块内部引入 JSON 模块。 
 
-## Importing JSON Modules via `require` Calls
+## 通过 `require` 函数的调用引入 JSON 模块
 
-Let's assume we have a Node application written in TypeScript, and let's say that we want to import the following JSON file:
+假设我们有一个用 TypeScript 编写的 Node 应用程序，并且假设我们要导入以下 JSON 文件：
 
 ```json
 {
@@ -21,13 +21,13 @@ Let's assume we have a Node application written in TypeScript, and let's say tha
 }
 ```
 
-In Node, we can use a `require` call to import this JSON file like any other CommonJS module:
+在 Node 中，我们可以调用 `require` 函数导入这一个 JSON 文件，就像是别的其他的 CommonJS 模块一样：
 
 ```js
 const config = require("./config.json");
 ```
 
-The JSON is automatically deserialized into a plain JavaScript object. This allows us to easily access the properties of our config object:
+这一个 JSON 文件会被自动的反序列化为普通的 JavaScript 对象，让我们可以轻松访问配置对象的属性：
 
 ```js
 "use strict";
@@ -38,19 +38,19 @@ const config = require("./config.json");
 const app = express();
 
 app.listen(config.server.nodePort, () => {
-  console.log(`Listening on port ${config.server.nodePort} ...`);
+  console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
-So far, so good!
+迄今为止，一切都挺棒的！
 
-## Importing JSON Files via Static `import` Declarations
+## 通过使用静态的 `import` 声明语句导入 JSON 文件
 
-Let's now say we want to use native ECMAScript modules instead of CommonJS modules. This means we'll have to convert our `require` calls to static `import` declarations:
+现在如果说我们要使用原生的 ECMAScript 模块而不是 CommonJS 模块，那么我们必须将 `require` 的调用转换为静态的 `import` 声明：
 
 ```js
-// We no longer need the "use strict" directive since
-// all ECMAScript modules implicitly use strict mode.
+// 因为所有的 ECMAScript 模块都必须使用 strict 模式
+// 我们不需要再声明 `use strict`
 
 import * as express from "express";
 import * as config from "./config.json";
@@ -58,15 +58,15 @@ import * as config from "./config.json";
 const app = express();
 
 app.listen(config.server.nodePort, () => {
-  console.log(`Listening on port ${config.server.nodePort} ...`);
+  console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
-Now, we get a type error in line 2. TypeScript doesn't let us import a JSON module out of the box, just like that. This was a conscious design decision made by the TypeScript team: pulling in large JSON files could potentially [consume a lot of memory](https://github.com/Microsoft/TypeScript/pull/22167#issuecomment-385479553), which is why we need to opt into that feature by enabling the `--resolveJsonModule` compiler flag:
+现在，程序在第 2 行中出现了类型错误。TypeScript 不允许我们按照这种方式开箱即用地导入 JSON 模块。这是 TypeScript 团队的一项明智的设计决定：获取较大的 JSON 文件可能会[消耗大量内存](https://github.com/Microsoft/TypeScript/pull/22167#issuecomment-385479553) 。这就是为什么我们需要通过启用 `--resolveJsonModule` 编译器标志来选择使用该功能：
 
-> Having people to consciously opt into this would imply the user understands the cost.
+> 让人们有意识地选择这个做法帮助着用户了解耗费的成本。
 
-Let's head over to our **tsconfig.json** file and enable the `resolveJsonModule` option there:
+让我们转到 **tsconfig.json** 文件并在其中启用该选项：
 
 ```json
 {
@@ -80,9 +80,9 @@ Let's head over to our **tsconfig.json** file and enable the `resolveJsonModule`
 }
 ```
 
-With `--resolveJsonModule` enabled, we no longer get a type error in our TypeScript file. Even better, we now get type checking and autocompletion!
+`--resolveJsonModule` 声明后，我们的 TypeScript 文件不会再出现类型错误。而且，我们现在获得了类型检查和自动补全功能！
 
-If we compile our TypeScript file with the compiler options shown above, we get the following JavaScript output:
+如果使用上面显示的编译器选项编译 TypeScript 文件，则会得到以下 JavaScript 输出：
 
 ```js
 "use strict";
@@ -91,11 +91,11 @@ const express = require("express");
 const config = require("./config.json");
 const app = express();
 app.listen(config.server.nodePort, () => {
-    console.log(`Listening on port ${config.server.nodePort} ...`);
+    console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
-Notice that the output is pretty much identical to our initial `require` version:
+注意，输出与我们的第一个方法（使用 `require`） 几乎相同：
 
 ```js
 "use strict";
@@ -106,11 +106,11 @@ const config = require("./config.json");
 const app = express();
 
 app.listen(config.server.nodePort, () => {
-  console.log(`Listening on port ${config.server.nodePort} ...`);
+  console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
-And there you go! This is how to import JSON modules from within TypeScript modules, only one compiler option away.
+这就是在 TypeScript 模块中导入 JSON 模块的方法！我们不过只需要标记一个编译器选项即可。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
