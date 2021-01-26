@@ -84,7 +84,7 @@ With `--resolveJsonModule` enabled, we no longer get a type error in our TypeScr
 
 If we compile our TypeScript file with the compiler options shown above, we get the following JavaScript output:
 
-```json
+```js
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
@@ -97,7 +97,7 @@ app.listen(config.server.nodePort, () => {
 
 Notice that the output is pretty much identical to our initial `require` version:
 
-```json
+```js
 "use strict";
 
 const express = require("express");
