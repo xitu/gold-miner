@@ -6,7 +6,7 @@
 > * 校对者：
 
 
-# 你应该知道的 3 个罕见的 Bash 技巧
+# 3 个鲜为人知的 Bash 技巧
 ![图源 Matera，摄于意大利](https://cdn-images-1.medium.com/max/4000/0*-UdH52A57htDgdu0.png)
 
 优秀开发人员键入的内容更少 —— 这让他们：
