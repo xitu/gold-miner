@@ -68,7 +68,7 @@ prefix pre1fix pre2fix
 $ mv data/models data/ml
 ```
 
-我们可以使用参数扩展 `data/` 来节省重新输入的时间：
+我们可以使用参数扩展来节省重新输入 `data/`  的时间：
 
 ```bash
 $ mv data/{models,ml}
