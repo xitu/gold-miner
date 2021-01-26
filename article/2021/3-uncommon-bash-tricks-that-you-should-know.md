@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/3-uncommon-bash-tricks-that-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/3-uncommon-bash-tricks-that-you-should-know.md)
 > * 译者：想念苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[flashhu](https://github.com/flashhu) 、[Kim Zhou](https://github.com/plusmultiply0)
 
 # 3 个鲜为人知的 Bash 技巧
 
