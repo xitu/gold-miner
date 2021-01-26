@@ -45,6 +45,7 @@ jobs:
       - uses: actions/checkout@master
         with:
           path: ./gold-miner
+          token: ${{ secrets.LSVIH_PAT }}
 
       - name: Generate Catalog
         env:
