@@ -52,7 +52,7 @@ $ echo {1,2,3}
 1 2 3
 
 $  echo pre{1,2,3}
-pre1fix pre2fix pre3fix
+pre1 pre2 pre3
 ```
 
 空元素将创建不带任何替换项的参数：
