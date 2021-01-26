@@ -7,8 +7,6 @@
 
 # Why You Should Use Picture Tag Instead of  Img Tag
 
-#### Resolution Switching, Art Direction, Chrome DevTools Support, and More
-
 ![](https://cdn-images-1.medium.com/max/5760/1*Sv9aXzgr2N6IiblcW_lFPg.jpeg)
 
 Using images and animations in user interfaces has become a common thing in modern web applications. Although these modern designs are focused on improving your application’s user experience, things can get backfired if those images are not responsive for all devices.
@@ -19,17 +17,11 @@ Choosing between `picture` tag and `img` tag can be such a tiny decision, but yo
 
 This article will discuss the difference between the `picture` and `img` tags and what makes `picture` tag more prominent than `img` tag.
 
-Next time you create a React image component — make sure to implement your soon-to-be-learned best practices in it. Return the correct tag according to the received props and take care of all necessary fallbacks. You can even share it on [**Bit.dev**](https://bit.dev)’s component hub (using [**Bit**](https://github.com/teambit/bit)) to make it available for your team as well as your future self. This way, you’ll have a super-optimized image component that you can use in all your web projects, without giving it a second thought.
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
 ## Why img Tag is Not Enough for Modern Web Applications?
 
 As we all know, the Img tag has been one of the core elements in HTML for a significant period, and there have been no doubts about its simpleness and usability.
 
-> # However, with the development of devices of various screen sizes, resolutions, and complex user requirements, questions have begun to raise about its responsiveness and ability to be used in multi-device applications.
+> **However, with the development of devices of various screen sizes, resolutions, and complex user requirements, questions have begun to raise about its responsiveness and ability to be used in multi-device applications.**
 
 All these questions can be grouped into two major issues;
 
@@ -38,13 +30,11 @@ All these questions can be grouped into two major issues;
 
 Now, let’s see how these issues have been addressed and the `picture` tag’s additional features.
 
----
-
 ## Resolution Switching Using srcset & sizes Attributes
 
 As I mentioned earlier, modern-day web designers often use high-resolution images to increase user attraction. But as developers, we must be really careful to choose the correct HTML element.
 
-> # Suppose you use a simple Img tag for high-res images. In that case, that same image is used in each device your application runs, and indeed it will result in performance issues in devices with lower screen resolutions like mobile devices.
+> **Suppose you use a simple Img tag for high-res images. In that case, that same image is used in each device your application runs, and indeed it will result in performance issues in devices with lower screen resolutions like mobile devices.**
 
 This could result in longer image loading times and top to bottom partial image loadings.
 
@@ -52,7 +42,7 @@ This could result in longer image loading times and top to bottom partial image 
 
 This issue can be easily addressed with the`picture` tag by using `srcset` and `sizes` attributes.
 
-```
+```html
 <picture>
 
    <source
@@ -74,9 +64,9 @@ This issue can be easily addressed with the`picture` tag by using `srcset` and `
 
 The `sizes` attribute defines the space that the image will take up on the screen. In the above example, the image will take up 1200px if the screen’s minimum width is 1280px.
 
-> # Having said that, it is advisable not to use the Picture tag just for Resolution Switching since the same can be achieved using the updated version of the Img tag (which has more browser support)
+> **Having said that, it is advisable not to use the Picture tag just for Resolution Switching since the same can be achieved using the updated version of the Img tag (which has more browser support)**
 
-```
+```html
 <img srcset="small-car-image.jpg 400w,
              medium-car-image.jpg 800w,
              large-car-image.jpg 1200w"
@@ -92,17 +82,15 @@ But, in most cases, we need to handle both Resolution Switching and Art Directio
 
 So let’s see how we can resolve Art Direction using the `picture` tag.
 
----
-
 ## Art Direction Using media Attribute
 
 The main idea behind Art Direction is to display different images based on the screen sizes of the device. In most cases, an image that looks fabulous on larger screens may get cropped or look so small when you switch to mobile.
 
-> # We can address this issue by providing different versions of the image for different screen sizes. These different versions can be landscape, portrait, or any customized version of the same image.
+> **We can address this issue by providing different versions of the image for different screen sizes. These different versions can be landscape, portrait, or any customized version of the same image.**
 
 With `picture` tag, we can easily achieve resolution switching by using multiple `source` tags inside the `picture` tag.
 
-```
+```html
 <picture>
    
    <source ....>
@@ -116,7 +104,7 @@ Then we can use `media` attribute to define different media conditions where the
 
 The following example shows a complete example of using Art Direction and Resolution Switching using a `picture` tag.
 
-```
+```html
 <picture>
      
    <source media="(orientation: landscape)"
@@ -146,7 +134,7 @@ The following example shows a complete example of using Art Direction and Resolu
 
 If the screen orientation is landscape browser will show the images from the first image set, and if the orientation is portrait browser will use the second set. In addition to that, you can use `media `attribute with `max-width` and `min-width` parameters:
 
-```
+```html
 <picture>
      <source media="(max-width: 767px)" ....>
      <source media="(min-width: 768px)" ....>
@@ -155,17 +143,15 @@ If the screen orientation is landscape browser will show the images from the fir
 
 The last `img` tag is there for backward compatibility for browsers that do not support `picture` tags.
 
----
-
 ## Using with Partially Supported Image Types
 
 With the rapid development of technologies, different types of modern image types are introduced day by day. Some of these types such as `webp`, `svg` , and `avif` provide a higher user experience level.
 
 On the other hand, there are limitations in some browsers on these modern image types, and things will get backfired if we don’t use the compatible image types.
 
-> # But, we can easily address this issue by using Picture tag since it allows us to include multiple sources inside that.
+> **But, we can easily address this issue by using Picture tag since it allows us to include multiple sources inside that.**
 
-```
+```html
 <picture>
 
   <source srcset="test.avif" type="image/avif">
@@ -177,13 +163,11 @@ On the other hand, there are limitations in some browsers on these modern image 
 
 The above example includes three image types from `avif`, `webp`, and `png `formats. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
 
-> # Things got more interesting about picture tag when Chrome announced that “DevTools will provide two new emulations in the Rendering tab to emulate partially supported image types”.
+> **Things got more interesting about picture tag when Chrome announced that “DevTools will provide two new emulations in the Rendering tab to emulate partially supported image types”.**
 
 From Chrome 88 Onwards, You Can Use Chrome DevTools to Check Browser Compatibility with Image Types.
 
 ![Using Chrome DevTools for Image Compatibility Emulations](https://cdn-images-1.medium.com/max/2562/1*GAFavZjkfi4FUDRkkPMA4Q.png)
-
----
 
 ## Final Thoughts
 
@@ -198,14 +182,6 @@ The ability to work with partially supported image types and Chrome DevTools sup
 However, both these elements have their pros and cons. So we must carefully think and use the most suitable element based on our requirements.
 
 Thank you for Reading !!!
-
-## Learn More
-[**How we Build a Design System**
-**Building a design system with components to standardize and scale our UI development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-our-design-system-15713a1f1833)
-[**Technique for Color Blind Friendly Web Apps using Chrome DevTools**
-**Around 10% of people globally suffer from color vision deficiencies and it’s high time to make them accessible**blog.bitsrc.io](https://blog.bitsrc.io/technique-for-color-blind-friendly-web-apps-using-chrome-devtools-fe25d8fcb83e)
-[**Improve Page Rendering Speed Using Only CSS**
-**4 Important CSS tips for faster page rendering**blog.bitsrc.io](https://blog.bitsrc.io/improve-page-rendering-speed-using-only-css-a61667a16b2)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
