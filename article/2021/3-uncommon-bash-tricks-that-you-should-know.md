@@ -82,7 +82,7 @@ $ mkdir data{0..2}
 mkdir data0 data1 data2
 ```
 
-我们还可以在**参数内部进行参数扩展** —— 例如，更改路径中间的文件夹：
+我们还可以在**参数内部进行参数扩展** —— 例如，更改路径中的文件夹名称：
 
 ```bash
 $ cat models/{baseline,final}/data.csv
