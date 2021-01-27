@@ -99,7 +99,7 @@ internal class ImageSizeMeasurer {
 }
 ```
 
-我们使用 `copy` 函数以让不会修改客户端的数据，让这些字段可以在客户端之间共享（所以不管你的字段从某个地方更改都不会有让我们惊讶的变化发生）。
+在这里我们使用了 `copy` 函数，在不修改原始数据的基础上获取了尺寸。`copy` 方法让这些数据可以在不同地方之间共享（所以不管你的字段从哪一个地方更改，都不会影响别的地方的数据以让程序出现异常）。
 
 这里的关键是在设置大小和比例后，我们需要对其进行调整。我们需要执行 `adjustDesiredHeight` 和 `adjustDesiredWidth` 函数以进行任何智能检查，而这是百利无一害的。第一个函数在 `height`
 小于 `width` 的情况下会增加 `desiredSize` 的最小高度到 `minSize`，第二个函数在 `width` 小于 height 的情况下会增加 `desiredSize` 的最小宽度到 `minSize`。
