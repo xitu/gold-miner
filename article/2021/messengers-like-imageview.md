@@ -10,7 +10,6 @@
 ![](https://cdn-images-1.medium.com/max/2372/1*eUsCLT2MWPgMMc_7ltldOw.png)
 
 在上一个故事中，我们讨论了[发送图片消息时候的上传动画以及构建这个动画的方法](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63)。而今天我决定写一篇与图片的显示有关的文章。先来提个问题，我们应该用什么方法在历史记录中显示图片？
-。今天，我决定写有关图片本身的文章，我们应该如何在消息历史记录中显示它们？
 
 当然是使用 `ImageView` 啦！好的这篇文章到此结束啦！
 
