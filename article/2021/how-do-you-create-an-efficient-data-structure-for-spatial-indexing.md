@@ -1,13 +1,11 @@
-> * 原文地址：[How do you create an Efficient Data Structure for Spatial Indexing?](https://medium.com/javarevisited/how-do-you-create-an-efficient-data-structure-for-spatial-indexing-3555455f6510)
-> * 原文作者：[Edward Huang](https://medium.com/@edwardgunawan880)
+> * 原文地址：[How do you create an Efficient Data Structure for Spatial Indexing?](https://edward-huang.com/algorithm/programming/tech/java/2021/01/11/data-structure-for-spatial-indexing/)
+> * 原文作者：[Edward Huang](https://edward-huang.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md)
 > * 译者：
 > * 校对者：
 
 # How do you create an Efficient Data Structure for Spatial Indexing?
-
-![**Originally published at [https://edward-huang.com](https://edward-huang.com/algorithm/programming/tech/java/2021/01/11/data-structure-for-spatial-indexing/).**](https://cdn-images-1.medium.com/max/2000/0*x2LHv83qYGr6Wk6K)
 
 Data structure helps us store values within our data and help us efficiently do the operation with those data if we need them. For instance, if we want to store 1-dimensional data points, natural numbers that you will plot in a single line or a string, we can use a [1D array](https://medium.com/javarevisited/20-array-coding-problems-and-questions-from-programming-interviews-869b475b9121) to store these data. To create a fast retrieval (search), we will use a natural order indexing (1 \< 2 \< 3) or using a data structure like Trie or [Binary Tree](https://medium.com/javarevisited/20-binary-tree-algorithms-problems-from-coding-interviews-c5e5a384df30).
 
@@ -191,13 +189,7 @@ public Set<QuadNode<P>> search(Point p) {
 ## Conclusion
 
 * To store geolocation, a sequential search with natural ordering is not fast enough. We will use spatial Indexing to search for a 2D space.
-* A quadTree is like an equivalent [data structure](https://medium.com/javarevisited/7-best-courses-to-learn-data-structure-and-algorithms-d5379ae2588?source=---------18------------------) for a binary tree in the 1D space. However, we can use **QuadTree** for any time you have sparse data that you need to search.
-
----
-
-**Thanks for reading! If you enjoy this post, feel free to [subscribe](https://edward-huang.com/subscribe/) to my newsletter to get notified on essays about Career in Tech, interesting links, and content!**
-
-You can follow me also follow me on [Medium](https://medium.com/@edwardgunawan880) for more posts like this.
+* A quadTree is like an equivalent [data structure](https://medium.com/javarevisited/7-best-courses-to-learn-data-structure-and-algorithms-d5379ae2588) for a binary tree in the 1D space. However, we can use **QuadTree** for any time you have sparse data that you need to search.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
