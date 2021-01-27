@@ -2,24 +2,24 @@
 > * 原文作者：[Peter Friese](https://peterfriese.dev/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ultimate-guide-to-swiftui2-application-lifecycle.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ultimate-guide-to-swiftui2-application-lifecycle.md)
-> * 译者：
+> * 译者：[zhuzilin](https://github.com/zhuzilin)
 > * 校对者：
 
 ![Image based on [Rocket](https://thenounproject.com/kavya261990/collection/space/?i=3437783) by [Icongeek26](https://thenounproject.com/kavya261990) on [The Noun Project](https://thenounproject.com/)](https://cdn-images-1.medium.com/max/2880/1*nhb0C-BMierO2SW0bvtKqA.png)
 
-# The Ultimate Guide to the SwiftUI 2 Application Life Cycle
+# SwiftUI 2 应用生命周期的终极指导
 
-For the longest time, iOS developers have used `AppDelegate`s as the main entry point for their applications. With the launch of SwiftUI2 at WWDC 2020, Apple has introduced a new application life cycle that (almost) completely does away with `AppDelegate`, making way for a DSL-like approach.
+在很长一段时间里，`AppDelegate` 都是 iOS 开发者们的应用的入口。随着 SwiftUI2 在 WWDC 2020 上发布，苹果公司引入了一个新的应用生命周期。新的生命周期几乎（几乎）完全与 `AppDelegate` 无关，为类 DSL 的方法铺平了道路。
 
-In this article, I will discuss why this change was introduced, and how you can make use of the new life cycle in new or existing apps.
+在本文中，我会讨论引入新的生命周期的原因，以及你该如何在新旧应用中使用它。
 
-## Specifying the application entry point
+## 指定应用入口
 
-One of the first questions that we need to answer is, how can we tell the compiler about the entry point to our application? [SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md) specifies how **Type-Based Program Entry Points** work:
+我们的第一个问题是，该如何告诉编译器哪里是应用的入口呢？[SE-0281]（https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md）详述了**基于类型的程序入口（Type-Based Program Entry Points）**的工作方式：
 
-> The Swift compiler will recognize a type annotated with the @main attribute as providing the entry point for a program. Types marked with @main have a single implicit requirement: declaring a static main() method.
+> Swift编译器将识别标注了 @main 属性的类型为程序的入口。标有 @main 的类型有一个隐式要求：类型内部需要声明一个静态 main() 方法。
 
-When creating a new SwiftUI app, the app’s main class looks like this:
+创建新的 SwiftUI 应用时，应用的 main class 如下所示：
 
 ```swift
 import SwiftUI
@@ -34,29 +34,27 @@ struct SwiftUIAppLifeCycleApp: App {
 }
 ```
 
-So where is the static `main()` function that’s mentioned in SE-0281?
+那么 SE-0281 提到的静态 `main()` 函数在哪儿呢？
 
-Well, it turns out that framework providers can (and should) provide a default implementation for their users’ convenience. Looking at the code snippet above, you will notice that `SwiftUIAppLifeCycleApp` conforms to the `App` protocol. Apple provides a protocol extension that looks like this:
+实际上，框架可以（并且应该）为用户提供方便的默认实现。你会从上面的代码片段注意到 `SwiftUIAppLifeCycleApp` 遵循 `App` 协议。对于 `App` 协议，苹果提供了如下协议扩展：
 
 ```swift
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 extension App {
 
-    /// Initializes and runs the app.
+    /// 初始化并运行应用。
     ///
-    /// If you precede your ``SwiftUI/App`` conformer's declaration with the
+    /// 如果你在你的 ``SwiftUI/App`` 的实现类（conformer）的声明前加上了
     /// [@main](https://docs.swift.org/swift-book/ReferenceManual/Attributes.html#ID626)
-    /// attribute, the system calls the conformer's `main()` method to launch
-    /// the app. SwiftUI provides a
-    /// default implementation of the method that manages the launch process in
-    /// a platform-appropriate way.
+    /// 属性，系统会调用这个实现类的 `main()` 方法来启动应用。
+    /// SwiftUI 提供了该方法的默认实现，从而能以适合平台的方式处理应用启动流程。
     public static func main()
 }
 ```
 
-And there we have it - this protocol extension provides a default implementation that takes care of the application startup.
+这下你就懂了吧 —— 这个协议扩展提供了处理应用启动的默认的实现。
 
-Since the SwiftUI framework isn’t open source, we can’t see how Apple implemented this, but [Swift Argument Parser](https://github.com/apple/swift-argument-parser) is open source, and uses this approach as well. Check out the source code for `ParsableCommand` to see how they use a protocol extension to provide a default implementation of the static `main` function that serves as the program entry point:
+由于 SwiftUI 框架不是开源的，所以我们看不到苹果是如何实现此功能的，但是 [Swift Argument Parser](https://github.com/apple/swift-argument-parser) 是开源的，并且也用了这个办法。查看 `ParsableCommand` 的源码，就能了解它是如何用协议扩展来提供静态 `main` 函数的默认实现，并将其用作程序入口的：
 
 ```swift
 extension ParsableCommand {
@@ -76,21 +74,20 @@ extension ParsableCommand {
 }
 ```
 
-If all this sounds a bit complicated, the good news is you don’t actually have to worry about it when creating a new SwiftUI application: just make sure to select **SwiftUI App** in the **Life Cycle** dropdown when creating your app, and you’re done:
+如果上述这些听起来有点复杂，好消息是实际上在创建新的SwiftUI应用程序时你不必关心它：只需确保在 **Life Cycle** 下拉菜单中选择 **SwiftUI App** 来创建你的应用程序就行了：
 
-![**Creating a new SwiftUI project**](https://cdn-images-1.medium.com/max/2000/0*XWa5RgMK2WllmlHk.png)
+![**创建一个新的 SwiftUI 项目**](https://cdn-images-1.medium.com/max/2000/0*XWa5RgMK2WllmlHk.png)
 
-Let’s take a look at some common scenarios.
+让我们来看一些常见的情况。
+## 初始化资源 / 你最喜欢的 SDK 或框架
 
-## Initialising resources / your favourite SDK or framework
+大多数应用程序需要在启动时执行这些步骤：获取一些配置值，连接数据库或者初始化框架或第三方 SDK。
 
-Most applications need to perform a few steps at application startup: fetching some configuration values, connecting to a database, or initialising a framework or third-party SDK.
+通常，您可以在 `ApplicationDelegate` 的 `application(_:didFinishLaunchingWithOptions:)` 方法中进行这些操作。由于已经没有应用委托了，我们需要找到其他方法来初始化我们的应用程序。根据您的特定需求，有以下策略：
 
-Usually, you’d do this in your `ApplicationDelegate`s `application(_:didFinishLaunchingWithOptions:)` method. As we no longer have an application delegate, we need to find other ways to initialise our application. Depending on your specific requirements, here are some strategies:
-
-* Implement an initialiser on your main class (see the [docs](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID205))
-* Set initial values for stored properties (see the [docs](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID206))
-* Set default property values using a closure (see the [docs](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID232))
+* 为你的 main class 实现一个构造函数（initializer）（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID205)）
+* 为存储属性设置初始值（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID206)）
+* 用闭包设置属性的默认值（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID232)）
 
 ```swift
 @main
@@ -106,17 +103,17 @@ struct ColorsApp: App {
 }
 ```
 
-If none of this meets your needs, you might need an AppDelegate after all. Read on until the end to learn how you can add one.
+如果上述几种策略都无法满足你的需求，你可能还是需要一个 AppDelegate。后文会介绍如果能在应用中加入一个 AppDelegate。
 
-## Handling your application’s life cycle
+## 处理你的应用的生命周期
 
-It’s sometimes useful to be able to know which state your application is in. For example, you might want to fetch new data as soon as your app becomes active, or flush any caches once your application becomes inactive and transitions into the background.
+了解你的应用程序处于哪种状态有时很有用。例如，你可能希望应用处于活动状态时立即获取新数据，或者在应用程序变为非活动状态并转换到后台后清除所有缓存。
 
-Usually, you would implement `applicationDidBecomeActive`, `applicationWillResignActive`, or `applicationDidEnterBackground` on your `ApplicationDelegate`.
+通常，您可以在你的 `ApplicationDelegate` 上实现 `applicationDidBecomeActive`，`applicationWillResignActive` 或 `applicationDidEnterBackground`。
 
-Starting with iSO 14.0, Apple has provided a new API that allows for a more elegant and maintainable way of tracking an app’s state: `[ScenePhase](https://developer.apple.com/documentation/swiftui/scenephase)`. Your project can have multiple scenes, but chances are you’ve got only one scene, represented by `[WindowGroup](https://developer.apple.com/documentation/swiftui/windowgroup)`.
+从 iOS 14.0 起，苹果提供了新的 API，该 API 允许以更优雅，更易维护的方式跟踪应用程序状态：`[ScenePhase](https://developer.apple.com/documentation/swiftui/scenephase)`。你的项目可以有多个场景（scene），不过有时只有一个场景，由 [WindowGroup](https://developer.apple.com/documentation/swiftui/windowgroup) 表示。
 
-SwiftUI tracks a scene’s state in the environment, and you can make the current value accessible to your code by fetching it using the `@Environment` property wrapper, and then using the `onChange(of:)` modifier to listen to any changes:
+SwiftUI 追踪环境中场景的状态，你可以使用 `@Environment` 属性包装器来获取 `scenePhase` 的值，然后使用 `onChange(of:)` modifier 来监听该值的变化：
 
 ```swift
 @main
@@ -143,13 +140,13 @@ struct SwiftUIAppLifeCycleApp: App {
 }
 ```
 
-It is worth noting that you can read the phase from other locations in your app as well. When reading the phase at the top level of the app (like shown in the code snippet), you will get an aggregate of all the phases in your app. A value of `.inactive` means that none of the scenes in your app is active. When reading the phase on a view, you will receive the value of the phase that contains the view. Keep in mind your app might contain other scenes that have other phase values at this time. For more details about scene phases, read Apple’s [documentation](https://developer.apple.com/documentation/swiftui/scenephase).
+值得注意的是，你可以从应用中的其他位置读取该值。当在应用的顶层读取该值时（如上面的代码片段所示），你将获得应用程序中所有阶段（phase）的汇总。`.inactive` 表示你应用中的所有场景均未激活。当在视图中读取 `scenePhase` 时，你将收到包含该视图的阶段值。请记住，你的应用程序在在同一时刻可能包含在不同阶段的多个场景。想了解有关场景阶段的更多详细信息，请阅读苹果的[文档]（https://developer.apple.com/documentation/swiftui/scenephase）。
 
-## Handling deep links
+## 处理深层链接（Deeplink）
 
-Previously, when handling deep links, you’d have to implement `application(_:open:options:)`, and route the incoming URL to the most appropriate handler.
+之前，在处理深层链接时，你需要实现 `application(_:open:options:)`，并将传入的 URL 转给最合适的处理程序。
 
-This becomes a lot easier with the new app life cycle model. You can handle incoming URLs by attaching the `onOpenURL` modifier to the top-most scene in your app:
+新的应用生命周期模型可以更容易地处理深层链接。在最顶层的场景上添加 `onOpenURL` 就可以处理传入的 URL 了：
 
 ```swift
 @main
@@ -165,13 +162,13 @@ struct SwiftUIAppLifeCycleApp: App {
 }
 ```
 
-What’s really cool: you can install multiple URL handlers throughout your application - making deep linking a lot easier, as you can handle incoming links where it’s most appropriate.
+真正酷的是：你可以在整个应用程序中装上多个 URL 处理程序 —— 让进行深层链接变得很轻松，因为你可以在最合适的位置处理传入的链接。
 
-If at all possible, you should use [universal links](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content) (or [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links), which makes use of [universal links for iOS apps](https://firebase.google.com/docs/dynamic-links/operating-system-integrations)), as these use associated domains to create a connection between a website you own and your app - this will allow you to share data securely.
+可能的话，你应该使用 [universal links](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content)（或者 [Firebase Dynamic Links](https://firebase.google.com/docs/dynamic-links)，它使用了 [universal links for iOS apps](https://firebase.google.com/docs/dynamic-links/operating-system-integrations)），因为它们使用了关联域（associated domain）来创建网站和你的应用之间的链接 —— 这会让你可以安全地共享数据。
 
-However, you can still use [custom URL schemes](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) to link to content within your app.
+不过，你仍可以使用[自定义 URL scheme](https://developer.apple.com/documentation/xcode/allowing_apps_and_websites_to_link_to_your_content/defining_a_custom_url_scheme_for_your_app) 来链接应用内部的内容。
 
-Either way, a simple way to trigger a deep link in your app is to use the following command on you development machine:
+无论哪种方式，触发应用中的深层链接的一种简单方法是在开发计算机上使用以下命令：
 
 ```bash
 xcrun simctl openurl booted <your url>
@@ -179,13 +176,13 @@ xcrun simctl openurl booted <your url>
 
 ![Demo: Opening deep links and continuing user activities](https://cdn-images-1.medium.com/max/2000/1*RMYt_zbKht6oqYJdTn9S_w.gif)
 
-## Continuing user activities
+## 继续用户活动
 
-If your app uses `NSUserActivity` to [integrate with](https://developer.apple.com/documentation/foundation/nsuseractivity) Siri, Handoff, or Spotlight, you need to handle user activity continuation.
+如果你的应用使用 `NSUserActivity` 来[集成](https://developer.apple.com/documentation/foundation/nsuseractivity) Siri、Handoff 或 Spotlight，你需要处理用户继续进行的活动。
 
-Again, the new application life cycle model makes this easier by providing two modifiers that allow you to advertise an activity and later continue it.
+同样，新的应用生命周期模型通过提供两个 modifier 使你更容易实现这一点。这些 modifier 使你可以公示活动并随后继续进行。
 
-Here is a snippet that shows how to advertise an activity, for example, in a details view:
+下面是一个展现如何公示活动的代码片段。在一个具体的视图里：
 
 ```swift
 struct ColorDetailsView: View {
@@ -204,7 +201,7 @@ struct ColorDetailsView: View {
 }
 ```
 
-To allow continuation of this activity, you can register a `onContinueUserActivity` closure in your top-level navigation view, like this:
+为了允许继续进行此活动，你可以在最顶层的导航视图中注册 `onContinueUserActivity` 闭包，如下所示：
 
 ```swift
 import SwiftUI
@@ -237,13 +234,13 @@ struct ContentView: View {
 }
 ```
 
-## Help - none of the above works for me!
+## 请帮帮我 —— 上述的那些对我都不管用！
 
-Not all of `AppDelegate`’s callbacks are supported by the new application life cycle (yet). If none of the above meets your needs, you might require an `AppDelegate` after all.
+新的应用声明周期（截止当前）并非支持 `AppDelegate`的所有回调函数。如果上述这些都不满足你的需求，你可能还是需要一个 `AppDelegate`。
 
-Another reason you might require an AppDelegate is if you use any third-party SDKs that make use of [method swizzling](https://pspdfkit.com/blog/2019/swizzling-in-swift/) to inject themselves into the application life cycle. [Firebase](https://firebase.google.com/) is a [well-known case](https://stackoverflow.com/a/62633158/281221).
+另一个需要 AppDelegate 的原因是你使用的第三方 SDK 会使用 [method swizzling](https://pspdfkit.com/blog/2019/swizzling-in-swift/) 来把它们注入应用生命周期。[Firebase](https://firebase.google.com/) 就是一个[著名的例子](https://stackoverflow.com/a/62633158/281221)。
 
-To help you out, Swift provides a way to connect a conformer of `AppDelegate` with your `App` implementation: `@UIApplicationDelegateAdaptor`. Here is how to use it:
+为了帮助上述情况中的你摆脱困境，Swift 提供了一种将 `AppDelegate` 的一个实现类与你的 `App` 实现相连接的方法：`@UIApplicationDelegateAdaptor`。使用方法如下：
 
 ```swift
 class AppDelegate: NSObject, UIApplicationDelegate {
@@ -266,27 +263,27 @@ struct ColorsApp: App {
 }
 ```
 
-Don’t forget to remove the `@main` attribute if you copy an existing `AppDelegate` implementation - otherwise, the compiler will complain about multiple application entry points.
+如果你是在复制现有的 `AppDelegate` 实现，不要忘记删除 `@main` 属性 —— 不然，编译器该向你抱怨存在多个应用入口了。
 
-## Conclusion
+## 总结
 
-With all this, let’s discuss why Apple made this change. I think there are a couple of reasons:
+至此，让我们讨论一下苹果为什么要进行这些改变。我觉得有以下的几个原因：
 
 [SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md#motivation) explicitly states that one of the design goals was **“to offer a more general purpose and lightweight mechanism for delegating a program’s entry point to a designated type.”**
 
-The DSL-based approach Apple chose for handling the application life cycle aligns nicely with the declarative approach for building UIs in SwiftUI. Using the same concepts makes things easier to understand and will help onboarding new developers.
+苹果选择的基于 DSL 来处理应用生命周期的方法和 SwiftUI 的声明式 UI 搭建方法相契合。两者采用相同的概念可以更方便新加入的开发者们理解。
 
-The key benefit of any declarative approach is: instead of putting the burden of implementing a specific functionality on developers, the framework / platform provider takes care of this. Should any changes become necessary, it will be a lot easier to ship these without breaking many developers’ apps - ideally, developers won’t have to change their implementation, as the framework will take care of everything for you.
+声明式方法的主要好处是：框架/平台将替代开发者承受实现特定功能的负担。如果需要进行任何更改，这种模式可以在不破坏许多开发人员的应用的情况下进行发布，这也使发布更改变得更容易 —— 理想情况下，开发人员无需更改其实现，因为框架将把一切都搞定。
 
-Overall, the new application life cycle model makes implementing your application start-up easier and less convoluted. Your code will be cleaner and easier to maintain - and that’s always a good thing, if you ask me.
+总体而言，新的应用生命周期模型使实现应用程序的启动更加简单。你的代码将变得更加简洁，更易于维护 —— 要我说，这总是一件好事。
 
-I hope this article helped you understand the ins and outs of the new application life cycle. If you’ve got any questions or remarks regarding this article, feel free to [follow me on Twitter](https://twitter.com/peterfriese) and send me a message, or file an issue on the [sample project on GitHub](https://github.com/peterfriese/Colors).
+我希望本文能帮你了解新的应用生命周期的来龙去脉。如果你有关于本文的任何疑问或评论，欢迎[在 Twitter 上关注](https://twitter.com/peterfriese)并私信我，或者在 [GitHub 上的样例项目](https://github.com/peterfriese/Colors)中提 issue。
 
-Thanks for reading!
+感谢你的阅读！
 
-## Further reading
+## 扩展阅读
 
-If you want to learn more, check out these resources:
+想了解更多，请查看下面的这些资料：
 
 * [Swift Evolution SE-0281 - @main: Type-Based Program Entry Points](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md)
 * [The App Protocol](https://developer.apple.com/documentation/swiftui/app)
