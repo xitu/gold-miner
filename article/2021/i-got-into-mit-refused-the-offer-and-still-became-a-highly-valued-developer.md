@@ -1,121 +1,121 @@
-> * 原文地址：[I Got Into MIT, Refused the Offer, and Still Became a Highly Valued Developer](https://medium.com/better-programming/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer-a4bff1b8cac2)
-> * 原文作者：[Zachary Minott](https://medium.com/@zack_minott)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[I Got Into MIT, Refused the Offer, and Still Became a Highly Valued Developer](https://medium.com/better-programming/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer-a4bff1b8cac2)
+> - 原文作者：[Zachary Minott](https://medium.com/@zack_minott)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md)
+> - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> - 校对者：
 
-# I Got Into MIT, Refused the Offer, and Still Became a Highly Valued Developer
+# 我拒绝了 MIT 的 Offer，依然是一个高价值的开发者
 
 ![Photo by [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/11232/0*pqI507rUeD-sclHu)
 
-As a kid, I always dreamed of getting into MIT (Massachusetts Institute of Technology), which I’m sure many of you hoped to get into as well at a time when you were still applying for colleges.
+小时候我一直梦想进入 MIT (麻省理工学院)，我敢肯定这也是大多数人在申请大学时的想法。
 
-Now you must think I’m insane. MIT is the school that not only has [the best](https://www.businessinsider.com/best-computer-science-schools-in-the-world-2018-3#1-massachusetts-institute-of-technology-mit-50) computer science program in the world but is also ranked as the ****[best university in the world](https://news.mit.edu/2020/qs-world%E2%80%99s-no-1-university-2020-21-0609#:~:text=for%202020%2021-,QS%20ranks%20MIT%20the%20world's%20No.,first%20in%2012%20subject%20areas.). ****And guess what? As the cherry on top, I got a scholarship to go there that nearly covered the entire tuition. If I had gone, I’m sure my career in tech would have soared and I would’ve networked with a plethora of brilliant individuals.
+你可以能觉得我在异想天开，MIT 不仅有着世界上[最好](https://www.businessinsider.com/best-computer-science-schools-in-the-world-2018-3#1-massachusetts-institute-of-technology-mit-50)的计算机科学专业而且还是****[排名最好的大学](https://news.mit.edu/2020/qs-world%E2%80%99s-no-1-university-2020-21-0609#:~:text=for%202020%2021-,QS%20ranks%20MIT%20the%20world's%20No.,first%20in%2012%20subject%20areas.)。****然后你猜怎么着，我以第一名的成绩考上了并获得奖学金，几乎可以抵掉大多数的学费。如果去了那里，我的技术事业肯定会突飞猛进，并且和许多聪明人打交道。
 
-Instead, [I went to a state school](https://medium.com/the-ascent/4-brutally-honest-reasons-why-i-declined-my-offer-to-the-worlds-best-university-for-a-state-school-6a70d8a452e7) where the engineering program was considered decent but nothing to brag about. Yet, I now stand as [one of the most valuable programming assets](https://medium.com/better-programming/how-i-made-myself-a-more-valuable-programmer-in-6-months-and-how-you-can-too-97f3323f9035) in my current company, which tells me this: You don’t need an expensive, the best, or even a decent formal education to become a valuable programmer.
+然而[我去了一所州立学校](https://medium.com/the-ascent/4-brutally-honest-reasons-why-i-declined-my-offer-to-the-worlds-best-university-for-a-state-school-6a70d8a452e7)，那地方虽然工程专业虽然算不上顶尖，但是也还行吧。现在我代表着我司 [最重要的编程资产之一](https://medium.com/better-programming/how-i-made-myself-a-more-valuable-programmer-in-6-months-and-how-you-can-too-97f3323f9035) ，这是我意识到并非昂贵的，最好的，甚至体面的正规教育才能成就一个有价值的程序员。
 
-I guess you think this insight is obvious when you hear people like Elon Musk [tweet out](https://www.inc.com/jeff-haden/if-you-want-to-work-at-tesla-elon-musk-just-tweeted-he-doesnt-care-if-you-even-graduated-high-school-it-might-be-smartest-thing-hes-ever-said.html#:~:text=Musk%20doesn't%20care%20whether,will%20have%20to%20demonstrate%20knowledge.) that you don’t need a degree or even a high school education to work for him. You just need to know your stuff.
+你们可能在听到埃隆马斯克 [发推文](https://www.inc.com/jeff-haden/if-you-want-to-work-at-tesla-elon-musk-just-tweeted-he-doesnt-care-if-you-even-graduated-high-school-it-might-be-smartest-thing-hes-ever-said.html#:~:text=Musk%20doesn't%20care%20whether,will%20have%20to%20demonstrate%20knowledge.) 告诉你不需要学位，甚至不需要高中毕业就可以为他工作时也会有这种感受。你只需要知道你有什么。
 
-Still, I don’t see enough people who are actually going out of their way to learn on their own. Elon’s comment doesn’t excuse the lack of education altogether. Rather, it means he wants a **self-motivated** and **self-reliant** person who has enough of an interest in say, AI, to explore that topic deeply and comprehensively on their own.
+不过，我还是很少看到有人在真正探寻自己的学习之路，埃隆的说法并不意味着他就轻易放过了那些缺乏教育的人，恰恰相反，他希望寻找一个对 AI 有足够兴趣并且能够 **自我激励** 和 **自力更生** 的人，一起深入探讨这个话题。
 
-That’s the way you should pursue your personal growth as a developer. After all, Elon was a self-starter himself. When asked how he learned to build rockets, he simply said, “I read books.” Be a self-starter.
+所以说开发人员应该有自我驱动能力，毕竟埃隆自己也是一个自我驱动型的人，当别人问他如何学习制造火箭，他简要回答：“我通过读书学习”。成为一个自我驱动型的人。
 
-**What you shouldn’t do, on the other hand, is this.**
+**从另一角度来说，你不该这么干**
 
-## Do Not Depend on Your Circumstances to Define Your Personal Growth as an Engineer
+## 工程师的成长不应该局限于当前环境
 
-Far too often, we put too much dependence on where we are currently at or where we could be to bolster the growth of our careers.
+很多时候，我们的成长都过度依赖于目前或将来可能所处的位置。
 
-You say things like:
+你可能会说：
 
-* “My job doesn’t provide me with enough resources to learn and grow.”
-* “My manager doesn’t give me tasks difficult enough to stretch my abilities.”
-* “Only if I went to the right college would I be able to really shine as an engineer. Instead, I feel like my education has hindered my potential to be great.”
-* “My manager isn’t noticing me and I’ve been working so hard. Maybe they’ll eventually notice and promote me if I keep on working.”
+- “工作没有为我提供足够的资源来学习和成长。”
+- “经理给我的任务不足以扩展我的能力。”
+- “只有上了正确的大学，才能真正成为一名工程师。 相反，我觉得我的学业阻碍了我的天赋发展。”
+- “经理没有注意到我，我一直在努力工作。 如果我继续努力的话，也许他们最终会注意到并提拔我。”
 
-The grass is always greener. Where you’re at isn’t enough. The path you took in the past got you nowhere. Your mind is full of regret and what-ifs. It’s all really just an excuse.
+邻家的草分外青，人生没有回头路，你的内心充满了悔不当初。这真的只是一个借口。
 
-You can’t depend on external circumstances to define you as a developer or as a person in general.
+你不能根据自己所处的外部环境就把自己定义成开发人员或者一般人员。
 
-Think about it. Maybe work is the only place where you really stretch and hone your intellectual skills. Maybe you hold another company on a pedestal and always point fingers at your company and everything it’s doing wrong. Maybe you’re completely blind to anything you’re ignorant about in the world of development and don’t even have a sliver of a clue that you’re inefficient in the first place.
+仔细想想，工作可能是唯一能练习和扩展知识技能的地方，也许你以某家公司为参考标准，然后总是对自己的公司百般挑剔。也许你完全看不到这个世界的发展，甚至根本没有证据表明自己效率低下。
 
-I could’ve gone to MIT and said that going to an elite college like that would define my career as a developer. I could’ve said that the failed startups I worked at were a waste of time and I should have instead found an internship at companies like Microsoft and Google. I could’ve been pissed about the fact that I spent multiple years learning game development and building out those side projects just to in the end become a Salesforce developer instead. I could have floated through life, not learned a thing on my own, and ultimately ended up thinking about the potential I had.
+我本可以去 MIT，进入这样的精英大学基本上意味着我是个开发人员了。我本可以说在初创公司工作是浪费时间，我应该微软或者谷歌实习。我可能因为我花了多年时间学习游戏开发并开发这些附带项目成为一个 Salesforce 开发人员，现状本该让我非常不满。我本可以在生活中游刃有余，而不是自学成才，最终只能想想我还有什么潜力。
 
-Rather, I look at all these choices and realize that they were my own. They were experiences that I had and the only thing I can do is find the lesson in each and every single one of them.
+然而我在回想起我做过的这些决定，其实都是自找的，它们是我的经历，我唯一能做的就是在每个决定中吸取教训。
 
-Not complain. Not wish I was somewhere better.
+不要抱怨，不要妄想你在其他地方就会做得更好。
 
-**What you need to realize is this.**
+**你需要意识到这一点**
 
-## You Are the Only One Responsible for the Ultimate Outcome of Your Career
+## 我们是自己事业的唯一负责人
 
-If you want to be valuable, you have to generate that value yourself. It’s no one else’s responsibility but your very own.
+如果你想要变得有价值，就应该自己创造价值。这不是别人的责任，而是你自己的责任。
 
-I’m going to explain this concept through three brief personal stories.
+我将通过三个简短的故事来阐释这个概念。
 
-#### Story 1
+#### 故事 1
 
-Maybe I didn’t go to the school with the best engineering program, but I went to a school that was ranked third in the entire country in the sport of water polo. That’s not programming-related, but please bear with me. It’s still relevant.
+也许我上的工程课不是最好的，但是我上的水球运动课全美排名第三。 虽然这与编程无关，但是请你再忍忍吧。 因为它仍然很有意义。
 
-I essentially received a full-ride scholarship to play there, and guess what? I went to one of the worst high schools in the whole state for this sport. Of the seven divisions, my school was in the bottom tier and didn’t even make it to state championships. This made it literally impossible to get noticed or taken seriously.
+他们为我提供了全额奖学金让我在那里打球，你肯定猜不到我之前在全州最不适合这项运动的高中之一。 在这七个赛区中，我的学校排名垫底，甚至连州冠军都没有进入。 所以它不可能受到关注或着重视。
 
-Still, I wouldn’t allow my circumstances to stop me.
+尽管如此，我不会让我的环境阻止我。
 
-I worked overtime. I went to multiple practices every single day. I signed up for the best water polo camps. All of this just to get myself seen.
+我给自己额外加练。我每天都去参加很多次训练。我报名参加了最好的水球营。这一切都是为了让自己被人看到。
 
-Ultimately, all this extra work got me to the point where I set county records for the most goals two years in a row. I wouldn’t wait for recruiters to just find me either. I was the one who reached out to them, sent them gameplay video, and got them to come to me. Me getting recruited to one of the best water polo programs in the country was simply a result of my own goal-oriented actions.
+最终，所有这些额外的辛苦让我连续两年创造了国内最多球的记录。我也不会等着招聘者来找我。而是我主动联系了他们，给他们发游戏视频，让他们来找我。我被招收到全国最好的水球项目之一，这些只是我自己的目标导向行动的结果。
 
-This was a great lesson for me moving forward. It told me that one has to do what others aren’t willing to do to be able to get where you want to be. It told me that my reality is cultivated through the decisions that I make.
+这次经历对我今后的发展影响巨大。一个人必须去做别人不愿意做的事情，才能达到自己想要达到的目标。现实是被你的决定所影响的。
 
-That lesson set the grounds for the future of my programming career and my life.
+这次经历为我未来的编程生涯和生活奠定了基础。
 
-#### Story 2
+#### 故事 2
 
-When I came into my Computer Science program, I knew I wanted to be a game developer, but my entire curriculum was based around the Java programming language.
+当我开始我的计算机科学课程时，我想成为一名游戏开发者，但整个课程都是基于 Java 编程语言。
 
-Knowing that I would never have the opportunity to even learn how a video game is built throughout my degree, I took the act of learning how to do it into my own hands. I looked for gaps in my schedule to read about game development, to take online courses, and to build out my own side projects. Ultimately, it landed me the opportunity to work at two augmented reality startups where I eventually fell out of love with that niche craft. Nevertheless, I would have never gotten those experiences if I didn’t rely on educating myself.
+也就是说我没有机会去学习电子游戏是如何制作的，所以我打算自学。利用空闲时间阅读有关游戏开发的内容，参加在线课程，并创建自己的项目。最终，我获得了在两家增强现实初创公司工作的机会，在那里我最终不再喜欢这个小众行业。然而如果我不依靠自学，我永远不会获得这些经验。
 
-I created that value myself. Now, thanks to all those years of exploring an extra realm of development, I’ve grown much more as a developer.
+这种价值是我自己创造的。多亏了这些年来努力地探索其他开发领域，让我作为一名开发人员得到了更大的成长。
 
-#### Story 3
+#### 故事 3
 
-At my current company, there was an initial nine-week training program. I was expected to only receive two Salesforce certifications and then they would **maybe** contract me out to some client I would be able to work with for a couple of months. Instead of limiting myself to those two certifications, I told them that I wanted four certifications. They told me that had never done before and that I wouldn’t be able to do it either.
+我目前所在的公司，最初有一个为期 9 周的培训项目。我只需要获得两个 Salesforce 认证，然后他们**可能**会把我承包给某个客户，让我和他们一起工作几个月。但我没有把自己限制在这两个认证上，而是告诉他们我想要四个认证。他们说以前从来没有这样做过，我也不能这样做。
 
-Needless to say, I set a company record by getting four certifications in those first nine weeks, which led me to receive a company-wide reward and get immediately consulted out to a fast-growing startup consulting agency. I’m currently at this agency, and I’ve proven myself to my CEO so much that we are talking about making me a technical lead and potentially seating me as future CTO of one of his child companies. It’s been less than eight months.
+不用说，我在九周内就通过了四项认证，创下了公司记录，这让我获得了全公司范围内的奖励，并立即被一家快速成长的初创公司咨询机构咨询。我向公司的 CEO 证明了自己的能力，我们正在讨论让我成为一个技术领导，并有可能让我成为他旗下公司未来的 CTO。现在还不到八个月。
 
-I’ve done this by sharing my personal goals and philosophies with them. I’ve done this by openly sharing what I believe needs to be improved. I’ve done this by constantly updating them about all the progress I’ve made. I’ve done this by delivering on difficult tasks that were beyond my skill levels at my time.
+我是通过和他们分享我的个人目标和人生哲学来做到这一点的。公开分享我认为需要改进的地方来做到这一点。不断向他们更新我的所有进展来做到这一点。为了做到这个，我完成了那些超出我当时能力所及的困难任务。
 
-I displayed my ambition. I demonstrated my drive. I showed my commitment. I proved that I was highly competent and worthy of my position. I didn’t just wait around for them to notice my output and my qualities by just showing up — I made them realize those qualities.
+我暴露了野心，展现了执行力。实现了承诺。证明自己能胜任目前岗位。而不仅仅是通过汇报来让他们注意到我的成果和品质——我让他们意识到这些品质。
 
-## What’s the Point of All This?
+## 意义何在
 
-You are responsible for the future that you create.
+你应该对你的将来负责。
 
-If you want to be promoted and don’t feel like you’re being noticed, send weekly progress reports about all you’ve gotten done to your manager or even your CEO/CTO. This way, they can’t ignore your productivity and initiative. This is an initiative that John Sonmez speaks about in his book **A Complete Software Developer Career Guide**.
+如果你想升职又不想被人注意，那么把你工作周报发给经理甚至 CEO/CTO。这样他们就不会忽视你的生产力和主动性。这是 John Sonmez 在他的书 **A Complete Software Developer Career Guide** 中提到的。
 
-Don’t feel like you are growing fast enough at your current job? Spend time outside of work reading programming-related books, writing programming articles to share what you learned, building out tiny side projects that stretch out a portion of your skills, watching online lectures from the most reputable people in the tech industry, or even spending some time reading and trying to figure out the functionality of the code behind some popular open-source programs. That’s another initiative that was mentioned in Sonmez’s book.
+是不是觉得你在目前的工作中成长得不够快？可以在业余时间阅读编程书籍，输出编程文章分享你学习成果，构建小的辅助项目来拓展部分技能。观看科技行业最知名大佬的网络讲座，甚至是花点时间阅读，了解一些流行的开源项目的代码功能。这是 Sonmez 书中提到的另一项倡议。
 
-There is always a way to grow. There is always a way to make yourself more valuable. There is always a way to get yourself recognized.
+总有一条路可以成长。总有办法让自己变得更有价值。总有办法让自己得到认可。
 
-You just have to realize that you must make the decisions and run the initiatives to bring these things to reality. You cannot just stand idly by and wait for everything to just magically fall into place.
+您只需要意识到自己必须做出决定并执行计划，将这些事情变为现实。而不是等待天生掉馅饼。
 
-## Conclusion
+## 总结
 
-Programming is a beautifully complicated and convoluted craft that needs to constantly be honed and sharpened.
+编程是一门复杂而精细的手艺，需要不断的打磨和雕琢。
 
-If you really want to generate value, you need to be willing to do the things that other people aren’t willing to do.
+如果你真的想创造价值，就需要做别人不愿意做的事情。
 
-You need to learn to manage your time and ask yourself what is really important to you and your personal growth.
+你需要学会时间管理，扪心自问什么对自己和自我成长是真正重要的。
 
-Maybe you’re already there and maybe you’re already doing everything right. That’s good. I’m genuinely happy for you. You’re on the right path.
+也许你已经做到了，也许你已经把每件事都做对了。这很好。我真为你高兴。你走在正确的道路上。
 
-What’s important, though, is that you’re constantly trying your best to provide the most value you possibly can to whatever project you’re on, the team you’re on, the company that you’re working for, and most importantly to yourself.
+重要的是，你要不断地尽最大努力为你所从事的项目、你所在的团队、你所在的公司，最重要的是为你自己提供最大价值。
 
-Providing value is the best gift you can give any company, any person, and yourself. It all comes down to creating that value entirely through the actions and decisions that you make.
+提供价值是你能给任何公司、任何人和你自己的最好礼物。这一切都归结于通过你所做的行动和决定来创造价值。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
