@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-![](/static/9e16f40be04c89eaced925b46efb4aa8/header.png)
+![Image based on [Rocket](https://thenounproject.com/kavya261990/collection/space/?i=3437783) by [Icongeek26](https://thenounproject.com/kavya261990) on [The Noun Project](https://thenounproject.com/)](https://cdn-images-1.medium.com/max/2880/1*nhb0C-BMierO2SW0bvtKqA.png)
 
 # The Ultimate Guide to the SwiftUI 2 Application Life Cycle
 
@@ -78,9 +78,7 @@ extension ParsableCommand {
 
 If all this sounds a bit complicated, the good news is you don’t actually have to worry about it when creating a new SwiftUI application: just make sure to select **SwiftUI App** in the **Life Cycle** dropdown when creating your app, and you’re done:
 
- ![Creating a new SwiftUI project](/static/9cffe6193d21f36c6b0b60881ca6e0b5/fcda8/create-new-project.png "Create a new SwiftUI project") 
-
-Create a new SwiftUI project
+![**Creating a new SwiftUI project**](https://cdn-images-1.medium.com/max/2000/0*XWa5RgMK2WllmlHk.png)
 
 Let’s take a look at some common scenarios.
 
@@ -179,7 +177,7 @@ Either way, a simple way to trigger a deep link in your app is to use the follow
 xcrun simctl openurl booted <your url>
 ```
 
-![Demo](/44c62dff36ca86dea8a9825d4e7f52ff/demo.gif "Demo: Opening deep links and continuing user activities")
+![Demo: Opening deep links and continuing user activities](https://cdn-images-1.medium.com/max/2000/1*RMYt_zbKht6oqYJdTn9S_w.gif)
 
 ## Continuing user activities
 
