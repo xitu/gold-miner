@@ -148,7 +148,7 @@ The idea is that every time a thread fetches from the cache, it runs this algori
 
 While this strategy isn’t the easiest to understand, it’s fairly straightforward to implement and doesn’t require any additional moving parts. It also doesn’t require recomputing every value in the cache.
 
-The [Internet Archive](https://archive.org/index.php) began using this method after an outage during one of the 2016 presidential debates. This [presentation from RedisConf17](https://www.youtube.com/watch?v=1sKn4gWesTw) goes more into the story and gives an excellent overview of how probabilistic early recomputation works. I **highly** recommend giving it a watch:
+The [Internet Archive](https://archive.org/index.php) began using this method after an outage during one of the 2016 presidential debates. This [presentation from RedisConf17](https://www.youtube.com/watch?v=1sKn4gWesTw) goes more into the story and gives an excellent overview of how probabilistic early recomputation works. I **highly** recommend [giving it a watch](https://youtu.be/1sKn4gWesTw)
 
 ---
 
