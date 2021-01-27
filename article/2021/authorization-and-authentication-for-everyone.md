@@ -6,50 +6,72 @@
 > * 校对者：
 
 # Authorization and Authentication For Everyone
+# 每个人都可以理解的授权访问和身份认证
 
 Authentication and authorization are necessary for many of the applications we build. Maybe you've developed apps and implemented authentication and authorization in them — possibly by importing a third party auth library or by using an identity platform.
+我们开发的许多应用程序都需要实现身份认证和授权访问功能。或许你已经开发过应用程序，然后很可能是通过引入第三方库或者是使用一个统一认证平台来实现身份认证和授权访问功能。
 
 Maybe you got the job done, but you really weren't clear on **what** was happening behind the scenes, or **why** things were being done a certain way. If you'd like to build a foundational understanding of what goes on behind the scenes when using OAuth 2.0 and OpenID Connect standards, read on!
+或许你已经做完了所有工作，但你一定不清楚一系列操作的背后发生了**什么**，或者是**为什么**能用这样的方式实现特定的功能。如果你想要对 OAuth 2.0 和 OpenID Connect 规范背后的流程有更深的理解，那么就继续读下去吧。
 
 ---
 
 **Authentication is hard.** Why is this? Auth standards are well defined — but challenging to get right. And that's okay! We're going to go through it in an approachable way. We'll address the **concepts of identity step by step, building on our knowledge as we go along.** By the time we're done, you should have a foundation and know where you might want to dig deeper.
+**身份认证是非常困难的**。为什么这么说？虽然身份认证协议拥有一套完善的定义，但是它也在一直接受挑战。好吧。我们将用可理解的方式来贯穿整个学习过程。我们会**一步一步地了解认证的概念，在深入的过程中构筑自己的知识体系**。在我们结束这一过程的时候，我们将拥有一个很好的基础并且知道哪个知识点是你更想要去深入研究的。
 
 > **This post is meant to be read from beginning to end. We'll build on top of each concept to layer knowledge when it makes sense to introduce new topics. Please keep that in mind if you're jumping around in the content.**
+> **这篇文章值得从头读到尾。我们从每个概念的初始入手到知识层，然后引出其他新的题目。如果你想要跳过文章中的某些内容时，请记得我在这里说的话。**
 
 ## Introduction
+## 序言
 
 When I told family or friends that I "work in identity," they often assumed that meant I was employed by the government issuing driver's licenses, or that I helped people resolve credit card fraud.
+当我告诉我的家人、朋友“我在为认证工作”，他们通常认为我受雇于政府机构去检查司机驾驶证或者时帮助人们解决信用卡欺诈的问题。
 
 However, neither were true. I [formerly worked for Auth0](https://auth0.com), a company that manages **digital identity**. (I'm now a member of the [Auth0 Ambassadors program](https://auth0.com/ambassador-program), and a [Google Developer Expert](https://developers.google.com/) in SPPI: Security, Privacy, Payments, and Identity.)
+然而，都不是。我之前为 [Auth0](https://auth0.com) 工作，这是一个管理**数字证书**的公司。我现在是 [Auth0 大使计划](https://auth0.com/ambassador-program)的一员，也是 SPPI(安全、隐私、支付、认证) 方向的[谷歌开发专家](https://developers.google.com/)。
 
 #### Digital Identity
+#### 数字证书
 
 **Digital identity** refers to a set of attributes that define an individual user in the context of a function delivered by a particular application.
+**数字证书**指的是在一个特定应用的某个方法中能够定义一个个人用户身份的一系列属性。
 
 What does that mean?
+什么意思？
 
 Say you run an online shoe retail company. The **digital identity** of your app's users might be their credit card number, shipping address, and purchase history. Their digital identity is contextual to **your** app.
+好比说，你现在正在经营一个线上鞋靴零售公司。你的用户的**数字证书**可能是他们的信用卡号、收货地址或者购买记录。他们的数字证书内容取决于**你的**应用程序。
 
 This leads us to...
+这将引导我们走向下一个概念。
 
 #### Authentication
+#### 身份认证
 
 In a broad sense, **authentication** refers to the process of verifying that a user is who they say they are.
+广义上来讲，**身份认证**指的是一个验证用户是否具有他自己声称的身份的过程。
 
 Once a system has been able to establish this, we come to...
+一旦一个系统能够实现身份认证，我们就来到了下一个概念。
 
 #### Authorization
+#### 授权访问
 
 **Authorization** deals with granting or denying rights to access resources.
+**授权访问**问题与是否允许对某资源的访问有关。
 
 #### Standards
+#### 标准
 
 You may recall that I mentioned that auth is guided by clearly-defined standards. But where do these standards come from in the first place?
+你还记得，我在上文中提到过，认证过程是被定义完善的标准所引导的。但是这些标准一开始是怎么来的呢？
 
 There are many different standards and organizations that govern how things work on the internet. Two bodies that are of **particular interest to us in the context of authentication and authorization** are the Internet Engineering Task Force (IETF) and the OpenID Foundation (OIDF).
+现在有很多组织和标准来管理互联网上的事情是如何工作的。在讨论身份认证和授权访问的时候，有两个组织是我们尤其感兴趣的--互联网工程任务组(ietf)和OpenID基金会(oidf)。
 
 ##### IETF (Internet Engineering Task Force)
+##### IETF（互联网工程任务组）
 
 The [IETF](https://ietf.org) is a large, open, international community of network designers, operators, vendors, and researchers who are concerned with the evolution of internet architecture and the smooth operation of the internet.
 
