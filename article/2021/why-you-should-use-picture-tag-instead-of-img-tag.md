@@ -19,28 +19,28 @@
 
 ## Why img Tag is Not Enough for Modern Web Applications?
 
-As we all know, the Img tag has been one of the core elements in HTML for a significant period, and there have been no doubts about its simpleness and usability.
+众所周知，`img` 标签在很长的一段的时期内都是 HTML 的核心标签之一，这毫无疑问是因为它的简便和易用性。
 
-> **However, with the development of devices of various screen sizes, resolutions, and complex user requirements, questions have begun to raise about its responsiveness and ability to be used in multi-device applications.**
+> **然而，屏幕尺寸和分辨率的发展以及复杂的用户需求，让 `img` 标签在响应式和跨设备应用程序的使用中出现了一些问题。**
 
-All these questions can be grouped into two major issues;
+所有的问题都可以被归结为两个主要原因：
 
-1. Resolution Switching — Problems of serving smaller size images for narrow screen devices.
-2. Art Direction — Problem of showing different images on different screen sizes.
+1. 分辨率转换——如何为窄屏设备提供更小尺寸的图片。
+2. 艺术指导——如何为不同尺寸的屏幕上显示不同的图片。
 
-Now, let’s see how these issues have been addressed and the `picture` tag’s additional features.
+现在，让我们来看看如何解决这些问题以及 `picture` 标签的额外功能。
 
 ## Resolution Switching Using srcset & sizes Attributes
 
-As I mentioned earlier, modern-day web designers often use high-resolution images to increase user attraction. But as developers, we must be really careful to choose the correct HTML element.
+正如我先前提到的，现代的 web 设计师经常使用高分辨率的图像来吸引用户的注意力。但是作为开发者，我们必须谨慎的选择合适的 HTML 元素。
 
-> **Suppose you use a simple Img tag for high-res images. In that case, that same image is used in each device your application runs, and indeed it will result in performance issues in devices with lower screen resolutions like mobile devices.**
+> **假设你对高分辨率图片使用了 `img` 标签。在这种情况下，相同的图片会被使用在运行了该应用程序的每个设备上，并且会影响低分辨率设备（如：移动设备）的性能。**
 
-This could result in longer image loading times and top to bottom partial image loadings.
+这个可能会导致更长的图片加载时间以及自上而下的图片逐部分加载。
 
 ![Top to bottom image loading issue](https://cdn-images-1.medium.com/max/2000/1*Atpq5fQFaAWBzVRgsMt75w.gif)
 
-This issue can be easily addressed with the`picture` tag by using `srcset` and `sizes` attributes.
+通过使用 `picture` 标签的 `srcset` 和 `sizes` 属性，可以轻松的解决这个问题。
 
 ```html
 <picture>
@@ -60,7 +60,7 @@ This issue can be easily addressed with the`picture` tag by using `srcset` and `
 </picture>
 ```
 
-`srcset` attribute accepts multiple images with their respective width in pixels, and the browser uses these values to choose between provided images. In the above example, there are 3 versions of the same image in 3 different sizes
+`srcset` 属性接受多个带有宽度像素值的图片，浏览器根据这些像素值来选择要提供的图片。在上面的例子中，为相同的图片提供了 3 不同尺寸的版本。
 
 The `sizes` attribute defines the space that the image will take up on the screen. In the above example, the image will take up 1200px if the screen’s minimum width is 1280px.
 
