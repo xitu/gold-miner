@@ -7,10 +7,6 @@
 
 # How A Cache Stampede Caused One Of Facebook’s Biggest Outages
 
-## How a Cache Stampede Caused One of Facebook’s Biggest Outages
-
-#### Learn engineering lessons from a decade ago to prevent mistakes today
-
 ![Photo by [Susan Yin](https://unsplash.com/@syinq?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*FGGy038B4etUbHdm)
 
 On September 23, 2010, Facebook had one of its most severe outages to date. The site was down for four hours. The situation was so drastic that the engineers had to take Facebook offline in order to recover.
@@ -110,7 +106,7 @@ To quote **[Thundering Herds & Promises](https://instagram-engineering.com/thund
 
 ![Image Credit: [https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*I28DPoMELLUV4QWN)
 
-By caching promises instead of the actual values, no spin locking is needed. The first thread to get a cache miss will create and cache an asynchronous promise using an atomic operation (such as Java’s `[computeIfAbsent](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html#computeIfAbsent-K-java.util.function.Function-))`. All sequential fetch requests will immediately return the promise.
+By caching promises instead of the actual values, no spin locking is needed. The first thread to get a cache miss will create and cache an asynchronous promise using an atomic operation (such as Java’s [`computeIfAbsent`](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html#computeIfAbsent-K-java.util.function.Function-)). All sequential fetch requests will immediately return the promise.
 
 You would still need to use a lock to prevent multiple threads from accessing the cache key. But assuming that creating a promise is a near-instantaneous operation, the length of time threads stay in a spinlock is negligible.
 
@@ -124,7 +120,7 @@ While this scenario might not necessarily count as an outage, it will impact tai
 
 ## Early Recomputation
 
-The idea behind ****early recomputation (also known as early expiration) is simple. Before the official expiration of a cache key occurs, the value is recomputed and the expiration is extended. This ensures that the cache is always up-to-date and that cache misses never occur.
+The idea behind early recomputation (also known as early expiration) is simple. Before the official expiration of a cache key occurs, the value is recomputed and the expiration is extended. This ensures that the cache is always up-to-date and that cache misses never occur.
 
 The simplest implementation of early recomputation is a background process or cron job. For example, let’s say there’s a cache key whose time-to-live (TTL) expires in an hour and it takes two minutes to compute the value. A cron job could run five minutes before the end of the hour, and extend the TTL another hour after updating.
 
@@ -172,7 +168,7 @@ Luckily, there’s a known pattern for dealing with this.
 
 #### Circuit breaking
 
-The idea of a circuit breaker ****in programming isn’t new. It gained popularity after Michael Nygard published [**Release It!**](https://www.amazon.com/gp/product/0978739213) in 2007. As Martin Fowler writes in his article **[CircuitBreaker](https://www.martinfowler.com/bliki/CircuitBreaker.html):**
+The idea of a circuit breaker in programming isn’t new. It gained popularity after Michael Nygard published [**Release It!**](https://www.amazon.com/gp/product/0978739213) in 2007. As Martin Fowler writes in his article **[CircuitBreaker](https://www.martinfowler.com/bliki/CircuitBreaker.html):**
 
 > The basic idea behind the circuit breaker is very simple. You wrap a protected function call in a circuit breaker object, which monitors for failures. Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error, without the protected call being made at all.
 
