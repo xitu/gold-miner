@@ -21,7 +21,7 @@ One of the first questions that we need to answer is, how can we tell the compil
 
 When creating a new SwiftUI app, the app’s main class looks like this:
 
-```
+```swift
 import SwiftUI
 
 @main
@@ -38,7 +38,7 @@ So where is the static `main()` function that’s mentioned in SE-0281?
 
 Well, it turns out that framework providers can (and should) provide a default implementation for their users’ convenience. Looking at the code snippet above, you will notice that `SwiftUIAppLifeCycleApp` conforms to the `App` protocol. Apple provides a protocol extension that looks like this:
 
-```
+```swift
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 extension App {
 
@@ -58,7 +58,7 @@ And there we have it - this protocol extension provides a default implementation
 
 Since the SwiftUI framework isn’t open source, we can’t see how Apple implemented this, but [Swift Argument Parser](https://github.com/apple/swift-argument-parser) is open source, and uses this approach as well. Check out the source code for `ParsableCommand` to see how they use a protocol extension to provide a default implementation of the static `main` function that serves as the program entry point:
 
-```
+```swift
 extension ParsableCommand {
 ...
   public static func main(_ arguments: [String]?) {
@@ -94,7 +94,7 @@ Usually, you’d do this in your `ApplicationDelegate`s `application(_:didFinish
 * Set initial values for stored properties (see the [docs](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID206))
 * Set default property values using a closure (see the [docs](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID232))
 
-```
+```swift
 @main
 struct ColorsApp: App {
   init() {
@@ -120,7 +120,7 @@ Starting with iSO 14.0, Apple has provided a new API that allows for a more eleg
 
 SwiftUI tracks a scene’s state in the environment, and you can make the current value accessible to your code by fetching it using the `@Environment` property wrapper, and then using the `onChange(of:)` modifier to listen to any changes:
 
-```
+```swift
 @main
 struct SwiftUIAppLifeCycleApp: App {
   @Environment(\.scenePhase) var scenePhase
@@ -153,7 +153,7 @@ Previously, when handling deep links, you’d have to implement `application(_:o
 
 This becomes a lot easier with the new app life cycle model. You can handle incoming URLs by attaching the `onOpenURL` modifier to the top-most scene in your app:
 
-```
+```swift
 @main
 struct SwiftUIAppLifeCycleApp: App {
   var body: some Scene {
@@ -175,7 +175,7 @@ However, you can still use [custom URL schemes](https://developer.apple.com/docu
 
 Either way, a simple way to trigger a deep link in your app is to use the following command on you development machine:
 
-```
+```bash
 xcrun simctl openurl booted <your url>
 ```
 
@@ -189,7 +189,7 @@ Again, the new application life cycle model makes this easier by providing two m
 
 Here is a snippet that shows how to advertise an activity, for example, in a details view:
 
-```
+```swift
 struct ColorDetailsView: View {
   var color: String
   
@@ -208,7 +208,7 @@ struct ColorDetailsView: View {
 
 To allow continuation of this activity, you can register a `onContinueUserActivity` closure in your top-level navigation view, like this:
 
-```
+```swift
 import SwiftUI
 
 struct ContentView: View {
@@ -247,7 +247,7 @@ Another reason you might require an AppDelegate is if you use any third-party SD
 
 To help you out, Swift provides a way to connect a conformer of `AppDelegate` with your `App` implementation: `@UIApplicationDelegateAdaptor`. Here is how to use it:
 
-```
+```swift
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
