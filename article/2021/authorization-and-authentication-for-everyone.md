@@ -156,36 +156,51 @@ Let's also assume you're already logged in with HireMe123 through whatever authe
 我们也同样假定无论通过什么授权手段，你已经登录到了 HireMe123 。现在 HireMe123 想要代表你创建一个事件。
 
 HireMe123 sends an **authorization request** to MyCalApp's authorization server. In response, MyCalApp's authorization server prompts you — the user — to log in with MyCalApp (if you're not already logged in). You authenticate with MyCalApp.
-
+HireMe123 向 MyCalApp 的授权访问服务器发送一个授权访问请求。在响应中， MyCalApp 的授权访问服务器允许用户登录（如果你已经登录过）。这个时候，你就拥有了访问 MyCalApp 的授权。
 
 The MyCalApp authorization server then **prompts you for your consent** to allow HireMe123 to access MyCalApp's APIs on your behalf. A prompt opens in the browser and specifically asks for your consent to let HireMe123 **add calendar events** (but no more than that).
+之后， MyCalApp 的授权服务器**提示请您同意**允许 HireMe123 代表你来访问 MyCalApp的 API。这一提示在浏览器中弹出，然后请求您的同意允许 HireMe123 **添加日历事件** （但仅限于此了）。
 
 If you say yes and grant your consent, then the MyCalApp authorization server will send an **authorization code** to HireMe123. This lets HireMe123 know that the MyCalApp user (you) did indeed agree to allow HireMe123 to add events using the user's (your) MyCalApp.
+如果你同意并且点击确定，之后 MyCalApp 的授权服务器将会发送一个**授权代码**给 HireMe123。这一行为让 HireMe123 知道 MyCalApp 的用户确实同意它代表用户使用 MyCalApp 去添加一个日历事件。
 
 MyCalApp will then issue an **access token** to HireMe123. HireMe123 can use that access token to call the MyCalApp API within the scope of permissions that were accepted by you and create events for you using the MyCalApp API.
+然后 MyCalApp 会给 HireMe123 发送一个**访问令牌**。 HireMe123 之后使用这个访问令牌在你能够接受的权限许可的范围内调用 MyCalApp 的 API 并使用 MyCalApp 的API来创建一个事件。
 
 **Nothing insidious is happening now!** **MyCalApp is asking the user to log in with MyCalApp**. HireMe123 is **not** asking for the user's MyCalApp credentials. The issues with sharing credentials and too much access are no longer a problem.
+**此处没有什么不可告人的事情发生！** **MyCalApp 正在要求用户登录 MyCalApp** 。 HireMe123 并**没有**请求用户的 MyCalApp 证书。共享证书和过多访问权限再也不能成为问题了。
 
 ##### What About Authentication?
+##### 什么是身份认证？
 
 At this point, I hope it's been made clear that **OAuth is for delegated access**. It doesn't cover **authentication**. At any point where authentication was involved in the processes we covered above, login was managed by whatever login process HireMe123 or MyCalApp had implemented at their own discretion. OAuth 2.0 **didn't prescribe how** this should be done: it only covered authorizing third party API access.
+在这里，我希望**OAuth是一个授权访问协议**已经足够清楚了。它不包含身份认证。在上述过程中的任一环节都不包含有身份认证，登录被 HireMe123 或是 MyCalApp 的登录过程自行控制。 OAuth 2.0 在这里并不规定这个行为应该怎么做：它只是负责授权第三方访问API。
 
 So why are authentication and OAuth so often mentioned in the same breath?
+那么为什么身份认证和 OAuth 经常被同时提起呢？
 
 ## The Login Problem
+## 登录问题
 
 The thing that happened after OAuth 2.0 established a way to access third party APIs was that **apps also wanted to log users in with other accounts**. Using our example: let's say HireMe123 wanted a MyCalApp user to be able to **log into HireMe123 using their MyCalApp account**, despite not having signed up for a HireMe123 account.
+在 OAuth 2.0 为第三方服务访问API确立了一个方法之后，接下来的问题就是**应用程序同样想要用户可以使用其他的应用程序的账户登录。**还是用刚才的例子：假如 HireMe123 想要一个 MyCalApp 的用户能够用他在 MyCalApp 的账户登录，虽然这个用户还没有 HireMe123 的账户。
 
 But as we mentioned above, **OAuth 2.0 is for delegated access**. It is **not** an authentication protocol. That didn't stop people from trying to use it like one though, and this presented problems.
+但是，正如我们上面所提到的，**OAuth 2.0 是负责授权访问的**，他不是一个身份认证协议。虽然这并没有阻止人们尝试就像一个概念那样使用它，这个过程就带来了问题。
 
 ### Problems with Using Access Tokens for Authentication
+### 使用访问令牌做身份认证的问题
 
 If HireMe123 assumes successfully calling MyCalApp's API with an access token means the **user** can be considered authenticated with HireMe123, we run into problems because we have no way to verify the access token was issued to a particular individual.
+假定 HireMe123 使用访问令牌成功地调用g MyCalApp的 API 意味着当前**用户**等同于 HireMe123 进行了身份认证，我们就面临这样一个问题：我们无法确定当前的访问令牌是属于某个特定用户的。
 
 For example:
+例如：
 
 * Someone could have stolen the access token from a different user
+* 有人可能会从他人处偷窃访问令牌
 * The access token could have been obtained from another client (not HireMe123) and injected into HireMe123
+* 
 
 This is called the **confused deputy problem**. HireMe123 doesn't know **where** this token came from or **who** it was issued for. If we recall: **authentication is about verifying the user is who they say they are**. HireMe123 can't know this from the fact that it can use this access token to access an API.
 
