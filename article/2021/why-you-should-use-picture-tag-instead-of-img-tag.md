@@ -100,9 +100,9 @@ Art Direction背后的主要思想是，基于设备的屏幕尺寸显示不同�
 </picture>
 ```
 
-Then we can use `media` attribute to define different media conditions where these sources will be used. We can also use `srcset `and `sizes` attributes in a similar manner as we discussed in the previous section.
+接着，我们可以使用 `media` 属性来定义这些 `source` 标签会被使用的媒体条件。我们也可以用类似于上一节讨论的方式那样来使用 `srcset ` 和 `sizes` 属性。
 
-The following example shows a complete example of using Art Direction and Resolution Switching using a `picture` tag.
+下面的代码显示了将 `picture` 标签用于 Art Direction 和分辨率切换的示例。
 
 ```html
 <picture>
@@ -132,7 +132,7 @@ The following example shows a complete example of using Art Direction and Resolu
 </picture>
 ```
 
-If the screen orientation is landscape browser will show the images from the first image set, and if the orientation is portrait browser will use the second set. In addition to that, you can use `media `attribute with `max-width` and `min-width` parameters:
+如果屏幕方向是水平时，浏览器会从第一个图片集中显示图片。而当屏幕方面是竖直时，浏览器会使用第二个图片集。除此之外，你也可以在 `media ` 属性中设置 `max-width` 和 `min-width` 参数：
 
 ```html
 <picture>
@@ -141,7 +141,7 @@ If the screen orientation is landscape browser will show the images from the fir
 </picture>
 ```
 
-The last `img` tag is there for backward compatibility for browsers that do not support `picture` tags.
+最后的 `img` 标签是用来向后兼容那些不支持 `picture` 标签的浏览器。
 
 ## Using with Partially Supported Image Types
 
