@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)
+> * 校对者：[zenblo](https://github.com/zenblo) 、 [regonCao](https://github.com/regon-cao)
 
 # 在 TypeScript 中引入 JSON 模块
 
-TypeScript 2.9 版本引入了一个新的 `--resolveJsonModule` 编译器，让我们可以在 TypeScript 模块内部引入 JSON 模块。
+TypeScript 2.9 版本引入了一个新的 `--resolveJsonModule` 编译选项，让我们可以在 TypeScript 模块内部引入 JSON 模块。
 
 ## 通过 `require` 函数的调用引入 JSON 模块
 
@@ -49,7 +49,7 @@ app.listen(config.server.nodePort, () => {
 现在如果说我们要使用原生的 ECMAScript 模块而不是 CommonJS 模块，那么我们必须将 `require` 的调用转换为静态的 `import` 声明：
 
 ```js
-// 因为所有的 ECMAScript 模块都必须使用 strict 模式
+// 因为所有的 ECMAScript 模块都默认使用 strict 模式
 // 我们不需要再声明 `use strict`
 
 import * as express from "express";
