@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 我拒绝了 MIT 的 Offer，依然是一个高价值的开发者
 
