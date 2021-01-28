@@ -62,9 +62,9 @@
 
 `srcset` 属性接受多个带有宽度像素值的图片，浏览器根据这些像素值来选择要提供的图片。在上面的例子中，为相同的图片提供了 3 不同尺寸的版本。
 
-The `sizes` attribute defines the space that the image will take up on the screen. In the above example, the image will take up 1200px if the screen’s minimum width is 1280px.
+`sizes` 属性定义了图片在屏幕上会占据的空间大小。在上面的例子中，如果屏幕的最小尺寸是 1280px ，则图像会占据 1200px 的宽度。
 
-> **Having said that, it is advisable not to use the Picture tag just for Resolution Switching since the same can be achieved using the updated version of the Img tag (which has more browser support)**
+> **话虽如此，最好不要只因为分辨率切换就使用 Picture 标签，因为新版本的 img 标签也能做到同样的事情（并且有更多的浏览器支持）。**
 
 ```html
 <img srcset="small-car-image.jpg 400w,
@@ -78,17 +78,17 @@ The `sizes` attribute defines the space that the image will take up on the scree
      src="medium-car-image.jpg" alt="Car">
 ```
 
-But, in most cases, we need to handle both Resolution Switching and Art Direction simultaneously, and the `picture`tag is the best solution.
+然而，在大多数情况下，我们需要同时处理分辨率切换和艺术指导，那么 `picture` 标签就是最好的选择。
 
-So let’s see how we can resolve Art Direction using the `picture` tag.
+所以，让我们来看看如何使用 `picture` 标签来解决 Art Direction。
 
 ## Art Direction Using media Attribute
 
-The main idea behind Art Direction is to display different images based on the screen sizes of the device. In most cases, an image that looks fabulous on larger screens may get cropped or look so small when you switch to mobile.
+Art Direction背后的主要思想是，基于设备的屏幕尺寸显示不同的图片。在大多数情况下，一张在大屏设备上看起来极好的图，会在当你切换到移动设备时被裁剪或者看起来很小。
 
-> **We can address this issue by providing different versions of the image for different screen sizes. These different versions can be landscape, portrait, or any customized version of the same image.**
+> **我们可以通过为不同的屏幕尺寸提供不同版本的图片来解决这个问题。这些不同的版本可以是横向的、纵向的、或者同一图像的任意自定义版本。**
 
-With `picture` tag, we can easily achieve resolution switching by using multiple `source` tags inside the `picture` tag.
+使用 `picture` 标签，并在 `picture` 标签内使用多个 `source` 标签，我们可以轻松的处理分辨率切换。
 
 ```html
 <picture>
