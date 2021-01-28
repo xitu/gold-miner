@@ -11,9 +11,9 @@
 
 小时候我一直梦想进入 MIT (麻省理工学院)，我敢肯定这也是大多数人在申请大学时的想法。
 
-你可以能觉得我在异想天开，MIT 不仅有着世界上[最好](https://www.businessinsider.com/best-computer-science-schools-in-the-world-2018-3#1-massachusetts-institute-of-technology-mit-50)的计算机科学专业而且还是****[排名最好的大学](https://news.mit.edu/2020/qs-world%E2%80%99s-no-1-university-2020-21-0609#:~:text=for%202020%2021-,QS%20ranks%20MIT%20the%20world's%20No.,first%20in%2012%20subject%20areas.)。****然后你猜怎么着，我以第一名的成绩考上了并获得奖学金，几乎可以抵掉大多数的学费。如果去了那里，我的技术事业肯定会突飞猛进，并且和许多聪明人打交道。
+你可以能觉得我在异想天开，MIT 不仅有着世界上 [最好](https://www.businessinsider.com/best-computer-science-schools-in-the-world-2018-3#1-massachusetts-institute-of-technology-mit-50) 的计算机科学专业而且还是**** [排名最好的大学](https://news.mit.edu/2020/qs-world%E2%80%99s-no-1-university-2020-21-0609#:~:text=for%202020%2021-,QS%20ranks%20MIT%20the%20world's%20No.,first%20in%2012%20subject%20areas.)。****然后你猜怎么着，我以第一名的成绩考上了并获得奖学金，几乎可以抵掉大多数的学费。如果去了那里，我的技术事业肯定会突飞猛进，并且和许多聪明人打交道。
 
-然而[我去了一所州立学校](https://medium.com/the-ascent/4-brutally-honest-reasons-why-i-declined-my-offer-to-the-worlds-best-university-for-a-state-school-6a70d8a452e7)，那地方虽然工程专业虽然算不上顶尖，但是也还行吧。现在我代表着我司 [最重要的编程资产之一](https://medium.com/better-programming/how-i-made-myself-a-more-valuable-programmer-in-6-months-and-how-you-can-too-97f3323f9035) ，这是我意识到并非昂贵的，最好的，甚至体面的正规教育才能成就一个有价值的程序员。
+然而 [我去了一所州立学校](https://medium.com/the-ascent/4-brutally-honest-reasons-why-i-declined-my-offer-to-the-worlds-best-university-for-a-state-school-6a70d8a452e7)，那地方虽然工程专业虽然算不上顶尖，但是也还行吧。现在我代表着我司 [最重要的编程宝藏之一](https://medium.com/better-programming/how-i-made-myself-a-more-valuable-programmer-in-6-months-and-how-you-can-too-97f3323f9035) ，这使我意识到并非昂贵的，最好的，甚至体面的正规教育才能成就一个有价值的程序员。
 
 你们可能在听到埃隆马斯克 [发推文](https://www.inc.com/jeff-haden/if-you-want-to-work-at-tesla-elon-musk-just-tweeted-he-doesnt-care-if-you-even-graduated-high-school-it-might-be-smartest-thing-hes-ever-said.html#:~:text=Musk%20doesn't%20care%20whether,will%20have%20to%20demonstrate%20knowledge.) 告诉你不需要学位，甚至不需要高中毕业就可以为他工作时也会有这种感受。你只需要知道你有什么。
 
@@ -56,15 +56,15 @@
 
 #### 故事 1
 
-也许我上的工程课不是最好的，但是我上的水球运动课全美排名第三。 虽然这与编程无关，但是请你再忍忍吧。 因为它仍然很有意义。
+也许我上的工程课不是最好的，但是我上的水球运动课全美排名第三。 虽然这与编程无关，但是请允许我讨论一下这个课程。 因为它仍然很有意义。
 
 他们为我提供了全额奖学金让我在那里打球，你肯定猜不到我之前在全州最不适合这项运动的高中之一。 在这七个赛区中，我的学校排名垫底，甚至连州冠军都没有进入。 所以它不可能受到关注或着重视。
 
-尽管如此，我不会让我的环境阻止我。
+尽管如此，我不会让我的环境阻挡我的步伐。
 
 我给自己额外加练。我每天都去参加很多次训练。我报名参加了最好的水球营。这一切都是为了让自己被人看到。
 
-最终，所有这些额外的辛苦让我连续两年创造了国内最多球的记录。我也不会等着招聘者来找我。而是我主动联系了他们，给他们发游戏视频，让他们来找我。我被招收到全国最好的水球项目之一，这些只是我自己的目标导向行动的结果。
+最终，所有这些额外的辛苦让我连续两年创造了县内进球数最多的记录。我也不会等着招聘者来找我，而是我主动联系了他们，给他们发游戏视频，让他们来找我。我被招收到全国最好的水球项目之一，这些只是我自己的目标导向行动的结果。
 
 这次经历对我今后的发展影响巨大。一个人必须去做别人不愿意做的事情，才能达到自己想要达到的目标。现实是被你的决定所影响的。
 
@@ -92,7 +92,7 @@
 
 你应该对你的将来负责。
 
-如果你想升职又不想被人注意，那么把你工作周报发给经理甚至 CEO/CTO。这样他们就不会忽视你的生产力和主动性。这是 John Sonmez 在他的书 **A Complete Software Developer Career Guide** 中提到的。
+如果你想升职又不想被人注意，那么把你工作周报发给经理甚至 CEO / CTO。这样他们就不会忽视你的生产力和主动性。这是 John Sonmez 在他的书 **A Complete Software Developer Career Guide** 中提到的。
 
 是不是觉得你在目前的工作中成长得不够快？可以在业余时间阅读编程书籍，输出编程文章分享你学习成果，构建小的辅助项目来拓展部分技能。观看科技行业最知名大佬的网络讲座，甚至是花点时间阅读，了解一些流行的开源项目的代码功能。这是 Sonmez 书中提到的另一项倡议。
 
