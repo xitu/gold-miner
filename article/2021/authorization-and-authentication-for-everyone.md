@@ -74,62 +74,89 @@ There are many different standards and organizations that govern how things work
 ##### IETF（互联网工程任务组）
 
 The [IETF](https://ietf.org) is a large, open, international community of network designers, operators, vendors, and researchers who are concerned with the evolution of internet architecture and the smooth operation of the internet.
+[互联网工程任务组](https://ietf.org)是一个大型开放的国际组织，由密切关注网络架构的法阵和网络服务的流畅使用的网络服务设计者、操作者、供应商和研究者组成。
 
 Really, that's a fancy way to say that **dedicated professionals cooperate to write technical documents that guide us in how things should be done on the internet.**
+说真的，**乐于奉献的专家合作书写技术文档来引导我们功能应该如何以符合互联网规则的方式来完成**是一件很棒的事情。
 
 ##### OIDF (OpenID Foundation)
+##### OpenID 基金会
 
 The [OIDF](https://openid.net/foundation/) is a non-profit, international organization of people and companies who are committed to enabling, promoting, and protecting OpenID technologies.
+[OIDF](https://openid.net/foundation/)是一个非盈利的国际组织。它由致力于实现、优化和提升 OpenID 技术的个人和公司组成。
 
 Now that we are aware of the specs and who writes them, let's circle back around to **authorization** and talk about:
+既然我们已经对这些规范和它们的作者有所了解，让我们再回到**授权访问**的概念:
 
+## OAuth 2.0
 ## OAuth 2.0
 
 [OAuth 2.0](https://tools.ietf.org/html/rfc6749) is one of the most frequently mentioned specs when it comes to the web — and also one that is **often mis-represented or misunderstood**. How so?
+当我们谈论 web 规范的时候，[OAuth 2.0](https://tools.ietf.org/html/rfc6749) 是最通常被提到的一个，也是**最容易被误解**的一个，怎么会这样呢？
 
 **OAuth is not an authentication spec.** OAuth deals with **delegated authorization**. Remember that authentication is about verifying the identity of a user. Authorization deals with granting or denying access to resources. OAuth 2.0 grants access to applications on the behalf of users. (Don't worry, we'll get to the authentication part in a little bit!)
+**OAuth 不是一个身份认证协议**，它处理的是**授权的资源访问**。请记住，在这里我们提到的身份认证指的是证实用户的身份信息，授权解决的是授予或收回对资源的访问权限。 OAuth 2.0代表用户给应用程序授予权限。（别担心，我们之后就会到身份认证的部分。）
 
 ### Before OAuth
+### OAuth 之前
 
 To understand the purpose of OAuth, we need to do go back in time. OAuth 1.0 was established in December 2007. Before then, if we needed to **access third party resources**, it looked like this:
+为了理解 OAuth 的目的，我们需要及时回顾。 OAuth 1.0在2007年12月出台。在此之前，如果我们需要**访问第三方资源**，就会发生如下过程：
 
 [![Before OAuth](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)
 
 Let's say you used an app called HireMe123. HireMe123 wants to set up a calendar event (such as an interview appointment) on your (the user's) behalf. HireMe123 doesn't have its own calendar; it wants to use another service called MyCalApp to add events.
+好比说你正在使用一个叫做 HireMe123 的应用程序。 HireMe123 想代表你设定一个日历事件（例如面试约会）。HireMe123没有自己的日历，它想要使用另一个叫做 MyCalApp 的服务去添加一个事件。
 
 Once you were logged into HireMe123, HireMe123 would **ask you for your MyCalApp login credentials**. You would enter your MyCalApp username and password into HireMe123's site.
+一旦你登录了 HireMe123 ，它就会**向你要 MyCalApp 的登录授权许可**。你就要在 HireMe123 的站点上输入你在 MyCalApp 的用户名和密码。
 
 HireMe123 then used your MyCalApp login to gain access to MyCalApp's API, and could then create calendar events using **your** MyCalApp credentials.
+HireMe123 之后就可以使用你在 MyCalApp 的账户登录并访问 MyCalApp 的API，并且能够用你的账户信息创建日历事件。
 
 #### Sharing Credentials is Bad!
+#### 证书共享是一件很糟糕的事情！
 
 This approach relied on sharing a user's personal credentials from one app with a completely different app, and this is **not good**. How so?
+这种方法依赖于在两个互不相同的应用程序之间共享用户的个人证书，这种方法并不好，为什么？
 
 For one thing, HireMe123 had **much less at stake** in the protection of your MyCalApp login information. If HireMe123 didn't protect your MyCalApp credentials appropriately and they ended up stolen or breached, someone might write some nasty blog articles, but **HireMe123** wouldn't face a catastrophe the way MyCalApp would.
+从一个方面来考虑， HireMe123 面临的保护 MyCalApp 登录信息的责任要小的多。如果 HireMe123 没有给你的 MyCalApp 证书提供合适的保护，那它们就有可能被窃取，有的人可能就此窃取事件写一些很可恶的报道，但是**HireMe123**不会面临着 MyCalApp 那样的指责。
 
 HireMe123 also had **way too much access** to MyCalApp. HireMe123 had the same amount of access that you did, because they used your credentials to gain that access. That meant that HireMe123 could read all your calendar events, delete events, modify your calendar settings, etc.
+HireMe123 也拥有了对 MyCalApp 过多的访问权限，它基本上享有和你相同的访问权限，因为它们使用你的证书去获取那些权限。这意味着 HireMe123 可以读取你的所有日历事件、删除这些事件或者是修改你的日历设置。
 
 ### Enter OAuth
+### 来到 OAuth
 
 This leads us to OAuth.
+OAuth 协议在这种情况下应运而生。
 
 **OAuth 2.0** is an open standard for performing delegated authorization. It's a specification that tells us how to grant third party access to APIs without exposing credentials.
+**OAuth 2.0**是一个开放的用于实现授权访问的标准。作为一个说明书，它能够知道我们如何给第三方应用授权访问某些api而不用暴露个人证书。
 
 Using OAuth, the user can now **delegate** HireMe123 to call MyCalApp on the user's behalf. MyCalApp can limit access to its API when called by third party clients without the risks of sharing login information or providing **too much** access. It does this using an:
+使用 OAuth 协议，用户现在可以**授权** HireMe123 代表用户去调用 MyCalApp。 MyCalApp 能够在避免共享登录信息或者提供**太多**访问权限的情况下控制第三方对于API的访问权限。它是像这样工作的：
 
 ### Authorization Server
+### 授权访问服务器
 
 An **authorization server** is a set of endpoints to interact with the user and issue tokens. How does this help?
+**授权访问服务器**是一系列端点的集合，这些端点用于和用户交互并且标记问题。这一过程对我们的授权访问有什么帮助呢？
 
 Let's revisit the situation with HireMe123 and MyCalApp, only now we have OAuth 2.0:
+让我们使用 OAuth 2.0重新审视 HireMe123 和 MyCalApp 的例子：
 
 [![Authorization with OAuth 2.0](https://res.cloudinary.com/practicaldev/image/fetch/s--cd8rxwpH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/oauth2.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--cd8rxwpH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/oauth2.gif)
 
 MyCalApp now has an authorization server. Let's assume that HireMe123 has already registered as a known client with MyCalApp, which means that MyCalApp's authorization server recognizes HireMe123 as an entity that may ask for access to its API.
+MyCalApp 现在有一台授权访问服务器。我们假定 HireMe123 已经作为一个已知用户登录到了 MyCalApp，这意味着 MyCalApp 的授权访问服务器将 HireMe123 标识为一个能够访问它API的外部实体。
 
 Let's also assume you're already logged in with HireMe123 through whatever authentication HireMe123 has set up for itself. HireMe123 now wants to create events on your behalf.
+我们也同样假定无论通过什么授权手段，你已经登录到了 HireMe123 。现在 HireMe123 想要代表你创建一个事件。
 
 HireMe123 sends an **authorization request** to MyCalApp's authorization server. In response, MyCalApp's authorization server prompts you — the user — to log in with MyCalApp (if you're not already logged in). You authenticate with MyCalApp.
+
 
 The MyCalApp authorization server then **prompts you for your consent** to allow HireMe123 to access MyCalApp's APIs on your behalf. A prompt opens in the browser and specifically asks for your consent to let HireMe123 **add calendar events** (but no more than that).
 
