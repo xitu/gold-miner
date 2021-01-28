@@ -145,11 +145,11 @@ Art Direction背后的主要思想是，基于设备的屏幕尺寸显示不同�
 
 ## Using with Partially Supported Image Types
 
-With the rapid development of technologies, different types of modern image types are introduced day by day. Some of these types such as `webp`, `svg` , and `avif` provide a higher user experience level.
+随着科技的快速发展，每天都会产生不同的现代图片格式。其中一些格式，如：`webp`、`svg` 以及 `avif` 可以提供更好的用户体验。
 
-On the other hand, there are limitations in some browsers on these modern image types, and things will get backfired if we don’t use the compatible image types.
+另一方面，一些浏览器不支持这些现代图像格式。如果我们不使用兼容的图像格式，有时就会适得其反。
 
-> **But, we can easily address this issue by using Picture tag since it allows us to include multiple sources inside that.**
+> **但是，我们可以轻松的解决这个问题。因为 Picture 标签支持我们在其中使用多个 source。**
 
 ```html
 <picture>
@@ -161,11 +161,11 @@ On the other hand, there are limitations in some browsers on these modern image 
 </picture>
 ```
 
-The above example includes three image types from `avif`, `webp`, and `png `formats. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
+上面的例子包含了 `avif`、`webp` 和 `png ` 三种图像格式。首先，浏览器会尝试 `avif` 格式，如果失败了，浏览器会接着尝试使用 `webp ` 格式。如果浏览器不支持这两种格式，它就会使用 `png` 格式的图片。
 
-> **Things got more interesting about picture tag when Chrome announced that “DevTools will provide two new emulations in the Rendering tab to emulate partially supported image types”.**
+> **当 Chrome 声明其浏览器开发者工具（DevTools）将会在渲染选项卡中提供两种新的模拟方式以模拟部分支持的图像类型时，有关 picture 标签的事情开始变得有趣起来了。**
 
-From Chrome 88 Onwards, You Can Use Chrome DevTools to Check Browser Compatibility with Image Types.
+从 Chrome 88 开始，你可以使用其浏览器开发者工具（DevTools）来检查浏览器对于图像格式的兼容情况。
 
 ![Using Chrome DevTools for Image Compatibility Emulations](https://cdn-images-1.medium.com/max/2562/1*GAFavZjkfi4FUDRkkPMA4Q.png)
 
