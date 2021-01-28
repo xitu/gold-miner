@@ -171,17 +171,17 @@ Art Direction背后的主要思想是，基于设备的屏幕尺寸显示不同�
 
 ## Final Thoughts
 
-Although we talk about why the `picture` tag is more prominent than the `img` tag, I must insist that the `img` tag is not dead or won’t be dead sooner.
+虽然我们讨论了为什么 `picture` 标签相比 `img` 标签更好，但是，我必须坚持声明 `img` 标签并没有消亡，短期内也不会。
 
-If we use the provided attributes like `srcset` and `size` wisely, we can get the maximum out of the `img`tag. For example, we can resolve Resolution Switching only using the `img` tag.
+如果我们能明智的使用提供的 `srcset` 和 `size` 等属性，我们就能最大限度的使用 `img` 标签。比如，我们能仅使用 `img` 标签来实现分辨率切换。
 
-On the other hand, we can use `picture` tag to achieve both Resolution Switching and Art Direction easily using media queries and other provided attributes.
+另一方面，我们可以借助 `picture` 标签使用媒体查询和其他提供的属性来轻松解决分辨率切换和Art Direction。
 
-The ability to work with partially supported image types and Chrome DevTools support can be recognized as additional plus points for `picture` tag.
+适配部分支持的图像与 Chrome DevTools 对其的支持都可以被视为 `picture` 标签的额外功能点。
 
-However, both these elements have their pros and cons. So we must carefully think and use the most suitable element based on our requirements.
+然而，这两个元素各有利弊。所以，我们必须仔细思考并基于我们的需求使用最恰当的元素。
 
-Thank you for Reading !!!
+感谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
