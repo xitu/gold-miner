@@ -3,29 +3,29 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/demystify-graph-coloring-algorithms.md](https://github.com/xitu/gold-miner/blob/master/article/2021/demystify-graph-coloring-algorithms.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 揭开图着色算法的神秘面纱
 
 ![Photo by [salvatore ventura](https://unsplash.com/@salvoventura?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12032/0*nMi_GsBxeMO5LlkM)
 
-图着色是指将特定的颜色按照特定约束条件在图中分配的问题。例如，你必须为一个图形着色，无论是顶点还是边，而且不会有两个相同的颜色相邻——没有两个相邻的顶点或边会有相同的颜色。
+图着色是指将特定的颜色按照约束条件（相邻任意两个部分的颜色不能相同）在图中分配的问题。要进行图着色算法，你必须先为一个图形着色，要么是上色顶点或是上色图的边，并且需要保证不存在两个相邻的部分有相同的颜色 —— 没有两个相邻的顶点或边会有相同的颜色。
 
-我偶然发现了这个算法，我在想它的目的是什么。当我更深入地研究图着色问题以及实际使用时，我意识到它在我们使用的应用程序中有着广泛的应用。本文将简要介绍这种算法和图着色实例。
+我是在偶然间发现了这个算法，我在想它的应用上的作用是什么。当我更深入地研究图着色问题以及实际使用时，我意识到它在我们使用的应用程序中有着广泛的应用。本文将简要介绍这种算法和图着色实例。
 
 ## 图着色算法
 
-解决图着色问题的方法有很多。你可以做[顶点着色](https://mathworld.wolfram.com/VertexColoring.html#:~:text=A%20vertex%20coloring%20is%20an,colors%20for%20a%20given%20graph.)、边缘着色和[地图着色](https://en.wikipedia.org/wiki/Map_coloring#:~:text=Map%20coloring%20is%20the%20act,different%20features%20on%20a%20map.&text=The%20second%20is%20in%20mathematics,features%20have%20the%20same%20color.)。在这个算法中，你可以思考不同的问题。例如，我们可以解决不同时分配彼此依赖的相同资源的问题。我们也可以解决这样的问题：为这个图上色所需的最小颜色数是多少。此外，我们可以把它变成一个回溯问题，我们想找到所有可能的着色方法，可以着色这个图。
+现实中存在许多与图着色问题相关的问题，你可以使用[顶点着色](https://mathworld.wolfram.com/VertexColoring.html#:~:text=A%20vertex%20coloring%20is%20an,colors%20for%20a%20given%20graph.)、边着色或[地图着色](https://en.wikipedia.org/wiki/Map_coloring#:~:text=Map%20coloring%20is%20the%20act,different%20features%20on%20a%20map.&text=The%20second%20is%20in%20mathematics,features%20have%20the%20same%20color.)解图着色问题。在这个算法中，你可以思考各种不同类型的问题。例如，我们可以解决不同时分配彼此依赖的相同资源的问题。我们也可以解决这样的问题：为这个图上色所需的最小颜色数是多少。此外，我们可以把它变成一个回溯问题，在这个问题中我们希望找到所有可能的着色方法可以着色这个图。
 
 以下是一个简单的示例。只要我们理解了基本的算法，我们就能解决这些问题。
 
-我们假设这是顶点着色，我想给图形着色，这样相邻的两个顶点就不会有相同的颜色。
+我们假设这是顶点着色问题，那么如果我想给图形着色，相邻的两个顶点将不会有相同的颜色。
 
 我们假设一个图中有五个顶点。我们可以分配给每个顶点的最大颜色数是五个。因此，我们可以将颜色列表初始化为五种颜色。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*dX9rqaI1V_1bvgv2.png)
 
-接下来，开始在一个空白图的第一个顶点上色。你可以随便选一个。
+接下来，开始在一个空白图的任意一个顶点作为第一个顶点进行上色操作。
 
 在下面的算法中，我们根据以下操作对图中的每个顶点进行着色：
 
@@ -82,7 +82,7 @@
 
 ## 编译器的寄存器分配
 
-编译器是将源代码从高级（Java、Scala）转换成机器代码的程序。这通常是分步骤进行的，最后一步是将寄存器分配给程序中最常用的值，同时将其它值放入内存。我们可以将符号寄存器（变量）建模为顶点，如果同时需要两个变量，则形成一条边。如果该图可以用 K 色进行着色，那么变量可以存储在 k 寄存器中。
+编译器是将源代码从高级语言（Java、Scala）转换成机器代码的程序。这通常是分步骤进行的，最后一步是将寄存器分配给程序中最常用的值，同时将其它值放入内存。我们可以将符号寄存器（变量）建模为顶点，如果同时需要两个变量，则形成一条边。如果该图可以用 K 色进行着色，那么变量可以存储在 k 寄存器中。
 
 图着色算法还有许多其它用例，希望你能有所收获！
 
