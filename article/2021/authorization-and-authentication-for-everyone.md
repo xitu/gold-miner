@@ -192,7 +192,7 @@ But as we mentioned above, **OAuth 2.0 is for delegated access**. It is **not** 
 ### 使用访问令牌做身份认证的问题
 
 If HireMe123 assumes successfully calling MyCalApp's API with an access token means the **user** can be considered authenticated with HireMe123, we run into problems because we have no way to verify the access token was issued to a particular individual.
-假定 HireMe123 使用访问令牌成功地调用g MyCalApp的 API 意味着当前**用户**等同于 HireMe123 进行了身份认证，我们就面临这样一个问题：我们无法确定当前的访问令牌是属于某个特定用户的。
+假定 HireMe123 使用访问令牌成功地调用 MyCalApp的 API 意味着当前**用户**等同于 HireMe123 进行了身份认证，我们就面临这样一个问题：我们无法确定当前的访问令牌是属于某个特定用户的。
 
 For example:
 例如：
@@ -200,37 +200,51 @@ For example:
 * Someone could have stolen the access token from a different user
 * 有人可能会从他人处偷窃访问令牌
 * The access token could have been obtained from another client (not HireMe123) and injected into HireMe123
-* 
+* 访问令牌可能来自于其他第三方，而不是 HireMe123 然后注入到了 HireMe123。
 
 This is called the **confused deputy problem**. HireMe123 doesn't know **where** this token came from or **who** it was issued for. If we recall: **authentication is about verifying the user is who they say they are**. HireMe123 can't know this from the fact that it can use this access token to access an API.
+这种问题叫做**困惑的副手问题**。 HireMe123 不知道这个令牌来自何处或者是这个令牌属于哪个用户。如果我们回忆：**身份认证是关于确认这个用户是否是他自称的身份**，那么 HireMe123 无法通过访问该API的访问令牌得到这种信息。
 
 As mentioned, this didn't stop people from misusing access tokens and OAuth 2.0 for authentication anyway. It quickly became evident that formalization of authentication **on top of OAuth 2.0** was necessary to allow logins with third party applications while keeping apps and their users safe.
+正如我们提到过的，这一事实并没能阻止人们继续误用访问令牌和将 OAuth 2.0 用于身份认证。很快我们就会发现，为了在允许使用第三方应用登录的同时确保应用程序和用户安全，我们必须**在 OAuth 2.0的基础上**构建身份认证协议。
 
+## OpenID Connect
 ## OpenID Connect
 
 This brings us to the specification called [OpenID Connect](https://openid.net/specs), or OIDC. OIDC is a spec **on top of OAuth 2.0** that says how to authenticate users. The [OpenID Foundation (OIDF)](https://openid.net/foundation/) is the steward of the OIDC standards.
+接下来我们要了解的规范叫做 [OpenID Connect](https://openid.net/specs)，也被称作 OIDC。 OIDC 是一个**基于 OAuth 2.0** 的规范，他规定了如何认证用户的身份。[OpenID 基金会(OIDF)](https://openid.net/foundation/)是 OIDC 标准的管理员。
 
 OIDC is an identity layer for authenticating users with an authorization server. Remember that an authorization server **issues tokens**. **Tokens** are encoded pieces of data for transmitting information between parties (such as an authorization server, application, or resource API). In the case of OIDC and authentication, the authorization server issues **ID tokens**.
+OIDC 是一个使用认证服务器来认证用户身份的认证层。请记住，认证服务器**放出token**，token是加密过的数据用于在实体，比如说授权服务器，应用或者是暴露的api，之间传递信息。在使用 OIDC 和认证的情况下，授权服务器放出**ID 令牌**。
 
 ### ID Tokens
+### ID 令牌
 
 **ID tokens** provide information about the authentication event and they identify the user. ID tokens are **intended for the client**. They're a fixed format that the client can parse and validate to extract identity information from the token and thereby authenticate the user.
+**ID 令牌**提供关于身份认证事件的信息并且认定用户身份。ID令牌是供第三方服务使用的。这些令牌具有固定的格式，第三方能够按照格式解析并且从令牌中提取用户身份信息，因此能够认证用户。
 
 OIDC declares a **fixed format** for ID tokens, which is:
+OIDC 声明了一个**固定格式**的ID令牌，如下：
 
+#### JSON Web Token (JWT)
 #### JSON Web Token (JWT)
 
 [JSON Web Tokens](https://tools.ietf.org/html/rfc7519), or [JWT](https://jwt.io) (sometimes pronounced "jot"), are composed of three URL-safe string segments concatenated with periods `.`
+[JSON Web Tokens](https://tools.ietf.org/html/rfc7519)，或者说是 [JWT](https://jwt.io)（有时候也被拼成“jot”）由三个URL安全的字符串节由.连接起来组成的。
 
 ##### Header Segment
+##### 头部段
 
 The first segment is the **header segment**. It might look something like this:
+第一个段是**头部段**，它可能看上去类似下面的样子：
 
 `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9`
 
 The header segment is a JSON object containing a signing algorithm and token type. It is [`base64Url` encoded](https://tools.ietf.org/html/rfc4648#section-5) (byte data represented as text that is URL and filename safe).
+头部段是一个包含有签名算法和token类型的json对象，使用[base64URL加密](https://tools.ietf.org/html/rfc4648#section-5)(字节数据以URL和文件名安全的形式表示)
 
 Decoded, it looks something like this:  
+解码后，类似下面：
 
 ```
 {
@@ -241,12 +255,15 @@ Decoded, it looks something like this:
 ```
 
 ##### Payload Segment
+##### 载荷段
 
 The second segment is the **payload segment**. It might look like this:
+第二个段是**载荷段**。看上去像下面这样：
 
 `eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0`
 
-This is a JSON object containing data ****claims****, which are statements about the user and the authentication event. For example:  
+This is a JSON object containing data ****claims****, which are statements about the user and the authentication event. For example:
+
 
 ```
 {
