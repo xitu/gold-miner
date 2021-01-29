@@ -263,7 +263,7 @@ The second segment is the **payload segment**. It might look like this:
 `eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0`
 
 This is a JSON object containing data ****claims****, which are statements about the user and the authentication event. For example:
-
+这是一个包含数据**声明**的json对象，其中声明了关于用户和身份认证事件的字段，例如：
 
 ```
 {
@@ -276,22 +276,31 @@ This is a JSON object containing data ****claims****, which are statements about
 ```
 
 This is also `base64Url` encoded.
+同样也是 `base64Url` 加密。
 
 ##### Crypto Segment
+##### 加密段
 
 The final segment is the **crypto segment**, or **signature**. JWTs are signed so they can't be modified in transit. When an authorization server issues a token, it signs it using a key.
+最后一个段叫做**加密段**，或者是**签名**。JWT被签名了，所以它们不能在传输中被篡改。当授权服务器放出令牌之后，它就使用密钥来加密令牌。
 
 When the client receives the ID token, the client **validates the signature** using a key as well. (If an asymmetric signing algorithm was used, different keys are used to sign and validate; if this is case, only the authorization server holds the ability to sign tokens.)
+当第三方受到ID令牌之后，第三方同样也使用密钥**验证签名**。（如果使用了非对称加密算法，那么在加密和验签的时候使用了不同的密钥，如果是这样的话，只有授权服务器能够加密令牌）
 
 > **Don't worry if this seems confusing. The details of how this works shouldn't trouble you or keep you from effectively using an authorization server with token-based authentication. If you're interested in demystifying the terms, jargon, and details behind JWT signing, check out my article on [Signing and Validating JSON Web Tokens (JWT) for Everyone](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb).**
+**如果你感到迷惑，别担心。以上一系列工作的细节不应该困扰你或者阻挡你有效的使用基于令牌的授权服务器进行认证。如果你对这些概念、术语以及JWT背后的细节很感兴趣，请参考我的文章[人人都能懂的JWT加密和验签](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb)**
 
 #### Claims
+#### 声明
 
 Now that we know about the **anatomy** of a JWT, let's talk more about the **claims**, those statements from the **Payload Segment**. As per their moniker, ID tokens provide **identity** information, which is present in the claims.
+既然我们已经知道了JWT的组成部分，我们现在要学习的是**声明**。声明是**载荷段**中携带的一系列自端。正如它们的名字所表示的，ID 令牌提供了**身份认证**信息，这是在声明中表示的。
 
 ##### Authentication Claims
+##### 身份认证声明
 
 We'll start with **[statements about the authentication event](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)**. Here are a few examples of these claims:  
+我们将会从[关于认证的声明](https://openid.net/specs/openid-connect-core-1_0.html#IDToken)说起。这里有几个这种声明的例子：
 
 ```
 {
@@ -306,17 +315,25 @@ We'll start with **[statements about the authentication event](https://openid.ne
 ```
 
 Some of the required authentication claims in an ID token include:
+一些身份认证必须的字段包含在内，并且包括了一个id令牌：
 
 * `iss` **(issuer)**: the issuer of the JWT, e.g., the authorization server
+* `iss` **(发行人)**:  JWT 的发行人, 例如授权访问服务器
 * `aud` **(audience)**: the intended recipient of the JWT; for ID tokens, this must be the client ID of the application receiving the token
+* `aud` **(接收者)**: JWT的目标接收者; 对于 ID 令牌来说, 这个字段一定是接收令牌的应用的ID
 * `exp` **(expiration time)**: expiration time; the ID token must not be accepted after this time
+* `exp` **(过期事件)**: 过期事件; 在此时间之后ID令牌不再有效
 * `iat` **(issued at time)**: time at which the ID token was issued
+* `iat` **(发行时间)**: ID令牌发行的时间
 
 A `nonce` **binds the client's authorization request to the token it receives**. The nonce is a [cryptographically random string](https://auth0.com/docs/api-auth/tutorials/nonce) that the client creates and sends with an authorization request. The authorization server then places the nonce in the token that is sent back to the app. The app verifies that the nonce in the token matches the one sent with the authorization request. This way, the app can verify that the token came from the place it requested the token from in the first place.
+一个 `nonce` **将第三方的授权请求和它接收到的令牌绑定**。nonce 是一个由客户端创建并且随着授权请求一起发送的[加密过的随机字符串](https://auth0.com/docs/api-auth/tutorials/nonce)。之后，授权服务器将这个nonce放在返回给应用程序的令牌中。应用程序检查令牌中的nonce是否和它携带在授权请求中的相同。如果相同，这个应用程序就可以确认这个令牌是来自它一开始所请求的地方。
 
 ##### Identity Claims
+##### 身份声明
 
 Claims also include **[statements about the end user](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)**. Here are a few examples of these claims:  
+声明也包含了** [关于端用户的描述](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims) ** 。如下是几个例子：
 
 ```
 {
@@ -331,45 +348,66 @@ Claims also include **[statements about the end user](https://openid.net/specs/o
 ```
 
 Some of the standard profile claims in an ID token include:
+在ID令牌中标准的描述包括如下字段：
 
 * `sub` **(subject)**: unique identifier for the user; required
+* `sub` **(主题)**: 用户的独特标识符；必填
 * `email`
 * `email_verified`
 * `birthdate`
 * **etc.**
+* **等等...**
 
 We've now been through a crash-course on the important specifications ([OAuth 2.0](#oauth-20) and **OpenID Connect**) and it's time to see how to **put our identity knowledge to work**.
+我们已经学完了重要规范（[OAuth 2.0](#oauth-20) 和 **OpenID Connect**）的速成课程，现在是时候看看如何**把学到的知识用在实际中**了。
 
 ## Authentication with ID Tokens
+## 使用ID令牌的身份认证
 
 Let's see OIDC authentication in practice.
+让我们在实践中看看OIDC身份认证是如何进行的。
 
 > **Note that this is a simplified diagram. There are a few different flows depending on your application architecture.**
+> **注意，这只是一个简化的描述。根据你应用程序架构的不同，存在几点差别。**
 
 [![authentication with ID tokens in the browser](https://res.cloudinary.com/practicaldev/image/fetch/s--48HiqoWr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://i.imgur.com/Nl1HyHD.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--48HiqoWr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://i.imgur.com/Nl1HyHD.gif)
+[![浏览器中使用ID令牌进行认证](https://res.cloudinary.com/practicaldev/image/fetch/s--48HiqoWr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://i.imgur.com/Nl1HyHD.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--48HiqoWr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://i.imgur.com/Nl1HyHD.gif)
 
 Our entities here are: the **browser**, an **application** running in the browser, and the **authorization server**. When a user wants to log in, the app sends an authorization request to the authorization server. The user's credentials are verified by the authorization server, and if everything checks out, the authorization server issues an ID token to the application.
+在这里我们涉及到的实体有：**浏览器**，一个在浏览器上运行的**应用程序**以及一个**授权服务器**。当一个用户想要登录的时候，应用程序向授权服务器发送一个授权请求。授权服务器检测用户的证书，如果检测通过，授权服务器就会给应用程序办法一个ID令牌。
 
 The client application then decodes the ID token (which is a **JWT**) and verifies it. This includes **validating the signature**, and we must also verify the claims. Some examples of claim verification include:
+客户端引用程序解码ID令牌（是一个**JWT**）并且校验。这一过程包含了**验签**，并且我们必须校验字段。一些校验字段的例子如下：
 
 * issuer (`iss`): was this token issued by the expected authorization server?
+* issuer (`iss`): 当前令牌是被特定授权服务器颁发的吗？
 * audience (`aud`): is our app the target recipient of this token?
+* audience (`aud`): 我们的应用程序是这个令牌的指定接收者吗？
 * expiration (`exp`): is this token within a valid timeframe for use?
+* expiration (`exp`): 这个令牌是否在可用的时间段之内？
 * nonce (`nonce`): can we tie this token back to the authorization request our app made?
+* nonce (`nonce`): 这个令牌能否追溯回我们应用程序创建的授权请求？
 
 Once we've established the authenticity of the ID token, the user is **authenticated**. We also now have access to the **identity claims** and know **who** this user is.
+一旦我们确认了ID令牌的真实性，这个用户就是被**验证**过的。我们同样也得到了**身份声明**并且知道了这个用户是**谁**？
 
 Now the user is **authenticated**. It's time to interact with an API.
+现在，用户是真实的，我们可以和api交互了。
 
 ## Accessing APIs with Access Tokens
+## 带着访问令牌访问API
 
 We talked a bit about access tokens earlier, back when we were looking at how delegated access works with [OAuth 2.0 and authorization servers](#authorization-server). Let's look at some of the **details** of how that works, going back to our scenario with HireMe123 and MyCalApp.
+我们之前谈论过一点访问令牌，在那时我们主要看[OAuth 2.0和授权服务器](#authorization-server)是如何授权访问工作的。让我们看看它们工作的**细节**，回到我们 HireMe123 和 MyCalApp 的场景中。
 
 ### Access Tokens
+### 访问令牌
 
 **Access tokens** are used for **granting access to resources**. With an access token issued by MyCalApp's authorization server, HireMe123 can access MyCalApp's API.
+**访问令牌**用于**许可对某资源的访问**。用一个 MyCalApp 的授权服务器办法的访问令牌， HireMe123 就可以访问 MyCalApp 的API。
 
 Unlike **ID tokens**, which **OIDC** declares as **JSON Web Tokens**, **access tokens have no specific, defined format**. They do not have to be (and aren't necessarily) JWT. However, many identity solutions use JWTs for access tokens because the format enables validation.
+和**ID令牌**不同，
 
 #### Access Tokens are Opaque to the Client
 
