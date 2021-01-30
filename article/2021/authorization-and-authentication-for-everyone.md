@@ -2,31 +2,31 @@
 > * 原文作者：[Kim Maida](https://dev.to/kimmaida)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/authorization-and-authentication-for-everyone.md](https://github.com/xitu/gold-miner/blob/master/article/2021/authorization-and-authentication-for-everyone.md)
-> * 译者：
+> * 译者：[Ashira97](https://github.com/Ashira97)
 > * 校对者：
 
 # Authorization and Authentication For Everyone
 # 每个人都可以理解的授权访问和身份认证
 
 Authentication and authorization are necessary for many of the applications we build. Maybe you've developed apps and implemented authentication and authorization in them — possibly by importing a third party auth library or by using an identity platform.
-我们开发的许多应用程序都需要实现身份认证和授权访问功能。或许你已经开发过应用程序，然后很可能是通过引入第三方库或者是使用一个统一认证平台来实现身份认证和授权访问功能。
+我们开发的许多应用程序都需要实现身份认证和授权访问功能。或许你已经开发过应用程序，然后很可能通过引入第三方库或者使用一个身份认证平台来实现这两个功能。
 
 Maybe you got the job done, but you really weren't clear on **what** was happening behind the scenes, or **why** things were being done a certain way. If you'd like to build a foundational understanding of what goes on behind the scenes when using OAuth 2.0 and OpenID Connect standards, read on!
-或许你已经做完了所有工作，但你一定不清楚一系列操作的背后发生了**什么**，或者是**为什么**能用这样的方式实现特定的功能。如果你想要对 OAuth 2.0 和 OpenID Connect 规范背后的流程有更深的理解，那么就继续读下去吧。
+就算你已经做完了所有工作，但你一定不清楚一系列操作的背后发生了**什么**，或者是**为什么**能用特定的方式实现这样的功能。如果你想要对 OAuth 2.0 和 OpenID 连接规范有更深、更基础的理解，那么就请继续读下去吧~
 
 ---
 
 **Authentication is hard.** Why is this? Auth standards are well defined — but challenging to get right. And that's okay! We're going to go through it in an approachable way. We'll address the **concepts of identity step by step, building on our knowledge as we go along.** By the time we're done, you should have a foundation and know where you might want to dig deeper.
-**身份认证是非常困难的**。为什么这么说？虽然身份认证协议拥有一套完善的定义，但是它也在一直接受挑战。好吧。我们将用可理解的方式来贯穿整个学习过程。我们会**一步一步地了解认证的概念，在深入的过程中构筑自己的知识体系**。在我们结束这一过程的时候，我们将拥有一个很好的基础并且知道哪个知识点是你更想要去深入研究的。
+**身份认证是非常困难的**。为什么这么说？虽然身份认证标准拥有一套完善的定义，但是它也在一直接受挑战。好吧。我们将用易于理解的方式来学习这整个过程。我们会**一步一步地了解认证的概念，在逐步深入的过程中构筑自己的知识体系**。在我们结束这一过程的时候，我们会对认证相关的知识有基础的了解并且知道哪一部分知识是你更想要去深入研究的。
 
 > **This post is meant to be read from beginning to end. We'll build on top of each concept to layer knowledge when it makes sense to introduce new topics. Please keep that in mind if you're jumping around in the content.**
-> **这篇文章值得从头读到尾。我们从每个概念的初始入手到知识层，然后引出其他新的题目。如果你想要跳过文章中的某些内容时，请记得我在这里说的话。**
+> **这篇文章应该从头读到尾。我们从每个概念的起源入手到原理层面，然后引出其他新的题目。如果你想要跳过文章中的某些内容时，请记得我在这里说的话~**
 
 ## Introduction
 ## 序言
 
 When I told family or friends that I "work in identity," they often assumed that meant I was employed by the government issuing driver's licenses, or that I helped people resolve credit card fraud.
-当我告诉我的家人、朋友“我在为认证工作”，他们通常认为我受雇于政府机构去检查司机驾驶证或者时帮助人们解决信用卡欺诈的问题。
+当我告诉我的家人、朋友“我的工作内容和身份认证相关”，他们通常认为我受雇于政府机构去检查司机驾驶证或者帮助人们解决信用卡欺诈的问题。
 
 However, neither were true. I [formerly worked for Auth0](https://auth0.com), a company that manages **digital identity**. (I'm now a member of the [Auth0 Ambassadors program](https://auth0.com/ambassador-program), and a [Google Developer Expert](https://developers.google.com/) in SPPI: Security, Privacy, Payments, and Identity.)
 然而，都不是。我之前为 [Auth0](https://auth0.com) 工作，这是一个管理**数字证书**的公司。我现在是 [Auth0 大使计划](https://auth0.com/ambassador-program)的一员，也是 SPPI(安全、隐私、支付、认证) 方向的[谷歌开发专家](https://developers.google.com/)。
@@ -35,13 +35,13 @@ However, neither were true. I [formerly worked for Auth0](https://auth0.com), a 
 #### 数字证书
 
 **Digital identity** refers to a set of attributes that define an individual user in the context of a function delivered by a particular application.
-**数字证书**指的是在一个特定应用的某个方法中能够定义一个个人用户身份的一系列属性。
+**数字证书**指的是在特定应用的某个方法中能够定义个人用户身份的一系列属性。
 
 What does that mean?
 什么意思？
 
 Say you run an online shoe retail company. The **digital identity** of your app's users might be their credit card number, shipping address, and purchase history. Their digital identity is contextual to **your** app.
-好比说，你现在正在经营一个线上鞋靴零售公司。你的用户的**数字证书**可能是他们的信用卡号、收货地址或者购买记录。他们的数字证书内容取决于**你的**应用程序。
+好比说，你现在正在经营一个线上鞋靴零售公司。用户的**数字证书**可能是他们的信用卡号、收货地址或者购买记录。他们的数字证书内容取决于**你的**应用程序。
 
 This leads us to...
 这将引导我们走向下一个概念。
@@ -53,37 +53,37 @@ In a broad sense, **authentication** refers to the process of verifying that a u
 广义上来讲，**身份认证**指的是一个验证用户是否具有他自己声称的身份的过程。
 
 Once a system has been able to establish this, we come to...
-一旦一个系统能够实现身份认证，我们就来到了下一个概念。
+在一个系统能够实现身份认证后，我们就来到了下一个概念。
 
 #### Authorization
 #### 授权访问
 
 **Authorization** deals with granting or denying rights to access resources.
-**授权访问**问题与是否允许对某资源的访问有关。
+**授权访问**处理是否允许访问某资源的问题。
 
 #### Standards
 #### 标准
 
 You may recall that I mentioned that auth is guided by clearly-defined standards. But where do these standards come from in the first place?
-你还记得，我在上文中提到过，认证过程是被定义完善的标准所引导的。但是这些标准一开始是怎么来的呢？
+你还记得，我在上文中提到过，认证有一套定义完善的标准。但是这些标准一开始是怎么来的呢？
 
 There are many different standards and organizations that govern how things work on the internet. Two bodies that are of **particular interest to us in the context of authentication and authorization** are the Internet Engineering Task Force (IETF) and the OpenID Foundation (OIDF).
-现在有很多组织和标准来管理互联网上的事情是如何工作的。在讨论身份认证和授权访问的时候，有两个组织是我们尤其感兴趣的--互联网工程任务组(ietf)和OpenID基金会(oidf)。
+现在有很多组织和标准来管理互联网上的事情是如何工作的。在讨论身份认证和授权访问的时候，有两个组织是我们**尤其感兴趣的**--互联网工程任务组 (IETF) 和 OpenID 基金会 (OIDF)。
 
 ##### IETF (Internet Engineering Task Force)
 ##### IETF（互联网工程任务组）
 
 The [IETF](https://ietf.org) is a large, open, international community of network designers, operators, vendors, and researchers who are concerned with the evolution of internet architecture and the smooth operation of the internet.
-[互联网工程任务组](https://ietf.org)是一个大型开放的国际组织，由密切关注网络架构的法阵和网络服务的流畅使用的网络服务设计者、操作者、供应商和研究者组成。
+[互联网工程任务组](https://ietf.org)是一个大型开放的国际组织，由密切关注网络架构的发展和确保网络服务能够流畅使用的网络服务设计者、操作者、供应商和研究人员组成。
 
 Really, that's a fancy way to say that **dedicated professionals cooperate to write technical documents that guide us in how things should be done on the internet.**
-说真的，**乐于奉献的专家合作书写技术文档来引导我们功能应该如何以符合互联网规则的方式来完成**是一件很棒的事情。
+说真的，有**乐于奉献的专家合作书写技术文档来引导我们功能应该如何以符合互联网规则的方式来完成**是一件很棒的事情。
 
 ##### OIDF (OpenID Foundation)
-##### OpenID 基金会
+##### OIDF （OpenID 基金会）
 
 The [OIDF](https://openid.net/foundation/) is a non-profit, international organization of people and companies who are committed to enabling, promoting, and protecting OpenID technologies.
-[OIDF](https://openid.net/foundation/)是一个非盈利的国际组织。它由致力于实现、优化和提升 OpenID 技术的个人和公司组成。
+[OIDF](https://openid.net/foundation/)是一个非盈利的国际组织。它由致力于实现、优化和维护 OpenID 技术的个人和公司组成。
 
 Now that we are aware of the specs and who writes them, let's circle back around to **authorization** and talk about:
 既然我们已经对这些规范和它们的作者有所了解，让我们再回到**授权访问**的概念:
@@ -92,34 +92,35 @@ Now that we are aware of the specs and who writes them, let's circle back around
 ## OAuth 2.0
 
 [OAuth 2.0](https://tools.ietf.org/html/rfc6749) is one of the most frequently mentioned specs when it comes to the web — and also one that is **often mis-represented or misunderstood**. How so?
-当我们谈论 web 规范的时候，[OAuth 2.0](https://tools.ietf.org/html/rfc6749) 是最通常被提到的一个，也是**最容易被误解**的一个，怎么会这样呢？
+当我们谈论 web 规范的时候，[OAuth 2.0](https://tools.ietf.org/html/rfc6749) 是最经常被提到的规范，也是**最容易被误解**的一个，怎么会这样呢？
 
 **OAuth is not an authentication spec.** OAuth deals with **delegated authorization**. Remember that authentication is about verifying the identity of a user. Authorization deals with granting or denying access to resources. OAuth 2.0 grants access to applications on the behalf of users. (Don't worry, we'll get to the authentication part in a little bit!)
-**OAuth 不是一个身份认证协议**，它处理的是**授权的资源访问**。请记住，在这里我们提到的身份认证指的是证实用户的身份信息，授权解决的是授予或收回对资源的访问权限。 OAuth 2.0代表用户给应用程序授予权限。（别担心，我们之后就会到身份认证的部分。）
+**OAuth 不是一个身份认证协议**，它处理的是**授权访问**。请记住，在这里我们提到的身份认证指的是证实用户的身份信息，授权访问指的是授予或拒绝对某资源的访问。 OAuth 2.0代表用户给应用程序授予权限。（别担心，我们之后会谈到身份认证的部分。）
 
 ### Before OAuth
-### OAuth 之前
+### 在 OAuth 出现之前
 
 To understand the purpose of OAuth, we need to do go back in time. OAuth 1.0 was established in December 2007. Before then, if we needed to **access third party resources**, it looked like this:
-为了理解 OAuth 的目的，我们需要及时回顾。 OAuth 1.0在2007年12月出台。在此之前，如果我们需要**访问第三方资源**，就会发生如下过程：
+为了理解 OAuth 的目的，我们需要看看它的发展历史。 OAuth 1.0在2007年12月出台。在此之前，如果我们需要**访问第三方资源**，就会发生如下过程：
 
 [![Before OAuth](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)
 
 Let's say you used an app called HireMe123. HireMe123 wants to set up a calendar event (such as an interview appointment) on your (the user's) behalf. HireMe123 doesn't have its own calendar; it wants to use another service called MyCalApp to add events.
-好比说你正在使用一个叫做 HireMe123 的应用程序。 HireMe123 想代表你设定一个日历事件（例如面试约会）。HireMe123没有自己的日历，它想要使用另一个叫做 MyCalApp 的服务去添加一个事件。
+好比说你正在使用一个叫做 HireMe123 的应用程序。 HireMe123 想代表你设定一个日历事件（例如面试约会）。但是HireMe123没有自己的日历，所以它想要使用另一个叫做 MyCalApp 的服务去添加这样的事件。
 
 Once you were logged into HireMe123, HireMe123 would **ask you for your MyCalApp login credentials**. You would enter your MyCalApp username and password into HireMe123's site.
-一旦你登录了 HireMe123 ，它就会**向你要 MyCalApp 的登录授权许可**。你就要在 HireMe123 的站点上输入你在 MyCalApp 的用户名和密码。
+一旦你登录了 HireMe123 ，它就会**向你要 MyCalApp 的登录证书**。你就要在 HireMe123 的站点上输入你在 MyCalApp 的用户名和密码。
 
 HireMe123 then used your MyCalApp login to gain access to MyCalApp's API, and could then create calendar events using **your** MyCalApp credentials.
-HireMe123 之后就可以使用你在 MyCalApp 的账户登录并访问 MyCalApp 的API，并且能够用你的账户信息创建日历事件。
+HireMe123 之后就可以使用你在 MyCalApp 的账户登录并访问 MyCalApp 的 API，并且能够用你的账户信息创建日历事件。
 
 #### Sharing Credentials is Bad!
 #### 证书共享是一件很糟糕的事情！
 
 This approach relied on sharing a user's personal credentials from one app with a completely different app, and this is **not good**. How so?
-这种方法依赖于在两个互不相同的应用程序之间共享用户的个人证书，这种方法并不好，为什么？
+这种方法依赖于在两个互不相同的应用程序之间共享用户的个人证书，这并不是个好方法，为什么？
 
+---
 For one thing, HireMe123 had **much less at stake** in the protection of your MyCalApp login information. If HireMe123 didn't protect your MyCalApp credentials appropriately and they ended up stolen or breached, someone might write some nasty blog articles, but **HireMe123** wouldn't face a catastrophe the way MyCalApp would.
 从一个方面来考虑， HireMe123 面临的保护 MyCalApp 登录信息的责任要小的多。如果 HireMe123 没有给你的 MyCalApp 证书提供合适的保护，那它们就有可能被窃取，有的人可能就此窃取事件写一些很可恶的报道，但是**HireMe123**不会面临着 MyCalApp 那样的指责。
 
