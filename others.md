@@ -1,3 +1,6 @@
+* [如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [迪米特法则](https://juejin.cn/post/6890050952049950733)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)（[jackwener](https://github.com/jackwener) 翻译）
 * [MVC，MVP，MVVM 对比](https://juejin.cn/post/6883088734699388941)（[snowyYU](https://github.com/snowyYU) 翻译）

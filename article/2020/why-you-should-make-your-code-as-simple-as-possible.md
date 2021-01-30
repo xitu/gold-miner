@@ -105,7 +105,7 @@
 
 记住：“完美是好的敌人。”这只是你的初稿，你可以再次编辑！那是分步式的过程。
 
-我还将可读性的优先级提高了，可读性高于性能， 因为我在每个内部循环中使用了 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)。这是 [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) 的双层循环。对于小型的数组矩阵，这对性能没什么影响，但是这样的操作可能会让你找不着工作。在我的下次一次重构的版本中，这也是不是重要的优化项。
+我还将可读性的优先级提高了，可读性高于性能， 因为我在每个内部循环中使用了 [`.some()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)。这是 [O(n²)](https://medium.com/@jorgesmulevici/o-n%C2%B2-is-not-what-you-think-bb3a2a5f58b1) 的双层循环。对于小型的数组矩阵，这对性能没什么影响，但是这样的操作可能会让你找不着工作。在我的下一次重构的版本中，这也不是重要的优化项。
 
 我决定在完成“简单的初稿”前，我又使用 [`.map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 进行了一轮变更：
 
@@ -150,7 +150,7 @@
 
 ## 结论
 
-无论你是代码新手，初级工程师还是专家，只要你不专注于完美，都将可以更快地写更多代码。从“简单的初稿”开始，然后在代码生效后立即对其进行休整。
+无论你是代码新手，初级工程师还是专家，只要你不专注于完美，都将可以更快地写更多代码。从“简单的初稿”开始，然后在代码生效后立即对其进行修整。
 
 从一位技术作家那里获取经验，该作家去年使用 10 种编程语言撰写了 100,000 个有关 JavaScript 的文字 —— 这个写作技巧对开发人员和作家均适用。
 
