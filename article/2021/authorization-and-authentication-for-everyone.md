@@ -407,23 +407,31 @@ We talked a bit about access tokens earlier, back when we were looking at how de
 **访问令牌**用于**许可对某资源的访问**。用一个 MyCalApp 的授权服务器办法的访问令牌， HireMe123 就可以访问 MyCalApp 的API。
 
 Unlike **ID tokens**, which **OIDC** declares as **JSON Web Tokens**, **access tokens have no specific, defined format**. They do not have to be (and aren't necessarily) JWT. However, many identity solutions use JWTs for access tokens because the format enables validation.
-和**ID令牌**不同，
+和**ID令牌**将**OIDC**声明为**JSON Web Tokens**不同，访问令牌没有明确的、固定的格式。它们没必要，也不需要成为JWT的格式。然而，许多身份验证解决方案中都将JWT形式用于访问令牌，这是因为这样的格式方便校验。
 
 #### Access Tokens are Opaque to the Client
+#### 客户端难以理解访问令牌
 
 Access tokens are for the **resource API** and it is important that they are **opaque to the client.** Why?
+访问令牌主要用的**资源API**的调用，并且**客户端难以理解**这一点是很重要的。为什么？
 
 Access tokens can change at any time. They should have short expiration times, so a user may frequently get new ones. They can also be re-issued to access different APIs or exercise different permissions. The **client** application should never contain code that relies on the contents of the access token. Code that does so would be brittle, and is almost guaranteed to break.
+访问令牌可以随着时间变化。它们应该有很短的过期时间，所以一个用户可能经常性的得到新的令牌。它们同样也可以被重新分发给访问不同的API或者是请求不同的许可。这**客户**应用程序不应该包含任何依赖于访问令牌的内容。那样的代码是脆弱的，并且基本上一定会被打破。
 
 ### Accessing Resource APIs
+### 访问资源API
 
 Let's say we want to use an access token to call an API from a Single Page Application. What does this look like?
+假设我们现在想要使用访问令牌从一个单页面应用去调用一个API，这个过程会发生什么呢？
 
 We've covered **authentication** above, so let's assume the user is logged into our JS app in the browser. The app sends an authorization request to the authorization server, requesting an access token to call an API.
+我们在上面已经讲过了**身份认证**，假设现在用户已经通过浏览器登录在了我们的JS 应用中。这个应用向授权服务器发送一个授权请求，请求调用某只api的访问令牌。
 
 [![Accessing an API with an access token](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)
+[![使用访问令牌访问某API](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--ddk-Mi7p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/api-access.gif)
 
 Then when our app wants to interact with the API, we attach the access token to the request header, like so:  
+之后，当我们的应用程序想要和API进行交互的时候，我们就把访问令牌添加到请求头中，就像下面这样：
 
 ```
 # HTTP request headers
@@ -432,42 +440,61 @@ Authorization: 'Bearer eyj[...]'
 ```
 
 The authorized request is then sent to the API, which verifies the token using middleware. If everything checks out, then the API returns data (e.g., JSON) to the application running in the browser.
+这一授权过的请求之后发给目标API，在目标API中使用第三方中间件来验证令牌。如果验证通过，API就返回数据给浏览器中的应用程序。
 
 This is great, but there's something that may be occurring to you right about now. Earlier, we stated that **OAuth solves problems with too much access**. So how is that being addressed here?
+这很棒，但是可能会有某些事情困扰你。之前我们说过**OAuth 解决的是权限过大的问题**。那么这个问题在这里如何解决呢？
 
 ### Delegation with Scopes
+### 具有作用域的授权
 
 How does the API know what level of access it should give to the application that's requesting use of its API? We do this with **scopes**.
+这个API怎么知道它应该给这个发出访问请求的应用程序什么级别的权限呢？我们这里引入一个概念叫做**作用域**。
 
 Scopes "[limit what an application can do on the behalf of a user](https://auth0.com/blog/on-the-nature-of-oauth2-scopes)." They **cannot grant privileges the user doesn't already have**. For example, if the MyCalApp user doesn't have permission to set up new MyCalApp enterprise accounts, scopes granted to **HireMe123** won't ever allow the user to set up new enterprise accounts either.
+作用域“[限制了应用程序可以代表用户做什么](https://auth0.com/blog/on-the-nature-of-oauth2-scopes)”。它们不能给用户赋本身没有的权限。例如，如果 MyCalApp 的用户没有允许 MyCalApp 去新建新的企业账户，那么授权给 **HireMe123** 的作用域自然也不能允许用户新建企业账户。
 
 Scopes **delegate access control** to the API or resource. The API is then responsible for **combining incoming scopes with actual user privileges** to make the appropriate access control decisions.
+作用域**授权访问**对某api或者资源。这个API之后负责**将传入的作用域和实际用户权限结合起来**确保做出合适的访问控制决定。
 
 Let's walk through this with an example.
+让我们继续看这个例子。
 
 I'm using the HireMe123 app and HireMe123 wants to access the third party MyCalApp API to create events on my behalf. HireMe123 has already requested an **access token** for MyCalApp from MyCalApp's authorization server. This token has some important information in it, such as:
+我正在使用 HireMe123 并且 HireMe123 想要访问第三方程序 MyCalApp 的API来代表我创建一个时间。 HireMe123 已经向 MyCalApp 从授权服务器请求了访问令牌**访问令牌**。这个令牌中包含有一些重要信息，比如：
 
 * `sub`: (my MyCalApp user ID)
+* `sub`: (我的 MyCalApp 用户 ID)
 * `aud`: `MyCalAppAPI` (audience stating this token is intended for the MyCalApp API)
+* `aud`: `MyCalAppAPI` (观众声明这个令牌是用于访问 MyCalApp 的 API)
 * `scope`: `write:events` (scope saying HireMe123 has permission to use the API to write events to my calendar)
+* `scope`: `write:events` (作用域说明 HireMe123 有权限使用 API 来在日历中写事件)
 
 HireMe123 sends a request to the MyCalApp API with the access token in its authorization header. When the MyCalApp API receives this request, it can see that the token contains a `write:events` scope.
+HireMe123 向 MyCalApp 的 API 发送一个带着授权头中的访问令牌的请求。当 MyCalApp 的 API 接收到这个请求之后，它就知道令牌中包含了`write:events`这样的作用域。
 
 But MyCalApp hosts calendar accounts for **hundreds of thousands of users**. In addition to looking at the `scope` in the token, MyCalApp's API middleware needs to check the `sub` subject identifier to make sure this request from HireMe123 is only able to exercise **my** privileges to create events with **my** MyCalApp account.
+但是 MyCalApp 为**成百上千的用户**管理日历事件。除了查看令牌中的 `scope` ， MyCalApp 的API 还需要检查`sub`字段标识符来确定这个来自 HireMe123 的请求仅仅能够使用**我**已有的权限来在**我的**账户上创建事件。
 
 [![delegated authorization with scopes and API access control](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)
+[![具有作用域的授权访问和API访问控制](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)
 
 In the context of delegated authorization, scopes express what an application can do on the user's behalf. They're a subset of the user's total capabilities.
+在授权访问的背景下，作用域表达了应用程序可以代表用户做什么。它是用户所有权限的子集。
 
 #### Granting Consent
+#### 授权许可
 
 Remember when the [authorization server asked the HireMe123 user for their consent](#authorization-server) to allow HireMe123 to use the user's privileges to access MyCalApp?
+还记得什么时候[授权服务器询问 HireMe123 的用户征求他们的同意](#authorization-server)允许 HireMe123 使用用户的权限来访问 MyCalApp 吗？
 
 That consent dialog might look something like this:
+同意对话框可能像下面这样：
 
 [![consent dialog flow: HireMe123 is requesting access to your MyCalApp account to write:calendars](https://res.cloudinary.com/practicaldev/image/fetch/s--YBRcijw1--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/consent.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--YBRcijw1--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/consent.gif)
 
 HireMe123 could ask for a variety of different scopes, for example:
+HireMe123 可能要寻求一系列不同的作用域，比如：
 
 * `write:events`
 * `read:events`
@@ -476,26 +503,37 @@ HireMe123 could ask for a variety of different scopes, for example:
 * ...etc.
 
 In general, we should avoid overloading scopes with user-specific privileges. Scopes are for delegated permissions for an application. However, it **is** possible to add different scopes to individual users if your authorization server provides [Role-Based Access Control (RBAC)](https://auth0.com/docs/authorization/concepts/rbac).
+一般来说，我们应该避免使用过多作用域来指定用户权限。作用域用于一个应用程序的授权许可。然而，如果你的授权服务器提供了[基于角色的访问控制(RBAC)](https://auth0.com/docs/authorization/concepts/rbac)，那么给一个个人用户添加不同的作用域确实是**可行**的。
 
 > **With **RBAC**, you can set up user roles with specific permissions in your authorization server. Then when the authorization server issues access tokens, it can include a specific user's roles in their scopes.**
+> **使用RBAC**，你能在授权服务器中给用户角色设置特定的权限。然后，当授权服务器发出访问令牌的时候，它就可以在作用域中包含一个特定的用户角色。
 
 ## Resources and What's Next?
+## 资源，接下来是什么？
 
 We covered a **lot** of material, and it still wasn't anywhere close to everything. I do hope this was a helpful crash course in identity, authorization, and authentication.
+我们已经看过很多材料了，然而还是不够和全貌接近。但我希望这篇文章可以是一个在身份、授权和认证方面有帮助的速成课。
 
 To further demystify JWT, read my article [Signing and Validating JSON Web Tokens for Everyone](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb).
+为了进一步讲明白JWT，请阅读我的文章[每个人都能懂的JWT签名验签](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb)
 
 If you'd like to learn much, much more on these topics, here are some great resources for you to further your knowledge:
+如果你想要对这个主题有进一步的了解，这里有一些很好的资源供你进阶学习：
 
 ### Learn More
+### 了解更多
 
 The **[Learn Identity](https://auth0.com/docs/videos/learn-identity) video series** in the [Auth0 docs](https://auth0.com/docs) is the lecture portion of the new hire identity training for engineers at [Auth0](https://auth0.com), presented by Principal Architect [Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/). If you'd like to learn identity the way it’s done at Auth0, it's completely free and available to everyone (you don't even have to pay with a tweet or email!).
+**[身份认证系列视频](https://auth0.com/docs/videos/learn-identity)** 在 [Auth0 文档](https://auth0.com/docs)中是由主架构师[Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/)为训练 [Auth0](https://auth0.com) 新入职的认证工程师所制作的讲座。如果你想要根据 Auth0 的标准学习身份认证，这就是完全免费和最容易获得的学习材料，你甚至不需要用推特或邮件进行支付。
 
 The **OAuth 2.0 and OpenID Connect specifications** are dense, but once you're familiar with the terminology and have foundational identity knowledge, they're helpful, informative, and become much more digestible. Check them out here: [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749) and [OpenID Connect Specifications](https://openid.net/developers/specs/).
+**OAuth 2.0 and OpenID Connect 规范**内容很多，但是一旦你熟悉了术语并且对于认证有了一个基础的理解之后，他们就是非常有帮助、信息丰富并且可理解的材料。点击这里：[ OAuth 2.0 授权框架](https://tools.ietf.org/html/rfc6749) and [OpenID Connect 规范](https://openid.net/developers/specs/)。
 
 **[JWT.io](https://jwt.io)** is a **JSON Web Token** resource that provides a debugger tool and directory of JWT signing/verification libraries for various technologies.
+**[JWT.io](https://jwt.io)** 是一个关于**JSON Web Token**的资源，主要提供了调试工具和用各种语言实现的JWT 签名/验签第三方库。
 
 The **[OpenID Connect Playground](https://openidconnect.net/)** is a debugger that lets developers explore and test **OIDC** calls and responses step-by-step.
+**[OpenID Connect Playground](https://openidconnect.net/)** 是一个允许开发者一步一步调试 **OIDC** 调用和响应的调试器。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
