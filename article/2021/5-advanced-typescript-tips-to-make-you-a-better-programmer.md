@@ -34,7 +34,7 @@ const myApiResult = await callApi("url.com/endpoint") as IApiResult
 const myApiResult = await callApi("url.com/endpoint") as any
 ```
 
-这两种方法都会导致编译器关闭，但是第一种方法明显比第二种方法的健壮性更高——事实上，第二种方法处理的返回结果和 JavaScript 没什么区别。
+这两种方法都会导致编译器崩溃无语，但是第一种方法明显比第二种方法的更好 —— 事实上，第二种方法处理的返回结果和 JavaScript 没什么区别。
 
 但如果 API 返回的结果不是 `IApiResult` 类型怎么办？其返回值类型和我们期望的不同，我们可以定义一个随机的 `MyApiResult` 类型？其结果显而易见会存在问题，并且会 100% 地导致输入类型错误。
 
