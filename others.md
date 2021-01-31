@@ -1,3 +1,5 @@
+* [你应该知道的 3 个罕见的 Bash 技巧](https://juejin.cn/post/6923190362706018318)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [10 个你应该现在启用的绝佳的 Chrome Flags](https://juejin.cn/post/6923198038894706701)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
 * [迪米特法则](https://juejin.cn/post/6890050952049950733)（[samyu2000](https://github.com/samyu2000) 翻译）
