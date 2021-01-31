@@ -120,30 +120,29 @@ HireMe123 之后就可以使用你在 MyCalApp 的账户登录并访问 MyCalApp
 This approach relied on sharing a user's personal credentials from one app with a completely different app, and this is **not good**. How so?
 这种方法依赖于在两个互不相同的应用程序之间共享用户的个人证书，这并不是个好方法，为什么？
 
----
 For one thing, HireMe123 had **much less at stake** in the protection of your MyCalApp login information. If HireMe123 didn't protect your MyCalApp credentials appropriately and they ended up stolen or breached, someone might write some nasty blog articles, but **HireMe123** wouldn't face a catastrophe the way MyCalApp would.
-从一个方面来考虑， HireMe123 面临的保护 MyCalApp 登录信息的责任要小的多。如果 HireMe123 没有给你的 MyCalApp 证书提供合适的保护，那它们就有可能被窃取，有的人可能就此窃取事件写一些很可恶的报道，但是**HireMe123**不会面临着 MyCalApp 那样的指责。
+从一个方面来考虑， HireMe123 承担的保护 MyCalApp 登录信息的责任要小的多。如果 HireMe123 没有给你的 MyCalApp 证书提供合适的保护，那它们就有可能被窃取，有的人可能就此窃取事件写一些很可恶的报道，但是**HireMe123**不会面临着 MyCalApp 那样的指责。
 
 HireMe123 also had **way too much access** to MyCalApp. HireMe123 had the same amount of access that you did, because they used your credentials to gain that access. That meant that HireMe123 could read all your calendar events, delete events, modify your calendar settings, etc.
-HireMe123 也拥有了对 MyCalApp 过多的访问权限，它基本上享有和你相同的访问权限，因为它们使用你的证书去获取那些权限。这意味着 HireMe123 可以读取你的所有日历事件、删除这些事件或者是修改你的日历设置。
+HireMe123 也拥有了对 MyCalApp 过多的访问权限。因为它们使用你的证书去获取那些权限，所以它基本上享有和你相同的访问权限，。这意味着 HireMe123 可以读取你的所有日历事件、删除这些事件或者是修改你的日历设置。
 
 ### Enter OAuth
-### 来到 OAuth
+### OAuth 协议诞生
 
 This leads us to OAuth.
 OAuth 协议在这种情况下应运而生。
 
 **OAuth 2.0** is an open standard for performing delegated authorization. It's a specification that tells us how to grant third party access to APIs without exposing credentials.
-**OAuth 2.0**是一个开放的用于实现授权访问的标准。作为一个说明书，它能够知道我们如何给第三方应用授权访问某些api而不用暴露个人证书。
+**OAuth 2.0**是一个开放的用于实现授权访问的标准。作为一个说明书，它能够指导我们如何在不用暴露个人证书的同时给第三方应用授权访问某些 API。
 
 Using OAuth, the user can now **delegate** HireMe123 to call MyCalApp on the user's behalf. MyCalApp can limit access to its API when called by third party clients without the risks of sharing login information or providing **too much** access. It does this using an:
-使用 OAuth 协议，用户现在可以**授权** HireMe123 代表用户去调用 MyCalApp。 MyCalApp 能够在避免共享登录信息或者提供**太多**访问权限的情况下控制第三方对于API的访问权限。它是像这样工作的：
+使用 OAuth 协议，用户现在可以**授权** HireMe123 代表用户访问 MyCalApp。 MyCalApp 能够在避免共享登录信息或者提供**太多**访问权限的风险的同时控制第三方对于API的访问权限。它是像这样工作的：
 
 ### Authorization Server
 ### 授权访问服务器
 
 An **authorization server** is a set of endpoints to interact with the user and issue tokens. How does this help?
-**授权访问服务器**是一系列端点的集合，这些端点用于和用户交互并且标记问题。这一过程对我们的授权访问有什么帮助呢？
+**授权访问服务器**是一系列端点的集合，这些端点用于和用户交互并且发行令牌。这一过程对我们实现授权访问有什么帮助呢？
 
 Let's revisit the situation with HireMe123 and MyCalApp, only now we have OAuth 2.0:
 让我们使用 OAuth 2.0重新审视 HireMe123 和 MyCalApp 的例子：
@@ -151,31 +150,31 @@ Let's revisit the situation with HireMe123 and MyCalApp, only now we have OAuth 
 [![Authorization with OAuth 2.0](https://res.cloudinary.com/practicaldev/image/fetch/s--cd8rxwpH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/oauth2.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--cd8rxwpH--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/oauth2.gif)
 
 MyCalApp now has an authorization server. Let's assume that HireMe123 has already registered as a known client with MyCalApp, which means that MyCalApp's authorization server recognizes HireMe123 as an entity that may ask for access to its API.
-MyCalApp 现在有一台授权访问服务器。我们假定 HireMe123 已经作为一个已知用户登录到了 MyCalApp，这意味着 MyCalApp 的授权访问服务器将 HireMe123 标识为一个能够访问它API的外部实体。
+MyCalApp 现在有一台授权访问服务器。我们假定 HireMe123 已经作为已知第三方应用登录到了 MyCalApp，这意味着 MyCalApp 的授权访问服务器认为 HireMe123 可以访问 API。
 
 Let's also assume you're already logged in with HireMe123 through whatever authentication HireMe123 has set up for itself. HireMe123 now wants to create events on your behalf.
-我们也同样假定无论通过什么授权手段，你已经登录到了 HireMe123 。现在 HireMe123 想要代表你创建一个事件。
+我们同样假定无论通过什么身份认证方法，你已经登录了 HireMe123 。现在 HireMe123 想要代表你创建一个事件。
 
 HireMe123 sends an **authorization request** to MyCalApp's authorization server. In response, MyCalApp's authorization server prompts you — the user — to log in with MyCalApp (if you're not already logged in). You authenticate with MyCalApp.
-HireMe123 向 MyCalApp 的授权访问服务器发送一个授权访问请求。在响应中， MyCalApp 的授权访问服务器允许用户登录（如果你已经登录过）。这个时候，你就拥有了访问 MyCalApp 的授权。
+HireMe123 向 MyCalApp 的授权访问服务器发送一个授权访问请求。在响应中， MyCalApp 的授权访问服务器允许用户登录（如果你已经登录过）。这个时候，你就拥有了能够访问 MyCalApp 的身份认证。
 
 The MyCalApp authorization server then **prompts you for your consent** to allow HireMe123 to access MyCalApp's APIs on your behalf. A prompt opens in the browser and specifically asks for your consent to let HireMe123 **add calendar events** (but no more than that).
-之后， MyCalApp 的授权服务器**提示请您同意**允许 HireMe123 代表你来访问 MyCalApp的 API。这一提示在浏览器中弹出，然后请求您的同意允许 HireMe123 **添加日历事件** （但仅限于此了）。
+之后， MyCalApp 的授权服务器**提示请您同意**允许 HireMe123 代表你来访问 MyCalApp 的 API。这一提示在浏览器中弹出，然后请求您的同意允许 HireMe123 **添加日历事件** （但仅限于此了）。
 
 If you say yes and grant your consent, then the MyCalApp authorization server will send an **authorization code** to HireMe123. This lets HireMe123 know that the MyCalApp user (you) did indeed agree to allow HireMe123 to add events using the user's (your) MyCalApp.
 如果你同意并且点击确定，之后 MyCalApp 的授权服务器将会发送一个**授权代码**给 HireMe123。这一行为让 HireMe123 知道 MyCalApp 的用户确实同意它代表用户使用 MyCalApp 去添加一个日历事件。
 
 MyCalApp will then issue an **access token** to HireMe123. HireMe123 can use that access token to call the MyCalApp API within the scope of permissions that were accepted by you and create events for you using the MyCalApp API.
-然后 MyCalApp 会给 HireMe123 发送一个**访问令牌**。 HireMe123 之后使用这个访问令牌在你能够接受的权限许可的范围内调用 MyCalApp 的 API 并使用 MyCalApp 的API来创建一个事件。
+然后 MyCalApp 会给 HireMe123 发送一个**访问令牌**。 HireMe123 之后使用这个访问令牌在你能够接受的权限许可的范围内调用 MyCalApp 的 API 并使用 API 来创建一个事件。
 
 **Nothing insidious is happening now!** **MyCalApp is asking the user to log in with MyCalApp**. HireMe123 is **not** asking for the user's MyCalApp credentials. The issues with sharing credentials and too much access are no longer a problem.
-**此处没有什么不可告人的事情发生！** **MyCalApp 正在要求用户登录 MyCalApp** 。 HireMe123 并**没有**请求用户的 MyCalApp 证书。共享证书和过多访问权限再也不能成为问题了。
+**此处没有什么不可告人的事情发生！** **MyCalApp 正在要求用户登录 MyCalApp** 。 HireMe123 并**没有**请求用户的 MyCalApp 证书。共享证书和过多访问权限再也不是问题了。
 
 ##### What About Authentication?
 ##### 什么是身份认证？
 
 At this point, I hope it's been made clear that **OAuth is for delegated access**. It doesn't cover **authentication**. At any point where authentication was involved in the processes we covered above, login was managed by whatever login process HireMe123 or MyCalApp had implemented at their own discretion. OAuth 2.0 **didn't prescribe how** this should be done: it only covered authorizing third party API access.
-在这里，我希望**OAuth是一个授权访问协议**已经足够清楚了。它不包含身份认证。在上述过程中的任一环节都不包含有身份认证，登录被 HireMe123 或是 MyCalApp 的登录过程自行控制。 OAuth 2.0 在这里并不规定这个行为应该怎么做：它只是负责授权第三方访问API。
+在这里，我希望 **OAuth 是一个授权访问协议**是一个足够清楚的事实，它不包含身份认证。在上述过程中的任一环节都不包含有身份认证，登录被 HireMe123 或是 MyCalApp 的彼此不同登录过程所控制。 OAuth 2.0在这里并不规定这个行为应该怎么做：它只是负责授权第三方访问API。
 
 So why are authentication and OAuth so often mentioned in the same breath?
 那么为什么身份认证和 OAuth 经常被同时提起呢？
@@ -184,16 +183,16 @@ So why are authentication and OAuth so often mentioned in the same breath?
 ## 登录问题
 
 The thing that happened after OAuth 2.0 established a way to access third party APIs was that **apps also wanted to log users in with other accounts**. Using our example: let's say HireMe123 wanted a MyCalApp user to be able to **log into HireMe123 using their MyCalApp account**, despite not having signed up for a HireMe123 account.
-在 OAuth 2.0 为第三方服务访问API确立了一个方法之后，接下来的问题就是**应用程序同样想要用户可以使用其他的应用程序的账户登录。**还是用刚才的例子：假如 HireMe123 想要一个 MyCalApp 的用户能够用他在 MyCalApp 的账户登录，虽然这个用户还没有 HireMe123 的账户。
+在 OAuth 2.0为第三方服务访问API确立了一个方法之后，接下来的问题就是**应用程序同样想要用户可以使用其他的应用程序的账户登录。**还是用刚才的例子：假如 HireMe123 想要一个 MyCalApp 的用户能够用他在 MyCalApp 的账户登录 HireMe123，虽然这个用户还没有 HireMe123 的账户。
 
 But as we mentioned above, **OAuth 2.0 is for delegated access**. It is **not** an authentication protocol. That didn't stop people from trying to use it like one though, and this presented problems.
-但是，正如我们上面所提到的，**OAuth 2.0 是负责授权访问的**，他不是一个身份认证协议。虽然这并没有阻止人们尝试就像一个概念那样使用它，这个过程就带来了问题。
+但是，正如我们上面所提到的，**OAuth 2.0 是负责授权访问的**，他不是一个身份认证协议。但是这并没有阻止人们试图将两个概念当作一个概念对待，这个过程就带来了问题。
 
 ### Problems with Using Access Tokens for Authentication
 ### 使用访问令牌做身份认证的问题
 
 If HireMe123 assumes successfully calling MyCalApp's API with an access token means the **user** can be considered authenticated with HireMe123, we run into problems because we have no way to verify the access token was issued to a particular individual.
-假定 HireMe123 使用访问令牌成功地调用 MyCalApp的 API 意味着当前**用户**等同于 HireMe123 进行了身份认证，我们就面临这样一个问题：我们无法确定当前的访问令牌是属于某个特定用户的。
+假定 HireMe123 使用访问令牌成功地调用 MyCalApp 的 API 意味着当前**用户**通过 HireMe123 进行了身份认证，我们就面临这样一个问题：我们无法确定当前的访问令牌是属于某个特定用户的。
 
 For example:
 例如：
@@ -201,20 +200,21 @@ For example:
 * Someone could have stolen the access token from a different user
 * 有人可能会从他人处偷窃访问令牌
 * The access token could have been obtained from another client (not HireMe123) and injected into HireMe123
-* 访问令牌可能来自于其他第三方，而不是 HireMe123 然后注入到了 HireMe123。
+* 访问令牌可能来自于其他第三方，而不是 HireMe123 然后注入到了 HireMe123
 
 This is called the **confused deputy problem**. HireMe123 doesn't know **where** this token came from or **who** it was issued for. If we recall: **authentication is about verifying the user is who they say they are**. HireMe123 can't know this from the fact that it can use this access token to access an API.
-这种问题叫做**困惑的副手问题**。 HireMe123 不知道这个令牌来自何处或者是这个令牌属于哪个用户。如果我们回忆：**身份认证是关于确认这个用户是否是他自称的身份**，那么 HireMe123 无法通过访问该API的访问令牌得到这种信息。
+这种问题叫做**困惑的副手问题**。 HireMe123 不知道这个令牌来自何处或者是这个令牌曾经发行给谁。如果我们还记得起一开始的定义：**身份认证是关于确认这个用户是否是他自称的身份**，那么 HireMe123 无法从该访问令牌与 API 的绑定关系中得到这种信息。
 
 As mentioned, this didn't stop people from misusing access tokens and OAuth 2.0 for authentication anyway. It quickly became evident that formalization of authentication **on top of OAuth 2.0** was necessary to allow logins with third party applications while keeping apps and their users safe.
-正如我们提到过的，这一事实并没能阻止人们继续误用访问令牌和将 OAuth 2.0 用于身份认证。很快我们就会发现，为了在允许使用第三方应用登录的同时确保应用程序和用户安全，我们必须**在 OAuth 2.0的基础上**构建身份认证协议。
+正如我们提到过的，这一事实并没能阻止人们继续将访问令牌和将 OAuth 2.0误用于身份认证。很快我们就会发现，为了在允许使用第三方应用登录的同时确保应用程序和用户安全，我们必须**在 OAuth 2.0的基础上**构建身份认证协议。
 
 ## OpenID Connect
-## OpenID Connect
+## OpenID 连接
 
 This brings us to the specification called [OpenID Connect](https://openid.net/specs), or OIDC. OIDC is a spec **on top of OAuth 2.0** that says how to authenticate users. The [OpenID Foundation (OIDF)](https://openid.net/foundation/) is the steward of the OIDC standards.
-接下来我们要了解的规范叫做 [OpenID Connect](https://openid.net/specs)，也被称作 OIDC。 OIDC 是一个**基于 OAuth 2.0** 的规范，他规定了如何认证用户的身份。[OpenID 基金会(OIDF)](https://openid.net/foundation/)是 OIDC 标准的管理员。
+接下来我们要了解的规范叫做 [OpenID 连接](https://openid.net/specs)，也被称作 OIDC。 OIDC 是一个**基于 OAuth 2.0**的规范，他规定了如何认证用户的身份。[OpenID 基金会(OIDF)](https://openid.net/foundation/)是 OIDC 标准的管理员。
 
+---
 OIDC is an identity layer for authenticating users with an authorization server. Remember that an authorization server **issues tokens**. **Tokens** are encoded pieces of data for transmitting information between parties (such as an authorization server, application, or resource API). In the case of OIDC and authentication, the authorization server issues **ID tokens**.
 OIDC 是一个使用认证服务器来认证用户身份的认证层。请记住，认证服务器**放出token**，token是加密过的数据用于在实体，比如说授权服务器，应用或者是暴露的api，之间传递信息。在使用 OIDC 和认证的情况下，授权服务器放出**ID 令牌**。
 
