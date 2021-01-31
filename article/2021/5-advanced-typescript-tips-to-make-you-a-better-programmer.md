@@ -9,7 +9,7 @@
 
 ![Beautiful :)](https://cdn-images-1.medium.com/max/3200/0*RKICUYO863Mu_2mX.png)
 
-Typescript 是一门神奇的语言———相比 JavaScript 可以实现的所有功能，它只用十分之一的调试时间就可以完成，主要包括以下几点：
+Typescript 是一门神奇的语言 —— 相比 JavaScript 可以实现的所有功能，它只用十分之一的调试时间就可以完成，主要包括以下几点：
 
 * 通过编写强类型和可读性更高的代码来减少 bug
 * 代码中可以集成更多有价值的功能，从而避免重复造轮子
