@@ -38,7 +38,7 @@ const myApiResult = await callApi("url.com/endpoint") as any
 
 但如果 API 返回的结果不是 `IApiResult` 类型怎么办？其返回值类型和我们期望的不同，我们可以定义一个随机的 `MyApiResult` 类型？其结果显而易见会存在问题，并且会 100% 地导致输入类型错误。
 
-我们可以使用 TS 的类型保护来处理以上问题:
+我们可以使用 TypeScript 的类型保护来处理以上问题:
 
 ```ts
 interface IApiResponse { 
