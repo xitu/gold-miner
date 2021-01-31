@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-advanced-typescript-tips-to-make-you-a-better-programmer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-advanced-typescript-tips-to-make-you-a-better-programmer.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 掌握这 5 个 TypeScript 高级技巧，成为更好的开发者
 
@@ -34,11 +34,11 @@ const myApiResult = await callApi("url.com/endpoint") as IApiResult
 const myApiResult = await callApi("url.com/endpoint") as any
 ```
 
-这两种方法都会导致编译器崩溃无语，但是第一种方法明显比第二种方法的更好 —— 事实上，第二种方法处理的返回结果和 JavaScript 没什么区别。
+这两种方法都会导致编译器关闭，但是第一种方法明显比第二种方法的健壮性更高 —— 事实上，第二种方法处理的返回结果和 JavaScript 没什么区别。
 
 但如果 API 返回的结果不是 `IApiResult` 类型怎么办？其返回值类型和我们期望的不同，我们可以定义一个随机的 `MyApiResult` 类型？其结果显而易见会存在问题，并且会 100% 地导致输入类型错误。
 
-我们可以使用 TypeScript 的类型保护来处理以上问题:
+我们可以使用 TS 的类型保护来处理以上问题:
 
 ```ts
 interface IApiResponse { 
@@ -64,7 +64,7 @@ const responseIsBar = (response: unknown): response is IApiResponse => {
 
 实际使用场景中，你可以提示用户“服务器返回异常，请重试”，或者提示与之类似的错误信息，而不是显示 `属性 'bar' 不存在`。
 
- `is` 操作符的一般含义是: `value is type` 实际上是一个布尔值，当输入 `true` 时，意味着告诉了 TypeScript 返回值的类型确实是我们期望的类型。
+`is` 操作符的一般含义是: `value is type` 实际上是一个布尔值，当输入 `true` 时，意味着告诉了 TypeScript 返回值的类型确实是我们所期望的类型。
 
 #### 2. As Const / Readonly
 
@@ -79,12 +79,12 @@ let t: MyInterface = {
   myProperty: 'hi'
 }
 
-t.myProperty = "bye" //编译错误, myProperty 是只读属性.
+t.myProperty = "bye" // 编译错误, myProperty 是只读属性.
 ```
 
 这样处理就很棒，如果你哪天遇到了比较复杂返回结果数据集，比如 API 返回结果。接着你可以根据每个属性的 readonly 标识符，识别其为简单的数据集。
 
-Typescript 支持在类型声明后加上 `as const`，这样我们就相当于给每个属性添加 readonly。
+Typescript 支持在类型声明后加上 `as const`，这样我们就相当于给每个属性添加 `readonly`。
 
 ```ts
 let t = {
@@ -113,15 +113,15 @@ const callFooApi = async () => {
 
 使用这个方法的开发者想必都会喜出望外———它不仅可以识别返回值类型（来自 `response ` 的类型变量），而且数据还是不可变的（immutable）。当我们调用 API 时，可以通过这个简单的方法验证返回值是否符合我们的期望。这对每个开发者而言都是一种进步！
 
-做一个小提示，如果你只想进行类型声明，而不想让其属性只读，你可以这样做: type MyTypeReadonly = Readonly\<MyType> 。我们将会在后面的第 5 点更深入地讨论这个问题。
+做一个小提示，如果你只想进行类型声明，而不想让其属性只读，你可以这样做: `type MyTypeReadonly = Readonly<MyType>` 。我们将会在后面的第 5 点更深入地讨论这个问题。
 
 #### 3. 扩展性更好的 Switch Case
 
-扩展枚举（enum）通常是一件叫人头疼的事情，因为我们需要在所有使用枚举的地方都添加新的 case。如果我们忘记了其中某一个跳转条件，我们的程序就会跳转到默认情况 (如果有的话) 或者失败，这可能会导致出乎意料的问题。
+扩展枚举（enum）通常是一件叫人头疼的事情，因为我们需要在所有使用枚举的地方都添加新的 Case。如果我们忘记了其中某一个跳转条件，我们的程序就会跳转到默认情况 (如果有的话) 或者失败，这可能会导致出乎意料的问题。
 
 没有人喜欢这样。
 
-许多语言解决这个问题的方法是：必须有明确 switch 和 case 场景，或者显式声明一个的、 `default` 状态。Typescript 编译器不支持这种情况，但我们可以这样创建 switch case: 如果我们扩展了枚举（enum）或其他可能的值，我们的程序就不会编译，直到我们显式地处理了这种情况。
+许多语言解决这个问题的方法是：必须有明确 Switch 和 Case 场景，或者显式声明一个的、 `default` 状态。Typescript 编译器不支持这种情况，但我们可以这样创建 `switch case`: 如果我们扩展了枚举（enum）或其他可能的值，我们的程序就不会编译，直到我们显式地处理了这种情况。
 
 我们所说的方法如下：
 
@@ -155,7 +155,7 @@ enum Directions {
 }
 ```
 
-程序里的 switch case 知道这一点，但它**不在乎**。它会很自然地尝试打开 `goingTowards` ，如果它遇到 forward，它也会很自然地出错。两年是很长的一段时间，开发者忘记了之前都在哪里使用了 switch case 代码。对此，我们可以添加一个针对默认值的异常处理，让其在编译时抛出异常，这样总比运行时错误好。
+程序里的 `switch case` 知道这一点，但它**不在乎**。它会很自然地尝试打开 `goingTowards` ，如果它遇到 forward，它也会很自然地出错。两年是很长的一段时间，开发者忘记了之前都在哪里使用了 `switch case` 代码。对此，我们可以添加一个针对默认值的异常处理，让其在编译时抛出异常，这样总比运行时错误好。
 
 所以我们可以添加默认情况如下:
 
@@ -165,17 +165,17 @@ default:
    throw new Error(exhaustiveCheck)
 ```
 
-如果我们处理了 “Forward” 这个情况，那么一切都正常。如果我们不这样做，那么我们的程序将无法编译！( `throw` 这一行是可选的，我这样做只是为了关闭 eslint 对未使用变量的校验报错)
+如果我们处理了 `Forward` 这个情况，那么一切都正常。如果我们不这样做，那么我们的程序将无法编译！( `throw` 这一行是可选的，我这样做只是为了关闭 eslint 对未使用变量的校验报错)
 
 这降低了我们每次改变枚举（enum）时的记忆负担，我们可以通过编译器找到它们。
 
 #### 4. 使用 Null 代替 ? 操作符
 
-许多使用过其他语言的开发者都会认为 null === undefined，事实并非如此（不用担心，这个技巧会变得更好）
+许多使用过其他语言的开发者都会认为 `null === undefined`，事实并非如此（不用担心，这个技巧会变得更好）
 
-Undefined 是可以通过 JS 赋值的——例如，如果我们有一个文本框，它没有输入值，那它就是 Undefined。可以把 undefined 看作是 JS 的一个自动触发的空值。
+`undefined` 是可以通过 JavaScript 赋值的——例如，如果我们有一个文本框，它没有输入值，那它就是 `undefined`。可以把 `undefined` 看作是 JavaScript 的一个自动触发的空值。
 
-我们通常很难判断一个字段是设计里本来就没有，还是无意中留下的。如果我专门为一个字段设置默认值，我会用 null。这样，每个人都知道这个字段是专门置空的。
+我们通常很难判断一个字段是设计里本来就没有，还是无意中留下的。如果我专门为一个字段设置默认值，我会用 `null`。这样，每个人都知道这个字段是专门置空的。
 
 这里有一个例子：
 
@@ -185,7 +185,7 @@ interface Foo {
 }
 ```
 
-属性 bar 以问好结尾，意味着这个字段可能是 undefined，因此 `let baz: Foo = {}` 会通过编译（另外, `let baz: Foo = {bar: null} ` 也能通过编译）。然而开发者无法通过上述代码知道我是故意让 bar 取空值还是无意的。 一个更好表述我声明意图的示例如下:
+属性 `bar` 以问号结尾，意味着这个字段可能是 `undefined`，因此 `let baz: Foo = {}` 会通过编译（另外, `let baz: Foo = {bar: null} ` 也能通过编译）。然而开发者无法通过上述代码知道我是故意让 `bar` 取空值还是无意的。 一个更好表述我声明意图的示例如下:
 
 ```ts
 interface Foo {
@@ -193,9 +193,9 @@ interface Foo {
 }
 ```
 
-现在，我必须 **明确地声明 bar 的取值为 null。** 我的意图不会被混淆 — bar 没有明确的取值。
+现在，我必须 **明确地声明 `bar` 的取值为 `null`。** 我的意图不会被混淆 — `bar` 没有明确的取值。
 
-这不仅适用于接口声明——我还会在函数不返回任何内容时使用它。这在编译时很有帮助:
+这不仅适用于接口声明 —— 我还会在函数不返回任何内容时使用它。这在编译时很有帮助:
 
 ```ts
 //如果我们忘记指定了函数的返回值，编译器会返回默认值
@@ -213,7 +213,7 @@ const myFunc = (): string | null => {
 
 如果你在大型的 TS 项目里写过代码，你就会发现接口声明无处不在。有些接口与其他接口名称一样，有些接口属性重复，有些接口属性和名称都一样。
 
-如果真是这样的话，先不用惊慌。你正在按照预期使用 TypeScript：那就是类型安全。但是，如果你没有利用 TypeScript 的内置类型，那你可能写了太多的重复代码。下面是 [你至少应该知道存在的内建类型的链接](https://www.typescriptlang.org/docs/handbook/utility-types.html)，以便你可以在代码中使用。
+如果真是这样的话，先不用惊慌。你正在按照预期使用 TS:那就是类型安全。但是，如果你没有利用 TS 的内置类型，那你可能写了太多的重复代码。下面是 [你至少应该知道存在的内建类型的链接](https://www.typescriptlang.org/docs/handbook/utility-types.html)，以便你可以在代码中使用。
 
 我将介绍我最喜欢的和最常用的一些内置类型，但是你知道的越多，你就能把你的代码写得越好。
 
@@ -239,7 +239,7 @@ function generateData(): Readonly<T>
 
 **NonNullable**
 
-创建一个新类型，不包含 `null` / `undefined` 属性。如果我们正在增加或填写一些数据，这是很有用的，可以保证它是有值的。
+创建一个新类型，不包含 null / undefined 属性。如果我们正在增加或填写一些数据，这是很有用的，可以保证它是有值的。
 
 ```ts
 interface IPerson {
@@ -277,7 +277,7 @@ type CertainT = Required<T> // 等价于 { maybeName: string }
 
 ---
 
-关于 TypeScript，我要说的就这么多了！如果你在任何地方发现了错误，请告诉我，这样我可以在其他人学到错误知识之前修复它。如果你认为我遗漏了什么知识点，也请让告诉我！
+关于 TS，我要说的就这么多了！如果你在任何地方发现了错误，请告诉我，这样我可以在其他人学到错误知识之前修复它。如果你认为我遗漏了什么知识点，也请让告诉我！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
