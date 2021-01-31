@@ -22,7 +22,7 @@ Swagger 极大地帮助我们了解后端可以提供什么样的服务——但
 
 不幸的是，如果你不知道 API 会返回什么结果，就无法在编译时捕获它们，但我们可以做的是，使其在运行时更加易于处理（和上报！）。
 
-API 调用一般是 typescript 类型错误的入口——其结果通常会像下面这样被强制转换:
+API 调用一般是 TypeScript 错误的出处 —— 我们通常会将 API 调用的返回结果像下面这样强制转换:
 
 ```ts
 const myApiResult = await callApi("url.com/endpoint") as IApiResult
