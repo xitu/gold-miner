@@ -64,7 +64,7 @@ const responseIsBar = (response: unknown): response is IApiResponse => {
 
 实际使用场景中，你可以提示用户“服务器返回异常，请重试”，或者提示与之类似的错误信息，而不是显示 `属性 'bar' 不存在`。
 
- `is` 操作符的一般含义是: `value is type` 实际上是一个布尔值，当输入 true 时，意味着告知 typescript 返回值类型确实是我们期望的类型。
+ `is` 操作符的一般含义是: `value is type` 实际上是一个布尔值，当输入 `true` 时，意味着告诉了 TypeScript 返回值的类型确实是我们期望的类型。
 
 #### 2. As Const / Readonly
 
