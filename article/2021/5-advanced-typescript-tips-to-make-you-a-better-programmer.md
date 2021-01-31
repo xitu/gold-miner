@@ -239,7 +239,7 @@ function generateData(): Readonly<T>
 
 **NonNullable**
 
-创建一个新类型，不包含 null / undefined 属性。如果我们正在增加或填写一些数据，这是很有用的，可以保证它是有值的。
+创建一个新类型，不包含 `null` / `undefined` 属性。如果我们正在增加或填写一些数据，这是很有用的，可以保证它是有值的。
 
 ```ts
 interface IPerson {
