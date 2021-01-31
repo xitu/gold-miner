@@ -213,7 +213,7 @@ const myFunc = (): string | null => {
 
 如果你在大型的 TS 项目里写过代码，你就会发现接口声明无处不在。有些接口与其他接口名称一样，有些接口属性重复，有些接口属性和名称都一样。
 
-如果真是这样的话，先不用惊慌。你正在按照预期使用 TS:那就是类型安全。但是，如果你没有利用 TS 的内置类型，那你可能写了太多的重复代码。下面是 [你至少应该知道存在的内建类型的链接](https://www.typescriptlang.org/docs/handbook/utility-types.html)，以便你可以在代码中使用。
+如果真是这样的话，先不用惊慌。你正在按照预期使用 TypeScript：那就是类型安全。但是，如果你没有利用 TypeScript 的内置类型，那你可能写了太多的重复代码。下面是 [你至少应该知道存在的内建类型的链接](https://www.typescriptlang.org/docs/handbook/utility-types.html)，以便你可以在代码中使用。
 
 我将介绍我最喜欢的和最常用的一些内置类型，但是你知道的越多，你就能把你的代码写得越好。
 
