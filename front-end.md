@@ -1,3 +1,9 @@
+* [为什么你应该使用 Picture 标签而不是 Img 标签](https://juejin.cn/post/6923840549170446343)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
+* [在 TypeScript 中引入 JSON 模块](https://juejin.cn/post/6923188659957006343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2021 年 Web 应用开发常用的五个图标库](https://juejin.cn/post/6922416136294252557)（[zenblo](https://github.com/zenblo) 翻译）
+* [虚拟 DOM 来源于文档片段吗？](https://juejin.cn/post/6902211857244028941)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [对象展开运算符在 JavaScript 中的 5 大应用](https://juejin.cn/post/6895525536039174151)（[Alfxjx](https://github.com/Alfxjx) 翻译）
+* [使用 clamp() 进行响应式设计](https://juejin.cn/post/6890830054134611976)（[Alfxjx](https://github.com/Alfxjx) 翻译）
 * [Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)（[regon-cao](https://github.com/regon-cao) 翻译）
 * [解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
