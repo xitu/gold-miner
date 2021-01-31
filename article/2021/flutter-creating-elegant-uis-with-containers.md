@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md)
 > * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Zz招锦](https://github.com/zenblo)
 
 # 使用 Flutter 的 Container 控件构建优美的用户界面
 
-当我们使用 Flutter 构建绝佳的 UI 屏幕的时候，`Container` 扮演着重要的角色。我真的极度喜欢在任何地方添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
+当我们使用 Flutter 构建绝佳的 UI 界面的时候，`Container` 扮演着重要的角色。我真的极度喜欢在任何地方添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
 
-我真心希望这篇故事对初学者们有所帮助！
+我真心希望本文内容能对初学者们有所帮助！
 
 让我们一起看看我们能够怎样利用 `Container` 控件让我们的 UI 更加有吸引力吧！
 
@@ -35,7 +35,7 @@ Widget rectContainer() {
 }
 ```
 
-而下面的例子展示了如何给 `Container` 控件加上圆角。首先的两个是使用了 `BoxDecoration` 圆角化控件的。我们同样可以通过使用 `BoxDecoration` 绘制一个圆形，就像第三个控件那样：
+而下面的例子展示了如何给 `Container` 控件加上圆角。首先操作的两个控件是使用了 `BoxDecoration` 圆角化控件的。我们同样可以通过使用 `BoxDecoration` 绘制一个圆形，就像第三个控件那样：
 
 ![](https://cdn-images-1.medium.com/max/2202/1*lK_CjuIIFxIMSrijjme1qg.png)
 
@@ -126,7 +126,7 @@ Widget containerWithShadow() {
 }
 ```
 
-在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。但是，试着找找两张图片中 `Container` 的区别以挖掘装饰是如何被应用到控件上的：
+在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。但是，试着找找两张图片中 `Container` 的区别以及探究添加的装饰是如何被应用到控件上的：
 
 ![](https://cdn-images-1.medium.com/max/2224/1*W0xtgxhy3hLNkrcHbZEGhQ.png)
 
