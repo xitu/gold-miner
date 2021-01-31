@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-advanced-typescript-tips-to-make-you-a-better-programmer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-advanced-typescript-tips-to-make-you-a-better-programmer.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[zenblo](https://github.com/zenblo)
 
 # 掌握这 5 个 TypeScript 高级技巧，成为更好的开发者
 
@@ -121,7 +121,7 @@ const callFooApi = async () => {
 
 没有人喜欢这样。
 
-许多语言解决这个问题的方法是：必须有明确 Switch 和 Case 场景，或者显式声明一个的、 `default` 状态。Typescript 编译器不支持这种情况，但我们可以这样创建 `switch case`：如果我们扩展了枚举（enum）或其他可能的值，我们的程序就不会编译，直到我们显式地处理了这种情况。
+许多语言解决这个问题的方法是：必须有明确 Switch 和 Case 场景，或者显式声明一个 `default` 状态。Typescript 编译器不支持这种情况，但我们可以这样创建 `switch case`：如果我们扩展了枚举（enum）或其他可能的值，我们的程序就不会编译，直到我们显式地处理了这种情况。
 
 我们所说的方法如下：
 
