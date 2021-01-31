@@ -265,7 +265,7 @@ ReturnType<getMoney> //number
 
 **Required**
 
-从接口声明中移除具有 ? 属性的值。
+从接口声明中移除具有 `?` 属性的值。
 
 ```ts
 interface T {
