@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ultimate-guide-to-swiftui2-application-lifecycle.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ultimate-guide-to-swiftui2-application-lifecycle.md)
 > * 译者：[zhuzilin](https://github.com/zhuzilin)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[zenblo](https://github.com/zenblo)
 
 ![Image based on [Rocket](https://thenounproject.com/kavya261990/collection/space/?i=3437783) by [Icongeek26](https://thenounproject.com/kavya261990) on [The Noun Project](https://thenounproject.com/)](https://cdn-images-1.medium.com/max/2880/1*nhb0C-BMierO2SW0bvtKqA.png)
 
 # SwiftUI 2 应用生命周期的终极指导
 
-在很长一段时间里，`AppDelegate` 都是 iOS 开发者们的应用的入口。随着 SwiftUI2 在 WWDC 2020 上发布，苹果公司引入了一个新的应用生命周期。新的生命周期几乎（几乎）完全与 `AppDelegate` 无关，为类 DSL 的方法铺平了道路。
+在很长一段时间里，iOS 开发者们都是使用 `AppDelegate` 作为应用的主要入口。随着 SwiftUI 2 在 WWDC 2020 上发布，苹果公司引入了一个新的应用生命周期。新的生命周期几乎（几乎）完全与 `AppDelegate` 无关，为类 DSL 方法铺平了道路。
 
-在本文中，我会讨论引入新的生命周期的原因，以及你该如何在新旧应用中使用它。
+在本文中，我会讨论引入新的生命周期的原因，以及你该如何在已有的应用或新的应用中使用它。
 
 ## 指定应用入口
 
-我们的第一个问题是，该如何告诉编译器哪里是应用的入口呢？[SE-0281]（https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md）详述了**基于类型的程序入口（Type-Based Program Entry Points）**的工作方式：
+我们的第一个问题是，该如何告诉编译器哪里是应用的入口呢？[SE-0281](https://github.com/apple/swift-evolution/blob/master/proposals/0281-main-attribute.md) 详述了**基于类型的程序入口（Type-Based Program Entry Points）**的工作方式：
 
-> Swift编译器将识别标注了 @main 属性的类型为程序的入口。标有 @main 的类型有一个隐式要求：类型内部需要声明一个静态 main() 方法。
+> Swift 编译器将识别标注了 `@main` 属性的类型为程序的入口。标有 `@main` 的类型有一个隐式要求：类型内部需要声明一个静态 `main()` 方法。
 
-创建新的 SwiftUI 应用时，应用的 main class 如下所示：
+创建新的 SwiftUI 应用时，应用的主类（main class）如下所示：
 
 ```swift
 import SwiftUI
@@ -74,18 +74,19 @@ extension ParsableCommand {
 }
 ```
 
-如果上述这些听起来有点复杂，好消息是实际上在创建新的SwiftUI应用程序时你不必关心它：只需确保在 **Life Cycle** 下拉菜单中选择 **SwiftUI App** 来创建你的应用程序就行了：
+如果上述这些听起来有点复杂，好消息是实际上在创建新的 SwiftUI 应用程序时你不必关心它：只需确保在 **Life Cycle** 下拉菜单中选择 **SwiftUI App** 来创建你的应用程序就行了：
 
 ![**创建一个新的 SwiftUI 项目**](https://cdn-images-1.medium.com/max/2000/0*XWa5RgMK2WllmlHk.png)
 
 让我们来看一些常见的情况。
+
 ## 初始化资源 / 你最喜欢的 SDK 或框架
 
 大多数应用程序需要在启动时执行这些步骤：获取一些配置值，连接数据库或者初始化框架或第三方 SDK。
 
 通常，您可以在 `ApplicationDelegate` 的 `application(_:didFinishLaunchingWithOptions:)` 方法中进行这些操作。由于已经没有应用委托了，我们需要找到其他方法来初始化我们的应用程序。根据您的特定需求，有以下策略：
 
-* 为你的 main class 实现一个构造函数（initializer）（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID205)）
+* 为你的主类实现一个构造函数（initializer）（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID205)）
 * 为存储属性设置初始值（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID206)）
 * 用闭包设置属性的默认值（详见[文档](https://docs.swift.org/swift-book/LanguageGuide/Initialization.html#ID232)）
 
@@ -103,7 +104,7 @@ struct ColorsApp: App {
 }
 ```
 
-如果上述几种策略都无法满足你的需求，你可能还是需要一个 AppDelegate。后文会介绍如果能在应用中加入一个 AppDelegate。
+如果上述几种策略都无法满足你的需求，你可能还是需要一个 `AppDelegate`。后文会介绍如果能在应用中加入一个 AppDelegate。
 
 ## 处理你的应用的生命周期
 
@@ -111,7 +112,7 @@ struct ColorsApp: App {
 
 通常，您可以在你的 `ApplicationDelegate` 上实现 `applicationDidBecomeActive`，`applicationWillResignActive` 或 `applicationDidEnterBackground`。
 
-从 iOS 14.0 起，苹果提供了新的 API，该 API 允许以更优雅，更易维护的方式跟踪应用程序状态：`[ScenePhase](https://developer.apple.com/documentation/swiftui/scenephase)`。你的项目可以有多个场景（scene），不过有时只有一个场景，由 [WindowGroup](https://developer.apple.com/documentation/swiftui/windowgroup) 表示。
+从 iOS 14.0 起，苹果提供了新的 API，该 API 允许以更优雅，更易维护的方式跟踪应用程序状态：`[ScenePhase](https://developer.apple.com/documentation/swiftui/scenephase)`。你的项目可以有多个场景（scene），不过有时只有一个场景。这些场景将由 `[WindowGroup](https://developer.apple.com/documentation/swiftui/windowgroup)` 展示。
 
 SwiftUI 追踪环境中场景的状态，你可以使用 `@Environment` 属性包装器来获取 `scenePhase` 的值，然后使用 `onChange(of:)` modifier 来监听该值的变化：
 
@@ -176,13 +177,13 @@ xcrun simctl openurl booted <your url>
 
 ![Demo: Opening deep links and continuing user activities](https://cdn-images-1.medium.com/max/2000/1*RMYt_zbKht6oqYJdTn9S_w.gif)
 
-## 继续用户活动
+## 继续用户 activity
 
-如果你的应用使用 `NSUserActivity` 来[集成](https://developer.apple.com/documentation/foundation/nsuseractivity) Siri、Handoff 或 Spotlight，你需要处理用户继续进行的活动。
+如果你的应用使用 `NSUserActivity` 来[集成](https://developer.apple.com/documentation/foundation/nsuseractivity) Siri、Handoff 或 Spotlight，你需要处理用户继续进行的 activity。
 
-同样，新的应用生命周期模型通过提供两个 modifier 使你更容易实现这一点。这些 modifier 使你可以公示活动并随后继续进行。
+同样，新的应用生命周期模型通过提供两个 modifier 使你更容易实现这一点。这些 modifier 使你可以声明 activity 并让用户可以继续进行它们。
 
-下面是一个展现如何公示活动的代码片段。在一个具体的视图里：
+下面是一个展现如何声明 activity 的代码片段。在一个具体的视图里：
 
 ```swift
 struct ColorDetailsView: View {
@@ -191,7 +192,7 @@ struct ColorDetailsView: View {
   var body: some View {
     Image(color)
       // ...
-      .userActivity("showColor" ) { activity in
+      .userActivity("showColor") { activity in
         activity.title = color
         activity.isEligibleForSearch = true
         activity.isEligibleForPrediction = true
@@ -201,7 +202,7 @@ struct ColorDetailsView: View {
 }
 ```
 
-为了允许继续进行此活动，你可以在最顶层的导航视图中注册 `onContinueUserActivity` 闭包，如下所示：
+为了允许继续进行这个 activity，你可以在最顶层的导航视图中注册 `onContinueUserActivity` 闭包，如下所示：
 
 ```swift
 import SwiftUI
@@ -236,9 +237,9 @@ struct ContentView: View {
 
 ## 请帮帮我 —— 上述的那些对我都不管用！
 
-新的应用声明周期（截止当前）并非支持 `AppDelegate`的所有回调函数。如果上述这些都不满足你的需求，你可能还是需要一个 `AppDelegate`。
+新的应用声明周期（截止当前）并非支持 `AppDelegate` 的所有回调函数。如果上述这些都不满足你的需求，你可能还是需要一个 `AppDelegate`。
 
-另一个需要 AppDelegate 的原因是你使用的第三方 SDK 会使用 [method swizzling](https://pspdfkit.com/blog/2019/swizzling-in-swift/) 来把它们注入应用生命周期。[Firebase](https://firebase.google.com/) 就是一个[著名的例子](https://stackoverflow.com/a/62633158/281221)。
+另一个需要 AppDelegate 的原因是你使用的第三方 SDK 会使用 [method swizzling](https://pspdfkit.com/blog/2019/swizzling-in-swift/) 来把它们注入应用生命周期。[Firebase](https://firebase.google.com/) 就是一个[典型的例子](https://stackoverflow.com/a/62633158/281221)。
 
 为了帮助上述情况中的你摆脱困境，Swift 提供了一种将 `AppDelegate` 的一个实现类与你的 `App` 实现相连接的方法：`@UIApplicationDelegateAdaptor`。使用方法如下：
 
