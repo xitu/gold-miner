@@ -17,8 +17,6 @@ In this article we’ll explore what it takes to implement a GraphQL API on top 
 
 If you’d like to see the end result, you can find the [code for the REST API here](https://github.com/thawkin3/dad-joke-dadabase-rest-api) and the [code for the frontend and GraphQL API here](https://github.com/thawkin3/dad-joke-dadabase). Don’t forget to [visit the app](https://dad-joke-dadabase.herokuapp.com/) as well to groan at some jokes.
 
----
-
 ## The Initial Architecture
 
 The app’s backend was originally built using [Node](https://nodejs.org/en/) and [JSON Server](https://github.com/typicode/json-server). JSON Server utilizes [Express](https://expressjs.com/) to provide a full REST API to a mock database generated from a simple JSON file. A separate Express server takes care of serving the static HTML, CSS, and JavaScript assets for the frontend. The frontend is implemented in vanilla JS and uses the browser’s built-in [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to make the API requests. The app is hosted on [Heroku](https://devcenter.heroku.com/) to make deployment and monitoring a breeze.
@@ -87,7 +85,7 @@ You can test out our mock database by cloning the [repo for the API](https://git
 
 Wonderful! We can run our app’s backend locally in the browser. Now let’s get our API hosted on Heroku. First, we need to [install the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). After that, we can log in, create the app, push it to Heroku, and open the new app in our browser in four easy steps:
 
-```
+```bash
 # log in to your Heroku account
 heroku login
 
@@ -104,8 +102,6 @@ heroku open
 And look, now we have a publicly available API out on the web!
 
 ![/jokes API endpoint returns all the jokes when hosting the API on Heroku](https://cdn-images-1.medium.com/max/3500/0*UG1tnsWGg6C_EyoX.png)
-
----
 
 ## Building the User Interface
 
@@ -221,8 +217,6 @@ fetch('/jokes?_embed=ratings')
 ```
 
 ![Dad joke “dadabase” user interface allows you to rate each joke](https://cdn-images-1.medium.com/max/2860/1*vYef9XCI0zejzbFj7lzEPg.png)
-
----
 
 ## Setting Up Apollo Server
 
@@ -378,8 +372,6 @@ git push heroku master
 heroku open
 ```
 
----
-
 ## Replacing the Endpoint to Fetch Jokes
 
 You’ll recall that we have two endpoints used by the frontend: one to fetch jokes and one to post ratings. Let’s swap out the REST API for our GraphQL API when we fetch the jokes. The code previously looked like this:
@@ -425,8 +417,6 @@ fetch('/graphql', {
 We can run the app locally now and verify that the user experience still works properly. In fact, from the user’s point of view, nothing has changed at all. But if you look at the network requests in your browser’s developer tools, you’ll see that we’re now fetching our jokes from the `/graphql` endpoint. Amazing!
 
 ![The Network tab shows a request is being made to the /graphql endpoint now](https://cdn-images-1.medium.com/max/2520/0*ketnaG9b4tR0O0O4.png)
-
----
 
 ## Replacing the Endpoint to Submit Ratings
 
@@ -482,8 +472,6 @@ fetch('/graphql', {
 ```
 
 A quick test gives us some promising results. Once again, the user experience remains unchanged, but now we’re fully using the `/graphql` endpoint for both our requests!
-
----
 
 ## Conclusion
 
