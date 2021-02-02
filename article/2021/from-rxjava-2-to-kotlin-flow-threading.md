@@ -7,8 +7,6 @@
 
 # From RxJava 2 to Kotlin Flow: Threading
 
-#### Comparing threading in RxJava 2 and Kotlin Flow
-
 ![[Source](https://unsplash.com/photos/vyyVbUOYNPc)](https://cdn-images-1.medium.com/max/2000/0*piI5NnrRuivMUOKD)
 
 ## Introduction
@@ -442,11 +440,6 @@ Hope you’ve enjoyed this article and it was useful for you.
 Happy coding!
 
 **Thanks for reading!
-If you enjoyed this article you can like it by** clicking on the👏 button **(up to 50 times!), also you can** share **this article to help others.**
-
-**Have you any feedback, feel free to reach me on [twitter](https://twitter.com/krossovochkin), [facebook](https://www.facebook.com/vasya.drobushkov)**
-[**Vasya Drobushkov**
-**The latest Tweets from Vasya Drobushkov (@krossovochkin). Android developer You want to see a miracle, son? Be the…**twitter.com](https://twitter.com/krossovochkin)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
