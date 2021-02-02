@@ -2,8 +2,8 @@
 > * 原文作者：[Steven Popovich](https://medium.com/@steven.popovich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md)
-> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin/)
-> * 校对者：[fltenwall](https://github.com/fltenwall)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[fltenwall](https://github.com/fltenwall)、[HumanBeingXenon](https://github.com/HumanBeingXenon)
 
 # 幻数并没有我们想象中的那么奇幻
 
@@ -11,7 +11,7 @@
 
 ![图自 [Maail](https://unsplash.com/@maail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 源 [Unsplash](https://unsplash.com/s/photos/feathers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9562/1*fzMDTQAsZ8D9O3YXJwLW5A.jpeg)
 
-我真的不喜欢 幻数 这个词 —— 我看到很多人都弄错了。我已经看过并进行了多次代码审查，其中总会有人看到代码和注释中的某一个数字，注释到："哦，这是一个幻数怪，请确保您给它个名字，并放在代码的最上面。"
+我真的不喜欢幻数这个词 —— 我看到太多人都理解错了。我见过这么一种代码审查，一看见代码中或者注释中有数字就评论：“哦，这是个幻数呢，请您务必给它取个名并放在代码头部”，我好多的代码里也会有这样的评论。
 
 （我也很不喜欢有的时候我们会有应该要把所有的变量放在一个文件的顶部的想法，但这是另一个故事。）
 
@@ -19,7 +19,7 @@
 
 ## 什么是幻数？
 
-我的意思是，您可以在 Google 上搜索它，并获得一堆定义。但实际上，幻数其实就是代码中难以理解的数字。
+我的意思是，您可以在 Google 上搜索它，并获得一堆如金银绸缎但却又站不住脚的定义。但实际上，幻数其实就是代码中难以理解的数字。
 
 ```kotlin
 fun generate() {
@@ -47,7 +47,7 @@ fun generate() {
 
 嘿嘿，不，这只是冰山一角。这个示例（这是一个非常常见的示例）告诉我们一个非常深奥的道理 —— 开发人员可能很容易地从其余的代码中明白 52 究竟是什么 —— 这是一只非常温顺的幻数怪。
 
-当幻数怪从不能说的地方走来的时候，那才是它们展示真实面孔的时间嗷。例如使用以下代码调整搜索算法：
+当幻数怪突然冒出来的时候，那才是它们展示真实面孔的时间嗷。例如使用以下代码调整搜索算法：
 
 ```kotlin
 fun search(query: String) {
@@ -82,9 +82,9 @@ fun search(query: String) {
 fun find(query: String, weight: Float, spread: Float, pageSize: Int, maxResults: Int, index: Boolean) {}
 ```
 
-您会不会更喜欢编写这样的代码？您甚至可能对如何进行更改有所了解。优化搜索可能很困难，但是如果阅读了本文档，那么就能更好地解决这个错误。
+处理这样的代码，您会不会感觉舒服多了？您甚至可能对如何进行更改有所了解。优化搜索可能很困难，但是接手的人凭着这份文档，就能更好地解决这个漏洞
 
-## 什么不是幻数？
+## 什么不能称之为幻数？
 
 实际上，难以推理的数字不会像容易推理的数字那样频繁出现。例如这个数据：
 
@@ -110,11 +110,11 @@ fun buildView() {
 
 ## 所以我们是否可以在代码中使用数字？
 
-这是当然的！世界上有很多不错的里面有数字的代码。要做到不出现幻数，您只需要记住以下几点：
+这是当然的！世界上有很多不错的代码里面使用了数字。要做到不出现幻数，您只需要记住以下几点：
 
-* 确保您的数字易于理解 —— 就像孩子可以弄清楚电话号码的来源。
-* 如果要更改数字用于调整某些内容或使用在纸上进行一些计算才能得到的数字，请无比进行解释。在代码中。在数字旁边。或至少在更改的提交中。应该说明数字的缘由。
-* 额外一招：请确保您的数字是干净的。
+* 确保您的数字易于理解 —— 就算是孩子也能指出数字是哪里来的
+* 如果您要更改数字，调整某些内容，或在纸上进行一些计算才能得到的硬编码数字，请务必进行解释。在代码中，在数字旁边，或至少在更改的提交中，应当提出并解释硬编码数字发生的变更。
+* 额外一招：请确保您的硬编码数字是干净的
 
 相信我，使用注释解释或使用变量名解释数字是很有用的！
 
