@@ -35,7 +35,6 @@ Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供
 
 ![Mocha Logo](https://cdn-images-1.medium.com/max/2000/1*if41jUf_RLXNEjCSz-2aBQ.png)
 
-
 Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。
 
 它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) 显示 ，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
