@@ -9,9 +9,9 @@
 
 ![图自 [testbytes](https://pixabay.com/users/testbytes-1013799/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486) 源于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486)](https://cdn-images-1.medium.com/max/2560/1*4WT3_B3SVKgvexQOTE_ZqQ.jpeg)
 
-如果前端、后端甚至游戏开发人员之间存在共同点，那就是我们讨厌 bug。尤其是当这些错误导致应用崩溃时。而在发布应用后被迫监视应用程序中这些无限增加的崩溃是一种及其不愉快的体验。
+如果前端、后端甚至游戏开发人员之间存在共同点，那就是我们讨厌应用产品出现 Bug。尤其是当这些错误导致应用崩溃时。而在发布应用后被迫监视应用程序中这些无限增加的崩溃是一种及其不愉快的体验。
 
-不管应用程序的业务逻辑如何，都可能会因为运行的系统/平台而导致某些奇怪的崩溃。在 Android 中，从后台状态恢复应用程序时可能会产生崩溃 —— 此类崩溃是意外发生的，而且仅通过查看崩溃日志，我们很难理解崩溃的具体原因以及解决问题，而本文讨论了此类问题及其解决方法。
+不管应用程序的业务逻辑如何，都可能会因为运行的系统或平台问题而导致出现某些奇怪的崩溃现象。在 Android 中，从后台状态恢复应用程序时可能会产生崩溃 —— 此类崩溃是意外发生的，而且仅通过查看崩溃日志，我们很难理解崩溃的具体原因以及解决问题，而本文讨论了此类问题及其解决方法。
 
 ## 问题
 
@@ -27,7 +27,7 @@
 
 ## 复现崩溃
 
-1. 在仿真器或通过 USB 电缆（译者注：Android 11 也可使用 Wi-Fi 连接设备调试）连接的实际设备上使用 ADB 运行指令（如 Android Studio）运行的任何应用程序。
+1. 在模拟器或通过 USB 电缆（译者注：Android 11 也可使用 Wi-Fi 连接设备调试）连接的实际设备上使用 ADB 运行指令（如 Android Studio）运行的任何应用程序。
 2. 导航到任意一个页面，然后按“主页”按钮。
 3. 打开终端，键入以下命令，我们就可以获取应用程序的进程 ID（PID）。
 
@@ -127,7 +127,7 @@ adb shell am kill com.darktheme.example
 
 ## 结论
 
-在 Android 平台上，由于进程终止导致的应用崩溃是很常见的。而如果我们使用较新的 Android 版本，我们可以观察到后台应用程序被大量结束以节省手机电池。
+在 Android 平台上，由于进程终止导致的应用崩溃是很常见的。而如果我们使用较新的 Android 版本，我们可以发现系统处于节省手机电源的目的，后台应用程序被大量的结束运行了。
 
 解决方案 1 可以快速解决您发布的应用的崩溃问题。
 
