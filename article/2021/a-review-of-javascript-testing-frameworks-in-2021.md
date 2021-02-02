@@ -2,8 +2,8 @@
 > * 原文作者：[Kisan Tamang](https://medium.com/@kisantamang)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md)
-> * 译者：想念苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
-> * 校对者：
+> * 译者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo) 、 [Ashira97](https://github.com/Ashira97)
 
 # 2021 年 JavaScript 测试框架回顾
 
