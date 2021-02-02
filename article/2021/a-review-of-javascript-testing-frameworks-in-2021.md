@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md)
 > * 译者：[PassionPenguin](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)、[Ashira97](https://github.com/Ashira97)、[lsvih](https://github.com/lsvih)
+> * 校对者：[zenblo](https://github.com/zenblo)、[Ashira97](https://github.com/Ashira97)、[lsvih](https://github.com/lsvih)、[lsvih](https://github.com/lsvih)
 
 # 2021 年 JavaScript 测试框架回顾
 
@@ -69,7 +69,10 @@ AVA 是 Node.js 的测试框架。它拥有简洁的 API、详细的错误输出
 
 ![](https://cdn-images-1.medium.com/max/2560/0*gfOux77U2JV6g3C5)
 
-Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或 Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)，但你也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
+Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或
+Chromium。Puppeteer
+默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)，但你也可以通过配置它，让它运行在完整的 Chrome 或
+Chromium 上。
 
 ---
 
