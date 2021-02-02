@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md)
 > * 译者：[PassionPenguin](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo) 、 [Ashira97](https://github.com/Ashira97)
+> * 校对者：[zenblo](https://github.com/zenblo)、[Ashira97](https://github.com/Ashira97)、[lsvih](https://github.com/lsvih)
 
 # 2021 年 JavaScript 测试框架回顾
 
@@ -23,9 +23,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ORx4FzFx1702SS1x.png)
 
-Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)
-、 [TypeScript](https://www.typescriptlang.org/) 、 [Node](https://nodejs.org/en/) 、 [React](https://reactjs.org/)
-、 [Angular](https://angular.io/) 、 [Vue](https://vuejs.org/) 等项目中使用它！
+Jest 是一个易于操作的，delightful 的 JavaScript
+测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/)
+等项目中使用它！
 
 Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) ，它是 JavaScript
 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
@@ -69,9 +69,7 @@ AVA 是 Node.js 的测试框架。它拥有简洁的 API、详细的错误输出
 
 ![](https://cdn-images-1.medium.com/max/2560/0*gfOux77U2JV6g3C5)
 
-Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或
-Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)
-，但你也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
+Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或 Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)，但你也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
 
 ---
 
