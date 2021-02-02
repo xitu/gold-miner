@@ -7,8 +7,6 @@
 
 # Should You Compile Your JavaScript Code?
 
-#### Are you missing out by not having native performance on your code?
-
 ![Image by [seznandy](https://pixabay.com/users/seznandy-15803435/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5093898) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5093898)](https://cdn-images-1.medium.com/max/3840/1*_7N-LnDFVgKcgEgzczZVmg.jpeg)
 
 We all know and love (?) JavaScript, and we all just work with it by writing code and then executing it in our favorite runtime (namely the browser, node.js and Deno). But have you ever compiled it?
@@ -18,8 +16,6 @@ Wait, let’s back up for a second, JavaScript is a dynamic language, we all kno
 That’s a fact.
 
 But can it be compiled? That’s a whole different deal. Compiling a dynamic language ahead of time (what is also known as AOT or Ahead-Of-Time compilation) is possible, yes, but is it worth it?
-
----
 
 ## AOT vs JIT
 
@@ -39,8 +35,6 @@ There are definitely pros and cons for each one, but if I had to summarize and d
 
 * Go for an AOT alternative if your code is meant to run for a short time.
 * Go for the JIT version on the cases when your code runs for longer periods, thus allowing for potentially better optimizing after some runtime analysis is done.
-
----
 
 ## But what about compiling your JavaScript code?
 
@@ -65,8 +59,6 @@ console.log("The result is " + result)
 Can you really know the type of the `result` variable ahead of time? You probably need to take into consideration all potential types and dynamically define different alternatives that will adapt during runtime. However you solve it, you’d be adding a lot of logic on top of the execution, just to be able to execute it. That doesn’t sound too performant.
 
 There is a project however, that is trying to achieve this, despite not being ideal (at least on paper): [NectarJS](https://github.com/NectarJS/nectarjs)
-
----
 
 ## Compiling with NectarJS
 
@@ -117,30 +109,6 @@ Personally, I wouldn’t bet on it. The project itself seems to still be at its 
 As for the practice of compiling your JavaScript, I don’t think it’ll become a big trend, after all, the current runtimes have already proven to be good enough for their most common use cases. Can it be useful for a niche audience that is looking to have native performance and is not willing to switch to another technology? Absolutely, this is just another example of how versatile JavaScript can be.
 
 Would you consider compiling your JS code? Leave a comment with your thoughts!
-
----
-
-#### Share your components between projects using Bit (Github).
-
-Bit makes it simple to author, document, and share independent components across web projects.
-
-Use Bit to maximize code reuse, speed-up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Exploring shared components shared on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
-## Related Stories
-[**The JIT in JavaScript: Just In Time Compiler**
-**Understanding JS interpreters and just-in-time compilers — using that to write a more optimized code.**blog.bitsrc.io](https://blog.bitsrc.io/the-jit-in-javascript-just-in-time-compiler-798b66e44143)
-[**Introduction to Aleph - The React Framework in Deno**
-**Aleph is a JavaScript framework that offers you the best developer experience in building modern web applications with…**blog.bitsrc.io](https://blog.bitsrc.io/introduction-to-aleph-the-react-framework-in-deno-322ec26d0fa9)
-[**A Deep Dive Into JavaScript Modules**
-**Understanding the various JavaScript module types.**blog.bitsrc.io](https://blog.bitsrc.io/a-deep-dive-into-javascript-modules-550ad88d8839)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
