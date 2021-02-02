@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# 6 Regrets I Have As a React Developer
-
-#### Things I wish I did earlier
+# 6 Regrets Things I Wish I Did Earlier as a React Developer
 
 ![Photo by [Francisco Gonzalez](https://unsplash.com/@franciscoegonzalez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/sadness?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8396/1*b_I4LDS0bICAcnC1bdOM2g.jpeg)
 
@@ -17,8 +15,6 @@ For new developers, there’s no clear guideline on which tool is best for which
 
 Today I am sharing the top 6 things that I should have started doing earlier in my React development journey.
 
----
-
 ## 1. Testing
 
 For a long time testing was my weakness. I didn’t write tests for my components and, as expected, often I had to debug typos.
@@ -27,7 +23,7 @@ But as daunting as it may look, testing in React is really easy (For most use-ca
 
 Adding a very basic test that takes two minutes to write can save hours in the long run. Here’s a test that checks if the `Title` component will render correctly:
 
-```
+```js
 it('checks if the title component is in the document', () => {
     expect(screen.getByText('Title')).toBeInTheDocument()
 })
@@ -35,20 +31,16 @@ it('checks if the title component is in the document', () => {
 
 If you are using `create-react-app` you already have the testing setup in place. Just start writing tests as much (and as early) as possible.
 
----
-
 ## 2. Using the Correct Folder Structure
 
 I think as a beginner in React my biggest mistake was not using the correct folder structure. Essentially what I did was group files according to their type:
 
 ```
 |-store
-
   |--actions
     |---UserAction.js
     |---ProductAction.js
     |---OrderAction.js
-
   |--reducers
     |---UserReducer.js
     |---ProductReducer.js
@@ -61,15 +53,12 @@ So finally I started to organize my files by feature. That means all the similar
 
 ```
 |-store
-
   |--user
     |---UserAction.js
     |---UserReducer.js
-
   |--product    
     |---ProductAction.js
     |---ProductReducer.js
-
   |--order    
     |---OrderAction.js
     |---OrderReducer.js
@@ -77,15 +66,13 @@ So finally I started to organize my files by feature. That means all the similar
 
 Now it’s much easier for me to navigate through the file system to find anything.
 
----
-
 ## 3. Using Styled Components
 
 I started using `css` files at the beginning to style my components but as time went on it got really messy.
 
 After some time I learned `sass` and it was great! But although it provided some syntactic sugar over vanilla `css` it was really hard to style any component. Reusing any style was especially hard as I often forgot that a particular style was already there.
 
-```null
+```
 // inside jsx
 <button className="btn-submit">
 
@@ -104,7 +91,7 @@ After some time I found a library called `styled-components` which rescued for m
 
 Also `styled-components` accepts `props`, which helped me to reduce conditional styling in my components by a lot!
 
-```null
+```jsx
 const Button = styled.button`
   font-size: 1em;
   margin: 1em;
@@ -112,8 +99,6 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 ```
-
----
 
 ## 4. Switching to Functional Components Early
 
@@ -125,8 +110,6 @@ There are very few reasons that anyone in 2021 would try to use class-based comp
 
 Now I’m trying to rewrite all my components to functional components.
 
----
-
 ## 5. Using a Form Handling Library
 
 The handling form is maybe one of the most common features of any application. I used the vanilla `onChange` method for a good amount of time. Handling data and validation was big pain!
@@ -134,8 +117,6 @@ The handling form is maybe one of the most common features of any application. I
 **Until I discovered `Formik` and `react-hook-form`.**
 
 Using these two libraries, form handling has become so much easier and cleaner. On top of that, form validation is now declarative and easy for me.
-
----
 
 ## 6. Using a Linter and Formatter
 
