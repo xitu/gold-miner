@@ -2,8 +2,8 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md)
-> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)、[samyu2000](https://github.com/samyu2000)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[samyu2000](https://github.com/samyu2000)
 
 # 如何让 JavaScript 中的循环慢下来
 
