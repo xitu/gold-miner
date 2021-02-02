@@ -7,11 +7,9 @@
 
 # Why I Still Lisp (and You Should Too)
 
-## Why I Still ‘Lisp’ (and You Should Too)
+> The old fashioned language might not be used by many. But it’s still a part of my codebases.
 
-#### The old fashioned language might not be used by many. But it’s still a part of my codebases.
-
-![Logo available on public domain](https://cdn-images-1.medium.com/max/2000/1*BBzSK02LI9pvIGtiT_1IbA.png)
+![](https://cdn-images-1.medium.com/max/2000/1*BBzSK02LI9pvIGtiT_1IbA.png)
 
 As a long-time user (and active proponent) of Scheme/Common Lisp/Racket, I sometimes get asked why I stick with them. Fortunately, I have always headed up my own engineering organizations, so I’ve never had to justify it to management. But there’s an even more important constituency — my own engineering colleagues — who’ve never ever had the pleasure of using these languages. While they never ask for justification, they do ask out of intellectual curiosity, and sometimes out of wonder why I’m not going gaga over the next cool feature being dropped into Python or Scala, or whatever their flavor of the month is.
 
@@ -43,7 +41,7 @@ The word **intentionality** perhaps threw you off. Mathematics has two ways to t
 
 The second way to think about functions is as a transformation rule. For example, multiply the input by itself to get the output (which gives us the squaring function, conveniently abbreviated by every programming language as **sqr**). This is the **intensional** view of functions, which the λ-calculus captures nicely, and provides simple rules to help us prove theorems about our functions, without resorting to extensionality.
 
-**Now wait a minute**, I’m sure you’re thinking. **I’ve never proved sh*t about my functions**. I’m betting that, in fact, you have. And that you do it **all** the time. You’re always convincing yourself that your function is doing the right thing. Yours may not be a formal proof (which may be what leads to some bugs), but reasoning about code is something that software developers do all the time. They’re playing the code back in their head to see how it behaves.
+**Now wait a minute**, I’m sure you’re thinking. **I’ve never proved shit about my functions**. I’m betting that, in fact, you have. And that you do it **all** the time. You’re always convincing yourself that your function is doing the right thing. Yours may not be a formal proof (which may be what leads to some bugs), but reasoning about code is something that software developers do all the time. They’re playing the code back in their head to see how it behaves.
 
 Languages based on the λ-calculus make it **really** easy to “play back the code” in your head. The simple rules of the λ-calculus mean that there are fewer things to carry in your head and the code is easy to read and understand.
 
