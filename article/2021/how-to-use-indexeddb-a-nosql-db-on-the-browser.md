@@ -7,8 +7,6 @@
 
 # How to Use IndexedDB — A NoSQL DB on the Browser
 
-#### Deep dive into IndexedDB API and its usage in practice
-
 ![](https://cdn-images-1.medium.com/max/5760/1*w6RCiqFjxootFGuWpCnkRw.jpeg)
 
 Have you heard of the NoSQL database on the browser?
@@ -29,11 +27,9 @@ In this article, we’ll focus on the following.
 * Limitations of IndexedDB
 * Is IndexedDB right for your applications?
 
----
-
 ## Why do we need IndexedDB?
 
-> # Indexed DB is considered more powerful than `localStorage!`
+> Indexed DB is considered more powerful than `localStorage!`
 
 Do you know the reason behind it? Let’s find out.
 
@@ -63,25 +59,13 @@ Let’s have a look at the structure of the IndexedDB which can store multiple d
 
 ![](https://cdn-images-1.medium.com/max/2120/1*c0AXi5lhjUQiLxRNVJwr2w.png)
 
----
-
-Tip: **Share components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, speed-up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*DpMRob-BnrzbmxZ1.gif)
-
----
-
 ## How do we use Indexed DB in our applications?
 
 In the following section, we’ll look at how to bootstrap an application with IndexedDB.
 
 #### 1. Open the database connection using “window.indexedDB"
 
-```
+```js
 const openingRequest = indexedDB.open('UserDB', 1);
 ```
 
@@ -91,7 +75,7 @@ In here, `UserDB` is the database name and `1` is the version of the DB. This wo
 
 Once the database connection is open, the `onupgradeneeded` event will be fired, which can be used to create object stores.
 
-```
+```js
 // Create the UserDetails object store and indexes
 
 request.onupgradeneeded = (event) => {
@@ -114,7 +98,7 @@ request.onupgradeneeded = (event) => {
 
 Once a connection is opened to the database, the data can be managed inside the `onsuccess` event handler. Inserting data happens in 4 steps.
 
-```
+```js
 function insertUser(db, user) {
     // Create a new transaction
     const txn = db.transaction('User', 'readwrite');
@@ -144,7 +128,7 @@ function insertUser(db, user) {
 
 Once the insertion function is created, the `onsuccess` event handler of the request can be used to insert more records.
 
-```
+```js
 request.onsuccess = (event) => {
    const db = event.target.result;
 
@@ -222,16 +206,6 @@ When we consider all the client-side storage mechanisms, IndexedDB is a clear wi
 ![](https://cdn-images-1.medium.com/max/3544/1*ttpz7RUwKhTJYmfmE5VQ0g.png)
 
 Hope you got a clear understanding of IndexedDB and its benefits. Let us know your thoughts too.
-
----
-
-## Learn More
-[**The State of NoSQL with MongoDB and Node.js 2019**
-**Making sense of the NoSQL vs SQL database debate.**blog.bitsrc.io](https://blog.bitsrc.io/the-state-of-nosql-with-mongodb-and-node-js-2018-690588c03650)
-[**How to Use the Web Storage API**
-**A comprehensive guide to the localStorage and sessionStorage APIs.**blog.bitsrc.io](https://blog.bitsrc.io/localstorage-sessionstorage-the-web-storage-of-the-web-6b7ca51c8b2a)
-[**SessionStorage and LocalStorage: A UX/Security Comparison**
-**Comparing security and UX of Session Storage and Local Storage.**blog.bitsrc.io](https://blog.bitsrc.io/sessionstorage-and-localstorage-a-ux-security-comparison-a05c486413e0)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
