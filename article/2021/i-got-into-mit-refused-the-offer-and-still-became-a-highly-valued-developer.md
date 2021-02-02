@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/i-got-into-mit-refused-the-offer-and-still-became-a-highly-valued-developer.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[regonCao](https://github.com/regon-cao)
 
 # 我拒绝了 MIT 的 Offer，依然是一个高价值的开发者
 
@@ -17,7 +17,7 @@
 
 你们可能在听到埃隆马斯克 [发推文](https://www.inc.com/jeff-haden/if-you-want-to-work-at-tesla-elon-musk-just-tweeted-he-doesnt-care-if-you-even-graduated-high-school-it-might-be-smartest-thing-hes-ever-said.html#:~:text=Musk%20doesn't%20care%20whether,will%20have%20to%20demonstrate%20knowledge.) 告诉你不需要学位，甚至不需要高中毕业就可以为他工作时也会有这种感受。你只需要知道你有什么。
 
-不过，我还是很少看到有人在真正探寻自己的学习之路，埃隆的说法并不意味着他就轻易放过了那些缺乏教育的人，恰恰相反，他想要的是一个对 AI 有足够兴趣，自己可以深入地且全面地探索 AI，并且能够 **自我激励 ** 和 **自力更生** 的人。
+不过，我还是很少看到有人在真正探寻自己的学习之路，埃隆的说法并不意味着他就轻易放过了那些缺乏教育的人，恰恰相反，他想要的是一个对 AI 有足够兴趣，自己可以深入地且全面地探索 AI，并且能够 **自我激励** 和 **自力更生** 的人。
 
 所以说开发人员应该有自我驱动能力，毕竟埃隆自己也是一个自我驱动型的人，当别人问他如何学习制造火箭，他简要回答：“我通过读书学习”。成为一个自我驱动型的人。
 
