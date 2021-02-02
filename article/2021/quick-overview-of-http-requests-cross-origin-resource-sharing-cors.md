@@ -7,8 +7,6 @@
 
 # An Overview of HTTP Requests & Cross-Origin Resource Sharing (CORS)
 
-**A quick overview of what URL is consist of, how HTTP requests works, some important request headers, Cross-Origin Resource Sharing (CORS).**
-
 ![Photo by [Alina Grubnyak](https://unsplash.com/@alinnnaaaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6912/1*YECeOxlko9KoOJNw8RNm3A.jpeg)
 
 First of all, let's start with how a URL looks like.
@@ -38,7 +36,7 @@ URL Path is just like your directory path. It provides users & search engines to
 
 It is used for sending data to the server. This is usually used for marketing reasons to see how advertising is doing. Starts with `?` separates data with `&`
 
-****Note**: It is not recommended to send data with query params because of security reasons ( then everyone can see it) and also it has a character limit. ( not allowed after 2048 chars).**
+> **Note**: It is not recommended to send data with query params because of security reasons ( then everyone can see it) and also it has a character limit. ( not allowed after 2048 chars).
 
 **With HTTP and HTTPS protocol, there are other ways that we can send data to the server.**
 
@@ -48,7 +46,7 @@ It is used for sending data to the server. This is usually used for marketing re
 
 When user types a domain name in the browser, browser go finds that server ( which is only someone else’s computer ) and sends a request to that server. If it gets a successful response from the server, renders the page on the browser.
 
-****Note**: When you send a request using a terminal ( when you run `node index.js` for example ) the process is the same. To send a request to a server, you don’t necessarily need a browser, you can do it with your terminal as well. However, if the response is HTML, terminal won’t do anything since HTML is instructions for browsers only.**
+> **Note**: When you send a request using a terminal ( when you run `node index.js` for example ) the process is the same. To send a request to a server, you don’t necessarily need a browser, you can do it with your terminal as well. However, if the response is HTML, terminal won’t do anything since HTML is instructions for browsers only.
 
 #### Headers
 
@@ -70,7 +68,7 @@ Every request sends over the internet consist of 2 mandatory 1 optional part.
 2. **Headers** which briefly explained above
 3. **Body** (Optional): When you do a POST, PUT, PATCH requests to do server, you need to send a body which is telling the server what data you want to send. Example:
 
-```
+```js
 axios.post(‘/users’, 
 {id: “5fddfefc4fbd19494493cd71”, name: "username"} // this part is body
 ).then(console.log)
@@ -126,7 +124,7 @@ While it allows GET requests from other domains, it may restrict POST requests.
 
 One of Node.js code to set headers;
 
-```
+```js
 router.options('/api/*', (req, res) => {
   res.header('Access-Control-Allow-Credentials', true)
   res.header('Access-Control-Allow-Origin', req.headers.origin)
