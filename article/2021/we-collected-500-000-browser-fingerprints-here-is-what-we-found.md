@@ -9,10 +9,6 @@
 
 ![](https://cdn-images-1.medium.com/max/2560/1*pG2Zzgc5OZr5frYc2ovhkg.png)
 
-## We’ve analysed 500,000 browser fingerprints. Here is what we found.
-
-#### From basics all the way to the geeky stuff.
-
 Remember the last time you looked for an item online and then you were haunted by related ads everywhere? The chances are that you are being tracked because information like your screen resolution, timezone and emoji sets are exposed to the internet.
 
 And yes, this method can track you even while you are using private browsing (a.k.a. the incognito mode).
@@ -28,8 +24,6 @@ So let’s look at what browser fingerprints are, how they can be used to track 
 I’ll explain this using a simple ‘cameras and typewriters’ analogy.
 
 Both cameras and typewriters can be identified and distinguished from each other easily by looking at their outputs.
-
-![](https://cdn-images-1.medium.com/max/10000/1*UwuI5f-7llEnwGoF_ul4hg.jpeg)
 
 Each camera leaves a unique noise pattern on its pictures and each typewriter leaks ink around its letters in a specific way.
 
