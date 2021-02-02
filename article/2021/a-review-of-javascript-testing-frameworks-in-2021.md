@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-review-of-javascript-testing-frameworks-in-2021.md)
 > * 译者：[PassionPenguin](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)、[Ashira97](https://github.com/Ashira97)、[lsvih](https://github.com/lsvih)、[lsvih](https://github.com/lsvih)
+> * 校对者：[zenblo](https://github.com/zenblo)、[Ashira97](https://github.com/Ashira97)
 
 # 2021 年 JavaScript 测试框架回顾
 
@@ -23,12 +23,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ORx4FzFx1702SS1x.png)
 
-Jest 是一个易于操作的，delightful 的 JavaScript
-测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/)
-等项目中使用它！
+Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
 
-Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) ，它是 JavaScript
-开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
+Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) ，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
 
 ![JavaScript 测试框架的使用情况，数据来源《2020 年 Javascript 状况调查》](https://github.com/PassionPenguin/gold-miner-images/blob/master/a-review-of-javascript-testing-frameworks-in-2021-UsageRanking.jpg?raw=true)
 
@@ -38,10 +35,10 @@ Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供
 
 ![Mocha Logo](https://cdn-images-1.medium.com/max/2000/1*if41jUf_RLXNEjCSz-2aBQ.png)
 
+
 Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。
 
-它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) 显示 ，它是仅次于 Jest 的 JavaScript
-开发人员中第二常用的测试框架。
+它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) 显示 ，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
 
 ### 3. Jasmine
 
@@ -49,7 +46,7 @@ Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步�
 
 ![](https://cdn-images-1.medium.com/max/NaN/1*4deASSS8X3i5_G0zBiYXDA.png)
 
-Jasmine 是一个用于测试 JavaScript 代码的行为驱动开发框架。它不依赖于任何其他 JavaScript 框架，它不需要DOM，而且它的语法清晰明了，因此你可以轻松使用它进行测试
+Jasmine 是一个用于测试 JavaScript 代码的行为驱动开发框架。它不依赖于任何其他 JavaScript 框架，它不需要DOM，而且它的语法清晰明了，因此你可以轻松使用它进行测试。
 
 调查显示，虽然许多开发人员正在使用 Jasmine，但是他们对该框架的兴趣有所下降。
 
@@ -69,15 +66,11 @@ AVA 是 Node.js 的测试框架。它拥有简洁的 API、详细的错误输出
 
 ![](https://cdn-images-1.medium.com/max/2560/0*gfOux77U2JV6g3C5)
 
-Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或
-Chromium。Puppeteer
-默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)，但你也可以通过配置它，让它运行在完整的 Chrome 或
-Chromium 上。
+Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或 Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome)，但你也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
 
 ---
 
-其他受欢迎的测试库还包括了 [Sinon.js](https://github.com/sinonjs/) 、 [Chai](https://www.chaijs.com/)
-、 [Cypress](https://www.cypress.io/) 。我个人使用了 Sinon.js —— 它是支持行为监控、桩模块设置和测试数据模拟的 JavaScript 测试框架
+其他受欢迎的测试库还包括了 [Sinon.js](https://github.com/sinonjs/)、[Chai](https://www.chaijs.com/)、 [Cypress](https://www.cypress.io/) 。我个人使用了 Sinon.js —— 它是支持行为监控、桩模块设置和测试数据模拟的 JavaScript 测试框架
 
 ## 结论
 
