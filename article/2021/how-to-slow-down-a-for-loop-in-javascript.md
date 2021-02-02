@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md)
 > * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo) 、 [samyu2000](https://github.com/samyu2000)
+> * 校对者：[zenblo](https://github.com/zenblo)、[samyu2000](https://github.com/samyu2000)
 
 # 如何让 JavaScript 中的循环慢下来
 
@@ -53,8 +53,7 @@ for (let i = 0; i < 100; i++) {
 }
 ```
 
-但如果以这个想法为出发点，其实它可以在其他一些编程语言中起作用 —— 循环创建 `timeout`，而只有在这些任务执行后，循环才继续执行 —— 至少在其他编程语言中才继续。但是，在 JavaScript 中，JavaScript
-不会停下来，而只会继续创建 `timeout`，代码将继续执行下去不会停留。因此，JavaScript 可以看作是创建了两个并行运行的进程。
+但如果以这个想法为出发点，其实它可以在其他一些编程语言中起作用 —— 循环创建 `timeout`，而只有在这些任务执行后，循环才继续执行 —— 至少在其他编程语言中才继续。但是，在 JavaScript 中，JavaScript 不会停下来，而只会继续创建 `timeout`，代码将继续执行下去不会停留。因此，JavaScript 可以看作是创建了两个并行运行的进程。
 
 ## 如何正确地降低 For 循环的执行速度
 
@@ -72,8 +71,7 @@ const sleep = (time) => {
 }
 ```
 
-我们通过函数调用 `Promise`。它将获取 **setTimeout** 应该被设置的时间（以毫秒为单位）。在一定时间后，所有 `timeout` 都会执行 `resolve` 函数。这意味着 `Promise`
-执行了，程序可以继续进行了。我们可以简化上面显示的代码：
+我们通过函数调用 `Promise`。它将获取 **setTimeout** 应该被设置的时间（以毫秒为单位）。在一定时间后，所有 `timeout` 都会执行 `resolve` 函数。这意味着 `Promise` 执行了，程序可以继续进行了。我们可以简化上面显示的代码：
 
 ```js
 const sleep = (time) => {
