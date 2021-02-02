@@ -69,7 +69,7 @@ Puppeteer 是一个 Node 库。它提供了高级 API 来通过 [DevTools 协议
 
 ---
 
-其他受欢迎的测试库还包括了 [Sinon.js](https://github.com/sinonjs/)、[Chai](https://www.chaijs.com/)、 [Cypress](https://www.cypress.io/) 。我个人使用了 Sinon.js —— 它是支持行为监控、桩模块设置和测试数据模拟的 JavaScript 测试框架
+其他受欢迎的测试库还包括了 [Sinon.js](https://github.com/sinonjs/)、[Chai](https://www.chaijs.com/)、[Cypress](https://www.cypress.io/)。我个人使用了 Sinon.js —— 它是支持行为监控、桩模块设置和测试数据模拟的 JavaScript 测试框架
 
 ## 结论
 
