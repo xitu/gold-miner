@@ -25,7 +25,7 @@
 
 Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
 
-Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) ，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
+Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/)，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
 
 ![JavaScript 测试框架的使用情况，数据来源《2020 年 Javascript 状况调查》](https://github.com/PassionPenguin/gold-miner-images/blob/master/a-review-of-javascript-testing-frameworks-in-2021-UsageRanking.jpg?raw=true)
 
@@ -37,7 +37,7 @@ Jest 是我最喜欢的框架之一。它快速、安全、易于使用且提供
 
 Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。
 
-它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) 显示 ，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
+它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-cn/) 显示，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
 
 ### 3. Jasmine
 
