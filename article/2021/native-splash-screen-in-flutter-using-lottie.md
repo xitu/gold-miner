@@ -17,8 +17,6 @@ It is worth mentioning that adding a static image as a splash screen is fairly e
 
 [Lottie](https://airbnb.io/lottie/#/) is a library with support for multiple platforms including Android and iOS that parses [Adobe After Effects](http://www.adobe.com/products/aftereffects.html) animations exported as json with [Bodymovin](https://github.com/airbnb/lottie-web) and renders them natively. That means the animation is created by designers and exported as a **json** file with no additional efforts by the developers. In this tutorial, I will be using a free sample file created by LottieFiles and can be found at this [link](https://lottiefiles.com/38237-thanksgiving-cornucopia). So let’s get started.
 
-![](https://cdn-images-1.medium.com/max/2000/1*pb31XzMIs4Od021zU5g1Mw.gif)
-
 Create a new flutter project, and follow these steps;
 
 ## Android
@@ -273,11 +271,7 @@ Build and run the app, you should be able to see the animated splash screen.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bdfeeBtOIHW_1A0MfdjnZQ.gif)
 
-That’s all, you have animated splash screens now for both Android and iOS apps.
-
-![](https://cdn-images-1.medium.com/max/2000/1*ebDvTB-anwRn4sc3QJQ_dA.gif)
-
-For the full source code and the demo app:
+That’s all, you have animated splash screens now for both Android and iOS apps. For the full source code and the demo app:
 
 [**AbedElazizShe/flutter_lottie_splash_app**](https://github.com/AbedElazizShe/flutter_lottie_splash_app)
 
