@@ -2,113 +2,109 @@
 > * 原文作者：[Alexey Naumov](https://medium.com/@nalexn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2020/uikit-or-swiftui-which-should-you-use-in-production.md)
-> * 译者：
-> * 校对者：
+> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Zilin Zhu](https://github.com/zhuzilin)、[lsvih](https://github.com/lsvih)
 
-# UIKit or SwiftUI: Which Should You Use in Production?
+# UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？
 
-![Photo by [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
+![图自 [Mario Dobelmann](https://unsplash.com/@mariodobelmann?utm_source=medium&utm_medium=referral) 源于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11516/0*uqSWA_30Auiz_7F4)
 
-Apple has recently released iOS 14, which means SwiftUI already has a required one-year buffer for being adopted not only by enthusiasts in their pet projects but actually by enterprise teams in their business apps.
+Apple 最近发布了 iOS 14 —— 这意味着 Apple 已经给了开发者们一年时间缓冲决定是否使用 SwiftUI 了。而且这意味着 SwiftUI 不仅可以被爱好者们在其闲余的项目中使用，而且要被企业团队评估是否能在其发布的应用中使用了。
 
-Literally everyone says writing SwiftUI code is fun, but is SwiftUI a toy or a professional tool? If we want to take it seriously, we need to consider its stability and flexibility as a tool, not as a toy.
+从每个人的评论的字面上看，大家都说编写 SwiftUI 代码很有趣，但是 SwiftUI 究竟是仅仅只能充当一个玩具喂饱开发者们的好奇心，还是真的可以当作一个专业的工具在实际生产中使用呢？而如果我们需要在实际生产中使用 SwiftUI，那我们就需要以对待一个专业工具而非对待玩物的态度，开始着手考虑它的稳定性和灵活性了。
 
-When is the right time to start using SwiftUI in the production code?
+那我们应该在什么时候开始在实际生产的应用的代码中使用 SwiftUI？
 
-This question is rather tricky to answer if you’re starting a new major project between 2020 and possibly 2022!
+如果您准备在 2020 年至 2022 年之间开始一个新的重大项目，这个问题着实很难回答。
 
-With all the innovation that SwiftUI brought in, even by iOS 14, we [still have bugs and a lack of flexibility for customization](https://steipete.com/posts/state-of-swiftui/).
+SwiftUI 带来了不少创新，但是即使在 iOS 14 上运行使用 SwiftUI 构建的应用，我们[仍然会遇到错误，并且 SwiftUI 的自定义灵活性不足](https://steipete.com/posts/state-of-swiftui/) 。
 
-While this can be mitigated by situationally appealing to UIKit, can you estimate how much code will eventually be written in UIKit? Could SwiftUI become a burden in the long run, where you’d better off just writing everything in UIKit?
+尽管可以适时地使用 UIKit 来缓解这些问题，但您能否估计有多少代码最终是用 UIKit 写的呢？从长远来看，SwiftUI 有没有可能成为负担，使您觉得不如单纯使用 UIKit 呢？
 
-We can only bet on iOS 15 to have no issues with SwiftUI. It means that only by 2022 at best (with the release of iOS 16) will we have a perfect moment to relax and fully trust SwiftUI.
+真要解决这个问题，我们只能打赌到了 iOS 15 的发布前后，SwiftUI 的问题都被解决了。这意味着最快需要到 2022 年（iOS 16 发布的时候），我们才能完全信任 SwiftUI。
 
-In this article, I elaborate on how to structure the project in two scenarios:
+在本文中，我将详细介绍如何在如下两种情况下搭建项目：
 
-1. You’re supporting iOS 11 or 12 but consider migrating the app to SwiftUI in a foreseeable future.
-2. You’re supporting iOS 13+ but want to control the risks related to SwiftUI and be able to fall back to UIKit seamlessly.
+1. 如果您希望您的应用支持 iOS 11 或 iOS 12，但考虑在未来将应用程序迁移到 SwiftUI。
+2. 如果您的应用只用支持 iOS 13+，但希望控制 SwiftUI 库可能会带来的相关的风险，并希望能够同时无缝回退至 UIKit。
 
-## Sticky UI Frameworks
+## 这是个黏糊糊的 UI 框架
 
-Historically, UI frameworks were very central to mobile apps’ architectures. We took UIKit and built everything around it.
+从过往的经验上看，UI 框架对于移动应用程序的结构体系有着非常大的影响 —— 在 iOS 开发上，我们使用 UIKit 并围绕它构建了几乎所有其他的代码。
 
-Consider your last UIKit project and try to evaluate how much effort it would take to completely get rid of UIKit and replace it with another UI framework, [AsyncDisplayKit](https://github.com/texturegroup/texture/) for example?
+回忆一下您上一个使用了 UIKit 的项目，并尝试评估一下，如果要完全摆脱 UIKit，将其替换为另一个 UI 框架（例如 [AsyncDisplayKit](https://github.com/texturegroup/texture/) 需要耗费多少精力？
 
-For the majority of projects, that would mean a complete rewrite.
+—— 对于大多数项目，这可能意味着要完全重写代码。
 
-Web engineers would laugh at us because they’ve always had an abundance of UI frameworks. So they learned to apply the “dependency rule” and consider UI a peripheral “detail” in the system, just like the concrete type of database they use.
+网络开发者们会嘲笑我们，毕竟他们总是在各种 UI 框架中切换着使用。因此，他们早已定下了应用与依赖库之间的原则，并将 UI 仅仅当作程序的其中一小部分，就像具体使用哪种数据库一样，无关紧要。
 
-Does it mean that we, the mobile developers, didn’t decouple UI from the business logic? We did, right? MVC, MVVM, VIPER, etc., were there to help us, but we still got trapped.
+这是否意味着我们（移动开发人员）将 UI 与业务逻辑层捆绑的太死了？可是我们应该做到了啊 —— MVC、MVVM、VIPER 等框架都在帮助着我们。
 
-Mobile apps are seldom responsible for any core business logic, such as calculating interest for a loan and approving it. Businesses want to minimize numerous risks here, so they run such logic on the back end.
+但我们仍然受困于 UI 库啊。
 
-Nevertheless, there is a heck of a lot of business logic running on modern mobile apps, but that logic is different. It’s just more focused on the presentation rather than on the core rules the business runs on.
+移动应用很少负责任何核心的业务逻辑 —— 例如计算贷款利息并批准贷款。每个企业希望最大程度地减少各种风险，因此他们会让应用程序上传数据并在后端完成计算。
 
-This means we need to do a better job at decoupling that presentation-related business logic from the specifics of the UI framework we’re using.
+但是，现代移动应用程序上仍然有很多业务逻辑，但是这种计算与上面提到的那些计算是不同的 —— 它只专注于 UI 的呈现，而不是业务运行的核心逻辑。
 
-If we fail to do so, no wonder the framework gets monolithically baked into the code base.
+这意味着我们需要做得更好 —— 将与 UI 呈现相关的计算与正在使用的 UI 框架分离。
 
----
+如果我们不这样做，也难怪框架会完全捆绑到代码库中。
 
-APIs of both UIKit and SwiftUI are sticky for the code base. These frameworks are pushing developers to make them super central, tied to everything, used directly in places that are not UI at all!
+UIKit 和 SwiftUI 的 API 都粘在了别的非表示层代码中 —— 这些框架正在迫使开发人员将他们变成应用的核心，推动将表示层与其他所有的东西紧密联系，甚至是在根本不是 UI 的地方也要与 UI 捆绑使用！
 
-Let’s take, for example, `@FetchRequest` in SwiftUI. It blends `CoreData` model details right in the presentation layer. It looks convenient. But at the same time, this is a major violation of multiple software design principles and best practices in CS. Such code saves time in the short term but may cause significant harm to the project in the long run.
+以 SwiftUI 中的 `@FetchRequest` 为例。它在表示层中捆绑了 `CoreData` 模型。看起来的确很是方便。但这同时严重违背了 CS 中的多种软件设计原则和最佳做法 —— 这样的代码可以在短期内节省时间，但从长远来看可能会对项目造成极大的危害。
 
-How about `@AppStorage`? Data IO operations right in the UI layer. How do you test it? Can you easily identify key name collisions in the container? Can you migrate it seamlessly to another data storage type, such as Keychain?
+`@AppStorage` 怎么样？数据、文件操作就在表示层中实现。那您又该如何测试这些代码？您可以轻松识别容器中的键名的冲突吗？您能否能将其无缝迁移到其他数据存储类型，例如使用钥匙串存储数据？
 
-Again, the speed of the development is maximized, with quality assurance, maintainability, and code reuse concern being neglected.
+当开发速度得以最大化的提高，我们都忽略了质量、可维护性和代码重用性。
 
-And what about the screen routing?
+那不同界面之间的导航又会如何表现呢？
 
-UIKit always whispered to us: “Pssst! Just use presentViewController(:, animated:, completion:); don't bother with those nasty coordinators!"
+UIKit 总是对我们耳语：“噢！你快点用 `presentViewController(:，animation：，completion :);` 代码替换掉旧代码吧！不要再使用那些代码了！”
 
-SwiftUI, on the other hand, is not whispering. It is screaming at us: “Listen here. You either do it the way I want, or I’ll kill your family in the most elaborate way!” (*)
+而 SwiftUI 不会低语 —— 它只会在向我们大声嚷嚷：“听我的，除非你按照我想要的方式来做，要么我就会以精心设计的方式搞垮你的应用！”
 
-Is there a way to protect our codebase from these barbarian APIs?
+有没有一种方法可以保护我们的代码库免受这些野蛮的 API 的侵害？
 
-Certainly!
+当然是有的！这种大声嚷嚷的 API 通常情况下是挺好的 —— 让程序员更不容易犯错。但是，当此类 API 无法正常工作时，这就会变成一个巨大的问题，例如 SwiftUI 的自动化页面导航就出现了问题。
 
-(\*) Screaming APIs are usually a good thing — the programmer has fewer chances of making a mistake. However, such APIs become a huge problem when they don’t work properly, as is the case with SwiftUI’s problematic programmatic navigation, for example.
+## 布置 UI 界面
 
-## Estranging the UI Layer
+如您所见，框架中处处是陷阱，您使用框架越多的功能，你就越难在特定屏幕或整个应用程序中停止使用此框架。
 
-As you can see, frameworks have traps everywhere.
+如果我们希望应用足够的顽强，可以忍耐 UIKit 与 SwiftUI 之间的痛苦过渡（反之亦然），则需要确保表示层和其他层之间不是简简单单的一个木栅栏分割，而是一堵巨墙完全割裂它们。
 
-The more hooks you bite, the harder it will be to step back from using this framework for a specific screen or entire app.
+我指的是，什么都不应该被留下 —— 即使是字符串格式化也应该完全扔出表示层。
 
-If we want the system to be solid enough to survive the transition from UIKit to SwiftUI (or vice versa) we need to make sure the boundary between UI and the rest of the system is not a wooden fence, but The Great Wall!
+您是否可以在没有 UIKit 或 SwiftUI 库的支持下将浮点数 `5434.35` 转换为 `$5,434.35`？就让我们在表示层之外完成这项工作！
 
-Nothing should sneak in, even string formatting.
+UI 框架在屏幕之间的导航的 API 是否会让视图粘合其他代码？就让我们把导航隔离开！
 
-Are you able to convert a float 5434.35 to “$5,434.35” without UIKit or SwiftUI? Perfect — let’s do it elsewhere!
+我们不仅需要从 UI 层中提取尽可能多的逻辑，而且还需要使 UIKit 组件或 SwiftUI 组件与获取数据的函数完全兼容。
 
-Does the framework’s API for screen routing impose the view’s tight coupling? We need to introduce a boundary for isolating them.
+我们如何让 UIKit 和 SwiftUI 之间兼容？
 
-Not only do we need to extract as much logic as possible from the UI layer, but we also need to make the UIKit component and its SwiftUI counterpart fully compatible with the socket they are plugged into.
+我们知道，SwiftUI 是完全由数据驱动的 —— 需要提供响应式数据的绑定。幸运的是，UIKit 可以与 MVVM 和响应式框架一起变换。
 
-How do we bring UIKit and SwiftUI to a common denominator?
+这意味着数据源，委托，目标操作以及其他 UIKit API 应该在 UI 层中被隔离开。
 
-We know that SwiftUI is entirely data-driven, powered by reactive data bindings. Fortunately, UIKit can be twisted that way with MVVM and reactive frameworks.
+—— `import UIKit` 不应出现在任何的 ViewModel 中。
 
-That means data sources, delegates, target actions, and the rest of the UIKit APIs should be isolated in the UI layer.
+我要提醒一下，只要 UI 组件是完全由数据驱动的，则显示模块的确切架构模式并不重要。为了简化示例，我将在本文中提及 MVVM。
 
-The line `import UIKit` should not appear in any ViewModel and beyond.
+现在。我们应该为 ViewModel 使用哪一个响应式框架？我们知道 SwiftUI 仅可以与 [Combine](https://developer.apple.com/documentation/combine) 一起使用，而 UIKit 最好与 RxCocoa 一起使用。
 
-I should note that as long as the UI component is fully data-driven, the exact architecture pattern for the screen module is not important. I’ll be referring to MVVM in this article for ease of example.
+—— 两种方法都可行，因此这取决于您是否支持 iOS 13 即 Combine 以及您对 RxSwift 的喜爱程度。
 
-Now. Which reactive framework should we use for the ViewModel? We know that SwiftUI works exclusively with [Combine](https://developer.apple.com/documentation/combine), while UIKit is best supported by RxCocoa.
+让我们同时考虑下这两个方法吧！
 
-Either way is possible, so this depends on whether you can support iOS 13 (Combine) and how much you love RxSwift.
+## 构建 RxSwift 和 SwiftUI 之间的桥梁
 
-Let’s consider both!
+从 iOS 13 开始我们就可以使用 Combine 套件，对于仍然需要支持 iOS 11 或 12 的用户来说这可不是个什么好消息。
 
-## Bridge Between RxSwift and SwiftUI
+在这里，我将讨论一种将 UIKit + RxSwift 迁移到 SwiftUI + RxSwift 的简便方法。
 
-Combine is available from iOS 13, which is a deal-breaker for those who still need to support iOS 11 or 12.
-
-Here I’ll talk about an easy way to migrate (UIKit + RxSwift) to (SwiftUI + RxSwift).
-
-Consider this minimal setup:
+考虑一下下面给出的极简配置：
 
 ```Swift
 class HomeViewModel {
@@ -140,18 +136,18 @@ class HomeViewController: UIViewController {
 }
 ```
 
-The view is data-driven: the ViewModel fully controls the state changes for the View.
+这个视图是完全由数据驱动的 —— ViewModel 完全控制视图的状态、内容更改。
 
-Let’s migrate this screen to SwiftUI without touching ViewModel’s code.
+那如果让我们在不涉及 ViewModel 的代码的情况下将该界面迁移到 SwiftUI？
 
-There are two ways we can make it work:
+有两种方法可以尝试：
 
-1. Define a new `ObservableObject` with `@Published` variables bound to `Driver` (or `Observable`) from the original ViewModel.
-2. Adapt each `Driver` to `Publisher` and bind to `@State` inside the SwiftUI's view.
+1. 在原始 ViewModel 中给绑定了 `Driver` （或`Observable`）的 `@Published` 的变量绑定一个新的 `ObservableObject`。
+2.在 SwiftUI 的视图内，将每个 `Driver` 适配为 `Publisher` 并绑定到 `@State`。
 
-## Binding Observable to @Published
+## 由 `Observable` 到 `@Published` 的迁移
 
-For the first approach, we’ll need to create a new `ObservableObject` that mirrors every observable variable from the original ViewModel:
+对于第一种方法，我们需要创建一个新的 `ObservableObject`，以将原来的 ViewModel 中的每个 `Observable`变量镜像过去：
 
 ```Swift
 extension HomeViewModel {
@@ -175,7 +171,7 @@ struct HomeView: View {
 }
 ```
 
-The value binding code between the original ViewModel and the adapter should be as concise as possible. Here is how bridging would look in the case of `Driver` and `Observable`:
+原来的 ViewModel 和适配器之间的值的绑定代码应尽可能简洁。这是在 `Driver` 和 `Observable` 的情况下桥接的样子：
 
 ```Swift
 let observable: Observable<Bool> = ...
@@ -189,7 +185,7 @@ driver
     .disposed(by: disposeBag)
 ```
 
-All we need here is a `Binder` from RxSwift that assigns values to specific `@Published`value. Here is a snippet for the `binder` function that does the bridging:
+这里我们需要的是使用 RxSwift 的 `Binder`，它会将值分配给特定的 `@Published` 值。这是进行桥接的 `binder` 函数的代码片段：
 
 ```Swift
 extension ObservableObject {
@@ -202,7 +198,7 @@ extension ObservableObject {
 }
 ```
 
-Going back to our ViewModel, you can do the binding right in the `Adapter` initialization:
+回到我们的 ViewModel，您可以在 `Adapter` 的初始化中进行绑定：
 
 ```Swift
 extension HomeViewModel {
@@ -224,15 +220,14 @@ extension HomeViewModel {
 }
 ```
 
-A disadvantage of this approach is the boilerplate code that has to be repeated for every `@Published` variable you have.
+这种方法的一个缺点是必须为您拥有的每个 `@Published` 变量重复一份模版化的代码。
 
 ---
 
-## Binding Observable to @State
+## `Observable` 到 `@State`
+第二种方法只需要设置较少的代码，并且基于 SwiftUI 变成可以使用外部状态的另一种方式：使用 View 的 `onReceive` 方法，将值分配给本地的 `@State`。
 
-This second approach requires much less setup code and is based on another way SwiftUI views can consume external state: `onReceive` view modifier with assigning values to local `@State`.
-
-The beauty here is that we can use the original ViewModel directly in the SwiftUI view:
+这里的好处是我们可以直接在 SwiftUI 视图中使用原始的 ViewModel：
 
 ```Swift
 struct HomeView: View {
@@ -254,9 +249,9 @@ struct HomeView: View {
 }
 ```
 
-The `viewModel.isLoadingData` is a `Driver`, so we need to convert it to a `Publisher` from Combine.
+这里的 `viewModel.isLoadingData` 是一个 `Driver`，也因此我们需要将其转化为 Combine 中的 `Publisher`。
 
-The community has already come up with [RxCombine](https://github.com/CombineCommunity/RxCombine) library that allows for bridging from `Observable` to `Publisher`, so extending it to support `Driver` is straightforward:
+开源社区中已经发布了 [RxCombine](https://github.com/CombineCommunity/RxCombine) 库，该库支持从 `Observable` 到 `Publisher` 的桥接，因此使用该库支持 `Driver` 会很简单：
 
 ```Swift
 import RxCombine
@@ -272,13 +267,13 @@ extension Driver {
 }
 ```
 
-## Connecting UIKit With Combine
+## 将 UIKit 与 Combine 连接
 
-If you have the luxury of supporting iOS 13+, you can consider using Combine for building the networking and other non-UI modules in the app.
+如果您可以只支持 iOS 13+，则可以考虑在应用程序中使用 Combine 构建网络和其他非 UI 模块。
 
-Even though binding Combine with UIKit is somewhat inconvenient, choosing Combine as the core framework driving data in your application should pay off in the long run, when your project fully migrates to SwiftUI.
+即使将 Combine 与 UIKit 绑定起来有些不便，但从长远来看，当项目完全迁移到 SwiftUI 时，选择 Combine 作为驱动应用程序中数据的核心框架总是有所裨益的。
 
-In the meanwhile, you can either update the UIKit view inside the `sink` function:
+而且同时，您可以在 `sink` 函数中更新 UIKit 视图：
 
 ```Swift
 viewModel.$userName
@@ -288,20 +283,20 @@ viewModel.$userName
     .store(in: &cancelBag)
 ```
 
-Or you can use the aforementioned RxCombine library to convert `Publisher` to `Observable`, taking full advantage of data bindings available in RxCocoa:
+或者，您可以利用上述 RxCombine 库将 RxCocoa 中可用的数据绑定转换为 `Publisher` 或 `Observable`。
 
 ```Swift
 viewModel.$userName // Publisher
     .asObservable() // Observable
-    .bind(to: nameLabel.rx.text) // RxCocoa binding
+    .bind(to: nameLabel.rx.text) // RxCocoa 绑定
     .disposed(by: disposeBag)
 ```
 
-I should note that if we choose Combine as the main reactive framework in the app, the use of RxSwift, RxCocoa, and RxCombine should be limited to only data bindings to the UIKit views, so we could easily get rid of these dependencies along with the last UIKit view in the app.
+我应该注意，如果我们在应用程序中选择 Combine 作为主要的响应框架，则 RxSwift、RxCocoa 和 RxCombine 的使用应仅限于将数据绑定到 UIKit 视图，这样我们就可以轻松摆脱这些依赖关系以及应用程序中的最后一个 UIKit 视图。
 
-The ViewModel, in this case, should be built with just Combine (no `import RxSwift`!).
+在这种情况下，ViewModel 应该仅使用 Combine 来构建（不要再使用 `import RxSwift` !）。
 
-Revisiting the original example:
+让我们一起回到原始的示例：
 
 ```Swift
 class HomeViewModel: ObservableObject {
@@ -320,9 +315,9 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel
-            .$isLoadingData // obtaining Publisher
-            .asObservable() // converting to Observable
-            .bind(to: loadingIndicator.rx.isAnimating) // RxCocoa binding
+            .$isLoadingData // 获取 Publisher
+            .asObservable() // 转换到 Observable
+            .bind(to: loadingIndicator.rx.isAnimating) // RxCocoa 绑定
             .disposed(by: disposeBag)
     }
     
@@ -332,29 +327,29 @@ class HomeViewController: UIViewController {
 }
 ```
 
-And when it’s time to rebuild this screen in SwiftUI, everything will be set up for you: Nothing has to be changed in ViewModel.
+当需要在 SwiftUI 中重建此屏幕时，一切都将为您完成：在 ViewModel 中无需进行任何更改。
 
-## Thoughts About Routing
+## 关于页面导航的想法
 
-In the past, I’ve explored how [programmatic navigation](https://nalexn.github.io/swiftui-deep-linking/) works in SwiftUI, and from my experience, this is the part of SwiftUI that still suffers from all kinds of glitches and crashes and lacks animation customization.
+过去，我曾探讨 [程序导航](https://nalexn.github.io/swiftui-deep-linking/) 在 SwiftUI 中的工作方式，根据我的经验，这是 SwiftUI 中仍然充满着苦难的部分。这里发生着各种故障和崩溃，并且不支持动画的自定义。
 
-As time passes, this will be fixed for sure, but as of now, I wouldn’t trust SwiftUI with routing.
+随着时间的流逝，这些问题肯定会得到解决，但是到目前为止，我丝毫不信任 SwiftUI 的页面间导航功能。
 
-There is not much that we lose when opting out of SwiftUI’s routing. As long as SwiftUI is backed by UIKit, there will be no positive performance difference compared to what we can achieve with UIKit.
+停止使用 SwiftUI 的页面导航后，我们其实并不会损失太多 —— 只要 SwiftUI 仍是由 UIKit 支持的，与我们使用 UIKit 所实现的性能相比，就不会有什么大的性能差异。
 
-In the sample project I built for this article, I used the traditional Coordinator pattern (MVVM-R) that worked just fine for screens built with `UIHostingController` from SwiftUI.
+在为本文构建的示例项目中，我使用了传统的协调器模式（MVVM-R），该模式适用于使用 SwiftUI 中的 `UIHostingController` 构建的页面。
 
-## Conclusion
+## 结论
 
-If we want to control the risks related to using a specific UI framework, we should put additional effort into controlling its expansion in the codebase.
+如果我们想控制与使用特定 UI 框架有关的风险，我们应该付出更多的努力来控制其在代码库中的扩展。
 
-Existing problems with SwiftUI should not stop you from at least preparing your project for migration to this framework in a foreseeable future.
+SwiftUI 存在的问题不应阻止您至少在可预见的将来准备将您的项目要迁移到此框架。
 
-Extract as much business logic as possible from the UI layer and make your UIKit screens data-driven. This way it’ll be a breeze to migrate to SwiftUI.
+从 UI 层中提取尽可能多的业务逻辑，并使 UIKit 屏幕由数据驱动。这样，迁移到 SwiftUI 变得轻而易举。
 
-I’ve built a [sample project](https://github.com/nalexn/uikit-swiftui) with ordinary login/home/details screens that illustrate how UIKit and SwiftUI views can become a peripheral dummy detail that you can easily detach and replace.
+我用普通的登录/主页/细节屏幕构建了一个 [示例项目](https://github.com/nalexn/uikit-swiftui)，该屏幕演示了 UIKit 和 SwiftUI 视图如何变得不再重要，让你可以轻松分离并更换。
 
-There are two targets — one runs on UIKit, the other on SwiftUI, while both share the essential part of the code base.
+有两个目标 —— 一个在 UIKit 上运行，另一个在 SwiftUI 上，其他都共享代码库的基本部分。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

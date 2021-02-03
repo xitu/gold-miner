@@ -1,3 +1,8 @@
+* [为什么我的数据会漂移？](https://juejin.cn/post/6923824334188314638)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)（[zhuzilin](https://github.com/zhuzilin) 翻译）
+* [寻找最优化 AutoML 库](https://juejin.cn/post/6906859687682965517)（[zhusimaji](https://github.com/zhusimaji) 翻译）
+* [在浏览器中处理自然语言](https://juejin.cn/post/6899707995828174861)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [重现：多样化 Mini-Batch 主动学习](https://juejin.cn/post/6890560237091340302)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
 * [知识的极限](https://juejin.im/post/6874475968325484552)（[QinRoc](https://github.com/QinRoc) 翻译）
 * [让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [使用合成数据改善机器学习中的极度不平衡数据集](https://juejin.im/post/6872609287802388488)（[PingHGao](https://github.com/PingHGao) 翻译）
