@@ -5,24 +5,24 @@
 > * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 构建和 `Messenger` 一样的 ImageView
+# 构建像 `Messenger` 那样的 ImageView
 
 ![](https://cdn-images-1.medium.com/max/2372/1*eUsCLT2MWPgMMc_7ltldOw.png)
 
-在上一个故事中，我们讨论了[发送图片消息时候的上传动画以及构建这个动画的方法](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63)。而今天我决定写一篇与图片的显示有关的文章。先来提个问题，我们应该用什么方法在历史记录中显示图片？
+在上一篇论述中，我们讨论了[发送图片消息时候的上传动画以及构建这个动画的方法](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63)。今天我决定写一篇与图片的显示有关的文章。先来提个问题，在消息历史记录中，我们应该如何显示图片？
 
 当然是使用 `ImageView` 啦！好的这篇文章到此结束啦！
 
-虽说我们可以使用 ImageView 简简单单就能呈现图片信息，但要做到像 Messenger 应用那样显示图片并非像我们想象中那么简单。虽说本质上难度并不大，但是，我们所需要的不仅是一个 `ImageView`，还要在显示图片前先运行一些计算以确定一个适合图片本身的尺寸。
+嘿，别走！虽说我们可以使用 ImageView 简简单单就能呈现图片信息，但要做到像 Messenger 应用那样显示图片并非像我们想象中那么简单。虽说本质上难度并不大，但是，我们所需要的不仅是一个 `ImageView`，还要一些小计算，以查看尺寸是否适合您要向用户展示的内容。 
 
 ## 测量
 
-首先我们需要了解我们应该做什么。我们解决方案的核心是，我们要基于某些图片或动图，或任何其他可显示媒体的预定义大小（宽度和高度），在考虑显示图片的容器的尺寸限制（例如我们可能需要缩小尺寸为 1000x1000 的图片以适合尺寸只有 100x100 的容器），而且应该在大多数情况下保持长宽比的情况下绘制图片。
+首先我们需要了解我们应该要做什么。我们解决方案的核心是，我们要基于某些图片或动图，或任何其他可显示媒体的预定义大小（宽度和高度），在考虑显示图片的容器的尺寸限制（例如我们可能需要把尺寸为 1000x1000 的图片缩小以适合尺寸只有 100x100 的容器），而且应该在大多数情况下保持长宽比的情况下绘制图片。
 
 这意味着我们的思路与操作可以分为两部分：
 
-1. 依据容器尺寸确定并告诉程序所需的尺寸。如果图像太小，我们需要将其缩放直到其最短的边的长度等于容器各边的最短的长度
-2. 给它和容器一些约束（例如使用 `maxSize` 控制大小）。并且如果可能的话，我们应该就长宽比来计算得出最终的大小（稍后我们将讨论所有可能的情况）
+1. 依据容器尺寸界定最佳的尺寸并将其提供给程序程序。如果图像太小，我们需要将其调整直到其最短的边的长度等于容器最短的边长。
+2. 给予其与容器一些约束条件（例如使用 `maxSize` 控制大小）。并且如果可能的话，我们应该就长宽比来计算得出最终的大小（稍后我们将讨论其他可能的情况）
 
 ### 定义尺寸
 
@@ -50,10 +50,10 @@ internal class Size(
 
 这里有几点说明：
 
-1. 我们需要确保这一个 class 是可变的，因为它将在视图内使用，并且我们希望优化实例的创建 —— 因为我们的程序是在一个线程中工作的，我们不希望也不需要因为创造它而浪费大量资源。
-2. 除了构造了 `copy` 函数以外，我们其实可以将它本身视作 data 类，但是我不想将 mutable 与 data （本应该是非可变的）类混用。
+1. 我们之所以把这个类定义为可变类，是因为它将在视图内使用，并且我们希望优化实例的创建 —— 因为我们的程序是在一个线程中工作的，我们不希望也不需要因为创造它而浪费大量资源。
+2.  我们其实可以将 `Size` 类本身视作数据类而不是自定义一个 `copy` 函数，但是我不想将可变性与数据类搭上边，因为数据类本应是不可变的。
 
-现在，有了我们自己的 `Size` 的定义，我们可以创建一个 `ImageSizeMeasurer` 类，负责尺寸的定义、调整和测量。
+我们现在定义好了 `Size` 类，可以接着创建一个 `ImageSizeMeasurer` 类，负责尺寸的定义、调整和测量。
 
 ### 设置所需的尺寸
 
@@ -98,21 +98,21 @@ internal class ImageSizeMeasurer {
 }
 ```
 
-在这里我们使用了 `copy` 函数，在不修改原始数据的基础上获取了尺寸。`copy` 方法让这些数据可以在不同地方之间共享（所以不管你的字段从哪一个地方更改，都不会影响别的地方的数据以让程序出现异常）。
+此处我们使用了 `copy` 方法以避免数据被客户端操作修改的时候影响到。`copy` 方法让这些数据可以暗地里在不同地方之间共享（因此我们就不会因为字段不知道什么时候被更改而震惊）。
 
-这里的关键点在乎设置大小和比例后，我们需要对其进行调整。我们需要执行 `adjustDesiredHeight` 和 `adjustDesiredWidth` 函数以进行任何智能检查，而这是百利无一害的。第一个函数在 `height` 小于 `width` 的情况下会增加 `desiredSize` 的最小高度到 `minSize`，第二个函数在 `width` 小于 height 的情况下会增加 `desiredSize` 的最小宽度到 `minSize`。
+这里的关键点在于设置大小和比例后，我们需要对其进行调整。不必担忧调用 `adjustDesiredHeight` 和 `adjustDesiredWidth` 方法时没有进行任何智能检查会造成任何严重后果。因为第一个方法在 `height` 小于 `width` 的情况下会把 `desiredSize` 中处于最小值的高度增加到 `minSize`，第二个函数在 `width` 小于 `height` 的情况下会把 `desiredSize` 处在最小值的宽度增加到 `minSize`。
 
 #### 分别对他们测量约束尺寸
 
-我们准备了相对于最小尺寸的所需尺寸，现在该测量相对于最大尺寸的实际尺寸了。该方法本身并不难，我们只需要记住，应该让所有需要更新的尺寸都同时更新，同时不能改变宽高比，除非降低图像的高度和宽度会导致其中之一小于 `minSize`。
+我们调整好了期望尺寸的最小尺寸，现在该测量实际尺寸的最大尺寸的了。该方法本身并不难，我们只需要记住，应该保证所有的更新不改变高宽比，除非降低图像的高度和宽度会导致两者之一小于 `minSize`。
 
 比如说应用于非常小的图片。
 
 ![](https://github.com/PassionPenguin/gold-miner-images/blob/master/messengers-like-imageview-example.png?raw=true)
 
-* 两者都将具有适合最大约束的宽度，但高度太小
-* 或者将在最小约束中设置高度，但宽度太大
-* 或者将宽度设置为最大限制尺寸，高度设置为最小限制尺寸。这个做法破坏了宽高比。
+* 要么宽度符合最大限值，但高度太小
+* 要么高度达到最小限值，但宽度过大
+* 要么将宽度设置为最大限值，高度设置为最小限值，但这个做法破坏了宽高比。
 
 在那种情况下，最后一个选项是最合适的选择，因为我们不能让图像大小超过约束尺寸，并且我们也不希望图像太窄，因为过于小的图片可能会让我们很难看清图片的内容，或与之交互。在这里我们可以使用 `scaleType = imageCrop`：它能帮助你在打破图片显示的宽高比的情况下正确地显示图片。
 
@@ -124,7 +124,7 @@ internal class ImageSizeMeasurer {
         get() = field.copy()
         private set
 
-    // 分数： `height` : `width`
+    // 放缩因子： `height` : `width`
     var fixRatio: Float = 1f
         private set
 
@@ -152,10 +152,10 @@ internal class ImageSizeMeasurer {
 让我们快速分析该 `measure` 方法。
 
 * 当所需大小适合最大大小时，一切正常。`setDesiredSize` 确定尺寸之后，我们将确保尺寸不小于最小尺寸。现在，我们只需要确保它不大于最大大小。因此，我们将返回它本身（`when` 语句中的第一个条件句）
-* 如果第一个判断为否，则宽度将大于 `max.width` 或高度将大于 `max.height` 或两者都大于。在这种情况下，图片的长宽比将与最大尺寸的长宽比相同，则我们可以输出最大尺寸，因为它将缩小为所需尺寸的结果。（`when` 语句中的最后一个 `else` 语句）
-* 在另一种情况下，我们只需要比较宽高比。例如 `width`，我们可能需要的大小大于最大大小。但是所需大小的长宽比也将大于最大大小的长宽比。就是说，当我们缩小所需尺寸时（因此最大尺寸和当前尺寸的 `width` 将会相等） 所需尺寸的 `height` 仍然大于最大尺寸的 `height`。因此，当所需尺寸的长宽比小于最大尺寸的长宽比时，我们只需将 `width` 更新为 `max.width`
-* 类似地，如果所需大小的的宽高比大于最大大小的宽高比，我们只需要将 `height` 更新为 `max.height`，并同时更新宽度。但是，如果小于 `minSize.width`我们将破坏宽高比并且将所需尺寸的宽度 `out.width` 设置为 `minSize.width`。
-我们将打破结果的宽高比并将其分配 `minSize.width` 给 `out.width`
+* 如果以上预测错误，则说明要么宽度大于 `max.width` ，要么高度大于 `max.height` ，要么两者都超了。在这种情况下，图片的长宽比将与最大尺寸的长宽比相同，则我们可以输出最大尺寸，因为它将缩小为所需尺寸的结果。（`when` 语句中的最后一个 `else` 语句）
+* 在另一种情况下，我们只需要比较宽高比。例如 `width` 的期望尺寸大于最大尺寸。但是期望尺寸的宽高比也大于最大尺寸的长宽比。意味着，当我们缩小期望尺寸时（因此当前尺寸的 `width` 将会和最大尺寸的相等），期望尺寸的 `height` 仍然大于最大尺寸的 `height`。
+因此，当期望尺寸的宽高比小于最大尺寸的长宽比时，我们只需将 `width` 更新为 `max.width`，然后高度也会相应地更新。但是如果小于 `minSize.height` ，我们将打破结果的宽高比，并把 `out.height` 设置为 `minSize.height`。
+* 类似地，如果期望尺寸的宽高比大于最大尺寸的宽高比，我们只需要将 `height` 更新为 `max.height`，宽度也相应地更新。但是，如果小于 `minSize.width` 我们将打破结果的宽高比，并且将 `out.width` 设置为 `minSize.width`。
 
 ## 所有计算中都带有一点魔术，使一切变得更自然，更漂亮
 
@@ -184,17 +184,17 @@ private fun measure(widthSpec: Int, heightSpec: Int) {
 }
 ```
 
-这里的一切都很简单。如果我们有未指明的尺寸，我们会告诉视图的父控件我们需要的大小。在理想条件下，我们希望能够获取该大小。在另一种情况下（大多数情况下），我们需要使用输入的 `width` 与 `height`。
+这里的一切都足够简单。如果我们有未指明的尺寸，我们会告诉视图的父控件在理想状况下的期望尺寸。在另一种情况下（大多数情况下），我们需要提供 `width` 与 `height` 来设置 `maxSize`，并将它们传递进入我们的 `measurer`。
 
 现在让我们看一下结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lTedeH88K2J4Z8snpeSOfw.png)
 
-一切看起来都很棒，但是小图片似乎显示得太小了。我们希望使它们比现在大一些。你可能会想要增加最小尺寸，我们当然可以这样做，但是在那种情况下，小图和小图之间的尺寸不会有任何区别，因为它们将使用相同的最小尺寸。
+一切看起来都很棒，<span class="x x-first x-last">但是那些比较小图片似乎显示得太小了。我们希望让它们比现在的更大一些。你可能会说，“那就增大最小尺寸呗。”</span>我们当然可以这样做，但是在那种情况下，<span class="x x-first x-last">小图和更小尺寸的图片之间的显示上的大小不会有任何区别，因为它们将使用一个相同的最小尺寸定义</span>。
 
-除此之外，我们可以添加一些魔术！
+除此之外，我们可以施加点魔法！
 
-而主要目的是通过增加一些幻数或公式使小图变大，并保持小图和小图之间的大小差异：）
+而魔法的主要目的是通过增加一些幻数或公式使小图变大，并保持小图和更微小的图之间的大小差异：）
 
 ```Kotlin
 fun measure(max: Size, out: Size) {
@@ -226,7 +226,8 @@ private fun magicallyStretchTooSmallSize(max: ChatImageView.Size, desired: ChatI
 我更喜欢新的结果：我们能够拥有更大的图片，能更方便地看清图片内容。但在同时，我们又能够理解图片的尺寸有所差异，有的图片比较大有的比较小。
 
 ## 如果我只知道比例就想要获取尺寸，该怎么办
-让我们再进一步讨论一下能否有更多的改进吧。有时，你并没有所要展示的图片的真实尺寸，而只获得了缩略图的尺寸。在这种情况下，我们不能缩略图的尺寸当作是所需的尺寸，因为这些规格要小得多，但是您可以计算出大致相同的比例，然后使用 `ImageSizeMeasurer` 函数在只有宽高比例情况下尝试计算得出所需尺寸并让这个尺寸尽可能满足最大约束。
+
+让我们再进一步讨论一下能否有更多的改进吧。有时，你并没有所要展示的图片的真实尺寸，而只获得了缩略图的尺寸。在这种情况下，我们不能缩略图的尺寸当作是所需的尺寸，因为这些规格要小得多，但是您可以计算出比例是更大、更小、还是相等，然后使用 `ImageSizeMeasurer` 对象，在只有固定宽高比得情况下，尝试计算得出所需尺寸并让这个尺寸尽可能满足最大约束。
 
 因此，首先，我们向 `Size` 类添加一个新属性：
 
@@ -292,19 +293,19 @@ override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
 private fun measure(widthSpec: Int) {
     maxSize.width = // 您可以同时使用两个规格或具有一些预定义的
-    maxSize.height = // 宽高比并仅使用一个规格来定义最大尺寸。选择是你的；）
+    maxSize.height = // 同时使用宽高或仅使用其中之一来定义最大尺寸，任君挑选；）
     measurer.measure(maxSize, measureResult)
     setMeasuredDimension(measureResult.width, measureResult.height)
 }
 ```
 
-## 让我们一起讨论一下
+## 让我们一起讨论一下视图
 
 到现在为止一切表现得还挺好。我们拥有了一个绝妙的图片尺寸计算工具！我们甚至对如何将其与视图整合都有一个粗略的了解，但是我们仍然没有思路如何表现。
 
 让我们首先描述一下我们想要什么。实际上，指定 `minWidth` 和 `minHeight` 并不难。这些属性是 xml 的一部分，`maxWidth` 和 `maxHeight` 也如此。但是我不想在这里硬编码任何特定的大小。相反，我想更多地依靠设备屏幕。意思是，最好用百分比来指定这些最大约束。我们现在已经拥有了 `ConstraintLayout` 控件，按理说像这样指定最大宽度（例如屏幕宽度的 70%）并不难...但是高度应该怎么办？
 
-其实你可以任意指定约束比例，毕竟这只是我的一点想法罢了。出于某些原因，我决定根据宽度决定高度。因此，假设我们的 `factor` 值为 `1`，那便就是一个正方形。也就是说，只需指定 `width`（以及比例），程序应该自行计算对应的高度。
+其实你可以任意指定约束比例，毕竟这只是我的一点想法罢了。出于某些原因，我决定根据宽度决定高度，乘以缩放因子。因此，假设我们的 `factor` 值为 `1`，那便就是一个正方形。也就是说，只需指定 `width`（以及比例），程序就能计算对应的高度。
 
 如你所见，做法极其简单，但也极度依赖屏幕尺寸，而不是取决于设备的不同因素的 dimens.xml 中的各种定义，尽管后者的解决方案更有安卓风味：
 
@@ -394,7 +395,7 @@ class ChatImageView @JvmOverloads constructor(
         private var desiredSize = Size(0, 0)
         val desired get() = desiredSize.copy()
 
-        // 分数 height : width
+        // 缩放因子 height : width
         var fixRatio: Float = 1f
             private set
 
@@ -421,7 +422,7 @@ class ChatImageView @JvmOverloads constructor(
             }
         }
 
-        // 如果没有指定所需的大小，但因素是，那么先伸展图像最大
+        // 如果没有指定期望尺寸，但指定了缩放因数，那么先将图像最大程度地伸展
         private fun fixUnspecifiedDesiredSize(max: Size, desired: Size) {
             if (!desired.isSpecified) {
                 if (fixRatio > max.ratio) {
@@ -437,9 +438,9 @@ class ChatImageView @JvmOverloads constructor(
         @Suppress("MagicNumber")
         private fun magicallyStretchTooSmallSize(max: Size, desired: Size) {
             if (desired in max) {
-                // 如果图像比最大界限我们另外这个形象有点舒展小
-                // 这些界限。这是有意完成的，因为如果您要发送小图像，
-                // 它不会太小。因此，它只是一些调整魔力外观形象更靓;）
+                // 如果图像比最大界限小，我们就把这张图额外拉伸一点儿至边界值
+                // 这是有意这么做的，因为如果您要发送小图像，图像不应该太小。
+                // 因此，它只是某种调整魔法，让图片看起来更靓 ;)
                 val adjustedArea = desired.area + (max.area - desired.area) / 3f
                 val outW = sqrt(adjustedArea / fixRatio)
                 desired.height = (outW * fixRatio).toInt()
@@ -502,7 +503,7 @@ class ChatImageView @JvmOverloads constructor(
             height = new.height
         }
 
-        // 不想使可变类成为数据类的
+        // 不想使可变类成为数据类
         fun copy(width: Int = this.width, height: Int = this.height) = Size(width, height)
     }
 }
@@ -514,7 +515,7 @@ class ChatImageView @JvmOverloads constructor(
 
 ## 后记
 
-如果你喜欢这篇文章，请别忘了鼓掌来支持我。如果有任何的疑问请在评论区说说你的看法！祝你编程愉快！
+如果您喜欢这篇文章，请别忘了鼓掌来支持我。如果您有任何的疑问，请在评论区留言，我们一起讨论！祝您编程愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
