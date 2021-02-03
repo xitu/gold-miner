@@ -2,8 +2,8 @@
 > * 原文作者：[Michael Spitsin](https://medium.com/@programmerr47)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/messengers-like-imageview.md](https://github.com/xitu/gold-miner/blob/master/article/2021/messengers-like-imageview.md)
-> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[HumanBeing](https://github.com/HumanBeingXenon)
 
 # 构建像 `Messenger` 那样的 ImageView
 
