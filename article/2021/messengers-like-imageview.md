@@ -108,8 +108,7 @@ internal class ImageSizeMeasurer {
 
 比如说应用于非常小的图片。
 
-![](https://cdn-images-1.medium.com/max/3148/1*Oc74IKgtG8h7docIWyka-Q.png)
-[//]: # TODO: translate the image
+![](https://github.com/PassionPenguin/gold-miner-images/blob/master/messengers-like-imageview-example.png?raw=true)
 
 * 两者都将具有适合最大约束的宽度，但高度太小
 * 或者将在最小约束中设置高度，但宽度太大
