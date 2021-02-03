@@ -7,8 +7,6 @@
 
 # Native Splash Screen in Flutter Using Lottie
 
-This article describes how you can add an animated splash screen natively using Android(Kotlin) and iOS(Swift) with Lottie animation.
-
 ![](https://cdn-images-1.medium.com/max/2400/1*4vlkTJCWbP2Kh2vyK9BdEw.png)
 
 Adding an animated splash screen directly in Flutter using dart code is possible, however, the way Flutter application starts as a FlutterActivity or a FlutterViewController in Android and iOS adds a few seconds before Flutter actually draws its first frame. Therefore, having a splash screen natively will start the animation the moment the app launches, resulting in a better user experience.
@@ -279,9 +277,9 @@ That’s all, you have animated splash screens now for both Android and iOS apps
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ebDvTB-anwRn4sc3QJQ_dA.gif)
 
-For the full source code and the demo app;
-[**AbedElazizShe/flutter_lottie_splash_app**
-**A Flutter application to demonstrate how to add an animated splash screen natively. | This project is a starting point…**github.com](https://github.com/AbedElazizShe/flutter_lottie_splash_app)
+For the full source code and the demo app:
+
+[**AbedElazizShe/flutter_lottie_splash_app**](https://github.com/AbedElazizShe/flutter_lottie_splash_app)
 
 Please leave a comment if you have any question or if there is a better way to achieve that.
 
