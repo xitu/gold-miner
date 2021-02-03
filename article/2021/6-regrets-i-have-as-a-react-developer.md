@@ -2,26 +2,26 @@
 > * 原文作者：[Mohammad Faisal](https://medium.com/@56faisal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 6 Regrets Things I Wish I Did Earlier as a React Developer
+# 我后悔没有在成为 React 开发者之时做的 6 件事
 
 ![Photo by [Francisco Gonzalez](https://unsplash.com/@franciscoegonzalez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/sadness?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8396/1*b_I4LDS0bICAcnC1bdOM2g.jpeg)
 
-React is a great tool to learn. It allows us to do things in our own way. It's both powerful and limiting at the same time.
+React 是一个很好的去学习的工具，它让我们能够以我们自己的方法编写代码完成任务。它是非常强大，但是它也有不少的限制。
 
-For new developers, there’s no clear guideline on which tool is best for which use case, and as a result there are multiple solutions to every problem. And sure enough, I also fell into this mistake and was late to adopt some best practices.
+对于新的开发者而言，没有明确的指南告诉我们哪一款语言对应哪一种情况是最好的工具，因此对于每一个问题而言，都有各种各样的解决方案。并且我非常肯定的是，我同样掉到了这个坑里面，并且已经无力回天去适应别的更好的实践方法了。
 
-Today I am sharing the top 6 things that I should have started doing earlier in my React development journey.
+今天我将要分享我最应该在我的 React 开发旅程前期应该开始做的 6 件事。
 
-## 1. Testing
+## 1. 测试
 
-For a long time testing was my weakness. I didn’t write tests for my components and, as expected, often I had to debug typos.
+长期以来，测试是我的弱项。我并没有为 React 的组件编写测试，并且正如预期的那样，我常常不得不为了某些输入错误而调试。
 
-But as daunting as it may look, testing in React is really easy (For most use-cases).
+但即便测试这个词语看起来很令人畏缩，在 React 中进行测试真的是很简单的一件事情（对于大多数情况而言）。
 
-Adding a very basic test that takes two minutes to write can save hours in the long run. Here’s a test that checks if the `Title` component will render correctly:
+只需要花费两分钟去编写代码我们就可以添加一个非常简单的测试，但是这个测试可以在未来的运行中节省大量的时间去调试。这里就是一个测试 `Title` 组件渲染是否正确的测试：
 
 ```js
 it('checks if the title component is in the document', () => {
