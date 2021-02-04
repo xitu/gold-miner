@@ -29,11 +29,11 @@ it('checks if the title component is in the document', () => {
 })
 ```
 
-If you are using `create-react-app` you already have the testing setup in place. Just start writing tests as much (and as early) as possible.
+而如果你使用的是 `create-react-app` 命令创建你的 React 应用程序，那系统已经正确地为你设置好了测试套件，只需要尽早地开始编写测试代码即可。
 
-## 2. Using the Correct Folder Structure
+## 2. 使用正确的文件夹结构
 
-I think as a beginner in React my biggest mistake was not using the correct folder structure. Essentially what I did was group files according to their type:
+我想作为一名 React 的新手，我最大的错误是没有使用正确的文件夹结构。本质上我将文件按照他们的类别分类：
 
 ```
 |-store
@@ -47,9 +47,9 @@ I think as a beginner in React my biggest mistake was not using the correct fold
     |---OrderReducer.js
 ```
 
-But as the project grew bigger it was getting tougher to find any file.
+但当项目逐步变大以后，我发现寻找文件变得困难了许多。
 
-So finally I started to organize my files by feature. That means all the similar files are now put in the same folder:
+因此我最终还是开始按照文件的功能去整理排序，这意味着所有类似的文件将放在一个同样的文件夹下面，例如：
 
 ```
 |-store
@@ -64,13 +64,13 @@ So finally I started to organize my files by feature. That means all the similar
     |---OrderReducer.js
 ```
 
-Now it’s much easier for me to navigate through the file system to find anything.
+现在对我而言在文件系统中导航到我想要查看的文件变得简单了许多！
 
-## 3. Using Styled Components
+## 3. 使用样式化的组件
 
-I started using `css` files at the beginning to style my components but as time went on it got really messy.
+我一开始使用 `css` 文件去给我的组件添加样式，但是随着时间的推进以及项目的扩大，这真的变得越发混乱。
 
-After some time I learned `sass` and it was great! But although it provided some syntactic sugar over vanilla `css` it was really hard to style any component. Reusing any style was especially hard as I often forgot that a particular style was already there.
+在一段时间以后我了解并学习了 `sass`，而它真是棒极了！虽然它在原味 `css` 上提供了些语法糖，但给我的组件加样式还是真的困难，尤其是在重复使用某些样式的时候 —— 我总是会忘记我已经编写了这一种样式在我的样式表中了。
 
 ```
 // inside jsx
@@ -85,11 +85,11 @@ After some time I learned `sass` and it was great! But although it provided some
 }
 ```
 
-Also, personally, I don’t like using `className` property inside `JSX`.
+同样对我来说，我并不喜欢 `JSX` 的 `className` 属性。
 
-After some time I found a library called `styled-components` which rescued for me. Now I just declare my styles as separate components and my code is more clean and easy to the eye.
+过了一段时间我发现了一个可以拯救我的叫做 `styled-components` 的库。现在我仅仅需要对不同的组件定义我的样式，而我的代码也变得干净了许多，阅读起来也舒服、轻松了许多。
 
-Also `styled-components` accepts `props`, which helped me to reduce conditional styling in my components by a lot!
+同样的，这个组件也支持 `props` 属性，帮助我大量地减少了特定条件下的特殊样式。
 
 ```jsx
 const Button = styled.button`
@@ -100,38 +100,38 @@ const Button = styled.button`
 `;
 ```
 
-## 4. Switching to Functional Components Early
+## 4. 尽早转向使用功能化控件
 
-In the beginning, I was introduced to React through `class-components` and for around a year I **only** worked with class components.
+在一开始我被介绍使用 `class-components` 然后对于接下来的一年我甚至**只**使用了基于类的控件。
 
-After I switched to functional components their enormous benefits became clear. I think `react-hooks` is the single best thing that’s happened since React has been in the picture.
+当我转向使用给予功能的控件后，我发现了它们巨大的好处。我想 `react-hooks` 是自 React 出现以来的唯一的最好的东西。
 
-There are very few reasons that anyone in 2021 would try to use class-based components.
+但现在几乎没有任何原因让人们尝试使用基于类的组件。
 
-Now I’m trying to rewrite all my components to functional components.
+而现在，我正尝试着将所有组件重写为功能组件。
 
-## 5. Using a Form Handling Library
+## 5. 使用表单处理库
 
-The handling form is maybe one of the most common features of any application. I used the vanilla `onChange` method for a good amount of time. Handling data and validation was big pain!
+处理表单可能是任何应用程序中最常见的功能之一，但当我花了很多时间尝试使用原生的 `onChange` 方法的时候，我发现使用这个功能处理数据和验证真的非常痛苦！
 
-**Until I discovered `Formik` and `react-hook-form`.**
+**直到我发现 `Formik` 和 `react-hook-form`。**
 
-Using these two libraries, form handling has become so much easier and cleaner. On top of that, form validation is now declarative and easy for me.
+使用这两个库能让表单处理变得更加容易和简洁。最重要的是，表单验证现在对我来说是简单声明就可完成的，变得极度容易。
 
-## 6. Using a Linter and Formatter
+## 6.使用 Linter 和 Formatter
 
-For a long time formatting my code manually was a great hassle. I like my code tidy and clean so every time I needed to:
+长时间以来，手动格式化我的代码是一件很麻烦的事情。我喜欢我的代码整洁干净，因此每次需要：
 
-* Remove an unused variable
-* Remove an unused function
-* Remove unused imports
-* Use proper indentation
+* 删除未使用的变量
+* 删除未使用的功能
+* 删除未使用的进口
+* 使用适当的缩进
 
-I had to do it manually. Until I came across `Eslint` and `Prettier` — two libraries that make the painful work of formatting easy!
+而在遇到`Eslint`和`Prettier`之前，我不得不手动完成这些。但我发现了这两个库能让痛苦的格式化工作变得容易！
 
-So, those are the top 6 libraries I wish I started using earlier in my career. What about you?
+因此，这些是我希望在职业生涯早期开始使用的前 6 个库，你的想法是什么呢？
 
-Have a nice day!
+感谢阅读，祝你有个明媚的好日子嗷！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
