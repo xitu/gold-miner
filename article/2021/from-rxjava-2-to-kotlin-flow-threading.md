@@ -11,9 +11,7 @@
 
 ## Introduction
 
-For a long time RxJava was undisputed leader for reactive solutions on Android, though with Kotlin expansion and introducing cold streams (Flow) seems situation might be rapidly changing in the coming years.
-Though reactive programming is not related to threading in the first place, concurrency and parallelism are very important anyway.
-In this article we’ll try to make short recap on threading in RxJava 2 (with some basic caveats on its usage) and then take a look at how threading works in Kotlin Flow, so if anyone would like to migrate their code without affecting functionality it would be nice and smooth.
+For a long time RxJava was undisputed leader for reactive solutions on Android, though with Kotlin expansion and introducing cold streams (Flow) seems situation might be rapidly changing in the coming years. Though reactive programming is not related to threading in the first place, concurrency and parallelism are very important anyway. In this article we’ll try to make short recap on threading in RxJava 2 (with some basic caveats on its usage) and then take a look at how threading works in Kotlin Flow, so if anyone would like to migrate their code without affecting functionality it would be nice and smooth.
 
 Let’s start from the short recap on RxJava 2.
 
@@ -79,9 +77,7 @@ One example to understand a problem is when we have stream of list of ids and fo
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KmPkrVtEedgkXu08JxSMew.png)
 
-What we could expect here is that we’ve subscribed to io, io() has thread pool under the hood, therefore our `loadData` calls for each id was successfully paralleled. But that’s not the case.
-We wrote concurrent code using `flatMap`, but it is not run in parallel and the reason of that is that we’ve declared our chain to be started on io. Our chain start is on `flatMapIterable` and that means that upon subscription one thread from io pool will be taken and on that single thread everything will be run.
-In order to change behavior and make our code run in parallel we need to move subscribeOn inside `flatMap`:
+What we could expect here is that we’ve subscribed to io, io() has thread pool under the hood, therefore our `loadData` calls for each id was successfully paralleled. But that’s not the case. We wrote concurrent code using `flatMap`, but it is not run in parallel and the reason of that is that we’ve declared our chain to be started on io. Our chain start is on `flatMapIterable` and that means that upon subscription one thread from io pool will be taken and on that single thread everything will be run. In order to change behavior and make our code run in parallel we need to move subscribeOn inside `flatMap`:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RfeS9DYoGIMoj05cI-zkpA.png)
 
@@ -169,8 +165,7 @@ To find out how Kotlin Flow works with flatMapMerge (analog of RxJava `flatMap`)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_G4_NwfgY1wmO7aVoamsrw.png)
 
-Here we have flow which is collected on `d1` dispatcher. The flow has two items, which are flat mapped onto two other items each. And we have single `flowOn` on the `d2` dispatcher.
-In the code we’ve added `onEach` call with information on the thread on which execution happens.
+Here we have flow which is collected on `d1` dispatcher. The flow has two items, which are flat mapped onto two other items each. And we have single `flowOn` on the `d2` dispatcher. In the code we’ve added `onEach` call with information on the thread on which execution happens.
 
 In this example the output would be:
 
@@ -274,8 +269,7 @@ In RxJava we declare on which scheduler chain should be **subscribed (started)**
 
 In Kotlin Flow we declare on which context (dispatcher) chain should be **collected (ended)** using scope in which flow is collected, and where it works **before** that using **flowOn**.
 
-So it is like reversed approaches. In RxJava we declare start and modify chain below.
-In Kotlin Flow we have end declared and can modify chain above.
+So it is like reversed approaches. In RxJava we declare start and modify chain below. In Kotlin Flow we have end declared and can modify chain above.
 
 #### Migration Example
 
@@ -283,8 +277,7 @@ Consider we have some complex RxJava chain we’d like to migrate to Kotlin Flow
 
 Also we should already keep in mind that non-blocking threading in RxJava and suspending with thread reusing between coroutines are different approaches and we won’t be able to have exact one-to-one relation. Though we can put some constraints, like we want to keep parallelism where we had it and have same blocks of code run on same thread pools.
 
-To make our test example as correct as possible we’ll use java executors under the hood of the Scheduler and Dispatcher.
-We’ll create a number of them for Rx:
+To make our test example as correct as possible we’ll use java executors under the hood of the Scheduler and Dispatcher. We’ll create a number of them for Rx:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*24TAclWSQTvfOlYIw9I65w.png)
 
@@ -347,20 +340,17 @@ end: pool-6-thread-1
 end: pool-6-thread-1
 ```
 
-It is pretty long, but should match our assumptions written before.
-Let’s visualize this:
+It is pretty long, but should match our assumptions written before. Let’s visualize this:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VNsQnjyftFkMvtcPD8x_rQ.png)
 
-So here we see exactly what we’ve described above. The main trick is that “3” is run on the same scheduler as “inner 2”.
-We had two starting points (original and inner), where we put the subscribeOn allowing paralleling inside inner. And then moved below the chain adding where necessary observeOn.
+So here we see exactly what we’ve described above. The main trick is that “3” is run on the same scheduler as “inner 2”. We had two starting points (original and inner), where we put the subscribeOn allowing paralleling inside inner. And then moved below the chain adding where necessary observeOn.
 
 Now we’ll switch to the Kotlin Flow version:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qIELqmv38MzyvsUml8QUYw.png)
 
-From the very beginning we fix the main thread as being our end thread. Then we start from the bottom and add `flowOn` where needed. First we add d4 and note that “inner 2” should also run on it. Then we switch to d3 and so on up to the very top of the chain.
-And here is the result:
+From the very beginning we fix the main thread as being our end thread. Then we start from the bottom and add `flowOn` where needed. First we add d4 and note that “inner 2” should also run on it. Then we switch to d3 and so on up to the very top of the chain. And here is the result:
 
 ```
 1: pool-1-thread-1 @coroutine#6
