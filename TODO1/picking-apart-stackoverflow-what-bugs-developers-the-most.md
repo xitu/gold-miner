@@ -2,131 +2,131 @@
 > * 原文作者：[Nick Roberts](https://www.globalapptesting.com/blog/picking-apart-stackoverflow-what-bugs-developers-the-most)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/picking-apart-stackoverflow-what-bugs-developers-the-most.md](https://github.com/xitu/gold-miner/blob/master/TODO1/picking-apart-stackoverflow-what-bugs-developers-the-most.md)
-> * 译者：
-> * 校对者：
+> * 译者：[whatbeg](https://github.com/whatbeg)
+> * 校对者：[Endone](https://github.com/Endone), [JalanJiang](https://github.com/JalanJiang)
 
-# Picking Apart Stack Overflow; What Bugs Developers The Most?
+# 剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？
 
-Stack Overflow has been swooping to the rescue of all types of developers since its founding in 2008. Since that time, developers have asked millions upon millions of different questions, within all areas of development.
+Stack Overflow 自 2008 年成立以来，一直在迅速拯救各种类型的开发者。从那时起，开发者在所有开发领域中提出了数以百万计的不同问题。
 
-But what are the **kinds** of problems developers are forced to turn to [Stack Overflow](https://www.stackoverflow.com) for?
+但是是哪些**类型**的问题使得开发者被迫转向 [Stack Overflow](https://www.stackoverflow.com) 求助呢？
 
-We picked 11 of the most popular programming languages (measured by frequency of Stack Overflow tags) and ran a study looking to uncover some of the commonalities and differences within these questions.
+我们挑选了 11 种最流行的编程语言（通过 Stack Overflow 标签的频率来衡量），并进行了一项研究，试图揭示这些问题中的一些共性和差异。
 
-But before we get there, let’s take a zoomed-out look at the 11 languages we’ve selected, as shown below.
+但是在我们开始研究之前，让我们先仔细看看我们选择的 11 种语言，如下所示。
 
-[![JavaScript is the most frequently questioned language on StackOverflow overall.](https://www.globalapptesting.com/hubfs/_all_languages_bar_chart-min.png)](https://www.globalapptesting.com/hubfs/_all_languages_bar_chart-min.png)
+[![JavaScript 是整个 StackOverflow 最常被问及的语言。](https://www.globalapptesting.com/hubfs/_all_languages_bar_chart-min.png)](https://www.globalapptesting.com/hubfs/_all_languages_bar_chart-min.png)
 
-In terms of raw volume of questions asked, JavaScript has been the most frequently asked about since Stack Overflow was founded. This is likely due to JavaScripts ubiquity amongst a huge range of different applications and services: if you work in any way with the internet, chances are you’ll need to know a bit of JavaScript.
+就问题的原始数量而言，自 Stack Overflow 成立以来，JavaScript 一直是最常被问及的语言。这可能是由于 JavaScripts 在众多不同的应用程序和服务中都有运用：不管你以何种方式接触并使用互联网，你可能都需要了解一点 JavaScript。
 
-But while JavaScript may be top **overall**, when we split the data out across time we see a new crown is needed.
+但是，虽然 JavaScript **总体上**可能是第一，但当我们将数据分开时，我们会看到一个新的需求顶峰。
 
-[![Python will overtake JavaScript in 2019 as the most questioned language.](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)
+[![Python 将在 2019 年取代 JavaScript 称为最常被问及的语言。](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)](https://www.globalapptesting.com/hubfs/javascript_python_timeline-min.png)
 
-In 2011 [Harvard Business Review](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century) labelled Data Scientist as the “Sexiest Job of the 21st Century”. Since then, Python - one of the go-to-languages of data scientists - has been ever-growing in popularity… so much so that going into 2019 it has dethroned JavaScript as StackOverflows most questioned programming language.
+2011 年[哈佛商业评论](https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century)将数据科学家称为“21 世纪最性感的工作”。从那时起，Python — 数据科学家的首选语言之一 — 已经越来越受欢迎......以至于在 2019 年它已经取代了 JavaScript，成为 StackOverflows 最常被问及的编程语言。
 
-(Either Python is fast becoming the most popular programming language,  or Python just has a bigger proportion of new coders compared to other languages!)
+（要么 Python 正在迅速成为最流行的编程语言，要么只是 Python 比其他语言拥有更大比例的新晋开发者！）
 
 ![](https://play.vidyard.com/5SPXJ1gky2WeF3gYUXKwUx.jpg)
 
-But what **exactly** are these developers asking about? What are the most questioned frameworks, packages, functions, and methods? Which data types cause the most pain? And how different are these problems across languages?
+但这些开发者**究竟**要问的是什么？最常被问及的框架、包、函数和方法是什么？哪种数据类型最让开发人员感到痛苦？各种语言间这些问题有何不同？
 
-To do this, we:
+为此，我们：
 
-1. extracted 1,000 of the most upvoted Stack Overflow questions for each of the 11 programming languages listed above.
-2. did a bit of data cleaning in Python (pandas, naturally)
-3. fed these 11,000 questions total (over 96,000 individual words) into a JavaScript word cloud algorithm to give us a birds-eye-view of the general pain points that arise in different languages.
+1. 为上面列出的 11 种编程语言中的每种语言提取了 1000 个最受欢迎的 Stack Overflow 问题。
+2. 在 Python 中做了一些数据清理（自然地使用 Pandas）
+3. 将这 11000 个问题（超过 96000 个单词）整合到一个 JavaScript 词云算法中，以便于我们对不同语言中的难点痛点有一个整体的了解。
 
-Here are the results.
+结果如下。
 
 ### JavaScript
 
-[![Most mentioned words for JavaScript on StackOverflow.](https://www.globalapptesting.com/hubfs/_javascript-min.png)](https://www.globalapptesting.com/hubfs/_javascript-min.png)
+[![StackOverflow 上提到最多的 JavaScript 用词。](https://www.globalapptesting.com/hubfs/_javascript-min.png)](https://www.globalapptesting.com/hubfs/_javascript-min.png)
 
-JavaScript has been around for 23 years; Stack Overflow for 11. And in those 11 years, “**jquery**” (center-left) was by far the most frequently questioned JavaScript framework.
+JavaScript 已经诞生了 23 年；而 Stack Overflow 才 11 年。在这 11 年中，“**jquery**”（中左）是迄今为止最常被问及的 JavaScript 框架。
 
 ### Python
 
-[![Most mentioned words for Python on StackOverflow.](https://www.globalapptesting.com/hubfs/_python-min.png)](https://www.globalapptesting.com/hubfs/_python-min.png)
+[![StackOverflow 上提到最多的 Python 用词。](https://www.globalapptesting.com/hubfs/_python-min.png)](https://www.globalapptesting.com/hubfs/_python-min.png)
 
-Python is actually about 6 years older than JavaScript. First appearing in 1990, [Guido van Rossum](https://gvanrossum.github.io/)’s brainchild has morphed into one the languages of choice for data scientists. Naturally, some of its most frequent pain points connect to data processing libraries: “**pandas**” (centre-left) and “**dataframe**” (center-top) being among them.
+Python 实际上比 JavaScript 早诞生 6 年。首先出现在 1990 年，[Guido van Rossum](https://gvanrossum.github.io/) 的创意让其变成了数据科学家的首选语言之一。当然，它最常见的一些痛点在于数据处理库：“**pandas**”（中左）和 “**dataframe**”（中上部）就在其中。
 
-  
-However, Python is a general purpose duct-tape language and gets involved in many different domains of tech, explaining the relatively frequently questioned “**django**” (center-bottom) web development framework.
+
+然而，Python 是一种通用的管道-胶水式语言，它涉及到许多不同的技术领域，这解释了为何 Web 开发框架 “**django**”（中下部）相对频繁地被问及。
 
 ### R
 
-[![Most mentioned words for R on StackOverflow.](https://www.globalapptesting.com/hubfs/r-min.png)](https://www.globalapptesting.com/hubfs/r-min.png)
+[![StackOverflow 上提到最多的 R 用词。](https://www.globalapptesting.com/hubfs/r-min.png)](https://www.globalapptesting.com/hubfs/r-min.png)
 
-Perhaps the second language of choice for data scientists, R differs from Python in that it is almost exclusively used for that purpose. Data processing specific concepts such as “**dataframe**” (top-right), “**datatable**” (top-right) and “**matrix**” (center) seem to be causing R users some headaches.
+也许是数据科学家选择的第二种语言，R 与 Python 的不同之处在于它几乎是专门用于此目的的。一些数据处理特定的概念，如 “**dataframe**”（右上角）、“**datatable**”（右上角）和 “**matrix**”（中间）似乎让 R 用户感到头疼。
 
-Both Python and R have excellent data manipulation libraries, though where data **visualisation** is concerned, some argue R has an edge over Python. Having said this, the data visualisation library “**ggplot**” (center) was by far the most questioned concept in the R language.
+Python 和 R 都有出色的数据操作库，尽管在数据**可视化**方面，有些人认为 R 比 Python 更具优势。说到这里，数据可视化库 “**ggplot**”（中心）是迄今为止 R 语言中最常被问及的概念。
 
-So perhaps Python users are finding matplotlib easier to handle!
+所以也许 Python 用户发现 matplotlib 更容易掌握！
 
 ### Ruby
 
-[![Most mentioned words for Ruby on StackOverflow.](https://www.globalapptesting.com/hubfs/_ruby-min.png)](https://www.globalapptesting.com/hubfs/_ruby-min.png)
+[![StackOverflow 上提到最多的 Ruby 用词。](https://www.globalapptesting.com/hubfs/_ruby-min.png)](https://www.globalapptesting.com/hubfs/_ruby-min.png)
 
-First appearing in the mid-90s, Ruby has now found a home as the server-side framework ruby-on-“**rails**” (top-right).
+Ruby 最早出现在 90 年代中期，现在它找到了一个服务器端框架 ruby-on-“**rails**”（右上角）作为归宿。
 
 ### C#
 
-[![Most mentioned words for C# on StackOverflow.](https://www.globalapptesting.com/hubfs/c-sharp-min.png)](https://www.globalapptesting.com/hubfs/c-sharp-min.png)
+[![StackOverflow 上提到最多的 C# 用词。](https://www.globalapptesting.com/hubfs/c-sharp-min.png)](https://www.globalapptesting.com/hubfs/c-sharp-min.png)
 
-C# (C Sharp, 2000) was developed by Microsoft primarily for its .NET framework (“**net**”, center-right).
+C#（C Sharp，2000）主要是由微软为其 .NET 框架（“**net**”，中右）开发的。
 
 ### C++
 
-[![Most mentioned words for C++ on StackOverflow.](https://www.globalapptesting.com/hubfs/c++-min.png)](https://www.globalapptesting.com/hubfs/c++-min.png)
+[![StackOverflow 上提到最多的 C++ 用词。](https://www.globalapptesting.com/hubfs/c++-min.png)](https://www.globalapptesting.com/hubfs/c++-min.png)
 
-C++ (1985) has gone on to become the go-to-language for video game developers. The fundamental visual building block of 3D video games is the polygon, and the fundamental building block of the polygon is the “**vector**” (middle-right).
+C++（1985）已经成为视频游戏开发者的首选语言。三维视频游戏的基本视觉构建块是多边形，多边形的基本构建块是“**矢量**”（中右）。
 
 ### Java
 
-[![Most mentioned words for Java on StackOverflow.](https://www.globalapptesting.com/hubfs/java-min-1.png)](https://www.globalapptesting.com/hubfs/java-min.png)
+[![StackOverflow 上提到最多的 Java 用词。](https://www.globalapptesting.com/hubfs/java-min-1.png)](https://www.globalapptesting.com/hubfs/java-min.png)
 
-Java (1995) was created as a general purpose “write-once-run-anywhere” language. It became popular during the PC boom of the late 90s and the early days of the world wide web and was the driving force behind many Windows applications.
+Java（1995）被创建为通用的“一次编写随地运行”的语言。它在 90 年代末和万维网早期的 PC 繁荣时期变得流行，是许多 Windows 应用程序背后的驱动力。
 
-But more recently it’s found a home in “**Android**” (middle-right) app development.
+但最近它在 “**Android**”（中右）应用程序开发中找到了归宿。
 
 ### Objective-C
 
-[![Most mentioned words for Objective-C on StackOverflow.](https://www.globalapptesting.com/hubfs/objective-c-min.png)](https://cdn2.hubspot.net/hubfs/540930/objective-c-min.png)
+[![StackOverflow 上提到最多的 Objective-C 用词。](https://www.globalapptesting.com/hubfs/objective-c-min.png)](https://cdn2.hubspot.net/hubfs/540930/objective-c-min.png)
 
-The most ancient language of the ones in this study, Objective-C (1984) was the predominant language supported by Apple for the OSX operating system, and more recently, for “**iOS**” (bottom-left) apps on the “**iPhone**” (center)... that is, until the introduction of Swift.
+在这项研究中，最古老的语言是 Objective-C（1984），它是苹果公司在 OSX 操作系统上支持的主要语言，直到最近引入 Swift 之前，它还是支持 “**iPhone**”（中间）上的 “**iOS**”（左下角）应用程序的主要语言。
 
 ### Swift
 
-[![Most mentioned words for Swift on StackOverflow.](https://www.globalapptesting.com/hubfs/swift-min.png)](https://www.globalapptesting.com/hubfs/swift-min.png)
+[![StackOverflow 上提到最多的 Swift 用词。](https://www.globalapptesting.com/hubfs/swift-min.png)](https://www.globalapptesting.com/hubfs/swift-min.png)
 
-First appearing in 2014, Swift has superseded Objective-C in the Apple development sphere. Though perhaps the frequency of “**objective-c**” mentions (middle-right) in Stack Overflow questions tagged #swift represent the thousands of iOS developers looking to Stack Overflow to update their knowledge.
+Swift 于 2014 年首次亮相，在苹果开发领域取代了 Objective-C，尽管标记为 #swift 的 Stack Overflow 问题中提到 “**objective-c**”（中右）的频率可能代表了成千上万的 iOS 开发人员希望通过 Stack Overflow 来更新他们的知识。
 
 ### PHP
 
-[![Most mentioned words for PHP on StackOverflow.](https://www.globalapptesting.com/hubfs/php-min.png)](https://www.globalapptesting.com/hubfs/php-min.png)
+[![StackOverflow 上提到最多的 PHP 用词。](https://www.globalapptesting.com/hubfs/php-min.png)](https://www.globalapptesting.com/hubfs/php-min.png)
 
-PHP (1995) was designed as a server-side scripting language used for web development. It’s still used for that purpose today, and you can see evidence of this in the frequency of questions surrounding the languages “**laravel**” framework (center-left).
+PHP（1995）被设计为用于 Web 开发的服务器端脚本语言。今天，它仍然用于这个目的，你可以在围绕 “**laravel**” 框架（中左）的问题频率中看到这一点的证据。
 
 ### SQL
 
-[![Most mentioned words for SQL on StackOverflow.](https://www.globalapptesting.com/hubfs/sql-min.png)](https://www.globalapptesting.com/hubfs/sql-min.png)
+[![StackOverflow 上提到最多的 SQL 用词。](https://www.globalapptesting.com/hubfs/sql-min.png)](https://www.globalapptesting.com/hubfs/sql-min.png)
 
-SQL isn’t a fully featured programming language like some others in this study; it’s designed specifically for one job: data manipulation. Due to this specificity, the most common pain points for SQL are all around database access: “**sever**”, “**mysql**”, “**database**”, “**query**”, “**select**”.
+SQL 并不像本研究中的其他语言那样是一种功能齐全的编程语言；它是专门为一项工作设计的：数据操作。由于这种特殊性，SQL 最常见的症结就在于数据库的访问：“**sever**”、“**mysql**”、“**database**”、“**query**”、“**select**”。
 
 * * *
 
-Each programming language has over time been geared toward - or was even **designed** for - a particular niche within tech. R is to data science as Swift is to iOS development as C++ is to video game development. This explains some of the differences in the types of problems that arise. This explains why we see “**database**” a commonly questioned concept in SQL but not, for example, Objective-C.
+每一种编程语言都是面向或甚至是**专为**一个特定技术场景而准备的。R 是数据科学，Swift 是 iOS 开发，C++ 是视频游戏开发。这就解释了出现的问题类型的一些差异。这也解释了为什么我们在 SQL 中看到 “**database**” 是一个常被问及的概念，而不是在其他语言中，例如，Objective-C。
 
-Despite these obvious differences, these visualisations represent some fundamental similarities within the different domains. Base-level data types such as strings and arrays (but **not** integers, floats, or boolean values, apparently) are frequent pain points that cause developers of all stripes and creeds to turn to - keyboard-under-hand - to Stack Overflow.
+尽管存在这些明显的差异，但这些可视化表明不同领域内的一些基本相似之处。底层的数据类型，如字符串和数组（但显然**不是**整数、浮点数或布尔值）是经常出现的痛点，这会导致所有层级和信仰的开发人员转向动手操作键盘打开 Stack Overflow。
 
-And in the spirit of unity, here’s a word cloud for **all 11,000** of the questions we extracted:
+本着团结的精神，这里有一个词云，表示我们提取的**所有 11000 个**问题：
 
-[![Most mentioned words for 12,000 top questions on StackOverflow.](https://www.globalapptesting.com/hubfs/_all_langauges-min.png)](https://www.globalapptesting.com/hubfs/_all_langauges-min.png)
+[![StackOverflow 上 12000 个热门问题中提到最多的单词。](https://www.globalapptesting.com/hubfs/_all_langauges-min.png)](https://www.globalapptesting.com/hubfs/_all_langauges-min.png)
 
-Google can help with some questions...
+谷歌可以帮助解决一些问题......
 
-...but for everything else, there’s Stack Overflow.
+......但对于其他的一切，我们有 Stack Overflow。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

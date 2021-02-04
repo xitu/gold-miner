@@ -2,79 +2,79 @@
 > * 原文作者：[Fady Derias](https://medium.com/@fadiderias)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-1.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kirinzer](https://github.com/kirinzer)
+> * 校对者：[iWeslie](https://github.com/iWeslie)
 
-# Xcode and LLDB Advanced Debugging Tutorial: Part 1
+# Xcode 和 LLDB 高级调试教程：第 1 部分
 
-One of the very intriguing sessions carried out by some of Apple’s finest debugging engineers during 2018’s WWDC was [Advanced Debugging with Xcode and LLDB](https://developer.apple.com/videos/play/wwdc2018/412/). They informed us about some impressive tips and tricks on how to utilize Xcode’s breakpoints and low-level debugger (LLDB) to optimize the debugging process whenever it happens that developers encounter bugs and all out to fix them.
+在 2018 年的 WWDC 期间，Apple 最优秀的一些调试工程师们开展了一场非常吸引人的会议[使用Xcode和LLDB进行高级调试](https://developer.apple.com/videos/play/wwdc2018/412/)。他们向我们展示了一些令人印象深刻的技巧， 关于每当发生开发人员遇到错误并全部修复它们时，如何利用 Xcode 的断点和低级调试器（LLDB）来优化调试过程。
 
-In this 3 parts tutorial, I’ll walk you through most of what has been concluded in that WWDC session. I created a demo project specifically to elaborate on how to use different types of breakpoints alongside the LLDB to fix bugs in your project/application.
+在这个 3 部分的教程中，我将向你介绍 WWDC 会议中已经完成的大部分内容。我创建了一个演示项目专门用于阐述如何配合 LLDB 使用不同类型的断点来修复项目/应用程序中的错误。
 
-## Demo Project
+## 演示项目
 
-I developed a project of conventional tasks that most of the iOS developers out there have definitely dealt with at some point. It’s important to learn about its features/rules before proceeding with this article. Here’s what the demo project is all about:
+我写了一个常见的任务项目，大多数 iOS 开发人员肯定在某些时候已经处理过。在继续阅读本文之前，需要首先了解它的功能或规则。以下是演示项目的全部内容：
 
-1. A table view controller that loads a list of posts when opened for the first time.
-2. The table view controller supports loading more posts when reaching the bottom end of the table view.
-3. The number of times the user is allowed to load posts is **restricted to 7**.
-4. The user is able to reload new posts via a refresh controller (pull down to refresh).
-5. There are two labels on the navigation bar that do indicate how many posts have been retrieved (right label) and how many times have the user loaded posts (left label).
+1. 一个表视图控制器，在第一次打开时加载一个文章列表。
+2. 表视图控制器支持在到达底部时上拉加载更多文章。
+3. 限制用户加载文章的次数 **7 次 **。
+4. 用户可以通过下拉刷新重新加载新文章。
+5. 导航栏上有两个标签，右侧标签用于显示请求到的文章数，左侧标签则用来显示用户已加载文章数。
 
-You can download it from [here](https://github.com/FadyDerias/IBGPosts) if you’re an Objective-C player.
-Swift player? Download it from [here](https://github.com/FadyDerias/IBGPostsSwift). 
-Xcode and run it! 😉
+如果你比较熟悉 Objective-C，可以在下载这个项目 [这里](https://github.com/FadyDerias/IBGPosts)。
+更熟悉 Swift，从这里下载 [这里](https://github.com/FadyDerias/IBGPostsSwift)。
+用 Xcode 打开并运行！ 😉
 
-## Bugs to Fix!
+## 需要修复的错误！
 
-Now that you’re ready with your project, you might have noticed the following bugs:
+现在你的项目准备就绪了，也许你已经注意到了下面的错误：
 
-1. Pull down to refresh does not reload new posts.
-2. The user is not receiving an alert (via an alert controller) whenever the HTTP request fails due to connection problems.
-3. The user is allowed to load posts **more** than 7 times.
-4. The left navigation bar label that indicates how many times the user did load posts is not being updated.
+1. 下拉刷新没有加载新的文章。
+2. 当用户网络请求失败的时候，没有收到任何提示(例如警报控制器)。
+3. 用户可以下拉刷新 **超过** 7 次。
+4. 导航栏左侧指示用户加载次数的标签也没有更新。
 
-**Golden Rule:** For the rest of this article, you’re not to stop the compiler or re-run the application after running it for the very first time. You’re fixing the bugs at runtime.
+**指导原则**：在本文剩下的部分，你不必停止编译器或者重新运行应用，你可以在运行时修复这些错误。
 
-## The Power of Expression
+## 表达式的力量
 
-Let’s tackle the first bug.
+让我们来解决第一个错误。
 
-> 1. Pull down to refresh does not reload new posts.
+> 1. 下拉刷新没有加载新的文章。
 
-Here are the steps to reproduce it:
+这里有复现这个错误的步骤：
 
-✦ Run the application → the first 10 posts are loaded.
+✦ 运行应用程序 → 前十个文章被加载。
 
-✦ Scroll down to load more posts.
+✦ 向下滚动加载更多文章。
 
-✦ Scroll up to the top of the table view, and pull down to refresh.
+✦ 滚动到表视图顶部，然后下拉刷新。
 
-✦ New posts are **not** reloaded and the old posts still exist & the posts count is not reset.
+✦ 新文章 **没有** 重新加载，旧文章仍让存在并且文章计数没有重置。
 
-A typical approach to fix this bug is to investigate what happens inside the selector method that is assigned to the dedicated UIRefreshControl of the table view controller. Head to `**PostsTableViewController**` and navigate to the section with the pragma mark `Refresh control support`. We can deduce from the`setupRefreshControl` function that the selector dedicated for the refresh control is the `reloadNewPosts` function. Let’s add a breakpoint at the first line of this function and debug exactly what’s going on in there. Now scroll to the top of the table view and pull down to refresh it.
+修复此错误的常规方法是调查分配给表视图控制器的专用 UIRefreshControl 的选择器方法内部发生了什么。前往 `**PostsTableViewController**` 找到有 pragma mark `Refresh control support` 的部分。我们能从`setupRefreshControl` 方法推断出决定刷新的是 `reloadNewPosts` 方法。让我们给这个方法的第一行加一个断点，看看这里到底发生了什么。现在滚动到表视图的顶部，下拉刷新。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2000/1*t3vOwPZMfYXA33XraHBReQ.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/2000/1*5o64at1-25xhG8x7MOQCcQ.png)
 
-The debugger has paused at the breakpoint you did set once you have released the refresh control. Now to further explore what happens next, tap on the debugger step over button.
+一旦你释放了下拉刷新控件，调试器就会在你设置断点的地方暂停。现在，为了探究背后发生了什么，点击调试器的跨过按钮。
 
 ![Objective-C](https://cdn-images-1.medium.com/max/2000/1*NnCfWSc4ALsmVW4MtVDmsQ.png)
 
 ![Swift](https://cdn-images-1.medium.com/max/2000/1*O9EsnTPL8Bc7eRaDnggkNQ.png)
 
-Now we have a clear idea what wrong is going on !!
+现在我们就很清楚的知道发生了什么！
 
-The if statement condition is not satisfied (i.e the`isPullDownToRefreshEnabled` boolean property is set to `NO`) and hence the equivalent code for reloading the posts is not executed.
+因为 if 条件没有满足（例如`isPullDownToRefreshEnabled` 布尔值类型的属性被设置为 `NO`）因此，相应的用于加载文章的代码就没有被执行。
 
-The typical approach to fix this is to stop the compiler, set the `isPullDownToRefreshEnabled` property to `YES`/`true` and that would do it. But it’s more convenient to test such a hypothesis before implementing some actual changes to the code and without the need to stop the compiler. Here come the breakpoint debugger command actions of expression statements really handy.
+修复这个错误的常规做法是停止编译器，设置 `isPullDownToRefreshEnabled` 属性为 `YES`/`true`。但是在真正的修改代码和停止编译器之前，就可以对这些假设做出验证会更方便。这里有表达式语句的断点调试器的命令动作，非常方便。
 
-Double tap on the set breakpoint, or right click, edit breakpoint and tap on the “Add Action” button. Select “Debugger Command” action.
+双击设置的断点，或右键单击，编辑断点并点击“添加动作”按钮。选择“调试器命令”动作。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Q7AfSRWER__yCY-ygHrxA.png)
 
-Now what we want to do is set the `isPullDownToRefreshEnabled` property to `YES`/`true`. Add the following debugger command.
+现在我们要做的是设置 `isPullDownToRefreshEnabled` 属性未 `YES`/`true`。添加如下的调试器命令。
 
 **Objective-C**
 
@@ -92,33 +92,33 @@ expression self.isPullDownToRefreshEnabled = true
 
 ![](https://cdn-images-1.medium.com/max/2476/1*xY2IFUHIJQkqBSddN5hmog.png)
 
-The next thing you should do is checking the “Automatically continue after evaluating actions” box. This will cause the debugger **not** to pause at the breakpoint for each and every-time it gets triggered and automatically continue after evaluating the expression you just added.
+接下来你要做的是检查“评估动作后自动继续”框。这会使得调试器**不会**在每次触发它的断点时暂停，并在评估你刚才添加的表达式后自动继续。
 
-Now scroll to the top of the table view and pull down to refresh.
+现在滑动到顶部，下拉刷新。
 
-**voilà** new ****posts have been retrieved, replacing the old ones, and hence the posts count got updated.
+**瞧** 新的文章被取回来了，并且替换了旧的，因此文章的技术也得到了更新。
 
-As you’ve just resolved the first bug, pick up your anti-bugs weapons and proceed to the second one.
+既然你已经解决了第一个错误，拿起你的除虫武器开始处理第二个吧。
 
-> 2. The user is not receiving an alert (via an alert controller) whenever the HTTP request fails due to connection problems.
+> 2. 当用户的 HTTP 请求失败的时候，没有收到任何提示（例如警报控制器）。
 
-Here are the steps to reproduce this one:
+这里有复现这个错误的步骤：
 
-✦ Turn off your iPhone’s/Simulator’s internet connection.
+✦ 关闭手机或模拟器的网络连接。
 
-✦ Scroll to the top of the table view, and pull down to refresh.
+✦ 滑动到表视图的顶部，下拉刷新。
 
-✦ No new posts are loaded due to network error.
+✦ 由于网络错误，没有加载到新文章。
 
-✦ A network error alert controller is not presented to the user.
+✦ 网络连接错误的警报控制器没有展示给用户。
 
-Head to **PostsTableViewController** and navigate to the section with the pragma mark `Networking`. It only includes one function which is `loadPosts`. It utilizes a shared instance of a networking manager to execute a GET HTTP request that returns an array of posts object via a “success” completion handler or an instance of `NSError` via a “failure” completion handler.
+前往 **PostsTableViewController** 找到 pragma mark `Networking`的部分。它只有一个方法 `loadPosts`。它利用网络管理器的单例去执行一个 GET HTTP 请求，它会返回一个包含文章对象的数组，通过一个“成功”完成的回调或者一个 `NSError` 的实例，通过一个“失败”完成的回调。
 
-What we want to do is to add some code inside the failure completion handler to present a networking error alert controller. If you navigated to the section with the pragma mark `Support`, you’ll find that there’s an already implemented function presentNetworkFailureAlertController that does handle the presentation of the required alert controller. All that we need to do is to call that function inside the `loadPosts` failure completion handler.
+我们想要做的是在失败完成处理回调中添加一些代码以展示一个网络错误警报控制器。 如果你找到到带有 pragma mark “Support” 的部分，你将会发现已经有一个已实现的方法 presentNetworkFailureAlertController 处理了所需警报控制器的显示。我们需要做的就是在 `loadPosts` 失败完成回调中调用该方法。
 
-The conventional way is to stop the compiler, add the required line of code and you’re done. Let’s go for the unconventional!
+常规的做法是停止编译器，添加所需的代码，然后就行了。让我们超脱出来！
 
-Add a breakpoint inside the failure completion handler **below** the line
+**在**这一行代码下**下**，添加一个断点
 
 **Objective-C**
 
@@ -132,7 +132,7 @@ Add a breakpoint inside the failure completion handler **below** the line
 self.updateUIForNetworkCallEnd()
 ```
 
-Double tap on the set breakpoint, tap on the “Add Action” button. Select debugger command action. Add the following debugger command
+双击设置的断点，点击“添加动作”按钮。选择调试器命令动作。添加下面的调试器命令。
 
 **Objective-C**
 
@@ -150,26 +150,26 @@ expression self.presentNetworkFailureAlertController()
 
 ![](https://cdn-images-1.medium.com/max/2708/1*o1j-d1NS0j0DOBJlySEM6A.png)
 
-Check the “Automatically continue after evaluating actions” box.
+勾选“评估动作后自动继续”。
 
-With your internet connection disabled, scroll to the top of the table view and pull down to refresh or you can scroll down to the bottom of the table view in an attempt to load more posts. Here’s what you get 🎉🎉
+停用网络连接后，滚动到表视图顶部并下拉刷新，或者你可以向下滚动到表视图底部尝试加载更多。你会得到这个 🎉🎉
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ohh02CA-HA3rqtgmx7atPQ.png)
 
-What you just did was **“injecting”** a line of code with an expression statement implemented as a debugger command action inside a dedicated breakpoint.
+你刚才做的是**“注入”**一行代码，通过一个在专用断点内实现为调试器命令动作的表达式语句。
 
-## Recap
+## 概括
 
-Let me just recap what we did with breakpoints debugger command action expression statements:
+让我简单概括一下我们用断点调试器命令动作表达式语句做的事情：
 
-1. Manipulate an existing property value.
-2. Injecting a new line of code.
+1. 控制存在的属性的值。
+2. 注入新的代码。
 
-Both tasks were achieved at runtime. We didn’t really need to stop the compiler, modify things and then re-run the application.
+这两项任务都是在运行时实现的，我们不需要真的停止编译器，修改内容然后重新运行应用程序。
 
-## Where to go?
+## 接下来去哪里？
 
-Check out the [**second part**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md) of this tutorial to fix extra bugs and learn about a special type of breakpoints, that is watchpoints.
+查看 [**第二部分**](https://github.com/xitu/gold-miner/blob/master/TODO1/xcode-and-lldb-advanced-debugging-tutorial-part-2.md) 本教程中修复了额外的错误，并学习一种特殊类型的断点，观察点。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
