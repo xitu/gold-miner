@@ -106,7 +106,7 @@ internal class ImageSizeMeasurer {
 
 我们调整好了期望尺寸的最小尺寸，现在该测量实际尺寸的最大尺寸的了。该方法本身并不难，我们只需要记住，应该保证所有的更新不改变高宽比，除非降低图像的高度和宽度会导致两者之一小于 `minSize`。
 
-比如说应用于非常小的图片。
+比如说，应用于非常窄的图片。
 
 ![](https://github.com/PassionPenguin/gold-miner-images/blob/master/messengers-like-imageview-example.png?raw=true)
 
