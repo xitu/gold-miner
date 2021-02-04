@@ -2,104 +2,186 @@
 > * 原文作者：[Vasya Drobushkov](https://medium.com/@krossovochkin)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/from-rxjava-2-to-kotlin-flow-threading.md](https://github.com/xitu/gold-miner/blob/master/article/2021/from-rxjava-2-to-kotlin-flow-threading.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# From RxJava 2 to Kotlin Flow: Threading
+# 从 RxJava 2 转向使用 Kotlin 流：多线程
 
 ![[Source](https://unsplash.com/photos/vyyVbUOYNPc)](https://cdn-images-1.medium.com/max/2000/0*piI5NnrRuivMUOKD)
 
-## Introduction
+## 简介
 
-For a long time RxJava was undisputed leader for reactive solutions on Android, though with Kotlin expansion and introducing cold streams (Flow) seems situation might be rapidly changing in the coming years. Though reactive programming is not related to threading in the first place, concurrency and parallelism are very important anyway. In this article we’ll try to make short recap on threading in RxJava 2 (with some basic caveats on its usage) and then take a look at how threading works in Kotlin Flow, so if anyone would like to migrate their code without affecting functionality it would be nice and smooth.
+尽管随着 Kotlin 的扩展和引入冷流（Flow）的出现让未来几年的情况可能会迅速改变，长期以来，RxJava 一直是 Android 反应式解决方案的无可争议的领导者。虽说反应式编程最初与线程无关，但合适的并发和并行性对程序而言仍然非常重要。在本文中，我们将简要回顾 RxJava 2 中的线程（对其用法做一些基本说明），然后看一下 Kotlin Flow 中的线程工作原理，让你们在不影响功能的情况下想要迁移其代码时候变得顺利。
 
-Let’s start from the short recap on RxJava 2.
+让我们从 RxJava 2 的简短回顾开始。
 
 ## RxJava 2
 
-Both RxJava 2 `Observable` and Kotlin Flow are cold streams. That means that code inside is not executed until there is subscription.
+RxJava 2 的 `Observable` 和 Kotlin Flow 都是冷流，意味着其中的代码都不会被执行直到被订阅。
 
-> In RxJava there are also other types such as `Flowable`, `Single`, etc. In the article we’ll talk about `Observable` only because everything else applies to other types as well.
+> 在 RxJava 中也有另外的类型例如 `Flowable`、`Single` 等。在本文中，我们只会讲讲 `Observable` 因为它们之间都能够融会贯通。
 
-Basic usage looks like the following:
+最基础的使用方法是这样的：
 
-![](https://cdn-images-1.medium.com/max/2000/1*Y8LjGynLPUwJ6ZNzVAG2HQ.png)
+```kotlin
+observeSomething()
+	.subscribeOn(io())
+	.observeOn(mainThread())
+	.subscribe { result -> println(result) }
+```
 
-Here we see that we observe for some changes with subscribing on io. And each result received we print on main thread (because we are observing on main).
+在这里我们可以看到我们给在输入输出上设置了观察，并将每一个变化结果都打印在主线程上（因为我们正在观察主线程）。
 
 #### subscribeOn
 
-This is an operator which declares on which scheduler observable will be subscribed to. “Where it will be subscribed” means — “on which scheduler our chain will be started”.
+这是一个运算符用于声明将在哪一个要订阅的对象上设下一个用于观察的调度器。“将在哪一个要订阅的对象”是指“将在哪个调度器上启动我们的执行程序”。
 
-The first important thing about subscribeOn is that it doesn’t matter where it will be:
+第一个重要的事情是我们并不需要管 `subscribeOn` 具体在哪个地方声明，我们可以这样：
 
-![](https://cdn-images-1.medium.com/max/2000/1*l2-3g3OFyw_IOLIwTKLl7A.png)
+```kotlin
+observeSomething()
+	.subscribeOn(io())
+	.observeOn(mainThread())
+	.subscribe { result -> println(result) }
+```
 
-![](https://cdn-images-1.medium.com/max/2000/1*zwQicVXtWi_uvcHNmQH8rQ.png)
+也可以这样：
 
-Both these cases produce same results and it is not surprise. By providing this operator in the chain we declare where chain will be started — and this knowledge can’t be dependent on position.
+```kotlin
+observeSomething()
+	.observeOn(mainThread())
+	.subscribeOn(io())
+	.subscribe { result -> println(result) }
+```
 
-Second thing is that as chain can’t be started on multiple schedulers simultaneously — there is no need to put multiple subscribeOn in the chain as only one will take effect. If you for some reason put multiple subscribeOn operators in the chain, then the top one will win and the bottom will be ignored:
+上述的两种情况都会毫无意外的产生一样的结果。通过在代码链中声明这些运算符，我们声明了这个链的开始，并且运算符本身并不依赖于声明的位置。
 
-![](https://cdn-images-1.medium.com/max/2000/1*LBKRVDIpr_rxjylKadaSgg.png)
+第二个事情是因为一个链并不能同时在多个调度器处启动，因此我们无需在链中添加多个 `subscribeOn`，因为只有其中之一会起作用。如果出于某种原因你将多个 `subscribeOn` 运算符放在链中，则最上面的一个将被使用，而最下面的将被忽略：
+
+```kotlin
+observeSomething()
+	.subscribeOn(io()) // 这个会被使用上
+	.observeOn(mainThread())
+	.subscribeOn(io()) // 这个会直接被忽略
+	.subscribe { result -> println(result) }
+```
 
 #### observeOn
 
-When subscribeOn says on which scheduler chain will be started, observeOn says on which scheduler thread will proceed. Effectively that means that observeOn changes scheduler in the chain below itself.
+`subscribeOn` 表示将在哪个调度器上启动链，而 `observeOn` 表示将在哪个调度器上进行线程。实际上，这意味着 `observeOn` 会更改下面的链中的调度器。
 
-![](https://cdn-images-1.medium.com/max/2000/1*uCiZwTFtiPoh8KZdMUDLpg.png)
+```kotlin
+/* 1 */	observeSomething()
+/* 1 */		.subscribeOn(io())
+/* 2 */		.observeOn(mainThread())
+/* 2 */		.subscribe { result -> println(result) }
+```
 
-Here we see that from the chain started till the observeOn we’re on io (red line) and then observeOn changes chain to be run on mainThread scheduler — so everything below is on mainThread now (green line).
+在这里，我们看到从链开始，直到链上的 `observeOn` 定义是第一部分，然后 `observeOn` 更改链要在 `mainThread` 调度器上运行，因此下面的所有内容现在都在 `mainThread` （第二部分）上执行。
 
-Unlike subscribeOn it is actually has some sense to add multiple observeOn if there is a need:
+与 `subscribeOn` 不同，实际上如果真的需要，我们可以添加多个 `observeOn`：
 
-![](https://cdn-images-1.medium.com/max/2000/1*ES5NJCpKCmVVhdD36UurzQ.png)
+```kotlin
+/* 1 */	observeSomething()
+/* 1 */		.subscribeOn(io())
+/* 2 */		.observeOn(computation())
+/* 2 */		.map { result -> result.length }
+/* 3 */		.observeOn(mainThread())
+/* 3 */		.subscribe { result -> println(result) }
+```
 
-If we look at example above: here we might say that we load something from network, then calculate something and then print result. Adding multiple observeOn first switches to computation scheduler (to make computation in background thread — it is blue line), and then switch to mainThread to print result.
+就例如上面这个例子：我们可以举个例子，我们先从网络中加载一些东西，然后对数据进行一些计算，然后打印结果。我们添加了多个 `observeOn`，让程序首先切换到 `computation` 调度器（以在后台线程中进行计算，这是第二部分），然后切换到 `mainThread` 以打印结果。
 
 #### just + defer
 
-One common mistake with subscribeOn is its usage with `Observable.just`.
+有关 subscribeOn 的一个常见错误是将他于 `Observable.just` 一起使用。
 
-![](https://cdn-images-1.medium.com/max/2000/1*4EVWYZCJ4u9mPrJazHQaeg.png)
+```kotlin
+Observable.just(loadDataSync())
+	.subscribeOn(io())
+	.observeOn(mainThread())
+	.subscribe { result -> println(result) }
+```
 
-Value inside `just` is calculated immediately and not upon subscription. That means that if you create such observable on main thread, then that potentially heavy computation will be done on main thread. Subscription would be done correctly on io, but value for `just` will be calculated before that.
+`just` 参数的值是立即计算的，而不是在订阅时才计算的。这意味着，如果您在主线程上创建此类可观察的对象，那么可能会在主线程上进行大量潜在的计算。虽说订阅将在 `io` 上正确完成，但是 `just` 的值将在订阅之前计算。
 
-One of the ways to fix this is to wrap your `Observable.just` into `Observable.defer`, so everything inside will be calculated upon subscription and on the scheduler we’ve declared in subscribeOn:
+解决此问题的方法之一是将您的 `Observable.just` 包装到 `Observable.defer` 中，这样，内部的所有内容都将在订阅时以及在我们在 `subscribeOn` 中声明的调度器上进行计算：
 
-![](https://cdn-images-1.medium.com/max/2000/1*x8ASbBk5N1KnVIDaT8KRHA.png)
+```kotlin
+Observable.defer { Observable.just(loadDataSync()) }
+	.subscribeOn(io())
+	.observeOn(mainThread())
+	.subscribe { result -> println(result) }
+```
 
-#### flatMap concurrency and parallelism
+#### flatMap 的并发和并行
 
-Another tricky thing comes from the usage of operator `flatMap` and understanding of the concurrency and parallelism.
+另一个棘手的事情来自使用运算符 `flatMap` 和我们对并发性和并行性的理解。
 
-One example to understand a problem is when we have stream of list of ids and for each we’d like to load some data from the network:
+例如，当我们拥有 ID 列表流并且对于每一个 ID 我们都希望从网络中加载一些数据：
 
-![](https://cdn-images-1.medium.com/max/2000/1*KmPkrVtEedgkXu08JxSMew.png)
+```kotlin
+Observable.fromIterable(listOf("id1", "id2", "id3"))
+	.flatMap { id ->
+		loadData(id)
+	}
+	.subscribeOn(io())
+	.observeOn(mainThread())
+	.toList()
+	.subscribe { result -> println(result) }
+```
 
-What we could expect here is that we’ve subscribed to io, io() has thread pool under the hood, therefore our `loadData` calls for each id was successfully paralleled. But that’s not the case. We wrote concurrent code using `flatMap`, but it is not run in parallel and the reason of that is that we’ve declared our chain to be started on io. Our chain start is on `flatMapIterable` and that means that upon subscription one thread from io pool will be taken and on that single thread everything will be run. In order to change behavior and make our code run in parallel we need to move subscribeOn inside `flatMap`:
+我们在这里的预期是，我们已经订阅了 `io`，`io()` 的底层有线程池，因此对每个 `id` 的 `loadData` 的调用是并行化的。但是事实并非如此。我们使用 `flatMap` 编写了并发代码，但它不是并行运行的，其原因是我们告诉了程序我们要在 `io` 上启动链。我们的链的起点在 `flatMapIterable` 上，这意味着在订阅后，将使用 `io` 池中的一个线程，并在该单个线程上运行所有线程。为了改变行为并使我们的代码并行运行，我们需要将 `subscribeOn` 移动到 `flatMap` 之内：
 
-![](https://cdn-images-1.medium.com/max/2000/1*RfeS9DYoGIMoj05cI-zkpA.png)
+```kotlin
+Observable.fromIterable(listOf("id1", "id2", "id3"))
+	.flatMap { id ->
+		loadData(id)
+			.subscribeOn(io())
+	}
+	.observeOn(mainThread())
+	.toList()
+	.subscribe { result -> println(result) }
+```
 
-Each inner observable (observable inside `flatMap`) will be subscribed as soon as event comes into `flatMap`. On each event there will be subscription on which new thread from io pool will be taken. And this way we achieve parallelism.
+一旦执行到了 `flatMap`，每个内部的可观察对象（`flatMap` 内部的可观察对象）都将被订阅。意味着在每一次执行 `loadData` 函数，都会有一个订阅，从 `io` 池中获取新线程。这样我们就达到了并行性。
 
-So, when we use some operators like `flatMap` our chain has more than one subscription points: one for original chain start and one for each inner observable:
+因此，当我们使用诸如 `flatMap` 之类的运算符时，我们的链应该有多个订阅点：一个用于原始链起点，每个用于内部的可观察点：
 
-![](https://cdn-images-1.medium.com/max/2000/1*qft5P6_SBwP8sbYVL5IETg.png)
+```kotlin
+/* 订阅点 1 */	Observable.fromIterable(listOf("id1", "id2", "id3"))
+					.flatMap { id ->
+/* 订阅点 2 */ 			loadData(id)
+							.subscribeOn(io())
+							.flatMap {
+/* 订阅点 3 */ 					loadData2(id)
+									.subscribeOn(io())
+							}
+						}
+					.observeOn(mainThread())
+					.toList()
+					.subscribe { result -> println(result) }
+```
 
-On the picture arrows point where subscription happens. Using subscribeOn we can declare on which scheduler subscription in such a points should happen.
+代码中的注释指向了每一个订阅发生的位置。通过使用 `subscribeOn`，我们可以声明在这些情况下应该在哪个调度程序订阅上进行。
 
-#### No threading
+#### 非多线程运行
 
-Last but not least if we don’t use subscribeOn or observeOn, then code will be synchronous. All the execution will be sequential and before observable completed execution of next statements will be blocked.
+最后但并非最不重要的一点是，如果我们不使用 `subscribeOn` 或 `observeOn`，那么代码将是同步进行的，所有执行将是顺序执行的，并且在下一个语句的可观察到的完整执行之前是暂停的。
 
-That’s is basically it on the threading in RxJava, now let’s move on to Kotlin Flow.
+以上就基本上是 RxJava 中的线程的全部内容，让我们现在走进 Kotlin 流。
 
-## Kotlin Flow
+## Kotlin 流
 
-Basic usage with Kotlin Flow is the following:
+Kotlin 流的最基础的使用方法是这样的：
 
-![](https://cdn-images-1.medium.com/max/2000/1*i95ne1PCxci1yCcizF14cQ.png)
+```kotlin
+CoroutineScope(Job() + Dispatchers.Main).launch {
+	observeSomething()
+		.flowOn(Dispatchers.IO)
+		.collect { result -> println(result) }
+}
+```
 
 > And here we immediately have many concepts which are related to coroutines, which might be needed to explain. We’ll not dive deep into explaining coroutines stuff, article is about Kotlin Flow, so it might be a good idea to read the documentation on the coroutines first if you are not familiar with them.
 
