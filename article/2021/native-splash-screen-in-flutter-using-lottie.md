@@ -2,10 +2,10 @@
 > * 原文作者：[AbedElaziz Shehadeh](https://medium.com/@elaziz-shehadeh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/native-splash-screen-in-flutter-using-lottie.md](https://github.com/xitu/gold-miner/blob/master/article/2021/native-splash-screen-in-flutter-using-lottie.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Native Splash Screen in Flutter Using Lottie
+# 在 Flutter 项目中使用 Lottie 构建原生 Splash 启动页
 
 ![](https://cdn-images-1.medium.com/max/2400/1*4vlkTJCWbP2Kh2vyK9BdEw.png)
 
@@ -35,32 +35,33 @@ dependencies {
 2. In `AndroidManifest.xml` remove meta data tag with the name io.flutter.embedding.android.SplashScreenDrawable and replace `LaunchTheme` under activity tag with `NormalTheme` so your the file will look like the following;
 
 ```XML
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.abedelazizshe.flutter_lottie_splash_app">
+          package="com.abedelazizshe.flutter_lottie_splash_app">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
     <application
-        android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_lottie_splash_app"
-        android:icon="@mipmap/ic_launcher">
+            android:name="io.flutter.app.FlutterApplication"
+            android:label="flutter_lottie_splash_app"
+            android:icon="@mipmap/ic_launcher">
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/NormalTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-            android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+                android:name=".MainActivity"
+                android:launchMode="singleTop"
+                android:theme="@style/NormalTheme"
+                android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+                android:hardwareAccelerated="true"
+                android:windowSoftInputMode="adjustResize">
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                    android:name="io.flutter.embedding.android.NormalTheme"
+                    android:resource="@style/NormalTheme"
+            />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -69,8 +70,8 @@ dependencies {
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
+                android:name="flutterEmbedding"
+                android:value="2"/>
     </application>
 </manifest>
 ```
@@ -84,20 +85,20 @@ You can remove `LaunchTheme` from /android/app/res/values/styles.xml as you will
 ```XML
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/splash_screen"
-        app:lottie_loop="false"
-        app:lottie_speed="1.00" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/splash_screen"
+            app:lottie_loop="false"
+            app:lottie_speed="1.00"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
