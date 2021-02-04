@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 如何在浏览器上使用 NoSQL 数据库 IndexedDB
 
@@ -39,19 +39,19 @@ IndexedDB 没有像本地存储（`localStorage`）那样的特殊存储限制�
 
 * **可以存储基于键值对 `{ key: value }` 的任意类型值**
 
-IndexedDB 存储不同数据类型的灵活性更高。不仅是字符串类型，还包括二进制数据（ArrayBuffer 对象、Blob 对象等），它在内部使用对象存储来保存数据。
+IndexedDB 存储不同数据类型的灵活性更高。不仅是字符串类型，还包括二进制数据（`ArrayBuffer` 对象、`Blob` 对象等）。而 IndexedDB 在内部使用对象存储来保存数据。
 
 * **提供查找接口**
 
-这在其他浏览器存储选项（如本地存储 `localStorage` 和会话存储 `sessionStorage`）中不可用。
+这个功能在其他浏览器存储选项（如本地存储 `localStorage` 和会话存储 `sessionStorage`）中都没有。
 
-* **对于不需要持续联网的 web 应用程序很有用**
+* **对于不需要持续联网的 Web 应用程序很有用**
 
 IndexedDB 对于在线和离线工作的应用程序都非常有用。例如，它可以用于渐进式 Web 应用程序（PWA）中的客户端存储。
 
 * **可以存储应用状态**
 
-通过为频繁使用的用户存储应用程序状态，可以大幅提高应用程序的性能。稍后，应用程序可以与后端服务器同步，并通过延迟加载来更新应用程序。
+通过为频繁使用的用户存储应用程序状态，可以大幅提高应用程序的性能，让应用程序可以在后续与后端服务器同步，并通过延迟加载来更新应用程序。
 
 让我们看一下可以存储多个数据库的 IndexedDB 结构。
 
@@ -184,7 +184,7 @@ IndexedDB 提供了许多其它浏览器存储无法实现的特殊功能。下�
 
 ![[Source](https://caniuse.com/?search=indexeddb)](https://cdn-images-1.medium.com/max/5472/1*II1BZYdl_uodU0W-6uOAwQ.png)
 
-* Firefox 在无痕浏览模式下完全禁用 IndexedDB —— 通过隐身窗口访问时，可能导致应用程序出现故障。
+* IndexedDB 在 Firefox 的无痕浏览模式下是完全禁用的 —— 通过隐身窗口访问应用程序时，接口无法使用可能导致应用程序出现故障。
 
 ## IndexedDB 是否适合你的应用程序
 
