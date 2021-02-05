@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md](https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 简述 HTTP 请求与跨域资源共享 CORS
 
 ![图片源自 [Alina Grubnyak](https://unsplash.com/@alinnnaaaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6912/1*YECeOxlko9KoOJNw8RNm3A.jpeg)
 
-## URL 格式
+## URL 简介
 
-示例 URL 由 4 部分组成：
+以下示例 URL 由 4 部分组成：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HfJAWr4Jw7rIXHSRaG4wcw.png)
 
-**服务类型（scheme）** 指明将被使用的协议（protocol）。**协议（protocol）** 指定数据如何传输以及如何处理请求。当你查看协议时，你就能很好地理解这个 URL 的用途。（例如是带有 SMTP、POP3、IMAP 的电子邮件协议，还是获取和管理 git 仓库的 SSH 请求，或者是针对 Web 的 HTTP 请求。）
+**服务类型（Scheme）** 指明将被使用的协议（protocol）。**协议（Protocol）** 指定数据如何传输以及如何处理请求。当你查看协议时，你就能很好地理解这个 URL 的用途。（例如是带有 SMTP、POP3、IMAP 的电子邮件协议，还是获取和管理 git 仓库的 SSH 请求，或者是针对 Web 的 HTTP 请求。）
 
 **HTTP** — 默认是在 80 端口运行，它指定请求中的表头。
 
@@ -24,15 +24,15 @@
 * 默认是在 443 端口运行
 * 加密除 IP 请求之外的所有请求或响应头
 
-**主机名：**
+**主机名（Host name）：**
 
 只是一个更好命名的 IP 地址。
 
-**路径：**
+**路径（Path）：**
 
 URL 路径就像你的目录路径。它为用户和搜索引擎提供了解当前所在的部分，例如 `/about` 部分。这有助于实现更好的搜索引擎优化（SEO）。
 
-**查询参数：**
+**查询参数（Query parameters）：**
 
 它用于将数据发送到服务器。通常出于营销原因使用它来查看广告的效果。以 `?` 开始，用 `&` 分隔数据。
 
@@ -50,7 +50,7 @@ URL 路径就像你的目录路径。它为用户和搜索引擎提供了解当�
 
 ## 表头部分
 
-浏览器和服务器都需要获取对方的大量信息，才能识别对方，并最终发送请求或响应。比如 IP 地址、内容类型（Content-Type）、Cookie、[缓存控制](https://en.wikipedia.org/wiki/Cache-Control)等。你可以在这里找到[完整列表](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)，它们带着**表头**数据也就是**键值对**。
+浏览器和服务器都需要获取对方的大量信息，才能识别对方，并最终发送请求或响应。比如 IP 地址、内容类型（Content-Type）、Cookie、[缓存控制（Cache-Control）](https://en.wikipedia.org/wiki/Cache-Control)等。你可以在这里找到[完整列表](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)，它们带着**表头**数据也就是**键值对**。
 
 ![Request Headers Example | Taken from C0D3.com](https://cdn-images-1.medium.com/max/2000/1*kJ2ViLP32reDBOfeYHB46Q.png)
 
@@ -95,19 +95,19 @@ axios.post(‘/users’,
 
 > **跨域请求（Cross-Domain request）**：发送到与你当前所在 url 主机名不同的 url 请求。
 
-我想使用 JS 代码从浏览器发送另一个请求到另一个域（另一个服务器）。然而，这并不容易。出于安全原因，浏览器限制从脚本（script）发起的跨源 HTTP 请求。
+例如我想使用 JS 代码从浏览器发送另一个请求到另一个域（另一个服务器），但你会发现这并不容易。出于安全原因，浏览器限制从脚本发起的跨源 HTTP 请求。
 
-[同源安全策略默](https://en.wikipedia.org/wiki/Same-origin_policy)默认禁止某些`跨域（cross-domain）`请求，尤其是 Ajax 请求，而始终允许`相同来源（Same-Origin）`请求。
+[同源安全策略](https://en.wikipedia.org/wiki/Same-origin_policy)默认禁止某些`跨域（Cross-Domain）`请求，尤其是 Ajax 请求，而始终允许`相同来源（Same-Origin）`请求。
 
 **CORS** 定义了浏览器和服务器可以交互的方式，并确定允许跨域请求是否安全。
 
-> **跨域资源共享**（[CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)）是基于 HTTP 表头的机制，它允许服务器指出浏览器应该允许加载资源的任何其他[来源](https://developer.mozilla.org/en-US/docs/Glossary/origin)（域、方案或端口）。
+> **跨域资源共享**（[CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)）是基于 HTTP 表头的机制，它允许服务器指出浏览器应该允许加载资源的任何其他[来源](https://developer.mozilla.org/en-US/docs/Glossary/origin)（域、协议或端口）。
 
 ![Taken from [https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)](https://cdn-images-1.medium.com/max/2000/1*J35DcnM_wbU9b4C5IZvkpQ.png)
 
 ## 跨域请求分析
 
-当浏览器发现域是不同的，它会向该服务器发送一个 **OPTIONS** 请求，检查请求是否被允许。尽管这与开发人员无关，浏览器会自动进行。然而开发人员可以在发送跨域请求之前，向请求添加一些表头，这可能有助于获得允许。
+当浏览器发现域是不同的，它会向该服务器发送一个 **OPTIONS** 请求，检查请求是否被允许。这个行为与我们开发人员其实并没有什么关系，因为这是浏览器自动进行的行为。然而开发人员可以在发送跨域请求之前，向请求添加一些表头，这可能有助于获得允许。
 
 就像其它浏览器请求一样，表头中的一些数据会提供一些信息。例如，通过 OPTIONS 方法发送的 [Access-Control-Request-Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method) 表头会提供一些信息：真实请求何时到来，数据类型是什么，请求方法是什么等。
 
@@ -119,7 +119,7 @@ axios.post(‘/users’,
 
 **Access-Control-Allow-Origin** — 包含允许发送跨域请求的主机名。如果这与用户所在站点的主机名不匹配，则将拒绝跨域请求。
 
-**Access-Control-Allow-Credentials** — 如果在响应头中为 true，则跨域请求将包含 cookie 表头。
+**Access-Control-Allow-Credentials** — 如果在响应头中为 true，则跨域请求将包含 Cookie 表头。
 
 **Access-Control-Allow-Methods** — 这是一个逗号分隔的字符串，它告诉浏览器跨域请求中允许使用哪种请求方法。如果请求方法未包含在此响应头中，则不会发送请求。
 
@@ -142,7 +142,7 @@ router.options('/api/*', (req, res) => {
 
 CORS 标准意味着，服务器开发人员必须处理新的请求和响应头。他们需要用表头来划清界限，这样才能防止安全漏洞。
 
-我试图简要说明这些重要概念，如果你有任何疑问或想在上述一个特定主题中了解更多信息，请告诉我。
+在这篇文章中我尝试着以最简明的方式来介绍这些重要的概念，如果你有任何疑问或想在上述一个特定主题中了解更多信息，请记得告诉我。
 
 感谢阅读！
 
