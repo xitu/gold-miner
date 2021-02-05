@@ -11,7 +11,7 @@
 
 我们都会也都喜爱 JavaScript，并且我们都通过编写代码和在我们最爱的运行环境（通常是浏览器，Node.js 和 Deno）中执行它来使用 JavaScript，但你是否曾经编译过 JavaScript 代码呢？
 
-不对，等一下，JavaScript 是一门动态语言啊我们都知道。它同样会被解析但是与一般运行时截然不同，它们是被一个 JIT 编译器在运行时去优化的啊。
+不对，等一下，JavaScript 是一门动态语言啊我们都知道。它同样会被解析但是与一般运行时截然不同，它们是被一个 [JIT 编译器](https://blog.bitsrc.io/the-jit-in-javascript-just-in-time-compiler-798b66e44143)在运行时去优化的啊。
 
 这可是事实！
 
@@ -44,6 +44,16 @@ JIT 呢，则是与之相对，一般用于动态语言，因为它会侦测代�
 
 事实上，并没有那么多项目正在尝试去编译 JavaScript 代码为机器代码，因为我可以确定这是个很大的挑战 —— 我指的是，例如让我们编译下面的代码：
 
+```js
+let result = null;
+if (my_complex_function()) {
+    result = 10;
+} else {
+    result = "something else";
+}
+console.log("The result is " + result);
+```
+
 你真的在运行之前能够判定 `result` 变量的类型吗？你可能需要先在心中思考一下所有可能的类型，并且同时将不同的情况判断一遍。即便你解决了这个问题，你依旧添加了不少的逻辑到你的思考与判断之中。这听起来可并不那么好啊！
 
 事实上，又一个专门解决这个问题的项目，尽管不一定是最佳的（至少在纸面上）：[NectarJS](https://github.com/NectarJS/nectarjs)
@@ -69,7 +79,9 @@ JIT 呢，则是与之相对，一般用于动态语言，因为它会侦测代�
 这个项目可以直接以一个 NPM 模块的形式被安装到你的计算机，所以你所需要做的仅仅是运行下面这行代码（这里默认了你已经安装了 Node 环境）：
 
 ```
+
 $ npm install nectarjs -g
+
 ```
 
 在安装并同时设置或安装了 [必须的依赖](https://github.com/NectarJS/nectarjs/blob/master/docs/ADVANCED_USAGE.md#requirements-and-compilation)以后，你就可以简单的编写一段 HelloWorld 代码并编译这段代码：
