@@ -2,127 +2,128 @@
 > * 原文作者：[Bilge Demirkaya](https://medium.com/@bilgedemirkaya)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md](https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# An Overview of HTTP Requests & Cross-Origin Resource Sharing (CORS)
+# 简述 HTTP 请求与跨域资源共享 CORS
 
-![Photo by [Alina Grubnyak](https://unsplash.com/@alinnnaaaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6912/1*YECeOxlko9KoOJNw8RNm3A.jpeg)
+![图片源自 [Alina Grubnyak](https://unsplash.com/@alinnnaaaa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/network?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/6912/1*YECeOxlko9KoOJNw8RNm3A.jpeg)
 
-First of all, let's start with how a URL looks like.
+## URL 格式
 
-A sample URL consists of 4 parts.
+示例 URL 由 4 部分组成：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HfJAWr4Jw7rIXHSRaG4wcw.png)
 
-**SCHEME:** The scheme identifies the protocol will be used. **Protocol** specifies how the data is transferred and how to interpret the request. When you look at the protocol, you will have a good understanding of what this URL is used for. ( Like is it an email protocol with the SMTP, POP3, IMAP, or is it SSH request to reach and manage git repositories or is it an HTTP request for web)
+**服务类型（scheme）** 指明将被使用的协议（protocol）。**协议（protocol）** 指定数据如何传输以及如何处理请求。当你查看协议时，你就能很好地理解这个 URL 的用途。（例如是带有 SMTP、POP3、IMAP 的电子邮件协议，还是获取和管理 git 仓库的 SSH 请求，或者是针对 Web 的 HTTP 请求。）
 
-**HTTP** — Runs on port 80 by default, it specifies what headers are in the request.
+**HTTP** — 默认是在 80 端口运行，它指定请求中的表头。
 
-**HTTPS** — Same as **HTTP** protocol but HTTPS is considered as secure communication between the browser and the server. It differs fro HTTP with;
+**HTTPS** — 与 **HTTP** 协议类似，但 HTTPS 被认为是浏览器与服务器之间的安全通信。它与 HTTP 不同之处：
 
-* Runs on port 443 by default
-* Encrypts all of your request/response headers except request IP
+* 默认是在 443 端口运行
+* 加密除 IP 请求之外的所有请求或响应头
 
-**Host name:**
+**主机名：**
 
-Just an IP address with better naming.
+只是一个更好命名的 IP 地址。
 
-**Path:**
+**路径：**
 
-URL Path is just like your directory path. It provides users & search engines to understand which section they are currently on, such as ‘/about’ section. Indeed this part is important to optimize better SEO.
+URL 路径就像你的目录路径。它为用户和搜索引擎提供了解当前所在的部分，例如 `/about` 部分。这有助于实现更好的搜索引擎优化（SEO）。
 
-**Query parameters:**
+**查询参数：**
 
-It is used for sending data to the server. This is usually used for marketing reasons to see how advertising is doing. Starts with `?` separates data with `&`
+它用于将数据发送到服务器。通常出于营销原因使用它来查看广告的效果。以 `?` 开始，用 `&` 分隔数据。
 
-> **Note**: It is not recommended to send data with query params because of security reasons ( then everyone can see it) and also it has a character limit. ( not allowed after 2048 chars).
+> **注意**：由于安全原因，不建议发送带有查询参数的数据（这样每个人都可以看到），并且它有一个字符限制（限制在 2048 个字符以内）。
 
-**With HTTP and HTTPS protocol, there are other ways that we can send data to the server.**
+**使用 HTTP 和 HTTPS 协议，我们还有其他方法可以将数据发送到服务器。**
 
-#### Request and Response
+## 请求与响应
 
 ![Taken from C0D3.com](https://cdn-images-1.medium.com/max/2000/1*8S-OTIgudIC9wOIbN3VETg.png)
 
-When user types a domain name in the browser, browser go finds that server ( which is only someone else’s computer ) and sends a request to that server. If it gets a successful response from the server, renders the page on the browser.
+当用户在浏览器中输入域名时，浏览器会找到该服务器（这只是其他人的计算机）并向该服务器发送请求。如果它从服务器成功获取响应，就会在浏览器上呈现相应的页面。
 
-> **Note**: When you send a request using a terminal ( when you run `node index.js` for example ) the process is the same. To send a request to a server, you don’t necessarily need a browser, you can do it with your terminal as well. However, if the response is HTML, terminal won’t do anything since HTML is instructions for browsers only.
+> **注意**：当你使用终端发送请求（例如运行 `node index.js`）时，进程是相同的。向服务器发送请求不一定需要浏览器，也可以使用终端。然而，如果响应是 HTML，那么终端不会做任何事情，因为 HTML 只是浏览器的指令。
 
-#### Headers
+## 表头部分
 
-Both browser and server need to know a bunch of information about each other to recognize each other and eventually to send requests or responses. Such as IP addresses, Content-Type, Cookie, [Cache-Control](https://en.wikipedia.org/wiki/Cache-Control) and many more. You can find [full list here](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields). And they carry these data with **headers** which is just ****key-value pairs.
+浏览器和服务器都需要获取对方的大量信息，才能识别对方，并最终发送请求或响应。比如 IP 地址、内容类型（Content-Type）、Cookie、[缓存控制](https://en.wikipedia.org/wiki/Cache-Control)等。你可以在这里找到[完整列表](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields)，它们带着**表头**数据也就是**键值对**。
 
 ![Request Headers Example | Taken from C0D3.com](https://cdn-images-1.medium.com/max/2000/1*kJ2ViLP32reDBOfeYHB46Q.png)
 
-There are only two headers you would set manually when sending a request: **Content-Type** and **Authorization**. Although you can set the other headers, they are usually handled by the browser automatically.
+在发送请求时，只需要手动设置两个表头：**内容类型（Content-Type）**和**授权（Authorization）**。虽然你可以设置其它表头，但它们通常由浏览器自动处理。
 
-**Content-Type —** When ****you are sending data to the server with body ( POST, PATCH, PUT requests), you need to specify it’s content type whether it is `application/json`, `text/html`,` image/gif`, or` video/mpeg.`
+**内容类型（Content-Type）** — 当你通过正文向服务器发送（POST、PATCH、PUT 请求）数据时，你需要指定其内容类型，可以是 `application/json`、`text/html`、`image/gif` 或 `video/mpeg.`。
 
-**Authorization** — This is used by the server to identify the user. Unlike cookie header, this header must be set manually by the developer when sending the request. Commonly used for API requests and JWT authentication.
+**授权（Authorization）** — 这是服务器用来识别用户的。与 cookie 表头不同，该表头必须由开发人员在发送请求时手动设置。通常用于 API 请求和 JWT 身份验证。
 
-#### Request
+## 请求处理
 
-Every request sends over the internet consist of 2 mandatory 1 optional part.
+通过互联网发送的每个请求包括 2 个必填部分和 1 个可选部分。
 
-1. **Request Line**; consist of request method (GET, POST, DELETE etc) and path ( extracted from the URL)
-2. **Headers** which briefly explained above
-3. **Body** (Optional): When you do a POST, PUT, PATCH requests to do server, you need to send a body which is telling the server what data you want to send. Example:
+1. **请求行**：由请求方法（GET、POST、DELETE 等）和路径（从 URL 中提取）组成。
+2. **表头**：上文已经简要说明过。
+3. **请求体**（可选）： 当你向服务器发出 POST、PUT、PATCH 请求时，你需要发送一个请求体报文，该报文告诉服务器你想要发送什么数据。示例：
 
 ```js
 axios.post(‘/users’, 
-{id: “5fddfefc4fbd19494493cd71”, name: "username"} // this part is body
+{id: “5fddfefc4fbd19494493cd71”, name: "username"} // 这部分是请求体
 ).then(console.log)
 ```
 
-* **axios** is a library that sends requests. The browser also provides you a function called **fetch** that allows sending requests. There is also an outdated **request** library to send requests.
-* **post** is the request method, means we are sending information to the server. Check HTTP request methods in detail [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods).
-* **‘/users’** is the path specifies where exactly you are sending that request in the server. This URL part is actually called API. When an API follows the **REST** pattern, it becomes **REST API**, which allows developers to understand and use the API quickly. As REST pattern says, for instance, **path** should be always in the plural form.
+* **axios** 是一个发送请求的库。浏览器还提供了一个叫做 **fetch** 的函数，可以用来发送请求。另外还有一个用于发送请求的过时请求库。
+* **post** 是请求方法，表明我们正在向服务器发送信息。可以在[这里](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)详细查看 HTTP 请求方法。
+* **`/users`** 是指定你在服务器中发送该请求的确切位置的路径。这个 URL 部分其实叫 API。当一个 API 遵循 **REST** 模式时，它就变成了 **REST API**，让开发人员可以快速理解和使用 API。例如像 REST 模式所说的，**路径**应该总是复数形式。
 
-> **REST** stands for Representational State Transfer and it is a set of design principles to let you use and modify resources on servers using APIs.
+> **REST** 是指表述性状态传递，它是一组设计原则，允许你使用 API 和修改服务器上的资源。
 
-* **body** is the data object itself so server can get that data.
+* **请求体**是数据对象本身，因此服务器可以获取该数据。
 
-As you see, apart from typing a domain name in the browsers, there are ways you can send a request to the server.
+如上所述，除了在浏览器中输入域名外，还有多种方法可以将请求发送到服务器。
 
-> **AJAX**: Sending a request from the browser. If someone tells you they know ajax, it means that they know how to send requests from the browser.
+> **AJAX**：从浏览器发送请求。如果有人说了解 ajax，这意味着他知道如何从浏览器发送请求。
 
-## Options method & Cross-Origin Resource Sharing (CORS)
+## 跨域资源共享
 
-**OPTIONS** requests are called **pre-flight requests.**
+**OPTIONS** 请求也叫做**预处理请求（pre-flight requests）**
 
-Currently, you are seeing the response comes from **medium.com** server. Let’s say I wrote a JS code which is sending a POST request to my own website while you are browsing this. This is called **Cross-Domain request**.
+当前，你看到的响应来自 **medium.com** 服务器。假设我写了一个 JS 
+代码，当你在网页浏览这个的时候，它正在向我自己的网站服务器发送一个 POST 请求。这称为跨域请求（**Cross-Domain request**）。
 
-> **Cross-Domain requests:** requests that are sent to a url with a different hostname than the url you are currently on.
+> **跨域请求（Cross-Domain request）**：发送到与你当前所在 url 主机名不同的 url 请求。
 
-With my JS code, I want the browser to send another request to another domain (another server). However, it is not that easy. For security reasons, browsers restrict cross-origin HTTP requests initiated from scripts.
+我想使用 JS 代码从浏览器发送另一个请求到另一个域（另一个服务器）。然而，这并不容易。出于安全原因，浏览器限制从脚本（script）发起的跨源 HTTP 请求。
 
-Certain “**cross-domain**” requests, notably Ajax requests, are forbidden by default by the [same-origin security policy](https://en.wikipedia.org/wiki/Same-origin_policy) while “**Same-Origin**” requests are always allowed.
+[同源安全策略默](https://en.wikipedia.org/wiki/Same-origin_policy)默认禁止某些`跨域（cross-domain）`请求，尤其是 Ajax 请求，而始终允许`相同来源（Same-Origin）`请求。
 
-**CORS** defines ways of a browser and server can interact and determine whether it is safe to allow the cross-origin request.
+**CORS** 定义了浏览器和服务器可以交互的方式，并确定允许跨域请求是否安全。
 
-> **Cross-Origin Resource Sharing** ([CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)) is an HTTP-header based mechanism that allows a server to indicate any other [origin](https://developer.mozilla.org/en-US/docs/Glossary/origin)s (domain, scheme, or port) than its own from which a browser should permit loading of resources.
+> **跨域资源共享**（[CORS](https://developer.mozilla.org/en-US/docs/Glossary/CORS)）是基于 HTTP 表头的机制，它允许服务器指出浏览器应该允许加载资源的任何其他[来源](https://developer.mozilla.org/en-US/docs/Glossary/origin)（域、方案或端口）。
 
 ![Taken from [https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)](https://cdn-images-1.medium.com/max/2000/1*J35DcnM_wbU9b4C5IZvkpQ.png)
 
-#### So I’ve sent a cross-origin request. What happens now?
+## 跨域请求分析
 
-The browser notices that the domain is different so it sends an **OPTIONS** request to that server just to check if the request is allowed. This has nothing to do with the developer though, it goes automatically by the browser. But developer, before sending a cross-origin request, can add some headers to the request which may help to get allowed.
+当浏览器发现域是不同的，它会向该服务器发送一个 **OPTIONS** 请求，检查请求是否被允许。尽管这与开发人员无关，浏览器会自动进行。然而开发人员可以在发送跨域请求之前，向请求添加一些表头，这可能有助于获得允许。
 
-Just like other browser requests, some data within headers like [Access-Control-Request-Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method), [Access-Control-Request-Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Headers) headers sent with the OPTIONS method which is giving some info like when is the real request is coming, what is the data-type, what is the request method etc.
+就像其它浏览器请求一样，表头中的一些数据会提供一些信息。例如，通过 OPTIONS 方法发送的 [Access-Control-Request-Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Request-Method) 表头会提供一些信息：真实请求何时到来，数据类型是什么，请求方法是什么等。
 
-The server now can respond if it will accept a request under these circumstances. Rest of the story only depends on the server. In response, the server may send back a `[Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)` header with Access-Control-Allow-Origin: *, which means that the resource can be accessed by **any** domain.
+在这种情况下，服务器可以响应是否接受请求，至于其余部分则取决于服务器。作为响应，服务器可以发回 [Access-Control-Allow-Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin) 表头，表明资源可以被任何域访问。
 
-While it allows GET requests from other domains, it may restrict POST requests.
+虽然它允许来自其他域的 GET 请求，但它可能限制 POST 请求。
 
-#### Some important response headers for cross-domain requests
+## 跨域请求响应头
 
-**Access-Control-Allow-Origin** — Contains the hostname that is allowed to send the cross-domain request. If this does not match the hostname of the site that the user is on, then the cross-domain is rejected.
+**Access-Control-Allow-Origin** — 包含允许发送跨域请求的主机名。如果这与用户所在站点的主机名不匹配，则将拒绝跨域请求。
 
-**Access-Control-Allow-Credentials** — If this is true in the response header, then the cross-domain request will include a cookie header.
+**Access-Control-Allow-Credentials** — 如果在响应头中为 true，则跨域请求将包含 cookie 表头。
 
-**Access-Control-Allow-Methods** — This is a comma-separated string that tells the browser what request methods are allowed in the cross-domain request. The request will not be sent if the request method is not included in this response header.
+**Access-Control-Allow-Methods** — 这是一个逗号分隔的字符串，它告诉浏览器跨域请求中允许使用哪种请求方法。如果请求方法未包含在此响应头中，则不会发送请求。
 
-One of Node.js code to set headers;
+使用一段 Node.js 代码设置表头：
 
 ```js
 router.options('/api/*', (req, res) => {
@@ -137,13 +138,13 @@ router.options('/api/*', (req, res) => {
 })
 ```
 
-#### Why server developers need to know this
+## 总结
 
-The CORS standard means, server developers have to handle new request and response headers. They need to draw their lines with headers so they can prevent security bugs.
+CORS 标准意味着，服务器开发人员必须处理新的请求和响应头。他们需要用表头来划清界限，这样才能防止安全漏洞。
 
-I tried to explain these important concepts very briefly, if you have any questions or want to know more in one particular topic covered above, please let me know.
+我试图简要说明这些重要概念，如果你有任何疑问或想在上述一个特定主题中了解更多信息，请告诉我。
 
-Cheers!
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
