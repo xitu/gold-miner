@@ -1,3 +1,8 @@
+* [掌握这 5 个 TypeScript 高级技巧，成为更好的开发者](https://juejin.cn/post/6924293152907984909)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [如何让 JavaScript 中的循环慢下来](https://juejin.cn/post/6924512805135581197)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [只使用 CSS 进行用户追踪](https://juejin.cn/post/6887478219662950414)（[MangoTsing](https://github.com/MangoTsing) 翻译）
+* [哪个跨平台框架才是最好的选择？React Native、Flutter 还是 Ionic。](https://juejin.cn/post/6884099570435883022)（[MangoTsing](https://github.com/MangoTsing) 翻译）
+* [自己写一个 redux](https://juejin.cn/post/6923922875191656462)（[tanglie1993](https://github.com/tanglie1993/) 翻译）
 * [为什么你应该使用 Picture 标签而不是 Img 标签](https://juejin.cn/post/6923840549170446343)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
 * [在 TypeScript 中引入 JSON 模块](https://juejin.cn/post/6923188659957006343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [2021 年 Web 应用开发常用的五个图标库](https://juejin.cn/post/6922416136294252557)（[zenblo](https://github.com/zenblo) 翻译）
