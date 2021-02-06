@@ -11,8 +11,6 @@
 
 When it comes to the domain of styling web pages, we have the choice of using plain CSS or SCSS in a project (among other preprocessors). SCSS is a superset of CSS. Most developers find it more convenient to use it over CSS due to its advanced features and clearer syntax.
 
----
-
 In this article, I want to explore the SCSS features and improvements in CSS over the years. In addition to that, I will evaluate whether CSS is ready as a replacement for SCSS in practice.
 
 ## What CSS offers today
@@ -148,8 +146,6 @@ In SCSS you can use`@extend` to share properties between one selector and anothe
 ```
 
 Likewise, you can re-use this pattern in all your stylesheets.
-
----
 
 There are a lot more features in SCSS like [functions](https://sass-lang.com/documentation/at-rules/function), [mixins](https://sass-lang.com/documentation/at-rules/mixin), [loops](https://sass-lang.com/documentation/at-rules/control/for), etc., which makes the life of a frontend developer easier.
 
