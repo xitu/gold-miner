@@ -2,7 +2,7 @@
 > * 原文作者：[Maarten Grootendorst](https://medium.com/@maartengrootendorst)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/9-distance-measures-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/article/2021/9-distance-measures-in-data-science.md)
-> * 译者：[chzh9311](https://github.com/chzh9311
+> * 译者：[chzh9311](https://github.com/chzh9311)
 > * 校对者：
 
 # 数据科学中的 9 种距离度量
