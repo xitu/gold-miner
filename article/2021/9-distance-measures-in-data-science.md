@@ -2,7 +2,7 @@
 > * 原文作者：[Maarten Grootendorst](https://medium.com/@maartengrootendorst)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/9-distance-measures-in-data-science.md](https://github.com/xitu/gold-miner/blob/master/article/2021/9-distance-measures-in-data-science.md)
-> * 译者：
+> * 译者：[chzh9311](https://github.com/chzh9311
 > * 校对者：
 
 # 数据科学中的 9 种距离度量
@@ -45,7 +45,7 @@
 
 ## 2. 余弦相似度（Cosine Similarity）
 
-![Cosine distance. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*C7HsPWATekvZtFyPesB-BA.png)
+![余弦距离。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*C7HsPWATekvZtFyPesB-BA.png)
 
 余弦相似度经常被用作一种弥补欧氏距离在高维空间中的不足的手段。其定义就是两个向量夹角的余弦。它也等于将两个向量归一化为单位向量后的内积。
 
@@ -63,7 +63,7 @@
 
 ## 3. 汉明距离（Hamming Distance）
 
-![Hamming distance. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*J27IH7DmKuf71YP4qKo2kw.png)
+![汉明距离。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*J27IH7DmKuf71YP4qKo2kw.png)
 
 汉明距离指两个向量间数值不同的位数。它最具代表性的用法是比较两个同等长度的二值字串。它也可以通过计算两个字符串间不同的字符个数来定义字符串的相似度。
 
@@ -81,7 +81,7 @@
 
 ## 4. 曼哈顿距离
 
-![Manhattan distance. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*nSBd4Q8nA9zo_8iVUHa69w.png)
+![曼哈顿距离。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*nSBd4Q8nA9zo_8iVUHa69w.png)
 
 曼哈顿距离，通常又称出租车距离或城市街区距离，用于实值向量之间的距离计算。想象一下表示单位网格上点的向量。曼哈顿距离就表示在只能沿垂直的两个方向移动的情况下，两个向量之间的距离。在计算距离时没有任何对角线上的移动。
 
@@ -99,7 +99,7 @@
 
 ## 5. 切比雪夫距离（Chebyshev）
 
-![Chebyshev distance. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*v7_aLyWp8fFuIZ9H0WWfjQ.png)
+![切比雪夫距离。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*v7_aLyWp8fFuIZ9H0WWfjQ.png)
 
 切比雪夫距离的定义是两个向量对应维的数据差值中的最大值。换言之，它可以简单理解为沿着坐标轴计算的最大距离。切比雪夫距离经常被称作棋盘距离，因为在国际象棋中，国王要从一格走到另一格所需的最少步数就等于切比雪夫距离。
 
@@ -117,7 +117,7 @@
 
 ## 6. 闵可夫斯基距离（Minkowski Distance）
 
-![Minkowski distance. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*U3CcVaKC6yJ8uU_k7oBX3g.png)
+![闵可夫斯基距离。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*U3CcVaKC6yJ8uU_k7oBX3g.png)
 
 闵可夫斯基距离比大多数度量都要复杂一些。它用于赋范向量空间（n 维实空间），也就是说如果一个向量空间内的距离被表示成可计算长度的向量，那么闵可夫斯基距离就可以被用于这个空间。
 
@@ -189,7 +189,7 @@
 
 ## 9. Sørensen-Dice 指数
 
-![Sørensen–Dice coefficient. Image by the author.](https://cdn-images-1.medium.com/max/2000/1*-pA7yjdXoLepVh3nB-LC4g.png)
+![Sørensen–Dice 系数。图片由本文作者制作。](https://cdn-images-1.medium.com/max/2000/1*-pA7yjdXoLepVh3nB-LC4g.png)
 
 Sørensen-Dice 指数和雅卡尔系数很相似，它也可以衡量采样集合之间的相似性和差异性。即使他们的计算方式很相似，Sørensen-Dice 指数也要比雅卡尔系数更符合直觉一些，因为它可以被视为两个集合重合的比率，数值在 0 到 1 之间：
 
