@@ -32,31 +32,7 @@ Incoming connections are distributed among child processes in one of two ways:
 
 To see the advantages that clustering offers, we’ll start with a sample Node.js app that doesn’t use clusters and compare it with one that uses clusters:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-
+```js
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -81,6 +57,7 @@ app.get('/api/:n', function (req, res) {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 })
+```
 
 It’s a bit contrived and not something you would find in a real-world situation, but it will suit our needs. The app contains two routes — a root route that returns the string “Hello World” and another route that takes a route parameter `n` and adds numbers up to `n` to a variable `count` before returning a string containing the final count.
 
@@ -96,53 +73,7 @@ Now, let’s use the cluster module in the app to spawn some child processes and
 
 Below is the modified app:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-
+```js
 const express = require('express');
 const port = 3000;
 const cluster = require('cluster');
@@ -189,6 +120,7 @@ if (cluster.isMaster) {
   })
 
 }
+```
 
 The app does the same thing as before, but this time, we are spawning up several child processes that will all share port `3000` and that will be able to handle requests sent to this port. The worker processes are spawned using the [`child_process.fork()`](https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options) method. The method returns a [`ChildProcess`](https://nodejs.org/api/child_process.html#child_process_child_process) object that has a built-in communication channel that allows messages to be passed back and forth between the child and its parent.
 
@@ -198,17 +130,7 @@ The workers are created and managed by the master process. When the app first ru
 
 If the process is a master, we then call `cluster.fork()` to spawn several processes. We log the master and worker process IDs. Below, you can see the output from running the app on a four-core system. When a child process dies, we spawn a new one to keep utilizing the available CPU cores.
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-
+```
 Number of CPUs is 4
 Master 67967 is running
 Worker 67981 started
@@ -219,6 +141,7 @@ Worker 67982 started
 Worker 67975 started
 App listening on port 3000
 App listening on port 3000
+```
 
 To see the improvement clustering offers, run the same experiment as before: first make a request to the server with a large value for `n` and quickly run another request in another browser tab. The second request will complete while the first is still running — it doesn’t have to wait for the other request to complete. With multiple workers available to take requests, both server availability and throughput are improved.
 
@@ -232,40 +155,21 @@ The `loadtest` package allows you to simulate a large number of concurrent conne
 
 To use `loadtest`, first install it globally:
 
-1
-
+```bash
 $ npm install -g loadtest
+```
 
 Then run the app that you want to test with `node app.js`. We’ll start by testing the version that doesn’t use clustering.
 
 With the app running, open another Terminal and run the following load test:
 
-1
-
+```bash
 $ loadtest http://localhost:3000/api/500000 -n 1000 -c 100
+```
 
 The above command will send `1000` requests to the given URL, of which `100` are concurrent. The following is the output from running the above command:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-
+```
 Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
 
 Target URL:          http://localhost:3000/api/500000
@@ -284,38 +188,19 @@ Percentage of the requests served within a certain time 50%      121 ms
   95%      135 ms
   99%      141 ms
  100%      142 ms (longest request)
+```
 
 We see that with the same request (with `n` = `500000`) the server was able to handle `788` requests per second with a mean latency of `119.4` milliseconds (the average time it took to complete a single request).
 
 Let’s try it again but with more requests this time (and with no clusters):
 
-1
-
+```sh
 $ loadtest http://localhost:3000/api/5000000 -n 1000 -c 100
+```
 
 Below’s the output:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-
+```
 Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
 Requests: 573 (57%), requests per second: 115, mean latency: 798.3 ms
 
@@ -335,6 +220,7 @@ Percentage of the requests served within a certain time 50%      869 ms
   95%      876 ms
   99%      879 ms
  100%      880 ms (longest request)
+```
 
 With a request where `n` = `5000000` the server was able to handle `114` requests per second with a mean latency of `828.9` milliseconds.
 
@@ -344,26 +230,7 @@ Stop the non-cluster app, run the clustered one and, finally, run the same load 
 
 Below are the results for testing for `http://localhost:3000/api/500000`:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-
+```
 Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
 
 Target URL:          http://localhost:3000/api/500000
@@ -382,31 +249,13 @@ Percentage of the requests served within a certain time 50%      61 ms
   95%      90 ms
   99%      106 ms
  100%      112 ms (longest request)
+```
 
 Tested with the same requests (when `n` = `500000`), the app that uses clustering was able to handle `1426` requests per second — a significant increase, compared to the `788` requests per second of the app with no clusters. The mean latency of the clustered app is `65` milliseconds, compared to `119.4` of the app with no clusters. You can clearly see the improvement that clustering added to the app.
 
 And below are the results for testing for `http://localhost:3000/api/5000000`:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-
+```
 Requests: 0 (0%), requests per second: 0, mean latency: 0 ms
 
 Target URL:          http://localhost:3000/api/5000000
@@ -425,6 +274,7 @@ Percentage of the requests served within a certain time 50%      235 ms
   95%      259 ms
   99%      355 ms
  100%      421 ms (longest request)
+```
 
 Here (when `n` = `5000000`), the app was able to run `410` requests per second, compared to `114` of the app with no clusters, with a latency of `229.9`, compared with `828.9` of the other app.
 
@@ -434,53 +284,47 @@ We’ll run two more tests for each of our apps. We’ll test requests that aren
 
 With the no-cluster app running, execute the following test:
 
-1
-
+```sh
 $ loadtest http://localhost:3000/api/50 -n 1000 -c 100
+```
 
 The following represents the summarized results:
 
-1
-2
-3
-
+```
 Total time:          0.531421648 s
 Requests per second: 1882
 Mean latency:        50 ms
+```
 
 With the same no-cluster app still running, execute the following test:
 
-1
-
+```sh
 $ loadtest http://localhost:3000/api/5000 -n 1000 -c 100
+```
 
 Here are the summarized results:
 
-1
-2
-3
-
+```
 Total time:          0.50637567 s
 Requests per second: 1975
 Mean latency:        47.6 ms
+```
 
 Now, stop the app and run the clustered one once more.
 
 With the cluster app running, execute the following test:
 
-1
-
+```sh
 $ loadtest http://localhost:3000/api/50 -n 1000 -c 100
+```
 
 The summarized results:
 
-1
-2
-3
-
+```
 Total time:          0.598028941 s
 Requests per second: 1672
 Mean latency:        56.6 ms
+```
 
 The clustered app ran `1672` requests per second compared to `1882` of the no-cluster one and had a mean latency of `56.6` milliseconds compared to `50` of the no-cluster one.
 
@@ -524,31 +368,7 @@ $ npm install pm2 -g
 
 We’ll use it to run our first unmodified app:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-
+```js
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -573,12 +393,13 @@ app.get('/api/:n', function (req, res) {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 })
+```
 
 Run the app with:
 
-1
-
+```sh
 $ pm2 start app.js -i 0
+```
 
 `-i <number of workers>` will tell PM2 to launch the app in `cluster_mode` (as opposed to `fork_mode`). If `<number of workers>` is set to `0`, PM2 will automatically spawn as many workers as there are CPU cores.
 
@@ -590,9 +411,9 @@ In the Terminal, you’ll get a table displaying some details of the spawned pro
 
 You can stop the app with the following command:
 
-1
-
+```sh
 $ pm2 stop app.js
+```
 
 The app will go offline and the Terminal output will show all processes with a `stopped` status.
 
@@ -608,23 +429,16 @@ $ pm2 ecosystem
 
 It will generate a file named `ecosystem.config.js`. As for our app, we need to modify it as shown below:
 
-1
-2
-3
-4
-5
-6
-7
-8
-
+```js
 module.exports = {
-  apps : \[{
+  apps : [{
     name: "app",
     script: "app.js",
     instances : 0,
     exec_mode : "cluster"
-  }\]
+  }]
 }
+```
 
 By setting `exec_mode` with the `cluster` value, you instruct PM2 to load balance between each instance. The `instances` are set to `0` just as before, which will spawn as many workers as there are CPU cores.
 
@@ -644,16 +458,7 @@ The app will run in cluster mode, just as before.
 
 You can start, restart, reload, stop and delete an app with the following commands, respectively:
 
-1
-2
-3
-4
-5
-6
-7
-8
-9
-
+```sh
 $ pm2 start app_name
 $ pm2 restart app_name
 $ pm2 reload app_name
@@ -663,6 +468,7 @@ $ pm2 delete app_name
 \# When using an Ecosystem file:
 
 $ pm2 \[start|restart|reload|stop|delete\] ecosystem.config.js
+```
 
 The `restart` command immediately kills and restarts the processes while the `reload` command achieves a 0-second-downtime reload where workers are restarted one by one, waiting for a new worker to spawn before killing the old one.
 
