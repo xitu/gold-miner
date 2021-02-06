@@ -7,10 +7,6 @@
 
 # Will SCSS be replaced by CSS3?
 
-## Should We Use CSS or SCSS in 2021?
-
-#### With the continuously improving CSS over the years, is SCSS relevant anymore? Let’s find out.
-
 ![](https://cdn-images-1.medium.com/max/5760/1*iiuMRihN7Lj3i1-hTk8PjA.jpeg)
 
 When it comes to the domain of styling web pages, we have the choice of using plain CSS or SCSS in a project (among other preprocessors). SCSS is a superset of CSS. Most developers find it more convenient to use it over CSS due to its advanced features and clearer syntax.
@@ -28,11 +24,7 @@ While there are many new CSS features, I want to emphasize the new features we o
 * In any web application, the primary building block of the page is the page layout. While many of us relied on CSS frameworks like Bootstrap for many years, CSS now offers Grid, Subgrid, and Flexbox to structure the layout natively in a web page. While Flexbox is widely popular among developers, Grid is catching up.
 * Typographic flexibilities.
 * Power of Transitions and Transforms will take out the need for JavaScript for Animations.
-* Custom properties /variable support. That feature is especially important when sharing and reusing CSS components using tools like [Bit](https://bit.dev) ([Github](https://bit.dev)). They allow us to compose themes — sizes, color palettes, fonts, etc — these are all components that can be used independently or composed to form a full theme.
-
----
-
-![Exploring components on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
+* Custom properties /variable support.
 
 ## Features of SCSS
 
@@ -42,7 +34,7 @@ We re-use a lot of colors and other elements such as fonts in our styling code. 
 
 Let’s have a look at an example.
 
-```
+```scss
 $black: #00000;
 $primary-font: $ubuntu-font: 'Ubuntu', 'Helvetica', sans-serif;
 $unit: 1rem;
@@ -56,7 +48,7 @@ body {
 
 CSS lets us use variables as well using custom properties. This is how custom properties in CSS would look like.
 
-```
+```css
 --black: #00000;
 --width: 800px;
 --primaryFont: $ubuntu-font: 'Ubuntu', 'Helvetica', sans-serif;
@@ -72,11 +64,11 @@ body {
 
 The reason being they are processed by the browser during runtime. Opposed to that, SCSS variables are determined at the pre-processing stage when SCSS is converted to CSS. Therefore, **the use of variables and code re-use is better in performance with SCSS**.
 
-#### SCSS allows nested syntax — Cleaner source code😊
+#### SCSS allows nested syntax — Cleaner source code
 
 If we consider a block of code in CSS such as,
 
-```
+```css
 .header {
   padding: 1rem;
   border-bottom: 1px solid grey;
@@ -101,7 +93,7 @@ The above code seems cluttered with the same parent class having to repeat in or
 
 However, with SCSS you can use a nested syntax that produces much cleaner code. The above code in SCSS would look like the following.
 
-```
+```scss
 .header {
   padding: 1rem;
   border-bottom: 1px solid grey;
@@ -131,7 +123,7 @@ Therefore, styling your components using SCSS than conventional CSS seems much b
 
 In SCSS you can use`@extend` to share properties between one selector and another. The use `@extend` with placeholders would look like the following.
 
-```
+```scss
 %unstyled-list {
   list-style: none;
   margin: 0;
@@ -141,7 +133,7 @@ In SCSS you can use`@extend` to share properties between one selector and anothe
 
 `%unstyled-list` is a placeholder that can be used to avoid code repetition when you need to use the above list styling pattern in multiple places.
 
-```
+```scss
 .search-results {
   @extend %unstyled-list;
 }
@@ -169,21 +161,13 @@ We have been exploring what CSS offers today and the features of SCSS so far. Ho
 * CSS isn’t capable of handling flow control rules. SCSS provides @if, @else, @each, $for, and @while flow control rules out of the box. As a programmer, I find this highly useful when it comes to emitting styles. This also allows you to write less and cleaner code.
 * Out of the box, SCSS supports the standard set of numeric operators for numbers wherein CSS you have to use `calc()` function for numeric operations. SCSS numeric operations will automatically convert between compatible units.
 
-> # However, `calc()` function of CSS has few limitations such as with division, the right-hand side must be a number and for multiplication at least one of the arguments must be a number.
+**However**, `calc()` function of CSS has few limitations such as with division, the right-hand side must be a number and for multiplication at least one of the arguments must be a number.
 
 * The other important aspect is the style reuse which is a stronghold for SCSS. For example, SCSS provides many features such as built-in modules, maps, loops, and variables to reuse styles.
 
 Therefore, in my opinion, even with the latest features of CSS, SCSS remains the better option. Let me know your thoughts in the comments below.
 
 I hope you enjoyed the article. Thanks for reading!
-
-## Learn More
-[**Improve Page Rendering Speed Using Only CSS**
-**4 Important CSS tips for faster page rendering**blog.bitsrc.io](https://blog.bitsrc.io/improve-page-rendering-speed-using-only-css-a61667a16b2)
-[**How we Build a Design System**
-**Building a design system with components to standardize and scale our UI development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-our-design-system-15713a1f1833)
-[**CSS Clamp(): The Responsive Combination We’ve All Been Waiting For**
-**Bringing Together the Best of the CSS min() and CSS max() Functions**blog.bitsrc.io](https://blog.bitsrc.io/css-clamp-the-responsive-combination-weve-all-been-waiting-for-f1ce1981ea6e)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
