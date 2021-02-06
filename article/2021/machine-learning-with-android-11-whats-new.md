@@ -11,9 +11,7 @@
 
 This blog demonstrates how you can get started with on-device ML with tools or plugins specifically launched with [Android 11](https://developer.android.com/11). If you have earlier worked with ML in Android, you will explore easier ways to integrate your ML applications with your Android apps. If you have not worked with ML in Android earlier, this could be a starting point for you to do so and start super powering your Android app with Machine Learning. In this blog, I majorly demonstrate the two biggest updates with Android 11: [ML Model Binding Plugin](https://developer.android.com/studio/preview/features#tensor-flow-lite-models) and the [new ML Kit](https://g.co/mlkit). All of the example apps code as we discuss below is present in [this GitHub repo](https://github.com/Rishit-dagli/ML-with-Android-11).
 
-You can also check out the talks I gave about this topic in the GitHub repo.
-
-[**Rishit-dagli/ML-with-Android-11**](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md)
+You can also check out the talks I gave about this topic in the [GitHub repo](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md).
 
 ## Why care about on-device ML in Android?
 
@@ -190,9 +188,7 @@ And many more! There are a lot of services like [Teachable Machine](https://teac
 
 ---
 
-All the code demonstrated here with examples about TF Lite Model Maker is present in this repo. I have also included a few trained models for you in the repo to get started and experiment with for starters.
-
-[**Rishit-dagli/ML-with-Android-11**](https://github.com/Rishit-dagli/ML-with-Android-11)
+All the code demonstrated here with examples about TF Lite Model Maker is present in [this repo]((https://github.com/Rishit-dagli/ML-with-Android-11)). I have also included a few trained models for you in the repo to get started and experiment with for starters.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
