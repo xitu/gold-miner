@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/example-of-a-machine-learning-algorithm-to-predict-spam-emails-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/example-of-a-machine-learning-algorithm-to-predict-spam-emails-in-python.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[zenblo](https://github.com/zenblo)
 
 # Python 开发垃圾邮件检测应用
 
@@ -11,7 +11,7 @@
 
 ## 垃圾邮件（Spam）与有效邮件（Ham）
 
-对于检测是否为垃圾邮件的模型，最常见的应用是创建一个预测文本的模型。原始数据集来自于这个——[Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip)，里面数据包含以后标题行，拥有两列，第一列为 text 表示邮件内容，第二列为 target 值为 spam 或 ham 分别表示垃圾邮件与非垃圾邮件。
+对于检测是否为垃圾邮件的模型，最常见的应用是创建一个预测文本的模型。原始数据集来自于这个 —— [Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip)，里面数据包含以后标题行，拥有两列，第一列为 text 表示邮件内容，第二列为 target 值为 spam 或 ham 分别表示垃圾邮件与非垃圾邮件。
 
 ```py
 import pandas as pd
