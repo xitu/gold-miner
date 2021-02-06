@@ -104,7 +104,7 @@ dependencies {
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
-对于这个样例来说，我设置了动画为自动播放，播放速度为 `1.0`，并且我禁止了循环播放。你可以根据需要使用不同的值。 最重要的部分是 `app:lottie_rawRes` 属性，它定义了我们要使用在 `raw` 目录中添加的 JSON 文件。现在，我们需要创建启动视图的类。让我们在 `/android/app/src/main/kotlin/YOUR-PACKAGE-NAME` 中来创建一个新的 Kotlin 类。将这个类命名为 `SplashView`，然后修改它的内容为：
+在这个示例中，我将动画设置为自动播放，设置的播放速度为 `1.0`，并且禁止循环播放功能。你可以根据需要使用不同的值。 最重要的部分是 `app:lottie_rawRes` 属性，它定义了我们要使用在 `raw` 目录中添加的 JSON 文件。现在，我们需要创建启动视图的类。让我们在 `/android/app/src/main/kotlin/YOUR-PACKAGE-NAME` 中来创建一个新的 Kotlin 类。将这个类命名为 `SplashView`，然后修改它的内容为：
 
 ```Kotlin
 import android.content.Context
