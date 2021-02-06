@@ -12,10 +12,8 @@
 This blog demonstrates how you can get started with on-device ML with tools or plugins specifically launched with [Android 11](https://developer.android.com/11). If you have earlier worked with ML in Android, you will explore easier ways to integrate your ML applications with your Android apps. If you have not worked with ML in Android earlier, this could be a starting point for you to do so and start super powering your Android app with Machine Learning. In this blog, I majorly demonstrate the two biggest updates with Android 11: [ML Model Binding Plugin](https://developer.android.com/studio/preview/features#tensor-flow-lite-models) and the [new ML Kit](https://g.co/mlkit). All of the example apps code as we discuss below is present in [this GitHub repo](https://github.com/Rishit-dagli/ML-with-Android-11).
 
 You can also check out the talks I gave about this topic in the GitHub repo.
-[**Rishit-dagli/ML-with-Android-11**
-**Special thanks to- who helped me in putting together and reviewing the slides for the talks. My session at Android…**github.com](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md)
 
----
+[**Rishit-dagli/ML-with-Android-11**](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md)
 
 ## Why care about on-device ML in Android?
 
@@ -49,11 +47,9 @@ Using the traditional approach is also expensive in terms of network availabilit
 
 And finally security I no longer send data to a server or cloud-based system, I no longer send data out of the device at all thus enforcing security.
 
----
-
 ## ML Model Binding Plugin
 
-> **Note: You need Android Studio 4.1 or above to be able to use the Model Binding Plugin**
+> Note: You need Android Studio 4.1 or above to be able to use the Model Binding Plugin
 
 **What does the Model Binding Plugin focus on?**
 
@@ -124,8 +120,6 @@ private val options = Model.Options.Builder().setDevice(Model.Device.GPU).build(
 private val rpsModel = rpsModel.newInstance(ctx, options)
 ```
 
----
-
 ## A new ML Kit
 
 > You now no longer need a Firebase Project to work with the ML Kit, it is now available even out of Firebase.
@@ -172,8 +166,6 @@ private val objectDetector = ObjectDetection.getClient(customObjectDetectorOptio
 
 So let us get to the part where we run the model so you might see some syntax similar to the previous example here. I will process my image and a thing to note here is all of these listeners that are on failure or on success are essential tasks so they need to be attached for every run. And that is all you need to do, we are done 🚀
 
----
-
 ## Finding Models
 
 We talked a lot about what after making a model let us take a look at how you can find models for your use-cases.
@@ -199,23 +191,8 @@ And many more! There are a lot of services like [Teachable Machine](https://teac
 ---
 
 All the code demonstrated here with examples about TF Lite Model Maker is present in this repo. I have also included a few trained models for you in the repo to get started and experiment with for starters.
-[**Rishit-dagli/ML-with-Android-11**
-**A repository demonstrating all that’s new in Android 11 for ML and how you could try it out for your own use-cases**github.com](https://github.com/Rishit-dagli/ML-with-Android-11)
 
----
-
-## About Me
-
-Hi everyone I am Rishit Dagli. Made something with the content in the repo or this blog post, tag me on [Twitter](https://twitter.com/rishit_dagli), and share it with me!
-
-[Twitter](https://twitter.com/rishit_dagli)
-
-[Website](https://rishit.tech/)
-
-If you want to ask me some questions, report any mistake, suggest improvements, give feedback you are free to do so by emailing me at —
-
-* [rishit.dagli@gmail.com](mailto:rishit.dagli@gmail.com)
-* [hello@rishit.tech](mailto:hello@rishit.tech)
+[**Rishit-dagli/ML-with-Android-11**](https://github.com/Rishit-dagli/ML-with-Android-11)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
