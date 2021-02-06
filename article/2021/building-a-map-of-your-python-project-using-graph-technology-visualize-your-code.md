@@ -145,7 +145,7 @@ Finding all non-test functions might come in handy, so let’s build that.
 
 Before moving on, we should define what we mean by safety score.
 
-> # For a given function **f** we define the **test norm** of **f** to be the distance in the graph between the closest test function and **f.**
+> For a given function **f** we define the **test norm** of **f** to be the distance in the graph between the closest test function and **f.**
 
 * By convention, all the test functions have test norm 0.
 * If a function is called by a test function, the norm is 1,
@@ -153,7 +153,9 @@ Before moving on, we should define what we mean by safety score.
 
 Let’s now define the safety score σ for the whole project. Let **NT** be the set of non-test functions and let N = |NT|. Then we define
 
-![](https://cdn-images-1.medium.com/max/2000/1*HZx0bE9K_rGcbddHvHl8OQ.png)
+$$
+\sigma=\frac{1}{N} \sum_{f \in \mathbb{N T}} \frac{1}{|f|_{T}}, \quad \text { where }|f|_{T} \text { is the test norm of } f
+$$
 
 Note that
 
