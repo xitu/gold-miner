@@ -7,8 +7,6 @@
 
 # Improving Node.js Application Performance With Clustering
 
-![Lines](https://d33wubrfki0l68.cloudfront.net/d7f78143a1607b5a6a3f46412ab9c19368042ffd/9db9f/images/lines.png)
-
 When building a production application, you are usually on the lookout for ways to optimize its performance while keeping any possible trade-offs in mind. In this post, we’ll take a look at an approach that can give you a quick win when it comes to improving the way your Node.js apps handle the workload.
 
 An instance of Node.js runs in a single thread which means that on a multi-core system (which most computers are these days), not all cores will be utilized by the app. To take advantage of the other available cores, you can launch a cluster of Node.js processes and distribute the load between them.
@@ -330,19 +328,17 @@ The clustered app ran `1672` requests per second compared to `1882` of the no-cl
 
 Let’s run the other test. With the same cluster app still running, execute the test below:
 
-1
-
+```sh
 $ loadtest http://localhost:3000/api/5000 -n 1000 -c 100
+```
 
 The summarized results:
 
-1
-2
-3
-
+```
 Total time:          0.5703417869999999 s
 Requests per second: 1753
 Mean latency:        53.7 ms
+```
 
 Here, the clustered app ran `1753` requests per second compared to `1975` of the no-cluster one and had a mean latency of `53.7` milliseconds compared to `47.6` of the no-cluster one.
 
@@ -362,9 +358,9 @@ There is a tool that can help manage the process a bit better — the [PM2](http
 
 To use PM2, first install it globally:
 
-1
-
+```sh
 $ npm install pm2 -g
+```
 
 We’ll use it to run our first unmodified app:
 
@@ -423,9 +419,9 @@ Rather than always passing in configurations when you run the app with `pm2 star
 
 You can generate an Ecosystem File with the following command:
 
-1
-
+```sh
 $ pm2 ecosystem
+```
 
 It will generate a file named `ecosystem.config.js`. As for our app, we need to modify it as shown below:
 
@@ -450,9 +446,9 @@ The `-i` or `instances` option can be set to:
 
 You can now run the app with:
 
-1
-
+```sh
 $ pm2 start ecosystem.config.js
+```
 
 The app will run in cluster mode, just as before.
 
@@ -465,9 +461,9 @@ $ pm2 reload app_name
 $ pm2 stop app_name
 $ pm2 delete app_name
 
-\# When using an Ecosystem file:
+# When using an Ecosystem file:
 
-$ pm2 \[start|restart|reload|stop|delete\] ecosystem.config.js
+$ pm2 [start|restart|reload|stop|delete] ecosystem.config.js
 ```
 
 The `restart` command immediately kills and restarts the processes while the `reload` command achieves a 0-second-downtime reload where workers are restarted one by one, waiting for a new worker to spawn before killing the old one.
@@ -476,31 +472,27 @@ You can also check the status, logs, and metrics of running applications.
 
 The following lists the status of all application managed by PM2:
 
-1
-
+```sh
 $ pm2 ls
+```
 
 The following displays logs in realtime:
 
-1
-
+```sh
 $ pm2 logs
+```
 
 The following displays a realtime dashboard in your Terminal:
 
-1
-
+```sh
 $ pm2 monit
+```
 
 For more on PM2 and its [cluster mode](https://pm2.keymetrics.io/docs/usage/cluster-mode/), check the [documentation](https://pm2.io/blog/2018/04/20/Node-js-clustering-made-easy-with-PM2).
 
 ## Conclusion
 
 Clustering offers a way of improving your Node.js app performance by making use of system resources in a more efficient way. We saw noticeable improvements in throughput when an app was modified to use clusters. We then took a brief look at a tool that can help you make the process of managing clusters a bit easier. I hope this article was useful to you. For more on clustering, check the [cluster module](https://nodejs.org/api/cluster.html) documentation and [PM2’s](https://pm2.keymetrics.io/docs/usage/quick-start/) documentation. You can also check out this [tutorial](https://leanpub.com/thenodejsclustermodule/read).
-
-**P.S. If you liked this post, [subscribe to our JavaScript Sorcery newsletter](https://blog.appsignal.com/javascript-sorcery) for a monthly deep dive into more magical JavaScript tips and tricks.**
-
-**P.P.S. If you’d love an all-in-one APM for Node.js or you’re already familiar with AppSignal, go and [check out AppSignal for Node.js](https://appsignal.com/nodejs).**
 
 **Our guest author Joyce Echessa is a full stack web developer. She occasionally puts down her thoughts in technical articles as a way of documenting the various things she’s learned.**
 
