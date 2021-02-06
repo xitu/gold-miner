@@ -7,8 +7,6 @@
 
 # Why the Service Mesh Should Fade Out of Sight
 
-#### Service mesh should be a platform feature — not a product category
-
 ![Photo by [Ricardo Gomez Angel](https://unsplash.com/@ripato?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9000/0*aQPqRSOiXhzz9zo6)
 
 With rising interest in service meshes, many application development and delivery pros’ first encounter with one leaves them wondering how they differ from API gateways. Are service meshes their own product category or are they part of broader API management? These questions miss the point: Service meshes need to fade away into the background of development platforms.
@@ -17,8 +15,6 @@ To understand why, one must first understand the quiet revolution happening with
 
 * Legacy operating systems manage the resources of a computer and provide higher levels of abstractions for programmers to interact with the complex underlying hardware. They arose to address the challenges of hand-coding direct interactions with hardware.
 * Kubernetes manages the resources of a cluster of computers and provides higher levels of abstractions for programmers to interact with complex underlying hardware and unstable, insecure networks. It arose to address the challenges of hand-coding direct interactions with clustered hardware. Although primitive by OS standards, it will make legacy OSes like Linux and Windows more and more irrelevant as it matures.
-
----
 
 ## Service Mesh == Dynamic Linker For Cloud
 
@@ -29,8 +25,6 @@ Just as it makes no sense for development and operations teams to have to think 
 Installing a typical service mesh requires several manual steps. Infrastructure teams must coordinate with AppDev teams to ensure that connection configurations are compatible with what was coded. Many service meshes are too complicated to stand up at scale and require solid operational support talent to configure and keep them healthy. You may even need to understand the service mesh’s internal architecture to debug it when things go wrong.
 
 This must change.
-
----
 
 ## It’s All About the Developer Experience
 
