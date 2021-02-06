@@ -9,13 +9,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2400/1*4vlkTJCWbP2Kh2vyK9BdEw.png)
 
-我们当然可以使用 Dart 代码直接在 Flutter 为应用程序添加动画启动画面，但是，Flutter 应用程序使用 FlutterActivity 或 FlutterViewController 作为在 Android 和 iOS 中启动的方式会让 Flutter 在实际绘制其第一帧之前已经经过了一段时间。 因此，使用一个原生的应用程序启动页面将会给用户更好的体验嗷。
+我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中使用的 FlutterActivity 或 FlutterViewController 作为启动的活动或视图控制器，会让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。
 
-值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为起始屏幕，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到什么相关的资源或参考资料，而这就是我将在本文中解释的内容。
+值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为起始屏幕，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
 
 ## 为什么我们要使用 Lottie?
 
-[Lottie](https://airbnb.io/lottie/#/) 是一个支持多平台（包括 Android 与 iOS）的库，用于通过 [Bodymovin](https://github.com/airbnb/lottie-web) 解析 [Adobe After Effects]（http://www.adobe.com/products/aftereffects.html) 导出的 JSON 格式的动画，并以本地方式呈现。这意味着动画是由专业的设计人员设计的，并使用的是 **JSON** 文件导出，让我们开发人员无需再额外付出什么努力，轻轻松松完成动画的渲染。在本教程中，我们将使用由 LottieFiles 创建的免费示例文件，可以在[这里](https://lottiefiles.com/38237-thanksgiving-cornucopia)中找到该原文件。让我们开始我们的 Flutter + Lottie 之旅吧。
+[Lottie](https://airbnb.io/lottie/#/) 是一个支持多平台（包括 Android 与 iOS）的库，用于通过 [Bodymovin](https://github.com/airbnb/lottie-web) 解析 [Adobe After Effects](http://www.adobe.com/products/aftereffects.html) 导出的 JSON 格式的动画，并以本地方式呈现。这意味着动画是由专业的设计人员设计的，并使用的是 **JSON** 文件导出，让我们开发人员无需再额外付出什么努力，轻轻松松完成动画的渲染。在本教程中，我们将使用由 LottieFiles 创建的免费示例文件，可以在[这里](https://lottiefiles.com/38237-thanksgiving-cornucopia)中找到该原文件。让我们开始我们的 Flutter + Lottie 之旅吧。
 
 首先让我们先创建一个新的 Flutter 项目，然后执行以下步骤：
 
