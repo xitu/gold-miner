@@ -7,10 +7,6 @@
 
 # Building a Map of Your Python Project Using Graph Technology — Visualize Your Code
 
-#### Daily Read
-
-#### Use Neo4j to Calculate a Safety Score — How Safe is Your Code?
-
 ![Image by author](https://cdn-images-1.medium.com/max/4294/1*T9vp27fzwWkKNw681HIGAA.png)
 
 As a mathematician and working data scientist, I am fascinated by programming languages, machine learning, data, and of course, mathematics.
@@ -35,7 +31,7 @@ Not so long ago I was working on a relatively big project (on the job) in a repo
 
 I was working in a subfolder that contained code meant to solve a subproblem for the big project and then it hit me:
 
-> # Wouldn’t it be nice to be able to visualize where I was in the big picture and how all the different objects was connected by calls and data passing between each other?
+**Wouldn’t it be nice to be able to visualize where I was in the big picture and how all the different objects was connected by calls and data passing between each other?**
 
 How would that look like?
 
@@ -81,11 +77,11 @@ For instance, unless you are really tight and have separated your code into smal
 * Are there any functions that are not being used anymore or not being tested?
 * Which functions are implicitly being called the most?
 
-> # Hold on, Kasper. First of all, what do you mean by implicitly called?
+**Hold on, Kasper. First of all, what do you mean by implicitly called?**
 
 Well, when I call a function (or a method, generator, etc.) that function might call another function and so on. These functions that are called by other functions are being called **implicitly**. The first function is called **explicitly** or **directly**.
 
-> # Okay… Why is this important?
+**Okay… Why is this important?**
 
 Because, if a function that is called (implicitly) many times by many different functions has a subtle bug, then, first of all, the probability that this bug occurs at some point is greater than if it was only called once by the same function every time, and secondly, the more functions that depend on that one function, the more damage a potential bug can do to the whole system/program.
 
@@ -95,7 +91,7 @@ It turns out that graphs are the perfect equipment to solve such problems. We ca
 
 Before actually being able to work with neo4j from Python, we need to install the neo4j desktop environment and do a
 
-```
+```bash
 pip install neo4j
 ```
 
@@ -103,7 +99,7 @@ Let’s build a class that is able to communicate with Neo4j from Python.
 
 Now we can easily build a graph loader in another class by doing something like the following
 
-```
+```python
 self.loader = LoadGraphData("Kasper", "strong_pw_123", "bolt://localhost:7687")
 ```
 
@@ -137,7 +133,7 @@ Let’s do that:
 
 We store the above cypher query as a string (using triple quotes) in the variable **query**. Then inside a function or method of choice, you could do something like
 
-```
+```python
 loader = self.loader
 records = loader.work_with_data(query)
 df = pd.DataFrame(records, columns=["distances", "test_functions", "test_source", "targets", "target_source"])
@@ -198,10 +194,6 @@ Here is a map of a project that you might have heard of.
 This is a quite nice map of what is going on in Beautiful Soup. Notice how the big clusters are connected.
 
 While this code is not perfect yet, I believe that it can become quite useful in the future. I am currently working on a more stable version that takes the opening of files from python into account as well.
-
-If you wanna know more about the project, you can find me on LinkedIn. Feel free to chat me a question or two.
-[**Kasper Müller - Senior Consultant, Data and Analytics, FS, Technology Consulting - EY | LinkedIn**
-**Technology, programming and mathematics, and the art of making other people understand something they find relatively…**www.linkedin.com](https://www.linkedin.com/in/kasper-m%C3%BCller-96ba95169/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
