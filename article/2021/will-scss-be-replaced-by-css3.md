@@ -33,28 +33,28 @@ We re-use a lot of colors and other elements such as fonts in our styling code. 
 Let’s have a look at an example.
 
 ```scss
-$black: #00000;
-$primary-font: $ubuntu-font: 'Ubuntu', 'Helvetica', sans-serif;
+$black: #000000;
+$primary-font: 'Ubuntu', 'Helvetica', sans-serif;
 $unit: 1rem;
 
 body {
-  color: $black;
-  font-family: $primary-font;
-  padding: #{$unit * 2};
+	color: $black;
+	font-family: $primary-font;
+	padding: #{$unit * 2};
 }
 ```
 
 CSS lets us use variables as well using custom properties. This is how custom properties in CSS would look like.
 
 ```css
---black: #00000;
+--black: #000000;
 --width: 800px;
---primaryFont: $ubuntu-font: 'Ubuntu', 'Helvetica', sans-serif;
+--primaryFont: 'Ubuntu', 'Helvetica', sans-serif;
 
 body {
-  width: var(--width);
-  color: var(--black);
-  font-family: var(--primaryFont);
+	width: var(--width);
+	color: var(--black);
+	font-family: var(--primaryFont);
 }
 ```
 
@@ -68,22 +68,22 @@ If we consider a block of code in CSS such as,
 
 ```css
 .header {
-  padding: 1rem;
-  border-bottom: 1px solid grey;
+    padding: 1rem;
+    border-bottom: 1px solid grey;
 }
 
 .header .nav {
-  list-style: none;
+    list-style: none;
 }
 
 .header .nav li {
-  display: inline-flex;
+    display: inline-flex;
 }
 
 .header .nav li a {
-  display: flex;
-  padding: 0.5rem;
-  color: red;
+    display: flex;
+    padding: 0.5rem;
+    color: red;
 }
 ```
 
@@ -93,25 +93,22 @@ However, with SCSS you can use a nested syntax that produces much cleaner code. 
 
 ```scss
 .header {
-  padding: 1rem;
-  border-bottom: 1px solid grey;
+    padding: 1rem;
+    border-bottom: 1px solid grey;
 
-  .nav {
-    list-style: none;
+    .nav {
+        list-style: none;
 
-    li {
-      display: inline-flex;
+        li {
+            display: inline-flex;
 
-      a {
-        display: flex;
-        padding: 0.5rem;
-        color: red;
-      }
-      
+            a {
+                display: flex;
+                padding: 0.5rem;
+                color: red;
+            }
+        }
     }
-
-  }
-
 }
 ```
 
@@ -123,9 +120,9 @@ In SCSS you can use`@extend` to share properties between one selector and anothe
 
 ```scss
 %unstyled-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 ```
 
@@ -133,15 +130,15 @@ In SCSS you can use`@extend` to share properties between one selector and anothe
 
 ```scss
 .search-results {
-  @extend %unstyled-list;
+    @extend %unstyled-list;
 }
 
 .advertisements {
-  @extend %unstyled-list;
+    @extend %unstyled-list;
 }
 
 .dashboard {
-  @extend %unstyled-list;
+    @extend %unstyled-list;
 }
 ```
 
