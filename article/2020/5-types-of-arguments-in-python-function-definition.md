@@ -2,8 +2,8 @@
 > * 原文作者：[Indhumathy Chelliah](https://medium.com/@IndhumathyChelliah)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-types-of-arguments-in-python-function-definition.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-types-of-arguments-in-python-function-definition.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zhengjian-L](https://github.com/Zhengjian-L)
+> * 校对者：[z0gSh1u](https://github.com/z0gSh1u)，[JalanJiang](https://github.com/JalanJiang)
 
 # 定义 Python 函数时的 5 种参数
 
