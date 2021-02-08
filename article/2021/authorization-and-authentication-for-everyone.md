@@ -330,68 +330,50 @@ Authorization: 'Bearer eyj[...]'
 * `aud`: `MyCalAppAPI` (受众字段说明这个令牌是用于访问 MyCalApp 的 API)
 * `scope`: `write:events` (作用域说明 HireMe123 有权限使用 API 来在日历中写事件)
 
-HireMe123 sends a request to the MyCalApp API with the access token in its authorization header. When the MyCalApp API receives this request, it can see that the token contains a `write:events` scope.
-HireMe123 向 MyCalApp 的 API 发送一个带着授权头中的访问令牌的请求。当 MyCalApp 的 API 接收到这个请求之后，它就知道令牌中包含了 `write:events` 这样的作用域。
+HireMe123 向 MyCalApp 的 API 发送一个授权头中包含访问令牌的请求。当 MyCalApp 的 API 接收到这个请求之后，它就知道令牌中包含了 `write:events` 这样的作用域。
 
-But MyCalApp hosts calendar accounts for **hundreds of thousands of users**. In addition to looking at the `scope` in the token, MyCalApp's API middleware needs to check the `sub` subject identifier to make sure this request from HireMe123 is only able to exercise **my** privileges to create events with **my** MyCalApp account.
 但是 MyCalApp 为**成百上千的用户**管理日历事件。除了查看令牌中的 `scope` ， MyCalApp 的 API 还需要检查 `sub` 字段标识符来确定这个来自 HireMe123 的请求仅仅能够使用**我**已有的权限来在**我的**账户上创建事件。
 
 [![delegated authorization with scopes and API access control](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)
 
-In the context of delegated authorization, scopes express what an application can do on the user's behalf. They're a subset of the user's total capabilities.
 在授权访问的背景下，作用域表达了应用程序可以代表用户做什么。它是用户所有权限的子集。
 
-#### Granting Consent
 #### 授权许可
 
-Remember when the [authorization server asked the HireMe123 user for their consent](#authorization-server) to allow HireMe123 to use the user's privileges to access MyCalApp?
 还记得什么时候[授权服务器询问 HireMe123 的用户征求他们的同意](#authorization-server)允许 HireMe123 使用用户的权限来访问 MyCalApp 吗？
 
-That consent dialog might look something like this:
 同意对话框可能像下面这样：
 
 [![consent dialog flow: HireMe123 is requesting access to your MyCalApp account to write:calendars](https://res.cloudinary.com/practicaldev/image/fetch/s--YBRcijw1--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/consent.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--YBRcijw1--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/consent.gif)
 
-HireMe123 could ask for a variety of different scopes, for example:
 HireMe123 可能要寻求一系列不同的作用域，比如：
 
 * `write:events`
 * `read:events`
 * `read:settings`
 * `write:settings`
-* ...etc.
+* ...等等.
 
-In general, we should avoid overloading scopes with user-specific privileges. Scopes are for delegated permissions for an application. However, it **is** possible to add different scopes to individual users if your authorization server provides [Role-Based Access Control (RBAC)](https://auth0.com/docs/authorization/concepts/rbac).
 一般来说，我们应该避免使用过多作用域来指定用户权限。作用域用于一个应用程序的授权许可。然而，如果你的授权服务器提供了[基于角色的访问控制 (RBAC) ](https://auth0.com/docs/authorization/concepts/rbac)，那么给个人用户添加不同的作用域确实是**可行**的。
 
-> **With **RBAC**, you can set up user roles with specific permissions in your authorization server. Then when the authorization server issues access tokens, it can include a specific user's roles in their scopes.**
 > **使用 RBAC** ，你能在授权服务器中给用户角色设置特定的权限。然后，当授权服务器发出访问令牌的时候，它就可以在作用域中包含一个特定的用户角色。
 
-## Resources and What's Next?
 ## 资源，接下来是什么？
 
-We covered a **lot** of material, and it still wasn't anywhere close to everything. I do hope this was a helpful crash course in identity, authorization, and authentication.
 虽然我们已经看过很多材料了，但我们还远远称不上是了解所有细节。我希望这篇文章可以是一个在身份、授权和认证方面有帮助的速成课。
 
-To further demystify JWT, read my article [Signing and Validating JSON Web Tokens for Everyone](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb).
 为了进一步讲明白 JWT，请阅读我的文章[每个人都能懂的 JWT 签名验签](https://dev.to/kimmaida/signing-and-validating-json-web-tokens-jwt-for-everyone-25fb)
 
-If you'd like to learn much, much more on these topics, here are some great resources for you to further your knowledge:
 如果你想要对这个主题有进一步的了解，这里有一些很好的资源供你进阶学习：
 
-### Learn More
 ### 了解更多
 
-The **[Learn Identity](https://auth0.com/docs/videos/learn-identity) video series** in the [Auth0 docs](https://auth0.com/docs) is the lecture portion of the new hire identity training for engineers at [Auth0](https://auth0.com), presented by Principal Architect [Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/). If you'd like to learn identity the way it’s done at Auth0, it's completely free and available to everyone (you don't even have to pay with a tweet or email!).
 **[身份认证系列视频](https://auth0.com/docs/videos/learn-identity)** 在 [Auth0 文档](https://auth0.com/docs)中是由主架构师 [Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/) 为训练 [Auth0](https://auth0.com) 新入职的认证工程师所制作的讲座。如果你想要根据 Auth0 的标准学习身份认证，这就是完全免费和最容易获得的学习材料，你甚至不需要用推特或邮件进行支付。
 
-The **OAuth 2.0 and OpenID Connect specifications** are dense, but once you're familiar with the terminology and have foundational identity knowledge, they're helpful, informative, and become much more digestible. Check them out here: [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749) and [OpenID Connect Specifications](https://openid.net/developers/specs/).
-**OAuth 2.0和 OpenID 连接规范**内容很多，但是一旦你熟悉了术语并且对于认证有了一个基础的理解之后，他们就是非常有帮助、信息丰富并且可理解的材料。点击这里：[ OAuth 2.0授权框架](https://tools.ietf.org/html/rfc6749) 和 [OpenID 连接规范](https://openid.net/developers/specs/)。
+**OAuth 2.0和 OpenID 连接规范**内容很多，但是在你熟悉了术语并且对于认证有了一个基础的理解之后，他们就是非常有帮助、信息丰富并且可理解的材料。点击这里：[ OAuth 2.0授权框架](https://tools.ietf.org/html/rfc6749) 和 [OpenID 连接规范](https://openid.net/developers/specs/)。
 
-**[JWT.io](https://jwt.io)** is a **JSON Web Token** resource that provides a debugger tool and directory of JWT signing/verification libraries for various technologies.
 **[JWT.io](https://jwt.io)** 是一个关于 **JSON Web Token** 的资源，主要提供了调试工具和用各种语言实现的 JWT 签名/验签第三方库。
 
-The **[OpenID Connect Playground](https://openidconnect.net/)** is a debugger that lets developers explore and test **OIDC** calls and responses step-by-step.
 **[OpenID 连接训练场](https://openidconnect.net/)** 是一个允许开发者一步一步调试 **OIDC** 调用和响应的调试器。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
