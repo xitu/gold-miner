@@ -1,4 +1,4 @@
-> * 原文地址：[Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon(https://www.infoq.com/articles/database-audit-system-kafka/)
+> * 原文地址：[Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon](https://www.infoq.com/articles/database-audit-system-kafka/)
 > * 原文作者：[About the Author](https://www.infoq.com/articles/database-audit-system-kafka/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
