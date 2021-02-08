@@ -1,4 +1,11 @@
+> * 原文地址：[Machine Learning with Android 11: What’s new](https://proandroiddev.com/machine-learning-with-android-11-whats-new-1a8d084c7398)
+> * 原文作者：[Rishit Dagli](https://medium.com/@rishit.dagli)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
+> * 译者：
+> * 校对者：
 
+# Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon
 
 ### Key Takeaways
 
