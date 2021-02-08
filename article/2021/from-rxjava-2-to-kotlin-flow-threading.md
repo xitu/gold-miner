@@ -11,17 +11,17 @@
 
 ## 简介
 
-尽管随着 Kotlin 的扩展和引入冷流（Flow）的出现让未来几年的情况可能会迅速改变，长期以来，RxJava 一直是 Android 反应式解决方案的无可争议的领导者。虽说反应式编程最初与线程无关，但合适的并发和并行性对程序而言仍然非常重要。在本文中，我们将简要回顾 RxJava 2 中的线程（对其用法做一些基本说明），然后看一下 Kotlin Flow 中的线程工作原理，让你们在不影响功能的情况下想要迁移其代码时候变得顺利。
+尽管 Kotlin 的不断扩展和冷流（Flow）的引入，可能会让未来几年的情况迅速地发生些改变，但长期以来，RxJava 一直是 Android 反应式解决方案的无可争议的领导者。虽说反应式编程最初与线程无关，但合适的线程的并发和并行对程序而言仍然非常重要。在本文中，我们将简要回顾 RxJava 2 中的线程（对其用法做一些基本说明），然后看一下 Kotlin Flow 中的线程的工作原理，让我们能在不影响功能的情况下能够顺利地完成代码迁移。
 
-让我们从 RxJava 2 的简短回顾开始。
+让我们从对 RxJava 2 的简短回顾开始。
 
 ## RxJava 2
 
-RxJava 2 的 `Observable` 和 Kotlin Flow 都是冷流，意味着其中的代码都不会被执行直到被订阅。
+RxJava 2 的 `Observable` 和 Kotlin 的 Flow 都是冷流，意味着其中的代码在订阅之前都不会被执行。
 
-> 在 RxJava 中也有另外的类型例如 `Flowable`、`Single` 等。在本文中，我们只会讲讲 `Observable` 因为它们之间都能够融会贯通。
+> 除了 `Observable` 以外，在 RxJava 中其实还有另外的类型，例如 `Flowable` 或是 `Single` 等。但在本文中，我们只会讲讲 `Observable`，因为它们之间是能够举一反三的。
 
-最基础的使用方法是这样的：
+RxJava `Observable` 的最基础的使用是这样的：
 
 ```kotlin
 observeSomething()
@@ -30,13 +30,13 @@ observeSomething()
 	.subscribe { result -> println(result) }
 ```
 
-在这里我们可以看到我们给在输入输出上设置了观察，并将每一个变化结果都打印在主线程上（因为我们正在观察主线程）。
+在这里我们可以看到我们订阅在了输入输出上，并将每一个变化结果都打印在主线程上（因为我们正在观察主线程）。
 
 #### subscribeOn
 
-这是一个运算符用于声明将在哪一个要订阅的对象上设下一个用于观察的调度器。“将在哪一个要订阅的对象”是指“将在哪个调度器上启动我们的执行程序”。
+这是一个运算符用于声明将在哪一个调度器上设下一个 `Observable` 的订阅。“将在哪一个调度器上订阅”是指“将在哪个调度器上启动我们的执行程序”。
 
-第一个重要的事情是我们并不需要管 `subscribeOn` 具体在哪个地方声明，我们可以这样：
+第一个划重点的地方是：我们并不需要管 `subscribeOn` 具体在哪个地方声明。例如我们可以这样：
 
 ```kotlin
 observeSomething()
@@ -54,9 +54,9 @@ observeSomething()
 	.subscribe { result -> println(result) }
 ```
 
-上述的两种情况都会毫无意外的产生一样的结果。通过在代码链中声明这些运算符，我们声明了这个链的开始，并且运算符本身并不依赖于声明的位置。
+上述的两种情况都会毫无意外的产生一样的结果。我们通过在这一串代码链中声明了这些运算符声明了这个链的开始，但其中的某些运算符本身并不依赖于声明的位置，就例如上面的例子那样。
 
-第二个事情是因为一个链并不能同时在多个调度器处启动，因此我们无需在链中添加多个 `subscribeOn`，因为只有其中之一会起作用。如果出于某种原因你将多个 `subscribeOn` 运算符放在链中，则最上面的一个将被使用，而最下面的将被忽略：
+第二个划重点的地方是，因为一个链并不能同时在多个调度器处启动，因此我们无需在链中添加多个 `subscribeOn`，因为只有其中之一会起作用。如果出于某种原因你将多个 `subscribeOn` 运算符放在链中，则最上面的一个将被使用，而最下面的将被忽略：
 
 ```kotlin
 observeSomething()
@@ -68,7 +68,7 @@ observeSomething()
 
 #### observeOn
 
-`subscribeOn` 表示将在哪个调度器上启动链，而 `observeOn` 表示将在哪个调度器上进行线程。实际上，这意味着 `observeOn` 会更改下面的链中的调度器。
+`subscribeOn` 表示将在哪个调度器上启动链，而 `observeOn` 表示将在哪个调度器上进行线程。实际上，这意味着 `observeOn` 会更改下面的链中的运行的线程的调度器。
 
 ```kotlin
 /* 1 */	observeSomething()
@@ -94,7 +94,7 @@ observeSomething()
 
 #### just + defer
 
-有关 subscribeOn 的一个常见错误是将他于 `Observable.just` 一起使用。
+`subscribeOn` 的一个常见错误是将它与 `Observable.just` 一起使用。
 
 ```kotlin
 Observable.just(loadDataSync())
@@ -103,9 +103,9 @@ Observable.just(loadDataSync())
 	.subscribe { result -> println(result) }
 ```
 
-`just` 参数的值是立即计算的，而不是在订阅时才计算的。这意味着，如果您在主线程上创建此类可观察的对象，那么可能会在主线程上进行大量潜在的计算。虽说订阅将在 `io` 上正确完成，但是 `just` 的值将在订阅之前计算。
+`just` 参数的值是立即计算的，而不是在订阅时才计算的。这意味着，如果您在主线程上创建此类可观察的对象，那么可能会在主线程上进行大量潜在的计算。虽说订阅将在 `io` 上正确完成，但是 `just` 的值将在订阅之前就被计算出来了。
 
-解决此问题的方法之一是将您的 `Observable.just` 包装到 `Observable.defer` 中，这样，内部的所有内容都将在订阅时以及在我们在 `subscribeOn` 中声明的调度器上进行计算：
+解决此问题的方法之一是将你的 `Observable.just` 调用包装到 `Observable.defer` 中，这样调用所执行的所有内容都将在订阅时以及在我们位于 `subscribeOn` 处所声明的调度器上进行计算：
 
 ```kotlin
 Observable.defer { Observable.just(loadDataSync()) }
@@ -118,7 +118,7 @@ Observable.defer { Observable.just(loadDataSync()) }
 
 另一个棘手的事情来自使用运算符 `flatMap` 和我们对并发性和并行性的理解。
 
-例如，当我们拥有 ID 列表流并且对于每一个 ID 我们都希望从网络中加载一些数据：
+例如，当我们拥有 ID 列表流，并且我们需要对每一个 ID 都执行一次从网络中加载数据：
 
 ```kotlin
 Observable.fromIterable(listOf("id1", "id2", "id3"))
@@ -131,7 +131,7 @@ Observable.fromIterable(listOf("id1", "id2", "id3"))
 	.subscribe { result -> println(result) }
 ```
 
-我们在这里的预期是，我们已经订阅了 `io`，`io()` 的底层有线程池，因此对每个 `id` 的 `loadData` 的调用是并行化的。但是事实并非如此。我们使用 `flatMap` 编写了并发代码，但它不是并行运行的，其原因是我们告诉了程序我们要在 `io` 上启动链。我们的链的起点在 `flatMapIterable` 上，这意味着在订阅后，将使用 `io` 池中的一个线程，并在该单个线程上运行所有线程。为了改变行为并使我们的代码并行运行，我们需要将 `subscribeOn` 移动到 `flatMap` 之内：
+我们在这里的预期是，我们已经订阅了 `io`，`io()` 的底层有线程池，因此对每个 `id` 的 `loadData` 的调用是并行的。但是事实并非如此。我们使用 `flatMap` 编写了并发代码，但它不是并行运行的，其原因是我们告诉了程序我们要在 `io` 上启动链。我们的链的起点在 `flatMapIterable` 上，这意味着在订阅后，将使用 `io` 池中的一个线程，并在该单个线程上运行所有线程。为了改变行为并使我们的代码并行运行，我们需要将 `subscribeOn` 移动到 `flatMap` 之内：
 
 ```kotlin
 Observable.fromIterable(listOf("id1", "id2", "id3"))
@@ -183,13 +183,13 @@ CoroutineScope(Job() + Dispatchers.Main).launch {
 }
 ```
 
-> 现在，我们有了许多与协程相关的概念，可能需要对其进行解释。我们不会深入介绍协程这个项目或是 Kotlin Flow，因此，如果您不熟悉协程，最好先阅读有关协程的文档。
+> 现在，我们有了许多与协程相关的概念，可能需要对其进行解释。我们不会深入介绍协程这个功能或是 Kotlin Flow，因此，如果您不熟悉协程，最好先阅读有关协程的文档。
 
 该示例在某种程度上与 RxJava 部分中使用的示例相同：我们观察了 `io` 的一些变化，然后在 `main` 上打印结果，尽管代码有所不同。让我们找出区别以及它是如何工作的。
 
-首先要注意的是，只能在某些协程范围内收集流（因为 `collect` 方法需要在 `suspend` 函数下执行）。因此，我们创建了合并范围，并在该范围内“启动”了新的协程。在启动的协程中，我们现在可以收集流程。
+首先要注意的是，只能在某些协程范围内收集流（因为 `collect` 方法需要在 `suspend` 函数下执行）。因此，我们创建了合并范围，并在该范围内“启动”了新的协程。在启动的协程中，我们现在可以收集流。
 
-关于 Kotlin 流和收集功能的重要一件事是称为上下文保留的功能。这意味着我们无需声明要在哪个 Dispatcher 上收集数据，该调度程序始终与我们从流中收集数据的范围相同。
+关于 Kotlin 流和收集功能的重要一件事是称为上下文保留的功能。这意味着我们无需声明要在哪个调度器上收集数据，该调度程序始终与我们从流中收集数据的范围相同。
 
 因此，如果要在 Main 中进行收集，则需要在协程中使用 `Dispatchers.Main` 来调用 `collect` 函数。
 
@@ -199,55 +199,57 @@ CoroutineScope(Job() + Dispatchers.Main).launch {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QOMRfQTktM17z2xHUYmcrQ.png)
 
-因此，在上面的示例中，通过编写`flowOn（Dispatchers.IO）`，我们说我们希望一切都在IO上运行。
+因此，在上面的示例中，通过编写`flowOn(Dispatchers.IO)`，我们告诉了程序我们希望在输入输出上运行执行所有代码。
 
-如果像以前使用RxJava一样在“ map”内部添加一些计算，我们将得到以下结果：
+如果像以前的 RxJava 一样在 `map` 内部添加一些计算，我们将得到以下结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zpbvxCRXjGLSEuFlnrWarg.png)
 
-我们将看到，基本上，我们可以通过在运算符之后声明`flowOn`来更改运算符的工作位置。
+我们将看到，我们基本上可以通过在运算符之后声明 `flowOn` 来更改运算符的工作位置。
 
 #### launchIn
 
-关于`collect`函数的一件重要事情是它正在挂起。这意味着当我们调用`collect`时，执行将暂停，直到流程完成。
+关于 `collect` 函数的一件重要事情是它是 `suspend` 的。这意味着当我们调用 `collect` 函数的时候，执行会被暂停直到流的完成。
 
-因此，如果在同一个协程中放入两个`collect`函数，那么第一个将有效地阻止第二个执行：
+因此，如果在同一个协程中放入两个 `collect` 函数，那么第一个将有效地阻止第二个执行：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*xopZFayVenZK03PQ9RoZ0Q.png)
 
-在这里，我们将看到打印的结果，但不会显示“第二个结果”，因为第一个“收集”功能将暂停并且不允许进行第二个收集。
+在这里我们能够看到打印了返回值出来，但并没有显示第二次的返回值，因为第一个 `collect`  函数会被暂停并且不允许进行第二次 `collect` 函数的执行。
 
-To fix that we need to launch each flow in a separate coroutine:
+要想解决这个问题我们需要在不同的协程中启动各自流。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*511-boC1pDMN9gLmK9ySKg.png)
 
-但是它看起来并不漂亮，并且要使其看起来更好一点（没有附加的嵌套级别），我们可以将`launchIn`扩展功能（在包装好的启动过程中只是语法糖）与`onEach`结合使用：
+但是这个代码看起来并不漂亮，并且要使其看起来更好一点（没有附加的嵌套级别），我们可以将 `launchIn` 扩展功能（只是个在包装的启动中的语法糖）与 `onEach` 结合使用：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*atQKeG0bwwMfjBD7nBIZHg.png)
 
-这样，我们创建的代码看起来更像我们（之前在rxjava上写过），因为rxjava中的订阅通常不会阻塞（除非使用了某些“ blockingxxx”方法），因此对于类似的用例，似乎“ launchin”应该是主要选择。
+这样，我们创建的代码看起来更像我们之前在 RxJava上写过的那样，因为 RxJava 中的订阅通常不会被阻塞（除非使用了某些 `blockingxxx` 函数）。因此对于类似的情景，似乎 `launchin` 应该是我们的首选。
 
 #### flowOf
 
-对于`flowOf`，我们的情况与`Observable.just`类似。如果您进行一些计算（挂起），那么它将在外部范围内完成，不受flowOn的影响：
+为 `flowOf` 假设的情景与 `Observable.just` 类似：我们现在需要进行一些计算（挂起的），那么它将在外部范围内完成，不受 `flowOn` 的影响：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jTX93fFjuwjxR33NLaSkmA.png)
 
-如果在带有Dispatchers.Main的上下文中运行，那么calculate（）将在main而不是io上运行。
+如果在带有 `Dispatchers.Main` 的上下文中运行，那么 `calculate` 将在主线程上完成而不是输入输出上运行。
 
-为了解决这个问题，您可以使用`flow`构建器并在其中显式发出值：
+为了解决这个问题，您可以使用 `flow` 构建器并在其中明确定义内容：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JSkHKLjh9X-YDL1Olkl5hQ.png)
 
-然后将在IO线程上进行计算。
+然后将在输入输出线程上进行计算。
 
 #### flatMapMerge concurrency and parallelism
 
-为了了解Kotlin Flow如何与flatMapMerge（RxJava`flatMap`的模拟）一起使用，我们将使用一些测试示例：
+为了了解 Kotlin Flow 如何与 `flatMapMerge`（对 RxJava 中 `flatMap` 的模拟）一起使用，我们将使用一些测试示例：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_G4_NwfgY1wmO7aVoamsrw.png)
 
-在这里，我们有在d1调度程序上收集的流程。该流有两个项目，每个项目都平面映射到其他两个项目上。而且我们在`d2`调度程序上有一个`flowOn`。在代码中，我们添加了`onEach`调用，其中包含发生执行的线程的信息。
+在这里，我们有在 `d1` 调度器上收集的流。这个流有两个项目，每个项目都平面映射到其他两个项目上。而且我们在 `d2` 调度器上有一个 `flowOn` 定义。
+
+在代码中，我们添加了 `onEach` 的调用，用于输出执行的线程的信息。
 
 在此示例中，输出为：
 
@@ -262,9 +264,9 @@ collect: pool-1-thread-2 @coroutine#2
 collect: pool-1-thread-2 @coroutine#2
 ```
 
-因此，我们发现与RxJava不同，即使我们将flowOn放在内部flatMapMerge之外（下方），flowOn也会通过在多个线程上并行运行来影响内部代码。
+因此，我们发现与 RxJava 不同，即使我们将 `flowOn` 放在其中的 `flatMapMerge` 之外（的下面），`flowOn` 也会通过在多个线程上并行运行来影响其中的代码执行。
 
-如果我们将flowOn放在flatMapMerge中：
+那么我们将 `flowOn` 放在 `flatMapMerge` 中：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sv6HwmwwsOufpc-00wZpCQ.png)
 
@@ -281,9 +283,9 @@ collect: pool-1-thread-3 @coroutine#2
 collect: pool-1-thread-3 @coroutine#2
 ```
 
-同样，每个内部流都从第二个池在其自己的线程上运行。因此，在哪里放置flowOn似乎没有什么区别。
+同样，每个内部流都在其自己的线程的第二个池在上运行。因此，在哪里定义 `flowOn` 似乎没有什么区别。
 
-但是有一个区别，让我们通过在第一个`flowOf`调用下面添加`onEach`来看看它是什么：
+但是其实有一个区别 —— 让我们通过在第一个 `flowOf` 调用下面添加 `onEach` 来看看它是什么：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*isZ3b5z8Jg7f-V9tOqdFlw.png)
 
@@ -349,31 +351,35 @@ In Kotlin Flow for threading **Dispatchers** are used ****(most common IO, Defau
 
 In RxJava we declare on which scheduler chain should be **subscribed (started)** using **subscribeOn**, and where it should **proceed** using **observeOn**.
 
-In Kotlin Flow we declare on which context (dispatcher) chain should be **collected (ended)** using scope in which flow is collected, and where it works **before** that using **flowOn**.
+在 Kotlin Flow 中，我们使用收集流的 Scope 定义了在使用在哪个上下文（调度器）上收集完这个链，以及在 `flowOn` 之前它的执行的地方。
 
-因此，这就像反向方法。在RxJava中，我们在下面声明启动和修改链。在Kotlin Flow中，我们已声明结束，可以在上面修改链。
+这就像是个倒过来的方法。在 RxJava 中，我们在下面声明启动和修改链。
 
-#### 迁移例子
+而在 Kotlin Flow 中，我们声明用于在上面修改链。
 
-考虑一下，我们有一些复杂的RxJava链，我们希望迁移到Kotlin Flow，并保持线程逻辑不变。从上面我们已经了解到，我们基本上需要上下颠倒思维模式，不要忘记进行测试。
+#### 迁移的例子
 
-同样，我们应该已经牢记，RxJava中的非阻塞线程和在协程之间重用线程而挂起是不同的方法，我们将无法建立精确的一对一关系。尽管我们可以施加一些约束，但是我们希望将并行性保持在我们拥有并行性的位置，并在相同的线程池上运行相同的代码块。
+考虑一下，我们有一些复杂的 RxJava 链，我们希望迁移到 Kotlin Flow，并保持线程逻辑不变。从上文中我们已经了解到，我们基本上只需要上下颠倒思维模式，并且当然不要忘记进行测试。
 
-为了使我们的测试示例尽可能正确，我们将在Scheduler and Dispatcher的幕后使用Java执行程序。我们将为Rx创建其中的一些：
+同样，我们应该已经记住了 RxJava 中的非阻塞线程和在协程之间重用线程而挂起是不同的方法。我们将无法建立精确的一对一关系。尽管我们可以施加一些约束，但是我们希望将并行性保持在我们拥有并行性的位置，并在相同的线程池上运行相同的代码块。
+
+为了使我们的测试示例尽可能正确，我们将在调度器之间使用 Java 执行程序。
+
+RxJava 的部分：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*24TAclWSQTvfOlYIw9I65w.png)
 
-对于Kotlin Flow：
+Kotlin Flow 的那一部分：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6WmwuDO_EMLlyHLDycCu8A.png)
 
-我们将有4个包含3个线程的池，而主要执行者只有1个线程。
+我们将拥有 4 个包含 3 个线程的池，而主要执行者只有 1 个线程。
 
-我们的RxJava示例将如下所示：
+我们的 RxJava 的示例将如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nYL6iK4SOlMEh9YMOsSbKQ.png)
 
-在这里，我们有三个项目流，它们从s1开始，然后将执行切换到s2。在flatMap内部，我们内部有可观察的订阅（允许并行性）以及一些线程切换。然后，在平面映射之后，我们进行一些工作并在主线程中打印结果。
+在这里，我们有三个项目流，它们从 s1 开始，然后将执行切换到 s2。在 `flatMap` 内部，我们设下了可观察的订阅（允许并行）以及一些线程切换。然后，在平面映射之后，我们进行了一些代码的执行并在主线程中打印结果。
 
 运行程序后，我们将看到以下输出：
 
@@ -422,17 +428,19 @@ end: pool-6-thread-1
 end: pool-6-thread-1
 ```
 
-它很长，但是应该符合我们之前写的假设。让我们直观地看一下：
+它很长，但是应该符合我们之前写的假设。
+
+让我们直观化显示一下数据：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VNsQnjyftFkMvtcPD8x_rQ.png)
 
-因此，在这里，我们可以准确地看到上面所述的内容。主要技巧是，“ 3”与“ inner 2”在同一调度程序上运行。我们有两个起点（原始的和内部的），在其中我们将subscribeOn允许在内部内部并行。然后移动到链的下方，并在必要时添加observeOn。
+在这里，我们可以精确地看到上面所述的内容。其中需要重点关注的内容是，`3` 与 `inner 2` 在同一调度器上运行。我们有两个起点（初始起点和内部起点），在这里我们将 `subscribeOn` 允许在内部并行。然后移动到链的下方，并在必要时添加了 `observeOn` 的定义。
 
-现在，我们切换到Kotlin Flow版本：
+现在，我们切换到 Kotlin Flow 的版本：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qIELqmv38MzyvsUml8QUYw.png)
 
-从一开始，我们就将主线程固定为最终线程。然后我们从底部开始，并在需要的地方添加 `flowOn` 。首先，我们添加d4并注意 inner 2 也应在其上运行。然后，我们切换到d3，依此类推，直到链的最顶端。结果如下：
+从一开始，我们就将主线程固定为结束的线程。然后我们从最下面开始看起，我们在需要的地方添加 `flowOn`。首先，我们添加了 `d4` 并注意到 `inner 2` 也应在其上运行。然后，我们切换到 `d3`，依此类推，直到链的最顶端。结果如下：
 
 ```
 1: pool-1-thread-1 @coroutine#6
@@ -479,7 +487,7 @@ inner 2: pool-4-thread-1 @coroutine#7
 end: pool-5-thread-1 @coroutine#2
 ```
 
-除了日志的外观不同（因为RxJava与协程不同），我们仍然可以看到所有逻辑仍然适用，并且我们没有破坏并行执行。
+除了日志的外观不同（因为 RxJava 与协程不同），我们仍然可以看到所有逻辑仍然适用，并且我们没有破坏并行执行。
 
 虽然我们仍然可以看到一些差异。例如，我们在RxJava示例中运行“ 3”的代码在以下位置运行：
 
