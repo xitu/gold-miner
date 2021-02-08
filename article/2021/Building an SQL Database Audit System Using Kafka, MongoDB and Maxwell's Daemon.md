@@ -83,7 +83,7 @@ There are quite a few variants of CDC available in the market such as Debezium f
 
 The graphic below shows the data flow diagram for the audit trail solution.
 
-![][img-0]
+![](https://res.infoq.com/articles/database-audit-system-kafka/en/resources/1Figure-1-Data-flow-diagram-1609154417022.jpg)
 
 **Figure 1. Data flow diagram**
 
