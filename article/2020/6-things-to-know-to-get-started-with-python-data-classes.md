@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/6-things-to-know-to-get-started-with-python-data-classes.md](https://github.com/xitu/gold-miner/blob/master/article/2020/6-things-to-know-to-get-started-with-python-data-classes.md)
 > * 译者：[JalanJiang](http://jalan.space/)
-> * 校对者：
+> * 校对者：[jiapengwen](https://github.com/jiapengwen)，[chzh9311](https://github.com/chzh9311)
 
 # 上手 Python 数据类前需要知道的 6 件事
 
