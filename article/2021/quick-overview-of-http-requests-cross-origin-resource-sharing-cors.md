@@ -15,7 +15,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HfJAWr4Jw7rIXHSRaG4wcw.png)
 
-**服务类型（Scheme）** 指明将被使用的协议（protocol）。**协议（Protocol）** 指定数据如何传输以及如何处理请求。当你查看协议时，你就能很好地理解这个 URL 的用途。（例如是带有 SMTP、POP3、IMAP 的电子邮件协议，还是获取和管理 git 仓库的 SSH 请求，或者是针对 Web 的 HTTP 请求。）
+**服务类型（Scheme）** 指明将被使用的协议（Protocol）。**协议**指定数据如何传输以及如何处理请求。当你查看协议时，你就能很好地理解这个 URL 的用途。（例如是带有 SMTP、POP3、IMAP 的电子邮件协议，还是获取和管理 git 仓库的 SSH 请求，或者是针对 Web 的 HTTP 请求。）
 
 **HTTP** — 默认是在 80 端口运行，它指定请求中的表头。
 
