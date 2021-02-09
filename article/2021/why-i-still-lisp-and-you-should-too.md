@@ -13,7 +13,7 @@
 
 作为 Scheme/Common Lisp/Racket 的长期用户（和积极支持者），我有时会被问到为什么还坚持使用它们。幸运的是，我一直都在领导自己的工程师组织，所以我从来不需要为此向领导层解释。但是还有一个更重要的群体——我的工程是同事们——他们从未体会过使用这些语言的乐趣。就算他们不会让我解释，他们也会出于求知欲提问，而有时候也会想知道我为什么不会对 Python 或 Scala 即将加入的很酷的新特性或者其他风靡一时的东西而神魂颠倒。
 
-虽然我真正使用的 Lisp 方言有很多种（Scheme, Common Lisp, Racket, Lisp-for-Erlang），核心总是保持一致的：一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 计算的语言。
+虽然我真正使用的 Lisp 方言有很多种（Scheme, Common Lisp, Racket, Lisp-for-Erlang），核心总是保持一致的：一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
 我在十几岁的时候在 ZX Spectrum+上使用 BASIC 真正开始编程，虽然在此之前我就对（手）写Fortran程序略有涉猎。这对我来说是一个决定性的使其，因为它真正定义了我的职业路线。很快我就把语言推到了它的极限，并且尝试写超出这门语言和实现的有限能力的程序。我转到 Pascal 很短的一段时间（在 DOS box 上的 Turbo Pascal），这段时间很有趣，知道我发现了运行在 Unix（Santa Cruz Operation Xenix！）上的 C。它帮助我获得了计算机科学的学士学位，但它总是让我希望能够在程序中拥有更强的表现力。
 
@@ -27,33 +27,33 @@ Miranda 并不是一种特别快的语言，因此执行速度是一个问题。
 
 让我们分解一下。我在几段之前说过：
 
-> 一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 计算的语言。
+> 一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
 ---
 
 我要开始解释这些——倒序。
 
-## 基于 λ 计算的语言
+## 基于 λ 演算的语言
 
-The fundamental entity in all programs is a **function**. Functions have an intentionality to them that form the foundational basis of the software design process. You’re always thinking about how information is acted upon, how it is transformed, and how it is produced. I have yet to find a foundational framework that captures this inherent intentionality (the ‘how’) that is better than the λ-calculus.
+所有程序中的基本实体都是**函数**。从软件设计过程之初函数就拥有了它们的意向性。你一直在考虑怎样对信息进行操作，它是怎样转换的，以及它是是怎样产生的。我还没有找到一个基本的框架，比 λ 演算更好的捕捉到这一固有意向。
 
-The word **intentionality** perhaps threw you off. Mathematics has two ways to think about functions. First, as a set of ordered pairs: (**input, output**). While this representation is a great way to prove theorems about functions, it is utterly useless when coding. This is also known as the **extensional** view of functions.
+**意向**这个词可能会让你失望。数学有两种方式来理解函数。首先，作为一组有序对：（**输入，输出**）。尽管这是一种证明函数定理的好方法，但在写代码的过程中完全没用。这也被称为函数的**扩展**视图。
 
-The second way to think about functions is as a transformation rule. For example, multiply the input by itself to get the output (which gives us the squaring function, conveniently abbreviated by every programming language as **sqr**). This is the **intensional** view of functions, which the λ-calculus captures nicely, and provides simple rules to help us prove theorems about our functions, without resorting to extensionality.
+第二种方式是把函数看做一个转换规则。例如，将输入和其本身相乘得到输出（这为我们提供了平方函数，每种编程语言都将其缩写为 **sqr**）。这是函数的**意向**视图，λ 演算可以很好地捕捉它，并提供简单的规则来帮助我们证明函数定理，而无需求助于扩展性。
 
-**Now wait a minute**, I’m sure you’re thinking. **I’ve never proved shit about my functions**. I’m betting that, in fact, you have. And that you do it **all** the time. You’re always convincing yourself that your function is doing the right thing. Yours may not be a formal proof (which may be what leads to some bugs), but reasoning about code is something that software developers do all the time. They’re playing the code back in their head to see how it behaves.
+**等一下**，我确信你正在想。**我从未证明过我的函数的什么屎**。我敢打赌，事实上，你有过。而且你会**无时无刻**这么做。你总在说服自己，你的函数正在正常工作。你的代码可能不是正式的证明（可能会导致一些 BUG），但是对代码进行推理是软件开发人员一直在做的事情。他们通过在脑海中回放代码来查看其行为。
 
-Languages based on the λ-calculus make it **really** easy to “play back the code” in your head. The simple rules of the λ-calculus mean that there are fewer things to carry in your head and the code is easy to read and understand.
+基于 λ 演算的语言让在你的脑海中“回放代码”变得**非常**容易。λ 演算的简单规则意味着你只需装更少的东西在你的脑子里，并且代码易于阅读和理解。
 
-Programming languages are, of course, practical tools, so the core simplicity has to be augmented in order to suit a broader purpose. This is why I love Scheme (and my current favorite flavor of it, Racket — CS, for those who care about such things). What it adds to the core λ-calculus is the bare minimum to make it usable. Even the additions follow the basic principles espoused by the λ-calculus, so there are few surprises.
+编程语言当然是实用的工具，因此必须增强其核心简单性以适应更广泛的目的。这就是为什么我喜欢 Scheme（以及我目前最喜欢的 Scheme，Racket — CS，为那些在意此事的人设计）。它最低限度地引入 λ 演算到核心使其可用。即使是增强功能也遵循 λ 演算的基本原则，所以几乎没有意外。
 
-This does mean, of course, that **recursion** is a way of life. If you’re one of those people for whom recursion never made sense, or if you still believe “recursion is inefficient,” then it’s high time to revisit it. Scheme (and Racket) effectively implement recursion as loops wherever possible. Not only that, the Scheme standard **requires** it.
+这当然就意味着，**递归**成为了一种生活方式。如果你是哪种对递归无感的人，或者你依旧相信“递归效率低下”，那么现在是重新审视它的时候了。Scheme（和 Racket）有效地将可能的递归实现为循环。不仅如此，这还是Scheme 标准的**需求**。
 
-This feature, called **tail call optimization** (**or TCO**), has been around for a few decades. It’s a sad commentary on the state of our programming languages that none of the modern languages support it. This is especially a problem with the JVM as newer languages have emerged trying to target the JVM as a runtime architecture. The JVM does not support it and consequently the languages built on top of the JVM have to jump through hoops to provide some semblance of a sometimes applicable TCO. So, I always view any functional language targeting the JVM with great suspicion. It’s also the reason I have not become a fan of Clojure.
+这种特性被称为**尾调用优化**（**或 TCO**），已经出现了几十年。在评价编程语言现状的时候发现没有现代语言支持它，这是很令人沮丧的。因为新的语言出现并试图把 JVM 作为运行架构，所以这对于 JVM 更是个问题。JVM 不支持这个特性，所以基于 JVM 构建的语言必须越过障碍来提供部分适用 TCO 的假象。因此，我总是非常怀疑地使用任何面向 JVM 的函数式语言。这也是我没有成为 Clojure 的粉丝的原因。
 
 ---
 
-So that’s reason number one. Scheme/Racket is a sensible implementation of a programming language based on the λ-calculus. As you might have noticed, I’m not using the word **functional** language to describe Scheme. That’s because while it is primarily functional, it does not skew all the way to non-mutability. As much as it discourages its use, Scheme recognizes that there are genuine contexts where there may be a use for mutations and it permits it without the artifice of auxiliary devices. I won’t argue here with the purists about why or why not this is a good idea, but it ties into something that I’ll talk about later in this article.
+这就是原因之一。Scheme/Racket 是基于 λ 演算的编程语言的合理实现。你可能已经注意到，我没有使用“函数式”一词来描述 Scheme。那是因为虽然它主要是函数式的，但并不会一直偏向不可变性。尽管不鼓励使用它，Scheme 意识到在某些真实环境下可能会需要修改数据，并且它允许在不需要辅助装置的情况下使用它。在这里，我不会与纯粹主义者争论为什么这是或者不是一个好主意，但这与我稍后将在本文中讨论的内容有关。
 
 ## 值传递的
 
@@ -145,7 +145,7 @@ There are countless cool syntactic extensions written by generations of Lispers,
 
 综上所述，就是：
 
-> 一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 计算的语言。
+> 一种基于 S-表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
 This is why I still use Scheme/Racket/Lisp and will probably use it for the rest of my life. Do I use other languages? Sure — lots of them. None of them hold a candle to these. **Especially the newer ones.** It appears that inventing new languages is an exercise each new generation of ill-informed software engineers goes through when older languages are **much** better than anything they might come up with even in their dreams (I present to you Ruby which although nominally has its roots in Lisp, begs the question: **why didn’t you just use Lisp itself**).
 
