@@ -1,3 +1,11 @@
+> * 原文地址：[Nginx concepts I wish I knew years ago](https://dev.to/aemiej/nginx-concepts-i-wish-i-knew-years-ago-23o0)
+> * 原文作者：[Aemie Jariwala](https://dev.to/aemiej)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
+> * 译者：
+> * 校对者：
+
+# Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon
 *Nginx is a web server that is used as a reverse proxy, load balancer, mail proxy, and HTTP cache and follows the Master-Slave Architecture.*
 
 Woah! A complicated term and a confusing definition filled with big confusing words, right? Don't worry, I can help out with first understanding the basic barebones of the architectures & terms in Nginx. Then we'll move on to installing and creating **Nginx** configurations.
