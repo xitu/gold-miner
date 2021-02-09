@@ -1,3 +1,6 @@
+* [微服务是你的最佳解决方案么？](https://juejin.cn/post/6881415957303001102)（[wangqinggang](https://github.com/wangqinggang) 翻译）
+* [Python 中的列表和元组](https://juejin.cn/post/6923195053754023949)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Node.js 缓冲区的完整指南](https://juejin.cn/post/6917192648424390669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)（[Ashira97](https://github.com/Ashira97) 翻译）
 * [如何使用 Node.js 执行多线程](https://juejin.cn/post/6915255619926622222)（[zenblo](https://github.com/zenblo) 翻译）
 * [理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)（[samyu2000](https://github.com/samyu2000) 翻译）

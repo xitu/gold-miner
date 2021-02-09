@@ -2,18 +2,18 @@
 > * 原文作者：[Maneesha Erandi](https://medium.com/@maneesha-erandi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md)
-> * 译者：
-> * 校对者：
+> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Zz招锦](https://github.com/zenblo)
 
-# Flutter — Creating Elegant UIs with Containers
+# 使用 Flutter 的 Container 控件构建优美的用户界面
 
-When creating amazing UI screens with flutter, Container Widget plays a major role. I really like to add the Container widget in many places as it really helps me to create the desired UI easily and quickly.
+当我们使用 Flutter 构建绝佳的 UI 界面的时候，`Container` 扮演着重要的角色。我真的极度喜欢在任何地方添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
 
-I hope this article will be really helpful for the beginners.
+我真心希望本文内容能对初学者们有所帮助！
 
-Let’s see what we can do with Containers to make our UI more attractive.
+让我们一起看看我们能够怎样利用 `Container` 控件让我们的 UI 更加有吸引力吧！
 
-To create a simple square or a rectangle we can create a Container for a given width and a height (you can see that this example has also avoid the use of an additional child widget).
+要生成一个简简单单的正方形或矩形，我们可以创造一个 `Container` 控件并给它制定一个宽度和高度（你可以看下面的例子就避免了要使用子控件去绘制形状）
 
 ![](https://cdn-images-1.medium.com/max/2078/1*mzCSaRJfZi8BiBHYUrUbqg.png)
 
@@ -35,7 +35,7 @@ Widget rectContainer() {
 }
 ```
 
-The following example shows the use of rounded corners for Containers. The first two are rounded using BoxDecoration borderRadius. We can also draw a full circle using the BoxDecoration shape like the third Container.
+而下面的例子展示了如何给 `Container` 控件加上圆角。首先操作的两个控件是使用了 `BoxDecoration` 圆角化控件的。我们同样可以通过使用 `BoxDecoration` 绘制一个圆形，就像第三个控件那样：
 
 ![](https://cdn-images-1.medium.com/max/2202/1*lK_CjuIIFxIMSrijjme1qg.png)
 
@@ -69,7 +69,7 @@ Widget circleContainer() {
 }
 ```
 
-If we wrap a Container with a widget that has the onTap feature (this example uses the InkWell widget), we can even create a custom button.
+如果你使用 `Container` 控件包裹了一个有 `onTap` 功能（本例中为 `InkWell` 控件）的子控件，我们甚至可以生成一个自定义的按钮：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0CUGG-lyqxr-iP4wb9PRNQ.png)
 
@@ -90,7 +90,7 @@ Widget containerButton() {
 }
 ```
 
-We can decorate our Containers with borders using Border.all(). BoxShadow will add a shadow to our Container for the given values as shown in the second Container.
+我们还可以通过使用 `Border.all()` 来生成边框装饰我们的 `Container` 控件。`BoxShadow` 则可以给我们的 `Container` 添加所设置的阴影，如控件二：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*SAcNvyxyzu-ofhDJ9_qhWg.png)
 
@@ -126,7 +126,7 @@ Widget containerWithShadow() {
 }
 ```
 
-Inside a Container we can place images as a Decoration image or a child. But, see the difference of the two image Containers to get an idea on how the decorations can be applied.
+在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。但是，试着找找两张图片中 `Container` 的区别以及探究添加的装饰是如何被应用到控件上的：
 
 ![](https://cdn-images-1.medium.com/max/2224/1*W0xtgxhy3hLNkrcHbZEGhQ.png)
 
@@ -153,7 +153,7 @@ Widget containerImg() {
 }
 ```
 
-We can add colourful headers with shapes to make our UI more attractive. I have given three examples for the headers that we can create with Container widget.
+我们可以添加多彩的标题栏去让我们的 UI 更有吸引力，而下面是三个使用 `Container` 控件构造的标题栏的例子：
 
 ![](https://cdn-images-1.medium.com/max/2458/1*I5-WNUcfc8gRxQiiTD59zQ.png)
 
@@ -200,11 +200,9 @@ Widget containerHeaderThree({width}) {
 }
 ```
 
-You can find the full code here.
+你可以在 [这里](https://github.com/manee92/FlutterDemo/blob/master/lib/screens/UIDemo/ContainerDemo.dart) 找到完整的代码。
 
-https://github.com/manee92/FlutterDemo/blob/master/lib/screens/UIDemo/ContainerDemo.dart
-
-Thank you for reading !
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

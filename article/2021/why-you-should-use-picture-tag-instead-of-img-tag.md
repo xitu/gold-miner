@@ -2,45 +2,45 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-you-should-use-picture-tag-instead-of-img-tag.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-you-should-use-picture-tag-instead-of-img-tag.md)
-> * 译者：
-> * 校对者：
+> * 译者：[plusmultiply0](https://github.com/plusmultiply0)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
-# Why You Should Use Picture Tag Instead of  Img Tag
+# 为什么你应该使用 Picture 标签而不是 Img 标签
 
 ![](https://cdn-images-1.medium.com/max/5760/1*Sv9aXzgr2N6IiblcW_lFPg.jpeg)
 
-Using images and animations in user interfaces has become a common thing in modern web applications. Although these modern designs are focused on improving your application’s user experience, things can get backfired if those images are not responsive for all devices.
+现代 web 应用程序中，在用户界面中使用大量图片和动画是一件很常见的事情。这些现代设计聚焦于提升应用的用户体验，但是如果没有做好设备对图片的响应式支持，其效果可能适得其反。
 
-As developers, we must fulfill all these requirements. But most of the time, we are missing out on some small things which can make a huge difference since we are searching for solutions at a higher level.
+作为开发者，我们需要完成所有的需求。但是，在大多数情况下，我们可能会错过一些能产生巨大影响的细节，因为我们是以一个更高的视角来解决问题。
 
-Choosing between `picture` tag and `img` tag can be such a tiny decision, but you will be able to improve both user experience and performance if you make the right choice.
+选择 `picture` 还是 `img` 标签就是这么一个小细节，如果你做出了正确的选择，那么就可以同时提升用户体验和应用性能。
 
-This article will discuss the difference between the `picture` and `img` tags and what makes `picture` tag more prominent than `img` tag.
+本文接下来会讨论 `picture` 与 `img` 标签之间的差异，以及 `picture` 标签优于  `img` 标签之处。
 
-## Why img Tag is Not Enough for Modern Web Applications?
+## 为什么 Img 标签不能满足现代 web 应用的需求？
 
-As we all know, the Img tag has been one of the core elements in HTML for a significant period, and there have been no doubts about its simpleness and usability.
+众所周知，`img` 标签在很长的一段的时期内都是 HTML 的核心标签之一，这毫无疑问是因为它的简单和易用。
 
-> **However, with the development of devices of various screen sizes, resolutions, and complex user requirements, questions have begun to raise about its responsiveness and ability to be used in multi-device applications.**
+> **然而，屏幕尺寸和分辨率的发展以及复杂的用户需求，让 `img` 标签在响应式和跨设备应用程序的使用中出现了一些问题。**
 
-All these questions can be grouped into two major issues;
+所有的问题都可以被归结为两个主要方面：
 
-1. Resolution Switching — Problems of serving smaller size images for narrow screen devices.
-2. Art Direction — Problem of showing different images on different screen sizes.
+1. 分辨率切换（Resolution Switching）—— 如何为窄屏设备提供较小尺寸的图片。
+2. 美术设计（Art Direction）—— 如何为不同尺寸的屏幕显示不同的图片。
 
-Now, let’s see how these issues have been addressed and the `picture` tag’s additional features.
+现在，让我们来看看如何解决上述问题，并了解下 `picture` 标签的额外功能。
 
-## Resolution Switching Using srcset & sizes Attributes
+## 使用 srcset 和 sizes 属性实现分辨率切换
 
-As I mentioned earlier, modern-day web designers often use high-resolution images to increase user attraction. But as developers, we must be really careful to choose the correct HTML element.
+正如我先前提到的，现代的 web 设计师经常使用高分辨率的图像来吸引用户的注意力。但是作为开发者，我们必须谨慎地选择合适的 HTML 元素。
 
-> **Suppose you use a simple Img tag for high-res images. In that case, that same image is used in each device your application runs, and indeed it will result in performance issues in devices with lower screen resolutions like mobile devices.**
+> **假设你对高分辨率图片使用了 `img` 标签。在这种情况下，相同的图片会在运行了该应用程序的每个设备上应用，并且会影响低分辨率设备（如：移动设备）的性能。**
 
-This could result in longer image loading times and top to bottom partial image loadings.
+这个可能会导致更长的图片加载时间以及自上而下的图片逐部分加载。
 
 ![Top to bottom image loading issue](https://cdn-images-1.medium.com/max/2000/1*Atpq5fQFaAWBzVRgsMt75w.gif)
 
-This issue can be easily addressed with the`picture` tag by using `srcset` and `sizes` attributes.
+通过使用 `picture` 标签的 `srcset` 和 `sizes` 属性，可以轻松的解决这个问题。
 
 ```html
 <picture>
@@ -60,11 +60,11 @@ This issue can be easily addressed with the`picture` tag by using `srcset` and `
 </picture>
 ```
 
-`srcset` attribute accepts multiple images with their respective width in pixels, and the browser uses these values to choose between provided images. In the above example, there are 3 versions of the same image in 3 different sizes
+`srcset` 属性接受多个带有宽度像素值的图片，浏览器根据这些像素值来选择要显示的图片。在上面的例子中，为相同的图片提供了 3 个不同大小的版本。
 
-The `sizes` attribute defines the space that the image will take up on the screen. In the above example, the image will take up 1200px if the screen’s minimum width is 1280px.
+`sizes` 属性定义了图片在屏幕上会占据的空间大小。在上面的例子中，如果屏幕的最小尺寸是 1280px ，则图像会占据 1200px 的宽度。
 
-> **Having said that, it is advisable not to use the Picture tag just for Resolution Switching since the same can be achieved using the updated version of the Img tag (which has more browser support)**
+> **话虽如此，最好不要只因为分辨率切换就使用 picture 标签，因为现在的 img 标签也能做到同样的事情（并且有更多的浏览器支持）。**
 
 ```html
 <img srcset="small-car-image.jpg 400w,
@@ -78,17 +78,17 @@ The `sizes` attribute defines the space that the image will take up on the scree
      src="medium-car-image.jpg" alt="Car">
 ```
 
-But, in most cases, we need to handle both Resolution Switching and Art Direction simultaneously, and the `picture`tag is the best solution.
+然而，在大多数情况下，我们需要同时处理分辨率切换和美术设计，那么 `picture` 标签就是最好的选择。
 
-So let’s see how we can resolve Art Direction using the `picture` tag.
+所以，让我们来看看如何使用 `picture` 标签来实现美术设计。
 
-## Art Direction Using media Attribute
+## 使用 media 属性实现美术设计
 
-The main idea behind Art Direction is to display different images based on the screen sizes of the device. In most cases, an image that looks fabulous on larger screens may get cropped or look so small when you switch to mobile.
+美术设计背后的主要思想是，基于设备的屏幕尺寸显示不同的图片。在大多数情况下，一张在大屏设备上看起来很好的图，会在当你切换到移动设备时被裁剪或者看起来很小。
 
-> **We can address this issue by providing different versions of the image for different screen sizes. These different versions can be landscape, portrait, or any customized version of the same image.**
+> **我们可以通过为不同的屏幕尺寸提供图片的不同版本来解决这个问题。这些不同的版本可以是横向的、纵向的、或者同一图像的任意自定义版本。**
 
-With `picture` tag, we can easily achieve resolution switching by using multiple `source` tags inside the `picture` tag.
+使用 `picture` 标签，并在其中使用多个 `source` 标签，我们可以轻松的处理分辨率切换。
 
 ```html
 <picture>
@@ -100,9 +100,9 @@ With `picture` tag, we can easily achieve resolution switching by using multiple
 </picture>
 ```
 
-Then we can use `media` attribute to define different media conditions where these sources will be used. We can also use `srcset `and `sizes` attributes in a similar manner as we discussed in the previous section.
+接着，我们可以使用 `media` 属性来定义这些 `source` 标签会被使用的情况（媒体条件）。我们也可以用类似于上一节讨论的方式那样来使用 `srcset` 和 `sizes` 属性。
 
-The following example shows a complete example of using Art Direction and Resolution Switching using a `picture` tag.
+下面的代码是将 `picture` 标签用于美术设计和分辨率切换的示例。
 
 ```html
 <picture>
@@ -132,7 +132,7 @@ The following example shows a complete example of using Art Direction and Resolu
 </picture>
 ```
 
-If the screen orientation is landscape browser will show the images from the first image set, and if the orientation is portrait browser will use the second set. In addition to that, you can use `media `attribute with `max-width` and `min-width` parameters:
+如果屏幕方向是水平时，浏览器会从第一个图片集（srcset）中显示图片。而当屏幕方面是竖直时，浏览器会使用第二个图片集（srcset）。除此之外，你也可以在 `media` 属性中设置 `max-width` 和 `min-width` 参数：
 
 ```html
 <picture>
@@ -141,15 +141,15 @@ If the screen orientation is landscape browser will show the images from the fir
 </picture>
 ```
 
-The last `img` tag is there for backward compatibility for browsers that do not support `picture` tags.
+最后的 `img` 标签是用来向后兼容那些不支持 `picture` 标签的浏览器。
 
-## Using with Partially Supported Image Types
+## 实现图像格式切换
 
-With the rapid development of technologies, different types of modern image types are introduced day by day. Some of these types such as `webp`, `svg` , and `avif` provide a higher user experience level.
+随着科技的快速发展，每天都会产生不同的现代图片格式。其中一些格式，如：`webp`、`svg` 以及 `avif` 可以提供更好的用户体验。
 
-On the other hand, there are limitations in some browsers on these modern image types, and things will get backfired if we don’t use the compatible image types.
+另一方面，一些浏览器不支持这些现代图像格式。如果我们不使用兼容的图像格式，有时就会适得其反。
 
-> **But, we can easily address this issue by using Picture tag since it allows us to include multiple sources inside that.**
+> **我们可以轻松的解决这个问题，因为 picture 标签支持我们在其中使用多个 source。**
 
 ```html
 <picture>
@@ -161,27 +161,27 @@ On the other hand, there are limitations in some browsers on these modern image 
 </picture>
 ```
 
-The above example includes three image types from `avif`, `webp`, and `png `formats. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
+上面的例子包含了 `avif`、`webp` 和 `png` 三种图像格式。首先，浏览器会尝试加载 `avif` 格式。如果失败了，浏览器会接着尝试 `webp` 格式。如果这两种格式都不支持，浏览器就会使用 `png` 格式的图片。
 
-> **Things got more interesting about picture tag when Chrome announced that “DevTools will provide two new emulations in the Rendering tab to emulate partially supported image types”.**
+> **当 Chrome 声明其浏览器开发者工具（DevTools）将会在渲染选项卡（Rendering）中提供两种新的模拟方式以模拟部分支持的图像类型时，有关 `picture` 标签的事情开始变得有趣起来了。**
 
-From Chrome 88 Onwards, You Can Use Chrome DevTools to Check Browser Compatibility with Image Types.
+从 Chrome 88 开始，你可以使用其浏览器开发者工具（DevTools）来检查浏览器对于图像格式的兼容情况。
 
 ![Using Chrome DevTools for Image Compatibility Emulations](https://cdn-images-1.medium.com/max/2562/1*GAFavZjkfi4FUDRkkPMA4Q.png)
 
-## Final Thoughts
+## 总结
 
-Although we talk about why the `picture` tag is more prominent than the `img` tag, I must insist that the `img` tag is not dead or won’t be dead sooner.
+虽然我们讨论了为什么 `picture` 标签相比 `img` 标签更好。但是，我必须声明的是， `img` 标签并没有消亡，短期内也不会。
 
-If we use the provided attributes like `srcset` and `size` wisely, we can get the maximum out of the `img`tag. For example, we can resolve Resolution Switching only using the `img` tag.
+如果我们能有效的使用 `srcset` 和 `sizes` 等属性，我们就能最大限度的用好 `img` 标签。比如，我们能仅使用 `img` 标签来实现分辨率切换。
 
-On the other hand, we can use `picture` tag to achieve both Resolution Switching and Art Direction easily using media queries and other provided attributes.
+另一方面，我们可以借助 `picture` 标签使用媒体查询和其他的属性来轻松解决分辨率切换和美术设计。
 
-The ability to work with partially supported image types and Chrome DevTools support can be recognized as additional plus points for `picture` tag.
+适配图像格式切换与 Chrome DevTools 对其的支持都可以被视为 `picture` 标签的优势。
 
-However, both these elements have their pros and cons. So we must carefully think and use the most suitable element based on our requirements.
+这两个标签各有利弊。所以，我们必须仔细思考并基于我们的需求使用最合适的标签。
 
-Thank you for Reading !!!
+感谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

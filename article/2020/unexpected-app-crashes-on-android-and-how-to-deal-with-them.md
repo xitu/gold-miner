@@ -2,80 +2,77 @@
 > * 原文作者：[Kunal Chaubal](https://medium.com/@kunalchaubal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/unexpected-app-crashes-on-android-and-how-to-deal-with-them.md](https://github.com/xitu/gold-miner/blob/master/article/2020/unexpected-app-crashes-on-android-and-how-to-deal-with-them.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[HumanBeing](https://github.com/HumanBeingXenon)
 
-# Unexpected App Crashes on Android and How to Deal with Them
+# Android 中意料之外的应用崩溃以及它们的解决方案
 
-![Image by [testbytes](https://pixabay.com/users/testbytes-1013799/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486)](https://cdn-images-1.medium.com/max/2560/1*4WT3_B3SVKgvexQOTE_ZqQ.jpeg)
+![图自 [testbytes](https://pixabay.com/users/testbytes-1013799/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486) 源于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486)](https://cdn-images-1.medium.com/max/2560/1*4WT3_B3SVKgvexQOTE_ZqQ.jpeg)
 
-If there’s anything common among all the developers out there, be it front-end, back-end, or even game developers, it is that we hate production bugs. Especially when these bugs result in apps crashing. It is an unpleasant experience to monitor these increasing crashes in your application when you have recently rolled out to production.
+如果问前端、后端甚至游戏开发人员之间存在什么共同点，那就是我们都讨厌应用产品出现 Bug，尤其是当这些错误导致应用崩溃时。而在应用发布后，监视应用程序中这些不断增加的崩溃是一种极其不愉快的体验。
 
-Some crashes are encountered because of the system/platform it runs on irrespective of the business logic of the app. In Android, you might have encountered a crash when you resume the app from the background state. Such crashes are unexpected and difficult to understand or process by just looking at the crash logs.
+不管应用程序的业务逻辑如何，都可能会因为运行的系统或平台问题而导致出现某些奇怪的崩溃现象。在 Android 中，从后台状态恢复应用程序时可能会产生崩溃 —— 此类崩溃是意外发生的，而且仅通过查看崩溃日志，我们很难理解崩溃的具体原因以及解决问题，而本文讨论了此类问题及其解决方法。
 
-This article talks about such issues and ways to solve them.
+## 问题
 
-## The Problem
+在监视产品的崩溃日志时，我注意到一些问题与日俱增。该应用在正常测试条件下似乎运行良好，并且崩溃不可复现，直到应用程序从后台任务中进入前台。
 
-While monitoring crash logs in production, I noticed some issues that were increasing day by day. The app seemed to work fine in normal testing conditions and the crash log was not replicable. This was until the application was brought back from the background tasks.
+每个 Android 应用程序都在其自己的进程中运行，并且操作系统已为该进程分配了一些内存。当用户与其他应用程序交互时将应用程序置于后台时，如果应用程序没有足够的可用内存，则操作系统会终止你的应用程序进程。而这一情况通常发生在前台运行另一个需要更大手机内存 (RAM) 的应用程序时。
 
-Every android app runs in its own process and this process has been allocated some memory by the Operating System. When your app is put in the background while the user interacts with other applications, the OS can kill your app process if there’s not enough memory available for your application. This generally occurs when another app is being run in the foreground which demands greater phone memory (RAM).
+当应用程序进程被终止的时候，所有的单例对象和临时数据都同时丢失了，而现在如果你返回你的应用程序，系统会创建一个新的进程，而你的应用程序会从你退出时候的 Activity 栈顶执行 Resume 函数恢复该 Activity。
 
-When the app process is killed, all the singleton objects and temporary data are also lost. Now, when you return back to your app, the system will create a new process and your app will resume from the activity that was at the top of your stack.
+由于此时你的所有的单例对象都丢失了，因此当这个 Activity 尝试访问相同的对象时，就会遇到空指针异常而崩溃退出。
 
-Since all your singleton objects were lost at this point, when the activity tries to access the same objects, the app crashes resulting in a NullPointerException.
+这是个问题。在我们继续讨论解决方案之前，让我们复现一下这种情况。
 
-This is a problem and before we move on to the solution, let us replicate this scenario.
+## 复现崩溃
 
-## Replicating the Crash
-
-1. Go ahead and run any of your applications from Android Studio in an emulator or an actual device connected by a USB cable.
-2. Navigate to a random screen and press the ‘home’ button
-3. Open terminal and type the following command to get the process ID (PID) of your application
+1. 在模拟器或通过 USB 电缆（译者注：Android 11 也可使用 Wi-Fi 连接设备调试）连接的实际设备上使用 ADB 运行指令（如 Android Studio）运行的任何应用程序。
+2. 导航到任意一个页面，然后按下“主页”按钮。
+3. 打开终端，键入以下命令，我们就可以获取应用程序的进程 ID（PID）。
 
 ```bash
 adb shell pidof com.darktheme.example
 ```
 
-The syntax for this command is ‘adb shell pidof ***APP_BUNDLE_ID*’**
+该命令的语法为 `adb shell pidof APP_BUNDLE_ID`
 
-Note the PID that you see on the terminal window. (This can be used to verify whether the existing app process was killed and a new process was started when we resume the app)
+请记下你在终端窗口上看到的 PID（这可用于验证现有的应用程序进程是否已被终止，并在我们恢复应用程序时启动了新的进程）。
 
-4. Type the following terminal command to kill your app process
+4. 键入以下终端命令以终止你的应用程序进程
 
 ```bash
 adb shell am kill com.darktheme.example
 ```
 
-At this point, your terminal windows should look like this:
+此时，你的终端窗口应如下所示：
 
-![Process kill commands entered in terminal](https://cdn-images-1.medium.com/max/2276/1*pYpZN8FbnrYeo_6QPGqc0g.png)
+![执行 kill 命令后的命令行窗口](https://cdn-images-1.medium.com/max/2276/1*pYpZN8FbnrYeo_6QPGqc0g.png)
 
-Now open your app from the background tasks and check whether the app crashes. If yes, don’t worry we will discuss how to deal with this issue in the next section. If not, give yourself a pat on the back because you deserve it :)
+现在，从后台任务中打开你的应用程序，并检查该应用程序是否崩溃。如果是，请不要担心，我们将在下一部分中讨论如何处理此问题。如果没有，你可以松一口气了，因为这是你应得的。
 
-Note: After opening the app from the background, check the PID of the new process. If the PID that you noted down in Step 3 and the new PID are equal, the process was never killed.
+需要注意的是，从后台打开应用后，请重新获取应用所属进程的 PID。如果你在第 3 步中记下的 PID 与新的 PID 相等，则该过程并没有被终止。
 
-## Proposed Solution
+## 建议的解决方案
 
-There are two ways of dealing with this issue. Depending upon the situation that you are in, you can decide which one to go forward with:
+有两种方法可以解决此问题。根据你所处的情况，你可以决定用哪一个方法来推进问题的解决：
 
-#### Solution 1:
+#### 解决方案 1：
 
-An easy and convenient solution would be to check whether our existing app process was killed and recreated when the user resumes the app from the background. If yes, you can navigate back to the launch screen, so that it appears like a fresh app launch scenario.
+一种简便的解决方案是，当用户从后台恢复应用程序时，让应用程序检查我们现有的应用程序进程是否被结束并重新创建。如果是，则可以导航回启动界面，使其看起来像是一个应用程序的初始化界面。
 
-You can place this following code in your BaseActivity:
+你可以将以下代码放在 BaseActivity 中：
 
 ```Kotlin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            // Get current PID
+            // 获取当前 PID
             val currentPID = android.os.Process.myPid().toString()
             
-            // Check current PID with old PID
+            // 比较当前 PID 与 保存的 PID 是否一致
             if (currentPID != savedInstanceState.getString(PID)) {
-                
-                // If current PID and old PID are not equal, new process was created, restart the app from SplashActivity
+                // 如果当前 PID 与 保存的 PID 不相同，意味着新的进程被创建，从 SplashActivity 重启应用
                 val intent = Intent(applicationContext, SplashActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
@@ -90,25 +87,25 @@ You can place this following code in your BaseActivity:
     }
 ```
 
-* Save your PID in a bundle by overriding ‘onSaveInstanceState’ function.
-* In the ‘onCreate’ method, compare the current PID and the PID from the bundle.
-* Redirect to the Splash Activity, if the process was recreated.
+* 通过覆写 `onSaveInstanceState()` 功能，你可以将你的 PID 打包保存下来。
+* 在 `onCreate()` 方法中，你需要比较当前 PID 和打包保存的 PID。
+* 如果当前进程是是重新创建的流程，则重定向导航到 Splash Activity。
 
-When the user navigates back to the app from the background, if the app process was killed, the app would restart from the SplashActivity as if it is a fresh app launch.
+当用户从后台导航回被结束了的应用程序时候，该应用程序将从 SplashActivity 重新启动，就像是一次新的启动。
 
-This will prevent the app from accessing any resources that might have been lost during the process recreation and hence prevent the app from crashing.
+这将防止应用程序访问在进程重建过程中可能已丢失的数据，从而防止应用程序崩溃。
 
-While this solution would prevent a crash, this approach restarts the app rather than resuming the app from where it was left off. If you are facing this issue in a production app and are desperately looking for a quick fix, this solution should work fine for you.
+虽然此解决方案可以防止崩溃，但是这种方法其实就是重新启动应用程序，而不是从中断的位置恢复应用程序。如果你在发布应用后遇到此问题，并且急切地希望快速解决这个问题，则此解决方案应该能帮你大忙。
 
-However, if you have recently started development from scratch, solution 2 would be ideal for you since it will resume the app from where it was left off
+但是，如果你刚从头开始开发，则解决方案 2 将是你的理想选择，因为它可以做到从中断的位置恢复应用程序。
 
-#### Solution 2:
+#### 解决方案 2：
 
-By now, you must have noticed that you can save and access data from ‘Bundle’ objects. Save all the necessary information in each Activity/Fragment similar to how we have done in the previous example.
+现在，你肯定已经注意到可以利用“包”对象保存和访问数据。与前面的示例中的操作类似，将每个 Activity / Fragment 中所有必要的信息保存下来。
 
-Since we are accessing data that was saved in a bundle, the app crash should be prevented and the app should resume from where it was left off. All the other Activities/Fragments would also be recreated.
+由于我们访问是被保存在“包”中的数据，这会避免应用程序崩溃，并且应用程序能从中断处恢复。所有其他 Activity / Fragment 也会被重新创建。
 
-For a RecyclerView in a Fragment, it would look something like this:
+对于 Fragment 中的 RecyclerView，做法应该是：
 
 ```Kotlin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,20 +122,20 @@ For a RecyclerView in a Fragment, it would look something like this:
     }
 ```
 
-* Save the required information in a Bundle object by overriding the ‘onSaveInstanceState’ function.
-* Check whether data from the bundle is available in ‘onViewCreated’ function, otherwise, get data from source through ViewModel.
+* 通过覆写 `onSaveInstanceState()` 功能，我们可以将所需信息保存在 Bundle 对象中。
+* 我们会让应用程序检查 `onViewCreated()` 函数中捆绑包中的数据是否可用，如果不可用，则会通过访问 ViewModel 的方法获取数据。
 
-## Conclusion
+## 结论
 
-App Crashes due to process-kill are very common on the Android platform. With newer Android versions, it is observed that background apps are killed aggressively to save on phone battery.
+在 Android 平台上，由于进程被终止而导致的应用崩溃是很常见的。而如果我们使用较新的 Android 版本，我们可以注意到，出于节省电源的目的，大量的后台应用程序被强制结束运行了。
 
-Solution 1 can work as a quick fix to your existing production crashes.
+解决方案 1 可以快速解决你现有的应用崩溃问题。
 
-However, I would suggest Solution 2 if you are developing an app from scratch since it ensures that the app is resumed from where it was previously left off. Hence resulting in a better user experience.
+但是，如果你正在从头开始开发应用程序，我建议使用解决方案 2，因为它可以确保系统会从先前关闭的位置恢复该应用程序，因此带来更好的用户体验。
 
-Investing the root cause of such crashes could become difficult so I hope this article has helped you in any way possible. Let me know what you guys think about the solutions that we discussed.
+研究此类崩溃的根本原因可能会挺困难的，因此我希望本文能够以任何可能的方式对你有所帮助。请告诉我你们对文中讨论的解决方案有何看法。
 
-That’s all for this article. Happy Coding!
+这就是本文的全部内容，祝编程愉快，代码无 Bug！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
