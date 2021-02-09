@@ -7,15 +7,11 @@
 
 # Safari Has Become The Second Internet Explorer
 
-#### The more I work with it, the more it reminds me of IE
-
 ![Safari sometimes looks like IE](https://cdn-images-1.medium.com/max/2300/1*obluMaNgoWxwefRpP__Elg.png)
 
 If you ask a developer what he feels when he hears IE (Internet Explorer), the most common answer is — pain. And I’m not an exception. I work as a web developer for more than ten years. During this time, I had many different projects where we had to support IE. I know this despondency when the browser doesn’t support some common for rest browsers functionality. Or when it displays elements in the wrong places. And the worst thing, when you need to debug unexpected behavior.
 
 Fortunately, in regular life, I use MacBook Pro with M1. I like to use Apple’s software because it’s fast, energy-efficient, and beautiful. Safari is one of Apple’s applications. And I want to like it, but the more I work with it, the more it reminds me of IE. That’s why it’s important to highlight issues, which touch each of us. For some of them, I will provide solutions.
-
----
 
 ## Progressive Web Apps Support
 
