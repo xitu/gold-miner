@@ -49,33 +49,33 @@ Miranda 并不是一种特别快的语言，因此执行速度是一个问题。
 
 这当然就意味着，**递归**成为了一种生活方式。如果你是哪种对递归无感的人，或者你依旧相信“递归效率低下”，那么现在是重新审视它的时候了。Scheme（和 Racket）有效地将可能的递归实现为循环。不仅如此，这还是Scheme 标准的**需求**。
 
-这种特性被称为**尾调用优化**（**或 TCO**），已经出现了几十年。在评价编程语言现状的时候发现没有现代语言支持它，这是很令人沮丧的。因为新的语言出现并试图把 JVM 作为运行架构，所以这对于 JVM 更是个问题。JVM 不支持这个特性，所以基于 JVM 构建的语言必须越过障碍来提供部分适用 TCO 的假象。因此，我总是非常怀疑地使用任何面向 JVM 的函数式语言。这也是我没有成为 Clojure 的粉丝的原因。
+这种特性被称为**尾调用优化**（**或 TCO**），已经出现了几十年。在评价编程语言现状的时候发现没有现代语言支持它，这是很令人沮丧的。因为新的语言出现并试图把 JVM 作为运行架构，所以这对于 JVM 更是个问题。JVM 不支持这个特性，所以基于 JVM 构建的语言必须越过障碍来提供部分适用 TCO 的假象。因此，我总是非常疑虑地使用任何面向 JVM 的函数式语言。这也是我没有成为 Clojure 的粉丝的原因。
 
 ---
 
-这就是原因之一。Scheme/Racket 是基于 λ 演算的编程语言的合理实现。你可能已经注意到，我没有使用“函数式”一词来描述 Scheme。那是因为虽然它主要是函数式的，但并不会一直偏向不可变性。尽管不鼓励使用它，Scheme 意识到在某些真实环境下可能会需要修改数据，并且它允许在不需要辅助装置的情况下使用它。在这里，我不会与纯粹主义者争论为什么这是或者不是一个好主意，但这与我稍后将在本文中讨论的内容有关。
+这就是原因之一。Scheme/Racket 是基于 λ 演算的编程语言的合理实现。你可能已经注意到，我没有使用“函数式”一词来描述 Scheme。那是因为虽然它主要是函数式的，但并不会一直偏向不可变性。尽管不鼓励使用它，Scheme 意识到在某些真实环境下可能会需要变异（mutation），并且它允许在不需要辅助装置的情况下使用它。在这里，我不会与纯粹主义者争论为什么这是或者不是一个好主意，但这与我稍后将在本文中讨论的内容有关。
 
 ## 值传递的
 
-Those of you who know the details of the λ-calculus may have recognized why I chose to make this distinction. Remember my history: I cut my functional teeth on Miranda which is a **lazy** functional language (as is Haskell). This means that expressions are evaluated **only** when their values are needed. It is also how the original λ-calculus is defined. This means that arguments to a function are evaluated when they are used, not when the function is called.
+那些知道 λ 演算细节得人可能已经知道我为什么选择做这种区分。Remember my history: 我小试牛刀的 Miranda 是一种**惰性**函数式语言（和 Haskell 一样）。 这意味着**只有**在需要表达式的值时才对它们进行求值。这也是 λ 演算最原始的定义。这意味着，函数的参数在使用时进行求值，而非在调用函数时。
 
-This distinction is subtle, and it does have some yummy mathematical properties, but it has far-reaching implications on “playing back the code” in your head. There are many instances where this hits you as a surprise (even for experienced programmers), but there’s one that you might perhaps relate to more than others.
+这种区别是微妙的，并且确实具有一些很好的数学特性，但是对你再脑海中“回放代码”有着深远的影响。在很多情况下，这种情况会让您感到意外（即使是经验丰富的程序员），但在某些情况下，您可能需要比其他人做更多猜想。
 
-As a programmer, one of the most difficult bugs to deal with in your career are the ones where printing something on the screen makes the bug go away. In a lazy functional language, printing something forces the evaluation of an expression, where in the buggy case, it was perhaps not being evaluated. So, printing values as a debugging tool becomes suspect, since it critically changes how the program is behaving. I don’t know about you, but for me, printing is a tool that someone will have to pry from my cold, dead fingers.
+作为程序员，在您的职业生涯中最难处理的 BUG 之一，就是那些在屏幕上打印某些东西会使这个 BUG 消失的情况。在惰性函数式语言中，打印某些内容会强制对表达式进行求值，而在发生 BUG 的情况下，它可能没有被求值。因此，将值打印为调试工具变得令人疑虑，因为它会严重改变程序的行为方式。我不知道你怎么看，但对我来说，打印是必须有人从我冰冷而僵硬的手指上撬下来的工具。
 
-There are other subtleties too about lazy evaluation being used everywhere in the language that makes it a **much less appealing** choice for me. I don’t ever want to guess when a certain expression is being evaluated. Either evaluate it or don’t. Don’t make me guess when, especially if it is going to happen (or not) deep inside some library.
+在语言中随处使用惰性求职也有其他一些微妙之处，这使得它对我来说是个**吸引力不大**的选择。我永远都不想猜测何时对某个表达式求值。要么求值，要么不求值。不要让我猜测何时，尤其是如果它会在某个库的深处发生（或不会发生）。
 
-Call-by-value has some implications in how to prove formal theorems about programs, but thankfully there exists a beast called the call-by-value λ-calculus that we can rely on if necessary.
+值传递对如何证明有关程序的形式理论有一些意义，但值得庆幸的是，存在一种名为值传递 λ 演算的野兽，我们可以在需要时可以依靠。
 
 ---
 
-Scheme allows you to have **explicit** lazy evaluation, through the use of **thunks** and mutations, which can be conveniently abstracted away so that you have call-by-need when you need it. That brings us to the next bit.
+通过使用 **形式转换**和变异，Scheme 允许您**显式**地进行惰性求值，可以方便地将其抽象化，以便您在需要时进行按需调用。 这使我们进入了下一个阶段。
 
 ## 主要是函数式的
 
-Functional programming is great. Playing back functional code in your head is simple: The code is easy to read and the lack of mutations reassuring. Except when it isn’t enough.
+函数式编程很棒。在您的脑海中回放功能代码很简单：代码易于阅读，并且无需担心变异。除非这还不够。
 
-I’m not a proponent of mutations willy-nilly, but I am a proponent of their judicious use. Like the example of lazy evaluation above, I can fully support the use of mutation to **implement** a functional feature. Mutations exist at the periphery of all software. For some abstractions, the most expressive thing to do might be to pull in the mutation into a nice little abstraction. For example, a message-passing bus is a mutation filled abstraction, but it can have very elegant, purely functional, pieces of code hanging off of them without having to carry around spurious state variables or assistive devices like monads.
+我不赞成随意变异，但我赞成明智地使用变异。像上面的惰性求值的例子一样，我可以完全支持使用变异来**实现**函数特性。变异存在于所有软件周围。对于某些抽象，最富有表现力的做法可能是将变异引入一个小而美的抽象中。例如，消息传递总线是一种充满变异的抽象，但它可以具有非常优雅，纯函数的代码段，而不必携带伪造的状态变量或诸如单子之类的辅助装置。
 
 Like any tool, non-mutating code taken to the extreme can be harmful. A language that gives me judicious use of mutations to implement a large body of code in a more elegant fashion will always win over a language that forces a (mostly good) construct in every situation.
 
