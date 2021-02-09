@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md](https://github.com/xitu/gold-miner/blob/master/article/2021/quick-overview-of-http-requests-cross-origin-resource-sharing-cors.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[regon-cao](https://github.com/regon-cao)
 
 # 简述 HTTP 请求与跨域资源共享 CORS
 
@@ -66,7 +66,7 @@ URL 路径就像你的目录路径。它为用户和搜索引擎提供了解当�
 
 1. **请求行**：由请求方法（GET、POST、DELETE 等）和路径（从 URL 中提取）组成。
 2. **表头**：上文已经简要说明过。
-3. **请求体**（可选）： 当你向服务器发出 POST、PUT、PATCH 请求时，你需要发送一个请求体报文，该报文告诉服务器你想要发送什么数据。示例：
+3. **请求体**（可选）： 向服务器发出 POST、PUT、PATCH 请求时，需要发送一个请求体报文，该报文告诉服务器你想要发送什么数据。示例：
 
 ```js
 axios.post(‘/users’, 
@@ -90,8 +90,7 @@ axios.post(‘/users’,
 
 **OPTIONS** 请求也叫做**预处理请求（pre-flight requests）**
 
-当前，你看到的响应来自 **medium.com** 服务器。假设我写了一个 JS 
-代码，当你在网页浏览这个的时候，它正在向我自己的网站服务器发送一个 POST 请求。这称为跨域请求（**Cross-Domain request**）。
+当前，你看到的响应来自 **medium.com** 服务器。假设我写了一个 JS 代码，当你在网页浏览这个的时候，它正在向我自己的网站服务器发送一个 POST 请求。这称为跨域请求（**Cross-Domain request**）。
 
 > **跨域请求（Cross-Domain request）**：发送到与你当前所在 url 主机名不同的 url 请求。
 
