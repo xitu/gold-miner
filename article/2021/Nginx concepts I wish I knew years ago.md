@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon
+# Nginx concepts I wish I knew years ago
 *Nginx is a web server that is used as a reverse proxy, load balancer, mail proxy, and HTTP cache and follows the Master-Slave Architecture.*
 
 Woah! A complicated term and a confusing definition filled with big confusing words, right? Don't worry, I can help out with first understanding the basic barebones of the architectures & terms in Nginx. Then we'll move on to installing and creating **Nginx** configurations.
