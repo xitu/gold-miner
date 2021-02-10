@@ -7,15 +7,11 @@
 
 # Top 3 CSS Grid Features To Start Using in Production
 
-#### A deep dive into some of the widely supported CSS Grid features
-
 ![Photo by [Sigmund](https://unsplash.com/@sigmund?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8096/0*mWiTIfu6BVlYQ5lf)
 
 Grid was initially drafted by the Microsoft team and shipped to Internet Explorer 10 in 2011. After nearly nine years, we now can say that its browser support is becoming good enough that we can use it in production.
 
 We will have a look at the top three features with solid browser support. Even though there are some cool new features like `subgrid` be mindful not to use those in production. It’s always a good practice to check [Can I Use](https://www.caniuse.com) before shipping anything.
-
----
 
 ## A brief refresher
 
@@ -26,8 +22,6 @@ What is a Grid anyway? Grid is a multi-dimensional layout system that is contain
 When developing with Grid, it’s advisable to use Firefox Browser. Its developer tools are better than any of its competitors. It’s the browser with the best Grid support. It’s the only Browser with the `subgrid` implementation currently.
 
 Let’s now deep dive into the top three production-ready CSS Grid features.
-
----
 
 ## 1. Grid Template Areas
 
@@ -129,7 +123,7 @@ Let’s check it out with the Firefox inspector to get a clear view of the grid 
 
 If we want some empty spacing around the content instead of the right/left column, we can just use `.` / `...` notation.
 
-```
+```css
 #grid {
   background-color: #73937E;
   height: calc(100vh - 20px);
@@ -149,7 +143,7 @@ Note: There are a couple of things you need to pay attention to when using grid 
 * You can only define each area name once. If cells with the same area name are not connected, they will count as two declarations.
 * Grid area cells must form a rectangle. If not, the declaration is invalid.
 
-```
+```css
 // Example of an invalid Grid
 #grid {
   background-color: #73937E;
@@ -166,7 +160,7 @@ Note: There are a couple of things you need to pay attention to when using grid 
 
 The above example does not work. There are two definitions of`right` and `left`. Removing that row "content content content content" will fix it since `left` and `right` will be connected.
 
-```
+```css
 // Example of an invalid Grid
 #grid {
   background-color: #73937E;
@@ -208,7 +202,7 @@ grid-template-areas:
 
 Tip: Grid lines are created for free when using the `grid-template-area`. That means that even when using `grid-template-area`, you can still use the grid lines’ position logic. Let’s briefly check the negative index `-1` then.
 
-```
+```css
 .customContent {
   background-color: white;
   grid-row: 1 / -1; 
@@ -220,13 +214,11 @@ Adding a negative index makes your CSS more robust. You become agnostic regardin
 
 ![Result of using a negative index on the row](https://cdn-images-1.medium.com/max/2078/1*mFCCFIxCWZ_EA5H80t-BjQ.png)
 
----
-
 ## 2. Grid Gap
 
 Grid `gap` is super simple and intuitive to use. Use `column-gap` , `row-gap` or `gap` to define gaps in the grid layout.
 
-```
+```css
 #grid {
   background-color: #73937E;
   height: calc(100vh - 20px);
@@ -246,13 +238,11 @@ Grid `gap` is super simple and intuitive to use. Use `column-gap` , `row-gap` or
 
 Note: Don’t use `grid-gap`, `grid-column-gap`, or `grid-column-gap`: Those are now considered obsolete and will see support dropping.
 
----
-
 ## 3. MinMax
 
 At first `MinMax` doesn’t look like an exciting feature. The API is super simple:
 
-```
+```css
 minmax(min, max)
 ```
 
@@ -260,7 +250,7 @@ It will be picking up the maximum value between `min` and `max`. It does accept:
 
 Let’s create a layout with three columns and use `minmax` to have them expand across the whole grid area.
 
-```
+```css
 grid-template-columns: repeat(3, minmax(100px, 1fr));
 ```
 
@@ -333,7 +323,7 @@ With that simple change, our three-column layout is now responsive to the size o
 
 That where all our magic happens:
 
-```
+```css
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 ```
 
@@ -341,7 +331,7 @@ We are telling the Grid layout to create tracks that fill the grid space and tha
 
 Note: There’s a caveat: you can’t use `auto-fill` and set up a maximum number of columns. It’s just not meant to work that way. For setting a max number of columns, you have to use media queries and tweak the value of `minMax`. Another option is to use `css variables`. Either option requires the use of media queries.
 
-```
+```css
 // Example of using media queries + css variables to have responsive fixed column layout
 
 .grid {
@@ -368,8 +358,6 @@ When there are enough elements to fill the Grid, both properties will behave the
 
 ![On certain resolutions, they might look the same way](https://cdn-images-1.medium.com/max/2000/1*bjQpF-R9e7ki-5u2c5zOwg.png)
 
----
-
 ## Wrap-Up
 
 ![Photo by [Denys Nevozhai](https://unsplash.com/@dnevozhai?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*qOzhnK7sH5tZyk_T)
@@ -379,12 +367,6 @@ We have deep-dived into the main three grid features and how best to use them. Y
 Unfortunately, we can’t wait for Explorer 11 to disappear as it won’t happen for at least four years’ time. It’s still used at the enterprise level. Just make sure you add some polyfills to give support to 100% of your users.
 
 I hope my article gives you that final push needed to start using Grid in production. Once you start using it, there’s no going back.
-
-If you are curious about Subgrid, I suggest you check this other article:
-[**Using CSS Subgrid for Pixel Perfection**
-**Exposing the beautiful simplicity of CSS’s subgrid feature**medium.com](https://medium.com/better-programming/using-css-subgrid-for-pixel-perfection-6d4343b057cd)
-
-Cheers!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
