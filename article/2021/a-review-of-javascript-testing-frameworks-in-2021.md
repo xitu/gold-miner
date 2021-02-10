@@ -41,9 +41,9 @@ Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步�
 
 ### 3. Jasmine
 
-**GitHub Stars**：**15k **
+**GitHub Stars**：**15k**
 
-![](https://cdn-images-1.medium.com/max/NaN/1*4deASSS8X3i5_G0zBiYXDA.png)
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ffd4f0612a61489d901fa29b153a3dbe~tplv-k3u1fbpfcp-watermark.image)
 
 Jasmine 是一个用于测试 JavaScript 代码的行为驱动开发框架。它不依赖于任何其他 JavaScript 框架，它不需要DOM，而且它的语法清晰明了，因此你可以轻松使用它进行测试。
 
@@ -53,7 +53,7 @@ Jasmine 是一个用于测试 JavaScript 代码的行为驱动开发框架。它
 
 ### 4. AVA
 
-**GitHub Stars**：**18.6k **
+**GitHub Stars**：**18.6k**
 
 ![](https://cdn-images-1.medium.com/max/2000/0*_MnNTc5DD3wLQJMu)
 
