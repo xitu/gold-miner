@@ -7,15 +7,11 @@
 
 # Programmatically generate images with CSS Painting API
 
-## Programmatically Generate Images with CSS Painting API
-
-#### A JavaScript API for dynamic image creation coupled with CSS
-
 ![](https://cdn-images-1.medium.com/max/5760/1*wKYGWd-7eWgpmMeBNiLCDA.jpeg)
 
 Images add color to an application. However, as we all know, having a lot of high-resolution images affects the page load time. For images of products, scenarios, and so on, we have no option but to include these images and optimize the application by caching them. But if you need a geometric image in your application, you don’t have to include it as an asset anymore.
 
-> # You can programmatically generate geometric images on the fly using the CSS Painting API.
+> You can programmatically generate geometric images on the fly using the CSS Painting API.
 
 Let’s find out what this API is and how to generate an image using it.
 
@@ -25,7 +21,7 @@ The [CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Pain
 
 The traditional approach to include an image is as follows.
 
-```
+```css
 div {
   background-image: url('assets/background.jpg);
 }
@@ -33,7 +29,7 @@ div {
 
 With the CSS Painting API, you can call the `paint()` function and pass in a worklet written in JS instead of the above.
 
-```
+```css
 div {
   background-image: paint(background);
 }
@@ -57,7 +53,7 @@ In this article, we’ll look at how to create a bubble background.
 
 First of all, you need to add the `paint()` function to the CSS property you need your image to be on.
 
-```
+```css
 .bubble-background {
   width: 400px;
   height: 400px;
@@ -65,25 +61,13 @@ First of all, you need to add the `paint()` function to the CSS property you nee
 }
 ```
 
----
-
 `bubble` will be the worklet that we create to generate the images. This will be done in the next few steps.
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, speed up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
----
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*Uc8yted1zlBiHGob.gif)
 
 #### Step 2: Defining the worklet
 
 The worklets need to be kept in an external JS file. The paint worklet would be a `class` . E.g.:- `class Bubble { .... }` . This worklet needs to be registered using the `registerPaint()` method.
 
-```
+```js
 class Bubble {
     paint(context, canvas, properties) {
         ........
@@ -97,7 +81,7 @@ The first parameter of the `registerPaint()` method should be the reference you 
 
 Now let’s draw the background.
 
-```
+```js
 class Bubble {
     paint(context, canvas, properties) {
         const circleSize = 10; 
@@ -128,7 +112,7 @@ The logic to create the image is inside the `paint()` method. You would need a b
 
 The final step would be to invoke the worklet in the HTML file.
 
-```
+```html
 <div class="bubble-background"></div>
 
 <script>
@@ -154,7 +138,7 @@ The power of the CSS Painting API is not over yet. There are more things you can
 
 For example, you can dynamically change the color of the bubbles. CSS variables are used for this purpose. In order to use CSS variables, the browser should have prior knowledge that we are using it. We can use the `inputProperties()` method to do this.
 
-```
+```js
 registerPaint('bubble', class {
   static get inputProperties() {
    return ['--bubble-size', '--bubble-color'];
@@ -168,7 +152,7 @@ registerPaint('bubble', class {
 
 The variables can be assigned using the third parameter passed to the `paint()` method.
 
-```
+```js
 paint(context, canvas, properties) {
    const circleSize = parseInt(properties.get('--bubble-size').toString());
    const circleColor = properties.get('--bubble-color').toString();
@@ -248,14 +232,6 @@ An important point to note is that you can use a polyfill as a workaround to sup
 ---
 
 Let us know your thoughts on this too. Thanks for reading!
-
-## Learn more
-[**How we Build a Design System**
-**Building a design system with components to standardize and scale our UI development process.**blog.bitsrc.io](https://blog.bitsrc.io/how-we-build-our-design-system-15713a1f1833)
-[**10 JavaScript Image Manipulation Libraries for 2020**
-**Image compression, processing, resizing, and more, for your next web app.**blog.bitsrc.io](https://blog.bitsrc.io/image-manipulation-libraries-for-javascript-187fde1ad5af)
-[**CSS Clamp(): The Responsive Combination We’ve All Been Waiting For**
-**Bringing Together the Best of the CSS min() and CSS max() Functions**blog.bitsrc.io](https://blog.bitsrc.io/css-clamp-the-responsive-combination-weve-all-been-waiting-for-f1ce1981ea6e)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
