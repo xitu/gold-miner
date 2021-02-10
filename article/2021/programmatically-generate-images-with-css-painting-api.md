@@ -23,7 +23,7 @@ The traditional approach to include an image is as follows.
 
 ```css
 div {
-  background-image: url('assets/background.jpg);
+  background-image: url('assets/background.jpg');
 }
 ```
 
