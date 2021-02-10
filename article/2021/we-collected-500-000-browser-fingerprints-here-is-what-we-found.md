@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md](https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 基于 50 万个浏览器指纹的新发现
 
 ![](https://cdn-images-1.medium.com/max/2560/1*pG2Zzgc5OZr5frYc2ovhkg.png)
 
-你还记得自己上一次在网上寻找想要的商品时，会弹出很多与之相关广告页面？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
+你还记得自己上一次在网上寻找想要的商品时，是不是会弹出很多与之相关广告页面？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
 
 没错，这种方法甚至可以在你使用无痕浏览模式(也就是隐身模式)时跟踪你。
 
-![Example features and values of a browser fingerprint — check yours at [http://fp.virpo.sk](http://fp.virpo.sk)](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
+![浏览器指纹的功能和价值示例-检查你的浏览器指纹在 [http://fp.virpo.sk](http://fp.virpo.sk)](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
 
 在 [Slido](https://slido.com) 上，我们进行了一次最大规模的浏览器指纹识别准确性的公开调查，并且是全球首次针对智能手机上的指纹信息表现进行的全面调查。
 
@@ -25,9 +25,9 @@
 
 相机和打字机都可以很简单地通过它们的输出来进行识别和区分。
 
-每台相机都会在图片上留下独特的噪声模式，每台打字机都会以特定的方式在字母周围留下墨迹。
+每台相机都会在图片上留下独特的噪声样式，每台打字机都会以特定的方式在字母周围留下墨迹。
 
-通过观察两张照片并比较它们的噪声模式，我们可以准确地判定这是否是同一台相机所拍摄。
+通过观察两张照片并比较它们的噪声样式，我们可以准确地判定这是否是同一台相机所拍摄。
 
 同样的原则也适用于浏览器。大多数浏览器都启用了 JavaScript 功能，它向外部公开了大量关于你的浏览器的信息。
 
@@ -35,7 +35,7 @@
 
 就每个指纹信息本身而言，它们都是微不足道的。但通过组合使用，任何人都可以准确地通过它来识别特定的浏览器。
 
-![Even the appearance of emojis on your device can be used to identify you. Emojis can be extracted as a bitmap using HTML5 canvas.](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
+![甚至你设备上的表情符号都可以用来识别你。表情符号可以使用HTML5画布提取为位图。](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
 
 如果你感兴趣的话, 可以在 [我的网站](http://fp.virpo.sk) 上查看你的部分浏览器指纹信息。
 
@@ -43,21 +43,21 @@
 
 有人可能会认为浏览器指纹天生就有不好的一面，但事实并非如此。
 
-以防诈骗为例。如果你的任何一种需要在线登录的账号，比如银行账户或者社交网络账户。 一般情况下只需要通过邮箱和密码就可以登录。
+以防诈骗为例。如果你的任何一种需要在线登录的账号，比如银行账户或者社交网络账户。一般情况下只需要通过邮箱和密码就可以登录。
 
-如果有一天你的证件被盗，小偷试图从他的设备上登录，但是浏览器指纹发生了变化，银行或社交网络将会检测到这种异常行为。为了防止诈骗，可能需要进一步的授权，比如短信验证码。
+如果有一天你的证件被盗，小偷试图从他的设备上登录，但是浏览器指纹发生了变化，银行或社交网络将会检测到这种异常行为。为了防止被诈骗，它们可能会要求你做出进一步的授权，比如短信验证码。
 
-然而，迄今为止，浏览器指纹最广泛的应用是个性化的广告推送。“点赞”和“分享”按钮几乎出现在每个社交网站上，它们通常会包含一个 Javascript 脚本来收集你的浏览器指纹信息，从而进一步获取你的浏览记录。
+然而，迄今为止，浏览器指纹最广泛的应用是个性化的广告推送。“点赞”和“分享”按钮几乎出现在每个社交网站上，它们通常会包含一个 JavaScript 脚本来收集你的浏览器指纹信息，从而进一步获取你的浏览记录。
 
-![Social share buttons are commonly used to collect your browser fingerprint](https://cdn-images-1.medium.com/max/2164/1*5Ux2MPqwS-XmNJrmSFw3uw.png)
+![社交分享按钮常用来收集你的浏览器指纹](https://cdn-images-1.medium.com/max/2164/1*5Ux2MPqwS-XmNJrmSFw3uw.png)
 
 从某一个设备上收集单个指纹信息并不是很有价值。在一个网站上收集很多指纹信息也没有太大的用处。
 
-但是因为与社交相关的按钮——也就是包含浏览器指纹的脚本——几乎无处不在，社交网络甚至知道你是怎么浏览网页的。
+但是因为与社交相关的按钮 —— 也就是包含浏览器指纹的脚本 —— 几乎无处不在，社交网络甚至知道你是怎么浏览网页的。
 
 通过这种方式，那些科技巨头会向你提供你半小时前搜索的相关广告。
 
-## 我的浏览器在任何地方和时间都能被识别出来吗?
+## 我的浏览器在任何地方和时间都能被识别出来吗？
 
 当然不是。
 
@@ -65,7 +65,7 @@
 
 你的浏览器指纹很可能会被标记为唯一的。这听起来很可怕，但请耐心听我说，当我们看到指纹标记原理时，可能就没那么担心了。
 
-这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了 2-3 年(或 Panopticlick 45 天)收集的数据。
+这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了 2 - 3 年 (或 Panopticlick 则是 45 天) 收集的数据。
 
 然而，45 天和 2 年的时间足够让你的浏览器指纹发生改变，而这不需要你做任何事情。例如，我的浏览器指纹在 60 天内改变了 6 次。
 
@@ -83,7 +83,7 @@
 
 我们非常重视网络隐私，因此所有数据都是匿名分析的。我们尽了很大的努力来确保这些数据除了用于本研究之外，在任何其他方面都是无效的。
 
-![Distribution of device types within our dataset](https://cdn-images-1.medium.com/max/3842/1*6TGFW_Ta6xBGPtG3renu_g.png)
+![在我们的数据库中设备类型的分布](https://cdn-images-1.medium.com/max/3842/1*6TGFW_Ta6xBGPtG3renu_g.png)
 
 ## 结果
 
@@ -95,13 +95,13 @@
 
 我们数据集中大多数已占用设备类型的匿名设置大小结果如下:
 
-![Anonymity set sizes for the most occupied device types within our dataset. For example, only 33% of iPhones could be uniquely identified within our dataset.](https://cdn-images-1.medium.com/max/3652/1*aRYY86WUgiB9OuSMrHil_w.png)
+![匿名设置在我们数据集中占用的设备类型最多。例如，在我们的数据集中，只有 33% 的 iPhone 可以被唯一识别。](https://cdn-images-1.medium.com/max/3652/1*aRYY86WUgiB9OuSMrHil_w.png)
 
 看完这张图表，可以得出几个比较明确的结论:
 
 * 74% 的桌面设备能够被唯一识别，而只有 45% 的移动设备能够被唯一识别。
-* 在 iphone 上收集的浏览器指纹中，只有 33% 是唯一的。
-* 另外 33% 的 iphone 几乎无法被跟踪，因为有 20 多部 iphone 显示了完全相同的浏览器指纹。
+* 在 iPhone 上收集的浏览器指纹中，只有 33% 是唯一的。
+* 另外 33% 的 iPhone 几乎无法被跟踪，因为有 20 多部 iPhone 显示了完全相同的浏览器指纹。
 
 #### 指纹变化率
 
@@ -109,7 +109,7 @@
 
 以下图表显示了设备第一次访问和第一次更改浏览器指纹之间的天数:
 
-![Rate of change of browser fingerprints.](https://cdn-images-1.medium.com/max/3842/1*girS-UYQ-GwEactOp8bgfg.png)
+![浏览器指纹变化速率。](https://cdn-images-1.medium.com/max/3842/1*girS-UYQ-GwEactOp8bgfg.png)
 
 我们可以看到，在 24 小时内，我们多次看到的设备中，近 10% 的设备成功改变了指纹。
 
@@ -117,7 +117,7 @@
 
 ![Rate of fingerprint change across different device types.](https://cdn-images-1.medium.com/max/4192/1*-kGLm0LGKQxjbtckW2gyZg.png)
 
-这张图表显示，19% 的 iphone 手机在一周内更换了指纹，而同期只有 3% 的 Android 手机也更换了指纹。因此，我们的数据可以表明，iphone 比 android 更难进行长时间的跟踪。
+这张图表显示，19% 的 iPhone 手机在一周内更换了指纹，而同期只有 3% 的 Android， iPhone 比 android 更难进行长时间的跟踪。
 
 #### 最少的指纹个数
 
@@ -131,11 +131,11 @@
 
 我们整个数据集的熵为 16.55，所以我们决定从 3 个指纹特征开始，增加子集的大小，直到子集的熵大于 16.5，结果如下:
 
-![By collecting 9 instead of 33 browser features, the entropy only drops by 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
+![通过收集 9 个而不是 33 个浏览器特性，熵只下降了 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
 
 实验表明，通过提取 3 个基本的浏览器特征，即日期格式、用户代理字符集和屏幕可用大小(屏幕大小减去程序坞、窗口栏等的大小)，我们可以实现 14.2 的熵，在某些情况下，这已经足够识别浏览器(以及用户)。
 
-如果我们用更难获得的特性(如 canvas、已安装字体列表等)扩展子集，就能够达到熵为 16.5 的目标。
+如果我们用更难获得的特性 (如 `Canvas`、已安装字体列表等) 扩展子集，就能够达到熵为 16.5 的目标。
 
 这就意味着网站和公司并不需要花太多精力来识别你的身份。
 
@@ -144,7 +144,7 @@
 那么从这里面能得到什么呢?
 
 * 那些科技巨头可以追踪到你的线上活动，但还不完全准确。
-* 智能手机(尤其是 iphone)比个人电脑更难追踪
+* 智能手机 (尤其是 iPhone) 比个人电脑更难追踪
 * 设备的浏览器指纹变化非常频繁
 * 浏览器指纹很容易获取
 
@@ -154,7 +154,7 @@
 
 #### 研究动机
 
-在 [Slido](https://slido.com)，我们试图使我们的 web 应用程序的用户体验尽可能简单。当你使用我们的应用程序时，你通常不需要注册，我们希望保持这种方式。
+在 [Slido](https://slido.com) 上，我们试图使我们的 Web 应用程序的用户体验尽可能简单。当你使用我们的应用程序时，你通常不需要注册，我们希望保持这种方式。
 
 我们进行这项研究的动机是：基于浏览器指纹的身份验证是否可以在不损害用户体验的情况下保护用户免受恶意脚本的攻击。
 
@@ -174,7 +174,7 @@
 
 ---
 
-非常感谢我的主管, RNDr. Michal Forišek 博士, 他在本次研究中给了我很大的帮助。
+非常感谢我的导师，RNDr. Michal Forišek 博士，在本次研究中为我提供了很大的帮助。
 
 相关链接:
 
