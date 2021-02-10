@@ -2,7 +2,7 @@
 > * 原文作者：[Jose Granja](https://medium.com/@dioxmio)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-3-css-grid-features-to-start-using-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-3-css-grid-features-to-start-using-in-production.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # Top 3 CSS Grid Features To Start Using in Production
@@ -31,83 +31,81 @@ You can create a quite complex and responsive layout with just a few CSS lines:
 
 ```HTML
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <title>Grid Playground</title>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 </head>
 
 <body>
-    <style type="text/css">
-        body {
-            color: white;
-            text-align: center;
-        }
+<style type="text/css">
+    body {
+        color: white;
+        text-align: center;
+    }
 
-        #grid {
-            background-color: #73937E;
-            height: calc(100vh - 20px);
-            display: grid;
-            grid-template-rows: 1fr 3fr 1fr;
-            grid-template-areas:
+    #grid {
+        background-color: #73937E;
+        height: calc(100vh - 20px);
+        display: grid;
+        grid-template-rows: 1fr 3fr 1fr;
+        grid-template-areas:
                 "navigation navigation navigation navigation"
                 "left content content right"
-                "footer footer footer footer";                    
-        }
+                "footer footer footer footer";
+    }
 
-        @media screen and (max-width: 700px) {
-            #grid {
-                grid-template-rows: 1fr 3fr 1fr 1fr 1fr;
-                grid-template-areas:
+    @media screen and (max-width: 700px) {
+        #grid {
+            grid-template-rows: 1fr 3fr 1fr 1fr 1fr;
+            grid-template-areas:
                     "navigation"
                     "content"
                     "left"
                     "right"
                     "footer";
-            }
         }
+    }
 
-        .navigation {
-            padding: 10px;
-            background-color: #471323;
-            grid-area: navigation;
-        }
+    .navigation {
+        padding: 10px;
+        background-color: #471323;
+        grid-area: navigation;
+    }
 
-        .content {
-            padding: 10px;
-            background-color: #5B2E48;
-            grid-area: content;
-        }
+    .content {
+        padding: 10px;
+        background-color: #5B2E48;
+        grid-area: content;
+    }
 
-        .left {
-            padding: 10px;
-            background-color: #585563;
-            grid-area: left;
-        }
+    .left {
+        padding: 10px;
+        background-color: #585563;
+        grid-area: left;
+    }
 
-        .right {
-            padding: 10px;
-            background-color: #585563;
-            grid-area: right;
-        }
-        
-        .footer {
-            padding: 10px;
-            background-color: #CEB992;
-            grid-area: footer;
-        }
-    </style>
-    <div id="grid">
-        <div class="navigation">Nav</div>
-        <div class="left">Left</div>
-        <div class="content">Content</div>
-        <div class="right">Right</div>
-        <div class="footer">Footer</div>
-    </div>
-    </script>
+    .right {
+        padding: 10px;
+        background-color: #585563;
+        grid-area: right;
+    }
+
+    .footer {
+        padding: 10px;
+        background-color: #CEB992;
+        grid-area: footer;
+    }
+</style>
+<div id="grid">
+    <div class="navigation">Nav</div>
+    <div class="left">Left</div>
+    <div class="content">Content</div>
+    <div class="right">Right</div>
+    <div class="footer">Footer</div>
+</div>
+</script>
 </body>
-
 </html>
 ```
 
@@ -125,11 +123,11 @@ If we want some empty spacing around the content instead of the right/left colum
 
 ```css
 #grid {
-  background-color: #73937E;
-  height: calc(100vh - 20px);
-  display: grid;
-  grid-template-rows:1fr 2fr 1fr;
-  grid-template-areas:
+    background-color: #73937E;
+    height: calc(100vh - 20px);
+    display: grid;
+    grid-template-rows:1fr 2fr 1fr;
+    grid-template-areas:
     "navigation navigation navigation navigation"
     ". content content ."
     "footer footer footer footer";
@@ -144,12 +142,12 @@ Note: There are a couple of things you need to pay attention to when using grid 
 * Grid area cells must form a rectangle. If not, the declaration is invalid.
 
 ```css
-// Example of an invalid Grid
+/* Example of an invalid Grid */
 #grid {
-  background-color: #73937E;
-  height: calc(100vh - 20px);
-  display: grid;
-  grid-template-areas:
+    background-color: #73937E;
+    height: calc(100vh - 20px);
+    display: grid;
+    grid-template-areas:
     "navigation navigation navigation navigation"
     "left content content right"
     "content content content content"
@@ -161,12 +159,12 @@ Note: There are a couple of things you need to pay attention to when using grid 
 The above example does not work. There are two definitions of`right` and `left`. Removing that row "content content content content" will fix it since `left` and `right` will be connected.
 
 ```css
-// Example of an invalid Grid
+/* Example of an invalid Grid */
 #grid {
-  background-color: #73937E;
-  height: calc(100vh - 20px);
-  display: grid;
-  grid-template-areas:
+    background-color: #73937E;
+    height: calc(100vh - 20px);
+    display: grid;
+    grid-template-areas:
     "navigation navigation navigation navigation"
     "content right"
     "content content"
@@ -179,21 +177,25 @@ The above example does not work. We have described a non-rectangular area. Grid 
 
 Tip: You can use `grid-template-rows` in conjunction with `grid-template-areas`. However, the result will be different. You have to choose the one that is suitable for your specific scenario.
 
-```
-// Approach A
-grid-template-rows: 1fr 3fr 1fr;
-grid-template-areas:
-  "navigation navigation navigation navigation"
-  "left content content right"
-  "footer footer footer footer";
+```css
+/* Approach A */
+#grid {
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-areas:
+	  "navigation navigation navigation navigation"
+	  "left content content right"
+	  "footer footer footer footer";
+}
 
-// Approach B
-grid-template-areas:
-  "navigation navigation navigation navigation"
-  "left content content right"
-  "left content content right"
-  "left content content right"
-  "footer footer footer footer";
+/* Approach B */
+#grid {
+    grid-template-areas:
+	  "navigation navigation navigation navigation"
+	  "left content content right"
+	  "left content content right"
+	  "left content content right"
+	  "footer footer footer footer";
+}
 ```
 
 ![Approach A](https://cdn-images-1.medium.com/max/2090/1*U9o4_M-wfMeBHindl1H4sw.png)
@@ -204,9 +206,9 @@ Tip: Grid lines are created for free when using the `grid-template-area`. That m
 
 ```css
 .customContent {
-  background-color: white;
-  grid-row: 1 / -1; 
-  grid-column: 1;
+    background-color: white;
+    grid-row: 1 / -1;
+    grid-column: 1;
 }
 ```
 
@@ -220,12 +222,12 @@ Grid `gap` is super simple and intuitive to use. Use `column-gap` , `row-gap` or
 
 ```css
 #grid {
-  background-color: #73937E;
-  height: calc(100vh - 20px);
-  display: grid;
-  row-gap: 5px;
-  column-gap: 15px;
-  grid-template-areas:
+    background-color: #73937E;
+    height: calc(100vh - 20px);
+    display: grid;
+    row-gap: 5px;
+    column-gap: 15px;
+    grid-template-areas:
     "navigation navigation navigation navigation"
     "left content content right"
     "content content content content"
@@ -242,7 +244,7 @@ Note: Don’t use `grid-gap`, `grid-column-gap`, or `grid-column-gap`: Those are
 
 At first `MinMax` doesn’t look like an exciting feature. The API is super simple:
 
-```css
+```
 minmax(min, max)
 ```
 
@@ -250,7 +252,7 @@ It will be picking up the maximum value between `min` and `max`. It does accept:
 
 Let’s create a layout with three columns and use `minmax` to have them expand across the whole grid area.
 
-```css
+```
 grid-template-columns: repeat(3, minmax(100px, 1fr));
 ```
 
@@ -266,56 +268,56 @@ With that simple change, our three-column layout is now responsive to the size o
 
 ```HTML
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Grid Playground</title>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <style type="text/css">
-            body {
-                color: white;
-                text-align: center;
-                box-sizing: content-box;
-            }
+<html lang="en">
+<head>
+    <title>Grid Playground</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style type="text/css">
+    body {
+        color: white;
+        text-align: center;
+        box-sizing: content-box;
+    }
 
-            #grid {
-                background-color: #73937E;
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-                gap: 10px;
-                padding: 20px;
-            }
+    #grid {
+        background-color: #73937E;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+        padding: 20px;
+    }
 
-            .item {
-                padding: 20px;
-                background-color: #5B2E48;
-            }
-        </style>
-        <div id="grid">
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-        </div>
-        </script>
-    </body>
+    .item {
+        padding: 20px;
+        background-color: #5B2E48;
+    }
+</style>
+<div id="grid">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+</div>
+</script>
+</body>
 </html>
 ```
 
@@ -323,7 +325,7 @@ With that simple change, our three-column layout is now responsive to the size o
 
 That where all our magic happens:
 
-```css
+```
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 ```
 
@@ -332,19 +334,19 @@ We are telling the Grid layout to create tracks that fill the grid space and tha
 Note: There’s a caveat: you can’t use `auto-fill` and set up a maximum number of columns. It’s just not meant to work that way. For setting a max number of columns, you have to use media queries and tweak the value of `minMax`. Another option is to use `css variables`. Either option requires the use of media queries.
 
 ```css
-// Example of using media queries + css variables to have responsive fixed column layout
+/* Example of using media queries + css variables to have responsive fixed column layout */
 
 .grid {
-  --repeat: auto-fit;
+    --repeat: auto-fit;
 }
 
 @media screen and (max-width: 700px) {
-  .grid {
-    --repeat: 3;
-  }
+    .grid {
+        --repeat: 3;
+    }
 }
 
-grid-template-columns: repeat(var(--repeat, auto-fit), minmax(200px, 1fr));
+/* grid-template-columns: repeat(var(--repeat, auto-fit), minmax(200px, 1fr)); */
 ```
 
 Lastly, let’s fully understand the difference between `auto-fit` and `auto-fill`:
