@@ -2,7 +2,7 @@
 > * 原文作者：[Anurag Mendhekar](https://medium.com/@mendhekar)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-i-still-lisp-and-you-should-too.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-i-still-lisp-and-you-should-too.md)
-> * 译者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
 > * 校对者：
 
 # 为什么我还在用Lisp（而且你也应该用）
