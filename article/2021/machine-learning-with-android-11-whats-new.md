@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：HumanBeing(https://github.com/HumanBeingXenon)
 
 # 使用 Android 11 进行机器学习：新功能
 
@@ -35,11 +35,11 @@
 
 * 推断时间
 
-要考虑的另一重要事项是我获得输出或实质上运行模型所花费的时间。对于实时性较强的应用程序而言，这是一个非常重要的优势。因为现在程序并不需要发送并等待并接受数据，程序加快了判读的速度。
+另一项要考虑的重要事项是我获取输出或实质上运行模型所花费的时间。对于实时性较强的应用程序而言，这是一个需要考虑的非常重要的层面。因为现在程序并不需要发送、等待、接受数据，程序加快了判读的速度。
 
 * 网络可用性
 
-使用旧有方法是依赖于网络通信的，你的设备必须在带宽或网络的连接下才能够连续发送数据并从服务器接收数据，对没有网络通信的情况非常不友好。
+使用传统方法在考虑网络可用性层面也是相当昂贵的，你的设备必须在适宜的带宽或网络来连续发送数据并从服务器接收数据，对没有网络通信的情况非常不友好。
 
 * 安全
 
@@ -53,23 +53,23 @@
 
 你可以从“模型构建”这个名称中做出足够合理的猜测，从而了解 [ML 模型绑定插件](https://developer.android.com/studio/preview/features#tensor-flow-lite-models)。它确实可以使我们非常轻松地使用自定义 TF Lite 模型，让我们这群开发人员可以方便地导入任何 TFLite 模型，读取导入的模型的输入或输出的签名，并将其与仅仅几行的代码一起使用，以调用开源 TensorFlow Lite Android 支持库。
 
-ML 模型绑定插件使您可以在应用程序中轻松使用 TF 模型。从本质上讲，你需要编写的代码少得多，可以调用 TensorFlow Lite Android 支持库。如果你曾经使用过 TensorFlow Lite 模型，则你可能知道你首先需要将所有内容都转换为 `ByteArray`。而如果你使用 ML 模型绑定插件，则不再需要再将所有内容都转换为 `ByteArray`。
+ML 模型绑定插件使您可以在应用程序中轻松使用 TF 模型。从本质上讲，你需要编写的调用 TensorFlow Lite Android 支持库的代码要少得多。如果你曾经使用过 TensorFlow Lite 模型，则你可能知道你首先需要将所有内容都转换为 `ByteArray`。使用 ML 模型绑定插件，你将不再需要再将所有内容都转换为 `ByteArray`。
 
-我也喜欢这个新插件，因为我可以轻松地轻松使用 GPU 和 NN API。使用 ML 模型绑定插件，真的是让 ML 与 GPU 和 NN API 变得极度简单！现在，我们仅仅只需要调用一个依赖项和一行代码。难道使用 Model Binding 插件不酷嘛？借助 Android 11 The Neural Network API，我们甚至还拥有了无符号整数权重支持和新的服务质量（QOS）API，也同时还支持了更多的终端场景。我们使用这些刚刚谈到的功能，绝对可以更快地进行开发！
+我喜欢这个新插件的另一个原因是我可以轻松地使用 GPU 和 NN API。使用 ML 模型绑定插件，使用它们从未如此简单。现在，要使用它们，我们仅仅只需要调用一个依赖项和一行代码。难道使用 Model Binding 插件不酷嘛？借助 Android 11 The Neural Network API，我们甚至还拥有了无符号整数权重支持和新的服务质量（QOS）API，也同时还支持了更多的终端场景。使用上文谈及的这些功能，你绝对可以更快地进行开发！
 
 **使用 ML 模型绑定插件**
 
 现在让我们看看如何实现所讨论的所有内容。
 
-因此，第一步是导入带有元数据的 TensorFlow Lite 模型。Android Studio 现在有一个用于导入 TensorFlow 模型的新选项：只需右键单击要导入它的模块，我们就会在 `Others` 下看到一个 `TF Lite Model` 选项。
+因此，第一步是导入带有元数据的 TensorFlow Lite 模型。Android Studio 现在有一个用于导入 TensorFlow 模型的新选项：只需右键单击要导入它的模块，随后你将会在 `Others` 下看到一个叫 `TF Lite Model` 的选项。
 
-![Android Studio中的导入模型选项](https://cdn-images-1.medium.com/max/2500/1*fnNNyLYKqafERAjUfwPsxQ.jpeg)
+![Android Studio 中的导入模型选项](https://cdn-images-1.medium.com/max/2500/1*fnNNyLYKqafERAjUfwPsxQ.jpeg)
 
 我们只需传递 `tflite` 模型的路径即可，而它就会自动地在你之前选择的 `ml` 模块中的目录中为我们导入模型。我们现在就可以在其中使用该模型，并且我们只需几个单击即可添加依赖项目和使用 GPU 加速。
 
 ![导入 `tflite` 模型](https://cdn-images-1.medium.com/max/2502/1*wJmnVf7wtCOV50HnXXmmPQ.jpeg)
 
-现在从我的模型元数据中，我还想要知道输入输出的类型以及其他需要被使用的信息 —— 我们可以通过在 Android Studio 中打开 `tflite` 模型文件来查看此信息。在这个屏幕截图中，我使用的是我制作的开源模型来对剪刀石头布进行区分。我们只需将手放在相机前即可识别出是剪刀还是石头还是布，这也是我在本文中展示的内容。
+现在从我的模型元数据中，我还可以知道输入、输出的类型以及其他需要被使用的信息 —— 我们可以通过在 Android Studio 中打开 `tflite` 模型文件来查看此信息。在这个屏幕截图中，我使用的是我制作的开源模型来对剪刀、石头、布进行区分。我们只需将手放在摄像头前即可识别出是剪刀还是石头还是布，这也是我在本文中演示的内容。
 
 ![查看模型元数据](https://cdn-images-1.medium.com/max/2502/1*ZHuSORcTLhxtSWr60TzxWA.jpeg)
 
@@ -182,13 +182,13 @@ TensorFlow Hub 是一个开放源代码存储库，其中包含最新技术和�
 
 如果你只想查找基于图像或文本的模型，则可以在 TF Hub 中通过添加过滤条件来搜索。例如如果我们要在网络、终端设备或 Corals 上运行 ML，请通过架构、使用的数据集等筛选等等。
 
-我们可以进一步直接从 TF Hub 下载这些模型，也可以非常轻松地使用您自己的数据对其进行转移学习。但是，在本文中我们将不进一步介绍 TF Hub 的 Transfer Learning 转移学习了。有关 TF 的更多信息，请前往[我的博客](https://towardsdatascience.com/building-better-ai-apps-and-tf-hub-88716b302265)查看。
+我们可以进一步直接从 TF Hub 下载这些模型，也可以非常轻松地使用您自己的数据对这些模型进行迁移学习。但是，在本文中我们将不进一步介绍使用 TF Hub 的迁移学习了。有关 TF Hub 的更多信息，请前往[我的博客](https://towardsdatascience.com/building-better-ai-apps-with-tf-hub-88716b302265)查看。
 
 除此之外，还有不少的服务提供商，例如 [Teachable Machine](https://teachablemachine.withgoogle.com/)，[AutoML](https://cloud.google.com/automl)，但上述的都算是比较常见的提供商。
 
 ---
 
-[GitHub 仓库](https://github.com/Rishit-dagli/ML-with-Android-11) 中提供了此处展示的有关 TF Lite Model Maker 的示例的所有代码。我还为您你供了一些经过训练的模型，供你入门和尝试使用。
+[GitHub 仓库](https://github.com/Rishit-dagli/ML-with-Android-11) 中提供了此处展示的所有有关 TF Lite Model Maker 的示例的代码。我还为您你供了一些已训练的模型，供初学者入门和实验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
