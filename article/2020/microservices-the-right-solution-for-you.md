@@ -2,98 +2,98 @@
 > * 原文作者：[Ashan Fernando](https://medium.com/@ashan.fernando)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/microservices-the-right-solution-for-you.md](https://github.com/xitu/gold-miner/blob/master/article/2020/microservices-the-right-solution-for-you.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wangqinggang](https://github.com/wangqinggang)
+> * 校对者：[loststar](https://github.com/loststar)
 
-# Microservices: The Right Solution for You?
+# 微服务是你的最佳解决方案么？
 
-I have been writing about Microservices for quite a few years, both its benefits and its downside. I also raised the flag for newbies not to jump into Microservices without having a proper understanding of the complexity they are getting into, by merely following the trend.
+我写关于微服务的文章已经有好几年了，十分了解它的优缺点。我经常提醒新手们，在没有正确理解所面临的复杂性的情况下，不要随波逐流地采用微服务。
 
-When it comes to Microservices, the success stories and the concepts are truly mesmerizing. Having a collection of services of each doing one thing in the business domain builds a perfect image of a lean architecture. However, we shouldn’t forget that these services need to work together to deliver business value to their end-users.
+谈到微服务，成功的故事和概念确实令人着迷。每个微服务处理各自业务领域中的业务，这些微服务集合到一起，构建出精益架构的完美形象。但是，我们不应该忘记，这些服务需要协同工作才能向最终用户提供业务价值。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*H5vA_7yhd8zq7F8ZfmAkFg.jpeg)
 
-## Knowing business domain Inside-Out
+## 全面了解业务领域
 
-In the real world, we offer services to end-users in the form of web applications, mobile apps, IoT, or even APIs for integrations. So, if we follow the Microservices architecture, we are talking about Microservices communicating with each other in a particular way.
+在现实世界中，我们以网络应用、移动 APP、物联网、API 集成的形式为终端用户提供服务。因此，如果我们遵循微服务体系结构，我们要讨论是微服务之间如何以特定的方式进行通信。
 
-So if you are new to Microservices, before adopting it, you need first to answer the following question.
+因此，如果你不熟悉微服务，在采用它之前，你需要首先回答以下问题。
 
-#### Question 1: Do you know your business domain inside out and reasonably predict what will change shortly?
+#### 问题 1 :  你是否对自己的业务领域了如指掌，并能合理地预测短期内会发生什么变化？
 
-Knowing the business domain inside out and the experience with the domain-driven design is crucial to identify the bounded context of each service. Since we allocate teams per each Microservice and allow them to work with minimal interference, getting the bounded context wrong would increase the communication overhead and inter-team dependencies, impacting the overall development speed. So for a project starting from scratch, selecting Microservices is a risky move.
+业务领域的全面了解和领域驱动设计服务的经验对于确定每个服务的有界上下文是至关重要的。我们为每个微服务分配团队，并使他们在干扰最小的情况下工作，但这会使每个团队误解边界上下文，增加通信开销和团队间的依赖性，从而影响整体开发速度。因此，对于一个从零开始的项目来说，选择微服务是一个有风险的举动。
 
-## Entering the world of Distributed Systems
+## 进入分布式系统的世界
 
-> “Distributed Systems are Hard” — Anonymous
+> “分布式系统很难”ーー匿名者
 
-But what’s the relationship between distributed systems and Microservices. The connection is simple, and when you build Microservices, you directly dive into the realm of distributed systems kind of in advanced mode. They may solve specific problems, but will also introduce others.
+但是分布式系统和微服务之间有什么联系呢。他们之间的关系很清晰，当您构建微服务时，您可以直接深入到微服务的高级模式，分布式系统领域。微服务可以解决特定问题，但也会引入其他问题。
 
-> In fact, its likely not to experience any of the issues with Monoliths, in your software product lifetime, that are worth solved with Microservices.
+> 事实上，在您的软件产品生命周期中，单体应用的问题不值得使用微服务解决。
 
-#### Question 2: What are you trying to achieve by adopting Microservices Architecture?
+#### 问题2: 你尝试采用微服务架构来实现什么？
 
-Microservices isn’t a silver bullet or a superb architecture style that is for everyone. Since we need to deal with distributed systems, it could be an overkill for many. Therefore, it’s essential to assess whether the issues you are experiencing with the Monolith are solvable by Microservices.
+微服务不是精湛的架构风格，不是适合所有人的灵丹妙药。采用微服务我们需要处理分布式系统，这对许多人来说可能是极大的困难。因此，必须评估微服务是否可以解决您在单体应用中遇到的问题。
 
-#### Question 3: Are you and your team experienced enough to work with distributed systems required for Microservices?
+#### 问题3: 您和您的团队是否有足够的经验来使用微服务所需的分布式系统？
 
-Working with a distributed system will put you in challenges such as distributed telemetry and monitoring, network & communication, fault-tolerant design, distributed transactions, event-driven architecture, containers, and middleware that need a specialized set of design skills and experience. Although there are reference architectures and guides available on the internet, using these properly is the main challenge.
+使用分布式系统需要专业技能的设计使用经验，如分布式遥测和监控、网络和通信、容错设计、分布式事务、事件驱动架构、容器和中间件等。虽然在互联网上有这些技术的参考架构和指南，但如何正确使用这些技术是主要的挑战。
 
-## Following the Celebrities
+## 关注名企
 
-I have seen famous case studies from Amazon, Netflix absorbing Microservices. You might also feel that why not step up and follow their success paths to the next big thing. You might even get the buying from your business counterparts. The fun part is the non-tech people will also provoke you by asking why not consider Microservices?
+我看过网飞、亚马逊使用微服务的著名案例研究 。你可能也会觉得，为什么不站出来，跟随他们的成功之路，走向下一个伟大的事业。你甚至可能从你的商业伙伴那里获得技术订单。有趣的是，非技术人员也会问你为什么不考虑微服务，从而激起你的使用欲望。
 
-> At the end of the day, who doesn’t want to become Amazon or Netflix and follow their paths, right?
+> 说到底，谁不想成为亚马逊或者网飞公司，追随他们的道路？
 
-These influences might set an extremely positive impression on Microservices. You might buy the point from the case study or watching the video and convince your self that Monoliths are evil and Microservices are the way to the future.
+这些影响可能会给你留下微服务非常积极的印象。您可能通过案例研究或观看技术视频得出微服务的优势要点，并说服自己，然后让自己相信单体应用是落伍的，而微服务是通向未来的道路。
 
-#### Question 4: Do you have enough time, effort, and money to invest in Microservices?
+#### 问题4: 你有足够的时间、精力和金钱投资微服务吗？
 
-You might miss the point of how much effort and time it took for them to migrate their Monoliths to Microservices. These projects could quickly go for a couple of years. Even you start a new project with Microservices, that doesn’t guarantee that you will save time and money due to complexities and productivity challenges.
+你可能会忽略这一点：他们花了多少时间和精力才把他们的整体业务迁移到微服务。这些项目可能很快达到好几年的运行时间。即使你使用微服务启动了一个新项目，由于复杂性和生产力降低带来的挑战，也不能保证你会节省时间和金钱。
 
-## Big design upfront?
+## 前期的大设计？
 
-I have talked with some people who have followed full-fledge Microservices from the beginning and experiencing delays than usual, still convinced that it will solve the problem in the future.
+我与一些关注微服务全功能的人交谈过，他们经历了比平时更多的延误，仍然相信微服务将来会解决这个问题。
 
-> Microservices will slow you down, take my word for it. If time to market is important, it’s better to go with a Monolith.
+> 微服务会拖慢你的速度，相信我。如果推向市场的时间非常重要，最好使用单体架构。
 
-Dealing with Distributed systems, Microservices communication, extra effort on data consistency, extra effort on DevOps efforts, are overheads for software development.
+处理分布式系统、微服务通信、在数据一致性上的额外努力、在开发运维流程上的额外努力，都是软件开发的间接开销。
 
-#### Question 5: Do you understand the architectural and technical overheads with sufficient experience in solving them?
+#### 问题5: 您是否了解架构和技术开销，并有足够的解决经验？
 
-Unless you build a Monolith and use best practices from Microservices, you might fall into this trap.
+除非你建造了一个单体应用并使用了来自微服务的最佳实践，否则你可能会掉进这个陷阱。
 
-## Make it Evolve
+## 让架构进化
 
-If you have read the article up to hear, you will feel that I’m just causing fear in adopting Microservices. My whole purpose here is to make you aware of the risks of directly jumping into Microservices, which I learned the hard way. The bright side is that these journies taught me how to do better with Microservices.
+如果你仔细阅读了这篇文章，你会觉得我只是在引起你使用微服务的恐惧。我的最终目的就是让你们意识到直接采用微服务的风险，这是我亲身经历的坑。好处是采坑过程中我学会了如何更好地使用微服务。
 
-As a litmus test, I have put five questions that you can use as a checklist before adopting Microservices. If the answer is “YES” for all the questions, there is hope that you will make rational decisions in your journey. Otherwise, it’s better to stay away from Microservices since the learning would be costly for the business and has the likelihood of risking the entire project.
+我提出了五个问题，将它作为采用微服务之前的检查表和试金石。如果所有问题的答案都通过，那么你就有希望在你的微服务之旅中做出理性的决定。如果不通过，最好远离微服务，因为学习它会让企业付出高昂代价，而且有可能使整个项目面临风险。
 
-#### Follow the proper architecture process.
+#### 遵循正确的架构流程
 
-So my first tip is to decide on the architecture styles by identifying the quality attributes and using the right tactics. Knowing their trade-offs is the right way to move ahead in selecting the architecture styles, tools, and technologies for the application.
+因此，我的第一个技巧是通过识别影响项目质量的属性，使用正确的策略来确定架构风格。了解取舍以便正确地选择应用程序的架构风格、工具和技术。
 
-Following this approach will keep you away from taking drastic architectural choices, which will also keep Microservices a distant reality in most of the cases.
+遵循这种方法将使您远离架构选择的纠结，也使得微服务在大多数应用场景下成为一个遥不可及的现实。
 
-#### Evolving from Monolith to Microservices
+#### 从单体应用到微服务的演变
 
-If you already have a well-established business and experiencing architectural and technical difficulties with its growth, that that the right time to think of Microservices.
+如果你已经有了一个成熟的业务，并且在发展过程中遇到了架构和技术上的困难，那么现在正是考虑微服务的时候。
 
-If you grasp the message from Amazon and Netflix success stories, remember that they were successful with the Monolith as a business at first where they had the money and people with enough experience to do the transformation. These migrations might take months or years. But these businesses have the financials to back the digital transformation, knowing overall benefits at their scale.
+如果你从亚马逊和网飞的成功故事中得到启示，请记住，他们最初成功地将单体应用作为业务，从该业务获取足够的资金和人员来进行转型。这些迁移可能需要几个月或几年的时间。但是，这些企业有财务能力来支持数字化转型，因为它们知道自己的规模带来的总体利益。
 
-## Use the Right Tools
+## 使用正确的工具
 
-If you are into Microservices and Microfrontends, it’s essential to use the right tools and practices.
+如果你进入微服务和微前端，使用正确的工具，遵从正确的实践是必不可少的。
 
-If you are using a public cloud provider, it would be a lifesaver to use the middleware available in the cloud. These will help to reduce the total cost of ownership when using Gateways, Async Communication, Data Storage, Monitoring for Microservices.
+如果您使用的是公共云提供商，那么使用云中可用的中间件将是一个救命稻草。在使用网关、异步通信、数据存储和微服务监控时，这些云服务有助于降低总体成本。
 
-Besides, its important to structure your projects correctly to improve developer productivity. You can go for either a distributed repository or a monorepo approach, and setup DevOps around the structure for fast releases.
+此外，正确地组织项目结构对于提高开发人员的生产力也很重要。您可以选择分布式仓库或集中化仓库，并围绕项目结构建立开发运维流程以便快速发布。
 
-## Summary
+## 总结
 
-Finally, I want to finish this article by saying that be cautious if you decide to follow the Microservices approach from the beginning of a project. The journey seems to be more challenging than you think unless you have a solid case of following Microservices (For example, building an application for a specification or a given standard where you already know the bounded contexts, reducing overall risks). Or else, start with a Monolith.
+最后，在结束本文之前，我想说，如果您决定从项目开始就采用微服务，那么请务必谨慎。这个过程似乎比你想象的更具挑战性，除非你有一个坚实的理由来使用微服务（例如，在你已经知道有限的上下文的情况下遵从规范或给定的标准构建一个应用程序，从而降低整体风险）。或者，你可以选择从一个单体应用开始构建。
 
-I hope I have made the points clear to you. If you have any questions or don’t agree with the facts, please leave a comment. I would be happy to reply as soon as I can.
+我希望我已经把要点讲清楚了。如果你有任何问题或不同意的事实，请留下评论。我很乐意尽快回复。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

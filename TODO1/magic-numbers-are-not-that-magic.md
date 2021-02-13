@@ -2,24 +2,24 @@
 > * 原文作者：[Steven Popovich](https://medium.com/@steven.popovich)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md](https://github.com/xitu/gold-miner/blob/master/TODO1/magic-numbers-are-not-that-magic.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[fltenwall](https://github.com/fltenwall)、[HumanBeingXenon](https://github.com/HumanBeingXenon)
 
-# Magic Numbers Are Not That Magic
+# 幻数并没有我们想象中的那么奇幻
 
 > A better solution for hardcoded numbers
 
-![Photo by [Maail](https://unsplash.com/@maail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/feathers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9562/1*fzMDTQAsZ8D9O3YXJwLW5A.jpeg)
+![图自 [Maail](https://unsplash.com/@maail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 源 [Unsplash](https://unsplash.com/s/photos/feathers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9562/1*fzMDTQAsZ8D9O3YXJwLW5A.jpeg)
 
-I really dislike the phrase **magic number**. I see so many people get it wrong. I have seen and had multiple code reviews where someone sees any digits in code and comments, “Oh this is a magic number, make sure you put it up top with a name.”
+我真的不喜欢幻数这个词 —— 我看到太多人都理解错了。我见过这么一种代码审查，一看见代码中或者注释中有数字就评论：“哦，这是个幻数呢，请您务必给它取个名并放在代码头部”，我好多的代码里也会有这样的评论。
 
-(I also really dislike the fact that we feel the need to put all the variables to the top of a file, but that’s for another day.)
+（我也很不喜欢有的时候我们会有应该要把所有的变量放在一个文件的顶部的想法，但这是另一个故事。）
 
-Developers, you are allowed to use your numpad in your code. Just be careful of how you do.
+亲爱的开发人员们啊，您可以在代码中大量使用纯数字，只是请务必注意自己在干什么啊。
 
-## What Is a Magic Number?
+## 什么是幻数？
 
-I mean, you can google it and get a bunch of lame definitions, but the bottom line is that a magic number is a number in your code that is hard to reason about.
+我的意思是，您可以在 Google 上搜索它，并获得一堆如金银绸缎但却又站不住脚的定义。但实际上，幻数其实就是代码中难以理解的数字。
 
 ```kotlin
 fun generate() {
@@ -29,9 +29,9 @@ fun generate() {
 }
 ```
 
-Where does 52 come from?
+这个 52 从哪来的？
 
-Well, it turns out that this is code to generate a deck of cards because 52 is the number of cards in a deck. Let’s give the number a name.
+好吧，事实证明这是生成纸牌组的代码，而 52 恰好是纸牌组中的纸牌总数。不妨让我们给数字起个名字。
 
 ```kotlin
 const val numberOfCardsInADeck = 52
@@ -43,11 +43,11 @@ fun generate() {
 }
 ```
 
-This is code that’s more readable, more maintainable, and better. Great, you have mastered clean code.
+这样，代码就会更具可读性、可维护性。太好了，您已经掌握了如何编写干净的代码的不二法门。
 
-No, this is just the tip of the iceberg. The thing with this example (and this is a very common example) is that a developer probably could have easily figured out what the hell 52 was from the rest of the code. This is a pretty tame magic number.
+嘿嘿，不，这只是冰山一角。这个示例（这是一个非常常见的示例）告诉我们一个非常深奥的道理 —— 开发人员可能很容易地从其余的代码中明白 52 究竟是什么 —— 这是一只非常温顺的幻数怪。
 
-Where magic numbers really bite you is when they come from nowhere. Take this code for tuning a search algorithm:
+当幻数怪突然冒出来的时候，那才是它们展示真实面孔的时间嗷。例如使用以下代码调整搜索算法：
 
 ```kotlin
 fun search(query: String) {
@@ -55,52 +55,48 @@ fun search(query: String) {
 }
 ```
 
-What the heck do these numbers mean? It’s not easy to understand what these numbers are for and what they do.
+噢这奇怪的数字到底意味着什么？看来想要弄清楚这些数字的用途和作用并不容易。
 
-## What’s the Problem With Magic Numbers?
+## 为什么使用幻数是个问题？
 
-Let’s say your app grows in size and has a bunch more things to search through, and all of a sudden your search results are not exactly yielding what you want.
+假设您的应用规模不断扩大，需要搜索的内容还很多，突然之间，您的搜索结果并没有完全满足您的需求。
 
-We have the bug “when I search for ‘frosted flakes’, the cereal doesn’t come up in the results, even though I know it’s in there.”
+我们有一个错误："当我搜索"麦片"时，即使我知道谷物一定是它的成分，谷物也不会出现在结果中。"
 
-So you, Joe Schmo, four years after this algorithm was originally tuned, need to change these values around to fix this bug. What do you change first?
+在本算法四年前那最后一次被修改以后，我的 Joe Schmo 啊，您现在需要更改这些值以解决此错误，而您首先需要改变什么？
 
-This is the problem with magic numbers. These numbers would have been much better off grouped together with long, descriptive names, along with in-code documentation about how changing them affects the results.
-
-Bonus points for explaining the algorithm, too.
-
-Let’s fix this:
+—— 幻数。如果您将这些幻数怪与一个描述性名称或者注释文档组合在一起，那么就可以杀害幻数怪。当然，幻数怪那么可爱，杀害它们会让我们更容易理解这个算法！让我们一起来解决这个问题：
 
 ```kotlin
-const val searchWeight = 2.4f // How specific your query must be. Increase this number to get more fuzzy results
-const val searchSpread = 10.234f // How spread the result are. Selects more words in a row in the database
-const val searchPageSize = 999 // The number of results we want per search page
-const val searchMaxResults = Int.MAX_VALUE // We want every possible result from the search
-const val shouldSearchIndex = false // We don't want to search indicies 
+const val searchWeight = 2.4f // 查询结果的具体程度，增加此数字以获得更多模糊的结果
+const val searchSpread = 10.234f // 结果的连续程度。在数据库中连续选择更多单词
+const val searchPageSize = 999 // 每个搜索页面所需的结果数
+const val searchMaxResults = Int.MAX_VALUE // 我们希望的能从搜索中获得所有可能的结果
+const val shouldSearchIndex = false // 我们不想搜索索引
 
 fun search(query: String) {
     find(query, searchWeight, searchSpread, searchPageSize, searchMaxResults, shouldSearchIndex)
 }
 
-// Calls our weighted search algorithim. Read the docs about this alogirthim at foo.bar.com
+// 调用我们的加权搜索算法。在foo.bar.com上阅读有关此算法的文档
 fun find(query: String, weight: Float, spread: Float, pageSize: Int, maxResults: Int, index: Boolean) {}
 ```
 
-Wouldn’t you feel more comfortable working on code like this? You might even have an idea of what to change to get started. Tuning search can be difficult, but someone would be much more well-equipped to tackle this bug with this documentation.
+处理这样的代码，您会不会感觉舒服多了？您甚至可能对如何进行更改有所了解。优化搜索可能很困难，但是接手的人凭着这份文档，就能更好地解决这个漏洞
 
-## What Isn’t a Magic Number?
+## 什么不能称之为幻数？
 
-In reality, numbers that are hard to reason about don’t come up as often as numbers that are easy to reason about. Take these hardcoded numbers
+实际上，难以推理的数字不会像容易推理的数字那样频繁出现。例如这个数据：
 
 ```kotlin
 view.height = 42
 ```
 
-This is not a magic number. I repeat: This is not a magic number.
+这可不是一个幻数，我再强调一遍：这不是一个幻数！
 
-I know. I am giving some Java purists and clean freaks an aneurysm.
+我知道。我给一些 Java 代码纯粹主义者和洁癖一个暴击。
 
-But this number is not hard to reason about. Its idea is entirely self-contained. The height of this view is 42**.** It just is. What value is added by giving it a name, like this?
+但是这个数字并不难推论 —— 它的意义是完全独立的 —— 该视图的高度为 42！最多的翻译就是这样，但是像这样数据，即使我们给它取一个名称，又会增加什么价值？
 
 ```kotlin
 const val viewHeight = 42
@@ -110,19 +106,19 @@ fun buildView() {
 }
 ```
 
-This is just code bloat. It may seem like a small example, but this idea of needlessly naming numbers quickly puffs up the size of UI code and only serves to increase the number of lines of code.
+以上做法只会导致冗杂代码。而这似乎是一个很小的例子，但是这种不必要地命名数字的想法会迅速增加 UI 代码的大小 —— 增加代码行数，完成绩效。
 
-## Wait, So Can I Use Numbers in My Code or Not?
+## 所以我们是否可以在代码中使用数字？
 
-Of course. There is plenty of good code in the world with numbers in it. You just need to keep in mind a few things:
+这是当然的！世界上有很多不错的代码里面使用了数字。要做到不出现幻数，您只需要记住以下几点：
 
-* Make sure your numbers are easily understandable — like, a child could figure out where the number comes from.
-* If you are changing a number around, tuning something, or doing some calculation on paper to get a hardcoded number, explain it. In the code. Next to the number. Or at least in the commit. Changes of hardcoded numbers should be explained.
-* Bonus: Make sure your hardcoded numbers are DRY.
+* 确保您的数字易于理解 —— 就算是孩子也能指出数字是哪里来的
+* 如果您要更改数字，调整某些内容，或在纸上进行一些计算才能得到的硬编码数字，请务必进行解释。在代码中，在数字旁边，或至少在更改的提交中，应当提出并解释硬编码数字发生的变更。
+* 额外一招：请确保您的硬编码数字是干净的
 
-It’s not rocket science, but there is a lot of subtlety in using your number row.
+相信我，使用注释解释或使用变量名解释数字是很有用的！
 
-You’ll be fine. Thanks for reading!
+祝你好运，感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
