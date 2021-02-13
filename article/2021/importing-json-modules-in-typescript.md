@@ -23,13 +23,13 @@ TypeScript 2.9 版本引入了一个新的 `--resolveJsonModule` 编译选项，
 
 在 Node 中，我们可以调用 `require` 函数导入这一个 JSON 文件，就像是导入别的 CommonJS 模块一样：
 
-```js
+```typescript
 const config = require("./config.json");
 ```
 
 这一个 JSON 文件会被自动的反序列化为普通的 JavaScript 对象，让我们可以轻松访问配置对象的属性：
 
-```js
+```typescript
 "use strict";
 
 const express = require("express");
@@ -48,7 +48,7 @@ app.listen(config.server.nodePort, () => {
 
 现在如果说我们要使用原生的 ECMAScript 模块而不是 CommonJS 模块，那么我们必须将 `require` 的调用转换为静态的 `import` 声明：
 
-```js
+```typescript
 // 因为所有的 ECMAScript 模块都默认使用 strict 模式
 // 我们不需要再声明 `use strict`
 
@@ -84,12 +84,16 @@ app.listen(config.server.nodePort, () => {
 
 如果使用上面显示的编译器选项编译 TypeScript 文件，则会得到以下 JavaScript 输出：
 
-```js
+```typescript
 "use strict";
+
 Object.defineProperty(exports, "__esModule", {value: true});
+
 const express = require("express");
 const config = require("./config.json");
+
 const app = express();
+
 app.listen(config.server.nodePort, () => {
     console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
@@ -97,7 +101,7 @@ app.listen(config.server.nodePort, () => {
 
 注意，输出与我们的第一个方法（使用 `require`） 几乎相同：
 
-```js
+```typescript
 "use strict";
 
 const express = require("express");

@@ -151,7 +151,7 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 
 在 Staggered Trekking Enter 动画中，我们使用了补间去决定动画的进展。
 
-接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)**。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 `builder` 属性.
+接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 `builder` 属性.
 
 ```Dart
 import 'package:flutter/material.dart';
