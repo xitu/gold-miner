@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/importing-json-modules-in-typescript.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo) 、 [regonCao](https://github.com/regon-cao)
+> * 校对者：[zenblo](https://github.com/zenblo)、[regonCao](https://github.com/regon-cao)
 
 # 在 TypeScript 中引入 JSON 模块
 
@@ -15,9 +15,9 @@ TypeScript 2.9 版本引入了一个新的 `--resolveJsonModule` 编译选项，
 
 ```json
 {
-  "server": {
-    "nodePort": 8080
-  }
+    "server": {
+        "nodePort": 8080
+    }
 }
 ```
 
@@ -38,7 +38,7 @@ const config = require("./config.json");
 const app = express();
 
 app.listen(config.server.nodePort, () => {
-  console.log(`在端口 ${config.server.nodePort} 上监听...`);
+    console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
@@ -58,13 +58,11 @@ import * as config from "./config.json";
 const app = express();
 
 app.listen(config.server.nodePort, () => {
-  console.log(`在端口 ${config.server.nodePort} 上监听...`);
+    console.log(`在端口 ${config.server.nodePort} 上监听...`);
 });
 ```
 
-现在，程序在第 2 行中出现了类型错误。TypeScript 不允许我们按照这种方式开箱即用地导入 JSON 模块。这是 TypeScript 团队的一项明智的设计决定：获取较大的 JSON
-文件可能会[消耗大量内存](https://github.com/Microsoft/TypeScript/pull/22167#issuecomment-385479553)
-。这就是为什么我们需要通过启用 `--resolveJsonModule` 编译器标志来选择使用该功能：
+现在，程序在第 2 行中出现了类型错误。TypeScript 不允许我们按照这种方式开箱即用地导入 JSON 模块。这是 TypeScript 团队的一项明智的设计决定：获取较大的 JSON 文件可能会[消耗大量内存](https://github.com/Microsoft/TypeScript/pull/22167#issuecomment-385479553)。这就是为什么我们需要通过启用 `--resolveJsonModule` 编译器标志来选择使用该功能：
 
 > 让人们有意识地选择这个做法帮助着用户了解耗费的成本。
 
@@ -72,23 +70,23 @@ app.listen(config.server.nodePort, () => {
 
 ```json
 {
-  "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
-    "strict": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true
-  }
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "strict": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true
+    }
 }
 ```
 
-`--resolveJsonModule` 声明后，我们的 TypeScript 文件不会再出现类型错误。而且，我们现在获得了类型检查和自动补全功能！
+在声明了 `--resolveJsonModule` 以后，我们的 TypeScript 文件现在不会再出现类型错误。而且，我们现在还拥有了类型检查和自动补全功能！
 
 如果使用上面显示的编译器选项编译 TypeScript 文件，则会得到以下 JavaScript 输出：
 
 ```js
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", {value: true});
 const express = require("express");
 const config = require("./config.json");
 const app = express();
@@ -112,7 +110,7 @@ app.listen(config.server.nodePort, () => {
 });
 ```
 
-这就是在 TypeScript 模块中导入 JSON 模块的方法！我们仅需在配置文件中通过标记编译器选项为启用即可启用这个功能！
+这就是在 TypeScript 模块中导入 JSON 模块的方法！我们仅需在配置文件中通过设置 `resolveJsonModule` 这个编译器选项的值为 `true` 即可启用这个功能！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
