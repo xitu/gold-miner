@@ -6,66 +6,95 @@
 > * 校对者：
 
 # Building a Map of Your Python Project Using Graph Technology — Visualize Your Code
+# 代码可视化 －使用图技术为 Python 项目绘制示意图
 
 ![Image by author](https://cdn-images-1.medium.com/max/4294/1*T9vp27fzwWkKNw681HIGAA.png)
 
 As a mathematician and working data scientist, I am fascinated by programming languages, machine learning, data, and of course, mathematics.
+作为一名数学家，同时也是一个正在工作的数据科学家，我对编程语言、机器学习、数据和数学都很感兴趣。
 
 These technologies, arts and tools, are of course of huge importance to society and they are transforming our lives as you read this article, but another emerging technology is growing. And it is growing fast!
+这些技术、工具或者艺术对于我们的社会至关重要。就在你阅读这篇文章的同时，这些技术正在改变我们的生活，与此同时另一种技术也正在经历高速发展。
 
 It is a technology based on a mathematical field that I studied at university and which was first discovered (or invented..? let’s safe that talk for another time, shall we?) by the great Leonhard Euler when he was given a challenge that nobody at the time knew how to solve.
+这是一种基于数学的技术，并且由伟大的 Leonhard Euler 在解决一个当时无人可解的问题时发现的（或者说发明？我认为我们这里的用词应该进行一个专门的讨论？）
 
 The challenge was all about an underlying shape or structure in the form of connected things — relations.
+挑战与一种结构或者是潜在的形状有关，这样的结构或者形状通常以一种连接事物的形式-关系-所表现出来。
 
 Euler needed a tool to study relations and structures in which the distance between certain objects didn’t really matter — only the relations themselves mattered.
+Euler 需要一种工具来检查在特定实体之间的关系和结构，在这里特定实体之间的距离并不重要，重要的是它们之间的连接关系。
 
 He needed and discovered what is now known as a mathematical graph (or just **graph** for short).
+基于这种需要，他发现了一种被称作数学图的工具（或者简称为**图**）
 
 This was the birth of Graph Theory and Topology.
+这就是图理论和拓扑学的诞生。
 
 Fast forward 286 years…
+时间迅速向前推进286年...
 
 ## Discovering High-Level Structures
+## 高阶结构的发现
 
-Not so long ago I was working on a relatively big project (on the job) in a repository containing hundreds of Python classes, methods, and functions that all communicated with each other by sharing data and calling each other.
+Not so long ago I was working on a relatively big project (on the job) in a repository containing hundreds of Python classes, methods, and functions that all communicated with each other by sharing data and calling each other.
+不久之前，我在工作中需要处理一个相当大的项目，这个项目包含了数百个 Python 的类、方法、和函数，它们彼此之间通过共享数据或者互相调用通信。
 
 I was working in a subfolder that contained code meant to solve a subproblem for the big project and then it hit me:
+我主要处理一个文件夹，这个文件夹中的代码是用来解决整个项目中的一个问题，突然我冒出了一个想法：
 
 **Wouldn’t it be nice to be able to visualize where I was in the big picture and how all the different objects was connected by calls and data passing between each other?**
+**如果能以可视化的方法看到这个问题在整体项目中的定位并且能看到不同实体之间是怎样通过调用和数据传递来彼此交互的不是更好吗？**
 
 How would that look like?
+整个图形看上去会是什么样子？
 
 In a couple of evenings and (17 cups of strong coffee) I managed to build a Python program that takes your code and parses it as nodes and relationships in the form of objects and calls, scopes, and instantiations into a Neo4j graph database.
+经过了几个傍晚、喝了十七杯特浓咖啡之后，我写了一个 Python 程序，它处理代码作为输入，将代码解析为以对象形式表示的结点、以调用、作用域和实例化形式表示的关系，并存储到了 Neo4j 图形数据库中。
 
 The image above is the result of parsing an NLP project (machine learning used on human language) of mine through this Python Mapping Project.
+本文一开始展示的图片就是使用这个 Python 图形构建项目处理一个 NLP 项目（用于处理人类语言的机器学习技术）得到的结果。
 
 For you that don’t know what a graph database is, let’s pause the story for a second.
+如果你不知道图形数据库是什么，我们这里暂停一下主线故事~
 
 First of all, a graph is a mathematical object. It consists of what is known as nodes and edges. The edges are called relationships in the Neo nomenclature and that is quite suiting because that’s really what they represent — some kind of relationship between two nodes.
+首先，图是一个数学模型，它由节点和边组成。边在 Neo 命名中叫做关系，这是一个非常合适的命名，因为边代表的含义就是两个节点之间的某种关系。
 
 A classical example of such a graph is a social network like Facebook where the nodes represent persons and the relationships represent friendships between the persons.
+一个关于这种图的经典的例子就是类似 Facebook 的社交网络，在社交网络中，节点代表人，关系代表人之间的友情。
 
 A graph database then stores such a graph so that you can explore the patterns that lie hidden inside the huge amounts of paths that it amounts to.
+一个图形数据库将这样的图储存起来，这样你就可以探索途中数千条线的背后隐藏的模式。
 
 One very important thing that we should keep in mind is that in a graph database, the nodes, as well as the relationships, are stored in the database. That means that certain queries are much much faster than if you had to join a gazillion tables in a relational database.
+我们需要时刻谨记的重要一点是，图形数据库中不仅储存了节点，同样也储存了关系。这意味着某些查找操作比在关系数据库中关联许多张表再进行查询要快得多。
 
 To be a little more explicit about what kind of graph we are building here, I will sketch out the structure.
+为了更清楚的说明我们构建了一张什么样的图，我简单画出这里的结构。
 
 We specify the root folder of our Python project.
+我们先指定 Python 项目的根目录。
 
 Nodes of the graph represent objects of the files in our project/repository. Specifically, functions, classes, and methods. These nodes have some properties like in which files they are defined if they have a parent (methods have classes as parents, functions can be defined inside other functions, etc.).
+图中的节点代表了我们项目中的文件，具体一点说就是函数、类和方法。这些节点有一些特性，比如说哪个文件定义了是否有父节点（类作为方法的父节点、函数也可以被定义在另一个函数中之类的）。
 
 For the relationships, we have calls, instantiations, a relationship showing which class a method belongs to, and so on.
+至于关系，我们有调用关系和表示一个方法属于哪个类的实例化关系以及等等其他关系。
 
 ![Image by author](https://cdn-images-1.medium.com/max/2000/1*Jk_HIC4c5mLrAGcArdQDcg.png)
 
 The idea is that we want to be able to track the calls and the dependencies in the code.
+我们想要跟踪代码中的调用和依赖关系。
 
 So there I was, with a new visualization tool in hand — not a tool meant to visualize data like e.g. Matplotlib, but to visualize the structure of the code itself.
+所以这个时候我们手头上有了一个新的可视化工具，他不是用来像 Matplotlib 一样对数据进行可视化，而是可视化代码之中的结构。
 
 At first sight, I didn’t think much of it other than an interesting new way to make awesome posters to the office of “won" projects.
+一开始，除了将它看作一种为获奖项目制作海报的有趣工具以外，我没想太多。
 
 However, after having discussed with one of my colleagues, which happens to also be a math/graph DB geek, the many different possible tools that it paves the way to, I soon realized that this is so much more than a visualization tool.
+然而，和我一个同样来自数学专业并且对图形数据库感兴趣的同事讨论之后，我们发现很多其他的工具已经为我们指明了方向，我们很快意识到这不仅仅是一个可视化工具。
 
 ## Tests and Safety
 
