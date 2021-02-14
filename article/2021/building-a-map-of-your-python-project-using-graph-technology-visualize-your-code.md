@@ -97,52 +97,72 @@ However, after having discussed with one of my colleagues, which happens to also
 然而，和我一个同样来自数学专业并且对图形数据库感兴趣的同事讨论之后，我们发现很多其他的工具已经为我们指明了方向，我们很快意识到这不仅仅是一个可视化工具。
 
 ## Tests and Safety
+## 测试和安全
 
 It **is** of course nice that you can actually see the dependencies in your code and it might even help you catch a bug or two, or optimize the code by merely looking at it, but the real power of this comes from the unraveling of the nested code structure.
+能够看到代码中的依赖并且用看到的图查出一两个 bug 或者仅仅通过看图就能优化代码是一件非常愉快的事情，但是这一输出图的真正力量在于它能够将彼此嵌入的代码的结构呈现出来。
 
 For instance, unless you are really tight and have separated your code into small testable units that you have then tested one by one in (so-called) unit tests before doing bigger integration tests, you are probably not easily able to answer questions like
+例如，除非你真的非常认真的将你的代码分割成为可测试的小单元，并且你在进行更大的集成测试之前对这些小单元挨个进行测试，否则回答下面的问题都是很难的：
 
 * To which degree has your code been tested? i.e. which functions are being tested implicitly but not explicitly and vice versa?
+* 你的代码测试到了什么程度？例如：哪些函数被间接测试过但并没有直接测试过，或者相反？
 * Are there any functions that are not being used anymore or not being tested?
+* 是否有从未使用或者从未测试的代码呢？
 * Which functions are implicitly being called the most?
+* 哪个函数被调用最多次？
 
 **Hold on, Kasper. First of all, what do you mean by implicitly called?**
+**等等，Kasper。首先，间接测试是什么意思？**
 
 Well, when I call a function (or a method, generator, etc.) that function might call another function and so on. These functions that are called by other functions are being called **implicitly**. The first function is called **explicitly** or **directly**.
+当我调用一个函数（或者是方法、生成器之类的）时候，这一函数可能又会去调用其他的函数。这些被调用的函数就叫做**间接**的使用。第一个被调用的函数叫做**明确的**或者是**直接的**。
 
 **Okay… Why is this important?**
+**好的...这一点为什么那么重要呢？**
 
 Because, if a function that is called (implicitly) many times by many different functions has a subtle bug, then, first of all, the probability that this bug occurs at some point is greater than if it was only called once by the same function every time, and secondly, the more functions that depend on that one function, the more damage a potential bug can do to the whole system/program.
+因为，如果一个被不同函数隐式调用很多次的函数有一点微小的 bug ，那么首先，这个 bug 在某处发生的概率就比这个函数每次只被同样的方法调用一次要大，第二点，调用这个函数的函数越多，这个bug对整体系统造成的潜在风险就越大。
 
 It turns out that graphs are the perfect equipment to solve such problems. We can even solve them in a more nuanced way by listing the functions, methods, and classes with respect to their importance by means of a score by using graph algorithms.
+这证明了图技术是解决该类问题的完美的工具。我们甚至能够通过根据打分得出它们的重要性，并据此列出函数、方法和类这样的微小的方法来解决这个问题。
 
 ## The Solution
+## 解决方案
 
 Before actually being able to work with neo4j from Python, we need to install the neo4j desktop environment and do a
+在 Python 真正使用 neo4j 之前，我们需要安装 neo4j 的桌面环境，执行以下命令：
 
 ```bash
 pip install neo4j
 ```
 
 Let’s build a class that is able to communicate with Neo4j from Python.
+让我们用 python 构建一个能够和 neo4j 进行通信的类。
 
 Now we can easily build a graph loader in another class by doing something like the following
+现在我们可以简单地在任何一个类中，通过以下代码构建一个图加载器：
 
 ```python
 self.loader = LoadGraphData("Kasper", "strong_pw_123", "bolt://localhost:7687")
 ```
 
 Let’s take a look at a hobby project of mine mapped out by my mapping algorithm described above.
+让我们看看上面描述的映射算法在我的一个个人项目上的实现结果：
 
 ![Image by author](https://cdn-images-1.medium.com/max/2000/1*1HACZ5Po5bFz6kShC-3hvg.png)
 
 In this project, the blue nodes are classes, the orange nodes are methods, and the red nodes are functions.
+在这个项目中，蓝色的节点代表类，橙色的节点代表方法，红色的节点代表函数。
 
 Notice that some of this code is dummy code meant for testing this graph project but with correct Python syntax of course.
+请注意该项目中的一部分代码是无用的，仅为了测试该图映射算法而写的符合python语法的部分。
 
 We want to know which functions are tested and how implicitly they are tested i.e. how many (nested) calls are there from the closest test function to a given non-test function?
+我们想知道哪个方法被测试过以及它们是如何被调用测试的？例如：
 
 Well, we have the graph. Now we need to query the graph database.
+我们现在有了图形，接下来就该查询图形数据库了。
 
 Take a look at the following Cypher query that implements a shortest-path algorithm between tests and functions and compare it to the picture.
 
