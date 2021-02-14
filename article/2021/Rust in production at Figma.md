@@ -1,7 +1,7 @@
 > * 原文地址：[Rust in production at Figma](https://medium.com/figma-design/rust-in-production-at-figma-e10a0ec31929)
 > * 原文作者：[evanwallace](https://medium.com/@evanwallace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md)
 > * 译者：
 > * 校对者：
 # Rust in production at Figma
