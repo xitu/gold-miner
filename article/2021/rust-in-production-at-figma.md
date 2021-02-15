@@ -2,21 +2,22 @@
 > * 原文作者：[evanwallace](https://medium.com/@evanwallace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
+
 # Rust in production at Figma
 
 ## How Mozilla’s new language dramatically improved our server-side performance
 
 ![](https://miro.medium.com/max/4320/1*LoKiYs4SoAtkpFufNdD0AA.png)
 
-*Like building state-of-the-art web apps? [Come work at Figma!](https://www.figma.com/careers)*
+*Like building state-of-the-art web apps? [Come work at Figma!](https://www.figma.com/careers)*
 
-At [Figma](https://www.figma.com/), performance is one of our most important features. We strive to enable teams to work at the speed of thought, and our multiplayer syncing engine is a critical part of this vision. Everyone should see each change made to a Figma document in real time.
+At [Figma](https://www.figma.com/), performance is one of our most important features. We strive to enable teams to work at the speed of thought, and our multiplayer syncing engine is a critical part of this vision. Everyone should see each change made to a Figma document in real time.
 
-The multiplayer server we [launched with two years ago](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) is written in TypeScript and has served us surprisingly well, but Figma is rapidly growing more popular and that server isn’t going to be able to keep up. We decided to fix this by rewriting it in Rust.
+The multiplayer server we [launched with two years ago](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) is written in TypeScript and has served us surprisingly well, but Figma is rapidly growing more popular and that server isn’t going to be able to keep up. We decided to fix this by rewriting it in Rust.
 
-[Rust](https://www.rust-lang.org/) is a new programming language from Mozilla, the company that makes Firefox. They’re using it to build a next-generation browser prototype called [Servo](https://research.mozilla.org/servo-engines/) which demonstrates that browsers can be way faster than they are today. Rust is similar to C++ in performance and low-level ability but has a type system which [automatically prevents whole classes of nasty bugs](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) that are common in C++ programs.
+[Rust](https://www.rust-lang.org/) is a new programming language from Mozilla, the company that makes Firefox. They’re using it to build a next-generation browser prototype called [Servo](https://research.mozilla.org/servo-engines/) which demonstrates that browsers can be way faster than they are today. Rust is similar to C++ in performance and low-level ability but has a type system which [automatically prevents whole classes of nasty bugs](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) that are common in C++ programs.
 
 We chose Rust for this rewrite because it combines best-in-class speed with low resource usage while still offering the safety of standard server languages. Low resource usage was particularly important to us because some of the performance issues with the old server were caused by the garbage collector.
 
@@ -70,11 +71,11 @@ Rust combines fine-grained control over memory layout with the lack of a GC and 
 
 - **Awesome performance**
 
-Rust definitely delivered on its promise of optimal performance, both because it can take advantage of all of LLVM’s optimizations and because the language itself is designed with performance in mind. Rust’s [slices](https://doc.rust-lang.org/1.22.0/std/slice/) make passing raw pointers around easy, ergonomic, and safe, and we used that a lot to avoid copying data during parsing. The [HashMap API](https://doc.rust-lang.org/std/collections/struct.HashMap.html) is implemented with [linear probing](https://en.wikipedia.org/wiki/Linear_probing) and [Robin Hood hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing), so unlike C++’s [unordered_map API](http://en.cppreference.com/w/cpp/container/unordered_map) the contents can be stored inline in a single allocation and are much more cache-efficient.
+Rust definitely delivered on its promise of optimal performance, both because it can take advantage of all of LLVM’s optimizations and because the language itself is designed with performance in mind. Rust’s [slices](https://doc.rust-lang.org/1.22.0/std/slice/) make passing raw pointers around easy, ergonomic, and safe, and we used that a lot to avoid copying data during parsing. The [HashMap API](https://doc.rust-lang.org/std/collections/struct.HashMap.html) is implemented with [linear probing](https://en.wikipedia.org/wiki/Linear_probing) and [Robin Hood hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing), so unlike C++’s [unordered_map API](http://en.cppreference.com/w/cpp/container/unordered_map) the contents can be stored inline in a single allocation and are much more cache-efficient.
 
 - **Solid toolchain**
 
-Rust comes with [cargo](https://doc.rust-lang.org/cargo/index.html) built-in, which is a build tool, package manager, test runner, and documentation generator. This is a standard addition for most modern languages but is a very welcome improvement coming from the outdated world of C++, the other language we had considered using for the rewrite. Cargo was well-documented and easy to use, and it had helpful defaults.
+Rust comes with [cargo](https://doc.rust-lang.org/cargo/index.html) built-in, which is a build tool, package manager, test runner, and documentation generator. This is a standard addition for most modern languages but is a very welcome improvement coming from the outdated world of C++, the other language we had considered using for the rewrite. Cargo was well-documented and easy to use, and it had helpful defaults.
 
 - **Friendly error messages**
 
@@ -84,37 +85,37 @@ Rust is more complex than other languages because it has an additional piece, th
 
 - **Lifetimes are confusing**
 
-In Rust, storing a pointer in a variable can prevent you from mutating the thing it points to as long as that variable is in scope. This guarantees safety but is overly restrictive since the variable may not be needed anymore by the time the mutation happens. Even as someone who has been following Rust from the start, who writes compilers for fun, and who knows how to think like the borrow checker, it’s still frustrating to have to pause your work to solve the little unnecessary borrow checker puzzles that can come up regularly as you work. There are good examples of the problems this creates in [this blog post](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/).
+In Rust, storing a pointer in a variable can prevent you from mutating the thing it points to as long as that variable is in scope. This guarantees safety but is overly restrictive since the variable may not be needed anymore by the time the mutation happens. Even as someone who has been following Rust from the start, who writes compilers for fun, and who knows how to think like the borrow checker, it’s still frustrating to have to pause your work to solve the little unnecessary borrow checker puzzles that can come up regularly as you work. There are good examples of the problems this creates in [this blog post](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/).
 
-*What we did about it:* We simplified our program to a single event loop that reads data from stdin and writes data to stdout (stderr is used for logging). Data either lives forever or only lives for the duration of the event loop. This eliminated pretty much all borrow checker complexities.
+*What we did about it:* We simplified our program to a single event loop that reads data from stdin and writes data to stdout (stderr is used for logging). Data either lives forever or only lives for the duration of the event loop. This eliminated pretty much all borrow checker complexities.
 
-*How this is being fixed:* The Rust community is planning to address this with [non-lexical lifetimes](https://github.com/rust-lang/rfcs/blob/master/text/2094-nll.md). This feature shrinks the lifetime of a variable such that it stops after the last time it’s used. Then a pointer will no longer prevent the mutation of the thing it points to for the rest of the scope, which will eliminate many borrow checker false-positives.
+*How this is being fixed:* The Rust community is planning to address this with [non-lexical lifetimes](https://github.com/rust-lang/rfcs/blob/master/text/2094-nll.md). This feature shrinks the lifetime of a variable such that it stops after the last time it’s used. Then a pointer will no longer prevent the mutation of the thing it points to for the rest of the scope, which will eliminate many borrow checker false-positives.
 
 - **Errors are hard to debug**
 
 Error-handling in Rust is intended to be done by returning a value called “Result” that can represent either success or failure. Unlike with exceptions, creating an error value in Rust does not capture a stack trace so any stack traces you get are for the code that reported the error instead of the code that caused the error.
 
-*What we did about it:* We ended up converting all errors to strings immediately and then using a macro that includes the line and column of the failure in the string. This was verbose but got the job done.
+*What we did about it:* We ended up converting all errors to strings immediately and then using a macro that includes the line and column of the failure in the string. This was verbose but got the job done.
 
-*How this is being fixed:* The Rust community has apparently come up with several workarounds for this issue. One of them is called [error-chain](https://docs.rs/error-chain/*/error_chain/) and another one is called [failure](https://boats.gitlab.io/failure/). We didn’t realize these existed and we aren’t sure if there’s a standard approach.
+*How this is being fixed:* The Rust community has apparently come up with several workarounds for this issue. One of them is called [error-chain](https://docs.rs/error-chain/*/error_chain/) and another one is called [failure](https://boats.gitlab.io/failure/). We didn’t realize these existed and we aren’t sure if there’s a standard approach.
 
 - **Many libraries are still early**
 
 Figma’s document format is compressed so our server needed to be able to handle compressed data. We tried using two separate Rust compression libraries that were both used by Servo, Mozilla’s next-generation browser prototype, but both had subtle correctness issues that would have resulted in data loss.
 
-*What we did about it:* We ended up just using a tried-and-true C library instead. Rust is built on LLVM so it’s pretty trivial to call C code from Rust. Everything is just LLVM bitcode in the end!
+*What we did about it:* We ended up just using a tried-and-true C library instead. Rust is built on LLVM so it’s pretty trivial to call C code from Rust. Everything is just LLVM bitcode in the end!
 
-*How this is being fixed:* The bugs in the affected libraries were reported and have since been fixed.
+*How this is being fixed:* The bugs in the affected libraries were reported and have since been fixed.
 
 - **Asynchronous Rust is difficult**
 
-Our multiplayer server talks over WebSockets and makes HTTP requests every so often. We tried writing these request handlers in Rust but hit some concerning ergonomic issues around the [futures API](https://docs.rs/futures/*/futures/) (Rust’s answer for asynchronous programming). The futures API is very efficient but somewhat complex as a result.
+Our multiplayer server talks over WebSockets and makes HTTP requests every so often. We tried writing these request handlers in Rust but hit some concerning ergonomic issues around the [futures API](https://docs.rs/futures/*/futures/) (Rust’s answer for asynchronous programming). The futures API is very efficient but somewhat complex as a result.
 
-For example, chaining operations together is done by constructing a giant nested type that represents the whole operation chain. This means everything for that chain can be allocated in a single allocation, but it means that error messages generate long unreadable errors reminiscent of template errors in C++ (an example is [here](https://gist.github.com/evanw/06a672db1897482eadfbbf37ebf9b9ec)). That combined with other issues such as needing to adapt between different error types and having to solve complex lifetime issues made us decide to abandon this approach.
+For example, chaining operations together is done by constructing a giant nested type that represents the whole operation chain. This means everything for that chain can be allocated in a single allocation, but it means that error messages generate long unreadable errors reminiscent of template errors in C++ (an example is [here](https://gist.github.com/evanw/06a672db1897482eadfbbf37ebf9b9ec)). That combined with other issues such as needing to adapt between different error types and having to solve complex lifetime issues made us decide to abandon this approach.
 
-*What we did about it:* Instead of going all-in on Rust, we decided to keep the network handling in node.js for now. The node.js process creates a separate Rust child process per document and communicates with it using a message-based protocol over stdin and stdout. All network traffic is passed between processes using these messages.
+*What we did about it:* Instead of going all-in on Rust, we decided to keep the network handling in node.js for now. The node.js process creates a separate Rust child process per document and communicates with it using a message-based protocol over stdin and stdout. All network traffic is passed between processes using these messages.
 
-*How this is being fixed:* The Rust team is hard at work on [adding async/await to Rust](https://github.com/rust-lang/rfcs/blob/master/text/2033-experimental-coroutines.md), which should solve many of these issues by hiding the complexity of futures underneath the language itself. This will allow the “?” error-handling operator that currently only works with synchronous code to also work with asynchronous code, which will cut down on boilerplate.
+*How this is being fixed:* The Rust team is hard at work on [adding async/await to Rust](https://github.com/rust-lang/rfcs/blob/master/text/2033-experimental-coroutines.md), which should solve many of these issues by hiding the complexity of futures underneath the language itself. This will allow the “?” error-handling operator that currently only works with synchronous code to also work with asynchronous code, which will cut down on boilerplate.
 
 ## **Rust and the future**
 
@@ -122,4 +123,10 @@ While we hit some speed bumps, I want to emphasize that our experience with Rust
 
 Our multiplayer server is a small amount of performance-critical code with minimal dependencies, so rewriting it in Rust even with the issues that came up was a good tradeoff for us. It enabled us to improve server-side multiplayer editing performance by an order of magnitude and set Figma’s multiplayer server up to scale long into the future.
 
-**Thanks to Figma.**
+**Thanks to Figma.**
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
