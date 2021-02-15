@@ -159,28 +159,36 @@ Notice that some of this code is dummy code meant for testing this graph project
 请注意该项目中的一部分代码是无用的，仅为了测试该图映射算法而写的符合python语法的部分。
 
 We want to know which functions are tested and how implicitly they are tested i.e. how many (nested) calls are there from the closest test function to a given non-test function?
-我们想知道哪个方法被测试过以及它们是如何被调用测试的？例如：
+我们想知道哪个方法被测试过以及它们是如何被调用测试的？例如：从最近的测试方法到某指定的非测试方法中经历了多少的调用？
 
 Well, we have the graph. Now we need to query the graph database.
 我们现在有了图形，接下来就该查询图形数据库了。
 
 Take a look at the following Cypher query that implements a shortest-path algorithm between tests and functions and compare it to the picture.
+看一眼下面这个实现了在测试和功能函数之间最短路径算法的查询并且将它和图片进行比较。
 
-Notice that we assume that test functions are objects that are either in a file with a name starting with “test”, inside a class, or function with a name starting with “test”, or simply functions, methods, or classes with names starting with “test” (in the case of classes it should of course start with “Test").
+Notice that we assume that test functions are objects that are either in a file with a name starting with “test”, inside a class, or function with a name starting with “test”, or simply functions, methods, or classes with names starting with “test” (in the case of classes it should of course start with “Test").
+请注意，在这个时候测试方法是一个以 "test" 为开头的名字的函数或某个类中一个名字以 “test” 开头的文件对象，或者仅仅是一个名字以 "test" 开头的函数、方法、类。（对于类的情况而言，他应该以"Test"开头）
 
 This assumption might at first seem far-fetched but I don’t think I have ever written a test function in a Python file starting with something other than “test”, not to mention that the function name itself almost always starts with “test”.
+这一前提似乎很牵强，但我几乎没有在 Python 文件中写过用除了"test"的其他单词开头的测试方法，更不用说在大多数情况下方法名本身就是以"test"开头的。
 
 > If you have a file starting with “test” I assume that all the functions and methods in that file are test functions.
+> 如果你有一个以"test"开头的文件，那我猜测所有的函数和方法在这个文件中都是测试方法。
 
 The output from the cypher query is the following table:
+上述查询的输出结果在下面的表格中：
 
 ![Image by author](https://cdn-images-1.medium.com/max/3152/1*AmPI3Ucswgli45Bm1hkQdw.png)
 
 hmm… It would surely be nice if we could get that table in a Pandas DataFrame…
+嗯....如果我们能够用Pandas DataFrame的形式得到这张表那就更好了。
 
 Let’s do that:
+让我们改一改代码：
 
 We store the above cypher query as a string (using triple quotes) in the variable **query**. Then inside a function or method of choice, you could do something like
+我们将查询语句以字符串形式存储在变量 **query** 中。之后，在所选择的方法或函数内部，你会像下面这样写代码：
 
 ```python
 loader = self.loader
@@ -189,50 +197,74 @@ df = pd.DataFrame(records, columns=["distances", "test_functions", "test_source"
 ```
 
 Then you will get the table in a DataFrame object that you can then work with.
+之后就会得到以DataFrame对象形式存储的可以进一步做处理的表格。
 
 Finding all non-test functions might come in handy, so let’s build that.
+接下来我们几乎可以立即找出所有的非测试方法，所以让我们构建这张代码图。
 
 Before moving on, we should define what we mean by safety score.
+在继续我们的探索之前，我们应该定义一下在这里我们说的安全分数是什么意思。
 
 > For a given function **f** we define the **test norm** of **f** to be the distance in the graph between the closest test function and **f.**
+> 对于一个给定的函数 **f** ，我们定义它的**测试规范**是图中展示出来的它本身和最近的测试方法之间的距离。
 
 * By convention, all the test functions have test norm 0.
+* 通常定义所有测试方法的测试规范是0。
 * If a function is called by a test function, the norm is 1,
+* 如果一个方法被一个测试方法直接调用，那么该方法测试规范为1。
 * if a function (which is not called by any test function) is called by another function which is called by a test function, the norm is 2, etc.
+* 如果一个方法没有被任何测试方法调用，但是被另一个被测试方法调用的函数调用了，那么该方法测试规范为2，以此类推。
 
 Let’s now define the safety score σ for the whole project. Let **NT** be the set of non-test functions and let N = |NT|. Then we define
+接下来我们定义整个项目的安全系数 σ 。定义 **NT** 为所有非测试方法的集合并且定义 N = |NT|。之后我们定义
 
 $$
 \sigma=\frac{1}{N} \sum_{f \in \mathbb{N T}} \frac{1}{|f|_{T}}, \quad \text { where }|f|_{T} \text { is the test norm of } f
 $$
 
 Note that
+请注意
 
 * If all the functions in the project are tested directly i.e. if all the functions have test norm 1, then σ = 1
+* 如果项目中所有的函数都是被直接测试的，那么所有的函数的测试规范都为1，那么 σ = 1。
 * If none of the functions are tested at all neither directly nor implicit (through other functions), then σ is the empty sum which is 0 by convention.
+* 如果无论直接或间接都没有函数被测试，那么 σ 会是空的和，一般来说是0。
 
 Thus 0 \< σ \< 1 and the closer to 1 it is, the more tested and safe the code is.
+因此 0 \< σ \< 1 ，并且越接近于1，那么这份代码就被测试的越多，也越安全。
 
 The idea behind this formula is that the further out from the tests a given function is, the weaker tested it is. However, I assume that an “average” weak test is performed on functions further out in the graph. But this is of course just a definition. We can always change this. For example, functions called by many different test functions might be better tested than a function that’s only called by one, and we don’t take this into account at all in this version of the project. It might come in later versions though.
+在这一公式之后的想法是：某一给定函数距离测试函数的距离越远，针对它的测试就越不足。然而，在这里我猜测“平均”缺陷测试是针对于在图形边缘部分的函数的。但这仅仅只是一个定义。定义往往可以改变。例如，被很多测试函数调用的方法比仅仅被一个测试函数调用的方法测试的更好，我们在本项目中不将这种情况纳入考虑。虽然这种情况可能会在之后的版本中纳入考虑。
 
 Let’s implement this.
+让我们实现它！
 
 This works, and for the project above, we get a score of about 0.2 but we need to keep in mind that this only works if you have the word “test” somewhere at the beginning of your filenames or objects that you test your code with.
+这是可行的，并且对于上面的项目得到了大约0.2的分数，但是记住，只有在你的文件名或用来测试代码的对象的开头有“test”这个词时，这才有效。
 
 I will leave it as an exercise to the reader to build this Python mapping him/her-self because I am not allowed to open source the code for this project. However, I will give you some hints as to how to build this yourself.
+我将把构建这个Python映射的任务留给读者作为练习，因为不打算将这个项目开放源代码。但是，我将给您一些关于如何自己构建的提示。
 
 * I have a master class that keeps track of, and stores, nodes and relationships while I iterate through the files line by line.
+* 我有一个主要的类用来在一行一行迭代文件的时候跟踪和存储节点和关系。
 * While iterating, we keep track of where we are with respect to scope. Are we inside a class?, a function?, etc.
+* 在迭代的时候，我们区分作用域记录我们在哪里。我们是在一个类里？一个方法里？等等
 * We store the objects and create a relationship if there is a call or an instantiation to another function or class respectively
-* If the current line contains a definition, then I store the object and the parent object (if any) e.g. methods and classes. I then store relationships in the form of IS_METHOD_IN, IS_FUNCTION_IN.
+* 如果存在一个对于函数或者类的调用或者是一个实例化，那我们存储对象并且创建一个关系
+* If the current line contains a definition, then I store the object and the parent object (if any) e.g. methods and classes. I then store relationships in the form of IS_METHOD_IN, IS_FUNCTION_IN.
+* 如果当前的行包含定义语句，那么我存储这个对象和父节点（如果存在），也就是方法或者类。之后，以 IS_METHOD_IN, IS_FUNCTION_IN 的形式存储关系。
 
 So basically it is about coding a python syntax parser.
+所以基本上这就是编写一个python 语法解析器的全部要点了
 
 And let me tell you, it is more tricky than one thinks right off the bat.
+并且，这比我们一开始想象的要复杂一点。
 
 We need to keep track of imports and calls to other files along with building a file crawler because you don't know how deep the repository is. Every object that we store has a source file where it was created and we need to store that as a property of the node because if two objects are called the same in two different files we need to be careful not to merge them into the same object when we create the graph.
+我们需要在构建文件爬取器的时候跟踪对其他文件的引入和调用，因为我们不知道这个项目有多深。我们存储的每个对象都有一个它被创建的源文件，并且我们需要存储这个源文件作为节点的一个属性，因为如果两个对象在两个不同的文件中以相同名字被调用的时候，我们应该小心不要在我们画出来的图中将这两个对象合并到一起。
 
 When I have run through all .py files in the project, I create some CSV's from the data stored which I load into Neo4j from Python via a LOAD CSV query using the LoadGraphData class defined above.
+当我跑完项目中所有的.py文件的时候，我从数据存储中创建了csv文件，这些数据存储是python通过之前 LoadGraphData 方法使用 LOAD CSV 查询从neo4j中加载的。
 
 ## A Map of a Known Project
 
