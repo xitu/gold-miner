@@ -2,7 +2,7 @@
 * 原文作者 : [pistacchio](https://medium.com/@pistacchio)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [woota](https://github.com/woota)
-* 校对者: [iThreeKing](https://github.com/iThreeKing), [sqrthree](https://github.com/sqrthree)
+* 校对者: [joyking7](https://github.com/joyking7), [sqrthree](https://github.com/sqrthree)
 
 # JavaScript 生态之乱象
 
