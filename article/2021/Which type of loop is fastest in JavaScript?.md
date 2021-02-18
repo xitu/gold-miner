@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # JavaScript 中哪一种循环最快呢？
 
