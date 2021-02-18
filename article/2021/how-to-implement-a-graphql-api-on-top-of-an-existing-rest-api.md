@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# How to Implement a GraphQL API on Top of an Existing REST API
+# 如何基于已有的 REST API 实现 GraphQL API
 
 ![Dad joke “dadabase” app](https://cdn-images-1.medium.com/max/2912/0*r9_qx_t-6ltEP7GR.png)
 
-你的 dad jokes 放在哪儿？当然是在 **dadabase** 里。我们来想象一下，你是全世界最受欢迎的 dad jokes 数据库的管理员。项目的技术概况是：使用 REST API 与数据库通信，这种 REST API 具有搜索笑话和对笑话进行评分的功能；网站的访问者可以通过一个简单的界面对每条笑话进行评分。
+你的 dad jokes 放在哪儿？当然是在 **dadabase** 里。我们来想象一下，你是全世界最受欢迎的 dad jokes 数据库的管理员。项目的技术概况是：使用 REST API 与数据库通信，这种 REST API 具有搜索笑话和对笑话进行评分的功能；网站的访问者可以通过一个简单的用户界面对每条笑话进行评分。
 
-最近你了解到一种新技术，它叫做 GraphQL，它具有一定的灵活性，可以精准获取你需要的数据，而且是使用单一的 API 结点。它很整洁，于是你打算在应用程序中使用这种技术。但是，你不希望对原有的 API 作过多的改动。能否让你的项目同时支持 REST API 和 GraphQL API？
+最近你了解到一种新技术，它叫做 GraphQL，它具有一定的灵活性，可以精准获取你需要的数据，而且是使用单一的 API 结点。这听上去很不错，于是你打算在应用程序中使用这种技术。但是，你不希望对原有的 REST API 作过多的改动。能否让你的项目同时支持 REST API 和 GraphQL API？
 
 在本文中，我们会讨论如何基于已有的 REST API 来实现 GraphQL API。你使用这种方法，不需要对基于原有的 REST API 框架进行调整，就可以在项目的未完成的模块中使用 GraphQL。
 
-如果你想看到最终的结果，可以访问[REST API 代码](https://github.com/thawkin3/dad-joke-dadabase-rest-api) 和 [前端和 GraphQL API 代码](https://github.com/thawkin3/dad-joke-dadabase)。还要记得[浏览一下网站](https://dad-joke-dadabase.herokuapp.com/)，那些笑话很值得看哦。
+如果你想看到最终的结果，可以访问 [REST API 代码](https://github.com/thawkin3/dad-joke-dadabase-rest-api) 和 [前端和 GraphQL API 代码](https://github.com/thawkin3/dad-joke-dadabase)。还要记得[浏览一下网站](https://dad-joke-dadabase.herokuapp.com/)，那些笑话很值得看哦。
 
 ## 初始架构
 
@@ -79,11 +79,11 @@ server.listen(process.env.PORT || 3000, () => {
 
 ```
 
-欲对这个模拟的数据库进行测试，你可以把[API 有关的仓库](https://github.com/thawkin3/dad-joke-dadabase-rest-api)克隆到本地，并运行 `npm install` 和 `npm start`。在浏览器中访问 http://localhost:3000/jokes ，页面会显示所有的笑话。访问 http://localhost:3000/ratings ，页面会显示所有的评分信息。
+欲对这个模拟的数据库进行测试，你可以把 [API 有关的仓库](https://github.com/thawkin3/dad-joke-dadabase-rest-api)克隆到本地，并运行 `npm install` 和 `npm start`。在浏览器中访问 http://localhost:3000/jokes ，页面会显示所有的笑话。访问 http://localhost:3000/ratings ，页面会显示所有的评分信息。
 
 ![/jokes API endpoint returns all the jokes when running the app locally](https://cdn-images-1.medium.com/max/3524/0*hKZlLEM_mzlVLnLE.png)
 
-太棒了。我们可以在浏览器上运行应用程序的后台。现在我们把 API 托管在 Heroku 中。首先需要[安装 Heroku 客户端](https://devcenter.heroku.com/articles/heroku-cli)。然后，我们可以进行这些操作：登录，创建项目，推送到 Heroku 服务端，在浏览器中打开项目的操作界面。
+太棒了。我们可以在浏览器上运行应用程序的后台。现在我们把 API 托管在 Heroku 中。首先需要[安装 Heroku 命令行工具](https://devcenter.heroku.com/articles/heroku-cli)。然后，我们可以进行这些操作：登录，创建项目，推送到 Heroku 服务端，在浏览器中打开项目的操作界面。
 
 ```bash
 # 登录你的 Heroku 账户
@@ -414,7 +414,7 @@ fetch('/graphql', {
   })
 ```
 
-现在，我们可以在本地运行应用程序了。实际上，从用户的角度来说，没有发生任何变化。但假如你在浏览器的开发者工具中查看网络请求，你会发现，现在获取笑话是通过访问 `/graphql` 端点来实现的了。
+现在，我们可以在本地运行应用程序了。实际上，从用户的角度来说，没有发生任何变化。但假如你在浏览器的开发者工具中查看网络请求，你会发现，现在获取笑话是通过访问 `/graphql` 端点来实现的了。真棒！
 
 ![The Network tab shows a request is being made to the /graphql endpoint now](https://cdn-images-1.medium.com/max/2520/0*ketnaG9b4tR0O0O4.png)
 
