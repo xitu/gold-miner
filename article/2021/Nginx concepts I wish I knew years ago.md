@@ -20,23 +20,23 @@
 
 Nginx 底层特性就是代理，所以现在就需要了解什么是代理和反向代理。
 
-#### 代理
+### 代理
 
-好的，我们有客户端（>= 1）、一个中间 Web 服务器（在这种情况下，我们称它为代理）和一个服务器。这其中最主要的就是服务器不知道哪个客户端在请求。是不是有点困惑？让我用一张示意图来解释一下。
+好的，我们有多个客户端、一个中间 Web 服务器（在这种情况下，我们称它为代理）和一个服务器。这其中最主要的就是服务器不知道哪个客户端在请求。是不是有点困惑？让我用一张示意图来解释一下。
 
 ![https://res.cloudinary.com/practicaldev/image/fetch/s--tPAqn11I--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/1moanfdnfnh5d0dqs4wd.png](https://res.cloudinary.com/practicaldev/image/fetch/s--tPAqn11I--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/1moanfdnfnh5d0dqs4wd.png)
 
-在这种情况下，client1 和 client2 通过代理服务器向服务器发送请求 request1 和 request2，现在后台服务器不会知道 request1 和 request2 是由 client1 还是 client2 发送的，而只是执行操作。
+在这种情况下，客户端 client1 和 client2 通过代理服务器向服务器发送请求 request1 和 request2，现在后台服务器不会知道 request1 和 request2 是由 client1 还是 client2 发送的，只会执行操作。
 
 #### 反向代理
 
-最简单的解释，反向代理就是把代理的工作反过来。比方说有一个客户端、一个中间 Web 服务器和若干后台服务器（>= 1），我们也通过一张示意图解释吧！
+最简单的解释，反向代理就是把代理的工作反过来。比方说有一个客户端、一个中间 Web 服务器和若干后台服务器。让我们继续通过一张示意图解释吧！
 
 ![https://res.cloudinary.com/practicaldev/image/fetch/s--iUfM34yx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/64jk21oeqlki2t3bx1kz.png](https://res.cloudinary.com/practicaldev/image/fetch/s--iUfM34yx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/64jk21oeqlki2t3bx1kz.png)
 
 在这种情况下，客户端将通过 Web 服务器发送一个请求，Web 服务器会通过一种算法将请求定向到众多服务器的任意一个，其中一种算法是轮询调度（最可爱的一个！），然后再将响应通过 Web 服务器返回给客户端。因此在这里，客户端并不知道与之交互的是哪一个后台服务器。
 
-### 负载均衡
+## 负载均衡
 
 可恶，又是一个新词，但是这个词比较容易理解，因为它是**反向代理**本身的一个实际应用。
 
@@ -44,11 +44,11 @@ Nginx 底层特性就是代理，所以现在就需要了解什么是代理和�
 
 让我们从背后的情况看一下，如果我们有大量来自客户端的请求，这个负载均衡器会检查每个后端服务器的状态并分配请求的负载，然后将响应更快地发送给客户端。
 
-### 有状态应用 vs 无状态应用
+## 有状态应用 vs 无状态应用
 
 好的各位，我保证我很快就要讲到 Nginx 代码了，先让我们把所有的基本概念搞清楚！
 
-#### 有状态应用
+### 有状态应用
 
 这个应用程序存储了一个额外的变量，用于保存只适用于单个服务器实例的信息。
 
@@ -56,7 +56,7 @@ Nginx 底层特性就是代理，所以现在就需要了解什么是代理和�
 
 我的意思是，如果后端服务器 *server1* 存储了一些信息，那么它不会被存储在 *server2* 上，因此客户端（这里是 Bob）的交互可能会得到或可能不会得到想要的结果，因为它可能会与 server1 或者 server2 交互。在这种情况下，server1 将允许 Bob 查看配文件，但 server2 不会。因此，即使有状态应用防止了许多 API 调用数据库，并且速度更快，却可能会导致在不同服务器之间出现上述问题。
 
-#### 无状态应用
+### 无状态应用
 
 现在，无状态是更多 API 会调用数据库，但客户端与不同后台服务器进行交互时，存在的问题更少。
 
@@ -64,7 +64,7 @@ Nginx 底层特性就是代理，所以现在就需要了解什么是代理和�
 
 我知道你没有明白我的意思。简单来说，如果我从客户端通过 Web 服务器向比如说后台服务器 *server1* 发送一个请求，它将向客户端提供一个令牌以用于访问其他任何请求。客户端可以使用令牌并将请求发送给 Web 服务器，该 Web 服务器将请求和令牌一起发送给任意后台服务器，每个服务器都将返回相同所期望的结果。
 
-### 什么是 Nginx？
+## 什么是 Nginx？
 
 Nginx 就是 Web 服务器，到目前为止，我一直在整篇博客中使用 Web 服务器这个词，老实说，它就像一个*中间人*。
 
@@ -74,17 +74,17 @@ Nginx 就是 Web 服务器，到目前为止，我一直在整篇博客中使用
 
 现在，当客户端向 `https://localhost`（默认 443 端口）发送请求 `GET /employees` 时，Nginx 将根据算法把这个请求发送给任意一个后台服务器，后台服务器从数据库中获取信息，然后把 JSON 结果发送回 Nginx Web 服务器，Nginx 再发送回客户端。
 
-如果我们要使用诸如*轮询调度*这样的算法，Nginx 会这样做：比如 client2 发送了一个请求到 `https://localhost`，那么 Nginx 服务器会先把请求传到 3001 端口，然后把响应返回给客户端。对于另一个请求，Nginx 会把请求传到 3002 端口，以此类推。
+如果我们要使用诸如**轮询调度**这样的算法，Nginx 会这样做：比如 client2 发送了一个请求到 `https://localhost`，那么 Nginx 服务器会先把请求传到 3001 端口，然后把响应返回给客户端。对于另一个请求，Nginx 会把请求传到 3002 端口，以此类推。
 
-太多信息啦！但到这里，你应该已经清楚地了解了什么是 Nginx 及其相关术语。现在，我们将继续了解 Nginx 的安装和配置。
+阿这也太多概念了吧！不过我想到了现在，你应该已经清楚地了解了什么是 Nginx 及其相关术语。现在，我们将继续了解 Nginx 的安装和配置。
 
-### 安装过程
+## 安装过程
 
 终于到这一步了！如果你能理解 Nginx 概念并看到了代码这部分，我为你感到灰常自豪。
 
 ![https://res.cloudinary.com/practicaldev/image/fetch/s--7rgP-NQB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/4mju73ad1f22gy1ni3gu.gif](https://res.cloudinary.com/practicaldev/image/fetch/s--7rgP-NQB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/4mju73ad1f22gy1ni3gu.gif)
 
-好的，让我告诉你，老实说，在任何操作系统上安装 Nginx 都只需要一行命令。我是 Mac OSX 用户，所以会基于它来写命令。但对于 [ubuntu](https://ubuntu.com/tutorials/install-and-configure-nginx#2-installing-nginx) 和 [windows](https://www.maketecheasier.com/install-nginx-server-windows/) 以及其他 Linux 发行版，也有类似的操作。
+好的，让我告诉你，老实说，在任何操作系统上安装 Nginx 都只需要一行命令。我是 Mac OSX 用户，所以会基于它来写命令。但对于 [Ubuntu](https://ubuntu.com/tutorials/install-and-configure-nginx#2-installing-nginx) 和 [Windows](https://www.maketecheasier.com/install-nginx-server-windows/) 以及其他 Linux 发行版，也有类似的操作。
 
 ```
 $ brew install Nginx
@@ -127,13 +127,13 @@ $ sudo nginx
 
 ```
 
-同时，在 *html* 和 *md* 文件中写上基本的上下文内容。
+同时，在 **html** 和 **md** 文件中写上基本的上下文内容。
 
 ### 我们要达到什么效果？
 
 在这里，我们有两个单独的文件夹 `nginx-demo` 和 `temp-nginx`，每个文件夹都包含静态 HTML 文件。我们将专注于在一个共同端口上运行这两个文件夹，并设置我们喜欢的规则。
 
-现在回到正规。我们可以通过修改位于 `usr/local/etc/nginx` 路径下的 `nginx.conf` 文件，实现对 Nginx 默认配置的任何改动。另外，我的系统中有 Vim，所以我使用 Vim 进行修改，你也可以自由使用所选的编辑器。
+现在回到正规。我们可以通过修改位于 `/usr/local/etc/nginx` （译者注：默认安装路径）路径下的 `nginx.conf` 文件，实现对 Nginx 默认配置的任何改动。另外，我的系统中有 Vim，所以我将用 Vim 进行修改，你也可以自由使用所选的编辑器。
 
 ```
 $ cd /usr/local/etc/nginx
@@ -141,7 +141,7 @@ $ vim nginx.conf
 
 ```
 
-这将打开一个默认的 Nginx 配置文件，我真的不想使用它的默认配置。因此，我通常会复制这个配置文件，然后对原文件进行修改。在这里我们也这样做。
+这将打开一个默认的 Nginx 配置文件，但我真的不想使用它的默认配置。因此，我通常会复制这个配置文件，然后对原文件进行修改。在这里我们也这样做。
 
 ```
 $ cp nginx.conf copy-nginx.conf
@@ -151,7 +151,7 @@ $ rm nginx.conf && vim nginx.conf
 
 现在打开一个空文件，我们将给它添加我们的配置。
 
-1. 添加一个基本配置。添加 `events {}` 是必须的，因为对于 Nginx 架构来讲，它通常被用来表示 worker 的数量。我们在这里使用 `http` 来告诉 Nginx，我们将使用 [OSI 模型](https://bit.ly/2LGdbYB) 的第 7 层。
+1. 添加一个基本配置。添加 `events {}` 是必须的，因为对于 Nginx 架构来讲，它通常被用来表示 Worker 的数量。我们在这里使用 `http` 来告诉 Nginx，我们将使用 [OSI 模型](https://bit.ly/2LGdbYB) 的第 7 层。
 
     在这里，我们让 Nginx 监听 5000 端口，并指向 `/nginx-demo/main` 文件夹下的静态文件。
 
@@ -267,7 +267,7 @@ $ rm nginx.conf && vim nginx.conf
 
 通过 `sudo nginx` 来运行代码。
 
-### 额外的 Nginx 命令！
+## 额外的 Nginx 命令！
 
 1. 首次启动 Nginx Web 服务器。
 
@@ -305,7 +305,7 @@ $ rm nginx.conf && vim nginx.conf
 
 第 4 条命令很重要，当前 3 条命令出现错误时，可以使用第 4 条命令找到所有正在运行的 Nginx 进程，然后 kill 掉这些进程，重新启动 Nginx 服务。
 
-要 kill 一个进程，你需要 PID，然后用下面的命令 kill 它：
+要 kill 一个进程，你需要先知道它的 PID，然后用下面的命令 kill 它：
 
 ```
 $ kill -9 <PID>
