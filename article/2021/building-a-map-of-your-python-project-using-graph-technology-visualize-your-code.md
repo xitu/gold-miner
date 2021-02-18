@@ -267,16 +267,20 @@ When I have run through all .py files in the project, I create some CSV's from t
 当我跑完项目中所有的.py文件的时候，我从数据存储中创建了csv文件，这些数据存储是python通过之前 LoadGraphData 方法使用 LOAD CSV 查询从neo4j中加载的。
 
 ## A Map of a Known Project
+## 一个现成项目的结构图
 
 Here is a map of a project that you might have heard of.
+这里是一个你或许已经听过的项目的结构图
 
 **Beautiful Soup**
 
 ![Image by author](https://cdn-images-1.medium.com/max/12290/1*VEpSuRJLgRZu9VVnPs6cXQ.png)
 
 This is a quite nice map of what is going on in Beautiful Soup. Notice how the big clusters are connected.
+这张图非常完美的表示了 Beautiful Soup 中发生了什么。它的簇之间彼此链接非常紧密。
 
 While this code is not perfect yet, I believe that it can become quite useful in the future. I am currently working on a more stable version that takes the opening of files from python into account as well.
+虽然这份代码并不完美，但我相信它在未来一定是相当有用的。我现在正在开发一个更加稳定的版本，该版本中将文件的打开次数也纳入计算。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
