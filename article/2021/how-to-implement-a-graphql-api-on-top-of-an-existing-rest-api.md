@@ -2,8 +2,8 @@
 > * 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-implement-a-graphql-api-on-top-of-an-existing-rest-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-implement-a-graphql-api-on-top-of-an-existing-rest-api.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [k8scat](https://github.com/k8scat)
 
 # 如何基于已有的 REST API 实现 GraphQL API
 
