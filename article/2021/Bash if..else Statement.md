@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/bash-if-else-statement.md](https://github.com/xitu/gold-miner/blob/master/article/2021/bash-if-else-statement.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # Bash 中的 if else 语句
 
 ![Bash 中的 if else 语句](https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg)
 
-在本篇教程中，我们会逐步深入 Bash `if` 语句的基础，带着大家一起学习如何在我们的 Shell 脚本中使用 `if` 语句。
+在本篇教程中，我们会逐步深入 Bash 中的 if 语句基础，带着大家一起学习如何在 Shell 脚本中使用 if 语句。
 
-控制流条件流橘子是计算机编程的最基础要素，就像是其他别的什么编程语言中，`if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句可以在 Bash 中基于特定条件执行代码。
+控制流和条件流语句是计算机程序的最基础要素，就像是其他别的什么编程语言中，`if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句可以在 Bash 中基于特定条件执行代码。
 
 ## `if` 语句
 
-Bash 中的 `if` 条件语句拥有不同的实现形式，或者说，格式。最常见的应该长这个样子：
+Bash 中的 `if` 条件语句拥有不同的实现形式（格式）。最常见的应该长这个样子：
 
 ```zsh
 if TEST-COMMAND
@@ -62,9 +62,9 @@ bash test.sh
 这个变量大于 10
 ```
 
-## `if` `else` 语句
+## `if..else` 语句
 
-Bash 中的 `if` `else` 语句是这个样子的：
+Bash 中的 `if..else` 语句是这个样子的：
 
 ```zsh
 if TEST-COMMAND
@@ -95,9 +95,9 @@ fi
 
 如果你执行上述代码并输入一段数字，脚本会给予你输入的数字与 10 之间的大小关系输出不同的信息。
 
-## `if` `elif` `else` 语句
+## `if..elif..else` 语句
 
-Bash `if` `elif` `else` 语句是这样子的：
+Bash 的 `if..elif..else`` 语句是这样子的：
 
 ```
 if TEST-COMMAND1
@@ -232,7 +232,7 @@ fi
 
 ## 结论
 
-`if`、`if` `else` 和 `if` `elif` `else` 语句让我们能够给予条件来控制 Bash 脚本的执行。
+`if`、`if..else` 和 `if..elif..else` 语句让我么能够基于条件来控制 Bash 脚本的执行。
 
 如果你有任何疑问或反馈，请随时发表评论。
 
