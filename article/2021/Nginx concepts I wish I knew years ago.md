@@ -54,7 +54,6 @@ Nginx 底层特性就是代理，所以现在就需要了解什么是代理和�
 
 ![有状态应用图例](https://res.cloudinary.com/practicaldev/image/fetch/s--Ng8XRfi_--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/bb9kkupl1z9dpacex8vt.png)
 
-
 我的意思是，如果后端服务器 *server1* 存储了一些信息，那么它不会被存储在 *server2* 上，因此客户端（这里是 Bob）的交互可能会得到或可能不会得到想要的结果，因为它可能会与 server1 或者 server2 交互。在这种情况下，server1 将允许 Bob 查看配文件，但 server2 不会。因此，即使有状态应用防止了许多 API 调用数据库，并且速度更快，却可能会导致在不同服务器之间出现上述问题。
 
 ### 无状态应用
