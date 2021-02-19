@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md](https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
 
 # 基于 50 万个浏览器指纹的新发现
 
 ![](https://cdn-images-1.medium.com/max/2560/1*pG2Zzgc5OZr5frYc2ovhkg.png)
 
-你还记得自己上一次在网上寻找想要的商品时，是不是会弹出很多与之相关广告页面？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
+你还记得自己上一次在网上寻找想要的商品时，会弹出很多与之相关广告页面吗？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
 
 没错，这种方法甚至可以在你使用无痕浏览模式(也就是隐身模式)时跟踪你。
 
-![浏览器指纹的功能和价值示例-检查你的浏览器指纹在 [http://fp.virpo.sk](http://fp.virpo.sk)](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
+![浏览器指纹的功能和价值示例 —— 可以在 [http://fp.virpo.sk](http://fp.virpo.sk) 检查你的浏览器指纹](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
 
 在 [Slido](https://slido.com) 上，我们进行了一次最大规模的浏览器指纹识别准确性的公开调查，并且是全球首次针对智能手机上的指纹信息表现进行的全面调查。
 
@@ -31,21 +31,21 @@
 
 同样的原则也适用于浏览器。大多数浏览器都启用了 JavaScript 功能，它向外部公开了大量关于你的浏览器的信息。
 
-可能是你的屏幕尺寸、表情符号、已安装的字体、语言、时区或显卡模型。所有这些都可以从你的浏览器获得，但是你也许从未注意过这一点。
+可能是你的屏幕尺寸、表情符号、已安装的字体、语言、时区或显卡型号。所有这些都可以从你的浏览器获得，但是你也许从未注意过这一点。
 
 就每个指纹信息本身而言，它们都是微不足道的。但通过组合使用，任何人都可以准确地通过它来识别特定的浏览器。
 
-![甚至你设备上的表情符号都可以用来识别你。表情符号可以使用HTML5画布提取为位图。](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
+![甚至你设备上的表情符号都可以用来识别你。表情符号可以使用 HTML5 画布提取为位图。](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
 
 如果你感兴趣的话, 可以在 [我的网站](http://fp.virpo.sk) 上查看你的部分浏览器指纹信息。
 
-## 浏览器指纹信息如何使用？
+## 如何使用浏览器指纹信息？
 
 有人可能会认为浏览器指纹天生就有不好的一面，但事实并非如此。
 
-以防诈骗为例。如果你的任何一种需要在线登录的账号，比如银行账户或者社交网络账户。一般情况下只需要通过邮箱和密码就可以登录。
+以防诈骗为例。如果你有任何一种需要在线登录的账号，比如银行账户或者社交网络账户，一般情况下只需要通过邮箱和密码就可以登录。
 
-如果有一天你的证件被盗，小偷试图从他的设备上登录，但是浏览器指纹发生了变化，银行或社交网络将会检测到这种异常行为。为了防止被诈骗，它们可能会要求你做出进一步的授权，比如短信验证码。
+如果有一天小偷盗取了你的登录凭证并试图从他的设备上登录，银行或社交网络是可以检测到这种异常行为的，因为浏览器指纹发生了变化。为了防止被诈骗，平台可能会要求你做出进一步的授权，比如短信验证码。
 
 然而，迄今为止，浏览器指纹最广泛的应用是个性化的广告推送。“点赞”和“分享”按钮几乎出现在每个社交网站上，它们通常会包含一个 JavaScript 脚本来收集你的浏览器指纹信息，从而进一步获取你的浏览记录。
 
@@ -55,17 +55,17 @@
 
 但是因为与社交相关的按钮 —— 也就是包含浏览器指纹的脚本 —— 几乎无处不在，社交网络甚至知道你是怎么浏览网页的。
 
-通过这种方式，那些科技巨头会向你提供你半小时前搜索的相关广告。
+通过这种方式，那些科技巨头会向你推送你半小时前搜索内容的相关广告。
 
 ## 我的浏览器在任何地方和时间都能被识别出来吗？
 
 当然不是。
 
-这里有几个网站，比如 [AmIUnique](https://amiunique.org/) 和 [Panopticlick](https://panopticlick.eff.org/)，基于它们数据库大约 100 万个指纹信息，可以来确定你的浏览器指纹信息是否唯一。
+这里有几个网站，比如 [AmIUnique](https://amiunique.org/) 和 [Panopticlick](https://panopticlick.eff.org/)，它们会基于数据库内大约 100 万个指纹信息，来确定你的浏览器指纹信息是否唯一。
 
-你的浏览器指纹很可能会被标记为唯一的。这听起来很可怕，但请耐心听我说，当我们看到指纹标记原理时，可能就没那么担心了。
+你的浏览器指纹很可能会被标记为唯一的。这听起来很可怕，但请耐心听我说，当我们了解了指纹标记原理时，可能就没那么担心了。
 
-这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了 2 - 3 年 (或 Panopticlick 则是 45 天) 收集的数据。
+这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了至少两到三年 (或 Panopticlick 则是 45 天) 收集的数据。
 
 然而，45 天和 2 年的时间足够让你的浏览器指纹发生改变，而这不需要你做任何事情。例如，我的浏览器指纹在 60 天内改变了 6 次。
 
@@ -105,7 +105,7 @@
 
 #### 指纹变化率
 
-我们看到了另一个有趣的现象，当观察单个设备的浏览器指纹发生变化的频率时。
+当观察单个设备的浏览器指纹发生变化的频率时，我们看到了另一个有趣的现象。
 
 以下图表显示了设备第一次访问和第一次更改浏览器指纹之间的天数:
 
@@ -117,7 +117,7 @@
 
 ![Rate of fingerprint change across different device types.](https://cdn-images-1.medium.com/max/4192/1*-kGLm0LGKQxjbtckW2gyZg.png)
 
-这张图表显示，19% 的 iPhone 手机在一周内更换了指纹，而同期只有 3% 的 Android， iPhone 比 android 更难进行长时间的跟踪。
+这张图表显示，19% 的 iPhone 手机在一周内更换了指纹，而同期只有 3% 的 Android。我们的数据表明，iPhone 比 Android 更难进行长时间的跟踪。
 
 #### 最少的指纹个数
 
@@ -133,7 +133,7 @@
 
 ![通过收集 9 个而不是 33 个浏览器特性，熵只下降了 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
 
-实验表明，通过提取 3 个基本的浏览器特征，即日期格式、用户代理字符集和屏幕可用大小(屏幕大小减去程序坞、窗口栏等的大小)，我们可以实现 14.2 的熵，在某些情况下，这已经足够识别浏览器(以及用户)。
+实验表明，通过提取 3 个基本的浏览器特征，即日期格式、用户代理字符集和屏幕可用大小（屏幕大小减去程序坞、窗口栏等的大小），我们可以实现 14.2 的熵，在某些情况下，这已经足够识别浏览器（以及用户）。
 
 如果我们用更难获得的特性 (如 `Canvas`、已安装字体列表等) 扩展子集，就能够达到熵为 16.5 的目标。
 
@@ -141,34 +141,34 @@
 
 ## 结论
 
-那么从这里面能得到什么呢?
+那么我们可以从中得到什么呢?
 
-* 那些科技巨头可以追踪到你的线上活动，但还不完全准确。
+* 那些科技巨头可以追踪到你的线上活动，但目前还不完全准确。
 * 智能手机 (尤其是 iPhone) 比个人电脑更难追踪
 * 设备的浏览器指纹变化非常频繁
 * 浏览器指纹很容易获取
 
-然而，如果你担心你的数据隐私，也有一些好消息。首先，[苹果宣布了一场针对浏览器指纹识别的保卫战](https://www.howtogeek.com/fyi/safari-battles-browser-fingerprinting-and-tracking-on-macos-mojave/)，它推出了最新的 Mac OS Mojave 版本。其次，GDPR 认为浏览器指纹是个人数据，必须进行相应的处理。最后还有许多 [插件和浏览器扩展](https://amiunique.org/tools) 会混淆浏览器指纹脚本。
+然而，如果你担心你的数据隐私，我这里也可以告诉你一些好消息。首先，[苹果宣布了一场针对浏览器指纹识别的保卫战](https://www.howtogeek.com/fyi/safari-battles-browser-fingerprinting-and-tracking-on-macos-mojave/)，它推出了最新的 Mac OS Mojave 版本。其次，GDPR 认为浏览器指纹是个人数据，必须进行相应的处理。最后还有许多 [插件和浏览器扩展](https://amiunique.org/tools) 会混淆浏览器指纹脚本。
 
-所以，我们的浏览器隐私在未来并不像看起来那么糟糕。诚然，有时你的浏览器可以被唯一地识别，但很多时候其他设备的浏览器指纹与你的完全相同，这使得你的浏览器更难被跟踪。
+所以，我们的浏览器隐私在未来并不像它看起来那么糟糕。诚然，有时你的浏览器可以被唯一地识别，但很多时候其他设备的浏览器指纹与你的完全相同，这使得你的浏览器更难被跟踪。
 
 #### 研究动机
 
-在 [Slido](https://slido.com) 上，我们试图使我们的 Web 应用程序的用户体验尽可能简单。当你使用我们的应用程序时，你通常不需要注册，我们希望保持这种方式。
+在 [Slido](https://slido.com) 上，我们试图使我们的 Web 应用程序的用户体验尽可能简单。当你使用我们的应用程序时，你通常不需要登录，我们希望保持这种方式。
 
 我们进行这项研究的动机是：基于浏览器指纹的身份验证是否可以在不损害用户体验的情况下保护用户免受恶意脚本的攻击。
 
 需要注意的是，智能手机的指纹信息也很重要，因为我们的应用流量主要来自智能手机。
 
-而我们研究的结论是是**否定的**
+而我们研究的结论是**否定的**
 
-浏览器指纹本身不足以作为我们进行用户的身份验证的充分条件。然而，它们足够准确地把你放在一群有着类似兴趣的人当中(比如猫或汽车)。
+浏览器指纹本身不足以作为我们进行用户身份验证的充分条件。然而，它们足够准确地把你放在一群有着类似兴趣（比如猫或汽车）的人当中。
 
 ---
 
-这就意味着使用浏览器指纹是个理想的场景，如个性化的广告，准确性并非其关键，或防止银行诈骗，通过浏览器指纹追踪，让诈骗者有所畏惧到底是一件好事。
+这就意味着浏览器指纹的使用在个别场景中是理想的，比如个性化的广告，这种情况下准确性并非其关键，或者防止银行诈骗，通过浏览器指纹追踪，让诈骗者有所畏惧到底是一件好事。
 
-如果你想了解更多关于浏览器指纹识别的知识，我写了一篇关于我研究的 [60 多页长的论文](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)，你可以读读看。
+如果你想了解更多关于浏览器指纹识别的知识，我写了一篇关于和我自己研究相关的 [60 多页长的论文](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)，你可以读读看。
 
 你将了解到更多的关于每个浏览器特性提取是如何工作的，如何避免被浏览器指纹跟踪，并对本文中的图像和结果进行更详细的解释，等等。
 
@@ -179,11 +179,11 @@
 相关链接:
 
 * [我的关于浏览器指纹的 60 多页的报告](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)
-* [http://fp.virpo.sk](http://fp.virpo.sk) — 了解浏览器指纹是什么
-* [https://panopticlick.eff.org](https://panopticlick.eff.org/static/browser-uniqueness.pdf)— Panopticlick
-* [https://amiunique.org](https://amiunique.org/)— AmIUnique
-* [https://audiofingerprint.openwpm.com](https://audiofingerprint.openwpm.com/) — audio 特性在浏览器指纹中的应用
-* [https://www.nothingprivate.ml/](https://www.nothingprivate.ml/) — 无痕浏览不再是无痕
+* [http://fp.virpo.sk](http://fp.virpo.sk) —— 了解浏览器指纹是什么
+* [https://panopticlick.eff.org](https://panopticlick.eff.org/static/browser-uniqueness.pdf) —— Panopticlick
+* [https://amiunique.org](https://amiunique.org/) —— AmIUnique
+* [https://audiofingerprint.openwpm.com](https://audiofingerprint.openwpm.com/) —— audio 特性在浏览器指纹中的应用
+* [https://www.nothingprivate.ml/](https://www.nothingprivate.ml/) —— 无痕浏览并不是无痕的
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
