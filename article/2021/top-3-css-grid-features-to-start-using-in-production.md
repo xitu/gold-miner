@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-3-css-grid-features-to-start-using-in-production.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-3-css-grid-features-to-start-using-in-production.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[zqp1226358](https://github.com/zqp1226358)
 
 # 3 个最棒的最值得你去在产品中使用的 CSS Grid 功能
 
 ![由 [Sigmund](https://unsplash.com/@sigmund?utm_source=medium&utm_medium=referral) 拍摄并在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 上传的图片](https://cdn-images-1.medium.com/max/8096/0*mWiTIfu6BVlYQ5lf)
 
-Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explorer 10 中落实的。经过近 9 年的发展，我们现在可以说，浏览器对 Grid 的支持已经变得足够好，而我们也可以安心在生产中使用 Grid 了。
+Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 IE 10 中落实的。经过近 9 年的发展，我们现在可以说，浏览器对 Grid 的支持已经变得足够好，这样我们可以安心在生产环境中中使用 Grid 了。
 
-我们将看看具有可靠浏览器支持的前三个功能。即使有一些更酷的新功能的出现，例如 `subgrid` 等的问世，也请注意谨慎在生产中使用这些功能。在发布产品前，请先检查 [Can I Use](https://www.caniuse.com) 网站上的浏览器支持信息。养成这样一个好习惯，百利而无一害。
+本篇文章我们主要讨论浏览器支持且使用频率最高的 3 个 Grid 布局相关的特性。即使有一些更酷的新功能的出现，例如 `subgrid` 等的问世，也请注意谨慎在生产中不要使用这些功能。在发布产品前，请先检查 [Can I Use](https://www.caniuse.com) 网站上的浏览器支持信息。养成这样一个好习惯，百利而无一害。
 
 ## 一个简要的复习
 
@@ -19,7 +19,7 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 
 ![一维布局与二维布局](https://cdn-images-1.medium.com/max/2000/1*6YeEVVXSRcJwnZBHo2EgpQ.png)
 
-在使用 Grid 开发时，建议使用 Firefox 浏览器，因为它的 Dev Tools 比任何其他别的工具都要好 —— Grid 支持最棒的浏览器，而且它也是目前唯一支持 `subgrid` 的浏览器。
+在使用 Grid 开发时，建议使用 Firefox 浏览器，因为它的 Dev Tools 比其他浏览器的都要好 —— 支持 Grid 相关属性最棒的浏览器，而且它也是目前唯一支持 `subgrid` 属性的浏览器。
 
 现在，让我们深入研究可用于生产的三大 CSS Grid 功能。
 
@@ -114,7 +114,7 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 
 提示： Grid 轨迹是两条 Grid 线之间的空间。
 
-让我们使用 Firefox Inspector 审查页面元素，让我么能够清晰地了解我们所创建的 Grid 布局。
+让我们使用 Firefox Inspector 审查页面元素，能够清晰地了解我们所创建的 Grid 布局。
 
 ![ Grid 布局的内部](https://cdn-images-1.medium.com/max/2090/1*U9o4_M-wfMeBHindl1H4sw.png)
 
@@ -141,7 +141,7 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 *  Grid 区域单元必须形成一个矩形。如果不是，则声明无效。
 
 ```css
-/* Example of an invalid Grid */
+/* 一个无效的 Grid */
 #grid {
     background-color: #73937E;
     height: calc(100vh - 20px);
@@ -158,7 +158,7 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 上面的示例不起作用。因为 `right` 和 `left` 的定义都重复了。删除 `content content content content` 一行，让 `left` 和 `right` 连接起来，就能够解决该问题。
 
 ```css
-/* Example of an invalid Grid */
+/* 一个无效的 Grid */
 #grid {
     background-color: #73937E;
     height: calc(100vh - 20px);
@@ -172,9 +172,9 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 }
 ```
 
-上面的示例不起作用 —— 我们定义了描述了一个非矩形区域，而 Grid 并非为此而建，也不支持它。
+上面的示例不起作用，因为我们定义了描述了一个非矩形区域，而 Grid 并非为此而建，也不支持它。
 
-提示：我们可以将 `grid-template-rows` 和 `grid-template-areas` 结合使用，但是结果将有所不同。我们必须选择一种适合我们所现有的特定情况的方案。
+提示：我们可以将 `grid-template-rows` 和 `grid-template-areas` 结合使用，但是结果将有所不同。我们必须选择一种适合我们特定场景的方案。
 
 ```css
 /* 方法 A */
@@ -217,7 +217,7 @@ Grid 最初是由 Microsoft 团队起草的，并于 2011 年在 Internet Explor
 
 ## 2. Grid 间隔
 
-Grid 的 `gap` 功能是极度简单且直观的。我们仅需使用 `column-gap`、`row-gap` 或 `gap` 就能定义 Grid 布局中的间隙。
+Grid 的 `gap` 特性的使用是很简捷的。我们仅需使用 `column-gap`、`row-gap` 或 `gap` 就能定义 Grid 布局中的间隙。
 
 ```css
 #grid {
@@ -347,7 +347,7 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 /* 使用： grid-template-columns: repeat(var(--repeat, auto-fit), minmax(200px, 1fr)); */
 ```
 
-最后，让我们充分了解 `auto-fill` 和 `auto-fit` 之间的区别：
+最后，让我们进一步了解 `auto-fill` 和 `auto-fit` 之间的区别：
 
 *`auto-fill`：尝试在给定约束条件下用尽可能多的列填充行
 *`auto-fit`：行为与`auto-fill`相同，但是任何空的重复轨道将被折叠，它将扩展其他轨道以占用所有可用空间（如果有）。
@@ -362,9 +362,9 @@ grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
 ![[Denys Nevozhai](https://unsplash.com/@dnevozhai?utm_source=medium&utm_medium=referral) 拍摄并发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的照片](https://cdn-images-1.medium.com/max/10944/0*qOzhnK7sH5tZyk_T)
 
-我们将最突出的三个 Grid 功能以及深入探讨了如何以最恰当的方式使用它们。现在，我想我们已经可以使用更少的 CSS 代码以更高效的方式构建布局。使用 Flex API 的日子已经过去了，现在就让我们一起使用 Grid 功能来美化我们的页面吧～
+我们介绍了最突出的三个 Grid 特性并深入探讨了如何以最恰当的方式使用它们。现在，我想我们已经可以使用更少的 CSS 代码以更高效的方式构建布局。使用 Flex API 的日子已经过去了，现在就让我们一起使用 Grid 功能来美化我们的页面吧～
 
-不幸的是，我们无法等待 Internet Explorer 11 的终结，因为至少还要等个四年，烦死了，扔也扔不掉……毕竟这玩意仍在企业级别被广泛地使用着。现在我们需要添加一些 polyfill 确保 100％ 的用户都能够正常地使用。
+不幸的是，我们无法等待 Internet Explorer 11 的终结，因为它至少在 4 年内不会发生，毕竟它仍然在企业级别被广泛地使用着。现在我们需要添加一些 polyfill 确保 100％ 的用户都能够正常地使用。
 
 我希望我的文章能为阅读的你提供开始在生产中使用 Grid 的信心。毕竟一旦开始使用它，就再也没有回头路了，这玩意真是太好用了！
 
