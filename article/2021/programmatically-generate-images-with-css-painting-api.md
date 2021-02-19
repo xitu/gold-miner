@@ -9,7 +9,7 @@
 
 ![Banner](https://cdn-images-1.medium.com/max/5760/1*wKYGWd-7eWgpmMeBNiLCDA.jpeg)
 
-图像为应用程序增添色彩，丰富内容。但是，众所周知，网页中如果嵌入了大量高分辨率图像，会严重影响页面的加载，拖长加载时间，严重影响用户体验。对于展示产品、方案等必须内容的图像，我们别无选择，只能按照正常方式嵌入这些图像并通过缓存它们来优化应用程序。但是，如果我们在应用程序中需要几何图像，则不必再将其作为资源来加载。
+图像为应用程序增添色彩，丰富内容。然而，如果网页中嵌入了大量高分辨率图像，会大量增加页面资源加载时间，严重影响用户体验。对于展示产品、方案等必须内容的图像，我们别无选择，只能按照正常方式嵌入这些图像并通过缓存它们来优化应用程序。但是，如果我们在应用程序中需要几何图像，则不必再将其作为资源来加载。
 
 > 我们可以使用 CSS Painting API 即时生成几何图像。
 
@@ -17,7 +17,7 @@
 
 ## CSS Painting API 的简介
 
-[CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API) 使开发人员能够编写 JavaScript 函数以将图像绘制到 CSS 属性中，例如 `background-image`和 `border`。它提供了一组 API，使开发人员可以访问 CSSOM，CSS Houdini（[Houdini](https://github.com/w3c/css-houdini-drafts)）的一部分 —— 新浏览器 API 的集合，为开发人员提供了对 CSS 本身的更底层的访问方法。）
+开发者们能够使用 [CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API) 使用编写的 JavaScript 函数将图像绘制到 CSS 属性中，例如 `background-image`和 `border`。它提供了一组 API，使开发人员可以访问 CSSOM，CSS Houdini（[Houdini](https://github.com/w3c/css-houdini-drafts)）的一部分 —— 新浏览器 API 的集合，为开发人员提供了对 CSS 本身的更底层的访问方法。）
 
 嵌入图像的传统方法如下。
 
@@ -39,7 +39,7 @@ div {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*c2EShrISdnmcxc87qJdKPg.png)
 
-似乎在上文中存在着一些不明所以然的术语。例如，我们提及了 `worklet`？
+在上文中似乎存在着一些晦涩难懂的术语。例如，我们提及了 `worklet`？
 
 简而言之，让程序自动生成图像的 JavaScript 代码称为 Paint Worklet。[Worklet](https://www.w3.org/TR/worklets-1/#intro) 是浏览器渲染管道的一个扩展。除了 Paint Worklet 之外，还有其他类型的 Worklet，例如 Animation Worklet 和 Layout Worklet。
 
@@ -47,11 +47,11 @@ div {
 
 ## 在实践中使用 CSS Painting API
 
-在本文中，我们将会走进程序化创建一个泡泡背景：
+在本文中，我们将会探讨如何创建一个气泡背景
 
 #### 第一步：添加 CSS paint() 函数
 
-在一切的一切之前，我们需要往所需要添加图片的 CSS 属性中添加 `paint()` 函数。
+在开始这一切之前，我们需要往所需要添加图片的 CSS 属性中添加 `paint()` 函数。
 
 ```css
 .bubble-background {
@@ -65,7 +65,7 @@ div {
 
 #### 第二步：定义 Worklet
 
-Worklet 需要在外部 JavaScript 文件中被保存，而 Painting Worklet 应该是一个 `class`，例如 `class Bubble { /* ... */ }`，然后这个 Worklet 需要使用 `registerPaint()` 函数注册。
+Worklet 需要在外部 JavaScript 文件中被保存，而 Painting Worklet 应该是一个 `class`，例如 `class Bubble { …… }`，然后这个 Worklet 需要使用 `registerPaint()` 函数注册。
 
 ```js
 class Bubble {
