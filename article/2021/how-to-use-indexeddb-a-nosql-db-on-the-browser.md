@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
 
 # 如何在浏览器上使用 NoSQL 数据库 IndexedDB
 
@@ -19,7 +19,7 @@
 
 ![[Source](https://developers.google.com/web/ilt/pwa/working-with-indexeddb)](https://cdn-images-1.medium.com/max/3488/1*2XRdyD3uHCnjK-5WXpAfQw.png)
 
-在本文中，我们将重点介绍以下内容。
+在本文中，我们将重点介绍以下内容：
 
 * 为什么我们需要 IndexedDB
 * 如何在应用程序中使用 IndexedDB
@@ -39,7 +39,7 @@ IndexedDB 没有像本地存储（`localStorage`）那样的特殊存储限制�
 
 * **可以存储基于键值对 `{ key: value }` 的任意类型值**
 
-IndexedDB 存储不同数据类型的灵活性更高。不仅是字符串类型，还包括二进制数据（`ArrayBuffer` 对象、`Blob` 对象等）。而 IndexedDB 在内部使用对象存储来保存数据。
+IndexedDB 存储不同数据类型的灵活性更高。支持的数据类型不仅包括字符串类型，还包括二进制数据（`ArrayBuffer` 对象、`Blob` 对象等）。而 IndexedDB 在内部使用对象存储来保存数据。
 
 * **提供查找接口**
 
@@ -51,7 +51,7 @@ IndexedDB 对于在线和离线工作的应用程序都非常有用。例如，�
 
 * **可以存储应用状态**
 
-通过为频繁使用的用户存储应用程序状态，可以大幅提高应用程序的性能，让应用程序可以在后续与后端服务器同步，并通过延迟加载来更新应用程序。
+通过为频繁使用的用户存储应用程序状态，可以大幅提高应用程序的性能，让应用程序可以在后续与后端服务器同步，并通过懒加载来更新应用程序。
 
 让我们看一下可以存储多个数据库的 IndexedDB 结构。
 
@@ -96,7 +96,7 @@ request.onupgradeneeded = (event) => {
 
 #### 3. 将数据插入对象存储
 
-只要开启数据库连接，就可以在 `onsuccess` 事件处理程序中管理数据。插入数据分 4 步进行。
+只要开启数据库连接，就可以在 `onsuccess` 事件处理程序中管理数据。插入数据分四步进行。
 
 ```js
 function insertUser(db, user) {
@@ -146,7 +146,7 @@ request.onsuccess = (event) => {
 };
 ```
 
-可以在 IndexedDB 上执行很多操作。包括如下所示：
+可以在 IndexedDB 上执行很多操作。包括下面这些：
 
 * 通过键（key）从对象存储中读取或查找数据
 * 通过索引（index）从对象存储中读取或查找数据
@@ -154,7 +154,7 @@ request.onsuccess = (event) => {
 * 删除一条记录
 * 从旧版本的数据库迁移等
 
-如果你需要关于如何实现上述操作的资料，请在下方评论部分告诉我。你也可以参考[这里](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB)获得更多信息。
+如果你需要关于如何实现上述操作的资料，请在下方评论区告诉我。你也可以参考[这里](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB)获得更多信息。
 
 ## IndexedDB 的功能
 
@@ -178,7 +178,7 @@ IndexedDB 提供了许多其它浏览器存储无法实现的特殊功能。下�
 
 ## IndexedDB 的局限
 
-到目前为止，IndexedDB 似乎很有希望用于客户端存储。然而，值得注意的局限是很少的。
+到目前为止，IndexedDB 似乎很有希望用于客户端存储。然而，有几个限制值得注意。
 
 * 虽然现代浏览器支持 IndexedDB，但是 IE 等浏览器却没有完全支持。
 
@@ -188,7 +188,7 @@ IndexedDB 提供了许多其它浏览器存储无法实现的特殊功能。下�
 
 ## IndexedDB 是否适合你的应用程序
 
-考虑到 IndexedDB 提供的诸多特性，这个价值百万的问题答案可能是 Yes！然而，在得出结论之前，先问自己以下几个问题。
+考虑到 IndexedDB 提供的诸多特性，这个百万美元问题（译者注：指至关重要的问题）答案可能是 Yes！然而，在得出结论之前，先问自己以下几个问题。
 
 * 你的应用程序需要离线访问吗？
 * 是否需要在客户端存储大量数据？
@@ -203,7 +203,7 @@ IndexedDB 提供了许多其它浏览器存储无法实现的特殊功能。下�
 
 当我们考虑所有客户端存储机制时，IndexedDB 显然是胜出者。让我们来看一下不同客户端存储方法的总结比较。
 
-![](https://cdn-images-1.medium.com/max/3544/1*ttpz7RUwKhTJYmfmE5VQ0g.png)
+![](https://github.com/PassionPenguin/gold-miner-images/blob/master/how-to-use-indexeddb-a-nosql-db-on-the-browser-summary-img.png)
 
 希望你对 IndexedDB 及其特性有一个清晰的认识。也让我们知道你的想法。
 
