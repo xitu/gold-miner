@@ -27,7 +27,7 @@ div {
 }
 ```
 
-而如果使用 CSS Painting API，我们只需要调用 `paint()` 函数，并且传入一个 JavaScript 声明好的工作集：
+而如果使用 CSS Painting API，我们只需要调用 `paint()` 函数，并且传入一个 JavaScript 声明好的 Worklet：
 
 ```css
 div {
