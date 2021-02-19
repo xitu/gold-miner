@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md](https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[lsvih](https://github.com/lsvih)
 
 # 基于 50 万个浏览器指纹的新发现
 
@@ -11,7 +11,7 @@
 
 你还记得自己上一次在网上寻找想要的商品时，会弹出很多与之相关广告页面吗？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
 
-没错，这种方法甚至可以在你使用无痕浏览模式(也就是隐身模式)时跟踪你。
+没错，这种方法甚至可以在你使用无痕浏览模式 (也就是隐身模式) 时跟踪你。
 
 ![浏览器指纹的功能和价值示例 —— 可以在 [http://fp.virpo.sk](http://fp.virpo.sk) 检查你的浏览器指纹](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
 
@@ -65,7 +65,7 @@
 
 你的浏览器指纹很可能会被标记为唯一的。这听起来很可怕，但请耐心听我说，当我们了解了指纹标记原理时，可能就没那么担心了。
 
-这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了至少两到三年 (或 Panopticlick 则是 45 天) 收集的数据。
+这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了至少两到三年（或 Panopticlick 则是 45 天）收集的数据。
 
 然而，45 天和 2 年的时间足够让你的浏览器指纹发生改变，而这不需要你做任何事情。例如，我的浏览器指纹在 60 天内改变了 6 次。
 
@@ -93,7 +93,7 @@
 
 例如，大小为 1 的匿名集意味着浏览器指纹是唯一的。大小为 5 的匿名集意味着 5 个不同的设备拥有完全相同的指纹，因此，你不能仅仅根据指纹来区分它们。
 
-我们数据集中大多数已占用设备类型的匿名设置大小结果如下:
+我们数据集中大多数已占用设备类型的匿名设置大小结果如下：
 
 ![匿名设置在我们数据集中占用的设备类型最多。例如，在我们的数据集中，只有 33% 的 iPhone 可以被唯一识别。](https://cdn-images-1.medium.com/max/3652/1*aRYY86WUgiB9OuSMrHil_w.png)
 
@@ -107,13 +107,13 @@
 
 当观察单个设备的浏览器指纹发生变化的频率时，我们看到了另一个有趣的现象。
 
-以下图表显示了设备第一次访问和第一次更改浏览器指纹之间的天数:
+以下图表显示了设备第一次访问和第一次更改浏览器指纹之间的天数：
 
 ![浏览器指纹变化速率。](https://cdn-images-1.medium.com/max/3842/1*girS-UYQ-GwEactOp8bgfg.png)
 
 我们可以看到，在 24 小时内，我们多次看到的设备中，近 10% 的设备成功改变了指纹。
 
-让我们分别看看这在每种设备上的表现:
+让我们分别看看这在每种设备上的表现：
 
 ![Rate of fingerprint change across different device types.](https://cdn-images-1.medium.com/max/4192/1*-kGLm0LGKQxjbtckW2gyZg.png)
 
@@ -129,7 +129,7 @@
 
 在我们的实验中，我们找到了最准确的浏览器指纹信息的子集。
 
-我们整个数据集的熵为 16.55，所以我们决定从 3 个指纹特征开始，增加子集的大小，直到子集的熵大于 16.5，结果如下:
+我们整个数据集的熵为 16.55，所以我们决定从 3 个指纹特征开始，增加子集的大小，直到子集的熵大于 16.5，结果如下：
 
 ![通过收集 9 个而不是 33 个浏览器特性，熵只下降了 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
 
@@ -141,10 +141,10 @@
 
 ## 结论
 
-那么我们可以从中得到什么呢?
+那么我们可以从中得到什么呢？
 
 * 那些科技巨头可以追踪到你的线上活动，但目前还不完全准确。
-* 智能手机 (尤其是 iPhone) 比个人电脑更难追踪
+* 智能手机（尤其是 iPhone）比个人电脑更难追踪
 * 设备的浏览器指纹变化非常频繁
 * 浏览器指纹很容易获取
 
@@ -176,7 +176,7 @@
 
 非常感谢我的导师，RNDr. Michal Forišek 博士，在本次研究中为我提供了很大的帮助。
 
-相关链接:
+相关链接：
 
 * [我的关于浏览器指纹的 60 多页的报告](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)
 * [http://fp.virpo.sk](http://fp.virpo.sk) —— 了解浏览器指纹是什么
