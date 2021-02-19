@@ -13,7 +13,7 @@
 
 > **IndexedDB** 是一个大型的 NoSQL 存储系统。它允许你在用户的**浏览器**中存储任意内容。除了通常的查找、读取和更新操作外，**IndexedDB** 还支持事务。
 >
-> 来源：[developers.google.com](https://developers.google.com/web/ilt/pwa/working-with-indexeddb)
+> 来源：[developers.google.cn](https://developers.google.cn/web/ilt/pwa/working-with-indexeddb)
 
 你可以在下面找到 IndexedDB 的示例。
 
@@ -100,7 +100,7 @@ request.onupgradeneeded = (event) => {
 
 ```js
 function insertUser(db, user) {
-    // 创建新的 transaction
+    // 创建新的事务
     const txn = db.transaction('User', 'readwrite');
 
     // 获取 UserDetails 对象存储
