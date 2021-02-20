@@ -11,11 +11,11 @@
 
 在本篇教程中，我们会逐步深入 Bash 中的 if 语句基础，带着大家一起学习如何在 Shell 脚本中使用 if 语句。
 
-控制流和条件流语句是计算机程序的最基础要素，就像是其他别的什么编程语言中，`if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句可以在 Bash 中基于特定条件执行代码。
+决策，计算机程序中的一个最基础的要素。就如同其他的编程语言一样，通过使用 `if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句，我们可以在 Bash 中基于特定条件执行对应的代码。
 
 ## `if` 语句
 
-Bash 中的 `if` 条件语句拥有不同的实现形式（格式）。最常见的应该长这个样子：
+Bash 中的 `if` 条件语句拥有不同的实现格式。例如最基本的形式：
 
 ```zsh
 if TEST-COMMAND
@@ -26,11 +26,11 @@ fi
 
 `if` 语句由 `if` 关键字引导，接上一段条件表达式，然后是 `then` 关键字，并以 `fi` 关键字结束。
 
-如果 `TEST-COMMAND` 执行后等同于真，那么 `STATEMENTS` 就会被执行，而如果是假，则 `STATEMENTS` 会被忽略。
+如果 `TEST-COMMAND` 执行后为真，那么相应地， `STATEMENTS` 就会被执行；而如果为假，则 `STATEMENTS` 会被忽略。
 
 大多数情况下，（在原文件中）保持你的代码拥有优秀的缩进及空行，可是个很好的习惯，能让你的代码具有更强的可读性和组织性结构性。大多数人都是用 4 个空格或 2 个空格的缩进。
 
-让我们看看下面的用于检查所给出的数字是否大于 10 的代码：
+让我们看看如下用于检查给定数字是否大于 10 的一段代码：
 
 ```zsh
 #!/bin/zsh
@@ -40,14 +40,14 @@ read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "这个变量大于 10"
+  echo "该变量大于 10。"
 fi
 ```
 
 保存上面的代码并在命令行中执行它：
 
 ```zsh
-# 注意，如果你直接运行它，那你可能需要先给它权限
+# 注意，在运行该段代码前，你可能需要先赋予其相应权限。
 # chmod +x test.sh
 # ./test.sh
 
@@ -59,7 +59,7 @@ bash test.sh
 因此上述代码的输出是：
 
 ```zsh
-这个变量大于 10
+该变量大于 10。
 ```
 
 ## `if..else` 语句
@@ -75,7 +75,7 @@ else
 fi
 ```
 
-如果 `TEST-COMMAND` 等同于真，那么 `STATEMENT1` 会被执行，而如果为假，那么 `STATEMENT2` 就会被执行。对于每一个 `if` 语句你只能有一个 `else` 语句。
+如果 `TEST-COMMAND` 为真，那么 `STATEMENT1` 会被执行；而如果为假，那么 `STATEMENT2` 就会被执行。对于每一个 `if` 语句，只能有一个 `else` 语句与之对应。
 
 让我们给上一个例子加一个 `else` 语句：
 
@@ -87,9 +87,9 @@ read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "这个变量大于 10"
+  echo "该变量大于 10。"
 else
-  echo "这个变量小于等于 10."
+  echo "该变量小于等于 10。"
 fi
 ```
 
@@ -111,7 +111,7 @@ else
 fi
 ```
 
-如果 `TEST-COMMAND1` 等同于真那么 `STATEMENTS1` 就会被执行，反之，如果 `TEST-COMMAND2` 等同于真那么 `STATEMENTS2` 就会被执行，而如果都不是真，那么 `STATEMENTS3` 会被执行。
+如果 `TEST-COMMAND1` 条件为真，那么 `STATEMENTS1` 就会被执行。若为假，则继续如下判断：如果 `TEST-COMMAND2` 条件为真，那么 `STATEMENTS2` 就会被执行。否则，`STATEMENTS3` 将会被执行。
 
 你可以拥有一个或多个 `elif` 语句在一段语句中，而 `else` 则是可有可无的。
 
@@ -127,24 +127,23 @@ read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "这个变量大于 10"
+  echo "该变量大于 10。"
 elif [[ $VAR -eq 10 ]]
 then
-  echo "这个变量等于 10."
+  echo "该变量等于 10。"
 else
-  echo "这个变量小于 10."
+  echo "该变量小于 10。"
 fi
 ```
 
 ## 嵌套 `if` 语句
 
-Bash 让我们能够在 `if` 语句中嵌套 `if` 语句，简称套娃。当然你还可以在另一个 `if` 语句中扔进去多个 `if` 语句。
+Bash 允许在一个 `if` 语句中嵌套一个或多个`if` 语句。
 
 下面的脚本会要求你输入三个数字，然后会打印其中最大的数字：
 
 ```
 #!/bin/bash
-# 译者吐槽，这就不能用 sort 什么的解决嘛，if 多麻烦……
 
 echo -n "输入一个数字："
 read VAR1
@@ -155,12 +154,12 @@ read VAR3
 
 if [[ $VAR1 -ge $VAR2 ]] && [[ $VAR1 -ge $VAR3 ]]
 then
-  echo "$VAR1 是最大的数字"
+  echo "$VAR1 是最大的数字。"
 elif [[ $VAR2 -ge $VAR1 ]] && [[ $VAR2 -ge $VAR3 ]]
 then
-  echo "$VAR2 是最大的数字"
+  echo "$VAR2 是最大的数字。"
 else
-  echo "$VAR3 是最大的数字"
+  echo "$VAR3 是最大的数字。"
 fi
 ```
 
@@ -172,7 +171,7 @@ fi
 
 一般来说，使用 [`case`](https://linuxize.com/post/bash-case-statement/) 语句比使用 `if` 语句更高效。
 
-## **多重条件**
+## 多重条件
 
 逻辑运算符 `OR` 和 `AND` 能够让你在一条 `if` 语句中使用多重条件。
 
@@ -232,7 +231,7 @@ fi
 
 ## 结论
 
-`if`、`if..else` 和 `if..elif..else` 语句让我么能够基于条件来控制 Bash 脚本的执行。
+`if`、`if..else` 和 `if..elif..else` 语句让我们能够基于不同的判断条件来控制 Bash 脚本中逻辑语句的执行。
 
 如果你有任何疑问或反馈，请随时发表评论。
 
