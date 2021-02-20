@@ -101,7 +101,7 @@ ytd-page-manager {
 
 在 2019 年，IT 巨头开始合作，开发先进、免费的视频编解码器 **AV1**。苹果、谷歌、Netflix 等公司（这个名单令人印象深刻）成立了一家”开放媒体联盟“公司，这些企业共享了他们的技术和专利，以创建跨时代的解编码器。目前，解编码器已开发完了，Netflix 也业已在其应用中使用了它，但是 Safari 还是不支持它。
 
-！[开放媒体联盟](https://cdn-images-1.medium.com/max/2000/1*4Hu_Vd2eexqGCyRn16_AZg.jpeg)
+![开放媒体联盟](https://cdn-images-1.medium.com/max/2000/1*4Hu_Vd2eexqGCyRn16_AZg.jpeg)
 
 如你所见，Safari 是一款非常保守的浏览器，而 Apple 总是不愿意与用户的意愿保持一致。
 

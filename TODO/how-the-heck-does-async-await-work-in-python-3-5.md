@@ -2,7 +2,7 @@
 * 原文作者 : [Brett Cannon](http://www.snarky.ca/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Yushneng](https://github.com/rainyear)
-* 校对者: [L9m](https://github.com/L9m)，[iThreeKing](https://github.com/iThreeKing)
+* 校对者: [L9m](https://github.com/L9m)，[joyking7](https://github.com/joyking7)
 
 # Python3.5 协程原理 
 

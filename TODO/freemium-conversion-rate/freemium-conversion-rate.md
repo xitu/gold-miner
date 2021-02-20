@@ -2,7 +2,7 @@
 * 原文作者 : [Benjamin Brandall](https://www.process.st/author/ben/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [SatanWoo](https://github.com/satanwoo)
-* 校对者: [iThreeKing](https://github.com/iThreeKing), [DeadLion](https://github.com/DeadLion)
+* 校对者: [joyking7](https://github.com/joyking7), [DeadLion](https://github.com/DeadLion)
 
 # 为什么 Spotify 的付费转化率比 Dropbox 高了 667%
 
