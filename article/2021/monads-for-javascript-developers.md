@@ -7,10 +7,6 @@
 
 # Monads For JavaScript Developers
 
-#### JavaScript Alpha Guide
-
-#### What is a Monad? You don’t have to be a category theory expert to understand. You have to know JavaScript Promises.
-
 ![](https://cdn-images-1.medium.com/max/5760/1*gA2dHvfpZEylFTBuiLiKxw.jpeg)
 
 Like every other programmer, I wanted to know, what **Monads** are. But every time you search for Monads on the internet, you get flooded with category theory papers. And other resources don’t seem to make much sense either.
@@ -45,7 +41,7 @@ const foo = Box("John");
 
 This is a box—just a wrapped value. The box does not have any behavior because it does not have any methods.
 
-> # For something to be a Monad, you must make it behave like a Monad yourself.
+> **For something to be a Monad, you must make it behave like a Monad yourself.**
 
 So let’s get back to the (>>=) :: m a -> (a -> m b) -> m b. The `(>>=)` is used as an infix operator: `m a >>= (a -> m b)`. and the result of the `(>>=)` operation is `m b`.
 
@@ -61,7 +57,7 @@ Better said, they have **Monad-ish** behavior. For something to be a Monad, it a
 
 JavaScript **Promises** implement the monadic interface with `.then()` method. Let’s see about that.
 
-```
+```js
 // p :: m a :: Promise { 42 }
 const p = Promise.resolve(42);
 ```
@@ -71,7 +67,7 @@ This basically creates a box. We have a value `42`, inside the **Promise**.
 
 Then we have a function that divides a number by two. The input is not wrapped in a **Promise**. But the returned function is wrapped in a **Promise**.
 
-```
+```js
 // divideByTwo :: (a -> m b)
 const divideByTwo = val => Promise.resolve(val / 2);
 ```
@@ -80,7 +76,7 @@ const divideByTwo = val => Promise.resolve(val / 2);
 
 Again, notice that we have a value `42` inside a **Promise**, but the function `divideByTwo` accepts an unwrapped value. And we’re still able to chain these.
 
-```
+```js
 // p :: m a :: Promise { 42 }
 const p = Promise.resolve(42);
 // p2 :: m a :: Promise { 21 }
@@ -91,7 +87,7 @@ const p3 = p2.then(divideByTwo);
 
 Or more obviously:
 
-```
+```js
 // p :: m a :: Promise { 10.5 }
 const p4 = p.then(divideByTwo).then(divideByTwo);
 ```
@@ -110,7 +106,7 @@ Because the **Promise** implements the `then` method to work that way. Most of t
 
 I put together a very simple example of a monad-ish class in TypeScript. It does not perform any side-effect but allows for the chaining of functions.
 
-```
+```ts
 class Dummy<T> {
   constructor(private val: T) {}
 
@@ -138,7 +134,7 @@ There’re some laws that a class with Monad behavior must follow.
 
 You can read more about these on the internet. I’ll drop here a snippet of code proving that the Dummy class follows these rules.
 
-```
+```js
 const m = Dummy.unit(1);
 const f = (val: number) => new Dummy(val + 1);
 const g = (val: number) => new Dummy(val + 2);
