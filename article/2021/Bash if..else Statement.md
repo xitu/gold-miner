@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)
+> * 校对者：[zenblo](https://github.com/zenblo)、[flying-yogurt](https://github.com/flying-yogurt)、[lsvih](https://github.com/lsvih)
 
 # Bash 中的 if else 语句
 
@@ -97,7 +97,7 @@ fi
 
 ## `if..elif..else` 语句
 
-Bash 的 `if..elif..else`` 语句是这样子的：
+Bash 的 `if..elif..else` 语句是这样子的：
 
 ```
 if TEST-COMMAND1
@@ -166,7 +166,7 @@ fi
 而输出就是这样子的：
 
 ```
-7 是最大的数字
+7 是最大的数字。
 ```
 
 一般来说，使用 [`case`](https://linuxize.com/post/bash-case-statement/) 语句比使用 `if` 语句更高效。
