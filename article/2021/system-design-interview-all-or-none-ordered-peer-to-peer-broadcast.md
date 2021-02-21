@@ -33,7 +33,9 @@ A tempting but flawed design is to have the sender retry until all (or a majorit
 
 Concretely, each node keeps a record of a list of seen message IDs (constructed to be unique) so that it can tell whether an inbound message is new or seen. When a node receives a new message, it immediately resends the message to all peers. At the same time, each node maintains a mapping of `\<message_id, acked_peer_ids>`. When the node receives a message from a peer, it adds the peer node ID into the `acked_peer_ids` for that `message_id`. The node delivers a message once the corresponding `acked_peer_ids` grows to include all or a majority of peers. See figure-1 for an overall illustration.
 
-![Figure-1. (a): every node got acks from all peers and thus could deliver the message. (b): node 1 crashed after sending the message to node 2. Node 2 and node 3 continued the broadcast and could deliver the message because either they relied on quorum, or they detected the crash of node 1 and thus excluded it. (c): node 1 crashed after sending the message to node 2. Node 2 crashed after sending the message to node 3. Node 3, node 4 and node 5 continued the broadcast. (d): node 1 crashed after sending the message to node 2. Node 2 crashed before sending the message out to any peer. The message was not delivered by any node.](https://cdn-images-1.medium.com/max/2340/1*bX2e8zvGXSDjSQCU-Xzlog.png)
+![](https://cdn-images-1.medium.com/max/2340/1*bX2e8zvGXSDjSQCU-Xzlog.png)
+
+**Figure-1. (a): every node got acks from all peers and thus could deliver the message. (b): node 1 crashed after sending the message to node 2. Node 2 and node 3 continued the broadcast and could deliver the message because either they relied on quorum, or they detected the crash of node 1 and thus excluded it. (c): node 1 crashed after sending the message to node 2. Node 2 crashed after sending the message to node 3. Node 3, node 4 and node 5 continued the broadcast. (d): node 1 crashed after sending the message to node 2. Node 2 crashed before sending the message out to any peer. The message was not delivered by any node.**
 
 Every message is first sent to all peers, which in turn resend the message to all their peers. The total number of message transmissions is `O(n²)`, assuming `n` nodes. The redundancy is needed to defend against partial failures. Readers who’re familiar with distributed systems concepts and algorithms may recognize that this is essentially the uniform reliable broadcast.
 
@@ -51,7 +53,9 @@ Let’s say the expected number of nodes that get the message exactly in the `**
 
 We’ll leverage the “all or none / quorum” delivery semantics to develop the “ordered” delivery semantics so that the “ordered” delivery semantics doesn’t need to worry about the atomicity of the message, and can therefore focus on the ordering part of the puzzle. This layered abstraction model is a typical way of tackling problems in computer science and frankly many other disciplines.
 
-![Figure-2](https://cdn-images-1.medium.com/max/2000/1*pIsK7air0l0o-C5rzzub4w.png)
+![](https://cdn-images-1.medium.com/max/2000/1*pIsK7air0l0o-C5rzzub4w.png)
+
+**Figure-2**
 
 As shown in figure-2, from now on, when we say “broadcast” in the “ordered” delivery semantics design, we mean invoking the `broadcast` interface in the underlying atomic delivery component. Likewise, when we say “receive” in the “ordered” delivery semantics design, we mean getting the `deliver` callback from the underlying atomic delivery component. When we say “deliver” in the “ordered” delivery semantics design, we mean actually delivering the message to the upper layer application.
 
@@ -75,7 +79,9 @@ Specifically, each node `i` maintains a local vector `V` such that `V[j]` denote
 
 This approach may seem a bit arbitrary at first glance. We can think of it this way. Continuing on with our denotation, the sender is node `j`, the recipient is node `i`. `V_m` is the vector that comes with the message `m` from node `j`. `V` is the local vector on node `i`. Generally speaking, when `V_m[k]>V[k]`, there are messages from node `k` that the sender node `j` has already delivered but the recipient node `i` has not. There two special cases of `k`. The first case is when `k==j`: `V_m[j]>V[j]` means that the sender node `j` has previously broadcast other messages that the recipient node `i` has not yet delivered. The second case is when `k==i`: `V_m[i]` has to be already smaller than or equal to `V[i]` because `V[i]` is incremented when node `i` broadcasts a messages while `V_m[i]` is incremented when node `j` delivers that message. In conclusion, `V_m[k]` represents the number of messages from node `k` that precede the new message `m`. Therefore, the recipient node `i` needs to wait for those messages first. As node `i` delivers those preceding messages, it increments its local vector `V`. The message `m` is safe to be delivered when `V_m[k]\<=V[k]` for all `k`. See figure-3 for an example.
 
-![Figure-3. Node 3 couldn’t deliver m2 until it delivered m1 due to the vector clock condition.](https://cdn-images-1.medium.com/max/2102/1*Mo7NtP6DZFFgaof35XCBvA.png)
+![](https://cdn-images-1.medium.com/max/2102/1*Mo7NtP6DZFFgaof35XCBvA.png)
+
+**Figure-3. Node 3 couldn’t deliver m2 until it delivered m1 due to the vector clock condition.**
 
 You may wonder why we need the number broken down per node, why can’t we collapse them to a single counter on each node that stores the total number of messages preceding a new broadcast. It’s easy to construct a counter-example wherein a node keeps broadcasting new messages but never get around to deliver any message. Its local counter will eventually become sufficiently large to accept any inbound message even though the node has not deliver a single required preceding message.
 
