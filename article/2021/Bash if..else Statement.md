@@ -2,67 +2,71 @@
 > * 原文作者：[linuxize](https://twitter.com/linuxize)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[flying-yogurt](https://github.com/flying-yogurt)、[lsvih](https://github.com/lsvih)
 
-# Bash if..else Statement
-![https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg?ezimgfmt=ng%3Awebp%2Fngcb65%2Frs%3Adevice%2Frscb65-1](https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg?ezimgfmt=ng%3Awebp%2Fngcb65%2Frs%3Adevice%2Frscb65-1)
+# Bash 中的 if else 语句
 
-In this tutorial, we will walk you through the basics of the Bash `if` statement and show you how to use it in your shell scripts.
+![Bash 中的 if else 语句](https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg)
 
-Decision making is one of the most fundamental concepts of computer programming. Like in any other programming language, `if`, `if..else`, `if..elif..else` and nested `if` statements in Bash can be used to execute code based on a certain condition.
+在本篇教程中，我们会逐步深入 Bash 中的 if 语句基础，带着大家一起学习如何在 Shell 脚本中使用 if 语句。
 
-## if Statement
+决策，计算机程序中的一个最基础的要素。就如同其他的编程语言一样，通过使用 `if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句，我们可以在 Bash 中基于特定条件执行对应的代码。
 
-Bash `if` conditionals can have different forms. The most basic `if` statement takes the following form:
+## `if` 语句
 
+Bash 中的 `if` 条件语句拥有不同的实现格式。例如最基本的形式：
 
-```
+```zsh
 if TEST-COMMAND
 then
   STATEMENTS
 fi
 ```
 
-The `if` statement starts with the `if` keyword followed by the conditional expression and the `then` keyword. The statement ends with the `fi` keyword.
+`if` 语句由 `if` 关键字引导，接上一段条件表达式，然后是 `then` 关键字，并以 `fi` 关键字结束。
 
-If the `TEST-COMMAND` evaluates to `True`, the `STATEMENTS` gets executed. If `TEST-COMMAND` returns `False`, nothing happens, the `STATEMENTS` gets ignored.
+如果 `TEST-COMMAND` 执行后为真，那么相应地， `STATEMENTS` 就会被执行；而如果为假，则 `STATEMENTS` 会被忽略。
 
-In general, it is a good practice to always indent your code and separate code blocks with blank lines. Most people choose to use either 4-space or 2-space indentation. Indentations and blank lines make your code more readable and organized.
+大多数情况下，（在原文件中）保持你的代码拥有优秀的缩进及空行，可是个很好的习惯，能让你的代码具有更强的可读性和组织性结构性。大多数人都是用 4 个空格或 2 个空格的缩进。
 
-Let’s look at the following example script that checks whether a given number is greater than 10:
+让我们看看如下用于检查给定数字是否大于 10 的一段代码：
 
+```zsh
+#!/bin/zsh
 
-```
-#!/bin/bash
-
-echo -n "Enter a number: "
+echo -n "输入一个数字："
 read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "The variable is greater than 10."
+  echo "该变量大于 10。"
 fi
 ```
-Save the code in a file and run it from the command line:
 
-```
+保存上面的代码并在命令行中执行它：
+
+```zsh
+# 注意，在运行该段代码前，你可能需要先赋予其相应权限。
+# chmod +x test.sh
+# ./test.sh
+
 bash test.sh
 ```
 
-The script will prompt you to enter a number. If, for example, you enter 15, the `test` command will evaluate to `true` because 15 is greater than 10, and the `[echo](https://linuxize.com/post/echo-command-in-linux-with-examples/)` command inside the `then` clause will be executed.
+这段脚本会要求你输入一个数字，举个例子，如果你输入了 15，那么 `TEST-COMMAND` 即 `[[ $VAR -gt 10 ]]` 等同于真，然后 `then` 分句中的 [`echo`](https://linuxize.com/post/echo-command-in-linux-with-examples/) 语句就会被执行。
 
+因此上述代码的输出是：
+
+```zsh
+该变量大于 10。
 ```
-The variable is greater than 10.
 
-```
+## `if..else` 语句
 
-## if..else` Statement
+Bash 中的 `if..else` 语句是这个样子的：
 
-The Bash `if..else` statement takes the following form:
-
-
-```
+```zsh
 if TEST-COMMAND
 then
   STATEMENTS1
@@ -70,30 +74,30 @@ else
   STATEMENTS2
 fi
 ```
-If the `TEST-COMMAND` evaluates to `True`, the `STATEMENTS1` will be executed. Otherwise, if `TEST-COMMAND` returns `False`, the `STATEMENTS2` will be executed. You can have only one `else` clause in the statement.
 
-Let’s add an `else` clause to the previous example script:
+如果 `TEST-COMMAND` 为真，那么 `STATEMENT1` 会被执行；而如果为假，那么 `STATEMENT2` 就会被执行。对于每一个 `if` 语句，只能有一个 `else` 语句与之对应。
 
+让我们给上一个例子加一个 `else` 语句：
 
 ```
 #!/bin/bash
 
-echo -n "Enter a number: "
+echo -n "输入一个数字："
 read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "The variable is greater than 10."
+  echo "该变量大于 10。"
 else
-  echo "The variable is equal or less than 10."
+  echo "该变量小于等于 10。"
 fi
 ```
-If you run the code and enter a number, the script will print a different message based on whether the number is greater or less/equal to 10.
 
-## if..elif..else Statement
+如果你执行上述代码并输入一段数字，脚本会给予你输入的数字与 10 之间的大小关系输出不同的信息。
 
-The Bash `if..elif..else` statement takes the following form:
+## `if..elif..else` 语句
 
+Bash 的 `if..elif..else` 语句是这样子的：
 
 ```
 if TEST-COMMAND1
@@ -106,129 +110,133 @@ else
   STATEMENTS3
 fi
 ```
-If the `TEST-COMMAND1` evaluates to `True`, the `STATEMENTS1` will be executed. If the `TEST-COMMAND2` evaluates to `True`, the `STATEMENTS2` will be executed. If none of the test commands evaluate to `True`, the `STATEMENTS2` is executed.
 
-You can have one or more `elif` clauses in the statement. The `else` clause is optional.
+如果 `TEST-COMMAND1` 条件为真，那么 `STATEMENTS1` 就会被执行。若为假，则继续如下判断：如果 `TEST-COMMAND2` 条件为真，那么 `STATEMENTS2` 就会被执行。否则，`STATEMENTS3` 将会被执行。
 
-The conditions are evaluated sequentially. Once a condition returns `True` the remaining conditions are not performed and program control moves to the end of the `if` statements.
+你可以拥有一个或多个 `elif` 语句在一段语句中，而 `else` 则是可有可无的。
 
-Let’s add an `elif` clause to the previous script:
+这些条件判断语句是按顺序执行的，一旦其中一个条件从句是真，那么剩下的判断都不会执行，并且程序会在执行完语句以后，直接跳转到 `if` 整个段落的末尾，执行下一段代码。
+
+让我们给上一个例子添加 `elif` 语句吧：
 
 ```
 #!/bin/bash
 
-echo -n "Enter a number: "
+echo -n "输入一个数字："
 read VAR
 
 if [[ $VAR -gt 10 ]]
 then
-  echo "The variable is greater than 10."
+  echo "该变量大于 10。"
 elif [[ $VAR -eq 10 ]]
 then
-  echo "The variable is equal to 10."
+  echo "该变量等于 10。"
 else
-  echo "The variable is less than 10."
+  echo "该变量小于 10。"
 fi
-
 ```
-## Nested if Statements
 
-Bash allows you to nest `if` statements within `if` statements. You can place multiple `if` statement inside another `if` statement.
+## 嵌套 `if` 语句
 
-The following script will prompt you to enter three numbers and will print the largest number among the three numbers.
+Bash 允许在一个 `if` 语句中嵌套一个或多个`if` 语句。
+
+下面的脚本会要求你输入三个数字，然后会打印其中最大的数字：
 
 ```
 #!/bin/bash
 
-echo -n "Enter the first number: "
+echo -n "输入一个数字："
 read VAR1
-echo -n "Enter the second number: "
+echo -n "再输入一个数字："
 read VAR2
-echo -n "Enter the third number: "
+echo -n "再再输入一个数字："
 read VAR3
 
 if [[ $VAR1 -ge $VAR2 ]] && [[ $VAR1 -ge $VAR3 ]]
 then
-  echo "$VAR1 is the largest number."
+  echo "$VAR1 是最大的数字。"
 elif [[ $VAR2 -ge $VAR1 ]] && [[ $VAR2 -ge $VAR3 ]]
 then
-  echo "$VAR2 is the largest number."
+  echo "$VAR2 是最大的数字。"
 else
-  echo "$VAR3 is the largest number."
+  echo "$VAR3 是最大的数字。"
 fi
 ```
-Here is how the output will look like:
+
+而输出就是这样子的：
 
 ```
-Enter the first number: 4
-Enter the second number: 7
-Enter the third number: 2
-7 is the largest number.
-
+7 是最大的数字。
 ```
 
-Generally, it is more efficient to use the `[case` statement](https://linuxize.com/post/bash-case-statement/) instead nested `if` statements.
+一般来说，使用 [`case`](https://linuxize.com/post/bash-case-statement/) 语句比使用 `if` 语句更高效。
 
-## **Multiple Conditions**
+## 多重条件
 
-The logical `OR` and `AND` operators allow you to use multiple conditions in the `if` statements.
+逻辑运算符 `OR` 和 `AND` 能够让你在一条 `if` 语句中使用多重条件。
 
-Here is another version of the script to print the largest number among the three numbers. In this version, instead of the nested `if` statements, we’re using the logical `AND` (`&&`) operator.
-
+下面就是获取三个数中最大数字的另一种写法，而在这个版本中，我们用了逻辑 `AND`（`&&`） 运算符而非嵌套 `if` 语句。
 
 ```
 #!/bin/bash
 
-echo -n "Enter the first number: "
+echo -n "输入一个数字："
 read VAR1
-echo -n "Enter the second number: "
+echo -n "再输入一个数字："
 read VAR2
-echo -n "Enter the third number: "
+echo -n "再再输入一个数字："
 read VAR3
 
 if [[ $VAR1 -ge $VAR2 ]] && [[ $VAR1 -ge $VAR3 ]]
 then
-  echo "$VAR1 is the largest number."
+  echo "$VAR1 是最大的数字"
 elif [[ $VAR2 -ge $VAR1 ]] && [[ $VAR2 -ge $VAR3 ]]
 then
-  echo "$VAR2 is the largest number."
+  echo "$VAR2 是最大的数字"
 else
-  echo "$VAR3 is the largest number."
+  echo "$VAR3 是最大的数字"
 fi
 ```
-## Test Operators
 
-In Bash, the `test` command takes one of the following syntax forms:
+## `test` 操作
+
+在 Bash 中，`test` 语句可以长这样的：
 
 `test EXPRESSION
 [ EXPRESSION ]
 [[ EXPRESSION ]]`
 
-To make the script portable, prefer using the old test `[` command which is available on all POSIX shells. The new upgraded version of the `test` command `[[` (double brackets) is supported on most modern systems using Bash, Zsh, and Ksh as a default shell.
+为了使我们的脚本可移植，最好使用兼容所有 POSIX shell 的旧版本 `[` …… `]`语句。使用 Bash、Zsh、Ksh 作为默认 shell 的大多数现代系统都支持 `[[` …… `]]`（双括号）新版语法。
 
-To negate the test expression, use the logical `NOT` (`!`) operator. When [comparing strings](https://linuxize.com/post/how-to-compare-strings-in-bash/) , always use single or double quotes to avoid word splitting and globbing issues.
+要否定测试表达式，请使用逻辑 `NOT`（`!`）运算符。在[比较字符串](https://linuxize.com/post/how-to-compare-strings-in-bash/)时，请始终使用单引号或双引号，以避免单词拆分和乱码问题。
 
-Below are some of the most commonly used operators:
+以下是一些最常用的运算符：
 
-- `n` `VAR` - True if the length of `VAR` is greater than zero.
-- `z` `VAR` - True if the `VAR` is empty.
-- `STRING1 = STRING2` - True if `STRING1` and `STRING2` are equal.
-- `STRING1 != STRING2` - True if `STRING1` and `STRING2` are not equal.
-- `INTEGER1 -eq INTEGER2` - True if `INTEGER1` and `INTEGER2` are equal.
-- `INTEGER1 -gt INTEGER2` - True if `INTEGER1` is greater than `INTEGER2`.
-- `INTEGER1 -lt INTEGER2` - True if `INTEGER1` is less than `INTEGER2`.
-- `INTEGER1 -ge INTEGER2` - True if `INTEGER1` is equal or greater than INTEGER2.
-- `INTEGER1 -le INTEGER2` - True if `INTEGER1` is equal or less than `INTEGER2`.
-- `h` `FILE` - True if the `FILE` exists and is a symbolic link.
-- `r` `FILE` - True if the `FILE` exists and is readable.
-- `w` `FILE` - True if the `FILE` exists and is writable.
-- `x` `FILE` - True if the `FILE` exists and is executable.
-- `d` `FILE` - True if the `FILE` exists and is a directory.
-- `e` `FILE` - True if the `FILE` exists and is a file, regardless of type (node, directory, socket, etc.).
-- `f` `FILE` - True [if the `FILE` exists](https://linuxize.com/post/bash-check-if-file-exists/) and is a regular file (not a directory or device).
+- `n VAR` —— 如果 `VAR` 的长度大于零，则为真。
+- `z VAR` —— 如果 `VAR` 为空，则为真。
+- `STRING1 = STRING2` —— 如果 `STRING1` 和 `STRING2` 相等，则为真。
+- `STRING1 != STRING2` —— 如果 `STRING1` 和 `STRING2` 不相等，则为真。
+- `INTEGER1 -eq INTEGER2` —— 如果 `INTEGER1` 和 `INTEGER2`相等则为真。
+- `INTEGER1 -gt INTEGER2` —— 如果 `INTEGER1` 大于 `INTEGER2`，则为真。
+- `INTEGER1 -lt INTEGER2` —— 如果 `INTEGER1` 小于 `INTEGER2`，则为真。
+- `INTEGER1 -ge INTEGER2` —— 如果 `INTEGER1` 等于或大于 `INTEGER2`，则为真。
+- `INTEGER1 -le INTEGER2` —— 如果 `INTEGER1` 等于或小于 `INTEGER2`，则为真。
+- `h FILE` —— 如果 `FILE` 存在并且是符号链接，则为真。
+- `r FILE` —— 如果 `FILE` 存在并且可读，则为真。
+- `w FILE` —— 如果 `FILE` 存在且可写，则为真。
+- `x FILE` —— 如果 `FILE` 存在且可执行，则为真。
+- `d FILE` —— 如果 `FILE` 存在并且是目录，则为真。
+- `e FILE` —— 如果 `FILE` 存在并且是一个文件并且不管它的类型（不管是节点、目录还是 socket），则为真。
+- `f FILE` —— 如果 [`FILE` 存在](https://linuxize.com/post/bash-check-if-file-exists/)，并且是常规文件（不是目录或设备什么的） ，则为真。
 
-## Conclusion
+## 结论
 
-The `if`, `if..else` and `if..elif..else` statements allow you to control the flow of the Bash script’s execution by evaluating given conditions.
+`if`、`if..else` 和 `if..elif..else` 语句让我们能够基于不同的判断条件来控制 Bash 脚本中逻辑语句的执行。
 
-If you have any questions or feedback, feel free to leave a comment.
+如果你有任何疑问或反馈，请随时发表评论。
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
