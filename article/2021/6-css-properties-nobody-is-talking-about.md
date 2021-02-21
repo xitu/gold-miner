@@ -7,8 +7,6 @@
 
 # 6 CSS Properties Nobody Is Talking About
 
-#### Interesting properties that many have never heard of before.
-
 ![Photo by [Kristina Flour](https://unsplash.com/@tinaflour?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9640/0*bs0OAqfhQkkn-9YY)
 
 CSS and HTML have been the cornerstone of the internet for decades.
@@ -23,15 +21,13 @@ Despite the immense popularity and rising complexities of creating web apps, the
 
 Below are 6 CSS properties that you probably never heard of:
 
----
-
-#### 1. all
+## 1. all
 
 Have you ever used any CSS framework? If yes, I am pretty sure there might have been times when you wanted to override some of the elements to your liking.
 
 While the most common way of doing that is by using the `!important` property in CSS to lay emphasis on the current property, ignoring all other settings and rules.
 
-```
+```css
 .header{
     color: blue !important;
     font-size: 14px !important; 
@@ -44,7 +40,7 @@ The easier way to do it is to use the `all` property.
 
 There are 3 property values of `all` — initial, inherit, and unset.
 
-```
+```css
 .header{
   all:initial;
   color: blue;
@@ -56,9 +52,7 @@ There are 3 property values of `all` — initial, inherit, and unset.
 
 Chrome and Firefox support this property starting version 37 and version 27 respectively. This property is also supported on Edge browser, but not on Internet Explorer.
 
----
-
-#### 2. writing-mode
+## 2. writing-mode
 
 I wrote a recent article on [some of the amazing places to find design inspirations](https://medium.com/javascript-in-plain-english/8-amazing-places-to-find-design-inspirations-for-free-dd2e64abc1b0) and I stumbled upon many sites that have texts laid out vertically and sideways.
 
@@ -81,9 +75,7 @@ There is also `horizontal-tb` which represents the standard way of how texts are
 
 You can find the implementation and code snippets [here](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode).
 
----
-
-#### 3. background-clip
+## 3. background-clip
 
 This is an interesting property that allows us to set a custom graphic to our element’s background.
 
@@ -91,18 +83,18 @@ Our custom graphic can extend to the border-box, padding-box, or content-box of 
 
 Below is a short implementation of this property:
 
-HTML:-
+HTML:
 
-```
+```html
 <p class="border-box">The background extends behind the border.</p>
 <p class="padding-box">The background extends to the inside edge of the border.</p>
 <p class="content-box">The background extends only to the edge of the content box.</p>
 <p class="text">The background is clipped to the foreground text.</p>
 ```
 
-CSS:-
+CSS:
 
-```
+```css
 p {
   border: .8em darkviolet;
   border-style: dotted double;
@@ -134,9 +126,7 @@ You can use a custom image and set it as the background of the text as well as s
 
 It is worth noting that you need to use the `-webkit-background-clip` property for Chrome and make sure text color is set to transparent.
 
----
-
-#### 4. user-select
+## 4. user-select
 
 If you have any text on your website that you don’t want your users to be able to copy, this is the property that will enable you to do so.
 
@@ -144,7 +134,7 @@ The `user-select` property specifies whether the text of an element can be selec
 
 This does not have any effect on the content loaded except textboxes.
 
-```
+```css
 .row-of-icons {   
 -webkit-user-select: none;  /* Chrome & Safari all */   
 -moz-user-select: none;     /* Firefox all */   
@@ -155,7 +145,7 @@ user-select: none;
 
 This property can be used to make sure that an entire element got selected as well.
 
-```
+```css
 .force-select {
    user-select: all;  
   -webkit-user-select: all;  /* Chrome 49+ */
@@ -166,9 +156,7 @@ This property can be used to make sure that an entire element got selected as we
 
 You can find the full guide [here](https://developer.mozilla.org/en-US/docs/Web/CSS/user-select).
 
----
-
-#### 5. white-space
+## 5. white-space
 
 This property is useful when applying `text-overflow` properties as this property allow you to control the flow of text of an element.
 
@@ -184,7 +172,7 @@ This becomes clear with the following example:
 
 HTML:
 
-```
+```html
 <div>
 <p class='zero'>
 
@@ -209,7 +197,7 @@ Some text
 
 CSS:
 
-```
+```css
 div{
   width:100px;   
 }
@@ -237,9 +225,7 @@ Output:
 
 ![Source: Author](https://cdn-images-1.medium.com/max/2000/1*9L39xG8cZkPXO2rkiuvHOg.jpeg)
 
----
-
-6. `border-image` property
+## 6. `border-image` property
 
 This property is excellent for designing your website.
 
@@ -253,13 +239,13 @@ I am going to use this image to demonstrate this property.
 
 HTML and CSS are given below:
 
-```
+```html
 <body>
    <h1>This is a title</h1>
 </body>
+```
 
-<!-- CSS below -->
-
+```css
 h1{
   border: 10px solid transparent;
   padding: 15px;
@@ -273,7 +259,7 @@ Output:
 
 This property can be used to create fancy cards or to lay emphasis on certain portions of text.
 
-#### Final thoughts
+## Final thoughts
 
 Front-end developers use CSS and HTML all the time besides JavaScript and knowing more about these can help one build better apps quicker, faster, and in a better manner.
 
