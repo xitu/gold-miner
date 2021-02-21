@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-the-service-mesh-should-fade-out-of-sight.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-the-service-mesh-should-fade-out-of-sight.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 为什么 Service Mesh 应该淡出人们的视野
 
-![Photo by [Ricardo Gomez Angel](https://unsplash.com/@ripato?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9000/0*aQPqRSOiXhzz9zo6)
+![[Ricardo Gomez Angel](https://unsplash.com/@ripato?utm_source=medium&utm_medium=referral) 在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 上的照片](https://cdn-images-1.medium.com/max/9000/0*aQPqRSOiXhzz9zo6)
 
 Service Mesh 越来越受到人们的关注，而很多软件开发与交付的专家在初次接触到 Service Mesh 的时候，会搞不清楚它与 API 网关的区别。Service Mesh 究竟是自成一类产品，还是属于广义的 API 管理的一部分？这些问题并没有抓住重点，因为 Service Mesh 需要逐渐淡入成为后端开发平台的一部分。
 
