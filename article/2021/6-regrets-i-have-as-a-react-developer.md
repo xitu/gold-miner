@@ -5,11 +5,11 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zhuzilin](https://github.com/zhuzilin)、[zenblo](https://github.com/zenblo)
 
-# 我后悔没有在成为 React 开发者之时做的 6 件事
+# 我后悔没有在自己成为 React 开发者之前做的 6 件事情
 
 ![由 [Francisco Gonzalez](https://unsplash.com/@franciscoegonzalez?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/sadness?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8396/1*b_I4LDS0bICAcnC1bdOM2g.jpeg)
 
-React 是一个很好的去学习的工具，它让我们能够以我们自己的方法编写代码完成任务。但即使它的功能很强大，它也有着不少的限制。
+React 是一个很好的适合我们去学习的工具，它让我们能够以我们自己的方法编写代码完成任务。但即使它的功能很强大，它也有着不少的限制。
 
 对于新的开发者而言，其实并没有明确的指南告诉我们，某一个场景最适合用哪一个工具。这让每一个问题都有各种各样的解决方案，而我也同样掉到了这个坑里面，并且已经无力回天，没法去采用一些别的最佳实践了。
 
@@ -17,7 +17,7 @@ React 是一个很好的去学习的工具，它让我们能够以我们自己�
 
 ## 1. 测试
 
-长期以来，测试是我的弱项。我并没有为 React 组件编写样例测试，并且正如预期的那样，我经常因为某些输入错误而不得不进行调试。
+长期以来，测试是我的弱项。我并没有为 React 组件编写测试样例，并且正如预期的那样，我经常因为某些输入错误而不得不进行调试。
 
 但即便测试这个词语看起来很吓人，在 React 中进行测试真的是很简单的一件事情（对于大多数情况而言）。
 
@@ -29,11 +29,11 @@ it('checks if the title component is in the document', () => {
 })
 ```
 
-而如果你使用的是 `create-react-app` 命令创建你的 React 应用程序，那么 `npm` 本身已经正确地为你设置好了测试套件，只需要尽早地开始编写测试代码即可。
+而如果你使用的是 `create-react-app` 命令创建你的 React 应用程序，那么命令本身已经正确地为你设置好了测试套件，只需要尽早地开始编写测试代码即可。
 
 ## 2. 使用正确的文件夹结构
 
-我认为当我还是一个 React 的新手时，我犯下的最大错误就是没有使用正确的文件夹结构。本质上我将文件按照他们的类别分类：
+我认为当我还是一个 React 的新手时，我犯下的最大错误就是没有使用正确的文件夹结构。我基本上将文件按照他们的类别分类：
 
 ```
 |-store
@@ -127,7 +127,7 @@ const Button = styled.button`
 * 删除未使用的进口
 * 使用适当的缩进
 
-而在遇到`Eslint`和`Prettier`之前，我不得不手动完成这些。而这两个库能让痛苦的格式化工作变得容易许多！
+而在遇到 `Eslint` 和 `Prettier` 之前，我不得不手动完成这些。而这两个库能让痛苦的格式化工作变得容易许多！
 
 因此，这些是我希望在职业生涯早期开始使用的前 6 个库，你的想法是什么呢？
 
