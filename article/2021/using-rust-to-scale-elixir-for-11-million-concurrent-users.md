@@ -19,7 +19,7 @@ Elixir is a functional language; its data structures are immutable. This is grea
 
 This meant that when someone joined a server — internally referred to as guilds — with a Member List of 100,000 members, we would have to build a new list with 100,001 members in it. The BEAM VM is pretty speedy and [getting faster everyday](http://blog.erlang.org/My-OTP-21-Highlights/). It tries to take advantage of [persistent data structures](https://en.wikipedia.org/wiki/Persistent_data_structure) where it can, but at the scale we operate, these large lists could not be updated fast enough.
 
-# **Pushing Elixir to the Limits**
+## Pushing Elixir to the Limits
 
 Two engineers took up the challenge of making a pure Elixir data structure that could hold large sorted sets and support fast mutation operations. This is easier said than done, so let’s put on our Computer Science helmets and go spelunking into the caves of data structure design.
 
@@ -37,7 +37,7 @@ Erlang ships with a module called ordsets. Ordsets are Ordered Sets, so sounds l
 
 Having exhausted all the obvious candidates that come with the language, a cursory search of packages was done to see if someone else had already solved and open sourced the solution to this problem. A few packages were checked, but none of them provided the properties and performance required. Thankfully, the field of Computer Science has been optimizing algorithms and data structures for storing and sorting data for the last 60 years, so there were plenty of ideas about how to proceed.
 
-# **SkipList**
+## SkipList
 
 The ordsets perform extremely well at small sizes. Maybe there was some way that we could chain a bunch of very small ordsets together and quickly access the correct one when accessing a particular position. If you turn your head sideways and squint real hard, this starts to look like a [Skip List](https://en.wikipedia.org/wiki/Skip_list), which is exactly what was implemented.
 
@@ -49,7 +49,7 @@ The old worst case was better, but a new worst case of insertion at the beginnin
 
 This makes sense if you think about the data structure. When you insert an item into the front of the OrderedSet it ends up in the first Cell, but that Cell is full, so it evicts its last item to the next Cell, but that Cell is full, so it evicts its last item to the next Cell, and so on. At this point, most engineers would shrug and say “You can’t have your cake and eat it too,” but at Discord we are pushing the envelope on quantum cake technology.
 
-# **OrderedSet**
+## OrderedSet
 
 The problem is that when things fill up, operations can cascade from Cell to Cell. What if we could do something more clever? What if we allow Cells to swell and split, dynamically inserting new Cells in the middle of the list? This is slightly more expensive, but has the benefit that the worst case is a Cell Split instead of 2N Cell operations, where N is the number of Cells.
 
@@ -61,7 +61,7 @@ With a list size of 250,000 items, inserting an item at the end of the list took
 
 ![https://miro.medium.com/max/2268/1*9c8HPdzJLpot3cdTRMEFFw.png](https://miro.medium.com/max/2268/1*9c8HPdzJLpot3cdTRMEFFw.png)
 
-# **Must. Go. Faster.**
+## Must. Go. Faster.
 
 This solution would work for guilds up to 250,000 members, but that was the scaling limit. For a lot of people, this would have been the end of the story. But Discord has been using Rust to make things go fast, and we posed a question: “Could we use Rust to go faster?”
 
@@ -85,7 +85,7 @@ For the second iteration in a row we were able to make the worst case as good as
 
 The Rust backed NIF provides massive performance benefits without trading off ease of use or memory. Since the library operations all clocked in well under the 1 millisecond threshold, we could just use the built-in Rustler guarantees and not need to worry about reductions or yielding. The SortedSet module looks to the caller to just be a vanilla Elixir module that performs crazy fast.
 
-# **Happily Ever After**
+## Happily Ever After
 
 Today, the Rust backed SortedSet powers every single Discord guild: from the 3 person guild planning a trip to Japan to 200,000 people enjoying the latest, fun game.
 
@@ -94,3 +94,9 @@ Since deploying SortedSet, we’ve seen performance improve across the board wit
 If you need a high-speed mutation friendly SortedSet, [we have released SortedSet as an open source library](https://github.com/discordapp/sorted_set_nif).
 
 If solving hard problems with awesome tools like Elixir and Rust is interesting to you, [go check out our jobs page](https://discordapp.com/jobs?team=engineering).
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
