@@ -2,10 +2,10 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/apis-vs-websockets-vs-webhooks-what-to-choose.md](https://github.com/xitu/gold-miner/blob/master/article/2021/apis-vs-websockets-vs-webhooks-what-to-choose.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# APIs vs. WebSockets vs. WebHooks: What to Choose?
+# API、WebSocket 和 WebHooks：究竟应该选谁
 
 ![](https://cdn-images-1.medium.com/max/5760/1*k3Etz0QztOVwxIMYg1Tatw.jpeg)
 
