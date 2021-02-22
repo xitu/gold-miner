@@ -2,7 +2,7 @@
 > * 原文作者：[Kasper Müller](https://medium.com/@kaspermuller)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-map-of-your-python-project-using-graph-technology-visualize-your-code.md](https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-map-of-your-python-project-using-graph-technology-visualize-your-code.md)
-> * 译者：
+> * 译者：[Ashira97](https://github.com/Ashira97/)
 > * 校对者：
 
 # Building a Map of Your Python Project Using Graph Technology — Visualize Your Code
@@ -44,7 +44,7 @@ I was working in a subfolder that contained code meant to solve a subproblem for
 我要处理一个文件夹，这个文件夹中的代码是用来解决整个项目中的一个问题，突然我冒出了一个想法：
 
 **Wouldn’t it be nice to be able to visualize where I was in the big picture and how all the different objects was connected by calls and data passing between each other?**
-**如果能以可视化的方法看到这个问题在整体项目中的定位，并且能看到不同实体之间是怎样通过调用和数据传递来彼此交互的不是更好吗？**
+**如果能看到这个问题在整体项目中的定位，并且能看到不同实体之间的调用和数据传递关系不是更好吗？**
 
 How would that look like?
 整个图形看上去会是什么样子？
@@ -62,7 +62,7 @@ First of all, a graph is a mathematical object. It consists of what is known as 
 首先，图是一个数学模型，它由节点和边组成。边在 Neo 命名中叫做关系，这是一个非常合适的命名，因为边代表的含义就是两个节点之间的某种关系。
 
 A classical example of such a graph is a social network like Facebook where the nodes represent persons and the relationships represent friendships between the persons.
-一个关于这种图的经典的例子就是类似 Facebook 的社交网络，在社交网络中，节点代表人，关系代表人之间的友谊。
+一个关于这种图的经典案例就是类似 Facebook 的社交网络：在社交网络中，节点代表人，关系代表人之间的友谊。
 
 A graph database then stores such a graph so that you can explore the patterns that lie hidden inside the huge amounts of paths that it amounts to.
 图形数据库将这样的图储存起来，这样你就可以探索图中数千条边背后隐藏的模式。
@@ -77,7 +77,7 @@ We specify the root folder of our Python project.
 我们先指定 Python 项目的根目录。
 
 Nodes of the graph represent objects of the files in our project/repository. Specifically, functions, classes, and methods. These nodes have some properties like in which files they are defined if they have a parent (methods have classes as parents, functions can be defined inside other functions, etc.).
-图中的节点代表了我们项目中的文件，具体一点说就是函数、类和方法。这些节点有一些特性，比如在哪个文件中定义了当前节点，因此成为当前节点的父节点。（类可以作为方法的父节点、函数也可以被定义在另一个函数中之类的）。
+图中的节点代表了我们项目中的文件，具体一点说就是函数、类和方法。这些节点具有自己的属性，比如如果当前节点有父节点，那么父节点是哪个文件。（类可以作为方法的父节点、函数也可以被定义在另一个函数中之类的）。
 
 For the relationships, we have calls, instantiations, a relationship showing which class a method belongs to, and so on.
 至于关系，我们有调用关系和表示一个方法属于哪个类的实例化关系以及等等其他关系。
@@ -88,13 +88,13 @@ The idea is that we want to be able to track the calls and the dependencies in t
 我们想要跟踪代码中的调用和依赖关系。
 
 So there I was, with a new visualization tool in hand — not a tool meant to visualize data like e.g. Matplotlib, but to visualize the structure of the code itself.
-所以这时我们手头上有了一个新的可视化工具，它不同于 Matplotlib 对数据进行可视化，它将代码之中的结构用可视化的方式展现出来。
+所以我们手头上有了一个新的可视化工具，它不同于 Matplotlib 对数据进行可视化那样，而是将代码的结构用可视化的方式展现出来。
 
 At first sight, I didn’t think much of it other than an interesting new way to make awesome posters to the office of “won" projects.
 一开始，除了将它看作一种为获奖项目制作海报的有趣工具以外，我没有发现它的更大用处。
 
 However, after having discussed with one of my colleagues, which happens to also be a math/graph DB geek, the many different possible tools that it paves the way to, I soon realized that this is so much more than a visualization tool.
-然而，在和我一个同样来自数学专业并且对图形数据库感兴趣的同事讨论之后，我们发现很多其他的工具已经为我们指明了发展方向，它不仅仅是一个可视化工具。
+然而，在和一个同样学数学并且对图形数据库感兴趣的同事讨论之后，我们发现很多其他的工具已经为我们指明了发展方向，它不仅仅是一个可视化工具。
 
 ## Tests and Safety
 ## 测试和安全
@@ -103,7 +103,7 @@ It **is** of course nice that you can actually see the dependencies in your code
 能看到代码中的依赖、用看到的图查出一两个 bug 或者仅仅通过看图就能优化代码是一件非常愉快的事情，但是这一结构图的真正优势在于它能够呈现代码的结构。
 
 For instance, unless you are really tight and have separated your code into small testable units that you have then tested one by one in (so-called) unit tests before doing bigger integration tests, you are probably not easily able to answer questions like
-例如，除非你真的非常认真的将你的代码分割成为可测试的小单元，并且你在进行更大的集成测试之前对这些小单元挨个进行测试，否则就很难回答下面的问题：
+例如，除非你真的非常认真的将你的代码分割为可测试的小单元，并且在进行更大的集成测试之前对这些小单元挨个进行测试，否则就很难回答下面的问题：
 
 * To which degree has your code been tested? i.e. which functions are being tested implicitly but not explicitly and vice versa?
 * 你的代码测试到了什么程度？例如：哪些函数被间接测试过但并没有直接测试过，或者相反？
@@ -113,16 +113,16 @@ For instance, unless you are really tight and have separated your code into smal
 * 哪个函数被调用最多次？
 
 **Hold on, Kasper. First of all, what do you mean by implicitly called?**
-**等等，Kasper。首先，间接测试是什么意思？**
+**首先，间接测试是什么意思？**
 
 Well, when I call a function (or a method, generator, etc.) that function might call another function and so on. These functions that are called by other functions are being called **implicitly**. The first function is called **explicitly** or **directly**.
-当我调用一个函数（或者是方法、生成器之类的）时候，这一函数可能又会去调用其他的函数。这些被二次调用的函数就叫做**间接**的使用。第一个被调用的函数叫做**明确的**或者是**直接的**。
+当我调用一个函数（或者是方法、生成器之类的）时候，这一函数可能又会去调用其他的函数。这些被二次调用的函数就叫做**间接**调用。第一个被调用的函数叫做**明确的**调用或者是**直接的**调用。
 
 **Okay… Why is this important?**
 **好的...这一点为什么那么重要呢？**
 
 Because, if a function that is called (implicitly) many times by many different functions has a subtle bug, then, first of all, the probability that this bug occurs at some point is greater than if it was only called once by the same function every time, and secondly, the more functions that depend on that one function, the more damage a potential bug can do to the whole system/program.
-因为，如果一个被不同函数隐式调用很多次的函数有一点微小的 bug ，那么首先，这个 bug 发生的概率就比这个函数每次只被同样的方法调用一次要大；第二点，调用这个函数的函数越多，这个 bug 对系统造成的潜在威胁就越大。
+因为，如果一个被不同函数间接调用很多次的函数有一点微小的 bug ，那么首先，这种多次调用的情况下 bug 发生的概率就比每次只被同样的方法调用一次的情况要大；第二点，调用这个函数的函数越多，这个 bug 对系统造成的潜在威胁就越大。
 
 It turns out that graphs are the perfect equipment to solve such problems. We can even solve them in a more nuanced way by listing the functions, methods, and classes with respect to their importance by means of a score by using graph algorithms.
 这证明了图技术是解决该类问题的完美的工具。根据图技术，我们能够得出不同方法、函数和类的重要性指数，根据该指数进行排序，我们可以优先对重要函数进行排查并解决其中的 bug。
@@ -138,7 +138,7 @@ pip install neo4j
 ```
 
 Let’s build a class that is able to communicate with Neo4j from Python.
-让我们用 Python 构建一个能够和 Neo4j 进行通信的类。
+接下来用 Python 构建一个负责与 Neo4j 通信的类。
 
 Now we can easily build a graph loader in another class by doing something like the following
 现在我们可以在任何一个类中，通过以下代码简单构建一个图加载器：
@@ -168,7 +168,7 @@ Take a look at the following Cypher query that implements a shortest-path algori
 看下面这个实现了在测试和功能函数之间最短路径算法的查询并且将它和图片进行比较。
 
 Notice that we assume that test functions are objects that are either in a file with a name starting with “test”, inside a class, or function with a name starting with “test”, or simply functions, methods, or classes with names starting with “test” (in the case of classes it should of course start with “Test").
-请注意，在这个时候测试方法是一个以 "test" 为开头的名字的函数、某个以 "test" 开头命名的文件中的某个类，或者仅仅是一个名字以 "test" 开头的函数、方法、类。（对于类的情况而言，他应该以"Test"开头）
+请注意，在这个时候测试方法是一个以 "test" 为开头的名字的函数、某个以 "test" 开头命名的文件中的某个类，或者仅仅是一个名字以 "test" 开头的函数、方法、类。（如果是一个测试类，那么它应该以"Test"开头）
 
 This assumption might at first seem far-fetched but I don’t think I have ever written a test function in a Python file starting with something other than “test”, not to mention that the function name itself almost always starts with “test”.
 这一前提似乎很牵强，但我几乎没有在 Python 文件中写过用除了 "test" 的其他单词开头的测试方法，因为大多数情况下方法名本身就是以 "test" 开头的。
@@ -206,7 +206,7 @@ Before moving on, we should define what we mean by safety score.
 在继续我们的探索之前，我们应该定义一下安全指数的含义。
 
 > For a given function **f** we define the **test norm** of **f** to be the distance in the graph between the closest test function and **f.**
-> 对于一个给定的函数 **f** ，我们定义它的**测试规范**是图中展示出来的它本身和最近的测试方法之间的距离。
+> 对于一个给定的函数 **f** ，将其**测试规范**定义为图中展示出来的最近的测试方法和它本身之间的距离。
 
 * By convention, all the test functions have test norm 0.
 * 通常定义所有测试方法的测试规范是0。
@@ -231,10 +231,10 @@ Note that
 * 如果所有函数都没有直接或者间接测试，那么 σ 是一系列空值的和，通常规定为 0。
 
 Thus 0 \< σ \< 1 and the closer to 1 it is, the more tested and safe the code is.
-因此 0 \< σ \< 1 ，并且越接近于1，这份代码就被测试的越多，也越安全。
+0 \< σ \< 1 ，并且越接近于1，测试就进行的越完善，代码所提供的服务也越安全。
 
 The idea behind this formula is that the further out from the tests a given function is, the weaker tested it is. However, I assume that an “average” weak test is performed on functions further out in the graph. But this is of course just a definition. We can always change this. For example, functions called by many different test functions might be better tested than a function that’s only called by one, and we don’t take this into account at all in this version of the project. It might come in later versions though.
-这一公式背后的思想是：某一给定函数距离测试函数越远，针对它的测试就越不足。然而，在这里我假定“平均”缺陷测试是针对图形边缘部分的函数的。但这仅仅只是一个可改变的定义。例如，被很多测试函数调用的方法比仅仅被一个测试函数调用的方法测试的更好，我们在当前版本项目中不考虑这种情况，但在之后的版本中可能会解决这种情况。
+这一公式背后的思想是：某一给定函数距离测试函数越远，针对它的测试就越不足。然而，在这里我假定“平均”缺陷测试是针对图形边缘部分的函数的。但这仅仅只是一个定义，我们可以根据需要改变它。例如，被很多测试函数调用的方法比仅仅被一个测试函数调用的方法测试的更好，我们在当前版本项目中不考虑这种情况，但在之后的版本中可能会解决这种情况。
 
 Let’s implement this.
 让我们实现它！
@@ -243,16 +243,16 @@ This works, and for the project above, we get a score of about 0.2 but we need t
 这是可行的，并且上面的项目得到了大约 0.2 的分数，但是记住，只有在你的文件名或用来测试代码的对象以 "test" 开头时才有效。
 
 I will leave it as an exercise to the reader to build this Python mapping him/her-self because I am not allowed to open source the code for this project. However, I will give you some hints as to how to build this yourself.
-我将把构建这个 Python 映射的任务留给读者作为练习，因为不打算将这个项目开放源代码。但是，我将给您一些关于如何自己构建的提示。
+我将把构建这个 Python 映射的任务留给读者作为练习，因为不打算开放这个项目的源代码。但是，我将给一些帮助您构建的提示。
 
 * I have a master class that keeps track of, and stores, nodes and relationships while I iterate through the files line by line.
 * 我有一个主要的类用来在一行一行迭代文件的时候跟踪和存储节点和关系。
 * While iterating, we keep track of where we are with respect to scope. Are we inside a class?, a function?, etc.
-* 在迭代的时候，我们在不同作用域中记录自己的位置。我们是在一个类里？一个方法里？等等
+* 在迭代的时候，我们记录当前所在的作用域。我们是在一个类里？一个方法里？等等
 * We store the objects and create a relationship if there is a call or an instantiation to another function or class respectively
-* 如果存在一个对于其他函数或者其他类的调用或者是实例化，那我们存储对象并且创建一个关系
+* 如果存在一个对于其他函数或者其他类的调用或者实例化，那我们存储对象并且创建一个关系
 * If the current line contains a definition, then I store the object and the parent object (if any) e.g. methods and classes. I then store relationships in the form of IS_METHOD_IN, IS_FUNCTION_IN.
-* 如果当前的行包含定义语句，那么我存储当前对象和父节点（如果存在），也就是方法或者类。之后，以 IS_METHOD_IN, IS_FUNCTION_IN 的形式存储关系。
+* 如果当前的行包含定义语句，那么存储当前对象和父节点（如果存在），也就是方法或者类。之后，以 IS_METHOD_IN, IS_FUNCTION_IN 的形式存储关系。
 
 So basically it is about coding a python syntax parser.
 基本上这就是编写一个 Python 语法解析器的全部要点了。
@@ -280,7 +280,7 @@ This is a quite nice map of what is going on in Beautiful Soup. Notice how the b
 这张图非常完美的表示了 Beautiful Soup 中发生了什么。它的簇之间彼此连接非常紧密。
 
 While this code is not perfect yet, I believe that it can become quite useful in the future. I am currently working on a more stable version that takes the opening of files from python into account as well.
-虽然这份代码并不完美，但我相信它在未来一定是相当有用的。我现在正在开发一个更加稳定的版本，该版本中将文件的打开次数也纳入计算。
+虽然这份代码并不完美，但我相信它在未来一定是相当有用的。我现在正在开发一个更加稳定的版本，该版本中会将文件的打开次数纳入计算。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
