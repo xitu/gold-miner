@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[HumanBeing](https://github.com/HumenBeingXenon)
 
 # 你有设计作品的作品集吗？挺好的，但这还不够
 ## 引起别人对你的作品注意的秘密并非显而易见。
