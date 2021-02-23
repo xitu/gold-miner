@@ -7,15 +7,11 @@
 
 # What’s New in Swift 5.4?
 
-#### Multiple variadic parameters, extended implicit member syntax, result builders, and more
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3840/1*HfwBHnUJOzl56qCflMVQ1w.png)
 
 Swift 5.4 brings us a lot which is why I like it. In this article, we learn what is new in Swift 5.4.
 
-Note: You can [download this article’s example project and sources](https://github.com/Unobliging/What-s-New-in-Swift-5.4-) on GitHub. To open and edit these files, you have to use Xcode 12.5 beta. You can download Xcode 12.5 beta [here](https://developer.apple.com/download/). Instead of downloading Xcode 12.5 beta, you can download Swift 5.4 directly [here](https://swift.org/download/).
-
----
+> Note: You can [download this article’s example project and sources](https://github.com/Unobliging/What-s-New-in-Swift-5.4-) on GitHub. To open and edit these files, you have to use Xcode 12.5 beta. You can download Xcode 12.5 beta [here](https://developer.apple.com/download/). Instead of downloading Xcode 12.5 beta, you can download Swift 5.4 directly [here](https://swift.org/download/).
 
 ## The Most Important Improvement😄
 
@@ -34,8 +30,6 @@ var greeting = "Hello, playground"
 Yes, I think this is the interesting and funny part of Swift 5.4.
 
 Now we can look at improvements that really work!
-
----
 
 ## Multiple Variadic Parameters
 
@@ -69,8 +63,6 @@ func chooseSecondPerson(persons: String...) -> String {
     }
 }
 ```
-
----
 
 ## Result Builders
 
@@ -172,8 +164,6 @@ After Swift 5.4, we have to write this code block below for the same result. Her
 .transition(AnyTransistion.scale.move(…))
 ```
 
----
-
 ## Functions Support Same Names
 
 Sometimes, you want to write functions with the same name. At least I wanted to do it. With Swift 5.4, we can do that.
@@ -206,9 +196,7 @@ func setUpAppleProducts() {
 }
 ```
 
----
-
-#### Conclusion
+## Conclusion
 
 I hope you found this article helpful. There are new reports that Swift 6.0 may be released. I will also write an article on this subject.
 
