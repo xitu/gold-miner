@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[HumanBeing](https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)
 
-# 构建像 `Messenger` 那样的 ImageView
+# 构建像 `Messenger` 短信软件那样的 ImageView
 
 ![](https://cdn-images-1.medium.com/max/2372/1*eUsCLT2MWPgMMc_7ltldOw.png)
 
