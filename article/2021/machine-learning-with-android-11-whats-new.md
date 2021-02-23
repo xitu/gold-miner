@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：HumanBeing(https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)
+> * 校对者：HumanBeing(https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)、[lsvih](https://github.com/lsvih)
 
 # 使用 Android 11 进行机器学习：新功能
 
@@ -33,9 +33,9 @@
 
 你所能够想到的第一件事应该就是能耗：曾经你需要耗费大量的能量，将你的视频数据连续发送或流式传输到服务器。但有时这样做是不可行的 —— 没有数据网络的时候。值得一提的是，如果你对你的数据先做大量的预处理，倒也能节省些能耗。
 
-* 推断时间
+* 推理时间
 
-另一项要考虑的重要事项是获取输出或实际运行模型所花的时间。对于实时应用而言，这是一个相当重要的层面。无需发送或接受数据，程序加快了推理时间的速度。
+另一项要考虑的重要事项是获取输出或实际运行模型所花的时间。对于实时应用而言，这是一个相当重要的层面。程序无需发送或接受数据，加快了推理的速度。
 
 * 网络可用性
 
