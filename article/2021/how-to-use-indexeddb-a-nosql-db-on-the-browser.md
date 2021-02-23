@@ -2,131 +2,131 @@
 > * 原文作者：[Viduni Wickramarachchi](https://medium.com/@viduniwickramarachchi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-use-indexeddb-a-nosql-db-on-the-browser.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
 
-# How to Use IndexedDB — A NoSQL DB on the Browser
+# 如何在浏览器上使用 NoSQL 数据库 IndexedDB
 
 ![](https://cdn-images-1.medium.com/max/5760/1*w6RCiqFjxootFGuWpCnkRw.jpeg)
 
-Have you heard of the NoSQL database on the browser?
+你听说过浏览器上的 NoSQL 数据库吗？
 
-> **IndexedDB** is a large-scale, NoSQL storage system. It lets you store just about anything in the user’s **browser**. In addition to the usual search, get, and put actions, **IndexedDB** also supports transactions.
+> **IndexedDB** 是一个大型的 NoSQL 存储系统。它允许你在用户的**浏览器**中存储任意内容。除了通常的查找、读取和更新操作外，**IndexedDB** 还支持事务。
 >
-> Source: [developers.google.com](https://developers.google.com/web/ilt/pwa/working-with-indexeddb)
+> 来源：[developers.google.cn](https://developers.google.cn/web/ilt/pwa/working-with-indexeddb)
 
-You can find an example of an IndexedDB below.
+你可以在下面找到 IndexedDB 的示例。
 
 ![[Source](https://developers.google.com/web/ilt/pwa/working-with-indexeddb)](https://cdn-images-1.medium.com/max/3488/1*2XRdyD3uHCnjK-5WXpAfQw.png)
 
-In this article, we’ll focus on the following.
+在本文中，我们将重点介绍以下内容：
 
-* Why do we need IndexedDB?
-* How do we use an IndexedDB in our applications?
-* Features of IndexedDB
-* Limitations of IndexedDB
-* Is IndexedDB right for your applications?
+* 为什么我们需要 IndexedDB
+* 如何在应用程序中使用 IndexedDB
+* IndexedDB 的功能
+* IndexedDB 的局限
+* IndexedDB 是否适合你的应用程序
 
-## Why do we need IndexedDB?
+## 为什么我们需要 IndexedDB
 
-> Indexed DB is considered more powerful than `localStorage!`
+> IndexedDB 被认为比本地存储（`localStorage`）更强大！
 
-Do you know the reason behind it? Let’s find out.
+你知道背后的原因吗？让我们一起找出答案。
 
-* **Can store much bigger volumes of data than `localStorage`**
+* **可以存储比本地存储（`localStorage`）大得多的数据量**
 
-There is no particular limit like in `localStorage` (between 2.5MB and 10MB). The maximum limit is based on the browser and the disk space. For example, Chrome and Chromium-based browsers allow up to 80% disk space. If you have 100GB, Indexed DB can use up to 80GB of space, and 60GB by a single origin. Firefox allows up to 2GB per origin while Safari allows up to 1GB per origin.
+IndexedDB 没有像本地存储（`localStorage`）那样的特殊存储限制（介于 2.5MB 和 10MB 之间）。IndexedDB 存储的最大限制取决于浏览器和磁盘空间。例如，Chrome 和基于 Chromium 的浏览器最多允许 80% 的磁盘空间可供使用。如果你有 100GB，则 IndexedDB 最多可以使用 80GB 的空间，单个来源最多可以使用 60GB。 Firefox 允许每个来源最多 2GB，而 Safari 允许每个来源最多 1GB。
 
-* **Can store any kind of value based on `{ key: value }` pairs**
+* **可以存储基于键值对 `{ key: value }` 的任意类型值**
 
-Higher flexibility to store different data types. This means not only strings but also binary data (ArrayBuffer objects, Blob objects, etc.). It uses an object store to hold data internally
+IndexedDB 存储不同数据类型的灵活性更高。支持的数据类型不仅包括字符串类型，还包括二进制数据（`ArrayBuffer` 对象、`Blob` 对象等）。而 IndexedDB 在内部使用对象存储来保存数据。
 
-* **Provides lookup interfaces**
+* **提供查找接口**
 
-This is not available in other browser storage options such as `localStorage` and `sessionStorage` .
+这个功能在其他浏览器存储选项（如本地存储 `localStorage` 和会话存储 `sessionStorage`）中都没有。
 
-* **Useful for web applications that don’t require a persistent internet connection**
+* **对于不需要持续联网的 Web 应用程序很有用**
 
-IndexedDB can be very useful for applications that work both online and offline. For example, this can be used for client-side storage in Progressive Web Apps (PWAs).
+IndexedDB 对于在线和离线工作的应用程序都非常有用。例如，它可以用于渐进式 Web 应用程序（PWA）中的客户端存储。
 
-* **Application state can be stored**
+* **可以存储应用状态**
 
-By storing the application state for recurring users, the performance of your application can be increased drastically. Later on, the application can sync-up with the backend server and update the application via lazy loading.
+通过为频繁使用的用户存储应用程序状态，可以大幅提高应用程序的性能，让应用程序可以在后续与后端服务器同步，并通过懒加载来更新应用程序。
 
-Let’s have a look at the structure of the IndexedDB which can store multiple databases.
+让我们看一下可以存储多个数据库的 IndexedDB 结构。
 
-#### Structure of IndexedDB
+#### IndexedDB 结构
 
 ![](https://cdn-images-1.medium.com/max/2120/1*c0AXi5lhjUQiLxRNVJwr2w.png)
 
-## How do we use Indexed DB in our applications?
+## 如何在应用程序中使用 IndexedDB
 
-In the following section, we’ll look at how to bootstrap an application with IndexedDB.
+在以下内容中，我们将探讨如何在应用程序中使用 IndexedDB。
 
-#### 1. Open the database connection using “window.indexedDB"
+#### 1. 使用 `window.indexedDB` 打开数据库连接
 
 ```js
 const openingRequest = indexedDB.open('UserDB', 1);
 ```
 
-In here, `UserDB` is the database name and `1` is the version of the DB. This would return an object which is an instance of the `IDBOpenDBRequest` interface.
+在这里，`UserDB` 是数据库名称，`1` 是数据库的版本。这将返回一个对象，该对象是 `IDBOpenDBRequest` 接口的实例。
 
-#### 2. Create object store
+#### 2. 创建对象存储
 
-Once the database connection is open, the `onupgradeneeded` event will be fired, which can be used to create object stores.
+开启数据库连接后，将触发 `onupgradeneeded` 事件，该事件可用于创建对象存储。
 
 ```js
-// Create the UserDetails object store and indexes
+// 创建 UserDetails 对象存储和索引
 
 request.onupgradeneeded = (event) => {
      let db = event.target.result;
 
-     // Create the UserDetails object store 
-     // with auto-increment id
+     // 创建 UserDetails 对象存储 
+     // 具有自动递增 id
      let store = db.createObjectStore('UserDetails', {
          autoIncrement: true
      });
 
-     // Create an index on the NIC property
+     // 在 NIC 属性上创建索引
      let index = store.createIndex('nic', 'nic', {
          unique: true
      });
  };
 ```
 
-#### 3. Insert data into the object store
+#### 3. 将数据插入对象存储
 
-Once a connection is opened to the database, the data can be managed inside the `onsuccess` event handler. Inserting data happens in 4 steps.
+只要开启数据库连接，就可以在 `onsuccess` 事件处理程序中管理数据。插入数据分四步进行。
 
 ```js
 function insertUser(db, user) {
-    // Create a new transaction
+    // 创建新的事务
     const txn = db.transaction('User', 'readwrite');
 
-    // Get the UserDetails object store
+    // 获取 UserDetails 对象存储
     const store = txn.objectStore('UserDetails');
 
-    // Insert a new record
+    // 插入新记录
     let query = store.put(user);
 
-    // Handle the success case
+    // 处理成功案例
     query.onsuccess = function (event) {
         console.log(event);
     };
 
-    // Handle the error case
+    // 处理错误案例
     query.onerror = function (event) {
         console.log(event.target.errorCode);
     }
 
-    // Close the database once the transaction completes
+    // 事务结束后关闭数据库
     txn.oncomplete = function () {
         db.close();
     };
 }
 ```
 
-Once the insertion function is created, the `onsuccess` event handler of the request can be used to insert more records.
+创建插入函数后，可以使用请求的 `onsuccess` 事件处理程序插入更多记录。
 
 ```js
 request.onsuccess = (event) => {
@@ -146,66 +146,66 @@ request.onsuccess = (event) => {
 };
 ```
 
-There are many operations that can be performed on the IndexedDB. Some of them are as follows.
+可以在 IndexedDB 上执行很多操作。包括下面这些：
 
-* Read/search data from object stores by key
-* Read/search data from object stores by index
-* Update data of a record
-* Delete a record
-* Migrate from a previous version of a database, etc.
+* 通过键（key）从对象存储中读取或查找数据
+* 通过索引（index）从对象存储中读取或查找数据
+* 更新记录的数据
+* 删除一条记录
+* 从旧版本的数据库迁移等
 
-If you need insights about how to achieve the above, let me know in the comments section below. You can refer [here](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB) for more information.
+如果你需要关于如何实现上述操作的资料，请在下方评论区告诉我。你也可以参考[这里](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Using_IndexedDB)获得更多信息。
 
-## Features of Indexed DB
+## IndexedDB 的功能
 
-Indexed DB provides many special features that no other browser storage can achieve. Some of the features are briefly explained below.
+IndexedDB 提供了许多其它浏览器存储无法实现的特殊功能。下面简要说明一些功能。
 
-* **Has an asynchronous API**
+* **具有异步 API**
 
-This enables performing costly operations without blocking the UI thread and provides a better experience to users
+这样就可以在不阻塞 UI 线程的情况下执行高代价的操作，并为用户提供更好的体验。
 
-* **Supports transactions for reliability**
+* **支持可靠性事务**
 
-If one step fails, the transaction will be canceled and the database will be rolled back to the previous state.
+如果其中一个步骤失败，事务将被取消，数据库将回滚到以前的状态。
 
-* **Supports versioning**
+* **支持版本控制**
 
-You can version your database when you are creating it and upgrade the version when needed. Migrating from old versions to new versions is also possible in IndexedDB.
+你可以在创建数据库时对其进行版本控制，并在需要时对其进行升级。在 IndexedDB 中也可以从旧版本迁移到新版本。
 
-* **Private to domain**
+* **支持私有域**
 
-A database is private to a domain, therefore any other site cannot access another website’s IndexedDB stores. This is also called the **Same-origin Policy**.
+数据库是私有域，因此任何站点都不能访问其它网站的 IndexedDB 存储。这也称为**同源策略**。
 
-## Limitations of IndexedDB
+## IndexedDB 的局限
 
-So far, IndexedDB seems promising for client-side storage. However, there are few limitations worth noticing.
+到目前为止，IndexedDB 似乎很有希望用于客户端存储。然而，有几个限制值得注意。
 
-* Even though it has modern browser support, browsers such as IE does not have complete support for this.
+* 虽然现代浏览器支持 IndexedDB，但是 IE 等浏览器却没有完全支持。
 
 ![[Source](https://caniuse.com/?search=indexeddb)](https://cdn-images-1.medium.com/max/5472/1*II1BZYdl_uodU0W-6uOAwQ.png)
 
-* Firefox disables IndexedDB completely, in private browsing mode — This can cause your application to malfunction when accessed via an incognito window.
+* IndexedDB 在 Firefox 的无痕浏览模式下是完全禁用的 —— 通过隐身窗口访问应用程序时，接口无法使用可能导致应用程序出现故障。
 
-## Is IndexedDB right for your application?
+## IndexedDB 是否适合你的应用程序
 
-Based on the many features provided by IndexedDB, the answer to this million-dollar question could be Yes! However, before jumping to a conclusion, ask yourself the following questions.
+考虑到 IndexedDB 提供的诸多特性，这个百万美元问题（译者注：指至关重要的问题）答案可能是 Yes！然而，在得出结论之前，先问自己以下几个问题。
 
-* Does your application require offline access?
-* Do you need to store a large amount of data on the client-side?
-* Do you need to quickly locate/search data in a large set of data?
-* Does your application access the client-side storage using the supported browsers by IndexedDB?
-* Do you need to store various types of data including JavaScript objects?
-* Does writing/reading from client-side storage need to be non-blocking?
+* 你的应用程序需要离线访问吗？
+* 是否需要在客户端存储大量数据？
+* 是否需要在大量数据中快速定位或查找数据？
+* 应用程序是否使用 IndexedDB 支持的浏览器访问客户端存储？
+* 需要存储包括 JavaScript 对象在内的各种类型的数据吗？
+* 从客户端存储中写入或读取数据需要是非阻塞的吗？
 
-If the answer to all of the above questions is Yes, IndexedDB is the best option for you. But if such functionality is not required, you might as well choose a storage method such as `localStorage` because it provides widespread browser adoption and features an easy-to-use API.
+如果以上所有问题的答案都是肯定的，那么 IndexedDB 是你的最佳选择。但是，如果不需要这样的功能，你也可以选择本地存储（`localStorage`），因为它提供了大多数浏览器采用和易于使用的应用编程接口（API）。
 
-## Summary
+## 总结
 
-When we consider all the client-side storage mechanisms, IndexedDB is a clear winner. Let’s look at a summarized comparison of different client-side storage methods.
+当我们考虑所有客户端存储机制时，IndexedDB 显然是胜出者。让我们来看一下不同客户端存储方法的总结比较。
 
-![](https://cdn-images-1.medium.com/max/3544/1*ttpz7RUwKhTJYmfmE5VQ0g.png)
+![](https://github.com/PassionPenguin/gold-miner-images/blob/master/how-to-use-indexeddb-a-nosql-db-on-the-browser-summary-img.png)
 
-Hope you got a clear understanding of IndexedDB and its benefits. Let us know your thoughts too.
+希望你对 IndexedDB 及其特性有一个清晰的认识。也让我们知道你的想法。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

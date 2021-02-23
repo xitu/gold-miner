@@ -1,3 +1,13 @@
+* [JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [3 个最棒的最值得你去在产品中使用的 CSS Grid 功能](https://juejin.cn/post/6931372123441233927)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [你应该编译你的 JavaScript 代码吗？](https://juejin.cn/post/6926927963636105223)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)（[zenblo](https://github.com/zenblo) 翻译）
+* [如何在浏览器上使用 NoSQL 数据库 IndexedDB](https://juejin.cn/post/6930883284456964109)（[zenblo](https://github.com/zenblo) 翻译）
+* [2021 年 JavaScript 测试框架回顾](https://juejin.cn/post/6927585452253790216)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么 React Hooks 是错误的抽象](https://juejin.cn/post/6930529765048713229)（[fltenwall](https://github.com/fltenwall) 翻译）
+* [函数式编程 —— 使用 Python、JavaScript 和 Java 描述](https://juejin.cn/post/6930638275241574407)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
 * [掌握这 5 个 TypeScript 高级技巧，成为更好的开发者](https://juejin.cn/post/6924293152907984909)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [如何让 JavaScript 中的循环慢下来](https://juejin.cn/post/6924512805135581197)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [只使用 CSS 进行用户追踪](https://juejin.cn/post/6887478219662950414)（[MangoTsing](https://github.com/MangoTsing) 翻译）
