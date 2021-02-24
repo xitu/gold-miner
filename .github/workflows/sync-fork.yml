@@ -8,6 +8,8 @@ on:
 jobs:
   sync:
     name: Sync Fork
+    if: github.repository != 'xitu/gold-miner'
+    
     runs-on: ubuntu-latest
 
     steps:
