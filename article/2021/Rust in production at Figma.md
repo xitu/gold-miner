@@ -1,37 +1,37 @@
 > * 原文地址：[Rust in production at Figma](https://www.figma.com/blog/rust-in-production-at-figma/)
 > * 原文作者：[Evan Wallace](https://twitter.com/evanwallace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/rust-in-production-at-figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/rust-in-production-at-figma.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # Figma 生产环境中的 Rust
 
-> Mozilla 的新语言究竟是如何戏剧性的提升了我们服务端的性能的呢？
+> Mozilla 的新语言究竟是如何显著地提升了我们服务端的性能的呢？
 
 ![](https://miro.medium.com/max/4320/1*LoKiYs4SoAtkpFufNdD0AA.png)
 
 *喜欢构建最先进的 Web 应用程序嘛？[快来 Figma 工作呀～](https://www.figma.com/careers)*
 
-在我们 [Figma](https://www.figma.com/) 所提供的各种产品中，性能永远是我们最重要的卖点之一。我们力争去让团队能够所思即所得，而我们的多人同步引擎就是决定这个愿景能否实现的关键部分。我们希望最后能够让每个协作者都可以实时看到别人在 Figma 文档中所做的修改！
+对于我们 [Figma](https://www.figma.com/) 来说，性能永远是我们最重要的卖点之一。我们力争去让团队能够所思即所得，而我们的多人同步引擎就是决定这个愿景能否实现的关键部分。我们希望能够让每个协作者都可以实时看到别人在 Figma 文档中所做的修改！
 
-我们 [两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) 这个多人服务器是以 TypeScript 编写的，并且出奇的完美地服务了我们的客户，但是我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及，跟不上我们的扩张速度。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
+我们 [两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) 这个多人服务器是以 TypeScript 编写的，并且出奇的完美地服务了我们的客户，但是我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
 
-[Rust](https://www.rust-lang.org/) 是由创建了 Firefox 的非盈利组织 Mozilla 所创建的一款新的程序语言，而 Mozilla 也正使用它来构建跨时代的浏览器原型，[Servo](https://research.mozilla.org/servo-engines/)，向全世界证明了浏览器可以比现如今速度更快的浏览器。Rust 和 C++ 在性能和底层上很相像，但是它拥有一个类型系统，自然而然地避免了[整个 Class 都充斥着令人作呕的 Bug](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) 的这种经常会在 C++ 程序中出现的情况的出现。
+[Rust](https://www.rust-lang.org/) 是由创建了 Firefox 的非盈利组织 Mozilla 所创建的一款新的程序语言，而 Mozilla 也正使用它来构建跨时代的浏览器原型，[Servo](https://research.mozilla.org/servo-engines/)，向全世界证明了浏览器可以比现如今速度更快的浏览器。Rust 和 C++ 在性能和底层上很相像，但是它拥有一个类型系统，自然而然地避免了[一大堆令人作呕的 Bug](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) 的这种经常会在 C++ 程序中出现的情况的出现。
 
-我们之所以选择 Rust 作为重写服务器的语言，是因为它同时拥有 Class 中最佳的速度和较低的资源使用率这两个优点，还同时附带上了提供标准服务器语言的安全性能这一第三个优点。而这其中，较低资源使用率对我们而言尤其重要，因为我们旧服务器的部分性能问题，就是因为程序垃圾收集功能的低效所导致的。
+我们之所以选择 Rust 作为重写服务器的语言，它兼具一流的速度和较低的资源使用率，同时提供了标准服务器语言所需的安全性保障。而这其中，较低资源使用率对我们尤其重要，因为我们旧服务器的部分性能问题，就是垃圾回收导致的。
 
 我们也觉得这会是一个非常好的在生产中使用 Rust 的案例，并且希望分享我们在这个过程中所遇到的麻烦和我们所取得的成效，以期对其他有着类似考虑去重写代码的开发者们有些许帮助。
 
-## **将我们的服务器调整为 Rust 架构**
+## **用 Rust 扩展我们的服务**
 
-我们的多人服务功能是运行在一个固定数量的机器上，每个服务都拥有着相同数目的进程（Worker），并且每个文档都独立运行在一个特定的进程上。这意味着每一个进程都负责当前打开的 Figma 的文档的一部分。这看起来会是这样的：
+我们的多人服务是运行在固定数量的一些机器，每个服务都拥有着固定数目的进程（Worker），并且每个文档都独立运行在一个特定的进程上。这意味着每一个进程都负责当前打开的 Figma 的文档的一部分。这看起来会是这样的：
 
 ![https://miro.medium.com/max/2230/1*b_L0C2dgCIsZSuRtdT2aOg.png](https://miro.medium.com/max/2230/1*b_L0C2dgCIsZSuRtdT2aOg.png)
 
-我们遇到的最主要的问题，就是旧服务器会在同步时候遇到无法预计的延迟高峰。这个服务器是使用 TypeScript 编写的，并且是单线程的，完全不能同时处理多项操作。这意味着单一一个操作的缓慢会导致整个进程在这个操作完成前的停止。而常见的操作就是去对文档的解码，但 Figma 上的文档又可能会非常大，因此这个操作会显然消耗一长段时间，让连接在这个进程上的用户暂时无法同步他们的更改。
+我们遇到的最主要的问题，就是旧服务器会在同步时候遇到无法预计的延迟高峰。这个服务器是使用 TypeScript 编写的，并且是单线程的，完全不能同时处理多项操作。这意味着单一一个操作的缓慢会导致整个进程在这个操作完成前的停止。而常见的操作就是对文档的解码。Figma 上的文档可能会非常大，因此这个操作会显然会消耗一长段时间，让连接在这个进程上的用户暂时无法同步他们的更改。
 
-扔给这项服务更多的硬件丝毫不能缓解这个问题，因为一个缓慢的操作就会让所有这个进程所负责的文件都无法使用，而且我们无法为每一个文档都单独创建一个 Node.js 线程，因为 JavaScript 虚拟机的内存开销实在太大了。事实上仅仅一点点大文件就能造成麻烦 —— 并且是影响所有用户的服务体验啊！我们的临时解决方法是将那些疯了的巨大的文档独立，隔离到一个单独的进程池中：
+扔给这项服务更多的硬件丝毫不能缓解这个问题，因为一个缓慢的操作就会让这个进程所负责的所有文件都无法使用，而且我们无法为每一个文档都单独创建一个 Node.js 线程，因为 JavaScript 虚拟机的内存开销实在太大了。事实上只有很少一部分大文件会造成麻烦，但这就会影响所有用户的服务体验啊！我们的临时解决方法是将那些疯了的巨大的文档独立，隔离到一个单独的进程池中：
 
 ![https://miro.medium.com/max/2230/1*8bzkHy9Fg3fZXTEHIm65kg.png](https://miro.medium.com/max/2230/1*8bzkHy9Fg3fZXTEHIm65kg.png)
 
@@ -67,13 +67,13 @@ Rust 的确在编写高性能服务器这件事上帮了我们，但事实证明
 
 - **内存使用率低**
 
-Rust 同时拥有着对内存布局的细致入微的控制和改善了垃圾收集两个优点，并且具有体积非常小的标准库。Rust 使用的内存很少，因此在现实中为每个文档启动一个单独的 Rust 进程是可行的。
+Rust 因为没有垃圾回收从而可以进行更细致地控制内存布局，并且具有体积非常小的标准库。Rust 使用的内存很少，因此在现实中为每个文档启动一个单独的 Rust 进程是可行的。
 
 - **优秀的性能**
 
-Rust 肯定兑现了它在最佳性能方面的承诺，既因为它可以利用上 LLVM 的所有优化，又因为该语言本身在设计时就看重了性能。Rust 的 [切片（slice）](https://doc.rust-lang.org/1.22.0/std/slice/) 使传递原始指针变得容易，符合人体工程学且安全。我们大量地使用了它，避免在的解析过程中数据的复制这一不必要的操作。[HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) 则是借助 [Linear Probing（线性探测）](https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E6%8E%A2%E6%B5%8B) 和 [Robin Hood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) 实现的，因此与 C++ 的[unordered_map](http://zh.cppreference.com/w/cpp/container/unordered_map) 不同，内容可以内联存储在单个分配中，并且缓存的效率更高。
+Rust 肯定兑现了它在最佳性能方面的承诺，既因为它可以利用上 LLVM 的所有优化，又因为该语言本身在设计时就看重了性能。Rust 的 [切片（slice）](https://doc.rust-lang.org/1.22.0/std/slice/) 使传递原始指针变得容易，很适合使用也很是安全。我们大量地使用了它，避免在的解析过程中数据的复制这一不必要的操作。[HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) 则是借助 [Linear Probing（线性探测）](https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E6%8E%A2%E6%B5%8B) 和 [Robin Hood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) 实现的，因此与 C++ 的[unordered_map](http://zh.cppreference.com/w/cpp/container/unordered_map) 不同，内容可以内联存储在单个分配中，从而带来更高的缓存的效率。
 
-- **坚固的工具链**
+- **坚实的工具链**
 
 Rust 内置有 [cargo](https://doc.rust-lang.org/cargo/index.html)，一款集构建工具、包管理、测试运行和文档生成于一体的工具，一种新时代语言的标准附带品，脱胎于 C++（我们考虑重写上使用的另一种语言）的过时之中。 Cargo 拥有着非常全面的文档，并且非常容易上手，并拥有着便利的默认配置。
 
@@ -85,7 +85,7 @@ Rust 比其他语言更复杂，因为 Rust 的使用上还有着另一部分，
 
 - **生命周期是很令人迷惑的**
 
-在 Rust 中，将指针存储在变量中可以防止我们更改它指向的对象，只要该变量仍然在作用域内。这样大大的保证了安全性，但有时候又过于严苛，因为在发生变化时可能不再需要该变量。即使是从一开始就关注 Rust 的开发者们，或是编写那些有趣的编译器并且知道如何像借阅检查器一样思考的开发者，仍然不得不沮丧地停下手中的工作，着手解决可能出现的一些不必要的借阅检查器伤的难题，而这会不停止的间断发生。[这篇博客](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/)中就有蛮多的例子拥有着这类问题。
+在 Rust 中，将指针存储在变量中可以防止我们更改它指向的对象，只要该变量仍然在作用域内。这样大大的保证了安全性，但有时候又过于严苛，因为在发生变化时可能不再需要该变量。即使是从一开始就关注 Rust 的开发者们，或是编写那些有趣的编译器并且知道如何像借阅检查器一样思考的开发者，仍然不得不沮丧地停下手中的工作，着手解决可能出现的一些不必要的借阅检查器带来的难题，而这会不停止的间断发生。[这篇博客](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/)中就有蛮多的例子拥有着这类问题。
 
 *我们所做的事情：* 我们将程序简化为单个事件循环，该循环从 `stdin` 中读取数据并将数据写入 `stdout`（`stderr` 用于记录）。数据可以永久保存，也可以仅在事件循环期间保存。这消除了几乎所有借阅检查器的复杂性。
 
@@ -111,7 +111,7 @@ Figma 的文档都是压缩过后的，因此我们的服务器需要能够处�
 
 我们的多人服务器通过 WebSocket 进行通信，需要频繁发出 HTTP 请求。我们尝试在 Rust 中编写这些请求的处理程序，但遇到了 [Futures](https://docs.rs/futures/*/futures/) 上的人机工程学的问题（Rust 的异步编程答案）。`Futures` 的效率很高，但有时候使用起来很是复杂。
 
-例如，将操作链接在一起是通过构造一个代表整个操作链的巨型嵌套类型来完成的。虽说这意味着该链的所有内容都可以在一个分配中进行分配，但是这也意味着错误消息会是很长一段，令人难以阅读的错误，让人想起 C++ 中的模板错误（[示例](https://gist.github.com/evanw/ 06a672db1897482eadfbbf37ebf9b9ec)）。再加上其他问题，例如需要在不同的错误类型之间进行调整以及必须解决复杂的生命周期问题，我们决定放弃这种方法。
+例如，将操作链接在一起是通过构造一个代表整个操作链的巨型嵌套类型来完成的。虽说这意味着该链的所有内容只需要一次分配，但是这也意味着错误消息会是很长一段，令人难以阅读的错误，让人想起 C++ 中的模板错误（[示例](https://gist.github.com/evanw/ 06a672db1897482eadfbbf37ebf9b9ec)）。再加上其他问题，例如需要在不同的错误类型之间进行调整以及必须解决复杂的生命周期问题，我们决定放弃这种方法。
 
 *我们做了什么：* 我们没有全力以赴地使用 Rust，而是决定暂时将网络处理保留在 Node.js 中。Node.js 进程为每个文档创建一个单独的 Rust 子进程，并使用基于消息的协议通过标准输入输出与之沟通，让所有网络流量都在进程之间传递。
 
