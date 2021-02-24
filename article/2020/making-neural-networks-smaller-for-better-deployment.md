@@ -2,80 +2,81 @@
 > * 原文作者：[Vincent Houdebine](https://medium.com/@vhoudebine)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md](https://github.com/xitu/gold-miner/blob/master/article/2020/making-neural-networks-smaller-for-better-deployment.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[samyu2000](https://github.com/samyu2000), [lsvih](https://github.com/lsvih)
 
-# Making Neural Networks Smaller for Better Deployment
+# 让神经网络变得更小巧以方便部署
 
 ![Credit [JC Gellidon](https://unsplash.com/@jcgellidon?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*tGuAv2o2UGUDsC1RDtLPFA.jpeg)
 
-There is a clear trend in the data science and machine learning industry on training bigger and bigger models. These models achieve near-human performance, but they are usually too big to be deployed on a device with constrained resources like a mobile phone or a drone. This is one of the main blockers to the broader adoption of AI in our everyday lives.
+数据科学和机器学习领域存在一种明显趋势，训练的模型越来越大。这些模型的性能接近人类，但通常太大，以至于无法部署在手机或无人机之类的资源有限的设备上。这是导致我们无法在日常生活中广泛使用 AI 的主要障碍之一。
 
-**How can I fit my 98Mb ResNet model in a 15Mb mobile app?**
+**我如何在 15Mb 的移动应用程序中安装 98Mb 的 ResNet 模型？**
 
-On Android, the average app size is 15Mb, whereas NASNet, a state of the art image classification model released by Google, achieves over 80% accuracy on ImageNet — a famous image classification competition — but has a 355Mb size in its large version and 21.4Mb in its mobile-optimized version.
+在安卓上，一个应用程序平均大小为 15 Mb。而由 Google 发布的最先进的图像分类模型 NASNet（在著名的图像分类竞赛数据集 ImageNet 上可达到 80％ 的精度），其大型版本大小为 355 Mb，针对移动操作系统的优化版本也有 21.4 Mb。
 
-If you’re a data scientist trying to fit high-performing models into devices with constrained resources, this article will give you practical tips on how you can compress your model size by up to 70% with Keras and NumPy only, without losing performance.
+如果您是一位数据科学家，试图将高性能的模型安装到资源有限的设备中，本文可以为您提供一些实用技巧，指导您在不损失性能的情况下，使用 Keras 和 NumPy 将模型大小压缩到 70%。
 
 ---
 
-In the last few years, there has been a lot of interest in making models smaller for resource-efficient training and inference on such constrained devices. Two main approaches have been used:
+在过去的几年中，人们非常关注如何压缩模型，使其适合在资源有限的设备上进行训练和推理的问题。主要存在两种方法：
 
-The first and most popular method is to train neural networks that are lightweight by design. A good example of this is MobileNet by Google. MobileNet’s architecture only features 4.2 million parameters while achieving a 70% accuracy on ImageNet. This compression maintains reasonable performance and is achieved by the introduction of depth-wise convolution layers which help reduce model size and complexity.
+第一种常见方法是从设计入手，训练轻量级的神经网络。Google 的 MobileNet 就是一个很好的例子。MobileNet 的架构仅具有 420 万个参数，而 ImageNet 的准确率达到了 70％。这种压缩可保持合理的性能，是通过引入有助于减小模型的大小和复杂性的深度卷积层来实现的。
 
-The other type of approach is to leverage large, pre-trained neural networks and compress them to reduce their size while minimizing loss in performance. This article will focus on reviewing and implementing some of these compression techniques on convolutional neural networks (CNNs).
+另一种方法是利用预先训练的大型神经网络，对其进行压缩以减小大小，同时最大程度地降低性能损失。本文将重点对卷积神经网络（CNN）压缩技术进行回顾和实现。
 
-In particular, we will focus on pruning techniques, the low hanging fruit of neural network compression. Network pruning aims at removing specific weights and their respective connections in a neural network to compress its size. Although pruning is less popular than other approaches, it achieves pretty good results and is quite easy to implement, as we will see in the rest of this article.
+特别地，我们将专注于剪枝技术，一种较为容易实现的神经网络压缩技术。网络剪枝旨在消除神经网络中的特定权重及其各自的联系，以压缩网络大小。尽管剪枝技术不如其他方法流行，但它取得了很好的效果，并且很容易实现，正如接下来我们将在文章看到的那样。
 
-> **“The ability to simplify means to eliminate the unnecessary so that the necessary may speak.” Hans Hoffman**
+> **“简化意味着去掉不必要的元素，让必要元素凸显。” Hans Hoffman**
 
-It might seem odd that removing weights from a neural network wouldn’t drastically harm its performance. Still, in 1991, Y. LeCun et al. showed in a paper called **[Optimal Brain Damage](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)** that one could reduce the size of a neural network by selectively deleting weights. They found it was possible to remove half of a network’s weights and end up with a lightweight, sometimes better-performing network.
+消除神经网络中的权重却并不会影响其性能，这似乎令人难以理解。不过，Y.LeCun 等人于 1991 年在一篇名为 Optimal Brain Damage 的论文中已经证明，可以通过选择性删除神经网络权重来减小神经网络的大小。他们发现有可能通过删除一半的神经网络权重，最终得到一个轻量级、性能更好的网络。
 
-In the particular case of CNNs, instead of removing individual weights, most approaches focus on removing entire filters and their corresponding feature maps from convolutional layers. The main benefit of this method is that it doesn’t introduce any sparsity in the network’s weight matrices. This is important to take into account as most deep learning frameworks, including Keras, don’t support sparse weight layers.
+在 CNN 这一特定情况下，大多数方法不是除去单个权重，而是专注于从卷积层中除去整个滤波器及其对应的特征图。这种方法的主要优点是它不会在网络的权重矩阵中引入任何稀疏性。这一点很重要，因为包括 Keras 在内的大多数深度学习框架都不支持稀疏权重的层。
 
-Although convolution layers only account for a minority of the network’s weights — the bulk of the network is in the fully connected layers — pruning filters eventually reduces the number of weights in the dense layers.
+尽管卷积层仅占网络权重的一小部分 —— 网络权重的大部分位于全连接的层中 —— 修剪滤波器最终还是间接减少了全连接层的权重数。
 
-![Pruning convolution filters from CNNs](https://cdn-images-1.medium.com/max/2252/1*nCFPvBeDBmOzwJKzemmYPA.png)
+![对 CNNs 中的卷积滤波器进行剪枝](https://cdn-images-1.medium.com/max/2252/1*nCFPvBeDBmOzwJKzemmYPA.png)
 
-## What Is the Intuition Behind Network Pruning ?
+## 网络修剪背后的直觉是什么？
 
-Let’s take a step back for a second and look at the intuition behind network pruning. There are two hypotheses on neural networks that motivate pruning:
+让我们退后一步，看看网络修剪背后的直觉。关于神经网络的两个假设会催生剪枝技术：
 
-The first one is **weight redundancy**. This means that several neurons — or filters in the particular case of CNNs — will be activated by very similar input values. Consequently, most networks are actually over-parameterized and we can safely assume that deleting redundant weights won’t harm performance too much.
+第一个是“权重冗余”。这意味着多个神经元（或在 CNN 的情况下为过滤器）会被非常相似的输入值激活。因此，大多数网络实际上都是参数冗余的，我们可以放心地假设删除冗余权重不会对性能造成太大影响。
 
-The second one is that **not all weights contribute equally** to the output prediction. Instinctively, we can assume that lower magnitude weights will have a lower importance to the network, Y. LeCun calls them **low saliency weights**. Indeed, all things being equal, lower magnitude weights will have a lower effect on the network’s training error.
 
-As we can see in the figure below, a large number of the convolution filters across the network have a low L1 norm while a very small number of filters have a much larger norm.
+第二个是**并非所有权重均对输出预测做出了同等贡献**。本能地，我们可以假设较低幅值的权重对网络的重要性较低，Y.LeCun 称它们为“低显著性权重”。实际上，在所有条件都相同的情况下，较低幅值的权重将对网络的训练错误产生更小的影响。
 
-![**Distribution of L1 norm of filters on all layers of a CNN trained on imagenette.**](https://cdn-images-1.medium.com/max/3612/1*30JNcr-p7ssE-btMwY1BQA.png)
+如下图所示，网络中的大量卷积滤波器的 L1 范数较低，而很少数量的滤波器的范数则相对较大。
 
-Although using L1 norm is a simplistic heuristic to rank the importance of filters, we can assume that pruning low importance convolution filters away from the network would have a lesser impact than others.
+![**在 imagenette 上训练的一个 CNN 的所有层的滤波器的 L1 范数分布**](https://cdn-images-1.medium.com/max/3612/1*30JNcr-p7ssE-btMwY1BQA.png)
 
-Now that we have a better understanding of pruning and how it can help compress networks without harming their performance, let’s see how we can implement it on a Keras network.
+尽管使用 L1 范数来对滤波器的重要性进行排序是一种简单的启发式方法，但我们可以假设将低重要性的卷积滤波器从网络中删除会比删除其他滤波器的影响更小。
 
-## How to Prune a Model Trained With Keras?
+现在，我们对剪枝及其如何在不损害网络性能的情况下帮助压缩网络有了更好的了解，让我们看看如何在 Keras 网络上实现它。
 
-In the remainder of this article, we’ll use a vanilla CNN trained on imagenette, a subset of 10,000 images from 10 ImageNet categories. After training and evaluating our full baseline network, we’ll implement and compare different pruning strategies.
+## 如何对使用 Keras 训练的模型进行剪枝？
+
+在本文的其余部分，我们将使用在 imagenette（一个包含 10,000 张图片共 10 个类别的 ImageNet 的子集） 上训练的普通 CNN。在训练和评估了完整的基准网络之后，我们将实现并比较不同的剪枝策略。
 
 #### Rank-Prune-Retrain
 
-The algorithm we will adopt to efficiently prune our CNN is surprisingly simple: Rank — Prune — Retrain. First, we’ll need to **rank** our filters by importance in order to identify low magnitude, unimportant filters. Then, we’ll **prune** away a certain percentage of them based on their estimated importance. Finally, we’ll **retrain** the network for a few epochs using the same learning rate as for the initial training to fine-tune weights to the new pruned architecture. That’s it, it’s so simple it can fit in one Tweet.
+我们将采用的有效修剪 CNN 的方法非常简单：排序-修剪-重新训练。首先，我们需要对滤波器的重要性进行**排序**，以筛选出幅值低，重要性低的滤波器。然后，我们会根据估计的重要性**修剪**掉其中一定比例的滤波器。最后，我们将使用与初始训练相同的学习率来对网络**重新训练**几个 epoch，以将权重微调到修剪后的新架构上。就是这样，它非常简单，甚至可以放入一条 Tweet 中。
 
-![The NN compression algorithm by Alex Renda](https://cdn-images-1.medium.com/max/2416/0*3zblyMx9iyG9u8FQ)
+![Alex Renda 提出的 NN 压缩方法](https://cdn-images-1.medium.com/max/2416/0*3zblyMx9iyG9u8FQ)
 
-1. **Rank: Identifying Filters to Prune**
+1. **排序：筛选出待修剪的滤波器**
 
-There is no consensus on how to rank weights according to how much they contribute to the output performance of the network. A perfect strategy would be to prune each weight individually and compute the performance of the model without the weight. This method is called oracle pruning, but with several millions (sometimes billions) of weights in a network, it is a very expensive strategy to say the least.
+关于如何根据权重对网络输出性能的贡献程度进行排名，尚无共识。理想的策略是分别修剪每个权重并计算没有该权重的模型的性能。这种方法被称为 oracle 剪枝，但是由于网络一般具有数百万（有时数十亿）的权重，可以说这种策略至少非常昂贵。
 
-Other proxies to rank weights involve computing their norm (L1 or L2) or computing the mean, standard deviation or percentage of 0 activation values over a batch of input data.
+其他对权重进行排序的方法包括计算其范数（L1 或 L2）或计算一批输入数据上的均值，标准差或 0 激活值的百分比。
 
-For this experiment, we’ll use both **L1 norm** and **Average Percentage of Zero (APoZ) Activations** of the convolutional filters to rank them by importance.
+在本实验中，我们将同时使用卷积过滤器的 **L1 范数**和**平均零激活百分比（APoZ）**来对重要性进行排名。
 
-Since we’re going to use L1 norm to compare filters with different sizes, we’ll have to use a normalized L1 norm:
+由于我们将使用 L1 范数来比较大小不同的过滤器，因此我们必须使用归一化的 L1 范数：
 
 ![](https://cdn-images-1.medium.com/max/2000/0*oYZbmKC0v67e5TiT)
 
-The code below computes L1 norm of the convolutional filters in a Keras model and outputs a matrix of dimension Nb_of_layers x Nb_of_filters.
+下面的代码计算 Keras 模型中卷积滤波器的 L1 范数，并输出尺寸为 Nb_of_layers x Nb_of_filters 的矩阵。
 
 ```Python
 import tensorflow as tf
@@ -89,7 +90,7 @@ import numpy as np
 import math
   
 def get_filter_weights(model, layer=None):
-    """function to return weights array for one or all conv layers of a Keras model"""
+    """用于返回 Keras 模型中一个或者所有卷积层的权重的函数"""
     if layer or layer==0:
         weight_array = model.layers[layer].get_weights()[0]
         
@@ -101,8 +102,7 @@ def get_filter_weights(model, layer=None):
     return weight_array
 
 def get_filters_l1(model, layer=None):
-    """Returns L1 norm of a Keras model filters at a given conv layer, if layer=None, returns a matrix of norms
-model is a Keras model"""
+    """返回 Keras 模型中指定卷积层中滤波器的 L1 范数，如果 layer=None，返回 APoZ 矩阵"""
     if layer or layer==0:
         weights = get_filter_weights(model, layer)
         num_filter = len(weights[0,0,0,:])
@@ -117,28 +117,28 @@ model is a Keras model"""
         norms = np.empty((len(weights), max_kernels))
         norms[:] = np.NaN
         for layer_ix in range(len(weights)):
-            # compute norm of the filters
+            # 计算滤波器的范数
             kernel_size = weights[layer_ix][:,:,:,0].size
             nb_filters = weights[layer_ix].shape[3]
             kernels = weights[layer_ix]
             l1 = [np.sum(abs(kernels[:,:,:,i])) for i in range(nb_filters)]
-            # divide by shape of the filters
+            # 除以滤波器的形状
             l1 = np.array(l1) / kernel_size
             norms[layer_ix, :nb_filters] = l1
     return norms
 ```
 
-The second option you can try is to compute the APoZ activations. The intuition is that if a filter is rarely activated over a batch of random input images, it doesn’t contribute much to the output predictions of the model. Note that this metric makes a lot of sense if the activation functions used in the convolutional layers zero out a lot of values. This is the case for ReLU but when using other functions like Leaky ReLU, the APoZ criteria might not be as relevant.
+您可以尝试的第二个选项是计算 APoZ 激活。直觉是，如果一个滤波器几乎没有被一批随机输入图像激活，那么它对模型的输出的贡献就不会很大。请注意，如果卷积层中使用的激活函数将很多值归零，则此度量方法很有意义。对于 ReLU 就是这种情况，但是当使用 Leaky ReLU 之类的其他激活函数时，APoZ 标准可能不那么相关。
 
-To compute APoZ per filter, we’ll have to select a subset of the dataset, score it with our CNN, and compute each filter’s average percentage of activation values equal to 0. The filters we will prune are the ones with the biggest percentage of zero activations.
+要计算每个滤波器的 APoZ，我们必须选择数据集的一个子集，用 CNN 对其评分，然后计算每个滤波器的值为零的激活值所占百分比的均值。我们要修剪的滤波器是零激活值平均百分比最大的。
 
 ![](https://cdn-images-1.medium.com/max/2912/0*lJEZuER30NWzlfmE)
 
-The following function does that for one convolutional layer:
+以下的代码为对一个卷积层完成上述工作：
 
 ```Python
 def compute_apoz(model, layer_ix, nb_filters, generator):
-    """Compute Average percentage of zeros over a layer’s activation maps"""
+    """计算一层的激活值中零激活值得平均百分比"""
     act_layer = model.get_layer(index=layer_ix)
     node_index = 0
     temp_model = Model(model.inputs,
@@ -146,7 +146,7 @@ def compute_apoz(model, layer_ix, nb_filters, generator):
                         )
 
 
-    # count the percentage of zeros per activation
+    # 计算每个激活值零值的百分比
     a = temp_model.predict_generator(generator,944, workers=3, verbose=1)
     activations = a.reshape(a.shape[0]*a.shape[1]*a.shape[2],nb_filters).T
     apoz_layer = np.sum(activations == 0, axis=1) / activations.shape[1]
@@ -154,11 +154,11 @@ def compute_apoz(model, layer_ix, nb_filters, generator):
     return apoz_layer
 ```
 
-Generalizing that to all layers, again, we’re outputting a Nb_of_layers x Nb_of_filters matrix with an APoZ value for each individual filter in the network:
+将其推广到所有层，我们再次输出一个 Nb_of_layers x Nb_of_filters 矩阵，其中包含网络中每个滤波器的 APoZ 值：
 
 ```Python
 def get_filters_apoz(model, layer=None):
-    """Compute Average percentage of zeros over one or all conv layers activation maps, if layer=None, returns a matrix of APoZ"""
+    """计算一个或者所有卷积层激活值中零值得平均百分比，如果 layer=None，返回一个 APoZ 矩阵"""
     test_generator = ImageDataGenerator(rescale=1./255, validation_split=0.1)
     apoz_dir = "/home/ec2-user/experiments/data/imagenette2-320/train"
 
@@ -185,11 +185,11 @@ def get_filters_apoz(model, layer=None):
         activations_indexes = [i for i,v in enumerate(model.layers) if 'activation' \
                        in v.name and 'conv' in model.layers[i-1].name]
 
-        # create nd array to collect values
+        # 创建一个 n 维的 array 来存储数据
         apoz = np.zeros((len(weights_array), max_kernels))
 
         for i, act_ix in enumerate(activations_indexes):
-            # score this sample with our model (trimmed to the layer of interest)
+            # 用我们的模型对该样本评分（修剪到感兴趣的图层）
             nb_filters = weights_array[i].shape[3]
             apoz_layer = compute_apoz(model, act_ix, nb_filters, apoz_generator)
             apoz[i, :nb_filters] = apoz_layer
@@ -197,14 +197,14 @@ def get_filters_apoz(model, layer=None):
     return apoz
 ```
 
-From these two matrices, we can easily identify which filters to prune. Some papers set a hard threshold and prune away all the filters that don’t make the cut, while others rank the filters and set a target percentage of filters to prune away.
+根据这两个矩阵，我们可以轻松地确定要修剪的滤波器。一些论文设定了严格的门槛，并修剪掉所有没有切掉的滤波器，而另一些论文则对滤波器进行排序，并设定一定的百分比来修剪滤波器。
 
-In the code below, we are pruning away 10% of the filters in the network by simply computing the number of filters n_pruned corresponding to 10% of the filters and then computing coordinates of the n_pruned lowest (for L1) or biggest (for APoZ) values in the matrix:
+在下面的代码中，我们通过简单地计算与 10％ 的滤波器相对应的数量 n_pruned，然后计算 n_pruned 个值最低（对于 L1）或最大（对于 APoZ）的滤波器的坐标，来删除网络中 10％ 的滤波器：
 
 ```Python
 def compute_pruned_count(model, perc=0.1, layer=None):
     if layer or layer ==0:
-        # count nb of filters
+        # 计算滤波器的数量
         nb_filters = model.layers[layer].output_shape[3]
     else:
         nb_filters = np.sum([model.layers[i].output_shape[3] for i, layer in enumerate(model.layers) 
@@ -223,23 +223,23 @@ def biggest_indices(array, N):
     return np.stack(np.unravel_index(idx, array.shape)).T
 ```
 
-In addition to these two methods, we also tried pruning away random filters from the network to prove that you can’t just remove random filters from the network and get away with it!
+除了这两种方法，我们还尝试了从网络中随机删除滤波器，结果证明了你并不能无痛地从网络中随机删除滤波器。
 
-**2. Prune: Pruning Away the Filters**
+**2. 剪枝：修剪掉滤波器**
 
-Now that we have identified the convolutional filters to remove, we’ll have to put on our brain surgeon hat and delete the filters from the network. We’ll also need to be cautious and remove the corresponding output channels in the deeper layers of the network.
+现在，既然我们已经确定了要删除的卷积滤波器，我们就得戴上脑外科医生的帽子并去实施相关操作。我们仍需谨慎，并在网络的更深层中删除相应的输出通道。
 
-Thankfully, the keras-surgeon library provides very simple methods to efficiently modify trained Keras models. Building on the simplicity of Keras, keras-surgeon lets you easily delete neurons or channels from layers using a simple delete_channels_method(). The library also has an identify module that lets you compute the APoZ metrics for neurons in a specific layer. Keras-surgeon is awesome and works on virtually any Keras model (not just CNNs) — shout out to Ben Whetton for his work on this. Here’s the link to the [repo](https://github.com/BenWhetton/keras-surgeon).
+值得庆幸的是，keras-surgeon 库提供了非常简单的方法来有效地修改经过训练的 Keras 模型。基于 Keras 的简易性，keras-surgeon 使您可以使用简单的 delete_channels_method() 从层中轻松删除神经元或通道。该库还具有一个识别模块，可让您计算特定层中神经元的 APoZ 指标。Keras-surgeon 库很棒，几乎可以在任何 Keras 模型上工作（不仅限于 CNN），让我们向 Keras-surgeon 库的作者 Ben Whetton 致敬。这是该[项目]（https://github.com/BenWhetton/keras-surgeon）的链接。
 
-Let’s implement keras-surgeon to prune away the channels identified in the previous section. We’ll also have to re-compile the model once it’s been pruned using the standard .compile() module in Keras.
+让我们实现 keras-surgeon 来修剪掉上一节中确定的通道。在对模型进行修剪后，我们还必须使用 Keras 中标准的 .compile() 模块对模型重新编译。
 
 ```Python
 from kerassurgeon.operations import delete_channels, delete_layer
 from kerassurgeon import Surgeon
 
 def prune_one_layer(model, pruned_indexes, layer_ix, opt):
-    """Prunes one layer based on a Keras Model, layer index 
-    and indexes of filters to prune"""
+    """基于 Keras 模型修剪掉一层，层索引 
+    和待修剪的滤波器索引"""
     model_pruned = delete_channels(model, model.layers[layer_ix], pruned_indexes)
     model_pruned.compile(loss='categorical_crossentropy',
                           optimizer=opt,
@@ -247,8 +247,7 @@ def prune_one_layer(model, pruned_indexes, layer_ix, opt):
     return model_pruned
 
 def prune_multiple_layers(model, pruned_matrix, opt):
-  """Prunes several layers based on a Keras Model, layer index and matrix 
-  of indexes of filters to prune"""
+  """基于 Keras 模型修剪掉几层，层索引和带修剪滤波器的索引矩阵"""
     conv_indexes = [i for i, v in enumerate(model.layers) if 'conv' in v.name]
     layers_to_prune = np.unique(pruned_matrix[:,0])
     surgeon = Surgeon(model, copy=True)
@@ -269,17 +268,17 @@ def prune_multiple_layers(model, pruned_matrix, opt):
 
 ```
 
-We can wrap this up with a nice prune_model() function.
+我们可以写一个满意的 prune_model() 函数对其进行封装。
 
 ```Python
 def prune_model(model, perc, opt, method='l1', layer=None):
-    """Prune a Keras model using different methods
-    Arguments:
-        model: Keras Model object
-        perc: a float between 0 and 1
-        method: method to prune, can be one of ['l1','apoz','random']
-    Returns:
-        A pruned Keras Model object
+    """使用不同的方法对 Keras 模型进行修剪
+    参数:
+        model: Keras 模型对象
+        perc: 一个 0 到 1 之间的小数
+        method: 剪枝方法，可以是 ['l1','apoz','random'] 中的一种
+    返回:
+       一个修剪后的 Keras 模型对象
     
     """
     assert method in ['l1','apoz','random'], "Invalid pruning method"
@@ -302,37 +301,38 @@ def prune_model(model, perc, opt, method='l1', layer=None):
     return model_pruned
 ```
 
-During our experiment, we tried different pruning percentages, pruning up to 50% of the convolution filters in the network. This revealed that after a certain point, we removed too many essential filters from the network and the drop of performance was too big to be recovered by further fine tuning.
+在我们的实验中，我们尝试了不同的修剪百分比，最多修剪了网络中 50％ 的卷积滤波器。实验结果表明，在修剪比例超过某个值后，我们从网络中删除了太多必要的滤波器，并且性能下降太大，无法通过进一步的微调来恢复。
 
-The best pruning — performance ratio was achieved by pruning away 20% of the filters using APoZ, which enabled us to reduce the number of model weights by 69%!
+最佳修剪 — 通过使用 APoZ 修剪掉 20％ 的滤波器可实现性能比，这使我们可以将模型权重数量减少 69％！
 
-**3. Retrain: Retraining the Model**
+**3. 再训练：再训练模型**
 
-Our model is now stripped of a good chunk of the allegedly unnecessary filters. Pruning the model introduced perturbations in the model and, in order to maintain the model’s performance, it is usually necessary to fine-tune the model for a few epochs. Keras makes it very easy to fine-tune a previously trained model, simply call the .fit() function again using the same optimizer (same optimizer type, same learning rate) as the initial model training.
+现在，我们的模型中去除了很多所谓的不必要的滤波器。修剪模型会在模型中引入扰动，并且为了保持模型的性能，通常需要对模型进行几个 epoch 的微调。Keras 使微调预先训练过的模型变得非常容易，只需再次调用 .fit（）函数即可使用与初始模型训练相同的优化器（相同的优化器类型，相同的学习率）。
 
-The amount of fine-tuning to be done will depend on the proportion of filters pruned from the model and the initial model complexity. For our experiments, we chose to retrain for one epoch only on our vanilla CNN, but some papers use up to 10 epochs of retraining on more complex models.
+进行微调的数量将取决于从模型中删除的滤波器比例和初始模型的复杂性。对于我们的实验，在传统的 CNN 上我们选择仅微调一轮，但是一些论文在更复杂的模型上最多进行了 10 轮再训练。
 
-Something interesting to note is for models pruned using L1 and APoZ, the performance actually increased compared to the baseline after pruning and retraining them. Our network, despite being 69% smaller in size, has a 77.8% accuracy, much better than our baseline, over-parameterized model, which is very cool to see.
+有意识的一点是，对于使用 L1 范数和 APoZ 修剪的模型，修剪和重新训练后的性能与基线相比实际上有所提高。我们的模型尽管体积小了 69％，但其准确度却达到了 77.8％，比我们的参数化的基准模型要好得多。这是很酷的一件事。
 
-![Evolution of model performance at increasing pruning % (in number of model weights) using L1, APoZ and random pruning of filters.](https://cdn-images-1.medium.com/max/2512/1*rTpCGds2OqwZPvUrpBMFeQ.png)
+![逐步增加使用 L1 范数，APOZ 和 随机剪裁技术修剪模型滤波器百分比的模型性能变化](https://cdn-images-1.medium.com/max/2512/1*rTpCGds2OqwZPvUrpBMFeQ.png)
 
-![Evolution of model performance at increasing pruning % (in model size) using L1, APoZ and random pruning of filters.](https://cdn-images-1.medium.com/max/2612/1*bva_R5vv7xKJFbrm2PJb0A.png)
+![逐步增加使用 L1 范数，APOZ 和 随机剪裁技术修剪模型权重百分比的模型性能变化](https://cdn-images-1.medium.com/max/2612/1*bva_R5vv7xKJFbrm2PJb0A.png)
 
-This has been observed in several papers and can be interpreted as a post-training network regularization. Even if you’re not looking to compress your model, you might want to have a go at pruning as a way to improve its generalization performance.
+在几篇论文中已经观察到了这一点，并且可以将其解释为对神经网络训练后的再正则化（post-training network regularization）。即使您不想压缩模型，你也可以尝试把剪枝技术作为提高模型泛化能力的一种方法。
 
-**4. Repeat!**
+**4. 再训练！**
 
-This Rank — Prune — Retrain cycle can be repeated iteratively until a certain criterion is met. For example we could repeat this cycle until the difference between the pruned model’s performance and the original model’s performance is bigger than a certain threshold.
+可以反复重复 排序 - 剪枝 - 再训练的循环，直到满足特定条件为止。例如，我们可以重复此循环，直到修剪后的模型的性能与原始模型的性能之间的差异大于某个阈值为止。
 
-In practice, we found that a single iteration of this cycle could lead to up to a~70% compression in number of weights while maintaining or improving the performance of our baseline CNN.
+在实践中，我们发现此循环的单次迭代可以使得权重数量压缩高达近 70％，同时保持或改善基线 CNN 的性能。
 
-## Conclusion
+## 结论
 
-To conclude on these experiments, we saw that APoZ gave slightly better compression / performance results than L1. However, in practice, I’d suggest using L1 as a quick win for compression. As opposed to APoZ, L1 doesn’t require any data to identify filters to prune and is thus much less computationally intensive than APoZ.
 
-Overall, we’ve been impressed by the compression results achieved using such a conceptually simple technique. Compared to other compression techniques like quantization, pruning is a much simpler approach to implement while producing very nice results.
+总结一下这些实验，我们发现了 APoZ 的压缩/性能比结果比 L1 好。但是，在实际中，我建议使用 L1 作为快速压缩的方法。与 APoZ 相比，L1 不需要任何数据即可识别要修剪的滤波器，因此计算量要少得多。
 
-It is our hope that this article convinced you to give pruning a try and that we’ll see more pruned models being deployed to production!
+总体而言，我们对这种概念上如此简单的技术所获得的压缩效果印象深刻。与诸如量化之类的其他压缩技术相比，剪枝是一种更简单的实现方法，同时可以得到非常好的结果。
+
+我们希望本文能说服您进行尝试剪枝技术，希望我们能看到更多修剪后的模型被部署到生产中！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
