@@ -9,82 +9,83 @@
 
 ![](https://cdn-images-1.medium.com/max/5760/1*k3Etz0QztOVwxIMYg1Tatw.jpeg)
 
-If we take any application, we need a reliable mechanism to communicate between its components.
+如果我们使用些什么应用程序，大多数情况下我们需要一种可靠的方法来在其组成部分之间进行通信。
 
-For example, in web applications, we need to communicate between browser and server. Sometimes, the server needs to send back messages to the browser. Besides, there are instances where the backend depends on another service that takes a long time to complete.
+例如，在 Web 应用程序中，我们需要在浏览器和服务器之间进行通信；有时，服务器需要将消息发送回浏览器；此外，在某些情况下，后端还可能依赖于另一个需要很长时间才能完成的服务。
 
-> **That’s where APIs, WebSockets, and WebHooks come into play. These methods provide a flawless mechanism to communicate and sync data across different parts of an application.**
+> **这就是 API、WebSocket 和 WebHooks 发挥作用的地方。这些方法提供了一种完美的解决思路，让我们可以在应用程序的不同部分之间进行数据通信和同步。
 
-Although these three methods primarily facilitate communication, there are some significant differences between them. So in this article, I will discuss how these three approaches work and how we can choose the most suitable method depending on the use case.
+尽管这三种方法主要都是为了通信，它们之间还是有一些明显的区别。在本文中，我将讨论这三种方法如何工作以及如何根据用例选择最合适的方法。
 
-## APIs - Provides an interface and a contract for consumers.
+## API —— 为用户提供接口和协议。
 
-> **API or Application Programming Interface is a contract between a consumer and the service provider who exposes the API typically over HTTP.**
+> **API 或应用程序接口是用户与服务提供商之间的合同，并且 API 都通常在 HTTP 环境下被暴露出来。**
 
-This works exceptionally well for scenarios like basic CRUD operations from the web, mobile, or even for service to service integrations. Mostly the communications happen using JSON or XML as the data transfer format.
+这对于从 Web、移动设备甚至是服务到服务集成的基本 CRUD 操作等场景都非常有效。大多数情况下，API 通信使用 JSON 或 XML 作为传输的数据的格式。
 
-Let’s take a scenario where users search for products on an e-commerce website. Once the user requests what he wants using a search query, he will get a response within few seconds. The process of an API is simple as that.
+让我们作一个假设 —— 用户在电子商务网站上搜索产品。一旦用户使用搜索查询请求了自己想要查找的商品，他就会在几秒钟内得到响应。API 的使用真的非常简单。
 
-![How API Call Works in a Web Application](https://cdn-images-1.medium.com/max/2000/1*2P5Wwur2TEno1WY0lZHP3w.png)
+![API 调用在 Web 应用程序中的工作方式](https://cdn-images-1.medium.com/max/2000/1*2P5Wwur2TEno1WY0lZHP3w.png)
 
-> **As I mentioned initially, API requests are originated from the consumer. So, they are well suited for applications like persisting state or perform a quick action to receive an immediate response from the back-end operation.**
+> **正如我最初提到的，API 请求是用户发起的，因此它们非常适合诸如持久状态或执行快速操作以接收来自后端操作的立即响应的应用程序。
 
-However, if the server needs to communicate back to the browser, there is no direct method when using APIs unless the browser periodically checks for any updates.
+但是，如果服务器需要与浏览器进行通讯，则无法直接使用 API，除非浏览器定期发送请求获取是否有更新。
 
-For example, tasks like report generation could take more time and resources where it is typically done in the background. Therefore once the consumer tells the service provider to generate a report, there is no direct method to notify the completion. The browser might need to poll the API continuously.
+举个例子，诸如报告生成之类的任务可能会花费更多的时间和资源，而这通常需要在后台完成。用户请求服务提供商去生成报告后，服务器并没有直接的方法来通知用户完成的情况，我们的浏览器可能需要持续轮询 API。
 
-**But polling is not efficient and we have better methods like WebSockets to address such challenges.**
+**但是轮询效率不高，我们有更好的方法（如 WebSockets）来解决此类问题。**
 
-## WebSockets - When you need real-time communication
+## WebSockets —— 当你需要实时通信
 
-> **WebSockets, address this challenge by allowing a persistent and bidirectional communication between the consumer and service provider.**
+> ** WebSocket，通过允许使用者和服务提供商之间进行持久的双向通信来解决这一挑战。
 
-Having a full-duplex communications channel allows service providers to send messages at any time. Since all the modern browsers support WebSockets, it is the best solution for real-time web applications.
+双向通信通道使服务提供商可以随时与用户端取得联系，因为所有现代浏览器都支持 WebSocket，因此它是实时 Web 应用程序的最佳解决方案。
 
-![How WebSocket Works](https://cdn-images-1.medium.com/max/2690/1*6pyJqsMadK3ItpzWa3qdSA.png)
+![WebSocket的工作方式](https://cdn-images-1.medium.com/max/2690/1*6pyJqsMadK3ItpzWa3qdSA.png)
 
-> **However, keeping the connection open all the time increases resource consumption, power usage (mobile devices), and makes it difficult to scale.**
+> **但是，始终保持连接打开会增加资源消耗和影响功耗（移动设备），并且难以扩展。**
 
-For example, if we take the same report generation scenario, using WebSockets might be a great option for the web. However, it might not work best for mobile, where we might need to look at technologies like push notifications. Besides, if our backend depends on an external service for generating the report, WebSockets isn’t the best option for the backend to external service communication.
+例如，如果我们采用相同的报告生成方案，则使用 WebSockets 可能是 Web 上的一个不错的选择，但是，它可能不适用于移动设备，因为我们可能需要研究诸如推送通知之类的技术。依赖于外部服务来生成报告，WebSockets 并不是后端与外部服务通信的最佳选择。
 
-**That’s where we need a mechanism like WebHooks.**
+**这就是我们需要 WebHooks 之类的机制的地方。**
 
-![How to connect consumer, backend, and external services using WebSockets and WebHooks.](https://cdn-images-1.medium.com/max/2006/1*vhbQNBBr2Lmzz2QBa5KYkQ.png)
+![如何使用WebSockets和WebHooks连接使用者，后端和外部服务。](Https://cdn-images-1.medium.com/max/2006/1*vhbQNBBr2Lmzz2QBa5KYkQ.png)
 
-## WebHooks - Perfect solution for Backend Callbacks
+## WebHooks —— 完美的后端回调解决方案
 
-WebHooks provides a solution for the overkilling issue in WebSockets by providing a disconnected mechanism to receive a response originate from the service provider.
+WebHooks 通过提供一种断开机制来接收来自服务提供者的响应，从而为 WebSockets 中的过大杀手问题提供了解决方案。
 
-If we look at the technical side, the consumer registers the WebHook (callback URL) into the service provider, and that URL will act as the place to receive data from WebHook.
+如果从技术方面来看，消费者将 WebHook（回调 URL）注册到服务提供商中，并且该 URL 将充当从 WebHook 接收数据的位置。
 
-> **In most cases, this URL belongs to another server, and WebHooks are mostly used to communicate between servers or backend-processes.**
+> **在大多数情况下，此 URL 属于另一台服务器，并且 WebHooks 通常用于在服务器或后端进程之间进行通信。
 
-If we dig deep into the process, we can break this process into four parts.
+如果深入研究该过程，我们可以将该过程分为四个部分。
 
-![How WebHook Works](https://cdn-images-1.medium.com/max/3000/1*2BYW_05KftDQ4U3XVrXQOA.png)
+![WebHook的工作方式](https://cdn-images-1.medium.com/max/3000/1*2BYW_05KftDQ4U3XVrXQOA.png)
 
-* **Event Trigger**: This is the event you specified to run the WebHook. Each time the event occurs, WebHook will do its job
-* **WebHook provider creates the WebHook and sends POST request:** WebHook provider is responsible for monitoring the event and making the WebHook. Once the event is triggered, the WebHook provider will send the POST HTTP request to the third-party application.
-* **The third-party application receives data**: The third-party application will receive data to the URL or the listener you provide to the WebHook provider when registering.
-* **The action specified in the third-party application**: Once the application receives the POST request, developers can use the data for anything they want.
+* **事件触发器**：这是您指定运行 WebHook 的事件，每次事件发生时，WebHook 都会执行其工作
+* **WebHook 提供程序创建 WebHook 并发送POST请求：** WebHook 提供程序负责监视事件并制作 WebHook，一旦事件被触发，WebHook 提供程序将 POST HTTP 请求发送给第三方应用程序。
+* **第三方应用程序接收数据**：第三方应用程序将在注册时将数据接收到 URL 或您提供给 WebHook 提供程序的侦听器。
 
-> **On the surface level, you will feel that it is completely the opposite of the APIs process, and due to that reason, most people refer to WebHooks as Reverse APIs.**
+* **第三方应用程序中指定的操作**：一旦应用程序收到POST请求，开发人员就可以将数据用于他们想要的任何东西。
+
+> **从表面上看，您会觉得这与API流程完全相反，因此，大多数人将WebHooks称为反向API。
 
 ---
 
-## Conclusion
+## 结论
 
-As I have mentioned initially, WebHooks, WebSockets, and APIs facilitate communication; they have various use cases.
+正如我最初提到的，WebHooks，WebSockets 和 API 促进了通信；它们具有各种用例。
 
-APIs are the best option for applications where you just need basic CRUD operations and synchronous responses. Also, APIs can be used with both web and mobile applications and service integrations with ease.
+对于仅需要基本 CRUD 操作和同步响应的应用程序，API 是最佳选择，而且，API 可以轻松地与 Web 和移动应用程序以及服务集成一起使用。
 
-But, if your web application requires real-time communication with the backend, you should choose WebSockets. It allows you to establish a 2-way communication channel between your browser and the backend.
+但是，如果您的 Web 应用程序需要与后端进行实时通信，则应该选择 WebSockets，它允许您在浏览器和后端之间建立双向通信通道。
 
-However, WebHooks are slightly different from APIs and WebSockets, which is more like a reverse API. Once the Consumer registers the WebHook URL in the service provider, the latter can call the WebHook when required.
+但是，WebHooks 与 API 和 WebSockets 稍有不同，后者更像是反向 API。一旦使用者在服务提供商中注册了 WebHook URL，后者就可以在需要时调用 WebHook。
 
-I think now you understand the different use cases of these communication methods and if you have anything to share, please share in the comments section.
+我认为现在您了解了这些通信方法的不同用例，如果您有什么需要分享的内容，请在评论部分中分享。
 
-Thank you for Reading !!!
+谢谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
