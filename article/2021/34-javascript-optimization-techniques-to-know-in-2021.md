@@ -3,23 +3,23 @@
 > * 原文作者：[atit53](https://atit53.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md)
-> * 译者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
 > * 校对者：
 
-# 34 JavaScript Optimization Techniques to Know in 2021
-Optimize your JavaScript code using modern shorthand techniques, tips, and tricks
+# 2021 年需要了解的 34 个 JavaScript 优化技巧
+使用先进的速记技巧优化你的 JavaScript 代码
 
-The life of a developer is always learning new things and keeping up with the changes shouldn’t be harder than it already is, and my motive is to introduce all the JavaScript best practices such as shorthand and features which we must know as a frontend developer to make our life easier in 2021.
+开发者需要持续学习新技术，跟以前相比，如今跟随技术变化是比较容易做到的，我写这篇文章的目的是介绍诸如速写法之类的 JavaScript 最佳实践和其中的特性，这些都是我们作为一名前端开发人员必须了解的，它会给我们的工作生活带来便利。
 
 ![https://miro.medium.com/max/2400/0*K49jVcTGrpgm_5mX.png](https://miro.medium.com/max/2400/0*K49jVcTGrpgm_5mX.png)
 
-You might be doing JavaScript development for a long time but sometimes you might be not updated with the newest features which can solve your issues without doing or writing some extra codes. These techniques can help you to write clean and optimized JavaScript Code. Moreover, these topics can help you to prepare yourself for JavaScript interviews in 2021.
+可能你做了多年的 JavaScript 开发工作，但有时候对一些最新的技术不了解，这些新技术可能有助于某些问题的解决，因此你需要编写额外的代码。这些新技术也能帮助你进行代码优化。此外，如果你今年需要为 JavaScript 面试作准备，本文也是一份实用的参考资料。
 
-Here I am coming with a new series to cover **shorthand techniques** that help you to write more clean and optimized JavaScript Code. This is a **Cheat list for JavaScript** Coding you must know in 2021.
+在这里，我会介绍一些新的**速记方法**，它可以优化你的 JavaScript 代码，使代码更简洁。下面是一份 **JavaScript 偷懒法列表**，你需要了解一下。
 
-# **1. If with multiple conditions**
+# **1. 含有多个条件的 if 语句**
 
-We can store multiple values in the array and we can use the array includes method.
+我们可以在数组中存储多个值，并且可以使用数组的 includes 方法。
 
 ```
 //longhandif (x === 'abc' || x === 'def' || x === 'ghi' || x ==='jkl') {
@@ -29,9 +29,9 @@ We can store multiple values in the array and we can use the array includes meth
 }
 ```
 
-# **2. If true … else Shorthand**
+# **2. If … else 的速记法**
 
-This is a greater short cut for when we have if-else conditions that do not contain bigger logics inside. We can simply use the ternary operators to achieve this shorthand.
+当我们的 if-else 条件中的逻辑比较简单时，可以使用这种简洁的方式——三元条件运算符。
 
 ```
 // Longhand
@@ -44,16 +44,16 @@ let test = (x > 10) ? true : false;//or we can use directly
 let test = x > 10;console.log(test);
 ```
 
-When we have nested conditions we can go this way.
+如果包含嵌套的条件，我们也可以这样写。
 
 ```
 let x = 300,
 test2 = (x > 100) ? 'greater 100' : (x < 50) ? 'less 50' : 'between 50 and 100';console.log(test2); // "greater than 100"
 ```
 
-# **3. Declaring variables**
+# **3. 定义变量**
 
-When we want to declare the two variables which have the common value or common type we can use this shorthand.
+当我们定义两个值相同或类型相同的变量，可以使用这样的速记法
 
 ```
 //Longhand 
@@ -63,9 +63,9 @@ let test1, test2 = 1;
 
 ```
 
-# **4. Null, Undefined, Empty Checks**
+# **4. 对 Null、Undefined、Empty 这些值的检查**
 
-When we do create new variables sometimes we want to check if the variable we are referencing for its value is not null or undefined. JavaScript does have a really good shorthand to achieve these functions.
+我们创建一个新变量，有时候需要检查是否为 Null 或 Undefined。JavaScript 本身就有一种速记法能实现这种功能。
 
 ```
 // Longhand
@@ -75,32 +75,32 @@ if (test1 !== null || test1 !== undefined || test1 !== '') {
 let test2 = test1 || '';
 ```
 
-# **5. Null Value checks and Assigning Default Value**
+# **5. 对 Null 值的检查以及默认赋值**
 
 ```
 let test1 = null,
     test2 = test1 || '';console.log("null check", test2); // output will be ""
 ```
 
-# **6. Undefined Value checks and Assigning Default Value**
+# **6. 对 Undefined 值的检查以及默认赋值**
 
 ```
 let test1 = undefined,
     test2 = test1 || '';console.log("undefined check", test2); // output will be ""
 ```
 
-Normal Value checks
+Normal Value checks对正常值的检查
 
 ```
 let test1 = 'test',
     test2 = test1 || '';console.log(test2); // output: 'test'
 ```
 
-(BONUS: Now we can use `??` operator for topic 4,5 and 6)
+利好消息：关于第 4、5、6 条还可以使用 ?? 运算符
 
-# **Nullish coalescing Operator**
+# **聚合运算符**
 
-The **`nullish coalescing Operator ??**` is returned the right-hand side value if the left-hand side is null or undefined. By default, it will return the left-side value.
+ **??**是聚合运算符，如果左值为 null 或 undefined，就返回右值。默认返回左值。
 
 ```
 const test= null ?? 'default';
@@ -110,9 +110,9 @@ console.log(test1);
 // expected output: 0
 ```
 
-# **7. Assigning values to multiple variables**
+# **7. 同时为多个变量赋值**
 
-When we are dealing with multiple variables and want to assign different values to the different variables this shorthand technique is really useful.
+当我们处理多个变量，并且需要对这些变量赋不同的值，这个速记法很有用。
 
 ```
 //Longhand 
@@ -123,9 +123,9 @@ test3 = 3;//Shorthand
 let [test1, test2, test3] = [1, 2, 3];
 ```
 
-# **8. Assignment Operators Shorthand**
+# **8. 赋值运算符速记法**
 
-We deal with a lot of arithmetic operators in our programming. This is one of the useful techniques for assignment operators to JavaScript variables.
+我们在编码时可能需要处理很多算法，所以需要使用赋值运算符。以下是 JavaScript 中赋值运算符的应用。
 
 ```
 // Longhand
@@ -138,9 +138,9 @@ test3 *= 20;
 ```
 
 
-# **9. If Presence Shorthand**
+# **9. 判断变量是否存在的速记法**
 
-This is one of the common shorthand which we all are using but still, it is worth mentioning here.
+这是普遍使用的速记法，但在这里应当提一下。
 
 ```
 // Longhand
@@ -150,11 +150,11 @@ if (test1 === true) or if (test1 !== "") or if (test1 !== null)
 if (test1)
 ```
 
-Note: If test1 has any value it will fall into the logic after the if loop, this operator mostly used for null or undefined checks.
+注意：当 test1 为任何值时，程序都会执行 if(test1){ } 内的逻辑，这种写法在判断 NULL 或 undefined 值时普遍使用。
 
-# **10. AND(&&) Operator for Multiple Conditions**
+# **10. 用于多个条件的与(&&)运算符**
 
-If we are calling a function only if the variable is true then we can use && Operator.
+如果需要实现某个变量为 true 时调用一个函数，可以使用 && 运算符。
 
 ```
 //Longhand 
@@ -164,9 +164,9 @@ if (test1) {
 test1 && callMethod();
 ```
 
-# **11. foreach Loop Shorthand**
+# **11. foreach 循环速记法**
 
-This is one of the common shorthand technique for iteration.
+这是循环结构对应的速记法。
 
 ```
 // Longhand
@@ -187,9 +187,9 @@ function testData(element, index, array) {
 // logs: test[0] = 11, test[1] = 24, test[2] = 32
 ```
 
-# **12. Comparison Returns**
+# **12. 比较结果的返回**
 
-We can use the comparison in the return statements too. It will avoid our 5 lines of code and reduced them to 1 line.
+在 return 语句中，我们也可以使用比较的语句。这样，原来需要 5 行代码才能实现的功能，现在只需要 1 行，大大减少了代码量。
 
 ```
 // Longhand
@@ -208,7 +208,7 @@ console.log(data); //output testfunction callMe(val) {
 }
 ```
 
-# **13. Arrow Function**
+# **13. 箭头函数**
 
 ```
 //Longhand 
@@ -219,7 +219,7 @@ function add(a, b) {
 const add = (a, b) => a + b;
 ```
 
-More examples.
+More examples.再举个例子
 
 ```
 function callMe(name) {
@@ -227,9 +227,9 @@ function callMe(name) {
 }callMe = name => console.log('Hello', name);
 ```
 
-# **14. Short Function Calling**
+# **14. 简短的函数调用语句**
 
-We can use the ternary operator to achieve these functions.
+我们可以使用三元运算符实现如下功能。
 
 ```
 // Longhand
@@ -246,9 +246,9 @@ if (test3 == 1) {
 (test3 === 1? test1:test2)();
 ```
 
-# **15. Switch Shorthands**
+# **15. switch 对应的速记法**
 
-We can save the conditions in the key-value objects and can be used based on the conditions.
+我们可以把条件值保存在名值对中，基于这个条件使用名值对代替 switch。
 
 ```
 // Longhand
@@ -277,9 +277,9 @@ var data = {
 data[something] && data[something]();
 ```
 
-# **16. Implicit Return Shorthand**
+# **16. 隐式返回速记法**
 
-With the use of arrow functions, we can return the value directly without having to write a return statement.
+使用箭头函数，我们可以直接得到函数执行结果，不需要写 return 语句。
 
 Longhand:
 
@@ -291,7 +291,7 @@ Longhand:
 )
 ```
 
-# **17. Decimal base exponents**
+# **17. 十进制数的指数形式**
 
 ```
 // Longhand
@@ -301,7 +301,7 @@ for (var i = 0; i < 10000; i++) { ... }
 for (var i = 0; i < 1e4; i++) {
 ```
 
-# **18. Default Parameter Values**
+# **18. 默认参数值**
 
 ```
 //Longhandfunction add(test1, test2) {
@@ -313,7 +313,7 @@ for (var i = 0; i < 1e4; i++) {
 }//shorthandadd = (test1 = 1, test2 = 2) => (test1 + test2);add() //output: 3
 ```
 
-# **19. Spread Operator Shorthand**
+# **19. 延展操作符的速记法**
 
 ```
 //longhand// joining arrays using concat
@@ -326,7 +326,7 @@ console.log(test); // [ 4, 5, 6, 1, 2, 3]
 
 ```
 
-For cloning also we can use a spread operator.
+我们也可以使用延展操作符来克隆。
 
 ```
 //longhand
@@ -340,18 +340,18 @@ const test1 = [1, 2, 3];
 const test2 = [...test1];
 ```
 
-# **20. Template Literals**
+# **20. 文本模板**
 
-If you have tired of using + to concatenate multiple variables in a single string then this shorthand removes your headache.
+如果你对使用 + 符号来连接多个变量感到厌烦，这个速记法可以帮到你。
 
 ```
 //longhandconst welcome = 'Hi ' + test1 + ' ' + test2 + '.'//shorthandconst welcome = `Hi ${test1} ${test2}`;
 ```
 
 
-# **21. Multi-line String Shorthand**
+# **21. 跟多行文本有关的速记法**
 
-When we are dealing with a multi-line string in code we can go for this function:
+When we are dealing with a multi-line string in code we can go for this function:当我们在代码中处理多行文本时，可以使用这样的技巧
 
 Longhand:
 
@@ -361,7 +361,7 @@ Longhand:
          test test,test test test test`
 ```
 
-# **22. Object Property Assignment**
+# **22. 对象属性的赋值**
 
 ```
 let test1 = 'a'; 
@@ -371,7 +371,7 @@ let obj = {test1: test1, test2: test2};
 let obj = {test1, test2};
 ```
 
-# **23. String into a Number**
+# **23. 字符串转换为数字**
 
 ```
 //Longhand 
@@ -381,7 +381,7 @@ let test1 = +'123';
 let test2 = +'12.3';
 ```
 
-# **24. Destructuring Assignment Shorthand**
+# **24. 解构赋值速记法**
 
 ```
 //longhandconst test1 = this.data.test1;
@@ -389,9 +389,9 @@ const test2 = this.data.test2;
 const test2 = this.data.test3;//shorthandconst { test1, test2, test3 } = this.data;
 ```
 
-# **25. Array.find Shorthand**
+# **25. Array.find 速记法**
 
-When we do have an array of objects and we want to find the specific object based on the object properties find method is really useful.
+当我们需要在一个对象数组中按属性值查找特定对象时，find 方法很有用。
 
 ```
 const data = [{
@@ -418,9 +418,9 @@ filteredData = data.find(data => data.type === 'test1' && data.name === 'fgh');
 console.log(filteredData); // { type: 'test1', name: 'fgh' }
 ```
 
-# **26. Lookup Conditions Shorthand**
+# **26. 查询条件速记法**
 
-If we have code to check the type and based on the type need to call different methods we either have the option to use multiple else ifs or go for the switch, but what if we have better shorthand than that?
+如果我们要检查类型，并根据类型调用不同的函数，我们既可以使用多个 else if 语句，也可以使用 switch，除此之外，如果有速记法，代码会是怎么样呢？
 
 ```
 // Longhand
@@ -449,15 +449,15 @@ var func = types[type];
 (!func) && throw new Error('Invalid value ' + type); func();
 ```
 
-# **27. Bitwise IndexOf Shorthand**
+# **27. 按位非和 indexOf 速记法**
 
-When we are iterating an array to find a specific value we do use **indexOf()** method.What if we find a better approach for that? Let’s check out the example.
+我们以查找特定值为目的迭代一个数组是，通常用到 **indexOf()** 方法。
 
 ```
 //longhandif(arr.indexOf(item) > -1) { // item found }if(arr.indexOf(item) === -1) { // item not found}//shorthandif(~arr.indexOf(item)) { // item found}if(!~arr.indexOf(item)) { // item not found}
 ```
 
-The `bitwise(~)` the operator will return a truthy value for anything but `-1`. Negating it is as simple as doing `!~`. Alternatively, we can also use the `includes()` function:
+对除 `-1` 外的任何数进行 `按位非(~)` 运算都会返回真值。把按位非的结果再次进行逻辑取反就是 `!~`，这非常简单。或者我们也可以使用 `includes()` 函数：
 
 ```
 if (arr.includes(item)) { 
@@ -467,7 +467,7 @@ if (arr.includes(item)) {
 
 # **28. Object.entries()**
 
-This feature helps to convert the object to an array of objects.
+该特性可以把对象转换成一个由若干对象组成的数组。
 
 ```
 const data = { test1: 'abc', test2: 'cde', test3: 'efg' };
@@ -482,7 +482,7 @@ console.log(arr);/** Output:
 
 # **29. Object.values()**
 
-This is also a new feature introduced in ES8 that performs a similar function to `Object.entries()`, but without the key part:
+这也是 ES8 中介绍的一个新特性，它的功能与 `Object.entries()` 类似，但没有其核心功能：
 
 ```
 const data = { test1: 'abc', test2: 'cde' };
@@ -492,9 +492,9 @@ console.log(arr);/** Output:
 **/
 ```
 
-# **30. Double Bitwise Shorthand**
+# **30. 两个位运算符简写**
 
-**(The double NOT bitwise operator approach only works for 32-bit integers)**
+**(两个按位非运算符只适用于 32 位整型)**
 
 ```
 // Longhand
@@ -504,9 +504,9 @@ Math.floor(1.9) === 1 // true
 ~~1.9 === 1 // true
 ```
 
-# **31. Repeat a string multiple times**
+# **31. 把一个字符串重复输出多次**
 
-To repeat the same characters again and again we can use the for loop and add them in the same loop but what if we have a shorthand for this?
+我们可以使用 for 循环把一个字符串反复输出多次，那这种功能有没有速记法呢？
 
 ```
 //longhand 
@@ -519,7 +519,7 @@ console.log(str); // test test test test test
 'test '.repeat(5);
 ```
 
-# **32. Find max and min number in the array**
+# **32. 找出一个数组中最大和最小的值**
 
 ```
 const arr = [1, 2, 3]; 
@@ -527,19 +527,19 @@ Math.max(…arr); // 3
 Math.min(…arr); // 1
 ```
 
-# **33. Get character from string**
+# **33. 获取字符串中的字符**
 
 ```
 let str = 'abc';
 //Longhand 
 str.charAt(2); // c//Shorthand 
-Note: If we know the index of the array then we can directly use index insted of character.If we are not sure about index it can throw undefined
+注意：如果事先知道目标字符在字符串中的索引，我们可以直接使用该索引值。如果索引值不确定，运行时就有可能抛出 undefined。
 str[2]; // c
 ```
 
-# **34. Power Shorthand**
+# **34. 幂运算的速记法**
 
-Shorthand for a Math exponent power function:
+指数幂函数的速记法:
 
 ```
 //longhandMath.pow(2,3); // 8//shorthand2**3 // 8
