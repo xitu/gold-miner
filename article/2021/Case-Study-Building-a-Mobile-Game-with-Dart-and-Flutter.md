@@ -1,7 +1,7 @@
 > * 原文地址：[Case Study: Building a Mobile Game with Dart and Flutter](https://blog.risingstack.com/case-study-dart-flutter-mobile-game/)
 > * 原文作者：[Daniel Gergely](https://blog.risingstack.com/author/danielg/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Case-Study:Building-a-Mobile-Game-with-Dart-and-Flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Case-Study:Building-a-Mobile-Game-with-Dart-and-Flutter.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Case-Study-Building-a-Mobile-Game-with-Dart-and-Flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Case-Study-Building-a-Mobile-Game-with-Dart-and-Flutter.md)
 > * 译者：
 > * 校对者：
 # Case Study: Building a Mobile Game with Dart and Flutter
