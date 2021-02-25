@@ -85,8 +85,6 @@ public static Boolean isStringNotNullOrEmpty(String data){
 
 // Usage at call site
 if(Utility.isStringNotNullOrEmpty(data))
-    
-
 ```
 
 At their core, data types are nothing but classes. So we can use Kotlin extensions to add validation functionality. For instance, I’ve created the following Kotlin extension of data type `String` to check if it’s valid:
@@ -100,8 +98,6 @@ fun String?.valid() : Boolean =
 
 // Usage at call site
 if(data.valid())
-
-
 ```
 
 Well, `data.valid()` seems cleaner and more readable to me than Utility.isStringNotNullOrEmpty(data). Invoking extension functions on the data types seems more natural than triggering some utility function. Below are a couple of extensions to boost your motivation to write your own validation extensions:
@@ -121,7 +117,6 @@ fun String.formatPhoneNumber(context: Context, region: String): String? {
 
     return phoneNumberKit.format(number, PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL)
 }
-
 ```
 
 ## 3. Extract Bundle Parameters
@@ -200,7 +195,6 @@ fun Int.asDrawable() = ContextCompat.getDrawable(MavrikApplication.instance, thi
 //Usage at call site
 val color = R.color.dark_blie.asColor()
 val drawable = R.drawable.launcher.asDrawable()
-
 ```
 
 ## 5. Show Alert Dialog, Toast, or Snackbar
@@ -252,9 +246,6 @@ fun View.snackBarWithAction(message : String, actionlable : String,
                 block()
             }
 }
-
-
-
 ```
 
 Writing these extensions is a one-time job. Have a look at the usage of these extensions at the call site:
@@ -276,8 +267,6 @@ showLongSnackbar(message)
 snackBarWithAction(message, lable){
   //TODO on user click on snackbar action lable
 }
-
-
 ```
 
 Common tasks should be as easy to implement, readable, and natural as possible.
