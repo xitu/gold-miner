@@ -76,7 +76,6 @@ Validating strings is crucial in any dev environment. Back in 2015, when I was s
 Before Kotlin, I would maintain a utility class and include some static functions to validate strings. Have a look at a simple validation function in Java:
 
 ```Java
-
 // Function in utility class
 public static Boolean isStringNotNullOrEmpty(String data){
     return data != null && data.trim().length() > 0 
@@ -90,7 +89,6 @@ if(Utility.isStringNotNullOrEmpty(data))
 At their core, data types are nothing but classes. So we can use Kotlin extensions to add validation functionality. For instance, I’ve created the following Kotlin extension of data type `String` to check if it’s valid:
 
 ```Kotlin
-
 //Extension function
 fun String?.valid() : Boolean =
         this != null && !this.equals("null", true)
@@ -103,7 +101,6 @@ if(data.valid())
 Well, `data.valid()` seems cleaner and more readable to me than Utility.isStringNotNullOrEmpty(data). Invoking extension functions on the data types seems more natural than triggering some utility function. Below are a couple of extensions to boost your motivation to write your own validation extensions:
 
 ```Kotlin
-
 //Email Validation
 fun String.isValidEmail(): Boolean
   = this.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
@@ -204,7 +201,6 @@ When it comes to frontend development, regardless of the platform, there will be
 When you want to show a simple toast message, the statement you need to write can be quite lengthy. I’m not even going to get into alert dialogs. These are common tasks. They should be concise and easy to implement. That’s why I use the following extensions to make code as concise as possible at the call site:
 
 ```Kotlin
-
 // Show alert dialog
 fun Context.showAlertDialog(positiveButtonLable : String = getString(R.string.okay),
                             title : String = getString(R.string.app_name) , message : String,
@@ -251,7 +247,6 @@ fun View.snackBarWithAction(message : String, actionlable : String,
 Writing these extensions is a one-time job. Have a look at the usage of these extensions at the call site:
 
 ```Kotlin
-
 // To show an alert dialog in activities, fragments and more
 showAlertDialog(message){
   //TODO on user click on positive button on alert dialog
