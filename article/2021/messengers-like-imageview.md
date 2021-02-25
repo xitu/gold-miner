@@ -2,31 +2,31 @@
 > * 原文作者：[Michael Spitsin](https://medium.com/@programmerr47)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/messengers-like-imageview.md](https://github.com/xitu/gold-miner/blob/master/article/2021/messengers-like-imageview.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[HumanBeing](https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)
 
-# Messengers-like ImageView
+# 构建像 `Messenger` 短信软件那样的 ImageView
 
 ![](https://cdn-images-1.medium.com/max/2372/1*eUsCLT2MWPgMMc_7ltldOw.png)
 
-In the previous story, I wrote about the [Uploading animation for sending image messages and how we have built it](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63). Today I decided to write about the images themselves. How can we show them inside the message history?
+在上一篇论述中，我们讨论了[发送图片消息时候的上传动画以及构建这个动画的方法](https://proandroiddev.com/telegram-like-uploading-animation-e284f1404f63)。今天我决定写一篇与图片的显示有关的文章。先来提个问题，在消息历史记录中，我们应该如何显示图片？
 
-Well … `ImageView`. The article is over!
+当然是使用 `ImageView` 啦！好的这篇文章到此结束啦！
 
-But hold on for a while, I will try to show, that it is not so simple. Well, it is not hard, to be honest, but still, it is not just an `ImageView`, but also some small calculation around to look the size of it fits to what you are showing to the user.
+嘿，别走！虽说我们可以使用 ImageView 简简单单就能呈现图片信息，但要做到像 Messenger 应用那样显示图片并非像我们想象中那么简单。虽说本质上难度并不大，但是，我们所需要的不仅是一个 `ImageView`，还要一些小计算，以查看尺寸是否适合我们要向用户展示的内容。 
 
-## Measure it
+## 测量
 
-So the first part is to understand what is needed to be done. The core of our solution. We want to draw the image based on the predefined size (width & height) of some picture/gif or any other showable media, but with respect to constraints of the container in which the picture will be showed (we will decrease the size of 1000x1000 picture to fit in 100x100 view container). And with respect to the aspect ratio, please. Well! Not always, but please in most situations.
+首先我们需要了解我们应该要做什么。我们解决方案的核心是，我们要基于某些图片或动图，或任何其他可显示媒体的预定义大小（宽度和高度），在考虑显示图片的容器的尺寸限制（例如我们可能需要把尺寸为 1000x1000 的图片缩小以适合尺寸只有 100x100 的容器），而且应该在大多数情况下保持长宽比的情况下绘制图片。
 
-So that means that our base process can be split into two parts:
+也就是说基本步骤可以分为两部分：
 
-1. Defining and providing the desired size with the respect of some absolute minimum. If the image will be too small it will be scaled until its smallest side will be equal to the respective absolute minimum
-2. Giving it and the constraints of container view (say `maxSize`) measure the final size with respect to the aspect ratio, if that’s possible (will discuss less possible scenarios later)
+1. 依据容器尺寸界定最佳的尺寸并将其提供给程序程序。如果图像太小，我们需要将其调整直到其最短的边的长度等于容器最短的边长。
+2. 给予其与容器一些约束条件（例如使用 `maxSize` 控制大小）。并且如果可能的话，我们应该就长宽比来计算得出最终的大小（稍后我们将讨论其他可能的情况）
 
-#### Definition of Size
+### 定义尺寸
 
-Let’s start with the definition of a simple class `Size`. It will contain information about `width` and `height` of the image and also will provide a bunch of useful methods:
+让我们从一个简单的 `Size` 类的定义开始。它将包含图像的 `width` 和 `height`，并且向它添加对我们计算有帮助的方法：
 
 ```Kotlin
 internal class Size(
@@ -43,21 +43,21 @@ internal class Size(
         height = new.height
     }
 
-    //Don't want to make mutable class as data class
+    // 这里不希望让 mutable class 变成 data class
     fun copy(width: Int = this.width, height: Int = this.height) = Size(width, height)
 }
 ```
 
-A couple of clarifications here:
+这里有几点说明：
 
-* We made this class mutable because it will be used inside the view and we want to optimize the instance’s creation since it not needed because we work in one thread.
-* Instead of custom `copy` we could make `Size` as `data` class, but I didn’t want to mix mutability with `data` classes, that are supposed to be immutable
+1. 我们之所以把这个类定义为可变类，是因为它将在视图内使用，并且我们希望优化实例的创建 —— 因为我们的程序是在一个线程中工作的，我们不希望也不需要因为创造它而浪费大量资源。
+2.  我们其实可以将 `Size` 类本身视作数据类而不是自定义一个 `copy` 函数，但是我不想将可变性与数据类搭上边，因为数据类本应是不可变的。
 
-Now, having the definition of `Size` we can create a class `ImageSizeMeasurer` that will be responsible for size definition, adjustment, and measurement.
+我们现在定义好了 `Size` 类，可以接着创建一个 `ImageSizeMeasurer` 类，负责尺寸的定义、调整和测量。
 
-#### Setting up the desired size
+### 设置所需的尺寸
 
-The first part of the class will be setting up the desired size along with a minimal size. In this method, we will check if the desired size will be less than minimal, and if yes, then we will adjust it respectively:
+首先我们将设置图片所需的尺寸以及最小尺寸。在这个方法中，我们将检查所需大小是否小于最小值，如果是则对其进行依次调整：
 
 ```Kotlin
 internal class ImageSizeMeasurer {
@@ -66,11 +66,11 @@ internal class ImageSizeMeasurer {
     private var desiredSize = Size(0, 0)
     val desired get() = desiredSize.copy()
 
-    //= (height/width)
+    // = (height/width)
     var fixRatio: Float = 1f
         private set
 
-    //...
+    // ...
 
     fun setDesiredSize(desired: Size, min: Size) {
         minSize = min.copy()
@@ -98,23 +98,23 @@ internal class ImageSizeMeasurer {
 }
 ```
 
-We use `copy` method for not allowing the clients to change the fields, that can be potentially shared between them (so we will have no surprises if your field will be changed from somewhere).
+此处我们使用了 `copy` 方法以避免数据被客户端操作修改的时候影响到。`copy` 方法让这些数据可以暗地里在不同地方之间共享（因此我们就不会因为字段不知道什么时候被更改而震惊）。
 
-The key point here is that after setting the size and ratio, we need to adjust it. There is no harm to call both `adjustDesiredHeight` and `adjustDesiredWidth` without any smart checks, because either first method will increase the smallest height of `desiredSize` to `minSize` (if the height is less than width), or the second method will increase the smallest width of `desiredSize` to `minSize` (if the width is less than height)
+这里的关键点在于设置大小和比例后，我们需要对其进行调整。不必担忧调用 `adjustDesiredHeight` 和 `adjustDesiredWidth` 方法时没有进行任何智能检查会造成任何严重后果。因为第一个方法在 `height` 小于 `width` 的情况下会把 `desiredSize` 中处于最小值的高度增加到 `minSize`，第二个函数在 `width` 小于 `height` 的情况下会把 `desiredSize` 处在最小值的宽度增加到 `minSize`。
 
-#### Measure respective to the constraints
+#### 分别测量约束条件
 
-We prepared the desired size with respect to the minimum size. Now it's time to measure the real size with respect to maximum size. The method itself is not hard, we just need to remember that we should make all updates not changing the aspect ratio, except cases when decreasing the image height&width leads to having one of them less than `minSize`.
+我们调整好了期望尺寸的最小尺寸，现在该测量实际尺寸的最大尺寸的了。该方法本身并不难，我们只需要记住，应该保证所有的更新不改变高宽比，除非降低图像的高度和宽度会导致两者之一小于 `minSize`。
 
-For example, that’s true for really narrow images.
+比如说，应用于非常窄的图片。
 
-![](https://cdn-images-1.medium.com/max/3148/1*Oc74IKgtG8h7docIWyka-Q.png)
+![](https://github.com/PassionPenguin/gold-miner-images/blob/master/messengers-like-imageview-example.png?raw=true)
 
-* either will have a width which is fitted in max constraints but height is too small
-* or you will have height fitted in min constraints but width is too big
-* or you will have to fit width in max constraints, height in min constraints, and break the aspect ratio.
+* 要么宽度符合最大限值，但高度太小
+* 要么高度达到最小限值，但宽度过大
+* 要么将宽度设置为最大限值，高度设置为最小限值，但这个做法破坏了宽高比。
 
-The last option is the most appropriate one in that case since we can not have image size more than constraints and we don’t want to have a too narrow image, because it is maybe hard to see what is showing and click on it. And we can use `scaleType = imageCrop` which will help here in case of breaking the aspect ratio.
+在那种情况下，最后一个选项是最合适的选择，因为我们不能让图像大小超过约束尺寸，并且我们也不希望图像太窄，因为过于小的图片可能会让我们很难看清图片的内容，或与之交互。在这里我们可以使用 `scaleType = imageCrop`：它能帮助你在打破图片显示的宽高比的情况下正确地显示图片。
 
 ```Kotlin
 internal class ImageSizeMeasurer {
@@ -124,11 +124,11 @@ internal class ImageSizeMeasurer {
         get() = field.copy()
         private set
 
-    //factor (height/width)
+    // 放缩因子： `height` : `width`
     var fixRatio: Float = 1f
         private set
 
-    //...
+    // ...
 
     fun measure(max: Size, out: Size) {
         when {
@@ -145,28 +145,28 @@ internal class ImageSizeMeasurer {
         }
     }
     
-    //... setting desired size here ;)
+    // ... 或者在这里设置需要的尺寸
 }
 ```
 
-Let’s quickly analyze the `measure` method.
+让我们快速分析该 `measure` 方法。
 
-* When the desired size fits in max size, then everything okay. After `setDesiredSize` our size will be for sure not smaller than min size. And now we just make sure that it is not bigger than the max size. So we will just return it (the first predicate in `when`)
-* If the above predicate is not correct, then either width will be bigger than `max.width` or height will be bigger than `max.height` or both. And if in that case, the aspect ratio of the image will be the same as the aspect ratio of the max size, then we can use just max size as output size, since it will be scaled down the result of the desired size. (the else-block in `when`)
-* In another scenario, we need to look only at aspect ratios for comparison. Let me explain. We may have for instance `width` of the desired size be bigger than `width` of max size. But the aspect ratio of the desired size will be bigger than the aspect ratio of max size, too. Means, that when we will scale down the desired size (**so `width` of it will be equal to `width` of max size**) the `height` of the desired size will be still bigger than `height` of max size
-* So in case, when the aspect ratio of the desired size is less than the max size’s aspect ratio, we just update `width` to be `max.width` and height will be updated respectively. But if it will be less than `minSize.height` we will break the resulting aspect ratio and assign `minSize.height` to the `out.height`
-* Similarly, if the aspect ratio of the desired is more than max size’s aspect ratio, we just update `height` to be `max.height` and width will be updated respectively. But if it will be less than `minSize.width` we will break the resulting aspect ratio and assign `minSize.width` to the `out.width`
+* 当所需大小适合最大大小时，一切正常。`setDesiredSize` 确定尺寸之后，我们将确保尺寸不小于最小尺寸。现在，我们只需要确保它不大于最大大小。因此，我们将返回它本身（`when` 代码块中的第一个条件句）
+* 如果以上预测错误，则说明要么宽度大于 `max.width` ，要么高度大于 `max.height` ，要么两者都超了。在这种情况下，图片的长宽比将与最大尺寸的长宽比相同，则我们可以输出最大尺寸，因为它将缩小为所需尺寸的结果。（`when` 代码块中的 `else` 语句）
+* 在另一种情况下，我们只需要比较宽高比。例如 `width` 的期望尺寸大于最大尺寸。但是期望尺寸的宽高比也大于最大尺寸的长宽比。意味着，当我们缩小期望尺寸时（因此当前尺寸的 `width` 将会和最大尺寸的相等），期望尺寸的 `height` 仍然大于最大尺寸的 `height`。
+因此，当期望尺寸的宽高比小于最大尺寸的长宽比时，我们只需将 `width` 更新为 `max.width`，然后高度也会相应地更新。但是如果小于 `minSize.height` ，我们将打破结果的宽高比，并把 `out.height` 设置为 `minSize.height`。
+* 类似地，如果期望尺寸的宽高比大于最大尺寸的宽高比，我们只需要将 `height` 更新为 `max.height`，宽度也相应地更新。但是，如果小于 `minSize.width` 我们将打破结果的宽高比，并且将 `out.width` 设置为 `minSize.width`。
 
-## A bit of magic in all calculations makes everything more natural and pretty
+## 所有计算中都带有一点魔术，使一切变得更自然，更漂亮
 
-Now we prepare everything to be measured in view:
+现在，我们准备好要衡量的所有内容：
 
 ```Kotlin
 private val measurer: ImageSizeMeasurer
 private val measureResult = Size(0, 0)
 private val maxSize = Size(0, 0)
 
-//...
+// ...
 
 override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
     if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.UNSPECIFIED) {
@@ -177,38 +177,38 @@ override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 }
 
 private fun measure(widthSpec: Int, heightSpec: Int) {
-    maxSize.width = //you can define max size using both specs or having some predefined
-    maxSize.height = //aspect ratio and using only one spec with it. Choice is yours ;)
+    maxSize.width = // 你可以在这里定义最大的尺寸：可以使用两个输入的尺寸，也可以使用硬编码的
+    maxSize.height = // 宽高比并且只使用其中一个输入的尺寸，随你选择 :)
     measurer.measure(maxSize, measureResult)
     setMeasuredDimension(measureResult.width, measureResult.height)
 }
 ```
 
-Here everything is simple enough. In case we have `unspecified` measure specs, we tell the view’s parent our desired size, which we would like to have in the ideal scenario. In the other case (`AT_MOST` or `EXACTLY`) we need to use the provided `width` and `height` to set up the `maxSize` and pass it into our `measurer`.
+这里的一切都足够简单。如果我们有未指明的尺寸，我们会告诉视图的父控件在理想状况下的期望尺寸。在另一种情况下（大多数情况下），我们需要提供 `width` 与 `height` 来设置 `maxSize`，并将它们传递进入我们的 `measurer`。
 
-Now let’s look at the result:
+现在让我们看一下结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lTedeH88K2J4Z8snpeSOfw.png)
 
-Everything looks super but it seems like small images are too small. And our wish to make them a little bit bigger than right now. You can say “Just increase the minimum size”. Well, we can do that, but in that case, we will see no difference between the small and the smaller image, since they will use equally minimum size.
+一切看起来都很棒，<span class="x x-first x-last">但是那些比较小图片似乎显示得太小了。我们希望让它们比现在的更大一些。你可能会说，“那就增大最小尺寸呗。”</span>我们当然可以这样做，但是在那种情况下，<span class="x x-first x-last">小图和更小尺寸的图片之间的显示上的大小不会有任何区别，因为它们将使用一个相同的最小尺寸定义</span>。
 
-Instead of that, we can add a bit of magic
+除此之外，我们可以施加点魔法！
 
-The magic concludes in the increasing small images by some magic constant or formula to be a bit bigger and keep the differences in the size between small and smaller images :)
+而魔法的主要目的是通过增加一些幻数或公式使小图变大，并保持小图和更微小的图之间的大小差异：）
 
 ```Kotlin
 fun measure(max: Size, out: Size) {
     val desired = desiredSize.copy()
     magicallyStretchTooSmallSize(max, desired)
 
-    //... 
+    // ... 
 }
 
 private fun magicallyStretchTooSmallSize(max: ChatImageView.Size, desired: ChatImageView.Size) {
     if (desired in max) {
-        //if image is smaller than max bounds we additionally stretch this image little bit
-        //to those bounds. This is done intentionally because if you will send small image,
-        //it will not be too small. So it just some adjusting magic to look image more pretty ;)
+        // 如果图像小于最大尺寸，我们可以将图片尽可能往容器的边缘靠拢
+        // 这是有意而为，目的是告诉用户他正在发送小图，
+        // 调整后的图片不会变得太小，我们仅仅只需要用魔法调整一下就可以让图片变得更加漂亮了。
         val adjustedArea = desired.area + (max.area - desired.area) / 3f
         val outW = sqrt(adjustedArea / fixRatio)
         desired.height = (outW * fixRatio).toInt()
@@ -217,25 +217,26 @@ private fun magicallyStretchTooSmallSize(max: ChatImageView.Size, desired: ChatI
 }
 ```
 
-The algorithm is short: increase the desired area by 1/3 of the difference between max and desired areas and then knowing the new desired area and ratio, find the new width and height.
+这个算法思路很简短：将期望面积增加到最大和期望面积之差的 1/3，然后通过新的面积和宽高比计算得出新的宽度和高度。
 
-Here is a comparison result.
+
+这是一个比较结果。
 
 ![**Left:** without magic, **Right:** with magic](https://cdn-images-1.medium.com/max/2996/1*-pTHSTbjjPZlveMdtuTaeQ.gif)
 
-I like that in the new result we have bigger pictures, so it is more convenient to observe them, but at the same time you still have the understanding that some pictures are bigger (more detailed) and some are smaller.
+我更喜欢新的结果：我们能够拥有更大的图片，能更方便地看清图片内容。但在同时，我们又能够理解图片的尺寸有所差异，有的图片比较大有的比较小。
 
-## What if I want to build sizes, knowing the ratio only
+## 如果我只知道比例就想要获取尺寸，该怎么办
 
-As an additional point let’s discuss the further improvement. Sometimes, you have not the final specs of the image (it’s final height and width), but specs for the thumbnails. So you can not use them as the desired size, since those specs are much smaller, but you can calculate the ratio which will be more or less the same, and then out `ImageSizeMeasurer` will calculate the final size by having the fixed ratio only and trying to fit the max constraints as much as possible.
+让我们再进一步讨论一下能否有更多的改进吧。有时，我们并没有所要展示的图片的真实尺寸，而只获得了缩略图的尺寸。在这种情况下，我们不能缩略图的尺寸当作是所需的尺寸，因为这些规格要小得多，但是我们可以计算出比例是大了，小了还是完全相等，然后使用 `ImageSizeMeasurer` 对象，在只有固定宽高比得情况下，尝试计算得出所需尺寸并让这个尺寸尽可能满足最大约束。
 
-So first, let’s add a new property to our `Size` class:
+因此，首先，我们向 `Size` 类添加一个新属性：
 
 ```
 val isSpecified: Boolean get() = width > 0 && height > 0
 ```
 
-Next, we need to add a possibility to set the desired ratio instead of the desired size:
+接下来，我们需要添加方法以设置所需的比率而不是所需的大小：
 
 ```
 fun setDesiredRatio(ratio: Float, min: Size) {
@@ -245,7 +246,7 @@ fun setDesiredRatio(ratio: Float, min: Size) {
 }
 ```
 
-And then we will update the `measure` by adding an additional adjustment to the desired size:
+然后，我们需要通过添加其他调整到所需的大小来更新 `measure` 方法：
 
 ```Kotlin
 fun measure(max: ChatImageView.Size, out: ChatImageView.Size) {
@@ -253,10 +254,10 @@ fun measure(max: ChatImageView.Size, out: ChatImageView.Size) {
     fixUnspecifiedDesiredSize(max, desired)
     magicallyStretchTooSmallSize(max, desired)
     
-    //...
+    // ...
 }
 
-//if the desired sizes not specified but factor is, then first stretch the image maximally
+// 没有指定所需的大小，但指定了宽高比，那么先将图片最大化伸展。
 private fun fixUnspecifiedDesiredSize(max: ChatImageView.Size, desired: ChatImageView.Size) {
     if (!desired.isSpecified) {
         if (fixRatio > max.ratio) {
@@ -270,7 +271,7 @@ private fun fixUnspecifiedDesiredSize(max: ChatImageView.Size, desired: ChatImag
 }
 ```
 
-And finally, let’s update `onMeasure`
+最后，让我们更新 `onMeasure` 方法：
 
 ```Kotlin
 override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -292,22 +293,22 @@ override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 }
 
 private fun measure(widthSpec: Int) {
-    maxSize.width = //you can define max size using both specs or having some predefined
-    maxSize.height = //aspect ratio and using only one spec with it. Choice is yours ;)
+    maxSize.width = // 我们可以同时使用两个规格或具有一些预定义的
+    maxSize.height = // 同时使用宽高或仅使用其中之一来定义最大尺寸，任君挑选；）
     measurer.measure(maxSize, measureResult)
     setMeasuredDimension(measureResult.width, measureResult.height)
 }
 ```
 
-## Let’s talk about the view
+## 让我们一起讨论一下视图
 
-So far so good. We have the special measurer that can rule the worlds and make new universes! We even have a rough understanding of how it will be integrated with the view. But we still got no view.
+到现在为止一切表现得还挺好。我们拥有了一个绝妙的图片尺寸计算工具！我们甚至对如何将其与视图整合都有一个粗略的了解，但是我们仍然没有思路如何表现。
 
-Let’s first describe, what we want. Actually, it is not hard to specify `minWidth` and `minHeight`. Those attributes are part of xml. Well, `maxWidth` and `maxHeight`, too. But I don’t want to hardcode any specific size here. Instead, I want to rely more on the device screen. Means, that would be nice to specify those max constraints by let’s say percentage. Since we have `ConstraintLayout` it should be not hard to specify max width like that (say **70%** of the screen width). But what about height?
+让我们首先描述一下我们想要什么。实际上，指定 `minWidth` 和 `minHeight` 并不难。这些属性是 xml 的一部分，`maxWidth` 和 `maxHeight` 也如此。但是我不想在这里硬编码任何特定的大小。相反，我想更多地依靠设备屏幕。意思是，最好用百分比来指定这些最大约束。我们现在已经拥有了 `ConstraintLayout` 控件，按理说像这样指定最大宽度（例如屏幕宽度的 70%）并不难...但是高度应该怎么办？
 
-I will quickly remind you that you can specify constraints whatever you like, I’m just giving my small thoughts to have a starting point. I decided to have a height depending on width, by some factor. So, let’s say if we will have `factor = 1`, it will be just a square. Just specify `width` and the height will be calculated automatically.
+其实你可以任意指定约束比例，毕竟这只是我的一点想法罢了。出于某些原因，我决定根据宽度决定高度，乘以缩放因子。因此，假设我们的 `factor` 值为 `1`，那便就是一个正方形。也就是说，只需指定 `width`（以及比例），程序就能计算对应的高度。
 
-You will see, that implementation is very simple, but at the same time you have a screen size dependency, rather than having a lot of `dimens.xml` depending on different factors of devices, though the latter solution will be more **“androidish”**:
+如你所见，做法极其简单，但也极度依赖屏幕尺寸，而不是取决于设备的不同因素的 dimens.xml 中的各种定义，尽管后者的解决方案是安卓化的：
 
 ```Kotlin
 open class FixRatioImageView @JvmOverloads constructor(
@@ -339,9 +340,9 @@ open class FixRatioImageView @JvmOverloads constructor(
 }
 ```
 
-## Gather all up.
+## 合并所有代码！
 
-Now we can look at the final class:
+让我们看看最终的代码：
 
 ```Kotlin
 class ChatImageView @JvmOverloads constructor(
@@ -395,14 +396,14 @@ class ChatImageView @JvmOverloads constructor(
         private var desiredSize = Size(0, 0)
         val desired get() = desiredSize.copy()
 
-        //factor (height/width)
+        // 缩放因子 height : width
         var fixRatio: Float = 1f
             private set
 
         init { reset() }
 
-        //We relying that the client will use `MATCH_PARENT` for width
-        //Using point as out size, to be able to not create new objects
+        // 我们依赖客户端的 MATCH_PARENT 的设置以获取宽度
+        // 并且不创建新的 Size
         fun measure(max: Size, out: Size) {
             val desired = desiredSize.copy()
             fixUnspecifiedDesiredSize(max, desired)
@@ -422,7 +423,7 @@ class ChatImageView @JvmOverloads constructor(
             }
         }
 
-        //if the desired sizes not specified but factor is, then first stretch the image maximally
+        // 如果没有指定期望尺寸，但指定了缩放因数，那么先将图像最大程度地伸展
         private fun fixUnspecifiedDesiredSize(max: Size, desired: Size) {
             if (!desired.isSpecified) {
                 if (fixRatio > max.ratio) {
@@ -438,9 +439,9 @@ class ChatImageView @JvmOverloads constructor(
         @Suppress("MagicNumber")
         private fun magicallyStretchTooSmallSize(max: Size, desired: Size) {
             if (desired in max) {
-                //if image is smaller than max bounds we additionally stretch this image little bit
-                //to those bounds. This is done intentionally because if you will send small image,
-                //it will not be too small. So it just some adjusting magic to look image more pretty ;)
+                // 如果图像比最大界限小，我们就把这张图额外拉伸一点儿至边界值
+                // 这是有意这么做的，因为如果我们要发送小图像，图像不应该太小。
+                // 因此，它只是某种调整魔法，让图片看起来更靓 ;)
                 val adjustedArea = desired.area + (max.area - desired.area) / 3f
                 val outW = sqrt(adjustedArea / fixRatio)
                 desired.height = (outW * fixRatio).toInt()
@@ -503,19 +504,19 @@ class ChatImageView @JvmOverloads constructor(
             height = new.height
         }
 
-        //Don't want to make mutable class as data class
+        // 不想使可变类成为数据类
         fun copy(width: Int = this.width, height: Int = this.height) = Size(width, height)
     }
 }
 ```
 
-And the result of our work:
+我们的努力所换来的完美的运行结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*gSYcSTxF0jS3NbpbAR0MXQ.gif)
 
-## Afterwords
+## 后记
 
-If you liked that article, don’t forget to support me by clapping and if you have any questions, comment me and let’s have a discussion. Happy coding!
+如果你喜欢这篇文章，别忘记点赞或一键三连来支持我们。如果你有任何的疑问，请在评论区留言，让我们可以一起讨论！祝你编程快乐！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
