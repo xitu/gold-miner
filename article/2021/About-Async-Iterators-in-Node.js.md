@@ -101,7 +101,7 @@ function homebrewFetch(url) {
 
 ```
 
-我会向 **[猫猫 API](https://thecatapi.com/)** 发起请求，获取一些猫猫图，10 张一页，每个请求中间暂停 7 秒，最多获取 5 页数据，这样就能避免猫猫 API 过载而出现猫病。
+我们会向 **[猫猫 API](https://thecatapi.com/)** 发起请求，获取一些猫猫图，10 张一页，每个请求中间暂停 7 秒，最多获取 5 页数据，这样就能避免猫猫 API 过载而出现猫病。
 
 ```
 function fetchCatPics({ limit, page, done }) {
