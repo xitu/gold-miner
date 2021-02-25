@@ -7,15 +7,11 @@
 
 # 5 Kotlin Extensions To Make Your Android Code More Expressive
 
-#### Extract bundle parameters, validate strings, and more
-
-![Photo by [Vanja Matijevic](https://unsplash.com/@vanjamphotography?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12000/0*7wBRYeSryL8YT5u_)
+![](https://cdn-images-1.medium.com/max/12000/0*7wBRYeSryL8YT5u_)
 
 You might have already gone through a bunch of articles on Kotlin extensions, but this article is not all about extensions. It’s about making your code expressive, so I’ve concentrated on explaining and including my top extensions that keep code as natural as possible.
 
 The main goal is to learn how to make your code expressive in your own way by using the concept of extensions rather than copy-pasting the code snippets.
-
----
 
 ## Introduction
 
@@ -27,15 +23,11 @@ One of the things I love most about Kotlin is the concept of extensions. As a mo
 
 > “Kotlin provides the ability to extend a class with new functionality without having to inherit from the class or use design patterns such as Decorator. This is done via special declarations called extensions.” — [Kotlin’s documentation](https://kotlinlang.org/docs/extensions.html)
 
-To learn more about Kotlin extensions, read the following article:
-[**Advanced Android Programming With Kotlin**
-**Kotlin-exclusive features you should be using**medium.com](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
+To learn more about Kotlin extensions, read the following article: [Advanced Android Programming With Kotlin](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
 
 I use Kotlin extensions to make the code expressive and keep the language as natural as possible.
 
 Without further delay, let’s dive in.
-
----
 
 ## 1. Show, Hide, and Remove
 
@@ -76,8 +68,6 @@ view.remove()
 ```
 
 Now it looks better — more natural. I would love to optimize it, so if you have any suggestions, please leave a comment.
-
----
 
 ## 2. Validations
 
@@ -133,8 +123,6 @@ fun String.formatPhoneNumber(context: Context, region: String): String? {
 }
 
 ```
-
----
 
 ## 3. Extract Bundle Parameters
 
@@ -193,8 +181,6 @@ This approach has three advantages:
 2. Null-safe values.
 3. Lazy execution.
 
----
-
 ## 4. Resource Extensions
 
 In Android, we need to access project-level resources via a resource class. This involves some boilerplate code that we need to manually write each time we want to retrieve data from the resource file. Without any extensions, retrieving a color or drawable looks like this:
@@ -216,8 +202,6 @@ val color = R.color.dark_blie.asColor()
 val drawable = R.drawable.launcher.asDrawable()
 
 ```
-
----
 
 ## 5. Show Alert Dialog, Toast, or Snackbar
 
@@ -297,17 +281,6 @@ snackBarWithAction(message, lable){
 ```
 
 Common tasks should be as easy to implement, readable, and natural as possible.
-
----
-
-## Bonus
-
-To learn more about coroutines and other advanced features of Kotlin, read the following articles:
-
-* [“Advanced Programming With Kotlin](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)”
-* [“Kotlin Coroutines, From the Basic to the Advanced](https://medium.com/better-programming/kotlin-coroutines-from-basics-to-advanced-ad3eb1421006)”
-* [“Asynchronous Data Loading With New Kotlin Flow](https://medium.com/better-programming/asynchronous-data-loading-with-new-kotlin-flow-233f85ae1d8b)”
-* [“Why and How to Use Kotlin’s Native Serialization Library](https://medium.com/better-programming/why-and-how-to-use-kotlins-native-serialization-library-c88c0f14f93d)”
 
 That is all for now. I hope you learned something useful. Thanks for reading.
 
