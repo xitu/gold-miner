@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# API、WebSocket 和 WebHooks：究竟应该选谁
+# API、WebSockets 和 WebHooks：究竟应该选谁
 
 ![](https://cdn-images-1.medium.com/max/5760/1*k3Etz0QztOVwxIMYg1Tatw.jpeg)
 
@@ -13,7 +13,7 @@
 
 例如，在 Web 应用程序中，我们需要在浏览器和服务器之间进行通信；有时，服务器需要将消息发送回浏览器；此外在某些情况下，后端服务还可能依赖于另一个需要很长时间才能完成的服务。
 
-> **这就是 API、WebSocket 和 WebHooks 发挥他们的作用的地方，它们为我们提供着完美的解决思路，让我们得以在应用程序的不同部分之间进行数据通信和同步。
+> **这就是 API、WebSockets 和 WebHooks 发挥他们的作用的地方，它们为我们提供着完美的解决思路，让我们得以在应用程序的不同部分之间进行数据通信和同步。
 
 尽管这三种方法都主要是用于通信的，它们之间还是有一些显著的区别。在本文中，我们将讨论这三种方法如何运作，以及如何根据用例选择最合适的方法。
 
@@ -37,11 +37,11 @@
 
 ## WebSockets —— 当你需要实时通信
 
-> ** WebSocket 允许用户和服务商之间建立一个持久的双向通信来解决这个问题。
+> ** WebSockets 允许用户和服务商之间建立一个持久的双向通信来解决这个问题。
 
-使用全双工信道使得服务商可以随时与用户取得联系。由于所有现代浏览器都支持 WebSocket，它是实时 Web 应用程序的最佳解决方案。
+使用全双工信道使得服务商可以随时与用户取得联系。由于所有现代浏览器都支持 WebSockets，它是实时 Web 应用程序的最佳解决方案。
 
-![WebSocket 的工作方式](https://cdn-images-1.medium.com/max/2690/1*6pyJqsMadK3ItpzWa3qdSA.png)
+![WebSockets 的工作方式](https://cdn-images-1.medium.com/max/2690/1*6pyJqsMadK3ItpzWa3qdSA.png)
 
 > **然而始终保持连接打开会增加资源消耗和影响功耗（移动设备），并且难以扩展服务。**
 
@@ -55,17 +55,17 @@
 
 WebHooks 通过提供一种断开机制来接收来自服务提供者的响应，从而为 WebSockets 中的过大杀手问题提供了解决方案。
 
-如果从技术层面来看，用户将 WebHook（准确来说是回调 URL）注册到服务商中，这个 URL 将充当接收来自 WebHook 数据的地方。
+如果从技术层面来看，用户将 WebHooks（准确来说是回调 URL）注册到服务商中，这个 URL 将充当接收来自 WebHooks 数据的地方。
 
-> **在大多数情况下，这个 URL 属于另一台服务器。WebHook 通常用于在服务器之间，或后端进程之间进行通信。
+> **在大多数情况下，这个 URL 属于另一台服务器。WebHooks 通常用于在服务器之间，或后端进程之间进行通信。
 
 如果深入研究通信的过程，我们可以将该过程分为四个部分。
 
-![WebHook 的工作方式](https://cdn-images-1.medium.com/max/3000/1*2BYW_05KftDQ4U3XVrXQOA.png)
+![WebHooks 的工作方式](https://cdn-images-1.medium.com/max/3000/1*2BYW_05KftDQ4U3XVrXQOA.png)
 
-* **事件触发器**：这是由您指定的运行 WebHook 事件。每当此事件发生时，WebHook 都会执行请求的发送。
-* **WebHook 提供程序创建 WebHook 并发送 POST 请求：** WebHook 提供程序负责监听事件并构建 WebHook。一旦事件被触发，WebHook 提供程序会发送一个 HTTP POST 请求发送给第三方应用程序。
-* **第三方应用程序接收数据**：第三方应用程序将接收到数据，并转发给 URL 或着我们提供给 WebHook 提供程序的侦听器。
+* **事件触发器**：这是由您指定的运行 WebHooks 事件。每当此事件发生时，WebHooks 都会执行请求的发送。
+* **WebHooks 提供程序创建 WebHooks 并发送 POST 请求：** WebHooks 提供程序负责监听事件并构建 WebHooks。一旦事件被触发，WebHooks 提供程序会发送一个 HTTP POST 请求发送给第三方应用程序。
+* **第三方应用程序接收数据**：第三方应用程序将接收到数据，并转发给 URL 或着我们提供给 WebHooks 提供程序的侦听器。
 * **第三方应用程序中指定的操作**：一旦应用程序收到 POST 请求，开发人员就可以将数据用于他们想要的任何东西。
 
 > **从表面上看，大概我们都会觉得这与 API 流程完全相反，因此，大多数人将 WebHooks 称为反向 API。
@@ -80,7 +80,7 @@ WebHooks 通过提供一种断开机制来接收来自服务提供者的响应�
 
 但是，如果我们的 Web 应用程序需要与后端进行实时通信，那么我们更应该选择 WebSockets，因为它允许我们在浏览器和后端之间建立双向信道。
 
-但是，WebHook 与 API 和 WebSocket 稍有不同，WebHook 更像是反向 API。一旦用户在服务商处注册了 WebHook URL，后者就可以在需要时调用 WebHook。
+但是，WebHooks 与 API 和 WebSockets 稍有不同，WebHooks 更像是反向 API。一旦用户在服务商处注册了 WebHooks URL，后者就可以在需要时调用 WebHooks。
 
 现在您已经了解这些通信方式的不同用例，如果您有什么想要分享的内容，请在评论区中留言。
 
