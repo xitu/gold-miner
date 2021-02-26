@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：HumanBeing(https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)、[lsvih](https://github.com/lsvih)
+> * 校对者：[HumanBeing](https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)、[lsvih](https://github.com/lsvih)
 
 # 使用 Android 11 进行机器学习：新功能
 
