@@ -2,66 +2,72 @@
 > * 原文作者：[Shaiq khan](https://medium.com/@shaiq_khan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/built-in-explicit-animations-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/built-in-explicit-animations-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Built-in Explicit Animations in Flutter
+# Flutter 中内置的显式动画
 
 ![](https://cdn-images-1.medium.com/max/2160/1*-VpftDFf_ArJZoyuOjqBJA.png)
 
-In our [last post](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md), we figured out how to do some marvellous animations movements utilizing Flutter’s staggered animations. `AnimatedFoo` and `TweenAnimationBuilder`enabled you to drop some fundamental animations into your application. These animations commonly go one way, “tweening” from a beginning to an end, where they stop. Off-camera, Flutter is taking control, accepting expectations and discarding any requirement for you to stress over the change starting with one thing then onto the next.
+在我们的 [上一篇文章](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md) 中，我们弄清楚了如何利用 Flutter 的交织动画编写一些完美的动画。`AnimatedFoo` 和 `TweenAnimationBuilder` 让我们能够将一些基本动画运用在应用程序中。这些动画通常从头到尾使用补间进行渲染，而在这背后，Flutter 代替了我们控制好了这一切，满足了我们对动画的预期，也让我们不用再担心动画的播放顺序。
 
-This works superbly for some animations objectives, yet in some cases that ever-forward bolt of time leaves us feeling transiently bolted. All in all, as we stop and think about the laws of thermodynamics and the unavoidable warmth demise of the universe, wouldn’t it be decent on the off chance that we could switch time, and do everything once more?
+对于部分动画来说，使用补间动画是极好的选择。当然，我们也可以用另外一种方式重新开始制作新的动画。
 
-Transition widgets are a lot of Flutter widgets whose names all end in — you speculated it — Transition. [`ScaleTransition`](https://api.flutter.dev/flutter/widgets/ScaleTransition-class.html), [`SizeTransition`](https://api.flutter.dev/flutter/widgets/SizeTransition-class.html) , [`DecoratedBoxTransition`](https://api.flutter.dev/flutter/widgets/DecoratedBoxTransition-class.html), and that’s just the beginning. They look and feel a great deal like our `AnimateBlah` widgets. [`PositionedTransition`](https://api.flutter.dev/flutter/widgets/PositionedTransition-class.html), for example, animates a widget’s progress between various positions. This is a lot of like, however, there is one significant contrast: these Transition widgets are augmentations of [`AnimatedWidget`](https://api.flutter.dev/flutter/widgets/AnimatedWidget-class.htmlhttps://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html). This makes them **explicit animations**.
+Flutter 有很多带有过渡动画的控件，而它们都以 `Transition` 结尾，它们包括了 [`ScaleTransition`](https://api.flutter.cn/flutter/widgets/ScaleTransition-class.html)、[`SizeTransition`](https://api.flutter.cn/flutter/widgets/SizeTransition-class.html)、[`DecoratedBoxTransition`](https://api.flutter.cn/flutter/widgets/DecoratedBoxTransition-class.html)。它们与我们所创作的的 `AnimateBlah` 控件非常类似。
 
-![An image of Sun(GalaxyWay) just sitting on the galaxy, **not** rotating](https://cdn-images-1.medium.com/max/5760/1*Rj0MJbE-gRj3gmUTwSkKog.jpeg)
+例如说 [`PositionedTransition`](https://api.flutter.cn/flutter/widgets/PositionedTransition-class.html)，它可以产生在各个位置移动的小部件的动画。这些动画与补间动画很是相像，但是有明显的不同：这些 `Transition` 控件应该在 [`AnimatedWidget`](https://api.flutter.cn/flutter/widgets/AnimatedWidget-class.htmlhttps://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html) 的构造中使用，而这就是显式动画。
 
-## RotationTransition
+![一张太阳的图片，没有旋转](https://cdn-images-1.medium.com/max/5760/1*Rj0MJbE-gRj3gmUTwSkKog.jpeg)
 
-The [`RotationTransition`](https://api.flutter.dev/flutter/widgets/RotationTransition-class.html) widget is a helpful one that deals with the entirety of the trigonometry and changes math to make things turn. Its constructor just takes three things:
+## `RotationTransition` 旋转变换
+
+[`RotationTransition`](https://api.flutter.cn/flutter/widgets/RotationTransition-class.html) 是一个非常有用的控件，它的构造语句仅仅需要三个属性。
 
 ```dart
-// [Most of] RotationTransition’s constructor
+// （大多数的） RotationTransition 构造语句
 RotationTransition({
   Widget child,
   Alignment alignment,
-  Animation<double> turns,
+  Animation<double> turns
 })
 ```
 
-child — the widget we need to turn. The galaxy way, so we’ll put it there: Next, we have to give `RotationTransition` the point our sun turns around. Our sun is generally in the centre of the picture where we’d ordinarily anticipate. Along these lines, we’ll give an arrangement of focus, making the entirety of our rotational math “adjusted” to that point.
+`child` — 提供要旋转的控件，这里是显示太阳的图片的控件 `GalaxyWay()`。接下来我们要在 `alignment` 中提供控件旋转的中心（对齐），此处我们规定了图片的中心，即太阳的中心 —— 我们的预期嘛。
 
 ```dart
 RotationTransition(
-  turns: _repeatingAnimationLong,
   child: GalaxyWay(),
   alignment: Alignment.center,
+  turns: _repeatingAnimationLong
 ),
 ```
 
-Not to stress! This is a piece of what makes `RotationTransition `and the various Transition widgets, an explicit animation. We could achieve a similar rotation impact with an `AnimatedContainer` and a change, however then we’d turn once and afterwards stop. With our explicit animations movements, we have control of time and can make it so our sun spins constantly.
+简简单单的代码就是使 `RotationTransition` 和各种 `Transition` 控件构成的动画被称为显式动画的原因。我们只需通过调用 `AnimatedContainer` 控件并进行更改就可以轻松实现旋转动画。借助显式动画，我们可以控制时间与旋转次数，使太阳不断旋转。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*oeGSTGSJwkqzQueCykTggw.gif)
 
-The turns property expects something that gives it a value and educates it when that value changes. An `Animation\<double>` is just that. For `RotationTransition`, the value analyzes how regularly we’ve turned, or even the more explicitly, the level of one revolution finished.
+对于 `RotationTransition` 而言，属性 `turns` 会直接影响我们的控件的旋转次数，而它所接受的输入类型是 `Animation<double>`。
 
-## Creating an AnimationController
+## 创建一个 `AnimationController` 动画控制器
 
-Perhaps the most effortless approaches to get an `Animation\<double>` is to make an `AnimationController`, which is a [controller for animation](https://api.flutter.dev/flutter/animation/AnimationController-class.html). This controller handles tuning in for ticks¹ and gives us some helpful powers over what the movement is doing.
+得到一个 `Animation<double>` 值最有效的方法是创建一个 [`AnimationController` 动画控制器](https://api.flutter.cn/flutter/animation/AnimationController-class.html)。这个控制器将会为我们控制每一帧的动画。
 
-We’ll have to make this in a stateful widget since keeping an idea about the controller will be significant in our imminent future. Since `AnimationController` likewise has its own state to manage, we initialize it in `initState`, and dispose of it in `dispose()`.
+我们必须在有状态的控件 `StatefulWidget` 中进行设置，以保证我们能够持续访问并操作动画控制器。由于 `AnimationController` 同样具有自己的状态要管理，因此我们需要在 `initState()` 中对其进行初始化，并在 `dispose()` 中对其进行处理。
 
-There are two parameters we should provide for `Animation Controller’s `constructor. The first is a length, which is to what extent our explicit animation movement keeps going. The entire explanation we’re here is that we need an article to disclose to us how far along we are in a solitary revolution. Of course, `AnimationController` “emits” values from `0.0` to `1.0`. What number of and how granular those qualities are relied upon to what extent we need a single rotation to take. Luckily, Dart gives us a `Duration` class to utilize. For this demo, we should have the sun turning somewhere close to 5 seconds and 230 million years for every revolution. What about 15 seconds for each turn at that point?
+我们应为“动画控制器”提供两个参数，第一个是动画的持续长度。Dart 为我们提供了一个 `Duration` 类供使用。对于这个例子，让我们设定下来，让太阳的图片转动一次持续 5 秒，然后暂停旋转 15 秒，咋样？
 
 ```dart
 _animationController = AnimationController(
   duration: Duration(seconds: 15),
-  // TODO: finish constructing me.
+  // TODO: 尚需完成剩余构造
 );
 ```
 
-On the off chance that we left things at that, not a lot occurs. That is on the grounds that we’ve been given a controller, yet haven’t pressed any of its buttons! We need our sun to turn forever, isn’t that so? For that, we’ll simply ask the controller to continually repeat the animation movement.
+在我们把控制器制作完成以后，我们不会再需要编写完成太多的代码。这是因为我们已获得一个控制器。
+
+创建 `AnimationController` 的同时，我们也要赋予一个 `vsync` 参数。`vsync` 的存在防止后台动画消耗不必要的资源。我们可以通过添加 `SingleTickerProviderStateMixin` 到控件的类定义，将有状态的控件赋予给 `vsync`。
+
+另外，我们需要太阳永远旋转下去，不是吗？为此，我们需要要求控制器重复动画下去。
 
 ```dart
 _animationController = AnimationController(
@@ -70,23 +76,23 @@ _animationController = AnimationController(
 )..repeat();
 ```
 
-## Making use of an AnimationController
+## 使用 `AnimationController` 动画控制器
 
-Allowing anybody to control the sun appears to be a piece excessively lenient, however, so I’m going to make it an easter egg. I’ll add a sibling to the sun that is a basic button, covered up off background in the animation, and I’ll pass it a reference to our controller so that inside its `onTap` listener, we can stop or restart the movement.
+仁慈的我还添加了一个彩蛋，让用户可以控制阳光。我在页面中添加一个基本按钮，并隐藏在了动画中，然后我将其传递给控制器的引用，以便在其 `onTap` 监听中可以停止或重新开始动画。
 
-The controller maintains — among other things — the status of the animation, which we can check and stop in case we’re running or restart in case we’re definitely not. What’s more, there you go! By utilizing an animation controller, we’re ready to control the animation movement on request. In any case, that is not everything you can do with the controller.
+控制器将维护包括动画的状态在内的各种状态。如果动画正在播放，我们可以检查动画状态，也可以停止播放动画。而如果动画不在播放中，我们可以使用控制器重新启动动画。也就是说，通过使用动画控制器，我们就可以根据需求控制动画的播放与暂停。除此之外，动画控制器还有一些其它的功能。
 
-With it, you can likewise animate to (or in reverse from) a particular value, flying the animation movement forward with a given speed, or control various animations with a similar controller.
+通过使用控制器，我们可以同样地为特定值设置动画（或从该值反向），并以给定的速度播放动画，或使用类似的控制器来控制各种动画。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*qmRBKLFSVNTvW8-uWFvbKw.gif)
 
-This was only our first taste of explicit animations in Flutter. We saw how a Transition widget functions`AnimationController`to give some directionality and command over how our animation functions. In future posts, we’ll be jumping further into explicit animations and how to get considerably more altered.
+这只是我们对 Flutter 中的显式动画的第一次尝试。我们看到了 Transition 控件如何运行，以及学会了使用 `AnimationController` 来命令动画修改方向或其他动画属性。在以后的文章中，我们将进一步剖析显式动画以及介绍如何自定义使用显式动画。
 
-here in the video posted below, you will see how explicit animation was working and when you tap anywhere in that screen then it pause the animation and the whole animation will freeze and then you tap again anywhere in that screen then it resumes animation, you can control the speed of animation and also the movement of directions.
+在下面的视频中，我们可以看到这个显式动画的运行结果 —— 当我们在屏幕上的任意位置点击时，动画会被暂停。而在屏幕任意位置再次点击就会恢复动画的播放。同样的，我们也可以通过修改代码来控制动画的速度以及播放的方向。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*y7sP1wxW1UHb_42Wv2foUw.gif)
 
-So this was the basic example of Explicit Animation where we did a simple example and you can learn it and also you can do it.
+这就是显式动画的基本入门了，我们在本文中构建了一个示例，而我相信，通过学习，你也同样可以轻松学会如何去制作这样一个动画，感谢你的阅读～
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

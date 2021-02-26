@@ -2,79 +2,77 @@
 > * 原文作者：[Harsh Patel](https://medium.com/@harsh-patel)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-complete-guide-of-node-js-buffer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-complete-guide-of-node-js-buffer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[flashhu](https://github.com/flashhu)、[regon-cao](https://github.com/regon-cao)
 
-# A Complete Guide of Node.js Buffer
+# Node.js 缓冲区的完整指南
 
-Binary streaming is a collection of large amounts of binary data. Due to their large size, binary streams are not shipped together; break into small pieces before shipping.
+二进制流是大量的二进制数据的集合。由于通常情况下二进制流的大小挺大的，因此二进制流一般不会一起运送，而会在运输前切分成小块然后逐一发送。
 
-When a data processing unit does not accept other data streams, the excess data is kept in a cache until the data processing unit is ready to receive more data.
+当数据处理单元暂时不再接收其他数据流时，剩余的数据将会被保留在缓存中，直到数据处理单元准备好接收更多数据为止。
 
-Node.js servers usually require reading and writing in the file system and, of course, files are stored in binaries. Also, Node.js works with TCP streams, which protect recipients’ communications before sending binary data to small chunks.
+Node.js 服务器一般需要在文件系统中进行读写，而文件在存储层面而言其实都是二进制流。除此之外，Node.js 还能与 TCP 流一起使用，让 TCP 流在不可靠的互联网络上提供可靠的端到端字节流保障通信。
 
-The data streams sent to the recipient need to be buffer until the recipient is ready to take more pieces of data to be processed. This is where the temporary Node.js section operates — manages and stores binary data outside the V8 engine.
+发送给接收者的数据流会被缓冲，直到接收者准备接收更多要处理的数据为止。这就是 Node.js 处理临时数据部分的工作内容 —— 在 V8 引擎外部管理和存储二进制数据。
 
-Let’s jump into the various buffer methods to understand more, and how we can use them in our Node.js program.
+让我们一起深入缓冲区（`Buffer`）的各种使用方法，了解更多有关它们的信息以及一起学习如何在 Node.js 程序中使用它们吧。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*RbpNfHqVXY39GYeC.png)
 
-## Node.js buffer methods
+## Node.js Buffer 的方法
 
-A good thing about Node.js buffer module is that it is pre installed, so you can use it anywhere.
+Node.js 缓冲模块的最大优势，其实就是它是内置于 Node.js 中的，因此我们可以在任何我们想要使用它的地方使用它。
 
-Let’s go through some important Node.js buffer methods.
+让我们一起浏览一些重要的 Node.js 缓冲模块的方法吧。
 
-#### Buffer.alloc()
+#### `Buffer.alloc()`
 
-This method will create a new buffer, but the size is not fixed. When you call this method at that time you can assign the size in bytes.
+此方法将创建一个新的缓冲区，但是分配的大小不是固定的。当我们调用此方法时，可以自行分配大小（以字节为单位）。
 
 ```js
-const buf = Buffer.alloc(6)  //This will create 6 bytes buffer
+const buf = Buffer.alloc(6)  // 这会创建一个 6 字节的缓冲区
 
-console.log(buf)
-//<Buffer 00 00 00 00 00 00>
+console.log(buf) // <Buffer 00 00 00 00 00 00>
 ```
 
-#### Buffer.byteLength()
+#### `Buffer.byteLength()`
 
-Now if you want to get the length of a buffer then simply call `Buffer.byteLength()`
+如果我们想要获取缓冲区的长度，我们只需调用 `Buffer.byteLength()` 就行了。
 
 ```js
 var buf = Buffer.alloc(10)
+var buffLen = Buffer.byteLength(buf) // 检查缓冲区长度
 
-//check the length
-var buffLen = Buffer.byteLength(buf)
-
-console.log(buffLen)
-//<10>
+console.log(buffLen) // 10
 ```
 
-#### Buffer.compare()
+#### `Buffer.compare()`
 
-With `Buffer.compare()` you can compare two buffers and check that it’s identical or not. Return of this method will be one of this`-1`, `0`, or `1`,
+通过使用 `Buffer.compare()` 我们可以比较两个缓冲区，此方法的返回值是 `-1`，`0`，`1` 中的一个。
+
+译者注：`buf.compare(otherBuffer);` 这一句调用会返回一个数字 `-1`，`0`，`1`，分别对应 `buf` 在 `otherBuffer` 之前，之后或相同。
 
 ```js
 var buf1 = Buffer.from('Harsh')
 var buf2 = Buffer.from('Harsg')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) //it will print 0 
+console.log(a) // 这会打印 0
 
 var buf1 = Buffer.from('a')
 var buf2 = Buffer.from('b')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) //it will print -1
+console.log(a) // 这会打印 -1
 
 
 var buf1 = Buffer.from('b')
 var buf2 = Buffer.from('a')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) //it will print 1
+console.log(a) // 这会打印 1
 ```
 
-#### Buffer.concat
+#### `Buffer.concat()`
 
-As the name indicate you can join two buffer with this method. Like string, you can join more than one-two buffers as well.
+顾名思义，我们可以使用此函数连接两个缓冲区。当然，就像字符串一样，我们也可以连接两个以上的缓冲区。
 
 ```js
 var buffer1 = Buffer.from('x')
@@ -83,42 +81,42 @@ var buffer3 = Buffer.from('z')
 var arr = [buffer1, buffer2, buffer3]
 
 console.log(arr)
-/*buffer, !concat [ <Buffer 78>, <Buffer 79>, <Buffer 7a> ]*/
+/* buffer, !concat [ <Buffer 78>, <Buffer 79>, <Buffer 7a> ] */
 
-//concatenate buffer with Buffer.concat method
+// 通过 Buffer.concat 方法连接两个缓冲区
 var buf = Buffer.concat(arr)
 
 console.log(buf)
-//<Buffer 78 79 7a> concat successful
+// <Buffer 78 79 7a> concat successful
 ```
 
-#### buf.entries()
+#### `Buffer.entries()`
 
-`buf.entries()`will help you to loop through a buffer,
+`Buffer.entries()` 会用这一缓冲区的内容创建并返回一个 [index, byte] 形式的迭代器。
 
 ```js
 var buf = Buffer.from('xyz')
 
 for (a of buf.entries()) {
-  console.log(a)
-  /*This will console arrays of indexes and byte of buffer content \[ 0, 120 \][ 1, 121 ][ 2, 122 ]*/
+    console.log(a)
+    /* 这个会在控制台输出一个有缓冲区位置与内容的字节的数组 [ 0, 120 ][ 1, 121 ][ 2, 122 ] */
 }
 ```
 
-#### Buffer.fill()
+#### `Buffer.fill()`
 
-As the name indicates, it helps you to insert or fill data into a buffer using the `Buffer.fill()` method. For more see below,
+我们可以使用 `Buffer.fill()` 这个函数将数据插入或填充到缓冲区中。更多信息请参见下文。
 
 ```js
 const b = Buffer.alloc(10).fill('a')
 
 console.log(b.toString())
-//aaaaaaaaaa
+// aaaaaaaaaa
 ```
 
-#### buff.includes()
+#### `Buffer.includes()`
 
-Like string it will identify that If a buffer has that value or not. you can use the `buff.includes()` method to achieve that, given method return a boolean value, `true` or `false` depending on the search.
+像字符串一样，它将确认缓冲区是否具有该值。我们可以使用 `Buffer.includes()` 方法来实现这一点，给定方法根据搜索返回一个布尔值，即 `true` 或 `false`。
 
 ```js
 const buf = Buffer.from('this is a buffer')
@@ -129,9 +127,9 @@ console.log(buf.includes(Buffer.from('a buffer example')))
 // false
 ```
 
-#### Buffer.isEncoding()
+#### `Buffer.isEncoding()`
 
-As you might know that binaries have to be encoded, To check If a data type supports the character encoding or not? You can use `Buffer.isEncoding()` method to confirm. It will return `true` if it supports.
+我们可能知道二进制文件必须进行编码，那么如果我们要检查数据类型是否支持字符编码该怎么办呢？我们可以使用 `Buffer.isEncoding()` 方法进行确认。如果支持，它将返回 `true`。
 
 ```js
 console.log(Buffer.isEncoding('hex'))
@@ -147,57 +145,57 @@ console.log(Buffer.isEncoding('hey'))
 // false
 ```
 
-#### buf.slice()
+#### `Buffer.slice()`
 
-`buf.slice()` will be used to create a new buffer from selected elements of a buffer. When you slice a buffer, you create a new buffer with a list of items you want in the new buffer slice.
+`buf.slice()` 将用于使用缓冲区的选定元素创建一个新缓冲区 —— 对缓冲区进行切割时，将创建一个新缓冲区，其中包含要在新缓冲区切片中找到的项目的列表。
 
 ```js
 var a = Buffer.from('uvwxyz');
-var b = a.slice(2,5);
+var b = a.slice(2, 5);
 
 console.log(b.toString());
-//wxy
+// wxy
 ```
 
-#### Buffer swap [buf.swapX()]
+#### `Buffer.swapX()`
 
-`buf.swapX()`is used to swap the byte order of a buffer. Buffer has these methods `buf.swapX()`(here X can be 16,32,64) to swap the byte order of a 16-bit, 32-bit, and 64-bit buffer object.
+`Buffer.swapX()` 用于交换缓冲区的字节顺序。使用 `Buffer.swapX()` （此处 `X` 可以为 16, 32, 64）来交换 16 位，32 位和 64 位缓冲区对象的字节顺序。
 
 ```js
 const buf1 = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8])
 console.log(buf1)
 // <Buffer 01 02 03 04 05 06 07 08>
 
-//swap byte order to 16 bit
+// 交换 16 位字节顺序
 buf1.swap16()
 console.log(buf1)
 // <Buffer 02 01 04 03 06 05 08 07>
 
-//swap byte order to 32 bit
+// 交换 32 位字节顺序
 buf1.swap32()
 console.log(buf1)
 // <Buffer 03 04 01 02 07 08 05 06>
 
-//swap byte order to 64 bit
+// 交换 64 位字节顺序
 buf1.swap64()
 console.log(buf1)
 // <Buffer 06 05 08 07 02 01 04 03>
 ```
 
-#### buf.json()
+#### `Buffer.json()`
 
-It helps you to create json from a buffer, it will return json buffer object,
+它可以帮助我们从缓冲区创建 JSON 对象，而该方法将返回 JSON 缓冲区对象，
 
 ```js
 const buf = Buffer.from([0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8]);
 
 console.log(buf.toJSON());
-//{"type":"Buffer", data:[1,2,3,4,5,6,7,8]}
+// {"type":"Buffer", data:[1, 2, 3, 4, 5, 6, 7, 8]}
 ```
 
-## Conclusion
+## 结论
 
-Now you need to have a solid, basic understanding of a buffer and how Node.js buffer works. You should also understand why you need to use the Node.js buffer section and the various Node.js buffer methods.
+如果我们需要进一步了解并使用 Node.js 的缓冲区，我们需要对缓冲区以及 Node.js 缓冲区的工作原理有更扎实的基础知识。我们还应该了解为什么我们需要使用 Node.js 缓冲区和各种 Node.js 缓冲区方法的使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

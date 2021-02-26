@@ -2,40 +2,48 @@
 > * 原文作者：[Shaiq khan](https://medium.com/@shaiq_khan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)
 
-# Staggered Animation In Flutter
+# Flutter 中的交织动画
 
-![](https://cdn-images-1.medium.com/max/2000/1*icYuiagsCKqcRapvjiLbmw.png)
+![Flutter 中的交织动画](https://cdn-images-1.medium.com/max/2000/1*icYuiagsCKqcRapvjiLbmw.png)
 
-A staggered animation includes consecutive or covering animations.To make an staggered animation, to utilize a few/couple of Animation items.One Animation Controller controls all the Animations.Each Animation object shows the movement at some point or another of an Interval.For each preferred position being animated, make a Tween.
+交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行的动画的每个属性，我们都应该创建一个补间（`Tween`）。
 
-Staggered animations movements are a direct idea: visual changes occur as a progression of tasks, instead of at the same time. The activity may be simply consecutive, with one change occuring after the following, or it may somewhat or totally cover. It may likewise have holes, where no progressions happen.
+所谓交织动画，直接来说就是：并非在同一时刻发生全部的视觉变化，而是让其随着任务的进行逐步发生。这个动画可能纯粹只是一个顺序动画，视觉上的变化一个接一个的出现；也可能有部分的动画重叠出现，乃至完全重叠。当然，交织动画的动画中同样可能会有一些时刻空着，即在一些间隙中没有发生任何动画。
 
-[**Here is the demo video you can take a look staggered animation**](https://youtu.be/0fFvnZemmh8)
+[**这里是一段有关交织动画的样例视频**](https://youtu.be/0fFvnZemmh8)
 
-In this video, you will see the accompanying animation movement of a single widget, which starts as a bordered blue square with marginally adjusted corners. The square runs they will blur and afterward change in square was broaden in measure and afterward square becomes taller while moving upwards and they will changes into an outskirt circle and the progressions shading blue to orange,after walking forward, the activity runs backward.
+在这个视频中，你可以看到发生在一控件上，从一个带边框而略微有圆角的蓝色矩形的出现开始的动画。这个矩形会按照以下顺序变化：
 
-#### Structure of a staggered animation
+* 淡入
+* 水平上变宽
+* 向上移动同时竖直上变得更高
+* 变为一个有边框的圆圈
+* 颜色变为橙色
 
-The entire of the animations are pushed by methods for a similar Animation Controller.Regardless of the way extensive the animation movement keeps going in genuine time, the controller’s qualities should be among zero.0 and 1.0, comprehensive.
+在顺序播放完动画后，将会反向播放上述的动画。
 
-Every animation movement has an Interval among zero.Zero and 1.0, comprehensive.
+#### 交织动画的基础结构
 
-For every having a place that animates in an interval, make a Tween. The Tween determines the beginning and give up values for that assets.The Tween produces a Animation thing that is made do with the guide of the controller.
+* 所有的动画都是由相同同样的 `AnimationController` 控制。
+* 无论动画在现实时间中播放多长时间，控制器的值必须在 0.0 和 1.0 之间，包括 0.0 和 1.0。
+* 每个动画都有一个 `Interval`，这个值必须在 0.0 和 1.0 之间，包括 0.0 和 1.0。
+* 对于每一个间隔内产生动画的属性，创建一个 `Tween`。 `Tween` 指定此属性的开始值和结束值。
+* `Tween` 产生一个由动画控制器管理的 `Animation` 对象。
 
-#### To set up the animation:
+#### 要设置这样一个动画
 
-* Make a Animation Controller that deals with every one of the Animations.
-* Make a Tween for each having a place being animated.
-* The Tween characterizes different values.
-* The Tween’s animate technique requires the decide controller, and produces a Animation for that assets.
-* Determine the interval time frame at the Animation’s curve assets.
+* 创建一个 `AnimationController` 管理所有的 `Animations`。
+* 为每一个有动画的属性创建一个 `Tween`。
+* 为 `Tween` 设置不同的值。
+* `Tween` 的 `animate()` 方法需要一个 `AnimationController` 来用这些属性生成一个动画。
+* 通过修改 `Animation` 构造器中的 `curve` 属性指定动画的间隔时间
 
-**How to use Staggered animation in Flutter:**
+**如何在 Flutter 中使用交织动画:**
 
-The following code makes a tween for the avatarSize property. It constructs a [**CurvedAnimation**](https://api.flutter.dev/flutter/animation/CurvedAnimation-class.html), determining an elasticOut curve. See [**Curves**](https://api.flutter.dev/flutter/animation/Curves-class.html) for other accessible pre-characterized animation **Curves**.
+下面的代码为 avatarSize 这一属性定义了一个补间动画。它构造了一个 [**CurvedAnimation**](https://api.flutter.cn/flutter/animation/CurvedAnimation-class.html) 动画类并且指定了动画曲线为一条 elasticOut 曲线。要查看更多的预设动画曲线，请访问网页 [**Curves**](https://api.flutter.cn/flutter/animation/Curves-class.html) 。
 
 ```dart
 avatarSize = Tween<double>(
@@ -52,7 +60,8 @@ avatarSize = Tween<double>(
 ),
 ```
 
-> **Animation controller and Animation** define an instance of the class **AnimationController** for the animation controller and five instances of the class **Animation** to handle animations (double to get a progressive value from 0 to 1).
+> `AnimationController` 和 `Animation` 定义了类 `AnimationController` 的实例
+> 以下是 `AnimateController` 以及 5 个用于控制动画的进展的 `Animation` 的实例，其中 `<double>` 用于获取一个用于定义动画过程的数值，该数值必须在 0 到 1 之间。
 
 ```dart
 final AnimationController controller;
@@ -63,19 +72,28 @@ final Animation<double> textOpacity;
 final Animation<double> imageOpacity;
 ```
 
-> **Animation initializing** override the `initState` method and define the parameters for the animation. For this situation, the duration is set to three seconds.
+> 我们应该在控件的定义中覆写 `initState` 方法以在其中完成对 `AnimationController` 的初始化，在定义语句中，我们实际是在设置动画的参数。下面的例子我们将动画时长设置为 3 秒。
 
 ```dart
-_controller = AnimationController(
-  duration: const Duration(milliseconds: 3500),
-  vsync: this,);
+// 译者注：代码从 Flutter 库中截取，路径 /lib/src/animation/animation_controller.dart:150
+@override
+void initState() {
+    super.initState();
+    _controller = AnimationController(
+        vsync: this, // 对 SingleTickerProviderStateMixin 的引用
+        duration: widget.duration,
+    );
+}
 ```
 
-**How to implement in dart file:**
+**如何在代码中实现：**
 
-You need to implement it in your code respectively:
+你需要在代码中实现以下内容：
 
-This stateful widget, Staggered Trekking Animation add as a mixin the **SingleTickerProviderStateMixin** and makes the AnimationController was determining a 3500 ms duration. It will plays the animation movement and builds the non-animating portion of the widget. The animation start when a tap is distinguished in the screen. The animation movement runs forward and then reverse automatically.
+* 添加一个 `StatefulWidget` （带有状态的）控件
+* 然后将这个控件与 `SingleTickerProviderStateMixin` Mixin，以让 `AnimationController` 确定它的动画时长为 3500 毫秒。
+
+控制器将会播放一个动画，然后会在 widget 树上创建一个无动画的部分。当在屏幕上检测到点击事件时，开始播放动画。动画一开始会顺序播放，然后会倒序播放。
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -106,7 +124,7 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
       await _controller.forward().orCancel;
       await _controller.reverse().orCancel;
     } on TickerCanceled {
-      // the animation got canceled, probably because we were disposed
+      // 这个动画被暂停了，可能因为该控件被 dispose 了。
     }
   }
 
@@ -131,7 +149,9 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 }
 ```
 
-In Staggered Trekking Enter Animation, using the tween’s current values and next you will make a Stateless widget, [Staggered Trekking](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** make a `build()` function an [**AnimatedBuilder**](https://api.flutter.dev/flutter/widgets/AnimatedBuilder-class.html)—this widget for building animations. We create a function named `_buildAnimation()` and it work UI updates and assigns it to its **builder** property.
+在 Staggered Trekking Enter 动画中，我们使用了补间去决定动画的进展。
+
+接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 `builder` 属性.
 
 ```Dart
 import 'package:flutter/material.dart';
@@ -175,19 +195,18 @@ class StaggeredTrekkingEnterAnimation {
   final Animation<double> titleOpacity;
   final Animation<double> textOpacity;
   final Animation<double> imageOpacity;
-//final Animation<double> contactOpacity;
 }
 ```
 
-AnimatedBuilder will listen to the notifications from the animation controller will marking the widget for the values change. For each tick of the animation, the values were updated, resulting in a call to `_buildAnimation()`.
+`AnimatedBuilder` 将侦听来自动画控制器的通知，然后会标记该控件的值的改变。对于动画的每一帧，这些值会因为调用 `_buildAnimation()` 而都被更新。
 
-here in the video posted below, you will see how staggered animation were working and when you tap anywhere in that screen it starts animation and run reverse automatically animation, you can control the speed of animation also.
+在下面发布的视频中，你将看到交织动画的工作方式。当你在屏幕上的任意位置点击时，它将启动动画并在向前播放动画之后自动向后播放动画。在这代码中，你还可以控制动画播放的速度。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*vQm1tBYamr7UZSaoApsAdg.gif)
 
-So this was the basic example of Staggered Animation where we did a simple example and you can learn it.
+这就是交织动画的基本示例。在这里我们做了一个简单的示例，你可以尝试学习它。
 
-**Click the GitHub link below to find the source code of the Staggered Animation:**
+**单击下面的 GitHub 链接以找到交织动画的源代码：**
 
 [**flutter-devs/Flutter-StaggeredAnimation**](https://github.com/flutter-devs/Flutter-StaggeredAnimation)
 

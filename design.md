@@ -1,3 +1,6 @@
+* [构建设计系统和组件库](https://juejin.cn/post/6924152501805678606)（[Charlo-O](https://github.com/Charlo-O) 翻译）
+* [解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [黑暗主题 — 现代 UI 设计](https://juejin.cn/post/6901856999235911688)（[zenblo](https://github.com/zenblo) 翻译）
 * [颜色为何成为数据可视化的关键，怎样使用它？](https://juejin.im/post/6872238362233831432)（[Amy-Designer](https://github.com/Amy-Designer) 翻译）
 * [用户体验案例学习：重新设计 KoinStreet 主页](https://juejin.im/post/6869757477928304654)（[Zhengjian-L](https://github.com/Zhengjian-L) 翻译）
 * [寻找 2020 年最有意义的十大网页设计流行趋势](https://juejin.im/post/5ed74ee0e51d45788a6d686e)（[Charlo-O](https://github.com/Charlo-O) 翻译）
