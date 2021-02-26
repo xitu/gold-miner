@@ -1,7 +1,7 @@
 > * 原文地址：[5 reasons why Deno will stop using TypeScript - StartFunction](https://startfunction.com/deno-will-stop-using-typescript/)
 > * 原文作者：[eliorivero](https://en.gravatar.com/eliorivero)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript-StartFunction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript- StartFunction.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript-StartFunction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript-StartFunction.md)
 > * 译者：
 > * 校对者：
 > 
