@@ -5,6 +5,7 @@
 > * 译者：
 > * 校对者：
 > 
+# 5 reasons why Deno will stop using TypeScript
 ![image](https://user-images.githubusercontent.com/8282645/109243795-858b9e00-7818-11eb-9779-00cf8282c99f.png)
 
 
