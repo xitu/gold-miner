@@ -1,11 +1,12 @@
 > * 原文地址：[5 reasons why Deno will stop using TypeScript - StartFunction](https://startfunction.com/deno-will-stop-using-typescript/)
 > * 原文作者：[eliorivero](https://en.gravatar.com/eliorivero)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/tutorial-d3-js-calendar-heatmap-(to-visualize-StackOverflow-Usage-Data).md](https://github.com/xitu/gold-miner/blob/master/article/5-reasons-why-Deno-will-stop-using-TypeScript- StartFunction).md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript- StartFunction.md](https://github.com/xitu/gold-miner/blob/master/article/5-reasons-why-Deno-will-stop-using-TypeScript- StartFunction.md)
 > * 译者：
 > * 校对者：
 > 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d354ad47-9ed5-474b-a3e5-f809a2d77503/deno-will-stop-using-typescript.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d354ad47-9ed5-474b-a3e5-f809a2d77503/deno-will-stop-using-typescript.png)
+![image](https://user-images.githubusercontent.com/8282645/109243795-858b9e00-7818-11eb-9779-00cf8282c99f.png)
+
 
 A document surfaced today pointing that Deno will stop using TypeScript in its internal code, citing several problems with the current environment. Issues mentioned involve TypeScript compiling times, structuring and code organization, among others. Moving forward, Deno will use pure JavaScript for its internal code.
 
