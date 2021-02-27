@@ -1,5 +1,4 @@
-> * 原文地址：[34 JavaScript Optimization Techniques to Know in 2021
-	](https://medium.com/javascript-in-plain-english/34-javascript-optimization-techniques-to-know-in-2021-d561afdf73c3)
+> * 原文地址：[34 JavaScript Optimization Techniques to Know in 2021](https://medium.com/javascript-in-plain-english/34-javascript-optimization-techniques-to-know-in-2021-d561afdf73c3)
 > * 原文作者：[atit53](https://atit53.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md)
@@ -7,8 +6,6 @@
 > * 校对者：
 
 # 34 JavaScript Optimization Techniques to Know in 2021
-
-## Optimize your JavaScript code using modern Shorthand techniques, tips, and tricks
 
 The life of a developer is always learning new things and keeping up with the changes shouldn’t be harder than it already is, and my motive is to introduce all the JavaScript best practices such as Shorthand and features which we must know as a frontend developer to make our life easier in 2021.
 
