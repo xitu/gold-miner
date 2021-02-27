@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript-StartFunction.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-Deno-will-stop-using-TypeScript-StartFunction.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 > 
 # Deno 将停用 TypeScript 的五个原因
+
 ![image](https://user-images.githubusercontent.com/8282645/109243795-858b9e00-7818-11eb-9779-00cf8282c99f.png)
 
-
-最近有一份流传的文档，表明 Deno 将停止在其内部代码中使用 TypeScript。在文档中提到了当前开发环境的几个问题，包括 TypeScript 编译时间、结构和代码管理等。在未来，Deno 的内部代码将使用原生 JavaScript。
+最近有一份流传的文档，说是 Deno 将停止在其内部代码中使用 TypeScript。文档中提到了当前开发环境的几个问题，包括了 TypeScript 编译时间、结构和代码管理等。在未来，Deno 的内部代码将使用原生 JavaScript 进行开发。
 
 ## Deno 使用 TypeScript 的现存问题
 
 目前 Deno 团队在内部代码中使用 [TypeScript](https://startfunction.com/tag/typescript) 时，遇到的问题有如下这些：
 
 - 当更改文件时，TypeScript 的编译需要几分钟，这使得项目文件的连续编译非常缓慢。
-- 在创建实际的 Deno 可执行文件和面向用户的 API 文件时，使用的 Typescript 结构会造成项目运行的性能问题。
+- 在创建实际的 Deno 可执行文件和面向用户的 API 文件时，使用的 TypeScript 结构会造成项目运行的性能问题。
 - 事实证明，TypeScript 本身对 Deno 代码管理没有帮助，并且 Deno 团队正经受着相反的效果。在项目的议题列表中就提到一个[问题](https://github.com/denoland/deno/issues/4748)：在两个不同的位置产生了相同的独立主体类。
 - 必须手动保持内部代码和运行时 TypeScript 声明的同步，因为 TypeScript 编译器对生成 d.ts 文件没有帮助。
-- Deno 团队维护着两台 TS 编译器主机：一个用于内部代码，另一个用于外部用户代码，尽管两者的目标相似。
+- Deno 团队需要去维护两台 TS 编译器主机：一个用于内部代码，另一个用于外部用户代码，尽管两者的目标相似。
 
 ## Deno 内部代码删除 TypeScript
 
