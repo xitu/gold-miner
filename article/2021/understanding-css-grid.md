@@ -7,13 +7,7 @@
 
 # Responsive CSS Grid: The Ultimate Layout Freedom
 
-![](https://cdn-images-1.medium.com/max/5000/1*WlgR2CCBnGQcvav_4ACvUQ.png)
-
-#### UI Design + CSS
-
-## Responsive CSS Grid: The Ultimate Layout Freedom
-
-#### 5 minute tutorial for UX/UI Designer & Developer
+![](https://cdn-images-1.medium.com/max/2800/0*MJfiLHUiFLi5M2sm.png)
 
 CSS Grid is a new way to create two-dimensional layouts on the web. With just a few lines of CSS, you can create a grid that was hardly possible before without JavaScript. No plugin or complicated installs, no heavy additional files, no more design limitations due to 12-columns only.
 
@@ -21,17 +15,11 @@ CSS Grid is a new way to create two-dimensional layouts on the web. With just a 
 
 In short: Actually, **almost all grids** that come to mind and many more. Choose the space, size and location of different grid items freely. A good overview of the most common grids with markup can be found at [Grid by Example](https://gridbyexample.com/examples/).
 
----
-
-![](https://cdn-images-1.medium.com/max/2800/0*MJfiLHUiFLi5M2sm.png)
-
-> # To all UX/UI Designer, give me a minute of your time: Yes, I’ll show you some CSS. No, it won’t bite! Yes, you may not understand it all, but I’ve provided some pretty pictures and a [CodePen Playground](https://codepen.io/chrisvall/pen/YJJdxQ) so you can play with it. And I promise your layouts will be so much better once you understand how it actually works!
-
 #### Let’s get started! HTML markup for our example:
 
 A `div` with the class of `.container` holds 5 `div`/items (can, of course, be more or less). If you like, you can experiment with the [HTML and CSS markup in CodePen](https://codepen.io/chrisvall/pen/YJJdxQ) directly.
 
-```
+```html
 <div class="container">
    <div class="item color-1"> item-1 </div>
    <div class="item color-2"> item-2 </div>
@@ -47,7 +35,7 @@ A `div` with the class of `.container` holds 5 `div`/items (can, of course, be m
 
 In the **CSS**, we turn the `.container` class into a grid by adding `display:grid`. With `grid-template-columns` we activate the desired columns, in this case, 5 columns with `250px` each. With `grid-template-rows`we can set the height of the row (if needed), in this case `150px`. And that's it, the first grid is done!
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: 250px 250px 250px 250px 250px;
@@ -63,7 +51,7 @@ grid-template-columns: repeat(5, 250px);
 
 Any desired distance between the items can be created with `grid-gap` for all items or separate for horizontal and vertical distances with `column-gap` and `row-gap`. By the way, you can use all common units, for example `px` for fixed gutters or `%` for flexible gutters.
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: repeat(5, 250px);
@@ -78,7 +66,7 @@ Any desired distance between the items can be created with `grid-gap` for all it
 
 A designer’s dream! With **Fractional Units** short `fr` you can divide the available space according to your wishes! Here, for example, we divide the screen size into 6 parts. The first column takes 1/6 = `1fr` of the space, the second column 3/6= `3fr` and the third column 2/6= `2fr`. You can of course also add `grid-gap` if you wish.
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: 1fr 3fr 2fr;
@@ -93,7 +81,7 @@ all rows flexible
 
 `px`and ****`fr `****can be mixed in any desired way the rest will adapt to the available space. Works like a charm!
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: 300px 3fr 2fr;
@@ -106,7 +94,7 @@ all rows flexible
 
 The best thing is, all items can take up as much space as you like even within the gird! For this purpose, a starting point is set with `grid-column-start` and the end with `grid-column-end`. Or in short grid-column: startpoint / endpoint;
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: 1fr 3fr 2fr;
@@ -127,7 +115,7 @@ Don’t get confused by the grid lines, they start at the very beginning of the 
 
 Here CSS Grid can shine and prove its superiority over Boostrap and Co. Items can take all vertical sizes and positions with the help of `grid-row`. As we will see in the next example, this is an absolute advantage for adapting to different screen sizes and devices.
 
-```
+```css
 .container{
   display: grid;
   grid-template-columns: 1fr 3fr 2fr;
@@ -147,7 +135,7 @@ Here CSS Grid can shine and prove its superiority over Boostrap and Co. Items ca
 
 Here CSS Grid also has a clear advantage over conventional grids, depending on the screen size you can not only switch from flexible to fixed elements with media queries, but you can also adjust the position of entire items!
 
-```
+```css
 .container{
  display: grid;
  grid-template-columns: 250px 3fr 2fr;
@@ -182,31 +170,18 @@ CSS Grid is now natively supported by all modern browsers (Safari, Chrome, Firef
 
 ## Real-life examples with CSS Grid
 
-[christinevallaure.com,](http://www.christinevallaure.com,) UX/UI Design
-
-[moonlearning.io](https://moonlearning.io/), UX/UI courses online
-
-[Slack](https://slack.com/intl/de-de/), Company Website
-
-[Medium](https://medium.com/), right here :)
-
-[Skyler Hughes](https://photo.skylerhughes.com/), Photography
-
-[Max Böck](https://mxb.at/), front-end developer
-
-[Design+Code](https://designcode.io/), tutorials for web designers
-
-[Hi Agency, Deck](http://www.hi.agency/deck/), template page
+- [christinevallaure.com,](http://www.christinevallaure.com,) UX/UI Design
+- [moonlearning.io](https://moonlearning.io/), UX/UI courses online
+- [Slack](https://slack.com/intl/de-de/), Company Website
+- [Medium](https://medium.com/), right here :)
+- [Skyler Hughes](https://photo.skylerhughes.com/), Photography
+- [Max Böck](https://mxb.at/), front-end developer
+- [Design+Code](https://designcode.io/), tutorials for web designers
+- [Hi Agency, Deck](http://www.hi.agency/deck/), template page
 
 ## Before you go
 
 You might also like my other articles and courses on [moonlearning.io](https://moonlearning.io/) or the [full Design Handoff to Development course](http://UI Design Handoff to Development. Course for UX/UI Designer I remember handing off my first web design for development. I was super excited and spent hours getting everything…www.udemy.com) (more on how to use Grids!).
-[**moonlearning**
-**Full Online Course can feel like a mission to the moon. Trust me. I was there and clicked my way through countless…**moonlearning.io](https://moonlearning.io/)
-[**UI Design Handoff to Development. Course for UX/UI Designer**
-**I remember handing off my first web design for development. I was super excited and spent hours getting everything…**www.udemy.com](https://www.udemy.com/course/design-handoff/?referralCode=1296BF141742FFA166C2)
-
-![](https://cdn-images-1.medium.com/max/4280/1*PpfitldOodpAtws_LCuLuA.png)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
