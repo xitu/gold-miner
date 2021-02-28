@@ -1,7 +1,7 @@
 > * 原文地址：[Typescript 4.2 Released, Improves Types and Developer Experience](https://www.infoq.com/news/2021/02/typescript-4-2-released/)
 > * 原文作者：[Bruno-Couriol](https://www.infoq.com/profile/Bruno-Couriol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released,-Improves-Types-and-Developer-Experience)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released,-Improves-Types-and-Developer-Experience.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released,-Improves-Types-and-Developer-Experience.md)
 > * 译者：
 > * 校对者：
 
