@@ -15,7 +15,7 @@ CSS Grid is a new way to create two-dimensional layouts on the web. With just a 
 
 In short: Actually, **almost all grids** that come to mind and many more. Choose the space, size and location of different grid items freely. A good overview of the most common grids with markup can be found at [Grid by Example](https://gridbyexample.com/examples/).
 
-#### Let’s get started! HTML markup for our example:
+### Let’s get started! HTML markup for our example:
 
 A `div` with the class of `.container` holds 5 `div`/items (can, of course, be more or less). If you like, you can experiment with the [HTML and CSS markup in CodePen](https://codepen.io/chrisvall/pen/YJJdxQ) directly.
 
@@ -31,7 +31,7 @@ A `div` with the class of `.container` holds 5 `div`/items (can, of course, be m
 
 ![I added some CSS styling for better understanding, not relevant for the grid](https://cdn-images-1.medium.com/max/2800/0*lCX1UQBdGhuXCuJl.jpeg)
 
-#### Base: Set Grid, Columns and Rows in the CSS
+### Base: Set Grid, Columns and Rows in the CSS
 
 In the **CSS**, we turn the `.container` class into a grid by adding `display:grid`. With `grid-template-columns` we activate the desired columns, in this case, 5 columns with `250px` each. With `grid-template-rows`we can set the height of the row (if needed), in this case `150px`. And that's it, the first grid is done!
 
@@ -47,7 +47,7 @@ grid-template-columns: repeat(5, 250px);
 
 ![](https://cdn-images-1.medium.com/max/2800/0*yYYJTjLzTLzogzyu.jpeg)
 
-#### Setting the gutter
+### Setting the gutter
 
 Any desired distance between the items can be created with `grid-gap` for all items or separate for horizontal and vertical distances with `column-gap` and `row-gap`. By the way, you can use all common units, for example `px` for fixed gutters or `%` for flexible gutters.
 
@@ -62,7 +62,7 @@ Any desired distance between the items can be created with `grid-gap` for all it
 
 ![Note that on the left and right of the container its always half a gutter! So 15px in this example (same for most other grids too)](https://cdn-images-1.medium.com/max/2800/0*CR0ENpYQu_-fNCuD.png)
 
-#### Automatic distribution to the available screen area with “fr”
+### Automatic distribution to the available screen area with “fr”
 
 A designer’s dream! With **Fractional Units** short `fr` you can divide the available space according to your wishes! Here, for example, we divide the screen size into 6 parts. The first column takes 1/6 = `1fr` of the space, the second column 3/6= `3fr` and the third column 2/6= `2fr`. You can of course also add `grid-gap` if you wish.
 
@@ -77,9 +77,9 @@ A designer’s dream! With **Fractional Units** short `fr` you can divide the av
 
 all rows flexible
 
-#### px and fr mixing for fixed and flexible columns
+### px and fr mixing for fixed and flexible columns
 
-`px`and ****`fr `****can be mixed in any desired way the rest will adapt to the available space. Works like a charm!
+`px`and `fr `can be mixed in any desired way the rest will adapt to the available space. Works like a charm!
 
 ```css
 .container{
@@ -90,7 +90,7 @@ all rows flexible
 
 ![the first row fixed by px, remaining layout flexible](https://cdn-images-1.medium.com/max/2000/0*9buHg29Y9pG0bJir.gif)
 
-#### Absolute freedom of arrangement
+### Absolute freedom of arrangement
 
 The best thing is, all items can take up as much space as you like even within the gird! For this purpose, a starting point is set with `grid-column-start` and the end with `grid-column-end`. Or in short grid-column: startpoint / endpoint;
 
@@ -111,7 +111,7 @@ The best thing is, all items can take up as much space as you like even within t
 
 Don’t get confused by the grid lines, they start at the very beginning of the first item!
 
-#### The same applies to vertical or full-area distribution!
+### The same applies to vertical or full-area distribution!
 
 Here CSS Grid can shine and prove its superiority over Boostrap and Co. Items can take all vertical sizes and positions with the help of `grid-row`. As we will see in the next example, this is an absolute advantage for adapting to different screen sizes and devices.
 
@@ -131,7 +131,7 @@ Here CSS Grid can shine and prove its superiority over Boostrap and Co. Items ca
 
 ![Any vertical width and position](https://cdn-images-1.medium.com/max/2800/0*a3fS5-GjETjWhArV.png)
 
-#### Adapting to different screen sizes and devices? Of course!
+### Adapting to different screen sizes and devices? Of course!
 
 Here CSS Grid also has a clear advantage over conventional grids, depending on the screen size you can not only switch from flexible to fixed elements with media queries, but you can also adjust the position of entire items!
 
