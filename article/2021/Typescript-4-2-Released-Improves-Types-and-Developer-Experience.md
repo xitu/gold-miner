@@ -118,7 +118,7 @@ import {Foo} from "./foo/index.js";
 
 TypeScript 4.2 使 TypeScript 在任何规模和任何位置更加贴近准确编写 JavaScript 的目标，但是，在每个发行版中，TypeScript 都会增加其复杂性。一位开发者指出：
 
-> 出于对 TypeScript 进行了如此多的更新的华裔，人们开始怀疑是否会出现一个时候（……当）TypeScript 变得太复杂而我们无法再去了解全部的问题，就像 C++ 那样。
+> 出于对 TypeScript 进行了如此多的更新的担忧，人们开始怀疑是否会出现一个时候（……当）TypeScript 变得太复杂而我们无法再去了解全部的问题，就像 C++ 那样。
 
 TypeScript 4.2 还包含了其他的功能和重大的更改，欢迎开发人员阅读完整的发行说明。TypeScript 是基于 Apache 2 许可的开源软件，我们鼓励通过 TypeScript GitHub 项目进行贡献和反馈，并应遵循 TypeScript 贡献准则和 Microsoft 开源行为准则。
 
