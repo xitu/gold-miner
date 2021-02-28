@@ -1,3 +1,5 @@
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [你应该知道的 3 个罕见的 Bash 技巧](https://juejin.cn/post/6923190362706018318)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [10 个你应该现在启用的绝佳的 Chrome Flags](https://juejin.cn/post/6923198038894706701)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）

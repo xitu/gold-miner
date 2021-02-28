@@ -221,6 +221,7 @@ CREATE TABLE Persons (
 );
 
 INSERT INTO Persons (LastName, FirstName, City) VALUES ('Erichsen', 'Tom',  'Stavanger');
+
 ```
 
 在另外的终端运行下面命令：

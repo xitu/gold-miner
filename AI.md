@@ -1,3 +1,4 @@
+* [如何利用隐语义模型在图数据库中构建推荐系统](https://juejin.cn/post/6925019556108828685)（[stuchilde](https://github.com/stuchilde) 翻译）
 * [为什么我的数据会漂移？](https://juejin.cn/post/6923824334188314638)（[chzh9311](https://github.com/chzh9311) 翻译）
 * [DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)（[zhuzilin](https://github.com/zhuzilin) 翻译）
 * [寻找最优化 AutoML 库](https://juejin.cn/post/6906859687682965517)（[zhusimaji](https://github.com/zhusimaji) 翻译）

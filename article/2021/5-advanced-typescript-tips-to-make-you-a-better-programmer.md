@@ -88,7 +88,7 @@ Typescript 支持在类型声明后加上 `as const`，这样我们就相当于�
 
 ```ts
 let t = {
- myProperty: "hi" 
+ myProperty: "hi",
  myArr: [1, 2, 3]
 } as const 
 ```
@@ -198,14 +198,15 @@ interface Foo {
 这不仅适用于接口声明 —— 我还会在函数不返回任何内容时使用它。这在编译时很有帮助:
 
 ```ts
-//如果我们忘记指定了函数的返回值，编译器会返回默认值
+// 如果我们忘记指定了函数的返回值，编译器会返回默认值
 const myFunc = (): string | void => {
    console.log('blah')
 }
-
-//如果我们忘记指定了函数的返回值，编译器会返回 null
+```
+```ts
+// 如果我们忘记指定了函数的返回值，编译器会返回 null
 const myFunc = (): string | null => {
- //编译错误时不会返回 null
+ // 编译错误时不会返回 null
 }
 ```
 
