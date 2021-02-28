@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[zenblo](https://github.com/zenblo)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[zenblo](https://github.com/zenblo)、[Ivocin](https://github.com/Ivocin)
 
 # 我后悔没有在自己成为 React 开发者之前做的 6 件事情
 
