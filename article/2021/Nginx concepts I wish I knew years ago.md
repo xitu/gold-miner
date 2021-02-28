@@ -26,7 +26,7 @@ Nginx 的基本功能是代理，所以现在就需要了解什么是代理和�
 
 ![代理示意图](https://res.cloudinary.com/practicaldev/image/fetch/s--tPAqn11I--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/1moanfdnfnh5d0dqs4wd.png)
 
-在这种情况下，客户端 client1 和 client2 通过代理服务器向服务器发送请求 request1 和 request2，现在后台服务器不会知道 request1 和 request2 是由 client1 还是 client2 发送的，只会执行操作。
+在这种情况下，客户端 client1 和 client2 通过代理服务器向服务器发送请求 request1 和 request2，后台服务器不会知道 request1 是由 client1 还是 client2 发送的，只会执行操作。
 
 ### 反向代理
 
