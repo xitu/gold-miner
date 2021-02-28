@@ -7,23 +7,17 @@
 
 # Using Immer with React: a simple Solutions for Immutable States
 
-## Using Immer with React: a Simple Solutions for Immutable States
-
-#### Why Immer works well for React State Immutability?
-
 ![](https://cdn-images-1.medium.com/max/5760/1*7V7cegDUA84z--4d6GflYg.jpeg)
 
 In React, using an Immutable state enables quick and cheap comparison of the state tree before and after a change. As a result, each component decides whether to re-rendered or not before performing any costly DOM operations.
 
 And I hope you already know that;
 
-> # JavaScript is mutable, and we have to implement Immutability ourselves.
+> JavaScript is mutable, and we have to implement Immutability ourselves.
 
 Popular state management libraries like Redux also follow the same philosophy. When we use reduces, it expects us not to mutate state to avoid any side effects in the application. However, manually implementing Immutability might not be the best option for large-scale projects where it could become error-prone.
 
----
-
-> # Luckily there are specialized JavaScript libraries like [Immer](https://immerjs.github.io/immer/docs/introduction), which enforces Immutability of the state tree by design.
+> Luckily there are specialized JavaScript libraries like [Immer](https://immerjs.github.io/immer/docs/introduction), which enforces Immutability of the state tree by design.
 
 ## What is Immer and How It Works
 
@@ -53,7 +47,7 @@ You might get the feeling that Immer is complicating your code if you are workin
 
 To better understand that, let’s consider the famous React reducer example:
 
-```
+```js
 export default (state = {}, action) => {
     switch (action.type) {
         case GET_ITEMS:
@@ -74,7 +68,7 @@ The code above shows a typical reducer of a React-Redux that uses ES6 spread ope
 
 Let’s take an example how we can use Immer to reduce the complexity in practice.
 
-```
+```js
 import produce from "immer"
 
 export default produce((draft, action) => {
@@ -87,11 +81,11 @@ export default produce((draft, action) => {
 }, {})
 ```
 
-> # In this example, Immer simplifies the code used to spread the state. You can also see that it **mutates the object** by using a **ForEach** loop instead of an ES6 **reduce** function.
+> In this example, Immer simplifies the code used to spread the state. You can also see that it **mutates the object** by using a **ForEach** loop instead of an ES6 **reduce** function.
 
 Let’s see another example where we could use Immer with React.
 
-```
+```js
 import produce from "immer";
 
 this.state={
@@ -116,7 +110,7 @@ changeBioAge = () => {
 
 This code can be refactored by mutating the state like below
 
-```
+```js
 changeBioAge = () => {
     this.setState(
         produce(draft => {
@@ -126,23 +120,13 @@ changeBioAge = () => {
 }
 ```
 
----
-
 As you can see, Immer has reduced the number of code lines and your code’s complexity drastically.
-
-Tip: **Share your React components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit components are independent modules that can be consumed, maintained, and developed independently. Use them to maximize code resue, keep a consistent design across apps, and collaborate more effectively.
-
----
-
-![Exploring React components shared using [Bit](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
 
 ## Can We Use it with Hooks?
 
 Another significant feature of Immer is its ability to work with React Hooks. Immer uses an additional library called **use-immer** to achieve this functionality. Let's consider an example to get a better understanding.
 
-```
+```js
 const [state, setState] = useState({
     id: 14,
     email: "stewie@familyguy.com",
@@ -166,7 +150,7 @@ function changeBio(newBio) {
 
 We can further simplify the Hooks example by replacing **useState** with **useImmer** Hook. And we can also update the React component by mutating the component state.
 
-```
+```js
 import { useImmer } from 'use-immer';
 
 const [state, setState] = useImmer({
@@ -188,9 +172,7 @@ function changeBio(newBio) {
 
 Also, we can use Immer to convert arrays and sets to immutable objects as well. **Maps**, **Sets** created through Immer will throw errors when it is mutated, allowing the developers to be aware of the mistake of mutation.
 
-> # Most importantly, Immer is not limited for React. You can easily use Immer with plain JavaScript as well.
-
----
+> Most importantly, Immer is not limited for React. You can easily use Immer with plain JavaScript as well.
 
 Apart from Immutating, Immer helps maintain well written, readable codebase by reducing your codebase’s complexity.
 
@@ -203,14 +185,6 @@ You can find more information on Immer by referring to their [documentation](htt
 ---
 
 Thank you for Reading !!!
-
-## Learn More
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
-[**New JSX Enhancements in React 17**
-**What’s New for JSX in React 17 and Why You Should Care**blog.bitsrc.io](https://blog.bitsrc.io/new-jsx-enhancements-in-react-17-e5f64acbea89)
-[**Incremental vs Virtual DOM**
-**Will Incremental DOM Replace Virtual DOM in the Near Future**blog.bitsrc.io](https://blog.bitsrc.io/incremental-vs-virtual-dom-eb7157e43dca)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
