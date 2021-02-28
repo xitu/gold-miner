@@ -29,7 +29,7 @@ The new `Temporal` API proposal is designed to solve the problems with the `Date
 * Strict date parsing from ISO-8601 format
 * Support for non-Gregorian calendars
 
-**Please keep in mind that the Temporal proposal is [currently at stage 2](https://github.com/tc39/proposal-temporal#status), so it’s not ready for production use yet.**
+> Please keep in mind that the Temporal proposal is [currently at stage 2](https://github.com/tc39/proposal-temporal#status), so it’s not ready for production use yet.
 
 Let’s see how Temporal API feature works with code examples. All Temporal API code is created using the [Temporal Polyfill](https://www.npmjs.com/package/proposal-temporal).
 
@@ -37,7 +37,7 @@ Let’s see how Temporal API feature works with code examples. All Temporal API 
 
 The `Date` object created through JavaScript’s `new Date()` construct is mutable, which means you can change the value of the object after its initialization:
 
-```
+```js
 let date = new Date("2021-02-20");
 console.log(date); // 2021-02-20T00:00:00.000Z
 date.setYear(2000);
@@ -48,7 +48,7 @@ Although it may seem harmless, this kind of mutable object will cause bugs when 
 
 For example, here’s a function that adds one week to the current date. Since `setDate` modifies the object itself, you will end up with **two objects holding the same date value**:
 
-```
+```js
 function addOneWeek(date) {
     date.setDate(date.getDate() + 7);
     return date;
@@ -63,7 +63,7 @@ console.log(oneWeekLater); // same with today
 
 `Temporal` will fix this problem by providing methods that won’t modify the object directly. For example, here’s how you can add a week using `Temporal` API:
 
-```
+```js
 const date = Temporal.now.plainDateISO();
 console.log(date); // 2021-02-20
 console.log(date.add({ days: 7 })); // 2021-02-27
@@ -80,7 +80,7 @@ Temporal also provides you with several more APIs to compute your date values. O
 
 With the `Date` API, you need to calculate the number of days between two dates manually as follows:
 
-```
+```js
 const oneDay = 24 * 60 * 60 * 1000; 
 const firstDate = new Date(2008, 1, 12);
 const secondDate = new Date(2008, 1, 22);
@@ -91,7 +91,7 @@ console.log(diffDays); // 10
 
 With the `Temporal` API, you can easily calculate the `diffDays` with the `.until()` method:
 
-```
+```js
 const firstDate = Temporal.PlainDate.from('2008-01-12');
 const secondDate = Temporal.PlainDate.from('2008-01-22');
 
@@ -113,7 +113,7 @@ The current Date API internally tracks time in UTC standard, and it generally pr
 
 One option I found to manipulate the timezone is by using the `Date.toLocaleString()` method as follows:
 
-```
+```js
 let date = new Date();
 let tokyoDate = date.toLocaleString("en-US", {
    timeZone: "Asia/Tokyo" 
@@ -130,7 +130,7 @@ But since this method returns a string, further date and time manipulation requi
 
 Temporal API allows you to define the timezone when you create a date using the `zonedDateTimeISO` method. You can get the current date/time using the `.now` object:
 
-```
+```js
 let tokyoDate = Temporal.now.zonedDateTimeISO('Asia/Tokyo');
 let singaporeDate = Temporal.now.zonedDateTimeISO('Asia/Singapore');
 
@@ -142,7 +142,7 @@ console.log(singaporeDate);
 
 Since the value returned is still a `Temporal` date, you can further manipulate it with methods from `Temporal` itself:
 
-```
+```js
 let date = Temporal.now.zonedDateTimeISO('Asia/Tokyo');
 let oneWeekLater = date.add({weeks: 1});
 
@@ -158,7 +158,7 @@ The current Date parsing from a string is unreliable because when you pass a dat
 
 Consider the following example:
 
-```
+```js
 new Date("2021-02-20").toISOString();
 // 2021-02-20T00:00:00.000Z
 new Date("2021-02-20T05:30").toISOString();
@@ -175,7 +175,7 @@ When you need the date to be timezone-aware, you need to use the [ZonedDateTime]
 
 By separating the creation of date with and without the timezone, `Temporal` API helps you to parse the right date/time combination from the provided string:
 
-```
+```js
 Temporal.PlainDateTime.from("2021-02-20");
 // 2021-02-20T00:00:00
 
@@ -196,7 +196,7 @@ The `Temporal` API allows you to specify the calendar system you want to use wit
 
 The NPM Polyfill implementation of the calendars are not finished yet, so you need to try `withCalendar()` method from the Browser Polyfill. Visit the [Temporal documentation page](https://tc39.es/proposal-temporal/docs/) and paste the following code into your browser’s console:
 
-```
+```js
 Temporal.PlainDate.from("2021-02-06").withCalendar("gregory").day;
 // 6
 
@@ -220,20 +220,6 @@ All possible calendar values from [Intl.DateTimeFormat](https://developer.mozill
 The `Temporal` API is a new proposal for JavaScript that promises to offer a modern date/time API for the language. Based on my test with the Polyfill, the API does provide easier date/time manipulation while taking the timezone and calendar differences into account.
 
 The proposal itself is still at stage 2, so if you’re interested to learn more and provide feedback, you can visit [Temporal documentation](https://tc39.es/proposal-temporal/docs/index.html) and try out its [Polyfill NPM package](https://www.npmjs.com/package/proposal-temporal).
-
----
-
-## Tip: Share components between projects using Bit (Github).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.**
-
-Use it to maximize code reuse, keep a consistent design, speed-up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Exploring components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*nbmcv3OZQefLSA55.gif)
-[**The shared component cloud**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
