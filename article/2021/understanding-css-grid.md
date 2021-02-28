@@ -33,7 +33,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 基础：在 CSS 中设置栅格和行列
 
-在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们注册了所需的列（本例中将注册 5 列，每列为 250px）。 使用`grid-template-rows`，我们可以设置行的高度（如果需要的话，本例中是`150px`）。就是这样我们就完成了第一个网格！
+在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们注册了所需的列（本例中将注册 5 列，每列为 250px）。 使用`grid-template-rows`，我们可以设置行的高度（如果需要的话，本例中是`150px`）。就是这样我们就做好了第一个栅格布局！
 
 ```css
 .container {
@@ -93,7 +93,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 排序上的绝对自由
 
-私以为最棒的是即使在网格中，每一项都可以占用我们所希望的尺寸！我们可以用 `grid-column-start` 设置起点，并以 `grid-column-end` 设置终点，或缩写为 `grid-column: startpoint / endpoint;`：
+私以为最棒的是即使在栅格中，每一项都可以占用我们所希望的尺寸！我们可以用 `grid-column-start` 设置起点，并以 `grid-column-end` 设置终点，或缩写为 `grid-column: startpoint / endpoint;`：
 
 ```css
 .container {
@@ -112,7 +112,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ![](https://cdn-images-1.medium.com/max/2800/0*fGVZP5_NMbf9UJs3.png)
 
-别被网格线所迷惑，它们总是在第一项的开始！
+别被栅格线所迷惑，它们总是在第一项的开始！
 
 ### 同样适用于垂直或全区域的分布！
 
@@ -138,7 +138,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 适应不同的屏幕尺寸
 
-CSS Grid 与常规网格相比也具有明显的优势，根据屏幕大小，我们不仅可以通过媒体查询从自适应切向定值，还可以调整整个项目的位置！
+CSS Grid 与常规栅格相比也具有明显的优势，根据屏幕大小，我们不仅可以通过媒体查询从自适应切向定值，还可以调整整个项目的位置！
 
 ```css
 .container {
