@@ -3,12 +3,12 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md)
 > * 译者：[joyking7](https://github.com/joyking7)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[ningzhy3](https://github.com/ningzhy3)
 
 # 我希望多年前就知道的 Nginx 概念
-*Nginx 是一个遵循主从架构的 Web 服务器，可以用作反向代理、负载均衡器、邮件代理和 HTTP 缓存。*
+![路由器](https://res.cloudinary.com/practicaldev/image/fetch/s--B8sTzGjW--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/jldvigb958mnww2rvcvx.jpeg)*Nginx 是一个遵循主从架构的 Web 服务器，可以用作反向代理、负载均衡器、邮件代理和 HTTP 缓存。*
 
-哇！复杂的术语和混乱的定义，里面充斥着大量令人困惑的词语，对吧？不用纠结，我可以帮大家先了解 Nginx 的基本架构和术语，然后我们将安装并创建 **Nginx** 配置。
+哇！复杂的术语和混乱的定义，里面充斥着大量令人困惑的词语，对吧？不用担心，我可以帮大家先了解 Nginx 的基本架构和术语，然后我们将安装并创建 **Nginx** 配置。
 
 ![迷惑表情.gif](https://res.cloudinary.com/practicaldev/image/fetch/s--mxz4Qgrr--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/fbj8exwkli91ord2xscz.gif)
 
@@ -34,7 +34,7 @@ Nginx 的基本功能是代理，所以现在就需要了解什么是代理和�
 
 ![反向代理示意图](https://res.cloudinary.com/practicaldev/image/fetch/s--iUfM34yx--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/64jk21oeqlki2t3bx1kz.png)
 
-在这种情况下，客户端将通过 Web 服务器发送一个请求，Web 服务器会通过一种算法将请求定向到众多服务器的任意一个，其中一种算法是轮询调度（最可爱的一个！），然后再将响应通过 Web 服务器返回给客户端。因此在这里，客户端并不知道与之交互的是哪一个后台服务器。
+在这种情况下，客户端将通过 Web 服务器发送一个请求，Web 服务器会通过一种算法将请求定向到众多服务器的任意一个，其中一种算法是轮询调度（Round-Robin）（最可爱的一个！），然后再将响应通过 Web 服务器返回给客户端。因此在这里，客户端并不知道与之交互的是哪一个后台服务器。
 
 ## 负载均衡
 
@@ -302,3 +302,9 @@ $ sudo kill -9 <PID>
 在结束这篇文章之前，声明一下我所使用图片和视觉效果来自 Goole 图片和由 [Hussein Nasser](https://www.youtube.com/user/GISIGeometry) 提供的 Youtube 教程。
 
 关于 Nginx 的基本认识和配置，我们就讲到这里。如果你对 Nginx 的进阶配置感兴趣，请通过评论告诉我。在此之前，请享受编程的乐趣，探索 Nginx 的魔力！👋
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
