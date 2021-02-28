@@ -79,7 +79,7 @@ all rows flexible
 
 ### px and fr mixing for fixed and flexible columns
 
-`px`and `fr `can be mixed in any desired way the rest will adapt to the available space. Works like a charm!
+`px`and `fr` can be mixed in any desired way the rest will adapt to the available space. Works like a charm!
 
 ```css
 .container{
