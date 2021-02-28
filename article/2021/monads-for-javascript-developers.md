@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/monads-for-javascript-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/monads-for-javascript-developers.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 面向 JavaScript 开发人员的 Monads
 
 ![](https://cdn-images-1.medium.com/max/5760/1*gA2dHvfpZEylFTBuiLiKxw.jpeg)
 
-和其他程序员一样，我也想知道 **Monads** 是什么。但是每次在网上搜索 Monads，都只会找到大量的 Monads 理论范畴文章，而其它资源似乎也没有参考意义。
+和别的程序员一样，我也很想知道 **Monads** 到底是什么。但每当我在网上搜索 Monads 的时候，都只会找到大量的 Monads 理论范畴文章，而其它的资源似乎也并没有什么参考意义。
 
-为了学会什么是 Monads，我花费了大量时间精力。我开始学习 Haskell，几个月后才发现，人们对 Monads 太小题大做了。如果你是一名 JavaScript 开发人员，那么你肯定每天都在使用它们，你只是没有意识到而已。
+为了搞清楚什么是 Monads，我花费了大量的时间精力。我开始去学习 Haskell，但在学了几个月后，我才突然意识到，大家都在 Monads 上面太小题大做了。如果你是一名 JavaScript 开发人员，那么你肯定每天都在使用它，只是你并没有意识到而已。
 
 ---
 
-本文不会讲太多关于 Monads 理论范畴或 Haskell 的细节，但有一件事需要知道。当你在互联网上搜索 Monads 时，你不能错过这个定义：
+本文并不会提及太多有关 Monads 的理论范畴或在 Haskell 中的细节，但有一件事我们始终需要知道 —— 当我们在互联网上搜索 Monads 时，我们不能错过这个定义：
 
 ```
 (>>=) :: m a -> (a -> m b) -> m b
@@ -51,9 +51,9 @@ const foo = Box("John");
 
 `(>>=)` 操作是在 Monadic 上下文 `m a` 中取一个值展开它，所以我们只得到 `a`，再将其传递给函数 `(a -> m b)`。这并不奇怪，你还要自己制定这种行为准则，我们稍后会介绍。
 
-## Promises 类似 Monads
+## JavaScript 的 Promises
 
-更确切地说，他们都有 Monad 式（**Monad-ish**）行为。要成为 Monad，它还必须实现一个仿函数（**Functor**）和应用程序接口（**Applicative**）。我提这一点只是为了表述完整，但我们不会更深入地讨论这些。
+JavaScript 中的 Promises 类似于 Monads，更确切地说，他们都有 Monad 式（**Monad-ish**）行为。要成为 Monad，它还必须实现一个仿函数（**Functor**）和应用程序接口（**Applicative**）。我提这一点只是为了表述完整，但我们不会更深入地讨论这些。
 
 JavaScript 的 **Promises** 使用 `.then()` 方法实现 Monadic 接口。我们来看以下示例：
 
