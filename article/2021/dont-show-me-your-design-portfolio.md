@@ -3,10 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dont-show-me-your-design-portfolio.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[HumanBeing](https://github.com/HumenBeingXenon)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[HumanBeing](https://github.com/HumenBeingXenon)、[lsvih](https://github.com/lsvih)
 
 # 你有设计作品的作品集吗？挺好的，但这还不够
-## 引起别人对你的作品注意的秘密并非显而易见。
 
 在实际工作中担任视觉设计师近十年后，我开始在大学和职业学校教授设计课程。学生们最常问的一个问题是：**如何建立一个自己的作品集（从而让我能找到一份工作）**？
 
@@ -76,6 +75,7 @@
 在二十多快三十岁时，我已经建立起了足够的自信，不会在面对镜头或是人群讲话时感到害羞或尴尬。我也将这一点转化融入了我的个人形象中，并具象化在了我的网站上。
 
 ## 就像写传记片一样讲自己的故事
+
 在定义网站的外观样式后，我决定在 [About](https://www.stellaguan.com/about) 页面上增添一些小乐趣 —— 我用相互关联的小片段和使用了叙事语气讲述了自己的人生故事。
 
 ![图源 [stellaguan.com/about](https://www.stellaguan.com/about)](https://cdn-images-1.medium.com/max/2048/0*bPGcutdSSef1Sn9A.jpg)
@@ -108,7 +108,7 @@
 
 更重要的是，你正在向他们展示你是他们的合适人选。人们往往喜欢与自己喜欢的人一起工作。你的个人经历陈述页面将使他们相信你是（或不是）他们所要的雇员。
 
->  People like to work with other people who they like as a person.
+>  人们往往喜欢与自己喜欢的人一起工作。
 
 实际上，我已经与多家公司建立了工作关系，这些公司的创始人都喜欢我的故事，而他们甚至没有提到我的工作经历。相反，我们分享了自己生活中的故事后就一起开展了不少项目。
 
@@ -117,6 +117,7 @@
 顺便提一句，并不是每个人都需要像我一样在自己的网站上摆出张大脸。讲故事和个人品牌塑造可以不借助任何照片，这取决于您作为设计师的创造力来为您完成这项工作。
 
 ## 内容创作是你新的好朋友
+
 我们并非每个人都是伟大的作家。显然，我并非大佬中的一员，可我并不在乎，我就要写！
 
 实际上，在成为设计师之前，我曾经短暂做过电视制片人。在做制片人的初期，我的写作能力非常差。我因为无法完成我的写作量（大约 5,000 词 / 天）而感到恐慌，因而不愿意去上班。
@@ -144,6 +145,7 @@
 当您犹豫是否应该建立博客，产出内容，并把在社交媒体上活跃作为品牌建立日常的一部分时，请扪心自问 —— 您想成为**一个摆脱“躬薪阶层”的人**吗？如果这样做，则必须立即开始产出内容并与他人分享。
 
 ##与其制定新的一年的计划，不如脚踏实地去落实
+
 我注意到一个趋势，当一些设计师开始带薪工作时，他们通常会停止更新他的作品集网站。实际上，我见过 20 年没有更新网站的设计师。
 
 您可以想象他们的作品集在视觉上或技术上可能都不是很好。
@@ -167,6 +169,7 @@
 今年，我可以很高兴地说，我做到了。
 
 # 你的作品并不能为自己发声
+
 完成上述所有操作后，您将开始拥有一个称为个人形象的东西。
 
 这并不意味着任何有形或具体的含义，而是通过视觉和言语传达有关自己的信息而创建的协同作用。
