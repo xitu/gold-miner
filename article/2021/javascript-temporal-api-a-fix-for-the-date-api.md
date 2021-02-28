@@ -2,7 +2,7 @@
 > * 原文作者：[Nathan Sebhastian](https://medium.com/@nathansebhastian)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-temporal-api-a-fix-for-the-date-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-temporal-api-a-fix-for-the-date-api.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # JavaScript Temporal API- A Fix for the Date API
@@ -66,7 +66,7 @@ console.log(oneWeekLater); // same with today
 ```js
 const date = Temporal.now.plainDateISO();
 console.log(date); // 2021-02-20
-console.log(date.add({ days: 7 })); // 2021-02-27
+console.log(date.add({days: 7})); // 2021-02-27
 console.log(date); // 2021-02-20
 ```
 
@@ -81,7 +81,7 @@ Temporal also provides you with several more APIs to compute your date values. O
 With the `Date` API, you need to calculate the number of days between two dates manually as follows:
 
 ```js
-const oneDay = 24 * 60 * 60 * 1000; 
+const oneDay = 24 * 60 * 60 * 1000;
 const firstDate = new Date(2008, 1, 12);
 const secondDate = new Date(2008, 1, 22);
 
@@ -116,10 +116,10 @@ One option I found to manipulate the timezone is by using the `Date.toLocaleStri
 ```js
 let date = new Date();
 let tokyoDate = date.toLocaleString("en-US", {
-   timeZone: "Asia/Tokyo" 
+    timeZone: "Asia/Tokyo"
 });
 let singaporeDate = date.toLocaleString("en-US", {
-  timeZone: "Asia/Singapore",
+    timeZone: "Asia/Singapore",
 });
 
 console.log(tokyoDate); // 2/21/2021, 1:36:46 PM
@@ -136,7 +136,7 @@ let singaporeDate = Temporal.now.zonedDateTimeISO('Asia/Singapore');
 
 console.log(tokyoDate);
 // 2021-02-20T13:48:24.435904429+09:00[Asia/Tokyo]
-console.log(singaporeDate); 
+console.log(singaporeDate);
 // 2021-02-20T12:48:24.429904404+08:00[Asia/Singapore]
 ```
 
@@ -206,10 +206,10 @@ Temporal.PlainDate.from("2021-02-06").withCalendar("chinese").day;
 Temporal.PlainDate.from("2021-02-06").withCalendar("japanese").day;
 // 6
 
-Temporal.PlainDate.from("2021-02-06").withCalendar("hebrew").day; 
+Temporal.PlainDate.from("2021-02-06").withCalendar("hebrew").day;
 // 24
 
-Temporal.PlainDate.from("2021-02-06").withCalendar("islamic").day; 
+Temporal.PlainDate.from("2021-02-06").withCalendar("islamic").day;
 // 24
 ```
 
