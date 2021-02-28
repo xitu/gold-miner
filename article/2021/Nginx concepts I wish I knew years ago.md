@@ -5,8 +5,10 @@
 > * 译者：[joyking7](https://github.com/joyking7)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[ningzhy3](https://github.com/ningzhy3)
 
+![路由器](https://res.cloudinary.com/practicaldev/image/fetch/s--B8sTzGjW--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/jldvigb958mnww2rvcvx.jpeg)
+
 # 我希望多年前就知道的 Nginx 概念
-![路由器](https://res.cloudinary.com/practicaldev/image/fetch/s--B8sTzGjW--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/jldvigb958mnww2rvcvx.jpeg)*Nginx 是一个遵循主从架构的 Web 服务器，可以用作反向代理、负载均衡器、邮件代理和 HTTP 缓存。*
+*Nginx 是一个遵循主从架构的 Web 服务器，可以用作反向代理、负载均衡器、邮件代理和 HTTP 缓存。*
 
 哇！复杂的术语和混乱的定义，里面充斥着大量令人困惑的词语，对吧？不用担心，我可以帮大家先了解 Nginx 的基本架构和术语，然后我们将安装并创建 **Nginx** 配置。
 
