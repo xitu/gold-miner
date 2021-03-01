@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released-Improves-Types-and-Developer-Experience.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released-Improves-Types-and-Developer-Experience.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # TypeScript 4.2 正式发布：优化了类型和开发者体验
 
