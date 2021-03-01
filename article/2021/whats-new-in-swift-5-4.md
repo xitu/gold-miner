@@ -2,56 +2,58 @@
 > * 原文作者：[Can Balkaya](https://medium.com/@canbalkaya)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-swift-5-4.md](https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-swift-5-4.md)
-> * 译者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# What’s New in Swift 5.4?
+# Swift 5.4 的新特性
+
+多个可变参数，拓展的隐式成员语法，Result 构建器，等等...
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3840/1*HfwBHnUJOzl56qCflMVQ1w.png)
 
-Swift 5.4 brings us a lot which is why I like it. In this article, we learn what is new in Swift 5.4.
+Swift 5.4 带来了许多改变，这也是我喜欢它的原因。在本文中，我们将学习 Swift 5.4 的新特性。
 
-> Note: You can [download this article’s example project and sources](https://github.com/Unobliging/What-s-New-in-Swift-5.4-) on GitHub. To open and edit these files, you have to use Xcode 12.5 beta. You can download Xcode 12.5 beta [here](https://developer.apple.com/download/). Instead of downloading Xcode 12.5 beta, you can download Swift 5.4 directly [here](https://swift.org/download/).
+> 注意：你可以在 GitHub 上下载 [本文的示例项目和源代码](https://github.com/Unobliging/What-s-New-in-Swift-5.4-) 。要打开和编辑这些文件，你需要使用 Xcode 12.5 beta 版。你可以下载 [Xcode 12.5 beta 版]((https://developer.apple.com/download/))。你也可以直接下载 [Swift 5.4]((https://swift.org/download/)) 而不是下载 Xcode 12.5 beta 版本。
 
-## The Most Important Improvement😄
+## 最重要的改进😄
 
-As anyone who has created an Xcode project or playground file before will know, when you create a new playground or a new Xcode project, the following value will be written on this project:
+正如任何之前创建过 Xcode 项目或 playground 文件的人所知道的一样，当你创建一个新的 playground 或 Xcode 项目时，下面的值会被写入到这个项目中:
 
 ```Swift
 var str = "Hello, playground"
 ```
 
-The name of this value has changed with Swift 5.4 as follows:
+该值的名称随 Swift 5.4 更改如下：
 
 ```Swift
 var greeting = "Hello, playground"
 ```
 
-Yes, I think this is the interesting and funny part of Swift 5.4.
+是的，这就是我认为 Swift 5.4 中最有趣的部分。
 
-Now we can look at improvements that really work!
+现在我们可以看看那些真正的改进了！
 
-## Multiple Variadic Parameters
+## 多个可变参数
 
-In Swift 5.4, we can use multiple variadic parameters on functions, methods, subscripts, and initializers. Before Swift 5.4, we had just one variadic parameter, like the code below:
+在 Swift 5.4 中，我们可以在函数、方法、下标和初始化器中可以使用多个可变参数。而在此之前，就只能有一个可变参数，就跟下面的代码一样：
 
 ```Swift
 func method(singleVariadicParameter: String) {}
 ```
 
-Now, we can write multiple variadic parameters like the code below:
+现在，我们可以像下面的代码那样编写多个可变参数:
 
 ```Swift
-func method(multipleVariadicParameter: String...) {}
+func method(multipleVariadicParameter: String..., secondMultipleVariadicParameter: String...) {}
 ```
 
-We can call the function we wrote above, but of course, we can only write one `String` element if we want. Here’s the code:
+我们可以这样调用上面所写的函数，同样，如果我们想的话，我们可以只传入一个字符串元素。这是代码:
 
 ```Swift
-method(multipleVariadicParameter: "Can", "Steve", "Bill")
+method(multipleVariadicParameter: "Can", "Steve", "Bill", secondmultipleVariadicParameter: "Tim", "Craig")
 ```
 
-Multiple variadic parameters work just like arrays. Of course, when calling a value in a parameter, it is necessary to check beforehand if that value exists or not; otherwise, it will be wrong and crash. Here’s the code:
+多个可变参数的工作原理与数组类似。当然，在调用参数中的值时，必须事先检查该值是否存在；否则，它将出错并崩溃。代码如下：
 
 ```Swift
 func chooseSecondPerson(persons: String...) -> String {
@@ -64,15 +66,15 @@ func chooseSecondPerson(persons: String...) -> String {
 }
 ```
 
-## Result Builders
+## Result 构建器
 
-Since SwiftUI came out, result builders are so important in Swift. Now, it is much more important with the new improvements.
+自从 SwiftUI 问世以来，Result 构建器在 Swift 中起着非常重要的作用。现在，随着新的改进，它变得更加重要。
 
-Can we create dozens of strings with a function that outputs a `String`? If we use result builders, the answer is yes!
+我们能用一个输出字符串的函数创建几十个字符串吗？如果我们使用 Result 构建器，这个答案是可以用的！
 
-We can define new result builders by defining new structs with `@resultBuilder`. The methods and properties you will define must be `static`.
+我们可以通过使用 `@resultBuilder` 定义新的结构来定义新的 Result 构建器。你要定义的方法和属性必须是 `static` 的。
 
-Back to our example of transforming `String` elements into a single `String` element. With the result builder below, we can join `String` elements written under them. The code is as follows:
+回到我们将多个 `String` 转换为单个 `String` 的例子。使用下面的 Result 构建器，我们可以顺序链接多个 `String` 元素。代码如下：
 
 ```Swift
 @resultBuilder
@@ -83,7 +85,7 @@ struct StringBuilder {
 }
 ```
 
-Let’s use the following code to describe it:
+让我们用以下代码来调用它：
 
 ```Swift
 let stringBlock = StringBuilder.buildBlock(
@@ -96,7 +98,7 @@ let stringBlock = StringBuilder.buildBlock(
 print(stringBlock)
 ```
 
-We had to use the `buildBlock` method directly when defining a value. Therefore, we had to put a comma at the end of each `String` element. Instead, we can use the `StringBuilder` in a function to do the same thing without using commas. Here’s the code:
+在定义值时，我们必须直接使用 `buildBlock` 方法。因此，我们必须在每个 `String` 的末尾加一个逗号。相反，我们可以在函数中使用 `StringBuilder` 来完成同样的工作，但这里不需要使用逗号。代码如下：
 
 ```Swift
 @StringBuilder func makeSentence() -> String {
@@ -109,7 +111,7 @@ We had to use the `buildBlock` method directly when defining a value. Therefore,
 print(makeSentence())
 ```
 
-What we have done with result builders so far may not mean much for you, but if we use result builders a little more effectively, you will understand their power better. For example, with two new methods that we will add to our result builder, we can use conditions to generate `String` elements using our result builder. The code is as follows:
+目前为止，我们用 Result 构建器所作的工作对你来说可能没有什么意义。但如果我们更有效地使用 Result 构建器，你将更好地理解它们的威力。例如，有了这两个将添加到 Result 构建器中的新方法，我们可以使用 Result 构建器来有条件的生成字符串。代码如下:
 
 ```Swift
 @resultBuilder
@@ -128,7 +130,7 @@ struct ConditionalStringBuilder {
 }
 ```
 
-As you can see, by creating an `if` loop, we can change the `String` element according to the boolean value. Here’s the result:
+如您所见，通过创建一个 `if` 循环，我们可以根据布尔值更改 `String` 元素。结果如下：
 
 ```Swift
 @ConditionalStringBuilder func makeSentence() -> String {
@@ -146,31 +148,31 @@ As you can see, by creating an `if` loop, we can change the `String` element acc
 print(makeSentence())
 ```
 
-There are many things that can be done with result builders. You can find them out by trying.
+有很多事情可以通过 Result 构建器来完成。你可以尝试一下，发现它们。
 
 ---
 
-## Extended Implicit Member Syntax
+## 拓展的隐式成员语法
 
-When defining an element inside a modifier, we no longer need to specify the main type of that element. So, you can chain together more than one member property or function without adding the type at the beginning, like this below:
+在修饰符内定义元素时，我们不再需要指定该元素的主要类型。因此，你可以将多个成员属性或函数链接在一起，而无需在开头添加类型，如下所示：
 
 ```Swift
 .transition(.scale.move(…))
 ```
 
-After Swift 5.4, we have to write this code block below for the same result. Here’s the line of code:
+在 Swift 5.4 之前，为了得到相同的结果我们必须编写下面的代码。就是下面这行代码：
 
 ```Swift
 .transition(AnyTransistion.scale.move(…))
 ```
 
-## Functions Support Same Names
+## 函数支持相同的名称
 
-Sometimes, you want to write functions with the same name. At least I wanted to do it. With Swift 5.4, we can do that.
+有些，你希望编写同名函数。至少我也是这么希望的。在 Swift 5.4 中，我们可以编写同名函数了。
 
-For example, if we create functions with the same names — and these functions have the same parameter name — our code will work if we define these parameters with different object types.
+例如，如果我们创建具有相同名称的函数——这些函数具有相同的形参名称——如果我们用不同的对象类型来定义这些形参，我们的代码就会起作用。
 
-You can try to write these below:
+你可以试着这样写：
 
 ```Swift
 struct iPhone {}
@@ -196,15 +198,15 @@ func setUpAppleProducts() {
 }
 ```
 
-## Conclusion
+## 结论
 
-I hope you found this article helpful. There are new reports that Swift 6.0 may be released. I will also write an article on this subject.
+希望这篇文章能对你有帮助。有报道称 Swift 6.0 可能即将发布。到时候我还会写一篇新文章来说明 Swift 6.0。
 
-Thank you for reading.
+感谢你的阅读。
 
 ---
 
-If you want to meet me or have questions about iOS development etc. you can have a one-on-one meeting with me [here](https://superpeer.com/canbalkya).
+如果你想和我见面，或者有关于 iOS 开发等方面的问题，你可以在[这里](https://superpeer.com/canbalkya)与我进行一对一的交流。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
