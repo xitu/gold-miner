@@ -185,7 +185,7 @@ try {
 
 > 如果您在寻找一支经历实战考验的 Node.js 团队来搭建产品，或者想要拓展您的工程师队伍，敬请考虑一下使用 RisingStack 的服务：https://risingstack.com/nodejs-development-consulting-services
 
-浏览器支持这些功能已经有一段时间了，Chrome 从 63 版开始支持，Firefox 从 57 版开始支持，Safari 从 11.1 版开始支持。然而 IE 和 Edge 目前并不支持。
+浏览器支持这些功能已经有一段时间了，Chrome 从 63 版开始支持，Firefox 从 57 版开始支持，Safari 从 11.1 版开始支持。然而 IE 和 Edge 目前并不支持（译注：Edge 已从 79 版本开始支持了）。
 
 关于异步迭代器的使用场景，你有新点子了吗？你是否已准备好了在实际应用中使用它？
 
