@@ -5,6 +5,12 @@
 > * 译者：
 > * 校对者：
 
+# undefined vs. null revisited
+
+Many programming languages have one “non-value” called null. It indicates that a variable does not currently point to an object – for example, when it hasn’t been initialized yet.
+
+In contrast, JavaScript has two such non-values: `undefined` and `null`. In this blog post, we examine how they differ and how to best use or avoid them.
+
 ## `undefined` vs. `null`
 
 Both values are very similar and often used interchangeably. How they differ is therefore subtle.
@@ -294,7 +300,7 @@ Why choose this approach?
 
 As an example, we may want a property `file.title` to be either a string or “switched off” (`file` doesn’t have a title). There are several ways to achieve this.
 
-#### `null` is the “switched off” value
+#### `null` is the “switched off” value
 
 This looks as follows:
 
@@ -321,7 +327,7 @@ Why choose this approach?
 * We don’t want our non-value to trigger parameter default values and destructuring default values.
 * We want to stringify the non-value as JSON (something that we can’t do with `undefined`).
 
-#### `undefined` is the “switched off” value
+#### `undefined` is the “switched off” value
 
 This looks as follows:
 
@@ -341,7 +347,7 @@ Why choose this approach?
 
 One downside of `undefined` is that it is often created accidentally in JavaScript: by an uninitialized variable, a typo in a property name, forgetting to return something from a function, etc.
 
-#### Why not use both `undefined` and `null` as “switched off” values?
+#### Why not use both `undefined` and `null` as “switched off” values?
 
 When receiving a value, it can make sense to treat both `undefined` and `null` as “not a value”. However, when we are creating values, we want to be unambiguous so that handling those values remains simple.
 
