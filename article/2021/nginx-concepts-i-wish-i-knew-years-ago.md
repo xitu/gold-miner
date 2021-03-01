@@ -1,7 +1,7 @@
 > * 原文地址：[Nginx concepts I wish I knew years ago](https://dev.to/aemiej/nginx-concepts-i-wish-i-knew-years-ago-23o0)
 > * 原文作者：[Aemie Jariwala](https://dev.to/aemiej)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Nginx%20concepts%20I%20wish%20I%20knew%20years%20ago.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/nginx-concepts-i-wish-i-knew-years-ago.md](https://github.com/xitu/gold-miner/blob/master/article/2021/nginx-concepts-i-wish-i-knew-years-ago.md)
 > * 译者：[joyking7](https://github.com/joyking7)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[ningzhy3](https://github.com/ningzhy3)
 
