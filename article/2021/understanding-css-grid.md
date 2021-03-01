@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-css-grid.md](https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-css-grid.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # 自适应 CSS 栅格：自由布局的最终版本
 
