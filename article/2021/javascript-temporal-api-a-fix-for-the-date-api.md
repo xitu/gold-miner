@@ -9,29 +9,29 @@
 
 ![](https://cdn-images-1.medium.com/max/2024/1*iq9Xe8BZue94e2BD4ecpqA.png)
 
-JavaScript 的日期 API 并不那么好，因为它是直接从 [Java 的 `Date` 类](https://docs.oracle.com/javase/6/docs/api/java/util/Date) 处复制了 `Date` 对象实现的，而 Java 维护者最终弃用了许多 `Date` 类的方法，并于 1997 年创建了 `Calendar` 类以取代它。
+JavaScript 的日期处理 API 比较糟糕，因为它是直接从 [Java 的 `Date` 类](https://docs.oracle.com/javase/6/docs/api/java/util/Date) 处进行复制从而实现 `Date` 对象的，而 Java 维护者最终弃用了许多 `Date` 类的方法，并于 1997 年创建了 `Calendar` 类以取代它。
 
-但是 JavaScript 的 `Date` API 还没有什么适当的修复，这就是为什么我们今天遇到以下问题：
+但是 JavaScript 的 `Date` API 还没有得到像样的修复，这就是为什么我们今天会遇到以下问题：
 
 * `Date` 对象是可变的
 * 用于日期和时间计算的混乱 API（例如，天数的加减）
 * 仅支持 UTC 和本地时区
-* 从字符串中解析日期的方法的不可靠
+* 从字符串中解析日期的不可靠
 * 不支持公历以外的其他历法
 
 目前，由于 `Date` API 在库和浏览器引擎中的广泛使用，因此并无法修复其错误部分 —— 更改 `Date` API 的工作方式很可能会破坏许多网站和库的代码。
 
-新的 `Temporal` API 提议旨在解决 `Date` API 的问题，它为 JavaScript 日期、时间操作带来了以下修复：
+新的 `Temporal` API 提案旨在解决 `Date` API 的问题，它为 JavaScript 的日期和时间操作带来了以下修复：
 
 * 仅创建和处理不可变的 `Temporal` 对象
 * 用于日期和时间计算的简单 API
 * 支持所有时区
 * 遵循 ISO-8601 格式进行严格的日期解析
-* 支持非格里高利历
+* 支持非公历的历法
 
-> 请记住，`Temporal` 提案[当前处于第 2 阶段](https://github.com/tc39/proposal-temporal#status)，尚未准备好用于生产环境中。
+> 请记住，`Temporal` 提案[当前处于第二阶段](https://github.com/tc39/proposal-temporal#status)，尚未准备好用于生产环境中。
 
-让我们看看 `Temporal` API 功能如何与代码示例一起使用吧。下文中的所有的 `Temporal` API 代码都是使用 [Temporal Polyfill](https://www.npmjs.com/package/proposal-temporal) 创建的。
+让我们借助代码示例理解 `Temporal` API 的功能吧。下文中的所有 `Temporal` API 代码都是使用 [Temporal Polyfill](https://www.npmjs.com/package/proposal-temporal) 创建的。
 
 ## 不可变的日期对象
 
@@ -58,10 +58,10 @@ let today = new Date();
 let oneWeekLater = addOneWeek(today);
 
 console.log(today);
-console.log(oneWeekLater); // 一样的日期
+console.log(oneWeekLater); //  值和变量 today 一样
 ```
 
-`Temporal` 会通过提供不直接修改对象的方式修复这个方法，例如下面就是使用 `Temporal` API 添加一周的例子：
+`Temporal` 提供了不直接修改对象的方法，进而修复了这个问题，例如下面就是使用 `Temporal` API 添加一周的例子：
 
 ```js
 const date = Temporal.now.plainDateISO();
@@ -74,9 +74,9 @@ console.log(date); // 2021-02-20
 
 ## 用于日期和时间计算的 API
 
-前面的 `Temporal` 示例中我们了解到了 `.add()` 方法，它能帮助我们对日期对象执行计算。而与当前的 `Date` API 相比，它更容易使用也更直接，而后者仅为我们提供获取和设置日期值的方法。
+前面的 `Temporal` 示例中我们了解到了 `.add()` 方法，它能帮助我们对日期对象执行计算。我们现在使用的 `Date` API 仅提供了获取和设置日期值的方法，不如 `Temporal` 来得简单直接。
 
-`Temporal` 还为我们提供了多个 API 来计算日期值。 一个例子是 `until()` 方法，计算 `firstDate` 和 `secondDate` 之间的时间差。
+`Temporal` 还为我们提供了多个 API 来计算日期值。比如说 `until()` 方法，它可以计算 `firstDate` 和 `secondDate` 之间的时间差。
 
 而如果使用 `Date` API，我们需要手动计算两个日期之间的天数，如下所示：
 
@@ -101,17 +101,17 @@ console.log(diffDays); // 10
 
 其他的帮助我们计算的方法还有：
 
-* [`.subtract()` 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#subtract)，用于减少当前日期的日数、月数或年数。
-* [`.since()` 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#since)，用于计算一个特定日期以后过去的时间长度。
-* [.equals() 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#equals)，用于比较如果两个日期相同。
+* [`.subtract()` 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#subtract)，用于减少当前日期的天数、月数或年数。
+* [`.since()` 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#since)，用于计算一个特定日期迄今为止所经历的天数、月数或年数。
+* [`.equals()` 方法](https://tc39.es/proposal-temporal/docs/plaindate.html#equals)，用于比较两个日期是否相同。
 
 这些 API 能够帮助我们去完成计算，而无需自己创建解决方案。
 
-## 对所有时区的支持
+## 支持所有时区
 
 当前的 `Date` API 在系统中以 UTC 标准跟踪时间，通常会在计算机的时区中生成日期对象，操纵时区没有简单的方法。
 
-我发现操纵时区的一种方法是使用 `Date.toLocaleString()` 方法，如下所示：
+我发现操纵时区的一种方式是使用 `Date.toLocaleString()` 方法，如下所示：
 
 ```js
 let date = new Date();
@@ -128,7 +128,7 @@ console.log(singaporeDate); // 2/21/2021, 12:36:46 PM
 
 但是由于此方法返回一个字符串，因此进一步的日期和时间操作要求我们先将字符串转换回日期。
 
-而如果我们使用 `Temporal` API 定义时区，我们可以使用 `zonedDateTimeISO()` 方法在创建时间的时候定义时区，可以。我们可以使用 `.now` 方法获取当前日期/时间：
+而 `Temporal` API 允许我们在使用 `zonedDateTimeISO()` 方法创建日期的时候去定义时区。我们可以使用 `.now` 对象去获取当前的日期、时间：
 
 ```js
 let tokyoDate = Temporal.now.zonedDateTimeISO('Asia/Tokyo');
@@ -150,11 +150,11 @@ console.log(oneWeekLater);
 // 2021-02-27T13:48:24.435904429+09:00[Asia/Tokyo]
 ```
 
-`Temporal` API 遵循使用类型的约定，其中以 `Plain` 开头的名称是没有时区的（`.PlainDate`，`.PlainTime`，`.PlainDateTime`），与 `.ZonedDateTime` 恰好相对。
+`Temporal` API 遵循使用类型的约定，其中以 `Plain` 开头的名称是没有时区的（`.PlainDate`、`.PlainTime`、`.PlainDateTime`），而 `.ZonedDateTime` 则相反。
 
 ## 遵循 ISO-8601 标准进行严格的日期解析
 
-当前从字符串解析日期是不可靠的，因为当我们传递 ISO-8601 格式的日期字符串时，返回值将不同，具体取决于我们是否传递了时区偏移量。
+现有的从字符串解析日期的方式是不可靠的，因为当我们传递 ISO-8601 格式的日期字符串时，返回值将根据是否传递了时区偏移量而有所不同。
 
 考虑以下示例：
 
@@ -165,13 +165,13 @@ new Date("2021-02-20T05:30").toISOString();
 // 2021-02-20T10:30:00.000Z
 ```
 
-上面的第一个 `Date` 构造将字符串视为 UTC+0 时区，而第二个构造将字符串视为 UTC-5 时区（我当前所在的时区），因此将返回值会被调整到 UTC+0 时区**（5:30 UTC-5 修改到 10:30 UTC+0）**
+上面的第一个 `Date` 构造器将字符串视为 UTC+0 时区，而第二个构造器将字符串视为 UTC-5 时区（我当前所在的时区），因此返回值会被调整到 UTC+0 时区**（5:30 UTC-5 相当于 10:30 UTC+0）**。
 
-`Temposal` 提议通过区分 `PlainDateTime` 和 `ZonedDateTime` 来解决此问题，如下所示：
+`Temposal` 提案通过区分 `PlainDateTime` 和 `ZonedDateTime` 来解决此问题，如下所示：
 
 ![来源：[临时提案文档](https://tc39.es/proposal-temporal/docs/index.html#string-persistence)](https://cdn-images-1.medium.com/max/2000/1*Y4XViVCg-Cl6KtivlWbF5A.png)
 
-当我们需要使日期成为包含时区的对象时，我们需要使用 [ZonedDateTime](https://tc39.es/proposal-temporal/docs/index.html#Temporal-ZonedDateTime) 对象。与之相对，我们可以使用 [PlainDateTime](https://tc39.es/proposal-temporal/docs/index.html#Temporal-PlainDateTime) 对象。
+当我们想要使日期成为包含时区的对象时，我们需要使用 [ZonedDateTime](https://tc39.es/proposal-temporal/docs/index.html#Temporal-ZonedDateTime) 对象，反之则使用 [PlainDateTime](https://tc39.es/proposal-temporal/docs/index.html#Temporal-PlainDateTime) 对象。
 
 通过分开创建包含时区和不包含时区的日期，`Temporal` API 可帮助我们从提供的字符串中解析正确的日期、时间组合：
 
@@ -190,7 +190,7 @@ Temporal.ZonedDateTime.from("2021-02-20T05:30[Asia/Tokyo]");
 
 ## 支持公历以外的历法
 
-尽管公历是世界上使用最广泛的日历系统，但有时我们可能需要使用其他日历系统来观察具有文化或宗教意义的特殊日期。
+尽管公历是世界上使用最广泛的日历系统，但有时我们可能需要使用其他日历系统以查看具有文化或宗教意义的特殊日期。
 
 `Temporal` API 允许我们指定要用于日期、时间计算的日历系统。
 
@@ -213,13 +213,13 @@ Temporal.PlainDate.from("2021-02-06").withCalendar("islamic").day;
 // 24
 ```
 
-[Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters) 中的所有可能的日历值都在这个提议中完善了。
+一旦提案通过，[Intl.DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat#parameters) 中所有可能的日历值都将被实现。
 
 ## 结论
 
-`Temporal` API 是针对 JavaScript 的一项新提议，有望为该语言提供现代的日期、时间 API。而根据我对 Polyfill 的测试，该 API 确实提供了更轻松的日期、时间操作，同时考虑了时区和日历的差异。
+`Temporal` API 是针对 JavaScript 的一项新提案，有望为该语言提供现代化的日期和时间 API。而根据我基于 Polyfill 的测试，该 API 确实提供了更简单的日期和时间操作，同时也考虑到了时区和日历的差异。
 
-该提案本身仍处于第二阶段，因此，如果你有兴趣了解更多信息并提供反馈，你可以访问 [Temporal 文档](https://tc39.es/proposal-temporal/docs/index.html) 并尝试 [Polyfill NPM软件包](https://www.npmjs.com/package/proposal-temporal)。
+该提案本身仍处于第二阶段，因此，如果你有兴趣了解更多信息并提供反馈，你可以访问 [Temporal 文档](https://tc39.es/proposal-temporal/docs/index.html) 并尝试其提供的 [Polyfill NPM 包](https://www.npmjs.com/package/proposal-temporal)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
