@@ -9,15 +9,15 @@
 
 ![](https://cdn-images-1.medium.com/max/2800/0*MJfiLHUiFLi5M2sm.png)
 
-CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行 CSS，就可以创建一个之前不用 JavaScript 根本不可能的栅格布局。我们无须任何插件或做一些什么复杂的安装，也不需要没有繁琐的附加文件，也不仅仅限于 12 列的 Grid 布局（译者注：指 Bootstrap 提供的 12 栅格系统）。
+CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方法。我们仅需几行 CSS，就可以创建一个之前不用 JavaScript 根本不可能的栅格布局。我们无须任何插件或做一些什么复杂的安装，也不需要没有繁琐的附加文件，也不仅仅限于 12 列的 Grid 布局（译者注：指 Bootstrap 提供的 12 栅格系统）。
 
 ## 我们可以使用什么栅格？
 
-简而言之：实际上，**几乎所有能够被想到的栅格**都可以被我们所使用。我们可以完全自由地去选择不同栅格的尺寸，大小和位置。我们可以在[栅格示例](https://gridbyexample.com/examples/)中找到最常见的带有标记的栅格的概述。
+简而言之：我们实际上可以使用**几乎所有能够被我们所想到的栅格布局**。我们可以完全自由地去选择不同栅格的尺寸，大小和位置。我们可以在[栅格示例](https://gridbyexample.com/examples/)中找到最常见的带有标记的栅格的概述。
 
 ### 让我们从构建我们示例的 HTML 标记开始吧！
 
-一个类为 `.container` 的 `div` 容纳了 5 个 `div` 或称之为项目（当然可以或多或少）。当然如果你愿意，我们可以直接从 [CodePen 中的 HTML 和 CSS 标记](https://codepen.io/chrisvall/pen/YJJdxQ)代码入手。
+一个类名为 `container` 的 `div` 元素容纳了 5 个子 `div` 元素，或称之为项目（当然可以多，也可以更少）。如果你愿意，我们可以直接从 [CodePen 中的 HTML 和 CSS 标记](https://codepen.io/chrisvall/pen/YJJdxQ)代码入手。
 
 ```html
 <div class="container">
@@ -33,7 +33,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 基础：在 CSS 中设置栅格和行列
 
-在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们注册了所需的列（本例中将注册 5 列，每列为 250px）。 使用`grid-template-rows`，我们可以设置行的高度（如果需要的话，本例中是`150px`）。就是这样我们就做好了第一个栅格布局！
+在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们划分了所需的列（本例中将划分 5 列，每列设置为 250px）。 通过使用 `grid-template-rows`，我们可以设置行的高度（如果需要的话，本例中是 150px）。做完以上，这样，我们就实现了第一个栅格布局！
 
 ```css
 .container {
@@ -50,7 +50,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 设置间隔
 
-我们可以使用 `grip-gap` 设置每一项之间的间隔，也可以使用 `column-gap` 和` row-gap` 分别设置水平和垂直的间隔。顺便提一句，我们可以使用所有通用单位，例如，`px` 用于固定间隔，或 `％` 用于自适应的间隔。
+我们可以使用 `grip-gap` 来设置每一项之间的间隔，也可以使用 `column-gap` 和` row-gap` 分别设置水平和垂直的间隔。顺便提一句，我们可以使用所有通用单位，例如，使用 `px` 用于设置固定的间隔，或使用 `％` 来设置自适应的间隔。
 
 ```css
 .container {
@@ -63,9 +63,9 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ![需要注意的是容器的左边会将间隔减半，因此在本例中他们的间隔是 15px（对大多数其它的栅格同理）](https://cdn-images-1.medium.com/max/2800/0*CR0ENpYQu_-fNCuD.png)
 
-### 使用 `fr` 自动补充剩余的屏幕空间
+### 使用 `fr` 自动填充剩余空间
 
-这可是每一个设计师的梦想！我们可以使用 **分数单位**（Fractional Units）或简写 `fr`，根据我们自己的想法分配可用空间！例如，在这里，我们将屏幕尺寸分为 6 个部分。 第一列占用空间的 1/6 = 1fr，第二列 3/6 = 3fr，第三列 2/6 = 2fr。当然，我们也可以根据需要添加 `grid-gap`。
+这可是每一个设计师的梦想！我们可以使用 **分数单位**（Fractional Units）或简写 `fr`，根据我们自己的想法分配可用空间！例如，在这里，我们将屏幕空间划分为 6 个部分。 第一列占用空间的 1/6 = 1fr，第二列 3/6 = 3fr，第三列 2/6 = 2fr。当然，我们也可以根据需要添加 `grid-gap`。
 
 ```css
 .container {
@@ -93,7 +93,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 排序上的绝对自由
 
-私以为最棒的是即使在栅格中，每一项都可以占用我们所希望的尺寸！我们可以用 `grid-column-start` 设置起点，并以 `grid-column-end` 设置终点，或缩写为 `grid-column: startpoint / endpoint;`：
+私以为，最棒的是在栅格中，我们可以自由设置每一项所占用的尺寸！我们可以用 `grid-column-start` 设置起点，并用 `grid-column-end` 设置终点，或采用缩写方式 `grid-column: startpoint / endpoint;`：
 
 ```css
 .container {
@@ -116,7 +116,7 @@ CSS Grid 是一种在 Web 上创建二维布局的新方法。我们仅需几行
 
 ### 同样适用于垂直或全区域的分布！
 
-在这里 CSS Grid 耀眼十足，证明了其优于 Bootstrap 和 Co 之处 —— 借助 `grid-row`，每一项都可以被定义在所有垂直上的宽度和位置。正如我们将在下一个示例中看到的那样，这是适应不同屏幕尺寸和设备的压倒性的优势。
+在这里 CSS Grid 耀眼十足，证明了对比 Bootstrap 和 Co 的优越性 —— 借助 `grid-row`，每一项都可以定义任意的位置及宽度。正如我们将在下一个示例中看到的那样，对于适应不同屏幕尺寸和设备的具有绝对优势
 
 ```css
 .container {
