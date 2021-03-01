@@ -181,7 +181,7 @@ try {
 
 ```
 
-如你所见，当你有很多页数据要获取，或者类似于在应用的 UI 中无限滚动时，异步迭代器是非常有用的。
+如你所见，当我们有很多页数据要获取，或者类似于在应用的 UI 中要实现无限滚动时，异步迭代器是非常有用的。
 
 > 如果您在寻找一支经历实战考验的 Node.js 团队来搭建产品，或者想要拓展您的工程师队伍，敬请考虑一下使用 RisingStack 的服务：https://risingstack.com/nodejs-development-consulting-services
 
