@@ -1,7 +1,7 @@
 > * 原文地址：[About Async Iterators in Node.js](https://blog.risingstack.com/async-iterators-in-node-js/)
 > * 原文作者：[janos](https://blog.risingstack.com/author/janos/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.mdd)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md)
 > * 译者：[Isildur46](https://github.com/Isildur46)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
