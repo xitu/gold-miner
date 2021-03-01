@@ -9,7 +9,7 @@
 
 TypeScript 团队最近宣布了 [TypeScript 4.2](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/) 版本的发布！该版本的 TypeScript 拥有了更灵活的类型注释，更严格的检查，额外的配置选项以及一些其他的重大变化。我们现在可以在元组的类型定义中的任意位置使用 Rest 参数（而不是只能在末尾使用）了！类型别名不再在类型错误消息中扩展，从而让我们开发者拥有更好的体验。
 
-TypeScript 4.2 [支持元组类型中任何位置的其余参数](https://github.com/microsoft/TypeScript/pull/41544)：
+TypeScript 4.2 [支持元组类型中任何位置的剩余参数（Rest 参数/Rest Parameters）](https://github.com/microsoft/TypeScript/pull/41544)：
 
 ```ts
 type T1 = [...string[], number];  // 任意个 string 以及一个 number
