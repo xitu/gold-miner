@@ -2,101 +2,101 @@
 > * 原文作者：[Rishit Dagli](https://medium.com/@rishit.dagli)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md](https://github.com/xitu/gold-miner/blob/master/article/2021/machine-learning-with-android-11-whats-new.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[HumanBeing](https://github.com/HumanBeingXenon)、[keepmovingljzy](https://github.com/keepmovingljzy)、[lsvih](https://github.com/lsvih)
 
-# Machine Learning with Android 11: What’s new
+# 使用 Android 11 进行机器学习：新功能
 
-![ML with Android 11: What’s new](https://cdn-images-1.medium.com/max/3840/1*_6zTCa-SeOV2q549ey3b5Q.jpeg)
+![使用 Android 11 进行机器学习：新功能](https://cdn-images-1.medium.com/max/3840/1*_6zTCa-SeOV2q549ey3b5Q.jpeg)
 
-This blog demonstrates how you can get started with on-device ML with tools or plugins specifically launched with [Android 11](https://developer.android.com/11). If you have earlier worked with ML in Android, you will explore easier ways to integrate your ML applications with your Android apps. If you have not worked with ML in Android earlier, this could be a starting point for you to do so and start super powering your Android app with Machine Learning. In this blog, I majorly demonstrate the two biggest updates with Android 11: [ML Model Binding Plugin](https://developer.android.com/studio/preview/features#tensor-flow-lite-models) and the [new ML Kit](https://g.co/mlkit). All of the example apps code as we discuss below is present in [this GitHub repo](https://github.com/Rishit-dagli/ML-with-Android-11).
+本文将会向大家展示如何使用专为 [Android 11](https://developer.android.com/11) 设计的工具或插件来开始使用设备上的 ML（Machine Learning，机器学习）功能。如果你以前在 Android 中使用过 ML，则可以跟随本文一起探索将你的 ML 应用程序与 Android 应用程序集成的更简便方法。而如果你没有在 Android 中使用过 ML，那么这可能是你使用 Android 进行 ML 的起点，开始你使用 ML 为你的 Android 应用程序提供超强功能之旅。在此博客中，我将主要演示 Android 11 的两个最强大的更新：[ML 模型绑定插件](https://developer.android.com/studio/preview/features#tensor-flow-lite-models)和[新的 ML Kit 套件](https://g.co/mlkit)。我们下面讨论的所有示例应用程序代码都可以在[此 GitHub 存储库](https://github.com/Rishit-dagli/ML-with-Android-11)中找到。
 
-You can also check out the talks I gave about this topic in the [GitHub repo](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md).
+你也可以在 [GitHub 存储库](https://github.com/Rishit-dagli/ML-with-Android-11/blob/master/talks.md)中查看有关该主题的讨论。
 
-## Why care about on-device ML in Android?
+## 为什么我们要关心 Android 设备上 ML 功能？
 
-As you will notice we majorly focus on on-device ML in this blog, Android 11 has a lot of cool updates for on-device ML but let’s talk in brief about why you should care about it, you will also understand why there is such hype about on-device ML or ML on edge.
+如你所见，我们在本文中主要关注设备上的 ML。Android 11 对设备上的 ML 做出了许多很酷的更新，但先简述一下我们为什么要对此加以关注。你也将这里知道为什么会有这么多关于 ML 或 终端 ML 的宣传。
 
-**The idea behind on-device ML**
+**设备上的 ML 背后的理念：**
 
-The idea here is to use ML such that opposed to the traditional approach I no longer send my data to a server or some cloud-based system which then does the ML and then returns me the outputs. I instead get outputs or inferences from my ML model on the device itself that is I no longer send data out of my device itself. I also do all the processing and the inference on the mobile device itself.
+这里使用 ML 的方法与我们的旧有方法恰好相反，我们不再将设备上的数据发送到服务器或某个基于云的系统，在上面使用 ML 判断数据，然后再将得出的结论返回给设备。取而代之的是，直接利用设备上的 ML 模型获取输出或推断，即不再让设备发送数据给服务器判断数据，利用移动设备本身，完成所有的处理和推断。
 
-![The idea behind on-device ML](https://cdn-images-1.medium.com/max/3836/1*O1a_Su6P-XggXk9IXTSzMQ.jpeg)
+![设备上 ML 背后的理念](https://cdn-images-1.medium.com/max/3836/1*O1a_Su6P-XggXk9IXTSzMQ.jpeg)
 
-You would not directly use the model for your edge device. You would need to compress it or optimize the model so you can run it on the edge device as it has limited computation power, network availability, and disk space. In this document, however, we will not be discussing the optimization process. We will be deploying a `.tflite` model file. You can read more about [TensorFlow Lite](https://www.tensorflow.org/lite/) and the [Model Optimization process](https://www.tensorflow.org/lite/performance/model_optimization) with TensorFlow Lite.
+你不会直接将模型用于你的设备，而需要在导入前先对你的模型进行压缩或优化，以便能够在设备上正常的运行它 —— 因为终端设备的计算能力、网络可用性和磁盘空间有限。但在本文中，我们将跳过优化过程，直接部署 `.tflite` 模型文件。而你可以进一步了解 [TensorFlow Lite](https://www.tensorflow.org/lite/)和[模型优化过程](https://www.tensorflow.org/lite/performance/model_optimization)。
 
-**Advantages of on-device ML**
+**设备上进行 ML 的优势**
 
-Here I have listed some advantages of using on-device ML:
+使用设备上 ML 的一些优点：
 
-* Power consumption
+* 能量消耗
 
-So the first thing that would come to your mind is power consumption, you spend a lot of power sending or streaming video data continuously to a server and sometimes it becomes infeasible to do so. However, also worth a mention sometimes the opposite could also be true when you employ heavy pre-processing.
+你所能够想到的第一件事应该就是能耗：曾经你需要耗费大量的能量，将你的视频数据连续发送或流式传输到服务器。但有时这样做是不可行的 —— 没有数据网络的时候。值得一提的是，如果你对你的数据先做大量的预处理，倒也能节省些能耗。
 
-* Inference time
+* 推理时间
 
-Another important thing to consider is the time it takes me to get the output or essentially run the model. For real-time applications, this is a pretty important aspect to consider. Without sending the data and having to receive it back I speed up my inference time too.
+另一项要考虑的重要事项是获取输出或实际运行模型所花的时间。对于实时应用而言，这是一个相当重要的层面。程序无需发送或接受数据，加快了推理的速度。
 
-* Network availability
+* 网络可用性
 
-Using the traditional approach is also expensive in terms of network availability. I should have the bandwidth or network to continuously send the data and receive inferences from the server.
+使用传统方法在考虑网络可用性层面也是相当昂贵的，因为你的设备必须在适宜的带宽或网络环境中，才能连续发送数据并从服务器接收数据才能正常获取 ML 结果。
 
-* Security
+* 安全
 
-And finally security I no longer send data to a server or cloud-based system, I no longer send data out of the device at all thus enforcing security.
+最后，你的数据的安全性也将提升：设备不再需要将数据发送到服务器或基于云的系统，即不再将数据发送出设备，从而增强了安全性。
 
-## ML Model Binding Plugin
+## ML 模型绑定插件
 
-> Note: You need Android Studio 4.1 or above to be able to use the Model Binding Plugin
+> 注意：您需要 Android Studio 4.1 或更高版本才能使用 ML 模型绑定插件
 
-**What does the Model Binding Plugin focus on?**
+**ML 模型绑定插件主要关注什么？**
 
-You can make a fair enough guess from the name “Model Building” so as to what the [ML Model Binding Plugin](https://developer.android.com/studio/preview/features#tensor-flow-lite-models) would do allow us to use custom TF Lite Models very easily. This lets developers import any TFLite model, read the input/output signature of the model, and use it with just a few lines of code that calls the open-source TensorFlow Lite Android Support Library.
+你可以从“模型构建”这个名称中做出足够合理的猜测，从而了解 [ML 模型绑定插件](https://developer.android.com/studio/preview/features#tensor-flow-lite-models)。它确实可以使我们非常轻松地使用自定义 TF Lite 模型，让我们这群开发人员可以方便地导入任何 TFLite 模型，读取导入的模型的输入或输出的签名，并且只需要再调用几行代码，就可以使用 TensorFlow Lite Android 支持库。
 
-The ML model binding plugin makes it super easy for you to use a TF model in your app. You essentially have a lot less code to write that calls the TensorFlow Lite Android Support Library. If you have worked with TensorFlow Lite models you maybe know that you first need to convert everything to a `ByteArray` you no longer have to convert everything to `ByteArray` anymore with the ML Model Binding Plugin.
+ML 模型绑定插件使您可以在应用程序中轻松使用 TF 模型。从本质上讲，你需要编写的调用 TensorFlow Lite Android 支持库的代码要少得多。如果你曾经使用过 TensorFlow Lite 模型，则你可能知道你首先需要将所有内容都转换为 `ByteArray`。使用 ML 模型绑定插件，你将不再需要再将所有内容都转换为 `ByteArray`。
 
-What I also love about this new plugin is you can easily use make use of GPUs and the NN API very easily. With the model binding plugin using them has never been easier. Using them is now just a dependency call and a single line of code away isn’t that cool what you can do with the Model Binding plugin. With Android 11 The Neural Network API you also have unsigned integer weight support and a new Quality of Service (QOS) API too supporting even more edge scenarios. And Of course, this would make your development a lot faster with the features we just talked about.
+我喜欢这个新插件的另一个原因是我可以轻松地使用 GPU 和 NN API。使用 ML 模型绑定插件，使用它们从未如此简单。现在，要使用它们，我们仅仅只需要调用一个依赖项和一行代码。难道使用 模型绑定 插件不酷嘛？借助 Android 11 神经网络 API，我们甚至还拥有了无符号整数权重支持和新的服务质量（QOS）API，也同时还支持了更多的终端场景。使用上文谈及的这些功能，你绝对可以更快地进行开发！
 
-**Using the Model Binding Plugin**
+**使用模型绑定插件**
 
-Let us now see how we can implement all that we talked about.
+现在让我们看看如何实现所讨论的内容。
 
-So the first step is to import a TensorFlow Lite model with metadata. Android Studio now has a new option for importing the TensorFlow model, just right click on the module you want to import it in and you will see an option under `others` called `TF Lite model`.
+因此，第一步是导入带有元数据的 TensorFlow Lite 模型。Android Studio 现在有一个用于导入 TensorFlow 模型的新选项：只需右键单击要导入它的模块，随后你将会在 `Others` 下看到一个叫 `TF Lite Model` 的选项。
 
-![The import model option in Android Studio](https://cdn-images-1.medium.com/max/2500/1*fnNNyLYKqafERAjUfwPsxQ.jpeg)
+![Android Studio 中的导入模型选项](https://cdn-images-1.medium.com/max/2500/1*fnNNyLYKqafERAjUfwPsxQ.jpeg)
 
-You can now just pass in the path of your `tflite` model, it will import the model for you in a directory in the module you selected earlier called `ml` from where you will be able to use the model. Adding the dependencies and GPU acceleration too is just a click away.
+我们只需传递 `tflite` 模型的路径即可，而它就会自动地在你之前选择的 `ml` 模块中的目录中为我们导入模型。我们现在就可以在其中使用该模型，并且我们只需几个单击即可添加依赖项目和使用 GPU 加速。
 
-![Importing a `tflite` model](https://cdn-images-1.medium.com/max/2502/1*wJmnVf7wtCOV50HnXXmmPQ.jpeg)
+![导入 `tflite` 模型](https://cdn-images-1.medium.com/max/2502/1*wJmnVf7wtCOV50HnXXmmPQ.jpeg)
 
-So now from my model metadata, I can also know the input, output shapes, and a lot more that I would need to use it, you can see this info by opening the `tflite` model file in Android Studio. So in this screenshot, I am using an open-source model made by me to classify between rock, paper, and scissors. So you just show your hand in front of the camera and it identifies if it's a rock paper or scissor, and that's what I demonstrate here too.
+现在从我的模型元数据中，我还可以知道输入、输出的类型以及其他需要被使用的信息 —— 我们可以通过在 Android Studio 中打开 `tflite` 模型文件来查看此信息。在这个屏幕截图中，我使用的是我制作的开源模型来对剪刀、石头、布进行区分。我们只需将手放在摄像头前即可识别出是剪刀还是石头还是布，这也是我在本文中演示的内容。
 
-![Viewing the model metadata](https://cdn-images-1.medium.com/max/2502/1*ZHuSORcTLhxtSWr60TzxWA.jpeg)
+![查看模型元数据](https://cdn-images-1.medium.com/max/2502/1*ZHuSORcTLhxtSWr60TzxWA.jpeg)
 
-Let’s finally start using the model, so for a streaming inference which is most probably what you would want to do; live image classification. The easiest way would be to use Camera X and pass each frame to a function which can perform the inference. So what I’m interested as of now is the function which does the inference. You will see how easy it is to do this, a sample code for this also seems when you import a TF Lite Model which you can use.
+最后，让我们开始使用该模型，以便进行流推断，这很可能也是你想要执行的操作：实时图像分类。要实现这个，最简单的方法是使用 Camera X，并将每个帧传递给可以执行推理的函数。在这里，其实我感兴趣的是进行推断的函数。我们可以发现执行此操作真的是非常容易：在导入可以使用的 TF Lite 模型时，似乎也同时生成了一份示例代码。
 
-```
+```kotlin
 private val rpsModel = RPSModel.newInstance(ctx)
 ```
 
-So we’ll start by instantiating a `rps` model short for a rock paper scissors model and pass it the context. With the plugin, my model name was `RPS Model.tflite` so a class of the exact same name would be made for you so I have a class called `RPS Model`.
+这里我们将首先实例化一个 `rps` 模型，该模型是剪刀石头布模型的缩写，并将其传递给上下文。在使用这个插件，同时我的模型名称为 `RPS Model.tflite` 的情况下，程序为我创建了一个完全相同名称的类，一个名为 `RPS Model` 的类。
 
-```
+```kotlin
 val tfImage = TensorImage.fromBitmap(toBitmap(imageProxy))
 ```
 
-Once you do this you need to convert your data into a form which we can use so we’ll convert it to a `Tensor Image` from `bitmap`, if you used the TF Interpreter you know that you need to convert your image to a `ByteArray`, you don't need to do that anymore and you’ll feed in an image proxy
+现在我们需要将数据转换为可使用的格式，以便将其从 `Bitmap` 转换为 `Tensor Image`。如果我们使用 TF 解释器，则我们需要将图像转换为一个`ByteArray`。但现在我们无需再这样做了 —— 直接交给一个图片代理去处理即可。
 
-```
+```kotlin
 val outputs = rpsModel.process(tfImage)
     .probabilityAsCategoryList.apply {
-        sortByDescending { it.score } // Sort with highest confidence first
-    }.take(MAX_RESULT_DISPLAY) // take the top results
+        sortByDescending { it.score } // 排序，高匹配率优先
+    }.take(MAX_RESULT_DISPLAY) // 抱走第一
 ```
 
-So now we will pass in the data to the model so first we will process the image from the model and get the outputs we will essentially get an array of probabilities and perform a descending sort on it as we want to show the label which has most probability and then pick first `n` results to show.
+现在我们已经将数据传递给模型，我们将处理模型中的图像并获得输出，我们将基本上得到一个匹配率的数组并对其进行降序排序，以获取具有最大值的概率，然后选择降序列表的第一名显示出来。
 
-```
+```kotlin
 for (output in outputs) {
     items.add(
         Recognition(
@@ -107,38 +107,38 @@ for (output in outputs) {
 }
 ```
 
-And finally, I want to show users the labels so I will add the label corresponding to each entry in the outputs. And that’s all you need 🚀
+最后，我需要向用户显示标签，因此我将在输出中添加与每个条目相对应的标签。这就是我们所需要的全部代码！ 🚀～
 
-**Leveraging GPU Acceleration**
+**使用 GPU 加速**
 
-If you want to use GPU acceleration again it is made very easy for you so you will make an `options` object where I specify it to use GPU and build it. In the instantiation part, I would just pass this in as an argument and you can use the GPU. It also makes it very easy to use the NN API for acceleration to do even more and with Android 11.
+如果我们想要使用 GPU 加速，其实做法非常简单。我们只需要在要使用 GPU 并进行构建模型的地方创建一个 `options` 对象。我只是将其作为参数传递给实例化过程。我们现在就可以使用 GPU，这个简易操作让使用 NN API 加速并在 Android 11 上执行更多操作变得非常容易。
 
-```
+```kotlin
 private val options = Model.Options.Builder().setDevice(Model.Device.GPU).build()
 private val rpsModel = rpsModel.newInstance(ctx, options)
 ```
 
-## A new ML Kit
+## 一个新的 ML Kit 套件
 
-> You now no longer need a Firebase Project to work with the ML Kit, it is now available even out of Firebase.
+> 我们现在不再需要 Firebase 项目来与 ML Kit 一起使用，虽然说我们依旧可以在 Firebase 中使用它。
 
-The other notable update Another way to implement a TensorFlow Lite model is via [ML Kit](https://g.co/mlkit). And before I move on ML Kit is now available even without having to use a Firebase project, you can now use ML Kit even without a Firebase project.
+另一个值得注意的更新是可以通过 [ML Kit](https://g.co/mlkit) 使用 TensorFlow Lite 模型。而且即使我们不使用 Firebase 项目，我们现在也可以直接使用 ML Kit 了。
 
-As I mentioned earlier a lot of updates in Android 11 are focused on on-device ML due to the benefits I mentioned earlier. The new ML Kit now has better usability for on-device ML. The ML Kit [image classification](https://developers.google.com/ml-kit/vision/image-labeling/custom-models/android) and [object detection and tracking (ODT)](https://developers.google.com/ml-kit/vision/object-detection/custom-models/android) now also support custom models, which means now you can also have a `tflite` model file along with this. This also means if you are working on some generic use case like a specific kind of object detection ML Kit is the best thing to use.
+正如我之前提到的，由于我之前提到的好处，Android 11 中有许多更新集中在设备上的 ML 上。现在，新的 ML Kit 在设备上具有更好的可用性。ML Kit 的[图像分类](https://developers.google.com/ml-kit/vision/image-labeling/custom-models/android)和[对象检测和跟踪（ODT）](https://developers.google.com/ml-kit/vision/object-detection/custom-models/android)现在也支持自定义模型，这意味着我们可以使用 `tflite` 模型文件走遍 Android 的 ML 了。这也意味着如果我们正在处理某些常见场景，例如对特定类型的对象检测，那么 ML Kit 是最好的选择。
 
-**Using the ML Kit**
+**使用 ML Kit**
 
-Let’s see this in code and see an example of this. So here as an example I build a model which can classify different food items,
+让我们在代码中看看如何做到这一点～我们现在将要建立一个可以对不同食品分类的模型，
 
-```
+```kotlin
 private localModel = LocalModel.Builder()
     .setAssetFilePath("lite-model_aiy_vision_classifier_food_V1_1.tflite").
     .build()
 ```
 
-So I will first start off by setting the model and specifying the `tflite` model file path for it.
+在这里我将首先通过设置模型并为其指定 `tflite` 模型文件路径开始。
 
-```
+```kotlin
 private val customObjectDetectorOptions = CustomObjectDetectorOptions
     .Builder(localModel)
     .setDetectorMode(CustomObjectDetectorOptions.STREAM_MODE) 
@@ -146,9 +146,9 @@ private val customObjectDetectorOptions = CustomObjectDetectorOptions
     .build()
 ```
 
-This `tflite` model will then run on top of the Object detection model with ML Kit so you can customize these options a bit. Here I have specifically used the `STREAM_MODE` as I want to work with streaming input and also specify the confidence threshold.
+然后，此 `tflite` 模型将在带有 ML Kit 的对象检测模型的顶部运行。我们现在可以稍微自定义这些选项。在这里，由于要使用流输入并指定置信度阈值，因此我专门设置了 `STREAM_MODE`。
 
-```Kotlin
+```kotlin
 private val objectDetector = ObjectDetection.getClient(customObjectDetectorOptions) objectDetector.process(image) 
     .addOnFailureListener(Log.d(...))
 
@@ -162,33 +162,33 @@ private val objectDetector = ObjectDetection.getClient(customObjectDetectorOptio
     .addOnCompleteListenerl imageProxy.close() }
 ```
 
-So let us get to the part where we run the model so you might see some syntax similar to the previous example here. I will process my image and a thing to note here is all of these listeners that are on failure or on success are essential tasks so they need to be attached for every run. And that is all you need to do, we are done 🚀
+让我们进入运行模型的那一部分，这样我们可能会看到一些类似于此处前面示例的语法。我将处理我的图像，这里需要注意的是，所有处于失败或成功状态的侦听器都是必不可缺的代码，在我们的每次运行上都需要附加上这些侦听器。这就是我们所有需要编写的代码！我们已经搞定了！🚀～
 
-## Finding Models
+## 查找模型
 
-We talked a lot about what after making a model let us take a look at how you can find models for your use-cases.
+我们讨论了很多有关模型制作后的内容，让我们看看如何为您的用例找到模型。
 
 * TF Lite Model Maker
 
-TF Lite Model Maker too was announced by The TensorFlow Team earlier in 2020. This makes making good models super easy to use, gives high performance, and also allows for a good amount of customization. You can simply pass in the data and use little code to build a `tflite` model. You can take a look at the [TensorFlow Lite Model Maker Example](https://github.com/Rishit-dagli/ML-with-Android-11/blob/dev/TensorFlow_Lite_Model_Maker_example.ipynb) present in the repo.
+TensorFlow 团队也于 2020 年初开启了 TF Lite Model Maker。这使得制作好的模型超级容易使用，具有很高的性能，还可以进行大量的自定义。我们现在可以简单地传递数据并使用很少的代码来构建 `tflite` 模型。我们可以查看官网中的 [TensorFlow Lite Model Maker 示例](https://github.com/Rishit-dagli/ML-with-Android-11/blob/dev/TensorFlow_Lite_Model_Maker_example.ipynb)。
 
 * TensorFlow Hub
 
-TensorFlow Hub is an open-source repository of state of the art and well documented, models. The food classification app we built with ML Kit is also present on TF Hub. You also get to use models from the community. You can find these at [tfhub.dev](https://tfhub.dev/).
+TensorFlow Hub 是一个开放源代码存储库，其中包含最新技术和有据可查的模型。我们使用 ML Kit 构建的食品分类应用程序也出现在 TF Hub 上。我们还可以使用[社区 tfhub.dev](https://tfhub.dev/) 中的模型。
 
-![A few publishers on tfhub.dev](https://cdn-images-1.medium.com/max/2022/0*cv-fzgw2WPuf4PQI.png)
+![tfhub.dev 上的一些发布者](https://cdn-images-1.medium.com/max/2022/0*cv-fzgw2WPuf4PQI.png)
 
-![Filters in TF Hub](https://cdn-images-1.medium.com/max/2000/1*Cu-XiVrzOi2MdKatQ1dpzw.png)
+![TF Hub 中的过滤器](https://cdn-images-1.medium.com/max/2000/1*Cu-XiVrzOi2MdKatQ1dpzw.png)
 
-You can search for models in TF Hub with a number of filters like Problem Domain if you only want to find image or text-based models, the Model format if you want to run it on the web, on edge devices, or on Corals, filter the architecture, datasets used and much more.
+如果你只想查找基于图像或文本的模型，则可以在 TF Hub 中通过添加过滤条件来搜索。例如如果我们要在网络、终端设备或 Corals 上运行 ML，请通过架构、使用的数据集等筛选等等。
 
-You can further directly download these models from TF Hub or also perform transfer learning on them with your own data very easily. However, for the scope of this blog, we will not be covering Transfer Learning with TF Hub, you can know more about it in [this blog by me](https://towardsdatascience.com/building-better-ai-apps-with-tf-hub-88716b302265).
+我们可以进一步直接从 TF Hub 下载这些模型，也可以非常轻松地使用您自己的数据对这些模型进行迁移学习。但是，在本文中我们将不进一步介绍使用 TF Hub 的迁移学习了。有关 TF Hub 的更多信息，请前往[我的博客](https://towardsdatascience.com/building-better-ai-apps-with-tf-hub-88716b302265)查看。
 
-And many more! There are a lot of services like [Teachable Machine](https://teachablemachine.withgoogle.com/), [AutoML](https://cloud.google.com/automl), and many more but these are the major ones.
+除此之外，还有不少的服务提供商，例如 [Teachable Machine](https://teachablemachine.withgoogle.com/)，[AutoML](https://cloud.google.com/automl)，但上述的都算是比较常见的提供商。
 
 ---
 
-All the code demonstrated here with examples about TF Lite Model Maker is present in [this repo]((https://github.com/Rishit-dagli/ML-with-Android-11)). I have also included a few trained models for you in the repo to get started and experiment with for starters.
+[GitHub 仓库](https://github.com/Rishit-dagli/ML-with-Android-11) 中提供了此处展示的所有有关 TF Lite Model Maker 的示例的代码。我还为您你供了一些已训练的模型，供初学者入门和实验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
