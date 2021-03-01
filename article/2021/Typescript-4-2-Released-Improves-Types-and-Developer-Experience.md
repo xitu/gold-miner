@@ -16,7 +16,7 @@ type T1 = [...string[], number];  // 任意个 string 以及一个 number
 type T2 = [number, ...boolean[], string, string];  // 一个 number，跟着任意个 boolean，跟着两个 string
 ```
 
-在以前的版本中，Rest 参数只能在末尾处使用，例如 `type T1 = [number, ...string[]];`，因此我们不可能为 以固定类型参数结尾的参数集中使用可变数量的参数 使用强类型定义。
+在以前的版本中，Rest 参数只能在末尾处使用，例如 `type T1 = [number, ...string[]];`，因此我们不能为`以包含 Rest 参数却以固定类型参数结尾的参数集`使用强类型定义。
 
 ```ts
 function f1(...args: [...string[], number]) {
