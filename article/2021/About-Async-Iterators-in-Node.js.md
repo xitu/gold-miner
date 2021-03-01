@@ -56,7 +56,7 @@ async function printFileToConsole(path) {
 
 ```
 
-如果你像这样编写代码，就不必在迭代每个分片时去监听“data”和“end”事件了，并且 for-await-of 循环会在流结束时自行终止。
+如果你像这样编写代码，就不必在迭代每个分片时去监听 `data` 和 `end` 事件了，并且 for-await-of 循环会在流结束时自行终止。
 
 ## **消费分页的 API**
 
