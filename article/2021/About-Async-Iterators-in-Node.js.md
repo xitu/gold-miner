@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.mdd)
 > * 译者：[Isildur46](https://github.com/Isildur46)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 关于 Node.js 中的异步迭代器
 > 当我们在迭代过程中不清楚值和结束状态时，我们可以使用异步迭代器，用它来解决（resolve）普通对象并最终得到 promise。
