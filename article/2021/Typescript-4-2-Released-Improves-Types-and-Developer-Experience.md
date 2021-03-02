@@ -7,16 +7,16 @@
 
 # TypeScript 4.2 正式发布：优化了类型和开发者体验
 
-TypeScript 团队最近宣布了 [TypeScript 4.2](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/) 版本的发布！该版本的 TypeScript 拥有了更灵活的类型注释，更严格的检查，额外的配置选项以及一些其他的重大变化。我们现在可以在元组的类型定义中的任意位置使用 Rest 参数（而不是只能在末尾使用）了！类型别名不再在类型错误消息中扩展，从而让我们开发者拥有更好的体验。
+TypeScript 团队最近正式发布了 [TypeScript 4.2](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/) 版本！该版本的 TypeScript 拥有了更灵活的类型注释，更严格的检查，额外的配置选项以及一些其他的重大变化。我们现在可以在元组的类型定义中的任意位置使用 Rest 参数（而不是只能在末尾使用）了！类型别名不再在类型错误消息中扩展，从而让我们开发者拥有更好的体验。
 
-TypeScript 4.2 [支持元组类型中任何位置的剩余参数（Rest 参数/Rest Parameters）](https://github.com/microsoft/TypeScript/pull/41544)：
+TypeScript 4.2 [支持元组类型中任何位置的 Rest 参数（Rest Parameters）](https://github.com/microsoft/TypeScript/pull/41544)：
 
 ```ts
 type T1 = [...string[], number];  // 任意个 string 以及一个 number
 type T2 = [number, ...boolean[], string, string];  // 一个 number，跟着任意个 boolean，跟着两个 string
 ```
 
-在以前的版本中，Rest 参数只能在末尾处使用，例如 `type T1 = [number, ...string[]];`，因此我们不能为`以包含 Rest 参数却以固定类型参数结尾的参数集`使用强类型定义。
+在以前的版本中，Rest 参数只能在末尾处使用，例如 `type T1 = [number, ...string[]];`，因此我们不能对包含 Rest 参数却以固定类型参数结尾的参数集使用强类型定义。
 
 ```ts
 function f1(...args: [...string[], number]) {
@@ -44,11 +44,11 @@ type TN4 = Tup3<[number], string[], boolean[]>;  // [number, ...(string | boolea
 type TN5 = Tup3<string[], number[], boolean[]>;  // (string | number | boolean)[] 
 ```
 
-TypeScript 4.2 还让我们在使用类型别名时候拥有更好的开发者体验：
+TypeScript 4.2 还让我们在使用类型别名时候拥有更好的开发体验：
 
 ![https://imgur.com/rQkqilu.png](https://imgur.com/rQkqilu.png)
 
-前面的示例表明，类型别名 `BasicPrimitive` 以前在某些情况下被拓展（规范化）（扩展为 `number | string | boolean`），但在现在并不再会如此了。发行说明还强调了在 TypeScript 使用中的不同地方中都做出了改进的开发人员体验：
+前面的示例表明，类型别名 `BasicPrimitive` 在某些情况下被拓展或规范化（例如为 `number | string | boolean`类型），但现在不会这样了。发行说明还强调了在不同地方的 TypeScript 开发者体验感受方面都做出了改进：
 
 > 你可以避免显示一些可怕的超长的类型定义 —— 类型别名现在通常会出现在快速信息和签名帮助中，以及转译的 `.d.ts` 文件输出中。这可以使 TypeScript 对于新手来说更加友善。
 
@@ -116,11 +116,11 @@ import {Foo} from "./foo";
 import {Foo} from "./foo/index.js";
 ```
 
-TypeScript 4.2 使 TypeScript 在任何规模和任何位置更加贴近准确编写 JavaScript 的目标，但是，在每个发行版中，TypeScript 都会增加其复杂性。一位开发者指出：
+TypeScript 4.2 实现在任何规模或位置更加准确编写 JavaScript 的目标，但是，在每个发行版中，TypeScript 都会增加其复杂性。一位开发者指出：
 
-> 出于对 TypeScript 进行了如此多的更新的担忧，人们开始怀疑是否会出现一个时候（……当）TypeScript 变得太复杂而我们无法再去了解全部的问题，就像 C++ 那样。
+>  由于 TypeScript 进行了大量更新导致的担忧，人们开始怀疑 TypeScript 是否会变得太复杂使得我们无法了解全部的问题，就像 C++ 那样。。
 
-TypeScript 4.2 还包含了其他的功能和重大的更改，欢迎开发人员阅读完整的发行说明。TypeScript 是基于 Apache 2 许可的开源软件，我们鼓励通过 TypeScript GitHub 项目进行贡献和反馈，并应遵循 TypeScript 贡献准则和 Microsoft 开源行为准则。
+TypeScript 4.2 还有其他的重大更改和功能新增，欢迎开发者阅读完整的发行说明。TypeScript 是基于 Apache 2 许可的开源软件，我们鼓励通过 TypeScript 在 GitHub 上的项目，在遵循 TypeScript 贡献准则和 Microsoft 开源行为准则的前提下进行贡献和反馈。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
