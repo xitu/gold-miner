@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-css-grid.md](https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-css-grid.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)
+> * 校对者：[zenblo](https://github.com/zenblo)、[Chorer](https://github.com/Chorer)、[lsvih](https://github.com/lsvih)
 
 # 自适应 CSS 栅格：自由布局的最终版本
 
@@ -33,7 +33,7 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 
 ### 基础：在 CSS 中设置栅格和行列
 
-在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们划分了所需的列（本例中将划分 5 列，每列设置为 250px）。 通过使用 `grid-template-rows`，我们可以设置行的高度（如果需要的话），本例中是 150px。完成以上步骤之后，我们就实现了第一个栅格布局！
+在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们划分了所需的列（本例中将划分 5 列，每列设置为 250px）。通过使用 `grid-template-rows`，我们可以设置行的高度（如果需要的话），本例中是 150px。完成以上步骤之后，我们就实现了第一个栅格布局！
 
 ```css
 .container {
@@ -50,7 +50,7 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 
 ### 设置间隔
 
-我们可以使用 `grip-gap` 来设置每一项之间的间隔，也可以使用 `column-gap` 和` row-gap` 分别设置水平和垂直的间隔。顺便提一句，我们可以使用所有通用单位，例如，使用 `px` 用于设置固定的间隔，或使用 `％` 来设置自适应的间隔。
+我们可以使用 `grip-gap` 来设置每一项之间的间隔，也可以使用 `column-gap` 和 `row-gap` 分别设置水平和垂直的间隔。顺便提一句，我们可以使用所有通用单位，例如使用 `px` 用于设置固定的间隔，或使用 `％` 来设置自适应的间隔。
 
 ```css
 .container {
@@ -174,7 +174,7 @@ CSS Grid 与常规栅格相比也具有明显的优势，根据屏幕大小，�
 
 ## 浏览器支持
 
-现在，所有现代浏览器（Safari、Chrome、Firefox、Edge）都原生地支持 CSS Grid。凭借 95.47% 的全球支持率，CSS Grid 已经成为 Boostrap 和 Co 的替代品。（译者注：原文此处的支持率为 87.85%，但截止至译文发布时，支持率已达到 95.47％）
+现在，所有现代浏览器（Safari、Chrome、Firefox、Edge）都原生地支持 CSS Grid。凭借 87.85% 的全球支持率（译者注：截止至译文发布时，支持率已达到 95.47％），CSS Grid 已经成为 Boostrap 和 Co 的替代品。
 
 ![2021 年 3 月的状态，数据来自 [caniuse.com](https://caniuse.com/#search=CSS%20Grid)](https://github.com/PassionPenguin/gold-miner-images/blob/master/understanding-css-grid-caniuse.com__search=CSS%2520Grid.png?raw=true)
 
