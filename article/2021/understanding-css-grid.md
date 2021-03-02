@@ -9,15 +9,15 @@
 
 ![](https://cdn-images-1.medium.com/max/2800/0*MJfiLHUiFLi5M2sm.png)
 
-CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方法。我们仅需几行 CSS，就可以创建一个之前不用 JavaScript 根本不可能的栅格布局。我们无须任何插件或做一些什么复杂的安装，也不需要没有繁琐的附加文件，也不仅仅限于 12 列的 Grid 布局（译者注：指 Bootstrap 提供的 12 栅格系统）。
+CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方法。我们仅需几行 CSS，就可以创建一个之前不用 JavaScript 根本不可能实现的栅格布局。我们不需要任何插件或复杂的安装步骤，不需要繁琐的附加文件，同时也不需要局限于 12 列的栅格布局（译者注：指 Bootstrap 提供的 12 栅格系统）。
 
 ## 我们可以使用什么栅格？
 
-简而言之：我们实际上可以使用**几乎所有能够被我们所想到的栅格布局**。我们可以完全自由地去选择不同栅格的尺寸，大小和位置。我们可以在[栅格示例](https://gridbyexample.com/examples/)中找到最常见的带有标记的栅格的概述。
+简而言之：我们实际上可以使用**几乎所有能够想到的栅格布局**，并且还不限于此。我们可以自由地选择不同栅格的尺寸、大小和位置。你可以在[栅格示例](https://gridbyexample.com/examples/)中找到最常见的带有标记的栅格的概述。
 
-### 让我们从构建我们示例的 HTML 标记开始吧！
+### 让我们从构建示例的 HTML 标记开始吧！
 
-一个类名为 `container` 的 `div` 元素容纳了 5 个子 `div` 元素，或称之为项目（当然可以多，也可以更少）。如果你愿意，我们可以直接从 [CodePen 中的 HTML 和 CSS 标记](https://codepen.io/chrisvall/pen/YJJdxQ)代码入手。
+一个类名为 `container` 的 `div` 元素容纳了 5 个子 `div` 元素，或称之为项目（当然，可以比 5 个更多或者更少）。如果你愿意，我们可以直接从 [CodePen 中的 HTML 和 CSS 标记](https://codepen.io/chrisvall/pen/YJJdxQ)代码入手。
 
 ```html
 <div class="container">
@@ -33,7 +33,7 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 
 ### 基础：在 CSS 中设置栅格和行列
 
-在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们划分了所需的列（本例中将划分 5 列，每列设置为 250px）。 通过使用 `grid-template-rows`，我们可以设置行的高度（如果需要的话，本例中是 150px）。做完以上，这样，我们就实现了第一个栅格布局！
+在 CSS 中，我们可以通过 `display: grid` 定义将 `.container` 类的元素变为栅格布局。通过使用 `grid-template-columns`，我们划分了所需的列（本例中将划分 5 列，每列设置为 250px）。 通过使用 `grid-template-rows`，我们可以设置行的高度（如果需要的话），本例中是 150px。完成以上步骤之后，我们就实现了第一个栅格布局！
 
 ```css
 .container {
@@ -80,7 +80,7 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 
 ### 混合使用 `px` 和 `fr` 构建自适应而又固定的列
 
-`px` 和 `fr` 的按需同时使用可以让栅格适应可用的空间，魅力十足！
+`px` 和 `fr` 的按需同时使用可以让栅格适应可用的空间，这非常好用！
 
 ```css
 .container {
@@ -116,7 +116,7 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 
 ### 同样适用于垂直或全区域的分布！
 
-在这里 CSS Grid 耀眼十足，证明了对比 Bootstrap 和 Co 的优越性 —— 借助 `grid-row`，每一项都可以定义任意的位置及宽度。正如我们将在下一个示例中看到的那样，对于适应不同屏幕尺寸和设备的具有绝对优势
+在这方面 CSS Grid 耀眼十足，表现出了对比 Bootstrap 和 Co 的优越性 —— 借助 `grid-row`，每一项都可以定义任意的位置及宽度。正如我们将在下一个示例中看到的那样，这对于适应不同屏幕尺寸和设备具有绝对优势：
 
 ```css
 .container {
@@ -134,11 +134,11 @@ CSS 栅格布局（Grid）是一种全新的在 Web 上创建二维布局的方�
 }
 ```
 
-![任何垂直上的宽度和位置 ](https://cdn-images-1.medium.com/max/2800/0*a3fS5-GjETjWhArV.png)
+![任何垂直方向上的宽度和位置 ](https://cdn-images-1.medium.com/max/2800/0*a3fS5-GjETjWhArV.png)
 
-### 适应不同的屏幕尺寸
+### 想要适应不同的屏幕尺寸和设备？当然没问题！
 
-CSS Grid 与常规栅格相比也具有明显的优势，根据屏幕大小，我们不仅可以通过媒体查询从自适应切向定值，还可以调整整个项目的位置！
+CSS Grid 与常规栅格相比也具有明显的优势，根据屏幕大小，我们不仅可以通过媒体查询从自适应值切换到固定值，还可以调整整个项目的位置！
 
 ```css
 .container {
@@ -174,24 +174,24 @@ CSS Grid 与常规栅格相比也具有明显的优势，根据屏幕大小，�
 
 ## 浏览器支持
 
-现在，所有现代浏览器（Safari、Chrome、Firefox、Edge）都原生地支持 CSS Grid。凭借 95.47％ 的全球支持率，CSS Grid 已经成为 Boostrap 和 Co 的替代产品。
+现在，所有现代浏览器（Safari、Chrome、Firefox、Edge）都原生地支持 CSS Grid。凭借 95.47% 的全球支持率，CSS Grid 已经成为 Boostrap 和 Co 的替代品。（译者注：原文此处的支持率为 87.85%，但截止至译文发布时，支持率已达到 95.47％）
 
-![2021 年 3 月的状态 [caniuse.com](https://caniuse.com/#search=CSS%20Grid)](https://github.com/PassionPenguin/gold-miner-images/blob/master/understanding-css-grid-caniuse.com__search=CSS%2520Grid.png?raw=true)
+![2021 年 3 月的状态，数据来自 [caniuse.com](https://caniuse.com/#search=CSS%20Grid)](https://github.com/PassionPenguin/gold-miner-images/blob/master/understanding-css-grid-caniuse.com__search=CSS%2520Grid.png?raw=true)
 
-## 现实生活中的 Grid 例子
+## CSS 栅格的实践案例
 
-- [christinevallaure.com,](http://www.christinevallaure.com,) UX/UI 设计
-- [moonlearning.io](https://moonlearning.io/), UX/UI 在线课程
-- [Slack](https://slack.com/intl/de-de/), 企业网站
-- [Medium](https://medium.com/), 原文发布的地方
-- [Skyler Hughes](https://photo.skylerhughes.com/), 摄影
-- [Max Böck](https://mxb.at/), 前端设计师
-- [Design+Code](https://designcode.io/), Web 设计师站点
-- [Hi Agency, Deck](http://www.hi.agency/deck/), 模版页面
+- [christinevallaure.com,](http://www.christinevallaure.com)，UX/UI 设计
+- [moonlearning.io](https://moonlearning.io/)，UX/UI 在线课程
+- [Slack](https://slack.com/intl/de-de/)，企业网站
+- [Medium](https://medium.com/)，原文发布的地方
+- [Skyler Hughes](https://photo.skylerhughes.com/)，摄影网站
+- [Max Böck](https://mxb.at/)，前端开发者网站
+- [Design+Code](https://designcode.io/)，Web 设计师站点
+- [Hi Agency, Deck](http://www.hi.agency/deck/)，模版页面
 
 ## 在你开始使用 Grid 之前
 
-我想你可能还会喜欢我在 [moonlearning.io](https://moonlearning.io/) 或[完整的设计移交到开发课程](https://www.udemy.com/course/design-handoff/?referralCode=1296BF141742FFA166C2) 这些别的文章（有关如何使用 Grid 的更多信息！）。
+我想你可能还会喜欢我在 [moonlearning.io](https://moonlearning.io/) 或[完整的设计移交到开发课程](https://www.udemy.com/course/design-handoff/?referralCode=1296BF141742FFA166C2) 上发布的其它文章和课程（有关如何使用 Grid 的更多信息！）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
