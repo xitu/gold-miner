@@ -19,7 +19,7 @@
 
 当我告诉我的家人、朋友“我的工作内容和身份认证相关”，他们通常认为我受雇于政府机构发放司机驾驶证或者帮助人们解决信用卡欺诈的问题。
 
-然而，都不是。我之前为 [Auth0](https://auth0.com) 工作，这是一个管理**数字证书**的公司。我现在是 [Auth0 大使计划](https://auth0.com/ambassador-program)的一员，也是 SPPI (安全、隐私、支付、认证)方向的[谷歌开发专家](https://developers.google.com/)。
+然而，都不是。我之前为 [Auth0](https://auth0.com) 工作，这是一个管理**数字证书**的公司。我现在是 [Auth0 大使计划](https://auth0.com/ambassador-program)的一员，也是 SPPI（安全、隐私、支付、认证）方向的[谷歌开发专家](https://developers.google.com/)。
 
 #### 数字身份
 
@@ -45,7 +45,7 @@
 
 你还记得，我在上文中提到过，认证有一套定义完善的标准。但是这些标准一开始从何而来呢？
 
-有许多不同的标准和组织来管理互联网上的工作方式。在讨论身份认证和授权访问的时候，有两个组织是我们**尤其感兴趣的**，它们分别是互联网工程任务组 (IETF) 和 OpenID 基金会 (OIDF)。
+有许多不同的标准和组织来管理互联网上的工作方式。在讨论身份认证和授权访问的时候，有两个组织是我们**尤其感兴趣的**，它们分别是互联网工程任务组（IETF）和 OpenID 基金会（OIDF）。
 
 ##### IETF（互联网工程任务组）
 
@@ -61,7 +61,7 @@
 
 ## OAuth 2.0
 
-当我们谈论 Web 规范的时候，[OAuth 2.0](https://tools.ietf.org/html/rfc6749)是最常被提及的 Web 规范之一，也是**最容易被误解**的一个，为什么呢？
+当我们谈论 Web 规范的时候，[OAuth 2.0](https://tools.ietf.org/html/rfc6749) 是最常被提及的 Web 规范之一，也是**最容易被误解**的一个，为什么呢？
 
 **OAuth 不是一个身份认证规范**，它处理的是**委托授权访问**。请记住，在这里，身份认证指的是证实用户的身份信息，授权访问指的是授予或拒绝对某资源的访问。 OAuth 2.0 代表用户给应用程序授予权限。（别担心，我们之后会谈到身份认证的部分。）
 
@@ -71,9 +71,9 @@
 
 [![Before OAuth](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--aZl2UGDl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/before-oauth.gif)
 
-好比说你正在使用一个叫做 HireMe123 的应用程序。 HireMe123 想代表你设定一个日历事件（例如面试约会）。但是 HireMe123 没有自己的日历，所以它要使用另一个叫做 MyCalApp 的服务去添加日历事件。
+好比说你正在使用一个叫做 HireMe123 的应用程序。HireMe123 想代表你设定一个日历事件（例如面试约会）。但是 HireMe123 没有自己的日历，所以它要使用另一个叫做 MyCalApp 的服务去添加日历事件。
 
-一旦你登录了 HireMe123 ，它就会**向你请求 MyCalApp 的登录凭证**。你就要在 HireMe123 的站点上输入你在 MyCalApp 的用户名和密码。
+一旦你登录了 HireMe123，它就会**向你请求 MyCalApp 的登录凭证**。你就要在 HireMe123 的站点上输入你在 MyCalApp 的用户名和密码。
 
 HireMe123 之后就可以使用你在 MyCalApp 的账户登录来访问 MyCalApp 的 API，并且能够用你的登录凭证创建日历事件。
 
@@ -113,11 +113,11 @@ HireMe123 向 MyCalApp 的授权访问服务器发送一个授权访问请求。
 
 然后 MyCalApp 会给 HireMe123 发送一个**访问令牌**。HireMe123 之后使用这个访问令牌在你同意过的权限许可的范围内调用 MyCalApp 的 API 并使用 API 来创建一个事件。
 
-**此处没有什么不可告人的事情发生！** **MyCalApp 正在要求用户登录 MyCalApp** 。HireMe123 并**没有**请求用户的 MyCalApp 证书。共享证书和过多访问权限再也不是问题了。
+**此处没有什么不可告人的事情发生！** **MyCalApp 正在要求用户登录 MyCalApp**。HireMe123 并**没有**请求用户的 MyCalApp 证书。共享证书和过多访问权限再也不是问题了。
 
 ##### 什么是身份认证？
 
-在这里，我希望 **OAuth 是一个授权访问协议**是一个足够清楚的事实，它不包含**身份认证**。在上述过程中的任一环节都不包含有身份认证，登录被 HireMe123 或是 MyCalApp 上不同的登录过程所控制。OAuth 2.0在这里**并不规定**这个行为应该怎么做，它只是负责授权第三方访问 API。
+在这里，我希望 **OAuth 是一个授权访问协议**是一个足够清楚的事实，它不包含**身份认证**。在上述过程中的任一环节都不包含有身份认证，登录被 HireMe123 或是 MyCalApp 上不同的登录过程所控制。OAuth 2.0 在这里**并不规定**这个行为应该怎么做，它只是负责授权第三方访问 API。
 
 那么为什么身份认证和 OAuth 经常被同时提起呢？
 
@@ -136,13 +136,13 @@ HireMe123 向 MyCalApp 的授权访问服务器发送一个授权访问请求。
 * 有人可能会从他人处偷窃访问令牌
 * 访问令牌可能来自于其他第三方，而不是 HireMe123 ，然后注入到了 HireMe123
 
-这种问题叫做**困惑的副手问题（ Confused Deputy Problem ）**。HireMe123 不知道这个令牌来自何处或者是这个令牌曾经发行给谁。如果我们还记得一开始的定义：**身份认证是关于确认这个用户是否是他自称的身份**，那么 HireMe123 无法从利用该访问令牌访问 API 的过程中得到这种信息。
+这种问题叫做**困惑的副手问题（Confused Deputy Problem）**。HireMe123 不知道这个令牌来自何处或者是这个令牌曾经发行给谁。如果我们还记得一开始的定义：**身份认证是关于确认这个用户是否是他自称的身份**，那么 HireMe123 无法从利用该访问令牌访问 API 的过程中得到这种信息。
 
 正如我们提到过的，这一事实并没能阻止人们继续将访问令牌和将 OAuth 2.0 误用于身份认证。很快我们就会发现，为了在允许使用第三方应用登录的同时确保应用程序和用户安全，我们必须**在 OAuth 2.0 的基础上**构建身份认证协议。
 
 ## OpenID 连接
 
-接下来我们要了解的规范叫做 [OpenID 连接](https://openid.net/specs)，也被称作 OIDC。OIDC 是一个**基于 OAuth 2.0** 的规范，它规定了如何认证用户的身份。[OpenID 基金会 (OIDF)](https://openid.net/foundation/) 是 OIDC 标准的管理者。
+接下来我们要了解的规范叫做 [OpenID 连接](https://openid.net/specs)，也被称作 OIDC。OIDC 是一个**基于 OAuth 2.0** 的规范，它规定了如何认证用户的身份。[OpenID 基金会（OIDF）](https://openid.net/foundation/) 是 OIDC 标准的管理者。
 
 OIDC 是一个使用认证服务器来认证用户身份的认证机制。请记住，认证服务器**发行令牌**，令牌是用于在实体（比如说授权服务器，应用或者是资源 API）之间传递信息的加密过的数据。在使用 OIDC 进行身份认证的情况下，授权服务器发行**ID 令牌**。
 
@@ -152,7 +152,7 @@ OIDC 是一个使用认证服务器来认证用户身份的认证机制。请记
 
 OIDC 声明了一个**固定格式**的 ID 令牌，如下：
 
-#### JSON Web Token (JWT)
+#### JSON Web Token（JWT）
 
 [JSON Web Tokens](https://tools.ietf.org/html/rfc7519)，或者说是 [JWT](https://jwt.io) （有时候也被拼成 "jot" ）由三个可以在 URL 中使用的字符串节由`.`连接起来组成的。
 
@@ -224,16 +224,16 @@ OIDC 声明了一个**固定格式**的 ID 令牌，如下：
 
 它声明了一些身份认证必须包含的字段，并且包括了一个 ID 令牌：
 
-* `iss` **(发行人)**: JWT 的发行者, 例如授权访问服务器。
-* `aud` **(接收者)**: JWT 的目标接收者; 对于 ID 令牌来说, 这个字段一定是接收令牌的应用的 ID。
-* `exp` **(过期时间)**: 过期时间; 在此时间之后 ID 令牌不再有效。
-* `iat` **(发行时间)**: ID 令牌发行的时间。
+* `iss` **（发行人）**：JWT 的发行者，例如授权访问服务器。
+* `aud` **（接收者）**：JWT 的目标接收者；对于 ID 令牌来说，这个字段一定是接收令牌的应用的 ID。
+* `exp` **（过期时间）**：过期时间；在此时间之后 ID 令牌不再有效。
+* `iat` **（发行时间）**：ID 令牌发行的时间。
 
 一个 `nonce` 字段**将第三方的授权请求和它接收到的令牌绑定**。nonce 是一个由客户端创建并且随着授权请求一起发送的[加密过的随机字符串](https://auth0.com/docs/api-auth/tutorials/nonce)。之后，授权服务器将 nonce 放在返回给应用程序的令牌中。应用程序检查令牌中的 nonce 是否和它携带在授权请求中的相同。如果相同，这个应用程序就可以确认这个令牌是来自最初指定的授权服务器。
 
 ##### 身份字段
 
-字段也包含了 **[关于端用户的描述](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)** 。如下是几个例子：
+字段也包含了[**关于端用户的描述**](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims)。如下是几个例子：
 
 ```
 {
@@ -249,7 +249,7 @@ OIDC 声明了一个**固定格式**的 ID 令牌，如下：
 
 在 ID 令牌中标准的描述包括如下字段：
 
-* `sub` **(主题)**: 用户的独特标识符；必填
+* `sub` ** (主题) **: 用户的独特标识符；必填
 * `email`
 * `email_verified`
 * `birthdate`
@@ -269,10 +269,10 @@ OIDC 声明了一个**固定格式**的 ID 令牌，如下：
 
 客户端应用程序解码 ID 令牌（是一个 **JWT** ）并且校验。这一过程包含了**验签**，并且我们必须校验字段。一些校验字段的例子如下：
 
-* issuer (`iss`): 当前令牌是被特定授权服务器颁发的吗？
-* audience (`aud`): 我们的应用程序是这个令牌的指定接收者吗？
-* expiration (`exp`): 这个令牌是否在可用的时间段之内？
-* nonce (`nonce`): 这个令牌能否匹配到我们应用程序当初创建的授权请求？
+* issuer (`iss`)：当前令牌是被特定授权服务器颁发的吗？
+* audience (`aud`)：我们的应用程序是这个令牌的指定接收者吗？
+* expiration (`exp`)：这个令牌是否在可用的时间段之内？
+* nonce (`nonce`)：这个令牌能否匹配到我们应用程序当初创建的授权请求？
 
 一旦我们确认了 ID 令牌的真实性，这个用户就是被**验证**过的。我们同样也得到了**身份声明**并且知道了这个用户是**谁**？
 
@@ -284,7 +284,7 @@ OIDC 声明了一个**固定格式**的 ID 令牌，如下：
 
 ### 访问令牌
 
-**访问令牌**用于**许可对某资源的访问**。用一个 MyCalApp 的授权服务器发行的访问令牌， HireMe123 就可以访问 MyCalApp 的 API。
+**访问令牌**用于**许可对某资源的访问**。用一个 MyCalApp 的授权服务器发行的访问令牌，HireMe123 就可以访问 MyCalApp 的 API。
 
 和 **ID 令牌**将 **OIDC** 声明为 **JSON Web Tokens** 不同，**访问令牌没有明确的、固定的格式**。它们没必要，也不需要局限于 JWT 的格式。然而，许多身份验证解决方案中都将 JWT 格式用于访问令牌，因为这样的格式方便校验。
 
@@ -310,7 +310,7 @@ Authorization: 'Bearer eyj[...]'
 
 ```
 
-这一授权过的请求之后发给 API ，在 API 中使用第三方中间件来验证令牌。如果验证通过，API 就返回数据给浏览器中的应用程序。
+这一授权过的请求之后发给 API，在 API 中使用第三方中间件来验证令牌。如果验证通过，API 就返回数据给浏览器中的应用程序。
 
 这很棒，但是可能会有问题。之前我们说过 **OAuth 解决的是访问权限过多的问题**。那么这个问题是如何解决的呢？
 
@@ -324,15 +324,15 @@ Authorization: 'Bearer eyj[...]'
 
 让我们继续看这个例子。
 
-我正在使用 HireMe123 并且 HireMe123 想要访问第三方程序 MyCalApp 的 API 来代表我创建一个事件。 HireMe123 已经向 MyCalApp 从授权服务器请求了访问令牌**访问令牌**。这个令牌中包含有一些重要信息，比如：
+我正在使用 HireMe123 并且 HireMe123 想要访问第三方程序 MyCalApp 的 API 来代表我创建一个事件。HireMe123 已经向 MyCalApp 从授权服务器请求了访问令牌**访问令牌**。这个令牌中包含有一些重要信息，比如：
 
-* `sub`: (我的 MyCalApp 用户 ID)
-* `aud`: `MyCalAppAPI` (受众字段说明这个令牌是用于访问 MyCalApp 的 API)
-* `scope`: `write:events` (作用域说明 HireMe123 有权限使用 API 来在日历中写事件)
+* `sub`：（我的 MyCalApp 用户 ID）
+* `aud`：`MyCalAppAPI`（受众字段说明这个令牌是用于访问 MyCalApp 的 API）
+* `scope`：`write:events`（作用域说明 HireMe123 有权限使用 API 来在日历中写事件）
 
 HireMe123 向 MyCalApp 的 API 发送一个授权头中包含访问令牌的请求。当 MyCalApp 的 API 接收到这个请求之后，它就知道令牌中包含了 `write:events` 这样的作用域。
 
-但是 MyCalApp 为**成百上千的用户**管理日历事件。除了查看令牌中的 `scope` ， MyCalApp 的 API 还需要检查 `sub` 字段标识符来确定这个来自 HireMe123 的请求仅仅能够使用**我**已有的权限来在**我的**账户上创建事件。
+但是 MyCalApp 为**成百上千的用户**管理日历事件。除了查看令牌中的 `scope` ，MyCalApp 的 API 还需要检查 `sub` 字段标识符来确定这个来自 HireMe123 的请求仅仅能够使用**我**已有的权限来在**我的**账户上创建事件。
 
 [![delegated authorization with scopes and API access control](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--nmFY08EM--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://kmaida.io/static/devto/authz-authn/scopes.gif)
 
@@ -356,7 +356,7 @@ HireMe123 可能要寻求一系列不同的作用域，比如：
 
 一般来说，我们应该避免使用过多作用域来指定用户权限。作用域用于一个应用程序的授权许可。然而，如果你的授权服务器提供了[基于角色的访问控制 (RBAC) ](https://auth0.com/docs/authorization/concepts/rbac)，那么给个人用户添加不同的作用域确实是**可行**的。
 
-> **使用 RBAC** ，你能在授权服务器中给用户角色设置特定的权限。然后，当授权服务器发出访问令牌的时候，它就可以在作用域中包含一个特定的用户角色。
+> **使用 RBAC**，你能在授权服务器中给用户角色设置特定的权限。然后，当授权服务器发出访问令牌的时候，它就可以在作用域中包含一个特定的用户角色。
 
 ## 资源，接下来是什么？
 
@@ -370,7 +370,7 @@ HireMe123 可能要寻求一系列不同的作用域，比如：
 
 **[身份认证系列视频](https://auth0.com/docs/videos/learn-identity)** 在 [Auth0 文档](https://auth0.com/docs)中是由主架构师 [Vittorio Bertocci](https://auth0.com/blog/auth0-welcomes-vittorio-bertocci/) 为训练 [Auth0](https://auth0.com) 新入职的认证工程师所制作的讲座。如果你想要根据 Auth0 的标准学习身份认证，这就是完全免费和最容易获得的学习材料，你甚至不需要用推特或邮件进行支付。
 
-**OAuth 2.0和 OpenID 连接规范**内容很多，但是在你熟悉了术语并且对于认证有了一个基础的理解之后，他们就是非常有帮助、信息丰富并且可理解的材料。点击这里：[ OAuth 2.0授权框架](https://tools.ietf.org/html/rfc6749) 和 [OpenID 连接规范](https://openid.net/developers/specs/)。
+**OAuth 2.0 和 OpenID 连接规范**内容很多，但是在你熟悉了术语并且对于认证有了一个基础的理解之后，他们就是非常有帮助、信息丰富并且可理解的材料。点击这里：[ OAuth 2.0 授权框架](https://tools.ietf.org/html/rfc6749) 和 [OpenID 连接规范](https://openid.net/developers/specs/)。
 
 **[JWT.io](https://jwt.io)** 是一个关于 **JSON Web Token** 的资源，主要提供了调试工具和用各种语言实现的 JWT 签名/验签第三方库。
 
