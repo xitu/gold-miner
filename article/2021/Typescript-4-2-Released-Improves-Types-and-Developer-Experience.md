@@ -2,25 +2,23 @@
 > * 原文作者：[Bruno-Couriol](https://www.infoq.com/profile/Bruno-Couriol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released-Improves-Types-and-Developer-Experience.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Typescript-4-2-Released-Improves-Types-and-Developer-Experience.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)、[zenblo](https://github.com/zenblo)
 
-# Typescript 4.2 Released, Improves Types and Developer Experience
+# TypeScript 4.2 正式发布：优化了类型和开发者体验
 
+TypeScript 团队最近正式发布了 [TypeScript 4.2](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/) 版本！该版本的 TypeScript 拥有了更灵活的类型注释，更严格的检查，额外的配置选项以及一些其他的重大变化。我们现在可以在元组的类型定义中的任意位置使用 Rest 参数（而不是只能在末尾使用）了！类型别名不再在类型错误消息中扩展，从而让我们开发者拥有更好的体验。
 
-The TypeScript team announced the release of [TypeScript 4.2](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/), which features more flexible type annotations, stricter checks, extra configuration options, and a few breaking changes. Tuple types now allow rest arguments in any position (instead of only in last position). Type aliases are no longer expanded in type error messages, providing a better developer experience.
+TypeScript 4.2 [支持元组类型中任何位置的 Rest 参数（Rest Parameters）](https://github.com/microsoft/TypeScript/pull/41544)：
 
-TypeScript 4.2 [supports rest arguments in any position in tuple types](https://github.com/microsoft/TypeScript/pull/41544):
-
-```
-type T1 = [...string[], number];  // Zero or more strings followed by a number
-type T2 = [number, ...boolean[], string, string];  // Number followed by zero or more booleans followed by two strings
-
+```ts
+type T1 = [...string[], number];  // 任意个 string 以及一个 number
+type T2 = [number, ...boolean[], string, string];  // 一个 number，跟着任意个 boolean，跟着两个 string
 ```
 
-In previous versions, the rest arguments had to be in last position (e.g., **`type T1 = [number, ...string[]];`**. It was thus not possible to strongly type functions with a variable number of parameters that ended with a fixed set of parameters:
+在以前的版本中，Rest 参数只能在末尾处使用，例如 `type T1 = [number, ...string[]];`，因此我们不能对包含 Rest 参数却以固定类型参数结尾的参数集使用强类型定义。
 
-```
+```ts
 function f1(...args: [...string[], number]) {
     const strs = args.slice(0, -1) as string[];
     const num = args[args.length - 1] as number;
@@ -31,12 +29,11 @@ f1(5);
 f1('abc', 5);
 f1('abc', 'def', 5);
 f1('abc', 'def', 5, 6);  // Error
-
 ```
 
-The function **`f1`** has an indefinite number of arguments of type **`string`**, followed by a parameter of type **`number`**. **`f1`** can now be typed accurately. Multiple rest elements are not permitted. An optional element cannot precede a required element or follow a rest element. Types are normalized as follows:
+函数 `f1` 的 `string` 参数的个数是不确定的，它的后面跟着一个 `number` 类型的参数。我们现在可以精确的定义 `f1` 参数的类型了。当然我们还是不能够使用多个 Rest 参数，可选元素不能在必需元素之前，也不能在其余元素之后。以下的参数类型定义是支持的：
 
-```
+```ts
 type Tup3<T extends unknown[], U extends unknown[], V extends unknown[]> = [...T, ...U, ...V];
 
 type TN1 = Tup3<[number], string[], [number]>;  // [number, ...string[], number]
@@ -45,66 +42,61 @@ type TN2 = Tup3<[number], [string?], [boolean]>;  // [number, string | undefined
 type TN3 = Tup3<[number], string[], [boolean?]>;  // [number, ...(string | boolean | undefined)[]]
 type TN4 = Tup3<[number], string[], boolean[]>;  // [number, ...(string | boolean)[]]
 type TN5 = Tup3<string[], number[], boolean[]>;  // (string | number | boolean)[] 
-
 ```
 
-TypeScript 4.2 provides a better developer experience when using type aliases:
+TypeScript 4.2 还让我们在使用类型别名时候拥有更好的开发体验：
 
 ![https://imgur.com/rQkqilu.png](https://imgur.com/rQkqilu.png)
 
-The previous example shows that the type alias **`BasicPrimitive`** that was previously expanded (normalized) in some contexts (i.e. to **`number | string | boolean`**) is no longer so. The release note emphasized the improved developer experience in several parts of the TypeScript experience:
+前面的示例表明，类型别名 `BasicPrimitive` 在某些情况下被拓展或规范化（例如为 `number | string | boolean`类型），但现在不会这样了。发行说明还强调了在不同地方的 TypeScript 开发者体验感受方面都做出了改进：
 
-> You can avoid some unfortunately humongous types getting displayed, and that often translates to getting better .d.ts file output, error messages, and in-editor type displays in quick info and signature help. This can help TypeScript feel a little bit more approachable for newcomers.
+> 你可以避免显示一些可怕的超长的类型定义 —— 类型别名现在通常会出现在快速信息和签名帮助中，以及转译的 `.d.ts` 文件输出中。这可以使 TypeScript 对于新手来说更加友善。
 
-The **`abstract`** modifier can now be used on constructor signatures.
+**`abstract`** 修饰符现在可以在构造函数签名上使用，实例：
 
-instance.
+```ts
+abstract class Shape {
+    abstract getArea(): number;
+}
 
-```
-abstract  class  Shape  {
-  abstract  getArea():  number;
-}  
-// Error! Can't instantiate an abstract class.  
-new  Shape();
+// 这是个错误！我们不能实例化一个抽象的类 
+new Shape();
 
-interface  HasArea  {  
-getArea():  number;  
-}  
-// Error! Cannot assign an abstract constructor type to a non-abstract constructor type.  
-let  Ctor:  new  ()  =>  HasArea  =  Shape;
+interface HasArea {
+    getArea(): number;
+}
 
-// Works!
-let  Ctor:  abstract  new  ()  =>  HasArea  =  Shape;  
-//          ^^^^^^^^
+// 这是一个错误！我们不能赋予抽象的构造器类型给一个不是抽象的构造器类型
+let Ctor: new  () => HasArea = Shape;
 
-```
-
-The new semantics for the **`abstract`** modifier allows [writing *mixin factories* in a way that supports abstract classes](https://github.com/microsoft/TypeScript/pull/36392).
-
-Destructured variables can now be explicitly marked as unused. Some developers would previously write:
-
-```
-const [Input, /* state */ , /* actions */, meta] = input 
-
+// 这就很棒啦
+let Ctor: abstract new () => HasArea = Shape;
+//        ^^^^^^^^
 ```
 
-for better maintainability and readability instead of
+**`abstract`** 修饰符的新语义允许我们[以支持抽象类的方式编写 `mixin factories` 的构造器](https://github.com/microsoft/TypeScript/pull/36392)。
 
+我们现在可以将已解构的变量明确标记为未使用，而一些开发人员以前会写：
+
+```ts
+const [Input, /* state */, /* actions */, meta] = input 
 ```
+
+而如果要更好的维护和阅读性，而非使用这个：
+
+```ts
 const [Input, , , meta] = input 
-
 ```
 
-Those developers can now prefix unused variables with an underscore:
+开发者们现在可以在未使用的变量名称的前面使用一个下划线标记：
 
+```ts
+const [Input, _state, _actions, meta] = input
 ```
-const [Input, _state , _actions, meta] = input
 
-```
+新版本的 TypeScript 还对 `in` 运算符提供了更严格的检查：`"foo" in 42` 将触发类型错误。而 TypeScript 的未调用函数检查现在适用于 `&&` 和 `||` 表达式。[当类型具有字符串索引签名时，设置 `noPropertyAccessFromIndexSignature` 标志不再使用点运算符（例如 `person.name`），让我们进行属性访问成为可能](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/#no-property-access-index-signature)，而 `explainFiles` 编译器标志（例如 `tsc --explainFiles` 命令）让编译器能够产生更详尽的信息告诉我们解决的和处理的文件的信息：
 
-The new version of TypeScript also adds stricter checks for the **`in`** operator: **`"foo" in 42`** will trigger a type error. TypeScript’s uncalled function checks now apply within **`&&`** and **`||`** expressions. Setting the **`noPropertyAccessFromIndexSignature`** flag no longer makes it possible to use [property access with the dot operator (e.g., **`person.name`**) when a type had a string index signature](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/#no-property-access-index-signature). The **`explainFiles`** compiler flag (e.g., **`tsc --explainFiles`**) has the compiler produce detailed information about resolved and processed files:
-
-```
+```sh
 TS_Compiler_Directory/4.2.2/lib/lib.es5.d.ts
   Library referenced via 'es5' from file 'TS_Compiler_Directory/4.2.2/lib/lib.es2015.d.ts'
 TS_Compiler_Directory/4.2.2/lib/lib.es2015.d.ts
@@ -114,23 +106,22 @@ TS_Compiler_Directory/4.2.2/lib/lib.es2015.d.ts
 
 foo.ts
   Matched by include pattern '**/*' in 'tsconfig.json'
-
 ```
 
-TypeScript 4.2 also contains a few breaking changes. Type arguments in JavaScript [are not parsed as type arguments](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/#type-arguments-in-javascript-are-not-parsed-as-type-arguments), meaning that the valid TypeScript code **`f<T>(100)`** will be parsed in a JavaScript file as per the JavaScript spec, i.e. as **`(f < T) > (100)`**. **`.d.ts`** extensions [cannot be used In import paths](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/#d-ts-extensions-cannot-be-used-in-import-paths): **`import { Foo } from "./foo.d.ts";`** may be replaced with any of the following:
+TypeScript 4.2 还包含了一些重大更改：[JavaScript 中的类型参数不会解析为类型参数](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2/#type-arguments-in-javascript-are-not-parsed-as-type-arguments)，这意味着有效的 TypeScript 代码 `f<T>(100)` 将按照 JavaScript 规范解析到 JavaScript 文件中 `(f < T) > (100)`。与此同时，`.d.ts` 扩展名不能在导入路径中使用了（例如 `import { Foo } from "./foo.d.ts;`），而我们可以用以下任何一种替换：
 
+```ts
+import {Foo} from "./foo.js";
+import {Foo} from "./foo";
+import {Foo} from "./foo/index.js";
 ```
-import  {  Foo  }  from  "./foo.js";
-import  {  Foo  }  from  "./foo";
-import  {  Foo  }  from  "./foo/index.js";
 
-```
+TypeScript 4.2 实现在任何规模或位置更加准确编写 JavaScript 的目标，但是，在每个发行版中，TypeScript 都会增加其复杂性。一位开发者指出：
 
-TypeScript 4.2 gets TypeScript ever closer to its goal of accurately typing JavaScript at any scale, anywhere JavaScript runs. With every release, however, TypeScript increases its complexity. One developer [noted](https://blog.bitsrc.io/typescript-4-2-is-here-what-is-new-good-and-bad-b734a3aa0050):
+>  由于 TypeScript 进行了大量更新导致的担忧，人们开始怀疑 TypeScript 是否会变得太复杂使得我们无法了解全部的问题，就像 C++ 那样。。
 
-> With so many updates to TypeScript, people start wondering if there will be a point [… when] it becomes too complicated to know it all, just like C++.
+TypeScript 4.2 还有其他的重大更改和功能新增，欢迎开发者阅读完整的发行说明。TypeScript 是基于 Apache 2 许可的开源软件，我们鼓励通过 TypeScript 在 GitHub 上的项目，在遵循 TypeScript 贡献准则和 Microsoft 开源行为准则的前提下进行贡献和反馈。
 
-TypeScript contains additional features and breaking changes. Developers are invited to read the [full release note](https://devblogs.microsoft.com/typescript/announcing-typescript-4-2). TypeScript is open-source software available under the Apache 2 license. Contributions and feedback are encouraged via the [TypeScript GitHub project](https://github.com/Microsoft/TypeScript/) and should follow the [TypeScript contribution guidelines](https://github.com/Microsoft/TypeScript/blob/master/CONTRIBUTING.md) and [Microsoft open-source code of conduct](https://opensource.microsoft.com/codeofconduct/).
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
