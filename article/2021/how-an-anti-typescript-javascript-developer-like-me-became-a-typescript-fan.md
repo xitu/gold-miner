@@ -1,20 +1,19 @@
-
 > * 原文地址：[How an Anti-TypeScript “JavaScript developer” like me became a TypeScript fan](https://chiragswadia.medium.com/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan-a4e043151ad7)
 > * 原文作者：[chiragswadia](https://chiragswadia.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
+# 一个像我一样讨厌 TypeScript 的 “JavaScript 开发者” 是怎样路转粉的？
 
-# How an Anti-TypeScript “JavaScript developer” like me became a TypeScript fan
 In this blog post, I am talking about my journey from being an Anti-TypeScript developer to a developer who now could not think about going back to the plain JavaScript world 🚀 Maybe my thoughts can help someone who is in the same boat as I was couple of years back.
 
 # **Why was I Anti-TypeScript?**
 
 I always felt that adding types to the functions/variables and satisfying the TypeScript compiler is an over-engineering and not providing any meaningful benefits. Also it felt slow to work on, as I always used to get some compilation errors which were hard to understand initially, and I scratched my head trying to figure out the problem. This caused some frustration, and I started hating TypeScript
 
-The other reason was Advanced TypeScript concepts like [Generics](https://www.typescriptlang.org/docs/handbook/generics.html) felt very hard to understand initially and I started feeling that I am in the **Java** world where every piece of code is strongly typed and overwhelming. Even simple code like below scared me when I started learning TypeScript
+The other reason was Advanced TypeScript concepts like [Generics](https://www.typescriptlang.org/docs/handbook/generics.html) felt very hard to understand initially and I started feeling that I am in the **Java** world where every piece of code is strongly typed and overwhelming. Even simple code like below scared me when I started learning TypeScript
 
 ![https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png](https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png)
 
@@ -32,8 +31,8 @@ This is the major reason why I love TypeScript. If you would like to know more a
 
 If you want to see some examples on how to leverage TypeScript in your React applications to avoid impossible states, I would recommend you to read the below blog posts
 
-1. [A real life example on how would a Traffic light system would take care of impossible states](https://zohaib.me/leverage-union-types-in-typescript-to-avoid-invalid-state/) 🚦
-2. [A React component with loading, loaded and error states](https://dev.to/housinganywhere/matching-your-way-to-consistent-states-1oag) ⚛️
+1. [A real life example on how would a Traffic light system would take care of impossible states](https://zohaib.me/leverage-union-types-in-typescript-to-avoid-invalid-state/) 🚦
+2. [A React component with loading, loaded and error states](https://dev.to/housinganywhere/matching-your-way-to-consistent-states-1oag) ⚛️
 
 ## **Spotting bugs early**
 
@@ -53,7 +52,7 @@ To summarise, there are many other benefits of moving to TypeScript ( if you hav
 
 If you are a TypeScript beginner or would like to improve your knowledge, here are some books I can recommend
 
-1. [TypeScript in 50 Lessons](https://amzn.to/37YslR2) [Affiliate link]
+1. [TypeScript in 50 Lessons](https://amzn.to/37YslR2) [Affiliate link]
 2. [Tackling TypeScript](https://exploringjs.com/tackling-ts/)
 
 Cheers! 🙂
