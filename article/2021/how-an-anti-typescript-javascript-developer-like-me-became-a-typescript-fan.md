@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 一个像我一样是 TypeScript 的黑粉的 “JavaScript 开发者” 是怎样黑转粉的？
+# 和我一样是 TypeScript 黑粉的 “JavaScript 开发者” 是怎样黑转粉的？
 
 在这篇博客文章中，我将会讲述我是如何从一名 TypeScript 黑粉的开发者转变到如今不想回到原生 JavaScript 世界的开发者的旅程 🚀，也许我的想法可以帮助和我几年前一样境遇的人们。
 
