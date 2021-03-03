@@ -2,10 +2,10 @@
 > * 原文作者：[Dr. Axel Rauschmayer](http://dr-axel.de/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/undefined-null-revisited.md](https://github.com/xitu/gold-miner/blob/master/article/2021/undefined-null-revisited.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# undefined vs. null revisited
+# 重新审视 undefined 和 null
 
 Many programming languages have one “non-value” called null. It indicates that a variable does not currently point to an object – for example, when it hasn’t been initialized yet.
 
@@ -58,7 +58,9 @@ assert.equal(obj.unknownProp, undefined);
 If a function does not explicitly return anything, the function implicitly returns `undefined`:
 
 ```js
-function myFunc() {}
+function myFunc() {
+}
+
 assert.equal(myFunc(), undefined);
 ```
 
@@ -66,8 +68,9 @@ If a function has a `return` statement without an argument, the function implici
 
 ```js
 function myFunc() {
-  return;
+    return;
 }
+
 assert.equal(myFunc(), undefined);
 ```
 
@@ -75,8 +78,9 @@ If a parameter `x` is omitted, the language initializes that parameter with `und
 
 ```js
 function myFunc(x) {
-  assert.equal(x, undefined);
+    assert.equal(x, undefined);
 }
+
 myFunc();
 ```
 
@@ -124,9 +128,10 @@ A parameter default value is used if:
 For example:
 
 ```js
-function myFunc(arg='abc') {
-  return arg;
+function myFunc(arg = 'abc') {
+    return arg;
 }
+
 assert.equal(myFunc('hello'), 'hello');
 assert.equal(myFunc(), 'abc');
 assert.equal(myFunc(undefined), 'abc');
@@ -137,11 +142,12 @@ That `undefined` also triggers the parameter default value points towards it bei
 The following example demonstrates where that is useful:
 
 ```js
-function concat(str1='', str2='') {
-  return str1 + str2;
+function concat(str1 = '', str2 = '') {
+    return str1 + str2;
 }
+
 function twice(str) { // (A)
-  return concat(str, str);
+    return concat(str, str);
 }
 ```
 
@@ -152,16 +158,16 @@ In line A, we don’t specify a parameter default value for `str`. When this par
 Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches `undefined`:
 
 ```js
-const [a='a'] = [];
+const [a = 'a'] = [];
 assert.equal(a, 'a');
 
-const [b='b'] = [undefined];
+const [b = 'b'] = [undefined];
 assert.equal(b, 'b');
 
-const {prop: c='c'} = {};
+const {prop: c = 'c'} = {};
 assert.equal(c, 'c');
 
-const {prop: d='d'} = {prop: undefined};
+const {prop: d = 'd'} = {prop: undefined};
 assert.equal(d, 'd');
 ```
 
@@ -174,15 +180,16 @@ When there is [optional chaining](https://exploringjs.com/impatient-js/ch_single
 
 ```js
 function getProp(value) {
-  // optional static property access
-  return value?.prop;
+    // optional static property access
+    return value?.prop;
 }
+
 assert.equal(
-  getProp({prop: 123}), 123);
+    getProp({prop: 123}), 123);
 assert.equal(
-  getProp(undefined), undefined);
+    getProp(undefined), undefined);
 assert.equal(
-  getProp(null), undefined);
+    getProp(null), undefined);
 ```
 
 The following two operations work similarly:
@@ -216,24 +223,25 @@ The [nullish coalescing assignment operator `??=`](https://2ality.com/2020/06/lo
 
 ```js
 function setName(obj) {
-  obj.name ??= '(Unnamed)';
-  return obj;
+    obj.name ??= '(Unnamed)';
+    return obj;
 }
+
 assert.deepEqual(
-  setName({}),
-  {name: '(Unnamed)'}
+    setName({}),
+    {name: '(Unnamed)'}
 );
 assert.deepEqual(
-  setName({name: undefined}),
-  {name: '(Unnamed)'}
+    setName({name: undefined}),
+    {name: '(Unnamed)'}
 );
 assert.deepEqual(
-  setName({name: null}),
-  {name: '(Unnamed)'}
+    setName({name: null}),
+    {name: '(Unnamed)'}
 );
 assert.deepEqual(
-  setName({name: 'Jane'}),
-  {name: 'Jane'}
+    setName({name: 'Jane'}),
+    {name: 'Jane'}
 );
 ```
 
@@ -253,17 +261,17 @@ This looks as follows:
 
 ```js
 function createFile(title) {
-  if (title === undefined || title === null) {
-    throw new Error('`title` must not be nullish');
-  }
-  // ···
+    if (title === undefined || title === null) {
+        throw new Error('`title` must not be nullish');
+    }
+    // ···
 }
 ```
 
 Why choose this approach?
 
 * We want to treat `undefined` and `null` the same because JavaScript code often does – for example:
-    
+
     ```js
     // Detecting if a property exists
     if (!obj.requiredProp) {
@@ -274,9 +282,8 @@ Why choose this approach?
     const myValue = myParameter ?? 'some default';
     
     ```
-    
+
 * If there is an issue in our code and either `undefined` or `null` appears, we want it to fail as quickly as possible.
-    
 
 #### Both `undefined` and `null` trigger defaults
 
@@ -284,8 +291,8 @@ This looks as follows:
 
 ```js
 function createFile(title) {
-  title ??= '(Untitled)';
-  // ···
+    title ??= '(Untitled)';
+    // ···
 }
 ```
 
@@ -306,10 +313,10 @@ This looks as follows:
 
 ```js
 function createFile(title) {
-  if (title === undefined) {
-    throw new Error('`title` must not be undefined');
-  }
-  return {title};
+    if (title === undefined) {
+        throw new Error('`title` must not be undefined');
+    }
+    return {title};
 }
 ```
 
@@ -317,7 +324,7 @@ Alternatively, `undefined` can trigger a default value:
 
 ```js
 function createFile(title = '(Untitled)') {
-  return {title};
+    return {title};
 }
 ```
 
@@ -333,10 +340,10 @@ This looks as follows:
 
 ```js
 function createFile(title) {
-  if (title === null) {
-    throw new Error('`title` must not be null');
-  }
-  return {title};
+    if (title === null) {
+        throw new Error('`title` must not be null');
+    }
+    return {title};
 }
 ```
 
@@ -362,7 +369,7 @@ We can create a special value that we use whenever the property `.title` is swit
 ```js
 const UNTITLED = Symbol('UNTITLED');
 const file = {
-  title: UNTITLED,
+    title: UNTITLED,
 };
 ```
 
@@ -379,44 +386,46 @@ In the following example, `UntitledFile` implements the “null” mode.
 ```js
 // Abstract superclass
 class File {
-  constructor(content) {
-    if (new.target === File) {
-      throw new Error('Can’t instantiate this class');
+    constructor(content) {
+        if (new.target === File) {
+            throw new Error('Can’t instantiate this class');
+        }
+        this.content = content;
     }
-    this.content = content;
-  }
 }
 
 class TitledFile extends File {
-  constructor(content, title) {
-    super(content);
-    this.title = title;
-  }
-  getTitle() {
-    return this.title;
-  }
+    constructor(content, title) {
+        super(content);
+        this.title = title;
+    }
+
+    getTitle() {
+        return this.title;
+    }
 }
 
 class UntitledFile extends File {
-  constructor(content) {
-    super(content);
-  }
-  getTitle() {
-    return '(Untitled)';
-  }
+    constructor(content) {
+        super(content);
+    }
+
+    getTitle() {
+        return '(Untitled)';
+    }
 }
 
 const files = [
-  new TitledFile('Dear diary!', 'My Diary'),
-  new UntitledFile('Reminder: pick a title!'),
+    new TitledFile('Dear diary!', 'My Diary'),
+    new UntitledFile('Reminder: pick a title!'),
 ];
 
 assert.deepEqual(
-  files.map(f => f.getTitle()),
-  [
-    'My Diary',
-    '(Untitled)',
-  ]);
+    files.map(f => f.getTitle()),
+    [
+        'My Diary',
+        '(Untitled)',
+    ]);
 ```
 
 We also could have used the null object pattern for just the title (instead of for the whole file object).
@@ -427,33 +436,33 @@ The Maybe type is a function programming technique:
 
 ```js
 function getTitle(file) {
-  switch (file.title.kind) {
-    case 'just':
-      return file.title.value;
-    case 'nothing':
-      return '(Untitled)';
-    default:
-      throw new Error();
-  }
+    switch (file.title.kind) {
+        case 'just':
+            return file.title.value;
+        case 'nothing':
+            return '(Untitled)';
+        default:
+            throw new Error();
+    }
 }
 
 const files = [
-  {
-    title: {kind: 'just', value: 'My Diary'},
-    content: 'Dear diary!',
-  },
-  {
-    title: {kind: 'nothing'},
-    content: 'Reminder: pick a title!',
-  },
+    {
+        title: {kind: 'just', value: 'My Diary'},
+        content: 'Dear diary!',
+    },
+    {
+        title: {kind: 'nothing'},
+        content: 'Reminder: pick a title!',
+    },
 ];
 
 assert.deepEqual(
-  files.map(f => getTitle(f)),
-  [
-    'My Diary',
-    '(Untitled)',
-  ]);
+    files.map(f => getTitle(f)),
+    [
+        'My Diary',
+        '(Untitled)',
+    ]);
 ```
 
 We could have encoded “just” and “nothing” via Arrays. The benefit of our approach is that it is well supported by TypeScript (via [discriminating unions](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions)).
