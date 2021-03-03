@@ -57,7 +57,7 @@
 1. [TypeScript 50课](https://amzn.to/37YslR2)（是个会员链接）
 2. [使用 TypeScript](https://exploringjs.com/tackling-ts/)
 
-干杯! 🙂
+让我们一起干杯! 🙂
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
