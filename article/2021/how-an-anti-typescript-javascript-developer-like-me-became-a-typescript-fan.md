@@ -1,62 +1,63 @@
-
 > * 原文地址：[How an Anti-TypeScript “JavaScript developer” like me became a TypeScript fan](https://chiragswadia.medium.com/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan-a4e043151ad7)
 > * 原文作者：[chiragswadia](https://chiragswadia.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-an-anti-typescript-javascript-developer-like-me-became-a-typescript-fan.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[itcodes](https://github.com/itcodes)、[husiyu](https://github.com/husiyu)
+
+# 为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白
 
 
-# How an Anti-TypeScript “JavaScript developer” like me became a TypeScript fan
-In this blog post, I am talking about my journey from being an Anti-TypeScript developer to a developer who now could not think about going back to the plain JavaScript world 🚀 Maybe my thoughts can help someone who is in the same boat as I was couple of years back.
+在这篇博客文章中，我将会讲述我是如何从一名 TypeScript 黑粉的开发者转变到如今不想回到原生 JavaScript 世界的开发者的旅程 🚀，也许我的想法可以帮助和我几年前一样境遇的人们。
 
-# **Why was I Anti-TypeScript?**
+# **为什么我曾经是 TypeScript 的黑粉？**
 
-I always felt that adding types to the functions/variables and satisfying the TypeScript compiler is an over-engineering and not providing any meaningful benefits. Also it felt slow to work on, as I always used to get some compilation errors which were hard to understand initially, and I scratched my head trying to figure out the problem. This caused some frustration, and I started hating TypeScript
+我一直觉得给函数和变量设定类型，满足 TypeScript 编译器的各种检查是一种过度的设计，并且没有任何意义上的好处。而且这个设计也让我编写程序的速度很慢，也是因为我经常会遇到一些作为一名新人所难以理解的编译错误。我挠头三千尺，白发飘落，试图去找出问题所在，也同时增生了一丝惆怅与挫败。我开始讨厌 TypeScript 这门语言了。
 
-The other reason was Advanced TypeScript concepts like [Generics](https://www.typescriptlang.org/docs/handbook/generics.html) felt very hard to understand initially and I started feeling that I am in the **Java** world where every piece of code is strongly typed and overwhelming. Even simple code like below scared me when I started learning TypeScript
+另一个原因是 TypeScript 中诸如[范型](https://www.typescriptlang.org/docs/handbook/generics.html)之类的概念我一开始觉得很难理解。我开始觉得自己又深陷 **Java** 世界那般的泥潭，似乎每句代码的输入都是强类型并且令我极度厌烦的。当我开始学习 TypeScript 时，即使像下面这样的简单代码也足以让我感到恐惧。
 
-![https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png](https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png)
+![TypeScript 泛型示例](https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png)
 
-TypeScript Generics example
+由于上述的原因，即使我通过观看一些在线的教程或是尝试去阅读书籍来学习 TypeScript，我也从未主导或参与过任何使用 TypeScript 编写的企业应用程序的开发之中。实际上，我过去常常选择 JavaScript 而不是 TypeScript（如果可以选择）去完成家庭作业这一公司面试过程的一部分 🙈。
 
-So because of the above reasons, even though I was learning TypeScript by watching tutorials or reading books, I never worked on any enterprise application which was written in TypeScript. In fact, I used to choose JavaScript over TypeScript ( if it was a choice ) for take home assignments as a part of interview process of companies 🙈
+但是，当我转任现职时，我失去了使用 JavaScript 的权利！因为我将要处理的所有应用程序都是用 TypeScript 编写的（JavaScript 部分都是些旧代码）。我对 TypeScript 的仇恨，与日俱增！但在几个月后，我终于明白了为什么会有人更喜欢 TypeScript，而不是喜欢 JavaScript 的原因，明白了使用 TypeScript 的好处和一些激励我去尝试使用的的理由。这些内容我将在下面的部分中列出：
 
-However, when I moved to my current role, working on JavaScript was not a choice, as all the apps I was going to work on, were written in TypeScript ( with only legacy code in JavaScript).As expected, initially it was overwhelming for me, and my hate for TypeScript was increasing, but eventually after couple of months, I understood the benefits and some motivating reasons as to why someone should prefer TypeScript over JavaScript, which I have listed in the below section
+## **我成为 TypeScript 粉丝的三大原因**
 
-# **Top 3 Reasons why I became a TypeScript Fan**
+### **避免无效状态的出现 & 拥有详尽的检查**
 
-## **Making impossible states impossible and exhaustive checks**
+这就是我喜欢 TypeScript 的主要原因。如果你想了解更多这个概念的信息，我建议你看下面的视频 —— 虽说它说的是 Elm 语言，但该概念也适用于 TypeScript 语言。
 
-This is the major reason why I love TypeScript. If you would like to know more about this concept, I would recommend watching the below video. It talks about the Elm language, but the concept is valid for the TypeScript world as well
 
-If you want to see some examples on how to leverage TypeScript in your React applications to avoid impossible states, I would recommend you to read the below blog posts
+![Making Impossible State Impossible](https://youtu.be/IcgmSRJHu_8)
 
-1. [A real life example on how would a Traffic light system would take care of impossible states](https://zohaib.me/leverage-union-types-in-typescript-to-avoid-invalid-state/) 🚦
-2. [A React component with loading, loaded and error states](https://dev.to/housinganywhere/matching-your-way-to-consistent-states-1oag) ⚛️
+如果你想查看一些有关如何在 React 应用程序中利用 TypeScript 来避免程序出现无效状态的示例，我建议你去阅读一下下面的博客文章：
 
-## **Spotting bugs early**
+1. [交通信号灯系统是如何处理无效状态的现实示例 🚦](https://zohaib.me/leverage-union-types-in-typescript-to-avoid-invalid-state/)
+2. [带有加载中、已加载和加载错误状态的 React 组件 ⚛️](https://dev.to/housinganywhere/matching-your-way-consistent-states-1oag)
 
-While working on JavaScript, I have encountered multiple instances where bugs were spotted in production due to some corner case, which happened because of no type-checking on the Frontend. These bugs can be avoided and could be caught at the compile time by the TypeScript compiler, which will save some hours of DEV 🔁 QA cycle
+### **及早发现错误**
 
-With TypeScript, everything stays the way it was initially defined. If a variable is declared as a Boolean, it will always be a Boolean and won’t turn into a number. This enhances the likelihood of code working the way initially intended. In short, the code is predictable!
+在使用 JavaScript 时，我多次遇到过由于在前端没有进行类型检查而在生产环境发现 bug 的情况。这些 bug 本可以被避免，并且可以在编译时被 TypeScript 编译器发现，这样可以节省研发和 QA 的工作周期。
 
-## **Rich IDE support and ease of refactoring**
+使用 TypeScript，一切都保持最初定义的方式。如果将变量声明为布尔型，则它将始终是布尔型，并且不会变成数字。这增加了代码按照最初预期的方式工作的可能性。简而言之，代码是可预测的！
 
-Information about types makes Integrated development environments (IDE) much more helpful. You will get features like code navigation and autocompletion, providing accurate suggestions. You also get feedback while typing: The editor flags errors, including type-related as soon as they occur. All this helps you write maintainable code and results in a huge productivity boost 🚀
+### **丰富的 IDE 支持 & 易于重构**
 
-If we talk about refactoring, like introducing a new state or getting rid of an unwanted state which is being used across the app, TypeScript compiler will complain if you forget to update some references, and you can be confident about your refactoring, that the app will work the same way as it was before refactoring.
+集成开发环境（IDE）让有关类型的信息更加有用 —— 我们可以在 IDE 中使用上代码导航和自动完成等功能，并借助这些准确的建议修复错误。我们还可以在输入代码时获得反馈：编辑器会在错误发生时立即标记出错误，包括与类型相关的错误。这些功能可帮助开发者写出可维护的代码，并带来巨大的生产力提升 🚀。
 
-# **Conclusion**
+关于重构，比如引入一个新状态或者移除应用程序正在使用的不需要的状态，如果在过程中我们忘记了要去更新部分引用，TypeScript 编译器就会进行警告。重构后的应用程序将像重构之前一样工作，不用担心兼容问题。这能让你对重构充满信心。
 
-To summarise, there are many other benefits of moving to TypeScript ( if you have not already done ), but these were the main motivating points for me which made me a TypeScript fan.
+## **结论**
 
-If you are a TypeScript beginner or would like to improve your knowledge, here are some books I can recommend
+总而言之，使用 TypeScript 有许多的好处（如果你还没有这样做的话），而以上的几点就是我的主要动力，也是因为这些动力，我对 TypeScript 黑转粉了。
 
-1. [TypeScript in 50 Lessons](https://amzn.to/37YslR2) [Affiliate link]
-2. [Tackling TypeScript](https://exploringjs.com/tackling-ts/)
+如果你是 TypeScript 的初学者或想提高你的知识，那么我可以推荐一些书：
 
-Cheers! 🙂
+1. [TypeScript 50课](https://amzn.to/37YslR2)（是个会员链接）
+2. [使用 TypeScript](https://exploringjs.com/tackling-ts/)
+
+让我们一起干杯! 🙂
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
