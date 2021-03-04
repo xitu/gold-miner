@@ -7,55 +7,55 @@
 
 # 重新审视 undefined 和 null
 
-Many programming languages have one “non-value” called null. It indicates that a variable does not currently point to an object – for example, when it hasn’t been initialized yet.
+很多的编程语言都有一种表示非值的类型，叫做 `null`。它指示了一个变量当前并没有指向任何对象 —— 例如，某个变量还没有初始化的时候。
 
-In contrast, JavaScript has two such non-values: `undefined` and `null`. In this blog post, we examine how they differ and how to best use or avoid them.
+作为对比，JavaScript 则拥有两种表示非值的类型，一种是 `undefined`，另一种则是 `null`。在这篇文章中，我们将测试它们的区别，以及如何去挑选最佳的类型或避免去使用它们。
 
 ## `undefined` vs. `null`
 
-Both values are very similar and often used interchangeably. How they differ is therefore subtle.
+两个值都很是相像，并且通常被相互替代着使用，也因此，他们之间的区别很是细微。
 
-### The ECMAScript language specification on `undefined` vs. `null`
+### `undefined`、`null` 在ECMAScript 语言标准上的对比
 
-The ECMAScript language specification describes them as follows:
+ECMAScript 语言标准按照如下内容描述他们：
 
-* `undefined` is “used when a variable has not been assigned a value” [(source)](https://tc39.es/ecma262/#sec-undefined-value).
-* `null` “represents the intentional absence of any object value” [(source)](https://tc39.es/ecma262/#sec-null-value).
+* `undefined` 是在一个变量还没有被赋值时候使用的。<sup>[出处](https://tc39.es/ecma262/#sec-undefined-value)</sup>
+* `null` 表示任何有意而为的对象值的缺省缺失。<sup>[出处](https://tc39.es/ecma262/#sec-null-value)</sup>
 
-We’ll see later how to best handle these two values as a programmer.
+我们等下就会探索一下作为程序员，我们应该如何去以最佳的方式使用这两个值。
 
-### Two non-values – a mistake that can’t be removed
+### 两个非值 —— 一个不能弥补的错误
 
-Having two non-values in JavaScript is now considered a design mistake (even by JavaScript’s creator, Brendan Eich).
+在 JavaScript 中同时有两个表示非值的值现在被认为是一个设计错误（哪怕是 JS 之父 Brendan Eich 也这么认为）。
 
-Why isn’t one of those values removed from JavaScript, then? One core principle of JavaScript is to never break backward compatibility. That principle has [many upsides](https://exploringjs.com/impatient-js/ch_history.html#backward-compatibility). Its biggest downside is that design mistakes can’t be removed.
+那么为什么不从 JavaScript 中删除这两个值之一呢？JavaScript 的一项核心原则是永不破坏向后的兼容性。该原则具有[好处](https://exploringjs.com/impatient-js/ch_history.html#backward-compatibility)，但同时也拥有着最大的缺点，即无法弥补设计错误。
 
-### The history of `undefined` and `null`
+### `undefined` 和 `null` 的历史
 
-In Java (which inspired many aspects of JavaScript), initialization values depend on the static type of a variable:
+在 Java（影响了 JS 很多方面的语言）中初始值依赖于一个变量的静态类型：
 
-* Variables with object types are initialized with `null`.
-* Each primitive type has its own initialization value. For example, `int` variables are initialized with `0`.
+* 以对象值为类型的变量初始化为 `null`。
+* 任何原始值都拥有它的初始值，例如 `int` 整型对应 `0`。
 
-In JavaScript, each variable can hold both object values and primitive values. Therefore, if `null` means “not an object”, JavaScript also needs an initialization value that means “neither an object nor a primitive value”. That initialization value is `undefined`.
+在 JavaScript 中，每一个变量都可以同时存储对象值和原始值，意味着如果 `null` 表示不是一个对象，那么 JavaScript 也同时需要一个初始值表示既不是一个对象也不拥有原始值，这就是 `undefined`。
 
-## Occurrences of `undefined` in the language
+## `undefined` 的所作所为
 
-If a variable `myVar` has not been initialized yet, its value is `undefined`:
+如果一个变量 `myVar` 还没有被初始化，那么它的值就是 `undefined`：
 
 ```js
 let myVar;
 assert.equal(myVar, undefined);
 ```
 
-If a property `.unknownProp` is missing, accessing the property produces the values `undefined`:
+如果一个属性 `.unknownProp` 缺失了，访问这个属性会赋予这个属性 `undefined` 值：
 
 ```js
 const obj = {};
 assert.equal(obj.unknownProp, undefined);
 ```
 
-If a function does not explicitly return anything, the function implicitly returns `undefined`:
+如果一个函数没有指定任何内容的返回，那么默认就会返回 `undefined`：
 
 ```js
 function myFunc() {
@@ -64,7 +64,7 @@ function myFunc() {
 assert.equal(myFunc(), undefined);
 ```
 
-If a function has a `return` statement without an argument, the function implicitly returns `undefined`:
+如果一个函数拥有一个 `return` 语句但没有任何附属语句，那么也是默认返回 `undefined`：
 
 ```js
 function myFunc() {
@@ -74,7 +74,7 @@ function myFunc() {
 assert.equal(myFunc(), undefined);
 ```
 
-If a parameter `x` is omitted, the language initializes that parameter with `undefined`:
+如果一个参数 `x` 被漏掉了，那么就会被初始化为 `undefined`：
 
 ```js
 function myFunc(x) {
@@ -84,7 +84,7 @@ function myFunc(x) {
 myFunc();
 ```
 
-[Optional chaining](https://exploringjs.com/impatient-js/ch_single-objects.html#optional-chaining) via `obj?.someProp` returns `undefined` if `obj` is `undefined` or `null`:
+通过 `obj?.someProp` 访问的[可选链](https://exploringjs.com/impatient-js/ch_single-objects.html#optional-chaining)在` obj` 是 `undefined` 或 `null` 的时候返回 `undefined`：
 
 ```repl
 > undefined?.someProp
@@ -93,39 +93,39 @@ undefined
 undefined
 ```
 
-## Occurrences of `null` in the language
+## `null` 的所作所为
 
-The prototype of an object is either an object or, at the end of a chain of prototypes, `null`. `Object.prototype` does not have a prototype:
+一个对象的圆形是一个对象，或者是一系列原型的末尾 `null`，那么 `Object.prototype` 就没有一个原型：
 
 ```repl
 > Object.getPrototypeOf(Object.prototype)
 null
 ```
 
-If we match a regular expression (such as `/a/`) against a string (such as `'x'`), we either get an object with matching data (if matching was successful) or `null` (if matching failed):
+如果我们使用一个正则表达式（例如 `/a/`）匹配一个字符串（例如 `x`），我们要么得到一个存储着匹配数据的对象（如果匹配成功），要么得到 `null`（没有匹配内容）。
 
 ```repl
 > /a/.exec('x')
 null
 ```
 
-The [JSON data format](#ch_json) does not support `undefined`, only `null`:
+[JSON 数据格式](https://exploringjs.com/impatient-js/ch_json.html) 不支持 `undefined`，只支持 `null`：
 
 ```repl
 > JSON.stringify({a: undefined, b: null})
 '{"b":null}'
 ```
 
-## Operators that treat `undefined` and/or `null` specially
+## 专门用来对付 `undefined` 和 `null` 的操作符
 
-### `undefined` and parameter default values
+### `undefined` 以及参数缺省值
 
-A parameter default value is used if:
+一个参数的缺省值会在以下情况下被使用：
 
-* A parameter is missing.
-* A parameter has the value `undefined`.
+* 这个参数被我们忽略掉了。
+* 这个参数被赋予 `undefined` 值。
 
-For example:
+举个例子：
 
 ```js
 function myFunc(arg = 'abc') {
@@ -137,9 +137,9 @@ assert.equal(myFunc(), 'abc');
 assert.equal(myFunc(undefined), 'abc');
 ```
 
-That `undefined` also triggers the parameter default value points towards it being a metavalue.
+那个 `undefined` 还会触发参数默认值的条件，指向它的一个元值。
 
-The following example demonstrates where that is useful:
+以下的例子示范了这个特性有用的地方：
 
 ```js
 function concat(str1 = '', str2 = '') {
@@ -151,11 +151,11 @@ function twice(str) { // (A)
 }
 ```
 
-In line A, we don’t specify a parameter default value for `str`. When this parameter is missing, we forward that status to `concat()` and let it pick a default value.
+在 A 行，我们并没有制定参数 `str` 的默认值，而当这个参数被忽略掉的时候，我们将该状态转发到 `concat()`，让其选择默认值。
 
-### `undefined` and destructuring default values
+### `undefined`，解构缺省值
 
-Default values in destructuring work similarly to parameter default values – they are used if a variable either has no match in the data or if it matches `undefined`:
+解构下的缺省值的工作方式与参数默认值类似 —— 如果变量在数据中不匹配或与 `undefined` 匹配，则使用它们：
 
 ```js
 const [a = 'a'] = [];
@@ -171,16 +171,16 @@ const {prop: d = 'd'} = {prop: undefined};
 assert.equal(d, 'd');
 ```
 
-### `undefined` and `null` and optional chaining
+### `undefined`、`null`、可选链
 
-When there is [optional chaining](https://exploringjs.com/impatient-js/ch_single-objects.html#optional-chaining) via `value?.prop`:
+如果通过 `value?.prop` 使用了[可选链](https://exploringjs.com/impatient-js/ch_single-objects.html#optional-chaining)：
 
-* If `value` is `undefined` or `null`, return `undefined`. That is, this happens whenever `value.prop` would throw an exception.
-* Otherwise, return `value.prop`.
+* 如果 `value` 是 `undefined` 或 `null` 的，将会返回 `undefined`。也就是说，如果 `value.prop` 是否会抛出错误，就会返回 `undefined`。
+* 否则会返回 `value.prop`.
 
 ```js
 function getProp(value) {
-    // optional static property access
+    // 可选的静态属性的访问
     return value?.prop;
 }
 
@@ -192,16 +192,16 @@ assert.equal(
     getProp(null), undefined);
 ```
 
-The following two operations work similarly:
+以下的两个操作也很是类似的工作：
 
 ```js
 obj?.[«expr»] // optional dynamic property access
 func?.(«arg0», «arg1») // optional function or method call
 ```
 
-### `undefined` and `null` and nullish coalescing
+### `undefined`、`null` 以及空合并
 
-The [nullish coalescing operator `??`](https://exploringjs.com/impatient-js/ch_operators.html#nullish-coalescing-operator) lets us use a default value if a value is `undefined` or `null`:
+[空合并操作符 `??`](https://exploringjs.com/impatient-js/ch_operators.html#nullish-coalescing-operator) 让我们去使用缺省值，如果一个值是 `undefined` 或 `null` 的：
 
 ```repl
 > undefined ?? 'default value'
@@ -219,7 +219,7 @@ The [nullish coalescing operator `??`](https://exploringjs.com/impatient-js/ch_o
 'abc'
 ```
 
-The [nullish coalescing assignment operator `??=`](https://2ality.com/2020/06/logical-assignment-operators.html) combines nullish coalescing with assignment:
+[空合并赋值操作符 `??=`](https://2ality.com/2020/06/logical-assignment-operators.html) 合并了空合并操作符与赋值操作符：
 
 ```js
 function setName(obj) {
@@ -245,19 +245,19 @@ assert.deepEqual(
 );
 ```
 
-## Handling `undefined` and `null`
+## 操作 `undefined` 与 `null`
 
-The following subsections explain the most common ways of handling `undefined` and `null` in our own code.
+以下的自分区解释了在我们代码中最常见的操作 `undefined` 和 `null` 的方法：
 
-### Neither `undefined` nor `null` are used as actual values
+### 真实值既不是 `undefined` 也不是 `null`
 
-As an example, we may want a property `file.title` to always exist and to always be a string. There are two common ways to achieve this.
+例如，我们可能希望属性 `file.title` 始终存在并且始终是字符串，那么有两种常见的方法可以实现此目的。
 
-Note that, in this blog post, we only check for `undefined` and `null` and not whether a value is a string or not. You have to decide for yourself if you want to implement that as an additional security measure or not.
+请注意，在此博客文章中，我们仅检查 `undefined` 和 `null`，而不检查值是否为字符串。我们必须自己决定是否要添加检查器，作为附加的安全保障措施。
 
-#### Both `undefined` and `null` are forbidden
+#### 同时禁止 `undefined` 和 `null`
 
-This looks as follows:
+例如：
 
 ```js
 function createFile(title) {
@@ -268,26 +268,26 @@ function createFile(title) {
 }
 ```
 
-Why choose this approach?
+为什么选择这个方法？
 
-* We want to treat `undefined` and `null` the same because JavaScript code often does – for example:
+* 我们希望去以相同的方式操作 `undefined` 和 `null`，因为 JavaScript 代码就是经常那样做，例如：
 
     ```js
-    // Detecting if a property exists
+    // 检查如果一个属性存在
     if (!obj.requiredProp) {
       obj.requiredProp = 123;
     }
     
-    // Default values via nullish coalescing operator
+    // 通过空合并操作符使用缺省值
     const myValue = myParameter ?? 'some default';
     
     ```
 
-* If there is an issue in our code and either `undefined` or `null` appears, we want it to fail as quickly as possible.
+* 如果在我们代码中有个问题，让 `undefined` 或 `null` 出现了，我们需要让它尽早结束执行并抛出错误。
 
-#### Both `undefined` and `null` trigger defaults
+#### 同时对 `undefined` 和 `null` 使用缺省值
 
-This looks as follows:
+例如：
 
 ```js
 function createFile(title) {
@@ -296,31 +296,31 @@ function createFile(title) {
 }
 ```
 
-We can’t use a parameter default value here because it is only triggered by `undefined`. Instead, we rely on the [nullish coalescing assignment operator `??=`](https://2ality.com/2020/06/logical-assignment-operators.html).
+我们不能使用一个参数的缺省值，因为那只会被 `undefined` 触发。在这里，我们依赖于[空合并赋值运算符 `??=`](https://2ality.com/2020/06/logical-assignment-operators.html)。
 
-Why choose this approach?
+为什么我们选择这个方法？
 
-* We want to treat `undefined` and `null` the same (see previous section).
-* We want our code to deal robustly and silently with `undefined` and `null`.
+* 我们希望以相同方式对待 `undefined` 和 `null`（见上文）。
+* 我们希望我们的代码结实而无声（？）地对待 `undefined` 和 `null`。
 
-### Either `undefined` or `null` is a “switched off” value
+### `undefined` 或 `null` 是一个忽略的值
 
-As an example, we may want a property `file.title` to be either a string or “switched off” (`file` doesn’t have a title). There are several ways to achieve this.
+例如，我们可能希望属性 `file.title` 是字符串或是忽略的值（即 `file` 没有标题），那么有几种方法可以实现此目的。
 
-#### `null` is the “switched off” value
+#### `null` 是忽略值
 
-This looks as follows:
+例如：
 
 ```js
 function createFile(title) {
     if (title === undefined) {
-        throw new Error('`title` must not be undefined');
+        throw new Error('`title` 不应该是 undefined');
     }
     return {title};
 }
 ```
 
-Alternatively, `undefined` can trigger a default value:
+当然，`undefined` 如下：
 
 ```js
 function createFile(title = '(Untitled)') {
@@ -328,43 +328,43 @@ function createFile(title = '(Untitled)') {
 }
 ```
 
-Why choose this approach?
+为什么要选择这个方法？
 
-* We need a non-value that means “switched off”.
-* We don’t want our non-value to trigger parameter default values and destructuring default values.
-* We want to stringify the non-value as JSON (something that we can’t do with `undefined`).
+* 我们需要一个非值，表示被忽略。
+* 我们不希望非值触发参数默认值并破坏默认值。
+* 我们想将非值字符串化为 JSON（这是我们无法对 `undefined` 进行的处理）。
 
-#### `undefined` is the “switched off” value
+#### `undefined` 是被忽略的值
 
-This looks as follows:
+例如：
 
 ```js
 function createFile(title) {
     if (title === null) {
-        throw new Error('`title` must not be null');
+        throw new Error('`title` 不应该是 null');
     }
     return {title};
 }
 ```
 
-Why choose this approach?
+为什么选择这种方法？
 
-* We need a non-value that means “switched off”.
-* We do want our non-value to trigger parameter default values and destructuring default values.
+* 我们需要一个非值，表示被忽略。
+* 我们确实希望非值触发参数默认值并破坏默认值。
 
-One downside of `undefined` is that it is often created accidentally in JavaScript: by an uninitialized variable, a typo in a property name, forgetting to return something from a function, etc.
+undefined 的一个缺点是它通常是在 JavaScript 中意外赋予的 —— 在未初始化的变量，属性名称中的错字，忘记从函数中返回内容等中生成的。
 
-#### Why not use both `undefined` and `null` as “switched off” values?
+#### 为什么不同时将 `undefined` 和 `null` 看作是被忽略的值？
 
-When receiving a value, it can make sense to treat both `undefined` and `null` as “not a value”. However, when we are creating values, we want to be unambiguous so that handling those values remains simple.
+当接收到一个值时，将 `undefined` 和 `null` 都视为 “非值” 是有意义的。 但是，当我们创建值时，我们希望模棱两可，以使处理这些值时候更简单。
 
-This points toward a different approach: What if we need a “switched off” value, but don’t want to use either `undefined` or `null` as such a value? Read on for details.
+这指向了另一种方法：如果我们需要一个被忽略的值，但又不想使用 “未定义” 或 “空” 作为值怎么办？看看下文吧：
 
-### Other ways of handling “switched off”
+### 其他处理忽略值的方法
 
-#### Special value
+#### 特殊值
 
-We can create a special value that we use whenever the property `.title` is switched off:
+我们可以创建一个特殊值，每当属性被忽略时 `.title` 时就使用该值：
 
 ```js
 const UNTITLED = Symbol('UNTITLED');
@@ -373,15 +373,15 @@ const file = {
 };
 ```
 
-#### Null object pattern
+#### Null 对象模式
 
-The **null object pattern** comes from object oriented programming:
+**Null 对象模式** 来自 OOP（面对对象编程）：
 
-* All subclasses of a common superclass have the same interface.
-* Each subclass implements a different mode in which an instance operates.
-* One of those modes is “null”.
+* 一个公共超类的所有子类都具有相同的接口。
+* 每个子类实现实例操作的不同模式。
+* 这些模式之一是 `null`。
 
-In the following example, `UntitledFile` implements the “null” mode.
+在下文中，`UntitledFile` 继承了 “null” 模式。
 
 ```js
 // Abstract superclass
@@ -428,11 +428,11 @@ assert.deepEqual(
     ]);
 ```
 
-We also could have used the null object pattern for just the title (instead of for the whole file object).
+我们也可以只为标题（而不是整个文件对象）使用空对象模式。
 
-#### Maybe type
+#### 可能的类型
 
-The Maybe type is a function programming technique:
+Maybe 类型是一种函数编程技术：
 
 ```js
 function getTitle(file) {
@@ -465,19 +465,19 @@ assert.deepEqual(
     ]);
 ```
 
-We could have encoded “just” and “nothing” via Arrays. The benefit of our approach is that it is well supported by TypeScript (via [discriminating unions](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminating-unions)).
+我们本可以通过数组对 “有” 和 “无” 进行编码，好处是 TypeScript 很好地支持了这个方法（通过[歧视的联合](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminate-unions)）。
 
-## My approach
+## 我的方法
 
-There are three reasons why I don’t like to use `undefined` as a “switched off” value:
+我不喜欢将 `undefined` 用作被忽略的值的原因有三个：
 
-* `undefined` often appears accidentally in JavaScript.
-* `undefined` triggers default values for parameters and destructuring (some people prefer `undefined` for the same reason).
+* `undefined` 通常是在 JavaScript 中偶然出现的。
+* `undefined` 会触发参数和解构的默认值（出于某些原因，某些人更喜欢 `undefined`）。
 
-Therefore I use either of the following two approaches if I need a special value:
+因此，如果需要特殊值，可以使用以下两种方法之一：
 
-* I use `null` as a “switched off” value. (As an aside, this approach is relatively well supported by TypeScript.)
-* I avoid both `undefined` and `null` via one of the techniques described above. This has the upside of being cleaner and the downside of involving more work.
+* 我将 `null` 用作被忽略的值。（顺便说一句，TypeScript 相对较好地支持了这种方法。）
+* 我通过上述的其中一种技术避免了同时出现 `undefined` 和 `null` 的情况，优点在乎让代码更干净，而缺点在于需要做出更多的工作。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
