@@ -3,16 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Deno-1-8-Release-Notes.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # Deno 1.8 发行公告
 
-今天我们正式地发布了 Deno 1.8.0 版本，为大家提供了巨额的新功能以及优化了应用程序的稳定性：
+今天我们正式地发布了 Deno 1.8.0 版本。我们在这个版本中添加了大量的新功能，也同时优化了它的稳定性：
 
 - **[对 WebGPU API 的实验性功能支持](https://deno.land/posts/v1.8#experimental-support-for-the-webgpu-api)**：提供在 Deno 中开箱即用的使用 GPU 去加速机器学习的路径。
 - **[内置国际化 API 的启用](https://deno.land/posts/v1.8#icu-support)**：所有的 JS `Intl` API 现在都支持开箱即用。
 - **[改进了的覆盖率工具](https://deno.land/posts/v1.8#revamped-coverage-tooling-codedeno-coveragecode)**：覆盖率工具现在支持输出 `lcov` 格式的报告。
-- **[导入映射功能现已稳定](https://deno.land/posts/v1.8#import-maps-are-now-stable)**：Web 兼容以来的重写版本现已发布。
+- **[导入映射功能现已稳定](https://deno.land/posts/v1.8#import-maps-are-now-stable)**：我们已经发布了 Web 兼容的依赖的重写。
+
 - **[对引入私有模块的支持](https://deno.land/posts/v1.8#auth-token-support-for-fetching-modules)**：通过使用验证 token 来引入你的私有服务器上的远程模块。
 
 如果你已经安装了 Deno 那么你可以直接通过运行 `deno upgrade` 命令更新到 1.8 版本，而如果你是第一次使用，那么你可以用下面的方法去获取：
@@ -38,11 +39,11 @@ choco install deno
 
 ### 对 WebGPU API 的实验性功能支持
 
-WebGPU API 为开发者们提供了一种更低级，高性能，跨体系结构的方式，通过 JavaScript 去编写运行在 GPU 硬件上的程序。它是 WebGL 在网络上的有效替代品，虽说规范尚未最终确定，但是目前 Firefox，Chromium 和 Safari 都提供了支持，同样包括我们 Deno。
+WebGPU API 为开发者们提供了一种更低级，高性能，跨体系结构的方式，通过 JavaScript 去编写运行在 GPU 硬件上的程序。它是 WebGL 在 Web 应用程序上的有效替代品，虽然尚未确定最终规范，但是目前 Firefox，Chromium 和 Safari 都提供了支持，同样我们 Deno 也对其提供了支持。
 
 通过此 API，我们可以直接从 Deno 内部访问 GPU 的渲染和通用 GPU 计算。一旦我们完成了移植且功能稳定取消标记后，这个方式将会让我们可以在 Web 端、服务器和开发者的设备上实现可移植地去访问 GPU 资源。
 
-GPU 能够帮助我们程序员让某些数值算法高度并行，而不仅仅只限于渲染图形和游戏，而且在已启用更复杂的神经网络的机器学习 —— 也就是我们所说的深度学习中能更有效地使用 GPU。计算机视觉、翻译、图像生成、强化学习等方面的飞速发展都源于 GPU 硬件的有效利用。
+GPU 能够帮助开发者实现高度并行某些数值算法，而不是局限于图形渲染和游戏。在机器学习中有效使用 GPU，使得运行更复杂的神经网络 —— 也就是我们所说的深度学习中能更有效地使用 GPU，成为可能。计算机视觉、翻译、图像生成、强化学习等方面的飞速发展都源于 GPU 硬件的有效利用。
 
 如今，大多数神经网络都是用 Python 编写的，而计算则转移到了 GPU 上。但我们相信，如果存在适当的基础架构，JavaScript（而不是 Python）也可以用作表达数学思想的理想语言。在 Deno 中我们提供的现成的 WebGPU 支持就是我们朝这个方向迈出的一步。我们的目标是通过 GPU 加速在 Deno 上运行 [Tensorflow.js](https://www.tensorflow.org/js)。我们预计这将在未来几周或几个月内实现。
 
@@ -62,7 +63,7 @@ if (adapter) {
 }
 ```
 
-以下就是一个小小的例子，示范了 GPU 渲染着色器渲染的一个简单的绿色背景的红色三角形：
+以下是一个小示例，演示了 GPU 渲染着色器在一个简单的绿色背景上渲染红色三角形：
 
 ```shell
 $ deno run --unstable --allow-write=output.png https://raw.githubusercontent.com/crowlKats/webgpu-examples/f3b979f57fd471b11a28c5b0c91d0447221ba77b/hello-triangle/mod.ts
@@ -72,11 +73,11 @@ $ deno run --unstable --allow-write=output.png https://raw.githubusercontent.com
 
 [需要注意的是在输出 PNG 上使用了 WebAssembly](https://github.com/crowlKats/webgpu-examples/blob/f3b979f57fd471b11a28c5b0c91d0447221ba77b/utils.ts#L77-L106)。有关更多的信息请访问这一个 GitHub 仓库：[crowlKats/webgpu-examples](https://github.com/crowlKats/webgpu-examples)。
 
-最终的 PR 拉去请求有 1.55 万行的代码，使用了整整 5 个月的审查我们才并入了仓库。我们十分感谢领导在 Deno 中引入 WebGPU 的 [crowlKats](https://github.com/crowlKats)。我们同样感谢所有对 [wgpu](https://github.com/gfx-rs/wgpu) 和 gfx-rs 这些加固了 Deno WebGPU 项目的贡献者。我们同样向 [kvark](https://github.com/kvark) 为他所在 WebGPu 规范中作出的贡献以及 wgpu 和 gfx-rs 项目中的开发的引领（为我们做出了 WebGPU 的模范）致以衷心的感谢。
+最终的 PR 拉取请求有 15.5k 行的代码，我们花费了整整 5 个月的时间进行审查以及并入仓库。我们十分感谢领导 Deno 中引入 WebGPU 项目的 [crowlKats](https://github.com/crowlKats)。我们同样感谢所有对 [wgpu](https://github.com/gfx-rs/wgpu) 和 gfx-rs 这些加固了 Deno WebGPU 项目的贡献者。我们同样向 [kvark](https://github.com/kvark) 为他所在 WebGPu 规范中作出的贡献以及 wgpu 和 gfx-rs 项目中的开发的引领（为我们做出了 WebGPU 的模范）致以衷心的感谢。
 
 ### ICU 支持
 
-ICU 支持已成为 Deno 仓库中被当作是功能请求第二大的功能。在这里，我们很高兴地宣布，Deno v1.8 附带了完整的 ICU 支持。
+ICU 支持一直是 Deno 版本库中第二大需求的功能。我们很高兴地宣布，Deno v1.8 已经提供了完整的 ICU 支持。
 
 所有依赖于 ICU 的 JavaScript API 现在都能对应浏览器的 API 了。
 
@@ -103,7 +104,8 @@ undefined
 
 以前，代码覆盖范围的收集和报告都将在单个子命令中进行，只需在启动 `deno test` 时指定 `--coverage` 标志即可。而现在，`deno test` 的` --coverage` 标志带来了一个参数，用来存储收集的配置文件的目录的路径，即代码覆盖的集合。在第二步中，我们现在会去调用 `deno coverage`，其路径指向存储代码覆盖配置文件的目录。此子命令可以直接在控制台上以美观的文本输出形式返回报告，也可以输出 [lcov](https://manpages.debian.org/testing/lcov/lcov.1.en.html) 文件（`--lcov` 标志），用于诸如 `genhtml`，coveralls.io 或 codecov.io 之类的工具。
 
-几天来，我们一直在 [`deno_std`](https://github.com/denoland/deno_std) 上对该功能进行测试。对于每次的提交，我们都将覆盖率报告上载到 codecov.io，而我们就可以在 [codecov.io](https://codecov.io/gh/denoland/deno_std) 中查看到这些内容。添加这些代码很是简单，我们的 GitHub Actions 工作流程配置中仅有 10 行的更改：
+最近几天，我们一直在
+ [`deno_std`](https://github.com/denoland/deno_std) 上对该功能进行测试。对于每次的提交，我们都将覆盖率报告上传到 codecov.io，然后我们就可以在 [codecov.io](https://codecov.io/gh/denoland/deno_std) 中查看这些内容。添加这些代码也很简单，我们的 GitHub Actions 工作流配置中仅有 10 行的更改：
 
 ```yml
        - name: Run tests
@@ -124,7 +126,7 @@ undefined
 
 ### 导入映射功能现已稳定
 
-[导入映射](https://github.com/WICG/import-maps) 是在 Chrome 89 版本中稳定下来的，并且跟随着的是我们的步伐也更新了，配对上了标准规范的最后一个版本，并且现在同样被认为是稳定的了。这意味着使用 `--import-map` 时候我们不必再提供 `--unstable` 标志。
+[导入映射](https://github.com/WICG/import-maps) 功能在 Chrome 89 版本是稳定的，之后，我们已经更新功能实现，以符合最新版本的规范，现在也被认为是稳定的。这意味着在使用 `--import-map` 时候我们不必再提供 `--unstable` 标志。
 
 ```shell
 $ deno run --import-map=./import_map.json ./mod.ts
@@ -136,10 +138,10 @@ $ deno run --import-map=./import_map.json ./mod.ts
 $ deno run --import-map=https://example.com/import_map.json ./mod.ts
 ```
 
-导入映射允许我们使用所谓的“裸露”说明符来表示依赖关系，而不是相对或绝对的文件 或 HTTP URL：
+导入映射功能允许开发者使用所谓的“裸露”说明符来代替相对或绝对的文件路径或者是 HTTP URL 路径。
 
 ```js
-// Deno 默认不支持如此的说明符，
+// Deno 默认不支持这样的说明符，
 // 但通过提供一个映射，我们就可以重新映射
 // 这些空白的说明符去其他的 URL
 import * as http from "std/http";
@@ -153,7 +155,7 @@ import * as http from "std/http";
 }
 ```
 
-我们应该始终牢记，映射的导入不是可以组合的。这意味着我们只能在 `deno run` 或 `deno test` 中导入一个单独的映射，因为这个库的作者应该仍然使用标准的非空白的定义符（不管是相对或是绝对的文件或 HTTP URL），或者库的使用者会需要手动去添加你的库（以及你的库的依赖）的空白标识符到他们的映射中。
+开发者应该注意，导入映射是不能组合的：这意味着你只能提供一个导入映射到 `deno run` 或 `deno test`。正因为如此，依赖库的作者应该仍然使用常规的、非裸露的说明符（相对或绝对的文件路径或者是 http URL 路径），否则依赖库的使用者将需要手动将依赖库（以及库的依赖）裸露说明符添加到他们的导入映射中。
 
 导入映射的一个更有用的功能是能够将常规说明符重新映射为完全不同的说明符。例如如果我们的模块图中嵌套了一些支离破碎的依赖关系，我们可以在将其固定到上游之前替换它为固定版本。或者如果我们使用将哈希添加到模块文件名的构建过程，我们可以在源代码中直接引用该文件而非哈希值，并且只需要在运行时使用一个导入的映射去重新映射说明符。
 
