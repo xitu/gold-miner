@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-immer-with-react-a-simple-solutions-for-immutable-states.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-immer-with-react-a-simple-solutions-for-immutable-states.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[felixliao](https://github.com/felixliao)
 
 # 在 React 中使用 Immer 管理不可变状态
 
 ![](https://cdn-images-1.medium.com/max/5760/1*7V7cegDUA84z--4d6GflYg.jpeg)
 
-在 React 中，使用不可变状态可以快速且高效地比较更改前后的状态树。同时，每个组件在执行任何成本很高的 DOM 操作之前，决定是否重新渲染。
+在 React 中，使用不可变状态可以快速且高效地比较更改前后的状态树。因此，每个组件可在执行任何成本很高的 DOM 操作之前，决定是否重新渲染。
 
-我希望你们已经知道：
+我希望你已经知道：
 
 > JavaScript 是可变的，我们必须自己实现不可变性。
 
@@ -45,7 +45,7 @@ Immer 还减少了实现上述基准测试结果所需编写的代码量，这�
 
 如果你正在处理简单的状态，可能会觉得 Immer 正在使你的代码更复杂。但是，当涉及处理复杂的数据时，Immer 变得非常有用。
 
-为了更好地理解这一点，接下来将分析著名的 React Reducer 示例：
+为了更好地理解这一点，让我们看看著名的 React reducer 示例：
 
 ```js
 export default (state = {}, action) => {
@@ -66,7 +66,7 @@ export default (state = {}, action) => {
 
 上述代码是一个 React-Redux 的典型简化示例，它使用 ES6 展开运算符，并深入到状态树对象的嵌套级别来更新值。我们可以使用 Immer 轻松地降低上述代码的复杂性。
 
-让我们再看一个示例，分析如何使用 Immer 降低实践中代码的复杂性。
+让我们来看看具体如何使用 Immer 降低上述代码的复杂性。
 
 ```js
 import produce from "immer"
@@ -120,11 +120,11 @@ changeBioAge = () => {
 }
 ```
 
-如你所见，Immer 极大地减少了代码行数和降低了代码复杂度。
+如你所见，Immer 极大地减少了代码行数并降低了代码复杂度。
 
 ## 结合 Hooks 使用
 
-Immer 的另一个重要特性是它能够使用 React Hooks。Immer 使用一个名为 **use-immer** 的附加库来实现此功能。让我们来看一个示例，以便更好地理解。
+Immer 的另一个重要特性是它支持 React Hooks。Immer 使用一个名为 **use-immer** 的附加库来实现此功能。让我们来看一个示例，以便更好地理解。
 
 ```js
 const [state, setState] = useState({
