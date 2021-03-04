@@ -24,25 +24,17 @@ Today we can find different techniques to maintain the right quality and size. T
 
 Since you understand the approaches and situations where they most suit, let’s see how we can implement those methods.
 
----
-
-**Tip**: Next time you create a responsive image component with the soon-to-be-learned techniques, make sure to share it using [**Bit**](https://bit.dev) ([Github](https://github.com/teambit/bit)) to make it available for reuse by other web projects.
-
-![Explore: Components shared on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/2000/1*T6i0a9d9RykUYZXNh2N-DQ.gif)
-
----
-
 ## Implementing Responsive Images
 
 As mentioned earlier, there are several ways to implement responsive images, and it’s important to know the best ways to implement them to get the maximum from your effort.
 
 By default, there are several excellent tags and attributes like `img`, `picture`, `size`and `srcset` provided by HTML for image rendering in web development. Now, I will show you how to implement the above-discussed methods using those tags and attributes in no time.
 
-#### 1. Device Pixel-Based Method
+### 1. Device Pixel-Based Method
 
 Before going deeper, let me tell you about high-density displays. Modern flagship mobile devices such as Samsung Galaxy S10 have Density Displays of 4x, whereas some economy models may have low-density displays.
 
-> # If we push to load a high-density image in a low-density display, it will result in a very poor user experience and a waste of resources. So, we’ll use different images for various device pixel-ratios.
+> If we push to load a high-density image in a low-density display, it will result in a very poor user experience and a waste of resources. So, we’ll use different images for various device pixel-ratios.
 
 In the below example, we have considered two images. The **small-kitten.jpg** with `320×240` pixels and **large-kitten.jpg** with `640×480` pixels, making the latter one suitable for high-resolution displays. (`x` descriptor shows the expected device pixel-ratio)
 
@@ -56,7 +48,7 @@ In the below example, we have considered two images. The **small-kitten.jpg** wi
 
 If users’ device resolution is above 640x480 pixels, **large-kitten.jpg** will be rendered, and if not**, small-kitten.jpg** image will be rendered**.** Most importantly, the users with low res devices will not feel any delay in image loading time, while users who have high res devices will not feel any issue in image quality.
 
-#### 2. Fluid-Image Method
+### 2. Fluid-Image Method
 
 This method is focused on using the same image with different sizes rather than using different images.
 
@@ -73,7 +65,7 @@ For example, we can implement simple fluid-images by giving image size in relati
 
 ![The behavior of the max-width scaled image](https://cdn-images-1.medium.com/max/2000/1*qRrsflBr2ijjicwLijLZxw.gif)
 
-> # As you can see above image is free to scale and fit the browser window size. This method will be ideal for occasions where there are large images as article headers.
+> As you can see above image is free to scale and fit the browser window size. This method will be ideal for occasions where there are large images as article headers.
 
 Furthermore, there is an advanced method with fluid-images to compute the dimensions using the image’s width and the page’s overall width.
 
@@ -98,7 +90,7 @@ Then we can use this value as shown in the below code snippet. It will enable th
 
 ![The behavior of the percentage-width scaled image](https://cdn-images-1.medium.com/max/2000/1*71Fwlv3IISxAwLGUZNyFXw.gif)
 
-> # However, this calculation might cause some issues when the viewport is too large or too small.
+> However, this calculation might cause some issues when the viewport is too large or too small.
 
 We can overcome this issue by adding max and min values for image width in pixels to mark upper and lower bounds.
 
@@ -111,7 +103,7 @@ We can overcome this issue by adding max and min values for image width in pixel
 >
 ```
 
-#### 3. Art Direction Method
+### 3. Art Direction Method
 
 The main idea behind Art Direction is to display different images based on the screen sizes of the device. We can address this issue by switching to `picture `tag instead of using `img `tag since it allows to provide images in multiple ratios or multiple focus points when viewed on different devices.
 
@@ -132,11 +124,11 @@ In the above example, If the screen size is greater than 560px browser will show
 
 You’ll notice the regular `\<img>` tag as the final nested tag of the `\<picture>` element, which is crucial to make this code snippet work. It will be used as a replacement when conditions in the media query are not matching and as a backup on browsers that do not support the `\<picture>` element.
 
-#### 4. Image Type-Switching Method
+### 4. Image Type-Switching Method
 
 With the rapid development of technologies, different types of modern image types like `avif`, `webp`are introduced day by day. Although these image types provide a high user experience, there are some browsers that don’t support those image types yet.
 
-> # So, we can use type switching to address such situations by changing the image format.
+> So, we can use type switching to address such situations by changing the image format.
 
 For example, the below code contains 2 modern image types and `gif `image. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
 
@@ -152,8 +144,6 @@ You can also use chrome DevTools to emulate this to see how your image will look
 
 ![Using Chrome DevTools to emulate image-switching](https://cdn-images-1.medium.com/max/2706/1*6Ey8MZsWnVkB74lQYfOBBw.gif)
 
----
-
 ## Final thoughts
 
 I believe now you have a good understanding of the methods we can use to implement responsive images and what are the situations they mostly suit.
@@ -163,16 +153,6 @@ Make sure to get the most out of this knowledge when you develop any web applica
 So, I invite all of you to try out these methods and share your ideas in the comment section.
 
 Thank you for Reading !!!
-
----
-
-## Learn More
-[**Improve Page Rendering Speed Using Only CSS**
-**4 Important CSS tips for faster page rendering**blog.bitsrc.io](https://blog.bitsrc.io/improve-page-rendering-speed-using-only-css-a61667a16b2)
-[**Why You Should Use Picture Tag Instead of Img Tag**
-**Resolution Switching, Art Direction, Chrome DevTools Support, and More**blog.bitsrc.io](https://blog.bitsrc.io/why-you-should-use-picture-tag-instead-of-img-tag-b9841e86bf8b)
-[**Technique for Color Blind Friendly Web Apps using Chrome DevTools**
-**Around 10% of people globally suffer from color vision deficiencies and it’s high time to make them accessible**blog.bitsrc.io](https://blog.bitsrc.io/technique-for-color-blind-friendly-web-apps-using-chrome-devtools-fe25d8fcb83e)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
