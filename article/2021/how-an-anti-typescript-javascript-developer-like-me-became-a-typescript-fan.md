@@ -14,7 +14,7 @@
 
 我一直觉得给函数和变量设定类型，满足 TypeScript 编译器的各种检查是一种过度的设计，并且没有任何意义上的好处。而且这个设计也让我编写程序的速度很慢，也是因为我经常会遇到一些作为一名新人所难以理解的编译错误。我挠头三千尺，白发飘落，试图去找出问题所在，也同时增生了一丝惆怅与挫败。我开始讨厌 TypeScript 这门语言了。
 
-另一个原因是 TypeScript 中诸如[范型](https://www.typescriptlang.org/docs/handbook/generics.html)之类的概念我一开始觉得很难理解。我开始觉得自己又深陷 **Java** 世界那般的泥潭，似乎每句代码的输入都是强类型并且令我极度厌烦的。当我开始学习 TypeScript 时，即使像下面这样的简单代码也足以让我感到恐惧。
+另一个原因是 TypeScript 中诸如[泛型](https://www.typescriptlang.org/docs/handbook/generics.html)之类的概念我一开始觉得很难理解。我开始觉得自己又深陷 **Java** 世界那般的泥潭，似乎每句代码的输入都是强类型并且令我极度厌烦的。当我开始学习 TypeScript 时，即使像下面这样的简单代码也足以让我感到恐惧。
 
 ![TypeScript 泛型示例](https://miro.medium.com/max/1544/1*ccNIwcBOISh4ZJ7kAuaY4A.png)
 
