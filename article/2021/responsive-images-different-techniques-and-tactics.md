@@ -38,7 +38,7 @@ Before going deeper, let me tell you about high-density displays. Modern flagshi
 
 In the below example, we have considered two images. The **small-kitten.jpg** with `320×240` pixels and **large-kitten.jpg** with `640×480` pixels, making the latter one suitable for high-resolution displays. (`x` descriptor shows the expected device pixel-ratio)
 
-```
+```html
 <img 
    srcset="small-kitten.jpg 1x, large-kitten.jpg 2x"
    src="small-kitten.jpg" 
@@ -54,7 +54,7 @@ This method is focused on using the same image with different sizes rather than 
 
 For example, we can implement simple fluid-images by giving image size in relative ratios rather than giving precise pixel values. The most common method used is `max-width:100%`.
 
-```
+```html
 <img 
    src=”black-dog.jpg” 
    style=”max-width: 100%; 
@@ -79,7 +79,7 @@ width of the image = image width/page width
 
 Then we can use this value as shown in the below code snippet. It will enable the image to always keep scaled with the size of the web page.
 
-```
+```html
 <img 
    src=”black-dog.jpg” 
    style=”float: right; 
@@ -94,7 +94,7 @@ Then we can use this value as shown in the below code snippet. It will enable th
 
 We can overcome this issue by adding max and min values for image width in pixels to mark upper and lower bounds.
 
-```
+```html
 <img 
    src=”black-dog.jpg” 
    style=” width: 41.66%; 
@@ -111,7 +111,7 @@ The main idea behind Art Direction is to display different images based on the s
 
 A simple code snippet like the below can obtain the above result. Here we provide values for 2 different attributes inside `\<source>` element; `media` and `srcset`defining image size and sources respectively.
 
-```
+```html
 <picture>
  <source media=”(min-width: 650px)” srcset=”kitten-stretching.png”>
  <source media=”(min-width: 465px)” srcset=”kitten-sitting.png”>
@@ -132,7 +132,7 @@ With the rapid development of technologies, different types of modern image type
 
 For example, the below code contains 2 modern image types and `gif `image. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
 
-```
+```html
 <picture>
    <source type="image/avif" srcset="avif-kitten.svg" />
    <source type="image/webp" srcset="webp-kitten.webp" />
