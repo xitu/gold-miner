@@ -7,8 +7,6 @@
 
 # The Dark Side of Javascript: A Look at 3 Features You Never Want to Use
 
-#### JavaScript has some dark corners filled with spiders, and here are 3 of them
-
 ![Image by [Free-Photos](https://pixabay.com/photos/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1081873) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1081873)](https://cdn-images-1.medium.com/max/3840/1*kSqZcIr9JLkFQgqwe4LEOQ.jpeg)
 
 JavaScript has been around for quite a while already (around 26 years) and during that time, the language has evolved, a lot.
@@ -18,8 +16,6 @@ Most of this evolution has served a purpose, and especially in the latest iterat
 However, during all these years of evolution, one could say that there are some vestiges of a bygone era, features that haven’t yet been taken out but that really serve no purpose (or rather, aren’t very efficient at that) anymore.
 
 Here are three features of JavaScript that even if they’re still available under the runtime you’re using, you still want to avoid.
-
----
 
 ## Void operator
 
@@ -36,7 +32,6 @@ Although of course, doing that makes no sense which is why eventually it was re-
 In fact, a great way to re-define the constant only for your namespace, avoiding any issues with 3rd party libraries, would be by creating your own IIFEs where one of the parameters received, was indeed, `undefined`, like this:
 
 ```JavaScript
-
 (function (window, undefined) {
   //your logic here, where you can treat undefined as expected
 })(window, void(0))
@@ -47,23 +42,15 @@ Of course, today the `void` operator still has its uses, but they’re non-essen
 As you probably know, a single-line arrow function will return the result of that line, even if you don’t specifically use the `return` statement.
 
 ```JavaScript
-
 const double = x => x * 2; //returns the result of X times 2
 
 const callAfunction = () => myFunction(); //returns what myFunction returns, even when i dont want to
-
-
-
 ```
 
 Both these functions will return **something**. Clearly, for the `double` function, that’s intended, but the other one might not be, you might just want to call this function, but you’re not interested in its result value. There you can do:
 
 ```JavaScript
-
 const callAfunction = () => void myFunction(); //returns what myFunction returns, even when i dont want to
-
-
-
 ```
 
 And that would immediately obscure the returned value and make sure your call only returns `undefined`.
@@ -71,8 +58,6 @@ And that would immediately obscure the returned value and make sure your call on
 This behavior, to me, provides a minimal benefit, rendering `void` useless in this time and age of JavaScript.
 
 I would suggest you avoid it and let it wither into a deprecated state.
-
----
 
 ## With statement
 
@@ -83,7 +68,6 @@ You see, the `with` statement allows you to extend the scope chain for a given s
 Here is an example so you get what I’m awkwardly trying to say:
 
 ```JavaScript
-
 function greet(user) {
   
   with(user) {
@@ -128,8 +112,6 @@ Hey Fernando, here is a message for you: Unrelated message
 You’ve unwillingly overwritten the second argument of your function by adding an equally named property to your object. Something, I might add, that is completely normal, since one would never expect both to be at the same scope level. However, thanks to `with` we’ve mixed both scopes and the result is not ideal.
 
 This is all to say, avoid `with`, while it might seem like a great way to save some keystrokes, you’ll create code that can turn very complex very fast, and mentally parsing it can be a challenge for someone else (or you, two weeks in the future).
-
----
 
 ## Labels
 
@@ -206,37 +188,13 @@ Essentially, the second `if` is evaluating `true` on `0` so the `continue` state
 
 Labels can be tricky little fellas, and even if you get them to work, they make a lot of sense from an interpreter perspective, but you should be writing code for humans, not for machines. Someone else is going to come and read it (or even you in 3 weeks), and the moment they lay eyes on the labels, they’ll hate you forever — and of course, they’ll take a lot longer to understand the basic flow of your code, but that’s a secondary problem at this point.
 
----
+## Conclusion
 
 I love JavaScript, don’t get me wrong, I’ve been interacting with it in different ways since I started working as a web developer 18 years ago. I’ve seen the language evolve and, like a fine wine, get better with time. However, I’d be lying if I said there aren’t some dark corners of the language where I just don’t like to get myself into. And these 3 elements show exactly that.
 
 The good news is that in my years of experience, I’m yet to see either `with` or labels be implemented and deployed into production. That’s not to say there aren’t cases like that, but the fact that I’ve never seen one makes me think not many code-review processes let them pass.
 
 How about you? Have you seen any of these constructs being used in modern-day JavaScript?
-
----
-
-## Tip: Share components between projects using Bit
-
-Bit makes it simple to share and reuse independent components across projects**.**
-
-Bit component can be independently maintained and developed so that you don’t need to worry about structuring a full dev environment just to make a few changes.
-
-Use [Bit](https://bit.edv/) to collaborate more effectively and keep a consistent design.
-
-[**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Exploring React component shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/2000/0*SC-rWWv67taUiBv-.gif)
-
----
-
-## Learn More
-[**6 Tips and Best Practices for a Scalable React Project**
-**When starting a new React project, it’s always a good idea to put together some guidelines that you and your team will…**blog.bitsrc.io](https://blog.bitsrc.io/best-practices-and-tips-for-a-scalable-react-application-db708ae49227)
-[**Code Principles Every Programmer Should Follow**
-**YAGNI, Law of Demeter, Single Responsibility and other useful principles for better coding.**blog.bitsrc.io](https://blog.bitsrc.io/code-principles-every-programmer-should-follow-e01bfe976daf)
-[**Is JavaScript Becoming TypeScript?**
-**What might the future hold in store?**blog.bitsrc.io](https://blog.bitsrc.io/does-typescript-influence-javascript-e03fd8af288d)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
