@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-immer-with-react-a-simple-solutions-for-immutable-states.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-immer-with-react-a-simple-solutions-for-immutable-states.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 在 React 中使用 Immer 管理不可变状态
 
@@ -15,9 +15,9 @@
 
 > JavaScript 是可变的，我们必须自己实现不可变性。
 
-像 Redux 这样流行的状态管理库也遵循相同的理念。当我们使用 `reducers`（译者注：根级的 reduce 函数 reducer 拆分为多个 reducers）时，它期望我们不要改变状态以避免应用程序中的任何副作用。但是，对于容易出错的大型项目，手动实现不可变性可能不是最佳选择。
+像 Redux 这样流行的状态管理库也遵循着相同的理念。当我们使用 `reducers`（译者注：根级的 reduce 函数 reducer 拆分为多个 reducers）时，它期望我们不要改变状态，以避免产生任何的副作用。但是，对于容易出错的大型项目，手动实现不可变性可能不是最佳选择。
 
-> 幸运的是，有专门的 JavaScript 库，例如 [Immer](https://immerjs.github.io/immer/docs/introduction) 通过设计实现了状态树的不可变性。
+> 幸运的是，有着专门的 JavaScript 库例如 [Immer](https://immerjs.github.io/immer/docs/introduction)。它们通过设计，实现了状态树的不可变性。
 
 ## Immer 简介与使用
 
@@ -31,7 +31,7 @@ Immer 是一个小型库，它基于写时拷贝（**copy-on-write** ）机制�
 
 ![Immer states](https://cdn-images-1.medium.com/max/2000/1*-LI_oJ_e_DpY2mahvV1Hug.png)
 
-从性能的角度来看，与使用 JavaScript 中的 **object.assign()** 或展开运算符的浅拷贝（Shallow Copy）相比，Immer 表现得相当好。如果你有兴趣了解更多关于性能比较的信息，请参考此文：[Immer vs 浅拷贝 vs 不可变性的测试](https://www.measurethat.net/Benchmarks/Show/6108/0/immer-vs-shallow-copy-vs-immutable-perf-test)。
+从性能的角度来看，与使用 JavaScript 中的 **object.assign()** 或展开运算符的浅拷贝（Shallow Copy）相比，Immer 表现得可谓是相当的好。如果你有兴趣了解更多关于性能的比较方面的信息，请参考此文：[Immer vs 浅拷贝 vs 不可变性的测试](https://www.measurethat.net/Benchmarks/Show/6108/0/immer-vs-shallow-copy-vs-immutable-perf-test)。
 
 ![Immer 与浅拷贝的性能比较](https://cdn-images-1.medium.com/max/2000/1*5m8fOSOiL4W6nb7mwc2AxA.png)
 
@@ -81,9 +81,9 @@ export default produce((draft, action) => {
 }, {})
 ```
 
-> 在这个示例中，Immer 简化了用于扩展状态的代码。你还可以看到它通过使用 **ForEach** 循环而不是 ES6 的 **reduce** 函数来改变对象。
+> 在这个示例中，Immer 简化了用于扩展状态的代码。你还可以看到它通过使用 `forEach` 循环而不是 ES6 的 `reduce` 函数来改变对象。
 
-让我们看另一个示例，尝试将 Immer 与 React 结合使用。
+让我们看另一个示例，将 Immer 与 React 结合使用。
 
 ```js
 import produce from "immer";
@@ -148,7 +148,7 @@ function changeBio(newBio) {
   }
 ```
 
-通过将 **useState** 替换为 **useImmer** Hook，我们可以进一步简化 Hooks 示例，还可以通过更改组件状态来更新 React 组件。
+通过将 `useState` 替换为 `useImmer` Hook，我们可以进一步简化 Hooks 示例，还可以通过更改组件状态来更新 React 组件。
 
 ```js
 import { useImmer } from 'use-immer';
@@ -170,11 +170,11 @@ function changeBio(newBio) {
   }
 ```
 
-同样，我们也可以使用 Immer 将 **Arrays** 和 **Sets** 转换为不可变的对象。通过 Immer 创建的 **Maps** 和 **Sets** 会在对象发生改变时会报错，从而使开发者能够意识到对象发生改变的错误。
+同样，我们也可以使用 Immer 将 `Array` 和 `Sets` 转换为不可变的对象。通过 Immer 创建的 `Map` 和 `Set` 会在对象发生改变时会报错，从而使开发者能够意识到对象发生改变的错误。
 
 > 最重要的是，Immer 不局限于结合 React 使用，你还可以轻松地将 Immer 与原生 JavaScript 结合使用。
 
-除了 Immutating 之外，Immer 还可以通过降低代码库的复杂度，来帮助维护编写良好、可读性强的代码库。
+除了在维持不可变方面之外，Immer 还可以通过降低代码库的复杂度，帮助我们维护一个编写良好且可读性强的代码库。
 
 ## 本文总结
 
