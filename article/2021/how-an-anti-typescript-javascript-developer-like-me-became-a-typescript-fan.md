@@ -29,7 +29,7 @@
 这就是我喜欢 TypeScript 的主要原因。如果你想了解更多这个概念的信息，我建议你看下面的视频 —— 虽说它说的是 Elm 语言，但该概念也适用于 TypeScript 语言。
 
 
-![Making Impossible State Impossible](https://youtu.be/IcgmSRJHu_8)
+Making Impossible State Impossible：https://youtu.be/IcgmSRJHu_8
 
 如果你想查看一些有关如何在 React 应用程序中利用 TypeScript 来避免程序出现无效状态的示例，我建议你去阅读一下下面的博客文章：
 
