@@ -1,3 +1,5 @@
+* [使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [数据科学中的 9 种距离度量](https://juejin.cn/post/6935265008045686815)（[chzh9311](https://github.com/chzh9311) 翻译）
 * [如何利用隐语义模型在图数据库中构建推荐系统](https://juejin.cn/post/6925019556108828685)（[stuchilde](https://github.com/stuchilde) 翻译）
 * [为什么我的数据会漂移？](https://juejin.cn/post/6923824334188314638)（[chzh9311](https://github.com/chzh9311) 翻译）
 * [DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)（[zhuzilin](https://github.com/zhuzilin) 翻译）
