@@ -311,7 +311,7 @@ fn main() {
 
 Rust 编译器尝试使借用的生命周期尽可能短，理想情况下，一旦引用被移除就结束了（这是我在**借用**部分开始时所说的“最简单的情况”）。“借用应有尽可能长的生命周期” 的约束却是以另一种相反的方式运作的，比如从 `result` 到原始借用的生命周期会延伸地很长。只要满足所有约束条件，此过程就会停止，如果无法实现，则会出错。
 
-你是无法欺骗 Rust 说你的函数的返回的借用的值与生命周期完全无关，因为那样的话，在函数中你将得到相同的 `does not live long enough` 错误，因为不相关的生命周期可能比传入的生命周期长很多。
+你无法欺骗 Rust 让函数的返回的借用的值与生命周期完全无关，因为那样的话，在函数中你将得到相同的 `does not live long enough` 报错信息，因为不相关的生命周期可能比传入的生命周期长很多。
 
 让我们来看下这个示例：
 
@@ -371,7 +371,7 @@ fn main() {
 
 我在内部代码块之外进行了明确的借用，因此借用会在 `main()` 的其余部分都有效。这明显和 `&s2` 的生命周期不一样。如果仅接受两个具有相同生命周期的参数，那么这里为什么可以调用该函数？
 
-事实证明，相关的生命周期受到 [类型强制](https://en.wikipedia.org/wiki/Type_conversion) 的约束。与大多数语言（至少是我所熟知的那些语言）不同，Rust 中的原始（整数）值不会强制转换，为此你必须始终明确地强制转换它们。你可以在一些不太明显的地方找到强制，例如这些关联的生命周期和 [dynamic dispatch with type erasure](http://doc.rust-lang.org/book/trait-objects.html#dynamic-dispatch)。
+事实证明，相关的生命周期会受到 [类型强制](https://en.wikipedia.org/wiki/Type_conversion) 的约束。与大多数语言（至少是我所熟知的那些语言）不同，Rust 中的原始（整数）值不会强制转换，为此你必须始终明确地强制转换它们。你可以在一些不太明显的地方找到强制转换，例如这些关联的生命周期和 [dynamic dispatch with type erasure](http://doc.rust-lang.org/book/trait-objects.html#dynamic-dispatch)。
 
 我们用 C++ 代码进行比较：
 
