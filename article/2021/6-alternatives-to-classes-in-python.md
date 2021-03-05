@@ -5,17 +5,17 @@
 > * 译者：
 > * 校对者：
 
-# 6 Alternatives to Classes in Python
+# Python 类的 6 种替代方案
 
-![Photo by the author.](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
+![图片](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
 
-As developers, we throw a lot of data around. The representation of data matters a lot and we need to be able to keep track of which variables represent which attributes. Configuration is a prime example of complex data.
+作为开发者，我们每天会产出大量的数据。 如何表示这些数据很重要，因此我们需要能够跟踪哪些变量代表哪些属性。 配置化是针对复杂数据的一个最佳示例。
 
-In the following article, I will use location as an example. It must have a longitude, latitude, and can have an address. In C, you would use a `struct` for this. In Java, you would simply create a class. In Python, there are six alternatives. Let’s explore each of their advantages and disadvantages!
+在以下文章中，我将使用位置数据作为示例。它必须有一个经度，纬度，外加一个可选的地址。在 C 语言中，可以使用 `struct` 来表示。 在 Java 中，您只需创建一个类。在 Python，有六种选择。让我们来探索他们每一个的优点和缺点吧！
 
-## Plain Classes
+## 普通类
 
-Plain classes are the default way provided by the standard library to organize data. You can (and should!) [use type annotations](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) as done in the following example:
+普通类是标准库为组织数据而提供的默认方式。你可以（而且应该！）使用以下示例中的[类型注释]((https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d))：
 
 ```Python
 from typing import Optional
@@ -67,15 +67,15 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-You can see how we needed to write a boilerplate constructor `__init__` . The code for the constructor does not necessarily always look that simple, but in a lot of cases, it is.
+你可以看到我们需要编写一个构造器方法 `__init__`。 构造器的代码不一定总是看起来那么简单，但在许多情况下，它是简单的。
 
-You can see that it’s possible to use positional arguments or keyword arguments. If you define a default value in the constructor, you can also leave the values out when you create an object from the class. This happened for `pos2`, where the `address` was not given to the constructor.
+你可以看出我们在代码中使用了位置参数和关键字参数。如果你在构造器中给某一变量定义了一个默认值，那么在创建类的实例的时候可以不给这个变量赋值。可以参考 `pos2`，其中的 `address` 变量并没有在构造的时候赋值。
 
 You can also see that the annotation for the `get_distance` function looks pretty clean. It is clear what is meant.
 
 The tooling support is as good as it gets because every editor has to support the plain classes and all of the important information is there.
 
-## 1. Tuples
+## 1. 元组
 
 Tuples are a native data type. They have a very low memory overhead, so we can address the elements by index very quickly. The problem with tuples is that you have no names for member attributes. You have to remember what each index represents. Tuples are always immutable.
 
