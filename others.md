@@ -1,3 +1,5 @@
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）

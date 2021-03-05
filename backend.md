@@ -1,3 +1,6 @@
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)（[Ashira97](https://github.com/Ashira97) 翻译）
 * [简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)（[zenblo](https://github.com/zenblo) 翻译）
 * [如何基于已有的 REST API 实现 GraphQL API](https://juejin.cn/post/6931145990599049223)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)（[JalanJiang](https://github.com/JalanJiang) 翻译）
