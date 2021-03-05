@@ -5,7 +5,7 @@
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
 > - 校对者：
 
-# 5 个 Kotlin 扩展技巧让 Android 代码更具表现力
+# 5 个 Kotlin 扩展技巧让你的 Android 代码更具表现力
 
 ![](https://cdn-images-1.medium.com/max/12000/0*7wBRYeSryL8YT5u_)
 
