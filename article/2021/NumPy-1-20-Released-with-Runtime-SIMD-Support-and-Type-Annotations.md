@@ -34,9 +34,9 @@ NumPy 1.20 还启用了[多平台 SIMD 编译器优化](https://numpy.org/devdoc
 
 NumPy 1.20 是一个大型项目，由 184 人合并贡献了 684 个拉取请求。[完整的发行说明](https://github.com/numpy/numpy/releases/tag/v1.20.0)可以在线获取，其中包含有关其他功能和不推荐使用的信息。
 
-一些用户欢迎新的类型注释，而不是不与 [Julia](https://julialang.org/)进行比较，[Julia] 是另一种动态类型的编程语言[专门针对高性能科学计算而设计](https://docs.julialang.org/en/v1/)，机器学习，数据挖掘，大规模线性代数，分布式和并行计算。一位用户[在 HackerNews 上说](https://hacker-news.news/post/25977977)：
+一些用户欢迎新的类型注释，而不仅仅只是与 [Julia](https://julialang.org/) 进行比较。Julia 是另一种动态类型的编程语言[专门针对高性能科学计算而设计](https://docs.julialang.org/en/v1/)的。它通常应用于机器学习，数据挖掘，大规模线性代数，分布式和并行计算。一位用户[在 HackerNews 上说](https://hacker-news.news/post/25977977)：
 
-> 使用 Julia 确实可以更好地进行类型注释，但是 NumPy 拥有类型注释对于许多用户来说是有益的，对于 Julia 而言，这不是赢家，数字紧缩并不是主要问题，Python 更好的库情况也很重要，并且您想要避免从Julia调用Python的复杂性。
+> 使用 Julia 确实可以更好地进行类型注释，但是 NumPy 带来的类型注释对于许多不使用 Julia（数字的密集运算的并不是主要问题，Python 还拥有更多的更好的库，并且还能够避免 Julia 调用 Python 的复杂。）的用户来说是有益的。
 
 [NumPy](http://www.numpy.org/) 是一个开源 Python 库，增加了对大型，多维，同构类型的数组和矩阵的支持。NumPy 包括一组数学函数，用于创建和转换这些数组，线性代数例程等。NumPy 是 [SciPy](http://www.scipy.org/) 的核心，这是一个基于 Python 的开放源代码软件生态系统，用于数学，科学和工程。NumPy 允许数据科学家使用高效的脚本语言来执行数据分析任务。
 
