@@ -1,3 +1,11 @@
+* [SwiftUI 2 应用生命周期的终极指导](https://juejin.cn/post/6924119708832628749)（[zhuzilin](https://github.com/zhuzilin) 翻译）
+* [UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？](https://juejin.cn/post/6923197105422991367)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
+* [iOS 中的 widget](https://juejin.cn/post/6920017496497979399)（[zhuzilin](https://github.com/zhuzilin) 翻译）
+* [Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [SwiftUI 黑暗模式——最简单的方法](https://juejin.cn/post/6905925634552233998)（[zhuzilin](https://github.com/zhuzilin) 翻译）
+* [你不可错过的 10 个 Xcode 技巧和快捷键](https://juejin.cn/post/6913888065937211399)（[Franz-Wang](https://github.com/Franz-Wang) 翻译）
+* [SwiftUI 中的 PageTabViewStyle](https://juejin.cn/post/6906289114300039182)（[Franz-Wang](https://github.com/Franz-Wang) 翻译）
 * [在 Swift 中玩转 emoji](https://juejin.cn/post/6887739774254841863)（[lcx-seima](https://github.com/lcx-seima) 翻译）
 * [学习 SwiftUI 框架中 Text 和 Label 控件的用法（iOS 14）](https://juejin.im/post/6881526224934420488)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [在 Swift 使用 User Defaults 的小技巧](https://juejin.im/post/5f0d09605188252e937bef4b)（[chaingangway](https://github.com/chaingangway) 翻译）

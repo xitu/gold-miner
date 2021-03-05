@@ -1,3 +1,13 @@
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [你应该知道的 3 个罕见的 Bash 技巧](https://juejin.cn/post/6923190362706018318)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [10 个你应该现在启用的绝佳的 Chrome Flags](https://juejin.cn/post/6923198038894706701)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [迪米特法则](https://juejin.cn/post/6890050952049950733)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)（[jackwener](https://github.com/jackwener) 翻译）
 * [MVC，MVP，MVVM 对比](https://juejin.cn/post/6883088734699388941)（[snowyYU](https://github.com/snowyYU) 翻译）

@@ -2,99 +2,103 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-slow-down-a-for-loop-in-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[samyu2000](https://github.com/samyu2000)
 
-# How To Slow Down A For-Loop in JavaScript
+# 如何让 JavaScript 中的循环慢下来
 
-![Photo by [Charlotte Coneybeer](https://unsplash.com/@she_sees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*kcAWzuiAUolF3Zkr)
+![图源 [Charlotte Coneybeer](https://unsplash.com/@she_sees?utm_source=medium&utm_medium=referral)，上传于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*kcAWzuiAUolF3Zkr)
 
-For loops are indispensable. They help us to program sequences. But there is one problem with them — the for loop runs through as fast as possible. If we iterate through an array, this is, of course, desirable.
+For 循环在 JavaScript 中是必不可少的。使用 For 循环，我们可以写出与列表有关的程序。但是这里存在一个问题 —— For 循环是尽可能快地执行。当然如果我们只是用它来遍历数组那绝对是没有问题的。
 
-But if we do, e.g., requests in the loop, this can lead to problems. It would be nice if each loop's execution takes a fixed time interval — for example, one pass per second.
+但是如果我们在循环中执行请求，那就可能会出现一些问题（例如过高的请求速度让服务器封锁 IP 之类的我们不想看到的情况就会纷至沓来了）。如果我们能实现每隔一段时间才执行一次循环（例如，每秒只执行一次循环操作），也就是使 For 循环的执行放慢一些，那该会有多棒啊！
 
-I will show you how to do this — here is how to time a for-loop.
+在下文中，我们将一起开启探索之旅～
 
-## First — how it does not work
+## 首先：无效的方法
 
-If you’re looking for a direct solution to your problem, feel free to skip this part. If you want to learn something about JS, then stay for a moment. 
-I want to explain why common solutions don’t work.
+如果你正在寻找直接解决问题的方法，请直接跳过这里吧。而如果你想学习更多有关 JavaScript 的知识，那么就请留步～
 
-Thanks to setTimeout,d we can specify that a certain code should be executed only after x-time. This sounds like the solution to our problem. Just put the timeout in the for-loop, and the loop is less fast:
+我想在这里先解释一下为什么常见的解决方案不起作用。
 
-```js
-for (let i = 0; i < 100; i++) {
-  setTimeout(() => {
-    console.log(i)
-  }, 1000)
-}
-```
-
-When we run the code with **setTimeout**, the following happens: 
-nothing happens for 1 second; then all the logs come up in a flash. 
-Not really what we had hoped for.
-
-The reason for this is a small error in thinking. It seems like the timeout doesn’t apply to every element — yes, it does.
-
-But we forget how JavaScript executes code. The loop creates all timeouts immediately, not sequentially. Of course, this is very fast — so all timeouts have almost the same **start time**. 
-
-As soon as the time is up, the logs are made — all at once.
-
-We see the same effect when we rewrite the code minimally.
+首先还是先要感谢 JavaScript 为我们提供的 `setTimeout` 方法，让我们能够实现在一定时间后执行某些代码的功能。咦？这似乎能够满足我们题目的要求啊 —— 我们只需要将 `setTimeout` 加入 For 循环体中，循环速度就会变慢：
 
 ```js
 for (let i = 0; i < 100; i++) {
-  setTimeout(() => {}, 1000)
-  console.log(i)
+    setTimeout(() => {
+        console.log(i);
+    }, 1000);
 }
 ```
 
-From the idea, this would work in some other programming languages. The loop starts to create the timeout. Only when it has been executed does it continue — at least in other programming languages. In JavaScript, however, the timeout is created, and the code continues to execute immediately. So JavaScript creates two flows that run parallel.
+但我们运行上面的代码，却会发生以下情况：
 
-## How to slow down the for-loop properly
+* 起初先卡顿了一下，随后所有日志同时被打印在控制台上。
 
-So with a **setTimeout**, it does not work as it should. 
+这完全就不是我们想要的结果呢～
 
-The rescue is a simple promise.
+造成这个结果的原因是我们陷入了误区。似乎这里 For 循环也并没有为每一个元素设置 `timeout`（但实际上，程序设置了）。
+
+我们只是忘记了 JavaScript 是如何执行代码的。循环是会立即创建所有的 `timeout`，而不是顺序创建。这非常快，也因此所有的 `timeout` 都具有几乎相同的**开始时间**。
+
+而一旦设置的时间到了，所有的任务都会立即执行 —— 同时打印日志。
+
+即便我们按照下面的代码去重写代码，我们仍会看到相同的效果。
 
 ```js
-const sleep = (time) => {
-  return new Promise((resolve) => {
-    return setTimeout(function () {
-      resolve()
-    }, time)
-  })
+for (let i = 0; i < 100; i++) {
+    setTimeout(() => {
+    }, 1000);
+    console.log(i);
 }
 ```
 
-We call the Promise via a function. It gets the time in milliseconds that the **setTimeout** should receive. All the timeout does after the time expires is to execute the resolve function. This means the promise is fulfilled — it can continue. We can simplify the code shown above:
+如果以这个想法为出发点，其实我们可以在其他一些编程语言中达到我们的目标 —— 循环创建 `timeout`，且只有当这些任务执行后，循环才继续执行 —— 至少在其他编程语言中是这样的。但是，在 JavaScript 中，程序可不会停下来，只会继续创建 `timeout`。代码也只会继续执行下去不会停留。因此，JavaScript 可以看作是创建了两个并行运行的线程同时处理 For 循环和 For 循环创建的 `timeout`。
+
+## 如何正确地降低 For 循环的执行速度
+
+显然，如果我们只使用 **`setTimeout`**，将永远无法达到我们的预期，那我们应该怎么做呢？
+
+其实解决方案很简单，只需要用一段简单的 `Promise` 语句就行了。
 
 ```js
 const sleep = (time) => {
-  return new Promise(resolve => setTimeout(resolve, time))
+    return new Promise((resolve) => {
+        return setTimeout(function () {
+            resolve()
+        }, time)
+    })
 }
 ```
 
-The Promise is ready. Now we can add it to our for-loop:
+我们通过函数调用 `Promise`，而它会获取 **setTimeout** 应该被设置的时间（以毫秒为单位）。在一定时间后，所有 `timeout` 都会执行 `resolve` 函数。这意味着 `Promise` 被我们执行了。我们可以简化上面显示的代码：
 
 ```js
 const sleep = (time) => {
-  return new Promise((resolve) => setTimeout(resolve, time))
+    return new Promise(resolve => setTimeout(resolve, time))
+}
+```
+
+使用 `Promise` 可以实现我们需要的功能。现在让我们将它添加到 For 循环中：
+
+```js
+const sleep = (time) => {
+    return new Promise((resolve) => setTimeout(resolve, time))
 }
 
 const doSomething = async () => {
-  for (let i = 0; i < 100; i++) {
-    await sleep(1000)
-    console.log(i)
-  }
+    for (let i = 0; i < 100; i++) {
+        await sleep(1000)
+        console.log(i)
+    }
 }
 
 doSomething()
 ```
 
-The log is executed once per second. So to output all numbers of the loop, we need 100 seconds. So we have successfully slowed down our for-loop.
+程序每秒执行一次日志打印操作。因此，要输出循环的所有数字，我们需要等待 100 秒。现在我们已经成功的放缓了 For 循环的执行速度！
 
-Thank you for reading!
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

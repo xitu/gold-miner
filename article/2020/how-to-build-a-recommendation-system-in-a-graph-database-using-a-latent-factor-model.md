@@ -2,123 +2,132 @@
 > * 原文作者：[Changran Liu](https://medium.com/@liuchangran6106)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-a-recommendation-system-in-a-graph-database-using-a-latent-factor-model.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-build-a-recommendation-system-in-a-graph-database-using-a-latent-factor-model.md)
-> * 译者：
-> * 校对者：
+> * 译者：[司徒公子](https://github.com/stuchilde)
+> * 校对者：[TrWestdoor](https://github.com/TrWestdoor)，[lsvih](https://github.com/lsvih)
 
-# How to build a recommendation system in a graph database using a latent factor model
+# 如何利用隐语义模型在图数据库中构建推荐系统
 
-## What is a recommendation system?
+## 什么是推荐系统？
 
-A recommendation system is any rating system which predicts an individual’s preferred choices, based on available data. Recommendation systems are utilized in a variety of services, such as video streaming, online shopping, and social media. Typically, the system provides the recommendation to the users based on its prediction of the rating a user would give to an item. Recommendation systems can be categorized by two aspects, the utilized information and the prediction models.
+推荐系统是基于现有数据来预测个人选择偏好的任意评分系统。推荐系统被用于视频流、在线购物以及社交媒体等各种服务。通常情况下，系统会根据用户对某件商品评分的预测来进行推荐。推荐系统可以分为两个方面，即利用信息和预测模型。
 
-![Figure. 1 (Image by Author). This example data set includes two users, Alice and Bob, two movies, **Toy Story** and **Iron Man**, as well as three rating records (solid lines). Each user and movie are tagged with their attributes.](https://cdn-images-1.medium.com/max/2000/0*nphS5bpdyX4gq3oS)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*nphS5bpdyX4gq3oS-20201211134141389.png)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/20200929200915.png)
+<div style="font-size:12px">图 1（图片由作者提供）。这个示例数据集包括两个用户：爱丽丝和鲍勃，两部电影：**玩具总动员**和**钢铁侠**，还有三个评分记录（实线部分）。每个用户和电影都用它们的属性作为标签。</div>
 
-#### Content filtering vs. collaborative filtering
+#### 内容过滤 vs 协同过滤
 
-The two major recommendation approaches, content filtering and collaborative filtering, mainly differ according to the information utilized for rating prediction. Figure 1 shows a set of movie rating data together with some tags for users and movies. Note that the ratings from users to movies from a graph structure: users and movies are the vertices, and ratings are the edges of the graph. In this example, a content filtering approach leverages the tag attributes on the movies and users. By querying the tags, we know Alice is a big fan of Marvel movies, and **Iron Man** is a Marvel movie, thus the **Iron Man** series will be a good recommendation for her. A specific example of a content filtering scoring system is TF-IDF, used for ranking document searches.
+内容过滤和协同过滤是最主要的两种推荐方法，它们的区别是预测时所需的信息有所不同。图一显示了一组电影评分数据和一些针对用户和电影的标签。注意，这里的用户对电影的评分数据从图结构中获得：用户和电影是图的顶点，评分是图的边。在本例中，内容过滤方法利用电影和用户的标签属性。通过查询标签，我们得知爱丽丝是漫威电影的超级粉丝，而《钢铁侠》是一部漫威电影，因此《钢铁侠》系列对她来说是一个很好的推荐。内容过滤评分系统的一个具体例子是 TF-IDF，它用于对文档搜索进行排序。
 
-The tags on the users and movies may not always be available. When the tag data is sparse, the content filtering method can be unreliable. On the other hand, collaborative filtering approaches mainly rely on the user behavior data (e.g. rating record or movie watching history). In the example above, both Alice and Bob love the movie **Toy Story** which was rated 5 and 4.5 by them, respectively. Based on these rating records, it can be inferred that these two users may share similar preferences. Now considering that Bob loves **Iron Man**, we can expect similar behavior from Alice, and recommend **Iron Man** to Alice. K-nearest neighbors ([KNN](https://docs.tigergraph.com/v/2.6/dev/gsql-examples/common-applications#example-1-collaborative-filtering)) is a typical collaborative filtering approach. The collaborative filtering, however, has the so-called Cold Start problem — it cannot produce a recommendation for new users that have no rating records.
+用户和电影的标签可能并不总是可用的。当标签数据比较稀疏的时候，内容过滤的方法可能就不可靠了。另一方面，协同过滤的方法主要依赖用户行为数据（如评分记录或电影观看历史）。在上面的例子中，爱丽丝和鲍勃都很喜欢**玩具总动员**这部电影，他们分别给电影打了 5 分和 4.5 分。根据这些评分记录，可以判断这两个用户可能有相似的偏好。现在考虑到鲍勃喜欢**钢铁侠**，我们预测爱丽丝也会有类似的行为，并向爱丽丝推荐**钢铁侠** 。K-近邻算法（[KNN](https://docs.tigergraph.com/v/2.6/dev/gsql-examples/common-applications#example-1-collaborative-filtering)）是一种典型的协同过滤方法。然而，协同过滤有所谓的冷启动问题 —— 无法为没有评分记录的用户提供推荐。
 
-**Memory-based vs. model-based**
+**基于记忆 vs 基于模型**
 
-Recommendation systems can also be categorized into memory-based and model-based approaches depending on the implicity of the utilized features. In the examples above, all the user and movie features are given explicitly, which allows us to directly match movies and users based on their tags. However sometimes a deep learning model is needed to extract the latent features from the information of users and movies (e.g. an NLP model to categorize the movies based on its outline). A model-based recommendation system utilizes machine learning models for prediction. While a memory-based recommendation system mainly leverages the explicit features.
+根据显式或隐式使用特征，推荐系统也可以分为基于记忆和基于模型的方法。在上述例子中，所有用户和电影的特征都被明确的给出，这使得我们可以基于电影和用户的标签直接匹配。但有时需要深度学习模型从用户和电影信息中提取隐含特征（例如，根据电影的大纲对其分类的 NLP 模型）。基于模型的推荐系统利用机器学习模型来进行预测，而基于记忆的推荐系统主要利用显式特征。
 
-Some typical examples of different types of recommendation systems are shown below.
+下面是不同类型推荐系统的一些典型用例：
 
-![(Image by Author)](https://cdn-images-1.medium.com/max/2456/1*_nrZdonnDXVTtOltRCaebg.png)
+![(Image by Author)](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/1*_nrZdonnDXVTtOltRCaebg.png)
 
-## How graph factorization works for recommendation systems
+## 因子分解在推荐系统中是如何工作的
 
-As discussed above, a collaborative filtering method, such as KNN, can predict the movie rating without knowing the attributes of the movies and users. However, such an approach may not generate accurate predictions when the rating data is sparse, i.e., the typical user has rated only a few movies. In Fig. 1, KNN cannot predict Alice’s rating of **Iron Man** if Bob has not rated **Toy Story**, since there would be no path between Alice and Bob, and there would be no “neighbor” per se for Alice. To address this challenge, the graph factorization approach [1] combines the model-based method with the collaborative filtering method to improve prediction accuracy when the rating record is sparse.
+如上所述，协同过滤方法，例如 KNN，可以在不知道用户属性和电影属性的情况下预测电影评分。然而，当评分数据稀疏的时候，即特定用户只评分了几部电影时，这种方法可能不会产生准确的预测结果。在图 1 中，如果鲍勃没有对《玩具总动员》评分，KNN 就无法预测爱丽丝对《钢铁侠》的评分，因为爱丽丝和鲍勃之间没有联系，爱丽丝本身也没有邻居。为了解决这个挑战，因子分解结合了基于模型的方法和协同过滤的方法，以此来提高评分记录稀疏时预测的准确性。
 
-Fig. 2 illustrates the intuition of the graph factorization method. Graph factorization is also known as a latent factor or matrix factorization method. The objective is to obtain a vector for each user and movie, which represents their latent features. In this example (Fig. 2), the dimension of the vectors is specified as 2. The two elements of the vector for a movie **x(i)** represent the degrees of romance and action content of this movie, and the two elements of the vector for a user **θ(j)** represent the user’s degree of preference for romance and action content, respectively. The prediction of the rating that user **j** would give to movie **i** is the dot product of **x(i)** and **θ(j)**, as we expect a better alignment of these two vectors indicates a higher degree of preference from the user to the movie.
+图 2 说明了因子分解方法的直观性。因子分解也被称为隐语义或者矩阵因子分解方法。目标是为每一个用户和电影都获取一个向量，该向量表示了它们的潜在特征。在这个例子中（图 2），向量的维数被指定为 2。电影向量 $x(i)$ 的两个元素代表该电影的浪漫程度和动作内容，用户向量  $\theta(j)$的两个元素分别表示用户对浪漫和动作内容的偏好程度。用户 $j$ 对电影 $i$ 的评分预测是 $x(i)$ 和  的点积，$\theta(j)$正如我们所期待的那样，这两个向量越对齐，代表着用户越喜欢这部电影。
 
-![Figure. 2 (Image by Author). The table shows the rating records of 6 movies given by 4 users. The ratings are in the range of 0 to 5. The missing ratings are represented by question marks. **θ(j)** and x(i) represent the latent factor vectors. The rating predictions for Alice are computed from the latent factors and shown in orange next to the real values.](https://cdn-images-1.medium.com/max/2796/0*T2BPqSnRLLUpGHMa)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*T2BPqSnRLLUpGHMa.png)
+<div style="font-size:12px">图 2（图片由作者提供），表格展示了 4 位用户对 6 部电影的评分记录，评分范围从 0 到 5，缺少评分的部分用问号表示。θ(j) 和 x(i) 表示隐语义向量，爱丽丝的评分预测是根据潜在因子计算的，并且以橙色字体显示在真实值旁边。</div>
 
-The example in Fig.2 is only meant to illustrate the intuition of the graph factorization approach. In practice, the meaning of each vector element is usually unknown. The vectors are actually randomly initialized and get “trained” by minimizing the loss function below [1].
+图 2 中的例子仅仅是说明了因子分解方法的直观性。在实践中，每个向量元素的含义通常是未知的。这些向量实际上是随机初始化的，并通过最小化以下的的损失函数来“训练”^[1]^。
 
-![](https://cdn-images-1.medium.com/max/2000/0*Mhilgi_E_Xo1XymH)
+![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*Mhilgi_E_Xo1XymH.png)
 
-where **M** is the number of rating records, **n** is the dimension of the latent factor vector, **y**(i, j) is the rating that user **j** gave to movie **i**, and 𝝀 is the regularization factor. The first term is essentially the square error of the prediction (sum of **θ(j)\_k** and **x(i)\_k** over k), and the second term is a regularization term to avoid overfitting. The first term of the loss function can also be expressed in the form of matrices,
+其中 $M$ 表示评分记录的数量，$n$ 表示隐语义向量的维度，$y(i, j)$ 是用户 $j$ 对电影 $i$ 的评分，$\lambda$ 是正则因子。第一项实质上是预测的平方误差（ $\theta(j)_k$ 和 $x(i)_k$ 对 $k$ 的和），第二项是正则化以避免过拟合。损失函数的第一项也可以用矩阵的形式表达，
 
-![](https://cdn-images-1.medium.com/max/2000/1*_A0x9iQr48JjpMuT9SCqtw.png)
+$$
+J=\left\|R-U V^{\mathrm{T}}\right\|_{2}
+$$
 
-where **R** is the rating matrix with **y(i, j)** as its elements, and **U** and **V** are matrices formed of the latent factor vectors for users and movies, respectively. To minimize the square error of the prediction is equivalent to minimizing the Frobenius norm of **R-UV^T**. Thus this method is also called a matrix factorization method.
+其中，$R$ 是以 $y(i, j)$ 为元素的评分矩阵，$U$ 和 $V$ 分别是用户和电影的隐语义向量组成的矩阵。最小化预测的平方差等价于最小化 $R-UV^T$ 的 Frobenius 范式。因此，这种方法也叫矩阵分解方法。
 
-You may wonder why we also refer to this method as a graph factorization approach. As discussed earlier, the rating matrix **R** is most likely to be a sparse matrix, since not all the users will give ratings to all the movies. Based on the consideration of the storage efficiency, this sparse matrix is often stored as a graph where each vertex represents a user or a movie, and each edge represents a rating record with its weight as the rating. As will be shown below, the gradient descent algorithm that will be used to optimize the loss function and thus obtain the latent factors can also be expressed as a graph algorithm.
+你可能想知道为什么我们称这种方法为因子分解法。正如之前讨论的那样，评分矩阵 $R$ 很有可能是一个稀疏矩阵，因为并非所有的用户都会对所有的电影进行评分。基于存储效率考虑，这些稀疏矩阵通常以图的形式储存，其中每个顶点代表一位用户或者一部电影，每条边表示一条评分记录，边的权重表示评分的高低。如下图所示，通过优化损失函数进而获取隐语义向量的梯度下降算法也可以表示为图算法。
 
-The partial derivatives of **θ(j)\_k** and **x(i)\_k** can be expressed as follows:
+可以将 $θ(j)_k$ 和 $x(i)_k$ 的偏导表示如下：
+$$
+\begin{array}{l}
+\frac{\partial J}{\partial \theta_{k}^{(j)}}=\sum_{i: r(i, j)=1}^{M}\left(\left(\theta^{(j)}\right)^{T} x^{(i)}-y^{(i, j)}\right) x_{k}^{(i)}+\lambda \theta_{k}^{(j)} \\
+\frac{\partial J}{\partial x_{k}^{(i)}}=\sum_{j: r(i, j)=1}^{M}\left(\left(\theta^{(j)}\right)^{T} x^{(i)}-y^{(i, j)}\right) \theta_{k}^{(j)}+\lambda x_{k}^{(i)}
+\end{array}
+$$
 
-![](https://cdn-images-1.medium.com/max/2000/0*TvDNRImZS2IxFHGe)
+上面的公式表明，一个隐向量在一个顶点上的偏导数只依赖于它的边和邻居顶点。对于我们的例子，用户向量的偏导数仅由用户之前评分过电影的隐向量和对该电影的评分所决定。这个属性使得我们可以将评分数据存储于图中（如图 5 所示），并且使用图算法来获取电影和用户之间的隐语义向量。用户和电影特征可以通过如下步骤获取。
 
-The equations above show that the partial derivative of a latent vector on a vertex only depends on its edges and neighbors. For our example, the partial derivative of a user vector is only determined by the ratings and the latent vectors of the movies the user has rated before. This property allows us to store our rating data as a graph (Fig. 5) and use a graph algorithm to obtain the latent factors of the movies and users. The user and movie features can be obtained by the following steps:
+![(Image by Author)](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/1*cKGDWSOgTxd9gJCp6nVOBQ.png)
 
-![(Image by Author)](https://cdn-images-1.medium.com/max/2616/1*cKGDWSOgTxd9gJCp6nVOBQ.png)
+值得一提的是计算导数以及更新隐语义向量可以在 Map-Reduce 框架下完成，第二步可以对每条边 $edge_(i, j)$（即评分）并行执行，第三步也可以对每个顶点 $verte_i$（即用户或者电影）并行执行。
 
-It is worth mentioning that computing the derivatives and updating the latent factors can be done in a Map-Reduce framework, where step 2 can be done in parallel for each **edge\_(i, j)** (i.e. rating) and step 3 can also be done in parallel for each **verte\_i** (i.e. user or movie).
+## 为什么推荐需要使用图数据库
 
-## Why you need a graph database for recommendation
+对于工业应用，数据库可以容纳上亿用户和电影以及数十亿的评分记录，这意味着评分矩阵 $A$，特性矩阵 $U$ 和 $V$ 加上其他中间变量在模型训练的时候会消耗以 TB 为单位的内存。这些问题可以通过在图数据库中训练潜特征来解决，这些评分图可以分布在一个多节点集群中，其中部分存储在磁盘上。此外，首选将图结构的用户（即评分记录）存储于数据库管理系统中，在数据库内训练模型避免了将图数据从数据库管理系统迁移到机器学习平台，从而可以在训练数据不断演化的情况下更好的继续支持对模型的更新。
 
-For industrial applications, the database can hold hundreds of millions of users and movies, and billions of rating records, which means the rating matrix A, feature matrices U and V, plus other intermediate variables can consume terabytes of memory during model training. Such a challenge can be resolved by training the latent features in a graph database where the rating graph can be distributed among a multi-node cluster and partially stored on disk. Moreover, graph-structured user data (i.e. rating records) is stored in the database management system in the first place. In-database model training also avoids exporting the graph data from the DBMS to other machine learning platforms and thus better support continuous model update over evolving training data.
+#### 如何在 TigerGraph 中构建一个推荐系统
 
-#### How to build a recommendation system in TigerGraph
+这部分，我们在 TigerGraph 云提供的一个免费图数据库上，加载一个电影评分的图，然后在数据库中训练推荐模型。按照下面的步骤，只需 15 分钟，你就能拥有一个电影推荐系统。
 
-In this section, we will provision a graph database on TigerGraph Cloud (for free), load a movie rating graph, and train a recommendation model in the database. By following the steps below, you will have a movie recommendation system in 15 minutes.
+参考[创建你的第一个 TigerGraph 实例](https://www.tigergraph.com/2020/01/20/taking-your-first-steps-in-learning-tigergraph-cloud/)（其中的前三步），在 **TigerGraph 云上创建一个免费的实例**。步骤一中，选择**In-Database Machine Learning Recommendation**作为入门工具包。步骤三中选择 TG.Free。
 
-Follow the [Creating You First TigerGraph Instance](https://www.tigergraph.com/2020/01/20/taking-your-first-steps-in-learning-tigergraph-cloud/) (first 3 steps) to **provision a free instance on TigerGraph Cloud**. In step 1, choose **In-Database Machine Learning Recommendation** as the starter kit. In step 3, choose TG.Free.
+参考文章[开始使用 TigerGraph 云入门版](https://www.tigergraph.com/2020/01/20/taking-your-first-steps-in-learning-tigergraph-cloud/)，**登录到 GraphStudio**。在**映射数据到图**的 页面，你将明白数据文件是如何映射到图结构上的，在入门工具包中，[MovieLens-100K](https://grouplens.org/datasets/movielens/) 文件已经上传至实例中。[MovieLens-100K](https://grouplens.org/datasets/movielens/) 数据集有两个文件：
 
-Follow the [Getting Started with TigerGraph Cloud Portal](https://www.tigergraph.com/2020/01/20/taking-your-first-steps-in-learning-tigergraph-cloud/) and **log into GraphStudio**. In the **Map Data To Graph** page, you will see how the data files are mapped to the graph. In this starter kit, the [MovieLens-100K](https://grouplens.org/datasets/movielens/) files have already been uploaded into the instance. The [MovieLens-100K](https://grouplens.org/datasets/movielens/) data set has two files:
+* movieList.csv 文件有两列，分别是每部电影的 id 和名字（电影年份）。
+* rating.csv 文件是用户对电影的评分列表。总共有三列，分别代表用户 id、电影 id 和评分。
 
-* The movieList.csv has two columns showing the id and the movie_name (movie_year) of each movie.
-* The rating.csv is a list of ratings that a user gave to a movie. The three columns contain the user id, the movie id, and the rating.
+![Figure 3 (Image by Author). **Map Data To Graph** page](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*CFbnvuOr4sP66zYM.png)
 
-![Figure 3 (Image by Author). **Map Data To Graph** page](https://cdn-images-1.medium.com/max/3200/0*CFbnvuOr4sP66zYM)
+**进入 Load Data 页面，然后点击 Start/Resume loading** 按钮。在数据集加载完毕之后，你能在右边看到图的数据统计。MovieLens-100K 数据集包含来自 944 位用户对 1682 部电影的 100011 条评分记录。
 
-**Go to the Load Data page and click Start/Resume loading**. After loading finishes, you can see the graph statistics on the right. The MovieLens-100K data set has 100,011 rating records given by 944 users to 1682 movies.
+![Figure.4 (Image by Author). **Load Data** page.](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*T2DVnK3W7AJxIqR5.png)
 
-![Figure.4 (Image by Author). **Load Data** page.](https://cdn-images-1.medium.com/max/3200/0*T2DVnK3W7AJxIqR5)
+加载完成后，你你能在右边看到图的统计数据。在 **Explore Graph** 页面，你能看到我们刚刚创建的二部图，每个用户和电影的信息都存储在顶点中，评分记录存储在边上。
 
-After loading finishes, you can see the graph statistics on the right. In the **Explore Graph** page, you can see we just created a bipartite graph where the information of each movie and user is stored in the vertex, and the rating records are stored in the edges.
+![Figure.5 (Image by Author). **Explore Graph** page.](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*NKkeM3kRFAWDXNm1.png)
 
-![Figure.5 (Image by Author). **Explore Graph** page.](https://cdn-images-1.medium.com/max/3200/0*NKkeM3kRFAWDXNm1)
+在 **Write Queries** 页面，你将会发现推荐系统所需要的查询指令已经添加到数据库中。这些查询语句是使用 TigerGraph 查询语言 GSQL 编写的。**点击 Install all queries** 将所有的 GSQL 语句编译成 C++ 代码。你还可以在这个页面看到一个 README 指令。参考下面的步骤来使用这些电影评分记录构建一个推荐系统。
 
-In the **Write Queries** page, you will find the queries needed for our recommendation system have already been added to the database. The queries are written in GSQL, the query language of TigerGraph. **Click Install all queries** to compile all the GSQL query into C++ code. You can also see a README query on this page. Follow the steps below to build a recommendation with the movie rating records.
+![Figure.6 (Image by Author). **Write Queries** page](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*r_8aCoSYb4VwJAfR.png)
 
-![Figure.6 (Image by Author). **Write Queries** page](https://cdn-images-1.medium.com/max/3200/0*r_8aCoSYb4VwJAfR)
+**执行分割数据指令**
 
-**Run the splitData query**
+该查询指令将评分数据分为验证集和测试集。测试数据的比例默认为 30%（也就是 30% 的评分数据将被用于验证模型，剩下的 70% 将被用于训练模型）。该查询指令还会输出总数据集、验证数据集和训练数据集的大小。
 
-This query split rating data into the validation set and training set. The fraction of testing data is set to be 30% by default. (i.e. 30% of the rating data will be used for model validation and the rest 70% will be used for model training). This query also outputs the size of the total data set, the validation data set and the training data set.
+**执行归一化指令**
 
-**Run the normalization query**
+该查询指令通过将每条评分减去该电影的平均评分来进行归一化，每部电影的平均分通过训练集计算得出。
 
-This query normalizes the ratings by subtracting each rating by the average rating of the movie. The average rating of each movie is computed from the training data.
+**执行初始化指令**
 
-**Run the Initialization query**
+该指令初始化用户和电影的隐语义向量。隐语义向量中的元素通过一个正态分布的随机数发生器初始化。该指令的输入是正态分布的标准差和平均值。
 
-This query initializes the latent factor vectors for the users and the movies. The elements in the latent factor vectors are initialized by a normal distributed random number generator. The query inputs are the standard deviation and the mean of the normal distribution.
+**执行训练指令**
 
-**Run the training query**
+该指令使用梯度下降算法训练推荐模型。默认情况下特征的数量设置为 19。这个数量必须与初始化指令中隐语义向量的维度一致。指令的输入为学习率、正则化因子以及训练迭代的次数。查询输出为每次迭代的均方根误差（RMSE）。
 
-This query trains the recommender model using gradient descent algorithm. The number of features is set as 19 by default. This number has to be the same as the num_latent_factors in the initialization query. The query inputs are the learning rate, regularization_factor and the number of training iterations. The query output the root mean square error (RMSE) for each iteration
+在隐语义向量计算出来后，我们就可以测试并使用该模型进行推荐了。
 
-After the latent factors are computed, we can test and use the model for recommendation.
+**执行测试指令**
 
-**Run the test query**
+这个查询指令输出用户提供的真实评分数据以及模型的预测评分。该查询指令的输入是用户 id，而输出是该用户的所有评分以及预测评分。
 
-This query outputs the real ratings provided by a user together with the predicted rating by the model. The query input is a user id. The query output is all the ratings given by the user and the rating prediction
+**执行推荐指令**
 
-**Run the recommend query**
+该查询指令会输出对用户 top-10 推荐的电影。电影被推荐的参考是预测的评分。
 
-This query output the top-10 movies recommended to a user. The movies are recommended based on the rating prediction.
+## 总结
 
-## Conclusion
+在图数据库中训练机器学习模型，这种方案在实现推荐模型的实时更新方面很有潜力。这篇文章，我们介绍了因子分解方法的机制，展示了如何使用 TigerGraph 云服务一步一步的构建你的电影推荐系统。当你熟悉了这个例子后，你应该就有信心根据你的使用情况来定制一个推荐系统了。
 
-Training machine learning model in a graph database has the potential to achieve real-time updates of the recommendation model. In this article, we introduce the mechanism of the graph factorization method and show a step-by-step example of building your own movie recommendation system using TigerGraph cloud service. Once you are familiar of this example, you should be confident with customizing this recommendation system based on your use cases.
+## 参考文献
 
-## Reference
-
-[1] Ahmed, Amr, et al. “Distributed large-scale natural graph factorization” **Proceedings of the 22nd international conference on World Wide Web** (2013)
+[1] Ahmed, Amr, et al. “Distributed large-scale natural graph factorization” **Proceedings of the 22nd international conference on World Wide Web** (WWW 2013)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
