@@ -5,58 +5,81 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-This iteration of the RedMonk Programming Language Rankings is brought to you by MongoDB. From the edge to the cloud, MongoDB enables you to work with data as code – in any language – so you can build and ship applications faster. If you are a Python, .NET, Java, or Javascript developer, get started now with [MongoDB University](https://university.mongodb.com/learning_paths/developer).
+# 2021 年 1 月 RedMonk 编程语言排名
 
-On the one hand, this quarter’s rankings might seem late given that it’s March, not January. On the other, given that it is technically still March 2020, one could argue that these rankings are in fact early. Late or early, however, the rankings are now complete and available for your perusal.
+这个版本的 RedMonk 编程语言排名由 MongoDB 赞助播出。从设备到云，MongoDB 让你能够像是和代码一样与数据一起共事，我指的是，不管在哪种语言都无所谓！让你能够更快编译和分发你的应用程序！如果你是一枚 Python、.NET、Java 或是 JavaScript 开发者，那不妨现在就从 [MongoDB University](https://university.mongodb.com/learning_paths/developer) 开始了解吧！
 
-As always, these are a continuation of the work originally performed by Drew Conway and John Myles White late in [2010](http://www.dataists.com/2010/12/ranking-the-popularity-of-programming-langauges/). While the specific means of collection has changed, the basic process remains the same: we extract language rankings from GitHub and Stack Overflow, and combine them for a ranking that attempts to reflect both code (GitHub) and discussion (Stack Overflow) traction. The idea is not to offer a statistically valid representation of current usage, but rather to correlate language discussion and usage in an effort to extract insights into potential future adoption trends.
+一方面，鉴于现在已经是 3 月了，不是 1 月份了，本季度的排名似乎挺晚才发的。另一方面，考虑到技术上实际上仍是 2020 年 3 月的那样，人们可以说这些排名实际上是早期的。但是，无论现在是晚期还是早期，这份排名都是完整的，供你仔细阅读～
 
-# Our Current Process
+与往常一样，这些是 Drew Conway 和 John Myles White 于 [2010](http://www.dataists.com/2010/12/ranking-the-popularity-of-programming-langauges/) 年末完成的最初工作的延续。尽管特定的收集方式发生了变化，但是基本过程保持不变：我们从 GitHub 和 Stack Overflow 提取语言排名，并将它们结合起来以尝试反映代码（GitHub）和讨论（Stack Overflow）的吸引力。这个想法不是提供当前使用情况的统计上有效的表示，而是将语言讨论和使用情况相关联，以努力提取对潜在的未来采用趋势的见解。
 
-The data source used for the GitHub portion of the analysis is the GitHub Archive. We query languages by pull request in a manner similar to the one GitHub used to assemble the State of the Octoverse. Our query is designed to be as comparable as possible to the previous process.
+## 我们的当前的处理方式
 
-- Language is based on the base repository language. While this continues to have the caveats outlined below, it does have the benefit of cohesion with our previous methodology.
-- We exclude forked repos.
-- We use the aggregated history to determine ranking (though based on the table structure changes this can no longer be accomplished via a single query.)
+分析的 GitHub 部分使用的数据源是 GitHub Archive。我们通过拉取请求来查询语言，就像是 GitHub 曾经收集并整理 Octoverse（指 GitHub 的章鱼世界）的状态那样。我们的查询旨在与上一个过程尽可能地具有可比性。
 
-For Stack Overflow, we simply collect the required metrics using their useful data explorer tool.
+* 语言基于基本存储库语言。尽管这继续具有以下概述的注意事项，但确实具有与我们以前的方法保持一致的好处。
+* 我们提出了 fork 的仓库。
+* 我们使用汇总的历史记录来确定排名（尽管基于表结构的更改，这不再可以通过单个查询来完成。）
 
-With that description out of the way, please keep in mind the other usual caveats.
+对于 Stack Overflow，我们仅使用其有用的数据资源管理器工具收集所需的指标。
 
-- To be included in this analysis, a language must be observable within both GitHub and Stack Overflow.
-- No claims are made here that these rankings are representative of general usage more broadly. They are nothing more or less than an examination of the correlation between two populations we believe to be predictive of future use, hence their value.
-- There are many potential communities that could be surveyed for this analysis. GitHub and Stack Overflow are used here first because of their size and second because of their public exposure of the data necessary for the analysis. We encourage, however, interested parties to perform their own analyses using other sources.
-- All numerical rankings should be taken with a grain of salt. We rank by numbers here strictly for the sake of interest. In general, the numerical ranking is substantially less relevant than the language’s tier or grouping. In many cases, one spot on the list is not distinguishable from the next. The separation between language tiers on the plot, however, is generally representative of substantial differences in relative popularity.
-- In addition, the further down the rankings one goes, the less data available to rank languages by. Beyond the top tiers of languages, depending on the snapshot, the amount of data to assess is minute, and the actual placement of languages becomes less reliable the further down the list one proceeds.
-- Languages that have communities based outside of Stack Overflow such as Mathematica will be under-represented on that axis. It is not possible to scale a process that measures one hundred different community sites, both because many do not have public metrics available and because measuring different community sites against one another is not statistically valid.
+在不加描述的情况下，请记住其他常见的警告。
 
-With that, here is the first quarter plot for 2021.
+* 要包含在此分析中，一种语言必须在 GitHub 和 Stack Overflow 中都可以被观察到。
+* 此处没有声称这些排名可以更广泛地代表一般用法。它们不过是检验我们认为可以预测未来使用的两个总体之间的相关性，不过是在这其中体现着它们的价值。
+* 有许多潜在的社区可以接受调查以进行此分析。首先使用 GitHub 和 Stack Overflow 是因为它们的规模之大，其次是因为它们公开放出了分析所需的数据。但是，我们鼓励有兴趣的各方使用其他来源进行自己的分析。
+* 所有的数字排名都应用被质疑的目光看待。严格来说，出于兴趣考虑，我们在此处按数字排名。通常，数字排名与语言的等级或分组的相关性基本上不那么重要。在许多情况下，列表上的一个位置与下一个位置是无法区分的。但是，语言层之间的分隔通常代表相对受欢迎程度的实质差异。
+* 此外，排名越低，可用于排序语言的数据就越少。除了顶级的那部分以外，通常取决于快照，而要评估的数据量也很小，并且语言的实际放置位置越靠后，也就是可靠性就越不可靠。
+* 诸如 Mathematica 之类的具有基于 Stack Overflow 以外社区的语言在该轴上的代表性不足。不可能扩展衡量一百个不同社区站点的过程，这是因为许多站点没有可用的公共度量标准，而且因为相互衡量不同的社区站点在统计上是无效的。
 
-(*Click to embiggen*)
+有了这个，这是 2021 年第一季度的数据。
 
-![https://redmonk.com/sogrady/files/2021/03/lang.rank_.0121.wm_-1024x805.png](https://redmonk.com/sogrady/files/2021/03/lang.rank_.0121.wm_-1024x805.png)
+![2021 第一季度数据](https://redmonk.com/sogrady/files/2021/03/lang.rank_.0121.wm_-1024x805.png)
 
-Besides the above plot, which can be difficult to parse even at full size, we offer the following numerical rankings. As will be observed, this run produced several ties which are reflected below (they are listed out here alphabetically rather than consolidated as ties because the latter approach led to misunderstandings).
+除了上面的图（即使是全尺寸图也可能很难让人看清看明白）之外，我们还提供以下数字排名。可以观察到，每一个分段之间有几种语言，如下所示（它们在此处按字母顺序列出，而不是合并为一个分段，因为后一种方法往往会引起误解）。
 
-1 JavaScript2 Python3 Java4 PHP5 C#5 C++5 CSS8 TypeScript9 Ruby10 C11 Swift12 R13 Objective-C14 Shell14 Scala16 Go17 PowerShell18 Kotlin19 Rust19 Perl
+1. JavaScript
+2. Python
+3. Java
+4. PHP
+5. C＃
+5. C ++
+5. CSS
+8. TypeScript
+9. Ruby
+10. C
+11. Swift
+12. R
+13. Objective-C
+14. Shell
+14. Scala
+16. Go
+17. PowerShell
+18. Kotlin
+19. Rust
+19. Perl
 
-In a contrast to our last run that was fairly static within the Top 20 – not unusual for accretive metrics – this quarter’s run featured quite a bit of change and movement. Fully half of the Top 20 experienced a degree of movement, which is very unusual. It’s difficult to attribute this definitively to any higher level macro trends, but the data is consistent with an industry that picked the pace back up in the last two quarters of the year after the initial chaos of lockdowns and so on gave way to livable if extremely suboptimal new routines.
+与我们上次的排名相反，前 20 名中的排名相当稳定（虽说指标的增长并不罕见）。本季度的排名具有很大的变化和变动。前 20 名中有一半语言都经历了一定程度的变化，这是非常不寻常的。很难将其明确地归因于任何更高水平的宏观趋势，但数据与行业相吻合，该行业在最初的疫情封锁混乱之后的一年后两个季度又有所回升。
 
-Not only is there change, however, it’s notable and, if sustained, significant change as we’ll get into shortly. One lack of change that is worth surfacing is Python’s number two spot. Java was extremely hot on Python’s heels – and was in fact closer to the number one ranking than to PHP behind it – but Python’s ability to defend its new high ranking is notable.
+但是，不仅会有变化，而且值得注意，并且如果持续下去，将会发生重大变化，我们将在短期内进行探讨。Python 的排名第二是值得被我们讨论的的变化之一，而 Java 跟在 Python 之后，仍然非常受欢迎，实际上比排名靠后的 PHP 更接近排名第一的 Python，但是 Python 捍卫其新的高排名的能力非常引人注目。
 
-With that preamble, here are the most important takeaways from this edition of the rankings. The numbers in parentheses are the net change in a language’s ranking from our last run.
+有了该序言，以下是本版排名中最重要的部分。括号中的数字是自上次运行以来语言排名的净变化。
 
-- **JavaScript** (0): Given that the setup for this analysis was about change, it might seem counterintuitive to lead off with a discussion about JavaScript which did not move in these rankings. But it is worth noting just how robust JavaScript’s performance remains. In spite of all of the competition from up and coming languages, all the discussion of fragmentation and even criticisms of JavaScript the language itself, it remains remarkably popular. Since our first quarter run of January of 2018, for example, JavaScript pull requests are up 453%. They were up 96% just from the last quarter, and that was on an already massive base of commits. Simply put, JavaScript remains – its detractors notwithstanding – a force of nature like no other within the industry, and there are no indications in the data that this is likely to change any time soon.
-- **TypeScript** (1): Speaking of JavaScript’s performance, TypeScript’s ascent up our rankings continues. This is impressive on its own rights; the only language in recent memory to penetrate the Top 10 was Swift, but that was for a single quarter and it quickly bounced back out and has remained relatively static since 2018 in 11th place. The initial question facing TypeScript was whether it would be able to hold on. The more appropriate question now is what the language’s ultimate ceiling might be. TypeScript moved up for the sixth of its latest eight quarterly rankings, and its popularity is evident when one looks around the industry. Just as interesting as the growth, however, is the language at whose expense the growth comes from.
-- **Ruby** (-2): Ruby, as discussed in this space previously, has been in a long term downward if gentle trajectory. This quarter’s run, however, raises questions as to how gentle it will continue to be. When we started doing these rankings in 2012, Ruby was the fifth most popular language we ranked, and for about five years it was able to maintain that status. Since 2016, however, Ruby has been gradually slipping, and this quarter it was passed by both CSS (yes, we know many of you don’t believe it should be ranked) and the aforementioned TypeScript. Ruby has made an effort in recent years to address some of its performance issues, but setting aside that there are questions about what was claimed versus what has been achieved, the focus on performance does not appear to have changed the language’s fortunes as measured by our rankings in any material fashion. To be clear, there are dozens if not hundreds of languages that would happily change places with the ninth ranked language on
-  these rankings, but it’s less the actual placing here than the trajectory that should concern Ruby advocates and users. It’s a lovely language with a beautiful syntax, but that has not been enough in a highly competitive language marketplace.
-- **Go** (-1): Like Ruby, Go’s ranking is less of a concern than its overall trajectory. After an initial period of rapid growth, peaking with its #14 ranking in 2018, Go has been a language that is at best static and arguably on a decline path. As has been discussed previously, some of this is explained by Go’s much more narrow addressable market relative to some of the other languages on this list. It also has not helped Go that Java, a primary competitor for back end application composition, has remained a vital and highly used language instead of fading away after so many years of service. But whether it’s static or in decline, if Go has ambitions to be a true industry force, some change in its path and structure is probably necessary.
-- **R** (1): We’ve written often in this space of the fortunes of R, a staple of academia among other communities but a language that excels within a single domain – analysis – and is essentially not relevant outside of that domain. It has been one of several languages used to address a simple question: what might the fortunes of a specialized language be in today’s fragmented world, and how high – or low – could it be driven? Typically, specialized languages have been outperformed by more versatile ones – think Java versus Go as mentioned above. R, however, has been something of an exception to this rule. While its growth has never been meteoric or linear, the language that was rated 17 when we began these rankings many years ago placed 12th in this analysis. That is interesting; more so was the fact that it passed Objective C (-2) to get there. Objective C, a long time Top 10 stalwart, has been on a downward trajectory since the introduction of an intended replacement, Swift. It
-  still surprising, however, to see a language focused on statistical analysis place ahead of the language with which the vast majority of pre-2014 iOS applications were written in.
-- **Kotlin** (1) / **Rust** (1): Kotlin and Rust have no real relationship with one another other than the fact that they have some functional overlap. Kotlin is a JVM-based language with a modern syntax that can be freely intermingled with Java, a language with a good backend story but that is also a first class citizen on Android. Rust is a security-minded language heavily used by organizations like Mozilla but often thought of as an alternative to Go as well. Speaking of Mozilla, they transferred all of their Rust trademark and infrastructure assets to the new Rust Foundation, a steward for the language also backed by AWS, Google, Huawei and Microsoft. Kotlin and Rust have one other thing in common, however, which is that their popularity with developers bumped them up one spot each in this quarters rankings – Rust to 19, Kotlin to 18. To date Kotlin has been the hare to Rust’s tortoise, but it will be interesting to see if Rust’s new dedicated foundation alters that dynamic at
-  all.
-- **Dart** (3): Less than three years ago Dart was languishing in the thirties, having shown minimal traction by the proxies for developer interest and activity that we use. Two years after the introduction of the Flutter framework, however, Dart is up another three spots to sit just outside of our Top 20 at 21. This jump comes two quarters after Dart had seemingly stalled – along with Kotlin – raising questions of whether it had peaked. This quarter’s run suggests that the answer to that question is no. It seems clear that Flutter has had a material impact on the language’s popularity, and clearly its ability to compile to the most popular programming in the world is likewise not hurting it. While it’s extremely difficult to merely get to the #21 spot on our rankings – as Rust, among others, can attest – with this quarter’s resumption of its upwards trajectory, we can turn our attention back to watching whether Dart can break into the Top 20, and if so what it might displace along
-  the way.
+* **JavaScript（0）：** 我们的分析是基于它的排名的，因此关于 JavaScript 的讨论似乎是违反直觉的，因为 JavaScript 根本就没有变化好么！但是，值得注意的是，JavaScript 的性能仍然保持着强大。尽管有来自各种新兴语言的各种竞争，关于碎片化的各类讨论，甚至对 JavaScript 语言本身的批评，它仍然非常受欢迎。例如，自我们 2018 年 1 月的第一季度以来，JavaScript 拉动请求增加了 453％，比上一季度增加了 96％！这是基于已经相当庞大的数据基础。简而言之，JavaScript 仍然是（尽管有其不利因素）最强大的那份力量，这一点在业内没有其他语言能比拟，并且数据中没有迹象表明这种情况可能很快就会改变。
+
+* **TypeScript（1）：** 说到 JavaScript 的性能，TypeScript 在我们排名中的排名继续上升。就其本身而言，这是令人印象深刻的。Swift 是最近的记忆中唯一能进入前 10 名的语言，但这只是一个季度，它迅速反弹并自 2018 年以来一直保持相对稳定，排在第 11 位。TypeScript 面临的最初问题是它是否能够坚持下去维持它的地位，而现在更合适的问题是该语言的上限是多少。TypeScript 在最近的八个季度排名中排名第六，在整个行业中，它的受欢迎程度显而易见。然而，与增长一样有趣的是，增长源于这种语言。
+
+* **Ruby（-2）：** 如先前在这个领域中所讨论的，Ruby 一直保持平稳的排名增减，但长期以来一直处于跌落中的状态。然而，本季度的表现使人们对它将继续保持多么温和提出了疑问。当我们在 2012 年开始进行这些排名时，Ruby 是我们排名第五的最受欢迎的语言，并且大约五年来，它能够保持这一地位。但是，自 2016 年以来，Ruby 一直在下滑，本季度它已被 CSS（是的，我们知道你们中的许多人不认为它应该排名）和 TypeScript 都超过了。Ruby 在最近几年已努力解决其一些性能问题，但撇开问题，人们对所声称的是什么以及所取得的成就存有疑问，根据我们的排名，以任何实质性方式衡量，对表现的关注似乎并没有改变该语言的命运。需要明确的是，有数十种语言（如果不是数百种语言）会很高兴地与这些排名中的第九种语言一起改变位置，但是实际的位置要比 Ruby 倡导者和用户所关心的轨迹少。它是一门可爱的语言，具有优美的语法，但在竞争激烈的语言市场中还远远不够。
+
+* **Go（-1）：** 与 Ruby 一样，Go 的排名与其整体轨迹相比，也不再是一个值得关注的问题。经过最初的快速增长后，Go 在 2018 年排名第 14 位，达到它的顶峰。而 Go 语言一直是最稳定的语言，而且可以说是在跌落的道路上。正如前面所讨论的，相对于此列表中的其他一些语言，Go 的更狭窄的可寻址市场可以解释其中的一些问题。作为后端应用程序组合的主要竞争对手，Java 仍然是一种至关重要的且使用率很高的语言，而不是经过这么多年的服务而逐渐消失，这也没有帮助 Go。但是，不管它是静态的还是下降的，如果 Go 雄心勃勃成为真正的行业力量，那么其路径和结构可能需要进行一些改变。
+
+* **R（1）：** 我们经常在 R 的命运这个领域中写作，R 是其他社区中学术界的主要内容，但是一种语言在一个领域（分析）中表现出色，并且在该领域之外根本不相关。它是用来解决一个简单问题的几种语言之一：在当今分散的世界中，一种特殊语言的命运可能是什么？它会被驱动多高或低？通常，专用语言的性能要好于通用语言 —— 就像上面提到的 Java 与 Go 相比。但是，R是该规则的例外。尽管它的增长从未经历过快速或线性的发展，但在我们多年前开始进行排名时，该语言的排名为 17，因此在该分析中排名第 12。这太有趣了; 更重要的是它超过了 ObjC（-2）到达目标。自推出预期的替代产品 Swift 以来，ObjC一直是前十名中的佼佼者，一直处于跌落的轨道中。然而，仍然令人惊讶的是，看到一种专注于统计分析的语言在编写大多数2014年前的iOS应用程序所使用的语言之前居于领先地位。
+
+* **Kotlin（1）和 Rust（1）：** Kotlin 和 Rust 彼此之间没有真正的关系，只是它们之间存在一定的功能重叠。Kotlin 是一种基于 JVM 的语言，具有现代语法，可以与 Java 进行自由混合，而 Java 是一种具有良好后端故事的语言，但它也是 Android 上的一等公民。Rust 是一种安全意识强的语言，已被 Mozilla 等组织广泛使用，也经常被认为是 Go 的替代语言。说到 Mozilla，他们将所有 Rust 商标和基础设施资产转移到了新的 Rust Foundation，Rust Foundation 是该语言的管理员，该语言也得到了 AWS、Google、华为和微软的支持。但是，Kotlin 和 Rust 的共同点是，它们在开发人员中的受欢迎程度使他们在本季度排名中分别上升了一个位置 —— Rust 排名第 19 位，Kotlin 排名第 18 位。
+
+* **Dart（3）：** 在不到三年前，Dart 风靡一时，但由于代理人对开发人员的兴趣和我们所使用的活动所表现出的吸引力微乎其微。但是，在 Flutter 框架推出两年后，Dart 排名上升了 3 位，排在我们的前 20 名之外。在 Dart 和 Kotlin 似乎停滞了两个季度之后，Dart 提出了四分之二的质疑达到顶峰。本季度的运行表明该问题的答案是否定的。显然，Flutter 对这种语言的流行性产生了实质性的影响，显然，它可以编译为世界上最受欢迎的编程语言的能力同样不会损害它。虽然仅要在我们的排名中排名第 21 位是非常困难的 —— 除了 Rust 之外，
+
+鸣谢：我的同事 Rachel Stephens 在这些排名中编写了负责 GitHub 部分的查询。她还负责 Stack Overflow 数据的查询设计。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
