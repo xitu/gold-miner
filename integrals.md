@@ -2978,10 +2978,14 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：485.5 当前积分：405.5 二零二一：30.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：495.5 当前积分：415.5 二零二一：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TypeScript 4.2 正式发布：优化了类型和开发者体验](https://juejin.cn/post/6935255387893399560)|校对|2|
+|[自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)|校对|1|
+|[Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)|校对|2|
+|[你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)|校对|5|
 |[恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)|校对|2|
 |[基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)|校对|3|
 |[如何利用隐语义模型在图数据库中构建推荐系统](https://juejin.cn/post/6925019556108828685)|校对|4|
@@ -7608,10 +7612,11 @@
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|校对|3.5|
 
-## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：77.5 当前积分：77.5
+## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：78.5 当前积分：78.5 二零二一：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)|校对|1|
 |[为什么我用 JavaScript 来编写 CSS](https://juejin.im/post/5c8878b7f265da2deb6ae6f2)|翻译|2|
 |[Hooks 对 Vue 而言意味着什么](https://juejin.im/post/5c7784d5f265da2de713629c)|翻译|4|
 |[2019 前端性能优化年度总结 — 第四部分](https://juejin.im/post/5c56345951882524b77b9f20)|翻译|13|
@@ -8968,10 +8973,12 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：91 当前积分：71 二零二一：11
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：94 当前积分：74 二零二一：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)|校对|1|
+|[CSS3 会替代 SCSS 吗？](https://juejin.cn/post/6934326962450071559)|校对|2|
 |[JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)|校对|1|
 |[基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)|校对|3|
 |[如何在浏览器上使用 NoSQL 数据库 IndexedDB](https://juejin.cn/post/6930883284456964109)|校对|2|
@@ -10041,10 +10048,11 @@
 |------|-------|-------|
 |[Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)|校对|3|
 
-## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：85.5 当前积分：69.5 二零二一：38.5
+## 译者：[samyu2000](https://github.com/samyu2000) 历史贡献积分：89.5 当前积分：73.5 二零二一：42.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[数据科学中的 9 种距离度量](https://juejin.cn/post/6935265008045686815)|校对|4|
 |2021 年 2 月 兑换 掘金笔记本 2 个|减去积分|16|
 |[如何基于已有的 REST API 实现 GraphQL API](https://juejin.cn/post/6931145990599049223)|翻译|5|
 |[如何让 JavaScript 中的循环慢下来](https://juejin.cn/post/6924512805135581197)|校对|1|
@@ -10327,10 +10335,16 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：201.5 当前积分：201.5 二零二一：61
+## 译者：[zenblo](https://github.com/zenblo) 历史贡献积分：215.5 当前积分：215.5 二零二一：75
 
 |文章|类型|积分|
 |------|-------|-------|
+|[TypeScript 4.2 正式发布：优化了类型和开发者体验](https://juejin.cn/post/6935255387893399560)|校对|2|
+|[在 React 中使用 Immer 管理不可变状态](https://juejin.cn/post/6935790852476239886)|翻译|4|
+|[自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)|校对|1|
+|[Deno 将停用 TypeScript 的五个原因](https://juejin.cn/post/6934140963262562312)|翻译|4|
+|[Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)|校对|2|
+|[我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)|校对|1|
 |[你应该编译你的 JavaScript 代码吗？](https://juejin.cn/post/6926927963636105223)|校对|2|
 |[如何在浏览器上使用 NoSQL 数据库 IndexedDB](https://juejin.cn/post/6930883284456964109)|翻译|5|
 |[简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)|翻译|5|
@@ -10418,10 +10432,11 @@
 |[使用 Chrome 的 Shape Detection API 检测人脸，文本甚至条形码](https://juejin.im/post/6864391729693491207)|翻译|6|
 |[打包用于分发的 UI 库 —— 当你要发布一个 UI 组件库时，你可能需要遵守的指南](https://juejin.im/post/6863091746113323021)|校对|3|
 
-## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：22.5 当前积分：22.5
+## 译者：[Isildur46](https://github.com/Isildur46) 历史贡献积分：25.5 当前积分：25.5 二零二一：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[关于 Node.js 中的异步迭代器](https://juejin.cn/post/6934596464639213576)|翻译|3|
 |[7 种有用的时间复杂度](https://juejin.im/post/6873379647125553159)|校对|3|
 |[JavaScript 函数中一些你不知道的秘密](https://juejin.im/post/6871101056642711559)|翻译|7|
 |[JavaScript 引擎概述](https://juejin.im/post/6869976412745367566)|翻译|5|
@@ -10702,10 +10717,12 @@
 |------|-------|-------|
 |[酷毙了的算法：日志结构存储](https://juejin.cn/post/6898766259584761864)|校对|3|
 
-## 译者：[chzh9311](https://github.com/chzh9311) 历史贡献积分：14 当前积分：14 二零二一：11
+## 译者：[chzh9311](https://github.com/chzh9311) 历史贡献积分：26 当前积分：26 二零二一：23
 
 |文章|类型|积分|
 |------|-------|-------|
+|[代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)|校对|3|
+|[数据科学中的 9 种距离度量](https://juejin.cn/post/6935265008045686815)|翻译|9|
 |[上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)|校对|3|
 |[为什么我的数据会漂移？](https://juejin.cn/post/6923824334188314638)|翻译|6|
 |[理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)|校对|2|
@@ -10717,10 +10734,12 @@
 |------|-------|-------|
 |[在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)|校对|4.5|
 
-## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：18 当前积分：18 二零二一：14
+## 译者：[keepmovingljzy](https://github.com/keepmovingljzy) 历史贡献积分：24 当前积分：24 二零二一：20
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)|校对|3|
+|[构建像 `Messenger` 短信软件那样的 ImageView](https://juejin.cn/post/6933957885642670093)|校对|3|
 |[我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)|翻译|7|
 |1 月推荐安卓文章 1 篇、其他文章 1 篇|奖励|2|
 |[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|翻译|5|
@@ -10733,10 +10752,11 @@
 |------|-------|-------|
 |[探索 Android 中的 ConstraintLayout 2.0](https://juejin.cn/post/6906770827228741646)|校对|1.5|
 
-## 译者：[stuchilde](https://github.com/stuchilde) 历史贡献积分：10 当前积分：10 二零二一：8
+## 译者：[stuchilde](https://github.com/stuchilde) 历史贡献积分：15 当前积分：15 二零二一：13
 
 |文章|类型|积分|
 |------|-------|-------|
+|[每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)|校对|5|
 |[如何利用隐语义模型在图数据库中构建推荐系统](https://juejin.cn/post/6925019556108828685)|翻译|8|
 |[爱 GraphQL 胜过 REST](https://juejin.cn/post/6914306976294338567)|校对|2|
 
@@ -10771,10 +10791,12 @@
 |[你不可错过的 10 个 Xcode 技巧和快捷键](https://juejin.cn/post/6913888065937211399)|翻译|5|
 |[SwiftUI 中的 PageTabViewStyle](https://juejin.cn/post/6906289114300039182)|翻译|2|
 
-## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：47.5 当前积分：47.5 二零二一：35.5
+## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：50.5 当前积分：50.5 二零二一：38.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|3 月推荐前端文章 1 篇|奖励|1|
+|[CSS3 会替代 SCSS 吗？](https://juejin.cn/post/6934326962450071559)|校对|2|
 |[3 个最棒的最值得你去在产品中使用的 CSS Grid 功能](https://juejin.cn/post/6931372123441233927)|校对|2|
 |[基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)|翻译|7|
 |[如何让 JavaScript 中的循环慢下来](https://juejin.cn/post/6924512805135581197)|校对|1|
@@ -10790,10 +10812,12 @@
 |[增量 DOM 与虚拟 DOM 的对比使用](https://juejin.cn/post/6903765877296988174)|校对|2|
 |[理解 JavaScript 中模块的导入和导出](https://juejin.cn/post/6904980094998020109)|校对|3|
 
-## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：42.5 当前积分：42.5 二零二一：35.5
+## 译者：[zhuzilin](https://github.com/zhuzilin) 历史贡献积分：48.5 当前积分：48.5 二零二一：41.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)|校对|1|
+|[你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)|校对|5|
 |[SwiftUI 2 应用生命周期的终极指导](https://juejin.cn/post/6924119708832628749)|翻译|5|
 |1 月推荐 iOS 文章 1 篇|奖励|1|
 |[UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？](https://juejin.cn/post/6923197105422991367)|校对|4|
@@ -10813,10 +10837,26 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：121.5 当前积分：121.5 二零二一：121.5
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：185 当前积分：185 二零二一：185
 
 |文章|类型|积分|
 |------|-------|-------|
+|3 月推荐前端文章 1 篇|奖励|1|
+|[为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白](https://juejin.cn/post/6935629277870161957)|翻译|5|
+|[TypeScript 4.2 正式发布：优化了类型和开发者体验](https://juejin.cn/post/6935255387893399560)|翻译|3|
+|[在 React 中使用 Immer 管理不可变状态](https://juejin.cn/post/6935790852476239886)|校对|1.5|
+|[自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)|翻译|2.5|
+|[Deno 将停用 TypeScript 的五个原因](https://juejin.cn/post/6934140963262562312)|校对|2|
+|[关于 Node.js 中的异步迭代器](https://juejin.cn/post/6934596464639213576)|校对|1|
+|[Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)|翻译|5|
+|[使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)|翻译|7|
+|[CSS3 会替代 SCSS 吗？](https://juejin.cn/post/6934326962450071559)|翻译|4|
+|[代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)|校对|3|
+|[我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)|翻译|3|
+|[数据科学中的 9 种距离度量](https://juejin.cn/post/6935265008045686815)|校对|4|
+|[每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)|校对|5|
+|[构建像 `Messenger` 短信软件那样的 ImageView](https://juejin.cn/post/6933957885642670093)|翻译|6.5|
+|[你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)|翻译|10|
 |2 月推荐前端文章 1 篇|奖励|1|
 |2 月推荐 Android 文章 1 篇|奖励|1|
 |[JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)|翻译|3|
@@ -10862,10 +10902,12 @@
 |[GitHub Package Registry 是否值得尝试](https://juejin.cn/post/6915255280959750152)|校对|2|
 |[Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)|校对|2|
 
-## 译者：[Ashira97](https://github.com/Ashira97) 历史贡献积分：18 当前积分：18 二零二一：18
+## 译者：[Ashira97](https://github.com/Ashira97) 历史贡献积分：37 当前积分：37 二零二一：37
 
 |文章|类型|积分|
 |------|-------|-------|
+|[代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)|翻译|8|
+|[每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)|翻译|11|
 |[你应该编译你的 JavaScript 代码吗？](https://juejin.cn/post/6926927963636105223)|校对|2|
 |[2021 年 JavaScript 测试框架回顾](https://juejin.cn/post/6927585452253790216)|校对|1|
 |[Javascript Memoization 入门指南](https://juejin.cn/post/6920460950424256526)|校对|2|
@@ -10892,10 +10934,13 @@
 |------|-------|-------|
 |[对象展开运算符在 JavaScript 中的 5 大应用](https://juejin.cn/post/6895525536039174151)|校对|1|
 
-## 译者：[HumanBeingXenon](https://github.com/HumanBeingXenon) 历史贡献积分：3 当前积分：3 二零二一：3
+## 译者：[HumanBeingXenon](https://github.com/HumanBeingXenon) 历史贡献积分：14 当前积分：14 二零二一：14
 
 |文章|类型|积分|
 |------|-------|-------|
+|[使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)|校对|3|
+|[构建像 `Messenger` 短信软件那样的 ImageView](https://juejin.cn/post/6933957885642670093)|校对|3|
+|[你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)|校对|5|
 |[JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)|校对|1|
 |[Android 中的意料之外的应用崩溃以及解决它们的方法](https://juejin.cn/post/6925336143953133581)|校对|2|
 
@@ -10916,3 +10961,27 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[函数式编程 —— 使用 Python、JavaScript 和 Java 描述](https://juejin.cn/post/6930638275241574407)|校对|5|
+
+## 译者：[flying-yogurt](https://github.com/flying-yogurt) 历史贡献积分：2 当前积分：2 二零二一：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)|校对|2|
+
+## 译者：[felixliao](https://github.com/felixliao) 历史贡献积分：1.5 当前积分：1.5 二零二一：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[在 React 中使用 Immer 管理不可变状态](https://juejin.cn/post/6935790852476239886)|校对|1.5|
+
+## 译者：[itcodes](https://github.com/itcodes) 历史贡献积分：2 当前积分：2 二零二一：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白](https://juejin.cn/post/6935629277870161957)|校对|2|
+
+## 译者：[husiyu](https://github.com/husiyu) 历史贡献积分：1.5 当前积分：1.5 二零二一：1.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白](https://juejin.cn/post/6935629277870161957)|校对|1.5|
