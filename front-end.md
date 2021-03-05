@@ -1,3 +1,11 @@
+* [为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白](https://juejin.cn/post/6935629277870161957)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [在 React 中使用 Immer 管理不可变状态](https://juejin.cn/post/6935790852476239886)（[zenblo](https://github.com/zenblo) 翻译）
+* [TypeScript 4.2 正式发布：优化了类型和开发者体验](https://juejin.cn/post/6935255387893399560)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Deno 将停用 TypeScript 的五个原因](https://juejin.cn/post/6934140963262562312)（[zenblo](https://github.com/zenblo) 翻译）
+* [关于 Node.js 中的异步迭代器](https://juejin.cn/post/6934596464639213576)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [CSS3 会替代 SCSS 吗？](https://juejin.cn/post/6934326962450071559)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [3 个最棒的最值得你去在产品中使用的 CSS Grid 功能](https://juejin.cn/post/6931372123441233927)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
