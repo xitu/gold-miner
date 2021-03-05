@@ -7,15 +7,11 @@
 
 # 6 Alternatives to Classes in Python
 
-#### Speed of development, execution time, (de)serialization, and maintainability all play a role in making your code shine
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
 
 As developers, we throw a lot of data around. The representation of data matters a lot and we need to be able to keep track of which variables represent which attributes. Configuration is a prime example of complex data.
 
 In the following article, I will use location as an example. It must have a longitude, latitude, and can have an address. In C, you would use a `struct` for this. In Java, you would simply create a class. In Python, there are six alternatives. Let’s explore each of their advantages and disadvantages!
-
----
 
 ## Plain Classes
 
@@ -79,8 +75,6 @@ You can also see that the annotation for the `get_distance` function looks prett
 
 The tooling support is as good as it gets because every editor has to support the plain classes and all of the important information is there.
 
----
-
 ## 1. Tuples
 
 Tuples are a native data type. They have a very low memory overhead, so we can address the elements by index very quickly. The problem with tuples is that you have no names for member attributes. You have to remember what each index represents. Tuples are always immutable.
@@ -98,11 +92,9 @@ The annotation for `get_distance` looks messy. A human should be given the infor
 
 The editor's support depends on how thoroughly you annotate. In the example above, you could also just write `Tuple` without specifying what the tuple contains. As people are lazy, I’d say the editor support is not good. It’s no fault of the editor, but it’s often not possible to give good support.
 
----
-
 ## 2. Dictionaries
 
-Dictionaries are a native data type ****and probably the most common way to throw data around in Python. Dicts have a bigger memory overhead compared to tuples, as you have to store the names somewhere, but they are still OK. Accessing elements by index is **fast**. Dicts are always mutable, but there is the third-party package [frozendict](https://pypi.org/project/frozendict/) to solve this.
+Dictionaries are a native data type and probably the most common way to throw data around in Python. Dicts have a bigger memory overhead compared to tuples, as you have to store the names somewhere, but they are still OK. Accessing elements by index is **fast**. Dicts are always mutable, but there is the third-party package [frozendict](https://pypi.org/project/frozendict/) to solve this.
 
 ```Python
 from typing import Any, Dict
@@ -122,8 +114,6 @@ The annotation in practice is really bad. It’s almost always `Dict[str, Any]` 
 [TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) has been around since Python 3.8, but I’ve never seen that in any bigger code base. [TypedDict is a killer feature](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8), but it’s irrelevant, as we want to support legacy Python versions.
 
 For those reasons, the editor's support is even worse than for tuples.
-
----
 
 ## 3. Named Tuples
 
@@ -159,8 +149,6 @@ BMI(weight=60, size=170)
 >>> a == b
 True
 ```
-
----
 
 ## 4. attrs
 
@@ -209,8 +197,6 @@ You also can automatically run code on the input to the constructor. This is cal
 ```
 
 [Visual Studio Code](https://towardsdatascience.com/visual-studio-code-python-editors-in-review-e5e4f269b4e4) does not like the type annotations.
-
----
 
 ## 5. Dataclass
 
@@ -288,8 +274,6 @@ class Position:
 
 However, I don’t like that so much. It is again super verbose and removes a lot of the charm of dataclasses. If you need validation that is not covered by the types, then go for Pydantic.
 
----
-
 ## 6. Pydantic
 
 [Pydantic](https://pydantic-docs.helpmanual.io/) is a third-party library that focuses on data validation and settings management. You can either inherit from `pydantic.BaseModel` or create a dataclass with Pydantic:
@@ -330,8 +314,6 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 At first glance, this is identical to the standard `@dataclass` — except that you get the `dataclass` decorator from Pydantic.
 
----
-
 ## Mutability and Hashability
 
 I don’t tend to consciously think about mutability a lot, but in many cases, I want my classes to be immutable. The big exceptions are database models, but they are a complete story on their own.
@@ -339,8 +321,6 @@ I don’t tend to consciously think about mutability a lot, but in many cases, I
 Having the option to mark classes as frozen to make their objects immutable is pretty nice.
 
 Implementing `__hash__` for a mutable object is problematic because the hash might change when the object is changed. This means if the object is in a dictionary, the dictionary would need to know that the hash of the object has changed and store it in a different location. For this reason, both dataclasses and Pydantic prevent the hashing of mutable classes by default. They have `unsafe_hash`, though.
-
----
 
 ## Default String Representation
 
@@ -369,8 +349,6 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
 
 You can see that the string representation of an object created from a plain class is useless. Tuples are better, but they don’t indicate which index represents which attribute. All remaining representations are pretty awesome. They are easy to understand and can even be used to recreate the object!
 
----
-
 ## Data Validation
 
 You have seen how data validation can be implemented for plain classes, attrs, dataclasses, and Pydantic. What you haven’t seen is what the error messages look like.
@@ -396,8 +374,6 @@ latitude
 ```
 
 This is the point I want to make: Pydantic gives you all the errors in a very clear way. Plain classes and attrs just give you the first error.
-
----
 
 ## Serialize to JSON
 
@@ -439,19 +415,15 @@ This gives you:
 
 For dataclasses, `[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` goes a long way. Then you might be able to directly serialize the dictionary to JSON. It becomes interesting with `DateTime` or [decimal](https://docs.python.org/3/library/decimal.html) objects. [Something similar](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) is possible with attrs.
 
----
-
 ## Unserialize From JSON
 
 Userializing nested classes from a JSON string is trivial with Pydantic. Using the example above, you would write:
 
-```
+```py
 mr = GitlabMr.parse_raw(json_str)
 ```
 
 There are very dirty hacks to do [something similar with dataclasses](https://stackoverflow.com/a/53498623/562769). The [attrs way to deserialize](https://stackoverflow.com/q/44801927/562769) looks better, but I guess it also struggles with nested structures. And when it comes to `DateTime` or decimals, I’m pretty certain that both show more problems than Pydantic. Serialization, deserialization, and validation are where Pydantic shines.
-
----
 
 ## Memory
 
@@ -478,11 +450,9 @@ Native class : 286 B
 
 The Pydantic base model has quite an overhead, but you always have to keep things in perspective. How many of those objects will you create? Let’s assume you have maybe 100 of those. Each of them might consume 500B more than a more efficient alternative. That would be 50kB. To quote [Donald Knuth](https://www.azquotes.com/quote/721020):
 
-> # “Premature optimization is the root of all evil.”
+> “Premature optimization is the root of all evil.”
 
 If memory becomes problematic, then you will not switch from Pydantic to dataclasses or attrs. You will switch to something more structured like NumPy arrays or pandas `DataFrames`.
-
----
 
 ## Execution Time
 
@@ -493,10 +463,9 @@ There are multiple things you can mean by “execution time” in this context:
 * Parsing time from a dictionary
 
 I’m convinced that the parsing time for JSON dominates the rest. There are multiple JSON parsers available in Python:
+
 [**JSON encoding/decoding with Python**
 **Comparing libraries by speed, maturity, and operational safety**levelup.gitconnected.com](https://levelup.gitconnected.com/json-encoding-decoding-with-python-62a2cae63a6a)
-
----
 
 ## So When Do I Use What?
 
@@ -510,8 +479,6 @@ Use what you need:
 Please note that I didn’t mention tuple and attrs. I simply cannot find a valid use case where you would prefer them for new code over the other choices. Please let me know if I missed one.
 
 I also didn’t mention plain classes. I think I would only use plain classes if I want to overwrite `__init__`, `__eq__` , `__str__`, `__repr__` , and`__hash__` anyway. Or if I have to support old Python versions.
-
----
 
 ## Resource
 
