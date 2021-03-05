@@ -5,37 +5,40 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
+# NumPy 1.20 问世，带来了运行时 SIMD 的支持和类型注释
 
-The newly released NumPy 1.20 features [performance and documentation improvements](https://github.com/numpy/numpy/releases/tag/v1.20.0). Developers can now use type annotations for NumPy functions. A wider use of [SIMD](https://en.wikipedia.org/wiki/SIMD) (Single Instruction, Multiple Data) instructions increases the execution speed of universal functions ([ufunc](https://numpy.org/doc/stable/reference/ufuncs.html)). NumPy’s documentation additionally sees significant improvements.
+新发布的 NumPy 1.20 版本在[性能和文档](https://github.com/numpy/numpy/releases/tag/v1.20.0)方面做出了改进。开发人员现在可以在 NumPy 函数中使用类型注释。[SIMD（单指令流多数据流）](https://zh.wikipedia.org/wiki/SIMD) 指令的更广泛使用提高了通用功能（[ufunc](https://numpy.org/doc/stable/reference/ufuncs.html)）。NumPy 还对它的的文档做出了重大的改进。
 
-The NumPy library code is now annotated with type information, a move facilitated by NumPy no longer supporting Python 2. One contributor [explained the rationale behind the move](http://numpy-discussion.10968.n7.nabble.com/Put-type-annotations-in-NumPy-proper-td47996.html) as follows:
+NumPy 库代码现在带有来了类型信息注释，此举由 NumPy 推动，停止了对 Python 2 的支持。一位贡献者[解释了此举的基本原理](http://numpy-discussion.10968.n7.nabble.com/Put-type-annotations-in-NumPy-proper-td47996.html)，如下所示：
 
-> When we started numpy-stubs a few years ago, putting type annotations in NumPy itself seemed premature. We still supported Python 2, which meant that we would need to use awkward comments for type annotations.Over the past few years, using type annotations has become increasingly popular, even in the scientific Python stack. For example, off-hand I know that at least SciPy, pandas, and xarray have at least part of their APIs type annotated. Even without annotations for shapes or dtypes, it would be valuable to have near-complete annotations for NumPy, the project at the bottom of the scientific stack.
+> 几年前，当我们开始使用 numpy-stubs 时，将类型注释放入 NumPy 本身还为时过早。那时候我们仍然支持着 Python 2，这意味着我们需要在类型注释中使用笨拙的注释。在过去的几年中，即使在科学的 Python 堆栈中，使用类型注释也变得越来越流行。例如，我知道至少 SciPy，pandas 和 xarray 的 API 类型至少有一部分被注释了。即使没有 shape 或 dtype 的注释，在科学堆栈底部的项目 NumPy 具有接近完整的注释也很有价值。
 
-Developers can additionally use new types — **`[ArrayLike](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.ArrayLike)`** and **`[DTypeLike](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.DTypeLike)`**. The **`ArrayLike`** type is used for objects that can be converted to arrays. The **`DTypeLike`** is used for objects that can be converted to dtypes. A data type object ([numpy.dtype](https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype)) specifies the content of the fixed-size block of memory corresponding to an array item and includes in particular information about the item data type (e.g., integer, float), size of the data, byte order ([little-endian](https://numpy.org/doc/stable/glossary.html#term-little-endian) or [big-endian](https://numpy.org/doc/stable/glossary.html#term-big-endian)), and more. The two new types empower the type checker to recognize inefficient patterns and warn the users. The documentation explains:
+开发人员还可以使用新类型 —— [`ArrayLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.ArrayLike) 和 [`DTypeLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.DTypeLike)。`ArrayLike` 类型用于可转换为数组的对象，而 DTypeLike` 用于转换 `dtypes` 的对象。数据类型对象（[numpy.dtype](https://numpy.org/doc/stable/reference/produced/numpy.dtype.html#numpy.dtype)）指定对应于固定大小的内存块的内容到数组项目，并特别包含有关项目数据类型（例如，整数，浮点数），数据大小，字节顺序（[little-endian](https://numpy.org/doc/stable/glossary html#term-little-endian) 或 [big-endian](https://numpy.org/doc/stable/glossary.html#term-big-endian)）等。这两种新类型使类型检查器能够识别效率低下的模式并警告用户。该文档说明：
 
-> The DTypeLike type tries to avoid creation of dtype objects using dictionary of fields like below:x = np.dtype({"field1": (float, 1), "field2": (int, 3)})
-Although this is valid Numpy code, the type checker will complain about it, since its usage is discouraged.
+> `DTypeLike` 类型尝试避免使用如下所示的字段字典创建 `dtype` 对象：
+> ```python
+> x = np.dtype({“ field1”：（float，1），“ field2”：（int，3）})
+> ```
+> 尽管这是有效的 Numpy 代码，但类型识别器会提醒这里的问题，因为它的用法不明确。
 
-The new [numpy.typing module](https://numpy.org/devdocs/reference/typing.html) contains the new type aliases and can be imported at runtime:
+新的 [numpy.typing 模块](https://numpy.org/devdocs/reference/typing.html)包含新的类型别名，可以在运行时导入：
 
 ```
 from numpy.typing import ArrayLike
 x: ArrayLike = [1, 2, 3, 4]
-
 ```
 
-NumPy 1.20 also enables [multi-platform SIMD compiler optimizations](https://numpy.org/devdocs/reference/simd/simd-optimizations.html). NumPy is now able to [detect the SIMD instructions made available by the CPU](https://github.com/numpy/numpy/pull/13421) and optimize for them. Users can configure the runtime optimization behavior through several new build arguments. The **`--cpu-baseline`** argument is used to specify the minimal set of required optimizations. The **`--cpu-dispatch`** specifies the dispatched set of additional optimizations — with a default value of **`max -xop -fma4`** that enables all CPU features, except for AMD legacy features. With **`--disable-optimization`**, users may opt out of the new improvements.
+NumPy 1.20 还启用了[多平台 SIMD 编译器优化](https://numpy.org/devdocs/reference/simd/simd-optimizations.html)。NumPy 现在能够[检测 CPU 提供的 SIMD 指令](https://github.com/numpy/numpy/pull/13421)并对其进行优化。用户可以通过几个新的构建参数来配置运行时优化行为。`--cpu-baseline` 参数用于指定所需优化的最小集，而`--cpu-dispatch` 指定已调度的其他优化集（默认值为 `max-xop -fma4`，将启用所有CPU功能，但AMD旧功能除外。）使用 `--disable-optimization` 参数，用户可以选择不用新的改进。
 
-Using NumPy 1.20 entails upgrading to Python 3.7 or newer. With a view to improving NumPy’s online presence and friendliness to new users, the new NumPy release significantly improved its documentation — the release mentioned merging 185 related pull requests in what is an ongoing effort.
+使用 NumPy 1.20 需要升级 Python 到 3.7 或更高版本。为了改善 NumPy 的形象和对新用户的友好性，新的 NumPy 版本大大改善了其文档 —— 该版本提到了在不断进行的工作中合并 185 个相关的请求请求。
 
-NumPy 1.20 is a large release with 684 pull requests contributed by 184 people merged. The [full release notes](https://github.com/numpy/numpy/releases/tag/v1.20.0) are available online and include information about additional features and deprecations.
+NumPy 1.20 是一个大型项目，由 184 人合并贡献了 684 个拉取请求。[完整的发行说明](https://github.com/numpy/numpy/releases/tag/v1.20.0)可以在线获取，其中包含有关其他功能和不推荐使用的信息。
 
-Some users have welcomed the new type annotations, not without making a comparison with [Julia](https://julialang.org/), an alternative dynamically-typed programming language [aimed specifically at performant scientific computing](https://docs.julialang.org/en/v1/), machine learning, data mining, large-scale linear algebra, distributed and parallel computing. One user [said on HackerNews](https://hacker-news.news/post/25977977):
+一些用户欢迎新的类型注释，而不是不与 [Julia](https://julialang.org/)进行比较，[Julia] 是另一种动态类型的编程语言[专门针对高性能科学计算而设计](https://docs.julialang.org/en/v1/)，机器学习，数据挖掘，大规模线性代数，分布式和并行计算。一位用户[在 HackerNews 上说](https://hacker-news.news/post/25977977)：
 
-> The type annotation story is indeed better with Julia, but having type annotations for NumPy is beneficial for many users for whom Julia isn’t a win, where number crunching isn’t the main thing going on and Python’s better library situation is important and you want to avoid the complication of calling Python from Julia.
+> 使用 Julia 确实可以更好地进行类型注释，但是 NumPy 拥有类型注释对于许多用户来说是有益的，对于 Julia 而言，这不是赢家，数字紧缩并不是主要问题，Python 更好的库情况也很重要，并且您想要避免从Julia调用Python的复杂性。
 
-[NumPy](http://www.numpy.org/) is an open-source Python library adding support for large, multi-dimensional, homogeneously-typed arrays, and matrices. NumPy includes a set of mathematical functions to create and transform these arrays, linear algebra routines, and more. NumPy is at the core of [SciPy](http://www.scipy.org/), a Python-based ecosystem of open-source software for mathematics, science, and engineering. NumPy allows data scientists to use a productive scripting language for data analysis tasks.
+[NumPy](http://www.numpy.org/) 是一个开源 Python 库，增加了对大型，多维，同构类型的数组和矩阵的支持。NumPy 包括一组数学函数，用于创建和转换这些数组，线性代数例程等。NumPy 是 [SciPy](http://www.scipy.org/) 的核心，这是一个基于 Python 的开放源代码软件生态系统，用于数学，科学和工程。NumPy 允许数据科学家使用高效的脚本语言来执行数据分析任务。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
