@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/undefined-null-revisited.md](https://github.com/xitu/gold-miner/blob/master/article/2021/undefined-null-revisited.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Moonball](https://github.com/Moonball)、[felixliao](https://github.com/felixliao)
 
 # 重新审视 undefined 和 null
 
-很多的编程语言都有一种表示非值的类型，叫做 `null`。它指示了一个变量当前并没有指向任何对象 —— 例如，某个变量还没有初始化的时候。
+很多的编程语言都有一种表示空值的类型，叫做 `null`。它指示了一个变量当前并没有指向任何对象 —— 例如，某个变量还没有初始化的时候。
 
-作为对比，JavaScript 则拥有两种表示非值的类型，一种是 `undefined`，另一种则是 `null`。在这篇文章中，我们将测试它们的区别，以及如何去挑选最佳的类型或避免去使用它们。
+作为不同，JavaScript 则拥有两种表示空值的类型，一种是 `undefined`，另一种则是 `null`。在这篇文章中，我们将测试它们的区别，以及如何去挑选最佳的类型或避免去使用它们。
 
 ## `undefined` vs. `null`
 
@@ -24,9 +24,9 @@ ECMAScript 语言标准按照如下内容描述他们：
 
 我们等下就会探索一下作为程序员，我们应该如何去以最佳的方式使用这两个值。
 
-### 两个非值 —— 一个不能弥补的错误
+### 两个空值 —— 一个不能弥补的错误
 
-在 JavaScript 中同时有两个表示非值的值现在被认为是一个设计错误（哪怕是 JavaScript 之父 Brendan Eich 也这么认为）。
+在 JavaScript 中同时有两个表示空值的值现在被认为是一个设计错误（哪怕是 JavaScript 之父 Brendan Eich 也这么认为）。
 
 那么为什么不从 JavaScript 中删除这两个值之一呢？JavaScript 的一项核心原则是永不破坏向后的兼容性。该原则具有[好处](https://exploringjs.com/impatient-js/ch_history.html#backward-compatibility)，但同时也拥有着最大的缺点，即无法弥补设计错误。
 
@@ -330,9 +330,9 @@ function createFile(title = '(Untitled)') {
 
 为什么要选择这个方法？
 
-* 我们需要一个非值来表示被忽略。
-* 我们不希望非值触发参数默认值并破坏默认值。
-* 我们想将非值字符串化为 JSON（这是我们无法对 `undefined` 进行的处理）。
+* 我们需要一个空值来表示被忽略。
+* 我们不希望空值触发参数默认值并破坏默认值。
+* 我们想将空值字符串化为 JSON（这是我们无法对 `undefined` 进行的处理）。
 
 #### `undefined` 是被忽略的值
 
@@ -349,14 +349,14 @@ function createFile(title) {
 
 为什么选择这种方法？
 
-* 我们需要一个非值来表示被忽略。
-* 我们确实希望非值触发参数或解构默认值。
+* 我们需要一个空值来表示被忽略。
+* 我们确实希望空值触发参数或解构默认值。
 
 `undefined` 的一个缺点是它通常是在 JavaScript 中意外赋予的 —— 在未初始化的变量，属性名称中的错字，忘记从函数中返回内容等。
 
 #### 为什么不同时将 `undefined` 和 `null` 看作是被忽略的值？
 
-当接收到一个值时，将 `undefined` 和 `null` 都视为 “非值” 是有意义的。 但是，当我们创建值时，我们不希望模棱两可，以避免不必要的麻烦。
+当接收到一个值时，将 `undefined` 和 `null` 都视为 “空值” 是有意义的。 但是，当我们创建值时，我们不希望模棱两可，以避免不必要的麻烦。
 
 这指向了另一种角度：如果我们需要一个被忽略的值，但又不想使用 `undefined` 或 `null` 作为被忽略值时该怎么办？看看下文吧：
 
