@@ -20,26 +20,26 @@
 ECMAScript 语言标准按照如下内容描述他们：
 
 * `undefined` 是在一个变量还没有被赋值时候使用的。<sup>[出处](https://tc39.es/ecma262/#sec-undefined-value)</sup>
-* `null` 表示任何有意而为的对象值的缺省缺失。<sup>[出处](https://tc39.es/ecma262/#sec-null-value)</sup>
+* `null` 表示任何有意地缺省对象值。<sup>[出处](https://tc39.es/ecma262/#sec-null-value)</sup>
 
 我们等下就会探索一下作为程序员，我们应该如何去以最佳的方式使用这两个值。
 
 ### 两个非值 —— 一个不能弥补的错误
 
-在 JavaScript 中同时有两个表示非值的值现在被认为是一个设计错误（哪怕是 JS 之父 Brendan Eich 也这么认为）。
+在 JavaScript 中同时有两个表示非值的值现在被认为是一个设计错误（哪怕是 JavaScript 之父 Brendan Eich 也这么认为）。
 
 那么为什么不从 JavaScript 中删除这两个值之一呢？JavaScript 的一项核心原则是永不破坏向后的兼容性。该原则具有[好处](https://exploringjs.com/impatient-js/ch_history.html#backward-compatibility)，但同时也拥有着最大的缺点，即无法弥补设计错误。
 
 ### `undefined` 和 `null` 的历史
 
-在 Java（影响了 JS 很多方面的语言）中初始值依赖于一个变量的静态类型：
+在 Java（影响了 JavaScript 很多方面的语言）中初始值依赖于一个变量的静态类型：
 
 * 以对象值为类型的变量初始化为 `null`。
-* 任何原始值都拥有它的初始值，例如 `int` 整型对应 `0`。
+* 每个基本类型都拥有它的初始值，例如 `int` 整型对应 `0`。
 
-在 JavaScript 中，每一个变量都可以同时存储对象值和原始值，意味着如果 `null` 表示不是一个对象，那么 JavaScript 也同时需要一个初始值表示既不是一个对象也不拥有原始值，这就是 `undefined`。
+在 JavaScript 中，每一个变量都可以存储对象值或原始值，意味着如果 `null` 表示不是一个对象，那么 JavaScript 也同时需要一个初始值表示既不是一个对象也不拥有原始值，这就是 `undefined`。
 
-## `undefined` 的所作所为
+## `undefined` 的出现场合
 
 如果一个变量 `myVar` 还没有被初始化，那么它的值就是 `undefined`：
 
@@ -48,14 +48,14 @@ let myVar;
 assert.equal(myVar, undefined);
 ```
 
-如果一个属性 `.unknownProp` 缺失了，访问这个属性会赋予这个属性 `undefined` 值：
+如果一个属性 `.unknownProp` 不存在，访问这个属性就会生成 `undefined` 值：
 
 ```js
 const obj = {};
 assert.equal(obj.unknownProp, undefined);
 ```
 
-如果一个函数没有指定任何内容的返回，那么默认就会返回 `undefined`：
+如果一个函数没有明确返回任何内容，那么默认就会返回 `undefined`：
 
 ```js
 function myFunc() {
@@ -64,7 +64,7 @@ function myFunc() {
 assert.equal(myFunc(), undefined);
 ```
 
-如果一个函数拥有一个 `return` 语句但没有任何附属语句，那么也是默认返回 `undefined`：
+如果一个函数拥有一个 `return` 语句但没有指定任何返回值，那么也会默认返回 `undefined`：
 
 ```js
 function myFunc() {
@@ -74,7 +74,7 @@ function myFunc() {
 assert.equal(myFunc(), undefined);
 ```
 
-如果一个参数 `x` 被漏掉了，那么就会被初始化为 `undefined`：
+如果一个参数 `x` 没有传实参，那么就会被初始化为 `undefined`：
 
 ```js
 function myFunc(x) {
@@ -93,16 +93,16 @@ undefined
 undefined
 ```
 
-## `null` 的所作所为
+## `null` 的出现场合
 
-一个对象的圆形是一个对象，或者是一系列原型的末尾 `null`，那么 `Object.prototype` 就没有一个原型：
+一个对象的原型要么是另一个对象，要么是原型链末尾的 `null`。`Object.prototype` 没有原型：
 
 ```repl
 > Object.getPrototypeOf(Object.prototype)
 null
 ```
 
-如果我们使用一个正则表达式（例如 `/a/`）匹配一个字符串（例如 `x`），我们要么得到一个存储着匹配数据的对象（如果匹配成功），要么得到 `null`（没有匹配内容）。
+如果我们使用一个正则表达式（例如 `/a/`）匹配一个字符串（例如 `x`），我们要么得到一个存储着匹配数据的对象（如果匹配成功），要么得到 `null`（如果匹配失败）。
 
 ```repl
 > /a/.exec('x')
@@ -118,9 +118,9 @@ null
 
 ## 专门用来对付 `undefined` 和 `null` 的操作符
 
-### `undefined` 以及参数缺省值
+### `undefined` 以及默认参数值
 
-一个参数的缺省值会在以下情况下被使用：
+一个参数的默认值会在以下情况下被使用：
 
 * 这个参数被我们忽略掉了。
 * 这个参数被赋予 `undefined` 值。
@@ -137,7 +137,7 @@ assert.equal(myFunc(), 'abc');
 assert.equal(myFunc(undefined), 'abc');
 ```
 
-那个 `undefined` 还会触发参数默认值的条件，指向它的一个元值。
+当指向它的值为一个元值时，`undefined` 也会触发默认参数值。
 
 以下的例子示范了这个特性有用的地方：
 
@@ -153,9 +153,9 @@ function twice(str) { // (A)
 
 在 A 行，我们并没有制定参数 `str` 的默认值，而当这个参数被忽略掉的时候，我们将该状态转发到 `concat()`，让其选择默认值。
 
-### `undefined`，解构缺省值
+### `undefined`，解构默认值
 
-解构下的缺省值的工作方式与参数默认值类似 —— 如果变量在数据中不匹配或与 `undefined` 匹配，则使用它们：
+解构下的默认值的工作方式与参数默认值类似 —— 如果变量在数据中不匹配或与 `undefined` 匹配，则使用它们：
 
 ```js
 const [a = 'a'] = [];
@@ -171,16 +171,16 @@ const {prop: d = 'd'} = {prop: undefined};
 assert.equal(d, 'd');
 ```
 
-### `undefined`、`null`、可选链
+### `undefined`、`null` 和可选链
 
 如果通过 `value?.prop` 使用了[可选链](https://exploringjs.com/impatient-js/ch_single-objects.html#optional-chaining)：
 
-* 如果 `value` 是 `undefined` 或 `null` 的，将会返回 `undefined`。也就是说，如果 `value.prop` 是否会抛出错误，就会返回 `undefined`。
+* 如果 `value` 是 `undefined` 或 `null` 的，将会返回 `undefined`。也就是说，如果 `value.prop` 抛出错误，就会返回 `undefined`。
 * 否则会返回 `value.prop`.
 
 ```js
 function getProp(value) {
-    // 可选的静态属性的访问
+    // 可选的静态属性访问
     return value?.prop;
 }
 
@@ -195,13 +195,13 @@ assert.equal(
 以下的两个操作也很是类似的工作：
 
 ```js
-obj?.[«expr»] // optional dynamic property access
-func?.(«arg0», «arg1») // optional function or method call
+obj?.[«expr»] // 可选的动态属性访问
+func?.(«arg0», «arg1») // 可选的函数或方法调用
 ```
 
-### `undefined`、`null` 以及空合并
+### `undefined`、`null` 和空合并
 
-[空合并操作符 `??`](https://exploringjs.com/impatient-js/ch_operators.html#nullish-coalescing-operator) 让我们去使用缺省值，如果一个值是 `undefined` 或 `null` 的：
+[空合并操作符 `??`](https://exploringjs.com/impatient-js/ch_operators.html#nullish-coalescing-operator) 可让我们在一个值是 `undefined` 或 `null` 时，使用默认值：
 
 ```repl
 > undefined ?? 'default value'
@@ -245,15 +245,15 @@ assert.deepEqual(
 );
 ```
 
-## 操作 `undefined` 与 `null`
+## 处理 `undefined` 与 `null`
 
-以下的自分区解释了在我们代码中最常见的操作 `undefined` 和 `null` 的方法：
+以下的部分解释了在我们代码中最常见的处理 `undefined` 和 `null` 的方法：
 
-### 真实值既不是 `undefined` 也不是 `null`
+### 实际值既不是 `undefined` 也不是 `null`
 
 例如，我们可能希望属性 `file.title` 始终存在并且始终是字符串，那么有两种常见的方法可以实现此目的。
 
-请注意，在此博客文章中，我们仅检查 `undefined` 和 `null`，而不检查值是否为字符串。我们必须自己决定是否要添加检查器，作为附加的安全保障措施。
+请注意，在此博客文章中，我们仅检查 `undefined` 和 `null`，而不检查值是否为字符串。你需要自己决定是否要添加检查器，作为附加的安全保障措施。
 
 #### 同时禁止 `undefined` 和 `null`
 
@@ -270,22 +270,22 @@ function createFile(title) {
 
 为什么选择这个方法？
 
-* 我们希望去以相同的方式操作 `undefined` 和 `null`，因为 JavaScript 代码就是经常那样做，例如：
+* 我们希望以相同的方式处理 `undefined` 和 `null`，因为 JavaScript 代码就是经常那样做，例如：
 
     ```js
-    // 检查如果一个属性存在
+    // 检查一个属性是否存在
     if (!obj.requiredProp) {
       obj.requiredProp = 123;
     }
     
-    // 通过空合并操作符使用缺省值
+    // 通过空合并操作符使用默认值
     const myValue = myParameter ?? 'some default';
     
     ```
 
-* 如果在我们代码中有个问题，让 `undefined` 或 `null` 出现了，我们需要让它尽早结束执行并抛出错误。
+* 如果我们的代码中出现了问题，让 `undefined` 或 `null` 出现了，我们需要让它尽早结束执行并抛出错误。
 
-#### 同时对 `undefined` 和 `null` 使用缺省值
+#### 同时对 `undefined` 和 `null` 使用默认值
 
 例如：
 
@@ -296,18 +296,18 @@ function createFile(title) {
 }
 ```
 
-我们不能使用一个参数的缺省值，因为那只会被 `undefined` 触发。在这里，我们依赖于[空合并赋值运算符 `??=`](https://2ality.com/2020/06/logical-assignment-operators.html)。
+我们不能使用参数默认值，因为它只会被 `undefined` 触发。在这里，我们依赖于[空合并赋值运算符 `??=`](https://2ality.com/2020/06/logical-assignment-operators.html)。
 
-为什么我们选择这个方法？
+为什么选择这个方法？
 
 * 我们希望以相同方式对待 `undefined` 和 `null`（见上文）。
-* 我们希望我们的代码结实而无声（？）地对待 `undefined` 和 `null`。
+* 我们希望我们的代码无声但有力地对待 `undefined` 和 `null`。
 
-### `undefined` 或 `null` 是一个忽略的值
+### `undefined` 或 `null` 是一个被忽略的值
 
-例如，我们可能希望属性 `file.title` 是字符串或是忽略的值（即 `file` 没有标题），那么有几种方法可以实现此目的。
+例如，我们可能希望属性 `file.title` 是字符串或是被忽略的值（即 `file` 没有标题），那么有几种方法可以实现此目的。
 
-#### `null` 是忽略值
+#### `null` 是被忽略值
 
 例如：
 
@@ -320,7 +320,7 @@ function createFile(title) {
 }
 ```
 
-当然，`undefined` 如下：
+或者，`undefined` 也可以触发默认值：
 
 ```js
 function createFile(title = '(Untitled)') {
@@ -330,7 +330,7 @@ function createFile(title = '(Untitled)') {
 
 为什么要选择这个方法？
 
-* 我们需要一个非值，表示被忽略。
+* 我们需要一个非值来表示被忽略。
 * 我们不希望非值触发参数默认值并破坏默认值。
 * 我们想将非值字符串化为 JSON（这是我们无法对 `undefined` 进行的处理）。
 
@@ -349,18 +349,18 @@ function createFile(title) {
 
 为什么选择这种方法？
 
-* 我们需要一个非值，表示被忽略。
-* 我们确实希望非值触发参数默认值并破坏默认值。
+* 我们需要一个非值来表示被忽略。
+* 我们确实希望非值触发参数或解构默认值。
 
-undefined 的一个缺点是它通常是在 JavaScript 中意外赋予的 —— 在未初始化的变量，属性名称中的错字，忘记从函数中返回内容等中生成的。
+`undefined` 的一个缺点是它通常是在 JavaScript 中意外赋予的 —— 在未初始化的变量，属性名称中的错字，忘记从函数中返回内容等。
 
 #### 为什么不同时将 `undefined` 和 `null` 看作是被忽略的值？
 
-当接收到一个值时，将 `undefined` 和 `null` 都视为 “非值” 是有意义的。 但是，当我们创建值时，我们希望模棱两可，以使处理这些值时候更简单。
+当接收到一个值时，将 `undefined` 和 `null` 都视为 “非值” 是有意义的。 但是，当我们创建值时，我们不希望模棱两可，以避免不必要的麻烦。
 
-这指向了另一种方法：如果我们需要一个被忽略的值，但又不想使用 “未定义” 或 “空” 作为值怎么办？看看下文吧：
+这指向了另一种角度：如果我们需要一个被忽略的值，但又不想使用 `undefined` 或 `null` 作为被忽略值时该怎么办？看看下文吧：
 
-### 其他处理忽略值的方法
+### 其他处理被忽略值的方法
 
 #### 特殊值
 
@@ -378,7 +378,7 @@ const file = {
 **Null 对象模式** 来自 OOP（面对对象编程）：
 
 * 一个公共超类的所有子类都具有相同的接口。
-* 每个子类实现实例操作的不同模式。
+* 每个子类实现一种不同的模式供其实例使用。
 * 这些模式之一是 `null`。
 
 在下文中，`UntitledFile` 继承了 “null” 模式。
@@ -430,9 +430,9 @@ assert.deepEqual(
 
 我们也可以只为标题（而不是整个文件对象）使用空对象模式。
 
-#### 可能的类型
+#### “也许”类型
 
-Maybe 类型是一种函数编程技术：
+“也许”类型是一种函数编程技术：
 
 ```js
 function getTitle(file) {
@@ -465,13 +465,13 @@ assert.deepEqual(
     ]);
 ```
 
-我们本可以通过数组对 “有” 和 “无” 进行编码，好处是 TypeScript 很好地支持了这个方法（通过[歧视的联合](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminate-unions)）。
+我们本可以通过数组对 "just" 和 "nothing" 进行编码，但我们的方法的好处是 TypeScript 对其有很好的支持（通过[可辨识联合](https://www.typescriptlang.org/docs/handbook/unions-and-intersections.html#discriminate-unions)）。
 
 ## 我的方法
 
 我不喜欢将 `undefined` 用作被忽略的值的原因有三个：
 
-* `undefined` 通常是在 JavaScript 中偶然出现的。
+* `undefined` 通常是在 JavaScript 中意外出现的。
 * `undefined` 会触发参数和解构的默认值（出于某些原因，某些人更喜欢 `undefined`）。
 
 因此，如果需要特殊值，可以使用以下两种方法之一：
