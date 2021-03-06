@@ -7,15 +7,15 @@
 
 # NumPy 1.20 问世，带来了运行时 SIMD 的支持和类型注释
 
-新发布的 NumPy 1.20 版本在[性能和文档](https://github.com/numpy/numpy/releases/tag/v1.20.0)方面做出了改进。开发人员现在可以在 NumPy 函数中使用类型注释。[SIMD（单指令流多数据流）](https://zh.wikipedia.org/wiki/SIMD) 指令的更广泛使用提高了通用功能（[ufunc](https://numpy.org/doc/stable/reference/ufuncs.html)）。NumPy 还对它的的文档做出了重大的改进。
+新发布的 NumPy 1.20 版本在[性能和文档](https://github.com/numpy/numpy/releases/tag/v1.20.0)方面都做出了改进。我们现在可以在 NumPy 函数中使用类型注释。[SIMD（单指令流多数据流）](https://zh.wikipedia.org/wiki/SIMD) 指令的更广泛使用提高了通用功能（[ufunc](https://numpy.org/doc/stable/reference/ufuncs.html)）。NumPy 还对它的文档做出了重大的改进。
 
-NumPy 库代码现在带有来了类型信息注释，此举由 NumPy 推动，停止了对 Python 2 的支持。一位贡献者[解释了此举的基本原理](http://numpy-discussion.10968.n7.nabble.com/Put-type-annotations-in-NumPy-proper-td47996.html)，如下所示：
+NumPy 库代码现在带有来了类型信息注释，并且 NumPy 推动了它对停止了对 Python 2 的支持。一位贡献者[解释了基本原因](http://numpy-discussion.10968.n7.nabble.com/Put-type-annotations-in-NumPy-proper-td47996.html)，如下所示：
 
 > 几年前，当我们开始使用 numpy-stubs 时，将类型注释放入 NumPy 本身还为时过早。那时候我们仍然支持着 Python 2，这意味着我们需要在类型注释中使用笨拙的注释。在过去的几年中，即使在科学的 Python 堆栈中，使用类型注释也变得越来越流行。例如，我知道至少 SciPy，pandas 和 xarray 的 API 类型至少有一部分被注释了。即使没有 shape 或 dtype 的注释，在科学堆栈底部的项目 NumPy 具有接近完整的注释也很有价值。
 
-开发人员还可以使用新类型 —— [`ArrayLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.ArrayLike) 和 [`DTypeLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.DTypeLike)。`ArrayLike` 类型用于可转换为数组的对象，而 DTypeLike` 用于转换 `dtypes` 的对象。数据类型对象（[numpy.dtype](https://numpy.org/doc/stable/reference/produced/numpy.dtype.html#numpy.dtype)）指定对应于固定大小的内存块的内容到数组项目，并特别包含有关项目数据类型（例如，整数，浮点数），数据大小，字节顺序（[little-endian](https://numpy.org/doc/stable/glossary html#term-little-endian) 或 [big-endian](https://numpy.org/doc/stable/glossary.html#term-big-endian)）等。这两种新类型使类型检查器能够识别效率低下的模式并警告用户。该文档说明：
+开发人员还可以使用新类型 —— [`ArrayLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.ArrayLike) 和 [`DTypeLike`](https://numpy.org/doc/stable/reference/typing.html#numpy.typing.DTypeLike)。`ArrayLike` 类型用于可转换为数组的对象，而 `DTypeLike` 用于转换 `dtypes` 的对象。数据类型对象（[numpy.dtype](https://numpy.org/doc/stable/reference/produced/numpy.dtype.html#numpy.dtype)）用于指定对应于固定大小的内存块的内容到数组项目，并包含有关项目数据类型（例如，整数，浮点数），数据大小，字节顺序（[little-endian](https://numpy.org/doc/stable/glossary html#term-little-endian) 或 [big-endian](https://numpy.org/doc/stable/glossary.html#term-big-endian)）等。这两种新类型使类型检查器能够识别效率低下的模式并警告用户。该文档说明：
 
-> `DTypeLike` 类型尝试避免使用如下所示的字段字典创建 `dtype` 对象：
+> `DTypeLike` 类型尝试让我们避免使用如下所示的字段字典创建 `dtype` 对象：
 > ```python
 > x = np.dtype({“ field1”：（float，1），“ field2”：（int，3）})
 > ```
@@ -28,7 +28,7 @@ from numpy.typing import ArrayLike
 x: ArrayLike = [1, 2, 3, 4]
 ```
 
-NumPy 1.20 还启用了[多平台 SIMD 编译器优化](https://numpy.org/devdocs/reference/simd/simd-optimizations.html)。NumPy 现在能够[检测 CPU 提供的 SIMD 指令](https://github.com/numpy/numpy/pull/13421)并对其进行优化。用户可以通过几个新的构建参数来配置运行时优化行为。`--cpu-baseline` 参数用于指定所需优化的最小集，而`--cpu-dispatch` 指定已调度的其他优化集（默认值为 `max-xop -fma4`，将启用所有CPU功能，但AMD旧功能除外。）使用 `--disable-optimization` 参数，用户可以选择不用新的改进。
+NumPy 1.20 还启用了[多平台 SIMD 编译器优化](https://numpy.org/devdocs/reference/simd/simd-optimizations.html)功能，现在 NumPy 能够[检测 CPU 提供的 SIMD 指令](https://github.com/numpy/numpy/pull/13421)并对其进行优化。用户可以通过几个新的构建参数来配置运行时优化行为。`--cpu-baseline` 参数用于指定所需优化的最小集，而 `--cpu-dispatch` 用于指定已调度的其他优化集（默认值 `max-xop -fma4` 意味着会启用所有除了 AMD 旧功能的 CPU 功能。）用户可以通过使用 `--disable-optimization` 参数选择不使用新的改进。
 
 使用 NumPy 1.20 需要升级 Python 到 3.7 或更高版本。为了改善 NumPy 的形象和对新用户的友好性，新的 NumPy 版本大大改善了其文档 —— 该版本提到了在不断进行的工作中合并 185 个相关的请求请求。
 
