@@ -71,13 +71,13 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 你可以看出我们在代码中使用了位置参数和关键字参数。如果你在构造器中给某一变量定义了一个默认值，那么在创建类的实例的时候可以不给这个变量赋值。可以参考 `pos2`，其中的 `address` 变量并没有在构造的时候赋值。
 
-You can also see that the annotation for the `get_distance` function looks pretty clean. It is clear what is meant.
+你也可以看出这个 `get_distance` 方法的注解非常的清晰，方法本身就很好的表明了它的意义。
 
-The tooling support is as good as it gets because every editor has to support the plain classes and all of the important information is there.
+由于所有的编辑器都需要支持普通类，因此它的工具支持性是很有保证的。并且能够在调用的时候获取全部的有用信息。
 
 ## 1. 元组
 
-Tuples are a native data type. They have a very low memory overhead, so we can address the elements by index very quickly. The problem with tuples is that you have no names for member attributes. You have to remember what each index represents. Tuples are always immutable.
+元组是一种基本的 Python 数据类型。它的内存占用很低，因此我们可以通过索引非常快的寻址到所需的元素。元组的问题则是我们无法获知成员属性的名称，我们不得不记住每一个索引代表队属性。元组总是不可修改的。
 
 ```Python
 from typing import Tuple, Optional
@@ -88,13 +88,13 @@ def get_distance(p1: Tuple[float, float, Optional[str]],
     pass
 ```
 
-The annotation for `get_distance` looks messy. A human should be given the information that `p1` represents a location — not that the location contains two floats and an optional string. That is work the editor should do for you.
+`get_distance` 方法的注解看起来非常的杂乱。开发者需要知道的信息是 `p1` 表示的是地点，而非这个地点信息包含着两个浮点数以及一个可选的字符串。这是编辑器需要做的工作。
 
-The editor's support depends on how thoroughly you annotate. In the example above, you could also just write `Tuple` without specifying what the tuple contains. As people are lazy, I’d say the editor support is not good. It’s no fault of the editor, but it’s often not possible to give good support.
+编辑器的支持程度取决于你注解的透彻性。在上面的例子中，你也可以只写 `Tuple` 而省略掉指出这个元组所包含的内容。由于人们大多是比较懒惰的，我认为这里的编辑器支持做的不是很好。这不是编辑器的错，但是它因此经常无法提供较好的代码提示支持。
 
-## 2. Dictionaries
+## 2. 字典
 
-Dictionaries are a native data type and probably the most common way to throw data around in Python. Dicts have a bigger memory overhead compared to tuples, as you have to store the names somewhere, but they are still OK. Accessing elements by index is **fast**. Dicts are always mutable, but there is the third-party package [frozendict](https://pypi.org/project/frozendict/) to solve this.
+字典是 Python 的基本数据类型，并且可能是 Python 中最常见的传递数据的载体。与元组相比，字典由于要保存属性的名称，它的内存占用会大一些，但是这仍是可以接受的。通过索引来获取数据**很快**。字典总是可以修改的，不过有一个第三方的库 [frozendict](https://pypi.org/project/frozendict/) 可以解决字典可以被随意修改的问题。
 
 ```Python
 from typing import Any, Dict
@@ -109,15 +109,15 @@ def get_distance(p1: Dict[str, Any],
     pass
 ```
 
-The annotation in practice is really bad. It’s almost always `Dict[str, Any]` in the best case. Often, there is no annotation.
+在实际中，注解确实很糟糕，字典的注解在多数情况下几乎总是 `Dict[str, Any]` 。通常，没有注解。
 
-[TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) has been around since Python 3.8, but I’ve never seen that in any bigger code base. [TypedDict is a killer feature](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8), but it’s irrelevant, as we want to support legacy Python versions.
+[TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) 自从 Python 3.8 一直存在，但是我从没在大型的项目中见到这样的写法。 [TypedDict 是一个杀手级功能](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8)，但是这无关大多数的项目，我们希望在旧有的 Python 版本中也获得此功能支持。
 
-For those reasons, the editor's support is even worse than for tuples.
+基于上述的原因，字典的编辑器支持效果甚至比元组更差。
 
-## 3. Named Tuples
+## 3. 命名元组
 
-[Named tuples](https://docs.python.org/3/library/collections.html#collections.namedtuple) were added to Python 2.6, so they have been around for quite a while. They are actually tuples, but they have a name and a constructor that accepts keyword arguments:
+[命名元组（ `NamedTuples` ）](https://docs.python.org/3/library/collections.html#collections.namedtuple) 在 Python 2.6 中被加入，索引此数据结构已经存在很久了。命名元组事实上也是元组，但是他们会有一个名称以及一个构造器，用来接受关键字参数：
 
 ```Python
 from collections import namedtuple
@@ -132,9 +132,9 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-`NamedTuples` solve the issue of the annotations becoming hard to read. They thus also fix the issue of editor support that I mentioned earlier.
+命名元组解决了类型声明注解难以阅读的问题。因此命名元组也解决了我上文中提到的编辑器支持不完全的问题。
 
-Interestingly, `NamedTuples` are **not** type-aware:
+有趣的是 `NamedTuples`是不能感知到类型的：
 
 ```Python
 >>> from collections import namedtuple
@@ -152,7 +152,7 @@ True
 
 ## 4. attrs
 
-[attrs](https://pypi.org/project/attrs/) is a third-party library that reduces boilerplate code. Developers can use it by adding the `@attrs.s` decorator above the class. Attributes are assigned the `attr.ib()` function:
+[attrs](https://pypi.org/project/attrs/) 是一个第三方的库，用来减少一些重复模板代码的编写。开发者可以在类上面添加一个 `@attrs.s` 装饰器来引入。属性则可以使用一个 `attr.ib()` 方法来赋值：
 
 ```Python
 from typing import Optional
@@ -184,9 +184,9 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-You can make it immutable by changing the decorator to `[@attr.s(frozen=True)](https://www.attrs.org/en/stable/api.html)`.
+通过把装饰器改成 `[@attr.s(frozen=True)](https://www.attrs.org/en/stable/api.html)` 来使这个类变得不可修改。
 
-You also can automatically run code on the input to the constructor. This is called a “converter,” and [the docs](https://www.attrs.org/en/stable/examples.html#conversion) show a pretty nice example:
+你也可以在构造器入参的时候自动执行代码。这被称为是 “转换”。[文档]((https://www.attrs.org/en/stable/examples.html#conversion)中给出了一个很好的例子：
 
 ```
 >>> @attr.s
@@ -196,7 +196,7 @@ You also can automatically run code on the input to the constructor. This is cal
 >>> o.x
 ```
 
-[Visual Studio Code](https://towardsdatascience.com/visual-studio-code-python-editors-in-review-e5e4f269b4e4) does not like the type annotations.
+[Visual Studio Code](https://towardsdatascience.com/visual-studio-code-python-editors-in-review-e5e4f269b4e4) 中对类型注解有很多的插件可以使用。
 
 ## 5. Dataclass
 
