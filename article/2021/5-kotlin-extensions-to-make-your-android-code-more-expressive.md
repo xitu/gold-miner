@@ -17,21 +17,21 @@
 
 Kotlin 是一种现代的、富有表现力的语言，它是为开发人员而构建的。在我看来，好的 Kotlin 代码就是能够以自然、可读的方式表达自己的代码。
 
-从 Java 转换到 Kotlin 对我来说在很多方面都是一个巨大的转变，但我认为这在每个方面都是最好的。你可以参考 [我之前的文章](https://medium.com/better-programming/my-journey-from-java-to-kotlin-3bfcbcc6b734)。
+从 Java 转到 Kotlin 对我来说在很多方面都是一个巨大的转变，但我认为这在每个方面都是最好的。你可以参考 [我之前的文章](https://medium.com/better-programming/my-journey-from-java-to-kotlin-3bfcbcc6b734)。
 
-我最喜欢 Kotlin 的一点是扩展。作为一名移动 Java 开发人员，我从未想过向任何类添加自定义功能，尤其是向第三方库中的类添加自定义功能。但是当我听到扩展的概念时，它让我大吃一惊。对于 Android 开发者来说，这个特性打开了大量代码增强的大门。
+我最喜欢 Kotlin 的一点是扩展。作为一名移动端 Java 开发人员，我从未想过向任何类添加自定义功能，尤其是向第三方库中的类添加自定义功能。但是当我听到扩展的概念时，着实让我大吃一惊。对于 Android 开发者来说，这个特性打开了大量代码增强的大门。
 
 > “Kotlin 提供了新功能扩展类的能力，而无需继承该类或使用类似装饰器之类的设计模式。这是通过称为扩展的特殊声明来完成。” — [Kotlin 文档](https://kotlinlang.org/docs/extensions.html)
 
-如果你想学习更多 Kotlin 扩展相关知识，阅读这篇文章： [使用 Kotlin 进行高级 Android 编程](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
+如果你想学习更多 Kotlin 扩展相关知识，阅读这篇文章：[使用 Kotlin 进行高级 Android 编程](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
 
 我使用 Kotlin 扩展来使代码更具表现力，并使语言尽可能自然。
 
 不要再拖了，开干！
 
-## 1. 显示，隐藏，移除
+## 1. 显示，隐藏，移除（视图）
 
-移动开发人员的常见任务之一是隐藏和显示视图。 如果你使用 Java，你需要调用 `setVisibility` 方法传入`View.VISIBILE`或 `View.GONE` 来实现。 如下：
+移动开发人员的常见任务之一是隐藏和显示视图。如果你使用 Java，你需要调用 `setVisibility` 方法传入`View.VISIBILE`或 `View.GONE` 来实现。 如下：
 
 ```
 view.setVisibility(View.GONE)
@@ -86,7 +86,7 @@ public static Boolean isStringNotNullOrEmpty(String data){
 if(Utility.isStringNotNullOrEmpty(data))
 ```
 
-从本质上讲数据类型不过是类。 因此我们可以使用 Kotlin 扩展来添加验证功能。 例如，我创建了以下 Kotlin 扩展，其数据类型为`String`，以检查其是否有效：
+从本质上讲数据类型不过是类。 因此我们可以使用 Kotlin 扩展来添加验证功能。 例如，我创建了以下 Kotlin 扩展，其数据类型为 `String`，以检查其是否有效：
 
 ```Kotlin
 //Extension function
@@ -98,7 +98,7 @@ fun String?.valid() : Boolean =
 if(data.valid())
 ```
 
-显然， `data.valid()` 看起来比 Utility.isStringNotNullOrEmpty(data) 更简洁，可读性更好。调用数据类型上的扩展函数似乎比触发某些工具类函数更自然。下面是几个扩展，可以启发你编写自己的验证扩展：
+显然，`data.valid()` 看起来比 Utility.isStringNotNullOrEmpty(data) 更简洁，可读性更好。调用数据类型上的扩展函数似乎比触发某些工具类函数更自然。下面是几个扩展，可以启发你编写自己的验证扩展：
 
 ```Kotlin
 //Email Validation
@@ -175,7 +175,7 @@ val lastName by getValueNonNull<String>("lastName") // String
 
 ## 4. 资源扩展
 
-在 Android 中，我们需要通过资源类访问项目资源。 这涉及到一些每次需要从资源文件中检索数据时都需要手动编写的样板代码。 如果没有任何扩展，检索 color 或 drawable 代码如下：
+在 Android 中，我们需要通过资源类访问项目资源。这涉及到一些每次需要从资源文件中检索数据时都需要手动编写的样板代码。如果没有任何扩展，检索 color 或 drawable 代码如下：
 
 ```Kotlin
 val color = ContextCompat.getColor(ApplicationCalss.instance, R.color.dark_blue)
@@ -196,7 +196,7 @@ val drawable = R.drawable.launcher.asDrawable()
 
 ## 5. 显示 Alert Dialog, Toast, or Snackbar
 
-当涉及到前端开发时，无论使用哪种平台，有时都需要向用户显示弹出框。 可能是用于显示不重要的数据，或者弹出提示用户确定或者显示一些错误。
+当涉及到前端开发时，无论使用哪种平台，有时都需要向用户显示弹出框。可能是用于显示不重要的数据，或者弹出提示用户确定或者显示一些错误。
 
 当你想要显示一个简单的弹出信息，你需要写的代码可能会很长。甚至不打算弹出对话框。这些都是常见的场景。它们应该简洁且易于实现。这就是为什么我使用下面的扩展，使代码尽可能被简洁的调用：
 
@@ -244,7 +244,7 @@ fun View.snackBarWithAction(message : String, actionlable : String,
 }
 ```
 
-编写这些扩展是一次性的工作。看看这些扩展的用法:
+编写这些扩展是一次性的工作。看看这些扩展的用法：
 
 ```Kotlin
 // To show an alert dialog in activities, fragments and more
