@@ -7,17 +7,17 @@
 
 # Chrome 88 DevTools 中的新功能
 
-Chrome 88 这个最新版本中 Chrome DevTools 有着重大的更新，包括改进乐的网络调试，实验性的 CSS Flexbox 调试工具，改进的框架详细信息视图，新的 WASM 调试功能以及总体性能上的改进。
+最近发布的 Chrome 88 对 Chrome DevTools 进行了重大更新，包括改进的网络调试、实验性的 CSS Flexbox 调试工具、改进的框架详细信息视图、新的 WASM 调试功能以及总体性能上的提高。
 
 网络选项卡提供了三种旨在简化调试过程的新功能：
 
-1. 现在，我们可以通过右键单击特定请求并选择`复制值`（`Copy value`），直接从`网络`（`Network`）标签中复制请求属性。
+1. 现在，我们可以通过右键单击特定请求并选择`复制值`（`Copy value`），直接从`网络`（`Network`）选项卡中复制请求属性。
 2. 现在可以通过选择`复制堆栈跟踪`（`Copy stack trace`）选项，从单个网络请求中复制网络启动器的堆栈跟踪。
-3. [**C**ross-**O**rigin-**R**esource-**S**haring 的错误](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS/Errors)现在会在网络视图上被正确标记。
+3. 现在可以在网络视图上正确地标记 [**C**ross-**O**rigin-**R**esource-**S**haring 的错误](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS/Errors)。
 
-[CSS Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) 是一种功能强大的设计工具，通常很难调试 —— 因为它在两个轴上都可以进行设计。为了简化调试过程，Chrome 提供了两个新标志。第一个标志出现在元素层次结构视图上，并标记了带有 *display：flex* 的元素。
+[CSS Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) 是一种功能强大的设计工具，但由于它在两个轴上进行操作，因此通常很难调试。为了简化调试过程，Chrome 提供了两个新标志。第一个标志出现在元素层次结构视图上，并标记了带有 *`display：flex`* 的元素。
 
-第二个标志是基于上下文的对齐指示符，该指示符基于以下 `flexbox` 属性：
+第二个标志是上下文敏感的对齐指示符，该指示符基于以下 `flexbox` 属性：
 
 * `flex-direction`
 * `align-items`
@@ -26,7 +26,7 @@ Chrome 88 这个最新版本中 Chrome DevTools 有着重大的更新，包括�
 * `justify-items`
 * `justify-content`
 
-同时考虑基于以下方面的方向：
+同时也会顾及到基于以下属性的方向：
 
 * `flex-direction`
 * `direction`
@@ -36,13 +36,13 @@ Chrome 88 这个最新版本中 Chrome DevTools 有着重大的更新，包括�
 
 ![](https://res.infoq.com/news/2021/03/new-features-chrome-88/en/resources/113-flex-debugging-1614281700033.png)
 
-Chrome 88 Devtools 还提供了改进的框架详细信息视图，其中包括有关跨域隔离信息状态的其他信息，有关框架 Web Worker 的专用信息，以及发现哪个框架触发了另一个窗口打开的功能。
+Chrome 88 Devtools 还提供了改进的框架详细信息视图，其中包括有关跨域隔离信息状态的额外信息、有关框架 Web Worker 的专用信息，以及发现哪个框架触发了另一个窗口打开的功能。
 
-Chrome 88 还使 [Wasm](https://developer.mozilla.org/zh-CN/docs/WebAssembly) 调试与现有的 Java 脚本调试功能保持一致。在暂停断点执行时，开发人员可以将鼠标悬停在变量上以查看其当前值，或在控制台中对其进行评估。
+Chrome 88 还使 [Wasm](https://developer.mozilla.org/zh-CN/docs/WebAssembly) 调试与现有的 JavaScript 调试功能保持一致。在打断点暂停代码执行时，开发人员可以将鼠标悬停在变量上以查看其当前值，或在控制台中对其进行计算。
 
-最后，由于减少了启动过程中的序列化，解析和反序列化的性能开销，DevTools 启动现在的 JavaScript 编译速度提高了近 40％。
+最后，从  JavaScript 编译速度的角度来说，由于减少了启动过程中的序列化、解析和反序列化所带来的性能开销，DevTools 现在的启动速度提高了近 40％。
 
-Chrome DevTools 提供了丰富的实用程序集，用于调试 Web 应用程序，并且在大多数基于 Chromium 的浏览器中都使用。Chrome 开发团队将继续改进 DevTools，并在每个版本的 Chrome 中都提供新功能。开发人员可以在 [Google 开发人员网站](https://developers.google.com/web/updates/tags/devtools)上跟踪最新功能，并在[邮件列表](https://groups.google.com/forum/#!forum/google-chrome-developer-tools)中讨论可能的功能，更改和错误。
+Chrome DevTools 提供了丰富的实用程序集以调试 Web 应用，并且用于大多数基于 Chromium 的浏览器中。Chrome 开发团队将继续改进 DevTools，并在每次发布新版本的 Chrome 时都提供新功能。开发者可以在 [Google 开发者网站](https://developers.google.com/web/updates/tags/devtools)上跟进最新功能，并在[邮件列表](https://groups.google.com/forum/#!forum/google-chrome-developer-tools)中讨论可能出现的功能、更新和漏洞。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
