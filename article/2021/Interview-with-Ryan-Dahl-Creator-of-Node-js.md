@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Interview-with-Ryan-Dahl-Creator-of-Node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Interview-with-Ryan-Dahl-Creator-of-Node-js.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[zenblo](https://github.com/zenblo)、[lsvih](https://github.com/lsvih)
 
 # 和 Node.js 创始人 Ryan Dahl 的对话
 
@@ -13,7 +13,7 @@ Ryan Dahl 是 Node.js 的创始人以及 Deno JavaScript 和 TypeScript 运行�
 
 ## 采访
 
-**Evrone：** 您的新项目 Deno 对开发者们产生了很大影响。请问您现在大部分时间都在做些什么？
+**Evrone：**您的新项目 Deno 对开发者们产生了很大影响。请问您现在大部分时间都在做些什么？
 
 **Ryan：** 我大部分时间都在研究 Deno！实际上 Deno 是一个相当大的软件集合，我们把它放到可执行文件中。我们现在正在提升 Deno 运行时，同时也在努力将基础架构应用到商业项目中。
 
@@ -29,7 +29,7 @@ JavaScript 从来不是我最喜欢的语言，它只是最常见的语言，也
 
 **Ryan：** 将类型（像 TypeScript 那样）添加到 JavaScript 的成功远远超过了在 Python、PHP 或 Ruby 中所完成的那样。TypeScript 是具有类型的 JavaScript 语言。更好的问题是：是什么在阻止 JavaScript 标准化组织（TC39）采用 TypeScript？通过设计，标准化会缓慢而谨慎地进行。他们首先正在研究提出 Types-As-Comments 的提议，该提议将允许 JavaScript 运行时通过忽略类型来执行 TypeScript 语法。我认为最终 TypeScript（或类似的东西）将作为 JavaScript 标准的一部分被提出，但这需要时间。
 
-**Evrone：** 作为受人尊敬的 VIM 用户，您如何看待像 VS Code 这样的现代化代码编辑器？他们对老一代开发者友善吗？
+**Evrone：**作为受人尊敬的 VIM 用户，您如何看待像 VS Code 这样的现代化代码编辑器？他们对老一代开发者友善吗？
 
 **Ryan：** 与我一起工作的每个人都使用 VS Code。他们喜欢它，而且我想多数人都应该去使用它。
 
@@ -76,7 +76,7 @@ Goroutines 非常易于使用，并能够达到最佳性能。与 Go 一样，No
 
 **Evrone：** 全新的“全栈”概念促使开发人员同时编写前端代码和后端代码，而使用相同的语言和诸如 TypeScript 之类的共享技术栈在现在变得非常容易。您认为对于许多开发人员来说，将如此多的不同事物纳入他们的日常工作范围是一个好主意吗？
 
-**Ryan：** 降低复杂性总是有益的。程序员必须与之交互的语言，VM，框架和概念越少越好。
+**Ryan：** 降低复杂性总是有益的。程序员必须与之交互的语言、VM、框架和概念越少越好。
 
 **Evrone：** 您打算如何处理 TypeScript 语言本身的版本更新？在 Node.js 生态系统内，使用 V8 引擎进行 JavaScript 语法更新通常会导致某些程序包无法正常工作。
 
