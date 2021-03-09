@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/monads-for-javascript-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/monads-for-javascript-developers.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[ZavierTang](https://github.com/ZavierTang)
 
 # 面向 JavaScript 开发人员的 Monads
 
@@ -15,7 +15,7 @@
 
 ---
 
-本文并不会提及太多有关 Monads 的理论范畴或在 Haskell 中的细节，但有一件事我们始终需要知道 —— 当我们在互联网上搜索 Monads 时，我们不能错过这个定义：
+本文并不会提及太多有关 Monads 的理论范畴或 Haskell 的细节，但有一件事我们始终需要知道 —— 当我们在互联网上搜索 Monads 时，不能错过这个定义：
 
 ```
 (>>=) :: m a -> (a -> m b) -> m b
@@ -72,7 +72,7 @@ const p = Promise.resolve(42);
 const divideByTwo = val => Promise.resolve(val / 2);
 ```
 
-☝️ 这是我们的 `(a -> m b)`。
+☝️ 这就是我们的 `(a -> m b)`。
 
 再次注意，我们在 **Promise** 中有一个值 `42`，但是函数 `divideByTwo`  接受一个未包装的值，并且我们仍然可以链接这些。
 
