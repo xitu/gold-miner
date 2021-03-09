@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/NumPy-1-20-Released-with-Runtime-SIMD-Support-and-Type-Annotations.md](https://github.com/xitu/gold-miner/blob/master/article/2021/NumPy-1-20-Released-with-Runtime-SIMD-Support-and-Type-Annotations.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[HumanBeingXenon](https://github.com/HumanBeingXenon)、[zenblo](https://github.com/zenblo)
 
 # NumPy 1.20 问世，带来了运行时 SIMD 的支持和类型注释
 
