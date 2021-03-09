@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/The-RedMonk-Programming-Language-Rankings-January-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/The-RedMonk-Programming-Language-Rankings-January-2021.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[chzh9311](https://github.com/chzh9311)
 
 # 2021 年 1 月 RedMonk 编程语言排名
 
