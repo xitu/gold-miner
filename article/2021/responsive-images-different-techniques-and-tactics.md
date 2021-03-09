@@ -2,41 +2,41 @@
 > * 原文作者：[Lahiruka Wijesinghe](https://medium.com/@lahiruka_)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/responsive-images-different-techniques-and-tactics.md](https://github.com/xitu/gold-miner/blob/master/article/2021/responsive-images-different-techniques-and-tactics.md)
-> * 译者：
+> * 译者：[zenblo](https://github.com/zenblo)
 > * 校对者：
 
-# Responsive Images: Different Techniques and Tactics
+# 实现响应式图像的四种技术策略
 
 ![](https://cdn-images-1.medium.com/max/5760/1*AeGGYFx8qjpVRaSw4jPPzQ.jpeg)
 
-Creating a responsive image isn’t rocket science. I’m sure you are already created many of those using CSS. However, the flexible size is only one factor when it comes to responsive images.
+创建响应式图像没有火箭科学那么深奥，我相信你已经使用 CSS 创建了很多类似工具。然而，当谈到响应式图像时，灵活的尺寸只是其中的一个因素。
 
-> Sometimes depending on the device type, we need to adjust the image quality and even the image type for a better user experience.
+> 有时根据设备类型的不同，我们需要调整图像质量甚至图像类型，以获得更好的用户体验。
 
-Today we can find different techniques to maintain the right quality and size. This article will explore those approaches and help you find the one that best fits your project.
+今天，我们可以找到不同的技术来保持正确的质量和尺寸。本文将探讨这些方法，帮助你找到最适合你项目的方法。
 
-## Different Approaches to Implement Responsive Images
+## 响应式图像方法简介
 
-* **Device pixel-based method**: ****This approach allows you to use multiple versions of the same image with different resolutions and choose the most suitable one to render based on the users’ screen resolution. This method is more suitable for devices that don’t render high-resolution images.
-* **Fluid-image method**: By default, images are not fluid. They tend to crop or stay at a fixed size when screen size changes. With the fluid-image method, you can insert an image into a responsive layout and give the ability to stretch or scrunch as necessary.
-* **Art Direction method**: Art direction is a common issue we face when dealing with different screen sizes. We can address this by altering image content, cropping down the image, or using a different image based on users’ screen size.
-* **Type-switching method**: There are some browsers and devices that don’t support modern image types like WebP. The type-switching method can be used to switch between image types allowing you to serve the best content to the user based on device and browser compatibility.
+* **基于设备像素方法**：这种方法可以使用同一图片的多个版本，不同的分辨率，根据用户的屏幕分辨率选择最合适的一个来渲染。这种方法比较适合不渲染高分辨率图像的设备。
+* **流体图像方法**：默认情况下，图像不是流体。当屏幕尺寸改变时，它们往往会裁切或保持固定的尺寸。使用流体图像方法，你可以将图像插入到响应式布局中，并可以根据需要拉伸或收缩。
+* **艺术指导方法**：艺术指导是我们在处理不同屏幕尺寸时普遍采用的方法。我们可以通过改变图片内容，裁减图片，或者根据用户的屏幕尺寸使用不同的图片来解决这个问题。
+* **类型切换方法**：有些浏览器和设备不支持 WebP 等现代图像类型。类型切换方法可用于在图像类型之间进行切换，从而允许你基于设备和浏览器的兼容性向用户提供最佳内容。
 
-Since you understand the approaches and situations where they most suit, let’s see how we can implement those methods.
+既然你了解了这些方法和它们最适合的情况，那就让我们看一下如何实现这些方法。
 
-## Implementing Responsive Images
+## 实现响应式图像方法
 
-As mentioned earlier, there are several ways to implement responsive images, and it’s important to know the best ways to implement them to get the maximum from your effort.
+如上文所述，有多种实现响应式图像的方法。了解这些方法并在工作项目中进行使用，从而让你的项目获得最大收益是非常重要的。
 
-By default, there are several excellent tags and attributes like `img`, `picture`, `size`and `srcset` provided by HTML for image rendering in web development. Now, I will show you how to implement the above-discussed methods using those tags and attributes in no time.
+默认情况下，HTML 提供了几个优秀的标签和属性，如 `img`、`picture`、`size` 和 `srcset`，用于 Web 开发中的图片渲染。现在，我将向大家展示如何使用这些标签和属性在短时间内实现上述方法。
 
-### 1. Device Pixel-Based Method
+### 1. 基于设备像素方法
 
-Before going deeper, let me tell you about high-density displays. Modern flagship mobile devices such as Samsung Galaxy S10 have Density Displays of 4x, whereas some economy models may have low-density displays.
+在深入探讨之前，让我告诉你有关高密度显示器的信息。现代旗舰移动设备（例如三星 Galaxy S10）具有 4 倍的密度显示屏，而某些经济型机型可能只有低密度显示屏。
 
-> If we push to load a high-density image in a low-density display, it will result in a very poor user experience and a waste of resources. So, we’ll use different images for various device pixel-ratios.
+> 如果我们在低密度的显示器中推送加载高密度的图片，会导致用户体验非常差，而且浪费资源。因此，我们将针对不同的设备像素比例使用不同的图像。
 
-In the below example, we have considered two images. The **small-kitten.jpg** with `320×240` pixels and **large-kitten.jpg** with `640×480` pixels, making the latter one suitable for high-resolution displays. (`x` descriptor shows the expected device pixel-ratio)
+在如下示例中，我们对比了两张图片。`320×240` 像素的 **small-kitten.jpg** 图像 和 `640×480` 像素的 **large-kitten.jpg** 图像，显然后者适合高分辨率显示。（`x` 描述符表示预期的设备像素比）
 
 ```html
 <img 
@@ -46,91 +46,91 @@ In the below example, we have considered two images. The **small-kitten.jpg** wi
 />
 ```
 
-If users’ device resolution is above 640x480 pixels, **large-kitten.jpg** will be rendered, and if not**, small-kitten.jpg** image will be rendered**.** Most importantly, the users with low res devices will not feel any delay in image loading time, while users who have high res devices will not feel any issue in image quality.
+如果用户的设备分辨率高于 `640×480` 像素，则将渲染 **large-kitten.jpg**，否则，将渲染 **small-kitten.jpg** 图像。最重要的是，具有低分辨率设备的用户不会感到图像加载时间有任何延迟，而具有高分辨率设备的用户不会感到图像质量有任何问题。
 
-### 2. Fluid-Image Method
+### 2. 流体图像方法
 
-This method is focused on using the same image with different sizes rather than using different images.
+这种方法的重点是使用同一图像的不同尺寸，而不是使用不同的图像。
 
-For example, we can implement simple fluid-images by giving image size in relative ratios rather than giving precise pixel values. The most common method used is `max-width:100%`.
+例如，我们可以通过给出相对比例的图像大小而不是给出精确的像素值来实现简单的流体图像。最常用的方法是 `max-width:100%`。
 
 ```html
 <img 
-   src=”black-dog.jpg” 
-   style=”max-width: 100%; 
-   height: auto;”
-   alt=”Black dog image”
+   src="black-dog.jpg" 
+   style="max-width: 100%; 
+   height: auto;"
+   alt="Black dog image"
 >
 ```
 
-![The behavior of the max-width scaled image](https://cdn-images-1.medium.com/max/2000/1*qRrsflBr2ijjicwLijLZxw.gif)
+![最大宽度缩放图像的行为](https://cdn-images-1.medium.com/max/2000/1*qRrsflBr2ijjicwLijLZxw.gif)
 
-> As you can see above image is free to scale and fit the browser window size. This method will be ideal for occasions where there are large images as article headers.
+> 如你所见，上面的图像可以自由缩放并适合浏览器窗口大小。该方法对于存在较大图像作为文章标题的场合将是理想的选择。
 
-Furthermore, there is an advanced method with fluid-images to compute the dimensions using the image’s width and the page’s overall width.
+此外，还有一种使用流体图像的高级方法，可以使用图像的宽度和页面的整体宽度来计算尺寸。
 
-As an example, consider a web page with 1200px wide and an image with 500px wide. Then the calculation of how much the image takes up on the page will be as follows:
+例如，考虑一个 `1200px` 宽的网页和一个 `500px` 宽的图像。然后，按照如下所示计算图像在页面上的占用量：
 
 ```
-width of the image = image width/page width
+图像宽度占用量 = 图像宽度 / 页面宽度
 
 (500/1200) x 100 = 41.66%
 ```
 
-Then we can use this value as shown in the below code snippet. It will enable the image to always keep scaled with the size of the web page.
+然后，我们可以使用这个值，如下面的代码片段所示。它将使图像始终与网页大小保持相同比例。
 
 ```html
 <img 
-   src=”black-dog.jpg” 
-   style=”float: right; 
-   width: 41.66%;”
-   alt=”Black dog image”
+   src="black-dog.jpg" 
+   style="float: right;
+   width: 41.66%;"
+   alt="Black dog image"
 >
 ```
 
-![The behavior of the percentage-width scaled image](https://cdn-images-1.medium.com/max/2000/1*71Fwlv3IISxAwLGUZNyFXw.gif)
+![按百分比宽度缩放图像的行为](https://cdn-images-1.medium.com/max/2000/1*71Fwlv3IISxAwLGUZNyFXw.gif)
 
-> However, this calculation might cause some issues when the viewport is too large or too small.
+> 但是，当视口太大或太小时，此计算可能会引起一些问题。
 
-We can overcome this issue by adding max and min values for image width in pixels to mark upper and lower bounds.
+我们可以通过添加以像素为单位的图像宽度的最大值和最小值来标记上限和下限，从而解决这个问题。
 
 ```html
 <img 
-   src=”black-dog.jpg” 
-   style=” width: 41.66%; 
-   max-width: 500px;”
-   alt=”Black dog image”
+   src="black-dog.jpg" 
+   style="width: 41.66%;
+   max-width: 500px;"
+   alt="Black dog image"
 >
 ```
 
-### 3. Art Direction Method
+### 3. 艺术指导方法
 
-The main idea behind Art Direction is to display different images based on the screen sizes of the device. We can address this issue by switching to `picture `tag instead of using `img `tag since it allows to provide images in multiple ratios or multiple focus points when viewed on different devices.
+艺术指导方法的主要思想是根据设备的屏幕大小显示不同的图像。我们可以通过切换到 `picture` 标签而不是使用 `img` 标签来解决这个问题，因为它允许在不同的设备上查看时提供多比例或多焦点的图像。
 
-![The famous [Cat Experiment with Art Direction Method ](https://googlechrome.github.io/samples/picture-element/)— Google Chrome](https://cdn-images-1.medium.com/max/2000/1*owaoaROx5LN6QVYe6edlEg.gif)
+![著名的[猫咪实验艺术指导方法](https://googlechrome.github.io/samples/picture-element/)— Google Chrome](https://cdn-images-1.medium.com/max/2000/1*owaoaROx5LN6QVYe6edlEg.gif)
 
-A simple code snippet like the below can obtain the above result. Here we provide values for 2 different attributes inside `\<source>` element; `media` and `srcset`defining image size and sources respectively.
+像下面这样简单的代码片段就可以得到上述结果。这里，我们在 `<source>` 元素中提供了 2 个不同的属性值：`media` 和 `srcset` 分别定义了图像的大小和来源。
 
 ```html
 <picture>
- <source media=”(min-width: 650px)” srcset=”kitten-stretching.png”>
- <source media=”(min-width: 465px)” srcset=”kitten-sitting.png”>
+ <source media="(min-width: 650px)" srcset="kitten-stretching.png">
+ <source media="(min-width: 465px)" srcset="kitten-sitting.png">
  
- <img src=”kitten-curled.png” alt=”A cute kitten”>
+ <img src="kitten-curled.png" alt="A cute kitten">
 </picture>
 ```
 
-In the above example, If the screen size is greater than 560px browser will show the images from the first image, and if the screen size is greater than 465px and below 650px browser will use the second image.
+在上面的示例中，如果屏幕尺寸大于 `560px`，浏览器将显示第一张图片的图像。如果屏幕尺寸大于 `465px` 且低于 `650px`，浏览器将使用第二张图片。
 
-You’ll notice the regular `\<img>` tag as the final nested tag of the `\<picture>` element, which is crucial to make this code snippet work. It will be used as a replacement when conditions in the media query are not matching and as a backup on browsers that do not support the `\<picture>` element.
+你会注意到常规的 `<img>` 标签作为 `<picture>` 元素的最后一个嵌套标签，这对于使这段代码工作至关重要。当媒体查询中的条件不匹配时，它将被用作替换，并在不支持 `<picture>` 元素的浏览器上作为备份。
 
-### 4. Image Type-Switching Method
+### 4. 类型切换方法
 
-With the rapid development of technologies, different types of modern image types like `avif`, `webp`are introduced day by day. Although these image types provide a high user experience, there are some browsers that don’t support those image types yet.
+随着技术的飞速发展，`avif`、`webp` 等不同类型的现代图像类型日渐被引入。虽然这些图像类型提供了更高的用户体验，但是有些浏览器还不支持这些图像类型。
 
-> So, we can use type switching to address such situations by changing the image format.
+> 因此，我们可以通过改变图像格式来使用类型切换来解决这种情况。
 
-For example, the below code contains 2 modern image types and `gif `image. First, the browser will try `avif` format, and if that fails, it will try `webp `format. If the browser does not support both of these, it will use `png` image.
+例如，下面的代码包含 2 种现代图像类型和 `gif` 图像。首先，浏览器将尝试 `avif` 格式，如果失败，它将尝试 `webp` 格式。如果浏览器不支持这两种格式，它将使用 `png` 图像。
 
 ```html
 <picture>
@@ -140,19 +140,19 @@ For example, the below code contains 2 modern image types and `gif `image. First
 </picture>
 ```
 
-You can also use chrome DevTools to emulate this to see how your image will look like when the browser isn't supporting the modern image types.
+你也可以使用 chrome DevTools 来模拟这一点，看看当浏览器不支持现代图像类型时，你的图像会是什么样子。
 
-![Using Chrome DevTools to emulate image-switching](https://cdn-images-1.medium.com/max/2706/1*6Ey8MZsWnVkB74lQYfOBBw.gif)
+![使用 Chrome DevTools 来模拟图像切换](https://cdn-images-1.medium.com/max/2706/1*6Ey8MZsWnVkB74lQYfOBBw.gif)
 
-## Final thoughts
+## 总结
 
-I believe now you have a good understanding of the methods we can use to implement responsive images and what are the situations they mostly suit.
+我相信现在大家对可以用什么方法来实现响应式图像，以及它们大多适合什么情况有了一定的了解。
 
-Make sure to get the most out of this knowledge when you develop any web application since implementing responsive images in the correct way helps to provide a better user experience.
+开发任何 Web 应用程序时，请确保充分利用这些知识，因为以正确的方式实现响应式图像有助于提供更好的用户体验。
 
-So, I invite all of you to try out these methods and share your ideas in the comment section.
+因此，我希望大家尝试这些方法，并在评论区分享你的想法。
 
-Thank you for Reading !!!
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
