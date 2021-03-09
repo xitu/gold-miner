@@ -7,8 +7,6 @@
 
 # The New King of Bundlers Is Here: All Bow Before Vitejs
 
-#### If you’re targeting newer browsers, this is the bundler you want
-
 ![Photo by [Paweł Furman](https://unsplash.com/@pawelo81?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/king?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13714/1*LlgpXcXbw-wEPTqxiRDDDw.jpeg)
 
 Back when I started coding, JavaScript was used only to add some fancy effects to your website. Remember that trailing effect you could add to your mouse? Or how you could change the colors of your links during a hover event?
@@ -18,8 +16,6 @@ Of course, web development has evolved so much over the years that now the amoun
 Bundle size for some applications are starting to affect the time users need to begin using your application (they can’t use it until the bundled code is downloaded), the bundling process itself is causing development times to increase (sometimes changing a single line of code can trigger a bundling process that takes several minutes), and while there are techniques around to help solve this problem, not all of them are hitting the mark and the ones that do require a lot of effort to achieve — which as a user of these tools, you shouldn’t care, but if you’re working on them, then it becomes a real pain to maintain.
 
 That is why today I want to tell you about a tool that promises to solve all these problems: [ViteJS](https://vitejs.dev/).
-
----
 
 ## What makes ViteJS so great?
 
@@ -40,23 +36,11 @@ Some of the main features from ViteJS that you might want to pay attention to ar
 
 The list of interesting features goes on actually, so make sure to check out their site for more details.
 
----
-
-Tip: **Share your reusable components** between projects using [**Bit**](https://bit.dev/) ([Github](https://github.com/teambit/bit)).
-
-Bit makes it simple to share, document, and reuse independent components between projects**.** Use it to maximize code reuse, keep a consistent design, speed-up delivery, and build apps that scale.
-
-[**Bit**](https://bit.dev/) supports Node, TypeScript, React, Vue, Angular, and more.
-
-![Example: exploring reusable React components shared on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/3678/0*qKb50DTW59mQ0jXZ.gif)
-
----
-
 ## The plugin system
 
 One of the main advantages of ViteJS is that it has a plugin system built-in, which means the community can (and has) add extra features and integrations with other frameworks (such as React and Vue).
 
-#### Using ViteJS for your Vue projects
+### Using ViteJS for your Vue projects
 
 [The list of plugins for Vue](https://github.com/vitejs/awesome-vite#vue) is quite extensive, the only thing you need to pay attention to, is that they’re not all compatible with the same version of the framework (some of them work for Vue 2, while others only for Vue 3, and some work for both).
 
@@ -71,7 +55,7 @@ There are more built-in features, so make sure to check out their [Repo](https:/
 
 If, on the other hand, you just want to start from scratch, and build your own thing, you can also simply use ViteJS’ CLI tool:
 
-```
+```bash
 # If you're using npm 7
 $ npm init @vitejs/app my-vue-app -- --template vue 
 
@@ -96,7 +80,7 @@ You’re not a Vue type of dev? No problem, Vite has you covered.
 
 Just use the same line as before, but instead of `vue` use `react` or `react-ts` and you’re done.
 
-```
+```bash
 $ npm init @vitejs/app my-react-app --template react-ts
 $ cd my-react-app
 $ npm install
@@ -113,8 +97,6 @@ Do you want more presets? You can find 2 plugins, depending on your needs:
 2. If instead of Chakra, you’re looking to create an Electron app, you have [this one.](https://github.com/maxstue/vite-reactts-electron-starter) This one also comes with [TailwindCSS](https://tailwindcss.com/) included.
 
 Both options work with TypeScript, and if you’re familiar with any of those combinations, I would suggest picking them up instead of starting from scratch. Mind you, the default starter project is perfectly fine, but you get part of your boilerplate setup already done with these plugins.
-
----
 
 ## What about other bundlers?
 
@@ -135,16 +117,6 @@ There is still work to be done compatibility-wise, so if you’re thinking about
 ViteJS has the potential of dethroning the current industry standards when it comes to bundler tools. It has the technology, it has the plugin ecosystem and it has the required features. The only thing stopping it from getting the crown of de-facto bundler, is its compatibility with older browsers.
 
 This is definitely a problem today, but it’s a problem for a diminishing section of our industry, so keep an eye open for Vite, since it’ll be growing as browsers get older.
-
-Have you used ViteJS before? What did you think? Would you recommend it to others?
-
-## Learn More
-[**Build Scalable React Apps by Sharing UIs and Hooks**
-**How to build scalable React apps with independent and shareable UI components and hooks.**blog.bitsrc.io](https://blog.bitsrc.io/build-scalable-react-apps-by-sharing-uis-and-hooks-fa2491e48357)
-[**Zero Server: Build Modern Web Apps with Multiple Languages and Frameworks — and Zero Config**
-**Zero is a web framework that simplifies modern web development by allowing you to mix different programming languages…**blog.bitsrc.io](https://blog.bitsrc.io/zero-server-introduction-build-modern-web-apps-without-any-configurations-792791da89a8)
-[**The Dark Side of Javascript: A Look at 3 Features You Never Want to Use**
-**JavaScript has some dark corners filled with spiders, and here are 3 of them**blog.bitsrc.io](https://blog.bitsrc.io/the-dark-side-of-javascript-a-look-at-3-features-you-never-want-to-use-83b6f0b3804b)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
