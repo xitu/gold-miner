@@ -7,8 +7,6 @@
 
 # 3 Fallback Techniques To Support CSS Grid in Any Browser
 
-#### Understanding the use of CSS Grid in production
-
 ![Photo by [John Schnobrich](https://unsplash.com/@johnschno?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9662/0*z99PsHMNipBY051X)
 
 CSS Grid has great support amongst browsers nowadays — roughly 95% for its basic functionality. However, sometimes you can’t ignore that 5%, as you might want your web application’s layout to look great across all browsers. You might even want to use newer Grid features that have less support.
@@ -18,8 +16,6 @@ What should we do? Should we avoid using Grid in production? Should we ignore us
 In this article, we will be exploring the top three techniques that will help us gracefully fall back from our Grid layouts. We will be adapting our web page design according to the browser features available. It will be progressively adaptive.
 
 Before diving into the technical aspects, we need to define a strategy. Having a proper strategy is key to success. It will give us a sense of direction and consistency.
-
----
 
 ## Defining a Strategy
 
@@ -34,8 +30,6 @@ What about using the newest Grid features? The same strategy applies: Try to fal
 In summary: our layout will be enhanced progressively. Users with older browsers will be presented with a simpler, yet usable, version of the layout. Users with the latest browser will be receiving the full UX experience.
 
 Let’s look at the top 3 tools at our disposal.
-
----
 
 ## 1. Using CSS Feature Queries
 
@@ -52,7 +46,7 @@ As per our strategy:
 
 In this example, since we are just interested in the standard Grid behavior, we will query `@supports` for the basic `display: grid` feature:
 
-```
+```css
 @supports (display: grid) {
   //... code here
 }
@@ -139,19 +133,17 @@ This is the result from a non-Grid-capable browser on any resolution:
 
 The layout is not broken and still usable and accessible for all browser engines. Only users who access it from a desktop will see a difference.
 
----
-
 ## 2. Using CSS Feature Queries Programmatically
 
 Sometimes it is not possible to achieve what you want only with CSS Feature Queries on your CSS styles. As powerful as they are, they have limits. You might want to programmatically add or remove elements based on your browser features. How is that achieved?
 
 Luckily, the CSS features can be invoked programmatically on the JavaScript side. The `@supports` can be accessed via the CSS object model interface `[CSSSupportsRule](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule)`.
 
-> # “The `**CSSSupportsRule**` interface represents a single CSS `@supports` `at-rule`.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule)
+> “The `**CSSSupportsRule**` interface represents a single CSS `@supports` `at-rule`.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule)
 
 Let’s see the interface definition:
 
-```
+```ts
 function supports(property: string, value: string): boolean;
 ```
 
@@ -159,7 +151,7 @@ Let’s use it in a dummy example. Let’s warn the user if they are using a bro
 
 This is how we conditionally check if Grid is not supported:
 
-```
+```js
 if (!CSS || !CSS.supports('display', 'grid')) {
   ...
 }
@@ -238,15 +230,13 @@ Let’s see a working code example:
 
 `CSS.supports` is a great tool for creating fallback layouts in a programmatic way. If you have to deal with very complex layouts, you might want to pick this technique instead of CSS Feature Queries. You can use it to create web components with their programmatic fallbacks.
 
----
-
 ## 3. Overriding Properties
 
 Sometimes you don’t need fancy things like CSS Feature Queries. You can take advantage of how CSS properties work: When redefining properties in a CSS class, the last valid one is the one to be used.
 
 What does that mean? How is this cool? You can define fallbacks just by overriding a CSS property:
 
-```
+```css
 #container {
   display: flex;
   display: grid;
@@ -326,7 +316,7 @@ Let’s use it to fall back from one of the newest Grid features: `subgrid`. How
 
 Let’s check a scenario where we want to use `subgrid` for our nested Grid template columns. Here’s the gist of it:
 
-```
+```css
 #content {
   grid-template-columns: inherit;
   grid-template-columns: subgrid;
