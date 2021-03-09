@@ -7,9 +7,7 @@
 
 # Android App Startup Tip: Don’t Use Kotlin Coroutines
 
-**I’ve retracted the conclusion reached in this article. The measurements were made on a debuggable app and differ surprisingly from production performance: [Don’t Run Benchmarks on a Debuggable Android App (Like I Did)](https://medium.com/specto/dont-run-benchmarks-on-a-debuggable-android-app-like-i-did-34d95331cabb)**
-
----
+> I’ve retracted the conclusion reached in this article. The measurements were made on a debuggable app and differ surprisingly from production performance: [Don’t Run Benchmarks on a Debuggable Android App (Like I Did)](https://medium.com/specto/dont-run-benchmarks-on-a-debuggable-android-app-like-i-did-34d95331cabb)
 
 Did you know that there is a significant initialization cost to Kotlin coroutines? Well, maybe not significant in all cases, but when it comes to app startup, every millisecond boost is worth taking. I found that simply launching the first coroutine can take over 100ms. 😱
 
@@ -58,10 +56,6 @@ On the same device, creating the `ExecutorService` and queuing the execution too
 As pointed out by [Jake Wharton](https://twitter.com/JakeWharton/status/1347260917097107456), the difference is partly due to `ExecutorService` being preloaded by the Zygote, a special part of the Android framework that shares code between processes. Other concurrency frameworks which, like coroutines, aren’t preloaded, will also have a comparatively high initialization cost.
 
 That said, coroutines have a lot of advantages over `ExecutorService`. They’ve got scopes, suspending functions, they’re much more lightweight than threads, etc. The general recommendation to use them in Android applications is sound, but their impressive feature set has an initialization cost at the moment. Perhaps the Kotlin and Android teams will be able to optimize this in the future. Until then, best to avoid using coroutines in your `Application` class, or in your main `Activity`, if startup time is a primary concern.
-
----
-
-If you’d like to monitor your app’s startup and catch issues like this one, check out what we’re building at [Specto](https://specto.dev/). 🧑‍💻
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
