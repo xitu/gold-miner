@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2024/1*iq9Xe8BZue94e2BD4ecpqA.png)
 
-JavaScript 的日期处理 API 比较糟糕，因为它是直接从 [Java 的 `Date` 类](https://docs.oracle.com/javase/6/docs/api/java/util/Date) 处进行复制从而实现 `Date` 对象的，而 Java 维护者最终弃用了许多 `Date` 类的方法，并于 1997 年创建了 `Calendar` 类以取代它。
+JavaScript 的日期处理 API 比较糟糕，因为它是直接对 [Java 的 `Date` 类](https://docs.oracle.com/javase/6/docs/api/java/util/Date) 进行复制来实现了 `Date` 对象，而 Java 维护者最终弃用了许多 `Date` 类的方法，并于 1997 年创建了 `Calendar` 类以取代它。
 
-但是 JavaScript 的 `Date` API 还没有得到像样的修复，这就是为什么我们今天会遇到以下问题：
+但是 JavaScript 的 `Date` API 还没有进行进一步修复，这就是为什么我们今天会遇到以下问题：
 
 * `Date` 对象是可变的
 * 用于日期和时间计算的混乱 API（例如，天数的加减）
@@ -19,9 +19,9 @@ JavaScript 的日期处理 API 比较糟糕，因为它是直接从 [Java 的 `D
 * 从字符串中解析日期的不可靠
 * 不支持公历以外的其他历法
 
-但由于目前 `Date` API 被广泛用于各种库和浏览器引擎中，我们暂时不可能修复其错误部分。否则如果我们更改它的工作方式，就会很可能对许多的网站和库造成破坏性的影响。
+但由于目前 `Date` API 被广泛地应用于各种库和浏览器引擎中，我们暂时不可能修复其错误部分。如果我们更改它的底层实现，就会很可能对许多现有的网站和库造成破坏性影响。
 
-新的 `Temporal` API 提案旨在解决 `Date` API 的问题，它为 JavaScript 的日期和时间操作带来了以下修复：
+新的 `Temporal` API 提案旨在解决 `Date` API 的问题，它对 JavaScript 的日期和时间操作进行了以下改进：
 
 * 仅创建和处理不可变的 `Temporal` 对象
 * 用于日期和时间计算的简单 API
