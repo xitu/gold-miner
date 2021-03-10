@@ -186,7 +186,7 @@ Temporal.ZonedDateTime.from("2021-02-20T05:30[Asia/Tokyo]");
 // 2021-02-20T05:30:00+09:00[Asia/Tokyo]
 ```
 
-从上面的示例中可以看到，`Temporal` API 不会为我们的时间自己设定时区。
+从上面的示例中可以看到，`Temporal` API 不会对你所在的时区进行预设。
 
 ## 支持公历以外的历法
 
