@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)、[zhuzilin](https://github.com/zhuzilin)、[youngjuning](https://github.com/youngjuning)
 
 # Figma 生产环境中的 Rust
 
@@ -15,7 +15,7 @@
 
 对于我们 [Figma](https://www.figma.com/) 来说，性能永远是我们最重要的卖点之一。我们力争去让团队能够所思即所得，而我们的多人同步引擎就是决定这个愿景能否实现的关键部分。我们希望能够让每个协作者都可以实时看到别人在 Figma 文档中所做的修改！
 
-我们 [两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) 这个多人服务器是以 TypeScript 编写的，并且出奇的完美地服务了我们的客户，但是我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
+我们[两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6)这个多人服务器是用 TypeScript 编写的，并且出奇完美地服务了我们的客户。但我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
 
 [Rust](https://www.rust-lang.org/) 是由创建了 Firefox 的非盈利组织 Mozilla 所创建的一款新的程序语言，而 Mozilla 也正使用它来构建跨时代的浏览器原型，[Servo](https://research.mozilla.org/servo-engines/)，向全世界证明了浏览器可以比现如今速度更快的浏览器。Rust 和 C++ 在性能和底层上很相像，但是它拥有一个类型系统，自然而然地避免了[一大堆令人作呕的 Bug](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) 的这种经常会在 C++ 程序中出现的情况的出现。
 
@@ -23,7 +23,7 @@
 
 我们也觉得这会是一个非常好的在生产中使用 Rust 的案例，并且希望分享我们在这个过程中所遇到的麻烦和我们所取得的成效，以期对其他有着类似考虑去重写代码的开发者们有些许帮助。
 
-## **用 Rust 扩展我们的服务**
+## 用 Rust 扩展我们的服务
 
 我们的多人服务是运行在固定数量的一些机器，每个服务都拥有着固定数目的进程（Worker），并且每个文档都独立运行在一个特定的进程上。这意味着每一个进程都负责当前打开的 Figma 的文档的一部分。这看起来会是这样的：
 
@@ -39,7 +39,7 @@
 
 ![https://miro.medium.com/max/2350/1*JvrV35TNvuARMRcvFpeMaQ.png](https://miro.medium.com/max/2350/1*JvrV35TNvuARMRcvFpeMaQ.png)
 
-## **服务端的性能提升**
+## 服务端的性能提升
 
 我们的服务器的性能提升令人难以置信。下图显示了逐步的推出新服务架构之前、之时和之后一周的各种性能指标。图片中间的大幅下降的部分是我们完全部署时候的指标。请记住，这些改进是针对服务器端的性能，而不是客户端的性能，因此，它们的主要作用只是为了让该进程能够为所有人不会造成任何麻烦顺利进行他们的工作
 
@@ -57,13 +57,13 @@ Here are the numeric changes in peak metrics as compared to the old server:
 
 ![https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png](https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png)
 
-## **Rust 的优缺点**
+## Rust 的优缺点
 
 Rust 的确在编写高性能服务器这件事上帮了我们，但事实证明，这门语言也并没有我们想象中的那么好。即便它比标准的服务器端语言更年轻，但是仍然有不少粗糙待需继续磨平改良之处（见下文）。
 
 最终，我们放弃了使用 Rust 重写整个服务器的那份最初的计划，而是选择只重写对性能敏感的那部分服务。这是我们在重写过程中遇到的一些优缺点：
 
-### **优点**
+### 优点
 
 - **内存使用率低**
 
@@ -81,7 +81,7 @@ Rust 内置有 [cargo](https://doc.rust-lang.org/cargo/index.html)，一款集�
 
 Rust 比其他语言更复杂，因为 Rust 的使用上还有着另一部分，即借用检查器，一款拥有着需要学习的独特规则的检查器。社区开发者们已经付出了很多，努力使错误消息变得更利于阅读，能够真正显示出来问题所在。他们真的让 Rust 的学习变得更简单更完美！
 
-### **缺点**
+### 缺点
 
 - **生命周期是很令人迷惑的**
 
@@ -91,7 +91,7 @@ Rust 比其他语言更复杂，因为 Rust 的使用上还有着另一部分，
 
 *如何解决：* Rust 社区正计划用 [Non Lexical Lifecycle](https://github.com/rust-lang/rfcs/blob/master/text/2094-nll.md) 解决这个问题。这个功能将缩短变量的生命，使其在使用后停止它的生命周期，让这个指针将不再能够阻止指向其余范围的事物的变化，从而消除了许多借阅检查器的伪阴性（即，让很多本身有问题但没有报错的错误重新显示出来）。
 
--**错误是很难调试的**
+- **错误是很难调试的**
 
 Rust 中的错误处理旨在通过返回一个可以表示成功或失败的值 `Result` 来完成。与 Exception 不同，在 Rust 中创建错误值不会捕获堆栈跟踪，因此我们获得的任何堆栈跟踪都是针对报告错误的代码，而不是引起错误的代码。
 
@@ -99,7 +99,7 @@ Rust 中的错误处理旨在通过返回一个可以表示成功或失败的值
 
 *如何解决：* Rust 社区显然针对此问题提出了几种解决方法。其中一个称为 [Error Chain](https://docs.rs/error-chain/*/error_chain/)，另一个称为 [Failure](https://boats.gitlab.io/failure/)。我们没有注意到这些方法的存在，也不确定是否存在什么标准的解决方法。
 
--**许多库还很年轻**
+- **许多库还很年轻**
 
 Figma 的文档都是压缩过后的，因此我们的服务器需要能够处理压缩的数据的工具。我们尝试使用两个 Rust 压缩库（这两个库都被 Mozilla 的跨时代浏览器原型 Servo 使用着），但是两个库都存在一些细微纠正上的问题，导致文档的数据丢失。
 
@@ -107,7 +107,7 @@ Figma 的文档都是压缩过后的，因此我们的服务器需要能够处�
 
 *如何修复：* 我们报告了受影响的库中的错误，现在问题已修复。
 
--**Rust 很难实现异步操作**
+- **Rust 很难实现异步操作**
 
 我们的多人服务器通过 WebSocket 进行通信，需要频繁发出 HTTP 请求。我们尝试在 Rust 中编写这些请求的处理程序，但遇到了 [Futures](https://docs.rs/futures/*/futures/) 上的人机工程学的问题（Rust 的异步编程答案）。`Futures` 的效率很高，但有时候使用起来很是复杂。
 
@@ -117,7 +117,7 @@ Figma 的文档都是压缩过后的，因此我们的服务器需要能够处�
 
 *如何解决：* Rust 团队正在努力[向 Rust 添加异步功能](https://github.com/rust-lang/rfcs/blob/master/text/2033-experimental-coroutines.md)，这应该通过隐藏 `Futures` 本身在语言本身之下的复杂性来解决其中的许多问题。这将允许 `?` 这个目前仅适用于同步代码的错误处理运算符也能够在异步代码中使用，减少样板操作。
 
-### **Rust 以及它的未来**
+### Rust 以及它的未来
 
 即便我们在速度上遇到一些问题，我仍然希望去强调，我们与 Rust 的经历总体而言真的是非常棒的。这真是一款有着一颗坚硬的内核和健康的社区的，一款拥有着极度美好前景的语言！我对这些问题很快就会被解决很有信心～
 
