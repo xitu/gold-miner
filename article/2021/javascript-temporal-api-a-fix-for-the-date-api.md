@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Chorer](https://github.com/Chorer)、[Usualminds](https://github.com/Usualminds)
 
-# JavaScript Temporal API —— Date API 的一个解决方案
+# JavaScript Temporal API —— Date API 问题的一个解决方案
 
 ![](https://cdn-images-1.medium.com/max/2024/1*iq9Xe8BZue94e2BD4ecpqA.png)
 
