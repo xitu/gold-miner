@@ -1,46 +1,45 @@
-> * 原文地址：[Rust in production at Figma](https://medium.com/figma-design/rust-in-production-at-figma-e10a0ec31929)
-> * 原文作者：[evanwallace](https://medium.com/@evanwallace)
+> * 原文地址：[Rust in production at Figma](https://www.figma.com/blog/rust-in-production-at-figma/)
+> * 原文作者：[Evan Wallace](https://twitter.com/evanwallace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md)
-> * 译者：
-> * 校对者：
-# Rust in production at Figma
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[lsvih](https://github.com/lsvih)、[zhuzilin](https://github.com/zhuzilin)、[youngjuning](https://github.com/youngjuning)
 
-## How Mozilla’s new language dramatically improved our server-side performance
+# Figma 生产环境中的 Rust
+
+> Mozilla 的新语言究竟是如何显著地提升了我们服务端的性能的呢？
 
 ![](https://miro.medium.com/max/4320/1*LoKiYs4SoAtkpFufNdD0AA.png)
 
-*Like building state-of-the-art web apps? [Come work at Figma!](https://www.figma.com/careers)*
+对于我们 [Figma](https://www.figma.com/) 来说，性能永远是我们最重要的卖点之一。我们力争去让团队能够所思即所得，而我们的多人同步引擎就是决定这个愿景能否实现的关键部分。我们希望能够让每个协作者都可以实时看到别人在 Figma 文档中所做的修改！
 
-At [Figma](https://www.figma.com/), performance is one of our most important features. We strive to enable teams to work at the speed of thought, and our multiplayer syncing engine is a critical part of this vision. Everyone should see each change made to a Figma document in real time.
+我们[两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6)这个多人服务器是用 TypeScript 编写的，并且出奇完美地服务了我们的客户。但我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
 
-The multiplayer server we [launched with two years ago](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6) is written in TypeScript and has served us surprisingly well, but Figma is rapidly growing more popular and that server isn’t going to be able to keep up. We decided to fix this by rewriting it in Rust.
+[Rust](https://www.rust-lang.org/) 是由创建了 Firefox 的非盈利组织 Mozilla 所创建的一款新的程序语言，而 Mozilla 也正使用它来构建跨时代的浏览器原型，[Servo](https://research.mozilla.org/servo-engines/)，向全世界证明了浏览器可以比现如今速度更快的浏览器。Rust 和 C++ 在性能和底层上很相像，但是它拥有一个类型系统，自然而然地避免了[一大堆令人作呕的 Bug](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) 的这种经常会在 C++ 程序中出现的情况的出现。
 
-[Rust](https://www.rust-lang.org/) is a new programming language from Mozilla, the company that makes Firefox. They’re using it to build a next-generation browser prototype called [Servo](https://research.mozilla.org/servo-engines/) which demonstrates that browsers can be way faster than they are today. Rust is similar to C++ in performance and low-level ability but has a type system which [automatically prevents whole classes of nasty bugs](https://polyfloyd.net/post/how-rust-helps-you-prevent-bugs/) that are common in C++ programs.
+我们之所以选择 Rust 作为重写服务器的语言，它兼具一流的速度和较低的资源使用率，同时提供了标准服务器语言所需的安全性保障。而这其中，较低资源使用率对我们尤其重要，因为我们旧服务器的部分性能问题，就是垃圾回收导致的。
 
-We chose Rust for this rewrite because it combines best-in-class speed with low resource usage while still offering the safety of standard server languages. Low resource usage was particularly important to us because some of the performance issues with the old server were caused by the garbage collector.
+我们也觉得这会是一个非常好的在生产中使用 Rust 的案例，并且希望分享我们在这个过程中所遇到的麻烦和我们所取得的成效，以期对其他有着类似考虑去重写代码的开发者们有些许帮助。
 
-We think this is an interesting case study of using Rust in production and want to share the issues we encountered and the benefits we achieved in the hope that it will be useful to others considering a similar rewrite.
+## 用 Rust 扩展我们的服务
 
-# **Scaling our service with Rust**
-
-Our multiplayer service is run on a fixed number of machines, each with a fixed number of workers, and each document lives exclusively on one specific worker. That means each worker is responsible for some fraction of currently open Figma documents. It looks something like this:
+我们的多人服务是运行在固定数量的一些机器，每个服务都拥有着固定数目的进程（Worker），并且每个文档都独立运行在一个特定的进程上。这意味着每一个进程都负责当前打开的 Figma 的文档的一部分。这看起来会是这样的：
 
 ![https://miro.medium.com/max/2230/1*b_L0C2dgCIsZSuRtdT2aOg.png](https://miro.medium.com/max/2230/1*b_L0C2dgCIsZSuRtdT2aOg.png)
 
-The main problem with the old server was the unpredictable latency spikes during syncing. The server was written in TypeScript and, being single-threaded, couldn’t process operations in parallel. That meant a single slow operation would lock up the entire worker until it was complete. A common operation is to encode the document and Figma documents can get very large, so operations would take an arbitrarily-long amount of time. Users connected to that worker would be unable to sync their changes in the meantime.
+我们遇到的最主要的问题，就是旧服务器会在同步时候遇到无法预计的延迟高峰。这个服务器是使用 TypeScript 编写的，并且是单线程的，完全不能同时处理多项操作。这意味着单一一个操作的缓慢会导致整个进程在这个操作完成前的停止。而常见的操作就是对文档的解码。Figma 上的文档可能会非常大，因此这个操作会显然会消耗一长段时间，让连接在这个进程上的用户暂时无法同步他们的更改。
 
-Throwing more hardware at the problem wouldn’t have solved this issue because a single slow operation would still lock up the worker for all files associated with that worker. And we couldn’t just create a separate node.js process for every document because the memory overhead of the JavaScript VM would have been too high. Really only a handful of documents were ever big enough to cause problems, but they were affecting the quality of service for everyone. Our temporary solution was to isolate the crazy documents to a completely separate pool of “heavy” workers:
+扔给这项服务更多的硬件丝毫不能缓解这个问题，因为一个缓慢的操作就会让这个进程所负责的所有文件都无法使用，而且我们无法为每一个文档都单独创建一个 Node.js 线程，因为 JavaScript 虚拟机的内存开销实在太大了。事实上只有很少一部分大文件会造成麻烦，但这就会影响所有用户的服务体验啊！我们的临时解决方法是将那些疯了的巨大的文档独立，隔离到一个单独的进程池中：
 
 ![https://miro.medium.com/max/2230/1*8bzkHy9Fg3fZXTEHIm65kg.png](https://miro.medium.com/max/2230/1*8bzkHy9Fg3fZXTEHIm65kg.png)
 
-This kept the service up but meant we had to continually look out for crazy documents and move them over to the heavy worker pool by hand. It bought us enough time to solve these problems for real, which we did by moving the performance-sensitive parts of the multiplayer server into a separate child process. That child process is written in Rust and communicates with its host process using stdin and stdout. It uses so little memory compared to the old system that we can afford to fully parallelize all documents by just using a separate child process per document. And serialization time is now over 10x faster so the service is now acceptably fast even in the worst case. The new architecture looks like this:
+这能让服务器跟上来了，但是这个方案注定让我们被迫持续关注所有这类型的文档，并将它们人工独立出去。我们借助这个方案还是争取来了一些时间，并且通过将对性能敏感的服务移动到单独的子进程中，我们能够继续去探索解决这些问题的方法了。这些子进程是用 Rust 编写的，并且通过标准输入输出与它的父进程沟通。而这些新的小不点使用的内存，也像他们的年龄那般 —— 对比起那些年老珠黄的旧服务来说嘛。现在我们完全可以通过为每一个文档提供一个单独的子进程来让所有的文档能够并行使用了，并且序列化时间是原有的 10 倍那么快，甚至在最差的情况下也完全可以接受了。新的架构看起来是这样的：
 
 ![https://miro.medium.com/max/2350/1*JvrV35TNvuARMRcvFpeMaQ.png](https://miro.medium.com/max/2350/1*JvrV35TNvuARMRcvFpeMaQ.png)
 
-# **Server-side performance improvements**
+## 服务端的性能提升
 
-The performance improvements are incredible. The following graphs show various metrics for the week before, during, and after the progressive rollout. The huge drop in the middle is where the progressive rollout hit 100%. Keep in mind that these improvements are in server-side performance, not client-side performance, so they mainly just mean that the service will continue to run smoothly for everyone without any hiccups.
+我们的服务器的性能提升令人难以置信。下图显示了逐步的推出新服务架构之前、之时和之后一周的各种性能指标。图片中间的大幅下降的部分是我们完全部署时候的指标。请记住，这些改进是针对服务器端的性能，而不是客户端的性能，因此，它们的主要作用只是为了让该进程能够为所有人不会造成任何麻烦顺利进行他们的工作
 
 ![https://miro.medium.com/max/1440/1*s7uU1Sd7IF7xOjR2mv4xRA.png](https://miro.medium.com/max/1440/1*s7uU1Sd7IF7xOjR2mv4xRA.png)
 
@@ -56,70 +55,76 @@ Here are the numeric changes in peak metrics as compared to the old server:
 
 ![https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png](https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png)
 
-# **The benefits and drawbacks of Rust**
+## Rust 的优缺点
 
-While Rust helped us write a high performance server, it turns out the language wasn’t as ready as we thought. It’s much newer than standard server-side languages and still has a lot of rough edges (described below).
+Rust 的确在编写高性能服务器这件事上帮了我们，但事实证明，这门语言也并没有我们想象中的那么好。即便它比标准的服务器端语言更年轻，但是仍然有不少粗糙待需继续磨平改良之处（见下文）。
 
-As a result, we dropped our initial plan to rewrite our whole server in Rust and chose to focus solely on the performance-sensitive part instead. Here are the pros and cons we encountered in that rewrite:
+最终，我们放弃了使用 Rust 重写整个服务器的那份最初的计划，而是选择只重写对性能敏感的那部分服务。这是我们在重写过程中遇到的一些优缺点：
 
-## **Pros**
+### 优点
 
-- **Low memory usage**
+- **内存使用率低**
 
-Rust combines fine-grained control over memory layout with the lack of a GC and has a very minimal standard library. It used so little memory that it was actually practical to just start a separate Rust process for every document.
+Rust 因为没有垃圾回收从而可以进行更细致地控制内存布局，并且具有体积非常小的标准库。Rust 使用的内存很少，因此在现实中为每个文档启动一个单独的 Rust 进程是可行的。
 
-- **Awesome performance**
+- **优秀的性能**
 
-Rust definitely delivered on its promise of optimal performance, both because it can take advantage of all of LLVM’s optimizations and because the language itself is designed with performance in mind. Rust’s [slices](https://doc.rust-lang.org/1.22.0/std/slice/) make passing raw pointers around easy, ergonomic, and safe, and we used that a lot to avoid copying data during parsing. The [HashMap API](https://doc.rust-lang.org/std/collections/struct.HashMap.html) is implemented with [linear probing](https://en.wikipedia.org/wiki/Linear_probing) and [Robin Hood hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing), so unlike C++’s [unordered_map API](http://en.cppreference.com/w/cpp/container/unordered_map) the contents can be stored inline in a single allocation and are much more cache-efficient.
+Rust 肯定兑现了它在最佳性能方面的承诺，既因为它可以利用上 LLVM 的所有优化，又因为该语言本身在设计时就看重了性能。Rust 的 [切片（slice）](https://doc.rust-lang.org/1.22.0/std/slice/) 使传递原始指针变得容易，很适合使用也很是安全。我们大量地使用了它，避免在的解析过程中数据的复制这一不必要的操作。[HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) 则是借助 [Linear Probing（线性探测）](https://zh.wikipedia.org/wiki/%E7%BA%BF%E6%80%A7%E6%8E%A2%E6%B5%8B) 和 [Robin Hood Hashing](https://en.wikipedia.org/wiki/Hash_table#Robin_Hood_hashing) 实现的，因此与 C++ 的[unordered_map](http://zh.cppreference.com/w/cpp/container/unordered_map) 不同，内容可以内联存储在单个分配中，从而带来更高的缓存的效率。
 
-- **Solid toolchain**
+- **坚实的工具链**
 
-Rust comes with [cargo](https://doc.rust-lang.org/cargo/index.html) built-in, which is a build tool, package manager, test runner, and documentation generator. This is a standard addition for most modern languages but is a very welcome improvement coming from the outdated world of C++, the other language we had considered using for the rewrite. Cargo was well-documented and easy to use, and it had helpful defaults.
+Rust 内置有 [cargo](https://doc.rust-lang.org/cargo/index.html)，一款集构建工具、包管理、测试运行和文档生成于一体的工具，一种新时代语言的标准附带品，脱胎于 C++（我们考虑重写上使用的另一种语言）的过时之中。 Cargo 拥有着非常全面的文档，并且非常容易上手，并拥有着便利的默认配置。
 
-- **Friendly error messages**
+- **更友善的错误信息**
 
-Rust is more complex than other languages because it has an additional piece, the borrow checker, with its own unique rules that need to be learned. People have put a lot of effort into making the error messages readable and it really shows. They make learning Rust much nicer.
+Rust 比其他语言更复杂，因为 Rust 的使用上还有着另一部分，即借用检查器，一款拥有着需要学习的独特规则的检查器。社区开发者们已经付出了很多，努力使错误消息变得更利于阅读，能够真正显示出来问题所在。他们真的让 Rust 的学习变得更简单更完美！
 
-## **Cons**
+### 缺点
 
-- **Lifetimes are confusing**
+- **生命周期是很令人迷惑的**
 
-In Rust, storing a pointer in a variable can prevent you from mutating the thing it points to as long as that variable is in scope. This guarantees safety but is overly restrictive since the variable may not be needed anymore by the time the mutation happens. Even as someone who has been following Rust from the start, who writes compilers for fun, and who knows how to think like the borrow checker, it’s still frustrating to have to pause your work to solve the little unnecessary borrow checker puzzles that can come up regularly as you work. There are good examples of the problems this creates in [this blog post](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/).
+在 Rust 中，将指针存储在变量中可以防止我们更改它指向的对象，只要该变量仍然在作用域内。这样大大的保证了安全性，但有时候又过于严苛，因为在发生变化时可能不再需要该变量。即使是从一开始就关注 Rust 的开发者们，或是编写那些有趣的编译器并且知道如何像借阅检查器一样思考的开发者，仍然不得不沮丧地停下手中的工作，着手解决可能出现的一些不必要的借阅检查器带来的难题，而这会不停止的间断发生。[这篇博客](http://smallcultfollowing.com/babysteps/blog/2016/04/27/non-lexical-lifetimes-introduction/)中就有蛮多的例子拥有着这类问题。
 
-*What we did about it:* We simplified our program to a single event loop that reads data from stdin and writes data to stdout (stderr is used for logging). Data either lives forever or only lives for the duration of the event loop. This eliminated pretty much all borrow checker complexities.
+*我们所做的事情：* 我们将程序简化为单个事件循环，该循环从 `stdin` 中读取数据并将数据写入 `stdout`（`stderr` 用于记录）。数据可以永久保存，也可以仅在事件循环期间保存。这消除了几乎所有借阅检查器的复杂性。
 
-*How this is being fixed:* The Rust community is planning to address this with [non-lexical lifetimes](https://github.com/rust-lang/rfcs/blob/master/text/2094-nll.md). This feature shrinks the lifetime of a variable such that it stops after the last time it’s used. Then a pointer will no longer prevent the mutation of the thing it points to for the rest of the scope, which will eliminate many borrow checker false-positives.
+*如何解决：* Rust 社区正计划用 [Non Lexical Lifecycle](https://github.com/rust-lang/rfcs/blob/master/text/2094-nll.md) 解决这个问题。这个功能将缩短变量的生命，使其在使用后停止它的生命周期，让这个指针将不再能够阻止指向其余范围的事物的变化，从而消除了许多借阅检查器的伪阴性（即，让很多本身有问题但没有报错的错误重新显示出来）。
 
-- **Errors are hard to debug**
+- **错误是很难调试的**
 
-Error-handling in Rust is intended to be done by returning a value called “Result” that can represent either success or failure. Unlike with exceptions, creating an error value in Rust does not capture a stack trace so any stack traces you get are for the code that reported the error instead of the code that caused the error.
+Rust 中的错误处理旨在通过返回一个可以表示成功或失败的值 `Result` 来完成。与 Exception 不同，在 Rust 中创建错误值不会捕获堆栈跟踪，因此我们获得的任何堆栈跟踪都是针对报告错误的代码，而不是引起错误的代码。
 
-*What we did about it:* We ended up converting all errors to strings immediately and then using a macro that includes the line and column of the failure in the string. This was verbose but got the job done.
+*我们所做的事情：* 我们最终将所有错误立即转换为字符串，然后使用一个宏，在字符串中包含失败的行和列。这很冗杂麻烦，但我们还是解决了这个问题。
 
-*How this is being fixed:* The Rust community has apparently come up with several workarounds for this issue. One of them is called [error-chain](https://docs.rs/error-chain/*/error_chain/) and another one is called [failure](https://boats.gitlab.io/failure/). We didn’t realize these existed and we aren’t sure if there’s a standard approach.
+*如何解决：* Rust 社区显然针对此问题提出了几种解决方法。其中一个称为 [Error Chain](https://docs.rs/error-chain/*/error_chain/)，另一个称为 [Failure](https://boats.gitlab.io/failure/)。我们没有注意到这些方法的存在，也不确定是否存在什么标准的解决方法。
 
-- **Many libraries are still early**
+- **许多库还很年轻**
 
-Figma’s document format is compressed so our server needed to be able to handle compressed data. We tried using two separate Rust compression libraries that were both used by Servo, Mozilla’s next-generation browser prototype, but both had subtle correctness issues that would have resulted in data loss.
+Figma 的文档都是压缩过后的，因此我们的服务器需要能够处理压缩的数据的工具。我们尝试使用两个 Rust 压缩库（这两个库都被 Mozilla 的跨时代浏览器原型 Servo 使用着），但是两个库都存在一些细微纠正上的问题，导致文档的数据丢失。
 
-*What we did about it:* We ended up just using a tried-and-true C library instead. Rust is built on LLVM so it’s pretty trivial to call C code from Rust. Everything is just LLVM bitcode in the end!
+*我们所做的：* 我们最终只使用了经过实践检验的 C 库 —— Rust 是基于 LLVM 构建的，因此从 Rust 调用 C 代码是非常简单的，毕竟所有东西最后都是变成 LLVM 代码嘛。
 
-*How this is being fixed:* The bugs in the affected libraries were reported and have since been fixed.
+*如何修复：* 我们报告了受影响的库中的错误，现在问题已修复。
 
-- **Asynchronous Rust is difficult**
+- **Rust 很难实现异步操作**
 
-Our multiplayer server talks over WebSockets and makes HTTP requests every so often. We tried writing these request handlers in Rust but hit some concerning ergonomic issues around the [futures API](https://docs.rs/futures/*/futures/) (Rust’s answer for asynchronous programming). The futures API is very efficient but somewhat complex as a result.
+我们的多人服务器通过 WebSocket 进行通信，需要频繁发出 HTTP 请求。我们尝试在 Rust 中编写这些请求的处理程序，但遇到了 [Futures](https://docs.rs/futures/*/futures/) 上的人机工程学的问题（Rust 的异步编程答案）。`Futures` 的效率很高，但有时候使用起来很是复杂。
 
-For example, chaining operations together is done by constructing a giant nested type that represents the whole operation chain. This means everything for that chain can be allocated in a single allocation, but it means that error messages generate long unreadable errors reminiscent of template errors in C++ (an example is [here](https://gist.github.com/evanw/06a672db1897482eadfbbf37ebf9b9ec)). That combined with other issues such as needing to adapt between different error types and having to solve complex lifetime issues made us decide to abandon this approach.
+例如，将操作链接在一起是通过构造一个代表整个操作链的巨型嵌套类型来完成的。虽说这意味着该链的所有内容只需要一次分配，但是这也意味着错误消息会是很长一段，令人难以阅读的错误，让人想起 C++ 中的模板错误（[示例](https://gist.github.com/evanw/ 06a672db1897482eadfbbf37ebf9b9ec)）。再加上其他问题，例如需要在不同的错误类型之间进行调整以及必须解决复杂的生命周期问题，我们决定放弃这种方法。
 
-*What we did about it:* Instead of going all-in on Rust, we decided to keep the network handling in node.js for now. The node.js process creates a separate Rust child process per document and communicates with it using a message-based protocol over stdin and stdout. All network traffic is passed between processes using these messages.
+*我们做了什么：* 我们没有全力以赴地使用 Rust，而是决定暂时将网络处理保留在 Node.js 中。Node.js 进程为每个文档创建一个单独的 Rust 子进程，并使用基于消息的协议通过标准输入输出与之沟通，让所有网络流量都在进程之间传递。
 
-*How this is being fixed:* The Rust team is hard at work on [adding async/await to Rust](https://github.com/rust-lang/rfcs/blob/master/text/2033-experimental-coroutines.md), which should solve many of these issues by hiding the complexity of futures underneath the language itself. This will allow the “?” error-handling operator that currently only works with synchronous code to also work with asynchronous code, which will cut down on boilerplate.
+*如何解决：* Rust 团队正在努力[向 Rust 添加异步功能](https://github.com/rust-lang/rfcs/blob/master/text/2033-experimental-coroutines.md)，这应该通过隐藏 `Futures` 本身在语言本身之下的复杂性来解决其中的许多问题。这将允许 `?` 这个目前仅适用于同步代码的错误处理运算符也能够在异步代码中使用，减少样板操作。
 
-## **Rust and the future**
+### Rust 以及它的未来
 
-While we hit some speed bumps, I want to emphasize that our experience with Rust was very positive overall. It’s an incredibly promising project with a solid core and a healthy community. I’m confident these issues will end up being solved over time.
+即便我们在速度上遇到一些问题，我仍然希望去强调，我们与 Rust 的经历总体而言真的是非常棒的。这真是一款有着一颗坚硬的内核和健康的社区的，一款拥有着极度美好前景的语言！我对这些问题很快就会被解决很有信心～
 
-Our multiplayer server is a small amount of performance-critical code with minimal dependencies, so rewriting it in Rust even with the issues that came up was a good tradeoff for us. It enabled us to improve server-side multiplayer editing performance by an order of magnitude and set Figma’s multiplayer server up to scale long into the future.
+我们的多人服务器是很少的对性能敏感的代码，组合一些很小的依赖库所构成的，因此在 Rust 中重写，即便遇到了问题，也仍然对我们来说是非常棒的。它让我们能够将服务端多人编写的性能提升一个数量级，让我们 Figma 的多人服务得以获得一个更广阔的未来！
 
-**Thanks to Figma.**
+**感谢 Figma～**
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
