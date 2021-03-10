@@ -11,8 +11,6 @@
 
 ![](https://miro.medium.com/max/4320/1*LoKiYs4SoAtkpFufNdD0AA.png)
 
-*喜欢构建最先进的 Web 应用程序嘛？[快来 Figma 工作呀～](https://www.figma.com/careers)*
-
 对于我们 [Figma](https://www.figma.com/) 来说，性能永远是我们最重要的卖点之一。我们力争去让团队能够所思即所得，而我们的多人同步引擎就是决定这个愿景能否实现的关键部分。我们希望能够让每个协作者都可以实时看到别人在 Figma 文档中所做的修改！
 
 我们[两年前开启的](https://blog.figma.com/multiplayer-editing-in-figma-8f8076c6c3a6)这个多人服务器是用 TypeScript 编写的，并且出奇完美地服务了我们的客户。但我们也没有想到，Figma 的扩张如此迅速，让服务器无力追及。我们决定使用 Rust 语言重写这个服务器以解决这个问题。
