@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-rust-ownership-borrowing-lifetimes.md](https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-rust-ownership-borrowing-lifetimes.md)
 > * 译者：[大宁的洛竹](https://github.com/youngjuning)
-> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[Zz招锦](https://github.com/zenblo)
 
 # 理解 Rust：所有权、借用、生命周期
 
