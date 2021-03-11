@@ -4,11 +4,9 @@
 > * 原文地址：[Go Developer Survey 2020 Results](https://blog.golang.org/survey2020-results)
 > * 原文作者：Alice Merrick
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[]()
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md)
 > * 译者：
 > * 校对者：
-
-
 
 ### **Thank you for the amazing response!**
 
