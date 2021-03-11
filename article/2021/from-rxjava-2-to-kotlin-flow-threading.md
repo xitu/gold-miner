@@ -7,7 +7,7 @@
 
 # 从 RxJava 2 转向使用 Kotlin 流：多线程
 
-![[Source](https://unsplash.com/photos/vyyVbUOYNPc)](https://cdn-images-1.medium.com/max/2000/0*piI5NnrRuivMUOKD)
+![[来源](https://unsplash.com/photos/vyyVbUOYNPc)](https://cdn-images-1.medium.com/max/2000/0*piI5NnrRuivMUOKD)
 
 ## 简介
 
