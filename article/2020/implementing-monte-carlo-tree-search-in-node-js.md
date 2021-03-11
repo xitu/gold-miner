@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 使用 Node.js 实现蒙特卡洛树搜索
 
 ![](https://cdn-images-1.medium.com/max/5000/1*RIYK4LcwRn_GCm_A3Mg1JA.jpeg)
 
-本文是[上一篇文章](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238)的后续，但我会提供足够的背景，所以可以顺便提一下这篇文章。要注意的是，本文的技术含量会比较高。所有代码都可以在 [GitHub 仓库](https://github.com/quasimik/medium-mcts/)中找到。
+本文是[上一篇文章](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238)的后续，我会提供足够的背景知识，也顺便提一下这篇文章。要注意的是，本文的技术含量会比较高。本文所有代码都可以在 [GitHub 仓库](https://github.com/quasimik/medium-mcts/)中找到。
 
 与上一篇文章一样，本文也假设读者具备一定的计算机科学知识，尤其是数据结构中关于**树结构**的工作原理，还需要具备 **JavaScript**（ES6+）的中级知识。
 
@@ -17,7 +17,7 @@
 
 实现蒙特卡洛树搜索（MCTS）算法来玩一个给定规则的游戏。
 
-这整个过程将是指导性和实践性的，同时不考虑性能优化部分。我将对链接的代码片段进行简要解释，希望你能跟上脚步，花时间理解代码中复杂难懂的部分。
+这整个过程将是指导性和实践性的，并且忽略掉性能优化的部分。我将会对链接的代码片段进行简要解释，希望你能跟上我的脚步并花一些时间理解代码中复杂难懂的部分。
 
 让我们开始吧！
 
@@ -26,7 +26,7 @@
 在 `game.js` 文件中：
 
 ```js
-/** 代表游戏版块的类。 */
+/** 代表游戏棋盘的类。 */
 class Game {
 
   /** 生成并返回游戏的初始状态。 */
@@ -90,7 +90,7 @@ let mcts = new MonteCarlo(game)
 let state = game.start()
 let winner = game.winner(state)
 
-// 从初始状态开始，轮流进行游戏，直到有玩家胜利为止
+// 从初始状态开始轮流进行游戏，直到有玩家胜利为止
 while (winner === null) {
   mcts.runSearch(state, 1)
   let play = mcts.bestPlay(state)
@@ -101,7 +101,7 @@ while (winner === null) {
 console.log(winner)
 ```
 
-花点时间检查一下代码。在脑海中搭建一个子版块的脚手架，并使其有意义。这是一个心理检查点，确保你明白它是如何组合在一起的。否则，请留言，我看看我能做些什么。
+先花点时间梳理一下代码吧。在脑海中搭建一个子版块的脚手架，然后尝试去明白一下这个东西。这是一个思维上的检查点，先确保你明白它是如何组合在一起的，如果感到无法理解，就请留言吧，让我看看我能为你做些什么。
 
 ## 找到合适的游戏
 
@@ -109,11 +109,11 @@ console.log(winner)
 
 不过，为了测试我们的 MCTS 框架，我们需要选择一个特定的游戏，并使用该游戏运行我们的框架。我们希望看到 MCTS 框架在每个步骤中都做出对我们选择的游戏有意义的决策。
 
-那么，井字游戏（`Tic-Tac-Toe`）怎么样呢？几乎所有的游戏入门教学都会用到它，而且它有一些非常理想的特性：
+做一个井字游戏（`Tic-Tac-Toe`）怎么样呢？几乎所有的游戏入门教学都会用到它，它还有着一些非常令我们满意的特性：
 
 * 大家之前都玩过。
 * 它的规则很简单，可以用算法实现。
-* 它具有[完善的信息](https://en.wikipedia.org/wiki/Perfect_information)，是确定性的。
+* 它具有一份确定的[完善的信息](https://en.wikipedia.org/wiki/Perfect_information)。
 * 它是一款对抗性的双人游戏。
 * 状态空间很简单，可以在心理上进行建模。
 * 状态空间的复杂程度足以证明算法的强大。
@@ -122,7 +122,7 @@ console.log(winner)
 
 ![我这样做是为了纪念。](https://cdn-images-1.medium.com/max/2000/1*7KOc9QzhtuzIFgYBHem_Zg.jpeg)
 
-在我们的实现中，我们将使用 Hasbro（孩之宝：美国著名玩具公司）的尺寸和规则。这是 6 行 7 列，其中垂直、水平和对角线棋子数相连为 4 就算胜利。棋子从上方落下，并借助重力在底部的第一个自由槽落下。
+在我们的实现中，我们将使用 Hasbro（孩之宝：美国著名玩具公司）的尺寸和规则，即是 6 行 7 列，其中垂直、水平和对角线棋子数相连为 4 就算胜利。棋子会从上方落下，并借助重力落在底部的第一个自由槽。
 
 不过在我们继续讲述之前，要先说明一下。如果你有信心，你可以自己去实现任何你想要的游戏，只要它遵守给定的游戏 API。只是当你搞砸了，不能用的时候不要来抱怨。请记住，像国际象棋和围棋这样的游戏太复杂了，即使是 MCTS 也无法（有效地）独自解决；谷歌在 [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) 中通过向 MCTS 添加有效的机器学习策略来解决这个问题。如果你想玩自己的游戏，你可以跳过接下来的两个部分。
 
@@ -142,7 +142,7 @@ console.log(winner)
 
 ---
 
-这是一个工作量很大的活，不是吗？至少对我来说是这样的。这段代码需要一些 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) 知识，但应该还是很容易读懂的。最重要的工作是 `Game_C4.winner()`，它在四个独立的棋盘中建立积分，所有的棋盘都是 `checkBoards`。每个棋盘都有一个可能的获胜方向（水平、垂直、左对角线或右对角线）。确保棋盘的三个面比实际棋盘大，方便为算法提供零填充。
+这是一个工作量很大的活，不是吗？至少对我来说是这样的。这段代码需要一些 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) 知识，但应该还是很容易读懂的。最重要的工作在 `Game_C4.winner()` 中 —— 它用于在四个独立的棋盘中建立积分系统，而所有的棋盘都是 `checkBoards`。每个棋盘都有一个可能的获胜方向（水平、垂直、左对角线或右对角线）。我们需要确保棋盘的三个面比实际棋盘大，方便为算法提供零填充。
 
 我相信还有更好的方法。`Game.winner()` 的运行时性能并不是很好，具体来说，在[大 O 表示法](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html)中，它是 `O(rows * cols)`，所以性能并不是很好。通过在状态对象中存储 `checkBoards`，并且只更新最后播放单元格的 `checkBoards`（也会包含在状态对象中），可以大幅改善运行时性能，也许你以后可以尝试这个优化方法。
 
@@ -152,7 +152,7 @@ console.log(winner)
 
 在终端上运行 `node test-game-c4.js`。在一个相对现代的处理器和最新版本的 `Node.js` 上，运行 `1000` 次迭代应该会在一秒钟内完成：
 
-```
+```shell
 $ node test-game-c4.js
 
 [ [ 0, 0, 0, 0, 0, 0, 2 ],
@@ -210,7 +210,7 @@ class MonteCarloNode {
   ...
 ```
 
-再次确认以下这些是否合理：
+先再确认一下是否能够理解这些：
 
 * `parent` 是 `MonteCarloNode` 父节点。
 * `play` 是指从父节点到这个节点所做的 `Play`。
@@ -464,7 +464,7 @@ class MonteCarlo {
 
 再来看一下 `MonteCarlo.runSearch()`。扩展是在检查 `if (node.isLeaf() === false && winner === null)` 时完成的。很明显，如果在游戏树中没有可能的子节点 —— 例如，当棋盘满了的时候，是不可能进行扩展的。如果有赢家的话，我们也不想扩展 —— 这就像说当你的对手赢了的时候你应该停止玩游戏一样明显。
 
-So what happens if the node is leaf? We just backpropagate with whomever won in that node — be it player 1, player -1, or even 0 (a draw). Similarly, if there’s a non-null winner at any node, we just skip expansion and simulation, and immediately backpropagate with that winner (1 or -1 or 0).   那么如果是叶子节点，会发生什么呢？我们只需用在该节点中获胜的人进行反向传播 —— 无论是玩家 `1`，玩家 `-1`，甚至是 `0`（平局）。同样，如果在任何节点上有一个非空的赢家，我们只需跳过扩展和模拟，并立即与该赢家（`1` 或 `-1` 或 `0`）进行反向传播。
+那么如果是叶子节点，会发生什么呢？我们只需用在该节点中获胜的人进行反向传播 —— 无论是玩家 `1`，玩家 `-1`，甚至是 `0`（平局）。同样，如果在任何节点上有一个非空的赢家，我们只需跳过扩展和模拟，并立即与该赢家（`1` 或 `-1` 或 `0`）进行反向传播。
 
 反向传播 `0` 赢家是什么意思？用 MCTS 真的可以吗？真的可以用，后面再细讲。
 
@@ -570,7 +570,7 @@ module.exports = MonteCarlo
 
 ## 实现统计自检和显示
 
-现在，你应该可以在当前版本 [`index-v1.js`](https://github.com/quasimik/medium-mcts/blob/master/index-v1.js) 上运行 `node index.js` 。但是，你不会看到很多东西。要想看到里面发生了什么，我们需要做更多的事情。
+现在，你应该可以在当前版本 [`index-v1.js`](https://github.com/quasimik/medium-mcts/blob/master/index-v1.js) 上运行 `node index.js`。但是，你不会看到很多东西。要想看到里面发生了什么，我们需要完成以下事情。
 
 在 `monte-carlo.js` 文件中:
 
@@ -611,7 +611,7 @@ module.exports = MonteCarlo
 
 接着运行 `node index.js`：
 
-```
+```shell
 $ node index.js
 
 player: 1
