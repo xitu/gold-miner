@@ -1,9 +1,12 @@
+
+
 > * 原文地址：[Go Developer Survey 2020 Results](https://blog.golang.org/survey2020-results)
 > * 原文作者：Alice Merrick
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md)
 > * 译者：
 > * 校对者：
+
 
 # Go Developer Survey 2020 Results
 
@@ -15,6 +18,7 @@ You may notice some questions have smaller sample sizes ("n=") than others. That
 
 ## Highlights
 
+
 - Go usage is expanding in the workplace and enterprise with 76% of respondents using [Go at work](https://blog.golang.org/survey2020-results#TOC_4.1) and 66% saying [Go is critical to their company's success](https://blog.golang.org/survey2020-results#TOC_6.1).
 - [Overall satisfaction](https://blog.golang.org/survey2020-results#TOC_6.) is high with 92% of respondents being satisfied using Go.
 - The majority of [respondents felt productive](https://blog.golang.org/survey2020-results#TOC_6.2) in Go in less than 3 months, with 81% feeling very or extremely productive in Go.
@@ -24,7 +28,9 @@ You may notice some questions have smaller sample sizes ("n=") than others. That
 - Go continues to be heavily used for [APIs, CLIs, Web, DevOps & Data Processing](https://blog.golang.org/survey2020-results#TOC_7.).
 - [Underrepresented groups](https://blog.golang.org/survey2020-results#TOC_12.1) tend to feel less welcome in the community.
 
+
 ## Who did we hear from?
+
 
 Demographic questions help us distinguish which year-over-year differences may result from changes in who responded to the survey versus changes in sentiment or behavior. Because our demographics are similar to last year, we can be reasonably confident that other year-over-year changes aren't primarily due to demographic shifts.
 
@@ -52,7 +58,9 @@ As in prior years, we found that most respondents are not frequent contributors 
 
 ![https://blog.golang.org/survey2020/foss_yoy.svg](https://blog.golang.org/survey2020/foss_yoy.svg)
 
+
 ## Developer tools and practices
+
 
 As in prior years, the vast majority of survey respondents reported working with Go on Linux (63%) and macOS (55%) systems. The proportion of respondents who primarily develop on Linux appears to be slightly trending down over time.
 
@@ -73,6 +81,7 @@ A majority of respondents (63%) spend 10–30% of their time refactoring, sugges
 Last year we asked about specific developer techniques and found that almost 90% of respondents were using text logging for debugging, so this year we added a follow-up question to find out why. Results show that 43% use it because it allows them to use the same debugging strategy across different languages, and 42% prefer to use text logging over other debugging techniques. However, 27% don't know how to get started with Go's debugging tools and 24% have never tried using Go's debugging tools, so there's an opportunity to improve the debugger tooling in terms of discoverability, usability and documentation. Additionally, because a quarter of respondents have never tried using debugging tools, pain points may be underreported.
 
 ![https://blog.golang.org/survey2020/why_printf.svg](https://blog.golang.org/survey2020/why_printf.svg)
+
 
 ## Sentiments towards Go
 
@@ -112,7 +121,9 @@ We asked an open text question on what we could do to make the Go community more
 
 ![https://blog.golang.org/survey2020/more_welcoming.svg](https://blog.golang.org/survey2020/more_welcoming.svg)
 
+
 ## Working with Go
+
 
 Building API/RPC services (74%) and CLIs (65%) remain the most common uses of Go. We don't see any significant changes from last year, when we introduced randomization into the ordering of options. (Prior to 2019, options towards the beginning of the list were disproportionately selected.) We also broke this out by organization size and found that respondents use Go similarly at large enterprises or smaller organizations, although large orgs are a little less likely to use Go for web services returning HTML.
 
@@ -142,7 +153,9 @@ Similar to last year, we found that 76% of respondents evaluate the current Go r
 
 ![https://blog.golang.org/survey2020/update_time.svg](https://blog.golang.org/survey2020/update_time.svg)
 
+
 ## Modules
+
 
 This year we found near-universal adoption for Go modules, and a significant increase in the proportion of respondents who only use modules for package management. 96% of respondents said they were using modules for package management, up from 89% last year. 87% of respondents said they were using *only* modules for package management, up from 71% last year. Meanwhile, the use of other package management tools has decreased.
 
@@ -152,7 +165,9 @@ Satisfaction with modules also increased from last year. 77% of respondents said
 
 ![https://blog.golang.org/survey2020/modules_sat_yoy.svg](https://blog.golang.org/survey2020/modules_sat_yoy.svg)
 
+
 ## Official documentation
+
 
 Most respondents said they struggle with official documentation. 62% of respondents struggle to find enough information to fully implement a feature of their application and over a third have struggled to get started with something they haven’t done before.
 
@@ -162,7 +177,9 @@ The most problematic areas of official documentation were on using modules and C
 
 ![https://blog.golang.org/survey2020/doc_helpfulness.svg](https://blog.golang.org/survey2020/doc_helpfulness.svg)
 
+
 ## Go in the clouds
+
 
 Go was designed with modern distributed computing in mind, and we want to continue to improve the developer experience of building cloud services with Go.
 
@@ -179,7 +196,9 @@ Overall, a majority of respondents were satisfied with using Go on all three maj
 
 ![https://blog.golang.org/survey2020/cloud_csat.svg](https://blog.golang.org/survey2020/cloud_csat.svg)
 
+
 ## Pain points
+
 
 The top reasons respondents say they are unable to use Go more remain working on a project in another language (54%), working on a team that prefers to use another language (34%), and the lack of a critical feature in Go itself (26%).
 
@@ -199,7 +218,9 @@ The top challenge respondents reported when using Go was again Go's lack of gene
 
 ![https://blog.golang.org/survey2020/biggest_challenge.svg](https://blog.golang.org/survey2020/biggest_challenge.svg)
 
+
 ## The Go community
+
 
 This year we asked respondents for their top 5 resources for answering their Go-related questions. Last year we only asked for top 3, so the results aren't directly comparable, however, StackOverflow remains the most popular resource at 65%. Reading source code (57%) remains another popular resource while reliance on godoc.org (39%) has significantly decreased. The package discovery site pkg.go.dev is new to the list this year and was a top resource for 32% of respondents. Respondents who use pkg.go.dev are more likely to agree they are able to quickly find Go packages / libraries they need: 91% for pkg.go.dev users vs. 82% for everyone else.
 
@@ -223,6 +244,7 @@ We added an additional question this year on assistive technology usage, and fou
 
 The Go team values diversity and inclusion, not simply as the right thing to do, but because diverse voices can illuminate our blindspots and ultimately benefit all users. The way we ask about sensitive information, including gender and traditionally underrepresented groups, has changed according to data privacy regulations and we hope to make these questions, particularly around gender diversity, more inclusive in the future.
 
+
 ## Conclusion
 
 Thank you for joining us in reviewing the results of our 2020 developer survey! Understanding developers’ experiences and challenges helps us measure our progress and directs the future of Go. Thanks again to everyone who contributed to this survey—we couldn't have done it without you. We hope to see you next year!
@@ -231,4 +253,6 @@ Thank you for joining us in reviewing the results of our 2020 developer survey! 
 
 ---
 
+
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+
