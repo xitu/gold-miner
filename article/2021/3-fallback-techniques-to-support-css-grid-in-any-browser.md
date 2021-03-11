@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 3 中在任何浏览器中使用 CSS 网格的 Fallback 技术
+# 3 种在任何浏览器中使用 CSS 网格的 Fallback 技术
 
 ![由 [John Schnobrich](https://unsplash.com/@johnschno?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9662/0*z99PsHMNipBY051X)
 
@@ -235,13 +235,13 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 </html>
 ```
 
-`CSS.supports` 是用于以编程方式创建备用布局的好工具。如果我们必须处理非常复杂的布局，那么我们可能需要选择此方法而不是 CSS 功能查询。我们可以使用它来创建具有程序化备用功能的 Web 组件。
+`CSS.supports` 是用于以编程方式创建 Fallback 布局的好工具。如果我们必须处理非常复杂的布局，那么我们可能需要选择此方法而不是 CSS 功能查询。我们可以使用它来创建具有程序化 Fallback 功能的 Web 组件。
 
 ## 3. 属性的覆写
 
 有时候，我们不需要 CSS 功能查询之类的奇特功能。我们可以利用 CSS 属性的工作原理：在 CSS 类中重新定义属性时，最后一个有效的属性会被视作要使用的属性。
 
-那是什么意思？它怎么个好用？我们可以通过覆盖 CSS 属性来定义备用样式：
+那是什么意思？它怎么个好用？我们可以通过覆盖 CSS 属性来定义 Fallback 样式：
 
 ```css
 #container {
@@ -434,7 +434,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 
 ![`subgrid` 不可用时](https://cdn-images-1.medium.com/max/2000/1*j8rPVYjENApqFPg--2Be_A.png)
 
-如我们所见，结果是完全一致的，但是它们的实现非常相似，这就是我们的目标。随着越来越多的浏览器采用 `subgrid`，更多的用户将看到布局的像素完美版本。
+如我们所见，结果是完全一致的，但是它们的实现非常相似，这就是我们的目标。随着越来越多的浏览器采用 `subgrid`，更多的用户都可以看到布局的完美版本！
 
 ## 结论
 
@@ -442,9 +442,9 @@ Grid 和 Flexbox 旨在解决不同的情况。我们无法继续使用 Flexbox 
 
 从 Flexbox 升级到 Grid 并不意味着布局在旧设备上突然失效。在本文中，我们探讨了构建渐进式布局有多么容易和有趣。正如我们在一开始所看到的那样，制定一项如何进行的战略非常重要。
 
-这些策略不仅仅是为了添加基本的 Grid 功能。只要我们提供合理的 Fallback，我们就可以利用诸如 subgrid 之类的最新功能。
+这些策略不仅仅是为了添加基本的 Grid 功能。只要我们提供合理的 Fallback，我们就可以利用诸如 `subgrid` 之类的最新功能。
 
-我希望这能激发我们在需要时逐步在生产中使用 Grid 的动机，现在，我们不必再躲在 Flexbox 后面了。
+我希望这能激发你在你需要 Grid 时，能够推动在生产中逐渐应用 Grid 的动力。现在，我们不必再躲在 Flexbox 后面了！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
