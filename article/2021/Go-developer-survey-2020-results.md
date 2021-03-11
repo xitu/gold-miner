@@ -1,6 +1,3 @@
-## Go Developer Survey 2020 Results
-
-
 > * 原文地址：[Go Developer Survey 2020 Results](https://blog.golang.org/survey2020-results)
 > * 原文作者：Alice Merrick
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -8,6 +5,7 @@
 > * 译者：
 > * 校对者：
 
+# Go Developer Survey 2020 Results
 ### **Thank you for the amazing response!**
 
 In 2020, we had another great turnout with 9,648 responses, about [as many as 2019](https://blog.golang.org/survey2020-results). Thank you for putting in the time to provide the community with these insights on your experiences using Go!
