@@ -5,31 +5,31 @@
 > * 译者：
 > * 校对者：
 
-# 3 Fallback Techniques To Support CSS Grid in Any Browser
+# 3 中在任何浏览器中使用 CSS 网格的 Fallback 技术
 
-![Photo by [John Schnobrich](https://unsplash.com/@johnschno?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9662/0*z99PsHMNipBY051X)
+![由 [John Schnobrich](https://unsplash.com/@johnschno?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9662/0*z99PsHMNipBY051X)
 
-CSS Grid has great support amongst browsers nowadays — roughly 95% for its basic functionality. However, sometimes you can’t ignore that 5%, as you might want your web application’s layout to look great across all browsers. You might even want to use newer Grid features that have less support.
+如今，CSS Grid 在浏览器中有着强壮的支持基础 —— 支持其基本功能的浏览器占比约为 95％。不过有时我们可能无法忽略这 5％，因为我们可能希望我们的 Web 应用程序的布局在所有浏览器中都看起来那样的棒，而且我们甚至还可能希望使用一些支持率较少的较新的 Grid 功能。
 
-What should we do? Should we avoid using Grid in production? Should we ignore users with older browsers? Should we wait for the feature to have better coverage? Definitely not. There are plenty of fallback techniques to overcome these issues.
+那我们应该做什么？我们应该避免在生产中使用 Grid 吗？我们应该抛弃使用旧版浏览器的用户吗？我们应该等待功能得到更好的覆盖吗？当然不，有很多 Fallback 技术可以帮助我们克服这些问题。
 
-In this article, we will be exploring the top three techniques that will help us gracefully fall back from our Grid layouts. We will be adapting our web page design according to the browser features available. It will be progressively adaptive.
+在本文中，我们将探讨最重要的三种技术。它们将帮助我们在网格布局上轻松兼容旧版浏览器，这样我们就可以根据可用的浏览器功能，调整我们的网页设计。这些新功能们，都会被浏览器以及 Fallback 技术所逐渐适应。
 
-Before diving into the technical aspects, we need to define a strategy. Having a proper strategy is key to success. It will give us a sense of direction and consistency.
+在深入探讨技术方面的内容之前，我们需要定下一个策略。制定适当的策略是成功的关键，因为这将使我们有方向感和一贯性。
 
-## Defining a Strategy
+## 制定策略
 
-The most common usage of Grid is to build multi-dimensional layouts that adapt to the user’s screen resolution. What should you do when the Grid is not available? How can you make a flexible and responsive layout with something other than Grid?
+Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布局。但当栅格不可用时该怎么办？除了 Grid 之外，还有什么东西可以帮助我们制作灵活且迅速响应的布局？
 
-You could try to replicate that same layout by using Flexbox, but it would add too much code. Moreover, Flexbox isn’t built for the same purpose and you would likely struggle.
+我们可以尝试使用 Flexbox 复制相同的布局，不过这样做会增加过多的代码。此外，Flexbox 也不是为了栅格布局而开发的功能，如果使用它，我们可能会遇到一些困难。
 
-What should you do? The solution is very simple: As a fallback, just present the user with the mobile layout. Only desktop users with an outdated browser will notice something. That’s a very low percentage of your total user base. The site should be usable and consistent. It’s a fair trade-off.
+现在我们该怎么办？解决方案非常简单：作为 Fallback，只需向用户展示移动端的版式即可，而只有使用过时浏览器的台式机用户会注意到这些改变。他们在我们的总用户数量中所占的比例非常低。该站点应该面对所有人来说都是可以使用且一致的，而这就是一个公平的权衡。
 
-What about using the newest Grid features? The same strategy applies: Try to fall back to a decent similar layout.
+那么如何使用最新的 Grid 功能？采取相同的策略：尝试回退到一个相似的布局。
 
-In summary: our layout will be enhanced progressively. Users with older browsers will be presented with a simpler, yet usable, version of the layout. Users with the latest browser will be receiving the full UX experience.
+总结：我们的布局应该逐步增强。使用较旧浏览器的用户可能只能看到一个更简单但可用的版式，而那些使用最新浏览器的用户将获得完整的 UX 体验。
 
-Let’s look at the top 3 tools at our disposal.
+让我们来看一下我们可以使用的前 3 种 Fallback 工具。
 
 ## 1. Using CSS Feature Queries
 
@@ -48,394 +48,406 @@ In this example, since we are just interested in the standard Grid behavior, we 
 
 ```css
 @supports (display: grid) {
-  //... code here
+    /* ... code here */
 }
 ```
 
-Let’s see a full example:
+完整的例子如下
 
 ```HTML
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <title>Grid in Production</title>
-    <meta charset="UTF-8" />
-  </head>
+    <meta charset="UTF-8"/>
+</head>
 
-  <body>
-    <style type="text/css">
+<body>
+<style>
+    #container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid #000;
+        padding: 10px;
+    }
+
+    @supports (display: grid) {
         #container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border: 1px solid #000;
-            padding: 10px;
-        }
-        @supports (display: grid) {
-            #container {
-                display: grid;
-            }
-            @media (min-width: 768px) {
-                #container {
-                    grid-template-columns: 100px 1fr 100px;
-                }
-            }
-        }
-        .side1 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .side2 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .content {
-            padding: 10px;
-            min-height: 400px;
-            background-color: #5B2E48;
-        }
-
-        body {
-            color: #FFF;
-            font-weight: 500;
-        }
-    </style>
-    <div id="container">
-      <div class="side1">
-        Side Panel
-      </div>
-      <div class="content">
-        Main Content
-      </div>
-      <div class="side2">
-        Side Panel
-      </div>
-    </div>
-  </body>
-</html>
-```
-
-Note that we are not asserting against this Grid feature: `grid-template-columns`. What would happen if the browser doesn’t support it? In that scenario, Grid will fall back to the default positioning algorithm. It will stack the `divs`. For our example, that works, so we won’t need any extra work.
-
-Let’s see the results.
-
-This is the result from a Grid-capable browser on a desktop resolution:
-
-![Layout when supporting Grid](https://cdn-images-1.medium.com/max/2000/1*DuwFq17QtSj96yMWa7KGwA.png)
-
-This is the result from a Grid-capable browser on a mobile resolution:
-
-![Layout when supporting Grid](https://cdn-images-1.medium.com/max/2000/1*nm0t3NbuJboHpmEACBUsIw.png)
-
-This is the result from a non-Grid-capable browser on any resolution:
-
-![Fallback layout](https://cdn-images-1.medium.com/max/2000/1*YfV-AKl5U5bRzX9BVYtMGg.png)
-
-The layout is not broken and still usable and accessible for all browser engines. Only users who access it from a desktop will see a difference.
-
-## 2. Using CSS Feature Queries Programmatically
-
-Sometimes it is not possible to achieve what you want only with CSS Feature Queries on your CSS styles. As powerful as they are, they have limits. You might want to programmatically add or remove elements based on your browser features. How is that achieved?
-
-Luckily, the CSS features can be invoked programmatically on the JavaScript side. The `@supports` can be accessed via the CSS object model interface `[CSSSupportsRule](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule)`.
-
-> “The `**CSSSupportsRule**` interface represents a single CSS `@supports` `at-rule`.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule)
-
-Let’s see the interface definition:
-
-```ts
-function supports(property: string, value: string): boolean;
-```
-
-Let’s use it in a dummy example. Let’s warn the user if they are using a browser that doesn’t support the Grid layout feature. Never do that in production. This is just a dummy example for fun.
-
-This is how we conditionally check if Grid is not supported:
-
-```js
-if (!CSS || !CSS.supports('display', 'grid')) {
-  ...
-}
-```
-
-Be aware that `CSS.supports` might not be supported on some browsers, hence the null check.
-
-Let’s see a working code example:
-
-```HTML
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Grid in Production</title>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <style type="text/css">
-        #container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border: 1px solid #000;
-            padding: 10px;
-        }
-        @supports (display: grid) {
-            #container {
-                display: grid;
-            }
-            @media (min-width: 768px) {
-                #container {
-                    grid-template-columns: 100px 1fr 100px;
-                }
-            }
-        }
-        .side1 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .side2 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .content {
-            padding: 10px;
-            min-height: 400px;
-            background-color: #5B2E48;
-        }
-
-        body {
-            color: #FFF;
-            font-weight: 500;
-        }
-    </style>
-    <script>
-        (function warnSupport(){
-            if (!CSS || !CSS.supports('display', 'grid')) {
-                alert('Warning your Browser does not support the latests features. Consider switching to a newer one')
-            }
-        })();
-    </script>
-    <div id="container">
-      <div class="side1">
-        Side Panel
-      </div>
-      <div class="content">
-        Main Content
-      </div>
-      <div class="side2">
-        Side Panel
-      </div>
-    </div>
-  </body>
-</html>
-```
-
-`CSS.supports` is a great tool for creating fallback layouts in a programmatic way. If you have to deal with very complex layouts, you might want to pick this technique instead of CSS Feature Queries. You can use it to create web components with their programmatic fallbacks.
-
-## 3. Overriding Properties
-
-Sometimes you don’t need fancy things like CSS Feature Queries. You can take advantage of how CSS properties work: When redefining properties in a CSS class, the last valid one is the one to be used.
-
-What does that mean? How is this cool? You can define fallbacks just by overriding a CSS property:
-
-```css
-#container {
-  display: flex;
-  display: grid;
-
-  // if grid is not available this will be invalid and it will apply the previous property value: flex
-}
-```
-
-We can redo our previous CSS Feature Queries example in a simpler way:
-
-```HTML
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Grid in Production</title>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <style type="text/css">
-        #container {
-            display: flex;
             display: grid;
-            flex-direction: column;
-            gap: 10px;
-            border: 1px solid #000;
-            padding: 10px;
         }
+
         @media (min-width: 768px) {
             #container {
                 grid-template-columns: 100px 1fr 100px;
             }
         }
-        .side1 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .side2 {
-            padding: 10px;
-            background-color: #CEB992;
-        }
-        .content {
-            padding: 10px;
-            min-height: 400px;
-            background-color: #5B2E48;
-        }
+    }
 
-        body {
-            color: #FFF;
-            font-weight: 500;
-        }
-    </style>
-    <script>
-        (function warnSupport(){
-            if (!CSS || !CSS.supports('display', 'grid')) {
-                alert('Warning your Browser does not support the latests features. Consider switching to a newer one')
-            }
-        })();
-    </script>
-    <div id="container">
-      <div class="side1">
+    .side1 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
+
+    .side2 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
+
+    .content {
+        padding: 10px;
+        min-height: 400px;
+        background-color: #5B2E48;
+    }
+
+    body {
+        color: #FFF;
+        font-weight: 500;
+    }
+</style>
+<div id="container">
+    <div class="side1">
         Side Panel
-      </div>
-      <div class="content">
-        Main Content
-      </div>
-      <div class="side2">
-        Side Panel
-      </div>
     </div>
-  </body>
+    <div class="content">
+        Main Content
+    </div>
+    <div class="side2">
+        Side Panel
+    </div>
+</div>
+</body>
 </html>
 ```
 
-This fallback is simple yet powerful. It is useful in many scenarios. You can’t possibly use support queries for all Grid features that you want to use.
+注意，我们并没有断言 Grid 特性 `grid-template-columns`。如果浏览器不支持该怎么办？在这种情况下，Grid 将退回到默认的定位算法。它将堆叠 `divs`。在我们的示例中，该方法有效，因此我们不需要进行任何其他工作。
 
-Let’s use it to fall back from one of the newest Grid features: `subgrid`. How should we use it?
+让我们看看结果。
 
-Let’s check a scenario where we want to use `subgrid` for our nested Grid template columns. Here’s the gist of it:
+这是基于桌面分辨率的支持网格的浏览器的结果：
 
-```css
-#content {
-  grid-template-columns: inherit;
-  grid-template-columns: subgrid;
+![支持网格时的布局](https://cdn-images-1.medium.com/max/2000/1*DuwFq17QtSj96yMWa7KGwA.png)
+
+这是来自具有网格分辨率的浏览器在移动分辨率下的结果：
+
+![支持网格时的布局](https://cdn-images-1.medium.com/max/2000/1*nm0t3NbuJboHpmEACBUsIw.png)
+
+这是来自不支持Grid的浏览器的任何分辨率的结果：
+
+![Fallback 布局](https://cdn-images-1.medium.com/max/2000/1*YfV-AKl5U5bRzX9BVYtMGg.png)
+
+布局没有损坏，仍然可用于所有浏览器引擎。只有从桌面访问它的用户才能看到不同。
+
+## 2. 以编程方式使用 CSS 功能查询
+
+有时，仅通过 CSS 样式上的 CSS 功能查询无法实现您想要的功能。尽管功能强大，但也有局限性。您可能需要基于浏览器功能以编程方式添加或删除元素。如何实现的？
+
+幸运的是，可以在 JavaScript 以编程方式调用 CSS 功能。可以通过 CSS 对象模型接口 [`CSSSupportsRule`](https://developer.mozilla.org/zh-CN/docs/Web/API/CSSSupportsRule) 来访问 `@supports`。
+
+> `CSSSupportsRule` 接口代表一个 CSS `@supports` 和 `at-rule` — [MDN Web文档]（https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule）
+
+让我们看一下界面定义：
+
+```ts
+function supports(property: string, value: string): boolean;
+```
+
+让我们在一个虚拟示例中使用它。如果用户使用的浏览器不支持网格布局功能，这就会警告我们不能使用。不过可不能在生产中这样做，这只是一个有趣的例子。
+
+这是我们有条件地检查是否不支持 Grid 的方式：
+
+```js
+if (!CSS || !CSS.supports('display', 'grid')) {
+    // ...
 }
 ```
 
-In this example, when the subgrid is not supported, it will just inherit the parent’s Grid definition. That will create a roughly similar layout.
+请注意，某些浏览器可能不支持 `CSS.supports`，因此为空检查。
 
-This is just a simple example. You can fine-tune the `grid-template-columns` to some fixed sizes or whatever works best in your particular scenario.
-
-Here is the full example:
+让我们来看一个有效的代码示例：
 
 ```HTML
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <title>Grid in Production</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style>
+    #container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid #000;
+        padding: 10px;
+    }
 
-    <head>
-        <title>Grid Playground</title>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <style type="text/css">
-            body {
-                color: white;
-                text-align: center;
-                box-sizing: content-box;
-                margin: 20px;
-                
-            }
+    @supports (display: grid) {
+        #container {
+            display: grid;
+        }
 
-            .palette-1 {
-                background-color: #CEB992;
-            }
-
-            .palette-2 {
-                background-color: #471323;
-            }
-
-            .palette-3 {
-                background-color: #73937E;
-            }
-
-            .palette-4 { 
-                background-color: #5B2E48;
-            }
-
-            .palette-5 { 
-                background-color: #585563;
-            }
-
+        @media (min-width: 768px) {
             #container {
-                padding: 10px;
-                background-color: #73937E;
-                height: 500px;
-                width: calc(100vw - 60px);
-                display: grid;
-                grid-template-rows: repeat(8, 1fr);
-                grid-template-columns: max-content 1fr 1fr 1fr;
-                row-gap: 1rem;
-                
+                grid-template-columns: 100px 1fr 100px;
             }
+        }
+    }
 
-            .item {
-                padding: 20px;
-            }
+    .side1 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
 
-            .content-main {
-                grid-column: span 3;
-            }
+    .side2 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
 
-            #content {
-                background-color: #73937E;
-                grid-column: 1 / -1;
-                display: grid;
-                grid-template-columns: inherit;
-                grid-template-columns: subgrid;
-                column-gap: 1rem;
-            }
+    .content {
+        padding: 10px;
+        min-height: 400px;
+        background-color: #5B2E48;
+    }
 
-            
-        </style>
-        <div id="container">
-            <div id="content">
-                <div class="content-left item palette-5">
-                    Content Title
-                </div>
-                <div class="content-main item palette-4">
-                </div>
-            </div>
-            <div id="content">
-                <div class="content-left item palette-5">
-                    Another Content Title
-                </div>
-                <div class="content-main item palette-4">
-                </div>
-            </div>
-        </div>
-        </script>
-    </body>
+    body {
+        color: #FFF;
+        font-weight: 500;
+    }
+</style>
+<script>
+    (function warnSupport() {
+        if (!CSS || !CSS.supports('display', 'grid')) {
+            alert('Warning your Browser does not support the latests features. Consider switching to a newer one')
+        }
+    })();
+</script>
+<div id="container">
+    <div class="side1">
+        Side Panel
+    </div>
+    <div class="content">
+        Main Content
+    </div>
+    <div class="side2">
+        Side Panel
+    </div>
+</div>
+</body>
 </html>
 ```
 
-As for the results:
+CSS.supports是用于以编程方式创建后备布局的好工具。 如果必须处理非常复杂的布局，则可能需要选择此技术，而不是CSS Feature Queries。 您可以使用它来创建具有程序化后备功能的Web组件。
 
-![subgrid is available.](https://cdn-images-1.medium.com/max/2000/1*vk89GdczF9r3hEZI6841gw.png)
+## 3. 属性的覆写
 
-![subgrid is not available.](https://cdn-images-1.medium.com/max/2000/1*j8rPVYjENApqFPg--2Be_A.png)
+有时候，您不需要 CSS 功能查询之类的奇特功能。您可以利用 CSS 属性的工作原理：在 CSS 类中重新定义属性时，最后一个有效的属性会被视作要使用的属性。
 
-As you can see, the results are 100% equal, but they are very similar. That’s what we are aiming for. As more browsers adopt `subgrid`, more users will be seeing the pixel-perfect version of your layout.
+那是什么意思？它怎么个好用？您可以通过覆盖 CSS 属性来定义后备广告：
 
-## Conclusion
+```css
+#container {
+    display: flex;
+    display: grid;
 
-Grid and Flexbox are meant to solve different scenarios. We can’t keep building everything with Flexbox because there’s still a minority of browsers not supporting it.
+    /* if grid is not available this will be invalid and it will apply the previous property value: flex */
+}
+```
 
-Upgrading from Flexbox to Grid should not mean layouts suddenly break on old devices. In this article, we explored how easy and fun it is to build progressive layouts. As we saw at the start, it is very important to have a strategy for how to proceed.
+我们可以以更简单的方式重做我们先前的 CSS 功能查询示例：
 
-These strategies are not just meant to add the basic Grid functionality. You take advantage of the latest features like `subgrid` as long as you provide a sensible fallback.
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grid in Production</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style>
+    #container {
+        display: flex;
+        display: grid;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid #000;
+        padding: 10px;
+    }
 
-I hope this motivates you to progressively start using Grid in production when it’s needed. You don’t have to hide behind Flexbox anymore.
+    @media (min-width: 768px) {
+        #container {
+            grid-template-columns: 100px 1fr 100px;
+        }
+    }
+
+    .side1 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
+
+    .side2 {
+        padding: 10px;
+        background-color: #CEB992;
+    }
+
+    .content {
+        padding: 10px;
+        min-height: 400px;
+        background-color: #5B2E48;
+    }
+
+    body {
+        color: #FFF;
+        font-weight: 500;
+    }
+</style>
+<script>
+    (function warnSupport() {
+        if (!CSS || !CSS.supports('display', 'grid')) {
+            alert('Warning your Browser does not support the latests features. Consider switching to a newer one')
+        }
+    })();
+</script>
+<div id="container">
+    <div class="side1">
+        Side Panel
+    </div>
+    <div class="content">
+        Main Content
+    </div>
+    <div class="side2">
+        Side Panel
+    </div>
+</div>
+</body>
+</html>
+```
+
+此 Fallback 简单但功能强大。在许多情况下它很有用 —— 您可能无法对要使用的所有 Grid 功能使用支持查询。
+
+让我们用它来摆脱最新的 Grid 功能之一：`subgrid`，我们应该如何使用它？
+
+让我们检查一下我们想对嵌套的 Grid 模板列使用 `subgrid` 的情况，划重点：
+
+```css
+#content {
+    grid-template-columns: inherit;
+    grid-template-columns: subgrid;
+}
+```
+
+在此示例中，当不支持 `subgrid` 时候，它将仅继承父级的 Grid 定义。这将创建一个大致相似的布局。
+
+这只是一个简单的例子。 您可以将 `grid-template-columns` 微调到某些固定大小，或者在您的特定情况下最适合的大小。
+
+这是完整的示例：
+
+```HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grid Playground</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style>
+    body {
+        color: white;
+        text-align: center;
+        box-sizing: content-box;
+        margin: 20px;
+    }
+
+    .palette-1 {
+        background-color: #CEB992;
+    }
+
+    .palette-2 {
+        background-color: #471323;
+    }
+
+    .palette-3 {
+        background-color: #73937E;
+    }
+
+    .palette-4 {
+        background-color: #5B2E48;
+    }
+
+    .palette-5 {
+        background-color: #585563;
+    }
+
+    #container {
+        padding: 10px;
+        background-color: #73937E;
+        height: 500px;
+        width: calc(100vw - 60px);
+        display: grid;
+        grid-template-rows: repeat(8, 1fr);
+        grid-template-columns: max-content 1fr 1fr 1fr;
+        row-gap: 1rem;
+
+    }
+
+    .item {
+        padding: 20px;
+    }
+
+    .content-main {
+        grid-column: span 3;
+    }
+
+    #content {
+        background-color: #73937E;
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: inherit;
+        grid-template-columns: subgrid;
+        column-gap: 1rem;
+    }
+
+
+</style>
+<div id="container">
+    <div id="content">
+        <div class="content-left item palette-5">
+            Content Title
+        </div>
+        <div class="content-main item palette-4">
+        </div>
+    </div>
+    <div id="content">
+        <div class="content-left item palette-5">
+            Another Content Title
+        </div>
+        <div class="content-main item palette-4">
+        </div>
+    </div>
+</div>
+</script>
+</body>
+</html>
+```
+
+至于结果：
+
+![`subgrid` 可用时](https://cdn-images-1.medium.com/max/2000/1*vk89GdczF9r3hEZI6841gw.png)
+
+![`subgrid` 不可用时](https://cdn-images-1.medium.com/max/2000/1*j8rPVYjENApqFPg--2Be_A.png)
+
+如我们所见，结果是完全一致的，但是它们的实现非常相似，这就是我们的目标。随着越来越多的浏览器采用 `subgrid`，更多的用户将看到布局的像素完美版本。
+
+## 结论
+
+Grid 和 Flexbox 旨在解决不同的情况。我们无法继续使用 Flexbox 构建所有内容，因为仍然有少数浏览器不支持它。
+
+从 Flexbox 升级到 Grid 并不意味着布局在旧设备上突然失效。在本文中，我们探讨了构建渐进式布局有多么容易和有趣。正如我们在一开始所看到的那样，制定一项如何进行的战略非常重要。
+
+这些策略不仅仅是为了添加基本的 Grid 功能。只要我们提供合理的 Fallback，我们就可以利用诸如 subgrid 之类的最新功能。
+
+我希望这能激发我们在需要时逐步在生产中使用 Grid 的动机，现在，我们不必再躲在 Flexbox 后面了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
