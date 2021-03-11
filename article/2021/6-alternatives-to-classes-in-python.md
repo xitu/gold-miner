@@ -200,11 +200,11 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 ## 5. Dataclass
 
-Dataclasses were added in Python 3.7 with [PEP 557](https://www.python.org/dev/peps/pep-0557/). They are similar to attrs, but in the standard library. It’s especially important to note that dataclasses are “just” normal classes that happen to have lots of data in them.
+Dataclasses 在 [PEP 557](https://www.python.org/dev/peps/pep-0557/) 中被加入 Python 3.7。它与 attrs 类似，但是被收录于标准库中。一个很重要的点是 dataclass 就是普通的类， 不过是其中保存大量的数据而已。
 
-In contrast to attrs, data classes use type annotations instead of the `attr.ib()` notation. I think this increases readability a lot. Also, the editor support is better because you now have to annotate the attributes.
+与 attrs 不同的是， dataclass 使用类型注解而非 `attr.ib()` 这样的注解。我认为这样大大提高了可读性。另外，由于现在对属性有了注解，编辑器的支持效果也更好了。
 
-You can easily make it immutable by changing the decorator to `@dataclass(frozen=True)` — just like with attrs.
+你可以很容易的利用装饰器 `@dataclass(frozen=True)` 使 dataclass 变成不可修改的——这与 attrs 类似。
 
 ```Python
 from typing import Optional
@@ -226,7 +226,7 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-One part that I’m lacking here is attribute validation. I can use `__post_init__(self)` to do it for the construction:
+这里我少说的一部分是属性的验证。可以在构造器中使用 `__post_init__(self)` 来实现：
 
 ```Python
 def __post_init__(self):
@@ -238,7 +238,7 @@ def __post_init__(self):
         raise ValueError(f"Latitude was {v}, but must be in [-90, +90]")
 ```
 
-You can also combine dataclasses with properties:
+你也可以将 dataclass 和属性一起使用：
 
 ```Python
 @dataclass
@@ -272,11 +272,11 @@ class Position:
         self._longitude = longitude
 ```
 
-However, I don’t like that so much. It is again super verbose and removes a lot of the charm of dataclasses. If you need validation that is not covered by the types, then go for Pydantic.
+但是，我不太喜欢。 它又是超级冗长的，并且消除了许多 dataclass 的魅力。 如果您需要类型未涵盖的验证，请使用Pydantic。
 
 ## 6. Pydantic
 
-[Pydantic](https://pydantic-docs.helpmanual.io/) is a third-party library that focuses on data validation and settings management. You can either inherit from `pydantic.BaseModel` or create a dataclass with Pydantic:
+[Pydantic](https://pydantic-docs.helpmanual.io/) 是一个专注于数据各实验组和设置管理的第三方库。要使用它，你可以继承自 `pydantic.BaseModel` 或者创建一个 Pydantic 的 dataclass：
 
 ```Python
 from typing import Optional
@@ -312,21 +312,21 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 ```
 
-At first glance, this is identical to the standard `@dataclass` — except that you get the `dataclass` decorator from Pydantic.
+乍一看，这与标准的 `@dataclass` 相同，只是从 Pydantic 获得了 dataclass 装饰器。
 
-## Mutability and Hashability
+## 可变性和散列性
 
-I don’t tend to consciously think about mutability a lot, but in many cases, I want my classes to be immutable. The big exceptions are database models, but they are a complete story on their own.
+我不太会自觉地考虑可变性，但是在很多情况下，我希望我的类是不变的。最大的例外是数据库模型，但它们本身就是自洽的。
 
-Having the option to mark classes as frozen to make their objects immutable is pretty nice.
+可以选择将类标记为冻结以使其对象不可变，这非常不错。
 
-Implementing `__hash__` for a mutable object is problematic because the hash might change when the object is changed. This means if the object is in a dictionary, the dictionary would need to know that the hash of the object has changed and store it in a different location. For this reason, both dataclasses and Pydantic prevent the hashing of mutable classes by default. They have `unsafe_hash`, though.
+为一个可变对象实现 __hash__ 是有问题的，因为当对象改变时哈希值可能会改变。这意味着如果对象在字典中，则字典将需要知道对象的哈希值已更改，并将其存储在其他位置。因此，默认情况下，dataclass 和 Pydantic 都不对可变类进行散列，因为他们有  `unsafe_hash`。
 
-## Default String Representation
+## 默认字符串表示
 
-Having a reasonable string representation is super helpful (e.g. for logging). And let’s be honest: A lot of people do `print` debugging.
+拥有合理的字符串表示形式非常有帮助（例如，用于日志记录）。老实说：很多人都在进行 `print` 调试。
 
-If we printed `pos1` from the examples above, here is what we would get. The linebreaks and alignments were added to keep things nice to read. The original results are on one line:
+如果我们打印上面例子中的 `pos1`，下面是我们能得到的。为了方便阅读已经添加了换行和缩进。原始的输出是在一行内的：
 
 ```
 >>> print(pos1)
@@ -347,11 +347,11 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
                          address='Parkstraße 17')
 ```
 
-You can see that the string representation of an object created from a plain class is useless. Tuples are better, but they don’t indicate which index represents which attribute. All remaining representations are pretty awesome. They are easy to understand and can even be used to recreate the object!
+您可以看到从普通类创建的对象的字符串表示形式是无用的。元组看起来更好，但是它们没有指出哪个索引代表哪个属性。其余所有表示形式都很棒。它们很容易理解，甚至可以用来重新创建对象！
 
-## Data Validation
+## 数据验证
 
-You have seen how data validation can be implemented for plain classes, attrs, dataclasses, and Pydantic. What you haven’t seen is what the error messages look like.
+您已经了解了如何为普通类、attrs、dataclass 和 Pydantic 实现数据验证。您没有看到的是错误消息的样子。
 
 For the following, I will attempt to create `Position(1234, 567)`. So both the longitude and latitude are wrong. Here are the error messages this triggers:
 
