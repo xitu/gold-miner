@@ -6,10 +6,10 @@
 > * 校对者：
 
 # Announcing the New TypeScript Handbook
+
 Hey folks, we’re happy to announce that a fresh re-write of the TypeScript Handbook is out of beta and is now our website’s primary resource for learning TypeScript!
 
 ![](https://camo.githubusercontent.com/31314b426b9625bab48f962812b35f25c46f1d4f89ffbc652192b5e2cd81cf8f/68747470733a2f2f646576626c6f67732e6d6963726f736f66742e636f6d2f747970657363726970742f77702d636f6e74656e742f75706c6f6164732f73697465732f31312f323032312f30332f53637265656e2d53686f742d323032312d30332d30352d61742d322e35332e32372d504d2e706e67)
-
 
 Read the handbook on [Web](https://www.typescriptlang.org/docs/handbook/intro.html) / [Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub) / [PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf)
 
