@@ -13,7 +13,7 @@ Every serious tech enthusiast should own at least one Raspberry Pi or, if you’
 
 In honor of the Raspberry Pi’s ninth birthday, here are 9 key facts about it.
 
-# 1. Raspberry Pi’s original target was just 1,000 units.
+## 1. Raspberry Pi’s original target was just 1,000 units.
 
 The Raspberry Pi was originally developed to solve a very limited problem: the decreasing number of people applying to study computer science at Cambridge University. The number of applications had dropped from 600 to 250 per year and Eben Upton, who was the director of studies and responsible for admission, became concerned that not enough kids were taking an interest in computers. By providing a low-cost, hackable computer to just a few kids in the UK, Upton intended to get more and better students for his program.
 
@@ -67,7 +67,7 @@ Even though the Raspberry Pi B+, Raspberry Pi 2, Raspberry Pi 3 B and other mode
 
 Even after the price of the Raspberry Pi 4 B (2GB) dropped to $35, the 1GB model remained available at the same price, because some customers may still want it as a drop-in replacement.
 
-# **8. The price of Raspberry Pi has dropped, relative to inflation.**
+## 8. The price of Raspberry Pi has dropped, relative to inflation.
 
 The original Raspberry Pi cost $35 in 2012 while the [Raspberry Pi 4](https://www.tomshardware.com/reviews/raspberry-pi-4) B (2GB) costs the same price today. However, if you consider inflation, $35 from 2012 is actually equivalent to $39.88 today. For that same price, you get:
 
