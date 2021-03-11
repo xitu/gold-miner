@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-
 # Working toward fairer machine learning
 
 Editor’s note: [Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) is a senior applied scientist with Amazon Web Services (AWS). He and his co-author, [Luca Oneto](https://www.lucaoneto.com/), associate professor of computer engineering at University of Genoa, have written about how different approaches can make data-driven predictions fairer for underrepresented groups. Oneto also won a [2019 Machine Learning Research award](https://www.amazon.science/research-awards/recipients/luca-oneto) for his work on algorithmic fairness. In this article, Donini and Oneto explore the research they and other collaborators have published related to designing machine learning (ML) models from a human-centered perspective, and building responsible AI.
@@ -13,7 +12,6 @@ Editor’s note: [Michele Donini](https://www.linkedin.com/in/michele-donini-24
 ## What is fairness?
 
 Fairness can be defined in many different ways, and many different formal notions exist, such as demographic parity, equal opportunity, and equal odds.
-
 
 >![https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png](https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png)
 >
@@ -30,7 +28,6 @@ Broadly speaking, we can group current literature on algorithmic fairness into t
 - The first approach consists of pre-processing the data to remove historical biases and then feeding this data to classical ML models.
 - The second approach consists of post-processing an already learned ML model. This approach is useful when very complex ML models need to be made fairer without touching their inner structure or when re-training them is unfeasible (due to computational cost, or time requirements).
 - The third approach, called in-processing, consists of enforcing fairness notions by imposing specific statistical constraints during the learning phase of the model. This is the most natural approach, but so far, it has required ad hoc solutions tailored to specific tasks and data sets.
-
 
 >![https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png](https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png)
 >
@@ -54,7 +51,6 @@ We observe that, in practice, we can meet our fairness constraint simply by requ
 
 In this paper, we consider the case in which the ML model learns a regression function (as opposed to a classification task). We propose a post-processing method for transforming a real-valued regression function — the ML model — into one that satisfies the demographic-parity constraint (i.e., the probability of getting a positive outcome should be virtually the same for different subgroups). In particular, the new regression function is as good an approximation of the original as is possible while still satisfying the constraint, making it an optimal fair predictor.
 
-
 >![](https://assets.amazon.science/dims4/default/193689d/2147483647/strip/true/crop/250x310+0+0/resize/1200x1488!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2F30%2F64%2F814dbdbf42e8b57c5454be7be982%2Ffair-representation-copy.png)
 >
 >In “Fair regression with Wasserstein barycenters”, we consider the case in which the ML model learns a regression function and propose a post-processing method for transforming a real-valued regression function — the ML model — into one that satisfies the demographic-parity constraint.
@@ -74,8 +70,6 @@ We propose a learning algorithm that imposes constraints based on two different 
 Algorithmic fairness is a topic of great importance, with impact on many applications. In our work, we have attempted to take a small step forward, but the issue requires much further research; even the definition of what “being fair” means for an ML model is still an open research question.
 
 It’s also becoming clearer that we need to keep humans in the loop during the lifecycle of ML models, to evaluate whether the models are acting as we would like them to. In this sense, it is important to note that many other research subjects – such as the explainability, interpretability, and privacy of ML models – are deeply connected to algorithmic fairness. They can work in synergy, with the common goal of increasing the trustworthiness of ML models.
-
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
