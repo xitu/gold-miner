@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-the-new-typescript-handbook.md](https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-the-new-typescript-handbook.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[itcodes](https://github.com/itcodes)
 
 # 新发布的 TypeScript 手册！先睹为快！
 
@@ -31,7 +31,7 @@
 
 - **让编译器说了算**
 
-    如果你已经使用了新网站推出的 TypeScript 文档，你可能已经注意到，我们有一些代码示例提供了内联上下文，例如快速信息和报错提示，甚至可以显示输出 `.js` 和 `.d.ts` 文件。
+    如果你已经使用了网站上新发布的 TypeScript 文档，那么你应该已经注意到我们提供了一些代码示例，这些示例提供了内联的上下文，例如快速信息提示和错误提示，甚至还可以显示 `output.js` 和 `.d.ts` 文件。
 
    作为手册的编写者，我们必须处理好 TypeScript 的变化对文档的影响。当我们把网站迁移到一个新的 TypeScript 版本时，也会迁移手册。如果结果不一致，我们很容易发现，并决定需要做哪些改变。
 
