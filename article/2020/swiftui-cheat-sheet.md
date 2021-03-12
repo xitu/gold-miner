@@ -2,12 +2,12 @@
 > * 原文作者：[Jared Sinclair](https://jaredsinclair.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md](https://github.com/xitu/gold-miner/blob/master/article/2020/swiftui-cheat-sheet.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
+> * 校对者：[Zilin Zhu](https://github.com/zhuzilin),[PassionPenguin](https://github.com/PassionPenguin)
 
-# When Should I Use \@State, \@Binding, \@ObservedObject, \@EnvironmentObject, or \@Environment?
+# 我们应该在什么时候使用 \@State、\@Binding、\@ObservedObject、\@EnvironmentObject 和 \@Environment？
 
-SwiftUI introduced a laundry list of new property wrappers that your code can use to bridge the gap between program state and your views:
+SwiftUI 引入了一系列新的属性包装器让你的代码可以通过它们架起程序状态和视图之间的桥梁：
 
 ```swift
  @State
@@ -17,29 +17,29 @@ SwiftUI introduced a laundry list of new property wrappers that your code can us
  @Environment
 ```
 
-That’s only a partial list. There are other property wrappers for Core Data fetch requests and gesture recognizers. But this post isn’t about these other wrappers. Unlike the wrappers above, the use cases for `@FetchRequest` and `@GestureState` are unambiguous, whereas it can be very confusing how to decide when to use a `@State` versus `@Binding`, or `@ObservedObject` versus `@EnvironmentObject`, etc.
+这只是其中一部分。还有其他用于 Core Data 获取请求和用于识别手势的属性包装器。但这些包装器与本文无关。与列举的包装器不同是，`@FetchRequest` 和`@GestureState` 的使用场景是明确的，然而，何时应该使用 `@State` 还是 `@Binding`，或 `@ObservedObject` 还是 `@EnvironmentObject` ，这些通常会令人感到困惑。
 
-This post is an attempt to define in simple, repeatable terms when each wrapper is an appropriate choice. There’s a risk I’m being overly prescriptive here, but I’ve gotten some decent mileage from these rules already. Besides, being overly prescriptive is a time-honored programmer blog tradition, so I’m in good albeit occasionally obnoxious company.
+本文试图通过简单、重复性的术语来定义每个包装器合适的使用时机。在这里我可能有点过于规定性，但我从这些规则中已经有了不错的收获。此外，过度规范是一个由来已久的程序员编写博客的传统，因此尽管偶尔会令人讨厌，但我想遵循规范应该会对你有所帮助。
 
-All of the code samples that follow are available [in this GitHub repo](https://github.com/jaredsinclair/swiftui-property-wrappers).
+下面的所有代码示例代码都可以在 [GitHub 仓库](https://github.com/jaredsinclair/swiftui-property-wrappers) 中找到。
 
-> **Note for posterity: this post was written using Swift 5 and iOS 13.**
+> **注意：本文是基于 iOS 13 并使用 Swift 5 编写的。**
 
-## Cheat Sheet
+## 速查表
 
-1. Use `@State` when your view needs to mutate one of its own properties.
-2. Use `@Binding` when your view needs to mutate a property owned by an ancestor view, or owned by an observable object that an ancestor has a reference to.
-3. Use `@ObservedObject` when your view is dependent on an observable object that it can create itself, or that can be passed into that view’s initializer.
-4. Use `@EnvironmentObject` when it would be too cumbersome to pass an observable object through all the initializers of all your view’s ancestors.
-5. Use `@Environment` when your view is dependent on a type that cannot conform to ObservableObject.
-6. Also use `@Environment` when your views are dependent upon more than one instance of the same type, as long as that type does not need to be used as an observable object.
-7. If your view needs more than one instance of the same observable object class, you are out of luck. You cannot use `@EnvironmentObject` nor `@Environment` to resolve this issue. (There is a hacky workaround, though, at the bottom of this post). 
+1. 当你的视图需要改变它自己的属性时，请使用 `@State`。
+2. 当你的视图需要更改祖先视图所拥有的属性或祖先视图所引用的可观察对象所拥有的属性时，请使用 `@Binding` 。
+3. 当你的视图依赖于可观察对象时，请使用 `@ObservedObject`，该对象可以自我创建，也可以当做参数传递给该视图的构造方法。
+4. 当通过视图所有祖先视图的构造方法传递一个可观察对象太麻烦时，请使用 `@EnvironmentObject`。
+5. 当视图所依赖的类型不符合 ObserveObject 时，请使用 `@Environment`。
+6. 当视图依赖于多个相同类型的实例时，只要该类型不需要被用作可观察对象，也可以使用 `@Environment`。
+7. 如果你的视图需要同一个可观察对象类的多个实例，那么不走运了。您不能使用 `@EnvironmentObject` 或 `@Environment` 来解决问题。(不过，在这篇文章的底部有一个简单的变通方法)。
 
-## Your view needs a `@State` property if…
+## 你的视图需要一个 `@State` 属性，如果…
 
-### …it needs read/write access to one of its own properties for private use.
+### …它需要对自己的某个属性进行读/写访问以供私有使用时。
 
-A helpful metaphor is the `isHighlighted` property on UIButton. Other objects don’t need to know when a button is highlighted, nor do they need write access to that property. If you were implementing a from-scratch button in SwiftUI, your `isHighlighted` property would be a good candidate for an @State wrapper.
+就像是 UIButton 上的 `isHighlighted` 属性。其他对象不需要知道按钮什么时候高亮显示，也不需要对该属性进行赋值操作。如果你要在 SwiftUI 中从头开始实现一个按钮，那么使用  @State 包装器修饰你的 `isHighlighted` 属性将是一个很好的选择。
 
 ```swift
 struct CustomButton<Label>: View where Label : View {
@@ -50,11 +50,11 @@ struct CustomButton<Label>: View where Label : View {
     /// its own properties for private use
     @State private var isHighlighted = false
 }
-``` 
+```
 
-### …it needs to provide read/write access of one of its properties to a descendant view.
+### …它需要让子视图可以对其某个属性进行读/写访问时。
 
-Your view does this by passing the `projectedValue` of the @State-wrapped property, which is a Binding to that value [1]. A good example of this is SwiftUI.Alert. Your view is responsible for showing the alert by changing the value of some @State, like an `isPresentingAlert` boolean property. But your view can’t dismiss that alert itself, nor does the alert have any knowledge of the view that presented it. This dilemma is resolved by a Binding. Your view passes the Alert a Binding to its `isPresentingAlert` property by using the compiler-generated property `self.$isPresentingAlert`, which is syntax sugar for the @State wrapper’s projected value. The `.alert(isPresented:content:)` modifier takes in that binding, which is later used by the alert to set `isPresentingAlert` back to false, in effect allowing the alert to dismiss itself.
+视图通过传递 @State-wrapped 属性的 `projectedValue` 来实现这一点，该属性是该值的绑定 <sup><a href="#note1">[1]</a></sup>。一个很好的例子是 SwiftUI.Alert。视图通过改变某个使用 @State 修饰的属性的值来负责控制 Alert 弹框的显示与否，比如一个 `isPresentingAlert` 的布尔属性。但是视图不能隐藏 Alert 弹框本身，因为 Alert 弹框并不知道它在具体哪个视图弹出。可以通过使用 `@State` 属性解决这个难题。通过使用编译器生成的 `self.$isPresentingAlert` 属性，视图与 Alert 弹框的 `isPresentingAlert` 属性做了一个绑定，这是 @State 包装器的预测值的语法糖。`.alert(isPresented:content:)` 修饰符接受了这个绑定，随后，Alert 弹框将它的 `isPresentingAlert` 属性设为 false，从而实现了弹框的自动消失。
 
 ```swift
 struct MyView: View {
@@ -73,13 +73,13 @@ struct MyView: View {
         }
     }
 }
-``` 
+```
 
-## Your view needs a `@Binding` property if…
+## 你的视图需要一个 `@Binding` 属性，如果…
 
-### …it needs read/write access to a `State`-wrapped property of an ancestor view
+### …它需要对祖先视图的 `State` 包装属性进行读/写访问
 
-This is the reverse perspective of the alert problem described above. If your view is like an Alert, where it’s dependent upon a value owned by an ancestor and, crucially, needs mutable access to that value, then your view needs a @Binding to that value.
+与上述 Alert 弹框的场景相反。如果你的视图类似于 Alert 弹框，它依赖于祖先所拥有的值，并且关键的是，需要对该值的可变访问，那么该视图需要一个 @Binding 到该值。
 
 ```swift
 struct MyView: View {
@@ -104,17 +104,17 @@ struct CustomAlertView: View {
     /// wrapped property of an ancestor view
     @Binding var isBeingPresented: Bool
 }
-``` 
+```
 
-### …it needs read/write access to a property of an object conforming to `ObservableObject` but the reference to that object is owned by an ancestor.
+### …它需要对符合 `ObservableObject` 的对象的属性进行读/写访问，但是对该对象的引用是由其祖先拥有的。
 
-Boy that’s a mouthful. In this situation, there are three things:
+天啊，这可真拗口。在这种情况下，有三件事：
 
-1. an observable object
-2. some ancestor view that has an @-Something wrapper referencing that object
-3. **your** view, which is a descendant of #2.
+1. 一个可观察的物体
+2. 具有引用该对象的 @-Something 包装器的祖先视图
+3. **你的**视图是 #2 的后代。（视图是其所继承的某个祖先视图的后代视图）
 
-Your view needs to have read/write access to some member of that observable object, but your view does not (and should not) have access to that observable object. Your view will then define a @Binding property for that value, which the ancestor view will provide when your view is initialized. A good example of this is any reusable input view, like a picker or a text field. A text field needs to be able to have read/write access to some String property on another object, but the text field should not have a tight coupling to that particular object. Instead, the text field’s @Binding property will provide read/write access to the String property without exposing that property directly to the text field.
+你的视图需要具有对该可观察对象的某些成员的读/写访问权限，但是它没（也不应）具有对该可观察对象的访问权限。然后，视图将为该值定义一个 @Binding 属性，该属性将在视图初始化时由其祖先视图提供。这方面的一个很好的例子是任何可复用的输入视图们，如选择器或文本框。 一个文本框需要能够对另一个对象上的一些字符串属性有读/写访问权，但是文本框不应该与那个特定的对象紧密耦合。相反，文本框的 @Binding 属性将提供对字符串属性的读/写访问权限，而无需将该属性直接暴露给文本框。
 
 ```swift
 struct MyView: View {
@@ -141,11 +141,11 @@ struct NamePicker: View {
 }
 ```
 
-## Your view needs an `@ObservedObject` property if…
+## 你的视图需要一个 `@ObservedObject` 属性，如果…
 
-### …it is dependent on an observable object that it can instantiate itself.
+### …它取决于可实例化的可观察对象。
 
-Imagine you have a view that displays a list of items pulled down from a web service. SwiftUI views are transient, discardable value types. They’re good for displaying content, but not appropriate for doing the work of making web service requests. Besides, you shouldn’t be mixing user interface code with other tasks as that would violate the [Single Responsibility Principle](https://en.wikipedia.org/wiki/Single-responsibility_principle). Instead your view might offload those responsibilities to an object that can coordinate the tasks needed to make a request, parse the response, and map the response to user interface model values. Your view would own a reference to that object by way of an @ObservedObject wrapper.
+假设你有一个视图，用来展示从网络服务获取的项目列表。SwiftUI 的视图是临时的、可丢弃的值类型。它们很适合展示内容，但不适合进行网络服务请求。此外，你不应该将用户界面代码与其他任务混在一起，因为那样会违反[单一职责原则](https://en.wikipedia.org/wiki/Single-responsibility_principle)。取而代之的是，你可能会将这些责任转移给另一个对象，该对象可以协调发出请求，解析响应并将响应映射到用户界面模型值所需的值。视图将通过 @ObservedObject 包装器拥有对该对象的引用。
 
 ```swift
 struct MyView: View {
@@ -164,9 +164,9 @@ struct MyView: View {
 }
 ```
 
-### …it is dependent on a reference type object that can easily be passed to that view’s initializer.
+### …它依赖于一个引用类型对象，该对象可以很容易地传递给视图的构造器。
 
-This scenario is nearly identical to the previous scenario, except that some other object besides your view is responsible for initializing and configuring the observable object. This might be the case if some UIKit code is responsible for presenting your SwiftUI view, especially if the observable object can’t be constructed without references to other dependencies that your SwiftUI view cannot (or should not) have access to.
+这个场景与前面的场景几乎相同，除了视图之外还有其他一些对象负责初始化和配置可观察对象。如果某些 UIKit 代码负责呈现你的 SwiftUI 视图，则可能会出现这种情况，特别是如果可观察对象在没有引用其他 SwiftUI 视图时，在不能（或不应该）访问依赖项的情况下被访问。 
 
 ```swift
 struct MyView: View {
@@ -196,11 +196,11 @@ extension UIViewController {
 }
 ```
 
-## Your view needs an `@EnvironmentObject` property if…
+## 你的视图需要一个 `@EnvironmentObject` 属性，如果…
 
-### …it would be too cumbersome to pass that observed object through all the initializers of all your view’s ancestors.
+### …将观察到的对象传递给视图所有祖先的所有构造器，这样太麻烦了
 
-Let’s return to the second example from the @ObservedObject section above, where an observable object is needed to carry out some tasks on behalf of your view, but your view is unable to initialize that object by itself. But let’s now imagine that your view is not a root view, but a descendant view that is deeply nested within many ancestor views. If none of the ancestors need the observed object, it would be painfully awkward to require every view in that chain of views to include the observed object in their initializer arguments, just so the one descendant view has access to it. Instead, you can provide that value indirectly by tucking it into the SwiftUI environment around your view. Your view can access that environment instance via the @EnvironmentObject wrapper. Note that once the @EnvironmentObject’s value is resolved, this use case is functionally identical to using an object wrapped in @ObservedObject.
+让我们回到上面 @ObservedObject 部分的第二个示例，其中需要一个可观察对象来代表你的视图执行某些任务，但是视图无法自己初始化该对象。但是现在让我们假设你的视图不是根视图，而是深深地嵌套在许多祖先视图中的后代视图。如果所有祖先视图都不需要该被观察对象，那么要求视图链中的每个视图都将被观察对象包含在它们的构造器参数中，只为了让某一个后代视图能够访问它，这将非常尴尬。相反，你可以通过将其放入视图周围的 SwiftUI 环境来间接提供该值。视图可以通过 @EnvironmentObject 包装器访问当前环境实例。注意，一旦 @EnvironmentObject 的值被解析，这个用例在功能上与使用包装在 @ObservedObject 中的对象是相同的。
 
 ```swift
 struct SomeChildView: View {
@@ -232,17 +232,17 @@ struct SomeGrandparentView: View {
 }
 ```
 
-## Your view needs an `@Environment` property if…
+## 你的视图需要一个 `@Environment` 属性，如果…
 
-### …it is dependent on a type that cannot conform to ObservableObject.
+### …这取决于是否符合 ObservableObject 类型。
 
-Sometimes your view will have a dependency on something that cannot conform to ObservableObject, but you wish it could because it’s too cumbersome to pass it as a initializer argument. There are a number of reasons why a dependency might not be able to conform to ObservableObject:
+有时候你的视图会依赖一些不符合 ObservableObject 的东西，但你希望它能够符合，因为把它作为构造器参数传递太麻烦了。一个依赖可能不能符合 ObservableObject 的原因有很多，比如：
 
-* The dependency is a value type (struct, enum, etc.)
-* The dependency is exposed to your view only as a protocol, not as a concrete type
-* The dependency is a closure
+* 依赖项是一个值类型（类似结构，枚举等）
+* 依赖项仅作为协议而不是具体类型向视图公开
+* 依赖关系是一个闭包
 
-In cases like these, your view would instead use the @Environment wrapper to obtain the required dependency. This requires some boilerplate to accomplish correctly.
+在这种情况下，视图将使用 @Environment 包装器来获得所需的依赖项。这需要一些样板才能正确完成。
 
 ```swift
 struct MyView: View {
@@ -286,9 +286,9 @@ extension EnvironmentValues {
 }
 ```
 
-### …your views are dependent upon more than one instance of the same type, as long as that type does not need to be used as an observable object.
+### …你的视图依赖于同一个类型的多个实例，只要该类型不需要被用作可观察对象。
 
-Since @EnvironmentObject only supports one instance per type, that idea is a non-starter. Instead if you need to register multiple instances of a given type using per-instance key paths, then you will need to use @Environment so that your views’ properties can specify their desired keypath.
+由于 @EnvironmentObject 每种类型仅支持一个实例，所以这种想法是行不通的。相反，如果您需要使用每个实例的键路径注册给定类型的多个实例，则需要使用 @Environment，以便视图的属性可以指定其所需的键路径。
 
 ```swift
 struct MyView: View {
@@ -346,15 +346,15 @@ extension EnvironmentValues {
 }
 ```
 
-## Workaround for Multiple Instances of an EnvironmentObject
+## 一个 EnvironmentObject 的多实例的解决方案
 
-While it is **technically** possible to register an observable object using the `.environment()` modifier, changes to that object’s `@Published` properties will not trigger an invalidation or update of your view. Only `@EnvironmentObject` and `@ObservedObject` provide that. Unless something changes in the upcoming iOS 14 APIs, there is only one recourse I have found: a hacky but effective workaround using a custom property wrapper.
+虽然在**技术**上可以使用 `.environment()` 修饰符注册一个可观察对象，但对该对象的 `@Published` 属性的更改不会触发视图的失效或更新。只有使用 `@EnvironmentObject` 和 `@ObservedObject` 才能做到这一点。除非即将发布的 iOS 14 API 有所变化，否则我只能找到一种方法：使用自定义属性包装器来解决这个问题。
 
-* You must register each instance using the `.environment()` modifier, **not** the `.environmentObject()` modifier.
-* You need a custom property wrapper conforming to `DynamicProperty` that owns a private `@ObservedObject` property whose value is retrieved during initialization by pulling it from a single-shot instantiation of an `Environment<T>` struct (used as an instance, not as a property wrapper).
-    
+* 你应该使用修饰符 `.environment()`  注册每个实例，而**不是**使用修饰符 `.environmentObject()`  注册。
+* 您需要一个符合 `DynamicProperty` 的自定义属性包装器，它拥有一个私有的 `@ObservedObject` 属性，该属性的值在初始化过程中通过从一个`Environment<T>` 结构的单次实例（用作实例，而不是属性包装器）中提取出来。
+  
 
-With this set up in place, your view can observe multiple objects of the same class:
+这样，视图就可以观察同一类的多个对象：
 
 ```swift
 struct MyView: View {
@@ -405,13 +405,13 @@ MyView()
     // each of these has a dedicated EnvironmentKey
 ```
 
-## Sample Code
+## 示例代码
 
-All of the code above is available [in an executable form here](https://github.com/jaredsinclair/swiftui-property-wrappers).
+上述所有示例均可从[这里](https://github.com/jaredsinclair/swiftui-property-wrappers)下载并执行。
 
-#### Reference
+#### 参考
 
-[1] Every `@propertyWrapper`-conforming type has the option of providing a `projectedValue` property. It is up to each implementation to decide the type of the value. In the case of the `State<T>` struct, the projected value is a `Binding<T>`. It behoves you, any time you’re using a new property wrapper, to jump to its generated interface to discover in detail what it’s projected value is.
+[1] <a name="note1"></a> 每个 `@propertyWrapper` ——一致性类型都将提供 `projectedValue `属性的选项。由具体实现来决定值的类型。 此例中 `State<T>` 的预期值是 `Binding<T>`。每当使用一个新的属性包装器时，你都应该跳转到它生成的界面，更深入地发现它的预期值。 
     
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。

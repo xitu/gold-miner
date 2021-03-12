@@ -2,62 +2,61 @@
 > * 原文作者：[Mayur Jain](https://medium.com/@mayur-ds)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/python-lists-and-tuples.md](https://github.com/xitu/gold-miner/blob/master/article/2021/python-lists-and-tuples.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[lsvih](https://github.com/lsvih)
 
-# Lists and Tuples in Python
+# Python 中的列表和元组
 
-Writing efficient programs involves understanding a couple of things, **first, what is the input to the program and second is selecting the best data structure to process that input.**
+要编写一个高效的程序，我们需要了解两件事事：**首先是程序的输入内容是什么，其次是我们应该如何选择最合适的数据结构来处理该输入。**
 
-In this blog post, we’ll try to understand the data structure, **List & Tuple** and the inputs it can efficiently process compared to other data structure like dict, set etc.
+在这篇博文中，我们将会在与 **dict**、**set** 等其他数据结构的比较中了解数据结构 **List** 和 **Tuple** 以及它可以有效处理的输入内容。
 
-List and tuples comes under a class of data structure called **array**. Array is a collection of elements, and ordering or positioning of these element is as important as the element itself. Because given a position or index, it takes O(1) time complexity, to find a element.
+列表和元组属于一类称为**数组**的数据结构。数组是元素的集合，而这些元素的顺序或位置与元素本身一样重要。因为定义数组时我们给定了位置或索引，所以找到元素需要的时间复杂度为 O(1)。
 
-> List is a dynamic array, where we can modify and resize the data we are storing in it.
->
-> Tuple is a static array, whose elements are fixed and immutable. Tuples are cached by the Python runtime, which means that we don’t need to talk to the kernel to reserve memory every time we want to use one.
+> 列表是一个动态数组，我们可以在其中修改和调整存储在其中的数据的大小。
+> 元组是一个静态数组，其元素是固定且不可变的。元组由 Python 运行时缓存，这意味着我们不需要在每次我们需要使用一个元组的时候 Python 不需要与内核对话来获得保留这个元组的内存。
 
-In a computer system, the memory is a series of numbered buckets, each capable of holding a number. Python stores data in these buckets by reference, which means the number itself simply points to, or refers to, the data we actually care about.
+在计算机系统中，存储器是一系列编号的分配存储块，每个分配存储块都可以容纳一个数字。Python 通过引用将数据存储在这些分配存储块中。这意味着数字本身只是指向或引用了我们实际关心的数据。
 
-![**Example of system memory layout for an array of size 6**](https://cdn-images-1.medium.com/max/2664/1*r3B7WgUsBJeYQmExYERwig.png)
+![**一个存储了长度为 6 的数组系统内存布局**](https://cdn-images-1.medium.com/max/2664/1*r3B7WgUsBJeYQmExYERwig.png)
 
-When we create a list or a tuple, we need to allocate a block of system memory, every section of that block is referenced using an integer pointer. In order to look up any specific element in a list, we should know the bucket number and the element we want.
+当创建列表或元组时，我们需要分配一个系统存储块，该块的每个部分都使用整数指针进行引用。为了查找列表中的任何特定元素，我们应该知道分配存储块的编号和所需的元素。
 
-For instance, consider we have an array starting at **bucket number,** **S**, to find the 5th element in that array, we can directly search for bucket number **S + 5**, similarly for all the i element in an array. But if the bucket number is not available for the given array, then we need to perform a search of element throughout the array, the time complexity increases with increase in size of the array. This search is also called **Linear Search**. It’s worst case performance is O(n), n is total number of element in the list. Other efficient searching algorithms can be applied for searching a element in an array such as binary search algorithm provided the list is sorted.
+例如，假设我们有一个从**分配存储块编号** **S** 开始的数组，要找到该数组中的第 5 个元素，我们可以直接搜索分配存储块编号 **S + 5** ，同样类推到数组中的 i 元素。但是，如果分配存储块编号不适用于给定的数组，那么我们需要在整个数组中执行元素搜索，时间复杂度会随着数组大小的增加而增加。此搜索也称为**线性搜索**。最坏的情况是 O(n)，其中 n 是列表中元素的总数。如果列表已排序，则可以使用其他有效的搜索算法来搜索数组中的元素如二分法。
 
-For searching and sorting, python has built in objects like **__eq__**, **__lt__** for comparison and **the lists in python have a built in sorting algorithm that uses Tim Sort**, its best case performance is O(n) and worst case performance is O(n log n).
+为了进行搜索和排序，Python 内置了 **__eq__**、**__lt__** 等比较方法，并且 Python 中的列表内置有 TimSort 的内置排序算法，而它的最佳情况是 O(n)，最坏的情况是 O(nlog n)。
 
-Once the sorting is done, we can perform **binary search**, whose average complexity is O(log n). It achieves this by first looking at the middle of the list and comparing this value with the desired value. If this midpoint’s value is less than our desired value, we consider the right half of the list, and we continue halving the list like this until the value is found, or until the value is known not to occur in the sorted list. As a result, we do not need to read all values in the list, as was necessary for the linear search; instead, we read only a small subset of them.
+排序完成后，我们可以进行二分法，一个平均复杂度为 O(log n) 的排序方法。它是通过查看列表的中间并将此值与所需值进行比较来实现查找的。如果中点的值小于我们的期望值，程序就会去比较列表的右半部分，然后继续像这样将列表不断缩小，直到找到该值或知道该值不会出现在已排序列表中为止。我们不需要像线性搜索那样需要读取列表中的所有值。相反，我们仅读取其中的一小部分。
 
-Note: Checkout **bisect** module from Python standard library, which adds elements to the list, along with maintaining the sorting order.
+注意：我们可以使用 Python 标准库中的 **bisect** 模块，该模块可以将元素添加到列表中、并保持排序顺序。
 
-**LISTS**
+**LISTS 列表**
 
-List is a dynamic array, its support dynamic changes because of the resize operation available to it.
+List 是一个动态数组，所以它可以使用调整大小操作，且它也支持动态更改。
 
-Consider a list A of size N, if a new item is appended to list A, then python creates a new list, which is large enough to hold N element and the new element. So instead of allocation N + 1 items, M items are allocated, M > N. The old list is copied to new list and old list is deleted or destroyed. It is recommended that this number of allocation should be reduced by requesting extra space while allocation is done the first time. Since memory copies are expensive to maintain, if the list starts growing.
+如果有一个大小为 N 的列表 A，如果将新项目附加到列表 A，则 Python 会创建一个足够容纳 N 个元素以及更多元素的新列表。即，Python 中的列表的创建，不是分配能够容纳 N + 1 个元素的数组，而是分配能够容纳 M 个元素（ M > N ）的数组。当 Python 复制旧列表到新列表的时候，它会随即删除或销毁旧列表。我们建议在首次分配时请求额外的空间，以减少后续分配的次数 —— 出于内存复制的消耗系统资源之大，列表元素的增加会严重影响程序运行速度。
 
-**List allocation equation**
+**List 的分配方程**
 
-```
+```python
 M = (N >> 3) + (3 if N < 9 else 6)
 ```
 
-![Overallocation in Lists](https://cdn-images-1.medium.com/max/2134/1*mYYlsNHqfxdvdSUUmlSARQ.png)
+![列表的 "过度" 分配](https://cdn-images-1.medium.com/max/2134/1*mYYlsNHqfxdvdSUUmlSARQ.png)
 
-Graph showing how many extra elements are being allocated to a list of a particular size. For example, if you create a list with 8,000 elements using appends, Python will allocate space for about 8,600 elements, overallocating 600 elements!
+该图显示列表尺寸与额外元素的关系。例如，如果使用创建了一个包含 8000 个元素的列表，Python 将返回一个能够容纳大约 8,600 个元素的列表，也就是会多分配 600 个元素的空间！
 
-![**Memory and time consequences of appends versus list comprehensions**](https://cdn-images-1.medium.com/max/2000/1*Tb-UGxpj6tL93pKUo8EXUg.png)
+![**追加元素对列表理解的记忆和时间的影响**](https://cdn-images-1.medium.com/max/2000/1*Tb-UGxpj6tL93pKUo8EXUg.png)
 
-we use 2.7× the memory by building the list with appends versus a list comprehension. The extra space allocated to append based insertion is lot more compared to list apprehension.
+当我们构建了一个列表并且添加元素时候，我们使用了 2.7 倍的内存。与创建列表相比，添加元素时候分配给列表的额外空间要大得多。
 
-**TUPLES**
+**TUPLES 元组**
 
-Tuples are fixed and immutable. This means that once a tuple is created, unlike a list, it cannot be modified or resized.
+元组是静态的，也就是说，一旦创建了元组，与列表不同，我们再也无法对其进行修改或调整其大小。
 
-**Immutable property**
+**特性 1：静态性**
 
-```
+```python
 >>> t = (1, 2, 3, 4)
 >>> t[0] = 5
 Traceback (most recent call last):
@@ -65,24 +64,24 @@ Traceback (most recent call last):
 TypeError: 'tuple' object does not support item assignment
 ```
 
-**Concatenating property**
+**特性 2：可连接性**
 
-```
+```python
 >>> t1 = (1, 2, 3, 4)
 >>> t2 = (5, 6, 7, 8)
 >>> t1 + t2
 (1, 2, 3, 4, 5, 6, 7, 8)
 ```
 
-Now, if we consider the concatenation operation with the list’s append operation, then its interesting to see that the time taken for tuples concatenation is O(n), while for the list is O(1). Because the list appends the elements, as long as there is extra space in the list. For tuples, every time a new element is concatenated to existing tuple, it creates a new tuple on a different memory location, causing the concatenation to take O(n) time (as there is no in-place append-like operation).
+现在，如果我们考虑将连接操作与列表的 `append` 操作放在一起，一起使用，那么有趣的是，元组连接所花费的时间将会是 O(n)，而列表所花费的时间为 O(1)。因为列表是追加元素的，所以列表中只要有多余的空间即可。对于元组，每当将一个新元素连接到现有元组时，它就会在不同的内存位置上创建一个新的元组，从而使连接花费 O(n) 时间（因为对于元组来说没有直接添加元素的方法可用）。
 
-Tuples are considered lightweight, because it takes only the memory that is required for the data unlike list. **It is recommended to use tuple, if the data is static.**
+元组被认为是轻量的 —— 与列表不同，元组仅占用数据所需的内存。所以说，**如果数据是静态的，我们建议大家去使用元组。**
 
-Another benefit of using Tuples is **resource caching.** Python is garbage collected, it means that if a variable isn’t used anymore, then it frees its memory, giving it back to OS for allocating that memory to other application or variable. For tuple, if a tuples space is not used anymore, then it reserves the memory of it and if in future the memory of that size is required, python instead of reaching out to OS for system memory, it allocates the reserved memory. It avoids system call for block of memory.
+使用元组的另一个好处是**资源回收** —— Python 是支持垃圾回收的，这意味着，当我们不再使用某个变量的时候，它将释放其内存，并将其返回给系统，以便将该内存分配给其他应用程序或变量。对于元组，如果不再使用元组空间，Python 会保留它的内存，并且如果将来需要该大小的内存，则 Python 不会去向系统寻求新的内存，而是直接分配自己保留下来的内存 —— 极大程度上避免了向系统再度调用内存块，节省了时间，优化了资源的配置。
 
-**Instantiation in List and Tuple**
+**List 和 Tuple 的实例**
 
-```
+```python
 >>> %timeit l = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 95 ns ± 1.87 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 
@@ -90,11 +89,11 @@ Another benefit of using Tuples is **resource caching.** Python is garbage colle
 12.5 ns ± 0.199 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
 ```
 
-Both the lists and tuples have there pros and cons, but its important to keep in mind about their properties like overallocation in list and immutability & resource caching in tuple while using it as a data structure.
+列表和元组都有优点和缺点，但是重要的是要牢记它们的特性 —— 例如列表中的过度分配以及元组中的静态和缓存资源，同时将其用作可能的数据结构。
 
-I hope, you liked reading the article !
+希望你会喜欢阅读本文！
 
-**Reference**
+**参考资料**
 
 [High Performance Python book](https://www.oreilly.com/library/view/high-performance-python/9781449361747/)
 

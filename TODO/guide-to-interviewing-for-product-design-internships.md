@@ -1,7 +1,7 @@
 >* 原文链接 : [A Guide to Interviewing for Product Design Internships](https://medium.com/facebook-design/a-guide-to-interviewing-for-product-design-internships-d719dd4c146c#.jhgjr12c)
 * 原文作者 : [Andrew Hwang](https://medium.com/@ahwng)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [iThreeKing](https://github.com/iThreeKing)
+* 译者 : [joyking7](https://github.com/joyking7)
 * 校对者: [邵辉Vista](https://github.com/shaohui10086), [circlelove](https://github.com/circlelove)
 
 # 产品设计实习生面试指南
