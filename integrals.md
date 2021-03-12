@@ -3401,10 +3401,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：196 当前积分：151 二零二一：0
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：196 当前积分：76 二零二一：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|兑换 3 件卫衣|减去积分|75|
 |[GitHub 2020 报告：在工作和娱乐之间找到平衡](https://github.com/xitu/Annual-Survey/blob/main/2020/github/GitHub%202020%20报告：在工作和娱乐之间找到平衡.pdf)|翻译|0|
 |[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|4|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|7|
