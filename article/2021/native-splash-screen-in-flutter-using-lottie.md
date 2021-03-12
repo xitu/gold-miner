@@ -11,7 +11,7 @@
 
 我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中以 FlutterActivity 或 FlutterViewController 的形式启动，会让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。因此，在应用启动时设置启动画面将会带来更好的用户体验。
 
-值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为起始屏幕，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
+值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为启动页，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
 
 ## 为什么我们要使用 Lottie?
 
