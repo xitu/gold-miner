@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2400/1*4vlkTJCWbP2Kh2vyK9BdEw.png)
 
-我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中使用的 FlutterActivity 或 FlutterViewController 作为启动的活动或视图控制器，会让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。
+我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中以 FlutterActivity 或 FlutterViewController 的形式启动，会让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。因此，在应用启动时设置启动画面将会带来更好的用户体验。
 
 值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为起始屏幕，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
 
@@ -33,7 +33,7 @@ dependencies {
 }
 ```
 
-2. 在 `AndroidManifest.xml` 中删去 `name` 为 io.flutter.embedding.android.SplashScreenDrawable 的元数据标记并替换 `activity` 标签下面的 `LaunchTheme` 为 `NormalTheme`，现在你的文件是这样的：
+2. 在 `AndroidManifest.xml` 中删去 `name` 为 io.flutter.embedding.android.SplashScreenDrawable 的 `<meta-data>` 标记并替换 `activity` 标签下面的 `LaunchTheme` 为 `NormalTheme`，现在你的文件是这样的：
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -185,7 +185,7 @@ pod install
 
 5. 使用 Xcode 将你的生成的 `.json` 文件拖到中的根目录中（请选择 `Copy items if needed` 选项），这个文件可能是你自己创建的文件，也有可能是你从上面的链接下载了免费样本。在本案例中它的名字是 `splash_screen.json`。
 
-6.在已经添加了依赖项和 `splash_screen.json` 文件的情况下，我们可以创建我们的初始视图控制器，该控制器将处理显示的动画。打开你的 ios 项目，在项目根目录处（相对于 Flutter 根目录：/ios/Runner）创建一个新的名为 `SplashViewController` 的 Swift 文件。在类中编写任何内容之前，我们先来修改一下 `AppDelegate.swift` 以创建 `FlutterEngine`。 如果你跳过了这个步骤，则动画启动画面的动画播放完了以后不能导航至 `FlutterViewController`。
+6.在已经添加了依赖项和 `splash_screen.json` 文件的情况下，我们可以创建我们的初始视图控制器，该控制器将处理显示的动画。打开你的 ios 项目，在项目根目录处（相对于 Flutter 根目录：/ios/Runner）创建一个新的名为 `SplashViewController` 的 Swift 文件。在类中编写任何内容之前，我们先来修改一下 `AppDelegate.swift` 以创建 `FlutterEngine`。 如果你跳过了这个步骤，则动画启动画面的动画播放完了以后不能跳转至 `FlutterViewController`。
 
 ```swift
 import UIKit
