@@ -1,7 +1,7 @@
 > * 原文地址：[Which type of loop is fastest in JavaScript?](https://medium.com/javascript-in-plain-english/which-type-of-loop-is-fastest-in-javascript-ec834a0f21b9)
 > * 原文作者：[kushsavani](https://kushsavani.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Which%20type%20of%20loop%20is%20fastest%20in%20JavaScript%3F.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Which%20type%20of%20loop%20is%20fastest%20in%20JavaScript%3F.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Chorer](https://github.com/Chorer)、[HumanBeing](https://github.com/HumanBeingXenon)
 
