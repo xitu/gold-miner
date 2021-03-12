@@ -270,11 +270,11 @@ let flutterViewController = FlutterViewController(engine: flutterEngine, nibName
 
 ![设置 Main interface 为 Main](https://cdn-images-1.medium.com/max/3274/1*KQV8lIB3aRfA_AHtTNXi4g.png)
 
-生成并运行该应用程序，你应该能够看到动画的启动页：
+生成并运行该应用程序，你应该能够看到动画的启动页了：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bdfeeBtOIHW_1A0MfdjnZQ.gif)
 
-就是这样，你现在已经生成了针对 Android 和 iOS 应用程序的动画启动页。有关完整的源代码和演示应用程序在这里：
+就是这样，你现在已经生成了针对 Android 和 iOS 应用程序的动画启动页。有关完整的源代码和演示应用程序可以在这里获取到：
 
 [**AbedElazizShe/flutter_lottie_splash_app**](https://github.com/AbedElazizShe/flutter_lottie_splash_app)
 
