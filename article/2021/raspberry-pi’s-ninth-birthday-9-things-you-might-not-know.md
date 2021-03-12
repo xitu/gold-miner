@@ -1,10 +1,9 @@
 >  * 原文地址：[Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know](https://www.tomshardware.com/news/raspberry-pi-9th-birthday)
 > * 原文作者：[Avram Piltch]([https://www.tomshardware.com/author/avram-piltch](https://www.tomshardware.com/author/avram-piltch))
 > * 译文出自：[掘金翻译计划]([https://github.com/xitu/gold-miner](https://github.com/xitu/gold-miner))
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-2020-results.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md)
 > * 译者：
 > * 校对者：
-
 
 # Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know
 
@@ -14,13 +13,11 @@ Every serious tech enthusiast should own at least one Raspberry Pi or, if you’
 
 In honor of the Raspberry Pi’s ninth birthday, here are 9 key facts about it.
 
-# 1. Raspberry Pi’s original target was just 1,000 units.
+## 1. Raspberry Pi’s original target was just 1,000 units.
 
 The Raspberry Pi was originally developed to solve a very limited problem: the decreasing number of people applying to study computer science at Cambridge University. The number of applications had dropped from 600 to 250 per year and Eben Upton, who was the director of studies and responsible for admission, became concerned that not enough kids were taking an interest in computers. By providing a low-cost, hackable computer to just a few kids in the UK, Upton intended to get more and better students for his program.
 
-
 ## 2. There have been at least 21 Different Models of Raspberry Pi.
-
 
 Since its launch in 2012, the Raspberry Pi Foundation has released 20 additional models, 52 if you count all four RAM capacities of the [Raspberry Pi 4 B](https://www.tomshardware.com/reviews/raspberry-pi-4) and all 32 variants of the Raspberry Pi Compute Module 4 (which comes in different RAM and storage capacities and with or without Wi-Fi).
 
@@ -34,7 +31,6 @@ The Raspberry Pi Pico is a completely different type of Pi, a microcontroller bo
 
 ## 3. Raspberry Pi Pico marks a new chapter in Pi history.
 
-
 Released in January 2021, the [Raspberry Pi Pico](https://www.tomshardware.com/news/raspberry-pi-pico-tutorials-pinout-everything-you-need-to-know) is the company’s first microcontroller and marks the debut of its first custom silicon, the RP2040 CPU. Where every prior Pi has been a full-fledged computer that boots into a, typically Linux, operating system, the `$4` Pico falls into the same category as Arduino. The Pico is great for controlling motors, lights and sensors and runs a program as soon as you turn it on, without the need to boot up or the worry that you’ll lose data if you pull the plug without doing a safe shutdown.
 
 The Pico has three built-in ADC (analog-to-digital converters), something that other Pis lack, which allow you to connect directly to analog devices such as joysticks, potentiometers and distance sensors. See our articles about [Raspberry Pico vs Arduino](https://www.tomshardware.com/features/raspberry-pi-pico-vs-arduino) and [which Raspberry Pi is right for you](https://www.tomshardware.com/how-to/raspberry-pi-buying-guide) for more detailed comparisons between the Pico, the Arduino and other Raspberry Pis.
@@ -42,7 +38,6 @@ The Pico has three built-in ADC (analog-to-digital converters), something that o
 The RP2040 chip which powers the Pico marks an even bigger evolution than the board itself. This 133-MHz, dual-core Cortex M0+ CPU is designed by the Raspberry Pi Foundation and licensed out to other vendors such as Pimoroni and Adafruit who are building an entire ecosystem of RP2040-powered microcontrollers themselves. Even Arduino is getting in on the act, releasing the [Arduino Nano RP2040 Connect](https://www.tomshardware.com/news/first-pi-silicon-arduino-nano-rp2040-connect-spotted), which will have built-in Wi-Fi and Bluetooth.
 
 ## 4. The most popular Pi is . . .
-
 
 The Raspberry Pi 3 B is the best-selling Pi model of all-time, with 13.2 million units sold. Of the various Raspberry Pi 4 B RAM capacities, the 4GB model accounts for approximately twice as many sales as the 8GB and 2GB SKUs.
 
@@ -72,7 +67,7 @@ Even though the Raspberry Pi B+, Raspberry Pi 2, Raspberry Pi 3 B and other mode
 
 Even after the price of the Raspberry Pi 4 B (2GB) dropped to $35, the 1GB model remained available at the same price, because some customers may still want it as a drop-in replacement.
 
-# **8. The price of Raspberry Pi has dropped, relative to inflation.**
+## 8. The price of Raspberry Pi has dropped, relative to inflation.
 
 The original Raspberry Pi cost $35 in 2012 while the [Raspberry Pi 4](https://www.tomshardware.com/reviews/raspberry-pi-4) B (2GB) costs the same price today. However, if you consider inflation, $35 from 2012 is actually equivalent to $39.88 today. For that same price, you get:
 

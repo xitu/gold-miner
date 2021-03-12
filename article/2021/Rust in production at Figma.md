@@ -1,7 +1,7 @@
 > * 原文地址：[Rust in production at Figma](https://www.figma.com/blog/rust-in-production-at-figma/)
 > * 原文作者：[Evan Wallace](https://twitter.com/evanwallace)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust in production at Figma.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust%20in%20production%20at%20Figma.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[lsvih](https://github.com/lsvih)、[zhuzilin](https://github.com/zhuzilin)、[youngjuning](https://github.com/youngjuning)
 
@@ -51,7 +51,7 @@
 
 ![https://miro.medium.com/max/2230/1*YxXXHIm6PTXEx-muh_h2xQ.png](https://miro.medium.com/max/2230/1*YxXXHIm6PTXEx-muh_h2xQ.png)
 
-Here are the numeric changes in peak metrics as compared to the old server:
+与旧服务器相比，这是峰值指标的数字变化：
 
 ![https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png](https://miro.medium.com/max/2230/1*48agi3zbT2Ifc2rDxE85pQ.png)
 

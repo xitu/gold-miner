@@ -2,56 +2,56 @@
 > * 原文作者：[Orta Therox](https://devblogs.microsoft.com/typescript/author/ortammicrosoft-com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-the-new-typescript-handbook.md](https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-the-new-typescript-handbook.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[itcodes](https://github.com/itcodes)、[PassionPenguin](https://github.com/PassionPenguin)
 
-# Announcing the New TypeScript Handbook
+# 新发布的 TypeScript 手册！先睹为快！
 
-Hey folks, we’re happy to announce that a fresh re-write of the TypeScript Handbook is out of beta and is now our website’s primary resource for learning TypeScript!
+嘿！开发者们，我们很高兴地向大家宣布，一个完全重写的 TypeScript 手册现在已经转入正式版了，并且将会成为我们网站学习 TypeScript 的主要资源！
 
-![](https://camo.githubusercontent.com/31314b426b9625bab48f962812b35f25c46f1d4f89ffbc652192b5e2cd81cf8f/68747470733a2f2f646576626c6f67732e6d6963726f736f66742e636f6d2f747970657363726970742f77702d636f6e74656e742f75706c6f6164732f73697465732f31312f323032312f30332f53637265656e2d53686f742d323032312d30332d30352d61742d322e35332e32372d504d2e706e67)
+![](https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2021/03/Screen-Shot-2021-03-05-at-2.53.27-PM.png)
 
-Read the handbook on [Web](https://www.typescriptlang.org/docs/handbook/intro.html) / [Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub) / [PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf)
+> 通过 [Web](https://www.typescriptlang.org/docs/handbook/intro.html)、[Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub) 或 [PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf) 阅读新发布的 TypeScript 手册。
 
-In the last year, the TypeScript team has heavily focused on ramping up the scale, modernity and scope of our documentation. One of the most critical sections of our documentation is the handbook, a guided tour through the sort of TypeScript code you’ll see in most codebases. We want the handbook to feel like the first recommendation you give for learning TypeScript.
+在过去的一年里，团队高度重视提升 TypeScript 文档的规模、时效性和范围。TypeScript 手册是我们的文档中最关键的部分，它是你在大多数代码库中都会看到的 TypeScript 代码的导览。我们希望这本手册能让你觉得是学习 TypeScript 的首选资料。
 
-With the release of the [revised website last year](https://devblogs.microsoft.com/typescript/announcing-the-new-typescript-website/) we included some incremental improvements to the handbook, but the new version of the handbook is what provided a “north star” for a lot of features on the new website.
+去年[新版网站](https://devblogs.microsoft.com/typescript/announcing-the-new-typescript-website/)的发布中，我们已经将一些渐进式的改进纳入到手册中，同时新版手册为新网站的很多功能提供了指引。
 
-The new handbook project started out in 2018, with an additional set of constraints applied to how we teach:
+而在这个从 2018 年启动的新 TypeScript 手册项目中，我们编写手册的方式增加了一套规范。
 
-- **Leave teaching JavaScript to the experts**
+- **将 JavaScript 的教学工作交给专家去做**
 
-    There are so many great resources for learning JavaScript across the web and via books. There’s no need for us to compete in that space. The handbook aims to help engineers understand the way TypeScript builds on JavaScript. This focus means that our documentation can make assumptions about background, and avoid explaining JavaScript features from the ground up.
+通过网络和书籍学习 JavaScript 的资源非常多。我们没有必要在这个领域竞争。这本手册旨在帮助开发者理解 TypeScript 构建在 JavaScript 上的方式。这个重点意味着我们的文档可以对背景进行假设，避免从头开始解释 JavaScript 的特性。
 
-    That isn’t to say that we don’t anticipate people from different skill levels using the handbook though. For example, we added a new section to the site which primes people on how TypeScript compares to other languages depending on their technical background as a precursor reading to the handbook. You can see that over in the [documentation overview](https://www.typescriptlang.org/docs/).
+我们希望不同技术水平的开发者都能使用这本手册。例如，我们在网站上添加了一个新功能，让人们根据自己的技术背景，初步了解 TypeScript 与其他语言的区别，作为阅读手册之前的准备。你可以在[文档概述](https://www.typescriptlang.org/docs/)中看到。
 
-- **Teach incrementally**
+- **循序渐进的教学**
 
-    We wanted to build concepts on top of each other in a linear way – avoiding TypeScript features which hadn’t yet been explained. This limitation did a good job of forcing us to re-think the order and categories for language concepts. Teaching this way made authoring the first few pages a little difficult, but it really becomes valuable for readers and encourages a start-to-finish style of reading.
+我们希望以一种循序渐进的方式来学习 TypeScript 的概念 —— 避免使用尚未解释的 TypeScript 特性。这种约束很好地使我们重新思考语言概念的顺序和类别。这种教学方式让前几页的手册编写变得有点困难，但对开发者来说确实变得很有价值，并支持从头到尾的阅览风格。
 
-- **Let the compiler do the talking**
+- **让编译器说了算**
 
-    If you have already used the TypeScript documentation since the new website launched, you may have noticed that we have code samples which provide inline context like quick info and errors, and can even show output `.js` and `.d.ts` files.
+如果你已经使用了网站上新发布的 TypeScript 文档，那么你应该已经注意到我们提供了一些代码示例，这些示例提供了内联的上下文，例如快速信息提示和错误提示，甚至还可以显示 `output.js` 和 `.d.ts` 文件。
 
-    As handbook contributors, it means we have to acknowledge when a TypeScript change impacts the documentation. When we migrate the website to a new TypeScript version, that migrates the handbook too, and if the results aren’t the same it’s easy for us to see the impact and decide what the changes we need to make.
+作为手册的编写者，我们必须处理好 TypeScript 的变化对文档的影响。当我们把网站迁移到一个新的 TypeScript 版本时，也会迁移手册。如果结果不一致，我们很容易发现，并决定需要做哪些改变。
 
-    What excites me, is that we are using these tools to bring some of the best features from a rich editor’s experience into the pages on the web, and statically in epub/pdf forms for the handbook. This technology can power [your apps too](https://www.npmjs.com/package/shiki-twoslash).
+令人兴奋的是，我们正在使用这些工具，将编辑经验中的一些最好的功能带入 Web 页面，并以 epub 或 pdf 格式静态地展示手册。这项技术也可以为[你的应用程序](https://www.npmjs.com/package/shiki-twoslash)提供帮助。
 
-    As a reader, that means all code samples in the site are up-to-date, accurate and interactive!
+对开发者来说，这意味着网站中所有的代码示例都是最新的、准确的和交互式的！
 
-- **Write for the everyday cases**
+- **针对日常案例进行编写**
 
-    TypeScript has been around for 8 years, and on the whole, does not remove features. Documenting all of the possible uses, and viable options for any concept, has been moved out of the responsibility of the handbook and into our growing section of “reference pages”. We think this should remove distractions on the path to TypeScript enlightenment.
+TypeScript 已经有 8 年的历史了，总体来说，并没有删除功能。我们在参考页部分记录所有可能的用途，以及任何概念的可行选择。我们认为这应该可以减少在 TypeScript 启蒙道路上的干扰。
 
-    While for some of us it might be fun to learn about the history of JavaScript bundling patterns or how more-esoteric TypeScript options change code flow analysis (and it is for me!), most people are either learning for “greenfield” projects, or working in codebases with all that figured out already.
+对我们中的一些人来说，了解 JavaScript 捆绑模式的历史或者更深奥的 TypeScript 选项如何改变代码流分析可能会很有趣（对我来说就是这样！），但大多数人要么是为了 `greenfield` 项目而学习，要么是在代码库中工作时已经了解了所有这些。
 
-These constraints have helped us provide a much more focused, and approachable guided tour through the TypeScript language. We’re big fans (even if we might be biased).
+这些规范为我们提供了一个更有针对性的且更容易学习的 TypeScript 语言指引。我们会一直是 TypeScript 的忠实粉丝（即使我们可能更偏爱 TypeScript）。
 
-While I may be the one announcing the new handbook, and pushing it over the line to *“ready”*. The new handbook has been a running project for many years in TypeScript team with many hundreds of contributions big and small. In the last few months, we’ve been getting really great feedback from the public which has helped give some fresh perspective on how we explain ideas – so I’d like to say thanks to everyone involved!
+虽然说是由我来发布 TypeScript 新手册，并把它推送到网站上的，但在 TypeScript 团队中，新手册业已是一个持续多年的项目，有了很多的贡献了。在过去的几个月里，我们获得了大家的好评，这也有助于给我们如何解释想法提供一些新的视角。所以在这里，我想对每一个参与的人说声谢谢!
 
-If you’ve been keeping up to date with TypeScript via the quarterly release notes on this blog, you might be a good candidate for giving the new handbook a re-read. We showcase all the old and new features but they are all interlinked and introduced in a consistent order. You never know what you might have missed. If you spot something we’ve missed, feel free to leave us an [issue on microsoft/TypeScript-Website](https://github.com/microsoft/TypeScript-Website/issues/new/choose).
+如果你一直在通过这个博客中的季度性发布说明了解 TypeScript 的最新情况，那你很可能会重新阅读一遍我们的手册！我们在其中展示了所有的功能，无论新旧，相互关联，有序介绍。希望你不会错过那些精彩内容！另外如果你发现了我们遗漏的内容，请随时在 [TypeScript 仓库中提出 Issue](https://github.com/microsoft/TypeScript-Website/issues/new/choose) 告诉我们一声。
 
-You can read the new handbook on: [Web](https://www.typescriptlang.org/docs/handbook/intro.html) / [Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub) / [PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf)
+> 快来在[我们的官网](https://www.typescriptlang.org/docs/handbook/intro.html)上或通过下载最新的 [Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub)、[PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf) 文件来阅读我们最新发布的 TypeScript 手册吧！。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

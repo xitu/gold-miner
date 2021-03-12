@@ -1,7 +1,7 @@
 > * 原文地址：[Bash if..else Statement](https://linuxize.com/post/bash-if-else-statement/)
 > * 原文作者：[linuxize](https://twitter.com/linuxize)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Bash%20if..else%20Statement.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/bash-if-else-statement.md](https://github.com/xitu/gold-miner/blob/master/article/2021/bash-if-else-statement.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[flying-yogurt](https://github.com/flying-yogurt)、[lsvih](https://github.com/lsvih)
 
