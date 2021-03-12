@@ -1,11 +1,11 @@
 > * 原文地址：[Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know](https://www.tomshardware.com/news/raspberry-pi-9th-birthday)
-> * 原文作者：[Avram Piltch]([https://www.tomshardware.com/author/avram-piltch](https://www.tomshardware.com/author/avram-piltch))
-> * 译文出自：[掘金翻译计划]([https://github.com/xitu/gold-miner](https://github.com/xitu/gold-miner))
+> * 原文作者：[Avram Piltch](https://www.tomshardware.com/author/avram-piltch)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Raspberry Pi 九岁啦：你可能不知道的9件事
+# Raspberry Pi 九岁啦：你可能不知道的 9 件事
 
 > Rasp Pi 最初发布于 2012 年 2 月 29 日
 
@@ -17,7 +17,7 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 
 为了纪念 Raspberry Pi 的九岁生日，让我们一起了解一下有关它的 9 项内容吧：
 
-## 1. 树莓派的最初销售目标仅为 1,000 台。
+## 1. 树莓派的最初销售目标仅为 1,000 台
 
 树莓派最初是为解决一个非常局限的问题而开发的：剑桥大学申请计算机科学系的人数正在减少 —— 申请简历的数量从每年 600 个减少到每年 250 个。教学的负责人埃本·厄普顿（Eben Upton）担心太少孩子会对计算机产生兴趣。寄望于为英国的孩子们提供一种价格低廉且易于修改的计算机，厄普顿打算为他的计划吸引更多且更好的学生们。
 
@@ -60,7 +60,7 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 
 树莓派 Pico 是一种完全不同的树莓派变种。它是一种微控制器板，而与传统的树莓派相比，它更像是 Arduino（更多内容见下文）。
 
-## 3. 树莓派 Pico 翻开了树莓派历史的新篇章。
+## 3. 树莓派 Pico 翻开了树莓派历史的新篇章
 
 ![图源 汤姆的硬件](https://cdn.mos.cms.futurecdn.net/DvmyRVRnKSQdcvLbKjddNP-970-80.jpg)
 
@@ -78,14 +78,14 @@ Pico 的 RP2040 芯片比板子本身具有更大的升级。这款 133MHz 双�
 
 Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 万台处于延迟交付状态。2020 年是树莓派销量最高的一年，一共售出了 710 万台树莓派机器。
 
-## 5. 树莓派有 20 多个操作系统。
+## 5. 树莓派有 20 多个操作系统
 
 树莓派 OS 是 Debian 的定制版本，是 Raspberry Pi 板的官方操作系统，但到目前为止，它并不是唯一的选择。从适用于树莓派的 Ubuntu 和 FreeBSD Linux 版本到非官方的 Android 和 ChromeOS，我们可以使用大量不同的操作系统。最有趣的一些系统包括：
 
 * **[LibreELEC](https://libreelec.tv/downloads_new/)**：运行 Kodi 开源媒体软件的轻量级操作系统。
 * **[RISC OS](https://www.riscosopen.org/content/downloads/raspberry-pi)**：此独特的操作系统专为 ARM 芯片而设计，声称有比 Linux 更快的运行速度。
 * **[Chromium OS](https://github.com/FydeOS/chromium_os-raspberry_pi)**：将我们的树莓派变成 Chrome Box。
-* **[Windows 10]**：是的！我们可以[在树莓派 4 上安装Windows 10](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi))（需要一些技巧），但是它实在是太慢了，我觉得你可能不想继续让它运行 Windows 10。
+* **[Windows 10]**：是的！我们可以[在树莓派 4 上安装 Windows 10](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi)（需要一些技巧），但是它实在是太慢了，我觉得你可能不想继续让它运行 Windows 10。
 * **[Lakka]**：此操作系统专为复古游戏而设计，预装了一系列的模拟器。
 
 ## 6. 有两个树莓派在天上飞
@@ -94,7 +94,7 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 尽管 Pis 是较旧的型号，但他们最近进行了存储升级，Astro Pi 项目[向国际空间站发送了 256GB 的 microSD 卡](https://twitter.com/astro_pi/status/1365315688034799622)以替换其正在使用的 32GB 卡。
 
-## 7. Raspberry Pi基金会希望产品永远存在
+## 7. Raspberry Pi 基金会希望产品永远存在
 
 即使树莓派 B+，树莓派 2，树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极制造和销售它们。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业系统仍然会需要一些过时的及其。
 
