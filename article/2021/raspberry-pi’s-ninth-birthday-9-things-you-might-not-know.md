@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Raspberry Pi 九岁啦：你可能不知道的 9 件事
+# Raspberry Pi 九岁啦，让我们一起走进你可能不知道的有关它的 9 个小知识吧
 
 > Rasp Pi 最初发布于 2012 年 2 月 29 日
 
@@ -15,11 +15,11 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 
 每个真正的技术爱好者都应该拥有至少一台的树莓派，或者，如果你像我一样，拥有 30 台树莓派。我们可以将其用作 轻型 PC、[复古街机](https://www.tomshardware.com/how-to/install-retropie-raspberry-pi-4)，或为各种项目提供动力，含括 [CCTV](https://www.tomshardware.com/how-to/raspberry-pi-security-camera) 到 [井字游戏机器人](https://www.tomshardware.com/news/this-raspberry-pi-robot-plays-tic-tac-toe-so-you-never-play-alone)，到 [自动运送垃圾的运输机器人](https://www.tomshardware.com/news/clean-your-room-with-this-raspberry-pi-trash-delivery-bot) 或是 [流媒体服务器](https://www.tomshardware.com/how-to/raspberry-pi-plex-ubuntu)。
 
-为了纪念 Raspberry Pi 的九岁生日，让我们一起了解一下有关它的 9 项内容吧：
+不如我们借此机会介绍有关树莓派的 9 个小知识，以庆祝树莓派的九岁生日把！
 
 ## 1. 树莓派的最初销售目标仅为 1,000 台
 
-树莓派最初是为解决一个非常局限的问题而开发的：剑桥大学申请计算机科学系的人数正在减少 —— 申请简历的数量从每年 600 个减少到每年 250 个。教学的负责人埃本·厄普顿（Eben Upton）担心太少孩子会对计算机产生兴趣。寄望于为英国的孩子们提供一种价格低廉且易于修改的计算机，厄普顿打算为他的计划吸引更多且更好的学生们。
+树莓派最初是为解决一个非常局限的问题而开发的：剑桥大学申请计算机科学系的人数正在减少 —— 申请简历的数量从每年 600 个减少到每年 250 个。负责教学及招生工作的埃本·厄普顿（Eben Upton）担心没有足够的孩子对计算机感兴趣，于是，为了吸引更多能力更好的学生，厄普顿为一小部分英国孩子提供了一个低成本、易修改的计算机（从而培养他们对计算机的兴趣）。
 
 他在 [2019 年的采访中](https://www.tomshardware.com/news/raspberry-pi-founder-interview,38585.html)告诉我们：“我们正在设计的东西，在商业领域围绕着这样的想法，即如果你可以生产 1000 台树莓派，并交付给合适的 1000 个孩子的手中，你就可以解决了问题。”
 
@@ -85,18 +85,18 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 * **[LibreELEC](https://libreelec.tv/downloads_new/)**：运行 Kodi 开源媒体软件的轻量级操作系统。
 * **[RISC OS](https://www.riscosopen.org/content/downloads/raspberry-pi)**：此独特的操作系统专为 ARM 芯片而设计，声称有比 Linux 更快的运行速度。
 * **[Chromium OS](https://github.com/FydeOS/chromium_os-raspberry_pi)**：将我们的树莓派变成 Chrome Box。
-* **[Windows 10]**：是的！我们可以[在树莓派 4 上安装 Windows 10](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi)（需要一些技巧），但是它实在是太慢了，我觉得你可能不想继续让它运行 Windows 10。
-* **[Lakka]**：此操作系统专为复古游戏而设计，预装了一系列的模拟器。
+* **Windows 10**：是的！我们可以[在树莓派 4 上安装 Windows 10](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi)（需要一些技巧），但是它实在是太慢了，我觉得你可能不想继续让它运行 Windows 10。
+* **Lakka**：此操作系统专为复古游戏而设计，预装了一系列的模拟器。
 
 ## 6. 有两个树莓派在天上飞
 
-国际空间站有两个 [Astro Pis](https://www.raspberrypi.org/education/programmes/astro-pi/)，一款经过特别改良的树莓派 B+ 型号。这两个机器已经“空间强化”过并配备了官方的树莓派 Sense HAT 传感器服加版。欧洲航天局举办定期竞赛，而孩子们可以提交代码并在这些设备上运行。
+国际空间站有两个 [Astro Pis](https://www.raspberrypi.org/education/programmes/astro-pi/)，一种经过特别改良的树莓派 B+ 型号。这两个机器经过了“空间改造”（以适应太空环境），并配备了官方的树莓派 Sense HAT 传感器附加板。欧洲航天局举办定期竞赛，孩子们可以提交代码并在这些设备上运行。
 
 尽管 Pis 是较旧的型号，但他们最近进行了存储升级，Astro Pi 项目[向国际空间站发送了 256GB 的 microSD 卡](https://twitter.com/astro_pi/status/1365315688034799622)以替换其正在使用的 32GB 卡。
 
 ## 7. Raspberry Pi 基金会希望产品永远存在
 
-即使树莓派 B+，树莓派 2，树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极制造和销售它们。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业系统仍然会需要一些过时的及其。
+即使树莓派 B+，树莓派 2，树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极制造和销售它们。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业客户仍然会需要使用这些机器，而不在乎它是否过时。
 
 厄普顿在 2019 年告诉我们："将产品停产就是意味着它的死亡。我们目前仅停产了 5 种产品。"他还说，树莓派停产的仅有的 5 种型号包括树莓派 1A 和树莓派 1B，因为树莓派 1A+ 和 B+ 是更好的替代品。”
 
@@ -106,13 +106,13 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 最初的树莓派在 2012 年的价格为 35 美元，与今天树莓派 4B（2GB）的价格相同。但是，如果考虑通货膨胀，2012 年的 35 美元实际上相当于今天的 39.88 美元。以相同的价格，你将获得：
 
-* 快 40 倍的处理器（700 MHz 单核 <=> 1.5GHz 四核）
-* 原来 RAM 容量的 8 次方倍（2GB <=> 256GB）
+* 快 40 倍的处理器（1.5GHz 四核 vs 700 MHz 单核 ）
+* 原来 RAM 容量的 8 次方倍（256GB vs 2GB）
 * 有了 Wi-Fi
-* 双监视器输出 <=> 单 HDMI 输出
-* USB 3.0 端口 <=> 只支持 USB 2
+* 双监视器输出 vs 单 HDMI 输出
+* USB 3.0 端口 vs 只支持 USB 2
 
-如果说 35 美元仍然是很多钱，那么有便宜些的树莓派型号。树莓派 Zero 仅售 5 美元，而树莓派 Pico 微控制器板仅售 4 美元。
+如果说 35 美元仍然挺贵的，那么还有便宜些的树莓派型号供你选择。树莓派 Zero 仅售 5 美元，而树莓派 Pico 微控制器板仅售 4 美元。
 
 ## 9. 每年都有一场树莓派竞赛
 
