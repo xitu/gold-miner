@@ -9,7 +9,7 @@
 
 嘿！开发者们，我们很高兴地向大家宣布，一个完全重写的 TypeScript 手册现在已经转入正式版了，并且将会成为我们网站学习 TypeScript 的主要资源！
 
-![](https://camo.githubusercontent.com/31314b426b9625bab48f962812b35f25c46f1d4f89ffbc652192b5e2cd81cf8f/68747470733a2f2f646576626c6f67732e6d6963726f736f66742e636f6d2f747970657363726970742f77702d636f6e74656e742f75706c6f6164732f73697465732f31312f323032312f30332f53637265656e2d53686f742d323032312d30332d30352d61742d322e35332e32372d504d2e706e67)
+![](https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2021/03/Screen-Shot-2021-03-05-at-2.53.27-PM.png)
 
 > 通过 [Web](https://www.typescriptlang.org/docs/handbook/intro.html)、[Epub](https://www.typescriptlang.org/assets/typescript-handbook.epub) 或 [PDF](https://www.typescriptlang.org/assets/typescript-handbook.pdf) 阅读新发布的 TypeScript 手册。
 
