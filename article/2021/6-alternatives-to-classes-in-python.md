@@ -353,7 +353,7 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
 
 您已经了解了如何为普通类、attrs、dataclass 和 Pydantic 实现数据验证。您没有看到的是错误消息的样子。
 
-For the following, I will attempt to create `Position(1234, 567)`. So both the longitude and latitude are wrong. Here are the error messages this triggers:
+接下来，我将新建一个 `Position(1234, 567)`，里面的经度和纬度都是不正确的。下面是不同的数据结构触发的错误信息：
 
 ```
 # Plain Class
@@ -373,11 +373,11 @@ latitude
   Latitude was 567.0, but must be in [-90, +90] (type=value_error)
 ```
 
-This is the point I want to make: Pydantic gives you all the errors in a very clear way. Plain classes and attrs just give you the first error.
+我要指出的是这一点：Pydantic非常清楚地为您提供了所有错误。 普通的类和属性只会给您第一个错误。
 
-## Serialize to JSON
+## JSON 序列化
 
-JSON is the way to exchange data on the web. The GitLab API is no exception. Let’s say we want to have Python objects that we can serialize to JSON to [get a single MR](https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr). In Pydantic, it is as simple as that (removing a lot of attributes for readability):
+JSON 是在网络上交换数据的方式。GitLab API 也不例外。假设我们要拥有可以序列化为 JSON 的 Python 对象，以[获取单个合并分支请求]（https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr）。 在 Pydantic 中，就这么简单（删除了许多属性以提高可读性）：
 
 ```Python
 from pydantic import BaseModel
@@ -407,27 +407,27 @@ json_str = mr.json()
 print(json_str)
 ```
 
-This gives you:
+这返回了：
 
 ```
 {"id": 1, "squash": true, "web_url": "http://foo", "title": "title", "author": {"id": 42, "username": "Joe"}}
 ```
 
-For dataclasses, `[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` goes a long way. Then you might be able to directly serialize the dictionary to JSON. It becomes interesting with `DateTime` or [decimal](https://docs.python.org/3/library/decimal.html) objects. [Something similar](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) is possible with attrs.
+对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，您可以直接将字典序列化为JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
 
-## Unserialize From JSON
+## JSON 的反序列化
 
-Userializing nested classes from a JSON string is trivial with Pydantic. Using the example above, you would write:
+使用JSON字符串对嵌套类进行用户化对于Pydantic来说是很容易的。使用上面的示例，可以这么写：
 
 ```py
 mr = GitlabMr.parse_raw(json_str)
 ```
 
-There are very dirty hacks to do [something similar with dataclasses](https://stackoverflow.com/a/53498623/562769). The [attrs way to deserialize](https://stackoverflow.com/q/44801927/562769) looks better, but I guess it also struggles with nested structures. And when it comes to `DateTime` or decimals, I’m pretty certain that both show more problems than Pydantic. Serialization, deserialization, and validation are where Pydantic shines.
+[datatclass](https://stackoverflow.com/a/53498623/562769) 的实现则很不优雅。对于 [attrs 的反序列化](https://stackoverflow.com/q/44801927/562769) 则看起来好一些，但我猜想它在嵌套结构方面也很困难。而且，当谈到 DateTime 或小数时，我敢肯定，两者都比 Pydantic 出现更多的问题。序列化，反序列化和验证是 Pydantic 的亮点。
 
-## Memory
+## 内存占用
 
-Using this `[getsize](https://stackoverflow.com/a/30316760/562769)` implementation on `pos1` , I get:
+在 `pos1` 调用 `[getsize](https://stackoverflow.com/a/30316760/562769)` 方法可得：
 
 ```
 Raw float    :   8 B ("double")
@@ -448,38 +448,38 @@ Native class : 286 B
 #6 pydantic  : 801 B (the "BaseModel" version)
 ```
 
-The Pydantic base model has quite an overhead, but you always have to keep things in perspective. How many of those objects will you create? Let’s assume you have maybe 100 of those. Each of them might consume 500B more than a more efficient alternative. That would be 50kB. To quote [Donald Knuth](https://www.azquotes.com/quote/721020):
+Pydantic 基本模型有相当大的开销，但是您始终必须明白的一点是，您将创建多少个这些对象？假设您有100个。它们中的每一个可能比更有效的替代方案多消耗 500B。 那将是 50kB。 引用 [Donald Knuth](https://www.azquotes.com/quote/721020) ：
 
-> “Premature optimization is the root of all evil.”
+> “过早的优化是万恶之源。”
 
-If memory becomes problematic, then you will not switch from Pydantic to dataclasses or attrs. You will switch to something more structured like NumPy arrays or pandas `DataFrames`.
+如果内存占用出现了问题，那么您也不会从 Pydantic 切换到 dataclass 或 attrs。您将切换到更结构化的内容，例如 NumPy 数组或 pandas 的 DataFrames。
 
-## Execution Time
+## 执行时间
 
-There are multiple things you can mean by “execution time” in this context:
+在这种情况下，“执行时间”可能意味着多个时间之和：
 
-* Object creation time with or without validation or conversion
-* Parsing time from JSON
-* Parsing time from a dictionary
+* 带有或不带有验证或转换的对象创建时间
+* 从 JSON 解析的时间
+* 解析一个字典结构的时间
 
-I’m convinced that the parsing time for JSON dominates the rest. There are multiple JSON parsers available in Python:
+我坚信 JSON 的解析时间在其余时间中占主导地位。Python 中有多个 JSON 解析器可用：
 
-[**JSON encoding/decoding with Python - Comparing libraries by speed, maturity, and operational safety**](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
+[**使用 Python 进行 JSON 编码/解码-按速度，成熟度和操作安全性比较库**](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
 
-## So When Do I Use What?
+## 选择对应结构的时机
 
-Use what you need:
+在你需要的时候选用：
 
-* `Dict` when you don’t know ahead of time what will be added. Please note that you can mix all of the others with `dict` and vice versa. So if you know what a part of the data structure will look like, then use something different. I see `dict` as a last resort.
-* `NamedTuple` when you need a quick way to group data and mutability is not needed. And when it’s OK for you to not be type-aware.
-* Dataclasses when you need mutability, want to be type-aware, or want to have the possibility of inheriting from the created dataclass.
-* Pydantic `BaseModel` when you need to deserialize data.
+* 在你不提前知道会向其中添加什么的时候，使用 `Dict` 。请注意，您可以将所有其他结构与 dict 混合使用，反之亦然。因此，如果您知道数据结构的一部分是什么样子，请使用其他类型的数据结构。我认为 dict 是不得已的选择。
+* 在你需要快速组织数据，并且不需要改变内容，也不关心数据类型的时候， 使用 `NamedTuple`。 
+* 当你需要可变性，关注属性的类型，或者是可能要从已有的 dataclass 继承的时候， 使用 Dataclasses。
+* 当你需要反序列化数据的时候，使用 Pydantic 的 `BaseModel`。
 
-Please note that I didn’t mention tuple and attrs. I simply cannot find a valid use case where you would prefer them for new code over the other choices. Please let me know if I missed one.
+请注意，我没有提到元组和属性。我根本无法找到一个有效的用例，在该用例中，与其他选择相比，您更希望使用它们。如果您有合适的例子，请告诉我。
 
-I also didn’t mention plain classes. I think I would only use plain classes if I want to overwrite `__init__`, `__eq__` , `__str__`, `__repr__` , and`__hash__` anyway. Or if I have to support old Python versions.
+我也没有提到普通类，如果我需要重写 `__init__`、`__eq__` 、`__str__`、`__repr__` 和 `__hash__`  或者支持旧的 Python 版本的时候，我会选择使用它。
 
-## Resource
+## 参考资料
 
 * Raymond Hettinger: “[Dataclasses: The code generator to end all code generators](https://www.youtube.com/watch?v=T-TwcmT6Rcw)” at PyCon 2018, on YouTube.
 
