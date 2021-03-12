@@ -9,9 +9,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2400/1*4vlkTJCWbP2Kh2vyK9BdEw.png)
 
-我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中以 FlutterActivity 或 FlutterViewController 的形式启动，让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。因此，在应用启动时设置启动画面将会带来更好的用户体验。
+我们当然可以直接使用 Dart 代码为 Flutter 应用程序添加动画启动效果，但是，Flutter 应用程序在 Android 和 iOS 中使用的 FlutterActivity 或 FlutterViewController 作为启动的活动或视图控制器，会让 Flutter 应用程序在实际绘制第一帧之前已经耗费了一段时间。
 
-值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为启动页，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
+值得一提的是，在 Flutter 的官方[文档](https://flutter.dev/docs/development/ui/advanced/splash-screen)中我们可以轻松地将静态图像添加为起始屏幕，并且这个页面上面有充足的文档信息提供给我们使用。我们事实上只需将图像添加到 Android 的 drawable 文件夹中和 iOS 的资源文件夹中，然后在 Android 的 `styles.xml` 和 iOS 的 `LaunchScreen.storyboard` 中使用它们即可。但是，在针对如何使用 Lottie 等其他库实现应用程序启动页面动画的功能，我并不能找到相关的参考资料，而这些就是我将在本文中讲述的内容。
 
 ## 为什么我们要使用 Lottie?
 
@@ -23,7 +23,7 @@
 
 1. 先添加 Lottie 依赖到你的项目的 `app/build.gradle` 文件中（相对于 Flutter 应用程序则是 `android/app/build.gradle` 文件）（在这里我也同样添加了 Constraint Layout）
 
-```
+```groovy
 dependencies {
    ...
    implementation "com.airbnb.android:lottie:3.5.0" # 当前版本 3.6.0
@@ -33,10 +33,9 @@ dependencies {
 }
 ```
 
-2. 在 `AndroidManifest.xml` 中删去 `name` 为 io.flutter.embedding.android.SplashScreenDrawable 的 `<meta-data>` 标记并替换 `activity` 标签下面的 `LaunchTheme` 为 `NormalTheme`，现在你的文件是这样的：
+2. 在 `AndroidManifest.xml` 中删去 `name` 为 io.flutter.embedding.android.SplashScreenDrawable 的元数据标记并替换 `activity` 标签下面的 `LaunchTheme` 为 `NormalTheme`，现在你的文件是这样的：
 
-```XML
-
+```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.abedelazizshe.flutter_lottie_splash_app">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -72,7 +71,7 @@ dependencies {
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
                 android:name="flutterEmbedding"
-                android:value="2"/>
+                android:value="2" />
     </application>
 </manifest>
 ```
@@ -83,30 +82,30 @@ dependencies {
 
 4. 为了使用 `.json` 文件并显示动画视图，我们需要创建具有其布局的启动视图类。 在 `/android/app/res` 下，创建一个名为 `layout` 的新目录（如果不存在的话），然后创建一个名为 `splash_view.xml` 的新的布局资源文件。 打开这个 XML 文件，修改文件的代码为：
 
-```XML
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_rawRes="@raw/splash_screen"
-            app:lottie_loop="false"
-            app:lottie_speed="1.00"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/splash_screen"
+        app:lottie_loop="false"
+        app:lottie_speed="1.00" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 在这个示例中，我将动画设置为自动播放，设置的播放速度为 `1.0`，并且禁止循环播放功能。你可以根据需要使用不同的值。 最重要的部分是 `app:lottie_rawRes` 属性，它定义了我们要使用在 `raw` 目录中添加的 JSON 文件。现在，我们需要创建启动视图的类。让我们在 `/android/app/src/main/kotlin/YOUR-PACKAGE-NAME` 中来创建一个新的 Kotlin 类。将这个类命名为 `SplashView`，然后修改它的内容为：
 
-```Kotlin
+```kotlin
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -127,7 +126,7 @@ class SplashView : SplashScreen {
 
 5.转到 `/android/app/src/main/kotlin/YOUR-PACKAGE-NAME` 文件夹，然后单击 `MainActivity.kt`。 `FlutterActivity` 提供了一种称为 `provideSplashScreen` 的方法，修改代码为：
 
-```Kotlin
+```kotlin
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.SplashScreen
 
@@ -147,9 +146,10 @@ class MainActivity: FlutterActivity() {
 
 ## iOS
 
-让我们在 iOS 中添加启动屏幕：
+让我们在 iOS 中添加启动页：
 
 1. 打开项目所在的目录，单击 ios 文件夹，然后双击 `Runner.xcworkspace` 打开你的项目。
+
 2.单击 `Main.storyboard`，你将看到带有一个屏幕的布局编辑器。 我们需要添加一个新的 `ViewController`，这将是我们的启动页（你可以通过单击右上角的 `+` 号来做到这一点。点击之后，屏幕中将弹出一个窗口。我们在输入框处输入 View Controller 搜索并将这个控件拖动到编辑器中即可），如以下屏幕快照所示：
 
 ![添加一个新的 View Controller](https://cdn-images-1.medium.com/max/7108/1*L9EKQQFnxtozE_xgcpVkfw.png)
@@ -160,13 +160,13 @@ class MainActivity: FlutterActivity() {
 
 4. 我们需要在 `ios/Podfile` 文件中添加 Lottie 依赖;
 
-```
+```text
 pod 'lottie-ios'
 ```
 
 这个文件中现在应该是这样的：（编者注：可能你已经修改了一部分设置了，这里只是一个案例）
 
-```
+```shell
 #platform :ios, '9.0' 
 
 target 'Runner' do  
@@ -179,15 +179,15 @@ end
 
 然后运行这个应用程序（确保命令行当前在 ios 目录中。如果不是，那么就使用 `cd` 命令将你的目录移动到 ios 目录中）
 
-```
+```shell
 pod install
 ```
 
 5. 使用 Xcode 将你的生成的 `.json` 文件拖到中的根目录中（请选择 `Copy items if needed` 选项），这个文件可能是你自己创建的文件，也有可能是你从上面的链接下载了免费样本。在本案例中它的名字是 `splash_screen.json`。
 
-6. 在已经添加了依赖项和 `splash_screen.json` 文件的情况下，我们可以创建我们的初始视图控制器，该控制器将处理显示的动画。打开你的 ios 项目，在项目根目录处（相对于 Flutter 根目录：/ios/Runner）创建一个新的名为 `SplashViewController` 的 Swift 文件。在类中编写任何内容之前，我们先来修改一下 `AppDelegate.swift` 以创建 `FlutterEngine`。 如果你跳过了这个步骤，则动画启动画面的动画播放完了以后不能跳转至 `FlutterViewController`。
+6.在已经添加了依赖项和 `splash_screen.json` 文件的情况下，我们可以创建我们的初始视图控制器，该控制器将处理显示的动画。打开你的 ios 项目，在项目根目录处（相对于 Flutter 根目录：/ios/Runner）创建一个新的名为 `SplashViewController` 的 Swift 文件。在类中编写任何内容之前，我们先来修改一下 `AppDelegate.swift` 以创建 `FlutterEngine`。 如果你跳过了这个步骤，则动画启动画面的动画播放完了以后不能导航至 `FlutterViewController`。
 
-```Swift
+```swift
 import UIKit
 import Flutter
 
@@ -214,7 +214,7 @@ import Flutter
 
 7. 做完了这些，现在我们可以准备 `SplashViewController` 以显示动画。导航到 `Flutter` 的 View Controller 处，修改代码为：
 
-```Swift
+```swift
 import UIKit
 import Lottie
 
@@ -254,9 +254,10 @@ public class SplashViewController: UIViewController {
 为了获取 `FlutterViewController`，我们必须获取我们创建并在 `AppDelegate.swift` 运行的 `FlutterEngine` 的实例。
 
 ```
-let appDelegate = UIApplication.shared.delegate as! AppDelegate        let flutterEngine = appDelegate.flutterEngine
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+let flutterEngine = appDelegate.flutterEngine
         
-let flutterViewController = FlutterViewController(engine:    flutterEngine, nibName: nil, bundle: nil)
+let flutterViewController = FlutterViewController(engine: flutterEngine, nibName: nil, bundle: nil)
 ```
 
 然后使用 `present(completion :)` 启动视图控制器。
@@ -269,11 +270,11 @@ let flutterViewController = FlutterViewController(engine:    flutterEngine, nibN
 
 ![设置 Main interface 为 Main](https://cdn-images-1.medium.com/max/3274/1*KQV8lIB3aRfA_AHtTNXi4g.png)
 
-生成并运行该应用程序，你应该能够看到动画的启动屏幕：
+生成并运行该应用程序，你应该能够看到动画的启动页：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bdfeeBtOIHW_1A0MfdjnZQ.gif)
 
-就是这样，你现在已经生成了针对 Android 和 iOS 应用程序的动画启动屏幕。有关完整的源代码和演示应用程序在这里：
+就是这样，你现在已经生成了针对 Android 和 iOS 应用程序的动画启动页。有关完整的源代码和演示应用程序在这里：
 
 [**AbedElazizShe/flutter_lottie_splash_app**](https://github.com/AbedElazizShe/flutter_lottie_splash_app)
 
