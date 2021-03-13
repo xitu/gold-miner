@@ -2,10 +2,10 @@
 > * 原文作者：[Martin Thoma](https://medium.com/@martinthoma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
-> * 译者：[大宁的洛竹](https://github.com/youngjuning)
+> * 译者：
 > * 校对者：
 
-# Python 中的 JSON 库 - 按速度、成熟度和操作安全性进行比较
+# JSON Libraries in Python - Comparing by Speed, Maturity, and Operational Safety
 
 ![Photo by [chuttersnap](https://unsplash.com/@chuttersnap?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12032/0*iesq6b2IrRZHExHL)
 
