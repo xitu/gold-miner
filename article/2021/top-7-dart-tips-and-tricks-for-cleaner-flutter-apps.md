@@ -7,8 +7,6 @@
 
 # Top 7 Dart Tips and Tricks for Cleaner Flutter Apps
 
-#### Make use of the inspect widget, sync, and async generators
-
 ![Photo by [Lucie Hošová](https://unsplash.com/@marjorylucabaxter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/dart?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg)
 
 [Dart](https://www.educative.io/blog/dart-2-language-features) is a client-optimized programming language for quickly building mobile, desktop, and server apps. Dart was developed by Google to be used with their cross-platform Flutter framework. With Flutter and Dart, you can build apps with a slick UI and a native feel.
@@ -24,8 +22,6 @@ Today we offer our top seven Dart tips that will help you improve your app devel
 5. Use a `Set` for a collection of unique items
 6. Make use of the inspect widget
 7. Use sync and async generators
-
----
 
 ## 1. Use Anonymous Functions as Arguments
 
@@ -43,8 +39,6 @@ main() {
 ```
 
 `sayHello` is passed to the `intro` function, which takes the function argument. On line 6, `String Function(String)` is a function type that returns a string from a given string argument. The anonymous function we use has the same signature, so it is passed as an argument.
-
----
 
 ## 2. Use the call Method To Make Classes Callable Like a Function
 
@@ -81,9 +75,7 @@ void main() {
 }
 ```
 
-**Note:** Dart doesn’t support multiple callable methods.
-
----
+> **Note:** Dart doesn’t support multiple callable methods.
 
 ## 3. Use entries To Iterate Through a Map
 
@@ -104,8 +96,6 @@ for (var entry in moneySpent.entries) {
   print('${entry.key}: ${entry.value}');
 }
 ```
-
----
 
 ## 4. How To Use Getters and Setters
 
@@ -164,8 +154,6 @@ int main() {
 
 From line 9 to line 15, we create a setter function that sets the value for `age`. We also give it a condition so that we cannot input a negative age. And on line 23, we set the value of age for `firstPerson` using the `personAge` setter function.
 
----
-
 ## 5. Use a Set for a Collection of Unique Items
 
 A list is one of the most common collection types in Dart, but lists can hold duplicate items. Sometimes we want only a collection of unique values. This is where a `Set` is useful.
@@ -186,8 +174,6 @@ final countriesSet = {
 
 In a `Set`, two elements cannot be equal, so the code above will offer a warning and it won’t compile. This is also true if we use `const set`.
 
----
-
 ## 6. Make Use of the Inspect Widget
 
 In web development, it’s common to use the Inspect element, which will tell you all the properties applied to an HTML tag. Dart provides a similar feature called the Inspect Widget that can make app development with Flutter easier. The Flutter Widget Inspector can be used to locate any widget on the screen and view the properties applied to it.
@@ -201,8 +187,6 @@ To use it, follow these steps:
 * Select a widget on the screen to get more information on it
 
 ![](https://cdn-images-1.medium.com/max/4920/1*8HtnC_I_iMewckScC92stA.png)
-
----
 
 ## 7. Use Sync and Async Generators
 
@@ -230,8 +214,6 @@ Stream<int> countStream(int n) async* {
   }
 }
 ```
-
----
 
 ## Next Steps for Your Learning
 
