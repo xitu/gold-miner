@@ -2,38 +2,36 @@
 > * 原文作者：[Mike Grabowski](https://twitter.com/grabbou)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-react-native-0.64-with-hermes-on-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-react-native-0.64-with-hermes-on-ios.md)
-> * 译者：
+> * 译者：[大宁的洛竹](https://github.com/youngjuning)
 > * 校对者：
 
-# Announcing React Native 0.64 with Hermes on iOS
+今天，我们发布了 React Native 0.64，该版本在 iOS 上提供了对 Hermes 的支持。
 
-Today we’re releasing React Native 0.64 that ships with support for Hermes on iOS.
+## iOS 可选支持 Hermes
 
-## Hermes opt-in on iOS
+[Hermes](https://hermesengine.dev/) 是为了运行 React Native 而优化的开源 JavaScript 引擎。它通过降低内存使用率、减小打包体积以及减少应用从启动到可使用所花费的时间来优化性能。
 
-[Hermes](https://hermesengine.dev/) is an open source JavaScript engine optimized for running React Native. It improves performance by decreasing memory utilization, reducing download size and decreasing the time it takes for the app to become usable or “time to interactive” (TTI).
-
-With this release, we are happy to announce that you can now use Hermes to build on iOS as well. To enable Hermes on iOS, set `hermes_enabled` to `true` in your `Podfile` and run `pod install`.
+在此版本中，我们很高兴地宣布，你现在也可以使用 Hermes 在 iOS 上进行构建。要在 iOS 上启用 Hermes，请在你的 `Podfile` 中将 `hermes_enabled` 设置为 `true` 并运行 `pod install`。
 
 ```ruby
 use_react_native!(
    :path => config[:reactNativePath],
-   # to enable hermes on iOS, change `false` to `true` and then install pods
+   # 修改 false 为 true 然后安装 pods 以在 iOS 上开启 hermes
    :hermes_enabled => true
 )
 ```
 
-Please keep in mind that Hermes support on iOS is still early stage. We are keeping it as an opt-in as we are running further benchmarking. We encourage you to try it on your own applications and let us know how it is working out for you!
+请记住，iOS 上对 Hermes 的支持仍处于早期阶段。在进行进一步的基准测试时，我们将其作为可选配置加入。我们鼓励你在自己的应用程序上尝试它，并让我们知道你使用它的情况！
 
-## Inline Requires enabled by default
+## 默认启用内联引用
 
-Inline Requires is a Metro configuration option that improves startup time by delaying execution of JavaScript modules until they are used, instead of at startup.
+内联引用（Inline Requires）是 Metro 的配置选项，它通过将 JavaScript 模块的执行延迟到使用之前（而不是在启动时）来缩短启动时间。
 
-This feature has existed and been recommended for a few years as an opt-in configuration option, listed in the [Performance section of our documentation](https://reactnative.dev/docs/performance). We are now enabling this option by default for new applications to help people have fast React Native applications without extra configuration.
+此功能已经存在并已推荐使用多年，作为一个可选配置选项，已在 [我们文档的性能章节](https://reactnative.dev/docs/performance) 中列出。 现在，我们默认为新应用程序启用此选项，以帮助人们无需额外配置即可快速使用 React Native 应用程序。
 
-Inline Requires is a Babel transform that takes module imports and converts them to be inline. As an example, Inline Requires transforms this module import call from being at the top of the file to where it is used.
+内联引用是一个 Babel 转换器，它接受模块导入并将其转换为内联。 例如，Inline Requires 将此模块导入调用从位于文件顶部的位置转换为使用它的位置。
 
-**Before:**
+**使用前:**
 
 ```jsx
 import { MyFunction } from 'my-module';
@@ -45,7 +43,7 @@ const MyComponent = props => {
 };
 ```
 
-**After:**
+**使用后:**
 
 ```jsx
 const MyComponent = props => {
@@ -55,36 +53,36 @@ const MyComponent = props => {
 };
 ```
 
-More information about Inline Requires is available in the [Performance documentation](https://reactnative.dev/docs/ram-bundles-inline-requires#inline-requires).
+有关内联引用的更多信息，请参见 [性能文档](https://reactnative.dev/docs/ram-bundles-inline-requires#inline-requires)。
 
-## View Hermes traces with Chrome
+## 使用 Chrome 浏览 Hermes 堆栈
 
-Over the last year Facebook has sponsored the [Major League Hacking fellowship](https://fellowship.mlh.io/), supporting contributions to React Native. [Jessie Nguyen](https://twitter.com/jessie_anh_ng) and [Saphal Patro](https://twitter.com/saphalinsaan) added the ability to use the Performance tab on Chrome Devtools to visualize the execution of your application when it is using Hermes.
+在过去的一年中，Facebook 赞助了 [Major League Hacking fellowship](https://fellowship.mlh.io/) ，以支持他们对 React Native 的贡献。 [Jessie Nguyen](https://twitter.com/jessie_anh_ng) 和 [Saphal Patro](https://twitter.com/saphalinsaan) 添加了使用 Chrome Devtools 上的 “Performance” 标签来可视化你的应用程序使用 Hermes 时的执行情况的功能。
 
-For more information, check out the [new documentation page](https://reactnative.dev/docs/profile-hermes#record-a-hermes-sampling-profile).
+更多信息请参见 [新的文档页面](https://reactnative.dev/docs/profile-hermes#record-a-hermes-sampling-profile)。
 
-## Hermes with Proxy Support
+## Hermes 支持 Proxy
 
-We have added Proxy support to Hermes, enabling compatibility with popular community projects like react-native-firebase and mobx. If you have been using these packages you can now migrate to Hermes for your project.
+我们为 Hermes 添加了 Proxy 支持，从而实现了与热门社区项目（如 react-native-firebase 和 mobx）的兼容性。如果你一直在使用这些软件包，则现在可以为你的项目迁移到 Hermes。
 
-We plan to make Hermes the default JavaScript engine for Android in a coming release so we are working to resolve the remaining issues people have when using Hermes. Please open an issue on the [Hermes GitHub repo](https://github.com/facebook/hermes) if there are remaining issues holding back your app from adopting Hermes.
+我们计划在即将发布的版本中使 Hermes 成为 Android 的默认JavaScript 引擎，因此我们正在努力解决人们在使用 Hermes 时仍然遇到的问题。如果还有其他问题使你的应用无法采用 Hermes，请在 [Hermes GitHub repo](https://github.com/facebook/hermes) 仓库提一个 issues。
 
 ## React 17
 
-React 17 does not include new developer-facing features or major breaking changes. For React Native applications, the main change is a [new JSX transform](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) enabling files to no longer need to import React to be able to use JSX.
+React 17 不包含面向开发人员的新功能或重大更改。对于 React Native 应用程序，主要更改是 [新的 JSX 转换器](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)，该特性使文件不再需要导入 React 才能使用 JSX。
+关于 React 17 的更多信息请参见 [React blog](https://reactjs.org/blog/2020/10/20/react-v17.html)。
 
-More information about React 17 is available [on the React blog](https://reactjs.org/blog/2020/10/20/react-v17.html).
+## 主要依赖版本更改
 
-## Major Dependency Version Changes
-
-- Dropped Android API levels 16-20. The Facebook app consistently drops support for Android versions with sufficiently low usage. As the Facebook app no longer supports these versions and is React Native’s main testing surface, React Native is dropping support as well.
-- Xcode 12 and CocoaPods 1.10 are required
+- 不在支持 Android API 16-20。Facebook 应用程序始终放弃对使用率足够低的 Android 版本的支持。由于 Facebook 应用程序不再支持这些版本，并且是 React Native 的主要测试平台，因此 React Native 也将放弃支持。
+- 需要升级 Xcode 到 12 并升级 CocoaPods 到 1.10
 - Minimum Node support bumped from 10 to Node 12
-- Flipper bumped to 0.75.1
+- 最低 Node 版本支持从 10 升级到 12
+- Flipper 升级到 0.75.1
 
-## Thanks
+## 感谢
 
-Thank you to the hundreds of contributors that helped make 0.64 possible! The [0.64 changelog](https://reactjs.org/blog/2020/10/20/react-v17.html) includes all of the changes included in this release.
+感谢数以百计的贡献者，这些贡献者使 0.64 的发布成为可能！[0.64 changelog](https://reactjs.org/blog/2020/10/20/react-v17.html) 包含此版本中包含的所有更改。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
