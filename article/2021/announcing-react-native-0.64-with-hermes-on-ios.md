@@ -79,7 +79,6 @@ React 17 不包含面向开发人员的新功能或重大更改。对于 React N
 
 - 不再支持 Android API 16-20。一直以来 Facebook 都选择放弃对使用率足够低的 Android 版本的支持。Facebook 是 React Native 的主要测试平台，由于 Facebook 不再支持这些 API 版本，因此 React Native 也将放弃支持它们。
 - 需要升级 Xcode 到 12 并升级 CocoaPods 到 1.10
-- Minimum Node support bumped from 10 to Node 12
 - 最低 Node 版本支持从 10 提升到 12
 - Flipper 升级到 0.75.1
 
