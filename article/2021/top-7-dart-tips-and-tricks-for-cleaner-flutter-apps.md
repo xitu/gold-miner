@@ -29,7 +29,7 @@ In the Dart language, functions can be passed as arguments to other functions. D
 
 Below is an example of an anonymous function in Dart. Here, we pass an anonymous cube function to a built-in method `forEach`. We are trying to get the cube for every item in a list.
 
-```
+```Dart
 main() {
   var list = [1,2,3];
   list.forEach((item) {
@@ -44,7 +44,7 @@ main() {
 
 With Dart, you can create a callable class that allows that class instance to be called as a function. We do this with the `call()` method. See the syntax below.
 
-```
+```Dart
 class class_name {
   ... // class 
   
@@ -81,7 +81,7 @@ void main() {
 
 In Dart, you can iterate through a map in a null-safe manner using `entries`. Say we have a map that tracks the amount of money spent on different products. Typically, we’d iterate through this map with the `!` operator.
 
-```
+```Dart
 for (var key in moneySpent.keys) {
   final value = moneySpent[key]!;
   print('$key: $value');
@@ -90,7 +90,7 @@ for (var key in moneySpent.keys) {
 
 We can improve this code and make it more null-safe using a loop. When we iterate with the `entries` variable, we can access our key-value pairs in a null-safe manner.
 
-```
+```Dart
 for (var entry in moneySpent.entries) {
   // do something with keys and values
   print('${entry.key}: ${entry.value}');
@@ -158,17 +158,12 @@ From line 9 to line 15, we create a setter function that sets the value for `age
 
 A list is one of the most common collection types in Dart, but lists can hold duplicate items. Sometimes we want only a collection of unique values. This is where a `Set` is useful.
 
-```
+```Dart
 final countriesSet = {
-
 'USA',
-
 'India',
-
 'Iceland',
-
 'USA',
-
 };
 ```
 
@@ -197,7 +192,7 @@ In Dart, generators make it possible to produce a sequence of values. There are 
 
 In other words, the synchronous generator returns a collection of values that can be accessed sequentially. We do this by marking the function body as `sync*`. Then, we use yield statements for the values.
 
-```
+```Dart
 Iterable<int> count(int n) sync* {
   for (var i = 1; i <= n; i++) {
     yield i;
@@ -207,7 +202,7 @@ Iterable<int> count(int n) sync* {
 
 The asynchronous generator, on the other hand, returns a Stream object. A Stream makes it possible to receive a sequence of events. We do this by marking the function body as `async*`. Then, we use yield statements for the values.
 
-```
+```Dart
 Stream<int> countStream(int n) async* {
   for (var i = 1; i <= n; i++) {
     yield i;
