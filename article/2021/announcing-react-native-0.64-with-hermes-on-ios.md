@@ -67,7 +67,7 @@ const MyComponent = props => {
 
 我们为 Hermes 添加了 Proxy 支持，从而实现了与热门社区项目（如 react-native-firebase 和 mobx）的兼容性。如果你一直在使用这些软件包，则现在可以为你的项目迁移到 Hermes。
 
-我们计划在即将发布的版本中使 Hermes 成为 Android 的默认 JavaScript 引擎，因此我们正在努力解决人们在使用 Hermes 时仍然遇到的问题。如果还有其他问题使你的应用无法采用 Hermes，请在 [Hermes GitHub](https://github.com/facebook/hermes) 仓库提一个 issues。
+我们计划在即将发布的版本中使 Hermes 成为 Android 的默认 JavaScript 引擎，因此我们正在努力解决人们在使用 Hermes 时仍然遇到的问题。如果还有其他问题使你的应用无法采用 Hermes，请在 [Hermes GitHub](https://github.com/facebook/hermes) 仓库提一个 issue。
 
 ## React 17
 
