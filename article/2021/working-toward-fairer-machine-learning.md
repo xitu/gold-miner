@@ -2,12 +2,13 @@
 > * 原文作者：[Michele Donini](https://www.amazon.science/author/michele-donini), Luca Oneto
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/working-toward-fairer-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/article/2021/working-toward-fairer-machine-learning.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# Working toward fairer machine learning
+# 让机器学习更公平
 
-Editor’s note: [Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) is a senior applied scientist with Amazon Web Services (AWS). He and his co-author, [Luca Oneto](https://www.lucaoneto.com/), associate professor of computer engineering at University of Genoa, have written about how different approaches can make data-driven predictions fairer for underrepresented groups. Oneto also won a [2019 Machine Learning Research award](https://www.amazon.science/research-awards/recipients/luca-oneto) for his work on algorithmic fairness. In this article, Donini and Oneto explore the research they and other collaborators have published related to designing machine learning (ML) models from a human-centered perspective, and building responsible AI.
+Editor’s note: [Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) is a senior applied scientist with Amazon Web Services (AWS). He and his co-author, [Luca Oneto](https://www.lucaoneto.com/), associate professor of computer engineering at University of Genoa, have written about how different approaches can make data-driven predictions fairer for underrepresented groups. Oneto also won a [2019 Machine Learning Research award](https://www.amazon.science/research-awards/recipients/luca-oneto) for his work on algorithmic fairness. In this article, Donini and Oneto explore the research they and other collaborators have published related to designing machine learning (ML) models from a human-centered perspective, and building responsible AI.编者注：[Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) 是 Amazon Web Services（AWS）的一名高级应用科学家。他和他的合著者热那亚大学计算机工程学副教授 [Luca Oneto](https://www.lucaoneto.com/)，已经写了关于不同方法如何使数据驱动型预测对代表性不足的群体更公平的文章。Oneto因在算法公平性方面的工作而获得了[2019机器学习研究奖]（https://www.amazon.science/research-awards/recipients/luca-oneto）。在本文中，Donini和Oneto探索了他们和其他合作者发表的与以人为中心的角度设计机器学习（ML）模型并构建负责任的AI相关的研究。
+
 
 ## What is fairness?
 
