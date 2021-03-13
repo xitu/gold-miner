@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 5 个 Kotlin 扩展技巧让你的 Android 代码更具表现力
 
