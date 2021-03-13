@@ -1,0 +1,68 @@
+name: 生成文章目录
+on:
+  push:
+    paths:
+      - 'integrals.md'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - label: '前端'
+            target: 'front-end.md'
+          - label: '后端'
+            target: 'backend.md'
+          - label: 'AI'
+            target: 'AI.md'
+          - label: '设计'
+            target: 'design.md'
+          - label: 'Android'
+            target: 'android.md'
+          - label: '算法'
+            target: 'algorithm.md'
+          - label: 'iOS'
+            target: 'ios.md'
+          - label: '其他'
+            target: 'others.md'
+          - label: '产品'
+            target: 'product.md'
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - run: |
+          python -m pip install lxml requests markdown
+      - uses: actions/checkout@master
+        with:
+          repository: xitu/juejin-integral-database
+          path: ./juejin-integral-database
+      - uses: actions/checkout@master
+        with:
+          path: ./gold-miner
+          token: ${{ secrets.LSVIH_PAT }}
+
+      - name: Generate Catalog
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABEL: ${{ matrix.label }}
+          TARGET: ${{ matrix.target }}
+        run: |
+          cd juejin-integral-database
+          echo -n "$TOKEN" > secret
+          python script_generate_catalog.py --label "$LABEL" --target "$TARGET"
+          mv new_$TARGET  ../gold-miner/$TARGET
+      - name: Commit Catalog
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: '更新${{ matrix.label }}文章目录'
+          author_name: 'lsvih'
+          author_email: 'lsvih@qq.com'
+          add: '*.md'
+          cwd: './gold-miner/'
+          push: true
