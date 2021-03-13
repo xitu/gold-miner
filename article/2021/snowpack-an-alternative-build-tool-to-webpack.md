@@ -52,13 +52,13 @@ The property will be picked up automatically when you run the `snowpack build` c
 
 To start using Snowpack, you can immediately create a Snowpack application using Create Snowpack App (CSA)and NPX. For example, you can create a starter React application with CSA with the following command:
 
-```
+```sh
 npx create-snowpack-app react-snowpack --template @snowpack/app-template-react
 ```
 
 A new `react-snowpack` folder will be created and bootstrapped with minimum dependencies:
 
-```
+```json
 {
   "scripts": {
     "start": "snowpack dev",
@@ -92,8 +92,7 @@ Snowpack supports [many official templates](https://github.com/snowpackjs/snowpa
 
 ## Conclusion
 
-> **You should be able to use a bundler because you want to, and not because you need to.
--**[ Snowpack documentation](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
+> **You should be able to use a bundler because you want to, and not because you need to - **[Snowpack documentation](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
 
 Webpack and Snowpack was created years apart, and although Webpack has been the most popular choice for bundling JavaScript modules, the browser support for ESM modules has opened a new way to develop web applications.
 
