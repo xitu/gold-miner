@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-react-native-0.64-with-hermes-on-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2021/announcing-react-native-0.64-with-hermes-on-ios.md)
 > * 译者：[大宁的洛竹](https://github.com/youngjuning)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)、[PassionPenguin](https://github.com/PassionPenguin)
 
 # React Native 0.64 发布，已在 iOS 支持 Hermes
 
