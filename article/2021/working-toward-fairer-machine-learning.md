@@ -5,30 +5,29 @@
 > * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# 让机器学习更公平
+# 让机器学习更加公平
 
-Editor’s note: [Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) is a senior applied scientist with Amazon Web Services (AWS). He and his co-author, [Luca Oneto](https://www.lucaoneto.com/), associate professor of computer engineering at University of Genoa, have written about how different approaches can make data-driven predictions fairer for underrepresented groups. Oneto also won a [2019 Machine Learning Research award](https://www.amazon.science/research-awards/recipients/luca-oneto) for his work on algorithmic fairness. In this article, Donini and Oneto explore the research they and other collaborators have published related to designing machine learning (ML) models from a human-centered perspective, and building responsible AI.编者注：[Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) 是 Amazon Web Services（AWS）的一名高级应用科学家。他和他的合著者热那亚大学计算机工程学副教授 [Luca Oneto](https://www.lucaoneto.com/)，已经写了关于不同方法如何使数据驱动型预测对代表性不足的群体更公平的文章。Oneto因在算法公平性方面的工作而获得了[2019机器学习研究奖]（https://www.amazon.science/research-awards/recipients/luca-oneto）。在本文中，Donini和Oneto探索了他们和其他合作者发表的与以人为中心的角度设计机器学习（ML）模型并构建负责任的AI相关的研究。
+编者注：[Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) 是 Amazon Web Services（AWS）的一名高级应用科学家。他和他的合著者热那亚大学计算机工程学副教授 [Luca Oneto](https://www.lucaoneto.com/)，已经论述了关于不同方法如何使数据驱动型预测对代表性不足的群体更公平的文章。Oneto 也因自己在算法公平性方面的工作而获得了[ 2019 机器学习研究奖](https://www.amazon.science/research-awards/recipients/luca-oneto)。在本文中，Donini 和 Oneto 讨论了他们和其他合作者发表的、关于从以人为中心的角度去设计机器学习（ML）模型以及构建负责任的人工智能的研究。
 
+## 什么是公平？
 
-## What is fairness?
-
-Fairness can be defined in many different ways, and many different formal notions exist, such as demographic parity, equal opportunity, and equal odds.
+可以用许多不同的方式来定义公平，并且存在许多不同的概念形式，例如人口统计学均等，机会均等和机率均等。
 
 >![https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png](https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png)
 >
->Algorithmic fairness is a topic of great importance, with impact on many applications. The issue requires much further research; even the definition of what “being fair” means for an ML model is still an open research question.
+>算法的公平性是一个非常重要的主题，对许多应用都有影响。这个问题需要进一步研究。对于机器学习模型而言，“公平”的定义仍然是一个开放的研究问题。
 
-Nevertheless, the basic and common idea behind notions of fairness is that the learned ML model should behave equivalently, or at least similarly, no matter whether it is applied to one subgroup of the population (e.g., males) or to another one (e.g., females).
+然而，关于公平普遍接受的想法是，学习到的机器学习模型无论是应用于人口的哪一个子群体（例如男性群体或女性群体），其表现都应相同或至少类似。
 
-For example, demographic parity, which arguably is the most common notion of fairness, implies that the probability of a certain output of an ML model (e.g., deciding to make a loan) should not depend on the value of specific demographic attributes (e.g., gender, race, or age).
+以人口统计学均等这一最常见的公平概念为例（有争议），它表示机器学习模型的某个输出（例如，决定贷款）的概率不应该取决于人口特定的属性值（例如性别，种族或年龄）。
 
-## Moving toward fairer models
+## 让模型更公平
 
-Broadly speaking, we can group current literature on algorithmic fairness into three main approaches:
+从广义上讲，我们可以将现有关于算法公平性的文献归纳为三类：
 
-- The first approach consists of pre-processing the data to remove historical biases and then feeding this data to classical ML models.
-- The second approach consists of post-processing an already learned ML model. This approach is useful when very complex ML models need to be made fairer without touching their inner structure or when re-training them is unfeasible (due to computational cost, or time requirements).
-- The third approach, called in-processing, consists of enforcing fairness notions by imposing specific statistical constraints during the learning phase of the model. This is the most natural approach, but so far, it has required ad hoc solutions tailored to specific tasks and data sets.
+- 第一种方法是先对数据进行预处理以消除历史偏差，然后再将数据提供给经典的机器学习模型。
+- 第二种方法是对已有的机器学习模型进行后处理。当需要使用复杂的机器学习模型而又不能改变其内部结构，或者重新训练它们不可行（由于计算成本或时间要求）时，此类方法很有用。
+- 第三种方法，称为在线处理，是通过在模型的学习阶段施加特定的统计约束来实现公平性。这是最自然的方法，但是到目前为止，它需要针对特定的任务和数据集来量身定制临时解决方案。
 
 >![https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png](https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png)
 >
