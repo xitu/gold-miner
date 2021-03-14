@@ -1,5 +1,5 @@
 > * 原文地址：[Speed of Rust vs. C](https://kornel.ski/rust-c-speed)
-> * 原文作者：Suresh Kumar
+> * 原文作者：kornelski
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/speed-of-rust-vs-c.md](https://github.com/xitu/gold-miner/blob/master/article/2021/speed-of-rust-vs-c.md)
 > * 译者：
