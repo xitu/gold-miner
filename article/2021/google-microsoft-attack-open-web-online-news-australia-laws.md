@@ -5,9 +5,9 @@
 > * 译者：
 > * 校对者：
 
-![https://cdn.vox-cdn.com/thumbor/zpZdTmedPpWHFLzBOo3n2Y5CAu8=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/68955716/acastro_180427_1777_0001.0.jpg](https://cdn.vox-cdn.com/thumbor/zpZdTmedPpWHFLzBOo3n2Y5CAu8=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/68955716/acastro_180427_1777_0001.0.jpg)
+![Illustration by Alex Castro / The Verge](https://cdn.vox-cdn.com/thumbor/zpZdTmedPpWHFLzBOo3n2Y5CAu8=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/68955716/acastro_180427_1777_0001.0.jpg)
 
-*Illustration by Alex Castro / The Verge*
+# Google slams Microsoft for trying ‘to break the way the open web works’
 
 Google and Microsoft engineers might collaborate on the Chromium browser code, but that hasn’t stopped corporate politics between the pair. Google has launched a scathing attack on Microsoft today, accusing it of trying “to break the way the open web works in an effort to undercut a rival.”
 
@@ -19,9 +19,7 @@ In the middle of all of this, [Microsoft was very public](https://news.microsof
 
 “It’s no coincidence that Microsoft’s newfound interest in attacking us comes on the heels of the SolarWinds attack and at a moment when they’ve allowed tens of thousands of their customers ... to be actively hacked via major Microsoft vulnerabilities,” says Walker. “Microsoft was warned about the vulnerabilities in their system, knew they were being exploited, and are now doing damage control while their customers scramble to pick up the pieces from what has been dubbed the Great Email Robbery. So maybe it’s not surprising to see them dusting off the old diversionary Scroogled playbook.”
 
-![https://cdn.vox-cdn.com/thumbor/-6fs9A0OvjjWe9U59nIjKWlLbkY=/0x0:640x427/1200x0/filters:focal(0x0:640x427):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/14256901/scroogled_427.1419979343.png](https://cdn.vox-cdn.com/thumbor/-6fs9A0OvjjWe9U59nIjKWlLbkY=/0x0:640x427/1200x0/filters:focal(0x0:640x427):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/14256901/scroogled_427.1419979343.png)
-
-*Microsoft’s old Scroogled ads.*
+![Microsoft’s old Scroogled ads.](https://cdn.vox-cdn.com/thumbor/-6fs9A0OvjjWe9U59nIjKWlLbkY=/0x0:640x427/1200x0/filters:focal(0x0:640x427):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/14256901/scroogled_427.1419979343.png)
 
 This unusual attack from Google also comes just as the House Judiciary Committee looks at the antitrust and commercial aspects of competition for a free and diverse press. Google argues it doesn’t make money from Google News, but Microsoft argues it’s a lot more complicated and involves Google Search ads, ad tech business, ad exchange, ad tech tools, and Google’s overall consumer dataset.
 
