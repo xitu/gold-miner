@@ -57,9 +57,9 @@
 
 我们假设敏感属性（不应使结果产生偏差的人口统计学属性）不仅在训练过程中对机器学习模型可见，在推断时也是可见的。我们在学习公平的回归模型和最佳转换理论之间建立了联系，后者描述了如何测量概率分布之间的距离。在此基础上，我们推导了关于最优公平预测模型的完备的表达式。
 
-Specifically, under the unfair regression function, different populations have different probability distributions; the function skews the probabilities for the population with the sensitive attribute. The difference between subgroups’ distributions can be calculated using the Wasserstein distance. We show that the mean of the distribution of the optimal fair predictor is the mean of the different subgroups’ distributions, as calculated using Wasserstein distance. This mean is known as the Wasserstein barycenter.
+具体来说，在不公平回归函数下，不同的人群具有不同的概率分布。该类函数使具有敏感属性的群体对应的概率发生偏移。子群分布之间的差异可以使用 Wasserstein 距离进行计算。我们证明，最优公平预测模型的分布均值是使用 Wasserstein 距离计算得出的不同子组分布的均值。这个平均值被称为 Wasserstein 重心。
 
-This result offers an intuitive interpretation of optimal fair prediction and suggests a simple post-processing algorithm to achieve fairness. We establish fairness-risk guarantees for this procedure. Numerical experiments indicate that our method is very effective in learning fair models, with a relative increase in error rate that is smaller than the relative gain in fairness.
+该结果提供了对最佳公平预测的直观解释，并提出了一种实现公平性的简单的后处理算法。我们为此过程建立了公平风险保证。数值实验表明，我们的方法在训练公平模型方面非常有效，错误率的相对增加小于公平性的相对收益。
 
 **"[Exploiting MMD and Sinkhorn divergences for fair and transferable representation learning](https://www.amazon.science/publications/exploiting-mmd-and-sinkhorn-divergences-for-fair-and-transferable-representation-learning)”**
 
