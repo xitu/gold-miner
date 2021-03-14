@@ -1,7 +1,7 @@
 > * 原文地址：[Dropbox Reveals Atlas - a Managed Service Orchestration Platform](https://www.infoq.com/news/2021/03/dropbox-atlas/)
 > * 原文作者：[Eran Stiller](https://www.infoq.com/profile/Eran-Stiller/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas..md](https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md)
 > * 译者：
 > * 校对者：
 
