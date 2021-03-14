@@ -5,23 +5,23 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Raspberry Pi 九岁啦，让我们一起走进你可能不知道的有关它的 9 个小知识吧
+# Raspberry Pi 九岁啦：你可能不知道的 9 件事 
 
 > Rasp Pi 最初发布于 2012 年 2 月 29 日
 
 ![图源 Shutterstock](https://cdn.mos.cms.futurecdn.net/6ZQFRzwTBSXoWUpD5qY6oD-1024-80.jpg)
 
-Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列之一，于 2012 年 2 月 29 日正式推出。九年来，一共售出了 3,800 万太树莓派。它们为庞大的制造商、学生和企业群体提供了动力。这最初只是一个小项目，旨在增加剑桥大学的计算机科学计划的应用程序，但现在已经流行于全球。
+Raspberry Pi（树莓派 ）是世界上最受欢迎和最具创新的计算机系列之一，于 2012 年 2 月 29 日正式推出。九年来，一共售出了 3,800 万台树莓派。它们为庞大的制造商、学生和企业群体提供了动力。这最初只是一个小项目，旨在促进剑桥大学的计算机科学教育，但现在已经流行于全球。
 
-每个真正的技术爱好者都应该拥有至少一台的树莓派，或者，如果你像我一样，拥有 30 台树莓派。我们可以将其用作 轻型 PC、[复古街机](https://www.tomshardware.com/how-to/install-retropie-raspberry-pi-4)，或为各种项目提供动力，含括 [CCTV](https://www.tomshardware.com/how-to/raspberry-pi-security-camera) 到 [井字游戏机器人](https://www.tomshardware.com/news/this-raspberry-pi-robot-plays-tic-tac-toe-so-you-never-play-alone)，到 [自动运送垃圾的运输机器人](https://www.tomshardware.com/news/clean-your-room-with-this-raspberry-pi-trash-delivery-bot) 或是 [流媒体服务器](https://www.tomshardware.com/how-to/raspberry-pi-plex-ubuntu)。
+每个真正的技术爱好者都应该拥有至少一台树莓派，或者，你也可以像我一样，拥有 30 台树莓派。我们可以将其用作轻型 PC、[复古街机](https://www.tomshardware.com/how-to/install-retropie-raspberry-pi-4)，或为各种项目提供动力，从 [家庭安全摄像头](https://www.tomshardware.com/how-to/raspberry-pi-security-camera) 到 [井字游戏机器人](https://www.tomshardware.com/news/this-raspberry-pi-robot-plays-tic-tac-toe-so-you-never-play-alone)、[自动运送垃圾的运输机器人](https://www.tomshardware.com/news/clean-your-room-with-this-raspberry-pi-trash-delivery-bot) 或是[流媒体服务器](https://www.tomshardware.com/how-to/raspberry-pi-plex-ubuntu)。
 
-不如我们借此机会介绍有关树莓派的 9 个小知识，以庆祝树莓派的九岁生日把！
+不如我们借此机会介绍有关树莓派的 9 个小知识，以庆祝树莓派的九岁生日吧！
 
 ## 1. 树莓派的最初销售目标仅为 1,000 台
 
 树莓派最初是为解决一个非常局限的问题而开发的：剑桥大学申请计算机科学系的人数正在减少 —— 申请简历的数量从每年 600 个减少到每年 250 个。负责教学及招生工作的埃本·厄普顿（Eben Upton）担心没有足够的孩子对计算机感兴趣，于是，为了吸引更多能力更好的学生，厄普顿为一小部分英国孩子提供了一个低成本、易修改的计算机（从而培养他们对计算机的兴趣）。
 
-他在 [2019 年的采访中](https://www.tomshardware.com/news/raspberry-pi-founder-interview,38585.html)告诉我们：“我们正在设计的东西，在商业领域围绕着这样的想法，即如果你可以生产 1000 台树莓派，并交付给合适的 1000 个孩子的手中，你就可以解决了问题。”
+他在 [2019 年的采访中](https://www.tomshardware.com/news/raspberry-pi-founder-interview,38585.html)告诉我们：“我们正在设计的东西，在商业领域围绕着这样的想法，即如果你可以生产 1000 台树莓派，并交付到合适的 1000 个孩子的手中，你就可以解决问题。”
 
 在人们对该项目的兴趣激增之后，厄普顿和他的团队决定他们要生产 1000 多台树莓派，目标受众从英国的儿童扩展到了所有国家、地区的所有年龄段的人群。
 
@@ -31,7 +31,7 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 
 自 2012 年推出以来，树莓派基金会已经发布了 20 种其他的型号。而如果算上树莓派 4B 的 4 种 RAM 容量和树莓派计算模块 4 的 32 种型号（不同的 RAM 和存储容量，以及是否有 Wi-Fi），那么一共就有 52 种型号。
 
-最初的树莓派 B 型只拥有 256MB 的 RAM 和一个单核 700 MHz 处理器，而当前的主流型号树莓派 4B 则具有高达 8GB 的 RAM，四核 1.5GHz 的 CPU 和 USB 3.0 的端口。
+最初的树莓派 B 型只拥有 256MB 的 RAM 和一个单核 700MHz 处理器，而当前的主流型号树莓派 4B 则具有高达 8GB 的 RAM，四核 1.5GHz 的 CPU 和 USB 3.0 的端口。
 
 | 模型| 发行年份 | 中央处理器 | 内存 |
 | --- | --- | --- | --- |
@@ -56,7 +56,7 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 | 树莓派 400 | 2020 年 | 1.8 GHz Broadcom BCM2711 | 4GB |
 | 树莓派 Pico | 2021 年 | 133 MHz RP2040 | 264K |
 
-[树莓派 400](https://www.tomshardware.com/news/raspberry-pi-400-review-faster-cpu-new-layout-better-thermals) 于 2020 年末推出，是树莓派发行的第一台独立计算机。尽管 CPU 是 1.8GHz 而不是 1.5GHz，但树莓派 400 取代了裸板，成了一个内部集成了一个与树莓派 4 一样的系统的键盘。它可以单独被购买，也可以与鼠标、电源、电缆和官方指南配套使用。
+[树莓派 400](https://www.tomshardware.com/news/raspberry-pi-400-review-faster-cpu-new-layout-better-thermals) 于 2020 年末推出，是树莓派发行的第一台独立计算机。尽管 CPU 是 1.8GHz 而不是 1.5GHz，但树莓派 400 取代了裸板，成了一个内部集成了与树莓派 4 一样的系统的键盘。它可以单独被购买，也可以与鼠标、电源、电缆和官方指南配套使用。
 
 树莓派 Pico 是一种完全不同的树莓派变种。它是一种微控制器板，而与传统的树莓派相比，它更像是 Arduino（更多内容见下文）。
 
@@ -64,9 +64,9 @@ Raspberry Pi 树莓派 是世界上最受欢迎和最具创新的计算机系列
 
 ![图源 汤姆的硬件](https://cdn.mos.cms.futurecdn.net/DvmyRVRnKSQdcvLbKjddNP-970-80.jpg)
 
-[树莓派 Pico](https://www.tomshardware.com/news/raspberry-pi-pico-tutorials-pinout-everything-you-need-to-know) 于 2021 年 1 月发布，是该公司的首款微控制器，也标志着其首款定制芯片 RP2040 CPU 的首次亮相。以前的每个树莓派都是一台可以启动到通常为 Linux 的操作系统的功能齐全的计算机，而售价 4 美元的 Pico 则属于与 Arduino 相同的种类。Pico 非常适合用于控制电动机，灯光和传感器，并会在打开电源后立即运行程序，而无需等待启动，也无需担心在不安全关闭的情况下拔下插头会丢失数据的问题。
+[树莓派 Pico](https://www.tomshardware.com/news/raspberry-pi-pico-tutorials-pinout-everything-you-need-to-know) 于 2021 年 1 月发布，是该公司的首款微控制器，也标志着其首款定制芯片 RP2040 CPU 的首次亮相。以前的每个树莓派都是一台可以启动到通常为 Linux 的操作系统的功能齐全的计算机，而售价 4 美元的 Pico 则属于与 Arduino 相同的种类。Pico 非常适合用于控制电动机、灯光和传感器，并会在打开电源后立即运行程序，而无需等待启动，也无需担心在不安全关闭的情况下拔下插头会丢失数据的问题。
 
-Pico 具有三个内置的 ADC（模数转换器），这是其他树莓派型号所不具备的。这些转换器让我们可以直接连接至模拟设备，例如操纵杆、电位计和距离传感器。请参阅我们有关[树莓派 Pico 与 Arduino](https://www.tomshardware.com/features/raspberry-pi-pico-vs-arduino) 的文章，以及[哪款树莓派最适合你](https://www.tomshardware.com/how-to/raspberry-pi-buying-guide)，以获取 Pico，Arduino 和其他树莓派之间更详细的比较。
+Pico 具有三个内置的 ADC（模数转换器），这是其他树莓派型号所不具备的。这些转换器让我们可以直接连接至模拟设备，例如操纵杆、电位计和距离传感器。请参阅我们有关[树莓派 Pico 与 Arduino](https://www.tomshardware.com/features/raspberry-pi-pico-vs-arduino) 的文章，以及[哪款树莓派最适合你](https://www.tomshardware.com/how-to/raspberry-pi-buying-guide)，以获取 Pico、Arduino 和其他树莓派之间更详细的比较。
 
 Pico 的 RP2040 芯片比板子本身具有更大的升级。这款 133MHz 双核 Cortex M0+ CPU 是由树莓派基金会设计的，并授权给了其他的供应商，例如 Pimoroni 和 Adafruit。他们自己构建了由 RP2040 驱动的微控制器的整个生态系统。甚至 Arduino 也参与其中，发布了 Arduino Nano RP2040 Connect，它将具有内置的 Wi-Fi 和蓝牙功能。
 
@@ -96,7 +96,7 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 ## 7. Raspberry Pi 基金会希望产品永远存在
 
-即使树莓派 B+，树莓派 2，树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极制造和销售它们。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业客户仍然会需要使用这些机器，而不在乎它是否过时。
+即使树莓派 B+、树莓派 2、树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极进行制造和销售。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业客户仍然会需要使用这些机器，而不在乎它是否过时。
 
 厄普顿在 2019 年告诉我们："将产品停产就是意味着它的死亡。我们目前仅停产了 5 种产品。"他还说，树莓派停产的仅有的 5 种型号包括树莓派 1A 和树莓派 1B，因为树莓派 1A+ 和 B+ 是更好的替代品。”
 
@@ -116,7 +116,7 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 ## 9. 每年都有一场树莓派竞赛
 
-是的，我们可以参与树莓派竞赛。[树莓派竞赛（Pi Wars）](https://piwars.org/)是一年一度的机器人竞赛。在这个比赛中，我们必须使用树莓派来完成所有装备的构建。参与树莓派竞赛的团队需要在各种挑战中相互竞争，例如导航障碍物路线，弹出气球和导航迷宫。
+是的，我们可以参与树莓派竞赛。[树莓派竞赛（Pi Wars）](https://piwars.org/)是一年一度的机器人竞赛。在这个比赛中，我们必须使用树莓派来完成所有装备的构建。参与树莓派竞赛的团队需要在各种挑战中相互竞争，例如导航障碍物路线、弹出气球和导航迷宫。
 
 在树莓派竞赛中，既有人力驱动的挑战，也有自动化的挑战。下一场树莓派大战将于 2021 年的 7 月举行。
 
