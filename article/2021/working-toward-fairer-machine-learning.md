@@ -47,15 +47,15 @@
 
 我们发现，在实践中，我们可以简单地通过要求两个向量之间的标量积保持较小（描述模型的权重向量与描述不同子组之间的区别的向量之间的正交性约束）来满足公平性约束。我们进一步发现，对于线性模型，此要求转化为一种简单的预处理方法。实验表明，我们的方法在经验上是有效的，并且相比最新方法表现出色。
 
-**“[Fair regression with Wasserstein barycenters](https://arxiv.org/pdf/2006.07286.pdf)”**
+**“[基于 Wasserstein barycenters 公平性回归](https://arxiv.org/pdf/2006.07286.pdf)”**
 
-In this paper, we consider the case in which the ML model learns a regression function (as opposed to a classification task). We propose a post-processing method for transforming a real-valued regression function — the ML model — into one that satisfies the demographic-parity constraint (i.e., the probability of getting a positive outcome should be virtually the same for different subgroups). In particular, the new regression function is as good an approximation of the original as is possible while still satisfying the constraint, making it an optimal fair predictor.
+在本文中，我们考虑了机器学习模型学习回归函数（与分类任务相对）的情况。我们提出了一种后处理方法，用于将实值回归函数（即机器学习模型）转换为满足人口统计学均等约束条件函数的方法（即，对于不同的子组而言，获得正向结果的可能性实际上应该是相同的）。特别是，新的回归函数与原始函数尽可能的相似，同时仍满足约束条件，使其成为最优的公平预测模型。
 
 >![](https://assets.amazon.science/dims4/default/193689d/2147483647/strip/true/crop/250x310+0+0/resize/1200x1488!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2F30%2F64%2F814dbdbf42e8b57c5454be7be982%2Ffair-representation-copy.png)
 >
->In “Fair regression with Wasserstein barycenters”, we consider the case in which the ML model learns a regression function and propose a post-processing method for transforming a real-valued regression function — the ML model — into one that satisfies the demographic-parity constraint.
+>在该文章中中，我们考虑了机器学习模型学习回归函数的情况，并提出了一种后处理方法，用于将实值回归函数——机器学习模型——转换为满足人口统计学均等约束条件的函数。
 
-We assume that the sensitive attribute — the demographic attribute that should not bias outcome — is available to the ML model at inference time and not only during training. We establish a connection between learning a fair model for regression and optimal transport theory, which describes how to measure distances among probability distributions. On that basis, we derive a closed-form expression for the optimal fair predictor.
+我们假设敏感属性（不应使结果产生偏差的人口统计学属性）不仅在训练过程中对机器学习模型可见，在推断时也是可见的。我们在学习公平的回归模型和最佳转换理论之间建立了联系，后者描述了如何测量概率分布之间的距离。在此基础上，我们推导了关于最优公平预测模型的完备的表达式。
 
 Specifically, under the unfair regression function, different populations have different probability distributions; the function skews the probabilities for the population with the sensitive attribute. The difference between subgroups’ distributions can be calculated using the Wasserstein distance. We show that the mean of the distribution of the optimal fair predictor is the mean of the different subgroups’ distributions, as calculated using Wasserstein distance. This mean is known as the Wasserstein barycenter.
 
