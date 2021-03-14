@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
 > * 译者：
 > * 校对者：
+
 # Angular vs. React vs. Vue: Which Framework is Best in 2021?
 > One is a UI library (React), another is a seasoned front-end framework (Angular), and the youngest among them (Vue) may be termed as a progressive framework.
 
