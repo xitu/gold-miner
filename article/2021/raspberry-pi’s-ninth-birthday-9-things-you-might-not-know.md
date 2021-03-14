@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[husiyu](https://github.com/husiyu)，[Chorer](https://github.com/Chorer)
 
 # Raspberry Pi 九岁啦：你可能不知道的 9 件事 
 
