@@ -5,6 +5,8 @@
 > * 译者：
 > * 校对者：
 
+# Google’s OSS-Fuzz extends fuzzing to Java apps
+
 Google’s open source fuzz-testing service, OSS-Fuzz, now supports applications written in Java and JVM-based languages. The capability was announced on March 10.
 
 [OSS-Fuzz](https://github.com/google/oss-fuzz) provides continuous fuzzing for open source software. A technique for finding programming errors and security vulnerabilities in software, fuzzing involves sending a stream of semi-random and invalid input to a program. Fuzzing code written in memory-safe languages such as JVM languages can find bugs that cause programs to crash or behave incorrectly.
