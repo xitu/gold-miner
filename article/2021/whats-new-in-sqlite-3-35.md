@@ -30,7 +30,7 @@ Maybe SQLite developers prefer to focus on features that large customers are wil
 
 Here is the full list:
 
-```
+```sql
 acos(X)
 acosh(X)
 asin(X)
@@ -75,7 +75,7 @@ To delete a column, SQLite have to completely overwrite the table - so the opera
 
 E.g., return the `id` of a new record:
 
-```
+```sql
 create table users (
   id integer primary key,
   first_name text,
@@ -89,7 +89,7 @@ returning id;
 
 Or return products with increased price:
 
-```
+```sql
 update products set price = price 1.10
 where price <= 99.99
 returning name, price as new_price;
@@ -99,7 +99,7 @@ returning name, price as new_price;
 
 CTE (Common Table Expression) is a great way to make a query more expressive. E.g., count the number of cities founded in each century:
 
-```
+```sql
 create table city(
   city text,
   timezone text,
@@ -129,7 +129,7 @@ If the same CTE occurs multiple times in a query, SQLite calculates it multiple 
 
 With a materialized CTE, SQLite executes the query once, remembers the result and does not recalculate it (within the same query):
 
-```
+```sql
 with history as materialized (
   select ...
 )
