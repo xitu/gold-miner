@@ -5,6 +5,8 @@
 > * 译者：
 > * 校对者：
 
+# Speed of Rust vs. C
+
 The run-time speed and memory usage of programs written in Rust should about the same as of programs written in C, but overall programming style of these languages is different enough that it's hard to generalize their speed. This is a summary of where they're the same, where C is faster, and where Rust is faster.
 
 Disclaimer: It's not meant to be an objective benchmark uncovering indisputable truths about these languages. There's a significant difference between what these languages can achieve in theory, and how they're used in practice. This particular comparison is based on my own subjective experience that includes having deadlines, writing bugs, and being lazy. I've been using Rust as my main language for over 4 years, and C for a decade before that. I'm specifically comparing to just C here, as a comparison with C++ would have many more "ifs" and "buts" that I don't want to get into.
