@@ -23,9 +23,7 @@ In this blog, we look at some of the most sought-out open source projects in the
 * Significant commitment on ease of deployment. Cloudprober is completely written and compiled into a static binary in Go. It can be deployed quickly by way of Docker containers. In addition to most of the updates, there is normally no need to re-deploy or reconfigure Cloudprober due to the automatic aim discovery.
 * The Cloudprober Docker image size is low, containing only a statically compiled binary, and it requires a very small amount of CPU and RAM to run even a large number of probes.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5bd946575b4c9affe61b_1.png](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5bd946575b4c9affe61b_1.png)
-
-*[Image Source](https://github.com/google/cloudprober)*
+![[Image Source](https://github.com/google/cloudprober)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5bd946575b4c9affe61b_1.png)
 
 ## 2. Cloud Operations Sandbox (Alpha)
 
@@ -37,9 +35,7 @@ In this blog, we look at some of the most sought-out open source projects in the
 * One-click deployment — a script handles the work of deploying the service to Google Cloud Platform.
 * Load Generator — a part that produces simulated traffic on a demo service.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c14d10c2b76716fbe34_2.jpg](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c14d10c2b76716fbe34_2.jpg)
-
-*[Image Source](https://github.com/GoogleCloudPlatform/cloud-ops-sandbox)*
+![[Image Source](https://github.com/GoogleCloudPlatform/cloud-ops-sandbox)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c14d10c2b76716fbe34_2.jpg)
 
 ## 3. Version Checker for Kubernetes
 
@@ -51,9 +47,7 @@ A [Kubernetes utility](https://github.com/jetstack/version-checker#:~:text=vers
 * This utility allows you to see the version information as Prometheus metrics.
 * Support for registries like ACR, DockerHub, ECR.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46c71a5a0a24cfccbd8d_image6.png](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46c71a5a0a24cfccbd8d_image6.png)
-
-*[Image Source](https://github.com/jetstack/version-checker)*
+![[Image Source](https://github.com/jetstack/version-checker)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46c71a5a0a24cfccbd8d_image6.png)
 
 ## 4. Istio
 
@@ -67,9 +61,7 @@ A [Kubernetes utility](https://github.com/jetstack/version-checker#:~:text=vers
 * Automatic metrics, logs, and traces for all traffic within a cluster, including cluster ingress and egress.
 * Secure service-to-service communication in a cluster with strong identity-based authentication and authorization.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c3ad3b5421ccfa359f7_3.jpg](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c3ad3b5421ccfa359f7_3.jpg)
-
-*[Image Source](https://istio.io/)*
+![[Image Source](https://istio.io/)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c3ad3b5421ccfa359f7_3.jpg)
 
 ## 5. Checkov
 
@@ -81,9 +73,7 @@ A [Kubernetes utility](https://github.com/jetstack/version-checker#:~:text=vers
 * Assesses Terraform Provider settings to monitor Terraform-managed IaaS, PaaS, or SaaS development, maintenance, and updates.
 * Detects AWS credentials in EC2 Userdata, Lambda context variables, and Terraform providers.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46b8a8cf376b15c27f31_image3.png](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46b8a8cf376b15c27f31_image3.png)
-
-*[Image Source](https://www.checkov.io/)*
+![[Image Source](https://www.checkov.io/)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae46b8a8cf376b15c27f31_image3.png)
 
 ## 6. Litmus
 
@@ -95,9 +85,7 @@ Litmus is a cloud-based chaos modeling toolkit. Litmus provides tools to orchest
 * Developers can run chaos tests during application development as an extension to unit testing or integration testing.
 * For CI pipeline builders: To run chaos as a pipeline stage to find bugs when the application is subjected to fail paths in a pipeline.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c80e9ad215032686770_4.jpg](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c80e9ad215032686770_4.jpg)
-
-*[Image Source](https://github.com/litmuschaos/litmus)*
+![[Image Source](https://github.com/litmuschaos/litmus)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5c80e9ad215032686770_4.jpg)
 
 ## 7. Locust
 
@@ -109,9 +97,7 @@ Litmus is a cloud-based chaos modeling toolkit. Litmus provides tools to orchest
 * Web-based UI that shows progress in real-time.
 * Can test any system with a little tinkering.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae487f1a5a0a3f0eccc78d_image1.png](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae487f1a5a0a3f0eccc78d_image1.png)
-
-*[Image Source](https://github.com/locustio/locust)*
+![[Image Source](https://github.com/locustio/locust)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae487f1a5a0a3f0eccc78d_image1.png)
 
 ## 8. Prometheus
 
@@ -124,9 +110,7 @@ Litmus is a cloud-based chaos modeling toolkit. Litmus provides tools to orchest
 * No dependency on distributed storage; single server nodes are autonomous.
 *  PromQL, a powerful and flexible query language to leverage this dimensionality.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cabe713151e3ba35284_5.jpg](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cabe713151e3ba35284_5.jpg)
-
-*[Image Source](https://github.com/prometheus/prometheus)*
+![[Image Source](https://github.com/prometheus/prometheus)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cabe713151e3ba35284_5.jpg)
 
 ### 9. Kube-monkey
 
@@ -137,9 +121,7 @@ Litmus is a cloud-based chaos modeling toolkit. Litmus provides tools to orchest
 * Kube-monkey is operating with an opt-in model and only targeting the termination of Kubernetes (k8s) users which have specifically accepted that kube-monkey will terminate their pods.
 * Highly customizable scheduling features based on your requirements
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae4976092c02d97f145670_image10.png](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae4976092c02d97f145670_image10.png)
-
-*[Image Source](https://www.slideshare.net/arungupta1/chaos-engineering-with-kubernetes)*
+![[Image Source](https://www.slideshare.net/arungupta1/chaos-engineering-with-kubernetes)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae4976092c02d97f145670_image10.png)
 
 ## 10. PowerfulSeal
 
@@ -151,9 +133,7 @@ Litmus is a cloud-based chaos modeling toolkit. Litmus provides tools to orchest
 * Connects with [Prometheus](https://prometheus.io/) and [Datadog](https://www.datadoghq.com/) for metrics collection.
 * Multiple modes allowed for custom use cases.
 
-![https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cca5c87c3b80dcf9912_6.jpg](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cca5c87c3b80dcf9912_6.jpg)
-
-*[Image Source](https://github.com/powerfulseal/powerfulseal)*
+![[Image Source](https://github.com/powerfulseal/powerfulseal)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cca5c87c3b80dcf9912_6.jpg)
 
 ## Conclusion
 
