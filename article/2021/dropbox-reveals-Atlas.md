@@ -19,9 +19,7 @@ The authors state that many previous efforts to improve Metaserver had not succe
 
 ![https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-before-after-1615307468409.png](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-before-after-1615307468409.png)
 
-*Before and after Atlas*
-
-Source: [https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)
+**Before and after Atlas, Source: [https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)**
 
 The Atlas design involved a few critical efforts revolving around componentization, orchestration, and operationalization. Atlas introduces Atlasservlets (pronounced "atlas servlets") as a logical, atomic grouping of HTTP routes to improve componentization. The authors say that "In preparation for Atlas, we worked with product teams to assign Atlasservlets to every route in Metaserver, resulting in more than 200 Atlasservlets across more than 5000 routes." Each servlet is assigned an owner, and the owner is the only authority that manages it. Also, to break up the Metaserver codebase, they had to break most of our Python import cycles. The process took several years to achieve, and they prevented regressions and new import cycles through the use of the [Bazel](https://bazel.build/) build system and its [visibility rules](https://docs.bazel.build/versions/master/visibility.html).
 
@@ -29,21 +27,13 @@ To improve orchestration, each servlet in Atlas is its own cluster. This decisio
 
 ![https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-http-transcoding-1615307468739.png](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-http-transcoding-1615307468739.png)
 
-*HTTP transcoding*
-
-**Source:**
-
-[https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)
+**HTTP transcoding, Source: [https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)**
 
 Regarding operationalization, according to the authors, "Atlas' secret sauce is the managed experience." This effort's main pillars are automated canary analysis that automatically checks each code push before it reaches production and an autoscaling capability that removes much of the need for capacity planning.
 
 ![https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-canary-1615307469053.png](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-canary-1615307469053.png)
 
-*Canary analysis*
-
-*Source:*
-
-*[https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)*
+**Canary analysis, Source: [https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
