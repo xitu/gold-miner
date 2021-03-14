@@ -31,21 +31,21 @@
 
 >![https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png](https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png)
 >
->Broadly speaking, current literature on algorithmic fairness falls into three main approaches: pre-processing data; post-processing an already learned ML model; and in-processing, which consists of enforcing fairness notions by imposing specific statistical constraints during the learning phase of the model.
+>广义上讲，当前关于算法公平性的文献主要可分为以下三种方法：数据预处理；对已有的机器学习模型进行后处理；以及在线处理，通过在模型的学习阶段施加特定的统计约束来实现公平性。
 
-We decided to explore and analyze possible techniques to make ML algorithms capable of learning fairer models.
+我们决定探索和分析可能的技术，以使机器学习算法能够得到更加公平的模型。
 
-We started from the base concepts of statistical learning theory — a mathematical framework for describing machine learning — and, in particular, from empirical risk minimization theory. The core concept of empirical risk minimization is that a model’s performance on test data may not accurately predict its performance on real-world data, as the real-world data may have a different probability distribution.
+我们从统计学习理论（描述机器学习的数学框架）最为基本的概念出发，具体指经验风险最小化理论。最小化经验风险的核心概念是，模型在测试数据上的性能可能无法准确预测其在真实数据上的性能，因为现实数据可能具有不同的概率分布。
 
-Empirical-risk-minimization theory provides a way to estimate the “true risk” of a model from its “empirical risk”, which can be computed from the available data. We extended this concept to the true and empirical fairness risk of ML models.
+经验风险最小化理论提供了一种从模型的“经验风险”估计模型的“真实风险”的方法。而模型的“经验风险”可以从已有数据中计算出来。我们将此概念扩展到机器学习模型的真实和经验公平风险。
 
-Below is a summary of three papers we’ve published related to these topics.
+以下是我们针对这些主题发表的三篇论文的摘要。
 
-**“[Empirical risk minimization under fairness constraints](https://arxiv.org/pdf/1802.08626.pdf)”**
+**“[公平约束下的经验风险最小化](https://arxiv.org/pdf/1802.08626.pdf)”**
 
-This paper presents a new in-processing method, meaning that we incorporate a fairness constraint into the learning problem. We derive theoretical guarantees on both the accuracy and fairness of the resulting models, and we show how to apply our method to a large family of machine learning algorithms, including linear models and [support vector machines for classification](https://scikit-learn.org/stable/modules/svm.html#svm-classification) (a widely used supervised-learning method).
+本文提出了一种新的在线处理方法，这意味着我们将公平性约束纳入学习问题中。我们得出了所得模型的准确性和公平性的理论保证，并展示了如何将我们的方法应用于众多系列的机器学习算法中，包括线性模型和[用于分类的支持向量机](https://scikit-learn.org/stable/modules/svm.html#svm-classification)（一种广泛使用的监督学习方法）。
 
-We observe that, in practice, we can meet our fairness constraint simply by requiring that a scalar product between two vectors remains small (an orthogonality constraint between the vector of the weights describing our model and the vector describing the discrimination between the different subgroups). We further observe that, for linear models, this requirement translates into a simple pre-processing method. Experiments indicate that our approach is empirically effective and performs favorably against state-of-the-art approaches.
+我们发现，在实践中，我们可以简单地通过要求两个向量之间的标量积保持较小（描述模型的权重向量与描述不同子组之间的区别的向量之间的正交性约束）来满足公平性约束。我们进一步发现，对于线性模型，此要求转化为一种简单的预处理方法。实验表明，我们的方法在经验上是有效的，并且相比最新方法表现出色。
 
 **“[Fair regression with Wasserstein barycenters](https://arxiv.org/pdf/2006.07286.pdf)”**
 
