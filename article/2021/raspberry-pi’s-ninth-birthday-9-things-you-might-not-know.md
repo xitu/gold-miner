@@ -80,7 +80,7 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 ## 5. 树莓派有 20 多个操作系统
 
-树莓派 OS 是 Debian 的定制版本，是 Raspberry Pi 板的官方操作系统，但到目前为止，它并不是唯一的选择。从适用于树莓派的 Ubuntu 和 FreeBSD Linux 版本到非官方的 Android 和 ChromeOS，我们可以使用大量不同的操作系统。最有趣的一些系统包括：
+树莓派 OS 是 Debian 的定制版本，是树莓派的官方操作系统，但到目前为止，它并不是唯一的选择。从适用于树莓派的 Ubuntu 和 FreeBSD Linux 版本到非官方的 Android 和 ChromeOS，我们可以使用大量不同的操作系统。最有趣的一些系统包括：
 
 * **[LibreELEC](https://libreelec.tv/downloads_new/)**：运行 Kodi 开源媒体软件的轻量级操作系统。
 * **[RISC OS](https://www.riscosopen.org/content/downloads/raspberry-pi)**：此独特的操作系统专为 ARM 芯片而设计，声称有比 Linux 更快的运行速度。
@@ -94,7 +94,7 @@ Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 �
 
 尽管 Pis 是较旧的型号，但他们最近进行了存储升级，Astro Pi 项目[向国际空间站发送了 256GB 的 microSD 卡](https://twitter.com/astro_pi/status/1365315688034799622)以替换其正在使用的 32GB 卡。
 
-## 7. Raspberry Pi 基金会希望产品永远存在
+## 7. 树莓派基金会希望产品永远存在
 
 即使树莓派 B+、树莓派 2、树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极进行制造和销售。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业客户仍然会需要使用这些机器，而不在乎它是否过时。
 
