@@ -2,8 +2,8 @@
 > * 原文作者：[Sourabh Nagar](https://dzone.com/users/3456681/chapter247.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
-> * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
 # Angular vs. React vs. Vue：2021 年哪个框架最好？
 
@@ -59,72 +59,72 @@ Vue 的模板语法将可识别的 HTML 与特殊的指令和功能相结合。�
 
 ### **Angular**
 
-Angular is best suitable for large-scale and advanced projects. These may include but not be limited to:
+Angular 最适合大型和高级项目。这些可能包括但不限于：
 
-- Developing Progressive Web App (PWA).
-- Redesigning of a website application.
-- Building dynamic content-based web designs.
-- Creating large enterprise application that needs complex infrastructure.
+* 开发渐进式 Web 应用程序（PWA）。
+* 重新设计网站应用程序。
+* 建立基于内容的动态网页设计。
+* 创建需要复杂基础架构的大型企业应用程序。
 
 ### **React**
 
-React comes from the family of the MERN stack — a technology stack known for building sophisticated business applications. React becomes a powerful tool when used along with Redux or MobX, or any flux patterned library. React is best suited for the following projects:
+React 来自 MERN 堆栈家族 —— 一种以构建复杂的业务应用程序而闻名的技术堆栈。当与 Redux 或 MobX 或任何流量模式库一起使用时，React 能够成为强大的工具。React 最适合以下项目：
 
-- For applications that involve many components with navigation items, collapsed/expanded accordion sections, active/inactive states, dynamic inputs, active/inactive buttons, user login, user access permissions, etc.
-- For projects that have scope for scale and growth because React components have declarative nature that makes way for easy handling around such complex structures.
-- When UI is the center of the web app.
+* 对于涉及包含导航项目，折叠或展开的手风琴分节，活动或非活动状态，动态输入，活动或非活动按钮，用户登录，用户访问权限等的许多组件的应用程序。
+* 对于具有规模和增长范围的项目，因为 React 组件具有声明性，因此可以轻松处理此类复杂结构。
+* 当 UI 是网络应用程序的中心时。
 
 ### **Vue**
 
-Vue is best suited for solving short-term problems because Vue has an affordable and quick learning curve. It can integrate with existing code blocks easily. Vue may be required when:
+Vue 最适合解决短期问题，因为 Vue 具有可负担且快速的学习曲线。它可以轻松地与现有代码块集成。在以下情况下可能需要 Vue：
 
-- You need development projects of web apps with animations or interactive elements.
-- Prototyping without the need for advanced skills.
-- Applications requiring seamless integration with multiple other apps.
-- Faster launch of MVP.
+* 您需要带有动画或交互式元素的 Web 应用程序的开发项目。
+* 无需高级技能即可进行原型制作。
+* 需要与多个其他应用程序无缝集成的应用程序。
+* 更早推出 MVP。
 
 ## **表现和发展**
 
 ### **Angular**
 
-Some highlights in Angular’s performance are:
+Angular 性能方面的一些亮点包括：
 
-- Has seamless third-party integrations for enhancing the functionality of the product/application.
-- Provides a robust collection of components leading to simplified art of writing, altering, and using the code.
-- Its 'ahead-of-time-compiler' bestows faster load times and security strength.
-- The MVC model helps in curtailing queries in the background by allowing separation of views.
-- Facilitates the use of dependency injection as external elements for decoupling components that make way for reusability and ease of management and testing.
-- Reduces the initial load time of a webpage by splitting the tasks into logical chunks.
-- Fully customizable designs.
-- Facilitates the compiling of HTML and TypeScript into JavaScript — leading to the faster compilation of the code much before the browser starts to load the web app.
+* 具有无缝的第三方集成，以增强产品或应用程序的功能。
+* 提供强大的组件集合，从而简化了编写，更改和使用代码的过程。
+* 它的“提前编译器”赋予了更快的加载时间和安全性。
+* MVC 模型通过允许视图分离来帮助减少后台查询。
+* 促进将依赖项注入用作将组件解耦的外部元素，从而为可重用性以及简化管理和测试铺平了道路。
+* 通过将任务分成逻辑块来减少网页的初始加载时间。
+* 完全可定制的设计。
+* 便于将 HTML 和 TypeScript 编译为 JavaScript —— 大大加快了代码的编译速度，并将编译提早到远早于浏览器开始加载 Web 应用程序之前。
 
 ### **React**
 
-React is comparable to Vue when it comes to performance because both have the same architecture, i.e., interaction with DOM. The performance of React web development can be assessed as follows:
+在性能方面，React 与 Vue 相当，因为两者具有相同的架构，即与 DOM 交互。React Web 开发的性能可以评估如下：
 
-- Supports bundling and tree-shaking — a feature crucial for reducing the end users’ resource loads.
-- Offers better control over the project due to one-way data-binding support.
-- It can be easily tested and monitored.
-- Best for complex applications that require frequent changes.
+* 支持捆绑和 Tree-shaking —— 这对于减少最终用户的资源负载至关重要。
+* 由于提供了单向数据绑定支持，因此可以更好地控制项目。
+* 可以轻松测试和监视。
+* 最适合需要频繁更改的复杂应用程序。
 
 ### **Vue**
 
-Incredibly fast is the phrase that’s most attached with Vue. Some of its performance metrics are:
+形容 Vue 的最贴切的词组是令人难以置信的快速。它的一些性能指标是：
 
-- Faster learning curve.
-- Efficient and sophisticated single-page application.
-- Versatility due to high-end features.
+* 更快的学习曲线。
+* 单页应用程序高效精密。
+* 具有高端功能，因而它有多功能性。
 
 ## **各自的优点**
 
 ### **Angular**
 
-Well-documented understanding of templates, forms, bootstrapping or details about architecture, components, and interaction between components:
+有对模板、表单、引导程序或架构、组件以及组件之间交互的完整的文档：
 
-- Smooth two-way data binding.
-- MVC architecture.
-- Built-in module system.
-- Significant reduction of the initial load time of a webpage.
+* 平滑的双向数据绑定。
+* MVC 架构。
+* 内置模块系统。
+* 大大减少了网页的初始加载时间。
 
 **使用 Angular 构建的流行应用程序：**
 
@@ -132,10 +132,10 @@ Youtube TV | PayPal | Gmail | Forbes | Google Cloud
 
 ### **React**
 
-- Flexible code due to its modular structure. Saves time and cost.
-- Facilitates high performance of complex apps.
-- Easier to maintain code during React front-end development.
-- Supports mobile native applications for both Android and iOS platforms.
+* 出于其模块化的结构而使其拥有灵活的代码。节省时间和成本。
+* 助力复杂应用程序的高性能的实现。
+* 使用 React 前端开发能够更容易去做代码维护。
+* 支持适用于 Android 和 iOS 平台的移动端原生应用程序。
 
 **使用 React 构建的流行应用程序：**
 
@@ -143,13 +143,13 @@ Tesla | AirBnB | CNN | Nike | Udemy | Linked-in
 
 ### **Vue**
 
-- Small size facilitates easy installation and download.
-- When properly harnessed, Vue can be reused.
-- Vue.js allows updating of elements in a web page without rendering the whole DOM since it is virtual.
-- Requires less optimization.
-- Stimulates web application development and allows the experts to separate template-to-virtual DOM from the compiler.
-- Proven compatibility and flexibility.
-- The codebase remains light regardless of the scaling of the application.
+* 体积小巧，便于安装和下载。
+* 倘若我们可以正确利用，我们就可以在多处重用 Vue。
+* Vue.js 允许我们更新网页中的元素，而无需渲染整个 DOM，因为它是虚拟的 DOM。
+* 需要较少的优化。
+* 促进 Web 应用程序的开发，并允许大佬将模板到虚拟 DOM 与编译器分开。
+* 经过验证的兼容性和灵活性。
+* 不管应用程序的规模如何，代码库都不会变。
 
 **使用 Vue 构建的流行应用程序：**
 
@@ -157,11 +157,11 @@ Gitlab | Spendesk | Behance | 9Gag | Wizzair | Nintendo
 
 ### **社区支持与学习曲线**
 
-React JS library is created by Facebook that enjoys a large community of coders and developers offering solutions to the biggest problems. Angular has a large community of developers who have answers to the most challenging and weirdest cases. Vue has a decent ecosystem and enjoys all the right characteristics of React library and Angular framework. When it comes to the learning curve, React is the quickest to learn and adapt, followed by Vue and Angular.
+React JS 库是由 Facebook 创建的，拥有大量的贡献人员和一个庞大的开发者社区，为最大的问题贡献者他们的方案。Angular 有一个宏大的开发者社区，对最具挑战性和最怪异的案例都有答案。Vue 具有良好的生态系统，并具有 React 库和 Angular 框架的所有正确的特性。说到学习曲线，React 无疑是能够最快学习和适应的，其次是 Vue 和 Angular。
 
 ## **本文总结**
 
-From the point of view of front-end development, React will be the quickest to learn in 2021. Both Vue and React are lightweight, intuitive, and perform flawlessly.
+从前端开发的角度来看，React 将是 2021 年能够学得最快的框架，Vue 和 React 都是轻量级且直观的，并且性能完美无缺。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
