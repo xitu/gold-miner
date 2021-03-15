@@ -109,7 +109,7 @@ def get_distance(p1: Dict[str, Any],
     pass
 ```
 
-在实际中，注解确实很糟糕。通常来说几乎没有字典的注解，在大部分情况下的注解会是 `Dict[str, Any]` 。
+在实际中，注解确实很糟糕。通常来说几乎没有字典的注解，在大部分情况下的注解会是 `Dict[str, Any]`。
 
 [TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) 自从 Python 3.8 一直存在，但是我从没在大型的项目中见到这样的写法。 [TypedDict 是一个杀手级功能](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8)，但是这无关大多数的项目，我们希望在旧有的 Python 版本中也获得此功能支持。
 
