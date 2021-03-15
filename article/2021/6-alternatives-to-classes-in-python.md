@@ -2,8 +2,8 @@
 > * 原文作者：[Martin Thoma](https://medium.com/@martinthoma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-alternatives-to-classes-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-alternatives-to-classes-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Alfxjx](https://github.com/Alfxjx)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[flying-yogurt](https://github.com/flying-yogurt)
 
 # Python 类的 6 种替代方案
 
@@ -109,7 +109,7 @@ def get_distance(p1: Dict[str, Any],
     pass
 ```
 
-在实际中，注解确实很糟糕，字典的注解在多数情况下几乎总是 `Dict[str, Any]` 。通常，没有注解。
+在实际中，注解确实很糟糕。通常来说几乎没有字典的注解，在大部分情况下的注解会是 `Dict[str, Any]` 。
 
 [TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) 自从 Python 3.8 一直存在，但是我从没在大型的项目中见到这样的写法。 [TypedDict 是一个杀手级功能](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8)，但是这无关大多数的项目，我们希望在旧有的 Python 版本中也获得此功能支持。
 
@@ -188,7 +188,7 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 你也可以在构造器入参的时候自动执行代码。这被称为是 “转换”。[文档]((https://www.attrs.org/en/stable/examples.html#conversion)中给出了一个很好的例子：
 
-```
+```Python
 >>> @attr.s
 ... class C(object):
 ...     x = attr.ib(converter=int)
@@ -272,7 +272,7 @@ class Position:
         self._longitude = longitude
 ```
 
-但是，我不太喜欢这种超级冗长且丢失了许多 dataclass 独有魅力的手段。 如果您需要类型未涵盖的验证，请使用Pydantic。
+但是，我不太喜欢这种超级冗长且丢失了许多 dataclass 独有魅力的手段。 如果你需要类型未涵盖的验证，请使用 Pydantic。
 
 ## 6. Pydantic
 
@@ -328,7 +328,7 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 如果我们打印上面例子中的 `pos1`，下面是我们能得到的。为了方便阅读已经添加了换行和缩进。原始的输出是在一行内的：
 
-```
+```Python
 >>> print(pos1)
 
 Plain class   : <__main__.Position object at 0x7f1562750640>
@@ -355,7 +355,7 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
 
 接下来，我将新建一个 `Position(1234, 567)`，里面的经度和纬度都是不正确的。下面是不同的数据结构触发的错误信息：
 
-```
+```Python
 # Plain Class
 ValueError: Longitude was 11111, but has to be in [-180, 180]
 
@@ -373,7 +373,7 @@ latitude
   Latitude was 567.0, but must be in [-90, +90] (type=value_error)
 ```
 
-我要指出的是这一点：Pydantic非常清楚地为您提供了所有错误。 普通的类和属性只会给您第一个错误。
+我要指出的是这一点：Pydantic 非常清楚地为我们提供了所有错误。 普通的类和属性只会给我们返回第一个错误。
 
 ## JSON 序列化
 
@@ -409,15 +409,15 @@ print(json_str)
 
 这返回了：
 
-```
+```Python
 {"id": 1, "squash": true, "web_url": "http://foo", "title": "title", "author": {"id": 42, "username": "Joe"}}
 ```
 
-对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，字典可以被直接序列化为JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
+对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，字典可以被直接序列化为 JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
 
 ## JSON 的反序列化
 
-使用JSON字符串对嵌套类进行用户化对于Pydantic来说是很容易的。使用上面的示例，可以这么写：
+使用 JSON 字符串对嵌套类进行用户化对于 Pydantic 来说是很容易的。使用上面的示例，可以这么写：
 
 ```py
 mr = GitlabMr.parse_raw(json_str)
@@ -429,7 +429,7 @@ mr = GitlabMr.parse_raw(json_str)
 
 在 `pos1` 调用 `[getsize](https://stackoverflow.com/a/30316760/562769)` 方法可得：
 
-```
+```Python
 Raw float    :   8 B ("double")
 Raw string   :   1 B per char => 13B
 Raw data     :  29 B = 8B + 8B + 13B
@@ -448,11 +448,11 @@ Native class : 286 B
 #6 pydantic  : 801 B (the "BaseModel" version)
 ```
 
-Pydantic 基本模型有相当大的开销，但是您始终必须明白的一点是，您将创建多少个这些对象？假设您有100个。它们中的每一个可能比更有效的替代方案多消耗 500B。 那将是 50kB。 引用 [Donald Knuth](https://www.azquotes.com/quote/721020) ：
+Pydantic 基本模型有相当大的开销，但是你始终必须明白的一点是，你将创建多少个这些对象？假设你有 100 个。它们中的每一个可能比更有效的替代方案多消耗 500B。 那将是 50kB。 引用 [Donald Knuth](https://www.azquotes.com/quote/721020) ：
 
 > “过早的优化是万恶之源。”
 
-如果内存占用出现了问题，那么您也不会从 Pydantic 切换到 dataclass 或 attrs。您将切换到更结构化的内容，例如 NumPy 数组或 pandas 的 DataFrames。
+如果内存占用出现了问题，那么你也不会从 Pydantic 切换到 dataclass 或 attrs，而是切换到更结构化的内容，例如 NumPy 数组或 pandas 的 DataFrames。
 
 ## 执行时间
 
@@ -470,12 +470,12 @@ Pydantic 基本模型有相当大的开销，但是您始终必须明白的一�
 
 在你需要的时候选用：
 
-* 在你不提前知道会向其中添加什么的时候，使用 `Dict` 。请注意，您可以将所有其他结构与 dict 混合使用，反之亦然。因此，如果您知道数据结构的一部分是什么样子，请使用其他类型的数据结构。我认为 dict 是不得已的选择。
+* 在你不提前知道会向其中添加什么的时候，使用 `Dict` 。请注意，你可以将所有其他结构与 dict 混合使用，反之亦然。因此，如果你知道数据结构的一部分是什么样子，请使用其他类型的数据结构。我认为 dict 是不得已的选择。
 * 在你需要快速组织数据，并且不需要改变内容，也不关心数据类型的时候， 使用 `NamedTuple`。 
 * 当你需要可变性，关注属性的类型，或者是可能要从已有的 dataclass 继承的时候， 使用 Dataclasses。
 * 当你需要反序列化数据的时候，使用 Pydantic 的 `BaseModel`。
 
-请注意，我没有提到元组和属性。我根本无法找到一个有效的用例，在该用例中，与其他选择相比，您更希望使用它们。如果您有合适的例子，请告诉我。
+请注意，我没有提到元组和属性。我根本无法找到一个有效的用例，在该用例中，与其他选择相比，我更希望你使用它们。如果你有合适的例子，请告诉我。
 
 我也没有提到普通类，如果我需要重写 `__init__`、`__eq__` 、`__str__`、`__repr__` 和 `__hash__`  或者支持旧的 Python 版本的时候，我会选择使用它。
 
