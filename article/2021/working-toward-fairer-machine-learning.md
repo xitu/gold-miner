@@ -61,9 +61,9 @@
 
 该结果提供了对最佳公平预测的直观解释，并提出了一种实现公平性的简单的后处理算法。我们为此过程建立了公平风险保证。数值实验表明，我们的方法在训练公平模型方面非常有效，错误率的相对增加小于公平性的相对收益。
 
-**"[Exploiting MMD and Sinkhorn divergences for fair and transferable representation learning](https://www.amazon.science/publications/exploiting-mmd-and-sinkhorn-divergences-for-fair-and-transferable-representation-learning)”**
+**"[利用 MMD 和 Sinkhorn divergences 进行公平可迁移的表示学习](https://www.amazon.science/publications/exploiting-mmd-and-sinkhorn-divergences-for-fair-and-transferable-representation-learning)”**
 
-Where the first paper described a general learning method, and the second a regression method, this paper concerns deep learning. We show how to improve demographic parity in the multitask-learning setting, in which a deep-learning model learns a single representation of the input data that is useful for multiple tasks. We derive theoretical guarantees on the learned model, establishing that the representation will still reduce bias even when transferred to novel tasks.
+第一篇论文描述了一种通用的学习方法，第二篇论文描述了一种回归方法，本文则涉及的是深度学习。我们展示了如何在多任务学习中设置中提高人口统计均等性。在该设置中，深度学习模型将学习对多个任务有用的输入数据的单一表达。我们从理论上证明了，哪怕是将模型迁移到新的任务上，模型学习到的数据表达仍然有助于减少模型的偏差。
 
 We propose a learning algorithm that imposes constraints based on two different ways of measuring distances between probability distributions, maximum mean discrepancy and Sinkhorn divergence. Keeping this distance small ensures that we represent similar inputs in a similar way when they differ only on the sensitive attribute. We present experiments on three real-world datasets, showing that the proposed method outperforms state-of-the-art approaches by a significant margin.
 
