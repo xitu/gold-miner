@@ -39,7 +39,7 @@ Snowpack 会默认将你的未打包应用部署到生产环境，但是你也�
 
 Snowpack 同时支持在打包你的应用的生产版本时[连接到 Webpack](https://www.npmjs.com/package/@snowpack/plugin-webpack)。这样，由于 Snowpack 已经转译了你的代码，你的打包工具（Webpack）只需要将常规的 HTML、CSS 和 JavaScript 文件打包。这也是为什么你在打包过程中不需要复杂的 Webpack 配置文件。
 
-最后，你也可以通过在你的 `package.json` 文件中设置 `broserslist` 属性，来设定你想支持的浏览器版本：
+最后，你也可以通过在你的 `package.json` 文件中设置 `browserslist` 属性，来设定你想支持的浏览器版本：
 
 ```
 /* package.json */
@@ -96,8 +96,7 @@ Snowpack 支持主流库的 [许多官方模板](https://github.com/snowpackjs/s
 
 Webpack 和 Snowpack 的发布隔了数年，尽管 Webpack 一直是打包 JavaScript 模组时人气最高的选择，浏览器对 ESM 模组的支持开创了一种新的开发 web 应用的方式。
 
-With the power to enable unbundled development and quickly rebuild the application in development, Snowpack is an exciting alternative to Webpack that’s easier to use for building JavaScript applications. It also allows you to use Webpack for bundling your production build, enabling build optimization techniques to be implemented for your project.
-伴随着不打包开发以及开发中快速重建应用的能力，Snowpack 是一个激动人心的 Webpack 替代品，它让我们可以更轻松地开发 JavaScript 应用。与此同时它还能让你利用 Webpack 打包生产版本，令你可以为你的应用实现构建优化手段。
+伴随着不打包开发以及开发中快速重建应用的能力，Snowpack 是一个激动人心的 Webpack 替代品，它让我们可以更轻松地开发 JavaScript 应用。与此同时，它还能让你利用 Webpack 打包生产版本，令你可以为你的应用实现构建优化手段。
 
 别忘了去看看 [Snowpack 的官方文档](https://www.snowpack.dev/) 来了解更多。
 
