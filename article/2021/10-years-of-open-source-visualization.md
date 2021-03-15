@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/10-years-of-open-source-visualization.md](https://github.com/xitu/gold-miner/blob/master/article/2021/10-years-of-open-source-visualization.md)
 > * 译者：[momodiy](https://github.com/momodiy)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[W-Qing](https://github.com/W-Qing)
 
 # 十年可视化开源历程
 
