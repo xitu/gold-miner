@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
-# Angular vs. React vs. Vue：2021 年哪个框架最好？
+# 2021 年 Angular vs. React vs. Vue 前端框架对比
 > 一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。
 
 你可能是一个 React 开发者，可能是一个 Vue 开发者，也可能是一个只专注于技术的 Angular 开发者。不过，你还是不能忽视开发社区不断进行的框架比较。有充分的理由认为：他们三个框架，一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。每一个框架都拥有一些独特的优势和性能指标。正是这些不可忽略的优势和指标，我们不能不对这三种框架进行对比分析。
@@ -67,7 +67,7 @@ Angular 最适合大型和高级项目。这些可能包括但不限于：
 
 ### React
 
-React 来自 MERN 堆栈家族，一种以构建复杂的业务应用程序而闻名的技术堆栈。当将它与 Redux 或 MobX 或任何流量模式库一起使用时，React 就能够成为强大的工具。React 最适合以下项目：
+React 来自 MERN 架构，一种以构建复杂的业务应用程序而闻名的技术架构。当将它与 Redux 或 MobX 或其它状态管理库一起使用时，React 就能够成为强大的工具。React 最适合以下项目：
 
 * 对于涉及包含导航项目，折叠或展开的手风琴分节，活动或非活动状态，动态输入，活动或非活动按钮，用户登录，用户访问权限等的许多组件的应用程序。
 * 对于具有规模和增长范围的项目，因为 React 组件具有声明性，因此它可以轻松处理此类复杂结构。
@@ -99,16 +99,16 @@ Angular 性能方面的一些亮点包括：
 
 ### React
 
-在性能方面，React 与 Vue 相当，因为两者具有相同的架构，即与 DOM 交互。React Web 开发的性能可以评估如下：
+在性能方面 React 与 Vue 不相上下，因为两者具有相同的架构，例如与 DOM 交互。React 开发 Web 的性能可以评估如下：
 
 * 支持捆绑和 Tree-shaking —— 这对于减少最终用户的资源负载至关重要。
 * 由于提供了单向数据绑定支持，因此可以更好地控制项目。
-* 可以轻松测试和监视。
+* 便于进行测试和监控管理。
 * 最适合需要频繁更改的复杂应用程序。
 
 ### Vue
 
-形容 Vue 的最贴切的词组是 `令人难以置信的快速`。它的一些性能指标是：
+最贴切的形容 Vue 的词组是“令人难以置信的快速”。它的一些性能指标是：
 
 * 更快的学习曲线。
 * 单页应用程序高效精密。
@@ -131,7 +131,7 @@ Youtube TV | PayPal | Gmail | Forbes | Google Cloud
 
 ### React
 
-* 出于其模块化的结构而使其拥有灵活的代码。节省时间和成本。
+* 通过模块化的结构使其拥有灵活的代码，节省时间和成本。
 * 助力复杂应用程序的高性能的实现。
 * 使用 React 前端开发能够更容易去做代码维护。
 * 支持适用于 Android 和 iOS 平台的移动端原生应用程序。
@@ -156,11 +156,11 @@ Gitlab | Spendesk | Behance | 9Gag | Wizzair | Nintendo
 
 ### 社区支持与学习曲线
 
-React JS 库是由 Facebook 创建的，拥有大量的贡献人员和一个庞大的开发者社区，为最大的问题贡献者他们的方案。Angular 有一个宏大的开发者社区，对最具挑战性和最怪异的案例都有答案。Vue 具有良好的生态系统，并具有 React 库和 Angular 框架的所有正确的特性。说到学习曲线，React 无疑是能够最快学习和适应的，其次是 Vue 和 Angular。
+React JS 库是由 Facebook 创建的，拥有大量的贡献者以及一个庞大的开发者社区，为各种问题贡献他们的解决方案。Angular 也有一个庞大的开发者社区，对最具挑战性和最怪异的案例都有解决方案。Vue 具有良好的生态系统，并具有 React 和 Angular 框架的所有特性。说到学习曲线，React 无疑是开发者能够最快学习和适应的，其次是 Vue 和 Angular。
 
 ## 本文总结
 
-从前端开发的角度来看，React 将是 2021 年能够学得最快的框架，Vue 和 React 都是轻量级且直观的，并且性能完美无缺。
+从前端开发者的角度来看，React 将是 2021 年最快学会使用的框架，Vue 和 React 都是轻量级、直观的并且性能完美良好的框架。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
