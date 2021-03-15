@@ -2,61 +2,61 @@
 > * 原文作者：[Nathan Sebhastian](https://medium.com/@nathansebhastian)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/snowpack-an-alternative-build-tool-to-webpack.md](https://github.com/xitu/gold-miner/blob/master/article/2021/snowpack-an-alternative-build-tool-to-webpack.md)
-> * 译者：
+> * 译者：[felixliao](https://github.com/felixliao)
 > * 校对者：
 
-# Snowpack: An Alternative Build Tool to Webpack
+# Snowpack: 一个可代替 Webpack 的构建工具
 
 ![](https://cdn-images-1.medium.com/max/2024/1*XElS7rQXRta2vXlqLti4VQ.png)
 
-[Webpack](https://webpack.js.org/) is the most popular JavaScript build tool for the last few years because of its flexible bundling configuration and the large amount of custom plugins it officially supports for different file types.
+[Webpack](https://webpack.js.org/) 是近几年最热门的 JavaScript 构建工具，多亏于它灵活的构建配置以及大量受到官方支持的用于应对不同文件类型的第三方插件。
 
-The main purpose of using Webpack is to take all of your JavaScript files, along with modules imported from NPM, images, CSS, and other web assets, and bundle them all together into one build file that can be run by the browser.
+使用 Webpack 最主要的目的是将你所有的 JavaScript 文件，连带所有从 NPM 导入的模组、图片、CSS 和其他资源，全部放入到一个可以被浏览器执行的文件中。
 
-![Webpack bundling in a nutshell. [Source](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*XRoIfAWL1JkSECMDC6n5Hw.png)
+![用一句话形容 Webpack [来源](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*XRoIfAWL1JkSECMDC6n5Hw.png)
 
-But Webpack is also a complicated tool with a steep learning curve because its flexibility means it has so many features and fits so many use cases. Furthermore, Webpack needs to rebundle and rebuild your entire JavaScript application even when you make just a small change on a single file. Without a good understanding of how Webpack works, it might take [more than 30 minutes](https://stackoverflow.com/questions/56431031/why-does-npm-run-build-take-30-minutes-on-development-server-and-less-than-a) in order to build an application.
+但是 Webpack 也是一个复杂的工具，伴随着陡峭的学习曲线，因为它的灵活性意味着它有非常多的功能来应对各种不同的使用场景。更进一步讲，哪怕只是对一个文件进行了很小的改动，Webpack 也需要将你的整个 JavaScript 应用重新打包和构建。如果对 Webpack 的理解不到位，构建一个应用时可能要等[半小时以上](https://stackoverflow.com/questions/56431031/why-does-npm-run-build-take-30-minutes-on-development-server-and-less-than-a)。
 
-But then again, Webpack was released in 2014. At that time, the browser support for the EcmaScript Module (ESM) `import` and `export` syntax is virtually non-existent, so the only way to run modern JavaScript in the browser was to grab all modules in your project and bundle them as one.
+但是话说回来，Webpack 是 2014 年发布的。在那个时候，浏览器对于 EcmaScript Module (ESM) `import` 和 `export` 的语法支持几乎不存在，所以在浏览器中运行现代 JavaScript 的方式就是将项目中所有的模组全部打包成一个文件。
 
-There are other processes involved along the way, such as transpiling JavaScript from a newer version into an older version with Babel so that the browser can run the application. But the main idea for using Webpack was to help create the best developer experience while enabling JavaScript developers to use modern features (ES6 and up).
+这其中还有其他的流程，比如将更新版本的 JavaScript 通过 Babel 转译为稍旧版本的 JavaScript，以使得浏览器可以运行该应用。但是使用 Webpack 最主要的目的是创造最好的开发体验，让 JavaScript 开发者可以使用最新的功能（ES6 及更新）。
 
-ESM syntax is widely supported by all major browsers today, so bundling your JavaScript files together is no longer mandatory for running the application on the browser.
+如今 ESM 语法已经被所有主流浏览器支持，所以将你所有的 JavaScript 文件打包在一起已经不是在浏览器中运行一个应用的必要条件了。
 
-## Unbundled development with Snowpack
+## 使用 Snowpack 进行无须打包的开发
 
-[Snowpack](https://www.snowpack.dev/) is a JavaScript build tool that takes advantage of the browser support for ESM so that you can build and ship individual files to the browser. Each file built will be cached, and when you change a single file, only that file will be rebuild by Snowpack.
+[Snowpack](https://www.snowpack.dev/) 是一个 JavaScript 构建工具，它利用了浏览器对 ESM 的支持，使你可以构建单个文件并将它们送到浏览器。每一个被构建的文件都会被缓存，并且在你修改一个文件时，只有这一个文件会被 Snowpack 重新构建。
 
-![Snowpack serve your files unbundled. [Source](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*Ep5bOeYn1t-Y0XnSRUD2mA.png)
+![Snowpack 伺服不打包的文件 [Source](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*Ep5bOeYn1t-Y0XnSRUD2mA.png)
 
-Snowpack development server is also optimized to only build a file once it’s requested by the browser, which allows Snowpack to start instantly (**\< 50ms**) and scale up to large projects without slowing down. I’ve tried it myself and my server started in 35ms:
+Snowpack 的调试服务器也做了优化，它只会在浏览器请求一个文件时构建该文件。这使得 Snowpack 可以即时启动（**小于 50 毫秒**）并且扩展到大型项目时也不会减速。我自己做尝试时启动服务器只用了 35 毫秒：
 
-![Snowpack dev server startup](https://cdn-images-1.medium.com/max/2906/1*EpNPrzN0EeeEYlMM3SLIWw.png)
+![Snowpack 的调试服务器启动](https://cdn-images-1.medium.com/max/2906/1*EpNPrzN0EeeEYlMM3SLIWw.png)
 
-## Snowpack build process
+## Snowpack 的构建过程
 
-Snowpack will deploy your unbundled application to production by default, but you probably want to implement build optimization techniques like minification, code-splitting, tree-shaking, lazy loading, and more.
+Snowpack 会默认将你的未打包应用部署到生产环境，但是你也许应该使用一些构建优化手段，比如最小化、代码分割、摇树、懒加载等等。
 
-Snowpack also has support for bundling your application for production build by connecting to [Webpack using a plugin](https://www.npmjs.com/package/@snowpack/plugin-webpack). Now since Snowpack already handles the process of transpiling your code, your bundler (Webpack) will only build common HTML, CSS, and JavaScript files. This is why you don’t need complicated Webpack configuration for the bundling process.
+Snowpack 同时支持在打包你的应用的生产版本时[连接到 Webpack](https://www.npmjs.com/package/@snowpack/plugin-webpack)。这样，由于 Snowpack 已经转译了你的代码，你的打包工具（Webpack）只需要将常规的 HTML、CSS 和 JavaScript 文件打包。这也是为什么你在打包过程中不需要复杂的 Webpack 配置文件。
 
-Finally, you can also set the list of browser versions you’d like to support by setting the `browserslist` property of your `package.json` file:
+最后，你也可以通过在你的 `package.json` 文件中设置 `broserslist` 属性，来设定你想支持的浏览器版本：
 
 ```
 /* package.json */
 "browserslist": ">0.75%, not ie 11, not UCAndroid >0, not OperaMini all",
 ```
 
-The property will be picked up automatically when you run the `snowpack build` command to build the project for production environment. Snowpack doesn’t perform any transpilation when building for development, but this shouldn’t be a problem because most of the time you will develop using the latest browser version.
+在你执行 `snowpack build` 指令来为生产环境构建项目时，该属性会自动被应用。Snowpack 不会在构建开发版本时执行任何转译，但这应该不是个问题，因为大部分时间你都会在最新的浏览器版本下开发。
 
-## Getting started with Snowpack
+## 上手 Snowpack
 
-To start using Snowpack, you can immediately create a Snowpack application using Create Snowpack App (CSA)and NPX. For example, you can create a starter React application with CSA with the following command:
+要开始使用 Snowpack，你可以立即使用 Create Snowpack App (CSA) 和 NPX 来创建 Snowpack 应用。例如，你可以用如下指令来用 CSA 新建一个初始化 React 应用：
 
 ```sh
 npx create-snowpack-app react-snowpack --template @snowpack/app-template-react
 ```
 
-A new `react-snowpack` folder will be created and bootstrapped with minimum dependencies:
+一个新的 `react-snowpack` 文件夹会被创建，并且附带最基础的依赖：
 
 ```json
 {
@@ -84,21 +84,22 @@ A new `react-snowpack` folder will be created and bootstrapped with minimum depe
 }
 ```
 
-You can immediately run the application with `npm start` command. The local development server will be opened at port 8080. The CSA template for React is very similar to Create React App’s default template:
+你立即就可以使用 `npm start` 指令运行这个应用。本地的调试服务器会在 8080 端口运行。CSA 的 React 模板和 Create React App 的默认模板非常相似：
 
-![React default page for CSA](https://cdn-images-1.medium.com/max/3104/1*j3OQj_TV0ODHJZZpiaTzew.png)
+![CSA 的默认 React 页面](https://cdn-images-1.medium.com/max/3104/1*j3OQj_TV0ODHJZZpiaTzew.png)
 
-Snowpack supports [many official templates](https://github.com/snowpackjs/snowpack/tree/main/create-snowpack-app/cli#official-app-templates) for popular libraries like React, Vue, and Svelte. You only need to add the `--template` option to the command.
+Snowpack 支持主流库的 [许多官方模板](https://github.com/snowpackjs/snowpack/tree/main/create-snowpack-app/cli#official-app-templates)，如 React、Vue 和 Svelte。你只需要在指令中加入 `--template` 选项。
 
-## Conclusion
+## 结语
 
-> **You should be able to use a bundler because you want to, and not because you need to - **[Snowpack documentation](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
+> **你使用一个打包工具时应该是因为你想要使用它，而不是因为你需要使用它 ——** [Snowpack 官方文档](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
 
-Webpack and Snowpack was created years apart, and although Webpack has been the most popular choice for bundling JavaScript modules, the browser support for ESM modules has opened a new way to develop web applications.
+Webpack 和 Snowpack 的发布隔了数年，尽管 Webpack 一直是打包 JavaScript 模组时人气最高的选择，浏览器对 ESM 模组的支持开创了一种新的开发 web 应用的方式。
 
 With the power to enable unbundled development and quickly rebuild the application in development, Snowpack is an exciting alternative to Webpack that’s easier to use for building JavaScript applications. It also allows you to use Webpack for bundling your production build, enabling build optimization techniques to be implemented for your project.
+伴随着不打包开发以及开发中快速重建应用的能力，Snowpack 是一个激动人心的 Webpack 替代品，它让我们可以更轻松地开发 JavaScript 应用。与此同时它还能让你利用 Webpack 打包生产版本，令你可以为你的应用实现构建优化手段。
 
-Be sure to checkout [Snowpack documentation](https://www.snowpack.dev/) for more information.
+别忘了去看看 [Snowpack 的官方文档](https://www.snowpack.dev/) 来了解更多。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
