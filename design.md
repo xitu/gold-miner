@@ -1,3 +1,4 @@
+* [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [构建设计系统和组件库](https://juejin.cn/post/6924152501805678606)（[Charlo-O](https://github.com/Charlo-O) 翻译）
 * [解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
 * [黑暗主题 — 现代 UI 设计](https://juejin.cn/post/6901856999235911688)（[zenblo](https://github.com/zenblo) 翻译）

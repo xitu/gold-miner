@@ -1,3 +1,11 @@
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)（[zenblo](https://github.com/zenblo) 翻译）
+* [如何基于已有的 REST API 实现 GraphQL API](https://juejin.cn/post/6931145990599049223)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)（[JalanJiang](https://github.com/JalanJiang) 翻译）
+* [函数式编程 —— 使用 Python、JavaScript 和 Java 描述](https://juejin.cn/post/6930638275241574407)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
+* [Python 定义函数的 5 种参数](https://juejin.cn/post/6927094483200770062)（[Zhengjian-L](https://github.com/Zhengjian-L) 翻译）
 * [微服务是你的最佳解决方案么？](https://juejin.cn/post/6881415957303001102)（[wangqinggang](https://github.com/wangqinggang) 翻译）
 * [Python 中的列表和元组](https://juejin.cn/post/6923195053754023949)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Node.js 缓冲区的完整指南](https://juejin.cn/post/6917192648424390669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
