@@ -9,9 +9,9 @@
 
 ![图片](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
 
-作为开发者，我们每天会产出大量的数据。 如何表示这些数据很重要，因此我们需要能够跟踪哪些变量代表哪些属性。 配置化是针对复杂数据的一个最佳示例。
+作为开发者，我们每天会产出大量的数据。 而这些数据的表现尤为重要。因此，我们需要能够跟踪哪些变量代表哪些属性。 配置化是针对复杂数据的一个首要示例。
 
-在以下文章中，我将使用位置数据作为示例。它必须有一个经度，纬度，外加一个可选的地址。在 C 语言中，可以使用 `struct` 来表示。 在 Java 中，您只需创建一个类。在 Python，有六种选择。让我们来探索他们每一个的优点和缺点吧！
+在以下文章中，我将使用位置数据作为示例。它必须有一个经度，纬度，外加一个可选的地址。在 C 语言中，可以使用 `struct` 来表示，而在 Java 中，我们只需创建一个类。在 Python，我们则有六种方法可供选择。让我们来探索他们每一个的优点和缺点吧！
 
 ## 普通类
 
@@ -67,9 +67,9 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-你可以看到我们需要编写一个构造器方法 `__init__`。 构造器的代码不一定总是看起来那么简单，但在许多情况下，它是简单的。
+你可以看到我们需要编写一个构造器方法 `__init__`。构造器的代码在大部分情况下是简单的，尽管有一些例外。
 
-你可以看出我们在代码中使用了位置参数和关键字参数。如果你在构造器中给某一变量定义了一个默认值，那么在创建类的实例的时候可以不给这个变量赋值。可以参考 `pos2`，其中的 `address` 变量并没有在构造的时候赋值。
+你可以看到我们在代码中使用了位置参数或关键字参数。如果你在构造器中给某一变量定义了一个默认值，那么在创建类的实例的时候可以不给这个变量赋值。可以参考 `pos2`，其中的 `address` 变量并没有在构造的时候赋值。
 
 你也可以看出这个 `get_distance` 方法的注解非常的清晰，方法本身就很好的表明了它的意义。
 
@@ -88,7 +88,7 @@ def get_distance(p1: Tuple[float, float, Optional[str]],
     pass
 ```
 
-`get_distance` 方法的注解看起来非常的杂乱。开发者需要知道的信息是 `p1` 表示的是地点，而非这个地点信息包含着两个浮点数以及一个可选的字符串。这是编辑器需要做的工作。
+`get_distance` 方法的注解看起来非常的杂乱。开发者需要知道的信息是 `p1` 表示的是地点，而非这个地点信息包含着两个浮点数以及一个可选的字符串——这是编辑器需要做的工作。
 
 编辑器的支持程度取决于你注解的透彻性。在上面的例子中，你也可以只写 `Tuple` 而省略掉指出这个元组所包含的内容。由于人们大多是比较懒惰的，我认为这里的编辑器支持做的不是很好。这不是编辑器的错，但是它因此经常无法提供较好的代码提示支持。
 
@@ -117,7 +117,7 @@ def get_distance(p1: Dict[str, Any],
 
 ## 3. 命名元组
 
-[命名元组（ `NamedTuples` ）](https://docs.python.org/3/library/collections.html#collections.namedtuple) 在 Python 2.6 中被加入，索引此数据结构已经存在很久了。命名元组事实上也是元组，但是他们会有一个名称以及一个构造器，用来接受关键字参数：
+[命名元组（`NamedTuples`）](https://docs.python.org/3/library/collections.html#collections.namedtuple) 在 Python 2.6 中被加入，索引此数据结构已经存在很久了。命名元组事实上也是元组，但是他们会有一个名称以及一个构造器，用来接受关键字参数：
 
 ```Python
 from collections import namedtuple
@@ -132,7 +132,7 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-命名元组解决了类型声明注解难以阅读的问题。因此命名元组也解决了我上文中提到的编辑器支持不完全的问题。
+命名元组解决了类型声明注解难以阅读的问题。因此，它也解决了我上文中提到的编辑器支持不完全的问题。
 
 有趣的是 `NamedTuples`是不能感知到类型的：
 
@@ -202,7 +202,7 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 Dataclasses 在 [PEP 557](https://www.python.org/dev/peps/pep-0557/) 中被加入 Python 3.7。它与 attrs 类似，但是被收录于标准库中。一个很重要的点是 dataclass 就是普通的类， 不过是其中保存大量的数据而已。
 
-与 attrs 不同的是， dataclass 使用类型注解而非 `attr.ib()` 这样的注解。我认为这样大大提高了可读性。另外，由于现在对属性有了注解，编辑器的支持效果也更好了。
+与 attrs 不同的是，dataclass 使用类型注解而非 `attr.ib()` 这样的注解。我认为这样大大提高了可读性。另外，由于现在对属性有了注解，编辑器的支持效果也更好了。
 
 你可以很容易的利用装饰器 `@dataclass(frozen=True)` 使 dataclass 变成不可修改的——这与 attrs 类似。
 
@@ -272,7 +272,7 @@ class Position:
         self._longitude = longitude
 ```
 
-但是，我不太喜欢。 它又是超级冗长的，并且消除了许多 dataclass 的魅力。 如果您需要类型未涵盖的验证，请使用Pydantic。
+但是，我不太喜欢这种超级冗长且丢失了许多 dataclass 独有魅力的手段。 如果您需要类型未涵盖的验证，请使用Pydantic。
 
 ## 6. Pydantic
 
@@ -347,11 +347,11 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
                          address='Parkstraße 17')
 ```
 
-您可以看到从普通类创建的对象的字符串表示形式是无用的。元组看起来更好，但是它们没有指出哪个索引代表哪个属性。其余所有表示形式都很棒。它们很容易理解，甚至可以用来重新创建对象！
+可以看到从普通类创建的对象的字符串表示形式是无用的。元组看起来更好，但是它们没有指出哪个索引代表哪个属性。其余所有表示形式都很棒。它们很容易理解，甚至可以用来重新创建对象！
 
 ## 数据验证
 
-您已经了解了如何为普通类、attrs、dataclass 和 Pydantic 实现数据验证。您没有看到的是错误消息的样子。
+现在我们已经了解了如何为普通类、attrs、dataclass 和 Pydantic 实现数据验证。但我们还并不清楚错误消息的样子。
 
 接下来，我将新建一个 `Position(1234, 567)`，里面的经度和纬度都是不正确的。下面是不同的数据结构触发的错误信息：
 
@@ -413,7 +413,7 @@ print(json_str)
 {"id": 1, "squash": true, "web_url": "http://foo", "title": "title", "author": {"id": 42, "username": "Joe"}}
 ```
 
-对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，您可以直接将字典序列化为JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
+对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，字典可以被直接序列化为JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
 
 ## JSON 的反序列化
 
