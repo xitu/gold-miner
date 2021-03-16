@@ -1,49 +1,49 @@
-> * 原文地址：[5 Kotlin Extensions To Make Your Android Code More Expressive](https://betterprogramming.pub/5-kotlin-extensions-to-make-your-android-code-more-expressive-4c9243cb9466)
-> * 原文作者：[Siva Ganesh Kantamani](https://medium.com/@sgkantamani)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[5 Kotlin Extensions To Make Your Android Code More Expressive](https://betterprogramming.pub/5-kotlin-extensions-to-make-your-android-code-more-expressive-4c9243cb9466)
+> - 原文作者：[Siva Ganesh Kantamani](https://medium.com/@sgkantamani)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-kotlin-extensions-to-make-your-android-code-more-expressive.md)
+> - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
-# 5 Kotlin Extensions To Make Your Android Code More Expressive
+# 5 个 Kotlin 扩展技巧让你的 Android 代码更具表现力
 
 ![](https://cdn-images-1.medium.com/max/12000/0*7wBRYeSryL8YT5u_)
 
-You might have already gone through a bunch of articles on Kotlin extensions, but this article is not all about extensions. It’s about making your code expressive, so I’ve concentrated on explaining and including my top extensions that keep code as natural as possible.
+你可能已经看过一堆关于 Kotlin 扩展相关的文章了，但这篇文章不仅仅只是关于扩展。它是关于如何让你的代码更具表现力，所以我专门讲解并概括我的顶级扩展，使代码尽可能自然一些。
 
-The main goal is to learn how to make your code expressive in your own way by using the concept of extensions rather than copy-pasting the code snippets.
+本文的主要目的是学习如何使用扩展，而不是复制代码片段，以自己的方式表达代码。
 
-## Introduction
+## 介绍
 
-Kotlin is a modern and expressive language built with developers in mind. In my view, good Kotlin code is nothing but code that can express itself in a natural, readable way.
+Kotlin 是一种现代的、富有表现力的语言，它是为开发人员而构建的。在我看来，好的 Kotlin 代码就是能够以自然、可读的方式表达自己的代码。
 
-Switching from Java to Kotlin was a huge transformation for me in many ways, but I would say it’s for the best in every aspect. You can read all about it in [my previous article](https://medium.com/better-programming/my-journey-from-java-to-kotlin-3bfcbcc6b734).
+从 Java 转到 Kotlin 对我来说在很多方面都是一个巨大的转变，但我认为这在每个方面都是最好的。你可以参考 [我之前的文章](https://medium.com/better-programming/my-journey-from-java-to-kotlin-3bfcbcc6b734)。
 
-One of the things I love most about Kotlin is the concept of extensions. As a mobile Java developer, I never thought about the ability to add custom functionality to any class — especially not to a class in a third-party library. But when I heard about the concept of extensions, it blew my mind. For an Android developer, this feature opens the gates to numerous code enhancements.
+我最喜欢 Kotlin 的一点是扩展。作为一名移动端 Java 开发人员，我从未想过向任何类添加自定义功能，尤其是向第三方库中的类添加自定义功能。但是当我听到扩展的概念时，着实让我大吃一惊。对于 Android 开发者来说，这个特性打开了大量代码增强的大门。
 
-> “Kotlin provides the ability to extend a class with new functionality without having to inherit from the class or use design patterns such as Decorator. This is done via special declarations called extensions.” — [Kotlin’s documentation](https://kotlinlang.org/docs/extensions.html)
+> “Kotlin 提供了新功能扩展类的能力，而无需继承该类或使用类似装饰器之类的设计模式。这是通过称为扩展的特殊声明来完成。” — [Kotlin 文档](https://kotlinlang.org/docs/extensions.html)
 
-To learn more about Kotlin extensions, read the following article: [Advanced Android Programming With Kotlin](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
+如果你想学习更多 Kotlin 扩展相关知识，阅读这篇文章：[使用 Kotlin 进行高级 Android 编程](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)
 
-I use Kotlin extensions to make the code expressive and keep the language as natural as possible.
+我使用 Kotlin 扩展来使代码更具表现力，并使语言尽可能自然。
 
-Without further delay, let’s dive in.
+不要再拖了，开干！
 
-## 1. Show, Hide, and Remove
+## 1. 显示，隐藏，移除（视图）
 
-One of the common tasks for a mobile developer is to hide and show views. If you use Java, you need to call the `setVisibility` function and pass `View.VISIBILE` or `View.GONE` based on the requirement. Have a look:
+移动开发人员的常见任务之一是隐藏和显示视图。如果你使用 Java，你需要调用 `setVisibility` 方法传入`View.VISIBILE`或 `View.GONE` 来实现。 如下：
 
 ```
 view.setVisibility(View.GONE)
 ```
 
-There is nothing wrong with this code. It works. But using `set` and `get` functions makes it look more clunky than natural. Kotlin provides an out-of-the-box way to assign values without using `set` and `get` functions. Now it looks like this:
+代码可以工作而且没有问题。但是使用 `set` 和 `get` 方法让它看起来更笨拙而不自然，Kotlin 提供了一种便利的方式来赋值，而不需要使用 `set` 和 `get` 方法。现有代码如下：
 
 ```
 view.visibility = View.GONE
 ```
 
-Even now, it doesn’t look natural because of the assignment operator, so I thought, “Why can’t I use extensions to make it as natural as possible?” That’s when I started using the following extensions:
+即使现在，由于赋值操作符的存在，它看起来也不自然，所以我想，“为什么我不使用扩展来使它尽可能自然呢？”这时我开始使用以下扩展：
 
 ```Kotlin
 fun View.show(){
@@ -59,7 +59,7 @@ fun View.remove(){
 }
 ```
 
-Now we can use it as shown below:
+现在你可以使用如下方式：
 
 ```
 view.show()
@@ -67,13 +67,13 @@ view.hide()
 view.remove()
 ```
 
-Now it looks better — more natural. I would love to optimize it, so if you have any suggestions, please leave a comment.
+现在看起来更友好更自然。我很乐意优化它，所以如果你有任何建议，请留下评论。
 
-## 2. Validations
+## 2. 校验
 
-Validating strings is crucial in any dev environment. Back in 2015, when I was starting my career, I saw a few apps that showed `null` in some text fields. This was because there was no proper validation.
+在任何开发环境中，验证字符串都是至关重要的。回到 2015 年，当我刚开始我的职业生涯，我看到一些应用程序显示`null`在一些文本字段中。这是因为没有适当的验证。
 
-Before Kotlin, I would maintain a utility class and include some static functions to validate strings. Have a look at a simple validation function in Java:
+在使用 Kotlin 之前，我会维护一个实用工具类，并包含一些静态函数来验证字符串。看看 Java 中的一个简单验证函数：
 
 ```Java
 // Function in utility class
@@ -86,7 +86,7 @@ public static Boolean isStringNotNullOrEmpty(String data){
 if(Utility.isStringNotNullOrEmpty(data))
 ```
 
-At their core, data types are nothing but classes. So we can use Kotlin extensions to add validation functionality. For instance, I’ve created the following Kotlin extension of data type `String` to check if it’s valid:
+从本质上讲数据类型不过是类。 因此我们可以使用 Kotlin 扩展来添加验证功能。 例如，我创建了以下 Kotlin 扩展，其数据类型为 `String`，以检查其是否有效：
 
 ```Kotlin
 //Extension function
@@ -98,7 +98,7 @@ fun String?.valid() : Boolean =
 if(data.valid())
 ```
 
-Well, `data.valid()` seems cleaner and more readable to me than Utility.isStringNotNullOrEmpty(data). Invoking extension functions on the data types seems more natural than triggering some utility function. Below are a couple of extensions to boost your motivation to write your own validation extensions:
+显然，`data.valid()` 看起来比 Utility.isStringNotNullOrEmpty(data) 更简洁，可读性更好。调用数据类型上的扩展函数似乎比触发某些工具类函数更自然。下面是几个扩展，可以启发你编写自己的验证扩展：
 
 ```Kotlin
 //Email Validation
@@ -116,9 +116,9 @@ fun String.formatPhoneNumber(context: Context, region: String): String? {
 }
 ```
 
-## 3. Extract Bundle Parameters
+## 3. 提取 Bundle 参数
 
-In Android, we pass data between components via a bundle — a key-value pair. Usually, we have to check a few things before retrieving data from the bundle. First, we should check if the key we’re looking for is in the bundle. Then we need to check whether it has a valid value. Usually, we do that in the following way:
+在 Android 中，我们通过捆绑一个键值对在组件之间传递数据。通常在从 bundle 中检索数据之前，我们必须检查一些东西。首先，我们应该检查我们正在寻找的键是否在 bundle 中。然后我们需要检查它是否有一个有效的值。通常做法如下：
 
 ```Kotlin
 fun extractData(extras : Bundle){
@@ -128,9 +128,9 @@ fun extractData(extras : Bundle){
 }
 ```
 
-This involves more manual code, and to be frank, it’s not pretty to look at. Imagine how tedious the code might look if you have five parameters. As I said, code should be as natural as possible and also involve minimal manual work.
+这涉及到更多的手写代码，坦率地说，它看起来并不漂亮。想象一下，如果有 5 个参数，代码看起来会有多乏味。就像我说的，代码应该尽可能自然，而且需要最少的手动调用。
 
-Here, I’m using four extension functions: two for activities and two for fragments. Again, a pair for each component to get a non-null value or a nullable value. Have a look:
+在这里，我使用了四个扩展函数：两个用于 Activity，两个用于 Fragment。同样，为每个组件提供一对，以获得一个非空值或一个可空值。如下：
 
 ```Kotlin
 // Activity related
@@ -158,31 +158,31 @@ inline fun <reified T: Any> Fragment.getValueNonNull(lable: String, defaultvalue
 }
 ```
 
-To learn about advanced features like inline functions and reified types, please go through [this series of articles](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb).
+要了解内联函数和具体类型等高级特性，请参考[系列文章](https://medium.com/better-programming/advanced-android-programming-with-kotlin-5e40b1be22bb)。
 
-Now let’s see how to use the extensions above:
+现在让我们看看如何使用上面的扩展：
 
 ```Kotlin
 val firstName by getValue<String>("firstName") // String?
 val lastName by getValueNonNull<String>("lastName") // String
 ```
 
-This approach has three advantages:
+这种方式有三个优点：
 
-1. Clean, readable, and minimal code.
-2. Null-safe values.
-3. Lazy execution.
+1. 简洁，可读性好，代码量少。
+2. 空安全。
+3. 懒加载。
 
-## 4. Resource Extensions
+## 4. 资源扩展
 
-In Android, we need to access project-level resources via a resource class. This involves some boilerplate code that we need to manually write each time we want to retrieve data from the resource file. Without any extensions, retrieving a color or drawable looks like this:
+在 Android 中，我们需要通过资源类访问项目资源。这涉及到一些每次需要从资源文件中检索数据时都需要手动编写的样板代码。如果没有任何扩展，检索 color 或 drawable 代码如下：
 
 ```Kotlin
 val color = ContextCompat.getColor(ApplicationCalss.instance, R.color.dark_blue)
 val drawable = ContextCompat.getDrawable(MavrikApplication.instance, R.drawable.launcher)
 ```
 
-When trying to retrieve any resource, you need to access it via the resource ID from the generated R file. The data type of the ID is `Int`. So we can write extensions to the integer class for each resource type and use them at the call site to reduce the boilerplate code and make it readable:
+当尝试获取任何资源时，您需要通过生成的 R 文件中的资源 ID 访问它。ID 的数据类型是`Int`。因此，我们可以为每种资源类型编写 integer 类的扩展，并使用它们以减少样板代码增加可读性：
 
 ```Kotlin
 //Extensions
@@ -194,11 +194,11 @@ val color = R.color.dark_blie.asColor()
 val drawable = R.drawable.launcher.asDrawable()
 ```
 
-## 5. Show Alert Dialog, Toast, or Snackbar
+## 5. 显示 Alert Dialog, Toast, or Snackbar
 
-When it comes to frontend development, regardless of the platform, there will be times when you want to show an alert to the user. It might be a toast used for unimportant data or alert dialogs to take confirmations or show some error.
+当涉及到前端开发时，无论使用哪种平台，有时都需要向用户显示弹出框。可能是用于显示不重要的数据，或者弹出提示用户确定或者显示一些错误。
 
-When you want to show a simple toast message, the statement you need to write can be quite lengthy. I’m not even going to get into alert dialogs. These are common tasks. They should be concise and easy to implement. That’s why I use the following extensions to make code as concise as possible at the call site:
+当你想要显示一个简单的弹出信息，你需要写的代码可能会很长。甚至不打算弹出对话框。这些都是常见的场景。它们应该简洁且易于实现。这就是为什么我使用下面的扩展，使代码尽可能被简洁的调用：
 
 ```Kotlin
 // Show alert dialog
@@ -244,7 +244,7 @@ fun View.snackBarWithAction(message : String, actionlable : String,
 }
 ```
 
-Writing these extensions is a one-time job. Have a look at the usage of these extensions at the call site:
+编写这些扩展是一次性的工作。看看这些扩展的用法：
 
 ```Kotlin
 // To show an alert dialog in activities, fragments and more
@@ -264,12 +264,12 @@ snackBarWithAction(message, lable){
 }
 ```
 
-Common tasks should be as easy to implement, readable, and natural as possible.
+常见的场景应该尽可能容易实现、可读性好和自然。
 
-That is all for now. I hope you learned something useful. Thanks for reading.
+我希望你学到了一些有用的东西。感谢你的阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
----
+------
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

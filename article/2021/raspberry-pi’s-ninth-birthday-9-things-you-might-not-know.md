@@ -1,89 +1,124 @@
->  * 原文地址：[Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know](https://www.tomshardware.com/news/raspberry-pi-9th-birthday)
-> * 原文作者：[Avram Piltch]([https://www.tomshardware.com/author/avram-piltch](https://www.tomshardware.com/author/avram-piltch))
-> * 译文出自：[掘金翻译计划]([https://github.com/xitu/gold-miner](https://github.com/xitu/gold-miner))
+> * 原文地址：[Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know](https://www.tomshardware.com/news/raspberry-pi-9th-birthday)
+> * 原文作者：[Avram Piltch](https://www.tomshardware.com/author/avram-piltch)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/raspberry-pi’s-ninth-birthday-9-things-you-might-not-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[husiyu](https://github.com/husiyu)，[Chorer](https://github.com/Chorer)
 
-# Raspberry Pi’s Ninth Birthday: 9 Things You Might Not Know
+# Raspberry Pi 九岁啦：你可能不知道的 9 件事 
 
-One of the world’s most popular and innovative computers officially launched on February 29, 2012. Nine years and 38 million units sold later, the Raspberry Pi powers a huge community of makers, students and businesses. What started as a small project, meant to increase applications for Cambridge University’s computer science program has become a global movement.
+> Rasp Pi 最初发布于 2012 年 2 月 29 日
 
-Every serious tech enthusiast should own at least one Raspberry Pi or, if you’re like me, 30 Raspberry Pis. You can use one as a lightweight PC, a [retro arcade machine](https://www.tomshardware.com/how-to/install-retropie-raspberry-pi-4) or to power a variety of projects, from [home security cameras](https://www.tomshardware.com/how-to/raspberry-pi-security-camera) to [tic-tac-toe-playing robots](https://www.tomshardware.com/news/this-raspberry-pi-robot-plays-tic-tac-toe-so-you-never-play-alone), [self-driving trash cans](https://www.tomshardware.com/news/clean-your-room-with-this-raspberry-pi-trash-delivery-bot) or [streaming media servers](https://www.tomshardware.com/how-to/raspberry-pi-plex-ubuntu).
+![图源 Shutterstock](https://cdn.mos.cms.futurecdn.net/6ZQFRzwTBSXoWUpD5qY6oD-1024-80.jpg)
 
-In honor of the Raspberry Pi’s ninth birthday, here are 9 key facts about it.
+Raspberry Pi（树莓派 ）是世界上最受欢迎和最具创新的计算机系列之一，于 2012 年 2 月 29 日正式推出。九年来，一共售出了 3,800 万台树莓派。它们为庞大的制造商、学生和企业群体提供了动力。这最初只是一个小项目，旨在促进剑桥大学的计算机科学教育，但现在已经流行于全球。
 
-## 1. Raspberry Pi’s original target was just 1,000 units.
+每个真正的技术爱好者都应该拥有至少一台树莓派，或者，你也可以像我一样，拥有 30 台树莓派。我们可以将其用作轻型 PC、[复古街机](https://www.tomshardware.com/how-to/install-retropie-raspberry-pi-4)，或为各种项目提供动力，从 [家庭安全摄像头](https://www.tomshardware.com/how-to/raspberry-pi-security-camera) 到 [井字游戏机器人](https://www.tomshardware.com/news/this-raspberry-pi-robot-plays-tic-tac-toe-so-you-never-play-alone)、[自动运送垃圾的运输机器人](https://www.tomshardware.com/news/clean-your-room-with-this-raspberry-pi-trash-delivery-bot) 或是[流媒体服务器](https://www.tomshardware.com/how-to/raspberry-pi-plex-ubuntu)。
 
-The Raspberry Pi was originally developed to solve a very limited problem: the decreasing number of people applying to study computer science at Cambridge University. The number of applications had dropped from 600 to 250 per year and Eben Upton, who was the director of studies and responsible for admission, became concerned that not enough kids were taking an interest in computers. By providing a low-cost, hackable computer to just a few kids in the UK, Upton intended to get more and better students for his program.
+不如我们借此机会介绍有关树莓派的 9 个小知识，以庆祝树莓派的九岁生日吧！
 
-## 2. There have been at least 21 Different Models of Raspberry Pi.
+## 1. 树莓派的最初销售目标仅为 1,000 台
 
-Since its launch in 2012, the Raspberry Pi Foundation has released 20 additional models, 52 if you count all four RAM capacities of the [Raspberry Pi 4 B](https://www.tomshardware.com/reviews/raspberry-pi-4) and all 32 variants of the Raspberry Pi Compute Module 4 (which comes in different RAM and storage capacities and with or without Wi-Fi).
+树莓派最初是为解决一个非常局限的问题而开发的：剑桥大学申请计算机科学系的人数正在减少 —— 申请简历的数量从每年 600 个减少到每年 250 个。负责教学及招生工作的埃本·厄普顿（Eben Upton）担心没有足够的孩子对计算机感兴趣，于是，为了吸引更多能力更好的学生，厄普顿为一小部分英国孩子提供了一个低成本、易修改的计算机（从而培养他们对计算机的兴趣）。
 
-The original Raspberry Pi, the Model B had just 256MB of RAM and a single-core, 700 MHz processor. The current mainstream model, the Pi 4 B, has up to 8GB of RAM, a quad-core 1.5-GHz CPU and USB 3.0 ports.
+他在 [2019 年的采访中](https://www.tomshardware.com/news/raspberry-pi-founder-interview,38585.html)告诉我们：“我们正在设计的东西，在商业领域围绕着这样的想法，即如果你可以生产 1000 台树莓派，并交付到合适的 1000 个孩子的手中，你就可以解决问题。”
 
-[Untitled](https://www.notion.so/8167832e68b6463b931c6876c83629dd)
+在人们对该项目的兴趣激增之后，厄普顿和他的团队决定他们要生产 1000 多台树莓派，目标受众从英国的儿童扩展到了所有国家、地区的所有年龄段的人群。
 
-Launched in late 2020, the [Raspberry Pi 400](https://www.tomshardware.com/news/raspberry-pi-400-review-faster-cpu-new-layout-better-thermals) is Raspberry Pi's first standalone computer. Instead of a bare board, the Pi 400 is a keyboard with the equivalent of a Pi 4 inside, though the CPU runs at 1.8 rather than 1.5 GHz. It's sold either by itself or in a kit with a mouse, power supply, cables and an official guide.
+## 2. 至少有 21 种不同模型的树莓派
 
-The Raspberry Pi Pico is a completely different type of Pi, a microcontroller board that's more like an Arduino than a traditional Pi (more on that below).
+![图源 Shutterstock](https://cdn.mos.cms.futurecdn.net/XHXfSH8nZXpXphx6XVUo6j-970-80.jpg)
 
-## 3. Raspberry Pi Pico marks a new chapter in Pi history.
+自 2012 年推出以来，树莓派基金会已经发布了 20 种其他的型号。而如果算上树莓派 4B 的 4 种 RAM 容量和树莓派计算模块 4 的 32 种型号（不同的 RAM 和存储容量，以及是否有 Wi-Fi），那么一共就有 52 种型号。
 
-Released in January 2021, the [Raspberry Pi Pico](https://www.tomshardware.com/news/raspberry-pi-pico-tutorials-pinout-everything-you-need-to-know) is the company’s first microcontroller and marks the debut of its first custom silicon, the RP2040 CPU. Where every prior Pi has been a full-fledged computer that boots into a, typically Linux, operating system, the `$4` Pico falls into the same category as Arduino. The Pico is great for controlling motors, lights and sensors and runs a program as soon as you turn it on, without the need to boot up or the worry that you’ll lose data if you pull the plug without doing a safe shutdown.
+最初的树莓派 B 型只拥有 256MB 的 RAM 和一个单核 700MHz 处理器，而当前的主流型号树莓派 4B 则具有高达 8GB 的 RAM，四核 1.5GHz 的 CPU 和 USB 3.0 的端口。
 
-The Pico has three built-in ADC (analog-to-digital converters), something that other Pis lack, which allow you to connect directly to analog devices such as joysticks, potentiometers and distance sensors. See our articles about [Raspberry Pico vs Arduino](https://www.tomshardware.com/features/raspberry-pi-pico-vs-arduino) and [which Raspberry Pi is right for you](https://www.tomshardware.com/how-to/raspberry-pi-buying-guide) for more detailed comparisons between the Pico, the Arduino and other Raspberry Pis.
+| 模型| 发行年份 | 中央处理器 | 内存 |
+| --- | --- | --- | --- |
+| 树莓派 1B | 2012 年 | 700 MHz Broadcom BCM2835（1 核） | 256MB |
+| 树莓派 1A | 2013 年 | 700 MHz Broadcom BCM2835（1 核） | 256MB |
+| 树莓派 1A+ | 2014 年 | 700 MHz Broadcom BCM2835（1 核） | 512MB |
+| 树莓派 1B+ | 2014 年 | 700 MHz Broadcom BCM2835（1 核）| 512MB |
+| 计算模块 1 | 2014 年 | 700 MHz Broadcom BCM2835（1 核） | 512MB |
+| 树莓派 2B | 2015 年 | 900 MHz Broadcom BCM2836（4 核） | 1GB |
+| 树莓派 Zero 1.2 | 2015 年 | 1 GHz Broadcom BCM2835（1 核） | 512MB |
+| 树莓派 2B v1.2 | 2016 年 | 1 GHz Broadcom BCM2835（1 核） | 512MB |
+| 树莓派 3B | 2016 年 | 1.2 GHz Broadcom BCM2837（4 核） | 1GB |
+| 树莓派 Zero 1.3 | 2016 年 | 1 GHz Broadcom BCM2835（1 核） | 512MB |
+| 树莓派 Zero W | 2017 年 | 1 GHz Broadcom BCM2835（1 核） | 512MB |
+| 计算模块 3 | 2017 年 | 1.2 GHz Broadcom BCM2837（4 核） | 1GB |
+| 计算模块 3 精简版 | 2017 年 | 1.2 GHz Broadcom BCM2837（4 核） | 1GB |
+| 树莓派 3B+ | 2018 年 | 1.2 GHz Broadcom BCM2837（4 核） | 1GB |
+| 计算模块 3+ | 2019 年 | 1.2 GHz Broadcom BCM2837B0（4 核） | 1GB |
+| 计算模块 3+ Lite | 2019 年 | 1.2 GHz Broadcom BCM2837B0（4 核） | 1GB |
+| 树莓派 4B | 2019 年 | 1.5 GHz Broadcom BCM2711 | 1/2/4 / 8GB（2020） |
+| 计算模块 4 | 2020 年 | 1.5 GHz Broadcom BCM2711 | 1/2/4 / 8GB |
+| 树莓派 400 | 2020 年 | 1.8 GHz Broadcom BCM2711 | 4GB |
+| 树莓派 Pico | 2021 年 | 133 MHz RP2040 | 264K |
 
-The RP2040 chip which powers the Pico marks an even bigger evolution than the board itself. This 133-MHz, dual-core Cortex M0+ CPU is designed by the Raspberry Pi Foundation and licensed out to other vendors such as Pimoroni and Adafruit who are building an entire ecosystem of RP2040-powered microcontrollers themselves. Even Arduino is getting in on the act, releasing the [Arduino Nano RP2040 Connect](https://www.tomshardware.com/news/first-pi-silicon-arduino-nano-rp2040-connect-spotted), which will have built-in Wi-Fi and Bluetooth.
+[树莓派 400](https://www.tomshardware.com/news/raspberry-pi-400-review-faster-cpu-new-layout-better-thermals) 于 2020 年末推出，是树莓派发行的第一台独立计算机。尽管 CPU 是 1.8GHz 而不是 1.5GHz，但树莓派 400 取代了裸板，成了一个内部集成了与树莓派 4 一样的系统的键盘。它可以单独被购买，也可以与鼠标、电源、电缆和官方指南配套使用。
 
-## 4. The most popular Pi is . . .
+树莓派 Pico 是一种完全不同的树莓派变种。它是一种微控制器板，而与传统的树莓派相比，它更像是 Arduino（更多内容见下文）。
 
-The Raspberry Pi 3 B is the best-selling Pi model of all-time, with 13.2 million units sold. Of the various Raspberry Pi 4 B RAM capacities, the 4GB model accounts for approximately twice as many sales as the 8GB and 2GB SKUs.
+## 3. 树莓派 Pico 翻开了树莓派历史的新篇章
 
-The Pico has only been on the market for a few weeks, but already has sold 250,000 units with 750,000 on back order. 2020 was the top-selling year for Pi, with 7.1 million units sold.
+![图源 汤姆的硬件](https://cdn.mos.cms.futurecdn.net/DvmyRVRnKSQdcvLbKjddNP-970-80.jpg)
 
-## 5. The Pi has more than 20 operating systems.
+[树莓派 Pico](https://www.tomshardware.com/news/raspberry-pi-pico-tutorials-pinout-everything-you-need-to-know) 于 2021 年 1 月发布，是该公司的首款微控制器，也标志着其首款定制芯片 RP2040 CPU 的首次亮相。以前的每个树莓派都是一台可以启动到通常为 Linux 的操作系统的功能齐全的计算机，而售价 4 美元的 Pico 则属于与 Arduino 相同的种类。Pico 非常适合用于控制电动机、灯光和传感器，并会在打开电源后立即运行程序，而无需等待启动，也无需担心在不安全关闭的情况下拔下插头会丢失数据的问题。
 
-Raspberry Pi OS, a customized version of Debian, is the official operating system for Raspberry Pi boards, but it’s not the only choice, by far. From Pi-friendly versions of Ubuntu and FreeBSD Linux to unofficial ports of Android and Chrome OS, there are a ton of different operating systems available. Some of the most interesting include:
+Pico 具有三个内置的 ADC（模数转换器），这是其他树莓派型号所不具备的。这些转换器让我们可以直接连接至模拟设备，例如操纵杆、电位计和距离传感器。请参阅我们有关[树莓派 Pico 与 Arduino](https://www.tomshardware.com/features/raspberry-pi-pico-vs-arduino) 的文章，以及[哪款树莓派最适合你](https://www.tomshardware.com/how-to/raspberry-pi-buying-guide)，以获取 Pico、Arduino 和其他树莓派之间更详细的比较。
 
-- **[LibreELEC](https://libreelec.tv/downloads_new/):** A lightweight OS that runs the Kodi open-source media software.
-- **[RISC OS](https://www.riscosopen.org/content/downloads/raspberry-pi):** Designed for ARM chips, this unique OS promises faster speeds than Linux.
-- **[Chromium OS](https://github.com/FydeOS/chromium_os-raspberry_pi)**: Turn your Pi into a Chrome Box.
-- **Windows 10:** Yes, you can [install Windows 10 on a Raspberry Pi 4](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi) (with some hacks), but it’s so slow you probably won’t want to keep using it.
-- **[Lakka](https://www.lakka.tv/):** Specially designed for retro gaming, this OS comes with a series of emulators pre-loaded.
+Pico 的 RP2040 芯片比板子本身具有更大的升级。这款 133MHz 双核 Cortex M0+ CPU 是由树莓派基金会设计的，并授权给了其他的供应商，例如 Pimoroni 和 Adafruit。他们自己构建了由 RP2040 驱动的微控制器的整个生态系统。甚至 Arduino 也参与其中，发布了 Arduino Nano RP2040 Connect，它将具有内置的 Wi-Fi 和蓝牙功能。
 
-## 6. There are two Raspberry Pis in space.
+## 4. 最畅销的树莓派是……
 
-The International Space Station is home to two [“Astro Pis,”](https://www.raspberrypi.org/education/programmes/astro-pi/) which are specially modified Raspberry Pi B+ models that have been “space hardened” and equipped with the official Raspberry Pi Sense HATs . The European Space agency runs periodic contests where children submit code to be run on the devices.
+![图源 Shutterstock](https://cdn.mos.cms.futurecdn.net/2UNMCmHhhnSk9jfp36UXMZ-970-80.jpg.webp)
 
-Though the Pis are older models, they recently got a storage upgrade as the Astro Pi project [sent 256GB microSD cards to the ISS](https://twitter.com/astro_pi/status/1365315688034799622) to replace the 32GB cards they were using.
+树莓派 3B 是有史以来最畅销的机型，目前已累计售出 1320 万台。在各种树莓派 4B RAM 容量中，4GB 型号的销量量大约是 8GB 和 2GB SKU 的两倍。
 
-## 7. The Raspberry Pi Foundation wants products to live forever.
+Pico 仅在市场上销售了几周，但已经售出了 25 万台，还有 75 万台处于延迟交付状态。2020 年是树莓派销量最高的一年，一共售出了 710 万台树莓派机器。
 
-Even though the Raspberry Pi B+, Raspberry Pi 2, Raspberry Pi 3 B and other models are way out of date, the Raspberry Pi Foundation continues to actively manufacture and sell them. The organization hates to End-of-Life (EOL) products, because there are industrial clients who may still need them even if they are really old.
+## 5. 树莓派有 20 多个操作系统
 
-"EOLing product is death. We’ve EOLed [just] five products in our life," Upton told us in 2019. He said that the only five products that Raspberry Pi discontinued include the Pi 1A and Pi 1B, because "the Pi 1A+ and B+ are a better implementation of that world."
+树莓派 OS 是 Debian 的定制版本，是树莓派的官方操作系统，但到目前为止，它并不是唯一的选择。从适用于树莓派的 Ubuntu 和 FreeBSD Linux 版本到非官方的 Android 和 ChromeOS，我们可以使用大量不同的操作系统。最有趣的一些系统包括：
 
-Even after the price of the Raspberry Pi 4 B (2GB) dropped to $35, the 1GB model remained available at the same price, because some customers may still want it as a drop-in replacement.
+* **[LibreELEC](https://libreelec.tv/downloads_new/)**：运行 Kodi 开源媒体软件的轻量级操作系统。
+* **[RISC OS](https://www.riscosopen.org/content/downloads/raspberry-pi)**：此独特的操作系统专为 ARM 芯片而设计，声称有比 Linux 更快的运行速度。
+* **[Chromium OS](https://github.com/FydeOS/chromium_os-raspberry_pi)**：将我们的树莓派变成 Chrome Box。
+* **Windows 10**：是的！我们可以[在树莓派 4 上安装 Windows 10](https://www.tomshardware.com/how-to/install-windows-10-raspberry-pi)（需要一些技巧），但是它实在是太慢了，我觉得你可能不想继续让它运行 Windows 10。
+* **Lakka**：此操作系统专为复古游戏而设计，预装了一系列的模拟器。
 
-## 8. The price of Raspberry Pi has dropped, relative to inflation.
+## 6. 有两个树莓派在天上飞
 
-The original Raspberry Pi cost $35 in 2012 while the [Raspberry Pi 4](https://www.tomshardware.com/reviews/raspberry-pi-4) B (2GB) costs the same price today. However, if you consider inflation, $35 from 2012 is actually equivalent to $39.88 today. For that same price, you get:
+国际空间站有两个 [Astro Pis](https://www.raspberrypi.org/education/programmes/astro-pi/)，一种经过特别改良的树莓派 B+ 型号。这两个机器经过了“空间改造”（以适应太空环境），并配备了官方的树莓派 Sense HAT 传感器附加板。欧洲航天局举办定期竞赛，孩子们可以提交代码并在这些设备上运行。
 
-- A 40x faster processor (700 MHz, single-core vs 1.5-GHz quad core)
-- 8x the RAM (256GB vs 2GB)
-- Wi-Fi vs no-Wifi
-- Dual monitor output vs single HDMI out
-- USB 3.0 ports vs USB 2 only
+尽管 Pis 是较旧的型号，但他们最近进行了存储升级，Astro Pi 项目[向国际空间站发送了 256GB 的 microSD 卡](https://twitter.com/astro_pi/status/1365315688034799622)以替换其正在使用的 32GB 卡。
 
-If $35 still seems like a lot of money, there are cheaper Pi models. The Raspberry Pi Zero goes for just $5 while the Raspberry Pi Pico, a microcontroller board, goes for a mere $4.
+## 7. 树莓派基金会希望产品永远存在
 
-## 9. There’s a Pi War every year.
+即使树莓派 B+、树莓派 2、树莓派 3B 和其他的一些型号已经过时了，树莓派基金会仍会继续积极进行制造和销售。该组织不愿接受报废（EOL，End-of-Life）产品，因为有些工业客户仍然会需要使用这些机器，而不在乎它是否过时。
 
-Yes, you can compete with your Raspberry Pi. [Pi Wars](https://piwars.org/) is an annual robotics competition where all of the gear must be built with your choice of Raspberry Pi. Teams at Pi Wars compete in challenges such as navigating obstacle courses, popping balloons and navigating a maze.
+厄普顿在 2019 年告诉我们："将产品停产就是意味着它的死亡。我们目前仅停产了 5 种产品。"他还说，树莓派停产的仅有的 5 种型号包括树莓派 1A 和树莓派 1B，因为树莓派 1A+ 和 B+ 是更好的替代品。”
 
-There are both human-driven and automated challenges. The next Pi Wars will take place in July 2021.
+即使在树莓派 4B（2GB）的价格降至 35 美元之后，仍然可以用原来的价格购入 1GB 型号，因为某些客户可能仍希望将其作为即插即用的替代产品。
+
+## 8. 相对于通货膨胀，树莓派的价格反而有所下降
+
+最初的树莓派在 2012 年的价格为 35 美元，与今天树莓派 4B（2GB）的价格相同。但是，如果考虑通货膨胀，2012 年的 35 美元实际上相当于今天的 39.88 美元。以相同的价格，你将获得：
+
+* 快 40 倍的处理器（1.5GHz 四核 vs 700 MHz 单核 ）
+* 原来 RAM 容量的 8 次方倍（256GB vs 2GB）
+* 有了 Wi-Fi
+* 双监视器输出 vs 单 HDMI 输出
+* USB 3.0 端口 vs 只支持 USB 2
+
+如果说 35 美元仍然挺贵的，那么还有便宜些的树莓派型号供你选择。树莓派 Zero 仅售 5 美元，而树莓派 Pico 微控制器板仅售 4 美元。
+
+## 9. 每年都有一场树莓派竞赛
+
+是的，我们可以参与树莓派竞赛。[树莓派竞赛（Pi Wars）](https://piwars.org/)是一年一度的机器人竞赛。在这个比赛中，我们必须使用树莓派来完成所有装备的构建。参与树莓派竞赛的团队需要在各种挑战中相互竞争，例如导航障碍物路线、弹出气球和导航迷宫。
+
+在树莓派竞赛中，既有人力驱动的挑战，也有自动化的挑战。下一场树莓派大战将于 2021 年的 7 月举行。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划]([https://github.com/xitu/gold-miner](https://github.com/xitu/gold-miner)) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
