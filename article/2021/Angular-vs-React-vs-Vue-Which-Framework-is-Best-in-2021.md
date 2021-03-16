@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[felixliao](https://github.com/felixliao)
 
 # 2021 年 Angular vs. React vs. Vue 前端框架对比
 > 一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。
