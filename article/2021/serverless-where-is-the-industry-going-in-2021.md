@@ -2,14 +2,17 @@
 > * 原文作者：Suresh Kumar
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/serverless-where-is-the-industry-going-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/serverless-where-is-the-industry-going-in-2021.md)
-> * 译者：
+> * 译者：[Ashira97](https://github.com/Ashira97)
 > * 校对者：
 
 # Serverless: Where Is the Industry Going in 2021?
+# 去服务化：2021年该项技术何去何从？
 
 > In this article, we discuss what it means to be considered Serverless, how companies are adopting this trend, and where the industry is advancing in 2021.
+> 在本文中，我们主要讨论去服务化的含义、公司是如何应用这一技术的、以及在2021年该技术将会如何发展。
 
 ## Introduction
+## 介绍
 
 Serverless computing is a style of developing software on cloud platforms that frees developers of the complexities of code deployment, infrastructure provisioning, and availability management of the code in the cloud.  Amazon popularized this with Lambda in 2014.  Since then, all the cloud vendors have followed suit with similar capabilities, Azure Functions, and Google Cloud Functions.
 
