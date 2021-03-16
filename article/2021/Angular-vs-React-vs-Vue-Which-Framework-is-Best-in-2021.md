@@ -1,7 +1,7 @@
 > * 原文地址：[Angular vs. React vs. Vue: Which Framework is Best in 2021?](https://dzone.com/articles/angular-vs-react-vs-vue-which-framework-is-best-to)
 > * 原文作者：[Sourabh Nagar](https://dzone.com/users/3456681/chapter247.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[felixliao](https://github.com/felixliao)
 
@@ -80,7 +80,7 @@ React 来自 MERN 架构，一种以构建复杂的业务应用程序而闻名�
 * 你需要带有动画或交互式元素的 Web 应用程序的开发项目。
 * 无需高级技能即可进行原型制作。
 * 需要与多个其他应用程序无缝集成的应用程序。
-* 更早推出 MVP。
+* 更早推出 MVP 架构。
 
 ## 性能和开发
 
