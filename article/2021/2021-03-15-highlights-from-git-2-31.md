@@ -30,7 +30,9 @@ Starting in Git 2.31, you can get the best of both worlds with **background main
 
 Getting started with background maintenance couldn’t be easier. Simply navigate your terminal to any repository you want to enable background maintenance on, and run the following:
 
+```bash
 $ git maintenance start
+```
 
 …and Git will take care of the rest. Besides pre-fetching the latest objects once an hour, Git will make sure that [its own data](https://github.blog/2020-12-17-commits-are-snapshots-not-diffs/) is organized, too. It will update its [`commit-graph` file](https://devblogs.microsoft.com/devops/updates-to-the-git-commit-graph-feature/) once an hour, and pack any loose objects (as well as incrementally repack packed objects) nightly.
 
@@ -77,7 +79,7 @@ Git doesn’t generate `.rev` files by default yet, but you can experiment with 
     
 * On the topic of renaming things, Git 2.30 makes it easier to change the name of another default: a repository’s first remote. When `git clone`-ing a repository, the first remote initialized is always named “origin”.Prior to Git 2.30, your options for renaming this were limited to running `git remote rename origin <newname>`. Git 2.30 allows you to configure a different name to be chosen by default, instead of always using “origin”. To give it a try for yourself, set the `clone.defaultRemoteName` configuration. \[[source](https://github.com/git/git/compare/de0a7effc86aadf6177fdcea52b5ae24c7a85911...de9ed3ef3740f8227cc924e845032954d1f1b1b7)\]
     
-* When a repository grows large, it can be hard to figure out which branches are responsible. In Git 2.31, `git rev-list` now has a `[--disk-usage](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---disk-usage)` option which is both simpler and faster than using the existing tools to sum up object sizes. The [examples section](https://git-scm.com/docs/git-rev-list#_examples) of the `rev-list` manual shows off some uses (and check out the source link below for timings and to see the “old” way of doing it). \[[source](https://github.com/git/git/commit/16950f8384afa5106b1ce57da07a964c2aaef3f7)\]
+* When a repository grows large, it can be hard to figure out which branches are responsible. In Git 2.31, `git rev-list` now has a [`--disk-usage`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---disk-usage) option which is both simpler and faster than using the existing tools to sum up object sizes. The [examples section](https://git-scm.com/docs/git-rev-list#_examples) of the `rev-list` manual shows off some uses (and check out the source link below for timings and to see the “old” way of doing it). \[[source](https://github.com/git/git/commit/16950f8384afa5106b1ce57da07a964c2aaef3f7)\]
     
 * You may have used Git’s `-G<regex>` option to find commits which modified a line that mentions a particular string (e.g., `git log -G'foo\('` will look for changes that added, removed, or modified calls to the `foo()` function). But you may also want to **ignore** lines matching a certain pattern. Git 2.30 introduces `-I<regex>`, which lets you ignore changes in lines matching a regular expression. For instance, `git log -p -I'//'` would show the patch for each commit, but omit any hunks that only touched comment lines (those containing `//`). \[[source](https://github.com/git/git/commit/296d4a94e7231a1d57356889f51bff57a1a3c5a1)\]
     
