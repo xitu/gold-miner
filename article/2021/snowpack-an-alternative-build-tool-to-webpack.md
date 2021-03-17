@@ -11,42 +11,42 @@
 
 [Webpack](https://webpack.js.org/) 是近几年最热门的 JavaScript 构建工具，多亏于它灵活的构建配置以及大量受到官方支持的用于应对不同文件类型的第三方插件。
 
-使用 Webpack 最主要的目的是将你所有的 JavaScript 文件，连带所有从 NPM 导入的模组、图片、CSS 和其他资源，全部放入到一个可以被浏览器执行的文件中。
+使用 Webpack 最主要的目的是将你所有的 JavaScript 文件，连带所有从 NPM 导入的模块、图片、CSS 和其他网络资源，全部打包到一个可以被浏览器执行的文件中。
 
 ![用一句话形容 Webpack [来源](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*XRoIfAWL1JkSECMDC6n5Hw.png)
 
-但是 Webpack 也是一个复杂的工具，伴随着陡峭的学习曲线，因为它的灵活性意味着它有非常多的功能来应对各种不同的使用场景。更进一步讲，哪怕只是对一个文件进行了很小的改动，Webpack 也需要将你的整个 JavaScript 应用重新打包和构建。如果对 Webpack 的理解不到位，构建一个应用时可能要等 [半小时以上](https://stackoverflow.com/questions/56431031/why-does-npm-run-build-take-30-minutes-on-development-server-and-less-than-a)。
+但是 Webpack 也是一个复杂的工具，伴随着陡峭的学习曲线，因为它的灵活性意味着它有非常多的功能来应对各种不同的使用场景。更进一步讲，哪怕只是对一个文件进行了很小的改动，Webpack 也需要将你的整个 JavaScript 应用重新打包和构建。如果对 Webpack 的工作原理理解不到位，构建一个应用时可能要等[半小时以上](https://stackoverflow.com/questions/56431031/why-does-npm-run-build-take-30-minutes-on-development-server-and-less-than-a)。
 
-但是话说回来，Webpack 是 2014 年发布的。在那个时候，浏览器对于 EcmaScript Module (ESM) `import` 和 `export` 的语法支持几乎不存在，所以在浏览器中运行现代 JavaScript 的方式就是将项目中所有的模组全部打包成一个文件。
+但是话说回来，Webpack 是 2014 年发布的。在那个时候，浏览器基本不支持 EcmaScript Module (ESM) 的 `import` 和 `export` 语法，所以在浏览器中运行现代 JavaScript 的方式只能是将项目中所有的模块全部打包进一个文件。
 
-这其中还有其他的流程，比如将更新版本的 JavaScript 通过 Babel 转译为稍旧版本的 JavaScript，以使得浏览器可以运行该应用。但是使用 Webpack 最主要的目的是创造最好的开发体验，让 JavaScript 开发者可以使用最新的功能（ES6 及更新）。
+这其中还有其他的流程，比如使用 Babel 将 JavaScript 从较新版本转换为稍旧版本，以便浏览器可以运行该应用。但是使用 Webpack 最主要的目的是创造最好的开发体验，让 JavaScript 开发者可以使用最新的功能（ES6+）。
 
 如今 ESM 语法已经被所有主流浏览器支持，所以将你所有的 JavaScript 文件打包在一起已经不是在浏览器中运行一个应用的必要条件了。
 
 ## 使用 Snowpack 进行无须打包的开发
 
-[Snowpack](https://www.snowpack.dev/) 是一个 JavaScript 构建工具，它利用了浏览器对 ESM 的支持，使你可以构建单个文件并将它们送到浏览器。每一个被构建的文件都会被缓存，并且在你修改一个文件时，只有这一个文件会被 Snowpack 重新构建。
+[Snowpack](https://www.snowpack.dev/) 是一个 JavaScript 构建工具，它利用了浏览器对 ESM 的支持，使你可以构建单个文件并将其发送到浏览器中。每一个被构建的文件都会被缓存，并且在你修改一个文件时，只有这一个文件会被 Snowpack 重新构建。
 
 ![Snowpack 伺服不打包的文件 [Source](https://www.snowpack.dev/concepts/how-snowpack-works)](https://cdn-images-1.medium.com/max/3840/1*Ep5bOeYn1t-Y0XnSRUD2mA.png)
 
-Snowpack 的调试服务器也做了优化，它只会在浏览器请求一个文件时构建该文件。这使得 Snowpack 可以即时启动（**小于 50 毫秒**）并且扩展到大型项目时也不会减速。我自己做尝试时启动服务器只用了 35 毫秒：
+Snowpack 的开发服务器也做了优化，它只会在浏览器请求后构建该文件。这使得 Snowpack 可以即时启动（**小于 50 毫秒**）并且扩展到大型项目时也不会增加启动速度。我自己做尝试时启动服务器只用了 35 毫秒：
 
 ![Snowpack 的调试服务器启动](https://cdn-images-1.medium.com/max/2906/1*EpNPrzN0EeeEYlMM3SLIWw.png)
 
 ## Snowpack 的构建过程
 
-Snowpack 会默认将你的未打包应用部署到生产环境，但是你也许应该使用一些构建优化手段，比如最小化、代码分割、摇树、懒加载等等。
+Snowpack 默认会将你的未打包应用部署到生产环境，但是你也许应该使用一些构建优化手段，比如最小化、代码分割、tree-shaking、懒加载等等。
 
-Snowpack 同时支持在打包你的应用的生产版本时 [连接到 Webpack](https://www.npmjs.com/package/@snowpack/plugin-webpack)。这样，由于 Snowpack 已经转译了你的代码，你的打包工具（Webpack）只需要将常规的 HTML、CSS 和 JavaScript 文件打包。这也是为什么你在打包过程中不需要复杂的 Webpack 配置文件。
+Snowpack 同时支持通过[插件连接 Webpack ](https://www.npmjs.com/package/@snowpack/plugin-webpack) 来打包生产版本的应用。这样，由于 Snowpack 已经转译了你的代码，你的打包工具（Webpack）只需要将常规的 HTML、CSS 和 JavaScript 文件打包。这也是为什么你在打包过程中不需要复杂的 Webpack 配置文件。
 
-最后，你也可以通过在你的 `package.json` 文件中设置 `browserslist` 属性，来设定你想支持的浏览器版本：
+最后，你也可以通过在 `package.json` 文件中设置 `browserslist` 属性，来设定支持的浏览器版本：
 
 ```
 /* package.json */
 "browserslist": ">0.75%, not ie 11, not UCAndroid >0, not OperaMini all",
 ```
 
-在你执行 `snowpack build` 指令来为生产环境构建项目时，该属性会自动被应用。Snowpack 不会在构建开发版本时执行任何转译，但这应该不是个问题，因为大部分时间你都会在最新的浏览器版本下开发。
+在你执行 `snowpack build` 指令来构建生产环境的项目时，该属性会自动被应用。Snowpack 不会在构建开发版本时执行任何转译，但这应该不是个问题，因为大部分时间你都会在最新的浏览器版本下开发。
 
 ## 上手 Snowpack
 
@@ -94,7 +94,7 @@ Snowpack 支持主流库的 [许多官方模板](https://github.com/snowpackjs/s
 
 > **你使用一个打包工具时应该是因为你想要使用它，而不是因为你需要使用它 ——** [Snowpack 官方文档](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
 
-Webpack 和 Snowpack 的发布隔了数年，尽管 Webpack 一直是打包 JavaScript 模组时人气最高的选择，浏览器对 ESM 模组的支持开创了一种新的开发 web 应用的方式。
+Webpack 和 Snowpack 的发布隔了数年，尽管 Webpack 一直是打包 JavaScript 模块时人气最高的选择，浏览器对 ESM 模块的支持开创了一种新的开发 web 应用的方式。
 
 伴随着不打包开发以及开发中快速重建应用的能力，Snowpack 是一个激动人心的 Webpack 替代品，它让我们可以更轻松地开发 JavaScript 应用。与此同时，它还能让你利用 Webpack 打包生产版本，令你可以为你的应用实现构建优化手段。
 
