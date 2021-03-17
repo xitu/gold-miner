@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/snowpack-an-alternative-build-tool-to-webpack.md](https://github.com/xitu/gold-miner/blob/master/article/2021/snowpack-an-alternative-build-tool-to-webpack.md)
 > * 译者：[felixliao](https://github.com/felixliao)
-> * 校对者：
+> * 校对者：[niayyy](https://github.com/nia3y)、[Joe](https://github.com/Usualminds)
 
 # Snowpack: 一个可代替 Webpack 的构建工具
 
