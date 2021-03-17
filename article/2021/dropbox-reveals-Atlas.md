@@ -2,14 +2,14 @@
 > * 原文作者：[Eran Stiller](https://www.infoq.com/profile/Eran-Stiller/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # Dropbox 公布了 Atlas —— 一个托管服务编排平台
 
-在最近的博客文章中，[Dropbox 公布了 Atlas](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)，旨在提供给用户面向服务的体系结构的各种好处，并且同时还将拥有服务的运营成本降至最低。
+在最近的博客文章中，[Dropbox 公布了 Atlas](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)，旨在提供给用户面向服务的体系结构的各种好处，同时让拥有服务的运营成本降至最低。
 
-Atlas 的目标是支持小型的独立功能，为产品团队节省管理全面服务的开销，包括容量规划，警报设置等。Atlas 还借助后台自动调配的服务提供，为用户提供了与无服务器系统（如 AWS Fargate）的体验。根据作者 Naphat Sanguansin 和 Utsav Shah 的说法，他们评估了使用现成的解决方案来运行该平台。但是，为了降低迁移风险并确保较低的工程成本，他们决定继续在 Dropbox 其余部分使用的同一编排平台上托管服务。
+Atlas 的目标是支持小型的独立功能，为产品团队节省管理各种服务的开销，包括容量规划、警报设置等。Atlas 还借助后台自动调配的服务，为用户提供了与无服务器系统（如 AWS Fargate）搭配使用的体验。根据作者 Naphat Sanguansin 和 Utsav Shah 的说法，他们评估了使用现成的解决方案来运行该平台。但是，为了降低迁移风险并确保较低的工程成本，他们决定继续在 Dropbox 其余部分使用的同一编排平台上托管服务。
 
 构造 Atlas 的原因是他们想要要替换 Dropbox 的 Python 中心库 [monolith](https://en.wikipedia.org/wiki/Monolith) Metaserver。构造 Altas 会是一个历时多年的历程，至今仍在进行之中。目前，Atlas 正在为它打算取代的 monolith 提供 25％ 以上的服务。作者给出了有关迁移过程的关键结论：
 
@@ -24,13 +24,13 @@ Atlas 的设计涉及一些围绕组件化，编排和操作性的关键工作�
 
 为了改进编排，Atlas 中的每个 Servlet 都是其自己的集群。默认情况下，该决定会提供隔离，因为行为异常的路由只会影响同一 Atlasservlet 中的其他路由。同样，此决定允许独立推送代码。此外，Dropbox 决定在 [gRPC](https://grpc.io/) 上进行标准化。继续为 HTTP 流量，他们用 [GRPC JSON 的转码器](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/grpc_json_transcoder_filter)中提供了 [Envoy](https://www.envoyproxy.io/)，这是他们在 Servlet 的前面作为代理服务器和负载平衡器使用。
 
-![https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-http-transcoding-1615307468739.png](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-http-transcoding-1615307468739.png)
+![HTTP 转码器](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-http-transcoding-1615307468739.png)
 
 <small>HTTP 转码器，图源 [Dropbox](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform) </small>
 
 根据作者的说法，关于可操作性，“Atlas 的秘密秘诀是可管理的经验”。这项工作的主要支柱是自动金丝雀分析，它可以在每个代码推入生产之前自动检查每个代码推入，以及自动缩放功能，从而消除了对容量规划的大部分需求。
 
-![https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-canary-1615307469053.png](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-canary-1615307469053.png)
+![Canary 版本分析](https://res.infoq.com/news/2021/03/dropbox-atlas/en/resources/1Dropbox-atlas-canary-1615307469053.png)
 
 <small>Canary 版本分析，图源 [Dropbox](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform) </small>
 
