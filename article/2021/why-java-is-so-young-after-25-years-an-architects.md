@@ -73,7 +73,12 @@ When Sun was owned Java, there are other Java runtime environments, enhancements
 
 Oracle Java releases are based on JDK Enterprise Proposal (JEP) and Java Specification Request (JSR) and EdDSA is one such implementation of JEP 339. It is a platform-independent cryptographic signature at ~126-bit encryption algorithm. This can be used for data transportation handling with higher security to transmit encrypted data.
 Sealed Class introduced in Java 15 is the implementation of JEP 360 and it restricts which classes can extend or implement the sealed class. For example:
-`public abstract sealed class Shape      permits Circle, Rectangle, Square {...}`
+
+```java
+public abstract sealed class Shape      
+    permits Circle, Rectangle, Square {...}
+```
+
 makes Shape as a sealed class and allows only 'permits' class to implement/extend. This makes secured access to class hierarchy and controls the reusability of interfaces.
 Hidden Class is based on the implementation of JEP 371 and it restricts class usage by allowing the class to be generated at runtime using Reflection API and makes the class non-discoverable to the external world. Hence, dynamic generation of Hidden class through proxies is not possible and makes them safely accessible.
 
