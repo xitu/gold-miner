@@ -5,13 +5,15 @@
 > * 译者：
 > * 校对者：
 
+# Stanford Publishes AI Index 2021 Annual Report
+
 Stanford University’s [Institute for Human-Centered Artificial Intelligence](https://hai.stanford.edu/) (HAI) has published its [2021 AI Index annual report](https://aiindex.stanford.edu/report/). This underlying data for this year's report has been expanded compared to [the previous year's](https://www.infoq.com/news/2020/01/stanford-ai-report/), and the report includes several perspectives on the COVID-19 pandemic's impact on AI research and development.
 
 To improve the latest report, over the last year the Institute requested feedback from over 140 members of academia, government, and industry. In response, the new report contains more data and analysis on technical performance, diversity, and ethics. The final report contains seven chapters, and the report summary distills nine key takeaways. In particular, AI applications for molecular biology and drug discovery received the most private investment, in part due to the pandemic. The pandemic also caused many AI conferences to switch to a virtual format, resulting in an increased participation. However, the pandemic has not adversely affected AI investment and hiring, and an increased percentage of PhD graduates in AI fields took industry jobs this year compared to previous years.
 
 The report is organized into seven chapters: Research and Development; Technical Performance; The Economy; AI Education; Ethical Challenges of AI Applications; Diversity in AI; and AI Policy and National Strategies. These chapters are based on publicly available datasets and contain dozens of charts. The Research and Development chapter covers the growth of research papers and conferences over time and by geographic region. Technical Performance tracks AI accuracy on several benchmarks in computer vision (CV), natural language processing (NLP), and molecular biology. The report points out that AI systems can now generate speech, prose, and images of such quality that humans are often unable to identify the results as synthetic.
 
-![https://res.infoq.com/news/2021/03/stanford-ai-report-2021/en/resources/1face-generation-1615055893968.png](https://res.infoq.com/news/2021/03/stanford-ai-report-2021/en/resources/1face-generation-1615055893968.png)
+![GAN Progress on Face Generation](https://res.infoq.com/news/2021/03/stanford-ai-report-2021/en/resources/1face-generation-1615055893968.png)
 
 *GAN Progress on Face Generation (Image Source: [Stanford HAI AI Index Report](https://aiindex.stanford.edu/report/))*
 
