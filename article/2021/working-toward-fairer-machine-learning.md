@@ -65,11 +65,11 @@
 
 第一篇论文描述了一种通用的学习方法，第二篇论文描述了一种回归方法，本文则涉及的是深度学习。我们展示了如何在多任务学习中设置中提高人口统计均等性。在该设置中，深度学习模型将学习对多个任务有用的输入数据的单一表达。我们从理论上证明了，哪怕是将模型迁移到新的任务上，模型学习到的数据表达仍然有助于减少模型的偏差。
 
-We propose a learning algorithm that imposes constraints based on two different ways of measuring distances between probability distributions, maximum mean discrepancy and Sinkhorn divergence. Keeping this distance small ensures that we represent similar inputs in a similar way when they differ only on the sensitive attribute. We present experiments on three real-world datasets, showing that the proposed method outperforms state-of-the-art approaches by a significant margin.
+我们提出了一种学习算法，该算法基于两种不同的测量概率分布之间距离的方法来施加约束。这两种方法是最大平均差异和 Sinkhorn 散度。保持该距离较小可确保我们对相似输入有相似的表达方式，使它们仅在敏感属性上有所不同。我们在三个真实数据集上进行了实验，结果表明，所提出的方法明显优于当前最好方法。
 
-Algorithmic fairness is a topic of great importance, with impact on many applications. In our work, we have attempted to take a small step forward, but the issue requires much further research; even the definition of what “being fair” means for an ML model is still an open research question.
+算法公平性是一个非常重要的主题，对许多应用都有影响。在我们的工作中，我们尝试着成功地迈出了一小步，但是这个问题需要进一步研究。对于机器学习模型而言，即使对“公平”的含义进行定义仍然是一个开放的研究问题。
 
-It’s also becoming clearer that we need to keep humans in the loop during the lifecycle of ML models, to evaluate whether the models are acting as we would like them to. In this sense, it is important to note that many other research subjects – such as the explainability, interpretability, and privacy of ML models – are deeply connected to algorithmic fairness. They can work in synergy, with the common goal of increasing the trustworthiness of ML models.
+越来越清楚的是，我们需要在机器学习模型的生命周期中持续进行研究，以评估模型是否按照我们的期望进行工作。从这个意义上讲，我们需要着重注意许多其他研究主题（例如模型的可解释性和隐私性）与算法公平性研究有着深远的联系。它们可以协同工作，共同目标是提高机器学习模型的可信赖性。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
