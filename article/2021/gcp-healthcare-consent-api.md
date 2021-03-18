@@ -1,4 +1,4 @@
-> * 原文地址：[Google Cloud Releases Its Healthcare Consent Management API to General Availability](https://www.infoq.com/news/2021/03/sigstore-crypto-supply-chain/)
+> * 原文地址：[Google Cloud Releases Its Healthcare Consent Management API to General Availability](https://www.infoq.com/news/2021/03/gcp-healthcare-consent-api)
 > * 原文作者：[Sergio De Simone](https://www.infoq.com/profile/Sergio-De-Simone/)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/gcp-healthcare-consent-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/gcp-healthcare-consent-api.md)
 > * 译者：
