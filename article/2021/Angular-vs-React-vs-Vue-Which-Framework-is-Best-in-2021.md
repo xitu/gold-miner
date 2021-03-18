@@ -1,11 +1,12 @@
 > * 原文地址：[Angular vs. React vs. Vue: Which Framework is Best in 2021?](https://dzone.com/articles/angular-vs-react-vs-vue-which-framework-is-best-to)
 > * 原文作者：[Sourabh Nagar](https://dzone.com/users/3456681/chapter247.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue:-Which-Framework-is-Best-in-2021.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[felixliao](https://github.com/felixliao)
 
 # 2021 年 Angular vs. React vs. Vue 前端框架对比
+
 > 一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。
 
 你可能是一个 React 开发者，可能是一个 Vue 开发者，也可能是一个只专注于技术的 Angular 开发者。不过，你还是不能忽视开发社区不断进行的框架比较。有充分的理由认为：他们三个框架，一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。每一个框架都拥有一些独特的优势和性能指标。正是这些不可忽略的优势和指标，我们不能不对这三种框架进行对比分析。
