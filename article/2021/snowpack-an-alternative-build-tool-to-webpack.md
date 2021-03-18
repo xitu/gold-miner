@@ -92,7 +92,7 @@ Snowpack 支持主流库的 [许多官方模板](https://github.com/snowpackjs/s
 
 ## 结语
 
-> **你使用一个打包工具时应该是因为你想要使用它，而不是因为你需要使用它 —— ** [Snowpack 官方文档](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
+> 你使用一个打包工具时应该是因为你想要使用它，而不是因为你需要使用它 —— [Snowpack 官方文档](https://www.snowpack.dev/concepts/build-pipeline#bundle-for-production)
 
 Webpack 和 Snowpack 的发布相隔了数年，尽管 Webpack 一直是打包 JavaScript 模块时人气最高的选择，但浏览器对 ESM 模块的支持开创了一种新的开发 Web 应用的方式。
 
