@@ -6,7 +6,6 @@
 
 # Google Cloud Releases Its Healthcare Consent Management API to General Availability
 
-
 Google Cloud recently announced it would release its Healthcare Consent Management API to general availability to provide healthcare application developers and clinical researchers a simple way to manage individuals' consent over health data use. The Healthcare Consent Management API is part of the [Cloud Healthcare API offering](https://cloud.google.com/healthcare) on the Google Cloud Platform (GCP).
 
 The Healthcare Consent Management API is the latest addition to the Cloud Healthcare API after it became [generally available](https://www.infoq.com/news/2020/04/google-healthcare-api-ga/) in April last year. Moreover, the company later in December [added](https://www.infoq.com/news/2020/12/google-healthcare-ai-ml/) Healthcare Natural Language API and AutoML Entity Extraction for Healthcare.
@@ -17,9 +16,7 @@ The public cloud provider [introduced](https://cloud.google.com/blog/topics/hea
 
 With the Healthcare Consent Management API application, developers can quickly create applications to empower patients to better track, modify, and revoke consent around the use of their data. Furthermore, with the patient's permission, the data can be ingested into the Google Cloud for further usages, like analysis for clinical trials.
 
-![https://cloud.google.com/healthcare/images/consent_architecture.svg](https://cloud.google.com/healthcare/images/consent_architecture.svg)
-
-*Source: [https://cloud.google.com/healthcare/docs/concepts/consent](https://cloud.google.com/healthcare/docs/concepts/consent)*
+![Consent Architecture](https://cloud.google.com/healthcare/images/consent_architecture.svg)
 
 Google is not the only public cloud vendor providing healthcare capabilities in the cloud. Microsoft, for instance, [offers the Azure API for Fast Healthcare Interoperability Resource (FHIR)](https://www.infoq.com/news/2019/11/azure-api-fhir-ga/) since November 2019 as part of a series of APIs to help customers with machine learning on protected health information in the cloud. And AWS offers its [Medical Comprehend service](https://aws.amazon.com/comprehend/medical/), which leverages machine learning to extract relevant medical information from unstructured text.
 
