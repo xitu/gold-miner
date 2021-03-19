@@ -7,23 +7,15 @@
 
 # Is It the Beginning of the End for PWAs?
 
-#### After Firefox, will others follow suit?
-
 ![Photo by [Szabo Viktor](https://unsplash.com/@vmxhu?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*LmCaetpJHYbKh2bn)
-
----
 
 Progressive web apps are changing the way we understand applications by providing an app-like experience in the web form. It was a way of describing applications that take advantage of new features supported by modern browsers, including service workers and web app manifests, and also lets users upgrade web apps to progressive web applications regardless of their native operating system.
 
-But PWAs have been linked with several privacy concerns over the years. This had led to Apple blocking several PWA features on Safari. You can read more about them over here.
-[**The Darker Side of PWAs You Might Not Be Aware of**
-**Privacy issues of PWAs you might want to know more about**blog.bitsrc.io](https://blog.bitsrc.io/the-darker-side-of-pwas-you-might-not-be-aware-of-ffa7b1d08888)
+But PWAs have been linked with several privacy concerns over the years. This had led to Apple blocking several PWA features on Safari. You can read more about them [over here](https://blog.bitsrc.io/the-darker-side-of-pwas-you-might-not-be-aware-of-ffa7b1d08888).
 
 Nevertheless, other browsers such as Chrome and Firefox had continued to support the development of PWAs immensely.
 
 Recently, Mozilla had released Firefox 85 which was aimed at protecting against **supercookies**. This version also appears to have dropped support for an essential feature for desktop PWAs. Let’s have a look at what it is.
-
----
 
 ## What Was Dropped?
 
@@ -36,8 +28,6 @@ For those who were observing the situation, Mozilla had [already indicated](http
 #### What is SSB?
 
 SSB is an experimental feature that allows any website to run in desktop mode, with its own window. The Site Specific Browser feature, which was available in Firefox 73 and above, allowed you to launch any website in a window with a minimal UI.
-
----
 
 ## Is This A Deal Breaker?
 
@@ -52,8 +42,6 @@ As [Ian says](https://www.i-programmer.info/news/87-web-development/14261-firefo
 Since technology is evolving at a rapid pace, companies spend a lot of resources on R&D. Experimental features are essential as they decide the future of the application. When something significant is dropped, it sends the wrong signal to the users.
 
 But when the time comes and when PWAs become a highlighted browser feature, Firefox might lose a considerable amount of users to alternative browsers due to this move.
-
----
 
 ## Why The Fuss?
 
@@ -72,27 +60,6 @@ The reason for the removal of SSB was mentioned to be the bugs that were causing
 What do you think about Mozilla’s move? Comment them below.
 
 Thank you for reading.
-
----
-
-## Collaborate on independent components with Bit
-
-[**Bit**](https://bit.dev) is an ultra-extensible tool that lets you author, version, share and collaborate on independent components.
-
-Use it to build modular design systems, author and deliver micro frontends or simply share components between applications.
-
-![Bit’s latest beta release: [https://harmony-docs.bit.dev/](https://harmony-docs.bit.dev/)](https://cdn-images-1.medium.com/max/5200/0*a6oHHW3h4otsabHe.png)
-
-Check out Bit’s latest beta version →
-[**Bit Harmony Docs**
-**Learn how to author, version and share independent components with Bit**harmony-docs.bit.dev](https://harmony-docs.bit.dev)
-
----
-
-**Resources
-**[Article by Ian Elliot](https://www.i-programmer.info/news/87-web-development/14261-firefox-drops-support-for-pwa.html)
-[XDA Developers](https://www.xda-developers.com/mozilla-drops-support-for-desktop-web-apps-in-firefox/)
-[Bugzilla](https://bugzilla.mozilla.org/show_bug.cgi?id=1682593)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
