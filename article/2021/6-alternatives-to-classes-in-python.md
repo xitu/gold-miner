@@ -2,20 +2,20 @@
 > * 原文作者：[Martin Thoma](https://medium.com/@martinthoma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-alternatives-to-classes-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-alternatives-to-classes-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Alfxjx](https://github.com/Alfxjx)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[flying-yogurt](https://github.com/flying-yogurt)
 
-# 6 Alternatives to Classes in Python
+# Python 类的 6 种替代方案
 
-![Photo by the author.](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
+![图片](https://cdn-images-1.medium.com/max/3180/1*ESvqnwbq8Lj4VNkVMWI9JA.png)
 
-As developers, we throw a lot of data around. The representation of data matters a lot and we need to be able to keep track of which variables represent which attributes. Configuration is a prime example of complex data.
+作为开发者，我们每天会产出大量的数据。 而这些数据的表现尤为重要。因此，我们需要能够跟踪哪些变量代表哪些属性。 配置化是针对复杂数据的一个首要示例。
 
-In the following article, I will use location as an example. It must have a longitude, latitude, and can have an address. In C, you would use a `struct` for this. In Java, you would simply create a class. In Python, there are six alternatives. Let’s explore each of their advantages and disadvantages!
+在以下文章中，我将使用位置数据作为示例。它必须有一个经度，纬度，外加一个可选的地址。在 C 语言中，可以使用 `struct` 来表示，而在 Java 中，我们只需创建一个类。在 Python，我们则有六种方法可供选择。让我们来探索他们每一个的优点和缺点吧！
 
-## Plain Classes
+## 普通类
 
-Plain classes are the default way provided by the standard library to organize data. You can (and should!) [use type annotations](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) as done in the following example:
+普通类是标准库为组织数据而提供的默认方式。你可以（而且应该！）使用以下示例中的[类型注释]((https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d))：
 
 ```Python
 from typing import Optional
@@ -67,17 +67,17 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-You can see how we needed to write a boilerplate constructor `__init__` . The code for the constructor does not necessarily always look that simple, but in a lot of cases, it is.
+你可以看到我们需要编写一个构造器方法 `__init__`。构造器的代码在大部分情况下是简单的，尽管有一些例外。
 
-You can see that it’s possible to use positional arguments or keyword arguments. If you define a default value in the constructor, you can also leave the values out when you create an object from the class. This happened for `pos2`, where the `address` was not given to the constructor.
+你可以看到我们在代码中使用了位置参数或关键字参数。如果你在构造器中给某一变量定义了一个默认值，那么在创建类的实例的时候可以不给这个变量赋值。可以参考 `pos2`，其中的 `address` 变量并没有在构造的时候赋值。
 
-You can also see that the annotation for the `get_distance` function looks pretty clean. It is clear what is meant.
+你也可以看出这个 `get_distance` 方法的注解非常的清晰，方法本身就很好的表明了它的意义。
 
-The tooling support is as good as it gets because every editor has to support the plain classes and all of the important information is there.
+由于所有的编辑器都需要支持普通类，因此它的工具支持性是很有保证的。并且能够在调用的时候获取全部的有用信息。
 
-## 1. Tuples
+## 1. 元组
 
-Tuples are a native data type. They have a very low memory overhead, so we can address the elements by index very quickly. The problem with tuples is that you have no names for member attributes. You have to remember what each index represents. Tuples are always immutable.
+元组是一种基本的 Python 数据类型。它的内存占用很低，因此我们可以通过索引非常快的寻址到所需的元素。元组的问题则是我们无法获知成员属性的名称，我们不得不记住每一个索引代表队属性。元组总是不可修改的。
 
 ```Python
 from typing import Tuple, Optional
@@ -88,13 +88,13 @@ def get_distance(p1: Tuple[float, float, Optional[str]],
     pass
 ```
 
-The annotation for `get_distance` looks messy. A human should be given the information that `p1` represents a location — not that the location contains two floats and an optional string. That is work the editor should do for you.
+`get_distance` 方法的注解看起来非常的杂乱。开发者需要知道的信息是 `p1` 表示的是地点，而非这个地点信息包含着两个浮点数以及一个可选的字符串——这是编辑器需要做的工作。
 
-The editor's support depends on how thoroughly you annotate. In the example above, you could also just write `Tuple` without specifying what the tuple contains. As people are lazy, I’d say the editor support is not good. It’s no fault of the editor, but it’s often not possible to give good support.
+编辑器的支持程度取决于你注解的透彻性。在上面的例子中，你也可以只写 `Tuple` 而省略掉指出这个元组所包含的内容。由于人们大多是比较懒惰的，我认为这里的编辑器支持做的不是很好。这不是编辑器的错，但是它因此经常无法提供较好的代码提示支持。
 
-## 2. Dictionaries
+## 2. 字典
 
-Dictionaries are a native data type and probably the most common way to throw data around in Python. Dicts have a bigger memory overhead compared to tuples, as you have to store the names somewhere, but they are still OK. Accessing elements by index is **fast**. Dicts are always mutable, but there is the third-party package [frozendict](https://pypi.org/project/frozendict/) to solve this.
+字典是 Python 的基本数据类型，并且可能是 Python 中最常见的传递数据的载体。与元组相比，字典由于要保存属性的名称，它的内存占用会大一些，但是这仍是可以接受的。通过索引来获取数据**很快**。字典总是可以修改的，不过有一个第三方的库 [frozendict](https://pypi.org/project/frozendict/) 可以解决字典可以被随意修改的问题。
 
 ```Python
 from typing import Any, Dict
@@ -109,15 +109,15 @@ def get_distance(p1: Dict[str, Any],
     pass
 ```
 
-The annotation in practice is really bad. It’s almost always `Dict[str, Any]` in the best case. Often, there is no annotation.
+在实际中，注解确实很糟糕。通常来说几乎没有字典的注解，在大部分情况下的注解会是 `Dict[str, Any]`。
 
-[TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) has been around since Python 3.8, but I’ve never seen that in any bigger code base. [TypedDict is a killer feature](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8), but it’s irrelevant, as we want to support legacy Python versions.
+[TypedDict](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d) ([PEP 589](https://www.python.org/dev/peps/pep-0589/)) 自从 Python 3.8 一直存在，但是我从没在大型的项目中见到这样的写法。 [TypedDict 是一个杀手级功能](https://python.plainenglish.io/killer-features-by-python-version-c84ca12dba8)，但是这无关大多数的项目，我们希望在旧有的 Python 版本中也获得此功能支持。
 
-For those reasons, the editor's support is even worse than for tuples.
+基于上述的原因，字典的编辑器支持效果甚至比元组更差。
 
-## 3. Named Tuples
+## 3. 命名元组
 
-[Named tuples](https://docs.python.org/3/library/collections.html#collections.namedtuple) were added to Python 2.6, so they have been around for quite a while. They are actually tuples, but they have a name and a constructor that accepts keyword arguments:
+[命名元组（`NamedTuples`）](https://docs.python.org/3/library/collections.html#collections.namedtuple) 在 Python 2.6 中被加入，索引此数据结构已经存在很久了。命名元组事实上也是元组，但是他们会有一个名称以及一个构造器，用来接受关键字参数：
 
 ```Python
 from collections import namedtuple
@@ -132,9 +132,9 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-`NamedTuples` solve the issue of the annotations becoming hard to read. They thus also fix the issue of editor support that I mentioned earlier.
+命名元组解决了类型声明注解难以阅读的问题。因此，它也解决了我上文中提到的编辑器支持不完全的问题。
 
-Interestingly, `NamedTuples` are **not** type-aware:
+有趣的是 `NamedTuples`是不能感知到类型的：
 
 ```Python
 >>> from collections import namedtuple
@@ -152,7 +152,7 @@ True
 
 ## 4. attrs
 
-[attrs](https://pypi.org/project/attrs/) is a third-party library that reduces boilerplate code. Developers can use it by adding the `@attrs.s` decorator above the class. Attributes are assigned the `attr.ib()` function:
+[attrs](https://pypi.org/project/attrs/) 是一个第三方的库，用来减少一些重复模板代码的编写。开发者可以在类上面添加一个 `@attrs.s` 装饰器来引入。属性则可以使用一个 `attr.ib()` 方法来赋值：
 
 ```Python
 from typing import Optional
@@ -184,11 +184,11 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-You can make it immutable by changing the decorator to `[@attr.s(frozen=True)](https://www.attrs.org/en/stable/api.html)`.
+通过把装饰器改成 `[@attr.s(frozen=True)](https://www.attrs.org/en/stable/api.html)` 来使这个类变得不可修改。
 
-You also can automatically run code on the input to the constructor. This is called a “converter,” and [the docs](https://www.attrs.org/en/stable/examples.html#conversion) show a pretty nice example:
+你也可以在构造器入参的时候自动执行代码。这被称为是 “转换”。[文档]((https://www.attrs.org/en/stable/examples.html#conversion)中给出了一个很好的例子：
 
-```
+```Python
 >>> @attr.s
 ... class C(object):
 ...     x = attr.ib(converter=int)
@@ -196,15 +196,15 @@ You also can automatically run code on the input to the constructor. This is cal
 >>> o.x
 ```
 
-[Visual Studio Code](https://towardsdatascience.com/visual-studio-code-python-editors-in-review-e5e4f269b4e4) does not like the type annotations.
+[Visual Studio Code](https://towardsdatascience.com/visual-studio-code-python-editors-in-review-e5e4f269b4e4) 中对类型注解有很多的插件可以使用。
 
 ## 5. Dataclass
 
-Dataclasses were added in Python 3.7 with [PEP 557](https://www.python.org/dev/peps/pep-0557/). They are similar to attrs, but in the standard library. It’s especially important to note that dataclasses are “just” normal classes that happen to have lots of data in them.
+Dataclasses 在 [PEP 557](https://www.python.org/dev/peps/pep-0557/) 中被加入 Python 3.7。它与 attrs 类似，但是被收录于标准库中。一个很重要的点是 dataclass 就是普通的类， 不过是其中保存大量的数据而已。
 
-In contrast to attrs, data classes use type annotations instead of the `attr.ib()` notation. I think this increases readability a lot. Also, the editor support is better because you now have to annotate the attributes.
+与 attrs 不同的是，dataclass 使用类型注解而非 `attr.ib()` 这样的注解。我认为这样大大提高了可读性。另外，由于现在对属性有了注解，编辑器的支持效果也更好了。
 
-You can easily make it immutable by changing the decorator to `@dataclass(frozen=True)` — just like with attrs.
+你可以很容易的利用装饰器 `@dataclass(frozen=True)` 使 dataclass 变成不可修改的——这与 attrs 类似。
 
 ```Python
 from typing import Optional
@@ -226,7 +226,7 @@ def get_distance(p1: Position, p2: Position) -> float:
     pass
 ```
 
-One part that I’m lacking here is attribute validation. I can use `__post_init__(self)` to do it for the construction:
+这里我少说的一部分是属性的验证。可以在构造器中使用 `__post_init__(self)` 来实现：
 
 ```Python
 def __post_init__(self):
@@ -238,7 +238,7 @@ def __post_init__(self):
         raise ValueError(f"Latitude was {v}, but must be in [-90, +90]")
 ```
 
-You can also combine dataclasses with properties:
+你也可以将 dataclass 和属性一起使用：
 
 ```Python
 @dataclass
@@ -272,11 +272,11 @@ class Position:
         self._longitude = longitude
 ```
 
-However, I don’t like that so much. It is again super verbose and removes a lot of the charm of dataclasses. If you need validation that is not covered by the types, then go for Pydantic.
+但是，我不太喜欢这种超级冗长且丢失了许多 dataclass 独有魅力的手段。 如果你需要类型未涵盖的验证，请使用 Pydantic。
 
 ## 6. Pydantic
 
-[Pydantic](https://pydantic-docs.helpmanual.io/) is a third-party library that focuses on data validation and settings management. You can either inherit from `pydantic.BaseModel` or create a dataclass with Pydantic:
+[Pydantic](https://pydantic-docs.helpmanual.io/) 是一个专注于数据各实验组和设置管理的第三方库。要使用它，你可以继承自 `pydantic.BaseModel` 或者创建一个 Pydantic 的 dataclass：
 
 ```Python
 from typing import Optional
@@ -312,23 +312,23 @@ def get_distance(p1: Position, p2: Position) -> float:
 
 ```
 
-At first glance, this is identical to the standard `@dataclass` — except that you get the `dataclass` decorator from Pydantic.
+乍一看，这与标准的 `@dataclass` 相同，只是从 Pydantic 获得了 dataclass 装饰器。
 
-## Mutability and Hashability
+## 可变性和散列性
 
-I don’t tend to consciously think about mutability a lot, but in many cases, I want my classes to be immutable. The big exceptions are database models, but they are a complete story on their own.
+我不太会自觉地考虑可变性，但是在很多情况下，我希望我的类是不变的。最大的例外是数据库模型，但它们本身就是自洽的。
 
-Having the option to mark classes as frozen to make their objects immutable is pretty nice.
+可以选择将类标记为冻结以使其对象不可变，这非常不错。
 
-Implementing `__hash__` for a mutable object is problematic because the hash might change when the object is changed. This means if the object is in a dictionary, the dictionary would need to know that the hash of the object has changed and store it in a different location. For this reason, both dataclasses and Pydantic prevent the hashing of mutable classes by default. They have `unsafe_hash`, though.
+为一个可变对象实现 __hash__ 是有问题的，因为当对象改变时哈希值可能会改变。这意味着如果对象在字典中，则字典将需要知道对象的哈希值已更改，并将其存储在其他位置。因此，默认情况下，dataclass 和 Pydantic 都不对可变类进行散列，因为他们有  `unsafe_hash`。
 
-## Default String Representation
+## 默认字符串表示
 
-Having a reasonable string representation is super helpful (e.g. for logging). And let’s be honest: A lot of people do `print` debugging.
+拥有合理的字符串表示形式非常有帮助（例如，用于日志记录）。老实说：很多人都在进行 `print` 调试。
 
-If we printed `pos1` from the examples above, here is what we would get. The linebreaks and alignments were added to keep things nice to read. The original results are on one line:
+如果我们打印上面例子中的 `pos1`，下面是我们能得到的。为了方便阅读已经添加了换行和缩进。原始的输出是在一行内的：
 
-```
+```Python
 >>> print(pos1)
 
 Plain class   : <__main__.Position object at 0x7f1562750640>
@@ -347,15 +347,15 @@ Plain class   : <__main__.Position object at 0x7f1562750640>
                          address='Parkstraße 17')
 ```
 
-You can see that the string representation of an object created from a plain class is useless. Tuples are better, but they don’t indicate which index represents which attribute. All remaining representations are pretty awesome. They are easy to understand and can even be used to recreate the object!
+可以看到从普通类创建的对象的字符串表示形式是无用的。元组看起来更好，但是它们没有指出哪个索引代表哪个属性。其余所有表示形式都很棒。它们很容易理解，甚至可以用来重新创建对象！
 
-## Data Validation
+## 数据验证
 
-You have seen how data validation can be implemented for plain classes, attrs, dataclasses, and Pydantic. What you haven’t seen is what the error messages look like.
+现在我们已经了解了如何为普通类、attrs、dataclass 和 Pydantic 实现数据验证。但我们还并不清楚错误消息的样子。
 
-For the following, I will attempt to create `Position(1234, 567)`. So both the longitude and latitude are wrong. Here are the error messages this triggers:
+接下来，我将新建一个 `Position(1234, 567)`，里面的经度和纬度都是不正确的。下面是不同的数据结构触发的错误信息：
 
-```
+```Python
 # Plain Class
 ValueError: Longitude was 11111, but has to be in [-180, 180]
 
@@ -373,11 +373,11 @@ latitude
   Latitude was 567.0, but must be in [-90, +90] (type=value_error)
 ```
 
-This is the point I want to make: Pydantic gives you all the errors in a very clear way. Plain classes and attrs just give you the first error.
+我要指出的是这一点：Pydantic 非常清楚地为我们提供了所有错误。 普通的类和属性只会给我们返回第一个错误。
 
-## Serialize to JSON
+## JSON 序列化
 
-JSON is the way to exchange data on the web. The GitLab API is no exception. Let’s say we want to have Python objects that we can serialize to JSON to [get a single MR](https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr). In Pydantic, it is as simple as that (removing a lot of attributes for readability):
+JSON 是在网络上交换数据的方式。GitLab API 也不例外。假设我们要拥有可以序列化为 JSON 的 Python 对象，以[获取单个合并分支请求]（https://docs.gitlab.com/ee/api/merge_requests.html#get-single-mr）。 在 Pydantic 中，就这么简单（删除了许多属性以提高可读性）：
 
 ```Python
 from pydantic import BaseModel
@@ -407,29 +407,29 @@ json_str = mr.json()
 print(json_str)
 ```
 
-This gives you:
+这返回了：
 
-```
+```Python
 {"id": 1, "squash": true, "web_url": "http://foo", "title": "title", "author": {"id": 42, "username": "Joe"}}
 ```
 
-For dataclasses, `[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` goes a long way. Then you might be able to directly serialize the dictionary to JSON. It becomes interesting with `DateTime` or [decimal](https://docs.python.org/3/library/decimal.html) objects. [Something similar](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) is possible with attrs.
+对于 dataclasses 而言，`[dataclasses.asdict](https://docs.python.org/3/library/dataclasses.html#dataclasses.asdict)` 做了很多工作。然后，字典可以被直接序列化为 JSON。对于  `DateTime` 或者[小数](https://docs.python.org/3/library/decimal.html)对象的结果会很有趣。 attrs 的结果也是[相似的](https://www.attrs.org/en/stable/examples.html#converting-to-collections-types) 。
 
-## Unserialize From JSON
+## JSON 的反序列化
 
-Userializing nested classes from a JSON string is trivial with Pydantic. Using the example above, you would write:
+使用 JSON 字符串对嵌套类进行用户化对于 Pydantic 来说是很容易的。使用上面的示例，可以这么写：
 
 ```py
 mr = GitlabMr.parse_raw(json_str)
 ```
 
-There are very dirty hacks to do [something similar with dataclasses](https://stackoverflow.com/a/53498623/562769). The [attrs way to deserialize](https://stackoverflow.com/q/44801927/562769) looks better, but I guess it also struggles with nested structures. And when it comes to `DateTime` or decimals, I’m pretty certain that both show more problems than Pydantic. Serialization, deserialization, and validation are where Pydantic shines.
+[datatclass](https://stackoverflow.com/a/53498623/562769) 的实现则很不优雅。对于 [attrs 的反序列化](https://stackoverflow.com/q/44801927/562769) 则看起来好一些，但我猜想它在嵌套结构方面也很困难。而且，当谈到 DateTime 或小数时，我敢肯定，两者都比 Pydantic 出现更多的问题。序列化，反序列化和验证是 Pydantic 的亮点。
 
-## Memory
+## 内存占用
 
-Using this `[getsize](https://stackoverflow.com/a/30316760/562769)` implementation on `pos1` , I get:
+在 `pos1` 调用 `[getsize](https://stackoverflow.com/a/30316760/562769)` 方法可得：
 
-```
+```Python
 Raw float    :   8 B ("double")
 Raw string   :   1 B per char => 13B
 Raw data     :  29 B = 8B + 8B + 13B
@@ -448,38 +448,38 @@ Native class : 286 B
 #6 pydantic  : 801 B (the "BaseModel" version)
 ```
 
-The Pydantic base model has quite an overhead, but you always have to keep things in perspective. How many of those objects will you create? Let’s assume you have maybe 100 of those. Each of them might consume 500B more than a more efficient alternative. That would be 50kB. To quote [Donald Knuth](https://www.azquotes.com/quote/721020):
+Pydantic 基本模型有相当大的开销，但是你始终必须明白的一点是，你将创建多少个这些对象？假设你有 100 个。它们中的每一个可能比更有效的替代方案多消耗 500B。 那将是 50kB。 引用 [Donald Knuth](https://www.azquotes.com/quote/721020) ：
 
-> “Premature optimization is the root of all evil.”
+> “过早的优化是万恶之源。”
 
-If memory becomes problematic, then you will not switch from Pydantic to dataclasses or attrs. You will switch to something more structured like NumPy arrays or pandas `DataFrames`.
+如果内存占用出现了问题，那么你也不会从 Pydantic 切换到 dataclass 或 attrs，而是切换到更结构化的内容，例如 NumPy 数组或 pandas 的 DataFrames。
 
-## Execution Time
+## 执行时间
 
-There are multiple things you can mean by “execution time” in this context:
+在这种情况下，“执行时间”可能意味着多个时间之和：
 
-* Object creation time with or without validation or conversion
-* Parsing time from JSON
-* Parsing time from a dictionary
+* 带有或不带有验证或转换的对象创建时间
+* 从 JSON 解析的时间
+* 解析一个字典结构的时间
 
-I’m convinced that the parsing time for JSON dominates the rest. There are multiple JSON parsers available in Python:
+我坚信 JSON 的解析时间在其余时间中占主导地位。Python 中有多个 JSON 解析器可用：
 
-[**JSON encoding/decoding with Python - Comparing libraries by speed, maturity, and operational safety**](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
+[**使用 Python 进行 JSON 编码/解码-按速度，成熟度和操作安全性比较库**](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
 
-## So When Do I Use What?
+## 选择对应结构的时机
 
-Use what you need:
+在你需要的时候选用：
 
-* `Dict` when you don’t know ahead of time what will be added. Please note that you can mix all of the others with `dict` and vice versa. So if you know what a part of the data structure will look like, then use something different. I see `dict` as a last resort.
-* `NamedTuple` when you need a quick way to group data and mutability is not needed. And when it’s OK for you to not be type-aware.
-* Dataclasses when you need mutability, want to be type-aware, or want to have the possibility of inheriting from the created dataclass.
-* Pydantic `BaseModel` when you need to deserialize data.
+* 在你不提前知道会向其中添加什么的时候，使用 `Dict` 。请注意，你可以将所有其他结构与 dict 混合使用，反之亦然。因此，如果你知道数据结构的一部分是什么样子，请使用其他类型的数据结构。我认为 dict 是不得已的选择。
+* 在你需要快速组织数据，并且不需要改变内容，也不关心数据类型的时候， 使用 `NamedTuple`。 
+* 当你需要可变性，关注属性的类型，或者是可能要从已有的 dataclass 继承的时候， 使用 Dataclasses。
+* 当你需要反序列化数据的时候，使用 Pydantic 的 `BaseModel`。
 
-Please note that I didn’t mention tuple and attrs. I simply cannot find a valid use case where you would prefer them for new code over the other choices. Please let me know if I missed one.
+请注意，我没有提到元组和属性。我根本无法找到一个有效的用例，在该用例中，与其他选择相比，我更希望你使用它们。如果你有合适的例子，请告诉我。
 
-I also didn’t mention plain classes. I think I would only use plain classes if I want to overwrite `__init__`, `__eq__` , `__str__`, `__repr__` , and`__hash__` anyway. Or if I have to support old Python versions.
+我也没有提到普通类，如果我需要重写 `__init__`、`__eq__` 、`__str__`、`__repr__` 和 `__hash__`  或者支持旧的 Python 版本的时候，我会选择使用它。
 
-## Resource
+## 参考资料
 
 * Raymond Hettinger: “[Dataclasses: The code generator to end all code generators](https://www.youtube.com/watch?v=T-TwcmT6Rcw)” at PyCon 2018, on YouTube.
 
