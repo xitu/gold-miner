@@ -3,31 +3,31 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[5Reasons](https://github.com/5Reasons)
 
 # 7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧
 
 ![由 [Lucie Hošová](https://unsplash.com/@marjorylucabaxter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/dart?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg)
 
-[Dart](https://www.educative.io/blog/dart-2-language-features) 是一门针对客户端进行了优化的编程语言，专门用于快速对构建移动端桌面端和服务器应用程序。Dart 由 Google 开发，与其跨平台 Flutter 框架共同协作。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。
+[Dart](https://www.educative.io/blog/dart-2-language-features) 是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart 由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。
 
-今天，我们提供了 Dart 语言的七个主要的技巧，帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的代码，并充分利用上 Dart 所提供的许多功能。
+今天，我们总结并分享了七个我们认为最实用的 Dart 技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的代码，并充分利用上 Dart 所提供的许多特性。
 
 **速览 —— 贴士和技巧：**
 
 1. 使用匿名函数作为参数
 2. 使用 `call` 方法让类可以像是个函数一样被调用
-3. 使用 `.entries` 来在一个映射上遍历
+3. 使用 `.entries` 来在一个 map 上遍历
 4. 如何使用 getter 和 setter
-5. 用 `Set` 作不同项目的集合
+5. 用 `Set` 存储唯一值
 6. 使用 Inspect 功能
 7. 使用 sync 和 async 生成器
 
 ## 1. 使用匿名函数作为参数
 
-在 Dart 语言中，我们可以将函数作为参数传递给其他函数。Dart 语言支持可以直接使用的不需要名称的匿名函数。
+在 Dart 语言中，我们可以将函数作为参数传递给其他函数，而 Dart 语言本身还支持无需命名即可调用的匿名函数。
 
-以下是 Dart 中使用匿名函数的示例。在本例中，我们将匿名多维数据集函数传递给内置方法 `forEach`，尝试获取列表中每个项目的多维数据集。
+以下是 Dart 中使用匿名函数的示例。在本例中，我们将一个匿名的求立方函数传递给内置方法 `forEach`，尝试获取 `list` 数组中每一项的立方。
 
 ```Dart
 main() {
@@ -40,7 +40,7 @@ main() {
 
 ## 2. 使用 `call` 方法让类可以像是个函数一样被调用
 
-使用 Dart 语言我们可以构造一个可调用的类，允许将该类实例作为函数调用。我们可以用 `call()` 方法做到这一点,请参见下面的语法：
+使用 Dart 语言我们可以构造一个可调用的类，允许将该类的实例作为函数调用。我们可以用 `call()` 方法做到这一点,请参见下面的语法：
 
 ```Dart
 class class_name {
@@ -73,11 +73,11 @@ void main() {
 }
 ```
 
-> **注意：** Dart 不支持多个调用的方法
+> **注意：** Dart 不支持多个可调用方法
 
-## 3. 使用 `.entries` 来在一个映射上遍历
+## 3. 使用 `.entries` 来在一个 map 上遍历
 
-在 Dart 中我们可以使用 `entries()` 方法以空安全的方式遍历一张映射。假设我们现在有一张映射用于追踪在不同产品上花费的金额（通常我们会使用 `!` 运算符在此映射中进行遍历）：
+在 Dart 中我们可以使用 `entries()` 方法以空安全的方式遍历一张 map。假设我们现在有一张 map 用于追踪在不同产品上花费的金额（通常我们会使用 `!` 运算符在此 map 中进行遍历）：
 
 ```Dart
 for (var key in moneySpent.keys) {
@@ -97,11 +97,11 @@ for (var entry in moneySpent.entries) {
 
 ## 4. 如何使用 getter 和 setter
 
-getter 和 setter 是提供对一个对象属性的读写访问权限的特殊方法。getter 和 setter 的调用类似于实例变量：点运算符（`.`）后面紧跟函数的名称。
+getter 和 setter 是一对特殊的方法，它们能够对一个对象的属性进行读、写操作。我们对 getter 和 setter 的调用类似于实例变量：点运算符（`.`）后面紧跟函数的名称。
 
 getter 是用于获取对象属性值的函数，使用 `get` 关键字定义。
 
-在下面的示例中，我们在第 13 行创建了一个 getter 函数，返回当前实例名称的值。而在第 21 行，我们调用了 getter 函数，这里的输出应是 `Sarah`。
+在下面的示例中，我们在第 13 行创建了一个 getter 函数，返回当前实例的 `name` 属性的值。而在第 21 行，我们调用了 getter 函数，这里的输出应是 `Sarah`。
 
 ```Dart
 class Person {
@@ -162,7 +162,7 @@ int main() {
 
 第 9 行到第 15 行代码中我们创建了一个 setter 函数用于设置 `age` 的值。该函数还被添加了一个条件判断，让我们不能输入负的年龄。在第 23 行，我们使用 `personAge` setter 函数为 `firstPerson` 设置了年龄值。
 
-## 用 `Set` 作不同项目的集合
+## 用 `Set` 存储唯一值
 
 列表是 Dart 中最常见的集合类型之一，但是列表可以容纳重复项。有时我们只想要唯一值的集合，这就是 `Set` 用武之处。
 
@@ -180,13 +180,13 @@ final countriesSet = {
 
 ## 6. 使用 Inspect 功能
 
-在网络开发中，通常使用 Inspect 元素。它会告诉我们应用于 HTML 标记的所有属性。Dart 也提供了类似的功能，称为 Flutter Inspect。它可以有效简化 Flutter 应用程序的开发。Flutter Inspect 可用于找到屏幕上的任何控件并查看应用于它的属性。
+在网络开发中我们经常会需要用到 Inspect 功能，因为它能够告诉我们应用于 HTML 标记的所有属性。Dart 也提供了类似的功能，我们称之为 Flutter Inspect。这个功能可以有效简化 Flutter 应用程序的开发，用于找到屏幕上的任何控件并查看应用于它的属性。
 
 Inspect 还可以帮助我们可视化 Flutter 控件树以了解布局或确定布局问题。
 
 要使用它，请按照下列步骤操作：
 
-* 单击 `Flutter Inspect`。
+* 单击 `Flutter Inspector`。
 * 单击 `启用选择 Widget 模式`。
 * 选择屏幕上的控件以获取更多信息
 
@@ -221,7 +221,7 @@ Stream<int> countStream(int n) async* {
 
 ## 你的学习的下一步是？
 
-我们希望这些技巧能帮助您充分利用 Dart 及其提供的所有功能。Flutter 和 Dart 是一套强大的工具，用于构建具有原生感和流畅感的应用程序。接下来要研究的其他高级的 Dart 特性应该是：
+我们希望这些技巧能帮助您充分利用 Dart 及其提供的所有特性。Flutter 和 Dart 是一套强大的工具，用于构建具有原生感和流畅感的应用程序。接下来要研究的其他高级的 Dart 特性应该是：
 
 * 嵌套 `if` 语句的传播运算符
 * 命名构造函数和初始化列表
