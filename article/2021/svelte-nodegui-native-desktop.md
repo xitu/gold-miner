@@ -20,7 +20,6 @@ Conversely, Svelte NodeGui applications cannot leverage browser APIs nor the ful
 Qt widgets may emit events (called Signals), which can be listened to and programmatically associated with event handlers. NodeGui also provides a set of internal events that the application can listen to ([`QEvents`](https://svelte.nodegui.org/docs/guides/handle-events#event-handling)). Svelte NodeGui’s documentation provides the [following example that illustrates the layout mechanism and event syntax](https://svelte.nodegui.org/docs/guides/handle-events#how-do-i-know-which-events-are-supported-):
 
 ```jsx
-
 <script lang="ts">
   import { onMount } from "svelte";
   import { Direction } from "@nodegui/nodegui";
