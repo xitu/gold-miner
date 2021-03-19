@@ -50,7 +50,7 @@ To enabling HMR in your project, you need to let your application know how to ha
 
 First, you need to enable HMR by adding `hot: true` to your Webpack configuration file as follows:
 
-```
+```js
 // webpack.config.js
 
 module.exports = {
@@ -71,7 +71,7 @@ module.exports = {
 
 After that, you must handle incoming HMR request by using `module.hot` API. Here’s an implementation example on a vanilla JS project:
 
-```
+```js
 // index.js
 
 import component from "./component";
@@ -98,20 +98,6 @@ Both Create React App and Next.js have React Fast Refresh, which is a React-spec
 Hot Module Replacement is a feature that enables you to see code changes in the browser without having to refresh it, allowing you to preserve the state of your front-end application.
 
 But implementing HMR can be tricky because it can incur side effects. Fortunately, HMR has already been implemented in many JavaScript application generators, so you can enjoy the feature without having to implement it yourself.
-
----
-
-## Collaborate on independent components with Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you author, version, and share independent components.
-
-Use it to build modular design systems, author and deliver micro frontends or simply share components between applications.
-
-![Material UI components shared individually on [Bit.dev](https://bit.dev)](https://cdn-images-1.medium.com/max/4000/0*-TVEXFyncCLxZ-QB.png)
-
-**Check out Bit’s latest beta version →**
-[**Bit Harmony Docs**
-**Learn how to author, version and share independent components with Bit**harmony-docs.bit.dev](https://harmony-docs.bit.dev)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
