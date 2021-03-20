@@ -1,7 +1,7 @@
 > * 原文地址：[“Expert” hackers used 11 zerodays to infect Windows, iOS, and Android users](https://arstechnica.com/information-technology/2021/03/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users/)
 > * 原文作者：DAN GOODIN
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users](https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md](https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md)
 > * 译者：
 > * 校对者：
 
