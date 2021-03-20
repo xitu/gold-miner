@@ -20,7 +20,7 @@
 
 在公众云供应商中，谷歌并不是唯一提供医疗保健云服务的。例如，微软自 2019 年 11 月就开始[为快速医疗互操作性资源（FHIR）提供 Azure API](https://www.infoq.com/news/2019/11/azure-api-fhir-ga/) 作为一系列帮助客户就云中受保护的健康信息做机器学习的 API 的一部分。另外，AWS 提供[医疗解释服务](https://aws.amazon.com/comprehend/medical/)。这项服务利用机器学习，从杂乱的文本中提取相关的医疗信息。
 
-谷歌云正在通过同意管理 API 来帮他们的服务走的更远。关于这一点，Constellation Research 公司的首席分析师和副董事长的 [Holger Mueller](https://twitter.com/holgermu) 告诉 InfoQ：
+谷歌云正在通过同意管理 API 来帮他们的服务走的更远。关于这一点，担任 Constellation Research 公司首席分析师兼副董事长的 [Holger Mueller](https://twitter.com/holgermu) 告诉 InfoQ：
 
 > API 对企业来说是减少复杂度的一种很有力的方式，因为他们只需要正确使用 API 即可，至于运行在背后的复杂进程，就交给 API 来处理。医疗保健中的同意管理就是这些进程中的一员，它的特点是复杂性和官僚性。很高兴看见谷歌这样的云供应商为企业提供了同意管理的 API 来支撑他们下一代的产品。假如同意意见表格是写在纸上的，这项举措就节约了几百万棵树和几个足球场那么大的存储空间。
 
