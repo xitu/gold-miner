@@ -1,11 +1,11 @@
 > * 原文地址：[“Expert” hackers used 11 zerodays to infect Windows, iOS, and Android users](https://arstechnica.com/information-technology/2021/03/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users/)
-> * 原文作者：DAN GOODIN
+> * 原文作者：[Dan Goodin](https://arstechnica.com/author/dan-goodin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md](https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# “Expert” hackers used 11 zerodays to infect Windows, iOS, and Android users
+# “高级”黑客使用 11 个零日病毒去感染 Windows、iOS 还有 Android 用户
 
 A team of advanced hackers exploited no fewer than 11 zeroday vulnerabilities in a nine-month campaign that used compromised websites to infect fully patched devices running Windows, iOS, and Android, a Google researcher said.
 
@@ -19,9 +19,9 @@ In all the attacks, the watering-hole sites redirected visitors to a sprawling i
 
 ![](https://cdn.arstechnica.net/wp-content/uploads/2021/03/device-flow-diagram.jpg)
 
-The ability to pierce advanced defenses built into well-fortified OSes and apps that were fully patched—for example, Chrome running on Windows 10 and Safari running on iOSA—was one testament to the group’s skill. Another testament was the group’s abundance of zerodays. After Google patched a code-execution vulnerability the attackers had been exploiting in the [Chrome renderer](https://nvd.nist.gov/vuln/detail/CVE-2020-15999) in February, the hackers quickly added a new code-execution exploit for the Chrome V8 engine.
+The ability to pierce advanced defenses built into well-fortified OSes and apps that were fully patched—for example, Chrome running on Windows 10 and Safari running on iOSA—was one testament to the group’s skill. Another testament was the group’s abundance of zerodays. After Google patched a code-execution vulnerability the attackers had been exploiting in the [Chrome renderer](https://nvd.nist.gov/vuln/detail/CVE-2020-15999) in February, the hackers quickly added a new code-execution exploit for the Chrome V8 engine.
 
-In a [blog post](https://googleprojectzero.blogspot.com/2021/03/in-wild-series-october-2020-0-day.html) published Thursday, Stone wrote:
+In a [blog post](https://googleprojectzero.blogspot.com/2021/03/in-wild-series-october-2020-0-day.html) published Thursday, Stone wrote:
 
 > The vulnerabilities cover a fairly broad spectrum of issues—from a modern JIT vulnerability to a large cache of font bugs. Overall each of the exploits themselves showed an expert understanding of exploit development and the vulnerability being exploited. In the case of the Chrome Freetype 0-day, the exploitation method was novel to Project Zero. The process to figure out how to trigger the iOS kernel privilege vulnerability would have been non-trivial. The obfuscation methods were varied and time-consuming to figure out.
 
