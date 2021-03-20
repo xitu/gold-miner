@@ -15,7 +15,7 @@
 
 ![GAN Progress on Face Generation](https://res.infoq.com/news/2021/03/stanford-ai-report-2021/en/resources/1face-generation-1615055893968.png)
 
-*GAN 网络在人脸合成方面的进步 (图像来源: [Stanford HAI AI Index Report](https://aiindex.stanford.edu/report/))*
+*GAN 网络在人脸合成方面的进步 (图像来源：[Stanford HAI AI Index Report](https://aiindex.stanford.edu/report/))*
 
 经济一章着重于各国的就业和投资趋势，而人工智能教育一章则着眼于大学课程和人工智能领域的博士毕业生。一个重要的收获是，在北美，这些新博士中有 65％ 的人选择了工业界而不是学术界的工作，而上一年为 44.4％。道德挑战一章指出，该团队“惊讶地发现有关该主题的数据很少”，并且特别提到了标准的缺乏。 多样性一章也提到了缺乏公开可用的数据，但确实地指出了“人工智能劳动力仍然以男性为主”。
 
