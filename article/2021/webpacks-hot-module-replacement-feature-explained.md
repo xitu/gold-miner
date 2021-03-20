@@ -54,18 +54,18 @@ First, you need to enable HMR by adding `hot: true` to your Webpack configuratio
 // webpack.config.js
 
 module.exports = {
-  entry: {
-     app: './src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    hot: true,
-    // ... other config omitted
-  },
-  plugins: [
-    // Enable the plugin
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+    entry: {
+        app: './src/index.js',
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        hot: true,
+        // ... other config omitted
+    },
+    plugins: [
+        // Enable the plugin
+        new webpack.HotModuleReplacementPlugin(),
+    ],
 }
 ```
 
@@ -80,8 +80,8 @@ document.body.appendChild(component);
 
 // Check if HMR interface is enabled
 if (module.hot) {
-  // Accept hot update
-  module.hot.accept();
+    // Accept hot update
+    module.hot.accept();
 }
 ```
 
