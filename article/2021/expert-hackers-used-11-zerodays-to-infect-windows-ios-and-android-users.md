@@ -17,7 +17,7 @@ On Thursday, Project Zero researcher Maddie Stone said that, in the eight months
 
 In all the attacks, the watering-hole sites redirected visitors to a sprawling infrastructure that installed different exploits depending on the devices and browsers visitors were using. Whereas the two servers used in February exploited only Windows and Android devices, the later attacks also exploited devices running iOS. Below is a diagram of how it worked:
 
-![](https://cdn.arstechnica.net/wp-content/uploads/2021/03/device-flow-diagram-640x260.jpg)
+![](https://cdn.arstechnica.net/wp-content/uploads/2021/03/device-flow-diagram.jpg)
 
 The ability to pierce advanced defenses built into well-fortified OSes and apps that were fully patched—for example, Chrome running on Windows 10 and Safari running on iOSA—was one testament to the group’s skill. Another testament was the group’s abundance of zerodays. After Google patched a code-execution vulnerability the attackers had been exploiting in the [Chrome renderer](https://nvd.nist.gov/vuln/detail/CVE-2020-15999) in February, the hackers quickly added a new code-execution exploit for the Chrome V8 engine.
 
