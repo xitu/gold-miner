@@ -35,13 +35,13 @@
 
 这七个零日病毒是：
 
-> CVE-2020-15999 —— Chrome Freetype 堆缓冲区溢出
-CVE-2020-17087 —— cng.sys 中的 Windows 堆缓冲区溢出
-CVE-2020-16009 —— TurboFan 地图弃用中的 Chrome 类型混淆
-CVE-2020-16010 —— 适用于 Android 的 Chrome 浏览器堆缓冲区溢出
-CVE-2020-27930 —— 通过 Type 1 字体进行 Safari 任意堆栈读取/写入
-CVE-2020-27950 —— mach 消息尾部中的 iOS XNU 内核内存泄露
-CVE-2020-27932 —— 借助 turnstiles 的 iOS 内核类型混淆
+> * CVE-2020-15999 —— Chrome Freetype 堆缓冲区溢出
+> * CVE-2020-17087 —— cng.sys 中的 Windows 堆缓冲区溢出
+> * CVE-2020-16009 —— TurboFan 地图弃用中的 Chrome 类型混淆
+> * CVE-2020-16010 —— 适用于 Android 的 Chrome 浏览器堆缓冲区溢出
+> * CVE-2020-27930 —— 通过 Type 1 字体进行 Safari 任意堆栈读取/写入
+> * CVE-2020-27950 —— mach 消息尾部中的 iOS XNU 内核内存泄露
+> * CVE-2020-27932 —— 借助 turnstiles 的 iOS 内核类型混淆
 
 ## 突破防御
 
