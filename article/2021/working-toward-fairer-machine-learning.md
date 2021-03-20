@@ -7,7 +7,7 @@
 
 # 让机器学习更加公正
 
-编者注：[Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) 是 Amazon Web Services（AWS）的一名高级应用科学家。他和他的合著者热那亚大学计算机工程学副教授 [Luca Oneto](https://www.lucaoneto.com/)，已经论述了关于不同方法如何使数据驱动型预测对代表性不足的群体更公正的文章。Oneto 也因自己在算法公正性方面的工作而获得了[ 2019 机器学习研究奖](https://www.amazon.science/research-awards/recipients/luca-oneto)。在本文中，Donini 和 Oneto 讨论了他们和其他合作者发表的、关于从以人为中心的角度去设计机器学习（ML）模型以及构建负责任的人工智能的研究。
+编者注：[Michele Donini](https://www.linkedin.com/in/michele-donini-2484734a/) 是 Amazon Web Services（AWS）的一名高级应用科学家。他和他的合著者热那亚大学计算机工程学副教授 [Luca Oneto](https://www.lucaoneto.com/)，已经论述了关于如何使数据驱动型预测对代表性不足的群体更公平的不同方法。Oneto 也因自己在算法公正性方面的工作而获得了[ 2019 机器学习研究奖](https://www.amazon.science/research-awards/recipients/luca-oneto)。在本文中，Donini 和 Oneto 探讨了他们和其他合作者发表的关于从以人为本的角度设计机器学习（ML）模型和构建负责任的人工智能的研究。
 
 ## 什么是公正？
 
@@ -15,7 +15,7 @@
 
 >![https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png](https://assets.amazon.science/dims4/default/17fefc0/2147483647/strip/true/crop/1011x482+483+231/resize/1200x572!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fc6%2F43%2F2f4c0fe14b0ab3a96733fd3ccfe2%2Funfair-fair-test.png)
 >
->算法的公正性是一个非常重要的主题，对许多应用都有影响。这个问题需要进一步研究。对于机器学习模型而言，“公正”的定义仍然是一个开放的研究问题。
+> 算法的公正性是一个非常重要的主题，对许多应用都有影响，而这个问题需要进一步研究。对于机器学习模型而言，“公正”的定义仍然是一个开放的研究问题。
 
 然而，关于公正普遍接受的想法是，学习到的机器学习模型无论是应用于人口的哪一个子群体（例如男性群体或女性群体），其表现都应相同或至少类似。
 
@@ -31,7 +31,7 @@
 
 >![https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png](https://assets.amazon.science/dims4/default/aa34f7f/2147483647/strip/true/crop/200x350+0+0/resize/1200x2100!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2Fb4%2F95%2Fd15206d54c978c00acc956a066bb%2Flearn-fair-models-copy.png)
 >
->广义上讲，当前关于算法公正性的文献主要可分为以下三种方法：数据预处理；对已有的机器学习模型进行后处理；以及在线处理，通过在模型的学习阶段施加特定的统计约束来实现公正性。
+> 广义上讲，当前关于算法公正性的文献主要可分为以下三种方法：数据预处理、对已有的机器学习模型进行后处理以及在线处理以及在线处理，通过在模型的学习阶段施加特定的统计约束来实现公正性。
 
 我们决定探索和分析可能的技术，以使机器学习算法能够得到更加公正的模型。
 
@@ -43,7 +43,7 @@
 
 **“[公正约束下的经验风险最小化](https://arxiv.org/pdf/1802.08626.pdf)”**
 
-本文提出了一种新的在线处理方法，这意味着我们将公正性约束纳入学习问题中。我们得出了所得模型的准确性和公正性的理论保证，并展示了如何将我们的方法应用于众多系列的机器学习算法中，包括线性模型和[用于分类的支持向量机](https://scikit-learn.org/stable/modules/svm.html#svm-classification)（一种广泛使用的监督学习方法）。
+这篇文章提出了一种新的在线处理方法，这意味着我们将公正性约束纳入学习问题中。我们得出了所得模型的准确性和公正性的理论保证，并展示了如何将我们的方法应用于众多系列的机器学习算法中，包括线性模型和[用于分类的支持向量机](https://scikit-learn.org/stable/modules/svm.html#svm-classification)（一种广泛使用的监督学习方法）。
 
 我们发现，在实践中，我们可以简单地通过要求两个向量之间的标量积保持较小（描述模型的权重向量与描述不同子组之间的区别的向量之间的正交性约束）来满足公正性约束。我们进一步发现，对于线性模型，此要求转化为一种简单的预处理方法。实验表明，我们的方法在经验上是有效的，并且相比最新方法表现出色。
 
@@ -53,7 +53,7 @@
 
 >![](https://assets.amazon.science/dims4/default/193689d/2147483647/strip/true/crop/250x310+0+0/resize/1200x1488!/quality/90/?url=http%3A%2F%2Famazon-topics-brightspot.s3.amazonaws.com%2Fscience%2F30%2F64%2F814dbdbf42e8b57c5454be7be982%2Ffair-representation-copy.png)
 >
->在该文章中中，我们考虑了机器学习模型学习回归函数的情况，并提出了一种后处理方法，用于将实值回归函数——机器学习模型——转换为满足人口统计学均等约束条件的函数。
+> 在该文章中中，我们考虑了机器学习模型学习回归函数的情况，并提出了一种后处理方法，用于将实值回归函数 —— 机器学习模型 —— 转换为满足人口统计学均等约束条件的函数。
 
 我们假设敏感属性（不应使结果产生偏差的人口统计学属性）不仅在训练过程中对机器学习模型可见，在推断时也是可见的。我们在学习公正的回归模型和最佳转换理论之间建立了联系，后者描述了如何测量概率分布之间的距离。在此基础上，我们推导了关于最优公正预测模型的完备的表达式。
 
@@ -63,7 +63,7 @@
 
 **"[利用 MMD 和 Sinkhorn divergences 进行公正可迁移的表示学习](https://www.amazon.science/publications/exploiting-mmd-and-sinkhorn-divergences-for-fair-and-transferable-representation-learning)”**
 
-第一篇论文描述了一种通用的学习方法，第二篇论文描述了一种回归方法，本文则涉及的是深度学习。我们展示了如何在多任务学习中设置中提高人口统计均等性。在该设置中，深度学习模型将学习对多个任务有用的输入数据的单一表达。我们从理论上证明了，哪怕是将模型迁移到新的任务上，模型学习到的数据表达仍然有助于减少模型的偏差。
+第一篇论文描述了一种通用的学习方法，第二篇论文描述了一种回归方法，本文则涉及的是深度学习。我们展示了如何通过修改多任务学习的设置来提高人口统计均等性。在该设置中，深度学习模型将学习对多个任务有用的输入数据的单一表达。我们从理论上证明了，哪怕是将模型迁移到新的任务上，模型学习到的数据表达仍然有助于减少模型的偏差。
 
 我们提出了一种学习算法，该算法基于两种不同的测量概率分布之间距离的方法来施加约束。这两种方法是最大平均差异和 Sinkhorn 散度。保持该距离较小可确保我们对相似输入有相似的表达方式，使它们仅在敏感属性上有所不同。我们在三个真实数据集上进行了实验，结果表明，所提出的方法明显优于当前最好方法。
 
