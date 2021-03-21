@@ -144,7 +144,7 @@ Furthermore, given the many factors in play, not all of them technical in nature
 
 ![Codec comparison](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle-of-the-Codecs_fnl.png "Codec comparison")
 
-> Note:
+> ### Note:
 >
 > Meanwhile, it has been clarified that the AVIF limits listed above apply to the highest currently defined AVIF profile (the “Advanced” profile). It is also possible to use AVIF without a profile, and then the AV1 limits apply: a precision of up to 12-bit, and maximum dimensions of up to 65535x65535 (or more using grids). For HEIC, it is possible to use the container with a HEVC payload with a precision of up to 16-bit and with 4:4:4, although most hardware implementations do not support that.
 
