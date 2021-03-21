@@ -2,11 +2,11 @@
 > * 原文作者：[Sergio De Simone](https://www.infoq.com/profile/Sergio-De-Simone/)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/gcp-healthcare-consent-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/gcp-healthcare-consent-api.md)
 > * 译者：[chzh9311](https://github.com/chzh9311)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 谷歌云公开发布医疗保健同意管理 API
 
-近日，谷歌云宣布将公开发布自己的医疗保健同意管理 API，以便为医疗保健应用开发者和临床研究员管理个体对健康数据使用的同意情况提供便利。医疗保健同意管理 API 是谷歌云平台（GCP）提供的[云医疗保健 API](https://cloud.google.com/healthcare) 的一部分。
+近日，谷歌云宣布将发布自己的医疗保健同意管理 API，以便为医疗保健应用开发者和临床研究员管理个体对健康数据使用的同意情况提供便利。医疗保健同意管理 API 是谷歌云平台（GCP）提供的[云健康 API](https://cloud.google.com/healthcare) 的一部分。
 
 在去年 4 月，云医疗保健 API [对公众开放](https://www.infoq.com/news/2020/04/google-healthcare-api-ga/)后，医疗保健同意管理 API 是它最新加的一部分。另外，公司在 12 月[添加了](https://www.infoq.com/news/2020/12/google-healthcare-ai-ml/)医疗自然语言 API 和医疗保健 AutoML 实体抽取功能。
 
@@ -14,7 +14,7 @@
 
 > 由血糖监测仪、可穿戴传感器、以及其他源带来的数据爆炸强调了患者的同意与隐私的重要性，毕竟患者和保健人员都希望能安全地从更多的源采集更多的数据，并将这些数据整合到他们的治疗计划当中。
 
-随着医疗保健同意管理 API 的应用，开发者们可以很快开发出相关应用，让病人更好地追踪、编辑和撤回对自己数据使用的许可。进一步，有了病人的许可，相关数据就可以留存在谷歌云以备将来使用，比如临床试验的分析。
+随着医疗保健同意管理 API 的应用，开发者们可以很快开发出相关应用，让患者更好地追踪、编辑和撤回对自己数据使用的许可。进一步，有了患者的许可，相关数据就可以留存在谷歌云以备将来使用，比如临床试验的分析。
 
 ![同意管理的结构](https://cloud.google.com/healthcare/images/consent_architecture.svg)
 
@@ -22,9 +22,9 @@
 
 谷歌云正在通过同意管理 API 来帮他们的服务走的更远。关于这一点，担任 Constellation Research 公司首席分析师兼副董事长的 [Holger Mueller](https://twitter.com/holgermu) 告诉 InfoQ：
 
-> API 对企业来说是减少复杂度的一种很有力的方式，因为他们只需要正确使用 API 即可，至于运行在背后的复杂进程，就交给 API 来处理。医疗保健中的同意管理就是这些进程中的一员，它的特点是复杂性和官僚性。很高兴看见谷歌这样的云供应商为企业提供了同意管理的 API 来支撑他们下一代的产品。假如同意意见表格是写在纸上的，这项举措就节约了几百万棵树和几个足球场那么大的存储空间。
+> API 对企业来说是减少复杂度的一种很有力的方式，因为他们只需要正确使用 API 即可，至于运行在背后的复杂进程，就交给 API 来处理。医疗保健中的同意管理就是这些进程中的一员，它的特点是复杂性和组织性。很高兴看见谷歌这样的云供应商为企业提供了同意管理的 API 来支撑他们下一代的产品。这项举措降低了复杂度，同时节约了几百万棵树的纸张，和几个足球场那么大的原用于存储纸质同意意见表格的空间。
 
-最后，如果开发者们想要使用这一医疗保健同意管理 API，可以通过[问题指导](https://cloud.google.com/healthcare/docs/how-tos/consent)和[文档](https://cloud.google.com/healthcare/docs/concepts/consent)来了解详细信息。云医疗保健 API 的价格细节可以在[定价页面](https://cloud.google.com/healthcare/pricing)查到。
+最后，想要使用这一医疗保健同意管理 API 的开发者们可以通过[问题指南](https://cloud.google.com/healthcare/docs/how-tos/consent)和[文档](https://cloud.google.com/healthcare/docs/concepts/consent)来了解详细信息。云健康 API 的价格细节可以在[定价页面](https://cloud.google.com/healthcare/pricing)查看。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
