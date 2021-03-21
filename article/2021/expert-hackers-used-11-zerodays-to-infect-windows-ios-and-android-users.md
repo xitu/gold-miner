@@ -5,17 +5,17 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# “高级”黑客使用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户
+# 黑客“高手”利用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户
 > 针对未知漏洞的漏洞利用程序花样百出，让这个黑客团伙与众不同。
 ![图源 Getty](https://cdn.arstechnica.net/wp-content/uploads/2020/11/zeroday-800x534.jpg)
 
-谷歌研究人员说，一个高级黑客团队在为期 9 个月的活动中利用了不少于 11 个零日漏洞，并使用受感染的网站来感染运行 Windows、iOS 和 Android 的打过补丁的设备。
+谷歌研究人员说，一个高级黑客团队在为期 9 个月的攻击活动中利用了不少于 11 个零日漏洞，并通过被感染的网站去感染运行 Windows、iOS 和 Android 的打过补丁的设备。
 
-该团伙采用了新颖的利用和混淆技术，熟练运用一大批类型的漏洞，并使用了一套复杂的漏洞利用程序投放的架构，在 2020 年 2 月利用了[四个零日漏洞](https://arstechnica.com/information-technology/2021/01/hackers-used-4-0days-to-infect-windows-and-android-devices/)。这伙黑客能够把攻陷了已全面打上补丁的 Windows 和 Android 设备的多个漏洞利用程序串联起来，也因此，谷歌旗下 Project Zero 和威胁分析团伙的成员们称该团伙“手法非常老到”。
+该团伙精通各种漏洞类型，采用了先进的开发和混淆技术，并使用了一套复杂的漏洞利用程序投放的架构，在 2020 年 2 月利用了[四个零日漏洞](https://arstechnica.com/information-technology/2021/01/hackers-used-4-0days-to-infect-windows-and-android-devices/)。这伙黑客能够把攻陷了已全面打上补丁的 Windows 和 Android 设备的多个漏洞利用程序串联起来，也因此，谷歌旗下 Project Zero 和威胁分析小组的成员们称该团伙“手法非常老到”。
 
-## 这还没完
+## 攻击还没结束
 
-周四，Project Zero 研究人员 Maddie Stone 表示，在 2 月份攻击发生后的八个月中，同一团伙利用了另外七个以前未知的漏洞，这回这些漏洞还存在于 iOS 中。与 2 月份的情况如出一辙，黑客通过水坑式攻击（watering-hole attack）投放了漏洞利用程序。这些攻击破坏了目标用户经常访问的网站，并在这些网站上添加了用于将恶意软件安装在访问者设备上的代码。
+周四，Project Zero 研究人员 Maddie Stone 表示，在 2 月份攻击发生后的八个月中，同一团伙利用了另外七个以前未知的漏洞，而这些漏洞至今还存在于 iOS 中。与 2 月份的情况如出一辙，黑客通过水坑式攻击（watering-hole attack）投放了漏洞利用程序。这些攻击破坏了目标用户经常访问的网站，并在这些网站上添加了用于将恶意软件安装在访问者设备上的代码。
 
 在所有攻击中，水坑式站点都将访客重定向到一个庞大的架构。这个架构会根据访客使用的设备和浏览器，向用户的设备安装不同的漏洞利用程序。尽管二月份使用的两台服务器仅攻击了 Windows 和 Android 设备，但后来的攻击也利用了运行 iOS 的设备。下面是它的工作原理图：
 
@@ -25,9 +25,9 @@
 
 在周四发表的[博客文章](https://googleprojectzero.blogspot.com/2021/03/in-wild-series-october-2020-0-day.html)中，Stone 写道：
 
-> 从 JIT 的漏洞到大量的字体错误的缓存，这些漏洞涵盖了相当广泛的领域。总体而言，每个漏洞利用程序本身都体现出他们在漏洞利用程序开发和正在利用的漏洞的领域方面的专业的了解。Chrome Freetype 的零日病毒的漏洞利用方法对我们 Project Zero 来说是新颖的；弄清楚如何触发 iOS 内核特权漏洞的过程并非易事；混淆方法多种多样且费时。
+> 从 JIT 的漏洞到大量的字体错误的缓存，这些漏洞涵盖了相当广泛的领域。总体而言，每个漏洞利用程序本身都体现出他们在漏洞利用程序开发和利用已知漏洞的领域方面的专业的了解。Chrome Freetype 的零日病毒的漏洞利用方法对我们 Project Zero 来说是新颖的。弄清楚如何触发 iOS 内核特权漏洞的过程并非易事，因为混淆方法多种多样且费时。
 
-总而言之，Google 研究人员总结到：
+总而言之，Google 研究人员收集到以下信息：
 
 > * 运行 Windows 10 使用 Google Chrome 的补丁过后的定位的完整漏洞利用链
 > * 两个针对运行 Android 10 使用 Google Chrome 和 Samsung Browser，且设备都打了补丁的两个不同的部分漏洞利用链
