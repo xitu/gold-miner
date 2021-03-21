@@ -1,7 +1,7 @@
 > * 原文地址：[Time for Next-Gen Codecs to Dethrone JPEG](https://cloudinary.com/blog/time_for_next_gen_codecs_to_dethrone_jpeg)
 > * 原文作者：[Jon Sneyers](https://cloudinary.com/blog/author/jon_sneyers)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/time_for_next_gen_codecs_to_dethrone_jpeg.md](https://github.com/xitu/gold-miner/blob/master/article/2021/time_for_next_gen_codecs_to_dethrone_jpeg.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/time-for-next-gen-codecs-to-dethrone-jpeg.md](https://github.com/xitu/gold-miner/blob/master/article/2021/time-for-next-gen-codecs-to-dethrone-jpeg.md)
 > * 译者：
 > * 校对者：
 
