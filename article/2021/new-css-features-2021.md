@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-
 # 10 New CSS Features You Might Not Know About (2021 Edition)
 
 The modern web would not be possible without CSS. The markup language is responsible for the fact that websites look good, have a pleasant layout, and that every element stays where it belongs. Yet, did you know that new CSS features come out all the time?
@@ -26,7 +25,7 @@ Custom properties basically allow you to define stand-ins for CSS properties in 
 
 Usually, when building a theme, you would choose a **[color scheme](https://websitesetup.org/website-color-schemes/)** and then declare those colors every time it’s necessary.
 
-```
+```css
 a {
 	color: #cd2653;
 }
@@ -46,7 +45,7 @@ The problem with this approach is, if you want to make changes to one of the col
 
 Custom properties do away with this. With their help, you can assign the colors in question to a variable once and then simply input that variable as the CSS property every time you use it like so:
 
-```
+```css
 :root {
 	--global--color-primary: #28303d;
 }
@@ -84,7 +83,7 @@ In addition, you can use `@supports` to add extra features or styling for more
 
 If you are familiar with media queries, using the support check will be very easy. Here’s how to use it:
 
-```
+```css
 @supports (display: grid) {
 	.site-content {
 		display: grid;
@@ -98,7 +97,7 @@ The above example states that if the browser supports CSS grid (more on that in 
 
 It’s also important to note that `@supports` understands the operators `not`, `and`, and `or` (that can also be combined) to create more specific rules, such as a fallback for browsers that don’t support that particular feature:
 
-```
+```css
 @supports not (display: grid) {
 	.site-content {
 		float: left;
@@ -149,7 +148,7 @@ While it is possible to achieve the same layout via margins it needs a lot more 
 
 Usage is also super easy. Simply apply it to an element of your choice like so:
 
-```
+```css
 .content-below-fold {
 	content-visibility: auto;
 }
@@ -181,7 +180,7 @@ Naturally, we don’t have the space to go over all three in detail here. Be sur
 
 Here’s a quick example for a CSS transition:
 
-```
+```css
 div {
 	width: 100px;
 	height: 100px;
@@ -199,7 +198,7 @@ The above markup will slow down the increase in `div` height to three seconds 
 
 Below is an example of a CSS transformation. It will rotate the element by 30 degrees clockwise when someone hovers their mouse over it:
 
-```
+```css
 div:hover {
 	transform: rotate(30deg);
 }
@@ -209,7 +208,7 @@ div:hover {
 
 And finally, a short snippet that shows off a CSS animation:
 
-```
+```css
 @keyframes color-change {
 	from {background-color: blue;}
 	to {background-color: yellow;}
@@ -233,7 +232,7 @@ This effect is visible in mobile apps a lot, yet, with scroll snapping, you can 
 
 Usage is also relatively simple on the most basic level. You simply apply the type of scroll snapping to a container and define where its children should snap to.
 
-```
+```css
 .container {
 	scroll-snap-type: y mandatory;
 }
@@ -257,7 +256,7 @@ The final entries on our list of new CSS features you might not be aware of are 
 
 For example, compare this:
 
-```
+```css
 .main a:hover,
 .sidebar a:hover,
 .site-footer a:hover {
@@ -267,7 +266,7 @@ For example, compare this:
 
 To this:
 
-```
+```css
 :is(.main, .sidebar, .site-footer) a:hover {
 	/* markup goes here */
 }
@@ -275,7 +274,7 @@ To this:
 
 The same thing works with `:where`:
 
-```
+```css
 :where(.main, .sidebar, .site-footer) a:hover {
 	/* markup goes here */
 }
