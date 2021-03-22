@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dropbox-reveals-Atlas.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[5Reasons](https://github.com/5Reasons)、[kamly](https://github.com/kamly)
+> * 校对者：[5Reasons](https://github.com/5Reasons)、[kamly](https://github.com/kamly)、[husiyu](https://github.com/husiyu)
 
 # Dropbox 公布了 Atlas —— 一个托管服务编排平台
 
-在最近的博客文章中，[Dropbox 公布了 Atlas](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)，该平台的目标是提供给用户[面向服务架构](https://en.wikipedia.org/wiki/Service-oriented_architecture)的各种好处，同时让拥有一个服务的运营成本降至最低。
+在最近的博客文章中，[Dropbox 公布了 Atlas](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)，该平台的目标是为用户提供[面向服务架构](https://en.wikipedia.org/wiki/Service-oriented_architecture)的各种便利，同时让拥有一个服务的维护成本降至最低。
 
-Atlas 的目标是支持小型的独立功能，为产品团队节省管理各种服务的开销，包括容量规划、警报设置等。Atlas 还借助后台自动调配的服务，为用户提供了与无服务器系统（如 [AWS Fargate](https://aws.amazon.com/fargate/)），同时由后台自动配置的服务提供支持。根据作者 Naphat Sanguansin 和 Utsav Shah 的说法，他们评估了使用现成的解决方案来运行该平台。但是，为了降低迁移风险并确保较低的工程成本，他们决定继续在 Dropbox 其余部分使用的同一部署安排平台上托管服务。
+Atlas 的目标是支持小型的独立功能，为产品团队节省管理各种服务的开销，包括容量规划、警报设置等。Atlas 还借助后台自动调配的服务，为用户提供了与无服务器系统（如 [AWS Fargate](https://aws.amazon.com/fargate/)），同时由后台自动配置的服务提供支持。根据作者 Naphat Sanguansin 和 Utsav Shah 的说法，他们评估了使用现成的解决方案来运行该平台。但是，为了降低迁移风险并确保较低的工程成本，他们决定继续在与 Dropbox 其余部分相同的“部署-编排”平台上，托管这些服务。
 
 构建 Atlas 项目的原因是他们想要要替换 Dropbox 的 Python 中心库 [monolith](https://en.wikipedia.org/wiki/Monolith) Metaserver。Altas 的开发会是一个历时多年的历程，至今仍在进行之中。目前，Atlas 正在为它打算取代的 monolith 提供 25％ 以上的服务。作者给出了有关迁移过程的关键结论：
 
-> 多年努力中我们发现最重要的一点是，在项目生命周期的早期，编写经过深思熟虑的代码是至关重要的。否则，技术负担和代码复杂性将很快融合一起来作怪。导入周期的取消和 Metaserver（……）的分解可能是该项目在战略上最有效的部分，因为它可以防止新的代码导致问题，也同时能够简化我们的代码。
+> 多年努力中我们发现最重要的一点是，在项目生命周期的早期，编写经过深思熟虑的代码是至关重要的。否则，技术负担和代码复杂性会很快一起来作怪。导入周期的取消和 Metaserver（……）的分解可能是该项目在战略上最有效的部分，因为它可以防止新的代码导致问题，也同时能够简化我们的代码。
 
 他们指出，出于代码库的大小和复杂性的问题，以前许多改进 Metaserver 的尝试都没有成功。这次，他们考虑[将 Altas 作一个垫脚石而不再是里程碑](https://medium.com/@jamesacowling/stepping-stones-not-milestones-e6be0073563f)，并为 Atlas 设计了执行计划。这个想法是不管项目的下一部分由于任何原因失败，每个逐步推进的步骤都已经有了它的价值。此策略的关键示例涉及对一体化的代码架构进行改进，无论有没有 Atlas 实施，这个改进都有其价值。此外，开发团队会将为 Atlas 开发的许多增强功能回移植到 Metaserver 中，以进一步提高项目价值。
 
