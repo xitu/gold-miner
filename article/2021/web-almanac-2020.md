@@ -23,7 +23,7 @@ The JavaScript chapter of the report indicates around 14% growth in the size of 
 
 > Depending on your point of view, you could be forgiven for not getting too upset about the small gap in the amount of code sent to a desktop browser versus a mobile one—after all, what’s an extra 30 KB or so at the median, right? […]The median desktop site spends 891 ms on the main thread of a browser working with all that JavaScript. The median mobile site, however, spends 1,897 ms—over two times the time spent on the desktop. It’s even worse for the long tail of sites. At the 90th percentile, mobile sites spend a staggering 8,921 ms of main thread time dealing with JavaScript, compared to 3,838 ms for desktop sites.
 
-On the bright side, [resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/), which allow offsetting some of the network costs of loading JavaScript, are used in nearly 17% of pages, with nearly all that usage coming from `[preload](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)`.
+On the bright side, [resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/), which allow offsetting some of the network costs of loading JavaScript, are used in nearly 17% of pages, with nearly all that usage coming from [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content).
 
 The Third Parties chapter of the report analyzes the presence, distribution, and impact of third-party scripts, emphasizing the importance of managing them:
 
