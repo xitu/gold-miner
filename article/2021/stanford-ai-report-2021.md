@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/stanford-ai-report-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/stanford-ai-report-2021.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [zhangcong2711](https://github.com/zhangcong2711)
 
 # 斯坦福发布 2021 年人工智能指数报告
 
