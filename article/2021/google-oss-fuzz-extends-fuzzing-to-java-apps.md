@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/google-oss-fuzz-extends-fuzzing-to-java-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/google-oss-fuzz-extends-fuzzing-to-java-apps.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[huifrank](https://github.com/huifrank)，[1autodidact](https://github.com/1autodidact)
 
 # Google 的开源混沌测试工具 OSS-Fuzz 现在支持 Java 应用了
 
