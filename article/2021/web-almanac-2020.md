@@ -1,7 +1,7 @@
 > * 原文地址：[Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web](https://www.infoq.com/news/2021/03/web-almanac-2020)
 > * 原文作者：Suresh Kumar
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
 > * 译者：
 > * 校对者：
 
