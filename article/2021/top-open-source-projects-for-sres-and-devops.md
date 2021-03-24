@@ -134,7 +134,7 @@ Litmus 是基于云的混沌建模工具包。 Litmus 提供了一些工具来�
 
 ![[Image Source](https://github.com/powerfulseal/powerfulseal)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5cca5c87c3b80dcf9912_6.jpg)
 
-## Conclusion
+## 总结
 
 开源技术的一大优点是其可扩展的特性。如果需要，您可以向工具添加特性，以便更好地适应您的自定义架构。这些开源项目有广泛的支持文档和用户社区。由于微服务体系结构将主导云计算领域，用于监视和排除这些实例的可靠工具肯定会成为每个开发人员的工具库的一部分。
 
