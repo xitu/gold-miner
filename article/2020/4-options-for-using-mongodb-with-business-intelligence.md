@@ -5,43 +5,43 @@
 > * 译者：
 > * 校对者：
 
-# 4 Options for Using MongoDB with Business Intelligence - How to do SQL-style analytics on NoSQL data
+# 在商业智能中使用 MongoDB 的4种方式 - 如何在非结构化数据中使用结构化查询分析
 
 ![Photo by [Major Tom Agency](https://unsplash.com/@majortomagency?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2134/0*tm1VLFJIPTSFjBcw)
 
-## Can MongoDB be used with business intelligence?
+##  MongoDB 可以被用在商业智能中吗 ?
 
-MongoDB is making a name for itself as one of the top NoSQL providers on the market, which has sparked an interesting debate: [MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)**.**
+如这篇文章中讨论的那样 : [MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)，MongoDB 已经成为目前市场上占有率最高的 NoSQL 提供者之一。
 
-The main question that comes up when this debate does is whether or not MongoDB can be used for business intelligence in the same manner as a conventional SQL database.
+那么，问题来了：MongoDB 是能否像上面讨论的那样，和传统 SQL 一样在商业智能使用。
 
-While the answer to this question is yes, it comes with the caveat that it can come at a cost— in terms of both money and time — to get true business intelligence features while Mongo data.
+答案是：可以，不过需要警告的是，想要通过 Mongo 得到真正的商业智能特性是需要付出代价的 —— 需要花费时间和金钱。
 
-In this article, I will briefly describe the advantages of using traditional relational databases such as SQL for business intelligence and compare them to the advantages of using NoSQL databases such as MongoDB for business intelligence. I will also cover the options that are available to get SQL-like BI features while still using MongoDB as the database.
+在本文中，我会简要介绍使用传统关系型数据库（例如 SQL ）和 NoSQL（如 MongoDB ）数据库在商业智能应用中各自的优势，并做出比较。同时，我也会给出一些建议，用于在 MongoDB 中，获得类似于 SQL 那样的实时动态数据查询特性。
 
-## Advantages of SQL Databases
+## 使用 SQL 数据库的优势
 
-By nature, traditional relational databases are **structured**. Their data consists of normalized tables that are related to one another through keys or ID fields. The structured nature of relational databases makes it easy to use SQL to query them. One of SQL’s biggest strengths is that it is a structured query language with nearly identical syntax across most databases: this means that anybody who knows how to write a query in MySQL can write a query in Oracle and most other databases as well.
+从本质上来说，传统的结构化数据库都是**结构化**的。他们的数据由使用键，或 ID 列相互关联的标准化表结构构成。这种结构化的关系型数据库可以很方便的使用 SQL 去进行查询。SQL 的一个最大优点就是几乎所有数据库都支持这种结构化查询语句：这意味着如果一个人可以在 MySQL 中编写查询语句的话，那么他也可以很好地在 Oracle 或其他数据库中进行查询工作。
 
-So, what advantages do relational databases have?
+那么，传统关系型数据库的优势有哪些呢？
 
-* **They are structured** — this suits them perfectly for applications such as financial data, which ought to be clean, consistent, and normalized. But it can also be limiting. More on that later.
-* **Efficient memory usage** — the highly normalized nature of relational data generally ensures that storage isn’t wasted on duplicate data.
-* **They make data retrieval easy** — SQL is a flexible and extensive interface that is used by most suppliers, which makes it easy to use SQL to query data, transform data, and join data from other relational tables.
+* **他们是结构化的** —— 该特性非常适合那些具有强一致性，整洁，标准化的数据存储，例如金融数据。但是这个特性也是一把双刃剑。 后面会详细说明。
+* **高效的内存使用** ——  这种高度标准化的关系型数据保证了不会在重复数据上浪费存储空间。
+* **很方便地进行查询** — SQL 作为一种灵活性和扩展性兼备的查询语言，被需多厂商选择。正因如此，用户可以非常容易地使用 SQL 进行查询，数据转换或与其他关系型数据表进行连接。
 
-## Advantages of MongoDB
+## 使用 MongoDB 的优势
 
-By contrast to SQL databases, NoSQL databases don’t follow a relational database structure. Specifically, document-based NoSQL databases such as MongoDB are made up of a series of documents that contain JSON data. This JSON data often contains deep nested data structures, and these deep nested data structures aren’t always consistent across different objects. Millions of developers use MongoDB, making it one of the most popular NoSQL databases.
+与支持 SQL 数据库对比，NoSQL 数据库不遵循关系型数据库中的数据结构。特别地，像 MongoDB 这类数据由一系列 JSON 所构成的文档型 NoSQL 数据库：JSON 数据通常含有比较深的嵌套结构，并且，这些深层次中的对象结构可能并不一致。有数百万的开发者使用 MongoDB，使其成为最流行的 NoSQL 数据库之一。
 
-When these developers use MongoDB, what advantages do they enjoy?
+当开发者使用 MongoDB 时，他们享受有哪些特性？
 
 * **Flexible schemas** — because MongoDB stores data in JSON objects, individual units are capable of holding extensive nested fields. Different object instances may also capture different fields.
 * **Speed** — Indexing on JSON data generally provides the user with data more rapidly than indexing of typical relational databases.
 * **Scalability** — MongoDB divides the data into shards, which means it can handle big data efficiently.
 
-## Business Intelligence: SQL Databases vs. MongoDB
+## 商业智能：SQL 数据库 vs. MongoDB 
 
-When it comes to business intelligence, how do these two types of databases compare? Generally speaking, the territory of [business intelligence belongs to SQL](https://www.knowi.com/mysql). SQL’s flexibility allows analysts to easily pull, filter, join, aggregate, and perform other functions on relational data. This makes it easy to visualize and report on relational data.
+当提来商业智能中时，如何针对这两种数据库做出比较？通常来说，商业智能领域是 SQL 的天下（[business intelligence belongs to SQL](https://www.knowi.com/mysql)）。得益于 SQL 的灵活性，使其可以轻松地在关系型数据中执行获取，过滤，连接，聚合或其他函数运算。使得我们可以很轻松查询报表或执行可视化操作。
 
 By contrast, business intelligence in NoSQL databases is not as well developed, which makes sense since NoSQL databases are still fairly nascent. NoSQL databases are capable of being used for business intelligence, but the unstructured nature of NoSQL databases means that generating queries generally isn’t as clean as it is in SQL. To give a few examples, the query language isn’t consistent across NoSQL databases like it is across SQL databases, and NoSQL databases generally haven’t supported joining across tables.
 
