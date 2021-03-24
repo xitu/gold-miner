@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[5Reasons](https://github.com/5Reasons)、[kamly](https://github.com/kamly)、[husiyu](https://github.com/husiyu)
 
-# Dropbox 公布了 Atlas —— 一个托管服务编排平台
+# Dropbox 发布托管服务编排平台 Atlas
 
 在最近的博客文章中，[Dropbox 公布了 Atlas](https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform)，该平台的目标是为用户提供[面向服务架构](https://en.wikipedia.org/wiki/Service-oriented_architecture)的各种便利，同时让拥有一个服务的维护成本降至最低。
 
