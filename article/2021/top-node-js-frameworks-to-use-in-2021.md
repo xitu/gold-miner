@@ -46,7 +46,7 @@ Image Source: [npmtrends](https://www.npmtrends.com/nodejs)
 
 Now that we have covered Node.js and understood its capabilities in such detail, we can discuss the top Node.js Frameworks to Use in 2021.
 
-#### 1. Hapi.js
+### 1. Hapi.js
 
 **GitHub - Stars** — 13.1k **| Forks** — 1.3k **|Version** — v20.1.0 **|Contributors** — 208 **| Used by** - 16.5k
 
@@ -87,7 +87,7 @@ Hapi.js is ideal for developing secure, real-time, scalable, and social media ap
 * Taggun
 * Artifakt
 
-#### 2. Express.js
+### 2. Express.js
 
 **GitHub — Stars** — 52.3k **| Forks** — 8.8k **| Version** — v4.17.1 **| Contributors** — 262 **| Used by —** 9.2m
 
@@ -124,11 +124,11 @@ Express.js is ideal for creating web applications and services quickly since it 
 * SiHub
 * TheDoe
 
-#### 3. Nest.js
+### 3. Nest.js
 
-**Github — Stars** — 35.5k **|Forks** — 3.4k **|Version** — 7.5.0 **|Contributors** — 226 **|Used by** -60.4k
+**Github — Stars** — 35.5k **|Forks** — 3.4k **|Version** — 7.5.0 **|Contributors** — 226 **|Used by** - 60.4k
 
-**NPM — Weekly Downloads** — 508,214**| License **— MIT
+**NPM — Weekly Downloads** — 508,214 **| License** — MIT
 
 **Image -**[npmtrends(nest.js)](https://www.npmtrends.com/@nestjs/core)**
 
@@ -161,7 +161,7 @@ Nest.js is mainly used for writing applications that are — scalable, testable 
 * Decathlon
 * Capgemini
 
-#### 4. Koa.js
+### 4. Koa.js
 
 **GitHub — Stars** — 30.9k **|Forks** — 3k **|Version** — 2.13.1 **|Contributors** — 219 **| Used by** - 160k
 
@@ -197,7 +197,7 @@ Koa.js is best used for creating a server, routes, handling responses, and handl
 * BrainHub
 * Bulb
 
-#### 5. Socket.io
+### 5. Socket.io
 
 **GitHub — Stars** — 52.7k **|Forks** — 9.6k **|Version** — 4.0.0 **|Contributors** — 189 **| Used by** - 2.2m
 
@@ -215,7 +215,7 @@ Socket.io is used for establishing real-time bi-directional communication betwee
 
 2. JavaScript client library — Node.js
 
-**Note:** Socket.io is also compatible with many other languages like Java, C+, Swift, Dart, .Net, and Python.**
+> **Note:** Socket.io is also compatible with many other languages like Java, C+, Swift, Dart, .Net, and Python.
 
 **Socket.io can be used for -**
 
@@ -247,7 +247,7 @@ Socket.io is one of the best real-time bi-directional event-based communication 
 * Justmop
 * Plaid
 
-#### 6. Meteor.js
+### 6. Meteor.js
 
 **Github — Stars** — 42.3k **|Forks** — 5.2k **|Version** — 4.0.0 **|Contributors** — 452 **|Used by** -(?) **|License** - MIT
 
@@ -280,11 +280,11 @@ Meteor.js has capabilities for rapid prototyping and produces cross-platform (An
 * Esri
 * NordStorm
 
-#### 7. Adonis.js
+### 7. Adonis.js
 
 **Github — Stars** — 9.7k **|Forks** — 498 **|Version** - 5.0.13 **|Contributors** — 47 **|Used by** -754
 
-**NPM — Weekly Downloads –**3808 **| License —** MIT
+**NPM — Weekly Downloads** - 3808 **| License** - MIT
 
 **Image [npmtrends(adonis.js)](https://www.npmtrends.com/@adonisjs/framework)**
 
@@ -317,11 +317,11 @@ If you are a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-de
 * Zelo
 * FindUp
 
-#### 8. Sails.js
+### 8. Sails.js
 
-**Github — Stars** — 21.9k **|Forks** — 1.9k **|Version** — 1.4.0 **|Contributors** — 229 **|Used by** -23.3k
+**Github — Stars** — 21.9k **|Forks** — 1.9k **|Version** — 1.4.0 **|Contributors** — 229 **|Used by** - 23.3k
 
-**NPM — Weekly Downloads** — 20,457 **| License **— MIT
+**NPM — Weekly Downloads** — 20,457 **| License** — MIT
 
 **Image — [npmtrends(sails)](https://www.npmtrends.com/sails)**
 
