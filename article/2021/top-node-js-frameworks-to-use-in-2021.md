@@ -126,8 +126,6 @@ Express.js is ideal for creating web applications and services quickly since it 
 
 **NPM — Weekly Downloads** — 508,214 **| License** — MIT
 
-**Image -**[npmtrends(nest.js)](https://www.npmtrends.com/@nestjs/core)**
-
 ![Nest.js popularity](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
 
 Nest.js is a server-side app framework that is crafted for supporting developer’s productivity and make their lives easier. Developers generally use this Node.js framework to structure their code is a much better and organized manner.
@@ -277,8 +275,6 @@ Meteor.js has capabilities for rapid prototyping and produces cross-platform (An
 **Github — Stars** — 9.7k **|Forks** — 498 **|Version** - 5.0.13 **|Contributors** — 47 **|Used by** -754
 
 **NPM — Weekly Downloads** - 3808 **| License** - MIT
-
-**Image [npmtrends(adonis.js)](https://www.npmtrends.com/@adonisjs/framework)**
 
 ![Popularity of adoni.js](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
 
