@@ -48,7 +48,7 @@ Now that we have covered Node.js and understood its capabilities in such detail,
 
 #### 1. Hapi.js
 
-**GitHub** -**Stars** — 13.1k **| Forks** — 1.3k**|Version **— v20.1.0**|Contributors** — 208**| Used by —** 16.5k
+**GitHub - Stars** — 13.1k **| Forks** — 1.3k **|Version** — v20.1.0 **|Contributors** — 208 **| Used by** - 16.5k
 
 **NPM — Weekly Downloads —** 105,065 **|License** — BSD-3-Clause
 
@@ -126,7 +126,7 @@ Express.js is ideal for creating web applications and services quickly since it 
 
 #### 3. Nest.js
 
-**Github — Stars** — 35.5k**|Forks **— 3.4k **|Version **— 7.5.0**|Contributors** — 226**|Used by **-60.4k
+**Github — Stars** — 35.5k **|Forks** — 3.4k **|Version** — 7.5.0 **|Contributors** — 226 **|Used by** -60.4k
 
 **NPM — Weekly Downloads** — 508,214**| License **— MIT
 
@@ -163,9 +163,9 @@ Nest.js is mainly used for writing applications that are — scalable, testable 
 
 #### 4. Koa.js
 
-**GitHub — Stars** — 30.9k**|Forks **— 3k **|Version **— 2.13.1**|Contributors** — 219 **| Used by —** 160k
+**GitHub — Stars** — 30.9k **|Forks** — 3k **|Version** — 2.13.1 **|Contributors** — 219 **| Used by** - 160k
 
-**NPM — Weekly Download —** 870,944**| License —** MIT
+**NPM — Weekly Download** - 870,944 **| License** - MIT
 
 **Image — [npmtrends(koa)](https://www.npmtrends.com/koa)**
 
@@ -199,9 +199,9 @@ Koa.js is best used for creating a server, routes, handling responses, and handl
 
 #### 5. Socket.io
 
-**GitHub — Stars** — 52.7k**|Forks **— 9.6k **|Version **— 4.0.0 **|Contributors** — 189 **| Used by —** 2.2m
+**GitHub — Stars** — 52.7k **|Forks** — 9.6k **|Version** — 4.0.0 **|Contributors** — 189 **| Used by** - 2.2m
 
-**NPM — Weekly Downloads — 3,617,636 | License —** MIT
+**NPM — Weekly Downloads — 3,617,636 | License** - MIT
 
 **Image — [npmtrends(socket.io)](https://www.npmtrends.com/socket.io)**
 
@@ -249,7 +249,7 @@ Socket.io is one of the best real-time bi-directional event-based communication 
 
 #### 6. Meteor.js
 
-**Github — Stars** — 42.3k**|Forks **— 5.2k **|Version **— 4.0.0 **|Contributors** — 452**|Used by **-(?) | **License –**MIT
+**Github — Stars** — 42.3k **|Forks** — 5.2k **|Version** — 4.0.0 **|Contributors** — 452 **|Used by** -(?) **|License** - MIT
 
 NPM — Not Available
 
@@ -282,7 +282,7 @@ Meteor.js has capabilities for rapid prototyping and produces cross-platform (An
 
 #### 7. Adonis.js
 
-**Github — Stars** — 9.7k**|Forks **— 498 **|Version –**5.0.13**|Contributors** — 47 **|Used by **-754
+**Github — Stars** — 9.7k **|Forks** — 498 **|Version** - 5.0.13 **|Contributors** — 47 **|Used by** -754
 
 **NPM — Weekly Downloads –**3808 **| License —** MIT
 
@@ -319,7 +319,7 @@ If you are a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-de
 
 #### 8. Sails.js
 
-**Github — Stars** — 21.9k**|Forks **— 1.9k **|Version **— 1.4.0**|Contributors** — 229 **|Used by **-23.3k
+**Github — Stars** — 21.9k **|Forks** — 1.9k **|Version** — 1.4.0 **|Contributors** — 229 **|Used by** -23.3k
 
 **NPM — Weekly Downloads** — 20,457 **| License **— MIT
 
