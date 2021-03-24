@@ -52,8 +52,6 @@ Now that we have covered Node.js and understood its capabilities in such detail,
 
 **NPM — Weekly Downloads —** 105,065 **|License** — BSD-3-Clause
 
-**Image — [npmtrends(hapi](https://www.npmtrends.com/hapi).js)**
-
 ![Popularity of Hapi.js framework](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
 
 Hapi.js is one of the simplest, secure, and reliable frameworks that many developers trust. You can use Hapi.js to create scalable and robust applications that have minimal overhead and out-of-the-box functionality. It is the top [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) framework for developing JSON API.
@@ -92,8 +90,6 @@ Hapi.js is ideal for developing secure, real-time, scalable, and social media ap
 **GitHub — Stars** — 52.3k **| Forks** — 8.8k **| Version** — v4.17.1 **| Contributors** — 262 **| Used by —** 9.2m
 
 **NPM — Weekly Downloads —** 17,193,915 | **License —** MIT
-
-**Image — [npmtrends(express)](https://www.npmtrends.com/express)**
 
 ![Express.js popularity](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
 
@@ -167,8 +163,6 @@ Nest.js is mainly used for writing applications that are — scalable, testable 
 
 **NPM — Weekly Download** - 870,944 **| License** - MIT
 
-**Image — [npmtrends(koa)](https://www.npmtrends.com/koa)**
-
 ![Popularity of Koa.js framework](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
 
 Koa.js is an open-source Node web framework created by the same creators of Express.js. With Koa, they aim to create a smaller, more expensive, and robust platform for web applications and APIs. It provides a wide variety of efficient methods to fasten the process of making servers more excitingly.
@@ -202,8 +196,6 @@ Koa.js is best used for creating a server, routes, handling responses, and handl
 **GitHub — Stars** — 52.7k **|Forks** — 9.6k **|Version** — 4.0.0 **|Contributors** — 189 **| Used by** - 2.2m
 
 **NPM — Weekly Downloads — 3,617,636 | License** - MIT
-
-**Image — [npmtrends(socket.io)](https://www.npmtrends.com/socket.io)**
 
 ![Popularity of socket.io](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
 
@@ -322,8 +314,6 @@ If you are a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-de
 **Github — Stars** — 21.9k **|Forks** — 1.9k **|Version** — 1.4.0 **|Contributors** — 229 **|Used by** - 23.3k
 
 **NPM — Weekly Downloads** — 20,457 **| License** — MIT
-
-**Image — [npmtrends(sails)](https://www.npmtrends.com/sails)**
 
 ![Popularity of sails.js framework](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
 
