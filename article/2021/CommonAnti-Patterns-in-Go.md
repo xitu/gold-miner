@@ -1,3 +1,10 @@
+> * 原文地址：[Common Anti-Patterns in Go](https://dzone.com/articles/common-anti-patterns-in-go)
+> * 原文作者：[Siddhant Trivedi](https://dzone.com/users/4535915/sidntrivedi012.html)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md](https://github.com/xitu/gold-miner/blob/master/article/2021/common-anti-patterns-in-go.md)
+> * 译者：
+> * 校对者：
+
 > A list of anti-patterns you should avoid while writing code in Golang.
 
 It has been widely acknowledged that coding is an art, and like every artisan who crafts wonderful art and is proud of them, we as developers are also really proud of the code we write. In order to achieve the best results, artists constantly keep searching for ways and tools to improve their craft. Similarly, we as developers keep leveling up our skills and remain curious to know the answer to the single most important question — **'How to write good code.'**
@@ -311,3 +318,7 @@ func goodPatternFunc(ctx context.Context, k favContextKey) {
 When it comes to working in a team, reviewing other people's code becomes important. DeepSource is an automated code review tool that manages the end-to-end code scanning process and automatically makes pull requests with fixes whenever new commits are pushed or new pull requests.
 
 [Setting up DeepSource for Go](https://deepsource.io/docs/analyzer/go.html) is extremely easy. As soon as you have it set up, an initial scan will be performed on your entire codebase, find scope for improvements, fix them, and open pull requests for those changes.
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
