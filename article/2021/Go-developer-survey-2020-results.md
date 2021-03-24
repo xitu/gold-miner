@@ -15,14 +15,14 @@
 
 ## 亮点
 
-- Go 语言在业界有着广泛的应用，76% 的被调查者[在工作中使用 Go 语言](https://blog.golang.org/survey2020-results#TOC_4.1)，66% 的被调查者认为[Go 语言非常重要，能助力企业获得成功](https://blog.golang.org/survey2020-results#TOC_6.1)，
+- Go 语言在业界有着广泛的应用，76% 的被调查者[在工作中使用 Go 语言](https://blog.golang.org/survey2020-results#TOC_4.1)，66% 的被调查者认为[Go 语言非常重要，能助力企业获得成功](https://blog.golang.org/survey2020-results#TOC_6.1)。
 - Go 语言的[总体满意度](https://blog.golang.org/survey2020-results#TOC_6.)非常高，有 92% 的被调查者对 Go 的使用体验感到满意。
 - 在不到 3 个月的时间内，大多数被调查者认为 Go 语言能助力高效工作，而且有 81% 认为它非常高效。
 - 一些被调查者表示自己会[及时升级 Go 至最新版本](https://blog.golang.org/survey2020-results#TOC_7.)，其中有 76% 会在新版本发布后五个月内就更新。
 - 在查找程序包时，[使用 pkg.go.dev 的被调查者成功率高达 91%](https://blog.golang.org/survey2020-results#TOC_12.)，不使用 pkg.go.dev 的成功率只有 82%。
 - Go 语言的模块使用率高达 77%，但被调查者们也强调，Go 语言的相关文档需要改进。
 - Go 语言广泛应用于 [API, CLIs, Web, 运维和数据处理](https://blog.golang.org/survey2020-results#TOC_7.)等领域。
-- [Underrepresented groups](https://blog.golang.org/survey2020-results#TOC_12.1) tend to feel less welcome in the community.[代表性不足的那部分被调查者](https://blog.golang.org/survey2020-results#TOC_12.1)认为自己在社区的受欢迎度下降。
+- [Underrepresented groups](https://blog.golang.org/survey2020-results#TOC_12.1) tend to feel less welcome in the community.[代表性不足的那部分被调查者](https://blog.golang.org/survey2020-results#TOC_12.1)认为自己在社区不受欢迎。
 
 ## 我们的调查对象有哪些？
 
@@ -70,7 +70,7 @@
 
 
 
-去年，我们就一些技术问题询问了开发人员，发现几乎 90% 的被调查者都用文本形式的 logging 进行程序调试，因此我们今年增加了一个问题，对该现象进行后续跟踪，以便发现他们为何这么做。结果是：43% 的被调查者认为这种方式方便了不同语言间的调试，42% 的被调查者一向偏爱这种调试方式。然而，也有 27% 不了解如何开启 Go 语言的调试工具，24% 从未使用调试工具，所以需要改进调试工具，使它易于发现和使用，并整理成文档。此外，由于四分之一的被调查者从未尝试使用调试工具，相关的痛点很可能被低估。
+去年，我们就一些技术问题询问了开发人员，发现几乎 90% 的被调查者都用文本形式的日志进行程序调试，因此我们今年增加了一个问题，对该现象进行后续跟踪，以便发现他们为何这么做。结果是：43% 的被调查者认为这种方式方便了不同语言间的调试，42% 的被调查者一向偏爱这种调试方式。然而，也有 27% 不了解如何开启 Go 语言的调试工具，24% 从未使用调试工具，所以需要改进调试工具，使它易于发现和使用，并整理成文档。此外，由于四分之一的被调查者从未尝试使用调试工具，相关的痛点很可能被低估。
 
 
 
@@ -96,29 +96,29 @@
 
 ![https://blog.golang.org/survey2020/prod.svg](https://blog.golang.org/survey2020/prod.svg)
 
-我们从各种传言种得知，Go 语言能迅速提高开发效率。于是我们向那些至少认为效率稍有提高的被调查者求证，问他们提高效率的过程有多少时间。结果有 93% 的被调查者的回答是不到一年，其中大多数只花了 3 个月的时间。
+我们从各种非正式渠道了解到，Go 语言能很快地提高开发效率。于是我们向那些至少认为效率稍有提高的被调查者求证，问他们花了多少时间提高效率。结果有 93% 的被调查者的回答是不到一年，其中大多数只花了 3 个月的时间。
 
 ![https://blog.golang.org/survey2020/prod_time.svg](https://blog.golang.org/survey2020/prod_time.svg)
 
 尽管认同“我在Go社区感到受欢迎”这一说法的受访者比例与去年大致相同，但它似乎随着时间的推移呈下降趋势，或者至少不像其他领域那样保持上升趋势。
 
-我们也发现，认为 Go 项目经理能理解项目需求的比例有显著提高，这一比例为 63%。
+我们也发现，认为 Go 项目经理能理解项目需求的比例有显著提高，达到了 63%。
 
-这些调查结果表明，从大约两年前开始，人们对 Go 开发经验的认同程度越高，就越有关联。换句话说，就是使用 Go 语言的时间越长，越有可能认同这些观点。
+这些调查结果表明，从大约两年前开始，人们对 Go 的认同度与开发经验呈正相关。换句话说，就是使用 Go 语言的时间越长，越有可能认同这些观点。
 
 ![https://blog.golang.org/survey2020/attitudes_community_yoy.svg](https://blog.golang.org/survey2020/attitudes_community_yoy.svg)
 
-我们还提出了一个开放性问题：如何让 Go 开发社区更受欢迎，收到的建议大部分是希望社区能提供各种形式的学习资源和文档，以及关于这些资料的改进建议。
+我们还提出了一个开放性问题：如何让 Go 开发社区更受欢迎，收到的建议大部分（21%）是希望社区能提供各种形式的学习资源和文档，以及关于这些资料的改进建议。
 
 ![https://blog.golang.org/survey2020/more_welcoming.svg](https://blog.golang.org/survey2020/more_welcoming.svg)
 
 ## 使用 Go 语言进行开发工作
 
-Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI（65%）。与去年相比，我们没有看到任何显著的变化，当时我们在选项排序中引入了随机化。（在 2019 年之前，我们选择了名单上开头的那几个选项，而且是不成比例的。）我们还按企业规模进行分类，发现大型企业和小型企业在这方面是相似的，虽然大型企业较少使用 Go 语言开发返回 HTML 的 web 服务。
+Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI（65%）。与去年相比，我们没有看到任何显著的变化，当时我们在选项排序中引入了随机化。（在 2019 年之前，候选列表开头的那几个选项的选择是不合理的。）我们还按企业规模进行分类，发现大型企业和小型企业对 Go 的反馈是相似的，虽然大型企业较少使用 Go 语言开发返回 HTML 的 web 服务。
 
 ![https://blog.golang.org/survey2020/app_yoy.svg](https://blog.golang.org/survey2020/app_yoy.svg)
 
-现在我们已经对受访者在家中使用的软件和在工作中使用的软件有了更深的理解。虽然返回 HTML 的 Web 服务在最常用的用例中排名第 4，这还是非工作使用。有更多的被调查者在自动化/脚本、代理、数据处理方面使用 Go 语言，而非用于开发 Web 服务。大部分最不常见的应用（桌面/GUI应用、游戏和移动应用）都是开发者在业余时间编写的。
+现在我们已经对受访者在家中使用的软件和在工作中使用的软件有了更深的理解。虽然返回 HTML 的 Web 服务在最常用的用例中排名第 4，这还是非工作使用。有更多的被调查者在自动化/脚本、代理、数据处理方面使用 Go 语言，而非用于开发 Web 服务。大部分最不常见的那些类型的应用（桌面/GUI 应用、游戏和移动应用）都是开发者在业余时间编写的。
 
 ![https://blog.golang.org/survey2020/app_context.svg](https://blog.golang.org/survey2020/app_context.svg)
 
@@ -142,9 +142,9 @@ Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI�
 
 ![https://blog.golang.org/survey2020/update_time.svg](https://blog.golang.org/survey2020/update_time.svg)
 
-## 模块
+## 使用 Go modules
 
-今年我们发现，Go 语言的各个模块都是普遍能用的，而且只使用模块来管理包的被调查者所占比例有明显提高。有 96% 的被调查者表示，他们使用模块对包进行管理，比去年的 89% 多。其中，只使用模块来管理包的被调查者从去年的 71% 增加到了今年的 87%。同时，其他的包管理工具的使用也减少了。
+今年我们发现，大家普遍在使用 Go modules，而且只把 Go modules 作为包管理工具的被调查者所占比例有明显提高。有 96% 的被调查者表示，他们使用 Go modules 对包进行管理，比去年的 89% 多。其中，只使用 Go modules 来管理包的被调查者从去年的 71% 增加到了今年的 87%。同时，其他包管理工具的使用比例也减少了。
 
 ![https://blog.golang.org/survey2020/modules_adoption_yoy.svg](https://blog.golang.org/survey2020/modules_adoption_yoy.svg)
 
@@ -158,7 +158,7 @@ Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI�
 
 ![https://blog.golang.org/survey2020/doc_struggles.svg](https://blog.golang.org/survey2020/doc_struggles.svg)
 
-官方文档中问题最大的领域是使用模块和 CLI 开发，20% 的受访者认为模块文档对他们略有帮助或没有帮助，16% 的受访者认为这是关于 CLI 开发的文档，不是他们需要的 Go 语言开发文档。
+官方文档中问题最大的领域是模块使用和 CLI 开发，20% 的受访者认为模块文档对他们略有帮助或没有帮助，16% 的受访者认为 CLI 开发文档对他们略有帮助或没有帮助。
 
 ![https://blog.golang.org/survey2020/doc_helpfulness.svg](https://blog.golang.org/survey2020/doc_helpfulness.svg)
 
@@ -166,16 +166,16 @@ Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI�
 
 Go 在设计时也加入了对分布式计算的支持，我们希望继续改进使用 Go 构建云服务的开发人员的体验。
 
-- 全球三大云服务供应商（Amazon、Google、Microsoft）的产品在受访者中的使用率持续上升，而其他供应商每年都只有很少的用户。特别是 Microsoft Azure增长 显著，从 7% 增至 12%。
+- 全球三大云服务供应商（Amazon Web Services、Google Cloud Platform、Microsoft Azure）的产品在受访者中的使用率持续上升，而其他供应商每年都只有很少的用户。特别是 Microsoft Azure 增长显著，从 7% 增至 12%。
 - 作为最常见的部署目标，对自有服务器的 On-prem 部署继续减少。
 
 ![https://blog.golang.org/survey2020/cloud_yoy.svg](https://blog.golang.org/survey2020/cloud_yoy.svg)
 
-部署到 AWS 和 Azure 的受访者发现，部署到托管 Kubernetes 平台的比例有所增加，目前分别为 40% 和 54%。Azure 的用户中，将 Go 程序部署于虚拟机的比例显著下降，容器的使用率从 18% 增长到了 25%。与此同时，GCP（已经有很高比例的受访者表示正在使用托管 Kubernetes）部署于无服务器云上的情况有所增长，从 10% 增长到 17%。
+部署到 AWS 和 Azure 的受访者中，部署到托管 Kubernetes 平台的比例有所增加，目前分别为 40% 和 54%。Azure 的用户中，将 Go 程序部署于虚拟机的比例显著下降，容器的使用率从 18% 增长到了 25%。与此同时，GCP（已经有很高比例的受访者表示正在使用托管 Kubernetes）部署于无服务器云上的情况有所增长，从 10% 增长到 17%。
 
 ![https://blog.golang.org/survey2020/cloud_services_yoy.svg](https://blog.golang.org/survey2020/cloud_services_yoy.svg)
 
-总体而言，大多数受访者对在三大云服务平台上 Go 的使用感到满意，统计数字与去年相比没有变化。受访者对 AWS 和 GCP 的 Go 开发服务满意度相似，分别达到 82% 和 80%。Azure 的满意度较低(满意率为 58%)，free-text 用户反馈意见中经常提到需要对 Azure 的 Go SDK 进行改进，以及 Go 对 Azure 功能的支持。
+总体而言，大多数受访者对在三大云服务平台上 Go 的使用感到满意，统计数字与去年相比没有变化。受访者对 AWS 和 GCP 的 Go 开发服务满意度相似，分别达到 82% 和 80%。Azure 的满意度较低(满意率为 58%)，能自由发表意见的用户反馈的意见中经常提到需要对 Azure 的 Go SDK 进行改进，以及加大对 Azure 函数的支持。
 
 ![https://blog.golang.org/survey2020/cloud_csat.svg](https://blog.golang.org/survey2020/cloud_csat.svg)
 
