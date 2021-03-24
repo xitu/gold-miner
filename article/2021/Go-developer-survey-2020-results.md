@@ -2,214 +2,214 @@
 > * 原文作者：Alice Merrick
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Go-developer-survey-2020-results.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[PingHGao](https://github.com/PingHGao), [PassionPenguin](https://github.com/PassionPenguin)
 
-# Go Developer Survey 2020 Results
+# 2020 年 Go 语言开发者调查报告
 
-In 2020, we had another great turnout with 9,648 responses, about [as many as 2019](https://blog.golang.org/survey2020-results). Thank you for putting in the time to provide the community with these insights on your experiences using Go!
+2020 年，有 9648 人参加了我们举行的投票活动，[跟 2019 年的情况差不多](https://blog.golang.org/survey2020-results)。感谢您抽出时间在本社区提出见解并分享您使用 Go 语言的经验。
 
-## New modular survey design
+## 新型模块化的调查问卷设计
 
-You may notice some questions have smaller sample sizes ("n=") than others. That's because some questions were shown to everyone while others were only shown to a random subset of respondents.
+你可能注意到，有些问题的样本数量比其他的少。那是因为这些问题面向所有参与调查的人，而其他的只针对一部分人。
 
-## Highlights
+## 亮点
 
-- Go usage is expanding in the workplace and enterprise with 76% of respondents using [Go at work](https://blog.golang.org/survey2020-results#TOC_4.1) and 66% saying [Go is critical to their company's success](https://blog.golang.org/survey2020-results#TOC_6.1).
-- [Overall satisfaction](https://blog.golang.org/survey2020-results#TOC_6.) is high with 92% of respondents being satisfied using Go.
-- The majority of [respondents felt productive](https://blog.golang.org/survey2020-results#TOC_6.2) in Go in less than 3 months, with 81% feeling very or extremely productive in Go.
-- Respondents reported [upgrading promptly to the latest Go version](https://blog.golang.org/survey2020-results#TOC_7.), with 76% in the first 5 months.
-- [Respondents using pkg.go.dev are more successful (91%)](https://blog.golang.org/survey2020-results#TOC_12.) at finding Go packages than non-users (82%).
-- Go [modules adoption is nearly universal](https://blog.golang.org/survey2020-results#TOC_8.) with 77% satisfaction, but respondents also highlight a need for improved docs.
-- Go continues to be heavily used for [APIs, CLIs, Web, DevOps & Data Processing](https://blog.golang.org/survey2020-results#TOC_7.).
-- [Underrepresented groups](https://blog.golang.org/survey2020-results#TOC_12.1) tend to feel less welcome in the community.
+- Go 语言在业界有着广泛的应用，76% 的被调查者[在工作中使用 Go 语言](https://blog.golang.org/survey2020-results#TOC_4.1)，66% 的被调查者认为[Go 语言非常重要，能助力企业获得成功](https://blog.golang.org/survey2020-results#TOC_6.1)。
+- Go 语言的[总体满意度](https://blog.golang.org/survey2020-results#TOC_6.)非常高，有 92% 的被调查者对 Go 的使用体验感到满意。
+- 在不到 3 个月的时间内，大多数被调查者认为 Go 语言能助力高效工作，而且有 81% 认为它非常高效。
+- 一些被调查者表示自己会[及时升级 Go 至最新版本](https://blog.golang.org/survey2020-results#TOC_7.)，其中有 76% 会在新版本发布后五个月内就更新。
+- 在查找程序包时，[使用 pkg.go.dev 的被调查者成功率高达 91%](https://blog.golang.org/survey2020-results#TOC_12.)，不使用 pkg.go.dev 的成功率只有 82%。
+- Go 语言的模块使用率高达 77%，但被调查者们也强调，Go 语言的相关文档需要改进。
+- Go 语言广泛应用于 [API, CLIs, Web, 运维和数据处理](https://blog.golang.org/survey2020-results#TOC_7.)等领域。
+- [Underrepresented groups](https://blog.golang.org/survey2020-results#TOC_12.1) tend to feel less welcome in the community.[代表性不足的那部分被调查者](https://blog.golang.org/survey2020-results#TOC_12.1)认为自己在社区不受欢迎。
 
-## Who did we hear from?
+## 我们的调查对象有哪些？
 
-Demographic questions help us distinguish which year-over-year differences may result from changes in who responded to the survey versus changes in sentiment or behavior. Because our demographics are similar to last year, we can be reasonably confident that other year-over-year changes aren't primarily due to demographic shifts.
+我们需要区分与去年相比发生的变化中，哪些是由于被调查者的感情或行为因素导致的，哪些是由于受访者群体变化而导致的。基于人口统计学原理的问卷设计有助于我们实现这个目的。由于我们今年使用的统计原理跟去年相似，我们有理由相信，这些变化很大程度上不是由于统计数据的变化导致的。
 
-For example, the distribution of organization sizes, developer experience, and industries remained about the same from 2019 to 2020.
+例如，公司规模、开发经验、所在行业的分布跟 2019 年相比，基本保持不变。
 
-![https://blog.golang.org/survey2020/orgsize.svg](https://blog.golang.org/survey2020/orgsize.svg)
 
-![https://blog.golang.org/survey2020/devex_yoy.svg](https://blog.golang.org/survey2020/devex_yoy.svg)
 
-![https://blog.golang.org/survey2020/industry_yoy.svg](https://blog.golang.org/survey2020/industry_yoy.svg)
 
-Almost half (48%) of respondents have been using Go for less than two years. In 2020, we had fewer responses from those using Go for less than a year.
 
-![https://blog.golang.org/survey2020/goex_yoy.svg](https://blog.golang.org/survey2020/goex_yoy.svg)
 
-Majorities said they use Go at work (76%) and outside of work (62%). The percentage of respondents using Go at work has been trending up each year.
 
-![https://blog.golang.org/survey2020/where_yoy.svg](https://blog.golang.org/survey2020/where_yoy.svg)
+大约一半（48%）的被调查者使用 Go 语言的经历少于两年。根据我们的调查结果，2020 年使用 Go 语言经历少于一年的开发者变少了。
 
-This year we introduced a new question on primary job responsibilities. We found that 70% of respondents’ primary responsibility is developing software and applications, but a significant minority (10%) are designing IT systems and architectures.
 
-![https://blog.golang.org/survey2020/job_responsibility.svg](https://blog.golang.org/survey2020/job_responsibility.svg)
 
-As in prior years, we found that most respondents are not frequent contributors to Go open-source projects, with 75% saying they do so "infrequently" or "never".
+大多数被调查者表示，他们在工作中、工作之外都有可能使用 Go 语言，其中工作中使用的占 76%，工作之外使用的占 62%。工作中使用 Go 语言的比例每年都呈上升趋势。
 
-![https://blog.golang.org/survey2020/foss_yoy.svg](https://blog.golang.org/survey2020/foss_yoy.svg)
 
-## Developer tools and practices
 
-As in prior years, the vast majority of survey respondents reported working with Go on Linux (63%) and macOS (55%) systems. The proportion of respondents who primarily develop on Linux appears to be slightly trending down over time.
+今年我们在问卷中加入了一个新的问题，是跟主要工作职责有关的。我们发现，有 70% 被调查者的工作职责是开发软件系统和应用程序，但也有少数（10%）是负责 IT 系统和架构的设计。
 
-![https://blog.golang.org/survey2020/os_yoy.svg](https://blog.golang.org/survey2020/os_yoy.svg)
 
-For the first time, editor preferences appear to have stabilized: VS Code remains the most preferred editor (41%), with GoLand a strong second (35%). Together these editors made up 76% of responses, and other preferences did not continue to decrease as they had in previous years.
 
-![https://blog.golang.org/survey2020/editor_pref_yoy.svg](https://blog.golang.org/survey2020/editor_pref_yoy.svg)
+我们发现，跟前几年一样，大多数被调查者很少为 Go 语言的开源社区贡献代码，在这个问题上，有 75% 的回答是“极少”或“从不”。
 
-This year we asked respondents to prioritize improvements to their editor by how much they would hypothetically spend if they had 100 “GopherCoins” (a fictional currency). Code completion received the highest average number of GopherCoins per respondent. Half of respondents gave the top 4 features (code completion, navigating code, editor performance and refactoring) 10 or more coins.
 
-![https://blog.golang.org/survey2020/editor_improvements_means.svg](https://blog.golang.org/survey2020/editor_improvements_means.svg)
 
-A majority of respondents (63%) spend 10–30% of their time refactoring, suggesting that this is a common task and we want to investigate ways to improve it. It also explains why refactoring support was one of the most-funded editor improvements.
+## 开发工具和实践
 
-![https://blog.golang.org/survey2020/refactor_time.svg](https://blog.golang.org/survey2020/refactor_time.svg)
+跟前几年一样，绝大多数被调查者称自己在 Linux 和 macOS 系统上进行 Go 应用开发，两者分别占 63% 和 55%。在 Linux 系统上进行开发的被调查者所占比例呈逐步下降趋势。
 
-Last year we asked about specific developer techniques and found that almost 90% of respondents were using text logging for debugging, so this year we added a follow-up question to find out why. Results show that 43% use it because it allows them to use the same debugging strategy across different languages, and 42% prefer to use text logging over other debugging techniques. However, 27% don't know how to get started with Go's debugging tools and 24% have never tried using Go's debugging tools, so there's an opportunity to improve the debugger tooling in terms of discoverability, usability and documentation. Additionally, because a quarter of respondents have never tried using debugging tools, pain points may be underreported.
 
-![https://blog.golang.org/survey2020/why_printf.svg](https://blog.golang.org/survey2020/why_printf.svg)
 
-## Sentiments towards Go
+对编辑器的偏好已经比较稳定，这还是第一次：VS Code 仍然是用得最多的编辑器(41%)，GoLand 以 35% 的份额紧随其后。两者一共占 76%，其他编辑器跟前几年一样，没有持续下降。
 
-For the first time, this year we asked about overall satisfaction. 92% of respondents said they were very or somewhat satisfied using Go during the past year.
 
-![https://blog.golang.org/survey2020/csat.svg](https://blog.golang.org/survey2020/csat.svg)
 
-This is the 3rd year we've asked the "Would you recommend…" [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter) (NPS) question. This year our NPS result is a 61 (68% "promoters" minus 6% "detractors"), statistically unchanged from 2019 and 2018.
+今年我们让被调查者对编辑器的改进事项进行优先级评估，具体做法是：如果每人有 100 个“GopherCoins”（一种虚拟货币），你会花费多少用于优化编辑器。结果是：每人平均用于代码自动完成花费的货币最多。有半数被调查者表示会花费 10 个或更多的货币用于四个方面（它们分别是代码自动完成、代码导航、编辑器性能和代码重构）。
+
+
+
+大多数被调查者（63%）需要花费 10–30% 的时间用于重构代码，这说明重构是一项公共任务，我们应当采取措施去改善这种情况。这也解释了为何代码重构是编辑器优化中花费成本最高的事项之一。
+
+
+
+去年，我们就一些技术问题询问了开发人员，发现几乎 90% 的被调查者都用文本形式的日志进行程序调试，因此我们今年增加了一个问题，对该现象进行后续跟踪，以便发现他们为何这么做。结果是：43% 的被调查者认为这种方式方便了不同语言间的调试，42% 的被调查者一向偏爱这种调试方式。然而，也有 27% 不了解如何开启 Go 语言的调试工具，24% 从未使用调试工具，所以需要改进调试工具，使它易于发现和使用，并整理成文档。此外，由于四分之一的被调查者从未尝试使用调试工具，相关的痛点很可能被低估。
+
+
+
+## 对 Go 语言的态度
+
+2020 年是我们第一次关注总体满意度。有 92% 的被调查者表示他们在过去的一年内对 Go 语言非常满意。
+
+
+
+这也是我们第三次询问被调查者“你会推荐...吗”，然后统计[净推荐值（NPS）](https://en.wikipedia.org/wiki/Net_Promoter)。今年我们经统计得到的 NPS 是 61（推荐的 68% 减去不推荐的 6%），跟前两年持平。
 
 ![https://blog.golang.org/survey2020/nps.svg](https://blog.golang.org/survey2020/nps.svg)
 
-Similar to previous years, 91% of respondents said they would prefer to use Go for their next new project. 89% said Go is working well for their team. This year we saw an increase in respondents who agreed that Go is critical to their company’s success from 59% in 2019 to 66% in 2020. Respondents working at organizations of 5,000 or more employees were less likely to agree (63%), while those at smaller organizations were more likely to agree (73%).
+跟去年相似，91% 被调查者表示，他们开发下一个新项目会优先考虑使用 Go 语言。89% 表示 Go 语言对他们的团队很有用。我们还发现，今年认为 Go 语言对企业的成功很重要的比例从去年的 59% 上升到了 68%。就职于 5000 人以上的公司的被调查者对这些观点的赞同率较低（63%），而在小型公司工作的被调查者中赞成率较高（73%）。
 
 ![https://blog.golang.org/survey2020/attitudes_yoy.svg](https://blog.golang.org/survey2020/attitudes_yoy.svg)
 
-Like last year, we asked respondents to rate specific areas of Go development according to satisfaction and importance. Satisfaction with using cloud services, debugging, and using modules (areas that last year were highlighted as opportunities for improvement) increased while most importance scores remained about the same. We also introduced a couple new topics: API and Web frameworks. We see that web frameworks satisfaction is lower than other areas (64%). It wasn't as critically important to most current users (only 28% of respondents said it was very or critically important), but it could be a missing critical feature for would-be Go developers.
+跟去年一样，我们让被调查者对 Go 语言在某些领域的满意度和重要性进行评价。在云服务、调试和模块领域，Go 语言的满意度增加了，但重要性仍然维持不变。我们也引入了两个新的领域：API 和 Web 架构。我们发现，在 Web 架构方面，Go 语言的满意度比其他领域低（64%）。这对大多数现有用户来说并不重要，但将要入行的新手会把这些因素考虑在内。
 
 ![https://blog.golang.org/survey2020/feature_sat_yoy.svg](https://blog.golang.org/survey2020/feature_sat_yoy.svg)
 
-81% of respondents said they felt very or extremely productive using Go. Respondents at larger organizations were more likely to feel extremely productive than those at smaller organizations.
+有 81% 的被调查者认为使用 Go 语言开发效率很高。就职于大公司的受访者比在小公司工作的更加普遍地赞同这种观点。 
 
 ![https://blog.golang.org/survey2020/prod.svg](https://blog.golang.org/survey2020/prod.svg)
 
-We’ve heard anecdotally that it’s easy to become productive quickly with Go. We asked respondents who felt at least slightly productive how long it took them to become productive. 93% said it took less than one year, with the majority feeling productive within 3 months.
+我们从各种非正式渠道了解到，Go 语言能很快地提高开发效率。于是我们向那些至少认为效率稍有提高的被调查者求证，问他们花了多少时间提高效率。结果有 93% 的被调查者的回答是不到一年，其中大多数只花了 3 个月的时间。
 
 ![https://blog.golang.org/survey2020/prod_time.svg](https://blog.golang.org/survey2020/prod_time.svg)
 
-Although about the same as last year, the percentage of respondents who agreed with the statement "I feel welcome in the Go community" appears to be trending down over time, or at least not holding to the same upward trends as other areas.
+尽管认同“我在 Go 社区感到受欢迎”这一说法的受访者比例与去年大致相同，但它似乎随着时间的推移呈下降趋势，或者至少不像其他领域那样保持上升趋势。
 
-We've also seen a significant year-over-year increase in the proportion of respondents who feel Go’s project leadership understands their needs (63%).
+我们也发现，认为 Go 项目经理能理解项目需求的比例有显著提高，达到了 63%。
 
-All of these results show a pattern of higher agreement correlated with increased Go experience, beginning at about two years. In other words, the longer a respondent has been using Go, the more likely they were to agree with each of these statements.
+这些调查结果表明，从大约两年前开始，人们对 Go 的认同度与开发经验呈正相关。换句话说，就是使用 Go 语言的时间越长，越有可能认同这些观点。
 
 ![https://blog.golang.org/survey2020/attitudes_community_yoy.svg](https://blog.golang.org/survey2020/attitudes_community_yoy.svg)
 
-We asked an open text question on what we could do to make the Go community more welcoming and the most common recommendations (21%) were related to different forms of or improvements/additions to learning resources and documentation.
+我们还提出了一个开放性问题：如何让 Go 开发社区更受欢迎，收到的建议大部分（21%）是希望社区能提供各种形式的学习资源和文档，以及关于这些资料的改进建议。
 
 ![https://blog.golang.org/survey2020/more_welcoming.svg](https://blog.golang.org/survey2020/more_welcoming.svg)
 
-## Working with Go
+## 使用 Go 语言进行开发工作
 
-Building API/RPC services (74%) and CLIs (65%) remain the most common uses of Go. We don't see any significant changes from last year, when we introduced randomization into the ordering of options. (Prior to 2019, options towards the beginning of the list were disproportionately selected.) We also broke this out by organization size and found that respondents use Go similarly at large enterprises or smaller organizations, although large orgs are a little less likely to use Go for web services returning HTML.
+Go 语言最普遍的使用场景包括：构建 API/RPC 服务（74%）和 CLI（65%）。与去年相比，我们没有看到任何显著的变化，当时我们在选项排序中引入了随机化。（在 2019 年之前，候选列表开头的那几个选项的选择是不合理的。）我们还按企业规模进行分类，发现大型企业和小型企业对 Go 的反馈是相似的，虽然大型企业较少使用 Go 语言开发返回 HTML 的 web 服务。
 
 ![https://blog.golang.org/survey2020/app_yoy.svg](https://blog.golang.org/survey2020/app_yoy.svg)
 
-This year we now have a better understanding of which kinds of software respondents write in Go at home versus at work. Although web services returning HTML is the 4th most common use case, this is due to non-work related use. More respondents use Go for automation/scripts, agents and daemons, and data processing for work than web services returning HTML. A greater proportion of the least common uses (desktop/GUI apps, games, and mobile apps) are being written outside of work.
+现在我们已经对受访者在家中使用的软件和在工作中使用的软件有了更深的理解。虽然返回 HTML 的 Web 服务在最常用的用例中排名第 4，这还是非工作使用。有更多的被调查者在自动化/脚本、代理、数据处理方面使用 Go 语言，而非用于开发 Web 服务。大部分最不常见的那些类型的应用（桌面/GUI 应用、游戏和移动应用）都是开发者在业余时间编写的。
 
 ![https://blog.golang.org/survey2020/app_context.svg](https://blog.golang.org/survey2020/app_context.svg)
 
-Another new question asked how satisfied respondents were for each use case. CLIs had the highest satisfaction, with 85% of respondents saying they were very, moderately or slightly satisfied using Go for CLIs. Common uses for Go tended to have higher satisfaction scores, but satisfaction and popularity don’t perfectly correspond. For example, agents and daemons has 2nd highest proportion of satisfaction but it’s 6th in usage.
+另一个新话题是 Go 语言在每个应用领域的满意度如何。在 CLI 领域的满意度是最高的，有 85% 的被调查者表示他们对此非常、一般或轻微的满意。在通用领域的应用也有较高的满意度，但满意度和通用程度并不是等同的。比如在代理和守护进程方面，满意度排名第 2，通用程度只能排名第 6。
 
 ![https://blog.golang.org/survey2020/app_sat_bin.svg](https://blog.golang.org/survey2020/app_sat_bin.svg)
 
-Additional follow-up questions explored different use cases, for example, which platforms respondents target with their CLIs. It's not surprising to see Linux (93%) and macOS (59%) highly represented, given the high developer use of Linux and macOS and high Linux cloud usage), but even Windows is targeted by almost a third of CLI developers.
+其他的问题关注了不同的用例，例如，受访者开发的 CLI 针对哪些平台。由于开发人员普遍使用 Linux 和 macOS 系统，有 93% 针对 Linux，59% 针对 macOS，这并不令人惊讶。但还是有近三分之一的 CLI 开发人员将 Windows 作为目标平台。
 
 ![https://blog.golang.org/survey2020/cli_platforms.svg](https://blog.golang.org/survey2020/cli_platforms.svg)
 
-A closer look at Go for data processing showed that Kafka is the only broadly adopted engine, but a majority of respondents said they use Go with a custom data processing engine.
+如果对 Go 在数据处理领域的应用一探究竟，可以发现，Kafka 是唯一兼容度较高的引擎，但大多数被调查者表示，他们使用的是定制的数据处理引擎。
 
 ![https://blog.golang.org/survey2020/dpe.svg](https://blog.golang.org/survey2020/dpe.svg)
 
-We also asked about larger areas in which respondents work with Go. The most common area by far was web development (68%), but other common areas included databases (46%), DevOps (42%) network programming (41%) and systems programming (40%).
+我们还询问了 Go 语言是否有更多的应用领域。结果表明，到目前为止，最通用的领域是 Web 开发（占比为 68%），其他领域包括数据库（42%）、运维（42%）、网络编程（41%）和系统编程（40%）。
 
 ![https://blog.golang.org/survey2020/domain_yoy.svg](https://blog.golang.org/survey2020/domain_yoy.svg)
 
-Similar to last year, we found that 76% of respondents evaluate the current Go release for production use, but this year we refined our time scale and found that 60% begin evaluating a new version before or within 2 months of release. This highlights the importance for platform-as-a-service providers to quickly support new stable releases of Go.
+与去年的情况类似，我们还发现，76% 的被调查者对当前版本的 Go 是否适合项目开发进行了评估，今年我们改进了时间尺度，发现有 60% 的被调查者在新版本发布前或两个月内开始评估。这种情况对于那些把平台作为一种服务提供给用户的供应商来说很重要，如果事先了解这种情况，它们可以快速支持稳定的新版 Go。
 
 ![https://blog.golang.org/survey2020/update_time.svg](https://blog.golang.org/survey2020/update_time.svg)
 
-## Modules
+## 使用 Go modules
 
-This year we found near-universal adoption for Go modules, and a significant increase in the proportion of respondents who only use modules for package management. 96% of respondents said they were using modules for package management, up from 89% last year. 87% of respondents said they were using *only* modules for package management, up from 71% last year. Meanwhile, the use of other package management tools has decreased.
+今年我们发现，大家普遍在使用 Go modules，而且只把 Go modules 作为包管理工具的被调查者所占比例有明显提高。有 96% 的被调查者表示，他们使用 Go modules 对包进行管理，比去年的 89% 多。其中，只使用 Go modules 来管理包的被调查者从去年的 71% 增加到了今年的 87%。同时，其他包管理工具的使用比例也减少了。
 
 ![https://blog.golang.org/survey2020/modules_adoption_yoy.svg](https://blog.golang.org/survey2020/modules_adoption_yoy.svg)
 
-Satisfaction with modules also increased from last year. 77% of respondents said they were very, moderately or slightly satisfied with modules, compared to 68% in 2019.
+各个模块的满意度也比去年高。有 77% 的被调查者表示，他们对模块非常、一般或比较满意，这一数据在 2019 年为 68%。
 
 ![https://blog.golang.org/survey2020/modules_sat_yoy.svg](https://blog.golang.org/survey2020/modules_sat_yoy.svg)
 
-## Official documentation
+## 官方文档
 
-Most respondents said they struggle with official documentation. 62% of respondents struggle to find enough information to fully implement a feature of their application and over a third have struggled to get started with something they haven’t done before.
+很多被调查者表示，他们阅读官方文档有困难。62% 的被调查者由于找不到足够的资料来实现应用程序所需功能而发愁，也有超过三分之一的开发者对学习他们以前没接触过的新事物感到困难。
 
 ![https://blog.golang.org/survey2020/doc_struggles.svg](https://blog.golang.org/survey2020/doc_struggles.svg)
 
-The most problematic areas of official documentation were on using modules and CLI development, with 20% of respondents finding modules documentation slightly or not at all helpful, and 16% for documentation around CLI development.
+官方文档中问题最大的领域是模块使用和 CLI 开发，20% 的受访者认为模块文档对他们略有帮助或没有帮助，16% 的受访者认为 CLI 开发文档对他们略有帮助或没有帮助。
 
 ![https://blog.golang.org/survey2020/doc_helpfulness.svg](https://blog.golang.org/survey2020/doc_helpfulness.svg)
 
-## Go in the clouds
+## Go 在云计算领域的应用
 
-Go was designed with modern distributed computing in mind, and we want to continue to improve the developer experience of building cloud services with Go.
+Go 在设计时也加入了对分布式计算的支持，我们希望继续改进使用 Go 构建云服务的开发人员的体验。
 
-- The three largest global cloud providers (Amazon Web Services, Google Cloud Platform, and Microsoft Azure) continue to increase in usage among survey respondents, while most other providers are used by a smaller proportion of respondents each year. Azure in particular had a significant increase from 7% to 12%.
-- On-prem deployments to self-owned or company-owned servers continue to decrease as the most common deployment targets.
+- 全球三大云服务供应商（Amazon Web Services、Google Cloud Platform、Microsoft Azure）的产品在受访者中的使用率持续上升，而其他供应商每年都只有很少的用户。特别是 Microsoft Azure 增长显著，从 7% 增至 12%。
+- 作为最常见的部署目标，对自有服务器的 On-prem 部署继续减少。
 
 ![https://blog.golang.org/survey2020/cloud_yoy.svg](https://blog.golang.org/survey2020/cloud_yoy.svg)
 
-Respondents deploying to AWS and Azure saw increases in deploying to a managed Kubernetes platform, now at 40% and 54%, respectively. Azure saw a significant drop in the proportion of users deploying Go programs to VMs and some growth in container usage from 18% to 25%. Meanwhile, GCP (which already had a high proportion of respondents reporting managed Kubernetes use) saw some growth in deploying to serverless Cloud Run from 10% to 17%.
+部署到 AWS 和 Azure 的受访者中，部署到托管 Kubernetes 平台的比例有所增加，目前分别为 40% 和 54%。Azure 的用户中，将 Go 程序部署于虚拟机的比例显著下降，容器的使用率从 18% 增长到了 25%。与此同时，GCP（已经有很高比例的受访者表示正在使用托管 Kubernetes）部署于无服务器云上的情况有所增长，从 10% 增长到 17%。
 
 ![https://blog.golang.org/survey2020/cloud_services_yoy.svg](https://blog.golang.org/survey2020/cloud_services_yoy.svg)
 
-Overall, a majority of respondents were satisfied with using Go on all three major cloud providers, and the figures are statistically unchanged from last year. Respondents reported similar satisfaction levels with Go development for AWS (82% satisfied) and GCP (80%). Azure received a lower satisfaction score (58% satisfied), and free-text responses often cited a need for improvements to Azure's Go SDK and Go support for Azure functions.
+总体而言，大多数受访者对在三大云服务平台上 Go 的使用感到满意，统计数字与去年相比没有变化。受访者对 AWS 和 GCP 的 Go 开发服务满意度相似，分别达到 82% 和 80%。Azure 的满意度较低(满意率为 58%)，能自由发表意见的用户反馈的意见中经常提到需要对 Azure 的 Go SDK 进行改进，以及加大对 Azure 函数的支持。
 
 ![https://blog.golang.org/survey2020/cloud_csat.svg](https://blog.golang.org/survey2020/cloud_csat.svg)
 
-## Pain points
+## 痛点
 
-The top reasons respondents say they are unable to use Go more remain working on a project in another language (54%), working on a team that prefers to use another language (34%), and the lack of a critical feature in Go itself (26%).
+在无法使用 Go 进行开发的原因中，前几位仍然是：目前以其他语言作为开发语言（占 54%）、目前开发团队使用其他语言进行开发（占 34%）和 Go 语言本身缺少某些重要特性（占 26%）。
 
-This year we introduced a new option, “I already use Go everywhere I would like to,” so that respondents could opt out of making selections that don't prevent them from using Go. This significantly lowered the rate of selection of all other options, but did not change their relative ordering. We also introduced an option for “Go lacks critical frameworks”.
+今年，我们推出了一个新的选项——“我已经可以在任何需要的场景下使用 Go 语言”，这样受访者就可以选择不做不妨碍他们使用 Go 的选择。这大大降低了所有其他选项的选择率，但没有改变它们的相对顺序。我们还引入了 “Go  语言缺乏关键框架”的选项。
 
-If we look at only the respondents who selected reasons for not using Go, we can get a better idea of year-over-year trends. Working on an existing project in another language and project/team/lead preference for another language are decreasing over time.
+如果我们只关心那些填写不使用 Go 的原因的受访者，我们就能更好地了解每年的趋势。在现有的项目中使用另一种语言，项目/团队/领导对另一种语言的偏好会随着时间的推移而减少。
 
 ![https://blog.golang.org/survey2020/goblockers_yoy_sans_na.svg](https://blog.golang.org/survey2020/goblockers_yoy_sans_na.svg)
 
-Among the 26% of respondents who said Go lacks language features they need, 88% selected generics as a critical missing feature. Other critical missing features were better error handling (58%), null safety (44%), functional programming features(42%) and a stronger / expanded type system (41%).
+26% 的受访者认为 Go 缺乏他们需要的语言特性，88% 的人认为泛型是 Go 语言缺少的关键特性。其他关键缺失的特性有：更好的错误处理(58%)、对 null 值的安全措施(44%)、函数式编程特性(42%)和更强/扩展类型系统(41%)。
 
-To be clear, these numbers are from the subset of respondents who said they would be able to use Go more were it not missing one or more critical features they need, not the entire population of survey respondents. To put that in perspective, 18% of respondents are prevented from using Go because of a lack of generics.
+需要明确的是，这些数据只是来自那些表示如果 Go 能提供他们所需要的一些关键功能，他们就会更多地使用 Go 的受访者子集，而不是所有受访者。从这个角度来看， 18% 的受访者是因为缺少他们需要的泛型而不使用 Go。
 
 ![https://blog.golang.org/survey2020/missing_features.svg](https://blog.golang.org/survey2020/missing_features.svg)
 
-The top challenge respondents reported when using Go was again Go's lack of generics (18%), while modules/package management and problems with learning curve/best practices/docs were both 13%.
+使用 Go 语言最大的挑战是缺少泛型（占比 18%），而模块/包管理工具和学习曲线/最佳实践/文档方面的问题都占 13%。
 
 ![https://blog.golang.org/survey2020/biggest_challenge.svg](https://blog.golang.org/survey2020/biggest_challenge.svg)
 
-## The Go community
+## Go 开发者社区
 
-This year we asked respondents for their top 5 resources for answering their Go-related questions. Last year we only asked for top 3, so the results aren't directly comparable, however, StackOverflow remains the most popular resource at 65%. Reading source code (57%) remains another popular resource while reliance on godoc.org (39%) has significantly decreased. The package discovery site pkg.go.dev is new to the list this year and was a top resource for 32% of respondents. Respondents who use pkg.go.dev are more likely to agree they are able to quickly find Go packages / libraries they need: 91% for pkg.go.dev users vs. 82% for everyone else.
+今年我们要求被调查者提供 5 个他们经常使用的问答网站。去年我们只要求提供 3 个，所以结果不能直接比较，然而，StackOverflow 仍然是最热门的，有 65% 的被调查者在使用。源代码仍然是热门的学习资源（占比 57%），而对于 godoc.org 网站的依赖已经明显下降（只占 39%）。查找包的网站 pkg.go.dev 是今年新加入的，已经成为了 32% 受调查者的首选。使用 pkg.go.dev 的受调查者更多地认为：他们可以更快地找到需要的包。91% 选择使用 pkg.go.dev，82% 选择其他网站。
 
 ![https://blog.golang.org/survey2020/resources.svg](https://blog.golang.org/survey2020/resources.svg)
 
-Over the years, the proportion of respondents who do not attend any Go-related events has been trending up. Due to Covid-19, this year we modified our question around Go events, and found over a quarter of respondents have spent more time in online Go channels than in prior years, and 14% attended a virtual Go meetup, twice as many as last year. 64% of those who attended a virtual event said this was their first virtual event.
+随着时间的推移，被调查者中不再参加与 Go 有关的线下活动的比例不断增加。由于新冠肺炎疫情，我们修改了相关问题，发现超过四分之一的被调查者花在参与线上活动的时间比去年多，有 14% 参加过一场以 Go 开发为主题的虚拟聚会，是去年的两倍。其中，有 64% 表示这是他们参加的第一场虚拟会议。
 
 ![https://blog.golang.org/survey2020/events.svg](https://blog.golang.org/survey2020/events.svg)
 
-We found 12% of respondents identify with a traditionally underrepresented group (e.g., ethnicity, gender identity, et al.), the same as 2019, and 2% identify as women, fewer than in 2019 (3%). Respondents who identified with underrepresented groups showed higher rates of disagreement with the statement "I feel welcome in the Go community" (10% vs. 4%) than those who do not identify with an underrepresented group. These questions allow us to measure diversity in the community and highlight opportunities for outreach and growth.
+我们发现，有 12% 的受访者来自于传统上代表性不足的群体(如少数族裔、少数性别等)，这一比例与 2019 年相同。有 2% 的受访者是女性，低于 2019 年的 3%。来自代表性不足群体的受访者更不认同 “我在 Go 社区比较受欢迎”( 10% vs. 4%)。这些问题让我们能够衡量社区的多样性，并强调拓展和增长的机会。
 
 ![https://blog.golang.org/survey2020/underrep.svg](https://blog.golang.org/survey2020/underrep.svg)
 
@@ -217,15 +217,15 @@ We found 12% of respondents identify with a traditionally underrepresented group
 
 ![https://blog.golang.org/survey2020/welcome_underrep.svg](https://blog.golang.org/survey2020/welcome_underrep.svg)
 
-We added an additional question this year on assistive technology usage, and found that 8% of respondents are using some form of assistive technology. The most commonly used assistive tech was contrast or color settings (2%). This is a great reminder that we have users with accessibility needs and helps drive some of our design decisions on websites managed by the Go team.
+今年我们额外增加了一个关于辅助技术使用的问题，发现 8% 的受访者正在使用某种形式的辅助技术。最常用的辅助技术是对比度或颜色设置(有 2% 受访者在使用)。这及时地提醒我们，我们有很多有着典型需求的用户，这也能促使我们的设计团队去满足这些需求。
 
 ![https://blog.golang.org/survey2020/at.svg](https://blog.golang.org/survey2020/at.svg)
 
-The Go team values diversity and inclusion, not simply as the right thing to do, but because diverse voices can illuminate our blindspots and ultimately benefit all users. The way we ask about sensitive information, including gender and traditionally underrepresented groups, has changed according to data privacy regulations and we hope to make these questions, particularly around gender diversity, more inclusive in the future.
+Go 团队注重多样性和包容性，这不仅仅是正确的做法，更是因为不同的声音可以照亮我们的盲点，并最终使所有用户受益。根据数据隐私法规，我们询问敏感信息的方式，包括性别和是否属于传统上代表性不足的群体，已经发生了变化，我们希望在未来让这些问题，特别是关于性别多样性的问题更具包容性。
 
-## Conclusion
+## 结论
 
-Thank you for joining us in reviewing the results of our 2020 developer survey! Understanding developers’ experiences and challenges helps us measure our progress and directs the future of Go. Thanks again to everyone who contributed to this survey—we couldn't have done it without you. We hope to see you next year!
+感谢您阅读我们这篇 2020 年开发者调查报告。了解开发者的经历和他们面临的困难将帮助我们检验自身，引导 Go 语言的未来。再次感谢所有参与这次调查的人们——没有你们，我们做不到。期待明年再次相遇。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
@@ -233,4 +233,3 @@ Thank you for joining us in reviewing the results of our 2020 developer survey! 
 
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
