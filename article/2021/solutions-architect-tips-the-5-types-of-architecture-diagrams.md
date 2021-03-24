@@ -5,9 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# Solutions Architect Tips — The 5 Types of Architecture Diagrams
-
-#### The flow, service, persona, infrastructure, and developer diagram
+# Solutions Architect Tips —  The 5 Types of Architecture Diagrams
 
 ![Photo by [Kelly Sikkema](https://unsplash.com/@kellysikkema?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](/s/photos/draw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).](https://cdn-images-1.medium.com/max/2396/1*MN6xL8rToYH0n5ZOqr_2tA.jpeg)
 
@@ -33,8 +31,6 @@ Today, we are going to talk about the five different types of diagrams you shoul
 
 We will take an example from my fake business but real API, [Gopher Holes Unlimited](https://github.com/allenheltondev/gopher-holes-unlimited), where we add a new gopher into the system to be tracked.
 
----
-
 ## 1. The Flow Diagram
 
 The most generic and generally broadest-reaching diagram you can make is the flow diagram. It is a medium- to high-level diagram that shows all the pieces of a workflow.
@@ -52,8 +48,6 @@ The audience for this type of diagram is generally technical. It may be used to 
 The major component of the **architecture flow diagram** is the inclusion of all the moving parts. In the case of our [serverless AWS environment](https://betterprogramming.pub/serverless-you-keep-using-that-word-i-do-not-think-it-means-what-you-think-it-means-c7d5516a5ecc), we label each managed service and which ones communicate with each other.
 
 No details on how the pieces interact with each other are described, but the diagram does show the connections. It shows how data flows through the system.
-
----
 
 ## 2. The Service Diagram
 
@@ -73,8 +67,6 @@ When building an **architecture service diagram**, it’s good to list all the m
 
 Details on how the services work are not necessary for this high-level diagram. This is all about the services that make an application run.
 
----
-
 ## 3. The Persona Diagram
 
 It is important to show that your architecture solves the business problem. A persona diagram describes a chronological view and actors in a particular workflow. This is your best tool for proving that you’ve taken the business into consideration when developing your solution.
@@ -90,8 +82,6 @@ Business-oriented individuals and product owners are the intended audiences for 
 The **architecture persona diagram** dips into the [BPMN model](https://www.bpmn.org/) a little bit. Make use of swim lanes to show the different actors in a workflow. This type of diagram tends to be lower-level, as it includes more detail than the others. Be sure to label the personas, the workflow, and any assumptions of how the business process gets from one step to the other.
 
 These diagrams also help developers who are new to a domain and offer insightful context into what they will be building.
-
----
 
 ## 4. The Infrastructure Diagram
 
@@ -110,8 +100,6 @@ Technical people will be the primary consumers of your infrastructure diagram. S
 #### Considerations
 
 When building an **architecture infrastructure diagram**, don’t leave out any pieces. The goal of this type of diagram is to show everything in your app and how it all connects. You don’t need to go into too much detail on **how** it works but rather focus on getting all the pieces of your app included in the diagram.
-
----
 
 ## 5. The Developer Diagram
 
@@ -135,8 +123,6 @@ The **architecture developer diagram** is essentially the **flow diagram** with 
 
 This type of diagram does not replace user stories, but it does help enhance them and increase understanding across a development team. Use them when you can because when the implementation is done, you’ll have a useful artifact to reference in the future.
 
----
-
 ## Conclusion
 
 There are many types of architecture diagrams. Each one serves a unique purpose and many serve different audiences. As a solutions architect, you must be able to provide the right type of diagram to the right people when pitching your ideas.
@@ -151,7 +137,7 @@ A picture is worth a thousand words, but when it comes to architecture diagrams,
 
 With the ability to build different types of diagrams for different audiences, you set yourself up for success.
 
-**P.S. I always use [draw.io](https://draw.io/) to build my diagrams. It is a free tool that provides everything you need to make beautiful, comprehensive charts, models, and diagrams.**
+> **P.S. I always use [draw.io](https://draw.io/) to build my diagrams. It is a free tool that provides everything you need to make beautiful, comprehensive charts, models, and diagrams.**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
