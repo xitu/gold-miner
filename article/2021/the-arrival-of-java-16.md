@@ -2,54 +2,52 @@
 > * 原文作者：[Sharat Chander](https://blogs.oracle.com/author/sharat-chander)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-arrival-of-java-16.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-arrival-of-java-16.md)
-> * 译者：
+> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# The Arrival of Java 16
+# Java 16 发布啦
 
 ![](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/ed5569e8-c0dd-458c-8450-cde6300093bd/File/a5023b0f0fb67f59176a0499af9021ed/java_horz_clr.png)
 
-[Follow OpenJDK on Twitter](https://twitter.com/OpenJDK)
+在我们庆祝 Java 成立 [25 周年之际](https://www.oracle.com/java/moved-by-java/)，2020 年对于 Java 来说是值得纪念的一年。经过了 20 多年的创新，Java 一直是：
 
-2020 proved to be a memorable year for Java as we celebrated its [25th birthday](https://www.oracle.com/java/moved-by-java/). With over two decades of innovation, Java has continued to be:
+* 通过适应不断变化的技术格局而保持平台独立性，从而具有灵活性。
+* 通过保持向后兼容性来保证可靠性。
+* 通过在不牺牲安全性的情况下加速创新来表现。
 
-* Flexible by adapting to the changing technology landscape while remaining platform independent.
-* Reliable by retaining backwards compatibility.
-* Performant by accelerating innovation without sacrificing security.
+加上 Java 不断提高平台性能，稳定性和安全性的能力，它仍然是开发者中世界上最受欢迎的编程语言。根据 IDC 的最新报告 [Java Turns 25](https://www.oracle.com/a/ocom/resources/java-turns-25.pdf)，超过 900 万名开发者（占全球全职开发者的 69％）使用 Java —— 比任何其他语言都多。
 
-Coupled with Java’s ability to boost performance, stability and security of the platform along the way, it continues to be the world’s most popular programming language among developers. According to IDC’s latest report “[Java Turns 25](https://www.oracle.com/a/ocom/resources/java-turns-25.pdf)”, over nine million developers representing 69% of full-time developers worldwide use Java – more than any other language.
-
-Further demonstrating Java’s path of continued innovation, Oracle is proud to announce the general availability of Java 16 representing the seventh feature release as part of the six-month cadence. This level of predictability allows developers to more easily manage their adoption of innovation thanks to a steady stream of expected changes.
+Oracle 进一步展示了 Java 的持续创新之路，并自豪地宣布 Java 16 的全面 Release，这是六个月紧张开发中的第七个功能版本的 Release。源源不断的预期变化让开发者可以更轻松地管理他们对创新建议的采纳。
 
 ![](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/ed5569e8-c0dd-458c-8450-cde6300093bd/Image/1b71450b94c7e38e2ca7981ba45246f4/features_in_java16.png)
 
-## Java 16 is now available!
+## Java 16 现在可用了！
 
-Oracle now offers [Java 16 for all developers and enterprises](https://www.oracle.com/news/announcement/oracle-announces-java-16-031621.html). Oracle JDK 16 will receive a minimum of two quarterly updates, per the [Oracle Critical Patch Update (CPU) schedule](https://www.oracle.com/technetwork/topics/security/alerts-086861.html), before being followed by Oracle JDK 17. Java 17 will reach general availability on September 2021, but early [access builds](https://jdk.java.net/17/) are already being offered at jdk.java.net.
+Oracle 现在[为所有开发者和企业](https://www.oracle.com/news/announcement/oracle-announces-java-16-031621.html)正式提供 [Java 16](https://www.oracle.com/news/announcement/oracle-announces-java-16-031621.html)。根据 [Oracle 关键补丁更新（CPU，Critical Patch Update）时间表](https://www.oracle.com/technetwork/topics/security/alerts-086861.html)，Oracle JDK 16 将至少获得两个季度的更新，然后我们会再发布 Oracle JDK 17。Java 17 将在 2021 年 9 月实现全面可用性，但是早已在 [jdk.java.net](https://jdk.java.net/) 网站上提供了[构建版本](https://jdk.java.net/17/)。
 
-Once again, Oracle provides Java 16 as the [Oracle OpenJDK release](https://jdk.java.net/15/) using the open source GNU General Public License v2, with the Classpath Exception (GPLv2+CPE), and also under a [commercial license](https://oracle.com/javadownload) for those using the Oracle JDK release as part of an Oracle product or service, or for those who want to be able to get commercial support.
+Oracle 再次使用开源 GPLv2 协议 和 CPE 协议将 Java 16 作为 [Oracle OpenJDK 版本](https://jdk.java.net/15/)[](https://oracle.com/javadownload)向大家提供，并且对于使用 Oracle JDK 版本作为 Oracle 产品或服务，或针对那些希望能够获得商业支持的人的那一部分的用户，也获得了[商业许可](https://oracle.com/javadownload)。
 
-## Java 16, Together
+**Java 16，Together**
 
-Similar to previous releases, we continue to celebrate the contributions made to Java 16 from many individuals and organizations in the OpenJDK Community — we all build Java, together!
+与以前的发行版相似，我们将继续感谢 OpenJDK 社区中许多个人和组织对 Java 16 所做的贡献 —— 我们共同构建了 Java！
 
-## JDK 16 Fix Ratio
+**JDK 16 固定开发率**
 
-The overall rate of change over time in the JDK has remained essentially constant for many years, but under the six-month cadence the pace at which production-ready innovations are delivered has vastly improved.
+JDK 的总体变化率多年来一直保持基本恒定，但是在六个月的紧张开发节奏下，交付可用于生产的产品的速度已大大提高。
 
-Instead of making tens of thousands of fixes and around one hundred JDK Enhancement Proposals (JEPs) available in a large major release every few years, enhancements are delivered in smaller Feature releases on a more manageable, predictable six-month schedule. These changes can range from a significant feature to small enhancements to routine maintenance, bug fixes, and documentation improvements. Each change is represented in a single commit for a single issue in the [JDK Bug System](https://bugs.openjdk.java.net/secure/Dashboard.jspa).
+我们不再每隔几年在大型主要版本中发布成千上万的修复程序和大约一百个 JDK 增强建议（JEP），而是选择以更易于管理且可预测的六个月计划，在较小的 Feature 版本中提供增强功能。这些更改的范围从重要功能到小的增强功能，到例行维护，错误修复和文档改进。对于 [JDK Bug 系统中](https://bugs.openjdk.java.net/secure/Dashboard.jspa)的每一个问题和更改，我们都以单个提交的形式呈现。
 
-Of the [1,897](https://bugs.openjdk.java.net/issues/?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20(comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22)%20AND%20(labels%20not%20in%20(hgupdate-sync)%20OR%20labels%20is%20EMPTY)%20%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC) issues marked as fixed in Java
-16, [1,397](https://bugs.openjdk.java.net/browse/JDK-8246707?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20(comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22)%20%20AND%20(labels%20not%20in%20(hgupdate-sync)%20OR%20labels%20is%20EMPTY)%20AND%20assignee%20in%20membersOf(oracle-employees)%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC) were completed by people working for Oracle
-while [500](https://bugs.openjdk.java.net/browse/JDK-8257574?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20(comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22)%20%20AND%20(labels%20not%20in%20(hgupdate-sync)%20OR%20labels%20is%20EMPTY)%20AND%20assignee%20not%20in%20%20membersOf(oracle-employees)%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC) were contributed by individual developers and developers working for other organizations. Going through the issues and collating the organization data from assignees results in the following chart of organizations sponsoring the development of fixes in Java 16:
+在 Java 16
+中标记为已解决的 [1,897 个](https://bugs.openjdk.java.net/issues/?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20%28comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22%29%20AND%20%28labels%20not%20in%20%28hgupdate-sync%29%20OR%20labels%20is%20EMPTY%29%20%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC)问题中，有 [1,397](https://bugs.openjdk.java.net/browse/JDK-8246707?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20%28comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22%29%20%20AND%20%28labels%20not%20in%20%28hgupdate-sync%29%20OR%20labels%20is%20EMPTY%29%20AND%20assignee%20in%20membersOf%28oracle-employees%29%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC)
+个由 Oracle 工作人员解决了，而另外的 [500](https://bugs.openjdk.java.net/browse/JDK-8257574?jql=project%20%3D%20JDK%20AND%20fixVersion%20%3D%2016%20AND%20resolution%20%3D%20Fixed%20AND%20(comment%20~%20%22URL%3A%20http%3A%2F%2Fhg.openjdk.java.net%22%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fhg.openjdk.java.net%22%20%20OR%20comment%20~%20%22URL%3A%20https%3A%2F%2Fgit.openjdk.java.net%2F%22)%20%20AND%20(labels%20not%20in%20(hgupdate-sync)%20OR%20labels%20is%20EMPTY)%20AND%20assignee%20not%20in%20%20membersOf(oracle-employees)%20ORDER%20BY%20updated%20DESC%2C%20assignee%20ASC) 个则由个人开发者和为其他组织工作的开发者解决。仔细研究这些问题并整理来自受让人的组织数据，将得到以下组织结构图。该组织结构图由助力 Java 16 中的修补程序的开发的人员构成：
 
-![](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/ed5569e8-c0dd-458c-8450-cde6300093bd/Image/2cc5607809bb9fd699031aabc26528bd/java_16_fixes_by_org.png)
+![](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/515b6bd1c2b3439b883b450c9af979d0~tplv-k3u1fbpfcp-zoom-1.image)
 
-Oracle would like to thank the developers working for organizations like ARM, SAP, Red Hat and Tencent for their notable contributions. We are also thankful to see contributions from smaller organizations such as Ampere Computing, Bellsoft, DataDog, Microdoc and independent developers who collectively contributed 3% of the fixes in Java 16.
+Oracle 感谢在 ARM、SAP、Red Hat 和腾讯等组织工作的开发者所做的杰出贡献。我们也很高兴看到较小的组织（例如 Ampere Computing、Bellsoft、DataDog、Microdoc 和其他独立开发者）的贡献，他们共同贡献了Java 16 中 3％ 的修复程序。
 
-We are equally grateful to the the many experienced developers who reviewed proposed changes, the early adopters who tried out early access builds and reported issues, and the dedicated professionals who provided feedback on the OpenJDK mailing lists.
+我们同样感谢众多经验丰富的开发者，他们审查了提议的更改，尝试采用早期访问版本并报告问题的早期采用者，以及在OpenJDK邮件列表中提供反馈的敬业专业人员。
 
-The following individuals provided invaluable feedback on build quality, logged good quality bugs or offered frequent updates:
+以下人员提供了有关构建质量的宝贵反馈，记录了高质量的错误或提供了频繁的更新：
 
 * Jaikiran Pai (Apache Ant)
 * Gary Gregory (Apache Commons)
@@ -59,13 +57,13 @@ The following individuals provided invaluable feedback on build quality, logged 
 * Enrico Olivelli (Apache Zookeeper)
 * Rafale Winterhalter (Byte Buddy)
 * Peter Karich (Graph Hopper)
-* Evgeny Mandikov (JaCoCo)
+* Evgeny Yavits (JaCoCo)
 * Marc Hoffman (JaCoCo)
 * Vincent Privat (JOSM)
 * Christain Stein (JUnit 5)
 * David Karnok (RxJava)
 
-Additionally, through the [Quality Outreach](https://wiki.openjdk.java.net/display/quality/Quality+Outreach) program we would like to thank the following FOSS projects and individuals who provided excellent feedback on testing Java 16 early access builds to help improve the quality of the release.
+此外，通过 [质量拓展](https://wiki.openjdk.java.net/display/quality/Quality+Outreach)计划，我们要感谢以下 FOSS 项目和个人，他们为测试 Java 16 早期访问版本提供了出色的反馈，以帮助提高发行版的质量。
 
 * Apache Ant
 * Apache Derby (Rich Hillegas)
@@ -92,115 +90,115 @@ Additionally, through the [Quality Outreach](https://wiki.openjdk.java.net/displ
 * Sejda
 * PDFsam (Andrea Vacondio)
 
-## New in Java 16
+**Java 16 的新功能**
 
-Along with thousands of performance, stability and security updates, Java 16 offers users [seventeen main enhancements/changes](https://openjdk.java.net/projects/jdk/16/) (known as [JDK Enhancement Proposals - JEPs](https://openjdk.java.net/jeps/1)), including three incubator modules and one preview feature.
+伴随着数千个性能、稳定性和安全性上的更新，Java 16 为用户提供了共计 [17 项主要的增强、更改](https://openjdk.java.net/projects/jdk/16/)（称为 [JDK 增强建议，JEP](https://openjdk.java.net/jeps/1)），包括三个孵化器模块和一个预览功能。
 
-Some enhancements are introduced in [Incubator modules](https://openjdk.java.net/jeps/11), a means of putting non-final APIs and non-final tools in the hands of developers that allows users to offer feedback that can ultimately improve the quality of the Java platform.
+我们在[孵化器模块](https://openjdk.java.net/jeps/11)中引入了一些增强功能，这是一种将非最终 API 和非最终工具交付给开发者的方法，允许用户提供反馈，从而最终改善 Java 平台的质量。
 
-Similarly, some enhancements are introduced as [Preview features](https://openjdk.java.net/jeps/12), language or VM features of the Java SE Platform that are fully specified, fully implemented, and yet impermanent. They are made available in JDK feature releases to provoke developer feedback based on real-world use, which may lead to them becoming permanent in a future release. This offers users the chance to provide timely feedback, as well as allowing tool vendors the opportunity to build support for the feature before the bulk of Java developers use it in production.
+同样，引入了一些增强功能，它们是 Java SE 平台的[预览功能](https://openjdk.java.net/jeps/12)、语言或 VM 功能，这些功能已完全确定、完全实现但不是永久性的。我们在 JDK 功能版本中提供了这些功能，以激发开发者根据实际使用情况提供的反馈，这可能影响它们，让它们在以后的版本中成为永久性功能。这种方法为用户提供了及时提供反馈的机会，并且使工具供应商有机会在大量 Java 开发者在生产中使用该功能之前为其提供支持。
 
-The 17 JEPs delivered with Java 16 have been grouped into six different categories:
+Java 16 随附的 17 个 JEP 共分为六个不同类别：
 
-### 1. New Language Features
+**1. 新语言功能**
 
-**[JEP 394](https://openjdk.java.net/jeps/394)** **Pattern Matching for** **instanceof**
+**[JEP 394](https://openjdk.java.net/jeps/394) Pattern Matching 的 instanceof**
 
-First introduced as a preview feature in [Java 14](https://openjdk.java.net/jeps/305) and again in [Java 15](https://openjdk.java.net/jeps/375), Pattern Matching enhances the Java programming language with pattern matching for the instanceof operator.
+Pattern Matching 首次在 [Java 14 中](https://openjdk.java.net/jeps/305)作为预览功能引入，在 [Java 15 中](https://openjdk.java.net/jeps/375)我们又将其作为预览功能引入。Pattern Matching 通过对 instanceof 运算符进行模式匹配来增强 Java 编程语言的功能。
 
-Pattern matching allows common logic in a program, namely the conditional extraction of components from objects, to be expressed more concisely and safely.
+模式匹配使程序中的通用逻辑（即从对象中有条件地提取组件）得以更简洁，更安全地表示。
 
-**[JEP 395](https://openjdk.java.net/jeps/395)** **Records**
+**[JEP 395](https://openjdk.java.net/jeps/395) Records**
 
-Also first introduced as a preview feature in [Java 14](https://openjdk.java.net/jeps/359) and again in [Java 15](https://openjdk.java.net/jeps/384), Records provide a compact syntax for declaring classes which are transparent holders for shallowly immutable data. *This will significantly reduce the verbosity of these classes and improve code readability and maintainability.*
+Record 也是在 [Java 14](https://openjdk.java.net/jeps/359) 和 [Java 15](https://openjdk.java.net/jeps/384) 中作为预览功能引入的，提供了一种紧凑的语法来声明类。这些类是浅层不可变数据的透明的 holder，*大大减少这些类的详细程度，并提高代码的可读性和可维护性。*
 
-### 2. JVM Improvements
+**2. JVM 的改进**
 
-**[JEP 376](https://openjdk.java.net/jeps/376) ZGC Concurrent Thread Processing**
+**[JEP 376](https://openjdk.java.net/jeps/376) ZGC 并发线程处理**
 
-JEP 376 move ZGC thread-stack processing from safepoints to a concurrent phase, allows sub-millisecond pauses inside GC safepoints, even on large heaps. Removing the final source of latency in the ZGC garbage collector will greatly improve performance and efficiency of applications in this and subsquent releases.
+JEP 376 将 ZGC 线程堆栈处理从安全点移至并发阶段。我们即使在大型堆上，也可以在 GC 安全点内实现亚毫秒级的暂停。在此版本及其后续版本中，消除 ZGC 垃圾收集器中最终的延迟源将极大地提高应用程序的性能和效率。
 
 **[JEP 387](https://openjdk.java.net/jeps/387) Elastic Metaspace**
 
-This feature returns unused HotSpot VM class-metadata (i.e. *metaspace*) memory to the operating system more promptly, reducing metaspace footprint. Applications with heavy class loading and unloading activity can accrue a lot of unused space.
+此功能可以更迅速地将未使用的 HotSpot VM 类元数据（即 *metaspace*）内存返回给操作系统，从而减少了 metaspace 的占用空间。具有大量加载和卸载活动的应用程序可能会占用大量未使用的空间。
 
-The new scheme allocates metaspace memory in smaller chunks, reduces class-loader overhead and fragmentation. It improves elasticity by returning unused metaspace memory to the operating system, which leads to greater application performance and decreases memory utilization.
+新方案以较小的块分配元空间内存，减少了类加载器的开销和碎片。它通过将未使用的元空间内存返回给操作系统来提高弹性，从而提高应用程序性能并降低内存利用率。
 
-### 3. New Tools and Libraries
+**3. 新工具和库**
 
 **[JEP 380](https://openjdk.java.net/jeps/380) Unix-Domain Socket Channels**
 
-Unix-domain sockets have long been a feature of most Unix platforms, and are now supported in Windows 10 and Windows Server 2019. This feature adds Unix-domain (AF\_UNIX) socket support to the socket channel and server-socket channel APIs in the java.nio.channels package. It extends the inherited channel mechanism to support Unix-domain socket channels and server socket channels. Unix-domain sockets are used for inter-process communication (IPC) on the same host. They are similar to TCP/IP sockets in most respects, except that they are addressed by filesystem path names rather than Internet Protocol (IP) addresses and port numbers. For local, inter-process communication, Unix-domain sockets are both more secure and more efficient than TCP/IP loopback connections.
+Unix-Domain Socket Channels 一直是大多数 Unix 平台的功能，而现在我们在 Windows 10 和 Windows Server 2019 中实现了这个功能。此功能为 java.nio.channels 包中的 Socket 和服务器 Socket API 添加了 Unix 域（AF_UNIX）Socket 支持。它扩展了继承的通道机制，以支持 Unix 域 Socket 通道和服务器 Socket 通道。Unix 域 Socket 用于同一主机上的进程间通信（IPC），在大多数方面与 TCP-IP 套接字类似，不同之处在于它们是通过文件系统路径名而不是 Internet 协议（IP）地址和端口号来寻址的。对于本地进程间通信，Unix Socket 比 TCP-IP 环回连接更安全，更有效。
 
-**[JEP 392](https://openjdk.java.net/jeps/392) Packaging Tool**
+**[JEP 392](https://openjdk.java.net/jeps/392) 打包工具**
 
-This feature was first introduced as an incubator module in [Java 14](https://openjdk.java.net/jeps/343). This tool allows for packaging self-contained Java applications. It supports native packaging formats to give end users a natural installation experience. These formats include msi and exe on Windows, pkg and dmg on macOS, and deb and rpm on Linux. It also allows launch-time parameters to be specified at packaging time and can be invoked directly, from the command line, or programmatically, via the ToolProvider API. Note that the name of the jpackage module changes from jdk.incubator.jpackage to jdk.jpackage. This will improve the end-user experience when installing applications and simplify deployments using the “app store” model.
+此功能最初是在 [Java 14 中](https://openjdk.java.net/jeps/343)作为孵化器模块引入的，允许打包独立的 Java 应用程序。它支持本地打包格式，以为最终用户提供自然的安装体验。这些格式包括 Windows 上的 msi 和 exe，macOS 上的 pkg 和 dmg 以及 Linux 上的 deb 和 rpm。它还允许在打包时指定启动时参数，并且可以从命令行直接调用，也可以通过 ToolProvider API 以编程方式调用。请注意，jpackage 模块的名称从 jdk.incubator.jpackage 更改为 jdk.jpackage。这将改善最终用户在安装应用程序时的体验，并使用“应用程序商店”模型简化部署。
 
-### 4. Futureproofing Your Work
+**4. 对工作进行未来验证**
 
-**[JEP 390](https://openjdk.java.net/jeps/390)** **Warning for Value-Based Classes**
+**[JEP 390](https://openjdk.java.net/jeps/390) 基于值的类的警告**
 
-This feature designates the primitive wrapper classes (java.lang.Integer, java.lang.Double, etc) as *value-based* (similar to java.util.Optional and java.time.LocalDateTime) and add forRemoval to their constructors, which are deprecated since JDK 9, prompting new warnings. It provides warnings about improper attempts to synchronize on instances of any value-based classes in the Java Platform.
+此功能将原始包装器类（java.lang.Integer、java.lang.Double 等）指定为*基于值的*（类似于 java.util.Optional 和 java.time.LocalDateTime），并将 forRemoval 添加到其构造函数。它们自 JDK 9 起不推荐使用，提示新的警告。它提供有关在 Java 平台中不正确尝试在任何基于值的类的实例上进行同步的警告。
 
-Many popular open-source projects have already responded to the deprecation warnings of Java 9 by removing wrapper constructor calls from their sources, and we can expect many more to do so, given the heightened urgency of "deprecated for removal" warnings.
+许多流行的开源项目已经通过从其源中删除打包构造函数调用来响应 Java 9 的过时警告，并且鉴于“不建议过时删除”警告的紧急性，我们可以期望更多的这样做。
 
-**[JEP 396](https://openjdk.java.net/jeps/396)** **Strongly Encapsulate JDK Internals by default**
+**[JEP 396](https://openjdk.java.net/jeps/396) 默认情况下强封装 JDK 内部**
 
-This feature strongly encapsulates all internal elements of the JDK by default, except for critical internal APIs such as sun.misc.Unsafe. Code successfully compiled with earlier releases that accesses internal APIs of the JDK may no longer work by default*.* This change aims to encourage developers to migrate from using internal elements to using standard APIs, so that both they and their users can upgrade without fuss to future Java releases. Strong encapsulation is controlled by the launcher option -–illegal-access, for JDK 9 until JDK 15 defaults to *warning*, and starting with JDK 16 defaults to *deny*. It is still possible (for now) to relax encapsulation of all packages with a single command-line option, in the future only opening specific packages with –add-opens will work.
+默认情况下，此功能会强封装了 JDK 的所有内部元素，但关键内部 API 除外，例如 sun.misc.Unsafe。在默认情况下，使用早期版本成功编译的访问 JDK 内部 API 的代码可能不再起作用。此更改旨在鼓励开发者从使用内部元素迁移到使用标准 API，以便他们及其用户都可以轻松升级到将来的 Java 版本。对于 JDK 9，强启动由启动器选项 -–illegal-access 开启，而 JDK 15 则作为默认设置，JDK 9-15 会是*警告*，而从 JDK 16 开始则默认为 *拒绝*。我们（暂时）仍然可以使用单个命令行选项放宽对所有软件包的封装，将来只有使用 –add-opens 打开特定的软件包才有效。
 
-### 5. Incubator and Preview Features
+**5.孵化器和预览功能**
 
-**[JEP 338](https://openjdk.java.net/jeps/338) Vector API (Incubator)**
+**[JEP 338](https://openjdk.java.net/jeps/338) 矢量 API（孵化器）**
 
-This incubator API provides an initial iteration of an API to express vector computations that reliably compile at runtime to optimal vector hardware instructions on supported CPU architectures and thus achieve superior performance to equivalent scalar computations. It allows taking advantage of the Single Instruction Multiple Data (SIMD) instructions available on most modern CPUs. Although HotSpot supports auto-vectorization, the set of transformable scalar operations is limited and fragile to changes in the code. This API will allow developers to easily write portable and performant vector algorithms in Java.
+该孵化器 API 提供了 API 的初始迭代，以表达向量计算，该向量计算在运行时可靠地编译为支持的 CPU 架构上的最佳向量硬件指令，从而实现了优于等效标量计算的性能。它允许利用大多数现代 CPU 上可用的单指令多数据（SIMD）指令。尽管 HotSpot 支持自动矢量化，但是可变换的标量操作集受到限制，并且易受代码更改的影响。该 API 将使开发者可以轻松地用 Java 编写可移植的高性能矢量算法。
 
-**[JEP 389](https://openjdk.java.net/jeps/389) Foreign Linker API (Incubator)**
+**[JEP 389](https://openjdk.java.net/jeps/389 ) 外部链接 API（孵化器）**
 
-This incubator API offers statically-typed, pure-Java access to native code. This API will considerably simplify the otherwise convoluted and error-prone process of binding to a native library. Java has supported native method calls via the Java Native Interface (JNI) since Java 1.1 but it is hard and brittle. Java developers should be able to (mostly) just use any native library that is deemed useful for a particular task. It also provides foreign-function support without the need for any intervening JNI glue code.
+该孵化器 API 提供了对本地代码的静态类型的纯Java访问。此 API 将大大简化绑定到本机库的原本繁琐且容易出错的过程。Java 从 Java 1.1 开始就支持通过 Java 本机接口（JNI）进行本机方法调用，但是它用起来又困难又脆弱。Java 开发者应该能够（大部分）仅使用对特定任务有用的任何本机库。它还提供了外来功能支持，而无需任何中间的 JNI 粘合代码。
 
-**[JEP 393](https://openjdk.java.net/jeps/393) Foreign Memory Access API (3rd Incubator)**
+**[JEP 393](https://openjdk.java.net/jeps/393) 外部内存访问 API（3 次孵化器）**
 
-First introduced as an incubator API in Java 14 and again in Java 15, this API allows Java programs to safely and efficiently operate on various kinds of foreign memory (e.g., native memory, persistent memory, managed heap memory, etc.). It also provides the foundation for the Foreign Linker API.
+首次在 Java 14 和 Java 15 中作为孵化器API引入，此 API 使 Java 程序可以安全有效地对各种外部存储器（例如，本机存储器、PMEP、托管堆存储器等）进行操作。它还为外部链接程序 API 提供了基础。
 
-**[JEP 397](https://openjdk.java.net/jeps/397) Sealed Classes (2nd Preview)**
+**[JEP 397](https://openjdk.java.net/jeps/397) 密封的类（第 2 次预览）**
 
-This preview feature restricts which other classes or interfaces may extend or implement them. It allows the author of a class or interface to control which code is responsible for implementing it. Also, It provides a more declarative way than access modifiers to restrict the use of a superclass. And it supports future directions in pattern matching by underpinning the exhaustive analysis of patterns.
+此预览功能限制了哪些其他类或接口可以扩展或实现它们。它允许类或接口的作者控制负责实现该代码的代码。而且，它提供了比访问修饰符更声明性的方式来限制超类的使用。并且它通过对模式进行详尽的分析来支持模式匹配的未来方向。
 
-### 6. Improving Productivity for OpenJDK Developers
+**6. 提高 OpenJDK 开发者的生产率**
 
-*The rest of the changes are not directly visible to Java developers (those that use Java to code and run applications), rather only to developers of Java (those that work on OpenJDK).*
+*其余更改对 Java 开发者（使用 Java 编写代码和运行应用程序的人员）不直接可见，而只对 Java 开发者（进行 OpenJDK 开发的人员）可见。*
 
-**[JEP 347](https://openjdk.java.net/jeps/347) Enable C++14 Language Features (in JDK source code)**
+**[JEP 347](https://openjdk.java.net/jeps/347) 启用 C++ 14 语言功能（在 JDK 源代码中）**
 
-This allows the use of C++14 language features in JDK C++ source code and gives specific guidance about which of those features may be used in HotSpot code. Through JDK 15, the language features used by C++ code in the JDK have been limited to the C++98/03 language standards. It requires updating the minimum acceptable version of various platform compilers.
+这允许在 JDK C++ 源代码中使用 C++ 14 语言功能，并提供有关 HotSpot 代码中可以使用哪些功能的特定指南。在 JDK 15 中，JDK 中 C++ 代码使用的语言功能限于 C++ 98/03 语言标准。这个功能要求更新各种平台编译器的最低可接受版本。
 
-**[JEP 357](https://openjdk.java.net/jeps/357) Migrate from Mercurial to Git  
-[JEP 369](https://openjdk.java.net/jeps/369) Migrate to GitHub**
+**[JEP 357](https://openjdk.java.net/jeps/357) 从 Mercurial 迁移到 Git  
+[JEP 369](https://openjdk.java.net/jeps/369) 迁移到 GitHub**
 
-These JEPs migrate the OpenJDK Community's source code repositories from Mercurial (hg) to Git and host them on GitHub for JDK 11 and later. The migration includes updating tooling such as jcheck, webrev, and defpath tools to Git. Git reduces the size of the metadata (around ¼ of the size) preserving local disk space and reducing clone time. Modern tooling is better integrated with Git than Mercurial. OpenJDK Git repositories are now at [https://github.com/openjdk](https://github.com/openjdk)
+这两个 JEP 将 OpenJDK 社区的源代码存储库的 JDK 11 及更高版本从 Mercurial（hg）迁移到 Git，并将它们托管在 GitHub 上。迁移包括将工具（例如 jcheck、webrev 和 defpath 工具）更新到 Git。Git 减小了元数据的大小（约为原大小的四分之一），从而节省了本地磁盘空间并减少了克隆时间。与 Mercurial 相比，现代工具可以更好地与 Git 集成。OpenJDK Git 存储库现在位于 [https://github.com/openjdk](https://github.com/openjdk)
 
-**[JEP 386](https://openjdk.java.net/jeps/386) Alpine Linux Port**
+**[JEP 386](https://openjdk.java.net/jeps/386) Alphine Linux Port**
 
-**[JEP 388](https://openjdk.java.net/jeps/388) Windows/AArch64 Port**
+**[JEP 388](https://openjdk.java.net/jeps/388) Windows / AArch64 Port**
 
-The focus of these JEPs is not the porting effort itself, which was already done, but integrating them into the JDK main-line repository.
+这些 JEP 的重点不是已经完成的移植工作本身，而是将它们集成到 JDK 主线存储库中。
 
-JEP 386 ports the JDK to Alpine Linux and other distributions that use musl as their primary C Library on both x64 and AArch64. In addition, JEP 388 ports the JDK to Windows AArch 64 (ARM64).
+JEP 386 将 JDK 移植到使用 musl 作为其主要 C 库的 Alpine Linux 和其他发行版 x64 和 AArch64 上。此外，JEP 388 将 JDK 移植到 Windows AArch 64（ARM64）上。
 
-## Tooling Support
+**7. 工具支持**
 
-Current tooling support helps drive developer productivity. With Java 16, we continue to welcome the efforts of leading IDE vendors whose tooling solutions offer developers support for current Java versions. Developers can expect to receive Java 16 support with the following IDEs:
+当前的工具支持有助于提高开发者的生产力。使用 Java 16，我们将继续欢迎领先的 IDE 开发者所做的努力，这些开发者的工具解决方案为开发者提供了对当前 Java 版本的支持。开发者可以期望通过以下 IDE 获得 Java 16 支持：
 
 * JetBrains [IDEA](https://blog.jetbrains.com/idea/2021/03/java-16-and-intellij-idea/)
-* Eclipse [Marketplace](https://marketplace.eclipse.org/content/java-16-support-eclipse-2021-03-419)
+* Eclipse [Market](https://marketplace.eclipse.org/content/java-16-support-eclipse-2021-03-419)
 
-Java continues to be the #1 programming language of choice by software programmers. As the on-time delivery of improvements with Java 16 demonstrates, through continued thoughtful planning and ecosystem involvement, the Java platform is well-positioned for modern development and growth in the cloud.
+Java 仍然是软件程序员选择的第一大编程语言。正如 Java 16 的按时交付那些改进所表明的那样，通过持续的深思熟虑的计划和生态系统的参与，Java 平台已做好了在云中进行现代开发和增长的良好定位。
 
-Continue staying current with news and updates by:
+通过以下方式继续关注新闻和更新：
 
-* Visiting [Inside.Java](https://inside.java/) (news and views by the Java Team at Oracle)
-* Listening to the [Inside.Java podcasts](https://inside.java/podcast/) (a show for Java Developers brought to you directly from the people that make Java at Oracle. We'll discuss the language, the JVM, OpenJDK, platform security, innovation projects like Loom and Panama, and everything in between).
-* Joining the [OpenJDK mailing lists](http://mail.openjdk.java.net/mailman/listinfo) (the place to learn about the progress of your favorite OpenJDK projects).
+* 访问 [Inside.Java](https://inside.java/)（Oracle Java 团队的新闻和观点）
+* 收听 [Inside.Java 播客](https://inside.java/podcast/)（这是针对 Java 开发者的一个节目，直接从Oracle的Java开发者那里获得。我们将讨论该语言、JVM、OpenJDK、平台安全性，以及诸如 Loom 和 Panama 之类的创新项目还有别的其他内容）。
+* 加入 [OpenJDK 邮件列表](http://mail.openjdk.java.net/mailman/listinfo)（了解您喜欢的 OpenJDK 项目进度的地方）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
