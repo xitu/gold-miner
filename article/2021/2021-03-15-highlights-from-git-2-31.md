@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/2021-03-15-highlights-from-git-2-31.md](https://github.com/xitu/gold-miner/blob/master/article/2021/2021-03-15-highlights-from-git-2-31.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 ![](https://github.blog/wp-content/uploads/2021/03/git-2-31-0-release-banner.jpeg?fit=1200%2C630)
 
 # Git 2.31 中的闪光点
 
-开源项目 Git [不久前发布了 2.31 版本](https://lore.kernel.org/git/xmqqwnu8z03c.fsf@gitster.g/T/#u)，由 85 位贡献者带来了新功能和 Bug 修复，其中 23 位是新加入者。上次我们和大家同步版本更新情况，那还是 Git 2.29 刚刚发布的时候。自 2.29 版本起，Git 又历经了两个版本的迭代，那就让我们来看看那些最有趣的功能和变化。
+开源项目 Git [不久前发布了 2.31 版本](https://lore.kernel.org/git/xmqqwnu8z03c.fsf@gitster.g/T/#u)，由 85 位贡献者带来了新功能和 Bug 修复，其中 23 位是新加入者。上次我们和大家同步版本更新情况还是 Git 2.29 刚刚发布的时候。自 2.29 版本起，Git 又历经了两个版本的迭代，那就让我们来看看那些最有趣的功能和变化。
 
 ## 引入 `Git 维护`
 
@@ -67,7 +67,7 @@ $ hyperfine --warmup=3 \
 
 Git 并不默认就会生成 `.rev` 文件，但你可以这样亲自尝试一下：运行 `git config pack.writeReverseIndex true`，之后再把仓库重新打包（用 `git repack -Ad`）。在过去的几个月里，我们已经在 GitHub 中这样用了，显著提升了许多 Git 操作的体验。
 
-\[[源码](https://github.com/git/git/compare/381dac23491ee3d80e00787449f0f1c70449419c...779412b9d99544ae71eefabb699a109b1638f96c), [源码](https://github.com/git/git/compare/2c873f97913994f8478a9078ff8b62e17378a0ed...6885cd7dc573b1750b8d895820b8b2f56285f070)\]
+\[[源码](https://github.com/git/git/compare/381dac23491ee3d80e00787449f0f1c70449419c...779412b9d99544ae71eefabb699a109b1638f96c)，[源码](https://github.com/git/git/compare/2c873f97913994f8478a9078ff8b62e17378a0ed...6885cd7dc573b1750b8d895820b8b2f56285f070)\]
 
 ## 花絮
 
