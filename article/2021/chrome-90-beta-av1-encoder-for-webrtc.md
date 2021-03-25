@@ -2,152 +2,139 @@
 > * 原文作者：[Chromium Dev](https://blog.chromium.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/chrome-90-beta-av1-encoder-for-webrtc.md](https://github.com/xitu/gold-miner/blob/master/article/2021/chrome-90-beta-av1-encoder-for-webrtc.md)
-> * 译者：
+> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# Chrome 90 Beta: AV1 Encoder for WebRTC, New Origin Trials, and More
+# Chrome 90 Beta 版本更新，支持 WebRTC AV1 编码器，新的 Origin Trials，还有更多等着你来～
 
-Unless otherwise noted, changes described below apply to the newest Chrome beta channel release for Android, Chrome OS, Linux, macOS, and Windows. Learn more about the features listed here through the provided links or from the list on [ChromeStatus.com](https://www.chromestatus.com/features#milestone%3D90). Chrome 90 is beta as of March 11, 2021.
+除非另有说明，否则以下描述的更改适用于适用于 Android、Chrome OS、Linux、macOS 和 Windows 的 Chrome beta 通道版本的更新。你可以通过文中的链接或访问 [ChromeStatus.com](https://www.chromestatus.com/features#milestone%3D90) 上的列表更详细地了解此处列出的功能。 Chrome 90 已于 2021 年 3 月 11 日发布 Beta 版。
 
-## AV1 Encoder
+# AV1 编码器
 
-An [AV1 encoder](https://www.chromestatus.com/feature/6206321818861568) is shipping in Chrome desktop that is specifically optimized for video conferencing with WebRTC integration. The benefits of AV1 include:
+Chrome 桌面版目前内置了 [AV1 编码器](https://www.chromestatus.com/feature/6206321818861568)。该编码器经过我们的专门优化，可与 WebRTC 集成，用于视频会议。AV1 编码的优点包括：
 
-* Better compression efficiency than other types of video encoding, reducing bandwidth consumption and improve visual quality
-* Enabling video for users on very low bandwidth networks (offering video at 30kbps and lower)
-* Significant screen sharing efficiency improvements over VP9 and other codecs.
+* 比其他类型的视频编码有更好的压缩效率，能够减少带宽消耗并提高视觉质量
+* 能够在带宽非常低的网络上为用户启用视频（以 30kbps 甚至更低的速度提供视频传送）
+* 与 VP9 等其他编解码器相比，屏幕共享效率得到了显着提高。
 
-This is an important addition to WebRTC especially since it recently became an [official W3C and IETF standard](https://web.dev/webrtc-standard-announcement/).
+这是对 WebRTC 的一个重要补充，它最近也成为了 [W3C 和 IETF 官方标准](https://web.dev/webrtc-standard-announcement/)。
 
-## Origin Trials
+# Origin Trails 原始测试
 
-This version of Chrome introduces the origin trials described below. Origin trials allow you to try new features and give feedback on usability, practicality, and effectiveness to the web standards community. To register for any of the origin trials currently supported in Chrome, including the ones described below, visit the [Chrome Origin Trials dashboard](https://developer.chrome.com/origintrials/#/trials/active). To learn more about origin trials in Chrome, visit the [Origin Trials Guide for Web Developers](https://web.dev/origin-trials/). Microsoft Edge runs its own origin trials separate from Chrome. To learn more, see the [Microsoft Edge Origin Trials Developer Console](https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/).
+此版本的 Chrome 引入了所谓的“原始测试”，使我们可以在浏览器中尝试新功能，并向 Web 标准社区提供有关可用性，实用性和有效性的反馈。要注册 Chrome 当前支持的任何原始测试（包括以下所述），请访问 [Chrome 原始测试控制台](https://developer.chrome.com/origintrials/#/trials/active)。要了解有关 Chrome 中的原始测试的更多信息，请访问 [Web 开发人员的原始测试指南](https://web.dev/origin-trials/)。Microsoft Edge 与 Chrome 分开运行其自己的原始测试，若要了解更多信息，请参见 [Microsoft Edge Origin Trials 开发人员控制台](https://developer.microsoft.com/en-us/microsoft-edge/origin-trials/)。
 
-### New Origin Trials
+## 新的原始测试内容
 
-#### getCurrentBrowsingContextMedia()
+### `getCurrentBrowsingContextMedia()`
 
-The [mediaDevices.getCurrentBrowsingContextMedia() method](https://developer.chrome.com/origintrials/#/view_trial/3654671097611157505) allows capturing a MediaStream with the current tab's video (and potentially audio), similar to getDisplayMedia(). Unlike getDisplayMedia(), calling this new method will eventually present the user with a simple accept/reject dialog box. If the user accepts, the current tab is captured. However, this will require some additional security measures which are still being finalized. Until then, or if the call is made with these measures absent, a dialog is displayed to the user that allows the selection of any source, but highlights the option of the current tab (whereas normally getDisplayMedia highlights the option of entire-screen).
+[`mediaDevices.getCurrentBrowsingContextMedia()` 方法](https://developer.chrome.com/origintrials/#/view_trial/3654671097611157505)允许我们使用当前选项卡的视频（和可能的音频）捕获 `MediaStream`，类似于 `getDisplayMedia()`。但是与`getDisplayMedia()` 不同，调用此新方法将为用户提供一个简单的接受拒绝对话框。如果用户接受，则会捕获当前选项卡，二在所有其他的表现中 `getCurrentBrowsingContextMedia()` 与 `getDisplayMedia()` 完全相同。该原始测试预计将在 Chrome 92 中启动。
 
-#### MediaStreamTrack Insertable Streams (a.k.a. Breakout Box)
+### `MediaStreamTrack` 可插入流（也称为 Breakout Box “分线盒”）
 
-An API for [manipulating raw media carried by MediaStreamTracks](https://www.chromestatus.com/feature/5499415634640896) such as the output of a camera, microphone, screen capture, or the decoder part of a codec and the input to the decoder part of a codec. It uses WebCodecs interfaces to represent raw media frames and exposes them using streams, similar to the way the WebRTC Insertable Streams API exposes encoded data from RTCPeerConnections. This is intended to support use cases such as:
+这是用于[操纵 `MediaStreamTracks` 承载的原始媒体](https://www.chromestatus.com/feature/5499415634640896)的 API，可操纵例如相机，麦克风，屏幕截图或编解码器的解码器部分，并且会输出编解码器的解码器部分。它使用 `WebCodecs` 接口表示原始媒体帧，并使用流公开它们，类似于 WebRTC 可插入流 API 公开来自 `RTCPeerConnections` 的编码数据的方式，旨在支持以下用例：
 
-* [Funny Hats](https://www.w3.org/TR/webrtc-nv-use-cases/#funnyhats*): Refers to manipulation of media either before encoding and after decoding to provide effects such as background removal, funny hats, voice effects.
-* [Machine Learning](https://www.w3.org/TR/webrtc-nv-use-cases/#machinelearning*): Refers to applications such as real-time object identification/annotation.
+* [Funny Hats](https://www.w3.org/TR/webrtc-nv-use-cases/#funnyhats*)：指在编码之前和解码之后对媒体的处理，以提供诸如去除背景等效果，有趣的帽子，声音效果。
+* [机器学习](https://www.w3.org/TR/webrtc-nv-use-cases/#machinelearning*)：指的是诸如实时对象识别/注释之类的应用程序。
 
-This origin trial is expected to run through Chrome 92.
+该原始测试预计将在 Chrome 92 中启动。
 
-#### Subresource Loading with Web Bundles
+### WebAssembly 异常处理
 
-[Subresource loading with Web Bundles](https://developer.chrome.com/origintrials/#/view_trial/-6307291278132379647) provides a new approach to loading a large number of resources efficiently using a format that allows multiple resources to be bundled., e.g. Web Bundles.
+WebAssembly [现在提供了异常处理功能](https://developer.chrome.com/origintrials/#/view_trial/2393663201947418625)。异常处理允许代码在引发异常时中断控制流。异常可以是 WebAssembly 模块已知的任何异常，也可以是由调用的导入函数引发的未知异常。预计该原始测试将在 Chrome 94 中启动。
 
-The output of JavaScript bundlers (e.g. webpack) doesn't interact well with browsers. They are good tools but:
+## 启动的原始测试
 
-* Their output can't interact with the HTTP cache at any finer grain than the bundle itself (not solved with this origin trial). This can make them incompatible with new requirements like dynamic bundling (e.g. small edit with tree shaking could invalidate everything).
-* They force compilation and execution to wait until all bytes have arrived. Ideally loading multiple subresources should be able to utilize full streaming and parallelization, but that's not possible if all resources are bundled as one javascript. (This origin trial allows compilation to proceed in parallel. For JavaScript modules, execution still needs to wait for the entire tree due to the current deterministic execution model).
-* They can require non-JS resources like stylesheets and images to be encoded as JS strings, which forces them to be parsed twice and can increase their size. This origin trial allows those resources to be loaded in their original form.
+Chrome 原始测试部分的以下部分已经启动：
 
-This origin trial also allows a bundle to include the source for an opaque-origin iframe as `urn:uuid:` resources. The scheme for these resources is expected to change in Chrome 91.
+### WebXR AR 照明估算
 
-This origin trial is expected to run through Chrome 92.
+[照明估算](https://www.chromestatus.com/feature/5704707957850112)允许站点在 WebXR 会话中查询环境照明条件的估算。这样既暴露了代表环境照明的球形谐波，又暴露了代表“反射”的立方体贴图纹理。添加“照明估计”可以使您的模型更自然，并使其更适合用户的环境。
 
-#### WebAssembly Exception Handling
+# 此版本中的其他功能更新
 
-WebAssembly [now provides exception handling](https://developer.chrome.com/origintrials/#/view_trial/2393663201947418625) support. Exception handling allows code to break control flow when an exception is thrown. The exception can be any that is known by the WebAssembly module, or it may be an unknown exception that was thrown by a called imported function. This origin trial is expected to run through Chrome 94.
+## CSS
 
-## Completed Origin Trials
+### `aspect-ratio`
 
-The following features, previously in a Chrome origin trial, are now enabled by default.
+如果在任何元素上仅指定宽度或高度中的一个，则 [`aspect-ratio` 属性](https://www.chromestatus.com/feature/5682100885782528)会自动计算其他尺寸。在用于动画时，此属性会默认设置为不可插值形式（这意味着它会捕捉到目标值），用于提供一个从一个长宽比到另一个长宽比的平滑插值。
 
-#### WebXR AR Lighting Estimation
+### 自定义状态的伪类
 
-[Lighting estimation](https://www.chromestatus.com/feature/5704707957850112) allows sites to query for estimates of the environmental lighting conditions within WebXR sessions. This exposes both spherical harmonics representing the ambient lighting, as well as a cubemap texture representing "reflections". Adding Lighting Estimation can make your models feel more natural and like they "fit" better with the user's environment.
+我们现在将自定义元素的状态通过 CSS State 伪类[公开了出来](https://www.chromestatus.com/feature/6537562418053120)。内置元素的状态会根据用户的交互作用和其他因素随时间变化，并借助伪类向开发者们公开了出来。例如，某些表单控件具有 `invalid` 状态，而该状态会通过 `:invalid` 伪类公开出来。由于自定义元素也具有状态，因此以类似于内置元素的方式公开其状态是有意义的。
 
-## Other Features in this Release
+### 实现 `appearance` 和 `-webkit-appearance` 的 `auto` 值
 
-### CSS
-
-#### aspect-ratio Interpolation
-
-The [`aspect-ratio` property](https://www.chromestatus.com/feature/5682100885782528) allows for automatically computing the other dimension if only one of width or height is specified on any element. This property was originally launched as non-interpolable (meaning that it would snap to the target value) when animated. This feature provides smooth interpolation from one aspect ratio to another.
-
-#### Custom State Pseudo Classes
-
-Custom elements [now expose their states](https://www.chromestatus.com/feature/6537562418053120) via the state CSS pseudo class. Built-in elements have states that can change over time depending on user interaction and other factors, which are exposed to web authors through pseudo classes. For example, some form controls have the "invalid" state, which is exposed through the :invalid pseudo class. Since custom elements also have states it makes sense to expose their states in a manner similar to built-in elements.
-
-#### Implement 'auto' value for appearance and -webkit-appearance
-
-The default values of CSS property `appearance` and `-webkit-appearance` for the following form controls are changed to `'auto'`.
+以下表单控件的 CSS 属性 `appearance` 和 `-webkit-appearance` 的默认值更改为 `auto`。
 
 * `<input type=color>` and `<select>`
-* Android only: `<input type=date>`, `<input type=datetime-local>`, `<input type=month>`, `<input type=time>`, and `<input type=week>`
+* 仅限安卓：`<input type=date>`、`<input type=datetime-local>`、`<input type=month>`、`<input type=time>` 以及 `<input type=week>`
 
-Note that the default rendering of these controls are not changed.
+请注意，这些控件的默认呈现没有被更改。
 
-#### overflow: clip Property
+### `overflow: clip` 属性
 
-The [`clip` value for `overflow`](https://www.chromestatus.com/feature/5638444178997248) results in a box's content being clipped to the box's overflow clip edge. In addition, no scrolling interface is provided, and the content cannot be scrolled by the user or programmatically. Additionally the box is not considered a scroll container, and does not start a new formatting context. As a result, this value has better performance than `overflow: hidden`.
+`overflow` 的 [`clip` 值](https://www.chromestatus.com/feature/5638444178997248)会让盒容器的内容被裁剪到盒的溢出部分的边缘，并且不会为这个元素再提供滚动接口，并且内容不能在被用户或用编程方式进行滚动。此外，该框不被视为滚动容器，并且不会启动新的格式设置上下文。此值的性能比 `overflow：hidden` 更好。
 
-#### overflow-clip-margin Property
+### `overflow-clip-margin` 属性
 
-The [`overflow-clip-margin` property](https://www.chromestatus.com/feature/5638444178997248) enables specifying how far outside the bounds an element is allowed to paint before being clipped. It also allows the developer to expand the clip border. This is particularly useful for cases where there is ink overflow that should be visible.
+[`overflow-clip-margin` 属性](https://www.chromestatus.com/feature/5638444178997248)允许指定在裁剪之前允许元素超出边界的距离。它还允许开发人员扩展剪辑边界。这对于例如墨水溢出这类的情况特别有用。
 
-### Permissions-Policy Header
+## `Permissions-Policy` 标头
 
-The `Permissions-Policy` HTTP header [replaces the existing `Feature-Policy` header](https://www.chromestatus.com/feature/5745992911552512) for controlling delegation of permissions and powerful features. The header allows sites to more tightly restrict which origins can be granted access to features.
+`Permissions-Policy` HTTP 标头[替换了现有的 `Feature-Policy` 标头”](https://www.chromestatus.com/feature/5745992911552512)，用于控制权限和提供强大的功能。这个标头允许网站更严格地限制授予要素来源的访问权限。
 
-The [Feature Policy API](https://developers.google.com/web/updates/2018/06/feature-policy#js), introduced in Chrome 74, was recently renamed to "Permissions Policy", and the HTTP header has been renamed along with it. At the same time, the community has settled on a new syntax, based on [structured field values for HTTP](https://httpwg.org/http-extensions/draft-ietf-httpbis-header-structure.html).
+Chrome 74 中引入的 [`Feature Policy` API](https://developers.google.com/web/updates/2018/06/feature-policy#js)，最近已重命名为 `Permissions Policy`，HTTP 标头也被重命名了。同时，社区已基于 [HTTP 的结构化字段值](https://httpwg.org/http-extensions/draft-ietf-httpbis-header-structure.html)为之确定了一种新语法。
 
-### Protect application/x-protobuffer via Cross-Origin-Read-Blocking
+## 通过 `Cross-Origin-Read-Blocking` 保护 `application/x-protobuffer`
 
-[Protect `application/x-protobuffer` from speculative execution](https://www.chromestatus.com/feature/5670287242690560) attacks by adding it to the list of never sniffed MIME types used by `Cross-Origin-Read-Blocking`. `application/x-protobuf` is already protected as a never sniffed mime type. `application/x-protobuffer` is another commonly used MIME type that is defined as an `"ALT_CONTENT_TYPE"` by the protobuf library.
+通过将 `application/x-protobuffer` 添加到 `Cross-Origin-Read-Blocking` 所使用的永不嗅探的 MIME 类型列表中，我们保护它免受推测性执行攻击。`application / x-protobuf` 已经被保护为永不监听的 MIME 类型。`application/x-protobuffer` 是另一种常用的 MIME 类型，被 protobuf 库定义为 `ALT_CONTENT_TYPE`。
 
-### Seeking Past the End of a File in the File System Access API
+> https://www.chromestatus.com/feature/5670287242690560
 
-When data is passed to `FileSystemWritableFileStream.write()` that would extend past the end of the file, [the file is now extended by writing `0x00` (`NUL`)](https://www.chromestatus.com/feature/6556060494069760). This enables creating sparse files and greatly simplifies saving content to a file when the data to be written is received out of order.  
-Without this functionality, applications that receive file contents out of order (for example, BiTtorrent downloads) would have to manually resize the file either ahead of time or when needed during writing.
+## 在文件系统访问 API 中寻找文件末尾
 
-### StaticRange Constructor
+当数据传递到将扩展到文件末尾的 `FileSystemWritableFileStream.write()` 时，[现在会被写入 `0x00`（`NUL`）扩展文件](https://www.chromestatus.com/feature/6556060494069760)。借此我们可以创建稀疏文件，并在接收到乱序的待写数据时大大简化了将内容保存到文件的过程。如果没有此功能，那么会接收到混乱的文件内容（例如 BitTorrent 下载）的应用程序将不得不提前或在编写过程中需要时手动调整文件大小。
 
-Currently, [`Range`](https://developer.mozilla.org/en-US/docs/Web/API/Range) is the only constructible range type available to web authors. However, `Range` objects are "live" and maintaining them can be expensive. For every tree change, all affected `Range` objects need to be updated. [The new `StaticRange` objects](https://www.chromestatus.com/feature/5676695065460736) are not live and represent a lightweight range type that is not subject to the same maintenance cost as `Range`. Making `StaticRange` constructible allows web authors to use them for ranges that do not need to be updated on every DOM tree change.
+## StaticRange 构造函数
 
-### Support Specifying Width and Height on <source> Elements for <picture>
+当前，[`Range`](https://developer.mozilla.org/en-US/docs/Web/API/Range) 是 Web 开发者唯一可用的可构造范围类型。但是，`Range` 对象是可变的，让它们的维护变得困难。对于每个 DOM 树的更改，所有受影响的 `Range` 对象都需要更新。 [新的 `StaticRange` 对象](https://www.chromestatus.com/feature/5676695065460736)则不会这样。它代表的轻量级范围类型，维护难度比 `Range` 轻松不少。`StaticRange` 的可构造使 Web 开发者可以将它们用于不需要在每次 DOM 树更改时都进行更新的范围。
 
-The `<source>` element [now supports `width` and `height` properties](https://www.chromestatus.com/feature/5737185317748736) when used inside a `<picture>` element. This allows Chrome to compute an aspect ratio for `<picture>` elements. This matches similar behavior for `<img>`, `<canvas>` and `<video>` elements.
+## 支持在 `<picture>` 的 `<source>` 元素上指定宽度和高度
 
-### WebAudio: OscillatorOptions.periodicWave is Not Nullable
+`<picture>` 元素内的 `<source>` 元素[现在支持使用 `width` 和 `height` 属性定义宽高](https://www.chromestatus.com/feature/5737185317748736)，让 Chrome 浏览器可以为 `<picture>` 元素计算宽高比。这与 `<img>`、`<canvas>` 和 `<video>` 元素的类似行为相同。
 
-It is [no longer possible to set periodicWave to null](https://www.chromestatus.com/feature/5086267630944256) when creating a new `OscillatorNode` object. This value is set on the options object passed to the `OscillatorNode()` constructor. The WebAudio spec doesn't allow setting this value to null. Chrome now matches both the spec and Firefox.
+## WebAudio 的 `OscillatorOptions.periodicWave` 不可为空
 
-## JavaScript
+创建新的 `OscillatorNode` 对象时，[我们不可以再将 `periodicWave` 设置为 `null`](https://www.chromestatus.com/feature/5086267630944256)。该值在传递给 `OscillatorNode()` 构造函数的 `options` 对象上设置，而现在 WebAudio 规范不允许将此值设置为 `null`。Chrome 与 Firefox 同时践行了这个规则。
 
-This version of Chrome incorporates version 9.0 of the V8 JavaScript engine. It specifically includes the changes listed below. You can find a complete [list of recent features](https://v8.dev/blog) in the V8 release notes.
+# JavaScript 的更新
 
-### Relative Indexing Method for Array, String, and TypedArrays
+此版本的 Chrome 内置了 V8 JavaScript 引擎的 9.0 版。特别包含了以下列出的更改。我们还可以在 V8 发行说明中找到完整的[最新功能列表](https://v8.dev/blog)：
 
-Array, String, and TypedArray [now support the `at()` method](https://www.chromestatus.com/feature/6123640410079232), which supports relative indexing with negative numbers. For example, the code below returns the last item in the given array.
+## 数组、字符串和 TypedArrays 的相对索引方法
+
+`Array`、`String` 和 `TypedArray` [现在支持 `at()` 方法](https://www.chromestatus.com/feature/6123640410079232)，该方法支持带负数的相对索引。例如，下面的代码返回给定数组中的最后一项。
 
 ```js
 let arr = [1, 2, 3, 4];
 arr.at(-1);
 ```
 
-## Deprecations, and Removals
+# 弃用和移除
 
-This version of Chrome introduces the deprecations and removals listed below. Visit ChromeStatus.com for lists of [current deprecations](https://www.chromestatus.com/features#browsers.chrome.status%3A%22Deprecated%22) and [previous removals](https://www.chromestatus.com/features#browsers.chrome.status:%22Removed%22).
+此版本的 Chrome 引入了以下弃用和删除项。访问 [ChromeStatus.com](https://www.chromestatus.com)，以获取[当前弃用](https://www.chromestatus.com/features#browsers.chrome.status%3A%22Deprecated%22)和[以前的移除项](https://www.chromestatus.com/features#browsers.chrome.status:%22Removed%22)。
 
-### Remove Content Security Policy Directive 'plugin-types'
+## 删除内容安全策略指令“插件类型”
 
-The ['plugin-types' directive allows developers to restrict](https://www.chromestatus.com/feature/5742693948850176) which types of plugin can be loaded via `<embed>` or `<object>` html elements. This allowed developers to block Flash in their pages. Since Flash support has been discontinued, there is no longer any need for this policy directive.
+[`plugin-types` 指令允许开发人员去限制](https://www.chromestatus.com/feature/5742693948850176)可以通过 `<embed>` 或 `<object>` 的 HTML 元素加载的插件的类型。这使开发人员可以在其页面中阻止 Flash 的加载。不过目前 Adobe 以及 Chrome 都已停止对 Flash 的支持，实际上我们不再需要此策略指令。
 
-### Remove WebRTC RTP Data Channels
+## 删除 WebRTC RTP 数据通道
 
-Chrome has [removed support for the non-standard RTP data channels](https://www.chromestatus.com/feature/6485681910054912) in WebRTC. Users should use the standard SCTP-based data channels instead.
+Chrome 浏览器已[删除了对非标准 RTP 数据通道的支持](https://www.chromestatus.com/feature/6485681910054912)。用户应改用基于标准 SCTP 的数据通道。
 
-### Return Empty for navigator.plugins and navigator.mimeTypes
+## 为 `navigator.plugins` 和 `navigator.mimeTypes` 返回 `null`
 
-Chrome [now returns empty for `navigator.plugins` and `navigator.mimeTypes`](https://www.chromestatus.com/feature/5741884322349056). With the removal of Flash, there is no longer the need to return anything for these properties.
+Chrome 浏览器中 [`navigator.plugins` 和 `navigator.mimeTypes` 的调用会返回 `null`](https://www.chromestatus.com/feature/5741884322349056)。随着 Flash 的移除，我们不再需要为这些属性返回任何内容。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
