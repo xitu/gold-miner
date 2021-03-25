@@ -2,10 +2,10 @@
 > * 原文作者：[Sharat Chander](https://blogs.oracle.com/author/sharat-chander)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-arrival-of-java-16.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-arrival-of-java-16.md)
-> * 译者：
+> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# The Arrival of Java 16
+# Java 16 发布啦
 
 ![](https://cdn.app.compendium.com/uploads/user/e7c690e8-6ff9-102a-ac6d-e4aebca50425/ed5569e8-c0dd-458c-8450-cde6300093bd/File/a5023b0f0fb67f59176a0499af9021ed/java_horz_clr.png)
 
