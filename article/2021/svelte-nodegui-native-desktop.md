@@ -2,93 +2,96 @@
 > * 原文作者：[Bruno Couriol](https://www.infoq.com/profile/Bruno-Couriol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-nodegui-native-desktop.md](https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-nodegui-native-desktop.md)
-> * 译者：
+> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# New Svelte NodeGui Allows Creating Native Desktop Applications with Qt and Svelte
+# Svelte NodeGUI 发布了！我们现在可以使用 Qt 和 Svelte 构建原生桌面端应用程序
 
-[Jamie Birch](https://twitter.com/LinguaBrowse) recently [announced Svelte NodeGui](https://twitter.com/LinguaBrowse/status/1367929896685756422), a framework for developing desktop applications on Windows, Linux, and MacOS. A lighter alternative to Electron, Svelte NodeGui lets developers write their applications with the [Svelte front-end framework and compiler](https://svelte.dev/), the [Qt widget toolkit](https://www.qt.io/), and a subset of HTML and CSS.
+[Jamie Birch](https://twitter.com/LinguaBrowse) 最近[发布了 Svelte NodeGUI](https://twitter.com/LinguaBrowse/status/1367929896685756422)，一个用于在 Windows、Linux 和 macOS 上构建桌面端应用程序的框架。这是一个相较 Electron 来说更轻量的代替方案，让我们能够使用 [Svelte 前端框架和编译器](https://svelte.dev/)，以及 [Qt 控件工具包](https://www.qt.io/)，还可以用 HTML 和 CSS 子集，构建桌面端应用程序。
 
-Svelte NodeGui documentation presented the rationale and benefits behind the new framework as follows:
+Svelte NodeGUI 的文档展现了它的基本原理以及使用它的好处，如下所示：
 
-> Svelte NodeGui is a Svelte renderer for [NodeGui](https://nodegui.org/), which is an efficient JavaScript binding to a cross-platform graphical user interface (GUI) library `Qt`. Qt is one of the most mature and efficient libraries for building desktop applications. This enabled Svelte NodeGui to be extremely memory and CPU efficient as compared to other popular Javascript Desktop GUI solutions. A *hello world* app built with Svelte NodeGui runs on less than 20Mb of memory.
+> Svelte NodeGUI 是一个 Svelte 对 [NodeGUI](https://nodegui.org/)) 的渲染器。这是一个高效的 JavaScript 库，与跨平台 GUI 库 `Qt` 相捆绑。Qt 是最成熟最高效的构建桌面应用的库之一。这让 Svelte NodeGUI 在内存和 CPU 上更具效率，与其它的 JavaScript 桌面端 GUI 解决方案形成了明显的对比。一个用 Svelte NodeGUI 构建的 *Hello World* 应用程序在内存上比其他 GUI 解决方案少占用 20 MB。
 
-Some developers have reported the size of a basic *hello world* Electron application to be [as high as 115 MB](https://medium.com/gowombat/how-to-reduce-the-size-of-an-electron-app-installer-a2bc88a37732) or [275 MB](https://stackoverflow.com/questions/59731319/how-can-i-reduce-my-275mb-hello-world-electron-package-size). Svelte NodeGui manages to compile smaller executables with a better memory consumption by not shipping the Chromium web browser together with the web application.
+有的开发者已经报告称一个基础的 *Hello World* 的用 Electron 构建的应用程序的尺寸会高达 [115 MB](https://medium.com/gowombat/how-to-reduce-the-size-of-an-electron-app-installer-a2bc88a37732) 甚至是 [275 MB](https://stackoverflow.com/questions/59731319/how-can-i-reduce-my-275mb-hello-world-electron-package-size)。Svelte NodeGUI 则成功地通过不内置 Chromium 浏览器包，编译一个内存更优的尺寸更小的可执行文件。
 
-Conversely, Svelte NodeGui applications cannot leverage browser APIs nor the full extent of HTML and CSS. A Svelte NodeGui app is a Node.js app whose user interface is made of Qt widgets (e.g., [`QMainWindow`](https://doc.qt.io/qt-5/qmainwindow.html), [`QCheckBox`](https://doc.qt.io/qt-5/qcheckbox.html)) that can be styled with the subset of CSS supported by [Qt’s stylesheet syntax](https://doc.qt.io/qt-5/stylesheet-syntax.html) and are laid out with [Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) — a web browser’s one-dimensional layout method. Qt widgets’ surface area may be lower than that of [HTML native elements](https://www.htmlquick.com/reference/tags.html), which effectively limits developers to using a Qt-supported subset of HTML. Svelte NodeGui ships with 13 tags or UI components, including buttons, image tags, editable text areas, progress bars, or native OS windows.
+相反，我们无法在 Svelte NodeGUI 应用程序中使用所有的浏览器中有的 API 以及 HTML 和 CSS 的功能。Svelte NodeGUI 应用程序本质上是一个 Node.js 应用程序，其用户界面由 Qt 控件如 [`QMainWindow`](https://doc.qt.io/qt-5/qmainwindow.html)、[`QCheckBox`](https://doc.qt.io/qt-5/qcheckbox.html) 构建的，我们可以使用 [Qt 样式表语法](https://doc.qt.io/qt-5/stylesheet-syntax.html)样式化应用程序。它使用了 [Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) 进行布局 —— 这是网络浏览器的一维布局方法。Qt 控件的数量和覆盖范围可能小于 [HTML 原生元素](https://www.htmlquick.com/reference/tags.html) 的数量和覆盖范围，这实际上也限制了我们 —— 我们只能使用 Qt 支持的 HTML 子集。Svelte NodeGUI 附带 13 种标签或称之为 UI 组件，包括按钮，图像标签，可编辑文本区域，进度条和窗口。
 
-Qt widgets may emit events (called Signals), which can be listened to and programmatically associated with event handlers. NodeGui also provides a set of internal events that the application can listen to ([`QEvents`](https://svelte.nodegui.org/docs/guides/handle-events#event-handling)). Svelte NodeGui’s documentation provides the [following example that illustrates the layout mechanism and event syntax](https://svelte.nodegui.org/docs/guides/handle-events#how-do-i-know-which-events-are-supported-):
+Qt 窗口小部件可能会发出事件（称为信号），可以监听事件并以编程方式将其与事件处理程序关联。NodeGUI 还提供了一组的内部事件，应用程序可以对其监听（即 [QEvents](https://svelte.nodeGUI.org/docs/GUIdes/handle-events#event-handling)）。Svelte NodeGUI 的文档提供了[以下示例，说明了布局机制和事件语法](https://svelte.nodeGUI.org/docs/GUIdes/handle-events#how-do-i-know-which-events-are-supported-)：
 
 ```jsx
 <script lang="ts">
-  import { onMount } from "svelte";
-  import { Direction } from "@nodegui/nodegui";
-  import type { QPushButtonSignals } from "@nodegui/nodegui";
+    import {onMount} from "svelte";
+    import {Direction} from "@nodegui/nodegui";
+    import type {QPushButtonSignals} from "@nodegui/nodegui";
 
-  let additionalButtons: string[] = [];
-  let direction: Direction = Direction.LeftToRight;
+    let additionalButtons: string[] = [];
+    let direction: Direction = Direction.LeftToRight;
 
-  function addHandler(): void {
-    additionalButtons = [...additionalButtons, `Button ${additionalButtons.length}`];
-  }
-  function removeHandler(): void {
-    additionalButtons = [...additionalButtons.slice(0, additionalButtons.length - 1)];
-  }
-  function toggleDirection(): void {
-    direction = ((direction + 1) % 4) as Direction;
-  }
+    function addHandler(): void {
+        additionalButtons = [...additionalButtons, `Button ${additionalButtons.length}`];
+    }
+    function removeHandler(): void {
+        additionalButtons = [...additionalButtons.slice(0, additionalButtons.length - 1)];
+    }
+    function toggleDirection(): void {
+        direction = ((direction + 1) % 4) as Direction;
+    }
 
-  onMount(() => {
-    (window as any).win = win; // Prevent garbage collection.
-    win.nativeView.show();
-    return () => {
-      delete (window as any).win;
+    onMount(() => {
+        (window as any).win = win; // Prevent garbage collection.
+        win.nativeView.show();
+        return () => {
+        delete (window as any).win;
     };
-  });
+});
 </script>
 
 <window bind:this={win}>
-  <boxView direction={direction}>
-    <button text="Add" on={addHandler} />
-    <button text="Remove" on={removeHandler} />
-    <button text="Toggle direction" on={toggleDirection} />
-    {#each additionalButtons as additionalButton (additionalButton)}
-      <button text={additionalButton}/>
-    {/each}
-  </boxView>
+    <boxView direction={direction}>
+        <button text="Add" on={addHandler}/>
+        <button text="Remove" on={removeHandler}/>
+        <button text="Toggle direction" on={toggleDirection}/>
+            {#each additionalButtons as additionalButton (additionalButton)}
+        <button text={additionalButton}/>
+        {/each}
+    </boxView>
 </window>
 ```
 
-As the previous code sample shows, the regular [Svelte single-file component syntax](https://svelte.dev/tutorial/basics) is used to describe the application logic. Svelte’s `onMount` lifecycle hook is used to display the native application window. The window’s content is encapsulated within the `window` tag and consists of four buttons that are laid out in a given direction that the user can toggle by clicking on a button. On each toggle, the user interface of the resulting desktop application will oscillate between the two following layouts:
+如前面的代码示例所示，常规的 [Svelte 单文件组件语法](https://svelte.dev/tutorial/basics)用于描述应用程序逻辑。Svelte 的 `onMount` 生命周期挂钩用于显示原生应用程序窗口。窗口的内容被包装在 `<window>` 标签内，由四个按给定方向布置的按钮组成，用户可以通过单击按钮来切换。每次切换时，生成的桌面应用程序的用户界面都会在以下两个布局之间改变：
 
-![box layout example 1](https://github.com/nodegui/react-nodegui/raw/gh-pages/img/box-layout-1.png)![box layout example 1](https://github.com/nodegui/react-nodegui/raw/gh-pages/img/box-layout-2.png)  
-(source: [documentation](https://svelte.nodegui.org/docs/guides/layout#boxview-layout))
+![框布局示例 1](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/192cc012c7914f0ba6b799d79583393f~tplv-k3u1fbpfcp-zoom-1.image)
 
-While developers cannot use the fetch browser API, they can pick from the large existing set of Node.js packages (e.g., [Node Fetch](https://github.com/node-fetch/node-fetch)). [Native Node.js modules may also be installed](https://svelte.nodegui.org/docs/guides/using-native-node-modules) and used. Developers can [debug their Svelte NodeGui applications](https://svelte.nodegui.org/docs/guides/debugging) with the [Chromium Developer Tools](https://nodejs.org/en/docs/inspector/), as they would a Node.js application.
+![框布局示例 2](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/61210db10be44879baf7b10e5df608cc~tplv-k3u1fbpfcp-zoom-1.image)
 
-The release generated an animated discussion on HackerNews. One user [welcomed the new option for desktop applications](https://news.ycombinator.com/item?id=26361924) while signaling remaining work:
+（来源：[Svelte NodeGUI 文档](https://svelte.nodegui.org/docs/guides/layout#boxview-layout)）
 
-> Looks really good! At first glance, this seems like probably the best Electron alternative I’ve seen posted on HN.
+尽管我们无法使用使用浏览器 API，我们可以从大量现有的 Node.js 软件包中挑选我们想要的功能（例如 [Node Fetch](https://github.com/node-fetch/node-fetch)）。我们[也可以安装原生的 Node.js 模块](https://svelte.nodegui.org/docs/guides/using-native-node-modules)并使用这些模块。我们还可以使用 [Chromium 开发者工具](https://nodejs.org/en/docs/inspector/)[调试我们的 Svelte NodeGUI 应用程序](https://svelte.nodegui.org/docs/guides/debugging)，就像开发 Node.js 应用程序那样。
+
+该版本在 HackerNews 上引起了热烈的讨论。一位用户[热烈地欢迎了桌面端原生应用程序的新功能](https://news.ycombinator.com/item?id=26361924)，如下：
+
+> 看起来真的很好！乍一看，这似乎是我在 HackerNews 上看到的最好的替代品。
 >
-> Apart from the consistent GUI layer, I think an underrated reason that many teams stick with Electron is the mature tooling for cross-platform builds and upgrades. It’s pretty painful to DIY.
+> 除了一致的 GUI 层，我认为许多团队坚持使用 Electron 的一个被低估的原因是用于跨平台构建和升级的成熟工具。DIY 真的非常痛苦。
 >
-> It looks like NodeGUI doesn’t currently support cross-compilation–is that something that’s on the roadmap? How about upgrade/auto-upgrade tooling? Code signing?
+> NodeGUI 目前似乎不支持交叉编译，这是否在计划中？升级、自动升级工具怎么样？代码签名？
 
-[react-electron-boilerplate](https://electron-react-boilerplate.js.org/), [neutralino](https://neutralino.js.org/), and [tauri](https://tauri.studio/en/) are additional options for the development of lightweight desktop applications with web technologies. Google recently [released Flutter 2](https://www.infoq.com/news/2021/03/flutter-2-released/), a cross-platform UI Toolkit that strives to support developers writing applications for mobile, web, and desktop platforms from a single codebase. One HackerNews reader additionally [mentioned Sciter.js](https://news.ycombinator.com/item?id=26364927) that provides a JavaScript interface to [Sciter](https://sciter.com/), an embeddable HTML/CSS/script engine:
+[react-electron-boilerplate](https://electron-react-boilerplate.js.org/)，[neutralino](https://neutralino.js.org/) 和 [tauri](https://tauri.studio/en/) 则也同样是替代 Web 技术开发轻量级桌面应用程序的选项。Google 最近还[发布了 Flutter 2](https://www.infoq.com/news/2021/03/flutter-2-released/)，一个跨平台的 UI 工具包，致力于支持我们编写用于移动，网络，和单个代码库的桌面平台的应用程序。一名 HackerNews 读者还[提及了 Sciter.js](https://news.ycombinator.com/item?id=26364927)，它为 [Sciter](https://sciter.com/)，一种可嵌入的 HTML / CSS / Script 引擎，提供了 JavaScript 接口：
 
-> Same demo in VanilaJS and Sciter.JS : [https://github.com/c-smile/sciter-js-sdk](https://github.com/c-smile/sciter-js-sdk) (see screenshots there).
+> VanilaJS 和 Sciter.JS 中的相同演示：[https://github.com/c-smile/sciter-js-sdk](https://github.com/c-smile/sciter-js-sdk)（请参阅屏幕截图）。
 >
-> Binary is ~5MB, and that is HTML/CSS + QuickJS + NodeJS runtime.
+> 二进制文件约为 5 MB，即 HTML / CSS + QuickJS + NodeJS 运行时。
 >
-> Versus 50MB+ of NodeGUI that is Node.JS + QT.
+> 与 50MB+ 的 NodeGUI 相对应，即 Node.JS + QT。
 >
-> And SvelteJS works in Sciter.JS out of the box too.
+> SvelteJS 也可以直接在 Sciter.JS 中使用。
 
-Qt is [dual-licensed under commercial and open-source licenses](https://www.qt.io/licensing/). The creator of the [parent NodeGui project](https://docs.nodegui.org/) emphasized the [impact of licensing on software distribution](https://twitter.com/a7ulr/status/1225498258233053184?s=21):
+Qt [针对商业和开源许可证提供了两种许可](https://www.qt.io/licensing/)。[NodeGUI 项目](https://docs.nodegui.org/) 的创建者则强调了[许可对软件分发的影响](https://twitter.com/a7ulr/status/1225498258233053184?s=21)：
 
-> You can use Qt for commercial apps for free as well as long as you follow LGPL license requirements. For desktop apps, it is relatively easier to do. We need to make sure that you are dynamically linking to Qt libraries + extra license and credit info. More [here](https://www.youtube.com/watch?v=bwTlCBbB3RY).
+> 只要遵守 LGPL 许可要求，你就可以免费将 Qt 用于商业应用程序。对于桌面应用程序，这相对容易实现。我们需要确保你正在动态链接到 Qt 库和额外的许可证和信用信息。更多信息请点击[此处](https://www.youtube.com/watch?v=bwTlCBbB3RY)。
 
-[Svelte NodeGui](https://github.com/nodegui/svelte-nodegui) is an open-source project distributed under the MIT license.
+[Svelte NodeGUI](https://github.com/nodegui/svelte-nodegui) 则是根据 MIT 许可分发的开源项目。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
