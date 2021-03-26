@@ -13,7 +13,7 @@
 
 目标很明确：罢黜 JPEG 这位在存在 `<img>` 标签的 25 年以来（其实就是在网络上存在图片以来）居于统治地位的敬爱的 *明智却年老的照片压缩大师*。JPEG 这个极度出色的图像编码现在已经达到了他的极限。为什么？仅仅提到他缺少对 alpha 透明度的支持，就足以让人烦恼许久，更不用说那色彩深度的 8 位的限制（也是他不支持 HDR 的原因），还有那和与现有技术相比相对薄弱的压缩。显然，进行谋权篡位的时候到了！
 
-![一个棋盘](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/chess-board-competition.jpg "Chess Board")
+![一个棋盘](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/chess-board-competition.jpg "一个棋盘")
 
 六名对手正在进入战场，请做好准备 —— 全军出击：
 
@@ -34,7 +34,7 @@
 
 显然压缩是图像编码的重要指标，快来看看数据吧：
 
-![Compression scoreboard](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-compression-benchmark.png?raw=true "Compression scoreboard")
+![压缩比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-compression-benchmark.png?raw=true "压缩比较")
 
 * JPEG 是为了对相片进行有损压缩而创建，而 PNG 则专用于无损压缩，并在非摄影图像上表现最佳。在某种程度上，这两个编码是互补的，适用于我们实际应用中的各种用例和图像类型。
 * JPEG 2000 不仅优于 JPEG，而且还可以进行无损压缩。但是在非摄影图像上他落后于 PNG。
@@ -78,7 +78,7 @@
 
 对一张全屏的 JPEG 或 PNG 进行解码仅需极短的时间 —— 我的意思是几乎只需眨眼即可。较新的编码能够做到更好地压缩，但这也会增加复杂性。例如，限制 JPEG 2000 发行的主要因素之一，就是其过高的计算复杂性。
 
-![Speed comparison](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-speed-benchmark.png?raw=true "Speed comparison")
+![速率比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-speed-benchmark.png?raw=true "速率比较")
 
 如果图像压缩的主要目标是加快传送速度，那请顺带考虑解码速度。因为通常解码速度比编码速度更重要，毕竟在许多用例中，我们只需编码一次即可在强大的机器上离线进行编码。相反，解码则需要在包括低端设备在内的各种设备上进行多次。
 
@@ -90,17 +90,17 @@ JPEG（至少是事实上的 JPEG）和 WebP 的主要缺点是他们只支持�
 
 目前，10 位的色彩深度足以满足图像传送的需要，而其他所有图像编码都支持 10 位的深度。不过对于创作工作流（可能仍需要连续的图像转换）则可能需要更高的深度。
 
-![Limitation comparison](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-limitations-benchmark.png?raw=true "Limitation comparison")
+![局限性比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-limitations-benchmark.png?raw=true "局限性比较")
 
 WebP 和 HEIC 不支持没有色度二次采样的图像则是另一种限制。对于许多照片，色度二次采样已经足够了。在其他情况下，比如说那些具有精细细节或具有彩色外观的纹理或彩色文本图像上，WebP 和 HEIC 图像的表现就可能会是不合格。
 
 当前，最大尺寸限制对 Web 部署几乎没有问题。但是，对于摄影和图像创作，基于视频编码的格式的限制可能会令人望而却步。请注意，即使 HEIC 和 AVIF 允许在 HEIF 容器级别进行切片，即实际图像尺寸实际上是不受限制的，但在切片边界处可能会出现伪像。例如，Apple 的 HEIC 实现使用大小为 512x512 的独立编码的图块，这意味着在例如另存为 HEIC 时，编码解码器会将原本 1586x752 的图像被切成八个较小的图像块，如下所示：
 
-![Encoded tiles](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013b.png "Encoded tiles")
+![编码的分块](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013b.png "编码的分块")
 
 如果你放大去关注一下那些独立编码的图块之间的边界，那你肯定能够很清晰地看到图块之间的不连续：
 
-![Zoom](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013heic.png "Zoom")
+![放大](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013heic.png "放大")
 
 为避免此类图块边界伪像，在使用 HEIC 和 AVIF 的时候我们应该避免让图像超过最大每块尺寸（即 8K 视频帧的大小）。
 
@@ -116,7 +116,7 @@ WebP 和 HEIC 不支持没有色度二次采样的图像则是另一种限制。
 
 让我们谈回静止的图像。除了快速压缩 RGB 图片（没有大小或色彩深度限制）外，图像编码还必须提供其他所需功能。
 
-![Feature comparison](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-features-benchmark.png?raw=true "Feature comparison")
+![功能对比](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-features-benchmark.png?raw=true "功能对比")
 
 对于 Web 图像尤其是大的图像来说，慢慢加载的图像，即[渐进式解码](https://cloudinary.com/blog/improve_the_web_experience_with_progressive_image_decoding)可是一项出色的功能。JPEG 编码系列在这方面最为强大。
 
@@ -126,7 +126,7 @@ WebP 和 HEIC 不支持没有色度二次采样的图像则是另一种限制。
 
 在抵御世代丢失的弹性方面，视频编码不能完全发挥出色的性能。不过对于 Web 交付，这种缺陷并不重要，我指的是在图像变成例如模因，而最终被重新编码多次的情况下除外。
 
-![2000 generations](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/frame-2000.png "2000 generations")
+![2000 代](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/frame-2000.png "2000 代")
 
 最后，JPEG XL 的独特过渡功能是他可以有效地重新压缩[旧版 JPEG 文件](https://cloudinary.com/blog/legacy_and_transition_creating_a_new_universal_image_codec)，而不会产生内容的丢失。
 
@@ -140,7 +140,7 @@ WebP 和 HEIC 不支持没有色度二次采样的图像则是另一种限制。
 
 此外，考虑到许多因素在起作用，但并非所有因素都是技术性的，因此很难预测编码采用的成功。我们只是希望新的编码能在这场战斗中取胜，这主要是与惯性和现状的“轻松”相对立的。最终，除非 JPEG 占主导地位，否则无论采用哪种新编码，我们都将受益于更强的压缩、更高的图像保真度和色彩准确性，从而能够使用更具吸引力且加载速度更快的图像。那将是每个人的胜利！
 
-![Codec comparison](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-battle-of-codecs.png?raw=true "Codec comparison")
+![编码对比](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-battle-of-codecs.png?raw=true "编码对比")
 
 > ### 注：
 >
