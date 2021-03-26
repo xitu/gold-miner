@@ -17,7 +17,7 @@
 
 答案是：可以，不过需要警告的是，想要通过 Mongo 得到真正的商业智能特性是需要付出代价的 —— 需要花费时间和金钱。
 
-在本文中，我会简要介绍使用传统关系型数据库（例如 SQL ）和 NoSQL（如 MongoDB ）数据库在商业智能应用中各自的优势，并做出比较。同时，我也会给出一些建议，用于在 MongoDB 中，获得类似于 SQL 那样的实时动态数据查询特性。
+在本文中，我会简要介绍使用传统关系型数据库（例如 SQL ）和 NoSQL（如 MongoDB ）数据库在商业智能应用中各自的优势，并做出比较。同时，我也会给出一些建议，用于如何在 MongoDB 中，获得类似于 SQL 那样的实时动态数据查询特性。
 
 ## 使用 SQL 数据库的优势
 
@@ -25,8 +25,8 @@
 
 那么，传统关系型数据库的优势有哪些呢？
 
-* **他们是结构化的** —— 该特性非常适合那些具有强一致性，整洁，标准化的数据存储，例如金融数据。但是这个特性也是一把双刃剑。 后面会详细说明。
-* **高效的内存使用** ——  这种高度标准化的关系型数据保证了不会在重复数据上浪费存储空间。
+* **他们是结构化的** — 该特性非常适合那些具有强一致性，整洁，标准化的数据存储，例如金融数据。但是这个特性也是一把双刃剑。 后面会详细说明。
+* **高效的内存使用** —  这种高度标准化的关系型数据保证了不会在重复数据上浪费存储空间。
 * **很方便地进行查询** — SQL 作为一种灵活性和扩展性兼备的查询语言，被需多厂商选择。正因如此，用户可以非常容易地使用 SQL 进行查询，数据转换或与其他关系型数据表进行连接。
 
 ## 使用 MongoDB 的优势
@@ -35,23 +35,23 @@
 
 当开发者使用 MongoDB 时，他们享受有哪些特性？
 
-* **Flexible schemas** — because MongoDB stores data in JSON objects, individual units are capable of holding extensive nested fields. Different object instances may also capture different fields.
-* **Speed** — Indexing on JSON data generally provides the user with data more rapidly than indexing of typical relational databases.
-* **Scalability** — MongoDB divides the data into shards, which means it can handle big data efficiently.
+* **灵活的 schemas** — 由于 MongoDB 采用 JSON 对象存储的缘故，不同的数据属性间可以随意嵌套。并且，不同的对象也可以拥有不同的成员属性。
+* **速度** — 相对传统的关系型数据库，在 JSON 数据中提供索引查找可以给用户提供更加迅速的检索速度。
+* **可伸缩性** — 由于 MongoDB 将数据分隔为多个碎片，使它可以高效地处理大规模数据。
 
 ## 商业智能：SQL 数据库 vs. MongoDB 
 
 当提来商业智能中时，如何针对这两种数据库做出比较？通常来说，商业智能领域是 SQL 的天下（[business intelligence belongs to SQL](https://www.knowi.com/mysql)）。得益于 SQL 的灵活性，使其可以轻松地在关系型数据中执行获取，过滤，连接，聚合或其他函数运算。使得我们可以很轻松查询报表或执行可视化操作。
 
-By contrast, business intelligence in NoSQL databases is not as well developed, which makes sense since NoSQL databases are still fairly nascent. NoSQL databases are capable of being used for business intelligence, but the unstructured nature of NoSQL databases means that generating queries generally isn’t as clean as it is in SQL. To give a few examples, the query language isn’t consistent across NoSQL databases like it is across SQL databases, and NoSQL databases generally haven’t supported joining across tables.
+作为对比，NoSQL 数据库在商业智能领域中还没有被很好的开发，也就是说，其应用还处于初期阶段。 目前来说，NoSQL 数据库已经有能力被用在商业智能中，但是由于其非结构化的特征意味着相关查询语句并不像 SQL 那样清晰。 举一个例子：NoSQL 中的查询语言并不能像 SQL 那样可以跨多种数据库通用，并且，NoSQL 数据库通常也不支持连表操作。
 
-## How Can You Use MongoDB for Business Intelligence?
+## 如何在商业智能中使用 MongoDB ？
 
-It’s easy to see why SQL databases are often a favorite for business intelligence. But the distinct advantages of NoSQL databases can become essential under certain use-cases. One area where NoSQL databases like Mongo are gaining traction is in the field of [IoT analytics](https://www.knowi.com/solution/iot-analytics/) for connected devices. This is a domain where there is a lot of data and it varies greatly in structure. In cases like this, you still need to be able to perform business intelligence functions on your Mongo data. So what do you do then?
+SQL 数据库通常作为商业智能中的最佳选择是很容易理解的。但是在某些使用场景汇中，NoSQL 数据库中的独特优势也会成为必要条件。 例如在设备互联的物联网分析（ [IoT analytics](https://www.knowi.com/solution/iot-analytics/) ）领域中，像 Mongo 这样的 NoSQL 数据库越来越有吸引力。这是一个拥有海量数据，且结构变化多样的领域。在这种情况下，你仍然需要在 Mongo 数据中执行商业智能操作。那么，应该怎样完成呢？ 
 
-#### Solution One: ETL
+#### 方式一： ETL
 
-You could always copy your MongoDB data into a SQL database, and then conduct your business intelligence process using the relational data. Doing so would provide you with all of the benefits of using SQL for business intelligence, and might even allow you to perform real-time analytics if your company’s ETL procedure is efficient enough. Some solutions such as [AWS Glue](https://www.knowi.com/blog/aws-glue-etl/) do this very well. Other companies such as Avik Cloud help companies build data pipelines, which adds layers of transformation to the ETL process.
+你可以持续地将所有位于 MongoDB 中的数据同步至 SQL 数据库中，这样，就可以在关系型数据库中实施商业智能了。如果你们采用的 ETL 工具足够强力的话，就可以在商业智能中保留实时分析数据能力的前提下，同时中拥有所有 SQL 数据库的优点。[AWS Glue](https://www.knowi.com/blog/aws-glue-etl/) 便是一个很好的选择。其他公司例如 Avik Cloud 可以帮助企业建立用于 ETL 数据转换层管道。
 
 The issue with taking this approach is that it requires additional resources in the form of additional hardware, as well as additional man-hours in the configuration of the ETL process and maintenance of the new environment. Suddenly, the business intelligence process requires support from several different members across several different teams. Copying data from MongoDB into a SQL database also gives up all the advantages of having a schemaless data structure, since you have to force that data into a schema structure to get it into the SQL database.
 
