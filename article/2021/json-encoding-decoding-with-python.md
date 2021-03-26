@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
 > * 译者：[洛竹](https://github.com/youngjuning)、[雪刺](https://github.com/a651092254)
-> * 校对者：
+> * 校对者：[Zoe](https://github.com/husiyu)
 
 # Python 的 JSON 库：按速度，成熟度和操作安全性进行比较
 
