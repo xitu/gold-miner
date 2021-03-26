@@ -70,7 +70,7 @@ locationManager.pausesLocationUpdatesAutomatically = false
 
 ![](https://cdn-images-1.medium.com/max/2720/1*2_Y2M6m8lvAcCUOr_hrNYQ.png)
 
-这个 `requestTemporaryFullAccuracyAuthorization` 方法需要一个 `purpose` 键来解释访问用户的准确地理位置的需要。这个键被定义在 `info.plist` 文件中的一个 `NSLocationTemporaryUsageDescriptionDictionary` 字典里，如下图所示：
+这个 `requestTemporaryFullAccuracyAuthorization` 方法需要一个 `purpose` 键来解释为何需要访问用户的准确地理位置。这个键被定义在 `info.plist` 文件中的一个 `NSLocationTemporaryUsageDescriptionDictionary` 字典里，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*hbgrE7IeurnF6h4VmUmYVw.png)
 
@@ -78,9 +78,9 @@ locationManager.pausesLocationUpdatesAutomatically = false
 
 ![Screenshot by the author.](https://cdn-images-1.medium.com/max/2000/1*PKM54GYFk_ZxBszrOBt6XA.png)
 
-`reducedAccuracy` 和 `fullAccuracy` 位置更新都是在代理方法 `didUpdateLocations` 中被接收的。 
+`reducedAccuracy` 和 `fullAccuracy` 位置更新都是在代理方法 `didUpdateLocations` 中被接收的。
 
-一个用 Swift UI 编写的 iOS 14 `CoreLocation` 应用的 demo 的源代码可以在 [GitHub](https://github.com/anupamchugh/iOS14-Resources/tree/master/iOS14SwiftUICoreLocation)获取。
+一个用 Swift UI 编写的 iOS 14 `CoreLocation` 应用的 demo 的源代码可以在 [GitHub](https://github.com/anupamchugh/iOS14-Resources/tree/master/iOS14SwiftUICoreLocation) 获取。
 
 请务必注意，如果使用 `reducedAccuracy` 进行后台地理位置更新，更新的时间间隔将不会改变。在这种情况下，信号灯和地区检测也将被禁用。
 
