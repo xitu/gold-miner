@@ -2,8 +2,8 @@
 > * 原文作者：[Anupam Chugh](https://medium.com/@anupamchugh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/handling-location-permissions-in-ios-14.md](https://github.com/xitu/gold-miner/blob/master/article/2020/handling-location-permissions-in-ios-14.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Godlowd](https://github.com/Godlowd)，[lsvih](https://github.com/lsvih)
+> * 校对者：[lsvih](https://github.com/lsvih)，[Hoarfroster](https://github.com/PassionPenguin)
 
 # 在 iOS 14 中处理位置权限和管理近似地址访问
 
@@ -70,7 +70,7 @@ locationManager.pausesLocationUpdatesAutomatically = false
 
 ![](https://cdn-images-1.medium.com/max/2720/1*2_Y2M6m8lvAcCUOr_hrNYQ.png)
 
-这个 requestTemporaryFullAccuracyAuthorization 方法需要一个  purpose 键 来解释访问用户的准确地理位置的需要。这个键被定义在`info.plist`文件中的一个 NSLocationTemporaryUsageDescriptionDictionary 字典里，如下图所示：
+这个 `requestTemporaryFullAccuracyAuthorization` 方法需要一个 `purpose` 键来解释访问用户的准确地理位置的需要。这个键被定义在 `info.plist` 文件中的一个 `NSLocationTemporaryUsageDescriptionDictionary` 字典里，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*hbgrE7IeurnF6h4VmUmYVw.png)
 
