@@ -2,8 +2,8 @@
 > - 原文作者：Dr.Magesh Kasthuri 
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-java-is-so-young-after-25-years-an-architects.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-java-is-so-young-after-25-years-an-architects.md)
-> - 译者：
-> - 校对者：
+> - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> - 校对者：[wumrwds](https://github.com/wumrwds)
 
 # 为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法
 
