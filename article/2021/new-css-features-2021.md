@@ -2,18 +2,18 @@
 > * 原文作者：[Nick Schäferhoff](https://torquemag.io/author/NSchaferhoff1234/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md)
-> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 校对者：[Baddyo](https://github.com/Baddyo)
 
-# 10 个新的 CSS 功能你可能不知道（2021 年版本）
+# 都 2021 年了，你还不知道这 10 个 CSS 功能？
 
-<!-- 绝对是整合文 = =，都是 1718 甚至 16 年就有的功能了 -->
+<!-- 绝对是整合文 = =，都是 17、18 甚至 16 年就有的功能了 -->
 
 没有 CSS，现代 Web 应用程序将无法实现。标记语言（译者注：这是样式表语言……）负责让：网站看起来不错，布局令人愉悦，并且每个元素都停留在它所属的位置。但是，你能够一直保持对最新的 CSS 功能的了解吗？
 
-多年来，CSS 已经超越了单纯设置背景色、边框、文本样式、边距和[盒模型](https://torquemag.io/2018/06/css-box-model/)的范畴。CSS 现在能够提供过去需要 JavaScript 或其他解决方法的功能！
+多年来，CSS 已经超越了单纯设置背景色、边框、文本样式、边距和[盒模型](https://torquemag.io/2018/06/css-box-model/)的范畴。CSS 现在能够提供过去需要 JavaScript 或其他解决方法才能实现的功能！
 
-为了庆祝 CSS 的发展，在这篇文章中，我们想看看 2021 年 CSS 大家可能还没有意识到好处的一些令人惊奇的功能（译者注：准确来说，2021 年比较有用但又不热门的功能）。我们将重点介绍 [Web 设计师和开发者](https://torquemag.io/2017/10/web-designer-vs-web-developer-difference/)可以使用现代 CSS 的出色功能，讨论一下用例和浏览器支持，并为大家提供一个简单的示例。
+为了庆祝 CSS 的发展，在这篇文章中，我们想看看 CSS 在 2021 年推出的一些令人惊奇而大家可能还不知道的功能（译者注：准确来说，2021 年比较有用但又不热门的功能）。我们将重点介绍 [Web 设计师和开发者](https://torquemag.io/2017/10/web-designer-vs-web-developer-difference/)可以使用的现代 CSS 的出色功能，讨论一下用例和浏览器支持，并为大家提供一个简单的示例。
 
 让我们开始吧！
 
@@ -23,9 +23,9 @@
 
 ### 自定义属性与变量
 
-译者注：这里的自定义属性 Custom Properties 和我们所说的变量是一个东西，见 [MDN Web Doc](https://developer.mozilla.org/zh-CN/docs/Web/CSS/--*)
+译者注：这里的自定义属性（Custom Properties）和我们所说的变量是一个东西，见 [MDN Web Doc](https://developer.mozilla.org/zh-CN/docs/Web/CSS/--*)
 
-自定义属性基本上允许我们定义 CSS 属性的替代品以用于我们的设计。理解这个功能有用的原因的最好方法是看一个例子：
+自定义属性基本上允许我们定义 CSS 属性的替代品以用于我们的设计。一个例子就能让你理解为什么说这个功能有用：
 
 通常，在构建主题时，我们会选择一种[配色方案](https://websitesetup.org/website-color-schemes/)，然后在必要时声明这些颜色。
 
@@ -47,7 +47,7 @@ a {
 
 #### 有更好的解决方案
 
-自定义属性就解决了这个问题。在他们的帮助下，我们可以轻松地将有问题的配色分配给一个变量，然后每次使用该变量时，只需将其作为 CSS 属性输入即可，如下所示：
+自定义属性就解决了这个问题。在它们的帮助下，我们可以轻松地将刚才所说的配色分配给一个变量，然后每次使用该颜色时，只需将其作为 CSS 属性输入即可，如下所示：
 
 ```css
 :root {
@@ -63,9 +63,9 @@ a {
 }
 ```
 
-这样，每当我们想要对配色进行更改时，只需要在一个地方进行更改即可。太酷了吧？过去，我们还需要使用 [SASS](https://torquemag.io/2017/06/start-using-sass-wordpress-npm-scripts/) 之类的预处理器来使用变量，而现在它是 CSS 的原生功能。
+这样，每当我们想要对配色进行更改时，只需要在一个地方进行更改即可。太酷了吧？过去，我们还需要使用 [Sass](https://torquemag.io/2017/06/start-using-sass-wordpress-npm-scripts/) 之类的预处理器来使用变量，而现在它是 CSS 的原生功能。
 
-正如您在上面看到的，自定义属性也非常易于使用。在 `:root` 选择器下的文档开始处定义变量（请注意，`--` 变量前面应使用双连字符，这是将变量称为自定义属性的原因，它们也区分大小写！）。之后我们就可以通过 `var()` 函数在整个文档中使用它们。
+正如您在上面看到的，自定义属性也非常易于使用。在 `:root` 选择器下的文档开始处定义变量（请注意，变量前面应使用双连字符 `--`，这是将变量称为自定义属性的原因，它们也区分大小写！）。之后我们就可以通过 `var()` 函数在整个文档中使用它们。
 
 如果要更改变量，只需更改 `:root` 下面的声明就可以了。
 
@@ -75,7 +75,7 @@ a {
 
 ### @supports
 
-接下来，我们有一个类似于媒体查询的 CSS 规则。不过我们不是用它基于于屏幕大小或设备类型编写特定的样式，而是根据用户浏览器支持的 CSS 属性和值，执行特定的操作。
+接下来，我们有一个类似于媒体查询的 CSS 规则。不过我们不是用它基于屏幕大小或设备类型编写特定的样式，而是根据用户浏览器支持的 CSS 属性和值，应用特定的样式。
 
 这有什么用？
 
@@ -113,15 +113,15 @@ a {
 
 ![Can I Use](https://s3-torquehhvm-wpengine.netdna-ssl.com/uploads/2021/02/css-feature-queries-browser-support-1024x368.jpg)
 
-但是，由于这些查询的目的是启用或禁用旧版浏览器无法处理的功能，因此请确保正确编写它们。即如果要使用功能查询，请为支持功能查询的浏览器创建功能查询条件。告诉浏览器以某种无法理解的方式忽略某些内容是没有用的。
+但是，由于这些查询的目的是启用或禁用旧版浏览器无法处理的功能，因此请确保正确编写它们。即如果要使用功能查询，请为支持功能查询的浏览器创建功能查询条件。让浏览器以它无法理解的方式忽略某些内容是没有用的。
 
 ### Flexbox 间隙
 
 Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https://torquemag.io/2020/02/flexbox-tutorial/)。长期以来，Flexbox 的缺点是它不支持间隙，我说的是，不支持定义行和列之间的间隔。
 
-幸运的是，浏览器对此 CSS 功能的支持正在改善。现在，我们可以开始使用 [`gap`](https://caniuse.com/flexbox-gap)、[`row-gap`](https://caniuse.com/?search=row-gap) 和 [`column-gap`](https://caniuse.com/?search=column-gap) 属性，在网格布局、Flexbox 布局和 Multi-Column 布局创建的布局中创建间隙。
+幸运的是，浏览器对此 CSS 功能的支持正在改善。现在，我们可以开始使用 [`gap`](https://caniuse.com/flexbox-gap)、[`row-gap`](https://caniuse.com/?search=row-gap) 和 [`column-gap`](https://caniuse.com/?search=column-gap) 属性，在网格布局、Flexbox 布局和 Multi-Column 布局中创建间隙。
 
-这是一个在 Flexbox 中创建间隙的外观的快速示例：
+这是一个在 Flexbox 中创建间隙的快速示例：
 
 ```
 .flex-gap-test {
@@ -148,7 +148,7 @@ Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https:
 
 ### 内容可见性
 
-`content-visibility` 是 CSS 中一个非常酷的新功能，能够有效[提高网站性能](https://torquemag.io/2015/08/ways-to-speed-up-wordpress-decrease-page-load-time/)。它基本上像[延迟加载](https://torquemag.io/2018/01/lazy-load-wordpress/)一样工作，而且不仅不适用于图像，而且适用于任何 HTML 元素。我们可以使用它来阻止网站的任何部分加载，直到其可见为止。
+`content-visibility` 是 CSS 中一个非常酷的新功能，能够有效[提高网站性能](https://torquemag.io/2015/08/ways-to-speed-up-wordpress-decrease-page-load-time/)。它基本上像[延迟加载](https://torquemag.io/2018/01/lazy-load-wordpress/)一样工作，而且不仅适用于图像，还适用于任何 HTML 元素。我们可以使用它来阻止网站的任何部分加载，直到其可见为止。
 
 使用也超级容易。只需将其应用于我们选择的元素，如下所示：
 
@@ -164,7 +164,7 @@ Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https:
 
 在这种情况下可能也很重要的一件事是考虑一下 `contain-intrinsic-size`。由于设置为 `content-visibility: hidden;` 的元素的大小实际上为零，因此我们可以将理论高度和宽度应用于隐藏的元素，以便浏览器可以从一开始就将其考虑在内，而不是在渲染元素时考虑。这样，我们可以避免在滚动过程中布局被突然改变。
 
-[浏览器支持方面]((https://caniuse.com/css-content-visibility))，[`content-visibility`](https://caniuse.com/css-content-visibility) 仍然有些差劲，不过正在朝着那个方向前进着，同理 [`contain-intrinsic-size`](https://caniuse.com/mdn-css_properties_contain-intrinsic-size)。
+[浏览器支持方面]((https://caniuse.com/css-content-visibility))，[`content-visibility`](https://caniuse.com/css-content-visibility) 仍然有些差劲，不过正在朝着那个方向前进着，[`contain-intrinsic-size`](https://caniuse.com/mdn-css_properties_contain-intrinsic-size) 同理。
 
 ![Can I Use](https://s3-torquehhvm-wpengine.netdna-ssl.com/uploads/2021/02/css-content-visibility-browser-support-1024x370.jpg)
 
@@ -175,8 +175,10 @@ Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https:
 在过去，如果我们想在网站上移动某些内容，通常必须求助于 JavaScript（对于 MySpace 一代的用户来说则需要求助 GIF 动画）。但是你可能不知道的是，CSS 早就能够做到这一点。实现这种目标的三种主要方式是：
 
 * [`transition`](https://www.w3schools.com/css/css3_transitions.asp) —— 支持平滑地从一个属性值更改为另一个属性值（例如，悬停效果），而不是突然更改。
-* [`transform`](https://www.w3schools.com/css/css3_2dtransforms.asp) —— 支持在 [**2D**](https://www.w3schools.com/css/css3_2dtransforms.asp) 和 [**3D**](https://www.w3schools.com/css/css3_3dtransforms.asp) 空间中移动，旋转和缩放元素。
-* [`animation`](https://www.w3schools.com/css/css3_animations.asp) —— 在 CSS 中设置简单或复杂的动画，并配置它们的运行方式和运行时间。 自然，在这里我们没有空间详细讨论所有这三个部分。如果您想了解更多信息，请务必查看上面的链接。但是，让我们为每个示例做一些快速练习示例，以便您对可能的效果有一个印象。
+* [`transform`](https://www.w3schools.com/css/css3_2dtransforms.asp) —— 支持在 [**2D**](https://www.w3schools.com/css/css3_2dtransforms.asp) 和 [**3D**](https://www.w3schools.com/css/css3_3dtransforms.asp) 空间中移动、旋转和缩放元素。
+* [`animation`](https://www.w3schools.com/css/css3_animations.asp) —— 在 CSS 中设置简单或复杂的动画，并配置它们的运行方式和运行时间。 
+
+自然，在这里我们没有空间详细讨论所有这三个部分。如果您想了解更多信息，请务必查看上面的链接。但是，让我们为每个示例做一些快速练习示例，以便您对可能的效果有一个印象。
 
 #### CSS Transition
 
@@ -198,7 +200,7 @@ div:hover {
 
 #### CSS Transform
 
-以下是 CSS 转换的示例 —— 当有人将鼠标悬停在元素上方时，它将使元素顺时针旋转30度：
+以下是 CSS 转换的示例 —— 当有人将鼠标悬停在元素上方时，它将使元素顺时针旋转 30 度：
 
 ```css
 div:hover {
@@ -228,7 +230,7 @@ div:hover {
 
 请注意我们使用 `@keyframes` 命名动画并定义其功能，然后我们需要使用 `animation-name` 将该动画应用于元素。`animation-duration` 则控制完成所需的时间，然后还有不少其他类似的属性～
 
-如果你想尝试所有这些方式，那么有个好消息，浏览器对它们的支持非常好（请参见 [**Transition**](https://caniuse.com/css-transitions)、[**2D Transform**](https://caniuse.com/transforms2d)、[**3D Transform**](https://caniuse.com/transforms3d) 和 [**Animation**](https://caniuse.com/css-animation)）。因此，没有任何障碍可以让您随意旋转CSS过渡，转换和动画。
+如果你想尝试所有这些方式，那么有个好消息，浏览器对它们的支持非常好（请参见 [**Transition**](https://caniuse.com/css-transitions)、[**2D Transform**](https://caniuse.com/transforms2d)、[**3D Transform**](https://caniuse.com/transforms3d) 和 [**Animation**](https://caniuse.com/css-animation)）。因此，没有任何障碍可以让您随意玩转 CSS 过渡、转换和动画。
 
 ### 滚动捕捉
 
@@ -254,11 +256,11 @@ div:hover {
 
 ![Can I Use](https://s3-torquehhvm-wpengine.netdna-ssl.com/uploads/2021/02/css-scroll-snap-browser-support-1024x378.jpg)
 
-但是请注意，`scroll-snap `属性之间的支持会有些许不同。因此，请确保检查你的特定用例。
+但是请注意，`scroll-snap` 属性之间的支持会有些许不同。因此，请确保检查你的特定用例。
 
 ### :is 和 :where
 
-你可能不知道的新 CSS 功能列表中的最后一个条目是 :is 和 :where 伪类，它们允许我们通过缩短 CSS 选择器列表来减少 CSS 样式中的重复代码。
+你可能不知道的新 CSS 功能列表中的最后一个条目是 `:is` 和 `:where` 伪类，它们允许我们通过缩短 CSS 选择器列表来减少 CSS 样式中的重复代码。
 
 例如：
 
@@ -282,21 +284,21 @@ div:hover {
 
 ```css
 :where(.main, .sidebar, .site-footer) a:hover {
-    /* 样式*/
+    /* 样式 */
 }
 ```
 
 如果样式相同，有什么区别？区别在于 `:is` 更加具体。它采用括号中最具体元素的针对性级别。与此相反，`:where` 的针对性始终为零。因此更容易按照案例进行覆盖。
 
-浏览器支持方面 [:is](https://caniuse.com/mdn-css_selectors_is) 和 [:where](https://caniuse.com/mdn-css_selectors_where) 仍然是有些不同，但正在逐渐变好起来。因此我们随时开始尝试它们。
+浏览器支持方面 [:is](https://caniuse.com/mdn-css_selectors_is) 和 [:where](https://caniuse.com/mdn-css_selectors_where) 仍然是有些不完全，但正在逐渐变好起来。因此我们随时开始尝试它们。
 
-## 还有其他值得一看的CSS新功能吗？
+## 还有其他值得一看的 CSS 新功能吗？
 
 像所有其他 Web 技术一样，CSS 也在不断发展。这意味着总会有新的 CSS 功能出现，有新的东西让我们尝试。
 
-本文我们主要讲了一些我们可能已经错过的现在 CSS 所具有的功能，并且还有更多的类似功能等待着我们的发掘。—— 请告诉我们到你还想要我们需要分享其他内容，我们非常乐意为你解答。除此之外，祝你编程愉快！
+本文我们主要讲了一些我们可能没注意到的现代 CSS 所具有的功能，并且还有更多的类似功能等待着我们的发掘。—— 如果你还有其他想要分享的，请告诉我们，我们会很开心的。除此之外，祝你编程愉快！
 
-**你最喜欢的现代CSS功能是什么？在下面的评论部分中分享它！**
+*你最喜欢的现代 CSS 功能是什么？在下面的评论部分中分享它！*
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
