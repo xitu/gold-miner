@@ -23,11 +23,11 @@ The idea was to create a common specification for the various web servers (other
 
 On 17 November 1993, McCool [posted a message](http://1997.webhistory.org/www.lists/www-talk.1993q4/0518.html) to the www-talk mailing list:
 
-*“I have spent some time writing up a formal specification for the Server-gateway interface. I invite any and all comments and suggestions. […] This is a preliminary specification of the Common Gateway Protocol, or CGP. The version defined by this spec will be CGP/1.0.”*
+> “I have spent some time writing up a formal specification for the Server-gateway interface. I invite any and all comments and suggestions. […] This is a preliminary specification of the Common Gateway Protocol, or CGP. The version defined by this spec will be CGP/1.0.”
 
 A couple of days later, after some initial feedback from the mailing list, [McCool wrote](http://1997.webhistory.org/www.lists/www-talk.1993q4/0540.html):
 
-*“I was thinking about it, and this is not really a protocol but an interface.What do you all think about changing it to CGI/1.0?”*
+> “I was thinking about it, and this is not really a protocol but an interface.What do you all think about changing it to CGI/1.0?”
 
 After a minor grumble from someone about the term “gateway,” [McCool clarified](http://1997.webhistory.org/www.lists/www-talk.1993q4/0563.html) that it referred to “an interface to external server programs which allow you to interface with services you may not normally have access to.”
 
@@ -41,11 +41,11 @@ A CGI program initiated via a hyperlink; [image by Michael Grobe](http://condor
 
 By [early December 1993](http://1997.webhistory.org/www.lists/www-talk.1993q4/0685.html), McCool had “written the CGI specification into a set of HTML documents, at URL http://hoohoo.ncsa.uiuc.edu/cgi/.” While that web page is long gone from the web, the Wayback Machine has a copy [from April 1997](https://web.archive.org/web/19970414060000/http://hoohoo.ncsa.uiuc.edu/cgi/). There we can see how McCool defined CGI for the world:
 
-*“The Common Gateway Interface, or CGI, is a standard for external gateway programs to interface with information servers such as HTTP servers.”*
+> “The Common Gateway Interface, or CGI, is a standard for external gateway programs to interface with information servers such as HTTP servers.”
 
 In an accompanying [introduction](https://web.archive.org/web/19971210170704/http://hoohoo.ncsa.uiuc.edu/cgi/intro.html), McCool claimed that “there really is no limit as to what you can hook up to the Web,” although he added a note of caution:
 
-*“The only thing you need to remember is that whatever your CGI program does, it should not take too long to process. Otherwise, the user will just be staring at their browser waiting for something to happen.”*
+> “The only thing you need to remember is that whatever your CGI program does, it should not take too long to process. Otherwise, the user will just be staring at their browser waiting for something to happen.”
 
 Because CGI scripts were executable, they were usually placed inside a special folder. As McCool explained, this was “so that the Web server knows to execute the program rather than just display it to the browser.” This also enabled web masters to lock the folder down, to prevent people from creating potentially dangerous CGI scripts. McCool suggested the folder name *cgi-bin*, which soon became the norm. It became common later in the 90s to see URLs like http://www.example.com/cgi-bin/helloworld.pl.
 
@@ -63,7 +63,7 @@ McCool’s [specification](https://web.archive.org/web/19971210170807/http://ho
 
 In practice though, many CGI applications were written in the scripting language, Perl (this is partly why they came to be known as CGI scripts). Indeed, Perl had a big influence on the creation of CGI, as explained in [this 2016 article](https://opensource.com/life/16/11/perl-and-birth-dynamic-web) by Michael Stevenson on opensource.com. He referenced Jim Davis’ [Gateway to the U Mich Geography server](https://lists.w3.org/Archives/Public/www-talk/1992NovDec/0060.html), released to the WWW-talk mailing list in November 1992:
 
-*“Davis’s script, written in Perl, was a kind of proto-Web API, pulling in data from another server based on formatted user queries.”*
+> “Davis’s script, written in Perl, was a kind of proto-Web API, pulling in data from another server based on formatted user queries.”
 
 The first use cases for CGI were, unsurprisingly, focused on connecting an application to a database. So CGI was used to create things like a contact form, a guest book, a survey, or a search box. Anything that required user input, prompting a round trip from web page to database and back to the web page again, was a good candidate for CGI use.
 
@@ -73,7 +73,7 @@ Example of CGI being used via an online form; image by Michael Grobe
 
 Here’s the above diagram explained in [an introductory article](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml) written sometime in 1994 at The University of Kansas:
 
-*“In this diagram, the Web client running on Computer A acquires a form from some Web server running on Computer B. It displays the form, the user enters data, and the client sends the entered information to the HTTP server running on Computer C. There, the data is handed off to a CGI program which prepares a document and sends it to the client on Computer A. The client then displays that document.”*
+> “In this diagram, the Web client running on Computer A acquires a form from some Web server running on Computer B. It displays the form, the user enters data, and the client sends the entered information to the HTTP server running on Computer C. There, the data is handed off to a CGI program which prepares a document and sends it to the client on Computer A. The client then displays that document.”
 
 Similar to JavaScript, CGI scripts could be copied and pasted into websites by non-programmers. So if you needed a contact form, you’d search the web until you found a CGI script that enabled that. Usually it was a Perl script and over time websites like [Matt’s Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/) emerged to provide these code snippets.
 
@@ -85,7 +85,7 @@ Similar to JavaScript, CGI scripts could be copied and pasted into websites by n
 
 FormMail highlights a problem with CGI scripts in those early years: because by design they enabled random web users to run programs on your server, these scripts [could easily be hacked](https://web.archive.org/web/20020221182749/http://datacreek.net/webgear/tips/fmailspam.html) if clumsily written. If thousands of other website owners then copied and pasted that same code, it would became a widespread security issue (which happened with FormMail). As a user of [a computer programming forum](http://computer-programming-forum.com/53-perl/f47edf76a5dbbfa4.htm) rather bluntly put it, in a discussion about Wright’s scripts:
 
-*“…the vast majority of people downloading and implementing these scripts have no programming knowledge of their own and, as such, are ‘blissfully’ ignorant of the security risks, Y2K bugs, and the frequent total lack of proper error handling.”*
+> “…the vast majority of people downloading and implementing these scripts have no programming knowledge of their own and, as such, are ‘blissfully’ ignorant of the security risks, Y2K bugs, and the frequent total lack of proper error handling.”
 
 Eventually, members of the Perl community started a website called [Not Matt’s Scripts](http://nms-cgi.sourceforge.net/) to provide alternatives to Wright’s increasingly popular CGI scripts. That website was last updated in 2004. Interestingly, [Matt’s Script Archive](http://www.scriptarchive.com/) lasted five more years (although it now includes security warnings).
 
@@ -96,8 +96,6 @@ One of the themes of web development in the mid-1990s, which I have explored in 
 But CGI in many ways routed around this movement towards complexity, by providing an easy way to access backend functionality via a web page. The “gateway” was really just that — a virtual pipe from the browser to a server, that executed a script and then sent the result back to the browser. This simplicity enabled influential 1990s websites like Yahoo!, eBay and Craigslist to flourish, without necessarily needing to buy into either of Netscape or Microsoft’s vision for the web.
 
 But another theme of web development is that things don’t stay still for long! 1994 saw the emergence of a new scripting language that was based on CGI: [PHP](https://www.php.net/manual/en/history.php.php), which initially stood for “Personal Home Page Tools.” Over time, PHP became a replacement for Perl CGI scripts in many cases. I’ll delve into *that* story in the next post in this series about server-side web development.
-
-*Lead image via [researchgate.net](https://www.researchgate.net/figure/Screenshot-of-the-Mosaic-browser-displaying-the-NCSAs-home-page-The-browser-was_fig1_304300437) and [Wikipedia](https://en.wikipedia.org/wiki/File:Common_Gateway_Interface_logo.svg).*
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
