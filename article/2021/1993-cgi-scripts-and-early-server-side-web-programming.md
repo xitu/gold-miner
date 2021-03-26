@@ -1,7 +1,7 @@
-> * 原文地址：[1993: CGI Scripts and Early Server-Side Web Programming](https://levelup.gitconnected.com/5-advanced-typescript-tips-to-make-you-a-better-programmer-bd4070aa2ab4)
+> * 原文地址：[1993: CGI Scripts and Early Server-Side Web Programming](https://webdevelopmenthistory.com/1993-cgi-scripts-and-early-server-side-web-programming/)
 > * 原文作者：[ricmac](https://webdevelopmenthistory.com/author/richardricmac-org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming](https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming.md](https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming.md)
 > * 译者：
 > * 校对者：
 
