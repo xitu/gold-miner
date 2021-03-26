@@ -1,9 +1,9 @@
-> - 原文地址：[Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web](https://www.infoq.com/news/2021/03/web-almanac-2020)
-> - 原文作者：Suresh Kumar
-> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
-> - 译者：[felixliao](https://github.com/felixliao)
-> - 校对者：
+> * 原文地址：[Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web](https://www.infoq.com/news/2021/03/web-almanac-2020)
+> * 原文作者：Suresh Kumar
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
+> * 译者：[felixliao](https://github.com/felixliao)
+> * 校对者：
 
 # 网络年鉴大研究表明热门的前端框架依然是互联网的一小部分
 
@@ -23,7 +23,7 @@ CSS 的章节还指出 CSS 的中位大小在 60 KB 左右，包含超过 400 �
 
 > 取决于你的看法，你也许可以宽恕自己没有因为发送到桌面端和移动端的代码间小小的差距感到懊恼 — 毕竟，30 KB 的中位差能怎么样呢，对吧？[...] 中位桌面站点花费浏览器主进程 891 毫秒来处理这些 JavaScript。然而，中位移动端站点花费 1897 毫秒 — 桌面端花费时间的两倍多。这在底部的页面上更为糟糕。在 90 百分位，移动端页面要占据主进程 8921 毫秒来处理 JavaScript，相比之下桌面站点只需要 3838 毫秒。
 
-好的一面是，[resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/) 可以抵消一些加载 JavaScript 的网络成本，它在将近 17% 的页面汇总被使用，其中大部分来自于 [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)。
+好的一面是，[resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/) 可以抵消一些加载 JavaScript 的网络成本，它在将近 17% 的页面中被使用，其中大部分来自于 [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)。
 
 报告中关于第三方的章节分析了第三方脚本的存在、分布和影响，强调了管理它们的重要性：
 
