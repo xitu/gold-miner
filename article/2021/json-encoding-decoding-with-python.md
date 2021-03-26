@@ -3,31 +3,31 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
 > * 译者：[洛竹](https://github.com/youngjuning)、[a651092254](https://github.com/a651092254)
-> * 校对者：
+> * 校对者：[Zoe](https://github.com/husiyu)
 
 # Python 的 JSON 库——按速度，成熟度和操作安全性进行比较
 
 REST API 是 在全世界使用标准化的消息格式。JSON 是互联网上数据交换的基石，作为 JavaScript 的一个子集，它从一开始就获得了巨大的推广。它特别清晰易读的语法也有利于推广。
 
-据我所知各种语言都有 JSON 库用于序列化和反序列化。实际上在 Python 中就有多个库。在本文中，我将为你进行比较。
+据我所知各种语言都有 JSON 库用于序列化和反序列化。实际上在 Python 中就有很多种 JSON 库。在下文中，我将为大家比较它们的异同。
 
 ## 引用库
 
-**CPython** 本身具有一个 [json](https://docs.python.org/3/library/json.html) 模块。它最初是由 Bob Ippolito 作为 simplejson 开发的，并被合并到 Python 2.4 中（[源代码](https://docs.python.org/3/whatsnew/2.6.html#the-json-module-javascript-object-notation)）。CPython 在 Python 软件基金会获得许可。
+**CPython** 本身具有一个 [json](https://docs.python.org/3/library/json.html) 模块。它最初是由 Bob Ippolito 作为 simplejson 开发的，并被合并到 Python 2.4 中（[源代码](https://docs.python.org/3/whatsnew/2.6.html#the-json-module-javascript-object-notation)）。CPython 遵循 Python 软件基金会（Python Software Foundation）许可协议。
 
-**simplejson** 仍然作为一个单独的库存在，你可以通过 pip 安装它。它是带有可选 C 扩展的纯 Python 库。 Simplejson 是根据 MIT 和 Academic Free License（AFL）获得许可的。
+**simplejson** 仍然作为一个单独的库存在，你可以通过 pip 安装它。它是带有可选 C 扩展的纯 Python 库。 Simplejson 遵循 MIT 和 Academic Free License（AFL）许可协议。
 
 [ujson](https://pypi.org/project/ujson/) 是对 C 语言库 Ultra JSON 的绑定。[Ultra JSON](https://github.com/ultrajson/ultrajson) 由 ESN（[一家电子艺术工作室公司](https://techcrunch.com/2012/09/26/electronic-arts-buys-online-gaming-development-studio-esn/)）开发，并获得了 [3条款BSD许可](https://tldrlegal.com/license/bsd-3-clause-license-(revised))。 Ultra JSON 在 Github 上拥有 3k 星，305 个 fork，50 个贡献者，最近一次提交的日期只有 12 天，而最后一次提交是在 5 天之前发布的。我听说它处于“维护模式”（[来源](https://github.com/ultrajson/ultrajson/issues/428#issuecomment-699456053)），表明没有新的进展。
 
-**pysimdjson** 是对 C ++ 库 [simdjson](https://github.com/simdjson/simdjson) 的绑定。 SIMDjson 从加拿大获得资助。simdjson 在 Github 上有 12.2k 颗星，611 个分支，63 个贡献者，最后一次提交是 11 小时前，而最后一个问题是 2 小时前打开的。
+**pysimdjson** 是对 C ++ 库 [simdjson](https://github.com/simdjson/simdjson) 的绑定。 SIMDjson 从加拿大获得资助。simdjson 在 Github 上有 12.2k 颗星，611 个分支，63 个贡献者，最后一次提交是 11 小时前，而最后一个 issue 是 2 小时前创建的。
 
-**python-rapidjson** 是对 C ++ 库 [RapidJSON](https://github.com/Tencent/rapidjson) 的绑定。 RapidJSON 由 [腾讯](https://en.wikipedia.org/wiki/Tencent) 开发。 RapidJSON 在 GitHub 上有 9.8k 个星，2.7k 个 fork，150 个贡献者，最近一次提交大约在 2 个月前，而最后一次提交在 17 天前开始。
+**python-rapidjson** 是对 C ++ 库 [RapidJSON](https://github.com/Tencent/rapidjson) 的绑定。 RapidJSON 由 [腾讯](https://en.wikipedia.org/wiki/Tencent) 开发。 RapidJSON 在 GitHub 上有 9.8k 个星，2.7k 个 fork，150 个贡献者，最近一次提交大约在 2 个月前，而最后一个 issue 是 17 天前创建的。
 
 [orjson](https://pypi.org/project/orjson/) 是一个 Python 软件包，依靠 Rust 来完成繁重的工作。
 
 ## 成熟度和操作安全性
 
-所有提到的库都可以毫无问题地用作基准示例，切换 JSON 模块也不是什么大问题，但我仍然想确定模块是受支持的。
+上面所有提到的库都可以毫无问题地用作 benchmark 示例，切换 JSON 模块也不是什么大问题，但我仍然想确定相关模块是否支持。
 
 CPython，simplejson，ujson 和 orjson 都认为他们自己已经可以投产了。
 
@@ -37,7 +37,7 @@ python-rapidjson 将自身标记为 alpha，但是一位维护人员说这是一
 
 ## 问题
 
-问题解决难易程度的一个指标是提出问题并查看表现如何：
+判断一个库的问题是否能够被顺利解决，一个直接的方式是直接去它的仓库创建 issue，并观察后续的跟进反馈：
 
 - [SimpleJSON](https://github.com/simplejson/simplejson/issues/267)：第二天我得到了答复，回答很明确，易于理解，友善。 [Bob Ippolito](https://github.com/xitu/gold-miner/blob/master/article/2021/undefined) 回答了我。他是最初开发这个库的人，并且在 JSON 模块的 Python 文档中也提到了他！
 - [uJSON](https://github.com/ultrajson/ultrajson/issues/428)：30分钟内，我得到了一个清晰，友好，易于遵循的答案。 @hugovank
@@ -45,9 +45,9 @@ python-rapidjson 将自身标记为 alpha，但是一位维护人员说这是一
 - [[PySIMDJSON]](https://github.com/TkTech/pysimdjson/issues/54)：15天后无人答复。
 - [Python-RapidJSON](https://github.com/python-rapidjson/python-rapidjson/issues/140)：在30分钟内，我得到了一个清晰，友好，易于遵循的答案。十天后合并了一个[简单的PR](https://github.com/python-rapidjson/python-rapidjson/pull/143)。
 
-通过所有的项目我得出一个答案，它们基本上没有相互关系。
+通过以上操作我得出一个答案，它们基本上没有相互关系。
 
-## 基准测试
+## 基准测试（Benchmark)
 
 为了正确地对不同的库进行基准测试，我考虑了以下情况：
 
@@ -55,7 +55,7 @@ python-rapidjson 将自身标记为 alpha，但是一位维护人员说这是一
 - **API JSON错误**：我很好奇如果 JSON API 格式有错误，性能会如何变化。因此，我在中间删除了一个大括号。
 - **GeoJSON**：我首先通过一个开源街道地图导出器 [Overpass Turbo](https://overpass-turbo.eu/) 得到了 [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) 格式的 JSON 文件。你将获得疯狂多的 JSON 文件，这些文件大多具有坐标，而且还很嵌套。
 - **机器学习**：只是大量的浮点数列表。这些可能是神经网络层的权重。
-- **JSON行**：结构化日志在行业中大量使用。如果分析这些日志，可能需要遍历千兆字节的数据。它们都是简单的字典，带有日期时间对象，消息，记录器，日志状态，也许还有更多。
+- **JSON行**：结构化日志在行业中大量使用。如果分析这些日志，可能需要遍历千兆字节的数据。它们都是带有日期时间对象、消息、记录器、日志状态等信息的简单字集。
 
 #### 反序列化速度
 
@@ -98,7 +98,7 @@ python-rapidjson 将自身标记为 alpha，但是一位维护人员说这是一
 
 ## 专业的 JSON 工作流
 
-作为结束语，我想指出一些我之前看到并记录下来的问题：
+最后总结一下，我想指出一些我之前看到并记录下来的问题：
 
 - 调用变量 `foo_json`：JSON 是一种字符串格式。如果不是字符串，则不是 JSON。
   如果使用 `bar = json.loads(foo)` 反序列化 JSON，则 bar 不是 JSON。
