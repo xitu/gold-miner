@@ -2,10 +2,10 @@
 > * 原文作者：[Martin Thoma](https://medium.com/@martinthoma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/json-encoding-decoding-with-python.md)
-> * 译者：[洛竹](https://github.com/youngjuning)、[a651092254](https://github.com/a651092254)
-> * 校对者：[Zoe](https://github.com/husiyu)
+> * 译者：[洛竹](https://github.com/youngjuning)、[雪刺](https://github.com/a651092254)
+> * 校对者：
 
-# Python 的 JSON 库——按速度，成熟度和操作安全性进行比较
+# Python 的 JSON 库：按速度，成熟度和操作安全性进行比较
 
 REST API 是 在全世界使用标准化的消息格式。JSON 是互联网上数据交换的基石，作为 JavaScript 的一个子集，它从一开始就获得了巨大的推广。它特别清晰易读的语法也有利于推广。
 
