@@ -35,7 +35,7 @@
 
 当开发者使用 MongoDB 时，他们享受有哪些特性？
 
-* **灵活的 schemas** — 由于 MongoDB 采用 JSON 对象存储的缘故，不同的数据属性间可以随意嵌套。并且，不同的对象也可以拥有不同的成员属性。
+* **灵活的模式结构（schema）** — 由于 MongoDB 采用 JSON 对象存储的缘故，不同的数据属性间可以随意嵌套。并且，不同的对象也可以拥有不同的成员属性。
 * **速度** — 相对传统的关系型数据库，在 JSON 数据中提供索引查找可以给用户提供更加迅速的检索速度。
 * **可伸缩性** — 由于 MongoDB 将数据分隔为多个碎片，使它可以高效地处理大规模数据。
 
@@ -53,23 +53,23 @@ SQL 数据库通常作为商业智能中的最佳选择是很容易理解的。�
 
 你可以持续地将所有位于 MongoDB 中的数据同步至 SQL 数据库中，这样，就可以在关系型数据库中实施商业智能了。如果你们采用的 ETL 工具足够强力的话，就可以在商业智能中保留实时分析数据能力的前提下，同时中拥有所有 SQL 数据库的优点。[AWS Glue](https://www.knowi.com/blog/aws-glue-etl/) 便是一个很好的选择。其他公司例如 Avik Cloud 可以帮助企业建立用于 ETL 数据转换层管道。
 
-The issue with taking this approach is that it requires additional resources in the form of additional hardware, as well as additional man-hours in the configuration of the ETL process and maintenance of the new environment. Suddenly, the business intelligence process requires support from several different members across several different teams. Copying data from MongoDB into a SQL database also gives up all the advantages of having a schemaless data structure, since you have to force that data into a schema structure to get it into the SQL database.
+采用这种方法的问题是会需要以硬件的形式引入附加资源，同时，维护新的环境和配置 ETL 进程中也需要投入额外的人力。突然间， 商业智能进程需要数个来自不同团队成员的支持。从你决定要强制将 MongoDB 数据转换为强模式结构数据导入到 SQL 数据库时起，就意味着需要放弃所有来自无模式结构的优势。
 
-#### Solution Two: Data Virtualization
+#### 方式二：数据虚拟化
 
-One of the more recent options available to solve this that is being pioneered by companies like [Knowi](https://www.knowi.com) is **Data Virtualization**.
+最近被 [Knowi](https://www.knowi.com) 公司提出的一种该问题的解决方案就是**数据虚拟化**。
 
-Data virtualization simulates a single unified dataset by using a logical data layer (the virtualization layer) that natively connects to all datasets being used. This allows SQL and NoSQL data that is siloed in different locations and databases to appear as a single unified dataset and be accessed in real-time.
+数据虚拟化通过使用逻辑数据层（虚拟层）连接所有用到的原生数据集来模拟一个统一的数据集。这项技术可以在 SQL 和 NoSQL 数据垂直分布在不同区域或数据库中的情况下对外表现仍然是一个完整的单独数据集，并且可以实时访问。
 
 ![A diagram of how data virtualization was used to build the Knowi platform. The Data Services Layer is the data virtualization layer (source: [Knowi](https://www.knowi.com/why-knowi))](https://cdn-images-1.medium.com/max/3852/1*RtDIXrYGtUehJW_aT6GLWQ.png)
 
-Knowi uses data virtualization to connect to MongoDB directly and provides users with an interface that allows them to manipulate data by generating queries.
+Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个可以通过生成语句来操纵数据的接口。
 
-Users can build queries using native MongoDB queries, point-and-click software, or a mixture of the two. After building their queries, users have the option to take things a step further and manipulate the data with [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html), Knowi’s SQL-based language. This process is all done on the live MongoDB instance in real-time, which eliminates the need for any ETL process to store the data in a SQL database.
+用户可以使用原生的 MongoDB 语句，直接在软件中点击鼠标，或结合以上两种方式来生成查询。在生成查询后，用户可以进一步选择使用 Knowi 中基于 SQL 的查询语言  [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html) 来操纵数据。该过程均实时在 MongoDB 实例中完成，不需要任何 ETL 工具将数据将数据存储在 SQL 数据库中。
 
 ![Knowi’s native connection to SQL and NoSQL datasources provides a lot of flexibility](https://cdn-images-1.medium.com/max/2560/0*AJt8XmCOk3hG6fu8)
 
-To put it simply, a user can employ data virtualization with a solution like Knowi to filter, join, and aggregate real-time data from MongoDB in the same way that they would in a SQL database, without ever using a SQL database. An added advantage here is that they can also just as easily pull in data from other sources like [Elasticsearch](https://www.knowi.com/elasticsearch-analytics), [REST APIs](https://www.knowi.com/rest-api), [MySQL](https://www.knowi.com/mysql), as well as premium database solutions like [Couchbase](https://www.knowi.com/couchbase) and [Datastax](https://www.knowi.com/datastax-enterprise-analytics).
+简单来说，用户可以在不使用 SQL 数据库的情况下，采用像 Knowi 这样的数据虚拟化技术用以在 MongoDB 中执行像 SQL 数据库那样的，基于实时数据中进行过滤，连接，聚合操作。这里一个额外的好处是：像类似 [Couchbase](https://www.knowi.com/couchbase) 和 [Datastax](https://www.knowi.com/datastax-enterprise-analytics) 数据仓库那样，数据虚拟化工具可以非常方便的从其他源中拉去数据，例如 [Elasticsearch，](https://www.knowi.com/elasticsearch-analytics) [REST APIs](https://www.knowi.com/rest-api)， [MySQL](https://www.knowi.com/mysql) 。
 
 #### Solution Three: Translation
 
