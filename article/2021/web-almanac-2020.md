@@ -1,35 +1,35 @@
-> * 原文地址：[Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web](https://www.infoq.com/news/2021/03/web-almanac-2020)
-> * 原文作者：Suresh Kumar
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web](https://www.infoq.com/news/2021/03/web-almanac-2020)
+> - 原文作者：Suresh Kumar
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
+> - 译者：[felixliao](https://github.com/felixliao)
+> - 校对者：
 
-# Web Almanac Mega Study Reveals That Popular Front-End Frameworks Are Still a Small Part of the Web
+# 网络年鉴大研究表明热门的前端框架依然是互联网的一小部分
 
-The HTTP Archive recently finalized the Web Almanac 2020, an annual report on the state of the web. The report gathers its conclusions in 22 chapters organized in four sections (e.g, page content, user experience, content publishing and distribution) totaling 600 pages: jQuery is still 80% of the web; CSS Houdini is seldom used; the median website ships 400 KB of JavaScript in 2020, 14% more than in 2019; and many more.
+HTTP Archive 最近完成了 2020 网络年鉴，一份年度网络状况报告。这份报告从其四个部分（页面内容、用户体验、内容发表和分发），22 个章节和 600 页的内容中得出结论：jQuery 依旧占据着 80% 的互联网；CSS Houdini 很少被使用；2020 年网站发送的 JavaScript 大小中位数为 400 KB，比 2019 年多了 14%，还有更多。
 
-The CSS chapter emphasized that adoption of some shiny additions or proposals enriching the CSS standard may be lagging:
+CSS 的章节强调，一些为丰富 CSS 标准的新功能或提案的采用可能会滞后：
 
-> Overall, what we observed was a web in two different gears when it comes to CSS adoption. In our blog posts and Twitter bubbles, we tend to mostly discuss the newest and shiniest, however, there are still millions of sites using decade-old code. [… While] we also observed impressive adoption of many new features—even features that only got support across the board this very year, like min() and max(), […] there is generally an inverse correlation between how cool something is perceived to be and how much it is actually used; for example, cutting-edge Houdini features were practically nonexistent. […] Most CSS usage in the wild is fairly simple.
+> 总的来看，我们观察到互联网上 CSS 的采用处在两个不同的档位。在博客和推文中，我们更趋向于讨论最新最亮的东西，但是， 还是有成千上万的站点在使用十年前的代码。[... 尽管] 我们观察到许多新功能有引人注目的采用率 —— 甚至是那些今年才得到广泛支持的功能，例如 `min()` 和 `max()`，[...] 总体上看，一个东西的酷炫程度和它的应用范围有多广还是呈反比；例如，先进的 Houdini 功能基本上不存在。[...] 实践中大部分 CSS 的使用比较简单。
 
-The CSS chapter additionally reports that the median weight of CSS is around 60 KB aggregating over 400 rules and 5,000 declarations. The majority of websites are now using [Flexbox layouts](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) (around 60% in 2020 vs. 40% in 2019). CSS Grid layouts (`display:grid`) are picking up (doubling its share vs. 2019) but remain a distant minority (5% of websites). Transitions and animations are quite extended across the web with over 80% of pages featuring a `transition` property and over 70% having an **`animation`** property. Visual effects (blend modes, image filters, clipping paths) are popular CSS features: CSS filters are used in 80% of pages; blend modes doubled their share over the previous year and amount to 13% of pages.
+CSS 的章节还指出 CSS 的中位大小在 60 KB 左右，包含超过 400 条规则和 5000 条声明。大部分网站如今已在使用 [Flexbox 布局](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)（2020 年为 60% 左右，2019 年为 40%）。CSS 网格布局（`display:grid`）正在被更多地使用（其使用率比起 2019 年翻了一番）但是依然是极其小众的（只有 5% 的网站使用）。过渡和动画使用非常广泛，超过 80% 的页面包含 `transition` 属性，超过 70% 包含 `animation` 属性。视觉效果（混合模式、图像滤镜、剪切路径）是非常热门的 CSS 功能：CSS 滤镜被使用于 80% 的页面；混合模式的占比和去年比翻倍，达到了 13% 的页面。
 
-By contrast, only 2% of websites use any CSS-in-JS method, despite CSS-in-JS being plentifully discussed among web developers. CSS Houdini is also used in a vanishingly small portion of web pages. The report says:
+相比之下，只有 2% 的网站使用任何 CSS-in-JS 的手段，尽管 CSS-in-JS 在开发者之间的讨论非常多。CSS Houdini 在网页中的使用也只有微乎其微的比例。该报告称：
 
-> The CSS Painting API is a more broadly implemented Houdini spec that allows developers to create custom CSS functions that return <image> values, e.g. to implement custom gradients or patterns. Only 12 pages were found to be using paint(). Each worklet name (hexagon, ruler, lozenge, image-cross, grid, dashed-line, ripple) only appeared on one page each, so it appears the only in-the-wild use cases were likely demos.Typed OM, another Houdini specification, allows access to structured values instead of the strings of the classic CSS OM. It appears to have considerably higher adoption compared to other Houdini specs, though still low overall. It is used in 9,864 desktop pages (0.18%) and 6,391 mobile ones (0.1%).
+> CSS Painting API 是一个 Houdini 中被更广泛实现的规范，它允许开发者创建自定义 CSS 函数来返回 <image> 值，例如实现自定义渐变或图案。只有 12 个页面被发现使用了 paint()。每个工作集名称 （hexagon、ruler、lozenge、image-cross、grid、dashed-line、ripple）在每个页面只出现了一次，因此看来，仅有的实践案例很可能是演示。Typed OM，另一个 Houdini 规范，允许了结构化数值的存取，而不是传统 CSS OM 中的字符串。比起其他 Houdini 规范，它有明显更高的采用率，尽管和整体比还是很低。它被应用于 9846 个桌面端站点（0.18%）和 6391 个移动端站点（0.1%）。
 
-The JavaScript chapter of the report indicates around 14% growth in the size of JavaScript loaded by pages, with the median page at around 400 KB of JavaScript. The report notes that pages targeting mobiles and pages targeting desktops have similar JavaScript payloads while largely differing in networking and processing capabilities; and that 37% of the JavaScript on the median web page is unused. The report says:
+报告中的 JavaScript 章节称页面加载的 JavaScript 体积增长了 14%，其中中位页面加载了 400 KB 左右的 JavaScript。报告指出针对桌面端和移动端站点的页面有相近的 JavaScript 体积，但其网络和处理性能有很大差别；以及中位网站上有 37% 的 JavaScript 是没有被使用的。报告写道：
 
-> Depending on your point of view, you could be forgiven for not getting too upset about the small gap in the amount of code sent to a desktop browser versus a mobile one—after all, what’s an extra 30 KB or so at the median, right? […]The median desktop site spends 891 ms on the main thread of a browser working with all that JavaScript. The median mobile site, however, spends 1,897 ms—over two times the time spent on the desktop. It’s even worse for the long tail of sites. At the 90th percentile, mobile sites spend a staggering 8,921 ms of main thread time dealing with JavaScript, compared to 3,838 ms for desktop sites.
+> 取决于你的看法，你也许可以宽恕自己没有因为发送到桌面端和移动端的代码间小小的差距感到懊恼 — 毕竟，30 KB 的中位差能怎么样呢，对吧？[...] 中位桌面站点花费浏览器主进程 891 毫秒来处理这些 JavaScript。然而，中位移动端站点花费 1897 毫秒 — 桌面端花费时间的两倍多。这在底部的页面上更为糟糕。在 90 百分位，移动端页面要占据主进程 8921 毫秒来处理 JavaScript，相比之下桌面站点只需要 3838 毫秒。
 
-On the bright side, [resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/), which allow offsetting some of the network costs of loading JavaScript, are used in nearly 17% of pages, with nearly all that usage coming from [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content).
+好的一面是，[resource hints](https://www.infoq.com/news/2019/09/webexpo-2019-resource-hints-tips/) 可以抵消一些加载 JavaScript 的网络成本，它在将近 17% 的页面汇总被使用，其中大部分来自于 [`preload`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)。
 
-The Third Parties chapter of the report analyzes the presence, distribution, and impact of third-party scripts, emphasizing the importance of managing them:
+报告中关于第三方的章节分析了第三方脚本的存在、分布和影响，强调了管理它们的重要性：
 
-> Advertising requests appear to have an increased impact on CPU time. The median page with advertising scripts consumes three times as much CPU as those without.
+> 广告相关的请求似乎对 CPU 时间有更大的影响。包含广告脚本的中位页面，比起那些不含脚本的，花费了最多三倍 CPU 时间。
 
-Developers can [consult the full report online](https://almanac.httparchive.org/en/2020/) in four different languages. The HTTP Archive took more than five months to compile the Web Almanac, with hundreds of contributors scouring through million websites’ data. The HTTP Archive evaluates the composition of millions of web pages on a monthly basis and makes its terabytes of metadata available for analysis on [BigQuery](https://httparchive.org/faq#how-do-i-use-bigquery-to-write-custom-queries-over-the-data).
+开发者们可以用四种语言 [在线参考完整的报告](https://almanac.httparchive.org/en/2020/)。HTTP Archive 花费超过五个月来编写互联网年鉴，数百计的贡献者搜集了数百万网页的数据。HTTP Archive 每月评估数百万网页的组成，并将其数 TB 的元数据公开在 [BigQuery](https://httparchive.org/faq#how-do-i-use-bigquery-to-write-custom-queries-over-the-data) 上供分析使用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
