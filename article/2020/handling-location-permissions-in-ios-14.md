@@ -9,7 +9,7 @@
 
 ![Photo by [Heidi Fin](https://unsplash.com/@heidifin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/10944/0*AUpXEd4-yyCDLhMn)
 
-Apple 毫无疑问是数据隐私方面的领导者。访问地理位置这一功能在过去一直被不同的 app 错误地使用或者滥用。这种行为不仅对安全是一种威胁，甚至是一种破坏，在 iOS 14, Apple 又一次希望给予用户对他们正在分享的数据更好的控制权
+Apple 毫无疑问是数据隐私方面的引领者。访问地理位置这一功能在过去一直被不同的 app 错误地使用或者滥用。这种行为不仅对安全是一种威胁，甚至是一种破坏。在 iOS 14 中，Apple 又一次希望给予用户对他们正在分享的数据更好的控制权。
 
 iOS 14 小小地修改了一下 `CoreLocation` 框架。更进一步地说，用户可以选择给予访问精确或者近似的地理位置的权限。
 
@@ -19,7 +19,7 @@ iOS 14 小小地修改了一下 `CoreLocation` 框架。更进一步地说，用
 
 去年，Apple 在 iOS 13 中改变了地理位置跟踪权限的工作方式。
 
-*最明显的改动是，出现了一个新的权限“只允许一次”，它要求设置 `NSLocationWhenInUseUsageDescription` 配置内容。必须要指明的是，当应用程序被关闭的时候，这个权限会被自动撤销。
+* 最明显的改动是，出现了一个新的权限“只允许一次”，它要求设置 `NSLocationWhenInUseUsageDescription` 配置内容。必须要指明的是，当应用程序被关闭的时候，这个权限会被自动撤销。
 * 此外，启用“Allow While Using The App”将暂时性地“总是允许”位置追踪。现在，当你尝试在后台访问地理位置时，系统会向用户显示一个对话框来选择是否继续允许追踪。
 * iOS 13.4 引入了一种更好的方式去快速的确保“总是允许”权限被授予。只需要请求 `authorizedWhenInUse` ，如果它被授予了权限，就会出现 `authorizedAlways` 的提示信息。
 
