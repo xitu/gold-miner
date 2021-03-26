@@ -1,4 +1,4 @@
-> * 原文地址：[Grafana Adds Enterprise Logs to Its Managed Observability Stack](https://blog.google/products/android/new-features-spring-2021/)
+> * 原文地址：[Grafana Adds Enterprise Logs to Its Managed Observability Stack](https://www.infoq.com/news/2021/03/grafana-managed-observability/)
 > * 原文作者：[Jared-Ruckle](https://www.infoq.com/profile/Jared-Ruckle/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/grafana-managed-observability.md](https://github.com/xitu/gold-miner/blob/master/article/2021/grafana-managed-observability.md)
