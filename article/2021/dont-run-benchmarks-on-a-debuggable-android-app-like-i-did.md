@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dont-run-benchmarks-on-a-debuggable-android-app-like-i-did.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dont-run-benchmarks-on-a-debuggable-android-app-like-i-did.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[5Reasons](https://github.com/5Reasons)
 
 # 不要在可调试的 Android App 上运行基准测试 (就像我对协程做的那样)
 
