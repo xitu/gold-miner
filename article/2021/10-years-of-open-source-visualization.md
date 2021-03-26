@@ -2,76 +2,79 @@
 > * 原文作者：[Mike Bostock](https://observablehq.com/@mbostock)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/10-years-of-open-source-visualization.md](https://github.com/xitu/gold-miner/blob/master/article/2021/10-years-of-open-source-visualization.md)
-> * 译者：
-> * 校对者：
+> * 译者：[momodiy](https://github.com/momodiy)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[W-Qing](https://github.com/W-Qing)
 
-# 10 Years of Open-Source Visualization
+# 十年可视化开源历程
 
-> Did I learn anything from D3.js? Let's see...
 
-In honor of [D3 1.0](https://github.com/d3/d3/releases/tag/v1.0.0)'s tin anniversary, I thought I'd reflect on lessons learned. This isn't intended to be too comprehensive or serious --- just a handful of observations as I look ahead to the *next* ten years. But I hope a nugget or two will interest you, too.
+> 看看我从 D3.js 中学到了什么……
 
-## 1. Teaching is the most impactful aspect of tool building.
 
-When building a tool, it's easy to forget how much you've internalized: how much knowledge and context you've assumed. Your tool can feel familiar or even obvious to you while being utterly foreign to everyone else. If your goal is for other people to use the darn thing --- meaning you're not just building for yourself, or tinkering for its own sake (which are totally valid reasons) --- you gotta help people use it! It doesn't matter what's possible or what you intended; all that matters is whether people actually succeed in practice.
+为了纪念 [D3 1.0 版本](https://github.com/d3/d3/releases/tag/v1.0.0) 发布 10 周年，我觉得我应该反思一下其中的经验教训。我没打算做的特别全面或者很严肃，这只是对未来十年的一点展望，不过我还是希望其中有一两点见解能够让你感兴趣。
 
-To maximize your impact, then, teaching must be central to your strategy. This means documentation, tutorials, examples, videos, tweets, and more. Teaching one-on-one or in workshops is a great way to force your internalized knowledge to the surface, to find common ground with your audience, to be inspired by their work, and to learn how to teach more effectively (see #2), but a library of material that teaches without requiring your time is the only way to scale as your audience grows. You need the pedagogical equivalent of passive income, if you will. A one-day workshop can help a hundred people; a tutorial can help tens of thousands or more. I'm frequently inspired by (and occasionally envious of) the brilliant teaching styles of [Rich Harris](https://twitter.com/Rich_Harris) and [Dan Abramov](https://overreacted.io/).
 
-Of all forms of documentation, examples seem to be the most effective. I've long espoused [the merits of examples](https://bost.ocks.org/mike/example/), and both Observable and its predecessor bl.ocks.org aim to help people produce and consume examples to accelerate learning. Examples inspire by showing what's possible; examples demonstrate specific techniques; and examples are building blocks which help people get started. Given how humans excel at pattern-matching and extrapolating from observation, it seems only natural that examples are the preferred form of learning material.
+## 1. 造轮子最重要的是教会别人使用
 
-Yet perhaps examples are *too* powerful: they can compensate for a hard-to-use API and foster a dependency on copy-paste. Was D3 successful not because it was a great tool, but because it came with so many examples? 🤷‍♂️ Even though I'm the author, I can't remember how to use d3.stack and copy-paste the [stacked area example](https://observablehq.com/@d3/tidy-stacked-area-chart) like everyone else. Examples may help people succeed regardless of a tool's flaws, but it's better to strive for fluency: when people internalize how a tool works and create from scratch. Working backwards from an example rather than forwards from data can also be a mistake for visualization (see #5). And examples have limitations: an example teaching a specific technique may not be broadly representative of "real-world" usage.
+当你在造轮子的时候你很容易忘记自己简化了多少，也就是说你对用户或读者已经了解的知识和背景进行了多大程度上的假设。你的工具可能对你来说很熟悉，但是对于其他人来说则完全是陌生的。如果你的目标是让别人使用这破玩意，那就意味着你不仅仅是在为自己制造这个轮子（当然这也是一个完全正当的理由），你必须帮助别人去使用它！你可能做什么或是打算做什么都没关系，重要的是用户能否在实践中成功使用它。
 
-## 2. Support is a powerful means of research.
+要想使你的影响力最大化，你的核心策略就应该是教学。这包含文档、教程、示例、视频、推文等各个方面。一对一教学或者开研讨会确实是一种很好的方式，它可以让你的知识浮出水面且与你的听众找到共同点，而你可以从他们的工作中获得启发，并学习如何更有效的进行教学（参见第 2 小节）。但是随着你的学员增加，制作一系列教程才是你无需花费个人时间就可以扩大教学规模的唯一方式。如果需要，你的教程就是你的被动收入。一天的工作室培训可以帮助 100 人，而一个教程可以帮助数万人甚至更多。我也经常受到 [Rich Harris](https://twitter.com/Rich_Harris)和 [Dan Abramov](https://overreacted.io)出色教学风格的启发（偶尔羡慕不已）。
 
-The only way to recognize --- and then bridge --- the gulf of understanding between you and people using your tool is to observe their struggles and talk to them. It's amazing how quickly glaring flaws are revealed this way. Answering questions on Stack Overflow (or GitHub, Twitter, Slack, or wherever else) is not a selfless act of altruism; it's a chance to learn, to find where people struggle and hear their perspective. Each question is an opportunity to help one individual, but that question can also inspire a tutorial, an example, or even a feature that prevents others from hitting the same issue. That's the hidden advantage that allows successful tools to compound their success: the countless ideas and criticisms from users that can be channeled into improvements and documentation by maintainers. Ideas aren't formed in a vacuum.
+在所有类型的文档中，示例似乎是最有效的。我一直崇尚[示例的优点](https://bost.ocks.org/mike/example/)，`Observable` 和它的前身 `bl.ocks.org` 都通过让人创建和使用示例来加快学习。示例能够通过展示可能的使用方式来激发灵感，能够展示特定的技巧，是帮助人们入门的基石。考虑到人们擅长模式匹配和从观察进行推断，示例自然而然地成为了最好的学习材料。
 
-But there's also a limit. As one person, you can't help everyone. And you can't make everyone happy because your tool is only a tiny part of their life. Don't make that your goal: focus on learning and broadening your perspective. If it stops being constructive *for you*, then stop. Period. And don't feel bad! I have deep reservations about the way GitHub and other platforms enable issues by default, establishing the unreasonable expectation that unpaid maintainers must immediately, politely, and substantively respond to any and all requests for help. Yes, I can turn off issues, but as a community we need to rethink our norms if we are serious about addressing maintainer burnout.
+示例的功能太强大了，它可以弥补难用的 API，也促进了人们对复制粘贴的依赖。D3 的成功不是因为它是一个很棒的工具，而是因为它带有很多示例，难道不是吗？🤷虽然我是 D3 的作者，但我也记不住如何使用 `d3.stack` ，我也得像其他人一样复制粘贴 stack 部分的[代码示例](https://observablehq.com/@d3/tidy-stacked-area-chart)。示例也许可以让人们无视工具的缺陷，帮助人们成功，但更重要的是对于熟练度的追求，也就是让人们内化工具的用法，学会从头开始构建。对于可视化来说，从示例开始而不是从数据开始可能也是一种错误（请看第 5 小节）。而且示例也有局限性：教授特定技巧的示例可能无法广泛代表在实际项目中的用法。
 
-## 3. Beware bells and whistles: interaction, animation, and other technical whizbangery have a cost. 🧙‍♂️
+## 2. 提供支持是一种强劲的研究手段
 
-There *is* a place for these things, but hear me out. Interaction and animation have a huge wow factor, especially for audiences who encounter them infrequently. Knowing this, you may be tempted to add these features to visualizations without fully appreciating the downsides, such as added complexity and hiding valuable information behind interactive controls. And worse, because these features are often challenging to implement, they may distract from the far more important yet "boring" task of finding and communicating insight!
+了解你和工具使用者之间存在理解鸿沟的的唯一方法是关注他们的痛点并与他们沟通。通过这种方式，一些显而易见的缺陷会很快浮现出来，快到让你难以置信。在 Stack Overflow（或 GitHub、Twitter、Slack 等地方）上解答问题并不是无私的利他行为，这是一个可以了解到用户痛点且倾听他们观点的学习机会。每一个问题都是一个为他人提供帮助的机会，同时这些问答也会形成教程或是示例，避免其他人遇到相同的问题。而这个潜在的优势也能够促进成功的工具更加成功：因为维护者可以通过无数用户的想法和批评改进项目或优化文档。要知道，任何的想法都不是凭空产生的。
 
-This is not a moral judgment. I'm not saying you're bad for doing this. I'm guilty of this myself. But the pitfall is real. Focus on the static form first and foremost. This may be the only thing some readers see. Don't allow technical matters (*i.e.*, web development) to eat too much of your attention. And don't fear plain visualizations: it's the insight that matters, not whether it's gussied up.
+但是也有一个限制。仅凭一人之力，你不能帮助所有人。而且，你的工具只是他们人生的一小部分，因此你无法满足每个人。所以不要将他们的目标作为你的目标，你应该专注于学习和开阔视野。如果你无法再获取什么建设性的帮助，那就停下来吧，而且不要觉得沮丧。我对 GitHub 与其他平台默认启用消息提醒的方式不太认可，因为它表明了一些不合理的预期，即无薪的维护者必须立即礼貌且带有实质内容地去回复所有的帮助请求。是的，我可以关闭 issue，但作为社区的成员，如果我们真的足够重视解决维护者倦怠的问题，我们就需要重新考虑自己的行为。
 
-So where *should* interaction be used? Primarily exploratory visualization (see #4). Gregor Aisch's ["In Defense of Interactive Graphics"](https://www.vis4.net/blog/2017/03/in-defense-of-interactive-graphics/) is a good post on the subject.
+## 3. 请小心：交互、动画或其他技术亮点都是有代价的
 
-## 4. Visualization is a spectrum: from exploratory to explanatory.
+这些东西确实得呈现，但是请仔细听我说。对于那些不常遇到动画与交互效果的用户而言，它们具有非常震撼的效果。知道了这一点之后，你可能会将这些功能添加到可视化效果中，但却没有意识到这么做的弊端：它们增加了项目的复杂性，并将实际有价值的信息隐藏在交互控件之后。更糟糕的是，由于实现难度较高，这些功能可能会分散你对于更加重要但无聊的真实任务的注意力。
 
-Not all visualizations serve the same purpose. *Exploratory* graphics you make for yourself to find new insights in data. *Explanatory* graphics in contrast communicate some already-known insight to an audience. When designing, know where you are on the spectrum.
+这可不是道德批判，我也没有指责你这么做不好，事实上，我只是为自己感到内疚。无论如何，这么做确实是存在弊端的。我们首先应该关注的是静态形式（展示效果），对于某些读者来说，这可能是他们唯一能看到的东西了。请勿让技术问题（比如 web 开发）过多地吸引你的注意力。当然也不要担心简单的可视化效果会造成不好的影响：重要的是我们能了解到什么，而不是它的外在形式多么华丽。
+那么我们应该在哪里使用交互效果呢？主要是为了探索可视化（请看第 4 小节）。格雷戈尔的[《为交互式图形辩护》](https://www.vis4.net/blog/2017/03/in-defense-of-interactive-graphics/)就是一个很好的答案。
 
-The goal of exploratory visualization is primarily speed: how quickly can you construct a view that answers your question? You can afford to cut corners when you're the intended reader as you already have context. Whereas you must provide explicit context for an explanatory graphic. A good explanatory graphic should know what it's trying to say *and say it*. Explanatory graphics can include exploratory elements, for example allowing the reader to "see themselves" in the data, but ideally these shouldn't detract from the primary message. Don't make the reader work for insight; that's your job as editor.
+## 4. 可视化是一个从探索到解释的过程
 
-## 5. In most cases, working with data should be 80% of the work of visualization.
+并非所有的可视化效果都是为了达到同样的目的，你自己构思制作的可视化图表也能以新的理解展示数据。相对而言，解释性的图表会向观众传达一些已知的见解。所以设计时请找好你的定位。
 
-Visualization is the end result of analysis --- the visible manifestation of data, to be seen, shared, and appreciated by experts and non-experts alike --- and as such it sometimes gets too much credit. To produce a visualization, one must first find data, clean it, transform, join, model, *etc.* Working with data is sometimes needlessly denigrated as ["janitorial"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html) when it represents the critical step of understanding the data as it is, warts and all. (See [Leigh Dodds' post](https://blog.ldodds.com/2020/01/31/do-data-scientists-spend-80-of-their-time-cleaning-data-turns-out-no/) on the subject.) With data in the right form, the process of applying visual encodings may be comparatively straightforward (assuming you heed #3). Hence the D3 modules that I reach for most are [d3-array](https://github.com/d3/d3-array) and [d3-dsv](https://github.com/d3/d3-dsv). And I'm delighted to see new JavaScript tools for data such as [tidy.js](https://pbeshai.github.io/tidy/) and [Arquero](https://uwdata.github.io/arquero/). Hadley Wickham's ["tidy data"](https://vita.had.co.nz/papers/tidy-data.pdf) paradigm is invaluable.
+可视化探索的主要目的是提高速度：你能以多快的速度构建一个视图来回答你的问题？当你的目标读者已经有了一些背景知识，你也可以去省略一些东西，但是你必须提供图解来解释上下文。好的可视化图表应该知道它想表达什么，并且能够正确地表达出来。图解也可以包含一些说明性的元素，比如让读者在数据中看到他们想了解的信息，但是理想状态下这些元素都不应该影响主要信息。不要让读者在明确重点上花太多心思，这应该是作者自己的职责。
 
-## 6. Don't commit to a specific visual form before seeing your data in it.
+## 5. 通常来说，可视化 80% 的工作是处理数据
 
-A given visual form --- say the pie chart or treemap --- isn't "good" or "bad" in an absolute sense, but it may or may not be appropriate to your data and the specific question you want answered. The only way to know whether a form is effective is if it communicates: you must put your data in it and see. So don't set out to use a specific form; instead set out to answer a specific question of your data.
+可视化图表是进行分析的最终成品，也是数据的可视化表现，可供专业人士和非专业人士查看、共享与理解，因此可能会获得过多的赞誉。要想完成可视化效果，首先必须通过查找数据、清洗数据、转换、链接、建模等步骤，数据处理有时会被贬低为[清洁工](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html)，但无论如何，它代表了理解数据本质的关键步骤。（请参阅 Leigh Dodds 关于该主题的[文章](https://blog.ldodds.com/2020/01/31/do-data-scientists-spend-80-of-their-time-cleaning-data-turns-out-no/)）如果数据结构正确，那么应用视觉编码的过程可能会比较简单（假设你看过第 3 小节）。因此，我最常使用的 D3 模块是 [d3-array](https://github.com/d3/d3-array) 和 [d3-dsv](https://github.com/d3/d3-dsv)。我很高兴看到例如 [tidy.js](https://pbeshai.github.io/tidy/) 和 [Arquero](https://uwdata.github.io/arquero/) 这种用于处理数据的新型 Javascript 工具。哈德利·威克姆（Hadley Wickham）的[整理数据](https://vita.had.co.nz/papers/tidy-data.pdf) 相关示例是很有价值的。
 
-If it's hard to get your data into an example (see #1), you are incented to commit to a specific form before you can confirm its effectiveness. The less effort it takes to sketch a visualization, the more variations you can afford to try and the better the final result. This is why Observable tries to help you get your data in quickly, say replacing a file with one click, or letting you edit code without forking it. Yet if your data has an incompatible structure, it might still be a lot of work (see #5). And D3, being designed for bespoke explanatory graphics, requires more effort than something like [Vega-Lite](https://vega.github.io/vega-lite/) which is intended for exploratory graphics; you want low [notational viscosity](https://en.wikipedia.org/wiki/Cognitive_dimensions_of_notations) to try multiple forms quickly and see what works. We're working on making it easier to sketch visualizations in Observable, and I hope to share something soon. Stay tuned.
+## 6. 在看到数据结构之前，请不要局限于特定的视觉展示形式
 
-## 7. 10% of code causes 90% of bugs.
+一个确定的视觉形式（比如柱状图或者是树形图）并没有完全意义上的好坏之分，但它是否适合你的数据以及你想回答的特定问题这一点则值得商榷。只有一种方法能够知道你使用的图表是否准确，那就是看它能够传达信息：你必须将数据与之结合之后再进行观察，不要着手使用特定的展示形式，而是想想你的数据是要解决什么样的问题。
 
-I made up these numbers, but it feels right: some code is far more bug-prone than other code. That's not because the buggy code is somehow lower quality but because it's trying to do something inherently harder or underspecified. For D3, the interactive behaviors are the big losers (winners?) in the bug contest: d3-zoom, d3-drag, and d3-brush. It's hard to reason through, let alone test, all possible sequences of asynchronous events. And interaction is ambiguous: are you clicking? dragging? panning? selecting? about to double-click? Compounding the challenge, browsers change and unilaterally "break the web" as Chrome did with [passive event listeners](https://developers.google.com/web/updates/2017/01/scrolling-intervention).
+如果你的数据很难确定对应什么类型的示例（请看第 1 小节），可以先试试特定类型的图表再确定其有效性。绘制可视化图表所需的精力越少，你可以尝试的变化就越多，最终效果也就越好，这就是 `Observable` 帮你快速获取数据的原因，比如单击一下鼠标就能替换文件或者让你无需 fork 就能编辑代码。但是如果你的数据结构不兼容，可能仍然需要大量的工作（参阅第 5 条）。而且 D3 主要是为定制的解释性图形而设计，例如 [Vega-Lite](https://vega.github.io/vega-lite/) 这类用于探索图形的东西需要更多的工作。如果你想降低特定[符号认知范围](https://en.wikipedia.org/wiki/Cognitive_dimensions_of_notations)的黏度，可以快速尝试多种形式并查看有效方法。我们正在降低从 Observable 中绘制可视化效果的难度，希望能尽快分享出来。敬请关注。
 
-This suggests you may be able to save yourself some trouble by chosing carefully which problems you try to solve and which you don't. For example, if you can build your interface using Observable's [inputs](https://observablehq.com/@observablehq/inputs) and [dataflow](https://observablehq.com/@observablehq/how-observable-runs) rather than low-level event listeners, you'll have less to worry about.
+## 7. 10% 的代码导致了 90% 的bug
 
-## 8. The internet will make you feel bad.
+这些数字是我编的，但我感觉这结论没错：某些代码就是比其它代码更容易出错。不是因为这些代码的质量较低，而是因为它们试图做一些本就很困难或是不确定的事情。在 D3 中最容易造成 bug 的是交互式行为，比如 d3-zoom、d3-drag 和 d3-brush 。它很难通过控制变量的方法进行推理，更不用说测试所有可能的异步事件。同时，其交互行为也是不确定的，你是在点击、拖动、平移选择，还是在双击？更困难的是浏览器会发生变化，就像[被动事件监听](https://developers.google.com/web/updates/2017/01/scrolling-intervention)一样单纯地破坏页面。
 
-No matter how good your work is, if you put yourself out there someone on the internet *will* say something hurtful and make you feel bad. It's often not intentional, not that it matters. I am very proud of D3 but I maintain a collection of mean tweets people have shared about it. This is my process; don't judge me. (And no, I'm not sharing the list.)
+以上表明你可以通过谨慎选择要解决的问题和不想解决的问题来减少一些麻烦。比如，如果你使用 `Observable` 的 [输入](https://observablehq.com/@observablehq/inputs) 和 [数据流](https://observablehq.com/@observablehq/how-observable-runs) 代替低级的事件监听器来构建页面，你的顾虑就会减少很多。
 
-I hold no ill will against people for getting frustrated. I completely understand the feeling of helplessness a tool may inflict --- you just wanted a little chart, but now you're being asked to learn a million other things. A tool's design can appear so arbitrary and backwards. The problem is the internet. In the past you'd complain to friends or coworkers about how bad D3 is, and maybe they'd help you get over the hump or they'd know you were venting. But with the internet I hear it, now, too. And I don't know you. And it's discouraging. If my motivation for building a tool is to share the joy of people succeeding with it, and now I'm seeing pain and frustration, why would I keep building? Why would I subject myself to beratement and negativity when I could just watch YouTube?
+## 8. 互联网上总会有人让你难过
 
-So if you find yourself complaining on the internet, please think about the practical impact of your words. If it'll only discourage and contribute to burnout, maybe vent offline? Or better: think about how you can personally contribute to make the tool better, either through pull requests or documentation or support. That, after all, is the beauty of open source.
+无论你的工作多么出色，如果你把自己置于互联网这个平台，就会有人说一些伤人的话并让你感到难过。这通常不是故意的，但这并不重要。我为 D3 感到自豪，但我也收集过一些别人分享出来的负面评价推文。这就是我的处理方式（收集负面推文），请不要批判我。（对了，我可不会分享这个列表）。
 
-## 9. Don't go it alone.
+我对于那些使用工具受挫的人并无恶意，我完全理解一个工具可能给人带来的无助感 —— 明明你只需要设计一个小表格，但却不得不学习数以百万计的其它内容。一个工具的设计可以如此地随意和滞后，这就是互联网的问题，过去你可能会向同事或者朋友抱怨 D3 有多糟糕，也许他们会帮你解决，而且知道你正在发泄。因为互联网我也听到了这些抱怨，我并不认识你，然而这些抱怨让我很沮丧。如果说我当初开发工具是为了看到成功使用工具的人分享快乐，如今的我却只感受到了痛苦和挫败，那我还为什么要继续开发？为何在我只想观看 YouTube 时还要遭受贬低和否定呢？
 
-To avoid entrusting your emotional wellbeing to internet randos (see #8), you must develop relationships with a small, stable group of people that you respect. In other words, find a team (or community) that can provide validation, feedback, support, and mentorship. Maybe this is obvious to everyone but me --- *yes, Mike, friends are good* --- but I feel like it's worth repeating today when so much human interaction happens at a distance. I'm also excited about the potential for Observable to create shared virtual spaces for collaboration, where it's not about showing off (as on Twitter) but about working together with peers in realtime to find insight and solve problems.
+因此，如果你发现你在互联网上抱怨，请考虑一下你的言语会造成的实际影响。这些话是否只会造成开发者的懈怠和受挫？甚至更糟，导致开源项目停更呢？或者往更好的方向考虑一下，你可以做一些贡献来让这个工具变得更好，比如通过拉取请求或文档支持等。毕竟，这就是开源之美。
 
-## 10. Try to have a good time.
+## 9. 不要独自一人
 
-I originally wrote "take it easy" but that feels disingenuous. I'm probably the last person to take it easy. I *wish* I could take it easy. This is personal, but I try to reflect on which parts of my life and work I enjoy and spend more time doing that. It sounds simple and trite but it's hard to do in practice! If you know what you enjoy then you will have fewer regrets when and if you do fail (always an option). And paradoxically, rather than detracting from your goals it may help you succeed as you are better able to persevere: work you enjoy is more easily sustained. I love building tools. I can't predict if they will succeed, but I love solving puzzles and developing abstractions, and I love seeing what people do with my creations. On the other hand I find public speaking anxiety-inducing, even knowing the positive impact talks can have and how good I'll feel *after* the talk. So if you're disappointed I'm not giving more talks, hopefully it's because I'm heads-down building something new. 😅
+为了避免将幸福感寄托于互联网（请参阅第 8 小节），你必须发展一个你尊重的小而稳定的组织，换句话说，找到一个可以提供验证、反馈、支持和指导的团队或组织。每个人都清楚这件事，除了我之外 —— **是的，麦克，有朋友真的会很棒**。尽管如此，我觉得还是有必要强调一下，毕竟如今人与人的交流大多都是在遥远的互联网上。当我使用 `Observable` 创建出一个远程共享的协作空间时，我觉得很高兴，这不是在炫耀（就像在 Twitter 上），而是因为可以与朋友们实时合作并发表见解、解决问题而真心感到高兴。
+
+## 10. 享受美好时光
+
+起初我写的是“放松”，但是感觉有点假。我可能是最不会放松的人，我**希望**能够活得轻松。这是我的私事，我会尝试反思自己工作生活中最喜欢的部分，并且花更多的时间做这些事情。这听起来很简单也很老套，但实际做起来却不容易。如果你知道自己喜欢做什么事情，那么（万一）当你失败（只是假设，未必真的会这样）时，你就不会有太多遗憾。矛盾的是，一个让你偏离实际目的的目标可能会帮助你成功，因为你更容易坚持下去。做自己喜欢的事情（工作）是更容易坚持的，比如我喜欢构建工具，虽然无法预测它是否能成功，但我热衷于解决难题并进行抽象，而且我也热衷于看到人们使用我的作品。另一方面，虽然我知道演讲的好处，也知道演讲之后会获得多棒的自我感觉，但我发现公开演讲会引起焦虑。因此，如果你对我较少发表公开演讲而略感失望，但愿这只是因为我正在埋头开发一些新的东西。😅
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
