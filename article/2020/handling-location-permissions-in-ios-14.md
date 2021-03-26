@@ -21,7 +21,7 @@ iOS 14 小小地修改了一下 `CoreLocation` 框架。更进一步地说，用
 
 * 最明显的改动是，出现了一个新的权限“只允许一次”，它要求设置 `NSLocationWhenInUseUsageDescription` 配置内容。必须要指明的是，当应用程序被关闭的时候，这个权限会被自动撤销。
 * 此外，启用“Allow While Using The App”将暂时性地“总是允许”位置追踪。现在，当你尝试在后台访问地理位置时，系统会向用户显示一个对话框来选择是否继续允许追踪。
-* iOS 13.4 引入了一种更好的方式去快速的确保“总是允许”权限被授予。只需要请求 `authorizedWhenInUse` ，如果它被授予了权限，就会出现 `authorizedAlways` 的提示信息。
+* iOS 13.4 引入了一种更好的方式去快速的确保“总是允许”权限被授予。只需要请求 `authorizedWhenInUse`，如果它被授予了权限，就会出现 `authorizedAlways` 的提示信息。
 
 想更深入的研究在你的应用中 iOS 13 的地理位置权限，[来看看这篇文章](https://medium.com/better-programming/handling-ios-13-location-permissions-5482abc77961)。
 
@@ -35,7 +35,7 @@ Apple 已经废弃了我们之前在 `CLLocationManager` 中调用的类方法  
 
 这意味着从 iOS 14 开始，`authorizationStatus()` 只能被 `CLLocationManager` 的实例调用.
 
-Apple 也废弃了 `didChangeAuthorization` 中带有一个 `status` 参数的 `CoreLocation` 方法。 取而代之的，我们现在有了一个新的 `locationManagerDidChangeAuthorization` 方法.
+Apple 也废弃了 `didChangeAuthorization` 中带有一个 `status` 参数的 `CoreLocation` 方法。取而代之的是，现在有了一个新的 `locationManagerDidChangeAuthorization` 方法。
 
 ![](https://cdn-images-1.medium.com/max/2720/1*T6ZJe1MBihTxLgvatZbHPQ.png)
 
@@ -94,7 +94,7 @@ AppClips 就像一个可以无需安装完整应用程序就可运行的迷你 A
 
 ## 总结
 
-`CoreLocation` 框架在 iOS 14 中发生了一点有趣的改变，能够让用户对他们的地理位置数据有更多的掌控权。并不是所有的 App 都需要获得准确的地理位置信息，所以你可以选择用 `reducedAccuracy` 属性去只获取近似的地理位置。 
+`CoreLocation` 框架在 iOS 14 中发生了一点有趣的改变，能够让用户对他们的地理位置数据有更多的掌控权。并不是所有的 App 都需要获得准确的地理位置信息，所以你可以选择用 `reducedAccuracy` 属性来仅获取近似的地理位置。 
 
 这就是这篇文章的全部内容了，谢谢阅读
 
