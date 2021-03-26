@@ -2,7 +2,7 @@
 > * 原文作者：The Rust Release Team
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Rust-1.51.0.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Rust-1.51.0.md)
-> * 译者：
+> * 译者：[洛竹]( https://github.com/youngjuning)
 > * 校对者：
 
 # Announcing Rust 1.51.0
