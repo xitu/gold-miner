@@ -89,7 +89,7 @@ locationManager.pausesLocationUpdatesAutomatically = false
 AppClips 就像一个可以无需安装完整应用程序就可运行的迷你 APP 模块。
 
 * 当你通过 AppClips 访问地理位置时，将不会出现”仅当使用 App 时允许”的权限，而是会出现一个在当天结束时自动重置的“在使用期间直到明天”的权限。
-* 对于在 WidgetKit 中访问地理位置，你需要在 `info.plist` 文件中定义  `NSWidgetWantsLocation` 键。
+* 对于在 WidgetKit 中访问地理位置，你需要在 `info.plist` 文件中定义 `NSWidgetWantsLocation` 键。
 * 如果想默认情况下只在访问精确地理位置的时候显示提示信息，你可以在`info.plist`文件中添加键 `NSLocationDefaultAccuracyReduced`。这样做，精确地理位置访问按钮就不会显示在权限对话框了。但是用户仍然可以在手机的设置中启用切换开关。
 
 ## 总结
