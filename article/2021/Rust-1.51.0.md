@@ -29,9 +29,9 @@ rustup update stable
 
 ```rs
 struct FixedArray<T> {
-    // Type generic definition
+    // Type generic 定义
     list: [T; 32]
-    // Where we're using it.
+    // 我们在这里使用它
 }
 ```
 
@@ -47,9 +47,9 @@ struct FixedArray<u8> {
 
 ```rs
 struct Array<T, const LENGTH: usize> {
-    // Const generic definition.
+    // Const generic 定义
     list: [T; LENGTH]
-    // We use it here.
+    // 我们在这里使用它
 }
 ```
 
@@ -108,7 +108,7 @@ fn main() {
 ```toml
 [package]
 resolver = "2"
-# Or if you're using a workspace
+# 或者你正在使用 workspace
 [workspace]
 resolver = "2"
 ```
@@ -142,7 +142,7 @@ struct Packed {
 }
 
 let packed = Packed { f1: 1, f2: 2 };
-// `&packed.f2` would create an unaligned reference, and thus be Undefined Behavior!
+// `＆packed.f2` 将创建未对齐的引用，因此是未定义的行为！
 let raw_f2 = ptr::addr_of!(packed.f2);
 assert_eq!(unsafe { raw_f2.read_unaligned() }, 2);
 ```
