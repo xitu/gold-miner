@@ -1,5 +1,5 @@
-> * 原文地址：[MongoDB Vs. MySQL: When to Use?](https://blog.google/products/android/new-features-spring-2021/)
-> * 原文作者： Mariana Berga
+> * 原文地址：[MongoDB Vs. MySQL: When to Use?](https://dzone.com/articles/mongodb-vs-mysql-when-to-use)
+> * 原文作者：[Mariana Berga](https://dzone.com/users/4502628/mobrdev.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/mongodb-vs-mysql-when-to-use.md](https://github.com/xitu/gold-miner/blob/master/article/2021/mongodb-vs-mysql-when-to-use.md)
 > * 译者：
