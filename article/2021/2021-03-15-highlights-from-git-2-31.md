@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/2021-03-15-highlights-from-git-2-31.md](https://github.com/xitu/gold-miner/blob/master/article/2021/2021-03-15-highlights-from-git-2-31.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [PingHGao](https://github.com/PingHGao)
 
 ![](https://github.blog/wp-content/uploads/2021/03/git-2-31-0-release-banner.jpeg?fit=1200%2C630)
 
