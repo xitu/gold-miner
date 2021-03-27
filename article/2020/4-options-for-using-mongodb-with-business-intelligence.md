@@ -2,7 +2,7 @@
 > * 原文作者：[Sean Knight](https://medium.com/@sean_24930)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-options-for-using-mongodb-with-business-intelligence.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-options-for-using-mongodb-with-business-intelligence.md)
-> * 译者：
+> * 译者：[huifrank](https://github.com/huifrank)
 > * 校对者：
 
 # 在商业智能中使用 MongoDB 的4种方式 - 如何在非结构化数据中使用结构化查询分析
@@ -35,9 +35,9 @@
 
 当开发者使用 MongoDB 时，他们享受有哪些特性？
 
-* **灵活的模式结构（schema）** — 由于 MongoDB 采用 JSON 对象存储的缘故，不同的数据属性间可以随意嵌套。并且，不同的对象也可以拥有不同的成员属性。
-* **速度** — 相对传统的关系型数据库，在 JSON 数据中提供索引查找可以给用户提供更加迅速的检索速度。
-* **可伸缩性** — 由于 MongoDB 将数据分隔为多个碎片，使它可以高效地处理大规模数据。
+* **灵活的模式结构（schema）** —— 由于 MongoDB 采用 JSON 对象存储的缘故，不同的数据属性间可以随意嵌套。并且，不同的对象也可以拥有不同的成员属性。
+* **速度** —— 相对传统的关系型数据库，在 JSON 数据中提供索引查找可以给用户提供更加迅速的检索速度。
+* **可伸缩性** —— 由于 MongoDB 将数据分隔为多个碎片，使它可以高效地处理大规模数据。
 
 ## 商业智能：SQL 数据库 vs. MongoDB 
 
@@ -71,34 +71,34 @@ Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个�
 
 简单来说，用户可以在不使用 SQL 数据库的情况下，采用像 Knowi 这样的数据虚拟化技术用以在 MongoDB 中执行像 SQL 数据库那样的，基于实时数据中进行过滤，连接，聚合操作。这里一个额外的好处是：像类似 [Couchbase](https://www.knowi.com/couchbase) 和 [Datastax](https://www.knowi.com/datastax-enterprise-analytics) 数据仓库那样，数据虚拟化工具可以非常方便的从其他源中拉去数据，例如 [Elasticsearch，](https://www.knowi.com/elasticsearch-analytics) [REST APIs](https://www.knowi.com/rest-api)， [MySQL](https://www.knowi.com/mysql) 。
 
-#### Solution Three: Translation
+#### 方式三：转译
 
-There are companies out there that are trying to build a transitional system that allows the user to enter SQL queries and then “translate” these queries into MongoDB queries in order to solve this problem. [Dremio](https://www.dremio.com/) is one of them, and they do a great job of removing the need for ETL.
+为了解决这个问题，目前有一些公司在尝试构建允许将用户输入的 SQL 语句“转译"为 MongoDB 查询语句的转译系统。[Dremio](https://www.dremio.com/) 便是其中之一，为了移出对 ETL 的依赖，他们做了非常出色的工作。
 
-Unfortunately, things like joins across separate databases can cause major problems with this process. This process also includes a delay, which is far from ideal for rigorous, large-scale business intelligence procedures.
+不幸的是，在该方案中，如果出现类似跨数据库连接时会导致非常严重的问题。因该方案通常会包含延迟，在大规模，严格商业智能产品中距理想效果还相距甚远。
 
-#### Solution Four: MongoDB Charts (limited-use cases only)
+#### 方案四：MongoDB Charts（有限使用情况）
 
-In an effort to remove some technical barriers to data visualization and business intelligence with Mongo data, the team at MongoDB recently released MongoDB Charts. MongoDB Charts is a native visualization tool that helps remove many of the barriers to using MongoDB for data visualization and business intelligence, but it comes with some drawbacks.
+为了移除 Mongo 数据中数据虚拟化与商业智能的技术壁垒，MongoDB 团队最近发布了 MongoDB Charts。 MongoDB Charts 可以帮助移除使用 MongoDB 与数据虚拟化和商业智能之间许多障碍一个原生虚拟化工具。但是，他也有一些短板。
 
-* The user must have a MongoDB Atlas account.
-* The user is limited to only MongoDB data.
-* You must have a MongoDB Atlas account.
-* Every chart only displays data from a single data source.
-* As of right now, the extent of business intelligence and visualizations is limited to simple charts and dashboards. However, they do frequently work on new features.
+* 用户必须有 MongoDB Atlas 账户。
+* 用户被限制为只能使用 MongoDB 数据。
+* 你必须有 MongoDB Atlas 账户。
+* 每张图片只能限制来自单一数据来源中的数据。
+* 截止目前，商业智能的可视化程度仅限于简单的图表和仪表板。然而，他们在新特性上工作很积极。
 
-If your use-case won’t be impacted by these limitations, MongoDB Charts may be a good solution for you. It may be an even better solution if you’re already subscribed to MongoDB Atlas.
+如果你的使用情况不会受到以上这些限制，MongoDB Charts 对于你来说可能是一个好的选择。如果你已经订阅了 MongoDB Atlas，那么就再棒不过了。
 
-If these limitations aren’t relevant to your use-case, MongoDB Charts may be a good solution option — especially if you’re already a MongoDB Atlas subscriber.
+如果这些限制在你的场景中并不适用，MongoDB Charts 也许是一个好的选择 —— 特别是在你已经是一位 MongoDb Atlas 订阅者的情况下。
 
-## Conclusion
+## 总结
 
-The modern environment of business intelligence is dynamic, which means we must constantly conduct analysis on a wide variety of different database types, and some of these database types are more conducive to business intelligence than others. MongoDB is not the only database to create some confusion within the sphere of business intelligence. Fortunately, solutions to this problem are being presented by a few innovative companies out there that are working to standardize and streamline the process of business intelligence across various data sources. Regardless of which solution you decide is best for your business, one thing is clear: your business no longer has to decide between MongoDB and business intelligence. You can have both.
+现代商业智能环境是充满变化的，意味着我们必须不断地对各种不同的数据库类型进行分析，并找出其中更加适合于商业智能的数据库类型。MongoDB 并不是唯一一个为商业智能领域中带来冲击的数据库。幸运的是， 已经有数个创新公司提出针对在商业智能中跨多个各种数据源问题，标准简化的解决方案。 无论你确定哪种解决方案最适合你的业务，有一件事是清楚的：针对业务，你已经不再需要选择 MongoDB 还是 商业智能了，可以全都要。
 
-## About the Author
+## 关于作者
 
-Sean Knight works as VP of Growth [Knowi](https://www.knowi.com/), a SAAS analytics company. He has degrees in both physics and data science and has worked at particle accelerators, NASA JPL, a research nuclear reactor, and is now in the startup world. He is a data geek who enjoys contributing to Towards Data Science, Level Up Coding, The Startup, and Hackernoon.
-Find him on [Twitter](https://twitter.com/SeanLikesData) and [Linkedin](https://www.linkedin.com/in/seanlikesdata/).
+Sean Knight 在 Growth [Knowi](https://www.knowi.com/)（SASS 分析公司）中从事 VP 工作。他拥有物理学和数据科学两个学位，曾在粒子加速器、美国宇航局喷气推进实验室（NASA JPL）工作，这是一个研究核反应堆，目前在世界上已小有名气。他是一个数据极客，喜欢为数据科学、分级编码、初创公司和 Hackernoon 做出贡献。
+可以在 [Twitter](https://twitter.com/SeanLikesData) 和 [Linkedin](https://www.linkedin.com/in/seanlikesdata/) 上找到他。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
