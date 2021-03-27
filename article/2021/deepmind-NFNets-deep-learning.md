@@ -5,16 +5,15 @@
 > * 译者：
 > * 校对者：
 
-
 # Google DeepMind’s NFNets Offers Deep Learning Efficiency
 
 Google’s DeepMind AI company recently released NFNets, a normalizer-free ResNet image classification model that [achieved a training performance 8.7x faster](https://arxiv.org/abs/2102.06171) than current state-of-the-art [EfficientNet](https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html).
 
 According to Google’s DeepMind researchers (checkplot below):
 
-*NFNet-F1 model achieves similar accuracy to EfficientNet-B7 while being 8.7×faster to train, and our largest model sets a new overall state of the art without extra data of 86.5% top-1 accuracy.*
+> NFNet-F1 model achieves similar accuracy to EfficientNet-B7 while being 8.7×faster to train, and our largest model sets a new overall state of the art without extra data of 86.5% top-1 accuracy.
 
-![https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/11figure-1-1616684541530.jpg](https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/11figure-1-1616684541530.jpg)
+![](https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/11figure-1-1616684541530.jpg)
 
 For large-scale image recognition tasks, usually neural networks use a technique called [batch normalization](http://cs231n.stanford.edu/slides/2018/cs231n_2018_lecture07.pdf) to make the model training more efficient. In addition, it helps neural networks to generalize better, i.e., it has a regularizing effect.
 
@@ -26,16 +25,14 @@ DeepMind introduced NFNets to remove normalization from the equation and improve
 
 that allows to train neural network models such as ResNet with a larger batch size in an efficient manner. This method reduced training time by 20-40% per computational resources (amount of GPUs used) compared with EfficientNet with the same accuracy.
 
-![https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/6figure-2-1616684540852.jpg](https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/6figure-2-1616684540852.jpg)
-
-**Source:** [High-Performance Large-Scale Image Recognition Without Normalization](https://arxiv.org/abs/2102.06171)
+![**Source:** [High-Performance Large-Scale Image Recognition Without Normalization](https://arxiv.org/abs/2102.06171)](https://res.infoq.com/news/2021/03/deepmind-NFNets-deep-learning/en/resources/6figure-2-1616684540852.jpg)
 
 The [code](https://github.com/deepmind/deepmind-research/tree/master/nfnets) was published on Google’s DeepMind GitHub, implemented on this new framework called [JAX](https://github.com/google/jax). In order to run a forward step on NFNet, just run the following [piece of code](https://colab.research.google.com/github/deepmind/deepmind-research/blob/master/nfnets/nfnet_demo_colab.ipynb#scrollTo=qeotZfkBYrIg):
 
-```
+```py
 def forward(inputs, is_training):
- model = nfnet.NFNet(num_classes=1000,  variant=variant)
- return model(inputs, is_training=is_training)['logits']
+    model = nfnet.NFNet(num_classes=1000,  variant=variant)
+    return model(inputs, is_training=is_training)['logits']
 net = hk.without_apply_rng(hk.transform(forward))
 fwd = jax.jit(lambda inputs: net.apply(params, inputs, is_training=False))
 # We split this into two cells so that we don't repeatedly jit the fwd fn.
@@ -46,7 +43,7 @@ print(f'ImageNet class: {which_class}.')
 
 NFNets has as well an [implementation in Pytorch](https://github.com/vballoli/nfnets-pytorch), which shows community has been receptive to this release:
 
-```
+```py
 import torch
 from torch import nn, optim
 from torchvision.models import resnet18
