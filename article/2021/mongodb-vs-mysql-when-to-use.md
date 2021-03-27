@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-
 # MongoDB Vs. MySQL: When to Use?
 
 MongoDB and MySQL are both incredible databases with outstanding performance. However, their success is determined by the field in which they are playing. Rather than merely comparing the pros and cons, it is first essential to comprehend the different contexts in which they operate. Therefore, in this blog post, we will explore the key characteristics, differences, and benefits of using MongoDB and MySQL.
@@ -80,9 +79,7 @@ On the other hand, MongoDB uses an **unstructured query language**. To request 
 
 In other words, to fetch data from a MongoDB database, query operations need to be performed. To do so, the following function should be applied: `db.collection.find()`. MongoDB supports multiple languages (such as [Python](https://www.imaginarycloud.com/blog/why-use-python-for-web-development/), Java, C##, Perl, PHP, [Ruby](https://www.imaginarycloud.com/blog/ruby-vs-python-for-web-development/), and [JavaScript](https://www.imaginarycloud.com/blog/async-javascript-patterns-guide/)) in which queries can be built. A compound query can establish specific conditions for various fields within the collection's documents using query operators. Query operations (e.g. `$and`, `$or`, `$type`, `$eq`, etc.) specify the conditions and enable query filter documents. Once the conditions are defined, it identifies which information or record to select accordingly, and, further, it allows to update, read or delete.
 
-![https://www.imaginarycloud.com/blog/content/images/2021/02/MongoQuery.png](https://www.imaginarycloud.com/blog/content/images/2021/02/MongoQuery.png)
-
-*Source: [MongoDB](https://docs.mongodb.com/guides/)*
+![Source: [MongoDB](https://docs.mongodb.com/guides/)](https://www.imaginarycloud.com/blog/content/images/2021/02/MongoQuery.png)
 
 Nevertheless, MongoDB does not perform JOIN operations nor has an equivalent. When using MySQL, **JOIN operations** (inner, outer, left, right, and cross) are applied to retrieve data from two or more database tables. Simply put, these operations are what allow relational data to relate by using a single SQL statement.
 
