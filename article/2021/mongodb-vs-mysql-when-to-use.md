@@ -39,9 +39,7 @@ Regarding **data schema**, the same does not happen in MySQL. Even though it is
 
 Both databases, relational and document, use DDL and DML concepts. However, in relational databases, establishing the **DDL** and **DML** is vital. Contrarily, MongoDB has a more malleable data schema, thus, not being as concerned as MySQL about how data is structured. Even though it may seem like a big con, this consistency is actually one of MySQL's greatest strengths because it keeps the data structured and clean.
 
-![https://www.imaginarycloud.com/blog/content/images/2021/02/dataschemasample_MySQL.png](https://www.imaginarycloud.com/blog/content/images/2021/02/dataschemasample_MySQL.png)
-
-*Source: [dev.mysql](https://dev.mysql.com/)*
+![Source: [dev.mysql](https://dev.mysql.com/)](https://www.imaginarycloud.com/blog/content/images/2021/02/dataschemasample_MySQL.png)
 
 Each MongoDB database contains collections, which in turn, are filled with documents. These documents can include various fields and types of information, allowing for data storage of documents that vary in content and size. In MySQL, since the data schema is more constrained, every row within a table requires the same columns, which can be particularly hard to manage when working with high-volume databases. Hence, MySQL does not handle large and complex databases as easily as MongoDB.
 
