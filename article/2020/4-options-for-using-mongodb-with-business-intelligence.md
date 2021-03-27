@@ -65,17 +65,17 @@ SQL 数据库通常作为商业智能中的最佳选择是很容易理解的。�
 
 Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个可以通过生成语句来操纵数据的接口。
 
-用户可以使用原生的 MongoDB 语句，直接在软件中点击鼠标，或结合以上两种方式来生成查询。在生成查询后，用户可以进一步选择使用 Knowi 中基于 SQL 的查询语言  [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html) 来操纵数据。该过程均实时在 MongoDB 实例中完成，不需要任何 ETL 工具将数据将数据存储在 SQL 数据库中。
+用户可以使用原生的 MongoDB 语句，直接在软件中点击鼠标，或结合以上两种方式来生成查询。在生成查询后，用户可以进一步选择使用 Knowi 中基于 SQL 的查询语言  [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html) 来操纵数据。以上过程均实时在 MongoDB 实例中完成，不需要任何 ETL 工具将数据存储在 SQL 数据库中。
 
 ![Knowi’s native connection to SQL and NoSQL datasources provides a lot of flexibility](https://cdn-images-1.medium.com/max/2560/0*AJt8XmCOk3hG6fu8)
 
-简单来说，用户可以在不使用 SQL 数据库的情况下，采用像 Knowi 这样的数据虚拟化技术用以在 MongoDB 中执行像 SQL 数据库那样的，基于实时数据中进行过滤，连接，聚合操作。这里一个额外的好处是：像类似 [Couchbase](https://www.knowi.com/couchbase) 和 [Datastax](https://www.knowi.com/datastax-enterprise-analytics) 数据仓库那样，数据虚拟化工具可以非常方便的从其他源中拉去数据，例如 [Elasticsearch，](https://www.knowi.com/elasticsearch-analytics) [REST APIs](https://www.knowi.com/rest-api)， [MySQL](https://www.knowi.com/mysql) 。
+简单来说，用户可以在不使用 SQL 数据库的情况下，采用像 Knowi 这样的数据虚拟化技术用以在 MongoDB 中执行像 SQL 数据库那样的，基于实时数据中进行过滤，连接，聚合操作。这里一个额外的好处是：像类似 [Couchbase](https://www.knowi.com/couchbase) 和 [Datastax](https://www.knowi.com/datastax-enterprise-analytics) 数据仓库那样，数据虚拟化工具可以非常方便的从其他源中拉取数据，例如 [Elasticsearch，](https://www.knowi.com/elasticsearch-analytics) [REST APIs](https://www.knowi.com/rest-api)， [MySQL](https://www.knowi.com/mysql) 。
 
 #### 方式三：转译
 
 为了解决这个问题，目前有一些公司在尝试构建允许将用户输入的 SQL 语句“转译"为 MongoDB 查询语句的转译系统。[Dremio](https://www.dremio.com/) 便是其中之一，为了移出对 ETL 的依赖，他们做了非常出色的工作。
 
-不幸的是，在该方案中，如果出现类似跨数据库连接时会导致非常严重的问题。因该方案通常会包含延迟，在大规模，严格商业智能产品中距理想效果还相距甚远。
+不幸的是，在该方案中，如果出现类似跨数据库联接时会引起非常严重的问题。因该方案通常会包含延迟，在大规模，严格商业智能产品中距理想效果还相距甚远。
 
 #### 方案四：MongoDB Charts（有限使用情况）
 
@@ -87,7 +87,7 @@ Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个�
 * 每张图片只能限制来自单一数据来源中的数据。
 * 截止目前，商业智能的可视化程度仅限于简单的图表和仪表板。然而，他们在新特性上工作很积极。
 
-如果你的使用情况不会受到以上这些限制，MongoDB Charts 对于你来说可能是一个好的选择。如果你已经订阅了 MongoDB Atlas，那么就再棒不过了。
+如果你的使用情况不会受到以上这些限制，MongoDB Charts 对于你来说可能是一个好的选择。如果你已经订阅了 MongoDB Atlas，那就再棒不过了。
 
 如果这些限制在你的场景中并不适用，MongoDB Charts 也许是一个好的选择 —— 特别是在你已经是一位 MongoDb Atlas 订阅者的情况下。
 
