@@ -5,7 +5,7 @@
 > * 译者：[huifrank](https://github.com/huifrank)
 > * 校对者：
 
-# 在商业智能中使用 MongoDB 的4种方式 - 如何在非结构化数据中使用结构化查询分析
+# 在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析
 
 ![Photo by [Major Tom Agency](https://unsplash.com/@majortomagency?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2134/0*tm1VLFJIPTSFjBcw)
 
