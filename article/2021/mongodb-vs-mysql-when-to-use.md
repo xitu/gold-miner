@@ -23,17 +23,15 @@ MongoDB is also open-source, however, and unlike MySQL, it is a document datasto
 
 When using MongoDB, the data schema is not fixed. It is possible to remove or modify document properties within a collection, which allows for superior flexibility. In fact, documents can even be in the same collection and yet have completely different structures among themselves.
 
-# **MongoDB Vs. MySQL: The Differences**
+## MongoDB Vs. MySQL: The Differences
 
 As the previous paragraphs already enlightened, the main difference when comparing both open-source databases is that while MySQL is relational, MongoDB is a document datastore. Throughout this chapter, we will examine what that implies regarding data schema and capacity; performance and speed; security; and query language.
 
-# **Data Schema and Capacity**
+## Data Schema and Capacity
 
 In MongoDB, data is displayed in key-value pairs like JSON documents, allowing the database to have fewer constraints considering the schema design. This can be particularly advantageous for data with the potential for fast growth or other changes. Plus, MongoDB does provide a pre-defined structure that can be adopted if preferred.
 
-![https://www.imaginarycloud.com/blog/content/images/2021/02/MongoDBJSON.png](https://www.imaginarycloud.com/blog/content/images/2021/02/MongoDBJSON.png)
-
-*Source: MongoDB*
+![Source: MongoDB](https://www.imaginarycloud.com/blog/content/images/2021/02/MongoDBJSON.png)
 
 Regarding **data schema**, the same does not happen in MySQL. Even though it is possible to change the schema, modifications are not as flexible and dynamic as in document databases. Before storing any data, MySQL mandatorily requires a pre-establishment of how the tables and columns will be organized. Altering the data schema requires carefully rethinking the database's DDL (Data Definition Language) and DML (Data Modeling Language).
 
