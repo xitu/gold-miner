@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[chzh9311](https://github.com/chzh9311)
 
 # 使用 Node.js 实现蒙特卡洛树搜索
 
@@ -105,7 +105,7 @@ console.log(winner)
 
 ## 找到合适的游戏
 
-在开发一个 MCTS 游戏代理的背景下，我们可以把我们真正的程序看作是实现 MCTS 框架的代码，也就是 `monte-carlo.js` 文件中的代码。在 `game.js` 文件中的游戏专用代码是可以互换并且即插即用的，它是我们使用 MCTS 框架的接口。我们主要是想做 MCTS 背后的大脑，它应该真的能在任何游戏上运行。毕竟，我们对普通的游戏玩法感兴趣。
+在开发一个 MCTS 游戏智能体的背景下，我们可以把我们真正的程序看作是实现 MCTS 框架的代码，也就是 `monte-carlo.js` 文件中的代码。在 `game.js` 文件中的游戏专用代码是可以互换并且即插即用的，它是我们使用 MCTS 框架的接口。我们主要是想做 MCTS 背后的大脑，它应该真的能在任何游戏上运行。毕竟，我们感兴趣的是一般性的游戏玩法。
 
 不过，为了测试我们的 MCTS 框架，我们需要选择一个特定的游戏，并使用该游戏运行我们的框架。我们希望看到 MCTS 框架在每个步骤中都做出对我们选择的游戏有意义的决策。
 
@@ -122,7 +122,7 @@ console.log(winner)
 
 ![我这样做是为了纪念。](https://cdn-images-1.medium.com/max/2000/1*7KOc9QzhtuzIFgYBHem_Zg.jpeg)
 
-在我们的实现中，我们将使用 Hasbro（孩之宝：美国著名玩具公司）的尺寸和规则，即是 6 行 7 列，其中垂直、水平和对角线棋子数相连为 4 就算胜利。棋子会从上方落下，并借助重力落在底部的第一个自由槽。
+在我们的实现中，我们将使用 Hasbro（孩之宝：美国著名玩具公司）的尺寸和规则，即是 6 行 7 列，其中垂直、水平和对角线棋子数相连为 4 就算胜利。棋子会从上方落下，并借助重力落在自底向上数的第一个空槽。
 
 不过在我们继续讲述之前，要先说明一下。如果你有信心，你可以自己去实现任何你想要的游戏，只要它遵守给定的游戏 API。只是当你搞砸了，不能用的时候不要来抱怨。请记住，像国际象棋和围棋这样的游戏太复杂了，即使是 MCTS 也无法（有效地）独自解决；谷歌在 [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) 中通过向 MCTS 添加有效的机器学习策略来解决这个问题。如果你想玩自己的游戏，你可以跳过接下来的两个部分。
 
@@ -133,7 +133,7 @@ console.log(winner)
 虽然这不是本文的主要内容，但是你自己会如何构建呢？
 
 * 你会如何在 `State_C4` 中表示一个游戏状态呢？
-* 在 `Play_C4` 中，你将如何表示一个状态转换（例如，一个游戏或一个动作）呢？
+* 在 `Play_C4` 中，你将如何表示一个状态转换（例如一个动作）呢？
 * 你会如何把 `State_C4`、`Play_C4` 和四子棋游戏规则 —— 用冰冷的代码放在 `Game_C4` 中吗？
 
 注意，我们需要通过骨架文件 `game-c4.js` 中定义的高级 API 方法所要求的形式实现四子棋游戏。
@@ -142,9 +142,9 @@ console.log(winner)
 
 ---
 
-这是一个工作量很大的活，不是吗？至少对我来说是这样的。这段代码需要一些 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) 知识，但应该还是很容易读懂的。最重要的工作在 `Game_C4.winner()` 中 —— 它用于在四个独立的棋盘中建立积分系统，而所有的棋盘都是 `checkBoards`。每个棋盘都有一个可能的获胜方向（水平、垂直、左对角线或右对角线）。我们需要确保棋盘的三个面比实际棋盘大，方便为算法提供零填充。
+这是一个工作量很大的活，不是吗？至少对我来说是这样的。这段代码需要一些 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) 知识，但应该还是很容易读懂的。最重要的工作在 `Game_C4.winner()` 中 —— 它用于在四个独立的棋盘中建立积分系统，而所有的棋盘都在 `checkBoards` 里面。每个棋盘都有一个可能的获胜方向（水平、垂直、左对角线或右对角线）。我们需要确保棋盘的三个面比实际棋盘大，方便为算法提供零填充。
 
-我相信还有更好的方法。`Game.winner()` 的运行时性能并不是很好，具体来说，在[大 O 表示法](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html)中，它是 `O(rows * cols)`，所以性能并不是很好。通过在状态对象中存储 `checkBoards`，并且只更新最后播放单元格的 `checkBoards`（也会包含在状态对象中），可以大幅改善运行时性能，也许你以后可以尝试这个优化方法。
+我相信还有更好的方法。`Game.winner()` 的运行时性能并不是很好，具体来说，在[大 O 表示法](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html)中，它是 `O(rows * cols)`，所以性能并不是很好。通过在状态对象中存储 `checkBoards`，并且只更新 `checkBoards` 中最后改变状态的单元格（也会包含在状态对象中），可以大幅改善运行时性能，也许你以后可以尝试这个优化方法。
 
 ## 运行四子棋游戏
 
@@ -164,7 +164,7 @@ $ node test-game-c4.js
 0.549
 ```
 
-二号棋手在内部用 **-1** 表示，这是为了方便 `game-c4.js` 的计算。用 `2` 代替 `-1` 的那段代码只是为了对齐棋盘输出结果。为了简便起见，程序只输出了一块棋盘，但它真正玩的是另外的 `999` 次四子棋游戏。在单个棋盘输出之后，它应该输出一号棋手在所有 `1000` 盘棋中获胜的分数 —— 预计数值在 `55%` 左右，因为第一个棋手有先发优势。
+二号棋手在内部用 **-1** 表示，这是为了方便 `game-c4.js` 的计算。用 `2` 代替 `-1` 的那段代码只是为了对齐棋盘输出结果。为了简便起见，程序只输出了一块棋盘，但它确实玩了另外的 `999` 次四子棋游戏。在单个棋盘输出之后，它应该输出一号棋手在所有 `1000` 盘棋中获胜的分数 —— 预计数值在 `55%` 左右，因为第一个棋手有先发优势。
 
 ## 分析现在的状况
 
@@ -278,11 +278,11 @@ module.exports = MonteCarloNode
 
 方法可真多!
 
-特别是，`MonteCarloNode.expansion()` 将 `MonteCarloNode.children` 中未展开的空节点替换为实节点。这个方法将是 MCTS 算法中**阶段二：扩展**的一部分，其他方法自行理解。
+特别是，`MonteCarloNode.expand()` 将 `MonteCarloNode.children` 中未展开的空节点替换为实节点。这个方法将是四阶段的 MCTS 算法中**阶段二：扩展**的一部分，其他方法自行理解。
 
 通常你可以自己实现这些，也可以获取完成的 [`monte-carlo-node.js`](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-node.js)。即使你自己做，我也建议在继续之前对照我完成的程序进行检查，以确保正常运行。
 
-如果你刚获取到我完成的程序，请快速浏览一下执行情况，就当是另一个心理检查点，重新梳理你的整体理解。这些都是简短的方法，你会在短时间内看懂它们。
+如果你刚获取到我完成的程序，请快速浏览一下源代码，就当是另一个心理检查点，重新梳理你的整体理解。这些都是简短的方法，你会在短时间内看懂它们。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eFzE9DWAfJKpehpbYSqivQ.png)
 
@@ -504,7 +504,7 @@ class MonteCarlo {
 
 ![](https://cdn-images-1.medium.com/max/2800/1*1iSZ0jZgzj4K0uBypQK_Pg.jpeg)
 
-> 模拟阶段结束后，所有被访问的节点（图中粗体）的统计数据都会被更新。每个被访问的节点的模拟次数都会递增。根据哪个玩家获胜，其获胜次数也可能递增。在图中，**蓝节点**赢了，所以每个被访问的**红节点**的胜利数都会递增。这种反向传播是由于每个节点的统计数据是用于其**父节点**的选择，而不是它自己的。
+> 模拟阶段结束后，所有被访问的节点（图中粗体）的统计数据都会被更新。每个被访问的节点的模拟次数都会递增。根据哪个玩家获胜，其获胜次数也可能递增。在图中，**蓝节点**赢了，所以每个被访问的**红节点**的胜利数都会递增。这种反转是由于每个节点的统计数据是用于其**父节点**的选择，而不是它自己的。
 
 ```js
   ...
@@ -525,7 +525,7 @@ class MonteCarlo {
 module.exports = MonteCarlo
 ```
 
-这是影响下一次迭代搜索中选择阶段的部分。请注意，这假设是一个两人游戏，允许在 `node.state.isPlayer(-winner)` 中进行反向传播。你也许可以把这个函数泛化为 **n** 人游戏，做成 `node.parent.state.isPlayer(winner)` 之类的。
+这是影响下一次迭代搜索中选择阶段的部分。请注意，这假设是一个两人游戏，允许在 `node.state.isPlayer(-winner)` 中进行反转。你也许可以把这个函数泛化为 **n** 人游戏，做成 `node.parent.state.isPlayer(winner)` 之类的。
 
 想一想，反向传播 `0` 赢家是什么意思？这相当于一盘平局，每个访问节点的 `n_plays` 统计数据都会增加，而玩家 `1` 和玩家 `-1` 的 `n_wins` 统计数据都不会增加。这种更新的行为就像**两败俱伤**的游戏，将选择推向其他游戏。最后，以平局结束的游戏和以失败结束的游戏一样，都有可能得不到充分的开发。这并没有破坏任何东西，但它导致了当平局比输棋更可取时的次优发挥。一个快速的解决方法是在平局时将双方的 `n_wins` 递增一半。
 
