@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-almanac-2020.md)
 > * 译者：[felixliao](https://github.com/felixliao)
-> * 校对者：
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[Chor](https://github.com/Chorer)
 
 # 网络年鉴大研究表明热门的前端框架依然是互联网的一小部分
 
@@ -19,7 +19,7 @@ CSS 的章节还指出 CSS 文件的大小中位数在 60 KB 左右，基本上�
 
 > CSS Painting API 是一个得到广泛实现的 Houdini 规范，它允许开发者创建自定义 CSS 函数来返回 `<image>` 值，例如实现自定义渐变或图案。但是我们发现只有 12 个页面在使用 `paint()`，且每个工作集名称 （`hexagon`、`ruler`、`lozenge`、`image-cross`、`grid`、`dashed-line`、`ripple`）在每个页面只出现了一次。由此看来，仅有的实践案例很可能只是演示。作为另一个 Houdini 规范，Typed OM 允许结构化数值的存取，而不是传统 CSS OM 中的字符串。比起其他 Houdini 规范，它明显有更高的采用率，尽管和整体比还是很低。它得到了 9846 个桌面端站点（0.18%）和 6391 个移动端站点（0.1%）的采用。
 
-报告中的 JavaScript 章节称页面加载的 JavaScript 体积增长了约 14%，统计的中位数表明会加载 400 KB 左右的 JavaScript。报告指出针对桌面端和移动端的页面有相近的 JavaScript 体积，但其网络和性能处理有很大差别；同时，中位网站上有 37% 的 JavaScript 代码是没有被使用的。报告写道：
+报告中的 JavaScript 章节称页面加载的 JavaScript 体积增长了约 14%，统计的中位数表明会加载 400 KB 左右的 JavaScript。报告指出针对桌面端和移动端的页面有相近的 JavaScript 体积，但其网络和性能处理有很大差别；同时，网站上未使用的 JavaScript 代码的比例中位数达到了 37%。报告写道：
 
 > 取决于你的看法，你也许可以不在乎发送到桌面端和移动端代码体积之间细微的区别 —— 毕竟，中位数差个 30 KB 又能怎么样呢，对吧？桌面端站点数据的中位数表明，其花费了 891 毫秒来去处理浏览器主进程上的 JavaScript。然而，移动端站点数据的中位数则是 1897 毫秒 —— 是桌面端花费时间的两倍多。这在底层的页面上更为糟糕。在数据的 90 百分位处，移动端站点要花费 8921 毫秒去处理主进程的 JavaScript，相比之下桌面端站点只需要 3838 毫秒。
 
