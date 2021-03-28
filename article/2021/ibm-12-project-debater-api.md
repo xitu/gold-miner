@@ -19,7 +19,7 @@ To debate humans, an AI must be equipped certain skills. It has to be able to pi
 
 This is exactly what we’ve done with Project Debater. It’s been developed as a collection of components, each designed to perform a specific subtask. Over the years, we published more than 50 [papers](https://www.research.ibm.com/artificial-intelligence/project-debater/research/) describing these components and released many related [datasets](https://www.research.ibm.com/haifa/dept/vst/debating_data.shtml) for academic use.
 
-### Building debating skills
+## Building debating skills
 
 To engage in a debate successfully, a machine requires high level of accuracy from each component. For example, failing to detect the argument’s stance may result in arguing in favor of your opponent – a dire situation in a debate.
 
@@ -35,7 +35,7 @@ Then there are APIs for two high-level services that create different kinds of s
 
 And Key Point Analysis is a new and promising approach for summarization, with an important quantitative angle. This service summarizes a collection of comments on a given topic as a small set of key points, and the prominence of each key point is given by the [number of its matching sentences](https://www.aclweb.org/anthology/2020.acl-main.371.pdf) in the [given comments](https://www.aclweb.org/anthology/2020.emnlp-main.3.pdf).
 
-### Developers are welcome
+## Developers are welcome
 
 Key Points Analysis and Narrative Generation have been recently demonstrated in the *[“That’s Debatable”](https://www.research.ibm.com/artificial-intelligence/project-debater/thats-debatable/)* television series and in the *[“Grammy Debates with Watson”](https://www.grammy.com/watson)* backstage experience, where they summarized pro and con arguments contributed online by thousands of people, discussing debate topics ranging from social questions to pop culture.
 
