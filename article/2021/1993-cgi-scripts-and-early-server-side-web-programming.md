@@ -49,53 +49,53 @@
 
 因为 CGI 脚本是可执行的，所以它们通常被放在一个特殊的文件夹里面。正如 McCool 所解释的那样，这是 "为了让 Web 服务器知道要执行程序，而不是仅仅将其显示给浏览器"。这也使得网站管理员能够锁定文件夹，以防止人们创建有潜在危险的 CGI 脚本。McCool 建议文件夹名称为 *cgi-bin*，而这很快就成为了标准。在 90 年代以后，像 `http://www.example.com/cgi-bin/helloworld.pl` 这样的 URL 变得很常见。
 
-## Perl Scripts Proliferate
+## Perl 脚本数量激增
 
-McCool’s [specification](https://web.archive.org/web/19971210170807/http://hoohoo.ncsa.uiuc.edu/cgi/interface.html), CGI/1.1, was soon put to use by the early users of the world wide web. Takeup was helped by the fact that developers could use any programming language to write CGI scripts. McCool listed some in his introduction:
+McCool 的[规范](https://web.archive.org/web/19971210170807/http://hoohoo.ncsa.uiuc.edu/cgi/interface.html)，即 CGI/1.1，很快就被万维网的早期用户所采纳。开发者可以使用任何编程语言来编写 CGI 脚本这一事实促进了它的使用。McCool 在他的介绍中列出了一些支持的语言：
 
 - C/C++
 - Fortran
 - PERL
 - TCL
-- Any Unix shell
+- 任何的 Unix shell
 - Visual Basic
 - AppleScript
 
-In practice though, many CGI applications were written in the scripting language, Perl (this is partly why they came to be known as CGI scripts). Indeed, Perl had a big influence on the creation of CGI, as explained in [this 2016 article](https://opensource.com/life/16/11/perl-and-birth-dynamic-web) by Michael Stevenson on opensource.com. He referenced Jim Davis’ [Gateway to the U Mich Geography server](https://lists.w3.org/Archives/Public/www-talk/1992NovDec/0060.html), released to the WWW-talk mailing list in November 1992:
+但实际上，许多 CGI 应用程序是用脚本语言 Perl 编写的（这也是它们被称为 CGI 脚本的部分原因）。事实上，Perl 对 CGI 的创建有很大的影响，正如 Michael Stevenson 在 openource.com 上的[这篇 2016 年的文章](https://opensource.com/life/16/11/perl-and-birth-dynamic-web)所解释的那样。他引用了 Jim Davis 的 [Gateway to the U Mich Geography server](https://lists.w3.org/Archives/Public/www-talk/1992NovDec/0060.html) 一文（于 1992 年 11 月发布到 WWW-talk 邮件列表中）：
 
-> “Davis’s script, written in Perl, was a kind of proto-Web API, pulling in data from another server based on formatted user queries.”
+> "戴维斯的脚本是用 Perl 写的，实现了一种原始的 Web API，根据格式化的用户查询从另一个服务器上获取数据。"
 
-The first use cases for CGI were, unsurprisingly, focused on connecting an application to a database. So CGI was used to create things like a contact form, a guest book, a survey, or a search box. Anything that required user input, prompting a round trip from web page to database and back to the web page again, was a good candidate for CGI use.
+毫不奇怪，CGI 的第一个用例是集中在将一个应用程序连接到数据库上。因此，CGI 被用来创建像联系表、留言簿、调查或搜索框这样的东西。任何需要用户输入的东西，促使用户从网页到数据库再回到网页，都是使用 CGI 的好选择。
 
 ![](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/cgi2-1024x742.png)
 
-Example of CGI being used via an online form; image by Michael Grobe
+通过在线表格使用 CGI 的例子，图片由 Michael Grobe 提供。
 
-Here’s the above diagram explained in [an introductory article](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml) written sometime in 1994 at The University of Kansas:
+这是 1994 年堪萨斯大学写的一篇[介绍性文章](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml)中对上述图表的解释：
 
-> “In this diagram, the Web client running on Computer A acquires a form from some Web server running on Computer B. It displays the form, the user enters data, and the client sends the entered information to the HTTP server running on Computer C. There, the data is handed off to a CGI program which prepares a document and sends it to the client on Computer A. The client then displays that document.”
+> 在这张图中，运行在计算机 A 上的 Web 客户端从运行在计算机 B 上的某个 Web 服务器上获取了一个表单。它会显示该表单，用户输入数据，然后客户端将输入的信息发送到运行在计算机 C 上的 HTTP 服务器上。
 
-Similar to JavaScript, CGI scripts could be copied and pasted into websites by non-programmers. So if you needed a contact form, you’d search the web until you found a CGI script that enabled that. Usually it was a Perl script and over time websites like [Matt’s Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/) emerged to provide these code snippets.
+与 JavaScript 类似，CGI 脚本可以由非程序员复制并粘贴到网站中。因此，如果你需要一个联系表格，你就会在网上搜索，直到找到一个可以实现这个功能的 CGI 脚本。通常它是一个 Perl 脚本，随着时间的推移，出现了像 [Matt's Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/)这样的网站来提供这些代码片段。
 
-[Matt Wright](https://web.archive.org/web/19970130232402/http://www.worldwidemart.com/mattw/) was a high school student in Fort Collins, Colorado, when he started Matt’s Script Archive in 1995. One of his most popular scripts was a contact form called [FormMail](http://www.scriptarchive.com/formmail.html), which was written in Perl and described as “a generic HTML form to e-mail gateway that parses the results of any form and sends them to the specified users.” Unfortunately though, FormMail was inherently insecure and was soon exploited by spammers to send junk mail.
+[Matt Wright](https://web.archive.org/web/19970130232402/http://www.worldwidemart.com/mattw/) 在 1995 年创办 Matt's Script Archive 时，还是科罗拉多州柯林斯堡的一名高中生。他最受欢迎的脚本之一是一个名为 [FormMail](http://www.scriptarchive.com/formmail.html) 的联系表格，一个用 Perl 编写的，被描述为"一个通用的 HTML 表格连接到电子邮件网关的脚本，支持解析任何表格的结果，并将它们发送给指定的用户"。不过不幸的是，FormMail 本身就不安全，很快就被垃圾邮件发送者利用来发送垃圾邮件。
 
 ![](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/matts_script_archive98-1024x754.jpg)
 
-[Matt’s Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/), July 1998 version
+[Matt's Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/)，1998 年 7 月版。
 
-FormMail highlights a problem with CGI scripts in those early years: because by design they enabled random web users to run programs on your server, these scripts [could easily be hacked](https://web.archive.org/web/20020221182749/http://datacreek.net/webgear/tips/fmailspam.html) if clumsily written. If thousands of other website owners then copied and pasted that same code, it would became a widespread security issue (which happened with FormMail). As a user of [a computer programming forum](http://computer-programming-forum.com/53-perl/f47edf76a5dbbfa4.htm) rather bluntly put it, in a discussion about Wright’s scripts:
+FormMail 强调了早年 CGI 脚本的一个问题：因为在设计上，它们可以让随机的网络用户在你的服务器上运行程序，这些脚本[很容易被黑客攻击](https://web.archive.org/web/20020221182749/http://datacreek.net/webgear/tips/fmailspam.html)，如果写得很笨拙。如果成千上万的其他网站所有者复制和粘贴同样的代码，它将成为一个广泛的安全问题（FormMail 就有着问题，是个典例）。正如[一个计算机编程论坛](http://computer-programming-forum.com/53-perl/f47edf76a5dbbfa4.htm)的一位用户在讨论 Matt Wright 的脚本时相当直白的说的那样：
 
-> “…the vast majority of people downloading and implementing these scripts have no programming knowledge of their own and, as such, are ‘blissfully’ ignorant of the security risks, Y2K bugs, and the frequent total lack of proper error handling.”
+> "……绝大多数下载和实施这些脚本的人本身没有任何编程知识，因此，他们对安全风险、Y2K bug 以及经常出现的完全缺乏适当的错误处理都'懵查查'。"
 
-Eventually, members of the Perl community started a website called [Not Matt’s Scripts](http://nms-cgi.sourceforge.net/) to provide alternatives to Wright’s increasingly popular CGI scripts. That website was last updated in 2004. Interestingly, [Matt’s Script Archive](http://www.scriptarchive.com/) lasted five more years (although it now includes security warnings).
+最终，Perl 社区的成员创办了一个名为 [Not Matt's Scripts](http://nms-cgi.sourceforge.net/) 的网站，为 Matt Wright 那日益流行的 CGI 脚本们提供替代品。该网站最后一次更新是在 2004 年。有趣的是，[Matt's Script Archive](http://www.scriptarchive.com/) 的程序什么的更新持续了五年（尽管它现在包含安全警告）。
 
-## Conclusion
+## 结语
 
-One of the themes of web development in the mid-1990s, which I have explored in previous posts about Netscape and Microsoft, is the increasing complexity of web applications. The frontend (the web browser) was increasingly being connected to backend technologies, including the OS in Microsoft’s case. [By 1997](https://webdevelopmenthistory.com/1997-netscape-crossware-vs-the-windows-web/), Netscape was pushing a concept called “crossware” (which Marc Andreessen defined as “on-demand applications that run across networks and operating systems”), and meanwhile Microsoft was building out its Windows-integrated ActiveX technologies.
+我在以前关于 Netscape 和微软的文章中探讨过 90 年代中期网络开发的主题之一，就是网络应用的复杂性越来越高。前端（网络浏览器）越来越多地与后端技术相连，包括微软的操作系统。[到 1997年](https://webdevelopmenthistory.com/1997-netscape-crossware-vs-the-windows-web/)，Netscape 推行了一个叫做 "crossware" 的概念（Marc Andreessen 将其定义为"跨网络和操作系统运行的按需应用程序"），与此同时，微软正在建立其与 Windows 集成的 ActiveX 技术。
 
-But CGI in many ways routed around this movement towards complexity, by providing an easy way to access backend functionality via a web page. The “gateway” was really just that — a virtual pipe from the browser to a server, that executed a script and then sent the result back to the browser. This simplicity enabled influential 1990s websites like Yahoo!, eBay and Craigslist to flourish, without necessarily needing to buy into either of Netscape or Microsoft’s vision for the web.
+但是 CGI 在很多方面都绕开了这种复杂化的运动，通过提供一种简单的方式来通过网页访问后端功能。网关"实际上只是一个从浏览器到服务器的虚拟管道，它可以执行一个脚本，然后将结果送回浏览器。这种简单性使得 20 世纪 90 年代有影响力的网站，如 Yahoo!、eBay 和 Craigslist 等网站得以蓬勃发展，而不一定要买入 Netscape 或微软的网络愿景。
 
-But another theme of web development is that things don’t stay still for long! 1994 saw the emergence of a new scripting language that was based on CGI: [PHP](https://www.php.net/manual/en/history.php.php), which initially stood for “Personal Home Page Tools.” Over time, PHP became a replacement for Perl CGI scripts in many cases. I’ll delve into *that* story in the next post in this series about server-side web development.
+但网络发展的另一个主题是，事物不会静止太久! 1994 年出现了一种新的脚本语言，它是基于 CGI 的 —— [PHP](https://www.php.net/manual/en/history.php.php)，一个名字最初是"个人主页工具 "的意思的语言。随着时间的推移，PHP 在很多情况下成为了 Perl CGI 脚本的替代品。我将在本系列关于服务器端 Web 开发的下一篇文章中深入探讨*这个故事*。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
