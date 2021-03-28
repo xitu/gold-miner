@@ -1,7 +1,7 @@
 > * 原文链接: [Introducing Swift 3.0](http://dev.iachieved.it/iachievedit/)
 * 原文作者 : [ Joe](http://dev.iachieved.it/iachievedit/author/admin/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [iThreeKing](https://github.com/iThreeKing)
+* 译者 : [joyking7](https://github.com/joyking7)
 * 校对者 : [CoderBOBO](https://github.com/CoderBOBO) [shenxn](https://github.com/shenxn)
 
 Linux 系统下 Swift 3.0 的介绍
