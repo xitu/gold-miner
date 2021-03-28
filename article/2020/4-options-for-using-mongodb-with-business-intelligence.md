@@ -65,7 +65,7 @@ SQL 数据库通常作为商业智能中的最佳选择是很容易理解的。�
 
 Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个可以通过生成语句来操纵数据的接口。
 
-用户可以使用原生的 MongoDB 语句，直接在软件中点击鼠标，或结合以上两种方式来生成查询。在生成查询后，用户可以进一步选择使用 Knowi 中基于 SQL 的查询语言  [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html) 来操纵数据。以上过程均实时在 MongoDB 实例中完成，不需要任何 ETL 工具将数据存储在 SQL 数据库中。
+用户可以使用原生的 MongoDB 语句，直接在软件中点击鼠标，或结合以上两种方式来生成查询。在生成查询后，用户可以进一步选择使用 Knowi 中基于 SQL 的查询语言 [Cloud9QL](https://www.knowi.com/docs/cloud9QL.html) 来操纵数据。以上过程均实时在 MongoDB 实例中完成，不需要任何 ETL 工具将数据存储在 SQL 数据库中。
 
 ![Knowi’s native connection to SQL and NoSQL datasources provides a lot of flexibility](https://cdn-images-1.medium.com/max/2560/0*AJt8XmCOk3hG6fu8)
 
