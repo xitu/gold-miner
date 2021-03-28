@@ -1149,7 +1149,7 @@ The quote above sums up the Haskell community pretty well. The Haskell community
 
 As we’ve already learned, pure functions are amazing. Side effects (e.g. interacting with the outside world, including mutating state) are a cause of a large number of errors in programs. Being a **pure** functional language, Haskell disallows them altogether. This means that functions can never change any values and aren’t even allowed to interact with the outside world (even things like logging aren’t technically allowed).
 
-Of course, Haskell provides workarounds to interact with the outside world. How does it work you may ask? We provide a set of **instructions**** **(IO Monad). Such instructions may say, “read keyboard input, then use that input in some function, and then print the result to the console.” The language runtime then takes such instructions and executes them for us. We never execute code that interacts with the outside world directly.
+Of course, Haskell provides workarounds to interact with the outside world. How does it work you may ask? We provide a set of **instructions** (IO Monad). Such instructions may say, “read keyboard input, then use that input in some function, and then print the result to the console.” The language runtime then takes such instructions and executes them for us. We never execute code that interacts with the outside world directly.
 
 > Avoid success at all costs!
 
@@ -1175,13 +1175,13 @@ Haskell has great pattern matching support.
 
 #### 👎 Ecosystem
 
-The standard library is a mess, especially the default prelude (the core library). By default, Haskell uses functions that throw exceptions instead of returning **option** ****values (the gold standard of functional programming). To add to the mess, Haskell has two package managers — Cabal and Stack.
+The standard library is a mess, especially the default prelude (the core library). By default, Haskell uses functions that throw exceptions instead of returning **option** values (the gold standard of functional programming). To add to the mess, Haskell has two package managers — Cabal and Stack.
 
 #### Verdict
 
 ![](https://cdn-images-1.medium.com/max/2000/1*IuGZE_Nhzamew8hfy8f2Iw.png)
 
-> ****Hardcore** functional programming is not going to ever become mainstream — it requires deeply understanding many highly abstract concepts.**
+> **Hardcore** functional programming is not going to ever become mainstream — it requires deeply understanding many highly abstract concepts.
 
 > — David Bryant Copeland in [Four Better Rules for Software Design](https://naildrivin5.com/blog/2019/07/25/four-better-rules-for-software-design.html#conceptual-overhead-creates-confusion-and-complexity)
 
