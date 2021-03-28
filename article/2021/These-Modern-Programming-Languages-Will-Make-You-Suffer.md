@@ -7,8 +7,6 @@
 
 # These Modern Programming Languages Will Make You Suffer
 
-#### Welcome to the ultimate rating of modern programming languages
-
 ![](https://cdn-images-1.medium.com/max/10250/1*5zFs-VAB35APZwad--qnvw.jpeg)
 
 What are the pros and cons of a particular programming language? Is X a good language for my task? Googling “best programming language” will give you a standard list of “Python, Java, JavaScript, C#, C++, PHP” with a vague list of pros and cons. Seeing such articles makes me cringe — their authors must have been outright lazy, inexperienced, and lacking any imagination. Let’s dive deep and find out what really sucks — and what doesn’t.
@@ -21,8 +19,6 @@ I’m going to cover two of the most common language families in the world: [lan
 
 Programming languages are just tools in a developer’s toolbox. It’s important to choose the right tool for the job. I really hope that this guide will help you choose the most suitable programming language for your task. Making the right choice might save you months (or even years) of development effort.
 
----
-
 ## What Language Characteristics Really Matter?
 
 ![](https://cdn-images-1.medium.com/max/7000/1*TqsvzacHhqF2rF0ev0ON0Q.jpeg)
@@ -32,8 +28,6 @@ Most other similar articles base their comparisons on factors like **popularity*
 I’ll be using a thumbs-up 👍 (i.e. +1 ), a thumbs-down 👎, or an ok 👌 (neither good nor bad) emojis to signify the score of a particular language characteristic.
 
 Now, how will we measure? In other words, what really matters, other than language popularity?
-
----
 
 ## Type System
 
@@ -46,8 +40,6 @@ It is also nice for a type system to support Algebraic Data Types (more on this 
 The most powerful type systems support higher-kinded types, which are one level of abstraction above generics, and allow us to program at an even higher level of abstraction.
 
 We also have to keep in mind that people tend to put too much importance on type systems. There are things that matter far more than static typing, and the presence or lack of a type system shouldn’t be the only factor when choosing a language.
-
----
 
 ## Learning Effort
 
@@ -91,8 +83,6 @@ In a good language, the lack or presence of a value should be type-checked at co
 
 Languages that encourage other mechanisms of working with missing data will be ranked higher.
 
----
-
 ## Error Handling
 
 **Catching** exceptions is a bad way to handle errors. Throwing exceptions is fine, but only in **exceptional** circumstances, when the program has no way to recover, and has to crash. Just like nulls, exceptions break the type system.
@@ -134,8 +124,6 @@ function fetchAllComments(userId) {
 
 Nowadays there are much better mechanisms of error handling. Possible errors should be type-checked at compile-time. Languages that do not use exceptions by default will be ranked higher.
 
----
-
 ## Concurrency
 
 We’ve reached the end of Moore’s law: Processors will not get any faster, period. We live in the era of multi-core CPUs. Any modern application has to take advantage of multiple cores.
@@ -145,8 +133,6 @@ Unfortunately, most of the programming languages in use today were designed in t
 Libraries that help with concurrency are an afterthought, they simply add band-aids to languages that weren’t initially designed for concurrency. This doesn’t really count as good developer experience. In a modern language, concurrency support has to be built-in (think Go/Erlang/Elixir).
 
 ![](https://cdn-images-1.medium.com/max/2000/1*caUNu6RMeBKLIht997tR8Q.png)
-
----
 
 ## Immutability
 
@@ -164,27 +150,19 @@ With immutable state, nothing is shared, therefore we no longer have to worry ab
 
 Functions that do not mutate(change) any state are called pure and are significantly easier to test, and to reason about. When working with pure functions, we never have to worry about anything outside of the function. Just focus on just this one function that you’re working with and forget about everything else. You can probably imagine how much easier development becomes (in comparison to OOP, where an entire graph of objects has to be kept in mind).
 
----
-
 ## Ecosystem / Tooling
 
 A language may not be very good, but it may have a large ecosystem which makes it appealing. Having access to good libraries may save months or even years of development effort.
 
 We’ve seen this happen with languages like JavaScript and Python.
 
----
-
 ## Speed
 
 How fast does the language **compile**? How fast do the programs start? What is their runtime performance like? All of these things matter and will be included in the ranking.
 
----
-
 ## Age
 
 Although there are some exceptions, generally, newer languages will be better than older ones. Simply because newer languages learn from the mistakes of their predecessors.
-
----
 
 ## C++
 
@@ -277,8 +255,6 @@ The best use of C++ is probably system programming. However, given much better a
 
 C++, it’s your time to go.
 
----
-
 ## Java
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fWv6_uU9u4058LsY3lwtgw.png)
@@ -354,8 +330,6 @@ Java was a decent language when it has appeared. It's too bad that, unlike Scala
 
 The time has come for Java to retire.
 
----
-
 ## C#
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ws5PiT3jBtq3IbYZPTyNYQ.png)
@@ -419,8 +393,6 @@ I’ve spent a large chunk of my career working with C#, and was always mostly f
 
 Unfortunately, there’s nothing “sharp” about C#.
 
----
-
 ## Python
 
 ![](https://cdn-images-1.medium.com/max/2000/1*TYakjZNa7mi-XwTVpstXhw.png)
@@ -478,8 +450,6 @@ It’s really unfortunate that Python has no proper support for functional progr
 I don’t recommend using Python for large projects, the language was not built with serious software engineering in mind.
 
 Python shouldn’t be used for anything other than data science, when no other alternatives are available. [Julia](https://en.wikipedia.org/wiki/Julia_(programming_language)) seems to be a good modern alternative to Python in the field of data science, although its ecosystem is not nearly as mature as Python’s.
-
----
 
 ## TypeScript
 
@@ -645,8 +615,6 @@ Although TypeScript is generally thought to be a “better JavaScript,” I’m 
 
 TypeScript has really failed to deliver by keeping all of the bad parts of JavaScript, effectively inheriting decades of bad design decisions made in JavaScript.
 
----
-
 ## Go
 
 ![](https://cdn-images-1.medium.com/max/2000/1*tH31jAu2X4dJbHAFCvuYhA.png)
@@ -737,8 +705,6 @@ I think that overall Go is a better choice than Rust (albeit with a weaker type 
 ![](https://cdn-images-1.medium.com/max/2000/1*hZKZMyfynZ664pj97oPJpA.png)
 
 The **Best System Language** award goes to Go. Undoubtedly, Go is the perfect choice for system programming. Go is a low-level language and the fact that it’s a great fit for this field is confirmed by a large number of successful projects built with it, such as Kubernetes, Docker, and Terraform.
-
----
 
 ## Rust
 
@@ -840,8 +806,6 @@ Rust is a good fit for system programming. Although more complex than Go, it pro
 
 Why is Rust still ranked below JavaScript? It’s a low-level language designed for system programming. Rust is not a good fit for Backend/Web API development, its ecosystem isn’t as developed as in other languages.
 
----
-
 ## JavaScript
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lXUoWcu97jvGX3_sv0zfZw.png)
@@ -912,8 +876,6 @@ Catching/throwing errors is the preferred error handling mechanism.
 JavaScript is not a well-designed language. The initial version of JavaScript was put together in ten days (although the future releases have addressed many of its shortcomings).
 
 Despite its shortcomings, JavaScript is a decent choice for full-stack web development. With [proper discipline](https://medium.com/better-programming/js-reliable-fdea261012ee) and linting, JavaScript can be a good language.
-
----
 
 ## Functional Programming == Peace of Mind
 
@@ -1151,8 +1113,6 @@ let isValid =
     |> validateAge;
 ```
 
----
-
 ## Haskell
 
 ![](https://cdn-images-1.medium.com/max/2000/1*FuriusxduWPT_PjuzQKQOA.png)
@@ -1227,8 +1187,6 @@ The standard library is a mess, especially the default prelude (the core library
 
 I really wanted to like Haskell. Unfortunately, Haskell will likely forever be confined to academic circles. Is Haskell the worst of functional programming languages? It’s up to you to decide, but I think it is.
 
----
-
 ## OCaml
 
 ![](https://cdn-images-1.medium.com/max/2000/1*IbB7WSa0aPdzDZCwLkZipQ.png)
@@ -1294,8 +1252,6 @@ OCaml is a good functional language. Its main drawbacks are poor concurrency sup
 Given its shortcomings, I would not recommend using OCaml in production.
 
 * [Leaving OCaml](https://blog.darklang.com/leaving-ocaml/)
-
----
 
 ## Scala
 
@@ -1386,8 +1342,6 @@ Scala has great pattern matching support.
 
 I really wanted to like Scala, but I just couldn’t. Scala attempts to do too much. Its designers had to make many tradeoffs in order to support both OOP and FP. As the Russian proverb goes — “The Person Who Chases Two Rabbits Catches Neither”.
 
----
-
 ## Elm
 
 ![](https://cdn-images-1.medium.com/max/2000/1*bpRljdoYNwkkwzPEQ8_xTg.png)
@@ -1458,8 +1412,6 @@ Elm is an excellent language. Unfortunately, it doesn’t seem to have a future.
 
 * [The Biggest Problem with Elm by Charles Scalfani](https://medium.com/@cscalfani/the-biggest-problem-with-elm-4faecaa58b77)
 * [Why I’m leaving Elm by Luke Plant](https://lukeplant.me.uk/blog/posts/why-im-leaving-elm/)
-
----
 
 ## F#
 
@@ -1532,8 +1484,6 @@ F# receives two awards.
 F# gets the **Best Language for Fintech** award. It’s no secret that finances is one of the biggest applications of F#.
 
 F# also gets the **Best Language for Enterprise Software** award. Its rich type system allows for the modeling of complex business logic. [Domain Modeling Made Functional](https://pragprog.com/titles/swdddf/domain-modeling-made-functional/) is a highly recommended book to read.
-
----
 
 ## ReasonML
 
@@ -1634,8 +1584,6 @@ ReasonML probably is what TypeScript always aimed to be but failed. ReasonML add
 ![](https://cdn-images-1.medium.com/max/2000/1*UxzOra01CjpZvDpSm1Uw9Q.png)
 
 The **Best Frontend Language** award goes to ReasonML. Undoubtedly, ReasonML is the best option for frontend web development.
-
----
 
 ## Elixir
 
@@ -1759,8 +1707,6 @@ Its resiliency, functional-first approach, and amazing ecosystem makes it the **
 
 OTP and the actor model make Elixir the **Best Language for Building Concurrent and Distributed Software**. Unlike its imperative cousin Go, software written in Elixir can scale horizontally to thousands of servers and comes with fault tolerance out of the box.
 
----
-
 ## Why Not Use the Right Tool for the Job?
 
 ![Photo by [Haupes Co.](https://unsplash.com/@haupes?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/3072/1*F57kq5OAo_8OShoWxxNLIA.jpeg)
@@ -1775,8 +1721,6 @@ I really hope that this article was useful. Comparing programming languages is n
 
 What are your thoughts and experience? Have I missed anything important? Should some language be ranked lower or higher? Let me know in the comments.
 
----
-
 ## What’s next?
 
 * [Hate bugs? Use This Simple Trick To Become a Kickass Programmer](https://suzdalnitski.com/terrible-coding-mistake-aa1fbebd83b4)
@@ -1786,7 +1730,5 @@ What are your thoughts and experience? Have I missed anything important? Should 
 * [OOP Design Patterns Considered Harmful](https://suzdalnitski.com/oop-design-patterns-bd2c4fb3014c)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
----
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
