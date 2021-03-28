@@ -9,7 +9,7 @@
 
 ![由[Major Tom Agency](https://unsplash.com/@majortomagency?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2134/0*tm1VLFJIPTSFjBcw)
 
-##  MongoDB 可以被用在商业智能中吗 ?
+##  MongoDB 可以被用在商业智能中吗？
 
 如这篇文章中讨论的那样 : [MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)，MongoDB 已经成为目前市场上占有率最高的 NoSQL 提供者之一。
 
