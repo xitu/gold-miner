@@ -19,7 +19,7 @@ Writing secure code within an organization is challenging enough without having 
 
 Earlier this week, [we announced Remote Browser Isolation](https://blog.cloudflare.com/browser-isolation-for-teams-of-all-sizes/) for all as a way to mitigate client-side attacks in your employee’s browsers. Page Shield is continuing Cloudflare’s push into client-side security by helping mitigate attacks aimed at your customers.
 
-### Background
+## Background
 
 A Magecart-style attack is a type of software supply chain attack carried out in a user’s browser. Attackers target the hosts of third-party JavaScript dependencies and gain control over the source code served to browsers. When the infected code executes, it often attempts to steal sensitive data that end-users enter into the site such as credit card details during a checkout flow.
 
@@ -33,11 +33,11 @@ CSP enables application owners to send an allowlist to the browser, preventing a
 
 SRI enables application owners to specify an expected file hash for JavaScript and other resources. If the fetched file doesn’t match the hash, it is blocked from executing. The challenge with SRI is vendors update their code often, and in certain cases serve different files to different end-users. We’ve also found that JavaScript vendors will sometimes serve versioned files with different hashes to end-users due to small differences such as spacing. This could result in SRI blocking legitimate files by no fault of the application owner.
 
-### Script Monitor is the first available Page Shield feature
+## Script Monitor is the first available Page Shield feature
 
 Script Monitor is the beginning of Cloudflare’s ambition for Page Shield. When turned on, it records your site’s JavaScript dependencies over time. As new JavaScript dependencies appear, we alert you so you can investigate if they are expected changes to your site. This helps you identify if bad actors modified your application to request a new, malicious JavaScript file. Once the beta is complete, this initial feature set will be made available to Business and Enterprise customers at no extra charge.
 
-### How does Script Monitor work?
+## How does Script Monitor work?
 
 Because of Cloudflare’s unique position between application origin servers and end-users, we can modify responses before they reach end-users. In this case, we’re adding an additional Content-Security-Policy-Report-Only header to pages as they pass through our edge. When JavaScript files attempt to execute on the page, browsers will send a report back to Cloudflare. As we are using a report-only header, there’s no requirement for application owners to maintain allowlists for relevant insights.
 
@@ -55,7 +55,7 @@ Email notification example for new JavaScript dependencies found
 
 You can also configure Script Monitor notifications in the dashboard. These notifications send alerts to email or PagerDuty whenever a new JavaScript file is requested by your site.
 
-### Looking forward
+## Looking forward
 
 Our mission is to help build a better Internet. This extends to end-user browsers, where we’ve seen an alarming increase in attacks over the past several years. With Page Shield, we will help applications detect and mitigate these elusive attacks to keep their user’s sensitive information safe.
 
@@ -65,7 +65,7 @@ Coming after code change detection is intelligent analysis of JavaScript files. 
 
 We’ve talked to our customers and understand that maintaining CSP allowlists is operationally challenging. If new client-side JavaScript is deployed without being added to the allowlist, then that new code will be blocked by browsers. That’s why we will use our position as a reverse-proxy to ship negative security model blocking. This will allow application owners to block individual scripts without having to maintain an allowlist, ensuring customers can ship new code without the cumbersome overhead.
 
-### Sign up for the beta
+## Sign up for the beta
 
 Starting today, all Business and Enterprise customers can sign up [here](https://www.cloudflare.com/waf/page-shield/) to join the closed beta for Page Shield. By joining the beta, customers will be able to activate Script Monitor and begin monitoring their site’s JavaScript.
 
