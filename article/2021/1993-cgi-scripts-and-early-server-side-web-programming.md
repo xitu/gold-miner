@@ -49,7 +49,7 @@
 
 因为 CGI 脚本是可执行的，所以它们通常被放在一个特殊的文件夹里面。正如 McCool 所解释的那样，这是 "为了让 Web 服务器知道要执行程序，而不是仅仅将其显示给浏览器"。这也使得网站管理员能够锁定文件夹，以防止人们创建有潜在危险的 CGI 脚本。McCool 建议文件夹名称为 *cgi-bin*，而这很快就成为了标准。在 90 年代以后，像 `http://www.example.com/cgi-bin/helloworld.pl` 这样的 URL 变得很常见。
 
-## Perl 脚本数量激增
+## Perl 脚本蓬勃发展
 
 McCool 的[规范](https://web.archive.org/web/19971210170807/http://hoohoo.ncsa.uiuc.edu/cgi/interface.html)，即 CGI/1.1，很快就被万维网的早期用户所采纳。开发者可以使用任何编程语言来编写 CGI 脚本这一事实促进了它的使用。McCool 在他的介绍中列出了一些支持的语言：
 
