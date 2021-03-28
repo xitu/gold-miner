@@ -11,7 +11,7 @@
 
 ##  MongoDB 可以被用在商业智能中吗？
 
-如这篇文章中讨论的那样 : [MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)，MongoDB 已经成为目前市场上占有率最高的 NoSQL 提供者之一。
+如这篇文章中讨论的那样：[MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)，MongoDB 已经成为目前市场上占有率最高的 NoSQL 提供者之一。
 
 那么，问题来了：MongoDB 是能否像上面讨论的那样，和传统 SQL 一样在商业智能使用。
 
