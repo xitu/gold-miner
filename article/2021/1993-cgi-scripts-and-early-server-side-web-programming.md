@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# 1993 年 CGI 脚本和早期服务端 Web 编程
+# 1993 年的 CGI 脚本和早期服务端 Web 编程
 
 ![头图](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/1993_cgi_mosaic.jpg)
 
