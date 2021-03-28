@@ -1,5 +1,5 @@
 > - 原文地址：[React vs. Vue in 2021: Best JavaScript Framework](https://dzone.com/articles/react-vs-vue-in-2021-best-javascript-framework)
-> - 原文作者：[Siddhant Trivedi](https://dzone.com/users/4453916/elizabethlvova.html)
+> - 原文作者：[Elizabeth Lvova](https://dzone.com/users/4453916/elizabethlvova.html)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/react-vs-vue-in-2021-best-javascript-framework](https://github.com/xitu/gold-miner/blob/master/article/2021/react-vs-vue-in-2021-best-javascript-framework.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
