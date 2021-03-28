@@ -2,16 +2,16 @@
 > - 原文作者：[Siddhant Trivedi](https://dzone.com/users/4453916/elizabethlvova.html)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/react-vs-vue-in-2021-best-javascript-framework](https://github.com/xitu/gold-miner/blob/master/article/2021/react-vs-vue-in-2021-best-javascript-framework.md)
-> - 译者：
-> - 校对者：
+> - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> - 校对者：[Chorer](https://github.com/Chorer)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
 # React vs. Vue 谁是 2021 年最佳 JavaScript 框架
 
 我们整理了这个便利的指南，以帮助您更好地理解 Vue 和 React 的使用场景，并确定哪种框架最适合您的下一个项目。
 
-因为 JavaScript 框架对 web app 开发至关重要，许多公司一直在纠结在项目中使用 React 还是 Vue。简短的答案是，没有谁明显胜出。每个框架都有其优缺点，分别适用于不同的应用程序。因此，我们整理了这个便利的指南，以帮助您更好地理解 Vue 和 React 的使用场景，并确定哪种框架最适合您的下一个项目。
+因为 JavaScript 框架对 web app 开发至关重要，许多公司一直在纠结于项目中使用 React 还是 Vue。简短的答案是，没有谁明显胜出。每个框架都有其优缺点，分别适用于不同的应用程序。因此，我们整理了这个便利的指南，以帮助您更好地理解 Vue 和 React 的使用场景，并确定哪种框架最适合您的下一个项目。
 
-# **Vue.js vs. React — 它们是什么？**
+# **Vue.js vs. React —— 它们是什么？**
 
 React 和 Vue 都是开源的 JavaScript 框架，可以让开发者更容易、更快捷地构建复杂的用户界面。在对 React 和 Vue 进行比较之前，我们先对各自进行简要的概述。
 
@@ -68,7 +68,7 @@ React 的文档远远达不到 Vue 的水平，所以您需要更多地求助于
 
 这就引出了 React 和 Vue 社区支持的话题。这是任何技术的重要组成部分，因为社区为新开发人员和有经验的开发人员提供帮助，并创建第三方解决方案和工具。
 
-React 是由 Facebook 开发和维护的，Facebook 在自己的应用程序中使用它。因此，它拥有大量持续的支持和一个不断构建和维护新工具的活跃社区。
+React 是由 Facebook 开发和维护的，而且 Facebook 也在自己的应用程序中使用它。因此，它拥有大量持续的支持和一个不断构建和维护新工具的活跃社区。
 
 Vue 是由开发人员创建的，而不是一家公司，所以它没有像 React 那样迅速受到欢迎。事实上，当它第一次发布时，许多开发人员都觉得它不可靠，并犹豫是否要使用它。然而，由于用户社区的持续支持和贡献，Vue 已经有了实质性的增长并且越来越受欢迎。
 
