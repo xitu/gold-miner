@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/These-Modern-Programming-Languages-Will-Make-You-Suffer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/These-Modern-Programming-Languages-Will-Make-You-Suffer.md)
 > * 译者：
-> * 校对者：
+> * 校对者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 
 # These Modern Programming Languages Will Make You Suffer
 
