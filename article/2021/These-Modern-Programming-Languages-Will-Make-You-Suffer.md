@@ -1,7 +1,7 @@
 > * 原文地址：[These Modern Programming Languages Will Make You Suffer](https://betterprogramming.pub/modern-languages-suck-ad21cbc8a57c)
-> * 原文作者：[Ilya Suzdalnitski](https://medium.com/@suzdalnitski)
+> * 原文作者：[Ilya Suzdalnitski](https://suzdalnitski.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/these-modern-programming-languages-will-make-you-suffer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/these-modern-programming-languages-will-make-you-suffer.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/These-Modern-Programming-Languages-Will-Make-You-Suffer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/These-Modern-Programming-Languages-Will-Make-You-Suffer.md)
 > * 译者：
 > * 校对者：
 
@@ -202,8 +202,8 @@ Language family: **C.**
 
 ![](https://cdn-images-1.medium.com/max/2374/1*EGTBjWdsyDsaiL2Ys3WUQA.jpeg)
 
-> # **C++ is a horrible language… And limiting your project to C means that people don’t screw things up with any idiotic “[object model](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce)” c&@p.
-> #  — Linus Torvalds, the creator of Linux.**
+> **C++ is a horrible language… And limiting your project to C means that people don’t screw things up with any idiotic “[object model](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce)” c&@p.
+>  — Linus Torvalds, the creator of Linux.**
 
 C++ is bloated with features. It attempts to do everything, without being good at any particular thing. C++ has `goto` , pointers, references, OOP, operator overloading, and many other non-productive features.
 
@@ -231,9 +231,9 @@ Garbage collection was never added into C++. Manual memory management is extreme
 
 #### 👎 A failed attempt at Object-Oriented Programming
 
-> # I invented the term [Object-Oriented](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce), and I can tell you I did not have C++ in mind.
+> I invented the term [Object-Oriented](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce), and I can tell you I did not have C++ in mind.
 
-> # - Alan Kay, the inventor of object-oriented programming.
+> - Alan Kay, the inventor of object-oriented programming.
 
 Having appeared in the late 60s, OOP was a cool new technology when the work on C++ has started. Unfortunately, C++ made a few crucial mistakes in their implementation of OOP (unlike languages like Smalltalk), which has turned a really good idea into a nightmare.
 
@@ -285,9 +285,9 @@ C++, it’s your time to go.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*M78xqGKHewErNZGkXLQPVQ.png)
 
-> # **Java is the most distressing thing to happen to computing since MS-DOS.**
+> **Java is the most distressing thing to happen to computing since MS-DOS.**
 
-> # **- Alan Kay, the [inventor](http://www.cc.gatech.edu/fac/mark.guzdial/squeak/oopsla.html) of [object-oriented programming](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce).**
+> **- Alan Kay, the [inventor](http://www.cc.gatech.edu/fac/mark.guzdial/squeak/oopsla.html) of [object-oriented programming](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce).**
 
 Having first appeared in 1995, Java is 16 years younger than C++. Java is a much simpler language, which likely has contributed to its popularity.
 
@@ -307,14 +307,14 @@ I won’t too deeply into the drawbacks of OOP here, for a more detailed analysi
 
 Instead, I’ll simply quote some of the most prominent people in computer science, to get their opinion on OOP:
 
-> # I’m sorry that I long ago coined the term “objects” for this topic because it gets many people to focus on the lesser idea. The big idea is messaging.
-> #  — Alan Kay, the inventor of OOP
+> I’m sorry that I long ago coined the term “objects” for this topic because it gets many people to focus on the lesser idea. The big idea is messaging.
+>  — Alan Kay, the inventor of OOP
 
 Alan Kay is right, the mainstream OOP languages focus on the wrong thing — classes and objects — and ignore messaging. Thankfully, there are modern languages that did get this idea right (e.g. Erlang/Elixir).
 
-> # **With OOP-inflected programming languages, computer software becomes more verbose, less readable, less descriptive, and harder to modify and maintain.**
+> **With OOP-inflected programming languages, computer software becomes more verbose, less readable, less descriptive, and harder to modify and maintain.**
 
-> # **— [Richard Mansfield](http://www.4js.com/files/documents/products/genero/WhitePaperHasOOPFailed.pdf)**
+> **— [Richard Mansfield](http://www.4js.com/files/documents/products/genero/WhitePaperHasOOPFailed.pdf)**
 
 Anyone who’s used an OOP language (like Java or C#), and then had experience working in a non-OOP language, can probably relate.
 
@@ -376,14 +376,14 @@ C# syntax has always been a little ahead of Java. C# suffers less from boilerpla
 
 Just like Java, C# focuses mostly on OOP. Once again, I’m not going to spend too much time here trying to convince you of the drawbacks of OOP, I’ll simply quote a few more prominent people in computer science.
 
-> # **I think the lack of reusability comes in [object-oriented languages](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce), not in functional languages. Because the problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.**
+> **I think the lack of reusability comes in [object-oriented languages](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce), not in functional languages. Because the problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.**
 
-> # **— Joe Armstrong, creator of Erlang**
+> **— Joe Armstrong, creator of Erlang**
 
 I have to agree with Joe Armstrong, reusing object-oriented code is very difficult, in comparison with functional (or even imperative) code.
 
-> # [Object oriented](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce) programs are offered as alternatives to correct ones…
-> #  — Edsger W. Dijkstra, pioneer of computer science
+> [Object oriented](https://suzdalnitski.com/oop-will-make-you-suffer-846d072b4dce) programs are offered as alternatives to correct ones…
+>  — Edsger W. Dijkstra, pioneer of computer science
 
 Having worked with both OOP and non-OOP languages throughout my career, I have to agree that OOP code is much harder to get right than non-OOP code.
 
@@ -691,8 +691,8 @@ While some may disagree, I personally think that the lack of OOP features is a b
 
 To repeat Linus Torvalds:
 
-> # **C++ is a horrible [object-oriented] language… And limiting your project to C means that people don’t screw things up with any idiotic “object model” c&@p.
-> #  — Linus Torvalds, the creator of Linux**
+> **C++ is a horrible [object-oriented] language… And limiting your project to C means that people don’t screw things up with any idiotic “object model” c&@p.
+>  — Linus Torvalds, the creator of Linux**
 
 Linus Torvalds is widely known for his open criticism of C++ and OOP. One thing he was 100% right about is **limiting** programmers in the choices they can make. In fact, the **fewer choices** programmers have, the more **resilient** their code becomes.
 
@@ -724,9 +724,9 @@ Go has no built-in support for [immutable](https://suzdalnitski.com/terrible-cod
 
 ![](https://cdn-images-1.medium.com/max/2000/1*dtfqjauA1Rvt0pbvNsLrkA.png)
 
-> # Go is not a good language. It’s not bad; it’s just not good. We have to be careful using languages that aren’t good, because if we’re not careful, we might end up stuck using them for the next 20 years.
+> Go is not a good language. It’s not bad; it’s just not good. We have to be careful using languages that aren’t good, because if we’re not careful, we might end up stuck using them for the next 20 years.
 
-> # - Will Yager in [Why Go Is No Good](http://yager.io/programming/go.html)
+> - Will Yager in [Why Go Is No Good](http://yager.io/programming/go.html)
 
 If you’re not Google and don’t have use cases similar to Google’s, then Go probably is not a good choice. Go is a simple language best suited for system programming. Go is not a great option for API development (simply because there are much better options available, more on that later).
 
@@ -1175,13 +1175,13 @@ Writing even a simple “hello world” program in Haskell requires understandin
 
 #### 👎👎 Community
 
-> # The Haskell community, in my experience, is far more academic. A recent post to the Haskell libraries mailing list began with:
+> The Haskell community, in my experience, is far more academic. A recent post to the Haskell libraries mailing list began with:
 
-> # “It was pointed out to me in a private communication that the tuple function \x->(x,x) is actually a special case of a diagonalization for biapplicative and some related structures monadicially.”
+> “It was pointed out to me in a private communication that the tuple function \x->(x,x) is actually a special case of a diagonalization for biapplicative and some related structures monadicially.”
 
-> # It received 39 pretty enthusiast replies.
+> It received 39 pretty enthusiast replies.
 
-> # — momentoftop on [Hacker News](https://news.ycombinator.com/item?id=24978238)
+> — momentoftop on [Hacker News](https://news.ycombinator.com/item?id=24978238)
 
 The quote above sums up the Haskell community pretty well. The Haskell community is more interested in academic discussions (and category theory) than in solving real-world problems.
 
@@ -1191,9 +1191,9 @@ As we’ve already learned, pure functions are amazing. Side effects (e.g. inter
 
 Of course, Haskell provides workarounds to interact with the outside world. How does it work you may ask? We provide a set of **instructions**** **(IO Monad). Such instructions may say, “read keyboard input, then use that input in some function, and then print the result to the console.” The language runtime then takes such instructions and executes them for us. We never execute code that interacts with the outside world directly.
 
-> # Avoid success at all costs!
+> Avoid success at all costs!
 
-> # — Haskell’s unofficial motto.
+> — Haskell’s unofficial motto.
 
 In practice, such focus on functional purity significantly increases the number of abstractions, which increases complexity, and consequently **decreases developer productivity**.
 
@@ -1221,9 +1221,9 @@ The standard library is a mess, especially the default prelude (the core library
 
 ![](https://cdn-images-1.medium.com/max/2000/1*IuGZE_Nhzamew8hfy8f2Iw.png)
 
-> # ****Hardcore** functional programming is not going to ever become mainstream — it requires deeply understanding many highly abstract concepts.**
+> ****Hardcore** functional programming is not going to ever become mainstream — it requires deeply understanding many highly abstract concepts.**
 
-> # — David Bryant Copeland in [Four Better Rules for Software Design](https://naildrivin5.com/blog/2019/07/25/four-better-rules-for-software-design.html#conceptual-overhead-creates-confusion-and-complexity)
+> — David Bryant Copeland in [Four Better Rules for Software Design](https://naildrivin5.com/blog/2019/07/25/four-better-rules-for-software-design.html#conceptual-overhead-creates-confusion-and-complexity)
 
 I really wanted to like Haskell. Unfortunately, Haskell will likely forever be confined to academic circles. Is Haskell the worst of functional programming languages? It’s up to you to decide, but I think it is.
 
