@@ -9,45 +9,45 @@
 
 ![头图](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/1993_cgi_mosaic.jpg)
 
-A couple of years before [JavaScript was invented](https://webdevelopmenthistory.com/1995-the-birth-of-javascript/), a specification called the Common Gateway Interface (CGI) enabled an early form of interactivity for web pages. But whereas JavaScript performed interactive tasks **inside** the browser (that is, on the client-side), CGI scripts ran via an external program on a server (server-side). After a CGI script was executed on a server, the result was sent back to the originating web page as HTML code. So while a CGI script wasn’t a dynamic component in the browser, like JavaScript was, it did allow early web users in 1993 and 1994 to run interactive programs. In many ways then, it was CGI — not JavaScript — that was the start of web applications.
+在 [JavaScript 被发明](https://webdevelopmenthistory.com/1995-the-birth-of-javascript/)的几年前，一个叫做通用网关接口（CGI）的规范为网页提供了一种早期的交互性形式。不过 JavaScript 是在浏览器内部（也就是客户端）执行交互任务，而 CGI 脚本则是借助服务器上的外部程序（服务器端的程序）运行的。CGI 脚本在服务器上执行后，结果会以 HTML 代码的形式发回给原网页。因此，虽然 CGI 脚本不像是 JavaScript 那样作为浏览器中的动态组件，但它确实允许 1993 年和 1994 年的早期网络用户、开发者运行交互式程序。因此在很多方面是 CGI —— 而不是 JavaScript —— 是网络应用的真正开始。
 
-CGI was invented in 1993 at the National Center for Supercomputing Applications (NCSA), where the pioneering Mosaic web browser also originated. Rob McCool took the lead in writing the CGI specification, as a follow-on from his work creating [NCSA HTTPd](https://en.wikipedia.org/wiki/NCSA_HTTPd) — one of the world’s first web servers and the direct ancestor of the open source Apache web server.
+1993 年，CGI 在美国国家超级计算应用中心（NCSA）被发明出来，开创性的 Mosaic 网络浏览器也起源于此。Rob McCool 率先编写了 CGI 规范，作为他创建 [NCSA HTTPd](https://en.wikipedia.org/wiki/NCSA_HTTPd) 的后续工作 —— 世界上最早的网络服务器之一，也是开源 Apache 网络服务器的直接祖先。
 
-The idea was to create a common specification for the various web servers (others active in 1993 included Tim Berners-Lee’s CERN httpd and Tony Sanders’ Plexus server), so that a software program initiated via a web page could run on any server and send the result back to the web page.
+他的想法是为不同的网络服务器（1993 年活跃的其他服务器包括 Tim Berners-Lee 的 CERN httpd 和 Tony Sanders 的 Plexus 服务器）创建一个通用的规范，这样通过网页启动的软件程序就可以在任何服务器上运行，并将结果发回网页。
 
 ![](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/ncsa_http_homepage_april97-1024x704.jpg)
 
-[The NCSA HTTPd Home Page](https://web.archive.org/web/19970414055941/http://hoohoo.ncsa.uiuc.edu/), April 1997
+[NCSA HTTPd 主页](https://web.archive.org/web/19970414055941/http://hoohoo.ncsa.uiuc.edu/)，截图于 1997 年 4 月。
 
-## The Invention of CGI
+## CGI 的发明
 
-On 17 November 1993, McCool [posted a message](http://1997.webhistory.org/www.lists/www-talk.1993q4/0518.html) to the www-talk mailing list:
+1993 年 11 月 17 日，McCool 在 www-talk 邮件列表中[发送了一条消息](http://1997.webhistory.org/www.lists/www-talk.1993q4/0518.html)。
 
-> “I have spent some time writing up a formal specification for the Server-gateway interface. I invite any and all comments and suggestions. […] This is a preliminary specification of the Common Gateway Protocol, or CGP. The version defined by this spec will be CGP/1.0.”
+> "我已经花了一些时间为服务器网关接口写了一份正式的规范，而我希望大家能对这份规范作一些评论和建议。这是通用网关协议（Common Gateway Protocol）或 CGP 的初步规范。本规范所定义的版本将是 CGP/1.0。"
 
-A couple of days later, after some initial feedback from the mailing list, [McCool wrote](http://1997.webhistory.org/www.lists/www-talk.1993q4/0540.html):
+几天后，在邮件列表中得到一些初步反馈后，[McCool 写道](http://1997.webhistory.org/www.lists/www-talk.1993q4/0540.html)。=：
 
-> “I was thinking about it, and this is not really a protocol but an interface.What do you all think about changing it to CGI/1.0?”
+> "我想了想，这并不是一个真正的协议，而是一个接口，你们觉得把它改成 CGI/1.0 怎么样？"
 
-After a minor grumble from someone about the term “gateway,” [McCool clarified](http://1997.webhistory.org/www.lists/www-talk.1993q4/0563.html) that it referred to “an interface to external server programs which allow you to interface with services you may not normally have access to.”
+在有人对"网关"一词有所小抱怨时，[McCool 澄清说](http://1997.webhistory.org/www.lists/www-talk.1993q4/0563.html)，它指的是"一个连接外部服务器程序的接口，允许你与你通常可能无法访问的服务对接"。
 
-More specifically, it referred to connecting a web server to a legacy information system — such as a database. The server that executed the CGI program was thus the “gateway” that allowed information from (for example) a database to be used on a web page. [Put another way](https://stackoverflow.com/questions/2089271/what-is-common-gateway-interface-cgi), CGI tells the web server how to pass data to and from an application.
+更具体地说，它指的是将一个 Web 服务器连接到一个传统的信息系统--比如数据库。因此，执行 CGI 程序的服务器就是允许在网页上使用（例如）数据库的信息的"网关"。[换一种说法](https://stackoverflow.com/questions/2089271/what-is-common-gateway-interface-cgi)，CGI 告诉 Web 服务器如何向应用程序传递数据和从应用程序传递数据。
 
-In modern terms, we can view CGI as an Application Programming Interface (API). So in that sense, as [one tutorial](http://www.whizkidtech.redprince.net/cgi-bin/tutorial) put it, “CGI is the API for the web server.”
+用现代术语来说，我们可以把 CGI 看作是一个应用程序接口（API）。所以从这个意义上说，正如[一份教程](http://www.whizkidtech.redprince.net/cgi-bin/tutorial)所说的那样，"CGI 就是 Web 服务器的 API"。
 
 ![](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/cgi1-1024x733.png)
 
-A CGI program initiated via a hyperlink; [image by Michael Grobe](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml), University of Kansas (“Sometime in 1994”)
+通过超链接启动的 CGI 程序；[图源 Michael Grobe](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml)，堪萨斯大学的"1994年的某个时候"
 
-By [early December 1993](http://1997.webhistory.org/www.lists/www-talk.1993q4/0685.html), McCool had “written the CGI specification into a set of HTML documents, at URL http://hoohoo.ncsa.uiuc.edu/cgi/.” While that web page is long gone from the web, the Wayback Machine has a copy [from April 1997](https://web.archive.org/web/19970414060000/http://hoohoo.ncsa.uiuc.edu/cgi/). There we can see how McCool defined CGI for the world:
+到 [1993 年 12 月初](http://1997.webhistory.org/www.lists/www-talk.1993q4/0685.html)，McCool "将CGI规范写成了一套HTML文件，网址是http://hoohoo.ncsa.uiuc.edu/cgi/"。虽然该网页早已从网上消失，但 Wayback Machine 有一份 [1997 年 4 月](https://web.archive.org/web/19970414060000/http://hoohoo.ncsa.uiuc.edu/cgi/)的副本。在那里我们可以看到 McCool 如何为世界定义 CGI。
 
-> “The Common Gateway Interface, or CGI, is a standard for external gateway programs to interface with information servers such as HTTP servers.”
+> "通用网关接口，或者说 CGI，是一个外部网关程序与信息服务器（如 HTTP 服务器）接口的标准。"
 
-In an accompanying [introduction](https://web.archive.org/web/19971210170704/http://hoohoo.ncsa.uiuc.edu/cgi/intro.html), McCool claimed that “there really is no limit as to what you can hook up to the Web,” although he added a note of caution:
+在附带的[介绍](https://web.archive.org/web/19971210170704/http://hoohoo.ncsa.uiuc.edu/cgi/intro.html)中，McCool 声称"对于你可以挂到Web上的东西，真的是没有限制的"，尽管他补充了一个注意事项。
 
-> “The only thing you need to remember is that whatever your CGI program does, it should not take too long to process. Otherwise, the user will just be staring at their browser waiting for something to happen.”
+> "你唯一需要记住的是，无论你的CGI程序做什么，都不应该花太多时间去处理。否则，用户只会盯着他们的浏览器，等待一些事情发生。"
 
-Because CGI scripts were executable, they were usually placed inside a special folder. As McCool explained, this was “so that the Web server knows to execute the program rather than just display it to the browser.” This also enabled web masters to lock the folder down, to prevent people from creating potentially dangerous CGI scripts. McCool suggested the folder name *cgi-bin*, which soon became the norm. It became common later in the 90s to see URLs like http://www.example.com/cgi-bin/helloworld.pl.
+因为 CGI 脚本是可执行的，所以它们通常被放在一个特殊的文件夹里面。正如 McCool 所解释的那样，这是 "为了让 Web 服务器知道要执行程序，而不是仅仅将其显示给浏览器"。这也使得网站管理员能够锁定文件夹，以防止人们创建有潜在危险的 CGI 脚本。McCool 建议文件夹名称为 *cgi-bin*，而这很快就成为了标准。在 90 年代以后，像 `http://www.example.com/cgi-bin/helloworld.pl` 这样的 URL 变得很常见。
 
 ## Perl Scripts Proliferate
 
