@@ -20,7 +20,7 @@
 
 然后，你就被卡在这里了。现在，你只能乖乖等着 Git 运行完 `git gc --auto`，然后才能继续操作。
 
-这是怎么回事？在通常的使用场景中，Git 会写入大量数据：对象、包文件、引用等等。对于其中的部分数据路径，Git 会优化写入性能。例如，**写入**一个[”松散“对象](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)确实比较快，但读取一个[包文件](https://git-scm.com/book/en/v2/Git-Internals-Packfiles)会更快一筹。
+这是怎么回事？在通常的使用场景中，Git 会写入大量数据：对象、包文件、引用等等。对于其中的部分数据路径，Git 会优化写入性能。例如，**写入**一个[“松散”对象](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects)确实比较快，但读取一个[包文件](https://git-scm.com/book/en/v2/Git-Internals-Packfiles)会更快一筹。
 
 为了让你保持高效率，Git 进行了协调：通常，它会在你的操作过程中优化写入路径，也就是会时常暂停下来，让它的内部数据结构读取起来更高效，目的是使你保持长期的高效产出。
 
@@ -75,7 +75,7 @@ Git 并不默认就会生成 `.rev` 文件，但你可以这样亲自尝试一�
     
     \[[源码](https://github.com/git/git/compare/328c10930387d301560f7cbcd3351cc485a13381...5a3b130cad0d5c770f766e3af6d32b41766374c0)\]
     
-* 在 Git 的近期版本中，借助 [`init.defaultBranch` 配置项](https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch)，更改新仓库中主分支的默认名称变得更加容易。Git 以往一直是尝试检出远端仓库的 `HEAD` 指向的分支（例如：若远端的默认分支是 “`foo`“，那么执行 `git clone` 时，Git 会尝试把 `foo` 分支检出到本地），但这对空仓库不奏效。而在 Git 2.31 中，该操作同样适用于空仓库。现在，如果你把一个新建的仓库克隆到本地之后再开始写第一段代码，那么在你本地的复制版本会遵循远端仓库的默认分支名称，即使远端还没有提交记录。 \[[源码](https://github.com/git/git/compare/0871fb9af5aa03a56c42a9257589248624d75eb8...4f37d45706514a4b3d0259d26f719678a0cf3521)\]
+* 在 Git 的近期版本中，借助 [`init.defaultBranch` 配置项](https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch)，更改新仓库中主分支的默认名称变得更加容易。Git 以往一直是尝试检出远端仓库的 `HEAD` 指向的分支（例如：若远端的默认分支是 “`foo`”，那么执行 `git clone` 时，Git 会尝试把 `foo` 分支检出到本地），但这对空仓库不奏效。而在 Git 2.31 中，该操作同样适用于空仓库。现在，如果你把一个新建的仓库克隆到本地之后再开始写第一段代码，那么在你本地的复制版本会遵循远端仓库的默认分支名称，即使远端还没有提交记录。 \[[源码](https://github.com/git/git/compare/0871fb9af5aa03a56c42a9257589248624d75eb8...4f37d45706514a4b3d0259d26f719678a0cf3521)\]
     
 * 谈到重命名，Git 2.30 还让更改另一个默认名也更容易了：仓库的首个远端分支的名称。当你克隆一个仓库时，第一个初始远端分支总是叫做“origin”。在 Git 2.30 之前，你要想修改的话，只能运行 `git remote rename origin <newname>`。Git 2.30 默认就会让你选择是否要配置一个自定义名称，而不总是用“origin”。你可以自己试试设置 `clone.defaultRemoteName` 配置项。 \[[源码](https://github.com/git/git/compare/de0a7effc86aadf6177fdcea52b5ae24c7a85911...de9ed3ef3740f8227cc924e845032954d1f1b1b7)\]
     
