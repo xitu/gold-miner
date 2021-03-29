@@ -75,13 +75,19 @@ Git 并不默认就会生成 `.rev` 文件，但你可以这样亲自尝试一�
     
     \[[源码](https://github.com/git/git/compare/328c10930387d301560f7cbcd3351cc485a13381...5a3b130cad0d5c770f766e3af6d32b41766374c0)\]
     
-* 在 Git 的近期版本中，借助 [`init.defaultBranch` 配置项](https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch)，更改新仓库中主分支的默认名称变得更加容易。Git 以往一直是尝试检出远端仓库的 `HEAD` 指向的分支（例如：若远端的默认分支是 “`foo`”，那么执行 `git clone` 时，Git 会尝试把 `foo` 分支检出到本地），但这对空仓库不奏效。而在 Git 2.31 中，该操作同样适用于空仓库。现在，如果你把一个新建的仓库克隆到本地之后再开始写第一段代码，那么在你本地的复制版本会遵循远端仓库的默认分支名称，即使远端还没有提交记录。 \[[源码](https://github.com/git/git/compare/0871fb9af5aa03a56c42a9257589248624d75eb8...4f37d45706514a4b3d0259d26f719678a0cf3521)\]
+* 在 Git 的近期版本中，借助 [`init.defaultBranch` 配置项](https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch)，更改新仓库中主分支的默认名称变得更加容易。Git 以往一直是尝试检出远端仓库的 `HEAD` 指向的分支（例如：若远端的默认分支是 “`foo`”，那么执行 `git clone` 时，Git 会尝试把 `foo` 分支检出到本地），但这对空仓库不奏效。而在 Git 2.31 中，该操作同样适用于空仓库。现在，如果你把一个新建的仓库克隆到本地之后再开始写第一段代码，那么在你本地的复制版本会遵循远端仓库的默认分支名称，即使远端还没有提交记录。
+
+    \[[源码](https://github.com/git/git/compare/0871fb9af5aa03a56c42a9257589248624d75eb8...4f37d45706514a4b3d0259d26f719678a0cf3521)\]
     
 * 谈到重命名，Git 2.30 还让更改另一个默认名也更容易了：仓库的首个远端分支的名称。当你克隆一个仓库时，第一个初始远端分支总是叫做“origin”。在 Git 2.30 之前，你要想修改的话，只能运行 `git remote rename origin <newname>`。Git 2.30 默认就会让你选择是否要配置一个自定义名称，而不总是用“origin”。你可以自己试试设置 `clone.defaultRemoteName` 配置项。 \[[源码](https://github.com/git/git/compare/de0a7effc86aadf6177fdcea52b5ae24c7a85911...de9ed3ef3740f8227cc924e845032954d1f1b1b7)\]
     
-* 当一个仓库的体积越来越大，就会很难判断哪些分支是主要分支。Git 2.31 中，`git rev-list` 有了一个 [`--disk-usage`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---disk-usage) 选项，计算起对象大小来要比使用原有工具更加简单、快捷。`rev-list` 手册中的[示例部分](https://git-scm.com/docs/git-rev-list#_examples)向我们展示了一些使用案例（在下面的源码链接里的计时部分，可以看到这一操作的“传统”方式）。 \[[源码](https://github.com/git/git/commit/16950f8384afa5106b1ce57da07a964c2aaef3f7)\]
+* 当一个仓库的体积越来越大，就会很难判断哪些分支是主要分支。Git 2.31 中，`git rev-list` 有了一个 [`--disk-usage`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---disk-usage) 选项，计算起对象大小来要比使用原有工具更加简单、快捷。`rev-list` 手册中的[示例部分](https://git-scm.com/docs/git-rev-list#_examples)向我们展示了一些使用案例（在下面的源码链接里的计时部分，可以看到这一操作的“传统”方式）。
+
+    \[[源码](https://github.com/git/git/commit/16950f8384afa5106b1ce57da07a964c2aaef3f7)\]
     
-* 你也许已经用过 `-G<regex>` 选项来查找修改了特定代码字符（例如：`git log -G'foo\('` 能找到那些涉及到 `foo()` 函数调用的更改，无论是添加、删除还是修改过）的那些提交。但你可能也会想要**忽略**那些匹配某种特定模式的更改。Git 2.30 引入了 `-I<regex>`，它让你可以忽略掉匹配特定正则表达式的那些代码更改。比如，`git log -p -I'//'` 会省略只修改了注释（包含 `//` 的部分）的更改。 \[[源码](https://github.com/git/git/commit/296d4a94e7231a1d57356889f51bff57a1a3c5a1)\]
+* 你也许已经用过 `-G<regex>` 选项来查找修改了特定代码字符（例如：`git log -G'foo\('` 能找到那些涉及到 `foo()` 函数调用的更改，无论是添加、删除还是修改过）的那些提交。但你可能也会想要**忽略**那些匹配某种特定模式的更改。Git 2.30 引入了 `-I<regex>`，它让你可以忽略掉匹配特定正则表达式的那些代码更改。比如，`git log -p -I'//'` 会省略只修改了注释（包含 `//` 的部分）的更改。
+
+    \[[源码](https://github.com/git/git/commit/296d4a94e7231a1d57356889f51bff57a1a3c5a1)\]
     
 * 为了给替换后端合并（Merge backend）做铺垫，重命名检测机制也经过了显著优化。更多细节，请参阅代码作者的文章 [Optimizing git’s merge machinery, #1](https://medium.com/palantir/optimizing-gits-merge-machinery-1-127ceb0ef2a1)、[Optimizing git’s merge machinery, #2](https://medium.com/palantir/optimizing-gits-merge-machinery-2-d81391b97878) 。
 
