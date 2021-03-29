@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-the-service-mesh-should-fade-out-of-sight.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-the-service-mesh-should-fade-out-of-sight.md)
 > * 译者：[nettee](https://github.com/nettee)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[1autodidact](https://github.com/1autodidact)
 
 # 为什么 Service Mesh 应该淡出人们的视野
 
