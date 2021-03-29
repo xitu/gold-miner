@@ -25,9 +25,7 @@ Grafana Enterprise Logs bundles role-based access controls, and quotas. It can a
 
 Grafana Enterprise Stack can be deployed in two ways: self-managed on your own infrastructure, or as [Grafana Cloud](https://grafana.com/products/cloud/), a fully-managed version.
 
-![https://res.infoq.com/news/2021/03/grafana-managed-observability/en/resources/1grafana-meta-image-for-blog-1616540157142.png](https://res.infoq.com/news/2021/03/grafana-managed-observability/en/resources/1grafana-meta-image-for-blog-1616540157142.png)
-
-*Source: [https://grafana.com/blog/2021/02/17/introducing-grafana-enterprise-logs-a-core-part-of-the-grafana-enterprise-stack-integrated-observability-solution/](https://grafana.com/blog/2021/02/17/introducing-grafana-enterprise-logs-a-core-part-of-the-grafana-enterprise-stack-integrated-observability-solution/)*
+![[Source](https://grafana.com/blog/2021/02/17/introducing-grafana-enterprise-logs-a-core-part-of-the-grafana-enterprise-stack-integrated-observability-solution/)](https://res.infoq.com/news/2021/03/grafana-managed-observability/en/resources/1grafana-meta-image-for-blog-1616540157142.png)
 
 Grafana Labs isn’t the only vendor offering managed services based on Grafana and Prometheus. AWS announced [Amazon Managed Service for Grafana and Amazon Managed Service for Prometheus](https://www.infoq.com/news/2021/01/aws-grafana-prometheus/) in January 2021. The open-source version of Grafana is available in the marketplaces for [Google Cloud](https://console.cloud.google.com/marketplace/details/google/grafana) and [Microsoft Azure](https://azuremarketplace.microsoft.com/en-in/marketplace/apps/grafana-labs.grafana_oss?tab=overview).
 
