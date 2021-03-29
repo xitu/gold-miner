@@ -2,25 +2,26 @@
 > - 原文作者：Nir Sharma
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-open-source-projects-for-sres-and-devops.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-open-source-projects-for-sres-and-devops.md)
-> - 译者：
-> - 校对者：
+> - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
+> - 校对者：[kamly](https://github.com/kamly)
 
 # SREs 和 DevOps 十大开源项目
 
-构建可扩展高可用的软件系统是每个 SRE 的最终目标。在我们最新的博客的帮助下，您可以沿着持续学习的道路前进，该博客概述了在监视，部署和维护领域最受追捧的开源项目。 成为成功的 SRE 的方式在于不断学习。 SRE / DevOps 有大量出色的开源项目，每个项目都有新颖而令人兴奋的实施方式，并且常常应对独特的挑战。 这些开源项目的工作量很大，因此您可以更轻松地完成工作。
+构建可扩展高可用的软件系统是每个 SRE 的最终目标。在我们最新的博客的帮助下，您可以沿着持续学习的道路前进，其中概述了在监视，部署和维护领域最受追捧的开源项目。
+成为成功的 SRE 的方式在于不断学习。 SRE / DevOps 有大量出色的开源项目，每个项目都有新颖而令人兴奋的实施方式，并且常常应对独特的挑战。 这些开源项目的工作量很大，因此您可以更轻松地完成工作。
 
-在该博客中，我们将在监控、部署和维护方面研究一些最受欢迎的开源项目。在我们所涵盖的项目中，有一些项目可以模拟网络流量，并允许您对不可预测的（混乱的）事件进行建模，以开发可靠的系统。
+在该博客中，我们将在监控、部署和维护方面研究一些最受欢迎的开源项目。在我们所涉及的项目中，有一些项目可以模拟网络流量，并允许你对不可预测的（混乱的）事件进行建模，以开发可靠的系统。
 
 ## 1. Cloudprober
 
-[Cloudprober](https://github.com/google/cloudprober) 是一个活跃的跟踪和监控应用程序，可以在客户发现故障之前发现故障。它使用“active”监视模型来检查组件是否按预期运行。例如，它会主动运行探测，以确保前端能否访问后端。类似地，可以运行一个探测来验证本地系统是否能够真正到达云内虚拟机。这种跟踪方法使跟踪应用程序的配置变得简单（与实现无关），并使您能够轻松地确定系统中损坏了什么。
+[Cloudprober](https://github.com/google/cloudprober) 是一个主动的跟踪和监控应用程序，可以在客户发现故障之前发现故障。它使用“active”监视模型来检查组件是否按预期运行。例如，它会主动运行探针，以确保前端能否访问后端。类似地，可以运行一个探针来验证你的内部系统是否能够真正访问云内虚拟机。这种跟踪方式可以轻松地，独立于实施之外地跟踪你的应用程序配置，并让你能够轻松地确定系统中故障所在。
 
 ### 特性：
 
-- 与 Prometheus and Grafana 的开源监视堆栈的本地集成。Cloudprober 也可以导出探测结果。
-- 对于云目标，自动发现目标。为 GCE and Kubernetes 提供了开箱即用的支持；其他云服务可以轻松配置。
-- 致力于简化部署。Cloudprober 已完全编写并编译为 Go 中的静态二进制文件。它可以通过 Docker 容器快速部署。 除了大多数更新之外，由于自动追踪目标，通常不需要重新部署或重新配置 Cloudprober。
-- Cloudprober Docker 的镜像占用很小，只包含一个静态编译的二进制文件，即使运行大量的探测，也只需要非常少的 CPU 和 RAM。
+- 原生集成 Prometheus 和 Grafana 的开源监控。Cloudprober 也可以导出探测结果。
+- 对于云目标，自动发现目标。为 GCE 和 Kubernetes 提供了开箱即用的支持；其他云服务可以轻松配置。
+- 致力于简化部署。Cloudprober 是完全用 Go 编写并编译成二进制静态文件。它可以通过 Docker 容器快速部署。 除了大多数更新之外，由于自动追踪目标，通常不需要重新部署或重新配置 Cloudprober。
+- Cloudprober Docker 的镜像占用很小，只包含一个静态编译的二进制文件，即使运行大量的探针，也只需要非常少的 CPU 和 RAM。
 
 ![[Image Source](https://github.com/google/cloudprober)](https://uploads-ssl.webflow.com/5c9200c49b1194323aff7304/5fae5bd946575b4c9affe61b_1.png)
 
@@ -38,7 +39,7 @@
 
 ## 3. Version Checker for Kubernetes
 
-[Kubernetes utility](https://github.com/jetstack/version-checker#:~:text=version%2Dchecker%20is%20a%20Kubernetes,This%20tool%20is%20currently%20experimental.) 允许您观察集群中运行的映像的现有版本。这个工具还允许您在 Grafana 仪表板上以表格格式查看当前的图像版本。
+一个[Kubernetes 实用工具](https://github.com/jetstack/version-checker#:~:text=version%2Dchecker%20is%20a%20Kubernetes,This%20tool%20is%20currently%20experimental.) 允许你观察集群中运行的镜像的现有版本。这个工具还允许您在 Grafana 仪表板上以表格格式查看当前的镜像版本。
 
 ### 特性：
 
@@ -124,7 +125,7 @@ Litmus 是基于云的混沌建模工具包。 Litmus 提供了一些工具来�
 
 ## 10. PowerfulSeal
 
-[PowerfulSeal](https://github.com/powerfulseal/powerfulseal) 将故障注入 Kubernetes 集群，帮助您尽快识别问题。 它使创建描述完整混沌实验的方案成为可能。
+[PowerfulSeal](https://github.com/powerfulseal/powerfulseal) 将故障注入 Kubernetes 集群，帮助您尽快识别问题。它让创建描述完整混沌实验的方案成为可能。
 
 ### 特性：
 
