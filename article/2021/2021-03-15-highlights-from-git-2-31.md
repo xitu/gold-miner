@@ -79,7 +79,9 @@ Git 并不默认就会生成 `.rev` 文件，但你可以这样亲自尝试一�
 
     \[[源码](https://github.com/git/git/compare/0871fb9af5aa03a56c42a9257589248624d75eb8...4f37d45706514a4b3d0259d26f719678a0cf3521)\]
     
-* 谈到重命名，Git 2.30 还让更改另一个默认名也更容易了：仓库的首个远端分支的名称。当你克隆一个仓库时，第一个初始远端分支总是叫做“origin”。在 Git 2.30 之前，你要想修改的话，只能运行 `git remote rename origin <newname>`。Git 2.30 默认就会让你选择是否要配置一个自定义名称，而不总是用“origin”。你可以自己试试设置 `clone.defaultRemoteName` 配置项。 \[[源码](https://github.com/git/git/compare/de0a7effc86aadf6177fdcea52b5ae24c7a85911...de9ed3ef3740f8227cc924e845032954d1f1b1b7)\]
+* 谈到重命名，Git 2.30 还让更改另一个默认名也更容易了：仓库的首个远端分支的名称。当你克隆一个仓库时，第一个初始远端分支总是叫做“origin”。在 Git 2.30 之前，你要想修改的话，只能运行 `git remote rename origin <newname>`。Git 2.30 默认就会让你选择是否要配置一个自定义名称，而不总是用“origin”。你可以自己试试设置 `clone.defaultRemoteName` 配置项。
+
+    \[[源码](https://github.com/git/git/compare/de0a7effc86aadf6177fdcea52b5ae24c7a85911...de9ed3ef3740f8227cc924e845032954d1f1b1b7)\]
     
 * 当一个仓库的体积越来越大，就会很难判断哪些分支是主要分支。Git 2.31 中，`git rev-list` 有了一个 [`--disk-usage`](https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---disk-usage) 选项，计算起对象大小来要比使用原有工具更加简单、快捷。`rev-list` 手册中的[示例部分](https://git-scm.com/docs/git-rev-list#_examples)向我们展示了一些使用案例（在下面的源码链接里的计时部分，可以看到这一操作的“传统”方式）。
 
