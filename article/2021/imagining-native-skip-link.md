@@ -11,12 +11,6 @@
 
 > The page is reloaded when following a link and the focus is restored to the top of the page. When navigating with assistive technologies, that means having to tab through the entire header, navigation, sometimes even sidebar before getting to access the main content. This is bad. To work around the problem, a common design pattern is to implement a skip link, which is an anchor link sending to the main content area.
 
-* [The problem](#the-problem)
-* [A browser feature?](#a-browser-feature)
-* [An HTML API](#an-html-api)
-* [What about existing skip links?](#what-about-existing-skip-links)
-* [Wrapping up](#wrapping-up)
-
 ## The problem
 
 So that’s all great. Except a skip link is not so trivial to implement. To name just a few constraints it should fulfill:
@@ -36,13 +30,9 @@ It’s not hard to imagine how browsers could handle this natively, with little 
 When tabbing out of the browser’s chrome and into a web page (or using a dedicated short key), the browser would immediately display the skip link knowing that:
 
 1. It would be inserted as the very first element in tab order.
-
 2. It would use the browser’s language, which might not necessarily be the page’s language.
-
 3. It would technically be part of the browser’s interface and not part of the website. So this would be styled according to the browser’s theme.
-
 4. It would not be accessible (in the strict meaning of the term) by the web page, on purpose.
-
 5. It would be rendered on top of the page in order not to risk breaking the layout.
 
 ## An HTML API
