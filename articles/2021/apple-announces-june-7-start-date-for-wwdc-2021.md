@@ -5,6 +5,14 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
+# Apple 公布了在线活动 WWDC 21 从 6 月 7 日开始
+
+## Apple 的开发者会议回来了！
+
+![Banner](https://www.cnet.com/a/img/OXj1yUvKlng2dwQvlucDnH5OBhA=/1092x0/2021/03/30/0d0960b9-0fea-4099-8df8-89ff89daee69/apple-wwdc21-newsroom-article-tile-033021-big-jpg-large-2x.jpg)
+
+> Apple 邀请大家参加 WWDC 21
+
 [Apple 的](https://www.apple.com.cn/)[年度开发者大会](https://developer.apple.com/wwdc21/)即将举行。这位 iPhone 制造商于周二晚些时分向大家发出了邀请，邀请大家一起参加以开发者为中心的年度活动 [WWDC](https://www.cnet.com/news/wwdc-2020-heres-everything-apple-announced-ios-14-macos-big-sur-mac-arm-chips-siri-messages-memoji/)。这个活动通常会展示 iOS、iPadOS、MacOS 和其他软件平台的下一步发展与远景规划。按照惯例，今年的在线活动通常在 6 月初举行（6 月 7 日至 11 日）。 
 
 通常来说，人们会亲自前往硅谷参加 WWDC 活动，但 2021 年的 WWDC 将与去年一致，采用在线流媒体活动的形式向大家提供活动的观看。由于[新冠病毒大流行](https://www.cnet.com/health/covid-19-vaccine-details-new-variants-when-you-can-get-vaccinated-hidden-fees/)，2020 年的 WWDC 活动是第一个仅支持在线参与的 WWDC 活动，且 Apple 同时还将活动推迟到当月的晚些时候。
