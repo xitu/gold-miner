@@ -49,14 +49,12 @@ Not all websites use the `<main>` element though. I assume browsers could have s
 Therefore, providing a way for web developers to precisely define which container really is the main one, a `<meta>` tag could be used. It would accept a CSS selector (as simple or complex as it needs to be), and the browser would query that DOM node to move the scroll + focus to it when using the skip link.
 
 ```html
-
 <meta name="skip-link" value="#content"/>
 ```
 
 Another approach would be to use a `<link>` tag with the `rel` attribute, as [hinted by Aaron Gustafson](https://github.com/WebWeWant/webwewant.fyi/discussions/233#discussioncomment-146471).
 
 ```html
-
 <link rel="skip-link" href="#content"/>
 ```
 
