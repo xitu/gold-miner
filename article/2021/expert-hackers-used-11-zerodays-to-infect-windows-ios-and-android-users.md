@@ -3,35 +3,35 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md](https://github.com/xitu/gold-miner/blob/master/article/2021/expert-hackers-used-11-zerodays-to-infect-windows-ios-and-android-users.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[PingHGao](https://github.com/PingHGao)
 
 # 黑客“高手”利用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户
 > 针对未知漏洞的漏洞利用程序花样百出，让这个黑客团伙与众不同。
 ![图源 Getty](https://cdn.arstechnica.net/wp-content/uploads/2020/11/zeroday-800x534.jpg)
 
-谷歌研究人员说，一个高级黑客团队在为期 9 个月的攻击活动中利用了不少于 11 个零日漏洞，并通过被感染的网站去感染运行 Windows、iOS 和 Android 的打过补丁的设备。
+谷歌研究人员说，一个高级黑客团队在为期 9 个月的攻击活动中利用了不少于 11 个零日漏洞，并通过被感染的网站去感染打过所有补丁的运行 Windows、iOS 和 Android 的设备。
 
-该团伙精通各种漏洞类型，采用了先进的开发和混淆技术，并使用了一套复杂的漏洞利用程序投放的架构，在 2020 年 2 月利用了[四个零日漏洞](https://arstechnica.com/information-technology/2021/01/hackers-used-4-0days-to-infect-windows-and-android-devices/)。这伙黑客能够把攻陷了已全面打上补丁的 Windows 和 Android 设备的多个漏洞利用程序串联起来，也因此，谷歌旗下 Project Zero 和威胁分析小组的成员们称该团伙“手法非常老到”。
+依托先进的开发和伪装技术、利用各个漏洞类型并使用了一套复杂的投放框架，该团伙在 2020 年 2 月发现了[四个零日漏洞](https://arstechnica.com/information-technology/2021/01/hackers-used-4-0days-to-infect-windows-and-android-devices/)。这伙黑客能够把攻陷了已全面打上补丁的 Windows 和 Android 设备的多个漏洞串联起来的能力让谷歌旗下 Project Zero 和威胁分析小组的成员们惊叹其“手法非常老到”。
 
 ## 攻击还没结束
 
 周四，Project Zero 研究人员 Maddie Stone 表示，在 2 月份攻击发生后的八个月中，同一团伙利用了另外七个以前未知的漏洞，而这些漏洞至今还存在于 iOS 中。与 2 月份的情况如出一辙，黑客通过水坑式攻击（watering-hole attack）投放了漏洞利用程序。这些攻击破坏了目标用户经常访问的网站，并在这些网站上添加了用于将恶意软件安装在访问者设备上的代码。
 
-在所有攻击中，水坑式站点都将访客重定向到一个庞大的架构。这个架构会根据访客使用的设备和浏览器，向用户的设备安装不同的漏洞利用程序。尽管二月份使用的两台服务器仅攻击了 Windows 和 Android 设备，但后来的攻击也利用了运行 iOS 的设备。下面是它的工作原理图：
+在所有攻击中，水坑式站点都将访客重定向到一个庞大的架构。这个架构会根据访客使用的设备和浏览器，向用户的设备安装不同的漏洞利用程序。尽管二月份使用的两台服务器仅攻击了 Windows 和 Android 设备，但后来的攻击也针对了运行 iOS 的设备。下图展示了它的工作原理：
 
 ![](https://cdn.arstechnica.net/wp-content/uploads/2021/03/device-flow-diagram.jpg)
 
 突破打过补丁的功能完善的操作系统，以及让应用程序内置的高级防御功能（例如，运行于 Windows 10 的 Chrome 和运行于 iOS 的 Safari）破防的能力证明了该团队的高超技能，也同时说明了这个团伙拥有的零日漏洞的数量之多。Google 修补了攻击者 2 月份在 [Chrome 渲染器](https://nvd.nist.gov/vuln/detail/CVE-2020-15999)中利用的代码执行漏洞后，黑客迅速针对 Chrome V8 引擎的漏洞为他们的利用程序添加了新的代码。
 
-在周四发表的[博客文章](https://googleprojectzero.blogspot.com/2021/03/in-wild-series-october-2020-0-day.html)中，Stone 写道：
+在周四发表的[博客](https://googleprojectzero.blogspot.com/2021/03/in-wild-series-october-2020-0-day.html)中，Stone 写道：
 
-> 从 JIT 的漏洞到大量的字体错误的缓存，这些漏洞涵盖了相当广泛的领域。总体而言，每个漏洞利用程序本身都体现出他们在漏洞利用程序开发和利用已知漏洞的领域方面的专业的了解。Chrome Freetype 的零日病毒的漏洞利用方法对我们 Project Zero 来说是新颖的。弄清楚如何触发 iOS 内核特权漏洞的过程并非易事，因为混淆方法多种多样且费时。
+> 从 JIT 的漏洞到大量的字体错误的缓存，这些漏洞涵盖了相当广泛的领域。总体而言，每个漏洞利用程序本身都体现出他们在漏洞利用程序开发和利用已知漏洞的领域方面的专业理解。Chrome Freetype 的零日病毒的漏洞利用方法对我们 Project Zero 来说是新颖的。弄清楚如何触发 iOS 内核特权漏洞的过程并非易事，因为伪装方法多种多样且难以短时间发现。
 
 总而言之，Google 研究人员收集到以下信息：
 
-> * 运行 Windows 10 使用 Google Chrome 的补丁过后的定位的完整漏洞利用链
-> * 两个针对运行 Android 10 使用 Google Chrome 和 Samsung Browser，且设备都打了补丁的两个不同的部分漏洞利用链
-> * 适用于 iOS 11-13 的 RCE 漏洞和适用于 iOS 13 的特权升级漏洞
+> * 1 条完整的会攻击运行 Google Chrome 的打上所有补丁的 Windows 10 的设备的漏洞攻击链
+> * 2 条会攻击运行 Google Chrome 和三星浏览器的打上补丁的 Android 10 设备的部分链
+> * 针对 iOS 11-13 的 RCE 漏洞利用程序和针对 iOS 13 的权限升级漏洞利用程序
 
 这七个零日病毒是：
 
@@ -49,7 +49,7 @@
 
 周四的帖子未提供负责袭击的组织的详细信息。我们特别想知道这些黑客是不是研究人员已经知道的某个团伙的成员，还是说这是之前未见过的团伙。有关被攻击对象的信息也很有用。
 
-这也告诉我们，确保应用程序和操作系统处于最新版本状态，并避免去访问可疑网站依然很重要。不幸的是，这些措施对于被这个来历不明的团伙攻击的受害者而言却毫无帮助。
+确保应用程序和操作系统处于最新版本状态，并避免去访问可疑网站依然很重要。但不幸的是，这些措施对于被这个来历不明的团伙攻击的受害者而言却毫无帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
