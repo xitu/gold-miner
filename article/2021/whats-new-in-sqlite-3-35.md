@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-sqlite-3-35.md](https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-sqlite-3-35.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[kamly](https://github.com/kamly)
 
 # SQLite 3.35 版本有什么新的东西？
 
