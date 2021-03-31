@@ -11,7 +11,7 @@
 
 2019 年 2 月，经过自然语言处理和机器学习研究人员和工程师 6 年的工作，一个名为“Project Debater”的 IBM 人工智能系统成为[第一个能够就复杂话题与人类进行辩论的人工智能系统](https://ibm.biz/debater-event)。
 
-尽管它可能没有赢得当年在旧金山与辩论冠军哈里什·纳塔拉扬（Harish Natarajan）的辩论赛，Project Debater [演示人工智能如何帮助人们建立有说服力的论据和做出明智的决定](https://ibm-research.medium.com/augmenting-humans-ibms-project-debater-ai-gives-human-debating-teams-a-hand-at-cambridge-69a29bcd4eff)。Project Debater 成为继深蓝（Deep Blue）和沃森（Watson）之后，IBM研究人工智能系列大挑战中的第三个人工智能。
+尽管它可能没有赢得当年在旧金山与辩论冠军哈里什·纳塔拉扬（Harish Natarajan）的辩论赛，Project Debater [演示人工智能如何帮助人们建立有说服力的论据和做出明智的决定](https://ibm-research.medium.com/augmenting-humans-ibms-project-debater-ai-gives-human-debating-teams-a-hand-at-cambridge-69a29bcd4eff)。Project Debater 成为继深蓝（Deep Blue）和沃森（Watson）之后，IBM 研究人工智能系列大挑战中的第三个人工智能。
 
 在我们最近发表在《自然》杂志上的论文“[自主辩论系统](https://eorder.sheridan.com/3\u 0/app/orders/11030/files/assets/common/downloads/Slonim.pdf)“中，我们描述了 Project Debater 的架构并评估了它的性能。我们还[提供免费访问](https://early-access-program.debater.res.ibm.com/academic\u use.html) ProjectDebater 的 12 种底层技术作为云 API 的学术用途，以及开发者的试用和许可选择。
 
