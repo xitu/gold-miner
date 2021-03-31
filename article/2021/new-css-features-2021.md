@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：[Baddyo](https://github.com/Baddyo)
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[nia3y](https://github.com/nia3y)
 
 # 都 2021 年了，你还不知道这 10 个 CSS 功能？
 
@@ -11,9 +11,9 @@
 
 没有 CSS，现代 Web 应用程序将无法实现。标记语言（译者注：这是样式表语言……）负责让网站有良好的视觉体验、令人愉悦的布局，并且每个元素都各居其位。但是，你知道新的 CSS 特性一直在出现吗？
 
-多年来，CSS 已经超越了单纯设置背景色、边框、文本样式、边距和[盒模型](https://torquemag.io/2018/06/css-box-model/)的范畴。CSS 现在能够提供过去需要 JavaScript 或其他解决方法才能实现的功能！
+多年来，CSS 已经超越了单纯设置背景色、边框、文本样式、边距和[**盒模型**](https://torquemag.io/2018/06/css-box-model/)的范畴。现代的 CSS 现在能够提供过去需要 JavaScript 或其他解决方法才能实现的功能！
 
-为了庆祝 CSS 的发展，在这篇文章中，我们想看看 CSS 在 2021 年推出的一些令人惊奇而大家可能还不知道的功能（译者注：准确来说，2021 年比较有用但又不热门的功能）。我们将重点介绍 [Web 设计师和开发者](https://torquemag.io/2017/10/web-designer-vs-web-developer-difference/)可以使用的现代 CSS 的出色功能，讨论一下用例和浏览器支持，并为大家提供一个简单的示例。
+为了庆祝 CSS 的发展，在这篇文章中，我们想看看 CSS 在 2021 年推出的一些令人惊奇而大家可能还不知道的功能（译者注：准确来说，2021 年比较有用但又不热门的功能）。我们将重点介绍 [**Web 设计师和开发者**](https://torquemag.io/2017/10/web-designer-vs-web-developer-difference/)可以使用的现代 CSS 的出色功能，讨论一下用例和浏览器支持，并为大家提供一个简单的示例。
 
 让我们开始吧！
 
@@ -27,7 +27,7 @@
 
 自定义属性基本上允许我们定义 CSS 属性的替代品以用于我们的设计。一个例子就能让你理解为什么说这个功能有用：
 
-通常，在构建主题时，我们会选择一种[配色方案](https://websitesetup.org/website-color-schemes/)，然后在必要时声明这些颜色。
+通常，在构建主题时，我们会选择一种[**配色方案**](https://websitesetup.org/website-color-schemes/)，然后在必要时声明这些颜色。
 
 ```css
 a {
@@ -43,9 +43,9 @@ a {
 }
 ```
 
-这种方法的问题是，如果我们想要更改一种颜色，则必须在每一处使用了这个颜色的地方做出对应的修改。尽管[代码编辑器](https://torquemag.io/2015/12/17-best-code-editors-wordpress-developers-users/)可以通过搜索和替换轻松地做到这一点，但这仍然很烦人。尤其是如果我们只是想进行快速测试，并且必须再次撤消所有操作。
+这种方法的问题是，如果我们想要更改一种颜色，则必须在每一处使用了这个颜色的地方做出对应的修改。尽管[**代码编辑器**](https://torquemag.io/2015/12/17-best-code-editors-wordpress-developers-users/)可以通过搜索和替换轻松地做到这一点，但这仍然很烦人。尤其是如果我们只是想进行快速测试，并且必须再次撤消所有操作。
 
-#### 有更好的解决方案
+#### 更好的解决方案
 
 自定义属性就解决了这个问题。在它们的帮助下，我们可以轻松地将刚才所说的配色分配给一个变量，然后每次使用该颜色时，只需将其作为 CSS 属性输入即可，如下所示：
 
@@ -69,17 +69,17 @@ a {
 
 如果要更改变量，只需更改 `:root` 下面的声明就可以了。
 
-至于此 CSS 功能的采用程度如何，浏览器支持非常好：
+此 CSS 功能的兼容性如何，[**浏览器支持**](https://caniuse.com/css-variables)非常好：
 
 ![Can I Use](https://s3-torquehhvm-wpengine.netdna-ssl.com/uploads/2021/02/css-variables-custom-properties-browser-support-1024x376.jpg)
 
 ### @supports
 
-接下来，我们有一个类似于媒体查询的 CSS 规则。不过我们不是用它基于屏幕大小或设备类型编写特定的样式，而是根据用户浏览器支持的 CSS 属性和值，应用特定的样式。
+接下来，有一个类似于媒体查询的 CSS 规则。不过我们不是用它基于屏幕大小或设备类型编写特定的样式，而是根据用户浏览器支持的 CSS 属性和值，应用特定的样式。
 
 这有什么用？
 
-正如你将在本文中看到的那样，并非所有的浏览器和设备都支持所有 CSS 功能。尽管我们通常可以使用后备声明来处理此问题，但在某些情况下，如果我们不专门包括对最新的技术的支持，则使用这些技术可能会严重破坏我们的网站的样式结构。
+正如你将在本文中看到的那样，并非所有的浏览器和设备都支持所有 CSS 功能。尽管我们通常可以使用优雅降级来处理此问题，但在某些情况下，如果我们不专门包括对最新的技术的支持，则使用这些技术可能会严重破坏我们的网站的样式结构。
 
 此外，我们还可以使用 `@supports` 为支持特定功能的更现代的浏览器添加额外的功能或样式（这就是为什么使用的查询 `@supports` 也称为“功能查询”的原因）。
 
@@ -99,7 +99,7 @@ a {
 
 上面的示例指出，如果浏览器支持 CSS 网格功能（稍后将对此进行详细介绍），则应用 `display: grid;` 样式到 `.site-content` 的元素。
 
-同样重要的是要注意 `@supports` 支持使用运算符 `not`、`and` 和 `or`（也可以结合使用）以创建更具体的规则，例如不支持该特定功能的浏览器的后备功能：
+同样重要的是要注意 `@supports` 支持使用运算符 `not`、`and` 和 `or`（也可以结合使用）以创建更具体的规则，例如对不支持该特定功能的浏览器的优雅降级：
 
 ```css
 @supports not (display: grid) {
@@ -148,7 +148,7 @@ Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https:
 
 ### 内容可见性
 
-`content-visibility` 是 CSS 中一个非常酷的新功能，能够有效[提高网站性能](https://torquemag.io/2015/08/ways-to-speed-up-wordpress-decrease-page-load-time/)。它基本上像[延迟加载](https://torquemag.io/2018/01/lazy-load-wordpress/)一样工作，而且不仅适用于图像，还适用于任何 HTML 元素。我们可以使用它来阻止网站的任何部分加载，直到其可见为止。
+`content-visibility` 是 CSS 中一个非常酷的新功能，能够有效[提高网站性能](https://torquemag.io/2015/08/ways-to-speed-up-wordpress-decrease-page-load-time/)。它基本上像[延迟加载](https://torquemag.io/2018/01/lazy-load-wordpress/)一样工作，而且不仅适用于图像，还适用于任何 HTML 元素。我们可以使用它来实现网站的懒加载。
 
 使用也超级容易。只需将其应用于我们选择的元素，如下所示：
 
@@ -158,7 +158,7 @@ Flexbox 是另一种 CSS 布局模块，而我们[**已经讨论过它**](https:
 }
 ```
 
-`content-visibility` 支持三个值。默认情况下为 `visible`，此时元素将照常加载。我们可以将其设置为 `hidden`，即无论元素是否可见都不会呈现该元素。`auto` 则是会跳过可见区域之外的元素，然后在它们出现在屏幕上时才开始对它们进行渲染。
+`content-visibility` 支持三个值。默认情况下为 `visible`，此时元素将照常加载。我们可以将其设置为 `hidden`，即无论元素是否可见都不会呈现该元素。设置为 `auto` 时，则会跳过可见区域之外的元素，然后在它们出现在屏幕上时才开始进行渲染。
 
 这可是很酷的东西，对不对？
 
@@ -236,7 +236,7 @@ div:hover {
 
 滚动捕捉让我们可以选择将用户的视口锁定到站点的某些部分或元素。对于创建很酷的过渡效果并在向下滚动页面帮助用户专注于最重要的页面元素的场景而言，这个功能非常有用。我们可以[在这里](https://codepen.io/tutsplus/pen/qpJYaK)找到一个简单的演示。
 
-这种效果在移动设备的应用程序中很多可见，但是，通过滚动捕捉，我们也可以将其带到网站上。
+这种效果在移动设备的应用程序中很明显，但是，通过滚动捕捉，我们也可以将其带到网站上。
 
 在最基本的情况上用法也相对简单。我们只需将滚动捕捉的类型应用于容器并定义其子对象应捕捉到的位置。
 
@@ -250,7 +250,7 @@ div:hover {
 }
 ```
 
-当然还有更多有关它的使用特色。如果你想了解它，CSS 技巧已经有了一篇[很完美的文章](https://css-tricks.com/practical-css-scroll-snapping/)了。
+当然还有更多有关它的使用特色。如果你想了解它，CSS Tricks 已经有了一篇[**很完美的文章**](https://css-tricks.com/practical-css-scroll-snapping/)了。
 
 然后是[浏览器的兼容性](https://caniuse.com/css-snappoints)，这是相当不错的。
 
