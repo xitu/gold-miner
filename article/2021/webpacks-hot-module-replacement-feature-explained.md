@@ -87,7 +87,7 @@ if (module.hot) {
 
 一旦告诉 Webpack 我们支持 HMR，HMR 运行时和加载程序就会接管处理更新。
 
-但是，为复杂的应用程序实施 HMR 可能会很棘手，因为我们可能会遇到不希望的副作用，例如[仍然绑定到旧功能的事件处理程序](https://webpack.js.org/guides/hot-module-replacement/＃enabling-hmr)，尤其是当你使用 React 或 Vue 之类的库。此外，我们还需要确保[仅在开发中启用 HMR](https://webpack.js.org/guides/production/)。
+但是，为复杂的应用程序实现 HMR 可能会很棘手，因为我们可能会遇到不希望的副作用，例如[仍然绑定到旧函数的事件处理程序](https://webpack.js.org/guides/hot-module-replacement/＃enabling-hmr)，尤其是当你使用 React 或 Vue 之类的库。此外，我们还需要确保[仅在开发中启用 HMR](https://webpack.js.org/guides/production/)。
 
 不过在我们尝试自己实施 HMR 之前，建议你先为我们的项目寻找一下可用的解决方案，因为 HMR 已经集成到许多流行的 JavaScript 应用程序生成器中。
 
