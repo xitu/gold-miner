@@ -1,5 +1,4 @@
-> * 原文地址：[Flutter Animation : Creating medium’s clap animation in flutter
-    ](https://proandroiddev.com/flutter-animation-creating-mediums-clap-animation-in-flutter-3168f047421e)
+> * 原文地址：[Flutter Animation : Creating medium’s clap animation in flutter](https://proandroiddev.com/flutter-animation-creating-mediums-clap-animation-in-flutter-3168f047421e)
 > * 原文作者：[Kartik Sharma](https://medium.com/@Kartik1607)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md)
