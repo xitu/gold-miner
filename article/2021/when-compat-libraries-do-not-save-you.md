@@ -23,7 +23,7 @@ Compat 支持库的概念可能是 Android 主导手机领域的重要方面之�
 
 我们可以看到，有时这些 Compat 类只是起到一个桥梁的作用，用来添加缺失的功能，而有时它们甚至是完全一样的。
 
-## 让我们看看另一个例子!
+## 让我们看看另一个例子！
 
 不过有一个领域随着时间的推移发生了很大的变化，那就是 Android 的通知 API。曾经有一段时间，每一次 Google I/O 大会都会宣布一个新的 API 方面的变化。
 
@@ -50,7 +50,7 @@ public List<NotificationChannelGroup> getNotificationChannelGroups() {
 
 你可以在 [NotificationManagerCompat](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationManagerCompat.java#L230) 代码处找到更复杂的检查。
 
-但如果你仔细观察，`NotificationManagerCompat `会返回我们实际的 API 类。在上面的示例代码中列出了 `NotificationChannelGroup`，这并不是一个复制的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
+但如果你仔细观察，`NotificationManagerCompat` 会返回我们实际的 API 类。在上面的示例代码中列出了 `NotificationChannelGroup`，这并不是一个复制的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
 
 ```kotlin
 val groups = notificationManagerCompat.notificationChannelGroups。
