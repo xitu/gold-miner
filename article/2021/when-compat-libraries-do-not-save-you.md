@@ -1,7 +1,7 @@
 > * 原文地址：[When “Compat” libraries won’t save you](https://proandroiddev.com/when-compat-libraries-do-not-save-you-dc55f16b4160)
 > * 原文作者：[Danny Preussler](https://dpreussler.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/.md](https://github.com/xitu/gold-miner/blob/master/article/2020/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md)
 > * 译者：
 > * 校对者：
 
