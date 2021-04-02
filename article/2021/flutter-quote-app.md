@@ -11,11 +11,11 @@
 
 ![](https://miro.medium.com/max/3600/1*WGJ7_7_EXkJwzf1mVTyjrA.png)
 
-# Introduction
+## Introduction
 
 I have been exploring flutter for the last 8 months, and today I am going to take you all on a journey where you will learn to make your own simple yet beautiful app where you will learn to make API requests too.
 
-# Table Of Content
+## Table Of Content
 
 > * Fetching data from the internet.
 > * Designing the UI for the app.
@@ -23,7 +23,7 @@ I have been exploring flutter for the last 8 months, and today I am going to tak
 
 Let's begin …
 
-# Initial Setup
+## Initial Setup
 
 Before we dive in, don't forget to add these packages to your project.
 
@@ -33,7 +33,7 @@ google_fonts: ^1.1.1
 http: ^0.12.2
 ```
 
-# Create a new Flutter Project
+## Create a new Flutter Project
 
 Go on open your favorite IDE (VScode or Android Studio) and create a new flutter app and give a name your choice and save it somewhere in your local disk.
 
@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-# Fetching the data from API
+## Fetching the data from API
 
 To get the data we need an API from which we can get our raw data of quotes which will be in JSON format.
 
@@ -113,7 +113,7 @@ class Quotes {
 
 Above is the generated dart model class.
 
-## Let's create a function to make an API get requests.
+### Let's create a function to make an API get requests.
 
 ``` dart
 // home.dart
@@ -131,7 +131,7 @@ static Future<List<Quotes>> fetchQuotes() async {
 
 In the above code, we have an asynchronous method that will make a GET request, and then it will return the **list** of **Quotes** if the response code is **200**. Otherwise, throw an exception.
 
-# Designing the UI
+## Designing the UI
 
 Now that we have all things ready let's make a Beautiful UI to show our quotes.
 
@@ -202,7 +202,7 @@ Also if you see the above code we have a void **initState** which will run as so
 
 Since our UI will be built as soon as the app runs, but what about the ***response*** from API we will not receive it as soon as the app runs. So if your UI depends on API response values, then it will throw you a lot of null errors.
 
-## Let’s Move to the Future :
+### Let’s Move to the Future :
 
 The **FutureBuilder** is also a widget, so you can either have it attached to your **Scaffold** directly or attach it as a child to any widget you like. I’m going to use the **Expanded** widget as the Parent of **futureBuilder**.
 
@@ -290,7 +290,7 @@ builder: (BuildContext context, AsyncSnapshot<List<Quotes>> snapshot) {
 
 Here I have created my *PageView Builder* widget ***buildPageView()*** and passed it to the child.
 
-# Styling the Text
+## Styling the Text
 
 ``` dart
 // home.dart
