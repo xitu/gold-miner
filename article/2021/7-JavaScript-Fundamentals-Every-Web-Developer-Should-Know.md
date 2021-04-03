@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-## 7 JavaScript Fundamentals Every Web Developer Should Know
+## 每个Web开发者都应该知道的 7 个 JavaScript 基础知识
 
 ### Functions are values, objects inherit from other objects, and more
 
 ![Photo by [Erik Brolin](https://unsplash.com/@erik_brolin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12000/0*s4pg_I-HRI_qKGGM)
 
-In this article, we will look at what I think are some of the most important — and unique — features of JavaScript.
+在本文中，我们将讨论我认为JavaScript最重要、最独特的一些特性。
 
 ## 1. Functions Are Independent Units of Behavior
 
@@ -93,17 +93,17 @@ A simple text like 'Minecraft' is a primitive and has no methods. JavaScript con
 
 By converting primitives to wrapper objects behind the scenes, JavaScript allows you to call methods on them and thus treats them as objects.
 
-## 7. JavaScript Is a Single-Threaded Language
+## 7. JavaScript 是一种单线程语言
 
-JavaScript is single-threaded. That means only one statement is executed at a specific time.
+JavaScript 单线程的。这意味着在特定时间只执行一条语句。
 
-Two functions cannot execute at the same time in the main thread.
+在主线程中，两个函数不能同时执行。
 
-You may have heard about options for executing functions in parallel like [web workers](https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers), but workers do not share data with the main thread. They communicate only by message passing — nothing is shared.
+你也许听说过像 [web workers](https://developer.mozilla.org/en-US/docs/Web/Guide/Performance/Using_web_workers) 这种并行执行函数的方式，但是 workers 不会和主线程共享数据。它们只通过信息传递来通信 —— 什么都不是共享的。
 
-This makes things easier to understand and we just have to pay attention to make functions run fast. A function that takes a long time to execute will make the page unresponsive.
+这就容易理解了，我们只需要注意让函数执行更快就好了。耗费长时间去执行一个函数会让页面无响应。
 
-Thanks for reading. Happy coding!
+谢谢阅读。Happy coding!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
