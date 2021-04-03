@@ -5,7 +5,7 @@
 > * 译者：[chzh9311](https://github.com/chzh9311)
 > * 校对者：
 
-# 谷歌 DeepMind 发布 NFNet:高效的深度网络
+# 谷歌 DeepMind 发布 NFNet：高效的深度网络
 
 谷歌旗下的 AI 公司 DeepMind 最近发布了 NFNet，这是一个不需要标准化的 ResNet 图像分类模型。相比于当前表现最佳的 [EfficientNet](https://ai.googleblog.com/2019/05/efficientnet-improving-accuracy-and.html)，这一模型的[训练速度快了 8.7 倍](https://arxiv.org/abs/2102.06171)。
 
