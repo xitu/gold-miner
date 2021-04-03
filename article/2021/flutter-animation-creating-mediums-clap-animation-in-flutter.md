@@ -2,20 +2,18 @@
 > * 原文作者：[Kartik Sharma](https://medium.com/@Kartik1607)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# Flutter Animation : Creating medium’s clap animation in flutter
+# Flutter 动画：构建一个和 Medium 一样的鼓掌动画
 
-In this article we would be exploring flutter animation from scratch. We would learn some core concepts about animation by creating a mock-up of medium clap animation in Flutter.
+在这篇文章中，我们将从零开始探索 Flutter 动画。我们将通过在 Flutter 中制作中故障动画的模拟，学习一些关于动画的核心概念。
 
-As the title says this post would focus more on animation and less on the basics of flutter.
+正如标题所说，这篇文章将更多地关注动画，而不是 Flutter 的基础知识。
 
-## Getting Started
+## 入门
 
-We would start from the code flutter creates when creating a new flutter project. Simply create a new flutter project and we are greeted with this code.
-
-Starting Code:
+我们会从新建一个 Flutter 项目开始。每当我们新建一个 Flutter 项目，我们就会看到这段代码：
 
 ```dart
 // main.dart
@@ -84,24 +82,22 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Flutter provides us some freebies with the starter code. It is already managing the state of click count and has created a floating action button for us.
+Flutter 为我们提供了一份免费的入门代码午餐～它已经管理了点击次数的状态，并为我们创建了一个浮动的动作按钮。
 
-![](https://miro.medium.com/max/110/1*TpeTkSaUBAfKctD802YCtA.png)
+![我们目前有的按钮](https://miro.medium.com/max/110/1*TpeTkSaUBAfKctD802YCtA.png)
 
-Button we currently have
-
-Below is the end product we want to achieve.
+下面是我们想要达到的最终效果：
 
 ![](https://miro.medium.com/max/1600/1*Hnkdb5BSXFmjVitdYQiirQ.gif)
 
-Animation we would create. By [**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)
+我们会创作的动画。作者：[**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)
 
-Let’s take a quick look and fix some easy issues before adding animation.
+在添加动画之前，我们先来看看并解决一些简单的问题。
 
-1. Change button icon and background.
-2. Button should keep on adding count when we hold the button.
+1. 改变按钮图标和背景。
+2. 当我们按住按钮时，按钮应该继续添加计数。
 
-Lets add those 2 quick fixes and get started with animation.
+让我们添加这 2 个快速修复，然后开始制作动画：
 
 ```dart
 // main.dart
@@ -223,24 +219,22 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Looking at the final product, there are 3 things we need to add.
+从最终的产品来看，我们需要补充 3 点。
 
-1. Change size of widgets.
-2. Show score widget when button is pressed and hide it when released.
-3. Add those tiny sprinkle widget and animate them.
+1. 改变 Widget 的大小
+2. 当按钮被按下时，显示那个展示鼓掌次数的 Widget，并在按钮释放时隐藏这个 Widget
+3. 添加那些很小的向四周撒花的 Widget，并将它们做成动画
 
-Lets take this one by one and slowly increase the learning curve. To get started, we need to understand some basic things about animation in flutter.
+让我们一个一个来，慢慢增加学习曲线。要开始，我们需要了解一些关于 Flutter 中动画的基本知识。
 
-## Understanding components for a basic animation in Flutter
+## 了解 Flutter 中基本动画的 Widget
 
-An animation is nothing but some values which change over time. For example, when we click on the button we want to animate the score widget rising from bottom, and when we leave the button it should rise even more and then hide.
+一个动画无非是一些随时间变化的数值。例如，当我们点击按钮时，我们想让显示鼓掌次数的 Widget 从底部逐步上移。当按钮释放的时候它应该已经上移了不少，这时候我们应该把它隐藏起来。
 
-If you look only at the score widget, we need to **change the values** of position and opacity of widget **over some time.**
-
-Score Widget:
+将焦点关注在显示鼓掌次数的 Widget 上，我们需要在一段时间内**改变它的位置和不透明度**。
 
 ```dart
-// main.dart
+// 显示鼓掌次数的 Widget
 
 new Positioned(
   child: new Opacity(opacity: 1.0, 
@@ -251,31 +245,31 @@ new Positioned(
 );
 ```
 
-Let’s say we want out score widget to take 150 ms to reveal itself from bottom. Think of this on a timeline as below
+比方说，我们想让显示鼓掌次数的 Widget 在 150 毫秒后才从底部向上淡入。让我们在时间轴上思索一下，如下所示：
 
 ![](https://miro.medium.com/max/974/1*KZuvwwIIH-YDxiHpMr9FqA.png)
 
-This is a simple 2D graph. The position would change with time.
+这是一个简单的二维图形，位置与时间正相关。
 
-Notice that the diagonal line is straight. This can even be a curved if you like.
+请注意这是一条斜线，不过如果你喜欢的话，这其实也可以是一条曲线。
 
-You can make the position increase slowly with time and then get faster and faster. Or you could have it come in a super high speed and then slow down at the end.
+你可以让位置随着时间慢慢增加，然后越来越快。或者你也可以让它以超高速来，然后在最后慢下来。
 
-This is where we get to introduce out first component : **Animation Controller.**
+这就是我们要介绍的第一个 Widget `AnimationController`。
 
-Animation Controller Construction:
+动画控制器的构造是这样的：
 
 ```dart
 scoreInAnimationController = new AnimationController(duration: new Duration(milliseconds: 150), vsync: this);
 ```
 
-Here, we have created a simple controller for the animation. We have specified that we want to run the animation for a duration of 150ms. But, what is that vsync?
+在这里，我们已经为动画创建了一个简单的控制器，并指定了要运行动画的持续时间为 150ms。不过那个 `vsync` 是什么？
 
-Mobile devices refresh their screen after every few milliseconds. That is how we perceive set of images as a continuous flow or a movie.
+移动设备每隔几毫秒就会刷新一次屏幕。这就是我们如何将一组图像感知为一个连续的流程或一部电影。
 
-The rate at which the screen is refreshed can vary from device to device. Let’s say the mobile refreshes its screen 60 times a second (60 Frames per Second). That would be after every 16.67 ms, we feed a new image to our brain. Sometimes, things can get misaligned (we send out a different image while the screen was refreshing) and we get to see screen tearing. VSync takes care of that.
+屏幕刷新的速度可以因设备而异。比方说，手机每秒刷新屏幕 60 次（60 帧/秒），那就是每隔 16.67 毫秒之后设备会绘制一个新的界面。有时图像可能会发生错位（我们在屏幕刷新时发送了不同的图像），我们就会看到屏幕撕裂。`vsync` 可以解决这个问题。
 
-Let us add a listener to the controller and run the animation.
+让我们在控制器上添加一个监听器并运行动画：
 
 ```dart
 scoreInAnimationController.addListener(() {
@@ -284,20 +278,20 @@ scoreInAnimationController.addListener(() {
 scoreInAnimationController.forward(from: 0.0);
 
 /* OUTPUT
-I/flutter ( 1913): 0.0
-I/flutter ( 1913): 0.0
-I/flutter ( 1913): 0.22297333333333333
-I/flutter ( 1913): 0.3344533333333333
-I/flutter ( 1913): 0.4459333333333334
-I/flutter ( 1913): 0.5574133333333334
-I/flutter ( 1913): 0.6688933333333335
-I/flutter ( 1913): 0.7803666666666668
-I/flutter ( 1913): 0.8918466666666668
-I/flutter ( 1913): 1.0
+I/flutter (1913): 0.0
+I/flutter (1913): 0.0
+I/flutter (1913): 0.22297333333333333
+I/flutter (1913): 0.3344533333333333
+I/flutter (1913): 0.4459333333333334
+I/flutter (1913): 0.5574133333333334
+I/flutter (1913): 0.6688933333333335
+I/flutter (1913): 0.7803666666666668
+I/flutter (1913): 0.8918466666666668
+I/flutter (1913): 1.0
 */
 ```
 
-**The controller generated numbers from 0.0 to 1.0 in 150 ms.** Notice that the values generated are almost linear. 0.2, 0.3, 0.4 … How do we change this behavior? This would be done by out second component : **Curved Animation**
+**控制器在 150 毫秒内产生了从 0.0 到 1.0 的数字** —— 请注意，产生的数值几乎是线性的（0.2, 0.3, 0.4……）我们如何改变这种行为？这将由第二个 Widget `CurvedAnimation` 来完成：
 
 ```dart
 bounceInAnimation = new CurvedAnimation(parent: scoreInAnimationController, curve: Curves.bounceIn);
@@ -305,21 +299,21 @@ bounceInAnimation.addListener(() {
   print(bounceInAnimation.value);
 });
 
-/*OUTPUT
-I/flutter ( 5221): 0.0
-I/flutter ( 5221): 0.0
-I/flutter ( 5221): 0.24945376519722218
-I/flutter ( 5221): 0.16975716286388898
-I/flutter ( 5221): 0.17177866222222238
-I/flutter ( 5221): 0.6359024059750003
-I/flutter ( 5221): 0.9119433941222221
-I/flutter ( 5221): 1.0
+/* OUTPUT
+I/flutter (5221): 0.0
+I/flutter (5221): 0.0
+I/flutter (5221): 0.24945376519722218
+I/flutter (5221): 0.16975716286388898
+I/flutter (5221): 0.17177866222222238
+I/flutter (5221): 0.6359024059750003
+I/flutter (5221): 0.9119433941222221
+I/flutter (5221): 1.0
 */
 ```
 
-We create a Curved animation by setting the parent as our controller and providing the curve we want to follow. There are a range of choices of curves we can use at [flutter curves documentation page.](https://docs.flutter.io/flutter/animation/Curves-class.html) The controller provides value from 0.0 to 1.0 to the curved animation widget over a period of 150 ms. The curved animation widget interpolates those values as per the curve we have set.
+我们通过将 `parent` 设置为我们的控制器并提供我们想要跟随的曲线，创建了一个曲线动画。在 [Flutter Curves 类参考文档页面](https://docs.flutter.io/flutter/animation/Curves-class.html)我们可以看到一系列我们可以使用的曲线。控制器在 150 毫秒的时间内向曲线动画 Widget 提供 0.0 到 1.0 的数值，而曲线动画 Widget 就会按照我们设置的曲线对这些值进行插值。
 
-Still, we are getting value from 0.0 to 1.0. But we want values from 0.0 to 100.0 for our score widget. We could simply multiply by 100 to get the result. Or we can use the third component : **The Tween Class**
+现在我们得到了从 0.0 到 1.0 的值，而我们希望我们的展示点赞次数的 Widget 的动画值的范围是 `[0.0, 100.0]`。我们可以简单地将上一步得到的值乘以 100 来得到结果。或者我们可以使用第三个 Widget `Tween`。
 
 ```dart
 tweenAnimation = new Tween(begin: 0.0, end: 100.0).animate(scoreInAnimationController);
@@ -328,30 +322,30 @@ tweenAnimation.addListener(() {
 });
 
 /* Output 
-I/flutter ( 2639): 0.0
-I/flutter ( 2639): 0.0
-I/flutter ( 2639): 33.452000000000005
-I/flutter ( 2639): 44.602000000000004
-I/flutter ( 2639): 55.75133333333334
-I/flutter ( 2639): 66.90133333333334
-I/flutter ( 2639): 78.05133333333333
-I/flutter ( 2639): 89.20066666666668
-I/flutter ( 2639): 100.0
+I/flutter (2639): 0.0
+I/flutter (2639): 0.0
+I/flutter (2639): 33.452000000000005
+I/flutter (2639): 44.602000000000004
+I/flutter (2639): 55.75133333333334
+I/flutter (2639): 66.90133333333334
+I/flutter (2639): 78.05133333333333
+I/flutter (2639): 89.20066666666668
+I/flutter (2639): 100.0
 */
 ```
 
-The tween class generated values from **begin** to **end.** We have used our earlier scoreInAnimationController which uses a linear curve. Instead we could have used our bounce curve to get different value. Advantages of Tween does not end here. You can tween other things too. [You can directly tween color, offset, position and other widget properties using classes which further extends the base tween class.](https://docs.flutter.io/flutter/animation/Tween-class.html)
+`Tween` 类生成的值从 `begin` 到 `end`。我们使用了我们之前那个使用了一条线性曲线的 `scoreInAnimationController`（当然我们也可以使用我们的反弹曲线来获得不同的值）。`Tween` 的优势并不止于此 —— 你还可以对其他东西进行 `Tween`。[你可以使用进一步扩展基础 `Tween` 类的类直接对颜色、偏移、位置和其他 Widget 属性进行 `Tween`](https://docs.flutter.io/flutter/animation/Tween-class.html)。
 
-**Score Widget Position Animation**
+**展示鼓掌次数的 Widget 的位置动画**
 
-At this point we have enough knowledge to make our score widget pop out from bottom when we press the button and hide when we tap up.
+在这一点上，我们已经有足够的知识让我们的展示鼓掌次数的 Widget 的在我们按下按钮时从底部弹出，而在我们点按释放的时候隐藏。
 
 ```dart
 initState() {
   super.initState();
   scoreInAnimationController = new AnimationController(duration: new Duration(milliseconds: 150), vsync: this);
   scoreInAnimationController.addListener((){
-    setState(() {}); // Calls render function
+    setState(() {}); // 调用渲染函数（译者注：其实是更新状态）
   });
 }
 
@@ -371,17 +365,15 @@ Widget getScoreButton() {
 }
 ```
 
-![](https://miro.medium.com/max/748/1*SG72TWaiaHNspnOUmPityQ.gif)
+![动画的现状](https://miro.medium.com/max/748/1*SG72TWaiaHNspnOUmPityQ.gif)
 
-Current state of animation
+点开后弹出展示鼓掌次数的 Widget，不过还是有一个问题：
 
-The score widget pops out on tap. But there is still one problem.
+当我们多次点击按钮时，展示鼓掌次数的 Widget 会不断地弹出。这是因为上面代码中的一个小错误。我们告诉控制器在每次点击按钮时从 0 开始前进。
 
-When we tap the button multiple times, the score widget pops out again and again. This is because of a small bug in above code. We are telling controller to forward from 0 each time a button is tapped.
+现在，让我们为展示鼓掌次数的 Widget 添加输出动画。
 
-Now, let’s add the out animation for the score widget.
-
-First, we add an enum to manage the state of score widget more easily.
+首先，我们添加一个枚举来更容易地管理展示鼓掌次数的 Widget 的状态。
 
 ```dart
 enum ScoreWidgetStatus {
@@ -391,7 +383,7 @@ enum ScoreWidgetStatus {
 }
 ```
 
-Then, we create an out animation controller. The animation controller will animate the position of widget from 100 to 150 non linearly. We have also added a status listener for animation. As soon as animation is over, we set the state of our score widget to hidden.
+然后，我们创建一个动画控制器，对 Widget 的位置值在 `[100, 150]` 范围内进行非线性动画。我们还为动画添加了一个状态监听器，一旦动画结束，我们就将展示鼓掌次数的 Widget 的状态设置为隐藏。
 
 ```dart
 scoreOutAnimationController = new AnimationController(vsync: this, duration: duration);
@@ -408,11 +400,11 @@ scoreOutAnimationController.addStatusListener((status) {
 });
 ```
 
-When a user removes his finger from the widget, we would set the state accordingly and kick off a timer of 300 ms. After 300 ms, we would animate the widget’s position and opacity.
+当用户将手指从 Widget 上移开时，我们将设置相应的状态，并启动一个 300 毫秒的计时器。300 毫秒后，我们将对 Widget 的位置和不透明度进行动画处理：
 
 ```dart
 void onTapUp(TapUpDetails tap) {
-  // User removed his finger from button.
+  // 用户移开了他的手指
   scoreOutETA = new Timer(duration, () {
     scoreOutAnimationController.forward(from: 0.0);
     _scoreWidgetStatus = ScoreWidgetStatus.BECOMING_INVISIBLE;
@@ -421,22 +413,22 @@ void onTapUp(TapUpDetails tap) {
 }
 ```
 
-We have also modified the tap down event to handle some corner situations.
+当用户将手指点按 Widget 时，我们将设置相应的状态，并启动一个 300 毫秒的计时器：
 
 ```dart
 void onTapDown(TapDownDetails tap) {
-  // User pressed the button. This can be a tap or a hold.
-  if (scoreOutETA != null) scoreOutETA.cancel(); // We do not want the score to vanish!
+  // 用户点按了按钮 —— 不管是长按还是点按
+  if (scoreOutETA != null) scoreOutETA.cancel(); // 我们不希望次数消失！
   if (_scoreWidgetStatus == ScoreWidgetStatus.HIDDEN) {
     scoreInAnimationController.forward(from: 0.0);
     _scoreWidgetStatus = ScoreWidgetStatus.BECOMING_VISIBLE;
   }
-  increment(null); // Take care of tap
-  holdTimer = new Timer.periodic(duration, increment); // Takes care of hold
+  increment(null); // 关注点按
+  holdTimer = new Timer.periodic(duration, increment); // 关注长按
 }
 ```
 
-Finally, we need to choose which controller’s value we need to use for the position and opacity of our score widget. A simple switch does the job.
+我们还修改了 `TapDown` 事件，以处理一些特殊情况。最后，我们需要选择我们需要使用哪个控制器的值来处理我们的展示鼓掌次数的 Widget 的位置和不透明度。一个简单的 `switch` 就可以完成这项工作：
 
 ```dart
 Widget getScoreButton() {
@@ -457,17 +449,17 @@ Widget getScoreButton() {
 }
 ```
 
-Current output:
+当前输出：
 
 ![](https://miro.medium.com/max/732/1*RNvj1meQIy6nCn5d-S74qQ.gif)
 
-The score widget works nicely. It pops in and then fades out.
+最后，我们需要选择我们需要使用哪个控制器的值来设置展示鼓掌次数的 Widget 的位置和不透明度 —— 它应该弹出+淡出。
 
-**Score Widget Size Animation**
+**展示鼓掌次数的 Widget 大小动画**
 
-At this point, we pretty much have idea to how to change size as well when the score increases. Let’s quickly add the size animation and then we move onto to tiny sparkles
+在这一点上，我们几乎有想法到如何改变大小，以及当次数增加。让我们快速添加大小动画，然后我们转到撒花动画上。
 
-I have updated the **ScoreWidgetStatus** enum to hold an extra **VISIBLE** value. Now, we add a new controller for the size property.
+我更新了 `ScoreWidgetStatus` 枚举，以持有一个额外的 `VISIBLE` 值。现在，我们为大小属性添加一个新的控制器。
 
 ```dart
 scoreSizeAnimationController = new AnimationController(vsync: this, duration: new Duration(milliseconds: 150));
@@ -481,9 +473,9 @@ scoreSizeAnimationController.addListener((){
 });
 ```
 
-The controller generates value from 0 to 1 over a period of 150 ms and as soon as it completes, we generate value from 1 to 0. This gives a nice growing and shrinking effect.
+控制器在 150 毫秒的时间内从 0 到 1 产生数值，一旦完成，我们就从 1 到 0 产生数值，这样就有了很好的增长和缩小的效果。
 
-We have also updated our increment function to start the animation when a number is incremented.
+我们还更新了我们的 `increment` 函数 —— 当一个数字递增时就会开始动画。
 
 ```dart
 void increment(Timer t) {
@@ -494,16 +486,14 @@ void increment(Timer t) {
 }
 ```
 
-We need to take care of case which deals with Visible property of the enum. To do so, we need to add some basic conditions in the Touch down event.
+我们需要处理枚举的 `Visible` 属性的情况。为此，我们需要在 `TouchDown` 事件中添加一些判断：
 
 ```dart
 void onTapDown(TapDownDetails tap) {
-  // User pressed the button. This can be a tap or a hold.
-  if (scoreOutETA != null) {
-    scoreOutETA.cancel(); // We do not want the score to vanish!
-  }
+  // 用户点按了按钮 —— 不管是长按还是点按
+  if (scoreOutETA != null) scoreOutETA.cancel(); // 我们不希望次数消失！
   if(_scoreWidgetStatus == ScoreWidgetStatus.BECOMING_INVISIBLE) {
-    // We tapped down while the widget was flying up. Need to cancel that animation.
+    // 在 Widget 向上飞入的时候点击了按钮，把那玩意暂停掉！
     scoreOutAnimationController.stop(canceled: true);
     _scoreWidgetStatus = ScoreWidgetStatus.VISIBLE;
   }
@@ -511,12 +501,12 @@ void onTapDown(TapDownDetails tap) {
     _scoreWidgetStatus = ScoreWidgetStatus.BECOMING_VISIBLE;
     scoreInAnimationController.forward(from: 0.0);
   }
-  increment(null); // Take care of tap
-  holdTimer = new Timer.periodic(duration, increment); // Takes care of hold
+  increment(null); // 关注点按
+  holdTimer = new Timer.periodic(duration, increment); // 关注长按
 }
 ```
 
-Finally we use the value from the controller in our widget.
+最后，我们在 Widget中使用控制器的值。
 
 ```dart
 extraSize = scoreSizeAnimationController.value * 10;
@@ -526,28 +516,26 @@ width: 50.0  + extraSize,
 ...
 ```
 
-Full code, can be found at [this github gist.](https://gist.github.com/Kartik1607/52c882194e3119e0d176fb15e6c6b913) We have both size and position animation working together. Size animation needs a bit tweaking, which we would person at last.
+完整的代码可以在 [GitHub Gist](https://gist.github.com/Kartik1607/52c882194e3119e0d176fb15e6c6b913) 处找到。这里我们有一起运行的大小位置动画，也稍微调整了一下尺寸动画。
 
-![](https://miro.medium.com/max/716/1*5ttrTDWNuApskZBCIX1zrQ.gif)
+![尺寸和位置动画一起工作](https://miro.medium.com/max/716/1*5ttrTDWNuApskZBCIX1zrQ.gif)
 
-Size and Position animation working together.
+## 撒花动画
 
-## Sparkles animation
+在做撒花动画之前，我们需要对大小动画做一些调整。目前来看，按钮的增长幅度太大。修复的方法很简单。我们将 `extrasize` 的乘数从 `10` 改为一个较低的数字。
 
-Before doing sparkles animation, we need to do some tweaks on the size animation. The button is growing too much as of now. The fix is simple. We change the extrasize multiplier from 10 to a lower number.
+现在来到撒花动画。我们可以观察到，**撒出来的花只是 5 个变化着位置的图像。**
 
-Now coming to the sparkles animation, we can observe that **sparkles are just 5 images which whose positions are changing.**
+我在微软的 Paint 软件中制作了一个三角形和一个圆形的图像，并将其保存到 Flutter 资源中。现在我们就可以将该图像作为 Image Asset 素材。
 
-I made the image image of a triangle and a circle in MS Paint and saved that to flutter resources. Then we can use that image as Image asset.
+在制作动画之前，我们先来思考一下定位和一些我们需要完成的任务。
 
-Before animation, let us think of positioning and some tasks we need to accomplish.
+1. 我们需要定位 5 张图片，每张图片的角度不同，形成一个完整的圆。
+2. 我们需要根据角度旋转图像。
+3. 我们需要随着时间增加圆的半径。
+4. 我们需要根据角度和半径找到坐标。
 
-1. We need to position 5 images, each at different angles to form a complete circle.
-2. We need to rotate the images as per the angle.
-3. We need to increase radius of circle with time.
-4. We need to find the coordinates based on angle and radius.
-
-Simply trigonometry gives us formula to get x and y coordinates based on sin and cosine of the angles.
+简单的三角学给我们提供了根据角度的正弦和余弦得到 x 和 y 坐标的公式。
 
 ```dart
 var sparklesWidget =
@@ -561,7 +549,7 @@ var sparklesWidget =
   );
 ```
 
-Now, we need to create 5 of these widgets. Each widget would have a different angle. A simple for loop would do the trick.
+现在，我们需要创建 5 个这样的 Widget，而每个 Widget 都应该有不同的角度。一个简单的 `for` 循环就可以了。
 
 ```dart
 for(int i = 0;i < 5; ++i) {
@@ -571,9 +559,9 @@ for(int i = 0;i < 5; ++i) {
 }
 ```
 
-We simply divide 2*pi, (360 degrees) into 5 parts and create a widget accordingly. Then, we add the widget to an array which would serve as child of a stack.
+我们只需将 `2*pi`（360 度）分成 5 份，并据此创建一个 Widget。然后，我们将这些 Widget 添加到一个数组中，这个数组将作为堆栈的子数。
 
-Now, at this point most of work is done. We only need to animate the sparkleRadius and generate a new firstAngle when score is incremented.
+现在，在这一点上，大部分的工作已经完成。我们只需要对 `sparkleRadius` 进行动画处理，并在分数递增时生成一个新的 `firstAngle`。
 
 ```dart
 sparklesAnimationController = new AnimationController(vsync: this, duration: duration);
@@ -599,13 +587,11 @@ Widget getScoreButton() {
 }
 ```
 
-![](https://miro.medium.com/max/788/1*O5FNILFgN18aAbfbTVfsDA.gif)
+![最终结果](https://miro.medium.com/max/788/1*O5FNILFgN18aAbfbTVfsDA.gif)
 
-Final Result
+这就是我们对 Flutter 中**基本动画的介绍**。我们未来还会继续探索更多的 Flutter 知识，以学习创建更高级的 UI。
 
-And that is our introduction to **basic animations in flutter.** I’ll keep exploring flutter more and learn to create advanced UI.
-
-You can get the full code at my git repo [here](https://github.com/Kartik1607/FlutterUI/tree/master/MediumClapAnimation/medium_clap).
+你可以在我的 [Git 仓库](https://github.com/Kartik1607/FlutterUI/tree/master/MediumClapAnimation/medium_clap)找到完整的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
