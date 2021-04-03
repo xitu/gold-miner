@@ -2,7 +2,7 @@
 > * 原文作者：[Cristian Salcescu](https://cristiansalcescu.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/7-JavaScript-Fundamentals-Every-Web-Developer-Should-Know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/7-JavaScript-Fundamentals-Every-Web-Developer-Should-Know.md)
-> * 译者：
+> * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：
 
 ## 每位 Web 开发者都应该知道的 7 个 JavaScript 基础知识
