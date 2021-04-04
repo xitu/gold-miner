@@ -34,7 +34,7 @@
 
 这里有许多前端开发者可以遵从的最佳做法，这通常是您要投入优化冲刺时的工作。我推荐你不仅仅可以接受来自专业人士的审核，也可以使用自动工具（例如 Lighthouse（当然也可以是 SpeedCurve））进行审核。我喜欢为客户检查一个 URL 以提供给用户更高级的建议时候去使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)。我们在产品中加入了 Lighthouse 分数和审核，这是一个很好的起点。
 
-问题可能出自（但肯定不局限于）:
+问题可能出自（但肯定不局限于）：
 
 - JavaScript，
 - 改善“关键路径”或渲染遮挡，以及
