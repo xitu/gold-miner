@@ -30,7 +30,6 @@ Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/java
 如果想知道上述改变是否会影响到他们的应用程序或者依赖，用户们可以尝试在代码和依赖中使用这两个工具：
 
 - [jdeps](https://docs.oracle.com/javase/9/tools/jdeps.htm#JSWOR690)，这是一个能分析是否使用了有不兼容风险的 API 的工具。它可以帮助开发团队排查项目中是否使用了已经发生改变的、不规范的 API
-
 - [jdeprscan](https://docs.oracle.com/en/java/javase/15/docs/specs/man/jdeprscan.html)，这是一个能够分析 Deprecation 弃用注释的工具，它会分析如果不对已弃用的 API 进行调整的话，项目会面临怎样的风险
 
 当被问及 Applet 的弃用是否可以应用于序列化、Applet 安全管理器和一些其他方面时，相关提案者简单地回答道:“[等着瞧吧 (Hold my beer)](https://twitter.com/DrDeprecator/status/1368359481684336640)”，这暗示着相关的更改可能已经正在进行了。
