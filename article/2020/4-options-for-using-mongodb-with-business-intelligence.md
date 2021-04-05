@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/4-options-for-using-mongodb-with-business-intelligence.md](https://github.com/xitu/gold-miner/blob/master/article/2020/4-options-for-using-mongodb-with-business-intelligence.md)
 > * 译者：[huifrank](https://github.com/huifrank)
-> * 校对者：
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[greycodee](https://github.com/greycodee) 
 
 # 在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析
 
