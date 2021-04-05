@@ -89,7 +89,7 @@ Knowi 使用数据虚拟化技术直接连接 MongoDB 并提供给用户一个�
 
 如果你的使用情况不会受到以上这些限制，MongoDB Charts 对于你来说可能是一个好的选择。如果你已经订阅了 MongoDB Atlas，那就再棒不过了。
 
-如果这些限制在你的场景中并不适用，MongoDB Charts 也许是一个好的选择 —— 特别是在你已经是一位 MongoDb Atlas 订阅者的情况下。
+如果你不会受到以上这些限制，MongoDB Charts 也许是一个好的选择 —— 特别是在你已经是一位 MongoDb Atlas 订阅者的情况下。
 
 ## 总结
 
