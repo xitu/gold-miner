@@ -13,7 +13,7 @@
 
 如这篇文章中讨论的那样：[MongoDB vs SQL](https://www.knowi.com/blog/mongodb-vs-sql/)，MongoDB 已经成为目前市场上占有率最高的 NoSQL 提供者之一。
 
-那么，问题来了：MongoDB 是能否像上面讨论的那样，和传统 SQL 一样在商业智能使用。
+那么，问题来了：MongoDB 是能否像上面讨论的那样，和传统SQL数据库一样在商业智能使用？
 
 答案是：可以，不过需要注意的是，想要通过 Mongo 实现真正的商业智能特性是需要付出代价的 —— 需要花费时间和金钱。
 
