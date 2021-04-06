@@ -7,7 +7,7 @@
 
 # Applets 应用程序的终结
 
-Oracle 在 [JEP-398](https://openjdk.java.net/jeps/398) 中将 Applet 相关的 API 标记为 “已弃用”。在进入 21 世纪后，所有的主流浏览器都不再支持 Java Applets 所依赖的 NPAPI 插件，在这样的背景下，Oracle 多年来一直都在发布即将弃用 Applets 的公告([JEP-289](https://openjdk.java.net/jeps/289))。
+Oracle 在 [JEP-398](https://openjdk.java.net/jeps/398) 中将 Applet 相关的 API 标记为 “已弃用”。在进入 21 世纪后，所有的主流浏览器都不再支持 Java Applets 所依赖的 NPAPI 插件，在这样的背景下，Oracle 多年来一直都在发布即将弃用 Applets 的公告（[JEP-289](https://openjdk.java.net/jeps/289)）。
 
 在若干年前浏览器的功能较弱、程序开发相关标准尚未完善的时候，Java Applets 就较早地做到了支持富互联网应用。支持 Java Applets 的能力是由[网景插件应用程序接口](https://en.wikipedia.org/wiki/NPAPI)（简称 NPAPI）提供的，它能够在浏览器的沙盒环境下运行 Java 应用。NPAPI 第一次出现在浏览器中是在 1995 年，比 [Mozilla 基金会的成立](https://www-archive.mozilla.org/press/mozilla-2005-08-03.html) (2005) 和 [Chrome 的第一个版本](https://en.wikipedia.org/wiki/Google_Chrome#Public_release) (2008) 都要早得多。
 
