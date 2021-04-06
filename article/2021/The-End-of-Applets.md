@@ -19,7 +19,7 @@ Oracle 在 [JEP-398](https://openjdk.java.net/jeps/398) 中将 Applet 相关的 
 
 InfoQ 与 [Dr. Deprecator](https://twitter.com/DrDeprecator) 以及 OpenJDK 的贡献者 Stuart Marks 进行了交流，探访 OpenJDK 项目是怎么界定、使用 @Deprecated 标签的，并了解都有哪些 API 已经被弃用。
 
-Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Deprecated.html)，为其新增了 forRemoval 属性。随着 JEP-398 提出的改变，Applet API 将被设置为 `forRemoval = true`，在这些 API 被真正移除前，forRemoval 属性将让编译器和相关工具为开发者弹出更严重的警告。通过渐进式地设置多个警告可以有效的避免开发社区内的代码混乱，这秉承了语言架构师 Brian Goetz 在 2015 年的演讲 “ [谨慎演进，避免破坏 ](https://www.youtube.com/watch?v=ibYrHlwCKB4)” 中所传达的思想。
+Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Deprecated.html)，为其新增了 forRemoval 属性。随着 JEP-398 提出的改变，Applet API 将被设置为 `forRemoval = true`，在这些 API 被真正移除前，forRemoval 属性将让编译器和相关工具为开发者弹出更严重的警告。通过渐进式地设置多个警告可以有效的避免开发社区内的代码混乱，这秉承了语言架构师 Brian Goetz 在 2015 年的演讲 “[谨慎演进，避免破坏](https://www.youtube.com/watch?v=ibYrHlwCKB4)” 中所传达的思想。
 
 已被从核心的 Java APIs 移除的其他项目包括：
 
