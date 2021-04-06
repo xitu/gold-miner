@@ -23,7 +23,7 @@ Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/java
 
 已被从核心的 Java APIs 移除的其他项目包括：
 
-- CORBA，[一个互操作式框架](https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture)，由对象管理组织 (OMG) 于1991年发布，其最新版本在2012年发布
+- CORBA，[一个互操作式框架](https://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture)，由对象管理组织 (OMG) 于 1991 年发布，其最新版本在 2012 年发布
 - JAXB，[一个 XML 相关 API 的集合](https://eclipse-ee4j.github.io/jaxb-ri/)，现在被置于 Jakarta EE 库中进行维护
 - [Nashorn](https://www.infoq.com/news/2018/06/deprecate-nashorn/)，一个 JavaScript 执行引擎
 - 一些小变化，例如 [Thread.stop(Throwable)](https://docs.oracle.com/javase/7/docs/technotes/guides/concurrency/threadPrimitiveDeprecation.html), [System.runFinalizersOnExit](https://bugs.openjdk.java.net/browse/JDK-8198250), 以及 [RMI Stub Compiler](https://bugs.openjdk.java.net/browse/JDK-8217412)
