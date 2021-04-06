@@ -4,7 +4,6 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md)
 > * 译者：[flying-yogurt](https://github.com/flying-yogurt)
 > * 校对者：
->
 
 # 对产品经理而言的 Web 性能
 
