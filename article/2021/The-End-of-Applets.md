@@ -33,7 +33,7 @@ Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/java
 - [jdeps](https://docs.oracle.com/javase/9/tools/jdeps.htm#JSWOR690)，这是一个能分析是否使用了有不兼容风险的 API 的工具。它可以帮助开发团队排查项目中是否使用了已经发生改变的、不规范的 API
 - [jdeprscan](https://docs.oracle.com/en/java/javase/15/docs/specs/man/jdeprscan.html)，这是一个能够分析 Deprecation 弃用注释的工具，它会分析如果不对已弃用的 API 进行调整的话，项目会面临怎样的风险
 
-当被问及 Applet 的弃用是否可以应用于序列化、Applet 安全管理器和一些其他方面时，相关提案者简单地回答道:“[等着瞧吧 (Hold my beer)](https://twitter.com/DrDeprecator/status/1368359481684336640)”，这暗示着相关的更改可能已经正在进行了。
+当被问及 Applet 的弃用是否可以应用于序列化、Applet 安全管理器和一些其他方面时，相关提案者简单地回答道:“[等着瞧吧（Hold my beer）](https://twitter.com/DrDeprecator/status/1368359481684336640)”，这暗示着相关的更改可能已经正在进行了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
