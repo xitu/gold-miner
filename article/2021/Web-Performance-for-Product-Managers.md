@@ -25,19 +25,19 @@
 
 ### 请求
 
-你的页面由很多各不相同的独立元素组成。图片，字体，JavaScript，CSS，跟踪像素……这些都在提供丰富浏览体验方面发挥了作用。但总的来说，这些或多或少的小问题加起来可能如同钝刀子割肉一般令人难受。
+你的页面由很多各不相同的独立元素组成。图片、字体、JavaScript、CSS、跟踪像素……这些都在提供丰富浏览体验方面发挥了作用。但总的来说，这些或多或少的小问题加起来可能如同钝刀子割肉一般令人难受。
 
-[Steve 的黄金法则](https://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/)至今仍然适用：80％ 至 90％ 的渲染时间都花在了前端，其中大部分是通过网络发送的请求。如果要优化你的站点，请首先使发送的请求尽可能少。
+[Steve 的黄金法则](https://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/) 至今仍然适用：80％ 至 90％ 的渲染时间都花在了前端 ——— 主要是通过网络发送请求上。如果要优化你的站点，请首先使发送的请求尽可能少。
 
 ### 代码
 
-这里有许多前端开发者可以遵从的最佳做法，这通常是您要投入优化冲刺时的工作。我推荐你不仅仅可以接受来自专业人士的审核，也可以使用自动工具（例如 Lighthouse（当然也可以是 SpeedCurve））进行审核。我喜欢为客户检查一个 URL 以提供给用户更高级的建议时候去使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)。我们在产品中加入了 Lighthouse 分数和审核，这是一个很好的起点。
+这里有许多前端开发者可以遵从的最佳做法，这通常是您要投入优化冲刺时的工作。我推荐你不仅仅可以接受来自专业人士的审核，也可以使用自动工具（例如 Lighthouse 或 SpeedCurve）进行审核。我喜欢为客户检查一个 URL 以提供给用户更高级的建议的时候，使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)。我们在产品中加入了 Lighthouse 分数和审核，这是一个很好的起点。
 
 问题可能出自（但肯定不局限于）：
 
 - JavaScript
 - 改善“关键路径”或渲染遮挡
-- 以及使用指令来预加载页面元素或异步加载脚本
+- 以及，使用指令来预加载页面元素或异步加载脚本
 
 尽管大多数情况下，产品经理的注意力都都集中在前端开发者上，但是，如果你察觉到了过长的开始渲染时间，或更多不正常的基本指标（例如到第一个字节的时间）增加，也要关注后端开发工作。这一点非常重要。
 
@@ -47,7 +47,7 @@
 
 无论你是否有机会实际参与这一领域的工作，理解图像管道（不管是在内部还是作为服务进行管理）都是大有裨益的。对于维护大型产品目录或包含大量用户生成内容的网站，尤其如此。
 
-还需要注意的是，虽然并非所有性能提升都会显示在您的指标中，但是这些工作对于带宽不足或数据计划受限的用户将是十分令人感激的。考虑设置与图像的数量或大小相关的[性能预算](https://speedcurve.com/blog/performance-budgets-guide/)，而不仅考虑持续的时间。
+还需要注意的是，虽然并非所有性能提升都会显示在您的指标中，但是这些工作对于带宽不足或数据计划受限的用户将是十分令人感激的。考虑设置与图像的数量或大小相关的 [性能预算](https://speedcurve.com/blog/performance-budgets-guide/)，而不仅考虑持续的时间。
 
 ### 网络
 
@@ -64,9 +64,9 @@
 即便如此，你才是那位产品经理。你可是影响自己控制范围之外的事物的大师。你可以让他们对其负责，并维持着使他们保持一致的策略。例如：
 
 - 和你的供应商经理（如果你有的话）或负责此事的利益相关者直接合作，以设置执行第三方的 [performance budgets](https://speedcurve.com/blog/performance-budgets-guide/)。也许你创建了可以和该责任方一起执行的标签预算。预算可能与规模有关。
-- 如果您的市场营销部门需要添加一个新像素，必须有另一个旧的被替换。
+- 如果您的市场营销部门需要添加一个新 Pixel 像素代码，必须有另一个旧的被替换。
 - 审核你的第三方并修剪所有的 ghost scripts.
-- 在允许新的第三方参与之前，请执行审核过程，以确保他们通过了一些有关性能的基本准则。我最喜欢的工具是 [3rdParty.io](https://3rdparty.io/)，由 Nic Jansma 所贡献。
+- 在允许新的第三方参与之前，请执行审核过程，以确保他们通过了一些有关性能的基本准则。我最喜欢的工具是 [3rdParty.io](https://3rdparty.io/)，由 Nic Jansma 所参与开发。
 
 无论造成性能问题的原因是什么，解决问题时都必须保持团队合作的态度与精神。性能过差通常不仅仅是某一个人的过失，只有一个人或者一个小组拥有独立于其他成员而修复问题的能力 ——— 这也是极其罕见的。**性能是团队的活儿。**
 
@@ -102,14 +102,14 @@
 
 "因地制宜。"
 
-不要过分苛求细枝末节，你并不需要百分之百理解这许许多多的指标。对于绝大多数像你一样的产品经理而言（尤其是那些刚开始接触性能的新手），请将目光放在那些与用户体验关系最为密切的指标上。这篇 [Tammy 的指南](https://speedcurve.com/blog/performance-budgets-guide/)或许对解决这个问题有帮助。
+不要过分苛求细枝末节，你并不需要百分之百理解这许许多多的指标。对于绝大多数像你一样的产品经理而言（尤其是那些刚开始接触性能的新手），请将目光放在那些与用户体验关系最为密切的指标上。这篇 [Tammy 的指南](https://speedcurve.com/blog/performance-budgets-guide/)或许对解决这个问题有帮助。
 
 在最近几个月，我和产品经理们的对话主要围绕在 Core Web Vitals 上。如果你也在这个领域中，并且在改善 SEO 或应对有关 Google 控制台中显示的数字的入站问题方面承受压力，你可能需要熟悉这些指标。幸运的是，你可以阅读不少有关于这个主题的优秀资料。从这些资源开始：
 
 - [Tracking Core Web Vitals](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
 - [Understanding Cumulative Layout Shift](https://dev.speedcurve.com/blog/google-cumulative-layout-shift/)
 - [First Input Delay, How vital is it?](https://dev.speedcurve.com/blog/first-input-delay-google-core-web-vitals/)
-- [Everything we know about Core Web Vitals](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
+- [Everything we know about Core Web Vitals](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
 
 ## 理解与使用百分位数
 
@@ -153,7 +153,7 @@
 
 不要过度交流或使他人迷惑。如果你将重点放在性能 KPI 报表上，很棒。如果你设法围绕这个独角兽指标进行调整，那就太好了。只是不要适得其反。我经常看到产品经理在尝试传达其 RUM 指标及其综合指标时犯丢失诸如百分位数这样的术语，或避免显示两组数字这样的错误。别这么干。同样，只要有可能，请使用 RUM。你可以使用综合监测突出显示一部分数据，例如页面权重或元素计数，也可以借此陈述网站上第三方的数量。这是综合监测数据很好地补充 RUM 数据的地方。
 
-### 将性能具现化
+### 将性能具象化
 
 在这部分，综合监测工具抢占了先机。使用幻灯片或图片和不在内部的其他参与者交谈讨论关于性能的话题。在促进出色的团队工作时，没有比播放前后视频更棒的了。
 
@@ -161,7 +161,7 @@
 
 基准化分析法（又称标杆测试、标杆管理）是你所拥有的另一个绝佳工具。相较于输，团队更想赢。使用标杆测试来比较自己和竞争对手是非常有效的。在管理 Core Web Vitals 时尤其如此。如果有一半左右的竞争对手 LCP 时间比你快，那会对你的搜索结果产生什么影响呢？
 
-别怕丢人。无论是你亦或是你的竞争对手处于最底层，这种情况随时可能被改变。使用标杆测试来使自己变得更好，或是向他人学习理解。查看我们的 [行业网页速度标杆测试](https://speedcurve.com/benchmarks/) 来了解如何使用工具包中的基准化分析法。
+别怕丢人。无论是你亦或是你的竞争对手处于最底层，这种情况随时可能被改变。使用标杆测试来使自己变得更好，或是向他人学习理解。查看我们的 [行业网页速度标杆测试](https://speedcurve.com/benchmarks/) 来了解如何使用工具包中的基准化分析法。
 
 ![https://blog-img.speedcurve.com/img/113/benchmarks.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/benchmarks.png?auto=format,compress&fit=max&w=2000)
 
