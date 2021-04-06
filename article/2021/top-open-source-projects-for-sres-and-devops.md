@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-open-source-projects-for-sres-and-devops.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-open-source-projects-for-sres-and-devops.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：[kamly](https://github.com/kamly)
+> - 校对者：[kamly](https://github.com/kamly)、[1autodidact](https://github.com/1autodidact)
 
 # SREs 和 DevOps 十大开源项目
 
