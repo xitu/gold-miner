@@ -7,7 +7,7 @@
 
 ## 每位 Web 开发者都应该知道的 7 个 JavaScript 基础知识
 
-### 函数是值，对象从其他对象继承，等等
+### 函数是值，对象继承其他对象等等
 
 ![[Erik Brolin](https://unsplash.com/@erik_brolin?utm_source=medium&utm_medium=referral) 拍摄，发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12000/0*s4pg_I-HRI_qKGGM)
 
@@ -15,9 +15,9 @@
 
 ## 1、函数是独立的行为单元
 
-函数是行为单位，但这里重要的一点是它们是独立的。在 Java 或 C# 等其他语言中，函数必须在类内声明。在 JavaScript 中不是这样的。
+函数是基本单位，但这里重要的一点是，函数是独立的！在 Java 或 C# 等其他语言中，函数必须在类内声明，但在 JavaScript 中不是这样的。
 
-函数可以在全局声明，也可以在模块里定义为可重用的单元。
+函数可以在全局中被定义，也可以在模块里定义为可重用的单位。
 
 ## 2、对象是属性的动态集合
 
@@ -34,26 +34,26 @@
 
 ## 3、对象继承自其他对象
 
-如果您来自 Java 或 C# 等基于 class 的语言，您可能习惯于从其他 class 继承 class。但是，JavaScript 不是这样的。
+如果你曾经使用的语言是类似于 Java 或 C# 等基于 `class` 的语言，你可能习惯于从其他 `class` 继承 `class`。但是，JavaScript 不是这样的。
 
-对象继承自称为 prototypes 的对象。
+对象继承自称为 `prototypes` 的对象。
 
-如前所述，在这种语言中，对象是属性的集合。当创建一个对象时，他有一个名为 __proto__ 的隐藏属性，它引用其他对象。这个被引用的对象称为 prototype。
+如前所述，在这种语言中，对象是属性的集合。当创建一个对象时，他有一个名为 `__proto__` 的隐藏属性，它引用其他对象。这个被引用的对象称为 `prototype`。
 
 下面是一个创建空对象的例子（可以说，没有属性的对象）：
 
     const obj = {};
 
-即使 obj 看起来是空的没有任何属性，它实际上也是有一个隐藏属性 __proto__ 的：
+即使 obj 看起来是空的没有任何属性，它实际上也是有一个隐藏属性 `__proto__` 的：
 
     obj.__proto__ === Object.prototype;
     //true
 
-在这类对象上，我们可以访问，例如toString方法，即使我们还没有定义这样的方法。这怎么可能呢？
+在这类对象上，我们可以访问，例如 `toString` 方法，即使我们还没有定义这样的方法。这怎么可能呢？
 
-此方法继承自 Object.prototype。当尝试访问该方法时，JS 引擎首先尝试在当前对象上查找该方法，然后再查找其原型上的属性。
+此方法继承自 `Object.prototype`。当尝试访问该方法时，JS 引擎首先尝试在当前对象上查找该方法，然后再查找其原型上的属性。
 
-不要被 class 关键字误导了。试图让来自基于 class 语言的开发者熟悉该语言，class 只是原型系统的语法糖。
+不要被 `class` 关键字误导了。`class` 只是原型系统的语法糖，帮助来自基于 `class` 语言的开发者熟悉 JavaScript。
 
 ## 4、函数就是值
 
@@ -67,7 +67,7 @@
 
  <iframe src="https://medium.com/media/05fdebef4666b4521504b135aa7b4685" frameborder=0></iframe>
 
-在同一个示例中，我们可以看到 startsWith 函数返回的函数是如何作为参数发送到 filter 数组方法的。
+在同一个示例中，我们可以看到 `startsWith` 函数返回的函数是如何作为参数发送到 `filter` 数组方法的。
 
 ## 5、函数可以闭包
 
@@ -77,19 +77,19 @@
 
  <iframe src="https://medium.com/media/5f2da0a6d087ea65982f87757c602d99" frameborder=0></iframe>
 
-count 函数可以从 createCounter 父函数访问 x 变量，即使在执行之后也是如此。count 就是闭包函数。
+`count` 函数可以从 `createCounter` 父函数访问 `x` 变量，即使在执行之后也是如此。`count` 就是闭包函数。
 
 ## 6、基本数据类型被视为对象
 
 JavaScript 把基本类型当作对象，从而给人一种错觉。实际上，基本类型并不是对象. 基本类型不是属性的集合。
 
-然而，我们可以在基本类型上调用方法。比如，我们可以在字符串上调用 toUpperCase 方法：
+然而，我们可以在基本类型上调用方法。比如，我们可以在字符串上调用 `toUpperCase` 方法：
 
     const upperText = 'Minecraft'.toUpperCase();
     console.log(upperText);
     //'MINECRAFT'
 
-像 'Minecraft' 这样的简单文本是基本类型，没有任何方法。JavaScript 使用内置的 String 构造函数将其转换为对象，然后对新创建的对象执行 toUpperCase 方法。
+像 'Minecraft' 这样的简单文本是基本类型，自身没有任何方法。不过 JavaScript 会使用内置的 String 构造函数将其转换为对象，然后我们就能够对新创建的对象执行 `toUpperCase` 方法。
 
 通过在底层把基本类型转换为包装对象，JavaScript 允许你调用方法，从而视它们为对象。
 
@@ -103,7 +103,7 @@ JavaScript 单线程的。这意味着在特定时间只执行一条语句。
 
 这就容易理解了，我们只需要注意让函数执行更快就好了。耗费长时间去执行一个函数会让页面无响应。
 
-谢谢阅读。Happy coding!
+谢谢阅读。编码快乐!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
