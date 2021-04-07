@@ -2,7 +2,7 @@
 > * 原文作者：[Allen Helton](https://medium.com/@allenheltondev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/solutions-architect-tips-the-5-types-of-architecture-diagrams.md](https://github.com/xitu/gold-miner/blob/master/article/2021/solutions-architect-tips-the-5-types-of-architecture-diagrams.md)
-> * 译者：
+> * 译者：[洛竹](https://github.com/youngjuning)
 > * 校对者：
 
 # Solutions Architect Tips —  The 5 Types of Architecture Diagrams
