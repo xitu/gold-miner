@@ -2,74 +2,74 @@
 > * 原文作者：[Nathan Sebhastian](https://medium.com/@nathansebhastian)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/webpacks-hot-module-replacement-feature-explained.md](https://github.com/xitu/gold-miner/blob/master/article/2021/webpacks-hot-module-replacement-feature-explained.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[5Reasons](https://github.com/5Reasons)、[nia3y](https://github.com/nia3y)
 
-# Webpack’s Hot Module Replacement Feature Explained
+# 详细解读 Webpack 的模块热替换功能
 
 ![](https://cdn-images-1.medium.com/max/2024/1*q3OLOdT-Ep86tfnvugnabw.png)
 
-Developing a JavaScript application involves reloading the browser each time you save code changes in order to refresh the user interface.
+在开发 JavaScript 应用程序时，每次我们保存代码更改后，我们都需要重新加载浏览器以刷新用户界面。
 
-Developer tools like Webpack can even run in **watch mode** to monitor your project files for changes. As soon as Webpack detected a change, it will rebuild the application and the browser is reloaded automatically.
+像 Webpack 之类的开发者工具可以通过**监视模式**来监听项目文件的更改。一旦检测到更改，Webpack 就会自动地重新构建应用程序并重新加载浏览器。
 
-But soon developers started to think, is there a way to actually save and reflect changes to the browser without reloading? After all, reloading means losing whatever process you’re making on the UI:
+但是很快，开发者们就开始思考，有没有一种方法可以在不重新加载浏览器的情况下保存和更新页面的更改？毕竟，重新加载意味着会丢失在 UI 上的任何执行的状态：
 
-* Any modal or dialog box you’re working on will be gone. You need to go back and redo the steps to make them appear again.
-* The state of your application will be reset. If you’re using libraries like React or Vue, this means you need to redo the process to change the state or persist state to the local storage.
-* Persisting state to the local storage means writing code. Unless you’re actually persisting state in production, you need to add and remove the code each time you’re developing, which is very inconvenient.
-* Even a small change in the CSS code will refresh the browser.
+* 我们正在使用的所有模态框或对话框都将消失。我们需要从头开始，重复步骤，以使它们再次出现。
+* 我们的应用程序的状态将被重置。如果我们使用的是 React 或 Vue 之类的库，我们需要重新执行状态更改，或者通过本地存储持久化状态。
+* 想要将状态持久保存到本地存储，我们需要额外多写一些代码。除非我们的在生产环境下也有这种需求，否则每次开发时都需要为了调试而添加和删除代码，着实非常不方便。
+* 即便我们仅仅只对 CSS 代码做出了很小的更改，也会触发浏览器的刷新。
 
-The [Hot Module Replacement (HMR)](https://webpack.js.org/concepts/hot-module-replacement/) feature was created to solve the above problems, and today it has been a valuable help for speeding up front-end development.
+而[模块热替换（Hot Module Replacement，HMR）](https://webpack.js.org/concepts/hot-module-replacement/)功能就是为了解决这种问题，并且现在已经成为了为前端开发提速的有力助手。
 
-## How Hot Module Replacement works
+## HMR 功能是怎么工作的？
 
-HMR allows you to exchange, add, or remove JavaScript modules while the application is running, all without having to reload the browser. This is made possible in Webpack by creating an **HMR server** inside Webpack Development Server ([webpack-dev-server](https://github.com/webpack/webpack-dev-server)) that communicates with **HMR runtime** in the browser through a websocket.
+HMR 让我们可以在应用程序运行时交换、添加或删除 JavaScript 模块，而无需重新加载浏览器。在 Webpack 中是通过在 Webpack 开发服务器（[webpack-dev-server](https://github.com/webpack/webpack-dev-server)）中创建一个 **HMR 服务器**实现的，而该服务器会通过 Websocket 与浏览器中的 **HMR 运行时**进行通信。
 
-![How HMR works in a nutshell](https://cdn-images-1.medium.com/max/3840/1*UGYFDKGrQF6ID3CofCHUwg.png)
+![简述 HMR 工作的方式](https://cdn-images-1.medium.com/max/3840/1*UGYFDKGrQF6ID3CofCHUwg.png)
 
-The process for exchanging modules are as follows:
+交换模块的过程如下：
 
-* The first time you build the application, Webpack generates a manifest file. The manifest contains a compilation hash and a list of all modules. Webpack will inject the **HMR runtime** into the generated `bundle.js` file
-* You save file changes, which is detected by Webpack
-* The Webpack compiler will build your application with the changes, creating a new manifest file and comparing it with the old one. This process is also known as a **hot update**.
-* The **hot update** will be sent to the **HMR server**, which will send the updates to **HMR runtime**.
-* **HMR runtime** will unpack the **hot update** and use the appropriate loader to handle the changes. If you have CSS changes, then the CSS loader or Style loader will be called. If you have JavaScript code changes, then usually Babel loader will be called.
+* 首次构建应用程序时，Webpack 会生成一份清单文件，包含编译的哈希和所有模块的列表。Webpack 会将 **HMR 运行时**注入到生成的 `bundle.js` 文件中。
+* Webpack 会在保存文件时检测文件的更改。
+* Webpack 编译器会用我们所做的更改来构建我们的应用程序，创建一个新的清单文件并将其与旧的清单文件进行比较。此过程也称为“热更新”。
+* **热更新**数据将被发送到 **HMR 服务器**，后者则会把更新发送至 **HMR 运行时**。
+* **HMR 运行时**将解包**热更新**数据，并使用适当的加载器来处理更改。如果我们有 CSS 更改，则将调用 css-loader 或 style-loader。如果我们对 JavaScript 代码进行了更改，则通常会调用 babel-loader。
 
-By enabling the HMR feature, refreshing the browser in order to download a new bundle becomes unnecessary. The HMR runtime will accept incoming requests from the HMR server that contains the manifest file and chunks of code that will replace the current one in the browser.
+通过启用 HMR 功能，我们无需刷新浏览器即可让浏览器下载新的软件包并解包应用更改。HMR 运行时将接受来自 HMR 服务器的传入请求，包含清单文件和代码块，替换浏览器中的当前文件。
 
-When you save code changes while running an application with HMR enabled, you can actually see the hot update file being sent from the HMR server on your Network tab:
+在运行启用了 HMR 的应用程序时保存代码更改时，我们实际上可以在 “Network” 选项卡上看到从 HMR 服务器发送的热更新文件：
 
-![Hot update files under the Network tab](https://cdn-images-1.medium.com/max/2880/1*phxmgjIC0OrLPZVFsWlvyA.png)
+![网络选项卡下的热更新文件](https://cdn-images-1.medium.com/max/2880/1*phxmgjIC0OrLPZVFsWlvyA.png)
 
-When a **hot update** failed to replace the code in the browser, the HMR runtime will let webpack-dev-server know. The webpack-dev-server will then refresh the browser to download a new `bundle.js` file. This behavior can be disabled by adding `hotOnly: true` to your Webpack configuration.
+当“热更新”无法替换浏览器中的代码时，HMR 运行时将通知 webpack-dev-server。然后，webpack-dev-server 将刷新浏览器以下载新的 `bundle.js` 文件。我们可以通过在 Webpack 配置中添加 `hotOnly：true` 来禁用此行为。
 
-## How to enable HMR feature
+## 如何启用 HMR 功能
 
-To enabling HMR in your project, you need to let your application know how to handle **hot updates.** You can do so by implementing the `module.hot` API exposed by Webpack.
+为了在项目中启用 HMR，我们需要让我们的应用程序知道如何处理**热更新**。我们可以通过实例化 Webpack 公开的 `module.hot` API 来实现：
 
-First, you need to enable HMR by adding `hot: true` to your Webpack configuration file as follows:
+首先，我们需要向 Webpack 配置文件中添加 `hot: true` 来启用 HMR，如下所示：
 
 ```js
 // webpack.config.js
 
 module.exports = {
-  entry: {
-     app: './src/index.js',
-  },
-  devtool: 'inline-source-map',
-  devServer: {
-    hot: true,
-    // ... other config omitted
-  },
-  plugins: [
-    // Enable the plugin
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+    entry: {
+        app: './src/index.js',
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        hot: true,
+        // ... 忽略掉其他配置
+    },
+    plugins: [
+        // 开启这个插件
+        new webpack.HotModuleReplacementPlugin(),
+    ],
 }
 ```
 
-After that, you must handle incoming HMR request by using `module.hot` API. Here’s an implementation example on a vanilla JS project:
+之后，我们必须使用 `module.hot` API 处理传入的 HMR 请求。这是一个普通的 JS 项目的实现示例：
 
 ```js
 // index.js
@@ -78,26 +78,26 @@ import component from "./component";
 
 document.body.appendChild(component);
 
-// Check if HMR interface is enabled
+// 检查是否支持 HMR 接口
 if (module.hot) {
-  // Accept hot update
-  module.hot.accept();
+    // 支持热更新
+    module.hot.accept();
 }
 ```
 
-Once the hot update is accepted, the HMR runtime and the loaders will take over to handle the update.
+一旦告诉 Webpack 我们支持 HMR，HMR 运行时和加载程序就会接管处理更新。
 
-Still implementing HMR for complex applications can be tricky because you may run into undesired side effects, such as [an event handler still bound to the old function](https://webpack.js.org/guides/hot-module-replacement/#enabling-hmr). This is especially true when you’re using libraries like React or Vue. Furthermore, you also need to make sure that [HMR is only enabled on development](https://webpack.js.org/guides/production/).
+但是，为复杂的应用程序实现 HMR 可能会很棘手，因为我们可能会遇到不希望的副作用，例如[仍然绑定到旧函数的事件处理程序](https://webpack.js.org/guides/hot-module-replacement/＃enabling-hmr)，尤其是当你使用 React 或 Vue 之类的库。此外，我们还需要确保[仅在开发中启用 HMR](https://webpack.js.org/guides/production/)。
 
-Before you try to implement HMR on your own, I’d recommend you to first look for available solutions for your project because HMR has already been integrated into many popular JavaScript application generators.
+不过在我们尝试自己实施 HMR 之前，建议你先为我们的项目寻找一下可用的解决方案，因为 HMR 已经集成到许多流行的 JavaScript 应用程序生成器中。
 
-Both Create React App and Next.js have React Fast Refresh, which is a React-specific implementation of hot reloading, and Vue CLI version 3 has HMR implemented through [vue-loader](https://github.com/vuejs/vue-loader). [Svelte](https://github.com/sveltejs/svelte-loader) and [Angular](https://github.com/PatrickJS/angular-hmr) also has their own HMR integrations, so you don’t have to write the integration from scratch.
+Create React App 和 Next.js 都内置了 React Fast Refresh，React 特定的热重载实现。而 Vue CLI 3 的 HMR 则是通过 [vue-loader](https://github.com/vuejs/vue-loader) 实现的。[Svelte](https://github.com/sveltejs/svelte-loader) 和 [Angular](https://github.com/PatrickJS/angular-hmr) 也有自己的 HMR 集成，因此我们没有必要从头开始编写集成。
 
-## Conclusion
+## 小结
 
-Hot Module Replacement is a feature that enables you to see code changes in the browser without having to refresh it, allowing you to preserve the state of your front-end application.
+热模块替换能让我们无需刷新浏览器即可在浏览器中查看代码更改所带来的效果，从而可以保留前端应用程序的状态。
 
-But implementing HMR can be tricky because it can incur side effects. Fortunately, HMR has already been implemented in many JavaScript application generators, so you can enjoy the feature without having to implement it yourself.
+但是实现 HMR 可能很棘手，因为它会产生一些副作用。幸运的是，HMR 已在许多 JavaScript 应用程序生成器中实现。因此我们可以直接享受此功能，而不必自己实现。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
