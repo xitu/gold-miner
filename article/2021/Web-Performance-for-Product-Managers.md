@@ -139,7 +139,7 @@
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p95.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p95.png?auto=format,compress&fit=max&w=2000)
 
-除非您使用算术平均值，也就是传统意义上的平均值，来描述人口，否则要关注哪个百分位数（每种都有其优点）并没有一个确切都答案。 对于这种类型的分布而言，其效果并不理想。
+除非你使用算术平均值（也就是传统意义上的平均值）来描述人口，否则要关注哪个百分位数（每种都有其优点）并没有一个确切的答案。 对于这种类型的分布而言，其效果并不理想。
 
 ## 该怎样与不同身份的相关人员交流讨论性能？
 
