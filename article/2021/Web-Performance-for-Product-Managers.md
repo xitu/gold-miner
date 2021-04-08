@@ -133,7 +133,7 @@
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000)
 
-**第 95 个百分位数：**如果您的网站对于大多数用户来说已经相当快了，那么您可以集中精力在剩下的极少部分的使用者，使他们的访问体验变得更快。5％ 的用户听起来可能并不多，但是如果您的网站每月有 1000 万访问者，则意味着其中有 500,000 人的体验确实很差。
+**第 95 个百分位数：**如果你的网站对于大多数用户来说已经相当快了，那么你可以将精力放在剩下的极少部分的使用者，使他们的访问体验变得更快。5％ 的用户听起来可能并不多，但是如果您的网站每月有 1000 万访问者，则意味着其中有 500,000 人的体验确实很差。
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p75.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p75.png?auto=format,compress&fit=max&w=2000)
 
