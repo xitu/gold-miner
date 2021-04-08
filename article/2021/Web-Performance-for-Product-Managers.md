@@ -31,7 +31,7 @@
 
 ### 代码
 
-这里有许多前端开发者可以遵从的最佳做法，这通常是您要投入优化冲刺时的工作。我推荐你不仅仅可以接受来自专业人士的审核，也可以使用自动工具（例如 Lighthouse 或 SpeedCurve）进行审核。我喜欢为客户检查一个 URL 以提供给用户更高级的建议的时候，使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)。我们在产品中加入了 Lighthouse 分数和审核，这是一个很好的起点。
+前端开发者有很多可以遵从的最佳实践，这通常是你在性能优化的冲刺阶段才投入进行的工作。代码的优化建议可以来自专业人士的审核，也可以来自像 Lighthouse 这样的自动工具（当然还有 SpeedCurve）。为用户分析网站性能的时候，我喜欢使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)以获得一些更高级的建议。我们在产品中加入了 Lighthouse 评分和审核，这是一个很好的起点。
 
 问题可能出自（但肯定不局限于）：
 
