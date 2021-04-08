@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/The-End-of-Applets.md](https://github.com/xitu/gold-miner/blob/master/article/2021/The-End-of-Applets.md)
 > * 译者：[5Reasons](https://github.com/5Reasons)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[wumrwds](https://github.com/wumrwds)
 
 # Applets 应用程序的终结
 
