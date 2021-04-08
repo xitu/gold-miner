@@ -1,4 +1,4 @@
-> * 原文地址：[The End of Applets](https://js.plainenglish.io/6-css-properties-nobody-is-talking-about-e6cab5138d02)
+> * 原文地址：[The End of Applets](https://www.infoq.com/news/2021/03/end-of-applets)
 > * 原文作者：[Erik-Costlow](https://www.infoq.com/profile/Erik-Costlow/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/The-End-of-Applets.md](https://github.com/xitu/gold-miner/blob/master/article/2021/The-End-of-Applets.md)
@@ -9,7 +9,7 @@
 
 Oracle 在 [JEP-398](https://openjdk.java.net/jeps/398) 中将 Applet 相关的 API 标记为 “已弃用”。在进入 21 世纪后，所有的主流浏览器都不再支持 Java Applets 所依赖的 NPAPI 插件，在这样的背景下，Oracle 多年来一直都在发布即将弃用 Applets 的公告（[JEP-289](https://openjdk.java.net/jeps/289)）。
 
-在若干年前浏览器的功能较弱、程序开发相关标准尚未完善的时候，Java Applets 就较早地做到了支持富互联网应用。支持 Java Applets 的能力是由[网景插件应用程序接口](https://en.wikipedia.org/wiki/NPAPI)（简称 NPAPI）提供的，它能够在浏览器的沙盒环境下运行 Java 应用。NPAPI 第一次出现在浏览器中是在 1995 年，比 [Mozilla 基金会的成立](https://www-archive.mozilla.org/press/mozilla-2005-08-03.html) (2005) 和 [Chrome 的第一个版本](https://en.wikipedia.org/wiki/Google_Chrome#Public_release) (2008) 都要早得多。
+在若干年前浏览器的功能较弱、程序开发相关标准尚未完善的时候，Java Applets 就较早地做到了支持富互联网应用。支持 Java Applets 的能力是由 [网景插件应用程序接口](https://en.wikipedia.org/wiki/NPAPI)（简称 NPAPI）提供的，它能够在浏览器的沙盒环境下运行 Java 应用。NPAPI 第一次出现在浏览器中是在 1995 年，比 [Mozilla 基金会的成立](https://www-archive.mozilla.org/press/mozilla-2005-08-03.html) (2005) 和 [Chrome 的第一个版本](https://en.wikipedia.org/wiki/Google_Chrome#Public_release) (2008) 都要早得多。
 
 在现代浏览器标准出现之前，这些 Applets 应用层序通常被用于文件传输、用户鉴权以及处理各种 Javascript 在当时无法处理的情况。各大浏览器在 2015 年开始 [移除对 NPAPI 的支持](https://blog.mozilla.org/futurereleases/2015/10/08/npapi-plugins-in-firefox/)，以此简化浏览器的维护工作，并和 Oracle 发布的关于 Applets 的一份白皮书文件：[从 Java Applet 迁移到无插件的 Java 技术](https://www.oracle.com/technetwork/java/javase/migratingfromapplets-2872444.pdf) 保持同步。
 
@@ -31,7 +31,7 @@ Java 9 增强了 [@Deprecated 弃用注解](https://docs.oracle.com/en/java/java
 如果想知道上述改变是否会影响到他们的应用程序或者依赖，用户们可以尝试在代码和依赖中使用这两个工具：
 
 - [jdeps](https://docs.oracle.com/javase/9/tools/jdeps.htm#JSWOR690)，这是一个能分析是否使用了有不兼容风险的 API 的工具。它可以帮助开发团队排查项目中是否使用了已经发生改变的、不规范的 API
-- [jdeprscan](https://docs.oracle.com/en/java/javase/15/docs/specs/man/jdeprscan.html)，这是一个能够分析 Deprecation 弃用注释的工具，它会分析如果不对已弃用的 API 进行调整的话，项目会面临怎样的风险
+- [jdeprscan](https://docs.oracle.com/en/java/javase/15/docs/specs/man/jdeprscan.html)，这是一个能够分析 @Deprecated 弃用注解的工具，它会分析如果不对已弃用的 API 进行调整的话，项目会面临怎样的风险
 
 当被问及 Applet 的弃用是否可以应用于序列化、Applet 安全管理器和一些其他方面时，相关提案者简单地回答道:“[等着瞧吧（Hold my beer）](https://twitter.com/DrDeprecator/status/1368359481684336640)”，这暗示着相关的更改可能已经正在进行了。
 
