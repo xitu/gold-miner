@@ -2,51 +2,51 @@
 > * 原文作者：Blessing Krofegha
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/performance-differences-between-postgres-and-mysql.md](https://github.com/xitu/gold-miner/blob/master/article/2021/performance-differences-between-postgres-and-mysql.md)
-> * 译者：
+> * 译者：[灰灰 greycodee](https://github.com/greycodee)
 > * 校对者：
 
-# Performance Differences Between Postgres and MySQL
+# Postgres 和 MySQL 之间的性能差异
 
-## Introduction
+## 简介
 
-In the Arctype Community, we answer a lot of questions about database performance, especially between Postgres and MySQL. Performance is a vital yet complex task when managing a database. It can be affected by the configuration, the hardware, or even the design of the system. Interestingly, both PostgreSQL and MySQL are configured with compatibility and stability but depend on our database design's hardware infrastructure.
+在 Arctype 社区里，我们回答了很多关于数据库性能的问题，尤其是 Postgres 和 MySQL 这两个之间的性能问题。在管理数据库中，性能是一项至关重要而又复杂的任务。它可能受到配置、硬件、或者是操作系统的影响。PostgreSQL 和 MySQL 是否具有稳定性和兼容性取决于我们的硬件基础架构。
 
-Not all relational database management systems (RDBMS) are created equal. Although PostgreSQL (or Postgres) and MySQL share some similarities, they also have unique qualities that make one a better choice over the other in specific situations. [We discussed a lot of these differences in a previous post](https://blog.arctype.com/mysqlvspostgres). Still, in terms of performance, they have a lot of differences.
+并不是所有关系型数据库（RDBMS）都是一样的。 虽然 PostgreSQL 和 MySQL 有一些地方很相似，但是在不同的使用场景中，它们都有各自的性能优势。虽然在上篇[文章](https://blog.arctype.com/mysqlvspostgres)中我们已经讨论了一些它们之间的基本差异，但在性能上还有许多差异值得我们讨论。
 
-In this article, we will discuss workload analysis and the running queries. We shall then further explain some basic configurations to improve our MySQL and PostgreSQL databases' performance. After that, we would outline some key differences between MySQL and PostgreSQL.
+在本文中，我们先来看看它们的查询性能。然后，我们再讲一些可以提高 MySQL 和 PostgreSQL 数据库的性能的基本配置。最后总结一下 MySQL 和 PostgreSQL 的一些关键区别。
 
-### Table of Contents
+### 目录
 
-- How to Measure Performance
-- Query performance for JSON
-- Indexing overhead
-- Database replication and clusters
-- Concurrency
-- Conclusion
+- 如何衡量性能
+- 查询JSON的性能
+- 索引开销
+- 数据库复制和集群
+- 并发
+- 总结
 
-## How To Measure Performance
+## 如何衡量性能
 
-MySQL has had a reputation as a fast database for read-heavy workloads, although frequently at the expense of concurrency when mixed with write operations. PostgreSQL, popularly called Postgres, presents itself as the most advanced open-source relational database, plus it's developed to be standards-compliant and feature-rich.
+MySQL 尽管在读写操作混合使用时并发性很差，但是因其优秀的读取速度而备受好评。PostgreSQL（俗称 Postgres）表示自己是最先进的开源关系数据库，并且已开发为符合标准且功能丰富的数据库。
 
-Previously, Postgres performance was more balanced, i.e., reads were generally slower than MySQL, but then it improved and can now write large amounts of data more efficiently, making concurrency handling better. The recent versions of MySQL and Postgres have slightly erased the performance difference between the two databases.
+以前，Postgres 的性能更加平衡，也就是说，读取通常比MySQL慢，但后来它得到了改进，现在可以更有效地写入大量数据，从而使并发处理更好。MySQL 和 Postgres 的最新版本略微消除了两个数据库之间的性能差异。
 
-Using the old [MyISAM](https://dev.mysql.com/doc/refman/8.0/en/myisam-storage-engine.html) engine in MySQL makes reading data extremely fast. Unfortunately, it's not readily available in recent versions of MySQL. But if using InnoDB (which allows key constraints, transactions), differences are negligible. These features are critical to enterprise or consumer-scale applications, so using the old engine is not an option. The good news is that MySQL is continuously improved to reduce the differences in heavy data writes.
+在 MySQL 中使用旧的 [MyISAM](https://dev.mysql.com/doc/refman/8.0/en/myisam-storage-engine.html) 引擎可以非常快速地读取数据。遗憾的是最新版本的 MySQL 并没有使用该引擎。但是，如果使用 InnoDB（允许键约束，事务），则差异可以忽略不计。InnoDB 中的功能对于企业或有很大用户量的应用程序至关重要，因此不能选择使用旧引擎。但是随着 MySQL 版本不断更新，这种差异越来越小。
 
-A **database benchmark** is a reproducible experimental framework for characterizing and comparing the performance (time, memory, or quality) of **database** systems or algorithms on those systems. Such a practical framework defines the system under test, the workload, metrics, and experiments.
+**数据库基准测试**是一个用于表现和比较数据库系统或这些系统上的算法的性能（时间，内存或质量）的可再现的实验框架。 这种实用的框架定义了被测系统、工作量、指标和实验。
 
-In the next 4 sections, we will discuss a few performance differences that make each database stand out.
+在接下来 4 节内容中，我们讨论一下每个数据库各自的性能优点。
 
-## JSON Queries Are Faster in Postgres
+## JSON 查询在 Postgres 中更快
 
-In this section, we see the benchmarking difference between PostgreSQL and MySQL.
+在本节中，我们看下 PostgreSQL 和 MySQL 之间的基准测试的差异
 
-### Steps performed
+### 执行步骤
 
-1. Create a project(Java, Node, or Ruby) where used DBs are PostgreSQL and MySQL.
-2. Create a sample JSON object to perform the WRITE and READ operation.
-3. The entire JSON object's size is assumed to be ~14 MB, creates around 200–210 entries into the database.
+1. 创建一个项目（Java、 Node、或者Ruby），并且该项目的数据库使用的是 PostgreSQL 和 MySQL。
+2. 创建一个 JSON 对象，然后执行读取和写入操作。
+3. 整个 JSON 对象的大小为约为 14 MB，在数据库中创建约 200 至 210 个条目。
 
-#### Statistics
+#### 统计数据
 
 **PostgreSQL: Avg time (in ms): WRITE:** 2279.25 | **READ:** 31.65 | **UPDATE**: 26.26
 
