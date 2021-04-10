@@ -13,7 +13,7 @@
 
 在这中间，[微软非常公开](https://news.microsoft.com/en-au/2021/02/03/microsoft-supports-australian-government-proposal-addressing-news-media-and-digital-platforms/) 地表示支持澳大利亚的新法律，它甚至 [与欧洲出版商联手](https://www.reuters.com/article/us-australia-media-facebook-microsoft/microsoft-teams-up-with-eu-publishers-amid-facebooks-australian-spat-idUSKBN2AM1MB) 呼吁网络平台达成协议，为新闻机构的内容付费。谷歌对微软参与其中并不满意，这是自 [Scroogled 时代](https://www.theverge.com/2013/11/22/5135626/scroogled-microsoft-ads-attack-google) 以来，我们看到的第一次大规模的公开争辩。
 
-谷歌全球事务主管肯特-沃克(Kent Walker) [在一篇博客文章中](https://blog.google/products/news/google-commitment-supporting-journalism/) 说："他们现在提出了自私的要求，甚至不惜打破开放 web 的工作方式，以削弱竞争对手的实力"。"这次最新的攻击标志着微软惯用手法的回归。沃克在文中放上了维基百科上的 "恐惧、不确定性和怀疑"(FUD)条目的链接，并指责微软混淆视听，以转移对最近安全问题的注意力。
+谷歌全球事务主管肯特-沃克（Kent Walker）[在一篇博客文章中](https://blog.google/products/news/google-commitment-supporting-journalism/) 说："他们现在提出了自私的要求，甚至不惜打破开放 web 的工作方式，以削弱竞争对手的实力"。"这次最新的攻击标志着微软惯用手法的回归。沃克在文中放上了维基百科上的"恐惧、不确定性和怀疑"（FUD）条目的链接，并指责微软混淆视听，以转移对最近安全问题的注意力。
 
 沃克说：“微软这次的攻击并非巧合，而是有备而来。这发生在 SolarWinds 攻击之后，在他们允许他们的数万名客户被黑客通过微软的主要漏洞攻击的时刻。” 沃克接着说：“微软被警告他们系统中存在的漏洞，我们知道这些漏洞正在被黑客利用，微软也在做止损工作。与此同时，他们的客户正在被称为 “电子邮件大劫案” 的事件中中收拾残局。所以对他们转移视线的老把戏我们不必大惊小怪”
 
