@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-new-king-of-bundlers-is-here-all-bow-before-vitejs.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-new-king-of-bundlers-is-here-all-bow-before-vitejs.md)
 > * 译者：[zenblo](https://github.com/zenblo)
-> * 校对者：[Badd](https://juejin.cn/user/1134351730353207)
+> * 校对者：[Badd](https://juejin.cn/user/1134351730353207)、[5Reasons](https://github.com/5Reasons)
 
 # 新型前端构建工具 Vitejs 开发使用
 
@@ -13,9 +13,9 @@
 
 当然，多年来，Web 开发已经有了很大的发展，如今 JavaScript 在 Web 应用中的使用量正在呈指数级增长。正因为如此，JavaScript 愈加笨重的依赖包正在成为它的瓶颈。
 
-一些应用程序的依赖包体积已经影响到用户使用应用程序前的等待时长了（在依赖包下载完成之前，他们无法使用应用程序），构建过程本身也导致开发时间的增加（有时改变一行代码就会触发一个需要几分钟的编译过程）。虽然有一些技术可以帮助解决这个问题，但并不是所有的技术都能斩草除根，而能斩草除根者往往需要花费大量精力才能实现。作为这些工具的使用者，你或许不在意工具的实现技术，但如果你是工具的开发者，那么维护起来就会变得非常痛苦。
+一些应用程序的依赖包体积已经影响到用户使用应用程序前的等待时长了（在依赖包下载完成之前，他们无法使用应用程序），构建过程本身也导致开发时间的增加（有时改变一行代码就会触发一个需要几分钟的编译过程）。虽然有一些技术可以帮助解决这个问题，但并不是所有的技术都能斩草除根，而能斩草除根者往往需要花费大量精力才能实现。作为这些构建工具的使用者，你或许不在意它的实现技术，但如果你是构建工具的开发者，那么维护起来就会变得非常痛苦。
 
-这就是为什么今天我想告诉你一个能解决所有这些问题的工具：[ViteJS](https://vitejs.dev/)。
+这就是为什么今天我想向你介绍一款能解决所有这些问题的工具：[ViteJS](https://vitejs.dev/)。
 
 ## ViteJS 为何如此优秀
 
@@ -23,7 +23,7 @@
 
 已经有很多的构建工具了，你还需要一个吗？是的，你需要。
 
-ViteJS 不仅仅是一个构建工具。事实上，ViteJS 的目标是成为构建任何基于 JavaScript 项目的首选工具。它改变了通常的构建工具对以依赖包的处理方式，直接利用 ES 模块来打包构建，让浏览器来完成一些工作。
+ViteJS 不仅仅是一个构建工具。事实上，ViteJS 的目标是成为构建任何基于 JavaScript 项目的首选工具。它改变了通常的构建工具对依赖包的处理方式，直接利用 ES 模块来打包构建，让浏览器来完成一些工作。
 
 它还大量使用 HTTP 缓存不更改的代码。所以，与其使用一个巨大的依赖文件，把所有的代码发送给客户端，不如由客户端决定保留哪些代码和经常刷新哪些代码（下文会详细阐述）。
 
@@ -66,7 +66,7 @@ $ npm init @vitejs/app my-vue-app --template vue
 $ yarn create @vitejs/app my-vue-app --template vue
 ```
 
-这两个命令中的任何一个都会产生相同的输出：
+以上任意一个命令都会产生相同的输出：
 
 ![](https://cdn-images-1.medium.com/max/2860/1*2pPul6Se15bcLeUJpwTHDA.png)
 
@@ -94,9 +94,9 @@ $ npm run dev
 你想要更多的预设吗？根据你的需求可以找到两个插件：
 
 1. 如果你正在寻找一个带有 TypeScript、[Chakra](https://chakra-ui.com/) 和 [Cypress](https://www.cypress.io/) 的项目，你可以使用这个[插件](https://github.com/Dieman89/vite-reactts-chakra-starter)。
-2. 如果不是 Chakra，你想创建一个 Electron 应用，你可以使用这个[插件](https://github.com/maxstue/vite-reactts-electron-starter)，它还包含了 [TailwindCSS](https://tailwindcss.com/)。
+2. 如果你不想使用 Chakra，而是想创建一个 Electron 应用，你可以使用这个[插件](https://github.com/maxstue/vite-reactts-electron-starter)，它还包含了 [TailwindCSS](https://tailwindcss.com/)。
 
-这两个选项都可以和 TypeScript 一起使用，如果你熟悉这些组合，我建议你选择它们而不是从头开始。你要知道，默认的启动项目是完全没有问题的，但是你可以通过这些插件得到一部分已经完成的模板设置。
+这两个选项都可以和 TypeScript 一起使用，如果你熟悉这些组合，我建议你选择使用这些插件而不是从头开始。你要知道，默认的启动项目是完全没有问题的，但是你可以通过这些插件得到一部分已经完成的模板设置。
 
 ## 关于其它构建工具
 
@@ -116,7 +116,7 @@ ViteJS 和其他构建工具（如 Webpack）的主要区别在于，后者会�
 
 当涉及到依赖工具时，ViteJS 有可能颠覆当前的行业标准。它有技术，它有插件生态系统，它有所需的功能。唯一阻止它获得事实上的构建工具桂冠的，是它对旧浏览器的兼容性。
 
-这在今天绝对是一个问题，但这是我们行业中越来越少的一部分人的问题，所以请关注 ViteJS，因为它会随着浏览器的更新而增加使用。
+显然，浏览器兼容性在今天仍旧是一个问题，但这是我们行业中越来越少的一部分人的问题，所以请关注 ViteJS，因为它会随着浏览器的更新而愈加流行。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
