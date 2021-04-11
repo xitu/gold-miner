@@ -409,13 +409,11 @@ For those who can’t grasp something as simple as the DOM, the above basically 
 ```html
 <label>
     fahrenheit<br>
-    <input
-            id="temp_fahrenheit"
-            name="fahrenheit"
-            oninput="ontempinput();"
-            pattern="[-+]?[0-9]*[.,]?[0-9]+"
-            type="number"
-    ><br>
+    <input id="temp_fahrenheit"
+           name="fahrenheit" 
+           oninput="ontempinput();"
+           pattern="[-+]?[0-9]*[.,]?[0-9]+"
+           type="number"><br>
 </label>
 ```
 
