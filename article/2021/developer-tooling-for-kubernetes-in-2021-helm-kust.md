@@ -13,7 +13,7 @@
 
 ## Kubernetes 清单 (YAMLs)
 
-如果你是 Kubernetes 的新手，我推荐你看[这篇介绍](https://www.jeremyjordan.me/kubernetes/)，发现其相当深入。就我们目的而言，你要知道最重要的事情是 Kubernetes 有一个 [声明式](https://www.leverege.com/iot-ebook/kubernetes-object-management-model) 的方法来编排服务。 你把你的服务所需的状态用 YAML 格式写在一些配置文件中，称为 ”清单“ ，并将其发送给 Kubernetes 以实现该状态。
+如果你是 Kubernetes 的新手，我推荐你看[这篇介绍](https://www.jeremyjordan.me/kubernetes/)，因为我发现这篇介绍相当的深入。就我们目的而言，你要知道最重要的事情是 Kubernetes 有一个 [声明式](https://www.leverege.com/iot-ebook/kubernetes-object-management-model) 的方法来编排服务。 你把你的服务所需的状态用 YAML 格式写在一些配置文件中，称为 ”清单“ ，并将其发送给 Kubernetes 以实现该状态。
 
 ## Helm
 
