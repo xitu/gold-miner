@@ -11,7 +11,7 @@
 
 在这个系列博客中，我将介绍目前 Kubernetes 的各种开发者工具和它们在开发工作流中的功能，以及最主要的，我还会介绍每一个工具的重要新闻。在这篇文章中，我将重点介绍用于定义我们的 Kubernetes 应用的工具。他们分别是 [Helm](https://helm.sh/docs/helm/helm_lint/)、[Kustomize](https://kustomize.io/) 和 [Skaffold](https://skaffold.dev/)。
 
-## Kubernetes 清单 (YAMLs)
+## Kubernetes 清单（YAMLs）
 
 如果你是 Kubernetes 的新手，我推荐你看[这篇介绍](https://www.jeremyjordan.me/kubernetes/)，因为我发现这篇介绍相当的深入。就我们目的而言，你要知道最重要的事情是 Kubernetes 有一个 [声明式](https://www.leverege.com/iot-ebook/kubernetes-object-management-model) 的方法来编排服务。 你把你的服务所需的状态用 YAML 格式写在一些配置文件中，称为 ”清单“ ，并将其发送给 Kubernetes 以实现该状态。
 
