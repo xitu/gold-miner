@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/solutions-architect-tips-the-5-types-of-architecture-diagrams.md](https://github.com/xitu/gold-miner/blob/master/article/2021/solutions-architect-tips-the-5-types-of-architecture-diagrams.md)
 > * 译者：[洛竹](https://github.com/youngjuning)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Zz招锦](https://github.com/zenblo)
 
 # 解决方案架构师技巧：架构图的 5 种类型
 
