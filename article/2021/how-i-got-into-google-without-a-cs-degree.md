@@ -58,11 +58,9 @@ How do you know what topics to study? How do you know what kind of problems to p
 
 Imagine going to a class where your entire grade is based on one final exam, but they don’t give you any lectures or homework. That’s a little bit what it felt like going into Google. What I needed was a course of action to follow that thoroughly covered all relevant topics to the extent that I needed to know them.
 
-Introducing AlgoExpert!
-[**AlgoExpert | Ace the Coding Interviews**
-**The leading platform to prepare for coding interviews. Master essential algorithms and data structures, and land your…**www.algoexpert.io](https://www.algoexpert.io/product)
+Introducing [AlgoExpert](https://www.algoexpert.io/product)!
 
-AlgoExpert is a learning platform, built by a former Google employee, with 140+ questions, solutions, test cases, Big O discussions, video explanations, and an interactive code editor. But where AlgoExpert really excels, in my opinion, is that it delivers a ****highly relevant bank of questions grouped by categories (for example, arrays, binary trees, dynamic programming, heaps, and tries) It had all the topics I wanted to study and enough “homework questions” so that I could fully grasp the concept. It’s the perfect study guide.
+AlgoExpert is a learning platform, built by a former Google employee, with 140+ questions, solutions, test cases, Big O discussions, video explanations, and an interactive code editor. But where AlgoExpert really excels, in my opinion, is that it delivers a highly relevant bank of questions grouped by categories (for example, arrays, binary trees, dynamic programming, heaps, and tries) It had all the topics I wanted to study and enough “homework questions” so that I could fully grasp the concept. It’s the perfect study guide.
 
 ![](https://cdn-images-1.medium.com/max/2268/1*rSQHkLYD_kJ8wY2HorxD1g.png)
 
@@ -76,9 +74,7 @@ You might have to adjust if you find that you struggle with one topic more than 
 
 #### Practice explaining your approach
 
-Once you’ve mastered a topic or problem, don’t forget to practice answering questions in REACTO format. Remember coding is not enough. Your interviewer is also assessing your ability to communicate and collaborate. And this requires just as much practice as the coding portion of your interview. So practice discussing your approach before you code. Think of examples and edge cases you want to test. Discuss space and time complexity. And so on. For a more detailed guide check out this article.
-[**The Step-by-Step Guide to Answering a Technical Question in a Coding Interview**
-**Repeat, examples, approach, code, test, and optimization**betterprogramming.pub](https://betterprogramming.pub/the-step-by-step-guide-to-answering-a-technical-question-in-a-coding-interview-37928490d4e2)
+Once you’ve mastered a topic or problem, don’t forget to practice answering questions in REACTO format. Remember coding is not enough. Your interviewer is also assessing your ability to communicate and collaborate. And this requires just as much practice as the coding portion of your interview. So practice discussing your approach before you code. Think of examples and edge cases you want to test. Discuss space and time complexity. And so on. For a more detailed guide check out [this article](https://betterprogramming.pub/the-step-by-step-guide-to-answering-a-technical-question-in-a-coding-interview-37928490d4e2).
 
 ## The Textbook
 
@@ -91,16 +87,15 @@ Some people learn better by reading, some people learn by listening, some visual
 #### YouTube
 
 A couple of channels that I really enjoyed were the following:
-[**Kevin Naughton Jr.**
-**Hey guys, I’m Kevin, and I’m a software engineer at Amazon in New York City! I make videos about coding interviews and…**www.youtube.com](https://www.youtube.com/channel/UCKvwPt6BifPP54yzH99ff1g)
-[**Back To Back SWE**
-**This channel is my initiative to add to the community of programming interview preparation. When I prepared for my…**www.youtube.com](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
+
+- [**Kevin Naughton Jr.**](https://www.youtube.com/channel/UCKvwPt6BifPP54yzH99ff1g)
+- [**Back To Back SWE**](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
 
 Kevin Naughton Jr. is great if you have a short attention span like me. I learn more by doing, so I just want someone to explain things really quickly, and then I’ll jump in and try myself.
 
 Back to Back SWE was sort of my backup plan because his videos are a bit longer. But if concepts weren’t really clicking, sometimes it helped to watch this guy. For instance, he helped me understand binary trees a lot better.
 
-So find whatever works for you. If you like it quick and snappy, try Kevin. If you like longer explanations, try Back to Back SWE. I also found a bunch of one-off videos based on specific questions I searched for. For example, when studying the maximal rectangles problem, I found this gem:
+So find whatever works for you. If you like it quick and snappy, try Kevin. If you like longer explanations, try Back to Back SWE. I also found a bunch of one-off videos based on specific questions I searched for. For example, when studying the maximal rectangles problem, I found this gem: [https://youtu.be/lsQTYlCiU6c](https://youtu.be/lsQTYlCiU6c)
 
 #### Leetcode
 
@@ -109,16 +104,14 @@ Pay for the premium package to unlock amazing solution articles with diagrams an
 You’ll also get access to company modules. For example, the Facebook module had a bank of 50 questions (grouped by categories) that you might see during the interview. These questions are voted upon by users and always kept up to date. And they were actually very accurate (especially the FB one).
 
 #### Geeks for Geeks
-[**K'th Smallest/Largest Element in Unsorted Array | Set 1 - GeeksforGeeks**
-**Given an array and a number k where k is smaller than size of array, we need to find the k'th smallest element in the…**www.geeksforgeeks.org](https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/)
+
+[**K'th Smallest/Largest Element in Unsorted Array | Set 1 - GeeksforGeeks**](https://www.geeksforgeeks.org/kth-smallestlargest-element-unsorted-array/)
 
 If reading is more your thing, then I highly recommend Geeks for Geeks. What I liked about this website is the thorough solution breakdown. You can type in a problem like “kth largest element” and it’ll give you a detailed breakdown of three different solutions, including a time complexity analysis and the corresponding code.
 
 If you were asked this question in an interview and could quickly speak to all three methods before coding up the most efficient one, you would get major bonus points.
 
-Another great resource is Cracking the Coding Interview. I’ll confess, I didn’t use it because personally, I learn more quickly when I can type things into a search console, but if you prefer a physical book as your textbook, this is a great resource. In fact, I know many people who used this as their textbook instead of AlgoExpert, and that works just fine, too,
-[**Cracking the Coding Interview: 189 Programming Questions and Solutions**
-**Cracking the Coding Interview: 189 Programming Questions and Solutions [McDowell, Gayle Laakmann] on Amazon.com. *FREE*…**www.amazon.com](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=sr_1_1?dchild=1&keywords=cracking+the+coding+interview&qid=1615744419&sr=8-1)
+Another great resource is Cracking the Coding Interview. I’ll confess, I didn’t use it because personally, I learn more quickly when I can type things into a search console, but if you prefer a physical book as your textbook, this is a great resource. In fact, I know many people who used this as their textbook instead of AlgoExpert, and that works just fine, too.
 
 ## Midterm
 
