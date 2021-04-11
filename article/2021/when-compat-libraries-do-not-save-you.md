@@ -32,7 +32,7 @@ Compat 支持库的概念可能是 Android 主导手机领域的重要方面之�
 比如说当我们需要获取通知通道组（`NotificationChannelGroup`）的时候：
 
 ```kotlin
-val groups = notificationManagerCompat.notificationChannelGroups。
+val groups = notificationManagerCompat.notificationChannelGroups
 ```
 
 我们不需要担心通道组是否被所有操作系统版本支持，因为它实际上会被在 Compat 类中处理掉：
@@ -40,9 +40,9 @@ val groups = notificationManagerCompat.notificationChannelGroups。
 ```kotlin
 public List<NotificationChannelGroup> getNotificationChannelGroups() {
     if (Build.VERSION.SDK_INT >= 26) {
-        return mNotificationManager.getNotificationChannelGroups()。
+        return mNotificationManager.getNotificationChannelGroups()
     }
-    return Collections.emptyList();
+    return Collections.emptyList()
 }
 ```
 
@@ -53,9 +53,9 @@ public List<NotificationChannelGroup> getNotificationChannelGroups() {
 但如果你仔细观察，`NotificationManagerCompat` 会返回我们实际的 API 类。在上面的示例代码中列出了 `NotificationChannelGroup`，这并不是一个复制的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
 
 ```kotlin
-val groups = notificationManagerCompat.notificationChannelGroups。
+val groups = notificationManagerCompat.notificationChannelGroups
 val channels = groups.flatMap {
-    it.channels.filter { it.shouldShowLights() }。
+    it.channels.filter { it.shouldShowLights() }
 }
 ```
 
@@ -76,9 +76,9 @@ val channels = groups.flatMap {
 ```kotlin
 @SuppressLint("NewApi")
 private fun checkChannels() {
-   val groups = notificationManagerCompat.notificationChannelGroups。
+   val groups = notificationManagerCompat.notificationChannelGroups
    val channels = groups.flatMap {
-        it.channels.filter { it.shouldShowLights() }。
+        it.channels.filter { it.shouldShowLights() }
    }
    ...
 }
@@ -91,9 +91,9 @@ private fun checkChannels() {
 ```kotlin
 @SuppressLint("NewApi")
 private fun checkChannels() {
-    val groups = notificationManager.notificationChannelGroups。
+    val groups = notificationManager.notificationChannelGroups
     val channels = groups.filterNot { it.isBlocked }.flatMap {
-        it.channels.filter { it.shouldShowLights()}。
+        it.channels.filter { it.shouldShowLights()}
     }
     ...
 }
@@ -162,7 +162,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 @CheckedUpTo(Build.VERSION_CODES.P)
 ```
 
-这将在内部类似于 `SuppressLint("NewApi")` 的工作，但只针对不需要高于 P 的 API 调用。
+这将在内部完成类似于 `SuppressLint("NewApi")` 的工作，但只会针对不需要高于 P 的 API 调用。
 
 目前，你可以让现有的 linter 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，让你总是需要被迫处理这些问题。
 
