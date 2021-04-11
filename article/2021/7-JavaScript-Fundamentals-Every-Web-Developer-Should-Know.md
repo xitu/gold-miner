@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/7-JavaScript-Fundamentals-Every-Web-Developer-Should-Know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/7-JavaScript-Fundamentals-Every-Web-Developer-Should-Know.md)
 > * 译者：[Hyde Song](https://github.com/HydeSong)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[greycodee](https://github.com/greycodee)
 
 ## 每位 Web 开发者都应该知道的 7 个 JavaScript 基础知识
 
 ### 函数是值，对象继承其他对象等等
 
-![[Erik Brolin](https://unsplash.com/@erik_brolin?utm_source=medium&utm_medium=referral) 拍摄，发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12000/0*s4pg_I-HRI_qKGGM)
+![[Erik Brolin](https://unsplash.com/@erik_brolin?utm_source=medium&utm_medium=referral) 拍摄，发布在 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)。](https://cdn-images-1.medium.com/max/12000/0*s4pg_I-HRI_qKGGM)
 
 在本文中，我们将讨论我认为 JavaScript 最重要、最独特的一些特性。
 
