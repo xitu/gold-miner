@@ -21,9 +21,9 @@
 
 ## 2、对象是属性的动态集合
 
-对象实际上只是属性的集合。在其他语言中，它们被称为映射、哈希映射或哈希表。
+对象实际上只是属性的集合。在其他语言中，它们被称为 Map、HashMap 或 HashTable。
 
-对象是动态的，即一旦创建，就可以添加、编辑或删除特性。
+对象是动态的，即一旦创建，就可以添加、编辑或删除属性。
 
 下面是一个使用字面量语法定义的简单对象。它有两个属性：
 ```
@@ -49,7 +49,7 @@
     obj.__proto__ === Object.prototype;
     //true
 ```
-在这类对象上，我们可以访问，例如 `toString` 方法，即使我们还没有定义这样的方法。这怎么可能呢？
+在这类对象上，我们可以访问还没有定义的方法，例如 `toString` 方法，即使我们还没有定义这样的方法。这怎么可能呢？
 
 此方法继承自 `Object.prototype`。当尝试访问该方法时，JS 引擎首先尝试在当前对象上查找该方法，然后再查找其原型上的属性。
 
@@ -59,13 +59,25 @@
 
 在 JavaScript 中，函数就是值。就像其他值一样，函数可以赋值给变量：
 ```
-    const sum = function(x,y){ return x + y }
+    const sum = function(x, y){
+        return x + y
+    }
 ```
 这在其他编程语言中是做不到的。
 
 与其他值一样，函数可以传递给不同的函数或被函数返回。下面是一个函数返回另一个函数的示例：
 
- <iframe src="https://medium.com/media/05fdebef4666b4521504b135aa7b4685" frameborder=0></iframe>
+```
+    function startsWith(text){
+        return function(name){
+            return name.startsWith(text);
+        }
+    }
+    const games = ['Fornite', 'Overwatch', 'Valorant'];
+    const newGames = games.filter(startsWith('Fo'));
+    console.log(newGames);
+    //["Fornite"]
+```
 
 在同一个示例中，我们可以看到 `startsWith` 函数返回的函数是如何作为参数发送到 `filter` 数组方法的。
 
