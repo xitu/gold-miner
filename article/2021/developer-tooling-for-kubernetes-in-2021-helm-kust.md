@@ -9,7 +9,7 @@
 
 在过去的几年里，我们已经看到在 Kubernetes 生态中出现了大量工具实现更简单的软件开发（让我们面对现实，开箱即用是很难的）的用来了。正如经常发生在不断发展的生态系统中的那样，一些工具会不断发展并适应，而另一些工具则会被抛弃，或者也至少会被合并到新的产品中。与对我们现有的选择进行最新审视相比，还有什么更好的方式来开启 2021 年呢？
 
-在这个系列博客中，我将介绍目前 Kubernetes 的各种开发者工具，以及它们在开发工作流中的功能，最主要的是，介绍每一个工具的重要新闻。在这篇文章中，我将重点介绍用于定义我们的 Kubernetes 应用的工具，名字是：[Helm](https://helm.sh/docs/helm/helm_lint/)、[Kustomize](https://kustomize.io/) 和 [Skaffold](https://skaffold.dev/)。
+在这个系列博客中，我将介绍目前 Kubernetes 的各种开发者工具和它们在开发工作流中的功能，以及最主要的，我还会介绍每一个工具的重要新闻。在这篇文章中，我将重点介绍用于定义我们的 Kubernetes 应用的工具。他们分别是 [Helm](https://helm.sh/docs/helm/helm_lint/)、[Kustomize](https://kustomize.io/) 和 [Skaffold](https://skaffold.dev/)。
 
 ## Kubernetes 清单 (YAMLs)
 
