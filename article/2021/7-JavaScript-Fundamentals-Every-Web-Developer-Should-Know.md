@@ -59,7 +59,7 @@
 
 在 JavaScript 中，函数就是值。就像其他值一样，函数可以赋值给变量：
 ```
-    const sum = function(x, y){
+    const sum = function(x, y) {
         return x + y
     }
 ```
@@ -68,8 +68,8 @@
 与其他值一样，函数可以传递给不同的函数或被函数返回。下面是一个函数返回另一个函数的示例：
 
 ```
-    function startsWith(text){
-        return function(name){
+    function startsWith(text) {
+        return function(name) {
             return name.startsWith(text);
         }
     }
