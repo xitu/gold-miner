@@ -7,7 +7,7 @@
 
 # Part Of Why I Think React Is Junk
 
-### **With Actual Examples!**
+### With Actual Examples!
 
 ![](https://cdn-images-1.medium.com/max/2056/1*tH8WnMG_S0MAPdscYH3m3Q.png)
 
@@ -37,6 +37,8 @@ Compared to the convoluted spaghetti code inherent to the likes of React? **REAL
 
 Utter poppycock… and far more insulting than anything I’m saying here. Don’t let people tell you that you are too stupid to do something; particularly as part of the propaganda to sucker you into using some bloated, hard to use, nonsensical snake-oil.
 
+---
+
 I could go on for quite some time about other lies, but they all boil down to being different ways of claiming that doing more work with more code in a more complex manner is somehow magically “Easier”, or “simpler”, or “better” than the vanilla equivalents. To me, it’s all nonsensical smoke and mirrors to hide a general ignorance of HTML, CSS, JavaScript, and who websites are even for.
 
 ## Prove It!
@@ -51,26 +53,28 @@ The first simple routine is called “make”. It’s similar in function to Rea
 
 *Maybe that’s just me… but deploying code that isn’t what you wrote when the language is interpreted and source delivered seems pretty derp. Probably a contributor why I dislike LESS/SASS/SCSS as well.*
 
-    function make(tagName, data) {
-      var e = document.createElement(tagName);
-      if (data) {
+```js
+function make(tagName, data) {
+    var e = document.createElement(tagName);
+    if (data) {
         if (
-          data instanceof Array ||
-          data instanceof Node ||
-          ("object" !== typeof data)
+            data instanceof Array ||
+            data instanceof Node ||
+            ("object" !== typeof data)
         ) return makeAppend(e, data), e;
         if (data.append) makeAppend(e, data.append);
         if (data.attr) for (
-          var [name, value] of Object.entries(data.attr)
-        ) setAttribute(e, name, value);
+            var [name, value] of Object.entries(data.attr)
+            ) setAttribute(e, name, value);
         if (data.style) Object.assign(e.style, data.style);
         if (data.repeat) while (data.repeat[0]--) e.append(
-          make(data.repeat[1], data.repeat[2])
+            make(data.repeat[1], data.repeat[2])
         );
         if (data.parent) data.parent.append(e);
-      }
-      return e;
-    } // make
+    }
+    return e;
+} // make
+```
 
 You pass it the tag you want to make, and then either an array of more instructions that are passed to make to create children of said element, or an object containing .append to add children the same way, .attr to assign attributes, .style to set the style, .repeat to create a bunch of the same children, and/or .parent to say what the new element should be created under.
 
@@ -78,48 +82,53 @@ You pass it the tag you want to make, and then either an array of more instructi
 
 For example if we wanted to make a standard THEAD under table#test filled with a TR and properly scoped TH:
 
-    make("thead", {
-      append : [
-        [ "tr", [
-          [ "th", { scope : "col", append : "Item" } ],
-          [ "th", { scope : "col", append : "Quntity" } ],
-          [ "th", { scope : "col", append : "Unit Price" } ],
-          [ "th", { scope : "col", append : "Total" } ]
-        ] ]
-      ],
-      parent : documnt.getElementById("test")
-    ] );
+```js
+make("thead", {
+    append: [
+        ["tr", [
+            ["th", {scope: "col", append: "Item"}],
+            ["th", {scope: "col", append: "Quntity"}],
+            ["th", {scope: "col", append: "Unit Price"}],
+            ["th", {scope: "col", append: "Total"}]
+        ]]
+    ],
+    parent: document.getElementById("test")
+});
+```
 
 Pretty simple. This “make” routine relies on two other routines:
 
-    function makeAppend(e, data) {
-      if (data instanceof Array) {
+```js
+function makeAppend(e, data) {
+    if (data instanceof Array) {
         for (var row of data) {
-          e.append(row instanceof Array ? make(...row) : row);
+            e.append(row instanceof Array ? make(...row) : row);
         }
-      } else e.append(data);
-    } // makeAppend
-
-    function setAttribute(e, name, value) {
-      if (
+    } else e.append(data);
+} // makeAppend
+function setAttribute(e, name, value) {
+    if (
         value instanceof Array ||
         ("object" == typeof value) ||
         ("function" == typeof value)
-      ) e[name] = value;
-      else e.setAttribute(name === "className" ? "class" : name, value);
-    } // safeSetAttr
+    ) e[name] = value;
+    else e.setAttribute(name === "className" ? "class" : name, value);
+} // safeSetAttr
+```
 
 makeAppend is like Element.append, but it accepts an array of what to append, and if it detects an array in the data stream it calls “make” with it instead.
 
-setAttribute is a mirror of Element.setAttribute but without the “issues’ that has. For example the Element method only accepts strings which can be wrong if you want to set something like an on*Event* attribute. If the data is object, array, or function, we need to do direct assignment. Conversely some attributes can screw up if you assign them direct so we want the conventional Element.setAttribute for any values that are not those types. I also wash className to class since setAttribute on “className” doesn’t work, and there is no Element.className on SVG, XML or other non HTML elements. We don’t really need that here, but it’s still nice to be XML/SVG safe.
+`setAttribute` is a mirror of `Element.setAttribute` but without the “issues’ that has. For example the Element method only accepts strings which can be wrong if you want to set something like an `onEvent` attribute. If the data is object, array, or function, we need to do direct assignment. Conversely some attributes can screw up if you assign them direct so we want the conventional Element.setAttribute for any values that are not those types. I also wash className to class since setAttribute on “className” doesn’t work, and there is no Element.className on SVG, XML or other non HTML elements. We don’t really need that here, but it’s still nice to be XML/SVG safe.
 
 A final function I tossed in is “purge”
 
-    function purge(e, amt) {
-      var dir = amt < 0 ? "firstChild" : "lastChild";
-      amt = Math.abs(amt);
-      while (amt--) e.removeChild(e[dir]);
-    } // purge
+```js
+function purge(e, amt) {
+    var dir = amt < 0 ? "firstChild" : "lastChild";
+    amt = Math.abs(amt);
+    while (amt--) e.removeChild(e[dir]);
+} // purge
+```
 
 Which removes “amt” number of children from the end of the parent element “e”. If you feed it a negative number, it will remove them from the beginning.
 
@@ -129,11 +138,9 @@ That in a nutshell is 80%+ of all I would ever need in helper functions for the 
 
 ## Tic Tac Toe
 
-Their original:
-[https://codepen.io/gaearon/pen/gWWZgR?editors=0010](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)
+Their original: [https://codepen.io/gaearon/pen/gWWZgR?editors=0010](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)
 
-My rewrite:
-[https://codepen.io/jason-knight/pen/qBqwrwo](https://codepen.io/jason-knight/pen/qBqwrwo)
+My rewrite: [https://codepen.io/jason-knight/pen/qBqwrwo](https://codepen.io/jason-knight/pen/qBqwrwo)
 
 The original has “issues” — in my opinion — in both lack of code clarity, and how it is constructed on the DOM. Some of these issues have nothing to do with the JavaScript, but just bespeak how the people creating these systems are unqualified to write a single line of HTML or CSS.
 
@@ -145,146 +152,163 @@ We start out declaring all the variables specific to tracking the game state. If
 
 *As I’ve said before, if you’re doing it on “purpose” it’s not a “side effect”. There’s only one reason they chose that term to describe it, and it has nothing to do with accessing the parent scope being “evil”. Programming 101 — at least when I learned it decades ago — inward scope good, outward scope bad. If it REALLY bothers you, make it all object based and waste a bunch of code saying “this” all over the place.*
 
-    var
-      lines = [
-        [ 0, 1, 2 ],
-        [ 3, 4, 5 ],
-        [ 6, 7, 8 ],
-        [ 0, 3, 6 ],
-        [ 1, 4, 7 ],
-        [ 2, 5, 8 ],
-        [ 0, 4, 8 ],
-        [ 2, 4, 6 ]
-      ],
-      player,
-      squares = make('fieldset', {
-        repeat : [ 9, "input", {
-          attr : { onclick : squareClick, type : "button" },
-        } ],
-        attr : { id : "board" },
-        parent : document.body,
-      }).elements,
-      turn,
-      turnHistory = [],
-      turnOL = make("ol"),
-      txtPlayer = new Text(),
-      txtTurn = new Text(),
-      winner;
+```js
+var
+    lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ],
+    player,
+    squares = make('fieldset', {
+        repeat: [9, "input", {
+            attr: {onclick: squareClick, type: "button"},
+        }],
+        attr: {id: "board"},
+        parent: document.body,
+    }).elements,
+    turn,
+    turnHistory = [],
+    turnOL = make("ol"),
+    txtPlayer = new Text(),
+    txtTurn = new Text(),
+    winner;
+```
 
 Predeclaring all our variables together in one place gives us a cross-reference we can easily go to in order to know what’s in use. This is something as a Pascal/Modula/Ada guy I find vastly superior to this nonsensical and error inducing practice of just letting people declare variables wherever the blazes they want in the middle of the code logic. When I learned programming for anything other than counters for loops, that was just plain bad code even if it’s the norm in ****-show memory leak inducing typo becomes a new variable “what the *** variables are even in use” languages like C!
 
-The big thing here being the squares variable, a reference to the fieldset#board.elements which will be our playfield buttons. I fill it with 9 input of type=”button”, so that we can set “value” on it which behaves just like textContent would on button. It’s just a hair less code and easier to manipulate. Note that we set the onclick event as squareClick. We'll get to that shortly.
+The big thing here being the squares variable, a reference to the fieldset#board.elements which will be our playfield buttons. I fill it with 9 input of type=”button”, so that we can set “value” on it which behaves just like textContent would on button. It’s just a hair less code and easier to manipulate. Note that we set the `onclick` event as `squareClick`. We'll get to that shortly.
 
-player, turn, and winner are all game state tracking. turnHistory should be self explanatory, as should the turnOL. txtPlayer and txtTurn are textNodes we store references to before storing them in the structure of our information DIV.
+`player`, `turn`, and `winner` are all game state tracking. `turnHistory` should be self explanatory, as should the `turnOL`. `txtPlayer` and txtTurn are textNodes we store references to before storing them in the structure of our information `DIV`.
 
 Note that “new Text()” is the new way of doing “document.createTextNode”. Functionally identical, just easier to work with. *I kind of wish the ECMA would give Element a constructor!*
 
 Now that we have those, we can build the information DIV that will hold the current player and the list.
 
-    make('div', {
-      append : [ txtTurn, " : ", txtPlayer, turnOL ],
-      parent : document.body
-    });
+```js
+make('div', {
+    append: [txtTurn, " : ", txtPlayer, turnOL],
+    parent: document.body
+});
+```
 
-Again the simple make routine creates our DIV, appends the elements we created as variables along with a “ : “ between the turn text (“Next Player” or “Winner”) and the player (“X” or “O”)
+Again the simple make routine creates our DIV, appends the elements we created as variables along with a `" : "` between the turn text (“Next Player” or “Winner”) and the player (“X” or “O”)
 
 Next we’ll need to make the buttons to go direct to each turn. A simple function to handle that can be called both when a turn is taken, and at the start to make our “Go to Game Start” button.
 
-    function turnButton(append, onclick, value) {
-      make("li", {
-        append : [ [ "button", { attr : { onclick, value }, append } ] ],
-        parent : turnOL
-      });
-    } // turnButton
+```js
+function turnButton(append, onclick, value) {
+    make("li", {
+        append: [["button", {attr: {onclick, value}, append}]],
+        parent: turnOL
+    });
+} // turnButton
+```
 
-Again using make to add the LI, the button inside it, etc, etc. Note that these turn buttons can also have a value set on them. This is where a “button” helps as we can store a value (the turn) that’s separate from its text. Also notice that by using argument names that match our object assignments, we don’t have to say “onclick : onclick” or “value : value”. *I’m oft amazed how many JS dev’s don’t know you can do that…*
+Again using `make` to add the LI, the button inside it, etc, etc. Note that these turn buttons can also have a value set on them. This is where a “button” helps as we can store a value (the turn) that’s separate from its text. Also notice that by using argument names that match our object assignments, we don’t have to say “onclick : onclick” or “value : value”. *I’m oft amazed how many JS dev’s don’t know you can do that…*
 
 We also want a “restart” function to set up the initial game state or revert the game to that state.
 
-    function restart() {
-     for (var square of squares) square.value = "";
-     txtPlayer.textContent = player = "X";
-     winner = false;
-     turn = 0;
-     txtTurn.textContent = "Next Player";
-    } // restart
+```js
+function restart() {
+    for (var square of squares) square.value = "";
+    txtPlayer.textContent = player = "X";
+    winner = false;
+    turn = 0;
+    txtTurn.textContent = "Next Player";
+} // restart
+```
 
 Empty out all the squares, set the player and the text showing the current player to “X”, set winner to false, turn 0 (no turns taken), and set up the instructions text to “Next Player”.
 
 Thus our next step in the setup is to add:
 
-    turnButton("Go To Game Start", restart);
-
-    restart();
+```js
+turnButton("Go To Game Start", restart);
+restart();
+```
 
 Adding the back to start, and initializing our play state. I do this separate from the startup variables so that we aren’t saying all the same things twice. *This is a case where a “game” object would make more sense, but I’m trying to keep this simple.*
 
 Next we need a callback handler for all those click events on the squares.
 
-    function squareClick(e) {
-      e = e.currentTarget;
-      if (winner || e.value) return;
-      e.value = player;
-      if (turnHistory.length > turn) {
+```js
+function squareClick(e) {
+    e = e.currentTarget;
+    if (winner || e.value) return;
+    e.value = player;
+    if (turnHistory.length > turn) {
         purge(turnOL, turnHistory.length - turn);
         turnHistory = turnHistory.slice(0, turn);
-      }
-      turnHistory.push(e);
-      turn++;
-      turnButton("Go to move " + turn, goToTurn, turn);
-      calcWinner();
-    } // squareClick
+    }
+    turnHistory.push(e);
+    turn++;
+    turnButton("Go to move " + turn, goToTurn, turn);
+    calcWinner();
+} // squareClick
+```
 
 We start out by grabbing the current element since we don’t give a flying fig about the event itself. If we already have a winner or the value of the clicked square is set, terminate early. Otherwise the current element is set to the current player (“X” or “O”). If the turn history is longer than the current turn, we want to purge all those “Go To Move” buttons as well as the history entries. We can then push this element into the turn history, increment the turn counter, then create a new turnButton LI/BUTTON. Finally check to see if there’s a winner.
 
 The winner check routine:
 
-    function calcWinner() {
-     for (var [a, b, c] of lines) if (
-      (player == squares[a].value) &&
-      (player == squares[b].value) &&
-      (player == squares[c].value)
-     ) {
-      txtTurn.textContent = "Winner";
-      return txtPlayer.textContent = winner = player;
-     }
-     if (turn == 9) {
-      txtTurn.textContent = "Tie";
-      txtPlayer.textContent = "Game Over";
-     } else nextPlayer();
-    } // calcWinner
+```js
+function calcWinner() {
+    for (var [a, b, c] of lines) if (
+        (player == squares[a].value) &&
+        (player == squares[b].value) &&
+        (player == squares[c].value)
+    ) {
+        txtTurn.textContent = "Winner";
+        return txtPlayer.textContent = winner = player;
+    }
+    if (turn == 9) {
+        txtTurn.textContent = "Tie";
+        txtPlayer.textContent = "Game Over";
+    } else nextPlayer();
+} // calcWinner
+```
 
 Is also pretty simple and has better short-circuit than theirs.
 
- 1. I don’t have “lines” stored inside it where it adds execution and memory overhead that even “const” doesn’t fix.
+1. I don’t have “lines” stored inside it where it adds execution and memory overhead that even “const” doesn’t fix.
 
- 2. By comparing to player I'm able to implement simpler checks with faster loop abortion.
+2. By comparing to player I'm able to implement simpler checks with faster loop abortion.
 
- 3. By using for/of instead of the old-school loop, I can do my destructuring in the loop. Also doesn’t help that they use const there which if they were REAL constants would break the execution loop. *I’m actually not sure why theirs would/should even be allowed to work on those grounds… but again I also find let/const to be pretty useless/pointless. You need them you’ve probably got bigger problems.*
+3. By using for/of instead of the old-school loop, I can do my destructuring in the loop. Also doesn’t help that they use const there which if they were REAL constants would break the execution loop. *I’m actually not sure why theirs would/should even be allowed to work on those grounds… but again I also find let/const to be pretty useless/pointless. You need them you’ve probably got bigger problems.*
 
- 4. If needed we return the winner, otherwise void since that’s the default. You don’t have to explicitly return false; as that’s one of the advantages of loose typecasting and “truthiness”. *Stop fighting what JS tries to make simpler!*
+4. If needed we return the winner, otherwise void since that’s the default. You don’t have to explicitly `return false;` as that’s one of the advantages of loose typecasting and “truthiness”. *Stop fighting what JS tries to make simpler!*
 
 I also trap the last turn for an appropriate message *(something they do not do) *as well as increment the player here.
 
 Finally we need the routine to go back to a specific turn. Theirs handles this by storing the entire playfield and game state every blasted turn. By the time you wade through all the overhead in place to do that, you’ve spent more processing time than it would take to just wipe the field and then incrementally plug in each alternating turn… which is exactly what I did:
 
-    function goToTurn(e) {
-      restart();
-      for (var input of turnHistory) {
+```js
+function goToTurn(e) {
+    restart();
+    for (var input of turnHistory) {
         input.value = player;
         if (++turn == e.currentTarget.value) break;
         nextPlayer();
-      }
-      calcWinner();
-    } // goToTurn
+    }
+    calcWinner();
+} // goToTurn
+```
 
-Reset the playfield, loop through the history applying each players turn to the appropriate squares leveraging “nextPlayer” inside the loop. Applies many times faster than all that state nonsense despite the “from scratch” application. Finally we call calcWinner to set the win state if need be.
+Reset the playfield, loop through the history applying each players turn to the appropriate squares leveraging “`nextPlayer`” inside the loop. Applies many times faster than all that state nonsense despite the “from scratch” application. Finally we call `calcWinner` to set the win state if need be.
 
-The nextPlayer function being really simple:
+The `nextPlayer` function being really simple:
 
-    function nextPlayer() {
-     txtPlayer.textContent = player = player === "X" ? "O" : "X";
-    } // nextPlayer
+```js
+function nextPlayer() {
+    txtPlayer.textContent = player = player === "X" ? "O" : "X";
+} // nextPlayer
+```
 
 That in a nutshell is a quick and dirty rewrite. I’d probably clean it up with some objects and so forth, but even as is compared to the original, well…
 
@@ -306,13 +330,11 @@ And looking at the source of the two side-by-side, I know which one I’d rather
 
 ## Temperature Calculator
 
-This far simpler example is even less efficient and less well thought out on implementation, entirely because of how React works. Again, I’ll use the same helper lib in the form of make, but I don’t need purge for this.
+This far simpler example is even less efficient and less well thought out on implementation, entirely because of how React works. Again, I’ll use the same helper lib in the form of `make`, but I don’t need `purge` for this.
 
-Their original:
-[https://codepen.io/gaearon/pen/WZpxpz?editors=0010](https://codepen.io/gaearon/pen/WZpxpz?editors=0010)
+Their original: [https://codepen.io/gaearon/pen/WZpxpz?editors=0010](https://codepen.io/gaearon/pen/WZpxpz?editors=0010)
 
-My Rewrite:
-[https://codepen.io/jason-knight/full/OJbGmoN](https://codepen.io/jason-knight/full/OJbGmoN)
+My Rewrite: [https://codepen.io/jason-knight/full/OJbGmoN](https://codepen.io/jason-knight/full/OJbGmoN)
 
 This time around theirs is even more of a wreck in terms of what they’re generating, since they’re using FIELDSET and LEGEND to do LABEL’s job, without even bothering to provide a proper FIELDSET or LEGEND. That’s the first blasted thing I fixed.
 
@@ -320,57 +342,63 @@ But it goes downhill even faster from there. All that JSX rubbish is code-bloat 
 
 This why the first thing I wrote was this:
 
-    var
-      scales = {
-        celcius : {
-          fahrenheit : (t) => 32 + t * 1.8,
-          kelvin : (t) => 273.15 + t
+```js
+var
+    scales = {
+        celcius: {
+            fahrenheit: (t) => 32 + t * 1.8,
+            kelvin: (t) => 273.15 + t
         },
-        fahrenheit : {
-          celcius : (t) => (t - 32) / 1.8,
-          kelvin : (t) => 273.15 + ((t - 32) / 1.8)
+        fahrenheit: {
+            celcius: (t) => (t - 32) / 1.8,
+            kelvin: (t) => 273.15 + ((t - 32) / 1.8)
         },
-        kelvin : {
-          celcius : (t) => t - 273.15,
-          fahrenheit : (t) => (t - 273.15) * 1.8 + 32
+        kelvin: {
+            celcius: (t) => t - 273.15,
+            fahrenheit: (t) => (t - 273.15) * 1.8 + 32
         }
-      },
+    };
+```
 
 Tossing Kelvin in to test adding other conversions. This structure can be used to both create the inputs, AND to provide callbacks for the conversions as needed. *Normally I rail against arrow functions, but these are basically lambda, the ideal usage case for them.*
 
 You want to add another temperature scale, just create a new top-level object like I did with Kelvin, then create the calculations to turn it into the other types as children lambda’s, then add the appropriate lambda’s for each other conversion to those. *Easy-peasy lemon squeezy.*
 
-I then use make to create a FIELDSET and create a text node for plugging state into.
+I then use make to create a `FIELDSET` and create a text node for plugging state into.
 
-      root = make("fieldset", {
-        append : [ [ "legend", [
-          "Enter a temperature in any field below for conversion"
-        ] ] ],
-        parent : document.body
-      }),
-      boilingText = new Text();
+```js
+  root = make("fieldset", {
+    append: [["legend", [
+        "Enter a temperature in any field below for conversion"
+    ]]],
+    parent: document.body
+}),
+    boilingText = new Text();
+```
 
-Now we have a proper grouping FIELDSET and are no longer abusing LEGEND by providing a real one.
+Now we have a proper grouping `FIELDSET` and are no longer abusing `LEGEND` by providing a real one.
 
 To make the various input based on our scales…
 
-    function makeTempInput(name, parent) {
-      Object.defineProperty(scales[name], "input", {
-        value : make("input", {
-          attr : {
-            id : "tempCalc_" + name,
-            name,
-            oninput : onTempInput,
-            pattern : "[-+]?[0-9]*[.,]?[0-9]+",
-            type : "number"
-          },
+```js
+function makeTempInput(name, parent) {
+    Object.defineProperty(scales[name], "input", {
+        value: make("input", {
+            attr: {
+                id: "tempCalc_" + name,
+                name,
+                oninput: onTempInput,
+                pattern: "[-+]?[0-9]*[.,]?[0-9]+",
+                type: "number"
+            },
         })
-      });
-      make("label", {
-        append : [ name, ["br"], scales[name].input, ["br"] ],
+    });
+    make("label", {
+        append: [name, ["br"], scales[name].input, ["br"]],
         parent
-      });
-    } // makeTempInput
+    });
+} // makeTempInput
+```
 
 I use Object.defineProperty to create an INPUT element on the scales. I do this so that it can be read, but is not enumerated / iterable. This way when we want to iterate through the object’s visible properties, the reference to the corresponding input is not in the way. As we need no reference to the label, we just make that separately adding some line breaks for simple formatting since there’s no reason to be wasting block level containers on each of these.
 
@@ -378,45 +406,53 @@ I use Object.defineProperty to create an INPUT element on the scales. I do this 
 
 For those who can’t grasp something as simple as the DOM, the above basically makes the same thing as:
 
-    <label>
-      fahrenheit<br>
-      <input
-        id="temp_fahrenheit"
-        name="fahrenheit"
-        oninput="ontempinput();"
-        pattern="[-+]?[0-9]*[.,]?[0-9]+"
-        type="number"
-      ><br>
-    </label>
+```html
+<label>
+    fahrenheit<br>
+    <input
+            id="temp_fahrenheit"
+            name="fahrenheit"
+            oninput="ontempinput();"
+            pattern="[-+]?[0-9]*[.,]?[0-9]+"
+            type="number"
+    ><br>
+</label>
+```
 
-Attached to our “root” FIELDSET directly on the DOM, but with a reference to the INPUT added to the appropriate subsection of scales.
+Attached to our “root” `FIELDSET` directly on the DOM, but with a reference to the `INPUT` added to the appropriate subsection of `scales`.
 
-Note the use of type=”number” and the pattern which lets us kill off scripted value validation. It misses out on paste, but for now it’s more than sufficient. That’s probably an unfair advantage on my side since who knows when their example was last updated. Even so, thank you W3C for one of the few useful additions from HTML 5.
+Note the use of `type="number"` and the pattern which lets us kill off scripted value validation. It misses out on paste, but for now it’s more than sufficient. That’s probably an unfair advantage on my side since who knows when their example was last updated. Even so, thank you W3C for one of the few useful additions from HTML 5.
 
-We can then just call it for each and every one of our scales.
+We can then just call it for each and every one of our `scales`.
 
-    for (var name in scales) makeTempInput(name, root);
+```js
+for (var name in scales) makeTempInput(name, root);
+```
 
-Naturally we need the oninput handler.
+Naturally we need the `oninput` handler.
 
-    function onTempInput(event) {
-      var input = event.currentTarget;
-      for (
+```js
+function onTempInput(event) {
+    var input = event.currentTarget;
+    for (
         var [name, method]
         of Object.entries(scales[input.name])
-      ) scales[name].input.value = method(input.valueAsNumber);
-      boilNoticeUpdate();
-    } // onTempInput
+        ) scales[name].input.value = method(input.valueAsNumber);
+    boilNoticeUpdate();
+} // onTempInput
+```
 
-We get the INPUT element that triggered the event, we go through all of the scales related to that INPUT, and perform their associated methods based on the INPUT’s value.
+We get the `INPUT` element that triggered the event, we go through all of the `scales` related to that `INPUT`, and perform their associated methods based on the `INPUT`’s value.
 
-Also by using HTMLInputElement.valueAsNumber we avoid more possible headaches with people forcing text in there. *That’s a relatively new addition to the DOM properties. I like it. I like it a lot.*
+Also by using `HTMLInputElement.valueAsNumber` we avoid more possible headaches with people forcing text in there. *That’s a relatively new addition to the DOM properties. I like it. I like it a lot.*
 
 Then we test for boiling:
 
-    function boilNoticeUpdate() {
-     boilingText.textContent = scales.celcius.input.value >= 100 ? "" : "not";
-    } // boilNoticeUpdate
+```js
+function boilNoticeUpdate() {
+    boilingText.textContent = scales.celcius.input.value >= 100 ? "" : "not";
+} // boilNoticeUpdate
+```
 
 Changing only the one little tiny textNode, not the whole blasted string. Because yes, you can target subsections of text without Element nodes as textNodes can also be siblings and do not auto-collapse. *(unless you do something stupid like innerHTML or textContent on the parent)*
 
@@ -430,14 +466,16 @@ The React based original is 2,441 bytes whilst my rewrite is 2,630 bytes, but ag
 
 Removing just the comments gets it down to 2,442, nearly the same size. Remove Kelvin by simply changing the scales declaration to:
 
-      scales = {
-        celcius : {
-          fahrenheit : (t) => 32 + t * 1.8
-        },
-        fahrenheit : {
-          celcius : (t) => (t - 32) / 1.8
-        }
-      },
+```js
+scales = {
+    celcius: {
+        fahrenheit: (t) => 32 + t * 1.8
+    },
+    fahrenheit: {
+        celcius: (t) => (t - 32) / 1.8
+    }
+}
+```
 
 … and it drops to 2,262. So even with the overhead of the custom make function and its dependents doing roughly what react.js provides, it’s actually 179 bytes smaller. If we remove those for a fair comparison since we’re not counting react.js itself in this, we’re looking at a mere 1,243 bytes! That’s for all intents and purposes **HALF THE FLIPPING CODE!**
 
@@ -469,8 +507,7 @@ In no way, shape, or form are their approaches better, or easier, or any of the 
 
 Go straight to the DOM, and bypass all the felgercarb.
 
-— EDIT — 
-I have written a follow-up based on many of the more substantial replies and counterpoints you folks have left in the comments. You’ve not changed my mind, but you did get me thinking.
+— EDIT — I have written a follow-up based on many of the more substantial replies and counterpoints you folks have left in the comments. You’ve not changed my mind, but you did get me thinking.
 
 [https://deathshadow.medium.com/i-think-react-is-junk-round-two-5cb80c5d82b3](https://deathshadow.medium.com/i-think-react-is-junk-round-two-5cb80c5d82b3)
 
