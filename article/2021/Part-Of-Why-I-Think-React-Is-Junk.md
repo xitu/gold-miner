@@ -13,7 +13,7 @@
 
 I oft get a lot of flak for my extremely low view of front-end frameworks. For all the claims of being “easier” or “better for collaboration” or “faster to develop”, I find them to universally be the polar opposite.
 
-React, Vue, Angular, and their kine make no sense to me. **IF ***(big if) *they are — *or can be — *used server-side, they’re nothing but code bloat rubbish adding extra steps of zero value. They don’t do anything server-side that functions/methods with template strings couldn’t accomplish cleaner/more efficiently. When used client side for normal things like shopping carts and contact forms they flip the bird at usability and accessibility since that stuff should either not be scripted in the first place, or at least have graceful degradation. Worse they “hide” actual DOM interactions and add unnecessary complexity.
+React, Vue, Angular, and their kine make no sense to me. ***IF ****(big if)* they are — *or can be —* used server-side, they’re nothing but code bloat rubbish adding extra steps of zero value. They don’t do anything server-side that functions/methods with template strings couldn’t accomplish cleaner/more efficiently. When used client side for normal things like shopping carts and contact forms they flip the bird at usability and accessibility since that stuff should either not be scripted in the first place, or at least have graceful degradation. Worse they “hide” actual DOM interactions and add unnecessary complexity.
 
 Whilst as some point out it’s certainly possible to avoid some of these issues — see “Gatsby” — it only makes things an even bigger pointless mess that could have done simpler, cleaner, and in a more understandable manner without the frameworks. Server-side it’s as if HTML is too complicated so they make it even more complicated. Client-side it’s as if the DOM gets the same treatment.
 
@@ -284,7 +284,7 @@ Is also pretty simple and has better short-circuit than theirs.
 
 4. If needed we return the winner, otherwise void since that’s the default. You don’t have to explicitly `return false;` as that’s one of the advantages of loose typecasting and “truthiness”. *Stop fighting what JS tries to make simpler!*
 
-I also trap the last turn for an appropriate message *(something they do not do) *as well as increment the player here.
+I also trap the last turn for an appropriate message *(something they do not do)* as well as increment the player here.
 
 Finally we need the routine to go back to a specific turn. Theirs handles this by storing the entire playfield and game state every blasted turn. By the time you wade through all the overhead in place to do that, you’ve spent more processing time than it would take to just wipe the field and then incrementally plug in each alternating turn… which is exactly what I did:
 
@@ -493,7 +493,7 @@ More importantly, which one would you rather have to deal with when it comes tim
 
 ![A good engineer is always a wee bit conservative, at least on paper.](https://cdn-images-1.medium.com/max/2000/1*H2Mnjw70o9f9nBsbbfIZ4g.jpeg)
 
-Reacts methodology basically makes you write — *if you omit helper functions/libraries and react.js itself from either way of doing it *— write double or more the code needed to do the job. This seems to scale upwards too, which is why as an accessibility and efficiency consultant I keep coming across clients with megabytes of scripting on sites where half of it doesn’t even need scripting to be done, and the other half has little excuse to be more than 48k of code. Megabytes doing kilobytes flipping job!
+Reacts methodology basically makes you write — *if you omit helper functions/libraries and react.js itself from either way of doing it* — write double or more the code needed to do the job. This seems to scale upwards too, which is why as an accessibility and efficiency consultant I keep coming across clients with megabytes of scripting on sites where half of it doesn’t even need scripting to be done, and the other half has little excuse to be more than 48k of code. Megabytes doing kilobytes flipping job!
 
 And that’s with me Mr. Scott-ing those figures. *Aka figure out how much you actually need, then double it.*
 
