@@ -1,7 +1,7 @@
 ---
 name: 推荐优秀英文文章
 about: 推荐值得翻译且暂未被翻译的优质英文文章
-title: ''
+title: '推荐前端/后端/AI/Android/iOS/产品/设计/Flutter/Kotlin/其他/资讯优秀英文文章'
 labels: ''
 assignees: ''
 
@@ -14,7 +14,7 @@ assignees: ''
 
 ### 请完成并勾选一下三项：
 
-* [ ] 按文章分类填写 issue 标题：推荐前端/后端/AI/Android/iOS/产品/设计/Flutter/其他优秀英文文章
+* [ ] 按文章分类填写 issue 标题：推荐前端/后端/AI/Android/iOS/产品/设计/Flutter/Kotlin/其他/资讯优秀英文文章
 * [ ] 本文很值得翻译，我推荐
 * [ ] 已经过初步搜索，暂未发现中文版译文
 

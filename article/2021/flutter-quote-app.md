@@ -7,8 +7,6 @@
 
 # 使用 Flutter 构建一个名言名句应用程序
 
-## 一个使用 Flutter 构建的名言名句展示程序
-
 ![](https://miro.medium.com/max/3600/1*WGJ7_7_EXkJwzf1mVTyjrA.png)
 
 ## 引言
@@ -358,15 +356,9 @@ PageView buildPageView(AsyncSnapshot<List<Quotes>> snapshot) {
 
 ![](https://miro.medium.com/max/1200/1*PvXgGVrBtx31_HFm_mcWtg.gif)
 
-> 瞧! 您已经创建了第一个名言名句应用程序。
->
-> ## [flutter-devs/flutter_quote_app](https://github.com/flutter-devs/flutter_quote_app.git)
->
-> ### 这是一个新的 Flutter 项目，是一个 Flutter 应用的起点。我们提供了一些资源让你开始……
+瞧! 您已经创建了第一个名言名句应用程序。
 
-欢迎与我们联系，也欢迎阅读更多来自 [**FlutterDevs.com**](http://flutterdevs.com/) 的文章。
-
-我们[**诚挚邀请您像我们做出反馈**](https://flutter.io/support/)，希望你能分享你在使用 **FlutterDevs** 进行的工作。我们真正喜欢看到您如何使用 Flutter 来构建美丽的、交互式的网络体验。
+本文代码：[**flutter-devs/flutter_quote_app**](https://github.com/flutter-devs/flutter_quote_app.git)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
