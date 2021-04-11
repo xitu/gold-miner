@@ -7,6 +7,8 @@
 
 # 解决方案架构师技巧：架构图的 5 种类型
 
+![图源 [Kelly Sikkema](https://unsplash.com/@kellysikkema?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，上传至 [Unsplash](/s/photos/draw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).](https://cdn-images-1.medium.com/max/2396/1*MN6xL8rToYH0n5ZOqr_2tA.jpeg)
+
 你是否曾经在会议中，有人试图解释一个软件系统如何工作？
 
 我与一位相对较新的解决方案架构师进行了一次谈话，他试图描述他们提出的一个系统。这个系统有大约八个不同的组件，它们都以多种方式相互作用。
