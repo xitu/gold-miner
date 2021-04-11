@@ -39,7 +39,7 @@
 
 在 2019 年底，我们看到了 Helm 发布 v3 版本，涉及删除集群端组件（ Tiller ）和大量其他特性。到 2020 年底，Helm v2 已经被废弃，大多数公共 chart 已经迁移到 v3 格式。如果你还在使用 Helm v2，请确保分配时间升级你近期路线图（当你在升级的时候，看看这个 [插件](https://github.com/helm/helm-2to3) 可能会有帮助）。
 
-在过去的几个版本中，Helm 团队一直忙于解决 Helm 用户最抱怨的问题之一 – 难以使用 YAML 模板。 Helm 现在拥有一个强大的 linting [命令](https://helm.sh/docs/helm/helm_lint/)，在调试令人讨厌的 YAML 问题时，它应该是你的新选择。
+在过去的几个版本中，Helm 团队一直忙于解决 Helm 用户最抱怨的问题之一 —— 不容易使用 YAML 模板。 Helm 现在拥有一个强大的 linting [命令](https://helm.sh/docs/helm/helm_lint/)，在调试令人讨厌的 YAML 问题时，它应该是你的新选择。
 
 Helm 新增的另一个很好的功能是 [后期渲染](https://helm.sh/docs/topics/advanced/) 功能，允许你使用 Kustomize 等工具自定义 Helm chart 。
 
