@@ -8,17 +8,17 @@ jobs:
   label:
     runs-on: ubuntu-latest
     steps:
-    - uses: github/issue-labeler@v2.0
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        configuration-path: .github/labeler.yaml
-        not-before: 2021-04-01T00:00:00Z
-        enable-versioned-regex: 0
+      - uses: github/issue-labeler@v2.0
+        if: ${{ contains(github.event.issue.title, '申请成为译者') }}
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/labeler.yaml
 
   comment:
     runs-on: ubuntu-latest
     steps:
       - uses: bubkoo/auto-comment@v1
+        if: ${{ contains(github.event.issue.title, '申请成为译者') }}
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           issuesOpened: |
