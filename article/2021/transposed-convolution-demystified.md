@@ -113,9 +113,7 @@ I hope you liked the post and if you have any doubts, queries or comments, pleas
 **References:**
 
 1. [CS231n: Convolutional Neural Networks for Visual Recognition](https://www.youtube.com/watch?v=nDPWywWRIRo)
-
 2. [Transposed Convolutions explained with… MS Excel!](https://medium.com/apache-mxnet/transposed-convolutions-explained-with-ms-excel-52d13030c7e8)
-
 3. [Deep Dive into Deep Learning](http://d2l.ai/chapter_computer-vision/transposed-conv.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
