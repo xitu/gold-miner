@@ -17,8 +17,6 @@ And it worked! I was able to grab bits and pieces of advice from each article an
 
 So without further ado, I couldn’t be more honored to add my story to the mix. I hope it helps someone out there.
 
----
-
 ## First: A Note To Those Without a CS Degree
 
 When I announced the job on LinkedIn, I was struck by how surprised many people were that Google would hire someone without a CS degree. I’m here to dispel the rumor that it’s a necessary requirement. Because it’s not. Since I started at Google a week ago, I’ve met software engineers from all types of backgrounds (**e.g.** electrical engineers, lawyers, animators). I got my bachelor's and master's in mechanical engineering from the University of California, Santa Barbara, which I definitely think helped from a resume perspective. But to be clear, I never took any courses on data structures or algorithms. (I learned most of my coding through the [Udacity Full Stack Web Developer Nanodegree](https://imp.i115008.net/g2y45) boot camp. And honed my coding skills for 2.5 years at tech startups.)
@@ -33,8 +31,6 @@ In fact, don’t let anything hold you back, ever! Let Google decide whether or 
 
 Ok, let’s get into it.
 
----
-
 ## The Approach/Plan
 
 I am a student at heart. If I could have been paid to be a student for the rest of my life, I would have. That’s why I chose software engineering, because it was the closest thing. You constantly get to learn, collaborate with others, and solve complex problems creatively.
@@ -48,8 +44,6 @@ In the real world, there’s not always such a definitively laid-out map to succ
 I approached my Google interview like the final exam of a college course. I wrote my own syllabus, created a weekly breakdown of topics to cover, found a textbook, assigned myself homework questions, set up a midterm exam, and studied my ass off.
 
 ![Photo by [Miguel Henriques](https://unsplash.com/@miguel_photo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/12000/1*n1hybfHdcHXM2WcUavpLuw.jpeg)
-
----
 
 ## The Syllabus and Homework Schedule
 
@@ -86,11 +80,9 @@ Once you’ve mastered a topic or problem, don’t forget to practice answering 
 [**The Step-by-Step Guide to Answering a Technical Question in a Coding Interview**
 **Repeat, examples, approach, code, test, and optimization**betterprogramming.pub](https://betterprogramming.pub/the-step-by-step-guide-to-answering-a-technical-question-in-a-coding-interview-37928490d4e2)
 
----
-
 ## The Textbook
 
-In school, I used my textbook **only in the context of trying to finish my homework**. ****So with homework in hand, I would find the excerpts from the textbook that allowed me to finish my homework problem. A true scholar might baulk at this, but there’s simply not enough time to learn everything, so you have to prioritize.
+In school, I used my textbook **only in the context of trying to finish my homework**. So with homework in hand, I would find the excerpts from the textbook that allowed me to finish my homework problem. A true scholar might baulk at this, but there’s simply not enough time to learn everything, so you have to prioritize.
 
 In this case, the textbook was a culmination of several resources (AlgoExpert’s video explanations, YouTube videos, Leetcode articles, Geeks for Geeks articles, etc.). Some of these resources you have to pay for, but I found that they were worth every penny.
 
@@ -128,15 +120,13 @@ Another great resource is Cracking the Coding Interview. I’ll confess, I didn�
 [**Cracking the Coding Interview: 189 Programming Questions and Solutions**
 **Cracking the Coding Interview: 189 Programming Questions and Solutions [McDowell, Gayle Laakmann] on Amazon.com. *FREE*…**www.amazon.com](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850/ref=sr_1_1?dchild=1&keywords=cracking+the+coding+interview&qid=1615744419&sr=8-1)
 
----
-
 ## Midterm
 
 I know that in school, midterms come in the middle of the term, but in this case, we’re actually going to consider midterms as practice tests for the real deal. I would plan these for at least two weeks before the real interview. This way, if you bomb the mock interview, you have some time to correct course.
 
 #### Mock interviews
 
-These help ****so, so ****much. Please do not discount them. I promise they will be awkward, possibly embarrassing, but tremendously helpful.
+These help **so, so** much. Please do not discount them. I promise they will be awkward, possibly embarrassing, but tremendously helpful.
 
 For starters, they’ll make you less nervous on game day. Interviews are incredibly stressful, especially tech ones. For the first ten seconds after a technical question is asked, I feel like I’m having an out-of-body experience, like I’m floating somewhere five feet above my computer. This feeling doesn’t really go away, but it does get better with practice. So treat mock interviews like the real deal,
 
@@ -148,8 +138,6 @@ This is the kind of advice that was hard to find online, but, wow, did it make a
 
 If you don’t have access to anyone at a FAANG company, try [pramp.com](http://www.pramp.com) or [interviewcake.com](http://www.interviewcake.com) . I’ve heard these are wonderful resources. Or if you have a friend who is also studying, interview each other.
 
----
-
 ## Dead Week
 
 **Dead week** is the week leading up to your interview. You should probably not be learning too many new things at this point. Rather, it is the time to review and try variations of the problem that you already learned.
@@ -157,8 +145,6 @@ If you don’t have access to anyone at a FAANG company, try [pramp.com](http://
 Step 1 was redoing a few times over AlgoExpert problems I’d already solved. Muscle memory, as they say. I know a lot of people out there say not to memorize, and you shouldn’t. But for me, doing the same problems over again really helps engrain the fundamentals into my memory and build my confidence when I’m reviewing. Then you can go to variations of the problem. Here’s where those Leetcode company modules came in handy.
 
 Make sure you review all the topics. Don’t just focus on the ones you suck at or the ones that you’re amazing at.
-
----
 
 ## On Interview Day
 
@@ -171,8 +157,6 @@ My Google recruiter sent me this video the morning of my interview, and it was a
 #### Pretend the interviewer is already your teammate
 
 Remember that the interviewer is on your team. Treat them like that because at the end of the day, that’s what they’re assessing you on. They’re assessing whether or not they want you to be on their team, and being a team member requires a whole lot more than just being able to code. It requires communication, collaboration, and overall pleasantness.
-
----
 
 ## General Advice
 
