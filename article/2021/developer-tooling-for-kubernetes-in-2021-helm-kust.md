@@ -79,7 +79,7 @@ Skaffold 有三种主要操作模式：
 
 2020 年，Skaffold 团队致力于让项目更容易适配各种工作流程，并与其他工具更具互操作性。其中一些改进包括更灵活地集成 CI/CD 和 GitOps ，以及更好地支持 Python 和 Java 。
 
-此外， Skaffold 现在有了一个新的测试版操作模式 - [skaffold debug](https://skaffold.dev/docs/workflows/debug/)。在这种模式下，为远程调试，Skaffold 会尝试自动配置服务运行时。虽然这是一个很好的特性，但在微服务环境中使用传统调试器充其量也是棘手的，特别是在使用远程集群时。如果你在这方面有问题，我们强烈建议你查看 Rookout 的[非中断](https://www.rookout.com/blog/making-rookouts-breakpoints-even-more-non-breaking) 调试器。
+此外，Skaffold 现在有了一个新的测试版操作模式 - [skaffold debug](https://skaffold.dev/docs/workflows/debug/)。在该模式下，Skaffold 会尝试自动为远程调试配置好服务运行时。虽然这是一个很好的特性，但在微服务环境中使用传统调试器充其量也是棘手的，特别是在使用远程集群时。如果你在这方面有问题，我们强烈建议你查看 Rookout 的[非中断](https://www.rookout.com/blog/making-rookouts-breakpoints-even-more-non-breaking) 调试器。
 
 ## 总结
 
