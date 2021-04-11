@@ -15,7 +15,7 @@ The idea of “Compat” libraries was probably one of the key aspects of Androi
 
 It all started with [ActionBar Sherlock](https://github.com/JakeWharton/ActionBarSherlock) by [Jake Wharton](https://medium.com/u/8ddd94878165) then got adopted by Google with in their “support libraries”. Later on, this was mirrored as *AndroidX* under the *Jetpack* umbrella.
 
-# Same but different
+## Same but different
 
 Under the hood, not all of those “compat”-APIs are made the same way. Some, like the ones for Fragments, are complete copies of the code. You either use `android.app.Fragment` from the OS (actually deprecated) or `androidx.fragment.app.Fragment`. Both don't share any code or have a common base class (which is why we also have two versions of the `FragmentManager`).
 
@@ -23,7 +23,7 @@ On the other hand`AppCompatActivity` for example, simply extends the original `A
 
 We can see that sometimes these “Compat”-classes are just a “bridge” to add missing functionalities and sometimes they are complete duplicates.
 
-# Let’s look at another example!
+## Let’s look at another example!
 
 One area that changed a lot over time is the notification API from Android. There was a time where every Google I/O introduced a new API change.
 
@@ -84,7 +84,7 @@ private fun checkChannels() {
 }
 ```
 
-# New requirements coming in
+## New requirements coming in
 
 Let’s assume we get the additional requirement to filter out the groups that got blocked. We can add a simple check for that:
 
@@ -101,7 +101,7 @@ private fun checkChannels() {
 
 Everything looks fine, right?
 
-# Boom!
+## Boom!
 
 But we just introduced a **crash**!  
 The reason is: `isBlocked` was only introduced in API level 28 and we did not check for that! Despite we used `NotificationManagerCompat`, we still ran into an API level issue!
@@ -110,7 +110,7 @@ And because we suppressed the`NewApi` warnings, we didn't get any warning on thi
 
 We need to **be really careful when it comes to suppression of this annotation**!
 
-# Solutions?
+## Solutions?
 
 As it is only available for method-level (not for individual statements), the best approach is to compose one-liner methods that can fit our needs.
 
@@ -132,12 +132,12 @@ If we used this approach with the above example, we would have gotten the warnin
 
 Of course, it is a bit more work for us as developers but our users will appreciate a crash-free app!
 
-# The Linter
+## The Linter
 
 The example shown was not a bug of a compat-library but rather hidden by the suppression. This could have happened with many other APIs as well.
 
-**Don’t fall into this trap !  
-**Using Compat versions might give us false security and trick us into believing that we won’t have to think about these issues.
+* Don’t fall into this trap !  
+* Using Compat versions might give us false security and trick us into believing that we won’t have to think about these issues.
 
 And again, try to **avoid** **suppressing** `NewApi`**!**
 
@@ -153,7 +153,7 @@ Unfortunately, the linter is not very smart here. It would not understand slight
 .filter { Build.VERSION.SDK_INT >= Build.VERSION_CODES.P }
 ```
 
-# Call for help?
+## Call for help?
 
 Maybe some of you want to look more into this, with some custom lint rules. Basically, we would need something like:
 
