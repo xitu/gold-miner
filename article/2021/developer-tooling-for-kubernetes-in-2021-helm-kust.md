@@ -17,7 +17,7 @@
 
 ## Helm
 
-[Helm](https://helm.sh/) 是当之无愧的王者，是打包，共享，部署 k8s 服务的事实标准。可以将 Helm 看做一个包管理器 -- 它允许你把多个 YAML 配置片段用一致性和结构化的方式组合成一个称为 ”chart“ 的安装包。 
+[Helm](https://helm.sh/) 是当之无愧的王者！它是打包，共享，部署 k8s 服务的事实标准。我们可以将 Helm 看做一个包管理器 —— 它允许你把多个 YAML 配置片段用一致性和结构化的方式组合成一个称为 ”chart“ 的安装包。 
 
 作为安装包的作者，[创建](https://opensource.com/article/20/5/helm-charts) Helm chart 可为你带来显著好处：
 
