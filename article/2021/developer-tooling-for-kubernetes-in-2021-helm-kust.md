@@ -54,7 +54,7 @@ Helm 最大的缺点是服务的定制仅限于预先存在的配置选项。不
 
 Kustomize 允许你将 Kubernetes 服务构建为一系列层和补丁，从而支持无限定制。 Kustomize 使用基于 YAML 的 Kubernetes-aware 补丁格式来添加/删除/更新服务清单的任何部分。Kustomize 在 [1.14 版本](https://kubernetes.io/blog/2019/03/25/kubernetes-1-14-release-announcement/) 成为了 [kubectl](https://dockerlabs.collabnix.com/kubernetes/beginners/what-is-kubect.html) 不可或缺的一个组成部分，你所要做的就是执行 `kubectl -k` 来调用它。文档不太全，但看官方的 [列子](https://github.com/kubernetes-sigs/kustomize/tree/master/examples) 和这篇 [博客文章](https://www.digitalocean.com/community/tutorials/how-to-manage-your-kubernetes-configurations-with-kustomize) 就会有一些了解。
 
-Kustomize 是一个强大的工具，它让你能够以任何方式修改 Kubernetes 中的服务。不幸的是，这意味着学习曲线可能相当陡峭。任意定制也意味着错误配置服务的可能性增加。Kustomize 的一个高级用例使用 Helm 的后期渲染功能来 [修补](https://github.com/thomastaylor312/advanced-helm-demos/tree/master/post-render) 现有的 Helm chart，而不需要分叉，希望能让版本升级变得无缝。
+Kustomize 是一个强大的工具，让你能够以任何方式修改 Kubernetes 中的服务。不幸的是，这也意味着学习曲线可能相当陡峭。任意定制也意味着错误配置服务的可能性增加。Kustomize 的一个高级用例使用 Helm 的后期渲染功能来 [修补](https://github.com/thomastaylor312/advanced-helm-demos/tree/master/post-render) 现有的 Helm chart，而不需要分叉，希望能让版本升级变得无缝。
 
 ## Kustomize 有什么新变化？
 
