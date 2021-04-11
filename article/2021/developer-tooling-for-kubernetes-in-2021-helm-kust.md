@@ -28,7 +28,7 @@
 
 作为安装包的使用者， [安装](https://helm.sh/docs/helm/helm_install/) Helm chart 可以为你提供更多：
 
-1. 你可以使用开源可用的 charts 和自己组织私有的 charts 。
+1. 你可以使用开源可用的 charts 和自己组织私有的 charts。
 2. 你可以根据安装包作者提供的设置自定义服务。
 3. 你有真实的版本来源来部署安装包。
 4. 你不必担心 Kubernetes 规范语言的复杂性。
