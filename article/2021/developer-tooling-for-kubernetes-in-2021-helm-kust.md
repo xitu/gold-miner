@@ -64,7 +64,7 @@ Kubernetes 生态系统内的许多工具都嵌入了 Kustomize ，将其功能�
 
 ## Skaffold
 
-[Skaffold](https://skaffold.dev/) 采用了一种不同的方法，遵循 DevOps 的最佳实践，在整个 SDLC 中保持开发环境和工作流的一致性。Skaffold 为开发工作流程、持续集成( CI )和持续部署( CD )构建和部署 Kubernetes 服务。
+[Skaffold](https://skaffold.dev/) 采用了一种不同的方法，遵循 DevOps 的最佳实践，在整个 SDLC 中保持开发环境和工作流的一致性。Skaffold 为开发工作流程、持续集成（CI）和持续部署（CD）构建和部署 Kubernetes 服务。
 
 对于构建， Skaffold 可以利用 Dockerfile、[Buildpacks](https://buildpacks.io/)、 Bazel ，甚至定制脚本(在即将发布的博客文章中有更多关于构建容器映像的内容！)。对于部署，Skaffold 包含其有限的模板引擎，并且可以调用 kubectl、 Helm 或 Kustomize 。
 
