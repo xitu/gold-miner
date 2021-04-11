@@ -7,8 +7,6 @@
 
 # Flutter Quotes App
 
-## A Quote displaying app build using flutter
-
 ![](https://miro.medium.com/max/3600/1*WGJ7_7_EXkJwzf1mVTyjrA.png)
 
 ## Introduction
@@ -27,7 +25,7 @@ Let's begin …
 
 Before we dive in, don't forget to add these packages to your project.
 
-``` yaml
+```yaml
 animated_text_kit: ^3.1.0
 google_fonts: ^1.1.1
 http: ^0.12.2
@@ -39,7 +37,7 @@ Go on open your favorite IDE (VScode or Android Studio) and create a new flutter
 
 Delete the default generated code for the counter app and Create a main function that will run our Material app.
 
-``` dart
+```dart
 // main.dart
 
 import 'package:flutter/material.dart';
@@ -75,7 +73,7 @@ API Link to get data is [**here**](https://zenquotes.io/api/quotes). When you wi
 
 Copy the raw data in the left column and give a name to the model Class.
 
-``` dart
+```dart
 // quotesmodel.dart
 
 import 'dart:convert';
@@ -115,7 +113,7 @@ Above is the generated dart model class.
 
 ### Let's create a function to make an API get requests.
 
-``` dart
+```dart
 // home.dart
 
 static Future<List<Quotes>> fetchQuotes() async {
@@ -137,7 +135,7 @@ Now that we have all things ready let's make a Beautiful UI to show our quotes.
 
 So the First thing is to create a stateful widget as **HomeScreen** which will have a **Widget** build method that will further return a Scaffold.
 
-``` dart
+```dart
 // home.dart
 
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -206,7 +204,7 @@ Since our UI will be built as soon as the app runs, but what about the ***respon
 
 The **FutureBuilder** is also a widget, so you can either have it attached to your **Scaffold** directly or attach it as a child to any widget you like. I’m going to use the **Expanded** widget as the Parent of **futureBuilder**.
 
-``` dart
+```dart
 // home.dart
 
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -277,7 +275,7 @@ Now what I wanted a behavior like this. While I am waiting for the results, I wa
 
 FutureBuilder makes this easy for you too.
 
-``` dart
+```dart
 future: fetchQuotes(),          
 builder: (BuildContext context, AsyncSnapshot<List<Quotes>> snapshot) {
     if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
@@ -292,7 +290,7 @@ Here I have created my *PageView Builder* widget ***buildPageView()*** and passe
 
 ## Styling the Text
 
-``` dart
+```dart
 // home.dart
 
 PageView buildPageView(AsyncSnapshot<List<Quotes>> snapshot) {
@@ -358,15 +356,9 @@ Here inside the Page view builder, we have used **TyperAnimatedTextKit** for whi
 
 ![](https://miro.medium.com/max/1200/1*PvXgGVrBtx31_HFm_mcWtg.gif)
 
-> Voila !! You have created your first Quote App.
->
-> ## [flutter-devs/flutter_quote_app](https://github.com/flutter-devs/flutter_quote_app.git)
->
-> ### A new Flutter project. This project is a starting point for a Flutter application. A few resources to get you started…
+Voila !! You have created your first Quote App.
 
-Feel free to connect with us, and read more articles from [**FlutterDevs.com**](http://flutterdevs.com/).
-
-We [**welcome feedback**](https://flutter.io/support/) and hope that you share what you’re working on using #**FlutterDevs**. We truly enjoy seeing how you use Flutter to build beautiful, interactive web experiences.
+Code: [**flutter-devs/flutter_quote_app**](https://github.com/flutter-devs/flutter_quote_app.git)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
