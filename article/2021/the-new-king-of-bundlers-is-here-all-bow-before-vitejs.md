@@ -2,83 +2,83 @@
 > * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-new-king-of-bundlers-is-here-all-bow-before-vitejs.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-new-king-of-bundlers-is-here-all-bow-before-vitejs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[Badd](https://juejin.cn/user/1134351730353207)、[5Reasons](https://github.com/5Reasons)
 
-# The New King of Bundlers Is Here: All Bow Before Vitejs
+# 新型前端构建工具 Vitejs 开发使用
 
-![Photo by [Paweł Furman](https://unsplash.com/@pawelo81?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/king?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13714/1*LlgpXcXbw-wEPTqxiRDDDw.jpeg)
+![[Paweł Furman](https://unsplash.com/@pawelo81?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/king?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/13714/1*LlgpXcXbw-wEPTqxiRDDDw.jpeg)
 
-Back when I started coding, JavaScript was used only to add some fancy effects to your website. Remember that trailing effect you could add to your mouse? Or how you could change the colors of your links during a hover event?
+在我刚接触编程的时候，JavaScript 只是被用来给网站添加一些交互效果。你还记得如何添加鼠标拖拽效果吗？或者如何在鼠标悬停时改变链接颜色？
 
-Of course, web development has evolved so much over the years that now the amount of JavaScript used on web applications is growing exponentially. It is because of that, that JavaScript is becoming its own bottleneck due to bundle size.
+当然，多年来，Web 开发已经有了很大的发展，如今 JavaScript 在 Web 应用中的使用量正在呈指数级增长。正因为如此，JavaScript 愈加笨重的依赖包正在成为它的瓶颈。
 
-Bundle size for some applications are starting to affect the time users need to begin using your application (they can’t use it until the bundled code is downloaded), the bundling process itself is causing development times to increase (sometimes changing a single line of code can trigger a bundling process that takes several minutes), and while there are techniques around to help solve this problem, not all of them are hitting the mark and the ones that do require a lot of effort to achieve — which as a user of these tools, you shouldn’t care, but if you’re working on them, then it becomes a real pain to maintain.
+一些应用程序的依赖包体积已经影响到用户使用应用程序前的等待时长了（在依赖包下载完成之前，他们无法使用应用程序），构建过程本身也导致开发时间的增加（有时改变一行代码就会触发一个需要几分钟的编译过程）。虽然有一些技术可以帮助解决这个问题，但并不是所有的技术都能斩草除根，而能斩草除根者往往需要花费大量精力才能实现。作为这些构建工具的使用者，你或许不在意它的实现技术，但如果你是构建工具的开发者，那么维护起来就会变得非常痛苦。
 
-That is why today I want to tell you about a tool that promises to solve all these problems: [ViteJS](https://vitejs.dev/).
+这就是为什么今天我想向你介绍一款能解决所有这些问题的工具：[ViteJS](https://vitejs.dev/)。
 
-## What makes ViteJS so great?
+## ViteJS 为何如此优秀
 
-That is, without a doubt, the first question you should be asking yourself.
+显然，这是你应该问自己的第一个问题。
 
-There are way too many bundlers out there already, do you need one more? Yes, yes you do.
+已经有很多的构建工具了，你还需要一个吗？是的，你需要。
 
-ViteJS is not just a bundler, and that is the key aspect of it. In fact, ViteJS is aiming to be your go-to tool for starting any new JavaScript-based project. It changes the way normal bundlers think about dependencies by working directly with ES Modules and letting the browser do some of the work.
+ViteJS 不仅仅是一个构建工具。事实上，ViteJS 的目标是成为构建任何基于 JavaScript 项目的首选工具。它改变了通常的构建工具对依赖包的处理方式，直接利用 ES 模块来打包构建，让浏览器来完成一些工作。
 
-It also relies heavily on HTTP to cache non-changing code. So, instead of working with a huge bundled file where you’re sending all the code to the client, it is the client that decides what to keep and what to refresh often (more on this in a second).
+它还大量使用 HTTP 缓存不更改的代码。所以，与其使用一个巨大的依赖文件，把所有的代码发送给客户端，不如由客户端决定保留哪些代码和经常刷新哪些代码（下文会详细阐述）。
 
-Some of the main features from ViteJS that you might want to pay attention to are:
+你可能要注意的 ViteJS 功能特性：
 
-* **Built with speed in mind.** The little bundling and transpiling ViteJS does, does so using [esbuild](https://esbuild.github.io/), which is built in Go. This in turn provides a faster experience (10x to 20x times faster than any JavaScript-based bundlers according to them).
-* **Compatible with TypesScript**. While it does not perform type-checking, normally your IDE will take care of that, and you can even add a quick one-liner to the build script to do it for you (a quick `tsc --noEmit` and that’s it).
-* **It has support for Hot Module Replacement (HMR)**. ViteJS provides an [API](https://vitejs.dev/guide/api-hmr.html#hot-data) for any ESM-compatible framework to use.
-* **Improved code-splitting techniques**. ViteJS implements some improvement over the browser’s normal chunk-loading process. This ensures that if there is a chance to load several chunks in parallel, they will be loaded that way.
+* **构建时考虑到了处理时效**。ViteJS 所做的少量依赖和转码工作，都是使用 [esbuild](https://esbuild.github.io/) 来完成的，而 esbuild 是建立在 Go 中的。这反过来又提供了更快的体验（根据他们的说法，比任何基于 JavaScript 的构建工具快 10~20 倍）。
+* **与 TypesScript 兼容**。虽然它不执行类型检查，但通常你的 IDE 会处理这个问题，你甚至可以在构建脚本中添加一个快速的单行代码来为你做这件事（快速的 `tsc --noEmit`）。
+* **它支持热模块替换（HMR）**。ViteJS 提供了一个 [API](https://vitejs.dev/guide/api-hmr.html#hot-data)，供任何 ESM 兼容的框架使用。
+* **改进了代码拆分技术**。ViteJS 实现了对浏览器正常分块加载过程的一些改进。这确保了如果有机会并行加载几个分块，它们将以这种方式加载。
 
-The list of interesting features goes on actually, so make sure to check out their site for more details.
+事实上，ViteJS 的功能特性还在继续增加，所以一定要去 ViteJS 网站查看更多详情。
 
-## The plugin system
+## ViteJS 内置插件系统
 
-One of the main advantages of ViteJS is that it has a plugin system built-in, which means the community can (and has) add extra features and integrations with other frameworks (such as React and Vue).
+ViteJS 的主要优势之一是它内置了一个插件系统，这意味着社区可以（并且已经）给其他框架（如 React 和 Vue）添加额外的功能和插件。
 
-### Using ViteJS for your Vue projects
+### Vue 项目使用 ViteJS
 
-[The list of plugins for Vue](https://github.com/vitejs/awesome-vite#vue) is quite extensive, the only thing you need to pay attention to, is that they’re not all compatible with the same version of the framework (some of them work for Vue 2, while others only for Vue 3, and some work for both).
+[Vue 的插件列表](https://github.com/vitejs/awesome-vite#vue)是相当丰富的，唯一需要注意的是，这些插件并不都是兼容同一个版本的框架（有的插件适用于 Vue 2，而有的插件只适用于 Vue 3，有的则是两者都适用）。
 
-To get your Vue App started, you can use a plugin such as [Vitesse](https://github.com/antfu/vitesse) which you can simply clone and rename. It comes prepacked with multiple built-in features and plugins, such as:
+为了让你的 Vue App 方便使用，你可以使用一个插件，例如 [Vitesse](https://github.com/antfu/vitesse)，你可以简单地克隆和重命名。它预装了多种内置功能和插件，例如：
 
-* [**WindiCSS**](https://github.com/windicss/windicss) as its UI framework and **[WindiCSS Typography](https://windicss.netlify.app/guide/plugins.html#typography).**
-* [**Iconify**](https://iconify.design/) allows you to use icons from multiple icon sets around the web.
-* **ViteJS’ [Vue i18n plugin](https://github.com/intlify/vite-plugin-vue-i18n)**. So that’s already backed-in, no need to worry about adding internationalization support.
-* **A group of VS Code extensions** (for Vite’s dev server, i18n ally, WindiCSS, Iconify Intellisense, and others), which is great if you’re a VS Code user, otherwise they won’t do any good.
+* [**WindiCSS**](https://github.com/windicss/windicss) 作为 UI 框架和 [**WindiCSS 排版**](https://windicss.netlify.app/guide/plugins.html#typography)。
+* [**Iconify**](https://iconify.design/) 允许你使用网络上多个图标库的图标。
+* **ViteJS 的 [Vue i18n 插件](https://github.com/intlify/vite-plugin-vue-i18n)**，增加国际化支持。
+* **VS Code 扩展系列** (例如 Vite 的 `dev server`、`i18n ally`、`WindiCSS`、`Iconify Intellisense` 等)，如果你是 VS Code 用户，这是很好的选择。
 
-There are more built-in features, so make sure to check out their [Repo](https://github.com/antfu/vitesse).
+还有更多的内置功能，一定要去看 [Repo](https://github.com/antfu/vitesse)。
 
-If, on the other hand, you just want to start from scratch, and build your own thing, you can also simply use ViteJS’ CLI tool:
+如果你只是想从头开始，构建自己的应用，你也可以简单地使用 ViteJS 的 CLI 工具。
 
 ```bash
-# If you're using npm 7
+# 如果你正在使用 npm 7
 $ npm init @vitejs/app my-vue-app -- --template vue 
 
-# If you're using npm 6
+# 如果你正在使用 npm 6
 $ npm init @vitejs/app my-vue-app --template vue
 
-# And if you're a yarn-biased developer
+# 如果你是一个偏向于使用 yarn 的开发者
 $ yarn create @vitejs/app my-vue-app --template vue
 ```
 
-Either one of these commands will generate the same output:
+以上任意一个命令都会产生相同的输出：
 
 ![](https://cdn-images-1.medium.com/max/2860/1*2pPul6Se15bcLeUJpwTHDA.png)
 
-It’s really fast (under a second) and after following those 3 extra steps, your Vue app is up and running.
+它的速度真的很快（不到一秒），在遵循这额外的三个步骤后，你的 Vue 应用就会启动并运行。
 
 ![](https://cdn-images-1.medium.com/max/2092/1*hfPIpmBPpAffHUcwhMa1Qg.png)
 
-#### ViteJS and React
+### React 项目使用 ViteJS
 
-You’re not a Vue type of dev? No problem, Vite has you covered.
+你不是 Vue 开发者？没问题，Vite 可以帮你解决。
 
-Just use the same line as before, but instead of `vue` use `react` or `react-ts` and you’re done.
+只需使用与之前相同的命令行，并且使用 `react` 或 `react-ts` 代替 `vue` 就可以了。
 
 ```bash
 $ npm init @vitejs/app my-react-app --template react-ts
@@ -87,36 +87,36 @@ $ npm install
 $ npm run dev
 ```
 
-The above lines will output the equivalent React application using TypeScript:
+以上命令行将使用 TypeScript 输出相同的 React 应用程序。
 
 ![](https://cdn-images-1.medium.com/max/2368/1*UMWnw5t9qw1Lj2Ffo-UxLA.png)
 
-Do you want more presets? You can find 2 plugins, depending on your needs:
+你想要更多的预设吗？根据你的需求可以找到两个插件：
 
-1. If you’re looking for a React project with TypeScript, [Chakra](https://chakra-ui.com/) and [Cypress](https://www.cypress.io/), you have [this plugin](https://github.com/Dieman89/vite-reactts-chakra-starter).
-2. If instead of Chakra, you’re looking to create an Electron app, you have [this one.](https://github.com/maxstue/vite-reactts-electron-starter) This one also comes with [TailwindCSS](https://tailwindcss.com/) included.
+1. 如果你正在寻找一个带有 TypeScript、[Chakra](https://chakra-ui.com/) 和 [Cypress](https://www.cypress.io/) 的项目，你可以使用这个[插件](https://github.com/Dieman89/vite-reactts-chakra-starter)。
+2. 如果你不想使用 Chakra，而是想创建一个 Electron 应用，你可以使用这个[插件](https://github.com/maxstue/vite-reactts-electron-starter)，它还包含了 [TailwindCSS](https://tailwindcss.com/)。
 
-Both options work with TypeScript, and if you’re familiar with any of those combinations, I would suggest picking them up instead of starting from scratch. Mind you, the default starter project is perfectly fine, but you get part of your boilerplate setup already done with these plugins.
+这两个选项都可以和 TypeScript 一起使用，如果你熟悉这些组合，我建议你选择使用这些插件而不是从头开始。你要知道，默认的启动项目是完全没有问题的，但是你可以通过这些插件得到一部分已经完成的模板设置。
 
-## What about other bundlers?
+## 关于其它构建工具
 
-ViteJS is not the first tool to attempt to do this, and it’s definitely not the most known either. But it was created because the current ruling class is not tackling the performance problem with the latest trends in the industry. They’re still trying to solve problems that given today’s state-of-the-art shouldn’t exist.
+ViteJS 并不是第一个尝试这样做的工具，也绝对不是最知名的。但它之所以被创造出来，是因为目前的主流工具并没有用行业的最新趋势来解决性能问题。他们还在试图解决一些鉴于当今最先进的技术而不应该存在的问题。
 
-The main difference between Vite and other bundlers such as Webpack, is that the latter will try to go through your dependency tree, compile and optimize the packaged code in a way that is better for any browser to get your code. Notice the word “any” there, since that will be the major problem for Vite. This process however, takes time, and if you’ve been using any of these established bundlers you probably know what I mean. It takes a while, but the end result is good for any client.
+ViteJS 和其他构建工具（如 Webpack）的主要区别在于，后者会尝试通过你的依赖树，编译和优化打包后的代码，以更好地让任何浏览器获取你的代码。注意这里的**任何**一词，因为这将是 ViteJS 的主要问题。然而，这个过程需要时间，如果你一直在使用这些成熟的构建工具，你可能知道我的意思。它需要一段时间，但最终的结果对任何浏览器来说都是好的。
 
-On the other side of the spectrum, we have Vite, which like I already mentioned, takes advantage of the browser’s ES Module support. This means the browser will be in charge of capturing the `import` and `export` and request them individually. This means you can get your app running in no time, but it also means only new browsers will be compatible with your app.
+另一方面，我们有 ViteJS，就像我已经提到的，它利用了浏览器的 ES 模块支持。这意味着浏览器将负责处理 `import` 和 `export`，并单独请求它们。这意味着你可以在短时间内让你的应用运行起来，但这也意味着只有新的浏览器才能兼容你的应用。
 
-As you can see, from the following table showing support for `import` taken from [Mozilla’s site](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), support is coming along nicely, however, older versions will never be able to catch up:
+从下面的 [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) 表格中可以看出，现代浏览器对 `import` 的支持是很好的，但是，旧版本永远无法支持。
 
-![Screen taken from Mozilla’s site](https://cdn-images-1.medium.com/max/4020/1*A3skPd6C2oiKF743LgwO0A.png)
+![MDN 截图](https://cdn-images-1.medium.com/max/4020/1*A3skPd6C2oiKF743LgwO0A.png)
 
-There is still work to be done compatibility-wise, so if you’re thinking about using ViteJS for your next project, make sure your target audience tends to update their browsers regularly.
+兼容性方面还有工作要做，所以如果你考虑在下一个项目中使用 ViteJS，请确保你的目标受众倾向于定期更新他们的浏览器。
 
 ---
 
-ViteJS has the potential of dethroning the current industry standards when it comes to bundler tools. It has the technology, it has the plugin ecosystem and it has the required features. The only thing stopping it from getting the crown of de-facto bundler, is its compatibility with older browsers.
+当涉及到依赖工具时，ViteJS 有可能颠覆当前的行业标准。它有技术，它有插件生态系统，它有所需的功能。唯一阻止它获得事实上的构建工具桂冠的，是它对旧浏览器的兼容性。
 
-This is definitely a problem today, but it’s a problem for a diminishing section of our industry, so keep an eye open for Vite, since it’ll be growing as browsers get older.
+显然，浏览器兼容性在今天仍旧是一个问题，但这是我们行业中越来越少的一部分人的问题，所以请关注 ViteJS，因为它会随着浏览器的更新而愈加流行。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
