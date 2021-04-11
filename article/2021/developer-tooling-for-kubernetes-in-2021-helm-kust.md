@@ -45,7 +45,7 @@ Helm 新增的另一个很好的功能是 [后期渲染](https://helm.sh/docs/to
 
 最后但并非最不重要的是， 2020 年还转向更分散的 chart 管理方式，并推出两个共享 chart 的中央存储库:
 
-1. [ArtifactHub](https://artifacthub.io/) 由 CNCF 。
+1. CNCF 的 [ArtifactHub](https://artifacthub.io/)。
 2. [ChartCenter](https://chartcenter.io/) 由 JFrog （查看 Rookout 团队成员 Josh 的 [网络研讨会](https://lp.rookout.com/webinar-modernized-developer-workflow) ，了解更多信息）。
 
 ## Kustomize
