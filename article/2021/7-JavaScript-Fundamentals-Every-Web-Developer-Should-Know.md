@@ -76,7 +76,7 @@
     const games = ['Fornite', 'Overwatch', 'Valorant'];
     const newGames = games.filter(startsWith('Fo'));
     console.log(newGames);
-    //["Fornite"]
+    // ["Fornite"]
 ```
 
 在同一个示例中，我们可以看到 `startsWith` 函数返回的函数是如何作为参数发送到 `filter` 数组方法的。
