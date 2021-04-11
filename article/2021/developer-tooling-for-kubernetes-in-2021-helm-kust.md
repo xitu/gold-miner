@@ -85,7 +85,7 @@ Skaffold 有三种主要操作模式：
 
 当设计到打包，部署和共享声名狼藉 Kubernetes 服务清单时，我们已经看到了显著的市场集成。CNCF 现在是主要工具的发源地，其中 Helm 是一个官方的 CNCF 项目， Kustomize 集成到 kubectl 和许多其他工具中。与 Kubernetes 生态系统的许多其他部分一样，这里的工具已经非常成熟，每个工具都有明确的用途。
 
-使用 Helm 来打包、共享和安装定义好的 Kubernetes 服务。使用 Kustomize 通过补丁的方式来修改现有的 Kubernetes 服务。Skaffold 是一个有用的工具(而且很流行！)，但是配置 Kubernetes 服务并不是它的主要目的。
+我们可以使用 Helm 来打包、共享和安装定义好的 Kubernetes 服务；使用 Kustomize 通过补丁的方式来修改现有的 Kubernetes 服务。至于 Skaffold？它是一个有用的工具（而且它还很流行！），但是配置 Kubernetes 服务并不是它的主要目的。
 
 我希望你觉得这篇简短的指南很有用--请不要犹豫，与我分享你的反馈，并让我知道你想要我涵盖的任何其他主题。
 
