@@ -26,12 +26,14 @@
 对象是动态的，即一旦创建，就可以添加、编辑或删除属性。
 
 下面是一个使用字面量语法定义的简单对象。它有两个属性：
+
+```js
+const game = {
+  title : 'Settlers',
+  developer: 'Ubisoft'
+}
 ```
-    const game = {
-      title : 'Settlers',
-      developer: 'Ubisoft'
-    }
-```
+
 ## 3、对象继承自其他对象
 
 如果你曾经使用的语言是类似于 Java 或 C# 等基于 `class` 的语言，你可能习惯于从其他 `class` 继承 `class`。但是，JavaScript 不是这样的。
@@ -41,14 +43,18 @@
 如前所述，在这种语言中，对象是属性的集合。当创建一个对象时，他有一个名为 `__proto__` 的隐藏属性，它引用其他对象。这个被引用的对象称为 `prototype`。
 
 下面是一个创建空对象的例子（可以说，没有属性的对象）：
+
+```js
+const obj = {};
 ```
-    const obj = {};
-```
+
 即使 obj 看起来是空的没有任何属性，它实际上也是有一个隐藏属性 `__proto__` 的：
+
+```js
+obj.__proto__ === Object.prototype;
+//true
 ```
-    obj.__proto__ === Object.prototype;
-    //true
-```
+
 在这类对象上，我们可以访问还没有定义的方法，例如 `toString` 方法，即使我们还没有定义这样的方法。这怎么可能呢？
 
 此方法继承自 `Object.prototype`。当尝试访问该方法时，JS 引擎首先尝试在当前对象上查找该方法，然后再查找其原型上的属性。
@@ -58,25 +64,25 @@
 ## 4、函数就是值
 
 在 JavaScript 中，函数就是值。就像其他值一样，函数可以赋值给变量：
-```
-    const sum = function(x, y) {
-        return x + y
-    }
+
+```js
+const sum = function(x,y){ return x + y }
 ```
 这在其他编程语言中是做不到的。
 
 与其他值一样，函数可以传递给不同的函数或被函数返回。下面是一个函数返回另一个函数的示例：
 
-```
-    function startsWith(text) {
-        return function(name) {
-            return name.startsWith(text);
-        }
-    }
-    const games = ['Fornite', 'Overwatch', 'Valorant'];
-    const newGames = games.filter(startsWith('Fo'));
-    console.log(newGames);
-    // ["Fornite"]
+```js
+function startsWith(text){
+  return function(name){
+    return name.startsWith(text);
+  }
+}
+
+const games = ['Fornite', 'Overwatch', 'Valorant'];
+const newGames = games.filter(startsWith('Fo'));
+console.log(newGames);
+//["Fornite"]
 ```
 
 在同一个示例中，我们可以看到 `startsWith` 函数返回的函数是如何作为参数发送到 `filter` 数组方法的。
@@ -87,7 +93,20 @@
 
 而且，外部函数执行后，内部函数可以引用外部函数的变量。下面是关于这方面的例子；
 
- <iframe src="https://medium.com/media/5f2da0a6d087ea65982f87757c602d99" frameborder=0></iframe>
+```js
+function createCounter(){
+  let x = 0;
+  return function(){
+    x = x + 1;
+    return x;
+  }
+}
+
+const count = createCounter();
+console.log(count());//1
+console.log(count());//2
+console.log(count());//3
+```
 
 `count` 函数可以从 `createCounter` 父函数访问 `x` 变量，即使在执行之后也是如此。`count` 就是闭包函数。
 
@@ -96,12 +115,14 @@
 JavaScript 把基本类型当作对象，从而给人一种错觉。实际上，基本类型并不是对象. 基本类型不是属性的集合。
 
 然而，我们可以在基本类型上调用方法。比如，我们可以在字符串上调用 `toUpperCase` 方法：
+
+```js
+const upperText = 'Minecraft'.toUpperCase();
+console.log(upperText);
+//'MINECRAFT'
 ```
-    const upperText = 'Minecraft'.toUpperCase();
-    console.log(upperText);
-    //'MINECRAFT'
-```
-像 'Minecraft' 这样的简单文本是基本类型，自身没有任何方法。不过 JavaScript 会使用内置的 String 构造函数将其转换为对象，然后我们就能够对新创建的对象执行 `toUpperCase` 方法。
+
+像 `Minecraft` 这样的简单文本是基本类型，自身没有任何方法。不过 JavaScript 会使用内置的 String 构造函数将其转换为对象，然后我们就能够对新创建的对象执行 `toUpperCase` 方法。
 
 通过在底层把基本类型转换为包装对象，JavaScript 允许你调用方法，从而视它们为对象。
 
