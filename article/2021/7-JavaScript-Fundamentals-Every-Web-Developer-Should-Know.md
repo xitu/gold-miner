@@ -5,7 +5,7 @@
 > * 译者：[Hyde Song](https://github.com/HydeSong)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[greycodee](https://github.com/greycodee)
 
-## 每位 Web 开发者都应该知道的 7 个 JavaScript 基础知识
+# 每位 Web 开发者都应该知道的 7 个 JavaScript 基础知识
 
 ### 函数是值，对象继承其他对象等等
 
