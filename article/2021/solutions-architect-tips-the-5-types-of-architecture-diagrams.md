@@ -37,7 +37,7 @@
 
 该图说明了业务流程中的流动部分。
 
-![Photo by the author.](https://cdn-images-1.medium.com/max/2000/0*ZUyEi9v9becFhGfp.png)
+![图片由作者提供](https://cdn-images-1.medium.com/max/2000/0*ZUyEi9v9becFhGfp.png)
 
 ### 受众
 
