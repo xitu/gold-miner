@@ -58,7 +58,7 @@ Kustomize 是一个强大的工具，让你能够以任何方式修改 Kubernete
 
 ## Kustomize 有什么新变化？
 
-Kubernetes 生态系统内的许多工具都嵌入了 Kustomize ，将其功能添加到自己的工具中。最突出的例子是编排和持续部署工具，如 [ArgoCD](https://argoproj.github.io/argo-cd/) 、 [Flux](https://fluxcd.io/) 和 [Kubestack](https://www.kubestack.com/) 。如果你搜索类似 Kustomize 的补丁功能，请查看你的 CD (持续部署) 工具，你可能会在那里找到它。
+Kubernetes 生态系统内的许多工具都嵌入了 Kustomize ，将其功能添加到自己的工具中。最突出的例子是编排和持续部署工具，如 [ArgoCD](https://argoproj.github.io/argo-cd/)、[Flux](https://fluxcd.io/) 和 [Kubestack](https://www.kubestack.com/) 。如果你搜索类似 Kustomize 的补丁功能，请查看你的 CD（持续部署）工具，你可能会在那里找到它。
 
 如果你和我一样不熟悉 Kubernetes 构建过程，那么你可能不知道在初始集成期间，维护者已经将 [kubectl 中嵌入](https://github.com/kubernetes/kubectl/issues/818) 的 Kustomize 版本冻结在 2.0.3 。除了让文档更加混乱之外，这意味着 kubectl 内的版本缺少了过去两年中的一系列增强功能。团队在重新集成方面取得了重大进展，希望他们能尽快解决这个问题。同时，如果你需要最新的版本，可以考虑将 Kustomize 作为一个 [独立](https://kubectl.docs.kubernetes.io/installation/kustomize/) 的 CLI 工具。
 
