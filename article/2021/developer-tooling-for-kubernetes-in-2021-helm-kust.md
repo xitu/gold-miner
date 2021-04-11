@@ -73,7 +73,7 @@ Skaffold 有三种主要操作模式：
 1. **skaffold dev** —— 这将在一个监视、构建、部署循环中运行 Skaffold 。在此模式下，你可以在本地编辑源文件，Skaffold 会将它们部署到你选择的集群中。Skaffold 支持端口转发和日志跟踪，在此模式下工作时可以提供更流畅的开发体验。
 2. **skaffold build** —— 这将单次运行 Skaffold 来构建你的工件，并将它们推送到你选择的存储库。
 3. **skaffold deploy** - 这将把你构建的服务部署到你选择的集群中，可能会使用 Helm 或 Kustomize 来执行此操作。
-如果要使用单个命令构建和部署，可以使用 **skaffold run**。
+如果要使用单个命令构建和部署，你可以选择 **skaffold run**。
 
 ## Skaffold 有什么新变化？
 
