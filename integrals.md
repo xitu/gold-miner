@@ -3401,10 +3401,11 @@
 |------|-------|-------|
 |[开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119)|校对|1|
 
-## 译者：[leviding](https://github.com/leviding) 历史贡献积分：196 当前积分：16 二零二一：0
+## 译者：[leviding](https://github.com/leviding) 历史贡献积分：196 当前积分：1 二零二一：0
 
 |文章|类型|积分|
 |------|-------|-------|
+|兑换 1 个搪瓷杯|减去积分|15|
 |兑换 3 件卫衣|减去积分|135|
 |[GitHub 2020 报告：在工作和娱乐之间找到平衡](https://github.com/xitu/Annual-Survey/blob/main/2020/github/GitHub%202020%20报告：在工作和娱乐之间找到平衡.pdf)|翻译|0|
 |[如何在 Keras 中用 YOLOv3 进行对象检测](https://juejin.im/post/5d12eef5e51d455a68490ba8)|校对|4|
@@ -7613,10 +7614,12 @@
 |[以面试官的角度来看 React 工作面试](https://juejin.im/post/5bca74cfe51d450e9163351b)|校对|1.5|
 |[你需要知道的所有 Flexbox 排列方式](https://juejin.im/post/5bc728f2f265da0aef4e3f6d)|校对|3.5|
 
-## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：78.5 当前积分：78.5 二零二一：1
+## 译者：[Ivocin](https://github.com/Ivocin) 历史贡献积分：78.5 当前积分：33.5 二零二一：1
 
 |文章|类型|积分|
 |------|-------|-------|
+|兑换 1 套徽章|减去积分|25|
+|兑换 1 个鼠标垫|减去积分|20|
 |[我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)|校对|1|
 |[为什么我用 JavaScript 来编写 CSS](https://juejin.im/post/5c8878b7f265da2deb6ae6f2)|翻译|2|
 |[Hooks 对 Vue 而言意味着什么](https://juejin.im/post/5c7784d5f265da2de713629c)|翻译|4|
