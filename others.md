@@ -1,3 +1,8 @@
+* [解决方案架构师技巧：架构图的 5 种类型](https://juejin.cn/post/6949879274157539358)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Rust 1.51.0 发布](https://juejin.cn/post/6944238705078960165)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Git 2.31 中的闪光点](https://juejin.cn/post/6944951701942042660)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [“高级”黑客使用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户](https://juejin.cn/post/6945702690047557669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [2020 年 Go 语言开发者调查报告](https://juejin.cn/post/6943540695030300708)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
 * [Raspberry Pi 九岁啦：你可能不知道的 9 件事](https://juejin.cn/post/6939451780610654245)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
