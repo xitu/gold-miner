@@ -48,59 +48,71 @@ MySQL 尽管在读写操作混合使用时并发性很差，但是因其优秀�
 
 #### 统计数据
 
-**PostgreSQL: Avg time (in ms): WRITE:** 2279.25 | **READ:** 31.65 | **UPDATE**: 26.26
+**PostgreSQL：平均时间（毫秒）：写入：**2279.25、**读取：**31.65、**更新：**26.26
 
 ![https://dzone.com/storage/temp/14521891-1615593359984.png](https://dzone.com/storage/temp/14521891-1615593359984.png)
 
-**MySQL: Avg time (in ms): WRITE:** 3501.05 | **READ:** 49.99 | **UPDATE** : 62.45
+**MySQL：平均时间（毫秒）：写入：**3501.05、**读取：**49.99、**更新：**62.45
 
 ![https://dzone.com/storage/temp/14521893-1615593515968.png](https://dzone.com/storage/temp/14521893-1615593515968.png)
 
-#### Conclusion
+#### 结论
 
-If we look at the numbers, it reflects that PostgreSQL is way better than MySQL if it’s a matter of dealing with JSON data type which is, of course, one of the key features of having PostgreSQL.
+从上面的数据可以看出，PostgreSQL 在处理 JSON 时的性能要比 MySQL 更好，当然这也是 PostgreSQL 亮点之一。
 
-The frequent type of operation(READ, WRITE, UPDATE) performed in a database determines which database suits your personal or professional project. The definite conclusion from these metrics is that out of the box, while MySQL is architected to run faster than PostgreSQL, sometimes benchmarks are particular to the application.
+我们可以对数据库进行频繁的操作（读取、写入、更新）来了解其性能，然后选出最好的来用到你的项目上。通过上面的测试数据结果我们可以知道，尽管 MySQL 的速度比 PostgreSQL 要快，但也只是在某些特定条件下。
 
-## Indexes
+## 索引
 
-The index is a critical factor in all databases. It enhances database performance, as it allows the database servers to find and retrieve specific rows much faster than without an index. But, indexes add a particular overhead to the database system as a whole, so they should be used sensibly. Without an index, the database server would begin with the first row and then read through the entire table to find the relevant rows: the larger the table, the more costly the operation. Both PostgreSQL and MySQL have specific ways of handling indexes.
+索引是所有数据库最重要的特性之一。数据库在查询数据时，有索引查询比没有索引查询快的多。但是，索引也会给数据库带来额外的开销，所有我们好刚要用在刀刃上，别瞎用。在没有索引的情况下，数据库在查找数据时会进行全文搜索（Full Text），也就是会从第一行开始一行一行的进行对比查找，这样的话数据量越多，查询的越慢。
 
-- **Standard B Tree Indexes:** PostgreSQL includes built-in support for regular B-tree and hash indexes. Indexes in PostgreSQL also support the following features:
-- **Expression indexes:** can be created with an index of the result of an expression or function instead of a column's value.
-- **Partial indexes:** index only a part of a table.
+PostgreSQL 和 MySQL 都有一些处理索引的特定的方法：
 
-Let us assume we have a table in PostgreSQL named users, where each row in the table represents a user. The table is defined as follows.`CREATE TABLE users (  id    SERIAL PRIMARY KEY,  email VARCHAR DEFAULT NULL,  name  VARCHAR);`Now, let us assume we create the following indexes on the table above.
+- **B-Tree索引：**PostgreSQL 支持 B-Tree 索引和 Hash 索引。同时 PostgreSQL 还支持以下特性：
+- **表达式索引：**我们可以为表达式或函数来创建一个索引，而不是用字段。
+- **局部索引：**索引只是表的一部分
+
+假设 PostgreSQL 有一个 `user` 表，表的每一行代表一个用户。那么表可以这么定义：
+
+```sql
+CREATE TABLE users (
+    id    SERIAL PRIMARY KEY,  
+    email VARCHAR DEFAULT NULL,  
+    name  VARCHAR
+);
+```
+
+假设我们为该表创建如下索引：
 
 ![https://dzone.com/storage/temp/13693160-screen-shot-2020-07-01-at-113832-am.png](https://dzone.com/storage/temp/13693160-screen-shot-2020-07-01-at-113832-am.png)
 
-What is the difference between the two indexes shown above? The first index #1 is a partial index while index #2 is an expression index. As the PostgreSQL docs states,
+上面两个索引有什么区别呢？ 索引 `#1` 是一个局部索引，索引 `#2` 是一个表达式索引。 正如 PostgreSQL 文档所描述的那样，
 
-> “A partial index is built over a subset of rows in a table defined by a conditional expression (called the predicate of the partial index). The index contains entries only for those table rows that satisfy the predicate. A major reason for using a partial index is to avoid indexing commonly occurring values. Since a query searching for a commonly occurring value (one that accounts for more than a few percent of all the table rows) will run through most of the table anyway, the benefit from using an index is marginal. A better strategy is to create a partial index where such rows exclude altogether. Partial indexing reduces the index's size and hence speeds up those queries that do use the index. It will also speed up many write operations because the index does not need to update in all cases” - Documentation on Partial Indexes - Postgres Docs.
+> “局部索引建立在由条件表达式定义的表中的行子集上（称为局部索引的谓词）。索引仅包含满足谓词的那些表行的条目。使用局部索引的主要原因是避免索引常见的值。由于查询通常会出现的值（占所有表行百分之几的查询）无论如何都会遍历大多数表，因此使用索引的好处是微不足道的。更好的策略是创建局部索引，其中这些行完全排除在外。局部索引减少了索引的大小，因此加快了使用索引的查询的速度。 这也将使许多写入操作速度更快，因为在所有情况下都不需要更新索引。” —— 摘自[ PostgreSQL 文档](https://www.postgresql.org/docs/12/indexes-partial.html)
 
-**MySQL:** Most MySQL indexes (PRIMARY KEY, UNIQUE, INDEX, and FULLTEXT) are in B-trees. Exceptions include the indexes on spatial data types that use R-trees. MySQL also supports hash indexes, and the InnoDB engine uses inverted lists for FULLTEXT indexes.
+**MySQL：** :MySQL 大部分索引（PRIMARY KEY、UNIQUE、INDEX、FULLTEXT）在使用时都是使用B-Tree数据结构。特殊情况下也会使用 R-Tree 的数据结构。 MySQL 也支持 Hash 索引，而且在 InnoDB 引擎下使用 FULLTEXT 索引时是倒序排列的。
 
-## Database Replication
+## 数据库复制
 
-Another performance difference, as it concerns both PostgreSQL and MySQL, is **replication**. Replication is the ability to copy data from one database server to another database on a different server. This distribution of information means that users can now access data without directly affecting other users. One of the difficult tasks of database replication is harmonizing data consistency across a distributed system. MySQL and PostgreSQL offer several possible options for database replication. Apart from one master to one standby and multiple standbys, PostgreSQL and MySQL offer the following replication options:
+PostgreSQL 和 MySQL 的另一个性能差异是**复制**。复制指的是将数据从一个数据库复制到另外一台服务器上的数据库。这样的话用户在另一台服务器上读取数据不会影响到当前服务器的数据读取。数据库复制最大的困难之一是协调整个分布式系统中的数据一致性。MySQL 和 PostgreSQL 为数据库复制提供了几个选项。除了一个主服务器，一个备用数据库和多个备用数据库之外，PostgreSQL 和MySQL 还提供以下复制选项：
 
-## Multi-Version Concurrency Control
+## 多版本并发控制（MVCC）
 
-When users read and write to a database simultaneously, that phenomenon is known as concurrency. So, multiple clients reading and writing at the same time can lead to various edge cases/race conditions, i.e., read followed by write happened for same record X and numerous other conditions. Various modern databases make use of ***transactions*** to mitigate problems in concurrency.
+当用户同时对一个数据库进行读和写操作时，这种现象就叫并发现象。因此，多个客户端同时读取和写入会导致各种边缘情况/竞赛条件，即，对于相同的记录X和许多其他条件，先读取后写入。各种现代数据库都利用**事务**来减轻并发问题。
 
-Postgres was the first DBMS to rollout multi-version concurrency control (MVCC), which means reading never blocks writing and vice versa. This feature is one of the main reasons why businesses prefer Postgres to MySQL.
+Postgres 是第一个推出多版本并发控制（MVCC）的 DBMS，这意味着读取永远不会阻止写入，反之亦然。此功能是企业偏爱 Postgres 而不是 MySQL 的主要原因之一
 
-> "Unlike most other database systems, which use locks for concurrency control, Postgres maintains data consistency by using a multi-version model. Furthermore, while querying a database, each transaction sees a snapshot of data (a database version) as it was some time ago, regardless of the underlying data's current state. It protects the transaction from viewing inconsistent data caused by (other) concurrent transaction updates on the same data rows, providing transaction isolation for each database session." Multi-Version Concurrency Control" — PostgreSQL Documentation
+> "不同于大多数数据库使用锁来进行并发控制, Postgres通过使用多版本模型维护数据一致性。此外，在查询数据库时，无论基础数据的当前状态如何，每个事务都会像以前一样看到数据快照（数据库版本）。它可以防止事务查看同一数据行上的（其他）并发事务更新引起的不一致数据，从而为每个数据库会话提供事务隔离。" —— 摘自[ PostgreSQL 文档](https://www.postgresql.org/docs/7.1/mvcc.html)
 
-MVCC lets multiple readers and writers concurrently interact with the Postgres database, eliminating the need for a read-write lock every time someone interacts with the data. A side benefit is this process provides a significant efficiency boost. **MySQL** utilizing the InnoDB storage engine, MySQL supports writes and reads of the same row to not interfere with each other. Every time MySQL writes data into a row, it *also* writes an entry into the rollback segment. This data structure stores “undo logs” used to restore the row to its previous state. It’s called the “rollback segment” because it is the tool used to handle rolling back transactions.
+MVCC 允许多个读取器和写入器同时与 Postgres 数据库进行交互，从而避免了每次有人与数据进行交互时都需要读写锁的情况。附带的好处是此过程可显着提高效率。**MySQL** 利用 InnoDB 存储引擎，支持对同一行的写入和读取而不会互相干扰。MySQL每次将数据写入一行时，也会将一个条目写入回滚段中。此数据结构存储用于将行恢复到其先前状态的**回滚日志**。之所以称为**回滚段**，是因为它是用于处理回滚交易的工具。
 
-> "InnoDB is a multi-versioned storage engine: it keeps the information about old versions of changed rows to support transactional features such as concurrency and rollback. This information is stored in the tablespace in a data structure called a rollback segment (after an analogous data structure in Oracle). InnoDB uses the information in the rollback segment to perform the undo operations needed in a transaction rollback. It also uses the information to build earlier versions of a row for a consistent read." - InnoDB Multi-Versioning — MySQL MVCC
+> "InnoDB 是一个多版本存储引擎：它保留有关已更改行的旧版本的信息，以支持诸如并发和回滚之类的事务功能。此信息存储在表空间中的数据结构中，该数据结构称为回滚段（Oracle 中也有类似的结构）。InnoDB 使用回滚段中的信息来执行事务回滚中所需的撤消操作。它还使用该信息来构建行的早期版本以实现一致的读取。" —— 摘自[ MySQL 文档](https://dev.mysql.com/doc/refman/8.0/en/innodb-multi-versioning.html)
 
-## Conclusion
+## 总结
 
-We have treated a few performance differences between PostgreSQL and MySQL in this post. It’s important to note that database performance relies on several other factors such as Hardware, type of OS, and most importantly, your understanding of the intended database. Both PostgreSQL and MySQL have unique qualities and drawbacks, but understanding what features would suit a project and integrating those features would ultimately result in performance.
+在本文中，我们处理了PostgreSQL和MySQL之间的一些性能差异。虽然数据库性能会受硬件、操作系统类型等等的影响，但是最主要的是你对目标数据库的了解。PostgreSQL 和 MySQL 都有各自的有点和缺点，但是了解哪些功能适合某个项目并整合这些功能最终可以提高性能。
 
-I’d love to hear about your experience with database performance.
+我很想听听你在数据库性能方面的经验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
