@@ -1,3 +1,5 @@
+* [谷歌 DeepMind 发布 NFNet：高效的深度网络](https://juejin.cn/post/6947586233522454558)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [斯坦福发布 2021 年人工智能指数报告](https://juejin.cn/post/6942769081363726373)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [让机器学习更加公正](https://juejin.cn/post/6941964171974017031)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [使用 Node.js 实现蒙特卡洛树搜索](https://juejin.cn/post/6944240279784423461)（[zenblo](https://github.com/zenblo) 翻译）
 * [恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
