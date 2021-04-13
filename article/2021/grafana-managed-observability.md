@@ -29,7 +29,7 @@ Grafana Enterprise Stack 可以通过两种方式部署：在您自有的基础�
 
 Grafana Labs 并不是唯一一家提供基于 Grafana 和 Prometheus 的托管服务的厂商。AWS 在 2021 年一月发布了 [亚马逊管理服务的 Grafana 和 Prometheus 两种版本](https://www.infoq.com/news/2021/01/aws-grafana-prometheus/)。Grafana 的开源版本可以在 [谷歌云](https://console.cloud.google.com/marketplace/details/google/grafana) 和 [微软 Azure](https://azuremarketplace.microsoft.com/en-in/marketplace/apps/grafana-labs.grafana_oss?tab=overview) 上获得。
 
-如果你想要进一步了解 Grafana Enterprise Logs ，请查看它们的 [官方文档](https://grafana.com/docs/enterprise-logs/latest/)。基于 Grafana Cloud 的管理版本的价格细节详见 [价格页面](https://grafana.com/products/cloud/pricing/)。您也可以试用 50 GB 的免费版本。
+如果你想要进一步了解 Grafana Enterprise Logs，请查看它们的 [官方文档](https://grafana.com/docs/enterprise-logs/latest/)。基于 Grafana Cloud 的管理版本的价格细节详见 [价格页面](https://grafana.com/products/cloud/pricing/)。您也可以试用 50 GB 的免费版本。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
