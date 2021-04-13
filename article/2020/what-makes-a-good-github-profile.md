@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/what-makes-a-good-github-profile.md](https://github.com/xitu/gold-miner/blob/master/article/2020/what-makes-a-good-github-profile.md)
 > * 译者：[caiyundong](http://github.com/caiyundong)
-> * 校对者：[zenblo](https://github.com/zenblo)，[Chorer](https://github.com/Chorer) 
+> * 校对者：[zenblo](https://github.com/zenblo)，[Chorer](https://github.com/Chorer)，[Hoarfroster](https://github.com/PassionPenguin)，[lsvih](https://github.com/lsvih)
 
 # 如何打造一个好的 GitHub 用户档案？
 
 ![Photo by [AltumCode](https://unsplash.com/@altumcode?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10000/0*iwSXtYiyA_BR6bmg)
 
-当我在大学申请实习的时候，我绝对低估了 GitHub 的作用。我在大学期间编写了很多项目，而且为每个项目写了详细的描文档，这些文档很容易翻译为项目 README 文件。但我没有花时间在 GitHub 上面上传和维护这些项目，很快我就意识到错失了良机。
+当我在大学申请实习的时候，我绝对低估了 GitHub 的作用。我在大学期间编写了很多项目，而且为每个项目写了详细的描述文档，这些文档很容易翻译为项目 README 文件。但我没有花时间在 GitHub 上面上传和维护这些项目，很快我就意识到错失了良机。
 
 事实上，维护 GitHub 的用户档案需要花费大量的时间和精力。在你的课程进行到下一个项目时还能编写文档并保持之前代码更新是很繁杂的工作。然而，只要再努力一点点，课程项目或其他项目就能变成一个有意义的作品集，而一个作品集是让你脱颖而出的绝佳方式。
 
@@ -32,7 +32,7 @@
 
 当你与一个团队合作时，能够产生干净的代码是非常必须的。对于招聘经理或团队成员来说，一个最让他们失望的事情就是当他们看到代码的时候，他们很难处理。就像使用说明文档一样，在代码中显示良好的组织结构是给人留下深刻印象而不让人失望的好方法。为重复的代码创建函数并规范你的代码是非常好的做法。
 
-在代码中根据需要或编程语言的最佳实践尽可能加入注释。例如，在 Python 中，在你的函数里面包括 [Docstrings](https://www.datacamp.com/community/tutorials/docstrings-python?utm_source=adwords_ppc&utm_campaignid=1565261270&utm_adgroupid=67750485268&utm_device=c&utm_keyword=&utm_matchtype=b&utm_network=g&utm_adpostion=&utm_creative=332661264374&utm_targetid=aud-299261629574:dsa-429603003980&utm_loc_interest_ms=&utm_loc_physical_ms=9033348&gclid=CjwKCAjwq_D7BRADEiwAVMDdHtPFljxXsIaMpcyiPjdYBJrUmC2oCkQw7G7bVGfHzUHwE_k-FwogHhoCqtEQAvD_BwE)。考虑[让你的注释保持精炼]( https://medium.com/better-programming/comments-in-your-code-730cfd1dde02)以减少不必要的噪音。为了减少冗余注释，请确保选择有意义的变量名，并尽可能简化代码(尽量避免“代码破解”)。你的注释应该更多地关注代码的**意图**。
+在代码中根据需要或编程语言的最佳实践尽可能加入注释。例如，在 Python 中，可以在你的函数里面添加 [Docstrings](https://www.datacamp.com/community/tutorials/docstrings-python?utm_source=adwords_ppc&utm_campaignid=1565261270&utm_adgroupid=67750485268&utm_device=c&utm_keyword=&utm_matchtype=b&utm_network=g&utm_adpostion=&utm_creative=332661264374&utm_targetid=aud-299261629574:dsa-429603003980&utm_loc_interest_ms=&utm_loc_physical_ms=9033348&gclid=CjwKCAjwq_D7BRADEiwAVMDdHtPFljxXsIaMpcyiPjdYBJrUmC2oCkQw7G7bVGfHzUHwE_k-FwogHhoCqtEQAvD_BwE)。考虑[让你的注释保持精炼]( https://medium.com/better-programming/comments-in-your-code-730cfd1dde02)以免让人心烦。为了减少冗余注释，请确保选择有意义的变量名，并尽可能简化代码（尽量避免编写 hack 代码）。你的注释应该更多地体现代码的**意图**。
 
 ![Photo by [Beatriz Pérez Moya](https://unsplash.com/@beatriz_perez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9856/0*1eUO9v7-DxCaSx01)
 
@@ -42,11 +42,11 @@
 
 ![Photo by Author](https://cdn-images-1.medium.com/max/2876/1*lm1C-Qngubphko9-OqvvFg.jpeg)
 
-**目标**: 你想要那些绿色方块！更多的绿色信息表明你在平台上很活跃，并且正在不断地贡献代码，这在招聘经理看来是很好的表现。
+**目标**：你肯定想要得到那些绿色方块！更多的绿色信息表明你在平台上很活跃，并且正在不断地贡献代码，这在招聘经理看来是很好的表现。
 
-一般经验法则: **更新你的代码并且经常提交**。在做学校的课程项目吗？在你有进展的时候更新你的 GitHub。项目如果比较小型是没有问题的，但要尽量让它们多样化，以展示你不同的技能。
+一般经验法则：**经常更新并提交你的代码**。在做学校的课程项目吗？在你有进展的时候更新你的 GitHub。项目如果比较小型是没有问题的，但要尽量让它们多样化，以展示你不同的技能。
 
-**保持你的项目最新的状态**。在你学习过程中，你可能会对以前的项目进行更改或更新。
+**让你的项目保持在最新的状态**。在你学习过程中，你可能会对以前的项目进行更改或更新。
 
 除了向仓库提交更改，你还可以通过其他贡献来保持活跃度，例如:
 
@@ -54,7 +54,7 @@
 * 提出一个项目合并请求
 * 提交一个项目合并请求审查
 
-你的工作场所使用 GitHub 吗？你可以在用户档案下的工作活动中[展示“私人贡献”](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-profile/showing-an-overview-of-your-activity-on-your-profile) 以便在你的用户档案下展示你的工作活动。
+你的工作场所使用 GitHub 吗？你可以在用户档案下的工作活动中[打开“enable private contributions”开关](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-profile/showing-an-overview-of-your-activity-on-your-profile)来展示你在私有库中的贡献，以便在你的用户档案下展示你的工作活动。
 
 ![Photo by docs.github.com](https://cdn-images-1.medium.com/max/2000/1*HbJR9Zk1nLob1X_hylb4XQ.png)
 
@@ -82,7 +82,7 @@
 
 ## 结论
 
-在这些指导原则下，我把我的 GitHub 档案修改了一番，这成为我申请工作的一个有用工具。我甚至让面试官在谈话中提到我做过的项目。无论你是在求职还是在努力保持良好的线上专业形象，我强烈推荐把 GitHub 当成一个重要工具。祝你好运！
+在这些指导原则下，我把我的 GitHub 档案修改了一番，让它成为了我申请工作的一个有用工具。我甚至在与面试官谈话中提到我做过的项目。无论是在求职中，还是营造一个优秀、专业的网络形象，我都强烈推荐你把 GitHub 当成一个重要工具。祝你好运！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
