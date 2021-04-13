@@ -1,3 +1,5 @@
+* [MongoDB 和 MySQL 使用场景分析](https://juejin.cn/post/6949811448767840263)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析](https://juejin.cn/post/6947820858677133343)（[huifrank](https://github.com/huifrank) 翻译）
 * [Python 的 JSON 库：按速度，成熟度和操作安全性进行比较](https://juejin.cn/post/6943859233779613704)（[youngjuning](https://github.com/youngjuning) 翻译）
 * [无服务器化：2021 年该项技术何去何从？](https://juejin.cn/post/6945858128487383071)（[Ashira97](https://github.com/Ashira97) 翻译）
