@@ -1,4 +1,3 @@
-
 > * 原文地址：[5 Reasons to Switch from React to Next.js](https://javascript.plainenglish.io/5-reasons-to-switch-from-react-to-next-js-f776413693d0)
 > * 原文作者：[anuragkanoria](https://medium.com/@anuragkanoria)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
