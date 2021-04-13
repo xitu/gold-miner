@@ -1,3 +1,9 @@
+* [Applets 应用程序的终结](https://juejin.cn/post/6949497811817725959)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [1993 年的 CGI 脚本和早期服务端 Web 编程](https://juejin.cn/post/6947898773569962020)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2020 网络年鉴：热门的前端框架依然是互联网的一小部分](https://juejin.cn/post/6944674906684686366)（[felixliao](https://github.com/felixliao) 翻译）
+* [都 2021 年了，你还不知道这 10 个 CSS 功能？](https://juejin.cn/post/6946231151874801695)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [React vs. Vue 谁是 2021 年最佳 JavaScript 框架](https://juejin.cn/post/6944674279141146632)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [详细解读 Webpack 的模块热替换功能](https://juejin.cn/post/6946231743837896734)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [新型前端构建工具 Vitejs 开发使用](https://juejin.cn/post/6949544614760185886)（[zenblo](https://github.com/zenblo) 翻译）
 * [Snowpack：一个可替代 Webpack 的构建工具](https://juejin.cn/post/6940820980608696334)（[felixliao](https://github.com/felixliao) 翻译）
 * [2021 年 Angular vs. React vs. Vue 前端框架对比](https://juejin.cn/post/6943068367125381127)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
