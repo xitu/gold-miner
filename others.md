@@ -1,3 +1,10 @@
+* [2020 年 Go 语言开发者调查报告](https://juejin.cn/post/6943540695030300708)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Raspberry Pi 九岁啦：你可能不知道的 9 件事](https://juejin.cn/post/6939451780610654245)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Chrome 88 DevTools 中的新功能](https://juejin.cn/post/6938248665219727391)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2021 年 1 月 RedMonk 编程语言排名](https://juejin.cn/post/6937849069721092110)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么我还在用Lisp（而且你也应该用）](https://juejin.cn/post/6935225210278772766)（[elliott-zhao](https://github.com/elliott-zhao) 翻译）
+* [恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
 * [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
 * [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
