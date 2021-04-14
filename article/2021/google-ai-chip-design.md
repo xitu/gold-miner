@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-
 # Google's Apollo AI for Chip Design Improves Deep Learning Performance by 25%
 
 Scientists at [Google Research](https://research.google/) have announced [APOLLO](https://arxiv.org/abs/2102.01723), a framework for optimizing AI accelerator chip designs. APOLLO uses evolutionary algorithms to select chip parameters that minimize deep-learning inference latency while also minimizing chip area. Using APOLLO, researchers found designs that achieved 24.6% speedup over those chosen by a baseline algorithm.
