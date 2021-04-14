@@ -43,7 +43,7 @@
 
 ![**Figure 5.** Bed Of Nails 上采样](https://cdn-images-1.medium.com/max/2000/1*LJAl2rkIfFTDRIQanIbfRQ.png)
 
-4. **Max-Unpooling:** CNN 中的最大池化层选取卷积核内最大值作为输出。为了执行 max-unpooling 操作，首先，在编码步骤中为每个最大pooling层保存最大值的索引。然后在“解码”步骤中使用保存的索引，在该步骤中，将输入像素映射到保存的索引，并在其他所有位置填充零。The Max-Pooling layer in CNN takes the maximum among all the values in the kernel. To perform max-unpooling, first, the index of the maximum value is saved for every max-pooling layer during the encoding step. The saved index is then used during the Decoding step where the input pixel is mapped to the saved index, filling zeros everywhere else.
+4. **Max-Unpooling:** CNN 中的 Max-Pooling 层选取卷积核内最大值作为输出。为了执行 max-unpooling 操作，首先，在编码步骤中为每个最大pooling层保存最大值的索引。然后在“解码”步骤中使用保存的索引，在该步骤中，将输入像素映射到保存的索引，并在其他所有位置填充零。The Max-Pooling layer in CNN takes the maximum among all the values in the kernel. To perform max-unpooling, first, the index of the maximum value is saved for every max-pooling layer during the encoding step. The saved index is then used during the Decoding step where the input pixel is mapped to the saved index, filling zeros everywhere else.
 
 ![**Figure 6.** Max-Unpooling Upsampling](https://cdn-images-1.medium.com/max/2018/1*Mog6cmBG4XzLa0IFbjZIaA.png)
 
