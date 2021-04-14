@@ -5,9 +5,9 @@
 > * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# 解密反卷积
+# 解密转置卷积
 
-反卷积是图像分割、超分辨率等应用领域的革命性概念，但有时它变得有些难以理解。 在这篇文章中，我将尝试对这个概念进行解密，并使其更易于理解。
+转置卷积是图像分割、超分辨率等应用领域的革命性概念，但有时它变得有些难以理解。 在这篇文章中，我将尝试对这个概念进行解密，并使其更易于理解。
 
 ![[(source](https://imgflip.com/memegenerator/7296870/Confused-Baby))](https://cdn-images-1.medium.com/max/2000/0*ilAQO9B3hm5waqqq)
 
@@ -19,11 +19,11 @@
 
 为了解决这个问题，包括全尺寸卷积神经网络在内的多种技术被提了出来。在全尺寸卷积神经网络中，输入的维度通过 "same" 填充方式始终保持不变。 尽管该技术在很大程度上解决了该问题，但由于整个网络的卷积运算都是在原始输入尺寸上进行，因此也增加了计算成本。
 
-![**Figure 1.** 全卷积神经网络([源](https://arxiv.org/abs/1411.4038))](https://cdn-images-1.medium.com/max/2000/0*jS2M_DNV6Z2YkhJ1.png)
+![**图 1.** 全卷积神经网络([源](https://arxiv.org/abs/1411.4038))](https://cdn-images-1.medium.com/max/2000/0*jS2M_DNV6Z2YkhJ1.png)
 
 图像分割领域使用的另一种方法是将网络分为两个部分，即降采样网络和上采样网络。在下采样网络中，使用了普通的 CNN 架构，并生成了输入图像的抽象表示。在上采样网络中，使用了各种技术对图像的抽象表示进行上采样，以使其空间尺寸等于输入图像。 这种架构也就是著名的编码器-解码器网络。
 
-![**Figure 2**. 一个用于图像分割的先降采样再上采样的网络模型([源](https://arxiv.org/abs/1505.04366)).](https://cdn-images-1.medium.com/max/2000/0*t-FynrY2FJnaExY_.png)
+![**图 2**. 一个用于图像分割的先降采样再上采样的网络模型([源](https://arxiv.org/abs/1505.04366)).](https://cdn-images-1.medium.com/max/2000/0*t-FynrY2FJnaExY_.png)
 
 ## 上采样技术
 
@@ -33,82 +33,80 @@
 
 1. **最近邻技术：** 顾名思义，在最近邻技术中，我们将一个输入像素值复制到 K 个最近的邻居中，其中 K 取决于期望的输出。
 
-![**Figure 3**. 最近邻上采样](https://cdn-images-1.medium.com/max/2000/0*0EJ025oepLbyi-Zd.png)
+![**图 3**. 最近邻上采样](https://cdn-images-1.medium.com/max/2000/0*0EJ025oepLbyi-Zd.png)
 
 2. **双线性插值：** 在双线性插值中，我们采用输入像素的 4 个最近像素值，并根据与这四个像元的距离进行加权平均对输出进行平滑处理。
 
-![**Figure 4.** 双线性插值](https://cdn-images-1.medium.com/max/2000/0*tWSnVE_JhDSZq8HQ)
+![**图 4.** 双线性插值](https://cdn-images-1.medium.com/max/2000/0*tWSnVE_JhDSZq8HQ)
 
 3. **Bed Of Nails:** 在该方法中，我们将输入像素的值复制到输出图像中的相应位置，并在其余位置填充零。
 
-![**Figure 5.** Bed Of Nails 上采样](https://cdn-images-1.medium.com/max/2000/1*LJAl2rkIfFTDRIQanIbfRQ.png)
+![**图 5.** Bed Of Nails 上采样](https://cdn-images-1.medium.com/max/2000/1*LJAl2rkIfFTDRIQanIbfRQ.png)
 
-4. **Max-Unpooling:** CNN 中的 Max-Pooling 层选取卷积核内最大值作为输出。为了执行 max-unpooling 操作，首先，在编码步骤中为每个最大pooling层保存最大值的索引。然后在“解码”步骤中使用保存的索引，在该步骤中，将输入像素映射到保存的索引，并在其他所有位置填充零。The Max-Pooling layer in CNN takes the maximum among all the values in the kernel. To perform max-unpooling, first, the index of the maximum value is saved for every max-pooling layer during the encoding step. The saved index is then used during the Decoding step where the input pixel is mapped to the saved index, filling zeros everywhere else.
+4. **反最大池化:** CNN 中的最大池化层选取卷积核内最大值作为输出。为了执行反最大池化操作，首先，在编码步骤中为每个最大池化层保存最大值的索引。然后在“解码”步骤中使用保存的索引，将输入像素映射到保存的索引对应的位置，并在其他位置填充零。
 
-![**Figure 6.** Max-Unpooling Upsampling](https://cdn-images-1.medium.com/max/2018/1*Mog6cmBG4XzLa0IFbjZIaA.png)
+![**图 6.** 反最大池化上采样](https://cdn-images-1.medium.com/max/2018/1*Mog6cmBG4XzLa0IFbjZIaA.png)
 
-All the above-mentioned techniques are predefined and do not depend on data, which makes them task-specific. They do not learn from data and hence are not a generalized technique.
+所有上述技术都是预定义的，并且不依赖于数据，这使它们成为特定于任务的。它们无法从数据中学习，因此不是通用技术。
 
-## Transposed Convolutions
+## 转置卷积
+转置卷积用于使用一些可学习的参数将输入特征图上采样到所需的输出特征图。
+转置卷积中进行的基本操作如下：
+1. 考虑一个 2x2 编码的特征图，需要将其上采样到 3x3 大小的特征图。
 
-Transposed Convolutions are used to upsample the input feature map to a desired output feature map using some learnable parameters. 
-The basic operation that goes in a transposed convolution is explained below:
-1. Consider a 2x2 encoded feature map which needs to be upsampled to 3x3 feature map.
+![**图 7.** 输入特征图](https://cdn-images-1.medium.com/max/2000/1*BMJnnOKPhK8hoFP6sQ9edQ.png)
 
-![**Figure 7.** Input Feature Map](https://cdn-images-1.medium.com/max/2000/1*BMJnnOKPhK8hoFP6sQ9edQ.png)
+![**图 8.** 输出特征图](https://cdn-images-1.medium.com/max/2000/1*VxtMdM-DsGwIa51GyDx-XQ.png)
 
-![**Figure 8.** Output Feature Map](https://cdn-images-1.medium.com/max/2000/1*VxtMdM-DsGwIa51GyDx-XQ.png)
+2.我们使用一个大小为 2x2 的核，步长为 1，填充为 0。
 
-2. We take a kernel of size 2x2 with unit stride and zero padding.
+![**图 9.** 2x2 大小的核](https://cdn-images-1.medium.com/max/2000/1*e6UnrcsFRaOidCq7mwJpTA.png)
 
-![**Figure 9.** Kernel of size 2x2](https://cdn-images-1.medium.com/max/2000/1*e6UnrcsFRaOidCq7mwJpTA.png)
+3. 现在，我们将输入特征图的左上角元素与核的每个元素相乘，如图 10 所示。
 
-3. Now we take the upper left element of the input feature map and multiply it with every element of the kernel as shown in figure 10.
+![**图 10.**](https://cdn-images-1.medium.com/max/2000/1*7hVid7EAqCPkG6sEjHMI5w.png)
 
-![**Figure 10.**](https://cdn-images-1.medium.com/max/2000/1*7hVid7EAqCPkG6sEjHMI5w.png)
+4. 同样，我们对输入特征图的所有其余元素执行此操作，如图 11 所示。
 
-4. Similarly, we do it for all the remaining elements of the input feature map as depicted in figure 11.
+![**图 11.**](https://cdn-images-1.medium.com/max/2000/1*yxBd_pCiEVVwEQFmc-Heog.png)
 
-![**Figure 11.**](https://cdn-images-1.medium.com/max/2000/1*yxBd_pCiEVVwEQFmc-Heog.png)
+5. 如您所见，生成的上采样特征图的某些元素是重叠的。为解决此问题，我们简单的将重叠的元素求和即可。
 
-5. As you can see, some of the elements of the resulting upsampled feature maps are over-lapping. To solve this issue, we simply add the elements of the over-lapping positions.
+![**图 12.** 完整的转置卷积操作](https://cdn-images-1.medium.com/max/2000/1*faRskFzI7GtvNCLNeCN8cg.png)
 
-![**Figure 12.** The Complete Transposed Convolution Operation](https://cdn-images-1.medium.com/max/2000/1*faRskFzI7GtvNCLNeCN8cg.png)
+6. 最终的输出将是上采样后具有所需空间尺寸的 3x3 大小的特征图。
 
-6. The resulting output will be the final upsampled feature map having the required spatial dimensions of 3x3.
+转置卷积也称为反卷积，但这一别称并不合适。因为反卷积意味着抵消卷积操作的效果，而这并不是我们的目的。
 
-Transposed convolution is also known as Deconvolution which is not appropriate as deconvolution implies removing the effect of convolution which we are not aiming to achieve.
+它也被称为上采样卷积，这直观的反映了它执行的任务，即对输入特征图进行上采样。
 
-It is also known as upsampled convolution which is intuitive to the task it is used to perform, i.e upsample the input feature map.
+由于在输出上进行常规卷积等效于在输入上进行小数步长卷积，转置卷积因此也称为小数步长卷积。例如，输出上的步长为 2 的卷积等价于输入上的步长为 0.5 的卷积。
 
-It is also referred to as fractionally strided convolution due since stride over the output is equivalent to fractional stride over the input. For instance, a stride of 2 over the output is 1/2 stride over the input.
+最后，它也被称为反向卷积，因为转置卷积中的前向计算等效于常规卷积的反向计算。
 
-Finally, it is also referred to as Backward strided convolution because forward pass in a Transposed Convolution is equivalent to backward pass of a normal convolution.
+## 转置卷积的问题:
 
-## Problems with Transposed Convolutions:
+转置的卷积受棋盘效应的影响，如下所示。
 
-Transposed convolutions suffer from chequered board effects as shown below.
+![**图 13.** 棋盘效应([source](https://distill.pub/2016/deconv-checkerboard/))](https://cdn-images-1.medium.com/max/2194/1*4Tsf3dlg7Wlhrt0D7k7osA.png)
 
-![**Figure 13.** Chequered Artifacts([source](https://distill.pub/2016/deconv-checkerboard/))](https://cdn-images-1.medium.com/max/2194/1*4Tsf3dlg7Wlhrt0D7k7osA.png)
+造成这种情况的主要原因是在图像的某些部分出现不均匀的重叠，从而导致出现伪影。这可以通过使用可被步长整除的核大小来修复或减轻，例如在步长为 2 时采用 2x2 或 4x4 的核大小。
 
-The main cause of this is uneven overlap at some parts of the image causing artifacts. This can be fixed or reduced by using kernel-size divisible by the stride, for e.g taking a kernel-size of 2x2 or 4x4 when having a stride of 2.
+## 转置卷积的应用:
 
-## Applications of Transposed Convolution:
+1. 超分辨:
 
-1. Super- Resolution:
+![**图 14.** 使用转置卷积进行超分辨([source](http://openaccess.thecvf.com/content_ECCV_2018/html/Seong-Jin_Park_SRFeat_Single_Image_ECCV_2018_paper.html))](https://cdn-images-1.medium.com/max/NaN/0*kIeyw3eMk-e1UchK.png)
 
-![**Figure 14.** Super Resolution using Transposed Convolution([source](http://openaccess.thecvf.com/content_ECCV_2018/html/Seong-Jin_Park_SRFeat_Single_Image_ECCV_2018_paper.html))](https://cdn-images-1.medium.com/max/NaN/0*kIeyw3eMk-e1UchK.png)
+2. 语义分割:
 
-2. Semantic Segmentation:
-
-![**Figure 15.** Semantic Segmentation implemented using Transposed Convolution([source](https://thegradient.pub/semantic-segmentation/))](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
+![**图 15.** 使用转置卷积实现语义分割([source](https://thegradient.pub/semantic-segmentation/))](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
 
 ## Conclusion:
 
-Transposed Convolutions are the backbone of the modern segmentation and super-resolution algorithms. They provide the best and most generalized upsampling of abstract representations. In this post, we explored the various upsampling techniques used and then tried to dig deeper into the intuitive understanding of transposed convolutions. 
-I hope you liked the post and if you have any doubts, queries or comments, please feel free to connect with me on [Twitter](https://twitter.com/Perceptron97) or [Linkedin](https://www.linkedin.com/in/divyanshu-mishra-ai/).
+转置卷积是当今语义分割和超分辨率算法的基础。它们提供了抽象表示形式的最佳、最通用的上采样方式。在这篇文章中，我们探索了经常使用的各种上采样技术，然后尝试更加直观、深入地了解转置卷积。希望您喜欢这篇文章，如果您有任何疑问、问题或意见，请随时通过 [Twitter](https://twitter.com/Perceptron97) 或者 [Linkedin](https://www.linkedin.com/in/divyanshu-mishra-ai/) 联系我。
 
-**References:**
+**参考目录:**
 
 1. [CS231n: Convolutional Neural Networks for Visual Recognition](https://www.youtube.com/watch?v=nDPWywWRIRo)
 2. [Transposed Convolutions explained with… MS Excel!](https://medium.com/apache-mxnet/transposed-convolutions-explained-with-ms-excel-52d13030c7e8)
