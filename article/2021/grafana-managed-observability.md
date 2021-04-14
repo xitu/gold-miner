@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/grafana-managed-observability.md](https://github.com/xitu/gold-miner/blob/master/article/2021/grafana-managed-observability.md)
 > * 译者：[5Reasons](https://github.com/5Reasons)
-> * 校对者：
+> * 校对者：[IAMSHENSH](https://github.com/IAMSHENSH)
 
 # Grafana 为其可视化产品栈新增企业级日志服务
 
