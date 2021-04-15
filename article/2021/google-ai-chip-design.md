@@ -11,7 +11,7 @@
 
 研究科学家 Amir Yazdanbakhsh 在最近的博客文章中对该系统进行了概述。APOLLO 搜索一组硬件参数，例如内存大小，I/O 带宽和处理器单元，为给定的深度学习模型提供最佳的推理性能。通过使用革命性的算法和迁移学习，APOLLO 可以有效地探索参数空间，从而减少设计的总体时间和成本。Yazdanbakhsh 认为：
 
-> We believe that this research is an exciting path forward to further explore ML-driven techniques for architecture design and co-optimization (e.g., compiler, mapping, and scheduling) across the computing stack to invent efficient accelerators with new capabilities for the next generation of applications.我们相信，这项研究是进一步探索机器学习驱动技术以在整个计算堆栈中进行体系结构设计和协同优化（例如，编译器，映射和调度）以发明出具有下一代新功能的高效加速器的令人振奋的道路。应用程序。
+> 我们相信，这项研究是一条令人激动的前进道路，可以进一步探索机器学习技术驱动的架构设计和跨计算堆栈的协同优化（如编译器、映射和调度），为未来的应用开发具有新特性的高效加速器。
 
 Deep-learning models have been developed for a wide variety of problems, from computer vision (CV) to natural language processing (NLP). However, these models often require large amounts of compute and memory resources at inference time, straining the hardware constraints of edge and mobile devices. Custom accelerator hardware, such as [Edge TPUs](https://www.infoq.com/news/2020/12/google-coral-ai-iot/), can improve model inference latency, but often require modifications to the model, such as parameter quantization or [model pruning](https://www.infoq.com/presentations/tensorflow-lite/). Some researchers, including [a team at Google](https://arxiv.org/abs/2003.02838), have proposed [using AutoML](https://arxiv.org/abs/1812.00332) to design high-performance models targeted for specific accelerator hardware.深度学习模型针对各种问题而开发，从计算机视觉（CV）到自然语言处理（NLP）。但是，这些模型在推理时通常需要大量的计算和内存资源，从而使边缘和移动设备的硬件约束更加紧张。定制加速器硬件（例如Edge TPU）可以改善模型推理延迟，但通常需要对模型进行修改，例如参数量化或模型修剪。包括Google团队在内的一些研究人员已经建议使用AutoML设计针对特定加速器硬件的高性能模型。
 
