@@ -9,15 +9,11 @@
 
 ![Photo by [Dan Nelson](https://unsplash.com/@danny144?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*IeaUrcmOuZUgq-Jn)
 
----
-
 There has been a lot of buzz about privacy these days, especially concerning browsers. Recently there was a huge uproar when Whatsapp announced that it would start sharing user data with its parent company, Facebook. According to [Wired](https://www.wired.com/story/whatsapp-facebook-data-share-notification/), Whatsapp has been sharing our data with Facebook for several years. This uproar sparked the debate for using user data for advertising services.
 
 You might simply say that your own personal data should not be shared with Facebook to make the advertisements more catered towards. But I believe that if this process is done with proper legal measures, it brings us more benefits than problems. Imagine an instance where you chat with your friend about a mobile device on WhatsApp, and the next moment, you see an advertisement for that same product on Facebook. Your initial reaction would be to freak out, but if not for these personalized advertisements, you wouldn’t have known about this particular store selling the phone you wanted to buy, at an awesome price.
 
 Due to these numerous benefits for both users and companies, there have been proposals to change the way ads work. The Privacy Sandbox is an initiative of Google that contains such proposals to make the web a better place and still allow companies to earn revenue via advertising.
-
----
 
 ## What is Privacy Sandbox?
 
@@ -31,8 +27,6 @@ Let’s have a look at how Privacy Sandbox can change the way we surf the web wi
 
 ![Photo by [Paula Guerreiro](https://unsplash.com/@pguerreiro?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11850/0*Tyf4CKlKHucwp3PV)
 
----
-
 ## Interest-based Advertising
 
 One of the proposals that were intended to replace third-party cookies in targeted advertising is [Federated Learning of Cohorts (FLoC)](https://github.com/jkarlin/floc). This proposes a change in the way users are tracked, where rather than observing the browsing behavior of individuals, we observe the behavior of a cohort of similar people. This new way enables businesses to reach individuals with targeted ads by clustering groups of people with similar interests. This novel approach hides **individuals “**in the crowd” and uses on-device processing to keep their data safe locally.
@@ -41,15 +35,11 @@ Google’s ads team was able to successfully test this proposal and found out th
 
 The Chrome team expects to start public testing of FLoC by March 2021. You can read more about FLoC over [here](https://github.com/WICG/floc).
 
----
-
 ## Creating Audience
 
 One of the essentials of a successful advertising campaign is the creation of audiences. Privacy Sandbox includes proposals on how marketers and advertisers can create their own audiences without the need for third-party cookies. The Chrome team published a new proposal called [FLEDGE](https://github.com/WICG/turtledove/blob/master/FLEDGE.md) which is based on a previous Chrome proposal called [TURTLEDOVE](https://github.com/WICG/turtledove). This new proposal takes into account the industry feedback given for TURTLEDOVE and integrates features like “**trusted server”**. The trusted server is used to store information about a campaign’s bids and budgets.
 
 FLEDGE is essentially Google’s option for advertisers who want to reach prior visitors to their website via remarketing. FLEDGE is expected to hit trials later this year. You can read more about FLEDGE over [here](https://github.com/WICG/turtledove/blob/master/FLEDGE.md).
-
----
 
 ## Measuring Conversion
 
@@ -57,21 +47,15 @@ Google has proposed several methods that would allow marketers to measure conver
 
 Google also plans to use techniques like aggregating information, adding noise, and limiting the amount of data sent out from your device to preserve the privacy of consumers. Due to this, advertisers will have to prioritize the conversions which are important for their reporting and access only them. But the company is still calling for wide feedback and a measurement prototype is yet to be built.
 
----
-
 ## Ad Fraud Prevention
 
 The well-being of the advertising-supported web model depends on the ability to distinguish traffic from actual users and fraudulent traffic. Google plans to verify this with the help of a feature called Trust Tokens API. Trust Tokens is a new API to help combat fraud and distinguish bots from real humans, without passive tracking. This feature allows an origin to issue cryptographic tokens to a user it trusts. These tokens are stored in the user browser and can evaluate the user’s authenticity in other contexts.
 
 Google expects to start trials by March this year with the launch of their next release that supports an updated version of Trust Tokens. You can read more about Trust Tokens [here](https://web.dev/trust-tokens/).
 
----
-
 ## Anti-fingerprinting
 
-I have written several articles on fingerprinting in browsers and how dangerous it can be. You can read more over here.
-[**The Darker Side of PWAs You Might Not Be Aware of**
-**Privacy issues of PWAs you might want to know more about**blog.bitsrc.io](https://blog.bitsrc.io/the-darker-side-of-pwas-you-might-not-be-aware-of-ffa7b1d08888)
+I have written several articles on fingerprinting in browsers and how dangerous it can be. You can read more over [here]((https://blog.bitsrc.io/the-darker-side-of-pwas-you-might-not-be-aware-of-ffa7b1d08888)).
 
 Browser fingerprinting is a technique used by marketers to identify and track individuals uniquely with easily available simple information such as your browser type and version, as well as your operating system, active plugins, timezone, language, screen resolution, and various other active settings.
 
@@ -79,11 +63,7 @@ To make Privacy Sandbox secure from fingerprinting, Google has proposed an anti-
 
 You can read more about this technique over [here](https://github.com/bslassey/ip-blindness).
 
-Here is the Chrome team's Jan update for 2021.
-[**Progress update on the Privacy Sandbox initiative - Chrome Developers**
-**The Privacy Sandbox proposes a set of privacy-preserving APIs to support business models that fund the open web in the…**developer.chrome.com](https://developer.chrome.com/blog/privacy-sandbox-update-2021-jan/)
-
----
+[Here](https://developer.chrome.com/blog/privacy-sandbox-update-2021-jan/) is the Chrome team's Jan update for 2021.
 
 ## Conclusion
 
@@ -94,26 +74,6 @@ But industry players in the advertising and marketing fields have their own conc
 What do you think about this novel proposal? Would it make the web a safer place? Or will it hand over the controlling power to a monopoly?
 
 Thank you for reading!
-
----
-
-## Use Bit to build modular apps with independent components
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly** modular applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
-![Components for the ‘tech jokes’ app, authored independently in a Bit workspace and shared on [a remote scope](https://bit.dev/our-org/tech-jokes)](https://cdn-images-1.medium.com/max/3556/0*E_JtfqqBrwnB3OgH.jpeg)
-[**Bit: The platform for the modular web**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
-**Resources
-**[Chromium](https://www.chromium.org/Home/chromium-privacy/privacy-sandbox)
-[Chrome Developers](https://developer.chrome.com/blog/privacy-sandbox-update-2021-jan/)
-[WebDev](https://web.dev/digging-into-the-privacy-sandbox/)
-[Google Blog](https://blog.google/products/ads-commerce/2021-01-privacy-sandbox/)
-[Digiday](https://digiday.com/marketing/wtf-googles-privacy-sandbox/)
-[Which 50](https://which-50.com/google-reveals-its-privacy-first-online-advertising-overhaul/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
