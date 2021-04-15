@@ -2,14 +2,14 @@
 > * 原文作者：[Anthony Alford]()
 > * 译文出自：[掘金翻译计划](https://www.infoq.com/profile/Anthony-Alford/)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md](https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# Google's Apollo AI for Chip Design Improves Deep Learning Performance by 25% Google的Apollo芯片设计AI将深度学习性能提高了25％
+# Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％
 
-Scientists at [Google Research](https://research.google/) have announced [APOLLO](https://arxiv.org/abs/2102.01723), a framework for optimizing AI accelerator chip designs. APOLLO uses evolutionary algorithms to select chip parameters that minimize deep-learning inference latency while also minimizing chip area. Using APOLLO, researchers found designs that achieved 24.6% speedup over those chosen by a baseline algorithm.Google Research的科学家宣布了APOLLO（一种用于优化AI加速器芯片设计的框架）。APOLLO使用进化算法选择芯片参数，以最大程度地减少深度学习推理延迟，同时还最小化芯片面积。研究人员使用APOLLO发现设计比基线算法选择的设计提高了24.6％的速度
+[Google Research](https://research.google/) 的科学家公布了一种用于优化人工智能加速器芯片设计的新框架 [APOLLO](https://arxiv.org/abs/2102.01723)。APOLLO 使用革命性的算法选择芯片参数，以最小的芯片面积最大程度地减少深度学习推理延迟。在阿波罗的帮助下，研究人员找到了比那些通过基线算法选择的设计快 24.6% 的设计方案。
 
-Research Scientist Amir Yazdanbakhsh gave a [high level overview](https://ai.googleblog.com/2021/02/machine-learning-for-computer.html) of the system in a recent blog post. APOLLO searches for a set of hardware parameters, such memory size, I/O bandwidth, and processor units, that provides the best inference performance for a given deep-learning model. By using evolutionary algorithms and transfer learning, APOLLO can efficiently explore the space of parameters, reducing the overall time and cost of producing the design. According to Yazdanbakhsh,研究科学家Amir Yazdanbakhsh在最近的博客文章中对该系统进行了概述。APOLLO搜索一组硬件参数，例如内存大小，I / O带宽和处理器单元，这些参数为给定的深度学习模型提供最佳的推理性能。通过使用进化算法和转移学习，APOLLO可以有效地探索参数空间，从而减少设计的总体时间和成本。根据亚兹丹巴赫什（Yazdanbakhsh）的说法，
+研究科学家 Amir Yazdanbakhsh 在最近的博客文章中对该系统进行了概述。APOLLO 搜索一组硬件参数，例如内存大小，I/O 带宽和处理器单元，为给定的深度学习模型提供最佳的推理性能。通过使用革命性的算法和迁移学习，APOLLO 可以有效地探索参数空间，从而减少设计的总体时间和成本。Yazdanbakhsh 认为：
 
 > We believe that this research is an exciting path forward to further explore ML-driven techniques for architecture design and co-optimization (e.g., compiler, mapping, and scheduling) across the computing stack to invent efficient accelerators with new capabilities for the next generation of applications.我们相信，这项研究是进一步探索机器学习驱动技术以在整个计算堆栈中进行体系结构设计和协同优化（例如，编译器，映射和调度）以发明出具有下一代新功能的高效加速器的令人振奋的道路。应用程序。
 
