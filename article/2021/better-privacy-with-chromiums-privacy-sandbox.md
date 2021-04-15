@@ -29,7 +29,7 @@ Let’s have a look at how Privacy Sandbox can change the way we surf the web wi
 
 ## Interest-based Advertising
 
-One of the proposals that were intended to replace third-party cookies in targeted advertising is [Federated Learning of Cohorts (FLoC)](https://github.com/jkarlin/floc). This proposes a change in the way users are tracked, where rather than observing the browsing behavior of individuals, we observe the behavior of a cohort of similar people. This new way enables businesses to reach individuals with targeted ads by clustering groups of people with similar interests. This novel approach hides **individuals “**in the crowd” and uses on-device processing to keep their data safe locally.
+One of the proposals that were intended to replace third-party cookies in targeted advertising is [Federated Learning of Cohorts (FLoC)](https://github.com/jkarlin/floc). This proposes a change in the way users are tracked, where rather than observing the browsing behavior of individuals, we observe the behavior of a cohort of similar people. This new way enables businesses to reach individuals with targeted ads by clustering groups of people with similar interests. This novel approach hides **individuals** “in the crowd” and uses on-device processing to keep their data safe locally.
 
 Google’s ads team was able to successfully test this proposal and found out that **advertisers can expect to see at least 95% of the conversions per dollar spent when compared to cookie-based advertising.** This finding proves that FLoC is the path of the future with priority for privacy.
 
@@ -37,7 +37,7 @@ The Chrome team expects to start public testing of FLoC by March 2021. You can r
 
 ## Creating Audience
 
-One of the essentials of a successful advertising campaign is the creation of audiences. Privacy Sandbox includes proposals on how marketers and advertisers can create their own audiences without the need for third-party cookies. The Chrome team published a new proposal called [FLEDGE](https://github.com/WICG/turtledove/blob/master/FLEDGE.md) which is based on a previous Chrome proposal called [TURTLEDOVE](https://github.com/WICG/turtledove). This new proposal takes into account the industry feedback given for TURTLEDOVE and integrates features like “**trusted server”**. The trusted server is used to store information about a campaign’s bids and budgets.
+One of the essentials of a successful advertising campaign is the creation of audiences. Privacy Sandbox includes proposals on how marketers and advertisers can create their own audiences without the need for third-party cookies. The Chrome team published a new proposal called [FLEDGE](https://github.com/WICG/turtledove/blob/master/FLEDGE.md) which is based on a previous Chrome proposal called [TURTLEDOVE](https://github.com/WICG/turtledove). This new proposal takes into account the industry feedback given for TURTLEDOVE and integrates features like “**trusted server**”. The trusted server is used to store information about a campaign’s bids and budgets.
 
 FLEDGE is essentially Google’s option for advertisers who want to reach prior visitors to their website via remarketing. FLEDGE is expected to hit trials later this year. You can read more about FLEDGE over [here](https://github.com/WICG/turtledove/blob/master/FLEDGE.md).
 
