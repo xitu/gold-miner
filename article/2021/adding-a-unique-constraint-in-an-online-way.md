@@ -42,7 +42,7 @@ We can create the unique constraint in an online way, by splitting the operation
 
 Instead of letting Oracle create the index implicitly, we'll create it explicitly, using the online keyword:
 
-```
+```SQL
 SQL> create unique index c1_uk on t(c1) online;
 
 Index created.
@@ -54,7 +54,7 @@ This operation may take some time, depending on the size of the table, but it is
 
 Now we can add the constraint, and associate it with the already-existing index. This is a fast operation, as the index already exists, but the default alter table... add constraint operation is an offline one. To make it online we should create the constraint as NOT VALIDATED:
 
-```
+```SQL
 SQL> alter table t add constraint c1_uk unique (c1)
   2  using index c1_uk
   3  enable novalidate;
@@ -64,7 +64,7 @@ Table altered.
 
 So now the constraint is marked as ENABLED, which means that future DML statements will not be able to violate it, and as NOT VALIDATED, which means that existing records may violate it:
 
-```
+```SQL
 SQL> select status,validated,generated,index_name
   2  from user_constraints
   3  where constraint_name='C1_UK';
@@ -80,7 +80,7 @@ De facto we know that no existing record violates the constraint, because the un
 
 To mark the constraint as VALIDATED, we'll issue the following statement:
 
-```
+```SQL
 SQL> alter table t enable validate constraint c1_uk;
 
 Table altered.
@@ -92,7 +92,7 @@ When we validate a check constraint or a foreign key constraint, Oracle scans al
 But in our case Oracle knows that the unique index already enforces the constraint for all the existing records in the table, and it optimizes the validation phase.\
 Using SQL trace we can see that the query that performs the actual validation looks like this:
 
-```
+```SQL
 select /*+ all_rows ordered dynamic_sampling(2) */ A.rowid, :1, :2, :3
 from "DEMO"."T" A
 where 1=0
@@ -106,7 +106,7 @@ Oracle can enforce a unique constraint also by using a non-unique index, as l
 
 Let's repeat the steps from the previous section with a non-unique index (after dropping and recreating the table).
 
-```
+```SQL
 SQL> create /* non-unique */ index c1_idx on t(c1) online;
 
 Index created.
@@ -124,7 +124,7 @@ Table altered.
 
 In this case the third step is not just a "rubber stamp", as it was when we used a unique index. Here the existing records should be actually validated, and indeed we can see it in the trace file:
 
-```
+```SQL
 select /*+ all_rows ordered dynamic_sampling(2) */ A.rowid, :1, :2, :3
 from "DEMO"."T" A,
      (select /*+ all_rows */ "C1" from "DEMO"."T" A
