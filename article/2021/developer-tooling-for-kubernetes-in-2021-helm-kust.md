@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/developer-tooling-for-kubernetes-in-2021-helm-kust.md](https://github.com/xitu/gold-miner/blob/master/article/2021/developer-tooling-for-kubernetes-in-2021-helm-kust.md)
 > * 译者：[kamly](https://githuc.com/kamly)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [greycodee](https://github.com/greycodee), [lsvih
-](https://github.com/lsvih)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [greycodee](https://github.com/greycodee), [lsvih](https://github.com/lsvih)
 
 # 2021 年 Kubernetes 的开发者工具：Helm、Kustomize 和 Skaffold
 
