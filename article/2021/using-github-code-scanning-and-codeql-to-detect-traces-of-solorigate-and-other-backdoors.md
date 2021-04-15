@@ -31,7 +31,7 @@ GitHub CodeQL 是一个语义代码分析引擎，它使用*查询（Query）*�
 
 ![图示：文中描述的代码扫描流程](https://github.blog/wp-content/uploads/2021/03/Screen-Shot-2021-03-10-at-4.41.07-PM.png?w=1024&resize=1024%2C589)
 
-[Microsoft 团队贡献的](https://github.com/github/codeql/pull/5083)CodeQL 查询代码会检测被恶意注入的 C# 代码的模式。运行这些查询的最佳方式，是在被潜在影响的服务器上手动创建一个 CodeQL 数据库，并用 VS Code 的 CodeQL 插件分析这个数据库。
+[Microsoft 团队贡献的](https://github.com/github/codeql/pull/5083) CodeQL 查询代码会检测被恶意注入的 C# 代码的模式。运行这些查询的最佳方式，是在被潜在影响的服务器上手动创建一个 CodeQL 数据库，并用 VS Code 的 CodeQL 插件分析这个数据库。
 
 你还可以生成一个 CodeQL 数据库，然后通过 CI/CD 管道运行查询。这样就能在运行着 CI/CD 任务（以及用来构建发布文件）的系统中检测到构建注入。
 
@@ -40,11 +40,11 @@ GitHub CodeQL 是一个语义代码分析引擎，它使用*查询（Query）*�
 1. 在 VS Code 中安装 [CodeQL 插件](https://codeql.github.com/docs/codeql-for-visual-studio-code/setting-up-codeql-in-visual-studio-code/)，然后按照[快速入门指南](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-codeql#quick-start-installing-and-configuring-the-extension-1)设置[起始工作区](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-codeql#cloning-the-codeql-starter-workspace)。
 2. 在被潜在注入的构建服务器上构建 C# 源码，从而[生成一个 CodeQL 数据库](https://codeql.github.com/docs/codeql-cli/creating-codeql-databases/)。
 3. 把 CodeQL 数据库传到自己的机器上。
-   **注意：** CodeQL 数据库本身不包含任何（有潜在危险的）编译成品或被注入的可执行文件。它包含（1）所编译的源码的一份纯文本副本，以及（2）该代码的一份关系展示。
-4. [在 VS Code 中加载 CodeQL 数据库](https://codeql.github.com/docs/codeql-for-visual-studio-code/analyzing-your-projects/).
-5. 定位到 `**ql/csharp/ql/src/codeql-suites**`，在这里你会找到 CodeQL 查询文件 **`solorigate.qls`**。右击该文件，选择 **CodeQL: Run Queries in Selected Files（在选中文件中运行查询）**
+   **注意：**CodeQL 数据库本身不包含任何（有潜在危险的）编译成品或被注入的可执行文件。它包含（1）所编译的源码的一份纯文本副本，以及（2）该代码的一份关系展示。
+4. [在 VS Code 中加载 CodeQL 数据库](https://codeql.github.com/docs/codeql-for-visual-studio-code/analyzing-your-projects/)。
+5. 定位到 `**ql/csharp/ql/src/codeql-suites**`，在这里你会找到 CodeQL 查询文件 **`solorigate.qls`**。右击该文件，选择 **CodeQL: Run Queries in Selected Files（在选中文件中运行查询）**。
 
-![界面截图；如何运行 CodeQL 查询](https://github.blog/wp-content/uploads/2021/03/code-scanning-and-codeql-detect-solorigate-fig-2.png?w=512&resize=512%2C72)
+![界面截图：如何运行 CodeQL 查询](https://github.blog/wp-content/uploads/2021/03/code-scanning-and-codeql-detect-solorigate-fig-2.png?w=512&resize=512%2C72)
 
 对每个被潜在影响的代码库重复第 2 步至第 5 步。
 
@@ -79,13 +79,13 @@ queries: ./.github/codeql/solorigate.qls
 
 如果 CodeQL 在产品或代码库中标识出了可疑元素，那你就应该手动复查受影响区域的代码了。我们甚至建议你对比原始的源码和 CodeQL 扫描的源码。
 
-Microsoft 的 Solorigate 响应团队贡献的查询代码，对检测 Solorigate 等此类后门植入攻击有着启发性作用。这类攻击的危害不限于系统或网络层面。使用 CodeQL 分析代码库可以算是在审计技术版图中占有一席之地了。关于此次攻击的更多信息以及关于其他技术的建议，请参阅文章： [Microsoft Solorigate 资源中心](https://aka.ms/solorigate)。
+Microsoft 的 Solorigate 响应团队贡献的查询代码，对检测 Solorigate 等此类后门植入攻击有着启发性作用。这类攻击的危害不限于系统或网络层面。使用 CodeQL 分析代码库可以算是在审计技术版图中占有一席之地了。关于此次攻击的更多信息以及关于其他技术的建议，请参阅文章：[Microsoft Solorigate 资源中心](https://aka.ms/solorigate)。
 
 如果你有任何关于 CodeQL 和 Solorigate 问题，请联系 GitHub 高级安全客服。如果你目前还不是 GitHub 用户，请[点击这里](https://enterprise.github.com/contact?utm_source=github&utm_medium=site&utm_campaign=adv-security&ref_page=/features/security&ref_cta=Contact%20Sales&ref_loc=hero)联系我们，我们会很乐意提供进一步协助。
 
 ## 延伸阅读
 
-如果你想要了解关于 Solorigate 查询检测的更多技术背景信息，请参阅[Microsoft 的这篇文章](https://www.microsoft.com/security/blog/2021/02/25/microsoft-open-sources-codeql-queries-used-to-hunt-for-solorigate-activity/)。
+如果你想要了解关于 Solorigate 查询检测的更多技术背景信息，请参阅 [Microsoft 的这篇文章](https://www.microsoft.com/security/blog/2021/02/25/microsoft-open-sources-codeql-queries-used-to-hunt-for-solorigate-activity/)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
