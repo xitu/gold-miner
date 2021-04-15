@@ -7,17 +7,11 @@
 
 # Web Share for Modern Web Apps
 
-## Web Share API for Modern Web Apps
-
-#### Using sharing options similar to mobile devices across web apps
-
 ![](https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png)
 
+> Recently, Web Share and Web Share API started to support Windows and Chrome OS, making it interesting for Web Developers.
+
 Have you ever come across the Web Share API? At least many of you may have heard of the term. Web Share API was out there for some time now. However, the initial support for Web Share API was limited to mobile devices.
-
----
-
-> # Recently, Web Share and Web Share API started to support Windows and Chrome OS, making it interesting for Web Developers.
 
 ## Web Share API — Quick Demo
 
@@ -32,27 +26,15 @@ We can do a quick test of Web Share APIs by following the steps given below to s
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YSWUxwngdvAWwQOtAHYzvg.png)
 
----
-
 > **I hope you are already convinced after trying it out.** At least that was my first impression while checking out the Web Share demo in my browser.
-
-## Tip: Build & share independent components with Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly** modular applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
----
-
-![Material UI components shared individually on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/4000/0*UXvQXhoDwiBnjAty.png)
 
 ## Using Web Share in Practice
 
-#### Sharing Links and Text
+### Sharing Links and Text
 
 You can use a simple `share()` method to share the links and text you want. The code snippet is given below to help you out with Web Share.
 
-```
+```ja
 if (navigator.share) {
   navigator.share({
     title: 'google.com',
@@ -64,11 +46,11 @@ if (navigator.share) {
  }
 ```
 
-#### Sharing Files
+### Sharing Files
 
 File sharing is a bit different from URL sharing. For instance, you have to call `navigator.canShare()`. Then you can add an array of files while invoking `navigator.share()`
 
-```
+```js
 if (navigator.canShare && navigator.canShare({ files: fileArr })) {
   navigator.share({
     files: fileArr,
@@ -82,21 +64,19 @@ if (navigator.canShare && navigator.canShare({ files: fileArr })) {
  }
 ```
 
-#### Sharing Target
+### Sharing Target
 
 For an app to become a Share Target, it needs to fulfill some criteria set by Chrome. You can refer to [this](https://developers.google.com/web/fundamentals/app-install-banners/#criteria) link to check those out.
 
 To register in the web app manifest, you have to add a `share_target`. It alerts the operating system to consider the app as a possible sharing option, as shown below.
 
 1. Accepting basic information
-
 2. Accepting files
-
 3. Accepting application changes
 
 You have to use the Web Share Target API to register as a target. A target can share files and content with other applications.
 
-```
+```js
 "share_target": {
   "action": "/?share-target",
   "method": "POST",
@@ -114,7 +94,7 @@ You have to use the Web Share Target API to register as a target. A target can s
 
 However, it is easier to transfer files between installed applications. You can share multiple contents varying from URLs to files.
 
-```
+```js
 async function share(title, text, url) {
   try {
     await navigator.share({title, text, url});
@@ -128,7 +108,7 @@ async function share(title, text, url) {
 
 ## Web Share API — Features and Limitations
 
-#### Features
+### Features
 
 * Using Web Share, your web application can use the system-provided sharing capabilities just like a platform-specific app.
 * Developers get a more comprehensive range of sharing options.
@@ -136,13 +116,12 @@ async function share(title, text, url) {
 * Web Share APIs help to share text, URLs, and files. And also, Web Share has expanded its services too.
 * It’s available for Chrome OS, Chrome on Window, Safari, and Android in Chromium forks.
 
-#### Limitations
+### Limitations
 
 However, no matter how good this service is, there are several drawbacks and limitations too.
 
 * Firstly, only the sites accessed via `https` can be used with Web Share.
 * Another thing is, you cannot invoke it with something like an `onload `operation. There must be some user action for this. For instance, a user click can invoke it.
----
 
 * Besides, it is still under development for Chrome for Mac.
 
@@ -154,17 +133,9 @@ Chrome is one major browser that supports Web Share Target API. And also, Safari
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CtRllCb7OzXfmPxJk4eaew.png)
 
-> # However, the Web Share API should be triggered by a user action, as it is developed to reduce inconveniences and abuses.
+> However, the Web Share API should be triggered by a user action, as it is developed to reduce inconveniences and abuses.
 
 Thank you for reading. Feel free to leave a comment down below and share your experience.
-
-## Learn More
-[**7 New Chrome APIs You Should Know**
-**7 top Chrome features that blur the lines between native apps and web apps**blog.bitsrc.io](https://blog.bitsrc.io/7-new-chrome-apis-you-should-know-cf2dcb9f42dc)
-[**10 Tips to Improve Productivity using Chrome Dev Tools**
-**Features of chrome Dev Tools to enhance the dev experience.**blog.bitsrc.io](https://blog.bitsrc.io/10-tips-to-improve-productivity-using-chrome-dev-tools-7918fc8203f3)
-[**Understanding Web Share APIs**
-**Web Share APIs use the device’s native sharing capabilities to share any web site content. -Learn all about it.**blog.bitsrc.io](https://blog.bitsrc.io/understanding-web-share-apis-d987ea3648ad)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
