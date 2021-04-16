@@ -188,7 +188,7 @@ It is also a mandatory library if you want to work with a database.
 
 ## Graphql
 
-If you want to add support to [GraphQL,](https://graphql.org/) then this is your package. It supports queries, mutations, and subscriptions.
+If you want to add support to [GraphQL](https://graphql.org/), then this is your package. It supports queries, mutations, and subscriptions.
 
 Check the Github [here](https://github.com/graphql-go/graphql).
 
@@ -198,7 +198,7 @@ Check the Github [here](https://github.com/graphql-go/graphql).
 
 One of the biggest complains of the community is the poor native Go testing packages.
 
-Ginkgo extends standard `[testing](https://golang.org/pkg/testing/)` package, allowing expressive BDD ([Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development)) style tests.
+Ginkgo extends standard [testing](https://golang.org/pkg/testing/) package, allowing expressive BDD ([Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development)) style tests.
 
 ```Go
 package books_test
@@ -309,9 +309,9 @@ Check out the [documentation](https://github.com/fyne-io/fyne).
 
 ## Ants
 
-A nice feature of the Go language is the concurrency support and the `[goroutines](https://www.geeksforgeeks.org/goroutines-concurrency-in-golang/)`. But managing all the routines in an application can be really challenging.
+A nice feature of the Go language is the concurrency support and the [goroutines](https://www.geeksforgeeks.org/goroutines-concurrency-in-golang/). But managing all the routines in an application can be really challenging.
 
-The `[ants](https://github.com/panjf2000/ants)` library implements a pool that manage and recycle a massive number of goroutines, automatically. It has nonblocking mechanisms and handle panic without crashing an application.
+The [ants](https://github.com/panjf2000/ants) library implements a pool that manage and recycle a massive number of goroutines, automatically. It has nonblocking mechanisms and handle panic without crashing an application.
 
 If you need to create an application that uses concurrency, you should definitely check [this library](https://github.com/panjf2000/ants) out.
 
