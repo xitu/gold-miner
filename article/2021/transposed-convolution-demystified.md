@@ -89,7 +89,7 @@
 
 转置的卷积受棋盘效应的影响，如下所示。
 
-![**图 13.** 棋盘效应([source](https://distill.pub/2016/deconv-checkerboard/))](https://cdn-images-1.medium.com/max/2194/1*4Tsf3dlg7Wlhrt0D7k7osA.png)
+![**图 13.** 棋盘效应（[源](https://distill.pub/2016/deconv-checkerboard/)）](https://cdn-images-1.medium.com/max/2194/1*4Tsf3dlg7Wlhrt0D7k7osA.png)
 
 造成这种情况的主要原因是在图像的某些部分出现不均匀的重叠，从而导致出现伪影。这可以通过使用可被步长整除的核大小来修复或减轻，例如在步长为 2 时采用 2x2 或 4x4 的核大小。
 
