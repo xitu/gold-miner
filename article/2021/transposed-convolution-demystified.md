@@ -101,7 +101,7 @@
 
 2. 语义分割:
 
-![**图 15.** 使用转置卷积实现语义分割([source](https://thegradient.pub/semantic-segmentation/))](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
+![**图 15.** 使用转置卷积实现语义分割（[源](https://thegradient.pub/semantic-segmentation/)）](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
 
 ## Conclusion:
 
