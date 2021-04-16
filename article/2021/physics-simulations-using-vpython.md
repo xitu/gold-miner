@@ -7,10 +7,6 @@
 
 # Physics Simulations Using VPython
 
-#### VPython
-
-#### Simulate complex physics equations
-
 ![Photo by [Conor Luddy](https://unsplash.com/@opticonor?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*Fk0d8lVdHBnEvOLa)
 
 ## Introduction
@@ -25,28 +21,26 @@ To install VPython, if you’re using Jupyter notebook, the 3D scene appears in 
 
 The package has been published in Pypi and can be easily installed with pip.
 
-```
+```bash
 pip install vpython
 ```
 
 Once the installation has been completed you could try produces a [3D Cylinder](https://www.glowscript.org/docs/VPythonDocs/cylinder.html).
 
-```
+```Python
 import vpython as vp
 vp.cylinder()
 ```
 
 To change the position, size, and color:
 
-```
+```Python
 vp.cylinder(pos=vp.vector( 4, 0, 0), size=vp.vector(4,4,4), color = vp.color.red)
 ```
 
----
-
 ## Simulate the Solar System
 
-#### Process planning
+### Process planning
 
 The equation for the gravitational force is one of the biggest successes in physics. It tells us how fast the moon is traveling around the earth, shows us how to get a satellite into orbit, and helps us find dark matter and black holes.
 
@@ -60,7 +54,7 @@ One of the best ways to study the gravitational force is by using the **Euler Cr
 * Next, we need to think about the distance between the star and the planet. We can get a distance-vector that points from the star to the planet by subtracting their positions. The magnitude of this distance vector goes into the denominator of the gravitational force.
 * Finally, we calculate a vector called **R hat**, which gives the direction of the gravitational force. We can calculate R hat by dividing the distance-vector by its magnitude.
 
-#### Coding
+### Coding
 
 Bring your coffee and let’s start by creating a new python script, importing the module, and generating a scene:
 
@@ -97,14 +91,14 @@ def gravitationalForce(p1,p2):
 
 To create the animation, we’ll use the Euler Cromer method, so first, we need to generate a time variable and the step size:
 
-```
+```Python
 t = 0
 dt = 0.0001 #The step size. This should be a small number
 ```
 
 Under an infinite loop, we’ve to calculate the force and update the position, the momentum, and the time variable `t` as follow:
 
-**Note**: we use the `[rate()](https://python.developpez.com/cours/vpython/webdoc/visual/rate.php)`to limit the animation rate, we can also use `sleep()`.
+> **Note**: we use the [`rate()`](https://python.developpez.com/cours/vpython/webdoc/visual/rate.php) to limit the animation rate, we can also use `sleep()`.
 
 ```Python
 while True:
@@ -122,7 +116,7 @@ while True:
 
 Now let’s try to add more planets.
 
-**Note**: we can use RGB to declare the color as follows:
+> **Note**: we can use RGB to declare the color as follows:
 
 ```Python
 star = vp.sphere(pos=vp.vector(0,0,0), radius=0.2, color=vp.color.yellow,
@@ -166,19 +160,11 @@ while (True):
 
 ![Output result](https://cdn-images-1.medium.com/max/2000/1*IumWizGbiMgBzSrbBfeKQA.png)
 
----
-
 ## In the end
 
 VPython allows us to generate simple/complex 3D animations to describe physics phenom, or draw real-time plots …
 
----
-
 **Thanks For Reading! 😄**
-
-![Check out my other articles and follow me on [Medium](https://medium.com/@ahmedazizkhelifi)](https://cdn-images-1.medium.com/max/2000/0*8yrIpeVSQR-rS3uw)
-
-[Khelifi Ahmed Aziz](https://medium.com/u/862a0903708d?source=post_page-----c914b5652088----------------------)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
