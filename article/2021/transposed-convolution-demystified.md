@@ -9,7 +9,7 @@
 
 转置卷积是图像分割、超分辨率等应用领域的革命性概念，但有时它变得有些难以理解。 在这篇文章中，我将尝试对这个概念进行解密，并使其更易于理解。
 
-![[(source](https://imgflip.com/memegenerator/7296870/Confused-Baby))](https://cdn-images-1.medium.com/max/2000/0*ilAQO9B3hm5waqqq)
+![（[源](https://imgflip.com/memegenerator/7296870/Confused-Baby)）](https://cdn-images-1.medium.com/max/2000/0*ilAQO9B3hm5waqqq)
 
 ## 前言
 
