@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-github-code-scanning-and-codeql-to-detect-traces-of-solorigate-and-other-backdoors.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-github-code-scanning-and-codeql-to-detect-traces-of-solorigate-and-other-backdoors.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 使用 GitHub 代码扫描和 CodeQL 工具检测 Solorigate 等后门程序
 
-上个月，CodeQL 安全社区的一位成员向 C# 代码库贡献了关于 [CodeQL 复合查询](https://github.com/github/codeql/pull/5083)的代码，这有助于许多组织机构评估他们是否受影响于 SolarWinds 遭到的对全球关键网络基础设施的攻击。这次攻击也被称为 [Solorigate](http://aka.ms/solorigate)（微软的说法）或 Sunburst（FireEye 的说法）。在本文中，我们会阐释 GitHub 高级安全客户如何使用 CodeQL 查询来排查他们的构建设施是否被恶意程序注入了。
+上个月，CodeQL 安全社区的一位成员向 C# 代码库贡献了关于 [CodeQL 复合查询](https://github.com/github/codeql/pull/5083)的代码，这有助于许多组织机构评估他们是否受影响于 SolarWinds 遭到的对全球关键网络基础设施的攻击。这次攻击也被称为 [Solorigate](http://aka.ms/solorigate)（微软的说法）或 Sunburst（FireEye 的说法）。在本文中，我们会阐释 GitHub 高级安全客户该如何使用 CodeQL 查询来排查他们的构建设施是否被恶意程序注入。
 
 ## 发生了什么事？
 
@@ -17,17 +17,17 @@
 
 ## 何为构建劫持？
 
-这类恶意程序在*构建系统*中植入后门，以便于在发布的产品中的注入恶意代码，方便恶意程序的传播。该恶意程序甚至会监控对 `msbuild.exe`（[Microsoft 构建引擎](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild)）的调用。通过给自己开通*调试特权*，构建劫持程序能够把额外的恶意代码注入到构建进程中。这意味着，虽然代码库本身不包含任何恶意代码或其他痕迹，但构建出来的产品却*确实*带有恶意程序。在这份 [Crowdstrike 提供的技术分析](https://www.crowdstrike.com/blog/sunspot-malware-technical-analysis/)中，有关于构建劫持过程更加详尽的解释。
+这类恶意程序在**构建系统**中植入后门，以便于在发布的产品中的注入恶意代码，方便恶意程序的传播。该恶意程序甚至会监控对 `msbuild.exe`（[Microsoft 构建引擎](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild)）的调用。通过给自己开通**调试特权**，构建劫持程序能够把额外的恶意代码注入到构建进程中。这意味着，虽然代码库本身不包含任何恶意代码或其他痕迹，但构建出来的产品却**确实**带有恶意程序。在这份 [Crowdstrike 提供的技术分析](https://www.crowdstrike.com/blog/sunspot-malware-technical-analysis/)中，有关于构建劫持过程更加详尽的解释。
 
 ## CodeQL 安全分析
 
-GitHub CodeQL 是一个语义代码分析引擎，它使用*查询（Query）*来分析源代码并发现非预期的模式。例如，CodeQL 能追踪来自存在潜在危险（比如一个 SQL 声明中的字符串拼接会导致 SQL 注入漏洞）的不可信来源（比如一个 HTTP 请求）的数据。
+GitHub CodeQL 是一个语义代码分析引擎，它使用**查询（Query）**来分析源代码并发现非预期的模式。例如，CodeQL 能追踪来自存在潜在危险（比如一个 SQL 声明中的字符串拼接会导致 SQL 注入漏洞）的不可信来源（比如一个 HTTP 请求）的数据。
 
 在（编译后语言的）构建过程中，CodeQL 查询可以运行在由它在生成的源代码库中。因而，CodeQL 会密切观察构建过程，并随之提取用于构建二进制文件的相关源码。提取过程的产物是一个关系形式的源码的结构化表示 —— 一个 CodeQL 数据库。
 
 ## 使用 CodeQL 检测 Solorigate 的痕迹
 
-如果一个构建服务器被 Solorigate 恶意程序的构建劫持组件植入了后门，那么恶意程序会在编译时注入额外代码。如果 CodeQL 在被感染的服务上观察构建进程，它会从真正的源码中提取被注入的恶意源码。产生的 CodeQL 数据库会因此包含 Solorigate 恶意源码的痕迹。请注意，如果你的 CodeQL 数据库生成于*没有*被感染的机器，那么这个数据库就不会包含任何被注入的代码。
+如果一个构建服务器被 Solorigate 恶意程序的构建劫持组件植入了后门，那么恶意程序会在编译时注入额外代码。如果 CodeQL 在被感染的服务上观察构建进程，它会从真正的源码中提取被注入的恶意源码。产生的 CodeQL 数据库会因此包含 Solorigate 恶意源码的痕迹。请注意，如果你的 CodeQL 数据库生成于**没有**被感染的机器，那么这个数据库就不会包含任何被注入的代码。
 
 ![图示：文中描述的代码扫描流程](https://github.blog/wp-content/uploads/2021/03/Screen-Shot-2021-03-10-at-4.41.07-PM.png?w=1024&resize=1024%2C589)
 
