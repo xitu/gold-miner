@@ -209,47 +209,31 @@ For more details, refer to the following articles: [Preventing XSS Attacks](http
 
 Preventing Cross-site Scripting (XSS) is not easy. Specific prevention techniques depend on the subtype of XSS vulnerability, on user input usage context, and on the programming framework. However, there are certain general strategic principles that you should follow to keep your web application safe.
 
-  
-![Train and maintain awareness](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step1-150x150.png)
-
 ### Step 1: Train and maintain awareness
 
 To keep your web application safe, everyone involved in building the web application must be aware of the risks associated with XSS vulnerabilities. You should provide suitable security training to all your developers, QA staff, DevOps, and SysAdmins. You can start by referring them to this page.
-  
-![Don’t trust any user input](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step2-150x150.png)
 
 ### Step 2: Don’t trust any user input
 
 Treat all user input as untrusted. Any user input that is used as part of HTML output introduces a risk of an XSS. Treat input from authenticated and/or internal users the same way that you treat public input.
-  
-![Use escaping/encoding](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step3-150x150.png)
 
 ### Step 3: Use escaping/encoding
 
 Use an appropriate escaping/encoding technique depending on where user input is to be used: HTML escape, JavaScript escape, CSS escape, URL escape, etc. Use existing libraries for escaping, don’t write your own unless absolutely necessary.
 
-  
-![Sanitize HTML](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step4-150x150.png)
-
 ### Step 4: Sanitize HTML
 
 If the user input needs to contain HTML, you can’t escape/encode it because it would break valid tags. In such cases, use a trusted and verified library to parse and clean HTML. Choose the library depending on your development language, for example, HtmlSanitizer for .NET or SanitizeHelper for Ruby on Rails.
-  
-![Set the HttpOnly flag](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step5-150x150.png)
 
 ### Step 5: Set the HttpOnly flag
 
 To mitigate the consequences of a possible XSS vulnerability, set the HttpOnly flag for cookies. If you do, such cookies will not be accessible via client-side JavaScript.
-  
-![Use a Content Security Policy](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step6-150x150.png)
 
 ### Step 6: Use a Content Security Policy
 
 To mitigate the consequences of a possible XSS vulnerability, also use a Content Security Policy (CSP). CSP is an HTTP response header that lets you declare the dynamic resources that are allowed to load depending on the request source.
 
-![Scan regularly (with Acunetix)](https://www.acunetix.com/wp-content/uploads/2020/03/howto_xss_step7-150x150.png)
-
-### Step 7: Scan regularly (with Acunetix)
+### Step 7: Scan regularly
 
 XSS vulnerabilities may be introduced by your developers or through external libraries/modules/software. You should regularly scan your web applications using a web vulnerability scanner such as Acunetix. If you use Jenkins, you should install the Acunetix plugin to automatically scan every build.
 
