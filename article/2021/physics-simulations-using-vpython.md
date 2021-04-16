@@ -103,10 +103,10 @@ Under an infinite loop, we’ve to calculate the force and update the position, 
 ```Python
 while True:
 	vp.rate(500)
-  #calculte the force using gravitationalForce function
+	#calculte the force using gravitationalForce function
 	star.force = gravitationalForce(star,planet)
 	planet.force = gravitationalForce(planet,star)
-  #Update momentum, position and time
+	#Update momentum, position and time
 	star.momentum = star.momentum + star.force*dt
 	planet.momentum = planet.momentum + planet.force*dt
 	star.pos = star.pos + star.momentum/star.mass*dt
@@ -138,7 +138,7 @@ then update position and momentum,
 while (True):
     vp.rate(500)
     
- 	#Calculte the force using gravitationalForce function
+    #Calculte the force using gravitationalForce function
     star.force = gravitationalForce(star,planet1)+gravitationalForce(star,planet2)+gravitationalForce(star,planet3)
     planet1.force = gravitationalForce(planet1,star)+gravitationalForce(planet1,planet2)+gravitationalForce(planet1,planet3)
     planet2.force = gravitationalForce(planet2,star)+gravitationalForce(planet2,planet1)+gravitationalForce(planet2,planet3)
