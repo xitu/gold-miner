@@ -7,8 +7,6 @@
 
 # 20 Go Packages You Can Use in Your Next Project
 
-#### Improve your application and save your time.
-
 ![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
 
 [Go](https://golang.org/doc/) is an amazing language that you can use to build almost any kind of program. Developed in 2007, it has the ease of an interpreted language while also being fast and efficient as a compiled language. It was also built thinking about concurrency and getting advantage of the multicore machines. You can even write programs to [embedded](https://tinygo.org/) [devices](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0).
@@ -20,8 +18,6 @@ With only the [standard packages](https://golang.org/pkg/) from Go you already c
 Fortunately, Go has a vibrant community that creates and shares a lot of libraries that you can use to improve your development. Let’s see some of them in this article.
 
 > **Note**: you definitely should check the [Awesome Go](https://github.com/avelino/awesome-go) github repository, which has a huge list of Go projects, libraries, and resources.
-
----
 
 ## Golang-Set
 
@@ -230,7 +226,7 @@ Outstanding library for error handling. The main feature is to handle the error 
 
 As stated in the [documentation](https://github.com/juju/errors), the error handling becomes:
 
-```
+```Go
 if err := SomeFunc(); err != nil {
   return errors.Annotate(err, "more context")
 }
@@ -260,7 +256,7 @@ Check the [documentation](https://github.com/sirupsen/logrus) to see how to use 
 
 With this library you can parse date strings without knowing the format. It reads the bytes and uses a state machine to find the correct format.
 
-```
+```Go
 t, err := dateparse.ParseAny("3/1/2014")
 ```
 
@@ -318,8 +314,6 @@ A nice feature of the Go language is the concurrency support and the `[goroutine
 The `[ants](https://github.com/panjf2000/ants)` library implements a pool that manage and recycle a massive number of goroutines, automatically. It has nonblocking mechanisms and handle panic without crashing an application.
 
 If you need to create an application that uses concurrency, you should definitely check [this library](https://github.com/panjf2000/ants) out.
-
----
 
 ## Conclusion
 
