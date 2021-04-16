@@ -71,7 +71,7 @@
 
 ![**图 11.**](https://cdn-images-1.medium.com/max/2000/1*yxBd_pCiEVVwEQFmc-Heog.png)
 
-5. 如您所见，生成的上采样特征图的某些元素是重叠的。为解决此问题，我们简单的将重叠的元素求和即可。
+5. 如您所见，生成的上采样特征图的某些元素是重叠的。为解决此问题，我们简单地将重叠的元素求和即可。
 
 ![**图 12.** 完整的转置卷积操作](https://cdn-images-1.medium.com/max/2000/1*faRskFzI7GtvNCLNeCN8cg.png)
 
