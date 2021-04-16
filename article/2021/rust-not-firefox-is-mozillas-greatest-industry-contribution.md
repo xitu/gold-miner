@@ -2,38 +2,36 @@
 > * 原文作者：Matt Asay
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/rust-not-firefox-is-mozillas-greatest-industry-contribution.md](https://github.com/xitu/gold-miner/blob/master/article/2021/rust-not-firefox-is-mozillas-greatest-industry-contribution.md)
-> * 译者：
+> * 译者：[灰灰 greycodee](https://github.com/greycodee)
 > * 校对者：
 
-# Rust, not Firefox, is Mozilla's greatest industry contribution
+# Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器
 
-Linus Torvalds is perhaps best known as the creator of Linux, but he has arguably had a bigger impact as the inventor of Git. In like manner, though we remember Mozilla as the organization behind the Firefox web browser, it will have a much more profound impact on computing for its development of the Rust programming language.
+Linus Torvalds 是著名的 Linux 创造者，同时他创造的 Git 也对世界产生了巨大的影响。同样，创造火狐浏览器的 Mozilla 也开发了 Rust 语言，这对开发行业产生了深远的影响。
 
-## Mozilla: seeking a new purpose
+## Mozilla：寻求新目标
 
-Mozilla has seen better days. There was a time when it was indispensable to web freedom. That time was when Microsoft's Internet Explorer was the dominant web browser, and there was real concern about the web's future with its primary gateway owned by one big, proprietary company.
+Mozilla 看见了更好的日子。曾经有一段时间，网络自由是必不可少的。那时微软的 Internet Explorer 是主要的 Web 浏览器，而真正的担忧是 Web 的未来，其主要网关由一家大型专有公司拥有。多年以来，Mozilla 在创造一个更加开发和自由的网络环境上取得了巨大的成功。不幸的是，成功的果实却被谷歌的 Chrom 浏览器摘取了。多年后，我们用一个霸权换另一个霸权，但是[火狐浏览器却被排挤在外了](https://twitter.com/mjasay/status/902652369607036928?lang=en)。
 
-Over the course of many years, Mozilla largely succeeded in its mission of creating a more open, free web. Unfortunately, the space it created for competition was largely filled by Google's Chrome browser. Years later, we've traded one hegemon for another, and [Firefox is no longer very relevant to the conversation](https://twitter.com/mjasay/status/902652369607036928?lang=en).
+尽管 Mozilla 奋斗了十年来寻找新的目标，情况还是比较糟糕。或许[ Mozilla 可以创建下一个伟大的平台](https://www.cnet.com/news/forget-facebook-the-webs-platform-is-firefox/)（不会的）。或是一个[伟大的手机操作系统](https://www.cnet.com/news/why-the-death-of-the-firefox-phone-matters/)（也不太可能）? [同步](https://twitter.com/mjasay/status/239069091573420032)（再次说不）？很多希望和错误的开始，导致不可避免的『不』。在 2017 年[ CNET 采访了 Mozilla 当时的首席执行官 Chris Beard ](https://www.cnet.com/news/mozilla-three-years-later-is-firefox-in-a-better-place/)，从他们的前景来看，并不是很乐观。
 
-This is so despite Mozilla struggling for well over a decade to find a new purpose. Maybe [Mozilla could build the next great platform](https://www.cnet.com/news/forget-facebook-the-webs-platform-is-firefox/). (Nope.) Or a [great mobile OS](https://www.cnet.com/news/why-the-death-of-the-firefox-phone-matters/)? (Also nope.) [Sync](https://twitter.com/mjasay/status/239069091573420032)? (Again, nope.) Lots and lots of hope and false starts, leading to the inevitable "nope." In 2017 [CNET interviewed Mozilla's then CEO Chris Beard](https://www.cnet.com/news/mozilla-three-years-later-is-firefox-in-a-better-place/) to get a read on its prospects--they still don't look particularly bright.
+然而，在所有这些斗争中，Mozilla创造了一个真正伟大的东西：Rust。
 
-And yet in the midst of all this struggle, Mozilla created something truly great: Rust.
+## 平静的 Rust
 
-## Rust in peace
+从某种意义上说，十年前从 Mozilla 的研究领域中出现了一种系统编程语言是很奇怪的。之所以奇怪，是因为像什么手机浏览器、邮件客户端、手机系统等等，都是比较好的东西，而公司却去创建一个编程语言，虽然可能对创造安全的浏览器组件有点用处，但是却不一定能给 Mozilla 带来光明的未来。 
 
-In some ways, it's bizarre that a systems programming language emerged 10 years ago from the bowels of Mozilla Research. Bizarre because, well, what's a mobile browser/email client/mobile OS/etc. etc. company doing creating a programming language that might be useful for creating secure browser components but doesn't necessarily give Mozilla a future?
+Rust 起始于 2006 年 Mozilla 员工 Graydon Hoare 的一个个人项目。[Hoare 解释](https://www.infoq.com/news/2012/08/Interview-Rust/)了他2012年工作背后的原因：
 
-Rust started as Mozilla engineer Graydon Hoare's personal project in 2006. [Hoare explained](https://www.infoq.com/news/2012/08/Interview-Rust/) the reasons behind his work in 2012:
+> 许多显而易见的好想法，在其他语言中广为人知和喜爱，还没有使其成为广泛使用的系统语言，或者以内存模型非常差（不安全，对并发性敌对）的语言为由而没有进行部署。在70年代末和80年代初，在这个领域有很多优秀的竞争对手，我想根据环境已经改变的理论，复兴他们的一些想法，再给他们一个机会：Internet 是高度并发且有高度的安全意识，因此，用 C 和 C ++ 的设计的方案正在发生变化。
 
-> A lot of obvious good ideas, known and loved in other languages, haven't made it into widely-used systems languages, or are deployed in languages that have very poor (unsafe, concurrency-hostile) memory models. There were a lot of good competitors in the late 70s and early 80s in that space, and I wanted to revive some of their ideas and give them another go, on the theory that circumstances have changed: the internet is highly concurrent and highly security-conscious, so the design-tradeoffs that always favor C and C++ (for example) have been shifting.
+在 2009 年Mozilla 接受了 Hoare 的工作，并且在 2010 年正式宣布公司成立。在过去的十年中，Rust 蓬勃发展，广受欢迎，并逐渐渗透到为 AWS，Microsoft 和 Google 等公司提供支持的基础架构中。但是它还没有为 Mozilla 带来光明的未来。实际上，[Mozilla 在 2020 年解雇了很大一部分员工](https://www.zdnet.com/article/programming-language-rust-mozilla-job-cuts-have-hit-us-badly-but-heres-how-well-survive/)，其中包括 Rust 的主要贡献者。这些 Rust 贡献者很容易在其他地方找到工作，因为 Rust 对于几乎所有依赖系统工程工作的公司都非常重要。
 
-By 2009 Mozilla had embraced Hoare's work, and in 2010 the company formally announced it in 2010. Over the past decade, Rust has blossomed, gaining in popularity and finding its way into the infrastructure that powers companies like AWS, Microsoft and Google. What it hasn't done, however, is to offer Mozilla a future. In fact, [in 2020 Mozilla laid off a big chunk of its employees](https://www.zdnet.com/article/programming-language-rust-mozilla-job-cuts-have-hit-us-badly-but-heres-how-well-survive/), including key Rust contributors. Those Rust contributors readily found work elsewhere, given the importance of Rust to pretty much any company that depends on systems engineering work.
+让我们把目光转向 Mozilla。 尽管多年来 Mozilla 在技术上取得了令人难以置信的成就，但很难猜测 Mozilla 将会发生什么。Mozilla 令人印象深刻的作品的影响可能很多年都无法完全实现。我们每天或直接或间接依赖的大量云服务越来越多地使用 Rust 构建。
 
-This brings us back to Mozilla's legacy. It's hard to guess what will happen to Mozilla, despite the incredible good it has done for tech over the years. The impact of Mozilla's most impressive work will likely not be fully realized for many years. A huge swath of the cloud services we directly or indirectly depend on each day are increasingly built with Rust.
+在谈到 [Rust 的日益普及](https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/)时，RedMonk 分析师 James Governor 强调了 Rust 填补各种市场的能力是其成功的关键：『我首先在物联网方面遇到了它­­ -- ­即用于设备编程的 Rust。 显然，它正在作为一种系统编程语言而增长，Rust 和 WASM/WASI 周围的生态系统以及来自 Fastly 的无服务器计算看起来非常有趣。』
 
-Speaking about the [rising popularity of Rust](https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/), RedMonk analyst James Governor highlighted [Rust's ability to fill a variety of niches as key to its success](https://redmonk.com/rstephens/2021/03/10/language-slackchat-jan2021/): "I first encountered it in terms of IoT--that is Rust for device programming. But clearly it's growing as a systems programming language, and the ecosystem around Rust and WASM/WASI with serverless compute from Fastly looks very interesting."
-
-This ability to enable [developers](https://www.techrepublic.com/article/how-to-become-a-developer-a-cheat-sheet/) to build "ambitious, fast, and correct" code, as [Mozilla has suggested](https://research.mozilla.org/rust/), makes it almost certain to become ever more pervasive in systems development. Mozilla may not directly benefit from this innovation, but through its development and contribution of Rust to the world, Mozilla has given us something even bigger and more strategically important than Firefox.
+正如 Mozilla 所[建议](https://research.mozilla.org/rust/)的那样，这种使[开发人员](https://www.techrepublic.com/article/how-to-become-a-developer-a-cheat-sheet/)能够构建『雄心勃勃，快速且正确的』代码的能力几乎可以肯定，它将在系统开发中变得越来越普遍。Mozilla 可能不会直接从这项创新中受益，但是通过 Rust 的发展和贡献，Mozilla 为我们提供了比 Firefox 更大甚至更具战略意义的东西。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
