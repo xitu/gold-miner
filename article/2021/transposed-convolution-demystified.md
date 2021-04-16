@@ -103,7 +103,7 @@
 
 ![**图 15.** 使用转置卷积实现语义分割（[源](https://thegradient.pub/semantic-segmentation/)）](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
 
-## Conclusion:
+## 结论：
 
 转置卷积是当今语义分割和超分辨率算法的基础。它们提供了抽象表示形式的最佳、最通用的上采样方式。在这篇文章中，我们探索了经常使用的各种上采样技术，然后尝试更加直观、深入地了解转置卷积。希望您喜欢这篇文章，如果您有任何疑问、问题或意见，请随时通过 [Twitter](https://twitter.com/Perceptron97) 或者 [Linkedin](https://www.linkedin.com/in/divyanshu-mishra-ai/) 联系我。
 
