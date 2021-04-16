@@ -4,6 +4,7 @@
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-new-standard-for-mobile-app-security.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-new-standard-for-mobile-app-security.md)
 > - 译者：
 > - 校对者：
+
 # A New Standard for Mobile App Security
 
 ![](https://1.bp.blogspot.com/-TNecO7NNDL8/YHdg3EKOL3I/AAAAAAAADsc/EW2Jj7nVYaQxkZSvrxpmXZudgt1yrtwIwCNcBGAsYHQ/s0/Image%2B%23%2B0.png)
