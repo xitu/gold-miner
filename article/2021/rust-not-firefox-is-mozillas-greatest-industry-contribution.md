@@ -15,7 +15,7 @@ Mozilla 曾辉煌一时。曾几何时，它对于网络自由是不可或缺的
 
 尽管 Mozilla 奋斗了十年来寻找新的目标，情况还是比较糟糕。或许 [Mozilla 可以创建下一个伟大的平台](https://www.cnet.com/news/forget-facebook-the-webs-platform-is-firefox/)（并没有）。或是一个[伟大的手机操作系统](https://www.cnet.com/news/why-the-death-of-the-firefox-phone-matters/)（也不太可能）? [同步](https://twitter.com/mjasay/status/239069091573420032)（再次说不）？很多希望和错误的开始，导致不可避免的『不』。在 2017 年 [CNET 采访了 Mozilla 当时的首席执行官 Chris Beard](https://www.cnet.com/news/mozilla-three-years-later-is-firefox-in-a-better-place/)，从他们的前景来看，并不是很乐观。
 
-然而，在所有这些斗争中，Mozilla创造了一个真正伟大的东西：Rust。
+然而，在所有这些努力中，Mozilla 创造了一个真正伟大的东西：Rust。
 
 ## 平静的 Rust
 
