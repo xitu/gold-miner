@@ -11,7 +11,7 @@ Linus Torvalds 是著名的 Linux 创造者，同时他创造的 Git 也对世�
 
 ## Mozilla：寻求新目标
 
-Mozilla 看见了更好的日子。曾经有一段时间，网络自由是必不可少的。那时微软的 Internet Explorer 是主要的 Web 浏览器，而真正的担忧是 Web 的未来，其主要网关由一家大型专有公司拥有。多年以来，Mozilla 在创造一个更加开发和自由的网络环境上取得了巨大的成功。不幸的是，成功的果实却被谷歌的 Chrom 浏览器摘取了。多年后，我们用一个霸权换另一个霸权，但是[火狐浏览器却被排挤在外了](https://twitter.com/mjasay/status/902652369607036928?lang=en)。
+Mozilla 曾辉煌一时。曾几何时，它对于网络自由是不可或缺的。那时微软的 Internet Explorer 是主要的 Web 浏览器，这不由得令人担忧 Web 的未来，因为其主要入口被一家大型私有公司所掌控。经过多年的努力，Mozilla 在创造一个更加开放和自由的网络环境上大获成功。不幸的是，成功的果实却被谷歌的 Chrome 浏览器窃取。多年后，掌控大权的浏览器发生更替，而[火狐浏览器却被排挤在外了](https://twitter.com/mjasay/status/902652369607036928?lang=en)。
 
 尽管 Mozilla 奋斗了十年来寻找新的目标，情况还是比较糟糕。或许[ Mozilla 可以创建下一个伟大的平台](https://www.cnet.com/news/forget-facebook-the-webs-platform-is-firefox/)（不会的）。或是一个[伟大的手机操作系统](https://www.cnet.com/news/why-the-death-of-the-firefox-phone-matters/)（也不太可能）? [同步](https://twitter.com/mjasay/status/239069091573420032)（再次说不）？很多希望和错误的开始，导致不可避免的『不』。在 2017 年[ CNET 采访了 Mozilla 当时的首席执行官 Chris Beard ](https://www.cnet.com/news/mozilla-three-years-later-is-firefox-in-a-better-place/)，从他们的前景来看，并不是很乐观。
 
