@@ -7,7 +7,7 @@
 
 # Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器
 
-Linus Torvalds 是著名的 Linux 创造者，同时他创造的 Git 也对世界产生了巨大的影响。同样，创造火狐浏览器的 Mozilla 也开发了 Rust 语言，这对开发行业产生了深远的影响。
+Linus Torvalds 也许是作为 Linux 创造者而举世闻名，但也有人认为他创造的 Git 对世界的影响更加重大。同样，尽管 Mozilla 作为创造火狐浏览器的组织为被我们铭记，但它创造的 Rust 编程语言对计算领域的影响却更加深远。
 
 ## Mozilla：寻求新目标
 
