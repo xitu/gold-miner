@@ -13,7 +13,7 @@
 
 > 我们相信，这项研究是一条令人激动的前进道路，可以进一步探索机器学习技术驱动的架构设计和跨计算堆栈的协同优化（如编译器、映射和调度），为未来的应用开发具有新特性的高效加速器。
 
-深度学习模型已经在多个领域得到了应用，从计算机视觉（CV）到自然语言处理（NLP）。但是，这些模型在推理时通常需要大量的计算和内存资源，从而使边缘和移动设备的硬件约束更加紧张。定制硬件加速器，例如 [Edge TPU](https://www.infoq.com/news/2020/12/google-coral-ai-iot/)，可以改善模型推理延迟，但通常需要对模型进行修改，例如参数量化或[模型修剪](https://www.infoq.com/presentations/tensorflow-lite/)。包括[Google团队](https://arxiv.org/abs/2003.02838)在内的一些研究人员已经建议使用 AutoML 设计针对特定加速器硬件的高性能模型。
+深度学习模型已经在多个领域得到了应用，从计算机视觉（CV）到自然语言处理（NLP）。但是，这些模型在推理时通常需要大量的计算和内存资源，从而使边缘和移动设备的硬件约束更加紧张。定制硬件加速器，例如 [Edge TPU](https://www.infoq.com/news/2020/12/google-coral-ai-iot/)，可以改善模型推理延迟，但通常需要对模型进行修改，例如参数量化或[模型修剪](https://www.infoq.com/presentations/tensorflow-lite/)。包括 [Google 团队](https://arxiv.org/abs/2003.02838)在内的一些研究人员已经建议使用 AutoML 设计针对特定加速器硬件的高性能模型。
 
 相比之下，APOLLO 团队的策略是定制加速器硬件，以优化给定深度学习模型的性能。加速器基于处理元件（PE）的 2D 阵列，每个处理元件包含多个[单指令多数据](https://www.sciencedirect.com/topics/computer-science/single-instruction-multiple-data)（SIMD）内核。可以通过几个不同的参数的取值来定制此基本模式，这些参数包括 PE 阵列的大小、每个PE的内核数以及每个内核的内存量。总体而言，设计空间中有近 500M 个参数组合。由于提出的加速器设计必须在软件中进行仿真，因此在深度学习模型上评估其性能既耗时又需要大量计算。
 
