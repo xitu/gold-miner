@@ -29,7 +29,7 @@ Rust 起始于 2006 年 Mozilla 员工 Graydon Hoare 的一个个人项目。[Ho
 
 让我们把目光转向 Mozilla。 尽管多年来 Mozilla 在技术上取得了令人难以置信的成就，但很难猜测 Mozilla 将会发生什么。Mozilla 令人印象深刻的作品的影响可能很多年都无法完全实现。我们每天或直接或间接依赖的大量云服务越来越多地使用 Rust 构建。
 
-在谈到 [Rust 的日益普及](https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/)时，RedMonk 分析师 James Governor 强调了 Rust 填补各种市场的能力是其成功的关键：『我首先在物联网方面遇到了它­­ -- ­即用于设备编程的 Rust。 显然，它正在作为一种系统编程语言而增长，Rust 和 WASM/WASI 周围的生态系统以及来自 Fastly 的无服务器计算看起来非常有趣。』
+在谈到 [Rust 的日益普及](https://redmonk.com/sogrady/2021/03/01/language-rankings-1-21/)时，RedMonk 分析师 James Governor 强调了 Rust 填补各种市场的能力是其成功的关键：『我首先在物联网领域遇到了它­­ —— 即用于设备编程的 Rust。显然，它作为一种系统编程语言正在成长，Rust 和 WASM/WASI 周围的生态系统以及来自 Fastly 的无服务器计算看起来非常有趣。』
 
 正如 Mozilla 所[建议](https://research.mozilla.org/rust/)的那样，这种使[开发人员](https://www.techrepublic.com/article/how-to-become-a-developer-a-cheat-sheet/)能够构建『雄心勃勃，快速且正确的』代码的能力几乎可以肯定，它将在系统开发中变得越来越普遍。Mozilla 可能不会直接从这项创新中受益，但是通过 Rust 的发展和贡献，Mozilla 为我们提供了比 Firefox 更大甚至更具战略意义的东西。
 
