@@ -6,18 +6,18 @@ on:
 
 jobs:
   translatorApplicationProcessor:
+    name: Translator Application Processor
+    if: ${{ contains(github.event.issue.title, '申请成为译者') }}
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ contains(github.event.issue.title, '申请成为译者') }}
-        name: Label Issue
+      - name: Label Issue
         uses: github/issue-labeler@v2.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/labeler.yaml
           enableVersionedRegex: 0
           
-      - if: ${{ contains(github.event.issue.title, '申请成为译者') }}
-        name: Close Issue
+      - name: Close Issue
         uses: peter-evans/close-issue@v1
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
