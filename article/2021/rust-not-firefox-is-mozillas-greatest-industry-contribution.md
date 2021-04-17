@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/rust-not-firefox-is-mozillas-greatest-industry-contribution.md](https://github.com/xitu/gold-miner/blob/master/article/2021/rust-not-firefox-is-mozillas-greatest-industry-contribution.md)
 > * 译者：[灰灰 greycodee](https://github.com/greycodee)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[Chorer](https://github.com/Chorer)、[PassionPenguin](https://github.com/PassionPenguin)
 
 # Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器
 
