@@ -25,7 +25,7 @@ Rust 起始于 2006 年 Mozilla 员工 Graydon Hoare 的一个个人项目。[Ho
 
 > 许多显而易见的好想法，在其他语言中被广泛接受和喜爱，却没有加入到被广泛使用的系统语言中，或者只在内存模型非常差（不安全，对并发性敌对）的系统语言中加入。在70年代末和80年代初，在这个领域有很多优秀的竞争对手，我想根据环境已经改变的理论，复兴他们的一些想法，再给他们一个机会：Internet 是高度并发且有高度的安全意识，因此，用 C 和 C ++ 的设计的方案正在发生变化。
 
-在 2009 年Mozilla 接受了 Hoare 的工作，并且在 2010 年正式宣布公司成立。在过去的十年中，Rust 蓬勃发展，广受欢迎，并逐渐渗透到为 AWS，Microsoft 和 Google 等公司提供支持的基础架构中。但是它还没有为 Mozilla 带来光明的未来。实际上，[Mozilla 在 2020 年解雇了很大一部分员工](https://www.zdnet.com/article/programming-language-rust-mozilla-job-cuts-have-hit-us-badly-but-heres-how-well-survive/)，其中包括 Rust 的主要贡献者。这些 Rust 贡献者很容易在其他地方找到工作，因为 Rust 对于几乎所有依赖系统工程工作的公司都非常重要。
+在 2009 年 Mozilla 接受了 Hoare 的工作，并且在 2010 年正式宣布公司成立。在过去的十年中，Rust 蓬勃发展，广受欢迎，并逐渐渗透到为 AWS，Microsoft 和 Google 等公司提供支持的基础架构中。但是它还没有为 Mozilla 带来光明的未来。实际上，[Mozilla 在 2020 年解雇了很大一部分员工](https://www.zdnet.com/article/programming-language-rust-mozilla-job-cuts-have-hit-us-badly-but-heres-how-well-survive/)，其中就包括了不少 Rust 的主要贡献者。这些 Rust 贡献者很容易在其他地方找到工作，因为 Rust 对于几乎所有依赖系统工程工作的公司都非常重要。
 
 让我们把目光转向 Mozilla。 尽管多年来 Mozilla 在技术上取得了令人难以置信的成就，但很难猜测 Mozilla 将会发生什么。Mozilla 令人印象深刻的作品的影响可能很多年都无法完全实现。我们每天或直接或间接依赖的大量云服务越来越多地使用 Rust 构建。
 
