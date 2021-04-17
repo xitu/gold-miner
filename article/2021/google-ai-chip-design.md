@@ -1,5 +1,5 @@
 > * 原文地址：[Google's Apollo AI for Chip Design Improves Deep Learning Performance by 25%](https://www.infoq.com/news/2021/03/google-ai-chip-design)
-> * 原文作者：[Anthony Alford]()
+> * 原文作者：[Anthony Alford](https://www.infoq.com/profile/Anthony-Alford/)
 > * 译文出自：[掘金翻译计划](https://www.infoq.com/profile/Anthony-Alford/)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md](https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
