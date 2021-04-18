@@ -2,65 +2,65 @@
 > * 原文作者：[Gaurav](https://dev.to/devggaurav)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-amazing-free-tools-that-will-save-you-some-time-when-u-are-building-websites-especially-for-non-designer-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-amazing-free-tools-that-will-save-you-some-time-when-u-are-building-websites-especially-for-non-designer-developers.md)
-> * 译者：
-> * 校对者：
+> * 译者：[5Reasons](https://github.com/5Reasons)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[greycodee](https://github.com/greycodee)、[Chorer](https://github.com/Chorer)
 
-# 6 amazing free tools that will save you some time when u are building websites. (Especially for 'non-designer' developers)
+# 没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具
 
-![Cover image for 6 amazing free tools that will save you some time when u are building websites. (Especially for 'non-designer' developers)](https://res.cloudinary.com/practicaldev/image/fetch/s--mqNrrPIz--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/17h7em78l1wb1h77yrrq.png)
+![头图](https://res.cloudinary.com/practicaldev/image/fetch/s--mqNrrPIz--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/17h7em78l1wb1h77yrrq.png)
 
-Hello everyone, hope you are doing great! In this short article, I am writing about 6 free tools that save me a lot of time when I am building websites. I hope you will also find these tools helpful. let's get into the article.
+大家好，希望大伙们最近一切都好！在这篇短文中，我将向大家介绍 6 款在搭建网站时为我节省了许多时间的免费工具。希望这些工具也能够帮到你们。
 
 ## 1. [Type Scale](https://type-scale.com/)
 
-Do you often struggle to define the perfect font sizes for your elements? If yes then this is the perfect tool for you.
+你是否经常为了如何设定页面元素的字体大小而倍感纠结？如果你有这种烦恼，这款软件绝对能帮到你。
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--j6zjd2dY--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0u5ijkltjxmtzcyp2g5k.png)
 
-All you have to do is add your base font size once you do that this tool will generate different font sizes for different elements.(H1,H2,H3 etc.)  
-Also, you can select different fonts from google fonts and try different scales for your font size.
+只需在网页中输入你的基准字体大小，它就会展示出不同的元素（`H1`、`H2`、`H3` 等等）的字体尺寸。  
+此外，你还可以从谷歌字体库中挑选不同的字体，并尝试不同的字体大小。
 
-The best feature of this tool is you can literally copy the CSS generated according to your choices and paste it into your CSS file. It also imports the font you selected and sets the `font-family` for your html. Then you don't have to define font sizes everywhere!
+这款工具最棒的点在于，在选择你想要的效果后，它会自动生成对应的 CSS 样式代码，你可以直接把它拷贝到 CSS 文件中。同时，它还会自动导入你所选择的字体库并为 html 设置好 `font-family` 属性，这样你就不用花时间在不同的文件中定义字体大小了！
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--jkTEwrnn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3c5xqeuqihqz6faqu127.png)
 
 ## 2. [Happy Hues](https://www.happyhues.co/)
 
-If you don't understand how to apply color palettes to your web designs then this is a great place to start.
+如果你不知道怎样为你的网站进行配色设计的话，这款工具会是你学习的起点。
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--5SrLi9Gc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/etd3hk2vv8yk72uwzufr.png)
 
-This tool not only shows amazing color palettes but also acts as a real-world example of how the colors could be used in your design projects.
+它不仅展示了多种绚丽的配色方案，还为不同的配色设计了真实的范例，教你如何把不同的颜色运用到你的项目设计中。
 
-It shows, which colors to use for which elements and also how to use colors in your illustrations so that the illustrations match your design.
+这款工具告诉大家应该如何为不同的元素选择对应的颜色，同时还展示了如何为网页插图选择配色方案，让插图和网页整体的风格更加匹配。
 
 ## 3. [Fontjoy](https://fontjoy.com/)
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--PrYrhFHW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/suv06e9nelrjk41sfm87.png)
 
-This tool simply generates font pairs that you can use in your designs. You can choose the contrast you want and hit generate to get font pairs that go together well.
+这款工具可以快速生成对应不同元素的一套字体，供你在网页设计中应用。你可以选择你想要的对比度，单击生成就可以得到想要的那套字体了。
 
 ## 4. [CSS Peeper](https://csspeeper.com/)
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--1xWc6eIc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ni8vyhe00p8haa0iqctv.png)
 
-CSS Peeper is a chrome extension that you can use to inspect styles from different websites in a well-organized and beautiful way. It organizes the colors, fonts used in the website. Also, if you like a certain element on a webpage you can get all the CSS used for creating that element.
+CSS Peeper 是一款 Chrome 拓展程序，有着优秀的用户体验。它能帮助你快速检查不同网页的样式信息，展示网站所使用的颜色和字体。此外，如果你对网站上的某一个特定元素感兴趣，它能够帮助你快速检查出创建对应元素所需的所有 CSS 样式。
 
 ## 5. [avataaars generator](https://getavataaars.com/)
 
 ![Alt Text](https://res.cloudinary.com/practicaldev/image/fetch/s--D69kIV3X--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j6tefcu5g7b0abbki23y.png)
 
-With this tool, you can generate amazing avatars to use in your designs. There are multiple styles to choose from and you can export the avatar in different formats like png, SVG, and also you can get react code or image link directly. All for free!
+这款工具可以帮助你生成有趣的拟人化头像。有非常多不同的样式和风格可供你选择，在完成设计后，你还可以快速地将头像素材以多种格式导出。工具现在支持 PNG 与 SVG，还支持直接生成 React 代码或者图片链接。最重要的是，这款工具是完全免费的！
 
 ## 6. [brumm.af](https://shadows.brumm.af/)
 
 ![Alt Text](https://res.cloudinary.com/practicaldev/image/fetch/s--XHa_l-Xt--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/2lnw8xevf2zmfayblwro.png)
 
-With this tool, you can create amazing box shadows. You can add multiple layers to your shadows and adjust every part of it to create awesome-looking smooth shadows.!
+通过使用这款工具，你可以创造出惊人的 `box-shadow` 阴影效果。你可以添加多个层级的阴影，并且对每个图层进行调整，从而创造出最自然、最拟真的阴影效果。
 
-Hope you find this article useful. If you did then please share it and also you can follow me on Twitter [@devggaurav](//twitter.com/devggaurav)
+希望这篇文章有帮助到你！如果你觉得这篇文章还不错的话，可以将它分享出去并关注原作者的推特 [@devggaurav](//twitter.com/devggaurav)～
 
-Thank u so much for reading! 😀
+感谢你的阅读！😀
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
