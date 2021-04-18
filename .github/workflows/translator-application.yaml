@@ -2,26 +2,26 @@ name: "Translator Application"
 
 on:
   issues:
-    types: [ opened ]
+    types: [opened]
 
 jobs:
-  label:
+  translatorApplicationProcessor:
+    name: Translator Application Processor
+    if: ${{ contains(github.event.issue.title, '申请成为译者') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: github/issue-labeler@v2.0
-        if: ${{ contains(github.event.issue.title, '申请成为译者') }}
+      - name: Label Issue
+        uses: github/issue-labeler@v2.0
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/labeler.yaml
-
-  comment:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: bubkoo/auto-comment@v1
-        if: ${{ contains(github.event.issue.title, '申请成为译者') }}
+          enableVersionedRegex: 0
+          
+      - name: Close Issue
+        uses: peter-evans/close-issue@v1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          issuesOpened: |
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          comment: |
             Hi, @{{ author }}, 感谢你申请加入掘金翻译计划，你需要做以下的事：
 
             1. 认真学习 [掘金翻译计划译者教程](https://github.com/xitu/gold-miner/wiki)，校对和翻译文章时，严格遵循教程，杜绝不看教程，只知道问的伸手党；
