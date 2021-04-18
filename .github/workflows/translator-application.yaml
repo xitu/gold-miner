@@ -15,7 +15,7 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: .github/labeler.yaml
-          enableVersionedRegex: 0
+          enable-versioned-regex: 0
           
       - name: Close Issue
         uses: peter-evans/close-issue@v1
