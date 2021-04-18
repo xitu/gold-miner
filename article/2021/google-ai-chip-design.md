@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md](https://github.com/xitu/gold-miner/blob/master/article/2021/google-ai-chip-design.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[Chorer](https://github.com/Chorer)
 
 # Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％
 
