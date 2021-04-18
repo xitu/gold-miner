@@ -49,10 +49,10 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 - **GitHub**
   - **Stars**：13.1k
   - **Forks**：1.3k
-  - **Version**：v20.1.0
-  - **Contributors**：208
-  - **Used by**：16.5k
-- **NPM Weekly Downloads**：105,065
+  - **版本**：v20.1.0
+  - **贡献者**：208
+  - **使用人数**：16.5k
+- **NPM 周下载量**：105,065
 - **License**：BSD-3-Clause
 
 ![Popularity of Hapi.js framework](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
@@ -93,10 +93,10 @@ Hapi.js 是开发安全、实时、可扩展和社交媒体应用的理想选择
 - **GitHub**
   - **Stars**：52.3k
   - **Forks**：8.8k
-  - **Version**：v4.17.1
-  - **Contributors**：262
-  - **Used by**：9.2m
-- **NPM Weekly Downloads**：17,193,915
+  - **版本**：v4.17.1
+  - **贡献者**：262
+  - **使用人数**：9.2m
+- **NPM 周下载量**：17,193,915
 - **License**：MIT
 
 ![Express.js popularity](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
@@ -133,10 +133,10 @@ Express.js 是快速创建 Web 应用程序和服务的理想选择，因为它�
 - **Github**
   - **Stars**：35.5k
   - **Forks**：3.4k
-  - **Version**：7.5.0
-  - **Contributors**：226
-  - **Used by**：60.4k
-- **NPM Weekly Downloads**：508,214
+  - **版本**：7.5.0
+  - **贡献者**：226
+  - **使用人数**：60.4k
+- **NPM 周下载量**：508,214
 - **License**：MIT
 
 ![Nest.js popularity](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
@@ -173,10 +173,10 @@ Nest.js 主要用于编写具有可扩展、可测试和松散耦合特点的应
 - **GitHub**
   - **Stars**：30.9k
   - **Forks**：3k
-  - **Version**：2.13.1
-  - **Contributors**：219
-  - **Used by**：160k
-- **NPM Weekly Download**：870,944
+  - **版本**：2.13.1
+  - **贡献者**：219
+  - **使用人数**：160k
+- **NPM 周下载量**：870,944
 - **License**：MIT
 
 ![Popularity of Koa.js framework](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
@@ -212,10 +212,10 @@ Koa.js 最适合用于创建服务器、路由、处理响应和处理错误。
 - **GitHub**
   - **Stars**：52.7k
   - **Forks**：9.6k
-  - **Version**：4.0.0
-  - **Contributors**：189
-  - **Used by**：2.2m
-- **NPM Weekly Downloads**：3,617,636
+  - **版本**：4.0.0
+  - **贡献者**：189
+  - **使用人数**：2.2m
+- **NPM 周下载量**：3,617,636
 - **License**：MIT
 
 ![Popularity of socket.io](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
@@ -265,8 +265,8 @@ Socket.io 是最好的基于事件的实时双向通信工具之一。任何想�
 - **Github**
   — **Stars**：42.3k
   - **Forks**：5.2k
-  - **Version**：4.0.0
-  - **Contributors**：452
+  - **版本**：4.0.0
+  - **贡献者**：452
 - NPM：不可用
 - **License**：MIT
 
@@ -302,9 +302,9 @@ Meteor.js 具有快速原型设计的能力，并能生成跨平台（Android、
 - **Github**
   - **Stars**：9.7k
   - **Forks**：498
-  - **Version**：5.0.13
-  - **Contributors**：47
-  - **Used by**：754
+  - **版本**：5.0.13
+  - **贡献者**：47
+  - **使用人数**：754
 - **NPM Weekly Downloads**：3808
 - **License**：MIT
 
@@ -344,9 +344,9 @@ Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of
 - **Github**
   - **Stars**：21.9k
   - **Forks**：1.9k
-  - **Version**：1.4.0
-  - **Contributors**：229
-  - **Used by**：23.3k
+  - **版本**：1.4.0
+  - **贡献者**：229
+  - **使用人数**：23.3k
 - **NPM Weekly Downloads**：20,457
 - **License**：MIT
 
