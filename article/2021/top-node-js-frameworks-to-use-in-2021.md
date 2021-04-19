@@ -9,7 +9,7 @@
 
 ![最值得使用的 Node.js 框架](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
 
-Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的 JavaScript 运行时框架之一，它是开源的，具有跨平台属性，可以在浏览器外创建代码。
+Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的开源的 JavaScript 运行时框架之一，具有跨平台属性，让我们可以在浏览器以外的环境运行代码。
 
 ## Node.js 的特别之处是什么？
 
@@ -17,9 +17,9 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 2. 它最适合敏捷开发和原型设计。
 3. 它有一个庞大的生态系统，提供开源库。
 4. 它可以用于更快地开发企业级可扩展的应用程序。
-5. 它基于最常用的编程语言--JavaScript。
+5. 它基于最常用的编程语言 —— JavaScript。
 
-## 市场对 Nodejs 的反应如何？
+## 市场对 Node.js 的反应如何？
 
 ![NPM 趋势](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
 
@@ -101,7 +101,7 @@ Hapi.js 是开发安全、实时、可扩展和社交媒体应用的理想选择
 
 ![Express.js 流行度](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
 
-Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
+Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯 JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
 
 **Express.js 可以被用于：**
 
@@ -352,7 +352,7 @@ Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of
 
 ![sails.js 框架流行度](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
 
-Sails.js是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
+Sails.js 是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC 框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
 
 **Sails.js 可以被用于：**
 
@@ -369,7 +369,7 @@ Sails.js是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-
 
 **什么时候使用 Sails.js：**
 
-任何想要一个模拟 MVC 模式的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架（如Laravel和Ruby on Rails）、想要实现现代应用架构，并构建以数据为中心的 API 和实时应用的开发者都应该在他们的下一个项目中使用 Sails.js。
+任何想要一个模拟 MVC 模式的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架（如 Laravel 和 Ruby on Rails）、想要实现现代应用架构，并构建以数据为中心的 API 和实时应用的开发者都应该在他们的下一个项目中使用 Sails.js。
 
 **谁在使用 Sails.js：**
 
