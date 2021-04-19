@@ -19,7 +19,7 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 4. 它可以用于更快地开发企业级可扩展的应用程序。
 5. 它基于最常用的编程语言 —— JavaScript。
 
-## 市场对 Nodejs 的反应如何？
+## 市场对 Node.js 的反应如何？
 
 ![NPM Trends](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
 
