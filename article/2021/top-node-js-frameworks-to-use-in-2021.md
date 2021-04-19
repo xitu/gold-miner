@@ -352,7 +352,7 @@ Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of
 
 ![Popularity of sails.js framework](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
 
-Sails.js是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
+Sails.js 是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC 框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
 
 **Sails.js 可以被用于：**
 
