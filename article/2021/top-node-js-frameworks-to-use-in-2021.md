@@ -7,7 +7,7 @@
 
 # 2021 年最值得使用的 Node.js 框架
 
-![Top Node.js Frameworks](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
+![最值得使用的 Node.js 框架](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
 
 Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的 JavaScript 运行时框架之一，它是开源的，具有跨平台属性，可以在浏览器外创建代码。
 
@@ -21,7 +21,7 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 
 ## 市场对 Nodejs 的反应如何？
 
-![NPM Trends](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
+![NPM 趋势](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
 
 **下面是一些关于 Node.js 的更多信息：**
 
@@ -55,7 +55,7 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 - **NPM 周下载量**：105,065
 - **License**：BSD-3-Clause
 
-![Popularity of Hapi.js framework](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
+![Hapi.js 框架流行度](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
 
 Hapi.js 是众多开发者信赖的最简单、安全、可靠的框架之一。你可以使用 Hapi.js 来创建可扩展和健壮的应用程序，这些应用程序具有最小的开销和开箱即用的功能。它是开发 JSON API 的顶级[Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)框架。
 
@@ -99,7 +99,7 @@ Hapi.js 是开发安全、实时、可扩展和社交媒体应用的理想选择
 - **NPM 周下载量**：17,193,915
 - **License**：MIT
 
-![Express.js popularity](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
+![Express.js 流行度](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
 
 Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
 
@@ -139,7 +139,7 @@ Express.js 是快速创建 Web 应用程序和服务的理想选择，因为它�
 - **NPM 周下载量**：508,214
 - **License**：MIT
 
-![Nest.js popularity](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
+![Nest.js 流行度](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
 
 Nest.js 是一个服务器端应用框架，它是为了解放开发者的生产力，让他们的生活变得更轻松而打造的。开发者通常为了更好地组织和管理代码而使用这个 Node.js 框架。
 
@@ -179,7 +179,7 @@ Nest.js 主要用于编写具有可扩展、可测试和松散耦合特点的应
 - **NPM 周下载量**：870,944
 - **License**：MIT
 
-![Popularity of Koa.js framework](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
+![Koa.js 框架流行度](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
 
 Koa.js 是一个开源的 Node 网络框架，由 Express.js 原班人马创建。通过 Koa，他们的目标是为 Web 应用和 API 创建一个更小、更有价值、更强大的平台。它提供了多种高效的方法，以让构建服务的过程更快速。
 
@@ -218,7 +218,7 @@ Koa.js 最适合用于创建服务器、路由、处理响应和处理错误。
 - **NPM 周下载量**：3,617,636
 - **License**：MIT
 
-![Popularity of socket.io](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
+![socket.io 流行度](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
 
 Socket.io 是用来在客户端和服务器端之间创建实时双向通信的框架。
 
@@ -308,7 +308,7 @@ Meteor.js 具有快速原型设计的能力，并能生成跨平台（Android、
 - **NPM Weekly Downloads**：3808
 - **License**：MIT
 
-![Popularity of adoni.js](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
+![adoni.js 流行度](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
 
 Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 的 MVC 框架，可以运行在所有的操作系统上。它为编写服务器端 Web 应用程序提供了一个稳定的生态系统，以让开发者专注于业务需求，如最终确定选择或排除哪个包。
 
@@ -350,7 +350,7 @@ Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of
 - **NPM Weekly Downloads**：20,457
 - **License**：MIT
 
-![Popularity of sails.js framework](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
+![sails.js 框架流行度](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
 
 Sails.js是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
 
