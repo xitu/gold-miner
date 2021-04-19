@@ -5,11 +5,11 @@
 > * 译者：[kamly](https://github.com/kamly)
 > * 校对者：
 
-# 在线添加唯一索引
+# 以在线的方式添加唯一约束
 
 > 本文假定使用企业版本。
 
-我有一个表 t ，想在它的列 ( c1 ) 上添加一个唯一索引。
+我有一个表 t，想在它的列（c1 ）上添加一个唯一约束。
 
 ## 离线方式
 
@@ -21,10 +21,10 @@ SQL> alter table t add constraint c1_uk unique (c1);
 Table altered.
 ```
 
-默认情况下，Oracle 在此操作中创建唯一约束(名为 C1_UK )和相应的唯一索引(也名为 C1_UK )来强制实施约束。
-缺点是这是一个离线操作 —— 表在共享模式下被锁定。
+默认情况下，Oracle 在此操作中创建唯一约束（名为 C1_UK）和相应的唯一索引（也名为 C1_UK）来强制实施约束。
+缺点是这是一个离线操作 —— 该表被加共享锁。
 
-即使我们在线指定索引的创建，也是如此：
+即使我们在创建索引时声明在线操作，也是如此：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1) using index online;
@@ -36,7 +36,7 @@ Table altered.
 
 ## 在线方式
 
-我们可以在线创建唯一索引，通过将操作拆分为三个步骤：
+通过将操作拆分为三个步骤，我们可以以在线的方式创建唯一约束：
 
 ### 步骤1：显式创建唯一索引
 
@@ -52,7 +52,7 @@ Index created.
 
 ### 步骤2：创建约束
 
-现在我们可以添加约束，并将其与现有索引相关联。这是一个快速的操作，因为索引已经存在，但是默认的 `alter table ... add constraint ...` 操作是离线操作。为了让其线上执行，我们应该将约束创建设置为 NOT VALIDATED ：
+现在我们可以添加约束，并将其与现有索引相关联。这是一个快速的操作，因为索引已经存在，但是默认的 `alter table ... add constraint ...` 是离线操作。为了让其在线执行，我们应该将约束创建设置为 NOT VALIDATED ：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1)
@@ -74,7 +74,7 @@ STATUS     VALIDATED       GENERATED  INDEX_NAME
 ENABLED    NOT VALIDATED   USER NAME  C1_UK
 ```
 
-事实上，我们知道没有任何现有记录违反约束，因为唯一索引强制整个表具有唯一性。为了使这一事实 “正式记录”，我们将进入第三步。
+事实上，我们知道没有任何现有记录违反约束，因为唯一索引强制整个表具有唯一性。为了使这一事实被“正式记录”，我们将进入第三步。
 
 ### 步骤3：验证约束
 
@@ -104,7 +104,7 @@ where 1=0
 
 只要约束中的列是索引的前导列，Oracle 也可以通过使用非唯一索引来强制实施唯一约束。
 
-让我们使用非惟一索引重复上一节中的步骤（在删除并重新创建表之后）。
+让我们使用非唯一索引重复上一节中的步骤（在删除并重新创建表之后）。
 
 ```SQL
 SQL> create /* non-unique */ index c1_idx on t(c1) online;
