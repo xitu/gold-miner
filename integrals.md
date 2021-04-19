@@ -10866,10 +10866,11 @@
 |[你不可错过的 10 个 Xcode 技巧和快捷键](https://juejin.cn/post/6913888065937211399)|翻译|5|
 |[SwiftUI 中的 PageTabViewStyle](https://juejin.cn/post/6906289114300039182)|翻译|2|
 
-## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：56.5 当前积分：56.5 二零二一：44.5
+## 译者：[Usualminds](https://github.com/Usualminds) 历史贡献积分：61.5 当前积分：61.5 二零二一：49.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[State of Frontend 2020, TSH](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf)|校对|5|
 |[Snowpack：一个可替代 Webpack 的构建工具](https://juejin.cn/post/6940820980608696334)|校对|2|
 |[JavaScript Temporal API —— Date API 问题的一个解决方案](https://juejin.cn/post/6938358811908374559)|校对|2|
 |[API、WebSockets 和 WebHooks：究竟应该选谁](https://juejin.cn/post/6938359240880816165)|校对|2|
@@ -10916,10 +10917,14 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：387 当前积分：387 二零二一：387
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：426 当前积分：426 二零二一：426
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2019 年 MDN Web 开发者需求评估](https://github.com/xitu/Annual-Survey/blob/main/2019/frontend/MDN-Web-DNA-Report-2019.md)|翻译|14|
+|[State of Frontend 2020, TSH](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf)|翻译|12|
+|[2019 年设计系统状况调查](https://juejin.cn/post/6935860766826299405)|翻译|6|
+|[2020 年设计系统情况](https://juejin.cn/post/6935863647084216334)|翻译|7|
 |[Apple WWDC 21 回归，6 月 7 日线上不见不散！](https://juejin.cn/post/6945531482551091237)|翻译|2.5|
 |[谷歌 DeepMind 发布 NFNet：高效的深度网络](https://juejin.cn/post/6947586233522454558)|校对|1.5|
 |[MongoDB 和 MySQL 使用场景分析](https://juejin.cn/post/6949811448767840263)|校对|3|
@@ -11081,10 +11086,12 @@
 |------|-------|-------|
 |[对象展开运算符在 JavaScript 中的 5 大应用](https://juejin.cn/post/6895525536039174151)|校对|1|
 
-## 译者：[HumanBeingXenon](https://github.com/HumanBeingXenon) 历史贡献积分：20 当前积分：20 二零二一：20
+## 译者：[HumanBeingXenon](https://github.com/HumanBeingXenon) 历史贡献积分：33 当前积分：33 二零二一：33
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2019 年 MDN Web 开发者需求评估](https://github.com/xitu/Annual-Survey/blob/main/2019/frontend/MDN-Web-DNA-Report-2019.pdf)|翻译|8|
+|[State of Frontend 2020, TSH](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf)|校对|5|
 |[NumPy 1.20 问世，带来了运行时 SIMD 的支持和类型注释](https://juejin.cn/post/6943542858792042510)|校对|2|
 |[API、WebSockets 和 WebHooks：究竟应该选谁](https://juejin.cn/post/6938359240880816165)|校对|2|
 |[幻数并没有我们想象中的那么奇幻](https://juejin.cn/post/6944588994915074062)|校对|2|
