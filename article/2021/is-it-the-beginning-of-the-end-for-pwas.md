@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 这会是渐进式应用程序 PWA 衰落的开始吗？
+# 渐进式应用程序 PWA 开始衰落了吗？
 > Firefox 之后会有谁效仿？
 
 ![由 [Szabo Viktor](https://unsplash.com/@vmxhu?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*LmCaetpJHYbKh2bn)
