@@ -9,7 +9,7 @@
 
 ![Top Node.js Frameworks](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
 
-Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的 JavaScript 运行时框架之一，它是开源的，具有跨平台属性，可以在浏览器外创建代码。
+Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的开源的 JavaScript 运行时框架之一，具有跨平台属性，让我们可以在浏览器以外的环境运行代码。
 
 ## Node.js 的特别之处是什么？
 
