@@ -7,9 +7,9 @@
 
 # 20 Go Packages You Can Use in Your Next Project
 
-![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
+![图片由 [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
 
-[Go](https://golang.org/doc/) 是一门很棒的语言，它诞生于 2007年，您可以使用它构建几乎所有种类的应用程序。它既像解释型语言一样易于编写，又像编译型语言一样快速高效，同时还考虑到了并发与多核计算。您甚至可以编写可以驱动[嵌入式](https://tinygo.org/)[设备](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0)的程序。
+[Go](https://golang.org/doc/) 是一门很棒的语言。它诞生于 2007 年，您可以使用它构建几乎所有种类的应用程序。它既像解释型语言一样易于编写，又像编译型语言一样快速高效，同时还考虑到了并发与多核计算。您甚至可以编写可以驱动[嵌入式](https://tinygo.org/)[设备](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0)的程序。
 
 像 [Kubernetes](https://github.com/kubernetes/kubernetes)，[Consul](https://github.com/hashicorp/consul) 还有 [NSQ](https://nsq.io/) 这些非常不错的项目都是由 Go 语言编写。
 
@@ -17,7 +17,7 @@
 
 幸运的是，Go 拥有一个充满活力的社区，可以创建和共享许多三方库，您可以使用它们来加速和优化开发。本文我们会介绍其中的一部分。
 
-> **Note**: 一定别忘记查看这个 github 仓库：[Awesome Go](https://github.com/avelino/awesome-go) 它包含了大量的 Go项目、三方库还有资源。
+> **Note**: 一定别忘记查看这个 GitHub 仓库：[Awesome Go](https://github.com/avelino/awesome-go) 它包含了大量的 Go 项目、第三方库还有其它资源。
 
 ## Golang-Set
 
