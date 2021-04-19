@@ -101,7 +101,7 @@ Hapi.js 是开发安全、实时、可扩展和社交媒体应用的理想选择
 
 ![Express.js popularity](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
 
-Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
+Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯 JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
 
 **Express.js 可以被用于：**
 
