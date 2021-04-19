@@ -369,7 +369,7 @@ Sails.js是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-
 
 **什么时候使用 Sails.js：**
 
-任何想要一个模拟 MVC 模式的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架（如Laravel和Ruby on Rails）、想要实现现代应用架构，并构建以数据为中心的 API 和实时应用的开发者都应该在他们的下一个项目中使用 Sails.js。
+任何想要一个模拟 MVC 模式的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架（如 Laravel 和 Ruby on Rails）、想要实现现代应用架构，并构建以数据为中心的 API 和实时应用的开发者都应该在他们的下一个项目中使用 Sails.js。
 
 **谁在使用 Sails.js：**
 
