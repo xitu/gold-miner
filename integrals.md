@@ -10917,11 +10917,11 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：426 当前积分：426 二零二一：426
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：472 当前积分：472 二零二一：472
 
 |文章|类型|积分|
 |------|-------|-------|
-|[2019 年 MDN Web 开发者需求评估](https://github.com/xitu/Annual-Survey/blob/main/2019/frontend/MDN-Web-DNA-Report-2019.md)|翻译|14|
+|[2019 年 MDN Web 开发者需求评估](https://github.com/xitu/Annual-Survey/blob/main/2019/frontend/MDN-Web-DNA-Report-2019.md)|翻译|60|
 |[State of Frontend 2020, TSH](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf)|翻译|12|
 |[2019 年设计系统状况调查](https://juejin.cn/post/6935860766826299405)|翻译|6|
 |[2020 年设计系统情况](https://juejin.cn/post/6935863647084216334)|翻译|7|
