@@ -90,7 +90,7 @@ CREATE TABLE users (
 
 > “局部索引建立在由条件表达式定义的表中的行子集上（称为局部索引的谓词）。索引仅包含满足谓词的那些表行的条目。使用局部索引的主要原因是避免索引常见的值。由于查询通常会出现的值（占所有表行的百分之几以上的值）无论如何都会遍历大多数表，因此使用索引的好处是微不足道的。更好的策略是创建局部索引，其中这些行完全排除在外。局部索引减少了索引的大小，因此加快了使用索引的查询的速度。 这也将使许多写入操作速度更快，因为索引不需要在所有情况下都更新。” —— 摘自[ PostgreSQL 文档](https://www.postgresql.org/docs/12/indexes-partial.html)
 
-**MySQL：** :MySQL 大部分索引（PRIMARY KEY、UNIQUE、INDEX、FULLTEXT）在使用时都是使用B-Tree数据结构。特殊情况下也会使用 R-Tree 的数据结构。 MySQL 也支持 Hash 索引，而且在 InnoDB 引擎下使用 FULLTEXT 索引时是倒序排列的。
+**MySQL：** :MySQL 大部分索引（PRIMARY KEY、UNIQUE、INDEX、FULLTEXT）在使用时都是使用 B-Tree 数据结构。特殊情况下也会使用 R-Tree 的数据结构。 MySQL 也支持 Hash 索引，而且在 InnoDB 引擎下使用 FULLTEXT 索引时是倒序排列的。
 
 ## 数据库复制
 
