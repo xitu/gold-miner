@@ -1,4 +1,3 @@
-
 > * 原文地址：[Numpy on GPU/TPU](https://medium.com/ml-mastery/numpy-on-gpu-tpu-efb8d367020a)
 > * 原文作者：[Sambasivarao. K](https://medium.com/@k.sambasivarao222)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
