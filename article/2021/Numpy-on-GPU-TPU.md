@@ -1,19 +1,21 @@
 > * 原文地址：[Numpy on GPU/TPU](https://medium.com/ml-mastery/numpy-on-gpu-tpu-efb8d367020a)
 > * 原文作者：[Sambasivarao. K](https://medium.com/@k.sambasivarao222)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Numpy-on-GPU-TPU.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Numpy-on-GPU-TPU.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md](https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md)
 > * 译者：
-> * 校对者
-## Numpy on GPU/TPU
+> * 校对者：
+
+# Numpy on GPU/TPU
 
 ![Image by [i2tutorials](https://www.i2tutorials.com/what-do-you-mean-by-tensor-and-explain-about-tensor-datatype-and-ranks/)](https://cdn-images-1.medium.com/max/2000/1*CPwuFuMnvGXARofgff1zbg.jpeg)
 
 [Numpy](https://numpy.org/) is so far the most used library for performing mathematical operations on arrays. It has formed the base for many Machine learning and data science libraries. It has a large number of high level mathematical functions to operate on arrays. As we all know, Numpy gained its popularity because of its speed of operations. Numpy array objects work almost 50x faster than the python lists. Also numpy arrays supports vectorization which removes the loops in python.
-> # Can we run numpy operations even faster? The answer is Y*es!*
+
+> Can we run numpy operations even faster? The answer is Y**es!**
 
 Tensorflow has implemented a subset of Numpy API and released it as part of 2.4 version, as tf.experimental.numpy. This allows running numpy code much faster and can further improve the performance by running on GPU/TPU.
 
-### Benchmark
+## Benchmark
 
 Before going into a more detailed view, let’s compare the performance of numpy and tensorflow-numpy. For workloads composed of small operations (less than about 10 microseconds), tensorflow dispatching operations can dominate the runtime and NumPy could provide better performance. For other cases, TensorFlow should generally provide better performance.
 
@@ -23,41 +25,38 @@ Tensorflow has created a sigmoid benchmark experiment for performance comparison
 
 As you can see for small operations, numpy performs better and as the size increases, tf-numpy provides better performance. And the performance on GPU is way better than its CPU counterpart.
 
-### TensorFlow NumPy ND array
+## TensorFlow NumPy ND array
 
 Now that we are convinced that tensorflow-numpy performs better than numpy, let’s dive into the API.
 
 ND array is an instance of tf.experimental.numpy.ndarray, represents a multidimensional dense array. This wraps an immutable tf.Tensor which makes it interoperable with tf.Tensor. Also, it implements __array__ interface which allows these objects to be passed into contexts that expect a NumPy or array-like object (e.g. matplotlib). Interoperation does not do data copies, even for data placed on accelerators or remote devices.
-> # tf.Tensor objects can be passed to tf.experimental.numpy APIs, without performing data copies.
+
+> tf.Tensor objects can be passed to tf.experimental.numpy APIs, without performing data copies.
 
 ![NumPy interoperability (Image Source:Author)](https://cdn-images-1.medium.com/max/2900/1*bOWnLqVQScm7rAPhDApFEw.png)
 
-**Operator Precedence: **TensorFlow NumPy defines an __array_priority__ higher than NumPy’s. This means that for operators involving both ND array and np.ndarray, the former will take precedence, i.e., np.ndarray input will get converted to an ND array and the TensorFlow NumPy implementation of the operator will get invoked.
+**Operator Precedence:** TensorFlow NumPy defines an __array_priority__ higher than NumPy’s. This means that for operators involving both ND array and np.ndarray, the former will take precedence, i.e., np.ndarray input will get converted to an ND array and the TensorFlow NumPy implementation of the operator will get invoked.
 
 ![Operator precedence (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*k3g51Gl9O9JhKbUc9If5kA.png)
 
-**Types: **ND array supports a subset of numpy datatypes and type promotion follow numpy semantics. Also broadcasting and indexing works the same way as numpy arrays.
+**Types:** ND array supports a subset of numpy datatypes and type promotion follow numpy semantics. Also broadcasting and indexing works the same way as numpy arrays.
 
 ![Data type and promotions (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*W-KMZZz5M-1xMsZwburmBg.png)
 
-**Device support: **ND array have GPU and TPU support on par with tf.Tensor as it wraps around tf.Tensor. We can control which device to use by using tf.device scopes as shown below.
+**Device support:** ND array have GPU and TPU support on par with tf.Tensor as it wraps around tf.Tensor. We can control which device to use by using tf.device scopes as shown below.
 
 ![Device setup (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*chRzLgOvSVeYL3JKWNiIvA.png)
 
-**Graph and eager modes: **Eager mode execution is similar to python code execution, so it supports ND array just like numpy by executing op-by-op. However the same code can be executed in graph mode by putting it inside tf.function. Below is the code example to do that.
+**Graph and eager modes:** Eager mode execution is similar to python code execution, so it supports ND array just like numpy by executing op-by-op. However the same code can be executed in graph mode by putting it inside tf.function. Below is the code example to do that.
 
 ![tf.function usage (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*TLwyJSC1bxNa1domZLcj3Q.png)
 
-### Limitations
+## Limitations
 
 * Not all dtypes are currently supported.
-
 * Mutation is not supported. ND Array wraps immutable tf.Tensor.
-
 * Fortran order, views, stride_tricks are not supported.
-
 * NumPy C API is not supported. NumPy’s Cython and Swig integration are not supported.
-
 * Only a subset of functions and modules are supported.
 
 That’s all for now. We have explored tensorflow-numpy and its capabilities. tf-numpy’s interoperability makes it a good choice to use in both tensorflow codes and general numpy codes as well. Also you can use this library to run complex numpy codes on GPU.
