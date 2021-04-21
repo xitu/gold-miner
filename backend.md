@@ -1,3 +1,40 @@
+* [MongoDB 和 MySQL 使用场景分析](https://juejin.cn/post/6949811448767840263)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析](https://juejin.cn/post/6947820858677133343)（[huifrank](https://github.com/huifrank) 翻译）
+* [Python 的 JSON 库：按速度，成熟度和操作安全性进行比较](https://juejin.cn/post/6943859233779613704)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [无服务器化：2021 年该项技术何去何从？](https://juejin.cn/post/6945858128487383071)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [Dropbox 发布托管服务编排平台 Atlas](https://juejin.cn/post/6943068127647236109)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Google 的开源模糊测试工具 OSS-Fuzz 现在支持 Java 应用了](https://juejin.cn/post/6942674729597665310)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [SQLite 3.35 版本有什么新的东西？](https://juejin.cn/post/6945709972365770760)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Python 类的 6 种替代方案](https://juejin.cn/post/6939715051779522591)（[Alfxjx](https://github.com/Alfxjx) 翻译）
+* [NumPy 1.20 问世，带来了运行时 SIMD 的支持和类型注释](https://juejin.cn/post/6943542858792042510)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [深入理解 Rust 所有权、借用、生命周期](https://juejin.cn/post/6937098861152305160)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [通过集群提高 Node.js 应用程序性能](https://juejin.cn/post/6936755284685619213)（[zenblo](https://github.com/zenblo) 翻译）
+* [API、WebSockets 和 WebHooks：究竟应该选谁](https://juejin.cn/post/6938359240880816165)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Figma 生产环境中的 Rust](https://juejin.cn/post/6938351578986479653)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么 Service Mesh 应该淡出人们的视野](https://juejin.cn/post/6949078735404400677)（[nettee](https://github.com/nettee) 翻译）
+* [幻数并没有我们想象中的那么奇幻](https://juejin.cn/post/6944588994915074062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [Bash 中的 if else 语句](https://juejin.cn/post/6934324540692496392)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [每个人都可以理解的授权访问和身份认证](https://juejin.cn/post/6935230984619032589)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)（[zenblo](https://github.com/zenblo) 翻译）
+* [如何基于已有的 REST API 实现 GraphQL API](https://juejin.cn/post/6931145990599049223)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)（[JalanJiang](https://github.com/JalanJiang) 翻译）
+* [函数式编程 —— 使用 Python、JavaScript 和 Java 描述](https://juejin.cn/post/6930638275241574407)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
+* [Python 定义函数的 5 种参数](https://juejin.cn/post/6927094483200770062)（[Zhengjian-L](https://github.com/Zhengjian-L) 翻译）
+* [微服务是你的最佳解决方案么？](https://juejin.cn/post/6881415957303001102)（[wangqinggang](https://github.com/wangqinggang) 翻译）
+* [Python 中的列表和元组](https://juejin.cn/post/6923195053754023949)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Node.js 缓冲区的完整指南](https://juejin.cn/post/6917192648424390669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [如何使用 Node.js 执行多线程](https://juejin.cn/post/6915255619926622222)（[zenblo](https://github.com/zenblo) 翻译）
+* [理解 LSM 树：一种适用于频繁写入的数据库的结构](https://juejin.cn/post/6918940339676020743)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [爱 GraphQL 胜过 REST](https://juejin.cn/post/6914306976294338567)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [WebTransport 会在不久的将来取代 WebRTC 吗？](https://juejin.cn/post/6910186017190313991)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [2021 年 Web 开发者应该掌握的 15 个 VSCode 扩展](https://juejin.cn/post/6910570256645914637)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [Elasticsearch 新手指南](https://juejin.cn/post/6913725535717851144)（[yqian1991](https://github.com/yqian1991) 翻译）
+* [使用 SpringBoot 和 MySQL 构建 GraphQL 服务端应用程序](https://juejin.cn/post/6899241103682502670)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [为什么如今 Deno 正全面取代 Node.js](https://juejin.cn/post/6897420951592534030)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [Blitz.js 简介：一个新兴的 React 全栈框架](https://juejin.cn/post/6887201657801670669)（[plusmultiply0](https://github.com/plusmultiply0) 翻译）
 * [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [使用 Svelte 开发前端应用的五个理由](https://juejin.cn/post/6897010393609142279)（[zenblo](https://github.com/zenblo) 翻译）

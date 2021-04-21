@@ -1,0 +1,33 @@
+name: "Translator Application"
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  translatorApplicationProcessor:
+    name: Translator Application Processor
+    if: ${{ contains(github.event.issue.title, '申请成为译者') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label Issue
+        uses: github/issue-labeler@v2.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: .github/labeler.yaml
+          enable-versioned-regex: 0
+          
+      - name: Close Issue
+        uses: peter-evans/close-issue@v1
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          comment: |
+            Hi, @${{ github.event.issue.user.login }}, 感谢你申请加入掘金翻译计划，你需要做以下的事：
+
+            1. 认真学习 [掘金翻译计划译者教程](https://github.com/xitu/gold-miner/wiki)，校对和翻译文章时，严格遵循教程，杜绝不看教程，只知道问的伸手党；
+            2. 确认认真学习了 [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E6%96%87%E6%8E%92%E7%89%88%E8%A7%84%E5%88%99%E6%8C%87%E5%8C%97)，翻译文章时严格遵循，校对文章时也要指出译者的格式错误；
+            3. 确认认真学习了 [翻译和校对文章的注意事项](https://github.com/xitu/gold-miner/wiki/%E5%8D%81%E4%B8%87%E4%B8%AA%E4%B8%BA%E4%BB%80%E4%B9%88)，避免翻译校对过程中出错；
+            4. 加管理员微信 `chnyifan`，**验证信息格式**：翻译计划 + GitHub ID + 申请的 Issue Number；
+            5. 进群后修改群昵称为 GitHub ID。
+
+            **注意**：加完微信后，管理员会在当天拉你进译者群，进群之后做下简单的自我介绍。加入微信群则代表申请译者成功，接下来你需要看译者教程，然后先校对至少一篇文章才能开始正式翻译文章。当然也可以继续校对文章。
