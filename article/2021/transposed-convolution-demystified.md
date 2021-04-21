@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/transposed-convolution-demystified.md](https://github.com/xitu/gold-miner/blob/master/article/2021/transposed-convolution-demystified.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[chzh9311](https://github.com/chzh9311)，[samyu2000](https://github.com/samyu2000)
 
 # 解密转置卷积
 
