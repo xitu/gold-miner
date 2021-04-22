@@ -37,7 +37,7 @@ API 的核心集合与用于参数挖掘和分析的服务相关。这些服务�
 
 ## 欢迎开发人员
 
-关键点分析和叙事生成最近在[“*这是有争议的*”](https://www.research.ibm.com/artificial-intelligence/project-debater/thats-debatable/)电视连续剧和[“*格莱美与华生辩论*”](https://www.grammy.com/watson)后台经验，他们总结了专业和数千人在网上参与了辩论，讨论的话题从社会问题到流行文化。
+关键点分析和叙事生成最近在[“*这是有争议的*”](https://www.research.ibm.com/artificial-intelligence/project-debater/thats-debatable/)电视连续剧和[“*格莱美与 Watson 辩论*”](https://www.grammy.com/watson)后台经验，他们总结了专业和数千人在网上参与了辩论，讨论的话题从社会问题到流行文化。
 
 开发人员可以在[开发文档网站](https://early-access-program.debater.res.ibm.com/)上访问 Project Debater 的 API 文档。他们可以作为游客查看文档，并运行大多数服务的在线交互式演示，还可以看到使用这些服务的从端到端的示例代码。
 
