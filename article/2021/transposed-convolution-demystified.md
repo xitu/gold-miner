@@ -99,7 +99,7 @@
 
 ![**图 14.** 使用转置卷积进行超分辨（[源](http://openaccess.thecvf.com/content_ECCV_2018/html/Seong-Jin_Park_SRFeat_Single_Image_ECCV_2018_paper.html)）](https://cdn-images-1.medium.com/max/NaN/0*kIeyw3eMk-e1UchK.png)
 
-2. 语义分割:
+2. 语义分割：
 
 ![**图 15.** 使用转置卷积实现语义分割（[源](https://thegradient.pub/semantic-segmentation/)）](https://cdn-images-1.medium.com/max/2220/0*vk2xCr1r6ZaO7cYD.png)
 
