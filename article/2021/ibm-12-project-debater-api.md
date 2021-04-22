@@ -9,7 +9,7 @@
 
 辩论是我们人类智力的基本能力，但是直到最近人工智能在这一方面，仍然也只能望其项背空叹气。
 
-2019 年 2 月，经过自然语言处理和机器学习研究人员和工程师 6 年的工作，一个名为“Project Debater”的 IBM 人工智能系统成为[第一个能够就复杂话题与人类进行辩论的人工智能系统](https://ibm.biz/debater-event)。
+2019 年 2 月，经过自然语言处理和机器学习研究人员和工程师 6 年的工作，一个名为 Project Debater 的 IBM 人工智能系统成为[第一个能够就复杂话题与人类进行辩论的人工智能系统](https://ibm.biz/debater-event)。
 
 尽管它可能没有赢得当年在旧金山与辩论冠军哈里什·纳塔拉扬（Harish Natarajan）的辩论赛，Project Debater [演示人工智能如何帮助人们建立有说服力的论据和做出明智的决定](https://ibm-research.medium.com/augmenting-humans-ibms-project-debater-ai-gives-human-debating-teams-a-hand-at-cambridge-69a29bcd4eff)。Project Debater 成为继深蓝（Deep Blue）和沃森（Watson）之后，IBM 研究人工智能系列大挑战中的第三个人工智能。
 
