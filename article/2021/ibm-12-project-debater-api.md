@@ -45,7 +45,7 @@ API 的核心集合与用于参数挖掘和分析的服务相关。这些服务�
 
 一个例子是挖掘叙事。给出了一个有争议的话题，它演示了如何通过从维基百科语料库中挖掘内容来创建叙事。另一个是使用 Debater 服务来分析主题的自由文本调查，它是基于 Wikipedia 的概念来识别主题。
 
-开发人员在自己的项目中运行代码示例或使用 Project Debater API 之前，需要先获得 API 密钥并下载 SDK。如需申请 API 密钥，请访问[**学术用 Project Debater**](https://early-access-program.debater.res.ibm.com/academic_use.html) 或发送电子邮件请求到 [project.debater@il.ibm.com](mailto:project.debater@il.ibm.com)。 您将收到一个用户名和密码，用来登录到初步试用网站，然后可以从 API 密钥选项卡获取您的个人 API 密钥。
+开发人员在自己的项目中运行代码示例或使用 Project Debater API 之前，需要先获得 API 密钥并下载 SDK。如需申请 API 密钥，请访问[**学术用 Project Debater**](https://early-access-program.debater.res.ibm.com/academic_use.html) 或发送电子邮件请求到 [project.debater@il.ibm.com](mailto:project.debater@il.ibm.com)。您将收到一个用户名和密码，用来登录到初步试用网站，然后可以从 API 密钥选项卡获取您的个人 API 密钥。
 
 Slonim, N., Bilu, Y., Alzate, C., *et al.* [An autonomous debating system](https://eorder.sheridan.com/3_0/app/orders/11030/files/assets/common/downloads/Slonim.pdf). *Nature* (2021). https://doi.org/10.1038/s41586-021-03215-w
 
