@@ -9,7 +9,7 @@
 
 ![](https://miro.medium.com/max/1656/1*Fkn89gxEsTWWefUu1dV0UA.png)
 
-前段时间，我研究了一个新功能：在app内部聊天中发送图片。这个功能本身很大，包括了多种东西，但实际上，最初并没有设计上传动画与取消上传的功能。当我移动到这部分的时候，我决定Images Needs Their Uploading Animations，所以我们就给他们这个功能吧：)
+前段时间，我研究了一个新功能：在 app 内部聊天中发送图片。这个功能本身很大，包括了多种东西，但实际上，最初并没有设计上传动画与取消上传的功能。当我用到这部分的时候，我决定增加图片上传动画，所以我们就给他们这个功能吧：)
 
 ![](https://miro.medium.com/max/1528/1*La8YF7kI31hvmawzNVHN6g.gif)
 
@@ -21,11 +21,11 @@
 
 现在我们来分析一下，我们想要做什么。我们希望有一条无限旋转的弧线做圆形动画，并且弧线的圆心角不断增加直到圆心角等于 2π。我觉得一个 Drawable 应该能够帮上我的忙，而且实际上我也应该那样做，但我没有。
 
-我的原因是在上面示例图片中的文字右边那三个小的点点的动画上。我已经用自定义 View 完成了这个动画，并且我已经为无限循环的动画准备了背景。对我来说把动画准备逻辑提取到父 View 中重用，而不是把所有东西都重写成 Drawable，应该是更简单的。所以我并不是说我的解决方案是正确的（其实没有什么是正确的），而是它满足了我的需求。
+我没有这样做的原因在上面示例图片中的文字右边那三个小的点点的动画上。我已经用自定义 View 完成了这个动画，并且我已经为无限循环的动画准备了背景。对我来说把动画准备逻辑提取到父 View 中重用，而不是把所有东西都重写成 Drawable，应该是更简单的。所以我并不是说我的解决方案是正确的（其实没有什么是正确的），而是它满足了我的需求。
 
 ## Base InfiniteAnimationView
 
-为了自己的需要，我将把想要的进度视图分成两个视图。
+为了自己的需要，我将把想要的进度视图分成两个视图：
 
 1. `ProgressView` —— 负责绘制所需的进度 View
 2. `InfiniteAnimateView`  —— 抽象 View，它负责动画的准备、启动和停止。由于进度中包含了无限旋转的部分，我们需要了解什么时候需要启动这个动画，什么时候需要停止这个动画
@@ -77,8 +77,6 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 ```
 
 遗憾的是，主要出于 `onVisibilityAggregated` 方法的原因，它并无法工作 —— 因为[这个方法在 API 24 以上才被支持](https://developer.android.com/reference/android/view/View#onVisibilityAggregated(boolean%29)。此外，我还遇到了 `!isVisible || windowVisibility != VISIBLE` 上的问题，当视图是可见的，但它的容器却不可见。所以我决定重写这个：
-
-Unfortunately, it will not work mainly because of the method `onVisibilityAggregated`. [Because it supported since API 24](https://developer.android.com/reference/android/view/View#onVisibilityAggregated(boolean)). Moreover, I had issues with `!isVisible || windowVisibility != VISIBLE` when the view was visible but the container of it was not. So I decided to rewrite this:
 
 ```kotlin
 // InfiniteAnimateView.kt
@@ -170,7 +168,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
      * 我到底需要什么 = =
      *
      * 更新：尝试使用 isShown 代替这个方法，但没有成功。所以如果你知道
-     * 如何改进，欢迎评论区评价一下
+     * 如何改进，欢迎评论区讨论一下
      */
     private fun isDeepVisible(): Boolean {
         var isVisible = isVisible
@@ -190,7 +188,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 
 ### 准备
 
-那么首先我们来谈谈我们 View 的结构。它应该包含哪些绘画组件？在当前情境下最好的表达方式就是声明不同的 `Ink`。
+那么首先我们来谈谈我们 View 的结构。它应该包含哪些绘画组件？在当前情境下最好的表达方式就是声明不同的画笔。
 
 ```kotlin
 // progress_paints.kt
@@ -212,17 +210,17 @@ private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 }
 ```
 
-为了显示我将改变笔触的宽度和其他东西，所以你会看到某些方面的不同。这 3 个 `Ink` 就与 3 个关键部分的进度相关联：
+为了展示我将改变笔触的宽度和其他东西，所以你会看到某些方面的不同。这 3 个画笔就与 3 个关键部分的进度相关联：
 
 ![](https://miro.medium.com/max/1200/1*UnoyHSg3xYZzyRNwYm35HA.gif)
 
-**left:** background; **center:** stroke; **right:** progress
+**左：** background; **中：** stroke; **右：** progress
 
-你可能想知道为什么我要用 `Paint.Cap.BUTT`。好吧，为了让这个进度更 "Telegram"（至少在 iOS 设备上是这样），你应该使用 `Paint.Cap.ROUND`。让我来演示一下这三种可能的 `Cap` 之间的区别（这里增加了描边宽度以让差异更明显）。
+你可能想知道为什么我要用 `Paint.Cap.BUTT`。好吧，为了让这个进度更 "Telegram"（至少在 iOS 设备上是这样），你应该使用 `Paint.Cap.ROUND`。让我来演示一下这三种可能的样式之间的区别（这里增加了描边宽度以让差异更明显）。
 
 ![](https://miro.medium.com/max/1200/1*lh_H6Nv_1ixygHP6q8k6Lw.gif)
 
-**left:** `Cap.BUTT`, **center:** `Cap.ROUND`, **right:** `Cap.SQUARE`
+**左：** `Cap.BUTT`，**中：** `Cap.ROUND`，**右：** `Cap.SQUARE`
 
 因此，主要的区别是，`Cap.ROUND` 给笔画的角以特殊的圆角，而 `Cap.BUTT` 和 `Cap.SQUARE` 只是切割。`Cap.SQUARE` 也和 `Cap.ROUND` 一样预留了额外的空间，但没有圆角效果。这可能导致 `Cap.SQUARE` 显示的角度与 `Cap.BUTT` 相同但预留了额外的空间。
 
@@ -232,7 +230,7 @@ private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 
 考虑到所有这些情况，我们最好使用 `Cap.BUTT`，因为它比 `Cap.SQUARE` 显示的角度表示更恰当。
 
-> 顺便说一下 `Cap.BUTT` 是默认的 `Ink`  的描边 `Cap`。这里有一个官方的[文档链接](https://developer.android.com/reference/android/graphics/Paint.Cap)。但我想向你展示真正的区别，因为最初我想让它变成 `ROUND`，然后我开始使用 `SQUARE`，但我注意到了一些特性。
+> 顺便说一下 `Cap.BUTT` 是画笔默认的笔刷类型。这里有一个官方的[文档链接](https://developer.android.com/reference/android/graphics/Paint.Cap)。但我想向你展示真正的区别，因为最初我想让它变成 `ROUND`，然后我开始使用 `SQUARE`，但我注意到了一些特性。
 
 ### Base Spinning
 
@@ -261,13 +259,13 @@ private fun normalize(angle: Float): Float {
 
 ### 测量与绘制
 
-我们将依靠由 Parent 提供的测量尺寸或通过 xml 的精确的 `layout_width`、`layout_height` 值绘制。因此，我们在 View 的测量方面不需要任何事情，但我们会使用测量的尺寸来准备进度矩形，我们将在其中绘制 View。
+我们将依靠由父视图提供的测量尺寸或使用在 xml 中定义的精确的 `layout_width`、`layout_height` 值进行绘制。因此，我们在 View 的测量方面不需要任何事情，但我们会使用测量的尺寸来准备进度矩形并在其中绘制 View。
 
 嗯，这并不难，但我们需要记住一些事情：
 
 ![](https://miro.medium.com/max/692/1*x0X1dP0bxHg-Z-iU0p-JhA.png)
 
-* 我们不能只拿 `measuredWidth`、`measuredHeight` 来画圆圈背景、进度、描边（主要是因为描边的原因）。如果我们不考虑描边的宽度，也不从尺寸计算中减去它的一半，我们最终会得到看起来像切开的边界：
+* 我们不能只拿 `measuredWidth`、`measuredHeight` 来画圆圈背景、进度、描边（主要是描边的原因）。如果我们不考虑描边的宽度，也不从尺寸计算中减去它的一半，我们最终会得到看起来像切开的边界：
 
 ![](https://miro.medium.com/max/680/1*pQhNsv1OWffDnraP6njZgA.png)
 
@@ -427,7 +425,7 @@ drawArc(progressRect, currentAngle - sweepAngle / 2f, sweepAngle, false, progres
 drawArc(progressRect, currentAngle - sweepAngle, sweepAngle, false, progressPaint)
 ```
 
-而结果是。
+而结果是：
 
 ![](https://miro.medium.com/max/1200/1*fbLfs0wImFm_GzMyJYWJCA.gif)
 
