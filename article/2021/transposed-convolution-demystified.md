@@ -95,7 +95,7 @@
 
 ## 转置卷积的应用：
 
-1. 超分辨:
+1. 超分辨率：
 
 ![**图 14.** 使用转置卷积进行超分辨（[源](http://openaccess.thecvf.com/content_ECCV_2018/html/Seong-Jin_Park_SRFeat_Single_Image_ECCV_2018_paper.html)）](https://cdn-images-1.medium.com/max/NaN/0*kIeyw3eMk-e1UchK.png)
 
