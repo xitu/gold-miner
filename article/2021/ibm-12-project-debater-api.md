@@ -13,7 +13,7 @@
 
 尽管它可能没有赢得当年在旧金山与辩论冠军 Harish Natarajan 的辩论赛，Project Debater 向大家展示了[人工智能如何帮助人们建立有说服力的论据和做出明智的决定](https://ibm-research.medium.com/augmenting-humans-ibms-project-debater-ai-gives-human-debating-teams-a-hand-at-cambridge-69a29bcd4eff)。Project Debater 成为继深蓝（Deep Blue）和沃森（Watson）之后，IBM 研究人工智能系列大挑战中的第三个人工智能。
 
-在我们最近发表在《自然》杂志上的论文“[自主辩论系统](https://eorder.sheridan.com/3\u 0/app/orders/11030/files/assets/common/downloads/Slonim.pdf)“中，我们描述了 Project Debater 的架构并评估了它的性能。我们还[提供免费访问](https://early-access-program.debater.res.ibm.com/academic\u use.html) ProjectDebater 的 12 种底层技术作为云 API 的学术用途，以及开发者的试用和许可选择。
+在我们最近发表在《自然》杂志上的论文[自主辩论系统](https://eorder.sheridan.com/3_0/app/orders/11030/files/assets/common/downloads/Slonim.pdf)中，我们描述了 Project Debater 的架构并评估了它的性能。我们还向大家提供对 Project Debater 的 12 种底层技术作为云 API 的学术用途的[免费访问](https://early-access-program.debater.res.ibm.com/academic_use.html)，以及适用于开发者的试用和许可选择。
 
 要与人类辩论，人工智能必须具备一定的技能。它必须能够在大量语料库中精确地找出某一特定辩论主题的相关论据，检测论据的立场，并评估论据的质量。它还必须识别与特定主题相关的一般性、反复出现的论据，将不同类型的论据组织成令人信服的叙述，识别人类对手提出的论据，并进行反驳。而且，它必须能够运用竞争性辩论技巧，比如向对手提问，以有利于自己立场的方式构建讨论框架。
 
