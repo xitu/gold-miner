@@ -7,7 +7,7 @@
 
 # 当 Android 的 Compat 库不能拯救你的时候
 
-—— 还有为什么你应该避免使用 *NewApi* 抑制警告！
+—— 还有为什么你应该避免使用 `NewApi` 抑制警告！
 
 ![图源 [Unsplash](https://unsplash.com/photos/EgGIPA68Nwo)](https://miro.medium.com/max/12000/1*_UZ7BojQmk2vRCTx6XIdLA.jpeg)
 
@@ -131,7 +131,7 @@ private fun List<NotificationChannel>.filterLightingOnes() =
 
 ![](https://miro.medium.com/max/3032/1*OpkxXOXSGueoW_TyJyXw3A.png)
 
-当然，对于我们开发者来说，这是一个比较辛苦的工作，但我们的用户会很喜欢一个无崩溃的应用。
+当然，这对于我们开发者来说多了很多工作，但是我们的用户会很喜欢一个无崩溃的应用。
 
 ## The Linter
 
@@ -140,7 +140,7 @@ private fun List<NotificationChannel>.filterLightingOnes() =
 * 不要掉进这个陷阱!  
 * 使用 Compat 库可能会给我们带来虚假的安全感，并欺骗我们相信我们不必考虑这些问题。
 
-而且再次强调，尽量避免**抑制** `NewApi` **警告！**。
+而且再次强调，尽量**避免抑制** `NewApi` **警告**！
 
 相反，我们应该使用直接的版本检查，比如：
 
@@ -148,10 +148,10 @@ private fun List<NotificationChannel>.filterLightingOnes() =
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 ```
 
-不幸的是，linter 在这里不是很聪明。它不会理解一些变型的版本检查，比如说：
+不幸的是，lint 在这里不是很聪明。它不会理解一些变型的版本检查，比如说：
 
 ```kotlin
-.filter { Build.VERSION.SDK_INT >= Build.VERSION_CODES.P }。
+.filter { Build.VERSION.SDK_INT >= Build.VERSION_CODES.P }
 ```
 
 ## 求助？
@@ -164,7 +164,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 
 这将在内部完成类似于 `SuppressLint("NewApi")` 的工作，但只会针对不需要高于 P 的 API 调用。
 
-目前，你可以让现有的 linter 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，让你总是需要被迫处理这些问题。
+目前，你可以让现有的 lint 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，让你总是需要被迫处理这些问题。
 
 记住，这些注释也被认为是你的代码读者的文档。
 
