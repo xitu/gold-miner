@@ -27,7 +27,7 @@
 
 另一个主要挑战是可拓展性。例如，我们必须将“维基化”（识别维基百科概念的提及）应用到我们的 100 亿句语料库中 —— 这对于任何现有的维基化工具来说都是不可能完成的任务。因此，我们[开发了一种新的快速维基化算法](https://arxiv.org/abs/1908.06785)，可以应用于大规模的语料库，并获得具有竞争力的准确性。
 
-Project Debater 的 API 允许访问最初为实时辩论系统开发的不同功能，以及我们最近开发的相关技术。这些 API 包括处理 wikification、[和Wikipedia概念之间](https://www.aclweb.org/anthology/L18-1408.pdf)的语义关联的自然语言理解功能短文本聚类，文本公共主题提取。
+Project Debater 的 API 允许访问最初为实时辩论系统开发的不同功能，以及我们最近开发的相关技术。这些 API 包括处理 wikification、[和 Wikipedia 概念之间](https://www.aclweb.org/anthology/L18-1408.pdf)的语义关联的自然语言理解功能短文本聚类，文本公共主题提取。
 
 API 的核心集合与用于参数挖掘和分析的服务相关。这些服务包括[侦查含有索赔和证据的判决](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjezKWPgbXvAhU1JMUKHXjwDQkQFjAAegQIAhAD&url=https%3A%2F%2Farxiv.org%2Fabs%2F1911.10763&usg=AOvVaw0eUm-tVPfKf0OpVrVKvSWh)，检测[索赔边界](https://www.aclweb.org/anthology/C14-1141/)在句子中，论点[质量评估](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi43fGrgbXvAhVL2KQKHZt2BLUQFjABegQIAxAD&url=https%3A%2F%2Farxiv.org%2Fabs%2F1911.11408&usg=AOvVaw2vnRuQaiZZ4yLfqoQ4GFur)和[姿态分类](https://www.aclweb.org/anthology/E17-1024.pdf)（赞成/反对）。
 
