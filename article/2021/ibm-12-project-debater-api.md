@@ -31,7 +31,7 @@ Project Debater 的 API 允许访问最初为实时辩论系统开发的不同�
 
 API 的核心集合与用于参数挖掘和分析的服务相关。这些服务包括[侦查含有索赔和证据的判决](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjezKWPgbXvAhU1JMUKHXjwDQkQFjAAegQIAhAD&url=https%3A%2F%2Farxiv.org%2Fabs%2F1911.10763&usg=AOvVaw0eUm-tVPfKf0OpVrVKvSWh)，检测[索赔边界](https://www.aclweb.org/anthology/C14-1141/)在句子中，论点[质量评估](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi43fGrgbXvAhVL2KQKHZt2BLUQFjABegQIAxAD&url=https%3A%2F%2Farxiv.org%2Fabs%2F1911.11408&usg=AOvVaw2vnRuQaiZZ4yLfqoQ4GFur)和[姿态分类](https://www.aclweb.org/anthology/E17-1024.pdf)（赞成/反对）。
 
-还有两个高级服务的API，它们创建不同类型的摘要*、*叙述生成和关键点分析。当给定一组论据时，叙事生成会根据指定的极性构造一个结构良好的演讲，支持或质疑给定的主题。
+还有两个高级服务的 API，它们创建不同类型的摘要、叙述生成和关键点分析。当给定一组论据时，叙事生成会根据指定的极性构造一个结构良好的演讲，支持或质疑给定的主题。
 
 而关键点分析是一种崭新的、有前景的总结方法，具有重要的定量角度。该服务将给定主题的评论集总结为一小组关键点，每个关键点的突出程度由在[给出的评论](https://www.aclweb.org/anthology/2020.emnlp-main.3.pdf)里[匹配句子的数量](https://www.aclweb.org/anthology/2020.acl-main.371.pdf)来表示。
 
