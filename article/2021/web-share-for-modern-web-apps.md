@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-share-for-modern-web-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-share-for-modern-web-apps.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[Usualminds](https://github.com/Usualminds)
 
 # 现代 Web 应用程序中的 Web 分享
 
 ![](https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png)
 
-> 最近，Windows 和 Chrome OS 的 Chrome 开始支持 Web 分享 和 Web Share API，吸引了不少 Web 开发者的目光。
+> 最近，Windows 和 Chrome OS（译者注：其实还有 macOS）开始支持 Web 分享 和 Web Share API，这吸引了不少 Web 开发者的目光。
 
 不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。
 
@@ -32,7 +32,7 @@
 
 ### 分享链接和文本
 
-你可以使用一个简单的 `share()` 方法来分享你想要的链接和文本。下面给出的代码片断可以帮助你完成网络分享：
+你可以使用一个简单的 `share()` 方法来分享你想要的链接和文本。下面给出的代码片段可以帮助你完成 Web Share：
 
 ```javascript
 if (navigator.share) {
