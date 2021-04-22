@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[5Reasons](https://github.com/5Reasons)
+> * 校对者：[5Reasons](https://github.com/5Reasons)、[greycodee](https://github.com/greycodee)
 
 # 7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧
 
@@ -176,7 +176,7 @@ final countriesSet = {
 };
 ```
 
-在一个 `Set` 中两个元素不能相同，因此上面的代码会有一个 warning 并且无法被编译，同理当我们使用 `const set` 的时候。
+在一个 `Set` 中两个元素不能相同，因此上面的代码会有一个 warning 并且无法被编译。同理使用 `const set` 也无法被编译。
 
 ## 6. 使用 Inspect 功能
 
@@ -199,7 +199,7 @@ Inspect 还可以帮助我们可视化 Flutter 控件树以了解布局或确定
 * **同步生成器：** 返回一个可迭代的对象
 * **异步生成器：** 返回 `Stream` 对象
 
-换句话说，同步生成器返回可以顺序访问的值的集合。为此，我们将功能体标记为 `sync*`。我们会以 `yield` 语句用作值。
+换句话说，同步生成器返回可以顺序访问的值的集合。为此，我们将函数体标记为 `sync*`。我们会以 `yield` 语句用作值。
 
 ```Dart
 Iterable<int> count(int n) sync* {
@@ -219,7 +219,7 @@ Stream<int> countStream(int n) async* {
 }
 ```
 
-## 你的学习的下一步是？
+## 你下一步将学习什么？
 
 我们希望这些技巧能帮助您充分利用 Dart 及其提供的所有特性。Flutter 和 Dart 是一套强大的工具，用于构建具有原生感和流畅感的应用程序。接下来要研究的其他高级的 Dart 特性应该是：
 
