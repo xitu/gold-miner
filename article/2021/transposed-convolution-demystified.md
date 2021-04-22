@@ -39,7 +39,7 @@
 
 ![**图 4.** 双线性插值](https://cdn-images-1.medium.com/max/2000/0*tWSnVE_JhDSZq8HQ)
 
-3. **Bed Of Nails:** 在该方法中，我们将输入像素的值复制到输出图像中的相应位置，并在其余位置填充零。
+3. **Bed Of Nails：** 在该方法中，我们将输入像素的值复制到输出图像中的相应位置，并在其余位置填充零。
 
 ![**图 5.** Bed Of Nails 上采样](https://cdn-images-1.medium.com/max/2000/1*LJAl2rkIfFTDRIQanIbfRQ.png)
 
