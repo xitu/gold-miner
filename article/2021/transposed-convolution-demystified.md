@@ -107,7 +107,7 @@
 
 转置卷积是当今语义分割和超分辨率算法的基础。它们提供了抽象表示形式的最佳、最通用的上采样方式。在这篇文章中，我们探索了经常使用的各种上采样技术，然后尝试更加直观、深入地了解转置卷积。希望您喜欢这篇文章，如果您有任何疑问、问题或意见，请随时通过 [Twitter](https://twitter.com/Perceptron97) 或者 [Linkedin](https://www.linkedin.com/in/divyanshu-mishra-ai/) 联系我。
 
-**参考目录:**
+**参考目录：**
 
 1. [CS231n: Convolutional Neural Networks for Visual Recognition](https://www.youtube.com/watch?v=nDPWywWRIRo)
 2. [Transposed Convolutions explained with… MS Excel!](https://medium.com/apache-mxnet/transposed-convolutions-explained-with-ms-excel-52d13030c7e8)
