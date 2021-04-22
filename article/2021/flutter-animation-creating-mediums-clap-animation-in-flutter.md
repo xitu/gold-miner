@@ -7,7 +7,7 @@
 
 # Flutter 动画：构建一个和 Medium 一样的鼓掌动画
 
-在这篇文章中，我们将从零开始探索 Flutter 动画。我们将通过在 Flutter 中制作中故障动画的模拟，学习一些关于动画的核心概念。
+在这篇文章中，我们将从零开始探索 Flutter 动画。我们将通过在 Flutter 中模仿制作 Medium 的鼓掌动画，学习一些关于动画的核心概念。
 
 正如标题所说，这篇文章将更多地关注动画，而不是 Flutter 的基础知识。
 
@@ -225,7 +225,7 @@ class _MyHomePageState extends State<MyHomePage> {
 2. 当按钮被按下时，显示那个展示鼓掌次数的 Widget，并在按钮释放时隐藏这个 Widget
 3. 添加那些很小的向四周撒花的 Widget，并将它们做成动画
 
-让我们一个一个来，慢慢增加学习曲线。要开始，我们需要了解一些关于 Flutter 中动画的基本知识。
+让我们一个一个来，慢慢增加学习曲线。开始前，我们需要了解一些关于 Flutter 中动画的基本知识。
 
 ## 了解 Flutter 中基本动画的 Widget
 
@@ -253,11 +253,11 @@ new Positioned(
 
 请注意这是一条斜线，不过如果你喜欢的话，这其实也可以是一条曲线。
 
-你可以让位置随着时间慢慢增加，然后越来越快。或者你也可以让它以超高速来，然后在最后慢下来。
+你可以让位置随着时间慢慢增加，然后越来越快。或者你也可以让它以超高速进来，然后在最后慢下来。
 
 这就是我们要介绍的第一个 Widget `AnimationController`。
 
-动画控制器的构造是这样的：
+`AnimationController` 构造器是这样的：
 
 ```dart
 scoreInAnimationController = new AnimationController(duration: new Duration(milliseconds: 150), vsync: this);
@@ -278,20 +278,20 @@ scoreInAnimationController.addListener(() {
 scoreInAnimationController.forward(from: 0.0);
 
 /* OUTPUT
-I/flutter (1913): 0.0
-I/flutter (1913): 0.0
-I/flutter (1913): 0.22297333333333333
-I/flutter (1913): 0.3344533333333333
-I/flutter (1913): 0.4459333333333334
-I/flutter (1913): 0.5574133333333334
-I/flutter (1913): 0.6688933333333335
-I/flutter (1913): 0.7803666666666668
-I/flutter (1913): 0.8918466666666668
-I/flutter (1913): 1.0
+I/flutter ( 1913): 0.0
+I/flutter ( 1913): 0.0
+I/flutter ( 1913): 0.22297333333333333
+I/flutter ( 1913): 0.3344533333333333
+I/flutter ( 1913): 0.4459333333333334
+I/flutter ( 1913): 0.5574133333333334
+I/flutter ( 1913): 0.6688933333333335
+I/flutter ( 1913): 0.7803666666666668
+I/flutter ( 1913): 0.8918466666666668
+I/flutter ( 1913): 1.0
 */
 ```
 
-**控制器在 150 毫秒内产生了从 0.0 到 1.0 的数字** —— 请注意，产生的数值几乎是线性的（0.2, 0.3, 0.4……）我们如何改变这种行为？这将由第二个 Widget `CurvedAnimation` 来完成：
+**控制器在 150 毫秒内产生了从 0.0 到 1.0 的数字** —— 请注意，产生的数值几乎是线性的（0.2, 0.3, 0.4……）。我们如何改变这种行为？这将由第二个 Widget `CurvedAnimation` 来完成：
 
 ```dart
 bounceInAnimation = new CurvedAnimation(parent: scoreInAnimationController, curve: Curves.bounceIn);
@@ -300,14 +300,14 @@ bounceInAnimation.addListener(() {
 });
 
 /* OUTPUT
-I/flutter (5221): 0.0
-I/flutter (5221): 0.0
-I/flutter (5221): 0.24945376519722218
-I/flutter (5221): 0.16975716286388898
-I/flutter (5221): 0.17177866222222238
-I/flutter (5221): 0.6359024059750003
-I/flutter (5221): 0.9119433941222221
-I/flutter (5221): 1.0
+I/flutter ( 5221): 0.0
+I/flutter ( 5221): 0.0
+I/flutter ( 5221): 0.24945376519722218
+I/flutter ( 5221): 0.16975716286388898
+I/flutter ( 5221): 0.17177866222222238
+I/flutter ( 5221): 0.6359024059750003
+I/flutter ( 5221): 0.9119433941222221
+I/flutter ( 5221): 1.0
 */
 ```
 
@@ -322,15 +322,15 @@ tweenAnimation.addListener(() {
 });
 
 /* Output 
-I/flutter (2639): 0.0
-I/flutter (2639): 0.0
-I/flutter (2639): 33.452000000000005
-I/flutter (2639): 44.602000000000004
-I/flutter (2639): 55.75133333333334
-I/flutter (2639): 66.90133333333334
-I/flutter (2639): 78.05133333333333
-I/flutter (2639): 89.20066666666668
-I/flutter (2639): 100.0
+I/flutter ( 2639): 0.0
+I/flutter ( 2639): 0.0
+I/flutter ( 2639): 33.452000000000005
+I/flutter ( 2639): 44.602000000000004
+I/flutter ( 2639): 55.75133333333334
+I/flutter ( 2639): 66.90133333333334
+I/flutter ( 2639): 78.05133333333333
+I/flutter ( 2639): 89.20066666666668
+I/flutter ( 2639): 100.0
 */
 ```
 
@@ -338,7 +338,7 @@ I/flutter (2639): 100.0
 
 **展示鼓掌次数的 Widget 的位置动画**
 
-在这一点上，我们已经有足够的知识让我们的展示鼓掌次数的 Widget 的在我们按下按钮时从底部弹出，而在我们点按释放的时候隐藏。
+在这一点上，我们已经有足够的知识让我们的展示鼓掌次数的 Widget 在我们按下按钮时从底部弹出，而在我们释放按钮的时候隐藏。
 
 ```dart
 initState() {
@@ -457,7 +457,7 @@ Widget getScoreButton() {
 
 **展示鼓掌次数的 Widget 大小动画**
 
-在这一点上，我们几乎有想法到如何改变大小，以及当次数增加。让我们快速添加大小动画，然后我们转到撒花动画上。
+在这一点上，当次数增加时我们也知道如何改变大小。让我们快速添加大小动画，然后我们转到撒花动画上。
 
 我更新了 `ScoreWidgetStatus` 枚举，以持有一个额外的 `VISIBLE` 值。现在，我们为大小属性添加一个新的控制器。
 
@@ -506,7 +506,7 @@ void onTapDown(TapDownDetails tap) {
 }
 ```
 
-最后，我们在 Widget中使用控制器的值。
+最后，我们在 Widget 中使用控制器的值。
 
 ```dart
 extraSize = scoreSizeAnimationController.value * 10;
