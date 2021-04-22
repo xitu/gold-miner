@@ -17,7 +17,7 @@
 
 要与人类辩论，人工智能必须具备一定的技能。它必须能够在大量语料库中精确地找出某一特定辩论主题的相关论据，检测论据的立场，并评估论据的质量。它还必须识别与特定主题相关的一般性、反复出现的论据，将不同类型的论据组织成令人信服的叙述，识别人类对手提出的论据，并进行反驳。而且，它必须能够运用竞争性辩论技巧，比如向对手提问，以有利于自己立场的方式构建讨论框架。
 
-这正是我们对 Project Debater 所做的。它被开发成一个组件的集合，每个组件都被设计用来执行一个特定的子任务。这些年来，我们发表了 50 多篇[论文](https://www.research.ibm.com/artificial-intelligence/project-debater/research/)描述了这些组件并发布了许多相关的[数据集](https://www.research.ibm.com/haifa/dept/vst/debating_data.shtml)学术用途。
+这正是我们对 Project Debater 所做的。它被开发成一个组件的集合，每个组件都被设计用来执行一个特定的子任务。这些年来，我们发表了 50 多篇[论文](https://www.research.ibm.com/artificial-intelligence/project-debater/research/)描述了这些组件并发布了许多学术用途相关的[数据集](https://www.research.ibm.com/haifa/dept/vst/debating_data.shtml)。
 
 ## 培养辩论技巧
 
