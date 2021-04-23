@@ -19,8 +19,6 @@ This article will focus on how we can use **the Hookrouter** module to replicate
 
 > To demonstrate the features of Hookrouter I will be using a product store front example with four basic components namely Nav.js, Home.js, About.js, and Shop.js. Besides, the complete React app with routing using Hookrouter can be found [here](https://github.com/Isuri-Devindi/Hookrouter-demo).
 
----
-
 ## 1. Defining Routes with Hookrouter vs Reactrouter
 
 When using Reactrouter, we can define the routes as follows.
@@ -85,8 +83,6 @@ export default App;
 The `\<Route/>` the component in Reactrouter has to be rendered every time, along with all the props for each route in the app. Nevertheless, with Hookrouter, the routes defined as an object can be simply passed to the `useRoutes()` hook.
 
 > **Note:** Make sure to create the route object outside the components; otherwise, the whole object will be re-created at every render.
-
----
 
 ## 2. Implementing Switch Functionality of Reactrouter in Hookrouter
 
