@@ -5,7 +5,6 @@
 > * 译者：
 > * 校对者：
 
-
 # Green Vs. Brown Programming Languages
 
 ## The Data
