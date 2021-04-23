@@ -133,7 +133,7 @@ Also, these same functions are used to pass data from the main thread to the web
 
 As you noticed, I have already modified both files using `onmessage` event handler and `postMessage()` function to establish communication between the main thread and web worker thread.
 
-```
+```JavaScript
 //worker.js file
 self.onmessage = event => { 
   const num = event.data; 
@@ -169,7 +169,7 @@ As a practice, it is better to terminate a worker after it has fulfilled its fun
 
 The `close()` function is only visible within the worker files. Hence this function can only be used within the worker file to terminate the worker. On the other hand, the `terminate()` method is a part of the worker object’s interface, and you can call it from the main JavaScript file.
 
-```
+```JavaScript
 // immediately terminate the main JS file
 worker.terminate();
 
