@@ -2,140 +2,142 @@
 > * 原文作者：[Janaka Ekanayake](https://medium.com/@clickforjanaka)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/web-share-for-modern-web-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/web-share-for-modern-web-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 校对者：[Chorer](https://github.com/Chorer)、[Usualminds](https://github.com/Usualminds)
 
-# Web Share for Modern Web Apps
+# 现代 Web 应用程序中的 Web 分享
 
 ![](https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png)
 
-> Recently, Web Share and Web Share API started to support Windows and Chrome OS, making it interesting for Web Developers.
+> 最近，Windows 和 Chrome OS（译者注：其实还有 macOS）开始支持 Web 分享 和 Web Share API，这吸引了不少 Web 开发者的目光。
 
-Have you ever come across the Web Share API? At least many of you may have heard of the term. Web Share API was out there for some time now. However, the initial support for Web Share API was limited to mobile devices.
+不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。
 
-## Web Share API — Quick Demo
+## Web Share API —— 快速演示
 
-We can do a quick test of Web Share APIs by following the steps given below to share data with other applications from a web page.
+我们可以按照以下步骤，对 Web Share API 进行快速测试 —— 在网页与其他应用程序之间进行数据分享。
 
-![Source: [https://web-share.glitch.me/](https://web-share.glitch.me/)](https://cdn-images-1.medium.com/max/2000/1*sHKOD8KJJxktrFqgPyAQwA.png)
+![来源: [https://web-share.glitch.me/](https://web-share.glitch.me/)](https://cdn-images-1.medium.com/max/2000/1*sHKOD8KJJxktrFqgPyAQwA.png)
 
-1. First of all, make sure you use the latest version of Google Chrome.
-2. Open your browser and go to [this](https://web-share.glitch.me/) link and click the **Share** button.
-3. You can open any other application that allows sharing. Besides, it also support sharing with nearby devices.
-4. After sharing, you can view the shared data in the target application. I’ve used **Mail** as the application and it added the text data into email body as shown below. The data was passed from the Web Share API.
+1. 首先，确保你使用的是最新版本的谷歌浏览器。
+2. 打开浏览器，打开[这个链接](https://web-share.glitch.me/)，点击**分享**按钮。
+3. 你可以打开任何允许分享的应用程序。此外，它还支持与附近的设备分享。
+4. 点击分享后，你就可以在目标应用程序中查看分享的数据。我这里使用**邮件**作为应用程序。如图所示，应用程序会将 Web Share API 传递过来的文本数据添加到电子邮件正文中。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YSWUxwngdvAWwQOtAHYzvg.png)
 
-> **I hope you are already convinced after trying it out.** At least that was my first impression while checking out the Web Share demo in my browser.
+**我希望你在尝试以后会感到高兴！** —— 至少这是我在浏览器中查看 Web Share 功能演示时的第一印象。
 
-## Using Web Share in Practice
+## 在实践中使用 Web Share
 
-### Sharing Links and Text
+### 分享链接和文本
 
-You can use a simple `share()` method to share the links and text you want. The code snippet is given below to help you out with Web Share.
+你可以使用一个简单的 `share()` 方法来分享你想要的链接和文本。下面给出的代码片段可以帮助你完成 Web Share：
 
-```ja
+```javascript
 if (navigator.share) {
-  navigator.share({
-    title: 'google.com',
-    text: 'Visit the google.com.',
-    url: 'https://www.google.com/',
-  })
-    .then(() => console.log('Successful share'))
-    .catch((error) => console.log('Error sharing', error));
- }
+    navigator.share({
+        title: 'juejin.cn',
+        text: '访问掘金开发者社区',
+        url: 'https://www.juejin.com/',
+    }).then(() => console.log('分享成功！'))
+        .catch((error) => console.log('分享时候遇到了错误……', error));
+}
 ```
 
-### Sharing Files
+### 分享文件
 
-File sharing is a bit different from URL sharing. For instance, you have to call `navigator.canShare()`. Then you can add an array of files while invoking `navigator.share()`
+文件分享与 URL 分享有些不同 —— 你必须先调用 `navigator.canShare()` 确认是否可以分享文件，然后才可以在调用 `navigator.share()` 时添加一个文件数组。
 
 ```js
-if (navigator.canShare && navigator.canShare({ files: fileArr })) {
-  navigator.share({
-    files: fileArr,
-    title: 'My image collection',
-    text: 'The vacation at north pole',
-  })
-  .then(() => console.log('Sharing was successful.'))
-  .catch((error) => console.log('Sharing failed', error));
- } else {
-  console.log(`Your system doesn't support sharing the given files.`);
- }
+if (navigator.canShare && navigator.canShare({files: fileArr})) {
+    navigator.share({
+        files: fileArr,
+        title: '我的相片集',
+        text: '北极de假期',
+    }).then(() => console.log('分享成功！'))
+        .catch((error) => console.log('分享时候遇到了错误……', error));
+} else {
+    console.log(`你的浏览器不支持分享这些文件……`);
+}
 ```
 
-### Sharing Target
+### 分享目标
 
-For an app to become a Share Target, it needs to fulfill some criteria set by Chrome. You can refer to [this](https://developers.google.com/web/fundamentals/app-install-banners/#criteria) link to check those out.
+要成为分享目标，应用程序需要满足 Chrome 设置的一些标准。你可以浏览一下[这篇帮助文档](https://developers.google.com/web/fundamentals/app-install-banners/#criteria)来查看这些条件。
 
-To register in the web app manifest, you have to add a `share_target`. It alerts the operating system to consider the app as a possible sharing option, as shown below.
+要在网络应用清单中注册，你必须添加一个 `share_target`。这会提醒浏览器将该应用视为一个可能的分享选项，如下文所示：
 
-1. Accepting basic information
-2. Accepting files
-3. Accepting application changes
+1. 接收基本信息
+2. 接收文件
+3. 接收应用程序变更
 
-You have to use the Web Share Target API to register as a target. A target can share files and content with other applications.
+你必须使用 Web Share Target API 来声明分享目标。它可以明确与其他应用程序分享的文件和内容：
 
-```js
-"share_target": {
-  "action": "/?share-target",
-  "method": "POST",
-  "enctype": "multipart/form-data",
-  "params": {
-    "files": [
-      {
-        "name": "file",
-        "accept": ["image/*"],
-      },
-    ],
-  },
- },
+```json
+{
+  "share_target": {
+    "action": "/?share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "image/*"
+          ]
+        }
+      ]
+    }
+  }
+}
 ```
 
-However, it is easier to transfer files between installed applications. You can share multiple contents varying from URLs to files.
+不过在已安装的应用程序之间传输文件会比较容易。你可以分享链接、文件等多种类型。
 
 ```js
 async function share(title, text, url) {
-  try {
-    await navigator.share({title, text, url});
-    return true;
-  } catch (ex) {
-    console.error('Share failed', ex);
-    return false;
-  }
- }
+    try {
+        await navigator.share({title, text, url});
+        return true;
+    } catch (ex) {
+        console.error('分享失败……', ex);
+        return false;
+    }
+}
 ```
 
-## Web Share API — Features and Limitations
+## Web Share API —— 功能和局限性
 
-### Features
+### 功能
 
-* Using Web Share, your web application can use the system-provided sharing capabilities just like a platform-specific app.
-* Developers get a more comprehensive range of sharing options.
-* It is possible to customize the share targets and choices in their devices. Therefore, you can increase the page loading speed.
-* Web Share APIs help to share text, URLs, and files. And also, Web Share has expanded its services too.
-* It’s available for Chrome OS, Chrome on Window, Safari, and Android in Chromium forks.
+* 使用 Web Share，你的 Web 应用程序可以像特定平台的原生应用程序那样使用系统提供的分享功能。
+* 开发者可以获得更全面的分享选项。
+* 可以在设备中自定义分享目标和设备。因此，你可以提高页面加载速度。
+* Web Share API 有助于分享文本、URL 和文件。此外，Web Share 也扩展来其支持分享的范围。
+* 它适用于 Chrome OS、Windows 平台的 Chrome、Safari 和 Android 的 Chromium 内核浏览器。
 
-### Limitations
+### 局限性
 
-However, no matter how good this service is, there are several drawbacks and limitations too.
+然而，无论这个功能有多好，它也有不少缺点和局限性。
 
-* Firstly, only the sites accessed via `https` can be used with Web Share.
-* Another thing is, you cannot invoke it with something like an `onload `operation. There must be some user action for this. For instance, a user click can invoke it.
+* 首先，只有通过 https 访问的网站才能使用 Web Share。
+* 还有一点就是，你不能用类似于 `onload` 的操作来调用它，它必须通过用户的交互行为进行调用。比如说，用户可以通过点击调用它。
 
-* Besides, it is still under development for Chrome for Mac.
+* 另外，Mac 平台的 Chrome 的这个功能还在开发中。
 
-## Summary
+## 小结
 
-Web Share API is a modern web platform feature to share content easier across social networks, SMS, and registered target apps.
+Web Share API 是一个现代化的 Web 平台功能，它有助于我们在社交网络、短信和注册目标应用之间更轻松地分享内容。
 
-Chrome is one major browser that supports Web Share Target API. And also, Safari supports it as well.
+Chrome 是支持 Web Share Target API 的主要浏览器之一。此外，Safari 也支持它。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*CtRllCb7OzXfmPxJk4eaew.png)
 
-> However, the Web Share API should be triggered by a user action, as it is developed to reduce inconveniences and abuses.
+> 但是，Web Share API 应该由用户主动操作触发，这样做是为了减少不便和滥用。
 
-Thank you for reading. Feel free to leave a comment down below and share your experience.
+谢谢你的阅读。欢迎在下方留言，分享你的经验。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
