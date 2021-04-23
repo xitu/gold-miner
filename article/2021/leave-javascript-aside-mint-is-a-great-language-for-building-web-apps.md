@@ -7,15 +7,11 @@
 
 # Leave JavaScript Aside — Mint Is a Great Language for Building Web Apps
 
-#### A refreshing (and maybe superior) experience for web developers
-
 ![Photo by [Luca Volpe](https://unsplash.com/@lucavolpe?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/mint-cocktail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText).](https://cdn-images-1.medium.com/max/13440/1*-AzcPWEeQ7lrNOGm9VWHVA.jpeg)
 
 Recently, I used [Mint](https://www.mint-lang.com/) to build a small web application, and it was definitely the “refreshing” experience that is advertised. Mint is a relatively unheard-of programming language for building web applications. It’s a typed language, it compiles to JavaScript, and it has many essential features built in.
 
 All of this means that with Mint, you can build web applications **very quickly**.
-
----
 
 ## Why Mint?
 
@@ -24,8 +20,6 @@ I tried out Mint because I wanted a change from the all-too-familiar JavaScript/
 ![](https://cdn-images-1.medium.com/max/2588/1*eNKRgF6r-mKpOfYVh1udEg.png)
 
 Often when looking for a break from JavaScript web development, people choose to try out the [Elm](https://elm-lang.org/) programming language. It is similar to Mint in a number of ways, like being typed and functional. I tried Elm once but found that my progress was slow because it was difficult to learn and there was lots of boilerplate code. Mint felt like the opposite of this.
-
----
 
 ## What Did I Build?
 
@@ -41,8 +35,6 @@ The [Mint website](https://www.mint-lang.com/) nicely shows off all that Mint ha
 
 * The lack of external dependencies because so many features are built in
 * The JavaScript interoperability
-
----
 
 ## Built-In State Management
 
@@ -85,8 +77,6 @@ We can render this button component as contained or outlined, as per the allowed
 
 Styling and state management are just two examples of Mint’s built-in functionality. Mint also comes with built-in routing, a code formatter, a test runner, a documentation tool, and much more.
 
----
-
 ## JavaScript Interoperability — Writing JavaScript Within Mint Code
 
 For most people, this would probably be a “nice to have” feature, but for me, it was essential given that I was building a Chrome extension that would use the JavaScript Chrome APIs.
@@ -99,8 +89,6 @@ Mint actually offers a [few different ways](https://www.mint-lang.com/guide/refe
 
 While this inlining method is quick and easy to use, it relies on type inference, which might not always be perfect. A type-safer way to use JavaScript code in Mint is to convert JavaScript objects to typed values using [decode expressions](https://www.mint-lang.com/guide/reference/javascript-interop/decode-expression).
 
----
-
 ## Conclusion
 
 Overall, my experience with Mint was overwhelmingly positive. Coming from TypeScript and React meant that it was quick and easy to learn, with many familiar concepts built into the core of the language.
@@ -108,10 +96,6 @@ Overall, my experience with Mint was overwhelmingly positive. Coming from TypeSc
 What I built was simple and very small, and so I can’t say for certain that Mint is just as good for large-scale applications that might have complex routing, data fetching, performance considerations, etc. But from what I see, there’s no reason why Mint isn’t ready for this.
 
 The official [mint-ui](https://ui.mint-lang.com/) component library has just been released and the language appears to be gaining some traction. I hope that 2021 will be a good year for Mint.
-[**Mint vs JavaScript (stack)**
-**Comparing Mint with JavaScript. Tagged with mintlang, javascript, webdev.**dev.to](https://dev.to/gdotdesign/mint-vs-javascript-stack-15id)
-[**Guide**
-**This page is an introduction to what Mint is. Mint is a language specifically created for writing single-page…**www.mint-lang.com](https://www.mint-lang.com/guide)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
