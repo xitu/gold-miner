@@ -49,7 +49,7 @@
 因此，为了给 Web 开发者提供一种方法来精确定义哪个容器才是真正的主容器，可以使用一个 `<meta>` 标签。它将接受一个 CSS 选择器（复杂程度由需求决定），当使用跳过链接时，浏览器将查询该 DOM 节点，将滚动并聚焦它。
 
 ```html
-<meta name="skip-link" value="#content"/>。
+<meta name="skip-link" value="#content"/>
 ```
 
 另一种方法是使用带有 `rel` 属性的 `<link>` 标签，如 [Aaron Gustafson 所提示的](https://github.com/WebWeWant/webwewant.fyi/discussions/233#discussioncomment-146471)。
