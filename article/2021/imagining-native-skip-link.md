@@ -55,7 +55,7 @@
 另一种方法是使用带有 `rel` 属性的 `<link>` 标签，如 [Aaron Gustafson 所提示的](https://github.com/WebWeWant/webwewant.fyi/discussions/233#discussioncomment-146471)。
 
 ```html
-<link rel="skip-link" href="#content"/>。
+<link rel="skip-link" href="#content"/>
 ```
 
 浏览器是否应该监听这个元素的变化（不管是什么）是一个开放性的问题。我认为是的，只是为了安全起见。
