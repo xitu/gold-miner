@@ -7,8 +7,6 @@
 
 # Hookrouter: A Modern Approach to React Routing
 
-#### Routing in React applications using the Hookrouter
-
 ![](https://cdn-images-1.medium.com/max/5760/1*04u1ylnBHOx19jxSMkenVA.jpeg)
 
 Routing is essential for Single Page Applications (SPAs) to navigate through pages and to initialize state. With React, I’m sure most of you have used react-router-dom, a variant of the Reactrouter library for routing.
@@ -128,7 +126,7 @@ function App() {
 export default App;
 ```
 
-> # When routing is done using the Hookrouter, the routes are rendered exclusively since they are defined in an object. Therefore, the useRoutes() hook performs the functionality of the \<Switch> component by default.
+> When routing is done using the Hookrouter, the routes are rendered exclusively since they are defined in an object. Therefore, the useRoutes() hook performs the functionality of the \<Switch> component by default.
 
 For instance, to route to a 404 page using Hookrouter, we only have to pass the error we want to display or the component containing the error message for rendering, as shown below (line 17).
 
@@ -155,14 +153,11 @@ function App() {
 }
 
 export default App;
-
 ```
 
 > **Note:** An important fact I have noticed is that in Reactrouter `\<Switch>`is that if the path is not declared as exact, it might lead to erroneous routings in some cases.
 
 For example, if the path to `{Home}` is not declared as exact, the application won’t route to any other path starting with `‘/’`. As a result, the app won’t route to `{About}` or `{Shop}` components and will always route to the Home page. However, in Hookrouter, since the routes are declared as an object, explicit declarations of “exact” for paths are not necessary.
-
----
 
 ## 3. Navigation using Hookrouter
 
@@ -197,7 +192,7 @@ function Nav() {
 export default Nav
 ```
 
-> # The Hookrouter uses a \<A> component to provide the functionality of the \<Link> component. \<A> is a wrapper around the HTML anchor tag \<a> and is 100% feature compatible with the anchor tag.
+> The Hookrouter uses a \<A> component to provide the functionality of the \<Link> component. \<A> is a wrapper around the HTML anchor tag \<a> and is 100% feature compatible with the anchor tag.
 
 The main difference between `\<A>` and `\<Link>` is that `\<A>`pushes the URL to the history stack without loading a new page. As a result, onclick functions have to be wrapped by the `\<A>` component to intercept the click event to stop the default behavior and push the URL on the history stack.
 
@@ -230,8 +225,6 @@ function Nav() {
 export default Nav
 ```
 
----
-
 ## 4. Handling Dynamic Routes
 
 Some components contain dynamic portions that have to be rendered based on the URL on demand. URL parameters are used to set dynamic values in a URL. In Reactrouter, placeholders are passed to the path prop starting with a colon in the `\<Route/>` component.
@@ -242,7 +235,7 @@ To demonstrate this concept, let’s consider a list of products displayed on th
  <Route path = '/shop/:id' component = {Details}/>
 ```
 
-> # In Hookrouter, the URL parameters can be passed in the same way as done in Reactrouter. The construct is the same.
+> In Hookrouter, the URL parameters can be passed in the same way as done in Reactrouter. The construct is the same.
 
 ```JavaScript
 const routes = {
@@ -258,25 +251,23 @@ However, the Hookrouter handles the URL parameters differently.
 
 Therefore, as you have seen, the same result obtained using the Reactrouter can be achieved by the Hookrouter.
 
----
-
 ## 5. Other Features of the Hookrouter
 
-#### Programmatic navigation
+### Programmatic navigation
 
 The navigate(url, [replace], [queryParams]) function from the Hookrouter package can be used to send users to a specific page defined by the absolute or relative URL provided. For example, to navigate to the about page, the code snippet given below can be used.
 
-```
+```js
 navigate(‘/about’) 
 ```
 
 `navigate()` by default is a forward navigation. Therefore, a new entry in the browsing history will be created, and the user can click the back button in the browser to get back to the previous page.
 
-#### Redirects
+### Redirects
 
 Hookrouter handles redirects with the aid of the `useRedirect()` hook. It takes a source route and a target route as parameters.
 
-```
+```js
 useRedirect('/', '/greeting');
 ```
 
@@ -288,23 +279,19 @@ Many of the other Reactrouter library features (apart from the ones discussed he
 
 Besides, feel free to go through the [Hookrouter documentation](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md) to learn more about this module.
 
----
-
 ## Drawbacks
 
 I have noticed that sometimes the Hookrouter doesn’t work with [**Strict Mode**](https://reactjs.org/docs/strict-mode.html) that is enabled by default in the latest versions of create-react-app.
 
 However, you only have to remove the `\<React.StrictMode>` component from your index.js to use Hookrouter.
 
-```
+```jsx
 <React.StrictMode>
   <App />
 </React.StrictMode>
 ```
 
 Another drawback is that since this module is relatively new, it might contain some unknown and unusual bugs resulting in unexpected behaviors.
-
----
 
 ## Conclusion
 
@@ -313,26 +300,6 @@ From the above demonstrations, it’s clear that the Hookrouter module offers a 
 It offers most of the Reactrouter library features. Therefore, I encourage you to go ahead and try it out for smaller projects for a start.
 
 Thank you for reading!
-
----
-
-## Build & share independent components with Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly modular** applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
-![Example: A remote scope with independent components available to be used and collaborated on](https://cdn-images-1.medium.com/max/3556/1*Zlu_gM9RDHQUVNtK2k-FPw.png)
-[**Bit: The platform for the modular web**
-**Bit is a scalable and collaborative way to build and reuse components. It's everything you need from local development…**bit.dev](https://bit.dev)
-
-## Related Stories
-[**The Love-Hate Relationship between React Router and React Components**
-**As React developers, a majority of us enjoy working with React Router and how well it fits our React application.**blog.bitsrc.io](https://blog.bitsrc.io/the-love-hate-relationship-between-react-router-and-react-components-dee4aac5956c)
-[**Must know concepts of React Router**
-**This guide will take you through some must know React Router principles.**blog.bitsrc.io](https://blog.bitsrc.io/must-know-concepts-of-react-router-fb9c8cc3c12)
-[**Wouter: A Minimalist Alternative to React Router**
-**Although React Router is currently the most popular routing solution for building applications with React, there are…**blog.bitsrc.io](https://blog.bitsrc.io/wouter-a-minimalist-alternative-to-react-router-2756690c2b77)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
