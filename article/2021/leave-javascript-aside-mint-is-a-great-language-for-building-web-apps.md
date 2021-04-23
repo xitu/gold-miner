@@ -50,8 +50,6 @@ Usually, you would define the store and component in separate files, but for the
 
 Notice that the state value is updated using the `next` keyword, which is specifically for safely mutating state.
 
----
-
 ## Built-In Styling and CSS
 
 The built-in styling solution was definitely a highlight for me: CSS scoped to the component in which it’s defined, conditional styling based on arguments/props, media queries, nested selectors, and real CSS syntax (e.g. `align-items` and not `alignItems`).
