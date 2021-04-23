@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ibm-12-project-debater-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ibm-12-project-debater-api.md)
 > * 译者：[Kimhooo](https://github.com/Kimhooo)
-> * 校对者：
+> * 校对者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)、[greycodee](https://github.com/greycodee)
 
 # 人工智能系统 Project Debater 即将提供 12 个新的云 API
 
