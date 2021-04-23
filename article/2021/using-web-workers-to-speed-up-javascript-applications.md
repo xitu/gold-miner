@@ -7,24 +7,19 @@
 
 # Using Web Workers to Speed-Up JavaScript Applications
 
-#### How to run JavaScript in multiple threads
-
 ![](https://cdn-images-1.medium.com/max/5760/1*dc6I4-IzvGDNryL2KpZX-Q.png)
 
 Web Workers are a method of instructing the browser to run large, time-consuming tasks in the background. Its ability to spawn new threads allows you to prioritize work and address the blocking behavior in single-threaded languages like JavaScript.
 
 But do we really need multi-threaded JavaScript? To answer that, let’s understand where single-threaded JavaScript hit its limits.
 
----
-
 ## Limitation with Single-Threaded JavaScript
 
 Modern web applications demand more from the browsers. Some of these tasks are long-running that can cause the user interface to freeze for few seconds. By all means, it’s bad for the end-user experience.
 
-To give you a better understanding, I have created a sample application to simulate it in the browser. Here the `Start_Animation `****button will move the bicycles forward while the `Run_Calculation` button calculates the prime number sequence that demands more CPU.
+To give you a better understanding, I have created a sample application to simulate it in the browser. Here the `Start_Animation `button will move the bicycles forward while the `Run_Calculation` button calculates the prime number sequence that demands more CPU.
 
 ```JavaScript
-
 const prime = (num) => {
   for (let i = 0; i <= num; i++) {
     let flag = 0;
@@ -75,29 +70,17 @@ After you run the above code, you will see an output like below. If you look clo
 
 Since you have observed the limitations with single-threaded JavaScript, let’s see how we can use Web Workers to overcome this.
 
----
-
-#### Tip: Build & share independent components with Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly** modular applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
-![Material UI components shared individually on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/4000/0*dfxKA_DPzEo7I-84.png)
-
----
-
 ## Integrating Web Worker With JavaScript
 
 Let’s see how we can use a Web Worker to optimize the above code.
 
-#### Step 1 — Split your functions.
+### Step 1 — Split your functions.
 
 There are 2 main functions in the previous example named as `Run_Calculation` and `Start_Animation`. Since running both these functions in the same thread caused one function to freeze, we need to separate these 2 and run them in separate threads.
 
 So, I’ve created a new file called worker.js and moved the prime number generation part there.
 
-> # It is essential to use a separate JS file for the Web Workers. Since main script and web worker script must be fully independent to operate on different threads.
+> It is essential to use a separate JS file for the Web Workers. Since main script and web worker script must be fully independent to operate on different threads.
 
 If not, you won’t be able to keep the execution context purely threadsafe, and it can cause unexpected errors in your parallel execution.
 
@@ -136,11 +119,11 @@ const Start_Animation = () => {
 
 I’m sure you must have noticed some modifications other than the earlier discussed functions. Don’t worry, I will explain them in the next step.
 
-#### Step 2 — Implement communication between 2 files.
+### Step 2 — Implement communication between 2 files.
 
 Now, we have 2 separate scripts, and we need to implement a way to communicate between these two. For that, you need to understand how to pass data between your main thread and the web worker thread.
 
-> # The Web Worker API has a `postMessage()` method for sending messages and an `onmessage `event handler to receive messages.
+> The Web Worker API has a `postMessage()` method for sending messages and an `onmessage `event handler to receive messages.
 
 If we consider a situation where we need to pass from the web worker thread to the main thread, we can use `postMessage()` function within the worker file, and the `worker.onmessage` listener inside the main thread to listen to messages from the worker.
 
@@ -174,15 +157,15 @@ worker.onmessage = event => {
 
 > **Note:** When a message is passed between the main thread and worker, it will be completely moved. Not shared.
 
-Now, it is all set, and you can reload the program in your browser, start the animation, and press the `Run_Calculation `****button to start the calculation. You’ll notice that the prime number calculation result is still listed in the browser console, but this has no impact on the movement of the icons. So, We can see that our application’s performance has **greatly improved.**
+Now, it is all set, and you can reload the program in your browser, start the animation, and press the `Run_Calculation` button to start the calculation. You’ll notice that the prime number calculation result is still listed in the browser console, but this has no impact on the movement of the icons. So, We can see that our application’s performance has **greatly improved.**
 
 ![Demo Application With a Web Worker](https://cdn-images-1.medium.com/max/2280/1*x0judL4Qm9bdKJ8RM4yeyQ.gif)
 
-#### Step 3 — Terminate the web worker.
+### Step 3 — Terminate the web worker.
 
 As a practice, it is better to terminate a worker after it has fulfilled its function since it frees up resources for other applications. You can wither use `terminate()` function or `close()` function for this.
 
-> # However, it is essential to know when to choose between terminate () and close() methods since they serve different purposes.
+> However, it is essential to know when to choose between terminate () and close() methods since they serve different purposes.
 
 The `close()` function is only visible within the worker files. Hence this function can only be used within the worker file to terminate the worker. On the other hand, the `terminate()` method is a part of the worker object’s interface, and you can call it from the main JavaScript file.
 
@@ -195,8 +178,6 @@ self.close();
 ```
 
 You can find the full demo project in my [GitHub](https://github.com/bhagya327/Demo-Application) account.
-
----
 
 ## Final Thoughts
 
@@ -211,16 +192,6 @@ In this article, I’ve touched on what I feel are the most important points you
 Once you understand how Web Workers work, it will be easy to determine how to use them in your project. So, I invite you to get a hands-on experience with Web Workers and share your thoughts in the comments section.
 
 Thank you for Reading !!!
-
----
-
-## Learn More
-[**Independent Components: The Web’s New Building Blocks**
-**Why everything you know about Microservices, Micro Frontends, Monorepos, and even plain old component libraries, is…**blog.bitsrc.io](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65)
-[**Introduction to Web Workers**
-**A hands-on deep dive into web workers: Build complex apps without losing performance.**blog.bitsrc.io](https://blog.bitsrc.io/introduction-to-web-workers-674d372f1b85)
-[**How to Generate Service Workers Automatically**
-**Using Workbox with Webpack to Generate Service Workers**blog.bitsrc.io](https://blog.bitsrc.io/how-to-generate-service-workers-automatically-b6bbbaa632c3)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
