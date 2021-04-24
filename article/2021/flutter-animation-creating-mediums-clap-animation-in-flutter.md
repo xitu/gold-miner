@@ -90,9 +90,9 @@ Flutter 为我们提供了一份免费的入门代码午餐～它已经管理了
 
 ![](https://miro.medium.com/max/1600/1*Hnkdb5BSXFmjVitdYQiirQ.gif)
 
-我们会创作的动画。作者：[**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)
+我们将会创建的动画。作者：[**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)
 
-在添加动画之前，我们先来看看并解决一些简单的问题。
+在添加动画之前，我们先来快速浏览并解决一些简单的问题。
 
 1. 改变按钮图标和背景。
 2. 当我们按住按钮时，按钮应该继续添加计数。
@@ -225,13 +225,13 @@ class _MyHomePageState extends State<MyHomePage> {
 2. 当按钮被按下时，显示那个展示鼓掌次数的 Widget，并在按钮释放时隐藏这个 Widget
 3. 添加那些很小的向四周撒花的 Widget，并将它们做成动画
 
-让我们一个一个来，慢慢增加学习曲线。开始前，我们需要了解一些关于 Flutter 中动画的基本知识。
+让我们一个一个来，慢慢推进学习进度。开始之前，我们需要了解 Flutter 中一些关于动画的基本知识。
 
 ## 了解 Flutter 中基本动画的 Widget
 
 一个动画无非是一些随时间变化的数值。例如，当我们点击按钮时，我们想让显示鼓掌次数的 Widget 从底部逐步上移。当按钮释放的时候它应该已经上移了不少，这时候我们应该把它隐藏起来。
 
-将焦点关注在显示鼓掌次数的 Widget 上，我们需要在一段时间内**改变它的位置和不透明度**。
+将焦点关注在显示鼓掌次数的 Widget 上，我们需要**在一段时间内改变**它的位置和不透明度。
 
 ```dart
 // 显示鼓掌次数的 Widget
@@ -249,7 +249,7 @@ new Positioned(
 
 ![](https://miro.medium.com/max/974/1*KZuvwwIIH-YDxiHpMr9FqA.png)
 
-这是一个简单的二维图形，位置与时间正相关。
+这是一幅简单的二维图像，位置随着时间推移而改变。
 
 请注意这是一条斜线，不过如果你喜欢的话，这其实也可以是一条曲线。
 
@@ -265,11 +265,11 @@ scoreInAnimationController = new AnimationController(duration: new Duration(mill
 
 在这里，我们已经为动画创建了一个简单的控制器，并指定了要运行动画的持续时间为 150ms。不过那个 `vsync` 是什么？
 
-移动设备每隔几毫秒就会刷新一次屏幕。这就是我们如何将一组图像感知为一个连续的流程或一部电影。
+移动设备每隔几毫秒就会刷新一次屏幕。这就是我们如何将一组图像感知为一个连续的流或一部影片。
 
 屏幕刷新的速度可以因设备而异。比方说，手机每秒刷新屏幕 60 次（60 帧/秒），那就是每隔 16.67 毫秒之后设备会绘制一个新的界面。有时图像可能会发生错位（我们在屏幕刷新时发送了不同的图像），我们就会看到屏幕撕裂。`vsync` 可以解决这个问题。
 
-让我们在控制器上添加一个监听器并运行动画：
+让我们在控制器上添加一个监听器然后运行动画：
 
 ```dart
 scoreInAnimationController.addListener(() {
@@ -313,7 +313,7 @@ I/flutter ( 5221): 1.0
 
 我们通过将 `parent` 设置为我们的控制器并提供我们想要跟随的曲线，创建了一个曲线动画。在 [Flutter Curves 类参考文档页面](https://docs.flutter.io/flutter/animation/Curves-class.html)我们可以看到一系列我们可以使用的曲线。控制器在 150 毫秒的时间内向曲线动画 Widget 提供 0.0 到 1.0 的数值，而曲线动画 Widget 就会按照我们设置的曲线对这些值进行插值。
 
-现在我们得到了从 0.0 到 1.0 的值，而我们希望我们的展示点赞次数的 Widget 的动画值的范围是 `[0.0, 100.0]`。我们可以简单地将上一步得到的值乘以 100 来得到结果。或者我们可以使用第三个 Widget `Tween`。
+现在我们得到了从 0.0 到 1.0 的值，而我们希望我们的展示点赞次数的 Widget 的动画值的范围是 `[0.0, 100.0]`。我们可以简单地将上一步得到的值乘以 100 来得到结果。或者我们可以使用第三种部件 `Tween` 类。
 
 ```dart
 tweenAnimation = new Tween(begin: 0.0, end: 100.0).animate(scoreInAnimationController);
@@ -334,7 +334,7 @@ I/flutter ( 2639): 100.0
 */
 ```
 
-`Tween` 类生成的值从 `begin` 到 `end`。我们使用了我们之前那个使用了一条线性曲线的 `scoreInAnimationController`（当然我们也可以使用我们的反弹曲线来获得不同的值）。`Tween` 的优势并不止于此 —— 你还可以对其他东西进行 `Tween`。[你可以使用进一步扩展基础 `Tween` 类的类直接对颜色、偏移、位置和其他 Widget 属性进行 `Tween`](https://docs.flutter.io/flutter/animation/Tween-class.html)。
+`Tween` 类生成了从 `begin` 到 `end` 的值。我们使用了前面的 `scoreInAnimationController` ，它使用了一条线性曲线。（当然我们也可以使用我们的反弹曲线来获得不同的值）。`Tween` 的优势并不止于此 —— 你还可以 `Tween` 其他东西。[你可以直接 `Tween` 颜色、偏移、位置以及其他继承了 `Tween` 基类的 Widget 属性](https://docs.flutter.io/flutter/animation/Tween-class.html)。
 
 **展示鼓掌次数的 Widget 的位置动画**
 
@@ -473,9 +473,9 @@ scoreSizeAnimationController.addListener((){
 });
 ```
 
-控制器在 150 毫秒的时间内从 0 到 1 产生数值，一旦完成，我们就从 1 到 0 产生数值，这样就有了很好的增长和缩小的效果。
+控制器在 150 毫秒内产生从 0 到 1 的数值，一旦完成，我们就产生从 1 到 0 的数值，这样就有了很好的放大和缩小的效果。
 
-我们还更新了我们的 `increment` 函数 —— 当一个数字递增时就会开始动画。
+我们还更新了我们的 `increment` 函数 —— 当数字递增时就会开始动画。
 
 ```dart
 void increment(Timer t) {
@@ -516,21 +516,21 @@ width: 50.0  + extraSize,
 ...
 ```
 
-完整的代码可以在 [GitHub Gist](https://gist.github.com/Kartik1607/52c882194e3119e0d176fb15e6c6b913) 处找到。这里我们有一起运行的大小位置动画，也稍微调整了一下尺寸动画。
+完整的代码可以在 [GitHub Gist](https://gist.github.com/Kartik1607/52c882194e3119e0d176fb15e6c6b913) 处找到。这里我们同时运行的大小和位置的动画。尺寸放缩动画还需要一点点调整，最后再说。
 
 ![尺寸和位置动画一起工作](https://miro.medium.com/max/716/1*5ttrTDWNuApskZBCIX1zrQ.gif)
 
 ## 撒花动画
 
-在做撒花动画之前，我们需要对大小动画做一些调整。目前来看，按钮的增长幅度太大。修复的方法很简单。我们将 `extrasize` 的乘数从 `10` 改为一个较低的数字。
+在做撒花动画之前，我们需要对尺寸放缩动画做一些调整。目前来看，按钮的放大幅度太大。解决方法很简单，将 `extrasize` 系数从 `10` 改为小一点的数字。
 
-现在来到撒花动画。我们可以观察到，**撒出来的花只是 5 个变化着位置的图像。**
+现在来看撒花动画。我们可以观察到，**撒出来的花只是 5 个变化着位置的图像。**
 
 我在微软的 Paint 软件中制作了一个三角形和一个圆形的图像，并将其保存到 Flutter 资源中。现在我们就可以将该图像作为 Image Asset 素材。
 
 在制作动画之前，我们先来思考一下定位和一些我们需要完成的任务。
 
-1. 我们需要定位 5 张图片，每张图片的角度不同，形成一个完整的圆。
+1. 我们需要定位 5 张图片，每张图片呈现不同角度，围成一个完整的圆。
 2. 我们需要根据角度旋转图像。
 3. 我们需要随着时间增加圆的半径。
 4. 我们需要根据角度和半径找到坐标。
@@ -559,7 +559,7 @@ for(int i = 0;i < 5; ++i) {
 }
 ```
 
-我们只需将 `2*pi`（360 度）分成 5 份，并据此创建一个 Widget。然后，我们将这些 Widget 添加到一个数组中，这个数组将作为堆栈的子数。
+我们只需将 `2*pi`（360 度）分成 5 份，并据此创建一个 Widget。然后，我们将这些 Widget 添加到一个数组中，这个数组将作为栈的孩子。
 
 现在，在这一点上，大部分的工作已经完成。我们只需要对 `sparkleRadius` 进行动画处理，并在分数递增时生成一个新的 `firstAngle`。
 
