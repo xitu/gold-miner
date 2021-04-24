@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/physics-simulations-using-vpython.md](https://github.com/xitu/gold-miner/blob/master/article/2021/physics-simulations-using-vpython.md)
 > * 译者：[tmpbook](https://github.com/tmpbook)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 # 使用 VPython 进行物理模拟
 
