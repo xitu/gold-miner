@@ -33,7 +33,7 @@ http: ^0.12.2
 
 ## 创建一个新的 Flutter 项目
 
-继续打开你最喜欢的 IDE（VScode 或 Android Studio），创建一个新的 Flutter 应用，并给它取一个你喜欢的名字，保存在本地磁盘的某个地方。
+打开你最喜欢的 IDE（VScode 或 Android Studio），创建一个新的 Flutter 应用，并给它取一个你喜欢的名字，保存在本地磁盘的某个地方。
 
 首先我们删除掉默认生成的计数器应用代码，并创建一个主函数来运行我们的 Material 应用程序。
 
@@ -127,7 +127,7 @@ static Future<List<Quotes>> fetchQuotes() async {
 }
 ```
 
-在上面的代码中，我们有一个异步方法，作出一个 GET 请求。如果响应代码是 `200`，它就会返回**名言名句**的列表，否则就抛出一个异常。
+在上面的代码中，我们有一个异步方法，作出一个 GET 请求。如果响应的状态码是 `200`，它就会返回**名言名句**的列表，否则就抛出一个异常。
 
 ## 设计 UI
 
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
       print(quotesFromJson(response.body).length);
       return quotesFromJson(response.body);
     } else {
-      throw Exception('失败获取名言名句');
+      throw Exception('获取名言名句失败');
     }
   }
 
@@ -196,9 +196,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
 > 由于我们使用的是API，所以我们将使用 `FutureBuilder`。
 
-> 如果你的问题是为什么？
+> 为什么要用这个东西呢？
 
-由于我们的 UI 会在应用运行后立即构建，但是来自 API 的***响应***呢，我们不会在应用运行后立即收到。因此如果你的 UI 依赖于 API 响应值，那么它将会抛出很多的 `null` 错误。
+由于我们的 UI 会在应用运行后立即构建，但我们却无法立刻获取到来自 API 的***响应***，因此如果你的 UI 依赖于 API 响应值，那么它将会抛出很多的 `null` 错误。
 
 ### 让我们投奔 Future
 
