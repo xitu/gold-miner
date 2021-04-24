@@ -2,10 +2,10 @@
 > * 原文作者：[Maneesha Erandi](https://medium.com/@maneesha-erandi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md)
-> * 译者：苏苏的 [霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[Zz招锦](https://github.com/zenblo)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)
 
-# 使用 Flutter 的 Container 控件构建优美的用户界面
+# 使用 Flutter 的 `Container` 控件构建优美的用户界面
 
 当我们使用 Flutter 构建绝佳的 UI 界面的时候，`Container` 扮演着重要的角色。我真的极度喜欢在任何地方添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
 
@@ -13,7 +13,7 @@
 
 让我们一起看看我们能够怎样利用 `Container` 控件让我们的 UI 更加有吸引力吧！
 
-要生成一个简简单单的正方形或矩形，我们可以创造一个 `Container` 控件并给它制定一个宽度和高度（你可以看下面的例子就避免了要使用子控件去绘制形状）
+要生成一个简简单单的正方形或矩形，我们可以创造一个 `Container` 控件并给它制定一个宽度和高度（我们可以看到下面的例子就避免了使用子控件去绘制形状）。
 
 ![](https://cdn-images-1.medium.com/max/2078/1*mzCSaRJfZi8BiBHYUrUbqg.png)
 
@@ -69,7 +69,7 @@ Widget circleContainer() {
 }
 ```
 
-如果你使用 `Container` 控件包裹了一个有 `onTap` 功能（本例中为 `InkWell` 控件）的子控件，我们甚至可以生成一个自定义的按钮：
+如果我们用 `Container` 控件包裹一个有 `onTap` 功能（本例中为 `InkWell` 控件）的子控件，我们甚至可以构建一个自定义的按钮：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0CUGG-lyqxr-iP4wb9PRNQ.png)
 
@@ -126,7 +126,7 @@ Widget containerWithShadow() {
 }
 ```
 
-在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。但是，试着找找两张图片中 `Container` 的区别以及探究添加的装饰是如何被应用到控件上的：
+在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。这里大家可以试着找找两张图片中 `Container` 的区别，探究添加的装饰是如何被应用到控件上的：
 
 ![](https://cdn-images-1.medium.com/max/2224/1*W0xtgxhy3hLNkrcHbZEGhQ.png)
 
@@ -153,7 +153,7 @@ Widget containerImg() {
 }
 ```
 
-我们可以添加多彩的标题栏去让我们的 UI 更有吸引力，而下面是三个使用 `Container` 控件构造的标题栏的例子：
+我们可以添加多彩的标题背景，让我们的 UI 更有吸引力。下面是三个使用 `Container` 控件构造的标题栏的例子：
 
 ![](https://cdn-images-1.medium.com/max/2458/1*I5-WNUcfc8gRxQiiTD59zQ.png)
 
@@ -202,7 +202,7 @@ Widget containerHeaderThree({width}) {
 
 你可以在 [这里](https://github.com/manee92/FlutterDemo/blob/master/lib/screens/UIDemo/ContainerDemo.dart) 找到完整的代码。
 
-感谢阅读！
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

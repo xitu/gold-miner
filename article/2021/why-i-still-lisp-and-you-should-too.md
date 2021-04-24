@@ -2,165 +2,151 @@
 > * 原文作者：[Anurag Mendhekar](https://medium.com/@mendhekar)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-i-still-lisp-and-you-should-too.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-i-still-lisp-and-you-should-too.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Elliott Zhao](https://github.com/elliott-zhao)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [Jack Tang](https://github.com/JackEggie)
 
-# Why I Still Lisp (and You Should Too)
+# 为什么我还在用 Lisp（而且你也应该用）
 
-> The old fashioned language might not be used by many. But it’s still a part of my codebases.
+> 这种古老的语言可能没有很多人用了，但它仍然是我代码库中的一部分。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BBzSK02LI9pvIGtiT_1IbA.png)
 
-As a long-time user (and active proponent) of Scheme/Common Lisp/Racket, I sometimes get asked why I stick with them. Fortunately, I have always headed up my own engineering organizations, so I’ve never had to justify it to management. But there’s an even more important constituency — my own engineering colleagues — who’ve never ever had the pleasure of using these languages. While they never ask for justification, they do ask out of intellectual curiosity, and sometimes out of wonder why I’m not going gaga over the next cool feature being dropped into Python or Scala, or whatever their flavor of the month is.
+作为 Scheme / Common Lisp / Racket 的长期用户（和积极支持者），我有时会被人们问到，为什么我还在坚持使用它们。幸运的是，我一直都在自己的程序员组织中工作，从来不需要为使用这些而向领导们解释。但是还有一个更重要的群体 —— 我的程序员同事们 —— 他们从未体会过使用这些语言的乐趣。就算他们不会让我解释，他们也会出于求知欲提问，而有时候也会想知道为什么我不会对 Python 或 Scala 即将加入的很酷的新特性，或者是什么其他风靡一时的东西而神魂颠倒。
 
-While the actual flavor of Lisp used has varied for me (Scheme, Common Lisp, Racket, Lisp-for-Erlang), the core has always remained the same: An s-expression based, dynamically typed, mostly functional, call-by-value λ-calculus-based language.
+虽然我真正使用的 Lisp 的变种有很多（Scheme、Common Lisp、Racket、Lisp-for-Erlang），但核心总是保持一致的：一种基于 S 表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
-I started serious programming in my teens in BASIC on a ZX Spectrum+, although I had previously dabbled in (hand-) writing Fortran programs. It was a defining period for me as it truly defined my career path. Very quickly I was pushing the language to its limits and trying to write programs that were well beyond the limited capacity of the language and its implementation. I moved on to Pascal for a short while (Turbo Pascal on a DOS box), which was fun for a while, until I discovered C on Unix (Santa Cruz Operation Xenix!). That got me through a bachelor’s degree in Computer Science, but it always left me wanting for more expressiveness in my programs.
+我在十几岁的时候在 ZX Spectrum+ 上使用 BASIC 开始了我的编程之旅。虽然我在此之前我就对（手）写 Fortran 程序略有涉猎，但这确实对我来说是一个决定性的起始，因为它真正定义了我的职业路线。很快我就把这些语言用到了它的极限，并且尝试写超出这门语言和实现的有限能力的程序。我转到 Pascal 很短的一段时间（DOS box 上的 Turbo Pascal）里都是非常快乐的，直到我发现了运行在 Unix（Santa Cruz Operation Xenix!）上的 C。它帮助我取得了计算机科学的学士学位，但它总是让我希望能够在程序中拥有更强的表现力。
 
-This was when I discovered Functional Programming (Thank you IISc!) in Miranda (Ugly Haskell’s very beautiful mom) and it opened my eyes to wanting **beauty** in my programs. My notion of expressiveness in a programming language began to take very large leaps. My concept for what programs should look like now began encompassing brevity, elegance, and readability.
+当我在 Miranda（丑陋的 Haskell 的漂亮母亲）中发现函数式编程时（感谢 IISc！），它真的让我大开眼界，想要在程序中追寻**美**！而我对编程语言中的表现力的概念的理解也有了一个巨大的飞跃。至此，我所理解的编程语言应当是简洁的、优雅的、易读的。
 
-Miranda wasn’t a particularly fast language, so execution speed was an issue. Miranda was also a statically typed language with Standard-ML style type inference. In the beginning, I was enamored with the type system. Over time, however, I grew to despise it. While it helped me catch a few things at compile-time, it mostly got in the way (more on this later).
+Miranda 并不是一种特别快的语言，因此执行速度是一个问题。Miranda 还是一种具有 Standard-ML 式类型推断功能的静态类型语言。一开始，我迷上了类型系统。然而，随着时间的推移，我开始鄙视它。虽然它帮助我掌握了一些编译时的东西，但大部分时候都在妨碍我（稍后再介绍）。
 
-A year or so after that, I ended up studying programming languages at Indiana University with Dan Friedman (of The Little Lisper / The Little Schemer fame). It was my introduction to Scheme, and the world of Lisp. I finally knew that I had found the perfect medium with which to express my programs. It has not changed in the last 25 years.
+大约一年后，我终于在印第安纳大学和丹·弗里德曼（因《The Little LISPer》/《The Little Schemer》而著名）一起学习编程语言。这是我于 Scheme 和 Lisp 世界的起点。我终于知道我找到了表达我的程序的完美媒介。在过去的 25 年中，这一点从未改变。
 
-In this article, I’m trying to explain and explore, why it has been so. Am I just an old dinosaur who won’t change his ways? Am I too haughty and contemptuous of new ideas? Or am I just jaded? The answer, I think, is none of the above. I found perfection and **nothing** has come along yet to unseat it.
+在本文中，我试图解释和探索，为什么会这样。是因为我是一个不会改变自己路径的老恐龙吗？是我对新想法太过傲慢和鄙夷吗？或者我只是累了？答案，我认为，不在这上面几点。我觉得它是完美的，而且还**没有**什么可以推翻这一点。
 
-Let’s break it down a little. I said this a few paragraphs back:
+让我们分解一下。我在几段之前说过：
 
-> An s-expression based, dynamically typed, mostly functional, call-by-value λ-calculus based language
+> 一种基于 S 表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
----
+我要开始解释这些 —— 倒过来讲。
 
-I’m going to start explaining this — backward.
+## 基于 λ 演算的语言
 
-## λ-Calculus-Based Language
+所有程序中的基本实体都是**函数**，而函数从软件设计过程之初就拥有了它们自己的目的性。你早已考虑了怎样对信息进行操作，考虑了它是怎样转换的，以及它是怎样产生的。我还没有找到一个基本的框架，能够比 λ 演算更好的捕捉到这一固有意向。
 
-The fundamental entity in all programs is a **function**. Functions have an intentionality to them that form the foundational basis of the software design process. You’re always thinking about how information is acted upon, how it is transformed, and how it is produced. I have yet to find a foundational framework that captures this inherent intentionality (the ‘how’) that is better than the λ-calculus.
+**目的性**这个词可能会让你迷惑。数学有两种方式来理解函数。首先，作为一组有序对：（**输入，输出**）。尽管这是一种证明函数定理的好方法，但在编程领域是没有意义的。而这，也被称为函数的**扩展**视图。
 
-The word **intentionality** perhaps threw you off. Mathematics has two ways to think about functions. First, as a set of ordered pairs: (**input, output**). While this representation is a great way to prove theorems about functions, it is utterly useless when coding. This is also known as the **extensional** view of functions.
+第二种方式是把函数看做一个转换规则。例如，将输入和其本身相乘得到输出（这里就是平方函数了，基本上在各个编程语言中都缩写为 **sqr** 或 **sqrt**）。这是函数的**目的**的观点，而 λ 演算可以很好地捕捉它，并提供简单的规则来帮助我们证明函数定理，而无需求助于扩展性。
 
-The second way to think about functions is as a transformation rule. For example, multiply the input by itself to get the output (which gives us the squaring function, conveniently abbreviated by every programming language as **sqr**). This is the **intensional** view of functions, which the λ-calculus captures nicely, and provides simple rules to help us prove theorems about our functions, without resorting to extensionality.
+**等一下**，我确信你正在想。**我从未证明过我的函数的什么垃圾东西**。我敢打赌，事实上，你有过。而且你会**无时无刻**这么做。你总在说服自己，你的函数正在正常工作。你的代码可能不是正式的证明（可能会导致一些 bug），但是对代码进行推理是软件开发人员一直在做的事情。他们通过在脑海中回放代码来查看其行为。
 
-**Now wait a minute**, I’m sure you’re thinking. **I’ve never proved shit about my functions**. I’m betting that, in fact, you have. And that you do it **all** the time. You’re always convincing yourself that your function is doing the right thing. Yours may not be a formal proof (which may be what leads to some bugs), but reasoning about code is something that software developers do all the time. They’re playing the code back in their head to see how it behaves.
+基于 λ 演算的语言让在你的脑海中“回放代码”变得**非常**容易。λ 演算的简单规则意味着你只需装更少的东西在你的脑子里，并且代码易于阅读和理解。
 
-Languages based on the λ-calculus make it **really** easy to “play back the code” in your head. The simple rules of the λ-calculus mean that there are fewer things to carry in your head and the code is easy to read and understand.
+编程语言当然是实用的工具，因此必须增强其核心简单性以适应更广泛的目的。这就是为什么我喜欢 Scheme（以及我目前最喜欢的 Scheme，Racket — CS，为那些在意此事的人设计）。它最低限度地引入 λ 演算到核心使其可用。即使是增强功能也遵循 λ 演算的基本原则，所以几乎没有意外。
 
-Programming languages are, of course, practical tools, so the core simplicity has to be augmented in order to suit a broader purpose. This is why I love Scheme (and my current favorite flavor of it, Racket — CS, for those who care about such things). What it adds to the core λ-calculus is the bare minimum to make it usable. Even the additions follow the basic principles espoused by the λ-calculus, so there are few surprises.
+这当然就意味着，**递归**成为了一种生活方式。如果你是那种对递归无感的人，或者你依旧相信“递归效率低下”，那么现在是重新审视它的时候了。Scheme（和 Racket）有效地将可能的递归实现为循环。不仅如此，这还是 Scheme 标准的**需求**。
 
-This does mean, of course, that **recursion** is a way of life. If you’re one of those people for whom recursion never made sense, or if you still believe “recursion is inefficient,” then it’s high time to revisit it. Scheme (and Racket) effectively implement recursion as loops wherever possible. Not only that, the Scheme standard **requires** it.
+这种特性被称为**尾调用优化**（**又称为 TCO**），已经出现了几十年。在评价编程语言现状的时候发现没有现代语言支持它，这是很令人沮丧的。因为新的语言出现并试图把 JVM 作为运行架构，所以这对于 JVM 更是个问题。JVM 不支持这个特性，所以基于 JVM 构建的语言必须越过障碍来提供部分适用 TCO 的假象。因此，我总是非常疑虑地使用任何面向 JVM 的函数式语言。这也是我没有成为 Clojure 的粉丝的原因。
 
-This feature, called **tail call optimization** (**or TCO**), has been around for a few decades. It’s a sad commentary on the state of our programming languages that none of the modern languages support it. This is especially a problem with the JVM as newer languages have emerged trying to target the JVM as a runtime architecture. The JVM does not support it and consequently the languages built on top of the JVM have to jump through hoops to provide some semblance of a sometimes applicable TCO. So, I always view any functional language targeting the JVM with great suspicion. It’s also the reason I have not become a fan of Clojure.
+这就是原因之一。Scheme / Racket 是基于 λ 演算的编程语言的合理实现。你可能已经注意到，我没有使用“函数式”一词来描述 Scheme。那是因为虽然它主要是函数式的，但并不会一直偏向不可变性。尽管不鼓励使用它，Scheme 意识到在某些真实环境下可能会需要变换（mutation），并且它允许在不需要辅助装置的情况下使用它。在这里，我不会与纯粹主义者争论为什么这是或者不是一个好主意，但这与我稍后将在本文中讨论的内容有关。
 
----
+## 值传递的
 
-So that’s reason number one. Scheme/Racket is a sensible implementation of a programming language based on the λ-calculus. As you might have noticed, I’m not using the word **functional** language to describe Scheme. That’s because while it is primarily functional, it does not skew all the way to non-mutability. As much as it discourages its use, Scheme recognizes that there are genuine contexts where there may be a use for mutations and it permits it without the artifice of auxiliary devices. I won’t argue here with the purists about why or why not this is a good idea, but it ties into something that I’ll talk about later in this article.
+那些知道 λ 演算细节得人可能已经知道我为什么选择做这种区分。请回顾我的经历，我最初使用函数式编程的 Miranda 是一种**惰性**函数式语言（和 Haskell 一样）。这意味着**只有**在需要表达式的值时才对它们进行求值。这也是 λ 演算最原始的定义。这意味着，函数的参数在使用时进行求值，而非在调用函数时。
 
-## Call-By-Value
+这种区别是微妙的，并且确实具有一些很好的数学特性，但是对你再脑海中“回放代码”有着深远的影响。在很多情况下，这种情况会让你感到意外（即使是经验丰富的程序员），但在某些情况下，你可能需要比其他人做更多猜想。
 
-Those of you who know the details of the λ-calculus may have recognized why I chose to make this distinction. Remember my history: I cut my functional teeth on Miranda which is a **lazy** functional language (as is Haskell). This means that expressions are evaluated **only** when their values are needed. It is also how the original λ-calculus is defined. This means that arguments to a function are evaluated when they are used, not when the function is called.
+作为程序员，在你的职业生涯中最难处理的 bug 之一，就是那些在屏幕上打印某些东西会使这个 bug 消失的情况。在惰性函数式语言中，打印某些内容会强制对表达式进行求值，而在发生 bug 的情况下，它可能没有被求值。因此，将值打印为调试工具变得令人疑虑，因为它会严重改变程序的行为方式。我不知道你怎么看，但对我来说，将值打印出来是我必须要使用的调试工具。
 
-This distinction is subtle, and it does have some yummy mathematical properties, but it has far-reaching implications on “playing back the code” in your head. There are many instances where this hits you as a surprise (even for experienced programmers), but there’s one that you might perhaps relate to more than others.
+在语言中随处使用惰性求职也有其他一些微妙之处，这使得它对我来说是个**吸引力不大**的选择。我永远都不想猜测何时对某个表达式求值。要么求值，要么不求值。不要让我猜测何时，尤其是如果它会在某个库的深处发生（或不会发生）。
 
-As a programmer, one of the most difficult bugs to deal with in your career are the ones where printing something on the screen makes the bug go away. In a lazy functional language, printing something forces the evaluation of an expression, where in the buggy case, it was perhaps not being evaluated. So, printing values as a debugging tool becomes suspect, since it critically changes how the program is behaving. I don’t know about you, but for me, printing is a tool that someone will have to pry from my cold, dead fingers.
+值传递对如何证明有关程序的形式理论有一些意义，但值得庆幸的是，存在一种名为值传递 λ 演算的野兽，我们可以在需要时可以依靠。
 
-There are other subtleties too about lazy evaluation being used everywhere in the language that makes it a **much less appealing** choice for me. I don’t ever want to guess when a certain expression is being evaluated. Either evaluate it or don’t. Don’t make me guess when, especially if it is going to happen (or not) deep inside some library.
+通过使用**形式转换**和变异，Scheme 允许你**显式**地进行惰性求值，可以方便地将其抽象化，以便你在需要时进行按需调用。这使我们进入了下一个阶段。
 
-Call-by-value has some implications in how to prove formal theorems about programs, but thankfully there exists a beast called the call-by-value λ-calculus that we can rely on if necessary.
+## 主要是函数式的
 
----
+函数式编程很棒。在你的脑海中回放功能代码很简单：代码易于阅读，并且无需担心变异。除非这还不够。
 
-Scheme allows you to have **explicit** lazy evaluation, through the use of **thunks** and mutations, which can be conveniently abstracted away so that you have call-by-need when you need it. That brings us to the next bit.
+我不赞成随意变异，但我赞成明智地使用变异。像上面的惰性求值的例子一样，我可以完全支持使用变异来**实现**函数特性。变异存在于所有软件周围。对于某些抽象，最富有表现力的做法可能是将变异引入一个小而美的抽象中。例如，消息传递总线是一种充满变异的抽象，但它可以具有非常优雅，纯函数的代码段，而不必携带伪造的状态变量或诸如单子之类的辅助装置。
 
-## Mostly Functional
+像其他任何工具一样，采取极端的非变异编程可能会有害。一种能够明智地使用变异以更优雅的方式实现大量代码的语言，总比在每种情况下都强制使用一种（多数时候不错的）构造的语言要好。
 
-Functional programming is great. Playing back functional code in your head is simple: The code is easy to read and the lack of mutations reassuring. Except when it isn’t enough.
+因此，Scheme 内在的倾向于不变异，但是它对变异（或称作**副作用**）的“如果必须用就用”的态度使它成为我更有效的工具。
 
-I’m not a proponent of mutations willy-nilly, but I am a proponent of their judicious use. Like the example of lazy evaluation above, I can fully support the use of mutation to **implement** a functional feature. Mutations exist at the periphery of all software. For some abstractions, the most expressive thing to do might be to pull in the mutation into a nice little abstraction. For example, a message-passing bus is a mutation filled abstraction, but it can have very elegant, purely functional, pieces of code hanging off of them without having to carry around spurious state variables or assistive devices like monads.
+我在上面提到了单子，因此最好先讨论一下单子，因为它们是产生作用的纯函数方式。在写完有关它们的博士学位论文后，我想我对它们有所了解。我喜欢欧金尼奥·莫吉的单子的[原始概念](https://person.dibris.unige.it/moggi-eugenio/ftp/ic91.pdf)的优雅和纯粹的美。将计算过程与其产生的值区别对待，然后将该计算过程视作一种变量类型的想法在各个方面上来说都是**才华横溢的想法**。这是数学上理解编程语言语义的好方法。
 
-Like any tool, non-mutating code taken to the extreme can be harmful. A language that gives me judicious use of mutations to implement a large body of code in a more elegant fashion will always win over a language that forces a (mostly good) construct in every situation.
+作为一种编程工具，我对此百感交集。当你可以轻松创建简单的抽象来简化程序的其余部分时，这是一种分离作用然后将其贯穿整个程序的复杂方法。一位（不愿意透露姓名的）杰出的类型理论家曾经说过：“单子仅在隔周星期二有用。”
 
-So, Scheme’s inherent bias towards no-mutations, but its “use it if you must” attitude towards mutations (or **side-effects** as they are called), makes it a much more effective tool for me.
+单子是一种辅助装置，必须使用函数式语言在副作用外围提供函数围栏。问题在于，围栏是“传染性的”，接触围栏的所有东西现在也必须被围起来，以此类推，直到其影响越来越大。所以你现在无法面对副作用并优雅地进行抽象处理，而是获得了一个不得不带到各处的复杂的抽象。最重要的是，它们的协作也不太好。
 
-I brought up monads above, so it’s a good idea to talk a little about them since they are the pure-functional way of gaining effects. Having written a Ph. D. thesis about them, I think I have some idea about them. I love the elegance and the sheer beauty of the Eugenio Moggi’s [original conception](https://person.dibris.unige.it/moggi-eugenio/ftp/ic91.pdf) of Monads. The idea of separating a computation from the value produced by that computation and then reifying that computation into a type is **brilliant** in every sense of the word. It’s a great way to mathematically understand the semantics of programming languages.
+我并不是说单子完全没有用。它们在某些情况下（“隔周星期二”）运行良好，我在工作时也会用它们。但是，当它们是进行计算的唯一机制时，就会严重削弱编程语言的表达能力。
 
-As a programming tool, I have mixed emotions about it. It’s a complicated way of isolating effects and then threading them through your whole program, when you could easily create simple abstractions that make the rest of your program easier to work with. As an eminent type theorist (who shall remain nameless) once said “Monads are useful only every other Tuesday.”
+这将我们带入下一个观点，也许是我的观点中最具争议的。
 
-Monads are assistive devices that are forced on to functional languages to provide a functional fence around side effects. The problem is that the fence is “infectious” and everything that touches the fence must now also be fenced and so on until you reach the end of the playground. So rather than face up to a side-effect and handling it elegantly in an abstraction, you’re now given a complex abstraction that you’re forced to carry with you everywhere. On top of that, they don’t compose very well either.
+## 动态类型的
 
-I’m not arguing that Monads are completely useless. They do work well in some cases (“every other Tuesday”), and I do use them when they work. But when they are the sole mechanism with which to approach computations, they severely cripple the expressiveness of a programming language.
+当今世界正围绕着类型化语言不断发展。TypeScript 被认为是 JavaScript 顽固世界的一个救星。Python 和 JavaScript 因缺乏静态类型而备受诟病。在大型编程项目中，类型被认为对于文档和沟通至关重要。工程经理拜倒在类型推断面前以保护他们远离普通软件工程师产生的劣质代码的侵害。
 
----
+静态类型有两种。编译器在 C、C++、Java、Fortran 中使用“老式”静态类型来产生效率更高的代码。这里的类型检查器有严格的限制，但是除了基本的类型检查之外，不要假装提供任何保证。它们至少是**可以理解**的。
 
-This brings us to the next, and perhaps the most controversial opinion I hold.
+然后是一种新的静态类型，它起源于 Hindley-Milner 类型系统，它带来了新的野兽: 类型推断。这给你一种并非所有类型的需要声明的错觉。如果你遵守规则，那么你将从老式静态类型和多态性等新奇事物中获益。这种观点也是很容易理解的。
 
-## Dynamically Typed
+但是在最近的几十年中它具有了新的含义：静态类型是编译时错误检查的一种形式，因此它将帮助你产生质量更高的代码。就好像静态类型是神奇的定理证明，能够验证程序的某些深层属性一样。这就是我称之为**垃圾**的地方。我从未见过任何一种静态类型检查器（无论它有多复杂）能帮助我防止发生明显的错误（你还是应该在测试中捕获它）。
 
-The world today is going on and on about typed languages. TypeScript is considered a savior in the dogged world of JavaScript. Python and JavaScript are decried for their lack of static typing. Types are considered essential to documentation and communication in large programming projects. Engineering managers throw themselves at the feet of type inferencing to protect them from mediocre software engineers producing poor quality code.
+但是，静态类型检查器的作用是妨碍我的。屡试不爽。作为程序员，我一直在脑海里常存**不变式**（这是我程序中有关事物的属性的奇特名称）。这些不变式的**其中之一**是它的类型。当你初次遇到不变式时，拥有一个可以验证它的工具是很酷的（就像我在 Miranda 上做的）。
 
-There are two types of static typing. “Old-style” static typing is used in C, C++, Java, Fortran where the types are used by a compiler to produce more efficient code. Type checkers here are very restrictive, but don’t pretend to provide any guarantees beyond your basic type checking. They are, at least, **understandable**.
+但这是一个**愚蠢**的工具。它只能做到这些。因此，你现在最终获得了有关如何满足此工具的人为规则。而我所知道的完全可以做（并且可以为我的用例辩护，甚至可以正式证明）的事情突然间就不能了。因此，现在我必须重新设计程序，以满足这种限制极大的工具的需求。大多数人都对这种折衷感到完全满意，并且他们会慢慢改变他们对软件的看法，以适应其局限性。
 
-Then there’s the new kind of static typing with its roots in the Hindley-Milner type system which brought on a new beast: type inferencing. This gives you the illusion that not all types need to be declared. If you’re playing by the rules, you’ll get the benefits of old-style static typing, but also some cool new things like polymorphism. This view is also understandable.
+在老印度电影里，电影检查委员会不允许在银幕上接吻。因此，浪漫的场景总是会被剪辑成花朵相撞，或者成对的鸟儿一起飞走，或者其他像这样的傻事。这就是静态类型检查器给我的感觉。我们以一种优美的语言展示自己，它向我们保证了言论自由的权利，但随后语言检查委员会给了我们一记当头棒喝。我们最终不得不使用隐喻和象征，这是唯一的边际效益。
 
-But it has taken on a new meaning in the last couple of decades: Static typing is a form of compile-time error checking, so it will help you produce better quality code. It is as if static typing is a magical theorem prover that will verify some deep properties of your program. This is where I call **bullsh*t.** I have never had a static type checker (regardless of how sophisticated it is) help me prevent anything more than an obvious error (which should be caught in testing anyway).
+一款**优秀**的工具应该做到的是，让我在编译时声明并证明我**所有**的不变式。当然，这终究是无法解决的。所以在笨拙的工具（静态类型检查器）和没有工具之间做出选择，我一直都倾向于没有工具，因为我不想人为地给程序添加约束。所以我用动态类型。
 
-What static type checkers do, however, is get in my way. Always. Without fail. As a programmer, I carry around **invariants** (which is a fancy name for properties about things in my program) in my head all the time. Only **one** of those invariants is its type. Having a tool that can verify that invariant is sort of cool, when you first encounter it (as I did with Miranda).
+所有程序（无论是不是静态类型的程序）都必须处理运行时异常。写得很好的程序会遇到更少的运行时异常，而写得不好的程序会遇到更多。静态类型检查器会让一些人从写的不好的阵营进入到写的很好的阵营。改善（和保证）软件质量的方法是**严格的测试**。想要交付高质量的软件，没有其他解决方案。是否使用静态类型对你的软件的质量影响很小。当你有一个周全的程序员写出的良好设计的程序，这种影响也将消失。
 
-But it’s a **stupid** tool. It can only do so much. So, you now end up with artificial rules about how to satisfy this tool. And things that I know are perfectly fine to do (and can justify or even formally prove for my use cases) are suddenly not. So now I must redesign my program to meet the needs of a limited tool. Most people are perfectly happy with this tradeoff, and they slowly change the way they think about software to fit within the confines of its limitations.
+换句话说，静态类型是没有意义的。它可能具有某些文档价值，但不能替代其他不变式的文档。例如，你的不变式可能是你想要有一个单调递增的数值数组，它的均值是某个值，它的标准差则是另一个值。任何一种静态类型检查能让你做得最好也也不过是让你定义一个  `array[float]`。其余的不变式必须用文字解释作为函数的文档。那么你为什么还要让自己忍受 `array[float]` 的痛苦呢？
 
-In old Hindi movies, the censor board would not allow kissing onscreen. So romantic scenes would always cut to flowers bumping against one another or a pair of birds flying away together or something silly like that. This is what static type checkers feel like. We get presented with a beautiful language that promises us the right to freedom of speech, but then we get slapped with a censorship board policing the speech. We end up having to say what we mean with metaphors and symbolism for what is an only marginal benefit.
+动态类型允许我在程序中表达自己想要表达的内容而不会妨碍我。我可以根据程序的需要将我的不变式指定为为显式检查或文档。
 
-What a **great** tool would do, is allow me to state and prove **all** my invariants at compile time. This, of course, is ultimately unsolvable. So given the choice between a crappy tool (static type checkers) and no tool, I have always gravitated towards no tool since I prefer to not have any artificial constraints on my programs. Hence dynamic typing.
+但是，像所有其他东西一样，有时你需要静态地理解类型。例如，我经常处理图像，如果知道他们是 `array[byte]` 会有帮助，而且我预焙了可以魔术般快速处理它们的操作。Scheme / Lisp / Racket 都提供了**在需要时**能够做到这一点的方式。在 Scheme 中，它取决于实现方式，但是 Racket 自带一个 `Typed Racket` 变体，可以与动态类型变体混合使用。Common Lisp 允许在特定的上下文中声明类型，主要是为了让编译器在可能的情况下实现优化。
 
-All programs (statically typed or otherwise) must deal with run-time exceptions. Well written programs run into fewer of those, badly written ones run into more of them. Static type checkers move some from the badly written camp to the somewhat well-written camp. What improves (and guarantees) software quality is **rigorous testing**. To deliver high-quality software, there is no other solution. Whether or not you use static typing has only a marginal effect on the quality of your software. Even that effect vanishes when you have well-designed programs written by thoughtful programmers.
+因此，再次的，Scheme / Lisp / Racket **当我需要它们时**给我类型的优点，但不会在所有地方强加约束。两全其美。
 
-In other words, static typing is pointless. It has, maybe, some documentary value, but it does not substitute documentation on other invariants. For example, your invariant might be that you’re expecting a monotonically increasing array of numbers with a mean value of such and such and a standard deviation of such and such. The best any static type checking will let you do is `array[float]`. The rest of your invariant must be expressed in words documenting the function. So why subject yourself to the misery of `array[float]`?
+## 基于 S 表达式的
 
-Dynamic typing allows me to express what I want to express in my programs without getting in my way. I can specify my invariants either as explicit checks or as documentation depending upon the needs of the program.
+最后，我们来到了我使用 Lisp 的最重要原因之一。对于之前没有听说过 S 表达式的人来说，它代表 Lisp 和它的后代中的一种特殊语法选择。所有句法形式都是**原子**或**列表**。原子是诸如名称（符号），数字，字符串和布尔值之类的东西。而列表看起来像是“(...)”，列表里面的内容也是列表或者原子，而且很棒的是还有一个空列表“()”。就是这样。
 
-But, like everything else, sometimes you need to know types statically. For example, I work a lot with images, and it helps to know that they are `array[byte]`, and I have pre-baked operations that will work magically fast on them. Scheme/Lisp/Racket all provide ways of being able to do this **when you need it**. In Scheme it’s implementation dependent, but Racket comes with a `Typed Racket` variant that can be intermixed with the dynamically typed variant. Common Lisp allows for types to be declared in specific contexts, primarily for the compiler to implement optimizations where possible.
+没有中缀运算，没有运算符优先级，没有关联性，没有伪分隔符，没有独立的 else，什么也没有。所有函数式应用都是前缀式的，因此你不会说“(a + b)”，而是说“(+ a b)”，这更进一步会允许你灵活地说出类似“(+ a b c)”这样的东西。“+”仅仅是一个你可以随意重新定义的函数的名字。
 
----
+有一些“关键字”可以指导给定列表以某种方式进行求值，但是求值规则是分层的且定义明确。换句话来说，S 表达式实际上是用树的形式对你程序的高效表示形式。
 
-So, again, Scheme/Lisp/Racket give me the benefits of types **when I need them** but don’t force the constraints on me everywhere. It’s the best of both worlds.
+这种语法的简单性通常会使新手感到困惑。它可能把很多不幸未被这种美丽的编程方式吸引的程序员挡在门外。
 
-## S-expression Based
+这种语法形式的最大优点是极简主义 —— 你不需要虚假的语法结构即可传达概念。概念通过函数的名称或者语法关键词传达。这产生了奇特而紧凑的代码。在字符数方面并不一定总是紧凑的，但是在阅读代码时需要记住的概念数量上却很紧凑。
 
-And finally, we come to one of the most important reasons I use Lisp. For those of you who have never heard the term s-expression before, it stands for a peculiar syntactic choice in Lisp and its children. All syntactic forms are either **atoms** or **lists**. Atoms are things like names (symbols), numbers, strings, and booleans. And lists look like “( … )” where the contents of the list are also either lists or atoms, and it is perfectly fine to have an empty list “()”. That’s it.
+它还有更多优点。如果你的程序是树形的，那么你就可以编写程序来操作这些树。Lisper（还有 Schemer 和 Racketeer）称之为**宏**或者**语法扩展**。换句话来说，你可以扩展你的语言的语法来引入新的抽象。
 
-There are no infix operations, no operator precedence, no associativity, no spurious separators, no dangling else’s, nothing. All function applications are prefix, so instead of saying “(a + b)”, you would say “(+ a b)”, which further allows you the flexibility of saying things like “(+ a b c)”. “+” is simply the name of a function that you can redefine if you wish.
+几代 Lisper 编写了很多很酷的语法扩展，包括对象系统，语言嵌入，专用语言等等。我用它来开发语法功能，使我可以使用 Scheme 来构建从传感器网络到数字信号处理再到电子商务定价策略的整个领域。世界上甚至没有其他语言可以接近这种对语法扩展的支持。这是我（和其他许多 Lisper）没法放弃的。
 
-There are “keywords” that direct a given list to be evaluated in a certain way, but the rules of evaluation are hierarchical and well-defined. In other words, s-expressions are effectively tree-based representations of your programs.
+## 结论
 
-This simplicity of syntax is often confusing for newbies. It has probably turned off a lot of programmers who were unfortunate enough to not be exposed to the beauty of this way of writing programs.
+综上所述，就是：
 
-The biggest advantage of this form of syntax is a form of minimalism — you don’t need spurious syntactic constructs to convey concepts. Concepts are conveyed entirely by the function names or the syntactic keywords being used. This produces strangely compact code. Not always compact in terms of the number of characters, but compact in terms of the number of concepts you need to keep in mind when reading the code.
+> 一种基于 S 表达式的、动态类型的、主要是函数式的、值传递的基于 λ 演算的语言。
 
-That’s not even the half of it. If your programs are trees, you can write programs to manipulate those trees. Lispers (and Schemers and Racketeers) call these things **macros**, or **syntactic extensions**. In other words, you can **extend** the syntax of your language to introduce new abstractions.
+这就是为什么我仍然使用 Scheme / Racket / Lisp 并可能在我的余生中继续使用的原因。我会使用其他语言吗？当然 —— 很多。他们中没有一个能和前面几位相比。**尤其是比较新的那几个。**看起来发明新的语言对于新一代的孤陋寡闻的软件工程师是一种锻炼，而老的语言**远远**好于他们做梦能想到的任何东西(我向你介绍名义上也起源于 Lisp 的 Ruby，但也引出了一个问题：**为什么你不直接用 Lisp 本身**)。
 
----
+和每一种偏见一样，我的也有短板。在大约 15 年前，所有的第三方 SDK 都是完全使用 C/C++ 编写的，可以轻松与 Lisp 互操作。Java 的到来泼了一盆冷水，因为 JVM 不能很好地与 Scheme / Lisp / Racket 互操作。这使得在不做大量工作的情况下将第三方库合并到我的程序中变得越来越难。
 
-There are countless cool syntactic extensions written by generations of Lispers, including object systems, language embeddings, special-purpose languages, and so on. I have used this to develop syntactic features that allowed me to use Scheme to build things that span the gamut from sensor networks to digital signal processing, to e-commerce pricing strategies. There is not one other language in the world that even comes close to supporting this level of syntactic extension. It is something that I (and a host of other Lispers) cannot live without.
+另一个缺点是随着 API 的在互联网上的崛起，大多数厂商都在为互联网的常见语言（Java、Ruby、Python、JavaScript，和最近的 Go 和 Rust）发布库，但是从来不会为 Scheme / Lisp / Racket 发布，除非是社区贡献的，在 C / C++ 中也很少。这通常使我不得不自己构建一个 API 层，这当然不是很实用。Racket (这是我目前的最爱)，有一个非常活跃的社区，确实做出了很多巨大的贡献，但是它通常微微落后于时代。而一旦涉及最新和最棒的代码库，我只能自己来收拾这个烂摊子。这可能是我将来采用 Clojure 的主要原因，但这仍有待观察。
 
-## Conclusion
+当然，这还吓不住我。如果非要说有什么的话，就是这使我更加意识到 Lisp 社区必须将其口碑传播得越来越远，并带来新一代的 Lisper，以求在快速演进的环境中强化生态系统。
 
-To boil it down, then.
+最后，还有性能问题。首先，让我们解决常见的误解：Lisp **不**是解释语言。它**不**慢，并且所有实现都有很多杠杆来调整**大部分**程序的性能。在某些情况下，程序可能需要诸如 **C** 和 **C++** 之类的更快语言的帮助，因为它们更接近硬件，但是有了更快的硬件，即使这种区别也变得无关紧要了。这些语言是生产质量代码的完美选择，并且由于在此之上数十年的工作，它们可能比现有的大多数其他选择更稳定。
 
-> An s-expression based, dynamically typed, mostly functional, call-by-value λ-calculus based language
-
-This is why I still use Scheme/Racket/Lisp and will probably use it for the rest of my life. Do I use other languages? Sure — lots of them. None of them hold a candle to these. **Especially the newer ones.** It appears that inventing new languages is an exercise each new generation of ill-informed software engineers goes through when older languages are **much** better than anything they might come up with even in their dreams (I present to you Ruby which although nominally has its roots in Lisp, begs the question: **why didn’t you just use Lisp itself**).
-
-Like every bias, mine has shortcomings too. Prior to about 15 years ago, all third party SDK’s were written entirely in C/C++ which could easily interoperate with Lisp. The coming of Java has put a damper on it since the JVM does not interoperate well with Scheme/Lisp/Racket. This has made it harder and harder to incorporate third-party libraries into my programs without doing a lot of work.
-
-Another shortcoming is that with the rise of APIs on the internet, most vendors release libraries in the common languages of the internet (Java, Ruby, Python, JavaScript, and more recently Go and Rust), but never in Scheme/Lisp/Racket unless it is a community contribution and also equally infrequently in C/C++. That often leaves me in a position of having to build an API layer myself which of course is not very practical. Racket (which is my current favorite), has a pretty active community that does contribute towards the big things, but it is usually behind the times a little and when it comes to the latest and greatest, I’m often left holding the bag. It might be the big reason I adopt Clojure in the future, but that remains to be seen.
-
-It has, of course, not deterred me yet. If anything, it has made me more aware that the Lisp community has to spread its word farther and wider and bring on a new generation of Lispers to fortify the eco-system in a rapidly changing environment.
-
-And lastly, there’s the issue of performance. First, let’s put the common misconception to rest: Lisp is **not** an interpreted language. It is **not** slow, and all implementations come with lots and lots of levers to tweak performance for **most** programs. In some cases, the programs might need assistance from faster languages like **C** and **C++** because they are closer to the hardware, but with faster hardware, even that difference is becoming irrelevant. These languages are perfectly fine choices for production quality code, and are probably more stable than most other choices out there due to decades of work that has gone into them.
-
-I do recognize, learning Scheme/Lisp/Racket is a wee bit harder than learning Python (but a lot easier than learning Java/JavaScript). You will, however, be a much better programmer if you do and you will come to appreciate the beauty of these languages such that nothing else will suffice.
+我确实知道，学习 Scheme / Lisp / Racket 比学习 Python 困难一点点（但是比学习 Java / JavaScript 容易得多）。但是，如果你这样做的话，你将成为一个更好的程序员，并且你将逐渐体会到这些语言的美，以至于再没有其他语言能满足你。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
-
----
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

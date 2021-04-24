@@ -2,26 +2,26 @@
 > * 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-implement-a-graphql-api-on-top-of-an-existing-rest-api.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-to-implement-a-graphql-api-on-top-of-an-existing-rest-api.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [k8scat](https://github.com/k8scat)
 
-# How to Implement a GraphQL API on Top of an Existing REST API
+# 如何基于已有的 REST API 实现 GraphQL API
 
 ![Dad joke “dadabase” app](https://cdn-images-1.medium.com/max/2912/0*r9_qx_t-6ltEP7GR.png)
 
-Where do you keep your dad jokes? In a **dadabase** of course! Let’s imagine that you are a site maintainer for the world’s best dad joke database. Your app communicates with the database using a REST API that allows you to retrieve jokes and post ratings for those jokes. Visitors to your site can rate each joke they see via a simple user interface.
+你的 dad jokes 放在哪儿？当然是在 **dadabase** 里。我们来想象一下，你是全世界最受欢迎的 dad jokes 数据库的管理员。项目的技术概况是：使用 REST API 与数据库通信，这种 REST API 具有搜索笑话和对笑话进行评分的功能；网站的访问者可以通过一个简单的用户界面对每条笑话进行评分。
 
-Recently you heard of a fancy new technology called GraphQL that provides the flexibility to request only the data that you need using a single API endpoint. It sounds neat, and you’d like to start using it in your app. But, you’d really prefer not to make any breaking changes to the existing REST API. Is it possible to support both the REST API and the GraphQL API in your app? You’re about to find out!
+最近你了解到一种新技术，它叫做 GraphQL，它具有一定的灵活性，可以精准获取你需要的数据，而且是使用单一的 API 结点。这听上去很不错，于是你打算在应用程序中使用这种技术。但是，你不希望对原有的 REST API 作过多的改动。能否让你的项目同时支持 REST API 和 GraphQL API？
 
-In this article we’ll explore what it takes to implement a GraphQL API on top of an existing REST API. This strategy allows you to start using GraphQL in legacy portions of your app without breaking any existing contracts with functionality that may still rely on the original REST API.
+在本文中，我们会讨论如何基于已有的 REST API 来实现 GraphQL API。你使用这种方法，不需要对基于原有的 REST API 框架进行调整，就可以在项目的未完成的模块中使用 GraphQL。
 
-If you’d like to see the end result, you can find the [code for the REST API here](https://github.com/thawkin3/dad-joke-dadabase-rest-api) and the [code for the frontend and GraphQL API here](https://github.com/thawkin3/dad-joke-dadabase). Don’t forget to [visit the app](https://dad-joke-dadabase.herokuapp.com/) as well to groan at some jokes.
+如果你想看到最终的结果，可以访问 [REST API 代码](https://github.com/thawkin3/dad-joke-dadabase-rest-api) 和 [前端和 GraphQL API 代码](https://github.com/thawkin3/dad-joke-dadabase)。还要记得[浏览一下网站](https://dad-joke-dadabase.herokuapp.com/)，那些笑话很值得看哦。
 
-## The Initial Architecture
+## 初始架构
 
-The app’s backend was originally built using [Node](https://nodejs.org/en/) and [JSON Server](https://github.com/typicode/json-server). JSON Server utilizes [Express](https://expressjs.com/) to provide a full REST API to a mock database generated from a simple JSON file. A separate Express server takes care of serving the static HTML, CSS, and JavaScript assets for the frontend. The frontend is implemented in vanilla JS and uses the browser’s built-in [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) to make the API requests. The app is hosted on [Heroku](https://devcenter.heroku.com/) to make deployment and monitoring a breeze.
+项目的后台原先是使用 [Node](https://nodejs.org/en/) 和 [JSON Server](https://github.com/typicode/json-server) 开发的。JSON Server 利用 [Express](https://expressjs.com/) 为一个模拟的数据库提供了完整的 REST API，并且这个数据库是由一个简单的 JSON 文件生成的。前端是使用 Vanilla JS 实现的，并使用浏览器内嵌的 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 发出 API 请求。该应用程序托管在 [Heroku](https://devcenter.heroku.com/) 上，可以方便地对它进行部署和监控。
 
-Our JSON file contains information for a few jokes as well as some ratings. It’s reproduced in full below:
+我们使用的 JSON 文件含有一些笑话和评分信息。下面，我们把它完整地复制出来：
 
 ```JSON
 {
@@ -63,7 +63,7 @@ Our JSON file contains information for a few jokes as well as some ratings. It�
 }
 ```
 
-JSON Server takes that file as a starting point for the database and then implements a REST API that includes support for GET, POST, PUT, PATCH, and DELETE requests. The magic of JSON Server is that using this API really does modify the underlying JSON file, so the database is fully interactive. JSON Server can be started directly from an npm script without any additional setup, but in order to provide a little more configuration and a dynamic port, we can instead write a few lines of code like so:
+JSON Server 系统把这个文件中的数据作为数据库的初始数据，接着实现一套 REST API，其中包括对 GET, POST, PUT, PATCH 和 DELETE 请求的支持。JSON Server 的神奇之处在于，使用这套 API 就能实现对 JSON 文件的修改，因此数据库就是完全交互式的。JSON Server 不经安装就可以直接由 npm 脚本启动，但为了对它进行一些配置以及端口的设置，我们可以写下几行代码并运行它，代码如下：
 
 ```JavaScript
 const jsonServer = require('json-server')
@@ -79,33 +79,33 @@ server.listen(process.env.PORT || 3000, () => {
 
 ```
 
-You can test out our mock database by cloning the [repo for the API](https://github.com/thawkin3/dad-joke-dadabase-rest-api), running `npm install`, and then running `npm start`. If you navigate to [http://localhost:3000/jokes](http://localhost:3000/jokes) you'll see all of the jokes. Navigating to [http://localhost:3000/ratings](http://localhost:3000/ratings) will display all the ratings.
+欲对这个模拟的数据库进行测试，你可以把 [API 有关的仓库](https://github.com/thawkin3/dad-joke-dadabase-rest-api)克隆到本地，并运行 `npm install` 和 `npm start`。在浏览器中访问 http://localhost:3000/jokes ，页面会显示所有的笑话。访问 http://localhost:3000/ratings ，页面会显示所有的评分信息。
 
 ![/jokes API endpoint returns all the jokes when running the app locally](https://cdn-images-1.medium.com/max/3524/0*hKZlLEM_mzlVLnLE.png)
 
-Wonderful! We can run our app’s backend locally in the browser. Now let’s get our API hosted on Heroku. First, we need to [install the Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli). After that, we can log in, create the app, push it to Heroku, and open the new app in our browser in four easy steps:
+太棒了。我们可以在浏览器上运行应用程序的后台。现在我们把 API 托管在 Heroku 中。首先需要[安装 Heroku 命令行工具](https://devcenter.heroku.com/articles/heroku-cli)。然后，我们可以进行这些操作：登录，创建项目，推送到 Heroku 服务端，在浏览器中打开项目的操作界面。
 
 ```bash
-# log in to your Heroku account
+# 登录你的 Heroku 账户
 heroku login
 
-# create the Heroku app
+# 创建项目
 heroku create dad-joke-dadabase-rest-api
 
-# deploy the code to Heroku
+# 将代码部署到 Heroku 服务端
 git push heroku master
 
-# open the Heroku app on your machine
+# 打开项目的后台页面
 heroku open
 ```
 
-And look, now we have a publicly available API out on the web!
+看，现在我们把 API 发布到公网上了！
 
 ![/jokes API endpoint returns all the jokes when hosting the API on Heroku](https://cdn-images-1.medium.com/max/3500/0*UG1tnsWGg6C_EyoX.png)
 
-## Building the User Interface
+## 构建用户界面
 
-Now that we have a working REST API, we can build the frontend to consume that API and display the user interface for viewing and rating jokes. The HTML provides a shell of the page with containers into which the JavaScript will insert content for each joke.
+既然我们已经部署了一个运行中的 REST API，就可以制作前端页面，并使用 API 把这些笑话数据呈现在页面上，还可以对这些笑话进行评分。下面的 HTML 页面代码实现了一个显示笑话内容的容器，笑话内容由 JavaScript 代码加载进来。
 
 ```HTML
 <!doctype html>
@@ -146,7 +146,7 @@ Now that we have a working REST API, we can build the frontend to consume that A
 </html>
 ```
 
-The JavaScript is shown below. The key pieces that interact with the REST API are the two fetch requests. The first fetches all of the jokes from the database by hitting the `/jokes?_embed=ratings` endpoint. The second makes a POST request to the `/ratings` endpoint to submit a new rating for each joke you rate.
+JavaScript 代码如下。跟 REST API 交互的关键代码在于两个获取数据的请求。第一个请求通过访问 `/jokes?_embed=ratings` 获取数据库中所有的笑话，第二个请求是 POST 类型的，它通过访问 `/ratings` 提交对某个笑话的评分。
 
 ```JavaScript
 const jokeContent = document.querySelector('.jokeContent')
@@ -218,9 +218,9 @@ fetch('/jokes?_embed=ratings')
 
 ![Dad joke “dadabase” user interface allows you to rate each joke](https://cdn-images-1.medium.com/max/2860/1*vYef9XCI0zejzbFj7lzEPg.png)
 
-## Setting Up Apollo Server
+## 安装并使用 Apollo Server
 
-So, that’s the existing app architecture: a simple frontend that interacts with the database via a REST API. Now how can we begin using GraphQL? We’ll start by installing `[apollo-server-express](https://www.npmjs.com/package/apollo-server-express)`, which is a package that allows us to use [Apollo Server](https://www.apollographql.com/docs/apollo-server/getting-started/) with Express. We'll also install the `[apollo-datasource-rest](https://www.npmjs.com/package/apollo-datasource-rest)` package to help us integrate the REST API with Apollo Server. Then we'll configure the server by writing the following code:
+这样，我们已经完成了项目的架构：它有一个简单的页面，该页面通过 REST API 跟数据库通信。那么，我们如何使用 GraphQL？使用 GraphQL 之前需要哪些准备工作呢？第一步，我们安装 `[apollo-server-express](https://www.npmjs.com/package/apollo-server-express)`，它是一个程序包，用于实现 [Apollo Server](https://www.apollographql.com/docs/apollo-server/getting-started/) 和 Express 的集成。也需要安装 `[apollo-datasource-rest](https://www.npmjs.com/package/apollo-datasource-rest)` 包，用于 REST API 和 Apollo Server 的集成。然后，我们来配置服务器，需要编写以下代码：
 
 ```JavaScript
 const express = require('express')
@@ -261,9 +261,9 @@ app.listen({ port: process.env.PORT || 4000 }, () => {
 
 ```
 
-As you can see, we configure Apollo Server with type definitions (`typeDefs`), `resolvers`, and `dataSources`. The `typeDefs` contain the [schema](https://www.apollographql.com/docs/apollo-server/schema/schema/) for our GraphQL API. In it, we'll define types for our jokes and ratings as well as how to query and mutate them. The `resolvers` tell the server how to handle various queries and mutations and how those link to our [data sources](https://www.apollographql.com/docs/apollo-server/data/data-sources/). And finally, the `dataSources` outline how the GraphQL API relates to the REST API.
+你可以看到，我们配置了 Apollo Server 的三个属性：`typeDefs`, `resolvers` 和 `dataSources`。其中，`typeDefs` 属性包含了与我们的 GraphQL API 相关的 [schema](https://www.apollographql.com/docs/apollo-server/schema/schema/)，我们在相应的包中定义笑话和评分的数据类型，以及如何查询和更新数据；`resolvers` 告诉服务器如何处理各种各样的查询和更新需求，以及如何连接[数据源](https://www.apollographql.com/docs/apollo-server/data/data-sources/)；最后，`dataSources` 大致描述了 GraphQL API 与 REST API 的关联关系。
 
-Here are the type definitions for the `Joke` and `Rating` types and how to query and mutate them:
+下面的代码定义了 `Joke` 和 `Rating` 数据类型，以及如何查询和更新数据。
 
 ```JavaScript
 const { gql } = require('apollo-server-express')
@@ -293,7 +293,7 @@ const typeDefs = gql`
 module.exports = typeDefs
 ```
 
-The jokes data source defines methods for calling the original REST API endpoint to create, read, update, and delete jokes from the database:
+下面是 JokesAPI 类的代码，主要定义了笑话数据创建、查询、更新、删除的方法，这些方法分别调用相应的 REST API 实施相关的数据操作。 
 
 ```JavaScript
 const { RESTDataSource } = require('apollo-datasource-rest')
@@ -332,9 +332,9 @@ class JokesAPI extends RESTDataSource {
 module.exports = JokesAPI
 ```
 
-The ratings data source looks nearly identical, but with “rating” substituted for “joke” in every instance. ([Refer to the GitHub repo](https://github.com/thawkin3/dad-joke-dadabase/blob/master/src/ratingsAPI.js) if you’d like to see the code for this.)
+评分数据跟笑话相似，只是在每个实例中把 “joke” 变为 “rating”。欲获取这部分代码，可以[参考 GitHub 上的代码仓库](https://github.com/thawkin3/dad-joke-dadabase/blob/master/src/ratingsAPI.js)。
 
-Finally, we set up our resolvers to show how to use the data sources:
+最后，我们设置解析器，在其中定义如何使用数据源。
 
 ```JavaScript
 const resolvers = {
@@ -359,22 +359,22 @@ const resolvers = {
 module.exports = resolvers
 ```
 
-With that, we have everything in place we need in order to start using our GraphQL API through Apollo Server. To get our new frontend and GraphQL API hosted on Heroku, we’ll create and deploy a second app like so:
+完成这些步骤，我们一切准备就绪，可以通过 Apollo Server 调用 GraphQL API 了。为了把新的前端页面和 GraphQL API 托管在 Heroku 上，我们需要创建并部署第二个应用程序: 
 
 ```
-# create the Heroku app
+# 创建 Heroku 应用程序
 heroku create dad-joke-dadabase
 
-# deploy the code to Heroku
+# 把代码部署在 Heroku 上
 git push heroku master
 
-# open the Heroku app on your machine
+# 在本地打开 Heroku 应用程序
 heroku open
 ```
 
-## Replacing the Endpoint to Fetch Jokes
+## 把 API 端点功能改为获取笑话的代码
 
-You’ll recall that we have two endpoints used by the frontend: one to fetch jokes and one to post ratings. Let’s swap out the REST API for our GraphQL API when we fetch the jokes. The code previously looked like this:
+你应当回忆下，我们有两个 API 端点供前端页面调用：它们的功能分别是获取笑话和提交评分。现在我们把 REST API 中获取笑话的代码改为 GraphQL API 形式：
 
 ```JavaScript
 fetch('/jokes?_embed=ratings')
@@ -385,7 +385,7 @@ fetch('/jokes?_embed=ratings')
   })
 ```
 
-Now to use the GraphQL endpoint, we can write this instead:
+我们把上述代码改为：
 
 ```JavaScript
 fetch('/graphql', {
@@ -414,13 +414,13 @@ fetch('/graphql', {
   })
 ```
 
-We can run the app locally now and verify that the user experience still works properly. In fact, from the user’s point of view, nothing has changed at all. But if you look at the network requests in your browser’s developer tools, you’ll see that we’re now fetching our jokes from the `/graphql` endpoint. Amazing!
+现在，我们可以在本地运行应用程序了。实际上，从用户的角度来说，没有发生任何变化。但假如你在浏览器的开发者工具中查看网络请求，你会发现，现在获取笑话是通过访问 `/graphql` 端点来实现的了。真棒！
 
 ![The Network tab shows a request is being made to the /graphql endpoint now](https://cdn-images-1.medium.com/max/2520/0*ketnaG9b4tR0O0O4.png)
 
-## Replacing the Endpoint to Submit Ratings
+## 把 API 端点功能改为提交评分的代码
 
-One API request down, one to go! Let’s swap out the ratings submission functionality now. The code to post a new joke rating previously looked like this:
+一个 API 请求已完成，还有一个！我们现在对评分功能的代码进行修改。提交评分的代码原来类似于：
 
 ```JavaScript
 fetch('/ratings', {
@@ -441,7 +441,7 @@ fetch('/ratings', {
   })
 ```
 
-To use our GraphQL API, we’ll now use the following:
+现在我们作如下的改动，让它使用我们的 GraphQL API：
 
 ```JavaScript
 fetch('/graphql', {
@@ -471,13 +471,13 @@ fetch('/graphql', {
   })
 ```
 
-A quick test gives us some promising results. Once again, the user experience remains unchanged, but now we’re fully using the `/graphql` endpoint for both our requests!
+经过快速测试，这段代码符合需求。再次说明，用户体验没有变，但现在我们请求数据使用的都是 `/graphql` 端点。
 
-## Conclusion
+## 结论
 
-We did it! We successfully wrote a GraphQL API endpoint on top of an existing REST API. This allows us to use GraphQL to our heart’s content without breaking existing functionality and without modifying the original REST API. Now we can deprecate the REST API or get rid of it completely at a later date.
+我们做到了。我们以已有的 REST API 为基础，成功地实现了一个 GraphQL API 端点。因此，我们也能使用 GraphQL 来实现一些核心功能，而且已有的功能和原来的 REST API 都不需要修改。如今我们可以弃用 REST API，它将来也可能会退出历史舞台。
 
-While our dad joke database is entirely fictional, nearly every technology company that existed prior to GraphQL’s release in 2015 will find themselves in this same position of migrating to GraphQL if and when they choose to do so. The good news is that Apollo Server is flexible enough to pull data from a variety of sources, including existing REST API endpoints.
+虽然 dad joke 数据库是完全虚拟的项目，但几乎所有的在 2015 年 GraphQL 发布会之前成立的科技公司都发现：如果他们改变技术路线，使用 GraphQL，他们自身的情况跟 dad jokes 一样，也是可行的。另外，还有个好消息，Apollo Server 属于较灵活的产品，它也可以从包括 REST API 端点在内的各种数据源获取数据。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -7,7 +7,7 @@
 
 # 我们应该在什么时候使用 \@State、\@Binding、\@ObservedObject、\@EnvironmentObject 和 \@Environment？
 
-SwiftUI 引入了一系列新的属性包装器让你的代码可以通过它们架起程序状态和视图之间的桥梁:
+SwiftUI 引入了一系列新的属性包装器让你的代码可以通过它们架起程序状态和视图之间的桥梁：
 
 ```swift
  @State

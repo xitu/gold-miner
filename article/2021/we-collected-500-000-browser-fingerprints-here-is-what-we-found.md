@@ -2,188 +2,188 @@
 > * 原文作者：[Peter Hraška](https://medium.com/@peterhraka)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md](https://github.com/xitu/gold-miner/blob/master/article/2021/we-collected-500-000-browser-fingerprints-here-is-what-we-found.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[lsvih](https://github.com/lsvih)
 
-# We collected 500,000 browser fingerprints. Here is what we found.
+# 基于 50 万个浏览器指纹的新发现
 
 ![](https://cdn-images-1.medium.com/max/2560/1*pG2Zzgc5OZr5frYc2ovhkg.png)
 
-Remember the last time you looked for an item online and then you were haunted by related ads everywhere? The chances are that you are being tracked because information like your screen resolution, timezone and emoji sets are exposed to the internet.
+你还记得自己上一次在网上寻找想要的商品时，会弹出很多与之相关广告页面吗？这时候你很有可能正在被跟踪，因为你的屏幕分辨率、时区和表情符号集这些信息都暴露在了网上。
 
-And yes, this method can track you even while you are using private browsing (a.k.a. the incognito mode).
+没错，这种方法甚至可以在你使用无痕浏览模式 (也就是隐身模式) 时跟踪你。
 
-![Example features and values of a browser fingerprint — check yours at [http://fp.virpo.sk](http://fp.virpo.sk)](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
+![浏览器指纹的功能和价值示例 —— 可以在 [http://fp.virpo.sk](http://fp.virpo.sk) 检查你的浏览器指纹](https://cdn-images-1.medium.com/max/2000/1*PxgUnoZ92Gg75mpgczP2xQ.png)
 
-At [Slido](https://slido.com), we conducted one of the largest public investigations into browser fingerprinting accuracy and the world’s first thorough review of this technique’s performance on smartphones.
+在 [Slido](https://slido.com) 上，我们进行了一次最大规模的浏览器指纹识别准确性的公开调查，并且是全球首次针对智能手机上的指纹信息表现进行的全面调查。
 
-So let’s look at what browser fingerprints are, how they can be used to track you, and how good they are at doing it.
+那么，让我们来看看什么是浏览器指纹，它们怎么被用来跟踪你，及其在这方面做得 “有多好”。
 
-## What is browser fingerprinting?
+## 浏览器指纹是什么？
 
-I’ll explain this using a simple ‘cameras and typewriters’ analogy.
+我会用一个简单的“相机和打字机”的类比来解释什么是浏览器指纹。
 
-Both cameras and typewriters can be identified and distinguished from each other easily by looking at their outputs.
+相机和打字机都可以很简单地通过它们的输出来进行识别和区分。
 
-Each camera leaves a unique noise pattern on its pictures and each typewriter leaks ink around its letters in a specific way.
+每台相机都会在图片上留下独特的噪声样式，每台打字机都会以特定的方式在字母周围留下墨迹。
 
-By looking at two photographs and comparing their noise patterns, we can determine whether it was taken by the same camera pretty accurately.
+通过观察两张照片并比较它们的噪声样式，我们可以准确地判定这是否是同一台相机所拍摄。
 
-The same principle applies to browsers. JavaScript, which is enabled on most browsers, exposes a lot of information about you to the world.
+同样的原则也适用于浏览器。大多数浏览器都启用了 JavaScript 功能，它向外部公开了大量关于你的浏览器的信息。
 
-Be it your screen size, emojis, installed fonts, languages, time zones, or graphics card model. All of these can be obtained from your browser without you ever noticing.
+可能是你的屏幕尺寸、表情符号、已安装的字体、语言、时区或显卡型号。所有这些都可以从你的浏览器获得，但是你也许从未注意过这一点。
 
-On its own, all this information is insignificant. But by combining it, anyone can use it to identify a specific browser pretty accurately.
+就每个指纹信息本身而言，它们都是微不足道的。但通过组合使用，任何人都可以准确地通过它来识别特定的浏览器。
 
-![Even the appearance of emojis on your device can be used to identify you. Emojis can be extracted as a bitmap using HTML5 canvas.](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
+![甚至你设备上的表情符号都可以用来识别你。表情符号可以使用 HTML5 画布提取为位图。](https://cdn-images-1.medium.com/max/2264/1*EWjMItxMhNQCgseB4serOg.jpeg)
 
-If you are interested, you can check what your browser fingerprint looks like [on my website](http://fp.virpo.sk).
+如果你感兴趣的话, 可以在 [我的网站](http://fp.virpo.sk) 上查看你的部分浏览器指纹信息。
 
-## How are browser fingerprints being used?
+## 如何使用浏览器指纹信息？
 
-One might think that the fingerprints are inherently used in a negative way, but that is far from the truth.
+有人可能会认为浏览器指纹天生就有不好的一面，但事实并非如此。
 
-Take fraud prevention as an example. If you have any kind of online account such as a bank account or even a social network account, you usually log in just by using your email address and a password.
+以防诈骗为例。如果你有任何一种需要在线登录的账号，比如银行账户或者社交网络账户，一般情况下只需要通过邮箱和密码就可以登录。
 
-In case your credentials get stolen one day and the thief tries to log in from his or her device, the bank or social network will be able to detect this suspicious behavior thanks to the change in browser fingerprint. To prevent this kind of fraud, they might require further authorization, e.g. via SMS.
+如果有一天小偷盗取了你的登录凭证并试图从他的设备上登录，银行或社交网络是可以检测到这种异常行为的，因为浏览器指纹发生了变化。为了防止被诈骗，平台可能会要求你做出进一步的授权，比如短信验证码。
 
-However, the most widespread use of browser fingerprints is an ad personalization by far. The social ‘like’ and ‘share’ buttons which are present on almost every website often contain a script that collects your browser fingerprint and therefore knows your browsing history.
+然而，迄今为止，浏览器指纹最广泛的应用是个性化的广告推送。“点赞”和“分享”按钮几乎出现在每个社交网站上，它们通常会包含一个 JavaScript 脚本来收集你的浏览器指纹信息，从而进一步获取你的浏览记录。
 
-![Social share buttons are commonly used to collect your browser fingerprint](https://cdn-images-1.medium.com/max/2164/1*5Ux2MPqwS-XmNJrmSFw3uw.png)
+![社交分享按钮常用来收集你的浏览器指纹](https://cdn-images-1.medium.com/max/2164/1*5Ux2MPqwS-XmNJrmSFw3uw.png)
 
-Collecting a single fingerprint from a single device is not too valuable. Nor is there much use from collecting many fingerprints on a single website.
+从某一个设备上收集单个指纹信息并不是很有价值。在一个网站上收集很多指纹信息也没有太大的用处。
 
-But since the social buttons — and therefore browser fingerprinting scripts — are present almost everywhere, social networks pretty much know how you browse the web.
+但是因为与社交相关的按钮 —— 也就是包含浏览器指纹的脚本 —— 几乎无处不在，社交网络甚至知道你是怎么浏览网页的。
 
-This way tech giants can serve you ads related to what you searched for half an hour ago.
+通过这种方式，那些科技巨头会向你推送你半小时前搜索内容的相关广告。
 
-## So can I be identified everywhere, all the time?
+## 我的浏览器在任何地方和时间都能被识别出来吗？
 
-Well, no.
+当然不是。
 
-There are several sites such as [AmIUnique](https://amiunique.org/) and [Panopticlick](https://panopticlick.eff.org/), that can tell you whether your browser fingerprint is unique from roughly a million fingerprints collected in their database.
+这里有几个网站，比如 [AmIUnique](https://amiunique.org/) 和 [Panopticlick](https://panopticlick.eff.org/)，它们会基于数据库内大约 100 万个指纹信息，来确定你的浏览器指纹信息是否唯一。
 
-Your fingerprint most likely going to be marked as unique. This sounds scary, but bear with me, it may be a bit less scary once we see the full picture.
+你的浏览器指纹很可能会被标记为唯一的。这听起来很可怕，但请耐心听我说，当我们了解了指纹标记原理时，可能就没那么担心了。
 
-These sites compare your fingerprint with their whole database which contains data collected over 2–3 years (or 45 days in case of Panopticlick).
+这些网站将你的指纹与他们的整个数据库进行比较，该数据库包含了至少两到三年（或 Panopticlick 则是 45 天）收集的数据。
 
-However, both 45 days and 2 years is enough time for your browser fingerprint to change without you doing anything. For instance, my browser fingerprint changed 6 times over a period of 60 days.
+然而，45 天和 2 年的时间足够让你的浏览器指纹发生改变，而这不需要你做任何事情。例如，我的浏览器指纹在 60 天内改变了 6 次。
 
-The change can be caused by automatic browser updates, window resizing, installing a new font or even daylight saving time adjustment. All this can make your browser much harder to uniquely identify over longer periods of time.
+导致这种变化的可能是浏览器自动更新、调整窗口大小、安装新字体，甚至调整夏令时。所有这些都会让你的浏览器在很长一段时间内很难再次被唯一识别。
 
-## The data we analysed
+## 我们分析的数据
 
-Both [Panopticlick](https://panopticlick.eff.org/static/browser-uniqueness.pdf) and [AmIUnique](https://hal.inria.fr/hal-01285470/file/beauty-sp16.pdf) published excellent scientific papers where they analysed several hundreds of thousands browser fingerprints.
+[Panopticlick](https://panopticlick.eff.org/static/browser-uniqueness.pdf) 和 [AmIUnique](https://hal.inria.fr/hal-01285470/file/beauty-sp16.pdf) 都发表了关于浏览器指纹的优秀科学论文，他们分析了几十万个浏览器指纹。
 
-Our data is different in several key aspects. We believe that this helped us reveal more information about browser fingerprints.
+我们的数据在几个关键方面有所不同。我们相信这有助于我们揭示更多关于浏览器指纹的信息。
 
-* we analysed 566,704 browser fingerprints, which is roughly twice the amount of fingerprints analysed in the largest previous research
-* 65% of devices in our dataset were smartphones
-* the data consisted of 31 distinct browser fingerprint features from each device using state-of-the-art browser fingerprinting script
+* 我们分析了 566704 个浏览器指纹，这大约是之前最大的研究分析的指纹数量的两倍
+* 我们的数据集中，65% 的设备是智能手机
+* 数据集包含了 31 个不同的浏览器指纹特征，每个设备都是使用的最先进的浏览器指纹脚本
 
-We value online privacy greatly and therefore all the data was analysed anonymously. We went to great lengths to ensure the data is useless in any other way than for purposes of this research.
+我们非常重视网络隐私，因此所有数据都是匿名分析的。我们尽了很大的努力来确保这些数据除了用于本研究之外，在任何其他方面都是无效的。
 
-![Distribution of device types within our dataset](https://cdn-images-1.medium.com/max/3842/1*6TGFW_Ta6xBGPtG3renu_g.png)
+![在我们的数据库中设备类型的分布](https://cdn-images-1.medium.com/max/3842/1*6TGFW_Ta6xBGPtG3renu_g.png)
 
-## The results
+## 结果
 
-Probably the most intuitive graph drawn from our data is the one showing sizes of anonymity sets.
+从我们的数据中得出的最直观的图表可能是显示匿名集大小的图表。
 
-Anonymity set basically describes how many distinct devices shared the exact same browser fingerprint.
+匿名设置基本上描述了有多少不同的设备共享了完全相同的浏览器指纹。
 
-For example, anonymity set of size 1 means that the browser fingerprint was unique. Anonymity set of size 5 means that 5 distinct devices had the exact same fingerprint and therefore, you are not able to differentiate one from another just based on its fingerprint.
+例如，大小为 1 的匿名集意味着浏览器指纹是唯一的。大小为 5 的匿名集意味着 5 个不同的设备拥有完全相同的指纹，因此，你不能仅仅根据指纹来区分它们。
 
-The results of anonymity set sizes for most occupied device types in our dataset are as follows:
+我们数据集中大多数已占用设备类型的匿名设置大小结果如下：
 
-![Anonymity set sizes for the most occupied device types within our dataset. For example, only 33% of iPhones could be uniquely identified within our dataset.](https://cdn-images-1.medium.com/max/3652/1*aRYY86WUgiB9OuSMrHil_w.png)
+![匿名设置在我们数据集中占用的设备类型最多。例如，在我们的数据集中，只有 33% 的 iPhone 可以被唯一识别。](https://cdn-images-1.medium.com/max/3652/1*aRYY86WUgiB9OuSMrHil_w.png)
 
-Looking at the graph, there are a couple of things that stand out:
+看完这张图表，可以得出几个比较明确的结论:
 
-* 74% of desktop devices can be uniquely identified, while the same can only be said about 45% of mobile users.
-* Only 33% of browser fingerprints collected on iPhones were unique.
-* The other 33% of iPhones can hardly be tracked at all, because 20 or more iPhones expose the exact same browser fingerprint.
+* 74% 的桌面设备能够被唯一识别，而只有 45% 的移动设备能够被唯一识别。
+* 在 iPhone 上收集的浏览器指纹中，只有 33% 是唯一的。
+* 另外 33% 的 iPhone 几乎无法被跟踪，因为有 20 多部 iPhone 显示了完全相同的浏览器指纹。
 
-#### The rate of change
+#### 指纹变化率
 
-We observed another interesting phenomenon when looking at how often browser fingerprints of a single device change.
+当观察单个设备的浏览器指纹发生变化的频率时，我们看到了另一个有趣的现象。
 
-The following graphs show the number of days between the device’s first visit and the first change of its browser fingerprint:
+以下图表显示了设备第一次访问和第一次更改浏览器指纹之间的天数：
 
-![Rate of change of browser fingerprints.](https://cdn-images-1.medium.com/max/3842/1*girS-UYQ-GwEactOp8bgfg.png)
+![浏览器指纹变化速率。](https://cdn-images-1.medium.com/max/3842/1*girS-UYQ-GwEactOp8bgfg.png)
 
-We can observe that within 24 hours, nearly 10% of the devices we observed multiple times managed to change their fingerprint.
+我们可以看到，在 24 小时内，我们多次看到的设备中，近 10% 的设备成功改变了指纹。
 
-Let’s see how this plays out for each device type separately:
+让我们分别看看这在每种设备上的表现：
 
 ![Rate of fingerprint change across different device types.](https://cdn-images-1.medium.com/max/4192/1*-kGLm0LGKQxjbtckW2gyZg.png)
 
-This graph shows that while 19% of iPhones changed their fingerprint within a week, only around 3% of Android phones did. Our data therefore suggests that iPhones are much harder to track for longer periods of time than Androids.
+这张图表显示，19% 的 iPhone 手机在一周内更换了指纹，而同期只有 3% 的 Android。我们的数据表明，iPhone 比 Android 更难进行长时间的跟踪。
 
-#### Minimal fingerprint
+#### 最少的指纹个数
 
-Finally, we explored how many features would someone actually need to collect from a browser to reliably identify it.
+最后，我们讨论了到底需要从浏览器中收集多少指纹特性才能可靠地识别该浏览器。
 
-To do this, we measured how powerful a fingerprint was using [Shannon’s information entropy](https://en.wikipedia.org/wiki/Entropy_(information_theory)). The higher the entropy, the more accurate the identification process.
+为此，我们通过 [香农信息熵](https://en.wikipedia.org/wiki/Entropy_(information_theory)) 来评估指纹信息到底有多准确。其熵值越高，识别过程越准确。
 
-**For example, entropy of 14.2 means that 1 in every ~19,000 browser fingerprints has exactly the same fingerprint as me. Increasing the entropy to 16.5 means, that one in every ~92,500 devices shares the same fingerprint as me.**
+**例如，14.2 的熵意味着每 19000 个浏览器指纹中就有一个与我的浏览器指纹完全相同。将熵值增加到 16.5 意味着，每 92500 个设备中就有一个和我拥有相同的指纹。**
 
-In our experiment, we looked for the strongest subsets of browser fingerprint features given by the size of a subset.
+在我们的实验中，我们找到了最准确的浏览器指纹信息的子集。
 
-The entropy of our whole dataset was 16.55, so we decided to start with just 3 features and increase the subset size until the subset reaches entropy of at least 16.5 and these are the results:
+我们整个数据集的熵为 16.55，所以我们决定从 3 个指纹特征开始，增加子集的大小，直到子集的熵大于 16.5，结果如下：
 
-![By collecting 9 instead of 33 browser features, the entropy only drops by 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
+![通过收集 9 个而不是 33 个浏览器特性，熵只下降了 0.035](https://cdn-images-1.medium.com/max/3444/1*gMIh_szBYVW1STWYMoEqBA.png)
 
-This experiment revealed that by extracting 3 elementary browser features, namely date format, user-agent string and available size (screen size minus size of the docks, window bars, etc.), we can achieve entropy of 14.2, which is already enough to identify browsers (and therefore users) in some cases.
+实验表明，通过提取 3 个基本的浏览器特征，即日期格式、用户代理字符集和屏幕可用大小（屏幕大小减去程序坞、窗口栏等的大小），我们可以实现 14.2 的熵，在某些情况下，这已经足够识别浏览器（以及用户）。
 
-If we extend the subset with features that are more difficult to obtain, such as canvas fingerprint, list of installed fonts and several others, we are able to reach our entropy goal of 16.5.
+如果我们用更难获得的特性 (如 `Canvas`、已安装字体列表等) 扩展子集，就能够达到熵为 16.5 的目标。
 
-This means that websites and companies do not really need to put much effort into identifying you.
+这就意味着网站和公司并不需要花太多精力来识别你的身份。
 
-## Conclusions
+## 结论
 
-So what to take out of this?
+那么我们可以从中得到什么呢？
 
-* tech giants can track your online movement, but not quite precisely (yet).
-* smartphones (and especially iPhones) are harder to track than PCs
-* browser fingerprint of a device changes quite frequently
-* browser fingerprints are easy to obtain
+* 那些科技巨头可以追踪到你的线上活动，但目前还不完全准确。
+* 智能手机（尤其是 iPhone）比个人电脑更难追踪
+* 设备的浏览器指纹变化非常频繁
+* 浏览器指纹很容易获取
 
-However, if you are worried about your data privacy, I have some good news as well. Firstly, [Apple announced a war against browser fingerprinting](https://www.howtogeek.com/fyi/safari-battles-browser-fingerprinting-and-tracking-on-macos-mojave/) with it’s latest Mac OS Mojave. Secondly, GDPR considers browser fingerprints to be personal data and they have to be treated accordingly. And lastly there are [many plugins and browser extension](https://amiunique.org/tools) that can confuse browser fingerprinting scripts.
+然而，如果你担心你的数据隐私，我这里也可以告诉你一些好消息。首先，[苹果宣布了一场针对浏览器指纹识别的保卫战](https://www.howtogeek.com/fyi/safari-battles-browser-fingerprinting-and-tracking-on-macos-mojave/)，它推出了最新的 Mac OS Mojave 版本。其次，GDPR 认为浏览器指纹是个人数据，必须进行相应的处理。最后还有许多 [插件和浏览器扩展](https://amiunique.org/tools) 会混淆浏览器指纹脚本。
 
-So, our future is not as dim as it seems. Yes, sometimes you can be identified uniquely, but quite often there are other devices with the exact same browser fingerprint as yours, which makes you harder to track.
+所以，我们的浏览器隐私在未来并不像它看起来那么糟糕。诚然，有时你的浏览器可以被唯一地识别，但很多时候其他设备的浏览器指纹与你的完全相同，这使得你的浏览器更难被跟踪。
 
-#### Motivation behind this research
+#### 研究动机
 
-At [Slido](https://slido.com) we try to make user experience of our web application as simple as possible. When you join our app, you usually aren’t required to sign in and we want to keep it that way.
+在 [Slido](https://slido.com) 上，我们试图使我们的 Web 应用程序的用户体验尽可能简单。当你使用我们的应用程序时，你通常不需要登录，我们希望保持这种方式。
 
-Our motivation behind this research was to investigate whether authentication using browser fingerprints can actually be used to defend our users from malicious scripts without harming the user experience.
+我们进行这项研究的动机是：基于浏览器指纹的身份验证是否可以在不损害用户体验的情况下保护用户免受恶意脚本的攻击。
 
-Note that it was also important to know whether the same method would work on smartphones, since our app’s traffic consists mostly of smartphone devices.
+需要注意的是，智能手机的指纹信息也很重要，因为我们的应用流量主要来自智能手机。
 
-And the answer to our question is “no”.
+而我们研究的结论是**否定的**
 
-Browser fingerprints alone aren’t accurate enough to be used as authentication for our users. They are, however, accurate enough to place you in a group of people with similar interests (in cats or cars for example).
-
----
-
-That pretty much means that browser fingerprints are ideal for use cases such as ad personalization, where accuracy isn’t the key or bank fraud prevention, where paranoia is a good thing.
-
-If you want to know more about browser fingerprinting, I wrote a [60+ pages long thesis](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf) on the research we conducted which you can read.
-
-You will learn more about how extraction of each browser feature works, how it is possible to avoid being tracked by browser fingerprints, with graphs and results explained in greater detail, and much more.
+浏览器指纹本身不足以作为我们进行用户身份验证的充分条件。然而，它们足够准确地把你放在一群有着类似兴趣（比如猫或汽车）的人当中。
 
 ---
 
-Huge thanks goes to my supervisor, RNDr. Michal Forišek, PhD., who helped me greatly during this research.
+这就意味着浏览器指纹的使用在个别场景中是理想的，比如个性化的广告，这种情况下准确性并非其关键，或者防止银行诈骗，通过浏览器指纹追踪，让诈骗者有所畏惧到底是一件好事。
 
-Related links:
+如果你想了解更多关于浏览器指纹识别的知识，我写了一篇关于和我自己研究相关的 [60 多页长的论文](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)，你可以读读看。
 
-* [My 60+ pages long thesis on browser fingerprints](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)
-* [http://fp.virpo.sk](http://fp.virpo.sk) — see what your fingerprint looks like
-* [https://panopticlick.eff.org](https://panopticlick.eff.org/static/browser-uniqueness.pdf)— Panopticlick
-* [https://amiunique.org](https://amiunique.org/)— AmIUnique
-* [https://audiofingerprint.openwpm.com](https://audiofingerprint.openwpm.com/) — audio used to fingerprint browsers
-* [https://www.nothingprivate.ml/](https://www.nothingprivate.ml/) — Incognito browsing is not as incognito
+你将了解到更多的关于每个浏览器特性提取是如何工作的，如何避免被浏览器指纹跟踪，并对本文中的图像和结果进行更详细的解释，等等。
+
+---
+
+非常感谢我的导师，RNDr. Michal Forišek 博士，在本次研究中为我提供了很大的帮助。
+
+相关链接：
+
+* [我的关于浏览器指纹的 60 多页的报告](http://virpo.sk/browser-fingerprinting-hraska-diploma-thesis.pdf)
+* [http://fp.virpo.sk](http://fp.virpo.sk) —— 了解浏览器指纹是什么
+* [https://panopticlick.eff.org](https://panopticlick.eff.org/static/browser-uniqueness.pdf) —— Panopticlick
+* [https://amiunique.org](https://amiunique.org/) —— AmIUnique
+* [https://audiofingerprint.openwpm.com](https://audiofingerprint.openwpm.com/) —— audio 特性在浏览器指纹中的应用
+* [https://www.nothingprivate.ml/](https://www.nothingprivate.ml/) —— 无痕浏览并不是无痕的
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

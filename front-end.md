@@ -1,3 +1,44 @@
+* [Applets 应用程序的终结](https://juejin.cn/post/6949497811817725959)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [1993 年的 CGI 脚本和早期服务端 Web 编程](https://juejin.cn/post/6947898773569962020)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2020 网络年鉴：热门的前端框架依然是互联网的一小部分](https://juejin.cn/post/6944674906684686366)（[felixliao](https://github.com/felixliao) 翻译）
+* [都 2021 年了，你还不知道这 10 个 CSS 功能？](https://juejin.cn/post/6946231151874801695)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [React vs. Vue 谁是 2021 年最佳 JavaScript 框架](https://juejin.cn/post/6944674279141146632)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [详细解读 Webpack 的模块热替换功能](https://juejin.cn/post/6946231743837896734)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [新型前端构建工具 Vitejs 开发使用](https://juejin.cn/post/6949544614760185886)（[zenblo](https://github.com/zenblo) 翻译）
+* [Snowpack：一个可替代 Webpack 的构建工具](https://juejin.cn/post/6940820980608696334)（[felixliao](https://github.com/felixliao) 翻译）
+* [2021 年 Angular vs. React vs. Vue 前端框架对比](https://juejin.cn/post/6943068367125381127)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [十年可视化开源历程](https://juejin.cn/post/6940078120556822559)（[momodiy](https://github.com/momodiy) 翻译）
+* [3 种在任何浏览器中使用 CSS 网格的后备方案](https://juejin.cn/post/6939891749665898504)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [新发布的 TypeScript 手册！先睹为快！](https://juejin.cn/post/6938614411397431304)（[zenblo](https://github.com/zenblo) 翻译）
+* [实现响应式图像的四种技术策略](https://juejin.cn/post/6938237167189622814)（[zenblo](https://github.com/zenblo) 翻译）
+* [Chrome 88 DevTools 中的新功能](https://juejin.cn/post/6938248665219727391)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [和 Node.js 创始人 Ryan Dahl 的对话](https://juejin.cn/post/6937483576594137096)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [重新审视 undefined 和 null](https://juejin.cn/post/6936559478909665316)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Deno 1.8 正式发布：支持 WebGPU API、deno lsp 现在进入了稳定状态](https://juejin.cn/post/6936083986644992013)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [JavaScript Temporal API —— Date API 问题的一个解决方案](https://juejin.cn/post/6938358811908374559)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [面向 JavaScript 开发人员的 Monads](https://juejin.cn/post/6937537783653203976)（[zenblo](https://github.com/zenblo) 翻译）
+* [6 个没人讲过的 CSS 属性](https://juejin.cn/post/6937995501719519240)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [API、WebSockets 和 WebHooks：究竟应该选谁](https://juejin.cn/post/6938359240880816165)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2021 年需要了解的 34 个 JavaScript 优化技巧](https://juejin.cn/post/6937828220033040415)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [使用 CSS Painting API 自动生成图像](https://juejin.cn/post/6932088781113819150)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么我对 TypeScript 黑转粉？一个 JS 开发者的深情自白](https://juejin.cn/post/6935629277870161957)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [在 React 中使用 Immer 管理不可变状态](https://juejin.cn/post/6935790852476239886)（[zenblo](https://github.com/zenblo) 翻译）
+* [TypeScript 4.2 正式发布：优化了类型和开发者体验](https://juejin.cn/post/6935255387893399560)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [自适应 CSS 栅格：自由布局的最终版本](https://juejin.cn/post/6935090806210428959)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Deno 将停用 TypeScript 的五个原因](https://juejin.cn/post/6934140963262562312)（[zenblo](https://github.com/zenblo) 翻译）
+* [关于 Node.js 中的异步迭代器](https://juejin.cn/post/6934596464639213576)（[Isildur46](https://github.com/Isildur46) 翻译）
+* [CSS3 会替代 SCSS 吗？](https://juejin.cn/post/6934326962450071559)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [我后悔没有在自己成为 React 开发者之前做的 6 件事情](https://juejin.cn/post/6934144158332354567)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [JavaScript 中哪一种循环更快呢？](https://juejin.cn/post/6930973929452339213)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [3 个最棒的最值得你去在产品中使用的 CSS Grid 功能](https://juejin.cn/post/6931372123441233927)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [你应该编译你的 JavaScript 代码吗？](https://juejin.cn/post/6926927963636105223)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [简述 HTTP 请求与跨域资源共享 CORS](https://juejin.cn/post/6927191095470194695)（[zenblo](https://github.com/zenblo) 翻译）
+* [如何在浏览器上使用 NoSQL 数据库 IndexedDB](https://juejin.cn/post/6930883284456964109)（[zenblo](https://github.com/zenblo) 翻译）
+* [2021 年 JavaScript 测试框架回顾](https://juejin.cn/post/6927585452253790216)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么 React Hooks 是错误的抽象](https://juejin.cn/post/6930529765048713229)（[fltenwall](https://github.com/fltenwall) 翻译）
+* [函数式编程 —— 使用 Python、JavaScript 和 Java 描述](https://juejin.cn/post/6930638275241574407)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
 * [掌握这 5 个 TypeScript 高级技巧，成为更好的开发者](https://juejin.cn/post/6924293152907984909)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [如何让 JavaScript 中的循环慢下来](https://juejin.cn/post/6924512805135581197)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [只使用 CSS 进行用户追踪](https://juejin.cn/post/6887478219662950414)（[MangoTsing](https://github.com/MangoTsing) 翻译）
