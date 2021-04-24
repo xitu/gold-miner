@@ -59,7 +59,7 @@ val channels = groups.flatMap {
 }
 ```
 
-这里我们只需要那些通道正在触发灯光的组，也就是 API 26 及以上。由于我们使用的是比最低 SDK 级别更高的 API 级别的类，编译器会在这里警告我们：
+这里我们只需要那些正在触发灯光的渠道组，也就是 API 26 及以上。由于我们使用的是比最低 SDK 级别更高的 API 级别的类，编译器会在这里警告我们：
 
 ![](https://miro.medium.com/max/1692/1*WWdcZVLzzaXduUd1RT0vBg.png)
 
@@ -148,7 +148,7 @@ private fun List<NotificationChannel>.filterLightingOnes() =
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 ```
 
-不幸的是，lint 在这里不是很聪明。它不会理解一些变型的版本检查，比如说：
+不幸的是，lint 在这里不是很智能。它不会理解一些变型的版本检查，比如说：
 
 ```kotlin
 .filter { Build.VERSION.SDK_INT >= Build.VERSION_CODES.P }
@@ -162,9 +162,9 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 @CheckedUpTo(Build.VERSION_CODES.P)
 ```
 
-这将在内部完成类似于 `SuppressLint("NewApi")` 的工作，但只会针对不需要高于 P 的 API 调用。
+这将在内部完成类似于 `SuppressLint("NewApi")` 的工作，但只会针对不需要高于 P 版本的 API 调用。
 
-目前，你可以让现有的 lint 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，让你总是需要被迫处理这些问题。
+目前，你可以让现有的 lint 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，强制让你处理这些问题。
 
 记住，这些注释也被认为是你的代码读者的文档。
 
