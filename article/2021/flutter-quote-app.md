@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quotes-app.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quotes-app.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：
+> * 校对者：[5Reasons](https://github.com/5Reasons)、[greycodee](https://github.com/greycodee)
 
 # 使用 Flutter 构建一个名言名句应用程序
 
