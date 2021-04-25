@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/physics-simulations-using-vpython.md](https://github.com/xitu/gold-miner/blob/master/article/2021/physics-simulations-using-vpython.md)
 > * 译者：[tmpbook](https://github.com/tmpbook)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo), [greycodee](https://github.com/greycodee)
 
 # 使用 VPython 进行物理模拟
 
@@ -11,7 +11,7 @@
 
 ## 简介
 
-物理科学是建立在简化和估算的基础上的，如：轨道总是圆形的，弹丸飞行时不会有空气阻力，钟摆只会以小角度摆动。当你第一次试图理解自然的基本规律时，这些简化是必要的且恰当的，（这些估算是有用的，我们失去了一点精度，但是我们节省了很多时间（例如在[磁矩](https://en.wikipedia.org/wiki/Magnetic_dipole_moment)中使用估算)，但是现实世界要复杂有趣得多。因为物理学的最终目标是**理解现实世界**。
+物理科学是建立在简化和估算的基础上的，如：轨道总是圆形的，弹丸飞行时不会有空气阻力，钟摆只会以小角度摆动。当你第一次试图理解自然的基本规律时，简化是必要且恰当的，（这些估算是有用的，虽然我们失去了一点精度，但是我们节省了很多时间，例如在[磁矩](https://en.wikipedia.org/wiki/Magnetic_dipole_moment)中使用估算)，但是现实世界要复杂有趣得多。因为物理学的最终目标是**理解现实世界**。
 
 幸运的是，计算机可以在可忽略不计的时间内进行极其冗长的计算。**VPython** 为我们提供了一种在图形上模拟物理系统的复杂方程并生成可交互的实时三维动画的解决方案。
 
@@ -56,7 +56,7 @@ vp.cylinder(pos=vp.vector( 4, 0, 0), size=vp.vector(4,4,4), color = vp.color.red
 
 ### 编码
 
-喝杯咖啡，让我们从创建新的 Python 脚本、导入模块和生成场景开始：
+带上你的咖啡一起，让我们从创建新的 Python 脚本、导入模块和生成场景开始：
 
 首先，导入 vpython 模块，然后生成场景：
 
