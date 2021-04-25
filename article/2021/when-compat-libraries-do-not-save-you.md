@@ -2,55 +2,55 @@
 > * 原文作者：[Danny Preussler](https://dpreussler.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[greycodee](https://github.com/greycodee)
 
-# When “Compat” libraries won’t save you
+# 当 Android 的 Compat 库不能拯救你的时候
 
-And why you should avoid using the “*NewApi*” suppression!
+—— 还有为什么你应该避免使用 `NewApi` 抑制警告！
 
-![[https://unsplash.com/photos/EgGIPA68Nwo](https://unsplash.com/photos/EgGIPA68Nwo)](https://miro.medium.com/max/12000/1*_UZ7BojQmk2vRCTx6XIdLA.jpeg)
+![图源 [Unsplash](https://unsplash.com/photos/EgGIPA68Nwo)](https://miro.medium.com/max/12000/1*_UZ7BojQmk2vRCTx6XIdLA.jpeg)
 
-The idea of “Compat” libraries was probably one of the key aspects of Android dominating the mobile space. Other than with iOS, Android users often could not update their operating system after a new version launch, simply as their phones won’t allow them to, the Android problem of [fragmentation](https://www.androidauthority.com/android-fragmentation-linux-kernel-1057450/). But developers still wanted to use the latest features to compete. The solution was simple: instead of adding new APIs to the operating system, you shipped those directly with your app by using a “backport” version Google gave you.
+Compat 支持库的概念可能是 Android 主导手机领域的重要方面之一。不像是 iOS，Android 用户往往因为他们的手机不允许更新而在新版本推出后不能更新他们的操作系统，而这就是 Android 的[碎片化](https://www.androidauthority.com/android-fragmentation-linux-kernel-1057450/)问题。不过开发者们还是希望在他们的应用程序中使用最新的功能来竞争，而解决方法很简单：我们不需要在操作系统中添加新的 API，而是可以直接通过使用谷歌向我们提供的 "回溯" 版本，直接将这些 API 和你的应用一起打包部署。
 
-It all started with [ActionBar Sherlock](https://github.com/JakeWharton/ActionBarSherlock) by [Jake Wharton](https://medium.com/u/8ddd94878165) then got adopted by Google with in their “support libraries”. Later on, this was mirrored as *AndroidX* under the *Jetpack* umbrella.
+这一切都始于 [Jake Wharton](https://medium.com/u/8ddd94878165) 开发的 [ActionBar Sherlock](https://github.com/JakeWharton/ActionBarSherlock) 项目。这个项目后来被 Google 采纳，放到了他们的 **支持库** 中。再后来，这个支持库被镜像为 **Jetpack** 下的 **AndroidX** 项目。
 
-## Same but different
+## 相同，但也不同
 
-Under the hood, not all of those “compat”-APIs are made the same way. Some, like the ones for Fragments, are complete copies of the code. You either use `android.app.Fragment` from the OS (actually deprecated) or `androidx.fragment.app.Fragment`. Both don't share any code or have a common base class (which is why we also have two versions of the `FragmentManager`).
+从表面上看，并不是所有的 Compat API 都是以同样的方式构建的。有些 API，比如 Fragment 的，是由完整的代码拷贝构建的。你要么使用操作系统中的 `android.app.Fragment`（实际上已经废弃）类，要么使用 `androidx.fragment.app.Fragment` 类。两者都不互相共享任何代码，也没有共同的基类（这就是为什么我们有两个版本的 `FragmentManager`）。
 
-On the other hand`AppCompatActivity` for example, simply extends the original `Activity`. Also`AppCompatImageButton` still is an `ImageButton`!
+另一方面，例如 `AppCompatActivity` 这个类就是简单地扩展了原来的 `Activity` 类。另外 `AppCompatImageButton` 仍然是一个 `ImageButton`!
 
-We can see that sometimes these “Compat”-classes are just a “bridge” to add missing functionalities and sometimes they are complete duplicates.
+我们可以看到，有时这些 Compat 类只是起到一个桥梁的作用，用来添加缺失的功能，而有时它们甚至是完全一样的。
 
-## Let’s look at another example!
+## 让我们看看另一个例子！
 
-One area that changed a lot over time is the notification API from Android. There was a time where every Google I/O introduced a new API change.
+不过有一个领域随着时间的推移发生了很大的变化，那就是 Android 的通知 API。曾经有一段时间，每一次 Google I/O 大会都会宣布一个新的 API 方面的变化。
 
-Good that we have `NotificationManagerCompat` to save us!?
+好在我们有 `NotificationManagerCompat` 来拯救我们！！！
 
-If, for example, we need to get the notification channel groups:
+比如说当我们需要获取通知通道组（`NotificationChannelGroup`）的时候：
 
 ```kotlin
 val groups = notificationManagerCompat.notificationChannelGroups
 ```
 
-We don't need to worry about the groups being supported on all OS versions, as it is handled under the hood for us:
+我们不需要担心通道组是否被所有操作系统版本支持，因为它实际上会被在 Compat 类中处理掉：
 
 ```kotlin
 public List<NotificationChannelGroup> getNotificationChannelGroups() {
     if (Build.VERSION.SDK_INT >= 26) {
-        return mNotificationManager.getNotificationChannelGroups();
+        return mNotificationManager.getNotificationChannelGroups()
     }
-    return Collections.emptyList();
+    return Collections.emptyList()
 }
 ```
 
-If we were before API level 26 we simply get an empty list, otherwise, we get the new channel groups that were introduced in 26.
+如果我们是在 API 26 之前，我们只会得到一个空的列表，如果不是我们就会得到在 API 26 中引入的新通道组。
 
-You can find even more complex checks inside [NotificationManagerCompat](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationManagerCompat.java#L230).
+你可以在 [NotificationManagerCompat](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationManagerCompat.java#L230) 代码处找到更复杂的检查。
 
-But if you look closer,`NotificationManagerCompat` will return us the actual API classes. In the example code above a list of `NotificationChannelGroup`, this is not a copied “compat”-version, but as of the check, safe to use:
+但如果你仔细观察，`NotificationManagerCompat` 会返回我们实际的 API 类。在上面的示例代码中列出了 `NotificationChannelGroup`，这并不是一个复制的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
 
 ```kotlin
 val groups = notificationManagerCompat.notificationChannelGroups
@@ -59,19 +59,19 @@ val channels = groups.flatMap {
 }
 ```
 
-Here we only want those groups whose channels are triggering lights, which is API level 26 and above. As we are using a class that is of higher API level than our minimum SDK, the compiler will warn us here:
+这里我们只需要那些正在触发灯光的渠道组，也就是 API 26 及以上。由于我们使用的是比最低 SDK 级别更高的 API 级别的类，编译器会在这里警告我们：
 
 ![](https://miro.medium.com/max/1692/1*WWdcZVLzzaXduUd1RT0vBg.png)
 
-The compiler doesn't care that we used `NotificationManagerCompat` to get there.
+编译器并不在意我们使用 `NotificationManagerCompat` 来达到目的。
 
-We have multiple ways of solving this:
+我们有多种方法来解决这个问题。
 
 ![](https://miro.medium.com/max/1816/1*L_wx_xAhVMYE0SVzE7_AJw.png)
 
-Adding the `RequiresApi` annotation to our method won’t make much sense, as we would simply move the warning to the calling function. Surrounding with a check feels obsolete as this check was already done by `NotificationManagerCompat` as shown above!
+将 `RequiresApi` 注解添加到我们的方法中并没有什么意义，因为我们会简单地将警告移到调用函数中。用检查包围似乎已经过时了，因为这个检查已经由 `NotificationManagerCompat` 完成，如上图所示。
 
-Seems the best option is to pick suppression:
+看来最好的选择是选择抑制这个警告。
 
 ```kotlin
 @SuppressLint("NewApi")
@@ -84,9 +84,9 @@ private fun checkChannels() {
 }
 ```
 
-## New requirements coming in
+## 新的需求即将到来
 
-Let’s assume we get the additional requirement to filter out the groups that got blocked. We can add a simple check for that:
+假设我们得到了额外的要求，我们需要过滤掉被屏蔽的组。我们可以为此添加一个简单的检查：
 
 ```kotlin
 @SuppressLint("NewApi")
@@ -99,22 +99,23 @@ private fun checkChannels() {
 }
 ```
 
-Everything looks fine, right?
+一切看起来都很好，对吗？
 
-## Boom!
+## 你完了！
 
-But we just introduced a **crash**!  
-The reason is: `isBlocked` was only introduced in API level 28 and we did not check for that! Despite we used `NotificationManagerCompat`, we still ran into an API level issue!
+但我们刚刚引入了一个**崩溃**! 
 
-And because we suppressed the`NewApi` warnings, we didn't get any warning on this one!
+原因是：`isBlocked` 是在 API 28 才引入的，而我们没有进行检查! 尽管我们使用了 `NotificationManagerCompat`，但我们还是遇到了 API 级别上的问题!
 
-We need to **be really careful when it comes to suppression of this annotation**!
+而且因为我们抑制了 `NewApi` 的警告，所以我们在这个问题上没有收到任何警告!
 
-## Solutions?
+所以当涉及到抑制警告的时候，我们就应该**更加审慎**!
 
-As it is only available for method-level (not for individual statements), the best approach is to compose one-liner methods that can fit our needs.
+## 解决方案？
 
-Thanks to extension functions this can be very easy:
+由于只有在方法级别上才能解决这个问题（不适用单个语句），最好的方法是编写能满足我们需求的单行的方法。
+
+多亏了扩展函数，这可以非常容易地实现：
 
 ```kotlin
 @SuppressLint("NewApi") // SDK 26
@@ -126,48 +127,48 @@ private fun List<NotificationChannel>.filterLightingOnes() =
    filter { it.shouldShowLights() }
 ```
 
-If we used this approach with the above example, we would have gotten the warning the moment we added `isBlocked`.
+如果我们在上面的例子中使用这种方法，我们在添加 `isBlocked` 的时候就会得到警告：
 
 ![](https://miro.medium.com/max/3032/1*OpkxXOXSGueoW_TyJyXw3A.png)
 
-Of course, it is a bit more work for us as developers but our users will appreciate a crash-free app!
+当然，这对于我们开发者来说多了很多工作，但是我们的用户会很喜欢一个无崩溃的应用。
 
 ## The Linter
 
-The example shown was not a bug of a compat-library but rather hidden by the suppression. This could have happened with many other APIs as well.
+上述例子不是 Compat 库的 Bug，而是被抑制隐藏了。这种情况也可能发生在许多其他 API 上。
 
-* Don’t fall into this trap !  
-* Using Compat versions might give us false security and trick us into believing that we won’t have to think about these issues.
+* 不要掉进这个陷阱!  
+* 使用 Compat 库可能会给我们带来虚假的安全感，并欺骗我们相信我们不必考虑这些问题。
 
-And again, try to **avoid** **suppressing** `NewApi`**!**
+而且再次强调，尽量**避免抑制** `NewApi` **警告**！
 
-Instead, use direct version checks like:
+相反，我们应该使用直接的版本检查，比如：
 
 ```kotlin
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
 ```
 
-Unfortunately, the linter is not very smart here. It would not understand slight variations like:
+不幸的是，lint 在这里不是很智能。它不会理解一些变型的版本检查，比如说：
 
 ```kotlin
 .filter { Build.VERSION.SDK_INT >= Build.VERSION_CODES.P }
 ```
 
-## Call for help?
+## 求助？
 
-Maybe some of you want to look more into this, with some custom lint rules. Basically, we would need something like:
+也许你们中的一些人想更多地研究这个，用一些自定义的 lint 规则。基本上，我们需要这样的东西：
 
 ```kotlin
 @CheckedUpTo(Build.VERSION_CODES.P)
 ```
 
-That would internally work similar to `SuppressLint(“NewApi”)` but only for API calls that require nothing higher than P.
+这将在内部完成类似于 `SuppressLint("NewApi")` 的工作，但只会针对不需要高于 P 版本的 API 调用。
 
-For now, make the existing linter functionality work for you. For example by also adding `@RequiresApi(Build.VERSION_CODES.P)` to your own code, so you are always forced to handle those.
+目前，你可以让现有的 lint 功能为你工作。例如也可以在你自己的代码中添加 `@RequiresApi(Build.VERSION_CODES.P)`，强制让你处理这些问题。
 
-Remember, these annotations are also considered as documentation to the reader of your code.
+记住，这些注释也被认为是你的代码读者的文档。
 
-PS: the latest alpha of NotificationCompat will bring us compat-versions for `NotificationChannel` and `NotificationChannelGroup` 🥳
+PS: 最新的 NotificationCompat alpha 版本将为我们带来 `NotificationChannel` 和 `NotificationChannelGroup` 的兼容版本。🥳
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
