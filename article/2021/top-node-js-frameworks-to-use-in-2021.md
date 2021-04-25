@@ -9,19 +9,21 @@
 
 ![最值得使用的 Node.js 框架](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
 
-Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是它是最热门的开源的 JavaScript 运行时框架之一，具有跨平台属性，让我们可以在浏览器以外的环境运行代码。
+Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是最热门的开源的 JavaScript 运行时框架之一，具有跨平台属性，让我们可以在浏览器以外的环境运行代码。
 
 ## Node.js 的特别之处是什么？
 
 1. 它有一个干净简洁的代码库。
 2. 它最适合敏捷开发和原型设计。
-3. 它有一个庞大的生态系统，提供开源库。
+3. 它有一个庞大的生态系统以提供开源库。
 4. 它可以用于更快地开发企业级可扩展的应用程序。
 5. 它基于最常用的编程语言 —— JavaScript。
 
 ## 市场对 Node.js 的反应如何？
 
 ![NPM 趋势](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
+
+图片来源：[npmtrends](https://www.npmtrends.com/nodejs)
 
 **下面是一些关于 Node.js 的更多信息：**
 
@@ -38,7 +40,7 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 * 学习曲线低
 * JavaScript 全栈开发
 * 庞大而活跃的社区
-* 使用单一的代码库，以提高整体网络性能。
+* 使用单一的代码库，以提高整体 web 性能。
 
 ## 2021 年最值得用的 Node.js 框架
 
@@ -57,7 +59,7 @@ Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公�
 
 ![Hapi.js 框架流行度](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
 
-Hapi.js 是众多开发者信赖的最简单、安全、可靠的框架之一。你可以使用 Hapi.js 来创建可扩展和健壮的应用程序，这些应用程序具有最小的开销和开箱即用的功能。它是开发 JSON API 的顶级[Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)框架。
+Hapi.js 是众多开发者信赖的最简单、安全、可靠的框架之一。你可以使用 Hapi.js 来创建可扩展和健壮的应用程序，它具有最小的开销和开箱即用的功能。它是开发 JSON API 的顶级[Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)框架。
 
 **Hapi.js 可以被用于：**
 
@@ -74,7 +76,7 @@ Hapi.js 是众多开发者信赖的最简单、安全、可靠的框架之一。
 * 缓存
 * 没有外部依赖
 * 基于配置的功能
-* 集成框架：在 Node 框架 中提供全面的认证和授权 API 支持。
+* 集成框架：在 Node 框架中提供全面的认证和授权 API 支持。
 
 **什么时候使用 Hapi.js：**
 
@@ -112,7 +114,7 @@ Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不
 **Express.js 主要特性：**
 
 * 更快的服务端开发
-* 赋能开发者快的构建 RESTful API
+* 赋能开发者更快地构建 RESTful API
 * Express 支持 MVC 架构，但需要开发者做一些额外工作
 * 开箱支持 NoSQL 数据库
 
@@ -153,7 +155,7 @@ Nest.js 是一个服务器端应用框架，它是为了解放开发者的生产
 
 * 易于扩展：可与其他库一起使用。
 * 允许开发人员完全使用纯 JavaScript 进行编码。
-* 结合了函数式编程、面向对象编程和反应式编程的特点。
+* 结合了函数式编程、面向对象编程和响应式编程的特点。
 * 公开框架 API，帮助开发者使用各平台上的各种第三方模块。
 * 它有一个详细且维护良好的文档。
 
@@ -181,7 +183,7 @@ Nest.js 主要用于编写具有可扩展、可测试和松散耦合特点的应
 
 ![Koa.js 框架流行度](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
 
-Koa.js 是一个开源的 Node 网络框架，由 Express.js 原班人马创建。通过 Koa，他们的目标是为 Web 应用和 API 创建一个更小、更有价值、更强大的平台。它提供了多种高效的方法，以让构建服务的过程更快速。
+Koa.js 是一个开源的 Node web 框架，由 Express.js 原班人马创建。通过 Koa，他们的目标是为 Web 应用和 API 创建一个更小、更有价值、更强大的平台。它提供了多种高效的方法，以让构建服务的过程更快速。
 
 **Koa.js 可以被用于：**
 
@@ -220,9 +222,7 @@ Koa.js 最适合用于创建服务器、路由、处理响应和处理错误。
 
 ![socket.io 流行度](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
 
-Socket.io 是用来在客户端和服务器端之间创建实时双向通信的框架。
-
-要做到这一点，客户端需要在浏览器中安装 Socket.io，服务器也要集成 Socket.io 包。这使得数据可以在数百万种形式中共享。然而，最受欢迎的方法仍然是 JSON。
+Socket.io 是用来在客户端和服务器端之间创建实时双向通信的框架。要做到这一点，客户端需要在浏览器中安装 Socket.io，服务器也要集成 Socket.io 包。这使得数据可以在数百万种形式中共享。然而，最受欢迎的方法仍然是 JSON。
 
 **Socket.io 由以下两个部分组成：**
 
@@ -245,7 +245,7 @@ Socket.io 是用来在客户端和服务器端之间创建实时双向通信的�
 * 将信息编码为命名的 JSON 或二进制事件。
 * 在应用程序中添加“实时”能力。
 * 支持自动重新连接
-* 速度和可靠性突出
+* 出色的速度和可靠性
 * 即时通讯和聊天
 
 **什么时候使用 Socket.io：**
@@ -275,7 +275,7 @@ Meteor.js 是一个开源的全栈 JavaScript 平台，JavaScript 根据意图�
 **Meteor.js 可以被用于：**
 
 * 移动应用程序全流程
-* 网络应用程序全流程
+* web 应用程序全流程
 
 **Meteor.js 主要特性：**
 
@@ -305,14 +305,12 @@ Meteor.js 具有快速原型设计的能力，并能生成跨平台（Android、
   - **版本**：5.0.13
   - **贡献者**：47
   - **使用人数**：754
-- **NPM Weekly Downloads**：3808
+- **周下载数**：3808
 - **License**：MIT
 
 ![adoni.js 流行度](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
 
-Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 的 MVC 框架，可以运行在所有的操作系统上。它为编写服务器端 Web 应用程序提供了一个稳定的生态系统，以让开发者专注于业务需求，如最终确定选择或排除哪个包。
-
-对于想要换个口味，正在尝试 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架的 Laravel 开发者来说，它是理想的选择。
+Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 的 MVC 框架，可以运行在所有的操作系统上。它为编写服务器端 Web 应用程序提供了一个稳定的生态系统，以让开发者专注于业务需求，如最终确定选择或排除哪个包。对于想要换个口味，正在尝试 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架的 Laravel 开发者来说，它是理想的选择。Adonis.js为 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 提供了与Laravel自然具有的相同的功能和能力。
 
 **Adonis.js 可以被用于：**
 
@@ -347,7 +345,7 @@ Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of
   - **版本**：1.4.0
   - **贡献者**：229
   - **使用人数**：23.3k
-- **NPM Weekly Downloads**：20,457
+- **周下载数**：20,457
 - **License**：MIT
 
 ![sails.js 框架流行度](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
