@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-frameworks-to-use-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-frameworks-to-use-in-2021.md)
 > * 译者：[洛竹](https://github.com/youngjuning)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[xilihuasi](https://github.com/xilihuasi)
 
 # 2021 年最值得使用的 Node.js 框架
 
