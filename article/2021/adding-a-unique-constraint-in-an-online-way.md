@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/adding-a-unique-constraint-in-an-online-way.md](https://github.com/xitu/gold-miner/blob/master/article/2021/adding-a-unique-constraint-in-an-online-way.md)
 > * 译者：[kamly](https://github.com/kamly)
-> * 校对者：
+> * 校对者：[huifrank](https://github.com/huifrank), [greycodee](https://github.com/greycodee)
 
 # 以在线的方式添加唯一约束
 
