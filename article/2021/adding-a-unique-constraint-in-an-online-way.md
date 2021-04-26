@@ -9,11 +9,11 @@
 
 > 本文假定使用企业版本。
 
-我有一个表 t，想在它的列（c1）上添加一个唯一约束。
+我有一个表 `t`，想在该表的 `c1` 列上添加一个唯一约束。
 
 ## 离线方式
 
-最直接、最简单的方法是使用单个 ALTER TABLE 语句：
+最简单直接的方法是使用单个 `ALTER TABLE` 语句：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1);
@@ -21,7 +21,7 @@ SQL> alter table t add constraint c1_uk unique (c1);
 Table altered.
 ```
 
-默认情况下，Oracle 在此操作中创建唯一约束（名为 C1_UK）和相应的唯一索引（也名为 C1_UK）来强制实施约束。
+默认情况下，Oracle 在执行这条语句后会创建一个唯一约束（名为 C1_UK）和一个相应的唯一索引（也叫 C1_UK）来强制实施约束。
 缺点是这是一个离线操作 —— 该表被加共享锁。
 
 即使我们在创建索引时声明在线操作，也是如此：
@@ -40,7 +40,7 @@ Table altered.
 
 ### 步骤1：显式创建唯一索引
 
-我们将使用 ONLINE 关键字显式创建索引，而不是让 Oracle 隐式创建索引：
+我们将使用 `online` 关键字显式创建索引，而不是让 Oracle 隐式创建索引：
 
 ```SQL
 SQL> create unique index c1_uk on t(c1) online;
@@ -52,7 +52,7 @@ Index created.
 
 ### 步骤2：创建约束
 
-现在我们可以添加约束，并将其与现有索引相关联。这是一个快速的操作，因为索引已经存在，但是默认的 `alter table ... add constraint ...` 是离线操作。为了让其在线执行，我们应该将约束创建设置为 NOT VALIDATED ：
+现在我们可以添加约束，并将其与现有索引相关联。这是一个快速的操作，因为索引已经存在，但是默认的 `alter table ... add constraint ...` 是离线操作。为了让其在线执行，我们应该将约束创建设置为 `NOT VALIDATED`：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1)
@@ -62,7 +62,7 @@ SQL> alter table t add constraint c1_uk unique (c1)
 Table altered.
 ```
 
-因此，现在该约束被标记为 ENABLED，这意味着将来的DML语句将不能违反它，并且被标记为 NOT VALIDATED,，这意味着现有记录可能会违反它：
+因此，现在该约束被标记为 `ENABLED`，这意味着将来的 DML 语句将不能违反它，并且被标记为 `NOT VALIDATED`，这意味着现有记录可能会违反它：
 
 ```SQL
 SQL> select status,validated,generated,index_name
@@ -78,7 +78,7 @@ ENABLED    NOT VALIDATED   USER NAME  C1_UK
 
 ### 步骤3：验证约束
 
-要将约束标记为 VALIDATED ，我们将使用以下语句：
+要将约束标记为 `VALIDATED`，我们将使用以下语句：
 
 ```SQL
 SQL> alter table t enable validate constraint c1_uk;
