@@ -13,7 +13,7 @@ Whilst learning web development, most of us don’t have much design experience 
 
 This article was originally posted on my personal blog, [DoableDanny.com](https://www.doabledanny.com/UI-Design-Tips-for-Web-Devs). If you enjoy the article, consider subscribing to my [YouTube channel](https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA)!
 
-## [](#1-be-consistent)1\. Be consistent
+## 1. Be consistent
 
 [![consistency example](https://res.cloudinary.com/practicaldev/image/fetch/s--JCUuNeJ5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/y94y3colvzfiih57bolk.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--JCUuNeJ5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/y94y3colvzfiih57bolk.png)
 
@@ -31,7 +31,7 @@ In the bottom image, the text is left aligned, and so are the icons. I also coul
 
 Rule of thumb is to left-align any longer form text e.g. a blog post, as it’s easier to read. For shorter amounts of text, you can left-align or centre.
 
-## [](#2-use-quality-images)2\. Use quality images
+## 2. Use quality images
 
 [![clipart vs quality image](https://res.cloudinary.com/practicaldev/image/fetch/s--h5JqDvUv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vfdpbqclz1qgfhqin020.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--h5JqDvUv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vfdpbqclz1qgfhqin020.png)
 
@@ -39,7 +39,7 @@ Clipart may have been great back when you were 10 years old, but using stuff lik
 
 Professional images can be downloaded and used in your projects completely free from [https://www.unsplash.com](https://www.unsplash.com).
 
-## [](#3-contrast)3\. Contrast
+## 3. Contrast
 
 [![text is easily readable on background image](https://res.cloudinary.com/practicaldev/image/fetch/s--4Qo6ujyj--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/heicl1riiwipqchivyw6.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--4Qo6ujyj--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/heicl1riiwipqchivyw6.png)
 
@@ -52,7 +52,7 @@ Solutions:
 
 Also, notice how the logo in the nav bar is aligned vertically with the left edge of the text and “start my journey” call to action button… now that’s consistency! It's key to a sleek looking design.
 
-## [](#4-whitespace)4\. Whitespace
+## 4. Whitespace
 
 [![poor vs good whitespace](https://res.cloudinary.com/practicaldev/image/fetch/s--jb9nZWm2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iwg0sh21rcw44tboskgk.jpg)](https://res.cloudinary.com/practicaldev/image/fetch/s--jb9nZWm2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/iwg0sh21rcw44tboskgk.jpg)
 
@@ -62,7 +62,7 @@ The paragraph of text in the top image is cramped up too close to the heading an
 
 We can also see that the heading is closer to the paragraph than it is to the logo. Stuff that is closely related should be closer together… but not stupid close.
 
-## [](#5-visual-hierarchy-size-matters)5\. Visual hierarchy – size matters
+## 5. Visual hierarchy – size matters
 
 Your eyes are probably drawn to “The Road Less Travelled” in the image from tip 4. Obviously because it is bigger. It is also bolder. Attention can also be demanded by colour e.g. the “start my journey” button.
 
@@ -70,7 +70,7 @@ A common mistake is to make the nav logo too big, or the nav links stand out too
 
 We want the users attention directed towards the content, not the logo and nav links.
 
-## [](#6-one-font-is-fine)6\. One font is fine!
+## 6. One font is fine!
 
 [![bad vs good font](https://res.cloudinary.com/practicaldev/image/fetch/s--SvQoT7fR--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/io6mymdjufk8m11zwlr6.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--SvQoT7fR--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/io6mymdjufk8m11zwlr6.png)
 
@@ -82,7 +82,7 @@ You can still use a second font for headings if your design looks a little too b
 
 For font sizes, 18px to 21px are common for paragraphs.
 
-## [](#7-tints-and-shades)7\. Tints and shades
+## 7. Tints and shades
 
 [![altering contrast of text](https://res.cloudinary.com/practicaldev/image/fetch/s--Kv7iUmyD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ehtbk36cscfa1nqm6yu7.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Kv7iUmyD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ehtbk36cscfa1nqm6yu7.png)
 
@@ -94,7 +94,7 @@ Then pick one primary “call to action” colour for areas that should stand ou
 
 I use [coolors](https://coolors.co/330088) to find complimentary colours and to get tints and shades.
 
-## [](#8-round-vs-sharp)8\. Round vs sharp
+## 8. Round vs sharp
 
 [![speech bubble](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)
 
@@ -102,7 +102,7 @@ Sharp corners and edges draw your attention. Think the sharp part of a speech bu
 
 What can we do with this knowledge? Round out the corners of your buttons. Why would you want to draw attention to the corners of the button?
 
-## [](#9-borders-are-so-last-year)9\. Borders are so last year
+## 9. Borders are so last year
 
 [![border vs no border](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)
 
@@ -110,7 +110,7 @@ In the old days of the web, borders were everywhere. Nowadays, it’s better to 
 
 Obviously don’t become completely anti-border, they are still great for separating things. Just don’t make them too thick and attention grabbing.
 
-## [](#10-dont-underline-navbar-links)10\. Don't underline nav-bar links
+## 10. Don't underline nav-bar links
 
 [![underline vs none](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)
 
@@ -120,13 +120,13 @@ Underline/change the colour or size on mouse hover and keyboard focus for access
 
 You should still underline links in a body of text for good accessibility - it makes it obvious they are links. Just avoid underlining text that isn't a link.
 
-## [](#11-download-a-design-software)11\. Download a design software
+## 11. Download a design software
 
 I used to begin coding up a project with little to no plan of how I wanted it to look. It took me ages to code everything with trial and error for colours and positioning of elements.
 
 You can iterate through ideas much quicker using design software. I now use AdobeXD (free) to just drag and drop things in place and quickly get a nice design ready to be coded. Figma is also popular but not free.
 
-## [](#awesome-references)Awesome References
+## Awesome References
 
 * The psychology of persuasive web design: [https://www.doabledanny.com/persuasive-web-design](https://www.doabledanny.com/persuasive-web-design)
 * Turn a bad design into a good one: [https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s](https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s)
