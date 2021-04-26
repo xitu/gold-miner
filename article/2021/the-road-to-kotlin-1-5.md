@@ -19,7 +19,7 @@ Changes with the new backend include: a number of [bug fixes](https://youtrack.j
 > 
 > Having a common backend infrastructure opens the door for more multi-platform compiler extensions. It makes it possible to plug into the pipeline and add some custom processing and/or transformations that will automatically work across all targets.
 
-With the [release of Java 16](https://www.infoq.com/news/2021/03/java16-released/), Kotlin has provided support for the new **`[record](https://cr.openjdk.java.net/~briangoetz/amber/datum.html)`** data type to maintain interoperability between Kotlin and Java. A Java **`record`** data type may be declared in Kotlin using the new **`@JvmRecord`** annotation:
+With the [release of Java 16](https://www.infoq.com/news/2021/03/java16-released/), Kotlin has provided support for the new [**`record`**](https://cr.openjdk.java.net/~briangoetz/amber/datum.html) data type to maintain interoperability between Kotlin and Java. A Java **`record`** data type may be declared in Kotlin using the new **`@JvmRecord`** annotation:
 
 ```java
 @JvmRecord
