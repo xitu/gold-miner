@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/20-go-packages-you-can-use-in-your-next-project.md](https://github.com/xitu/gold-miner/blob/master/article/2021/20-go-packages-you-can-use-in-your-next-project.md)
 > * 译者：[tmpbook](https://github.com/tmpbook)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [kamly](https://github.com/kamly)
 
 # 20 Go Packages You Can Use in Your Next Project
 
 ![图片由 [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
 
-[Go](https://golang.org/doc/) 是一门很棒的语言。它诞生于 2007 年，您可以使用它构建几乎所有种类的应用程序。它既像解释型语言一样易于编写，又像编译型语言一样快速高效，同时还考虑到了并发与多核计算。您甚至可以编写可以驱动[嵌入式](https://tinygo.org/)[设备](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0)的程序。
+[Go](https://golang.org/doc/) 是一门很棒的语言。它诞生于 2007 年，您可以使用它构建几乎所有种类的应用程序。它既像解释型语言一样易于编写，又像编译型语言一样快速高效。同时还考虑到了并发与多核计算。您甚至可以编写可以驱动[嵌入式](https://tinygo.org/)[设备](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0)的程序。
 
 像 [Kubernetes](https://github.com/kubernetes/kubernetes)，[Consul](https://github.com/hashicorp/consul) 还有 [NSQ](https://nsq.io/) 这些非常不错的项目都是由 Go 语言编写。
 
@@ -65,7 +65,7 @@ func main() {
 
 它是著名的 Python [requests](https://requests.readthedocs.io/en/master/) 三方库的『克隆』。您可以轻松的发出 HTTP 请求，上传、下载文件或将返回序列化为 JSON 或者 XML。
 
-如果您使用过 Python，使用它时会非常舒服。
+如果您使用过 Python 相关的库，使用它时会非常舒服。
 
 ```Go
 package main
