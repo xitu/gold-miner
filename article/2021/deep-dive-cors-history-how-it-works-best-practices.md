@@ -9,7 +9,7 @@
 
 Learn the history and evolution of same-origin policy and CORS, understand CORS and the different types of cross-origin access in depth, and learn (some) best practices.
 
-## The error in your browser’s console[#](#the-error-in-your-browsers-console)
+## The error in your browser’s console
 
 > No ‘Access-Control-Allow-Origin’ header is present on the requested resource.
 
@@ -23,7 +23,7 @@ These popping-up during development can be annoying. But in fact, CORS is an inc
 
 But let’s go back the beginning…
 
-## In the beginning was the first subresource[#](#in-the-beginning-was-the-first-subresource)
+## In the beginning was the first subresource
 
 A subresource is an HTML element that is requested to be embedded into the document, or executed in its context. [In the year of 1993](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html), the first subresource `<img>` was introduced. By introducing `<img>`, the web got prettier. And more complex.
 
@@ -31,9 +31,9 @@ A subresource is an HTML element that is requested to be embedded into the docum
 
 You see, if your browser would render a page with an `<img>` on it, it would actually have to go fetch that sub**resource** from an origin. When a browser fetches said subresource from an origin that does not reside on the same scheme, fully qualified hostname or port – that’s a **cross-origin request**.
 
-### Origins & cross-origin[#](#origins--cross-origin)
+### Origins & cross-origin
 
-An origin is identified by a triple: scheme, fully qualified hostname and port. For example, `http://example.com` and `https://example.com` are different origins – the first uses `http` scheme and the second `https`. Also, the default `http` port is 80, while the `https` is 443. Therefore, in this example, the two origins differ by scheme and port, although the host is the same (`example.com`).
+An origin is identified by a triple: scheme, fully qualified hostname and port. For example, `http://example.com` and `https://example.com` are different origins – the first uses `http` scheme and the second `https`. Also, the default `http` port is 80, while the `https` is 443. Therefore, in this example, the two origins differ by scheme and port, although the host is the same (`example.com`).
 
 You get the idea – if any of the three items in the triple are different, then the origin is different.
 
@@ -77,7 +77,7 @@ Different host
 
 A cross-origin request means, for example, a resource (i.e. page) such as `http://example.com/posts/bar.html` that would try to render a subresource from the `https://example.com` origin (note the scheme change!).
 
-### The many dangers of cross-origin requests[#](#the-many-dangers-of-cross-origin-requests)
+### The many dangers of cross-origin requests
 
 Now that we defined what same- and cross-origin is, let’s see what is the big deal.
 
@@ -89,7 +89,7 @@ Imagine I got a page on my website `evil.com` with a `<script>`. On the surface 
 
 ![Puff, your account is gone. 🌬](/back-to-the-origin-with-cors/malicious-javascript-injection.png) Puff, your account is gone. 🌬
 
-Mind-blowing – imagine while reading some information on a web page, you get an email from your bank that you’ve successfully deleted your account. I know I know… if it was THAT easy to do **anything** with a bank’s. I digress.
+Mind-blowing – imagine while reading some information on a web page, you get an email from your bank that you’ve successfully deleted your account. I know I know… if it was THAT easy to do **anything** with a bank’s. I digress.
 
 For my evil `<script>` to work, as part of the request your browser would also have to send your credentials (cookies) from the bank’s website. That’s how the bank’s servers would identify you and know which account to delete.
 
@@ -97,17 +97,17 @@ Let’s look at a different, not-so-evil scenario.
 
 I want to detect folks that work for **Awesome Corp**, whose internal website is on `intra.awesome-corp.com`. On my website, `dangerous.com` I got an `<img src="https://intra.awesome-corp.com/avatars/john-doe.png">`.
 
-For users that do not have a session active with `intra.awesome-corp.com`, the avatar won’t render – it will produce an error. But, if you’re logged in the intranet of Awesome Corp., once you open my `dangerous.com` website I’ll know that you have access.
+For users that do not have a session active with `intra.awesome-corp.com`, the avatar won’t render – it will produce an error. But, if you’re logged in the intranet of Awesome Corp., once you open my `dangerous.com` website I’ll know that you have access.
 
 That means that I will be able to derive some information about you. While it’s definitely harder for me to craft an attack, the knowledge that you have access to Awesome Corp. is still a potential attack vector.
 
 ![Leaking info to 3rd parties 💦](/back-to-the-origin-with-cors/resource-embed-attack-vector.png) Leaking info to 3rd parties 💦
 
-While these two are overly-simplistic examples, it is this kind of threats that have made the same-origin policy & CORS neccessary. These are all different dangers of cross-origin requests. Some have been mitigated, others **can’t be** mitigated – they’re rooted in the nature of the web. But for the plethora of attack vectors that have been squashed – it’s because of CORS.
+While these two are overly-simplistic examples, it is this kind of threats that have made the same-origin policy & CORS neccessary. These are all different dangers of cross-origin requests. Some have been mitigated, others **can’t be** mitigated – they’re rooted in the nature of the web. But for the plethora of attack vectors that have been squashed – it’s because of CORS.
 
 But before CORS, there was the same-origin policy.
 
-## Same-origin policy[#](#same-origin-policy)
+## Same-origin policy
 
 The same-origin policy prevents cross-origin attacks by blocking read access to resources loaded from a different origin. This policy still allows some tags, like `<img>`, to embeds resources from a different origin.
 
@@ -161,7 +161,7 @@ Same-origin policy solves many challenges, but it is pretty restrictive. In the 
 
 CORS was born with the goals to relax the same-origin policy and to fine-tune cross-origin access.
 
-## Enter CORS[#](#enter-cors)
+## Enter CORS
 
 So far we covered what is an origin, how it’s defined, what the drawbacks of cross-origin requests are and the same-origin policy that browsers implement.
 
@@ -183,7 +183,7 @@ When it comes to `<img>` and the other embeddable subresources – it’s in the
 
 If your browser is up to date, all of these heuristics are already implemented in it.
 
-### Cross-origin writes[#](#cross-origin-writes)
+### Cross-origin writes
 
 Cross-origin writes can be the very problematic. Let’s look into an example and see CORS in action.
 
@@ -289,7 +289,7 @@ We managed to get the famous CORS error. Athough our Crystal server can fulfil t
 
 In the first example, where we sent the request to `http://localhost:4000/greet` from the tab that rendered `http://localhost:4000`, our browser looks at that request and lets it through because it appears that our website is calling our server (which is fine). But in the second example where our website (`https://google.com`) wants to write to `http://localhost:4000`, then our browser flags that request and does not let it go through.
 
-### Preflight requests[#](#preflight-requests)
+### Preflight requests
 
 If we look deeper in our developer console, in the Network tab in particular, we will in fact notice two requests in place of the one that we sent:
 
@@ -518,7 +518,7 @@ We will see that `POST /greet` did get us a response, without any errors. If we 
 
 By using proper response headers on our preflight endpoint `OPTIONS /greet`, we unlocked our server’s `POST /greet` endpoint to be accessed across different origin. On top of that, by providing a correct CORS response header on the response of the `POST /greet` endpoint, we freed the browser to process the response without any blocking.
 
-### Cross-origin reads[#](#cross-origin-reads)
+### Cross-origin reads
 
 As we mentioned before, cross-origin reads are blocked by default. That’s on purpose - we wouldn’t want to load other resources from other origints in the scope of our origin.
 
@@ -545,7 +545,7 @@ If we look deeper in the request, we will found out something interesting:
 
 ![A successful GET 🎉](/back-to-the-origin-with-cors/google-cross-origin-get-blocked-inspect.png) A successful GET 🎉
 
-In fact, just like before, our browser did let the request through – we got a HTTP 200 back. But it did not expose our opened page / tab to the response of that request. Again, in this case CORS does not block the request - **it blocks the response**.
+In fact, just like before, our browser did let the request through – we got a HTTP 200 back. But it did not expose our opened page / tab to the response of that request. Again, in this case CORS does not block the request - **it blocks the response**.
 
 Just like with cross-origin writes, we can relax CORS and make it available for cross-origin reading - by adding the `Access-Control-Allow-Origin` header:
 
@@ -570,7 +570,7 @@ When the browser gets the response back from the server, it will look at the `Ac
 
 This is how the browser shields us from cross-origin reads and respects the server directives that are sent via the headers.
 
-## Fine-tuning CORS[#](#fine-tuning-cors)
+## Fine-tuning CORS
 
 As we already saw in previous examples, to relax the CORS policy of our website, we can set the `Access-Control-Allow-Origin` of our `/greet` action to the `https://www.google.com` value:
 
@@ -641,13 +641,13 @@ The available options for the `credentials` options are `omit`, `same-origin` an
 
 The Fetch API spec contains a well-written and thorough [breakdown](https://fetch.spec.whatwg.org/#cors-protocol-and-credentials) of the interplay of CORS and the `fetch` Web API, and the security mechanisms put in place by browsers.
 
-## Some best practices[#](#some-best-practices)
+## Some best practices
 
 Before we wrap it up, let’s cover some best practices when it comes to Cross Origin Resource Sharing (CORS).
 
-### Free for all[#](#free-for-all)
+### Free for all
 
-A common example is if you own a website that displays content for the public, that is not behind paywalls, or requiring authentication or authorization – you should be able to set `Access-Control-Allow-Origin: *` to its resources.
+A common example is if you own a website that displays content for the public, that is not behind paywalls, or requiring authentication or authorization – you should be able to set `Access-Control-Allow-Origin: *` to its resources.
 
 The `*` value is a good choice in cases when:
 
@@ -665,13 +665,13 @@ Now, if an attacker hosts as website `dangerous.com`, which contains a link to a
 
 While such an attack is hard and requires a lot of knowledge about the VPN and the files stored within it, it is a potential attack vector that we must be aware of.
 
-### Keeping it in the family[#](#keeping-it-in-the-family)
+### Keeping it in the family
 
 Continuing with the example from above, imagine we want to implement analytics for our website. We would like our users' browsers to send us data about the experience and behavior of our users on our website.
 
 A common way to do this is to send that data periodically using asynchronous requests using JavaScript in the browser. On the backend we have a simple API that takes these requests from our users' browsers and stores the data on the backend for further processing.
 
-In such cases, our API is public, but we don’t want **any** website to send data to our analytics API. In fact, we are interested only in requests that originate from browsers that have our website rendered – that is all.
+In such cases, our API is public, but we don’t want **any** website to send data to our analytics API. In fact, we are interested only in requests that originate from browsers that have our website rendered – that is all.
 
 ![](/back-to-the-origin-with-cors/no-cross-origin-api.png)
 
@@ -681,13 +681,13 @@ If users or other websites try to cram data in our analytics API, the `Access-Co
 
 ![](/back-to-the-origin-with-cors/failed-cross-origin-api.png)
 
-### NULL origins[#](#null-origins)
+### NULL origins
 
 Another interesting case are `null` origins. They occur when a resource is accessed by a browser that renders a local file. For example, requests coming from some JavaScript running in a static file on your local machine have the `Origin` header set to `null`.
 
 In such cases, if our servers do now allow access to resources for the `null` origin, then it can be a hindrance to the developer productivity. Allowing the `null` origin within your CORS policy has to be deliberately done, and only if the users of your website / product are developers.
 
-### Skip cookies, if you can[#](#skip-cookies-if-you-can)
+### Skip cookies, if you can
 
 As we saw before with the `Access-Control-Allow-Credentials`, cookies are not enabled by default. To allow cross-origin sending cookies, it as easy as returning `Access-Control-Allow-Credentials: true`. This header will tell browsers that they are allowed to send credentials (i.e. cookies) in cross-origin requests.
 
@@ -699,7 +699,7 @@ While the `Access-Control-Allow-Origin: *` and `Access-Control-Allow-Credentials
 
 If you would like your servers to be accessed by different clients and origins, you should probably look into building an API (with token-based authentication) instead of using cookies. But if going down the API path is not an option, then make sure you implement cross-site request forgery (CSRF) protection.
 
-## Additional reading[#](#additional-reading)
+## Additional reading
 
 I hope this (long) read gave you a good idea about CORS, how it came to be, and why it’s neccesary. Here are a few more links that I used while writing this article, or that I believe are a good read on the topic:
 
@@ -709,11 +709,6 @@ I hope this (long) read gave you a good idea about CORS, how it came to be, and 
 * The [“CORS protocol” section](https://fetch.spec.whatwg.org/#http-cors-protocol) of the [Fetch API spec](https://fetch.spec.whatwg.org)
 * [Same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) on MDN Web Docs
 * [Quentin’s](https://stackoverflow.com/users/19068/quentin) great [summary of CORS](https://stackoverflow.com/a/35553666) on StackOverflow
-
-**Liked this article?** [Subscribe to my newsletter](/newsletter) and get my fresh posts in your inbox. It's short and sweet, going out monthly to over 1,000 subscribers.
-
-[Next Page »  
-Testing in Go: Stop Leaking Files](https://ieftimov.com/post/testing-in-go-stop-leaking-files/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
