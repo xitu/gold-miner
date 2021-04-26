@@ -23,33 +23,32 @@ With the [release of Java 16](https://www.infoq.com/news/2021/03/java16-released
 
 ```java
 @JvmRecord
-data class User(val name: String, val age: Int)
-    
+data class User(val name: String, val age: Int) 
 ```
 
 Compiler options **`-Xjvm-enable-preview`** and **`-language-version 1.5`** must be used to experiment with this new feature.
 
 Sealed interfaces were designed to complement sealed classes to create a more flexible [sealed class hierarchy](https://kotlinlang.org/docs/whatsnew1430.html#package-wide-sealed-class-hierarchies). It is also possible for a derived class to inherit from more than one sealed interface:
 
-```java
+```kotlin
 sealed interface Fillable {
     fun fill()
-    }
+}
 
 sealed interface Polygon {
     val vertices: List<Point>
-    }
+}
 
 class Rectangle(override val vertices: List<Point>): Fillable, Polygon {
     override fun fill() {
         /*...*/
-        }
     }
+}
 ```
 
 To improve the build performance, the Kotlin Gradle plugin is now compatible with the [Gradle configuration cache](https://docs.gradle.org/current/userguide/configuration_cache.html), an incubating Gradle feature that improves build times by caching the result of the configuration phase and reusing it for subsequent builds. Consider the following example:
 
-```java
+```bash
 $ gradle --configuration-cache help
 Calculating task graph as no configuration cache is available for tasks: help
 ...
@@ -60,7 +59,7 @@ Configuration cache entry stored.
 
 Executing the same command again will produce:
 
-```java
+```bash
 $ gradle --configuration-cache help
 Reusing configuration cache.
 ...
