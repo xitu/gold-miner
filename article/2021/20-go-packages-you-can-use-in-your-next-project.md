@@ -2,26 +2,26 @@
 > * 原文作者：[Fernando Souza](https://medium.com/@cleberdsouza)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/20-go-packages-you-can-use-in-your-next-project.md](https://github.com/xitu/gold-miner/blob/master/article/2021/20-go-packages-you-can-use-in-your-next-project.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tmpbook](https://github.com/tmpbook)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [kamly](https://github.com/kamly)
 
-# 20 Go Packages You Can Use in Your Next Project
+# 可以在下一个项目中使用的 20 个 Go 三方库
 
-![Photo by [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
+![图片由 [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
 
-[Go](https://golang.org/doc/) is an amazing language that you can use to build almost any kind of program. Developed in 2007, it has the ease of an interpreted language while also being fast and efficient as a compiled language. It was also built thinking about concurrency and getting advantage of the multicore machines. You can even write programs to [embedded](https://tinygo.org/) [devices](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0).
+[Go](https://golang.org/doc/) 是一门很棒的语言。它诞生于 2007 年，您可以使用它构建几乎所有种类的应用程序。它既像解释型语言一样易于编写，又像编译型语言一样快速高效。同时还考虑到了并发与多核计算。您甚至可以编写可以驱动[嵌入式](https://tinygo.org/)[设备](https://medium.com/vacatronics/lets-go-embedded-with-esp32-cb6bb3043bd0)的程序。
 
-Since then, a lot of nice programs and tools have been created using Go, such as [Kubernetes](https://github.com/kubernetes/kubernetes), [Consul](https://github.com/hashicorp/consul), and [NSQ](https://nsq.io/).
+像 [Kubernetes](https://github.com/kubernetes/kubernetes)，[Consul](https://github.com/hashicorp/consul) 还有 [NSQ](https://nsq.io/) 这些非常不错的项目都是由 Go 语言编写。
 
-With only the [standard packages](https://golang.org/pkg/) from Go you already can build a nice application.
+仅使用 Go 的[标准库](https://golang.org/pkg/)，您就可以构建出不错的应用程序。
 
-Fortunately, Go has a vibrant community that creates and shares a lot of libraries that you can use to improve your development. Let’s see some of them in this article.
+幸运的是，Go 拥有一个充满活力的社区，可以创建和共享许多三方库，您可以使用它们来加速和优化开发。本文我们会介绍其中的一部分。
 
-> **Note**: you definitely should check the [Awesome Go](https://github.com/avelino/awesome-go) github repository, which has a huge list of Go projects, libraries, and resources.
+> **Note**: 一定别忘记查看这个 GitHub 仓库：[Awesome Go](https://github.com/avelino/awesome-go) 它包含了大量的 Go 项目、第三方库还有其它资源。
 
 ## Golang-Set
 
-An attempt to mimic the primary features of the set data structure from Python into Go. An example of the use:
+一个试图在 Go 中模仿 Python 主要特性：Set 数据结构的库。使用示例：
 
 ```Go
 package main
@@ -51,21 +51,21 @@ func main() {
 }
 ```
 
-You can know more about it [here](https://github.com/deckarep/golang-set).
+您可以在[此处](https://github.com/deckarep/golang-set)了解更多信息。
 
 ## Go kit
 
-It is a toolkit to implement microservices. It handles the basic about a distributed system, so you can focus on your business logic.
+它是实现微服务的工具包。会帮您实现分布式系统的基础功能，这样您可以专注于业务逻辑。
 
-If you want to adopt a microservice architecture in your solution, “Go kit will help you structure and build out your services, avoid common pitfalls, and write code that grows with grace”.
+如果您想在解决方案中使用微服务架构，『Go kit 将帮助您结构化的构建服务，并帮您避开常见的坑，伴随您的项目一起成长』。
 
-Check out [here](https://github.com/go-kit/kit).
+您可以在[此处](https://github.com/go-kit/kit)了解更多信息。
 
 ## GRequests
 
-It is a Go “clone” of the famous Python [requests](https://requests.readthedocs.io/en/master/) library. You can easily do a HTTP request, upload/download a file, or serialize a response into JSON or XML.
+它是著名的 Python [requests](https://requests.readthedocs.io/en/master/) 三方库的『克隆』。您可以轻松的发出 HTTP 请求，上传、下载文件或将返回序列化为 JSON 或者 XML。
 
-If you have worked with Python, you will feel very comfortable using it.
+如果您使用过 Python 相关的库，使用它时会非常舒服。
 
 ```Go
 package main
@@ -88,15 +88,15 @@ func main() {
 
 ## Ws
 
-The [package ws](https://pkg.go.dev/github.com/gobwas/ws) implements a client and server for the [WebSocket](https://en.wikipedia.org/wiki/WebSocket) protocol. It has some nice features, such as zero-copy upgrade and low-level API in case you want to write your own logic.
+第三方库 [ws](https://pkg.go.dev/github.com/gobwas/ws) 为 [Websocket](https://en.wikipedia.org/wiki/WebSocket) 协议实现了客户端和服务端。它具有一些不错的功能，如零拷贝升级和底层 API（其中底层 API 在您想写自己的逻辑是很有用）。
 
-You can know more about it [here](https://github.com/gobwas/ws).
+您可以在[此处](https://github.com/gobwas/ws)了解更多信息。
 
 ## Email
 
-A robust and flexible email library. It provides a more human interface to send emails using Go.
+强大而灵活的电子邮件三方库。它提供了更人性化的接口来使用 Go 发送电子邮件。
 
-You can add attachments, send text / html messages, or add custom headers, in a very clear way.
+您可以已非常清晰的方式添加附件、发送文本、HTML 消息或添加自定义标题。
 
 ```Go
 package main
@@ -118,93 +118,93 @@ func main() {
 
 ```
 
-You can know more about it [here](https://github.com/jordan-wright/email).
+您可以在[此处](https://github.com/jordan-wright/email)了解更多信息。
 
 ## Gin
 
-With more than 44k stars on Github, it is one of the most popular Go library. It is a web framework, and it focus on productivity and performance.
+Github 上 start 数量超过 44k，最受欢迎的 Go 三方库之一。它是一个 Web 框架，专注生产力与性能。
 
-It has a lot of features, such as middleware customization, serving static files, handle multiple data formats, and HTML rendering.
+它有很多功能，例如自定义中间件，提供静态文件服务，处理多种数据格式，HTML 渲染等。
 
-If you want to develop an API or a Web application, you should definitely consider using [Gin](https://github.com/gin-gonic/gin).
+如果您想开发一个 API 或 Web 应用程序，您绝对应该考虑使用 [Gin](https://github.com/gin-gonic/gin)。
 
 ## Fuzzy
 
-Go library that provides a fuzzy string matching in the same style as Sublime, VSCode, etc.
+Go 三方库，提供与 Sublime，VsCode 等编辑器样式相同的字符串模糊匹配功能。
 
-It only depends on the Go standard library, and it is fast. It is a good choice if you want to add a search functionality to your application.
+它仅依赖 Go 标准库，并且速度很快，如果您要向应用程序添加搜索功能，它会是一个不错的选择。
 
-Github [here](https://github.com/sahilm/fuzzy).
+Github 地址在[这](https://github.com/sahilm/fuzzy)。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*MHy_yztfQo_5ceL7)
 
 ## Authboss
 
-Authentication is a mandatory part of any modern web application. Creating all the necessary boilerplate can be cumbersome, and you can actually miss something.
+身份验证是现代 Web 应用程序所必须的部分。编写一个全功能的组件可能很麻烦，而且您大概率也会遗漏一些东西。
 
-This library aims to help you implement an authentication system, saving you time and avoid some mistakes that you might do.
+该三方库旨在帮助您实现身份验证系统，帮您节省时间的同时避免一些可能会犯的错误。
 
-Check the documentation [here](https://github.com/volatiletech/authboss).
+您可以在[此处](https://github.com/volatiletech/authboss)了解更多信息。
 
 ## Uuid
 
-This package provides a pure Go implementation of [UUID,](https://en.wikipedia.org/wiki/Universally_unique_identifier) supporting both creation and parsing.
+该三方库提供了 [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) 的纯 Go 实现，同时支持创建和解析。
 
-It supports from version 1 to 5, and it is simple to use.
+它同时支持版本 1 到版本 5，而且非常易用。
 
 ```Go
 package main
 
 import (
-	"fmt"
-	"github.com/gofrs/uuid"
+ "fmt"
+ "github.com/gofrs/uuid"
 )
 
 func main() {
-	// Creating UUID Version 4
-	// panic on error
-	u1 := uuid.Must(uuid.NewV4())
-	fmt.Printf("UUIDv4: %s\n", u1)
+ // Creating UUID Version 4
+ // panic on error
+ u1 := uuid.Must(uuid.NewV4())
+ fmt.Printf("UUIDv4: %s\n", u1)
 
-	// Parsing UUID from string input
-	u2, err := uuid.FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
-	if err != nil {
-		fmt.Printf("Something went wrong: %s", err)
-		return
-	}
-	fmt.Printf("Successfully parsed: %s", u2)
+ // Parsing UUID from string input
+ u2, err := uuid.FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
+ if err != nil {
+  fmt.Printf("Something went wrong: %s", err)
+  return
+ }
+ fmt.Printf("Successfully parsed: %s", u2)
 }
 ```
 
-More information [here](https://github.com/gofrs/uuid).
+您可以在[此处](https://github.com/gofrs/uuid)了解更多信息。
 
 ## Gorm
 
-If you are implement an API, there are good chances you will need to connect to a database. While you can do this by hand, using a ORM can save you a lot of time.
+如果要实现一些 API 功能，则很有可能需要连接数据库。尽管您可以手动执行此操作，但是使用 ORM 可以节省大量的时间。
 
-[Gorm](https://gorm.io/) is a fantastic ORM library for Go. You can create models, associations, hooks, transactions, and a lot more nice features.
+[Gorm](https://gorm.io/)是绝佳的 Go ORM 三方库。您可以使用其模型创建、关联、钩子、事务等其它很棒的功能。
 
-It is also a mandatory library if you want to work with a database.
+如果您要和数据库打交道，是很有必要使用它的。
 
-## Graphql
+## GraphQL
 
-If you want to add support to [GraphQL](https://graphql.org/), then this is your package. It supports queries, mutations, and subscriptions.
+如果您想支持 [GraphQL](https://graphql.org/)，您可以用它，它提供了查询、更新和订阅。
 
-Check the Github [here](https://github.com/graphql-go/graphql).
+您可以在[此处](https://github.com/graphql-go/graphql)了解更多信息。
 
 ![Source [here](https://github.com/onsi/ginkgo).](https://cdn-images-1.medium.com/max/3092/0*DMqByNp79q_gLoKt)
 
 ## Ginkgo
 
-One of the biggest complains of the community is the poor native Go testing packages.
+社区抱怨最多的问题就是 testing 标准库的功能太弱。
 
-Ginkgo extends standard [testing](https://golang.org/pkg/testing/) package, allowing expressive BDD ([Behavior-Driven Development](https://en.wikipedia.org/wiki/Behavior-driven_development)) style tests.
+Ginkgo 扩展了 [testing](https://golang.org/pkg/testing/) 标准库，允许富有变现力的 BDD（[行为驱动开发](https://en.wikipedia.org/wiki/Behavior-driven_development)）类型的测试。
 
 ```Go
 package books_test
 
 import (
-	_ "github.com/onsi/ginkgo/ginkgo"
+ _ "github.com/onsi/ginkgo/ginkgo"
 )
 
 Describe("the strings package", func() {
@@ -218,13 +218,13 @@ Describe("the strings package", func() {
 })
 ```
 
-Check the documentation [here](http://onsi.github.io/ginkgo/).
+您可以在[此处](http://onsi.github.io/ginkgo/)了解更多信息。
 
 ## Errors
 
-Outstanding library for error handling. The main feature is to handle the error identical to the official way, but with the addition of an annotation without losing the original error context (files and line numbers).
+出色的错误处理三方库。主要功能是和官方的方式一样处理错误，不同的是添加了注释而不会丢失原始错误的上下文（文件和行号）。
 
-As stated in the [documentation](https://github.com/juju/errors), the error handling becomes:
+如[文档](https://github.com/juju/errors)所属，使用本三方库错误处理变成了这样：
 
 ```Go
 if err := SomeFunc(); err != nil {
@@ -232,49 +232,49 @@ if err := SomeFunc(); err != nil {
 }
 ```
 
-This can save a lot of time during your development or even when trying to find that annoying bug.
+这样可以节省大量时间，特别是当我们在排查烦人的 bug 时。
 
 ![Source [here](https://github.com/spf13/cobra).](https://cdn-images-1.medium.com/max/2134/0*hnh5EndaQhAun6hm.png)
 
 ## Cobra
 
-It is both a library to create CLI programs as well as a program to help you create a well-structure application.
+它不仅可以帮您构建 CLI 程序，还可以帮您创建结构合理的应用。
 
-It has great features as nested commands, flags, intelligent suggestions, help generation, and more.
+它具有命令嵌套，flag，智能建议，帮助生成等功能。
 
-If you need to create a CLI program, [cobra](https://github.com/spf13/cobra) is the only tool you need.
+如果您需要创建一个 CLI 程序，[cobra](https://github.com/spf13/cobra) 是您必用的三方库之一。
 
 ## Logrus
 
-Another popular library for Go, Logrus is a structured logger that provides a comprehensive extension for the native logging package.
+另一个流程的 Go 三方库 Logrus 是一个结构化的记录器，它为本地日志标准库提供了全面的扩展。
 
-You can also add some hooks to be executed when a certain error level occurred.
+您还可以添加一些钩子，以便在发生特定级别的错误时执行。
 
-Check the [documentation](https://github.com/sirupsen/logrus) to see how to use it.
+您可以在[此处](https://github.com/sirupsen/logrus)了解更多信息。
 
 ## Dateparse
 
-With this library you can parse date strings without knowing the format. It reads the bytes and uses a state machine to find the correct format.
+有了这个库，您可以在不知道格式的情况下解析日期字符串。它可以读取字节并使用状态机找到正确的格式。
 
 ```Go
 t, err := dateparse.ParseAny("3/1/2014")
 ```
 
-Check the [documentation](https://github.com/araddon/dateparse) for more examples.
+您可以在[此处](https://github.com/araddon/dateparse)了解更多信息。
 
 ## Gonum
 
-A set of numeric libraries for Go. It contains libraries for matrices, statistics, integration, differentiation, among others.
+一组 Go 的数值处理三方库。它包含矩阵、统计、微积分等三方库。
 
-If you need to include some mathematics in your code, you have to use it. It saves you time and gives you a consistent scientific code.
+如果您需要在代码中包含一些数学相关操作，那您一定要使用它。它会帮您节省时间并提供给您科学一致的代码。
 
-Check the [documentation](https://www.gonum.org/) for how to use.
+您可以在[此处](https://www.gonum.org/)了解更多信息。
 
 ## Gopsutil
 
-Another library that was inspired by a [Python package](https://pypi.org/project/psutil/). You can retrieve information about running process and system utilization on different platforms.
+另一个受 [Python 包](https://pypi.org/project/psutil/)启发的库。您可以使用它从不同平台上取回运行中进程和系统的利用率的相关信息。
 
-It is useful to monitor your system resources and processes.
+如果需要对系统资源和进程进行监控，那它会很有用。
 
 ```Go
 package main
@@ -295,33 +295,33 @@ func main() {
 }
 ```
 
-Check the documentation [here](https://github.com/shirou/gopsutil).
+您可以在[此处](https://github.com/shirou/gopsutil)了解更多信息。
 
 ![Source [here](https://fyne.io/).](https://cdn-images-1.medium.com/max/3008/0*4qYylK17SMS_rNMU.png)
 
 ## Fyne
 
-You can create a beautiful GUI application for desktop and mobile using the nice [Fyne](https://fyne.io/) package.
+您可以使用 [Fyne](https://fyne.io/) 三方库创建漂亮的桌面和移动端 GUI 程序。
 
-It is based on Material Design, so it has nice features of usability, widgets, layouts, and it is designed to be easy to develop.
+它基于 Material Design，具有高可用性，支持组件，布局等友好特性，它被设计的非常易于开发。
 
-Check out the [documentation](https://github.com/fyne-io/fyne).
+您可以在[此处](https://github.com/fyne-io/fyne)了解更多信息。
 
 ## Ants
 
-A nice feature of the Go language is the concurrency support and the [goroutines](https://www.geeksforgeeks.org/goroutines-concurrency-in-golang/). But managing all the routines in an application can be really challenging.
+Go 语言的一个很好的特性是并发支持和 [goroutines](https://www.geeksforgeeks.org/goroutines-concurrency-in-golang/)。但是管理一个应用程序中的所有协程是非常有挑战性的。
 
-The [ants](https://github.com/panjf2000/ants) library implements a pool that manage and recycle a massive number of goroutines, automatically. It has nonblocking mechanisms and handle panic without crashing an application.
+[ants](https://github.com/panjf2000/ants) 实现了一个自动批量管理和回收 goroutines 的池。它具有非阻塞机制，可以在不使应用程序崩溃的情况下处理 panic。
 
-If you need to create an application that uses concurrency, you should definitely check [this library](https://github.com/panjf2000/ants) out.
+如果您需要创建一个涉及并发的应用程序，那您一定要尝试一下[这个库](https://github.com/panjf2000/ants)。
 
-## Conclusion
+## 最后
 
-Go is a fantastic language, with nice features from the standard library. But even with support, sometimes you need an extra help.
+Go 是一门非常棒的语言，它有非常棒的标准库。但是即使有标准库的支持，有时候我们仍然需要一些额外的帮助。
 
-The community has already built a lot of great libraries that can help you, either by saving your time, so you don’t need to implement again, or by creating an easy to use interface.
+社区已经提供了很多优秀的三方库，它们可以帮助您节省时间，这样您就不需要重复造轮子或者重复实现易用的接口。
 
-If you know another awesome library that is not listed here, leave a comment.
+如果您知道这里没有列出的其他很棒的三方库，请留下评论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
