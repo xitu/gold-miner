@@ -2,18 +2,18 @@
 > * 原文作者：[Oren Nakdimon](http://db-oriented.com/en/author/orenn/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/adding-a-unique-constraint-in-an-online-way.md](https://github.com/xitu/gold-miner/blob/master/article/2021/adding-a-unique-constraint-in-an-online-way.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kamly](https://github.com/kamly)
+> * 校对者：[huifrank](https://github.com/huifrank), [greycodee](https://github.com/greycodee)
 
-# Adding a Unique Constraint in an Online Way
+# 以在线的方式添加唯一约束
 
-> this article assumes using Enterprise Edition
+> 本文假定使用企业版本。
 
-I have a table t and I want to add a unique constraint on one of its columns -- c1.
+我有一个表 `t`，想在该表的 `c1` 列上添加一个唯一约束。
 
-## The Offline Way
+## 离线方式
 
-The straightforward and most simple way to do it is using a single alter table statement:
+最简单直接的方法是使用单个 `ALTER TABLE` 语句：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1);
@@ -21,10 +21,10 @@ SQL> alter table t add constraint c1_uk unique (c1);
 Table altered.
 ```
 
-By default, Oracle creates in this operation a unique constraint (named c1_uk) and a corresponding unique index (named c1_uk as well) that enforces the constraint.\
-The downside is that this is an offline operation -- the table is locked in Share mode.
+默认情况下，Oracle 在执行这条语句后会创建一个唯一约束（名为 C1_UK）和一个相应的唯一索引（也叫 C1_UK）来强制实施约束。
+缺点是这是一个离线操作 —— 该表被加共享锁。
 
-This is true even if we specify that the creation of the index is online:
+即使我们在创建索引时声明在线操作，也是如此：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1) using index online;
@@ -32,15 +32,15 @@ SQL> alter table t add constraint c1_uk unique (c1) using index online;
 Table altered.
 ```
 
-If the table contains many records, the creation of the index may take a significant amount of time, during which the table is locked and DML operations on the table are blocked.
+如果表包含许多记录，创建索引可能需要相当长的时间，在此期间表被锁定，表上的 DML 操作被阻塞。
 
-## The Online Way
+## 在线方式
 
-We can create the unique constraint in an online way, by splitting the operation into three steps:
+通过将操作拆分为三个步骤，我们可以以在线的方式创建唯一约束：
 
-### STEP 1: CREATING THE UNIQUE INDEX EXPLICITLY
+### 步骤1：显式创建唯一索引
 
-Instead of letting Oracle create the index implicitly, we'll create it explicitly, using the online keyword:
+我们将使用 `online` 关键字显式创建索引，而不是让 Oracle 隐式创建索引：
 
 ```SQL
 SQL> create unique index c1_uk on t(c1) online;
@@ -48,11 +48,11 @@ SQL> create unique index c1_uk on t(c1) online;
 Index created.
 ```
 
-This operation may take some time, depending on the size of the table, but it is an online operation.
+此操作可能需要一些时间，具体取决于表的大小，但它是一个在线操作。
 
-### STEP 2: CREATING THE CONSTRAINT
+### 步骤2：创建约束
 
-Now we can add the constraint, and associate it with the already-existing index. This is a fast operation, as the index already exists, but the default alter table... add constraint operation is an offline one. To make it online we should create the constraint as NOT VALIDATED:
+现在我们可以添加约束，并将其与现有索引相关联。这是一个快速的操作，因为索引已经存在，但是默认的 `alter table ... add constraint ...` 是离线操作。为了让其在线执行，我们应该将约束创建设置为 `NOT VALIDATED`：
 
 ```SQL
 SQL> alter table t add constraint c1_uk unique (c1)
@@ -62,7 +62,7 @@ SQL> alter table t add constraint c1_uk unique (c1)
 Table altered.
 ```
 
-So now the constraint is marked as ENABLED, which means that future DML statements will not be able to violate it, and as NOT VALIDATED, which means that existing records may violate it:
+因此，现在该约束被标记为 `ENABLED`，这意味着将来的 DML 语句将不能违反它，并且被标记为 `NOT VALIDATED`，这意味着现有记录可能会违反它：
 
 ```SQL
 SQL> select status,validated,generated,index_name
@@ -74,11 +74,11 @@ STATUS     VALIDATED       GENERATED  INDEX_NAME
 ENABLED    NOT VALIDATED   USER NAME  C1_UK
 ```
 
-De facto we know that no existing record violates the constraint, because the unique index enforces the uniqueness for the entire table. To make this fact "officially documented", we'll go to the third step.
+事实上，我们知道没有任何现有记录违反约束，因为唯一索引强制整个表具有唯一性。为了使这一事实被“正式记录”，我们将进入第三步。
 
-### STEP 3: VALIDATING THE CONSTRAINT
+### 步骤3：验证约束
 
-To mark the constraint as VALIDATED, we'll issue the following statement:
+要将约束标记为 `VALIDATED`，我们将使用以下语句：
 
 ```SQL
 SQL> alter table t enable validate constraint c1_uk;
@@ -86,11 +86,11 @@ SQL> alter table t enable validate constraint c1_uk;
 Table altered.
 ```
 
-This is an online operation, but is it also a fast operation?\
-When we validate a check constraint or a foreign key constraint, Oracle scans all the records in the table to make sure no record violates the constraint, and for big tables this may take a significant amount of time.
+这是一个在线操作，但它也是一个快速操作吗？
+当我们验证检查约束或外键约束时，Oracle 将扫描表中的所有记录，以确保没有记录违反约束，对于大型表，这可能需要很长时间。
 
-But in our case Oracle knows that the unique index already enforces the constraint for all the existing records in the table, and it optimizes the validation phase.\
-Using SQL trace we can see that the query that performs the actual validation looks like this:
+但是在我们的例子中，Oracle 知道唯一索引已经对表中的所有现有记录实施了约束，并且它优化了验证阶段。
+使用 SQL 跟踪，我们可以看到执行实际验证的查询如下所示：
 
 ```SQL
 select /*+ all_rows ordered dynamic_sampling(2) */ A.rowid, :1, :2, :3
@@ -98,13 +98,13 @@ from "DEMO"."T" A
 where 1=0
 ```
 
-so this validation phase is fast, regardless of the size of the table, as the validation does not visit the table records at all.
+因此，无论表的大小如何，此验证阶段都很快，因为验证根本不访问表记录。
 
-## Enforcing a Unique Constraint by a Non-Unique Index
+## 通过非唯一索引强制实施唯一约束
 
-Oracle can enforce a unique constraint also by using a non-unique index, as long as the columns in the constraint are the leading columns of the index.
+只要约束中的列是索引的前导列，Oracle 也可以通过使用非唯一索引来强制实施唯一约束。
 
-Let's repeat the steps from the previous section with a non-unique index (after dropping and recreating the table).
+让我们使用非唯一索引重复上一节中的步骤（在删除并重新创建表之后）。
 
 ```SQL
 SQL> create /* non-unique */ index c1_idx on t(c1) online;
@@ -122,7 +122,7 @@ SQL> alter table t enable validate constraint c1_uk;
 Table altered.
 ```
 
-In this case the third step is not just a "rubber stamp", as it was when we used a unique index. Here the existing records should be actually validated, and indeed we can see it in the trace file:
+在本例中，第三步不像我们使用唯一索引时那样只是一个“橡皮图章”。这里应该实际验证现有记录，并且实际上我们可以在跟踪文件中看到它：
 
 ```SQL
 select /*+ all_rows ordered dynamic_sampling(2) */ A.rowid, :1, :2, :3
