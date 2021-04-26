@@ -27,7 +27,7 @@ But let’s go back the beginning…
 
 A subresource is an HTML element that is requested to be embedded into the document, or executed in its context. [In the year of 1993](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html), the first subresource `<img>` was introduced. By introducing `<img>`, the web got prettier. And more complex.
 
-![Back to 1993](/back-to-the-origin-with-cors/meet-img.png) Back to 1993
+![Back to 1993](https://ieftimov.com/back-to-the-origin-with-cors/meet-img.png)
 
 You see, if your browser would render a page with an `<img>` on it, it would actually have to go fetch that sub**resource** from an origin. When a browser fetches said subresource from an origin that does not reside on the same scheme, fully qualified hostname or port – that’s a **cross-origin request**.
 
@@ -87,7 +87,7 @@ Let’s travel to an imaginary world where CORS does not exist and web browsers 
 
 Imagine I got a page on my website `evil.com` with a `<script>`. On the surface it looks like a simple page, where you read some useful information. But in the `<script>`, I have specially crafted code that will send a specially-crafted request to bank’s `DELETE /account` endpoint. Once you load the page, the JavaScript is executed and an AJAX call hits the bank’s API.
 
-![Puff, your account is gone. 🌬](/back-to-the-origin-with-cors/malicious-javascript-injection.png) Puff, your account is gone. 🌬
+![Puff, your account is gone. 🌬](https://ieftimov.com/back-to-the-origin-with-cors/malicious-javascript-injection.png)
 
 Mind-blowing – imagine while reading some information on a web page, you get an email from your bank that you’ve successfully deleted your account. I know I know… if it was THAT easy to do **anything** with a bank’s. I digress.
 
@@ -101,7 +101,7 @@ For users that do not have a session active with `intra.awesome-corp.com`, the a
 
 That means that I will be able to derive some information about you. While it’s definitely harder for me to craft an attack, the knowledge that you have access to Awesome Corp. is still a potential attack vector.
 
-![Leaking info to 3rd parties 💦](/back-to-the-origin-with-cors/resource-embed-attack-vector.png) Leaking info to 3rd parties 💦
+![Leaking info to 3rd parties 💦](https://ieftimov.com/back-to-the-origin-with-cors/resource-embed-attack-vector.png)
 
 While these two are overly-simplistic examples, it is this kind of threats that have made the same-origin policy & CORS neccessary. These are all different dangers of cross-origin requests. Some have been mitigated, others **can’t be** mitigated – they’re rooted in the nature of the web. But for the plethora of attack vectors that have been squashed – it’s because of CORS.
 
@@ -247,7 +247,7 @@ $ crystal run server.cr
 
 This will boot the server and listen on `localhost:4000`. If we navigate to `localhost:4000` in our browser, we will be presented a simple “Hello World” page:
 
-![Hello, world! 🌍](/back-to-the-origin-with-cors/hello-world-localhost.png) Hello, world! 🌍
+![Hello, world! 🌍](https://ieftimov.com/back-to-the-origin-with-cors/hello-world-localhost.png)
 
 Now that we know our server is running, let’s execute a `POST /greet` to the server listening on `localhost:4000`, from the console of our browser page. We can do that by using `fetch`:
 
@@ -277,13 +277,13 @@ fetch(
 
 Once we run it, we will see the greeting come back from the server:
 
-![Hi there! 👋](/back-to-the-origin-with-cors/hello-world-localhost-post.png) Hi there! 👋
+![Hi there! 👋](https://ieftimov.com/back-to-the-origin-with-cors/hello-world-localhost-post.png)
 
 This was a `POST` request, but it was not cross-origin. We sent the request from the browser where `http://localhost:4000` (the origin) was rendered, to that same origin.
 
 Now, let’s try the same request, but cross-origin. We will open `https://google.com` and try to send that same request from that tab in our browser:
 
-![Hello, CORS! 💣](/back-to-the-origin-with-cors/google-cross-origin-post.png) Hello, CORS! 💣
+![Hello, CORS! 💣](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post.png)
 
 We managed to get the famous CORS error. Athough our Crystal server can fulfil the request, our browser is protecting us from ourselves. It is basically telling us that a website that we have opened wants to make changes to another website as ourselves.
 
@@ -293,13 +293,13 @@ In the first example, where we sent the request to `http://localhost:4000/greet`
 
 If we look deeper in our developer console, in the Network tab in particular, we will in fact notice two requests in place of the one that we sent:
 
-![Two outbound requests as seen in the Network panel](/back-to-the-origin-with-cors/google-cross-origin-post-network.png) Two outbound requests as seen in the Network panel
+![Two outbound requests as seen in the Network panel](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-network.png)
 
 What is interesting to notice is that the first request has a HTTP method of `OPTIONS`, while the second has `POST.`
 
 If we explore the `OPTIONS` request we will see that this is a request that has been sent by our browser prior to sending our `POST` request:
 
-![Looking into the OPTIONS request 🔍](/back-to-the-origin-with-cors/google-cross-origin-post-network-options.png) Looking into the `OPTIONS` request 🔍
+![Looking into the OPTIONS request 🔍](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-network-options.png)
 
 What is interesting is that even though the response to the `OPTIONS` request was a HTTP 200, it was still marked as red in the request list. Why?
 
@@ -398,11 +398,11 @@ fetch(
 
 Now, while the preflight request will not be sent, the CORS policy of the browser will keep on blocking:
 
-![CORS standing strong](/back-to-the-origin-with-cors/google-cross-origin-post-text-plain.png) CORS standing strong
+![CORS standing strong](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-text-plain.png)
 
 But because we have crafted a request which does not classify as **complex**, our browser actually **won’t block the request**:
 
-![Request went through ➡️](/back-to-the-origin-with-cors/google-cross-origin-post-text-plain-response-blocked.png) Request went through ➡️
+![Request went through ➡️](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-text-plain-response-blocked.png)
 
 Simply put: our server is **misconfgured** to accept `text/plain` cross-origin requests, without any other protection in place, and our browser can’t do much about that. But still, it does the next best thing – it does not expose our opened page / tab to the response of that request. Therefore in this case, CORS does not block the request - **it blocks the response**.
 
@@ -471,15 +471,15 @@ end
 
 If we boot our server and send the request:
 
-![Still blocked? 🤔](/back-to-the-origin-with-cors/google-cross-origin-post-blocked.png) Still blocked? 🤔
+![Still blocked? 🤔](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-blocked.png)
 
 Our request remains blocked. Even though our `OPTIONS /greet` endpoint did allow the request, we are still seeing the error message. In our network tab there’s something interesting going on:
 
-![OPTIONS is green! 🎉](/back-to-the-origin-with-cors/google-cross-origin-post-blocked-network-inspect.png) OPTIONS is green! 🎉
+![OPTIONS is green! 🎉](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-blocked-network-inspect.png)
 
 The request to the `OPTIONS /greet` endpoint was a success! But the `POST /greet` call still failed. If we take a peek in the internals of the `POST /greet` request we will see a familiar sight:
 
-![POST is green too? 😲](/back-to-the-origin-with-cors/google-cross-origin-post-blocked-post-inspect.png) POST is green too? 😲
+![POST is green too? 😲](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-blocked-post-inspect.png)
 
 In fact, the request did succeed – the server returned a HTTP 200. The preflight request did work – the browser did make the `POST` request instead of blocking it. But the response of the `POST` request did not contain any CORS headers, so even though the browser did make the request, it blocked any response processing.
 
@@ -510,11 +510,11 @@ By adding the `Access-Control-Allow-Origin` header response header, we tell the 
 
 If we give this another shot:
 
-![POST works!](/back-to-the-origin-with-cors/google-cross-origin-post-success.png) POST works!
+![POST works!](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-success.png)
 
 We will see that `POST /greet` did get us a response, without any errors. If we take a peek in the Network tab, we’ll see that both requests are green:
 
-![OPTIONS & POST in action! 💪](/back-to-the-origin-with-cors/google-cross-origin-post-success-network.png) OPTIONS & POST in action! 💪
+![OPTIONS & POST in action! 💪](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-success-network.png)
 
 By using proper response headers on our preflight endpoint `OPTIONS /greet`, we unlocked our server’s `POST /greet` endpoint to be accessed across different origin. On top of that, by providing a correct CORS response header on the response of the `POST /greet` endpoint, we freed the browser to process the response without any blocking.
 
@@ -539,11 +539,11 @@ end
 
 From our tab that has `www.google.com` rendered, if we try to `fetch` the `GET /greet` endpoint we will get blocked by CORS:
 
-![CORS blocking 🙅](/back-to-the-origin-with-cors/google-cross-origin-get.png) CORS blocking 🙅
+![CORS blocking 🙅](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-get.png)
 
 If we look deeper in the request, we will found out something interesting:
 
-![A successful GET 🎉](/back-to-the-origin-with-cors/google-cross-origin-get-blocked-inspect.png) A successful GET 🎉
+![A successful GET 🎉](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-get-blocked-inspect.png)
 
 In fact, just like before, our browser did let the request through – we got a HTTP 200 back. But it did not expose our opened page / tab to the response of that request. Again, in this case CORS does not block the request - **it blocks the response**.
 
@@ -566,7 +566,7 @@ end
 
 When the browser gets the response back from the server, it will look at the `Access-Control-Allow-Origin` header and will decide based on its value if it can let the page read the response. Given that the value in this case is `https://www.google.com` which is the page that we use in our example the outcome will be a success:
 
-![A successful cross-origin GET 🎉](/back-to-the-origin-with-cors/google-cross-origin-get-success.png) A successful cross-origin GET 🎉
+![A successful cross-origin GET 🎉](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-get-success.png)
 
 This is how the browser shields us from cross-origin reads and respects the server directives that are sent via the headers.
 
@@ -601,7 +601,7 @@ end
 
 This will allow the `https://www.google.com` origin to call our server, and our browser will feel fine about that. Having the `Access-Control-Allow-Origin` in place, we can try to execute the `fetch` call again:
 
-![Success! 🎉](/back-to-the-origin-with-cors/google-cross-origin-post-text-plain-success.png) Success! 🎉
+![Success! 🎉](https://ieftimov.com/back-to-the-origin-with-cors/google-cross-origin-post-text-plain-success.png)
 
 This made it work! With the new CORS policy, we can call our `/greet` action from our tab that has `https://www.google.com` rendered. Alternatively, we could also set the header value to `*`, which would tell the browser that the server can be called from any origin.
 
@@ -657,11 +657,11 @@ The `*` value is a good choice in cases when:
 
 A dangerous prospect of such configuration is when it comes to content served on private networks (i.e. behind firewall or VPN). When you are connected via a VPN, you have access to the files on the company’s network:
 
-![Oversimplification of VPNs](/back-to-the-origin-with-cors/vpn-access-diagram.png) Oversimplification of VPNs
+![Oversimplification of VPNs](https://ieftimov.com/back-to-the-origin-with-cors/vpn-access-diagram.png)
 
 Now, if an attacker hosts as website `dangerous.com`, which contains a link to a file within the VPN, they can (in theory) create a script on their website that can access that file:
 
-![File leak](/back-to-the-origin-with-cors/vpn-access-attacker-diagram.png) File leak
+![File leak](https://ieftimov.com/back-to-the-origin-with-cors/vpn-access-attacker-diagram.png)
 
 While such an attack is hard and requires a lot of knowledge about the VPN and the files stored within it, it is a potential attack vector that we must be aware of.
 
@@ -673,13 +673,13 @@ A common way to do this is to send that data periodically using asynchronous req
 
 In such cases, our API is public, but we don’t want **any** website to send data to our analytics API. In fact, we are interested only in requests that originate from browsers that have our website rendered – that is all.
 
-![](/back-to-the-origin-with-cors/no-cross-origin-api.png)
+![](https://ieftimov.com/back-to-the-origin-with-cors/no-cross-origin-api.png)
 
 In such cases, we want our API to set the `Access-Control-Allow-Origin` header to our website’s URL. That will make sure browsers never send requests to our API from other pages.
 
 If users or other websites try to cram data in our analytics API, the `Access-Control-Allow-Origin` headers set on the resources of our API won’t let the request to go through:
 
-![](/back-to-the-origin-with-cors/failed-cross-origin-api.png)
+![](https://ieftimov.com/back-to-the-origin-with-cors/failed-cross-origin-api.png)
 
 ### NULL origins
 
