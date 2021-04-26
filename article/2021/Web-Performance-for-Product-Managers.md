@@ -106,7 +106,7 @@
 
 在最近几个月，我和产品经理们的对话的主要围绕在网站核心指标上。如果你也在这个领域中，并且在改善 SEO 或应对有关 Google 控制台中显示的数字的入站问题方面承受压力，你可能需要熟悉这些指标。幸运的是，你可以阅读不少有关于这个主题的优秀资料。从这些资源开始：
 
-- [Tracking Core Web Vitals](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
+- [跟踪网站核心指标](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
 - [Understanding Cumulative Layout Shift](https://dev.speedcurve.com/blog/google-cumulative-layout-shift/)
 - [第一次输入延迟，它有多重要？](https://dev.speedcurve.com/blog/first-input-delay-google-core-web-vitals/)
 - [关于网站核心指标我所知道的一切](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
