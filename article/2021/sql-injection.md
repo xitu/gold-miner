@@ -35,7 +35,7 @@ The first example is very simple. It shows, how an attacker can use an SQL Injec
 
 The following script is pseudocode executed on a web server. It is a simple example of authenticating with a username and a password. The example database has a table named `users` with the following columns: `username` and `password`.
 
-```
+```python
 # Define POST variables
 uname = request.POST['username']
 passwd = request.POST['password']
@@ -49,19 +49,19 @@ database.execute(sql)
 
 These input fields are vulnerable to SQL Injection. An attacker could use SQL commands in the input in a way that would alter the SQL statement executed by the database server. For example, they could use a trick involving a single quote and set the `passwd` field to:
 
-```
+```sql
 password' OR 1=1
 ```
 
 As a result, the database server runs the following SQL query:
 
-```
+```sql
 SELECT id FROM users WHERE username='username' AND password='password' OR 1=1'
 ```
 
 Because of the `OR 1=1` statement, the `WHERE` clause returns the first `id` from the `users` table no matter what the `username` and `password` are. The first user `id` in a database is very often the administrator. In this way, the attacker not only bypasses authentication but also gains administrator privileges. They can also comment out the rest of the SQL statement to control the execution of the SQL query further:
 
-```
+```sql
 -- MySQL, MSSQL, Oracle, PostgreSQL, SQLite
 ' OR '1'='1' --
 ' OR '1'='1' /*
