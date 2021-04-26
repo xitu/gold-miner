@@ -109,7 +109,7 @@
 - [Tracking Core Web Vitals](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
 - [Understanding Cumulative Layout Shift](https://dev.speedcurve.com/blog/google-cumulative-layout-shift/)
 - [First Input Delay, How vital is it?](https://dev.speedcurve.com/blog/first-input-delay-google-core-web-vitals/)
-- [Everything we know about Core Web Vitals](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
+- [关于网站核心指标我所知道的一切](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
 
 ## 理解与使用百分位数
 
