@@ -39,41 +39,13 @@ You get the idea – if any of the three items in the triple are different, then
 
 As an exercise if we run a comparison of the `https://blog.example.com/posts/foo.html` origin against other origins, we would get the following results:
 
-URL
-
-Result
-
-Reason
-
-`https://blog.example.com/posts/bar.html`
-
-Same
-
-Only the path differs
-
-`https://blog.example.com/contact.html`
-
-Same
-
-Only the path differs
-
-`http://blog.example.com/posts/bar.html`
-
-Different
-
-Different protocol
-
-`https://blog.example.com:8080/posts/bar.html`
-
-Different
-
-Different port (`https://` is port 443 by default)
-
-`https://example.com/posts/bar.html`
-
-Different
-
-Different host
+| URL | Result | Reason |
+| --- | --- | --- |
+| `https://blog.example.com/posts/bar.html` | Same | Only the path differs |
+| `https://blog.example.com/contact.html` | Same | Only the path differs |
+| `http://blog.example.com/posts/bar.html` | Different | Different protocol |
+| `https://blog.example.com:8080/posts/bar.html` | Different | Different port (`https://` is port 443 by default) |
+| `https://example.com/posts/bar.html` | Different | Different host |
 
 A cross-origin request means, for example, a resource (i.e. page) such as `http://example.com/posts/bar.html` that would try to render a subresource from the `https://example.com` origin (note the scheme change!).
 
@@ -117,45 +89,14 @@ Even though same-origin policy implementations are not required to follow an exa
 
 The implementation of the same-origin policy is defined with this ruleset:
 
-Tags
-
-Cross-origin
-
-Note
-
-`<iframe>`
-
-Embedding permitted
-
-Depends on `X-Frame-Options`
-
-`<link>`
-
-Embedding permitted
-
-Proper `Content-Type` might be required
-
-`<form>`
-
-Writing permitted
-
-Cross-origin writes are common
-
-`<img>`
-
-Embedding permitted
-
-Cross-origin reading via JavaScript and loading it in a `<canvas>` is forbidden
-
-`<audio>` / `<video>`
-
-Embedding permitted
-
-`<script>`
-
-Embedding permitted
-
-Access to certain APIs might be forbidden
+| Tags | Cross-origin | Note |
+| --- | --- | --- |
+| `<iframe>` | Embedding permitted | Depends on `X-Frame-Options` |
+| `<link>` | Embedding permitted | Proper `Content-Type` might be required |
+| `<form>` | Writing permitted | Cross-origin writes are common |
+| `<img>` | Embedding permitted | Cross-origin reading via JavaScript and loading it in a `<canvas>` is forbidden |
+| `<audio>` / `<video>` | Embedding permitted | |
+| `<script>` | Embedding permitted | Access to certain APIs might be forbidden |
 
 Same-origin policy solves many challenges, but it is pretty restrictive. In the age of single-page applications and media-heavy websites, same-origin does not leave a lot of room for relaxation of or fine-tuning of these rules.
 
@@ -189,29 +130,6 @@ Cross-origin writes can be the very problematic. Let’s look into an example an
 
 First, we’ll have a simple [Crystal](https://crystal-lang.org/) (using [Kemal](https://kemalcr.com/)) HTTP server:
 
-```
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-
-```
-
 ```crystal
 require "kemal"
 
@@ -236,11 +154,6 @@ Kemal.run
 
 It simply takes a request at the `/greet` path, with a `name` in the request body, and returns a `Hello #{name}!`. To run this tiny Crystal server, we can boot it with:
 
-```
-1
-
-```
-
 ```bash
 $ crystal run server.cr
 ```
@@ -251,18 +164,6 @@ This will boot the server and listen on `localhost:4000`. If we navigate to `loc
 
 Now that we know our server is running, let’s execute a `POST /greet` to the server listening on `localhost:4000`, from the console of our browser page. We can do that by using `fetch`:
 
-```
-1
-2
-3
-4
-5
-6
-7
-8
-
-```
-
 ```javascript
 fetch(
   'http://localhost:4000/greet',
@@ -272,7 +173,6 @@ fetch(
     body: JSON.stringify({ name: 'Ilija'})
   }
 ).then(resp => resp.text()).then(console.log)
-
 ```
 
 Once we run it, we will see the greeting come back from the server:
@@ -313,31 +213,6 @@ Therefore in the above example, although we send a `POST` request, the browser c
 
 If we would change our server to handle `text/plain` content (instead of JSON), we can work around the need for a preflight request:
 
-```
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-
-```
-
 ```crystal
 require "kemal"
 
@@ -363,22 +238,6 @@ Kemal.run
 ```
 
 Now, when we can send our request with the `Content-type: text/plain` header:
-
-```
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-
-```
 
 ```javascript
 fetch(
@@ -418,18 +277,6 @@ When implementing the `OPTIONS` endpoint, you need to know that the preflight re
 
 Let’s go back to our previous example where we sent a complex request:
 
-```
-1
-2
-3
-4
-5
-6
-7
-8
-
-```
-
 ```javascript
 fetch(
   'http://localhost:4000/greet',
@@ -445,18 +292,6 @@ fetch(
 We already confirmed that when we send this request, our browser will check with the server if it can perform the cross-origin request. To get this request working in a cross-origin environment, we have to first add the `OPTIONS /greet` endpoint to our server. In its response header, the new endpoint will have to inform the browser that the request to `POST /greet`, with `Content-type: application/json` header, from the origin `https://www.google.com`, can be accepted.
 
 We’ll do this by using the `Access-Control-Allow-*` headers:
-
-```
-1
-2
-3
-4
-5
-6
-7
-8
-
-```
 
 ```crystal
 options "/greet" do |env|
@@ -484,17 +319,6 @@ The request to the `OPTIONS /greet` endpoint was a success! But the `POST /greet
 In fact, the request did succeed – the server returned a HTTP 200. The preflight request did work – the browser did make the `POST` request instead of blocking it. But the response of the `POST` request did not contain any CORS headers, so even though the browser did make the request, it blocked any response processing.
 
 To allow the browser also process the response from the `POST /greet` request, we need to add a CORS header to the `POST` endpoint as well:
-
-```
-1
-2
-3
-4
-5
-6
-7
-
-```
 
 ```crystal
 post "/greet" do |env|
@@ -524,13 +348,6 @@ As we mentioned before, cross-origin reads are blocked by default. That’s on p
 
 Say, we have a `GET /greet` action in our Crystal server:
 
-```
-1
-2
-3
-
-```
-
 ```crystal
 get "/greet" do
   "Hey!"
@@ -549,14 +366,6 @@ In fact, just like before, our browser did let the request through – we got a 
 
 Just like with cross-origin writes, we can relax CORS and make it available for cross-origin reading - by adding the `Access-Control-Allow-Origin` header:
 
-```
-1
-2
-3
-4
-
-```
-
 ```crystal
 get "/greet" do |env|
   env.response.headers["Access-Control-Allow-Origin"] = "https://www.google.com"
@@ -573,19 +382,6 @@ This is how the browser shields us from cross-origin reads and respects the serv
 ## Fine-tuning CORS
 
 As we already saw in previous examples, to relax the CORS policy of our website, we can set the `Access-Control-Allow-Origin` of our `/greet` action to the `https://www.google.com` value:
-
-```
-1
-2
-3
-4
-5
-6
-7
-8
-9
-
-```
 
 ```crystal
 post "/greet" do |env|
@@ -611,30 +407,16 @@ Another way to fine-tune CORS on our website is to use the `Access-Control-Allow
 
 The request’s credentials mode comes from the introduction of [the Fetch API](https://fetch.spec.whatwg.org/), which has its roots back the original `XMLHttpRequest` objects:
 
-```
-1
-2
-3
-
-```
-
 ```javascript
 var client = new XMLHttpRequest()
 client.open("GET", "./")
 client.withCredentials = true
-
 ```
 
 With the introduction of `fetch`, the `withCredentials` option was transformed into an optional argument to the `fetch` call:
 
-```
-1
-
-```
-
 ```javascript
 fetch("./", { credentials: "include" }).then(/* ... */)
-
 ```
 
 The available options for the `credentials` options are `omit`, `same-origin` and `include`. The different modes are available so developers can fine-tune the outbound request, whereas the response from the server will inform the browser how to behave when credentials are sent with the request (via the `Access-Control-Allow-Credentials` header).
