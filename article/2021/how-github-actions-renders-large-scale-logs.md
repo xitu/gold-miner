@@ -15,7 +15,7 @@ Virtualization consists of rendering only a subset of the information in a list,
 
 ![](https://github.blog/wp-content/uploads/2021/03/large-scale-log-rendering-fig-1.png?w=442&resize=442%2C374)
 
-## Initial implementation[](#initial-implementation)
+## Initial implementation
 
 When we first launched GitHub Actions, we tested with a React-based library and also a vanilla JavaScript one. Some of the libraries have hard limitations because of the way they are implemented. For example, many libraries require that all items rendered in the screen have a fixed height. This constraint makes the calculations a lot easier for them, because if a user wants to scroll to a specified item (visible or not), they just have to multiply `item_index * items_height` to calculate the position, and then scroll to it. Also, in order to calculate the whole scrollable height, they can do something similar `items_count * items_height`. That’s it! Of course in many cases not all elements have the same height, making this limitation not acceptable. In the case of GitHub Actions, we wanted to break long log lines, which meant we had to support log lines with variable height.
 
@@ -26,13 +26,13 @@ We ended up choosing a vanilla JavaScript library that had most of the functiona
 * Users weren’t able to select text and scroll at the same time because the selection would end up being removed from the DOM due to the virtualization.
 * In some cases, the experience was slow because we had to render log lines in the background in order to calculate their height. The virtualization wasn’t helping much and we were actually rendering some lines twice instead of not rendering them at all. But, we had to do it this way because incorrect height calculations led to log lines being cut off in the UI.
 
-## Rethinking our logs experience based on real usage[](#rethinking-our-logs-experience-based-on-real-usage)
+## Rethinking our logs experience based on real usage
 
 For all these reasons, we decided to revamp the log experience. We started with a question: do we still need virtualization? As noted, we didn’t have metrics about usage at launch, but now we were able to make decisions based on real usage. For example, we could remove virtualization if the vast majority of our users had logs that were small enough to render them without, but allow larger logs to be downloaded separately.
 
 Our data showed us that 99.51% of existing jobs had less than 50k lines, but we knew that browsers start struggling with more than 20k log lines. We also found that even if there is a low number of log lines, it was possible that it could take up too much space in memory. With all that information, we decided that we didn’t need data virtualization but we did still require UI virtualization. Data virtualization would have required to only load parts of the logs in memory and fetch more information as the user scrolls, but we found that that level of complexity wasn’t necessary. In the very edge case of having a very large log file with a low number of log lines, we truncate it and provide a link to download it.
 
-## Writing our own virtualization library from scratch[](#writing-our-own-virtualization-library-from-scratch)
+## Writing our own virtualization library from scratch
 
 Once these decisions were made we tried to look for alternative libraries to the one we were using, but none of them suited our needs. We had to make an implementation from scratch. Our goals were:
 
@@ -52,7 +52,7 @@ We made a quick implementation to validate our strategy. After some tests genera
 
 However, we can fix this in a few ways. For example, you can throttle your code and do the updates in batches and not very frequently. But we found that this approach made the UI less smooth. We came up with the idea of grouping log lines in clusters, so instead of removing and adding individual lines, we put log lines in clusters of N lines and add or remove clusters instead of individual lines. After some tests, we now have an idea of how many lines a cluster would have: 50 lines per cluster.
 
-## Production ready[](#production-ready)
+## Production ready
 
 In a week or so, we were able to get an initial implementation that allowed us to see all the benefits in terms of UX. At that point we knew we were on the right path. The next few weeks we worked on other [UI/UX improvements](https://github.blog/2020-09-23-a-better-logs-experience-with-github-actions/) and we knew there was a long tail of edge cases we had to deal with.
 
