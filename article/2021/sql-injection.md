@@ -61,7 +61,7 @@ SELECT id FROM users WHERE username='username' AND password='password' OR 1=1'
 
 Because of the `OR 1=1` statement, the `WHERE` clause returns the first `id` from the `users` table no matter what the `username` and `password` are. The first user `id` in a database is very often the administrator. In this way, the attacker not only bypasses authentication but also gains administrator privileges. They can also comment out the rest of the SQL statement to control the execution of the SQL query further:
 
-```sql
+```
 -- MySQL, MSSQL, Oracle, PostgreSQL, SQLite
 ' OR '1'='1' --
 ' OR '1'='1' /*
@@ -118,27 +118,27 @@ To learn how to prevent SQL Injection attacks in the PHP language, see: [Prevent
 
 Preventing SQL Injection vulnerabilities is not easy. Specific prevention techniques depend on the subtype of SQLi vulnerability, on the SQL database engine, and on the programming language. However, there are certain general strategic principles that you should follow to keep your web application safe.
 
-### Step 1: Train and maintain awareness
+**Step 1: Train and maintain awareness **
 
 To keep your web application safe, everyone involved in building the web application must be aware of the risks associated with SQL Injections. You should provide suitable security training to all your developers, QA staff, DevOps, and SysAdmins. You can start by referring them to this page.
 
-### Step 2: Don’t trust any user input
+**Step 2: Don’t trust any user input **
 
 Treat all user input as untrusted. Any user input that is used in an SQL query introduces a risk of an SQL Injection. Treat input from authenticated and/or internal users the same way that you treat public input.
 
-### Step 3: Use whitelists, not blacklists
+**Step 3: Use whitelists, not blacklists **
 
 Don’t filter user input based on blacklists. A clever attacker will almost always find a way to circumvent your blacklist. If possible, verify and filter user input using strict whitelists only.
 
-### Step 4: Adopt the latest technologies
+**Step 4: Adopt the latest technologies **
 
 Older web development technologies don’t have SQLi protection. Use the latest version of the development environment and language and the latest technologies associated with that environment/language. For example, in PHP use PDO instead of MySQLi.
 
-### Step 5: Employ verified mechanisms
+**Step 5: Employ verified mechanisms **
 
 Don’t try to build SQLi protection from scratch. Most modern development technologies can offer you mechanisms to protect against SQLi. Use such mechanisms instead of trying to reinvent the wheel. For example, use parameterized queries or stored procedures.
 
-### Step 6: Scan regularly
+**Step 6: Scan regularly **
 
 SQL Injections may be introduced by your developers or through external libraries/modules/software. You should regularly scan your web applications using a web vulnerability scanner such as Acunetix. If you use Jenkins, you should install the Acunetix plugin to automatically scan every build.
 
