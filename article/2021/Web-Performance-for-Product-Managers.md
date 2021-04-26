@@ -129,7 +129,7 @@
 
 **第 50 个百分位数（中位数）：**我发现使用第 50 个百分位数，即中位数，更易于理解和沟通。如果你想的话，你甚至可以将其当作平均值。
 
-**第 75 个百分位数：**对于某些流行的指标，例如 [Core Web Vitals](https://speedcurve.com/blog/web-vitals-user-experience/)，第 75 个百分位数在报告中常被使用。
+**第 75 个百分位数：**对于某些流行的指标，例如 [网站核心指标](https://speedcurve.com/blog/web-vitals-user-experience/)，第 75 个百分位数在报告中常被使用。
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000)
 
