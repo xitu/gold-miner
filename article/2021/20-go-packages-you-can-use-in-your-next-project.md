@@ -5,7 +5,7 @@
 > * 译者：[tmpbook](https://github.com/tmpbook)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [kamly](https://github.com/kamly)
 
-# 20 Go Packages You Can Use in Your Next Project
+# 可以在下一个项目中使用的 20 个 Go 三方库
 
 ![图片由 [Todd Quackenbush](https://unsplash.com/@toddquackenbush?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/tool?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/11326/1*NCjLkoVD6wGtnhJ_5phUhA.jpeg)
 
