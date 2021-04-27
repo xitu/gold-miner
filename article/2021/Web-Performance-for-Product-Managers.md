@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md)
 > * 译者：[flying-yogurt](https://github.com/flying-yogurt)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[greycodee](https://github.com/greycodee)
 
 # 对产品经理而言的 Web 性能
 
