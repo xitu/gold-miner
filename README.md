@@ -32,6 +32,7 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 
 ## 官方文档及手册
 
+* [年度总结系列](https://github.com/xitu/Annual-Survey)
 * [TensorFlow 中文文档](https://github.com/xitu/tensorflow-docs)
 * [The JavaScript Tutorial](https://github.com/xitu/javascript-tutorial-zh)
 * [ML Kit 中文文档](https://github.com/Quorafind/MLkit-CN)

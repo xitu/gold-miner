@@ -2,7 +2,7 @@
 * 原文作者 : [Mike](http://www.blog.pythonlibrary.org/author/mld/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Yushneng](https://github.com/rainyear)
-* 校对者: [Zheaoli](https://github.com/Zheaoli), [iThreeKing](https://github.com/iThreeKing)
+* 校对者: [Zheaoli](https://github.com/Zheaoli), [joyking7](https://github.com/joyking7)
 
 # 探索 Python 3 加密技术
 

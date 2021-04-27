@@ -1,21 +1,21 @@
-> * 原文地址：[A Deep Dive Into JavaScript Modules](https://blog.bitsrc.io/a-deep-dive-into-javascript-modules-550ad88d8839)
-> * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-deep-dive-into-javascript-modules.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-deep-dive-into-javascript-modules.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[A Deep Dive Into JavaScript Modules](https://blog.bitsrc.io/a-deep-dive-into-javascript-modules-550ad88d8839)
+> - 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-deep-dive-into-javascript-modules.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-deep-dive-into-javascript-modules.md)
+> - 译者：[regon-cao](https://github.com/regon-cao)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin) [Ashira97](https://github.com/Ashira97)
 
-# A Deep Dive Into JavaScript Modules
+# 深入了解 JavaScript 模块
 
 ![Image by [HeungSoon](https://pixabay.com/users/heungsoon-4523762/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=3887440)](https://cdn-images-1.medium.com/max/3840/1*Dya93Aqh8dXO4ngaaxHsug.jpeg)
 
-All JavaScript developers know how to import a module, if you haven’t done it before, then you’ve not gone past the basic “hello world” example. Modules are the cornerstone of the JavaScript ecosystem.
+所有 JavaScript 开发人员都知道如何导入模块，如果你以前没有这么做过，那么你还没有看过基本的 “helloworld” 示例。模块是 JavaScript 生态系统的基石。
 
-But did you know there are different module systems in JavaScript though? If you’ve only been working with Node.js for example, you’re probably familiar with using `require` and if you’ve been dealing with React, maybe you’re more of an `import` developer. Truth is, they all get the job done, however, not all of them do it in the same way.
+但是你知道 JavaScript 中有不同的模块系统吗？如果你一直使用 Node.js 开发, 你能够很熟练地使用 `require`，如果你一直和 React 打交道，你可能更多的是一个 `import` 开发者。事实上，它们都能完成任务，但是完成的方式并不相同。
 
-The best way to review the various differences between the JS module types is to start from a commonplace, in our case, that would be ES6, the new standard for the language. And because not all runtimes are still fully compatible with it, I’ll be using Babel to transpile the code into its different flavors, whenever required.
+了解 JS 模块类型之间的各种差异的最佳方法是从大家熟悉的地方开始，在这里，也就是从这门语言的新标准 ES6 开始。因为不是所有的运行时都兼容 ES6，所以在需要时我会用 Babel 将代码转换成运行时环境所需的风格。
 
-The code we’ll be using as a basis is:
+基础代码如下：
 
 ```TypeScript
 import _ from 'lodash'
@@ -25,9 +25,9 @@ export const dummyFunction = () => {
 }
 ```
 
-As you can see, the code is not complex, we’re not doing much, we’re just importing the `lodash` library and exporting a function from our own module.
+如你所见，代码并不复杂，我们没有做很多事情，只是导入 `lodash` 库并从我们自己的模块中导出一个函数。
 
-And to compile it with Babel, I’ll use the following configuration:
+为了用 Babel 编译它，我将使用以下配置：
 
 ```
 {
@@ -41,9 +41,9 @@ And to compile it with Babel, I’ll use the following configuration:
 
 ## CommonJS
 
-If you’re a Node.js developer, you’ve probably used this one before. This is the standard adopted by Node and thus, the one that makes use of the `require` function.
+如果你是一个 Node.js 开发者，你以前可能用过它。CommonJS 是 Node 采用的标准，而它使用的是 `require` 函数。
 
-The output for our example, is the following:
+我们示例的输出如下：
 
 ```JavaScript
 "use strict";
@@ -62,26 +62,26 @@ var dummyFunction = function dummyFunction() {
 exports.dummyFunction = dummyFunction;
 ```
 
-The first thing we see, is that it adds two properties to the `exports` object. This object is the one that will contain the “public” code. In other words, anything that’s not part of this object will not be accessible from outside. One more way of thinking about this object is as the return value from the `require` function. If you add properties to it, you can then access them directly when you require the module:
+我们首先看到，它向 `exports` 对象添加了两个属性。这个对象将会包含“公共”代码。换句话说，任何不属于此对象的内容都无法从外部访问。此对象可以作为 `require` 函数的返回值。如果向其中添加属性，在加载模块时可以直接访问它们：
 
 ```js
 //yourmodule.js
-exports.prop1 = 42
-exports.myFn = () => console.log(42)
+exports.prop1 = 42;
+exports.myFn = () => console.log(42);
 
-//... client code
-const {prop1, myFn} = require("./yourmodule.js")
+//... 客户端的代码
+const { prop1, myFn } = require("./yourmodule.js");
 ```
 
-The second highlight from the above code sample, is that we’re adding the `__esModule` property (with a value of `true`). This property can be used by a helper function on the importing side, to determine how to access the needed method when dealing with default exports.
+上面代码示例的第二个重点是，我们添加了 `__esModule` 属性（值为 `true`）。导入端的辅助函数可以在处理默认导出时利用此属性来确定如何访问所需的方法。
 
-You see, CommonJS has no concept of “default” export. Everything you add to the `exports` object will be exported and if you `require` it like this:
+你知道的，CommonJS 没有“默认”导出的概念，如果你像下面一样使用 `require`，那么 `exports` 上的所有属性都将被导出：
 
 ```js
-const myModule = require('yourmdoule.js')
+const myModule = require("yourmdoule.js");
 ```
 
-You’ll get, as a result, an object with a list of properties and methods (i.e everything that was exported). However, ES6 defined a way to differentiate what you export by default and what you export individually. So you can do something like this:
+你将得到一个包含一系列属性和方法的对象（即导出的所有内容）。但是，ES6 定义了一种方法来区分默认导出的内容和单独导出的内容。所以你可以这样做：
 
 ```JavaScript
 //mymodule.js
@@ -96,17 +96,17 @@ export const dummyConst = 42;
 
 export default {
   mainMethod: function() {
-    //your logic here...
+    //你的逻辑...
   }
 }
 ```
 
-That code is telling you that you’re exporting 3 things:
+这段代码导出 3 个东西：
 
-* By default you’re exporting an object that contains a method (called `mainMethod`)
-* But you’re also exporting a `dummyFunction` and a `dummyConst` value.
+- 默认导出包含一个 `mainMethod` 方法的对象。
+- 同时也导出一个 `dummyFunction` 函数和一个 `dummyConst` 值。
 
-On the importing side, you can do:
+在导入端，你可以这样做：
 
 ```JavaScript
 import myModule, {dummyFunction} from 'mymodule.js'
@@ -115,9 +115,9 @@ myModule.mainMethod()
 dummyFunction()
 ```
 
-That’s the main difference between the default export provided by ES6 and CommonJS. The above code can’t be directly transpiled to CommonJS, because it doesn’t have the concept of default export. However, tools such as Babel take care of that by adding this “interop” code (like the `__esModule` property).
+这就是 ES6 和 CommonJS 提供的默认导出之间的主要区别。上面的代码不能直接转译成 CommonJS，因为它没有默认导出的概念。然而，诸如 Babel 之类的工具会通过添加 “相互操作” 代码（比如 `__esModule` 属性）来解决这个问题。
 
-Thus, when transpiled a code like the last snippet, you get the following:
+因此，当把上面的代码段转译后，可以得到下面的：
 
 ```JavaScript
 "use strict";
@@ -170,37 +170,37 @@ _sample.default.mainMethod();
 console.log((0, _sample.dummyFunction)());
 ```
 
-I know that looks like a lot of code, but just focus on the last two lines for now. Notice how our `mainMethod`, which was the default export, is inside a new property called `default`. We didn’t declare it, but Babel added it to add compatibility with CommonJS. Also notice how the `dummyFunction` method is not inside the `default` property, since it was exported as a separate entity and was in fact, imported separately as well.
+我知道这看起来有很多代码，但现在只关注最后两行。请注意，我们的 `mainMethod` 是默认导出的函数，它位于名为 `default` 的新属性中。我们没有声明这个属性，它是 Babel 为了实现与 CommonJS 兼容而添加的属性。还要注意 `dummyFunction` 方法不在 `default` 属性中，因为它是作为单独的实体导出的，实际上也是单独导入的。
 
-The `_interopRequiredWilcard` helper function just takes care of returning the object we’re going to be using with the proper shape (in other words, it adds the `default` property if it doesn’t already have it).
+`__interopRequiredWilcard` 辅助函数负责将要使用的对象以正确格式返回（换句话说，如果还没有 `default` 属性，它会添加该属性）。
 
-#### What else is different between CommonJS and ES6?
+#### CommonJS 和 ES6 之间还有什么不同？
 
-As you saw, ES6 defines an `export default` sentence that makes no sense in the CommonJS world. But what else is different?
+如你所见，ES6 定义了一个 `export default` 语句，这在 CommonJS 世界中毫无意义。但还有其他什么不同呢？
 
-The other major difference, is that while they might seem identical, `require` and `import` don’t work the same way.
+另一个主要区别是，虽然它们看起来是相同的，但 `require` 和 `import` 的工作方式却不同。
 
-One major difference, is that while `require` works dynamically from anywhere in your code, `import` doesn’t. The `require` statement can be considered a function call, and as such, it needs to run to be executed. However, `import` statements are static and are executed during parsing of the file. This is a major performance improvement over how `require` works.
+一个主要区别是，`require` 在代码中的任何地方都能动态执行，但 `import` 不能。你可以将 `require` 语句视为函数调用，因此，它需要运行才能执行。但是 `import` 语句是静态的，它在解析文件时执行。与 `require` 的工作方式相比，这是一个重大的性能改进。
 
-However, there is one downside: because `require` works during runtime, you can have dynamically defined importing routes, such as:
+但是，也有一个缺点：由于 `require` 在运行时工作，我们可以动态定义导入路由，例如：
 
 ```js
-const myMod = require('./src/' + pathToFile);
+const myMod = require("./src/" + pathToFile);
 ```
 
-Assuming of course that `pathToFile` is a string, this will work without a problem. But `import` will not allow for that since there is no runtime execution when they’re parsed.
+假设 pathToFile 是一个自定义的字符串，require 会正常工作，但是 import 不允许这么做，因为在解析 import 语句的时候还没有运行时执行环境。
 
-## AMD
+## AMD（异步模块定义）
 
-Stands for [Asynchronous Module Definition](https://en.wikipedia.org/wiki/Asynchronous_module_definition) and it’s mean to be a pattern of loading modules for front-end projects. Back in the day, the only way you had to define a list of dependencies for your code in browser-land, was to add a bunch of `script` tags and make sure they were correctly ordered. Once the document and all its resources were fully loaded, your code could run.
+它代表了[异步模块定义](https://en.wikipedia.org/wiki/Asynchronous_module_definition)，这是一种为前端项目加载模块的模式。过去，在浏览器中定义一系列代码依赖的唯一方法是添加一堆 `script` 标记，并确保它们的顺序正确。一旦文档及其所有资源被完全加载，你的代码就可以运行了。
 
-It worked, it also required a bit of boilerplate code to make it work. Thus AMD was born.
+它是可行的，但还需要一点样板代码才能工作。AMD 就这样诞生了。
 
-It simplified the task of declaring the specific dependencies for your modules and making sure they would all be loaded before your code would be executed.
+它简化了为模块声明特定依赖项的任务，并确保在执行代码之前加载所有依赖项。
 
-It also added a major improvement: instead of having to include all your app’s dependencies and having them loaded before a single line of code could be executed, this approach made it so you could specify exactly which dependencies to load for each section of your code. This in turn provided a major performance boost for big applications with many external dependencies.
+它还增加了一个主要的改进：这种方法不必包含所有应用程序的依赖项，也不必在执行一行代码之前加载它们，而是让你可以精确地指定要为代码的每个部分加载哪些依赖项。这反过来又为具有很多外部依赖关系的大型应用带来了性能上的大幅提升。
 
-Back to our example, if we wanted to add the same simple ES6 module but using AMD, we would do something like this:
+回到我们的例子，如果我们想添加相同且简单的 ES6 模块，但使用 AMD，我们会这样做：
 
 ```JavaScript
 define(['lodash'], function(_lodash) {
@@ -208,34 +208,34 @@ define(['lodash'], function(_lodash) {
   const dummyFunction = () => {
     return _lodash.camelCase('dummy');
   }
-  
+
   return {
     dummyFunction
   }
 })
 ```
 
-The framework using AMD will provide a `define` function that takes a first parameter which is a list of dependencies. Once the dependencies are loaded, our function will be executed. Also notice how we did away with the `export` statement, since anything that is returned by our function will be exported.
+使用 AMD 的框架将提供一个 `define` 函数，该函数接受第一个参数，即依赖项列表。一旦加载了依赖项，我们的函数就会被执行。还要注意我们是如何去掉 `export` 语句的，因为函数返回的任何内容都将被导出。
 
-This ensures two major issues in front-end world:
+这解决了前端世界的两个主要问题：
 
-1. That all dependencies have been correctly loaded before we need them.
-2. That our code is running inside a safe scope. By having our module being written inside a function, we avoid naming conflicts, specially between our dependencies.
+1. 在我们需要它们之前，所有依赖项都已正确加载。
+2. 我们的代码在安全作用域内运行。通过在函数中编写模块，我们可以避免命名冲突，特别是在依赖项之间。
 
-Remember, AMD is nothing but a standard, so you’ll need a framework around it that will provide you with the API and [RequireJS](https://requirejs.org/) is one of those frameworks.
+请记住，AMD 只是一个标准，因此你需要一个实现它的框架为你提供 API，[RequireJS](https://requirejs.org/)就是其中一个框架。
 
-## UMD
+## UMD（通用模块定义）
 
-Just like AMD tries to define a better module loading pattern, [UMD](https://github.com/umdjs/umd) defines a Universal Module Definition. In other words, it tries to provide a way of writing your modules in a format that can later be loaded by multiple loaders. Hence, the universal part.
+就像 AMD 试图定义更好的模块加载模式一样，[UMD](https://github.com/umdjs/umd)定义了通用模块定义。换言之，它试图提供一种方法，以一种稍后可以由多个加载程序加载的格式编写模块。
 
-A UMD declaration is composed of two major parts:
+一个 UMD 声明主要是由两个部分组成：
 
-1. An IIFE that receives two parameters: the `root` which is a reference to the global scope, and a `factory` function, which is the code of our module.
-2. Our factory function. It receives the dependencies and can be executed, just like with the AMD pattern, in a separate scope.
+1. 一个立即执行函数，它接收两个参数：`root` 是对全局作用域的引用，`factory` 函数是模块的代码。
+2. 我们的 `factory` 函数。它接收依赖项并可以在单独的作用域内执行，就像 AMD 模式一样。
 
-Inside the initial IIFE, we’ll add some boilerplate logic that will decide which module loader to use, based on our needs.
+在初始化的立即执行函数中，我们将添加一些样板逻辑，根据我们的需要决定使用哪个模块加载程序。
 
-Look at the output from Babel once we transpile our original code to UMD:
+一旦我们将原始代码转换成 UMD，请查看 Babel 的输出：
 
 ```JavaScript
 (function (global, factory) {
@@ -263,23 +263,23 @@ Look at the output from Babel once we transpile our original code to UMD:
   };
 
   _exports.dummyFunction = dummyFunction;
- 
+
 });
 ```
 
-The body of the IIFE is first checking if AMD is defined (it’s looking for the `define` function), then if it isn’t, it’s looking for the `exports` keyword to be available. It would imply we’re dealing with a CommonJS loader.
+立即执行函数首先检查 AMD 是否已定义（它查找 `define` 函数），如果未定义，则查找 `exports` 关键字是否可用。这意味着此时我们正在和一个 CommonJs 加载器打交道。
 
-Finally if none of them are defined, then it’ll proceed to create a common object that will later be assigned to the global scope. Here the global scope is referenced by the `global` variable (the first parameter received).
+最后，如果没有定义它们，那么它将继续创建一个公共对象，该对象稍后将被分配给全局作用域。这里的全局作用域由 `global` 变量（接收到的第一个参数）引用。
 
-The second function, which as you can see, contains our example module, remains almost untouched. The only difference is that it now receives two arguments, an `_exports` one, which is where we’ll add whatever we’re exporting, and `_lodash` containing the dependency we declared (lodash).
+第二个函数，如你所见，包含我们的示例模块，几乎没有被改动过。唯一的区别是它现在接收两个参数，一个是`__exports`，我们将在其中添加我们要导出的内容，另一个是`__lodash`，包含我们声明的依赖项（lodash）。
 
-This pattern might require adding a bit more code to wrap your modules, but it’ll make sure it works with multiple systems. It’s definitely an interesting option if you’re distributing a library to be used by many users. If on the other hand, you’re just creating a module for your own system, the extra work and lines of code, might not be worth it.
+这种模式可能需要添加更多的代码来包装你的模块，但它将确保可以与多个系统兼容。如果你要分发一个供许多用户使用的库，那么这绝对是一个有趣的选择。另一方面，如果你只是为自己的系统创建一个模块，那么额外的工作和代码行可能不值得。
 
 ## SystemJS
 
-The last module loader I’ll cover here is [SystemJS](https://github.com/systemjs/systemjs) which provides yet another way of loading ES6 compatible code into non-compatible runtimes. In other words, by using a custom `import` function, you can load your ES6 code directly without translating it into anything.
+我将在这里介绍的最后一个模块加载器是 [SystemJS](https://github.com/systemjs/systemjs)。它提供了将 ES6 兼容的代码加载到不兼容的运行时环境的另一种方法。换句话说，通过使用自定义的 `import` 函数，你可以直接加载 ES6 代码，而无需将其转换为任何内容。
 
-You can write the following code:
+你可以写出下面的代码：
 
 ```JavaScript
 var SystemJS = require('systemjs');
@@ -300,15 +300,15 @@ SystemJS.import('./mymodule.js')
     });
 ```
 
-The `traceur` dependency is required by SystemJS, so we need it, but the rest of the code is loading and using the module we declared at the start of this article (which only uses ES6-type exports and imports).
+`traceu` 依赖包是 SystemJS 所必需的，因此我们需要它，但是代码的其余部分正在加载并使用我们在本文开头声明的模块（它只使用 ES6 类型的导出和导入）。
 
-This is definitely a good alternative if we’re hoping to re-use all of our ES6 compatible code inside a runtime that’s not yet compatible with it.
+如果我们希望在一个不兼容的运行时环境重用所有与 ES6 兼容的代码，那么这绝对是一个不错的选择。
 
 ---
 
-There are many options when it comes to writing and using JavaScript modules, depending on your needs and your preferences, but truth be told, all runtimes should be migrating to be ES6-compatible in the near future, since that is the path the language is taking. This in turn, means that unless you’re writing code for outdated systems, your best bet is to go for the natively supported format.
+在编写和使用 JavaScript 模块时，有很多选择，这取决于你的需要和偏好，但说实话，在不久的将来，所有运行时都应该迁移到与 ES6 兼容的版本，因为这是语言未来的发展方向。这反过来意味着，除非你是为过时的系统编写代码，否则最好选择原生支持的格式。
 
-**Now, let me ask you: which one is your favorite module loader?**
+**现在，让我来问你：哪一个是你最喜欢的模块加载器？**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
