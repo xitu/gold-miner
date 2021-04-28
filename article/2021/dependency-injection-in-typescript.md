@@ -26,8 +26,6 @@ IoC **only** expresses a methodology, not a concrete implementation. For applyin
 * **Unity** for **C#**
 * **Inversify**, **Nest.js**, and **TypeDI** for **TypeScript**
 
----
-
 ## Overview & Roles
 
 ![Dependency Injection Overview](https://cdn-images-1.medium.com/max/2000/1*Wk4iA2XNAOl4pAF5cYbU3w.png)
@@ -41,8 +39,6 @@ In the dependency injection principle, we need to understand **four** different 
 
 **Services** are what we expose to out. These classes are instantiated and used by the IoC container. A **client** uses these services through the IoC container. A client shouldn’t be bothered with details, so **interfaces** ensure that the client and services live in harmony. A client asks dependencies, and an **injector** provides instantiated services.
 
----
-
 ## Types of Dependency Injection
 
 When we talk about how we can manage to inject dependencies into a class, we can achieve this in **three different ways**:
@@ -50,8 +46,6 @@ When we talk about how we can manage to inject dependencies into a class, we can
 * We can supply dependencies through **properties**(fields). Defining a property on the class and then injecting a concrete object into the property is called property injection. By exposing a property to the outside, you **violate** the **encapsulation** principle of OOP; because of this, you may want to avoid this type of injection.
 * We can supply dependencies through **methods**. A **state** of the object **should be private**, and when an outsider wants to change that state, it should use the **getter/setter methods** of the class. So when you use a setter method to initialize a private field in the class, you use the **method injection**.
 * We can supply dependencies through a **constructor**. Constructor methods are highly intertwined with object constructions because of their basic nature. We usually **favor** doing injections **through constructors** because of the similarity of our purpose and the constructor methods.
-
----
 
 ## Using TypeDI
 
@@ -129,7 +123,6 @@ class UserController {
 }
 
 export default UserController;
-
 ```
 
 UserController has only one method. “getAllUsers” method is responsible for getting a result from user service and transmitting. We added a **Service** decorator to UserController class because we want this class to be managed by the IoC container. Inside the constructor method, we can see that this class needs a UserService instance. Again, we don’t have to control this dependency because the TypeDI container will create an instance for UserService, and when it generates the UserController instance, it will inject UserService.
@@ -149,7 +142,6 @@ class UserService {
 }
 
 export default UserService;
-
 ```
 
 UserService is very similar to UserController. We add a Service decorator to the class and we specify the dependencies we want inside the constructor method.
@@ -172,12 +164,9 @@ class UserRepository {
 }
 
 export default UserRepository;
-
 ```
 
 UserRepository is our final stop. We annotate this class with Service, but we don’t have any dependencies. Because we don’t have a database connection, I just added a hardcoded user list to class as private property.
-
----
 
 ## Conclusion
 
