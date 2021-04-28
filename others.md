@@ -1,3 +1,9 @@
+* [使用 VPython 进行物理模拟](https://juejin.cn/post/6955292986909409288)（[tmpbook](https://github.com/tmpbook) 翻译）
+* [Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器](https://juejin.cn/post/6952819591269580813)（[greycodee](https://github.com/greycodee) 翻译）
+* [使用 GitHub 代码扫描和 CodeQL 工具检测 Solorigate 等后门程序](https://juejin.cn/post/6952677372604710925)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具](https://juejin.cn/post/6951207758997913636)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [是时候该罢黜 JPEG，独尊新编码了](https://juejin.cn/post/6951062279760642062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何打造一个好的 GitHub 用户档案？](https://juejin.cn/post/6950529817469157384)（[caiyundong](https://github.com/caiyundong) 翻译）
 * [解决方案架构师技巧：架构图的 5 种类型](https://juejin.cn/post/6949879274157539358)（[youngjuning](https://github.com/youngjuning) 翻译）
 * [Rust 1.51.0 发布](https://juejin.cn/post/6944238705078960165)（[youngjuning](https://github.com/youngjuning) 翻译）
 * [Git 2.31 中的闪光点](https://juejin.cn/post/6944951701942042660)（[Baddyo](https://github.com/Baddyo) 翻译）
