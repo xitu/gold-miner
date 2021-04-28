@@ -2,8 +2,8 @@
 > - 原文作者：[Acunetix](https://www.acunetix.com/)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/cross-site-scripting.md](https://github.com/xitu/gold-miner/blob/master/article/2021/cross-site-scripting.md)
-> - 译者：MoonBall
-> - 校对者：
+> - 译者：[MoonBall](https://github.com/MoonBall)
+> - 校对者：[Chorer](https://github.com/Chorer)、[kamly](https://github.com/kamly)、[lsvih](https://github.com/lsvih)
 
 # 跨站脚本攻击（XSS）
 
