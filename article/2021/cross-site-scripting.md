@@ -25,7 +25,7 @@
 
 - 网页其余部分能访问的所有对象，恶意的 JavaScript 都能访问。包括访问用户的 cookie。用户的 cookie 通常被用来存储会话标志。如果攻击者获得了用户的会话 cookie，他们便能伪装成该用户，利用其身份执行操作，并且访问用户的敏感数据。
 - JavaScript 可以读取并任意修改浏览器中的 DOM。还好，该情形只可能发生在 JavaScript 当前运行的网页中。
-- JavaScript 可使用 `XMLHttpRequest` 对象，向任意站点发送带有任意数据的 HTTP 请求，
+- JavaScript 可使用 `XMLHttpRequest` 对象，向任意站点发送带有任意数据的 HTTP 请求。
 - 现代浏览器中的 JavaScript 可使用 HTML5 接口。例如可访问用户的地理位置、摄像头、麦克风，甚至是用户文件系统中的指定文件。虽然这些接口大多数都需要经过用户同意，但攻击者可通过社会工程学绕过这些限制。
 
 通过以上几点，并结合社会工程学，不法之徒可发起更高级的攻击，包括：盗窃 Cookie、种植木马、记录密钥、网络钓鱼和盗窃身份。XSS 漏洞提供了完美的空间将攻击升级为更严重的攻击。跨站脚本攻击经常与其他类型的攻击一起被使用，例如：[跨站请求伪造（CSRF）](https://www.acunetix.com/websitesecurity/csrf-attacks/)。
