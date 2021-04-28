@@ -9,8 +9,6 @@
 
 跨站脚本攻击（XSS）是一种客户端代码[注入攻击](https://www.acunetix.com/blog/articles/injection-attacks/)。攻击者通过在合法的网页中注入恶意代码，达到在受害者的浏览器中执行恶意代码的目的。当受害者访问执行恶意代码的网页时，攻击就开始了。这些网页成为了将恶意代码发送到用户浏览器的工具。通常受到跨站脚本攻击的网页包括论坛、留言板以及可以评论的网页。
 
-A web page or web application is vulnerable to XSS if it uses unsanitized user input in the output that it generates. This user input must then be parsed by the victim’s browser. XSS attacks are possible in VBScript, ActiveX, Flash, and even CSS. However, they are most common in JavaScript, primarily because JavaScript is fundamental to most browsing experiences.
-
 如果网页将用户的原始输入作为网页内容，那么它很容易受到 XSS 攻击，因为这类用户输入一定会被受害者的浏览器解析。XSS 攻击可能存在于 VBScript、ActiveX、Flash，甚至 CSS 中。但它在 JavaScript 中最常见，主要是因为 JavaScript 是大多数浏览体验的基础。
 
 ![XSS](https://www.acunetix.com/wp-content/uploads/2019/02/xss.jpg)
@@ -143,8 +141,6 @@ print "</html>"
 
 ### `<iframe>` 标签
 
-The `<iframe>` tag lets you embed another HTML page in the current page. An IFrame may contain JavaScript but JavaScript in the IFrame does not have access to the DOM of the parent page due to the Content Security Policy (CSP) of the browser. However, IFrames are still very effective for pulling off phishing attacks.
-
 `<iframe>` 标签的功能是将另一个 HTML 页面嵌入到当前页面中。由于内容安全协议（CSP），尽管 IFrame 中可能有 JavaScript 代码，但这些代码没有权限访问父页面上的 DOM。然而，IFrame 仍然是发起网络钓鱼攻击的有效方式。
 
 ```html
@@ -237,8 +233,6 @@ The `<iframe>` tag lets you embed another HTML page in the current page. An IFra
 
 ### 第五步：设置 HttpOnly 标志
 
-To mitigate the consequences of a possible XSS vulnerability, set the HttpOnly flag for cookies. If you do, such cookies will not be accessible via client-side JavaScript.
-
 为了减轻可能存在的 XSS 漏洞造成的后果，可开启 cookie 的 HttpOnly 标志。这样客户端 JavaScript 将不能访问这些 cookie。
 
 ### 第六步：使用内容安全协议
@@ -252,8 +246,6 @@ XSS 漏洞可能被开发者引入，也可能被外部库、模块或软件引�
 ## FAQ
 
 **跨站脚本攻击是如何工作的？**
-
-In a Cross-site Scripting attack (XSS), the attacker uses your vulnerable web page to deliver malicious JavaScript to your user. The user’s browser executes this malicious JavaScript on the user’s computer. Note that about one in three websites is vulnerable to Cross-site scripting.
 
 在跨站脚本攻击（XSS）中，攻击者通过有漏洞的网页将恶意 JavaScript 代码发送给用户。用户的浏览器在用户的电脑上执行恶意 JavaScript 代码。值得注意的是，大约三分之一的网站都存在跨站脚本攻击漏洞。
 
