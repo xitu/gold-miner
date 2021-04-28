@@ -1,3 +1,7 @@
+* [现代 Web 应用程序中的 Web 分享](https://juejin.cn/post/6955824573279371272)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具](https://juejin.cn/post/6951207758997913636)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [是时候该罢黜 JPEG，独尊新编码了](https://juejin.cn/post/6951062279760642062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [渐进式应用程序 PWA 开始衰落了吗？](https://juejin.cn/post/6953212248760254471)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Applets 应用程序的终结](https://juejin.cn/post/6949497811817725959)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [1993 年的 CGI 脚本和早期服务端 Web 编程](https://juejin.cn/post/6947898773569962020)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [2020 网络年鉴：热门的前端框架依然是互联网的一小部分](https://juejin.cn/post/6944674906684686366)（[felixliao](https://github.com/felixliao) 翻译）
