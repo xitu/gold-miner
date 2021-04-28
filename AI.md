@@ -1,3 +1,6 @@
+* [Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％](https://juejin.cn/post/6952819856429285407)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [解密转置卷积](https://juejin.cn/post/6954678998123151390)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [人工智能系统 Project Debater 即将提供 12 个新的云 API](https://juejin.cn/post/6955657126647857159)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [谷歌 DeepMind 发布 NFNet：高效的深度网络](https://juejin.cn/post/6947586233522454558)（[chzh9311](https://github.com/chzh9311) 翻译）
 * [斯坦福发布 2021 年人工智能指数报告](https://juejin.cn/post/6942769081363726373)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [让机器学习更加公正](https://juejin.cn/post/6941964171974017031)（[PingHGao](https://github.com/PingHGao) 翻译）
