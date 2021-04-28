@@ -806,10 +806,12 @@
 |[在网站 Logo 上右击时提示下载网站的 Logo 素材下载](https://github.com/rainyear/gold-miner/blob/fabff8780118b24c61c57b13577cf971757c84d5/TODO/right-click-logo-show-logo-download-options.md)|校对|1|
 |[给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b)|翻译|7|
 
-## 译者：[loneyiserror](https://github.com/LoneyIsError) 历史贡献积分：48.5 当前积分：48.5
+## 译者：[LoneyIsError](https://github.com/LoneyIsError) 历史贡献积分：56 当前积分：56 二零二一：7.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Swift 5.4 的新特性](https://juejin.cn/post/6937481372772597767)|翻译|2.5|
+|[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|翻译|5|
 |[iOS：如何构建具有多种 Cell 类型的表视图](https://juejin.im/post/5c89a917e51d457efe07f4f9)|翻译|5|
 |[Swift 5 强制独占性原则](https://juejin.im/post/5c778b5e6fb9a049c64487e0)|翻译|5|
 |[用这些 iOS 技巧让你的 APP 性能更佳](https://juejin.im/post/5c6a0b6ef265da2de660f83f)|翻译|8|
@@ -11108,13 +11110,6 @@
 |[深入了解 JavaScript 模块](https://juejin.cn/post/6920153306392166413)|校对|3|
 |[减少 Web 应用程序中 CORS 预检时间的 4 种方法](https://juejin.cn/post/6914561805465419784)|校对|2|
 |[Node.js 安全编程的最佳实践](https://juejin.cn/post/6918757099782537224)|翻译|8|
-
-## 译者：[LoneyIsError](https://github.com/LoneyIsError) 历史贡献积分：7.5 当前积分：7.5 二零二一：7.5
-
-|文章|类型|积分|
-|------|-------|-------|
-|[Swift 5.4 的新特性](https://juejin.cn/post/6937481372772597767)|翻译|2.5|
-|[我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)|翻译|5|
 
 ## 译者：[k8scat](https://github.com/k8scat) 历史贡献积分：4 当前积分：4 二零二一：4
 
