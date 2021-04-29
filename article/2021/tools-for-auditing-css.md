@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/tools-for-auditing-css.md](https://github.com/xitu/gold-miner/blob/master/article/2021/tools-for-auditing-css.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：
+> * 校对者：[zenblo](https://github.com/zenblo)
 
 # 不会吧不会吧，都 1202 年了，你还不知道这些检查 CSS 的工具？？？
 
