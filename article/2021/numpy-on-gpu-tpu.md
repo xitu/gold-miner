@@ -2,24 +2,24 @@
 > * 原文作者：[Sambasivarao. K](https://medium.com/@k.sambasivarao222)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md](https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[PingHGao](https://github.com/PingHGao)
 
-# Numpy 运行于 GPU/TPU 的性能
+# Numpy 在 GPU/TPU 上的性能
 
 ![Image by [i2tutorials](https://www.i2tutorials.com/what-do-you-mean-by-tensor-and-explain-about-tensor-datatype-and-ranks/)](https://cdn-images-1.medium.com/max/2000/1*CPwuFuMnvGXARofgff1zbg.jpeg)
 
-[Numpy](https://numpy.org/) 是迄今为止使用最广泛的数组运算函数库。它是许多机器学习和数据科学库的基础库。它包含大量的高阶数组运算函数。众所周知，Numpy 因其运算速度而非常受欢迎。Numpy 对数组对象的处理比 Python 自带的 List 库要快 50 倍。同时，Numpy 还支持矢量化，它是循环控制结构的替代方案。
+[Numpy](https://numpy.org/) 是迄今为止使用最广泛的数组运算函数库。它是许多机器学习和数据科学库的基础库。它包含大量的高阶数组运算函数。众所周知，Numpy 因其运算速度而非常受欢迎。Numpy 对数组对象的处理比 Python 自带的 List 库要快 50 倍。同时，Numpy 还支持矢量化，可以取代循环控制结构。
 
-> Numpy能否运行得更快？答案是肯定的。
+> Numpy 能否运行得更快？答案是肯定的。
 
 Tensorflow 以 tf.experimental.numpy 形式引入了一系列 Numpy API 的功能，并把它们在 2.4 版中发布。这使 Numpy 相关代码运行更快，如果运行于 GPU/TPU 则性能更佳。
 
 ## 基准
 
-在深入研究之前，我们来比较 numpy 与 tensorflow-numpy 的性能。对于由一些小型运算操作构成的任务（少于10微秒），tensorflow 的任务调度系统在运行时占优，NumPy 的性能更好。在其他方面，TensorFlow 的性能一般要好一些。
+在深入研究之前，我们来比较 numpy 与 tensorflow-numpy 的性能。对于由一些小型运算操作构成的任务（少于 10 微秒），tensorflow 的任务调度系统在运行时花费了大部分时间，此时 NumPy 的性能更好。在其他方面，TensorFlow 的性能一般要好一些。
 
-Tensorflow 创建了用于性能比较的测试系统。它们使用 numpy 和 tensorlfow-numpy 执行 sigmoid 函数，并分别在 CPU 和 GPU 上多次运行。该试验的结果如下：
+Tensorflow 创建了用于性能比较的测试程序。它们使用 numpy 和 tensorlfow-numpy 执行 sigmoid 函数，并分别在 CPU 和 GPU 上多次运行。该试验的结果如下：
 
 ![Image by [Tensorflow](https://www.tensorflow.org/guide/tf_numpy_files/output_p-fs_H1lkLfV_0.png)](https://cdn-images-1.medium.com/max/2000/1*ccZoyf2TfAonIFE-knrlZQ.png)
 
@@ -43,21 +43,21 @@ NDArray 是 tf.experimental.numpy.ndarray 的一个实例，代表一个多维�
 
 ![Data type and promotions (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*W-KMZZz5M-1xMsZwburmBg.png)
 
-**设备对它的支持**：由于 ND Array 是包含于 tf.Tensor 的，GPU 和 TPU 都支持 ND Array。如下图所示，我们可以通过设置 tf.device 选择运行代码的设备。
+**支持选择设备**：由于 ND Array 是包含于 tf.Tensor 的，GPU 和 TPU 都支持 ND Array。如下图所示，我们可以通过设置 tf.device 选择运行代码的设备。
 
 ![Device setup (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*chRzLgOvSVeYL3JKWNiIvA.png)
 
-**Graph and eager modes**：Eager 模式执行类似于python代码执行，所以它支持 NDArray，就像 numpy 一样，通过执行op-by-op。然而，同样的代码可以通过将其放入tf.function中以图形模式执行。下面是实现此目的的代码示例。
+**Graph and eager modes**：Eager 模式执行类似于python代码执行，所以它支持 NDArray，就像 numpy 一样，一步一步的执行。然而，同样的代码可以通过将其放入tf.function中以图形模式执行。下面是实现此目的的代码示例。
 
 ![tf.function usage (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*TLwyJSC1bxNa1domZLcj3Q.png)
 
-## 限制条件
+## 使用限制
 
 * 部分 dtype 不受支持。
 * 不支持 Mutation 类型。ND Array 包含了不可变的 tf.Tensor。
-* 不支持 Fortran 方式存储的数组、view、通过 stride_tricks 获取的数组。
+* 不支持 Fortran 方式排序、展开以及分块操作。
 * 不支持使用 NumPy C API、NumPy’s Cython、Swig integration。
-* 支持部分函数和模块的使用。
+* 仅支持部分函数和模块的使用。
 
 这就是我们需要讨论的全部内容。我们研究了 tensorflow-numpy 和它的某些功能。tf-numpy 具有互操作性，因此在编写 tensorflow 和普通的 numpy 程序代码时都可以使用。你也可以在 GPU 上使用这个库运行复杂的 numpy 程序。
 
