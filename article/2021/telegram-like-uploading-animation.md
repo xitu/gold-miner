@@ -188,7 +188,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 
 ### 准备
 
-那么首先我们来谈谈我们 View 的结构。它应该包含哪些绘画组件？在当前情境下最好的表达方式就是声明不同的画笔。
+那么首先我们来谈谈我们 View 的结构。它应该包含哪些绘画组件？在当前情境下最好的表达方式就是声明不同的 `Paint`。
 
 ```kotlin
 // progress_paints.kt
@@ -210,7 +210,7 @@ private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 }
 ```
 
-为了展示我将改变笔触的宽度和其他东西，所以你会看到某些方面的不同。这 3 个画笔就与 3 个关键部分的进度相关联：
+为了展示我将改变笔触的宽度和其他东西，所以你会看到某些方面的不同。这 3 个 `Paint` 就与 3 个关键部分的进度相关联：
 
 ![](https://miro.medium.com/max/1200/1*UnoyHSg3xYZzyRNwYm35HA.gif)
 
