@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-Reasons-to-Switch-from-React-to-Next-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-Reasons-to-Switch-from-React-to-Next-js.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)
 
 
 # 从 React 转换到 Next.js 的五个理由
@@ -26,9 +26,9 @@
 
  4. 分析以及管理面板。
 
-这也是我在围绕网络开发时学到的一些很有价值的经验知识。
+在这个过程中，我学到了一些关于 Web 开发的很有价值的经验知识。
 
-从用户的角度来看，一切似乎都很好，但从开发者的角度来看，维护项目代码是一场噩梦。
+从用户的角度来看，一切似乎都很好，但对于开发者来说，维护项目代码是一场噩梦。
 
 这时我才明白 Next.js 的标语 —— “用于生产的 React 框架”的真正含义。
 
@@ -42,15 +42,15 @@
 
 已经快一年了，但我的 React 网站的大部分博客仍然没有出现在谷歌搜索上，即使我专门使用 URL 和其他工具进行搜索。
 
-这是在我尽力通过使用 [React Helmet](https://www.npmjs.com/package/react-helmet) 等库使得 React 对搜索引擎进行优化。
+此后，我尝试过使用 [React Helmet](https://www.npmjs.com/package/react-helmet) 等库来对 React 网站进行搜索引擎优化。
 
-React 不利于 SEO，是因为它不在服务器端渲染。另一方面，Next.js 的主要优势是它支持服务器端渲染。
+React 不利于 SEO，是因为它不在服务器端渲染。与之相对，Next.js 的主要优势是它支持服务器端渲染。
 
-需要一个好的搜索引擎优化方案来增加有效流量，Next.js 似乎是保证这一点的解决方案。
+一个好的搜索引擎优化方案可以提升有效流量，Next.js 似乎是能够保证这一点的解决方案。
 
-然而，我想指出的是，客户端 ReactJS 应用程序并不是不被谷歌机器人爬取。即使被爬取的，但其 SEO 效果不如 Next.js 所提供的好。
+然而，我想指出的是，客户端 ReactJS 应用程序并不是不能被谷歌机器人爬取。它们是能被爬取的，只是其 SEO 效果不如 Next.js 所提供的好。
 
-如果你想详细了解 JavaScript 应用程序中的渲染和 SEO，请查看我的博客，在那里我用通俗的文章介绍这些话题。
+如果你想详细了解 JavaScript 应用程序中的渲染和 SEO，请查看我的博客，在那里我用通俗的语言讲解过这些话题。
 在建立了多个网站之后编写的初级 JavaScript 网络应用程序 SEO 指南：
 [以下是我学到的关于有效流量和 SEO 的内容——javascript.plainenglish.io](https://javascript.plainenglish.io/a-beginners-guide-to-seo-for-javascript-web-applications-c67d55728291)    
 
@@ -62,21 +62,21 @@ React 创建单页应用程序（SPA），该应用程序本质上是一个单�
 
 尽管单页应用程序以快速响应和提供原生应用程序而闻名，但它们确实存在缺点。
 
-在尝试使用 [Google 的 AdSense](https://www.google.com/adsense/start/#/?modal_active=none) 来获取网站收益时，我发现了一个缺点。
+当尝试使用 [Google 的 AdSense](https://www.google.com/adsense/start/#/?modal_active=none) 来获取网站收益时，我发现了一个缺点。
 
-AdSense 只是没有检测到他们要求我放入 index.html 文件中的代码，然而出乎意料的是，它找不到该网站上的任何内容。
+AdSense 不是简单地检测他们要求我放入 index.html 文件中的代码，更出人意料的是，它根本找不到该网站上的任何内容。
 
 这是因为博客是动态加载的，并且 AdSense 需要在批准网站展示广告之前先查看真实内容。
 
 通过简单的 Google 搜索，我发现这是许多单页应用程序网站的常见问题。
 
-这个问题根源是缺乏适当的服务器端渲染支持，Next.js 可以轻松解决。
+这个问题根源是缺乏适当的服务器端渲染支持，而 Next.js 可以轻松解决它。
 
 ## 3. 更简单的导航
 
 理解 React 的导航和路由需要花费很大的学习成本，特别是当这个人之前使用 Vue 这样的框架（比如我）。
 
-React 的路由使用了一个叫 `React-Router-Dom` 依赖包，代码看上去似乎很复杂。[这里是一个 React 路由的示例](https://reactrouter.com/web/example/basic)。
+React 的路由使用了一个叫 `React-Router-Dom` 依赖包，代码看上去似乎很复杂。[这里有一个 React 路由的示例](https://reactrouter.com/web/example/basic)。
 
 由于我的网站功能丰富，拥有大量的页面，从预设的博客和注册页到常见问题和服务条款页。
 
@@ -92,13 +92,13 @@ Next.js 简化了所有这些页面的路由。它提供了一个基于文件系
 
 Next.js 内置了对 API 路由的支持，这使你能够使用已知的基于文件系统快速创建 API 端点。
 
-你放在 `pages/api` 目录下的任何文件都将被视为 API 端点（作为一个 Node.js 无服务器函数）。
+你放在 `pages/api` 目录下的任何文件都将被视为 API 端点（作为一个 Node.js 的 serverless 功能）。
 
-如果你需要运行一些服务器端的功能，这将是非常有用的，因为这些端点并不是客户端依赖包的一部分。
+如果你需要运行一些服务器端的功能，这将是非常有用的特性，因为这些端点并不是客户端依赖包的一部分。
 
 例如，如果你的网站上有一个输入表单，你可以向 API 端点发送 POST 请求，它将验证输入并将数据存储到数据库中。
 
-这基本上可以让你创建无服务器函数，它使我能够将 Node.js 和 React 代码合并为单一的 Next.js 应用程序。
+这基本上可以让你创建 serverless 功能，它使我能够将 Node.js 和 React 代码合并为单一的 Next.js 应用程序。
 
 Next.js 创建的前端 API 路由是 Next 利用本身的数据完成的。
 
@@ -134,9 +134,9 @@ React 是[最流行的框架](https://www.codeinwp.com/blog/angular-vs-vue-vs-re
 
 构建于 React 之上的 Next.js 旨在为 React 的一些问题提供解决方案，同时也通过引入一些现代的内置解决方案来促进应用程序开发。
 
-从 React 切换到 Next 是可能的，但如果你刚开始，明智地选择 Next 而不是 React。
+从 React 切换到 Next 是可行的，但如果你刚开始，请明智地选择 Next 而不是 React。
 
-然而，在每个项目中使用 Next.js 而完全抛弃 React 也是不可取的。
+必须说明的是，在每个项目中使用 Next.js 而完全抛弃 React 也是不可取的。
 
 每个网站和应用程序的建立都有其特定的意图和目标，这在选择正确的框架和库时可以起到至关重要的作用。
 
