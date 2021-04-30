@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-Reasons-to-Switch-from-React-to-Next-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-Reasons-to-Switch-from-React-to-Next-js.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)、[Cyberhan123](https://github.com/Cyberhan123)
 
 
 # 从 React 转换到 Next.js 的五个理由
@@ -36,7 +36,7 @@
 
 我从 React 转到 Next.js 主要有以下五个原因。
 
-## 1. React 不利于 SEO
+## 1. React 对 SEO 不友好
 
 每一个博客或一个可生产的网站都需要为搜索引擎进行优化（SEO），除了一些像控制面板或用户设置的网站。
 
@@ -44,7 +44,7 @@
 
 此后，我尝试过使用 [React Helmet](https://www.npmjs.com/package/react-helmet) 等库来对 React 网站进行搜索引擎优化。
 
-React 不利于 SEO，是因为它不在服务器端渲染。与之相对，Next.js 的主要优势是它支持服务器端渲染。
+React 对 SEO 不友好，是因为它不在服务器端渲染。与之相对，Next.js 的主要优势是它支持服务器端渲染。
 
 一个好的搜索引擎优化方案可以提升有效流量，Next.js 似乎是能够保证这一点的解决方案。
 
