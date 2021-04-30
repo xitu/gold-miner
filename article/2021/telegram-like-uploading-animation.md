@@ -2,35 +2,35 @@
 > * 原文作者：[Michael Spitsin](https://programmerr47.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/telegram-like-uploading-animation.md](https://github.com/xitu/gold-miner/blob/master/article/2021/telegram-like-uploading-animation.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[greycodee](https://github.com/greycodee)
 
-# Telegram-like uploading animation
+# 构建和 Telegram 一样的上传动画
 
 ![](https://miro.medium.com/max/1656/1*Fkn89gxEsTWWefUu1dV0UA.png)
 
-Some time ago I worked on a new feature: sending images in the app’s internal chat. The feature itself was big and included multiple things, but actually, initially, there was no design for uploading animation with the ability to cancel the upload. When I moved to this part I decided that Images Needs Their Uploading Animations, so let’s give them that. :)
+前段时间，我研究了一个新功能：在 app 内部聊天中发送图片。这个功能本身很大，包括了多种东西，但实际上，最初并没有设计上传动画与取消上传的功能。当我用到这部分的时候，我决定增加图片上传动画，所以我们就给他们这个功能吧：)
 
 ![](https://miro.medium.com/max/1528/1*La8YF7kI31hvmawzNVHN6g.gif)
 
-## View vs Drawable
+## View vs. Drawable
 
-Actually, it’s a good question. Because if we [look at one of my other posts about sonar-like animation](https://proandroiddev.com/sonar-like-animation-c1e7c5b291bd), I used a `Drawable` there. In my personal opinion there is a pretty good and concise answer [in StackOverflow](https://stackoverflow.com/questions/12445045/android-custom-drawable-vs-custom-view):
+其实，这是个好问题。因为如果我们[看看我的其他一篇关于声纳类动画的文章](https://proandroiddev.com/sonar-like-animation-c1e7c5b291bd)，我在那里用了一个 `Drawable`。在我个人看来，[StackOverflow](https://stackoverflow.com/questions/12445045/android-custom-drawable-vs-custom-view) 这里就有个很好的简洁的答案。
 
-> `Drawable` only response for the draw operations, while view response for the draw and user interface like touch events and turning off screen and more.
+> `Drawable` 只响应绘制操作，而 View 响应绘制和用户界面，比如触摸事件和关闭屏幕等等。
 
-Now let’s analyze, what we want to do. We want to have an infinite circle animation of the arc that increases in angle until it will fit the circle and spinning around at the same time. Seems like a drawable is our best friend. And actually, I should do that. But I didn’t.
+现在我们来分析一下，我们想要做什么。我们希望有一条无限旋转的弧线做圆形动画，并且弧线的圆心角不断增加直到圆心角等于 2π。我觉得一个 Drawable 应该能够帮上我的忙，而且实际上我也应该那样做，但我没有。
 
-My reason was in the small three-dots animation that you can see in the sample above. The point is that I did this animation with a custom view and I already prepared the background for infinite animations. For me, it was easier to extract the animation preparation logic into the parent view and then reuse it, rather than rewrite everything as drawables. So I’m not saying that my solution was right *(actually nothing is right)*, but rather it met my needs.
+我没有这样做的原因在上面示例图片中的文字右边那三个小的点点的动画上。我已经用自定义 View 完成了这个动画，并且我已经为无限循环的动画准备了背景。对我来说把动画准备逻辑提取到父 View 中重用，而不是把所有东西都重写成 Drawable，应该是更简单的。所以我并不是说我的解决方案是正确的（其实没有什么是正确的），而是它满足了我的需求。
 
 ## Base InfiniteAnimationView
 
-For the sake of my own needs I will split the desired progress view into two views:
+为了自己的需要，我将把想要的进度视图分成两个视图：
 
-1. `ProgressView` — which is responsible for the drawing of the desired progress
-2. `InfiniteAnimateView` — abstract view which is responsible for the preparation, starting, and stopping animation. Since the progress contains the infinite spinning part, we need to understand when we need to start this animation and when to stop
+1. `ProgressView` —— 负责绘制所需的进度 View
+2. `InfiniteAnimateView`  —— 抽象 View，它负责动画的准备、启动和停止。由于进度中包含了无限旋转的部分，我们需要了解什么时候需要启动这个动画，什么时候需要停止这个动画
 
-After looking in the [source code of Android’s `ProgressBar`](https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/ProgressBar.java) we can end up with something like that:
+在查看了 Android 的 `ProgressBar` 的[源代码](https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/ProgressBar.java)后，我们可以最终得到这样的结果：
 
 ```kotlin
 // InfiniteAnimateView.kt
@@ -76,7 +76,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 }
 ```
 
-Unfortunately, it will not work mainly because of the method `onVisibilityAggregated`. [Because it supported since API 24](https://developer.android.com/reference/android/view/View#onVisibilityAggregated(boolean)). Moreover, I had issues with `!isVisible || windowVisibility != VISIBLE` when the view was visible but the container of it was not. So I decided to rewrite this:
+遗憾的是，主要出于 `onVisibilityAggregated` 方法的原因，它并无法工作 —— 因为[这个方法在 API 24 以上才被支持](https://developer.android.com/reference/android/view/View#onVisibilityAggregated(boolean%29)。此外，我还遇到了 `!isVisible || windowVisibility != VISIBLE` 上的问题，当视图是可见的，但它的容器却不可见。所以我决定重写这个：
 
 ```kotlin
 // InfiniteAnimateView.kt
@@ -88,7 +88,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
     private var animation: Animator? = null
 
     /**
-     * We can not use `onVisibilityAggregated` since it is introduced from sdk 24, but we have min = 21
+     * 我们不可以使用 `onVisibilityAggregated` 方法，因为它只在 SDK 24 以上被支持，而我们的最低 SDK 是 21
      */
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
@@ -120,7 +120,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 }
 ```
 
-Unfortunately, this also didn’t work, however, I was sure that it will. So to be honest, I don’t know the exact reason. Probably it will work in an ordinary case, but will not work for the RecyclerView. Some time ago I had some problems with tracking if some things are displayed in recycler view using `isShown`. Thus, probably my final solution will be not right, but at least it working as I’m expecting in my scenarios:
+不幸的是，这也没有用（虽然我觉得它应该能够正常工作的）。说实话，我不知道问题的具体原因。可能在普通的情况下会有效，但是对于 `RecyclerView` 就不行了。前段时间我就遇到了这个问题：如果使用 `isShown` 来跟踪一些东西是否在 `RecyclerView` 中显示。因此可能我的最终解决方案并不正确，但至少在我的方案中，它能按照我的期望工作：
 
 ```kotlin
 // InfiniteAnimateView.kt
@@ -132,7 +132,7 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
     private var animation: Animator? = null
 
     /**
-     * We can not use `onVisibilityAggregated` since it is introduced from sdk 24, but we have min = 21
+     * 我们不可以使用 `onVisibilityAggregated` 方法，因为它只在 SDK 24 以上被支持，而我们的最低 SDK 是 21
      */
     override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
@@ -162,13 +162,13 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
     }
 
     /**
-     * Probably this function implements View.isShown, but I read that there are some issues with it
-     * And I also faced with those issues in Lottie lib. Since we have as always no time to completelly
-     * investigate this, I decided to put this small and simple method just to be sure it does,
-     * what exactly I need :)
+     * 可能这个函数上实现了 View.isShown，但我发觉到它有一些问题。
+     * 我在 Lottie lib 中也遇到了这些问题。不过因为我们总是没有时间去深入研究
+     * 我决定使用了这个简单的方法暂时解决这个问题，只为确保它能够正常运转
+     * 我到底需要什么 = =
      *
-     * Upd: tried to use isShown instead of this method, and it didn't work out. So if you know
-     * how to improve that, you most welcome :)
+     * 更新：尝试使用 isShown 代替这个方法，但没有成功。所以如果你知道
+     * 如何改进，欢迎评论区讨论一下
      */
     private fun isDeepVisible(): Boolean {
         var isVisible = isVisible
@@ -184,11 +184,11 @@ abstract class InfiniteAnimateView @JvmOverloads constructor(
 }
 ```
 
-## Progress animation
+## 进度动画
 
-### Preparation
+### 准备
 
-So first of all let’s talk about the structure of our view. Which drawing components does it contain? The best representation of it, in this case, is the declaration of different paints:
+那么首先我们来谈谈我们 View 的结构。它应该包含哪些绘画组件？在当前情境下最好的表达方式就是声明不同的 `Paint`。
 
 ```kotlin
 // progress_paints.kt
@@ -210,31 +210,31 @@ private val progressPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
 }
 ```
 
-For the purpose of showing I will variate stroke’s widths and other things so you will see the difference in some aspects. So those 3 paints are associated with 3 key parts of the progress:
+为了展示我将改变笔触的宽度和其他东西，所以你会看到某些方面的不同。这 3 个 `Paint` 就与 3 个关键部分的进度相关联：
 
 ![](https://miro.medium.com/max/1200/1*UnoyHSg3xYZzyRNwYm35HA.gif)
 
-**left:** background; **center:** stroke; **right:** progress
+**左：** background; **中：** stroke; **右：** progress
 
-You may be wondering why `Paint.Cap.BUTT`. Well to make this progress more “telegramish” (at least as on iOS devices) you should use `Paint.Cap.ROUND`. Let me demonstrate the difference between all three possible caps (will increase stroke width for more obvious difference spots).
+你可能想知道为什么我要用 `Paint.Cap.BUTT`。好吧，为了让这个进度更 "Telegram"（至少在 iOS 设备上是这样），你应该使用 `Paint.Cap.ROUND`。让我来演示一下这三种可能的样式之间的区别（这里增加了描边宽度以让差异更明显）。
 
 ![](https://miro.medium.com/max/1200/1*lh_H6Nv_1ixygHP6q8k6Lw.gif)
 
-**left:** `Cap.BUTT`, **center:** `Cap.ROUND`, **right:** `Cap.SQUARE`
+**左：** `Cap.BUTT`，**中：** `Cap.ROUND`，**右：** `Cap.SQUARE`
 
-So the main difference is that `Cap.ROUND` gives to the stroke’s corners the special rounding, whereas `Cap.BUTT` and `Cap.SQUARE` just cut. The `Cap.SQUARE` also use the additional space as `Cap.ROUND`, but not for rounding. This can result in that `Cap.SQUARE` shows the same angle as `Cap.BUTT`, but with additional extra space:
+因此，主要的区别是，`Cap.ROUND` 给笔画的角以特殊的圆角，而 `Cap.BUTT` 和 `Cap.SQUARE` 只是切割。`Cap.SQUARE` 也和 `Cap.ROUND` 一样预留了额外的空间，但没有圆角效果。这可能导致 `Cap.SQUARE` 显示的角度与 `Cap.BUTT` 相同但预留了额外的空间。
 
 ![](https://miro.medium.com/max/1364/1*auxY8ZqofcNmZMsezh0DkA.png)
 
-Trying to show 90 degrees with Cap.BUTT and Cap.SQUARE.
+试图用 `Cap.BUTT` 和 `Cap.SQUARE` 来显示 90 度。
 
-Giving all of that it is best to use `Cap.BUTT` as it shows a more proper angle representation than `Cap.SQUARE`
+考虑到所有这些情况，我们最好使用 `Cap.BUTT`，因为它比 `Cap.SQUARE` 显示的角度表示更恰当。
 
-> By the way `Cap.BUTT` is default paint’s stroke cap. Here is an official [documentation link](https://developer.android.com/reference/android/graphics/Paint.Cap). But I wanted to show you the real difference, because initially I wanted to make it round, then I started to use `SQUARE` but noticed couple of artifacts.
+> 顺便说一下 `Cap.BUTT` 是画笔默认的笔刷类型。这里有一个官方的[文档链接](https://developer.android.com/reference/android/graphics/Paint.Cap)。但我想向你展示真正的区别，因为最初我想让它变成 `ROUND`，然后我开始使用 `SQUARE`，但我注意到了一些特性。
 
-### Base spinning
+### Base Spinning
 
-The animation itself is really simple giving that we have `InfiniteAnimateView`
+动画本身其实很简单，因为我们有 `InfiniteAnimateView`：
 
 ```kotlin
 ValueAnimator.ofFloat(currentAngle, currentAngle + MAX_ANGLE)
@@ -248,7 +248,7 @@ ValueAnimator.ofFloat(currentAngle, currentAngle + MAX_ANGLE)
     }
 ```
 
-where `normalize` is a simple method of putting every angle in `[0, 360)` range. For instance, for angle *400.54* the normalized version will be *40.54.*
+其中 `normalize` 是一种简单的方法用于将任意角缩小回 [0, 2π) 区间内。例如，对于角度 `400.54` `normalize` 后就是 `40.54`。
 
 ```kotlin
 private fun normalize(angle: Float): Float {
@@ -257,51 +257,45 @@ private fun normalize(angle: Float): Float {
 }
 ```
 
-### Measurement & Drawing
+### 测量与绘制
 
-We will rely on measured dimensions that will be provided by the parent or through the xml’s exact`layout_width` & `layout_height` value. So we do nothing in terms of view’s measurement, but we used the measured dimensions for the preparation of the progress rectangle, in which we will draw the view.
+我们将依靠由父视图提供的测量尺寸或使用在 xml 中定义的精确的 `layout_width`、`layout_height` 值进行绘制。因此，我们在 View 的测量方面不需要任何事情，但我们会使用测量的尺寸来准备进度矩形并在其中绘制 View。
 
-Well, it is not so hard, but we need to keep in mind a few things.
+嗯，这并不难，但我们需要记住一些事情：
 
 ![](https://miro.medium.com/max/692/1*x0X1dP0bxHg-Z-iU0p-JhA.png)
 
-* We can not just take `measuredWidth` & `measuredHeight` to draw a circle background, progress, and stroke. Mainly because of the stroke. If we will not take into account the stroke’s width and will not subtract its half from our dimension computations we will end up with cut looking borders :(
+* 我们不能只拿 `measuredWidth`、`measuredHeight` 来画圆圈背景、进度、描边（主要是描边的原因）。如果我们不考虑描边的宽度，也不从尺寸计算中减去它的一半，我们最终会得到看起来像切开的边界：
 
 ![](https://miro.medium.com/max/680/1*pQhNsv1OWffDnraP6njZgA.png)
 
-* If we will not take into account the stroke’s width we may end up overlapping it in the drawing stage. It can be fine for opaque colors.
+* 如果我们不考虑笔触的宽度，我们可能最终会在绘图阶段将其重叠。（这对于不透明的颜色来说是可以的）
 
-But if you will use translucent colors, you will see overlapping as a strange artifact (I increased stroke width for more clear picture)
+但是，如果你将使用半透明的颜色，你就会看到很奇怪的重叠（我增加了笔触宽度以更清晰地展示问题所在）。
 
-### Sweep angle
+### 扫描动画的角度
 
-Okay, the last thing is progress itself. Suppose we can change it from 0 to 1
+好了，最后是进度本身。假设我们可以把它从 0 改成 1：
 
 ```kotlin
 @FloatRange(from = .0, to = 1.0, toInclusive = false)
-var progress: Float = 0f
+var progress.Float = 0f Float = 0f
 ```
 
-@FloatRange(from = .0, to = 1.0, toInclusive = false)  
-var progress: Float = 0f
+为了绘制弧线，我们需要计算一个特殊的扫描动画的角度，而它就是绘图部分的一个特殊角度。360 —— 一个完整的圆将被绘制。90 —— 将画出圆的四分之一。
 
-To draw the arc we need to compute a special sweep angle. It is a special angle of the drawing part. 360 — a full circle will be drawn. 90 — a quarter of the circle will be drawn.
-
-So we need to convert the progress to degrees. And at the same time, we need to keep the sweep angle not 0, so we will be able to draw a small piece of progress if the value `progress` will be equal to 0.
+所以我们需要将进度转换为度数，同时，我们需要保持扫描角不为 0。也就是说即便 `progress` 值等于 0，我们也要绘制一小块的进度。
 
 ```kotlin
 private fun convertToSweepAngle(progress: Float): Float =
     MIN_SWEEP_ANGLE + progress * (MAX_ANGLE - MIN_SWEEP_ANGLE)
 ```
 
-private fun convertToSweepAngle(progress: Float): Float =  
-MIN\_SWEEP\_ANGLE + progress \* (MAX\_ANGLE - MIN\_SWEEP\_ANGLE)
+其中 `MAX_ANGLE = 360`（当然你可以自定义为任何角度），`MIN_SWEEP_ANGLE` 是最小的进度，以度数为单位。最小进度会在 `progress = 0` 就会代替 `progress` 值。
 
-Where `MAX_ANGLE = 360` (but you can put whatever you prefer) and `MIN_SWEEP_ANGLE` is the minimum amount of progress in degrees that will be shown if `progress = 0`.
+## 代码放一起！
 
-## Gather up
-
-Now giving all that information we can build the completed view
+现在将所有的代码合并一起，我们就可以构建完整的 View 了：
 
 ```kotlin
 // ChatProgressView.kt
@@ -343,7 +337,7 @@ class ChatProgressView @JvmOverloads constructor(
             invalidate()
         }
 
-    //in degrees [0, 360)
+    // [0, 360)
     private var currentAngle: Float by observable(0f) { _, _, _ -> invalidate() }
     private var sweepAngle: Float by observable(MIN_SWEEP_ANGLE) { _, _, _ -> invalidate() }
 
@@ -366,7 +360,7 @@ class ChatProgressView @JvmOverloads constructor(
 
         val progressOffset = progressPadding + progressPaint.strokeWidth / 2f
 
-        //since the stroke it drawn on center of the line, we need to safe space for half of it, or it will be truncated by the bounds
+        // 由于笔画在线的中心，我们需要为它留出一半的安全空间，否则它将被截断的界限
         bgRadius = min(horizHalf, vertHalf) - bgStrokePaint.strokeWidth / 2f
 
         val progressRectMinSize = 2 * (min(horizHalf, vertHalf) - progressOffset)
@@ -396,9 +390,9 @@ class ChatProgressView @JvmOverloads constructor(
     }
 
     /**
-     * converts (shifts) the angle to be from 0 to 360.
-     * For instance: if angle = 400.54, the normalized version will be 40.54
-     * Note: angle = 360 will be normalized to 0
+     * 将任意角转换至 [0, 360)
+     * 比如说 angle = 400.54 => return 40.54
+     * angle = 360 => return 0
      */
     private fun normalize(angle: Float): Float {
         val decimal = angle - angle.toInt()
@@ -416,38 +410,38 @@ class ChatProgressView @JvmOverloads constructor(
 }
 ```
 
-### The bonus!
+### 补充！
 
-The small bonus for that is we can play a little bit with a method`drawArc`. You see, we have a `currentAngle`, which represents the angle of the starting point for arc’s drawing. And we have a `sweepAngle`, which represents how much of arc in degrees we need to draw.
+补充一下，我们可以在 `drawArc` 这个方法上拓展一下。你看我们有一个 `currentAngle` 代表了绘制圆弧的起始点的角度，还有一个 `sweepAngle` 代表了我们需要绘制多少度数的圆弧。
 
-When the progress is increased, we change only `sweepAngle`, which means that if `currentAngle` is the static value (not mutable), then we will see *“increasing”* the arc only in one direction. We can play with it. Let’s consider three cases and look at the result:
+当进度增加时，我们只改变 `sweepAngle`，也就是说，如果 `currentAngle` 是静态值（不变），那么我们将看到增加的圆弧只有一个方向。我们可以试着修改一下。考虑一下三种情况并看看结果分别是怎样的：
 
 ```kotlin
-//In this scenario arc "increases" only in one direction
-1. drawArc(progressRect, currentAngle, sweepAngle, false, progressPaint)
-//In this scenario arc "increases" in both directions
-2. drawArc(progressRect, currentAngle - sweepAngle / 2f, sweepAngle, false, progressPaint)
-//In this scenario arc "increases" in another direction
-3. drawArc(progressRect, currentAngle - sweepAngle, sweepAngle, false, progressPaint)
+// 1. 在这种情况下，弧线只在一个方向上 "增加"
+drawArc(progressRect, currentAngle, sweepAngle, false, progressPaint)
+// 2. 在这种情况下，弧线在两个方向上 "增加"
+drawArc(progressRect, currentAngle - sweepAngle / 2f, sweepAngle, false, progressPaint)
+// 3. 在这种情况下，弧线向另一个方向 "增加"
+drawArc(progressRect, currentAngle - sweepAngle, sweepAngle, false, progressPaint)
 ```
 
-And the result is:
+而结果是：
 
 ![](https://miro.medium.com/max/1200/1*fbLfs0wImFm_GzMyJYWJCA.gif)
 
-**Left:** 1st scenario, **Middle:** 2nd scenario, **Right**: 3rd scenario
+**左：**第一种情况；**中：**第二种情况；**右**：第三种情况
 
-As you can see the left and the right animations (scenarios `1.` and `3.`) are not consistent in terms of speed. While the first one gives a sense of faster spinning speed, the progress is increasing, the last on the contrary gives a sense of slower spinning speed. And vice versa for decreasing progress.
+如你所见，左边和右边的动画（方案一、三）在速度上并不一致。第一个给人的感觉是旋转速度加快，进度增加，而最后一个则相反，给人的感觉是旋转速度变慢。而反之则是进度递减。
 
-The middle animation is consistent however in terms of spinning speed. So if you will not just increase progress (for file uploading, for instance), or just decrease the progress (for count down timer, for example), then I would recommend using the option `2.`.
+不过中间的动画在旋转速度上是一致的。所以，如果你不是增加进度（比如上传文件），或者只是减少进度（比如倒计时），那么我建议使用第二个方案。
 
-## Afterwords
+## 后记
 
-Animations are great. Pixels are great. Shapes are great. We just need to treat them carefully with love. As details are the most valuable thing in the product ;)
+动画是伟大的。像素是伟大的。形状是伟大的。我们只需要用爱仔细对待它们。因为细节是产品中最有价值的东西;)
 
 ![](https://miro.medium.com/max/292/0*19Qsjr8oaWOKrhLk.gif)
 
-If you liked that article, don’t forget to support me by clapping and if you have any questions, comment me and let’s have a discussion. Happy coding!
+如果你喜欢这篇文章，别忘了点赞关注收藏一键三连！如果你有什么问题，可以评论我，我们来讨论一下。祝你编程愉快!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
