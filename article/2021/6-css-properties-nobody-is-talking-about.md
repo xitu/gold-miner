@@ -2,274 +2,284 @@
 > * 原文作者：[Anurag Kanoria](https://medium.com/@anuragkanoria)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-css-properties-nobody-is-talking-about.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[zenblo](https://github.com/zenblo)、[Chorer](https://github.com/Chorer)
 
-# 6 CSS Properties Nobody Is Talking About
+# 6 个没人讲过的 CSS 属性
 
-![Photo by [Kristina Flour](https://unsplash.com/@tinaflour?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9640/0*bs0OAqfhQkkn-9YY)
+![由 [Kristina Flour](https://unsplash.com/@tinaflour?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9640/0*bs0OAqfhQkkn-9YY)
 
-CSS and HTML have been the cornerstone of the internet for decades.
+数十年来，CSS 和 HTML 一直都是互联网的基石。
 
-While HTML was responsible for creating website structures and arranging texts and graphics, it could do little when it came to designing the website.
+虽然 HTML 能够负责创建网站结构并进行图文排列，但在设计网站上却无能为力。
 
-Designing websites, ever since 1994, has been the sole purpose of CSS. It became the language that described how websites should look and feel.
+自 1994 年以来，设计网站一直是 CSS 的唯一目的，它是一门描述网站外观的语言。
 
-Over the years, CSS has seen a number of new properties added to it such as Flexbox and Grid.
+多年来，CSS 不断地推出更多的新属性，例如 Flexbox（弹性盒）或是 Grid（网格）。
 
-Despite the immense popularity and rising complexities of creating web apps, there are still a number of CSS properties and tricks that most developers don’t know.
+尽管创建 Web 应用广受欢迎且日趋复杂，但大多数开发者仍有很多不了解的 CSS 属性和技巧。
 
-Below are 6 CSS properties that you probably never heard of:
+以下是你可能从未听说过的 6 个 CSS 属性：
 
-## 1. all
+## 1. `all`
 
-Have you ever used any CSS framework? If yes, I am pretty sure there might have been times when you wanted to override some of the elements to your liking.
+你是否曾经使用过 CSS 框架呢？如果是的话，我可以肯定你有好几次都想要根据自己的喜好覆盖某些元素的样式定义。
 
-While the most common way of doing that is by using the `!important` property in CSS to lay emphasis on the current property, ignoring all other settings and rules.
+最常用的方法是使用 CSS 中的 `!important` 属性来强调当前属性，而忽略所有其他设置和规则。
 
 ```css
-.header{
+.header {
     color: blue !important;
-    font-size: 14px !important; 
+    font-size: 14px !important;
 }
 ```
 
-However, writing the same keyword again and again can make the CSS file look messy.
+但是，重复书写相同的关键字会让 CSS 文件看起来很混乱。
 
-The easier way to do it is to use the `all` property.
+而一个更简单的覆盖样式定义的方法，是使用 `all` 属性。
 
-There are 3 property values of `all` — initial, inherit, and unset.
+`all` 共有 3 个可用的属性值 —— `initial`、`inherit` 和 `unset`。
 
 ```css
-.header{
-  all:initial;
-  color: blue;
-  font-size: 14px; 
+.header {
+    all: initial;
+    color: blue;
+    font-size: 14px;
 }
 ```
 
-`all:initial` sets all the properties of the element to their fallback or initial values.
+`all: initial` 会将元素的所有属性设置为回退值或初始值。
 
-Chrome and Firefox support this property starting version 37 and version 27 respectively. This property is also supported on Edge browser, but not on Internet Explorer.
+从 Chrome 版本 37 和 Firefox 版本 27 开始它们都支持了这个属性。Edge 浏览器也支持此属性，但 IE 并不支持。
 
-## 2. writing-mode
+## 2. `writing-mode`
 
-I wrote a recent article on [some of the amazing places to find design inspirations](https://medium.com/javascript-in-plain-english/8-amazing-places-to-find-design-inspirations-for-free-dd2e64abc1b0) and I stumbled upon many sites that have texts laid out vertically and sideways.
+我最近写过一篇有关[寻找设计灵感的神奇地方](https://medium.com/javascript-in-plain-english/8-amazing-places-to-find-design-inspirations-for-free-dd2e64abc1b0)的文章，里面列举的网站和我偶然发现的许多站点中，文本都是在一侧竖直排列的。
 
-![Source: [httpster](https://httpster.net/2020/dec/).](https://cdn-images-1.medium.com/max/2600/1*m5Ut8kRsp8oSIUogG_EMuw.jpeg)
+![来源：[httpster](https://httpster.net/2020/dec/)](https://cdn-images-1.medium.com/max/2600/1*m5Ut8kRsp8oSIUogG_EMuw.jpeg)
 
-On the right side(near scrollbar) of the image above, you can see texts laid sideways which is a neat way of showing additional information.
+在上图的右侧（滚动条附近），我们可以看到侧边竖直排列的文本，而这恰好就是一种显示附加信息的巧妙方法。
 
-The `writing-mode` property allows you to achieve exactly this.
+`writing-mode` 属性可以让我们实现这个效果。
 
-This property supports the following values:
+该属性支持以下值：
 
-* `sideways-rl`: Text and other content are laid out vertically from top to bottom and are set sideways toward the right.
-* `sideways-lr`: Like `sideways-rl`, text and other content are laid out vertically from top to bottom but set sideways toward the left.
-* `vertical-rl`: Text and other content are laid out vertically from top to bottom and right to left horizontally. If there are two or more lines, the lines are **placed to the left** of the previous line.
-* `vertical-lr`: Unlike `vertical-rl` , horizontally the text is laid out left to right, and if there are two or more lines, the lines are **placed to the right** of the previous line.
+* `sideways-rl`：文本和其他内容从上到下垂直排列，并向右横向放置。
+* `sideways-lr`：和 `sideways-rl` 一样，文本和其他内容从上到下垂直排列，但向左倾斜。
+* `vertical-rl`：文本和其他内容从上到下垂直排列，从右到左水平排列。如果有两行或更多行，则这些行会被**放置在前一行的左侧**。
+* `vertical-lr`：与 `vertical-rl` 不同，水平地将文本从左到右排列，并且如果有两行或更多行，则这些行会被放置在前一行的右侧。
 
-There is also `horizontal-tb` which represents the standard way of how texts are displayed.
+`horizontal-tb` 属性则实现默认排列文本的效果。
 
-![Source: [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)](https://cdn-images-1.medium.com/max/2000/1*enCsNGgsHPLsCxLnu0-FJA.png)
+![来源：[MDN Web 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/writing-mode)](https://cdn-images-1.medium.com/max/2000/1*enCsNGgsHPLsCxLnu0-FJA.png)
 
-You can find the implementation and code snippets [here](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode).
+你可以在[这里](https://developer.mozilla.org/en-US/docs/Web/CSS/writing-mode)找到相关实现和代码块。
 
-## 3. background-clip
+## 3. `background-clip`
 
-This is an interesting property that allows us to set a custom graphic to our element’s background.
+这是一个有趣的属性，它让我们可以为元素的背景设置自定义图形。
 
-Our custom graphic can extend to the border-box, padding-box, or content-box of the element.
+我们的自定义图形可以延伸到元素的边框，内边距盒或内容盒。
 
-Below is a short implementation of this property:
+以下是此属性的简短实现：
 
-HTML:
+HTML：
 
 ```html
-<p class="border-box">The background extends behind the border.</p>
-<p class="padding-box">The background extends to the inside edge of the border.</p>
-<p class="content-box">The background extends only to the edge of the content box.</p>
-<p class="text">The background is clipped to the foreground text.</p>
+<p class="border-box">背景延伸到边框。</p>
+<p class="padding-box">背景延伸到边框的内部边缘。</p>
+<p class="content-box">背景仅延伸到内容盒的边缘。</p>
+<p class="text">背景被裁剪为前景文本。</p>
 ```
 
-CSS:
+CSS：
 
 ```css
 p {
-  border: .8em darkviolet;
-  border-style: dotted double;
-  margin: 1em 0;
-  padding: 1.4em;
-  background: linear-gradient(60deg, red, yellow, red, yellow, red);
-  font: 900 1.2em sans-serif;
-  text-decoration: underline;
+    border: .8em darkviolet;
+    border-style: dotted double;
+    margin: 1em 0;
+    padding: 1.4em;
+    background: linear-gradient(60deg, red, yellow, red, yellow, red);
+    font: 900 1.2em sans-serif;
+    text-decoration: underline;
 }
 
-.border-box { background-clip: border-box; }
-.padding-box { background-clip: padding-box; }
-.content-box { background-clip: content-box; }
+.border-box {
+    background-clip: border-box;
+}
+
+.padding-box {
+    background-clip: padding-box;
+}
+
+.content-box {
+    background-clip: content-box;
+}
 
 .text {
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: rgba(0,0,0,.2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: rgba(0, 0, 0, .2);
 }
 ```
 
-Output:
+效果：
 
-![Source: Author](https://cdn-images-1.medium.com/max/2000/1*Ugb8RTSg7qFGkcSFUWfkHw.jpeg)
+![图源作者](https://cdn-images-1.medium.com/max/2000/1*Ugb8RTSg7qFGkcSFUWfkHw.jpeg)
 
-You can use a custom image and set it as the background of the text as well as shown below:
+我们也可以使用自定义图片作为文本的背景：
 
-![Source: Author](https://cdn-images-1.medium.com/max/2000/1*ng2WZRQ1HOIBSHWdizCzBw.jpeg)
+![图源作者](https://cdn-images-1.medium.com/max/2000/1*ng2WZRQ1HOIBSHWdizCzBw.jpeg)
 
-It is worth noting that you need to use the `-webkit-background-clip` property for Chrome and make sure text color is set to transparent.
+值得注意的是，在 Chrome 上我们需要使用 `-webkit-background-clip` 属性，并确保文本颜色设置为透明。
 
-## 4. user-select
+## 4. `user-select`
 
-If you have any text on your website that you don’t want your users to be able to copy, this is the property that will enable you to do so.
+如果我们的网站上有着一些不想让用户复制的文本，我们可以使用此属性。
 
-The `user-select` property specifies whether the text of an element can be selected or not.
+`user-select` 属性指定是否可以选择元素的文本。
 
-This does not have any effect on the content loaded except textboxes.
+这对除文本框之外的内容没有任何影响。
 
 ```css
-.row-of-icons {   
--webkit-user-select: none;  /* Chrome & Safari all */   
--moz-user-select: none;     /* Firefox all */   
--ms-user-select: none;      /* IE 10+ */   
-user-select: none;          
+.row-of-icons {
+    -webkit-user-select: none; /* Chrome & Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
 }
 ```
 
-This property can be used to make sure that an entire element got selected as well.
+此属性也可用于确保选择了整个元素。
 
 ```css
 .force-select {
-   user-select: all;  
-  -webkit-user-select: all;  /* Chrome 49+ */
-  -moz-user-select: all;     /* Firefox 43+ */
-       
+    user-select: all;
+    -webkit-user-select: all; /* Chrome 49+ */
+    -moz-user-select: all; /* Firefox 43+ */
+
 }
 ```
 
-You can find the full guide [here](https://developer.mozilla.org/en-US/docs/Web/CSS/user-select).
+你可以在[这里](https://developer.mozilla.org/en-US/docs/Web/CSS/user-select)找到完整的说明。
 
-## 5. white-space
+## 5. `white-space`
 
-This property is useful when applying `text-overflow` properties as this property allow you to control the flow of text of an element.
+在使用 `text-overflow` 的时候，该属性非常有用，因为它允许我们控制元素的文本流。
 
-It accepts `nowrap`, `pre`, `pre-wrap`, `pre-line` and `normal` as property values.
+它接受 `nowrap`、`pre`、`pre-wrap`、`pre-line` 和 `normal` 作为属性值。
 
-The `nowrap` prevents the text from wrapping inside the element width and height and allows it to overflow.
+`nowrap` 可防止文本环绕在元素的宽度和高度内，并使其溢出。
 
-The `pre` value forces the browser to render the line breaks and white spaces that appear in the code but are stripped out by default. `The pre-wrap` value does the same except that it also wraps the text in that element.
+`pre` 值强制浏览器渲染代码中默认会去除的换行符和空格。`pre-wrap` 值和 `pre` 值作用相同，但是它不会让文本溢出元素。
 
-The`pre-line` property will break lines where they break in code, but extra white space will not be rendered.
+`pre-line` 属性会在代码中相应的地方换行，但是不会显示多余的空格。
 
-This becomes clear with the following example:
+通过以下示例可以清楚地看出它们的区别：
 
 HTML:
 
 ```html
 <div>
-<p class='zero'>
+    <p class='zero'>
 
-Some text
-</p>
+        Some text
+    </p>
 
-<p class='first'>
+    <p class='first'>
 
-Some text 
-</p>
-<p class='second'>
-Some text 
-</p>
-<p class='third'>
-Some text 
-</p>
-<p class='fourth'>
-Some text 
-</p>
+        Some text
+    </p>
+    <p class='second'>
+        Some text
+    </p>
+    <p class='third'>
+        Some text
+    </p>
+    <p class='fourth'>
+        Some text
+    </p>
 </div>
 ```
 
 CSS:
 
 ```css
-div{
-  width:100px;   
+div {
+    width: 100px;
 }
-p{
-  background:red;
-  font-size:2rem;
+
+p {
+    background: red;
+    font-size: 2rem;
 }
-.first{
-  white-space:nowrap;
+
+.first {
+    white-space: nowrap;
 }
-.second{
-  white-space:pre;
+
+.second {
+    white-space: pre;
 }
-.third{
-  white-space:pre-line;
+
+.third {
+    white-space: pre-line;
 }
-.fourth{
-  white-space:nowrap;
-  text-overflow:ellipsis;
-  overflow:hidden;
+
+.fourth {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 ```
 
-Output:
+效果:
 
-![Source: Author](https://cdn-images-1.medium.com/max/2000/1*9L39xG8cZkPXO2rkiuvHOg.jpeg)
+![图源作者](https://cdn-images-1.medium.com/max/2000/1*9L39xG8cZkPXO2rkiuvHOg.jpeg)
 
-## 6. `border-image` property
+## 6. `border-image`
 
-This property is excellent for designing your website.
+此属性非常适合设计我们的网站，我们可以使用此属性在元素周围创建漂亮的边框 —— `border-image` 允许你将自定义图像设置为边框。
 
-You can create beautiful borders around your element using this property.
+下面的图像就展示了这个属性的应用：
 
-`border-image` allows you to set custom images as borders.
+![图源: [MDN 网站](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image)](https://cdn-images-1.medium.com/max/2000/1*7SOVwmouXHD1lxWGVeSEMw.png)
 
-I am going to use this image to demonstrate this property.
-
-![Source: [MDN site.](https://developer.mozilla.org/en-US/docs/Web/CSS/border-image)](https://cdn-images-1.medium.com/max/2000/1*7SOVwmouXHD1lxWGVeSEMw.png)
-
-HTML and CSS are given below:
+HTML 和 CSS 代码如下：
 
 ```html
+
 <body>
-   <h1>This is a title</h1>
+<h1>This is a title</h1>
 </body>
 ```
 
 ```css
-h1{
-  border: 10px solid transparent;
-  padding: 15px;
-  border-image: url(border.png) 20% round;
+h1 {
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(border.png) 20% round;
 }
 ```
 
-Output:
+效果:
 
-![Source: Author](https://cdn-images-1.medium.com/max/2716/1*go4Ajp41jzEj5bPsHAnOkQ.jpeg)
+![图源作者](https://cdn-images-1.medium.com/max/2716/1*go4Ajp41jzEj5bPsHAnOkQ.jpeg)
 
-This property can be used to create fancy cards or to lay emphasis on certain portions of text.
+此属性可用于创建精美卡片或强调部分文本。
 
-## Final thoughts
+## 最后的想法
 
-Front-end developers use CSS and HTML all the time besides JavaScript and knowing more about these can help one build better apps quicker, faster, and in a better manner.
+前端开发者们除了使用 JavaScript 之外，还同时使用着 CSS 和 HTML。了解更多的 CSS 属性知识，能够帮助我们更快、更好地构建 Web 应用程序。
 
-While I have shared a handful of less-talked about CSS properties, there are more such properties.
+尽管我分享了一些较少被人们所提及的 CSS 属性，但这样的属性还有很多。
 
-Even though CSS has been here for over 2 decades, it still has a lot of properties and tricks up its sleeve.
+虽然 CSS 已有 20 多年的历史了，但它仍然具有许多奇技淫巧。
 
-Knowing these can facilitate the development of fascinating CSS art and websites.
+知道这些 CSS 属性可以实现具有艺术气息的网站。
 
-Thanks for reading!
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

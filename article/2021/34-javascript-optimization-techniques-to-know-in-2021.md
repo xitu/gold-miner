@@ -1,403 +1,484 @@
-> * 原文地址：[34 JavaScript Optimization Techniques to Know in 2021
-](https://medium.com/javascript-in-plain-english/34-javascript-optimization-techniques-to-know-in-2021-d561afdf73c3)
+> * 原文地址：[34 JavaScript Optimization Techniques to Know in 2021](https://medium.com/javascript-in-plain-english/34-javascript-optimization-techniques-to-know-in-2021-d561afdf73c3)
 > * 原文作者：[atit53](https://atit53.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/34-javascript-optimization-techniques-to-know-in-2021.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[Ashira97](https://github.com/Ashira97), [PassionPenguin](https://github.com/PassionPenguin)
 
-# 34 JavaScript Optimization Techniques to Know in 2021
-Optimize your JavaScript code using modern shorthand techniques, tips, and tricks
+# 2021 年需要了解的 34 个 JavaScript 优化技巧
 
-The life of a developer is always learning new things and keeping up with the changes shouldn’t be harder than it already is, and my motive is to introduce all the JavaScript best practices such as shorthand and features which we must know as a frontend developer to make our life easier in 2021.
+使用先进的语法糖优化你的 JavaScript 代码
+
+开发者需要持续学习新技术，跟以前相比，如今跟随技术变化是比较容易做到的，我写这篇文章的目的是介绍诸如缩写之类的 JavaScript 最佳实践和其中的特性，这些都是我们作为一名前端开发人员必须了解的，因为它会给我们的工作生活带来便利。
 
 ![https://miro.medium.com/max/2400/0*K49jVcTGrpgm_5mX.png](https://miro.medium.com/max/2400/0*K49jVcTGrpgm_5mX.png)
 
-You might be doing JavaScript development for a long time but sometimes you might be not updated with the newest features which can solve your issues without doing or writing some extra codes. These techniques can help you to write clean and optimized JavaScript Code. Moreover, these topics can help you to prepare yourself for JavaScript interviews in 2021.
+可能你已经进行了多年的 JavaScript 开发工作，但有时候你还是会对一些最新的技术不那么了解，而这些新技术可能有助于某些问题的解决而不需要你去编写更多的代码。有时候，这些新技术也能帮助你进行代码优化。此外，如果你今年需要为 JavaScript 面试作准备，本文也是一份实用的参考资料。
 
-Here I am coming with a new series to cover **shorthand techniques** that help you to write more clean and optimized JavaScript Code. This is a **Cheat list for JavaScript** Coding you must know in 2021.
+在这里，我会介绍一些新的**语法糖**，它可以优化你的 JavaScript 代码，使代码更简洁。下面是一份 **JavaScript 语法糖列表**，你需要了解一下。
 
-# **1. If with multiple conditions**
+## 1. 含有多个条件的 if 语句
 
-We can store multiple values in the array and we can use the array includes method.
+我们可以在数组中存储多个值，并且可以使用数组的 includes 方法。
 
-```
-//longhandif (x === 'abc' || x === 'def' || x === 'ghi' || x ==='jkl') {
+```js
+// 源代码
+if (x === 'abc' || x === 'def' || x === 'ghi' || x === 'jkl') {
     //logic
-}//shorthandif (['abc', 'def', 'ghi', 'jkl'].includes(x)) {
-   //logic
+}
+
+// 缩写
+if (['abc', 'def', 'ghi', 'jkl'].includes(x)) {
+    //logic
 }
 ```
 
-# **2. If true … else Shorthand**
+## 2. If … else 的缩写法
 
-This is a greater short cut for when we have if-else conditions that do not contain bigger logics inside. We can simply use the ternary operators to achieve this shorthand.
+当我们的 if-else 条件中的逻辑比较简单时，可以使用这种简洁的方式——三元条件运算符。
 
-```
-// Longhand
-let test: boolean;if (x > 100) {
+```js
+// 源代码
+let test: boolean;
+
+if (x > 100) {
     test = true;
 } else {
     test = false;
-}// Shorthand
-let test = (x > 10) ? true : false;//or we can use directly
-let test = x > 10;console.log(test);
+}
+
+// 缩写
+let test = (x > 10) ? true : false;
+
+// 或者我们可以直接使用
+let test = x > 10;
+
+console.log(test);
 ```
 
-When we have nested conditions we can go this way.
+如果包含嵌套的条件，我们也可以这样写。
 
-```
+```js
 let x = 300,
-test2 = (x > 100) ? 'greater 100' : (x < 50) ? 'less 50' : 'between 50 and 100';console.log(test2); // "greater than 100"
+    test2 = (x > 100) ? 'greater 100' : (x < 50) ? 'less 50' : 'between 50 and 100';
+console.log(test2); // "greater than 100"
 ```
 
-# **3. Declaring variables**
+## 3. 定义变量
 
-When we want to declare the two variables which have the common value or common type we can use this shorthand.
+当我们定义两个值相同或类型相同的变量，可以使用这样的缩写法
 
-```
-//Longhand 
+```js
+// 源代码 
 let test1;
-let test2 = 1;//Shorthand 
+let test2 = 1;
+
+// 缩写 
 let test1, test2 = 1;
-
 ```
 
-# **4. Null, Undefined, Empty Checks**
+## 4. 对 Null、Undefined、Empty 这些值的检查
 
-When we do create new variables sometimes we want to check if the variable we are referencing for its value is not null or undefined. JavaScript does have a really good shorthand to achieve these functions.
+我们创建一个新变量，有时候需要检查是否为 Null 或 Undefined。JavaScript 本身就有一种缩写法能实现这种功能。
 
-```
-// Longhand
+```js
+// 源代码
 if (test1 !== null || test1 !== undefined || test1 !== '') {
     let test2 = test1;
-}// Shorthand
+}
+
+// 缩写
 let test2 = test1 || '';
 ```
 
-# **5. Null Value checks and Assigning Default Value**
+## 5. 对 Null 值的检查以及默认赋值
 
-```
+```js
 let test1 = null,
-    test2 = test1 || '';console.log("null check", test2); // output will be ""
+    test2 = test1 || '';
+
+console.log("null check", test2); // 输出为 ""
 ```
 
-# **6. Undefined Value checks and Assigning Default Value**
+## 6. 对 Undefined 值的检查以及默认赋值
 
-```
+```js
 let test1 = undefined,
-    test2 = test1 || '';console.log("undefined check", test2); // output will be ""
+    test2 = test1 || '';
+
+console.log("undefined check", test2); // 输出为 ""
 ```
 
-Normal Value checks
+对正常值的检查
 
-```
+```js
 let test1 = 'test',
-    test2 = test1 || '';console.log(test2); // output: 'test'
+    test2 = test1 || '';
+
+console.log(test2); // 输出为 'test'
 ```
 
-(BONUS: Now we can use `??` operator for topic 4,5 and 6)
+利好消息：关于第 4、5、6 条还可以使用 ?? 运算符
 
-# **Nullish coalescing Operator**
+### 聚合运算符
 
-The **`nullish coalescing Operator ??**` is returned the right-hand side value if the left-hand side is null or undefined. By default, it will return the left-side value.
+**??**是聚合运算符，如果左值为 `null` 或 `undefined`，就返回右值。默认返回左值。
 
-```
-const test= null ?? 'default';
+```js
+const test = null ?? 'default';
 console.log(test);
-// expected output: "default"const test1 = 0 ?? 2;
+// 输出为 "default"
+
+const test1 = 0 ?? 2;
 console.log(test1);
-// expected output: 0
+// 输出为 0
 ```
 
-# **7. Assigning values to multiple variables**
+## 7. 同时为多个变量赋值
 
-When we are dealing with multiple variables and want to assign different values to the different variables this shorthand technique is really useful.
+当我们处理多个变量，并且需要对这些变量赋不同的值，这种缩写法很有用。
 
-```
-//Longhand 
+```js
+// 源代码 
 let test1, test2, test3;
 test1 = 1;
 test2 = 2;
-test3 = 3;//Shorthand 
+test3 = 3;
+
+// 缩写 
 let [test1, test2, test3] = [1, 2, 3];
 ```
 
-# **8. Assignment Operators Shorthand**
+## 8. 赋值运算符缩写法
 
-We deal with a lot of arithmetic operators in our programming. This is one of the useful techniques for assignment operators to JavaScript variables.
+编程中使用算术运算符是很常见的情况。以下是 JavaScript 中赋值运算符的应用。
 
-```
-// Longhand
+```js
+// 源代码
 test1 = test1 + 1;
 test2 = test2 - 1;
-test3 = test3 * 20;// Shorthand
+test3 = test3 * 20;
+
+// 缩写
 test1++;
 test2--;
 test3 *= 20;
 ```
 
+## 9. 判断变量是否存在的缩写法
 
-# **9. If Presence Shorthand**
+这是普遍使用的缩写法，但在这里应当提一下。
 
-This is one of the common shorthand which we all are using but still, it is worth mentioning here.
+```js
+// 源代码
+if (test1 === true) {
+}
+if (test1 !== "") {
+}
+if (test1 !== null) {
+}
 
-```
-// Longhand
-if (test1 === true) or if (test1 !== "") or if (test1 !== null)
-
-// Shorthand //it will check empty string,null and undefined too
-if (test1)
-```
-
-Note: If test1 has any value it will fall into the logic after the if loop, this operator mostly used for null or undefined checks.
-
-# **10. AND(&&) Operator for Multiple Conditions**
-
-If we are calling a function only if the variable is true then we can use && Operator.
-
-```
-//Longhand 
+// 缩写 
+// 会直接检查是否为空值、null 和 undefined
 if (test1) {
- callMethod(); 
-} //Shorthand 
+}
+```
+
+注意：当 test1 为任何值时，程序都会执行 if(test1){ } 内的逻辑，这种写法在判断 NULL 或 undefined 值时普遍使用。
+
+## 10. 用于多个条件的与（&&）运算符
+
+如果需要实现某个变量为 true 时调用一个函数，可以使用 && 运算符。
+
+```js
+// 源代码 
+if (test1) {
+    callMethod();
+}
+
+// 缩写 
 test1 && callMethod();
 ```
 
-# **11. foreach Loop Shorthand**
+## 11. foreach 循环缩写法
 
-This is one of the common shorthand technique for iteration.
+这是循环结构对应的缩写法。
 
+```js
+// 源代码
+for (var i = 0; i < testData.length; i++) {
+}
+
+// 缩写
+for (let i in testData) {
+}
+for (let i of testData) {
+}
 ```
-// Longhand
-for (var i = 0; i < testData.length; i++)
 
-// Shorthand
-for (let i in testData) or  for (let i of testData)
-```
+遍历每一个变量：
 
-Array for each variable
-
-```
+```js
 function testData(element, index, array) {
-  console.log('test[' + index + '] = ' + element);
+    console.log('test[' + index + '] = ' + element);
 }
 
 [11, 24, 32].forEach(testData);
-// logs: test[0] = 11, test[1] = 24, test[2] = 32
+// 输出 test[0] = 11, test[1] = 24, test[2] = 32
 ```
 
-# **12. Comparison Returns**
+## 12. 比较结果的返回
 
-We can use the comparison in the return statements too. It will avoid our 5 lines of code and reduced them to 1 line.
+在 return 语句中，我们也可以使用比较的语句。这样，原来需要 5 行代码才能实现的功能，现在只需要 1 行，大大减少了代码量。
 
-```
-// Longhand
-let test;function checkReturn() {
+```js
+// 源代码
+let test;
+
+function checkReturn() {
     if (!(test === undefined)) {
         return test;
     } else {
         return callMe('test');
     }
 }
+
 var data = checkReturn();
-console.log(data); //output testfunction callMe(val) {
+console.log(data); // 输出为 test
+function callMe(val) {
     console.log(val);
-}// Shorthandfunction checkReturn() {
+}
+
+// 缩写
+function checkReturn() {
     return test || callMe('test');
 }
 ```
 
-# **13. Arrow Function**
+## 13. 箭头函数
 
-```
-//Longhand 
-function add(a, b) { 
-   return a + b; 
-} 
-//Shorthand 
+```js
+// 源代码 
+function add(a, b) {
+    return a + b;
+}
+
+// 缩写 
 const add = (a, b) => a + b;
 ```
 
-More examples.
+再举个例子
 
-```
+```js
 function callMe(name) {
-  console.log('Hello', name);
-}callMe = name => console.log('Hello', name);
-```
-
-# **14. Short Function Calling**
-
-We can use the ternary operator to achieve these functions.
-
-```
-// Longhand
-function test1() {
-  console.log('test1');
-};function test2() {
-  console.log('test2');
-};var test3 = 1;
-if (test3 == 1) {
-  test1();
-} else {
-  test2();
-}// Shorthand
-(test3 === 1? test1:test2)();
-```
-
-# **15. Switch Shorthands**
-
-We can save the conditions in the key-value objects and can be used based on the conditions.
-
-```
-// Longhand
-switch (data) {
-  case 1:
-    test1();
-  break;
-
-  case 2:
-    test2();
-  break;
-
-  case 3:
-    test();
-  break;
-  // And so on...
+    console.log('Hello', name);
 }
 
-// Shorthand
+callMe = name => console.log('Hello', name);
+```
+
+## 14. 简短的函数调用语句
+
+我们可以使用三元运算符实现如下功能。
+
+```js
+// 源代码
+function test1() {
+    console.log('test1');
+};
+
+function test2() {
+    console.log('test2');
+};
+var test3 = 1;
+if (test3 == 1) {
+    test1();
+} else {
+    test2();
+}
+
+// 缩写
+(test3 === 1 ? test1 : test2)();
+```
+
+## 15. switch 对应的缩写法
+
+我们可以把条件值保存在名值对中，基于这个条件使用名值对代替 switch。
+
+```js
+// 源代码
+switch (data) {
+    case 1:
+        test1();
+        break;
+
+    case 2:
+        test2();
+        break;
+
+    case 3:
+        test();
+        break;
+    // And so on...
+}
+
+// 缩写
 var data = {
-  1: test1,
-  2: test2,
-  3: test
+    1: test1,
+    2: test2,
+    3: test
 };
 
 data[something] && data[something]();
 ```
 
-# **16. Implicit Return Shorthand**
+## 16. 隐式返回缩写法
 
-With the use of arrow functions, we can return the value directly without having to write a return statement.
+使用箭头函数，我们可以直接得到函数执行结果，不需要写 return 语句。
 
-Longhand:
+```js
+// 源代码
+function calculate(diameter) {
+    return Math.PI * diameter
+}
 
-```
-//longhandfunction calculate(diameter) {
-  return Math.PI * diameter
-}//shorthandcalculate = diameter => (
-  Math.PI * diameter;
+// 缩写
+calculate = diameter => (
+    Math.PI * diameter
 )
 ```
 
-# **17. Decimal base exponents**
+## 17. 十进制数的指数形式
 
-```
-// Longhand
-for (var i = 0; i < 10000; i++) { ... }
+```js
+// 源代码
+for (var i = 0; i < 10000; i++) {
+}
 
-// Shorthand
+// 缩写
 for (var i = 0; i < 1e4; i++) {
+}
 ```
 
-# **18. Default Parameter Values**
+## 18. 默认参数值
 
-```
-//Longhandfunction add(test1, test2) {
-  if (test1 === undefined)
-    test1 = 1;
-  if (test2 === undefined)
-    test2 = 2;
-  return test1 + test2;
-}//shorthandadd = (test1 = 1, test2 = 2) => (test1 + test2);add() //output: 3
+```js
+// 源代码
+function add(test1, test2) {
+    if (test1 === undefined)
+        test1 = 1;
+    if (test2 === undefined)
+        test2 = 2;
+    return test1 + test2;
+}
+
+// 缩写
+add = (test1 = 1, test2 = 2) => (test1 + test2);
+add() // 输出: 3
 ```
 
-# **19. Spread Operator Shorthand**
+## 19. 延展操作符的缩写法
 
-```
-//longhand// joining arrays using concat
+```js
+// 源代码
+// concat 方法插入 Array
 const data = [1, 2, 3];
-const test = [4 ,5 , 6].concat(data);
-//shorthand// joining arrays
+const test = [4, 5, 6].concat(data);
+
+// 缩写
+// 插入 Array
 const data = [1, 2, 3];
-const test = [4 ,5 , 6, ...data];
+const test = [4, 5, 6, ...data];
 console.log(test); // [ 4, 5, 6, 1, 2, 3]
-
 ```
 
-For cloning also we can use a spread operator.
+我们也可以使用延展操作符来克隆。
 
-```
-//longhand
+```js
+// 源代码
 
-// cloning arrays
+// 克隆 Array
 const test1 = [1, 2, 3];
-const test2 = test1.slice()//shorthand
+const test2 = test1.slice()
 
-// cloning arrays
+// 缩写
+// 克隆 Array
 const test1 = [1, 2, 3];
 const test2 = [...test1];
 ```
 
-# **20. Template Literals**
+## 20. 文本模板
 
-If you have tired of using + to concatenate multiple variables in a single string then this shorthand removes your headache.
+如果你对使用 + 符号来连接多个变量感到厌烦，这个缩写法可以帮到你。
 
+```js
+// 源代码
+const welcome = 'Hi ' + test1 + ' ' + test2 + '.'
+
+// 缩写
+const welcome = `Hi ${test1} ${test2}`;
 ```
-//longhandconst welcome = 'Hi ' + test1 + ' ' + test2 + '.'//shorthandconst welcome = `Hi ${test1} ${test2}`;
-```
 
+## 21. 跟多行文本有关的缩写法
 
-# **21. Multi-line String Shorthand**
+当我们在代码中处理多行文本时，可以使用这样的技巧
 
-When we are dealing with a multi-line string in code we can go for this function:
+```js
+// 源代码
+const data = 'abc abc abc abc abc abc\n\t'
+    + 'test test,test test test test\n\t'
 
-Longhand:
-
-```
-//longhandconst data = 'abc abc abc abc abc abc\n\t'
-    + 'test test,test test test test\n\t'//shorthandconst data = `abc abc abc abc abc abc
+// 缩写
+const data = `abc abc abc abc abc abc
          test test,test test test test`
 ```
 
-# **22. Object Property Assignment**
+## 22. 对象属性的赋值
 
 ```
 let test1 = 'a'; 
-let test2 = 'b';//Longhand 
-let obj = {test1: test1, test2: test2}; 
-//Shorthand 
+let test2 = 'b';
+
+// 源代码 
+let obj = {test1: test1, test2: test2};
+
+// 缩写 
 let obj = {test1, test2};
 ```
 
-# **23. String into a Number**
+## 23. 字符串转换为数字
 
-```
-//Longhand 
-let test1 = parseInt('123'); 
-let test2 = parseFloat('12.3'); //Shorthand 
-let test1 = +'123'; 
+```js
+// 源代码 
+let test1 = parseInt('123');
+let test2 = parseFloat('12.3');
+
+// 缩写 
+let test1 = +'123';
 let test2 = +'12.3';
 ```
 
-# **24. Destructuring Assignment Shorthand**
+## 24. 解构赋值缩写法
 
-```
-//longhandconst test1 = this.data.test1;
+```js
+// 源代码
+const test1 = this.data.test1;
 const test2 = this.data.test2;
-const test2 = this.data.test3;//shorthandconst { test1, test2, test3 } = this.data;
+const test2 = this.data.test3;
+
+// 缩写
+const {test1, test2, test3} = this.data;
 ```
 
-# **25. Array.find Shorthand**
+## 25. Array.find 缩写法
 
-When we do have an array of objects and we want to find the specific object based on the object properties find method is really useful.
+当我们需要在一个对象数组中按属性值查找特定对象时，find 方法很有用。
 
-```
+```js
 const data = [{
-        type: 'test1',
-        name: 'abc'
-    },
+    type: 'test1',
+    name: 'abc'
+},
     {
         type: 'test2',
         name: 'cde'
@@ -406,141 +487,170 @@ const data = [{
         type: 'test1',
         name: 'fgh'
     },
-]function findtest1(name) {
+]
+
+function findtest1(name) {
     for (let i = 0; i < data.length; ++i) {
         if (data[i].type === 'test1' && data[i].name === name) {
             return data[i];
         }
     }
 }
-//Shorthand
+
+// 缩写
 filteredData = data.find(data => data.type === 'test1' && data.name === 'fgh');
 console.log(filteredData); // { type: 'test1', name: 'fgh' }
 ```
 
-# **26. Lookup Conditions Shorthand**
+## 26. 查询条件缩写法
 
-If we have code to check the type and based on the type need to call different methods we either have the option to use multiple else ifs or go for the switch, but what if we have better shorthand than that?
+如果我们要检查类型，并根据类型调用不同的函数，我们既可以使用多个 else if 语句，也可以使用 switch，除此之外，如果有缩写法，代码会是怎么样呢？
 
-```
-// Longhand
+```js
+// 源代码
 if (type === 'test1') {
-  test1();
-}
-else if (type === 'test2') {
-  test2();
-}
-else if (type === 'test3') {
-  test3();
-}
-else if (type === 'test4') {
-  test4();
+    test1();
+} else if (type === 'test2') {
+    test2();
+} else if (type === 'test3') {
+    test3();
+} else if (type === 'test4') {
+    test4();
 } else {
-  throw new Error('Invalid value ' + type);
-}// Shorthand
+    throw new Error('Invalid value ' + type);
+}
+
+// 缩写
 var types = {
-  test1: test1,
-  test2: test2,
-  test3: test3,
-  test4: test4
+    test1: test1,
+    test2: test2,
+    test3: test3,
+    test4: test4
 };
- 
+
 var func = types[type];
-(!func) && throw new Error('Invalid value ' + type); func();
+(!func) && throw new Error('Invalid value ' + type);
+func();
 ```
 
-# **27. Bitwise IndexOf Shorthand**
+## 27. 按位非和 indexOf 缩写法
 
-When we are iterating an array to find a specific value we do use **indexOf()** method.What if we find a better approach for that? Let’s check out the example.
+我们以查找特定值为目的迭代一个数组是，通常用到 **indexOf()** 方法。
 
-```
-//longhandif(arr.indexOf(item) > -1) { // item found }if(arr.indexOf(item) === -1) { // item not found}//shorthandif(~arr.indexOf(item)) { // item found}if(!~arr.indexOf(item)) { // item not found}
-```
+```js
+// 源代码
+if (arr.indexOf(item) > -1) { // item 存在 
+}
+if (arr.indexOf(item) === -1) { // item 不存在
+}
 
-The `bitwise(~)` the operator will return a truthy value for anything but `-1`. Negating it is as simple as doing `!~`. Alternatively, we can also use the `includes()` function:
-
-```
-if (arr.includes(item)) { 
-// true if the item found
+// 缩写
+if (~arr.indexOf(item)) { // item 存在
+}
+if (!~arr.indexOf(item)) { // item 不存在
 }
 ```
 
-# **28. Object.entries()**
+对除 `-1` 外的任何数进行 `按位非(~)` 运算都会返回真值。把按位非的结果再次进行逻辑取反就是 `!~`，这非常简单。或者我们也可以使用 `includes()` 函数：
 
-This feature helps to convert the object to an array of objects.
-
+```js
+if (arr.includes(item)) {
+    // 如果存在则 true
+}
 ```
-const data = { test1: 'abc', test2: 'cde', test3: 'efg' };
+
+## 28. Object.entries()
+
+该特性可以把对象转换成一个由若干对象组成的数组。
+
+```js
+const data = {test1: 'abc', test2: 'cde', test3: 'efg'};
 const arr = Object.entries(data);
-console.log(arr);/** Output:
-[ [ 'test1', 'abc' ],
-  [ 'test2', 'cde' ],
-  [ 'test3', 'efg' ]
-]
-**/
+console.log(arr);
+
+/** 输出
+ [ [ 'test1', 'abc' ],
+ [ 'test2', 'cde' ],
+ [ 'test3', 'efg' ]
+ ]**/
 ```
 
-# **29. Object.values()**
+## 29. Object.values()
 
-This is also a new feature introduced in ES8 that performs a similar function to `Object.entries()`, but without the key part:
+这也是 ES8 中介绍的一个新特性，它的功能与 `Object.entries()` 类似，但没有其核心功能：
 
-```
-const data = { test1: 'abc', test2: 'cde' };
+```js
+const data = {test1: 'abc', test2: 'cde'};
 const arr = Object.values(data);
-console.log(arr);/** Output:
-[ 'abc', 'cde']
-**/
+console.log(arr);
+
+/** 输出
+ * [ 'abc', 'cde']
+ **/
 ```
 
-# **30. Double Bitwise Shorthand**
+## 30. 两个位运算符缩写
 
-**(The double NOT bitwise operator approach only works for 32-bit integers)**
+**(两个按位非运算符只适用于 32 位整型)**
 
-```
-// Longhand
+```js
+// 源代码
 Math.floor(1.9) === 1 // true
 
-// Shorthand
+// 缩写
 ~~1.9 === 1 // true
 ```
 
-# **31. Repeat a string multiple times**
+## 31. 把一个字符串重复多次
 
-To repeat the same characters again and again we can use the for loop and add them in the same loop but what if we have a shorthand for this?
+我们可以使用 for 循环把一个字符串反复输出多次，那这种功能有没有缩写法呢？
 
-```
-//longhand 
-let test = ''; 
-for(let i = 0; i < 5; i ++) { 
-  test += 'test '; 
-} 
+```js
+// 源代码 
+let test = '';
+for (let i = 0; i < 5; i++) {
+    test += 'test ';
+}
 console.log(str); // test test test test test 
-//shorthand 
+
+//缩写 
 'test '.repeat(5);
 ```
 
-# **32. Find max and min number in the array**
+## 32. 找出一个数组中最大和最小的值
 
-```
-const arr = [1, 2, 3]; 
-Math.max(…arr); // 3
-Math.min(…arr); // 1
+```js
+const arr = [1, 2, 3];
+Math.max(...arr); // 3
+Math.min(...arr); // 1
 ```
 
-# **33. Get character from string**
+## 33. 获取字符串中的字符
 
-```
+```js
 let str = 'abc';
-//Longhand 
-str.charAt(2); // c//Shorthand 
-Note: If we know the index of the array then we can directly use index insted of character.If we are not sure about index it can throw undefined
+
+// 源代码 
+str.charAt(2); // c
+
+// 缩写 
+// 注意：如果事先知道目标字符在字符串中的索引，我们可以直接使用该索引值。如果索引值不确定，运行时就有可能抛出 undefined。
 str[2]; // c
 ```
 
-# **34. Power Shorthand**
+## 34. 幂运算的缩写法
 
-Shorthand for a Math exponent power function:
+指数幂函数的缩写法:
 
+```js
+// 源代码
+Math.pow(2, 3); // 8
+// 缩写
+2 ** 3 // 8
 ```
-//longhandMath.pow(2,3); // 8//shorthand2**3 // 8
-```
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

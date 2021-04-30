@@ -1,210 +1,212 @@
-> * 原文地址：[Understanding Rust: ownership, borrowing, lifetimes
-](https://medium.com/@bugaevc/understanding-rust-ownership-borrowing-lifetimes-ff9ee9f79a9c)
+> * 原文地址：[Understanding Rust: ownership, borrowing, lifetimes](https://medium.com/@bugaevc/understanding-rust-ownership-borrowing-lifetimes-ff9ee9f79a9c)
 > * 原文作者：[bugaevc](hhttps://medium.com/@bugaevc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-rust-ownership-borrowing-lifetimes.md](understanding-rust-ownership-borrowing-lifetimes.md)
-> * 译者：
-> * 校对者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-rust-ownership-borrowing-lifetimes.md](https://github.com/xitu/gold-miner/blob/master/article/2021/understanding-rust-ownership-borrowing-lifetimes.md)
+> * 译者：[大宁的洛竹](https://github.com/youngjuning)
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[Zz招锦](https://github.com/zenblo)
 
-# Understanding Rust: ownership, borrowing, lifetimes
-Here’s my take on describing these things. Once you grasp it, it all seems intuitively obvious and beautiful, and you have no idea what part of it you were missing before.
+# 理解 Rust：所有权、借用、生命周期
 
-I am not going to teach you from scratch, nor repeat what The Book says (although sometimes I will) — if you haven’t yet, you should read the [corresponding chapters](https://doc.rust-lang.org/book/ownership.html) from it now. This post is meant to complement The Book, not replace it.
+我对这些概念的理解是，你一旦掌握了它，所有这些语法都会看起来自然且优雅。
 
-I can also recommend you to read [this](http://blog.skylight.io/rust-means-never-having-to-close-a-socket/) excellent article. It actually talks about similar topics, but focuses on other aspects of them.
+我不会从零开始展开教学，也不会机械地重复官方文档的内容（虽然说有时会 🙈）—— 如果你还不了解这些概念，那么你现在应该读一下[对应章节](https://kaisery.github.io/trpl-zh-cn/ch04-00-understanding-ownership.html)的内容，因为本文是对书上内容的补充，而不是要替代它。
 
-Let’s talk resources. Resource is something valuable, “heavy”, something that can be acquired and released (or destroyed) — think a socket, an open file, a semaphore, a lock, an area of heap memory. All these things are traditionally created by calling a function that returns some kind of reference to the resource itself — a memory pointer, a file descriptor — that needs to be explicitly closed when the program considers itself done with the resource.
+另外，我也建议你读一下[这篇](http://blog.skylight.io/rust-means-never-having-to-close-a-socket/)出色的文章。它实际上是在讲述相近的话题，但关注点不一样，也值得一读。
 
-There are problems with this approach. First, it’s all too easy to forget to release some resource, causing what is known as *leak*. Even worse, one might attempt to access a resource that has already been released (use-after-free). If lucky, they would get an error message that will hopefully help them to identify and fix the bug. Otherwise, the reference they have — while invalid as far as the logic goes — might still refer to some “place” which has already been taken by some other resource: memory where something else is already stored, file descriptor some other open file uses. Trying to access the old resource via an invalid reference can corrupt the other resource or completely crash the program.
+让我们先来谈谈资源是什么。资源是宝贵的、“沉重的”、可以获取和释放（或销毁）的东西，比如一个套接字，一个打开的文件，一个信号量，一个锁，一个堆内存区域。按照传统，所有这些事情都是通过调用一个函数来创建的，该函数返回对资源本身的某种引用（一个内存指针或一个文件描述符），当程序认为自己已完成对资源的处理时，需要程序员 👨🏻‍💻 显式关闭该文件。
 
-These issues I’m talking about are not imaginary. They happen all the time. Look, for example, at the [Google Chrome release blog](http://googlechromereleases.blogspot.ru/search/label/Stable%20updates): there are lots of vulnerabilities and crashes getting fixed that were caused by use-after-free — and it costs them a lot of time and work (and money) to identify and fix those.
+这种方法存在着问题。人非圣贤，孰能无过。通常我们很容易忘记释放某些资源，从而导致发生所谓的**内存泄漏**。更糟糕的是，人们可能会尝试访问已经释放的资源（即在释放之后使用）。如果运气好，他们会收到一条报错消息，这可能会帮助他们识别和修复错误，也可能不会。反之，它们所具有的引用（尽管就逻辑而言是无效的）可能仍是引用某个“内存位置”，而该“内存位置”已经被其他资源占用。例如说已存储其他内容的内存，其它打开的文件所使用的文件描述符等。试图通过无效的引用访问旧资源可能会破坏其他资源或使得程序完全崩溃。
 
-It’s not that developers are dumb and oblivious. The logic flow itself is error-prone: it *requires* you to release resources, but doesn’t *enforce* it. Furthermore, you do not usually notice that you forgot to release a resource as there rarely is an observable effect.
+我们讨论这些问题并不是杞人忧天，因为它们无时无刻伴随着我们。比如，在 [Google Chrome 发布博客](http://googlechromereleases.blogspot.ru/search/label/Stable%20updates)中就存在着大量因为使用了被释放的资源引发的漏洞和崩溃的修复记录 —— 这也极大的浪费了人力物力，去识别和修复它们。
 
-Sometimes achieving simple goals requires inventing complex solutions, and those bring complicated logic. It’s hard not to get lost in a giant codebase, and it’s not surprising that bugs always pop out here and there. Most of them are easy to spot. These resource-related bugs are however hard to notice, yet very dangerous if they are exploited in the wild.
+并不是说开发人员是愚蠢和健忘的，因为逻辑流程本身就容易出错：它需要你显示释放资源，但是并不强制你做这些。此外，我们通常不会注意到资源被忘记释放，因为这个问题很少会有着什么明显的影响。
 
-Of course, a new language like Rust cannot fix your bugs for you. What it can do though — and it perfectly succeeds in it — is influence your way of thinking, bringing some structure into your thoughts, thus making these kinds of errors a lot less likely to appear.
+有时要实现简单的目地就需要发明复杂的解决方案，而这些解决方案会带来更复杂的逻辑。我们很难避免在庞大的代码库中迷失，并且 Bug 总是在这里或那里突然冒出来，我们最终也见怪不怪了。其中大多数的问题都很容易被发现，但是与资源相关的错误却很难被发现。因此，一旦如果资源被野指针利用，便会非常危险。
 
-Rust provides you with a safe and clear way to manage your resources. And it doesn’t let you manage them in any other way. This is, well, very restrictive, but this is what we came for.
+![](https://i.loli.net/2021/03/01/xBOd1QFu27Kfkp6.png)
 
-These restrictions are awesome for several reasons:
+当然，像 Rust 这样的新语言无法为你解决 Bug，但是，它可以成功地影响你的思维方式，将一些架构带入你的思想，从而使这类错误的发生几率大大降低。
 
-- They make you think in the right way. After some Rust experience, you will often find yourself trying to apply the same concepts when developing in other languages, even if they are not built right into the syntax.
-- They make your code *safe*. Except for several pretty rare [corner cases](https://doc.rust-lang.org/std/mem/fn.forget.html) all of your “[safe](https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html)” Rust code is guaranteed to be free of the bugs we’re talking about.
-- Rust feels as pleasurable as high-level languages with garbage collection (*who am I kidding by saying JavaScript is pleasurable?*), yet being as fast and as native as other low-level compiled languages.
+Rust 为你提供了一种安全清晰的方法来管理资源。而且，它不允许你以其他任何方式对其进行管理。这是非常严格的，但这不正是我们的目的吗？
 
-With that in mind, let’s look at some goodies Rust has.
+这些限制之所以很棒，有几个原因:
 
-# **Ownership**
+- 它们能让你以正确的方式思考。在有了一些 Rust 开发经验后，即使在其他语言的语法中没有内置这些概念时，你也经常会发现自己尝试应用相似的概念。
+- 它们能让你编写的代码更安全。除了几个很稀有的[极端案例](https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html)，Rust 基本上可以保证你所有的代码都不会涉及我们正在谈论的错误。
+- 虽然如果有垃圾收集机制，Rust 就会像高级语言一样令人愉悦（我可没说 JavaScript 是令人愉悦的！），但是 Rust 与其他低级编译语言一样快且接近底层。
 
-In Rust, there are very clear rules about which piece of code *owns* a resource. In the simplest case, it’s the block of code that created the object representing the resource. At the end of the block the object is destroyed and the resource is released. The important difference here is that the object is not some kind of a “weak reference” that is easy to “just forget”. While internally the object is just a wrapper for the exact same reference, from the outside it appears to *be* the resource it represents. Dropping it — that is, reaching the end of the code that owns it — automatically and predictably releases the resource. There is no way to “forget to do it” — it is done for you, automatically, in a predictable and fully specified manner.
+考虑到这一点，让我们来看一下 Rust 的一些优点。
 
-(At this point you might be asking yourself why I am describing these trivial, obvious things instead of just telling you that smart guys call it [RAII](https://wikiwand.com/en/RAII). Okay, you’re right. Let’s proceed.)
+## 所有权
 
-This concept works fine for temporary objects. Say, we need to write some text into a file. The dedicated block of code (say, a function) would open a file — getting a file object (that wraps a file descriptor) as a result — then do some work with it, then at the end of the block the file object would get dropped and the file descriptor closed.
+在 Rust 中，关于资源属于哪块代码有很明确的规则。在最简单的情况下，是代码块创建了代表资源的对象。在代码块的末尾，对象被销毁且资源被释放。这里重要的区别是对象不是某种容易忘记的“弱引用”。在内部，该对象只是用于完全相同引用的包装器，而从外部看，它似乎是它表示的资源。当到达拥有资源的代码块的末尾时，资源将会自动且可预测地释放。
 
-But in many cases this concept doesn’t work. You may want to pass your resource to someone else, share it among several “users” or even between threads.
+当编译到拥有该内存的代码的尾部，程序会自动且安全地释放资源。妈妈再也不用担心忘记释放资源了！因为该行为是全自动且可预测的，它完全会按照你的预期来完成。
 
-Let’s go over these. First, you may want to pass the resource to someone else — transfer ownership — so that it’s them who now own the resource, do whatever they want with it and, perhaps more importantly, are responsible for releasing it.
+这时你可能会问，为什么我要描述这些琐碎而明显的事情，而不是仅仅告诉你聪明人称之为 [RAII](https://zh.wikipedia.org/wiki/RAII) 的概念？ 好吧，让我们继续聊一下。
 
-Rust supports this very well — in fact, this is what happens to resources by default when you give them to someone else.
+这个概念适用于临时对象。比如以下操作：`将一些文本写入文件` -> `专用代码块（例如，一个函数）将打开一个文件`（结果是得到一个文件对象（包装文件描述符））-> `然后对其进行一些处理` -> `然后在该块的末尾将得到文件对象` -> `最后删除并且文件描述符关闭`。
 
-```jsx
+但是在很多场景中这个概念并不管用。你可能希望将资源传递给其他人，在几个“用户”之间甚至在线程之间共享它。
+
+让我们来看看这些。首先，你可能希望将资源传递给其他人（转移所有权），被转移的人便会拥有资源，可以对资源进行任何操作，甚至更重要的是负责释放资源。Rust 很好的支持了这一点，实际上，当你将资源提供给其他人时，默认便会发生这种情况。
+
+```rust
 fn print_sum(v: Vec<i32>) {
     println!("{}", v[0] + v[1]);
-    // v is dropped and deallocated here
+    // v 被移除随后被释放
 }
 
 fn main() {
-    let mut v = Vec::new(); // creating the resource
+    let mut v = Vec::new(); // 资源在这里被创建
     for i in 1..1000 {
         v.push(i);
     }
-    // at this point, v is using
-    // no less than 4000 bytes of memory
+    // 在这里， 可变变量 v 被使用
+    // 不少于 4000 字节的内存
     // -------------------
-    // transfer ownership to print_sum:
+    // 转移所有权给 print_sum 函数
     print_sum(v);
-    // we no longer own nor anyhow control v
-    // it would be a compile-time error to try to access v here
+    // 我们不拥有并且不能以任何方式控制变量 v
+    // 在这里尝试访问 v 将引发编译时错误
     println!("We're done");
-    // no deallocation happening here,
-    // because print_sum is responsible for everything
+    // 这里并不会发生任何释放动作
+    // 因为 print_sum 此时负责可变变量 v 的一切
 }
 ```
 
-The process of transferring ownership is also called *moving*, because resource is moved from the old location (say, a local variable) to the new location (a function argument). Performance-wise, it’s only the “weak reference” being moved, so everything is still blazing fast; yet to the code it seems like we actually moved the whole resource to the new place.
+所有权转移的过程也称为**移动**，因为资源是从旧位置（例如，局部变量）被移动到了新位置（例如，一个函数参数）的。从性能角度来看，这只是“弱引用”被移动，因此这个过程很快。但是对于代码来说，好像我们实际上将整个资源都移到了新地方。
 
-Moving is different from *copying*. Under the hood, they both mean copying the data (which in this case would be the “weak reference”, if Rust allowed copying resources), but after a move, the contents of the original variable are considered no longer valid or important. Rust actually pretends the variable is “[logically uninitialized](https://doc.rust-lang.org/nomicon/checked-uninit.html)” — that is, filled with some garbage, like those variables that were just created. It is forbidden to use such variable (unless you re-initialize it with a new value). When it gets dropped, there is no resource deallocation: whoever owns the resource now is responsible for cleaning up when they’re done.
+移动和复制是有区别的。广义来说，它们都意味着复制数据（如果 Rust 允许复制资源的话，这种情况下将是“弱引用”），但移动后，原始变量的内容将被视为不再有效或不再重要。Rust 实际上会将该变量视为“ [逻辑上未初始化](https://doc.rust-lang.org/nomicon/checked-uninit.html)”，也就是说，充满了一些垃圾，例如刚刚创建的那些变量。这类变量是被禁止使用的（除非你使用新值重新初始化它），此时也不会发生资源的重新分配：现在拥有资源的人有责任在完成后进行清理。
 
-Moving is not limited to passing arguments. You can move to a variable. You can move to the “return value” — or *from* the return value — or from a variable, or a function argument, for that matter. Basically, it’s everywhere where there is an explicit or implicit assignment.
+移动不仅限于传递参数。你可以移动给一个变量。你还可以移至返回值。为此，你可以从返回值、变量、函数参数移动。基本上到处都是隐式和显示的分配。
 
-While move semantics can be the perfectly reasonable way to deal with a resource — and I’m going to demonstrate it in a moment — for plain old primitive (numeric) variables they would be a disaster (imagine not being able to copy one `int` value to another!). Fortunately, Rust has the `[Copy` trait](https://doc.rust-lang.org/std/marker/trait.Copy.html). Types that implement it (all the primitive ones do) use copy semantics when assigning, all the other types use move semantics. Pretty straightforward. You can implement `Copy` trait for your own type if you want it to be copied — that’s an opt-in.
+尽管移动语法是处理资源的完全合理的方式，我将在稍后演示对于普通的旧原始数字类型变量来说，这将是一场灾难（设想无法复制一个 int 类型变量的值给另一个变量）。幸运的是，Rust 有 [Copy 特征](https://doc.rust-lang.org/std/marker/trait.Copy.html)。实现它的类型（所有原始类型都使用）在分配时使用复制语法，所有其他类型都使用移动语法。这非常容实现，如果你希望自己的类型是可以被复制的，则只需要可选地实现 `Copy` 特征。
 
-```jsx
+```rust
 fn print_sum(a: i32, b: i32) {
     println!("{}", a + b);
-    // the copied a and b are dropped and deallocated here
+    // 被复制的 a 和 b 变量在这里被移除和释放
 }
 
 fn main() {
     let a = 35;
     let b = 42;
-    // copy the values and transfer
-    // ownership over the copies to print_sum:
+    // 复制和传递值
+    // 被复制的值传递的所有权传递给 print_sum：
     print_sum(a, b);
-    // we still retain full control over
-    // the original a and b variables here
+    // 我们仍然保留对原始a和b变量的完全控制权
     println!("We still have {} and {}", a, b);
-    // the original a and b are dropped and deallocated here
+    // 原始的 a 和 b 被移除并随后被释放
 }
 ```
 
-Now, why would move semantics *ever* be useful? It’s all so perfect without them. Well, not quite. Sometimes it’s the most logical thing to do. Consider a function (like [this one](https://doc.rust-lang.org/std/string/struct.String.html#method.with_capacity)) that allocates a string buffer and then returns it to the caller. The ownership is transferred, and the function doesn’t care about the buffer’s fate anymore, whereas the caller gets full control over the buffer, including being responsible for its deallocation.
+现在，我们来探讨下为什么移动语法会有用呢？如果没有他们，一切都显得那么完美。好吧，也不完全是。有时候，这是最合乎逻辑的事情。比如 [with_capacity](https://doc.rust-lang.org/std/string/struct.String.html#method.with_capacity) 函数会分配一个字符串缓冲区，然后将其返回给调用方。所有权被转移了，并且该函数不再关心缓冲区的生死。而调用者可以完全控制缓冲区，包括负责缓冲区的释放。
 
-(It’s the same in C. Functions like `strdup` would allocate memory, hand it to you, and expect *you* to manage and eventually deallocate it. The difference is that it’s just a pointer and the most they can do is ask/remind you to `free()` it when you’re done — and the linked documentation above almost fails to do it — whereas in Rust it’s an unalienable part of the language.)
+在 C 语言中是一样的。诸如 `strdup` 之类的功能将分配内存，将其内存管理交给你，并期望你进行管理并最终对其进行分配。区别在于它只是一个指针，它们所能做的就是在完成后要求或提醒你使用 `free()`。上面所说的移动特性几乎无法做到，而在 Rust 中，这是该语言不可分割的一部分。
 
-Another example would be an iterator adapter [like this one](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.count) that *consumes* the iterator it gets, so it would make no sense to access the iterator afterwards anyway.
+另一个示例是迭代器适配器，比如 [count](https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.count) 这种无论如何之后都没有访问迭代器的意义。
 
-The opposite question is under which circumstances we would need to have multiple references to the same resource. The most obvious use case is when you’re doing multithreading. Otherwise, if all of your operations are performed sequentially, move semantics might almost always work. Still, it would be very inconvenient to *move* things back and forth all the time.
+相反的问题是，在什么情况下，我们需要对同一资源有多个引用。最明显的用例是进行多线程处理的场景。否则，如果所有操作都按顺序执行，则移动语法可能总是起作用的。尽管如此，一直来回移动东西还是很不方便的。
 
-Sometimes, despite the code being run strictly sequentially, it still *feels* like there are several things happening simultaneously. Imagine iterating over a vector. The iterator could transfer you the ownership over the vector in question *after the loop is done*, but you wouldn't be able to get any access to the vector inside the loop — that is, unless you kick around the ownership between your code and the iterator on the each iteration, which would be a terrible mess. It also seems like there would be no way to traverse a tree without destructuring it onto the stack — and then constructing it back, provided that you want to do something else with it afterwards.
+有时，尽管代码严格按顺序运行，但仍然感觉好像同时发生了几件事。想象一下在 vector（可变数组）上进行迭代。循环完成后，迭代器可以将你对相关 vector 的所有权转移给你，但你将无法在循环内获得对 vector 的任何访问权限。也就是说，除非你每次迭代都在你的代码和迭代器之间拥有所有权，否则那将是一团糟。似乎也无法在不破坏堆栈的情况下遍历一棵树，然后重新构造并备给以后做其他事情时用。
 
-And we wouldn’t be able to do multithreading. And it’s not convenient. Even ugly. Thankfully, there is another cool Rust concept that is going to help us. Enter borrowing!
+同时，我们将无法执行多线程，这就很不方便甚至让人厌烦。值得庆幸的是，还有一个很酷的 Rust 概念可以为我们提供帮助。那就是借用！
 
-# **Borrowing**
+## 借用
 
-There are multiple ways to reason about borrowing:
+> 当一个函数使用引用而不是值本身作为参数时，我们便不需要为了归还所有权而特意去返回值，毕竟在这种情况下，我们根本没有取得所有权。这种通过引用传递参数给函数的方法也被成为借用。——《Rust 权威指南》
 
-- It allows us to have multiple references to a resource while still adhering to the “single owner, single place of responsibility” concept.
-- References are similar to pointers in C.
-- A reference is an object too. Mutable references are *moved*, immutable ones are *copied*. When a reference is dropped, the borrow ends (subject to the lifetime rules, see the next section).
-- In the simplest case references behave “just like” moving ownership back and forth without doing it explicitly.
+我们有多种角度解读借用：
 
-Here’s what I mean by the last one:
+- 它使我们在拥有资源的多个引用的同时仍坚持“单一所有者，单一责任”的概念。
+- 引用类似于 C 语言中的指针。
+- 引用也是一个对象。可变引用被移动，不可变引用被复制。删除引用后，借用将终止（取决于生命周期规则，请参见下一节）。
+- 在最简单的情况下，引用的行为就像在没有明确地进行所有权操作的情况下来回移动所有权。
 
-```jsx
-// without borrowing
+下面这段代码就是最后一条的意思：
+
+```rust
+// 没有借用发生
 fn print_sum1(v: Vec<i32>) -> Vec<i32> {
     println!("{}", v[0] + v[1]);
-    // returning v as a means of transferring ownership back
-    // by the way, there's no need to use "return" if it's the last line
-    // because Rust is expression-based
+    // 返回 v 把所有权返回
+    // 顺便一提，由于 Rust 是基于表达式的，所有这里不需要使用 return 关键字便可返回值
     v
 }
 
-// with borrowing, explicit references
+// 有借用，明确的引用
 fn print_sum2(vr: &Vec<i32>) {
     println!("{}", (*vr)[0] + (*vr)[1]);
-    // vr, the reference, is dropped here
-    // thus the borrow ends
+    // vr 是一个引用，在这里被移除，因为借用结束了
 }
 
-// this is how you should actually do it
+// 这就是你应该做的
 fn print_sum3(v: &Vec<i32>) {
     println!("{}", v[0] + v[1]);
-    // same as in print_sum2
+    // 同 print_sum2
 }
 
 fn main() {
-    let mut v = Vec::new(); // creating the resource
+    let mut v = Vec::new(); // 创建可变数组
     for i in 1..1000 {
         v.push(i);
     }
-    // at this point, v is using
-    // no less than 4000 bytes of memory
+    // 此时， v 被使用
+    // 不超过 4000 字节的内存
 
-    // transfer ownership to print_sum and get it back after they're done
+    // 传递 v 的所有权给 print_sum 并在执行结束后反会 v
     v = print_sum1(v);
-    // now we again own and control v
+    // 现在，我们重新取得了 v 的所有权
     println!("(1) We still have v: {}, {}, ...", v[0], v[1]);
-    
-    // take a reference to v (borrow it) and pass this reference to print_sum2
+
+    // 取 v 的引用传递给 print_sum2（借用它）
     print_sum2(&v);
-    // v is still completely ours
+    // v 现在仍然可以被使用
     println!("(2) We still have v: {}, {}, ...", v[0], v[1]);
-    
-    // exacly the same here
+
+    // 此时仍可以
     print_sum3(&v);
     println!("(3) We still have v: {}, {}, ...", v[0], v[1]);
-    
-    // v is dropped and deallocated here
+
+    // v 被移除并在此处被释放
 }
 ```
 
-Let’s see what’s going on here. First, we could get away with always transferring ownership — but we’re already convinced that’s not what we want.
+让我们看看这里发生了什么。第一个函数中，我们可以始终转移所有权，但是我们已经确信有时这并不是我们想要的。
 
-The second one is more interesting. We take a reference to the vector, then pass it to the function. Just like in C, we explicitly dereference it to get to the object behind it. Since there is no complicated lifetime stuff going on, the borrow ends as soon as the reference is dropped. While it otherwise looks just like the first example, there is an important difference. The main function is responsible for the vector all the time — it’s just a bit limited in what it can do to the vector while it’s borrowed. In this example the main function doesn’t have a chance to even observe the vector while it’s borrowed, so it’s not a big deal.
+第二个函数中，我们对 vector 进行引用，然后将其传递给函数。和 C 语言很像，我们通过解引用来获取对象。由于没有复杂的生命周期，因此一旦删除引用，借用便会终止。虽然它看起来像第一个示例，但是有一个重要的区别。`main` 函数拥有 vector 的所有权，在借用 vector 时只能对它做些限制。在这个示例中，`main` 函数在借用 vector 时甚至没有机会观察向量，因此这没什么大不了的。
 
-The third function combines the nice parts of the first one (no need to dereference) and the second one (no messing with ownership). It works due to Rust [auto-dereferencing rules](http://stackoverflow.com/questions/28519997/what-are-rusts-exact-auto-dereferencing-rules). Those are a little complicated, but for the most part they allow you to write your code almost as if references were just the objects they point to — thus being similar to C++ references.
+第三个函数结合了第一个函数不需要解引用和第二个函数不弄乱所有权的优点。这之所以可行是因为 Rust 的[自动解除引用规则](http://stackoverflow.com/questions/28519997/what-are-rusts-exact-auto-dereferencing-rules)。这些有点复杂，但是在大多数情况下，它们可以使你几乎就像使用引用指向的对象一样编写代码，这和 C++ 的引用很相似。
 
-Out of the blue, here is another example:
+这里是另一个示例：
 
-```jsx
-// takes v by (immutable) reference
+```rust
+// 通过不可变引用获取 v
 fn count_occurences(v: &Vec<i32>, val: i32) -> usize {
     v.into_iter().filter(|&&x| x == val).count()
 }
 
 fn main() {
     let v = vec![2, 9, 3, 1, 3, 2, 5, 5, 2];
-    // borrowing v for the iteration
+    // 为迭代借用 v
     for &item in &v {
         // the first borrow is still active
-        // we borrow it the second time here!
+        // 第一个借用仍生效
+        // 我们在这里第二次借用
         let res = count_occurences(&v, item);
         println!("{} is repeated {} times", item, res);
     }
 }
 ```
 
-You don’t need to care what is happening inside `count_occurrences` function, suffice it to say that it borrows the vector (again, without moving it). The loop is borrowing the vector too, so we have two borrows being active *at the same time*. After the loop ends, the main function drops the vector.
+你无需关心 `count_occurrences` 函数内部发生的事情，只需要知道它借用了 vector 即可（再次提醒，没有移动它）。循环也借用了 vector，因此我们有两个借用处于同时活动状态。循环结束后，`main` 函数将删除 vector。
 
-(I am going to be a bit evil. I mentioned multithreading as a primary reason to have references, yet all the examples I show are single-threaded. If you are really interested, you can get some details on multithreading in Rust [here](https://doc.rust-lang.org/book/concurrency.html) and [here](http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html).)
+哈哈，我会有点不地道了。我前面提到多线程是需要引用的主要原因，但是我展示的所有示例都是单线程的。如果你真的有兴趣，可以在 Rust 中获得有关多线程的一些[详细信息](https://doc.rust-lang.org/book/concurrency.html)。
 
-Acquiring and dropping references seems to work as if there was garbage collection involved. This is not the case. Everything is done at compile-time. To accomplish this, Rust needs one more magical concept. Let’s consider this sample code:
+获取和删除引用似乎很有效，好像涉及到垃圾回收一样。但实际并不是这样的。这一切都在编译时完成。为此，Rust 需要另一个神奇的概念。让我们看下以下示例代码：
 
-```jsx
+```rust
 fn middle_name(full_name: &str) -> &str {
     full_name.split_whitespace().nth(1).unwrap()
 }
@@ -216,11 +218,9 @@ fn main() {
 }
 ```
 
-It works, while this doesn’t:
+这是可以被成功编译的，但下面的代码是无法被编译的:
 
-```jsx
-// this does not compile
-
+```rust
 fn middle_name(full_name: &str) -> &str {
     full_name.split_whitespace().nth(1).unwrap()
 }
@@ -230,18 +230,19 @@ fn main() {
     {
         let name = String::from("Harry James Potter");
         res = middle_name(&name);
+        // `name` 在这里被移除并随后被释放
     }
     assert_eq!(res, "James");
 }
 ```
 
-First, let me clarify the confusion with [string types](http://doc.rust-lang.org/book/strings.html). A `String` is an owned string buffer, and a `&str` **— a string slice — is a “view” into someone else’s `String`, or into some other memory (it doesn’t really matter here).
+首先，让我们解释下 [`string` 类型](http://doc.rust-lang.org/book/strings.html)。`String` 拥有字符串缓冲区，一个 `&str`（字符串切片）是 `String` 类型的一段或其他内存的一段（在这里并不重要）。
 
-To make it even more obvious, let me write something similar in pure C:
+为了解释地更加明显，我用 C 语言编写类似的内容：
 
-(Unrelated note: in C, you cannot have a “view” into a middle of a string, because marking its end would require changing the string, so we’re limited to only finding the last name here.)
+> 顺便一提：在 C 语言中，你不能获取字符串的中间部分，因为标记字符串的结尾将需要更改字符串，因此我们仅限于在此处查找姓氏。
 
-```jsx
+```c
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -261,23 +262,23 @@ int main() {
 }
 ```
 
-You see it now? The buffer is dropped and deallocated before the result is used. That’s a trivial example of use-after-free. This C code compiles and runs just fine provided that `printf` implementation doesn’t immediately reuse the memory for something else. Still, in a less trivial example it would be a source of crashes, bugs and security vulnerabilities. That’s exactly what we talked about before introducing ownership.
+你现在明白了吗？在使用结果之前，将删除缓冲区并重新分配缓冲区。这是一个在释放后使用资源的特殊例子。 如果 `printf` 的实现不会立即将内存用于其他用途，则此 C 代码可以编译并运行良好。不过，在一个不那么特殊的示例中，它仍然是崩溃、错误和安全漏洞的来源。正是在介绍所有权之前我们所说的。
 
-You wouldn’t even be able to compile it in Rust (the Rust code above, I mean). This static analysis machinery is built right into the language and works via *lifetimes*.
+你甚至无法在 Rust 中进行编译（我的意思是上面的 Rust 代码）。这种静态分析机制已内置在语言中，并且在整个生命周期可用。
 
-# **Lifetimes**
+## 生命周期
 
-Resources in Rust have lifetimes. They live from the moment they are created to the moment they are dropped. The lifetimes are usually thought of as being *scopes*, or blocks, but that is not actually an accurate representation because a resource can be moved between blocks, as we have already seen. It’s not possible to have a reference to an object that hasn’t yet been created or has already been dropped, and we’ll soon see how this requirement is enforced. Otherwise, it’s all pretty obvious and not really different from the concept of ownership.
+资源在 Rust 中是有生命周期的。他们从被创造的那一刻起一直存在到被移除的那一刻。生命周期通常被认为是作用域或代码块，但这实际上并不是一个准确的表述，因为资源可以在代码块之间移动，正如我们已经看到的那样。我们无法引用尚未创建或已删除的对象，我们很快就会看到这个要求是如何被强制执行。否则，这一切看起来都与所有权概念并没有什么不同。
 
-So here’s the hard part. References, among other objects, have lifetimes too, and those can be different to the lifetime of the *borrow* they represent (called the *associated lifetime*).
+这是比较难理解的一部分。引用以及其他对象也具有生存期，并且这些生存期可能与它们的借用的生存期不同（所谓的关联生命周期）。
 
-Let me rephrase it. A borrow may last longer than the reference it is controlled by. That is generally because it’s possible to have *another* reference that is dependent on the borrow being active — either borrowing the same object or its part, like a string slice in the example above.
+让我们来改写下代码。借用的持续时间可能长于它所控制的引用的时间。这通常是因为可以使用另一个引用，该引用取决于借用是否处于活动状态——可以借用相同的对象或只借用其一部分，例如上例中的字符串切片。
 
-In fact, each reference remembers the lifetime of the borrow it represents — that is, there is a lifetime attached to each and every reference. Like all the “borrow checking”-related things, this is done at compile time and accounts for exactly zero runtime overhead. Unlike other things, you must sometimes specify lifetime details explicitly.
+实际上，每个引用都会记住它所代表的借用期限，也就是说，每一个引用都有一个生命周期。像所有与“借用检查”相关的事情一样，这是在编译时完成的，并且不占用任何运行时开销。与其他事物不同，你有时必须明确指定生命周期详细信息。
 
-With all of that said, let’s dive right in:
+综上所述，让我们用代码深入探讨下：
 
-```jsx
+``` rust
 fn middle_name<'a>(full_name: &'a str) -> &'a str {
     full_name.split_whitespace().nth(1).unwrap()
 }
@@ -286,9 +287,9 @@ fn main() {
     let name = String::from("Harry James Potter");
     let res = middle_name(&name);
     assert_eq!(res, "James");
-    
-    // won't compile:
-    
+
+    // 不会被编译:
+
     /*
     let res;
     {
@@ -300,24 +301,24 @@ fn main() {
 }
 ```
 
-We didn’t have to explicitly denote lifetimes in the previous examples because those were trivial enough for the Rust compiler to automatically figure out (see [lifetime elision](https://doc.rust-lang.org/book/lifetimes.html#lifetime-elision) for details). Here we’ve done it anyway in order to demonstrate how they work.
+在前面的示例中，我们不必明确地指出生命周期，因为生命周期的细致程度足以让 Rust 编译器自动找出来（请参阅[lifetime elision](https://doc.rust-lang.org/book/lifetimes.html ＃lifetime-elision)）。无论如何，我们已经在这里演示了它们的工作原理。
 
-The `<>` thing means that the function is *generic over a lifetime* we call `a`, that is, for any input reference with an associated lifetime it would return another reference with *the same* associated lifetime. (Let me remind you again that an associated lifetime means the lifetime of the borrow, not that of the reference.)
+`<>` 表示该函数在整个生命周期内都是通用的，我们称其为 `a`。也就是说，对于具有关联生命周期的任何引用传入，它将返回具有相同关联生命周期的另一个引用。友情提示，关联的生命周期是指借用的生命周期，而不是引用的生命周期。
 
-It might not be immediately obvious as to what it means in practice, so let’s look at it the reverse way. The returned reference is being stored in the `res` variable which lives for the whole scope of `main()`. That is the lifetime of the reference, so the borrow (the associated lifetime) lives at least as long. This means that the associated lifetime of the function input argument must have been the same, so we can conclude that `name` must be borrowed for the whole function. And this is exactly what happens.
+在实践中，它的含义可能不是显而易见的，所以让我们从相反的角度来看它。返回的引用被存储在 `res` 变量中，该变量在 `main()` 的整个范围内都有效。那是引用的生命周期，因此借用（相关的生命周期）至少存在了很长的时间。这意味着函数传入参数的关联生命周期必须相同，因此我们可以得出结论，必须为整个函数借用 `name` 变量。
 
-In the use-after-free example (commented out here) the lifetime of `res` is still the whole function, whereas `name` just “doesn’t live long enough” for the borrow to last the whole function. This is the exact error you would get if you try to compile this code.
+在释放后使用的示例中（此处已注释），`res` 的生命周期仍然是整个函数，而 `name` 的生存周期没有足够长的时间，以至于借用不能在整个函数中有效。如果你尝试编译此代码，毫无疑问会触发编译错误。
 
-So what happens is Rust compiler tries to make the borrow lifetime as short as possible, ideally ending as soon as the reference is dropped (this is “the simplest case” I was talking about at the beginning of the *Borrowing* section). The constraints like “this borrow lives as long as that one” — working in the reverse way, from the lifetime of the result to that of the original borrow — drag the lifetime to be longer and longer. This process stops as soon as all the constraints are satisfied, and if it’s impossible to achieve you’re left with an error.
+Rust 编译器尝试使借用的生命周期尽可能短，理想情况下，一旦引用被移除就结束了（这是我在**借用**部分开始时所说的“最简单的情况”）。“借用应有尽可能长的生命周期” 的约束却是以另一种相反的方式运作的，比如从 `result` 到原始借用的生命周期会延伸地很长。只要满足所有约束条件，此过程就会停止，如果无法实现，则会出错。
 
-Oh, and you can’t fool Rust by saying your function returns a borrowed value with a completely unrelated lifetime, because then you would get the same “does not live long enough” error *within the function*, since that unrelated lifetime can be a lot longer than the input one. (OK, I’m lying. Actually, the error would be different, but it’s nice to think it’s the same one.)
+你无法欺骗 Rust 让函数的返回的借用的值与生命周期完全无关，因为那样的话，在函数中你将得到相同的 `does not live long enough` 报错信息，因为不相关的生命周期可能比传入的生命周期长很多。
 
-Let’s go over this example:
+让我们来看下这个示例：
 
-```jsx
+```rust
 fn search<'a, 'b>(needle: &'a str, haystack: &'b str) -> Option<&'b str> {
-    // imagine some clever algorithm here
-    // that returns a slice of the original string
+    // 想象这里有一些聪明的算法
+    // 返回了一个原始字符串的切片
     let len = needle.len();
     if haystack.chars().nth(0) == needle.chars().nth(0) {
         Some(&haystack[..len])
@@ -339,27 +340,26 @@ fn main() {
         Some(x) => println!("found {}", x),
         None => println!("nothing found")
     }
-    // outputs "found ello"
+    // 输出 "found ello"
 }
 ```
 
-The `search` function accepts two references with totally unrelated associated lifetimes. While there is a constraint on the `haystack`, the only thing we require about the `needle` is that the borrow must be valid while the function itself is executed. After it’s done, the borrow immediately ends and we can safely deallocate the associated memory, while still keeping the function result around.
+`search` 函数接受两个引用，这些引用具有完全不相关的生命周期。尽管 `haystack` 受到限制，但关于 `needle` 的唯一要求是在函数本身执行时借用必须有效。完成后，借用立即结束，我们可以安全地重新分配关联的内存，同时仍然保持函数结果不变。
 
-The `haystack` is initialized with a string literal. Those are string slices of type `&’static str` **— a “borrow” that is always “active”. Thus we are able to keep the `res` variable around for as long as we need it. This is an exception to the *borrow lasts as short as it can* rule. You can think of it as of another constraint on the “borrowed string” — the string literal borrow must last for the whole execution time of the program.
+`haystack`是用字符串字面量初始化的。这些是 `&’static str` 类型的字符串切片（一个始终有效的借用）。因此我们可以在需要时将 `res` 变量保持在有效范围内。这是借用期限尽可能短规则的例外。你可以将其视为对“借用字符串”的另一个限制：字符串字面量借用必须持续整个程序的整个执行时间。
 
-Finally, we’re returning not the reference itself, but a compound object to which it is an internal field. This is totally supported and doesn’t influence our lifetime logic.
+最后，我们返回的不是引用本身，而是一个内部的复合对象。这是完全支持的并且不会影响我们的一生逻辑。
 
-So in this example, the function accepted two arguments and was generic over two lifetimes. Let’s see what happens if we force the lifetimes to be the same:
+因此，在此示例中，该函数接受两个参数，并且在两个生存期内都是通用的。让我们看看如果我们将生命周期设置为相同，会发生什么情况：
 
-```jsx
+```rust
 fn the_longest<'a>(s1: &'a str, s2: &'a str) -> &'a str {
     if s1.len() > s2.len() { s1 } else { s2 }
 }
 
 fn main() {
     let s1 = String::from("Python");
-    // explicitly borrowing to ensure that
-    // the borrow lasts longer than s2 exists
+    // 明确借用以确保借入的持续时间长于s2
     let s1_b = &s1;
     {
         let s2 = String::from("C");
@@ -369,13 +369,13 @@ fn main() {
 }
 ```
 
-I’ve made an explicit borrow outside the inner block so that the borrow has to last for the rest of `main()`. That is clearly not the same lifetime as `&s2`. Why is it OK to call the function if it only accepts two arguments with the *same* associated lifetimes?
+我在内部代码块之外进行了明确的借用，因此借用会在 `main()` 的其余部分都有效。这明显和 `&s2` 的生命周期不一样。如果仅接受两个具有相同生命周期的参数，那么这里为什么可以调用该函数？
 
-Turns out that associated lifetimes are a subject to [type coercion](https://www.wikiwand.com/en/Type_conversion). Unlike in most languages (at least those known to me) primitive (integer) values in Rust *do not coerce* — you have to always cast them explicitly. You can still find coercion in some less obvious places, like these associated lifetimes and [dynamic dispatch with type erasure](http://doc.rust-lang.org/book/trait-objects.html#dynamic-dispatch).
+事实证明，相关的生命周期会受到 [类型强制](https://en.wikipedia.org/wiki/Type_conversion) 的约束。与大多数语言（至少是我所熟知的那些语言）不同，Rust 中的原始（整数）值不会强制转换，为此你必须始终明确地强制转换它们。你可以在一些不太明显的地方找到强制转换，例如这些关联的生命周期和 [dynamic dispatch with type erasure](http://doc.rust-lang.org/book/trait-objects.html#dynamic-dispatch)。
 
-I’m going to bring this piece of C++ code for comparison:
+我们用 C++ 代码进行比较：
 
-```jsx
+```c++
 struct A {
     int x;
 };
@@ -396,32 +396,31 @@ B func(B arg)
 int main() {
     A a;
     B b;
-    /* this works fine:
-     * a B value is a valid A value
-     * to put it another way, you can use a B value
-     * whenever an A value is expected
+    /*
+     * 这很好用：B值是有效的A值
+     * 换句话说，只要期望A值，就可以使用B值
      */
     a = b;
-    /* on the other hand,
-     * this would be an error:
+    /*
+     * 另一方面，这将是一个错误
      */
 
     // b = a;
 
-    // this works just fine
+    // 这能很好地工作
     C arg;
     A res = func(arg);
     return 0;
 }
 ```
 
-Derived types coerce to their base types. When we’re passing an instance of `C`, it coerces to `B`, only to be returned back, coerced to `A` and then stored in the `res` variable.
+派生类型强制为其基本类型。 当我们传递 `C` 的实例时，它强制转换为 `B`，然后返回，强制转换为 `A`，然后存储在 `res` 变量中。
 
-Similarly, in Rust longer borrows can coerce to be shorter. It won’t affect the borrow itself, but only make it accepted wherever a shorter borrow is wanted. So you can pass a function a borrow with a longer lifetime than it expects — it will be coerced — and you can coerce the borrow it returns to be even shorter.
+同样，在 Rust 中，更长的借用可以被强制缩短。它不会影响借用本身，而只会在需要较短借用的地方起作用。因此，你可以为函数传递寿命比预期更长的借用（它将被强制执行），并且可以强制将返回的借用的生命周期缩短。
 
-Considering this example one more time:
+再考虑一下这个示例：
 
-```jsx
+```rust
 fn middle_name<'a>(full_name: &'a str) -> &'a str {
     full_name.split_whitespace().nth(1).unwrap()
 }
@@ -430,9 +429,9 @@ fn main() {
     let name = String::from("Harry James Potter");
     let res = middle_name(&name);
     assert_eq!(res, "James");
-    
-    // won't compile:
-    
+
+    // 不会被编译：
+
     /*
     let res;
     {
@@ -444,19 +443,25 @@ fn main() {
 }
 ```
 
-One would often wonder whether such function declaration means that the argument’s associated lifetime must be (at least) as long as the return value’s — or vice versa.
+人们通常会想知道这样的函数声明是否意味着参数的关联生命周期必须（至少）与返回值一样长，反之亦然。
 
-The answer should be obvious now. To the function, both lifetimes are exactly the same. But due to coercion, you can pass it a longer borrow and even possibly shorten the associated lifetime of the result after you obtain it. Thus the right answer is — argument must live at least as long as the return value.
+答案现在应该很明显。对函数来说，两个生命周期完全相同。但是由于可以强制，你可以将其借用更长的时间，甚至可以在获得结果之后缩短结果的关联生命周期。因此正确的答案是参数必须至少与返回值一样长。
 
-And if you create a function that takes several arguments by reference and declare they must be of an equal associated lifetime — like in our previous example — the actual arguments the function will be given would be going to be coerced to the shortest lifetime among them. It simply means that the result can’t outlive *any* of the argument borrows.
+而且，如果你创建一个通过引用接受多个参数的函数，并声明它们必须具有相等的关联生命周期（如在我们之前的示例中一样），则该函数的实际参数将被强制为其中最短的生命周期。这只是意味着结果不能超过任何借用的参数。
 
-This plays nicely with the *reverse constraints* rule we were talking about earlier. The callee does not care — it just gets and returns borrows of the same lifetime. The caller, on the other hand, makes sure that arguments’ associated lifetimes are never shorter than that of the result, achieving it by extending them.
+这与我们之前讨论的反向约束规则可以很好地配合。被调用者并不关心这些-它只是获得并返回相同生命周期的借用。
 
-# **Random additional notes**
+另一方面，调用者确保参数的关联生命周期永远不会比结果的生命周期短，可以通过扩展它们来实现。
 
-- You can’t *move out* of a borrowed value, because after the borrow ends the value must stay valid. You can’t move out of it even if you move something back in the very next line. But there is `[mem::replace](https://doc.rust-lang.org/std/mem/fn.replace.html)` that lets you do *both* at the same time.
-- If you want an owning pointer — something like `unique_ptr` in C++, there is the `[Box](https://doc.rust-lang.org/std/boxed/index.html)` type.
-- If you want some basic reference counting — like `shared_ptr` and `weak_ptr` in C++, there is [this standard module](https://doc.rust-lang.org/std/rc/index.html).
-- If you really really need to get around the restrictions Rust puts on you, you can always resort to [unsafe code](https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html).
+## 小技巧
 
-**Thanks to Meredith Summer.**
+- 你不能移走借用的值，因为在借用结束后该值必须保持有效。即使你在下一行中移回某些内容，也无法将其移出。但是 `[mem::replace](https://doc.rust-lang.org/std/mem/fn.replace.html)` 特征可以让你同时做这两件事。
+- 如果你想拥有一个像 C++ 中的 `unique_ptr` 一样的指针，可以使用 `[Box](https://doc.rust-lang.org/std/boxed/index.html)` 类型。
+- 如果你想进行一些基本的引用计数-例如 C ++ 中的 `shared_ptr` 和 `weak_ptr`，可以使用 [这些标准模块](https://doc.rust-lang.org/std/rc/index.html)
+- 如果你确实需要摆脱 Rust 所施加的限制，则可以随时求助于 [unsafe code](https://doc.rust-lang.org/nomicon/meet-safe-and-unsafe.html)
+
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

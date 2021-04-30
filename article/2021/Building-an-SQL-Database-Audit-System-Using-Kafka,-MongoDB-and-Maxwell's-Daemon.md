@@ -2,145 +2,136 @@
 > * 原文作者：[About the Author](https://www.infoq.com/articles/database-audit-system-kafka/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Building-an-SQL-Database-Audit-System-Using-Kafka,-MongoDB-and-Maxwell's-Daemon.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Building-an-SQL-Database-Audit-System-Using-Kafka,-MongoDB-and-Maxwell's-Daemon.md)
-> * 译者：
-> * 校对者：
+> * 译者：[joyking7](https://github.com/joyking7)
+> * 校对者：[lsvih](https://github.com/lsvih)、[PassionPenguin](https://github.com/PassionPenguin)
 
-# Building an SQL Database Audit System Using Kafka, MongoDB and Maxwell's Daemon
+# 使用 Kafka、MongoDB 和 Maxwell's Daemon 构建 SQL 数据库审计系统
 
-### Key Takeaways
+### 本文要点
 
-*   Audit logging systems have a lot more use cases than just storing data for audit purposes. Apart from compliance and security purposes, it can be used by marketing teams to target users or it can also be used for generating critical alerts.
-*   Database built-in audit logging capabilities may not be enough and definitely not an ideal way to handle all the use cases. 
-*   There are many open source tools, e.g [Maxwell’s Daemons](https://maxwells-daemon.io/), [Debezium](https://debezium.io/), to support these needs and with minimum infrastructure and time requirements. 
-*   Maxwell’s daemons can read SQL bin logs and send the events to various producers such as [Kafka](https://kafka.apache.org/), [Amazon Kinesis](https://aws.amazon.com/kinesis/), [SQS](https://aws.amazon.com/sqs/), [Rabbit MQ](https://www.rabbitmq.com/).
-*   The bin log generated from SQL dbs must be in ROW based format for the whole setup to work
+* 审计日志系统的用处远不止存储数据用于审计目的。除了合规性和安全性目的之外，它还能被市场营销团队使用，便于锁定目标用户，也可以用来生成关键的告警。
+* 数据库内置的审计日志功能可能并不够用，并且对于需要处理所有用户场景的情况下，它肯定不是最佳选择。
+* 当前有许多开源工具实现审计日志功能，比如说 [Maxwell's Daemons](https://maxwells-daemon.io/) 和 [Debezium](https://debezium.io/)，它们能够以最少的基础设施和时间来支持这些需求。
+* Maxwell's Daemon 能够读取 SQL binlog 并将 binlog event 发送给各种生产者，比如 [Kafka](https://kafka.apache.org/)、[Amazon Kinesis](https://aws.amazon.com/kinesis/)、[SQS](https://aws.amazon.com/sqs/)、[Rabbit MQ](https://www.rabbitmq.com/) 。
+* SQL 数据库生成的 binlog 文件必须是 ROW 格式，这样整个配置才能正常工作。
 
-Ok! So, you use a relational database to maintain your transactional data and you need to store the audit trail of certain data present in a few tables. If you are like most of the developers you would end up doing one of the following:
+那么假设你正在使用关系型数据库来维护你的事务型数据，并且你需要存储的某些数据的审计跟踪信息只出现在很少的表中。如果你像大多数开发人员那样做，那么最终所使用的方案可能如下所示：
 
-### 1. Use the database audit logging capabilities
+### 1. 使用数据库审计日志功能
 
-Most of the databases provide plugins to support audit logging. These plugins can be installed and easily configured to log data. However, it suffers from the below problems:
+大多数数据库都提供了插件来支持审计日志。这些插件可以很容易地安装和配置，以便于记录数据。但是，这种方式存在以下问题：
 
-*   A full-fledged audit logging plugin is generally available only with the Enterprise edition. Community editions may lack these plugins. For example in the case of MySQL, an [audit logging plugin](https://dev.mysql.com/doc/refman/5.7/en/audit-log.html) is only available for the enterprise edition. It is worth mentioning that users of the community edition of MySQL can still install other audit logging plugins from MariaDB or Percona to get around this limitation.
-*   Audit logging at the DB level causes 10-20% overhead on the database server as discussed [here](http://blog.symedia.pl/2016/10/performance-impact-general-slow-query-log.html) and [here](https://www.percona.com/blog/2009/02/10/impact-of-logging-on-mysql%E2%80%99s-performance). Generally, you may want to enable audit logging only for slow queries and not all the queries for a highly loaded system.
-*   Audit logs are written in a log file and the data isn’t easily searchable. For data analysis and auditing purposes, you want your audit data to be in a searchable format.
-*   Large audit archives consume critical database storage as it is stored on the same server as your DB.
+* 成熟完善的审计日志插件一般只有企业版才提供，社区版可能会缺少这些插件。以 MySQL 为例，[审计日志插件](https://dev.mysql.com/doc/refman/5.7/en/audit-log.html)只有企业版才能使用。值得一提的是，MySQL 社区版的用户仍然可以安装其他来自 MariaDB 或者 Percona 的审计日志插件绕过这个限制。
+* 正如[慢查询日志对性能影响](http://blog.symedia.pl/2016/10/performance-impact-general-slow-query-log.html) 和 [MySQL 日志性能影响](https://www.percona.com/blog/2009/02/10/impact-of-logging-on-mysql%E2%80%99s-performance)两篇文章讨论的一样，数据库级别的审计日志会给数据库服务器带来 10-20% 的额外开销。通常来讲，对于高负载的系统，我们可能只想对于慢查询部分启用审计日志，而不是对于所有查询开启。
+* 审计日志会被写入到日志文件中，这些数据不易于搜索。为了数据分析和审计，我们会更想要让审计数据存储成可搜索的格式。
+* 大量审计归档文件会消耗重要的数据库存储，因为它们与数据库存储在相同服务器上。
 
-### 2. Use your application to take care of audit logging
+### 2. 使用你的应用来负责审计日志
 
-You may do one of the below to achieve it:
+你可以通过下面的方式实现：
 
-**a.** Before you update the existing data, copy the existing data to a different table, and then update the data in the current table.
+**a.** 更新现有数据之前，复制现有数据到另外一个表中，然后再更新当前表中的数据。
 
-**b.** Add a version number to the data and then every update will be an insert with an increased version number.
+**b.** 为数据添加一个版本号，每一次更新都将插入一个自增的版本号。
 
-**c.** Write in two DB tables, one will contain the latest data and the other will contain the audit trail.
+**c.** 写入到两张数据库表中，其中一张包含最新的数据，另外一张包含审计跟踪信息。
 
-As a principle of designing scalable systems, you must always avoid multiple writes of the same data as it will not only decrease the application’s performance but also create all sorts of data out of sync issues.
+作为设计可扩展系统的一项原则，我们必须要避免多次写入相同的数据，因为这样不仅会降低系统的性能，还会引起数据不同步的问题。
 
-Why do companies need audit data?
----------------------------------
+## 为什么企业需要审计数据？
 
-Before we proceed with the architecture of the audit logging system, let’s look at a few points on the needs of the audit log system in various organizations.
+在开始介绍审计日志系统架构之前，我们首先看一下各种组织对审计日志系统的需求：
 
-*   Compliance and auditing: Auditors need the data in a meaningful and contextual manner from their perspective. DB audit logs are suitable for DBA teams but not for auditors.
-*   The ability to generate critical alerts in case of a security breach are basic requirements of any large scale software. Audit logs can be used for this purpose.
-*   You must be able to answer a variety of questions such as who accessed the data, what was the earlier state of the data, what was modified when it was updated, and are the internal users abusing their privileges, etc.
-*   It’s important to note that since audit trails help identify infiltrators, they promote deterrence among "insiders." People who know their actions are scrutinized are less likely to access unauthorized databases or tamper with specific data.
-*   All kinds of industries - from finance and energy to foodservice and public works - need to analyze data access and produce detailed reports regularly to various government agencies. Consider the Health Insurance Portability and Accountability Act (HIPAA) regulations. HIPAA requires that healthcare providers deliver audit trails about anyone and everyone who touches any data in their records. This is down to the row and record. The new European Union General Data Protection Regulation (GDPR) has similar requirements. The Sarbanes-Oxley Act (SOX), for example, places a wide range of accounting regulations on public corporations. These organizations need to analyze data access and produce detailed reports regularly.
+* 合规性和审计：从审计人员的角度来看，他们需要以有意义和上下文相关的方式获取数据。数据库审计日志适合 DBA 团队却不适合审计人员。
+* 对于任何大型软件来说，一项基本要求就是在出现安全漏洞时生成关键的告警，审计日志可以用于实现此目的。
+* 你必须能够回答各种问题，比如谁访问了数据，数据在此之前的状态是什么，在更新的时候都修改了哪些内容，以及内部用户是否滥用了权限等。
+* 还有很重要的一点需要注意，因为审计跟踪信息能有助于识别渗透者，这能够增强对"内部人员"的威慑。人们如果知道自己的行为会被审查，那么他们就不太可能会访问未经授权的数据库或篡改特定的数据。
+* 所有行业，从金融、能源到餐饮服务和公共工程，都需要分析数据访问情况，并定期向各种政府机构提交详细报告。根据《健康保险携带和责任法案》（Health Insurance Portability and Accountability Act, HIPAA）的规定，HIPAA 法案要求医疗服务提供商提供所有接触他们数据记录的每个人的审计跟踪信息，信息要求细致到行级别和记录级别。新的《欧盟通用数据保护条例》（European Union General Data Protection Regulation, GDPR）也有类似的要求。《Sarbanes-Oxley 法案》（Sarbanes-Oxley Act, SOX）对公众企业提出了广泛的会计法规，这些组织需要定期分析数据访问情况并生成详细的报告。
 
-In this article, I am going to present a scalable solution for managing audit trail data using technologies like Maxwell’s Daemon and Kafka.
+本文中，我将会使用像 Maxwell's Daemon 和 Kafka 这样的技术为你提供一个可扩展的解决方案，用于管理审计跟踪数据。
 
-Problem Statement
------------------
+## 问题描述
 
-Build an auditing system that is independent of the application and data model. The system must be scalable and cost-effective.
+构建一个独立于应用和数据模型的审计系统，该系统必须兼顾可扩展性与性价比。
 
-Architecture
-------------
+## 架构
 
-_Important Note: This system will work only when you are using a MySQL DB with [binlog logging format](https://dev.mysql.com/doc/refman/5.7/en/binary-log-formats.html) that is ROW based._
+> 重要提示：本系统只适用于使用 MySQL 数据库的情况，并且使用的是基于 ROW 格式的 [binlog 日志模式](https://dev.mysql.com/doc/refman/5.7/en/binary-log-formats.html)
 
-Before we discuss the solution architecture in detail, let’s take a quick look at each of the technologies discussed in this article.
+在我们讨论解决方案细节之前，先让我们快速地了解一下本文所讨论到的每一项技术。
 
 ### Maxwell’s Daemon
 
-[Maxwell’s Daemon](https://maxwells-daemon.io/) (MD) is an open-source project from [Zendesk](https://www.zendesk.com/) that reads MySQL binlogs and writes ROW updates as JSON to Kafka, Kinesis, or other streaming platforms. Maxwell has low operational overhead, requiring nothing but MySQL and a place to write as explained [here](https://maxwells-daemon.io/). In short, MD is a tool for Change-Data-Capture (CDC).
+[Maxwell's Daemon](https://maxwells-daemon.io/)（MD）是一个由 [Zendesk](https://www.zendesk.com/) 开发的开源项目，它会读取 MySQL binlog 并且将 ROW 的更新以 JSON 格式写入到 Kafka、Kinesis 或其他流平台。Maxwell 的运维成本很低，除了 MySQL 和一些在 [Maxwell's Daemon 文档](https://maxwells-daemon.io/)提到的需要写入数据的地方之外，就没有别的需求了。简而言之，MD 是一个数据变更捕获（Change-Data-Capture, CDC）的工具。
 
-There are quite a few variants of CDC available in the market such as Debezium from Redhat, Netflix’s DBLog, and LinkedIn’s Brooklyn. This setup can be achieved from any of these tools. However, Netflix’s DBLog and LinkedIn’s Brooklyn are developed for fulfilling different use cases as explained on the links above. Debezium however, is quite similar to MD and can be used to replace MD in our architecture. I have briefly highlighted the things to consider before choosing MD or Debezium.
+市面上有相当多各异的 CDC 工具，比如 Redhat 的 Debezium、Netflix 的 DBLog 和 LinkedIn 的 Brooklyn。CDC 功能可以通过这些工具中的任意一个来实现，但是 Netflix 的 DBLog 和 LinkedIn 的 Brooklyn 是为了满足上述不同的使用场景开发的。但是 Debezium 和 MD 非常相似，可以用来替代我们架构中的 MD。该选择 MD 还是 Debezium，我简单地列出了几个需要考虑的事情：
 
-*   Debezium can write data only in Kafka - at least that is the primary producer it supports. On the other hand, MD supports a variety of producers including Kafka. The list of producers MD supports is Kafka, [Kinesis](https://aws.amazon.com/kinesis/), [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview), [SQS](https://aws.amazon.com/sqs/), [Rabbit MQ](https://www.rabbitmq.com/), and Redis.
-*   MD provides options to write your own producer and configure with it. Details can be found [here](https://maxwells-daemon.io/producers/).
-*   The advantage of Debezium is that it can read Change Data from multiple sources such as [MySQL](https://www.mysql.com/), [MongoDB](https://www.mongodb.com/), [PostgreSQL](https://www.postgresql.org/), [SQL Server](https://www.microsoft.com/en-in/sql-server/), [Cassandra](http://cassandra.apache.org/), [DB2](https://www.ibm.com/in-en/products/db2-database), and [Oracle](https://www.oracle.com/index.html). They are quite active in adding new data sources. On the other hand, MD supports only the MySQL data source as of now.
+* Debezium 只能写入数据到 Kafka，至少这是它所主要支持的生产者。而 MD 支持包括 Kafka、[Kinesis](https://aws.amazon.com/kinesis/)、 [Google Cloud Pub/Sub](https://cloud.google.com/pubsub/docs/overview)、 [SQS](https://aws.amazon.com/sqs/)、[Rabbit MQ](https://www.rabbitmq.com/)和 Redis 在内的各种生产者。
+* MD 支持用户自己编写生产者并对其进行配置，详情可参考 [Maxwell's Daemon 生产者文档](https://maxwells-daemon.io/producers/)。
+* Debezium 的优势在于它可以从多种数据源读取变化数据，比如 [MySQL](https://www.mysql.com/)、[MongoDB](https://www.mongodb.com/)、[PostgreSQL](https://www.postgresql.org/)、[SQL Server](https://www.microsoft.com/en-in/sql-server/)、[Cassandra](http://cassandra.apache.org/)、[DB2](https://www.ibm.com/in-en/products/db2-database)和 [Oracle](https://www.oracle.com/index.html)。在新增数据源上，Debezium 十分灵活，而 MD 目前只支持 MySQL 数据源。
 
 ### Kafka
 
-[Apache Kafka](https://kafka.apache.org/) is an open-source distributed event streaming platform used for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+[Apache Kafka](https://kafka.apache.org/) 是一个开源的分布式事件流平台，可用于实现高性能数据管道、流分析、数据集成和关键任务应用。
 
 ### MongoDB
 
-[MongoDB](https://www.mongodb.com/) is a general-purpose, document-based, distributed database built for modern application developers and the cloud era. We are using MongoDB for explanation purposes only. You can choose any other option such as [S3](https://aws.amazon.com/s3/) or any other time-series databases like [InfluxDB](https://www.influxdata.com/) or [Cassandra](http://cassandra.apache.org/).
+[MongoDB](https://www.mongodb.com/) 是一个通用的、基于文档的分布式数据库，它是为现代应用开发者和云时代构建的。我们使用 MongoDB 只是为了进行讲解，你也可以选择其他方案，比如 [S3](https://aws.amazon.com/s3/)，也可以选择其他时序数据，如 [InfluxDB](https://www.influxdata.com/) 或 [Cassandra](http://cassandra.apache.org/)。
 
-The graphic below shows the data flow diagram for the audit trail solution.
+下图展示了审计跟踪方案的数据流图：
+<div align=center>
+<img src='https://res.infoq.com/articles/database-audit-system-kafka/en/resources/1Figure-1-Data-flow-diagram-1609154417022.jpg' alt='数据流图'>
+</div>
+<center>图 1 数据流图</center>
 
-![](https://res.infoq.com/articles/database-audit-system-kafka/en/resources/1Figure-1-Data-flow-diagram-1609154417022.jpg)
+审计跟踪管理系统中应包括以下步骤：
 
-**Figure 1. Data flow diagram**
+1. 程序执行数据库写入、更新或删除操作。
+2. SQL 数据库以 ROW 格式为以上操作生成 binlog，这涉及到 SQL 数据库的相关配置。
+3. Maxwell's Daemon 轮询 SQL binlog，读取新增内容并将其写入 Kafka 主题（Topic）中。
+4. 消费者应用轮询 Kafka 主题来读取数据并进行处理。
+5. 消费者将处理吼的数据写入到新的存储中。
 
-Here are the steps involved in the audit trail management system.
+## 设置
 
-1.  Your application performs the DB writes, updates, or deletes.
-2.  SQL DB will generate bin logs for that operation in ROW format. This is an SQL DB configuration.
-3.  Maxwell’s Daemon polls the SQL bin log, reads the new entry, and writes it to Kafka Topics.
-4.  The consumer apps will poll the Kafka Topic to read the data and process it.
-5.  The consumers will write the processed data to a new data store.
+为了配置简单，我们要尽可能的使用 Docker 容器。如果你还没有在你的电脑安装 Dockcer，可以考虑安装 [Docker Desktop](https://www.docker.com/products/docker-desktop)。
 
-Setup
------
+### MySQL 数据库
 
-We’ll use Docker containers wherever possible for easy setup. If you don’t have docker installed on your machine, consider installing [Docker Desktop](https://www.docker.com/products/docker-desktop).
+1. 本地运行 mysql 服务器，下面的命令会在 3307 端口启动一个 mysql 容器。
 
-### MySQL DB
-
-1.    Run a mysql server locally. The below command will start a mysql container on port 3307.
-
-```
+```bash
 docker run -p 3307:3306 -p 33061:33060 --name=mysql83 -d mysql/mysql-server:latest
-
 ```
 
-2.    If this is a fresh installation and you don’t know the root password, run the below command to print the password on the console.
+2. 如果是刚刚新安装的，我们并不知道 root 密码，运行下面的命令在控制台打印密码。
 
-```
+```bash
 docker logs mysql83 2>&1 | grep GENERATED
-
 ```
 
-3.    Login to the container and change the password if required.
+3. 如果有需要，可以登录容器并修改密码。
 
-```
+```bash
 docker exec -it mysql83 mysql -uroot -p
 alter user 'root'@'localhost' IDENTIFIED BY 'abcd1234'
-
 ```
 
-4.    For security reasons, the mysql docker container isn’t allowed to connect from outside applications by default. We need to run the below commands to change it.
+4. 为了安全的考虑，mysql docker 容器默认不允许外部应用连接。我们需要运行下面命令进行修改。
 
-```
+```sql
 update mysql.user set host = '%' where user='root';
-
 ```
 
-5.    Quit from the mysql prompt and restart the docker container.
+5. 退出 mysql 提示窗并重启 docker 容器。
 
-```
+```bash
 docker container restart mysql83
-
 ```
 
-6.    Log back into the mysql client and run the below commands to create a user for maxwell’s daemon. For details about this step, please refer to [Maxwell’s Daemon Quick Start](https://maxwells-daemon.io/quickstart/)
+6. 重新登录 mysql 客户端，运行下面的命令为 Maxwell's Daemon 创建用户。关于该步骤的详情，可以参考 [Maxwell's Daemon 快速指南](https://maxwells-daemon.io/quickstart/)。
 
-```
+```bash
 docker exec -it mysql83 mysql -uroot -p
 set global binlog_format=ROW;
 set global binlog_row_image=FULL;
@@ -150,77 +141,69 @@ GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'maxwell'@'%';
 CREATE USER 'maxwell'@'localhost' IDENTIFIED BY 'pmaxwell';
 GRANT ALL ON maxwell.* TO 'maxwell'@'localhost';
 GRANT SELECT, REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'maxwell'@'localhost';
-
 ```
 
-### Kafka broker
+### Kafka 消息代理
 
-Setting up Kafka is a straightforward task. Download Kafka from [this link](https://www.apache.org/dyn/closer.cgi?path=/kafka/2.6.0/kafka_2.13-2.6.0.tgz).
+搭建 Kafka 是一件十分简单的事情，从[该链接](https://www.apache.org/dyn/closer.cgi?path=/kafka/2.6.0/kafka_2.13-2.6.0.tgz)下载 Kafka。
 
-Run the following commands:
+运行下面的命令：
 
-To extract Kafka
+提取 Kafka 文件
 
-```
+```bash
 tar -xzf kafka_2.13-2.6.0.tgz
 cd kafka_2.13-2.6.0
-
 ```
 
-Start Zookeeper which is currently required to use Kafka
+启动 Kafka 当前所需要的 Zookeeper
 
-```
+```bash
 bin/zookeeper-server-start.sh config/zookeeper.properties
-
 ```
 
-On a separate terminal Start Kafka
+在另外一个终端启动 Kafka
 
-```
+```bash
 bin/kafka-server-start.sh config/server.properties
-
 ```
 
-On a separate terminal create a topic
+在另外一个终端创建一个 Kafka 主题
 
-```
+```bash
 bin/kafka-topics.sh --create --topic maxwell-events --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-
 ```
 
-The above commands should start the Kafka broker and create a topic "**maxwell-events**" in it.
+上述命令会启动 Kafka 消息代理并在它内部创建一个叫做 "**maxwell-events**" 的主题。
 
-To publish a message to the Kafka topic, run the below command in a new terminal
+要推送消息到这个 Kafka 主题，可以在新的终端运行下面的命令：
 
-```
+```bash
 bin/kafka-console-producer.sh --topic maxwell-events --broker-list localhost:9092
-
 ```
 
-The above command will give you a prompt where you can type your message and press enter to send the message to Kafka.
+上述命令会给我们一个对话框，可以输入消息内容，敲击回车键将消息发送给 Kafka。
 
-Consume the message from your Kafka topic
+消费来自 Kafka 主题的消息：
 
-```
+```bash
 bin/kafka-console-producer.sh --topic quickstart-events --broker-list localhost:9092
-
 ```
 
 ### Maxwell’s Daemon
 
-Download the maxwell’s daemon [from here](https://maxwells-daemon.io/quickstart/#download).  
-Untar it and run the following command.
+从[该链接](https://maxwells-daemon.io/quickstart/#download)下载 Maxwell's Daemon。
+将其解压并运行如下命令：
 
-```
+```bash
 bin/maxwell --user=maxwell   --password=pmaxwell --host=localhost --port=3307  --producer=kafka     --kafka.bootstrap.servers=localhost:9092 --kafka_topic=maxwell-events
-
 ```
 
-This will set up the Maxwell to monitor the bin log of the database setup discussed earlier. You can of course monitor only a few DB’s or few tables in a database. For more information, refer to [Maxwell’s Daemon Configuration](https://maxwells-daemon.io/bootstrapping/) documentation.
+这样我们就启动了 Maxwell 来监控前面搭建好的数据库 binlog。当然我们也可以只监控一些数据库或表，更多信息请参考 [Maxwell’s Daemon 配置](https://maxwells-daemon.io/bootstrapping/)文档。
 
-### Testing your setup
+### 测试设置
 
-To test whether or not the setup works correctly, connect to MySQL, and insert some data in a table.
+为了测试设置是否能正常工作，我们可以连接 MySQL 并向一张表中插入一些数据。
 
 ```
 docker exec -it mysql83 mysql -uroot -p
@@ -242,59 +225,56 @@ INSERT INTO Persons (LastName, FirstName, City) VALUES ('Erichsen', 'Tom',  'Sta
 
 ```
 
-Now on a separate terminal, run the below command:
+在另外一个终端运行下面命令：
 
-```
+```bash
 bin/kafka-console-consumer.sh --topic maxwell-events --from-beginning --bootstrap-server localhost:9092
-
 ```
 
-You should see something like this on your terminal:
+在终端中，应该能够看到如下内容：
 
-```
+```JSON
 {"database":"maxwelltest","table":"Persons","type":"insert","ts":1602904030,"xid":17358,"commit":true,"data":{"PersonId":1,"LastName":"Erichsen","FirstName":"Tom","City":"Stavanger"}}
-
 ```
 
-As you can see, Maxwell’s Daemon captured the DB insert event and wrote a JSON string to Kafka topic providing the details of the event.
+正如所看到的，Maxwell's Daemon 捕获了数据库插入事件，并向 Kafka 主题写入了一个包含事件详细信息的 JSON 字符串。
 
-### Setting up MongoDB
+### 搭建 MongoDB
 
-To run MongoDB locally, run the following command:
+要在本地运行 MongoDB，运行下面的命令：
 
-```
+```bash
 docker run --name mongolocal -p 27017:27017 mongo:latest
-
 ```
 
-### Kafka Consumer
+### Kafka 消费者
 
-The Kafka-consumer code is available at the [github project](https://github.com/vishalsinha27/kmaxwell). Download the code and refer to the README section on how to run it.
+Kafka-Consumer 代码可以从 [Github 项目 kmaxwell](https://github.com/vishalsinha27/kmaxwell) 获取，下载源码并参考 README 文档来了解如何运行。
 
-### Final Testing
+### 最终测试
 
-Finally, the setup is complete. Login to MySQL DB and run any insert, delete, or update commands. If your setup works correctly, you will see an entry in the mongodb auditlog database. Happy auditing!
+最后，我们完成了整个安装过程。登录 MySQL 数据库并运行任意插入、删除或更新命令，如果配置正确的话，我们可以在 MongoDB 的 auditlog 数据库看到相应的数据条目。我们可以开心地进行审计工作了！
 
-Conclusions
------------
+## 总结
 
-The system described in this article works well in the live deployment and provides us an additional data source for user data but of course, there are some trade-offs that you must be aware of before adopting this architecture.
+本文所描述的系统在实际部署中运行良好，为我们提供了一个用户数据之外的额外数据源，但在使用这种架构之前，有一些事情需要我们注意：
 
-1.  Infrastructure costs - An additional infrastructure is required to run this setup. The data is transferred at multiple hops from your database to Kafka to another DB and then possibly to a backup. This will add up in your infrastructure cost.
-2.  As the data travels multiple hops, the audit logs can’t be maintained in real-time. It will be delayed by a few seconds to some minutes. We can also argue "who needs the audit logs in real-time?" But you must consider it if you are planning to use this data for real-time monitoring.
-3.  In this architecture, we are capturing the changes in the data but not who changed the data. If you are interested in also knowing which database user changed the data then this design won’t work out of the box.
+1. 基础设施成本。这样的设置需要额外的基础设施，数据会经过多次跳转，从数据库到 Kafka 再到另一个数据库，还可能存到备份中，这些都会增加基础设施的成本。
+2. 因为数据会经过多次跳转，审计日志数据无法实时维护，它会存在秒级或分钟级的延迟。我们可能会讨论说“谁需要实时的审计日志数据呢”，但如果你计划使用这些数据进行实时监控，这是你必须要考虑到的。
+3. 在这个架构中，我们捕获了数据变化，而不是谁改变了数据。如果你还关注是哪个用户改变了数据的话，这种设计可能无法直接进行支持。
 
-Having highlighted some of the trade-offs of this architecture, I would like to end this article by reiterating the benefits of this setup. The main benefits are:
+在强调了这种架构的一些权衡之处后，我想重申一下这种架构的收益来结束本文。主要收益如下：
 
-*   This setup reduces the database performance overhead of audit logging and also fulfills the need for additional data sources for marketing and alerting purposes.
-*   It is easy to do the setup and robust - Any issue in any of the components in the setup won’t result in loss of data. For e.g., if the MD fails, the data will remain in the bin log file and the next time when the daemon comes up, it can read from where it left off. If the Kafka broker fails, the MD will detect it and stop reading from the binlog. If the Kafka consumer crashes, the data will remain in the Kafka broker. So, in the worst case, the audit logs will be delayed but there would be no data loss.
-*   The setup is straightforward and doesn’t consume a lot of development bandwidth.
+*  这样的设计减少了数据库在审计日志方面的性能损耗，并且能够满足传统数据源在市场营销和告警方面的需求
+*  这样的架构易于搭建且稳定，任何组件的任何问题都不会导致数据的丢失。例如，如果 MD 挂掉了，数据依然会被存储在 binlog 文件中，当 Daemon 下次启动时，仍能够从中断地方读取数据。如果 Kafka 消息代理挂掉，MD 能够探测它并停止从 binlog 中读取数据。如果 Kafka 消费者崩溃的话，数据将会被保存在 Kafka 消息代理中。因此，在最坏的情况下，审计日志可能会延迟但不会出现数据丢失。
+*  安装配置过程简单直接，不需要耗费过多开发精力。
 
-About the Author
-----------------
+## 关于作者
 
-**![][img-1]Vishal Sinha** is a passionate technologist with expertise and interest in distributed computing and large scalable systems. He works as Director of technology at a leading Indian unicorn. Over his career of 16+ years in the software industry, he has worked in multiple MNCs and startups, developed various large scale systems, and led a team of many software engineers. He enjoys solving complex problems and experimenting with new technologies.
+**![Vishal Sinha](https://res.infoq.com/articles/database-audit-system-kafka/en/resources/1Vishal-Sinha-1609154417736.jpg)Vishal Sinha** 是一位充满激情的技术专家，对分布式计算和大型可扩展系统有着专业的知识和浓厚的兴趣，他目前在一家行业领先的印度独角兽公司担任技术总监。在 16 年多的软件行业生涯中，他曾在多家跨国公司和初创公司工作，开发过各种大型可扩展系统，并带领过一个由许多软件工程师组成的团队，他十分享受解决复杂问题及尝试各种新技术。
 
-[img-0]:data:text/html;base64,PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgL2FydGljbGVzL2RhdGFiYXNlLWF1ZGl0LXN5c3RlbS1rYWZrYS9hcnRpY2xlcy9kYXRhYmFzZS1hdWRpdC1zeXN0ZW0ta2Fma2EvZW4vcmVzb3VyY2VzLzFGaWd1cmUtMS1EYXRhLWZsb3ctZGlhZ3JhbS0xNjA5MTU0NDE3MDIyLmpwZyB3YXMgbm90IGZvdW5kIG9uIHRoaXMgc2VydmVyLjwvcD4KPGhyPgo8YWRkcmVzcz5BcGFjaGUvMi4yLjE1IChSZWQgSGF0KSBTZXJ2ZXIgYXQgd3d3LmluZm9xLmNvbSBQb3J0IDgwPC9hZGRyZXNzPgo8L2JvZHk+PC9odG1sPgo=
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
-[img-1]:data:text/html;base64,PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9JRVRGLy9EVEQgSFRNTCAyLjAvL0VOIj4KPGh0bWw+PGhlYWQ+Cjx0aXRsZT40MDQgTm90IEZvdW5kPC90aXRsZT4KPC9oZWFkPjxib2R5Pgo8aDE+Tm90IEZvdW5kPC9oMT4KPHA+VGhlIHJlcXVlc3RlZCBVUkwgL2FydGljbGVzL2RhdGFiYXNlLWF1ZGl0LXN5c3RlbS1rYWZrYS9hcnRpY2xlcy9kYXRhYmFzZS1hdWRpdC1zeXN0ZW0ta2Fma2EvZW4vcmVzb3VyY2VzLzFWaXNoYWwtU2luaGEtMTYwOTE1NDQxNzczNi5qcGcgd2FzIG5vdCBmb3VuZCBvbiB0aGlzIHNlcnZlci48L3A+Cjxocj4KPGFkZHJlc3M+QXBhY2hlLzIuMi4xNSAoUmVkIEhhdCkgU2VydmVyIGF0IHd3dy5pbmZvcS5jb20gUG9ydCA4MDwvYWRkcmVzcz4KPC9ib2R5PjwvaHRtbD4K
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。

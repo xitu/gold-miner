@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/6-regrets-i-have-as-a-react-developer.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[zenblo](https://github.com/zenblo)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[zenblo](https://github.com/zenblo)、[Ivocin](https://github.com/Ivocin)
 
 # 我后悔没有在自己成为 React 开发者之前做的 6 件事情
 
@@ -72,7 +72,7 @@ it('checks if the title component is in the document', () => {
 
 在一段时间以后我了解并学习了 `sass`，而它真是棒极了！不过即使它在原 `css` 上提供了些语法糖，但给我的组件加样式还是真的困难，尤其是在重复使用某些样式的时候 —— 我总是会忘记我已经编写了这一种样式在我的样式表中了。
 
-```
+```jsx
 // inside jsx
 <button className="btn-submit">
 
@@ -100,19 +100,27 @@ const Button = styled.button`
 `;
 ```
 
-## 4. 尽早转向使用函数控件
+## 4. 尽早转向使用函数组件
 
 一开始，我是通过 `class-components` 学习的 React。在那一年左右，我**只**使用了类组件。
 
-当我转向使用函数控件后，我发现了它们巨大的优点。我想 `react-hooks` 是自 React 出现以来的最好的东西。
+当我转向使用函数组件后，我发现了它们巨大的优点。我想 `react-hooks` 是自 React 出现以来的最好的东西。
 
-但现在几乎没有任何原因让人们尝试使用基于类的控件。
+但现在几乎没有任何原因让人们尝试使用基于类的组件。
 
-而现在，我正尝试着将所有控件重写为函数控件。
+而现在，我正尝试着将所有组件重写为函数组件。
+
+译者注：React 的函数组件是 React 组件的另一种定义方式，两种方式都可以用于定义组件，但是相比于类组件，函数组件要更简单好用些，它会直接返回一个元素，如果希望了解更多内容，请直接搜索 `函数组件`～
+
+```jsx
+const Hello = () => {
+	return <div>Hello Word</div>
+}
+```
 
 ## 5. 使用表单处理库
 
-处理表单可能是任何应用程序中最常见的功能之一，但当我花了很多时间尝试使用原生的 `onChange` 方法的时候，我发现使用这个功能处理数据和验证真的非常痛苦！
+处理表单可能是任何应用程序中最常见的功能之一，但我在原生的 `onChange` 方法上花了很多时间尝试去使用它来完成表单处理的时候，我才发现，使用这个功能处理数据和验证真的非常痛苦！
 
 **直到我发现了 `Formik` 和 `react-hook-form`。**
 

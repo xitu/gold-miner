@@ -1,18 +1,18 @@
 > * 原文地址：[About Async Iterators in Node.js](https://blog.risingstack.com/async-iterators-in-node-js/)
 > * 原文作者：[janos](https://blog.risingstack.com/author/janos/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.mdd)
-> * 译者：
-> * 校对者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/About-Async-Iterators-in-Node.js.md)
+> * 译者：[Isildur46](https://github.com/Isildur46)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
-# About Async Iterators in Node.js
-> Async Iterators can be used when we don't know the values & end state we iterate over. Instead, we get promises eventually resolving to the usual object.
+# 关于 Node.js 中的异步迭代器
+> 当我们在迭代过程中不清楚值和结束状态时，我们可以使用异步迭代器，用它来解决（resolve）普通对象并最终得到 promise。
 
-Async iterators have been around in Node since version 10.0.0, and they seem to be gaining more and more traction in the community lately. In this article, we’ll discuss what Async iterators do and we'll also tackle the question of what they could be used for.
+Node 在 10.0.0 版本中加入了异步迭代器，并且这个功能在最近逐渐赢得了社区的青睐。本文我们将了解什么是异步迭代器，并探索它的使用场景。
 
-## **What are Async Iterators**
+## **什么是异步迭代器**
 
-So what are async iterators? They are practically the async versions of the previously available iterators. Async iterators can be used when we don't know the values and the end state we iterate over. Instead, we get promises that eventually resolve to the usual `{ value: any, done: boolean }` object. We also get the for-await-of loop to help us with looping over async iterators. That is just like the for-of loop is for synchronous iterators.
+所以什么是异步迭代器？他们其实就是之前迭代器的异步版本。当我们在迭代过程中不清楚值和结束状态时，我们可以使用异步迭代器，用它来解决（resolve）普通的 `{ value: any, done: boolean }` 对象并最终得到 promise。我们也可以使用 for-await-of 循环来帮助我们在异步迭代器中进行循环操作，这就像同步迭代器的 for-of 循环那样。
 
 ```
 const asyncIterable = [1, 2, 3];
@@ -31,13 +31,13 @@ asyncIterable[Symbol.asyncIterator] = async function*() {
 
 ```
 
-The for-await-of loop will wait for every promise it receives to resolve before moving on to the next one, as opposed to a regular for-of loop.
+for-await-of 循环会等待每个它接收的 promise 被解决，然后再执行下一个，这和常规的 for-of 循环是对应的。
 
-Outside of streams, there are not a lot of constructs that support async iteration currently, but the symbol can be added to any iterable manually, as seen here.
+目前，除了流以外并没有很多结构支持异步迭代器。但是正如本例所示，可以手动在任何可迭代对象上添加 symbol。
 
-## **Streams as async iterators**
+## **作为异步迭代器的流**
 
-Async iterators are very useful when dealing with streams. Readable, writable, duplex, and transform streams all have the asyncIterator symbol out of the box.
+在处理流的时候，异步迭代器非常有用。可读流、可写流、双向流、转换流都带有开箱即用的 asyncIterator symbol。
 
 ```
 async function printFileToConsole(path) {
@@ -56,11 +56,11 @@ async function printFileToConsole(path) {
 
 ```
 
-If you write your code this way, you don't have to listen to the 'data' and 'end' events as you get every chunk by iterating, and the for-await-of loop ends with the stream itself.
+如果你像这样编写代码，就不必在迭代每个分片时去监听 `data` 和 `end` 事件了，并且 for-await-of 循环会在流结束时自行终止。
 
-## **Consuming paginated APIs**
+## **消费分页的 API**
 
-You can also fetch data from sources that use pagination quite easily using async iteration. To do this, we will also need a way to reconstruct the body of the response from the stream the Node https request method is giving us. We can use an async iterator here as well, as https requests and responses are streams in Node:
+我们也可以借助异步迭代器，从而让我们很容易地从源获取分页过的数据。为此，我们需要某种方式来重构 Node https 请求方法所返回的流的响应体。由于 Node 中请求和响应都是流，我们也可以使用异步迭代器实现这一功能：
 
 ```
 const https = require('https');
@@ -76,15 +76,18 @@ function homebrewFetch(url) {
         let body = '';
 
         /*
-          Instead of res.on to listen for data on the stream,
-          we can use for-await-of, and append the data chunk
-          to the rest of the response body
-        */for await (const chunk of res) {
+          不再使用 res.on 监听流的数据，
+          而是使用 for-await-of 向剩余响应体
+          拼接数据切片
+        */
+        for await (const chunk of res) {
           body += chunk;
         }
     
-        // Handle the case where the response don't have a bodyif (!body) resolve({});
-        // We need to parse the body to get the json, as it is a stringconst result = JSON.parse(body);
+        // 处理没有响应体的情况
+        if (!body) resolve({});
+        // 我们需要解析 body 来获取 json，它是字符串
+        const result = JSON.parse(body);
         resolve(result);
       } catch(error) {
         reject(error)
@@ -98,7 +101,7 @@ function homebrewFetch(url) {
 
 ```
 
-We are going to make our requests to the **[Cat API](https://thecatapi.com/)** to fetch some cat pictures in batches of 10. We will also include a 7-second delay between the requests and a maximum page number of 5 to avoid overloading the cat API as that would be CATtastrophic.
+我们会向 **[猫猫 API](https://thecatapi.com/)** 发起请求，获取一些猫猫图，10 张一页，每个请求中间暂停 7 秒，最多获取 5 页数据，这样就能避免猫猫 API 过载而出现猫病。
 
 ```
 function fetchCatPics({ limit, page, done }) {
@@ -110,7 +113,8 @@ function catPics({ limit }) {
   return {
     [Symbol.asyncIterator]: async function*() {
       let currentPage = 0;
-      // Stop after 5 pageswhile(currentPage < 5) {
+      // 5 页之后停止
+      while(currentPage < 5) {
         try {
           const cats = await fetchCatPics({ currentPage, limit, done: false });
           console.log(`Fetched ${limit} cats`);
@@ -129,7 +133,8 @@ function catPics({ limit }) {
   try {
     for await (let catPicPage of catPics({ limit: 10 })) {
       console.log(catPicPage);
-      // Wait for 7 seconds between requestsawait new Promise(resolve => setTimeout(resolve, 7000));
+      // 每个请求间等待 7 秒
+      await new Promise(resolve => setTimeout(resolve, 7000));
     }
   } catch(error) {
     console.log(error);
@@ -138,9 +143,9 @@ function catPics({ limit }) {
 
 ```
 
-This way, we automatically get back a pageful of cats every 7 seconds to enjoy.
+这样一来，我们可以每 7 秒自动获取一整页的猫猫图，然后吸爆。
 
-A more common approach to navigation between pages might be to implement a `next` and a `previous` method and expose these as controls:
+有一种更常规的翻页手法是实现并暴露 `next` 和 `previous` 两个方法，用它们来控制页面导航：
 
 ```
 function actualCatPics({ limit }) {
@@ -176,15 +181,15 @@ try {
 
 ```
 
-As you can see, async iterators can be quite useful when you have pages of data to fetch or something like infinite scrolling on the UI of your application.
+如你所见，当我们有很多页数据要获取，或者类似于在应用的 UI 中要实现无限滚动时，异步迭代器是非常有用的。
 
-> In case you're looking for a battle-tested Node.js team to build your product, or extend your engineering team, be kind and consider RisingStack's services: https://risingstack.com/nodejs-development-consulting-services
+> 如果您在寻找一支经历实战考验的 Node.js 团队来搭建产品，或者想要拓展您的工程师队伍，敬请考虑一下使用 RisingStack 的服务：https://risingstack.com/nodejs-development-consulting-services
 
-These features have been available in browsers for some time as well, in Chrome since version 63, in Firefox since version 57 and in Safari since version 11.1. They are, however, currently unavailable in IE and Edge.
+浏览器支持这些功能已经有一段时间了，Chrome 从 63 版开始支持，Firefox 从 57 版开始支持，Safari 从 11.1 版开始支持。然而 IE 和 Edge 目前并不支持（译注：Edge 已从 79 版本开始支持了）。
 
-Did you get any new ideas on what you could use async iterators for? Do you already use them in your application?
+关于异步迭代器的使用场景，你有新点子了吗？你是否已准备好了在实际应用中使用它？
 
-Let us know in the comments below!
+请在下方评论让我们一起交流吧！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
