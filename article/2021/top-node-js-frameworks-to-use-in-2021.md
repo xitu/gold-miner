@@ -2,82 +2,87 @@
 > * 原文作者：[Ronak Patel](https://medium.com/@ronakataglowid)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-frameworks-to-use-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-frameworks-to-use-in-2021.md)
-> * 译者：
-> * 校对者：
+> * 译者：[洛竹](https://github.com/youngjuning)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[xilihuasi](https://github.com/xilihuasi)
 
-# Top Node.js Frameworks to use in 2021
+# 2021 年最值得使用的 Node.js 框架
 
-![Top Node.js Frameworks](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
+![最值得使用的 Node.js 框架](https://cdn-images-1.medium.com/max/2400/1*9lmHM-CypCHEOtNd_dfRRw.png)
 
-Node.js is one of the fastest server-side web application platforms as it provides app development companies the ease of building scalable single program language web applications. It is one of the top trending JavaScript runtime frameworks that is open-sourced and has cross platform properties for creating codes outside the browser.
+Node.js 是最敏捷的服务端 web 应用平台，因为它为应用开发公司提供了构建可扩展的单一编程语言 web 平台的便利。它是最热门的开源的 JavaScript 运行时框架之一，具有跨平台属性，让我们可以在浏览器以外的环境运行代码。
 
-## What makes Node.js special?
+## Node.js 的特别之处是什么？
 
-1. It has a clean and concise codebase.
-2. It works best for agile development and prototyping.
-3. It has a vast ecosystem that provides open-source libraries.
-4. It can be used for developing enterprise-scalable applications faster.
-5. It is based on the most used programming language — JavaScript.
+1. 它有一个干净简洁的代码库。
+2. 它最适合敏捷开发和原型设计。
+3. 它有一个庞大的生态系统以提供开源库。
+4. 它可以用于更快地开发企业级可扩展的应用程序。
+5. 它基于最常用的编程语言 —— JavaScript。
 
-## What is the market reaction to Node.js?
+## 市场对 Node.js 的反应如何？
 
-![NPM Trends](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
+![NPM 趋势](https://cdn-images-1.medium.com/max/2366/1*4kohl3kB8tfsqcJY-f3xlA.png)
 
-Image Source: [npmtrends](https://www.npmtrends.com/nodejs)
+图片来源：[npmtrends](https://www.npmtrends.com/nodejs)
 
-**Here are some more facts on Node.js:**
+**下面是一些关于 Node.js 的更多信息：**
 
-* Amazon, Netflix, LinkedIn, eBay, PayPal, and Reddit use Node.js as their backend framework.
-* 43% of Node.js developers use this framework to create enterprise applications.
-* Paypal noticed a remarkable 35% reduction in average response time after switching to Node.js.
-* Node.js can improve any existing app’s performance by 50%.
-* Node.js reduces app development costs by 58%.
-* Statista mentioned Node to be the most used framework among developers as of early 2020 at 51.4%.
+* Amazon、Netflix、LinkedIn、eBay、PayPal 和 Reddit 使用 Node.js 作为他们的后端框架。
+* 43% 的 Node.js 开发者使用这个框架创建企业级应用
+* Paypal 注意到改用 Node.js 后，平均响应时间显著缩短了 35%。
+* Node.js 可以将任何现有应用的性能提高 50%。
+* Node.js 降低了 58% 的应用开发成本。
+* Statista 提到，截至 2020 年初，Node 是开发者中使用最多的框架，占 51.4%。
 
-## Benefits of Using Node.js Frameworks
+## 使用 Node.js 框架的收益
 
-* Easy Scalability
-* Low learning curve
-* Benefit of Fullstack JavaScript
-* Large and Active Community
-* Use of single codebase for enhancing overall web performance
+* 易扩展性
+* 学习曲线低
+* JavaScript 全栈开发
+* 庞大而活跃的社区
+* 使用单一的代码库，以提高整体 web 性能。
 
-## Top Node.js Frameworks to Use in 2021
+## 2021 年最值得用的 Node.js 框架
 
-Now that we have covered Node.js and understood its capabilities in such detail, we can discuss the top Node.js Frameworks to Use in 2021.
+我们已经介绍了 Node.js，并详细地了解了它的功能，现在我们可以讨论 2021 年最值得使用的 Node.js 框架啦。
 
 ### 1. Hapi.js
 
-**GitHub - Stars** — 13.1k **| Forks** — 1.3k **|Version** — v20.1.0 **|Contributors** — 208 **| Used by** - 16.5k
+- **GitHub**
+  - **Stars**：13.1k
+  - **Forks**：1.3k
+  - **版本**：v20.1.0
+  - **贡献者**：208
+  - **使用人数**：16.5k
+- **NPM 周下载量**：105,065
+- **License**：BSD-3-Clause
 
-**NPM — Weekly Downloads —** 105,065 **|License** — BSD-3-Clause
+![Hapi.js 框架流行度](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
 
-![Popularity of Hapi.js framework](https://cdn-images-1.medium.com/max/2316/1*bnq7cugj6hQYaLYlY2a53w.png)
+Hapi.js 是众多开发者信赖的最简单、安全、可靠的框架之一。你可以使用 Hapi.js 来创建可扩展和健壮的应用程序，它具有最小的开销和开箱即用的功能。它是开发 JSON API 的顶级[Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)框架。
 
-Hapi.js is one of the simplest, secure, and reliable frameworks that many developers trust. You can use Hapi.js to create scalable and robust applications that have minimal overhead and out-of-the-box functionality. It is the top [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) framework for developing JSON API.
+**Hapi.js 可以被用于：**
 
-**Hapi.js can be used for -**
+* 网站
+* HTTP 代理应用
+* 应用程序接口服务
 
-* Websites
-* HTTP Proxy Applications
-* Application Programming Interface servers — API
+**Hapi.js 主要特性：**
 
-**Key Features of Hapi.js -**
+* 输入验证
+* 日志
+* 错误处理
+* 代码可重用性
+* 缓存
+* 没有外部依赖
+* 基于配置的功能
+* 集成框架：在 Node 框架中提供全面的认证和授权 API 支持。
 
-* Input Validation
-* Logging
-* Error Handling
-* Code Reusability
-* Implement Caching
-* No external dependencies
-* Configuration-based functionality
-* Integrated Architecture — comprehensive authentication and authorization API support in Node Framework
+**什么时候使用 Hapi.js：**
 
-**When to use Hapi.js -**
+Hapi.js 是开发安全、实时、可扩展和社交媒体应用的理想选择。大多数移动应用开发者都喜欢用 Hapi.js 来创建代理和 API 服务器。
 
-Hapi.js is ideal for developing secure, real-time, scalable, and social media applications. Most mobile app developers prefer Hapi.js for creating proxies and API servers.
-
-**Who uses Hapi.js -**
+**谁在使用 Hapi.js：**
 
 * Commercetools
 * Main Stack
@@ -87,32 +92,37 @@ Hapi.js is ideal for developing secure, real-time, scalable, and social media ap
 
 ### 2. Express.js
 
-**GitHub — Stars** — 52.3k **| Forks** — 8.8k **| Version** — v4.17.1 **| Contributors** — 262 **| Used by —** 9.2m
+- **GitHub**
+  - **Stars**：52.3k
+  - **Forks**：8.8k
+  - **版本**：v4.17.1
+  - **贡献者**：262
+  - **使用人数**：9.2m
+- **NPM 周下载量**：17,193,915
+- **License**：MIT
 
-**NPM — Weekly Downloads —** 17,193,915 | **License —** MIT
+![Express.js 流行度](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
 
-![Express.js popularity](https://cdn-images-1.medium.com/max/2080/1*oV-DuccRP7WvxgSabkTNqQ.png)
+Express.js 是一个灵活而简约的 Node.js 应用框架。这个插件并不是围绕着特定的组件构建的，因此它并不限制你使用什么技术。这就给了开发者尝试的自由。他们还可以获得闪电般的配置和纯 JavaScript 体验，这些特性使 Express.js 成为快速原型设计和敏捷开发市场的有力竞争者。
 
-Express.js is a flexible and minimal Node.js application framework. This plugin isn’t built around specific components, hence having no opinion about what technologies you plug into it. This gives developers the freedom to experiment. They also get a lightning-fast setup and a pure JavaScript experience, making Express.js a strong contender in the niche of rapid prototyping and agile development.
+**Express.js 可以被用于：**
 
-**Express.js can be used for -**
+* 单页应用
+* 多页应用
+* 混合应用
 
-* Single Page Applications
-* Multi-Page Applications
-* Hybrid Applications
+**Express.js 主要特性：**
 
-**Key Features of Express.js -**
+* 更快的服务端开发
+* 赋能开发者更快地构建 RESTful API
+* Express 支持 MVC 架构，但需要开发者做一些额外工作
+* 开箱支持 NoSQL 数据库
 
-* Faster server-side development
-* Enables developers to build RESTful APIs faster
-* Express supports MVC Architecture with some work
-* Supports NoSQL databases out-of-the-box
+**什么时候使用 Express.js：**
 
-**When to use Express.js-**
+Express.js 是快速创建 Web 应用程序和服务的理想选择，因为它有现成的 API 生成工具。它是基于 JavaScript 的全栈方案 MEAN 的一部分。这意味着你可以使用 Express.js 来制作任何基于浏览器的企业级应用。
 
-Express.js is ideal for creating web applications and services quickly since it has readily available API generation tools. It is part of JavaScript-based technology called MEAN software stack. This means you can use Express.js for making any enterprise-grade browser based app.
-
-**Who uses Express.js –**
+**谁在使用 Express.js：**
 
 * FindHotel
 * Omnipresent
@@ -122,33 +132,38 @@ Express.js is ideal for creating web applications and services quickly since it 
 
 ### 3. Nest.js
 
-**Github — Stars** — 35.5k **|Forks** — 3.4k **|Version** — 7.5.0 **|Contributors** — 226 **|Used by** - 60.4k
+- **Github**
+  - **Stars**：35.5k
+  - **Forks**：3.4k
+  - **版本**：7.5.0
+  - **贡献者**：226
+  - **使用人数**：60.4k
+- **NPM 周下载量**：508,214
+- **License**：MIT
 
-**NPM — Weekly Downloads** — 508,214 **| License** — MIT
+![Nest.js 流行度](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
 
-![Nest.js popularity](https://cdn-images-1.medium.com/max/2000/1*uTZrckIaqRi2BolefxaVTg.png)
+Nest.js 是一个服务器端应用框架，它是为了解放开发者的生产力，让他们的生活变得更轻松而打造的。开发者通常为了更好地组织和管理代码而使用这个 Node.js 框架。
 
-Nest.js is a server-side app framework that is crafted for supporting developer’s productivity and make their lives easier. Developers generally use this Node.js framework to structure their code is a much better and organized manner.
+**Nest.js 可以被用于：**
 
-**Nest.js can be used for -**
+* 编写更清晰和可重用的代码。
+* 编写具有更高层次结构的代码，如拦截器、过滤器、管道等；
+* 编写可扩展、可测试和松散型应用程序。
 
-* Writing clearer and reusable code.
-* Writing codes with higher-level constructs like interceptors, filters, pipes.
-* Writing scalable, testable and loosely packed applications.
+**Nest.js 主要特性**
 
-**Key Features of Nest.js –**
+* 易于扩展：可与其他库一起使用。
+* 允许开发人员完全使用纯 JavaScript 进行编码。
+* 结合了函数式编程、面向对象编程和响应式编程的特点。
+* 公开框架 API，帮助开发者使用各平台上的各种第三方模块。
+* 它有一个详细且维护良好的文档。
 
-* Easily extendible — can be used with other libraries.
-* Allows developers to fully code using Pure JavaScript.
-* Combines the features of Functional Programming, Object-Orient Programming and Functional Reactive Programming.
-* Exposes the frameworks API which helps developer use the various third-party modules available to each platform.
-* It has a detailed and well maintained documentation.
+**什么时候使用 Nest.js：**
 
-**When to use Nest.js –**
+Nest.js 主要用于编写具有可扩展、可测试和松散耦合特点的应用。它将 Node.js 的扩展潜力提高到了一个全新的水平。它提供了结构和灵活性的适当平衡，可以高效地管理你的大型项目的代码，并且仍然有结构感可循。
 
-Nest.js is mainly used for writing applications that are — scalable, testable and loosely coupled. It adds scalability potential to Node.js to a whole new level. It provides the right balance of structure and flexibility to manage your codes for large projects with efficiency and still have a sense of structure to follow.
-
-**Who uses Nest.js –**
+**谁在使用 Nest.js：**
 
 * Roche
 * Adidas
@@ -157,32 +172,37 @@ Nest.js is mainly used for writing applications that are — scalable, testable 
 
 ### 4. Koa.js
 
-**GitHub — Stars** — 30.9k **|Forks** — 3k **|Version** — 2.13.1 **|Contributors** — 219 **| Used by** - 160k
+- **GitHub**
+  - **Stars**：30.9k
+  - **Forks**：3k
+  - **版本**：2.13.1
+  - **贡献者**：219
+  - **使用人数**：160k
+- **NPM 周下载量**：870,944
+- **License**：MIT
 
-**NPM — Weekly Download** - 870,944 **| License** - MIT
+![Koa.js 框架流行度](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
 
-![Popularity of Koa.js framework](https://cdn-images-1.medium.com/max/2078/1*lKpRVNszZ6gVbTF_blVJRQ.png)
+Koa.js 是一个开源的 Node web 框架，由 Express.js 原班人马创建。通过 Koa，他们的目标是为 Web 应用和 API 创建一个更小、更有价值、更强大的平台。它提供了多种高效的方法，以让构建服务的过程更快速。
 
-Koa.js is an open-source Node web framework created by the same creators of Express.js. With Koa, they aim to create a smaller, more expensive, and robust platform for web applications and APIs. It provides a wide variety of efficient methods to fasten the process of making servers more excitingly.
+**Koa.js 可以被用于：**
 
-**Koa.js can be used for -**
+* 前台系统
+* 后台系统
+* 混合系统
 
-* Frontend Systems
-* Backend Systems
-* Hybrid Systems
+**Koa.js 主要特性：**
 
-**Key Features of Koa.js -**
+* 代表现代和未来
+* 与所有 Node.js 框架相比，体积更小。
+* 有一个内置的错误捕捉器，防止网站崩溃。
+* 使用 context 对象，该对象同时拥有请求和响应对象。
 
-* Modern and future proof
-* Smaller footprint compared to all Node.js frameworks
-* Has a built-in catchall for errors that prevent website crashes
-* Uses context object which holds both — request and response objects
+**什么时候使用 Koa.js：**
 
-**When to use Koa.js-**
+Koa.js 最适合用于创建服务器、路由、处理响应和处理错误。
 
-Koa.js is best used for creating a server, routes, handling responses, and handling errors.
-
-**Who uses Koa.js –**
+**谁在使用 Koa.js：**
 
 * Paralect
 * LetzChange
@@ -191,45 +211,49 @@ Koa.js is best used for creating a server, routes, handling responses, and handl
 
 ### 5. Socket.io
 
-**GitHub — Stars** — 52.7k **|Forks** — 9.6k **|Version** — 4.0.0 **|Contributors** — 189 **| Used by** - 2.2m
+- **GitHub**
+  - **Stars**：52.7k
+  - **Forks**：9.6k
+  - **版本**：4.0.0
+  - **贡献者**：189
+  - **使用人数**：2.2m
+- **NPM 周下载量**：3,617,636
+- **License**：MIT
 
-**NPM — Weekly Downloads — 3,617,636 | License** - MIT
+![socket.io 流行度](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
 
-![Popularity of socket.io](https://cdn-images-1.medium.com/max/2046/1*5zUKf_Dt48W00aWfkAs84g.png)
+Socket.io 是用来在客户端和服务器端之间创建实时双向通信的框架。要做到这一点，客户端需要在浏览器中安装 Socket.io，服务器也要集成 Socket.io 包。这使得数据可以在数百万种形式中共享。然而，最受欢迎的方法仍然是 JSON。
 
-Socket.io is used for establishing real-time bi-directional communication between clients and servers. For this to work, the client needs to have Socket.io in their browser, and the server should have also integrated the Socket.io package. This allows data to be shared in millions of forms. However, the most preferred method remains JSON.
+**Socket.io 由以下两个部分组成：**
 
-**Socket.io consists of**
+1. JavaScript 服务：Node.js
+2. JavaScript 客户端库：Node.js
 
-1. JavaScript Server — Node.js
+> **注意：** Socket.io 还兼容许多其他语言，如 Java、C+、Swift、Dart、.Net 和 Python。
 
-2. JavaScript client library — Node.js
+**Socket.io 可以被用于：**
 
-> **Note:** Socket.io is also compatible with many other languages like Java, C+, Swift, Dart, .Net, and Python.
+* 各种命名空间
+* 广播
+* 事件处理
+* 错误处理
+* 日志和调试
+* 聊天应用
+* 内部
 
-**Socket.io can be used for -**
+**Socket.io 主要特性：**
 
-* Several namespaces
-* Broadcasting
-* Event Handling
-* Error Handling
-* Logging and Debugging
-* Internal
-* Chat Applications
+* 将信息编码为命名的 JSON 或二进制事件。
+* 在应用程序中添加“实时”能力。
+* 支持自动重新连接
+* 出色的速度和可靠性
+* 即时通讯和聊天
 
-**Key Features of Socket.io-**
+**什么时候使用 Socket.io：**
 
-* Encoding of messages as named JSON or binary events
-* Adding ‘real-time’ ability to an app
-* Supports auto-reconnection
-* Outstanding speed and reliability
-* Instant messaging and chat
+Socket.io 是最好的基于事件的实时双向通信工具之一。任何想要在应用中添加实时分析功能的人都应该使用它。Socket.io 对于实时游戏应用也很有用。在实时游戏中使用基本的 HTTP 或 HTTPS 协议是不可行的，因为这些文件很大，建立通信需要时间。在这里，我们使用体积更小的 socket 包，几乎是实时地完成工作，以获得更流畅和更好的体验。
 
-**When to use Socket.io -**
-
-Socket.io is one of the best real-time bi-directional event-based communication tools. It should be used by anyone who wants to add ‘real-time analysis’ functionality in their app. Socket.io also is useful for ‘real-time’ gaming apps. Using basic HTTP or HTTPS protocols for real-time gaming is not feasible as those files are large and take time to establish communication. Here we use socket bundles smaller in size and get the work done almost ‘real-time’ for a smoother and better experience.
-
-**Who uses Socket.io –**
+**谁在使用 Socket.io：**
 
 * Alibaba Travels
 * Patreon
@@ -239,30 +263,34 @@ Socket.io is one of the best real-time bi-directional event-based communication 
 
 ### 6. Meteor.js
 
-**Github — Stars** — 42.3k **|Forks** — 5.2k **|Version** — 4.0.0 **|Contributors** — 452 **|Used by** -(?) **|License** - MIT
+- **Github**
+  — **Stars**：42.3k
+  - **Forks**：5.2k
+  - **版本**：4.0.0
+  - **贡献者**：452
+- NPM：不可用
+- **License**：MIT
 
-NPM — Not Available
+Meteor.js 是一个开源的全栈 JavaScript 平台，JavaScript 根据意图不同运行在不同的地方。JavaScript 运行在 Web 浏览器内部；然后 JavaScript 运行在 Node.js 容器内的 Meteor 服务器上，支持 HTML 片段、静态资源和 CSS 规则。
 
-Meteor.js is an open-source full-stack JavaScript platform where JavaScript runs at different places for different purposes. JavaScript runs inside a web browser; then JavaScript runs on the Meteor server inside a Node.js container and supports HTML fragments, static assets, and CSS rules.
+**Meteor.js 可以被用于：**
 
-**Meteor.js can be used for –**
+* 移动应用程序全流程
+* web 应用程序全流程
 
-* Full production of mobile apps
-* Full production of web apps
+**Meteor.js 主要特性：**
 
-**Key Features of Meteor.js –**
+* 纯 JavaScript
+* 干净、稳健的数据同步
+* 互操作性
+* 智能套件
+* 代码热更新
 
-* Pure JavaScript
-* Clean, Robust data synchronization
-* Interoperability
-* Smart Packages
-* Hot Code Pushes
+**什么时候使用 Meteor.js：**
 
-**When to use Meteor.js-**
+Meteor.js 具有快速原型设计的能力，并能生成跨平台（Android、iOS、Web）的代码。它也是最直接的学习框架之一，因为它不遵循任何严格的结构规则。因此，Meteor.js 应该被任何希望以最少的学习曲线为多个平台创建应用程序的初级或中级开发人员使用。
 
-Meteor.js has capabilities for rapid prototyping and produces cross-platform (Android, iOS, Web) code. It is also one of the most straightforward frameworks to learn as it doesn’t follow any strict structural rules. Hence Meteor.js should be used by any beginner or intermediate developer who wishes to create apps for multiple platforms with the least learning curve.
-
-**Who uses Meteor.js -**
+**谁在使用 Meteor.js：**
 
 * Accenture
 * NetApp
@@ -272,32 +300,37 @@ Meteor.js has capabilities for rapid prototyping and produces cross-platform (An
 
 ### 7. Adonis.js
 
-**Github — Stars** — 9.7k **|Forks** — 498 **|Version** - 5.0.13 **|Contributors** — 47 **|Used by** -754
+- **Github**
+  - **Stars**：9.7k
+  - **Forks**：498
+  - **版本**：5.0.13
+  - **贡献者**：47
+  - **使用人数**：754
+- **周下载数**：3808
+- **License**：MIT
 
-**NPM — Weekly Downloads** - 3808 **| License** - MIT
+![adoni.js 流行度](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
 
-![Popularity of adoni.js](https://cdn-images-1.medium.com/max/2052/1*QVu2Z2wbudWv06tBwkJ8mQ.png)
+Adonis.js 是一个 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 的 MVC 框架，可以运行在所有的操作系统上。它为编写服务器端 Web 应用程序提供了一个稳定的生态系统，以让开发者专注于业务需求，如最终确定选择或排除哪个包。对于想要换个口味，正在尝试 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架的 Laravel 开发者来说，它是理想的选择。Adonis.js为 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 提供了与Laravel自然具有的相同的功能和能力。
 
-Adonis.js is a [Node.js ](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)MVC framework that can run on all operating systems. It provides a stable ecosystem for writing server-side web applications to focus on the business requirements like finalizing which package to choose or exclude. It is ideal for Laravel Developers who want a taste change and are trying out the [](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/)[Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) framework. Adonis.js provides [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) with the same features and abilities that Laravel has naturally.
+**Adonis.js 可以被用于：**
 
-**Adonis.js can be used for –**
+* 构建 web 应用
+* 应用程序接口服务
 
-* Building a web app
-* Application Programming Interface servers -API
+**Adonis.js 主要特性：**
 
-**Key Features of Adonis.js –**
+* 强大的 ORM，帮助进行安全的 SQL 查询。
+* API 和基于会话的认证系统
+* 验证和给每一个用户的输入做卫生处理。
+* 高度强调安全问题
+* 可扩展的应用分层
 
-* Powerful ORM that helps make secure SQL queries
-* APIs and session-based authentication system
-* Validating and sanitizing every user’s inputs
-* Heavy emphasis on security
-* Extendable application layout
+**什么时候使用 Adonis.js：**
 
-**When to use Adonis.js -**
+如果你是一个正在寻找 MVC 工具的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 开发者，Adonis.js 是你的首选 Node.js 框架。然而，如果你是一个 Laravel 开发者或任何其他移动应用框架开发者，你仍然可以给 Adonis.js 一个机会，甚至从 PHP 迁移到 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 也可以尝试一下 Adonis.js。
 
-If you are a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) Developer looking for an MVC tool, Adonis.js is your go-to Node.js framework. However, if you are a Laravel developer or any other mobile application framework developer, you can still give Adonis.js a try, even migrating from PHP to [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/).
-
-**Who uses Adonis.js –**
+**谁在使用 Adonis.js：**
 
 * Dotgroup
 * DORMshed
@@ -307,32 +340,37 @@ If you are a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-de
 
 ### 8. Sails.js
 
-**Github — Stars** — 21.9k **|Forks** — 1.9k **|Version** — 1.4.0 **|Contributors** — 229 **|Used by** - 23.3k
+- **Github**
+  - **Stars**：21.9k
+  - **Forks**：1.9k
+  - **版本**：1.4.0
+  - **贡献者**：229
+  - **使用人数**：23.3k
+- **周下载数**：20,457
+- **License**：MIT
 
-**NPM — Weekly Downloads** — 20,457 **| License** — MIT
+![sails.js 框架流行度](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
 
-![Popularity of sails.js framework](https://cdn-images-1.medium.com/max/2000/1*nYu5aJOd4f933c6WZkX8eA.png)
+Sails.js 是又一个实时 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC 框架。它基于 Express 构建，其 MVC 架构与 Ruby on Rails 相似。它与 Ruby on Rails 的不同之处在于，它提供了对更现代的、以数据为中心的 API 和 Web 应用开发风格的支持。
 
-Sails.js is yet another real-time [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) MVC framework. It is built on Express, and its MVC architecture matches that of Ruby on Rails. It is different from Ruby on Rails as it provides support for the more modern, data-centric style of API and web app development.
+**Sails.js 可以被用于：**
 
-**Sails.js can be used for –**
+* 构建企业级 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 应用
+* 构建前端应用
+* 构建处理 HTTP 请求的后端应用
 
-* Building enterprise-level [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) applications
-* Building frontend applications
-* Building backend apps for handling HTTP requests
+**Sails.js 主要特性：**
 
-**Key Features of Sails.js –**
+* 支持自动生成 REST APIs
+* 具有简单的 WebSocket 集成
+* 兼容任何流行的前端框架：Angular、Android、React、iOS、Windows 或任何自定义硬件。
+* 它还具有实时功能支持
 
-* Supports auto-generated REST APIs
-* Has easy WebSocket integration
-* Compatible with any popular frontend — Angular, Android, React, iOS, Windows, or any custom hardware
-* It also has real-time functionality support
+**什么时候使用 Sails.js：**
 
-**When to use Sails.js –**
+任何想要一个模拟 MVC 模式的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架（如 Laravel 和 Ruby on Rails）、想要实现现代应用架构，并构建以数据为中心的 API 和实时应用的开发者都应该在他们的下一个项目中使用 Sails.js。
 
-Any developer who wants a [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) framework for emulating MVC pattern frameworks like Laravel and Ruby on Rails for modern app architecture and building data-centric APIs and real-time apps should use Sails.js for their next project.
-
-**Who uses Sails.js-**
+**谁在使用 Sails.js：**
 
 * Tutor Platform
 * Redox Engine
@@ -340,9 +378,9 @@ Any developer who wants a [Node.js](https://aglowiditsolutions.com/blog/hidden-c
 * Created Informed
 * People Grove
 
-**To Summarize**
+## 总结一下
 
-There are many new [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) frameworks available in the market. Different [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) frameworks help your app development project at different stages and bring in a lot of value and functionality. Make use of these frameworks to make your app development process effortless.
+市场上有很多新的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架。不同的 [Node.js](https://aglowiditsolutions.com/blog/hidden-cost-of-app-development/) 框架会在不同阶段帮助你开发项目，并带来很多价值和功能。合理利用这些框架，妈妈再也不用担心你的应用开发啦。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

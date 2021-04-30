@@ -2,176 +2,174 @@
 > * 原文作者：[Cliff Crocker](https://speedcurve.com/blog/web-performance-product-managers/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Web-Performance-for-Product-Managers.md)
-> * 译者：
-> * 校对者：
-> 
+> * 译者：[flying-yogurt](https://github.com/flying-yogurt)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[greycodee](https://github.com/greycodee)
 
-# Web Performance for Product Managers
+# 对产品经理而言的 Web 性能
 
-I love conversations about performance, and I'm fortunate enough to have them **a lot**. The audience varies. A lot of the time it’s a front-end developer or head of engineering, but more and more I’m finding myself in great conversations with product leaders. As great as these discussions can be, I often walk away feeling like there was a better way to streamline the conversation while still conveying my passion for bringing fellow PMs into the world of webperf. I hope this post can serve that purpose and cover a few of the fundamental areas of web performance that I’ve found to be most useful while honing the craft of product management.
+我喜欢与他人谈论关于 Web 性能的内容，同时很幸运地，我有过不少相关的聊天经历。听众身份各异，大多数时候都是前端开发者或工程主管，但我越发觉得自己可以和产品负责人展开有趣的讨论。如此精彩的讨论使我常常觉得自己有一种更好的方法来简化对话，并表达出我对将产品经理们引入网络性能世界的热情。我希望这篇文章可以达到这个目的，并涵盖一些我认为在磨练产品管理技巧时最有用的网络性能基础领域。
 
-So, whether you are a PM or not, if you're new to performance I've put together a few concepts and guidelines you can refer to in order to ramp up quickly. This post covers:
+所以，不管你是不是产品经理，如果你对网络性能不太熟悉，我这里会汇总一些概念与指南供你参考并快速掌握。这些内容包括：
 
-- What makes a page slow?
-- How is performance measured?
-- What do the different metrics mean?
-- Understanding percentiles and how to use them
-- How to communicate performance to different stakeholders
+- 什么导致了页面变慢？
+- 如何衡量性能？
+- 不同的指标分别是什么意思？
+- 理解与使用百分位数
+- 该怎样与不同身份的相关人员讨论性能问题？
 
-Let's get started...
+让我们开始吧。
 
-# What makes a page slow?
+## 什么导致了页面变慢？
 
-Lotsa stuff. Here are some of the bigger contributors you should know about, but be aware of others as performance is a multi-headed beast.
+太多东西可能导致页面变缓慢了。在这儿只列举了一些你应当知晓的，影响较大的因素。但请务必留意其他原因，性能好比一只多头野兽一般难以捉摸，无法控制。
 
-# Requests
+### 请求
 
-Your page is made up of a lot of individual assets. Images, fonts, JavaScript, CSS, tracking pixels... these all play their part in delivering a rich experience. But collectively, these can add up to a "death by a thousand cuts" scenario.
+你的页面由很多静态资源文件组成。图片、字体、JavaScript、CSS、跟踪像素…… 这些都在提供丰富浏览体验方面发挥了作用。但总的来说，这些资源文件可能会让你陷入一个有如千刀万剐般痛苦的境地。
 
-[Steve's golden rule](https://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/) remains true today: 80-90% of rendering time is spend in the front end, and the majority of that is requests sent across the wire. If you want to optimize your site, start by making as few requests as possible.
+[Steve 的黄金法则](https://www.stevesouders.com/blog/2012/02/10/the-performance-golden-rule/) 至今仍然适用：80％ 至 90％ 的渲染时间都花在了前端，其中大部分的时间耗费在了网络请求上。如果要优化你的站点，可以先从尽可能地减少请求次数开始。
 
-# Code
+### 代码
 
-There are a ton of best practices for front-end developers to follow. This is typically the work you'd throw into an optimization sprint (or twenty). Recommendations can come out of audits from consultants or from automated tools like Lighthouse (or SpeedCurve, of course). I like to use [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) when checking out a URL for a customer to get some high-level suggestions. We include Lighthouse scores and audits in our product for a good starting point.
+前端开发者有很多可以遵从的最佳实践，这通常是你在性能优化的冲刺阶段才投入进行的工作。代码的优化建议可以来自专业人士的审核，也可以来自像 Lighthouse 这样的自动工具（当然还有 SpeedCurve）。为用户分析网站性能的时候，我喜欢使用 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)以获得一些更高级的建议。我们在产品中加入了 Lighthouse 评分和审核，这是一个很好的起点。
 
-Problem areas may include (but certainly aren't limited to):
+问题可能出自（但肯定不局限于）：
 
-- JavaScript,
-- improving the 'critical path' or render blocking, and
-- using directives to preload assets or load scripts asynchronously.
+- JavaScript
+- 改进“关键路径”或渲染阻塞
+- 以及，使用指令来预加载页面元素或异步加载脚本
 
-While the focus in most cases tends to be directed toward front-end developers, it's important to remember the back-end as well if you see higher than normal start render times or increases in more basic metrics like time to first byte.
+尽管大多数情况下，产品经理的注意力都都集中在前端开发者上，但是，如果你察觉到了过长的开始渲染时间，或更多不正常的基本指标（例如到第一个字节的时间）增加，也要关注后端开发工作。这一点非常重要。
 
-# Images
+### 图像
 
-Image optimization continues to be one of the areas where huge performance gains can be made, often with little effort. Image compression has continued to evolve. New formats have been introduced that provide a rich feature set while minimizing bandwidth. In some cases these formats are specific to the browser, which can add some complexity to your workflow.
+图像优化仍然是可以以最小代价换取巨大性能提升的领域之一。随着图像压缩技术的不断发展，新的图像格式被引入实际运用当中。这些格式提供了丰富的功能集，同时将所需的带宽最小化。在某些情况下，这些格式是特定于浏览器的，有可能导致工作流程的复杂性增加。
 
-Regardless of whether or not you have the opportunity to make an impact in this area, understanding your image pipeline – whether it's in house or managed as a service – is a plus. This is especially true of sites that maintain a large product catalog or include a fair amount of user-generated content.
+无论你是否有机会实际参与这一领域的工作，理解图像管道（不管是在内部还是作为服务进行管理）都是大有裨益的。对于维护大型产品目录或包含大量用户生成内容的网站，尤其如此。
 
-It's also important to note that, while not all performance gains will show up in your metrics, users with poor bandwidth or restrictive data plans will thank you. Consider setting your [performance budgets](https://speedcurve.com/blog/performance-budgets-guide/) related to images on size and number of requests as opposed to duration.
+还需要注意的是，虽然并非所有性能提升都会显示在你的指标中，但是这些工作对于带宽不足或数据流量受限的用户将是十分令人感激的。考虑基于请求的大小和数量去设置与图像相关的 [性能预算](https://speedcurve.com/blog/performance-budgets-guide/)，而不是基于请求的时长。
 
-# Networks
+### 网络
 
-Yeah. The internet. It's consistently inconsistent. How things get from point A to point B still amazes me when you think about the complexity involved in sending bits over the wire.
+正是如此。互联网一直以来都是反常的。通过线缆，从A点到B点传输一又一个比特————当我想到这件事本身所涉及的复杂性时，我仍然感到惊讶与激动。
 
-For your purposes, you might be interested in how your technology partners (which you pay good money for) impact your performance. Content Delivery Networks (CDN) like Akamai, Fastly, Cloudflare, Cloudfront can sometimes have a big impact on performance. This traditionally manifests more in back-end time, but can have a huge impact on front-end as well when you factor in asset delivery (images, static content) as well as some advanced optimizations available at the edge. These platforms also give you the power to make things worse, not better, if you aren't careful.
+对你来讲，你可能会对技术合作伙伴如何增进服务的性能感到好奇，毕竟你为此付出了一大笔钱。诸如 Akamai、Fastly、Cloudflare 和 Cloudfront 之类的内容分发网络（CDN）有时会对性能产生重大影响。传统上，这些影响在服务后端时间表现得更多，但是当考虑到从服务端到 Web 的一些资源分发（图像或其他静态内容）以及边缘可用的一些高级优化时，也会对前端产生巨大影响。如果你不多加留意，这些平台只能使情况变得更糟，而不是变得更好。
 
-# Third parties
+### 第三方服务
 
-[Long audible moan] We love to hate them. However, we also love to use them. Everywhere.
+（一声长叹）我们对它真是又爱又恨。不过，我们对使用这些内容并不排斥，甚至还经常用到它们。
 
-Third parties, for our purposes, focus on contributors outside of your domain that enrich your content or deliver a service. The frustration with third parties is that they are often perceived to be outside of your control. Yes, it's true that when they impact your performance, there is little you can do to make them faster, short of removing the tag or throwing the kill switch.
+对我们来讲，第三方服务指的是在自身领域外的那些为丰富内容或提供服务而存在的贡献者。对其不满的主要原因是，它通常超出你的控制范围；当它影响服务的性能时，你几乎没办法做什么来加快服务进程，你既不能移除标签，也不能杀掉进程。
 
-That withstanding, you are a product manager. You are a master of influencing that which is outside the scope of your control. You can hold them accountable and maintain a strategy for keeping them in line. For example:
+但身为一个产品经理，你得学会承受这些。你可是影响自己控制范围之外的事物的大师。你可以让他们对其负责，并维持着使他们保持一致的策略。例如：
 
-- Work with your vendor manager if you have one, or directly with the stakeholders responsible, to set and enforce [performance budgets](https://speedcurve.com/blog/performance-budgets-guide/) on your third parties. Maybe you create a tag budget that you can enforce with the responsible party. Maybe the budget relates to size.
-- If your marketing department needs to add a new pixel, force one out in its place.
-- Audit your third parties and prune out any ghost scripts.
-- Before allowing a new third party, implement a vetting process to make sure it passes some basic guidelines around performance. My favorite tool for this is [3rdParty.io](https://3rdparty.io/), contributed by Nic Jansma.
+- 和你的供应商经理（如果你有的话）或负责此事的利益相关者直接合作，以设置第三方服务的 [性能预算](https://speedcurve.com/blog/performance-budgets-guide/)。也许你创建了可以和该责任方一起执行的标签预算。预算可能与规模有关。
+- 如果您的市场营销部门需要添加一个新元素，必须有另一个旧的被替换。
+- 审核你的第三方服务并删除所有的没有用到的 `script` 脚本。
+- 在引入新的第三方服务之前，请执行审核过程，以确保他们通过了一些有关性能的基本准则。我最喜欢的工具是由 Nic Jansma 参与开发的 [3rdParty.io](https://3rdparty.io/)。
 
-Whatever the cause for performance issues may be, it's important to maintain a team approach when tackling the issue. Rarely is it one person's fault that performance is where it is. It's also rare that a single person or group has ownership of that area and the ability to fix it independently of others. **Performance is a team sport.**
+无论造成性能问题的原因是什么，解决问题时都必须保持团队合作的态度与精神。性能过差通常不仅仅是某一个人的过失，单靠一个人或者一个小组就能拥有独立于其他成员而修复问题的能力 ——— 这也是极其罕见的。**性能是团队的活儿。**
 
-# How is web performance measured?
+## 如何衡量性能？
 
-There are two primary methods, both of which center around measuring how the browser responds when a user visits your site.
+这儿有两种主要方法，它们都集中衡量了用户访问你的网站时浏览器的响应方式。
 
-# Synthetic monitoring
+### 综合监测
 
-As in, not real. Synthetic monitoring is essentially a bot that does what you tell it to do ("go visit my home page from X location on X browser") and actively collects performance data.
+它并非真实存在的。从本质上来讲，综合监测更像一种机器人，它可以执行你所指示的操作（例如从 X 浏览器上的 X 位置访问我的主页）并主动收集性能数据。
 
-Synthetic is great and has a ton of useful things to offer, as we can get an immense amount of detail around what happened when that action was performed. This includes:
+综合监测非常棒，它可以提供很多有用的东西，让我们得以了解执行该动作时发生的事情的大量细节。包括：
 
-- waterfall charts with details about every request,
-- filmstrips and videos that help you visualize the rendering experience, and
-- a reasonably consistent baseline when looking at the makeup of your application.
+- 瀑布图，其中包含有关每个请求的详细信息，
+- 幻灯片和视频，可帮助你可视化渲染体验，以及
+- 当查看应用程序的组成时，一条合理且一致的基线。
 
-Synthetic is great for trending over time, especially when looking at the number and size of requests (images, JavaScript, CSS), which collectively have a big impact on speed.
+综合监测非常适用于那些有随时间变化趋势的内容，尤其是在查看请求（图像、JavaScript、CSS）的数量和大小时。这些内容对速度有较大影响。
 
-But for all the goodness of synthetic monitoring, it's missing a critical component: end users.
+不过，尽管综合监测拥有上述所有优点，它仍缺少一个极其关键的组成部分：终端用户。
 
-# Real user monitoring (RUM)
+### 真实用户监测（RUM）
 
-You guessed it: measuring real users. Think of RUM as performance-based analytics measured from the end user's actual browser.
+想必你已经猜到了：衡量真实的用户。RUM 可以被视为从终端用户的实际浏览器中所得到的、基于性能表现的分析。
 
-As a great product manager, you’re already focused on building your product **outside in**. You talk to a gazillion customers, get their feedback, and turn that into requirements for your next product. This gives you the power of empathy that can be shared far and wide across your organization when building an exciting roadmap and creating the vision for your product or product line.
+作为出色的产品经理，你已经将精力集中在**由外而内**地构建你的产品上。你与数不胜数的客户交流，获取他们的反馈，并将其转化为对下一个产品的需求。每当制定激动人心的路线图并为你的产品或产品线创建崭新的愿景时，共情的力量可以在你的整个团队中广泛传播。
 
-This is why you need RUM. Real users. Real experiences. RUM is the basis for understanding web performance and it's become the go-to source of truth when communicating performance to your stakeholders. How can you effectively include performance as a requirement without it? Hard sell here. I know. However, in this day and age, not bringing RUM data into the equation is performance malpractice.
+这就是为什么你需要 RUM。真实的用户，真实的经验。RUM 是了解 Web 性能的基础，在与相关人员交流性能时，它也已经成为事实的首选来源。如果没有 RUM，你要怎样才能将性能作为产品的需求之一呢？我知道这非常困难。不过，在如今的时代，不综合考虑 RUM 将会给性能评估带来弊端。
 
-# What do the different metrics mean?
+## 不同的指标分别是什么意思？
 
-Whether you use synthetic or RUM, each tool captures dozens and dozens of performance metrics. Understanding which performance metrics you should care about has been a perilous journey over the years. The pendulum has swung from 'measure all the things' to 'here is my unicorn metric'. Today we're somewhere in between. The frustrating answer to the question "Which metric(s) should I care about?" remains the same:
+无论你使用综合监测还是 RUM，每个工具都可以捕获数十个性能指标。这些年来，弄清楚我们应该关注哪些性能指标已经成为了一个“危险”的过程。如同钟摆一样，趋势已经从“衡量所有指标”转变为“这是我独有的指标”。而今天我们在两者之间寻求一种平衡，对“我到底应该关注哪个指标”这个问题的回答仍略显无奈：
 
-"It depends."
+"因地制宜。"
 
-Don’t get bogged down in the details. There's a plethora of metrics and you don’t need to understand all of them. For most of you, especially if you are just getting started with performance, focus on the metrics most closely tied to your user's experience. Here is a [great guide from Tammy](https://speedcurve.com/blog/performance-budgets-guide/) that tackles this head on.
+不要过分苛求细枝末节，你并不需要百分之百理解这许许多多的指标。对于绝大多数像你一样的产品经理而言（尤其是那些刚开始接触性能的新手），请将目光放在那些与用户体验关系最为密切的指标上。这篇 [出自 Tammy 的指南](https://speedcurve.com/blog/performance-budgets-guide/)或许对解决这个问题有帮助。
 
-In recent months, my conversations with PMs have been heavily centered around Core Web Vitals. If you are in this camp and getting pressure around improving SEO or responding to inbound questions regarding numbers seen in Google Console, you'll want to familiarize yourself with these metrics. Fortunately, there is a lot of good material for you to review on this topic. Start with these resources:
+在最近几个月，我和产品经理们的对话的主要围绕在网站核心指标上。如果你也在这个领域中，并且在改善 SEO 或应对有关 Google 控制台中显示的数字的入站问题方面承受压力，你可能需要熟悉这些指标。幸运的是，你可以阅读不少有关于这个主题的优秀资料。从这些资源开始：
 
-- [Tracking Core Web Vitals](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
-- [Understanding Cumulative Layout Shift](https://dev.speedcurve.com/blog/google-cumulative-layout-shift/)
-- [First Input Delay, How vital is it?](https://dev.speedcurve.com/blog/first-input-delay-google-core-web-vitals/)
-- [Everything we know about Core Web Vitals](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
+- [跟踪网站核心指标](https://dev.speedcurve.com/blog/web-vitals-user-experience/)
+- [了解累积版式移位](https://dev.speedcurve.com/blog/google-cumulative-layout-shift/)
+- [第一次输入延迟，它有多重要？](https://dev.speedcurve.com/blog/first-input-delay-google-core-web-vitals/)
+- [关于网站核心指标我所知道的一切](https://simonhearne.com/2021/core-web-vitals-seo/) by Simon Hearne
 
-# How to use percentiles
+## 理解与使用百分位数
 
-Now that you understand the different metrics, it's important to know how to apply percentiles to each one so that you can understand how different cohorts of real users are experiencing your site.
+现在，你已经对不同的指标有了初步的了解，那更进一步地，学习如何将百分位数应用在每一个指标上就很重要 —— 这样，你就更能理解不同的真实用户群组对你的网站的体验。
 
-This is a histogram:
+这是一个直方图:
 
 ![https://blog-img.speedcurve.com/img/113/histogram_1.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_1.png?auto=format,compress&fit=max&w=2000)
 
-A histogram represents the distribution of your users who had a range of experiences when visiting your site. Remember that.
+直方图表示在访问您的网站时具有多种体验的用户分布。记住这一点。
 
-**Performance is a distribution**, not a single number. It's not measured once. A histogram represents a continuum of experiences, which allows you to think of the shape of performance and how you want to influence it. Faster shifts left, slower shifts right.
+**性能是一种分布**，而不只是一个数字。这是说并非测量一次过后就万事大吉了。直方图所表示的是体验的连续性，你可以借此思考性能分布的形状，以及你希望如何影响性能。左移使其加速，右移使其减速。
 
-# I still need to communicate a number. What do I do?
+### 我仍需要一个数字。我该怎么办？
 
-No worries, you'll still need to talk in numbers. Percentiles represent segments of your population from 0-100. You don’t need to be a statistician to do this. Just think in terms like this:
+别担心，你仍然会接着和数字打交道。百分位数代表着你的受众群体中，从 0 至 100 的一个个小部分。并非统计学家才能做到这一点，你只需要像这样思考：
 
-**50th percentile (median):** I find using the 50th percentile, aka the median, easier to understand and communicate. You can even refer to it as an average if you want.
+**第 50 个百分位数（中位数）：**我发现使用第 50 个百分位数，即中位数，更易于理解和沟通。如果你想的话，你甚至可以将其当作平均值。
 
-**75th percentile:** For some popular metrics, such as [Core Web Vitals](https://speedcurve.com/blog/web-vitals-user-experience/), the 75th percentile is being used for reporting.
+**第 75 个百分位数：**对于某些流行的指标，例如 [网站核心指标](https://speedcurve.com/blog/web-vitals-user-experience/)，第 75 个百分位数在报告中常被使用。
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p50.png?auto=format,compress&fit=max&w=2000)
 
-**95th percentile:** If your site is already pretty fast for most users, you can focus on making it fast for your longtail. Five percent of your users may not sound like much, but if you site gets 10M visitors a month, that means 500,000 of those people are having a really poor experience.
+**第 95 个百分位数：**如果你的网站对于大多数用户来说已经相当快了，那么你可以将精力放在剩下的极少部分的使用者，使他们的访问体验变得更快。5％ 的用户听起来可能并不多，但是如果您的网站每月有 1000 万访问者，则意味着其中有 500,000 人的体验确实很差。
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p75.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p75.png?auto=format,compress&fit=max&w=2000)
 
 ![https://blog-img.speedcurve.com/img/113/histogram_p95.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/histogram_p95.png?auto=format,compress&fit=max&w=2000)
 
-There isn’t a wrong answer when it comes to which percentile to focus on, as each has merit, unless you are using an arithmetic mean (AKA traditional average) to describe your population. That doesn't work so well for this type of distribution.
+除非你使用算术平均值（也就是传统意义上的平均值）来描述人口，否则要关注哪个百分位数（每种都有其优点）并没有一个确切的答案。 对于这种类型的分布而言，其效果并不理想。
 
-# How should I communicate all of this?
+## 该怎样与不同身份的相关人员交流讨论性能？
 
-I continue to find this to be one of the biggest challenges product managers face when it comes to performance. We've been working on this challenge for years and still haven't nailed it. Here are some thoughts on communication that you may want to keep in mind.
+我发现这是产品经理在衡量性能方面所面临的最大挑战之一。多年来，我们一直在努力应对这一挑战，但仍未得到最佳的答案。以下是你可能想要牢记的一些有关交流的想法。
 
-# Know your audience
+### 了解你的听众
 
-This isn't a new concept. You wear many hats and speak many languages when it comes to working cross-functionally. Think about that before you rolling out new terminology, concepts, or going into the weeds with your CEO.
+这并不是一个崭新的概念。当涉及跨职能工作时，您可能会担当不同的职责，使用多元的语言。在提出新的术语和概念，或向 CEO 提出过多冗杂的细节信息时，请三思而后行。
 
-# Keep it simple
+### 保持简单化
 
-Don't over-communicate or confuse folks. If you are centered on a few performance KPIs for your reporting, great. If you manage to get aligned around that unicorn metric, fantastic. Just don't dress it up too much. Leave out terms like percentile and avoid presenting two sets of numbers. This is often a mistake I see PMs making when trying to communicate their RUM metric as well as their synthetic metric. Just don't do it. Again, use RUM whenever humanly possible. You can use synthetic to highlight areas such as page weight or element count or to illustrate the number of third parties on your site. This is where synthetic compliments your RUM data very nicely.
+不要过度交流或使他人迷惑。如果你将重点放在性能 KPI 报表上，很棒。如果你设法围绕这个独角兽指标进行调整，那就太好了。只是不要适得其反。我经常看到产品经理在尝试传达其 RUM 指标及其综合指标时犯丢失诸如百分位数这样的术语，或避免显示两组数字这样的错误。别这么干。同样，只要有可能，请使用 RUM。你可以使用综合监测突出显示一部分数据，例如页面权重或元素计数，也可以借此陈述网站上第三方的数量。这是综合监测数据很好地补充 RUM 数据的地方。
 
-# Paint a picture of performance
+### 将性能具象化
 
-This is where synthetic monitoring tools steal the show. Using filmstrips or videos to illustrate a point goes a really long way when speaking to stakeholders that are out of the loop on performance. There is nothing better than showing a before-and-after video when promoting the great work of your team.
+在这部分，综合监测工具抢占了先机。使用幻灯片或视频与不在内部的其他参与者讨论关于性能的话题。在促进出色的团队工作时，没有比播放前后视频更棒的了。
 
-# Benchmark yourself
+### 标杆测试
 
-Another great tool to have in your bag is benchmarking. Teams love to win and hate to lose. Using benchmarking as a way to compare yourselves to your competition is extremely effective. This is especially true when it comes to managing Core Web Vitals. If half of your competitors have a faster LCP time than you, what impact will that have on your search results?
+基准化分析法（又称标杆测试、标杆管理）是你所拥有的另一个绝佳工具。相较于输，团队更想赢。使用标杆测试来比较自己和竞争对手是非常有效的。在管理网站核心指标时尤其如此。如果有一半左右的竞争对手 LCP 时间比你快，那会对你的搜索结果产生什么影响呢？
 
-As hard as it may be, avoid shaming. Whether you or your competition are at the bottom, that can change at anytime. Use benchmarking to make yourself better or to understand and learn from others. Check out our [Industry Page Speed Benchmarks](https://speedcurve.com/benchmarks/) for an idea of how you can use benchmarking part of your toolkit.
+别怕丢人。无论是你亦或是你的竞争对手处于最底层，这种情况随时可能被改变。使用标杆测试来使自己变得更好，或是向他人学习理解。查看我们的 [行业网页速度标杆测试](https://speedcurve.com/benchmarks/) 来了解如何使用工具包中的基准化分析法。
 
 ![https://blog-img.speedcurve.com/img/113/benchmarks.png?auto=format,compress&fit=max&w=2000](https://blog-img.speedcurve.com/img/113/benchmarks.png?auto=format,compress&fit=max&w=2000)
 
-# Summary
+## 总结
 
-These are the fundamentals, and I hope you've found the time reading them to be well-spent. Like any topic you get exposed to as a product manager, you can always go deeper.
+这些是基础知识，我希望你能觉得阅读这篇文章的时间花得物有所值。就像你作为产品经理接触到的任何主题一样，你也可以随时在这个领域更进一步。
 
-Still have questions or thoughts? I'm sure others would love to hear them as well, so feel free to comment below.
-
+还有其他问题或者想法吗？我相信其他读者也希望听到这些声音，请尽情评论吧。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

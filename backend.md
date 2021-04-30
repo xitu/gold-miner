@@ -1,3 +1,5 @@
+* [2021 年最值得使用的 Node.js 框架](https://juejin.cn/post/6955402195311263751)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [2021 年 Kubernetes 的开发者工具：Helm、Kustomize 和 Skaffold](https://juejin.cn/post/6951201659301134343)（[kamly](https://github.com/kamly) 翻译）
 * [MongoDB 和 MySQL 使用场景分析](https://juejin.cn/post/6949811448767840263)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析](https://juejin.cn/post/6947820858677133343)（[huifrank](https://github.com/huifrank) 翻译）
