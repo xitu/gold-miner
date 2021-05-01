@@ -1,7 +1,7 @@
 > * 原文地址：[Flutter Quotes App](https://medium.com/flutterdevs/flutter-quotes-app-bb30ef27b255)
 > * 原文作者：[Anubhav Gupta](https://medium.com/@danubhav)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quotes-app.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quotes-app.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quote-app.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-quote-app.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：[5Reasons](https://github.com/5Reasons)、[greycodee](https://github.com/greycodee)
 
