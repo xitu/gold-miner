@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md](https://github.com/xitu/gold-miner/blob/master/article/2021/numpy-on-gpu-tpu.md)
 > * 译者：[samyu2000](https://github.com/samyu2000)
-> * 校对者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[PingHGao](https://github.com/PingHGao), [Kimhooo](https://github.com/Kimhooo)
 
 # Numpy 在 GPU/TPU 上的性能
 
 ![Image by [i2tutorials](https://www.i2tutorials.com/what-do-you-mean-by-tensor-and-explain-about-tensor-datatype-and-ranks/)](https://cdn-images-1.medium.com/max/2000/1*CPwuFuMnvGXARofgff1zbg.jpeg)
 
-[Numpy](https://numpy.org/) 是迄今为止使用最广泛的数组运算函数库。它是许多机器学习和数据科学库的基础库。它包含大量的高阶数组运算函数。众所周知，Numpy 因其运算速度而非常受欢迎。Numpy 对数组对象的处理比 Python 自带的 List 库要快 50 倍。同时，Numpy 还支持矢量化，可以取代循环控制结构。
+[Numpy](https://numpy.org/) 是迄今为止使用最广泛的数组运算函数库。它是许多机器学习和数据科学库的基础库。它包含大量的高阶数组运算函数。众所周知，Numpy 因其运算速度而非常受欢迎。Numpy 对数组对象的处理比 Python 自带的 List 库要快 50 倍。同时，Numpy 还支持矢量化，可以取代 Python 中的循环控制结构。
 
 > Numpy 能否运行得更快？答案是肯定的。
 
-Tensorflow 以 tf.experimental.numpy 形式引入了一系列 Numpy API 的功能，并把它们在 2.4 版中发布。这使 Numpy 相关代码运行更快，如果运行于 GPU/TPU 则性能更佳。
+Tensorflow 以 tf.experimental.numpy 形式引入了一系列 Numpy API 的功能，并在 2.4 版中发布。这使 Numpy 相关代码运行更快，如果运行于 GPU/TPU 则性能更佳。
 
 ## 基准
 
@@ -47,7 +47,7 @@ NDArray 是 tf.experimental.numpy.ndarray 的一个实例，代表一个多维�
 
 ![Device setup (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*chRzLgOvSVeYL3JKWNiIvA.png)
 
-**Graph and eager modes**：Eager 模式执行类似于python代码执行，所以它支持 NDArray，就像 numpy 一样，一步一步的执行。然而，同样的代码可以通过将其放入tf.function中以图形模式执行。下面是实现此目的的代码示例。
+**Graph and eager modes**：Eager 模式执行类似于 Python 代码执行，所以它支持 NDArray，就像 numpy 一样，一步一步的执行。然而，同样的代码可以通过将其放入 tf.function 中以图形模式执行。下面是实现此目的的代码示例。
 
 ![tf.function usage (Image Source: Author)](https://cdn-images-1.medium.com/max/2900/1*TLwyJSC1bxNa1domZLcj3Q.png)
 
