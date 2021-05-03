@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/better-privacy-with-chromiums-privacy-sandbox.md](https://github.com/xitu/gold-miner/blob/master/article/2021/better-privacy-with-chromiums-privacy-sandbox.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：[CristoMonte](https://github.com/CristoMonte)，[PingHGao](https://github.com/PingHGao)
+> * 校对者：[CristoMonte](https://github.com/CristoMonte)，[PingHGao](https://github.com/PingHGao)，[PassionPenguin](https://github.com/PassionPenguin)，[Chorer](https://github.com/Chorer)
 
 # Chromium 隐私沙盒让用户隐私更安全
 
 ![图片由 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的 [Dan Nelson](https://unsplash.com/@danny144?utm_source=medium&utm_medium=referral) 提供](https://cdn-images-1.medium.com/max/10368/0*IeaUrcmOuZUgq-Jn)
 
-近来关于隐私安全的讨论非常之多，尤其是浏览器相关的话题，更是炙手可热。不久前，WhatsApp 的一则声明引起了轩然大波，他们宣布将与其母公司 Facebook 共享用户数据。据 [Wired](https://www.wired.com/story/whatsapp-facebook-data-share-notification/) 爆料，WhatsApp 与 Facebook 共享用户数据已有数年之久。这场骚动引发了关于把用户数据用于广告服务的讨论。
+近来关于隐私安全的讨论非常之多，尤其是浏览器相关的话题，更是议论纷纭。不久前，WhatsApp 的一则声明引起了轩然大波，他们宣布将与其母公司 Facebook 共享用户数据。据 [Wired](https://www.wired.com/story/whatsapp-facebook-data-share-notification/) 爆料，WhatsApp 与 Facebook 共享用户数据已有数年之久。这场骚动引发了关于把用户数据用于广告服务的讨论。
 
 你可能会说，个人数据不应共享给 Facebook 用于广告的精准投放。但我相信，如果这个过程能够以恰当而合法的手段实施的话，是利大于弊的。想象一下，你和朋友刚刚在 WhatsApp 上聊到一款手机，而下一秒，你就在 Facebook 上看到了这款手机的广告。尽管你的第一反应会是细思极恐，但如果没有这些定制化的广告，你就不会知道这家店正在以非常诱人的价格售卖这款手机。
 
@@ -31,7 +31,7 @@
 
 [群组联合学习（Federated Learning of Cohorts，简称 FLoC）](https://github.com/jkarlin/floc)是用于在定向广告投放中替换掉第三方 Cookie 的方案之一。该方案希望改变跟踪用户的方式，与其观察每个人的浏览行为，不如观察一组相似人群的行为。这种新的方式使企业能够把兴趣相似的用户进行分群，让定向广告匹配到适合的用户。这种新颖的方式将**单个用户**“隐之于众”，并使用设备端（On-device）的处理方式来保证用户数据在本地的安全。
 
-Google 的广告团队已经将这套方案成功通过测试，并发现**与基于 Cookie 的广告方案相比，广告商每花费一美元预计可以得到的转化率至少是前者的 95% **。这项发现足以证明，FLoC 就是隐私为重趋势下的未来之路。
+Google 广告团队的这套方案已经成功通过测试，并发现**与基于 Cookie 的广告方案相比，广告商每花费一美元预计可以得到的转化率至少是前者的 95%**。这项发现足以证明，FLoC 就是隐私为重趋势下的未来之路。
 
 Chrome 团队期望在 2021 年 3 月开始进行公开测试。详情[见此](https://github.com/WICG/floc)。
 
