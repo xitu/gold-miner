@@ -2,62 +2,64 @@
 > * 原文作者：[Lance Ulanoff](https://medium.com/@LanceUlanoff)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/heres-exactly-what-you-need-to-know-about-apple-s-app-tracking-transparency.md](https://github.com/xitu/gold-miner/blob/master/article/2021/heres-exactly-what-you-need-to-know-about-apple-s-app-tracking-transparency.md)
-> * 译者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
 > * 校对者：
 
-# Here’s Exactly What You Need to Know About Apple’s App Tracking Transparency
+# 以下就是你需要知道的有关苹果 App Tracking Transparency（应用追踪透明）的信息
 
 ![Photo by [Dan Nelson](https://unsplash.com/@danny144?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*B4ygEL8TGVED_RdC)
 
-There’s a new privacy sheriff in town. His name is ATT and he rode in Monday on a horse named iOS 14.5. He likes apps just fine but not ones that pick your pockets for bits and pieces of data debris that he can share with his posse.
+> 译者注：从 2021年04月26日起，所有提交的 APP 都必须为支持 ATT 做好准备。所有 APP 都必须使用 AppTrackingTransparency（应用追踪透明）框架来征得用户的许可，才能对其进行跟踪或访问其设备的广告标识符。
 
-I don’t think it’s stretching the analogy too far to say that Apple’s App Tracking Transparency (ATT) policy for app developers is one of the most talked-about and potentially feared updates since Wyatt Earp strolled into Tombstone.
+镇上来了一位新的隐私治安官。他的名字叫 ATT，他会在星期一骑着一匹名字 iOS 14.5 的马到来。他很喜欢 APP ，但是不喜欢那些从你口袋里获取零碎数据与其团队分享的 APP 。
 
-Now that it’s here, though, I’m astounded at all the misinformation and confusion surrounding this relatively straightforward concept.
+我认为可以毫不夸张的说，苹果针对 APP 开发者的的 APP 追踪透明度（ATT）政策是自[怀亚特·厄普](https://en.wikipedia.org/wiki/Wyatt_Earp)（Wyatt Earp）踏入墓碑之后谈论最多、可能最令人畏惧的更新之一。
 
-In the space of two hours, I had one person ask me to talk about “Apple’s new requirement that app developers collect consumer data,” and someone else on Twitter wonder if it was up to app developers whether to comply with Apple’s new rules. Others wondered if app developers could acknowledge you opting out of their data collection schemes and then grab your data anyway.
+不过，现在它出现在这里，我对围绕这个相对直截了当的概念的所有误解和困惑感到惊讶。
 
-Apple spells out the rules quite clearly in their iOS 14.5 documentation, which, even though you will certainly install the iPhone (and iPad) update sometime within the next few weeks, you may never read.
+在两个小时内，我接受到一个提问我关于“苹果对 APP 开发者收集消费者数据的新要求“，Twitter 上的一些人想知道是否应由应用开发人员来决定是否遵守苹果的新规则。其他人想知道， APP 开发人员是否可以承认即时你选择退出他们的数据收集方案，也无论如何都要抓取你的数据。 
 
-Hidden under iOS Settings/Privacy/Tracking is the new switch “Allow Apps to Request to Track,” under which it says, “Allow apps to ask to track your activities across other companies’ apps and web sites.”
+苹果在他们的 iOS 14.5 文档中非常清楚地阐述了这些规则，但即使你肯定会在未来几周内的某个时间安装 iPhone（和 iPad）更新，你也可能永远不会阅读这些文档。
 
-I understand that language might throw you: “I’m allowing companies to ask me to allow them to ask me about collecting my data?”
+在 iOS 设置/隐私/跟踪下面藏着一个新的开关 “允许 APP 请求跟踪，” 或者这么说， “允许 APP 请求跟踪您在其他公司的 APP 及网站你上的活动”
 
-Right, but if you turn it off, your new options are also a tad fuzzy:
+我知道这句话可能会让你不知所措：”我在允许企业（或开发者）要求我允许他们询问我有关收集我的数据的信息吗？“
 
-“Allow Apps to Continue Tracking” (trust me, you already have dozens of installed apps that have been doing this data sucking and sharing for years)
+是的，但是如果你将其关闭，那么新选项也有点模糊：
 
-and
+“允许 APP 继续跟踪” （相信我，你已经安装了几十个 APP ，这些 APP 多年来一直在进行数据收集和共享）
 
-“Ask Apps to Stop Tracking”
+和
 
-This second choice instantly turns off the tracking permissions you previously offered to apps (in my case, I only showed three doing it) and then sets up that ATT roadblock, which will force apps to ask you for new permission to track and share data.
+“要求 APP 停止跟踪”
 
-Apple gave developers many months to build this into their apps and, I assume, figure out new ways of working with third parties who relied on these consumer data feeds.
+第二个选择会立即关闭你以前提供给 APP 的跟踪权限（在我的例子中，我只展示了三个），然后设置 ATT 防护，这将强制 APP 向你请求跟踪和共享数据的新权限。
 
-None of this will have any real impact on your mobile device activities aside from, perhaps, less of your private data floating from one third-party app partner to another. There might also be fewer instances of people wondering why a random website has an ad for Cancun after you happen to mention the Mexican getaway destination to a friend on Facebook.
+苹果给了开发者几个月的时间将其内置到他们的 APP 中，我想，他们会想出新的方式来与依赖这些消费者数据源的第三方进行合作。
 
-That’s sort of the sum of Apple’s ATT, but there’s also more to it. I’d recommend digging a little further and reading the details under the “Learn More” link in the “Allow Apps to Request to Track” section.
+除此之外，这些都不会对用户的移动设备活动产生任何实际影响，可能，减少你的私有数据从一个第三方 APP 合作伙伴流向另一个第三方 APP 合作伙伴。当你碰巧在 Facebook 上向朋友提到墨西哥度假目的地后，人们可能会奇怪为什么一个随机的网站会有[坎昆](https://zh.wikipedia.org/zh-hans/%E5%9D%8E%E6%98%86)的广告。
 
-For one thing, Apple makes clear exactly what happens when you don’t give permission to track your activity: “The app is prevented from accessing your device’s Advertising Identifier.” It also adds that “App developers are responsible for ensuring they comply with your choices.”
+这在某种程度上就是苹果 ATT 的总和，但还有更多。我建议你进一步研究并点击 “允许 APP 请求跟踪” 模块下面的 ”了解更多“ 来获取详情。
 
-That last part left me scratching my head: What if developers don’t comply? If the responsibility is in their court, enforcement must be in Apple’s, right?
+首先，苹果明确规定了当你不允许跟踪你的活动时会发生什么：”该 APP 将无法访问你设备的广告标识符。“ 它还补充说，“APP 开发人员有责任确保他们遵守你的选择。”
 
-It’s also worth learning what Apple does and doesn’t consider tracking:
+最后那句话让我百思不得其解：要是开发人员不遵守规定该怎么办？如果责任在于他们，那么应该由苹果来执行，对吧？
 
-“It is not considering tracking when the app developer combines information about you or your device for targeted advertising or advertising measurement purposes **if the developer is doing so solely on your device and not sending the information off your device in a way that identifies you**.”
+同样值得了解的是，苹果在限制什么，不考虑跟踪什么：
 
-I added the italics for emphasis because I think this part is key. It’s how Facebook, one of the [biggest consumer data vacuums](https://medium.com/@LanceUlanoff/the-great-unraveling-dc17eae49a63) on the planet, may be able to skate on through ATT.
+”**如果开发者仅在你的设备上这样做，并且没有以识别你身份的方式从你的设备上发送信息**，应用开发者将有关你或你的设备的信息组合用于定向广告或广告测量目的时则不会考虑跟踪“
 
-You see, in Facebook’s world, it’s generally the only one that knows the connection between you and your private Facebook data. What it shares with third-party advertisers does not identify you. Instead, it identifies behavior patterns that might be attractive to advertisers and then connects that data to the ad, which is how you see it. The advertiser, though, doesn’t have your info.
+我特地加了斜体字作为强调，因为我认为这部分很关键。这就是 Facebook 这个全球[最大的消费者数据收集者](https://medium.com/@LanceUlanoff/the-great-unraveling-dc17eae49a63)之一，如何在 ATT 上继续前行。
 
-There are cases in which Facebook has handed real data to partners who were not supposed to share it with anyone else and use it for marketing, targeting, or ad purposes, and then those partners did so anyway: [See Cambridge Analytica](https://www.nytimes.com/2018/04/04/us/politics/cambridge-analytica-scandal-fallout.html). Apple’s ATT will prevent that overtly.
+你看，在 Facebook 的世界里，它通常是唯一知道你和你私人的 Facebook 数据之间联系的人。它与第三方广告商共享的内容不会识别你的身份。相反，它可以识别可能对广告商有吸引力的行为模式，然后将该数据连接到广告，这就是你见到的方式。不过，该广告商并没有你的信息。
 
-There’s still ample room for developers to collect data locally and deliver ads based on that information. And it sounds like your data can still leave the phone if it’s anonymized. For instance, if your Facebook page says, “I like mint chocolate chip ice cream,” Facebook could still let an advertiser know that it has one or more consumers interested in mint chip ice cream, get an ad from that partner, and then pop it into your Facebook app feed.
+在某些情况下，Facebook 已将不应该与任何人共享的真实数据交给了合作伙伴，这些数据被用于营销，定位或广告目的，这些伙伴确实这么做了：[请参阅 Cambridge Analytica](https://www.nytimes.com/2018/04/04/us/politics/cambridge-analytica-scandal-fallout.html)。 苹果的 ATT 就是防止这种情况
 
-Apple’s ATT is a big deal, and I know it’s forcing change and bringing greater awareness and transparency to how developers use our data. It’s not, though, changing the entire game, and, I suspect, Facebook will be fine.
+开发者仍有足够的空间在本地收集数据，并根据这些信息投放广告。听起来像是如果你的数据已经匿名了，它仍然可以离开你的手机。例如，如果你在 Facebook 主页上写着，“我喜欢薄荷巧克力冰淇淋，”  Facebook 仍然可以让广告商知道它有一个或多个对薄荷片冰淇淋感兴趣的消费者，从广告商那里获取一则广告，然后将其投放到你的 Facebook APP 中。
 
-In the meantime, take my advice and read all of Apple’s App Tracking Transparency fine print.
+苹果的 ATT  是一件大事，并且我知道他正在推动一项改革，让开发者在如何使用用户数据上面提高意识和透明度。不过，这并不能改变这场游戏，我觉得 Facebook 会没事的。
+
+同时，请听取我的建议，并阅读所有苹果关于 App Tracking Transparency 的具体细节。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
