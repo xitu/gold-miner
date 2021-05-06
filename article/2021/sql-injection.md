@@ -7,15 +7,15 @@
 
 # 什么是 SQL 注入攻击？如何阻止它
 
-SQL 注入是一种可执行恶意 SQL 语句的[注入攻击](https://www.acunetix.com/blog/articles/injection-attacks/)。这些 SQL 语句可控制网站背后的数据库服务。攻击者可利用 SQL 漏洞绕过网站已有的安全措施。他们可绕过网站的身份认证和授权并访问整个 SQL 数据库的数据。他们也可利用 SQL 注入对数据进行增加、修改和删除操作。
+SQL 注入（SQLi）是一种可执行恶意 SQL 语句的[注入攻击](https://www.acunetix.com/blog/articles/injection-attacks/)。这些 SQL 语句可控制网站背后的数据库服务。攻击者可利用 SQL 漏洞绕过网站已有的安全措施。他们可绕过网站的身份认证和授权并访问整个 SQL 数据库的数据。他们也可利用 SQL 注入对数据进行增加、修改和删除操作。
 
-SQL 注入可影响任何使用了 SQL 数据库的网站或应用程序，例如常用的数据库有 MySQL、Oracle、SQL Server 等等。攻击者利用它，便能无需授权地访问你的敏感数据，比如：用户资料、个人数据、商业机密、知识产权等等。SQL 注入是一种最老、最流行、也最危险的网站漏洞。OWASP 组织（Open Web Application Security Project）在 2017 年的 [OWASP Top 10](https://www.acunetix.com/vulnerability-scanner/owasp-top-10-compliance/) 文档中将注入漏洞列为对网站安全最具威胁的漏洞。
+SQL 注入可影响任何使用了 SQL 数据库的网站或应用程序，例如常用的数据库有 MySQL、Oracle、SQL Server 等等。攻击者利用它，便能无需授权地访问你的敏感数据，比如：用户资料、个人数据、商业机密、知识产权等等。SQL 注入是一种最古老、最流行、也最危险的网站漏洞。OWASP 组织（Open Web Application Security Project）在 2017 年的 [OWASP Top 10](https://www.acunetix.com/vulnerability-scanner/owasp-top-10-compliance/) 文档中将注入漏洞列为对网站安全最具威胁的漏洞。
 
 ![SQL Injection](https://www.acunetix.com/wp-content/uploads/2019/02/SQL-Injection-1024x624.jpg)
 
 ## 发起 SQL 注入攻击的过程及原因
 
-为了发起 SQL 注入攻击，攻击者首先需要在网站中找到那些易受攻击的用户输入。这些用户输入被有漏洞的网站直接用于 SQL 查询语句中。攻击者可创建这些输入内容。这些内容往往被称为恶意载体，它们是攻击的重要部分。随后攻击者将内容发送出去，恶意的 SQL 语句便会在数据库中被执行。
+为了发起 SQL 注入攻击，攻击者首先需要在网站或应用程序中找到那些易受攻击的用户输入。这些用户输入被有漏洞的网站或应用程序直接用于 SQL 查询语句中。攻击者可创建这些输入内容。这些内容往往被称为恶意载体，它们是攻击过程中的关键部分。随后攻击者将内容发送出去，恶意的 SQL 语句便会在数据库中被执行。
 
 SQL 是一种用于管理关系型数据库中数据的查询语言。你能使用它进行查询、修改和删除数据。很多网站或应用程序将所有数据都存储在 SQL 数据库。有时候，你也可以使用 SQL 指令运行操作系统指令。因此，一次成功的 SQL 注入攻击可能会引起非常严重的后果。
 
@@ -53,7 +53,7 @@ database.execute(sql)
 password' OR 1=1
 ```
 
-结果，数据库服务将执行以下 SQL 查询：
+因此，数据库服务将执行以下 SQL 查询：
 
 ```sql
 SELECT id FROM users WHERE username='username' AND password='password' OR 1=1'
@@ -98,7 +98,7 @@ Host: testphp.vulnweb.com
 
 ![SQL injection using the UNION operator](https://www.acunetix.com/wp-content/uploads/2012/10/image00.png)
 
-接下来的例子展示了，在这个存在漏洞的网站中，如何修改 SQL 注入的载体并得到有意义的数据：
+接下来的例子展示了在这个存在漏洞的网站中，如何修改 SQL 注入的载体并得到有意义的数据：
 
 ```
 GET http://testphp.vulnweb.com/artists.php?artist=-1 UNION SELECT 1,pass,cc FROM users WHERE uname='test' HTTP/1.1
