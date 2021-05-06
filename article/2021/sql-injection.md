@@ -5,7 +5,7 @@
 > - 译者：MoonBall
 > - 校对者：
 
-# SQL 注入攻击是什么，如何阻止它
+# 什么是 SQL 注入攻击？如何阻止它
 
 SQL 注入是一种可执行恶意 SQL 语句的[注入攻击](https://www.acunetix.com/blog/articles/injection-attacks/)。这些 SQL 语句可控制网站背后的数据库服务。攻击者可利用 SQL 漏洞绕过网站已有的安全措施。他们可绕过网站的身份认证和授权并访问整个 SQL 数据库的数据。他们也可利用 SQL 注入对数据进行增加、修改和删除操作。
 
