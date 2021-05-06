@@ -9,7 +9,7 @@
 
 SQL 注入是一种可执行恶意 SQL 语句的[注入攻击](https://www.acunetix.com/blog/articles/injection-attacks/)。这些 SQL 语句可控制网站背后的数据库服务。攻击者可利用 SQL 漏洞绕过网站已有的安全措施。他们可绕过网站的身份认证和授权并访问整个 SQL 数据库的数据。他们也可利用 SQL 注入对数据进行增加、修改和删除操作。
 
-SQL 注入可影响任何使用了 SQL 数据库的网站，无论使用的 SQL 数据库是 MySQL、Oracle、SQL Server 或者其他。攻击者利用它，便能无需授权地访问你的敏感数据，比如：用户资料、个人数据、商业机密、知识产权等等。SQL 注入是一种最老、最流行、也最危险的网站漏洞。OWASP 组织（Open Web Application Security Project）在 2017 年的 [OWASP Top 10](https://www.acunetix.com/vulnerability-scanner/owasp-top-10-compliance/) 文档中将注入漏洞列为对网站安全最具威胁的漏洞。
+SQL 注入可影响任何使用了 SQL 数据库的网站或应用程序，例如常用的数据库有 MySQL、Oracle、SQL Server 等等。攻击者利用它，便能无需授权地访问你的敏感数据，比如：用户资料、个人数据、商业机密、知识产权等等。SQL 注入是一种最老、最流行、也最危险的网站漏洞。OWASP 组织（Open Web Application Security Project）在 2017 年的 [OWASP Top 10](https://www.acunetix.com/vulnerability-scanner/owasp-top-10-compliance/) 文档中将注入漏洞列为对网站安全最具威胁的漏洞。
 
 ![SQL Injection](https://www.acunetix.com/wp-content/uploads/2019/02/SQL-Injection-1024x624.jpg)
 
