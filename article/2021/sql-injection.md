@@ -105,7 +105,7 @@ GET http://testphp.vulnweb.com/artists.php?artist=-1 UNION SELECT 1,pass,cc FROM
 Host: testphp.vulnweb.com
 ```
 
-![SQL injection using the UNION operator with a FROM clause](https://www.acunetix.com/wp-content/uploads/2012/10/image01.png)
+![使用 UNION 运算符和 FROM 进行 SQL 注入](https://www.acunetix.com/wp-content/uploads/2012/10/image01.png)
 
 ## 如何防止 SQL 注入
 
