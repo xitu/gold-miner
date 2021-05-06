@@ -2,8 +2,8 @@
 > - 原文作者：[Acunetix](https://www.acunetix.com/)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/sql-injection.md](https://github.com/xitu/gold-miner/blob/master/article/2021/sql-injection.md)
-> - 译者：MoonBall
-> - 校对者：
+> - 译者：[MoonBall](https://github.com/MoonBall)
+> - 校对者：[greycodee](https://github.com/greycodee)、[flashhu](https://github.com/flashhu)
 
 # 什么是 SQL 注入攻击？如何阻止它
 
