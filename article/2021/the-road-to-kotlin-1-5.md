@@ -9,7 +9,7 @@
 
 JetBrains 已经[发布了 Kotlin 1.4.30](https://blog.jetbrains.com/kotlin/2021/02/kotlin-1-4-30-released/)，此版本包含一些实验性功能，为其将要发布的 1.5 稳定版本作铺垫，这将是 Kotlin 发展史上的一个[里程碑](https://blog.jetbrains.com/kotlin/2021/03/kotlin-1-5-0-m2-released-ensure-smooth-migration-to-kotlin-1-5-0/)。由于这是 1.4.x 系列最后一个版本，这些新功能包括：JVM 后端 IR 编译器、对 Java [record 关键字](https://kotlinlang.org/docs/whatsnew1430.html#jvm-records-support)和 [sealed interface](https://kotlinlang.org/docs/whatsnew1430.html#sealed-interfaces) 的支持，以及对 [Kotlin Gradle Plugin](https://kotlinlang.org/docs/gradle.html) 的支持。JetBrains 鼓励 Kotlin 技术社区成员在应用程序中使用 1.4.30 版本，对这些新功能进行测试，特别是 [JVM 后端 IR 编译器](https://kotlinlang.org/docs/whatsnew1430.html#jvm-ir-compiler-backend-reaches-beta)，进而通过[YouTrack](https://youtrack.jetbrains.com/issues)反馈遇到的 BUG。
 
-现在还处于 beta 版的 JVM 后端 IR 编译器用于分析源码，它跟前端编译器形成互补，在 Kotlin 1.5 中将是默认的编译器。它由三个独立的后端组件构成：[Kotlin/JVM](https://kotlinlang.org/docs/whatsnew1430.html#kotlin-jvm), [Kotlin/JS](https://kotlinlang.org/docs/js-overview.html) 和 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)。前两者是由 JetBrains 独立开发的，它们将跟 Kotlin/Native 共同构成新的 JVM IR 基础架构。
+现在还处于 beta 阶段的 JVM 后端 IR 编译器用于分析源码，它跟前端编译器形成互补，在 Kotlin 1.5 中它将是默认的编译器。它由三个独立的后端组件构成：[Kotlin/JVM](https://kotlinlang.org/docs/whatsnew1430.html#kotlin-jvm), [Kotlin/JS](https://kotlinlang.org/docs/js-overview.html) 和 [Kotlin/Native](https://kotlinlang.org/docs/native-overview.html)。前两者是由 JetBrains 独立开发的，它们将跟 Kotlin/Native 共同构成新的 JVM IR 基础架构。
 
 后端的变化包括：呈现于后端界面的一些 [BUG 修复工具](https://youtrack.jetbrains.com/issues/KT?q=%23fixed-in-jvm-ir%20sort%20by:%20votes&_ga=2.221556248.1626189385.1614553347-1788185777.1610805116)和用于改进性能的新特性。用于构建 Android UI 的新工具箱和 [Jetpack Compose](https://developer.android.com/jetpack/compose) 只适用于新的后端编译器。
 
@@ -19,7 +19,7 @@ JetBrains 的市场主管 [Alina Grebenkina](https://www.linkedin.com/in/alina-g
 > 
 > 统一的后端基础架构使编译器能跨平台使用。它有助于接通管道以及添加某些定制的处理和转换，并且是自动化、适用于一切需求的。
 
-[Java 16 发布](https://www.infoq.com/news/2021/03/java16-released/)的同时，Kotlin 也支持一种新数据类型————[**`record`**](https://cr.openjdk.java.net/~briangoetz/amber/datum.html)，因此 Kotlin 与 Java 可以互操作。Java 中的 **`record`** 类型在 Kotlin 中可以使用 **`@JvmRecord`** 注解来声明：
+随着 [Java 16 的发布](https://www.infoq.com/news/2021/03/java16-released/)的同时，Kotlin 也支持一种新数据类型 ———— [**`record`**](https://cr.openjdk.java.net/~briangoetz/amber/datum.html)，因此 Kotlin 与 Java 可以互操作。Java 中的 **`record`** 类型在 Kotlin 中可以使用 **`@JvmRecord`** 注解来声明：
 
 ```java
 @JvmRecord
