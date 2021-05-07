@@ -22,9 +22,9 @@ An Access Control List is used in the authorization process. It is a list which 
 
 The root directory is a specific directory on the server file system in which the users are confined. Users are not able to access anything above this root.
 
-For example: the default root directory of IIS on Windows is C:\\Inetpub\\wwwroot and with this setup, a user does not have access to C:\\Windows but has access to C:\\Inetpub\\wwwroot\\news and any other directories and files under the root directory (provided that the user is authenticated via the ACLs).
+For example: the default root directory of IIS on Windows is `C:\Inetpub\wwwroot` and with this setup, a user does not have access to `C:\Windows` but has access to `C:\Inetpub\wwwroot\news` and any other directories and files under the root directory (provided that the user is authenticated via the ACLs).
 
-The root directory prevents users from accessing any files on the server such as C:\\WINDOWS/system32/win.ini on Windows platforms and the /etc/passwd file on Linux/UNIX platforms.
+The root directory prevents users from accessing any files on the server such as `C:\WINDOWS/system32/win.ini` on Windows platforms and the `/etc/passwd` file on Linux/UNIX platforms.
 
 This vulnerability can exist either in the web server software itself or in the web application code.
 
@@ -40,15 +40,19 @@ Depending on how the website access is set up, the attacker will execute command
 
 In web applications with dynamic pages, input is usually received from browsers through GET or POST request methods. Here is an example of an HTTP GET request URL
 
+```
 GET http://test.webarticles.com/show.asp?view=oldarchive.html HTTP/1.1
 Host: test.webarticles.com
+```
 
-With this URL, the browser requests the dynamic page show.asp from the server and with it also sends the parameter view with the value of oldarchive.html. When this request is executed on the web server, show.asp retrieves the file oldarchive.html from the server’s file system, renders it and then sends it back to the browser which displays it to the user. The attacker would assume that show.asp can retrieve files from the file system and sends the following custom URL.
+With this URL, the browser requests the dynamic page `show.asp` from the server and with it also sends the parameter `view` with the value of `oldarchive.html`. When this request is executed on the web server, `show.asp` retrieves the file `oldarchive.html` from the server’s file system, renders it and then sends it back to the browser which displays it to the user. The attacker would assume that show.asp can retrieve files from the file system and sends the following custom URL.
 
+```
 GET http://test.webarticles.com/show.asp?view=../../../../../Windows/system.ini HTTP/1.1
 Host: test.webarticles.com
+```
 
-This will cause the dynamic page to retrieve the file system.ini from the file system and display it to the user. The expression ../ instructs the system to go one directory up which is commonly used as an operating system directive. The attacker has to guess how many directories he has to go up to find the Windows folder on the system, but this is easily done by trial and error.
+This will cause the dynamic page to retrieve the file `system.ini` from the file system and display it to the user. The expression `../` instructs the system to go one directory up which is commonly used as an operating system directive. The attacker has to guess how many directories he has to go up to find the Windows folder on the system, but this is easily done by trial and error.
 
 ## Example of a Directory Traversal attack via web server
 
@@ -58,10 +62,12 @@ The vulnerability has been fixed in the latest versions of web server software, 
 
 For example, a URL request which makes use of the scripts directory of IIS to traverse directories and execute a command can be
 
+```
 GET http://server.com/scripts/..%5c../Windows/System32/cmd.exe?/c+dir+c:\ HTTP/1.1
 Host: server.com
+```
 
-The request would return to the user a list of all files in the C:\ directory by executing the cmd.exe command shell file and run the command dir c:\ in the shell. The %5c expression that is in the URL request is a web server escape code which is used to represent normal characters. In this case %5c represents the character \.
+The request would return to the user a list of all files in the `C:\` directory by executing the cmd.exe command shell file and run the command dir `c:\` in the shell. The `%5c` expression that is in the URL request is a web server escape code which is used to represent normal characters. In this case `%5c` represents the character `\`.
 
 Newer versions of modern web server software check for these escape codes and do not let them through. Some older versions however, do not filter out these codes in the root directory enforcer and will let the attackers execute such commands.
 
@@ -69,43 +75,11 @@ Newer versions of modern web server software check for these escape codes and do
 
 The best way to check whether your website and web applications are vulnerable to directory traversal attacks is by using a Web Vulnerability Scanner. A Web Vulnerability Scanner crawls your entire website and automatically checks for directory traversal vulnerabilities. It will report the vulnerability and how to easily fix it. Besides directory traversal vulnerabilities a web application scanner will also check for SQL injection, Cross-site Scripting and other web vulnerabilities.
 
-[Acunetix](https://www.acunetix.com/vulnerability-scanner/ "Acunetix Web Vulnerability Scanner") scans for [SQL Injection](https://www.acunetix.com/websitesecurity/sql-injection "SQL Injection: What is it?"), [Cross Site Scripting](https://www.acunetix.com/websitesecurity/cross-site-scripting/ "What is Cross Site Scripting?"), [Google Hacking](https://www.acunetix.com/websitesecurity/google-hacking/ "What is Google Hacking?") and many more vulnerabilities.
-
 ## Preventing Directory Traversal attacks
 
 First of all, ensure you have installed the latest version of your web server software, and sure that all patches have been applied.
 
 Secondly, effectively filter any user input. Ideally remove everything but the known good data and filter meta characters from the user input. This will ensure that only what should be entered in the field will be submitted to the server.
-
-## Check if your website is vulnerable to attack with Acunetix
-
-Acunetix ensures website security by automatically checking for [SQL Injection](https://www.acunetix.com/vulnerability-scanner/sql-injection/ "Auditing for SQL Injection Vulnerabilities is Critical"), [Cross-site Scripting](https://www.acunetix.com/cross-site-scripting/scanner-download/ "Is your website vulnerable to XSS attacks?"), Directory Traversal and other vulnerabilities. It checks password strength on authentication pages and automatically audits shopping carts, forms, dynamic content and other web applications. As the scan is being completed, the software produces detailed reports that pinpoint where vulnerabilities exist.
-
-## Frequently asked questions
-
-#### What is directory traversal and how does it work?
-
-Directory traversal (path traversal) happens when the attacker is able to read files on the web server outside of the directory of the website. Directory traversal is only possible if the website developer makes mistakes.
-
-[Read more about directory traversal](https://www.acunetix.com/blog/articles/path-traversal/).
-
-#### What are the potential consequences of a directory traversal attack?
-
-An attacker may use directory traversal to download server configuration files, which contain sensitive information and potentially expose more server vulnerabilities. Ultimately, the attacker may access confidential information or even get full control of the server.
-
-[Directory traversal is becoming more common – read about it in our latest report](https://www.acunetix.com/acunetix-web-application-vulnerability-report/).
-
-#### How to detect directory traversal vulnerabilities?
-
-The only way to effectively detect directory traversal vulnerabilities is by using a web vulnerability scanner. A professional vulnerability scanner like Acunetix will give you detailed reports, advice on how to get rid of the vulnerability, and much more.
-
-[Find out more about the capabilities of Acunetix Premium](https://www.acunetix.com/product/premium/).
-
-#### How to defend against directory traversal attacks?
-
-The only way to effectively defend against directory traversal attacks is to carefully write the code of the website or web application and use user input sanitization libraries. Note that web application firewalls (WAF) do not eliminate directory traversal issues, just make it harder for the attacker to exploit vulnerabilities.
-
-[Learn how to make sure that your website code is secure](https://www.acunetix.com/blog/web-security-zone/secure-coding-practices/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
