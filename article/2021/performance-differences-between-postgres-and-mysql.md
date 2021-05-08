@@ -13,7 +13,7 @@
 
 并不是所有关系型数据库（RDBMS）都是一样的。 虽然 PostgreSQL 和 MySQL 有一些地方很相似，但是在不同的使用场景中，它们都有各自的性能优势。虽然在上篇[文章](https://blog.arctype.com/mysqlvspostgres)中我们已经讨论了一些它们之间的基本差异，但在性能上还有许多差异值得我们讨论。
 
-在本文中，我们先来看看它们的查询性能。然后，我们再讲一些可以提高 MySQL 和 PostgreSQL 数据库的性能的基本配置。最后总结一下 MySQL 和 PostgreSQL 的一些关键区别。
+在本文中，我们将讨论工作负载分析和运行的查询。然后，我们将进一步解释一些可以提高 MySQL 和 PostgreSQL 数据库的性能的基本配置。最后总结一下 MySQL 和 PostgreSQL 的一些关键区别。
 
 ### 目录
 
