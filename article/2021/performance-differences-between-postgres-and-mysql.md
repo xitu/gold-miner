@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/performance-differences-between-postgres-and-mysql.md](https://github.com/xitu/gold-miner/blob/master/article/2021/performance-differences-between-postgres-and-mysql.md)
 > * 译者：[灰灰 greycodee](https://github.com/greycodee)
-> * 校对者：[1autodidact](https://github.com/1autodidact)
+> * 校对者：[1autodidact](https://github.com/1autodidact)、[kamly](https://github.com/kamly)
 
 # Postgres 和 MySQL 之间的性能差异
 
