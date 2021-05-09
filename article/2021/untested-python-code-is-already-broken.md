@@ -51,9 +51,9 @@ class TestOrderUp(unittest.TestCase):
 
 First, we `import unittest` which is a built-in Python package for testing code, then we import the `order_up.py` file (note that we omit the .py extension).
 
-> **NOTE**: If you are in PyCharm and see a red underline under `order_up`, it means that package can’t be found. Remedy this by either opening up the project at the root(the beginning) of the github project directory OR by right-clicking the project folder and selecting “Mark Directory as” -> “Sources Root”.**
+> **NOTE**: If you are in PyCharm and see a red underline under `order_up`, it means that package can’t be found. Remedy this by either opening up the project at the root(the beginning) of the github project directory OR by right-clicking the project folder and selecting “Mark Directory as” -> “Sources Root”.
 
-Next, we create a class called `TestOrderUp` , which simply matches our file name so our failed tests will be easier to find. Oh, but there’s something in parentheses, `unittest.TestCase` , which means our class is inheriting the `TestCase` class.
+Next, we create a class called `TestOrderUp`, which simply matches our file name so our failed tests will be easier to find. Oh, but there’s something in parentheses, `unittest.TestCase`, which means our class is inheriting the `TestCase` class.
 
 ### Inheritance
 
@@ -61,7 +61,7 @@ Inheritance is one class receiving the functions and variables from a parent cla
 
 ## Creating a Test
 
-Just below our class is the function `test_output_order_one_item` , which should explain roughly what we are doing in the test. We will be testing the `get_order()` function with one item and checking that the output is what we expect. Let’s run it and see what happens! You can either execute `python -m unittest` in a terminal, click the green arrow next to the function in PyCharm, or you can run `make unit-test` to run it in its own environment (we’ll talk about the `Makefile` in a bit). Check it out!
+Just below our class is the function `test_output_order_one_item`, which should explain roughly what we are doing in the test. We will be testing the `get_order()` function with one item and checking that the output is what we expect. Let’s run it and see what happens! You can either execute `python -m unittest` in a terminal, click the green arrow next to the function in PyCharm, or you can run `make unit-test` to run it in its own environment (we’ll talk about the `Makefile` in a bit). Check it out!
 
 ![Nice, you’ve ran your first test!](https://cdn-images-1.medium.com/max/2000/1*nB9QtcujX_565oxvjNDS9g.png)
 
