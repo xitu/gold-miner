@@ -7,15 +7,11 @@
 
 # 5 CSS Practices To Avoid as a Web Developer
 
-#### Some bad habits and how to fix them
-
 ![Photo by [Pankaj Patel](https://unsplash.com/@pankajpatel) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9874/1*0Ca38BL7C5MRI0qsdAQT3Q.jpeg)
 
 Some people think that CSS is difficult to learn. There are lots of crutches and even some magic, which makes it easy to shoot yourself in the foot. I feel sad about this since I don’t think so.
 
 After some thought about what can be done, I’ve come up with five developer habits that I don’t like and will show you how to avoid them.
-
----
 
 ## 1. Set Margins or Padding and Then Reset Them
 
@@ -58,8 +54,6 @@ Or:
   margin-left: 1.6rem;
 }
 ```
-
----
 
 ## 2. Add display: block for Elements With position: absolute or position: fixed
 
@@ -107,8 +101,6 @@ Or:
 }
 ```
 
----
-
 ## 3. Use transform: translate (-50%, -50%) To Center
 
 There was a popular problem that used to cause a lot of trouble. This lasted until 2015, and all its solutions led to some kind of difficulties. I’m talking about centering an element with an arbitrary height along two axes.
@@ -145,8 +137,6 @@ You can use:
   margin: auto;
 }
 ```
-
----
 
 ## 4. Use width: 100% for Block Elements
 
@@ -208,8 +198,6 @@ You can use:
 }
 ```
 
----
-
 ## 5. Set display: block for Flex Items
 
 When using flexbox, it is important to remember that when you create a flex container (add `display: flex`), all children (`flex` items) become blockified.
@@ -237,8 +225,6 @@ You can use:
   display: flex;
 }
 ```
-
----
 
 ## Conclusion
 
