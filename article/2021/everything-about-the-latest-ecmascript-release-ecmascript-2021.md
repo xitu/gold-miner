@@ -17,7 +17,7 @@ In this article, we will be going through the new features available in the late
 
 Replaces all instances of the target string with the desired string.
 
-```
+```js
 const fact = "Javascript is the best web scripting language. Javascript can be used for both front end and backend";
  
 console.log(fact.replaceAll("Javascript", "Typescript"));
@@ -28,7 +28,7 @@ Result:
 
 In comparison with the previous replace( ) method which only replaces the first occurrence of the target string with the desired string.
 
-```
+```js
 const fact = "Javascript is the best web scripting language. Javascript can be used for both front end and backend";
  
 console.log(fact.replace("Javascript", "Typescript"));
@@ -39,11 +39,11 @@ Result:
 
 #### 2. Promise.any( )
 
-`Promise.any()` resolves as soon as any one of the supplied promises is resolved, unlike `promise.all()` which waits for all the promises to resolve. It's basically the opposite of `Promise.all().`
+`Promise.any()` resolves as soon as any one of the supplied promises is resolved, unlike `promise.all()` which waits for all the promises to resolve. It's basically the opposite of `Promise.all()`.
 
 This is what happens if **one Promise is fulfilled**:
 
-```
+```js
 const promises = [   
           Promise.reject('ERROR A'),           
           Promise.reject('ERROR B'),   
@@ -55,9 +55,9 @@ Promise
   .then((result) => assert.equal(result, 'result')); //true
 ```
 
-This is what happens if **all Promises are** **rejected**:
+This is what happens if all Promises are **rejected**:
 
-```
+```js
 const promises = [   
           Promise.reject('ERROR A'),  
           Promise.reject('ERROR B'),   
@@ -76,15 +76,15 @@ Promise
 
 ![Source: [https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators](https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators)](https://cdn-images-1.medium.com/max/2972/1*WS3OZEp_hEv0_zLaihk6-Q.png)
 
-`**a ||= b**` is equivalent to **a || (a = b). (Short-circuiting).**
+`a ||= b` is equivalent to `a || (a = b)`. (Short-circuiting).
 
-Why not to this expression? `**a = a || b**`
+Why not to this expression? `a = a || b`
 
 Well, because for the former expression the assignment is only evaluated if `a` evaluates to `false`. Therefore, the assignment is only performed if it's necessary. In contrast, the latter expression always performs an assignment.
 
-Example `**a ||= b:**`
+Example `a ||= b`:
 
-```
+```js
 var a = 1;  
 var b = 2;  
  
@@ -93,9 +93,9 @@ a ||= b;
 console.log(a); // 1
 ```
 
-Example `**a &&= b:**`
+Example `a &&= b`:
 
-```
+```js
 var a = 1; 
 var b = 2; 
 
@@ -104,9 +104,9 @@ a &&= b;
 console.log(a); // 2
 ```
 
-Example `**a ??= b:**`
+Example `a ??= b`:
 
-```
+```js
 var a;  
 var b = 2;   
 
@@ -117,9 +117,9 @@ console.log(a); // 2
 
 #### 4. Numerical Separators
 
-We can now use **Underscores ( `_ `)** as separators in number literals and bigInt literals. It will help developers to make their numeric literals more readable, as the **underscore** will basically act as a **comma (used** to provide separation between the different groups of digits) when we write numbers in our day-to-day lives.
+We can now use **Underscores (`_`)** as separators in number literals and bigInt literals. It will help developers to make their numeric literals more readable, as the **underscore** will basically act as a **comma** (used to provide separation between the different groups of digits) when we write numbers in our day-to-day lives.
 
-```
+```js
 let budget = 1000000000000 //can be written as the following..
 
 let budget = 1_000_000_000_000; 
@@ -130,18 +130,12 @@ result:
 1000000000000
 ```
 
----
-
 I hope this article helped you to understand the latest ECMAScript release. Thanks for reading. If you have any questions, feel free to leave a comment.
 
 Resources:
 
 * [https://dev.to/faithfulojebiyi/new-features-in-ecmascript-2021-with-code-examples-302h](https://dev.to/faithfulojebiyi/new-features-in-ecmascript-2021-with-code-examples-302h)
 * [https://2ality.com/2020/09/ecmascript-2021.html](https://2ality.com/2020/09/ecmascript-2021.html)
-
----
-
-**Originally published at [https://www.theimmigrantprogrammers.com](https://www.theimmigrantprogrammers.com/p/everything-about-the-latest-ecmascript).**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
