@@ -7,8 +7,6 @@
 
 # What Is Mobile DevOps, and Why Should You Care?
 
-#### It’s DevOps, with a mobile flavor
-
 ![Photo by [panumas nikhomkhai](https://www.pexels.com/@cookiecutter?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/black-and-gray-mining-rig-1148820/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/2248/0*zjF_VbIhCWVGgLkz.jpeg)
 
 Lately, it feels like there is an ever-increasing number of terms and phrases that refer to newer ways to develop software. It can be hard to keep up and understand what all these new terms mean or what they specifically mean to you. As someone who has been automating application builds and tests for a few years now, when I heard of the term **mobile DevOps**, even I wondered what made it different from normal DevOps (that is, the DevOps processes that I already used in my applications and experienced in my teams).
@@ -18,8 +16,6 @@ Unfortunately, DevOps in itself has become something of a buzzword. Worse still,
 But for a long time, software development agencies got software completed and out the door without anything DevOps related. And if you’re coming from a more traditional waterfall approach to software development, it can be beneficial to reflect on what DevOps can offer you and, more precisely, what mobile DevOps can offer your development team.
 
 So let’s take a simple approach to understanding what mobile DevOps is and how it can fit into your pipeline. To do so, let’s consider how software development practices have changed over the years.
-
----
 
 ## In the Beginning, There Was the Waterfall
 
@@ -40,7 +36,7 @@ Of course, there is nothing wrong with this approach. Development teams used it 
 
 On the surface, this approach seems ubiquitous. In systems where the requirements were well defined, it worked quite well. But more recently, we’ve seen fewer software projects adopt this methodology, and instead, we’ve seen the rise of DevOps as a more modern, flexible development framework. But why is that?
 
-#### What’s wrong with the waterfall?
+### What’s wrong with the waterfall?
 
 In a perfect world, the waterfall model would probably always work fine. Unfortunately, as developers, we know that we don’t live in a perfect world. And this can introduce some difficulties. For example, people’s requirements can change, and this change can occur at an inopportune time.
 
@@ -50,13 +46,11 @@ If this is an area you’d also like your app to compete in, you can’t break o
 
 ![Photo by [Tima Miroshnichenko](https://www.pexels.com/@tima-miroshnichenko?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/people-working-in-a-call-center-5453837/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/2250/0*LCN7rmJbT7y7F8rB.jpeg)
 
-#### Everyone’s in their own silo
+### Everyone’s in their own silo
 
 In a pre-DevOps world, the people involved in the deployment and support of applications were largely siloed. Your developers would work in one space, your quality assurance (QA) team in another, and the support staff for your app in yet another. That’s not including the people who are required to actually host your app, plus everyone else who is involved in the reliable hosting of your app.
 
 This can lead to some communication problems, as developers produce new releases, give them to the QA team, deploy them to a test environment, and then repeat this until a release is finalized. For example, because the hosting team is so far removed from the development side of things, it is possible (and has happened) that the developers could make something only for the hosting team to rebuff their work because it won’t work in the hosting environment.
-
----
 
 ## The Rise of DevOps
 
@@ -68,8 +62,6 @@ DevOps is a huge topic in itself, and you’re currently on a site that plays a 
 
 ![Image source: [Twenty20 Photos](https://www.twenty20.com/)](https://cdn-images-1.medium.com/max/4196/0*sT-ZTxnoQ2p11xzy.png)
 
----
-
 ## Mobile DevOps
 
 One of the core tenets of DevOps is to automate as much as you possibly can. It’s essentially a methodology that you can apply to various work processes. And it basically comes down to two things: speed and quality. You want to increase the speed of your releases to the app stores without sacrificing the quality of your app. More frequent updates mean that bug fixes and features are released sooner and users typically have a better experience with your app.
@@ -80,8 +72,6 @@ In times of real distress, like when you are chasing a bug in your app and don�
 
 Unfortunately, companies usually don’t invest enough time in trying to better their processes or optimize release pipelines. The common thought is that these kinds of adjustments take a lot of time and if what we have now works well, why change it? Well, there are some fairly compelling reasons to learn about mobile DevOps and use as many of its components as possible.
 
----
-
 ## Switching to Mobile DevOps
 
 To visualize what the change to mobile DevOps would look like, let’s imagine a team tasked with creating an app for a grocery store. The app is released, and the team is in their business-as-usual (BAU) phase of support, resolving new issues with the app as they crop up and then implementing new features as time goes on.
@@ -90,7 +80,7 @@ Once they have implemented a new feature or fix, they need to create the test en
 
 Traditionally, this would be accomplished by following documentation or something that explained how to set these environments up. These environments were oftentimes referred to as being “lovingly crafted,” as it took hours of painstaking work to create these environments in a very specific way. Because doing this is a very manual process, sometimes each iteration of the test environment would have minor differences. This means that for our development team, bugs are sometimes raised for the app as a result of slight variations within the test environment and not actually because of an issue with the app itself. As you can imagine, this wastes time as developers try to chase issues that don’t actually exist.
 
-#### Making it easier to create the environment
+### Making it easier to create the environment
 
 The first thing this team could do is try to automate some of these aspects. Automating the process of creating the test environment would have many benefits, such as giving the developers a guaranteed environment that is unaffected by environment drift (as it can be deleted and re-created at a moment’s notice).
 
@@ -100,7 +90,7 @@ Back to our development team — they’ve managed to successfully automate the 
 
 When a developer fixes an issue for a certain bug, they just test in the emulator or on a physical device to see if the issue still happens or not. If it doesn’t, then the issue is thought to be resolved, and the app is released to the testers to validate the full test suite on the app itself. Within very small development teams (or even one-person development teams) where there is a real lack of time, this manual test step is sometimes skipped, as the bug is thought to be fixed. When this happens, we can be reasonably sure that the original issue is resolved, as the developer has tested for that, but we have no way of being sure that this fix hasn’t introduced new issues. And that’s where the problems begin.
 
-#### Making it easier to run the test suite
+### Making it easier to run the test suite
 
 At the moment, our team in this example is relying on a manual test suite that is run by the developers or testers. The whole test suite takes about a day or two to run and has to be done manually. So the tester has to open the app and follow a series of steps to complete the test for the app to check whether it is working as intended or not.
 
@@ -110,15 +100,13 @@ Instead of relying on manual tests, in order to fully adopt mobile DevOps, our t
 
 We start to save more time while increasing the quality of our app when we incorporate these tests into our application build pipeline. For our team, that means that every time a new commit is pushed into the main code branch, the full suite of automated tests is run. The benefits of this are simply enormous. If new issues are introduced by fixing another problem, these defects are caught by the automated tests before any new app versions are pushed out. This means they’re not finding bugs two months down the track and not knowing when they were introduced.
 
-#### Making it easier to get the releases done
+### Making it easier to get the releases done
 
 Because our team now has the ability to create a test environment at the drop of a hat and now has an automated test suite (which automatically runs when new code is committed), they are more sure of the quality of the codebase. Over time, as the test suite becomes more comprehensive, a successful test run means that the app definitely works. In fact, the test suite has become so comprehensive that it tests 100% of the app. This means that when the test suite completes for the app in question, the app is essentially production-ready. So what else do you do with a production-ready app, apart from release it to production?
 
 That’s the final step of the release pipeline, to automate the deployment of the app to the relevant stores. Obviously, this final step is the most dangerous, as deploying a broken app is really bad for everyone involved, and it can create a lot of issues. But it may surprise you how many companies around the world have automated their entire development and release pipeline.
 
 Did you notice a common theme between the three points above? The theme is making it easier. Ultimately, mobile DevOps can make it easier for you to develop and release quality software. If a process didn’t help you to do this, there would obviously be no point in learning about it.
-
----
 
 ## How Can I Get Started With Mobile DevOps?
 
