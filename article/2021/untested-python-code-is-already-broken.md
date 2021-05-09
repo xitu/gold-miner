@@ -7,8 +7,6 @@
 
 # Untested Python Code is Already Broken
 
-## Untested Python Code is Already Broken: An Intro to Testing
-
 ![Image by [Hier und jetzt endet leider meine Reise auf Pixabay 😢](https://pixabay.com/users/alexas_fotos-686414/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1873171) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1873171)](https://cdn-images-1.medium.com/max/3840/1*CN92tzyClc_mkk4LWWEXtQ.jpeg)
 
 My first mentor was nothing short of incredible. He showed me the best practices of coding, logging, documenting, and what coding for fun and profit really looked like. The one thing he could **not** ram into my head was testing. He had this complex way of testing that involved having my tests before my functions! It was simply the antithesis to my coding style, so my solution was **“If I wrote the function before the test, then I may as well not write the test.”** … I got better.
@@ -37,7 +35,7 @@ Simply put, a test answers the question “does my program do things like I expe
 
 Unittest is a built-in testing framework for Python, so we’ll start here. Toss this code into your test file.
 
-```
+```py
 import unittest
 import order_up
 
@@ -53,11 +51,11 @@ class TestOrderUp(unittest.TestCase):
 
 First, we `import unittest` which is a built-in Python package for testing code, then we import the `order_up.py` file (note that we omit the .py extension).
 
-****NOTE**: If you are in PyCharm and see a red underline under `order_up`, it means that package can’t be found. Remedy this by either opening up the project at the root(the beginning) of the github project directory OR by right-clicking the project folder and selecting “Mark Directory as” -> “Sources Root”.**
+> **NOTE**: If you are in PyCharm and see a red underline under `order_up`, it means that package can’t be found. Remedy this by either opening up the project at the root(the beginning) of the github project directory OR by right-clicking the project folder and selecting “Mark Directory as” -> “Sources Root”.**
 
 Next, we create a class called `TestOrderUp` , which simply matches our file name so our failed tests will be easier to find. Oh, but there’s something in parentheses, `unittest.TestCase` , which means our class is inheriting the `TestCase` class.
 
-#### Inheritance
+### Inheritance
 
 Inheritance is one class receiving the functions and variables from a parent class. In this case, we are inheriting the abundance of functions from `TestCase` so as to make our testing lives a lot easier. What functions and variables? We’ll come back to that.
 
@@ -67,13 +65,13 @@ Just below our class is the function `test_output_order_one_item` , which should
 
 ![Nice, you’ve ran your first test!](https://cdn-images-1.medium.com/max/2000/1*nB9QtcujX_565oxvjNDS9g.png)
 
-#### Assert
+### Assert
 
 An inherited set of functions that comes from `unittest.TestCase` are the asserts, or checks to make sure we got what we wanted. In Pycharm, take a look at the different options by writing `self.assert` and letting its Code Completion feature show all the different options. There’s a lot but the main ones I use are `self.assertEqual`, which checks that two objects are the same, and `self.assertTrue`/`self.assertFalse` which are self-explanatory.
 
 Now, `order_up`’s main features are getting an order, removing items that aren’t on the menu, and allowing duplicate items. So let’s add tests to make sure we keep those features in the code.
 
-```
+```py
 # Be sure these functions are indented within the class.
 def test_get_order_duplicate_in_list(self):
     order = ["fries", "fries", "fries", "burger"]
@@ -97,7 +95,7 @@ Now we are checking that our function can handle duplicates and instances where 
 
 I have a confession to make: I cheated a little bit. If you compare the code from [Part 3](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd) to the current `order_up.py`, you’ll notice I added functionality to accommodate a new variable: `test_order`. Using this new variable, I could introduce bypass `input()` so we wouldn’t have the program asking for user input every time we ran tests. But now that we have the basics of testing down, we can tackle mocking. Mocking is simply creating functions or objects that mimic the real functions and objects so our tests can focus on one aspect of a function or logic. In this instance, we will “patch” the `input()` function, or temporarily rewrite it, to simply return an output we want. Take a look:
 
-```
+```py
 @patch("builtins.input", return_value="yes")
 def test_is_order_complete_yes(self, input_patch):
     self.assertEqual(builtins.input, input_patch)
@@ -109,11 +107,11 @@ def test_is_order_complete_yes(self, input_patch):
 
 First, addfrom unittest.mock import patch to the beginning of the test file. At the beginning, we are patching the `builtins.input()` function and telling it to instead return “yes”. Then, we do an “assert” to check the pulled in argument from the patch is exactly as it says it is! Notice how `builtins.input` doesn’t have a parenthesis? Instead of executing the function, we are able to reference the function’s signature for validation. After that, we are back to normal test protocol: run the function, get the result, and assert the result is what we expect. In this case, because our `input()` return value is “yes”, we `expect is_order_complete()` to return False. Add it to your test class, click run, get that red OK or those green checkmarks and let’s move forward!
 
-#### Side Effect
+### Side Effect
 
 Now that we have patch under our belt, we can address the inputs in `get_output()`! Well, almost. First, we need to learn about `side_effect` , our savior when we need different returns for the same function. In `get_output()`, we are asked, via `input()` , “what do you want?” and “are you done?” Because of this, we need to have `input()` return not just one but several outputs to fit each situation. Take a look:
 
-```
+```py
 @patch("builtins.input", side_effect=["banana", "cookie", "yes", "fries", "no"])
 def test_get_order_valid(self, input_patch):
     self.assertEqual(builtins.input, input_patch)
@@ -124,7 +122,11 @@ def test_get_order_valid(self, input_patch):
     self.assertEqual(expected_result, result)
 ```
 
-To do this, we don’t assign `return_value` and instead assign `side_effect` a list. **NOTE: you can assign `side_effect` or `return_value` inside the test function as well.** `side_effect` will take each item in the list and provide it individually each time the patched function is called. Add that code and hit that test button/command! One last thing: there’s no yes/no in between “banana” and “cookie” because `get_order()` doesn’t ask “do you want to order more?” if an item doesn’t exist in the `MENU`. Something to keep in mind if you play around with list yourself.
+To do this, we don’t assign `return_value` and instead assign `side_effect` a list. 
+
+> **NOTE:** you can assign `side_effect` or `return_value` inside the test function as well.
+
+`side_effect` will take each item in the list and provide it individually each time the patched function is called. Add that code and hit that test button/command! One last thing: there’s no yes/no in between “banana” and “cookie” because `get_order()` doesn’t ask “do you want to order more?” if an item doesn’t exist in the `MENU`. Something to keep in mind if you play around with list yourself.
 
 ## Makefile
 
@@ -134,15 +136,13 @@ Now that the basics of testing are out of the way, take a look inside the Makefi
 
 So when do you write your tests? **IT DOES NOT MATTER.** The point is to write tests that cover most of your code as well as the potential use cases it can encounter. If you cannot properly test your code or one function requires 8 different tests to cover, there’s a huge chance you need to refactor your code. Needing to refactor doesn’t make you a bad coder, it’s all part of the process/experience of programming.
 
-#### TDD
+### TDD
 
 Let me address the matter of Test-Driven Development, or TDD. TDD is the testing practice of writing a failing test and writing a function that passes that test. **Story Time:** I joined a startup that took Robert C. Martin’s (author of “Clean Code” and other books) concepts of TDD and anti-patterns, or bad coding practices to avoid, as gospel. On one occasion, we had a meeting about TDD and its benefits so as to encourage the teams to code in way leadership found more “efficient.” Unfortunately, the hour was largely spent arguing the definition and proper usage of TDD. The meeting organizer, a senior engineer argued, was “coding too fast” and not implementing the principles of TDD correctly by writing a test that was “too smart” or a function that did more than pass the test.
 
-I walked away from that meeting with one thought: **Leave** **your philosophical debates out of my workspace.**
+I walked away from that meeting with one thought: **Leave** your philosophical debates out of my workspace.
 
 The main point is this: **find a way to incorporate tests into your projects that works for you.** I don’t give two bits how you implement them or when, success is simply defined on whether they keep your code from going into the gutter after the next commit. Until next time!
-
-**More content at[** plainenglish.io**](http://plainenglish.io)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
