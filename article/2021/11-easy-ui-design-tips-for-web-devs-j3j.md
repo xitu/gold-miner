@@ -134,45 +134,62 @@ I use [coolors](https://coolors.co/330088) to find complimentary colours and to 
 我会使用 [coolors](https://coolors.co/330088) 来找到合适的颜色并且进行调色。
 
 ## 8. Round vs sharp
+## 8. 圆角与锐角
 
-[![speech bubble](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)
+[![聊天气泡](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--qyVtATCJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o69k4gosugpsc0xtrhhv.png)
 
 Sharp corners and edges draw your attention. Think the sharp part of a speech bubble.
+锐角和突出的边缘可以吸引人们的注意力，上图聊天气泡中突出的尖角就是一个例子。
 
 What can we do with this knowledge? Round out the corners of your buttons. Why would you want to draw attention to the corners of the button?
+我们可以利用这个技巧做些什么呢——把按钮设为圆角。你应该让用户的注意力集中在按钮的功能上，而非按钮的四个角上。
 
 ## 9. Borders are so last year
+## 9. 别再使用早已过时的边框了
 
-[![border vs no border](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)
+[![有边框 vs 无边框](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)
 
 In the old days of the web, borders were everywhere. Nowadays, it’s better to not use them quite as much – it often looks cleaner. Borders can look a little overkill.
+在网页应用早期，边框几乎无处不在。而如今，最好不要过多的使用边框——这会让网页变得更加清爽。边框在很多时候有些多余。
 
 Obviously don’t become completely anti-border, they are still great for separating things. Just don’t make them too thick and attention grabbing.
+当然了，也不是说完全不能使用边框，它们在需要分割网页的不同内容时仍旧能起到作用。我想说的是，不要过多的使用边框，过于繁杂、抓眼的边框是不美观的。
 
 ## 10. Don't underline nav-bar links
+## 10. 别在导航栏使用下划线
 
-[![underline vs none](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)
+[![有下划线 vs 无下划线](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--DIBnjFhK--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rv79dgu4btx374uwj412.png)
 
 It’s pretty old school. It looks cleaner without them.
+下换线实在是太老气了，没有下划线的页面显然更加简洁。
 
 Underline/change the colour or size on mouse hover and keyboard focus for accessibility.
+在鼠标悬浮、输入聚焦时加上下划线或者改变字体颜色、大小会是更好的做法。
 
 You should still underline links in a body of text for good accessibility - it makes it obvious they are links. Just avoid underlining text that isn't a link.
+为了识别超链接、便于用户跳转，对于正文中的链接，我们还是应该用下划线修饰。我想说的是，避免在没有超链接的文本上使用下划线。
+
 
 ## 11. Download a design software
+## 11. 下载一个设计软件
 
 I used to begin coding up a project with little to no plan of how I wanted it to look. It took me ages to code everything with trial and error for colours and positioning of elements.
+我曾经在开始开发一个项目时苦恼于应该如何设计项目的样式。尝试不同的颜色、不断实验各种元素的位置，这些代码上的调整简直让我折寿了。
 
 You can iterate through ideas much quicker using design software. I now use AdobeXD (free) to just drag and drop things in place and quickly get a nice design ready to be coded. Figma is also popular but not free.
+使用设计软件可以帮助你可以更快地迭代想法。我现在使用免费的 AdobeXD 来将元素拖放到合适的位置，快速的得到一个 UI 设计稿然后开始编写代码。Figma 也很流行，但它不是免费的。
+
 
 ## Awesome References
+## 我参考的优秀文章
 
-* The psychology of persuasive web design: [https://www.doabledanny.com/persuasive-web-design](https://www.doabledanny.com/persuasive-web-design)
-* Turn a bad design into a good one: [https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s](https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s)
-* Amazing UI tips: [https://medium.com/refactoring-ui/7-practical-tips-for-cheating-at-design-40c736799886](https://medium.com/refactoring-ui/7-practical-tips-for-cheating-at-design-40c736799886)
-* The science of great UI: [https://www.youtube.com/watch?v=nx1tOOc_3fU](https://www.youtube.com/watch?v=nx1tOOc_3fU)
+* 心理学在优秀网页设计中的应用 [https://www.doabledanny.com/persuasive-web-design](https://www.doabledanny.com/persuasive-web-design)
+* 化腐朽为神奇，重构一个糟透了的设计 [https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s](https://www.youtube.com/watch?v=0JCUH5daCCE&t=112s)
+* 震撼的 UI 技巧 [https://medium.com/refactoring-ui/7-practical-tips-for-cheating-at-design-40c736799886](https://medium.com/refactoring-ui/7-practical-tips-for-cheating-at-design-40c736799886)
+* 优秀 UI 设计中的科学[https://www.youtube.com/watch?v=nx1tOOc_3fU](https://www.youtube.com/watch?v=nx1tOOc_3fU)
 
 If you enjoyed this article, you can say thanks by subscribing to my [YouTube channel](https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA) or signing up to [my blog](https://www.doabledanny.com/blog/) to be notified of new posts 🙏
+如果您喜欢这篇文章，可以通过订阅原作者的 [Youtube 频道](https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA)或访问他的 [博客](https://www.doabledanny.com/blog/)来表示感谢，并且及时获取新的文章。
 
 Also, feel free to connect with me on [Twitter](https://twitter.com/DoableDanny)!
 您也可以通过原作者的 [推特](https://twitter.com/DoableDanny)来联系他！
