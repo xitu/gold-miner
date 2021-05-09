@@ -13,7 +13,7 @@ In this article, we will be going through the new features available in the late
 
 ## New Features
 
-#### 1. String.replaceAll( )
+### 1. String.replaceAll( )
 
 Replaces all instances of the target string with the desired string.
 
@@ -37,7 +37,7 @@ Result:
 "Typescript is the best web scripting language. Javascript can be used for both front end and backend";
 ```
 
-#### 2. Promise.any( )
+### 2. Promise.any( )
 
 `Promise.any()` resolves as soon as any one of the supplied promises is resolved, unlike `promise.all()` which waits for all the promises to resolve. It's basically the opposite of `Promise.all()`.
 
@@ -72,7 +72,7 @@ Promise
    });
 ```
 
-#### 3. Logical Assignment Operator
+### 3. Logical Assignment Operator
 
 ![Source: [https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators](https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators)](https://cdn-images-1.medium.com/max/2972/1*WS3OZEp_hEv0_zLaihk6-Q.png)
 
@@ -115,7 +115,7 @@ a ??= b;
 console.log(a); // 2
 ```
 
-#### 4. Numerical Separators
+### 4. Numerical Separators
 
 We can now use **Underscores (`_`)** as separators in number literals and bigInt literals. It will help developers to make their numeric literals more readable, as the **underscore** will basically act as a **comma** (used to provide separation between the different groups of digits) when we write numbers in our day-to-day lives.
 
