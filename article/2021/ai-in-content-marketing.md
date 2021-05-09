@@ -1,13 +1,11 @@
-> * 原文地址：[AI in Content Marketing](https://ai.plainenglish.io/ai-in-content-marketing-1d0d4b926769)
+> * 原文地址：[Is AI Already an Essential Part of Content Marketing?](https://ai.plainenglish.io/ai-in-content-marketing-1d0d4b926769)
 > * 原文作者：[Mariojose Palma](https://medium.com/@mariojosepalma)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ai-in-content-marketing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ai-in-content-marketing.md)
 > * 译者：
 > * 校对者：
 
-# AI in Content Marketing
-
-## Is AI Already an Essential Part of Content Marketing?
+# Is AI Already an Essential Part of Content Marketing?
 
 ![Photo by [Austin Distel](https://unsplash.com/@austindistel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/marketing?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9534/1*yjEpYdORNyL_EzuXW32U_w.jpeg)
 
@@ -25,15 +23,15 @@ Some tools help marketers navigate changes occurring in search engines and socia
 
 Anyone who doesn’t recognize or acknowledge the role AI plays in content marketing is not paying attention. Consider how intelligent content marketers are leveraging AI technology in their fields.
 
-**Understanding how algorithms work**
+### Understanding how algorithms work
 
 We wouldn’t even need content marketing if it wasn’t for AI tools like Google’s algorithms that determine what content is exceptional and what content should be on page 300 of search results. It was relatively easy to rank on Google by stuffing keywords into a blog post or web page somewhat randomly in its early days. As the algorithm has gotten smarter, content marketers have learned the value of delivering quality content that is useful for readers, not just full of keywords haphazardly thrown around.
 
-**Create customized omnichannel experiences**
+### Create customized omnichannel experiences
 
 More recently, content marketers have been using AI to target specific audiences. By implementing AI into your website, you can track individual users to create personalized content experiences for them. Companies that deliver customized content for different audience types can interact with customers on a more personal level, which can result in greater engagement and more growth opportunities. Using AI technology on all your channels improves your ability to track audiences and deliver a seamless omnichannel experience to them.
 
-**Improve content**
+### Improve content
 
 AI might not be able to write long-form content adequately yet. It has, though, proven to be useful for editing content. Apps like Grammarly go a step beyond finding grammatical errors and typos to provide helpful suggestions to improve how your content sounds. Content creators can use Grammarly and other AI-powered apps to improve their content.
 
