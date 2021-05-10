@@ -126,7 +126,6 @@ Nunito、Helvatica 或 Sans Serif 都是比较合适的现代字体。
 
 使用设计软件可以帮助你可以更快地迭代想法。我现在使用免费的 AdobeXD 来将元素拖放到合适的位置，快速的得到一个 UI 设计稿然后开始编写代码。Figma 也很流行，但它不是免费的。
 
-
 ## 我参考的优秀文章
 
 * 心理学在优秀网页设计中的应用 [https://www.doabledanny.com/persuasive-web-design](https://www.doabledanny.com/persuasive-web-design)
