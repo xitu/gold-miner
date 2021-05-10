@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/11-easy-ui-design-tips-for-web-devs-j3j.md](https://github.com/xitu/gold-miner/blob/master/article/2021/11-easy-ui-design-tips-for-web-devs-j3j.md)
 > * 译者：[5Reasons](https://github.com/5Reasons)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 ![头图](https://res.cloudinary.com/practicaldev/image/fetch/s--xHif6hhs--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b33yd1o2sxrm8wvfbm1b.jpg)
 
@@ -119,7 +119,6 @@ Nunito、Helvatica 或 Sans Serif 都是比较合适的现代字体。
 在鼠标悬浮、输入聚焦时加上下划线或者改变字体颜色、大小会是更好的做法。
 
 为了识别超链接、便于用户跳转，对于正文中的链接，我们还是应该用下划线修饰。我想说的是，避免在没有超链接的文本上使用下划线。
-
 
 ## 11. 下载一个设计软件
 
