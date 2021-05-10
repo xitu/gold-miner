@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/11-easy-ui-design-tips-for-web-devs-j3j.md](https://github.com/xitu/gold-miner/blob/master/article/2021/11-easy-ui-design-tips-for-web-devs-j3j.md)
 > * 译者：[5Reasons](https://github.com/5Reasons)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 ![头图](https://res.cloudinary.com/practicaldev/image/fetch/s--xHif6hhs--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/b33yd1o2sxrm8wvfbm1b.jpg)
 
-# 11 个简单实用的 Web 开发 UI 小技巧
+# 为 Web 开发同学准备的 11 个简单实用的 UI 设计小技巧
 
-当开始学习 Web 开发时，大部分人都没有设计相关的经验、也没有可以依靠的 UI 设计师。因此，这篇文章将分享 11 个简单实用的 UI 设计基础技巧，帮助你的项目看起来规整且时尚。
+当开始学习 Web 开发时，我们大部分人都没有设计相关的经验，也没有可以依靠的 UI 设计师。因此，本文将分享 11 个简单实用的 UI 设计基础技巧，来帮助你的项目看起来更规整且时尚。
 
-这篇文章首发于原作者的个人博客 [DoableDanny.com](https://www.doabledanny.com/UI-Design-Tips-for-Web-Devs)。如果你觉得这篇文章写得不错，可以考虑关注原作者的 [Youtube 频道](https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA)！
+本文首发于原作者的个人博客 [DoableDanny.com](https://www.doabledanny.com/UI-Design-Tips-for-Web-Devs)。如果你觉得这篇文章写得不错，可以考虑关注原作者的 [Youtube 频道](https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA)！
 
 ## 1. 保持风格一致
 
@@ -23,7 +23,7 @@
 * 锁的图标是由一个实心的橙色圆环为基础，中间加上一个白色的填充图案，没有什么线条轮廓
 * 点赞图标则有一条较细的黑色轮廓，整体呈现出一种曲线感
 
-这三个图标没有一个一致的主题——它们的形状、颜色、尺寸和轮廓粗细都有所不同。
+这三个图标没有一个一致的主题 —— 它们的形状、颜色、尺寸和轮廓粗细都有所不同。
 
 在例图的下半部分中，三个图标看起来有着一致的风格。它们都有简单的黑灰色轮廓，高度和宽度也保持了统一。
 
@@ -39,12 +39,11 @@
 
 你可以从 [https://www.unsplash.com](https://www.unsplash.com) 免费下载专业、优质的图像用于你的项目中。
 
-## 3. Contrast
 ## 3. 注重反差、对比
 
 [![让背景图片上的文字变得更易阅读](https://res.cloudinary.com/practicaldev/image/fetch/s--4Qo6ujyj--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/heicl1riiwipqchivyw6.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--4Qo6ujyj--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/heicl1riiwipqchivyw6.png)
 
-如果背景是浅色的，我们应该使用深色的字体。反之，在深色的背景上则应使用浅色的字体。这是个简单易懂的道理。在我浏览网页时最常发现的问题就是，有些网页开发者使用花里胡哨的图片作为背景，然后把文字放在这种晃眼的背景上，这会让网站的内容非常难以阅读。
+如果背景是浅色的，我们应该使用深色的字体。反之，在深色的背景上则应使用浅色的字体。这是个简单易懂的道理。我在浏览网页时最常发现的问题就是，有些网页开发者使用花里胡哨的图片作为背景，然后把文字放在这种晃眼的背景上，这会让网站的内容非常难以阅读。
 
 解决方案：
 
@@ -61,11 +60,11 @@
 
 上图中，正文和标题、按钮的距离都太近了，看起来非常的局促。而下图在同样的部分留出了一些空隙，看起来好多了。
 
-在下图中，我们还可以看到，相较于标题和 logo 之间的距离，标题离正文是更近的。密切相关的部分应该离得更近一些，来表明这种相关性。当然，也不能像上图错误范例那样离得太近了。
+在下图中，我们还可以看到，相较于标题和 logo 之间的距离，标题离正文是更近的。密切相关的部分应该离得更近一些，来表明这种相关性。当然，也不能像上图的错误范例那样离得太近了。
 
 ## 5. 用字体大小营造视觉层次
 
-你的眼中可能会被上一张例图中的“The Road Less Travlled”所吸引。显然，这是因为它的字体较大、角度。同样的，颜色也能够吸引注意，例如上图中“start my journey”的按钮。
+你的眼中可能会被上一张例图中的“The Road Less Travlled”所吸引。显然，这是因为它的字体较大而且轮廓突出。同样的，颜色也能够引人注目，例如上图中“start my journey”的按钮。
 
 一个常见的错误是把导航栏的 logo 设置的过大了，或者把导航栏设置成过于显眼的颜色。
 
@@ -75,11 +74,11 @@
 
 [![好的字体 vs 坏的字体](https://res.cloudinary.com/practicaldev/image/fetch/s--SvQoT7fR--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/io6mymdjufk8m11zwlr6.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--SvQoT7fR--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/io6mymdjufk8m11zwlr6.png)
 
-保持字体的一致是很棒的。并不需要把字体设置的过于复杂。应该避免使用“Times New Roman”（太多人用它了）和“Comic Sans”（这个字体过于老气了）。
+最好保持字体的一致性。我们不需要把字体设置的过于复杂。应该避免使用“Times New Roman”（太多人用它了）和“Comic Sans”（这个字体过于老气了）。
 
-Nunito, Helvatica 或者 Sans Serif 是比较合适的现代字体。
+Nunito、Helvatica 或 Sans Serif 都是比较合适的现代字体。
 
-当然了，如果你觉得自己的设计显得有些单调，也可以在标题上使用第二种字体（比如这篇博客的标题部分就是如此）！
+当然了，如果你觉得自己的设计显得有些单调，也可以在标题上使用第二种字体（比如这篇博客的标题部分就是如此！）。
 
 在字体大小方面，正文内容通常会选用 18 像素到 21 像素。
 
@@ -91,7 +90,7 @@ Nunito, Helvatica 或者 Sans Serif 是比较合适的现代字体。
 
 选择一个颜色作为基调，然后使用调色（添加白色）或阴影（添加黑色）进行微调。
 
-然后选择一种主要的“有激励性的”颜色来突出区域吗，并寻找“互补配色方案”。
+然后选择一种主要的“有激励性的”颜色来突出区域，并寻找“互补配色方案”。
 
 我会使用 [coolors](https://coolors.co/330088) 来找到合适的颜色并且进行调色。
 
@@ -101,13 +100,13 @@ Nunito, Helvatica 或者 Sans Serif 是比较合适的现代字体。
 
 锐角和突出的边缘可以吸引人们的注意力，上图聊天气泡中突出的尖角就是一个例子。
 
-我们可以利用这个技巧做些什么呢——把按钮设为圆角。你应该让用户的注意力集中在按钮的功能上，而非按钮的四个角上。
+我们可以利用这个技巧做些什么呢？把按钮设为圆角。你应该让用户的注意力集中在按钮中心的内容上，而非按钮的四个角上。
 
 ## 9. 别再使用早已过时的边框了
 
 [![有边框 vs 无边框](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--BwZtt2Qa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jtarukxei807yi5cij02.png)
 
-在网页应用早期，边框几乎无处不在。而如今，最好不要过多的使用边框——这会让网页变得更加清爽。边框在很多时候有些多余。
+在网页应用早期，边框几乎无处不在。而如今，最好不要过多的使用边框 —— 这会让网页变得更加清爽。边框在很多时候有些多余。
 
 当然了，也不是说完全不能使用边框，它们在需要分割网页的不同内容时仍旧能起到作用。我想说的是，不要过多的使用边框，过于繁杂、抓眼的边框是不美观的。
 
