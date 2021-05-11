@@ -2,47 +2,47 @@
 > * 原文作者：[Lew C](https://medium.com/@lewwybogus)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/what-is-mobile-devops-and-why-should-you-care.md](https://github.com/xitu/gold-miner/blob/master/article/2021/what-is-mobile-devops-and-why-should-you-care.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# What Is Mobile DevOps, and Why Should You Care?
+# 移动 DevOps 是什么和你值得关注的？
 
 ![Photo by [panumas nikhomkhai](https://www.pexels.com/@cookiecutter?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/black-and-gray-mining-rig-1148820/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/2248/0*zjF_VbIhCWVGgLkz.jpeg)
 
-Lately, it feels like there is an ever-increasing number of terms and phrases that refer to newer ways to develop software. It can be hard to keep up and understand what all these new terms mean or what they specifically mean to you. As someone who has been automating application builds and tests for a few years now, when I heard of the term **mobile DevOps**, even I wondered what made it different from normal DevOps (that is, the DevOps processes that I already used in my applications and experienced in my teams).
+最近，似乎有越来越多的术语提到了开发软件的新方法。我们很难跟上和理解这些新术语的含义，或者理解它们的对我们的具体含义。作为一个几年来一直浸淫在自动化应用程序构建和测试的人，当我听到术语 **mobile DevOps** 时，我很想知道是什么让它不同于普通的 DevOps（也就是说，我已经在我的应用程序中使用了 DevOps 流程，并且我的团队也有了经验）。
 
-Unfortunately, DevOps in itself has become something of a buzzword. Worse still, many online services fit well into a DevOps pipeline. This can be a bad thing because when you search online for DevOps or even mobile DevOps, a lot of the information you read online is on sites that are trying to sell you their very own solutions that fit into that pipeline. So if you need to be in a meeting in five minutes and you’ve searched “what is mobile DevOps?” on Google and landed on this article, let me make it simple for you. It’s just the DevOps methodology applied to phone apps. That’s it. It’s not mobile. It doesn’t go anywhere. It’s literally everything you know and love about DevOps, just applied to the context of phone apps.
+不幸的是，DevOps 本身已经成为了一个流行词。更糟糕的是，许多在线服务很适合 DevOps 流水线。这可能是一件坏事，因为当你在网上搜索 DevOps 甚至是移动 DevOps 的时候，你在网上看到的很多信息都是来源那些试图向你推销他们自己的解决方案的网站上。所以，如果你需要在 5 分钟内参加一个会议，然后你在 Google 上搜索了“什么是 mobile DevOps？”并打开了本文，那么让我为你简化一下:这只是应用于手机应用程序的 DevOps 方法。就这样,它不是可以移动的,它哪儿也去不了。这确实是你对 DevOps 所有的认知和喜爱，它只是应用到手机应用程序的环境中。
 
-But for a long time, software development agencies got software completed and out the door without anything DevOps related. And if you’re coming from a more traditional waterfall approach to software development, it can be beneficial to reflect on what DevOps can offer you and, more precisely, what mobile DevOps can offer your development team.
+但是很长一段时间以来，软件开发商在没有任何与 DevOps 相关的东西的情况下完成了软件的开发并将其推出市场。如果你是从更传统的瀑布开发模式来开发软件，那么反思一下 DevOps 能为你提供什么，更准确地说，移动 DevOps 能为你的开发团队提供什么，是很有好处的。
 
-So let’s take a simple approach to understanding what mobile DevOps is and how it can fit into your pipeline. To do so, let’s consider how software development practices have changed over the years.
+所以，让我们用一个简单的方法来理解什么是 mobile DevOps，以及它如何适合您的流水线。为此，让我们回忆一下这些年来软件开发实践是如何变化的。
 
-## In the Beginning, There Was the Waterfall
+## 万物始于瀑布流模型
 
-For a long time, software development projects used the waterfall model for their software development lifecycle (SDLC). The waterfall approach looked like this:
+长期以来，软件开发项目在其软件开发生命周期（SDLC）中使用瀑布模型。瀑布模型如下所示：
 
 ![(Peter Kemp / Paul Smith — [Wikimedia Commons](https://en.wikipedia.org/wiki/Waterfall_model#/media/File:Waterfall_model.svg))](https://cdn-images-1.medium.com/max/2560/0*pL2-XY8eOsplMMRQ.png)
 
-The stages of the waterfall model were as follows:
+瀑布模型的不同阶段如下：
 
-* **Requirements** — Clearly define the requirements of the application. In this phase, it’s important to capture all of the possible requirements for the system.
-* **Design** — Use the requirements determined in the previous step to work out a system design. This is the part where we would normally also define what hardware and software we need for our software to work.
-* **Implementation** — Using the design document (which defines the architecture for our app) we implement the expected functionality in small programs. Every unit that we create is developed and tested against its functionality.
-* **Integration and testing** — The units that have been developed are integrated into a system after being tested individually. After the system has been integrated, the entire system is then tested for any outstanding bugs or issues.
-* **Deployment of system** — Our hard work is coming to an end! The testing is completed, and now we can deploy our app to the stores.
-* **Maintenance** — After the deployment has been completed, it’s possible that issues can crop up in the future. Over time, patches are released to resolve problems that were not encountered during the initial development or implementation.
+* **需求来临** - 明确定义应用程序的需求。在这个阶段，获取系统的所有可能需求是很重要的。
+* **设计** - 使用上一步确定的需求来制定系统设计。在这一部分中，我们通常还会定义软件工作所需的硬件和软件。
+* **实现** - 使用设计文档（定义应用程序的体系结构），我们在程序雏形中实现了预期的功能。我们创建的每个单元都是针对其功能进行开发和测试的。
+* **集成和测试** - 已开发的单元在单独测试后集成到系统中。在完成系统集成之后，整个系统将被测试是否存在任何未解决的 bug 或问题。
+* **系统部署** — 我们的辛勤工作即将结束！测试已经完成，现在我们可以将我们的应用上架到应用市场。
+* **后期维护** — 上架完成后，未来可能会出现问题。随着时间的推移，开发者会发布修补程序来解决在初始开发或实现过程中没有遇到的问题。
 
-Of course, there is nothing wrong with this approach. Development teams used it for years, and nobody suffered because of it. When the method was adhered to, the result was high-quality software. One reason for this was that the steps only progressed in a linear motion from left to right — for example, the design phase could only begin once the requirements phase was complete, implementation could only be started when the design was finished, and so on and so forth.
+当然，这种开发方式没有问题。很多开发团队使用这种开发方式很多年了，没有人因此而受折磨。如果坚持这种开发方式，得到的就是高质量的软件。其中一个原因是，这些步骤只是以从左到右的顺序进行的 —— 例如，设计阶段只能在获取需求阶段完成后开始，实现功能阶段只能在设计阶段完成后开始，等等。
 
-On the surface, this approach seems ubiquitous. In systems where the requirements were well defined, it worked quite well. But more recently, we’ve seen fewer software projects adopt this methodology, and instead, we’ve seen the rise of DevOps as a more modern, flexible development framework. But why is that?
+表面上看,这种方法似乎十分普遍。在需求定义良好的系统中,它工作得非常好。但是近来，我们看到采用这种方法的软件项目越来越少，相反，我们看到了 DevOps 作为一种更新颖、更灵活的开发框架的流行。但这是为什么呢？
 
-### What’s wrong with the waterfall?
+### 瀑布流模型有什么缺点?
 
-In a perfect world, the waterfall model would probably always work fine. Unfortunately, as developers, we know that we don’t live in a perfect world. And this can introduce some difficulties. For example, people’s requirements can change, and this change can occur at an inopportune time.
+在一个完美的世界里，瀑布模型可能总是工作得很好。但不幸的是，作为开发者，我们知道我们并不是生活在一个完美的世界里。这会给瀑布模型带来一些困难。例如，人们的需求可能会发生变化，而这种变化可能会发生在不合适的时候。
 
-To illustrate, imagine that your customer has requested an app that can let users book a car to rideshare. You’re at the implementation stage, and suddenly, a new competitor comes to the market with a product that lets people get food delivered to their house from nearby fast-food stores.
+举个例子，假设您的客户要求开发一个应用程序，可以让用户预订一辆汽车进行共享。您正处于开发阶段，突然，一个新的竞争对手来到市场，推出了一款产品，让人们可以从附近的快餐店将食物送到家中。
 
-If this is an area you’d also like your app to compete in, you can’t break out of the implementation stage and suddenly revert back to the design phase to put your function in. If we went against this and reverted back to the design phase anyway and then tried to resume from there, then we wouldn’t technically be following the waterfall model anyway, and the benefits yielded from following a software development lifecycle would be largely lost. Software lifecycles are supposed to ensure a certain level of quality, so if you just disregard them and do your own thing, you do so at your own risk.
+如果这是一个你也希望你的应用程序参与竞争的领域，你就不能脱离实现阶段，突然回到设计阶段来实现你的功能。如果我们违背这一点，返回到设计阶段，然后试图从那里重新开始，那么从技术上讲，我们就没有遵循瀑布模型，遵循软件开发生命周期所产生的好处将在很大程度上丧失。软件生命周期应该确保一定的质量水平，所以如果你只是无视它们，做你自己的事情，你这样做是在自负风险。
 
 ![Photo by [Tima Miroshnichenko](https://www.pexels.com/@tima-miroshnichenko?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/people-working-in-a-call-center-5453837/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/2250/0*LCN7rmJbT7y7F8rB.jpeg)
 
