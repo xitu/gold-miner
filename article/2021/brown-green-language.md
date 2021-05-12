@@ -17,7 +17,7 @@ Stack Overflow 的开发者调查 <sup><a href='https://earthly.dev/blog/brown-g
 
 一种令人畏惧的语言是你今年主要在用但不想再继续用下去的。而一种受欢迎的语言则是你主要在用而且希望继续使用的。这些结果很有趣，因为它们反映的观点来自主要使用这种语言的开发者们，应该不会受到 “我听说很棒” 这种心理的影响，也就是人们给他们并不使用的事物打很高的分数仅仅因为他们听说这是新的热点。反之亦然：把语言放在**令人畏惧**列表上的也是正在使用它们的人。他们害怕这种语言不是因为听说它很复杂，而是确实在使用它的过程中感到痛苦。
 
-**最令人畏惧的语言榜单 TOP 15： **
+**最令人畏惧的语言榜单 TOP 15：**
 
 VBA, Objective-C, Perl, Assembly, C, PHP, Ruby, C++, Java, R, Haskell, Scala, HTML, Shell, and SQL.
 
@@ -120,7 +120,7 @@ VBA, Shell, HTML/CSS
 
 	我确实考虑过用语言的诞生日来区分绿色和棕色语言，但有些语言已经存在一段时间了却只在最近才开始投入使用。
 
-	TIOBE 度量用的是[这种方法](https://www.tiobe.com/tiobe-index/programming-languages-definition/)， 而且他们的历史数据是需要付费获取的，所以我就使用了 WayBack Machine。[↩︎](https://earthly.dev/blog/brown-green-language/#fnref2)
+	TIOBE 度量用的是[这种方法](https://www.tiobe.com/tiobe-index/programming-languages-definition/)， 而且他们的历史数据是需要付费获取的，所以我就使用了 Wayback Machine。[↩︎](https://earthly.dev/blog/brown-green-language/#fnref2)
 
 3. TIOBE 并未计量 HTML/CSS，因为它认为这些语言并没有向完备发展所以不是编程语言。据我所知，Shell 脚本被 TIOBE 单独归类，而 VBA 则完全不在他们计量的语言列表上。[↩︎](https://earthly.dev/blog/brown-green-language/#fnref3)
 
