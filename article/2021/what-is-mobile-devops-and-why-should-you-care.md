@@ -13,7 +13,7 @@
 
 不幸的是，DevOps 本身已经成为了一个流行词。更糟糕的是，许多在线服务很适合 DevOps 流水线。这可能是一件坏事，因为当你在网上搜索 DevOps 甚至是移动 DevOps 的时候，你在网上看到的很多信息都是来源那些试图向你推销他们自己的解决方案的网站上。所以，如果你需要在 5 分钟内参加一个会议，然后你在 Google 上搜索了“什么是 mobile DevOps？”并打开了本文，那么让我为你简化一下:这只是应用于手机应用程序的 DevOps 方法。就这样,它不是可以移动的,它哪儿也去不了。这确实是你对 DevOps 所有的认知和喜爱，它只是应用到手机应用程序的环境中。
 
-但是很长一段时间以来，软件开发商在没有任何与 DevOps 相关的东西的情况下完成了软件的开发并将其推出市场。如果你是从更传统的瀑布开发模式来开发软件，那么反思一下 DevOps 能为你提供什么，更准确地说，移动 DevOps 能为你的开发团队提供什么，是很有好处的。
+但是很长一段时间以来，软件开发组织在没有任何与 DevOps 相关的东西的情况下完成了软件的开发并将其推出市场。如果你是从更传统的瀑布开发模式来开发软件，那么反思一下 DevOps 能为你提供什么，更准确地说，移动 DevOps 能为你的开发团队提供什么，是很有好处的。
 
 所以，让我们用一个简单的方法来理解什么是 mobile DevOps，以及它如何适合您的流水线。为此，让我们回忆一下这些年来软件开发实践是如何变化的。
 
@@ -46,75 +46,75 @@
 
 ![Photo by [Tima Miroshnichenko](https://www.pexels.com/@tima-miroshnichenko?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/people-working-in-a-call-center-5453837/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/2250/0*LCN7rmJbT7y7F8rB.jpeg)
 
-### Everyone’s in their own silo
+### 每个人都在自己的小世界里
 
-In a pre-DevOps world, the people involved in the deployment and support of applications were largely siloed. Your developers would work in one space, your quality assurance (QA) team in another, and the support staff for your app in yet another. That’s not including the people who are required to actually host your app, plus everyone else who is involved in the reliable hosting of your app.
+在 DevOps 开发方式出现之前的世界中，参与应用程序部署和支持的人员基本上是孤立的。您的开发人员将在一个空间工作，您的质量保证（QA）团队在另一个空间工作，您的应用程序的支持人员在另一个空间工作。这还不包括需要实际托管你的应用程序的人，以及参与可靠托管你的应用程序的其他所有人。
 
-This can lead to some communication problems, as developers produce new releases, give them to the QA team, deploy them to a test environment, and then repeat this until a release is finalized. For example, because the hosting team is so far removed from the development side of things, it is possible (and has happened) that the developers could make something only for the hosting team to rebuff their work because it won’t work in the hosting environment.
+这可能会导致一些沟通问题，因为开发人员会开发新版本的应用程序，将其交给 QA 团队，由他们部署到测试环境中，然后重复此过程，直到最终确定一个版本。例如，因为托管团队离开发方面太远了，所以开发人员有可能（而且已经发生了）为了托管团队做一些事情而耽误他们自己的工作，只因为它在托管环境中不起作用。
 
-## The Rise of DevOps
+## DevOps 的崛起
 
-As time went on, people began to shift to DevOps methodologies for their software development. The boundaries between these separate, discrete teams were removed, and people were encouraged to work together. The people who created the apps (developers) were put closer to the people who were responsible for supporting customers who were using the app, as well as the people who hosted the website and database (operations). DevOps was a huge change for any existing software development shop and required a significant cultural shift to be fully implemented.
+随着时间的推移，人们开始采用 DevOps 方式来进行软件开发。这些独立的团队之间的界限被消除了，人们被鼓励一起工作。创建应用程序的人（开发人员）与负责支持使用该应用程序的客户的人以及网站和数据库的托管人（操作人员）更为接近。DevOps 开发方式对于任何现有的软件开发组织来说都是一个巨大的变化，需要一个重大的文化转变才能完全实现。
 
-Another significant component of DevOps was the rise of continuous integration/continuous development (CI/CD). Instead of development following a single linear progression as in the waterfall method, smaller changes were implemented over time into smaller releases. The features in these smaller releases were tested by automated testing systems, and the test suites grew in size as the apps grew in functionality. Over time, more of the pipeline was automated, with releases being tested by automated testing tools, and releasing into production was not as big of a hurdle as it once was.
+DevOps 的另一个重要组成部分是持续集成/持续发展（CI/CD）的兴起。不像瀑布方法那样遵循单一的线性过程进行开发，随着时间的推移，应用程序的小变动在小版本中迭代。这些较小版本中的功能由自动化测试系统测试，随着应用程序功能的增长，测试套件的规模也在不断扩大。随着时间的推移，越来越多的流水线工作实现了自动化，通过自动化测试工具对发布的应用程序进行测试，使得发布到生产环境中并不像以前那么困难。
 
-DevOps is a huge topic in itself, and you’re currently on a site that plays a big part in this process (namely the CI/CD part of it), so you probably already know a lot about this. That said, how does it relate to mobile DevOps?
+DevOps 本身就是一个巨大的主题，而您目前所在的站点在这个过程中扮演着重要的角色（即CI/CD部分），所以您可能已经对此了如指掌。尽管如此，它和移动 DevOps 又有什么关系？
 
 ![Image source: [Twenty20 Photos](https://www.twenty20.com/)](https://cdn-images-1.medium.com/max/4196/0*sT-ZTxnoQ2p11xzy.png)
 
-## Mobile DevOps
+## 移动端 DevOps
 
-One of the core tenets of DevOps is to automate as much as you possibly can. It’s essentially a methodology that you can apply to various work processes. And it basically comes down to two things: speed and quality. You want to increase the speed of your releases to the app stores without sacrificing the quality of your app. More frequent updates mean that bug fixes and features are released sooner and users typically have a better experience with your app.
+DevOps 的核心原则之一是尽可能地自动化。它本质上是一种可以应用于各种工作流程的方法。基本上可以归结为两个方面：速度和质量。你想在不牺牲应用程序质量的前提下提高应用程序市场的发布速度。更频繁的更新意味着 Bug 修复和功能发布得更快，而用户通常能有更好的应用体验。
 
-In a typical update cycle for an app that has already been released to the store, there is a requirement to release updates and fixes for issues that affect the application. You may know how to fix an issue, but after you have done so, you then need to spin up your test environment (with test endpoints for your app), complete the application testing, and then manually submit it to the various stores to get your update released. The time involved in this kind of effort is significant. And to make matters worse, every time you push an update to your app, you have to go through this kind of process.
+对于已经发布到应用市场的应用程序，在一个典型的更新周期中，需要对影响应用程序的问题发布更新和修复。您可能知道如何修复一个问题，但在完成之后，您需要启动测试环境（使用应用程序的测试端点），完成应用程序测试，然后手动将其提交到各个应用市场以发布更新。这种努力所花费的时间是很重要的。更糟糕的是，每次你对应用程序推送更新时，你都必须经历这一过程。
 
-In times of real distress, like when you are chasing a bug in your app and don’t really know where it is or how to fix it, you can wind up pushing a few updates within a short time frame. As the release steps (testing and then deployment) are repetitive, the person doing this could become fatigued and end up causing more issues in the long run. It’s not hard to see how a situation could quickly unravel, given the stress and anxiety that usually occur in times like this.
+在真正困难的时候，比如当你在追踪应用程序中的一个 Bug，却不知道它在哪里或者如何修复它时，你可能会在短时间内推送一些更新。由于发布步骤（测试和部署）是重复的，测试人员可能会感到疲劳，最终导致更多的问题。不难看出，在这种时候通常会让人感到有压力和焦虑，情况很快会变得很糟糕。
 
-Unfortunately, companies usually don’t invest enough time in trying to better their processes or optimize release pipelines. The common thought is that these kinds of adjustments take a lot of time and if what we have now works well, why change it? Well, there are some fairly compelling reasons to learn about mobile DevOps and use as many of its components as possible.
+不幸的是，公司通常没有投入足够的时间来改进流程或优化发布流水线。通常的想法是，这种调整需要很多时间，如果我们现在做的很好，为什么还要改变呢？好吧，下面阐述一些相当令人信服的理由让你去学习移动端 DevOps 并尽可能多地使用它的组件。
 
-## Switching to Mobile DevOps
+## 选择移动端 DevOps
 
-To visualize what the change to mobile DevOps would look like, let’s imagine a team tasked with creating an app for a grocery store. The app is released, and the team is in their business-as-usual (BAU) phase of support, resolving new issues with the app as they crop up and then implementing new features as time goes on.
+为了具象化采用移动端 DevOps 带来的变化的样子，让我们设想一个团队负责为一家杂货店创建一个应用程序。该应用程序已经发布，团队正处于业务正常（business as usual，BAU）支持阶段，解决应用程序出现的新问题，然后随着时间的推移开发新功能。
 
-Once they have implemented a new feature or fix, they need to create the test environment with a database and fake data to test against. Of course, it wasn’t so long ago that the only way people could create these “test environments” for their app was to set up physical servers in a physical server room (or something equivalent) and then configure these servers to host the test environment.
+一旦他们实现了一个新功能或修复程序，他们就需要创建一个带有数据库和假数据的测试环境来进行测试。当然，就在不久前，人们为自己的应用程序创建这些“测试环境”的唯一方法是在物理服务器机房（或类似的东西）中设置物理服务器，然后配置这些服务器来承载测试环境。
 
-Traditionally, this would be accomplished by following documentation or something that explained how to set these environments up. These environments were oftentimes referred to as being “lovingly crafted,” as it took hours of painstaking work to create these environments in a very specific way. Because doing this is a very manual process, sometimes each iteration of the test environment would have minor differences. This means that for our development team, bugs are sometimes raised for the app as a result of slight variations within the test environment and not actually because of an issue with the app itself. As you can imagine, this wastes time as developers try to chase issues that don’t actually exist.
+传统上，这将通过以下文档或解释如何设置这些环境的内容来实现。这些环境常常被称为“精心打造”，因为以一种非常特殊的方式创建这些环境需要花费数小时的艰苦工作。因为这样做是一个体力活，有时测试环境的每次迭代都会有细微的差别。这意味着，对于我们的开发团队来说，由于测试环境中的细微变化，而不是由于应用本身的问题，有时会引发应用程序的 Bug。正如您所能想象的，这会浪费时间，因为开发人员试图追逐实际上不存在的问题。
 
-### Making it easier to create the environment
+### 更容易创造环境
 
-The first thing this team could do is try to automate some of these aspects. Automating the process of creating the test environment would have many benefits, such as giving the developers a guaranteed environment that is unaffected by environment drift (as it can be deleted and re-created at a moment’s notice).
+这个开发团队可以做的第一件事就是尝试自动化这些方面。自动化创建测试环境的过程将有很多好处，比如给开发人员一个不受环境变化影响的有保证的环境（因为它可以在片刻之间被删除和重新创建）。
 
-Unfortunately, many people believe that their app or service is too complicated to successfully automate the creation of an environment. But at bigger companies, like Google or Facebook, the environments are far too complex to depend on someone to create them manually every time, so they have no choice but to automate these processes. The moral of the story is if bigger companies can automate the creation of environments for their complicated apps, you can certainly automate the creation of your app’s environment.
+不幸的是，许多人认为他们的应用程序或服务过于复杂，就无法成功地自动创建环境。但是在更大的公司，比如 Google 或 Facebook，那里的测试环境太过复杂了，不可能每次都由工作人员手动创建，所以他们别无选择，只能自动化这些过程。这个故事的寓意是，如果大公司可以为他们复杂的应用程序自动创建环境，那么你当然也可以自动创建应用程序的环境。
 
-Back to our development team — they’ve managed to successfully automate the creation of their testing environment by using [Docker](https://www.docker.com/) (or something else, like [Kubernetes](https://kubernetes.io/)). Now they can begin to write test suites for their entire application. Unfortunately, too many apps out there today are written without any supporting automated tests for the app itself.
+回到我们的开发团队 —— 他们已经成功地通过使用 [Docker](https://www.docker.com/) 自动创建了他们的测试环境(或者别的什么，比如 [Kubernetes](https://kubernetes.io/))。现在他们可以开始为整个应用程序编写测试套件了。不幸的是，现在有太多的应用程序都是在没有对应用程序本身进行任何支持的自动测试的情况下编写的。
 
-When a developer fixes an issue for a certain bug, they just test in the emulator or on a physical device to see if the issue still happens or not. If it doesn’t, then the issue is thought to be resolved, and the app is released to the testers to validate the full test suite on the app itself. Within very small development teams (or even one-person development teams) where there is a real lack of time, this manual test step is sometimes skipped, as the bug is thought to be fixed. When this happens, we can be reasonably sure that the original issue is resolved, as the developer has tested for that, but we have no way of being sure that this fix hasn’t introduced new issues. And that’s where the problems begin.
+当开发人员修复某个 Bug 时，他们只需在模拟器或物理设备上测试，以查看问题是否仍然发生。如果没有，那么问题就被认为是解决的，应用程序将被发布给测试人员，以验证应用程序本身的完整测试套件。在一些非常小的开发团队（甚至一个人开发团队）中，如果真的没有时间，这个手动测试步骤有时会被跳过，因为 Bug 被认为是已经被修复的。当这种情况发生时，我们可以合理地确定原始问题已经解决，因为开发人员已经对此进行了测试，但是我们无法确保此修复程序没有引入新问题。问题就来了。
 
-### Making it easier to run the test suite
+### 使运行测试套件更容易
 
-At the moment, our team in this example is relying on a manual test suite that is run by the developers or testers. The whole test suite takes about a day or two to run and has to be done manually. So the tester has to open the app and follow a series of steps to complete the test for the app to check whether it is working as intended or not.
+目前，我们例子中的团队依赖于由开发人员或测试人员运行的手动测试套件。整个测试套件大约需要一两天的时间来运行，而且必须手动完成。因此，测试人员必须打开应用程序并按照一系列步骤来完成应用程序的测试，以检查它是否按照预期工作。
 
-Unfortunately, this is quite slow, so the reality is that the full test suite doesn’t get run as often as it should, and the results are also quite inconsistent. Even though we’ve shored up the environment and it is now in a known state when it is deployed, the user running the tests becomes fatigued as they repeat the same boring steps over and over again. The reality is that our user isn’t a machine — they will stop for coffee breaks, chat with co-workers, and watch the occasional cat video to make this boring task more palatable. In doing so, they might lose their place or skip a step, rendering the test suite less effective without them even knowing that this is the case.
+不幸的是，这一过程相当缓慢，因此现实是，完整的测试套件没有像应该的那样经常运行，结果也相当不一致。尽管我们已经支持了环境，并且它现在在部署时处于已知状态，但是运行测试的测试人员会因为反复重复同样无聊的步骤而感到疲惫不堪。事实上，我们的测试人员不是机器 —— 他们会停下来喝咖啡，和同事聊天，偶尔看看视频“云撸猫”，才能让这项无聊的任务更容易接受。这样做，他们可能会找不到上次的位置又或者跳过一步，使得测试套件的效率降低，甚至对这些都不知情。
 
-Instead of relying on manual tests, in order to fully adopt mobile DevOps, our team should try to automate the tests for our phone app. After all, a user is following a set of steps by tapping on the phone screen, observing its results, and then writing about how it went. These tasks can also be performed by a unit testing framework, like [Espresso](https://developer.android.com/training/testing/espresso) tests, for Android, or the equivalent test runner for the platform in question. As the number of tests increases, more areas of the app can be tested, which increases the likelihood that the app is functioning as expected.
+我们的团队应该尝试自动化手机应用程序的测试，而不是依赖手动测试，以完全采用移动 DevOps。毕竟，用户通过点击手机屏幕、观察结果，然后写下它的进展情况，来遵循一系列步骤。这些任务也可以通过单元测试框架来执行，例如 [Espresso](https://developer.android.com/training/testing/espresso) 测试，针对 Android，或相关平台的等效测试运行程序。随着测试数量的增加，可以测试更多的应用程序区域，这增加了应用程序按预期运行的可能性。
 
-We start to save more time while increasing the quality of our app when we incorporate these tests into our application build pipeline. For our team, that means that every time a new commit is pushed into the main code branch, the full suite of automated tests is run. The benefits of this are simply enormous. If new issues are introduced by fixing another problem, these defects are caught by the automated tests before any new app versions are pushed out. This means they’re not finding bugs two months down the track and not knowing when they were introduced.
+当我们将这些测试合并到我们的应用程序构建流程中时，我们开始在提高应用程序质量的同时节省更多的时间。对于我们的团队来说，这意味着每次将新的提交推送到主代码分支时，都会运行全套自动化测试。这样做的好处是巨大的。如果通过修复另一个问题引入了新问题，那么在推出任何新的应用程序版本之前，这些缺陷都会被自动测试所捕获。这意味着他们在两个月内没有发现 Bug，也不知道它们是何时引入的。
 
-### Making it easier to get the releases done
+### 让发布更加简单
 
-Because our team now has the ability to create a test environment at the drop of a hat and now has an automated test suite (which automatically runs when new code is committed), they are more sure of the quality of the codebase. Over time, as the test suite becomes more comprehensive, a successful test run means that the app definitely works. In fact, the test suite has become so comprehensive that it tests 100% of the app. This means that when the test suite completes for the app in question, the app is essentially production-ready. So what else do you do with a production-ready app, apart from release it to production?
+因为我们的团队现在能够轻而易举地创建一个测试环境，并且现在有了一个自动化的测试套件（在提交新代码时自动运行），所以他们对代码库的质量更加有把握。随着时间的推移，随着测试套件变得越来越全面，一个成功的测试运行意味着应用程序肯定可以工作。事实上，测试套件已经变得如此全面，它测试了 100% 的应用程序。这意味着，当相关应用程序的测试套件完成时，该应用程序基本上已准备好上生产环境。那么，除了将其发布到生产环境之外，您还可以对生产环境下的应用程序做些什么呢？
 
-That’s the final step of the release pipeline, to automate the deployment of the app to the relevant stores. Obviously, this final step is the most dangerous, as deploying a broken app is really bad for everyone involved, and it can create a lot of issues. But it may surprise you how many companies around the world have automated their entire development and release pipeline.
+这是发布流程的最后一步，自动将应用程序部署到相关应用市场。显然，这最后一步是最危险的，因为部署一个有问题的应用程序对所有参与的人来说都是非常糟糕的，而且会产生很多问题。但是，世界上有多少公司已经实现了整个开发和发布流程的自动化，这可能会让您感到惊讶。
 
-Did you notice a common theme between the three points above? The theme is making it easier. Ultimately, mobile DevOps can make it easier for you to develop and release quality software. If a process didn’t help you to do this, there would obviously be no point in learning about it.
+你注意到上面三点之间有一个共同的主题吗？主题都是简化。最终，移动端 DevOps 可以让您更容易地开发和发布高质量的软件。如果一个流程不能帮助你做到这一点，那么了解它显然是没有意义的。
 
-## How Can I Get Started With Mobile DevOps?
+## 如何开始使用移动端 DevOps？
 
-As we’ve seen, mobile DevOps is a huge change for many software development shops, and we’ve largely covered the technical aspects within this article (such as automating as much of the processes as we can). Fully adopting DevOps can cause organizational change, even the merging of teams and reassigning of people’s actual job roles. Not everybody enjoys that type of change, and it is definitely a drastic course of action.
+正如我们所看到的，移动端 DevOps 对于许多软件开发组织来说是一个巨大的变化，我们在本文中已经基本涵盖了技术方面的内容（比如尽可能地自动化过程）。完全采用 DevOps 会导致开发团队架构变革，甚至会导致团队的合并和人们实际工作角色的重新分配。不是每个人都喜欢这种变化，这绝对是一个激烈的做法。
 
-So the best way to get started down this path is to begin to take steps to automate the parts of the task that you can and the parts that will yield the biggest benefit for the time you invest. One of the easiest tasks to start with is to try to get your app to build anywhere so that it doesn’t build just on that one computer in the corner in the office.
+因此，沿着这条路走下去的最好方法是开始采取措施，自动化那些你可以完成的部分任务，以及投入产出比最高的部分任务。一开始最简单的任务就是让你的应用程序在任何地方都可以构建，这样它就不会仅仅构建在办公室角落里的一台电脑上。
 
-After this, you can move on to automated tests and gradually pick and choose the best parts of mobile DevOps until you have a fully automated pipeline. And once you have that, there’s no going back.
+在此之后，您可以继续进行自动化测试，并逐步挑选移动端 DevOps 的最佳部分，直到您拥有一个完全自动化的流程。一旦你成功做到了，就再也回不去了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
