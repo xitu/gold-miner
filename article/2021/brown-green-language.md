@@ -61,7 +61,7 @@ Java, C, C++, C#, Python, PHP, JavaScript, Swift, Perl, Ruby, Assembly, R, Objec
 
 **绿色语言：**你更多在新项目中使用的语言（即绿色地带项目）
 
-Go, Rust, TypeScript, Kotlin, Julia, Dart, Scala, and Haskell
+Go, Rust, TypeScript, Kotlin, Julia, Dart, Scala, 和 Haskell
 
 TIOBE 和 Stack Overflow在什么是编程语言这一问题上有分歧。为了解决这个问题，我们需要把 HTML/CSS，Shell 脚本和 VBA 从两个榜单上移除来实现标准化。<sup><a href='https://earthly.dev/blog/brown-green-language/#fn3'>3</a></sup>
 
