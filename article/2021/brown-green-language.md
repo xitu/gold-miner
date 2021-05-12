@@ -19,11 +19,11 @@ Stack Overflow 的开发者调查 <sup><a href='https://earthly.dev/blog/brown-g
 
 **最令人畏惧的语言榜单 TOP 15：**
 
-VBA, Objective-C, Perl, Assembly, C, PHP, Ruby, C++, Java, R, Haskell, Scala, HTML, Shell, and SQL.
+VBA, Objective-C, Perl, Assembly, C, PHP, Ruby, C++, Java, R, Haskell, Scala, HTML, Shell, 和 SQL.
 
 **最受欢迎的语言榜单 TOP 15：**
 
-Rust, TypeScript, Python, Kotlin, Go, Julia, Dart, C#, Swift, JavaScript, SQL, Shell, HTML, Scala, and Haskell.
+Rust, TypeScript, Python, Kotlin, Go, Julia, Dart, C#, Swift, JavaScript, SQL, Shell, HTML, Scala, 和 Haskell.
 
 这个列表蕴含了某种规律，你能发现吗？
 
