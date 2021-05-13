@@ -15,8 +15,6 @@ Maybe, the main reason is that it looks simple and convenient. Intuitively, we t
 
 The `px` unit is something that gets you started very easily, but it turns into a problem later down the road. In this article, I will expose the top three reasons to avoid the pixel unit. We will discuss the problems with its usage and some possible solutions.
 
----
-
 ## 1. They Are Just Optical Reference Units
 
 Pixel values are no longer based on a hardware pixel. It just wouldn’t work and will look very different for many screens and resolutions. They are instead based on an optical reference unit. So the part that we found more intuitive about that unit is no longer there.
@@ -37,8 +35,6 @@ Let’s see the equivalence of 1mm to pixels with different dots-per-inch resolu
 
 Long gone are the days when you could distinguish pixels on our screens. We have grown used to that limitation, and it’s an idea we need to drop. The sense of the word **pixel** has lost its meaning over time, and it’s time to stop making it the default unit in our CSS code.
 
----
-
 ## 2. They Are Absolute Values
 
 Looking at the problem above, why is it happening? Why can’t our layout reach pixel perfection? Because the pixel unit is an absolute one. That means that it is not going to adapt to our browser’s pixel ratio/resolution/size/etc.
@@ -51,7 +47,7 @@ That means that if you use those units, your audience will have a wide variety o
 
 How can we solve that problem? How can we make our layout responsive? By using `relative units`. What are those anyway?
 
-> # “Relative length units are relative to something else, perhaps the size of the parent element’s font, or the size of the viewport.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
+> “Relative length units are relative to something else, perhaps the size of the parent element’s font, or the size of the viewport.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
 
 Let’s check out the most relevant units that we have at our disposal:
 
@@ -121,7 +117,7 @@ Let’s see the code to better understand that:
 
 As you can see above, we are limiting the `max-width` of our `content` to `20ch`.
 
-```
+```css
 #content {
  ...
  max-width: 20ch;
@@ -129,8 +125,6 @@ As you can see above, we are limiting the `max-width` of our `content` to `20ch`
 ```
 
 The above is just an example. There are many replacements for the pixel unit. Sometimes, you don’t need a relative unit. You can use the power of `flex` and `grid` layouts to adjust your layout accordingly. Not relying on an absolute unit will keep your layouts consistent. It is always preferred to rely on the browser to do all the heavy lifting for us.
-
----
 
 ## 3. Accessibility: They Don’t Adapt to the User’s Default Font Size
 
@@ -234,21 +228,17 @@ p {
 
 We can see above how the layout is able to adapt to the user’s browser settings. The fonts are bigger, but so are the articles. They grow to preserve the proportions. Even though they are different in size for different users, they stay consistent in shape.
 
----
-
 ## Bonus Tip
 
 When working with `rem` and `rem` units, you might find it cumbersome to express everything for a default base font of `16px`. There is a very popular trick for that situation:
 
-```
+```css
 html {
   font-size: 62.5%; /* font-size 1em = 10px on default browser settings */
 }
 ```
 
 Using this trick, now all font sizes will be based on a `10px` factor for a default `16px` base font. It will make your code a bit less messy. It won’t hurt accessibility. It will just make your life a bit easier.
-
----
 
 ## Final Thoughts
 
@@ -257,14 +247,6 @@ We have seen three powerful reasons why we should ditch the pixel unit. Relying 
 Fortunately, the usage of relative units like `rem` and `em` is growing. Meanwhile, browsers are doing their best to come up with some solutions. When using absolute values, if users are zooming, the browser unit will scale to match the proper zoom applied by the user. Not the perfect experience, but a decent fallback.
 
 I hope this article has given you the last little push to stay as far away from the pixel unit as possible.
-
----
-
-## Related Articles
-[**Grid vs. Flexbox — Which One Should You Use?**
-**A journey toward finding the right tool for the right job**betterprogramming.pub](https://betterprogramming.pub/grid-vs-flexbox-which-one-should-you-be-using-471cb955d3b5)
-[**7 Habits of Productive Developers**
-**Build the right habits to stay productive on a daily basis**betterprogramming.pub](https://betterprogramming.pub/7-habits-of-productive-developers-bce60d880907)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
