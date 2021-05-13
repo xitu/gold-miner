@@ -2,8 +2,8 @@
 > - 原文作者：[Acunetix](https://www.acunetix.com/)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md)
-> - 译者：
-> - 校对者：
+> - 译者：[MoonBall](https://github.com/MoonBall)
+> - 校对者：[kamly](https://github.com/kamly)、[江不知](http://jalan.space/)
 
 # 目录遍历攻击
 
