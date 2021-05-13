@@ -41,7 +41,7 @@ Looking at the problem above, why is it happening? Why can’t our layout reach 
 
 Absolute values are normally not very useful if you want to satisfy a broad audience. Is `px` the only absolute unit? No, there are six more absolute units supported by CSS. Find a reference below:
 
-![List of absolute units supported by CSS](https://cdn-images-1.medium.com/max/NaN/1*aXVUdpRMgeFox_6uHkR_SA.png)
+![List of absolute units supported by CSS](https://cdn-images-1.medium.com/max/2000/1*aXVUdpRMgeFox_6uHkR_SA.png)
 
 That means that if you use those units, your audience will have a wide variety of layout outputs. It is not reasonable to test your page for any kind of resolution it might be displayed into.
 
