@@ -65,8 +65,6 @@ You may look at Node.js as a relatively newer form of technology and might presu
 
 #### Python’s Community
 
----
-
 Python, being the older language of the two, naturally has a larger community. From junior to senior-level contributors, Python doesn’t have a dearth of talent. One of the biggest advantages of such a sizable community is the ease to find developers. And active participation from these developers results in swift solutions and overall improvement of the language.
 
 ![nodejs.org](https://cdn-images-1.medium.com/max/2000/0*hJFJeIr9c3-naAvA.jpg)
@@ -102,8 +100,6 @@ Choosing between Node.js and Python can be tricky especially when you want to de
 This is why, the ideal way to deal with this dilemma is by focusing on the end use of your product. List out all the features of your product, and how you plan to engineer them. And the language or runtime environment that proves more handy should be your pick.
 
 And if you find yourself still perplexed or wonder if you made the right call, feel free to send your queries my way at tejas@simformlabs.com. It’d be my pleasure to understand your project and offer suggestions.
-
-**More content at [plainenglish.io](http://plainenglish.io/)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
