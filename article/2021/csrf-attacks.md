@@ -37,7 +37,9 @@ The request includes a cookie that represents the authenticated user so there is
 
 If the exploited application expects a GET request, the attacker can include a malicious `<img>` tag on their own website. Instead of linking to an image, this tag sends a request to the bank’s web app:
 
+```html
 <img data-fr-src="http://example.com/transfer?amount=1000000&account=Fred" />
+```
 
 Under normal circumstances, the user’s browser automatically sends cookies that are related to that website. This causes the victim to perform a state change on behalf of the attacker. In this case, the state change is a transfer of funds.
 
@@ -51,14 +53,13 @@ Tricking a victim into sending a POST request may be slightly more difficult. Wi
 
 The following JavaScript example shows the onload function, which automatically sends a request from the victim’s browser as soon as the page loads.
 
-```
+```html
 <body onload="document.csrf.submit()">
  
 <form action="http://example.com/transfer" method="POST" name="csrf">
 	<input type="hidden" name="amount" value="1000000">
 	<input type="hidden" name="account" value="Fred">
 </form>
-
 ```
 
 As soon as the page loads, the JavaScript onload function ensures that the hidden form is submitted, which will in turn send the POST request. The form includes two parameters and their values that have been set up by the attacker. The POST target, example.com, identifies the request as legitimate because it includes the victim’s cookies.
