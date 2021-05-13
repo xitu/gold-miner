@@ -1,5 +1,5 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[CSRF Attacks: Anatomy, Prevention, and XSRF Tokens](https://www.acunetix.com/websitesecurity/csrf-attacks/)
+> * 原文作者：[Acunetix](https://www.acunetix.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/csrf-attacks.md](https://github.com/xitu/gold-miner/blob/master/article/2021/csrf-attacks.md)
 > * 译者：
@@ -96,77 +96,6 @@ A current limitation of same-site cookies is that unlike for example Chrome or F
 Cookies are intrinsically vulnerable to CSRF because they are automatically sent with each request. This allows attackers to easily craft malicious requests that lead to CSRF. Although the attacker cannot obtain the response body or the cookie itself, they can perform actions with the victim’s elevated rights. The impact of a CSRF vulnerability is related to the privileges of the victim. While sensitive information retrieval is not the main scope of a CSRF attack, state changes may have an adverse effect on the exploited web application.
 
 Fortunately, it’s easy to test if your website or web application is vulnerable to CSRF and other vulnerabilities by running an automated web scan using the Acunetix vulnerability scanner, which includes a specialized [CSRF scanner](https://www.acunetix.com/vulnerability-scanner/csrf-scanner/) module. [Take a demo](https://www.acunetix.com/web-vulnerability-scanner/demo/) and find out more about running CSRF scans against your website or web application.
-
-## How to Prevent Cross-site Request Forgery (CSRF) – Generic Tips
-
-Cross-site Request Forgery (CSRF) vulnerabilities are dangerous partly because preventing them is not that easy. There are multiple methods that you can use to avoid them but not all are effective in all scenarios. In addition to two methods that are considered the most effective, there are certain general strategic principles that you should follow to keep your web application safe.
-
-  
-![Train and maintain awareness](https://www.acunetix.com/wp-content/uploads/2020/03/csrf_sqli_step1-150x150.png)
-
-### Step 1: Train and maintain awareness
-
-To keep your web application safe, everyone involved in building the web application must be aware of the risks associated with CSRF vulnerabilities. You should provide suitable security training to all your developers, QA staff, DevOps, and SysAdmins. You can start by referring them to this page.
-
-  
-![Assess the risk](https://www.acunetix.com/wp-content/uploads/2020/03/csrf_sqli_step2-150x150.png)
-
-### Step 2: Assess the risk
-
-CSRF vulnerabilities do not apply to public content. They are only dangerous when authentication is required. Therefore, you can ignore this risk if you only have public content on your website. However, if you have a web application with user accounts, be extra vigilant. Treat CSRF as a major risk if you have an e-commerce application.
-
-  
-![Use anti-CSRF tokens](https://www.acunetix.com/wp-content/uploads/2020/03/csrf_sqli_step3-150x150.png)
-
-### Step 3: Use anti-CSRF tokens
-
-Anti-CSRF tokens are considered the most effective method of protecting against CSRF. Use a tested implementation such as CSRFGuard for Java or CSRFProtector for PHP to implement your anti-CSRF tokens. Develop your own mechanism only if there is no existing one for your environment.
-
-  
-![Use SameSite cookies](https://www.acunetix.com/wp-content/uploads/2020/03/csrf_sqli_step4-150x150.png)
-
-### Step 4: Use SameSite cookies
-
-Set the SameSite attribute of your cookies to Strict. If this would break your web application functionality, set the SameSite attribute to Lax but never to None. Not all browsers support SameSite cookies yet, but most do. Use this attribute as additional protection along with anti-CSRF tokens.
-
-  
-![Scan regularly (with Acunetix)](https://www.acunetix.com/wp-content/uploads/2020/03/csrf_sqli_step5-150x150.png)
-
-### Step 5: Scan regularly (with Acunetix)
-
-CSRF vulnerabilities may be introduced by your developers or through external libraries/modules/software. You should regularly scan your web applications using a web vulnerability scanner such as Acunetix. If you use Jenkins, you should install the Acunetix plugin to automatically scan every build.
-
-## Frequently asked questions
-
-#### What is CSRF?
-
-Cross-site Request Forgery (CSRF) vulnerabilities occur when a web server receives a malicious request from a trusted browser. An attacker can create a malicious link that lets them, for example, transfer money from a user’s online bank account to another account. The attacker can use social engineering to make the user click this link. Because the user is already logged in, the server executes the action using their account.
-
-[Learn more about CSRF](https://www.acunetix.com/blog/articles/cross-site-request-forgery/).
-
-#### How common is CSRF?
-
-According to our research, CSRF vulnerabilities are becoming less common but they are still present in one in every three tested websites and web applications. However, a year before they were present in one in every two, so the situation is clearly improving.
-
-[Read our report about the current state of web security](https://www.acunetix.com/acunetix-web-application-vulnerability-report/).
-
-#### How dangerous is CSRF?
-
-CSRF does not look dangerous at first glance because the attacker may only do what the user could do. However, the attacker may use this vulnerability to take over user accounts, for example, or to execute fraudulent transactions. Therefore, the potential impact of CSRF might be very serious.
-
-[See an example of a critical CSRF vulnerability that was present in Facebook](https://www.acunetix.com/blog/web-security-zone/critical-csrf-vulnerability-facebook/).
-
-#### How to detect CSRF?
-
-The best way to detect CSRF is by using an automated web vulnerability scanner. Acunetix is fully able to detect all CSRF vulnerabilities, both in third-party software and in your own applications. It also does it much faster than any other product on the market.
-
-[See what Acunetix Premium can do for you](https://www.acunetix.com/product/premium/).
-
-#### How to protect against CSRF?
-
-The most effective method of protecting against CSRF is by using **anti-CSRF tokens**. The developer should add such tokens to all forms that allow users to perform any state-changing operations. When an operation is submitted, the web application should then check for the presence of the correct token. The other effective method is the use of the **SameSite** attribute for cookies, but not all browsers support this method yet.
-
-[See how the Chrome browser implements CSRF protection](https://www.acunetix.com/blog/articles/chrome-tightens-csrf-protection/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
