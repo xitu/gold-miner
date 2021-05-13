@@ -7,8 +7,6 @@
 
 # Speed Up Your Angular Projects by 10x With GPU.js
 
-#### Learn how to use GPU programming in Angular
-
 ![Photo by [Lucas Kepner](https://unsplash.com/@lucaskphoto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12878/0*rDxYRR86genkrPIK)
 
 As developers, we always seek opportunities to enhance the performance of the applications we build. But when it comes to computationally heavy tasks, our options are minimal, and those tasks depend on CPU performance.
@@ -17,17 +15,15 @@ So, what would happen if we combined the power of GPU with our web applications?
 
 In this article, I will show you the steps to integrate GPU programming into your Angular project using [GPU.js](https://github.com/gpujs/gpu.js). I will also make a performance comparison and discuss when you should use GPU and when you should not.
 
----
-
 ## Using GPU.js With Angular
 
 If you don't know anything about GPU.js, don't worry. I will give the relevant details as the process goes on. Let's start by creating a new Angular project.
 
-#### 1. Initializing a new Angular project
+### 1. Initializing a new Angular project
 
 To create a new Angular project, you just need to run the `new` command:
 
-```
+```bash
 ng new <project-name>
 ```
 
@@ -37,7 +33,7 @@ After that, you can run the `ng serve` command and open `[http://localhost:4200/
 
 ![](https://cdn-images-1.medium.com/max/3800/1*Ae4A5eiYOynQNWqNdr9aSg.png)
 
-#### 2. Installing GPU.js
+### 2. Installing GPU.js
 
 As I mentioned initially, GPU.js is a JavaScript accelerated library that can be used for general-purpose computation purposes.
 
@@ -47,15 +43,19 @@ Using GPU.js doesn't make your application obsolete if there is no GPU in the ru
 
 Like any other JavaScript library, GPU.js also available in npm or yarn. You can use either of them to install GPU.js:
 
-```
+```bash
 npm install gpu.js — save
-or
+```
+
+or 
+
+```bash
 yarn add gpu.js
 ```
 
 Now we can start working on our first GPU.js functions.
 
-#### 3. Writing the kernel function with GPU.js
+### 3. Writing the kernel function with GPU.js
 
 I will be making this application write a function to calculate the multiplication of two numbers and feed them with different sizes of number arrays to see their execution time.
 
@@ -87,7 +87,7 @@ Two number arrays and the matrix size are passed into that function as input par
 
 JavaScript performance API functions are used to calculate the time and the `performance.now()` function will log the start and end times of the GPU execution.
 
-#### 4. Writing the CPU function
+### 4. Writing the CPU function
 
 Now we have to write an equivalent function for CPU execution. For that, I have used `for` loops and came up with this small function:
 
@@ -136,7 +136,7 @@ Apart from that, I have also used a function called `generateMatrices()` to gene
   }
 ```
 
-#### 5. Creating a simple UI
+### 5. Creating a simple UI
 
 Now I’m going to implement a simple UI where users can enter a size for the array and see the execution times.
 
@@ -183,7 +183,7 @@ Now I’m going to implement a simple UI where users can enter a size for the ar
 
 ```
 
-#### 6. Running the application and seeing the performance
+### 6. Running the application and seeing the performance
 
 Now it's all set, and the complete code looks like this:
 
@@ -288,10 +288,7 @@ export class AppComponent {
     this.gpuProduct = resultMatrix as number[][];
   }
 }
-
 ```
-
----
 
 ## Let's See the Performance Difference
 
