@@ -1,3 +1,6 @@
+* [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Swift 5.4 的新特性](https://juejin.cn/post/6937481372772597767)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
+* [在 iOS 14 中处理位置权限和管理近似地址访问](https://juejin.cn/post/6944895612001189924)（[Godlowd](https://github.com/Godlowd) 翻译）
 * [SwiftUI 2 应用生命周期的终极指导](https://juejin.cn/post/6924119708832628749)（[zhuzilin](https://github.com/zhuzilin) 翻译）
 * [UIKit 和 SwiftUI：我该选择哪一个运用在实际产品开发中？](https://juejin.cn/post/6923197105422991367)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [我们应该在什么时候使用 @State、@Binding、@ObservedObject、@EnvironmentObject 和 @Environment？](https://juejin.cn/post/6920881116043968520)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）

@@ -2,52 +2,52 @@
 > * 原文作者：[Michael Liu](https://medium.com/@quasimik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md](https://github.com/xitu/gold-miner/blob/master/article/2020/implementing-monte-carlo-tree-search-in-node-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[chzh9311](https://github.com/chzh9311)
 
-# Implementing Monte Carlo Tree Search in Node.js
+# 使用 Node.js 实现蒙特卡洛树搜索
 
 ![](https://cdn-images-1.medium.com/max/5000/1*RIYK4LcwRn_GCm_A3Mg1JA.jpeg)
 
-This article is a follow-up to [the previous one](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238), but I’ll provide enough context so that it’s possible to drop in on this one. Be forewarned that this one’s going to be more technical. All code is available in [this GitHub repo](https://github.com/quasimik/medium-mcts/).
+本文是[上一篇文章](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238)的后续，我会提供足够的背景知识，也顺便提一下这篇文章。要注意的是，本文的技术含量会比较高。本文所有代码都可以在 [GitHub 仓库](https://github.com/quasimik/medium-mcts/)中找到。
 
-As with the previous article, this one also assumes some computer science knowledge on the reader’s part, in particular how the **tree data structure** works. Intermediate knowledge of **JavaScript** (ES6+) is required.
+与上一篇文章一样，本文也假设读者具备一定的计算机科学知识，尤其是数据结构中关于**树结构**的工作原理，还需要具备 **JavaScript**（ES6+）的中级知识。
 
-This article has one simple goal:
+本文的目标很简单：
 
-1. Implement a Monte Carlo Tree Search (MCTS) algorithm to play a game given its rules.
+实现蒙特卡洛树搜索（MCTS）算法来玩一个给定规则的游戏。
 
-That’s it. Performance? Maybe next time. This whole thing is going to be instructional and hands-on. I will provide brief explanations of the linked code snippets, and the hope is that you, reader, will follow along and take the time to understand tricky bits in the code.
+这整个过程将是指导性和实践性的，并且忽略掉性能优化的部分。我将会对链接的代码片段进行简要解释，希望你能跟上我的脚步并花一些时间理解代码中复杂难懂的部分。
 
-Let’s begin.
+让我们开始吧！
 
-## Create the Skeleton Files
+## 创建骨架文件
 
-In `game.js`:
+在 `game.js` 文件中：
 
 ```js
-/** Class representing the game board. */
+/** 代表游戏棋盘的类。 */
 class Game {
 
-  /** Generate and return the initial game state. */
+  /** 生成并返回游戏的初始状态。 */
   start() {
     // TODO
     return state
   }
 
-  /** Return the current player’s legal moves from given state. */
+  /** 返回当前玩家在给定状态下的合法移动。 */
   legalPlays(state) {
     // TODO
     return plays
   }
 
-  /** Advance the given state and return it. */
+  /** 将给定的状态提前并返回。 */
   nextState(state, move) {
     // TODO
     return newState
   }
 
-  /** Return the winner of the game. */
+  /** 返回游戏的胜利者。 */
   winner(state) {
     // TODO
     return winner
@@ -57,18 +57,18 @@ class Game {
 module.exports = Game
 ```
 
-In `monte-carlo.js`:
+在 `monte-carlo.js` 文件中：
 
 ```js
-/** Class representing the Monte Carlo search tree. */
+/** 表示蒙特卡洛树搜索的类。 */
 class MonteCarlo {
 
-  /** From given state, repeatedly run MCTS to build statistics. */
+  /** 从给定的状态中，反复运行 MCTS 来建立统计数据。 */
   runSearch(state, timeout) {
     // TODO
   }
 
-  /** Get the best move from available statistics. */
+  /** 从现有的统计数据中获取最佳的移动。 */
   bestPlay(state) {
     // TODO
     // return play
@@ -78,7 +78,7 @@ class MonteCarlo {
 module.exports = MonteCarlo
 ```
 
-In `index.js`:
+在 `index.js` 文件中：
 
 ```js
 const Game = require('./game.js')
@@ -90,7 +90,7 @@ let mcts = new MonteCarlo(game)
 let state = game.start()
 let winner = game.winner(state)
 
-// From initial state, take turns to play game until someone wins
+// 从初始状态开始轮流进行游戏，直到有玩家胜利为止
 while (winner === null) {
   mcts.runSearch(state, 1)
   let play = mcts.bestPlay(state)
@@ -101,58 +101,58 @@ while (winner === null) {
 console.log(winner)
 ```
 
-Take a moment to look over the code. Build a scaffold of the subparts in your mind, and make sense of it. This is a mental checkpoint; make sure you understand how it all fits together. Otherwise, leave a comment and I’ll see what I can do.
+先花点时间梳理一下代码吧。在脑海中搭建一个子版块的脚手架，然后尝试去明白一下这个东西。这是一个思维上的检查点，先确保你明白它是如何组合在一起的，如果感到无法理解，就请留言吧，让我看看我能为你做些什么。
 
-## Finding the Right Game
+## 找到合适的游戏
 
-In the context of developing an MCTS-playing agent, we can think of our **real** program as the code that implements the MCTS framework; the code in `monte-carlo.js`. The game-specific code in `game.js` is interchangeable, plug-and-play; it is the interface through which we use our MCTS framework. We’re primarily interested in making the brains behind MCTS, and it should really work with any game we decide to run it on. After all, we’re interested in **general** game-playing.
+在开发一个 MCTS 游戏智能体的背景下，我们可以把我们真正的程序看作是实现 MCTS 框架的代码，也就是 `monte-carlo.js` 文件中的代码。在 `game.js` 文件中的游戏专用代码是可以互换并且即插即用的，它是我们使用 MCTS 框架的接口。我们主要是想做 MCTS 背后的大脑，它应该真的能在任何游戏上运行。毕竟，我们感兴趣的是一般性的游戏玩法。
 
-To test our MCTS framework, though, we’ll need to **pick** a specific game and run our framework using that. We want to see our framework spit out decisions that make sense for our chosen game at each step of the way.
+不过，为了测试我们的 MCTS 框架，我们需要选择一个特定的游戏，并使用该游戏运行我们的框架。我们希望看到 MCTS 框架在每个步骤中都做出对我们选择的游戏有意义的决策。
 
-How about tic-tac-toe, then? It’s what virtually every introductory game-playing instructional uses, and it has some very desirable properties:
+做一个井字游戏（`Tic-Tac-Toe`）怎么样呢？几乎所有的游戏入门教学都会用到它，它还有着一些非常令我们满意的特性：
 
-* Everyone has played it before,
-* Its rules are simple to implement algorithmically,
-* It has [perfect information](https://en.wikipedia.org/wiki/Perfect_information) and is deterministic,
-* It is an adversarial 2-player game,
-* The state space is simple enough to mentally model,
-* The state space is complex enough to demonstrate the algorithm’s power.
+* 大家之前都玩过。
+* 它的规则很简单，可以用算法实现。
+* 它具有一份确定的[完善的信息](https://en.wikipedia.org/wiki/Perfect_information)。
+* 它是一款对抗性的双人游戏。
+* 状态空间很简单，可以在心理上进行建模。
+* 状态空间的复杂程度足以证明算法的强大。
 
-But tic-tac-toe’s really **boring**, isn’t it? Plus, there’s some chance that you, reader, already know the optimal strategy for tic-tac-toe, and that takes some of the magic away. There are so many games to choose from. Let’s pick another one: how about **connect four**? It has all the benefits above, except maybe enjoying somewhat lower popularity than tic-tac-toe, and one probably can’t as easily build a mental model of connect four’s state space.
+但是，井字游戏真的很无聊，不是吗？另外，你大概已经知道井字游戏的最佳策略，这就失去了一些吸引力。有这么多游戏可以选择，我们再选一个：四子棋（**`Connect Four`**）怎么样？除了可能比井字游戏享有更低的人气外，它不仅有上面所列举的特性，还可能让玩家不那么容易地建立四子棋状态空间的心理模型。
 
-![I did it for the memes.](https://cdn-images-1.medium.com/max/2000/1*7KOc9QzhtuzIFgYBHem_Zg.jpeg)
+![我这样做是为了纪念。](https://cdn-images-1.medium.com/max/2000/1*7KOc9QzhtuzIFgYBHem_Zg.jpeg)
 
-For our implementation, we’ll be using Hasbro’s dimensions and rules. That’s 6 rows by 7 columns; where vertical, horizontal, and diagonal runs of 4 count for wins. Discs are dropped from above, and settle on the first free slot from the bottom (thanks, gravity!).
+在我们的实现中，我们将使用 Hasbro（孩之宝：美国著名玩具公司）的尺寸和规则，即是 6 行 7 列，其中垂直、水平和对角线棋子数相连为 4 就算胜利。棋子会从上方落下，并借助重力落在自底向上数的第一个空槽。
 
-A quick note before we move on, though. If you’re confident, you can go ahead and implement any game you want by yourself, as long as it adheres to the given game API. Just don’t come crying when you mess up and it doesn’t work. Keep in mind that games like chess and Go are way too complex for even MCTS to (effectively) tackle on its own; Google fixed that in [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) by adding a healthy sprinkling of machine learning to MCTS. If you’re flying your own game, you can skip the next two sections.
+不过在我们继续讲述之前，要先说明一下。如果你有信心，你可以自己去实现任何你想要的游戏，只要它遵守给定的游戏 API。只是当你搞砸了，不能用的时候不要来抱怨。请记住，像国际象棋和围棋这样的游戏太复杂了，即使是 MCTS 也无法（有效地）独自解决；谷歌在 [AlphaGo](https://storage.googleapis.com/deepmind-media/alphago/AlphaGoNaturePaper.pdf) 中通过向 MCTS 添加有效的机器学习策略来解决这个问题。如果你想玩自己的游戏，你可以跳过接下来的两个部分。
 
-## Implement Connect Four
+## 实现四子棋游戏
 
-At this point, go ahead and rename `game.js` to `game-c4.js`; and also rename the class to `Game_C4`. Also, create two new classes: `State_C4` in `state-c4.js` to represent game states, and `Play_C4` in `play-c4.js` to represent state transitions.
+现在，直接将 `game.js` 改名为 `game-c4.js`，将类改名为 `Game_C4`。同时，创建两个新类：`State_C4` 在 `state-c4.js` 中表示游戏状态，`Play_C4` 在 `play-c4.js` 中表示状态转换。
 
-Although this isn’t the main chunk of this article, how would you build this yourself?
+虽然这不是本文的主要内容，但是你自己会如何构建呢？
 
-* How would you represent a game state in `State_C4`?
-* How would you represent a state transition (i.e. a play, or a move) in `Play_C4`?
-* How would you take `State_C4`, `Play_C4`, and the rules of connect four — and put that in cold, hard code in `Game_C4`?
+* 你会如何在 `State_C4` 中表示一个游戏状态呢？
+* 在 `Play_C4` 中，你将如何表示一个状态转换（例如一个动作）呢？
+* 你会如何把 `State_C4`、`Play_C4` 和四子棋游戏规则 —— 用冰冷的代码放在 `Game_C4` 中吗？
 
-Remember, we need connect four in the form demanded by the high-level API methods defined in the `game-c4.js` skeleton.
+注意，我们需要通过骨架文件 `game-c4.js` 中定义的高级 API 方法所要求的形式实现四子棋游戏。
 
-Maybe think about it for a while. Or you could just get the completed `[play-c4.js](https://github.com/quasimik/medium-mcts/blob/master/play-c4.js)`, `[state-c4.js](https://github.com/quasimik/medium-mcts/blob/master/state-c4.js)`, and `[game-c4.js](https://github.com/quasimik/medium-mcts/blob/master/game-c4.js)` that I made.
+你可以独立思考完成或者直接使用我完成的 [`play-c4.js`](https://github.com/quasimik/medium-mcts/blob/master/play-c4.js)、[`state-c4.js`](https://github.com/quasimik/medium-mcts/blob/master/state-c4.js) 和 [`game-c4.js`](https://github.com/quasimik/medium-mcts/blob/master/game-c4.js) 文件。
 
 ---
 
-Phew! That was a lot of work, wasn’t it? (It was — at least for me.) The code requires some knowledge of [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference), but should be quite readable after some squinting. The most work goes into `Game_C4.winner()`, which builds runs of points in four separate boards, all in `checkBoards`. Each check board accounts a possible winning orientation (horizontal / vertical / left diagonal / right diagonal). The check boards are one larger than the actual game board on 3 sides to provide convenient zero padding for the algorithm.
+这是一个工作量很大的活，不是吗？至少对我来说是这样的。这段代码需要一些 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference) 知识，但应该还是很容易读懂的。最重要的工作在 `Game_C4.winner()` 中 —— 它用于在四个独立的棋盘中建立积分系统，而所有的棋盘都在 `checkBoards` 里面。每个棋盘都有一个可能的获胜方向（水平、垂直、左对角线或右对角线）。我们需要确保棋盘的三个面比实际棋盘大，方便为算法提供零填充。
 
-I’m sure there are better ways to do this. The run-time performance of `Game.winner()` is not great; specifically, in [big-O notation](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html), it’s O(rows\*cols) not great. This could be drastically improved by storing `checkBoards` within the state object, and only updating `checkBoards` with the last played cell (which would also be included in the state object). Maybe you can try this optimization later.
+我相信还有更好的方法。`Game.winner()` 的运行时性能并不是很好，具体来说，在[大 O 表示法](http://interactivepython.org/runestone/static/pythonds/AlgorithmAnalysis/BigONotation.html)中，它是 `O(rows * cols)`，所以性能并不是很好。通过在状态对象中存储 `checkBoards`，并且只更新 `checkBoards` 中最后改变状态的单元格（也会包含在状态对象中），可以大幅改善运行时性能，也许你以后可以尝试这个优化方法。
 
-## Play Connect Four
+## 运行四子棋游戏
 
-Here, we’re going to test `Game_C4` by simulating 1000 games of connect four. Grab this program file: `[test-game-c4.js](https://github.com/quasimik/medium-mcts/blob/master/test-game-c4.js)`.
+此时，我们将通过模拟 1000 次四子棋游戏来测试 `Game_C4`。点击获取 [`test-game-c4.js`](https://github.com/quasimik/medium-mcts/blob/master/test-game-c4.js) 文件。
 
-Run `node test-game-c4.js` on a terminal. On a relatively modern processor and a recent version of Node.js, the 1000 iterations should run in under a second:
+在终端上运行 `node test-game-c4.js`。在一个相对现代的处理器和最新版本的 `Node.js` 上，运行 `1000` 次迭代应该会在一秒钟内完成：
 
-```
+```shell
 $ node test-game-c4.js
 
 [ [ 0, 0, 0, 0, 0, 0, 2 ],
@@ -164,30 +164,30 @@ $ node test-game-c4.js
 0.549
 ```
 
-Player 2 is internally represented by **-1**, for convenience of calculations in `game-c4.js`; the bit of code replacing -1 with 2 is just there to align the board output. The program outputs only one board for brevity, but it really plays 999 other games. After the single board output, it should output the fraction of player 1 wins over all 1000 games — expect a value around 55%, because the first player has first-mover’s advantage.
+二号棋手在内部用 **-1** 表示，这是为了方便 `game-c4.js` 的计算。用 `2` 代替 `-1` 的那段代码只是为了对齐棋盘输出结果。为了简便起见，程序只输出了一块棋盘，但它确实玩了另外的 `999` 次四子棋游戏。在单个棋盘输出之后，它应该输出一号棋手在所有 `1000` 盘棋中获胜的分数 —— 预计数值在 `55%` 左右，因为第一个棋手有先发优势。
 
-## Where We Are Now
+## 分析现在的状况
 
-Alright. We’ve got a working game, with API methods that work with game states represented by nice `State` objects. Where are we at right now?
+我们已经实现一个带有 API 方法并且可以运行的游戏，这些 API 方法可以与 `State` 对象表示的游戏状态协同运行。我们现在的状况如何？
 
-> Goal: Implement a Monte Carlo Tree Search (MCTS) algorithm to play a game given its rules.
+> 目标：实现蒙特卡洛树搜索（MCTS）算法来玩一个给定规则的游戏。
 
-Of course, we’re not there yet. The previous section does one very important thing for us: it provides a tangible goal, forming the backbone for testing our implementation of MCTS. Now, we move on to the main event.
+当然，我们还没有达到目的。刚才我们完成了一件非常重要的事情：让它设立一个切实的目标，并组成测试我们实现 MCTS 的核心模块。现在，我们进入正题。
 
-## Implement MCTS
+## 实现蒙特卡洛树搜索
 
-Reading [the previous article](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238) — particularly the **MCTS in Detail** section — should help with understanding the rest of this article. Here, I’ll follow a similar organization as in **MCTS in Detail**. I’ll also quote myself in some places to elucidate certain points.
+阅读[上一篇文章](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238) —— 尤其是 MCTS 详解部分 —— 应该有助于理解本文的其他内容。在这里，我将按照 MCTS 详解中类似的组织方式，我也会在一些地方用自己的话来阐明某些观点。
 
-#### Implement Search Tree Nodes
+### 实现搜索树节点
 
 ![](https://cdn-images-1.medium.com/max/2800/1*X-O642s1_MTFnevaBPk9iQ.jpeg)
 
-> To store the statistical information gained from these simulations, MCTS builds its own **search tree** from scratch…
+> 为了存储从这些模拟中获得的统计信息，MCTS 从头开始建立了自己的搜索树。
 
-At this point, invoke your knowledge of [trees](https://en.wikipedia.org/wiki/Tree_(data_structure)). MCTS is a **tree search**, so it’s no surprise that we’ll need **tree nodes**. We will implement these nodes in their own class `MonteCarloNode`, in `monte-carlo-node.js`. Then, we’ll use that to build the search tree in `MonteCarlo`.
+现在请你回顾[树结构](https://en.wikipedia.org/wiki/Tree_(data_structure))知识。MCTS 是一个树结构搜索，因此我们需要使用树节点。我们将在 `monte-carlo-node.js` 的 `MonteCarloNode` 类中实现这些节点。然后，我们将在 `MonteCarlo` 中使用它来构建搜索树。
 
 ```js
-/** Class representing a node in the search tree. */
+/** 代表搜索树中一个节点的类。 */
 class MonteCarloNode {
 
   constructor(parent, play, state, unexpandedPlays) {
@@ -195,11 +195,11 @@ class MonteCarloNode {
     this.play = play
     this.state = state
 
-    // Monte Carlo stuff
+    // 蒙特卡洛的内容
     this.n_plays = 0
     this.n_wins = 0
 
-    // Tree stuff
+    // 树结构的内容
     this.parent = parent
     this.children = new Map()
     for (let play of unexpandedPlays) {
@@ -210,92 +210,92 @@ class MonteCarloNode {
   ...
 ```
 
-Again, make sure this all makes sense:
+先再确认一下是否能够理解这些：
 
-* `parent` is the parent `MonteCarloNode`,
-* `play` is the `Play` made from the parent to get to this node,
-* `state` is the game `State` associated with this node,
-* `unexpandedPlays` is an array of legal `Plays` that can be made from this node,
-* `this.children` is built from `unexpandedPlays`, and is a [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) of `Plays` to children `MonteCarloNodes` (not quite, see below).
+* `parent` 是 `MonteCarloNode` 父节点。
+* `play` 是指从父节点到这个节点所做的 `Play`。
+* `state` 是指与该节点相关联的游戏 `State`。
+* `unexpandedPlays` 是 `Plays` 的一个合法数组，可以从这个节点进行。
+* `this.children` 是由 `unexpandedPlays` 创建的，是 `Plays` 指向子节点 `MonteCarloNodes` 的一个 [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) 对象（不完全是，见下文）。
 
-`MonteCarloNode.children` is a map from play hashes to an object containing (1) the play object and (2) the associated child node. We include the play object here for convenient recovery of play objects from their hashes.
+`MonteCarloNode.children` 是一个从游戏哈希到对象的映射，包含游戏对象和相关的子节点。我们在这里包含了游戏对象，以便从它们的哈希中恢复游戏对象。
 
-Importantly, `Play` and `State` should provide `hash()` methods. We’ll use these hashes as keys to JavaScript Maps in several places, like in `MonteCarloNode.children`.
+重要的是，`Play` 和 `State` 应该提供 `hash()` 方法。我们将在一些地方使用这些哈希作为 JavaScript 的 Map 对象，比如在 `MonteCarloNode.children` 中。
 
-Note that two `State` objects should be considered different by `State.hash()` — even if they have the same board state — if each reached that identical board state through **different play orders**. With this in mind, we can simply make `State.hash()` return a stringified ordered array of `Play` objects, representing the moves made to reach that state. If you grabbed my copy of `state-c4.js`, this is already done.
+请注意，两个 `State` 对象应该被 `State.hash()` 认为是不同的 —— 即使它们有相同的棋盘状态 —— 如果每个对象通过**不同的下棋顺序**达到相同的棋盘状态。考虑到这一点，我们可以简单地让 `State.hash()` 返回一个字符串化的 `Play` 对象的有序数组，代表为达到该状态而下的棋。如果你获取了我的 `state-c4.js`，这个已经完成了。
 
-We’ll now add member methods to `MonteCarloNode`.
+现在我们将为 `MonteCarloNode` 添加成员方法。
 
 ```js
   ...
 
-  /** Get the MonteCarloNode corresponding to the given play. */
+  /** 获取对应于给定游戏的 MonteCarloNode。 */
   childNode(play) {
     // TODO
-    // return MonteCarloNode
+    // 返回 MonteCarloNode
   }
 
-  /** Expand the specified child play and return the new child node. */
+  /** 展开指定的 child play，并返回新的 child node。*/
   expand(play, childState, unexpandedPlays) {
     // TODO
-    // return MonteCarloNode
+    // 返回 MonteCarloNode
   }
 
-  /** Get all legal plays from this node. */
+  /** 从这个节点 node 获取所有合法的 play。*/
   allPlays() {
     // TODO
-    // return Play[]
+    // 返回 Play[]
   }
 
-  /** Get all unexpanded legal plays from this node. */
+  /** 从这个节点 node 获取所有未展开的合法 play。 */
   unexpandedPlays() {
     // TODO
-    // return Play[]
+    // 返回 Play[]
   }
 
-  /** Whether this node is fully expanded. */
+  /** 该节点是否完全展开。 */
   isFullyExpanded() {
     // TODO
-    // return bool
+    // 返回 bool
   }
 
-  /** Whether this node is terminal in the game tree, 
-      NOT INCLUSIVE of termination due to winning. */
+  /** 该节点 node 在游戏树中是否为终端，
+    不包括因获胜而终止游戏。 */
   isLeaf() {
     // TODO
-    // return bool
+    // 返回 bool
   }
   
-  /** Get the UCB1 value for this node. */
+  /** 获取该节点 node 的 UCB1 值。 */
   getUCB1(biasParam) {
     // TODO
-    // return number
+    // 返回 number
   }
 }
 
 module.exports = MonteCarloNode
 ```
 
-That’s a lot of methods!
+方法可真多!
 
-In particular, `MonteCarloNode.expand()` replaces null (unexpanded) nodes in `MonteCarloNode.children` with real nodes. This method will be a part of **Phase 2: Expansion** in the four-phase MCTS algorithm. Other methods explain themselves.
+特别是，`MonteCarloNode.expand()` 将 `MonteCarloNode.children` 中未展开的空节点替换为实节点。这个方法将是四阶段的 MCTS 算法中**阶段二：扩展**的一部分，其他方法自行理解。
 
-As usual, you can implement these yourself or you can grab the completed `[monte-carlo-node.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-node.js)`. Even if you do it yourself, I recommend checking against my completed program to make sure everything’s OK before moving on.
+通常你可以自己实现这些，也可以获取完成的 [`monte-carlo-node.js`](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-node.js)。即使你自己做，我也建议在继续之前对照我完成的程序进行检查，以确保正常运行。
 
-If you just grabbed my completed program, have a quick glance over the implementation, just as another mental checkpoint to re-center your overall understanding. These are short methods. You’ll get through them in no time.
+如果你刚获取到我完成的程序，请快速浏览一下源代码，就当是另一个心理检查点，重新梳理你的整体理解。这些都是简短的方法，你会在短时间内看懂它们。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eFzE9DWAfJKpehpbYSqivQ.png)
 
-In particular, `MonteCarloNode.getUCB1()` is an almost direct translation of the following formula into code. This whole equation is explained in detail in the previous article. Go take another look; it’s not that hard to understand and it’s worth it.
+尤其是 `MonteCarloNode.getUCB1()` 几乎是将上面的公式直接翻译成代码。这整个公式在上一篇文章中有详细的解释，再去看一下吧，这并不难理解，也是值得看的。
 
-#### Update the MonteCarlo Class
+### 更新蒙特卡洛的类
 
-The current version is [monte-carlo-v1.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-v1.js), a mere skeleton. The first update to the class is to include `MonteCarloNode` and to add a constructor.
+目前的版本是 [monte-carlo-v1.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-v1.js)，只是一个骨架文件。该类的第一个更新是增加 `MonteCarloNode`，并创建一个构造函数。
 
 ```js
 const MonteCarloNode = require('./monte-carlo-node.js')
 
-/** Class representing the Monte Carlo search tree. */
+/** 表示蒙特卡洛搜索树的类。 */
 class MonteCarlo {
     
   constructor(game, UCB1ExploreParam = 2) {
@@ -307,12 +307,12 @@ class MonteCarlo {
   ...
 ```
 
-`MonteCarlo.nodes` allows us to get any node given its state; this will be useful. As for the other member variables, it just makes sense for them to be associated with `MonteCarlo`.
+`MonteCarlo.nodes` 允许我们获取任何给定状态的节点，这将是有用的。至于其他的成员变量，将它们与 `MonteCarlo` 联系起来就很有意义了。
 
 ```js
   ...
 
-  /** If given state does not exist, create dangling node. */
+  /** 如果给定的状态不存在，就创建空节点。 */
   makeNode(state) {
     if (!this.nodes.has(state.hash())) {
       let unexpandedPlays = this.game.legalPlays(state).slice()
@@ -324,12 +324,12 @@ class MonteCarlo {
   ...
 ```
 
-This lets us create the root node. It also lets us create arbitrary nodes, which could be useful. Maybe.
+以上代码让我们可以创建根节点，还可以创建任意节点，这可能很有用。
 
 ```js
   ...
 
-  /** From given state, repeatedly run MCTS to build statistics. */
+  /** 从给定的状态，反复运行 MCTS 来建立统计数据。 */
   runSearch(state, timeout = 3) {
 
     this.makeNode(state)
@@ -351,61 +351,61 @@ This lets us create the root node. It also lets us create arbitrary nodes, which
   ...
 ```
 
-Finally, we arrive at the heart of the algorithm. Quoting verbatim from [the first article](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238), here’s what’s happening:
+最后，我们来到了算法的核心部分。引用[第一篇文章](https://medium.com/@quasimik/monte-carlo-tree-search-applied-to-letterpress-34f41c86e238)的内容，以下是过程描述：
 
-1. In phase (1), existing information is used to repeatedly choose successive child nodes down to the end of the search tree.
-2. Next, in phase (2), the search tree is expanded by adding a node.
-3. Then, in phase (3), a simulation is run to the end to determine the winner.
-4. Finally, in phase (4), all the nodes in the selected path are updated with new information gained from the simulated game.
+1. 在第 (1) 阶段，利用现有的信息反复选择连续的子节点，直至搜索树的末端。
+2. 接下来，在第 (2) 阶段，通过增加一个节点来扩展搜索树。
+3. 然后，在第 (3) 阶段，模拟运行到最后，决定胜负。
+4. 最后，在第 (4) 阶段，所选路径中的所有节点都会用模拟游戏中获得的新信息进行更新。
 
-This 4-phase algorithm is run repeatedly until enough information is gathered to produce a good move.
+这四个阶段的算法反复运行，直至收集到足够的信息，产生一个好的移动结果。
 
 ```js
   ...
 
-  /** Get the best move from available statistics. */
+  /** 从现有的统计数据中获得最佳的移动。 */
   bestPlay(state) {
     // TODO
-    // return play
+    // 返回 play
   }
 
-  /** Phase 1, Selection: Select until not fully expanded OR leaf */
+  /** 第一阶段：选择。选择直到不完全展开或叶节点。 */
   select(state) {
     // TODO
-    // return node
+    // 返回 node
   }
 
-  /** Phase 2, Expansion: Expand a random unexpanded child node */
+  /** 第二阶段：扩展。随机展开一个未展开的子节点。 */
   expand(node) {
     // TODO
-    // return childNode
+    // 返回 childNode
   }
 
-  /** Phase 3, Simulation: Play game to terminal state, return winner */
+  /** 第三阶段：模拟。游戏到终止状态，返回获胜者。 */
   simulate(node) {
     // TODO
-    // return winner
+    // 返回 winner
   }
 
-  /** Phase 4, Backpropagation: Update ancestor statistics */
+  /** 第四阶段：反向传播。更新之前的统计数据。 */
   backpropagate(node, winner) {
     // TODO
   }
 }
 ```
 
-Here are stub methods that we’ll fill in shortly. We’re now at version [monte-carlo-v2.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-v2.js).
+接下来讲解四个阶段具体的实现方法，我们现在的版本是 [monte-carlo-v2.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo-v2.js)。
 
-#### Implement MCTS Phase 1: Selection
+### 实现 MCTS 第一阶段：选择
 
 ![](https://cdn-images-1.medium.com/max/2800/1*HXg8Z9BTtlrH0clwTEkF8w.jpeg)
 
-> Starting from the root node of the search tree, we go down the tree by repeatedly (1) selecting a legal move and (2) advancing to the corresponding child node. If one, several, or all of the legal moves in a node does not have a corresponding node in the search tree, we stop selection.
+> 从搜索树的根节点开始，我们通过反复选择一个合法移动，前进到相应的子节点来向下移动。如果一个节点中的一个、几个或全部合法移动在搜索树中没有对应的节点，我们就停止选择。
 
 ```js
   ...  
 
-  /** Phase 1, Selection: Select until not fully expanded OR leaf */
+  /** 第一阶段：选择。选择直到不完全展开或叶节点。 */
   select(state) {
 
     let node = this.nodes.get(state.hash())
@@ -431,20 +431,20 @@ Here are stub methods that we’ll fill in shortly. We’re now at version [mont
   ...
 ```
 
-This function uses the UCB1 statistics available, by querying the UCB1 value of each child node. It selects the child with the highest UCB1 value, then repeats the process for the selected child node’s children, and so on.
+该函数通过查询每个子节点的 UCB1 值，使用现有的 UCB1 统计。选择 UCB1 值最高的子节点，然后对所选子节点的子节点重复这个过程，以此类推。
 
-When the loop terminates, the selected node is guaranteed to have at least one unexpanded child, **unless** that node is a leaf node. This case is handled by the calling function `MonteCarlo.runSearch()`, so we don’t have to worry about it here.
+当循环终止时，保证所选节点至少有一个未展开的子节点，除非该节点是叶子节点。这种情况是由调用函数 `MonteCarlo.runSearch()` 处理的，所以我们在这里不必担心。
 
-#### Implement MCTS Phase 2: Expansion
+### 实现 MCTS 第二阶段：扩展
 
 ![](https://cdn-images-1.medium.com/max/2800/1*Lxhg0BSSwLmR0kh8uHpDJw.jpeg)
 
-> After selection stops, there will be at least one unexpanded move in the search tree. Now, we randomly choose one of them and we then create the child node corresponding to that move (bolded in the diagram). We add this node as a child to the last selected node in the selection phase, expanding the search tree. The statistics information in the node is initialized with 0 wins out of 0 simulations.
+> 停止选择后，搜索树中至少会有一个未展开的移动。现在，我们随机选择其中的一个，然后我们创建该移动对应的子节点（图中加粗）。我们将这个节点作为子节点添加到选择阶段最后选择的节点上，扩展搜索树。节点中的统计信息初始化为 `0` 次模拟中的 `0` 次胜利。
 
 ```js
   ...
 
-  /** Phase 2, Expansion: Expand a random unexpanded child node */
+  /** 第二阶段：扩展。随机展开一个未展开的子节点。 */
   expand(node) {
 
     let plays = node.unexpandedPlays()
@@ -462,22 +462,22 @@ When the loop terminates, the selected node is guaranteed to have at least one u
   ...
 ```
 
-Take another look at `MonteCarlo.runSearch()`. Expansion is done within a check if (node.isLeaf() === false && winner === null). Obviously, it’s impossible to expand if there are no children possible in the game tree — for example, when the board is full. We also don’t want to expand if there’s a winner — this is as obvious as saying you should stop playing the game when your opponent wins.
+再来看一下 `MonteCarlo.runSearch()`。扩展是在检查 `if (node.isLeaf() === false && winner === null)` 时完成的。很明显，如果在游戏树中没有可能的子节点 —— 例如，当棋盘满了的时候，是不可能进行扩展的。如果有赢家的话，我们也不想扩展 —— 这就像说当你的对手赢了的时候你应该停止玩游戏一样明显。
 
-So what happens if the node is leaf? We just backpropagate with whomever won in that node — be it player 1, player -1, or even 0 (a draw). Similarly, if there’s a non-null winner at any node, we just skip expansion and simulation, and immediately backpropagate with that winner (1 or -1 or 0).
+那么如果是叶子节点，会发生什么呢？我们只需用在该节点中获胜的人进行反向传播 —— 无论是玩家 `1`，玩家 `-1`，甚至是 `0`（平局）。同样，如果在任何节点上有一个非空的赢家，我们只需跳过扩展和模拟，并立即与该赢家（`1` 或 `-1` 或 `0`）进行反向传播。
 
-What does it mean to backpropagate with a 0 winner? Does it really work okay with MCTS? More on this later. Spoiler: it works okay.
+反向传播 `0` 赢家是什么意思？用 MCTS 真的可以吗？真的可以用，后面再细讲。
 
-#### Implement MCTS Phase 3: Simulation
+### 实现 MCTS 第三阶段：模拟
 
 ![](https://cdn-images-1.medium.com/max/2800/1*cdAMXAIpqWovfOPFd8r81w.jpeg)
 
-> Continuing from the newly-created node in the expansion phase, moves are selected randomly and the game state is repeatedly advanced. This repeats until the game is finished and a winner emerges. No new nodes are created in this phase.
+> 从扩张阶段新建立的节点开始，随机选择棋步，反复推进对局状态。这样重复进行，直到对局结束，出现赢家。在此阶段不创建新节点。
 
 ```js
   ...
   
-  /** Phase 3, Simulation: Play game to terminal state, return winner */
+  /** 第三阶段：模拟。游戏到终止状态，返回获胜者。 */
   simulate(node) {
 
     let state = node.state
@@ -496,24 +496,24 @@ What does it mean to backpropagate with a 0 winner? Does it really work okay wit
   ...
 ```
 
-Because nothing is saved here, this mostly involves `Game` and not much of `MonteCarloNode`.
+因为这里没有保存任何东西，所以这主要涉及到 `Game`，而 `MonteCarloNode` 的内容不多。
 
-Looking at `MonteCarlo.runSearch()` again, simulation is done within the same check if (node.isLeaf() === false && winner === null) as expansion. The reason: if one of these two conditions hold, then the final winner is whomever the winner of the current node is. We just use this winner for backpropagation.
+再看一下 `MonteCarlo.runSearch()`，模拟是在与扩展一样的检查 `if (node.isLeaf() === false && winner === null)` 时完成的。原因是：如果这两个条件之一成立，那么最后的赢家就是当前节点的赢家，我们只是用这个赢家进行反向传播。
 
-#### Implement MCTS Phase 4: Backpropagation
+### 实现 MCTS 第四阶段：反向传播
 
 ![](https://cdn-images-1.medium.com/max/2800/1*1iSZ0jZgzj4K0uBypQK_Pg.jpeg)
 
-> After the simulation phase, the statistics on all the visited nodes (bolded in the diagram) are updated. Each visited node has its simulation count incremented. Depending on which player wins, its win count may also be incremented. In the diagram, **blue** wins, so each visited **red** node’s win count is incremented. This flip is due to the fact that each node’s statistics are used for its **parent** node’s choice, not its own.
+> 模拟阶段结束后，所有被访问的节点（图中粗体）的统计数据都会被更新。每个被访问的节点的模拟次数都会递增。根据哪个玩家获胜，其获胜次数也可能递增。在图中，**蓝节点**赢了，所以每个被访问的**红节点**的胜利数都会递增。这种反转是由于每个节点的统计数据是用于其**父节点**的选择，而不是它自己的。
 
 ```js
   ...
 
-  /** Phase 4, Backpropagation: Update ancestor statistics */
+  /** 第四阶段：反向传播。更新之前的统计数据。 */
   backpropagate(node, winner) {
     while (node !== null) {
       node.n_plays += 1
-      // Parent's choice
+      // 父节点的选择
       if (node.state.isPlayer(-winner)) {
         node.n_wins += 1
       }
@@ -525,25 +525,25 @@ Looking at `MonteCarlo.runSearch()` again, simulation is done within the same ch
 module.exports = MonteCarlo
 ```
 
-This is the part that affects the selection phase in the next iteration of the search. Note that this assumes a two-player game, allowing the flip in `node.state.isPlayer(-winner)`. You can probably generalize this function for an **n**-player game by doing node.parent.state.isPlayer(winner) or something.
+这是影响下一次迭代搜索中选择阶段的部分。请注意，这假设是一个两人游戏，允许在 `node.state.isPlayer(-winner)` 中进行反转。你也许可以把这个函数泛化为 **n** 人游戏，做成 `node.parent.state.isPlayer(winner)` 之类的。
 
-Think a while about what it means to backpropagate with a 0 winner. This corresponds to a drawn game, and every visited node’s `n_plays` statistics get incremented, while neither player 1's nor player -1’s `n_wins` statistics get incremented. This update behaves like a **lost game for both players**, pushing selection towards other plays. In the end, games that end in a draw are as likely to be under-explored as games that end in a loss. This doesn’t break anything, but it results in suboptimal play for when forcing a draw is preferable to losing. A quick fix would be to increment `n_wins` of both players by **half** on draws.
+想一想，反向传播 `0` 赢家是什么意思？这相当于一盘平局，每个访问节点的 `n_plays` 统计数据都会增加，而玩家 `1` 和玩家 `-1` 的 `n_wins` 统计数据都不会增加。这种更新的行为就像**两败俱伤**的游戏，将选择推向其他游戏。最后，以平局结束的游戏和以失败结束的游戏一样，都有可能得不到充分的开发。这并没有破坏任何东西，但它导致了当平局比输棋更可取时的次优发挥。一个快速的解决方法是在平局时将双方的 `n_wins` 递增一半。
 
-#### Implement Best Play Selection
+## 实现最佳游戏选择
 
 ![](https://cdn-images-1.medium.com/max/2800/1*_dqXQtC0YC_lsi32ZVoPgg.jpeg)
 
-> The beauty of MCTS(UCT) is that, due to its asymmetrical nature, the tree selection and growth gradually converges to better moves. At the end, you get the child node with the highest number of simulations and that’s your best move according to MCTS.
+> MCTS(UCT) 的妙处在于，由于它的不对称性，树的选择和成长逐渐趋向于更好的移动。最后，你得到模拟次数最多的子节点，那就是你根据 MCTS 的最佳移动结果。
 
 ```js
   ...
   
-  /** Get the best move from available statistics. */  
+  /** 从现有的统计数据中获得最佳的移动结果。 */  
   bestPlay(state) {
 
     this.makeNode(state)
 
-    // If not all children are expanded, not enough information
+    // 如果不是所有的子节点都被扩展，则信息不足
     if (this.nodes.get(state.hash()).isFullyExpanded() === false)
       throw new Error("Not enough information!")
 
@@ -566,20 +566,20 @@ Think a while about what it means to backpropagate with a 0 winner. This corresp
   ...
 ```
 
-Note that there are different ways to choose the “best” play. The one here is called **robust child** in the literature, choosing the highest `n_plays`. Another is **max child**, which chooses the highest winrate `n_wins/n_plays`.
+需要注意的是，选择最佳玩法有不同的策略。这里所采用的策略在文献中叫做 **`robust child`**，选择最高的 `n_plays`。另一种策略是 **`max child`**，选择最高的胜率 `n_wins/n_plays`。
 
-## Implement Statistics Introspection and Display
+## 实现统计自检和显示
 
-Right now, you should be able to run `node index.js` on the current version `[index-v1.js](https://github.com/quasimik/medium-mcts/blob/master/index-v1.js)`; however, you won’t see very much. To see what’s happening inside, we need to do a bit more.
+现在，你应该可以在当前版本 [`index-v1.js`](https://github.com/quasimik/medium-mcts/blob/master/index-v1.js) 上运行 `node index.js`。但是，你不会看到很多东西。要想看到里面发生了什么，我们需要完成以下事情。
 
-In `monte-carlo.js`:
+在 `monte-carlo.js` 文件中:
 
 ```js
   ...  
   
-  // Utility Methods
+  // 工具方法
 
-  /** Return MCTS statistics for this node and children nodes */
+  /** 返回该节点和子节点的 MCTS 统计信息 */
   getStats(state) {
 
     let node = this.nodes.get(state.hash())
@@ -605,13 +605,13 @@ In `monte-carlo.js`:
 module.exports = MonteCarlo
 ```
 
-This lets us query the statistics of a node and its direct children. With this done, we have completed `MonteCarlo`. You can run with what you have, or optionally grab my completed `[monte-carlo.js](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo.js)`. Note that in my completed version, there’s an additional parameter on `bestPlay()` to control the best-play policy used.
+这让我们可以查询一个节点及其直接子节点的统计数据。做完这些，我们就完成了 `MonteCarlo`。你可以用你所拥有的东西来运行，也可以选择获取我完成的 [`monte-carlo.js`](https://github.com/quasimik/medium-mcts/blob/master/monte-carlo.js)。请注意，在我完成的版本中，`bestPlay()` 上有一个额外的参数来控制使用的最佳玩法策略。
 
-Now, incorporate `MonteCarlo.getStats()` into `index.js` yourself, or instead grab my complete version of `[index.js](https://github.com/quasimik/medium-mcts/blob/master/index.js)`.
+现在，将 `MonteCarlo.getStats()` 整合到 `index.js` 中，或者获取我的完整版 [`index.js`](https://github.com/quasimik/medium-mcts/blob/master/index.js) 文件。
 
-Then, run `node index.js`:
+接着运行 `node index.js`：
 
-```
+```shell
 $ node index.js
 
 player: 1
@@ -663,13 +663,13 @@ winner: 2
   [ 1, 0, 2, 1, 1, 2, 1 ] ]
 ```
 
-Beautiful.
+完美！
 
-## Parting Words
+## 总结
 
-It’s been a wonderful journey, and I hope you’ve enjoyed it. The next post will be about optimization, and the current state of the art in MCTS.
+本文主要讲述如何使用 Node.js 实现蒙特卡洛树搜索，希望大家喜欢。下一篇文章将介绍如何优化，以及蒙特卡洛树搜索（MCTS）的现状。
 
-I’ll see you then.
+感谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

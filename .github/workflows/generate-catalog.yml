@@ -7,6 +7,7 @@ on:
 
 jobs:
   generate:
+    if: github.repository == 'xitu/gold-miner'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
