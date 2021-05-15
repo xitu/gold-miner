@@ -2,251 +2,249 @@
 > * 原文作者：[Jose Granja](https://medium.com/@dioxmio)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/stop-using-the-pixel-unit-in-css.md](https://github.com/xitu/gold-miner/blob/master/article/2021/stop-using-the-pixel-unit-in-css.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Stop Using the Pixel Unit in CSS
+# 快停止在 CSS 中使用像素单位
 
-![Photo by [Alexander Andrews](https://unsplash.com/@alex_andrews?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12450/0*5eX8OB4YTWwqM1RV)
+![图源 [Alexander Andrews](https://unsplash.com/@alex_andrews?utm_source=medium&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12450/0*5eX8OB4YTWwqM1RV)
 
-Why do web developers use the `px` unit so blindly? It is just a bad habit? Is it because of a lack of knowledge of other units? Maybe because the design teams rely on `px` and `pt` for their mocks? It is unclear why the pixel is the current go-to unit for most teams.
+为什么 Web 开发者如此盲目地使用 px 单元？这只是一个坏习惯吗？是因为缺乏其他单位的知识吗？也许是因为设计团队的模拟依赖于 px 和 pt？目前我们也无法明白为什么像素是大多数团队当前的首选单位。
 
-Maybe, the main reason is that it looks simple and convenient. Intuitively, we think we understand this unit because it looks as though it is mapping our pixel screen.
+也许，主要原因是它看起来简单方便。凭直觉，我们认为我们了解此单元，因为它看起来好像在映射像素屏幕。
 
-The `px` unit is something that gets you started very easily, but it turns into a problem later down the road. In this article, I will expose the top three reasons to avoid the pixel unit. We will discuss the problems with its usage and some possible solutions.
+px 单元可以使你轻松上手，但是后来却变成了一个问题。在本文中，我将介绍避免像素单元的前三个原因。我们将讨论其使用方面的问题以及一些可能的解决方案。
 
-## 1. They Are Just Optical Reference Units
+## 1. 它们只是光学参考单位
 
-Pixel values are no longer based on a hardware pixel. It just wouldn’t work and will look very different for many screens and resolutions. They are instead based on an optical reference unit. So the part that we found more intuitive about that unit is no longer there.
+如今像素值不再基于硬件像素，会在许多屏幕和分辨率下看起来都非常不同。它们只是基于光学单位，因此，我们发现对该单元更直观的部分不再存在。
 
-Hardware is changing by the day and pixel densities are growing. We can’t rely on the assumption that devices have a pixel density of `96dpi`. They are no longer a stable point of reference.
+硬件每天都在变化，像素密度也在增长。我们不能依靠这样的假设，即设备的像素密度为 96dpi —— 这不再是一个稳定的参考值。
 
-> “Note that if the anchor unit is the pixel unit, the physical units might not match their physical measurements. Alternatively if the anchor unit is a physical unit, the pixel unit might not map to a whole number of device pixels.
+> “请注意，如果锚点单位是像素单位，则物理单位可能与它们的物理尺寸不匹配。或者，如果锚点单元是物理单元，则像素单元可能不会映射到设备像素的总数。
 >
-> Note that this definition of the pixel unit and the physical units differs from previous versions of CSS. In particular, in previous versions of CSS the pixel unit and the physical units were not related by a fixed ratio: the physical units were always tied to their physical measurements while the pixel unit would vary to most closely match the reference pixel. (This change was made because too much existing content relies on the assumption of 96dpi, and breaking that assumption breaks the content.)” — [W3C](https://www.w3.org/TR/2011/WD-css3-values-20110906/)
+>请注意，像素单位和物理单位的定义与CSS的早期版本不同。特别是，在 CSS 的早期版本中，像素单位和物理单位不是以固定比率关联的：物理单位始终与物理尺寸相关联，而像素单位会发生变化以最紧密地匹配参考像素。（进行此更改是因为现有内容过多取决于 96dpi 的假设，而打破该假设会破坏内容。）” —— [W3C]（https://www.w3.org/TR/2011/WD-css3-值-20110906 /）
 
-In summary, it means that the pixel is unreliable. Because of its unreliable nature achieving pixel-perfect layouts might be not possible.
+总之，这意味着像素不可靠。由于其不可靠的特性，可能无法实现像素完美的布局。
 
-Let’s see the equivalence of 1mm to pixels with different dots-per-inch resolutions:
+让我们看一下每英寸点数不同的像素等效于 1mm 的像素：
 
-![mm to pixel on an average Macbook dpi on Pixelcalculator](https://cdn-images-1.medium.com/max/2000/1*xgFl-SLMot8k2KR0HEn4mQ.png)
+![在 Pixelcalculator 上平均 MacBook dpi 的毫米到像素](https://cdn-images-1.medium.com/max/2000/1*xgFl-SLMot8k2KR0HEn4mQ.png)
 
-![mm to pixel on an average iPhone dpi on Pixelcalculator](https://cdn-images-1.medium.com/max/2000/1*qBVYc5fFUBNnzgTMJYHtoQ.png)
+![Pixelcalculator 上平均 iPhone dpi 的毫米到像素](https://cdn-images-1.medium.com/max/2000/1*qBVYc5fFUBNnzgTMJYHtoQ.png)
 
-Long gone are the days when you could distinguish pixels on our screens. We have grown used to that limitation, and it’s an idea we need to drop. The sense of the word **pixel** has lost its meaning over time, and it’s time to stop making it the default unit in our CSS code.
+可以区分屏幕上像素的日子已经一去不复返了。我们已经习惯了这种限制，这是一个我们需要放弃的想法。随着时间的流逝，“像素”一词的含义已失去其含义，现在该停止在我们的 CSS 代码中将其设为默认单位了。
 
-## 2. They Are Absolute Values
+## 2. 它们是绝对的值
 
-Looking at the problem above, why is it happening? Why can’t our layout reach pixel perfection? Because the pixel unit is an absolute one. That means that it is not going to adapt to our browser’s pixel ratio/resolution/size/etc.
+看着上面的问题，为什么会发生？为什么我们的布局无法达到像素完美？因为像素单位是绝对的。这意味着它将无法适应我们浏览器的像素比率、分辨率、大小等。
 
-Absolute values are normally not very useful if you want to satisfy a broad audience. Is `px` the only absolute unit? No, there are six more absolute units supported by CSS. Find a reference below:
+如果要满足广大受众的需求，绝对的值通常不是很有用。px 是唯一的绝对单位吗？不，CSS 中还有另外六个绝对单位，如下图：
 
-![List of absolute units supported by CSS](https://cdn-images-1.medium.com/max/2000/1*aXVUdpRMgeFox_6uHkR_SA.png)
+![CSS 支持的绝对单位列表](https://cdn-images-1.medium.com/max/2000/1*aXVUdpRMgeFox_6uHkR_SA.png)
 
-That means that if you use those units, your audience will have a wide variety of layout outputs. It is not reasonable to test your page for any kind of resolution it might be displayed into.
+这意味着，如果你使用这些单位，网站的访问着就会看到各种各样的布局，而对你的页面进行任何可能显示的分辨率的测试都会是不合理的。
 
-How can we solve that problem? How can we make our layout responsive? By using `relative units`. What are those anyway?
+我们如何解决这个问题？我们如何才能使布局具有响应性？—— 使用“相对单位”。那到底是什么？
 
-> “Relative length units are relative to something else, perhaps the size of the parent element’s font, or the size of the viewport.” — [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units)
+> “相对长度单位是相对于其他单位的，也许是父元素字体的大小或视口的大小。” — [MDN Web 文档]（https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Building_blocks/Values_and_units）
 
-Let’s check out the most relevant units that we have at our disposal:
+让我们检查一下我们可以使用的相对单位：
 
-![List of relevant relative units available in CSS](https://cdn-images-1.medium.com/max/2000/1*4AZByHrtdOwFI_bDnfMKmQ.png)
+![CSS 中可用的相关相对单位列表](https://cdn-images-1.medium.com/max/2000/1*4AZByHrtdOwFI_bDnfMKmQ.png)
 
-You can see that the list of relative units is bigger than the absolute one. Why are there so many?
+你会看到相对单位的列表大于绝对单位列表。为什么会有那么多的相对单位？
 
-Each of those has some specific scenarios where it is more suited to be used. Having lots is great news since we know there are a lot of different use cases we can cover. That’s why it becomes important to understand each of them.
+这些中的每一个都有一些更适合使用的特定方案。有很多是个好消息，因为我们知道我们可以涵盖很多不同的用例。这就是为什么了解它们每个人变得很重要的原因。
 
-Let’s say we want to display one column with a maximum of 20 characters per line.
+假设我们要显示一列每行最多 20 个字符的内容。
 
-What are most developers currently doing? Measuring the average length of a character by its font/family/size and weight and multiplying it by 20.
+大多数的开发者会想干什么？通过字符的字体、字体、大小和粗细来测量字符的平均长度，并将其乘以 20。
 
-This approach results in a hardcoded pixel value. That means that if the font size changes, you will have to do the calculation again. That approach is just an approximation and won’t work consistently across devices.
+该方法会导致我们需要一个硬编码的像素值，也意味着，如果字体大小更改，你将不得不再次进行计算。这种方法只是一种近似，无法在所有设备上始终如一地工作。
 
-What is a better solution? Using the `ch` unit. You can base the target column width on a multiple of the `ch` unit.
+有什么更好的解决方案？使用 `ch` 单位。你可以将目标列宽基于 `ch` 单位的倍数
 
-Let’s see the code to better understand that:
+让我们看一下代码，以更好地理解这一点：
 
 ```HTML
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Units Playground</title>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <style type="text/css">
-            body {
-                color: white;
-                text-align: center;
-                box-sizing: content-box;
-                margin: 1em;
-            }
+<head>
+    <title>Units Playground</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style type="text/css">
+    body {
+        color: white;
+        text-align: center;
+        box-sizing: content-box;
+        margin: 1em;
+    }
 
-            #container {
-                color: white;
-                display: grid;
-                gap: 1rem;
-                grid-template-columns: max-content 1fr;
-            }
+    #container {
+        color: white;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: max-content 1fr;
+    }
 
-            #content {
-                padding: 1em;
-                margin: 0;
-                background-color: #5B2E48;
-                color: white;
-                max-width: 20ch;
-            }
+    #content {
+        padding: 1em;
+        margin: 0;
+        background-color: #5B2E48;
+        color: white;
+        max-width: 20ch;
+    }
 
-            #photo {
-                background-color: #CEB992;
-            }
-        </style>
-        <div id="container">
-            <p id="content">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-            </p>
-            <div id="photo">
-            </div>
-        </div>
-    </body>
+    #photo {
+        background-color: #CEB992;
+    }
+</style>
+<div id="container">
+    <p id="content">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+    </p>
+    <div id="photo">
+    </div>
+</div>
+</body>
 </html>
 ```
 
-![Example of using the ch unit to design a dynamic content width.](https://cdn-images-1.medium.com/max/2000/1*1K2l3CJ41vA1UMqLOVbp_Q.png)
+![使用 `ch` 单位构建动态内容宽度的例子](https://cdn-images-1.medium.com/max/2000/1*1K2l3CJ41vA1UMqLOVbp_Q.png)
 
-As you can see above, we are limiting the `max-width` of our `content` to `20ch`.
+如你所见，我们限制了我们内容的 `max-width` 为 `20ch`。
 
 ```css
 #content {
- ...
- max-width: 20ch;
+    max-width: 20ch;
 }
 ```
 
-The above is just an example. There are many replacements for the pixel unit. Sometimes, you don’t need a relative unit. You can use the power of `flex` and `grid` layouts to adjust your layout accordingly. Not relying on an absolute unit will keep your layouts consistent. It is always preferred to rely on the browser to do all the heavy lifting for us.
+以上仅是示例。像素单元有很多替代品。有时，你不需要相对单位。你可以使用 flex 和 grid 布局的功能来相应地调整布局。不依赖绝对单位能够让你的布局保持一致。切记，始终首先依靠浏览器帮助我们完成这些繁重的工作。
 
-## 3. Accessibility: They Don’t Adapt to the User’s Default Font Size
+## 3. 可访问性：它们不适应用户的默认字体大小
 
-Accessibility is a forgotten subject that we all should be paying more attention to. How does the usage of pixel units impact accessibility?
+可访问性是一个被遗忘的主题，我们大家都应该更加关注它。像素单元的使用如何影响可访问性？
 
-Browsers let you configure your default base `font-size`. By default, it is set to `16px`, but it can be easily changed. That is very useful for people with visual impairment. The browser then gives us a hint about the preferred user’s `font-size` by setting the base `font-size` to that value.
+浏览器可让你配置默认的基本字体大小。默认情况下，它设置为 `16px`，但可以轻松更改。这对于视力障碍的人非常有用。然后，浏览器通过将基本字体大小设置为该值，向我们提示有关首选用户的字体大小。
 
-However, if developers use absolute pixel values, that information will be ignored. The base `font-size` won’t have any impact on our application layout. The font size will be the same for all users. That is a bad thing since you are ignoring your user’s preferences and hurting your page’s accessibility.
+但是，如果开发者使用绝对像素值，则该信息将被忽略。基本的“字体大小”不会对我们的应用程序布局产生任何影响。所有用户的字体大小都将相同。这是一件坏事，因为你忽略了用户的偏好设置并损害了页面的可访问性。
 
-How can we honor that base font size? By using relative units like `rem` and `em`. What are `rem` and `em`? The `rem` and `em` units are expressing the size of the font relative to the base font for anything from boxes to text. To put it in simple words, it means that your text font sizes will be a multiple of the user’s preferred font size. What is the difference between both?
+我们如何尊重基本字体大小？通过使用相对单位，例如 `rem` 和 `em`。什么是 `rem` 和 `em`？ `rem` 和 `em` 单位表示相对于基本字体的字体大小（从框到文本）。简而言之，这意味着你的文本字体大小将是用户首选字体大小的倍数。两者有什么区别？
 
-* `rem` will express it relative to the root `font-size`.
-* `em` will express it relative to the element size.
+*`rem` 将相对于根 `font-size` 来表达它。
+*`em` 将相对于元素大小来表达它。
 
-You are not limited to using those units only on the `font-size` property. They can be used anywhere in your CSS elements. That means that you can create an adaptive layout based on the user setup. You can ensure a proper experience for your users.
+你不仅限于仅在 `font-size` 属性上使用这些单位。它们可以在 CSS 元素中的任何位置使用。这意味着你可以根据用户设置创建自适应布局。你可以确保为用户提供适当的体验。
 
-Let’s check out an example where we will be adapting the whole layout based on the user's base font size. For this particular example, we will be relying on `rem` to design an adaptative layout:
+让我们看一个示例，在该示例中，我们将根据用户的基本字体大小来调整整个布局。对于此特定示例，我们将依靠 `rem` 设计自适应布局：
 
 ```HTML
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Units Playground</title>
-        <meta charset="UTF-8" />
-    </head>
-    <body>
-        <style type="text/css">
-            body {
-                color: white;
-                text-align: center;
-                box-sizing: content-box;
-            }
+<head>
+    <title>Units Playground</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<style type="text/css">
+    body {
+        color: white;
+        text-align: center;
+        box-sizing: content-box;
+    }
 
-            h1 {
-                font-size: 1.9rem;
-            }
+    h1 {
+        font-size: 1.9rem;
+    }
 
-            h2 {
-                font-size: 1.5rem;
-            }
+    h2 {
+        font-size: 1.5rem;
+    }
 
-            p {
-                font-size: 1.2rem;
-                color: #5B2E48;
-            }
-            
-            .main-article {
-                padding: 1em;
-                margin: 0;
-                background-color: #5B2E48;
-                color: white;
-                width: 30em;
-            }
+    p {
+        font-size: 1.2rem;
+        color: #5B2E48;
+    }
 
-            .sub-article {
-                padding: 1em;
-                margin: 0;
-                background-color: #CEB992;
-                color: white;
-                margin-bottom: 1em;
-            }
-        </style>
-        <article class="main-article">
-            <h1>Weather forecast for Barcelona</h1>
-            <article class="sub-article">
-                <h2>10 May 2021</h2>
-                <p>Cloudy</p>
-            </article>
-            <article class="sub-article">
-                <h2>11 May 2021</h2>
-                <p>Sunny</p>
-            </article>
-            <article class="sub-article">
-                <h2>12 May 2021</h2>
-                <p>Sunny</p>
-            </article>
-        </article>
-    </body>
+    .main-article {
+        padding: 1em;
+        margin: 0;
+        background-color: #5B2E48;
+        color: white;
+        width: 30em;
+    }
+
+    .sub-article {
+        padding: 1em;
+        margin: 0;
+        background-color: #CEB992;
+        color: white;
+        margin-bottom: 1em;
+    }
+</style>
+<article class="main-article">
+    <h1>Weather forecast for Barcelona</h1>
+    <article class="sub-article">
+        <h2>10 May 2021</h2>
+        <p>Cloudy</p>
+    </article>
+    <article class="sub-article">
+        <h2>11 May 2021</h2>
+        <p>Sunny</p>
+    </article>
+    <article class="sub-article">
+        <h2>12 May 2021</h2>
+        <p>Sunny</p>
+    </article>
+</article>
+</body>
 </html>
 ```
 
-![Side-by-side accessible component using a different font size.](https://cdn-images-1.medium.com/max/2400/1*OHY0OQ7_MXRAbx9J5mmFTg.png)
+![使用不同字体大小的并排可访问组件](https://cdn-images-1.medium.com/max/2400/1*OHY0OQ7_MXRAbx9J5mmFTg.png)
 
-Note that we have used `rem` for the `padding`, `width`, and `font-size` properties.
+请注意，我们已将 `rem` 应用于 `padding`、`width` 和 `font-size` 三个属性。
 
 ```CSS
-...
 p {
-  font-size: 1.2rem;
-  color: #5B2E48;
+    font-size: 1.2rem;
+    color: #5B2E48;
 }
+
 .main-article {
-  padding: 1em;
-  margin: 0;
-  background-color: #5B2E48;
-  color: white;
-  width: 30em;
+    padding: 1em;
+    margin: 0;
+    background-color: #5B2E48;
+    color: white;
+    width: 30em;
 }
-...
 ```
 
-We can see above how the layout is able to adapt to the user’s browser settings. The fonts are bigger, but so are the articles. They grow to preserve the proportions. Even though they are different in size for different users, they stay consistent in shape.
+我们可以在上方看到布局如何适应用户的浏览器设置。字体会更大一些，但 article 也会变大一些 —— 它们会变大以保留比例。即使针对不同用户的大小不同，它们的形状也保持一致。
 
-## Bonus Tip
+## 额外提示
 
-When working with `rem` and `rem` units, you might find it cumbersome to express everything for a default base font of `16px`. There is a very popular trick for that situation:
+当使用 `rem` 和 `rem` 单位时，使用默认的 `16px` 基本字体来表达所有内容可能会很麻烦。在这种情况下，有一个非常流行的技巧：
 
 ```css
 html {
-  font-size: 62.5%; /* font-size 1em = 10px on default browser settings */
+    font-size: 62.5%; /* 基于默认浏览器字体大小，让 font-size 1em = 10px */
 }
 ```
 
-Using this trick, now all font sizes will be based on a `10px` factor for a default `16px` base font. It will make your code a bit less messy. It won’t hurt accessibility. It will just make your life a bit easier.
+使用此技巧，现在所有字体大小都将基于默认像素 `16px` 的 `10px` 因子。它能使你的代码少一点混乱，也并不会损害可访问性。它将使你的工作更加轻松。
 
-## Final Thoughts
+## 最后的想法
 
-We have seen three powerful reasons why we should ditch the pixel unit. Relying on relative units or layout features will ensure that your layout stays consistent across devices and resolutions.
+我们已经看到了为什么我们应该放弃像素单位的三个有力理由。依靠相对单位或布局功能将确保你的布局在设备和分辨率之间保持一致。
 
-Fortunately, the usage of relative units like `rem` and `em` is growing. Meanwhile, browsers are doing their best to come up with some solutions. When using absolute values, if users are zooming, the browser unit will scale to match the proper zoom applied by the user. Not the perfect experience, but a decent fallback.
+幸运的是，相对单位如 `rem` 和 `em` 的使用正在不断扩大。同时，浏览器正在尽力提供一些解决方案。当使用绝对值时，如果用户正在缩放，则浏览器单元将缩放以匹配用户应用的适当缩放。这虽不是完美的体验，也是个不错的后备。
 
-I hope this article has given you the last little push to stay as far away from the pixel unit as possible.
+我希望本文能为你提供最后的推动力，使你尽可能远离像素单元。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
