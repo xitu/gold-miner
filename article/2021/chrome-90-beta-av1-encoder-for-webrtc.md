@@ -2,7 +2,7 @@
 > * 原文作者：[Chromium Dev](https://blog.chromium.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/chrome-90-beta-av1-encoder-for-webrtc.md](https://github.com/xitu/gold-miner/blob/master/article/2021/chrome-90-beta-av1-encoder-for-webrtc.md)
-> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # Chrome 90 Beta 版本更新，支持 WebRTC AV1 编码器，新的 Origin Trials，还有更多等着你来～
