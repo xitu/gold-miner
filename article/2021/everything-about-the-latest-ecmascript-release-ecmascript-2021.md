@@ -2,87 +2,88 @@
 > * 原文作者：[Kritika Sharma](https://medium.com/@kritikasharmablog)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# Everything about the latest ECMAScript release | ECMAScript 2021
+# 有关最新 ECMAScript 版本的所有信息| ECMAScript 2021
 
-In this article, we will be going through the new features available in the latest version of ECMAScript 2021 with some coding examples.
+在本文中，我们将通过一些示例代码向大家介绍 ECMAScript 2021 最新版本的功能。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ex1pND6jnzW3Hj2vjRjaDA.jpeg)
 
-## New Features
+## 新的功能
 
 ### 1. String.replaceAll( )
 
-Replaces all instances of the target string with the desired string.
+将目标字符串的所有实例替换为所需的字符串：
 
 ```js
-const fact = "Javascript is the best web scripting language. Javascript can be used for both front end and backend";
+const fact = "JavaScript is the best web scripting language. JavaScript can be used for both front end and backend";
  
-console.log(fact.replaceAll("Javascript", "Typescript"));
+console.log(fact.replaceAll("JavaScript", "TypeScript"));
 
-Result:
-"Typescript is the best web scripting language. Typescript can be used for both front end and backend";
+// 输出：
+// "TypeScript is the best web scripting language. TypeScript can be used for both front end and backend";
 ```
 
+与之前的 `replace()` 方法（仅将目标字符串的第一次出现替换为所需的字符串）相比：
 In comparison with the previous replace( ) method which only replaces the first occurrence of the target string with the desired string.
 
 ```js
-const fact = "Javascript is the best web scripting language. Javascript can be used for both front end and backend";
+const fact = "JavaScript is the best web scripting language. JavaScript can be used for both front end and backend";
  
-console.log(fact.replace("Javascript", "Typescript"));
+console.log(fact.replace("JavaScript", "TypeScript"));
 
-Result:
-"Typescript is the best web scripting language. Javascript can be used for both front end and backend";
+// 输出：
+// "TypeScript is the best web scripting language. JavaScript can be used for both front end and backend";
 ```
 
 ### 2. Promise.any( )
 
-`Promise.any()` resolves as soon as any one of the supplied promises is resolved, unlike `promise.all()` which waits for all the promises to resolve. It's basically the opposite of `Promise.all()`.
+`Promise.any()` 会在一旦提供的任何一个 `Promise` 得到解决的情况下直接被解决，而 `Promise.all()` 则等待所有的 `Promise` 都得到解决后才会标记为解决，基本上与 `Promise.all()` 相反。
 
-This is what happens if **one Promise is fulfilled**:
+如果 **“实现了一个 `Promise`”**：
 
 ```js
 const promises = [   
-          Promise.reject('ERROR A'),           
-          Promise.reject('ERROR B'),   
-          Promise.resolve('result'), 
+          Promise.reject('错误 A'),           
+          Promise.reject('错误 B'),   
+          Promise.resolve('结果'), 
 ]; 
 
 Promise
   .any(promises)
-  .then((result) => assert.equal(result, 'result')); //true
+  .then((result) => assert.equal(result, '结果')); //true
 ```
 
-This is what happens if all Promises are **rejected**:
+如果 **“所有 `Promise` 都是被驳回的”**：
 
 ```js
 const promises = [   
-          Promise.reject('ERROR A'),  
-          Promise.reject('ERROR B'),   
-          Promise.reject('ERROR C'), 
+          Promise.reject('错误 A'),  
+          Promise.reject('错误 B'),   
+          Promise.reject('错误 C'), 
 ]; 
 
 Promise
   .any(promises)   
   .catch((aggregateError) => {
             assert.deepEqual(aggregateError.errors, 
-            ['ERROR A', 'ERROR B', 'ERROR C']); //true
+            ['错误 A', '错误 B', '错误 C']); //true
    });
 ```
 
-### 3. Logical Assignment Operator
+### 3. 逻辑赋值操作符
 
-![Source: [https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators](https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators)](https://cdn-images-1.medium.com/max/2972/1*WS3OZEp_hEv0_zLaihk6-Q.png)
+![来源: [https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators](https://exploringjs.com/impatient-js/ch_operators.html#logical-assignment-operators)](https://cdn-images-1.medium.com/max/2972/1*WS3OZEp_hEv0_zLaihk6-Q.png)
 
-`a ||= b` is equivalent to `a || (a = b)`. (Short-circuiting).
+`a ||= b` 等同于 `a || (a = b)`（短路运算符）
 
-Why not to this expression? `a = a || b`
+为何不是 `a = a || b`？
 
-Well, because for the former expression the assignment is only evaluated if `a` evaluates to `false`. Therefore, the assignment is only performed if it's necessary. In contrast, the latter expression always performs an assignment.
+好吧，因为对于前一个表达式，只有在 `a` 计算为 `false` 时，赋值才会被评估。因此，前者仅在必要时才会被赋值。相反，后一个表达式始终执行赋值。
 
-Example `a ||= b`:
+`a ||= b` 的一个例子：
 
 ```js
 var a = 1;  
@@ -93,7 +94,7 @@ a ||= b;
 console.log(a); // 1
 ```
 
-Example `a &&= b`:
+`a &&= b` 的一个例子：
 
 ```js
 var a = 1; 
@@ -104,7 +105,7 @@ a &&= b;
 console.log(a); // 2
 ```
 
-Example `a ??= b`:
+`a ??= b` 的一个例子：
 
 ```js
 var a;  
@@ -115,24 +116,26 @@ a ??= b;
 console.log(a); // 2
 ```
 
-### 4. Numerical Separators
+### 4. 数字分隔符
+
+现在，我们可以使用 **下划线（`_`）** 作为数字文字和 bigInt 文字的分隔符。这将帮助开发人员提高其数字文字的可读性（“下划线”基本上会充当我们平日生活中书写数字时候所用的“逗号”（用于在不同的数字组之间提供分隔））。
 
 We can now use **Underscores (`_`)** as separators in number literals and bigInt literals. It will help developers to make their numeric literals more readable, as the **underscore** will basically act as a **comma** (used to provide separation between the different groups of digits) when we write numbers in our day-to-day lives.
 
 ```js
-let budget = 1000000000000 //can be written as the following..
+let budget = 1000000000000; // 可以这样写：
 
 let budget = 1_000_000_000_000; 
 
-console.log(budget); //printed as regular numeric literal.
+console.log(budget); // 会打印正常数字：
 
-result:
-1000000000000
+// 输出：
+// 1000000000000
 ```
 
-I hope this article helped you to understand the latest ECMAScript release. Thanks for reading. If you have any questions, feel free to leave a comment.
+希望本文能帮助您了解 ECMAScript 的最新版本。感谢您的阅读，如有任何疑问，请随时发表评论。
 
-Resources:
+参考资料：
 
 * [https://dev.to/faithfulojebiyi/new-features-in-ecmascript-2021-with-code-examples-302h](https://dev.to/faithfulojebiyi/new-features-in-ecmascript-2021-with-code-examples-302h)
 * [https://2ality.com/2020/09/ecmascript-2021.html](https://2ality.com/2020/09/ecmascript-2021.html)
