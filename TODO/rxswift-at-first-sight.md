@@ -2,7 +2,7 @@
 * 原文作者 : [alltheflow](https://blog.alltheflow.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [SatanWoo](https://github.com/SatanWoo)
-* 校对者 : [iThreeKing](https://github.com/iThreeKing), [davidear](https://github.com/davidear)
+* 校对者 : [joyking7](https://github.com/joyking7), [davidear](https://github.com/davidear)
 * 状态 : 校对完成
 
 # RxSwift 的第一印象

@@ -1,3 +1,5 @@
+* [揭开图着色算法的神秘面纱](https://juejin.cn/post/6924668410416791566)（[zenblo](https://github.com/zenblo) 翻译）
+* [用 JavaScript 实现堆](https://juejin.cn/post/6893475005834330126)（[HurryOwen](https://github.com/HurryOwen) 翻译）
 * [酷毙了的算法：日志结构存储](https://juejin.cn/post/6898766259584761864)（[jackwener](https://github.com/jackwener) 翻译）
 * [7 种有用的时间复杂度](https://juejin.im/post/6873379647125553159)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [在图像中隐藏数据：用 Python 来实现图像隐写术](https://juejin.im/post/5f0bf4fce51d45347500b23d)（[cyz980908](https://github.com/cyz980908) 翻译）

@@ -2,131 +2,131 @@
 > * 原文作者：[The Educative Team](https://medium.com/@educative)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/functional-programming-explained-in-python-javascript-and-java.md](https://github.com/xitu/gold-miner/blob/master/article/2020/functional-programming-explained-in-python-javascript-and-java.md)
-> * 译者：
-> * 校对者：
+> * 译者：[z0gSh1u](https://github.com/z0gSh1u)
+> * 校对者：[regonCao](https://github.com/regon-cao)、[NieZhuZhu](https://github.com/NieZhuZhu)、[icicle198514](https://github.com/icicle198514)
 
-# Functional Programming Explained in Python, JavaScript, and Java
+# 函数式编程 —— 使用 Python、JavaScript 和 Java 描述
 
-![Image source: Author](https://cdn-images-1.medium.com/max/2048/1*CWuM2vAxWNcitQStHD7eUg.png)
+![Image source: Author](https://i.loli.net/2020/11/09/XbJCtsNHlfIyjVG.png)
 
-Functional programming (FP) is the process of building software by composing pure functions. Nowadays, employers are looking for programmers who can draw on multiple paradigms to solve problems. Functional programming especially is gaining in popularity due to its efficiency and scalability to solve modern problems.
+函数式编程（FP）是通过组合纯函数来构建软件的过程。如今，雇主们在寻找能利用多种范式来解决问题的程序员。而函数式编程凭借其解决最新的问题的高效性和可扩展性，尤其受到欢迎。
 
-But how can you make the jump from OOP to FP?
+但怎样才可以从面向对象编程（OOP）转换到函数式编程（FP）呢？
 
-Today, we’ll explore the core concepts of functional programming and show you how to implement them in Python, JavaScript, and Java.
+今天，我们将探究函数式编程的核心概念，并向你展示如何在 Python、JavaScript 和 Java 中实现它们。
 
-**Here’s what we’ll cover today:**
+**本文将覆盖下面这些内容：**
 
-* What is functional programming?
-* Functional programming languages
-* Concepts of functional programming
-* Functional programming with Python
-* Functional programming with JavaScript
-* Functional programming with Java
-* What to learn next
+* 函数式编程是什么
+* 函数式编程语言
+* 函数式编程的相关概念
+* 函数式编程 —— 使用 Python
+* 函数式编程 —— 使用 JavaScript
+* 函数式编程 —— 使用 Java
+* 接下来学什么
 
-## What Is Functional Programming?
+## 函数式编程是什么
 
-**Functional programming** is a declarative programming paradigm where programs are created by applying sequential functions rather than statements.
+**函数式编程**是一种声明式的编程范式，程序是基于应用函数序列而非语句构建的。
 
-Each function takes in an input value and returns a consistent output value without altering or being affected by the program state.
+每个函数接收一个输入，并对相同输入总是返回一致的输出，且不会改变程序的状态，也不会受其影响。
 
-These functions complete a single operation and can be composed in sequence to complete complex operations. The functional paradigm results in highly modular code since functions can be reused across the program and can be called, passed as parameters, or returned.
+这些函数完成单一的操作，并且能够顺序地组合起来以完成复杂的操作。函数式编程范式会让代码高度模块化，因为函数能够在程序中复用，也能被调用、作为参数传递，或者是被返回。
 
-**Pure functions** produce no side effects and do not depend on global variables or states.
+**纯函数**没有副作用，并且不依赖于全局的变量或状态。
 
-![Visualizing FP Functions](https://cdn-images-1.medium.com/max/2000/1*Se-OXiNwp2jEA8N9S5x2Dg.png)
+![Visualizing FP Functions](https://i.loli.net/2020/11/09/gnxakfDrOi23jVZ.png)
 
-Functional programming is used when solutions are easily expressed in functions and have little physical meaning. While object-oriented programs model code after real-world objects, functional programming excels at mathematical functions where intermediate or end values have no physical correlation.
+当解决方案能够容易地用函数表示，并且几乎没有实体方面的含义时，就可以使用函数式编程。相比面向对象程序基于现实对象的代码建模方法，函数式编程则更擅长于实现数学意义上的函数，它的中间或者最终值之间并没有实体关联。
 
-Some common uses of functional programming are AI design, ML classification algorithms, financial programs, or advanced mathematical function models.
+函数式编程的常见应用有 AI 设计、机器学习分类算法、经济学程序，或者高级的数学函数模型。
 
-**Simplified:** Functional programs execute many pure, single-purpose functions in sequence to solve complex mathematical or non-physical problems.
+**简而言之：**函数式的程序顺序执行许多纯的、单一职能的函数来解决复杂的数学或者非实体问题。
 
-## Advantages of Functional programming
+## 函数式编程的优点
 
-* **Easy debugging**: Pure functions and immutable data make it easy to find where variable values are set. Pure functions have fewer factors influencing them and therefore allow you to find the bugged section easier.
-* **Lazy evaluation**: Functional programs only evaluate computations at the moment they’re needed. This allows the program to reuse results from previous computations and save runtime.
-* **Modular**: Pure functions do not rely on external variables or states to function, meaning they’re easily reused across the program. Also, functions will only complete a single operation or computation to ensure you can reuse that function without accidentally importing extra code.
-* **Enhanced readability**: Functional programs are easy to read because the behavior of each function is immutable and isolated from the program’s state. As a result, you can predict what each function will do often just by the name.
-* **Parallel programming**: It’s easier to create parallel programs with a functional programming approach because immutable variables reduce the amount of change within the program. Each function only has to deal with user input and can trust that the program state will remain mostly the same.
+* **调试简单**：纯函数和不可变的数据使查找设置变量值的位置变得容易。影响纯函数的因素更少，因此能让你更容易发现有 Bug 的部分。
+* **延迟计算**：函数式程序只在计算结果被需要时才进行计算。这让程序能够复用之前的计算结果，并节省运行时间。
+* **模块化**：纯函数并不依赖外部的变量或者状态，这意味着可以很简单地在程序中复用它们。并且，函数只会完成单一的操作或者计算，来保证你可以在不引入额外代码的前提下复用函数。
+* **更好的可读性**：函数式程序易于阅读，因为每个函数的行为是不可变的，并且隔离于程序的状态。这使得你多数情况下借助函数名就可以预见每个函数的行为。
+* **并行化编程**：使用函数式编程的方法构建并行程序更简单，因为不可变量减少了程序内部的变化。每个函数只需要处理自己的输入，并且可以认为程序的状态大多数情况下都会保持不变。
 
-## Functional Programming Languages
+## 函数式编程语言
 
-Not all programming languages support functional programming. Some languages, like Haskell, are designed to be functional programming languages., Other languages, like JavaScript, have functional capabilities and OOP capabilities, and others do not support functional programming at all.
+不是所有的编程语言都支持函数式编程。某些语言，比如 Haskell，生来就被设计为函数式编程语言。其他一些语言，比如 JavaScript，既有函数式编程的能力，也有面向对象编程的能力。剩下的就是那些完全不支持函数式编程的语言。
 
-#### Functional programming languages
+#### 纯粹的函数式编程语言
 
-* [**Haskell**](https://www.haskell.org/): This is the clear favorite language for functional programming. It’s memory-safe, has excellent garbage collection, and is fast due to early machine code compiling. Haskell’s rich and static typing system gives you access to unique algebraic and polymorphic types that make functional programming more efficient and easier to read.
-* [**Erlang**](https://www.erlang.org/): This language and its descendent, Elixir, have established a niche as the best functional language for concurrent systems. While not as popular or widely usable as Haskell, it’s often used for back-end programming. Erlang has more recently gained traction for scalable messaging apps like WhatsApp and Discord.
-* [**Clojure**](https://clojure.org/): This language is a functional-first dialect of Lisp used on the Java virtual machine (JVM). It’s a predominantly functional language that supports both mutable and immutable data structures but is less strictly functional than others here. If you like Lisp, you’ll like Clojure.
-* [**F#**](https://fsharp.org/): F# is similar to Haskell (they’re in the same language group) but has less advanced features. It also has minor support for object-oriented constructions.
+* [**Haskell**](https://www.haskell.org/)：这是最受欢迎的函数式编程语言。它内存安全、垃圾收集完善，并且得益于提前的机器码编译，运行速度也快。Haskell 丰富且静态的类型系统让你可以使用独特的代数和多态的类型，使函数式编程更加高效，并且可读性更好。
+* [**Erlang**](https://www.erlang.org/)：这门语言以及它的衍生语言 Elixir，在并发系统开发方面建立了函数式语言的标杆。尽管并不像 Haskell 一样受欢迎且使用广泛，它仍经常被用在后端开发中。Erlang 最近在开发像 WhatsApp 和 Discord 这类可扩展的通信应用方面也越来越受欢迎。
+* [**Clojure**](https://clojure.org/)：这门语言是 Lisp 的函数作为一等公民的方言，运行在 JVM 上。它基本上是一门函数式编程语言，既支持可变的，也支持不可变的数据结构。相较于这里其他的函数式语言，它不是特别严格。如果你喜欢 Lisp，你也会喜欢 Clojure。
+* [**F#**](https://fsharp.org/)：F# 类似于 Haskell（它们属于同一语言组），但高级特性比较少。它也对面向对象编程有一些支持。
 
-#### Functional-capable languages
+#### 支持函数式编程的语言
 
-* **[Scala](https://www.scala-lang.org/):** Scala supports both OOP and functional programming. It’s most interesting feature is a strong static typing system similar to Haskell’s that helps create strong functional programs. Scala was designed to address Java criticisms and is therefore a good language for Java developers who want to try functional programming.
-* **JavaScript**: While not functional-first, JS stands out for functional programming due to its asynchronous nature. JavaScript also supports essential functional programming features like lambda expressions and destructuring. Together these attributes mark JS as a top language for functional programming among other multi-paradigm languages.
-* **Python, PHP, C++**: These multi-paradigm languages support functional programming but have incomplete support compared to Scala and JavaScript.
-* **Java**: Java is a general-purpose language but forefronts class-based OOP. The addition of lambda expressions allows you to pursue a more functional style in a limited way. Java is ultimately an OOP language that **can** achieve functional programming but is missing key features to make the shift worth it.
+* **[Scala](https://www.scala-lang.org/)**：Scala 既支持函数式编程，也支持面向对象编程。它最有意思的特性是一个类似于 Haskell 的强静态类型系统，来帮助你编写健壮的函数式程序。Scala 被设计用来解决对 Java 的批评，因此对于那些想要尝试函数式编程的 Java 开发者是一门好语言。
+* **JavaScript**：尽管函数并不是一等公民，JavaScript 凭借自身的异步特性，在函数式编程方面也相当突出。JavaScript 也支持基本的函数式编程特性，比如 lambda 表达式和解构。这些特性共同让 JavaScript 成为了多范式语言中把函数式编程支持得最好的语言。
+* **Python、PHP、C++**：这些多范式语言支持函数式编程，但比起 Scala 和 JavaScript，支持得并不完全。
+* **Java**：Java 是一门多目标的语言，但在面向对象编程方面最为领先。新增的 Lambda 表达式让你能够有限地使用更加函数式的编程风格。Java 终究还是一门面向对象的语言，它**能**实现函数式编程，但缺失了很多关键的特性，这使得这种转变并不是特别值得。
 
-## Concepts of Functional Programming
+## 函数式编程相关概念
 
-Functional programs are designed with a few core concepts in mind.
+编写函数式的程序时，需要了解下面几个核心概念：
 
-#### Variables and functions
+#### 变量和函数
 
-The core building blocks of a functional program are variables and functions rather than objects and methods. You should avoid global variables because mutable global variables make the program hard to understand and lead to impure functions.
+函数式程序的核心部分是变量和函数，而不是对象和方法。你应该避免使用全局变量，因为可变的全局变量会使得程序难以读懂，并带来不纯的函数。
 
-#### Pure functions
+#### 纯函数
 
-Pure functions have two properties:
+纯函数有两个属性：
 
-* They create no side effects.
-* They always produce the same output if given the same input.
+* 不产生副作用；
+* 对于相同的输入，总是给出相同的输出。
 
-Side effects are caused if a function alters the program state, overwrites an input variable, or in general makes any change along with generating an output. Pure functions are less buggy because side effects complicate a program’s state.
+当函数改变程序的状态、覆写了输入变量，或者在生成输出值时改变了任何其他东西，就产生了副作用。纯函数更不容易产生 Bug，因为副作用会使程序的状态复杂化。
 
-Referential transparency means that any function output should be replaceable with its value without changing the result of the program. This concept ensures that you create functions that only complete a single operation and achieve a consistent output.
+函数的 “引用透明性” 指的是函数的输出可以在不改变程序的情况下发生变化。这个概念保证了你能创建单一职能的函数并对相同输入获得前后一致的输出。
 
-Referential transparency is only possible if the function does not affect the program state or generally attempts to accomplish more than one operation.
+引用透明性只有在函数不影响程序状态或者尝试完成多于一种操作时才是可能的。
 
-#### Immutability and states
+#### 不可变性和状态
 
-Immutable data or states cannot be changed once set and allow a stable environment for a function’s output to be constant. It’s best practice to program each function to produce the same result regardless of the program state. If it does rely on a state, the state must be immutable to ensure that the function output remains constant.
+不可变的数据或状态一旦被设置，就不能更改，这为函数输出的一致性提供了稳定的环境。函数对相同输入能给出相同输出，不受程序状态的影响，是一种编程的最佳实践。如果函数必须依赖于某个状态，则这个状态必须是不可变的，以保证函数输出的一致性。
 
-Functional programming approaches generally avoid shared state functions (multiple functions relying on the same state) and mutating state functions (function relies on a mutable function) because they make programs less modular. If you must use shared state functions, make it an immutable state.
+函数式编程避免使用有共享状态的函数（多个函数依赖同一个状态）以及会改变状态的函数（函数依赖于另一个可变的函数），因为它们减弱了程序的模块化。如果你必须用有共享状态的函数，就让状态不可变。
 
-#### Recursion
+#### 递归
 
-One major difference between object-oriented programming and functional programming is that functional programs avoid constructions like if-else statements or loops that can create different outputs on each execution.
+面向对象编程和函数式编程的显著不同的一点是，函数式编程避免使用诸如 if-else 语句或者循环等在每次执行时会产生不同输出的结构。
 
-Functional programs use recursion in place of loops for all iteration tasks.
+函数式的程序使用递归来替代所有迭代中的循环操作。
 
-#### First-class functions
+#### 函数是一等公民
 
-Functions in functional programming are treated as a data type and can be used like any other value. For example, we populate an array with functions, pass them as parameters, or store them in variables.
+函数式编程语言中的函数被认为是一种数据类型，并且能够像其他值一样被使用。比如，我们可以构造一个函数组成的数组、将函数作为参数传递，或者把函数保存在变量中。
 
-#### Higher-order functions
+#### 高阶函数
 
-Higher-order functions can accept other functions as parameters or return functions as output. Higher-order functions allow us greater flexibility in how we make function calls and abstract over actions.
+高阶函数能接收其他函数作为参数，或者将函数作为返回值。高阶函数让我们的函数调用以及对动作的抽象变得灵活了许多。
 
-#### Functional composition
+#### 函数组合
 
-Functions can be sequentially executed to complete complex operations. The result of each function is passed to the next function as an argument. This allows you to call a series of functions with just a single function call.
+函数可以序列地执行来完成复杂的操作。每个函数的执行结果都作为参数被传递给下一个函数。这让你可以通过一处函数调用来调用一系列函数。
 
-## Functional Programming With Python
+## 函数式编程 —— 使用 Python
 
-Python has partial support for functional programming as a multi-paradigm language. Some Python solutions of mathematical programs can be more easily accomplished with a functional approach.
+Python 作为一个多范式语言，部分地支持了函数式编程。借助函数式编程，一些数学问题可以通过 Python 更容易地被实现。 
 
-The most difficult shift to make when you start using a functional approach is to cut down how many classes you use. Classes in Python have mutable attributes which make it difficult to create pure, immutable functions.
+开始使用函数式编程最难的一个改变是要减少类的使用量。Python 中的类有着可变的属性，这使得我们难以创建纯的、不可变的函数。
 
-Try to instead keep most of your code at the module level and only switch to classes if you need to.
+试着将你的大部分代码保持在模块级别，仅当必须时才使用类。
 
-Let’s see how to achieve pure, immutable functions and first-class functions in Python. Then, we’ll learn the syntax for composing functions.
+让我们看看在 Python 中如何实现纯的、不可变的函数以及一等公民函数。然后，我们将学习函数组合的语法。
 
-#### Pure and immutable functions
+#### 纯的、不可变的函数
 
-Many of Python’s built-in data structures are immutable by default:
+许多 Python 的内置数据结构默认就是不可变的：
 
 * integer
 * float
@@ -135,54 +135,53 @@ Many of Python’s built-in data structures are immutable by default:
 * Unicode
 * tuple
 
-Tuples are especially useful as an immutable form of an array.
+元组作为数组的不可变形式，尤其有用。
 
-```py
-# Python code to test that  
-# tuples are immutable  
+```python
+# 用来测试元组的不可变性的 Python 代码
 
 tuple1 = (0, 1, 2, 3)  
 tuple1[0] = 4
 print(tuple1)
 ```
 
-This code causes an error because it attempts to reassign an immutable tuple object. Functional Python programs should use these immutable data structures often to achieve pure functions.
+这份代码会产生错误，因为它试图给不可变的元组对象重新赋值。函数式的 Python 程序应该多使用这些不可变的数据结构来实现纯函数。
 
-The following is a pure function because it has no side effects and will always return the same output:
+下面是一个纯函数，因为它没有副作用，并且对相同输入总是给出相同输出：
 
-```py
+```python
 def add_1(x):
     return x + 1
 ```
 
-#### First-class functions
+#### 函数是一等公民
 
-Functions are treated as objects in Python. Here’s our quick guide on how you can use functions in Python:
+函数在 Python 中被认为是对象。下面简要介绍了如何在 Python 中使用函数：
 
-**Functions as objects**
+**函数作为对象**
 
-```py
+```python
 def shout(text): 
     return text.upper()
 ```
 
-**Pass function as parameter**
+**函数作为参数传递**
 
-```py
+```python
 def shout(text): 
     return text.upper() 
 
 def greet(func): 
-    # storing the function in a variable 
+    # 把函数存在一个变量里
     greeting = func("Hi, I am created by a function passed as an argument.") 
-    print greeting  
+    print greeting
 
 greet(shout)
 ```
 
-**Return function from another function**
+**从函数中返回函数**
 
-```py
+```python
 def create_adder(x): 
     def adder(y): 
         return x+y 
@@ -190,11 +189,11 @@ def create_adder(x):
     return adder
 ```
 
-#### Functional composition
+#### 函数组合
 
-To compose functions in Python, we’ll use a `lambda function` call. This allows us to call any number of arguments in a single call.
+为了在 Python 中组合函数，我们会用 Lambda 表达式。这使得我们能够在一次函数调用中同时调用多个函数。
 
-```py
+```python
 import functools
 
 def compose(*functions):
@@ -203,41 +202,41 @@ def compose(*functions):
     return functools.reduce(compose2, functions, lambda x: x)
 ```
 
-At **line 4**, we’ll define a function `compose2` that takes two functions as arguments `f` and `g`.
-At **line 5**, we return a new function that represents the composition of `f` and `g`.
+在**第 4 行**，我们定义了 `compose2` ，它接收两个函数 `f` 和 `g` 作为参数。
+在**第 5 行**，我们返回了一个表示 `f` 和 `g` 的组合的新函数。
 
-Finally, at **line 6**, we return the results of our composition function.
+最后，在**第 6 行**，我们返回了组合函数的结果。
 
-## Functional Programming in JavaScript
+## 函数式编程 —— 使用 JavaScript
 
-JavaScript has long offered functional capabilities due to its support for first-class functions. Functional programming has recently become more popular in JavaScript because it boosts performance when used in frameworks like Angular and React.
+得益于对 “函数是一等公民” 的支持，JavaScript 已经提供函数式编程能力很久了。最近，JavaScript 中的函数式编程越来越受欢迎，因为在 Angular 和 React 等框架中使用函数式编程时可以提升性能。
 
-Let’s take a look at how to achieve different functional concepts using JavaScript. We’ll focus on how to create the core concepts; pure functions, first-class functions, and function compositions.
+让我们看看如何使用 JavaScript 来实现函数式编程。我们会关注如何表达函数式编程的核心概念：纯函数、函数是一等公民，以及函数组合。
 
-#### Pure and immutable functions
+#### 纯函数和不可变函数
 
-To start creating pure functions in JavaScript we’ll have to use functional alternatives of common behavior, like `const`, `concat`, and `filter()`.
+为了在 JavaScript 中创建纯函数，我们必须用函数式的方法替代传统方法，比如 `const`，`concat` 和 `filter()`。
 
-The `let` keyword sets a mutable variable. Declaring with `const` instead guarantees that the variable is immutable because it prevents reassignment.
+`let` 关键字声明了一个可变的量。转而用 `const` 来声明可以保证变量的不可变性，因为它阻止了重新赋值。
 
 ```js
 const heightRequirement = 46;
 
-function canRide (height){
+function canRide (height) {
     return height >= heightRequirement;
 }
 ```
 
-We also need to use functional alternatives to manipulate arrays. The `push()` method is the usual way to append an element onto an array. Unfortunately, `push()` modifies the original array and is therefore impure.
+我们也需要用函数式的方式来操作数组。通常我们往数组中增加元素的方法是 `push()`。然而，`push()` 会修改原数组，因此是不纯的。
 
-Instead we’ll use the functional equivalent, `concat()`. This method returns a new array that contains all original elements as well as the newly added element, The original array is not modified when using `concat()`.
+相反地，我们使用函数式的等价方法 `concat()`。这个方法会返回一个包含了原有元素和新增元素的新数组，且原数组不会被修改。
 
 ```js
 const a = [1, 2]
 const b = [1, 2].concat(3)
 ```
 
-To remove an item from an array, we’d usually use the `pop()` and `slice()` methods. However, these are not functional as they modify the original array. Instead, we'll use `filter()` that creates a new array that contains all elements that pass a conditional test.
+为了从数组中删除元素，我们通常使用 `pop()` 和 `slice()` 方法。然而，由于它们会修改原数组，所以并不是函数式的。相反地，我们会使用 `filter()`，它创建一个由那些能通过条件测试的元素组成的新数组。
 
 ```js
 const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present'];
@@ -245,18 +244,18 @@ const words = ['spray', 'limit', 'elite', 'exuberant', 'destruction', 'present']
 const result = words.filter(word => word.length > 6);
 ```
 
-#### First-class functions
+#### 函数是一等公民
 
-JavaScript supports first-class functions by default. Here’s a quick guide of what we can do with functions in JavaScript.
+JavaScript 默认支持函数作为一等公民。下面简单介绍了我们可以在 JavaScript 中用函数做什么。
 
-**Assign function to variable**
+**把函数赋值给变量**
 
 ```js
 const f = (m) => console.log(m)
 f('Test')
 ```
 
-**Add function to array**
+**将函数放在数组中**
 
 ```js
 const a = [
@@ -265,7 +264,7 @@ const a = [
 a[0]('Test')
 ```
 
-**Pass function as argument**
+**把函数作为参数传递**
 
 ```js
 const f = (m) => () => console.log(m)
@@ -273,7 +272,7 @@ const f2 = (f3) => f3()
 f2(f('Test'))
 ```
 
-**Return function from another function**
+**从函数中返回函数**
 
 ```js
 const createF = () => {
@@ -283,24 +282,24 @@ const f = createF()
 f('Test')
 ```
 
-#### Functional composition
+#### 函数组合
 
-In JavaScript, we can compose functions with chained function calls:
+在 JavaScript 中，我们可以使用链式函数调用来组合函数：
 
 ```js
 obj.doSomething()
    .doSomethingElse()
 ```
 
-Alternatively, we can pass a function execution into the next function:
+或者，我们可以把函数的执行结果传给下一个函数：
 
 ```js
 obj.doSomething(doThis())
 ```
 
-If we want to compose more functions, we can instead use `lodash` to simplify the composition. Specifically, we'll use the `compose` feature that is given an argument and then a list of functions.
+如果我们想要组合更多的函数，我们可以使用 `lodash` 来简化组合过程。具体地，我们会使用 `compose` 特性。它接收一个函数作为第一个参数，后面跟着一系列函数调用。
 
-The first function in the list uses the original argument as its input. Later functions inherit an input argument from the return value of the function before it.
+参数中的第一个函数会使用原始的调用参数，之后的函数调用则依赖前面那个函数的返回值。
 
 ```js
 import { compose } from 'lodash/fp'
@@ -315,15 +314,15 @@ const slugify = compose(
 slufigy('Hello World') // hello-world
 ```
 
-## Functional Programming in Java
+## 函数式编程 —— 使用 Java
 
-Java does not truly support functional programming as Python or JavaScript does. However, we can mimic functional programming behavior in Java by using lambda functions, streams, and anonymous classes.
+Java 并不像 Python 和 JavaScript 那样真正意义上地支持函数式编程。然而，我们可以使用 Lambda 表达式、流以及匿名类来模拟函数式编程行为。
 
-Ultimately, the Java compiler was not created with functional programming in mind and therefore cannot receive many of the benefits of functional programming.
+Java 编译器终归不是针对函数式编程设计的，因此无法带来函数式编程的许多好处。
 
-#### Pure and immutable functions
+#### 纯函数和不可变函数
 
-Several of Java’s built-in data structures are immutable:
+Java 内置的一些数据类型是不可变的：
 
 * integer
 * boolean
@@ -331,10 +330,10 @@ Several of Java’s built-in data structures are immutable:
 * short
 * string
 
-You can also create your own immutable classes with the `final` keyword.
+你也可以借助 `final` 关键字来创建自定义的不可变的类：
 
 ```java
-// An immutable class 
+// 一个不可变的类
 public final class Student 
 { 
     final String name; 
@@ -356,54 +355,54 @@ public final class Student
 }
 ```
 
-The `final` keyword on the class prevents the construction of a child class. The `final` on `name` and `regNo` make it impossible to change the values after object construction.
+作用在类上的 `final` 关键字阻止了子类的构造。在 `name`  和 `regNo` 上的 `final` 则使得在完成对象构造后对它们的修改变得不可能。
 
-This class also has a parameterized constructor, getter methods for all variables, and no setter methods which each help to make this an immutable class.
+这个类同样有一个带参的构造函数以及所有属性上的 Getter 方法。因为没有 Setter 方法，所以这个类是不可变的。
 
-#### First-class functions
+#### 函数是一等公民
 
-Java can use lambda functions to achieve first-class functions. Lambda takes in a list of expressions like a method but does not need a name or to be predefined.
+Java 可以使用 Lambda 表达式来实现函数作为一等公民。Lambda 表达式像一个方法一样接收一系列的表达式，但自身不需要具名或者被预先定义。
 
-We can use lambda expressions in place of functions as they are treated as standard class objects that can be passed or returned.
+我们可以使用 Lambda 表达式来替代普通的函数，因为它也被认为是标准的类对象，可以用来传递或者返回。
 
 ```java
-// FIRST-CLASS
+// 函数是一等公民
 Supplier<String> lambda = myObject::toString;
-// HIGHER-ORDER
+// 高阶函数
 Supplier<String> higherOrder(Supplier<String> fn) {
     String result = fn.get();
     return () -> result;
 }
 ```
 
-#### Functional composition
+#### 函数组合
 
-Java contains an interface, `java.util.function.Function`, that gives methods for functional composition. The `compose` method executes the passed function first (`multiplyByTen`) then passes the return to the external function (`square`).
-The `andThen` method executes the external function first **and then** the function within its parameters.
+Java 里有一个 Interface：`java.util.function.Function`。它提供了进行函数组合的方法。`compose` 方法会首先执行传入的函数（`multiplyByTen`），然后把返回值传递给外部的函数（`square`）。
+`andThen` 方法则首先执行外部的函数，然后才是参数中的函数。
 
 ```java
 Function<Integer, Integer> square = (input) -> input * input;
 Function<Integer, Integer> multiplyByTen = (input) -> input * 10;
 
-// COMPOSE: argument will be run first
+// COMPOSE: 参数中的函数会先被运行
 Function<Integer, Integer> multiplyByTenAndSquare = square.compose(multiplyByTen);
 
-// ANDTHEN: argument will run last
+// ANDTHEN: 参数中的函数会后被运行
 Function<Integer, Integer> squareAndMultiplyByTen = square.andThen(multiplyByTen);
 ```
 
-At **lines 1 and 2**, we first create two functions, `square` and `multiplyByTen`.
-Next at **lines 5 and 8**, we make two composite functions, `multiplyByTenAndSquare` and `squareAndMultiplyByTen`, that each takes two arguments (to satisfy `square`).
+在**第 1 行和第 2 行**，我们首先创建了两个函数 `square` 和 `multiplyByTen`。
+然后在**第 5 行和第 8 行**，我们创建了两个组合函数 `multiplyByTenAndSquare` 和 `squareAndMultiplyByTen`，这两个组合函数都会被传入两个参数（第一个参数是调用时传给组合函数的参数，第二个参数是首先被调用的那个函数的返回值）。
 
-These composite functions each complete both original functions but in different orders. You can now call the composite functions to execute both original functions on the same input.
+这两种组合函数最终都完成了原来的分函数的功能，但顺序不同。你可以试着使用同样的输入来执行这两个组合函数。
 
-## What to Learn Next
+## 接下来学什么
 
-Today, we went over some general functional programming concepts and explored how those core concepts appear in Python, JavaScript, and Java.
+今天，我们讨论了一些函数式编程的基本概念，并探索了这些核心概念在 Python、JavaScript 和 Java 中是如何体现的。
 
-One of the top functional programming languages making a resurgence is Scala. Many tech giants like Twitter and Facebook have adopted Scala and look for it in their applicants. Your next step is to learn the basics of Scala as an introduction to functional languages.
+重新变得火热的函数式编程语言之一是 Scala。许多科技巨头，比如 Twitter 和 Facebook，都使用 Scala，并招聘相关的技术人员。作为函数式编程语言的入门，你的下一步是学习路线应该是 Scala。
 
-**Happy learning!**
+**祝你学的开心！**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
