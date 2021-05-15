@@ -2,219 +2,231 @@
 > * 原文作者：[Alexey Shepelev](https://medium.com/@alexey-shepelev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-css-practices-to-avoid-as-a-web-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-css-practices-to-avoid-as-a-web-developer.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# 5 CSS Practices To Avoid as a Web Developer
+# Web 开发者应该避免的 5 条 CSS 方面的习惯
 
-![Photo by [Pankaj Patel](https://unsplash.com/@pankajpatel) on [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9874/1*0Ca38BL7C5MRI0qsdAQT3Q.jpeg)
+![图源 [Pankaj Patel](https://unsplash.com/@pankajpatel)，上传至 [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9874/1*0Ca38BL7C5MRI0qsdAQT3Q.jpeg)
 
-Some people think that CSS is difficult to learn. There are lots of crutches and even some magic, which makes it easy to shoot yourself in the foot. I feel sad about this since I don’t think so.
+有人认为 CSS 很难学习，觉得 CSS 有很多的坑，甚至 CSS 还很 *麻鸡*（太过魔法了）难以理解，很容易会搬起石头砸自己的脚。对此我感到难过，毕竟，我可不这么认为。
 
-After some thought about what can be done, I’ve come up with five developer habits that I don’t like and will show you how to avoid them.
+在考虑了可以做什么之后，我提出了五个我挺讨厌的开发者习惯，故作本文，以希望帮助大家避免这些习惯。
 
-## 1. Set Margins or Padding and Then Reset Them
+## 1. 设置内外边距，然后将其重置
 
-I often see people set margins or padding for all elements and then reset them for the first or last element. I don’t know why they use two rules when you can get by with one. It’s much easier to set margins and padding for all the required elements at once.
+我经常看到人们为所有元素设置内外边距，然后为第一个元素清楚刚刚写的边距。我不知道为什么你非要在一条规则就可以解决问题的情况下写两条规则。一次为所有必需的元素设置边距明显容易得多！
 
-Use one of the following for simpler and more concise CSS: `nth-child`/`nth-of-type` selectors, the `:not()` pseudo-class, or the adjacent sibling combinator better known as `+`.
+为简化 CSS，请无比使用以下之一：`nth-child` 或 `nth-of-type` 选择器，还有 `:not()` 伪类或相邻元素组合器（即 `+`）。
 
-Do not do this:
+不要：
 
 ```CSS
 .item {
-  margin-right: 1.6rem;
+    margin-right: 1.6rem;
 }
 
 .item:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 ```
 
-You can use:
+这样：
 
 ```CSS
 .item:not(:last-child) {
-  margin-right: 1.6rem;
+    margin-right: 1.6rem;
 }
 ```
 
-Or:
+或这样：
 
 ```CSS
 .item:nth-child(n+2) {
-  margin-left: 1.6rem;
+    margin-left: 1.6rem;
 }
 ```
 
-Or:
+或者用：
 
 ```CSS
 .item + .item {
-  margin-left: 1.6rem;
+    margin-left: 1.6rem;
 }
 ```
 
-## 2. Add display: block for Elements With position: absolute or position: fixed
+## 2. 为 `position` 为 `fixed` 或 `absolute` 的元素添加 `display:block`
 
-Did you know that you don’t need to add `display: block` for elements with `position: absolute` or `position: fixed` since it happens by default?
+不知道你是否知道你无需为 `position` 为 `fixed` 或 `absolute` 的元素添加 `display:block`，因为这是默认值？
 
-Also, if you use `inline-*` values, they will change as follows: `inline` or `inline-block` will change to `block`, `inline-flex` -> `flex`, `inline-grid` -> `grid`, and `inline-table` -> `table`.
+另外，如果你在这些元素上使用 `inline-*` 值，它们将按以下方式更改：
 
-So, just write `position: absolute` or `position: fixed` and add `display` only when you need `flex` or `grid` values.
+* `inline`、`inline-block` -> `block`
+* `inline-flex` -> `flex`
+* `inline-grid` -> `grid`
+* `inline-table` -> `table`
 
-Do not do this:
+因此，对于 `position` 为 `fixed` 或 `absolute` 的元素，你只需在 `display` 为 `flex` 或 `grid` 时设定 `display`。
+
+不要：
 
 ```CSS
 .button::before {
-  content: "";
-  position: absolute;
-  display: block;
+    content: "";
+    position: absolute;
+    display: block;
 }
 ```
 
-Or:
+或者：
 
 ```CSS
 .button::before {
-  content: "";
-  position: fixed;
-  display: block;
+    content: "";
+    position: fixed;
+    display: block;
 }
 ```
 
-You can use:
+直接这样：
 
 ```CSS
 .button::before {
-  content: "";
-  position: absolute;
+    content: "";
+    position: absolute;
 }
 ```
 
-Or:
+或者：
 
 ```CSS
 .button::before {
-  content: "";
-  position: fixed;
+    content: "";
+    position: fixed;
 }
 ```
 
-## 3. Use transform: translate (-50%, -50%) To Center
+## 3. 使用 `transform: translate(-50%, -50%)` 以居中
 
-There was a popular problem that used to cause a lot of trouble. This lasted until 2015, and all its solutions led to some kind of difficulties. I’m talking about centering an element with an arbitrary height along two axes.
+曾几何时，一个非常普遍的问题让开发者们的掉过不少，一直持续到 2015 年解决方案都令人头秃 —— 将未指定高度的元素在水平竖直方向居中。
 
-In particular, one solution was to use a combination of absolute positioning and the `transform` property. This technique caused blurry text issues in Chromium-based browsers.
+特别地，一种解决方案是结合使用绝对定位和 `transform` 属性。此技术在基于 Chromium 的浏览器中会导致文本的模糊问题。
 
-But after the introduction of flexbox, this technique, in my opinion, is no longer relevant. The thing is that it cannot solve the problem of blurry text. What’s more, it makes you use five properties. So, I would like to share a trick that can reduce the code to two properties.
+但是在引入 `flexbox` 之后，我认为这个解决方法已不再适用，毕竟就方法不能解决文本模糊的问题，而且我们还得使用五个属性才能实现居中。现在我想向大家分享一个技巧，缩减代码为两个属性。
 
-We can use `margin: auto` inside a `flex` container and the browser will center the element. Just two properties and that’s it.
+—— 在 `flex` 容器内使用 `margin: auto`（只有这两个属性，仅此而已！）。浏览器会自动将元素居中。
 
-Do not do this:
+不要这样：
 
 ```CSS
 .parent {
-  position: relative;
+    position: relative;
 }
 
 .child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 ```
 
-You can use:
+直接：
 
 ```CSS
 .parent {
-  display: flex;
+    display: flex;
 }
 
 .child {
-  margin: auto;
+    margin: auto;
 }
 ```
 
-## 4. Use width: 100% for Block Elements
+## 4. 为块状元素使用 `width: 100%`
 
-We often use flexbox to create a multi-column grid that gradually converts to a single column.
+我们经常使用 `flexbox` 创建一个多列网格，然后转换为单列网格。
 
-And to convert the grid to one column, developers use `width: 100%`. I don’t understand why they do it. The grid elements are block elements that can do this by default without using additional properties.
+为了将多列网格转换为单列网格，开发人员使用了 `width：100％`。我不明白他们为什么这么做 —— 网格元素是块元素，默认情况下的宽度就是 `100%`，而无需使用其他属性。
 
-So we don’t need to use `width: 100%`, but rather we should write the media query so that flexbox is only used to create a multi-column grid.
+因此，我们不需要使用 `width：100％`，而是应该编写媒体查询，以便 `flexbox` 仅用于创建多列网格。
 
-Do not do this:
+不要：
 
 ```HTML
+
 <div class="parent">
-  <div class="child">Item 1</div>
-  <div class="child">Item 2</div>
-  <div class="child">Item 3</div>
-  <div class="child">Item 4</div>
+    <div class="child">Item 1</div>
+    <div class="child">Item 2</div>
+    <div class="child">Item 3</div>
+    <div class="child">Item 4</div>
 </div>
 ```
 
 ```CSS
 .parent {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.child {
-  width: 100%;
-}
-
-@media (min-width: 1024px) {
-  .child {
-    width: 25%;
-  }
-}
-```
-
-You can use:
-
-```HTML
-<div class="parent">
-  <div class="child">Item 1</div>
-  <div class="child">Item 2</div>
-  <div class="child">Item 3</div>
-  <div class="child">Item 4</div>
-</div>
-```
-
-```CSS
-@media (min-width: 1024px) {
-  .parent {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .child {
-    width: 25%;
-  }
-}
-```
-
-## 5. Set display: block for Flex Items
-
-When using flexbox, it is important to remember that when you create a flex container (add `display: flex`), all children (`flex` items) become blockified.
-
-This means that the elements are set to `display` and can only have block values. Accordingly, if you set `inline` or `inline-block`, it will change to `block`, `inline-flex` -> `flex`, `inline-grid` -> `grid`, and `inline-table` -> `table`.
-
-So, don’t add `display: block` to `flex` items. The browser will do it for you.
-
-Do not do this:
-
-```CSS
-.parent {
-  display: flex;
 }
 
 .child {
-  display: block;
+    width: 100%;
+}
+
+@media (min-width: 1024px) {
+    .child {
+        width: 25%;
+    }
+}
+```
+
+直接：
+
+```HTML
+
+<div class="parent">
+    <div class="child">Item 1</div>
+    <div class="child">Item 2</div>
+    <div class="child">Item 3</div>
+    <div class="child">Item 4</div>
+</div>
+```
+
+```CSS
+@media (min-width: 1024px) {
+    .parent {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .child {
+        width: 25%;
+    }
+}
+```
+
+## 5. 为 flex 项目设置 `display: block`
+
+使用 flexbox 时，请务必记住，当创建一个 flex 容器（`display: flex`）时，所有子项（`flex` 项目）都会被转化为 `block`。
+
+这意味着所有子项的 `display` 都会被默认设置为 `block`。
+
+* `inline`、`inline-block` -> `block`
+* `inline-flex` -> `flex`
+* `inline-grid` -> `grid`
+* `inline-table` -> `table`
+
+因此，无需在 `flex` 项目中添加 `display：block`，浏览器将为你完成此操作。
+
+不要这样做：
+
+```CSS
+.parent {
+    display: flex;
+}
+
+.child {
+    display: block;
 }
 ```
 
@@ -222,13 +234,13 @@ You can use:
 
 ```CSS
 .parent {
-  display: flex;
+    display: flex;
 }
 ```
 
-## Conclusion
+## 小结
 
-I hope I’ve managed to show you how to avoid simple mistakes and you will take my advice. Thanks for reading!
+希望在阅读本问候，你能够明白这些简单的错误的避开方式并接受我的建议。感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
