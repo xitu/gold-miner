@@ -2,26 +2,26 @@
 > * 原文作者：[Isuri Devindi](https://medium.com/@isuridevindi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md)
-> * 译者：
+> * 译者：[Zz招锦](https://github.com/zenblo)
 > * 校对者：
 
-# Hookrouter: A Modern Approach to React Routing
+# 现代化的 React 路由 Hookrouter 开发使用
 
 ![](https://cdn-images-1.medium.com/max/5760/1*04u1ylnBHOx19jxSMkenVA.jpeg)
 
-Routing is essential for Single Page Applications (SPAs) to navigate through pages and to initialize state. With React, I’m sure most of you have used react-router-dom, a variant of the Reactrouter library for routing.
+路由在单页应用程序（SPA）页面中导航和初始化状态是至关重要的。对于 React，大多数开发者都使用过 `react-router-dom`，这是 Reactrouter 库用于路由的一个变量。
 
-However, with React hooks’ introduction, a new module known as the [**Hookrouter**](https://github.com/Paratron/hookrouter) has been launched very recently as a flexible, fast router based on hooks.
+然而，随着 React hooks 的引入，最近一个被称为 [**Hookrouter**](https://github.com/Paratron/hookrouter) 的新模块被推出，作为一个基于 hooks 的灵活、快速的路由。
 
-This article will focus on how we can use **the Hookrouter** module to replicate the Reactrouter’s basic functionalities.
+本文将重点介绍我们如何使用 Hookrouter 模块来实现 Reactrouter 的基本功能。
 
 ---
 
-> To demonstrate the features of Hookrouter I will be using a product store front example with four basic components namely Nav.js, Home.js, About.js, and Shop.js. Besides, the complete React app with routing using Hookrouter can be found [here](https://github.com/Isuri-Devindi/Hookrouter-demo).
+> 为了演示 Hookrouter 的功能，我将使用一个商城作为示例，有四个基本组件，即 Nav.js、Home.js、About.js 和 Shop.js。此外，完整的 React 应用程序和使用 Hookrouter 的路由可以在[这里](https://github.com/Isuri-Devindi/Hookrouter-demo)找到。
 
-## 1. Defining Routes with Hookrouter vs Reactrouter
+## 1. Hookrouter 与 Reactrouter 定义路由对比
 
-When using Reactrouter, we can define the routes as follows.
+当使用 Reactrouter 时，我们可以按以下方式定义路由。
 
 ```JavaScript
 import Nav from './components/Nav';
@@ -49,11 +49,11 @@ function App() {
 export default App;
 ```
 
-I hope most of you are familiar with the above example, which is relatively straightforward.
+我希望大家都能熟悉上述示例，这些都是相对简单的示例。
 
-However, if we implement the same using Hookrouter, we can declare the routes as an object using the `useRoutes()` hook.
+如果我们使用 Hookrouter 来实现，那么可以使用 `useRoutes()` hook 将路由声明为一个对象。
 
-The object keys define the paths, while values are the functions triggered when the path matches. The router checks the paths one after the other and stops after a match has been found.
+对象的键定义了路径，而对象的值是路径匹配时触发的函数。路由器一个接一个地检查路径，在找到匹配后停止检查。
 
 ```JavaScript
 import {useRoutes} from 'hookrouter'
@@ -80,15 +80,15 @@ function App() {
 export default App;
 ```
 
-The `\<Route/>` the component in Reactrouter has to be rendered every time, along with all the props for each route in the app. Nevertheless, with Hookrouter, the routes defined as an object can be simply passed to the `useRoutes()` hook.
+Reactrouter 中的 `<Route/>` 组件每次都必须被渲染，同时还有应用程序中每个路由的所有 props。然而，在 Hookrouter 中，定义为对象的路由可以简单地传递给 `useRoutes()` hook。
 
-> **Note:** Make sure to create the route object outside the components; otherwise, the whole object will be re-created at every render.
+> **注意：** 确保在组件之外创建路由对象；否则，整个对象将在每次渲染时被重新创建。
 
-## 2. Implementing Switch Functionality of Reactrouter in Hookrouter
+## 2. Hookrouter 实现 Reactrouter 开关功能
 
-The `\<Switch>`is used to render routes exclusively by rendering the first child `\<Route>` or `\<Redirect>` that matches the location. `\<Switch>` is usually utilized to render a 404 page when the defined navigation routes are not matched.
+`<Switch>` 是用来渲染路由的，只渲染与位置相匹配的第一个孩子 `<Route>` 或 `<Redirect>`。当定义的导航路由不匹配时，`<Switch>` 通常被用来呈现 404 页面。
 
-Let’s look at how we can use `\<Switch>` to route to the 404 pages with Reactrouter.
+让我们来看看如何使用 `<Switch>` 来用 Reactrouter 路由呈现 404 页面。
 
 ```JavaScript
 import Nav from './components/Nav';
@@ -122,9 +122,9 @@ function App() {
 export default App;
 ```
 
-> When routing is done using the Hookrouter, the routes are rendered exclusively since they are defined in an object. Therefore, the useRoutes() hook performs the functionality of the \<Switch> component by default.
+> 当使用 Hookrouter 进行路由时，由于路由是在一个对象中定义的，所以需要专门渲染，`useRoutes()` hook 在默认情况下执行 `<Switch>` 组件的功能。
 
-For instance, to route to a 404 page using Hookrouter, we only have to pass the error we want to display or the component containing the error message for rendering, as shown below (line 17).
+例如，使用 Hookrouter 路由呈现 404 页面，我们只需传递我们想要显示的错误或包含错误信息的组件进行渲染，如下所示（第 17 行）。
 
 ```JavaScript
 import {useRoutes} from 'hookrouter'
@@ -151,13 +151,13 @@ function App() {
 export default App;
 ```
 
-> **Note:** An important fact I have noticed is that in Reactrouter `\<Switch>`is that if the path is not declared as exact, it might lead to erroneous routings in some cases.
+> **注意：** 我发现一个重要事实是，在Reactrouter`<Switch>` 中，如果没有明确指明路由导航，在某些情况下可能导致错误的路由。
 
-For example, if the path to `{Home}` is not declared as exact, the application won’t route to any other path starting with `‘/’`. As a result, the app won’t route to `{About}` or `{Shop}` components and will always route to the Home page. However, in Hookrouter, since the routes are declared as an object, explicit declarations of “exact” for paths are not necessary.
+例如，如果到 `{Home}` 的路径没有明确指明，应用程序将不会导航到任何其他以 `/` 开头的路径。因此，应用程序不会路由导航到 `{About}` 或 `{Shop}` 组件，而会一直路由导航到主页。然而，在 Hookrouter 中，由于路由是作为一个对象来声明的，所以不需要明确声明导航路径。
 
-## 3. Navigation using Hookrouter
+## 3. 使用 Hookrouter 导航
 
-With Reactrouter, `\<Link>` is used to navigate across the application. Besides, navigations can be customized and managed interactively in a React app using this.
+通过 Reactrouter 使用 `<Link>` 来在整个应用中导航。此外，在 React 应用中，可以用它来定制和交互式地管理导航。
 
 ```JavaScript
 import React from 'react'
@@ -188,9 +188,9 @@ function Nav() {
 export default Nav
 ```
 
-> The Hookrouter uses a \<A> component to provide the functionality of the \<Link> component. \<A> is a wrapper around the HTML anchor tag \<a> and is 100% feature compatible with the anchor tag.
+> Hookrouter 使用一个 `<A>` 组件来提供 `<Link>` 组件的功能。`<A>` 是一个来自 HTML 的 `<a>` 标记的包装器，与锚标记的功能完全兼容。
 
-The main difference between `\<A>` and `\<Link>` is that `\<A>`pushes the URL to the history stack without loading a new page. As a result, onclick functions have to be wrapped by the `\<A>` component to intercept the click event to stop the default behavior and push the URL on the history stack.
+`<A>` 和 `<Link>` 之间的主要区别是，`<A>` 将 URL 推送到历史栈，而不加载新的页面。因此，onclick 函数必须由 `<A>` 组件包装，以拦截点击事件，停止默认行为并将 URL 推送到历史堆栈。
 
 ```JavaScript
 import React from 'react'
@@ -221,17 +221,17 @@ function Nav() {
 export default Nav
 ```
 
-## 4. Handling Dynamic Routes
+## 4. 处理动态路由
 
-Some components contain dynamic portions that have to be rendered based on the URL on demand. URL parameters are used to set dynamic values in a URL. In Reactrouter, placeholders are passed to the path prop starting with a colon in the `\<Route/>` component.
+一些组件包含动态部分，必须根据 URL 的要求进行渲染。URL 参数被用来在 URL 中设置动态值。在 Reactrouter 中，占位符被传递给 `<Route/>` 组件中以冒号开始的路径道具。
 
-To demonstrate this concept, let’s consider a list of products displayed on the application’s Shop page. The user should be directed to the Details page of a specific product when they click on it. The navigation is done dynamically, passing the product id as a placeholder in the path prop.
+为了证明这个判断，让我们考虑在应用程序的商店页面上显示一个产品列表。当用户点击某个特定产品时，他们应该被引导到该产品的详细信息页面。导航是动态进行的，在路径道具中传递产品 ID 作为占位符。
 
 ```JavaScript
  <Route path = '/shop/:id' component = {Details}/>
 ```
 
-> In Hookrouter, the URL parameters can be passed in the same way as done in Reactrouter. The construct is the same.
+> 在 Hookrouter 中，URL 参数的传递方式与 Reactrouter 中的方式相同，结构也是一样的。
 
 ```JavaScript
 const routes = {
@@ -239,47 +239,47 @@ const routes = {
   };
 ```
 
-However, the Hookrouter handles the URL parameters differently.
+然而，Hookrouter 对 URL 参数的处理方式不同。
 
-1. It reads the URL parameters using the keys defined in the routes object
-2. Puts them into an object, and the named parameters will be forwarded to the route result function as a combined object.
-3. The dynamic property is extracted from the props using object destructuring, and then it can be applied to the relevant component.
+1. 它使用路由对象中定义的键来读取 URL 参数。
+2. 将它们放入一个对象中，命名的参数将作为一个组合对象被转发给路由结果函数。
+3. 使用对象解构从中提取动态属性，然后可以应用于相关组件。
 
-Therefore, as you have seen, the same result obtained using the Reactrouter can be achieved by the Hookrouter.
+因此，正如你所看到的，使用 Reactrouter 获得的结果同样可以通过 Hookrouter 实现。
 
-## 5. Other Features of the Hookrouter
+## 5. Hookrouter 的其他特性
 
-### Programmatic navigation
+### 程序化导航
 
-The navigate(url, [replace], [queryParams]) function from the Hookrouter package can be used to send users to a specific page defined by the absolute or relative URL provided. For example, to navigate to the about page, the code snippet given below can be used.
+使用 Hookrouter 依赖包的 `navigate(url, [replace], [queryParams])` 函数，可以用来将用户发送到一个提供的绝对或相对 URL 定义的特定页面。例如，要导航到关于页面，可以使用下面的代码片段。
 
 ```js
 navigate(‘/about’) 
 ```
 
-`navigate()` by default is a forward navigation. Therefore, a new entry in the browsing history will be created, and the user can click the back button in the browser to get back to the previous page.
+`navigate()` 默认是一个向前的导航。因此，将在浏览历史中创建一个新的条目，用户可以点击浏览器中的后退按钮，回到前一页。
 
-### Redirects
+### 重定向
 
-Hookrouter handles redirects with the aid of the `useRedirect()` hook. It takes a source route and a target route as parameters.
+Hookrouter 借助于 `useRedirect()` hook 来处理重定向问题。它需要一个源路由和一个目标路由作为参数。
 
 ```js
 useRedirect('/', '/greeting');
 ```
 
-Whenever the `‘/’`path is matched, the `useRedirect()` will automatically redirect the user to the ‘/greeting’ route.
+每当 `/` 路径被匹配，`useRedirect()` 将自动将用户重定向到 `/greeting` 路径。
 
-This hook triggers a replacement navigation intent. As a result, there will be only one entry in the navigation history. Therefore, if redirection happens from `‘/’` to `‘/greeting’` as shown in the last code snippet, the `‘/’ `route will not appear in the browsing history.
+这个 hook 会触发一个替换的路由导航。因此，在导航历史中，将只有一个条目。因此，如果重定向从 `/` 发生到 `/greeting`，如最后一个代码片断所示， `/` 路线将不会出现在浏览历史中。
 
-Many of the other Reactrouter library features (apart from the ones discussed here) can be implemented using the Hookrouter module, such as nested routing, lazy loading components, and server-side rendering.
+许多其他 Reactrouter 库的功能（除了这里讨论的那些）可以使用 Hookrouter 模块实现，如嵌套路由、懒加载组件和服务器端渲染。
 
-Besides, feel free to go through the [Hookrouter documentation](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md) to learn more about this module.
+此外，请随时查看 [Hookrouter 文档](https://github.com/Paratron/hookrouter/blob/master/src-docs/pages/en/README.md)，了解更多关于这个模块的信息。
 
-## Drawbacks
+## 不足之处
 
-I have noticed that sometimes the Hookrouter doesn’t work with [**Strict Mode**](https://reactjs.org/docs/strict-mode.html) that is enabled by default in the latest versions of create-react-app.
+我注意到，有时 Hookrouter 在最新版本的 create-react-app 中默认启用的[**严格模式**](https://reactjs.org/docs/strict-mode.html)下无法工作。
 
-However, you only have to remove the `\<React.StrictMode>` component from your index.js to use Hookrouter.
+然而，你只需要从 index.js 中删除 `<React.StrictMode>` 组件就可以使用 Hookrouter。
 
 ```jsx
 <React.StrictMode>
@@ -287,15 +287,15 @@ However, you only have to remove the `\<React.StrictMode>` component from your i
 </React.StrictMode>
 ```
 
-Another drawback is that since this module is relatively new, it might contain some unknown and unusual bugs resulting in unexpected behaviors.
+另一个缺点是，由于这个模块相对较新，它可能包含一些未知的和不寻常的错误，导致发生意外结果。
 
-## Conclusion
+## 本文总结
 
-From the above demonstrations, it’s clear that the Hookrouter module offers a cleaner, faster, and more flexible alternative to handle routes in a React application.
+从上面的示例可以看出，Hookrouter 模块为处理 React 应用程序中的路由提供了一个更简洁、更快速、更灵活的选择。
 
-It offers most of the Reactrouter library features. Therefore, I encourage you to go ahead and try it out for smaller projects for a start.
+它提供了 Reactrouter 库的大部分功能。因此，我鼓励你去尝试一下，先在小型项目中使用它。
 
-Thank you for reading!
+谢谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
