@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md](https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md)
 > * 译者：[kamly](https://github.com/kamly)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 # Node.js 与 Python ：为你的项目选择哪一个？ 
 
 ![Photo by [Alex Kotliarskyi](https://unsplash.com/@frantic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*COxufZ6uSEyF1y1-)
 
-Node.js 和 Python 是网络上比较最多的两种后端技术。由于两者都非常流行于 Web 应用程序开发，因此在您选择其中一个之前，有必要进行彻底的比较。在本文中，我们将探讨这两个选项中哪一个最适合您的开发需求，以及何时满足您的需求。
+Node.js 和 Python 是网络上被比较的最多的两种后端技术。由于两者都非常流行于 Web 应用程序开发，因此在您选择其中一个之前，有必要对两者进行彻底的比较。在本文中，我们将探讨这两个选项中哪一个最适合您的开发需求，以及何时满足您的需求。
 
 ## 什么是 Node.js?
 
-因为 Node.js 是事件驱动的，所以它是可伸缩的，并为项目带来了惊人的效率。它的异步性使其有能力处理并发请求而不阻塞 I/O 操作。大多数开发团队喜欢 Node.js ，在客户端和服务器端都使用 JavaScript。
+因为 Node.js 是事件驱动的，所以它是可拓展的，并为项目带来了惊人的效率。它的异步性使其有能力处理并发请求而不阻塞 I/O 操作。大多数开发团队喜欢 Node.js ，在客户端和服务器端都使用 JavaScript。
 
 ## 什么是 Python?
 
-另一方面，Python 是一种成熟的、高级的、面向对象的编程语言。由于它已经存在了近30年，它有大量的库、接口和可用的辅助工具。Python 有利于多种编程范式，而且它被广泛用于商业应用。
+另一方面，Python 是一种成熟的、高级的、面向对象的编程语言。由于它已经存在了近 30 年，它有大量的库、接口和可用的辅助工具。Python 有利于多种编程范式，而且它被广泛用于商业应用。
 
 ---
 
@@ -29,9 +29,9 @@ Node.js 和 Python 是网络上比较最多的两种后端技术。由于两者�
 
 首先从公司的角度来看，开发团队必须决定哪种语言在市场上有相当程度的人才。然后从程序员的角度来看，必须决定他们是否愿意接受那些被许多公司主要使用的语言。
 
-看一下网站的受欢迎程度，[SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python)报告称，Node.js 被认为是前10,000,100,000,000个网站中使用最多的工具，而整个类别的网站根据其受欢迎程度进行排名。
+看一下网站的受欢迎程度，[SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python)报告称，Node.js 被认为是前 10,000,100,000,000 个网站中使用最多的工具，而整个类别的网站根据其受欢迎程度进行排名。
 
-根据[Stack Overflow](https://insights.stackoverflow.com/survey/2019)2019年的调查，Python 语言是最受欢迎的编程语言，而 Node.js 是专业程序员最喜欢的工具。
+根据[Stack Overflow](https://insights.stackoverflow.com/survey/2019) 2019 年的调查，Python 语言是最受欢迎的编程语言，而 Node.js 是专业程序员最喜欢的工具。
 
 ---
 
@@ -39,13 +39,13 @@ Node.js 和 Python 是网络上比较最多的两种后端技术。由于两者�
 
 ## Node.js 和 Python 的性能
 
-当你在扩展一个应用程序时，每一点的效率都有助于减少运营成本。因此，在评估一种编程语言或环境时，性能和速度被认为很重要。
+当你在扩展一个应用程序时，每一点的效率都有助于减少运营成本。因此，在评估一种编程语言或环境时，性能和速度是很重要的。
 
 #### Node.js
 
-我们已经探讨了 Node.js 的非阻塞架构。有了这个优势，它的执行过程更加简单和快速。在此基础上，还有一个好处使 Node.js 成为一个坚实的竞争者，它可以在网络浏览器之外执行代码。
+我们已经探讨了 Node.js 的非阻塞架构。有了这个优势，它的执行过程更加简单和快速。在此基础上，还有一个好处使 Node.js 成为一个可靠的竞争者，那就是它可以在网络浏览器之外执行代码。
 
-这样，在浏览器上运行的应用程序处理速度更快，并因此在效率指标上表现得更好。还允许应用程序提取浏览器中无法使用的功能，如 TCP 套接字。
+这样，在浏览器上运行的应用程序处理速度更快，并因此在效率指标上表现得更好。而且还允许应用程序提取浏览器中无法使用的功能，如 TCP 套接字。
 
 #### Python
 
@@ -61,7 +61,7 @@ Python 的语法很容易学习，但没有针对速度和性能进行优化。�
 
 #### Node 的社区
 
-你可能会认为 Node.js 是一种相对较新的技术形式，并可能推测其社区很小。然而，你会惊讶地发现，Node.js 社区是相当大的，并且在全球范围内活跃着经验丰富的[Node.js 开发者](https://www.simform.com/hire/node-js-developers/)。在 Node.js 圈子里发现人才超级容易。
+你可能会认为 Node.js 是一种相对较新的技术形式，并可能推测其社区规模很小。然而，你会惊讶地发现，Node.js 社区规模是相当大的，并且在全球范围内活跃着经验丰富的 [Node.js 开发者](https://www.simform.com/hire/node-js-developers/)。在 Node.js 圈子里发现人才超级容易。
 
 #### Python 的社区
 
@@ -77,7 +77,7 @@ Node.js 是运行时环境，非常适合需要在服务器和浏览器端应用
 
 同样值得注意的是，Node.js 可以在服务器端和客户端之间使用。这将减少部署时间，并使团队在进行协调时维护代码变得可行。
 
-由于其高效的处理能力，Node.js 是云服务器和客户端应用之间频繁交互的公司使用的首选平台。Netflix、LinkedIn、**Medium**、Trello 和 Paypal 是一些使用 Node.js 作为平台的知名科技公司。
+由于其高效的处理能力，Node.js 是云服务器和客户端应用之间频繁交互的公司使用的首选平台。Netflix、LinkedIn、**Medium**、Trello 和 Paypal 都是一些使用 Node.js 作为平台的知名科技公司。
 
 ![docs.python.org](https://cdn-images-1.medium.com/max/2000/0*Zc2tp-LTZZqoptD9.jpg)
 
@@ -85,7 +85,7 @@ Node.js 是运行时环境，非常适合需要在服务器和浏览器端应用
 
 Python 拥有广泛的人才，部分原因是它运行在一个不复杂的语法上。因此，谷歌和 Facebook 这两个最大的技术人才消费者广泛使用 Python 构建技术也就不足为奇了。
 
-此外，一些最受欢迎的数据科学培训课程使用 Python 作为教给学生的默认语言。因此，Python人才的可用性正在增加。
+此外，一些最受欢迎的数据科学培训课程使用 Python 作为教给学生的默认语言。因此，Python 人才的可用性正在增加。
 
 进一步说，Python 的流行使其成为学习和使用具有重要战略意义的语言。它丰富的库允许你非常有效地建立和部署一个 MVP。这也确保了开发人员的资源得到最佳利用。
 
@@ -98,7 +98,7 @@ Python 拥有广泛的人才，部分原因是它运行在一个不复杂的语�
 
 在 Node.js 和 Python 之间进行选择可能很棘手，特别是当你想开发一个完整的产品，而不仅仅是一个附带项目时。双方的功能和优势可能是压倒性的，可能会模糊你的判断。
 
-这就是为什么，处理这种困境的理想方法是关注产品的最终用途。列出你产品的所有特性，以及你计划如何设计它们。而证明更方便的语言或运行时环境应该是你的选择。
+这就是为什么，处理这种困境的理想方法是关注产品的最终用途。列出你产品的所有特性，以及你计划如何设计它们。从而证明你应该选择更方便的语言或运行时环境。
 
 如果你发现自己仍然感到困惑，或者不知道自己是否做出了正确的决定，请随时将你的问题发送到 tejas@simformlabs.com。我很高兴能了解你们的项目并提出建议。
 
