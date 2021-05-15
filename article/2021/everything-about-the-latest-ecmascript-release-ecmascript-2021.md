@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# 有关最新 ECMAScript 版本的所有信息| ECMAScript 2021
+# 有关 ECMAScript 最新版本的所有信息｜ECMAScript 2021
 
 在本文中，我们将通过一些示例代码向大家介绍 ECMAScript 2021 最新版本的功能。
 
