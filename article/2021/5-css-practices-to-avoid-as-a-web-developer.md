@@ -5,13 +5,13 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
 > * 校对者：
 
-# Web 开发者应该避免的 5 条 CSS 方面的习惯
+# Web 开发者应该避免的 5 个 CSS 的做法
 
 ![图源 [Pankaj Patel](https://unsplash.com/@pankajpatel)，上传至 [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9874/1*0Ca38BL7C5MRI0qsdAQT3Q.jpeg)
 
 有人认为 CSS 很难学习，觉得 CSS 有很多的坑，甚至 CSS 还很 *麻鸡*（太过魔法了）难以理解，很容易会搬起石头砸自己的脚。对此我感到难过，毕竟，我可不这么认为。
 
-在考虑了可以做什么之后，我提出了五个我挺讨厌的开发者习惯，故作本文，以希望帮助大家避免这些习惯。
+在考虑了可以做什么之后，我提出了五个我挺讨厌的 CSS 的做法，故作本文，以希望帮助大家避免这些习惯。
 
 ## 1. 设置内外边距，然后将其重置
 
