@@ -2,60 +2,58 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-typed-arrays.md](https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-typed-arrays.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 译者：
 > * 校对者：
 
-# JavaScript 类型化数组
+# JavaScript Typed Arrays
 
-![图源 [Pierre Bamin](https://unsplash.com/@bamin?utm_source=juejin&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=juejin&utm_medium=referral)](https://cdn-images-1.medium.com/max/10992/0*u7yLuqz5vOYfScJQ)
+![Photo by [Pierre Bamin](https://unsplash.com/@bamin?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10992/0*u7yLuqz5vOYfScJQ)
 
-在 JavaScript 这门语言中，我们所有人都必须对数组这个本质上是动态的，并且可以容纳任何 JavaScript 对象的东西熟悉。不过，如果你曾经使用过类似于 C 语言这样的其他语言，你其实知道数组本质上不是动态的。而且你只能在该数组中存储特定的数据类型，毕竟从性能角度来看，这可以确保阵列效率更高。但数组的动态化与存储信息类型的多样化其实并没有使 JavaScript 数组效率低下。在 JavaScript 引擎优化的帮助下，JavaScript 中的数组其实非常快。
+We all must be familiar with JavaScript Arrays which are dynamic in nature and can hold any JavaScript object. But if you are familiar with languages such as C, you will know that arrays are not dynamic by nature. And you will only be able to store a specific data type in that array. But this makes sure that the array is more efficient from the performance perspective. But this does not make JavaScript Arrays inefficient. With the help of JavaScript engine optimizations, Arrays in JavaScript are quite fast thanks.
 
-随着 Web 应用程序功能越来越强大，我们开始需要让 Web 应用程序处理和操纵原始二进制数据。JavaScript 数组无法处理这些原始二进制数据，也因此我们引入了 JavaScript 的类型化数组。
+As web applications grew more powerful, there was a need for web applications to handle and manipulate raw binary data. JavaScript Arrays were unable to handle these raw binary data. Hence JavaScript typed arrays were introduced.
 
-## 类型化数组
+## Typed Arrays
 
-类型化数组是与数组非常相似的对象，但是它提供了一种将原始二进制数据写入内存缓冲区的机制。所有主要浏览器均很好地支持此功能，并且 ES6 已将其集成到 JavaScript 核心框架中，也可以访问诸如 `map()`、`filter()` 等 Array 方法。我强烈建议你浏览本文结尾处提到的资源，以更深入了解类型化数组。
+Typed Arrays are objects which are quite similar to Arrays, but provide a mechanism to write raw binary data into memory buffers. This feature is well supported across all major browsers and with ES6, they were integrated into the core JS framework and received access to `Array` methods such as `map()`, `filter()`, etc. I highly advise you to go through the resources mentioned at the end of this article to gain in-depth knowledge of typed arrays.
 
-### 组成
+### Structure
 
-[comment]: <> (说真的，这里翻译后有点重复了，所以直接给砍掉半截)
+Typed Arrays are implemented in such a way that they are structured as two main components. The two components that work hand-in-hand to implement typed arrays are the Buffer and View.
 
-类型化数组由两个主要部分组成，`Buffer` 和 `View`。
+#### Buffer
 
-#### 缓冲区
+A Buffer is an object that is of type `ArrayBuffer` which represents a chunk of data. This chunk of raw binary data, cannot be accessed or modified on its own. You might wonder, what is the use of a data object which cannot be accessed or modified. Here is where a View comes into the picture.
 
-`Buffer` 是 `ArrayBuffer` 类型的对象，表示一个数据块。此原始二进制数据块无法被单独访问或修改。你可能想知道，无法访问或修改的数据对象的用途是什么。实际上视图是缓冲区的读写接口。
+#### View
 
-#### 视图
+A View is an object that allows you to access and modify the raw binary content stored in an `ArrayBuffer`. There are two kinds of Views.
 
-`View` 是一个对象，允许你访问和修改存储在 `ArrayBuffer` 中的原始二进制内容。一般来说有两种视图：
+* An instance of the `TypedArray` object
 
-#### `TypedArray` 对象的实例
+These types of objects are much similar to the usual Arrays, but only store numerical data of a single type. Types like `Int8`, `Uint8`, `Int16`, `Float32` are some of the TypedArray types. The number in the type denotes the number of bits allocated for the data type. For example, `Int8` means an integer with 8 bits assigned to it.
 
-这些类型的对象与通常的数组非常相似，但是仅存储单一类型的数值数据。诸如 `Int8`、`Uint8`、`Int16`、`Float32` 就是类型化数组的数据类型。类型中的数字表示为数据类型分配的位数。例如，`Int8` 表示 8 位的整数。
+You can read the [reference docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays#typed_array_views) to know more about TypedArray data types in detail.
 
-> 你可以阅读 [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays#%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E8%A7%86%E5%9B%BE) 来详细了解类型化数组的数据类型。
+* An instance of the `DataView` object
 
-#### `DataView` 对象的实例
+The `DataView` is a low-level interface that provides a getter/setter API to read and write arbitrary data to the buffer. This helps you immensely, especially when working with multiple data types in a single `TypedArray`.
 
-`DataView` 是一个低级接口，提供了一个 `getter` / `setter` API 来读取和写入任意数据到缓冲区。这很大程度上方便了我们的开发，尤其是需要在单个类型化数组中处理多种数据类型时。
+Another advantage of using the `DataView` is that it lets you control the Endianness of your data. `Typed Array` use the Endianness of your platform. This will not be an issue if you are working locally, as your device will use the same Endianness as your typed array. In most scenarios, your typed array will be little-endian as Intel uses little-endian. Since Intel is very common amongst computer processors, there will not be an issue most of the time. But if you are transferring a little-endian encoded data to a device that uses big-endian encoding, you will end up with poorly encoded that will probably end up being corrupted. As `DataView` enables you to control the Endianness, you can use it whenever necessary.
 
-使用 `DataView` 的另一个好处是，它可以让你控制数据的字节序 —— 类型化数组使用平台的字节序。当然如果你的程序运行在本地，这将不是问题，因为你的设备将使用与输入数组相同的字节序。在大多数情况下，你的类型化数组将为低端字节序，因为英特尔采取的是小端字节序。由于英特尔在计算机处理器中非常普遍，因此大多数时候不会出现问题。但是，如果将小端字节序编码的数据传输到使用大端字节序编码的设备，则会导致读取时候的错误，最终可能导致数据的丢失。由于 `DataView` 使你可以控制字节序的方向，因此你可以在必要时使用它。
+## What Makes Them Different From Normal Arrays
 
-## 是什么使它们与普通数组不同
+As I have mentioned before, ordinary JavaScript arrays are well optimized by JavaScript engines, that you do not need to use Typed Arrays solely for the performance aspect as this would not give you much of an upgrade. But there are certain features that make type arrays different from ordinary arrays, which might be the reason for you opting for them.
 
-如前所述，普通的 JavaScript 数组已通过 JavaScript 引擎进行了优化，你无需仅将类型化数组用于性能方面，因为这不会给你带来太多升级。但是有些功能使类型化数组不同于普通数组，这可能是你选择它们的原因。
+* Lets you handle raw binary data
+* Since they are working with only a limited number of data types, it is easier for your engine to optimize Typed Arrays when compared with ordinary arrays where it will be a much of a complicated process.
+* Optimization of ordinary arrays is never assured as your engine may decide not to do so over various reasons.
 
-* 让你能够处理原始二进制数据
-* 由于它们仅处理有限数量的数据类型，因此与普通数组相比，你的引擎更容易优化类型化数组，因为普通数组的使用其实是一个非常复杂的过程。
-* 永远不能保证优化普通数组，因为你的引擎可能出于各种原因决定不这样做。
-
-## 在 Web 开发中的用途
+## Uses in Web Development
 
 ### XMLHttpRequest API
 
-你可以根据你的响应类型以 `ArrayBuffer` 形式接收数据响应。
+You can receive the data response in an ArrayBuffer form as per your response type.
 
 ```js
 const xhr = new XMLHttpRequest();
@@ -64,7 +62,7 @@ xhr.responseType = 'arraybuffer';
 
 xhr.onload = function () {
     const arrayBuffer = xhr.response;
-    // 处理数据
+    //handle data
 };
 
 xhr.send();
@@ -72,23 +70,23 @@ xhr.send();
 
 ### Fetch API
 
-类似于 XMLHttpRequest API，Fetch API 还允许你在 `ArrayBuffer` 中接收响应。你只需在获取 API 响应中使用 `arrayBuffer()` 方法，你就能够收到一个使用 `ArrayBuffer` 解析的 `Promise`。
+Similar to the XMLHttpRequest API, the fetch API also allows you to receive the response in an ArrayBuffer. You just need to use the `arrayBuffer()` method on your fetch API response and you will receive a Promise that resolves with an ArrayBuffer.
 
-```js
+```
 fetch(url)
 .then(response => response.arrayBuffer())
 .then(arrayBuffer => {
-   // 处理数据
+   //handle buffer data
 });
 ```
 
 ### HTML Canvas
 
-HTML5 Canvas 元素使你可以渲染动态的 2D 形状和位图图像。该元素仅充当图形的容器，而图形则是在 JavaScript 的帮助下绘制。
+The HTML5 Canvas element lets you render dynamic 2D shapes and bitmap images. This element only acts as a container for your graphics. This graphic should be drawn with the help of JavaScript.
 
-画布的 2D Context 使你可以将位图数据作为 `Uint8ClampedArray` 的实例进行检索。让我们看一下 Axel 博士提供的示例代码：
+The 2D Context of canvas lets you retrieve the bitmap data as an instance of Uint8ClampedArray. Let’s have a look at the sample code given by Dr. Axel.
 
-```js
+```
 const canvas = document.getElementById('my_canvas');
 const context = canvas.getContext('2d');
 const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -97,41 +95,36 @@ const uint8ClampedArray = imageData.data;
 
 ### WebGL
 
-WebGL 允许你渲染高性能的交互式 3D 和 2D 图形。它在很大程度上依赖于类型化数组，因为它会处理原始像素数据以在画布上输出必要的图形。
+WebGL allows you to render high-performance interactive 3D and 2D graphics. It is heavily dependent upon Typed Arrays as it manipulates raw pixel data to output the necessary graphics on the canvas.
 
-你可以在 [这篇文章](https://blog.bitsrc.io/understanding-webgl-51ab81ccb48c) 中阅读有关 WebGL 基础的更多信息。
+You can read more about the basics of WebGL in my article over [here](https://blog.bitsrc.io/understanding-webgl-51ab81ccb48c).
 
-### Web Socket
+### Web Sockets
 
-Web Socket 允许你以 Blob 或数组缓冲区的形式发送和接收原始二进制数据。
+Web Sockets allow you to send and receive raw binary data in the form of blobs or arraybuffers.
 
 ```js
 const socket = new WebSocket("ws://localhost:8080");
 socket.binaryType = "arraybuffer";
 
-// 监听 message
-socket.addEventListener("message", function (event) {
-    const view = new DataView(event.data);
-    // 处理接收数据
+// Listen for messages
+socket.addEventListener("message", function(event) {
+  const view = new DataView(event.data);
+  //Handle received data
 });
 
-// 发送二进制数据
-socket.addEventListener('open', function (event) {
-    const typedArray = new Uint16Array(7);
-    socket.send(typedArray.buffer);
+// Sending binary data
+socket.addEventListener('open', function(event) {
+  const typedArray = new Uint16Array(7);
+  socket.send(typedArray.buffer);
 });
 ```
 
-尽管初学者可能不需要详细了解类型化数组，但是当你进入中高级 JavaScript 开发的时候，它们是必不可少的。这主要是因为你可能要开发需要使用类型化数组的更复杂的应用程序。
+Although you might not need to know TypedArrays in detail as a beginner, they will be essential when you step into the Intermediate-Advanced JavaScript developer stage. This is mainly because you will probably start developing more complex applications that will require the use of TypedArrays.
 
-要深入了解类型化数组，请浏览下面附带的资源链接。
+To get an in-depth understanding of TypedArrays, please go through the resources attached below.
 
-感谢你的阅读，祝你编程愉快！！
-
-## 资源
-
-* [JavaScript 类型化数组 - MDN 文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays)
-* [Exploring JS by Dr. Axel](https://exploringjs.com/es6/ch_typed-arrays.html)
+Thank you for reading and happy coding!!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
