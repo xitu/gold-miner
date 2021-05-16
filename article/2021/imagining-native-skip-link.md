@@ -2,7 +2,7 @@
 > * 原文作者：[kittygiraudel.com](https://kittygiraudel.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/imagining-native-skip-link.md](https://github.com/xitu/gold-miner/blob/master/article/2021/imagining-native-skip-link.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[chzh9311](https://github.com/chzh9311)、[Kimhooo](https://github.com/Kimhooo)
 
 # 假如浏览器支持原生的"跳至内容"链接……
