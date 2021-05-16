@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/three-framework-problem-with-kotlin-multiplatform-mobile.md](https://github.com/xitu/gold-miner/blob/master/article/2021/three-framework-problem-with-kotlin-multiplatform-mobile.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 # Kotlin Multiplatform Mobile 的三模块问题
 
@@ -17,13 +17,13 @@ Kotlin Multiplatform Mobile 正在日趋成熟，越来越多的团队在 Androi
 
 想象一下一个简单的应用程序，可以跟踪所有经过身份验证的用户的最爱作者和书籍。所有的数据都保留在后端，因此我们希望使用 Kotlin Multiplatform 技术在移动应用程序中共享网络、业务和展示等逻辑。
 
-在接下来的几个月中，该应用程序的使用量会不断增长，因此我们希望从可扩展的架构开始开发。我们决定将代码库分为三个模块（每个功能一个模块）：**认证**、**作者**、**书籍**。
+在接下来的几个月中，该应用程序的使用量会不断增长，因此我们希望从可扩展的架构开始开发。我们决定将代码库分为三个模块（每个功能一个模块），包括：**认证**、**作者**、**书籍**。
 
 ![](https://cdn-images-1.medium.com/max/2364/1*XKTLMLfs2CTW7vPrB4BR4g.png)
 
-Android 应用程序中的每个模块都由 2 个子模块表示：共享 KMP 模块和 Android 特定模块。在 iOS 中，共享的 KMP 模块则会被编译为 iOS 框架，并在 iOS 应用中重复使用，组织方式与 Android 应用相同（每个功能一个模块）。
+Android 应用程序中的每个模块都由 2 个子模块表示：共享 KMP 模块和 Android 特定模块。在 iOS 中，共享的 KMP 模块则会被编译为 iOS 框架，并在 iOS 应用中重复使用，架构与 Android 应用相同（每个功能一个模块）。
 
-值得一提的是，“作者”和“书”模块依赖于“身份验证”模块来服务经过身份验证的用户实体，以便后端可以返回个性化响应（作者和书籍）。
+值得一提的是，“作者”和“书”模块依赖于“身份验证”模块来服务经过身份验证的用户实体，以便后端可以返回个性化响应（例如作者和书籍）。
 
 ## 实际问题
 
@@ -45,15 +45,13 @@ Android 应用程序中的每个模块都由 2 个子模块表示：共享 KMP �
 
 ![](https://cdn-images-1.medium.com/max/2348/1*ornbj_vtf61Bak0WaKkgBw.png)
 
-[comment]: <> (不知道 we are less prone to use out-of-scope classes from the Umbrella framework in the wrong places 一句有什么更好的意见)
+这显然具有破坏 iOS 端模块化的缺点。但是，只要 iOS 模块与 Android 模块相匹配，我们不太可能在错误的地方使用 Umbrella 框架的范围外的类。
 
-这显然具有破坏 iOS 端模块化的缺点。但是，就 iOS 模块与 Android 模块的匹配而言，我们不太可能在错误的地方使用 Umbrella 模块的范围外的类。
-
-良好的架构在这里也有很大帮助。例如，对于“干净的体系结构”，共享 KMP 模块仅会暴露最顶层。在我们的例子中，这是一个展示模块，很难在目标模块之外的任何地方使用。
+良好的架构在这里也有很大帮助。例如使用 Clean 架构，共享 KMP 模块仅会暴露最顶层。在我们的例子中，这是一个展示模块，很难在目标模块之外的任何地方使用。
 
 ## 结论
 
-没有完美的技术或解决方案。你应该准备解决问题的过程，特别是如果你足够勇敢地使用 alpha 或 beta 软件。
+没有完美的技术或解决方案。你应该准备解决问题的过程，特别是如果你足够勇敢地使用 alpha 或 beta 版本的软件。
 
 Kotlin Multiplatform 允许使用模块化架构，但是有一些重要的限制，在计划公共部分的实现及其在 iOS 应用程序中的使用时，必须考虑这些限制。
 
