@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：
+> * 校对者：[KimYang](https://github.com/KimYangOfCat)
 
 # 有关 ECMAScript 最新版本的所有信息｜ECMAScript 2021
 
@@ -27,7 +27,6 @@ console.log(fact.replaceAll("JavaScript", "TypeScript"));
 ```
 
 与之前的 `replace()` 方法（仅将目标字符串的第一次出现替换为所需的字符串）相比：
-In comparison with the previous replace( ) method which only replaces the first occurrence of the target string with the desired string.
 
 ```js
 const fact = "JavaScript is the best web scripting language. JavaScript can be used for both front end and backend";
@@ -40,9 +39,9 @@ console.log(fact.replace("JavaScript", "TypeScript"));
 
 ### 2. Promise.any( )
 
-`Promise.any()` 会在一旦提供的任何一个 `Promise` 得到解决的情况下直接被解决，而 `Promise.all()` 则等待所有的 `Promise` 都得到解决后才会标记为解决，基本上与 `Promise.all()` 相反。
+只要所提供的`Promise` 中的任何一个得到解决，`Promise.any()` 就会直接被解决，而 `Promise.all()` 则等待所有的 `Promise` 都得到解决后才会标记为解决，基本上与 `Promise.all()` 相反。
 
-如果 **“实现了一个 `Promise`”**：
+如果 **“解决了一个 `Promise`”**：
 
 ```js
 const promises = [   
@@ -81,7 +80,7 @@ Promise
 
 为何不是 `a = a || b`？
 
-好吧，因为对于前一个表达式，只有在 `a` 计算为 `false` 时，赋值才会被评估。因此，前者仅在必要时才会被赋值。相反，后一个表达式始终执行赋值。
+好吧，因为对于前一个表达式，只有在 `a` 计算为 `false` 时，赋值才会被执行。因此，前者仅在必要时才会被赋值。相反，后一个表达式始终执行赋值。
 
 `a ||= b` 的一个例子：
 
@@ -120,7 +119,6 @@ console.log(a); // 2
 
 现在，我们可以使用 **下划线（`_`）** 作为数字文字和 bigInt 文字的分隔符。这将帮助开发人员提高其数字文字的可读性（“下划线”基本上会充当我们平日生活中书写数字时候所用的“逗号”（用于在不同的数字组之间提供分隔））。
 
-We can now use **Underscores (`_`)** as separators in number literals and bigInt literals. It will help developers to make their numeric literals more readable, as the **underscore** will basically act as a **comma** (used to provide separation between the different groups of digits) when we write numbers in our day-to-day lives.
 
 ```js
 let budget = 1000000000000; // 可以这样写：
