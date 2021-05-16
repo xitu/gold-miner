@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 现代化的 React 路由 Hookrouter 开发使用
 
@@ -151,7 +151,7 @@ function App() {
 export default App;
 ```
 
-> **注意：** 我发现一个重要事实是，在Reactrouter`<Switch>` 中，如果没有明确指明路由导航，在某些情况下可能导致错误的路由。
+> **注意：** 我发现一个重要事实是，在 Reactrouter `<Switch>` 中，如果没有明确指明路由导航，在某些情况下可能导致路由错误。
 
 例如，如果到 `{Home}` 的路径没有明确指明，应用程序将不会导航到任何其他以 `/` 开头的路径。因此，应用程序不会路由导航到 `{About}` 或 `{Shop}` 组件，而会一直路由导航到主页。然而，在 Hookrouter 中，由于路由是作为一个对象来声明的，所以不需要明确声明导航路径。
 
@@ -287,7 +287,7 @@ useRedirect('/', '/greeting');
 </React.StrictMode>
 ```
 
-另一个缺点是，由于这个模块相对较新，它可能包含一些未知的和不寻常的错误，导致发生意外结果。
+另一个缺点是，由于这个模块相对较新。它可能包含一些未知的和不寻常的错误，从而导致发生意外结果。
 
 ## 本文总结
 
