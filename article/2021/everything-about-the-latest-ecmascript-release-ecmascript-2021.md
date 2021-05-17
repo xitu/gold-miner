@@ -15,7 +15,7 @@
 
 ### 1. String.replaceAll( )
 
-将目标字符串的所有实例替换为所需的字符串：
+将查找到的目标字符串的所有实例替换为所需的字符串：
 
 ```js
 const fact = "JavaScript is the best web scripting language. JavaScript can be used for both front end and backend";
@@ -26,7 +26,7 @@ console.log(fact.replaceAll("JavaScript", "TypeScript"));
 // "TypeScript is the best web scripting language. TypeScript can be used for both front end and backend";
 ```
 
-与之前的 `replace()` 方法（仅将目标字符串的第一次出现替换为所需的字符串）相比：
+与之前的 `replace()` 方法（仅将目标字符串的第一个匹配项替换为所需的字符串）相比：
 
 ```js
 const fact = "JavaScript is the best web scripting language. JavaScript can be used for both front end and backend";
@@ -41,7 +41,7 @@ console.log(fact.replace("JavaScript", "TypeScript"));
 
 只要所提供的`Promise` 中的任何一个得到解决，`Promise.any()` 就会直接被解决，而 `Promise.all()` 则等待所有的 `Promise` 都得到解决后才会标记为解决，基本上与 `Promise.all()` 相反。
 
-如果 **“解决了一个 `Promise`”**：
+如果 **“兑现了一个 `Promise`”**：
 
 ```js
 const promises = [   
@@ -55,7 +55,7 @@ Promise
   .then((result) => assert.equal(result, '结果')); //true
 ```
 
-如果 **“所有 `Promise` 都是被驳回的”**：
+如果 **“所有 `Promise` 都是被拒绝的”**：
 
 ```js
 const promises = [   
