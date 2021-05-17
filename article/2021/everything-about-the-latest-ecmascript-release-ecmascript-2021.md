@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/everything-about-the-latest-ecmascript-release-ecmascript-2021.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
-> * 校对者：[KimYang](https://github.com/KimYangOfCat)
+> * 校对者：[KimYang](https://github.com/KimYangOfCat)、[Tong-H](https://github.com/Tong-H)
 
 # 有关 ECMAScript 最新版本的所有信息｜ECMAScript 2021
 
