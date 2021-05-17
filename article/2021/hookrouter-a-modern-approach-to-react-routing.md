@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/hookrouter-a-modern-approach-to-react-routing.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[KimYang](https://github.com/KimYangOfCat)
 
 # 现代化的 React 路由 Hookrouter 开发使用
 
@@ -17,7 +17,7 @@
 
 ---
 
-> 为了演示 Hookrouter 的功能，我将使用一个商城作为示例，有四个基本组件，即 Nav.js、Home.js、About.js 和 Shop.js。此外，完整的 React 应用程序和使用 Hookrouter 的路由可以在[这里](https://github.com/Isuri-Devindi/Hookrouter-demo)找到。
+> 为了演示 Hookrouter 的功能，我将使用一个商城作为示例，有四个基本组件，即 Nav.js、Home.js、About.js 和 Shop.js。此外，使用 Hookrouter 作为路由的完整 React 应用程序可以在[这里](https://github.com/Isuri-Devindi/Hookrouter-demo)找到。
 
 ## 1. Hookrouter 与 Reactrouter 定义路由对比
 
@@ -49,7 +49,7 @@ function App() {
 export default App;
 ```
 
-我希望大家都能熟悉上述示例，这些都是相对简单的示例。
+我希望大家都能熟悉上述这些相对简单的示例。
 
 如果我们使用 Hookrouter 来实现，那么可以使用 `useRoutes()` hook 将路由声明为一个对象。
 
@@ -277,7 +277,7 @@ useRedirect('/', '/greeting');
 
 ## 不足之处
 
-我注意到，有时 Hookrouter 在最新版本的 create-react-app 中默认启用的[**严格模式**](https://reactjs.org/docs/strict-mode.html)下无法工作。
+我注意到，有时 Hookrouter 在最新版本默认启用的[**严格模式**]的 create-react-app 中(https://reactjs.org/docs/strict-mode.html)无法工作。
 
 然而，你只需要从 index.js 中删除 `<React.StrictMode>` 组件就可以使用 Hookrouter。
 
