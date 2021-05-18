@@ -21,7 +21,7 @@ You can view [that example](https://codepen.io/chriscoyier/pen/MWJxXWz) in [Debu
 
 ---
 
-> Fire Set your form inputs to have a font-size of 1rem (16px) or larger to prevent iOS Safari from automatically zooming in when tapped.
+> 🔥 Set your form inputs to have a font-size of 1rem (16px) or larger to prevent iOS Safari from automatically zooming in when tapped.
 > 
 > Makes such a big difference from a UX perspective!
 > 
