@@ -1,5 +1,5 @@
 > * 原文地址：[Championing a proposal at TC39](https://github.com/tc39/how-we-work/blob/master/champion.md)
-> * 原文作者：[Anurag Kanoria](https://medium.com/@anuragkanoria)
+> * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md)
 > * 译者：
