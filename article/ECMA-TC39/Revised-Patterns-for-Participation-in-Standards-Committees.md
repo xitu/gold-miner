@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1328e93f-dc1f-4cba-8972-3c183c596748/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1328e93f-dc1f-4cba-8972-3c183c596748/Untitled.png)
+![image](https://user-images.githubusercontent.com/8282645/118608707-92eb6f80-b7ec-11eb-9a4f-6f0a1b103f95.png)
 
 > * Image from Annual report of the Bureau of ethnology to the secretary of the Smithsonian Institution (1881)
 
