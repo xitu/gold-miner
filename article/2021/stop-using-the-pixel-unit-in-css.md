@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/stop-using-the-pixel-unit-in-css.md](https://github.com/xitu/gold-miner/blob/master/article/2021/stop-using-the-pixel-unit-in-css.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[Kimhooo](https://github.com/Kimhooo)、[Li-saltair](https://github.com/Li-saltair)
 
 # 快停止在 CSS 中使用像素单位
 
@@ -135,8 +135,8 @@ px 单位可以使你轻松上手，但是后来却变成了一个问题。在�
 
 我们如何尊重基本字体大小？通过使用相对单位，例如 `rem` 和 `em`。什么是 `rem` 和 `em`？ `rem` 和 `em` 单位表示相对于基本字体的字体大小（从框到文本）。简而言之，这意味着你的文本字体大小将是用户首选字体大小的倍数。两者有什么区别？
 
-*`rem` 将相对于根 `font-size` 来表达它。
-*`em` 将相对于元素大小来表达它。
+* `rem` 的大小由根元素（`:root`）的 `font-size` 决定。
+* `em` 的大小由父元素的 `font-size` 决定。
 
 你不仅限于仅在 `font-size` 属性上使用这些单位。它们可以在 CSS 元素中的任何位置使用。这意味着你可以根据用户设置创建自适应布局。你可以确保为用户提供适当的体验。
 
