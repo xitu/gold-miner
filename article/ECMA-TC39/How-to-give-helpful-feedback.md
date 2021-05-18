@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-give-helpful-feedback.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-give-helpful-feedback.md)
 > * 译者：
 > * 校对者：
+
 # How to give helpful feedback
 
 Online and in person at TC39 meetings, we're always giving feedback on proposals. There are some suggestions for making sure that your feedback is actionable and helpful.
