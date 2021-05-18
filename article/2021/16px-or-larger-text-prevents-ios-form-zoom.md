@@ -15,8 +15,6 @@ In general, I’d say I like this feature. It helps people see what they are doi
 
 ![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/Screen-Shot-2021-04-30-at-9.11.55-AM.png?resize=558%2C344&ssl=1)
 
-![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/Screen-Shot-2021-04-30-at-9.11.55-AM.png?resize=558%2C344&ssl=1)
-
 <small>San Francisco on the left, Cavet on the right. Caveat looks visually much smaller even though the `font-size` is the same.</small>
 
 You can view [that example](https://codepen.io/chriscoyier/pen/MWJxXWz) in [Debug Mode](https://cdpn.io/chriscoyier/debug/MWJxXWz) to see for yourself and change the font size to see what does and doesn’t zoom.
