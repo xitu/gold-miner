@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-typed-arrays.md](https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-typed-arrays.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[KimYang](https://github.com/KimYangOfCat)、[Kimhooo](https://github.com/Kimhooo)
 
 # JavaScript 类型化数组
 
 ![图源 [Pierre Bamin](https://unsplash.com/@bamin?utm_source=juejin&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=juejin&utm_medium=referral)](https://cdn-images-1.medium.com/max/10992/0*u7yLuqz5vOYfScJQ)
 
-在 JavaScript 这门语言中，我们所有人都必须对数组这个本质上是动态的，并且可以容纳任何 JavaScript 对象的东西熟悉。不过，如果你曾经使用过类似于 C 语言这样的其他语言，你其实知道数组本质上不是动态的。而且你只能在该数组中存储特定的数据类型，毕竟从性能角度来看，这可以确保阵列效率更高。但数组的动态化与存储信息类型的多样化其实并没有使 JavaScript 数组效率低下。在 JavaScript 引擎优化的帮助下，JavaScript 中的数组其实非常快。
+在 JavaScript 这门语言中，我们所有人都必须对数组足够熟悉，知晓数组本质上是动态的，并且可以容纳任何 JavaScript 对象。不过，如果你曾经使用过类似于 C 语言这样的其他语言，你应该知道其数组本质上不是动态的。而且你只能在该数组中存储特定的数据类型，毕竟从性能角度来看，这可以确保数组效率更高。但数组的动态化与存储信息类型的多样化其实并没有使 JavaScript 数组效率低下。在 JavaScript 引擎优化的帮助下，JavaScript 中数组的执行速度其实非常快。
 
 随着 Web 应用程序功能越来越强大，我们开始需要让 Web 应用程序处理和操纵原始二进制数据。JavaScript 数组无法处理这些原始二进制数据，也因此我们引入了 JavaScript 的类型化数组。
 
@@ -25,15 +25,15 @@
 
 #### 缓冲区
 
-`Buffer` 是 `ArrayBuffer` 类型的对象，表示一个数据块。此原始二进制数据块无法被单独访问或修改。你可能想知道，无法访问或修改的数据对象的用途是什么。实际上视图是缓冲区的读写接口。
+`Buffer` 是 `ArrayBuffer` 类型的对象，表示一个数据块。此原始二进制数据块无法被单独访问或修改。你可能好奇，无法访问或修改的数据对象的能有什么用途。实际上视图是缓冲区的读写接口。
 
 #### 视图
 
-`View` 是一个对象，允许你访问和修改存储在 `ArrayBuffer` 中的原始二进制内容。一般来说有两种视图：
+`View` 是一个对象，允许你访问和修改存储在 `ArrayBuffer` 中的原始二进制内容。一般来说有两种视图。
 
 #### `TypedArray` 对象的实例
 
-这些类型的对象与通常的数组非常相似，但是仅存储单一类型的数值数据。诸如 `Int8`、`Uint8`、`Int16`、`Float32` 就是类型化数组的数据类型。类型中的数字表示为数据类型分配的位数。例如，`Int8` 表示 8 位的整数。
+这些类型的对象与普通数组非常相似，但是仅存储单一类型的数值数据。诸如 `Int8`、`Uint8`、`Int16`、`Float32` 就是类型化数组的数据类型。类型中的数字表示为数据类型分配的位数。例如，`Int8` 表示 8 位的整数。
 
 > 你可以阅读 [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Typed_arrays#%E7%B1%BB%E5%9E%8B%E6%95%B0%E7%BB%84%E8%A7%86%E5%9B%BE) 来详细了解类型化数组的数据类型。
 
@@ -45,11 +45,11 @@
 
 ## 是什么使它们与普通数组不同
 
-如前所述，普通的 JavaScript 数组已通过 JavaScript 引擎进行了优化，你无需仅将类型化数组用于性能方面，因为这不会给你带来太多升级。但是有些功能使类型化数组不同于普通数组，这可能是你选择它们的原因。
+如前所述，普通的 JavaScript 数组已通过 JavaScript 引擎进行了优化，你没必要为了提升性能而使用类型化数组，因为这不会给你带来太多升级。但是有些特性使类型化数组不同于普通数组，这才可能是你选择它们的原因。
 
 * 让你能够处理原始二进制数据
-* 由于它们仅处理有限数量的数据类型，因此与普通数组相比，你的引擎更容易优化类型化数组，因为普通数组的使用其实是一个非常复杂的过程。
-* 永远不能保证优化普通数组，因为你的引擎可能出于各种原因决定不这样做。
+* 由于它们处理的数据类型是有限的，因此与普通数组相比，你的引擎更易优化类型化数组，因为普通数组的优化其实是一个非常复杂的过程。
+* 不能保证普通数组永远都能得到优化，因为你的引擎可能因各种原因决定不进行优化。
 
 ## 在 Web 开发中的用途
 
@@ -72,7 +72,7 @@ xhr.send();
 
 ### Fetch API
 
-类似于 XMLHttpRequest API，Fetch API 还允许你在 `ArrayBuffer` 中接收响应。你只需在获取 API 响应中使用 `arrayBuffer()` 方法，你就能够收到一个使用 `ArrayBuffer` 解析的 `Promise`。
+类似于 XMLHttpRequest API，Fetch API 还允许你在 `ArrayBuffer` 中接收响应。你只需在 fetch API 响应中使用 `arrayBuffer()` 方法，你就能够收到一个使用 `ArrayBuffer` 解析的 `Promise`。
 
 ```js
 fetch(url)
@@ -86,7 +86,7 @@ fetch(url)
 
 HTML5 Canvas 元素使你可以渲染动态的 2D 形状和位图图像。该元素仅充当图形的容器，而图形则是在 JavaScript 的帮助下绘制。
 
-画布的 2D Context 使你可以将位图数据作为 `Uint8ClampedArray` 的实例进行检索。让我们看一下 Axel 博士提供的示例代码：
+canvas 的 2D Context 使你可以将位图数据作为 `Uint8ClampedArray` 的实例进行检索。让我们看一下 Axel 博士提供的示例代码：
 
 ```js
 const canvas = document.getElementById('my_canvas');
