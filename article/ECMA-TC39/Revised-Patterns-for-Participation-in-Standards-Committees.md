@@ -1,4 +1,4 @@
-> * Haha原文地址：[Revised Patterns for Participation in Standards Committees](https://medium.com/@jorydotcom/revised-patterns-for-participation-in-standards-committees-dae82d93954e)
+> * 原文地址：[Revised Patterns for Participation in Standards Committees](https://medium.com/@jorydotcom/revised-patterns-for-participation-in-standards-committees-dae82d93954e)
 > * 原文作者：[jorydotcom](https://medium.com/@jorydotcom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md)
