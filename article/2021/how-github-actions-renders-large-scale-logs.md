@@ -15,10 +15,6 @@
 
 ![](https://github.blog/wp-content/uploads/2021/03/large-scale-log-rendering-fig-1.png?w=442&resize=442%2C374)
 
-
-
-
-
 ## 初步实现
 
 在我们首次发布 GitHub Actions 时，我们测试了一个基于 React 的和一个原生 JavaScript 的库。有些库因为其实现方式有很大局限性。比如，很多库要求所有被渲染的条目有固定的高度。这个局限另它们的计算简单了很多，因为如果一个用户想滚动到一个特定的条目（可见与否），它们只需要计算 `item_index * items_height` 就可以计算出其位置并滚动过去。而且，在计算整个可滚动区域的高度时，它们同样只需要计算 `items_count * items_height` 即可。当然，很多情况下条目的高度不是固定的，所以这个局限性是不可接受的。在 GitHub Actions 这里，我们想让那些很长的行分行显示，这意味着我们需要支持高度可变的日志条目。
