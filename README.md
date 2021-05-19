@@ -123,7 +123,7 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 
 # Copyright
 
-> **版权声明：**[掘金翻译计划](https://github.com/xitu/gold-miner)译文仅用于学习、研究和交流。版权归[掘金翻译计划](https://github.com/xitu/gold-miner/)、文章作者和译者所有，欢迎非商业转载。转载前请联系译者或[管理员](http://oiiyyn1t0.bkt.clouddn.com/wechat-517010193.jpg)获取授权，并在文章开头明显位置注明本文出处、译者、校对者和掘金翻译计划的完整链接，违者必究。
+> **版权声明：**[掘金翻译计划](https://github.com/xitu/gold-miner)译文仅用于学习、研究和交流。版权归[掘金翻译计划](https://github.com/xitu/gold-miner/)、文章作者和译者所有，欢迎非商业转载。转载前请联系译者或[管理员](https://user-images.githubusercontent.com/8282645/118856035-10a49d80-b909-11eb-8561-00a5a16bd58a.png)获取授权，并在文章开头明显位置注明本文出处、译者、校对者和掘金翻译计划的完整链接，违者必究。
 
 # 合作伙伴
 
