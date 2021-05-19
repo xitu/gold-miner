@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Implementing-and-shipping-TC39-proposals.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Implementing-and-shipping-TC39-proposals.md)
 > * 译者：
 > * 校对者：
+
 # Implementing and shipping TC39 proposals
 
 Beyond specification text and conformance tests, new JavaScript features need implementations, that is, code in JS engines, transpilers, tools, polyfills, etc. that makes them available to programmers. Implementers end up getting into every detail of a proposal, giving them a unique perspective, which helps TC39 validate proposals.
