@@ -99,8 +99,6 @@ A CSS variable would not be sufficient to solve this problem — although the `f
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
 
-![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
-
 [View live demo](https://codepen.io/nathanbabcock/project/editor/AYYygg)
 
 `!default` feature flags can also be used to create debugging tools for use during development. In this example, a visual debugging tool creates color-coded overlays for spacing tokens. The foundation is a set of spacing tokens defined in terms of ascending “t-shirt sizes” (aka “xs”/”extra-small” through “xl”/”extra-large”). From this single token set, a Sass `@each` loop generates every combination of utility classes applying that particular token to padding or margin, on every side (top, right, bottom, and left individually, or all four at once).
