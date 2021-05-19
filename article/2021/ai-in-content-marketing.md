@@ -5,9 +5,9 @@
 > * 译者：[5Reasons](https://github.com/5Reasons)
 > * 校对者：
 
-# AI 是否已经成为内容营销的重要组成部分?
+# AI 是否已经成为内容营销的重要组成部分？
 
-![图源 [Austin Distel](https://unsplash.com/@austindistel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/marketing?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9534/1*yjEpYdORNyL_EzuXW32U_w.jpeg)
+![图源 [Austin Distel](https://unsplash.com/@austindistel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，出自 [Unsplash](https://unsplash.com/s/photos/marketing?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9534/1*yjEpYdORNyL_EzuXW32U_w.jpeg)
 
 AI 工具可能会改变营销工作的全流程，帮助营销团队做出基于数据驱动的决策，从而决定创作什么内容、将内容分发给谁以及如何尽可能高效地让内容触达读者。一些工具，例如 [Smart Compose from Gmail](https://www.blog.google/products/gmail/subject-write-emails-faster-smart-compose-gmail/)，已经能够按照人类的交流习惯产出一些简短的文字内容了。
 
@@ -25,7 +25,7 @@ AI 工具可能会改变营销工作的全流程，帮助营销团队做出基�
 
 ### 了解算法的工作原理
 
-如果这个世界上没有谷歌搜索这样的算法的话，我们甚至都不需要做所谓的“内容营销”。这些算法能计算出哪些内容是大众愿意看到的、哪些内容将会被埋没在搜索结果的某几百页之后。在早期，人们可以通过在博客或网页中插入关键词这样的方法，较为容易地提高这些内容在谷歌中的搜索排名。但随着算法变得越来越智能，内容营销者们已经意识到他们必须为读者提供真正高质量、有价值的内容，而非简单的堆砌各种关键词。
+如果这个世界上没有谷歌搜索这样的算法的话，我们甚至都不需要做所谓的“内容营销”。这些算法能计算出哪些内容是大众愿意看到的，哪些内容又应该被埋没在搜索结果的某几百页之后。在早期，人们可以通过在博客或网页中插入关键词这样的方法，较为容易地提高这些内容在谷歌中的搜索排名。但随着算法变得越来越智能，内容营销者们已经意识到他们必须为读者提供真正高质量、有价值的内容，而非简单的堆砌各种关键词。
 
 ### 打造定制化、全渠道的体验
 
@@ -35,7 +35,7 @@ AI 工具可能会改变营销工作的全流程，帮助营销团队做出基�
 
 也许人工智能还无法像人一样撰写一篇优质长文。不过，事实已经证明，AI 在编辑内容时非常实用。像 Grammarly 这样的应用程序不仅能发现语法错误和拼写错误，还能提供有用的建议来优化文章的风格。内容创作者可以使用 Grammarly 和其他人工智能应用来润色他们的内容。
 
-## AI 是内容营销的未来吗?
+## AI 会是内容营销的未来吗？
 
 这是一个有争议的问题。当然，内容创作者和营销人员不希望在未来的世界中，他们这样的内容工作者被机器人完全取代。然而，随着人工智能变得越来越聪明，在未来，机器人有可能将接管 SEO 驱动的内容编写工作。
 
