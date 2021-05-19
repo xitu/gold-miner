@@ -4,7 +4,8 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-make-a-Pull-Request-against-the-ECMAScript-specification.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-make-a-Pull-Request-against-the-ECMAScript-specification.md)
 > * 译者：
 > * 校对者：
-> 
+>
+
 # How to make a Pull Request against the ECMAScript specification
 
 All changes to the JavaScript specification ultimately become a pull request (PR) against the [ecma262](https://github.com/tc39/ecma262/) or [ecma402](https://github.com/tc39/ecma402/) repositories.
@@ -16,11 +17,12 @@ To make a pull request (PR), [fork](https://help.github.com/articles/fork-a-repo
 **Which repo should the PR target?**: Almost all specifications PRs should target the ecma262 repo; ecma402 is just used for the Intl specification, which provides a standard library for internationalization.
 
 Commits in pull requests should have a first line which starts with a tag, followed by a colon, indicating which type of patch they are:
-  * `Normative:` changes impacting JavaScript behavior in some way. These changes are called "observable" because it is possible to write code to "observe" the change in behavior.
-  * `Editorial:` any non-normative changes to spec text including typo fixes, changes to the document style, etc.
-  * `Layering:` refactoring of specification text, algorithms, and/or embedder hooks to enable clean integration of the JavaScript specification with other specifications that use JavaScript.
-  * `Markup:` non-visible changes to markup in the spec
-  * `Meta:` changes to documents about this repository (e.g. readme.md or contributing.md) and other supporting documents or scripts (e.g. package.json, design documents, etc.)
+
+* `Normative:` changes impacting JavaScript behavior in some way. These changes are called "observable" because it is possible to write code to "observe" the change in behavior.
+* `Editorial:` any non-normative changes to spec text including typo fixes, changes to the document style, etc.
+* `Layering:` refactoring of specification text, algorithms, and/or embedder hooks to enable clean integration of the JavaScript specification with other specifications that use JavaScript.
+* `Markup:` non-visible changes to markup in the spec
+* `Meta:` changes to documents about this repository (e.g. readme.md or contributing.md) and other supporting documents or scripts (e.g. package.json, design documents, etc.)
 
 ## Stage 4 proposal PRs (`Normative:`)
 
@@ -35,6 +37,7 @@ If you have a change that you'd like to make to the JavaScript specification, ei
 ## Normative PRs
 
 Normative PRs change what JavaScript programs do, potentially requiring action to adjust from both JavaScript engine implementers as well as developers who program in JavaScript. This is serious business! For this reason, Normative PRs have the following requirements:
+
 - There must be tests proposed in [test262](https://github.com/tc39/test262/) for the PR.
 - The PR must be brought up in committee. In some cases, this can be a quick description by editors or the author, and if no concerns are raised, the proposal is considered to "have consensus". Other times, if the proposal is controversial, it's useful to [prepare a presentation](https://github.com/tc39/how-we-work/blob/master/presenting.md) explaining the motivation in more detail, with a discussion following it to discuss whether the committee can come to consensus on the proposal. For this reason, controversial normative PRs are tagged "needs consensus".
 

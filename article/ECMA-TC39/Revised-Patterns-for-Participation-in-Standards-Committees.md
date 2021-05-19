@@ -1,13 +1,15 @@
 > * 原文地址：[Revised Patterns for Participation in Standards Committees](https://medium.com/@jorydotcom/revised-patterns-for-participation-in-standards-committees-dae82d93954e)
-> * 原文作者：[jorydotcom](https://medium.com/@jorydotcom)
+> * 原文作者：[Jory Burson](https://medium.com/@jorydotcom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md)
 > * 译者：
 > * 校对者：
 
-![image](https://user-images.githubusercontent.com/8282645/118608707-92eb6f80-b7ec-11eb-9a4f-6f0a1b103f95.png)
+# Revised Patterns for Participation in Standards Committees
 
-> * Image from Annual report of the Bureau of ethnology to the secretary of the Smithsonian Institution (1881)
+![](https://miro.medium.com/max/1020/1*EnBeLnKvRHmiHvbivS4jzg.jpeg)
+
+<small>*Image from Annual report of the Bureau of ethnology to the secretary of the Smithsonian Institution (1881)*</small>
 
 I recently reread [Allen Wirfs-Brock’s](https://twitter.com/awbjs) paper, *[Programming Language Standardization: Patterns for Participation](http://pl.csie.ntut.edu.tw/asianplop2016/proceedings/A14.pdf)*, while preparing for an upcoming talk. Allen’s 20+ years of experience in language standards development, research and documentation is extremely valuable to the JavaScript community and can’t be understated. The paper is an academic approach to guidelines and patterns for those getting started in standards work; in order to make it a bit more actionable and modernize the language for our community, I’ve updated his guidelines below, along with some helpful tips to improve your standards-committee experience.
 
@@ -25,7 +27,7 @@ The nature of technical standards committees is such that users, implementers, a
 
 **Be explicit about your objective.** If you’re trying to get a new feature implemented, come prepared with the clearly defined problem you’re trying to solve and any pertinent use cases. If your solution is well-formed enough, write the tests for it, too. Remember that, depending on where the language is in its lifecycle, real problems are going to be far more compelling than theoretical ones. As Allen notes, *“Development of a language standard is not a green-field development activity… A language standards committee exists to solve problems that arise from the current state of the language.”* So if your objective is to evolve a language a certain way — so it can be implemented on the blockchain, say — you’ll have to be patient! Conversely, if you’ve met your goals, it’s ok to move on to other things. Be purposeful.
 
-**Be Open to Change**. Standards work, despite its reputation, is not about competitive arguing (I like to say that TC39 is not about “competitive JavaScripting”). Any two people in the group may solve the same problem different ways, but that doesn’t automatically make one of them wrong. In strategizing ways to get your feature implemented, Allen recommends “Finding Allies,” Picking your Battles,” and having a “Back-Pocket Alternative.” Working with others to develop ideas enriches your understanding of the problem and language, and helps you develop a sensitivity to what issues other organizations will care about (and thus might impact your proposal’s chances of success). This also helps you avoid arguments and debates that don’t matter in the given context. Another important strategy: being open to being wrong, and being willing to say as much. After all, *“Most ideas and designs aren’t good, and most of the ones we eventually accept don’t start good.”¹* Fostering an environment wherein it is safe to propose, discuss, advance or withdraw ideas is essential for healthy technical dialogue — which requires all parties be willing to change their minds.
+**Be Open to Change**. Standards work, despite its reputation, is not about competitive arguing (I like to say that TC39 is not about “competitive JavaScripting”). Any two people in the group may solve the same problem different ways, but that doesn’t automatically make one of them wrong. In strategizing ways to get your feature implemented, Allen recommends “Finding Allies,” Picking your Battles,” and having a “Back-Pocket Alternative.” Working with others to develop ideas enriches your understanding of the problem and language, and helps you develop a sensitivity to what issues other organizations will care about (and thus might impact your proposal’s chances of success). This also helps you avoid arguments and debates that don’t matter in the given context. Another important strategy: being open to being wrong, and being willing to say as much. After all, *“Most ideas and designs aren’t good, and most of the ones we eventually accept don’t start good.”<sup>1</sup>* Fostering an environment wherein it is safe to propose, discuss, advance or withdraw ideas is essential for healthy technical dialogue — which requires all parties be willing to change their minds.
 
 **Be a Contributor.** Both Allen and Alex share that, historically, the older the group, the harder it is for new people and ideas to enter that group. Fortunately, there’s a definite culture shift within these groups to open up to new ideas and ways of working.
 
@@ -41,12 +43,12 @@ How you contribute to a standards effort should ultimately be a factor of your s
 - Help edit or champion other proposals, or write tests for features or proposals.
 - Help identify “prior art” and/or missing voices — are there examples that can be pulled, or people who can be consulted to help move something forward?
 
-**Strive to Consensus.** Most web standards committees use a consensus model for decision-making, and how consensus is measured can vary from group to group, but it generally means that a supermajority² of the group supports the decision and the remainder is willing to accept the decision. Disagreement and debate is OK, and needed, but it must be professional and respectful. At some point as a delegate, you’ll have to decide if you should actively oppose a decision, but this should be a rare occurrence. Not every proposal will make it into the final specification — in fact, most won’t, and that’s a good thing.
+**Strive to Consensus.** Most web standards committees use a consensus model for decision-making, and how consensus is measured can vary from group to group, but it generally means that a supermajority<sup>2</sup> of the group supports the decision and the remainder is willing to accept the decision. Disagreement and debate is OK, and needed, but it must be professional and respectful. At some point as a delegate, you’ll have to decide if you should actively oppose a decision, but this should be a rare occurrence. Not every proposal will make it into the final specification — in fact, most won’t, and that’s a good thing.
 
 The guidelines above apply whether you’re brand-new to standards development and looking to find your footing, or you’re an existing participant and want to increase the success of your current efforts. Any organization, committee or team operating a joint open source software project could benefit from these guidelines directly or with modifications to make it more appropriate for your team. Happy standards-making!
 
-*¹ Alex Russell in “[Threading the Needle](https://infrequently.org/2018/06/effective-standards-work-part-2-threading-the-needle/)”
- ² The definition of supermajority varies by organization. It usually requires two-thirds or more of votes cast to pass an issue.*
+* <sup>1</sup>: Alex Russell in “[Threading the Needle](https://infrequently.org/2018/06/effective-standards-work-part-2-threading-the-needle/)”
+* <sup>2</sup>: The definition of supermajority varies by organization. It usually requires two-thirds or more of votes cast to pass an issue.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
