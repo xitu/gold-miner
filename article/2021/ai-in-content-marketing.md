@@ -11,7 +11,7 @@
 
 AI 工具可能会改变营销工作的全流程，帮助营销团队做出基于数据驱动的决策，从而决定创作什么内容、将内容分发给谁以及如何尽可能高效地让内容触达读者。一些工具，例如 [Smart Compose from Gmail](https://www.blog.google/products/gmail/subject-write-emails-faster-smart-compose-gmail/)，已经能够按照人类的交流习惯产出一些简短的文字内容了。
 
-而这是否意味着，所有人们的日常阅读内容，之后都会由机器人来撰写呢？
+而这是否意味着，今后人们所有的日常阅读内容，都将由机器人来撰写呢？
 
 答案是否定的。
 
