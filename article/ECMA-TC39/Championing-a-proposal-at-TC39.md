@@ -2,24 +2,24 @@
 > * 原文作者：[ECMA TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Kimhooo](https://github.com/Kimhooo)，[KimYangOfCat](https://github.com/KimYangOfCat)
 
-*本文是为 TC39 代表编写的（参见[加入 TC39](https://github.com/tc39/how-we-work/blob/master/join-tc39.md)。如果您不是代表，您也可以帮助提案的发起人完成其中的一些任务，不过其中一些工作涉及在 TC39 会议上出席，以及在委员会中提供介绍和建立共识。*
+**本文是为 TC39 代表编写的（参见[加入 TC39](https://github.com/tc39/how-we-work/blob/master/join-tc39.md)。如果您不是代表，您也可以帮助提案的发起人完成其中的一些任务，不过其中一些工作涉及在 TC39 会议上出席，以及在委员会中提供介绍和建立共识。**
 
 # 如何在 TC39 提起一项提案？
 
 你想为 JavaScript 提出一个新功能吗？不过提出提案需要一个 TC39 代表作为提案发起人，来推动提案通过各个[阶段流程](https://tc39.es/process-document/)。本文档将为你描述如何做到这一点。
 
-提出一项提案是一项在委员会以外改进维护提案中的平行工作，同样的是平行工作的还有向委员会在关于收集更多的想法、反馈，并最终通过阶段推进提案等方面的演示。委员会以外的工作很少会有需要暂缓委员会内部的进展以帮助委员会以外的工作的推进，但委员会会对其进行阶段的提升，而这一进步会是对里程碑和支持的良好致谢。想要将提案添加到 JavaScript 规范的功能之中，需要该提案步入第 4 阶段。
+提出一项提案是一项在委员会以外改进维护提案中的平行工作，同样的是平行工作的还有向委员会在关于收集更多的想法、反馈，并最终通过阶段推进提案等方面的演示。委员会以外的工作很少会有需要暂缓委员会内部的进展以帮助委员会以外的工作的推进，但委员会会对其进行阶段的提升，而这一进步会是对里程碑和支持的良好致谢。想要将提案添加到 JavaScript 规范的功能之中，需要该提案步入第四阶段。
 
 ## 委员会之外的工作
 
-支持提案工作的大部分都可以在 TC39 之外完成，而不会影响委员会的批准。推进这项工作可以为提升 TC39 中的阶段提供更多的依据，而这项工作的一些组成部分是：
+支持提案工作的大部分都可以在 TC39 之外完成，而不会影响委员会的批准。推进这项工作可以为晋升 TC39 中的阶段提供更多的依据，而这项工作的一些组成部分是：
 
 - **[解释内容](https://github.com/tc39/wwe-work/blob/master/explainer.md)** ：在您的提案的仓库中存放一份写好的 README 文件，在更高层面解释该提案的目的和当前状况。
 - **[文档](https://github.com/tc39/how-we-work/issues/49)** ：为 JavaScript 开发者编写的解释，以方便开发者使用该提案。
-- **[实现方式](https://github.com/tc39/how-we-work/blob/master/implement.md)** ：允许程序员对提案进行试验，无论是 Transpilers 或是 polyfills，还是需要开启一个 Flag 或一个原生实现的分支。
+- **[实现方式](https://github.com/tc39/how-we-work/blob/master/implement.md)** ：允许程序员对提案进行试验，无论借助是 Transpilers 或是 polyfills，还是需要开启一个 Flag 或使用一个原生实现的分支。
 - **[测试](https://github.com/tc39/how-we-work/issues/6)** ：检查实现的正确性的测试 —— 这些最初可以沿着实施方式检查，但最有用会最终迁移到 test262。
 - **收集反馈**：了解人们通过与他们交谈的人们对该提案的看法，看看他们对使用这个功能的体验的感受。这可以有助于从委员会内外获得 JavaScript 开发者、实施者、学者、教育工作者、社区领导者等等的反馈。
 
@@ -31,7 +31,7 @@
 
 要通过各阶段流程，GitHub 仓库中的跟踪问题可能很有用。以下是您可以用于此类跟踪问题的模板：
 
-## 第 4 阶段
+## 第四阶段
 - [ ] 委员会批准
 - [ ] 在两个浏览器中实现
 - [ ] 显着的现场体验
@@ -39,18 +39,18 @@
 - [ ] 编写 Test262 测试
 - [ ] 准备 ECMA262 PR
 - [ ] 编辑批准的 ECMA262 Pr
-## 第 3 阶段
+## 第三阶段
 - [ ] 委员会批准
 - [ ] 规范编辑器签名
 - [ ] 规范审稿人签名
 - [ ] 接收开发者/实现者反馈
-##第二阶段
+## 第二阶段
 - [ ] 委员会批准
 - [ ] 编写的规范文本
 - [ ] 选择规范审稿人
-## 阶段 1
+## 第一阶段
 - [ ] 引入 TC39
-- [ ] 提议者
+- [ ] 确定提议者
 - [ ] 初始解释内容
 
 ## 在委员会阶段的晋升
