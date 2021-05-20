@@ -1,156 +1,156 @@
 > * 原文地址：[Championing a proposal at TC39](https://github.com/tc39/how-we-work/blob/master/champion.md)
-> * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
+> * 原文作者：[ECMA TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Championing-a-proposal-at-TC39.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)，[KimYangOfCat](https://github.com/KimYangOfCat)
 
-*This article is written for TC39 delegates (see [joining TC39](https://github.com/tc39/how-we-work/blob/master/join-tc39.md)). If you're not a delegate, you can help proposal champions out with some of these tasks as well, but some of the work involves being physically present at TC39 meetings, delivering presentations, and building consensus in committee.*
+**本文是为 TC39 代表编写的（参见[加入 TC39](https://github.com/tc39/how-we-work/blob/master/join-tc39.md)。如果您不是代表，您也可以帮助提案的发起人完成其中的一些任务，不过其中一些工作涉及在 TC39 会议上出席，以及在委员会中提供介绍和建立共识。**
 
-# Championing a proposal at TC39
+# 如何在 TC39 提起一项提案？
 
-So, you want to propose a new feature for JavaScript? That proposal needs a TC39 delegate as a champion to move it through the [stage process](https://tc39.es/process-document/). This document describes how to do that.
+你想为 JavaScript 提出一个新功能吗？不过提出提案需要一个 TC39 代表作为提案发起人，来推动提案通过各个[阶段流程](https://tc39.es/process-document/)。本文档将为你描述如何做到这一点。
 
-Championing a proposal is an exercise is of parallel work in developing a proposal outside of committee, together with presentations to the committee to collect more ideas, feedback, and eventually to advance proposals through stages. The work outside of committee rarely needs to block on progress in the committee, but committee stage advancement can be a good acknowledgement of milestones and buy-in. Promotion to Stage 4 is required for a feature to be added to the JavaScript specification.
+提出一项提案是一项在委员会以外改进维护提案中的平行工作，同样的是平行工作的还有向委员会在关于收集更多的想法、反馈，并最终通过阶段推进提案等方面的演示。委员会以外的工作很少会有需要暂缓委员会内部的进展以帮助委员会以外的工作的推进，但委员会会对其进行阶段的提升，而这一进步会是对里程碑和支持的良好致谢。想要将提案添加到 JavaScript 规范的功能之中，需要该提案步入第四阶段。
 
-## Work outside of committee
+## 委员会之外的工作
 
-Most of the work supporting a proposal can be done outside of TC39, without blocking on the committee's approval. Moving this work ahead can build more evidence for advancing stages in TC39. Some components of this work are:
+支持提案工作的大部分都可以在 TC39 之外完成，而不会影响委员会的批准。推进这项工作可以为晋升 TC39 中的阶段提供更多的依据，而这项工作的一些组成部分是：
 
-- **[Explainer](https://github.com/tc39/how-we-work/blob/master/explainer.md)**: A well-written README in your proposal repository which explains the purpose and shape of the proposal at a high level.
-- **[Documentation](https://github.com/tc39/how-we-work/issues/49)**: Explanations written for JavaScript developers to use the proposal.
-- **[Implementations](https://github.com/tc39/how-we-work/blob/master/implement.md)**: Allow programmers to experiment with the proposal, whether it's in transpilers/polyfills or behind a flag/in a branch of a native implementation.
-- **[Tests](https://github.com/tc39/how-we-work/issues/6)**: Tests that check the correctness of implementations--these can initially be checked in alongside implementations, but useful to eventually migrate to test262.
-- **Collecting feedback**: Learn what people think about the proposal by talking with them about it, seeing what they think of experimenting programming with it, etc. It can be helpful to get feedback from JS developers, implementers, academics, educators, community leaders, and more, from inside and outside of the committee.
+- **[解释内容](https://github.com/tc39/wwe-work/blob/master/explainer.md)** ：在您的提案的仓库中存放一份写好的 README 文件，在更高层面解释该提案的目的和当前状况。
+- **[文档](https://github.com/tc39/how-we-work/issues/49)** ：为 JavaScript 开发者编写的解释，以方便开发者使用该提案。
+- **[实现方式](https://github.com/tc39/how-we-work/blob/master/implement.md)** ：允许程序员对提案进行试验，无论借助是 Transpilers 或是 polyfills，还是需要开启一个 Flag 或使用一个原生实现的分支。
+- **[测试](https://github.com/tc39/how-we-work/issues/6)** ：检查实现的正确性的测试 —— 这些最初可以沿着实施方式检查，但最有用会最终迁移到 test262。
+- **收集反馈**：了解人们通过与他们交谈的人们对该提案的看法，看看他们对使用这个功能的体验的感受。这可以有助于从委员会内外获得 JavaScript 开发者、实施者、学者、教育工作者、社区领导者等等的反馈。
 
-### Managing a GitHub repository
+### 管理 GitHub 仓库
 
-Each staged proposal should have a GitHub repository, included in the tc39 organization once the proposal is presented to the committee. This repository includes resources like the explainer, draft specification text, and sometimes draft implementations or example programs. The repository's issue tracker can be used to discuss design issues with the committee and the community. These proposal repositories are managed in accordance with [TC39's Code of Conduct](https://tc39.es/code-of-conduct/).
+一旦提案向委员会提交，每个阶段提案都应有一个属于 TC39 组织中的 GitHub 仓库。此仓库需要包括说明程序、规范文本草稿文本，而有时还会需要草稿实施或示例程序的资源。仓库的问题跟踪人员可用于讨论委员会和社区的设计问题。这些提案仓库需要根据 [TC39 的行为准则](https://tc39.es/code-of-conde/)进行管理。
 
-#### Stage process tracking issue
+#### 阶段流程跟踪问题
 
-To work through the stage process, a tracking issue in the GitHub repository can be useful. Below is a template you can use for such a tracking issue:
+要通过各阶段流程，GitHub 仓库中的跟踪问题可能很有用。以下是您可以用于此类跟踪问题的模板：
 
-## Stage 4
-- [ ] committee approval
-- [ ] implement in two browsers
-- [ ] significant in-the-field experience
-- [ ] merge test262 tests
-- [ ] write test262 tests
-- [ ] prepare ecma262 PR
-- [ ] editor-approved ecma262 PR
-## Stage 3
-- [ ] committee approval
-- [ ] spec editor signoff
-- [ ] spec reviewer signoff
-- [ ] received developer/implementor feedback
-## Stage 2
-- [ ] committee approval
-- [ ] spec text written
-- [ ] spec reviewers selected
-## Stage 1
-- [ ] introduced to TC39
-- [ ] champion(s) identified
-- [ ] initial explainer
+## 第四阶段
+- [ ] 委员会批准
+- [ ] 在两个浏览器中实现
+- [ ] 显着的现场体验
+- [ ] 合并 Test262 测试
+- [ ] 编写 Test262 测试
+- [ ] 准备 ECMA262 PR
+- [ ] 编辑批准的 ECMA262 Pr
+## 第三阶段
+- [ ] 委员会批准
+- [ ] 规范编辑器签名
+- [ ] 规范审稿人签名
+- [ ] 接收开发者/实现者反馈
+## 第二阶段
+- [ ] 委员会批准
+- [ ] 编写的规范文本
+- [ ] 选择规范审稿人
+## 第一阶段
+- [ ] 引入 TC39
+- [ ] 确定提议者
+- [ ] 初始解释内容
 
-## Moving through the stages in committee
+## 在委员会阶段的晋升
 
-Building on the [authoritative documentation for the stage process](https://tc39.es/process-document/), this section builds on that with some additional practical advice for activities which may be helpful at various stages.
+这部分建立在[阶段过程文档](https://tc39.es/process-document/)的基础上，提出了一些可能会对各自阶段有利的做法。
 
-Stage advancement happens in TC39 meetings, when a proposal is presented to the committee, based on consensus of the committee that the proposal should advance to the stage. See [presentation advice](https://github.com/tc39/how-we-work/blob/master/presenting.md) for more details.
+阶段的晋升出现在 TC39 会议上，委员会将基于向委员会提交的提案，在全体投票决定后将决定该提案应该向哪一个具体的阶段推进。有关更多详细信息，请参阅[演示建议](https://github.com/tc39/how-we-work/blob/master/presenting.md)。
 
-### Stage 1
+### 第一阶段 
 
-Entrance criteria from the process document:
-> - Identified “champion” who will advance the addition
-> - Prose outlining the problem or need and the general shape of a solution
-> - Illustrative examples of usage
-> - High-level API
-> - Discussion of key algorithms, abstractions and semantics
-> - Identification of potential “cross-cutting” concerns and implementation challenges/complexity
+流程文件的入场标准：
+> - 确定将助力推进提案的“发起人”
+> - 概述问题需要，并提出解决方案的轮廓大纲
+> - 使用的说明性示例
+> - 高级 API
+> - 讨论关键算法、抽象和语义
+> - 识别潜在的“交叉”关注和实施挑战/复杂性
 
-Acceptance signifies:
-> The committee expects to devote time to examining the problem space, solutions and cross-cutting concerns
+验收意味着：
+> 委员会预计将有时间审查问题空间、解决方案和交叉削减问题
 
-Leading up to Stage 1,
-- **Identify a champion (or champion group) in committee**. Unfortunately, TC39 doesn't have a comprehensive way for non-committee members to find committee mentors/champions for their proposals, but existing forums include [TC39 discourse forum](https://es.discourse.group) and [es-discuss mailing list](https://esdiscuss.org); another is the IRC channel #tc39 on Freenode ([instructions](https://freenode.net/kb/answer/chat)). Many TC39 delegates can be found on Twitter as well.
-- **Write an explainer**. See [explainer.md](https://github.com/tc39/how-we-work/blob/master/explainer.md) for advice on how to write the introductory document to fulfill the rest of the Stage 1 requirements.
-- **Prepare a presentation** to get the committee thinking about what they want to do in this design area, and if you have specific ideas, make the case for moving in that direction. See [presenting.md](https://github.com/tc39/how-we-work/blob/master/presenting.md) for advice about presentations.
+进入第一阶段
+- **确定委员会中的发起人（或提议团体）**。不幸的是，TC39 没有为非委员会成员找到一个合适的委员会导师/发起人的方法，但是现有的论坛包括 [TC39 讨论论坛](https://es.discourse.group)和 [es-discuss 邮件列表](https://esdiscuss.org)可能会对此有所帮助；另一个是 Freenode 上的 IRC 频道 `#tc39`（[详细信息](https://freenode.net/kb/answer/chat)）。当然，你也可以在 Twitter 上找到许多的 TC39 代表。
+- **写一个解释文档**。请参阅 [explainer.md](https://github.com/tc39/how-we-work/blob/master/explainer.md)，以获取有关如何编写入门文档以满足第一阶段其余要求的建议。
+- **准备演示文稿**，以使委员会考虑他们在该设计领域中想要做的事情，如果您有特定的想法，请向该方向发展。有关演示文稿的建议，请参见[presenting.md](https://github.com/tc39/how-we-work/blob/master/presenting.md)。
 
-Stage 1 represents more that the committee is thinking into this design space, rather than any sort of consensus on moving JavaScript in a particular direction.
+第一阶段更多地表明委员会正在考虑进入此设计领域，而不是就将 JavaScript 朝特定方向发展达成任何共识。
 
-Following Stage 1 (or even before), it could be useful to do some of the following:
-- **Consult with JavaScript developers** on what kinds of problems they are facing in this area, and what sorts of solutions at the language level might help them.
-- If there are some points of standing disagreement, **bring them up for discussion in GitHub issues**, and consider pursuing detailed analysis of multiple solutions.
-- **Write documentation, draft implementations, tests**, etc. about early proposed solutions.
-- **Be responsive on GitHub**, answering questions raised and considering the points raised by commenters.
-- **Move the proposal repository into the tc39 org** following [these instructions](https://github.com/tc39/proposals#onboarding-existing-proposals).
+在第一阶段之后（甚至之前），执行以下一些操作可能会很有用：
+- **与 JavaScript 开发者讨论**，以了解他们在该领域面临的种种问题，以及在语言级别上有哪些解决方案可能对他们有帮助。
+- 如果在某些方面存在分歧，请**在 GitHub 问题中进行讨论**，并考虑对多种解决方案进行详细分析。
+- **编写有关早期建议的解决方案的文档，实施草案，测试**等。
+- **在 GitHub 上响应**，回答提出的问题并考虑评论者提出的观点。
+- **按照[这些说明](https://github.com/tc39/proposals#onboarding-existing-proposals)将提案仓库移至 tc39 组织中 **。
 
-### Stage 2
+### 第二阶段
 
-Entrance criteria from the process document:
-> - Initial spec text
+流程文档的准入标准：
+> - 初版规范文字
 
-Acceptance signifies:
-> The committee expects the feature to be developed and eventually included in the standard
+接受表示：
+> 委员会希望该功能得以开发并最终纳入标准
 
-Leading up to Stage 2,
-- **Develop a full first draft of the solution**. These don't need to be the final answers for all questions on syntax or semantics, but there should be a coherent initial proposal which you feel some confidence in. The explainer should be updated to document the Stage 2 solution.
-- **Write initial spec text**. This text doesn't need to be 100% complete, but should roughly cover the surface of the solution. <!--TODO: Link to spec writing advice document-->
-- **Prepare a presentation** outlining the proposal and why the committee should agree to include it in the standard.
+进入第二阶段
+- **制定解决方案的完整初稿**。这些并不一定是所有有关语法或语义问题的最终答案，但应该有一个连贯的初始建议，您对此有一定的信心。应该对解释器进行更新，以记录第二阶段的解决方案。
+- **写初始规范文本**。该文本不需要 100％ 完整，但应大致覆盖解决方案的表面。 <!-- TODO：链接到规范编写建议文档 -->
+- **准备演示文稿**，概述提案以及委员会为何同意将其纳入标准。
 
-By the time a proposal gets to Stage 2, we have agreement that we want to go ahead with something like this proposal, eventually becoming standard JavaScript.
+在提案进入第二阶段时，我们已经达成共识，我们希望继续进行类似该提案的工作，最终成为 JavaScript 的标准。
 
-Following Stage 2 (or even before), it could be useful to do some of the following:
-- **Keep talking with JavaScript developers** and working towards solutions.
-- If looking into multiple paths, work towards **drawing them to a close** some time before Stage 3 (this could be before Stage 2).
-- During Stage 2, it's even more important to **have a good implementation for testing**. This is not a stage process requirement, but it's extremely useful to get feedback from real usage before advancing to Stage 3 and declaring a certain amount of finished-ness for the proposal. The same goes for strong documentation.
-- Ideally, the big questions are worked out earlier, maybe before Stage 2, and during Stage 2, **finer and finer points of detail** are being discussed and worked through, both in issues and discussions in TC39 meetings.
-- In the TC39 meeting where a proposal is advanced to Stage 2, it's traditional to **choose Stage 3 reviewers**.
+在第二阶段之后（甚至之前），执行以下某些操作可能会很有用：
+- **继续与 JavaScript 开发者交谈**，并努力寻求解决方案。
+- 如果要研究多个解决方案，争取在第三阶段之前的某个时间（可能在第二阶段之前）将它们**解决掉**。
+- 在第二阶段中，**具有良好的测试实现**显得尤为重要。这不是阶段过程的要求，但是在进入第三阶段并为提案声明一定的完成度之前从实际使用中获取反馈非常有用。完善文档的过程也是如此。
+- 理想情况下，重大问题应尽早解决，可能在第二阶段之前，或者在第二阶段中，**精益求精**是 TC39 会议讨论的议题和要解决的问题。
+- 在 TC39 会议上，提案已进入第二阶段，一般来说应该“选择第三阶段的审核者”了。
 
-### Stage 3
+### 第三阶段
 
-Entrance criteria from the process document:
-> - Complete spec text
-> - Designated reviewers have signed off on the current spec text
-> - All ECMAScript editors have signed off on the current spec text
+流程文档的准入标准：
+> - 完整的规范文本
+> - 指定的审核者已经签署同意了当前的规范文本
+> - 所有 ECMAScript 编者均已签署当前的规范文本
 
-Acceptance signifies:
-> The solution is complete and no further work is possible without implementation experience, significant usage and external feedback.
+接受表示：
+> 该解决方案是完整的，并且尚缺实施经验、大量的应用和外部反馈，以进行进一步的工作。
 
-Leading up to Stage 3,
-- **Where possible, resolve all syntax and semantics questions about the specification**. In Stage 3, the design should be as complete as possible. This means that the outreach to JavaScript developers, and experimentation with transpilers/polyfills, is deemed to be sufficient to draw such a conclusion on the design. There still may be open questions that can only be answered by implementations, e.g., in proposals that can't be polyfilled/transpiled, or in questions about implementation efficiency.
-- **Complete the specification text**. The specification text should describe the whole proposal, with all the details, based on all the design discussions that have occurred.
-- **Get Stage 3 reviews** from designated reviewers and editors. It's useful to email the reviewers and editors a few weeks in advance of the TC39 meeting to ask how the reviews are going, if you haven't heard back yet.
-- **Prepare a presentation** explaining the details of the proposal and their rationale, asking for advancement to Stage 3.
+进入第三阶段，
+- **尽可能解决有关规范的所有语法和语义问题**。在第三阶段中，设计应尽可能完整。这意味着扩展到 JavaScript 开发者，并尝试使用 Transpiler / polyfills，足以在设计上得出这样的结论。仍然可能存在仅由实施方式回答的未解决问题，例如在无法进行多填充/转译的提案中，或在有关实施效率的问题中。
+- **填写规范文本**。规范文本应基于已发生的所有设计讨论，以全部细节描述整个建议。
+- **从指定的评论者和编辑那里获得第三阶段的评论**。在 TC39 会议召开前几周，通过电子邮件将审稿人和编辑者的电子邮件发给您，询问您的评论进行得如何，如果您还没有收到回复的话。
+- **准备演示文稿**，解释提案的详细信息及其依据，要求进入第三阶段。
 
-Following Stage 3 (or even before),
-- **Write test262 tests**. These tests can be merged on Stage 3 proposals. Make sure to include feature flags that indicate which proposal they are. The process of writing these tests can often expose errors in the specification text, and it's incredibly useful to ensure that implementations are aligned.
-- **Work on various implementations**. Critically, it's important at this point to tease out all implementation constraints. For example, some designs may meet Stage 3 requirements, but have the side-effect of making existing JavaScript programs slower--that's likely to be highly undesirable. Even if you don't complete an implementation everywhere, discussing details with implementers in various JavaScript engines to understand their constraints about what's feasible and optimizable can be very useful in understanding if further changes may be needed.
-- **Communicate the decisions made to the broader community**. Ideally, at this point, broad community feedback will have already been collected and taken into account, and further design debate is no longer necessary.
+在第三阶段之后（甚至更早），
+- **编写 test262 测试**。这些测试可以合并到第三阶段的提案中。确保包括指示它们是哪个提案的功能标志。编写这些测试的过程通常会暴露规范文本中的错误，并且对于确保实现的一致性非常有用。
+- **致力于各种实现**。至关重要的是，在这一点上，弄清所有实现约束很重要。例如，某些设计可能满足第三阶段的要求，但具有使现有 JavaScript 程序变慢的副作用 —— 这可能是不被看好，也不是想要的。即使您没有在每个地方都完成一个实现，与各种 JavaScript 引擎的实现者讨论细节以了解他们对可行和可优化事物的约束对于理解是否需要进一步的更改都是非常有用的。
+- **将决策传达给更广泛的社区**。理想情况下，此时，已经收集并考虑了广泛的社区反馈，并且不再需要进行进一步的设计辩论。
 
-### Stage 4
+### 第四阶段
 
-Entrance criteria from the process document:
-> - Test262 acceptance tests have been written for mainline usage scenarios, and merged
-> - Two compatible implementations which pass the acceptance tests
-> - Significant in-the-field experience with shipping implementations, such as that provided by two independent VMs
-> - A pull request has been sent to tc39/ecma262 with the integrated spec text
-> - All ECMAScript editors have signed off on the pull request
+流程文档的准入标准：
+> - 已针对主线使用场景编写了 Test262 验收测试，并将其合并
+> - 两个兼容的实现通过了验收测试
+> - 在实施方面具有丰富的现场经验，例如由两个独立的 VM 向该提案提供经验
+> - 带有集成规范文本的拉取请求已发送到 TC39 / ECMA262
+> - 所有 ECMAScript 编者均已对拉取请求进行了签名
 
-Acceptance signifies:
-> The addition will be included in the soonest practical standard revision
+接受表示：
+> 新增内容将包含在最快的实用标准修订版中
 
-Leading up to Stage 4, create the following
-- **At least two specification-compliant implementations.** One good place to work on these implementations is the JavaScript engines that back web browsers and/or Node.js--[V8](https://v8.dev/), [JavaScriptCore](https://trac.webkit.org/wiki/JavaScriptCore) and [SpiderMonkey](https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey). This is a great way to get implementations out to many JS developers, and it forces the full set of constraints about performance. If all implementations are in e.g., transpilers, the committee might not be convinced that there is significant implementation experience, e.g., as transpilers don't implement features like `eval` which often present particular difficulties.
-- **Full test262 tests.** These tests should aim to cover the entire specification, if possible.
-- **A PR against the main specification**. Earlier specification text might take certain shortcuts, but this isn't acceptable for the final PR; this may involve writing out details for certain repetitive specification algorithms, for example. Editors notes present in earlier drafts should be converted to ordinary notes or deleted.
-- **Prepare a presentation** summarizing the positive implementation and test experience, asking the committee for promotion to Stage 4.
+进行到第四阶段，创建以下内容
+- **至少有两个符合规范的实现**。要做到两个符合规范的实现，一个努力的好方向是那些支持 Web 浏览器和 Node.js 的 JavaScript [V8](https://v8.dev/)、[JavaScriptCore](https://trac.webkit.org/wiki/JavaScriptCore) 和 [SpiderMonkey](https://developer.mozilla.org/zh-CN/docs/Mozilla/Projects/SpiderMonkey) 引擎。这是将实现交付给许多 JavaScript 开发者的好方法，并且它对性能有了约束。如果所有实现都在例如编译器中进行，则委员会可能不会被说服，不会认为该提案有了丰富的实施经验，例如，由于编译器没有实现通常会带来特殊困难的 `eval` 之类的功能。
+- **完整 Test262 测试**。如果可能，这些测试应旨在覆盖整个规范。
+- **针对主要规范的 PR**。较早的规范文本可能有一些捷径，但这对于最终的 PR 来说是不可接受的。例如，这可能涉及为某些重复的规范算法写出详细信息。早期草稿中出现的编辑者注释应转换为普通注释或被删除。
+- **准备演示文稿**，总结积极的实施和测试经验，并要求委员会晋升该提案到第四阶段。
 
-Once a proposal reaches Stage 4,
-- **Archive the proposal repository**. A proposal at Stage 4 will not have further changes; any future changes would be separate proposals against the main specification.
-- **Ensure that good documentation is available**. Ideally, you developed documentation earlier in the proposal process; now, it's essential that documentation at all levels be good quality for a broad community of JavaScript developers to use.
-- **Ensure polyfills/shims conditionally make use of native implementations when possible** Once a proposal is at Stage 4, it makes sense to defer to the built-in implementation when it is both available and correct. This allows developers to benefit from better performance of native implementations whenever possible, without sacrificing correctness. It's helpful for polyfills/shims to rigorously check a native implementation when present for known bugs and deviations, and not to merely check the presence of a native implementation. However, there are compatibility risks to widely deploying in a form that relies on modifying the global environment, especially before the proposal is standard - it can be helpful to consume a polyfill that does not self-install on the environment.
+提案到达第四阶段后，
+- **Archive 提案仓库**。第四阶段的提案将不会有进一步的更改，将来的任何更改都将是针对主要规范的单独提案。
+- **确保提供了良好的文档**。理想情况下，您在投标过程的早期就开发了文档。现在，至关重要的是，各个级别的文档都必须具有良好的质量，以供广大 JavaScript 开发者使用。
+- **确保在可能的情况下有条件地使用 polyfills 或 shims**。一旦提案进入第四阶段，则在可行且正确的情况下，请顺应内置的实现。这使开发者可以在不牺牲正确性的情况下，尽可能地受益于原生实现的更好性能。对于 polyfills 或 shims，如果存在已知的错误和偏差，则严格检查原生实现是否有用，而不是仅检查原生实现的存在是很有帮助的。但是，以依赖于修改全局环境的形式进行广泛部署存在兼容性风险，尤其是在提案成为标准之前 —— 使用不内置于运行环境中的 polyfill 可能会有所帮助。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
