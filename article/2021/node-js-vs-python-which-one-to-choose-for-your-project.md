@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md](https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md)
 > * 译者：[kamly](https://github.com/kamly)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo), [PassionPenguin](https://github.com/PassionPenguin), [Miigon](https://github.com/Miigon)
 
 # Node.js 与 Python：为你的项目选择哪一个？ 
 
@@ -13,7 +13,7 @@ Node.js 和 Python 是网络上最常被拿来做比较的两门后端技术。�
 
 ## 什么是 Node.js?
 
-因为 Node.js 是事件驱动的，所以它是可拓展的，并且可以为项目带来惊人的效率。它在异步方面的能力使其可以处理并发请求，而不会阻塞 I/O 操作。大多数开发团队都喜欢在客户端和服务器端都使用 Node.js 而不选择 JavaScript。（译者注：Node.js 是 JavaScript 在浏览器外的运行时，因此不存在喜欢 Node.js 超过 JavaScript 的说法）
+Node.js 属于事件驱动型，它的可拓展性为项目带来出色的开发效率。它的异步式设计使其可处理并发请求而不阻塞 I/O 操作。多数开发团队为了使用 JavaScript 同时开发客户端和服务端，会偏向选择 Node.js。
 
 ## 什么是 Python?
 
@@ -21,7 +21,7 @@ Node.js 和 Python 是网络上最常被拿来做比较的两门后端技术。�
 
 ---
 
-它的社区、库和支持平台影响深远。因此，对于需要为不同且通常不相关的用例开发应用程序的大多数企业来说，它是一种理想的编程语言。
+它的社区、库和支持平台十分广泛。因此，对于大多数需要为不同且通常不相关的场景开发应用程序的企业来说，它是一种理想的编程语言。
 
 ## Node.js 和 Python 的流行度
 
@@ -29,13 +29,13 @@ Node.js 和 Python 是网络上最常被拿来做比较的两门后端技术。�
 
 首先从公司的角度来看，开发团队必须确定哪种语言在市场上有相当程度的人才储备。从程序员的角度来看，他们必须思考是否愿意学习那些许多公司大量使用的语言。
 
-看一下网站的受欢迎程度，[SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python) 报告称，Node.js 被认为是前 10,000,100,000,000 个网站中使用最多的工具，而整个类别的网站根据其受欢迎程度进行排名。
+按网站热度来看，[SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python) 报告称，Node.js 享有「热度前 10,000、前 100,000 、前 1,000,000 的网站以及『所有网站』类目中使用最多的工具」之名。
 
 根据 [Stack Overflow](https://insights.stackoverflow.com/survey/2019) 2019 年的调查，Python 语言是最受「喜爱」的编程语言，而 Node.js 则是专业程序员最偏向使用的工具。
 
 ---
 
-根据调查，在审查行业采用情况时，Node.js 在计算机电子和技术、生活方式、艺术和娱乐以及其他 16 个类别中一直处于领先地位。而 Python 则是科学与教育、工程和其他一些行业的热门选择。
+根据行业采用情况来看，Node.js 在计算机电子与技术、生活、艺术与娱乐以及其他 16 个类别中均处于领先地位。而 Python 则是科学与教育、工程和其他一些行业的热门选择。
 
 ## Node.js 和 Python 性能比较
 
@@ -43,13 +43,13 @@ Node.js 和 Python 是网络上最常被拿来做比较的两门后端技术。�
 
 #### Node.js
 
-我们已经探讨了 Node.js 的非阻塞架构。有了这个优势，它的执行过程更加简单和快速。在此基础上，还有另一个使 Node.js 成为一个可靠的竞争者的优势，在乎它可以在网络浏览器之外执行代码。
+我们已经探讨了 Node.js 的非阻塞架构。有了这个优势，它的执行过程更加简单和快速。在此基础上，还有一个优势使得 Node.js 成为一个坚实之选，那就是它可以在网络浏览器之外执行代码。
 
-通过在网络浏览器之外执行代码，在浏览器上运行的应用程序能够以更快的速度运行，并因此在效率指标上表现得更好。而且 Node.js 还允许应用程序使用浏览器中无法使用的功能，如 TCP 套接字。
+这样，在浏览器上运行的应用程序处理速度更快，并因此在效率指标上表现得更好。该特性还允许应用程序使用原本在浏览器中无法使用的功能，如 TCP 套接字。
 
 #### Python
 
-Python 固有的架构禁止多线程，因此在这方面是一个值得关注的问题。因为进程不是并行运行的，这会降低 Python 程序的处理速度。虽然 Python 的语法易于学习和执行，但对于需要频繁从 Web 服务器调用数据的应用程序来说，它的速度还是不够快。
+Python 的架构天生不支持多线程，因此在这方面也是一个问题。因为任务处理不是并行运行的，处理速度受到了降低。虽然 Python 的语法易于学习和运行，但对于需要频繁从 Web 服务器调用数据的应用程序来说，它的速度还是不够快。
 
 ---
 
@@ -77,7 +77,7 @@ Node.js 是一款适合运行需要在服务端和浏览器端之间保持可靠
 
 同样值得注意的是，Node.js 在服务端和客户端都可使用。这将减少部署时间，并使团队在协作中维护代码变得可行。
 
-由于其高效的处理能力，Node.js 是云服务器和客户端应用之间频繁交互的公司使用的首选平台。Netflix、LinkedIn、**Medium**、Trello 和 Paypal 都是一些使用 Node.js 构建它们平台的知名科技公司。
+由于其高效的处理能力，Node.js 是云服务器和客户端应用之间频繁交互的公司使用的首选平台。Netflix、LinkedIn、**Medium**、Trello 和 Paypal 是其中几个使用 Node.js 作为平台的知名技术公司。
 
 ![docs.python.org](https://cdn-images-1.medium.com/max/2000/0*Zc2tp-LTZZqoptD9.jpg)
 
@@ -91,7 +91,7 @@ Python 拥有充足的人才供应，部分原因是由于其不复杂的语法�
 
 ---
 
-还有呢! Python 解释器 —— 负责执行代码 —— 是超级高效的。它不需要编译，这使得 Python 成为快速部署和迭代的理想语言。
+还有呢! 负责执行代码的 Python 解释器是超级有效的。它不需要编译，这使得 Python 成为快速部署和迭代的理想语言。
 
 ## 总结
 
