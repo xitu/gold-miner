@@ -2,38 +2,58 @@
 > * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-write-a-good-explainer.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-write-a-good-explainer.md)
-> * 译者：
+> * 译者：[Ashira97](https://github.com/Ashira97)
 > * 校对者：
 
-# How to write a good explainer
+# 如何写一个好的解释文件
 
-Each TC39 proposal should have a README.md file which explains the purpose of the proposal and its shape at a high level. [This guide](https://github.com/w3ctag/w3ctag.github.io/blob/master/explainers.md) by the W3C TAG has a good introduction for web specifications
+Each TC39 proposal should have a README.md file which explains the purpose of the proposal and its shape at a high level. 
+每一个 TC39 提案都包括了一个说明该提案目的和从高层角度的发展方向。
+[This guide](https://github.com/w3ctag/w3ctag.github.io/blob/master/explainers.md) by the W3C TAG has a good introduction for web specifications。
+[这一由 W3C TAG 颁布的向导](https://github.com/w3ctag/w3ctag.github.io/blob/master/explainers.md)为网络规范提供了一个良好的入门说明。
 
-This page you're on has some additional advice for how to write an explainer for TC39 proposals, with an outline for content that you might want to include in your proposal's explainer. For some well-written explainers in recent proposals, see [Promise.allSettled](https://github.com/tc39/proposal-promise-allSettled), the [Temporal proposal](https://github.com/tc39/proposal-temporal), or [RegExp Unicode property escapes](https://github.com/tc39/proposal-regexp-unicode-property-escapes).
+This page you're on has some additional advice for how to write an explainer for TC39 proposals, with an outline for content that you might want to include in your proposal's explainer. 
+您正在浏览的页面提供了额外建议来帮助您书写一个用于 TC39 提案的解释器，该页面也包含了一个内容的纲要，您可能想要将该纲要包含到您的提案的解释器中。
+For some well-written explainers in recent proposals, see [Promise.allSettled](https://github.com/tc39/proposal-promise-allSettled), the [Temporal proposal](https://github.com/tc39/proposal-temporal), or [RegExp Unicode property escapes](https://github.com/tc39/proposal-regexp-unicode-property-escapes).
+如果您想要浏览近期提案的书写完善的解释器，看 [Promise.allSettled](https://github.com/tc39/proposal-promise-allSettled)，[Temporal proposal](https://github.com/tc39/proposal-temporal)，或者是[RegExp Unicode property escapes](https://github.com/tc39/proposal-regexp-unicode-property-escapes)。
 
-The rest of this page can be used as a template, to put in your README.md. Not all sections need to be included: This is just a series of optional suggestions. In *italics* is the instructions, and in plain text is the example text. Most of what's here besides the headings should be replaced by your own content.
+The rest of this page can be used as a template, to put in your README.md. 
+本页接下来的内容可以作为您的 README.md 文件中的模板
+Not all sections need to be included: This is just a series of optional suggestions. 
+并不是所有的部分都需要包含在 README.md 文件中， 本文为您提供了一系列可选择的建议。
+In *italics* is the instructions, and in plain text is the example text. Most of what's here besides the headings should be replaced by your own content.
+在引导中的*斜体字样*和普通文本是样例文本。大多数在头部文章之后的内容都应该用您自己的内容代替。
 
 ----
 
-# Frobnicator
+# 制作者
 
-## Status
+## 状态
 
 Champion(s): *champion name(s)*
+主要作者：*主要作者姓名*
 Author(s): *non-champion author(s), if applicable*
+作者：*非主要作者姓名，如果有的话*
 Stage: -1
+阶段：-1
 
-## Motivation
+## 动机
 
 *Why is this important to have in the JavaScript language?*
+*为什么使用 JavaScript 编程语言是很重要的？*
 
-Frobnication comes up in all areas of computer science, in both front-end and back-end programming. See [CATB](http://catb.org/jargon/html/F/frobnicate.html) for details.
+Frobnication comes up in all areas of computer science, in both front-end and back-end programming. 
+不断的修改和调整代码存在于计算机的所有领域中，无论是前端开发到后端开发。
+See [CATB](http://catb.org/jargon/html/F/frobnicate.html) for details.
+详细信息请看 [CATB](http://catb.org/jargon/html/F/frobnicate.html)。
 
-## Use cases
+## 用例
 
 *Some realistic scenarios using the feature, with both code and description of the problem; more than one can be helpful.*
+*列举出使用该特性的一些实际场景，可以列出代码和问题描述；当你这么做的时候，不仅仅是在这一种情况下可以有帮助。*
 
 **Server-side static frobnication**: Say you want to frobnicate a thing. Then, you would normally have to do all this stuff. If it's in the standard library, it'd be easier.
+**服务端静态装配**：加入你想要开发某个功能，那么你将要做所有的一系列工作。如果有标准的第三方库提供，这些事情就会容易很多。
 
 ```js
 frobnicate({});
@@ -41,13 +61,13 @@ frobnicate({});
 
 **Dynamic frobnicate cases**: The object is provided in a different way, and a different sort of use case comes up, which can be met by the same feature.
 
-## Description
+## 描述
 
 *Developer-friendly documentation for how to use the feature*
 
 `frobnicate(object)` returns the frobnication of object.
 
-## Comparison
+## 比较
 
 *A comparison across various related programming languages and/or libraries. If this is the first sort of language or library to do this thing, explain why that is the case. If this is a standard library feature, a comparison across the JavaScript ecosystem would be good; if it's a syntax feature, that might not be practical, and comparisons may be limited to other programming languages.*
 
@@ -67,7 +87,7 @@ The standard libraries of these programming languages includes related functiona
 
 Our approach is pretty similar to the Emacs Lisp approach, and it's clear from a manual analysis of billions of Stack Overflow posts that this is the most straightforward to ordinary developers.
 
-## Implementations
+## 实现
 
 ### Polyfill/transpiler implementations
 
@@ -75,7 +95,7 @@ Our approach is pretty similar to the Emacs Lisp approach, and it's clear from a
 
 You can try out an implementation of this proposal in the npm package [frobnicate](https://www.npmjs.com/package/frobnicate). Note, this package has semver major version 0 and is subject to change.
 
-### Native implementations
+### 简单实现
 
 *For Stage 3+ proposals, and occasionally earlier, it is helpful to link to the implementation status of full, end-to-end JavaScript engines. Filing these issues before Stage 3 is somewhat unnecessary, though, as it's not very actionable.*
 
