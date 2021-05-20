@@ -304,13 +304,13 @@ This value is also used when the state flow is reset using the [SharingStarted.W
 
 * `Lazily`: start when the first subscriber appears and stop when `scope` is cancelled.
 * `Eagerly`: start immediately and stop when `scope` is cancelled
-* `WhileSubscribed`: ****It’s complicated.****
+* `WhileSubscribed`: **It’s complicated.**
 
 For one-shot operations you can use `Lazily` or `Eagerly`. However, if you’re observing other flows, you should use `WhileSubscribed` to do small but important optimizations as explained below.
 
 # The WhileSubscribed strategy
 
-WhileSubscribed cancels the ****upstream flow**** when there are no collectors. The StateFlow created using `stateIn` exposes data to the View, but it’s also observing flows coming from other layers or the app (upstream). Keeping these flows active might lead to wasting resources, for example, if they continue reading data from other sources such as a database connection, hardware sensors, etc. **When your app goes to the background, you should be a good citizen and stop these coroutines.**
+WhileSubscribed cancels the **upstream flow** when there are no collectors. The StateFlow created using `stateIn` exposes data to the View, but it’s also observing flows coming from other layers or the app (upstream). Keeping these flows active might lead to wasting resources, for example, if they continue reading data from other sources such as a database connection, hardware sensors, etc. **When your app goes to the background, you should be a good citizen and stop these coroutines.**
 
 `WhileSubscribed` takes two parameters:
 
@@ -325,7 +325,7 @@ public fun WhileSubscribed(
 
 From its documentation:
 
-> `stopTimeoutMillis` **configures a delay (in milliseconds) between the disappearance of the last subscriber and the stopping of the upstream flow. It defaults to zero (stop immediately).**
+> `stopTimeoutMillis` configures a delay (in milliseconds) between the disappearance of the last subscriber and the stopping of the upstream flow. It defaults to zero (stop immediately).
 
 This is useful because you don’t want to cancel the upstream flows if the view stopped listening for a fraction of a second. This happens all the time — for example, when the user rotates the device and the view is destroyed and recreated in quick succession.
 
@@ -407,7 +407,7 @@ This will start collecting when the view of the Fragment is `STARTED`, will cont
 
 StateFlow exposed with WhileSubscribed(5000) and collected with repeatOnLifecycle(STARTED)
 
-> Warning: The [StateFlow support recently added to **Data Binding**](https://developer.android.com/topic/libraries/data-binding/observability#stateflow) uses `launchWhenCreated` to collect updates, and it will start using `repeatOnLifecycle``instead when it reaches stable.
+> Warning: The [StateFlow support recently added to **Data Binding**](https://developer.android.com/topic/libraries/data-binding/observability#stateflow) uses `launchWhenCreated` to collect updates, and it will start using `repeatOnLifecycle` instead when it reaches stable.
 > 
 > For **Data Binding**, you should use Flows everywhere and simply add `asLiveData()` to expose them to the view. Data Binding will be updated when `lifecycle-runtime-ktx 2.4.0` goes stable.
 
@@ -424,8 +424,6 @@ Any other combination will keep the upstream Flows active, wasting resources:
 * ❌ Expose using `Lazily`/`Eagerly` and collect with `repeatOnLifecycle`
 
 Of course, if you don’t need the full power of Flow… just use LiveData. :)
-
-**Thanks to** [**Manuel**](/@manuelvicnt)**,** [**Wojtek**](/@wkalicinski)**,** [**Yigit**](/@yigit/)**, Alex Cook,** [**Florina**](/@florina.muntenescu) **and** [**Chris**](https://chrisbanes.medium.com/)!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
