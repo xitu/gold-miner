@@ -1,7 +1,7 @@
-> * 原文地址：[]()
-> * 原文作者：[]()
+> * 原文地址：[Migrating from LiveData to Kotlin’s Flow](https://medium.com/androiddevelopers/migrating-from-livedata-to-kotlins-flow-379292f419fb)
+> * 原文作者：[Jose Alcérreca](https://medium.com/@JoseAlcerreca)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/migrating-from-livedata-to-kotlins-flow.md](https://github.com/xitu/gold-miner/blob/master/article/2021/migrating-from-livedata-to-kotlins-flow.md)
 > * 译者：
 > * 校对者：
 
