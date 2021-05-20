@@ -56,8 +56,6 @@ I’ve dabbled in dynamic SVG creation as well: check out [this conference page]
 
 ![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/05/CleanShot-2021-05-07-at-10.13.36@2x.png?resize=724%2C719&ssl=1)
 
-![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/05/CleanShot-2021-05-07-at-10.13.36@2x.png?resize=724%2C719&ssl=1)
-
 Unfortunately, SVG isn’t a supported image format for social media images. Here’s Twitter specifically:
 
 > URL of image to use in the card. Images must be less than 5MB in size. JPG, PNG, WEBP and GIF formats are supported. Only the first frame of an animated GIF will be used. SVG is not supported.
