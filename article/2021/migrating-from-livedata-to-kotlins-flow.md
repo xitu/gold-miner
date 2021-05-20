@@ -7,9 +7,11 @@
 
 # Migrating from LiveData to Kotlin’s Flow
 
+![](https://miro.medium.com/max/8000/1*6gh2Ttj_yiu1SeYVETlvog.jpeg)
+
 **LiveData** was something we needed back in 2017. The observer pattern made our lives easier, but options such as RxJava were too complex for beginners at the time. The Architecture Components team created **LiveData**: a very opinionated observable data holder class, designed for Android. It was kept simple to make it easy to get started and the recommendation was to use RxJava for more complex reactive streams cases, taking advantage of the integration between the two.
 
-# DeadData?
+## DeadData?
 
 LiveData is still our **solution for Java developers, beginners, and simple situations**. For the rest, a good option is moving to **Kotlin Flows**. Flows still have a steep learning curve but they are part of the Kotlin language, supported by Jetbrains; and Compose is coming, which fits nicely with the reactive model.
 
@@ -17,13 +19,13 @@ We’ve been [talking about using](/androiddevelopers/lessons-learnt-using-corou
 
 In this post you’ll learn how to expose Flows to a view, how to collect them, and how to fine-tune it to fit specific needs.
 
-# Flow: Simple things are harder and complex things are easier
+## Flow: Simple things are harder and complex things are easier
 
 LiveData did one thing and it did it well: it [exposed data while caching the latest value](/androiddevelopers/livedata-with-coroutines-and-flow-part-i-reactive-uis-b20f676d25d7) and understanding Android’s lifecycles. Later we learned that it could also [start coroutines](/androiddevelopers/livedata-with-coroutines-and-flow-part-ii-launching-coroutines-with-architecture-components-337909f37ae7) and [create complex transformations](/androiddevelopers/livedata-beyond-the-viewmodel-reactive-patterns-using-transformations-and-mediatorlivedata-fda520ba00b7#:~:text=The%20observable%20paradigm%20works%20really,take%20advantage%20of%20lifecycle%20awareness.&text=Observe%20changes%20in%20SharedPreferences,document%20or%20collection%20in%20Firestore), but this was a bit more involved.
 
 Let’s look at some LiveData patterns and their Flow equivalents:
 
-## #1: Expose the result of a one-shot operation with a Mutable data holder
+### #1: Expose the result of a one-shot operation with a Mutable data holder
 
 This is the classic pattern, where you mutate a state holder with the result of a coroutine:
 
@@ -79,7 +81,7 @@ class MyViewModel {
 
 > When exposing UI state to a view, use **StateFlow**. It’s a safe and efficient observer designed to hold UI state.
 
-## #2: Expose the result of a one-shot operation
+### #2: Expose the result of a one-shot operation
 
 This is the equivalent to the previous snippet, exposing the result of a coroutine call without a mutable backing property.
 
@@ -120,7 +122,7 @@ class MyViewModel(...) : ViewModel() {
 
 `stateIn` is a Flow operator that converts a Flow to **StateFlow**. Let’s trust these parameters for now, as we need more complexity to explain it properly later.
 
-## #3: One-shot data load with parameters
+### #3: One-shot data load with parameters
 
 Let’s say you want to load some data that depends on the user’s ID and you get this information from an `AuthManager` that exposes a Flow:
 
@@ -188,7 +190,7 @@ val result = userId.transformLatest { newUserId ->
 )
 ```
 
-## #4: Observing a stream of data with parameters
+### #4: Observing a stream of data with parameters
 
 Now let’s make the example more **reactive**. The data is not fetched, but **observed**, so we propagate changes in the source of data automatically to the UI.
 
@@ -247,7 +249,7 @@ class MyViewModel(authManager..., repository...) : ViewModel() {
 
 The exposed StateFlow will receive updates whenever the user changes or the user’s data in the repository is changed.
 
-## #5 Combining multiple sources: MediatorLiveData -> Flow.combine
+### #5 Combining multiple sources: MediatorLiveData -> Flow.combine
 
 MediatorLiveData lets you observe one or more sources of updates (LiveData observables) and do something when they get new data. Usually, you update the value of the MediatorLiveData:
 
@@ -276,7 +278,7 @@ val result = combine(flow1, flow2) { a, b -> a + b }
 
 You can also use the [combineTransform](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/combine-transform.html) function, or [zip](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/zip.html).
 
-# Configuring the exposed StateFlow (stateIn operator)
+## Configuring the exposed StateFlow (stateIn operator)
 
 We previously used `stateIn` to convert a regular flow to a StateFlow, but it requires some configuration. If you don’t want to go into detail right now and just need to copy-paste, this combination is what I recommend:
 
@@ -308,7 +310,7 @@ This value is also used when the state flow is reset using the [SharingStarted.W
 
 For one-shot operations you can use `Lazily` or `Eagerly`. However, if you’re observing other flows, you should use `WhileSubscribed` to do small but important optimizations as explained below.
 
-# The WhileSubscribed strategy
+## The WhileSubscribed strategy
 
 WhileSubscribed cancels the **upstream flow** when there are no collectors. The StateFlow created using `stateIn` exposes data to the View, but it’s also observing flows coming from other layers or the app (upstream). Keeping these flows active might lead to wasting resources, for example, if they continue reading data from other sources such as a database connection, hardware sensors, etc. **When your app goes to the background, you should be a good citizen and stop these coroutines.**
 
@@ -321,7 +323,7 @@ public fun WhileSubscribed(
 )
 ```
 
-## Stop timeout
+### Stop timeout
 
 From its documentation:
 
@@ -349,13 +351,13 @@ This approach checks all the boxes:
 * The latest value will still be cached so that when the user comes back to it, the view will have some data immediately.
 * Subscriptions are restarted and new values will come in, refreshing the screen when available.
 
-## Replay expiration
+### Replay expiration
 
 If you don’t want the user to see stale data when they’ve gone away for too long and you prefer to display a loading screen, check out the `replayExpirationMillis` parameter in `WhileSubscribed`. It’s very handy in this situation and it also saves some memory, as the cached value is restored to the initial value defined in `stateIn`. Coming back to the app won’t be as snappy, but you won’t show old data.
 
 > `replayExpirationMillis`— configures a delay (in milliseconds) between the stopping of the sharing coroutine and the resetting of the replay cache (which makes the cache empty for the `shareIn` operator and resets the cached value to the original `initialValue` for the `stateIn` operator). It defaults to `Long.MAX_VALUE` (keep replay cache forever, never reset buffer). Use zero value to expire the cache immediately.
 
-# Observing StateFlow from the view
+## Observing StateFlow from the view
 
 As we’ve seen so far, it’s very important for the view to let the StateFlows in the ViewModel know that they’re no longer listening. However, as with everything related to lifecycles, it’s not that simple.
 
@@ -365,7 +367,7 @@ In order to collect a flow, you need a coroutine. Activities and fragments offer
 * `Fragment.lifecycleScope.launch`: starts the coroutine immediately and cancels it when the fragment is destroyed.
 * `Fragment.viewLifecycleOwner.lifecycleScope.launch`: starts the coroutine immediately and cancels it when the fragment’s view lifecycle is destroyed. You should use the view lifecycle if you’re modifying UI.
 
-# LaunchWhenStarted, launchWhenResumed…
+## LaunchWhenStarted, launchWhenResumed…
 
 Specialized versions of `launch` called `launchWhenX` will wait until the `lifecycleOwner` is in the X state and suspend the coroutine when the `lifecycleOwner` falls below the X state. It’s important to note that **they don’t cancel the coroutine until their lifecycle owner is destroyed**.
 
@@ -379,7 +381,7 @@ Receiving updates while the app is in the background could lead to crashes, whic
 
 This means that everything we’ve done so far to configure StateFlow would be quite useless; however, there’s a new API in town.
 
-# lifecycle.repeatOnLifecycle to the rescue
+## lifecycle.repeatOnLifecycle to the rescue
 
 This new coroutine builder (available from [lifecycle-runtime-ktx 2.4.0-alpha01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.4.0-alpha01)) does exactly what we need: it starts coroutines at a particular state and it stops them when the lifecycle owner falls below it.
 
@@ -411,7 +413,7 @@ StateFlow exposed with WhileSubscribed(5000) and collected with repeatOnLifecycl
 > 
 > For **Data Binding**, you should use Flows everywhere and simply add `asLiveData()` to expose them to the view. Data Binding will be updated when `lifecycle-runtime-ktx 2.4.0` goes stable.
 
-# Summary
+## Summary
 
 The best way to expose data from a ViewModel and collect it from a view is:
 
