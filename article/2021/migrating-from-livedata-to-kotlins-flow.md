@@ -31,11 +31,44 @@ This is the classic pattern, where you mutate a state holder with the result of 
 
 Expose the result of a one-shot operation with a Mutable data holder (LiveData)
 
+```kt
+<!-- Copyright 2020 Google LLC.	
+   SPDX-License-Identifier: Apache-2.0 -->
+
+class MyViewModel {
+    private val _myUiState = MutableLiveData<Result<UiState>>(Result.Loading)
+    val myUiState: LiveData<Result<UiState>> = _myUiState
+
+    // Load data from a suspend fun and mutate state
+    init {
+        viewModelScope.launch { 
+            val result = ...
+            _myUiState.value = result
+        }
+    }
+}
+```
+
 To do the same with Flows, we use (Mutable)StateFlow:
 
 ![](https://miro.medium.com/max/1854/0*Hf3EmJ8gchpSy6nd)
 
 Expose the result of a one-shot operation with a Mutable data holder (StateFlow)
+
+```kt
+class MyViewModel {
+    private val _myUiState = MutableStateFlow<Result<UiState>>(Result.Loading)
+    val myUiState: StateFlow<Result<UiState>> = _myUiState
+
+    // Load data from a suspend fun and mutate state
+    init {
+        viewModelScope.launch { 
+            val result = ...
+            _myUiState.value = result
+        }
+    }
+}
+```
 
 [**StateFlow**](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#stateflow) is a special kind of [**SharedFlow**](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow#sharedflow) (which is a special type of Flow), closest to LiveData:
 
@@ -56,6 +89,15 @@ With LiveData we used the `[liveData](https://developer.android.com/topic/librar
 
 Expose the result of a one-shot operation (LiveData)
 
+```kt
+class MyViewModel(...) : ViewModel() {
+    val result: LiveData<Result<UiState>> = liveData {
+        emit(Result.Loading)
+        emit(repository.fetchItem())
+    }
+}
+```
+
 Since the state holders always have a value, it’s a good idea to wrap our UI state in some kind of **Result** class that supports states such as `Loading`, `Success`, and `Error`.
 
 The Flow equivalent is a bit more involved because you have to do some **configuration**:
@@ -63,6 +105,18 @@ The Flow equivalent is a bit more involved because you have to do some **configu
 ![](https://miro.medium.com/max/1854/0*sFoX0pbnLijOPaiy)
 
 Expose the result of a one-shot operation (StateFlow)
+
+```kt
+class MyViewModel(...) : ViewModel() {
+    val result: StateFlow<Result<UiState>> = flow {
+        emit(repository.fetchItem())
+    }.stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), // Or Lazily because it's a one-shot
+        initialValue = Result.Loading
+    )
+}
+```
 
 `**stateIn**` is a Flow operator that converts a Flow to **StateFlow**. Let’s trust these parameters for now, as we need more complexity to explain it properly later.
 
@@ -76,9 +130,30 @@ One-shot data load with parameters (LiveData)
 
 With LiveData you would do something similar to this:
 
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: LiveData<String?> = 
+        authManager.observeUser().map { user -> user.id }.asLiveData()
+
+    val result: LiveData<Result<Item>> = userId.switchMap { newUserId ->
+        liveData { emit(repository.fetchItem(newUserId)) }
+    }
+}
+```
+
 `switchMap` is a transformation whose body is executed and the result subscribed to when `userId` changes.
 
 If there’s no reason for `userId` to be a LiveData, a better alternative to this is to combine streams with Flow and finally convert the exposed result to LiveData.
+
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: Flow<UserId> = authManager.observeUser().map { user -> user.id }
+
+    val result: LiveData<Result<Item>> = userId.mapLatest { newUserId ->
+       repository.fetchItem(newUserId)
+    }.asLiveData()
+}
+```
 
 Doing this with Flows looks very similar:
 
@@ -86,7 +161,32 @@ Doing this with Flows looks very similar:
 
 One-shot data load with parameters (StateFlow)
 
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: Flow<UserId> = authManager.observeUser().map { user -> user.id }
+
+    val result: StateFlow<Result<Item>> = userId.mapLatest { newUserId ->
+        repository.fetchItem(newUserId)
+    }.stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), 
+        initialValue = Result.Loading
+    )
+}
+```
+
 Note that if you need more flexibility you can also use `transformLatest` and `emit` items explicitly:
+
+```kt
+val result = userId.transformLatest { newUserId ->
+    emit(Result.LoadingData)
+    emit(repository.fetchItem(newUserId))
+}.stateIn(
+    scope = viewModelScope, 
+    started = WhileSubscribed(5000), 
+    initialValue = Result.LoadingUser // Note the different Loading states
+)
+```
 
 ## #4: Observing a stream of data with parameters
 
@@ -100,7 +200,29 @@ With LiveData you can convert the flow to LiveData and `emitSource` all the upda
 
 Observing a stream with parameters (LiveData)
 
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: LiveData<String?> = 
+        authManager.observeUser().map { user -> user.id }.asLiveData()
+
+    val result = userId.switchMap { newUserId ->
+        repository.observeItem(newUserId).asLiveData()
+    }
+}
+```
+
 Or, preferably, combine both flows using `[flatMapLatest](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flat-map-latest.html)` and convert only the output to LiveData:
+
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: Flow<String?> = 
+        authManager.observeUser().map { user -> user?.id }
+
+    val result: LiveData<Result<Item>> = userId.flatMapLatest { newUserId ->
+        repository.observeItem(newUserId)
+    }.asLiveData()
+}
+```
 
 The Flow implementation is similar but it doesn’t have LiveData conversions:
 
@@ -108,13 +230,49 @@ The Flow implementation is similar but it doesn’t have LiveData conversions:
 
 Observing a stream with parameters (StateFlow)
 
+```kt
+class MyViewModel(authManager..., repository...) : ViewModel() {
+    private val userId: Flow<String?> = 
+        authManager.observeUser().map { user -> user?.id }
+
+    val result: StateFlow<Result<Item>> = userId.flatMapLatest { newUserId ->
+        repository.observeItem(newUserId)
+    }.stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), 
+        initialValue = Result.LoadingUser
+    )
+}
+```
+
 The exposed StateFlow will receive updates whenever the user changes or the user’s data in the repository is changed.
 
 ## #5 Combining multiple sources: MediatorLiveData -> Flow.combine
 
 MediatorLiveData lets you observe one or more sources of updates (LiveData observables) and do something when they get new data. Usually, you update the value of the MediatorLiveData:
 
+```kt
+val liveData1: LiveData<Int> = ...
+val liveData2: LiveData<Int> = ...
+
+val result = MediatorLiveData<Int>()
+
+result.addSource(liveData1) { value ->
+    result.setValue(liveData1.value ?: 0 + (liveData2.value ?: 0))
+}
+result.addSource(liveData2) { value ->
+    result.setValue(liveData1.value ?: 0 + (liveData2.value ?: 0))
+}
+```
+
 The Flow equivalent is much more straightforward:
+
+```kt
+val flow1: Flow<Int> = ...
+val flow2: Flow<Int> = ...
+
+val result = combine(flow1, flow2) { a, b -> a + b }
+```
 
 You can also use the [combineTransform](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/combine-transform.html) function, or [zip](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/zip.html).
 
@@ -122,11 +280,25 @@ You can also use the [combineTransform](https://kotlin.github.io/kotlinx.corouti
 
 We previously used `stateIn` to convert a regular flow to a StateFlow, but it requires some configuration. If you don’t want to go into detail right now and just need to copy-paste, this combination is what I recommend:
 
+```kt
+val result: StateFlow<Result<UiState>> = someFlow
+    .stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), 
+        initialValue = Result.Loading
+    )
+```
+
 However, if you’re not sure about that seemingly random 5-second `started` parameter, read on.
 
 `stateIn` has 3 parameters (from docs):
 
-@param **scope** the coroutine scope in which sharing is started.@param **started** the strategy that controls when sharing is started and stopped.@param **initialValue** the initial value of the state flow.This value is also used when the state flow is reset using the \[SharingStarted.WhileSubscribed\] strategy with the \`replayExpirationMillis\` parameter.
+```
+@param scope the coroutine scope in which sharing is started.
+@param started the strategy that controls when sharing is started and stopped.
+@param initialValue the initial value of the state flow.
+This value is also used when the state flow is reset using the [SharingStarted.WhileSubscribed] strategy with the `replayExpirationMillis` parameter.
+```
 
 `started` can take 3 values:
 
@@ -142,20 +314,34 @@ WhileSubscribed cancels the ****upstream flow**** when there are no collectors. 
 
 `WhileSubscribed` takes two parameters:
 
+```kt
 public fun WhileSubscribed(  
     stopTimeoutMillis: Long = 0,  
     replayExpirationMillis: Long = Long.MAX_VALUE  
 )
+```
 
 ## Stop timeout
 
 From its documentation:
 
-> `****stopTimeoutMillis****` **configures a delay (in milliseconds) between the disappearance of the last subscriber and the stopping of the upstream flow. It defaults to zero (stop immediately).**
+> `stopTimeoutMillis` **configures a delay (in milliseconds) between the disappearance of the last subscriber and the stopping of the upstream flow. It defaults to zero (stop immediately).**
 
 This is useful because you don’t want to cancel the upstream flows if the view stopped listening for a fraction of a second. This happens all the time — for example, when the user rotates the device and the view is destroyed and recreated in quick succession.
 
 The solution in the `liveData` coroutine builder was to [add a delay](https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:lifecycle/lifecycle-livedata-ktx/src/main/java/androidx/lifecycle/CoroutineLiveData.kt;l=356) of 5 seconds after which the coroutine would be stopped if no subscribers are present. `WhileSubscribed(5000)` does exactly that:
+
+```kt
+class MyViewModel(...) : ViewModel() {
+    val result = userId.mapLatest { newUserId ->
+        repository.observeItem(newUserId)
+    }.stateIn(
+        scope = viewModelScope, 
+        started = WhileSubscribed(5000), 
+        initialValue = Result.Loading
+    )
+}
+```
 
 This approach checks all the boxes:
 
@@ -167,7 +353,7 @@ This approach checks all the boxes:
 
 If you don’t want the user to see stale data when they’ve gone away for too long and you prefer to display a loading screen, check out the `replayExpirationMillis` parameter in `WhileSubscribed`. It’s very handy in this situation and it also saves some memory, as the cached value is restored to the initial value defined in `stateIn`. Coming back to the app won’t be as snappy, but you won’t show old data.
 
-> `****replayExpirationMillis****`**— configures a delay (in milliseconds) between the stopping of the sharing coroutine and the resetting of the replay cache (which makes the cache empty for the** `**shareIn**` **operator and resets the cached value to the original** `**initialValue**` **for the** `**stateIn**` **operator). It defaults to** `**Long.MAX_VALUE**` **(keep replay cache forever, never reset buffer). Use zero value to expire the cache immediately.**
+> `replayExpirationMillis`— configures a delay (in milliseconds) between the stopping of the sharing coroutine and the resetting of the replay cache (which makes the cache empty for the `shareIn` operator and resets the cached value to the original `initialValue` for the `stateIn` operator). It defaults to `Long.MAX_VALUE` (keep replay cache forever, never reset buffer). Use zero value to expire the cache immediately.
 
 # Observing StateFlow from the view
 
@@ -202,6 +388,16 @@ This new coroutine builder (available from [lifecycle-runtime-ktx 2.4.0-alpha01]
 Different Flow collection methods
 
 For example, in a Fragment:
+
+```kt
+onCreateView(...) {
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycle.repeatOnLifecycle(STARTED) {
+            myViewModel.myUiState.collect { ... }
+        }
+    }
+}
+```
 
 This will start collecting when the view of the Fragment is `STARTED`, will continue through `RESUMED`, and will stop when it goes back to `STOPPED`. Read all about it in [A safer way to collect flows from Android UIs](/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda).
 
