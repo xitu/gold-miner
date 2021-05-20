@@ -118,7 +118,7 @@ class MyViewModel(...) : ViewModel() {
 }
 ```
 
-`**stateIn**` is a Flow operator that converts a Flow to **StateFlow**. Let’s trust these parameters for now, as we need more complexity to explain it properly later.
+`stateIn` is a Flow operator that converts a Flow to **StateFlow**. Let’s trust these parameters for now, as we need more complexity to explain it properly later.
 
 ## #3: One-shot data load with parameters
 
@@ -361,9 +361,9 @@ As we’ve seen so far, it’s very important for the view to let the StateFlows
 
 In order to collect a flow, you need a coroutine. Activities and fragments offer a bunch of coroutine builders:
 
-* `**Activity.lifecycleScope.launch**`: starts the coroutine immediately and cancels it when the activity is destroyed.
-* `**Fragment.lifecycleScope.launch**`: starts the coroutine immediately and cancels it when the fragment is destroyed.
-* `**Fragment.viewLifecycleOwner.lifecycleScope.launch**`: starts the coroutine immediately and cancels it when the fragment’s view lifecycle is destroyed. You should use the view lifecycle if you’re modifying UI.
+* `Activity.lifecycleScope.launch`: starts the coroutine immediately and cancels it when the activity is destroyed.
+* `Fragment.lifecycleScope.launch`: starts the coroutine immediately and cancels it when the fragment is destroyed.
+* `Fragment.viewLifecycleOwner.lifecycleScope.launch`: starts the coroutine immediately and cancels it when the fragment’s view lifecycle is destroyed. You should use the view lifecycle if you’re modifying UI.
 
 # LaunchWhenStarted, launchWhenResumed…
 
@@ -401,7 +401,7 @@ onCreateView(...) {
 
 This will start collecting when the view of the Fragment is `STARTED`, will continue through `RESUMED`, and will stop when it goes back to `STOPPED`. Read all about it in [A safer way to collect flows from Android UIs](/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda).
 
-**Mixing the** `****repeatOnLifecycle****` **API with the StateFlow guidance above will get you the best performance while making a good use of the device’s resources.**
+**Mixing the** `repeatOnLifecycle` **API with the StateFlow guidance above will get you the best performance while making a good use of the device’s resources.**
 
 ![](https://miro.medium.com/max/2400/0*AJokESYOHI4uxfWs)
 
