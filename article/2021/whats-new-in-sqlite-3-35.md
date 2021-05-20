@@ -1,34 +1,34 @@
 > * 原文地址：[What's new in SQLite 3.35](https://nalgeon.github.io/sqlite-3-35/)
-> * 原文作者：Anton Zhiyanov
+> * 原文作者：[Anton Zhiyanov](https://antonz.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-sqlite-3-35.md](https://github.com/xitu/gold-miner/blob/master/article/2021/whats-new-in-sqlite-3-35.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[kamly](https://github.com/kamly)
 
-# What's new in SQLite 3.35
+# SQLite 3.35 版本有什么新的东西？
 
-SQLite developers often prefer to work on database internals. For an external observer nothing really changes. 2020 was a pleasant exception - SQLite received a bunch of nice features for ordinary users, such as generated columns, `UPDATE FROM` and fantastic `.mode box` in the shell.
+SQLite 开发者通常更喜欢实现数据库的核心组件，而对于外部观察者来说，什么都没有真正的改变。2020 年是一个令人愉快的例外 —— SQLite为普通用户提供了许多不错的功能，例如自动生成列，`UPDATE FROM` 以及 Shell 中 `.mode box` 这个出色的功能。
 
-There’s every chance that 2021 will continue the tradition. Here’s what shipped in the 3.35 release today:
+2021 年极有可能延续这一风格，以下是 3.35 版本中提供的内容：
 
-1. Math functions ‼️
-2. Column removal ❗
-3. `RETURNING` processed rows for `DELETE`, `INSERT` and `UPDATE`.
-4. Materialized CTEs.
+* 添加了内置的 SQL 数学函数 ‼️️
+* 增加了对 `ALTER TABLE DROP COLUMN` 的支持。 ❗
+* 在 `DELETE`、`INSERT` 和 `UPDATE` 语句上添加对 `RETURNING` 子句的支持。
+* 支持 CTE 公用表表达式 `MATERIALIZED` 和 `NOT_MATERIALIZED` 提示。
 
-Here are some details about each feature.
+以下是有关每个功能的一些详细信息。
 
-## Math functions
+## 数学函数
 
-For many years, users literally begged SQLite devs to add basic functions like `sqrt()`, `log()` and `pow()`. The answer was always about the same:
+多年以来，大量用户都上书，恳求 SQLite 的开发者加入数学基本函数，如 `sqrt()`、`log()` 和 `pow()`。而获得的答复总是差不多：
 
-> SQLite is called ‘lite’ for a reason. If you need functions, add them yourself.
+> SQLite 之所以被称为 Lite 是有原因的。如果你需要这些函数，请自己添加。
 
-An understandable position indeed. But refusing to add the square root? At the same time implementing window functions, recursive queries and other advanced SQL magic? Seriously?
+这确实是一个可以理解的立场。但是拒绝添加平方根？但是却又同时实现窗口函数、递归查询和其他高级 SQL 功能吗？你认真的吗？
 
-Maybe SQLite developers prefer to focus on features that large customers are willing to pay for. Anyway, after 20 years we now have mathematical functions!
+也许 SQLite 开发人员更喜欢专注于大客户愿意花钱购买的功能。无论如何，20 年后，我们现在有了数学函数！
 
-Here is the full list:
+以下是完整列表：
 
 ```sql
 acos(X)
@@ -61,19 +61,20 @@ tan(X)
 tanh(X)
 trunc(X)
 ```
-## Column removal
 
-Probably the second most popular source of user suffering. It’s incredibly annoying that you can create as many columns as you want, but there is no way to delete them. Want to delete a column? Make a copy of the table without it, and delete the old one.
+## 移除 Column
 
-Now this pain is also going away! `ALTER TABLE DROP COLUMN`, how long have we been waiting for you.
+可能是用户苦难的第二大来源。我们可以自由地创建任意数量的列，但是无法删除它们，令人实在感到不快。你说要要删除列？先复制一份没有这个列的表的副本，然后删除旧表。
 
-To delete a column, SQLite have to completely overwrite the table - so the operation is not fast. But it’s still nice.
+现在，这种痛苦终于消失了！`ALTER TABLE DROP COLUMN`，我们等你等得好苦啊。
 
-## RETURNING clause
+不过要删除列，SQLite 必须完全重写表内容 —— 因此操作并不快速。当然绝对还是好过没有这个功能！
 
-`DELETE`, `INSERT` and `UPDATE` queries now can return the rows that they deleted, added, or changed respectively.
+## RETURNING 语句
 
-E.g., return the `id` of a new record:
+`DELETE`、`INSERT` 和 `UPDATE` 的查询语句现在支持返回他们删除，添加，或分别改变的行。
+
+例如，返回新记录的 `id`：
 
 ```sql
 create table users (
@@ -87,7 +88,7 @@ values ('Jane', 'Doe')
 returning id;
 ```
 
-Or return products with increased price:
+或返回一个涨价的商品：
 
 ```sql
 update products set price = price 1.10
@@ -95,9 +96,9 @@ where price <= 99.99
 returning name, price as new_price;
 ```
 
-## Materialized CTEs
+## Materialized 的 CTE 公用表表达式
 
-CTE (Common Table Expression) is a great way to make a query more expressive. E.g., count the number of cities founded in each century:
+CTE（公用表表达式）是使查询更具表现力的好方法。例如，计算每个世纪建立的城市数量：
 
 ```sql
 create table city(
@@ -125,9 +126,9 @@ group by century
 order by century desc;
 ```
 
-If the same CTE occurs multiple times in a query, SQLite calculates it multiple times. For large tables this may not be fast.
+如果同一条 CTE 语句在查询中出现多次，则 SQLite 会多次计算该 CTE。对于比较大的表，这个操作可能会很缓慢。
 
-With a materialized CTE, SQLite executes the query once, remembers the result and does not recalculate it (within the same query):
+而对于实例化的 CTE，SQLite 则只会执行一次查询，然后会记下结果，并且在同一查询中不会重新计算：
 
 ```sql
 with history as materialized (
@@ -139,7 +140,9 @@ select ... from history where ...
 ;
 ```
 
-Four great features, all in the same release! Awesome ツ
+四大功能，一次满足，针不戳 ツ
+
+[SQLite 3.35.0 发行公告（草案）](https://sqlite.org/releaselog/3_35_0.html) ｜ [下载 SQLite 最新版本](https://sqlite.org/download.html)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

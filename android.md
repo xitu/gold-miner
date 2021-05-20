@@ -1,3 +1,6 @@
+* [当 Android 的 Compat 库不能拯救你的时候](https://juejin.cn/post/6955828449210548261)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Android 启动技巧：不要使用 Kotlin 协程](https://juejin.cn/post/6940071555330211847)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [5 个 Kotlin 扩展技巧让你的 Android 代码更具表现力](https://juejin.cn/post/6939089593111166984)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [构建像 `Messenger` 短信软件那样的 ImageView](https://juejin.cn/post/6933957885642670093)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Android 中的意料之外的应用崩溃以及解决它们的方法](https://juejin.cn/post/6925336143953133581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
