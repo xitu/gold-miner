@@ -12,7 +12,7 @@
 ## 译者注：
 
 - 本篇中使用的浏览器为 FireFox 浏览器，代码演示结果和 Chrome 浏览器等略有差别。
-- 后端 nodejs 版本代码可以在[这里]()查看。
+- 后端 nodejs 版本代码可以在[这里]('https://github.com/snowyYU/Deep-dive-in-CORS-BK-Code')查看。
 
 ## 浏览器控制台常见的报错信息
 
