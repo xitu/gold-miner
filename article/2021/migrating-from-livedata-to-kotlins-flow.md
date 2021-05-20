@@ -27,15 +27,11 @@ Let’s look at some LiveData patterns and their Flow equivalents:
 
 This is the classic pattern, where you mutate a state holder with the result of a coroutine:
 
-![](https://miro.medium.com/max/60/0*uEwETJ80kXERy4bJ?q=20)
-
 ![](https://miro.medium.com/max/1600/0*uEwETJ80kXERy4bJ)
 
 Expose the result of a one-shot operation with a Mutable data holder (LiveData)
 
 To do the same with Flows, we use (Mutable)StateFlow:
-
-![](https://miro.medium.com/max/60/0*Hf3EmJ8gchpSy6nd?q=20)
 
 ![](https://miro.medium.com/max/1854/0*Hf3EmJ8gchpSy6nd)
 
@@ -56,8 +52,6 @@ This is the equivalent to the previous snippet, exposing the result of a corouti
 
 With LiveData we used the `[liveData](https://developer.android.com/topic/libraries/architecture/coroutines#livedata)` coroutine builder for this:
 
-![](https://miro.medium.com/max/60/0*HKl0HDnxMxlYbZb_?q=20)
-
 ![](https://miro.medium.com/max/1854/0*HKl0HDnxMxlYbZb_)
 
 Expose the result of a one-shot operation (LiveData)
@@ -65,8 +59,6 @@ Expose the result of a one-shot operation (LiveData)
 Since the state holders always have a value, it’s a good idea to wrap our UI state in some kind of **Result** class that supports states such as `Loading`, `Success`, and `Error`.
 
 The Flow equivalent is a bit more involved because you have to do some **configuration**:
-
-![](https://miro.medium.com/max/60/0*sFoX0pbnLijOPaiy?q=20)
 
 ![](https://miro.medium.com/max/1854/0*sFoX0pbnLijOPaiy)
 
@@ -77,8 +69,6 @@ Expose the result of a one-shot operation (StateFlow)
 ## #3: One-shot data load with parameters
 
 Let’s say you want to load some data that depends on the user’s ID and you get this information from an `AuthManager` that exposes a Flow:
-
-![](https://miro.medium.com/max/60/0*NkfiDL2ko9lkKPTh?q=20)
 
 ![](https://miro.medium.com/max/1854/0*NkfiDL2ko9lkKPTh)
 
@@ -91,8 +81,6 @@ With LiveData you would do something similar to this:
 If there’s no reason for `userId` to be a LiveData, a better alternative to this is to combine streams with Flow and finally convert the exposed result to LiveData.
 
 Doing this with Flows looks very similar:
-
-![](https://miro.medium.com/max/60/0*IGFPV_i3vBpPQKsA?q=20)
 
 ![](https://miro.medium.com/max/1854/0*IGFPV_i3vBpPQKsA)
 
@@ -108,8 +96,6 @@ Continuing with our example: instead of calling `fetchItem` on the data source, 
 
 With LiveData you can convert the flow to LiveData and `emitSource` all the updates:
 
-![](https://miro.medium.com/max/60/0*gieCVtPGDY0GLmSW?q=20)
-
 ![](https://miro.medium.com/max/1854/0*gieCVtPGDY0GLmSW)
 
 Observing a stream with parameters (LiveData)
@@ -117,8 +103,6 @@ Observing a stream with parameters (LiveData)
 Or, preferably, combine both flows using `[flatMapLatest](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/flat-map-latest.html)` and convert only the output to LiveData:
 
 The Flow implementation is similar but it doesn’t have LiveData conversions:
-
-![](https://miro.medium.com/max/60/0*T-S2IXEmR2RL308f?q=20)
 
 ![](https://miro.medium.com/max/1854/0*T-S2IXEmR2RL308f)
 
@@ -213,8 +197,6 @@ This means that everything we’ve done so far to configure StateFlow would be q
 
 This new coroutine builder (available from [lifecycle-runtime-ktx 2.4.0-alpha01](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.4.0-alpha01)) does exactly what we need: it starts coroutines at a particular state and it stops them when the lifecycle owner falls below it.
 
-![](https://miro.medium.com/max/60/0*pDKnvDJ9FzaCgXCd?q=20)
-
 ![](https://miro.medium.com/max/2400/0*pDKnvDJ9FzaCgXCd)
 
 Different Flow collection methods
@@ -224,8 +206,6 @@ For example, in a Fragment:
 This will start collecting when the view of the Fragment is `STARTED`, will continue through `RESUMED`, and will stop when it goes back to `STOPPED`. Read all about it in [A safer way to collect flows from Android UIs](/androiddevelopers/a-safer-way-to-collect-flows-from-android-uis-23080b1f8bda).
 
 **Mixing the** `****repeatOnLifecycle****` **API with the StateFlow guidance above will get you the best performance while making a good use of the device’s resources.**
-
-![](https://miro.medium.com/max/60/0*AJokESYOHI4uxfWs?q=20)
 
 ![](https://miro.medium.com/max/2400/0*AJokESYOHI4uxfWs)
 
