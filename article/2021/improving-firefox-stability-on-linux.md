@@ -1,7 +1,7 @@
 > * 原文地址：[Improving Firefox stability on Linux – Mozilla Hacks - the Web developer blog](https://hacks.mozilla.org/2021/05/improving-firefox-stability-on-linux/)
-> * 原文作者：[]()
+> * 原文作者：[Gabriele Svelto](https://hacks.mozilla.org/author/gsveltomozilla-com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[]()
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/improving-firefox-stability-on-linux.md](https://github.com/xitu/gold-miner/blob/master/article/2021/improving-firefox-stability-on-linux.md)
 > * 译者：
 > * 校对者：
 
