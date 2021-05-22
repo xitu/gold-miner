@@ -134,7 +134,7 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 5. To check that the rule is doing their job correctly we’re going to implement some tests. We need to have on our **build.gradle** these two dependencies as **testImplementation**: **com.android.tools.lint:lint-tests** ****and**** **com.android.tools.lint:lint.** Those will allow us to define a xml file right in the code and scan their content to see if the rule is working fine.
 
-1. The first test check if our rule still works if we’re using a custom property. So the TextView will contain a property called **someCustomColor** with the color **#fff**. ****Then, we can add several issues to scan the mock file, in our case we just specify our only written rule. Finally we say that the expected result should be 1 issue with an error severity.
+1. The first test check if our rule still works if we’re using a custom property. So the TextView will contain a property called **someCustomColor** with the color **#fff**. Then, we can add several issues to scan the mock file, in our case we just specify our only written rule. Finally we say that the expected result should be 1 issue with an error severity.
 2. In the second test the behavior is really similar. The only change is that we’re testing our rule with a normal property and the hexadecimal color is including the alpha transparency.
 3. In the last test we check that our rule doesn’t raise any error if we specify a color by using our resources. In that case we set a text color with **@color/primaryColor** and the expected result is a clean execution.
 
@@ -243,7 +243,7 @@ dependencies {
 
 First we need to extend the **Rule** class that ktlint provide for us and specify an id for your rule.
 
-Then we override the **visit** function. Here we’re going to set some conditions to detect that the package ends with **data.dto** and verify if the classes inside that file has the prefix **Data**. ****If the classes doesn’t have that prefix, then we’re going to use the emit lambda to trigger the report and we’ll also offer a way to fix the problem.
+Then we override the **visit** function. Here we’re going to set some conditions to detect that the package ends with **data.dto** and verify if the classes inside that file has the prefix **Data**. If the classes doesn’t have that prefix, then we’re going to use the emit lambda to trigger the report and we’ll also offer a way to fix the problem.
 
 ```Kotlin
 class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
@@ -297,7 +297,7 @@ class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
 
 ```
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **get()** function ****and list all your rules there.
+4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **get()** function and list all your rules there.
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
@@ -424,7 +424,7 @@ class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config
 
 The next steps are pretty similar to the ones on ktlint.
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **ruleSetId()** and the **instance(config: Config)** functions ****and list all your rules there.
+4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **ruleSetId()** and the **instance(config: Config)** functions and list all your rules there.
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
