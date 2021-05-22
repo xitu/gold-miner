@@ -59,9 +59,9 @@ jar {
 }
 ```
 
-Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api****. **You should also beware that here I’m using the** lint-api:27.2.0**, which is still on** beta**.
+Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api**. **You should also beware that here I’m using the** lint-api:27.2.0**, which is still on** beta**.
 
-Here we also specify the **Lint-Registry-v2**** **which will point to the class that will contain the list of rules.
+Here we also specify the **Lint-Registry-v2** which will point to the class that will contain the list of rules.
 
 3. Write the first rule to avoid hardcoded colors on our layouts.
 
@@ -132,7 +132,7 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 ```
 
-5. To check that the rule is doing their job correctly we’re going to implement some tests. We need to have on our **build.gradle** these two dependencies as **testImplementation**: **com.android.tools.lint:lint-tests** ****and**** **com.android.tools.lint:lint.** Those will allow us to define a xml file right in the code and scan their content to see if the rule is working fine.
+5. To check that the rule is doing their job correctly we’re going to implement some tests. We need to have on our **build.gradle** these two dependencies as **testImplementation**: **com.android.tools.lint:lint-tests** and **com.android.tools.lint:lint.** Those will allow us to define a xml file right in the code and scan their content to see if the rule is working fine.
 
 1. The first test check if our rule still works if we’re using a custom property. So the TextView will contain a property called **someCustomColor** with the color **#fff**. Then, we can add several issues to scan the mock file, in our case we just specify our only written rule. Finally we say that the expected result should be 1 issue with an error severity.
 2. In the second test the behavior is really similar. The only change is that we’re testing our rule with a normal property and the hexadecimal color is including the alpha transparency.
