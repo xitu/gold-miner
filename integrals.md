@@ -1612,7 +1612,7 @@
 |[用 Xamarin 和 Visual Studio 构建 iOS 应用](http://gold.xitu.io/entry/579cb8f58ac247005fdb2a8c)|校对|2|
 |[Swift 2 中为实存类型和泛型搭桥牵线](http://gold.xitu.io/entry/579cba75165abd006104d65c)|校对|1|
 |[为什么我们要用网页端组件去构建服务器？该怎么做？](http://gold.xitu.io/entry/579ad925c4c971005abfc7a6)|校对|1|
-|[何在应用内设计一份调查？](https://gold.xitu.io/entry/579ae2a85bbb500064c9233e)|翻译|7|
+|[何在应用内设计一份调查？](https://gold.xitu.io/entry/579ae2a©85bbb500064c9233e)|翻译|7|
 |[iOS 开发，该如何解决弹窗的设计问题？](http://gold.xitu.io/entry/5798724da633bd006a6c8652)|校对|1|
 |[ES6 中 的 var、let 和 const 应该如何选择？](http://gold.xitu.io/entry/57962ef22e958a00651f7387)|翻译|3|
 |[iOS 开发中的 Flux 架构模式](http://gold.xitu.io/entry/57972cdcc4c97100542c2ed4)|校对|2|
@@ -2923,7 +2923,7 @@
 |------|-------|-------|
 |[编写整洁 CSS 代码的黄金法则](https://juejin.im/post/58d34bed128fe1006caf8b6b)|校对|1|
 
-## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：60 当前积分：60
+## 译者：[bambooom](https://github.com/bambooom) 历史贡献积分：62 当前积分：62
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -4377,7 +4377,7 @@
 |[CSV 注入：被人低估的风险](https://juejin.im/post/59eca3fef265da430b7a63c8)|校对|3|
 |[HTTP/2 下网站资源打包的正确方法](https://juejin.im/post/59f74d20f265da431523326b)|翻译|4|
 
-## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：13.5 当前积分：13.5
+## 译者：[ParadeTo](https://github.com/ParadeTo) 历史贡献积分：21.5 当前积分：21.5
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -6543,7 +6543,7 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|6|
 |[部署！=发布（第二部分）](https://juejin.im/post/5b03d4ac6fb9a07a9d70ab5f)|翻译|3|
 
-## 译者：[shisaq](https://github.com/shisaq) 历史贡献积分：2.5 当前积分：2.5
+## 译者：[shisaq](https://github.com/shisaq) 历史贡献积分：4 当前积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -7454,7 +7454,7 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|3|
 
-## 译者：[DerekTso](https://github.com/DerekTso) 历史贡献积分：3 当前积分：3
+## 译者：[DerekTso](https://github.com/DerekTso) 历史贡献积分：4 当前积分：4
 
 |文章|类型|积分|
 |------|-------|-------|
@@ -9313,7 +9313,7 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
 
-## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：53 当前积分：1
+## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：66 当前积分：14
 
 |文章|类型|积分|
 |------|-------|-------|
