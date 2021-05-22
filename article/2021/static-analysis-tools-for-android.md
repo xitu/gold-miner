@@ -59,7 +59,7 @@ jar {
 }
 ```
 
-Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api**. **You should also beware that here I’m using the** lint-api:27.2.0**, which is still on** beta**.
+Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api**. You should also beware that here I’m using the **lint-api:27.2.0**, which is still on **beta**.
 
 Here we also specify the **Lint-Registry-v2** which will point to the class that will contain the list of rules.
 
