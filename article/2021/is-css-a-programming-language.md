@@ -17,7 +17,7 @@ Let’s say we could all agree on a boolean `true` or `false` on if CSS is a pro
 
 Whatever the facts, it’s unlikely most people are going to accept even the possibility that CSS is a programming language. I mean, programs *execute*, don’t they? Nobody doubts that JavaScript is a programming language, because it executes. You write code and then execute that code. Perhaps you open a terminal window and write:
 
-```none
+```bash
 > node my-program.js
 ```
 
@@ -25,7 +25,7 @@ Sure as eggs is eggs, that program will execute. You can make “Hello, World!�
 
 CSS can’t do that! Um, well, unless you write `body::after { content: "Hello, World!"; }` in `style.css` file and open a web page that loads that CSS file. So CSS does execute, in its own special way. It’s a domain-specific language (DSL) rather than a general-purpose language (GPL). In that browser context, the way CSS is told to run (`<link>`, usually) isn’t even that different from how JavaScript is told to run (`<script>`, usually).
 
-If you’re looking for comparisons for CSS syntax to programming concepts, I think you’ll find them. What is a selector if not a type of `if` statement that runs a loop over matches? What is `[calc()](https://css-tricks.com/a-complete-guide-to-calc-in-css/)` if not a direct implementation of math? What is a group of [media queries](https://css-tricks.com/a-complete-guide-to-css-media-queries/) if not a `switch`? What is a [custom property](https://css-tricks.com/a-complete-guide-to-custom-properties/) if not a place to store state? What is `[:checked](https://css-tricks.com/almanac/selectors/c/checked/)` if not boolean? Eric recently made the point that [CSS is typed](https://css-tricks.com/css-is-a-strongly-typed-language/), and earlier, that CSS is chock full of [functions](https://css-tricks.com/complete-guide-to-css-functions/).
+If you’re looking for comparisons for CSS syntax to programming concepts, I think you’ll find them. What is a selector if not a type of `if` statement that runs a loop over matches? What is [`calc()`](https://css-tricks.com/a-complete-guide-to-calc-in-css/) if not a direct implementation of math? What is a group of [media queries](https://css-tricks.com/a-complete-guide-to-css-media-queries/) if not a `switch`? What is a [custom property](https://css-tricks.com/a-complete-guide-to-custom-properties/) if not a place to store state? What is [`:checked`](https://css-tricks.com/almanac/selectors/c/checked/) if not boolean? Eric recently made the point that [CSS is typed](https://css-tricks.com/css-is-a-strongly-typed-language/), and earlier, that CSS is chock full of [functions](https://css-tricks.com/complete-guide-to-css-functions/).
 
 For better or worse, having an answer to whether or not CSS is a programming language affects people. One college professor had made a point of telling students that CSS is not Turing complete, [but is now re-considering that position](https://lemire.me/blog/2011/03/08/breaking-news-htmlcss-is-turing-complete/) upon learning that it is. Whatever the intention there, I think the industry is affected by what computer science professors tell computer science students year after year.
 
