@@ -29,7 +29,7 @@ I think I’m thinking about it again because GitHub seems to have new social me
 
 Those GitHub social media images are clearly programmatically generated. Check out [an example URL](https://opengraph.githubassets.com/f55622dadf147f30f9a583a9be18924ac4567e2f8169cab9af601ecb204ec77f/fempire/resources).
 
-### Automation
+## Automation
 
 While I think you can get a lot of bang out of a totally hand-crafted bespoke-designed social media image, that’s not practical for sites with lots of pages: blogs, eCommerce… you know what I mean. The trick for sites like that is to automate their creation via templating somehow. I’ve mentioned other people’s takes on this in the [past](https://css-tricks.com/social-cards-as-a-service/), but let’s recap:
 
@@ -46,7 +46,7 @@ I love this idea, but it means having access to a Node server (Puppeteer runs on
 
 I think the idea of “hosting” the serverless function at a URL — and passing it the dynamic values of what to include in the screenshot via URL parameter is also clever.
 
-### The SVG route
+## The SVG route
 
 I kinda dig the idea of using SVG as the thing that you template for social media images, partially because it has such fixed coordinates to design inside of, which matches my mental model of making the exact dimensions you need to design social media images. I like [how SVG is so composable](https://css-tricks.com/swipey-image-grids/).
 
@@ -64,7 +64,7 @@ Unfortunately, SVG isn’t a supported image format for social media images. Her
 
 Still, composing/templating in SVG can be cool. You convert it to another format for final usage. Once you *have* an SVG, the conversion from SVG to PNG is almost trivially easy. In my case, I used [svg2png](https://www.npmjs.com/package/svg2png) and [a very tiny Gulp task](https://github.com/CSS-Tricks/conferences/blob/master/tasks/svg2png.js) that runs during the build process.
 
-### What about WordPress?
+## What about WordPress?
 
 I don’t have a build process for my WordPress site — at least not one that runs every time I publish or update a post. But WordPress would benefit *the most* (in my world) from dynamic social media images.
 
@@ -95,7 +95,6 @@ Pretty cool result, right?
 [Tweet](https://twitter.com/css/status/1391758245178511366)
 
 I get why it had to be built this way: it’s using technology that will work literally anywhere WordPress can run. That’s very much in the WordPress spirit. But it does make me wish creating the templates could be done in a more modern way. Like wouldn’t it be cool if the template for your social media images was just like `social-image.php` at the root of the theme like any other template file? And you template and design that page with all the normal WordPress APIs? Like an [ACF Block](https://www.advancedcustomfields.com/resources/blocks/) almost? And it gets screenshot and used? I’ll answer for you: Yes, that would be cool.
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
