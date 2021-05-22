@@ -11,11 +11,11 @@ There is an increasing number of “custom” features on the web platform. We h
 
 But that’s not all! You might have missed it because it wasn’t mentioned in Google’s [“New in Chrome 90”](https://developer.chrome.com/blog/new-in-chrome-90/) article (to be fair, [declarative shadow DOM](https://css-tricks.com/platform-news-using-focus-visible-bbcs-new-typeface-declarative-shadow-doms-a11y-and-placeholders/#declarative-shadow-dom-could-help-popularize-style-encapsulation) stole the show in this release), but Chrome just added support for yet another “custom” feature: custom state pseudo-classes (`:--my-state`).
 
-### Built-in states
+## Built-in states
 
 Before talking about custom states, let’s take a quick look at the built-in states that are defined for built-in HTML elements. The [CSS Selectors module](https://drafts.csswg.org/selectors/) and the [“Pseudo-classes” section](https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes) of the HTML Standard specify a number of pseudo-classes that can be used to match elements in different states. The following pseudo-classes are all widely supported in today’s browsers:
 
-#### User action
+### User action
 
 | Type | Description |
 | --- | --- |
@@ -24,14 +24,14 @@ Before talking about custom states, let’s take a quick look at the built-in st
 | `:focus` | the element has the focus |
 | `:focus-within` | the element has or contains the focus |
 
-#### Location
+### Location
 
 | Type | Description |
 | --- | --- |
 | `:visited` | the link has been visited by the user |
 | `:target` | the element is targeted by the page URL’s fragment |
 
-#### Input
+### Input
 
 | Type | Description |
 | --- | --- |
@@ -42,7 +42,7 @@ Before talking about custom states, let’s take a quick look at the built-in st
 | `:out-of-range` | the input element’s value is [outside the specificed range](https://twitter.com/mgechev/status/1384726124522098688) |
 | `:-webkit-autofill` | the input element has been autofilled by the browser |
 
-#### Other
+### Other
 
 | Type | Description |
 | --- | --- |
@@ -50,7 +50,7 @@ Before talking about custom states, let’s take a quick look at the built-in st
 
 > **Note:** For brevity, some pseudo-classes have been omitted, and some descriptions don’t mention every possible use-case.
 
-### Custom states
+## Custom states
 
 Like built-in elements, custom elements can have different states. A web page that uses a custom element may want to style these states. The custom element could expose its states via CSS classes (`class` attribute) on its host element, but that’s [considered an anti-pattern](https://github.com/WICG/webcomponents/issues/738#issuecomment-367499244).
 
@@ -66,7 +66,7 @@ live-score:--loading {
 }
 ```
 
-### Let’s add a `--checked` state to a `<labeled-checkbox>` element
+## Let’s add a `--checked` state to a `<labeled-checkbox>` element
 
 The [Custom State Pseudo Class](https://wicg.github.io/custom-state-pseudo-class/) specification contains a complete code example, which I will use to explain the API. The JavaScript portion of this feature is located in the custom element‘s class definition. In the constructor, an “[element internals](https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals)” object is created for the custom element. Then, custom states can be set and unset on the internal `states` object.
 
@@ -112,7 +112,7 @@ labeled-checkbox:--checked {
 
 [Try the demo in Chrome](https://codepen.io/simevidas/pen/ZELwEBy)
 
-### This feature is not (yet) a standard
+## This feature is not (yet) a standard
 
 Browser vendors have been debating for the [past three years](https://github.com/WICG/webcomponents/issues/738) how to expose the internal states of custom elements via custom pseudo-classes. Google’s [Custom State Pseudo Class](https://wicg.github.io/custom-state-pseudo-class/) specification remains an “unofficial draft” hosted by WICG. The feature [underwent a design review](https://github.com/w3ctag/design-reviews/issues/428) at the W3C TAG and has been [handed over to the CSS Working Group](https://github.com/w3c/csswg-drafts/issues/4805). In Chrome’s ”intent to ship” discussion, [Mounir Lamouri wrote this](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ):
 
