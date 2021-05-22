@@ -7,7 +7,7 @@
 
 # Auto-Generated Social Media Images
 
-I’ve been thinking about social media images [again](https://css-tricks.com/tag/social-media-images/). You know, the images that (can) show up when you share a link in places like Twitter, Facebook, or iMessage. You’re essentially leaving money on the table without them, because they turn a regular post with a little ol’ link in it into a post with a big honkin’ attention grabbin’ image on it, with a massive clickable area. Of any image on a website, the social media image might be the #1 most viewed, most remembered, most network-requested image on the site.
+I’ve been thinking about social media images [again](https://css-tricks.com/tag/social-media-images/). You know, the images that (can) show up when you share a link in places like Twitter, Facebook, or iMessage. You’re essentially leaving money on the table without them, because they turn a regular post with a little ol’ link in it into a post with a big honkin’ attention grabbin’ image on it, with a massive clickable area. Of any image on a website, the social media image might be the \#1 most viewed, most remembered, most network-requested image on the site.
 
 It’s essentially this bit of HTML that makes them happen:
 
