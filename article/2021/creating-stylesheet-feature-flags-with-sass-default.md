@@ -27,7 +27,7 @@ $variable: 'test' !default;
 
 After running these two lines, the value of `$variable` is still `'hello world'` from the original assignment on line 1. In this case, the `!default` assignment on line 2 is ignored since a value has already been provided, and no default value is needed.
 
-### Style libraries and `@use...with`
+## Style libraries and `@use...with`
 
 The primary motivation behind `!default` in Sass is to facilitate the usage of style libraries, and their convenient inclusion into downstream applications or projects. By specifying some of its variables as `!default`, the library can allow the importing application to customize or adjust these values, without completely forking the style library. In other words, `!default` variables essentially function as *parameters* which modify the behavior of the library code.
 
@@ -52,7 +52,7 @@ $bar: 'world';
 
 The important distinction here, and the reason `@use...with` is preferable, is about the *scope* of the overrides. The `with` block makes it crystal clear — to both the Sass compiler and anyone reading the source code — that the overrides apply specifically to variables which are defined and used inside of `library.scss`. Using this method keeps the global scope uncluttered and helps mitigate variable naming collisions between different libraries.
 
-### Most common use case: Theme customization
+## Most common use case: Theme customization
 
 ```scss
 // library.scss
@@ -73,7 +73,7 @@ Bootstrap exports its [entire Sass variable API](https://github.com/twbs/bootstr
 
 In modern web apps, this behavior by itself could be replicated using [CSS Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/) with a [fallback parameter](https://css-tricks.com/a-complete-guide-to-custom-properties/#h-custom-property-fallbacks). If your toolchain doesn’t already make use of Sass, modern CSS may be sufficient for the purposes of theming. However, we’ll examine use cases that can *only* be solved by use of the Sass `!default` flag in the next two examples.
 
-### Use case 2: Loading webfonts conditionally
+## Use case 2: Loading webfonts conditionally
 
 ```scss
 // library.scss
@@ -95,7 +95,7 @@ To solve this, you can introduce an optional *boolean* flag in your style librar
 
 A CSS variable would not be sufficient to solve this problem — although the `font-family` could be overridden, the HTTP request would have already gone out to load the unused font.
 
-### Use case 3: Visually debugging spacing tokens
+## Use case 3: Visually debugging spacing tokens
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
 
@@ -107,7 +107,7 @@ Since these selectors are all constructed dynamically in a nested loop, and sing
 
 Again — by the time this code is compiled for production, none of the debugging visualization will be anywhere in the resulting CSS since it will be completely replaced by the corresponding margin or padding statement.
 
-### Further reading
+## Further reading
 
 These are just a few examples of Sass `!default` in the wild. Refer to these documentation resources and usage examples as you adapt the technique to your own variations.
 
