@@ -2,18 +2,18 @@
 > * 原文作者：[Chameera Dulanga](https://medium.com/@chameeradulanga)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/speed-up-your-angular-projects-by-10x-with-gpu-js.md](https://github.com/xitu/gold-miner/blob/master/article/2021/speed-up-your-angular-projects-by-10x-with-gpu-js.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [KimYangOfCat](https://github.com/KimYangOfCat)
 
-# 使用 GPU.js 令你的 Angular.js 程序加速10倍
+# 使用 GPU.js 让你的 Angular.js 程序提速 10 倍
 
 ![Photo by [Lucas Kepner](https://unsplash.com/@lucaskphoto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12878/0*rDxYRR86genkrPIK)
 
-对于开发者来说，提高程序的性能是永恒的目标。但当程序中的计算任务很大时，我们的选项很少，这些计算任务主要依赖 CPU 的性能。
+对于开发者来说，提高程序的性能是永恒的目标。但当程序中的计算任务很大时，我们可优化的选项很少，因为这些计算任务主要依赖 CPU 的性能。
 
 那么，如果我们将 GPU 的性能跟 Web 应用程序结合，情况会是怎样的呢？
 
-在本文中，我会展示使用 [GPU.js](https://github.com/gpujs/gpu.js) 将 GPU 性能跟你的 Angular 程序集成的步骤。我也会进行性能的比较，讨论应当在何种情况下利用 GPU 的性能进行程序开发。
+在本文中，我会向你展示使用 [GPU.js](https://github.com/gpujs/gpu.js) 将 GPU 性能跟你的 Angular 程序集成的步骤。我也会进行性能的比较，讨论应当在何种情况下利用 GPU 的性能进行程序开发。
 
 ## 将 GPU.js 跟 Angular 结合
 
@@ -37,7 +37,7 @@ ng new <project-name>
 
 正如前文所述，GPU.js 是一个具有加速功能的 JavaScript 库，它可以用于开发通用的计算功能。
 
-如果机器中没有运行 GPU，使用 GPU.js 也不会令你的应用程序过时。如果设备没有 GPU，它会重新回到常规的 JavaScript 引擎的运行状态。所以，使用 GPU.js 没有任何坏处。
+如果机器中没有运行 GPU，你的应用程序使用了 GPU.js 也可以正常运行。如果设备没有 GPU，它会重新回到常规的 JavaScript 引擎的运行状态。所以，使用 GPU.js 没有任何坏处。
 
 ![Source: [GPU.js](https://gpu.rocks/#/)](https://cdn-images-1.medium.com/max/3710/0*gxIob58_QAXfYe3a.png)
 
@@ -298,15 +298,15 @@ export class AppComponent {
 
 ![Execution times](https://cdn-images-1.medium.com/max/2000/1*ur_7EfLMeJAVMvOu9GV_WQ.png)
 
-你可以看到，当任务较小时，CPU 性能较好。任务大小在 200 以下时，CPU 表现出了最佳性能，而 GPU 却花费了很多时间才完成任务。
+你可以看到，当任务较小时，CPU 的性能较好。任务大小在 200 以下时，CPU 表现出了最佳性能，而 GPU 却花费了更多时间才完成任务。
 
-所以，CPU 适合执行那些不太复杂、计算量不台大的任务。
+所以，CPU 适合执行那些不太复杂、计算量不太大的任务。
 
 但是，当数组大小增加，GPU 的性能就比 CPU 高多了。当数组大小为 1000 时，GPU 的性能比 CPU 好十倍。
 
-当任务巨大且复杂时，GPU 性能较好。
+当任务巨大且复杂时，GPU 的性能较好。
 
-当使用 GPU 执行某些任务，需要留意一下，才能得到最优方案，充分利用 GPU 的功能。所以我建议大家在开发下一个 Angular 应用程序时，试着使用 GPU.js 来提高程序性能。
+当使用 GPU 执行某些任务，我们需要留意一下，才能得到最优方案，以便充分利用 GPU 的功能。所以我建议大家在开发下一个 Angular 应用程序时，试着使用 GPU.js 来提高程序性能。
 
 感谢你阅读本文！
 
