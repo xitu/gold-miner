@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-github-actions-renders-large-scale-logs.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-github-actions-renders-large-scale-logs.md)
 > * 译者：[felixliao](https://github.com/felixliao)
-> * 校对者：
+> * 校对者：[Tong-H](https://github.com/Tong-H)、[KimHooo](https://github.com/Kimhooo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
 ![](https://github.blog/wp-content/uploads/2019/03/engineering-social.png?fit=1201%2C630)
 
