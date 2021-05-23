@@ -73,15 +73,7 @@ Basically, it is possible to integrate and deploy each app independently, allowi
 
 ## 3. Component-Driven CI: “Ripple CI”
 
-A component-driven CI is a CI that runs only on modified components and all their dependencies (i.e, affected components). It does not treat the entire project as a single entity.
-
-When using [Bit](https://gihub.com/teambit/bit) with [Bit.dev](https://bit.dev), this ripple effect of CIs running on modified components and all their dependencies is not limited to a single project but transverse through them. That’s not only more efficient than the standard CI but also enables safer collaboration on components that are shared and used across projects.
-
-![Bit.dev’s “Ripple CI” for components](https://cdn-images-1.medium.com/max/4000/0*-1ZOy4bj0KXkyaDR.jpeg)
-[**Bit: The platform for the modular web**
-**Bit is a standard infrastructure for components. It's everything your teams need to enjoy autonomous development…**bit.dev](https://bit.dev)
-
----
+A component-driven CI is a CI that runs only on modified components and all their dependencies (i.e, affected components). It does not treat the entire project as a single entity. A typical example of Ripple CI is [Bit](https://gihub.com/teambit/bit).
 
 ## 4. Optimizing Web Pack Performance
 
