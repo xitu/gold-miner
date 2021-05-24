@@ -21,7 +21,7 @@ Dagger 和 Koin 无疑是 Android 中最流行的两个依赖注入框架。这�
 
 ![](https://cdn-images-1.medium.com/max/2420/1*i4L9ygcw9OR9t_vM--dHzQ.png)
 
-添加这个注解将导致 Dagger 在构建时为这个类生成一个 Factory。在该用例下，由于它的类名是 `CompositeAdapter`, 它会生成一个名为 `CompositeAdapter**_**Factory`的类。
+添加这个注解后，Dagger 会在构建时为这个类生成一个 Factory。在该用例下，由于它的类名是 `CompositeAdapter`, 它会生成一个名为 `CompositeAdapter**_**Factory`的类。
 
 此类包含创建 `CompositeAdapter` 类的实例所需的所有信息。
 
@@ -39,7 +39,7 @@ Dagger 和 Koin 无疑是 Android 中最流行的两个依赖注入框架。这�
 
 ## Koin
 
-Koin 与 Dagger 以及 Hilt 相比，管理依赖项的方法完全不同。要在 Koin 中注册依赖项，我们不会使用任何注解，因为**Koin不会生成任何代码**。相反，我们必须提供带有工厂类的模块，这些模块将用于创建项目中所需的每个类的实例。
+Koin 与 Dagger 以及 Hilt 相比，管理依赖项的方法完全不同。要在 Koin 中注册依赖项，我们不会使用任何注解，因为**Koin不会生成任何代码**。相反，我们必须为模块提供工厂，这些模块将用于创建项目中所需的每个类的实例。
 
 Koin 将这些工厂类的引用添加到 `InstancesRegistry` 类中，该类包含对我们编写的所有工厂的引用。
 
@@ -77,7 +77,7 @@ Koin 不生成任何代码的优点是：**它对我们的构建时间的影响�
 
 ![](https://cdn-images-1.medium.com/max/3016/1*eZc3sHc0KXNjTe9cXVMkCA.png)
 
-**具体是多少呢？**要估算性能差异我们可以使用[该库](https://github.com/Sloy/android-dependency-injection-performance)，其中 Rafa Vázquez 基于不同的设备上测量并比较了这两个库。测试数据的编写方式可以模拟多个级别的传递依赖关系，因此它不仅仅是具有 4 个类的虚拟应用程序。
+**到底相差多少呢？**为了估算性能差异我们可以使用[该库](https://github.com/Sloy/android-dependency-injection-performance)，其中 Rafa Vázquez 基于不同的设备上测量并比较了这两个库。测试数据的编写方式可以模拟多个级别的传递依赖关系，因此它不仅仅是具有 4 个类的虚拟应用程序。
 
 ![source: [https://github.com/Sloy/android-dependency-injection-performance](https://github.com/Sloy/android-dependency-injection-performance)](https://cdn-images-1.medium.com/max/2332/1*Krd-dXtSa2sD-sweFsa3Uw.png)
 
