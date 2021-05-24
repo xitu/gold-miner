@@ -2,43 +2,43 @@
 > * 原文作者：[Cristopher Oyarzun](https://medium.com/@coyarzun)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md](https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# Static analysis tools for Android
+# Android 静态分析工具
 
 ![Photo by [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
-Let’s take a look into the most popular static code analysis tools that you can use to implement and enforce custom rules in your codebase. Some of the benefit from using a linter. These benefits are: enforce standards programmatically, automate code quality and code maintenance.
+让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和实施自定义规则。使用 Lint 工具有很多好处，包括：以编程方式实施标准，自动化代码质量和代码维护。
 
-In Android Studio you’re probably familiar with these kind of messages.
+在 Android Studio 中，您可能对这些消息很熟悉。
 
 ![](https://cdn-images-1.medium.com/max/2704/1*ToPnjqZ_4pONDNRAbb86PA.png)
 
-You can write your own rules by using these tools:
+您可以使用以下工具编写自己的规则：
 
 * [Android Lint API](https://developer.android.com/studio/write/lint)
 * [ktlint](https://github.com/pinterest/ktlint)
 * [detekt](https://github.com/detekt/detekt)
 
-We’ll describe the step by step process to write some rules on a demo project that you can find [here](https://github.com/coyarzun89/custom-lint-rules).
+我们将一步一步地描述在演示项目上编写一些规则的过程，您可以在[这里](https://github.com/coyarzun89/custom-lint-rules)找到这些规则。
 
-## Custom rules with Android Lint API
+## 使用 Android Lint API 的自定义规则
 
-To start with, we’re going to write rules by using the Android Lint API. Some of the advantages are:
+首先，我们将使用 Android Lint API 编写规则。这样做的优点包括：
 
-* You can write rules for Java, Kotlin, Gradle, XML and some other file types.
-* No need to add plugins to make the warnings/errors visible on Android Studio
-* Simpler integration with your project.
+* 您可以为 Java、Kotlin、Gradle、XML 和其他一些文件类型编写规则。
+* 无需添加插件就可以在 Android Studio 上看到警告或者错误。
+* 更简单地集成到项目中。
 
-One of the disadvantages is this footnote on their repository [https://github.com/googlesamples/android-custom-lint-rules](https://github.com/googlesamples/android-custom-lint-rules)
+缺点之一是在他们的存储库中有这个脚注 [https://github.com/googlesamples/android-custom-lint-rules](https://github.com/googlesamples/android-custom-lint-rules)
 
-> The lint API is not a final API; if you rely on this be prepared to adjust your code for the next tools release.
+> lint API 不是一个最终版本的API；如果您依赖于它，请做好准备为下一个工具版本调整代码。
 
-So, these are the steps to create our first rule:
+那么，下面是创建第一条规则的步骤：
 
-1. Create a new module in your project where your custom rules will live in. We’ll call this module **android-lint-rules.**
-2. Modify the **build.gradle** file on that module to something like this.
+1. 在项目中创建自定义规则所在的新模块。我们将此模块称为 **android-lint-rules**。
+2. 将该模块上的 **build.gradle** 文件修改为如下内容。
 
 ```Gradle
 apply plugin: 'kotlin'
@@ -59,11 +59,11 @@ jar {
 }
 ```
 
-Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api**. You should also beware that here I’m using the **lint-api:27.2.0**, which is still on **beta**.
+在这里，我们以 **compileOnly** 的形式导入依赖项，它将允许我们编写自定义规则 **com.android.tools.lint:lint-api**。您同时需要注意我用的是 **lint-api:27.2.0** 的版本, 这是一个 **beta** 版本。
 
-Here we also specify the **Lint-Registry-v2** which will point to the class that will contain the list of rules.
+这里我们还指定 **Lint-Registry-v2**，它将指向包含规则列表的类。
 
-3. Write the first rule to avoid hardcoded colors on our layouts.
+3. 首先编写第一条规则，避免在我们的布局文件中使用硬编码的颜色。
 
 ```Kotlin
 @Suppress("UnstableApiUsage")
@@ -74,8 +74,8 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
 
         val ISSUE = Issue.create(
             id = "HardcodedColorXml",
-            briefDescription = "Prohibits hardcoded colors in layout XML",
-            explanation = "Hardcoded colors should be declared as a '<color>' resource",
+            briefDescription = "禁止在 XML 布局文件中使用硬编码颜色",
+            explanation = "硬编码颜色应声明为 '<color>' 资源",
             category = Category.CORRECTNESS,
             severity = Severity.ERROR,
             implementation = Implementation(
@@ -94,14 +94,14 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
     }
 
     override fun visitAttribute(context: XmlContext, attribute: Attr) {
-        // Get the value of the XML attribute.
+        // 获取 XML 属性的值。
         val attributeValue = attribute.nodeValue
         if (attributeValue.matches(REGEX_HEX_COLOR)) {
             context.report(
                 issue = ISSUE,
                 scope = attribute,
                 location = context.getValueLocation(attribute),
-                message = "Hardcoded hex colors should be declared in a '<color>' resource."
+                message = "硬编码颜色的十六进制值应该 '<color>' 资源中声明"
             )
         }
     }
