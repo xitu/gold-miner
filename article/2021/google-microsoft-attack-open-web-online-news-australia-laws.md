@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/google-microsoft-attack-open-web-online-news-australia-laws.md](https://github.com/xitu/gold-miner/blob/master/article/2021/google-microsoft-attack-open-web-online-news-australia-laws.md)
 > * 译者：[洛竹](https://github.com/youngjuning)
-> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
 # 谷歌抨击微软“试图破坏开放 web 的运作方式”
 
