@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dependency-injection-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dependency-injection-in-typescript.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)
-> * 校对者：
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)、[PassionPenguin](https://github.com/PassionPenguin)
 
 # TypeScript 中的依赖注入
 
-![Photo by [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11174/0*EjOezZWFJ92qj8bt)
+![图源 [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11174/0*EjOezZWFJ92qj8bt)
 
 ## 简介
 
 每一个软件程序都有其最基础的构建模块。在面向对象的编程语言中， 我们使用类去构建复杂的体系架构。像建一幢大楼，我们把模块之间建立的联系称之为**依赖**。其他的类为了支持我们类的需求，提供复杂的封装操作。
 
-一个类可能有引用其他类的字段。然后，我们不得不问及这些问题：这些引用是怎么被创建的？是**我们**去组合这些对象，还是**其他类**负责实例化它们？如果要实例化的类**太复杂**，并且我们想避免出现垃圾代码？所有这些问题都可以试图通过**依赖注入原则**来解决。
+一个类可能有引用其他类的字段。因此，我们不得不问及这些问题：这些引用是怎么被创建的？是**我们**去组合这些对象，还是**其他类**负责实例化它们？如果要实例化的类**太复杂**，并且我们想避免出现垃圾代码？所有这些问题都可以试图通过**依赖注入原则**来解决。
 
 在开始示例之前，我们必须要去理解关于依赖注入的一些相关概念。依赖注入原则告诉我们，一个类应该去**接收**而非实例化它的依赖。通过委托方式来进行对象初始化，这可以处理较为复杂的操作，从而减少在类设计上的压力。你可以移除代码中复杂的模块，并通过其他方式重新引入依赖。如何处理**移除**和**重新引入依赖**，这是依赖管理的问题。你可以手动处理所有对象的初始化和注入，但是这将会使整个系统变得复杂，我们要尽量避免这种情况的发生。相反，你可以将构造的职责转移到 **IoC 容器**。
 
-**反转控制**是通过反转整个程序的流程，以便容器对所有程序中涉及的依赖进行管理。你可以创建一个容器，整个容器负责构造对象。当一个类需要实例化对象时，IoC 容器可以提供它所需要的依赖。
+**控制反转**是通过反转整个程序的流程，以便容器对所有程序中涉及的依赖进行管理。你可以创建一个容器，整个容器负责构造对象。当一个类需要实例化对象时，IoC 容器可以提供它所需要的依赖。
 
 IoC **只**提供了一种方法而非具体的实现。为了使用依赖注入原则，你需要一个**依赖注入框架**。举例如下：
 
@@ -51,11 +51,11 @@ IoC **只**提供了一种方法而非具体的实现。为了使用依赖注入
 
 一旦我们理解了依赖注入的基本原理，使用什么框架或者库差别并不大。这篇文章里，我选择了 TypeScript 语言和 TypeDI 库来展示这些基本概念。
 
-初始化 Yarn 和添加 TypeScript 会花点时间。因为我不想使用没有足够说明信息的出名项目配置来让你感到无趣。所以我将给出初步的代码并做简要介绍。你可以从[这个 Github 仓库](https://github.com/mertturkmenoglu/typescript-dependency-injection)查看和下载代码。
+初始化 Yarn 和添加 TypeScript 会花点时间。我不想使用有名气但没有足够注释的项目配置，因为这会让你感到无趣。所以我将给出初步的代码并做简要介绍。你可以从[这个 Github 仓库](https://github.com/mertturkmenoglu/typescript-dependency-injection)查看和下载代码。
 
 任何 TypeScript 项目都可以作为依赖注入演示的例子。但这篇文章里我选择了一个 Node/Express 应用作为示例。我假设使用 TypeScript 的开发者要么直接使用 Node/Express 服务器，要么对它们有所了解。
 
-当你查看 `package.json` 文件时，你可以看到两个依赖项配置，让我简要介绍下它们：
+当你查看 `package.json` 文件时，你可以看到这些依赖项配置，让我简要介绍下它们：
 
 * **express**：Express 是编写 Node.js RESTful 服务的流行框架。
 * **reflect-metadata**：一个用于元数据反射 API 的库。它允许其他库通过装饰器使用元数据。
@@ -68,7 +68,7 @@ IoC **只**提供了一种方法而非具体的实现。为了使用依赖注入
 
 你需要留意一些重要的编译器选项配置。如果你看下 **tsconfig.json**，你可以看到编译过程的配置选项：
 
-* 我们为 **reflect-metadata** 和 **node** 指定类型。
+* 我们为 **reflect-metadata** 和 **node** 指定了类型。
 * 我们必须将 **mitDecoratorMetadata** 和 **experimentalDecorators** 设置为 true。
 
 所有的源码都在 **src** 文件夹下。**src/index.ts** 是我们项目的入口文件。这个文件包含了服务器的所有引导步骤：
@@ -144,7 +144,7 @@ class UserService {
 export default UserService;
 ```
 
-UserService 和 UserController 很类似。我们向类添加一个 Service 装饰器，并在构造函数方法中指定它们想要到依赖项。
+UserService 和 UserController 很类似。我们向类添加一个 Service 装饰器，并在构造函数方法中指定它们想要的依赖项。
 
 ```TypeScript
 import { Service } from "typedi";
@@ -166,7 +166,7 @@ class UserRepository {
 export default UserRepository;
 ```
 
-UserRepository 是我们的最后一步。我们用 Service 来注解这个类，但是我们没有任何依赖关系。因为没有数据库连接，所以我只是将用户列表作为私有属性硬编码到类中。
+UserRepository 是我们的最后一步。我们用 Service 来注解这个类，但是我们没有任何依赖关系。因为没有数据库连接，所以我只是将已硬编码过的用户列表作为私有属性添加到类中。
 
 ## 结论
 
@@ -180,7 +180,7 @@ UserRepository 是我们的最后一步。我们用 Service 来注解这个类�
 
 ## 引用
 
-* [1] [](https://www.tutorialsteacher.com/ioc/dependency-injection)[https://www.tutorialsteacher.com/ioc/dependency-injection](https://www.tutorialsteacher.com/ioc/dependency-injection)
+* [1] [https://www.tutorialsteacher.com/ioc/dependency-injection](https://www.tutorialsteacher.com/ioc/dependency-injection)
 * [2] [https://en.wikipedia.org/wiki/Dependency_injection](https://en.wikipedia.org/wiki/Dependency_injection)
 * [3] [https://developer.android.com/training/dependency-injection](https://developer.android.com/training/dependency-injection)
 * [4] [https://stackoverflow.com/questions/21288/which-net-dependency-injection-frameworks-are-worth-looking-into](https://stackoverflow.com/questions/21288/which-net-dependency-injection-frameworks-are-worth-looking-into)
