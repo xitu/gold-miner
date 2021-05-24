@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-make-a-Pull-Request-against-the-ECMAScript-specification.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-make-a-Pull-Request-against-the-ECMAScript-specification.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[Usualminds](https://github.com/Usualminds)
-> * 校对者：
+> * 校对者：[Usualminds](https://github.com/Usualminds)
 
 # 如何针对 ECMAScript 规范创建一个拉取请求
 
