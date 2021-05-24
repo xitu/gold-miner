@@ -4036,7 +4036,7 @@
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|4.5|
 |[14 个你可能不知道的 JavaScript 调试技巧](https://juejin.im/entry/5a0001b86fb9a0451a75c591)|校对|1|
 |[性能指标都是些什么鬼？](https://juejin.im/entry/59e855b45188250989513220/detail)|校对|1.5|
-|[翻译 JavaScript 100 个](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|10|
+|[翻译开源库 JavaScript 100 个](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|翻译|10|
 |[借助函数完成可组合的数据类型（软件编写）（第十部分）](https://juejin.im/post/59e3f3786fb9a0450166ff7b)|校对|0.5|
 |[iPhone X 网页设计](https://juejin.im/post/59e445816fb9a0450670ab82)|校对|1|
 |[Javascript 中各种各样的 this](https://juejin.im/post/59e066d551882578c3411908)|校对|0.5|
@@ -4161,7 +4161,7 @@
 |------|-------|-------|
 |[2017 年 12 月兑 Github 贴纸 Pack-3 1 个]()|积分减去|5|
 |[并发编程](https://juejin.im/post/59ecb058f265da43346f10e5)|校对|1.5|
-|[翻译 Go 100 个](#)|翻译|10|
+|[翻译开源库 Go 100 个](#)|翻译|10|
 |[翻译 Go 开源库 29 个](#)|翻译|2.9|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 |[Coursera 的 GraphQL 之路](https://juejin.im/post/59b8d1d36fb9a00a3f24c439)|校对|1|
@@ -4188,7 +4188,7 @@
 |[元编程：Symbol，了不起的 Symbol](https://juejin.im/post/5a0e65c1f265da430702d6b9)|校对|2|
 |[重建 slack.com：使用 CSS Grid 重新设计，并针对性能和可访问性进行了优化。](https://juejin.im/post/5a029d986fb9a044fb072efb)|校对|1|
 |[Rollup - 下一代 ES6 模块化打包工具 - 对 Rich Harris 的采访](https://juejin.im/post/5a09b4e56fb9a0451170a22e)|校对|1|
-|[翻译 CSS 100 个](#)|翻译|10|
+|[翻译开源库 CSS 100 个](#)|翻译|10|
 |[V8 引擎中的快速属性](https://juejin.im/post/59c1df855188257e826779f8)|校对|2|
 |[在 HTTP/2 的世界里管理 CSS 和 JS](https://juejin.im/post/59bb463d51882519777c5a85)|校对|0.5|
 
@@ -4318,27 +4318,27 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[Ice 2017 年 11 月兑 水杯 1 个](#)|积分减去|5|
-|[Ice 翻译 Shell 67 个](#)|翻译|6.7|
+|[Ice 翻译开源库 Shell 67 个](#)|翻译|6.7|
 
 ## 译者：[RIChardLeeH](https://github.com/RIChardLeeH) 历史贡献积分：17.1 当前积分：17.1
 
 |文章|类型|积分|
 |------|-------|-------|
-|[RichardLeeH 翻译 Python 101 个](#)|翻译|10.1|
-|[RIChardLeeH 翻译 Python 70 个](#)|翻译|7|
+|[RichardLeeH 翻译开源库 Python 101 个](#)|翻译|10.1|
+|[RIChardLeeH 翻译开源库 Python 70 个](#)|翻译|7|
 
 ## 译者：[amagi](https://github.com/amagi) 历史贡献积分：10 当前积分：10
 
 |文章|类型|积分|
 |------|-------|-------|
-|[amagi 翻译 JavaScript 100 个](#)|翻译|10|
+|[amagi 翻译开源库 JavaScript 100 个](#)|翻译|10|
 
 ## 译者：[cnJason](https://github.com/cnJason) 历史贡献积分：31.5 当前积分：31.5
 
 |文章|类型|积分|
 |------|-------|-------|
-|[cnJason 翻译 Java 215 个](#)|翻译|21.5|
-|[cnJason 翻译 Java 100 个](#)|翻译|10|
+|[cnJason 翻译开源库 Java 215 个](#)|翻译|21.5|
+|[cnJason 翻译开源库 Java 100 个](#)|翻译|10|
 
 ## 译者：[RickeyBoy](https://github.com/RickeyBoy) 历史贡献积分：31 当前积分：31
 
@@ -4350,7 +4350,7 @@
 |[Swift 中的内存泄漏](https://juejin.im/post/5b07a1c251882538914a5d3e)|翻译|7|
 |[避免 Swift 单元测试中的强制解析](https://juejin.im/post/5a9ce4ac6fb9a028b547602e)|翻译|4|
 |[Swift 上的高性能数组](https://juejin.im/post/59e84129f265da43128005ed)|校对|0.5|
-|[翻译 iOS 100 个](#)|翻译|10|
+|[翻译开源库 iOS 100 个](#)|翻译|10|
 
 ## 译者：[goldEli](https://github.com/goldEli) 历史贡献积分：33 当前积分：33
 
@@ -4367,7 +4367,7 @@
 |[也谈 React 16.3(.0-alpha)](https://juejin.im/entry/5a82ada16fb9a063317c54f2)|校对|1|
 |[嵌套三元表达式棒极了（软件编写）（第十四部分）](https://juejin.im/post/5a7d6769f265da4e7e10ad82)|校对|1|
 |[探索 ECMAScript 装饰器](https://juejin.im/post/5a7bc62d6fb9a063523ddf95)|翻译|4.5|
-|[翻译 JavaScript 100 个](#)|翻译|10|
+|[翻译开源库 JavaScript 100 个](#)|翻译|10|
 
 ## 译者：[yct21](https://github.com/yct21) 历史贡献积分：12 当前积分：12
 
@@ -4897,7 +4897,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[翻译 JS 分类 100 个]()|翻译|10|
+|[翻译开源库 JS 分类 100 个]()|翻译|10|
 
 ## 译者：[kangkai124](https://github.com/kangkai124) 历史贡献积分：15.5 当前积分：10.5
 
