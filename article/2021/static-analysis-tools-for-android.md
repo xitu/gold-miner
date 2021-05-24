@@ -211,18 +211,18 @@ dependencies {
 
 ![](https://cdn-images-1.medium.com/max/3200/1*VeAC6BcQlTP0dm7WKOhajw.png)
 
-This repository can be a good source if you need more ideas to add some custom rules [https://github.com/vanniktech/lint-rules](https://github.com/vanniktech/lint-rules)
+如果您需要更多的想法来添加一些自定义规则，那么这个仓库是一份很好的学习资料：[https://github.com/vanniktech/lint-rules](https://github.com/vanniktech/lint-rules)
 
-## Custom rules with ktlint
+## 使用 ktlint 自定义规则
 
-ktlint define itself as an anti-bikeshedding Kotlin linter with built-in formatter. One of the coolest things is that you can write your rules along with a way to autocorrect the issue, so the user can easily fix the problem. One of the disadvantages is that it’s specifically for Kotlin, so you can’t write rules for XML files, as we previously did. Also if you want to visualize the issues on Android Studio, you need to install a plugin. I’m using this one [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
+ktlint 将自己定义为一个反繁琐的具有内置格式化的程序。最酷的事情之一是，你可以编写你的规则以及一种方法来自动更正问题，所以用户可以很容易地解决问题。缺点之一是它是专门为 Kotlin 语言编写的，因此不能像我们之前所做的那样为 XML 资源文件编写规则。另外，如果你想在 Android Studio 上解决可视化问题，你需要安装一个插件。我在用这个 [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
 
-So, in this case we’re going to enforce a rule about Clean Architecture. Probably, you have heard that we shouldn’t expose our models from the data layer in our domain or presentation layers. Some people add a prefix on each model from the data layer to make them easy to identify. In this case we want to check that every model which is part of a package ended on **data.dto** should have a prefix **Data** in their name.
+所以，在这种情况下，我们要执行一个关于 Clean 架构的规则。您可能听说过，我们不应该从域或表示层的数据层公开模型。有些人在数据层的每个模型上添加前缀，以便于识别。在本例中，我们要检查以 **data.dto** 结尾的包的每个模型的名称中都应该有一个前缀 **data**。
 
-These are the steps to write a rule using ktlint:
+以下是使用 ktlint 编写规则的步骤：
 
-1. Create a new module where your custom rules will live in. We’ll call this module **ktlint-rules**
-2. Modify the **build.gradle** file on that module:
+1. 创建自定义规则所在的新模块。我们将此模块称为 **ktlint rules**。
+2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
 plugins {
@@ -239,11 +239,11 @@ dependencies {
 }
 ```
 
-3. Write a rule to enforce the use of a prefix (**Data**) in all the models inside a package name ending on **data.dto.**
+3. 编写一个规则，强制在以 **data.dto** 结尾的包名内的所有模型中使用前缀 （**Data**）**。
 
-First we need to extend the **Rule** class that ktlint provide for us and specify an id for your rule.
+首先，我们需要扩展 ktlint 为我们提供的 **Rule** 类，并为您的规则指定一个 id。
 
-Then we override the **visit** function. Here we’re going to set some conditions to detect that the package ends with **data.dto** and verify if the classes inside that file has the prefix **Data**. If the classes doesn’t have that prefix, then we’re going to use the emit lambda to trigger the report and we’ll also offer a way to fix the problem.
+然后我们重写 **visit** 函数。这里我们将设置一些条件来检测包是否以 **data.dto** 结尾，并验证该文件中的类是否具有前缀 **data**。如果类没有这个前缀，那么我们将使用 emit lambda 来触发报告，我们还将提供一种解决问题的方法。
 
 ```Kotlin
 class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
@@ -297,7 +297,7 @@ class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
 
 ```
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **get()** function and list all your rules there.
+4. 创建一个名为 **CustomRuleshiyongSetProvider** 的类，该类扩展 **RuleSetProvider**，然后需要重写 **get（）** 函数并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
@@ -308,11 +308,11 @@ class CustomRuleSetProvider : RuleSetProvider {
 
 ```
 
-5. Create a file in the folder **resources/META-INF/services**. This file must contain the path to the class created on the step 4.
+5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤4中创建的类的路径。
 
 ![](https://cdn-images-1.medium.com/max/6592/1*Des3IkNn0cqX_uSBHNSTgg.png)
 
-6. Now in our project we’re going to add this module, so the rules can be applied. Also we created a task to execute ktlint and generate a report:
+6. 现在在我们的项目中，我们将添加这个模块，以便可以应用规则。我们还创建了一个任务来执行 ktlint 并生成一个报告：
 
 ```
 configurations {
@@ -344,26 +344,26 @@ task ktlint(type: JavaExec, group: "verification", description: "Runs ktlint.") 
 }
 ```
 
-7. I also highly recommend to install this plugin so you can be notified in the same Android Studio about any errors found.
+7. 我还强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 中得到任何错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
-To see your custom rules in Android Studio you need to generate a jar from your module and add that path in the external rulset JARs like this:
+要在Android Studio中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/4436/1*GSevjiWQufDEf3cmZMvtLg.png)
 
-## Custom rules with detekt
+## 使用 detekt 自定义规则
 
-detekt is a static code analysis tool for the **Kotlin** programming language. It operates on the abstract syntax tree provided by the Kotlin compiler. Their focus is find code smells, although you can also use it as a formatting tool.
+detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin 编译器提供的抽象语法树进行操作。它们的重点是查找代码的坏味道，尽管您也可以将其用作格式化工具。
 
-If you want to visualize the issues on Android Studio, you need to install a plugin. I’m using this one [https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
+如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个 [https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
 
-The rule that we’re going to implement will enforce the use of a specific prefix for the Repository implementations. It’s just to show that we can create a custom standard in our project. In this case if we have a **ProductRepository** interface, we want that the implementation use the prefix **Default** instead of the suffix **Impl.**
+我们将要实现的规则将强制为存储库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 **ProductRepository** 接口，我们希望实现使用前缀 **Default** 而不是后缀 **Impl**。
 
-The steps to write a rule using detekt are:
+使用 detekt 编写规则的步骤如下：
 
-1. Create a new module where your custom rules will live in. We’ll call this module **detekt-rules**
-2. Modify the **build.gradle** file on that module:
+1. 创建自定义规则所在的新模块。我们将此模块称为 **detekt rules**。
+2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
 plugins {
@@ -381,11 +381,11 @@ dependencies {
 
 ```
 
-3. Write a rule to enforce the use of a prefix (**Default**) in all the repository implementations.
+3. 编写规则以强制在所有存储库实现中使用前缀 （**Default**）。
 
-First we need to extend the **Rule** class that detekt provide for us. Also we need to override the issue class member and specify name, type of issue, description and how much time it requires to solve the problem.
+首先，我们需要扩展 detekt 为我们提供的 **Rule** 类。我们还需要重写 issue 类成员，并指定名称、问题类型、描述以及解决问题所需的时间。
 
-Then we override the **visitClassOrObject** function. Here we check for each implementation of each class. If some of these ends in the keyword **Repository**, then we’re going to verify if the class name doesn’t start with our prefix. Inside that condition we will report the problem as a **CodeSmell.**
+然后重写 **visitClassOrObject** 函数。这里我们检查每个类的每个实现。如果其中一些以关键字 **Repository** 结尾，那么我们将验证类名是否以前缀开头。在这种情况下，我们将把问题称为**代码的坏气味**。
 
 ```Kotlin
 class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config) {
