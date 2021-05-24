@@ -2,30 +2,30 @@
 > * 原文作者：[Cristopher Oyarzun](https://medium.com/@coyarzun)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md](https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# Static analysis tools for Android
+# Android 静态分析工具
 
 ![Photo by [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
-Let’s take a look into the most popular static code analysis tools that you can use to implement and enforce custom rules in your codebase. Some of the benefit from using a linter. These benefits are: enforce standards programmatically, automate code quality and code maintenance.
+让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和实施自定义规则。使用 Lint 工具有很多好处，包括：以编程方式实施标准，自动化代码质量和代码维护。
 
-In Android Studio you’re probably familiar with these kind of messages.
+在 Android Studio 中，您可能对这些消息很熟悉。
 
 ![](https://cdn-images-1.medium.com/max/2704/1*ToPnjqZ_4pONDNRAbb86PA.png)
 
-You can write your own rules by using these tools:
+您可以使用以下工具编写自己的规则：
 
 * [Android Lint API](https://developer.android.com/studio/write/lint)
 * [ktlint](https://github.com/pinterest/ktlint)
 * [detekt](https://github.com/detekt/detekt)
 
-We’ll describe the step by step process to write some rules on a demo project that you can find [here](https://github.com/coyarzun89/custom-lint-rules).
+我们将一步一步地描述在演示项目上编写一些规则的过程，您可以在[这里](https://github.com/coyarzun89/custom-lint-rules)找到这些规则。
 
-## Custom rules with Android Lint API
+## 使用 Android Lint API 的自定义规则
 
-To start with, we’re going to write rules by using the Android Lint API. Some of the advantages are:
+首先，我们将使用 Android Lint API 编写规则。这样做的优点包括：
 
 * You can write rules for Java, Kotlin, Gradle, XML and some other file types.
 * No need to add plugins to make the warnings/errors visible on Android Studio
