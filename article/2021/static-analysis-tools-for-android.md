@@ -108,17 +108,17 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
 }
 ```
 
-Depending on the rule that we want to implement, we’ll extend from a different **Detector** class. A detector is able to find a particular problem. Each problem type is uniquely identified as an **Issue**. In this case we’ll use a **ResourceXmlDetector** since we want to check for hardcoded hexadecimal colors in each xml resource.
+根据我们要实现的规则，我们将从不同的 **Detector** 类进行扩展。探测器能够发现特定的问题。每个问题类型都被唯一地标识为 **Issue**。在本例中，我们将使用 **ResourceXmlDetector**，因为我们要检查每个 XML 资源中的硬编码十六进制颜色。
 
-After the class declaration we create all the information needed to define an **Issue**. Here we can specify the category and severity, along with the explanation that will be display in the IDE if the rule is triggered.
+在类声明之后，我们创建定义 **Issue** 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在IDE中显示的解释。
 
-Then we need to specify the attributes that are going to be scanned. We can return a specific list of attributes like this **mutableListOf(“textColor”, “background”)** or we can return **XmlScannerConstants.ALL** to scan all the attributes on each layout. That’ll depend on your use case.
+然后我们需要指定要扫描的属性。我们可以返回一个特定的属性列表，如 **mutableListOf（“textColor”，“background”）** 或返回 **XmlScannerConstants.ALL** 来扫描每个布局上的所有属性。这将取决于您的用例。
 
-Finally we have to add the logic needed to decide if that attribute is an hexadecimal color, so we can raise a report.
+最后，我们必须添加确定该属性是否为十六进制颜色所需的逻辑，以便生成报告。
 
-4. Create a class called **DefaultIssueRegistry** that extends **IssueRegistry.** Then you need to override the **issues** variable and list all of them.
+4. 创建一个名为 **DefaultIssuereRegistry** 的类，该类扩展了 **IssuereRegistry**。然后需要重写 **issues** 变量并列出所有这些变量。
 
-If you are going to create more rules, you need to add all of them here.
+如果要创建更多规则，需要在此处添加所有规则。
 
 ```Kotlin
 class DefaultIssueRegistry : IssueRegistry() {
@@ -132,11 +132,11 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 ```
 
-5. To check that the rule is doing their job correctly we’re going to implement some tests. We need to have on our **build.gradle** these two dependencies as **testImplementation**: **com.android.tools.lint:lint-tests** and **com.android.tools.lint:lint.** Those will allow us to define a xml file right in the code and scan their content to see if the rule is working fine.
+5. 为了检查规则是否正确执行了它们的工作，我们将实施一些测试。我们需要在 **build.gradle** 上有这两个依赖项作为 **testImplementation**:**com.android.tools.lint:lint-tests** 和 **com.android.tools.lint:lint**。这将允许我们在代码中定义一个 XML 文件，并扫描其内容，以查看规则是否正常工作。
 
-1. The first test check if our rule still works if we’re using a custom property. So the TextView will contain a property called **someCustomColor** with the color **#fff**. Then, we can add several issues to scan the mock file, in our case we just specify our only written rule. Finally we say that the expected result should be 1 issue with an error severity.
-2. In the second test the behavior is really similar. The only change is that we’re testing our rule with a normal property and the hexadecimal color is including the alpha transparency.
-3. In the last test we check that our rule doesn’t raise any error if we specify a color by using our resources. In that case we set a text color with **@color/primaryColor** and the expected result is a clean execution.
+1. 如果使用自定义属性，第一个测试检查规则是否仍然有效。因此 TextView 将包含一个名为 **someCustomColor** 的属性，其颜色为 **#fff**。然后，我们可以添加几个问题来扫描模拟文件，在我们的示例中，我们只指定我们唯一编写的规则。最后我们说，预期结果应该是 1 个错误严重性问题。
+2. 在第二个测试中，行为非常相似。唯一的变化是我们正在用一个普通属性测试我们的规则，十六进制颜色包括 alpha 透明度。
+3. 在上一个测试中，如果我们使用我们的资源指定颜色，我们检查规则是否没有引发任何错误。在这种情况下，我们使用 **@color/primaryColor** 设置文本颜色，预期的结果是完整的执行。
 
 ```Kotlin
 class HardcodedColorXmlDetectorTest {
@@ -198,7 +198,7 @@ class HardcodedColorXmlDetectorTest {
 
 ```
 
-6. Now in the **app module**, where we want to apply all these rules, we’re going to add this line to the **build.gradle** file:
+6. 现在在 **app module** 中，我们要应用所有这些规则，我们要将这一行添加到 **build.gradle** 文件中：
 
 ```
 dependencies {
@@ -207,7 +207,7 @@ dependencies {
 }
 ```
 
-And that’s it! If we try to set a hardcoded color in any layout an error will be prompt 🎉
+就这样！如果我们试图在任何布局中设置硬编码颜色，将提示错误🎉
 
 ![](https://cdn-images-1.medium.com/max/3200/1*VeAC6BcQlTP0dm7WKOhajw.png)
 
