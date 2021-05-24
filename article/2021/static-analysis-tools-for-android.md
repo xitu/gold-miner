@@ -308,7 +308,7 @@ class CustomRuleSetProvider : RuleSetProvider {
 
 ```
 
-5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤4中创建的类的路径。
+5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤 4 中创建的类的路径。
 
 ![](https://cdn-images-1.medium.com/max/6592/1*Des3IkNn0cqX_uSBHNSTgg.png)
 
@@ -422,9 +422,9 @@ class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config
 
 ```
 
-The next steps are pretty similar to the ones on ktlint.
+接下来的步骤与 ktlint 中的步骤非常相似。
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **ruleSetId()** and the **instance(config: Config)** functions and list all your rules there.
+4. 创建一个名为 **CustomRuleSetProvider** 的类，该类扩展 **RuleSetProvider**。然后需要重写 **ruleSetId()** 和**实例（config:config）** 函数，并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
@@ -436,11 +436,11 @@ class CustomRuleSetProvider : RuleSetProvider {
 }
 ```
 
-5. Create a file in the folder **resources/META-INF/services**. This file must contain the path to the class created on the step 4.
+5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤 4 中创建的类的路径。
 
 ![](https://cdn-images-1.medium.com/max/6592/1*Des3IkNn0cqX_uSBHNSTgg.png)
 
-6. Now in our project we’re going to add this module, so the rules can be applied. To use detekt in your project you also need to a yaml style configuration file. You can get the default configuration from the same detekt repository [here](https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml).
+6. 现在在我们的项目中，我们将添加这个模块，以便可以应用规则。要在项目中使用 detekt，还需要一个 yaml 样式的配置文件。您可以从同一个 detekt 仓库获取默认配置，[点击此处](https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml)。
 
 ```
 detekt {
@@ -456,15 +456,15 @@ dependencies {
 }
 ```
 
-7. I also highly recommend to install this plugin so you can be notified in the same Android Studio about any errors found.
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 AndroidStudio 中得到任何错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
-To see your custom rules in Android Studio you need to generate a jar from your module and add that path in the external rulset JARs like this:
+要在 Android Studio 中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/4436/1*ixNVSRgIr996lB8YtIob1w.png)
 
-And that’s it! Now you can see your custom rule applied 🎉
+就这样！现在您可以看到您的自定义规则已应用 🎉
 
 ![](https://cdn-images-1.medium.com/max/4288/1*jSPXuDQnZRVwFBNqRqG_eA.png)
 
