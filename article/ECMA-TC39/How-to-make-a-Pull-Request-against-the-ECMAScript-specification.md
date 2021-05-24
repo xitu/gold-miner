@@ -11,7 +11,7 @@
 
 ## 创建一个拉取请求
 
-要创建一个请求请求（PR），请 [fork](https://help.github.com/articles/fork-a-repo/) [ecma262](https://github.com/tc39/ecma262) 仓库，将变更添加到 spec.html 文件，并将其上传到 GitHub 上之前 fork 的仓库中，使用 Web 端界面提交拉取请求。在本地编辑时，要想查看你在 HTML 中的内容更改，请运行 `npm run build`（通过 [ecmarkup](https://github.com/bterlson/ecmarkup)）将 spec.html 生成为实际的 HTML 文件。
+要创建一个拉取请求（PR），请 [fork](https://help.github.com/articles/fork-a-repo/) [ecma262](https://github.com/tc39/ecma262) 仓库，将变更添加到 spec.html 文件，并将其上传到 GitHub 上之前 fork 的仓库中，使用 Web 端界面提交拉取请求。在本地编辑时，要想查看你在 HTML 中的内容更改，请运行 `npm run build`（通过 [ecmarkup](https://github.com/bterlson/ecmarkup)）将 spec.html 生成为实际的 HTML 文件。
 
 **拉取请求应指定哪个仓库？**：几乎所有规范内容的拉取请求都应针对 ecma262 仓库；ecma402 仓库仅用于存储国际规范（提供国际化的标准库）。
 
