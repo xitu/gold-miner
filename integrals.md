@@ -6799,7 +6799,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|校对文章性能指标都是些什么鬼？|校对|3|
+|文章性能指标都是些什么鬼？|校对|3|
 
 ## 译者：[Yuhanlolo](https://github.com/Yuhanlolo) 历史贡献积分：14.5 当前积分：14.5
 
@@ -9313,13 +9313,12 @@
 |------|-------|-------|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|3|
 
-## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：66 当前积分：14
+## 译者：[lycheeEng](https://github.com/lycheeEng) 历史贡献积分：66 当前积分：1
 
 |文章|类型|积分|
 |------|-------|-------|
 |2019 年 6 月兑米家台灯，Google 鲁班锁和小袋子各 1 个|减去积分|52|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|40|
-|[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
 |[The JavaScript Tutorial 教程](https://github.com/javascript-tutorial/zh.javascript.info)|翻译校对|13|
 
 ## 译者：[smilemuffie](https://github.com/smilemuffie) 历史贡献积分：10 当前积分：4
