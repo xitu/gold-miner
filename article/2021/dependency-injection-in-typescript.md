@@ -2,76 +2,76 @@
 > * 原文作者：[Mert Türkmenoğlu](https://medium.com/@mertturkmenoglu)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dependency-injection-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dependency-injection-in-typescript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)、[PassionPenguin](https://github.com/PassionPenguin)
 
-# Dependency Injection in TypeScript
+# TypeScript 中的依赖注入
 
-![Photo by [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11174/0*EjOezZWFJ92qj8bt)
+![图源 [Anthony DELANOIX](https://unsplash.com/@anthonydelanoix?utm_source=medium&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11174/0*EjOezZWFJ92qj8bt)
 
-## Introduction
+## 简介
 
-Every software program has fundamental building blocks. In Object-Oriented Programming, we use classes to build complex architectures. Like building a structure, we set up relations that are called **dependencies** between our blocks. Other classes support our class by offering to do complex operations on our behalf of us.
+每一个软件程序都有其最基础的构建模块。在面向对象的编程语言中， 我们使用类去构建复杂的体系架构。像建一幢大楼，我们把模块之间建立的联系称之为**依赖**。其他的类为了支持我们类的需求，提供复杂的封装操作。
 
-A class may have fields that refer to other ones. Then, we have to ask these questions: How are these references constructed? Should **we** assemble these objects, or should **others** be responsible for instantiating them? What if instantiating a class is **too complex**, and we want to avoid spaghetti code? All these questions compose the problem set the **Dependency Injection Principle** tries to solve.
+一个类可能有引用其他类的字段。因此，我们不得不问及这些问题：这些引用是怎么被创建的？是**我们**去组合这些对象，还是**其他类**负责实例化它们？如果要实例化的类**太复杂**，并且我们想避免出现垃圾代码？所有这些问题都可以试图通过**依赖注入原则**来解决。
 
-Before we proceed to the examples, we have to understand a few concepts about dependency injection. The dependency injection principle tells us that a class should **receive** its dependencies rather than instantiating them. Delegating object initializations can reduce the stress of designing classes by taking care of complex operations. You carry away the complicated part from the code, and you re-introduce dependencies through other ways. How you do this **“carrying away”** and **“re-introducing them”** is the problem of managing dependencies. You can manually handle all of the initializations and injections, but this leads to intricate systems, which we try to avoid. Instead of this, you can transfer your construction responsibilities to an **IoC container**.
+在开始示例之前，我们必须要去理解关于依赖注入的一些相关概念。依赖注入原则告诉我们，一个类应该去**接收**而非实例化它的依赖。通过委托方式来进行对象初始化，这可以处理较为复杂的操作，从而减少在类设计上的压力。你可以移除代码中复杂的模块，并通过其他方式重新引入依赖。如何处理**移除**和**重新引入依赖**，这是依赖管理的问题。你可以手动处理所有对象的初始化和注入，但是这将会使整个系统变得复杂，我们要尽量避免这种情况的发生。相反，你可以将构造的职责转移到 **IoC 容器**。
 
-**Inversion of Control** is inverting the whole program flow so that a container manages all program dependencies. You create a container, and this container becomes responsible for constructing every object. When a class needs an object to instantiate, the IoC container serves required dependencies.
+**控制反转**是通过反转整个程序的流程，以便容器对所有程序中涉及的依赖进行管理。你可以创建一个容器，整个容器负责构造对象。当一个类需要实例化对象时，IoC 容器可以提供它所需要的依赖。
 
-IoC **only** expresses a methodology, not a concrete implementation. For applying the dependency injection principle, you need a **DI framework**. A couple of examples are:
+IoC **只**提供了一种方法而非具体的实现。为了使用依赖注入原则，你需要一个**依赖注入框架**。举例如下：
 
-* **Spring** and **Dagger** for **Java**
-* **Hilt** for **Kotlin**
-* **Unity** for **C#**
-* **Inversify**, **Nest.js**, and **TypeDI** for **TypeScript**
+* **Spring** 和 **Dagger**是 **Java** 的依赖注入框架
+* **Hilt** 是 **Kotlin** 的依赖注入框架
+* **Unity** 是 **C#** 的依赖注入框架
+* **Inversify**、**Nest.js** 和 **TypeDI** 是 **TypeScript** 的依赖注入框架
 
-## Overview & Roles
+## 概览和角色划分
 
-![Dependency Injection Overview](https://cdn-images-1.medium.com/max/2000/1*Wk4iA2XNAOl4pAF5cYbU3w.png)
+![依赖注入概览](https://cdn-images-1.medium.com/max/2000/1*Wk4iA2XNAOl4pAF5cYbU3w.png)
 
-In the dependency injection principle, we need to understand **four** different types of **roles**:
+在依赖注入原则中，我们需要理解**四**种不同的**角色**:
 
-* **Client**
-* **Service**
-* **Interface**
-* **Injector**
+* **客户端**
+* **服务端**
+* **接口**
+* **注入器**
 
-**Services** are what we expose to out. These classes are instantiated and used by the IoC container. A **client** uses these services through the IoC container. A client shouldn’t be bothered with details, so **interfaces** ensure that the client and services live in harmony. A client asks dependencies, and an **injector** provides instantiated services.
+**服务端**是我们对外暴露服务使用的。这些类由 IoC 容器实例化和使用。一个**客户端**通过 IoC 容器来使用这些服务。客户端不应该被具体细节所困扰，因此**接口**需要确保客户端和服务端保持协调。客户端请求所需的依赖，**注入器**提供实例化服务。
 
-## Types of Dependency Injection
+## 依赖注入的类型
 
-When we talk about how we can manage to inject dependencies into a class, we can achieve this in **three different ways**:
+当我们讨论如何在类中注入依赖时，可以通过**三种不同方式**来实现：
 
-* We can supply dependencies through **properties**(fields). Defining a property on the class and then injecting a concrete object into the property is called property injection. By exposing a property to the outside, you **violate** the **encapsulation** principle of OOP; because of this, you may want to avoid this type of injection.
-* We can supply dependencies through **methods**. A **state** of the object **should be private**, and when an outsider wants to change that state, it should use the **getter/setter methods** of the class. So when you use a setter method to initialize a private field in the class, you use the **method injection**.
-* We can supply dependencies through a **constructor**. Constructor methods are highly intertwined with object constructions because of their basic nature. We usually **favor** doing injections **through constructors** because of the similarity of our purpose and the constructor methods.
+* 我们可以通过**属性**(字段)提供依赖关系。在类上定义属性，然后将具体的对象注入到该属性中，这就是属性注入。通过对外暴露这个属性，但这样做**违背**了面向对象程序设计的**封装**原则；因此，要尽量避免这种注入。
+* 我们可以通过**方法**提供依赖关系。对象的**状态应该是私有的**，当外部想要改变该状态时，它应该调用类的 **getter/setter 方法**。所以当你使用 setter 方法初始化类中的私有字段时，你可以使用**方法注入**。
+* 我们可以通过**构造函数**提供依赖关系。构造函数方法因为其基本属性和对象构造高度融合在一起。我们通常**支持通过构造函数**进行注入，因为我们的目标和构造函数的方法很类似。
 
-## Using TypeDI
+## 使用 TypeDI 库
 
-Once we understand the underlying principles, what framework or library we use makes no difference. For this article, I chose TypeScript language and TypeDI library to demonstrate the fundamental concepts.
+一旦我们理解了依赖注入的基本原理，使用什么框架或者库差别并不大。这篇文章里，我选择了 TypeScript 语言和 TypeDI 库来展示这些基本概念。
 
-Initializing Yarn and adding TypeScript takes a little bit of effort. Because I don’t want to bore you with well-known project configs with no additional information, I will give you the starting code and go through it briefly. You can view and download the codes from [this GitHub repository](https://github.com/mertturkmenoglu/typescript-dependency-injection).
+初始化 Yarn 和添加 TypeScript 会花点时间。我不想使用有名气但没有足够注释的项目配置，因为这会让你感到无趣。所以我将给出初步的代码并做简要介绍。你可以从[这个 Github 仓库](https://github.com/mertturkmenoglu/typescript-dependency-injection)查看和下载代码。
 
-Any TypeScript project would be an example to demonstrate DI, but I chose a Node/Express app for this article. I assume people who work with TypeScript either directly work with Node/Express servers, or have an idea about them.
+任何 TypeScript 项目都可以作为依赖注入演示的例子。但这篇文章里我选择了一个 Node/Express 应用作为示例。我假设使用 TypeScript 的开发者要么直接使用 Node/Express 服务器，要么对它们有所了解。
 
-When you inspect `package.json` , you can see a couple of dependencies. Let me go through them briefly:
+当你查看 `package.json` 文件时，你可以看到这些依赖项配置，让我简要介绍下它们：
 
-* **express**: Express is a popular framework for writing Node.js RESTful servers.
-* **reflect-metadata**: A Polyfill library for Metadata Reflection API. This library allows other libraries to use metadata through decorators.
-* **ts-node:** Node.js can’t run TypeScript files. Before you can run your code, you need to compile TypeScript into JavaScript. ts-node handles this process for you.
-* **typedi:** TypeDI is a dependency injection library for TypeScript. We’ll see the use cases in a short time.
-* **typescript:** We are using TypeScript for this project, so we need to add it as a dependency.
-* **@types/express:** Type definitions for Express library.
-* **@types/node**: Type definitions for Node.js.
-* **ts-node-dev:** This library allows you to run TypeScript files and watch changes on certain files.
+* **express**：Express 是编写 Node.js RESTful 服务的流行框架。
+* **reflect-metadata**：一个用于元数据反射 API 的库。它允许其他库通过装饰器使用元数据。
+* **ts-node**：Node.js 无法运行 TypeScript 文件。在代码运行前，需要将 TypeScript 编译为 JavaScript。ts-node 帮你处理了这个过程。
+* **typedi**：TypeDI 是一个 TypeScript 依赖注入库。我们很快会看到它的示例。
+* **typescript**：我们在这个项目中使用了 TypeScript，因此需要将它也作为一个依赖。
+* **@types/express**：Express 库的类型定义。
+* **@types/node**：Node.js 的类型定义。
+* **ts-node-dev**：这个库允许你运行 TypeScript，并观察某些文件的变化情况。
 
-There are a few important compiler options you need to pay attention to. If you take a look at **tsconfig.json**, you can see the options for the compilation process:
+你需要留意一些重要的编译器选项配置。如果你看下 **tsconfig.json**，你可以看到编译过程的配置选项：
 
-* We specify types for **reflect-metadata** and **node**.
-* We have to set **emitDecoratorMetadata** and **experimentalDecorators** flags to true.
+* 我们为 **reflect-metadata** 和 **node** 指定了类型。
+* 我们必须将 **mitDecoratorMetadata** 和 **experimentalDecorators** 设置为 true。
 
-All of our source code is inside the **src** folder. **src/index.ts** is our entry point. This file contains all the bootstrap steps of the server:
+所有的源码都在 **src** 文件夹下。**src/index.ts** 是我们项目的入口文件。这个文件包含了服务器的所有引导步骤：
 
 ```TypeScript
 import 'reflect-metadata';
@@ -97,16 +97,16 @@ main().catch(err => {
 });
 ```
 
-This code is a minimal Express server that has only one endpoint. When you send a **GET** request to **/users** route, it will return a list of users. The crucial part of the **main** function is the “**Container.ge**t” method. Please pay attention that we didn’t use the new keyword or instantiate an object. We just asked for the IoC container to return us a UserController instance. Then we bind the route and the controller method.
+这段代码是一个只有一个端口的小型 Express 服务器。当你向 **/users** 路由发送一个 **GET** 请求时，它会返回一个用户列表。**main** 函数的核心是 **Container.get** 方法。注意我们并没有使用 new 关键字或者实例化对象。我们只是调用 IoC 容器返回的一个 UserController 实例方法。然后绑定了路由和控制器方法。
 
-Our application is a dummy RESTful server, but I didn’t want it to be completely meaningless. I add four different folders to represent foundational sections of a complete backend. These are **controllers**, **models**, **repositories**, and **services**. Now let’s go through each of them:
+我们的应用程序是一个虚拟的 RESTful 服务器，但我不想让它没有一点意义。我添加了四个不同的文件夹代表一个完备后端服务的基本部分。它们是 **controllers**、**models**、**repositories** 和 **services**。现在让我一个个介绍下它们：
 
-* **Controllers** folder contains our **REST controllers**. They are responsible for mediating communication between the user and the services. They receive requests and return responses.
-* **Models** folder contains our **database entities**. We don’t have a database connection, nor we need them but establishing a proper project structure has a major impact on learning. Let’s assume they are real database entities and continue on our journey.
-* **Services** folder contains our **services**. They are responsible for serving what REST controllers need by accessing different repositories.
-* **Repositories** folder contains our **database access classes**. We are using the Data Mapper pattern to perform database operations. In this pattern, we use repository classes to access the database and make operations.
+* **Controllers** 文件夹包含我们的 **REST 控制器**。它们负责协调客户端和服务器之间的通信。它们接收请求并返回响应。
+* **Models** 文件夹包含我们的**数据库实体类**。我们没有数据库连接，也不需要，但建立一个合适的项目结构对于学习该项目有很大的帮助。我们假设它是真是的数据库实体并继续我们的项目。
+* **Services** 文件夹包含我们的**服务**。它们通过访问不同的存储库，负责为 REST 控制器提供所需服务。
+* **Repositories** 文件夹包含我们**数据库连接类**。我们使用 Data Mapper 模式来执行数据库操作。该模式中我们使用实体类来访问数据库并进行相关操作。
 
-We don’t do everything in a single class. There are many layers between request and response. This is called **layered architecture**. By doing a work-sharing between classes we make it easier to do dependency injection.
+我们不会把所有的东西都放到一个类中。请求和响应之间还有很多层级。这就是所谓的**分层架构**。通过类之间的依赖共享，我们可以更容易地进行依赖注入。
 
 ```TypeScript
 import { Request, Response } from "express";
@@ -125,7 +125,7 @@ class UserController {
 export default UserController;
 ```
 
-UserController has only one method. “getAllUsers” method is responsible for getting a result from user service and transmitting. We added a **Service** decorator to UserController class because we want this class to be managed by the IoC container. Inside the constructor method, we can see that this class needs a UserService instance. Again, we don’t have to control this dependency because the TypeDI container will create an instance for UserService, and when it generates the UserController instance, it will inject UserService.
+UserController 只有一个方法。`getAllUsers` 方法负责从用户服务中获取结果并进行传输。我们给 UserController 添加类一个 **Service** 装饰器，因为我们希望这个类由 IoC 容器进行管理。在构造函数方法内部，我们可以看到这个类需要一个 UserService 实例。同样，我们不需要控制这个依赖关系。因为 TypeDI 容器为 UserService 创建了一个实例，当它生成 UserController 实例时，它将注入到  UserService 中。
 
 ```TypeScript
 import { Service } from "typedi";
@@ -144,7 +144,7 @@ class UserService {
 export default UserService;
 ```
 
-UserService is very similar to UserController. We add a Service decorator to the class and we specify the dependencies we want inside the constructor method.
+UserService 和 UserController 很类似。我们向类添加一个 Service 装饰器，并在构造函数方法中指定它们想要的依赖项。
 
 ```TypeScript
 import { Service } from "typedi";
@@ -166,21 +166,21 @@ class UserRepository {
 export default UserRepository;
 ```
 
-UserRepository is our final stop. We annotate this class with Service, but we don’t have any dependencies. Because we don’t have a database connection, I just added a hardcoded user list to class as private property.
+UserRepository 是我们的最后一步。我们用 Service 来注解这个类，但是我们没有任何依赖关系。因为没有数据库连接，所以我只是将已硬编码过的用户列表作为私有属性添加到类中。
 
-## Conclusion
+## 结论
 
-Dependency injection is a handy tool for managing complex object initializations. Doing manual dependency injection is better than nothing, but using TypeDI is much easier and more concise. When you start a new project, you should definitely check out the DI principle and give it a try.
+依赖注入是管理复杂对象初始化的有力工具。手动进行依赖注入总比什么都不做要好，但是使用 TypeDI 更简单可行。当你要开始做一个新项目时，你应该明确地考虑下依赖注入原则并给予适当尝试。
 
-You can find the codes in this article at [this GitHub repository](https://github.com/mertturkmenoglu/typescript-dependency-injection).
+你可以在[这个 GitHub 分支](https://github.com/mertturkmenoglu/typescript-dependency-injection)找到本文的代码。
 
-You can find me on [GitHub](https://github.com/mertturkmenoglu), [LinkedIn](https://www.linkedin.com/in/mert-turkmenoglu/), and [Twitter](https://twitter.com/capreaee).
+你可以在 [GitHub](https://github.com/mertturkmenoglu)、[LinkedIn](https://www.linkedin.com/in/mert-turkmenoglu/) 和 [Twitter](https://twitter.com/capreaee) 找到我。
 
-Thank you for your time. Have a great day.
+感谢阅读，祝你快乐。
 
-## References
+## 引用
 
-* [1] [](https://www.tutorialsteacher.com/ioc/dependency-injection)[https://www.tutorialsteacher.com/ioc/dependency-injection](https://www.tutorialsteacher.com/ioc/dependency-injection)
+* [1] [https://www.tutorialsteacher.com/ioc/dependency-injection](https://www.tutorialsteacher.com/ioc/dependency-injection)
 * [2] [https://en.wikipedia.org/wiki/Dependency_injection](https://en.wikipedia.org/wiki/Dependency_injection)
 * [3] [https://developer.android.com/training/dependency-injection](https://developer.android.com/training/dependency-injection)
 * [4] [https://stackoverflow.com/questions/21288/which-net-dependency-injection-frameworks-are-worth-looking-into](https://stackoverflow.com/questions/21288/which-net-dependency-injection-frameworks-are-worth-looking-into)
