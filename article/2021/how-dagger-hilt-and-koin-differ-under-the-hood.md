@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-dagger-hilt-and-koin-differ-under-the-hood.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-dagger-hilt-and-koin-differ-under-the-hood.md)
 > * 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[Mingron](https://github.com/1autodidact)
 
 # Dagger，Hilt 以及 Koin 的本质区别是什么？
 
