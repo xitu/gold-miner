@@ -456,7 +456,7 @@ dependencies {
 }
 ```
 
-7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 AndroidStudio 中得到任何错误的通知。
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 中得到任何错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
