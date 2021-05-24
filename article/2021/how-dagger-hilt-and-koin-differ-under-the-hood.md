@@ -77,7 +77,7 @@ Koin 不生成任何代码的优点是：**它对我们的构建时间的影响�
 
 ![](https://cdn-images-1.medium.com/max/3016/1*eZc3sHc0KXNjTe9cXVMkCA.png)
 
-**到底相差多少呢？**为了估算性能差异我们可以使用[该库](https://github.com/Sloy/android-dependency-injection-performance)，其中 Rafa Vázquez 基于不同的设备上测量并比较了这两个库。测试数据的编写方式可以模拟多个级别的传递依赖关系，因此它不仅仅是具有 4 个类的虚拟应用程序。
+**到底相差多少呢**？为了估算性能差异我们可以使用[该库](https://github.com/Sloy/android-dependency-injection-performance)，其中 Rafa Vázquez 基于不同的设备上测量并比较了这两个库。测试数据的编写方式可以模拟多个级别的传递依赖关系，因此它不仅仅是具有 4 个类的虚拟应用程序。
 
 ![source: [https://github.com/Sloy/android-dependency-injection-performance](https://github.com/Sloy/android-dependency-injection-performance)](https://cdn-images-1.medium.com/max/2332/1*Krd-dXtSa2sD-sweFsa3Uw.png)
 
