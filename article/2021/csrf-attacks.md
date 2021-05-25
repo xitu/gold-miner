@@ -90,7 +90,7 @@ http://example.com/transfer?amount=1000000&account=Fred
 
 CSRF 攻击存在的原因是所有与请求的目标源相关的 cookie 都将跟随请求一起发送到服务端（查看[同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy))。你可以给 cookie 设置一个标志位，使其成为同站 cookie。同站 cookie 只在发起请求的站点与 cookie 相关（不跨域名）时，才会被发送到服务端。如果 cookie 和请求的协议、端口（译者注：cookie 没有端口）和主机名（不是主机的 IP 地址）都是相同的，那么就认为它们有相同的源。
 
-目前同站 cookie 存在的限制是尽管 Chrome 或 Firefox 支持它，但不是所有的浏览器都支持它，而且更老的浏览器不能运行使用了同站 cookie 的网站（[点击这里](http://caniuse.com/#feat=same-site-cookie-attribute)查看支持同站 cookie 的浏览器）。由于这个限制，目前同站 cookie 更适用于作为额外的防御层。因此，你应该将同站 cookie 和其他 CSRF 防御方法一起使用。
+目前同站 cookie 存在的限制是仅得到了 Chrome 或 Firefox 等浏览器的支持，并非所有的现代浏览器都支持它，而且更老的浏览器不能运行使用了同站 cookie 的网站（[点击这里](http://caniuse.com/#feat=same-site-cookie-attribute)查看支持同站 cookie 的浏览器）。由于这个限制，目前同站 cookie 更适用于作为额外的防御层。因此，你应该将同站 cookie 和其他 CSRF 防御方法一起使用。
 
 ## 结论
 
