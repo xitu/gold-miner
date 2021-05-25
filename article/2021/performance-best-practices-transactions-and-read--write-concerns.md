@@ -57,7 +57,7 @@ MongoDB 的事务功能和关系型数据库的事务功能十分相似 —— �
 
 涉及多个数据库分片的事务产生的性能开销更大，因为跨分片的操作需要多个节点通过网络协同进行。
 
-“snapshot” 读取关心等级是在跨分片情景下唯一能够提供一致的数据快照的隔离等级。当低延迟比跨分片读取一致性更加重要时，应使用默认的 "local" 读取关心等级，该等级在一份单机的快照中执行事务。
+`snapshot` 读取关心等级是在跨分片情景下唯一能够提供一致的数据快照的隔离等级。当低延迟比跨分片读取一致性更加重要时，应使用默认的 `local` 读取关心等级，该等级在一份单机的快照中执行事务。
 
 ### 异常处理
 
@@ -98,11 +98,11 @@ MongoDB 允许你在向数据库提交写入请求时指定一个可靠性保证
 
 为保证隔离度与一致性，[`readConcern`](https://docs.mongodb.com/manual/reference/readConcern/) 可以被设置为 `majority` (多数确认) ，该等级代表仅当数据已经被覆盖到副本集中的多数节点，也就是数据不会因为新主节点选举而被回滚时，才能被返回到应用程序。
 
-MongoDB 支持一个“可线性化”（linearizable）的读取关心等级。可线性化的读取关心等级确保一个节点在读取的时候仍然是副本集的主节点，并且即使后来另外一个节点被选举为新的主节点，其已经返回的数据也保证不会被回滚。使用该读取关心等级可能会对延迟造成显著影响，故需要提供一个 [maxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/) 值来让运行时间过长的操作超时。
+MongoDB 支持一个`linearizable`（可线性化）的读取关心等级。可线性化的读取关心等级确保一个节点在读取的时候仍然是副本集的主节点，并且即使后来另外一个节点被选举为新的主节点，其已经返回的数据也保证不会被回滚。使用该读取关心等级可能会对延迟造成显著影响，故需要提供一个 [maxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/) 值来让运行时间过长的操作超时。
 
 ### 仅在必要时使用因果一致性
 
-[因果一致性 (causal consistency) ](https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency)保证客户端会话 (session) 内的所有读操作都能看到上一次写操作的结果，不管当前请求是由哪一个副本在提供服务。仅当在需要单调读保证 (monotonic read guarantees) 的地方使用因果一致性，能够降低延迟的影响。
+[因果一致性 (causal consistency) ](https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency)保证客户端会话内的所有读操作都能看到上一次写操作的结果，不管当前请求是由哪一个副本在提供服务。仅当在需要单调读保证（monotonic read guarantees）的地方使用因果一致性，能够降低延迟的影响。
 
 ## 下一篇
 
