@@ -65,7 +65,6 @@ MongoDB 的事务功能和关系型数据库的事务功能十分相似 —— �
 
 借助 [可重试写入](https://docs.mongodb.com/manual/core/retryable-writes/index.html) 机制，MongoDB 调用者会对事务的提交指令进行自动重试。
 
-
 ### 对写入延迟的益处
 
 虽然第一眼可能没那么显而易见，但使用多文档事务，由于降低了提交延迟，实际上提高了写入性能。
