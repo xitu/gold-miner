@@ -1,85 +1,85 @@
-> * 原文地址：[Directory Traversal Attacks](https://www.acunetix.com/websitesecurity/directory-traversal/)
-> * 原文作者：[Acunetix](https://www.acunetix.com/)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Directory Traversal Attacks](https://www.acunetix.com/websitesecurity/directory-traversal/)
+> - 原文作者：[Acunetix](https://www.acunetix.com/)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/directory-traversal.md)
+> - 译者：[MoonBall](https://github.com/MoonBall)
+> - 校对者：[kamly](https://github.com/kamly)、[江不知](http://jalan.space/)
 
-# Directory Traversal Attacks
+# 目录遍历攻击
 
-## What is a Directory Traversal attack?
+## 什么是目录遍历攻击？
 
-Properly controlling access to web content is crucial for running a secure web server. Directory traversal or [Path Traversal](https://www.acunetix.com/blog/articles/path-traversal/) is an HTTP attack which allows attackers to access restricted directories and execute commands outside of the web server’s root directory.
+运行一个安全的网站服务最重要的是，需要合理地限制用户可访问的网站内容。目录遍历或[路径遍历](https://www.acunetix.com/blog/articles/path-traversal/)是一种 HTTP 攻击方式，攻击者可利用它们访问不公开的目录，以及在网站服务根目录之外执行命令。
 
-Web servers provide two main levels of security mechanisms
+网站服务提供了两种主要的安全机制：
 
-* Access Control Lists (ACLs)
-* Root directory
+- 访问控制列表（ACLs）
+- 服务根目录
 
-An Access Control List is used in the authorization process. It is a list which the web server’s administrator uses to indicate which users or groups are able to access, modify or execute particular files on the server, as well as other access rights.
+访问控制列表用于授权流程中。网站服务管理员通过它表明哪些用户或用户组能在服务器上访问、修改或执行特定文件，也可以将它用于控制其他访问权限。
 
-![What is a Directory Traversal Attack?](https://www.acunetix.com/wp-content/uploads/2012/10/PTMFOG00000002841.gif "Directory Traversal Attacks")
+![什么是目录遍历攻击？](https://www.acunetix.com/wp-content/uploads/2012/10/PTMFOG00000002841.gif "目录遍历攻击")
 
-The root directory is a specific directory on the server file system in which the users are confined. Users are not able to access anything above this root.
+服务根目录是一个在服务器文件系统中指定的目录，用户被限制在该目录中。用户不能访问服务根目录以外的任何内容。
 
-For example: the default root directory of IIS on Windows is `C:\Inetpub\wwwroot` and with this setup, a user does not have access to `C:\Windows` but has access to `C:\Inetpub\wwwroot\news` and any other directories and files under the root directory (provided that the user is authenticated via the ACLs).
+例如：Windows 系统中 IIS 的默认服务根目录是 `C:\Inetpub\wwwroot`。当使用该默认设置时，用户不能访问 `C:\Windows`，但可以访问 `C:\Inetpub\wwwroot\news` 和任何在服务根目录之下的目录和文件（前提是，用户已经通过了访问控制列表（ACLs）的授权）。
 
-The root directory prevents users from accessing any files on the server such as `C:\WINDOWS/system32/win.ini` on Windows platforms and the `/etc/passwd` file on Linux/UNIX platforms.
+服务根目录阻止用户访问服务器上的其他任何文件，比如 Windows 系统中的 `C:\WINDOWS/system32/win.ini` 文件和 Linux/UNIX 系统中的 `/etc/passwd` 文件。
 
-This vulnerability can exist either in the web server software itself or in the web application code.
+目录遍历漏洞可能存在于网站服务器软件中，也可能存在于网站应用代码中（译者注：网站服务器软件指 IIS 或 Apache 这类服务端框架）。
 
-In order to perform a directory traversal attack, all an attacker needs is a web browser and some knowledge on where to blindly find any default files and directories on the system.
+攻击者只需要一个浏览器，并知道在什么位置可以找到系统中存在的默认文件和目录，就可以发起目录遍历攻击。
 
-## What an attacker can do if your website is vulnerable
+## 攻击者能利用目录遍历漏洞做什么
 
-With a system vulnerable to directory traversal, an attacker can make use of this vulnerability to step out of the root directory and access other parts of the file system. This might give the attacker the ability to view restricted files, which could provide the attacker with more information required to further compromise the system.
+如果一个系统存在目录遍历漏洞，攻击者可利用该漏洞绕过服务根目录的限制，访问文件系统中的其他部分。这样攻击者就有可能查看受限制的文件。通过这些文件提供的更多信息，攻击者可以对系统做进一步攻击。
 
-Depending on how the website access is set up, the attacker will execute commands by impersonating himself as the user which is associated with “the website”. Therefore it all depends on what the website user has been given access to in the system.
+根据网站访问权限的设置方式，攻击者将伪装成与“网站服务”相关的用户，并执行命令。因此攻击者能做什么，完全取决于网站用户在系统中有哪些访问权限。（译者注：与“网站服务”相关的用户是指网站服务执行命令时的操作系统用户。比如查看某文件时，需要服务器执行查看命令时，对应的操作系统用户有该文件的读权限。）
 
-## Example of a Directory Traversal attack via web application code
+## 利用网站应用代码漏洞发起目录遍历攻击的例子
 
-In web applications with dynamic pages, input is usually received from browsers through GET or POST request methods. Here is an example of an HTTP GET request URL
+在动态页面的网站应用中，服务端的输入通常是浏览器通过 GET 或 POST 请求发送给服务器的。以下是关于 HTTP GET 请求的例子：
 
 ```
 GET http://test.webarticles.com/show.asp?view=oldarchive.html HTTP/1.1
 Host: test.webarticles.com
 ```
 
-With this URL, the browser requests the dynamic page `show.asp` from the server and with it also sends the parameter `view` with the value of `oldarchive.html`. When this request is executed on the web server, `show.asp` retrieves the file `oldarchive.html` from the server’s file system, renders it and then sends it back to the browser which displays it to the user. The attacker would assume that show.asp can retrieve files from the file system and sends the following custom URL.
+浏览器通过这个 URL，向服务器请求 `show.asp` 动态页面，并发送值为 `oldarchive.html` 的 `view` 参数。当网站服务器处理该请求时，`show.asp` 将从服务器的文件系统中查看 `oldarchive.html` 文件。服务器渲染 `oldarchive.html` 后，将它发送给浏览器，浏览器最终将其展示给用户。基于此流程，攻击者将假设 `show.asp` 能从文件系统中遍历文件，然后发送以下自定义的 URL：
 
 ```
 GET http://test.webarticles.com/show.asp?view=../../../../../Windows/system.ini HTTP/1.1
 Host: test.webarticles.com
 ```
 
-This will cause the dynamic page to retrieve the file `system.ini` from the file system and display it to the user. The expression `../` instructs the system to go one directory up which is commonly used as an operating system directive. The attacker has to guess how many directories he has to go up to find the Windows folder on the system, but this is easily done by trial and error.
+该 URL 使动态页面从文件系统中访问 `system.ini` 文件，并将它展示给用户。URL 中的 `../` 作为常用的操作系统命令，用于访问上级目录。尽管攻击者必须猜测出，需要向上多少个上级目录才能找到 `Windows` 目录。但通过试错法，很容易就能得出结果。
 
-## Example of a Directory Traversal attack via web server
+## 利用网站服务器漏洞发起目录遍历攻击的例子
 
-Apart from vulnerabilities in the code, even the web server itself can be open to directory traversal attacks. The problem can either be incorporated into the web server software or inside some sample script files left available on the server.
+除了应用代码中存在的漏洞外，网站服务器软件也可能存在漏洞。漏洞可能存在网站服务器软件代码中，也可能存在于服务器上可访问的示例脚本文件中。
 
-The vulnerability has been fixed in the latest versions of web server software, but there are web servers online which are still using older versions of IIS and Apache which might be open to directory traversal attacks. Even though you might be using a web server software version that has fixed this vulnerability, you might still have some sensitive default script directories exposed which are well known to hackers.
+尽管最新版本的网站服务器软件已经修复了这些漏洞，但线上的网站服务可能仍然使用存在漏洞的旧版 IIS 和 Apache 软件。尽管你可能使用的是修复漏洞后的网站服务器软件，你可能仍会暴露一些敏感的默认脚本目录，黑客们通常对这些目录非常熟悉。
 
-For example, a URL request which makes use of the scripts directory of IIS to traverse directories and execute a command can be
+例如，以下 URL 请求利用 ISS 脚本目录，实现遍历目录并执行命令：
 
 ```
 GET http://server.com/scripts/..%5c../Windows/System32/cmd.exe?/c+dir+c:\ HTTP/1.1
 Host: server.com
 ```
 
-The request would return to the user a list of all files in the `C:\` directory by executing the cmd.exe command shell file and run the command dir `c:\` in the shell. The `%5c` expression that is in the URL request is a web server escape code which is used to represent normal characters. In this case `%5c` represents the character `\`.
+该请求将 `C:\` 目录下的所有文件返回给用户。它是通过执行 `cmd.exe` 脚本文件，并在该脚本中执行子命令 `dir c:\`。URL 中 `%5c` 表达式是网站服务器能理解的、代表普通字符的转义码。在该场景中，`%5c` 代表字符 `\`。
 
-Newer versions of modern web server software check for these escape codes and do not let them through. Some older versions however, do not filter out these codes in the root directory enforcer and will let the attackers execute such commands.
+新版本的现代网站服务器软件都会校验这些转义码，并阻止它们通过。然而老版本的网站服务器软件，不会过滤这些转义码，这使得攻击者可以绕过服务根目录限制，并执行这些命令。
 
-## How to check for Directory Traversal vulnerabilities
+## 如何检查目录遍历漏洞
 
-The best way to check whether your website and web applications are vulnerable to directory traversal attacks is by using a Web Vulnerability Scanner. A Web Vulnerability Scanner crawls your entire website and automatically checks for directory traversal vulnerabilities. It will report the vulnerability and how to easily fix it. Besides directory traversal vulnerabilities a web application scanner will also check for SQL injection, Cross-site Scripting and other web vulnerabilities.
+检查你的网站和应用程序是否存在目录遍历攻击的最好办法是使用一款网站漏洞扫描器。网站漏洞扫描器将爬取整个网站，自动检查目录遍历攻击漏洞。它将上报漏洞和简单的修复方案。除了目录遍历漏洞外，网站漏洞扫描器还可以检查 SQL 注入、跨站脚本攻击等其他网站漏洞。
 
-## Preventing Directory Traversal attacks
+## 阻止目录遍历攻击
 
-First of all, ensure you have installed the latest version of your web server software, and sure that all patches have been applied.
+首先，确保你已经安装了最新版本的网站服务器软件，并确保已经应用了所有的补丁。
 
-Secondly, effectively filter any user input. Ideally remove everything but the known good data and filter meta characters from the user input. This will ensure that only what should be entered in the field will be submitted to the server.
+其次，高效地过滤任何用户输入。理想情况下，除了已知的没问题的输入外，其他输入都应该被移除，并且还需要过滤用户输入中的元数据。这样就保证了提交给服务器的数据中，每个字段的输入都是合法的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

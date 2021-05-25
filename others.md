@@ -1,3 +1,5 @@
+* [“绿色”和“棕色”的编程语言](https://juejin.cn/post/6963157486677278757)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [Page Shield：保护浏览器中的用户数据](https://juejin.cn/post/6956969205652520973)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [使用 VPython 进行物理模拟](https://juejin.cn/post/6955292986909409288)（[tmpbook](https://github.com/tmpbook) 翻译）
 * [Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器](https://juejin.cn/post/6952819591269580813)（[greycodee](https://github.com/greycodee) 翻译）
 * [使用 GitHub 代码扫描和 CodeQL 工具检测 Solorigate 等后门程序](https://juejin.cn/post/6952677372604710925)（[Baddyo](https://github.com/Baddyo) 翻译）

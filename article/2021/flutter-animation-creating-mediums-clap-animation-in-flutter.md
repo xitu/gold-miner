@@ -2,7 +2,7 @@
 > * 原文作者：[Kartik Sharma](https://medium.com/@Kartik1607)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-animation-creating-mediums-clap-animation-in-flutter.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[greycodee](https://github.com/greycodee)、[HumanBeingXenon](https://github.com/HumanBeingXenon)
 
 # Flutter 动画：构建一个和 Medium 一样的鼓掌动画
