@@ -5,7 +5,7 @@
 > * 译者：[Miigon](https://github.com/Miigon)
 > * 校对者：
 
-# MongoDB 高性能最佳实践: 事务，读取关心程度与写入关心程度
+# MongoDB 高性能最佳实践：事务，读取关心程度与写入关心程度
 
 本文为介绍 MongoDB 最佳性能实践的系列推文的第 5 篇。
 
@@ -73,7 +73,6 @@ MongoDB 的事务功能和关系型数据库的事务功能十分相似 —— �
 使用 w:majority 的写入关心等级，假设分开执行 10 条更新指令，则每一条指令都需要等待一个分片间复制的往返时长。
 
 然而，如果同样的 10 条更新指令运行在同一个事务里，它们将在事务提交的时候被一次性复制，从而将延迟降低 10 倍！
-However, if the same 10 updates are executed inside a transaction, they are all replicated together at commit time. This reduces latency by 10 times!
 
 ### 我还需要知道什么？
 
