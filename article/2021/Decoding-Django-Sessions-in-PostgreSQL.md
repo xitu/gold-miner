@@ -1,7 +1,7 @@
-> * 原文地址：[Auto-Generated Social Media Images](https://css-tricks.com/auto-generated-social-media-images/)
-> * 原文作者：[Chris Coyier](https://css-tricks.com/author/chriscoyier/)
+> * 原文地址：[Decoding Django Sessions in PostgreSQL](https://arctype.com/blog/decoding-django-sessions-in-postgresql/)
+> * 原文作者：[Daniel Lifflander](https://arctype.com/blog/author/daniel/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/auto-generated-social-media-images.md](https://github.com/xitu/gold-miner/blob/master/article/2021/auto-generated-social-media-images.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Decoding-Django-Sessions-in-PostgreSQL.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Decoding-Django-Sessions-in-PostgreSQL.md)
 > * 译者：[Miigon](https://github.com/Miigon)
 > * 校对者：
 
