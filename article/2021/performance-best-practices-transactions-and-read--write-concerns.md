@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/performance-best-practices-transactions-and-read--write-concerns.md](https://github.com/xitu/gold-miner/blob/master/article/2021/performance-best-practices-transactions-and-read--write-concerns.md)
 > * 译者：[Miigon](https://github.com/Miigon)
-> * 校对者：
+> * 校对者：[Kimberly](https://github.com/kimberlyohq)
 
 # MongoDB 高性能最佳实践：事务，读取关心程度与写入关心程度
 
