@@ -9,7 +9,7 @@
 
 ![Photo by [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
-让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和实施自定义规则。使用 Lint 工具有很多好处，包括：以编程方式实施标准，自动化代码质量和代码维护。
+让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和执行自定义规则。使用 Lint 工具有很多好处，包括：以编程方式执行规范，自动化代码质量和代码维护。
 
 在 Android Studio 中，您可能对这些消息很熟悉。
 
@@ -28,17 +28,17 @@
 首先，我们将使用 Android Lint API 编写规则。这样做的优点包括：
 
 * 您可以为 Java、Kotlin、Gradle、XML 和其他一些文件类型编写规则。
-* 无需添加插件就可以在 Android Studio 上看到警告或者错误。
-* 更简单地集成到项目中。
+* 无需添加插件就可以在 Android Studio 上看到警告或者错误提示。
+* 更容易集成到项目中。
 
-缺点之一是在他们的存储库中有这个脚注 [https://github.com/googlesamples/android-custom-lint-rules](https://github.com/googlesamples/android-custom-lint-rules)
+缺点之一是在他们的 [github 仓库](https://github.com/googlesamples/android-custom-lint-rules)中有下面这个脚注：
 
-> lint API 不是一个最终版本的API；如果您依赖于它，请做好准备为下一个工具版本调整代码。
+> lint API 不是一个最终版本的 API；如果您依赖于它，请做好为下一个工具版本调整代码的准备。
 
 那么，下面是创建第一条规则的步骤：
 
 1. 在项目中创建自定义规则所在的新模块。我们将此模块称为 **android-lint-rules**。
-2. 将该模块上的 **build.gradle** 文件修改为如下内容。
+2. 将该模块上的 **build.gradle** 文件修改为如下内容：
 
 ```Gradle
 apply plugin: 'kotlin'
@@ -86,10 +86,10 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
     }
 
     override fun getApplicableAttributes(): Collection<String>? {
-        // Return the set of attribute names we want to analyze. The `visitAttribute` method
-        // below will be called each time lint sees one of these attributes in a
-        // XML resource file. In this case, we want to analyze every attribute
-        // in every XML resource file.
+        // 该方法返回要分析的属性名称集。
+        // 每当 lint 工具在 XML 资源文件中看到这些属性之一时
+        // 就会调用下面的 “visitAttribute” 方法。
+        // 在本例中，我们希望分析每个 XML 资源文件中的每个属性。
         return XmlScannerConstants.ALL
     }
 
@@ -101,16 +101,16 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
                 issue = ISSUE,
                 scope = attribute,
                 location = context.getValueLocation(attribute),
-                message = "硬编码颜色的十六进制值应该 '<color>' 资源中声明"
+                message = "硬编码颜色的十六进制值应该在 '<color>' 资源中声明"
             )
         }
     }
 }
 ```
 
-根据我们要实现的规则，我们将从不同的 **Detector** 类进行扩展。探测器能够发现特定的问题。每个问题类型都被唯一地标识为 **Issue**。在本例中，我们将使用 **ResourceXmlDetector**，因为我们要检查每个 XML 资源中的硬编码十六进制颜色。
+根据我们要实现的规则，我们将扩展不同的 **Detector** 类。一个 Detector 类能够发现特定的问题。每个问题类型都被唯一地标识为 **Issue**。在本例中，我们将使用 **ResourceXmlDetector**，因为我们要检查每个 XML 资源中的硬编码颜色的十六进制值。
 
-在类声明之后，我们创建定义 **Issue** 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在IDE中显示的解释。
+在类声明之后，我们创建定义 **Issue** 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在编辑器 IDE 中显示的解释。
 
 然后我们需要指定要扫描的属性。我们可以返回一个特定的属性列表，如 **mutableListOf（“textColor”，“background”）** 或返回 **XmlScannerConstants.ALL** 来扫描每个布局上的所有属性。这将取决于您的用例。
 
@@ -134,9 +134,9 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 5. 为了检查规则是否正确执行了它们的工作，我们将实施一些测试。我们需要在 **build.gradle** 上有这两个依赖项作为 **testImplementation**:**com.android.tools.lint:lint-tests** 和 **com.android.tools.lint:lint**。这将允许我们在代码中定义一个 XML 文件，并扫描其内容，以查看规则是否正常工作。
 
-1. 如果使用自定义属性，第一个测试检查规则是否仍然有效。因此 TextView 将包含一个名为 **someCustomColor** 的属性，其颜色为 **#fff**。然后，我们可以添加几个问题来扫描模拟文件，在我们的示例中，我们只指定我们唯一编写的规则。最后我们说，预期结果应该是 1 个错误严重性问题。
+1. 如果使用自定义属性，第一个测试检查规则是否仍然有效。因此 TextView 将包含一个名为 **someCustomColor** 的属性，其颜色为 **#fff**。然后，我们可以添加几个问题来扫描模拟文件，在我们的示例中，我们只指定我们唯一编写的规则。最后我们说，预期结果应该是 1 个严重程度为错误的问题。
 2. 在第二个测试中，行为非常相似。唯一的变化是我们正在用一个普通属性测试我们的规则，十六进制颜色包括 alpha 透明度。
-3. 在上一个测试中，如果我们使用我们的资源指定颜色，我们检查规则是否没有引发任何错误。在这种情况下，我们使用 **@color/primaryColor** 设置文本颜色，预期的结果是完整的执行。
+3. 在上一个测试中，如果我们使用我们的资源指定颜色，我们检查规则是否没有引发任何错误。在这种情况下，我们使用 **@color/primaryColor** 设置文本颜色，预期的结果是干净利落的执行。
 
 ```Kotlin
 class HardcodedColorXmlDetectorTest {
@@ -215,7 +215,7 @@ dependencies {
 
 ## 使用 ktlint 自定义规则
 
-ktlint 将自己定义为一个反繁琐的具有内置格式化的程序。最酷的事情之一是，你可以编写你的规则以及一种方法来自动更正问题，所以用户可以很容易地解决问题。缺点之一是它是专门为 Kotlin 语言编写的，因此不能像我们之前所做的那样为 XML 资源文件编写规则。另外，如果你想在 Android Studio 上解决可视化问题，你需要安装一个插件。我在用这个 [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
+ktlint 将自己定义为一个反繁琐的具有内置格式化的 Kotlin Lint 工具。最酷的事情之一是，你可以编写你的规则以及一种方法来自动更正问题，所以用户可以很容易地解决问题。缺点之一是它是专门为 Kotlin 语言编写的，因此不能像我们之前所做的那样为 XML 资源文件编写规则。另外，如果你想在 Android Studio 上可视化产生的问题，你需要安装一个插件。我用的是这个插件： [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
 
 所以，在这种情况下，我们要执行一个关于 Clean 架构的规则。您可能听说过，我们不应该从域或表示层的数据层公开模型。有些人在数据层的每个模型上添加前缀，以便于识别。在本例中，我们要检查以 **data.dto** 结尾的包的每个模型的名称中都应该有一个前缀 **data**。
 
@@ -344,11 +344,11 @@ task ktlint(type: JavaExec, group: "verification", description: "Runs ktlint.") 
 }
 ```
 
-7. 我还强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 中得到任何错误的通知。
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 工程中得到任何有关错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
-要在Android Studio中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
+要在 Android Studio 中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/4436/1*GSevjiWQufDEf3cmZMvtLg.png)
 
@@ -356,9 +356,9 @@ task ktlint(type: JavaExec, group: "verification", description: "Runs ktlint.") 
 
 detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin 编译器提供的抽象语法树进行操作。它们的重点是查找代码的坏味道，尽管您也可以将其用作格式化工具。
 
-如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个 [https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
+如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个：[https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
 
-我们将要实现的规则将强制为存储库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 **ProductRepository** 接口，我们希望实现使用前缀 **Default** 而不是后缀 **Impl**。
+我们将要实现的规则将强制为仓库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 **ProductRepository** 接口，我们希望实现使用前缀 **Default** 而不是后缀 **Impl**。
 
 使用 detekt 编写规则的步骤如下：
 
@@ -381,7 +381,7 @@ dependencies {
 
 ```
 
-3. 编写规则以强制在所有存储库实现中使用前缀 （**Default**）。
+3. 编写规则以强制在所有仓库实现中使用前缀 （**Default**）。
 
 首先，我们需要扩展 detekt 为我们提供的 **Rule** 类。我们还需要重写 issue 类成员，并指定名称、问题类型、描述以及解决问题所需的时间。
 
@@ -456,7 +456,7 @@ dependencies {
 }
 ```
 
-7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 中得到任何错误的通知。
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 工程中得到任何有关错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
