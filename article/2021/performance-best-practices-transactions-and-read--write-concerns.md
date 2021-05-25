@@ -1,110 +1,112 @@
 > * 原文地址：[Performance Best Practices: Transactions and Read / Write Concerns](https://www.mongodb.com/blog/post/performance-best-practices-transactions-and-read--write-concerns)
 > * 原文作者：[Mat Keep](https://www.mongodb.com/blog/search/Mat%20Keep)、[Henrik Ingo](https://www.mongodb.com/blog/search/Henrik%20Ingo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
-> * 译者：
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/performance-best-practices-transactions-and-read--write-concerns.md](https://github.com/xitu/gold-miner/blob/master/article/2021/performance-best-practices-transactions-and-read--write-concerns.md)
+> * 译者：[Miigon](https://github.com/Miigon)
 > * 校对者：
 
-# Performance Best Practices: Transactions and Read / Write Concerns
+# MongoDB 高性能最佳实践: 事务，读取关心程度与写入关心程度
 
-Welcome to the fifth in a series of blog posts covering performance best practices for MongoDB.
+本文为介绍 MongoDB 最佳性能实践的系列推文的第 5 篇。
 
-In this series, we are covering key considerations for achieving performance at scale across a number of important dimensions, including:
+本系列文章中，我们将多维度介绍在大数据量场景下实现高性能的关键技术点，包括：
 
-* [Data modeling and sizing memory](https://www.mongodb.com/blog/post/performance-best-practices-mongodb-data-modeling-and-memory-sizing) (the working set)
-* [Query patterns and profiling](https://www.mongodb.com/blog/post/performance-best-practices-query-patterns-and-profiling)
-* [Indexing](https://www.mongodb.com/blog/post/performance-best-practices-indexing)
-* [Sharding](https://www.mongodb.com/blog/post/performance-best-practices-sharding)
-* Transactions and read/write concerns, which we’ll cover today
-* Hardware and OS configuration
-* Benchmarking
+* [数据建模与内存分配（工作集）](https://www.mongodb.com/blog/post/performance-best-practices-mongodb-data-modeling-and-memory-sizing) (the working set)
+* [请求模式与性能分析](https://www.mongodb.com/blog/post/performance-best-practices-query-patterns-and-profiling)
+* [索引](https://www.mongodb.com/blog/post/performance-best-practices-indexing)
+* [数据库分片](https://www.mongodb.com/blog/post/performance-best-practices-sharding)
+* 事务，读取关心程度与写入关心程度（本文的主题）
+* 硬件与操作系统配置
+* 基准测试
 
-## Single Document Atomicity
+## 单文档原子性
 
-Because documents can bring together related data that would otherwise be modeled across separate parent-child tables in a tabular schema, MongoDB’s single-document operations provide atomic semantics that meets the data integrity needs of the majority of applications.
+在分表式的数据库设计中，互相有关联的数据需要被抽象为分散在多个独立的父-子表中。但在 MongoDB 里，由于文档的存在，这样的数据可以被聚集在一起存储。MongoDB 的单文档操作，提供了足够满足大多数应用的原子性语义。
 
-One or more fields may be written in a single operation, including updates to multiple subdocuments and elements of an array. The guarantees provided by MongoDB ensure complete isolation as a document is updated; any errors cause the operation to roll back so that clients receive a consistent view of the document.
+一个操作可以修改一个或多个字段，包括更新多个子文档或数组元素。MongoDB 保证单个文档更新时的完全隔离；任何错误都会使得整个操作回滚，这就保证了用户得到的文档数据总是具有一致性。
 
-## The Arrival of Multi-Document ACID Transactions
+## 多文档 ACID 事务
 
-Starting with MongoDB 4.0, support was added for [multi-document ACID transactions](https://www.mongodb.com/transactions), making it even easier for developers to address a complete range of use cases with MongoDB. In 4.0, transactions were scoped to a replica set, and with the later 4.2 release, support was extended to sharded clusters.
+从 MongoDB 4.0 开始，加入了[多文档 ACID 事务支持](https://www.mongodb.com/transactions)，用 MongoDB 实现各种场景下的需求变得更简单了。在 4.0 版本之后，事务的作用域限制为一个副本集内，在随后的 4.2 版本，多文档事务的支持被拓宽到整个分片集群。
 
-MongoDB’s transactions feel just like the transactions developers are familiar with from relational databases – multi-statement, a similar syntax, and easy to add to any application. Through snapshot isolation, transactions provide a consistent view of data, enforce all-or-nothing execution, and do not impact performance for workloads that do not require them.
+MongoDB 的事务功能和关系型数据库的事务功能十分相似 —— 多语句，熟悉的语法，便于集成到任何程序。通过快照隔离，事务功能确保了数据一致性，提供“要么全成功要么全失败”的执行模式，并且对不涉及事务功能的其他操作的性能没有影响。
 
-You can review the performance of transactions by reviewing the TPC-C benchmarking results published in our [VLDB conference paper](https://webassets.mongodb.com/MongoDB_TPCC_VLDB.pdf).
+你可以查看我们发布在 [VLDB 会议论文](https://webassets.mongodb.com/MongoDB_TPCC_VLDB.pdf)上的基准测试结果获取有关事务性能的更多信息。
 
-Here are some tips to make best use of transactions in your applications.
+接下来我们将讨论如何在你的项目中更好地使用事务。
 
-## Best Practices for Multi-Document Transactions
+## 多文档事务的最佳实践
 
-Creating long-running transactions, or attempting to perform an excessive number of operations in a single ACID transaction can result in high pressure on the WiredTiger storage engine cache. This is because the cache must maintain state for all subsequent writes since the oldest snapshot was created. As a transaction always uses the same snapshot while it is running, new writes accumulate in the cache throughout the duration of the transaction. These writes cannot be flushed until transactions currently running on old snapshots commit or abort, at which time the transactions release their locks and WiredTiger can evict the snapshot.
+创建长耗时的事务，或者在单个 ACID 事务中进行大量操作，会加大 WiredTiger 存储引擎的缓存压力。这是因为自快照创建开始，所有的写操作都需要由缓存来保存和管理状态。由于一个事务自始至终使用同一份快照，事务途中对集合进行的写操作将在缓存中堆积。只有在事务提交或终止且相关的锁被释放后，这些写操作才能被写入数据库。
 
-To maintain predictable levels of database performance, developers should, therefore, consider the following.
+为了维持稳定可预测的数据库性能，开发者需要注意以下几点：
 
-### Transaction runtime limit
+### 事务运行时限
 
-By default, MongoDB will automatically abort any multi-document transaction that runs for more than 60 seconds. Note that if write volumes to the server are low, you have the flexibility to tune your transactions for a longer execution time.
+默认地，MongoDB 会自动终止运行超过 60 秒的多文档事务。若服务器写入能力较弱，可以灵活调整事务的运行时间。
 
-To address timeouts, the transaction should be broken into smaller parts that allow execution within the configured time limit. You should also ensure your query patterns are properly optimized with the appropriate index coverage to allow fast data access within the transaction.
+为解决事务超时问题，过大的事务应该被切分为多个能够在配置的运行时限内执行完毕的小事务。同时为了降低查询语句耗时，确保已经使用合适的索引覆盖来对查询语句进行优化。
 
-### Number of operations in a transaction
+### 事务中的操作数量
 
-There are no hard limits to the number of documents that can be read within a transaction. As a best practice, no more than 1,000 documents should be modified within a transaction.
+一个事务中能够读取的文档数量没有硬性限制。但作为一种最佳实践，单个事务一般不应该修改超过 1000 个文档。
 
-For operations that need to modify more than 1,000 documents, developers should break the transaction into separate parts that process documents in batches.
+若存在需要修改超过 1000 个文档的操作，开发者应该将事务切分为多个事务分配处理这些文档。
 
-### Distributed, multi-shard transactions
+### 分布式的跨分片事务
 
-Transactions that affect multiple shards incur a greater performance cost as operations are coordinated across multiple participating nodes over the network.
+涉及多个数据库分片的事务产生的性能开销更大，因为跨分片的操作需要多个节点通过网络协同进行。
 
-Snapshot read concern is the only isolation level that provides a consistent snapshot of your data across multiple shards. If latency is more critical than cross-shard read consistency, use the default local read concern which operates on a local version of the snapshot.
+“snapshot” 读取关心等级是在跨分片情景下唯一能够提供一致的数据快照的隔离等级。当低延迟比跨分片读取一致性更加重要时，应使用默认的 "local" 读取关心等级，该等级在一份单机的快照中执行事务。
 
-### Exception Handling
+### 异常处理
 
-When a transaction aborts, an exception is returned to the driver and the transaction is fully rolled back. Developers should add application logic that can catch and retry a transaction that aborts due to temporary exceptions, such as an MVCC write conflict, a transient network failure or a primary replica election.
+当一个事务终止时，一个异常会被返回给调用者，并且事务会被完全回滚。开发者需要实现异常捕捉以及并针对临时性异常（如 MVCC 写冲突、暂时性网络错误或发生主副本选举）进行重试的逻辑。
 
-With [retryable writes](https://docs.mongodb.com/manual/core/retryable-writes/index.html), the MongoDB drivers will automatically retry the commit statement of the transaction.
+借助 [可重试写入](https://docs.mongodb.com/manual/core/retryable-writes/index.html) 机制，MongoDB 调用者会对事务的提交指令进行自动重试。
 
-### Benefit for write latency
 
-While it might not seem obvious at first, using multi-document transactions can improve write performance by way of reducing the commit latency.
+### 对写入延迟的益处
 
-With the w:majority write concern if you execute 10 updates independently, each write has to wait for a replication round trip.
+虽然第一眼可能没那么显而易见，但使用多文档事务，由于降低了提交延迟，实际上提高了写入性能。
 
+使用 w:majority 的写入关心等级，假设分开执行 10 条更新指令，则每一条指令都需要等待一个分片间复制的往返时长。
+
+然而，如果同样的 10 条更新指令运行在同一个事务里，它们将在事务提交的时候被一次性复制，从而将延迟降低 10 倍！
 However, if the same 10 updates are executed inside a transaction, they are all replicated together at commit time. This reduces latency by 10 times!
 
-### What else do I need to know?
+### 我还需要知道什么？
 
-You can review all best practices in the [MongoDB documentation for multi-document transactions](https://docs.mongodb.com/master/core/transactions/). Refer to the Production Considerations section of this documentation for performance-specific guidance.
+你可以在[MongoDB 多文档事务参考文档](https://docs.mongodb.com/master/core/transactions/)里学习所有最佳实践。查阅文档中的“生产环境注意事项”一栏来了解性能相关的指引。
 
-## Choose the Appropriate Write Guarantees
+## 选择合适的写入保证等级
 
-MongoDB allows you to specify the level of durability guarantee when issuing writes to the database, which is called the [write concern](https://docs.mongodb.com/manual/reference/write-concern/).
+MongoDB 允许你在向数据库提交写入请求时指定一个可靠性保证等级，称为[“写入关心等级”](https://docs.mongodb.com/manual/reference/write-concern/)
 
-Note that write concerns can apply to any operation that is executed against the database, irrespective of whether it is a regular operation against a single document, or wrapped in a multi-document transaction.
+注意到，写入关心等级可以对任何对服务器进行的操作生效，无论该操作是对单个文档的一般操作还是是包含在一个多文档事务中的一部分。
 
-The following options can be configured on a per-connection, per database, per collection, or even per operation basis. The options are as follows:
+以下选项能够在“每次连接”、“每个数据库”、“每个集合”、甚至“每个操作”的水平上设置。总共有这些选项：
 
-* **Write Acknowledged**: This is the default write concern. The `mongod` will confirm the execution of the write operation, allowing the client to catch network, duplicate key, schema validation, and other exceptions.
-* **Journal Acknowledged**: The `mongod` will confirm the write operation only after it has flushed the operation to the journal on the primary. This confirms that the write operation can survive a `mongod` crash and ensures that the write operation is durable on disk.
-* **Replica Acknowledged**: It is also possible to wait for acknowledgment of writes to other replica set members. MongoDB supports writing to a specific number of replicas. This also ensures that the write is written to the journal on the secondaries. Because replicas can be deployed across racks within data centers and across multiple data centers, ensuring writes propagate to additional replicas can provide extremely robust durability.
-* **Majority**: This write concern waits for the write to be applied to a majority of replica set data-bearing and electable members, and therefore cannot be rolled in the event of a primary election. This also ensures that the write is recorded in the journal on these replicas – including on the primary.
+* __写入确认 (Write Acknowledged)：__ 这是默认的写入关心等级。`mongod` 会保证写操作的执行，使得客户可以捕捉到网络异常、key 重复异常、schema 验证异常等异常类型。
+* __日志确认 (Journal Acknowledged)：__ `mongod` 只有在写操作已经被写入主节点的日志后才会确认写入操作成功。该等级确保写操作能够存活一次 `mongod` 崩溃，并且确保写操作被写入硬盘。
+* __副本确认 (Replica Acknowledged)：__ 使用本选项能够确保等待副本集中的其他成员已经发送写入确认后才视为写入操作成功。MongoDB 支持写入到指定数量的副本中。本选项同时确保写入数据被写入二级数据库的日志中。由于副本可以被部署在数据中心的不同机架甚至不同数据中心，确保写入的数据扩增到额外的副本可以提供极高的可靠性。
+* __多数确认 (Majority)：__ 本写关心等级将等待写操作被应用到副本集中多数的可承载数据且可选举的成员上，因此在遇到主副本选举事件时，写操作将会无法成功执行。这个等级同时确保了写操作能够被记录在各个副本的日志里 —— 包括主副本的。
 
-## Choose the Right Read Concern
+## 选择合适的读取关心程度
 
-Like write concerns, read concerns can apply to any query that is executed against the database, irrespective of whether it is a regular read against a single or set of documents, or wrapped in a multi-document read transaction.
+就像写入关心程度一样，读取关心程度也可以被应用于任何对数据库发起的请求，无论是对单个文档的读取，还是作为多文档事务的一部分。
 
-To ensure isolation and consistency, the [`readConcern`](https://docs.mongodb.com/manual/reference/readConcern/) can be set to `majority` to indicate that data should only be returned to the application if it has first been replicated to a majority of the nodes in the replica set, and so cannot be rolled back in the event of the election of a new primary node.
+为保证隔离度与一致性，[`readConcern`](https://docs.mongodb.com/manual/reference/readConcern/) 可以被设置为 `majority` (多数确认) ，该等级代表仅当数据已经被覆盖到副本集中的多数节点，也就是数据不会因为新主节点选举而被回滚时，才能被返回到应用程序。
 
-MongoDB supports a readConcern level of “Linearizable”. The linearizable read concern ensures that a node is still the primary member of the replica set at the time of the read and that the data it returns will not be rolled back if another node is subsequently elected as the new primary member. Configuring this read concern level can have a significant impact on latency, therefore a [maxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/) value should be supplied in order to timeout long-running operations.
+MongoDB 支持一个“可线性化”（linearizable）的读取关心等级。可线性化的读取关心等级确保一个节点在读取的时候仍然是副本集的主节点，并且即使后来另外一个节点被选举为新的主节点，其已经返回的数据也保证不会被回滚。使用该读取关心等级可能会对延迟造成显著影响，故需要提供一个 [maxTimeMS](https://docs.mongodb.com/manual/reference/method/cursor.maxTimeMS/) 值来让运行时间过长的操作超时。
 
-### Use causal consistency where needed
+### 仅在必要时使用因果一致性
 
-[Causal consistency](https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency) guarantees that every read operation within a client session will always see the previous write operation, regardless of which replica is serving the request. You can minimize any latency impact by using causal consistency only where you need monotonic read guarantees.
+[因果一致性 (causal consistency) ](https://docs.mongodb.com/manual/core/read-isolation-consistency-recency/#causal-consistency)保证客户端会话 (session) 内的所有读操作都能看到上一次写操作的结果，不管当前请求是由哪一个副本在提供服务。仅当在需要单调读保证 (monotonic read guarantees) 的地方使用因果一致性，能够降低延迟的影响。
 
-## What’s Next
+## 下一篇
 
-That wraps up this installment of the performance best practices series. Next up in this series: hardware and OS configuration.
+这就是本期的高性能最佳实践。本系列的下一篇：硬件与操作系统配置。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
