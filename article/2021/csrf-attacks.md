@@ -96,7 +96,7 @@ CSRF 攻击存在的原因是所有与请求的目标源相关的 cookie 都将�
 
 因为发起每个请求都将自动携带 cookie，所以 cookie 本身就是一个 CSRF 漏洞。它使得攻击者可以很容易地设计恶意请求并发起 CSRF 攻击。尽管攻击者不能拿到响应体或 cookie 本身，但他们能通过受害者持有的更高权限执行操作。一个 CSRF 漏洞的影响范围与受害者拥有的权限有关。尽管获取敏感信息不是 CSRF 攻击的主要内容，但状态修改仍可能对网站造成负面影响。
 
-幸运的是，通过运行 Acunetix 漏洞扫描器，对网站进行自动扫描，将非常容易检查你的网站是否存在 CSRF 漏洞和其他漏洞。Acunetix 漏洞扫描器包括专门的 [CSRF 扫描器](https://www.acunetix.com/vulnerability-scanner/csrf-scanner/)模块。[查看示例](https://www.acunetix.com/web-vulnerability-scanner/demo/)并找到更多关于如何通过 CSRF 扫描器保护你的网站和应用。
+幸运的是，通过运行 Acunetix 漏洞扫描器对网站进行自动扫描，将非常容易检查你的网站是否存在 CSRF 漏洞和其他漏洞。Acunetix 漏洞扫描器包括专门的 [CSRF 扫描器](https://www.acunetix.com/vulnerability-scanner/csrf-scanner/)模块。[查看示例](https://www.acunetix.com/web-vulnerability-scanner/demo/)并找到更多关于如何通过 CSRF 扫描器保护你的网站和应用的信息。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
