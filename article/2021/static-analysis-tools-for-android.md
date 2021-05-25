@@ -29,7 +29,7 @@
 
 * 您可以为 Java、Kotlin、Gradle、XML 和其他一些文件类型编写规则。
 * 无需添加插件就可以在 Android Studio 上看到警告或者错误提示。
-* 更容易集成到项目中。
+* 更容易地集成到项目中。
 
 缺点之一是在他们的 [github 仓库](https://github.com/googlesamples/android-custom-lint-rules)中有下面这个脚注：
 
