@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/csrf-attacks.md](https://github.com/xitu/gold-miner/blob/master/article/2021/csrf-attacks.md)
 > - 译者：[MoonBall](https://github.com/MoonBall)
-> - 校对者：
+> - 校对者：[Chorer](https://github.com/Chorer)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # CSRF 攻击：解析、预防和 CSRF 令牌
 
