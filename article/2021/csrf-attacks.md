@@ -9,7 +9,7 @@
 
 跨站请求伪造，也被称为 CSRF、Sea Surf 或者 XSRF。它是一种攻击方式，攻击者利用它诱骗受害者代表他们自己执行操作。受害者持有的权限级别决定了 CSRF 攻击的影响范围。这种攻击利用了一个事实：一旦用户通过网站服务的身份认证，网站就完全信任该用户（译者注：身份认证指 cookie）。
 
-在网络安全领域，通常认为跨站请求伪造攻击是一个沉睡的巨人。尽管可以证明只要合理地发起 CSRF 攻击，它将成为一种悄然无声且强大的攻击方式，但它往往没有得到应有的重视。它是一种常见的攻击方式，这也是它连续多次出现在 [OWASP Top 10](https://www.acunetix.com/blog/articles/owasp-top-10-2017/) 列表中的原因。然而，[跨站脚本攻击（XSS）漏洞](https://www.acunetix.com/websitesecurity/cross-site-scripting/)比任何 CSRF 漏洞的风险都高，因为 CSRF 攻击有一个很大的限制。CSRF 攻击只能引起状态变更，但是却不能收到 HTTP 响应的内容。
+在网络安全领域，通常认为跨站请求伪造攻击是一个沉睡的巨人。尽管可以证明只要合理地发起 CSRF 攻击，它将成为一种隐匿且强大的攻击方式，但它往往没有得到应有的重视。CSRF 攻击是一种常见的攻击方式，这也是它连续多次出现在 [OWASP Top 10](https://www.acunetix.com/blog/articles/owasp-top-10-2017/) 列表中的原因。然而，利用漏洞发起的[跨站脚本攻击（XSS）](https://www.acunetix.com/websitesecurity/cross-site-scripting/)比任何 CSRF 漏洞的风险都高，因为 CSRF 攻击有一个很大的限制，它只能引起状态变更，但攻击者却无法收到 HTTP 响应的内容。
 
 ## 如何发起 CSRF 攻击
 
