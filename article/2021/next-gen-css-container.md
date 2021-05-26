@@ -15,11 +15,11 @@ The `@container` API is not stable, and is subject to syntax changes. If you try
 
 You can think of these like a media query (`@media`), but instead of relying on the **viewport** to adjust styles, the parent container of the element you’re targeting can adjust those styles.
 
-### Container queries will be the single biggest change in web styling since CSS3, altering our perspective of what “responsive design” means.
+## Container queries will be the single biggest change in web styling since CSS3, altering our perspective of what “responsive design” means.
 
 No longer will the viewport and user agent be the only targets we have to create responsive layout and UI styles. With container queries, elements will be able to target their own parents and apply their own styles accordingly. This means that the same element that lives in the sidebar, body, or hero could look completely different based on its available size and dynamics.
 
-### `@container` in action
+## `@container` in action
 
 CodePen Embed Fallback
 
@@ -84,7 +84,7 @@ decrease the .card element's grid gap to 1rem */
 }
 ```
 
-### Container Queries + Media Queries
+## Container Queries + Media Queries
 
 One of the best features of container queries is the ability to separate *micro layouts* from *macro layouts*. You can style individual elements with container queries, creating nuanced micro layouts, and style entire page layouts with media queries, the macro layout. This creates a new level of control that enables even more responsive interfaces.
 
@@ -92,7 +92,7 @@ Here’s another example that shows the power of using media queries for macro l
 
 CodePen Embed Fallback
 
-### Container Queries + CSS Grid
+## Container Queries + CSS Grid
 
 One of my personal favorite ways to see the impact of container queries is to see how they work within a grid. Take the following example of a plant commerce UI:
 
@@ -115,17 +115,17 @@ Then, we have a container query that styles the cards to take on a vertical bloc
 
 This means that each card *owns its own responsive styling*. This yet another example of where you can create a macro layout with the product grid, and a micro layout with the product cards. Pretty cool!
 
-### Usage
+## Usage
 
 In order to use `@container`, you first need to create a parent element that has [containment](https://developer.mozilla.org/en-US/docs/Web/CSS/contain). In order to do so, you’ll need to set `contain: layout inline-size` on the parent. You can use `inline-size` since we currently can only apply container queries to the inline axis. This prevents your layout from breaking in the block direction.
 
 Setting `contain: layout inline-size` creates a new [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block) and new [block formatting context](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context), letting the browser separate it from the rest of the layout. Now, we can query!
 
-### Limitations
+## Limitations
 
 Currently, you cannot use height-based container queries, using only the block axis. In order to make grid children work with `@container`, you’ll need to add a wrapper element. Despite this, adding a wrapper lets you still get the effects you want.
 
-### Try it out
+## Try it out
 
 You can experiment with the `@container` property in Chromium today, by navigating to: `chrome://flags` in [Chrome Canary](https://www.google.com/chrome/canary/) and turning on the **#experimental-container-queries** flag.
 
