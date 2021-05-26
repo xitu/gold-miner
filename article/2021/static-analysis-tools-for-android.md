@@ -243,7 +243,7 @@ dependencies {
 
 首先，我们需要扩展 ktlint 为我们提供的 `Rule` 类，并为您的规则指定一个 id。
 
-然后我们重写 **visit** 函数。这里我们将设置一些条件来检测包是否以 **data.dto** 结尾，并验证该文件中的类是否具有前缀 **data**。如果类没有这个前缀，那么我们将使用 emit lambda 来触发报告，我们还将提供一种解决问题的方法。
+然后我们重写 `visit` 函数。这里我们将设置一些条件来检测包是否以 **data.dto** 结尾，并验证该文件中的类是否具有前缀 **data**。如果类没有这个前缀，那么我们将使用 emit lambda 来触发报告，我们还将提供一种解决问题的方法。
 
 ```Kotlin
 class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
