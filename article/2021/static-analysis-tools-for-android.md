@@ -31,7 +31,7 @@
 * 无需添加插件就可以在 Android Studio 上看到警告或者错误提示。
 * 更容易地集成到项目中。
 
-缺点之一是在他们的 [github 仓库](https://github.com/googlesamples/android-custom-lint-rules)中有下面这个脚注：
+缺点之一是在他们的 [GitHub 仓库](https://github.com/googlesamples/android-custom-lint-rules)中有下面这个脚注：
 
 > lint API 不是一个最终版本的 API；如果您依赖于它，请做好为下一个工具版本调整代码的准备。
 
