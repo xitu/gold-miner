@@ -88,7 +88,7 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
     override fun getApplicableAttributes(): Collection<String>? {
         // 该方法返回要分析的属性名称集。
         // 每当 lint 工具在 XML 资源文件中看到这些属性之一时
-        // 就会调用下面的 “visitAttribute” 方法。
+        // 就会调用下面的 `visitAttribute` 方法。
         // 在本例中，我们希望分析每个 XML 资源文件中的每个属性。
         return XmlScannerConstants.ALL
     }
