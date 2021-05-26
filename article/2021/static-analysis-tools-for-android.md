@@ -297,7 +297,7 @@ class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
 
 ```
 
-4. 创建一个名为 **CustomRuleshiyongSetProvider** 的类，该类扩展 **RuleSetProvider**，然后需要重写 **get（）** 函数并在其中列出所有规则。
+4. 创建一个名为 `CustomRuleshiyongSetProvider` 的类，该类扩展 `RuleSetProvider`，然后需要重写 `get()` 函数并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
