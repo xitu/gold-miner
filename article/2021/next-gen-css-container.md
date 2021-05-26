@@ -21,9 +21,7 @@ No longer will the viewport and user agent be the only targets we have to create
 
 ## `@container` in action
 
-CodePen Embed Fallback
-
-In this example, I’m using two cards within a parent with the following markup:
+In [this example](https://codepen.io/una/pen/LYbvKpK), I’m using two cards within a parent with the following markup:
 
 ```html
 <div class="card-container">
@@ -88,9 +86,7 @@ decrease the .card element's grid gap to 1rem */
 
 One of the best features of container queries is the ability to separate *micro layouts* from *macro layouts*. You can style individual elements with container queries, creating nuanced micro layouts, and style entire page layouts with media queries, the macro layout. This creates a new level of control that enables even more responsive interfaces.
 
-Here’s another example that shows the power of using media queries for macro layout (i.e. the calendar going from single-panel to multi-panel), and micro layout (i.e. the date layout/size and event margins/size shifting), to create a beautiful orchestra of queries.
-
-CodePen Embed Fallback
+Here’s [another example](https://codepen.io/una/pen/RwodQZw) that shows the power of using media queries for macro layout (i.e. the calendar going from single-panel to multi-panel), and micro layout (i.e. the date layout/size and event margins/size shifting), to create a beautiful orchestra of queries.
 
 ## Container Queries + CSS Grid
 
@@ -130,7 +126,6 @@ Currently, you cannot use height-based container queries, using only the block a
 You can experiment with the `@container` property in Chromium today, by navigating to: `chrome://flags` in [Chrome Canary](https://www.google.com/chrome/canary/) and turning on the **#experimental-container-queries** flag.
 
 ![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/05/chrome-canary-conatiner-query-flag.png?resize=1902%2C1510&ssl=1)
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
