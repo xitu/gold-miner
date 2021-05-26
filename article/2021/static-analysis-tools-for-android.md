@@ -358,7 +358,7 @@ detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin �
 
 如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个：[https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
 
-我们将要实现的规则将强制为仓库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 **ProductRepository** 接口，我们希望实现使用前缀 **Default** 而不是后缀 **Impl**。
+我们将要实现的规则将强制为仓库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 `ProductRepository` 接口，我们希望实现使用前缀 `Default` 而不是后缀 `Impl`。
 
 使用 detekt 编写规则的步骤如下：
 
