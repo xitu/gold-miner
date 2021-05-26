@@ -362,7 +362,7 @@ detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin �
 
 使用 detekt 编写规则的步骤如下：
 
-1. 创建自定义规则所在的新模块。我们将此模块称为 **detekt rules**。
+1. 创建自定义规则所在的新模块。我们将此模块称为 `detekt-rules`。
 2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
