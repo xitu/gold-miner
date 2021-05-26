@@ -221,7 +221,7 @@ ktlint 将自己定义为一个反繁琐的具有内置格式化的 Kotlin Lint 
 
 以下是使用 ktlint 编写规则的步骤：
 
-1. 创建自定义规则所在的新模块。我们将此模块称为 **ktlint rules**。
+1. 创建自定义规则所在的新模块。我们将此模块称为 `ktlint-rules`。
 2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
