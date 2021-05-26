@@ -7,7 +7,7 @@
 
 # Android 静态分析工具
 
-![Photo by [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
+![图源 [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，出自 [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
 让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和执行自定义规则。使用 Lint 工具有很多好处，包括：以编程方式执行规范，自动化代码质量和代码维护。
 
