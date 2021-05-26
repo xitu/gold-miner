@@ -61,7 +61,7 @@ jar {
 
 在这里，我们以 `compileOnly` 的形式导入依赖项，它将允许我们编写自定义规则 `com.android.tools.lint:lint-api`。您同时需要注意我用的是 `lint-api:27.2.0` 版本（一个 **beta** 版本）。
 
-这里我们还指定 **Lint-Registry-v2**，它将指向包含规则列表的类。
+这里我们还指定了 `Lint-Registry-v2`，用于指向包含规则列表的类。
 
 3. 首先编写第一条规则，避免在我们的布局文件中使用硬编码的颜色。
 
