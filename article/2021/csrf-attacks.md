@@ -41,7 +41,7 @@ http://example.com/transfer?amount=1000000&account=Fred
 <img data-fr-src="http://example.com/transfer?amount=1000000&account=Fred" />
 ```
 
-正常情况下，用户的浏览器将自动发送与该站点相关的 cookie。因此攻击者便能代表受害者执行状态变更。在上面的例子中，状态修改就是转账操作。
+正常情况下，用户的浏览器将自动发送与该站点相关的 cookie。因此攻击者便能代表受害者执行状态变更。在上面的例子中，状态变更指的就是转账操作。
 
 请注意这个例子非常简单，它必然不能反应真实世界的情形，但是它非常好地展示了 CSRF 攻击的原理。不过在以往流行的软件中的确存在基于 GET 方法的相似漏洞（在[维基百科](https://en.wikipedia.org/wiki/Cross-site_request_forgery#Example_and_characteristics)中阅读更多内容）。
 
