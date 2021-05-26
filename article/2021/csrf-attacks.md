@@ -62,7 +62,7 @@ http://example.com/transfer?amount=1000000&account=Fred
 </body>
 ```
 
-只要加载网页，JavaScript `onload` 函数一定会提交隐藏的表单，进而发出 POST 请求。表单包含攻击者设置的两个参数和对应的值。该 POST 请求的目的端（即 example.com）认为该请求是合法的，因为该请求包含了受害者的 cookie。
+只要加载网页，JavaScript 中的 `onload` 函数一定会提交隐藏的表单，进而发出 POST 请求。表单包含攻击者设置的两个参数和对应的值。该 POST 请求的目的端（即 example.com）认为该请求是合法的，因为该请求包含了受害者的 cookie。
 
 通过设置 IFrame 属性使 IFrame 隐藏，攻击者也可以利用 IFrame 发起攻击。使用相同的 onload 函数，攻击者可以加载包含恶意网页的 IFrame。只要 IFrame 被加载，就会发起请求。另一个选择是使用 XMLHttpRequest 技术。
 
