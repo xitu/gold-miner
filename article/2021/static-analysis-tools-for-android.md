@@ -385,7 +385,7 @@ dependencies {
 
 首先，我们需要扩展 detekt 为我们提供的 **Rule** 类。我们还需要重写 issue 类成员，并指定名称、问题类型、描述以及解决问题所需的时间。
 
-然后重写 **visitClassOrObject** 函数。这里我们检查每个类的每个实现。如果其中一些以关键字 **Repository** 结尾，那么我们将验证类名是否以前缀开头。在这种情况下，我们将把问题称为**代码的坏味道**。
+然后重写 `visitClassOrObject` 函数。这里我们检查每个类的每个实现。如果其中一些以关键字 **Repository** 结尾，那么我们将验证类名是否以前缀开头。在这种情况下，我们将把问题称为**代码的坏味道**。
 
 ```Kotlin
 class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config) {
