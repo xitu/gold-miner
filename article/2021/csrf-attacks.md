@@ -66,7 +66,7 @@ http://example.com/transfer?amount=1000000&account=Fred
 
 攻击者也可以通过设置相关属性使 IFrame 隐藏，从而发起攻击。使用相同的 `onload` 函数，攻击者可以加载包含恶意网页的 IFrame。只要 IFrame 被加载，就会发起请求。另一个选择是使用 XMLHttpRequest 技术。
 
-## 修复 CSRF 漏洞
+## 防御 CSRF 攻击
 
 安全专家提出了许多防御 CSRF 攻击的机制。例如使用 referer 请求头、使用 `HttpOnly` 标志、使用 jQuery 发送 `X-Requested-With` 自定义请求头等等。不幸的是，这些方法并非适用于所有场景。在某些情况下它们是低效率的，而在其它某些情况下，在一个指定的应用中实现它们有一定的难度，或者会带来副作用。接下来介绍的实现在提供 CSRF 攻击防护的同时，也在很多应用程序中被证明是高效的。查看 OWASP 维护的 [CSRF 攻击防护手册](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.md)，了解更多高级的 CSRF 攻击防护方法。
 
