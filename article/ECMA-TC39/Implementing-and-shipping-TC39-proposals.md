@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Implementing-and-shipping-TC39-proposals.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Implementing-and-shipping-TC39-proposals.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)、[PassionPenguin](https://github.com/PassionPenguin)
 
 # 简述 TC39 提案的实现和交付
 
@@ -13,7 +13,7 @@
 
 实施方案越早起草越好，不同的阶段表明了不同的稳定性和具体程度。许多实现使用运行时或编译时标志来打开或关闭 TC39 建议。这可能被用来管理不完整的实现，以及避免交付还处于早期阶段的开发者设计方案。
 
-在第 4 阶段，一个规范已经完成，并被设定为包含在 ECMAScript 规范草案中。除非在特殊情况下，否则该提案是完整的、稳定的，并可随时发布。通常各个实现默认开启第 4 阶段的特性，没有任何特殊的标志。不去实现和交付第 4 阶段的特性，就有可能使该实现与其他实现不同步。
+在第 4 阶段，一个规范已经完成，并被确定会包含到 ECMAScript 规范草案中。除非在特殊情况下，否则该提案是完整的、稳定的，并可随时发布。通常各个实现默认开启第 4 阶段的特性，没有任何特殊的标志。不去实现和交付第 4 阶段的特性，就有可能使该实现与其他实现不同步。
 
 在第 3 阶段，委员会正在全力考察一项功能，并已就具体细节达成一致。但实施过程仍然可能导致语义上的变化，甚至一些第 3 阶段的功能已经被完全放弃。追求稳定性的项目如果想完全交付这些功能，在交付第 3 阶段的功能之前，通常会使用一定程度的个例测试。
 
@@ -35,15 +35,15 @@
 
 TC39 在一个名为 [test262](https://github.com/tc39/test262/) 的项目中维护一致性测试，以验证 JavaScript 的实现是否符合规范。要贡献给 test262，请查看 [CONTRIBUTING.md](https://github.com/tc39/test262/blob/master/CONTRIBUTING.md)。如果你开发了针对某个特定实现的测试，我们非常鼓励你把它们提交到 test262。
 
-test262 包括所有第 4 阶段提案和一些第 3 阶段提案的测试。早期的第 2 阶段提案可能在 [pull request](https://github.com/tc39/test262/pulls) 中发布了测试。
+test262 包括所有第 4 阶段提案和一些第 3 阶段提案的测试。早期的第 2 阶段提案可能会把测试提交为[拉取请求](https://github.com/tc39/test262/pulls) 中发布了测试。
 
 ## 给予提案者反馈
 
-TC39 非常感谢提案者! 除了向 JS 开发者提供功能外，实现的过程还能让人详细了解该功能在整个语言中的情况以及它的各种相互作用，从而获得关于设计的重要见解。
+TC39 非常感谢提案者！除了向 JS 开发者提供功能外，实现的过程还能让人详细了解该功能在整个语言中的情况以及它的各种相互作用，从而获得关于设计的重要见解。
 
 我们感谢提案者的各种反馈，无论是关于动机、顶层设计、与其他各种系统的整合、实现的复杂性，还是特殊案例的语义。提供反馈的最好方式是在 GitHub 仓库中提交错误。也可以针对建议的语义变化对提案规范草案进行 PR。
 
-如果你在提案实施过程中遇到问题，例如在理解建议方面有困难，或者希望在一个特殊案例方面得到帮助，请与项目组联系，可以在 GitHub issue中归档你的问题，给他们写邮件，或者打电话来讨论。
+如果你在提案实施过程中遇到问题，例如在理解建议方面有困难，或者希望在一个特殊案例方面得到帮助，请与项目组联系，可以在 GitHub issue 中归档你的问题，给他们写邮件，或者打电话来讨论。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
