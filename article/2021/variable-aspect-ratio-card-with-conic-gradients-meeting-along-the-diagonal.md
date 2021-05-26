@@ -17,7 +17,7 @@ The challenge here is that, while it’s easy to make an abrupt change in a `lin
 
 > Check out [this guide](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients) for a refresher on how conic gradients work.
 
-### The simple solution
+## The simple solution
 
 The spec now includes [trigonometric and inverse trigonometric functions](https://drafts.csswg.org/css-values-4/#trig-funcs), which *could* help us here — the angle of the diagonal with the vertical is the arctangent of the aspect ratio `atan(var(--ratio))` (the left and top edges of the rectangle and the diagonal form a right triangle where the tangent of the angle formed by the diagonal with the vertical is the width over the height — precisely our aspect ratio).
 
@@ -42,7 +42,7 @@ background:
 
 However, no browser currently implements trigonometric and inverse trigonometric functions, so the simple solution is just a future one and not one that would actually work anywhere today.
 
-### The JavaScript solution
+## The JavaScript solution
 
 We can of course compute the `--angle` in the JavaScript from the `--ratio` value.
 
@@ -53,7 +53,7 @@ document.body.style.setProperty('--angle', `${+(180 * angle / Math.PI).toFixed(2
 
 But what if using JavaScript won’t do? What if we really need a pure CSS solution? Well, it’s a bit hacky, but it can be done!
 
-### The hacky CSS solution
+## The hacky CSS solution
 
 This is an idea I got from a peculiarity of SVG gradients that I honestly found very frustrating when I [first encountered](https://css-tricks.com/state-css-reflections/#the-svg-gradient-problem).
 
@@ -85,7 +85,7 @@ This is because our SVG gradient gets drawn within a `1x1` square box, rotated b
 
 > Note that this SVG gradient distortion happens only if we don’t change the `gradientUnits` attribute of the `linearGradient` from its default value of `objectBoundingBox` to `userSpaceOnUse`.
 
-#### Basic idea
+### Basic idea
 
 We cannot use SVG here since it only has linear and radial gradients, but not conic ones. However, we can put our CSS conic gradients in a square box and use the `45°` angle to make them meet along the diagonal:
 
@@ -117,7 +117,7 @@ You can play with changing the value of `--ratio` in the editable code embed bel
 
 <small>Enabling the flag in Firefox.</small>
 
-#### Issues with this approach and how to get around them
+### Issues with this approach and how to get around them
 
 Scaling the actual `.card` element would rarely be a good idea though. For my use case, the cards are on a grid and setting a directional scale on them messes up the layout (the grid cells are still square, even though we’ve scaled the `.card` elements in them). They also have text content which gets weirdly stretched by the `scaley()` function.
 
@@ -166,7 +166,7 @@ This is much better, as it can be seen in the embed below, which is also editabl
 
 [CodePen](https://codepen.io/thebabydino/pen/MWJZPLe) for code and preview.
 
-#### Padding problems
+### Padding problems
 
 Since we haven’t set a `padding` on the card, the text may go all the way to the edge and even slightly out of bounds given it’s a bit slanted.
 
@@ -221,7 +221,7 @@ In the meantime, what we can do to get around this is remove the `box-sizing`, `
 
 [CodePen](https://codepen.io/thebabydino/pen/gOgqewy) for code and preview.
 
-#### Rounded corners
+### Rounded corners
 
 Let’s say we also want our cards to have rounded corners. Since a directional `transform` like the `scaley` on the `::before` pseudo-element that creates our `background` *also distorts corner rounding*, it results that the simplest way to achieve this is to set a `border-radius` on the actual `.card` element and cut out everything outside that rounding with `overflow: hidden`.
 
@@ -247,7 +247,7 @@ $r: .5rem;
 
 [CodePen](https://codepen.io/thebabydino/pen/RwKdKMv) for code and preview.
 
-### Final result
+## Final result
 
 Putting it all together, here’s an interactive demo that allows changing the aspect ratio by dragging a slider – every time the slider value changes, the `--ratio` variable is updated: [CodePen](https://codepen.io/thebabydino/pen/XWpyowX).
 
