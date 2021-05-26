@@ -207,7 +207,7 @@ dependencies {
 }
 ```
 
-就这样！如果我们试图在任何布局中设置硬编码颜色，将提示错误🎉
+就这样！如果我们试图在任何布局中设置硬编码颜色，就会立马提示错误 🎉
 
 ![](https://cdn-images-1.medium.com/max/3200/1*VeAC6BcQlTP0dm7WKOhajw.png)
 
