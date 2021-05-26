@@ -132,7 +132,7 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 ```
 
-5. 为了检查规则是否正确执行了它们的工作，我们将实施一些测试。我们需要在 **build.gradle** 上有这两个依赖项作为 **testImplementation**:**com.android.tools.lint:lint-tests** 和 **com.android.tools.lint:lint**。这将允许我们在代码中定义一个 XML 文件，并扫描其内容，以查看规则是否正常工作。
+5. 为了检查规则是否正确执行了它们的工作，我们将实施一些测试。我们需要在 **build.gradle** 上有这两个依赖项作为 `testImplementation: com.android.tools.lint:lint-tests` 和 `com.android.tools.lint:lint`。这将允许我们在代码中定义一个 XML 文件，并扫描其内容，以查看规则是否正常工作。
 
 1. 如果使用自定义属性，第一个测试检查规则是否仍然有效。因此 TextView 将包含一个名为 **someCustomColor** 的属性，其颜色为 **#fff**。然后，我们可以添加几个问题来扫描模拟文件，在我们的示例中，我们只指定我们唯一编写的规则。最后我们说，预期结果应该是 1 个严重程度为错误的问题。
 2. 在第二个测试中，行为非常相似。唯一的变化是我们正在用一个普通属性测试我们的规则，十六进制颜色包括 alpha 透明度。
