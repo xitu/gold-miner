@@ -116,7 +116,7 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
 
 最后，我们必须添加确定该属性是否为十六进制颜色所需的逻辑，以便生成报告。
 
-4. 创建一个名为 **DefaultIssuereRegistry** 的类，该类扩展了 **IssuereRegistry**。然后需要重写 **issues** 变量并列出所有这些变量。
+4. 创建一个名为 `DefaultIssuereRegistry` 的扩展了 `IssuereRegistry` 的类。然后需要重写 `issues` 变量并列出所有这些变量。
 
 如果要创建更多规则，需要在此处添加所有规则。
 
