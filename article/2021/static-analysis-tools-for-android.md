@@ -9,7 +9,7 @@
 
 ![图源 [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，出自 [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
-让我们看看最流行的静态代码分析工具可以做什么，您可以使用这些工具在代码库中实现和执行自定义规则。使用 Lint 工具有很多好处，包括：以编程方式执行规范，自动化代码质量和代码维护。
+让我们来了解一下最流行的静态代码分析工具，借助这些工具您可以在代码库中实现和执行自定义规则。使用 Lint 工具有很多好处，包括：以编程方式执行规范，自动化代码质量和代码维护。
 
 在 Android Studio 中，您可能对这些消息很熟悉：
 
