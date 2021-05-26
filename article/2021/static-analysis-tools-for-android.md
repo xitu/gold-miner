@@ -354,7 +354,7 @@ task ktlint(type: JavaExec, group: "verification", description: "Runs ktlint.") 
 
 ## 使用 detekt 自定义规则
 
-detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin 编译器提供的抽象语法树进行操作。它们的重点是查找代码的坏味道，尽管您也可以将其用作格式化工具。
+detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin 编译器提供的抽象语法树进行操作。它们的重点是查找代码异味，尽管您也可以将其用作格式化工具。
 
 如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个：[https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
 
