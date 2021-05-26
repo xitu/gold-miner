@@ -424,7 +424,7 @@ class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config
 
 接下来的步骤与 ktlint 中的步骤非常相似。
 
-4. 创建一个名为 **CustomRuleSetProvider** 的类，该类扩展 **RuleSetProvider**。然后需要重写 **ruleSetId()** 和**实例（config:config）** 函数，并在其中列出所有规则。
+4. 创建一个名为 `CustomRuleSetProvider` 扩展了 `RuleSetProvider` 的类。然后需要重写 `ruleSetId()` 和 `instance(config: config)` 函数，并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
