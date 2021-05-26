@@ -110,7 +110,7 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
 
 根据我们要实现的规则，我们将扩展不同的 `Detector` 类。一个 `Detector` 类能够发现特定的问题。每个问题类型都被唯一地标识为 `Issue`。在本例中，我们将使用 `ResourceXmlDetector`，因为我们要检查每个 XML 资源中的硬编码颜色的十六进制值。
 
-在类声明之后，我们创建定义 **Issue** 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在编辑器 IDE 中显示的解释。
+在类声明之后，我们创建定义 `Issue` 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在集成开发环境（IDE）中显示的解释。
 
 然后我们需要指定要扫描的属性。我们可以返回一个特定的属性列表，如 `mutableListOf("textColor"，"background")` 或返回 `XmlScannerConstants.ALL` 来扫描每个布局上的所有属性。这将取决于您的用例。
 
