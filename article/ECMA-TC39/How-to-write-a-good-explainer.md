@@ -12,9 +12,7 @@
 您浏览指南时会发现其中附加了一些关于如何书写 TC39 提案说明的建议，以及可能想在您的提案说明文件中引用的内容大纲。
 如果您想要浏览近期提案中优质的说明书文件，请看 [Promise.allSettled](https://github.com/tc39/proposal-promise-allSettled)，[Temporal proposal](https://github.com/tc39/proposal-temporal)，或者是 [RegExp Unicode property escapes](https://github.com/tc39/proposal-regexp-unicode-property-escapes)。
 
-本页接下来的内容可以作为您的 README.md 文件中的模板。
-并非模板中的所有章节都需要被引入， 这些只是一系列可选择的建议。
-*斜体字样*是说明，而纯文本是示例文本。除了标题，这里的大部分内容都应该用您自己的内容代替。
+本页接下来的内容可以作为您的 README.md 文件中的模板。并非模板中的所有章节都需要被引入， 这些只是一系列可选择的建议。*斜体字样*是说明，而纯文本是示例文本。除了标题，这里的大部分内容都应该用您自己的内容代替。
 
 ----
 
