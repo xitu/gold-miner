@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-write-a-good-explainer.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-write-a-good-explainer.md)
 > * 译者：[Ashira97](https://github.com/Ashira97)
-> * 校对者：[Kimberly](https://github.com/kimberlyohq)、[Kim Yang](https://github.com/KimYangOfCat)
+> * 校对者：[Kimberly](https://github.com/kimberlyohq)、[Kim Yang](https://github.com/KimYangOfCat)、[Hoarfroster](https://github.com/PassionPenguin)
 
 # 如何写一个好的说明文件
 
@@ -12,11 +12,11 @@
 您浏览指南时会发现其中附加了一些关于如何书写 TC39 提案说明的建议，以及可能想在您的提案说明文件中引用的内容大纲。
 如果您想要浏览近期提案中优质的说明书文件，请看 [Promise.allSettled](https://github.com/tc39/proposal-promise-allSettled)，[Temporal proposal](https://github.com/tc39/proposal-temporal)，或者是 [RegExp Unicode property escapes](https://github.com/tc39/proposal-regexp-unicode-property-escapes)。
 
-本页接下来的内容可以作为您的 README.md 文件中的模板。并非模板中的所有章节都需要被引入，下面的内容只是一系列可选择的建议。**j加粗字样**是说明，而纯文本是示例文本。除了标题，这里的大部分内容都应该用您自己的内容代替。
+本页接下来的内容可以作为您的 README.md 文件中的模板。并非模板中的所有章节都需要被引入，下面的内容只是一系列可选择的建议。**加粗字样**是说明，而纯文本是示例文本。除了标题，这里的大部分内容都应该用您自己的内容代替。
 
 ----
 
-# 制作者
+# 装配器（Frobnicator）
 
 ## 状态
 
@@ -35,13 +35,13 @@
 
 **列举出使用该特性的一些实际场景，以及代码和问题描述；多个用例可能会有帮助。**
 
-**服务端静态装配**：加入想要装配某个功能，那么您将要做所有的一系列工作。如果有标准的第三方库提供，这些事情就会容易很多。
+**服务端静态装配（Server-side static frobnication）**：加入想要装配某个功能，那么您将要做所有的一系列工作。如果有标准的第三方库提供，这些事情就会容易很多。
 
 ```js
 frobnicate({});
 ```
 
-**动态调整案例：**：对象以不同的方式提供，并且出现了可以由相同的功能实现的不同类型的用例。
+**动态装配案例（Dynamic frobnicate cases）：**：对象以不同的方式提供，并且出现了可以由相同的功能实现的不同类型的用例。
 
 ## 描述
 
