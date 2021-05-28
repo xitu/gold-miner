@@ -55,7 +55,7 @@
 
 在前沿组件中我们也能快速识别问题，就像 [WebRender](https://github.com/servo/webrender), [WebGPU](https://hacks.mozilla.org/2020/04/experimental-webgpu-in-firefox/), [Wayland](https://fedoraproject.org/wiki/Changes/Firefox_Wayland_By_Default_On_Gnome) 和 VA-API 视频加速；通常能在因改变而引发问题后的几天里提供解决方案。
 
-我们并没有止步于此：我们现在可以识别发行版的特殊问题和退化。这允许我们通知程序包维护者并且使问题能快速得到解决。举个例子，我们能在两周之内识别且立即解决 Debian 的特殊问题。这是由于 Debian 对 Firefox 的其中一个依赖做了修改，这会在启动时导致崩溃，已经归位了 bug，如果你比较好奇其中的细节 [1679430](https://bugzilla.mozilla.org/show_bug.cgi?id=1679430)。
+我们并没有止步于此：我们现在可以识别发行版的特殊问题并且回归。这允许我们通知程序包维护者并且使问题能快速得到解决。举个例子，我们能在两周之内识别且立即解决 Debian 的特殊问题。这是由于 Debian 对 Firefox 的其中一个依赖做了修改，这会在启动时导致崩溃，如果你比较好奇其中的细节，可以在 bug [1679430](https://bugzilla.mozilla.org/show_bug.cgi?id=1679430) 归档中查看。
 
 另一个还不错的例子来自 Fedora：在 Firefox 构建中，他们一直使用他们自己的崩溃报告系统 (ABRT) 来捕获崩溃，但是考虑到我们这边的改善[他们开始发送 Firefox 崩溃给我们](https://src.fedoraproject.org/rpms/firefox/c/de27f20acc7bdf391ccb1b571a9cb2061fc2dc3c?branch=master)。
 
