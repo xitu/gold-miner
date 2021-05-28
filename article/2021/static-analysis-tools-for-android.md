@@ -2,43 +2,43 @@
 > * 原文作者：[Cristopher Oyarzun](https://medium.com/@coyarzun)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md](https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[PingHGao](https://github.com/PingHGao)
 
-# Static analysis tools for Android
+# Android 静态分析工具
 
-![Photo by [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
+![图源 [Zach Vessels](https://unsplash.com/@zvessels55?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)，出自 [Unsplash](https://unsplash.com/s/photos/static?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/8966/1*rnX0nlbNDAkelzWjpkFHhA.jpeg)
 
-Let’s take a look into the most popular static code analysis tools that you can use to implement and enforce custom rules in your codebase. Some of the benefit from using a linter. These benefits are: enforce standards programmatically, automate code quality and code maintenance.
+让我们来了解一下最流行的静态代码分析工具，借助这些工具您可以在代码库中实现和执行自定义规则。使用 Lint 工具有很多好处，包括：以编程方式执行规范，自动化代码质量和代码维护。
 
-In Android Studio you’re probably familiar with these kind of messages.
+在 Android Studio 中，您可能对这些消息很熟悉：
 
 ![](https://cdn-images-1.medium.com/max/2704/1*ToPnjqZ_4pONDNRAbb86PA.png)
 
-You can write your own rules by using these tools:
+您可以使用以下工具编写自己的规则：
 
 * [Android Lint API](https://developer.android.com/studio/write/lint)
 * [ktlint](https://github.com/pinterest/ktlint)
 * [detekt](https://github.com/detekt/detekt)
 
-We’ll describe the step by step process to write some rules on a demo project that you can find [here](https://github.com/coyarzun89/custom-lint-rules).
+我们将一步一步地描述在演示项目上编写一些规则的过程，您可以在[这里](https://github.com/coyarzun89/custom-lint-rules)找到这些规则。
 
-## Custom rules with Android Lint API
+## 使用 Android Lint API 的自定义规则
 
-To start with, we’re going to write rules by using the Android Lint API. Some of the advantages are:
+首先，我们将使用 Android Lint API 编写规则。这样做的优点包括：
 
-* You can write rules for Java, Kotlin, Gradle, XML and some other file types.
-* No need to add plugins to make the warnings/errors visible on Android Studio
-* Simpler integration with your project.
+* 您可以为 Java、Kotlin、Gradle、XML 和其他一些文件类型编写规则。
+* 无需添加插件就可以在 Android Studio 上看到警告或者错误提示。
+* 更容易地集成到项目中。
 
-One of the disadvantages is this footnote on their repository [https://github.com/googlesamples/android-custom-lint-rules](https://github.com/googlesamples/android-custom-lint-rules)
+缺点之一是在他们的 [GitHub 仓库](https://github.com/googlesamples/android-custom-lint-rules)中有下面这个脚注：
 
-> The lint API is not a final API; if you rely on this be prepared to adjust your code for the next tools release.
+> lint API 不是一个最终版本的 API；如果您依赖于它，请做好为下一个工具版本调整代码的准备。
 
-So, these are the steps to create our first rule:
+那么，下面是创建第一条规则的步骤：
 
-1. Create a new module in your project where your custom rules will live in. We’ll call this module **android-lint-rules.**
-2. Modify the **build.gradle** file on that module to something like this.
+1. 在项目中创建自定义规则所在的新模块。我们将此模块命名为为 `android-lint-rules`。
+2. 将该模块上的 **build.gradle** 文件修改为如下内容：
 
 ```Gradle
 apply plugin: 'kotlin'
@@ -59,11 +59,11 @@ jar {
 }
 ```
 
-Here we’re importing as a **compileOnly** the dependency that will allow us to write our custom rules **com.android.tools.lint:lint-api**. You should also beware that here I’m using the **lint-api:27.2.0**, which is still on **beta**.
+在这里，我们以 `compileOnly` 的形式导入依赖项，它将允许我们编写自定义规则 `com.android.tools.lint:lint-api`。您同时需要注意我用的是 `lint-api:27.2.0` 版本（一个 **beta** 版本）。
 
-Here we also specify the **Lint-Registry-v2** which will point to the class that will contain the list of rules.
+这里我们还指定了 `Lint-Registry-v2`，用于指向包含规则列表的类。
 
-3. Write the first rule to avoid hardcoded colors on our layouts.
+3. 首先编写第一条规则，避免在我们的布局文件中使用硬编码的颜色。
 
 ```Kotlin
 @Suppress("UnstableApiUsage")
@@ -74,8 +74,8 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
 
         val ISSUE = Issue.create(
             id = "HardcodedColorXml",
-            briefDescription = "Prohibits hardcoded colors in layout XML",
-            explanation = "Hardcoded colors should be declared as a '<color>' resource",
+            briefDescription = "禁止在 XML 布局文件中使用硬编码颜色",
+            explanation = "硬编码颜色应声明为 '<color>' 资源",
             category = Category.CORRECTNESS,
             severity = Severity.ERROR,
             implementation = Implementation(
@@ -86,39 +86,39 @@ class HardcodedColorXmlDetector : ResourceXmlDetector() {
     }
 
     override fun getApplicableAttributes(): Collection<String>? {
-        // Return the set of attribute names we want to analyze. The `visitAttribute` method
-        // below will be called each time lint sees one of these attributes in a
-        // XML resource file. In this case, we want to analyze every attribute
-        // in every XML resource file.
+        // 该方法返回要分析的属性名称集。
+        // 每当 lint 工具在 XML 资源文件中看到这些属性之一时
+        // 就会调用下面的 `visitAttribute` 方法。
+        // 在本例中，我们希望分析每个 XML 资源文件中的每个属性。
         return XmlScannerConstants.ALL
     }
 
     override fun visitAttribute(context: XmlContext, attribute: Attr) {
-        // Get the value of the XML attribute.
+        // 获取 XML 属性的值。
         val attributeValue = attribute.nodeValue
         if (attributeValue.matches(REGEX_HEX_COLOR)) {
             context.report(
                 issue = ISSUE,
                 scope = attribute,
                 location = context.getValueLocation(attribute),
-                message = "Hardcoded hex colors should be declared in a '<color>' resource."
+                message = "硬编码颜色的十六进制值应该在 '<color>' 资源中声明"
             )
         }
     }
 }
 ```
 
-Depending on the rule that we want to implement, we’ll extend from a different **Detector** class. A detector is able to find a particular problem. Each problem type is uniquely identified as an **Issue**. In this case we’ll use a **ResourceXmlDetector** since we want to check for hardcoded hexadecimal colors in each xml resource.
+根据我们要实现的规则，我们将扩展不同的 `Detector` 类。一个 `Detector` 类能够发现特定的问题。每个问题类型都被唯一地标识为 `Issue`。在本例中，我们将使用 `ResourceXmlDetector`，因为我们要检查每个 XML 资源中的硬编码颜色的十六进制值。
 
-After the class declaration we create all the information needed to define an **Issue**. Here we can specify the category and severity, along with the explanation that will be display in the IDE if the rule is triggered.
+在类声明之后，我们创建定义 `Issue` 所需的所有信息。在这里，我们可以指定类别和严重性，以及在触发规则时将在集成开发环境（IDE）中显示的解释。
 
-Then we need to specify the attributes that are going to be scanned. We can return a specific list of attributes like this **mutableListOf(“textColor”, “background”)** or we can return **XmlScannerConstants.ALL** to scan all the attributes on each layout. That’ll depend on your use case.
+然后我们需要指定要扫描的属性。我们可以返回一个特定的属性列表，如 `mutableListOf("textColor"，"background")` 或返回 `XmlScannerConstants.ALL` 来扫描每个布局上的所有属性。这将取决于您的用例。
 
-Finally we have to add the logic needed to decide if that attribute is an hexadecimal color, so we can raise a report.
+最后，我们必须添加确定该属性是否为十六进制颜色所需的逻辑，以便生成报告。
 
-4. Create a class called **DefaultIssueRegistry** that extends **IssueRegistry.** Then you need to override the **issues** variable and list all of them.
+4. 创建一个名为 `DefaultIssuereRegistry` 的扩展了 `IssuereRegistry` 的类。然后需要重写 `issues` 变量并列出所有这些变量。
 
-If you are going to create more rules, you need to add all of them here.
+如果要创建更多规则，需要在此处添加所有规则。
 
 ```Kotlin
 class DefaultIssueRegistry : IssueRegistry() {
@@ -132,11 +132,11 @@ class DefaultIssueRegistry : IssueRegistry() {
 
 ```
 
-5. To check that the rule is doing their job correctly we’re going to implement some tests. We need to have on our **build.gradle** these two dependencies as **testImplementation**: **com.android.tools.lint:lint-tests** and **com.android.tools.lint:lint.** Those will allow us to define a xml file right in the code and scan their content to see if the rule is working fine.
+5. 为了检查规则是否正确执行了它们的工作，我们将实施一些测试。我们需要在 **build.gradle** 上有这两个依赖项作为 `testImplementation: com.android.tools.lint:lint-tests` 和 `com.android.tools.lint:lint`。这将允许我们在代码中定义一个 XML 文件，并扫描其内容，以查看规则是否正常工作。
 
-1. The first test check if our rule still works if we’re using a custom property. So the TextView will contain a property called **someCustomColor** with the color **#fff**. Then, we can add several issues to scan the mock file, in our case we just specify our only written rule. Finally we say that the expected result should be 1 issue with an error severity.
-2. In the second test the behavior is really similar. The only change is that we’re testing our rule with a normal property and the hexadecimal color is including the alpha transparency.
-3. In the last test we check that our rule doesn’t raise any error if we specify a color by using our resources. In that case we set a text color with **@color/primaryColor** and the expected result is a clean execution.
+1. 如果使用自定义属性，第一个测试检查规则是否仍然有效。因此 TextView 将包含一个名为 `someCustomColor` 的属性，其颜色为 `#fff`。然后，我们可以添加几个问题来扫描模拟文件，在我们的示例中，我们只指定我们唯一编写的规则。最后我们说，预期结果应该是 1 个严重程度为错误的问题。
+2. 在第二个测试中，行为非常相似。唯一的变化是我们正在用一个普通属性测试我们的规则，十六进制颜色包括 alpha 透明度。
+3. 在上一个测试中，如果我们使用我们的资源指定颜色，我们检查规则是否没有引发任何错误。在这种情况下，我们使用 `@color/primaryColor` 设置文本颜色，预期的结果是干净利落的执行。
 
 ```Kotlin
 class HardcodedColorXmlDetectorTest {
@@ -198,7 +198,7 @@ class HardcodedColorXmlDetectorTest {
 
 ```
 
-6. Now in the **app module**, where we want to apply all these rules, we’re going to add this line to the **build.gradle** file:
+6. 现在在 **app module** 中，我们要应用所有这些规则，我们要将这一行添加到 **build.gradle** 文件中：
 
 ```
 dependencies {
@@ -207,22 +207,22 @@ dependencies {
 }
 ```
 
-And that’s it! If we try to set a hardcoded color in any layout an error will be prompt 🎉
+就这样！如果我们试图在任何布局中设置硬编码颜色，就会立马提示错误 🎉
 
 ![](https://cdn-images-1.medium.com/max/3200/1*VeAC6BcQlTP0dm7WKOhajw.png)
 
-This repository can be a good source if you need more ideas to add some custom rules [https://github.com/vanniktech/lint-rules](https://github.com/vanniktech/lint-rules)
+如果您需要更多的想法来添加一些自定义规则，那么这个仓库是一份很好的学习资料：[https://github.com/vanniktech/lint-rules](https://github.com/vanniktech/lint-rules)
 
-## Custom rules with ktlint
+## 使用 ktlint 自定义规则
 
-ktlint define itself as an anti-bikeshedding Kotlin linter with built-in formatter. One of the coolest things is that you can write your rules along with a way to autocorrect the issue, so the user can easily fix the problem. One of the disadvantages is that it’s specifically for Kotlin, so you can’t write rules for XML files, as we previously did. Also if you want to visualize the issues on Android Studio, you need to install a plugin. I’m using this one [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
+ktlint 将自己定义为一个反繁琐的具有内置格式化的 Kotlin Lint 工具。最酷的事情之一是，你可以编写你的规则以及一种方法来自动更正问题，所以用户可以很容易地解决问题。缺点之一是它是专门为 Kotlin 语言编写的，因此不能像我们之前所做的那样为 XML 资源文件编写规则。另外，如果你想在 Android Studio 上可视化产生的问题，你需要安装一个插件。我用的是这个插件： [https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-](https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-)
 
-So, in this case we’re going to enforce a rule about Clean Architecture. Probably, you have heard that we shouldn’t expose our models from the data layer in our domain or presentation layers. Some people add a prefix on each model from the data layer to make them easy to identify. In this case we want to check that every model which is part of a package ended on **data.dto** should have a prefix **Data** in their name.
+所以，在这种情况下，我们要执行一个关于 Clean 架构的规则。您可能听说过，我们不应该从域或表示层的数据层公开模型。有些人在数据层的每个模型上添加前缀，以便于识别。在本例中，我们要检查以 **data.dto** 结尾的包的每个模型的名称中都应该有一个前缀 **data**。
 
-These are the steps to write a rule using ktlint:
+以下是使用 ktlint 编写规则的步骤：
 
-1. Create a new module where your custom rules will live in. We’ll call this module **ktlint-rules**
-2. Modify the **build.gradle** file on that module:
+1. 创建自定义规则所在的新模块。我们将此模块称为 `ktlint-rules`。
+2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
 plugins {
@@ -239,11 +239,11 @@ dependencies {
 }
 ```
 
-3. Write a rule to enforce the use of a prefix (**Data**) in all the models inside a package name ending on **data.dto.**
+3. 编写一个规则，强制在以 **data.dto** 结尾的包名内的所有模型中使用前缀（`Data`）。
 
-First we need to extend the **Rule** class that ktlint provide for us and specify an id for your rule.
+首先，我们需要扩展 ktlint 为我们提供的 `Rule` 类，并为您的规则指定一个 id。
 
-Then we override the **visit** function. Here we’re going to set some conditions to detect that the package ends with **data.dto** and verify if the classes inside that file has the prefix **Data**. If the classes doesn’t have that prefix, then we’re going to use the emit lambda to trigger the report and we’ll also offer a way to fix the problem.
+然后我们重写 `visit` 函数。这里我们将设置一些条件来检测包是否以 **data.dto** 结尾，并验证该文件中的类是否具有前缀 **data**。如果类没有这个前缀，那么我们将使用 emit lambda 来触发报告，我们还将提供一种解决问题的方法。
 
 ```Kotlin
 class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
@@ -297,7 +297,7 @@ class PrefixDataOnDtoModelsRule : Rule("prefix-data-on-dto-model") {
 
 ```
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **get()** function and list all your rules there.
+4. 创建一个名为 `CustomRuleshiyongSetProvider` 的类，该类扩展 `RuleSetProvider`，然后需要重写 `get()` 函数并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
@@ -308,11 +308,11 @@ class CustomRuleSetProvider : RuleSetProvider {
 
 ```
 
-5. Create a file in the folder **resources/META-INF/services**. This file must contain the path to the class created on the step 4.
+5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤 4 中创建的类的路径。
 
 ![](https://cdn-images-1.medium.com/max/6592/1*Des3IkNn0cqX_uSBHNSTgg.png)
 
-6. Now in our project we’re going to add this module, so the rules can be applied. Also we created a task to execute ktlint and generate a report:
+6. 现在在我们的项目中，我们将添加这个模块，以便可以应用规则。我们还创建了一个任务来执行 ktlint 并生成一个报告：
 
 ```
 configurations {
@@ -344,26 +344,26 @@ task ktlint(type: JavaExec, group: "verification", description: "Runs ktlint.") 
 }
 ```
 
-7. I also highly recommend to install this plugin so you can be notified in the same Android Studio about any errors found.
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 工程中得到任何有关错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
-To see your custom rules in Android Studio you need to generate a jar from your module and add that path in the external rulset JARs like this:
+要在 Android Studio 中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/4436/1*GSevjiWQufDEf3cmZMvtLg.png)
 
-## Custom rules with detekt
+## 使用 detekt 自定义规则
 
-detekt is a static code analysis tool for the **Kotlin** programming language. It operates on the abstract syntax tree provided by the Kotlin compiler. Their focus is find code smells, although you can also use it as a formatting tool.
+detekt 是 **Kotlin** 编程语言的静态代码分析工具。它对 Kotlin 编译器提供的抽象语法树进行操作。它们的重点是查找代码异味，尽管您也可以将其用作格式化工具。
 
-If you want to visualize the issues on Android Studio, you need to install a plugin. I’m using this one [https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
+如果你想在 Android Studio 上可视化这些问题，你需要安装一个插件。我在用这个：[https://plugins.jetbrains.com/plugin/10761-detekt](https://plugins.jetbrains.com/plugin/10761-detekt)
 
-The rule that we’re going to implement will enforce the use of a specific prefix for the Repository implementations. It’s just to show that we can create a custom standard in our project. In this case if we have a **ProductRepository** interface, we want that the implementation use the prefix **Default** instead of the suffix **Impl.**
+我们将要实现的规则将强制为仓库实现使用特定的前缀。这只是为了说明我们可以在项目中创建自定义标准。在这种情况下，如果我们有一个 `ProductRepository` 接口，我们希望实现使用前缀 `Default` 而不是后缀 `Impl`。
 
-The steps to write a rule using detekt are:
+使用 detekt 编写规则的步骤如下：
 
-1. Create a new module where your custom rules will live in. We’ll call this module **detekt-rules**
-2. Modify the **build.gradle** file on that module:
+1. 创建自定义规则所在的新模块。我们将此模块称为 `detekt-rules`。
+2. 修改该模块上的 **build.gradle** 文件：
 
 ```Gradle
 plugins {
@@ -381,11 +381,11 @@ dependencies {
 
 ```
 
-3. Write a rule to enforce the use of a prefix (**Default**) in all the repository implementations.
+3. 编写规则以强制在所有仓库实现中使用前缀（`Default`）。
 
-First we need to extend the **Rule** class that detekt provide for us. Also we need to override the issue class member and specify name, type of issue, description and how much time it requires to solve the problem.
+首先，我们需要扩展 detekt 为我们提供的 `Rule` 类。我们还需要重写 `issue` 类成员，并指定名称、问题类型、描述以及解决问题所需的时间。
 
-Then we override the **visitClassOrObject** function. Here we check for each implementation of each class. If some of these ends in the keyword **Repository**, then we’re going to verify if the class name doesn’t start with our prefix. Inside that condition we will report the problem as a **CodeSmell.**
+然后重写 `visitClassOrObject` 函数。这里我们检查每个类的每个实现。如果其中一些以关键字 **Repository** 结尾，那么我们将验证类名是否以前缀开头。在这种情况下，我们将把问题称为**代码的坏味道**。
 
 ```Kotlin
 class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config) {
@@ -422,9 +422,9 @@ class PrefixDefaultOnRepositoryRule(config: Config = Config.empty) : Rule(config
 
 ```
 
-The next steps are pretty similar to the ones on ktlint.
+接下来的步骤与 ktlint 中的步骤非常相似。
 
-4. Create a class called **CustomRuleSetProvider** that extends **RuleSetProvider.** Then you need to override the **ruleSetId()** and the **instance(config: Config)** functions and list all your rules there.
+4. 创建一个名为 `CustomRuleSetProvider` 扩展了 `RuleSetProvider` 的类。然后需要重写 `ruleSetId()` 和 `instance(config: config)` 函数，并在其中列出所有规则。
 
 ```Kotlin
 class CustomRuleSetProvider : RuleSetProvider {
@@ -436,11 +436,11 @@ class CustomRuleSetProvider : RuleSetProvider {
 }
 ```
 
-5. Create a file in the folder **resources/META-INF/services**. This file must contain the path to the class created on the step 4.
+5. 在 **resources/META-INF/services** 文件夹中创建一个文件。此文件必须包含在步骤 4 中创建的类的路径。
 
 ![](https://cdn-images-1.medium.com/max/6592/1*Des3IkNn0cqX_uSBHNSTgg.png)
 
-6. Now in our project we’re going to add this module, so the rules can be applied. To use detekt in your project you also need to a yaml style configuration file. You can get the default configuration from the same detekt repository [here](https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml).
+6. 现在在我们的项目中，我们将添加这个模块，以便可以应用规则。要在项目中使用 detekt，还需要一个 yaml 样式的配置文件。您可以从同一个 detekt 仓库获取默认配置，[点击此处](https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml)。
 
 ```
 detekt {
@@ -456,15 +456,15 @@ dependencies {
 }
 ```
 
-7. I also highly recommend to install this plugin so you can be notified in the same Android Studio about any errors found.
+7. 我同样强烈建议您安装这个插件，这样您就可以在同一个 Android Studio 工程中得到任何有关错误的通知。
 
 ![](https://cdn-images-1.medium.com/max/4436/1*bzBNZqnlPF4WR7k-zH6eiA.png)
 
-To see your custom rules in Android Studio you need to generate a jar from your module and add that path in the external rulset JARs like this:
+要在 Android Studio 中查看您的自定义规则，您需要从模块中生成一个 jar，并将该路径添加到外部 rulset JARs 中，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/4436/1*ixNVSRgIr996lB8YtIob1w.png)
 
-And that’s it! Now you can see your custom rule applied 🎉
+就这样！现在您可以看到您的自定义规则已经应用啦 🎉
 
 ![](https://cdn-images-1.medium.com/max/4288/1*jSPXuDQnZRVwFBNqRqG_eA.png)
 
