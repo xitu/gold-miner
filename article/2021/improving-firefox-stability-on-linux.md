@@ -70,7 +70,7 @@ Firefox 的 Nightly 版本也包含一个工具用于检测安全敏感问题的
 这项工作的另一个令人愉快的副作用是 Thunderbird 现在也从我们为 Firefox 做的提升中受益。
 
 这会持续展示在 FOSS 项目之间的协作不止有利于他们的用户，而且最终会提升整个生态系统以及更广泛的依赖于此的团体。
-特别感谢 Calixte Denizet, Nicholas Nethercote, Jan Auer 以及其他对此有贡献的人
+特别感谢 Calixte Denizet, Nicholas Nethercote, Jan Auer 以及其他对此有贡献的人！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
