@@ -29,7 +29,7 @@
 
 在常规的 Firefox 版本中，我们从构建文件中提取这些信息且以 Breakpad 标准格式存储到符号文件中。带有这些信息， Socorro 可以创建一个人类可读的堆栈跟踪。下面是这一整个流程图：
 
-![A graphicsl representation of our crash reporting flow, from the capture on the client to processing on the server](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2021/04/image7.png)
+![图形化表示崩溃报告的流程：从客户机上的捕获到服务器上的处理](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2021/04/image7.png)
 
 一个正确的堆栈跟踪的例子：
 
