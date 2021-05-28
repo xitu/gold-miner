@@ -13,7 +13,7 @@
 
 ![A screenshot of a tab that justc crashed](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2021/04/image2.png)
 
-除了其他信息外，这份报告还包含一个小型转储：进程内存在崩溃时生成的一个小型快照。这包含进程寄存器的内容，以及来自每个线程堆栈中的数据。
+除了其他信息外，这份报告还包含一个小型转储文件：进程内存在崩溃时生成的一个小型快照。这包含进程寄存器的内容，以及来自每个线程堆栈中的数据。
 
 通常是这样：
 
