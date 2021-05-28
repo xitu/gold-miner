@@ -63,7 +63,7 @@
 
 举个例子，在某个时刻，Debian 更新了字体配置包，通过反向移植一个关于内存泄漏的上游修复。然而，这个修复包含一个 bug， [会导致 Firefox 崩溃](https://bugzilla.mozilla.org/show_bug.cgi?id=1633467)，可能也会使其他软件崩溃。在 Debian 源码应用了这个修改后，仅仅 6 天我们就发现了这个新的崩溃问题，并且仅仅几周内这个问题便在上游和 Debian 里修复了。我们也发送了报告和修复方案给其他项目：[Mesa](https://gitlab.freedesktop.org/mesa/mesa/-/issues/3066), GTK, [glib](https://gitlab.gnome.org/GNOME/glib/-/issues/954), [PCSC](https://github.com/LudovicRousseau/PCSC/issues/51), SQLite 等等。
 
-Firefox 的 Nightly 版本也包含一个工具用于检测安全敏感问题的：[概率性堆检查器](https://groups.google.com/g/mozilla.dev.platform/c/AyECjDNsqUE/m/Jd7Jr4cXAgAJ)。这个工具随机填补一些内存分配，为了检测缓冲区溢出和释放后使用的途径，当检测到任何其中一个时，它会给我们发送一个非常详细的崩溃报告。考虑到 Firefox 有庞大的用户群体使用 Linux，这使我们能在上游项目中发现和报告一些复杂的问题。
+Firefox 的 Nightly 版本也包含一个工具用于检测安全敏感问题的：[概率性堆检查器](https://groups.google.com/g/mozilla.dev.platform/c/AyECjDNsqUE/m/Jd7Jr4cXAgAJ)。这个工具随机填补一些内存分配，用来检测缓冲区溢出和释放后使用的途径，当检测到其中一个时，它会给我们发送一个非常详细的崩溃报告。考虑到 Firefox 有庞大的用户群体使用 Linux，这使我们能在上游项目中发现和报告一些复杂的问题。
 
 我们为了崩溃分析而使用这个工具，也暴露了一些关于这个工具的限制，所以我们决定使用 Rust 重写，大量的依赖了由 Sentry 开发的优秀的 crates。相比原来的工具，重写的新工具的速度要快得多，使用少量的内存并且产生的结果更为精确。这是互利的：我们为他们的 crates （以及依赖）贡献了改善建议，而他们延伸了自己的 API 来处理我们的新的使用案例以及修复我们发现的问题。
 
