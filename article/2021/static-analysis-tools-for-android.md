@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md](https://github.com/xitu/gold-miner/blob/master/article/2021/static-analysis-tools-for-android.md)
 > * 译者：[Kimhooo](https://github.com/Kimhooo)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[PingHGao](https://github.com/PingHGao)
 
 # Android 静态分析工具
 
