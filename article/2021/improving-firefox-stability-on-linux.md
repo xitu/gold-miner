@@ -7,7 +7,7 @@
 
 # 提高 Firefox 在 Linux 上的稳定性
 
-大约一年前在 Mozilla, 我们开始努力提升 Firefox 在 Linux 的稳定性。这个努力很快转变成 FOSS(Free and open source software, 自由及开放源代码软件) 项目之间的一个良好协同的案例。
+大约一年前在 Mozilla, 我们开始努力提升 Firefox 在 Linux 上的稳定性。这个努力很快转变成 FOSS(Free and open source software, 自由及开放源代码软件) 项目之间的一个良好协同的案例。
 
 每次 Firefox 崩溃的时候, 用户都可以发送一份错误报告给我们, 我们通过这份报告分析问题并且希望能够修复它。
 
