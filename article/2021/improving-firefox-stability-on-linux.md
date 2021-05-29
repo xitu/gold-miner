@@ -59,7 +59,7 @@
 
 另一个还不错的例子来自 Fedora：在 Firefox 构建中，他们一直使用他们自己的崩溃报告系统 (ABRT) 来捕获崩溃，但是考虑到我们这边的改善[他们开始发送 Firefox 崩溃给我们](https://src.fedoraproject.org/rpms/firefox/c/de27f20acc7bdf391ccb1b571a9cb2061fc2dc3c?branch=master)。
 
-我们也可以在我们的依赖中识别退化和问题。这使我们能够与上游沟通问题，并且有时候甚至能贡献修复方案，使我们两方的用户都能受利。
+我们也可以在我们的依赖中识别退化和问题。这使我们能够与上游沟通问题，并且有时候甚至能贡献修复方案，使我们两方的用户都能受益。
 
 举个例子，在某个时刻，Debian 更新了字体配置包，通过反向移植一个关于内存泄漏的上游修复。然而，这个修复包含一个 bug， [会导致 Firefox 崩溃](https://bugzilla.mozilla.org/show_bug.cgi?id=1633467)，可能也会使其他软件崩溃。在 Debian 源码应用了这个修改后，仅仅 6 天我们就发现了这个新的崩溃问题，并且仅仅几周内这个问题便在上游和 Debian 里修复了。我们也发送了报告和修复方案给其他项目：[Mesa](https://gitlab.freedesktop.org/mesa/mesa/-/issues/3066), GTK, [glib](https://gitlab.gnome.org/GNOME/glib/-/issues/954), [PCSC](https://github.com/LudovicRousseau/PCSC/issues/51), SQLite 等等。
 
