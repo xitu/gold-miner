@@ -45,7 +45,7 @@
 
 为了处理这个问题，我们开始收集 Firefox 构建的调试信息，以及从多个发行版的程序包仓库收集其依赖的调试信息：Arch, Debian, Fedora, OpenSUSE and Ubuntu。由于每个发行版都有点不同，我们必须写一些特别针对发行版的脚本，这些脚本将通过其仓库中的程序包列表找到相关的调试信息。([这里](https://github.com/gabrielesvelto/symbol-scrapers/)提供脚本)。然后，这些数据将注入一个从调试信息中提取符号文件并上传到我们的符号服务器的工具。
 
-用那些有效的调试信息，我们就能分析研究 99% 以上的来自 Linux 用户的崩溃报告，否则这一比例将小于 20%。下面是一个从发行版本的 Firefox 提取的高质量跟踪的例子。我们还没有创建过任何相关的库，但函数名称，被影响的代码的文件和行号都是存在的。
+用那些有效的调试信息，我们就能分析研究 99% 以上的来自 Linux 用户的崩溃报告，否则这一比例将小于 20%。下面是一个从发行版本的 Firefox 提取的高质量跟踪的例子。我们还没有创建过任何相关的库，但函数名称、被影响的代码的文件和行号都是存在的。
 
 ![A fully symbolicated stack trace including external code](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2021/04/image5.png)
 
