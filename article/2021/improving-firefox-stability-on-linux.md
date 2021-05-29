@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/improving-firefox-stability-on-linux.md](https://github.com/xitu/gold-miner/blob/master/article/2021/improving-firefox-stability-on-linux.md)
 > * 译者：[没事儿](https://github.com/tong-h)
-> * 校对者：
+> * 校对者： [Kimhooo](https://github.com/Kimhooo)  [PingHGao](https://github.com/PingHGao)
 
 # 提高 Firefox 在 Linux 上的稳定性
 
