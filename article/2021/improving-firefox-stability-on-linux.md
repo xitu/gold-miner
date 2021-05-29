@@ -49,7 +49,7 @@
 
 ![A fully symbolicated stack trace including external code](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2021/04/image5.png)
 
-这里有一个重点不能被低估：Linux 用户大多对技术更有洞察力并且更有可能帮助我们解决问题，所以所有的这些报告都是可以提升稳定性的宝藏，甚至是对其他操作系统而言(包括 Windows, Mac, Android 等等)。实际上，我们经常在 Linux 中首先发现 [Fission bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=1633459)。
+这里有一个重点不能被低估：Linux 用户大多对技术更有洞察力并且更有可能帮助我们解决问题，所以所有的这些报告都是可以提升稳定性的宝藏，甚至对其他操作系统(包括 Windows, Mac, Android 等等)都如此。实际上，我们经常在 Linux 中首先发现 [Fission bugs](https://bugzilla.mozilla.org/show_bug.cgi?id=1633459)。
 
 检测 Linux 崩溃，这个新能力的的第一影响是极大的加速了我们对 Linux 特定问题的反应时间，并且使我们能够在正式版中用户遇到问题之前，就能在 Firefox 的 Nightly 和 Beta 版本中识别到。
 
