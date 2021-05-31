@@ -2,7 +2,7 @@
 > * 原文作者：[Hideaki Oshima](https://blog.google/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-features-spring-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-features-spring-2021.md)
-> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # 你的 Android 设备现在更安全了 —— 还有 5 项别的新功能！

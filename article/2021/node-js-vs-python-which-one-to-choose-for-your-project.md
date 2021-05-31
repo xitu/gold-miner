@@ -2,104 +2,104 @@
 > * 原文作者：[Saul Gallegos](https://medium.com/@saulgallegos)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md](https://github.com/xitu/gold-miner/blob/master/article/2021/node-js-vs-python-which-one-to-choose-for-your-project.md)
-> * 译者：
-> * 校对者：
+> * 译者：[kamly](https://github.com/kamly)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo), [PassionPenguin](https://github.com/PassionPenguin), [Miigon](https://github.com/Miigon)
 
-# Node.js vs. Python: Which One to Choose for Your Project?
+# Node.js 与 Python：为你的项目选择哪一个？ 
 
-![Photo by [Alex Kotliarskyi](https://unsplash.com/@frantic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*COxufZ6uSEyF1y1-)
+![图源 [Alex Kotliarskyi](https://unsplash.com/@frantic?utm_source=medium&utm_medium=referral)，出自 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*COxufZ6uSEyF1y1-)
 
-Node.js and Python are two of the most compared backend technologies on the web. Since both are very popular for web-app development, a thorough comparison is necessary before you choose one over the other. In this article, explore which of the two best suits your development needs and when.
+Node.js 和 Python 是网络上最常被拿来做比较的两门后端技术。由于两者在 Web 应用程序开发中都非常流行，在作出二选一之前，有必要对两者进行透彻的对比。在本文中，我们将探讨这两门技术中哪一个更能适合您的开发需求，以及在哪些情景下适用。
 
-## What is Node.js?
+## 什么是 Node.js?
 
-Since Node.js is event-driven, it’s scalable and brings phenomenal efficiencies to the project. Its asynchronous nature equips it to handle concurrent requests without blocking the I/O operations. Most development teams prefer Node.js to use JavaScript on both clients and server-side.
+Node.js 属于事件驱动型，它的可拓展性为项目带来出色的开发效率。它的异步式设计使其可处理并发请求而不阻塞 I/O 操作。多数开发团队为了使用 JavaScript 同时开发客户端和服务端，会偏向选择 Node.js。
 
-## What is Python?
+## 什么是 Python?
 
-On the flip side, Python is a full-fledged, high-level, and object-oriented programming language. Since it’s been around for close to 30 years, it has a ton of libraries, APIs, and ancillary tools available. Python is conducive to several programming paradigms, and it’s extensively used for business applications.
-
----
-
-Its community, libraries, and supporting platforms are far reaching. Hence, it is an ideal programming language for most businesses that are required to develop applications for different and often uncorrelated use cases.
-
-## The popularity of Node.js and Python
-
-The popularity of a backend technology plays a critical role in whether it’ll be used for your project.
-
-First off from the company’s perspective, the development team has to decide which language has a significant degree of talent available in the market. And then from the POV of programmers, a decision has to be reached whether they are willing to pick up languages that are predominantly used by many companies.
-
-Looking at the popularity of websites, [SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python) reported that Node.js was credited to be the most used tool in the first 10,000, 100,000, 1,000,000, and the ‘entire’ categories of websites ranked on their popularity.
-
-As per [Stack Overflow](https://insights.stackoverflow.com/survey/2019) 2019 survey, Python was the most ‘loved’ programming language while Node.js was the most preferred tool among professional programmers.
+另一方面，Python 是一门成熟的高级面向对象语言。它接近 30 年的历史也意味着它有大量的库、API 和辅助工具可用。Python 对多种编程范式友好，被广泛应用于商业应用程序。
 
 ---
 
-Reviewing industry-wise adoptions, Node.js has been leading in Computers Electronics & Technology, Lifestyle, Arts & Entertainment, and 16 other categories according to the survey. Whereas, Python is a popular choice in industries like Science & Education, Engineering, and several others.
+它的社区、库和支持平台十分广泛。因此，对于大多数需要为不同且通常不相关的场景开发应用程序的企业来说，它是一种理想的编程语言。
 
-## Performance in Node.js vs Python
+## Node.js 和 Python 的流行度
 
-When you are scaling an application, every single bit of efficiency helps reduce the operating costs. Hence, performance and speed are considered important while assessing a programming language or environment.
+一种后端技术的受欢迎程度对它是否会被用于你的项目起着关键作用。
+
+首先从公司的角度来看，开发团队必须确定哪种语言在市场上有相当程度的人才储备。从程序员的角度来看，他们必须思考是否愿意学习那些许多公司大量使用的语言。
+
+按网站热度来看，[SimilarWeb](https://www.similartech.com/compare/nodejs-vs-python) 报告称，Node.js 享有「热度前 10,000、前 100,000 、前 1,000,000 的网站以及『所有网站』类目中使用最多的工具」之名。
+
+根据 [Stack Overflow](https://insights.stackoverflow.com/survey/2019) 2019 年的调查，Python 语言是最受「喜爱」的编程语言，而 Node.js 则是专业程序员最偏向使用的工具。
+
+---
+
+根据行业采用情况来看，Node.js 在计算机电子与技术、生活、艺术与娱乐以及其他 16 个类别中均处于领先地位。而 Python 则是科学与教育、工程和其他一些行业的热门选择。
+
+## Node.js 和 Python 性能比较
+
+当你的应用程序规模扩大时，每一点执行效率提升都有助于减少运营成本。因此，在评估一种编程语言或环境时，性能和速度是很重要的。
 
 #### Node.js
 
-We have already explored Node.js non-blocking architecture. With this edge, its execution process is simpler and faster. On top of this, there is still one more perk which makes Node.js a solid contender, it executes the code outside of the web browser.
+我们已经探讨了 Node.js 的非阻塞架构。有了这个优势，它的执行过程更加简单和快速。在此基础上，还有一个优势使得 Node.js 成为一个坚实之选，那就是它可以在网络浏览器之外执行代码。
 
-This way, the app which is running on the web-browser is processing at a faster speed and performs better on the efficiency metrics as a result. This also allows the app to pull features such as TCP sockets, which are otherwise not available in the browsers.
+这样，在浏览器上运行的应用程序处理速度更快，并因此在效率指标上表现得更好。该特性还允许应用程序使用原本在浏览器中无法使用的功能，如 TCP 套接字。
 
 #### Python
 
-Python’s innate architecture prohibits multithreading and is a problem in this aspect as well. It slows down the processing speed as processes don’t run parallelly. While Python’s syntax is easy to learn and execute, it is not fast enough for applications that frequently recall data from the web server.
+Python 的架构天生不支持多线程，因此在这方面也是一个问题。因为任务处理不是并行运行的，处理速度受到了降低。虽然 Python 的语法易于学习和运行，但对于需要频繁从 Web 服务器调用数据的应用程序来说，它的速度还是不够快。
 
 ---
 
-Python’s syntax is easy to learn, but it’s not optimized for speed and performance. Node.js is the clear winner here too.
+Python 的语法很易于学习，但它没有针对速度和性能进行优化。在这方面，Node.js 也是明显的赢家。
 
-## Community in Node.js vs Python
+## Node.js 和 Python 的社区
 
-A community is a group of users and developers engaging with the technology. Since they are active, they would keep updating the popular libraries, run debugging exercises, and even add new features. Generally, the most effective communities are the ones that are managed by a singular, dedicated organization for the language/programming environment.
+社区是投身技术的用户和开发者群体。由于他们的活跃性，他们会不断更新流行的库，进行调试练习，甚至增加新的功能。一般来说，最有效的社区是由是由单一、专门的组织来管理对应的语言或编程环境的社区。
 
-#### Node’s Community
+#### Node 的社区
 
-You may look at Node.js as a relatively newer form of technology and might presume its community to be small. However, you’d be surprised to learn that Node.js community is quite large and globally active with experienced [Node.js Developers](https://www.simform.com/hire/node-js-developers/). It’s super easy to discover talent in the Node.js circles.
+你可能会认为由于 Node.js 是一种相对较新的技术形式，从而误以为其社区规模很小。然而实际上，Node.js 社区规模之大可能会令你震惊，在全球范围内活跃着众多经验丰富的 [Node.js 开发者](https://www.simform.com/hire/node-js-developers/)。在 Node.js 圈子里要发现人才超级容易。
 
-#### Python’s Community
+#### Python 的社区
 
-Python, being the older language of the two, naturally has a larger community. From junior to senior-level contributors, Python doesn’t have a dearth of talent. One of the biggest advantages of such a sizable community is the ease to find developers. And active participation from these developers results in swift solutions and overall improvement of the language.
+Python 作为这两种语言中的老大哥，自然拥有更大的社区。从初级到高级的贡献者，Python 并不缺乏人才。如此壮大的社区的最大优势之一就是容易找到开发者。正是因为这些开发人员的积极参与，为 Python 带来了快速的解决方案和语言总体的改进。
 
 ![nodejs.org](https://cdn-images-1.medium.com/max/2000/0*hJFJeIr9c3-naAvA.jpg)
 
-## When is it better to use Node.js over Python
+## 什么时候应该使用 Node.js
 
-Node.js is the runtime environment that is ideal for applications that require a consistent connection between the server and the browser-side app.
+Node.js 是一款适合运行需要在服务端和浏览器端之间保持可靠连接的应用程序的运行时环境。
 
-An easy way to think about the need for Node.js in an application is by ranking the real-time feature for the app. If real-time data transmission is critical to the app’s usability, Node.js is exactly what you need.
+考虑应用程序中是否需要 Node.js 的一种简单方法是对应用程序的实时特性进行评估。如果实时数据传输对应用程序的可用性至关重要，那么 Node.js 正是您所需要的。
 
-It’s also noteworthy that Node.js can be used between both the server and client side. This will reduce the deployment time and make it feasible for teams to maintain the code while they coordinate.
+同样值得注意的是，Node.js 在服务端和客户端都可使用。这将减少部署时间，并使团队在协作中维护代码变得可行。
 
-Owing to its efficient processing, Node.js is the go-to platform used by companies that have frequent interactions between the cloud server and the client-side application. Netflix, LinkedIn, **Medium**, Trello, and Paypal are some well-known tech companies which use Node.js for their platform.
+由于其高效的处理能力，Node.js 是云服务器和客户端应用之间频繁交互的公司使用的首选平台。Netflix、LinkedIn、**Medium**、Trello 和 Paypal 是其中几个使用 Node.js 作为平台的知名技术公司。
 
 ![docs.python.org](https://cdn-images-1.medium.com/max/2000/0*Zc2tp-LTZZqoptD9.jpg)
 
-## When is it better to use Python over Node.js
+## 什么时候该使用 Python
 
-Python has an extensive availability of talent partly because it runs on an uncomplicated syntax. So there’s no surprise that Google and Facebook, two of the largest technology-talent consumers, extensively use Python to build technologies.
+Python 拥有充足的人才供应，部分原因是由于其不复杂的语法。因此，谷歌和 Facebook 这两个最大的技术人才消费者大量使用 Python 来构建技术也就不足为奇了。
 
-Moreover, some of the most popular data-science training courses use Python as the default language taught to students. As a result, the availability of Python talent is increasing.
+此外，一些最受欢迎的数据科学培训课程使用 Python 作为教给学生的默认语言。因此，Python 人才的供给仍在不断上升。
 
-Further, Python’s popularity makes it a strategically important language to learn and use. Its rich libraries allow you to build and deploy an MVP very efficiently. This also ensures that developer resources are optimally utilized.
+进一步讲，Python 的流行使学习和使用它具有了重要的战略意义。它丰富的库允许你非常高效地建立和部署一个 MVP 设计模式。这也确保了开发人员的资源得到最佳利用。
 
 ---
 
-There’s more! The Python interpreter- responsible to execute the code- is super effective. It doesn’t need compilation, and this makes Python the ideal language for rapid deployment and iterations.
+还有呢! 负责执行代码的 Python 解释器是超级有效的。它不需要编译，这使得 Python 成为快速部署和迭代的理想语言。
 
-## Conclusion
+## 总结
 
-Choosing between Node.js and Python can be tricky especially when you want to develop a full-flagged product and not just a side-project. The features and benefits on both sides can be overwhelming and can cloud your judgement.
+在 Node.js 和 Python 之间进行选择有时很棘手，特别是当你想开发一个完整的产品，而不仅仅是一个附带项目时。双方的功能和优势都可能是压倒性的，可能会模糊你的判断。
 
-This is why, the ideal way to deal with this dilemma is by focusing on the end use of your product. List out all the features of your product, and how you plan to engineer them. And the language or runtime environment that proves more handy should be your pick.
+摆这种困境的最佳方法，是关注产品的最终用途。列出你产品的所有特性，以及你计划如何设计它们。最终对你的设计更有帮助的语言或运行时环境就是你的不二之选。
 
-And if you find yourself still perplexed or wonder if you made the right call, feel free to send your queries my way at tejas@simformlabs.com. It’d be my pleasure to understand your project and offer suggestions.
+如果你发现自己仍然感到困惑，或者不知道自己是否做出了正确的决定，请随时在文章下方评论区将你的问题贴上来，我们还有广大掘金社区开发者们都很乐于帮助你的呀～
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
