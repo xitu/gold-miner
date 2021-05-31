@@ -39,7 +39,7 @@ HTTP/3 优化了 “握手”，允许浏览器的 HTTP 请求被加密。QUIC �
 
 ### 标准化
 
-在撰写本文时，HTTP/3 和 QUIC 还没有标准化。目前有一个 IETF [工作组]((https://quicwg.org/))正在起草标准化 QUIC 的草案。用于 HTTP/3 的QUIC 版本做了轻微的修改，使用 TLS 而不是谷歌的加密，但它有同样的优点。
+在撰写本文时，HTTP/3 和 QUIC 还没有标准化。目前有一个 IETF [工作组]((https://quicwg.org/))正在起草标准化 QUIC 的草案。用于 HTTP/3 的 QUIC 版本做了轻微的修改，使用 TLS 而不是谷歌的加密，但它有同样的优点。
 
 ### 浏览器支持
 
