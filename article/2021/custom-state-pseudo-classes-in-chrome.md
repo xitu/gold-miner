@@ -52,7 +52,7 @@ web 平台上的“自定义”功能越来越多。有自定义属性（`--my-p
 
 ## 自定义状态
 
-与内置元素一样，自定义元素也有不同的状态。使用自定义元素的网页可能想给这些状态设置不同的样式。自定义元素可以通过 host 元素的 CSS 类（属性）暴露状态，但这[被认为是一种反模式](https://github.com/WICG/webcomponents/issues/738#issuecomment-367499244)。
+与内置元素一样，自定义元素也有不同的状态。使用自定义元素的网页可能想给这些状态设置不同的样式。自定义元素可以通过根元素的 CSS 类（属性）暴露状态，但这[被认为是一种反模式](https://github.com/WICG/webcomponents/issues/738#issuecomment-367499244)。
 
 Chrome 现在支持将内部状态添加到自定义元素的 API。这些状态通过自定义状态伪类暴露出来。例如：使用 `<live-score>` 元素的页面可以声明自定义 `--loading` 状态的样式。
 
@@ -114,7 +114,7 @@ labeled-checkbox:--checked {
 
 ## 此功能尚未成为标准
 
-[过去三年来](https://github.com/WICG/webcomponents/issues/738)，浏览器厂商一直在讨论如何通过自定义伪类来暴露自定义元素的内部状态。Google 对[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范的实现仍依托于 WICG 主持的“非官方草案”。该功能由 W3C 技术架构组（TAG）[进行设计审查](https://github.com/w3ctag/design-reviews/issues/428)并[移交给 CSS 工作组](https://github.com/w3c/csswg-drafts/issues/4805). 在 Chrome 的“出货意向”讨论中，[Mounir Lamouri 写道](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ)：
+[过去三年来](https://github.com/WICG/webcomponents/issues/738)，浏览器厂商一直在讨论如何通过自定义伪类来暴露自定义元素的内部状态。Google 对[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范的实现仍依托于 WICG 主持的“非官方草案”。该功能由 W3C 技术架构组（TAG）[进行设计审查](https://github.com/w3ctag/design-reviews/issues/428)并[移交给 CSS 工作组](https://github.com/w3c/csswg-drafts/issues/4805)。在 Chrome 的“出货意向”讨论中，[Mounir Lamouri 写道](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ)：
 
 > 此功能看起来有着良好的支持，然而网络开发人员难以获得使用此功能的益处。这个功能还没有被广泛实现，但 Firefox 和 Safari 很有希望跟进并实现。必须有浏览器厂商先实现它。鉴于这个功能不存在可预见的向后不兼容的变化，实现这个功能很安全。
 
