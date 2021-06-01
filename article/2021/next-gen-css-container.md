@@ -82,15 +82,21 @@ decrease the .card element's grid gap to 1rem */
 }
 ```
 
+![1](https://user-images.githubusercontent.com/5164225/120361018-f670b380-c33b-11eb-8c42-38fdbb1b5a8a.gif)
+
 ## Container Queries + Media Queries
 
 One of the best features of container queries is the ability to separate *micro layouts* from *macro layouts*. You can style individual elements with container queries, creating nuanced micro layouts, and style entire page layouts with media queries, the macro layout. This creates a new level of control that enables even more responsive interfaces.
 
 Here’s [another example](https://codepen.io/una/pen/RwodQZw) that shows the power of using media queries for macro layout (i.e. the calendar going from single-panel to multi-panel), and micro layout (i.e. the date layout/size and event margins/size shifting), to create a beautiful orchestra of queries.
 
+![2](https://user-images.githubusercontent.com/5164225/120361024-f8d30d80-c33b-11eb-8bed-4b367965f7be.gif)
+
 ## Container Queries + CSS Grid
 
 One of my personal favorite ways to see the impact of container queries is to see how they work within a grid. Take the following example of a plant commerce UI:
+
+![3](https://user-images.githubusercontent.com/5164225/120361028-fa9cd100-c33b-11eb-8328-148977357c44.gif)
 
 No media queries are used on this website at all. Instead, we are only using container queries along with CSS grid to display the shopping card component in different views.
 
