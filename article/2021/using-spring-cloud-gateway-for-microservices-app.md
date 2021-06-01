@@ -7,16 +7,16 @@
 
 # Using Spring cloud gateway for microservices app
 
-An API Gateway acts as a **reverse proxy** sitting between client and micro services, **routing requests from client side to various micro-services** . User/client makes a request to a **single host (gateway server)** and need not know all the microservices servers , just **single entry point to your application** .
+An API Gateway acts as a **reverse proxy** sitting between client and micro services, **routing requests from client side to various micro-services**. User/client makes a request to a **single host (gateway server)** and need not know all the microservices servers, just **single entry point to your application**.
 
 ![API Gateway Basic](https://miro.medium.com/max/1106/1*eC8sTN553I4wPpGDo_L4gg.png)
 
 Web & Mobile Client calling gateway instead of individual service host machines.
 
-## Why API Gateway ?
+## Why API Gateway?
 
-* [**Layer 7 routing and load balancing**](https://www.nginx.com/resources/glossary/layer-7-load-balancing/) =\> enables the [load balancer](https://www.nginx.com/resources/glossary/load-balancing/) to make **smarter load‑balancing decisions**, and to apply optimizations and changes to the content (such as compression and encryption). That means **based on the content of the request , the routing can be done to specific serves which stores that particular content** . Check the example [here](https://www.nginx.com/resources/glossary/layer-7-load-balancing/).
-* **Modify Requests & Reponse** =\> incoming requests can be modified based a logic using filters , similarly outgoing reponse can be modified at gateway layer before going out .
+* [**Layer 7 routing and load balancing**](https://www.nginx.com/resources/glossary/layer-7-load-balancing/) =\> enables the [load balancer](https://www.nginx.com/resources/glossary/load-balancing/) to make **smarter load‑balancing decisions**, and to apply optimizations and changes to the content (such as compression and encryption). That means **based on the content of the request , the routing can be done to specific serves which stores that particular content**. Check the example [here](https://www.nginx.com/resources/glossary/layer-7-load-balancing/).
+* **Modify Requests & Reponse** =\> incoming requests can be modified based a logic using filters, similarly outgoing reponse can be modified at gateway layer before going out.
 * **Handling cross-cutting concerns** =\> Authentication& authorization (Centralized Security), SSL termination, logging can be handled at the gateway server which reduces significant development on the end microservices side.
 
 ## Spring Cloud Gateway & Reactive Programming
@@ -58,7 +58,7 @@ A very good explaination is given on Defog Tech YT video [here](https://youtu.be
 </dependency>
 ```
 
-We can provide the routing configuration with Spring Cloud Gateway either in properties file or in Java . We will be using yml file to configure :
+We can provide the routing configuration with Spring Cloud Gateway either in properties file or in Java. We will be using yml file to configure:
 
 2. create application.yml:
 
@@ -136,7 +136,7 @@ server:
         - AddResponseHeader=X-Request-color, blue
 ```
 
-Here, we have added a filter i.e AddResponseHeader (one of many [filter factories](https://cloud.spring.io/spring-cloud-gateway/reference/html/#gatewayfilter-factories) available) , that will **add the header “X-Request-color” with value “blue” in the response** , and obviously the predicate condition is respected . So, for all the incoming requests having path “/orders” will be routed to “http://localhost:9091/” and their response will have an **additional header (X-Request-color -> blue)**.
+Here, we have added a filter i.e AddResponseHeader (one of many [filter factories](https://cloud.spring.io/spring-cloud-gateway/reference/html/#gatewayfilter-factories) available) , that will **add the header “X-Request-color” with value “blue” in the response**, and obviously the predicate condition is respected . So, for all the incoming requests having path “/orders” will be routed to “http://localhost:9091/” and their response will have an **additional header (X-Request-color -> blue)**.
 
 ## Let’s hit the gateway api on postman and test it:
 
