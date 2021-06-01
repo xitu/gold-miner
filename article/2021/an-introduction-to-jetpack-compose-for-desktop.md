@@ -7,10 +7,6 @@
 
 # An Introduction to JetPack Compose for Desktop
 
-## An Introduction to Jetpack Compose for Desktop
-
-#### Use the powerful Android framework in your Windows app
-
 ![Photo by the author.](https://cdn-images-1.medium.com/max/2738/1*3wOqMMXsvUfkDTWXUri_EQ.png)
 
 Until now, we’ve only seen [Jetpack Compose](https://developer.android.com/jetpack/compose) in Android development. Today, we’re entering a new phase, as JetBrains announced an early-access version of IntelliJ that allows you to use Jetpack Compose to build Windows applications.
@@ -19,11 +15,7 @@ This is the first of many articles I will write in the coming days explaining ho
 
 As always, JetBrains is trying to ease developers’ lives by providing exclusive project wizards. In the early-access version of IntelliJ, they added a desktop project wizard to configure the project within seconds.
 
-To start with the development first, you need to install IntelliJ IDEA 2020.3:
-
----
-[**What's New in IntelliJ IDEA - 2020.3**
-**The IntelliJ IDEA welcome screen has been redesigned. The Initial wizard has been replaced with a quick-access screen…**www.jetbrains.com](https://www.jetbrains.com/idea/whatsnew/#section=mac)
+To start with the development first, you need to install [IntelliJ IDEA 2020.3](https://www.jetbrains.com/idea/whatsnew/#section=mac).
 
 ## Quick Start With the Project Template
 
@@ -39,8 +31,6 @@ First, we need to select Kotlin from the left-side menu. Then update the project
 
 ![](https://cdn-images-1.medium.com/max/2944/1*XyyhciTuFLCVhk_hF10xCw.png)
 
----
-
 Then click the “Next” button, which will bring you to the confirmation window with the Compose module. Now click the “Finish” button, and IntelliJ will set up the project for you by automatically downloading the appropriate gradle.
 
 ## Run Your First Desktop Application
@@ -51,9 +41,7 @@ If everything goes as expected, the desktop project setup will be successful and
 
 At this point, you can run the application. For some reason, `Main.kt` is not selected by default in the top right corner beside the “Run” button, so it’ll ask you to configure the project. To resolve this, you need to hit the green “Run” button beside the main function inside the `Main.kt` file.
 
-After the successful run, you’ll see the following output with a button containing a “Hello, World!” text. If you click on it, the text inside the button changes to “Hello, Desktop!” ****Have a look:
-
----
+After the successful run, you’ll see the following output with a button containing a “Hello, World!” text. If you click on it, the text inside the button changes to “Hello, Desktop!” Have a look:
 
 ![](https://cdn-images-1.medium.com/max/2002/1*AMNYP559WHhfKFvpGrmN4g.gif)
 
@@ -63,28 +51,26 @@ As you can see, it’s a simple Hello World program — nothing complicated. Mos
 
 `Main.kt` is the Kotlin file that contains the code related to output. It has the main function, which is the entry point for the application to run. The code starts with the `Window` function to open a window with the given content. It takes several parameters to initially configure the window properties, such as `title`, `size`, `location`, `centered`, `content`, etc.
 
-```
+```kt
 fun main() = Window {
-
 }
 ```
 
 In this case, we’ll only pass the value to the content parameter and leave the rest of the parameters with default values. In the next step, we’ve declared a `text` variable with `remember` capability and the initial value of `Hello, World!`. Have a look:
 
+```kt
+fun main() = Window {
     var text by remember { mutableStateOf("Hello, World!") }
-
 }
 ```
 
 In a declarative UI system, the code itself describes the UI. We need to describe the UI at any point in time — not just the initial time. We use `remember` as a state for the text to be displayed in the views like buttons, text fields, and more. When we update this `text` variable in the future, the views associated with this variable will also update the display text.
 
 To understand it better, I would suggest going through the following article:
-[**Jetpack Compose Components (Part 2)**
-**A look at Icon, Image, Remember, Spacer, Radio Button, Loaders, Switch and Checkbox, and Sliders**medium.com](https://medium.com/better-programming/jetpack-compose-components-part-2-2b3eb135d294)
+
+[**Jetpack Compose Components (Part 2)](https://medium.com/better-programming/jetpack-compose-components-part-2-2b3eb135d294)
 
 The next part of the code is to define a button with the click functionality and apply the material theme to the window. Have a look:
-
----
 
 ```Kotlin
 fun main() = Window {
@@ -103,8 +89,6 @@ fun main() = Window {
 ## Conclusion
 
 Jetpack Compose is at a very early stage for both desktop and Android, but it still shows tremendous progress for building UI. A framework like Jetpack Compose with Kotlin’s powerful features will improve developers’ productivity and provide a way for them to work on different platforms.
-
----
 
 Developers like [Gurupreet Singh](https://twitter.com/_gurupreet) are very active with Compose releases and are creating valuable resources (such as [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)) to help fellow developers. He also created [the Spotify desktop clone](https://github.com/Gurupreet/ComposeSpotifyDesktop) from the Compose Android app, which inspired me a lot.
 
