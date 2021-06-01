@@ -7,15 +7,9 @@
 
 # New Standards to Access User Device Hardware using JavaScript
 
-## New Standards to Access Device Hardware using JavaScript
-
-#### WebHID, WebNFC, and WebUSB have opened up new avenues to interact with user’s device hardware for web apps.
-
 ![](https://cdn-images-1.medium.com/max/5760/1*qfJbVEgiwXf7b-nEviGJHg.jpeg)
 
 Have you ever come across the need to access a user’s device hardware and implement a desktop application only for that feature? You are not alone. Until recently, the way to achieve the above would have been far-fetched and cumbersome. However, with recent Chrome DevTools updates, talking to hardware using JavaScript has become a reality.
-
----
 
 So, in this article, I would be introducing three new JavaScript APIs, namely **WebHID**, **WebNFC**, and **WebUSB** became available for device hardware access. Let’s look at each of these technologies separately.
 
@@ -23,13 +17,13 @@ So, in this article, I would be introducing three new JavaScript APIs, namely **
 
 One major problem developers face when integrating an HID (Human Interface Device) into software is that the software should accommodate a large number of varieties; old devices, new devices, common models, uncommon models, etc.
 
-> # WebHID solves this issue by providing an API to implement device-specific logic in JavaScript.
+> WebHID solves this issue by providing an API to implement device-specific logic in JavaScript.
 
 Basically, if you wanted to play the Chrome Dino 🦖 offline game using a Nintendo Switch Joy-Con controller, WebHID makes it possible for you to do so. Pretty cool isn’t it?
 
 You can find out whether WebHID is supported using the following code snippet.
 
-```
+```js
 if ("hid" in navigator) { /* The WebHID API is supported. */ }
 ```
 
@@ -39,9 +33,9 @@ When an application has implemented WebHID to connect a device, it’ll show up 
 
 All you need to do is, select the correct device and click connect. It’s as simple as that.
 
-> # WebHID API is asynchronous. Therefore it doesn’t block the UI when awaiting a new device connection or an input.
+> WebHID API is asynchronous. Therefore it doesn’t block the UI when awaiting a new device connection or an input.
 
-#### Security considerations
+### Security considerations
 
 I’m sure this is something that came to your mind after finding what WebHID could do.
 
@@ -51,25 +45,13 @@ Besides, Chrome DevTools has made it easier to debug connections with devices by
 
 We won’t go into in-depth implementation details in this article. Let me know in the comment section if you need to know such information.
 
-#### Browser compatibility
+### Browser compatibility
 
 WebHID is currently supported by Chrome and Edge in desktops.
 
 ![Reference [https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API)](https://cdn-images-1.medium.com/max/2004/1*F47jvMuDaIypYRjt_PFbaA.png)
 
----
-
 Let’s have a look at WebNFC next.
-
-#### Tip: Build & share independent components with Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly** modular applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
----
-
-![Material UI components shared individually on [Bit.dev](https://bit.dev/)](https://cdn-images-1.medium.com/max/4000/0*Zdd8UHQHimqwYPU7.png)
 
 ## 2. What is WebNFC?
 
@@ -77,7 +59,7 @@ I’m sure that you have come across the abbreviation NFC ( Near field communica
 
 With WebNFC, now you are able to read from or write to an NFC tag when it is within range of your device. This is done via NDEF (NFC Data Exchange Format) which is supported by NFC tag formats.
 
-#### Using WebNFC
+### Using WebNFC
 
 Let’s say you need to manage the inventory in your shop. You can build an inventory management site with WebNFC which can read/write data into NFC tags on your inventory stocks.
 
@@ -85,19 +67,19 @@ The possibilities are endless. This is an opportunity to automate many things an
 
 Similar to WebHID, you can check for WebNFC support using the code snippet below.
 
-```
+```js
 if ('NDEFReader' in window) { /* Scan and write NFC tags */ }
 ```
 
-#### Security considerations
+### Security considerations
 
-> # As a security precaution, Web NFC is only available to top-level frames and secure browsing contexts (HTTPS only).
+> As a security precaution, Web NFC is only available to top-level frames and secure browsing contexts (HTTPS only).
 
 If the web page that implements WebNFC disappears or isn’t visible, all connections to NFC tags will be suspended. These will be resumed when the page gets visible again. The page visibility API helps you to identify the connection status of NFC operations.
 
 If you are not familiar with the Page Visibility API, refer to this [article](https://blog.bitsrc.io/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know-b1c74948bd74) for more info.
 
-#### Browser compatibility
+### Browser compatibility
 
 WebNFC is only supported by Chrome Android so far.
 
@@ -113,23 +95,21 @@ However, you might wonder how we access the relevant drivers for each USB device
 
 Similar to the APIs discussed above, the support for WebUSB can be detected using the following code snippet.
 
-```
+```js
 if ("usb" in navigator) { /* The WebUSB API is supported. */ }
 ```
 
-#### Security
+### Security
 
 There are many controls in place to protect unauthorized USB access in terms of security, and it only works on secure contexts supporting HTTPS only to protect any data at transit. Besides, the standard browser consent process is there to request and grant access.
 
 Debugging WebUSB API-related tasks is also available via the internal `**chrome://device-log**` page, which lists all the USB devices connected and the related events.
 
-#### Browser compatibility
+### Browser compatibility
 
 WebUSB is supported by Chrome, Edge on desktops, and Chrome on Android devices.
 
 ![Reference [https://developer.mozilla.org/en-US/docs/Web/API/USB](https://developer.mozilla.org/en-US/docs/Web/API/USB)](https://cdn-images-1.medium.com/max/2006/1*l3vDUrDveghLc6IUMAD2Mg.png)
-
----
 
 For more details about the WebUSB API, you can refer [Access USB Devices on the Web](https://web.dev/usb/).
 
@@ -137,20 +117,9 @@ For more details about the WebUSB API, you can refer [Access USB Devices on the 
 
 Whether it’s your site that interacts with your hardware or your hardware that can interact with web applications, it’s a win-win situation because they don’t need to install special drivers or software to connect anymore.
 
----
-
 In my opinion, this is such a cool new feature which will make life a lot easier. 
-Let me know your thoughts about this too. Thanks for reading!
 
-## Learn More
-[**Independent Components: The Web’s New Building Blocks**
-**Why everything you know about microservices, micro frontends, monorepos, and even plain old component libraries, is…**blog.bitsrc.io](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65)
-[**Explore JavaScript DOM traversal**
-**There are many ways for JavaScript DOM traversal. Let’s find out how to traverse using parent, child, and sibling…**blog.bitsrc.io](https://blog.bitsrc.io/explore-javascript-dom-traversal-96352ec3bcf8)
-[**Web Caching Best Practices**
-**Web Caching: How to avoid common pitfalls.**blog.bitsrc.io](https://blog.bitsrc.io/web-caching-best-practices-ae9580ceb4b3)
-[**The Dark Side of Javascript: A Look at 3 Features You Never Want to Use**
-**JavaScript has some dark corners filled with spiders, and here are 3 of them**blog.bitsrc.io](https://blog.bitsrc.io/the-dark-side-of-javascript-a-look-at-3-features-you-never-want-to-use-83b6f0b3804b)
+Let me know your thoughts about this too. Thanks for reading!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
