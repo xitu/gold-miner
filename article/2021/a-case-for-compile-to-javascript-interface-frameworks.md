@@ -17,11 +17,11 @@ However, solutions to this problem allow you to have better performance while us
 
 These frameworks compile languages that are optimized for declarative user interface design into native JavaScript. Because they are compiled and do not need a huge runtime library, they are much smaller.
 
-There are two main types of compile to JavaScript user interface frameworks. Some use JavaScript for actual logic, like [Svelte](https://svelte.dev/) and [Solid](https://github.com/solidjs/solid)*, and others use an entirely different language that typically does more than just declarative markup, like [Elm](https://elm-lang.org/) and [Mint](https://www.mint-lang.com/). We will primarily focus on frameworks like Svelte in this article. Now let's look at why to use these frameworks.
+There are two main types of compile to JavaScript user interface frameworks. Some use JavaScript for actual logic, like [Svelte](https://svelte.dev/) and [Solid](https://github.com/solidjs/solid), and others use an entirely different language that typically does more than just declarative markup, like [Elm](https://elm-lang.org/) and [Mint](https://www.mint-lang.com/). We will primarily focus on frameworks like Svelte in this article. Now let's look at why to use these frameworks.
 
-*Solid can be considered a runtime framework, but because it uses compiling to optimize code a lot, I consider it a compile to JS framework for this article.
+> Solid can be considered a runtime framework, but because it uses compiling to optimize code a lot, I consider it a compile to JS framework for this article.
 
-#### Compiled JavaScript is fast
+## Compiled JavaScript is fast
 
 Many frameworks that are compiled, especially newer ones, are much faster and lighter than runtime frameworks.
 
@@ -57,7 +57,7 @@ For example, if you are developing for people on slow 2G or 3G networks, the dec
 
 Also, remember that while optimized compiled frameworks might be faster than non-optimized frameworks, vanilla JavaScript will almost always be faster. But vanilla JavaScript can be more verbose and tedious, which leads us to our second point.
 
-#### Compiled Frameworks are optimized for writing less code
+## Compiled Frameworks are optimized for writing less code
 
 JavaScript was not originally designed for making declarative markup like React, and because of that, many features in React force you to use functions and methods like `useState()` instead of using normal variables, which is not bad, but not as good as it could be.
 
@@ -95,13 +95,13 @@ As you can see above, the syntax style is very different. Svelte has more of a n
 
 However, ultimately, it is your choice for what syntax you want to use, but compilers just add more flexibility to the syntax. You might be thinking that the time that is taken to compile things and set up a compiler outweighs the syntax advantages, and that will lead us to the final point.
 
-#### You probably are already compiling your JavaScript
+## You probably are already compiling your JavaScript
 
 While you might not be using anything beyond native JavaScript, you probably still are compiling it, even if it is just to transform ES6 into code supported by older browsers, or it is just for minifying the code. [Create React App](https://create-react-app.dev/) uses Webpack under the hood to perform many different things to your code. In fact, React JSX, which is recommended by the React team, requires compiling to function calls that create the actual element.
 
 Unfortunately, React does not take full advantage of that and optimize it, although they have recently made some advances in that with the new JSX transform. Additionally, [Vue Cli](https://cli.vuejs.org/) also uses Webpack under the hood. This means that while you won’t need to use a compiler, you most likely will anyway, and it is quite easy to set up.
 
-#### Conclusion
+## Conclusion
 
 Using a framework that compiles to JavaScript is not always the answer. Some frameworks that do not compile to JavaScript are faster than ones that use compilers, and using a compiler does not automatically mean that it is a better framework.
 
