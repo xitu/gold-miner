@@ -29,7 +29,7 @@ We will be using **Spring cloud gateway (**SCG**)** which is built on top of
 
 - **\> Spring Boot 2.0** .
 
-SCG supports [**non-blocking APIs**](https://stackoverflow.com/a/56806022/3820753)  , asynchronous request processing, as opposed to blocking apis which work on a **thread per request model**. Async (**non-blocking**) systems operate differently, **with generally one thread handling large number of requests and responses**.
+SCG supports [**non-blocking APIs**](https://stackoverflow.com/a/56806022/3820753), asynchronous request processing, as opposed to blocking apis which work on a **thread per request model**. Async (**non-blocking**) systems operate differently, **with generally one thread handling large number of requests and responses**.
 
 * When a request comes, a servlet thread is assigned to it and instead of waiting for each request to complete processing, thread asks for the callback → “when the processing is done, call me back“ and moves on to serve other incoming requests. There is **no blocking of thread** in case the service has any operation that is time consuming like db operation or other processing. When that processing or db operation is completed, thread is notified that data is ready to be sent back and the response is returned back to the client.
 
@@ -88,13 +88,9 @@ The configuration is pretty intuitive , lets break it down , as gateways’ main
 
 Currently the application running at 9091 gives the following response:
 
-![](https://miro.medium.com/max/60/1*XSn2FBqIR_B5jYgmxSS6RA.png?q=20)
-
 ![](https://miro.medium.com/max/2740/1*XSn2FBqIR_B5jYgmxSS6RA.png)
 
 So, **now if we hit the gateway api, we should be redirected to this service**. Let’s hit the same request with gateway host and port. My gateway app is running at 8085 as you can see in the config.
-
-![](https://miro.medium.com/max/60/1*CtL5gwmxOjkM8msNaWFnWQ.png?q=20)
 
 ![](https://miro.medium.com/max/2748/1*CtL5gwmxOjkM8msNaWFnWQ.png)
 
@@ -139,8 +135,6 @@ server:
 Here, we have added a filter i.e AddResponseHeader (one of many [filter factories](https://cloud.spring.io/spring-cloud-gateway/reference/html/#gatewayfilter-factories) available) , that will **add the header “X-Request-color” with value “blue” in the response**, and obviously the predicate condition is respected . So, for all the incoming requests having path “/orders” will be routed to “http://localhost:9091/” and their response will have an **additional header (X-Request-color -> blue)**.
 
 ## Let’s hit the gateway api on postman and test it:
-
-![Spring Cloud Gateway — Postman Response with filter](https://miro.medium.com/max/60/1*viJfGCzHXiylRzFQjN-9CQ.png?q=20)
 
 ![Spring Cloud Gateway — Postman Response with filter](https://miro.medium.com/max/2736/1*viJfGCzHXiylRzFQjN-9CQ.png)
 
