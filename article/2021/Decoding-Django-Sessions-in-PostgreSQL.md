@@ -10,7 +10,7 @@
 > 解决将用户的会话数据与其实际的用户对象联系起来的问题时，Postgres 变得十分好用。
 ## Django 中的会话
 
-会话（session）是任何基于 HTTP 的 web 框架的重要组成部分。它使得 web 服务器可以记录重复请求的 HTTP 客户端而不需要对每一次请求重新进行认证。记录会话的方式有多种。其中的一些方法不需要你服务器保持会话数据（如 JSON Web Tokens），而另外一些则需要。
+会话（session）是任何基于 HTTP 的 web 框架的重要组成部分。它使得 web 服务器可以记录重复请求的 HTTP 客户端而不需要对每一次请求重新进行认证。记录会话的方式有多种。其中的一些方法不需要你服务器持久化会话数据（如 JSON Web Tokens），而另外一些则需要。
 
 Django，一个基于 Python 的热门 web 框架，自带了一个会存储会话数据的默认会话后端。存储和缓存的方案也有多种：你可以选择直接将会话存储在 SQL 数据库中，并且每次访问都查询一下、可以将他们存储在例如 Redis 或 Memcached 这样的缓存中、或者两者结合，在数据库之前设置缓存引擎。如果你使用这些最终将会话存储在 SQL 中的方案，则 `django_session` 表将存储你的用户会话数据。
 
@@ -34,7 +34,7 @@ Django，一个基于 Python 的热门 web 框架，自带了一个会存储会�
 
 ![](https://dzone.com/storage/temp/14542365-1616177763796.png)
 
-你可能在第一张图片中观察到，session_data 看起来不像是 JSON。以 JSON 存储的原数据被隐藏在了 [base64](https://en.wikipedia.org/wiki/Base64) 之后。幸运的是，我们可以在 Postgres 中很方便地解码 base64。
+你可能在第一张图片中观察到，session_data 看起来不像是 JSON。以 JSON 存储的原数据被隐藏在了 [base64 编码](https://en.wikipedia.org/wiki/Base64) 之后。幸运的是，我们可以在 Postgres 中很方便地解码 base64。
 
 ### 从 Base64 解码
 
