@@ -32,20 +32,6 @@ The things we're going to look at:
 
 Let's get started!
 
-## Previous Post
-
-[
-
-Jetpack Compose: An easy way to RecyclerView (Part I)
-
-If you’re new to Jetpack Compose and looking at all the cool UI screens and animations around the internet like me, you’re probably a bit overwhelmed but also curious about how things work in compose.
-
-![](https://www.waseefakhtar.com/favicon.png)Waseef AkhtarWaseef Akhtar
-
-![](https://www.waseefakhtar.com/content/images/2021/04/Jetpack-Compose-highres-5-1.jpg)
-
-](https://www.waseefakhtar.com/android/recyclerview-in-jetpack-compose/)
-
 ## Enabling Dark Mode 💡
 
 As you can see in our final screen, our app looks like it has dark mode enabled. If that's the final look we want (or if we want an app that has support for Dark mode), it's super easy with how our project is set up initially by the Android Studio template. Let's explore a bit more to see what we mean.
@@ -59,9 +45,28 @@ These are all the classes that you need to modify the theme and styling of your 
 Since in our case, we need to enable dark mode for our app, do the following:
 
 1. Open `Theme.kt`.
+
 2. Inside `BarkTheme` composable, replace the darkTheme default value from `isSystemInDarkTheme()` to `true`.
 
-3\. Run the app to see the changes.
+```kt
+@Composable
+fun BarkTheme(darkTheme: Boolean = true, content: @Composable() () -> Unit) {
+    val colors = if (darkTheme) {
+        DarkColorPalette
+    } else {
+        LightColorPalette
+    }
+
+    MaterialTheme(
+        colors = colors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}
+```
+
+3. Run the app to see the changes.
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-181342.png)
 
@@ -70,11 +75,16 @@ We can see that our background has changed.. but, with that, we also have our te
 Let's quickly fix that:
 
 1. Open `Color.kt`.
+
 2. Add a new color named `graySurface`.
 
-3\. Now open `Theme.kt`.
+```kt
+val graySurface = Color(0xFF202124)
+```
 
-4\. Inside the `DarkColorPalette` variable, add a new color definition for `surface` and set its value to the `graySurface` color that we set in #2.
+3. Now open `Theme.kt`.
+
+4. Inside the `DarkColorPalette` variable, add a new color definition for `surface` and set its value to the `graySurface` color that we set in #2.
 
 > Note: In case you want to know what `surface` is, it's a color definition provided by the color system of Material Design that affect surfaces of components, such as cards, sheets, and menus:
 
@@ -104,20 +114,35 @@ But there's a catch. Since Jetpack Compose is still early to work with, it comes
 In order to change the status bar color to match our theme:
 
 1. Open `colors.xml` under `/res`.
+
 2. Add the same gray color we added to our `Color.kt`.
 
-3\. Open `themes.xml`.
+```xml
+<color name="grey">#202124</color>
+```
+
+3. Open `themes.xml`.
 
 > Note: You might notice that you have two `themes.xml` in themes directory. Make it a good practice from now onwards to change the values in both these files whenever you're making a change because these two files refer to the dark mode and light mode theme of the app.
 
-4\. Define the `statusBarBackground` attribute inside `Theme.Bark` and set its value to our gray color.
+4. Define the `statusBarBackground` attribute inside `Theme.Bark` and set its value to our gray color.
 
-5\. Now add this `statusBarBackground` attribute as our value for `android:statusBarColor`.
+5. Now add this `statusBarBackground` attribute as our value for `android:statusBarColor`.
+
+```xml
+<!-- Status bar color. -->
+<item name="statusBarBackground">@color/grey</item>
+<item name="android:statusBarColor" tools:targetApi="l">?attr/statusBarBackground</item>
+```
 
 Now in order to change the system navigation bar's color:
 
 1. Open `themes.xml`.
 2. Add another item for `navigationBarColor` and set its value to `?android:attr/windowBackground` attribute (which is a color value that changes automatically with system preferences)
+
+```xml
+<item name="android:navigationBarColor">?android:attr/windowBackground</item>
+```
 
 Run the app now to see the changes.
 
@@ -127,33 +152,9 @@ And.. there you go! Thats our final look of the app! 😍
 
 Give yourself a pat on the back at this point for having now learnt how theming and styling are done in Compose. 👏
 
-## **Up Next**
-
-For the next post, we'll look into how to:
-
-1. Implement a detailed view screen for our list view.
-
-You can find it available in the upcoming weeks. Until then, give yourself a pat on the back, and..
-
 Happy coding! 💻
 
-## **Source code for the Final Version**
-
-[
-
-waseefakhtar/bark
-
-An Android App for the #AndroidDevChallenge. Contribute to waseefakhtar/bark development by creating an account on GitHub.
-
-![](https://github.githubassets.com/favicons/favicon.svg)GitHubwaseefakhtar
-
-![](https://opengraph.githubassets.com/7312b07fc0d34d874e1a5590c444425ab58c032685876d7b1f6ba18f8807f094/waseefakhtar/bark)
-
-](https://github.com/waseefakhtar/bark)
-
----
-
-Awesome that you came this far! 👏 Now I'd love to know what the most annoying part of this post was or if it was of any help to you. Either ways, you can drop me a DM on: [www.twitter.com/waseefakhtar](https://www.twitter.com/waseefakhtar) ✌️  
+[**Source code for the Final Version**](https://github.com/waseefakhtar/bark) 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
