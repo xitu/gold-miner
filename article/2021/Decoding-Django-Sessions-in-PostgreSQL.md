@@ -154,8 +154,7 @@ refresh materialized view mv_django_session_user;
 
 ## 总结
 
-Postgres 中的编码以及字符串操作比常见的用于 web 应用的语言（如 Python、Ruby 或 PHP）来说更加繁琐些，但是用纯 Postgres 构建出一个可以快速提取你要的
-数据并让你可以和其他表直接连表查询的视图，不得不说是十分愉悦的。
+Postgres 中的编码以及字符串操作比常见的用于 web 应用的语言（如 Python、Ruby 或 PHP）来说更加繁琐些，但是用纯 Postgres 构建出一个可以快速提取你要的数据并让你可以和其他表直接连表查询的视图，不得不说是十分愉悦的。
 
 下一次你需要从 web 框架或其他第三方提取数据时，不妨从 Postgres 寻找答案！
 
