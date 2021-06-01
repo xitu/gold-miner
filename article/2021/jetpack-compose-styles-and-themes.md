@@ -9,7 +9,7 @@
 
 ![Jetpack Compose: Styles and Themes (Part II)](/content/images/size/w2000/2021/05/Jetpack-Compose-highres-5-3.jpg)
 
-As of [Part I](https://www.waseefakhtar.com/android/recyclerview-in-jetpack-compose/), we successfully implemented a RecyclerView (known as LazyColumn in Compose), populating it with a list of puppies that we have for adoption. 🐶
+As of [Part I](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md), we successfully implemented a RecyclerView (known as LazyColumn in Compose), populating it with a list of puppies that we have for adoption. 🐶
 
 But as I mentioned, we still have some things to do before we call it a complete Compose app. The two things left now are:
 
