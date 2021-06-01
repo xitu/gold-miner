@@ -9,9 +9,7 @@
 
 Chrome is experimenting with `@container`, a property within the CSS Working Group [Containment Level 3 spec](https://github.com/w3c/csswg-drafts/issues?q=is%3Aissue+label%3Acss-contain-3+) being championed by [Miriam Suzanne](https://twitter.com/TerribleMia) of [Oddbird](https://css.oddbird.net/rwd/query/), and a group of engineers across the web platform. `@container` brings us the ability to **style elements based on the size of their parent container**.
 
-The `@container` API is not stable, and is subject to syntax changes. If you try it out on your own, you may encounter a few bugs. Please report those bugs to the appropriate browser engine!
-
-**Bugs:** [Chrome](https://bugs.chromium.org/p/chromium/issues/list) | [Firefox](https://bugzilla.mozilla.org/home) | [Safari](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit)
+> The `@container` API is not stable, and is subject to syntax changes. If you try it out on your own, you may encounter a few bugs. Please report those bugs to the appropriate browser engine! **Reported Bugs:** [Chrome](https://bugs.chromium.org/p/chromium/issues/list), [Firefox](https://bugzilla.mozilla.org/home), [Safari](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit).
 
 You can think of these like a media query (`@media`), but instead of relying on the **viewport** to adjust styles, the parent container of the element you’re targeting can adjust those styles.
 
