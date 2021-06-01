@@ -11,8 +11,6 @@
 
 As a JavaScript developer, you will utilize higher-order functions frequently. So, having a decent comprehension of these functions is vital. Presently I see individuals get frequently confounded when finding out about the `reduce()` technique. Yet, I had clarified everything in detail so attempt to comprehend it bit by bit, and I'm certain you will dominate it.
 
----
-
 ## What are higher-order functions?
 
 In a nutshell, higher-order functions are those functions that take other functions as arguments or return other functions. The function passed as arguments in higher-order function is known as callbacks.
@@ -24,8 +22,6 @@ In a nutshell, higher-order functions are those functions that take other functi
 
 Now JavaScript has some built-in higher-order functions, you may have already been using them without even realising — (filter(), reduce(), sort(), forEach()).
 
----
-
 ## filter()
 
 The filter method returns a new array of elements that passes a specific test provided by a callback function. And since `filter` takes a callback function, therefore `filter()` is known as higher-order function.
@@ -36,7 +32,7 @@ Now the callback function that is passed into `filter()` is known as the higher-
 * `index of the element` (optional)
 * `the array object` (optional)
 
-```
+```js
 let arr [1,2,3,4,5]; 
 
 const resultant Array = arr.filter((element ) => {
@@ -52,7 +48,7 @@ The `element argument` is getting the value of elements of `arr` array one by on
 
 Example:
 
-```
+```js
 // filter age that is less than 18
 
 const ageArray = [10, 12, 35, 55, 40, 32, 15]; 
@@ -91,8 +87,6 @@ console.log(filterNameArray);
 // ["harsh", "hitesh"]
 ```
 
----
-
 ## map()
 
 As the name suggests, the `map()` method is used to map the values of an existing array to new values and it pushes that new values to a new array and it returns that new array. Now `map()` also takes a callback function and hence it is known as higher-order function.
@@ -103,7 +97,7 @@ Now the callback fucntion that is passed into `map()` method takes three argumen
 * `index of the element` (optional)
 * `the array object` (optional)
 
-```
+```js
 const numArray = [1, 5, 3, 6, 4, 7]; 
 
 const increasedArray = numArray.map((element) => {
@@ -120,7 +114,7 @@ Firstly 1 will get a pass as an element argument and it will get the map to a ne
 
 Example:
 
-```
+```js
 // exponentiate every number on an array
 
 const numArray = [2, 3, 4, 5, 15]; 
@@ -168,7 +162,7 @@ But `reduce()` takes one more argument other than the callback function and that
 * `index of the element` (optional)
 * `the array object` (optional)
 
-```
+```js
 // A basic example reduce()
 
 const numArray = [1, 2, 3, 4, 5]; 
@@ -180,7 +174,7 @@ const sum = numArray.reduce((total, num) => {
 console.log(sum);
 ```
 
-Let’s first understand what **total argument** is:- Total argument is the previous value returned by `reduce()` function, now when the `reduce()` will run for the first time there will be no previous returned value therefore for the first time `total argument` is equal to the initialValue(remember the second argument that we passed into `reduce()`).
+Let’s first understand what **total argument** is: Total argument is the previous value returned by `reduce()` function, now when the `reduce()` will run for the first time there will be no previous returned value therefore for the first time `total argument` is equal to the initialValue(remember the second argument that we passed into `reduce()`).
 
 Now we also haven’t used the initialValue in our example, so what is that **when we don’t pass initialValue, the reduce() method skips the first element of the numArray becomes the value of total argument**.
 
@@ -188,15 +182,15 @@ Coming to our example, we haven’t passed initialValue so the first element of 
 
 (This explanation is a bit tough and confusing. If you try to learn step by step you will master `reduce()`).
 
-#### The initialValue argument
+> **The initialValue argument**
+>
+> initialValue as the name suggests, is the initial value of the total argument, as we know when `reduce()` runs for the first time there is no previous returned value and hence the first element from existing array **(numArray in our case)** becomes the value of the total argument, so instead of doing that we can give an initial value to the total argument (remember initialValue will be the initial value of the total argument, the total argument will become the previous return value of reduce() later).
 
-initialValue as the name suggests, is the initial value of the total argument, as we know when `reduce()` runs for the first time there is no previous returned value and hence the first element from existing array **(numArray in our case)** becomes the value of the total argument, so instead of doing that we can give an initial value to the total argument (remember initialValue will be the initial value of the total argument, the total argument will become the previous return value of reduce() later).
-
-**Note:** When you will use the initialValue argument, numArray will not skip it’s the first element hence every element will get passed into the `reduce()` callback.
+> **Note:** When you will use the initialValue argument, numArray will not skip it’s the first element hence every element will get passed into the `reduce()` callback.
 
 Syntax of reduce() with initial value:
 
-```
+```js
 const resultantArray = existingArray.reduce((total,element,index.array)=> {
     // return something
 }, initialValue);
@@ -205,10 +199,6 @@ const resultantArray = existingArray.reduce((total,element,index.array)=> {
 ---
 
 Thank you for reading!
-
-You can follow me on Twitter — [@rahxul](https://twitter.com/rahxul)
-
-**More content at [plainenglish.io](http://plainenglish.io/)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
