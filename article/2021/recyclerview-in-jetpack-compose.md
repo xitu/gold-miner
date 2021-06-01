@@ -7,9 +7,7 @@
 
 # Jetpack Compose: An easy way to RecyclerView (Part I)
 
-If you're new to Jetpack Compose and looking at all the cool UI screens and animations around the internet like me, you're probably a bit overwhelmed but also curious about how things work in compose.
-
-![Jetpack Compose: An easy way to RecyclerView (Part I)](/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
+![Jetpack Compose: An easy way to RecyclerView (Part I)](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
 
 If you're new to Jetpack Compose and looking at all the cool UI screens and animations around the internet like me, you're probably a bit overwhelmed but also curious about how things work in compose.
 
@@ -81,14 +79,38 @@ In order to start writing our app, we need to first structure our app to what I 
 First things first:
 
 1. Open `MainActivity.kt`.
+
 2. Create a new composable function under your `MainActivity` class.
+
+```kt
+@Composable
+fun MyApp() {
+    Scaffold(
+        content = {
+            BarkHomeContent()
+        }
+    )
+}
+```
+
 3. Import `Scaffold` into your file if it's not imported automatically and is shown as an unresolved reference.
 
-###### What is Scaffold? 🤔
+> **What is Scaffold?** 🤔
+>
+> If you read Scaffold's definition, it is mentioned that Scaffold implements the basic material design visual layout structure in Compose. So it's generally a good idea to start your screen structure with Android's own visual layout structure.
 
-If you read Scaffold's definition, it is mentioned that Scaffold implements the basic material design visual layout structure in Compose. So it's generally a good idea to start your screen structure with Android's own visual layout structure.
+4. Replace your sample Hello World greeting by calling `MyApp()` inside onCreate.
 
-4\. Replace your sample Hello World greeting by calling `MyApp()` inside onCreate.
+```kt
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+        BarkTheme {
+            MyApp()
+        }
+    }
+}
+```
 
 Next, we need to write our content that we added to our Scaffold's content parameter, `BarkHomeContent()`.
 
@@ -103,19 +125,16 @@ In order to do so:
 1. Create a new class called `Puppy.kt`.
 2. Write a data class with fields of all the properties that we're going to have in order to populate our list items with:
 
-Next, we're going to add some cute pictures of puppies to add it for each puppies. To make your life easier, feel free to download the set of photos from my GitHub project here:
+```kt
+data class Puppy(
+    val id: Int,
+    val title: String,
+    val description: String,
+    val puppyImageId: Int = 0
+)
+```
 
-[
-
-waseefakhtar/bark
-
-An Android App for the #AndroidDevChallenge. Contribute to waseefakhtar/bark development by creating an account on GitHub.
-
-![](https://github.githubassets.com/favicons/favicon.svg)GitHubwaseefakhtar
-
-![](https://opengraph.githubassets.com/0de026bcb938b30ccb00b58a8008136705db30c646b5163160c44a0dcd48e234/waseefakhtar/bark)
-
-](https://github.com/waseefakhtar/bark/tree/main/app/src/main/res/drawable-nodpi)
+Next, we're going to add some cute pictures of puppies to add it for each puppies. To make your life easier, feel free to download the set of photos from my [GitHub project here](https://github.com/waseefakhtar/bark/tree/main/app/src/main/res/drawable-nodpi).
 
 After downloading,
 
@@ -134,6 +153,86 @@ Now we're finally going to write out DataProvider class to structure our data fo
 1. Create a new class called `DataProvider.kt`.
 2. Write an object declaration and create a list with information about each puppy. (Feel free to copy all the text to save your time building the app)
 
+```kt
+object DataProvider {
+
+    val puppyList = listOf(
+        Puppy(
+            id = 1,
+            title = "Monty",
+            description = "Monty enjoys chicken treats and cuddling while watching Seinfeld.",
+            puppyImageId = R.drawable.p1
+        ),
+        Puppy(
+            id = 2,
+            title = "Jubilee",
+            description = "Jubilee enjoys thoughtful discussions by the campfire.",
+            puppyImageId = R.drawable.p2
+        ),
+        Puppy(
+            id = 3,
+            title = "Beezy",
+            description = "Beezy's favorite past-time is helping you choose your brand color.",
+            puppyImageId = R.drawable.p3
+        ),
+        Puppy(
+            id = 4,
+            title = "Mochi",
+            description = "Mochi is the perfect \"rubbery ducky\" debugging pup, always listening.",
+            puppyImageId = R.drawable.p4
+        ),
+        Puppy(
+            id = 5,
+            title = "Brewery",
+            description = "Brewery loves fetching you your favorite homebrew.",
+            puppyImageId = R.drawable.p5
+        ),
+        Puppy(
+            id = 6,
+            title = "Lucy",
+            description = "Picture yourself in a boat on a river, Lucy is a pup with kaleidoscope eyes.",
+            puppyImageId = R.drawable.p6
+        ),
+        Puppy(
+            id = 7,
+            title = "Astro",
+            description = "Is it a bird? A plane? No, it's Astro blasting off into your heart!",
+            puppyImageId = R.drawable.p7
+        ),
+        Puppy(
+            id = 8,
+            title = "Boo",
+            description = "Boo is just a teddy bear in disguise. What he lacks in grace, he makes up in charm.",
+            puppyImageId = R.drawable.p8
+        ),
+        Puppy(
+            id = 9,
+            title = "Pippa",
+            description = "Pippa likes to look out the window and write pup-poetry.",
+            puppyImageId = R.drawable.p9
+        ),
+        Puppy(
+            id = 10,
+            title = "Coco",
+            description = "Coco enjoys getting pampered at the local puppy spa.",
+            puppyImageId = R.drawable.p10
+        ),
+        Puppy(
+            id = 11,
+            title = "Brody",
+            description = "Brody is a good boy, waiting for your next command.",
+            puppyImageId = R.drawable.p11
+        ),
+        Puppy(
+            id = 12,
+            title = "Stella",
+            description = "Stella! Calm and always up for a challenge, she's the perfect companion.",
+            puppyImageId = R.drawable.p12
+        ),
+    )
+}
+```
+
 And we're done getting our puppies ready for adoption. 🐶
 
 ## Displaying Puppies in a list 📝
@@ -143,24 +242,32 @@ Now, going back to where we left off when calling `BarkHomeContent()` inside `My
 First things first,
 
 1. Create a new class called `BarkHome.kt`.
+
 2. Add the composable function, `BarkHomeContent()`, inside the new class.
+
+```kt
+@Composable
+fun BarkHomeContent() {
+    val puppies = remember { DataProvider.puppyList }
+    LazyColumn(
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        items(
+            items = puppies,
+            itemContent = {
+                PuppyListItem(puppy = it)
+            })
+    }
+}
+```
+
 3. Import all the missing references.
 
-Note: You might notice that at this point, you might have a different version of `items` function that we need, considering that the parameter `items =` is not resolved. In that case, you need to manually import the reference for it at the top of class: `import androidx.compose.foundation.lazy.items`.
+> Note: You might notice that at this point, you might have a different version of `items` function that we need, considering that the parameter `items =` is not resolved. In that case, you need to manually import the reference for it at the top of class: `import androidx.compose.foundation.lazy.items`.
 
 Now, there's quite a bit going on here, let's explain it one by one.
 
-1. On line 3, we define a `puppies` variable but with a `remember { }` keyword. A remember function in a composable function simply stores the current state of the variable (in our case, the `puppies` variable) when the state of the list changes. This would be quite useful in a real-life scenario where the list changes from the back-end or from user events if we have any UI elements that let users change the state of the list. In our current case, we do not have such functionality but it's still a good practice to persist the state of our puppy list. To learn more about states, have a look at the docs:
-
-[
-
-State and Jetpack Compose | Android Developers
-
-![](https://www.gstatic.com/devrel-devsite/prod/vdb246b8cc5a5361484bf12c07f2d17c993026d30a19ea3c7ace6f0263f62c0dd/android/images/touchicon-180.png)Android Developers
-
-![](https://developer.android.com/images/jetpack/compose/udf-hello-screen.png)
-
-](https://developer.android.com/jetpack/compose/state)
+1. On line 3, we define a `puppies` variable but with a `remember { }` keyword. A remember function in a composable function simply stores the current state of the variable (in our case, the `puppies` variable) when the state of the list changes. This would be quite useful in a real-life scenario where the list changes from the back-end or from user events if we have any UI elements that let users change the state of the list. In our current case, we do not have such functionality but it's still a good practice to persist the state of our puppy list. To learn more about states, have a look at [the docs](https://developer.android.com/jetpack/compose/state).
 
 2. On line 4, we call a `LazyColumn` composable. This is the equivalent of the RecyclerView that we as Android developers are quite familiar with. This honestly calls for a big celebration because of how easy it is to create a dynamic list with Jetpack Compose. 🎉
 
@@ -177,6 +284,18 @@ Next, we're going to create our list item composable that we're going to call `P
 3. Inside the function, create a `Row` that represents a row in a list.
 4. Inside the `Row`, create a column of two texts and pass in the puppy title on the first text and a view detail as the second text.
 
+```kt
+@Composable
+fun PuppyListItem(puppy: Puppy) {
+    Row {
+        Column {
+            Text(text = puppy.title, style = typography.h6)
+            Text(text = "VIEW DETAIL", style = typography.caption)
+        }
+    }
+}
+```
+
 This is the result when running the app after creating our `PuppyListItem`.
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/6-4.png)
@@ -187,18 +306,96 @@ Not very nice looking. But there are easy steps to style our item.
 
 1. Add a bit of a padding and make the texts full width for some breathing space.
 
+```kt
+Row {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .align(Alignment.CenterVertically)
+    ) {
+        Text(text = puppy.title, style = typography.h6)
+        Text(text = "VIEW DETAIL", style = typography.caption)
+    }
+}
+```
+
 ![](https://www.waseefakhtar.com/content/images/2021/04/7-3.png)
 
 2. Surround your `Row` with a `Card` composable and style it as you please.
+
+```kt
+Card(
+    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).fillMaxWidth(),
+    elevation = 2.dp,
+    backgroundColor = Color.White,
+    shape = RoundedCornerShape(corner = CornerSize(16.dp))
+) {
+    Row {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+                .align(Alignment.CenterVertically)
+        ) {
+            Text(text = puppy.title, style = typography.h6)
+            Text(text = "VIEW DETAIL", style = typography.caption)
+        }
+    }
+}
+```
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/8-2.png)
 
 Finally, we need to add an image for each puppy. In order to do so:
 
 1. Create a new composable function, `PuppyImage()` under `PuppyListItem()`, passing the `puppy` param.
+
 2. Call the `Image` composable function and style it as you please:
 
+```kt
+
+@Composable
+private fun PuppyImage(puppy: Puppy) {
+    Image(
+        painter = painterResource(id = puppy.puppyImageId),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .padding(8.dp)
+            .size(84.dp)
+            .clip(RoundedCornerShape(corner = CornerSize(16.dp)))
+    )
+}
+```
+
 3. Finally, call `PuppyImage()` the first thing inside your `Row` in `PuppyListItem()`.
+
+```kt
+@Composable
+fun PuppyListItem(puppy: Puppy) {
+    Card(
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp).fillMaxWidth(),
+        elevation = 2.dp,
+        backgroundColor = Color.White,
+        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+
+    ) {
+        Row {
+            PuppyImage(puppy)
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.CenterVertically)) {
+                Text(text = puppy.title, style = typography.h6)
+                Text(text = "VIEW DETAIL", style = typography.caption)
+
+            }
+        }
+    }
+}
+```
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/9-2.png)
 
@@ -210,6 +407,8 @@ The two things left now are to:
 2. Implement a detailed view screen.
 
 Happy coding! 💻
+
+[**The Final Version Source Code of This Article**](https://github.com/waseefakhtar/bark)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
