@@ -7,9 +7,7 @@
 
 # Demystifying Java Lambda Expressions
 
-#### Conjuring functions from thin air
-
-![Image by [Anja🤗#helpinghands #solidarity#stays healthy🙏](https://pixabay.com/users/cocoparisienne-127419/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=739165) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=739165)](https://cdn-images-1.medium.com/max/3840/1*fKbNefOZMcHC3B-KMsy9kw.jpeg)
+![](https://cdn-images-1.medium.com/max/3840/1*fKbNefOZMcHC3B-KMsy9kw.jpeg)
 
 I seem to spend a lot of time explaining Java functional programming. Really, there’s no magic here. You pass functions into functions to adapt their behavior. Why would you want to do that? If you’re using object-oriented development, you’re already doing it but in a very controlled fashion. Java’s polymorphism is implemented by keeping a list of functions that can be replaced by sub-classing. Then other functions of that class might call a function that has been overridden, and thus its behavior is changed even though the outer function wasn’t itself overridden.
 
@@ -107,7 +105,7 @@ OK, my example is pretty contrived. I just wanted to walk from the polymorphic f
 
 As an example that’s a little less contrived, I’ll get a list of files, remove the ones that don’t start with a dot, and get the name and size of the file. The first chore is to get the array of files from the current directory and turn that into a `Stream` type. We can do that with the `File` type:
 
-```
+```Java
 File dir = new File(".");
 Stream s = Arrays.stream(dir.listFiles());
 ```
