@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-strategies-to-reduce-frontend-build-time-with-ci-cd.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-strategies-to-reduce-frontend-build-time-with-ci-cd.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 # 使用 CI/CD 优化前端构建的五种策略
 
 ![](https://cdn-images-1.medium.com/max/2560/1*4QARtPZqNOK5peGb0vFLSg.jpeg)
 
-如今使用 CI/CD 工具是网络应用程序开发的一个必要条件。作为关键开发路径的一部分，加快构建系统对于提高开发人员的生产效率是至关重要的。
+如今使用 CI/CD 工具是网络应用程序开发的一个必要条件。作为关键开发路径的一部分，加快构建系统的速度对于提高开发人员的生产效率是至关重要的。
 
-因此，在这篇文章中，我们将带你了解五种不同的策略，使用 CI/CD 优化前端构建时间。
+因此，在这篇文章中，我们将带你了解五种使用 CI/CD 优化前端构建时间的不同策略。
 
 ## 1. 使用并行网络包 Parallel-Webpack
 
@@ -45,7 +45,7 @@ module.exports = [{
 
 上面的配置包括两个独立的构建任务，分别是 `firstjob` 和 `secondjob`。Parallel-Webpack 会同时运行这两个构建任务，你会发现 `task1.bundle.js` 和 `task2.bundle.js` 同时被构建。
 
-> Parallel-Webpack 允许你控制并行性，包括 Webpack 普通功能，例如观察者（watcher）和重传限制（retry limit）。
+> Parallel-Webpack 允许你控制并行性，包括 Webpack 的普通功能，例如观察者（watcher）和重传限制（retry limit）。
 
 ### 控制并行性
 
@@ -69,7 +69,7 @@ parallel-webpack --watch
 
 ![Micro Frontend Architecture](https://cdn-images-1.medium.com/max/2000/1*_wBCz4UeRf6qW8Dk38zs1A.png)
 
-通常，可以独立地整合和部署每个应用程序，让你更快地进行重要功能的修复。因此，这确实对 CI/CD 流程的速度有很大帮助。
+通常，可以独立地整合和部署每个应用程序，让你更快地进行重要功能的修复。因此，这确实对 CI/CD 流程的提速有很大帮助。
 
 ## 3. 组件驱动型 CI：Ripple CI
 
@@ -85,7 +85,7 @@ parallel-webpack --watch
 
 但是，随着项目规模的扩大，这个修改过程本身也会花费相当多的时间。
 
-如果项目正在构建，可以使用 `uglifyjs-webpack-plugin v1` 来优化构建时间。这个插件提供了多进程并行运行的能力和缓存支持，大大提升了构建效率。
+如果项目正在构建，可以使用插件 `uglifyjs-webpack-plugin v1` 来优化构建时间。这个插件提供了多进程并行运行的能力和缓存支持，大大提升了构建效率。
 
 ### 在最小的模块上使用加载器
 
