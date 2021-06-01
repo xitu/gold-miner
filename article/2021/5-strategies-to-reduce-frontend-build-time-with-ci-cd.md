@@ -3,21 +3,21 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-strategies-to-reduce-frontend-build-time-with-ci-cd.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-strategies-to-reduce-frontend-build-time-with-ci-cd.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 使用 CI/CD 优化前端构建的五种策略
 
 ![](https://cdn-images-1.medium.com/max/2560/1*4QARtPZqNOK5peGb0vFLSg.jpeg)
 
-如今使用 CI/CD 工具是网络应用程序开发的一个必要条件。作为关键开发路径的一部分，加快构建系统的速度对于提高开发人员的生产效率是至关重要的。
+如今使用 CI/CD 工具是网页应用程序开发的一个必要条件。作为关键开发路径的一部分，加快构建系统的速度对于提高开发人员的生产效率是至关重要的。
 
 因此，在这篇文章中，我们将带你了解五种使用 CI/CD 优化前端构建时间的不同策略。
 
 ## 1. 使用并行网络包 Parallel-Webpack
 
-> Parallel-Webpack 允许你一边运行一边进行构建应用程序，帮助减少应用程序构建时间。
+> Parallel-Webpack 让你能够一边运行一边进行构建应用程序，以减少应用程序构建时间。
 
-你可以通过使用以下 NPM 命令轻松开始使用 Parallel-Webpack。
+你可以通过使用以下 NPM 命令轻松开始使用 Parallel-Webpack：
 
 ```bash
 npm install parallel-webpack —-save-dev
@@ -49,7 +49,7 @@ module.exports = [{
 
 ### 控制并行性
 
-有时，你可能想限制 Parallel-Webpack 可用的 CPU 核心的使用数量。在这种情况下，你可以使用 `parallel-webpack -p=2` 命令指定允许的 CPU 内核数量。
+有时，你可能想限制 Parallel-Webpack 可用的 CPU 核心数量。在这种情况下，你可以使用 `parallel-webpack -p=2` 命令指定可用的 CPU  核心数量。
 
 ### 运行观察者
 
@@ -65,35 +65,35 @@ parallel-webpack --watch
 
 假设考虑传统的单体前端系统，它们中的大部分是只有一个构建管道和一个发布管道。因此，如果有一个错误修复或新功能更新，就有可能破坏 CI/CD 管道中的整个构建阶段。
 
-然而，如果我们使用微前端，我们可以将应用程序的功能拆分，并独立维护应用程序的构建和发布管道，以便不断提供更新和错误修复。
+然而，如果我们使用微前端，我们可以将应用程序的功能拆分，并独立维护应用程序的构建和发布管道，以便不断提交更新和修复错误。
 
 ![Micro Frontend Architecture](https://cdn-images-1.medium.com/max/2000/1*_wBCz4UeRf6qW8Dk38zs1A.png)
 
-通常，可以独立地整合和部署每个应用程序，让你更快地进行重要功能的修复。因此，这确实对 CI/CD 流程的提速有很大帮助。
+通常，可以独立地整合和部署每个应用程序，让你更快地修复重要功能。因此，这确实对 CI/CD 流程的提速有很大帮助。
 
 ## 3. 组件驱动型 CI：Ripple CI
 
 组件驱动型 CI 是指只在修改过的组件和它们的所有依赖关系（即受影响的组件）上运行的 CI，它不把整个项目作为一个单独实体。Ripple CI 的典型示例是 [Bit](https://gihub.com/teambit/bit)。
 
-## 4. 优化网络包的性能
+## 4. 优化 Webpack 的性能
 
 我们通常使用 Webpack 的默认设置。然而，你是否知道如何通过使用插件和自定义配置进一步优化它吗？
 
 ### 使用 `uglifyjs-webpack-plugin v1` 插件
 
-最小化是指在你的网页中最小化代码、标记和脚本文件的过程。它是用于减少构建时间的主要方法之一。
+压缩是指在你的网页中压缩代码、标记和脚本文件的过程。它是减少构建时间的主要方法之一。
 
 但是，随着项目规模的扩大，这个修改过程本身也会花费相当多的时间。
 
 如果项目正在构建，可以使用插件 `uglifyjs-webpack-plugin v1` 来优化构建时间。这个插件提供了多进程并行运行的能力和缓存支持，大大提升了构建效率。
 
-### 在最小的模块上使用加载器
+### 在压缩模块的过程中使用加载器
 
 Webpack 使用加载器将其他类型的文件转化为有效模块。然后，这些模块被应用程序接收，并添加到依赖关系图中。
 
 > 因此，必须指定相关的文件目录，以减少不必要的模块加载。
 
-你可以轻松地使用 Webpack 配置，使用 `include` 选项指定文件目录。
+在 Webpack 配置中，你可以通过 `include` 选项轻松指定文件目录。
 
 ```js
 const path = require('path');
