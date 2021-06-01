@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/is-css-a-programming-language.md](https://github.com/xitu/gold-miner/blob/master/article/2021/is-css-a-programming-language.md)
 > * 译者：[cncuckoo](https://github.com/cncuckoo)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)
 
 # CSS是编程语言吗？
 
