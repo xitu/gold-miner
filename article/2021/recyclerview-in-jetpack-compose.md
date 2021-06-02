@@ -322,7 +322,7 @@ Row {
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/7-3.png)
 
-2. 用一张 `card` 把你的 `Row` 围起来，你可以随意设计。
+2. 用一个 `card` 组件把你的 `Row` 围起来，你可以随意设计。
 
 ```kt
 Card(
