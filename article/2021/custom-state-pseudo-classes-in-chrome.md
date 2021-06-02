@@ -114,11 +114,11 @@ labeled-checkbox:--checked {
 
 ## 此功能尚未成为标准
 
-[过去三年来](https://github.com/WICG/webcomponents/issues/738)，浏览器厂商一直在讨论如何通过自定义伪类来暴露自定义元素的内部状态。Google 对[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范的实现仍依托于 WICG 主持的“非官方草案”。该功能由 W3C 技术架构组（TAG）[进行设计审查](https://github.com/w3ctag/design-reviews/issues/428)并[移交给 CSS 工作组](https://github.com/w3c/csswg-drafts/issues/4805)。在 Chrome 的“出货意向”讨论中，[Mounir Lamouri 写道](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ)：
+[过去三年来](https://github.com/WICG/webcomponents/issues/738)，浏览器厂商一直在讨论如何通过自定义伪类来暴露自定义元素的内部状态。Google 的[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范目前托管在 WICG 名下，仍然处于一个非官方的状态。该功能由 W3C 技术架构组（TAG）[进行设计审查](https://github.com/w3ctag/design-reviews/issues/428)并[移交给 CSS 工作组](https://github.com/w3c/csswg-drafts/issues/4805)。在 Chrome 的“出货意向”讨论中，[Mounir Lamouri 写道](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ)：
 
 > 此功能看起来得到了许多支持它的声音，但是只要它没有被各大浏览器支持，Web 开发者可能都难以从此功能中获益。希望 Firefox 和 Safari 能够跟进并实现此功能。总得有厂商带头实现这个功能。而且，鉴于这个功能不存在可预见的一些向后不兼容的改变，要带这个头看上去挺安全的。
 
-我们现在需要等待 Firefox 和 Safari 浏览器实现这个功能。补丁已经以文件形式提交到 [Mozilla #1588763](https://bugzilla.mozilla.org/show_bug.cgi?id=1588763) 和 [WebKit #215911](https://bugs.webkit.org/show_bug.cgi?id=215911)，但还没有得到太多关注。
+我们现在需要等待 Firefox 和 Safari 浏览器实现这个功能。对应的补丁已经以文件形式提交到 [Mozilla #1588763](https://bugzilla.mozilla.org/show_bug.cgi?id=1588763) 和 [WebKit #215911](https://bugs.webkit.org/show_bug.cgi?id=215911)，但还没有得到太多关注。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
