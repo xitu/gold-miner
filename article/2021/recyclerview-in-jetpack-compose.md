@@ -2,29 +2,29 @@
 > * 原文作者：[Waseef Akhtar](https://www.waseefakhtar.com/author/waseefakhtar/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# Jetpack Compose: An easy way to RecyclerView (Part I)
+# Jetpack Compose：更简便的 RecyclerView (第一部分)
 
-![Jetpack Compose: An easy way to RecyclerView (Part I)](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
+![Jetpack Compose：更简便的 RecyclerView (第一部分)](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
 
-If you're new to Jetpack Compose and looking at all the cool UI screens and animations around the internet like me, you're probably a bit overwhelmed but also curious about how things work in compose.
+如果你是 Jetpack Compose 库的新手，并且像我一样在互联网上看到所有很酷的 UI 屏幕和动画，你可能有点不知所措，但也对 Compose 中的工作方式感到好奇。
 
-Since I'm new to learning Jetpack Compose like most of you, the recent #AndroidDevChallenge was a good opportunity for me to get my hands dirty and write some Jetpack Compose UIs. Since I learnt tons of stuff with a basic app, I thought my learnings would make a good series of blog posts to help all of you.
+因为我和你们大多数人一样是刚开始学习 Jetpack Compose 库的新手，所以最近的 `Android Jetpack Compose 开发挑战赛` 对我来说是一个很好的学习机会，我可以上手实操，使用 Jetpack Compose 库写一些 UI。因为我通过一个基础的应用程序学到了很多东西，我想我学到的东西可以写成一系列很好的博客文章来帮助你们所有人。
 
-With this series of blog posts, we'll create a basic app by showing a list of puppies for adoption, styling our app overall, and implementing a detailed view screen for each puppy.
+通过这一系列的博客文章，我们将创建一个基础的应用程序，通过展示一个收养小狗的列表，设计我们的应用程序的整体风格，并为每只小狗都实现一个详细的视图。
 
-By the end of the series of posts, we would've achieved our app looking like this:
+在这一系列文章的最后，我们的应用程序看起来是这样的：
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/New--1-.gif)
 
-So without further ado, let's get started!
+所以别犹豫了，让我们马上开始吧！
 
-## Background ✍️
+## 背景 ✍️
 
-* Jetpack Compose is a newly announced UI toolkit for building native UIs for Android using Kotlin that is going to very soon replace the current approach of building UIs with XML.
-* It is written from the ground up in Kotlin.
+* Jetpack Compose 库是一个新发布的 UI 工具包，通过使用 Kotlin 为 Android 应用程序构建原生 UI，它将很快取代当前使用 XML 文件构建 UI 的方法。
+* Jetpack Compose 库是完全使用 Kotlin 编写的。
 * It simplifies UI development on Android with less code and powerful tools.
 * Learn more at [https://developer.android.com/jetpack/compose](https://developer.android.com/jetpack/compose)
 
