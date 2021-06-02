@@ -2,7 +2,7 @@
 > * 原文作者：[Eli Blumenthal](https://www.cnet.com/profiles/eli.blumenthal/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/apple-announces-june-7-start-date-for-wwdc-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/apple-announces-june-7-start-date-for-wwdc-2021.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[husiyu](https://github.com/husiyu)、[Kimhooo](https://github.com/Kimhooo)
 
 # Apple WWDC 21 回归，6 月 7 日线上不见不散！

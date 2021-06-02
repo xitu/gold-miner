@@ -2,7 +2,7 @@
 > * 原文作者：[Mary Jo Foley](https://www.zdnet.com/meet-the-team/us/mary-jo-foley/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/microsoft-makes-changes-to-windows-10-inbox-apps-with-latest-dev-channel-test-build.md](https://github.com/xitu/gold-miner/blob/master/article/2021/microsoft-makes-changes-to-windows-10-inbox-apps-with-latest-dev-channel-test-build.md)
-> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # 微软在 Windows 最新的测试版中内置了 Windows Terminal
