@@ -281,8 +281,8 @@ fun BarkHomeContent() {
 
 1. 新建一个名为 `PuppyListItem.kt` 的 Kotlin 文件。
 2. 在以 `Puppy` 类型作为参数的类中编写一个新的简单可组合函数。
-3. Inside the function, create a `Row` that represents a row in a list.
-4. Inside the `Row`, create a column of two texts and pass in the puppy title on the first text and a view detail as the second text.
+3. 在函数内部，创建一个 `Row`，用来表示列表中的一行。
+4. 在 `Row` 中，创建一个包含两个文本的列，并在第一个文本框上写上小狗的名字，在第二个文本框上写 `view detail`。
 
 ```kt
 @Composable
@@ -296,15 +296,15 @@ fun PuppyListItem(puppy: Puppy) {
 }
 ```
 
-This is the result when running the app after creating our `PuppyListItem`.
+这是创建 `PuppyListItem` 后运行应用程序时的结果。
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/6-4.png)
 
-Not very nice looking. But there are easy steps to style our item.
+不是很好看。但我们可以用一些简单步骤设计我们的列表项。
 
-## Styling List item 🎨
+## 设计列表项 🎨
 
-1. Add a bit of a padding and make the texts full width for some breathing space.
+1. 添加一点填充，并使文本的宽度最大，同时保留一些呼吸空间。
 
 ```kt
 Row {
@@ -322,7 +322,7 @@ Row {
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/7-3.png)
 
-2. Surround your `Row` with a `Card` composable and style it as you please.
+2. 用一张 `card` 把你的 `Row` 围起来，你可以随意设计。
 
 ```kt
 Card(
@@ -347,11 +347,11 @@ Card(
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/8-2.png)
 
-Finally, we need to add an image for each puppy. In order to do so:
+最后，我们需要为每只小狗添加一个图像。为此：
 
-1. Create a new composable function, `PuppyImage()` under `PuppyListItem()`, passing the `puppy` param.
+1. 在 `PuppyListItem()` 下创建一个新的可组合函数 `PuppyImage()`，传递 `puppy` 参数。
 
-2. Call the `Image` composable function and style it as you please:
+2. 调用 `Image` 可组合函数并根据需要设置样式：
 
 ```kt
 
@@ -369,7 +369,7 @@ private fun PuppyImage(puppy: Puppy) {
 }
 ```
 
-3. Finally, call `PuppyImage()` the first thing inside your `Row` in `PuppyListItem()`.
+3. 最后，在 `PuppyListItem()` 中，调用 `PuppyImage()`的 `Row` 中的第一件事。
 
 ```kt
 @Composable
@@ -399,16 +399,16 @@ fun PuppyListItem(puppy: Puppy) {
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/9-2.png)
 
-And voilà! we're done populating our dynamic list view with our data. And that's about it for this post.
+哇哦! 我们已经用数据填充动态列表视图了。那么这篇文章就到此为止。
 
-The two things left now are to:
+剩下的两件事是：
 
-1. Style the app to our final look.
-2. Implement a detailed view screen.
+1. 根据我们的最终外观设计应用程序。
+2. 实现详情页面。
 
-Happy coding! 💻
+编码快乐! 💻
 
-[**The Final Version Source Code of This Article**](https://github.com/waseefakhtar/bark)
+[**本文的最终版本源代码**](https://github.com/waseefakhtar/bark)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
