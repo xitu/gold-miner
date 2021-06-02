@@ -13,7 +13,7 @@ Web 平台上的“自定义”功能越来越多，比如自定义属性（`--m
 
 ## 内置状态
 
-在讨论自定义状态之前，我们先快速查看下内置 HTML 元素定义的内置状态。在 HTML 标准的 [CSS 选择器模块](https://drafts.csswg.org/selectors/)和[“伪类”章节](https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes)指定了可用于匹配不同状态元素的多个伪类。下面提到的伪类在当今的浏览器中都得到了广泛的支持：
+在讨论自定义状态之前，我们先快速查看下内置 HTML 元素定义的内置状态。HTML 标准的 [CSS 选择器模块](https://drafts.csswg.org/selectors/)和[“伪类”章节](https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes)指定了许多可以用于匹配不同状态元素的伪类。下面提到的所有伪类都在当今的浏览器中得到了广泛的支持：
 
 ### 用户操作
 
