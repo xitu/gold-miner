@@ -100,7 +100,7 @@ class LabeledCheckbox extends HTMLElement {
 
 ```css
 labeled-checkbox {
-  /* 默认状态下的样式styles for the default state */
+  /* 默认状态下的样式 */
 }
 
 labeled-checkbox:--checked {
