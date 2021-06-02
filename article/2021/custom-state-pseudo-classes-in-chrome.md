@@ -7,7 +7,7 @@
 
 # Chrome 浏览器的自定义状态伪类
 
-web 平台上的“自定义”功能越来越多。有自定义属性（`--my-property`）、自定义元素（`<my-element>`）和自定义事件（`new CustomEvent('myEvent')`）。某种情况下我们甚至还能使用[自定义媒体查询](https://css-tricks.com/platform-news-defaulting-to-logical-css-fugu-apis-custom-media-queries-and-wordpress-vs-italics/#still-no-progress-on-css-custom-media-queries) (`@media (--my-media)`)。
+Web 平台上的“自定义”功能越来越多，比如自定义属性（`--my-property`）、自定义元素（`<my-element>`）和自定义事件（`new CustomEvent('myEvent')`）。我们一度甚至还能使用[自定义媒体查询](https://css-tricks.com/platform-news-defaulting-to-logical-css-fugu-apis-custom-media-queries-and-wordpress-vs-italics/#still-no-progress-on-css-custom-media-queries) (`@media (--my-media)`)。
 
 但上面提到的并不是全部的可自定义内容！有个功能你可能错过了，因为这篇 Google 发布的 [“New in Chrome 90”](https://developer.chrome.com/blog/new-in-chrome-90/) 文章中并没有提到（公平的说，[声明性（declarative） shadow DOM](https://css-tricks.com/platform-news-using-focus-visible-bbcs-new-typeface-declarative-shadow-doms-a11y-and-placeholders/#declarative-shadow-dom-could-help-popularize-style-encapsulation) 在这次发布中抢先一步），但是 Chrome 刚刚增加了对另一个“自定义”功能的支持：自定义状态伪类（`:--my-state`）。
 
