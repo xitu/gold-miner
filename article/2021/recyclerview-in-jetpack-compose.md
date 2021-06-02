@@ -99,7 +99,7 @@ fun MyApp() {
 >
 > 如果您阅读 Scaffold 的定义，就会发现 Scaffold 在 Compose 中实现了基础的 Material Design 可视化布局结构。所以一般来说，用 Android 原生的视觉布局结构来开始你的屏幕绘制是个好主意。
 
-4. 通过在 onCreate 方法中调用 `MyApp()` 替换示例 Hello World 问候语。
+4. 通过在 onCreate 方法中调用 `MyApp()` 替换示例中的 Hello World 问候语。
 
 ```kt
 override fun onCreate(savedInstanceState: Bundle?) {
