@@ -2,132 +2,137 @@
 > * 原文作者：Adam Gordon Bell
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/brown-green-language.md](https://github.com/xitu/gold-miner/blob/master/article/2021/brown-green-language.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chzh9311](https://github.com/chzh9311)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[PingHGao](https://github.com/PingHGao)、[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
 
-# Green Vs. Brown Programming Languages
+# “绿色” 和 “棕色” 的编程语言
 
-## The Data
+## 数据
 
-The Stack Overflow Developer Survey[1](https://earthly.dev/blog/brown-green-language/#fn1) results are a great source of information about how developers work. I was looking at the 2020 results for some ideas on what programming languages we should add to our [documentation](https://docs.earthly.dev/basics/part-1-a-simple-earthfile) on containerized builds, and I noticed something interesting about the types of programming languages people like. It’s something that doesn’t seem to come up in various discussions of programming language preferences.
+Stack Overflow 的开发者调查 <sup>1</sup> 结果是了解开发者工作情况的重要信息来源。最近我分析了 2020 年的调查结果，希望以此确定我们应该在集成发行版的[文档](https://docs.earthly.dev/basics/part-1-a-simple-earthfile)里添加什么语言。我发现了一些关于人们喜爱哪种编程语言的有趣结论，而这些结论似乎在很多关于编程语言偏好的讨论中都没有出现。
 
-The survey results have rankings for **The Most Dreaded Programming Languages** and **The Most Loved Programming Langauge**. Both rankings come from this question:
+调查结果包含了**最令人畏惧的编程语言**和**最受欢迎的编程语言**这两组排名。它们来自同一个问题：
 
-> Which programming, scripting, and markup languages have you done extensive development work in over the past year, and which do you want to work in over the next year? (If you both worked with the language and want to continue to do so, please check both boxes in that row.)
+> 在过去的一年里，你主要的开发工作是用哪一种编程、脚本和标记语言完成的？在接下来的一年里，你又想用哪一种语言工作呢？（如果你已经在用这种语言工作而且希望能继续使用，请在那一行把两个框都勾上。）
 
-A dreaded language is one you work with extensively in the current year but don’t want to continue to use. A loved language you use extensively and wish to continue using. The results are interesting because they reflect the opinions of people who are using the languages extensively. There should be no I-heard-X-is-cool effect, where people rank highly things they don’t use because they heard it is the new hotness. The inverse should also be true: People who put something on the **Dreaded** list are using it. They are not dreading a language because they heard it was complex, but because they have to work it and feel real pain.
+令人畏惧的语言指的是你今年主要在用但不想再继续用下去的语言，而受欢迎的语言则指的是你主要在用而且希望继续使用的语言。这些结果很有趣，因为它们反映的观点来自主要使用这种语言的开发者们，应该不会受到 “我听说很棒” 这种心理的影响，也就是说，人们不会仅仅因为语言热门就给他们并不使用的语言打很高的分数。反之亦然：把语言放在**令人畏惧**列表上的也是正在使用它们的人。他们害怕这种语言不是因为听说它很复杂，而是确实在使用它的过程中感到痛苦。
 
-**The TOP 15 Dreaded Programming Languages:**
+**最令人畏惧的语言榜单 TOP 15：**
 
-VBA, Objective-C, Perl, Assembly, C, PHP, Ruby, C++, Java, R, Haskell, Scala, HTML, Shell, and SQL.
+VBA、Objective-C、Perl、Assembly、C、PHP、Ruby、C++、Java、R、Haskell、Scala、HTML、Shell 和 SQL。
 
-**The TOP 15 Loved Programming Languages:**
+**最受欢迎的语言榜单 TOP 15：**
 
-Rust, TypeScript, Python, Kotlin, Go, Julia, Dart, C#, Swift, JavaScript, SQL, Shell, HTML, Scala, and Haskell.
+Rust、TypeScript、Python、Kotlin、Go、Julia、Dart、C#、Swift、JavaScript、SQL、Shell、HTML、Scala 和 Haskell。
 
-There is a pattern in this list. Can you see what it is?
+这个列表蕴含了某种规律，你能发现吗？
 
-## Code Written Before I Joined Is the Worst
+## 在我参与之前写的代码是最糟糕的
 
-Old code is the worst. Find me a file in a codebase that has been under active development for more than three years, and it will be hard to follow. What starts as a straightforward file access layer develops special cases and performance optimizations and various branches controlled by configuration options. Real-world code evolves to fits its niche, and as it does so, it becomes more complex and harder to understand. The reason for this is simple, and I first heard about it from Joel Spolsky.
+旧的代码是最糟的。如果让你从一个已经开发了三年以上的代码库里给我找一个文件，你会发现很难追踪。最初只是一个很直接的文件获取层，却在开发过程中逐渐加入了特殊案例、性能优化以及各种由设置选项控制的分支。真实世界中的代码需要根据市场需求进行迭代，而在迭代的过程中，它就变得更加复杂且难以理解。这种现象背后的原因很简单，我最初是从 Joel Spolsky 口中听到的。
 
-> The reason that [ developers ] think the old code is a mess is because of a cardinal, fundamental law of programming: It’s harder to read code than to write it.Joel Spolsky - Things you should never do
+> [开发者们]认为旧代码一团糟的原因可以追溯到一个最基本的编程法则：**阅读代码比写代码要难**。—— Joel Spolsky，[Things You Should Never Do, Part I](https://www.joelonsoftware.com/2000/04/06/things-you-should-never-do-part-i/)
 
-Let’s call this Joel’s Law. A lot of things follow from this premise. Why do most developers think the code they inherited is a mess and want to throw it out and start again? It’s because writing something new is cognitively less demanding than the hard work of understanding an existing codebase, at least initially. Why are many rewrites doomed to fail? Because much of what makes the code seem messy are vital little improvements that accreted over time. Without some plan for simplifying them, you will end up back where you started.
+我们可以把它称为 Joel 定律。很多事情都遵从这个前提。为什么大多数开发者认为他们接手的代码是一团糟，还想要把它们删掉重写？这是因为从认知层面来说，写新的程序要比阅读写好的代码库轻松很多，至少在最开始是这样。为什么很多重写工作都难逃失败的厄运？因为大部分让代码看上去乱七八糟的语句实际上是至关重要的细微提升，这些提升是随着时间推移慢慢累积的。如果毫无规划地精简这些代码，你最后就不得不回到起点。
 
-![https://earthly.dev/blog/assets/images/brown-green-language/dt140812.gif](https://earthly.dev/blog/assets/images/brown-green-language/dt140812.gif)
+![我接手的项目代码很糟糕。我需要从头开始重新写一遍。/ 难道就没有一名工程师会说：“上一位伙计做的很棒。让我们把他的工作保留下来”？ / 我希望你招过来取代我的白痴会这么说。](https://earthly.dev/blog/assets/images/brown-green-language/dt140812.gif)
 
-Scott Adams Understood
+Scott Adams 的理解
 
-It’s easy to understand code as you are writing it. You are executing it and refining it as you go. But it’s hard to understand code just by reading it after the fact. If you return to old code you wrote and find it hard to follow, it could be because you have grown as a developer and would write it better today. But its also possible that the code is inherently complex, and you are interpreting the pain of understanding that complexity as a code quality problem. Could this be why growing PR backlogs are a persistent problem? PR Reviews are a read-only activity, and they are hard to do well if you don’t already have a working model of the code in your head.
+理解你正在写的代码是件很容易的事。你在不断地执行和改进这些代码。但是仅靠阅读去理解已经写完的代码就比较困难了。如果你回看自己写过的旧代码并发现它很难理解，这可能是因为你作为一名开发者已经有所成长，能够把它写得更好。但是也有可能代码本身就很复杂，可你却把理解这种复杂性的痛苦归咎于代码本身的质量问题。这会是 PR 持续积压问题的诱因吗？PR 检查是一项只读的工作，如果你脑中没有一个当前代码的运转模型，你就很难把它做好。
 
-## This is Why You Dread It
+## 这就是你害怕它的原因
 
-If much real-world code is unfairly considered a mess, could programming languages also be unfairly judged? If you build new things in Go but have to maintain a sprawling 20-year-old C++ codebase, can you rank them fairly? I think this is actually what the survey question is measuring: dreaded languages are likely to be used in existing brown-field projects. Loved languages are more often used in new green-field projects. Let’s test this.[2](https://earthly.dev/blog/brown-green-language/#fn2)
+如果很多现实世界的代码会被冤枉成一团乱麻，编程语言也会被冤枉吗？如果你用 Go 写新的程序，却不得不维护一个有 20 年历史、十分庞杂的 C++ 代码库，你能把这两种语言公正地排名吗？我认为这就是调查问卷实际上在评估的：令人畏惧的语言通常被用于已存在的棕地项目<sup>5</sup>，而受欢迎的语言则更多被用于崭新的绿地项目<sup>6</sup>。让我们验证这一点。<sup>2</sup>
 
-## Measuring Brown vs. Green Languages
+## 衡量棕色和绿色的语言
 
-The TIOBE index claims to measure “the number of skilled engineers, courses and jobs worldwide” for programming languages. There are probably some problems with how they measure this, but it’s accurate enough for our purposes. We use the July 2016 TIOBE [index](https://web.archive.org/web/20160801213334/https://www.tiobe.com/tiobe-index/), the oldest available in way back machine, as a proxy for a language having accumulated lots of code to maintain. If something was big in 2016, it’s more likely people are maintaining code written in it than if it wasn’t popular in 2016.
+TIOBE 指数宣称可以通过“全世界范围内熟练的工程师、课程和岗位的数量”衡量编程语言。他们度量的方式可能会有些问题，但其准确度对我们的目标而言已经足够了。我们用了 2016 年 7 月份的 TIOBE [指数](https://web.archive.org/web/20160801213334/https://www.tiobe.com/tiobe-index/)（这是在 Wayback Machine 中能获得的最早的数据）作为已有大量需要维护的代码的编程语言的代表。如果说 2016 年有什么很大的数据，比起对应的语言在 2016 年并不流行的假设，更有可能是人们在维护用这种语言编写的程序。
 
-The top 20 programming languages on their list as of July 2016 are Java, C, C++, Python, C#, PHP, JavaScript, VB.NET, Perl, Assembly, Ruby, Pascal, Swift, Objective-C, MATLAB, R, SQL, COBOL, and Groovy. We can use this as our list of languages more likely to be used in maintenance work. Let’s call them brown languages. Languages not in the top 20 in 2016 are more likely to be used in new projects. We will refer to these as green languages.
+他们给出的 2016 年 7 月份编程语言排行榜的前 20 名是：Java，C，C++，Python，C#，PHP，JavaScript，VB.NET，Perl，Assembly，Ruby，Pascal，Swift，Objective-C，MATLAB，R，SQL，COBOL 和 Groovy。我们可以把这个排行作为更多被用于维护工作的语言清单。并把这些语言称为“棕色语言”。在 2016 年并未跻身 top 20 的语言则更多地被用于新的项目。我们把这些语言称为“绿色语言”。
 
 ![https://earthly.dev/blog/assets/images/brown-green-language/graph1.svg](https://earthly.dev/blog/assets/images/brown-green-language/graph1.svg)
 
-Out of 22 Languages in the combined dreaded/loved list, 63% are Brown
+<p align='center'>在令人畏惧和受欢迎这两个列表中出现的 22 种语言里，63% 是棕色语言。</p>
 
-**Brown Language:** A language that you are more likely to use in existing software maintenance (i.e. brown-field projects).
+**棕色语言**：在维护已有软件（即棕地项目）时更常用的语言。 
 
-Java, C, C++, C#, Python, PHP, JavaScript, Swift, Perl, Ruby, Assembly, R, Objective-C, SQL
+Java、C、C++、C#、Python、PHP、JavaScript、Swift、Perl、Ruby、Assembly、R、Objective-C 和 SQL
 
-**Green Language:** A language that you are more likely to use in a new project (i.e. a green-field project).
+**绿色语言**：在新项目（即绿地项目）中更常用的语言。
 
-Go, Rust, TypeScript, Kotlin, Julia, Dart, Scala, and Haskell
+Go、Rust、TypeScript、Kotlin、Julia、Dart、Scala 和 Haskell
 
-TIOBE and StackOverflow have different ideas of what a programming language is. To overcome this, we have to normalize the two lists by removing HTML/CSS, Shell Scripts, and VBA.[3](https://earthly.dev/blog/brown-green-language/#fn3)
+TIOBE 和 Stack Overflow 在什么是编程语言这一问题上有分歧。为了解决这个问题，我们需要把 HTML/CSS，Shell 脚本和 VBA 从两个榜单上移除来实现标准化。<sup>3</sup>
 
-**Removed Language:** Not measured the same by TIOBE and StackOverflow
+**移除的语言**：TIOBE 和 Stack Overflow 在这些语言上存在分歧。
 
 VBA, Shell, HTML/CSS
 
-There are many nuances that a simple green / brown split misses - I expect that more green-field projects start with Swift than with Objective-C, but it does seem sufficient to capture what we need. There are far more brown languages in this list than green, but that is what I would expect given that year-on-year turn-over in programming languages is relatively low.
+这种简单的绿色 / 棕色一刀切的分割方式会丢失很多细节，比如我预计用 Swift 写的绿地项目比用 Objective-C 写的更多，但它看上去确实能有效反映我们所需的信息。表单上棕色语言比绿色语言多得多，但考虑到编程语言每年的排名变化相对较小，这也不出我所料。
 
-Now we can answer the question: Do people love and dread the languages they state or are they just dreading legacy code? Or to put it another way: If Java and Ruby appeared today, without piles of old rails apps and old enterprise Java applications to maintain, would they still be dreaded or would they be more likely to show up on the loved list?
+现在我们可以回答这个问题了：人们是真的像他们说的那样喜爱和害怕编程语言本身还是仅仅在害怕经年累月的代码？或者换一种说法：如果 Java 和 Ruby 出现在今天，没有那么多旧框架的 app 和旧的企业级 Java 应用要维护，它们是否仍然面目可憎？或者，它们是否更有可能出现在受欢迎的列表当中？
 
-## The Dreaded Brown Programming Languages
+## 令人畏惧的棕色编程语言
 
 ![https://earthly.dev/blog/assets/images/brown-green-language/graph2.svg](https://earthly.dev/blog/assets/images/brown-green-language/graph2.svg)
 
-Dreaded Languages: 83% Brown
+<p align='center'>令人畏惧的语言：83% 是棕色的</p>
 
-The Top Dreaded languages are almost all are brown languages. 68% of the languages in our complete list are brown, while 83% of the dreaded languages are brown, which is higher than we would expect by chance.
+最令人畏惧的语言几乎都是棕色的。在我们统计的全部语言中，有 68% 是棕色的，然而在令人畏惧的语言中这一比例达到了 83%，这比随机分配的比例要高。
 
-## The Loved Green Programming Languages
+## 受欢迎的绿色编程语言
 
 ![https://earthly.dev/blog/assets/images/brown-green-language/graph3.svg](https://earthly.dev/blog/assets/images/brown-green-language/graph3.svg)
 
-Loved Languages 54% Green
+<p align='center'>受欢迎的编程语言：54% 是绿色的</p>
 
-In the top loved languages, 54% are green. Only 36% of the languages in our list are green, and every single green language showed up somewhere in the loved list.
+在最受欢迎的语言中，54% 是绿色的。在我们统计的语言中只有 36% 是绿色，而且每一种绿色的编程语言都在受欢迎榜单中占有一席之地。
 
-> Another flaw in the human character is that everybody wants to build and nobody wants to do maintenance.― Kurt Vonnegut
+> 人性的另一个缺点便是，人人都想新建而没人愿意维护。—— Kurt Vonnegut
 
-This probably isn’t quite enough evidence to say for sure that having to use a language in a maintenance project causes dread, but it certainly looks like it is a factor. Many of the languages people love are too new or too historically unpopular to have many big big-ball-of-mud projects to maintain.
+这可能不足以说明人们的恐惧来源是必须用这种语言来维护项目，但它看上去确实是一个诱因。很多人们喜爱的编程语言都太年轻或没有长时间流行，因而没有那么多臃肿的项目要维护。
 
-In other words, Rust, Kotlin, and the other green languages may still be in a honeymoon phase. People’s love for working with them may have as much to do with not working in 20-year-old codebases as it does with the particular languages.
+换句话说，Rust，Kotlin，还有其他绿色编程语言可能仍处于蜜月期。人们对用这些语言工作的好感可能与不必维护有 20 年历史的代码库有极大的关系，不像某些特定的语言必须维护历史悠久的代码库。
 
-## Overcoming Bias
+## 战胜偏见
 
 ![https://earthly.dev/blog/generated/assets/images/brown-green-language/angel-devil-wide-600-402d4be31.png](https://earthly.dev/blog/generated/assets/images/brown-green-language/angel-devil-wide-600-402d4be31.png)
 
-Some newer or historically less popular programming languages might be better than older or more mainstream languages, but our ability to judge seems quite biased. In particular, developers are giving a halo to languages that are newer or were not used commonly in the past, and they are giving horns to languages that have been around longer. I think this is because nobody likes maintaining someone else’s code. And also, because of Joel’s Law: reading real-world is code hard. Building something new is fun, and new languages are used for that more often.
+一些新兴的或以前并不流行的语言有可能比老旧或更加主流的语言要好，但是我们的判断似乎被偏见左右了。实际上，开发者们为新兴的或者过去不常用的语言戴上光环，把它们看做天使，而为已经使用过更长时间的语言插上角，把它们视为恶魔。我认为这是因为没人想维护其他人的工作。况且，正如 Joel 定律所描述的那样：阅读实际存在的代码很困难。建立新事物很有趣，而新兴语言则更多地被用于这种有趣的工作。
 
-## The Lifecycle of Programming Language Hype
+## 编程语言风评的生命周期
 
-I originally started digging into these numbers to establish a ranking for what languages were most used and loved by software developers. I was going to use this to guide adding more examples to our [docs](https://docs.earthly.dev/) and our [build examples](https://github.com/earthly/earthly/tree/main/examples). What I came away with instead was the idea of a programming language life cycle: loved programming languages get used a lot, which leads to code maintenance, which causes people to dislike them, which leads to people looking for greener pastures and trying out a newer language. Popular frameworks probably follow this lifecycle as well.
+我最开始深挖这些数据，是为了发布一个编程语言常用性和在开发者中的受欢迎度的排行榜。我本来打算用这些结论作为指导，给我们的[文档](https://docs.earthly.dev)和[构建样例](https://github.com/earthly/earthly/tree/main/examples)添加示例。然而我却在中途产生了一些关于编程语言生命周期的想法：受欢迎的编程语言经常被使用，这就带来了代码维护工作，而维护工作会让人们讨厌这门语言，于是人们就开始寻找更更加崭新的项目、尝试更新颖的语言。流行的框架大概也符合这一生命周期。
 
 ![https://earthly.dev/blog/generated/assets/images/brown-green-language/hype-wide-800-83ae14a13.png](https://earthly.dev/blog/generated/assets/images/brown-green-language/hype-wide-800-83ae14a13.png)
 
-The lifecycle of programming language hype
+<p align='center'>编程语言风评的生命周期</p>
 
-I don’t have data for this, but I distinctly remember Ruby being the hottest language back in 2007, and although it does have more competition today, Ruby is a better language now than it was then. Yet now it is dreaded. Part of the difference, it seems to me, is that now people have 14 years’ worth of rails apps to maintain. That makes Ruby is a lot less fun than when it was all new projects. So watch out Rust and Kotlin and Julia and Go: you too will eventually lose your halo.[4](https://earthly.dev/blog/brown-green-language/#fn4)
+对于这张图表，我并没有数据，但是我清楚地记得 Ruby 在 2007 年是最热门的语言，即便现在它有了更多的竞争对手，Ruby 也比之前要好得多。然而，它现在却变得遭人嫌弃了。对我而言，其中一点区别似乎是现在人们有了这 14 年产出的诸多应用要维护。这让 Ruby 的趣味性大减，与全是新项目的时期不可同日而语。所以请警惕 Rust、Kotlin、Julia 和 Go：你最终也将亲手取下你为它们戴上的光环。<sup>4</sup>
 
 
 ---
 
-1. 2020 [Graphical](https://insights.stackoverflow.com/survey/2020) and [Raw](https://drive.google.com/file/d/1dfGerWeWkcyQ9GX9x20rdSGj7WtEpzBB/view) results.[↩︎](https://earthly.dev/blog/brown-green-language/#fnref1)
+1. 2020 年的[图形化](https://insights.stackoverflow.com/survey/2020)和[原始](https://drive.google.com/file/d/1dfGerWeWkcyQ9GX9x20rdSGj7WtEpzBB/view)结果。
 
-2. I came up with the criteria first. I didn’t hunt for data to back up my original idea.
+2. 我最先提出这个标准。我并没有为支撑我的观点寻找数据。
 
-	I did consider using language creation date to determine green vs. brown status, but some languages have been around for some time but only found usage relatively recently.
+	我确实考虑过用语言的诞生日来区分绿色和棕色语言，但有些语言已经存在一段时间了却只在最近才开始投入使用。
 
-	TIOBE is measured like [this](https://www.tiobe.com/tiobe-index/programming-languages-definition/) and their historical data is only available if you pay, so I am using the Wayback Machine.[↩︎](https://earthly.dev/blog/brown-green-language/#fnref2)
+	TIOBE 度量用的是[这种方法](https://www.tiobe.com/tiobe-index/programming-languages-definition/)，而且他们的历史数据是需要付费获取的，所以我就使用了 Wayback Machine。
 
-3. TIOBE doesn’t include HTML/CSS because it doesn’t consider them turning complete and therefore not a programming language. Shell scripts are measured separately by TIOBE, and VBA is not in the list of languages measured at all, as far as I can see.[↩︎](https://earthly.dev/blog/brown-green-language/#fnref3)
+3. TIOBE 并未计量 HTML/CSS，因为它认为这些语言并没有向完备发展所以不是编程语言。据我所知，Shell 脚本被 TIOBE 单独归类，而 VBA 则完全不在他们计量的语言列表上。
 
-4. Not all brown languages are dreaded however: Python, C#, Swift, JavaScript and SQL remain loved and I would love to hear if anyone has theories on why. Also Scala and Haskell, two languages I have a soft spot for, are the only green languages on the dreaded list. Is this just noise or is there something else going on there?[↩︎](https://earthly.dev/blog/brown-green-language/#fnref4)
+4. 然而并不是所有的棕色语言都令人畏惧：Python、C#、Swift、JavaScript 和 SQL 依然受欢迎，如果有人能解释为什么的话，我洗耳恭听。另外，Scala 和 Haskell 这两种我喜欢的语言是令人畏惧的名单上仅有的绿色语言。这是单纯的噪声还是有其他的原因呢？
+
+5. 译者注：**棕地项目**指需要在已有软件系统的基础上开发的项目。这就意味着开发的新软件系统必须考虑与已有软件的兼容问题。（来源：[Brownfield (software development) - Wikipedia](https://en.wikipedia.org/wiki/Brownfield_(software_development))）
+
+6. 译者注：**绿地项目**指没有先前工作束缚的项目。在软件工程中，它可以是为一个全新的环境开发系统，不需要考虑与其他系统的兼容问题。（来源：[Greenfield project - Wikipedia](https://en.wikipedia.org/wiki/Greenfield_project)）
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
+

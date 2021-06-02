@@ -2,7 +2,7 @@
 > * 原文作者：[Bruno Couriol](https://www.infoq.com/profile/Bruno-Couriol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-nodegui-native-desktop.md](https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-nodegui-native-desktop.md)
-> * 译者：[Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # Svelte NodeGUI 发布了！我们现在可以使用 Qt 和 Svelte 构建原生桌面端应用程序

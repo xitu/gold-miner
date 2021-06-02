@@ -1,3 +1,4 @@
+* [为 Web 开发同学准备的 11 个简单实用的 UI 设计小技巧](https://juejin.cn/post/6960922956876742669)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [构建设计系统和组件库](https://juejin.cn/post/6924152501805678606)（[Charlo-O](https://github.com/Charlo-O) 翻译）
 * [解构标志性的 Apple Watch Bubble UI](https://juejin.cn/post/6919630087843217416)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
