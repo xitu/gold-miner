@@ -5,7 +5,7 @@
 > * 译者：[samyu2000](https://github.com/samyu2000)
 > * 校对者：[PassionPenguin](https://github.com/PassionPenguin), [KimYangOfCat](https://github.com/KimYangOfCat)
 
-# 使用 GPU.js 让你的 Angular.js 程序提速 10 倍
+# 使用 GPU.js 让你的 Angular 程序提速 10 倍
 
 ![Photo by [Lucas Kepner](https://unsplash.com/@lucaskphoto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/12878/0*rDxYRR86genkrPIK)
 
