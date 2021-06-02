@@ -74,13 +74,13 @@ Run with --stacktrace option to get the stack trace. Run with --info or --debug 
 
 ## 编写我们的第一行 Compose 代码 ✨
 
-为了开始编写我们的应用程序，我们首先需要按照我称为 Jetpack Compose 协议来构建我们的应用程序，因为我经常在 Google Codelabs 中的看到这一协议。
+为了开始编写我们的应用程序，我们首先需要按照我称为 Jetpack Compose 协议来构建我们的应用程序，因为我在 Google Codelabs 中经常能看到这一协议。
 
 第一件事：
 
 1. 打开 `MainActivity.kt` 文件。
 
-2. 在你的 `MainActivity` 类中新建一个 composable 组件。
+2. 在你的 `MainActivity` 类中新建一个可组合函数。
 
 ```kt
 @Composable
@@ -114,7 +114,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 接下来，我们需要编写添加到 Scaffold 的 content 参数 `BarkHomeContent()` 中的内容。
 
-但是首先，我们知道我们需要展示一个小狗的列表，上面有每只小狗的一些细节，也许还有一张图片。为了做到这一点，我们需要创建一个数据类来保存每只小狗的信息，并创建一个数据提供者来为我们提供一个小狗列表，这些小狗的正确排序将显示在我们的列表中。
+但是首先，我们知道我们需要展示一个小狗的列表，上面有每只小狗的一些细节，也许还有一张图片。为了做到这一点，我们需要创建一个 Data 类来保存每只小狗的信息，并创建一个 Data Provider 类来为我们提供一个小狗列表，这些小狗的正确排序将显示在我们的列表中。
 
 ## 设置收养小狗 🐶
 
@@ -243,7 +243,7 @@ object DataProvider {
 
 1. 新建一个名为 `BarkHome.kt` 的类。
 
-2. 在新建的类里面添加一个名为 `BarkHomeContent()` 的 composable 组件。
+2. 在新建的类里面添加一个名为 `BarkHomeContent()` 的可组合函数。
 
 ```kt
 @Composable
@@ -271,9 +271,9 @@ fun BarkHomeContent() {
 
 2. 在第 4 行中，我们称之为 `LazyColumn` 的 composable。这相当于我们作为 Android 开发者非常熟悉的 RecyclerView。这真的需要举办一个盛大的庆祝活动，因为用 Jetpack Compose 创建一个动态列表是多么容易。 🎉
 
-3. 在第 5 行中，在 LazyColumn 参数中，我们给它一个很适宜的小填充，让我们的每个列表项之间有一点喘息的空间。
+3. 在第 5 行中，在 `LazyColumn` 参数中，我们给它一个很适宜的小填充块，让我们的每个列表项之间有一点喘息的空间。
 
-4. 在第 7-11 行的 `LazyColumn` 内容中，我们调用 `items` 函数，该函数将 `puppies` 列表作为第一个参数，并调用一个可组合的 `puppies` （我们将在下一步创建），该函数将列表项 composable 填充到列表中的每个项中。
+4. 在第 7-11 行的 `LazyColumn` 内容中，我们调用 `items` 函数，该函数将 `puppies` 列表作为第一个参数，并调用一个可组合的 `puppies` （我们将在下一步创建），该函数将列表项组合填充到列表中的每个项中。
 
 ## 创建列表项 📝
 
@@ -322,7 +322,7 @@ Row {
 
 ![](https://www.waseefakhtar.com/content/images/2021/04/7-3.png)
 
-2. 用一个 `card` 组件把你的 `Row` 围起来，你可以随意设计。
+2. 用一个 `card` 组件把你的 `Row` 围起来，你可以随意设计它的样式。
 
 ```kt
 Card(
@@ -369,7 +369,7 @@ private fun PuppyImage(puppy: Puppy) {
 }
 ```
 
-3. 最后，在 `PuppyListItem()` 中，调用 `PuppyImage()`的 `Row` 中的第一件事。
+3. 最后，在 `PuppyListItem()` 中的`Row` 里首先调用 `PuppyImage()`。
 
 ```kt
 @Composable
