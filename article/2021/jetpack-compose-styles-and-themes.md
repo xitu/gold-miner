@@ -5,48 +5,48 @@
 > * 译者：
 > * 校对者：
 
-# Jetpack Compose: Styles and Themes (Part II)
+# Jetpack Compose：样式和主题（第二部分）
 
-![Jetpack Compose: Styles and Themes (Part II)](https://www.waseefakhtar.com/content/images/size/w2000/2021/05/Jetpack-Compose-highres-5-3.jpg)
+![Jetpack Compose：样式和主题（第二部分）](https://www.waseefakhtar.com/content/images/size/w2000/2021/05/Jetpack-Compose-highres-5-3.jpg)
 
-As of [Part I](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md), we successfully implemented a RecyclerView (known as LazyColumn in Compose), populating it with a list of puppies that we have for adoption. 🐶
+截至[上一篇文章](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md), 我们成功地实现了一个 RecyclerView（在 Compose 中称为 LazyColumn），并且在里面填充了一个供收养的小狗列表。 🐶
 
-But as I mentioned, we still have some things to do before we call it a complete Compose app. The two things left now are:
+但是正如我之前提到的，在我们称它为完整的 Composite 应用之前，我们还有一些事情要做。现在剩下的两件事是：
 
-1. To style the app to our final look.
-2. To implement a detailed view screen.
+1. 根据我们的最终外观设计应用程序。
+2. 实现详情页面。
 
-In this part of the series, we'll look at how styles and themes work in Compose, taking our app from Part I and giving it the final look that we want to achieve:
+在本系列的这一部分中，我们将介绍如何使用 Compose 中的样式和主题，选择在上一篇文章中我们实现的应用程序，并给出我们想要实现的最终外观：
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/1.gif)
 
-To look at where we need to continue from, let's first look at the final screen from Part I:
+为了了解我们需要从何处继续，我们首先来看上一篇文章的最后成果：
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-151508.png)
 
-The things we're going to look at:
+我们想要看的是：
 
-1. Change color throughout the app using `Color.kt` and `Theme.kt`.
-2. Look at how dark/light mode works in Compose.
-3. Fix status bar and system navigation bar to adapt to our app's theme.
+1. 使用 `Color.kt` 和 `Theme.kt` 改变整个应用程序的颜色。
+2. 看看在 Compose 中暗黑/光亮模式分别是如何工作的。
+3. 修复状态栏和系统导航栏，以适应我们的应用程序的主题。
 
-Let's get started!
+让我们开始吧！
 
-## Enabling Dark Mode 💡
+## 启用暗黑模式 💡
 
-As you can see in our final screen, our app looks like it has dark mode enabled. If that's the final look we want (or if we want an app that has support for Dark mode), it's super easy with how our project is set up initially by the Android Studio template. Let's explore a bit more to see what we mean.
+正如你在最终成果页面上看到的，我们的应用程序看起来像是启用了暗黑模式。如果这是我们想要的最终外观（或者如果我们想要一个支持黑暗模式的应用程序），那么我们的项目最初是如何由 Android Studio 模板设置的就非常简单了。让我们再探讨一下，理解我们的意思。
 
-If you open you project directory, you can see that you already have `/ui/theme` directory and inside that, you have a few Kotlin classes: Color, Shape, Theme, Type.
+如果打开项目的目录，你可以看到项目中已经有了 `/ui/theme` 目录，在这个目录中，有几个 Kotlin 类，包括：Color、Shape、theme、Type。
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/Screen-Shot-2021-05-15-at-5.20.50-PM.png)
 
-These are all the classes that you need to modify the theme and styling of your app.
+这些都是您需要修改应用程序主题和样式的类。
 
-Since in our case, we need to enable dark mode for our app, do the following:
+因为在我们的情况下，我们需要为应用程序启用暗模式，请执行以下操作：
 
-1. Open `Theme.kt`.
+1. 打开 `Theme.kt` 类。
 
-2. Inside `BarkTheme` composable, replace the darkTheme default value from `isSystemInDarkTheme()` to `true`.
+2. 在 `BarkTheme` composable 中，将 `isSystemInDarkTheme()` 的暗主题默认值设置为 `true`。
 
 ```kt
 @Composable
@@ -66,48 +66,48 @@ fun BarkTheme(darkTheme: Boolean = true, content: @Composable() () -> Unit) {
 }
 ```
 
-3. Run the app to see the changes.
+3. 运行应用程序以查看更改。
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-181342.png)
 
-We can see that our background has changed.. but, with that, we also have our text color changed but not the puppy card color.
+我们可以看到我们的背景已经改变了…… 除此之外，我们的文字颜色也发生了改变，但小狗卡片的颜色没有改变。
 
-Let's quickly fix that:
+让我们快速解决这个问题：
 
-1. Open `Color.kt`.
+1. 打开 `Color.kt` 类。
 
-2. Add a new color named `graySurface`.
+2. 新建一个名为 `graySurface` 的颜色。
 
 ```kt
 val graySurface = Color(0xFF202124)
 ```
 
-3. Now open `Theme.kt`.
+3. 现在打开 `Theme.kt` 类。
 
-4. Inside the `DarkColorPalette` variable, add a new color definition for `surface` and set its value to the `graySurface` color that we set in #2.
+4. 在 `DarkColorPalette` 变量中，为 `DarkColorPalette` 添加新的颜色定义，并将其值设置为在步骤 2 中设置的 `graySurface` 的颜色。
 
-> Note: In case you want to know what `surface` is, it's a color definition provided by the color system of Material Design that affect surfaces of components, such as cards, sheets, and menus:
+> 注：也许您还想知道 `surface` 是什么，它是由材质设计的颜色系统提供的颜色定义，影响组件的表面，如卡片、图纸和菜单：
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/Screen-Shot-2021-05-15-at-6.27.30-PM.png)
 
-5\. Finally, if you've been following the tutorial step by step, you might remember that we hardcoded our card color when we implemented it in Part I, which is not really a great way of doing it. In order to let our app color values from `Color.kt` work consistently throughout the app, it's always a better idea to change the color values of the UI elements using `Color.kt` rather than changing each UI element's color individually.
+5. 最后，如果您一直按部就班地学习教程，您可能还记得，在上一篇文章中实现时，我们硬编码了卡片的颜色，这并不是一种很好的方法。为了让 `Color.kt` 中的应用程序颜色值在整个应用程序中保持一致，最好使用 `Color.kt` 更改 UI 元素的颜色值，而不是单独更改每个 UI 元素的颜色。
 
-So at this step, we remove that hardcoded color from our puppy card in order for the card to show the true `surface` color we just set.
+因此，在这一步，我们删除小狗卡片的硬编码颜色，以便卡显示我们刚刚设置的真正的 `surface` 的颜色。
 
-1. Open `PuppyListItem.kt`.
-2. Inside `PuppyListItem` composable function, remove this parameter from the Card composable: `backgroundColor value: backgroundColor = Color.White`
+1. 打开 `PuppyListItem.kt` 类。
+2. 在 `PuppyListItem` composable函数中，从卡片 composable 中删除此参数：`backgroundColor value: backgroundColor = Color.White`
 
-Run the app now to see the changes.
+运行应用程序以查看更改。
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-194054.png)
 
-Super! We've done everything we needed to do at this time.
+顶呱呱的！我们已经做了所有我们需要做的事情。
 
-But..
+但是…… 
 
-Do you see that the status bar looks a bit odd at the top with that odd color? And what about the system navigation bar at the bottom? It'd be extra cool if we fixed them to match our overall theme.
+你有没有发现顶部状态栏的颜色有点奇怪吗？还有底部的系统导航栏呢？如果我们把它们调整好搭配我们的主题，那就太酷了。
 
-But there's a catch. Since Jetpack Compose is still early to work with, it comes with its limitation for the time being (And I'm not entirely sure if there even is this particular limitation). So to fix the status bar and navigation bar, we're going to head to our dear 'ol XML for this.
+但这里有个陷阱。由于 Jetpack Compose 库还很稚嫩，所以它目前还存在一些局限性（我甚至不确定是否存在这种特殊的局限性）。因此，为了修复状态栏和导航栏，我们将使用我们亲爱的'olxml。
 
 ## The Final Fixes 👨‍🎨
 
