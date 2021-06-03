@@ -109,7 +109,7 @@ val graySurface = Color(0xFF202124)
 
 但这里有个陷阱。由于 Jetpack Compose 库还很稚嫩，所以它目前还存在一些局限性（我甚至不确定是否存在这种特殊的局限性）。因此，为了修复状态栏和导航栏，我们将使用我们亲爱的'olxml。
 
-## 最终修复 👨‍🎨
+## 最终调整 👨‍🎨
 
 为了更改状态栏颜色以匹配我们的主题：
 
@@ -154,7 +154,7 @@ val graySurface = Color(0xFF202124)
 
 编码快乐！ 💻
 
-[**Source code for the Final Version**](https://github.com/waseefakhtar/bark) 
+[**最终版本的源代码**](https://github.com/waseefakhtar/bark) 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
