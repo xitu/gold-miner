@@ -2,7 +2,7 @@
 > * 原文作者：[Waseef Akhtar](https://www.waseefakhtar.com/author/waseefakhtar/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/jetpack-compose-styles-and-themes.md](https://github.com/xitu/gold-miner/blob/master/article/2021/jetpack-compose-styles-and-themes.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
 # Jetpack Compose：样式和主题（第二部分）
