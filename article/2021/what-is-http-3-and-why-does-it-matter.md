@@ -3,31 +3,31 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/what-is-http-3-and-why-does-it-matter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/what-is-http-3-and-why-does-it-matter.md)
 > - 译者：[keepmovingljzy](https://github.com/keepmovingljzy)
-> - 校对者：[Chorer](https://github.com/Chorer)
+> - 校对者：[Chorer](https://github.com/Chorer)、[Usualminds](https://github.com/Usualminds)
 
 # 什么是 HTTP/3，为什么它很重要？
 
 ![Photo by [JJ Ying](https://unsplash.com/@jjying?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8064/0*oudyG8yVAEkJ7vm5)
 
-在研究互联网及其背后的技术时，你可能会遇到这个术语：HTTP。HTTP 或超文本传输协议，是网络的主干，是传输文本数据的通用协议。你肯定用过它，因为你在网站上了解 HTTP 时，该网站使用的就是 HTTP。
+研究互联网及其背后的技术时，你可能会遇到这个术语：HTTP。HTTP 或超文本传输协议，它是网络的主干，是传输文本数据的通用协议。你肯定用过它，因为你在网站上了解 HTTP 时，该网站使用的就是 HTTP 网络协议。
 
 ## 简介
 
 ### HTTP 历史简介
 
-HTTP 的第一个正式发布的版本是 HTTP/0.9。 蒂姆·伯纳斯·李于 1989 年创建了 HTTP，并在 1991 年将其命名为 HTTP/0.9。HTTP/0.9 功能有限，只能完成一些基本的任务。它无法返回除网页以外的任何内容，不支持 Cookie 和其他现代功能。1996 年 HTTP/1.0 发布，也带来了一些新功能，比如 POST 请求以及发送除网页以外的东西。 但是，它离今天的水平还有很长的路要走。HTTP/1.1 于 1997 年发布，并分别在 1999年 和 2007 年进行了修订。它带来了诸如 Cookie 和长连接在内的许多新功能。最终，在 2015 年，HTTP/2 发布了，其性能得到了巨大的提升，同时带来了 SSE 服务端推送功能，并允许一次发送多个请求。HTTP/2 相对来说还是比较新的东西，只有[不到一半的网站](https://w3techs.com/technologies/details/ce-http2)使用了它。
+HTTP 的第一个正式发布版本是 HTTP/0.9。 蒂姆·伯纳斯·李于 1989 年创建了 HTTP，并在 1991 年将其命名为 HTTP/0.9。HTTP/0.9 功能有限，只能完成一些基本的任务。它无法返回除网页以外的任何内容，不支持 Cookie 和其他现代功能。1996 年 HTTP/1.0 版本发布，它带来了一些新功能，比如 POST 请求以及发送除网页以外的东西。 但是，它离今天的 HTTP 协议还相差甚远。HTTP/1.1 于 1997 年发布，并分别在 1999年 和 2007 年进行了修订。它带来了诸如 Cookie 和长连接在内的许多新功能。最终，在 2015 年，HTTP/2 发布了，它带来了性能的巨大提升，同时也带来了 SSE 服务端推送功能，并允许一次发送多个请求。HTTP/2 相对来说还是比较新的东西，只有[不到一半的网站](https://w3techs.com/technologies/details/ce-http2)使用了它。
 
 ### HTTP/3：HTTP 的最新版本
 
-HTTP/3 也被称为基于 QUIC 的 HTTP, 它极大的改变了 HTTP。传统的 HTTP 是通过 TCP（传输层控制协议）完成的。然而 TCP 是在 1974 年开发的，也就是互联网的早期。在最初发明 TCP 时，它的作者并没意识到网络的发展会如此之快。由于 TCP 的过时，它在速度和安全性方面一度限制了 HTTP。但是由于有了 HTTP/3，HTTP 不再受限制。HTTP/3 使用了谷歌在 2012 年开发的一种名为 QUIC（发音为 “quick”）的新协议，而不是 TCP。这为 HTTP 引入了许多新特性。
+HTTP/3 也被称为基于 QUIC 的 HTTP, 它极大的改变了 HTTP。传统的 HTTP 是通过 TCP（传输层控制协议）完成的。然而 TCP 是在 1974 年开发的，也就是互联网的早期。在最初发明 TCP 时，它的作者并没意识到网络的发展会如此之快。由于 TCP 的过时，它在速度和安全性方面一度限制了 HTTP。但由于有了 HTTP/3，HTTP 不再受限制。HTTP/3 使用了谷歌在 2012 年开发的一种名为 QUIC（发音为 “quick”）的新协议，而不是 TCP。这为 HTTP 引入了许多新特性。
 
-## 特征
+## 特性
 
 ### 更快的多路复用请求
 
 ![Photo by [PAUL SMITH](https://unsplash.com/@sumo?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*Oz9x1jnI9c2V5qmd)
 
-在 HTTP/2 之前，浏览器一次只能向服务器发送一个请求。这使得网站加载速度明显变慢，因为浏览器一次只加载一个资源，比如 CSS 或 JavaScript。HTTP/2 引入了一次加载多个资源的能力，但 TCP 不是为此而设计的。如果其中一个请求失败，TCP 会让浏览器重新发起所有的请求。由于 TCP 在 HTTP/3 中被移除，改用 QUIC，HTTP/3 不再面临这个问题。对于 HTTP/3，浏览器只需要重新发起失败的请求。因此，HTTP/3 更快、更可靠。
+在 HTTP/2 之前，浏览器一次只能向服务器发送一个请求。这使得网站的加载速度明显变慢，因为浏览器一次只加载一个资源，比如 CSS 或 JavaScript。HTTP/2 引入了一次加载多个资源的能力，但 TCP 不是为此而设计的。如果其中一个请求失败，TCP 会让浏览器重新发起所有的请求（原文描述有些问题：HTTP/2 协议使用虽然是基于 TCP 协议，但是使用了帧和流的技术，一个请求失败，TCP连接还在，不用重新发起所有请求，因此正确的说法是：如果其中一个请求帧失败，TCP 会让浏览器重新发起该请求）。由于 TCP 在 HTTP/3 中被移除，改用 QUIC，所以 HTTP/3 不会有这个问题。对于 HTTP/3，浏览器只需要重新发起失败的请求。因此，HTTP/3 更快、更可靠。
 
 ### 更快的加密
 
@@ -39,7 +39,7 @@ HTTP/3 优化了加密浏览器的 HTTP 请求的握手过程。QUIC 将初始�
 
 ### 标准化
 
-在撰写本文时，HTTP/3 和 QUIC 还没有标准化。目前有一个 IETF [工作组](https://quicwg.org/)正在起草标准化 QUIC 的草案。用于 HTTP/3 的 QUIC 版本做了轻微的修改，使用 TLS 而不是谷歌的加密，但它带来的优势是不变的。
+在撰写本文时，HTTP/3 和 QUIC 还没有标准化。目前有一个 IETF [工作组](https://quicwg.org/)正在起草标准化 QUIC 的草案。用于 HTTP/3 的 QUIC 版本做了轻微的修改，使用 TLS 而不是谷歌的加密算法，但它有同样的优势。
 
 ### 浏览器支持
 
@@ -49,7 +49,7 @@ HTTP/3 优化了加密浏览器的 HTTP 请求的握手过程。QUIC 将初始�
 
 ### Serverless/CDN 支持
 
-到目前为止，只有一些服务器支持 HTTP/3，但它们的份额正在增长。Cloudflare 是谷歌之外第一批支持 HTTP/3 的公司之一，因此他们的 Serverless 和 CDN 都是兼容 HTTP/3 的。此外，谷歌云和 Fastly 也是兼容 HTTP/3 的，而微软 Azure CDN 和 AWS CloudFront 目前似乎不支持 HTTP/3。如果你想尝试 HTTP/3，[QUIC.Cloud](https://quic.cloud/) 是一种有趣的（虽然是实验性的）方法，可以让你在服务器前搭建一个缓存 HTTP/3 CDN。Cloudflare、Fastly 和谷歌云也有很好的 HTTP/3 支持，而且更适合生产环境。
+到目前为止，只有一些服务器支持 HTTP/3，但它们的占比正在变大。Cloudflare 是谷歌之外第一批支持 HTTP/3 的公司之一，因此他们的 Serverless 和 CDN 都是兼容 HTTP/3 的。此外，谷歌云和 Fastly 也是兼容 HTTP/3 的公司，而微软 Azure CDN 和 AWS CloudFront 目前似乎不支持 HTTP/3。如果你想尝试 HTTP/3，[QUIC.Cloud](https://quic.cloud/) 是一种有趣的（虽然是实验性的）方法，可以让你在服务器前搭建一个缓存 HTTP/3 CDN。Cloudflare、Fastly 和谷歌云也有很好的 HTTP/3 支持，而且更适合生产环境。
 
 ## 总结
 
