@@ -109,25 +109,25 @@ val graySurface = Color(0xFF202124)
 
 但这里有个陷阱。由于 Jetpack Compose 库还很稚嫩，所以它目前还存在一些局限性（我甚至不确定是否存在这种特殊的局限性）。因此，为了修复状态栏和导航栏，我们将使用我们亲爱的'olxml。
 
-## The Final Fixes 👨‍🎨
+## 最终修复 👨‍🎨
 
-In order to change the status bar color to match our theme:
+为了更改状态栏颜色以匹配我们的主题：
 
-1. Open `colors.xml` under `/res`.
+1. 打开 `/res` 文件夹下的 `colors.xml` 文件。
 
-2. Add the same gray color we added to our `Color.kt`.
+2. 添加我们添加到 `Color.kt` 类中的相同灰色。
 
 ```xml
 <color name="grey">#202124</color>
 ```
 
-3. Open `themes.xml`.
+3. 打开 `themes.xml` 文件。
 
-> Note: You might notice that you have two `themes.xml` in themes directory. Make it a good practice from now onwards to change the values in both these files whenever you're making a change because these two files refer to the dark mode and light mode theme of the app.
+> 注意：您可能注意到在 themes 目录中有两个`themes.xml` 文件。从现在开始，当你在做更改时，最好同时修改这两个文件中的值，因为这两个文件引用了应用程序的暗黑模式和光亮模式主题。
 
-4. Define the `statusBarBackground` attribute inside `Theme.Bark` and set its value to our gray color.
+4. 在 `Theme.Bark` 中定义 `statusBarBackground` 属性，并将其值设置为灰色。
 
-5. Now add this `statusBarBackground` attribute as our value for `android:statusBarColor`.
+5. 现在添加这个 `statusBarBackground` 属性作为 `android:statusBarColor`。
 
 ```xml
 <!-- Status bar color. -->
@@ -135,24 +135,24 @@ In order to change the status bar color to match our theme:
 <item name="android:statusBarColor" tools:targetApi="l">?attr/statusBarBackground</item>
 ```
 
-Now in order to change the system navigation bar's color:
+现在要更改系统导航栏的颜色：
 
-1. Open `themes.xml`.
-2. Add another item for `navigationBarColor` and set its value to `?android:attr/windowBackground` attribute (which is a color value that changes automatically with system preferences)
+1. 打开 `themes.xml` 文件。
+2. 为 `navigationBarColor` 添加另一项并将其值设置为 `?android:attr/windowBackground` 属性（是随系统首选项自动更改的颜色值）
 
 ```xml
 <item name="android:navigationBarColor">?android:attr/windowBackground</item>
 ```
 
-Run the app now to see the changes.
+运行应用程序以查看更改。
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-201902.png)
 
-And.. there you go! Thats our final look of the app! 😍
+接着…… 给你！这就是我们应用程序最终的样子！ 😍
 
-Give yourself a pat on the back at this point for having now learnt how theming and styling are done in Compose. 👏
+表扬一下自己，因为你现在已经学会了如何在 Compose 中创建主题和设计风格。 👏
 
-Happy coding! 💻
+编码快乐！ 💻
 
 [**Source code for the Final Version**](https://github.com/waseefakhtar/bark) 
 
