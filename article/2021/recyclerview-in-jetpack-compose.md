@@ -30,7 +30,7 @@
 
 ## 前提 ☝️
 
-由于目前稳定版的 Android Studio 还不完全支持 Jetpack Compose 库，在本教程中，我使用的版本是 [Android Studio 2020.3.1 Canary 14](https://developer.android.com/studio/preview)，但是我相信本文提供的步骤在更新和更稳定版本的 Android Studio 中都能生效，只要他们开始支持 Jetpack Compose 库。
+由于目前稳定版的 Android Studio 还不完全支持 Jetpack Compose 库，在本教程中，我使用的版本是 [Android Studio 2020.3.1 Canary 14](https://developer.android.com/studio/preview)。但是我相信本文提供的步骤在更新和更稳定版本的 Android Studio 中都能生效，只要他们开始支持 Jetpack Compose 库。
 
 ## 项目设置 ⚙️
 
