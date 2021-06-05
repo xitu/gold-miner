@@ -263,7 +263,7 @@ fun BarkHomeContent() {
 
 3. 导入所有缺少的引用。
 
-> 注意：您可能会注意到，考虑到参数 `items=` 没有解析，此时可能需要不同版本的 `items` 函数。在这种情况下，您需要手动在类的顶部导入它的引用：`import androidx.compose.foundation.lazy.items`
+> 注意：您可能会注意到，考虑到参数 `items =` 没有解析，此时可能需要不同版本的 `items` 函数。在这种情况下，您需要手动在类的顶部导入它的引用：`import androidx.compose.foundation.lazy.items`
 
 现在，这里发生了很多事情，让我们逐一解释。
 
