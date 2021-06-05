@@ -45,7 +45,7 @@
 
 ## 运行项目 🏃‍♂️
 
-在我们开始编写第一行Jetpack Compose 代码之前，让我们运行由 AndroidStudio 为我们设置好的当前项目。因为我们使用的是 Jetpack Compose 和 Android Studio 的不稳定/预览版本，所以很可能会遇到一些未知的问题。因此，每次更改代码后重新运行项目是一个好主意。
+在我们开始编写第一行 Jetpack Compose 代码之前，让我们运行由 AndroidStudio 为我们设置好的当前项目。因为我们使用的是 Jetpack Compose 和 Android Studio 的不稳定/预览版本，所以很可能会遇到一些未知的问题。因此，每次更改代码后重新运行项目是一个好主意。
 
 在我的案例中，在第一次运行项目之后，我遇到了以下情况：
 
