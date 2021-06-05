@@ -369,7 +369,7 @@ private fun PuppyImage(puppy: Puppy) {
 }
 ```
 
-3. 最后，在 `PuppyListItem()` 中的`Row` 里首先调用 `PuppyImage()`。
+3. 最后，在 `PuppyListItem()` 中的 `Row` 里首先调用 `PuppyImage()`。
 
 ```kt
 @Composable
