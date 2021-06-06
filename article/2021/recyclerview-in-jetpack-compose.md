@@ -7,7 +7,7 @@
 
 # Jetpack Compose：更简便的 RecyclerView（第一部分）
 
-![Jetpack Compose：更简便的 RecyclerView (第一部分)](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
+![Jetpack Compose：更简便的 RecyclerView（第一部分）](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
 
 如果你是 Jetpack Compose 库的新手，并且像我一样在互联网上看到所有酷炫的 UI 屏幕和动画，你可能有点不知所措，但也对 Compose 中的工作方式感到好奇。
 
