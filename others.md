@@ -1,3 +1,33 @@
+* [“绿色”和“棕色”的编程语言](https://juejin.cn/post/6963157486677278757)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [Page Shield：保护浏览器中的用户数据](https://juejin.cn/post/6956969205652520973)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [使用 VPython 进行物理模拟](https://juejin.cn/post/6955292986909409288)（[tmpbook](https://github.com/tmpbook) 翻译）
+* [Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器](https://juejin.cn/post/6952819591269580813)（[greycodee](https://github.com/greycodee) 翻译）
+* [使用 GitHub 代码扫描和 CodeQL 工具检测 Solorigate 等后门程序](https://juejin.cn/post/6952677372604710925)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具](https://juejin.cn/post/6951207758997913636)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [是时候该罢黜 JPEG，独尊新编码了](https://juejin.cn/post/6951062279760642062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何打造一个好的 GitHub 用户档案？](https://juejin.cn/post/6950529817469157384)（[caiyundong](https://github.com/caiyundong) 翻译）
+* [解决方案架构师技巧：架构图的 5 种类型](https://juejin.cn/post/6949879274157539358)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Rust 1.51.0 发布](https://juejin.cn/post/6944238705078960165)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Git 2.31 中的闪光点](https://juejin.cn/post/6944951701942042660)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [“高级”黑客使用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户](https://juejin.cn/post/6945702690047557669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2020 年 Go 语言开发者调查报告](https://juejin.cn/post/6943540695030300708)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Raspberry Pi 九岁啦：你可能不知道的 9 件事](https://juejin.cn/post/6939451780610654245)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Chrome 88 DevTools 中的新功能](https://juejin.cn/post/6938248665219727391)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2021 年 1 月 RedMonk 编程语言排名](https://juejin.cn/post/6937849069721092110)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么我还在用Lisp（而且你也应该用）](https://juejin.cn/post/6935225210278772766)（[elliott-zhao](https://github.com/elliott-zhao) 翻译）
+* [恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [你应该知道的 3 个罕见的 Bash 技巧](https://juejin.cn/post/6923190362706018318)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [10 个你应该现在启用的绝佳的 Chrome Flags](https://juejin.cn/post/6923198038894706701)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [迪米特法则](https://juejin.cn/post/6890050952049950733)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)（[jackwener](https://github.com/jackwener) 翻译）
 * [MVC，MVP，MVVM 对比](https://juejin.cn/post/6883088734699388941)（[snowyYU](https://github.com/snowyYU) 翻译）

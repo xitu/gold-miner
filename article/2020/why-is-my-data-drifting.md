@@ -2,90 +2,90 @@
 > * 原文作者：[Simona Maggio](https://medium.com/@maggio.simona)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/why-is-my-data-drifting.md](https://github.com/xitu/gold-miner/blob/master/article/2020/why-is-my-data-drifting.md)
-> * 译者：
-> * 校对者：
+> * 译者：[chzh9311](https://github.com/chzh9311)
+> * 校对者：[samyu2000](https://github.com/samyu2000)
 
-# Why Is My Data Drifting?
+# 为什么我的数据会漂移？
 
-Machine learning (ML) models deployed in production are usually paired with systems to monitor possible dataset drift. MLOps systems are designed to trigger alerts when drift is detected, but in order to make decisions about the strategy to follow next, we also need to understand what is actually changing in our data and what kind of abnormality the model is facing.
+应用于实际项目的机器学习（ML）模型通常都配置了检测数据漂移的系统。MLOps 系统就是其中之一，它可以在检测到漂移时发出警报，但是我们还需要知道数据中哪些部分改变了，以及模型发生了什么样的异常，以此来决定后续策略。
 
-This post describes how to leverage a domain-discriminative classifier to identify the most atypical features and samples and shows how to use SHapley Additive exPlanations (SHAP) to boost the analysis of the data corruption.
+这篇文章介绍了如何应用域判别分类器来识别极端异常的特征和样本，并且演示了如何使用 SHAP 来进行数据损坏情况的分析。
 
-![Atypical fall leaf (by [Jeremy Thomas](https://unsplash.com/@jeremythomasphoto?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral))](https://cdn-images-1.medium.com/max/10368/0*NRGXc4k1hPb5d4jw)
+![异常的落叶 (由[Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral) 的摄影师 [Jeremy Thomas](https://unsplash.com/@jeremythomasphoto?utm_source=medium&utm_medium=referral 拍摄 )](https://cdn-images-1.medium.com/max/10368/0*NRGXc4k1hPb5d4jw)
 
-## A Data Corruption Scenario
+## 一个数据损坏的情景
 
-Aberrations can appear in incoming data for many reasons: noisy data collection, poorly performing sensors, data poisoning attacks, and more. These examples of data corruptions are a type of covariate shift that can be efficiently captured by drift detectors analyzing the feature distributions. For a refresher on dataset shift, have a look at [this blog post](https://medium.com/data-from-the-trenches/a-primer-on-data-drift-18789ef252a6) [1].
+导致得到的数据出现异常的因素有很多：有噪声的数据采集、性能较差的传感器、数据中毒攻击等等。这些数据损坏的例子是协方差漂移的一种，用于分析特征分布的漂移检测器可以有效捕获这种漂移。欲复习数据漂移的相关内容，可以参考[这篇文章](https://medium.com/data-from-the-trenches/a-primer-on-data-drift-18789ef252a6) [1]。
 
-Now, imagine being a data scientist working on the popular [adult dataset](https://www.openml.org/d/1590), trying to predict whether a person earns over $50,000 a year, given their age, education, job, etc.
+现在，想象自己是一名数据科学家，你正在研究著名的[成年人数据集](https://www.openml.org/d/1590)，尝试通过一个人的年龄、教育、工作等信息来预测他 / 她一年的收入是否超过 50,000 美元。
 
-We train a predictor for this binary task on a random split of the dataset, constituting our source training set. We are happy with the trained model and deploy it in production together with a drift monitoring system.
+我们在这个数据集上选了一个随机片段作为我们的训练集，并在这个训练集上为这个二分类任务训练了一个预测器。我们对这个训练的模型很满意，并将它和一个漂移检测系统同时部署在应用程序中。
 
-The remaining part of the adult dataset represents the dataset provided at production time. Unfortunately, a part of this target-domain dataset is corrupted.
+这个成年人数据集的剩余部分是真实有效的数据。不幸的是，这一目标域数据集的一部分损坏了。
 
-![Figure 1: Constant values used to corrupt 25% of the target-domain samples.](https://cdn-images-1.medium.com/max/2000/0*-5yCxLV4zV0SIsNR)
+![图 1：用于污染目标域数据集 25% 数据的常量值](https://cdn-images-1.medium.com/max/2000/0*-5yCxLV4zV0SIsNR)
 
-For illustration purposes, we poison 25% of the target-domain dataset, applying a constant replacement shift. This corrupts a random set of features, namely **race**, **marital_status**, **fnlwgt,** and **education_num**. The numeric features are corrupted by replacing their value with the median of the feature distribution, while the categorical features are corrupted by replacing their value with a fixed random category.
+为了演示，我们用常数替换的方式污染了目标域数据集 25% 的数据。这随机损坏了几个特征，即 **race**（种族），**marital_status**（婚姻状态），**fnlwgt**（最终权重），和 **education_num**（受教育指数）。数值型特征通过替换为特征分布的中位数的方式来损坏，而分类型特征则通过替换为一个固定的随机类别来损坏。
 
-In this example, 25% of the target-domain samples have constant values for the four drifted features as shown in Figure 1. The drift detectors deployed to monitor data changes correctly trigger an alert. Now what?
+在这个例子中，25% 的目标域样本的这四个特征被替换为图 1 所示的常量。用于检测数据改变的漂移检测器正确地发出了警报。然后呢？
 
-## How to Find the Most Drifted Samples?
+## 如何找到漂移最严重的样本？
 
-A domain-discriminative classifier can rescue us. This secondary ML model, trained on half the source training set and half the new target-domain dataset, aims to predict whether a sample belongs to the **Old Domain** or the **New Domain**.
+一个域判别分类器可以帮助我们。这个次级机器学习模型利用一半的源训练集和一半的新目标域数据集进行训练，从而预测一个样本属于**原本的域**还是**新域**。
 
-A domain classifier is actually a popular drift detector, as detailed [here](https://medium.com/data-from-the-trenches/towards-reliable-ml-ops-with-drift-detectors-5da1bdb29c63) [2], thus the good news is that it’s not only good at detecting changes, but also at identifying atypical samples. If you already have a trained domain classifier in your monitoring system, you get a bonus novelty detector for free.
+正如[这篇文章](https://medium.com/data-from-the-trenches/towards-reliable-ml-ops-with-drift-detectors-5da1bdb29c63) [2] 里详细介绍的那样，域分类器实际上是一个很流行的漂移检测器。所以使用它的好处在于不仅能检测数据改变，也能够识别异常样本。如果在你的监控系统中已经有了一个预训练好的分类器，也就同时有了一个异常检测器。
 
-As a first guess, we can use the domain classifier probability score for the class **New Domain** as a **drift score** and highlight the top-k most atypical samples. But if there are hundreds of features, it is hard to make sense of the extracted top atypical samples. We need to narrow down the search by identifying the most drifted features.
+作为第一个假设，我们可以用域分类器给出的属于**新域**的概率分数作为其**漂移分数**，并且标出 k 个异常最显著的样本。但是如果有上百个特征， 弄清提取出来的样本中哪些是异常最显著的就比较困难了。我们需要识别漂移最严重的特征来缩小搜索范围。
 
-In order to achieve this, we can for instance assume that the features most important for the domain discrimination are more correlated with the corruption. In this case, we can use a feature importance measure suitable for the domain classifier —for instance, a Mean Decrease of Impurity (MDI) for a random forest domain classifier.
+为了实现这一点，我们可以做一些假设，比如，我们假设，对域的判别最重要的特征与异常有更紧密的关联。在这种情况下，我们可以使用一个特征重要性衡量准则，此衡量准则应当是适合这个域分类器的，例如，对于随机森林分类器，可以使用平均不纯度减少量（MDI）作为衡量标准。
 
-There are many feature importance measures in the ML space and all have their own limitations. This is also one of the reasons why Shapley values have been introduced in the ML world through SHapley Additive exPlanations. For an introduction on the Shapley values and SHAP, have a look at the awesome [**Interpretable Machine Learning** book](https://christophm.github.io/interpretable-ml-book/shapley.html) [3].
+在机器学习领域有很多种特征重要性衡量准则，这些标准都有自己的局限性。这也是及其学习中通过 SHAP 引入沙普利值的原因之一。如果你想更多地了解沙普利值和 SHAP，你可以看一看这本相当不错的[《Interpretable Machine Learning》](https://christophm.github.io/interpretable-ml-book/shapley.html)[3]。
 
-## Explaining the Drift
+## 解释漂移
 
-Using the [SHAP package](https://github.com/slundberg/shap) [4], we can explain the domain classifier outcome, specifically finding for a given sample how the different features contribute to the probability of belonging to the **New domain.** Looking at the Shapley values of the top atypical samples, we can thus understand what makes the domain classifier predict that a sample is indeed a novelty, thus uncovering the drifted features.
+用 [SHAP 工具包](https://github.com/slundberg/shap) [4]，我们可以解释域分类器的输出，特别是对于一个给定的样本，各种特征对其属于**新域**的概率有多少贡献。通过观察异常最严重的样本的沙普利值，我们就能看出哪些因素使域分类器将一个样本归类为异常，由此发现漂移的特征。
 
-![Figure 2. Comparison of importance ranks attributed to features: the lower the rank, the more drifted the feature is considered to be. The SHAP rank is based on average absolute Shapley values per feature in the whole test set. The domain classifier rank is given by the Mean Decrease of Impurity due to a feature.](https://cdn-images-1.medium.com/max/2110/0*odM1VlEqPkGFGFMv)
+![图 2. 特征重要性等级的比较：等级数值越低，对应的特征漂移更严重。SHAP 等级是基于每一个特征在全部测试集内的平均绝对沙普利值计算的。域分类器的等级则是由特征的平均不纯度减少量得到的。](https://cdn-images-1.medium.com/max/2110/0*odM1VlEqPkGFGFMv)
 
-In our adult dataset, in Figure 2 we compare the domain classifier feature importance and the SHAP feature importance (the average of all Shapley values in absolute value for a feature). We observe that they assign different ranks to the features, with SHAP correctly capturing the top-3 corrupted features. The choice of the importance measure has an impact on the identification of drifted features, thus it is essential to prefer techniques more reliable than the impurity criterion.
+在图 2 中我们比较了成年人数据集的域分类器特征重要性和 SHAP 特征重要性（一个特征的所有沙普利值的绝对值的平均值）。我们发现他们为这些特征赋予了不同的等级，SHAP 正确地捕获了 3 个损坏最严重的特征。重要性衡量准则的选择会影响到漂移特征的识别，因此有必要选择比不纯度更可靠的方法。
 
-Instead of arbitrarily selecting the top-3 drifted features, one way of identifying drifted features is to compare the feature importance with a uniform importance (1/n_features) corresponding to undistinguishable domains. Then, we would spot the features that stand out, like in Figure 3 below, where **race**, **marital_status** and **fnlwgt** clearly show up.
+但是，并不是随意地选择 3 个漂移最严重的特征，而是将特征的重要性值和在未识别的域中均匀分布的特征重要性值（特征总数的倒数）做对比。之后，我们就可以识别出那些突出的特征。正如下面图 3 所示的那样，**race**，**marital_status**，和 **fnlwgt** 就凸显出来了。
 
-![Figure 3. Average absolute Shapley values per feature in the target-domain dataset. Features with importance higher than the uniform importance (black line) are likely to be drifted.](https://cdn-images-1.medium.com/max/3200/0*ss3XMB38A7knxllZ)
+![图 3. 目标域数据集内每个特征的平均绝对沙普利值。重要性值高于平均分布重要性（黑色水平线）的特征很有可能是发生漂移的。](https://cdn-images-1.medium.com/max/3200/0*ss3XMB38A7knxllZ)
 
-If we plot the Shapley values for the entire target-domain dataset in Figure 4, highlighting all the true drifted samples in red, we can see that the Shapley values are quite expressive to find both the atypical samples and the atypical features. In each row of the summary plot, the same target-domain samples are represented as dots at the location of their Shapley values for a specific feature shown on the left. Here, we can observe the bimodal distributions for the atypical features selected previously (**race**, **marital_status** and **fnlwgt**), as well as for **education_num,** which is the last drifted feature to catch.
+如果我们在图 4 中画出全部目标域的数据集样本的沙普利值，并将真正漂移的样本用红色显示，就会发现沙普利值可以很清晰地表现出异常样本和异常特征。在图表中的每一行，使用一系列点来表示同样的目标域样本，而这些点的横坐标就是行左边标示的特征对应的沙普利值。这里，我们可以观察到之前选择的异常特征（**race**，**marital_status**，和 **fnlwgt**），以及最后识别出来的漂移特征 **education_num**，具有双峰分布的特点。
 
-![Figure 4. SHAP summary plot of the feature attribution for the target-domain samples. In each row, the same target-domain samples are represented as colored dots at the location of their Shapley values for a specific feature shown on the left. The color indicates whether the sample is truly atypical (red) or normal (blue).](https://cdn-images-1.medium.com/max/2100/0*H3b0e5CYaUpv_ry7)
+![图 4. 目标域样本特征的 SHAP 总结图表。在每一行，同样的目标域样本被表示成一系列的点，而这些点的横坐标为行左边标示的特征对应的沙普利值。颜色代表样本异常（红色）还是正常（蓝色）](https://cdn-images-1.medium.com/max/2100/0*H3b0e5CYaUpv_ry7)
 
-By the efficiency property of the Shapley values, the domain classifier predicted score for a sample is the sum of its Shapley values for all the features. Thus, from the plot in Figure 4 above we can infer that the uncorrupted features have little (but non-zero) impact in predicting the **New domain** class, as their Shapley values are concentrated around zero, especially for the atypical samples (red dots).
+依赖沙普利值的效率特性，域分类器对一个样本的预测分数就定义为其所有特征的沙普利值的和。于是，从图 4 所示的图表中我们可以推断，未被损坏的特征几乎不影响（但并非完全不影响）对**新域**分类的预测，毕竟它们的沙普利值是以 0 为中心分布的，这一点对那些异常样本尤其显著。
 
-## Directly Visualizing the Drifted Samples
+## 直接可视化漂移样本
 
-We’re ready now to wrap up and use those tools to actually highlight the suspicious samples and the atypical features.
+我们要开始打包并使用这些工具进行实际操作，标记出那些可疑的样本和异常的特征。
 
-First let’s have a look at the top-10 most atypical features and samples, as we could be lucky enough to perhaps visually understand what’s going on.
+首先，让我们来看一看 10 个异常最显著的特征和样本，也许我们碰巧能直观地理解发生了什么。
 
-![Figure 5. Top-10 most atypical samples according to the domain classifier probability score for the class New domain. Columns are sorted by the SHAP-based feature importance.](https://cdn-images-1.medium.com/max/2000/0*sUF74nnxq9_PSXEo)
+![图 5. 根据域分类器给出的属于新域的概率分数排列得到的 10 个最显著的样本。列是按照基于 SHAP 的特征重要性排列的。](https://cdn-images-1.medium.com/max/2000/0*sUF74nnxq9_PSXEo)
 
-In this specific situation, we would probably recognize easily (and find suspicious) that all retrieved samples have constant values for some features, but this might not be the case in general. However, in some drift scenarios where the shift occurs at the distribution level, such as selection bias, looking at individual samples is not very useful. They would just be regular samples from a subpopulation of the source dataset, thus technically not an aberration. However, as we cannot know beforehand what kind of shift we are facing, it’s still a good idea to have a look at the individual samples !
+在这个特别的情形下，我们可能轻易就能识别到（并且发现可疑之处），所有获取到的样本的某些特征值都是常量，但这可能并不是普遍规律。然而，如果漂移出现在分布层级，例如选择性偏差，观察个别样本就不是那么有用了。它们可能只是在源数据集的一个子集内的常规样本，因此技术上讲不能算作异常。但是，毕竟我们无法事先知道我们在面对什么样的漂移，观察一下个别样本依然是个好办法！
 
-A SHAP decision plot displaying the top-100 most atypical samples, like the one in Figure 6, where each curve represents one atypical sample, can help us see what is drifting. We also see it going towards higher domain classifier drift probabilities.
+图 6 所示的是 SHAP 决定曲线图，其中每条曲线代表一个异常样本。这种图表可以帮助我们发现漂移的情况。我们也可以发现曲线在朝向更高的域分类器漂移评分变化。
 
-![Figure 6. SHAP decision plot. Each curve represents one of the top-100 most atypical samples. The top features are the most contributing to make the sample atypical and ‘pushing’ the domain classifier probability for New domain towards higher values.](https://cdn-images-1.medium.com/max/2350/0*TMcQpeyCp2sajxxu)
+![图 6. SHAP 决定曲线图。每条曲线代表 100 个异常最显著的样本之一。最上方的特征是对特征的异常贡献最大的，并且大大增加了域分类器判断样本属于新域的概率](https://cdn-images-1.medium.com/max/2350/0*TMcQpeyCp2sajxxu)
 
-In this case, all the aberrations are due to the same corrupted features, but in the instance where groups of samples are drifting for different reasons, the SHAP decision plot would highlight these trends very efficiently.
+在这种情况下，所有异常都是由同一个损坏的特征造成的，但是对于一组因为不同原因而漂移的样本，SHAP 决定曲线图可以有效地表现出这些趋势。
 
-Of course nothing can replace a standard analysis of feature distributions, especially now that we can select the most suspicious features to focus on. In Figure 8, we can look at the distribution of the drifted features for the top-100 atypical samples in red, and compare them with the baseline of samples from the source domain training set. As discriminative analysis is more intuitive for humans, this is a simple way to highlight what kind of drift is going on in the new dataset. In this example, looking at the feature distributions we can immediately spot that feature values are constant and don’t respect the expected distribution.
+当然，对特征分布的标准分析还是必不可少的，尤其是在我们可以选择重点关注那些最可疑的特征的时候。在图 8 中，我们将 100 个异常最显著样本的漂移特征的分布用红色标出，并将它们和源训练集的分布进行比较。判别分析更符合人类的直觉，所以这是一种判断新数据集漂移种类的简单手段。在本例中，通过观察特征分布，我们可以马上发现特征取值是常量，这并不符合期望的分布。
 
-![Figure 8. Distributions of the drifted features for the top-100 atypical samples (red) against the normal baseline (blue) from the source dataset.](https://cdn-images-1.medium.com/max/2052/0*d1xcJT1QnIHlzi7s)
+![图 8 100 个异常最显著的样本的漂移特征分布（红色）和源数据集相应的分布（蓝色）对比图](https://cdn-images-1.medium.com/max/2052/0*d1xcJT1QnIHlzi7s)
 
-## Takeaways
+## 总结
 
-When monitoring deployed models for unexpected data changes, we can take advantage of drift detectors, such as the domain classifier, to also identify atypical samples in case of drift alert. We can streamline the analysis of a drift scenario by highlighting the most drifted features to investigate. This selection can be done thanks to feature importance measures of the domain classifier.
+当我们将模型应用于意料之外的数据变动，并想监控模型时，我们可以使用域分类器等漂移检测器，在发现漂移时识别异常样本。标出漂移最严重的样本并深入调查，这一系列步骤可以组织成为漂移分析的流水线。而异常能被标记应该归功于域分类器的重要性衡量准则。
 
-Beware, though, of possible inconsistencies of feature importance measures and, if you can afford more computation, consider using SHAP for a more accurate drift-related relevance measure. Finally, combining useful SHAP visual tools with a discriminative analysis of drifted feature distributions with respect to the unshifted baseline will make your drift analysis simpler and more effective.
+然而，要注意特征重要性衡量准则可能存在的不连续性，以及如果你有更多的计算资源，可以考虑使用 SHAP 来实现与漂移相关的更准确的关联性衡量。最后，将实用的 SHAP 可视化工具，和参照未漂移的分布给出的漂移特征分布的判别分析相结合，可以让你的漂移分析更加简单高效。
 
-**References**
+**参考**
 
 [1] [A Primer on Data Drift](https://medium.com/data-from-the-trenches/a-primer-on-data-drift-18789ef252a6)
 

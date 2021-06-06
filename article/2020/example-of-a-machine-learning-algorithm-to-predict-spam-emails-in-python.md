@@ -2,16 +2,16 @@
 > * 原文作者：[George Pipis](https://medium.com/@jorgepit-14189)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/example-of-a-machine-learning-algorithm-to-predict-spam-emails-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/example-of-a-machine-learning-algorithm-to-predict-spam-emails-in-python.md)
-> * 译者：
-> * 校对者：
+> * 译者：[JohnieXu](https://github.com/JohnieXu)
+> * 校对者：[luochen1992](https://github.com/luochen1992)，[zenblo](https://github.com/zenblo)
 
-# Email Spam Detector in Python
+# Python 开发垃圾邮件检测应用
 
-![Image by Unsplash](https://cdn-images-1.medium.com/max/2000/0*cNPIeopNeCpoyXUk.jpg)
+![图片来自 Unsplash](https://cdn-images-1.medium.com/max/2000/0*cNPIeopNeCpoyXUk.jpg)
 
-## Ham or Spam
+## 垃圾邮件（Spam）与有效邮件（Ham）
 
-One of the most common projects, especially for teaching purposes, is to build models to predict if a message is spam or not. Our dataset called [Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip) contains the subject lines and the target which takes values `0` and `1` for ham and spam respectively.
+对于检测是否为垃圾邮件的模型，最常见的应用是创建一个预测文本的模型。原始数据集来自于这个 —— [Spam](https://github.com/lsvih/spam_email/blob/main/spam.csv.zip)，里面数据包含以后标题行，拥有两列，第一列为 text 表示邮件内容，第二列为 target 值为 spam 或 ham 分别表示垃圾邮件与非垃圾邮件。
 
 ```py
 import pandas as pd
@@ -27,11 +27,11 @@ spam_data['target'] = np.where(spam_data['target']=='spam',1,0)
 spam_data.head(10)
 ```
 
-Output:
+输出结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*40wu5WtjaDcWKRJtTMX3_g.png)
 
-## Split the Data into Train and Test Dataset
+## 将数据拆分为训练集和测试集
 
 ```py
 X_train, X_test, y_train, y_test = train_test_split(spam_data['text'], 
@@ -39,17 +39,17 @@ X_train, X_test, y_train, y_test = train_test_split(spam_data['text'],
                  random_state=0)
 ```
 
-## Build the tf-idf on N-grams
+## 在 N-gram 上构建 tf-idf
 
-Fit and transform the training data `X_train` using a Tfidf Vectorizer ignoring terms that have a document frequency strictly lower than **5** and using **word n-grams from n=1 to n=3** (unigrams, bigrams, and trigrams)
+使用 sklearn 库中的 `TfidfVectorizer` 来转换并训练数据 `X_train`，忽略掉数据字典中出现频次小于 **5** 的数据，同时让 **n-grams 从 1 到 3 取值**（单个字、双元组和三元组）。
 
 ```py
 vect = TfidfVectorizer(min_df=5, ngram_range=(1,3)).fit(X_train) X_train_vectorized = vect.transform(X_train)
 ```
 
-## Add Features
+## 添加特殊字符
 
-We apart from the tokens, we can add features such as the **number of digits**, the **dollar sign** , the **length** of the subject line and the **number of characters** (anything other than a letter, digit or underscore) . Let’s create a function for that.
+除了基本字符之外，需要添加诸如：**数字**、**美元符号**、**长度**等这些除字母、数字及下划线以外字符。下面编写一个函数来实现这个：
 
 ```py
 def add_feature(X, feature_to_add):
@@ -60,7 +60,7 @@ def add_feature(X, feature_to_add):
     from scipy.sparse import csr_matrix, hstack
     return hstack([X, csr_matrix(feature_to_add).T], 'csr')
 
-# Train Data
+# 训练数据
 add_length=X_train.str.len()
 add_digits=X_train.str.count(r'\d')
 add_dollars=X_train.str.count(r'\$')
@@ -68,7 +68,7 @@ add_characters=X_train.str.count(r'\W')
 
 X_train_transformed = add_feature(X_train_vectorized , [add_length, add_digits,  add_dollars, add_characters])
 
-# Test Data
+# 测试数据
 add_length_t=X_test.str.len()
 add_digits_t=X_test.str.count(r'\d')
 add_dollars_t=X_test.str.count(r'\$')
@@ -77,9 +77,9 @@ add_characters_t=X_test.str.count(r'\W')
 X_test_transformed = add_feature(vect.transform(X_test), [add_length_t, add_digits_t,  add_dollars_t, add_characters_t])
 ```
 
-## Train the Logistic Regression Model
+## 训练逻辑回归模型
 
-We will build the Logistic Regression Model and we will report the `AUC` score on the test dataset:
+下面将建立逻辑回归模型，并统计测试集的 `AUC` 得分（译者注：[AUC 指的是 ROC 曲线下与坐标轴围成的面积，取值一般在 0.5和 1 之间，越接近 1 表示数据越真实有效](https://baike.baidu.com/item/AUC/19282953)）。
 
 ```py
 clf = LogisticRegression(C=100, solver='lbfgs', max_iter=1000)
@@ -92,15 +92,15 @@ auc = roc_auc_score(y_test, y_predicted)
 auc
 ```
 
-Output:
+输出结果：
 
 ```
 0.9674528462047772
 ```
 
-## Get the Most Important Features
+## 取得对结果影响最大的特征词
 
-We will show the **50** most important features which lead to either **Ham** of **Spam** respectively.
+下面将取得对是否垃圾邮件的预测结果影响排名靠前的 **50** 个特征词。
 
 ```py
 feature_names = np.array(vect.get_feature_names() + ['lengthc', 'digit', 'dollars', 'n_char'])
@@ -109,33 +109,33 @@ smallest = feature_names[sorted_coef_index[:50]]
 largest = feature_names[sorted_coef_index[:-51:-1]]
 ```
 
-**Features which lead to Spam:**
+**影响判断为垃圾邮件的特征词排名前 50**
 
 ```
 largest
 ```
 
-Output:
+输出结果：
 
 ```py
 array(['text', 'sale', 'free', 'uk', 'content', 'tones', 'sms', 'reply', 'order', 'won', 'ltd', 'girls', 'ringtone', 'to', 'comes', 'darling', 'this message', 'what you', 'new', 'www', 'co uk', 'std', 'co', 'about the', 'strong', 'txt', 'your', 'user', 'all of', 'choose', 'service', 'wap', 'mobile', 'the new', 'with', 'sexy', 'sunshine', 'xxx', 'this', 'hot', 'freemsg', 'ta', 'waiting for your', 'asap', 'stop', 'll have', 'hello', 'http', 'vodafone', 'of the'], dtype='<U31')
 ```
 
-**Features which lead to Ham:**
+**影响判断为正常邮件的特征词排名前 50**
 
 ```
 smallest
 ```
 
-Output:
+输出结果：
 
 ```py
 array(['ì_ wan', 'for 1st', 'park', '1st', 'ah', 'wan', 'got', 'say', 'tomorrow', 'if', 'my', 'ì_', 'call', 'opinion', 'days', 'gt', 'its', 'lt', 'lovable', 'sorry', 'all', 'when', 'can', 'hope', 'face', 'she', 'pls', 'lt gt', 'hav', 'he', 'smile', 'wife', 'for my', 'trouble', 'me', 'went', 'about me', 'hey', '30', 'sir', 'lovely', 'small', 'sun', 'silent', 'me if', 'happy', 'only', 'them', 'my dad', 'dad'], dtype='<U31')
 ```
 
-## Discussion
+## 总结
 
-We provided a practical and reproducible example of how you can build a decent Ham or Spam algorithm. This is one of the main tasks in the field of NLP. Our model achieved an **AUC score of 97%** on the test dataset which is really good. We were also able to add features and also to identify the features which are more likely to appear in a Spam email and vice versa.
+这里提供了一个实用且可复现的检测垃圾邮件的算法示例，类似这样的预测算法正是自然语言处理（NLP）领域的主要任务之一。我们上面开发的这个模型 AUC 得分高达 0.97，这已经相当不错了。这套模型还可以继续添加测试用特征词，以便更准确的识别出垃圾邮件中经常特征词，反之亦然。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

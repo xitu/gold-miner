@@ -1,7 +1,7 @@
 > * 原文链接 : [The Secret To Writing Killer Product Copy](https://mng.lincolnwdaniel.com/the-secret-to-writing-killer-product-copy-4f23b7d0c842#.cdbnonpna)
 * 原文作者 ：[Dave Gerhardt](https://medium.com/@davegerhardt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [iThreeKing](https://github.com/iThreeKing)
+* 译者 : [joyking7](https://github.com/joyking7)
 * 校对者 : [devSC](https://github.com/devSC)、[L9m](https://github.com/L9m)
 
 
