@@ -5,7 +5,7 @@
 > * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# Jetpack Compose：更简便的 RecyclerView (第一部分)
+# Jetpack Compose：更简便的 RecyclerView（第一部分）
 
 ![Jetpack Compose：更简便的 RecyclerView (第一部分)](https://www.waseefakhtar.com/content/images/size/w2000/2021/04/Jetpack-Compose-highres-5-1.jpg)
 
