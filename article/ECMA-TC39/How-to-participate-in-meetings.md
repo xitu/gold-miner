@@ -60,48 +60,40 @@ _如何使用_：
 
 当您想继续当前主题并询问有关它的内容时，可以使用问题说明。例如，如果有人使用了一个对你来说没有意义的例子，你可以要求他们说明他们的意思。问题说明将按照进入队列的顺序添加。
 
-A point of order is used to immediately bring up a point. For example, if a note taker has been kicked from the notepad, and needs people to pause for a moment, they might use a point of order, saying that the note taking service is down. This is added to the top of the queue, and will be the next thing addressed.
+程序点用于立即提出一个点。例如，如果记录人员被踢出记事本，需要人们暂停片刻，他们可能会使用程序点，报告笔记服务已关闭。这被添加到队列的顶部，并将是下一个处理的事情。
 
-### [Timebox](https://timebox.now.sh/)
+### [时间框](https://timebox.now.sh/)
 
-_Purpose_: To ensure that topics discussed on the agenda are timeboxed and that we do not go over time talking about a
-subject. It is enforced by the chair group.
+_目的_：确保议程上讨论的主题有时间限制，并且我们不会超时谈论一个主题。它由主席组强制执行。
 
-_How to use_:
+_如何使用_:
 
-The timebox is used primarily to make sure we are on time with our topic. You can visit this page if
-you want to see how much time is left for a topic. If we go over time, let us know so that we can
-vote on if a topic needs more time!
+时间框主要用于确保我们按时完成我们的主题。如果您想查看某个主题还剩多少时间，可以访问此页面。如果时间过长，请告诉我们，以便我们可以对某个主题是否需要更多时间进行投票！
 
-### [Google docs](https://www.google.com/docs/about/)
+### [Google 文档](https://www.google.com/docs/about/)
 
-_Purpose_: To record the meeting so that it can be shared with the public, and referenced in the
-future.
+_目的_: 记录会议，以便与公众共享，并在未来参考。
 
-_How to use_:
+_如何使用_:
 
-**Please remember: Never share this link publicly.**
+**请牢记：切勿公开分享此链接。**
 
-For every day of the meeting we have a new Google Docs URL that is shared in the delegates IRC channel.
+对于每天的会议，我们都有一个在代表的 IRC 频道中共享的新 Google 文档地址。
 
-Everyone is encouraged to help taking notes, and this is a good way to get involved if you are new.
-For more information, please take a look at our [how to be a note taker](./how-to-take-notes.md) documentation.
+我们鼓励每个人都帮助做笔记，如果您是新手，这是参与的好方法。有关更多信息，请查看我们的 [如何成为笔记记录者](./how-to-take-notes.md) 文档。
 
-### Google Hangouts and other remote call technology
+### Google Hangouts 和其他远程通话技术
 
-_Purpose_: To allow remote TC39 delegates to participate in the meeting.
+_目的_：允许 TC39 代表远程参加会议。
 
-_How to use_:
+_如何使用_:
 
-We use Google Hangouts to facilitate remote attendance, unless another solution is deemed a better
-fit for the situation. The link will be posted on a meeting by meeting basis. To attend, use the link posted at the top of
-the TC39 IRC delegates channel.
+我们使用 Google Hangouts 来实现远程参与，除非认为其他解决方案更适合这种情况。该链接将逐个会议地发布。要参加，请使用 TC39 IRC 代表频道顶部发布的链接。
 
-## Tips
+## 建议
 
-- If you are new and not sure what to do, consider becoming a note taker!
-- Talk to people during the meetings, they can help you establish context for anything that seems
-  strange.
+- 如果您是新手并且不确定该做什么，请考虑成为记事员！
+- 在会议期间与人交谈，他们可以帮助您为任何看起来很奇怪的事情建立背景。
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
