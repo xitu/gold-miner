@@ -2,56 +2,56 @@
 > * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-run-an-online-meeting.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-run-an-online-meeting.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
-# How to run an online meeting
+# 如何召开在线会议
 
-Sometimes, issues in TC39 can be worked through more effectively by holding additional online video calls, e.g., via Zoom or Google Meet, as an adjunct to other forms of communication.
+有时，可以通过举行额外的在线视频通话（例如通过 Zoom 或 Google Meet）来更有效地解决 TC39 中的问题，作为其他沟通形式的辅助手段。
 
-## Do you really want to make a meeting?
+## 你真的要开会吗？
 
-First, think, what problem are you trying to solve? Is a meeting the best way to solve the problem? Some other possible techniques which could avoid the overhead of an additional meeting:
-- GitHub issue/PR thread
-- Email thread
-- Agenda slot or breakout session in a TC39 meeting
-Remember that a meeting is not just taking your time to organize, but also the attendees' time, including the context switches involved (whereas asynchronous text-based communication can be scheduled by the participant). This is a heavy-weight tool to be used only when actually helpful.
+首先，想一想，你想解决什么问题？开会是解决问题的最佳方式吗？一些其他可能的技术可以避免额外的会议：
+- GitHub 上的 issue/PR
+- 电子邮件
+- TC39 会议中的议程时段或分组讨论
+请记住，会议不仅需要您的时间来组织，还需要参加者的时间，包括所涉及的各项安排（而异步的基于文本的通信可以由参加者调整）。会议是一个重量级的工具，只有在真正有用时才使用。
 
-If these other modes of communication would work well, great, go for it. Here are some cases where a call might help in addition:
-- If there's a lot of back-and-forth to work through, to the point where written communications end up being much more time-consuming than a synchronous discussion
-- If you want to engage people who can't physically attend a TC39 meeting, and where it's impractical to use written communication (e.g., the volume is too high, and everyone is overwhelmed with GitHub notifications)
-- If there's a lot going on, and there's a need to coordinate on a high level among collaborators
+如果这些其他沟通方式能很好地胜任，那太好了，开始沟通吧。在如下某些情况下，电话可能会有所帮助：
+- 如果工作上很多往来沟通，书面交流最终比即时讨论更耗时。
+- 如果您需要无法亲自参加 TC39 会议的人的帮助，并且在使用书面交流不切实际的情况下（例如，体量太大，每个人都被 GitHub 通知淹没）。
+- 如果有很多事情要做，并且需要在合作者之间进行高层协调。
 
-OK, if you still think a meeting is the best way to work through your problem, see below for some suggestions for how to make it happen. Note that these are just ideas; feel free to organize and run your meetings however you'd like.
+好的，如果您仍然认为会议是解决问题的最佳方式，请参阅下文，了解如何召开会议的一些建议。请注意，这些只是想法；随意组织和召开您的会议。
 
-## Scheduling a meeting
+## 安排会议
 
-[Doodle](https://doodle.com/) is a popular tool which lets you create a quick poll to choose times for meetings. Some considerations to using Doodle:
-- Don't include too many or too few options--too many is annoying to fill out, and too few might not lead to an acceptable answer. 5-9 is often a good middle point.
-- Don't include time/date combinations that you're not able to attend.
-- Hour-long meetings are typical; a half-hour is sometimes not long enough to get deep into the subject matter, and more than an hour is often exhausting for attendees. If you can't figure out how to fit the content into just an hour, think about what's really important and focus the agenda on that part.
-- If the timezone of the attendees is not all the same, try to choose options that are plausible for everyone within normal working hours, and draw attention to the default timezone of the poll (people might assume it's in their timezone!).
-- Send the Doodle out two weeks before the meeting, and choose an option one week before the meeting.
-- Send the Doodle to everyone who you are especially interested in attending, and announce it in a place where everyone who might want to optionally attend
-- When possible, learn about any idiosyncratic constraints of attendees, e.g., some may prefer to meet before or after the ordinary work hours in their time zones, or prefer meetings scheduled on the half-hour, and offer options within these constraints.
+[Doodle](https://doodle.com/) 是一种流行的工具，可让您创建快速投票来选择会议时间。使用 Doodle 的一些注意事项：
+- 不要包含太多或太少的选项 —— 太多填写起来很烦人，太少可能无法得到可接受的答案。 5-9 通常是一个很好的中间点。
+- 不要包含您无法参加的时间/日期组合。
+- 通常会议时间会长达一小时；有时半小时的时间不足以深入了解主题，而一个多小时通常会让与会者筋疲力尽。如果您不清楚如何将内容安排在一个小时内，请考虑真正重要的内容并将议程重点放在该部分。
+- 如果与会者的时区不完全相同，请尝试选择对每个人都在正常工作时间内的合理的选项，并注意投票的默认时区（人们可能会默认在他们的时区！）。
+- 在会议前两周发送 Doodle，并在会议前一周选择一个选项。
+- 将 Doodle 发送给您特别想要邀请参加的每个人，并在包含所有可能想要参加的人的地方宣布。
+- 在可能的情况下，了解与会者的任何特殊限制，例如，有些人可能更喜欢在其时区的正常工作时间之前或之后开会，或者更喜欢半小时左右的会议，并在这些限制范围内提供选项。
 
-Once the Doodle completes, create a calendar invite and agenda for the meeting and send it to attendees.
+Doodle 完成后，为会议创建日历邀请和议程并将其发送给与会者。
 
-## Writing an agenda
+## 写议程
 
-The agenda forms an outline of the meeting and guides discussion. A typical agenda might include:
-- The title, date, and time of the meeting
-- Introductions of attendees (if they don't all know each other)
-- Background on the problem, motivation, where we are in solving it, etc
-- A few bullets of technical issues to work out within the problem, with links to detailed background and status
-- Wrapping up and determining next steps
-  - During the meeting, list action items and owners
-  - Including whether the meeting should reoccur and at what frequency/for how long
+议程构成了会议的大纲并指导讨论。一个典型的议程可能包括：
+- 会议的标题、日期和时间
+- 与会者介绍（如果他们彼此不认识）
+- 问题的背景、动机、我们当前遇到的问题等
+- 在问题中需要解决的一些技术难点，以及详细背景和状态的链接
+- 总结并确定下一步
+  - 在会议期间，列出行动项目和负责人
+  - 会议是否会再次召开以及召开的频率/持续时间等内容
 
-When writing the agenda, keep in mind:
-- Different attendees will have different kinds of technical and organizational background; to the extent possible, make the meeting understandable and interesting to each attendee.
-- Consider keeping a balance of technical and organizational content, based on the needs of the topic; sometimes staying 100% technical or 100% organizational risks feeling irrelevant or making it hard to set next steps.
+在编写议程时，请记住：
+- 不同的参会者会有不同的技术和组织背景；尽可能使会议让每个与会者都易于理解且感兴趣。
+- 根据主题的需要，考虑保持技术和组织内容的平衡；有时保持内容为 100% 的技术或 100% 的组织会可能让部分与会人员没有参与感或难以设定下一步。
 
-[Google Docs](https://docs.google.com/) is often a good tool for collaborative editing on the agenda. You can use their "world-editable, link sharing only" option to let all attendees participate collaboratively in writing this agenda, based on the first draft you send out. During the meeting, notes can be taken inline in the agenda.
+[Google Docs](https://docs.google.com/) 通常是在议程上进行协作编辑的好工具。您可以使用他们的“全体可编辑，仅限链接共享”选项，让所有与会者根据您发送的初稿共同参与编写此议程。在会议期间，可以在议程中内嵌笔记。
 
 ## Creating a calendar event
 
