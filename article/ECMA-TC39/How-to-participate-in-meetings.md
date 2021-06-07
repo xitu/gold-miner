@@ -2,95 +2,65 @@
 > * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
-# How to participate in meetings
+# 如何参与会议
 
-TC39 meetings can get quite large. Sometimes we can have more than 60 people in a room, plus people
-joining in remotely. Because of this, we have some practices put in place to make things more
-manageable, and make it possible for everyone to be heard!
+TC39 会议可能会变得非常大。有时可以在一个房间里容纳 60 多人，并且还需加上远程参与的人。正因为如此，我们采取了一些实践来让事情变得更易于管理，并让每个人都可以真正参与！
 
-## Guidelines
+## 行为指导
 
-We have a [Code of Conduct](https://tc39.es/code-of-conduct/). Please read through the CoC
-and remember to be respectful and considerate when participating in meetings. It is key that we keep
-our discussion friendly, patient, and considerate as we are discussing proposals.
+我们有[行为准则](https://tc39.es/code-of-conduct/)。请通读 CoC 并记住在参加会议时要尊重和体贴。这是保证我们讨论提案时有友好、耐心和体贴的氛围的关键。
 
-## Consensus
+## 共识
 
-The committee operates using a model of complete consensus. This means that everyone has to agree in
-order for a proposal to move forward in the stages. This is something that the committee feels
-strongly about, and in past cases a single person disagreeing with a proposal has helped us rework
-and improve proposals rather than letting them through to the next stage. As such, breaking with
-consensus can be very disruptive and shouldn't be done unless necessary. For this reason you will
-often see delegates say that they might not like a solution very much, but will not break consensus
-unless other delegates are also not happy with a solution. Breaking consensus alone is a very strong
-signal.
+委员会使用完全一致的模式运作。这意味着每个人都必须同意以便提案在各个阶段向前推进。这是委员会深有感触的，在过去的案例中，一个不同意提案的人帮助我们返回并改进提案，而不是让它们进入下一阶段。因此，打破共识可能非常具有破坏性，除非必要，否则不应打破共识。出于这个原因，你会经常看到代表说他们可能不太喜欢一个解决方案，但不会破坏共识，除非其他代表也对解决方案不满意。单独打破共识是一个非常强大的
+信号。
 
-If you find that you are unhappy with a proposal, try to think of a way to help the proposal address the
-issues you see with it, and articulate them. What are the limitations? Are there studies that the
-champions can do to help their case? What sort of improvements are needed? Have requirements been
-missed? Try to move the discussion in a positive direction!
+如果你发现你对某个提案不满意，试着想办法帮助提案解决你看到的问题，并阐明它们。有哪些不足？针对这个问题委员会能做哪些研究？需要什么样的改进？有没有要求
+被忽略了？请努力使讨论朝着积极的方向发展！
 
-## Tools for participation
+## 参与的工具
 
-We have a few tools that help us facilitate communication. They are as follows:
+我们有一些工具可以帮助我们促进沟通。它们如下：
 
 ### IRC
 
-_Purpose_: A place for delegates to ask questions in a non vocal manner, useful if you need
-definitions or something similar!
+_目的_：代表以非声音方式提问的地方，如果您需要定义或类似的东西时非常有用！
 
-_How to use_:
+_如何使用_：
 
-We use the #tc39-delegates channel on Freenode during the meetings. This channel is open to
-delegates. It is not public due to IP restrictions. The
-public channel #tc39 is useful for outside communication that is _not_ during meetings. You can find instructions for joining
-[here](https://freenode.net/kb/answer/chat).
+我们在会议期间使用 Freenode 上的 #tc39-delegates 频道。该频道对代表开放。由于 IP 限制，它不公开。公共频道 #tc39 对于_非_会议期间的外部交流很有用。您可以在[此处](https://freenode.net/kb/answer/chat)找到加入说明。
 
 ### [Queue](https://tcq.app/)
 
-_Purpose_: To organize people's responses to a topic, and make sure everyone is heard.
+_目的_：组织人们对某个主题的回应，并确保每个人的声音都被听到。
 
-_How to use_:
+_如何使用_：
 
-When the meeting starts, a link to the tcq meeting will be added to the delegates IRC channel topic.
-At the top you will see "Agenda" and "Queue".
+会议开始时，tcq 会议的链接将添加到代表的 IRC 频道主题中。在顶部，您将看到“议程”和“队列”。
 
-If you are interested in knowing what is coming up, you can take a look at the agenda page. However
-this is more useful for chairs, who can add agenda topics that are coming up next, and their
-associated time box.
+如果您有兴趣了解即将发生的事情，可以查看议程页面。然而，这对于主席更有用，他们可以添加接下来的议程主题及其相关的时间框。
 
-During presentations, if you notice something a speaker says that you want a clarification of, or to
-make a comment, you can do this in the queue. There are three options: new topic, clarifying
-question, and point of order. It looks something like this:
+在演讲期间，如果您对演讲者提到的内容感兴趣，并想要进一步的说明或发表评论，您可以在队列中执行此操作。共有三个选项：新主题、问题说明和程序问题。它看起来像这样：
 
 ![](./images/queue.png)
 
-At the top we have the agenda item that is being discussed, followed by the queue item that is being
-discussed. After that, we have a bunch of buttons!
+在顶部，我们有正在讨论的议程项目，然后是正在讨论的队列项目。之后，我们有一堆按钮！
 
-If you are speaking, then you will also have the option to say that you are done speaking.
+如果您正在发言，那么您还有已完成发言的选项。
 
-As for the other four buttons!
+其余四个按钮！
 
 ![](./images/queue-buttons.png)
 
-A new topic breaks with the current topic, and starts a new thread to which clarifying questions
-might be added. New topics are ordered by when they are added to the queue.
+一个与当前主题分开的新主题，并开始一个可能添加问题说明的新线程。新主题按添加到队列的时间排序。
 
-To discuss current topic is to reply to it. If you reply to the current topic, it will go
-immediately after the current speaker / any other replies that came before yours.
+讨论当前话题就是回复它。如果您回复当前主题，它将紧跟在当前发言人/您之前的任何其他回复之后。
 
-A clarifying question is used when you want to continue the current topic and ask something about
-it. For example, if someone uses an example that doesn't make sense to you, you can ask them to
-clarify what they meant. Clarifying questions will be added in the order they were entered into the
-queue.
+当您想继续当前主题并询问有关它的内容时，可以使用问题说明。例如，如果有人使用了一个对你来说没有意义的例子，你可以要求他们说明他们的意思。问题说明将按照进入队列的顺序添加。
 
-A point of order is used to immediately bring up a point. For example, if a note taker
-has been kicked from the notepad, and needs people to pause for a moment, they might use a point of
-order, saying that the note taking service is down. This is added to the top of the queue, and will
-be the next thing addressed.
+A point of order is used to immediately bring up a point. For example, if a note taker has been kicked from the notepad, and needs people to pause for a moment, they might use a point of order, saying that the note taking service is down. This is added to the top of the queue, and will be the next thing addressed.
 
 ### [Timebox](https://timebox.now.sh/)
 
