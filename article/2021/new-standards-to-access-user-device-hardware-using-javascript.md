@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # 用 JavaScript 访问用户设备硬件的新标准
 
@@ -39,9 +39,9 @@ if ("hid" in navigator) { /* 支持 WebHID API。 */ }
 
 我知道当你了解了 WebHID 能做什么之后，一定会想到安全问题。
 
-这个 API 是根据[对强大的 Web 平台的访问控制文档](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md)中定义的核心原则而开发的，包括用户控制、透明度、人体工程学等方面的原则。更严格的是，同一时刻只允许连接一个 HID 设备。
+Chromium 文档规定了[对强大的 Web 平台特性的访问控制](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md)，而这个 API 正是根据文档中定义的核心原则开发的，包括用户控制、透明度、人体工程学等方面的原则。更严格的是，同一时刻只允许连接一个 HID 设备。
 
-另外，Chrome 开发工具针对浏览器正在连接着的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `chrome://device-log`（Chrome 内部页面）中看到。
+另外，Chrome 开发工具针对浏览器当前连接的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `chrome://device-log`（Chrome 内部页面）中看到。
 
 在本文中，我们不会涉及底层实现细节。如果你想要了解实现细节，请在评论区留言。
 
@@ -61,7 +61,7 @@ if ("hid" in navigator) { /* 支持 WebHID API。 */ }
 
 ### 使用 WebNFC
 
-假设一个场景：你需要管理自家店铺的库存。你可以通过 WebNFC 读/写库存商品上的 NFC 标签数据，这样就能搭建起一个库存管理站点。
+假设一个场景：你需要管理自家店铺的库存。你可以通过 WebNFC 向库存商品上的 NFC 标签读/写数据，这样就能搭建起一个库存管理站点。
 
 WebNFC 带来的可能性是无限的。这是一个机会，一个能让许多过程自动化、让日常工作提效的机会。
 
@@ -73,7 +73,7 @@ if ('NDEFReader' in window) { /* 扫描、写入 NFC 标签 */ }
 
 ### 安全性考量
 
-> 为了防患于未然，只有顶层框架和安全的浏览环境（HTTPS Only）能够使用 WebNFC。
+> 为了防患于未然，只有顶层框架和安全的浏览环境（只允许 HTTPS 协议）能够使用 WebNFC。
 
 如果一个实现了 WebNFC 功能的网页消失了或肉眼不可见，那么和该网页连接的所有 NFC 标签都会被挂起连接。当页面重新可见时，这些连接才会恢复。页面可见性 API 可以帮你识别 NFC 操作的连接状态。
 
@@ -81,7 +81,7 @@ if ('NDEFReader' in window) { /* 扫描、写入 NFC 标签 */ }
 
 ### 浏览器兼容性
 
-目前仅有 Android 端 Chrome 支持 WebNFC。
+目前仅有 Android 端的 Chrome 支持 WebNFC。
 
 ![引用自 [https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)](https://cdn-images-1.medium.com/max/4048/1*fN-b18bMyZ8OPvq3eYzNvQ.png)
 
@@ -91,7 +91,7 @@ if ('NDEFReader' in window) { /* 扫描、写入 NFC 标签 */ }
 
 从 Chrome 61 版本开始，WebUSB API 让你可以用 JavaScript 与 USB 端口进行通信。
 
-然而，你可能会想，我们怎么才能访问每个 USB 设备的相关驱动，对吧？。有了 WebHID API 的支持，硬件厂商能够针对自家的硬件设备开发出跨平台的 JavaScript SDK。
+然而，你可能会想，我们怎么才能访问每个 USB 设备的相关驱动，对吧？有了 WebHID API 的支持，硬件厂商能够针对自家的硬件设备开发出跨平台的 JavaScript SDK。
 
 与上述 API 类似，我们可以使用下列代码检测 WebUSB 的支持情况。
 
@@ -101,7 +101,7 @@ if ("usb" in navigator) { /* 支持 WebUSB API。 */ }
 
 ### 安全性
 
-有许多控制措施可以保护未授权的 USB 访问的安全性，而且它只会在支持 HTTPS Only 的安全环境运行，以此来保护传输的数据。另外，会有标准浏览器授权流程来请求和授予访问权限。
+有许多控制措施可以保护未授权的 USB 访问的安全性，而且它仅在只允许 HTTPS 协议的安全环境运行，以此来保护传输的数据。另外，会有标准浏览器授权流程来请求和授予访问权限。
 
 WebUSB API 相关的调试任务也可以在 `chrome://device-log` 页面看到，页面里会列出当前连接的所有 USB 设备及相关事件。
 
