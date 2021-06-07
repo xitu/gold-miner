@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md)
 > * 译者：[Kimhooo](https://github.com/Kimhooo)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao)，[lsvih](https://github.com/lsvih)
 
 # Jetpack Compose：更简便的 RecyclerView（第一部分）
 
