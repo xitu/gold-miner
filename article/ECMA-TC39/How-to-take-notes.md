@@ -90,7 +90,7 @@ X.Y.Z 应与议程中的议程编号相对应，后跟议程项目的标题。�
 
 #### 讨论
 
-发言人由与会者列表中列出的首字母标识。首字母应始终使用大写字母。在这种情况下，我们有 [Joseph Beuys](https://www.youtube.com/watch?v=py_uEHL-la4) (JB) 与 [Martin Kippenberger](https://www.youtube.com/watch? v=MJxktqTgRlM) (MKR)
+发言人由与会者列表中列出的首字母标识。首字母应始终使用大写字母。在这种情况下，我们有 [Joseph Beuys](https://www.youtube.com/watch?v=py_uEHL-la4) (JB) 与 [Martin Kippenberger](https://www.youtube.com/watch?v=MJxktqTgRlM) (MKR)
 
 #### 结论
 
