@@ -1,3 +1,17 @@
+* [快停止在 CSS 中使用像素单位](https://juejin.cn/post/6963251861134508045)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [JavaScript 类型化数组](https://juejin.cn/post/6963589759310495774)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [现代化的 React 路由 Hookrouter 开发使用](https://juejin.cn/post/6963445160474574885)（[zenblo](https://github.com/zenblo) 翻译）
+* [Web 开发者应该避免的 5 个 CSS 的做法](https://juejin.cn/post/6963252241662738440)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [有关 ECMAScript 最新版本的所有信息｜ECMAScript 2021](https://juejin.cn/post/6963250213997789197)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [将 JavaScript 放到一边 —— 用 Mint 这门强大的语言来创建一个 Web 应用](https://juejin.cn/post/6957506898061066277)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [从 React 转换到 Next.js 的五个理由](https://juejin.cn/post/6956893345750712350)（[zenblo](https://github.com/zenblo) 翻译）
+* [Chromium 隐私沙盒让用户隐私更安全](https://juejin.cn/post/6958070229956034591)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [跨站脚本攻击（XSS）](https://juejin.cn/post/6959080994653601806)（[MoonBall](https://github.com/MoonBall) 翻译）
+* [对产品经理而言的 Web 性能](https://juejin.cn/post/6959992589999144996)（[flying-yogurt](https://github.com/flying-yogurt) 翻译）
+* [现代 Web 应用程序中的 Web 分享](https://juejin.cn/post/6955824573279371272)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具](https://juejin.cn/post/6951207758997913636)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [是时候该罢黜 JPEG，独尊新编码了](https://juejin.cn/post/6951062279760642062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [渐进式应用程序 PWA 开始衰落了吗？](https://juejin.cn/post/6953212248760254471)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Applets 应用程序的终结](https://juejin.cn/post/6949497811817725959)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [1993 年的 CGI 脚本和早期服务端 Web 编程](https://juejin.cn/post/6947898773569962020)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [2020 网络年鉴：热门的前端框架依然是互联网的一小部分](https://juejin.cn/post/6944674906684686366)（[felixliao](https://github.com/felixliao) 翻译）

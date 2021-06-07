@@ -2,84 +2,82 @@
 > * 原文作者：[The Educative Team](https://medium.com/@educative-inc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[5Reasons](https://github.com/5Reasons)、[greycodee](https://github.com/greycodee)
 
-# Top 7 Dart Tips and Tricks for Cleaner Flutter Apps
+# 7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧
 
-![Photo by [Lucie Hošová](https://unsplash.com/@marjorylucabaxter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/dart?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg)
+![由 [Lucie Hošová](https://unsplash.com/@marjorylucabaxter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 上传至 [Unsplash](https://unsplash.com/s/photos/dart?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg)
 
-[Dart](https://www.educative.io/blog/dart-2-language-features) is a client-optimized programming language for quickly building mobile, desktop, and server apps. Dart was developed by Google to be used with their cross-platform Flutter framework. With Flutter and Dart, you can build apps with a slick UI and a native feel.
+[Dart](https://www.educative.io/blog/dart-2-language-features) 是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart 由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。
 
-Today we offer our top seven Dart tips that will help you improve your app development. You can use these tips to write concise code and make the most of the many features that Dart has to offer.
+今天，我们总结并分享了七个我们认为最实用的 Dart 技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的代码，并充分利用上 Dart 所提供的许多特性。
 
-**Tips and tricks at a glance:**
+**速览 —— 贴士和技巧：**
 
-1. Use anonymous functions as arguments
-2. Use the `call` method to make classes callable like a function
-3. Use `.entries` to iterate through a map
-4. How to use getters and setters
-5. Use a `Set` for a collection of unique items
-6. Make use of the inspect widget
-7. Use sync and async generators
+1. 使用匿名函数作为参数
+2. 使用 `call` 方法让类可以像是个函数一样被调用
+3. 使用 `.entries` 来在一个 map 上遍历
+4. 如何使用 getter 和 setter
+5. 用 `Set` 存储唯一值
+6. 使用 Inspect 功能
+7. 使用 sync 和 async 生成器
 
-## 1. Use Anonymous Functions as Arguments
+## 1. 使用匿名函数作为参数
 
-In the Dart language, functions can be passed as arguments to other functions. Dart provides anonymous functions that do not need a name and can be used directly.
+在 Dart 语言中，我们可以将函数作为参数传递给其他函数，而 Dart 语言本身还支持无需命名即可调用的匿名函数。
 
-Below is an example of an anonymous function in Dart. Here, we pass an anonymous cube function to a built-in method `forEach`. We are trying to get the cube for every item in a list.
+以下是 Dart 中使用匿名函数的示例。在本例中，我们将一个匿名的求立方函数传递给内置方法 `forEach`，尝试获取 `list` 数组中每一项的立方。
 
 ```Dart
 main() {
-  var list = [1,2,3];
+  var list = [1, 2, 3];
   list.forEach((item) {
-   print(item*item*item);
+    print(item * item * item);
   });
 }
 ```
 
-`sayHello` is passed to the `intro` function, which takes the function argument. On line 6, `String Function(String)` is a function type that returns a string from a given string argument. The anonymous function we use has the same signature, so it is passed as an argument.
+## 2. 使用 `call` 方法让类可以像是个函数一样被调用
 
-## 2. Use the call Method To Make Classes Callable Like a Function
-
-With Dart, you can create a callable class that allows that class instance to be called as a function. We do this with the `call()` method. See the syntax below.
+使用 Dart 语言我们可以构造一个可调用的类，允许将该类的实例作为函数调用。我们可以用 `call()` 方法做到这一点,请参见下面的语法：
 
 ```Dart
 class class_name {
   ... // class 
-  
+
   return_type call ( parameters ) {
-    ... // call the function content
+  	... // 调用这个函数内容
   }
-  
+
 }
 ```
 
-Let’s see this in action with an example.
+让我们来看一个例子：
 
 ```Dart
-class EducativeIntro { 
-    
-  // Defining call method 
-  String call(String a, String b, String c) => 'Welcome to $a$b$c'; 
-} 
-  
-// Main Function 
-void main() { 
-  var educative_input = EducativeIntro(); 
-    
-  // Calling the class through its instance 
-  var educative_output = educative_input('our ', 'Dart ', 'tutorial'); 
-    
-  print(educative_output); 
+class EducativeIntro {
+
+  // 定义 call 方法 
+  String call(String a, String b, String c) => 'Welcome to $a$b$c';
+}
+
+// 主函数  
+void main() {
+  var educative_input = EducativeIntro();
+
+  // 借助实例调用这个类
+  var educative_output = educative_input('our ', 'Dart ', 'tutorial');
+
+  print(educative_output);
 }
 ```
 
-> **Note:** Dart doesn’t support multiple callable methods.
+> **注意：** Dart 不支持多个可调用方法
 
-## 3. Use entries To Iterate Through a Map
+## 3. 使用 `.entries` 来在一个 map 上遍历
 
-In Dart, you can iterate through a map in a null-safe manner using `entries`. Say we have a map that tracks the amount of money spent on different products. Typically, we’d iterate through this map with the `!` operator.
+在 Dart 中我们可以使用 `entries()` 方法以空安全的方式遍历一张 map。假设我们现在有一张 map 用于追踪在不同产品上花费的金额（通常我们会使用 `!` 运算符在此 map 中进行遍历）：
 
 ```Dart
 for (var key in moneySpent.keys) {
@@ -88,63 +86,73 @@ for (var key in moneySpent.keys) {
 }
 ```
 
-We can improve this code and make it more null-safe using a loop. When we iterate with the `entries` variable, we can access our key-value pairs in a null-safe manner.
+我们可以改进此代码，并使用循环使其更安全。当我们使用 `entries` 变量进行遍历时，我们可以用空安全的方式访问键值对。
 
 ```Dart
 for (var entry in moneySpent.entries) {
-  // do something with keys and values
+  // 使用键值对做一些事情
   print('${entry.key}: ${entry.value}');
 }
 ```
 
-## 4. How To Use Getters and Setters
+## 4. 如何使用 getter 和 setter
 
-Getters and setters are special methods that provide read and write access to an object’s properties. Getters and setters are called similar to instance variables: a dot operator (`.`) simply followed by the function name.
+getter 和 setter 是一对特殊的方法，它们能够对一个对象的属性进行读、写操作。我们对 getter 和 setter 的调用类似于实例变量：点运算符（`.`）后面紧跟函数的名称。
 
-Getters are functions that are used to retrieve the values of an object’s properties. We use the `get` keyword.
+getter 是用于获取对象属性值的函数，使用 `get` 关键字定义。
 
-Below is an example where we create a getter function on line 13 that will return the value of the name of the current instance. On line 21, we call the getter function and the output should display `Sarah`.
+在下面的示例中，我们在第 13 行创建了一个 getter 函数，返回当前实例的 `name` 属性的值。而在第 21 行，我们调用了 getter 函数，这里的输出应是 `Sarah`。
 
 ```Dart
-class Person{
-  String name; 
-  String gender; 
-  int age; 
-  
+class Person {
+  String name;
+  String gender;
+  int age;
+
   Person(this.name, this.gender, this.age);
-Person.newBorn(){
+
+  Person.newBorn(){
     this.age = 0;
   }
-// Getter function getting the value of name
+
+	// getter 函数，获取 name 的值
   String get personName => name;
-walking() => print('$name is walking');
+
+  walking() => print('$name is walking');
+
   talking() => print('$name is talking');
 }
+
 int main() {
-  var firstPerson = Person("Sarah","Female",25);
+  var firstPerson = Person("Sarah", "Female", 25);
   print(firstPerson.personName);
 }
 ```
 
-Setters are functions that are used to write the values of an object’s properties. We use the `set` keyword.
+setter 则是用于写入一个对象的属性的函数，使用 `set` 关键词：
 
 ```Dart
-class Person{
-  String name; 
-  String gender; 
+class Person {
+  String name;
+  String gender;
   int age;
-String get personName => name;
-// Setter function for setting the value of age
-  void set personAge(num val){
-    if(val < 0){
+
+  String get personName => name;
+
+	// setter 函数用于设置 age 的值
+  void set personAge(num val) {
+    if (val < 0) {
       print("Age cannot be negative");
     } else {
       this.age = val;
     }
   }
-walking() => print('$name is walking');
+
+  walking() => print('$name is walking');
+
   talking() => print('$name is talking');
 }
+
 int main() {
   var firstPerson = Person();
   firstPerson.personAge = -5;
@@ -152,45 +160,46 @@ int main() {
 }
 ```
 
-From line 9 to line 15, we create a setter function that sets the value for `age`. We also give it a condition so that we cannot input a negative age. And on line 23, we set the value of age for `firstPerson` using the `personAge` setter function.
+第 9 行到第 15 行代码中我们创建了一个 setter 函数用于设置 `age` 的值。该函数还被添加了一个条件判断，让我们不能输入负的年龄。在第 23 行，我们使用 `personAge` setter 函数为 `firstPerson` 设置了年龄值。
 
-## 5. Use a Set for a Collection of Unique Items
+## 用 `Set` 存储唯一值
 
-A list is one of the most common collection types in Dart, but lists can hold duplicate items. Sometimes we want only a collection of unique values. This is where a `Set` is useful.
+列表是 Dart 中最常见的集合类型之一，但是列表可以容纳重复项。有时我们只想要唯一值的集合，这就是 `Set` 用武之处。
 
 ```Dart
+
 final countriesSet = {
-'USA',
-'India',
-'Iceland',
-'USA',
+  'USA',
+  'India',
+  'Iceland',
+  'USA',
 };
 ```
 
-In a `Set`, two elements cannot be equal, so the code above will offer a warning and it won’t compile. This is also true if we use `const set`.
+在一个 `Set` 中两个元素不能相同，因此上面的代码会有一个 warning 并且无法被编译。同理使用 `const set` 也无法被编译。
 
-## 6. Make Use of the Inspect Widget
+## 6. 使用 Inspect 功能
 
-In web development, it’s common to use the Inspect element, which will tell you all the properties applied to an HTML tag. Dart provides a similar feature called the Inspect Widget that can make app development with Flutter easier. The Flutter Widget Inspector can be used to locate any widget on the screen and view the properties applied to it.
+在网络开发中我们经常会需要用到 Inspect 功能，因为它能够告诉我们应用于 HTML 标记的所有属性。Dart 也提供了类似的功能，我们称之为 Flutter Inspect。这个功能可以有效简化 Flutter 应用程序的开发，用于找到屏幕上的任何控件并查看应用于它的属性。
 
-The inspector can also help you visualize Flutter widget trees to understand layouts or identify layout issues.
+Inspect 还可以帮助我们可视化 Flutter 控件树以了解布局或确定布局问题。
 
-To use it, follow these steps:
+要使用它，请按照下列步骤操作：
 
-* Click on the “Flutter inspector.”
-* Click on the “Enable Select Widget Mode.”
-* Select a widget on the screen to get more information on it
+* 单击 `Flutter Inspector`。
+* 单击 `启用选择 Widget 模式`。
+* 选择屏幕上的控件以获取更多信息
 
 ![](https://cdn-images-1.medium.com/max/4920/1*8HtnC_I_iMewckScC92stA.png)
 
-## 7. Use Sync and Async Generators
+## 7. 使用 Sync 和 Async 生成器
 
-In Dart, generators make it possible to produce a sequence of values. There are two generator functions:
+在 Dart 中，生成器可以生成一系列值。而 Dart 一共有两个生成器函数：
 
-* **Synchronous generator:** returns an iterable object
-* **Asynchronous generator:** returns a Stream object
+* **同步生成器：** 返回一个可迭代的对象
+* **异步生成器：** 返回 `Stream` 对象
 
-In other words, the synchronous generator returns a collection of values that can be accessed sequentially. We do this by marking the function body as `sync*`. Then, we use yield statements for the values.
+换句话说，同步生成器返回可以顺序访问的值的集合。为此，我们将函数体标记为 `sync*`。我们会以 `yield` 语句用作值。
 
 ```Dart
 Iterable<int> count(int n) sync* {
@@ -200,7 +209,7 @@ Iterable<int> count(int n) sync* {
 }
 ```
 
-The asynchronous generator, on the other hand, returns a Stream object. A Stream makes it possible to receive a sequence of events. We do this by marking the function body as `async*`. Then, we use yield statements for the values.
+异步生成器则会返回一个 `Stream` 对象，让接收一系列事件成为可能。我们可以通过将函数体标记为 `async*` 来做到这一点。我们会以 `yield` 语句用作值。
 
 ```Dart
 Stream<int> countStream(int n) async* {
@@ -210,16 +219,16 @@ Stream<int> countStream(int n) async* {
 }
 ```
 
-## Next Steps for Your Learning
+## 你下一步将学习什么？
 
-We hope these tips help you make the most of Dart and all the features it offers. Flutter and Dart are a powerful pair for building apps that feel native and slick. Other advanced Dart tools to investigate next are:
+我们希望这些技巧能帮助您充分利用 Dart 及其提供的所有特性。Flutter 和 Dart 是一套强大的工具，用于构建具有原生感和流畅感的应用程序。接下来要研究的其他高级的 Dart 特性应该是：
 
-* Spread operators for nested `if` statements
-* Named constructors and initializer lists
-* Dart libraries
-* Enumerated types
+* 嵌套 `if` 语句的传播运算符
+* 命名构造函数和初始化列表
+* Dart 库
+* 枚举类型
 
-Happy learning!
+学习愉快！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

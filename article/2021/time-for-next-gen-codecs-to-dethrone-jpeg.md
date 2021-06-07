@@ -2,53 +2,51 @@
 > * 原文作者：[Jon Sneyers](https://cloudinary.com/blog/author/jon_sneyers)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/time-for-next-gen-codecs-to-dethrone-jpeg.md](https://github.com/xitu/gold-miner/blob/master/article/2021/time-for-next-gen-codecs-to-dethrone-jpeg.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[PingHGao](https://github.com/PingHGao)
 
-# Time for Next-Gen Codecs to Dethrone JPEG
+# 是时候该罢黜 JPEG，独尊新编码了
 
-![It’s High Time to Replace JPEG With a Next-Generation Image Codec](https://res.cloudinary.com/cloudinary-marketing/image/upload/c_fill,w_770/dpr_2.0,f_auto,fl_lossy,q_auto/v1/Web_Assets/blog/jxl-compare-codecs.png)
+![是时候用新一代图像编码格式替换 JPEG 编码格式了](https://res.cloudinary.com/cloudinary-marketing/image/upload/c_fill,w_770/dpr_2.0,f_auto,fl_lossy,q_auto/v1/Web_Assets/blog/jxl-compare-codecs.png)
 
-I can be quite passionate about image codecs. A “codec battle” is brewing, and I’m not the only one to have [opinions](https://codecs.multimedia.cx/2020/11/an-upcoming-image-format-war/) about that. Obviously, as the chair of the JPEG XL ad hoc group in the JPEG Committee, I’m firmly in the camp of the codec I’ve been working on for years. Here in this post, however, I’ll strive to be fair and neutral.
+我对图像编码十分狂热。如今，一场“图像编码之战”正在酝酿之中，而我并不是唯一[对此有想法](https://codecs.multimedia.cx/2020/11/an-upcoming-image-format-war/)的人。显然，作为 JPEG 委员会 JPEG XL 特设小组的主席，我坚定地致力于多年的图像编码的工作。但是，在本文中，我将努力做到公平和中立。
 
-The objective is clear: dethroning JPEG, the wise old Grandmaster of Image Compression who ruled supreme during the first 25 years of the existence of the `<img>` tag and, therefore, of images on the web. As superb a codec as JPEG was, it’s now hitting its limits. Why? The lack of alpha transparency support alone is annoying enough, let alone the 8-bit limit (so no HDR) and the relatively weak compression compared to the current state of the art. Clearly, the time is ripe for a regime change.
+目标很明确：罢黜 JPEG 这位在 `<img>` 标签诞生的 25 年以来（其实就是在网络上存在图片以来），一直居于统治地位的 *明智却年老的照片压缩大师*。JPEG 这个极度出色的图像编码现在已经达到了他的极限。为什么？仅仅提到他缺少对 alpha 透明度的支持，就足以让人烦恼许久，更不用说那色彩深度的 8 位的限制（也是他不支持 HDR 的原因），还有那和与现有技术相比相对薄弱的压缩。显然，进行谋权篡位的时候到了！
 
-![Chess Board](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/chess-board-competition.jpg "Chess Board")
+![一张棋盘](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/chess-board-competition.jpg "一张棋盘")
 
-Six combatants have entered the playing field so far:
+六名对手正在进入战场，请做好准备 —— 全军出击：
 
-* **JPEG 2000** by the JPEG group, the oldest of the JPEG successors, available in Safari
-* **WebP** by Google, available in all browsers
-* **HEIC** by the MPEG group, based on HEVC and available in iOS
-* **AVIF** by the Alliance for Open Media (AOM), available in Chrome and Firefox
-* **JPEG XL** by the JPEG group, the next-generation codec
-* **WebP2** by Google, an experimental successor to WebP
+* **JPEG 2000** —— JPEG 小组，这是 JPEG 编码继承者中最早初露头角的一位，不过仅被 Safari 5+ 支持
+* **WebP** —— Google，支持在所有现代浏览器中使用
+* **HEIC** —— MPEG 小组，基于 HEVC，支持在 iOS 原生应用程序使用，但是不被任何一个包括 Safari 在内的浏览器支持
+* **AVIF** —— 开源媒体协会，支持在 Chrome 和 Opera 浏览器中使用，可在 Firefox 中通过开启 `image.avif.enabled` 使用
+* **JPEG XL** —— JPEG 小组，下一代编码但不被任何浏览器支持
+* **WebP2** —— Google，一个针对 WebP 的实验性质的成功尝试，主要目标是达到与 AVIF 相似的压缩率，同时保持更快的编码和解码速度。
 
-Since [WebP2](https://chromium.googlesource.com/codecs/libwebp2/) is still experimental and will be an entirely new format that’s not compatible with WebP, it’s too early for an evaluation. The other codecs are finalized, albeit in different stages of maturity: JPEG 2000 is already 20 years of age; JPEG XL is barely a month old.
+由于 [WebP2](https://chromium.googlesource.com/codecs/libwebp2/) 仍处于试验阶段，并且将是与 WebP 不兼容的全新格式，因此对他进行评估尚为时过早。其他图像编码则早已完成，不过完成时间有所不同：JPEG 2000 已经有了 20 年的历史，而 JPEG XL 项目才刚成立一个月。
 
-Being based on HEVC, HEIC is, to put it mildly, not royalty free. Even though supported by Apple, HEIC is unlikely to become a universally supported codec that can replace JPEG.
+坦率地说，基于 HEVC 的 HEIC 不是免费，或者说，不是开源的。即使得到了 Apple 的支持，HEIC 也不大可能成为替代 JPEG 的通用编码。
 
-This post, therefore, focuses on comparing the remaining new codecs—JPEG 2000, WebP, AVIF, and JPEG XL—to the Ancient Régime of JPEG and PNG.
+因此，本文重点关注将其余的新的编码（JPEG 2000、WebP、AVIF 和 JPEG XL）与掌控旧政权的 JPEG 和 PNG 比较。
 
-## [Compression](#compression)
+## 压缩
 
-Obviously, compression is the main task of an image codec. See this scoreboard:
+显然压缩是图像编码的重要指标，快来看看数据吧：
 
-![Compression scoreboard](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle_of_the_Codecs_compression_v01.png "Compression scoreboard")
+![压缩比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-compression-benchmark.png?raw=true "压缩比较")
 
-* JPEG was created for lossy compression of photographs; PNG, for lossless compression, which it performs best on nonphotographic images. In a way, these two codecs are complementary, and you need both for various use cases and image types.
-* JPEG 2000 not only outperforms JPEG, but it can also do lossless compression. However, it lags behind PNG for nonphotographic images.
-* WebP, specifically designed to replace JPEG and PNG, does indeed beat both of them in compression result, but only by a narrow margin. For high-fidelity, lossy compression, WebP sometimes performs worse than JPEG.
-* HEIC and AVIF handle lossy compression of photos much more effectively than JPEG. Occasionally, they’re behind PNG at lossless compression but yield better results with lossy nonphotographic images.
-* JPEG XL beats both JPEG and PNG in compression results by leaps and bounds.
+* JPEG 是为了对相片进行有损压缩而创建，而 PNG 则专用于无损压缩，并在非摄影图像上表现最佳。在某种程度上，这两个编码是互补的，适用于我们实际应用中的各种用例和图像类型。
+* JPEG 2000 不仅优于 JPEG，而且还可以进行无损压缩。但是在非摄影图像上他落后于 PNG。
+* WebP 是专为替代 JPEG 和 PNG 所设计的，他在压缩结果上确实击败了两者，不过差距较小。对于高保真、有损压缩来说，WebP 有时甚至会比 JPEG 表现差。
+* 相比 JPEG，HEIC 和 AVIF 更能有效地处理相片的有损压缩。虽然有时他们会在无损压缩方面落后于 PNG，但对于有损的非摄影图像来说会产生更好的结果。
+* JPEG XL 在压缩效果上突飞猛进，远胜过 JPEG 和 PNG。
 
-When lossy compression is good enough, e.g., for web images, both AVIF and JPEG XL deliver significantly better results than the existing web codecs, including WebP. As a rule, AVIF takes the lead in [low-fidelity, high-appeal](https://cloudinary.com/blog/what_to_focus_on_in_image_compression_fidelity_or_appeal) compression while JPEG XL excels in medium to high fidelity. It’s unclear to what extent that’s an inherent property of the two image formats, and to what extent it’s a matter of encoder engineering focus. In any case, they’re both miles ahead of the old JPEG.
+当有损压缩足够好（比如说针对 Web 图像而言）时，AVIF 和 JPEG XL 都有着比包括 WebP 在内的现有 Web 图像编码有着明显更好的结果。通常，AVIF 在[低保真高吸引力](https://cloudinary.com/blog/what_to_focus_on_in_image_compression_fidelity_or_appeal)的压缩方面处于领先地位，而 JPEG XL 在中保真到高保真方面表现出色。目前尚不清楚这是两种图像格式的固有属性，还是开发编码器的一个关注点。不过无论如何，他们俩都远超 JPEG，领先着几英里。
 
-.tab-eg { --color-light: #eeeef1; --color-mid: #737a8b; --color-dark: #0c163b; --color-slate: #404962; --color-slate-light: #acb0ba; --color-primary: #3448c5; --color-inactive: #737a8b; color: var(--color-slate); max-width: 1264px; } .tab-eg h1, .tab-eg h2, .tab-eg h3 { color: var(--color-dark); line-height: 1.2; } .tab-eg h1 { font-size: 1.5rem; margin: 0 0 1rem 0; } .tab-eg h3 { font-size: 1.5rem; }
+### 低保真度下的编码比较
 
-### Codec Comparison at Low Fidelity
-
-1. Original - PNG 1799446 bytes
+1. 原图 - PNG 1799446 bytes
 
 ![](https://res.cloudinary.com/cloudinary-marketing/image/upload/v1613766717/Web_Assets/blog/original.png)
 
@@ -76,77 +74,77 @@ When lossy compression is good enough, e.g., for web images, both AVIF and JPEG 
 
 ![](https://res.cloudinary.com/cloudinary-marketing/image/upload/v1613767179/Web_Assets/blog/011jxl.jxl)
 
-## [Speed](#speed)
+## 速率
 
-Decoding a full-screen JPEG or a PNG takes only minimal time, literally a blink of an eye. Newer codecs compress better but at a cost in complexity. For example, one of the main factors that limited the adoption of JPEG 2000 at its launch was its prohibitive computational complexity.
+对一张全屏的 JPEG 或 PNG 进行解码仅需极短的时间 —— 几乎只在眨眼瞬间。较新的编码能够做到更好地压缩，但这也会增加复杂性。例如，限制 JPEG 2000 的主要因素之一，就是其过高的计算复杂性。
 
-![Speed comparison](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle_of_the_Codecs_speed_v01.png "Speed comparison")
+![速率比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-speed-benchmark.png?raw=true "速率比较")
 
-If your main goal of image compression is to accelerate delivery, be sure to take into account the decode speed. Typically, decode speed is more important than encode speed since, in many use cases, you encode only once and can do that offline on a beefy machine. In contrast, decoding is done many times, on various devices, including low-end ones.
+如果图像压缩的主要目标是加快传送速度，那请顺带考虑解码速度。因为通常解码速度比编码速度更重要，毕竟在许多用例中，我们只需编码一次即可，而这一过程可以在强大的机器上离线进行。相反，解码则需要在包括低端设备在内的各种设备上进行多次。
 
-Since CPU speed is staying stagnant in terms of single-core performance, parallelization is increasingly important. After all, the evolution trend for hardware is to have more CPU cores, not higher clock speeds. Designed before multicore processors became a reality, older codecs like JPEG and PNG are inherently sequential, that is, multiple cores yield no benefits for single-image decoding. In that respect, JPEG 2000, HEIC, AVIF, and JPEG XL are more future proof.
+由于 CPU 速度在单核性能方面一直处于停滞状态，因此并行化多核处理变得越来越重要。毕竟，硬件的发展趋势是拥有更多的 CPU 内核，而不是更高的时钟速度。由于在多核处理器成为现实之前设计完成，JPEG 和 PNG 等较旧的编码本质上是顺序的，也就是说，多核对单图像解码没有任何好处。在这方面，JPEG 2000、HEIC、AVIF 和 JPEG XL 都更具前瞻性。
 
-## [Limitations](#limitations)
+## 局限性
 
-A key downside of JPEG—at least, the de facto JPEG—and WebP is that they are limited to 8-bit color precision. That precision suffices for images with a standard dynamic-range (SDR) and a limited color-gamut like sRGB. For high dynamic-range (HDR) and wide-gamut images, more precision is required.
+JPEG（至少是事实上的 JPEG）和 WebP 的主要缺点是他们只支持最大的 8 位色彩深度。虽然说对于具有标准动态范围（SDR）和有限色域（如 sRGB）的图像，这个深度就足够了。但对于高动态范围（HDR）和广色域图像，那需要更高的深度。
 
-For now, 10-bit precision is good enough for image delivery, and all the other codecs do support 10-bit precision. However, for authoring workflows, whereby continual image transformations might still be required, a higher precision is desirable.
+目前，10 位的色彩深度足以满足图像传送的需要，而其他所有图像编码都支持 10 位的深度。不过对于创作工作流（可能仍需要连续的图像转换）则可能需要更高的深度。
 
-![Limitation comparison](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle_of_the_Codecs_limits_v01.png "Limitation comparison")
+![局限性比较](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-limitations-benchmark.png?raw=true "局限性比较")
 
-WebP and HEIC do not support images without chroma subsampling, which is a different kind of limit. For many photos, chroma subsampling is fine. In other cases, such as those with fine details or textures with a chromatic aspect, or colored text, WebP and HEIC images might be substandard.
+WebP 和 HEIC 不支持没有色度二次采样的图像则是另一种限制。对于许多照片，色度二次采样已经足够了。在其他情况下，比如说那些具有精细细节或具有彩色外观的纹理或彩色文本图像上，WebP 和 HEIC 图像的表现可能就差强人意了。
 
-Presently, the maximum dimension-limits pose no problems for web delivery. Nonetheless, for photography and image authoring, the limits of the video-codec-based formats can be prohibitive. Note that even though HEIC and AVIF allow tiling at the HEIF container level, i.e., the actual image dimensions are essentially unlimited, artifacts might appear at the tile boundaries. For example, Apple’s HEIC implementation uses independently encoded tiles of size 512x512, which means that a 1586x752 image, for example, when saved as a HEIC, is chopped up into eight smaller images, like this:
+当前，最大尺寸限制对 Web 部署几乎没有问题。但是，对于摄影和图像创作，基于视频编码的格式的限制可能会令人望而却步。请注意，即使 HEIC 和 AVIF 允许在 HEIF 容器级别进行切片，即实际图像尺寸实际上是不受限制的，但在切片边界处可能会出现伪像。例如，Apple 的 HEIC 实现使用大小为 512x512 的独立编码的图块，这意味着在例如另存为 HEIC 时，编码解码器会将原本 1586x752 的图像被切成八个较小的图像块，如下所示：
 
-![Encoded tiles](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013b.png "Encoded tiles")
+![编码的分块](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013b.png "编码的分块")
 
-Now if you zoom in on the boundaries between those independently encoded tiles, discontinuities might become visible:
+如果你放大去关注一下那些独立编码的图块之间的边界，那你肯定能够很清晰地看到图块之间的不连续：
 
-![Zoom](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013heic.png "Zoom")
+![放大](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/013heic.png "放大")
 
-To avoid such tile-boundary artifacts, do not exceed the maximum per-tile dimension—the size of an 8K video frame—for HEICs and AVIFs.
+为避免此类图块边界伪像，在使用 HEIC 和 AVIF 的时候我们应该避免让图像超过最大每块尺寸（即 8K 视频帧的大小）。
 
-## [Animation](#animation)
+## 动画
 
-Originally, GIF, JPEG, and PNG could represent still images only. GIF was the first to support animation in 1989 before the other codecs even existed, which is probably the only reason why it’s still in use today despite its limitations and poor compression result. All major browsers now also support animated PNG (APNG), a relatively [new situation](https://caniuse.com/apng).
+最初，GIF、JPEG 和 PNG 都只能表示静态图像。但 GIF 于 1989 年首先支持动画 —— 甚至在其他编码还没有出现之前，这可能是他尽管有其局限性和较差的压缩效果，但在今天仍在被广泛地使用的唯一原因。现在所有主流浏览器还支持动画 PNG（APNG）编码，这是一个[相对较新的状况](https://caniuse.com/apng)。
 
-In most cases, you’re better off encoding animations with a video codec instead of an image codec designed for stills. HEIC and AVIF, based on HEVC and AV1 respectively, are real video codecs. Despite its support for animation, JPEG XL performs intraframe encoding only with no capabilities for motion vectors and other advanced, interframe coding tools offered by video codecs. Even for short video segments that run for just a few seconds, video codecs can compress significantly better than the so-called animated still-image codecs like GIF and APNG, or even animated WebP or JPEG XL.
+在大多数情况下，最好使用视频编码而不是为静止图像设计的图像编码对动画进行编码。HEIC 和 AVIF 分别基于 HEVC 和 AV1，是真正的视频编码。尽管 JPEG XL 也支持动画，但他仅执行帧内编码，而没有运动矢量和视频编码提供的其他高级帧间编码工具的功能。即使对于仅运行几秒钟的短视频片段，视频编码的压缩效果也要比所谓的动画静止图像编码（如 GIF 和 APNG 甚至 WebP 动画或 JPEG XL）明显更好。
 
-A side note: it would be great if web browsers would accept in an `<img>` tag all the video codecs they can play in a `<video>` tag, the only difference being that in an `<img>` tag, the video is autoplayed, muted, and looped. That way, new and masterful video codecs like VP9 and AV1 would automatically work for animations, and we can finally get rid of the ancient GIF format.
+> 注；如果浏览器在 `<img>` 标签中接受他们可以在 `<video>` 标签中播放的所有视频编码那会好极了！不过唯一的区别是在 `<img>` 标签中视频是自动播放、静音且循环播放的。借此这些新的精巧的视频编码格式（例如 VP9 和 AV1），就会被自动地应用于我们的动画之中，让我们最终能够摆脱那古老的 GIF 格式了～
 
-## [Features](#features)
+## 功能
 
-Back to still images. Besides compressing RGB pictures quickly with no size or precision limits, image codecs must also offer other desirable features.
+让我们谈回静止的图像。除了快速压缩 RGB 图片（没有大小或色彩深度限制）外，图像编码还必须提供其他所需功能。
 
-![Feature comparison](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle_of_the_Codecs_features_v01.png "Feature comparison")
+![功能对比](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-features-benchmark.png?raw=true "功能对比")
 
-For web images—especially large, above-the-fold ones—[progressive decoding](https://cloudinary.com/blog/improve_the_web_experience_with_progressive_image_decoding) is an excellent feature to have. The JPEG family of codecs is strongest in that respect.
+对于 Web 图像尤其是大的图像来说，慢慢加载的图像，即[渐进式解码](https://cloudinary.com/blog/improve_the_web_experience_with_progressive_image_decoding)可是一项出色的功能。JPEG 编码系列在这方面最为强大。
 
-All new codecs support alpha transparency. The most recent ones also support depth maps, with which you can, for example, apply effects to the foreground and background.
+此外所有新的编码均支持 Alpha 透明度。最新的还支持深度图，比如说我们可以使用深度图将效果应用于前景和背景。
 
-Images with multiple layers, called overlays, can enhance web delivery. A case in point is that you can add crisp text-overlays to photos with stronger compression and less artifacts. It’s mostly useful in authoring workflows, though. Additionally, for those workflows, JPEG XL offers features like layer names, selection masks, spot-color channels, and fast lossless encoding of 16-bit integer and 16-, 24-, or 32-bit floating-point images.
+具有多层的图像（称为叠加层）可以增强 Web 交付。一个典型的例子是我们可以为照片添加清晰的文字叠加层，从而具有更强的压缩效果和更少的伪影。不过，他在创作工作流程中最有用。此外，对于这些工作流程，JPEG XL 还提供了诸如图层名称、选择蒙版、专色通道以及对 16 位整数和 16 位、24 位或 32 位浮点图像进行快速无损编码的功能。
 
-In terms of resilience against generation loss, video codecs are not exactly performing with flying colors. For web delivery, that deficiency is not critical, except in cases of images becoming, for example, a meme that ends up being reencoded many times.
+在抵御世代丢失的弹性方面，视频编码不能完全发挥出色的性能。不过对于 Web 交付，这种缺陷并不重要，我指的是在图像变成例如模因，而最终被重新编码多次的情况下除外。
 
-![2000 generations](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/frame-2000.png "2000 generations")
+![2000 代](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/frame-2000.png "2000 代")
 
-Finally, a unique transition feature of JPEG XL is that it can effectively [recompress legacy JPEG files without generation loss](https://cloudinary.com/blog/legacy_and_transition_creating_a_new_universal_image_codec).
+最后，JPEG XL 的独特过渡功能是他可以有效地重新压缩[旧版 JPEG 文件](https://cloudinary.com/blog/legacy_and_transition_creating_a_new_universal_image_codec)，而不会产生内容的丢失。
 
-## [Hopes and Strategies](#hopes_and_strategies)
+## 希望与策略
 
-The newest generation of image codecs—in particular AVIF and JPEG XL—are a major improvement of the old JPEG and PNG codecs. To be sure, JPEG 2000 and WebP also compress more effectively and offer more features, yet the overall gain is not significant and consistent enough to warrant fast and widespread adoption. AVIF and JPEG XL will do much better—at least that’s what I hope.
+最新一代的图像编码尤其是 AVIF 和 JPEG XL，是对旧 JPEG 和 PNG 编码的重大改进。可以肯定的是，JPEG 2000 和 WebP 还可以更有效地压缩并提供更多功能，不过总体效果并不显着且不够稳定，不足以保证快速广泛地采用。AVIF 和 JPEG XL 会做得更好 —— 至少我是这么希望的。
 
-Will there be a single winner as the dominant codec in the decades ahead? If so, will it be AVIF, JPEG XL, or the upcoming WebP2? Or WebP, now that it has universal browser support? Will there be multiple winners instead, with, for example, AVIF as the preferred codec for high-appeal, low-bandwidth encoding and JPEG XL for high-fidelity encoding? Will the new codecs lose the battle, and will the old JPEG once again survive the dethroning attempt? It’s too early to answer those questions.
+在未来的几十年中，会不会有一个赢家成为主导的编码？如果会有，那会是 AVIF、JPEG XL 还是即将推出的 WebP2？还是 WebP，毕竟他有着广泛的浏览器支持？会不会有多个获胜者，例如 AVIF 是低保真高吸引力的首选编码，而 JPEG XL 是高保真的首选编码？那些新的编码会不会输掉这场战斗，而旧的 JPEG 又能再次在被罢黜的尝试中存活吗？我想回答这些问题为时尚早。
 
-For now, a good strategy might be to implement several different approaches for image encoding, not only to leverage their unique strengths but also to lessen the probability of any of the approaches becoming an attack target for [patent trolls](https://www.sisvel.com/licensing-programs/audio-and-video-coding-decoding/video-coding-platform/license-terms/av1-license-terms). Disk space is of no concern here because, relative to the enormous storage savings they deliver, image codecs occupy only minimal space.
+就目前而言，一个好的事件策略可能是同时使用几种不同的图像编码方法。不仅要利用他们的独特优势，还要降低任何一种方法成为[专利巨魔](https://www.sisvel.com/licensing-programs/audio-and-video-coding-decoding/video-coding-platform/license-terms/av1-license-terms)攻击目标的可能性。磁盘空间在这里是无关紧要的，因为相对于存储它们的巨大存储空间，图像编码占用的空间微不足道。
 
-Furthermore, given the many factors in play, not all of them technical in nature, success of codec adoption is difficult to predict. Let’s just hope that the new codecs will win the battle, which is mostly one that’s against inertia and the “ease” of the status quo. Ultimately, unless JPEG remains a dominant force, regardless of which new codec will prevail, we’ll reap the benefits of stronger compression, higher image fidelity, and color accuracy, which translate to more captivating, faster-loading images. And that would be a win for everybody!
+此外，考虑到许多因素在起作用，但并非所有因素都是技术性的，因此很难预测编码采用的成功。我们只是希望新的编码能在这场战斗中取胜，这主要是与惯性和现状的“轻松”相对立的。最终，除非 JPEG 占主导地位，否则无论采用哪种新编码，我们都将受益于更强的压缩、更高的图像保真度和色彩准确性，从而能够使用更具吸引力且加载速度更快的图像。那将是每个人的胜利！
 
-![Codec comparison](https://res.cloudinary.com/cloudinary-marketing/image/upload/w_700,c_fill,f_auto,q_auto,dpr_2.0/Web_Assets/blog/Battle-of-the-Codecs_fnl.png "Codec comparison")
+![编码对比](https://github.com/PassionPenguin/gold-miner-images/blob/master/time-for-next-gen-codecs-to-dethrone-jpeg-battle-of-codecs.png?raw=true "编码对比")
 
-> ### Note:
+> ### 注：
 >
-> Meanwhile, it has been clarified that the AVIF limits listed above apply to the highest currently defined AVIF profile (the “Advanced” profile). It is also possible to use AVIF without a profile, and then the AV1 limits apply: a precision of up to 12-bit, and maximum dimensions of up to 65535x65535 (or more using grids). For HEIC, it is possible to use the container with a HEVC payload with a precision of up to 16-bit and with 4:4:4, although most hardware implementations do not support that.
+> 同时，需要注意的是，上面列出的 AVIF 限制适用于当前定义的最高 AVIF 配置文件（“高级”配置文件），实际上有三个规则，像素数不得大于 35651584，宽度不得大于 16384 且高度不得大于 8704。也可以使用不带配置文件的 AVIF，然后适用 AV1 限制：色彩深度最高为 12 位，最大尺寸最高为 65535x65535（如果你选择使用网格，那还能够更大）。对于 HEIC 来说，可以将容器与具有高达 16 位色彩深度和 4:4:4 的压缩率的 HEVC 有效载荷一起使用，尽管大多数硬件实现均不支持该容器。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -2,72 +2,70 @@
 > * 原文作者：[Justin Zhou](https://blog.cloudflare.com/author/justin-zhou)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/introducing-page-shield.md](https://github.com/xitu/gold-miner/blob/master/article/2021/introducing-page-shield.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Page Shield: Protect User Data In-Browser
+# Page Shield：保护浏览器中的用户数据
 
 ![](https://blog.cloudflare.com/content/images/2021/03/image3-31.png)
 
-Today we're excited to introduce Page Shield, a client-side security product customers can use to detect attacks in end-user browsers.
+今天我们很高兴为大家介绍 Page Shield，一款客户端安全产品，用于检测终端用户浏览器中的攻击。
 
-Starting in 2015, a hacker group named [Magecart](https://sansec.io/what-is-magecart) stole payment credentials from online stores by infecting third-party dependencies with malicious code. The infected code would be requested by end-user browsers, where it would execute and access user information on the web page. After grabbing the information, the infected code would send it to the hackers, where it would be resold or used to launch additional attacks such as credit card fraud and identity theft.
+从 2015 年开始，一个名为 [Magecart](https://sansec.io/what-is-magecart) 的黑客组织通过用恶意代码感染第三方依赖关系来窃取在线商店的支付凭证。受感染的代码会被浏览器调用，会在浏览器上被执行以获取网页上的用户信息。在抓取信息后，受感染的代码会将这些信息发送给黑客，用于转售或用于发起额外的攻击，譬如说信用卡欺诈和身份盗窃。
 
-Since then, other targets of such [supply chain attacks](https://en.wikipedia.org/wiki/Supply_chain_attack) have included Ticketmaster, Newegg, British Airways, and more. The British Airways attack stemmed from the compromise of one of their self-hosted JavaScript files, exposing nearly 500,000 customers’ data to hackers. The attack resulted in GDPR fines and the [largest class-action privacy suit in UK history](https://www.bloomberg.com/news/articles/2021-01-12/british-airways-faces-biggest-class-action-suit-over-data-breach). In total, millions of users have been affected by these attacks.
+此后，此类[供应链攻击](https://en.wikipedia.org/wiki/Supply_chain_attack)的其他目标还包括 Ticketmaster、Newegg、英国航空等。英航的攻击源于他们的一个内置的泄露的 JavaScript 文件，使近 50 万客户的数据暴露在黑客面前。这次攻击导致了 GDPR 的罚款和[「英国历史上最大的集体诉讼隐私案」](https://www.bloomberg.com/news/articles/2021-01-12/british-airways-faces-biggest-class-action-suit-over-data-breach)。总共有数百万用户受到了这些攻击的影响。
 
-Writing secure code within an organization is challenging enough without having to worry about third-party vendors. Many SaaS platforms serve third-party code to millions of sites, meaning a single compromise could have devastating results. Page Shield helps customers monitor these potential attack vectors and prevent confidential user information from falling into the hands of hackers.
+在组织或企业内部不用担心第三方插件之类的工具，编写安全代码已经够有挑战性了。许多的 SaaS 平台为数百万个网站提供第三方代码，意味着一次的泄密都有可能会带来毁灭性的结果。Page Shield 帮助客户监控这些潜在的攻击载体，防止用户的机密信息落入黑客之手。
 
-Earlier this week, [we announced Remote Browser Isolation](https://blog.cloudflare.com/browser-isolation-for-teams-of-all-sizes/) for all as a way to mitigate client-side attacks in your employee’s browsers. Page Shield is continuing Cloudflare’s push into client-side security by helping mitigate attacks aimed at your customers.
+本周早些时候，[我们宣布为所有人提供远程浏览器隔离工具](https://blog.cloudflare.com/browser-isolation-for-teams-of-all-sizes/)，以此来减轻员工浏览器中的客户端攻击。Page Shield 正在继承 Cloudflare 对客户端安全问题的保护战略，帮助减轻针对客户的攻击。
 
-## Background
+## 背景信息
 
-A Magecart-style attack is a type of software supply chain attack carried out in a user’s browser. Attackers target the hosts of third-party JavaScript dependencies and gain control over the source code served to browsers. When the infected code executes, it often attempts to steal sensitive data that end-users enter into the site such as credit card details during a checkout flow.
+Magecart 式攻击是一种在用户浏览器中进行的软件供应链攻击。攻击者的目标是第三方 JavaScript 依赖的主机，并且这些主机都获得了提供给浏览器的源代码的控制权。当受感染的代码执行时，它通常会试图窃取终端用户输入网站的敏感数据，如结账流程中的信用卡细节。
 
-These attacks are challenging to detect because many application owners trust third-party JavaScript to function as intended. Because of this trust, third-party code is rarely audited by the application owner. In many cases, Magecart attacks have lasted months before detection.
+检测这些攻击富有挑战性，因为许多应用程序所有者都信任第三方的代码，相信这些 JavaScript 能够按照预期的方式运行。出于这种信任，第三方代码很少被应用程序所有者审核。在许多情况下，Magecart 攻击在检测之前已经持续了几个月。
 
-Data exfiltration isn’t the only risk stemming from software supply chains. In recent years we’ve also seen hackers modify third-party code to show fraudulent advertisements to users. Users click through these advertisements and go to phishing sites, where their personal information is stolen by the hackers. Other JavaScript malware has mined cryptocurrencies for the attackers using end-user resources, damaging site performance.
+数据泄露并不是唯一源自软件供应链的风险。近年来，我们还看到黑客修改第三方代码，向用户展示欺诈性广告。用户通过点击这些广告，进入钓鱼网站，他们的个人信息被黑客窃取。其他 JavaScript 恶意软件则利用终端用户资源为攻击者挖掘加密货币，破坏网站性能。
 
-So what can application owners do to protect themselves? Existing browser technologies such as Content Security Policy (CSP) and Subresource Integrity (SRI) provide some protection against client-side threats, but have some drawbacks.
+那么应用程序所有者可以做些什么来保护自己呢？现有的浏览器技术，如内容安全策略（CSP）和子资源完整性（SRI），可以对客户端威胁提供一些保护，但也仍然存在着一些缺点。
 
-CSP enables application owners to send an allowlist to the browser, preventing any resource outside of those listed to execute. While this can prevent certain cross-site scripting attacks (XSS), it fails to detect when existing resources change from benign to malicious states. Managing CSP is also operationally challenging as it requires developers to update the allowlist every time a new script is added to the site.
+CSP 使应用程序所有者能够向浏览器发送一个允许列表，防止列表之外的任何资源被执行。虽然这可以防止某些跨站脚本攻击（XSS），但它无法检测到现有资源从良性状态变为恶意状态。管理 CSP 在操作上也具有挑战性，因为它要求开发人员在每次向网站添加新脚本时更新允许列表。
 
-SRI enables application owners to specify an expected file hash for JavaScript and other resources. If the fetched file doesn’t match the hash, it is blocked from executing. The challenge with SRI is vendors update their code often, and in certain cases serve different files to different end-users. We’ve also found that JavaScript vendors will sometimes serve versioned files with different hashes to end-users due to small differences such as spacing. This could result in SRI blocking legitimate files by no fault of the application owner.
+SRI 使应用程序所有者能够为 JavaScript 和其他资源指定一个预期的文件哈希。如果获取的文件与哈希值不匹配，就会被阻止执行。但 SRI 面对着一个很大的问题 —— 供应商经常更新他们的代码，并且在某些情况下向不同的终端用户提供不同的文件。我们还发现，JavaScript 厂商有时会因为间距等小的差异，向最终用户提供不同哈希值的版本文件。这可能会导致 SRI 阻止合法文件的执行，而不是应用程序所有者的过错。
 
-## Script Monitor is the first available Page Shield feature
+## Script Monitor 是第一个可用的 Page Shield 功能。
 
-Script Monitor is the beginning of Cloudflare’s ambition for Page Shield. When turned on, it records your site’s JavaScript dependencies over time. As new JavaScript dependencies appear, we alert you so you can investigate if they are expected changes to your site. This helps you identify if bad actors modified your application to request a new, malicious JavaScript file. Once the beta is complete, this initial feature set will be made available to Business and Enterprise customers at no extra charge.
+脚本监视器是 Cloudflare 对 Page Shield 野心的开始。开启后，它会随时间记录您网站的 JavaScript 依赖关系。当出现新的 JavaScript 依赖关系时，我们会向您发出警报，以便您可以调查它们是否是对您的网站的预期更改。这可以帮助您识别坏人是否修改了您的应用程序以请求新的恶意 JavaScript 文件。一旦测试版完成，这个初始功能集将免费提供给商业和企业客户。
 
-## How does Script Monitor work?
+## 脚本监控如何工作？
 
-Because of Cloudflare’s unique position between application origin servers and end-users, we can modify responses before they reach end-users. In this case, we’re adding an additional Content-Security-Policy-Report-Only header to pages as they pass through our edge. When JavaScript files attempt to execute on the page, browsers will send a report back to Cloudflare. As we are using a report-only header, there’s no requirement for application owners to maintain allowlists for relevant insights.
+由于 Cloudflare 在应用程序源服务器和终端用户之间的独特位置，我们可以在响应到达终端用户之前对其进行修改。在这种情况下，我们会在页面通过我们的边缘时，向页面添加一个额外的内容-安全-政策-报告-只读头。当JavaScript文件试图在页面上执行时，浏览器将向 Cloudflare 发送报告。由于我们使用的是纯报告头，因此不需要应用程序所有者维护允许列表以获得相关的见解。
 
-For each report we see, we compare the JavaScript file with the historic dependencies of that zone and check if the file is new. If it is, we fire an alert so customers can investigate and determine whether the change was expected.
+对于我们看到的每一份报告，我们会将 JavaScript 文件与该区域的历史依赖性进行比较，并检查该文件是否是新的。如果是，我们会发出警报，以便客户可以调查并确定是否是预期的变化。
 
-![The Script Monitor UI located under Firewall -> Page Shield](https://blog.cloudflare.com/content/images/2021/03/image1-40.png)
+![位于 Firewall -> Page Shield 下的 Script Monitor 用户界面](https://blog.cloudflare.com/content/images/2021/03/image1-40.png)
 
-The Script Monitor UI located under Firewall -> Page Shield
+脚本监控界面位于防火墙->页面屏蔽下。
 
-As a beta participant, you will see the Page Shield tab under the Firewall section of your zone dashboard. There, you can find the Script Monitor table tracking your zone’s JavaScript dependencies. For each dependency, you can view the first seen date, last seen date, and host domain that it was detected on.
+作为测试版参与者，您将在您的 zone 仪表板的防火墙部分下看到 Page Shield 标签。在那里，您可以找到脚本监控表，跟踪您区域的 JavaScript 依赖性。对于每个依赖项，你可以查看首次看到的日期、最后看到的日期以及检测到它的主机域。
 
-![Email notification example for new JavaScript dependencies found](https://blog.cloudflare.com/content/images/2021/03/image2-34.png)
+![发现新的 JavaScript 依赖关系的电子邮件通知示例](https://blog.cloudflare.com/content/images/2021/03/image2-34.png)
 
-Email notification example for new JavaScript dependencies found
+您还可以在仪表板中配置脚本监视器通知。每当您的网站请求一个新的 JavaScript 文件时，这些通知就会向电子邮件或 PagerDuty 发送警报。
 
-You can also configure Script Monitor notifications in the dashboard. These notifications send alerts to email or PagerDuty whenever a new JavaScript file is requested by your site.
+## 未来期望
 
-## Looking forward
+我们的使命是帮助建立一个更好的互联网。这延伸到终端用户浏览器，在过去的几年里，我们已经看到浏览器的攻击次数惊人地增加。有了 Page Shield，我们将帮助应用程序检测并减轻这些难以捉摸的攻击，以保证用户敏感信息的安全。
 
-Our mission is to help build a better Internet. This extends to end-user browsers, where we’ve seen an alarming increase in attacks over the past several years. With Page Shield, we will help applications detect and mitigate these elusive attacks to keep their user’s sensitive information safe.
+我们已经在 Script Monitor 中构建了代码更改检测功能。代码更改检测将定期获取您的应用程序的 JavaScript 依赖关系并分析其行为。当检测到现有文件有新的代码行为时，我们会向您发出警报，这样您就可以查看变化，并确定新代码是良性更新还是受感染的代码。
 
-We are already building code change detection into Script Monitor. Code change detection will periodically fetch your application’s JavaScript dependencies and analyze their behavior. When new code behavior is detected to existing files, we will alert you so you can review the change and determine if the new code is a benign update or an infected piece of code.
+在代码更改检测之后，即将到来的是对 JavaScript 文件的智能分析。虽然当应用程序所有者的依赖关系发生变化时提醒他们，可以深入了解感兴趣的文件，但我们可以做得更好。我们已经与安全合作伙伴合作，获取了 Magecart JavaScript 的样本，并证明我们可以准确地对恶意 JavaScript 样本进行分类。我们计划进一步完善我们的技术，并最终开始在我们认为他们的依赖关系是恶意的时候向 Page Shield 客户发出警报。
 
-Coming after code change detection is intelligent analysis of JavaScript files. While alerting application owners when their dependencies change provides insight into files of interest, we can do better. We’ve worked with our security partners to acquire samples of Magecart JavaScript and have proven we can accurately classify malicious JavaScript samples. We plan to refine our techniques further and eventually begin alerting Page Shield customers when we believe their dependencies are malicious.
+我们已经与客户进行了交流，了解到维护 CSP 允许列表在操作上具有挑战性。如果新的客户端 JavaScript 在没有被添加到允许列表中的情况下部署，那么这些新代码将被浏览器阻止。这就是为什么我们会利用我们作为反向代理的地位来运负安全模型屏蔽。这将允许应用程序所有者阻止单个脚本，而无需维护允许列表，确保客户可以在没有繁琐开销的情况下发布新代码。
 
-We’ve talked to our customers and understand that maintaining CSP allowlists is operationally challenging. If new client-side JavaScript is deployed without being added to the allowlist, then that new code will be blocked by browsers. That’s why we will use our position as a reverse-proxy to ship negative security model blocking. This will allow application owners to block individual scripts without having to maintain an allowlist, ensuring customers can ship new code without the cumbersome overhead.
+## 报名参加测试版
 
-## Sign up for the beta
-
-Starting today, all Business and Enterprise customers can sign up [here](https://www.cloudflare.com/waf/page-shield/) to join the closed beta for Page Shield. By joining the beta, customers will be able to activate Script Monitor and begin monitoring their site’s JavaScript.
+从今天开始，所有商业和企业客户都可以在[这里](https://www.cloudflare.com/waf/page-shield/)注册，加入 Page Shield 的封闭测试版。通过加入测试版，客户将能够激活脚本监视器，并开始监控其网站的 JavaScript。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
