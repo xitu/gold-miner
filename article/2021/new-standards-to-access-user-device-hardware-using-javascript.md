@@ -41,7 +41,7 @@ if ("hid" in navigator) { /* 支持 WebHID API。 */ }
 
 这个 API 是根据[对强大的 Web 平台的访问控制文档](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md)中定义的核心原则而开发的，包括用户控制、透明度、人体工程学等方面的原则。更严格的是，同一时刻只允许连接一个 HID 设备。
 
-另外，Chrome 开发工具针对浏览器正在连接着的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `**chrome://device-log**`（Chrome 内部页面）中看到。
+另外，Chrome 开发工具针对浏览器正在连接着的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `chrome://device-log`（Chrome 内部页面）中看到。
 
 在本文中，我们不会涉及底层实现细节。如果你想要了解实现细节，请在评论区留言。
 
@@ -103,7 +103,7 @@ if ("usb" in navigator) { /* 支持 WebUSB API。 */ }
 
 有许多控制措施可以保护未授权的 USB 访问的安全性，而且它只会在支持 HTTPS Only 的安全环境运行，以此来保护传输的数据。另外，会有标准浏览器授权流程来请求和授予访问权限。
 
-WebUSB API 相关的调试任务也可以在 `**chrome://device-log**` 页面看到，页面里会列出当前连接的所有 USB 设备及相关事件。
+WebUSB API 相关的调试任务也可以在 `chrome://device-log` 页面看到，页面里会列出当前连接的所有 USB 设备及相关事件。
 
 ### 浏览器兼容性
 
