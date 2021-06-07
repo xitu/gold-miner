@@ -2,88 +2,88 @@
 > * 原文作者：[Šime Vidas](https://css-tricks.com/author/simevidas/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/custom-state-pseudo-classes-in-chrome.md](https://github.com/xitu/gold-miner/blob/master/article/2021/custom-state-pseudo-classes-in-chrome.md)
-> * 译者：
-> * 校对者：
+> * 译者：[iceytea](https://github.com/iceytea)
+> * 校对者：[darkyzhou](https://github.com/darkyzhou)、[Chor](https://github.com/Chorer)、[Kim Yang](https://github.com/KimYangOfCat)
 
-# Custom State Pseudo-Classes in Chrome
+# Chrome 浏览器的自定义状态伪类
 
-There is an increasing number of “custom” features on the web platform. We have custom properties (`--my-property`), custom elements (`<my-element>`), and custom events (`new CustomEvent('myEvent')`). At one point, we might even get [custom media queries](https://css-tricks.com/platform-news-defaulting-to-logical-css-fugu-apis-custom-media-queries-and-wordpress-vs-italics/#still-no-progress-on-css-custom-media-queries) (`@media (--my-media)`).
+Web 平台上的“自定义”功能越来越多，比如自定义属性（`--my-property`）、自定义元素（`<my-element>`）和自定义事件（`new CustomEvent('myEvent')`）。我们一度甚至还能使用[自定义媒体查询](https://css-tricks.com/platform-news-defaulting-to-logical-css-fugu-apis-custom-media-queries-and-wordpress-vs-italics/#still-no-progress-on-css-custom-media-queries) (`@media (--my-media)`)。
 
-But that’s not all! You might have missed it because it wasn’t mentioned in Google’s [“New in Chrome 90”](https://developer.chrome.com/blog/new-in-chrome-90/) article (to be fair, [declarative shadow DOM](https://css-tricks.com/platform-news-using-focus-visible-bbcs-new-typeface-declarative-shadow-doms-a11y-and-placeholders/#declarative-shadow-dom-could-help-popularize-style-encapsulation) stole the show in this release), but Chrome just added support for yet another “custom” feature: custom state pseudo-classes (`:--my-state`).
+但那还没完！有个新的“自定义”功能你可能错过了，因为这篇 Google 发布的 [“New in Chrome 90”](https://developer.chrome.com/blog/new-in-chrome-90/) 文章中并没有提到（公平地说，[声明性（declarative） shadow DOM](https://css-tricks.com/platform-news-using-focus-visible-bbcs-new-typeface-declarative-shadow-doms-a11y-and-placeholders/#declarative-shadow-dom-could-help-popularize-style-encapsulation) 在这次发布中占尽了风头），但是 Chrome 刚刚增加了对另一个“自定义”功能的支持：自定义状态伪类（`:--my-state`）。
 
-## Built-in states
+## 内置状态
 
-Before talking about custom states, let’s take a quick look at the built-in states that are defined for built-in HTML elements. The [CSS Selectors module](https://drafts.csswg.org/selectors/) and the [“Pseudo-classes” section](https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes) of the HTML Standard specify a number of pseudo-classes that can be used to match elements in different states. The following pseudo-classes are all widely supported in today’s browsers:
+在讨论自定义状态之前，我们先快速查看下内置 HTML 元素定义的内置状态。HTML 标准的 [CSS 选择器模块](https://drafts.csswg.org/selectors/)和[“伪类”章节](https://html.spec.whatwg.org/multipage/semantics-other.html#pseudo-classes)指定了许多可以用于匹配不同状态元素的伪类。下面提到的所有伪类都在当今的浏览器中得到了广泛的支持：
 
-### User action
+### 用户操作
 
-| Type | Description |
+| 类型 | 描述 |
 | --- | --- |
-| `:hover` | the mouse cursor hovers over the element |
-| `:active` | the element is being activated by the user |
-| `:focus` | the element has the focus |
-| `:focus-within` | the element has or contains the focus |
+| `:hover` | 鼠标光标悬停在元素上 |
+| `:active` | 该元素被用户激活 |
+| `:focus` | 该元素获得焦点 |
+| `:focus-within` | 该元素或者后代元素获得焦点 |
 
-### Location
+### 定位
 
-| Type | Description |
+| 类型 | 描述 |
 | --- | --- |
-| `:visited` | the link has been visited by the user |
-| `:target` | the element is targeted by the page URL’s fragment |
+| `:visited` | 该链接之前被用户访问过 |
+| `:target` | 该元素被页面的 URL 片段指定 |
 
-### Input
+### 输入
 
-| Type | Description |
+| 类型 | 描述 |
 | --- | --- |
-| `:disabled` | the form element is disabled |
-| `:placeholder-shown` | the input element is showing placeholder text |
-| `:checked` | the checkbox or radio button is selected |
-| `:invalid` | the form element’s value is invalid |
-| `:out-of-range` | the input element’s value is [outside the specificed range](https://twitter.com/mgechev/status/1384726124522098688) |
-| `:-webkit-autofill` | the input element has been autofilled by the browser |
+| `:disabled` | 表单元素被禁用 |
+| `:placeholder-shown` | input 元素正在展示 placeholder 文本 |
+| `:checked` | 复选框或单选按钮被选中 |
+| `:invalid` | 表单元素的值不合法 |
+| `:out-of-range` | input 元素的值[超出指定范围](https://twitter.com/mgechev/status/1384726124522098688) |
+| `:-webkit-autofill` | input 元素的值被浏览器自动填充  |
 
-### Other
+### 其他状态
 
-| Type | Description |
+| 类型 | 描述 |
 | --- | --- |
-| `:defined` | the custom element has been registered |
+| `:defined` | 该自定义元素已被注册 |
 
-> **Note:** For brevity, some pseudo-classes have been omitted, and some descriptions don’t mention every possible use-case.
+> **注：** 为简洁起见，有些伪类被省略了，并且有些伪类的描述没有包括所有可能的用例。
 
-## Custom states
+## 自定义状态
 
-Like built-in elements, custom elements can have different states. A web page that uses a custom element may want to style these states. The custom element could expose its states via CSS classes (`class` attribute) on its host element, but that’s [considered an anti-pattern](https://github.com/WICG/webcomponents/issues/738#issuecomment-367499244).
+与内置元素类似，自定义元素也可以有不同的状态。使用自定义元素的网页可能想给这些状态设置不同的样式。自定义元素可以通过它的宿主元素的 CSS 类（`class` 属性）来暴露状态，但[这被认为是一种反模式](https://github.com/WICG/webcomponents/issues/738#issuecomment-367499244)。
 
-Chrome now supports an API for adding internal states to custom elements. These custom states are exposed to the outer page via custom state pseudo-classes. For example, a page that uses a `<live-score>` element can declare styles for that element’s custom `--loading` state.
+Chrome 现在支持将内部状态添加到自定义元素的 API。这些状态通过自定义状态伪类暴露出来。例如：使用 `<live-score>` 元素的页面可以给这个元素自定义的 `--loading` 状态声明样式。
 
 ```css
 live-score {
-  /* default styles for this element */
+  /* 元素的默认样式 */
 }
 
 live-score:--loading {
-  /* styles for when new content is loading */
+  /* 新内容加载时的样式 */
 }
 ```
 
-## Let’s add a `--checked` state to a `<labeled-checkbox>` element
+## 让我们给 `<labeled-checkbox>` 元素添加 `--checked` 状态
 
-The [Custom State Pseudo Class](https://wicg.github.io/custom-state-pseudo-class/) specification contains a complete code example, which I will use to explain the API. The JavaScript portion of this feature is located in the custom element‘s class definition. In the constructor, an “[element internals](https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals)” object is created for the custom element. Then, custom states can be set and unset on the internal `states` object.
+[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范包含一个完整的代码示例。我将用这个示例解释 API。此功能的 JavaScript 部分位于自定义元素的类定义中。在构造函数中，为自定义元素创建“[元素内部](https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals)”对象，之后可以在 `states` 内部对象上设置或取消设置自定义状态。
 
-Note that the `[ElementInternals](https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals)` API ensures that the custom states are [read-only](https://github.com/w3ctag/design-reviews/issues/428#issuecomment-566103510) to the outside. In other words, the outer page cannot modify the custom element’s internal states.
+请注意 [`ElementInternals`](https://html.spec.whatwg.org/multipage/custom-elements.html#element-internals) API 可确保自定义状态在元素外部[只读](https://github.com/w3ctag/design-reviews/issues/428#issuecomment-566103510)。换句话说，元素外部不能修改自定义元素的内部状态。
 
 ```javascript
 class LabeledCheckbox extends HTMLElement {
   constructor() {
     super();
 
-    // 1. instantiate the element’s “internals”
+    // 1. 创建“元素内部”对象
     this._internals = this.attachInternals();
 
-    // (other code)
+    // （其他代码）
   }
 
-  // 2. toggle a custom state
+  // 2. 设置自定义状态
   set checked(flag) {
     if (flag) {
       this._internals.states.add("--checked");
@@ -92,33 +92,33 @@ class LabeledCheckbox extends HTMLElement {
     }
   }
 
-  // (other code)
+  // （其他代码）
 }
 ```
 
-The web page can now style the custom element’s internal states via custom pseudo-classes of the same name. In our example, the `--checked` state is exposed via the `:--checked` pseudo-class.
+网页现在可以通过同名的自定义伪类来给自定义元素的内部状态设置样式。在我们的例子中，`--checked` 状态以 `:--checked` 伪类的形式暴露出来。
 
 ```css
 labeled-checkbox {
-  /* styles for the default state */
+  /* 默认状态下的样式 */
 }
 
 labeled-checkbox:--checked {
-  /* styles for the --checked state */
+  /* --checked 状态下的样式 */
 }
 ```
 
 ![](https://github.com/PassionPenguin/gold-miner-images/blob/master/custom-state-pseudo-classes-in-chrome-custom-state-pseudo-class.gif?raw=true)
 
-[Try the demo in Chrome](https://codepen.io/simevidas/pen/ZELwEBy)
+[用 Chrome 浏览器打开这个 demo](https://codepen.io/simevidas/pen/ZELwEBy)
 
-## This feature is not (yet) a standard
+## 此功能尚未成为标准
 
-Browser vendors have been debating for the [past three years](https://github.com/WICG/webcomponents/issues/738) how to expose the internal states of custom elements via custom pseudo-classes. Google’s [Custom State Pseudo Class](https://wicg.github.io/custom-state-pseudo-class/) specification remains an “unofficial draft” hosted by WICG. The feature [underwent a design review](https://github.com/w3ctag/design-reviews/issues/428) at the W3C TAG and has been [handed over to the CSS Working Group](https://github.com/w3c/csswg-drafts/issues/4805). In Chrome’s ”intent to ship” discussion, [Mounir Lamouri wrote this](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ):
+[过去三年来](https://github.com/WICG/webcomponents/issues/738)，浏览器厂商一直在讨论如何通过自定义伪类来暴露自定义元素的内部状态。Google 的[自定义状态伪类](https://wicg.github.io/custom-state-pseudo-class/)规范目前托管在 WICG 名下，仍然处于一个非官方的状态。该功能由 W3C 技术架构组（TAG）[进行设计审查](https://github.com/w3ctag/design-reviews/issues/428)并[移交给 CSS 工作组](https://github.com/w3c/csswg-drafts/issues/4805)。在 Chrome 的“出货意向”讨论中，[Mounir Lamouri 写道](https://groups.google.com/a/chromium.org/g/blink-dev/c/dJibhmzE73o/m/VT-NceIhAAAJ)：
 
-> It looks like this feature has good support. It sounds that it may be hard for web developers to benefit from it as long as it’s not widely shipped, but hopefully Firefox and Safari will follow and implement it too. Someone has to implement it first, and given that there are no foreseeable backward incompatible changes, it sounds safe to go first.
+> 此功能看起来得到了许多支持它的声音，但是只要它没有被各大浏览器支持，Web 开发者可能都难以从此功能中获益。希望 Firefox 和 Safari 能够跟进并实现此功能。总得有厂商带头实现这个功能。而且，鉴于这个功能不存在可预见的一些向后不兼容的改变，要带这个头看上去挺安全的。
 
-We now have to wait for the implementations in Firefox and Safari. The browser bugs have been filed ([Mozilla #1588763](https://bugzilla.mozilla.org/show_bug.cgi?id=1588763) and [WebKit #215911](https://bugs.webkit.org/show_bug.cgi?id=215911)) but have not received much attention yet.
+我们现在需要等待 Firefox 和 Safari 浏览器实现这个功能。对应的补丁已经以文件形式提交到 [Mozilla #1588763](https://bugzilla.mozilla.org/show_bug.cgi?id=1588763) 和 [WebKit #215911](https://bugs.webkit.org/show_bug.cgi?id=215911)，但还没有得到太多关注。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
