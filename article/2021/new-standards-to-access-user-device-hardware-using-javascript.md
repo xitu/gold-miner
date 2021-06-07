@@ -2,124 +2,124 @@
 > * 原文作者：[Viduni Wickramarachchi](https://medium.com/@viduniwickramarachchi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md)
-> * 译者：
+> * 译者：[Badd](https://juejin.cn/user/1134351730353207)
 > * 校对者：
 
-# New Standards to Access User Device Hardware using JavaScript
+# 用 JavaScript 访问用户设备硬件的新标准
 
 ![](https://cdn-images-1.medium.com/max/5760/1*qfJbVEgiwXf7b-nEviGJHg.jpeg)
 
-Have you ever come across the need to access a user’s device hardware and implement a desktop application only for that feature? You are not alone. Until recently, the way to achieve the above would have been far-fetched and cumbersome. However, with recent Chrome DevTools updates, talking to hardware using JavaScript has become a reality.
+你是否曾仅为了能访问用户设备硬件而不得不开发一个桌面应用？你不是唯一一个深受其苦的人。就在不久之前，用 JavaScript 访问硬件的方式还是勉强而麻烦的。 然而，随着近期的 Chrome 开发工具的更新，用 JavaScript 与硬件交互已是梦想成真。
 
-So, in this article, I would be introducing three new JavaScript APIs, namely **WebHID**, **WebNFC**, and **WebUSB** became available for device hardware access. Let’s look at each of these technologies separately.
+因此，在本文中，我将会介绍 3 个新的 JavaScript API，即 **WebHID**、**WebNFC** 以及 **WebUSB**，它们将可用于访问设备硬件。下面让我们来逐一了解每个新技术点。
 
-## 1. What is WebHID?
+## 1. 什么是 WebHID？
 
-One major problem developers face when integrating an HID (Human Interface Device) into software is that the software should accommodate a large number of varieties; old devices, new devices, common models, uncommon models, etc.
+在把一个 HID（Human Interface Device，人机接口设备）集成到软件中的时候，开发者面对的主要问题就是需要做大量的兼容工作，包括对旧/新设备、通用/非通用模型等的兼容。
 
-> WebHID solves this issue by providing an API to implement device-specific logic in JavaScript.
+> WebHID 提供了一个 API 来解决这个问题，此 API 让我们能够用 JavaScript 实现针对特定设备的逻辑。
 
-Basically, if you wanted to play the Chrome Dino 🦖 offline game using a Nintendo Switch Joy-Con controller, WebHID makes it possible for you to do so. Pretty cool isn’t it?
+举个简单的例子，如果你想要用任天堂 Switch 的 Joy-Con 手柄玩 Chrome 的离线小恐龙 🦖 游戏，有了 WebHID 就可以实现。是不是挺酷的？
 
-You can find out whether WebHID is supported using the following code snippet.
+用下面这段代码，你就能检测运行环境是否支持 WebHID。
 
 ```js
-if ("hid" in navigator) { /* The WebHID API is supported. */ }
+if ("hid" in navigator) { /* 支持 WebHID API。 */ }
 ```
 
-When an application has implemented WebHID to connect a device, it’ll show up a prompt as below.
+当一个应用使用了 WebHID 去连接一个设备，就会显示下图这样的提示弹窗。
 
 ![](https://cdn-images-1.medium.com/max/2560/1*jGpe3g9CW13dDzmCCbBaYQ.jpeg)
 
-All you need to do is, select the correct device and click connect. It’s as simple as that.
+而你需要做的就是，选择正确的设备，然后点击连接（Connect）。就这么简单。
 
-> WebHID API is asynchronous. Therefore it doesn’t block the UI when awaiting a new device connection or an input.
+> WebHID API 是异步的。因此在等待连接新设备或者用户输入时，界面也不会被阻塞。
 
-### Security considerations
+### 安全性考量
 
-I’m sure this is something that came to your mind after finding what WebHID could do.
+我知道当你了解了 WebHID 能做什么之后，一定会想到安全问题。
 
-The API has been developed using the core principles defined in [Controlling Access to Powerful Web Platform Features](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md), including user control, transparency, and ergonomics. Further, only one HID device is allowed to connect at a single time.
+这个 API 是根据[对强大的 Web 平台的访问控制文档](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md)中定义的核心原则而开发的，包括用户控制、透明度、人体工程学等方面的原则。更严格的是，同一时刻只允许连接一个 HID 设备。
 
-Besides, Chrome DevTools has made it easier to debug connections with devices by providing a log of devices the browser is connected to. This can be viewed at `**chrome://device-log**` (An internal page in Chrome).
+另外，Chrome 开发工具针对浏览器正在连接着的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `**chrome://device-log**`（Chrome 内部页面）中看到。
 
-We won’t go into in-depth implementation details in this article. Let me know in the comment section if you need to know such information.
+在本文中，我们不会涉及底层实现细节。如果你想要了解实现细节，请在评论区留言。
 
-### Browser compatibility
+### 浏览器兼容性
 
-WebHID is currently supported by Chrome and Edge in desktops.
+目前桌面端的 Chrome 和 Edge 支持 WebHID。
 
-![Reference [https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API)](https://cdn-images-1.medium.com/max/2004/1*F47jvMuDaIypYRjt_PFbaA.png)
+![引用自 [https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API)](https://cdn-images-1.medium.com/max/2004/1*F47jvMuDaIypYRjt_PFbaA.png)
 
-Let’s have a look at WebNFC next.
+接着让我们来看看 WebNFC。
 
-## 2. What is WebNFC?
+## 2. 什么是 WebNFC？
 
-I’m sure that you have come across the abbreviation NFC ( Near field communications) before.
+相信你之前肯定接触过 NFC（Near field communications，近距离通信技术）这个缩写名词。
 
-With WebNFC, now you are able to read from or write to an NFC tag when it is within range of your device. This is done via NDEF (NFC Data Exchange Format) which is supported by NFC tag formats.
+有了 WebNFC，当一个 NFC 标签位于你的设备的识别范围之内时，你就能对其读取或写入数据了。这是通过 NDEF（NFC 数据交换格式）技术实现的，是 NFC 标签支持的一种格式。
 
-### Using WebNFC
+### 使用 WebNFC
 
-Let’s say you need to manage the inventory in your shop. You can build an inventory management site with WebNFC which can read/write data into NFC tags on your inventory stocks.
+假设一个场景：你需要管理自家店铺的库存。你可以通过 WebNFC 读/写库存商品上的 NFC 标签数据，这样就能搭建起一个库存管理站点。
 
-The possibilities are endless. This is an opportunity to automate many things and make our day-to-day work more efficient.
+WebNFC 带来的可能性是无限的。这是一个机会，一个能让许多过程自动化、让日常工作提效的机会。
 
-Similar to WebHID, you can check for WebNFC support using the code snippet below.
-
-```js
-if ('NDEFReader' in window) { /* Scan and write NFC tags */ }
-```
-
-### Security considerations
-
-> As a security precaution, Web NFC is only available to top-level frames and secure browsing contexts (HTTPS only).
-
-If the web page that implements WebNFC disappears or isn’t visible, all connections to NFC tags will be suspended. These will be resumed when the page gets visible again. The page visibility API helps you to identify the connection status of NFC operations.
-
-If you are not familiar with the Page Visibility API, refer to this [article](https://blog.bitsrc.io/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know-b1c74948bd74) for more info.
-
-### Browser compatibility
-
-WebNFC is only supported by Chrome Android so far.
-
-![Reference [https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)](https://cdn-images-1.medium.com/max/4048/1*fN-b18bMyZ8OPvq3eYzNvQ.png)
-
-Next, let’s have a look at the WebUSB APIs together.
-
-## 3. What is WebUSB?
-
-The WebUSB API allows you to communicate with USB ports using JavaScript became available from Chrome 61.
-
-However, you might wonder how we access the relevant drivers for each USB device, right? With the support of WebHID API, it allows hardware manufactures to build cross-platform JavaScript SDKs for their hardware devices.
-
-Similar to the APIs discussed above, the support for WebUSB can be detected using the following code snippet.
+与 WebHID 类似，你可以用下面的代码检查 WebNFC 的支持情况。
 
 ```js
-if ("usb" in navigator) { /* The WebUSB API is supported. */ }
+if ('NDEFReader' in window) { /* 扫描、写入 NFC 标签 */ }
 ```
 
-### Security
+### 安全性考量
 
-There are many controls in place to protect unauthorized USB access in terms of security, and it only works on secure contexts supporting HTTPS only to protect any data at transit. Besides, the standard browser consent process is there to request and grant access.
+> 为了防患于未然，只有顶层框架和安全的浏览环境（HTTPS Only）能够使用 WebNFC。
 
-Debugging WebUSB API-related tasks is also available via the internal `**chrome://device-log**` page, which lists all the USB devices connected and the related events.
+如果一个实现了 WebNFC 功能的网页消失了或肉眼不可见，那么和该网页连接的所有 NFC 标签都会被挂起连接。当页面重新可见时，这些连接才会恢复。页面可见性 API 可以帮你识别 NFC 操作的连接状态。
 
-### Browser compatibility
+如果你不熟悉页面可见性 API 的话，可以读读[这篇文章](https://blog.bitsrc.io/page-lifecycle-api-a-browser-api-every-frontend-developer-should-know-b1c74948bd74)。
 
-WebUSB is supported by Chrome, Edge on desktops, and Chrome on Android devices.
+### 浏览器兼容性
 
-![Reference [https://developer.mozilla.org/en-US/docs/Web/API/USB](https://developer.mozilla.org/en-US/docs/Web/API/USB)](https://cdn-images-1.medium.com/max/2006/1*l3vDUrDveghLc6IUMAD2Mg.png)
+目前仅有 Android 端 Chrome 支持 WebNFC。
 
-For more details about the WebUSB API, you can refer [Access USB Devices on the Web](https://web.dev/usb/).
+![引用自 [https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)](https://cdn-images-1.medium.com/max/4048/1*fN-b18bMyZ8OPvq3eYzNvQ.png)
 
-## Conclusion
+下面，让我们一起来看看 WebUSB API。
 
-Whether it’s your site that interacts with your hardware or your hardware that can interact with web applications, it’s a win-win situation because they don’t need to install special drivers or software to connect anymore.
+## 3. 什么是 WebUSB？
 
-In my opinion, this is such a cool new feature which will make life a lot easier. 
+从 Chrome 61 版本开始，WebUSB API 让你可以用 JavaScript 与 USB 端口进行通信。
 
-Let me know your thoughts about this too. Thanks for reading!
+然而，你可能会想，我们怎么才能访问每个 USB 设备的相关驱动，对吧？。有了 WebHID API 的支持，硬件厂商能够针对自家的硬件设备开发出跨平台的 JavaScript SDK。
+
+与上述 API 类似，我们可以使用下列代码检测 WebUSB 的支持情况。
+
+```js
+if ("usb" in navigator) { /* 支持 WebUSB API。 */ }
+```
+
+### 安全性
+
+有许多控制措施可以保护未授权的 USB 访问的安全性，而且它只会在支持 HTTPS Only 的安全环境运行，以此来保护传输的数据。另外，会有标准浏览器授权流程来请求和授予访问权限。
+
+WebUSB API 相关的调试任务也可以在 `**chrome://device-log**` 页面看到，页面里会列出当前连接的所有 USB 设备及相关事件。
+
+### 浏览器兼容性
+
+桌面端 Chrome、Edge，以及 Android 端 Chrome 支持 WebUSB。
+
+![引用自 [https://developer.mozilla.org/en-US/docs/Web/API/USB](https://developer.mozilla.org/en-US/docs/Web/API/USB)](https://cdn-images-1.medium.com/max/2006/1*l3vDUrDveghLc6IUMAD2Mg.png)
+
+关于 WebUSB API 的更多细节，你可以参阅 [Web 端访问 USB 设备文档](https://web.dev/usb/)。
+
+## 总结
+
+不管是你的网站要和硬件交互，还是你有要和 Web 应用交互的硬件，新标准带来的都是双赢，因为它们无需再安装专门的驱动或软件就能进行连接了。
+
+在我看来，这个新功能太酷了，会让生活更加便捷。
+
+欢迎和我分享你对此的想法。感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
