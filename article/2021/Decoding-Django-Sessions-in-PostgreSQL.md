@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Decoding-Django-Sessions-in-PostgreSQL.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Decoding-Django-Sessions-in-PostgreSQL.md)
 > * 译者：[Miigon](https://github.com/Miigon)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[kamly](https://github.com/kamly)
 
 # 在 PostgreSQL 中解码 Django 会话数据
 
