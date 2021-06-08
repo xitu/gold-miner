@@ -53,31 +53,31 @@ Doodle 完成后，为会议创建日历邀请和议程并将其发送给与会�
 
 [Google Docs](https://docs.google.com/) 通常是在议程上进行协作编辑的好工具。您可以使用他们的“全体可编辑，仅限链接共享”选项，让所有与会者根据您发送的初稿共同参与编写此议程。在会议期间，可以在议程中内嵌笔记。
 
-## Creating a calendar event
+## 创建日历事件
 
-When the Doodle poll completes, we have a time and date established for the meeting. To help attendees remember to attend, a calendar invite is helpful. [Google Calendar](https://calendar.google.com/) is popular for this purpose. Some tips on setting up a calendar invite:
-- Announce the meeting in the place where the Doodle was announced, and give people instructions to contact you for an invite.
-- Give the meeting a title and description which summarizes the purpose and links to the agenda/notes document.
-- Encourage invitees to edit the agenda, and to recommend other invitees, if relevant.
-- Make sure everyone who filled out the Doodle gets a meeting invite.
-- Sometimes attendees will have multiple email addresses, some of which handle Google Calendar invites better than others. Keep this in mind when sending invites to email addresses, asking attendees for information if needed.
-- Include the meeting in TC39's committee calendar rather than your personal calendar, if possible.
-- Send out this calendar event a week before the meeting, and consider making an additional reminder one day or a few hours before the meeting.
+当 Doodle 投票完成后，我们将确定会议的时间和日期。为了帮助与会者准时参加，使用日历邀请很有帮助。 [Google 日历](https://calendar.google.com/) 在这方面很受欢迎。设置日历邀请的一些提示：
+- 在发布 Doodle 的地方发布会议，并指导人们与您联系以获取邀请。
+- 给会议拟一个标题和介绍，简要总结会议的目的，给出议程/笔记文档的链接。
+- 鼓励受邀者编辑议程，并推荐其他相关的受邀者。
+- 确保填写 Doodle 的每个人都会收到会议邀请。
+- 有时与会者会有多个电子邮件地址，其中一些比其他地址能更好地处理 Google 日历邀请。在向电子邮件地址发送邀请时请记住这一点，如果需要，请向与会者询问信息。
+- 如果可能，将会议纳入 TC39 的委员会日历而不是您的个人日历。
+- 在会议前一周发送此日历事件，并考虑在会议前一天或几个小时进行额外提醒。
 
-## Running the meeting
+## 举办会议
 
-Some tips:
-- Wait a couple minutes at the start for attendees to arrive if necessary, but usually no more than 5 minutes.
-- Designate a note-take or note-takers, ideally worked out informally ahead of the meeting. This could be you if you're good at multi-tasking, or could be an attendee. Set clear guidelines for where the notes will be taken (e.g., inline in the agenda) and what style of notes are expected for the meeting (e.g., documenting carefully who said what (as in TC39 meetings), or just high-level points that are made).
-- Introduce yourself and the purpose of the meeting; encourage everyone to do introductions if needed.
-- Control for time: Wrap up certain discussion topics if they are taking too long and there are other important topics on the agenda that need to be discussed in this particular meeting.
-- Don't talk too little or too much, as the meeting leader: Ensure that topics are adequately introduced with sufficient context, but otherwise try to get out of the way so attendees can share their insights. Moderate the meeting so that everyone can be heard.
+一些建议：
+- 如有必要，请在开始时留一定时间等待参与者到达，但通常不超过 5 分钟。
+- 指定一个或多个笔记记录者，最好在会议前非正式地指定。如果有人擅长多任务处理，这可能是您，或者可能是与会者。为记录存放的位置（例如，内嵌在议程中）和会议期望的笔记风格（例如，仔细记录谁说了什么（如在 TC39 会议中），或只是高层次的观点）制定明确的指导方针。
+- 介绍自己及会议目的；如果需要，鼓励每个人做自我介绍。
+- 控制时间：如果某些主题讨论花费的时间太长，并且议程上还有其他重要主题需要在这次特定会议上进行讨论，则将其结束。
+- 作为会议主持人，不要说得太少或太多：确保充分介绍主题并提供足够的上下文，之后交出剩余的时间，以便与会者可以分享他们的见解。主持会议，以便每个人都能发表自己的观点。
 
-## Next steps after the meeting
+## 会议之后的行动
 
-- Based on agreement among the meeting attendees, post the notes in some appropriate place so that they can be read by everyone interested in the subject. This may be in a public GitHub repository (for most meetings), or it may be in a separate, private place. Ensure that the notes are publicized to people who would be interested in the subject. You can convert the Google Doc to a Markdown file using [this script](https://lifehacker.com/this-script-converts-google-documents-to-markdown-for-e-511746113).
-- If the group decided to make this a recurring meeting, take the original Google Calendar event and set it as a recurring event--this is much easier than creating a new event each time. If you edit the description or add invitees, be careful to apply the setting of whether it is just for one meeting or recurring--it's easy to accidentally add people to just one meeting! Often it works well to reuse the same agenda/notes document, and just prepend the agenda for the next meeting at the beginning of the same document.
-- If some meeting attendees took action items, but you don't see progress on the item, consider sending an email individually to those people to ask about the status, rather than asking in public in a future meeting.
+- 根据与会人员的一致意见，将笔记张贴在适当的地方，以便对主题感兴趣的每个人都可以阅读。这可能在公共的 GitHub 存储库中（对于大多数会议），也可能在一个单独的私人地方。确保向对该主题感兴趣的人宣传这些笔记。您可以使用 [此脚本](https://lifehacker.com/this-script-converts-google-documents-to-markdown-for-e-511746113) 将 Google 文档转换为 Markdown 文件。
+- 如果小组决定将其设为定期会议，请将原始 Google 日历活动设置为定期活动 —— 这比每次都创建一个新活动要容易得多。如果您编辑说明或添加受邀者，请注意是仅用于一次会议还是重复的应用 —— 很容易不小心将人员添加到仅一次会议！通常，重复使用相同的议程/笔记文档效果很好，并且只需在同一文档的开头为下一次会议添加议程即可。
+- 如果某些与会者采取了行动项目，但您没有看到该项目的进展，请考虑单独向这些人发送电子邮件以询问状态，而不是在未来的会议中公开询问。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
