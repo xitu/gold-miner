@@ -28,7 +28,7 @@ _目的_：为代表们提供了一个以非发声方式提问的地方，如果
 
 _如何使用_：
 
-我们在会议期间使用 Freenode 上的 #tc39-delegates 频道。该频道对代表开放。由于 IP 限制，它不公开。公共频道 #tc39 对于_非_会议期间的外部交流很有用。您可以在[此处](https://freenode.net/kb/answer/chat)找到加入说明。
+我们在会议期间使用 Freenode 上的 #tc39-delegates 频道。该频道仅对代表开放。由于 IP 限制，它不公开。公共频道 #tc39 对于**非**会议期间的外部交流很有用。您可以在[此处](https://freenode.net/kb/answer/chat)找到加入说明。
 
 ### [Queue](https://tcq.app/)
 
