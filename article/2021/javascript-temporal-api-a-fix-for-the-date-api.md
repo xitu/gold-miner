@@ -219,7 +219,7 @@ Temporal.PlainDate.from("2021-02-06").withCalendar("islamic").day;
 
 `Temporal` API 是针对 JavaScript 的一项新提案，有望为该语言提供现代化的日期和时间 API。而根据我基于 Polyfill 的测试，该 API 确实提供了更简单的日期和时间操作，同时也考虑到了时区和日历的差异。
 
-该提案本身仍处于第二阶段，因此，如果你有兴趣了解更多信息并提供反馈，你可以访问 [Temporal 文档](https://tc39.es/proposal-temporal/docs/index.html) 并尝试其提供的 [Polyfill NPM 包](https://www.npmjs.com/package/proposal-temporal)。
+该提案本身仍处于第三阶段，因此，如果你有兴趣了解更多信息并提供反馈，你可以访问 [Temporal 文档](https://tc39.es/proposal-temporal/docs/index.html) 并尝试其提供的 [Polyfill NPM 包](https://www.npmjs.com/package/proposal-temporal)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
