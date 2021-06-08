@@ -98,7 +98,6 @@ X.Y.Z 应与议程中的议程编号相对应，后跟议程项目的标题。�
 
 ## 建议
 
-- If too many people are on the etherpad instance, the note takers might be booted — try not to have the notes open if you are not actively taking notes
 - 尝试合作记笔记，但不要同时有太多人。
 - 如果有两个人，可以一个人完成最后一句的同时另一个人开始写第二句。
 - 如果 etherpad 实例上的人太多，记笔记者可能会被锁定 —— 如果你当前不需要记笔记，尽量不要打开笔记。
