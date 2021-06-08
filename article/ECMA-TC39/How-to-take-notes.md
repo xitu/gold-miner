@@ -98,7 +98,6 @@ X.Y.Z 应与议程中的议程编号相对应，后跟议程项目的标题。�
 
 ## 建议
 
-- Try to pair on note taking, but do not have too many people simultaneously
 - With two people, one person can finish writing the last sentence, while the other person can start on the second sentence
 - If too many people are on the etherpad instance, the note takers might be booted — try not to have the notes open if you are not actively taking notes
 - 尝试合作记笔记，但不要同时有太多人。
