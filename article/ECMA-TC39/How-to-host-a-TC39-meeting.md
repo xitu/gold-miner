@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-host-a-TC39-meeting.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-host-a-TC39-meeting.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)，[KimYangOfCat](https://github.com/KimYangOfCat)
 # 如何举办一个 TC39 会议
 
 TC39 每年会举办六次面对面会议。如果您想举办其中一场会议，需要满足以下需求：
