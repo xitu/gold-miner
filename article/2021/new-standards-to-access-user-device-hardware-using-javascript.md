@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-standards-to-access-user-device-hardware-using-javascript.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：[Chorer](https://github.com/Chorer)
+> * 校对者：[Chorer](https://github.com/Chorer)，[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 用 JavaScript 访问用户设备硬件的新标准
 
@@ -41,7 +41,7 @@ if ("hid" in navigator) { /* 支持 WebHID API。 */ }
 
 Chromium 文档规定了[对强大的 Web 平台特性的访问控制](https://chromium.googlesource.com/chromium/src/+/lkgr/docs/security/permissions-for-powerful-web-platform-features.md)，而这个 API 正是根据文档中定义的核心原则开发的，包括用户控制、透明度、人体工程学等方面的原则。更严格的是，同一时刻只允许连接一个 HID 设备。
 
-另外，Chrome 开发工具针对浏览器当前连接的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `chrome://device-log`（Chrome 内部页面）中看到。
+另外，Chrome 开发者工具针对浏览器当前连接的设备提供了日志输出功能，这让调试设备连接更加容易。该日志可在 `chrome://device-log`（Chrome 内部页面）中看到。
 
 在本文中，我们不会涉及底层实现细节。如果你想要了解实现细节，请在评论区留言。
 
