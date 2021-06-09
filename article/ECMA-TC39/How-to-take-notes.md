@@ -5,7 +5,7 @@
 > * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# 如何做记录
+# 如何做会议记录
 
 ### 简介
 
