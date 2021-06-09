@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-take-notes.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-take-notes.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[greycodee](https://github.com/greycodee)
 
 # 如何做会议记录
 
@@ -31,7 +31,7 @@ TC39 某一天的笔记保存在 etherpad 里。 *永远不要分享 etherpad �
 在笔记的顶部，您应该看到（或添加）日期：
 
 ```
-# <month> <day>, <year> Meeting Notes
+# <月> <日>, <年> 会议记录
 -----
 ```
 
