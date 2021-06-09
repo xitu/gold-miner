@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[Usualminds](https://github.com/Usualminds)
+
 # 如何参与会议
 
 TC39 会议规模可能会很大。有时可能得在一个房间里挤下 60 多人，并且还有一些人通过远程参与。正因为如此，我们在实践中总结了一些方法，让会议更易于管理，并让每个人都可以真正参与！
