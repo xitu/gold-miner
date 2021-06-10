@@ -5,7 +5,7 @@
 > - 译者：[YueYongDev](https://github.com/YueYongDev)
 > - 校对者：
 
-# JetPack Compose for Desktop 简介
+# JetPack Compose for Desktop 初体验
 
 ![Photo by the author.](https://cdn-images-1.medium.com/max/2738/1*3wOqMMXsvUfkDTWXUri_EQ.png)
 
