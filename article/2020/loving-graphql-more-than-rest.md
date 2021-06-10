@@ -1,31 +1,31 @@
-> * 原文地址：[Loving GraphQL More than REST](https://medium.com/javascript-in-plain-english/loving-graphql-more-than-rest-4e213c568635)
-> * 原文作者：[Saurav Singh](https://medium.com/@snipextt)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md](https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Loving GraphQL More than REST](https://medium.com/javascript-in-plain-english/loving-graphql-more-than-rest-4e213c568635)
+> - 原文作者：[Saurav Singh](https://medium.com/@snipextt)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md](https://github.com/xitu/gold-miner/blob/master/article/2020/loving-graphql-more-than-rest.md)
+> - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
+> - 校对者：[regon-cao](https://github.com/regon-cao)、[司徒公子](https://github.com/stuchilde)
 
-# Loving GraphQL More than REST
+# 爱 GraphQL 胜过 REST
 
 ![](https://cdn-images-1.medium.com/max/2240/1*ZxDw0j3ANBxpatoCdNW8JQ.png)
 
-Ever since Facebook open-sourced GraphQL, it’s popularity has been continuously increasing to a point today where it’s almost everywhere. But what makes it so popular? How it compares to the REST Based Architecture and is it going to replace REST APIs completely? Here’s something i think about GraphQL.
+自从 Facebook 开源 GraphQL 以来，GraphQL 越来越受欢迎，直到今天它已经是几乎无处不在。到底是什么使它如此受欢迎？它与 REST 架构设计规范的区别是什么？它会完全地取代 REST API 吗？下面是我对 GraphQL 的一些思考。
 
-When I first started learning GraphQL, with zero knowledge about the same. I’ve had this idea in mind that I’m going to learn something which is entirely different from the world of Rest APIs. But halfway through my path learning GraphQL, I realized that even before starting to learn it, I developed some really impractical ideas about same and the biggest of them being
+当我第一次学习 GraphQL 时，我对它一无所知。在我学习 GraphQL 的过程中，甚至在开始学习 GraphQL 之前我就意识到了同样的想法，我将要学习的是一个与 Rest API 完全不同的东西：
 
-**GraphQL is something on its own and doesn’t uses things we’re really familiar with in REST APIs.**
+**GraphQL 是一个独立存在的，没有使用我们熟悉的 REST API 内容。**
 
-Which is very far from the reality and funny but that’s how it appears to the people who’ve never touched GraphQL and just seen it working on the surface.
+这个想法有点不切实际和滑稽，但这却正是 GraphQL 给从未接触过它的人所显露出来的样子。
 
-#### What Exactly Is GraphQL then?
+#### 那么 GraphQL 到底是什么？
 
-If i were to define it now in the most simple terms, I would say it’s just a **Specification**. A really cool way of using our existing web technologies. Under the hood, GraphQL queries are simply a HTTP Post request to an API’s endpoint. Yes, it’s a Post request to an endpoint designed to work with a request including GraphQL queries, let’s quickly see an example by building a GraphQL server
+如果要我用最简单的术语来定义 GraphQL，那么我会说它是一个**规范**，是使用我们现有的网络技术非常厉害的一种方式。GraphQL queries 本质是一个简单的链接到 API 端的 HTTP POST 请求。是的，它被设计成需要用一个包含 GraphQL queries 的 HTTP POST 请求去和后端通信。让我们通过快速构建 GraphQL 服务器来查看示例。
 
-For the sake of simplicity I’ll be using Node but since GraphQL is a runtime in itself. It doesn’t matter what language we’re using to build an API. Lets install the dependencies real quick
+为了简单起见，我将使用 `Nodejs` 构建。因为 GraphQL 本身就有一个运行上下文，所以构建 API 所用的语言无关紧要。接下来让我们快速安装依赖项：
 
 `yarn add apollo-server moment`
 
-And build a simple GraphQL API
+并构建一个简单的 GraphQL API
 
 ```JavaScript
 const { ApolloServer, gql } = require("apollo-server");
@@ -60,21 +60,21 @@ server
   );
 ```
 
-To run a query
+执行一个查询
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mTjqS4y5E1JZzhuxSjKwaQ.jpeg)
 
-#### Wait this isn’t how you run a query in GraphQL!
+#### 等一下，这就是在 GraphQL 中执行查询的方式吗？
 
-Yes that’s exactly right and if you’ve ever touched on GraphQL playground you know it, but this is what i was talking about above. Under the hood a GraphQL client (Consider the GraphQL playground) sends a post request to the specified API endpoint/channel with a body similar to above. The GraphQL runtime is already aware how to handle the request because it has a sense of schema for the data it’s going to get and send back.
+是的，如果您曾经接触过 GraphQL 训练场 就知道到我上面所说的是完全正确的。一个 GraphQL 客户端（包括 GraphQL 训练场）使用与上面类似的主体向指定的 API 端点/通道发送 POST 请求。GraphQL 运行上下文能够知道如何处理请求，因为它对将要获取和返回的数据的 `schema` 有感知。
 
-This, however often leads to an unexpected behaviors when you’re returning a value for something you haven’t specified in the type definitions, GraphQL tries automatically type cast the value and blow up if it doesn’t works.
+但是，当您想要返回类型定义中未指定值时，这通常会导致意想不到的行为，因为 GraphQL 会自动地尝试对值进行类型转换，并在不起作用时崩溃。
 
-> Quick note — Every request to the GraphQL API is classified as a query, including Mutation, subscriptions and query itself if you know what they are.
+> 说明 —— 对 GraphQL API 的每个请求都会被归类为查询，包括变更，订阅和查询。
 
-#### Is Schema the only reason why GraphQL is so powerful?
+#### Schema 特性是 GraphQL 如此强大的唯一原因吗？
 
-No there’s a lot more to it and a lot more really, GraphQL brings more power to your APIs (especially to the clients) by allowing them to query only specific fields and hence they can only query the data needed and ignore the rest, which results in smaller transfer size, less bandwidth and latency. Let make changes to our code from above and see it in action
+不，远远不止于此，GraphQL 为您的 API（尤其是客户端）带来了更多的可能，GraphQL 通过支持仅返回 query 中的特定字段，达到仅查询所需的数据而忽略其余不需要的数据的效果，从而减小了传输数据的大小，带宽和延迟。让我们修改一下上面的代码：
 
 ```JavaScript
 const { ApolloServer, gql } = require("apollo-server");
@@ -112,23 +112,23 @@ server
 
 ```
 
-We’ve added another field to the type dateTime, and this time we don’t want to query the other two fields. And it’s really dead simple, all we have to do is specify the fields we are interested when making a request like below
+我们在 dateTime 类型中添加了另一个字段，这次我们不想查询其他两个字段。这真的非常简单，我们要做的就是在发出如下请求时指定我们感兴趣的字段：
 
 ![](https://cdn-images-1.medium.com/max/3158/1*5zaQAUnUIov7mPj2ygLk1w.jpeg)
 
-For a small application this doesn’t add much. But For a large application, you always want the most optimized solutions. The idea to query only the required fields itself is very powerful and hence it’s always been a pattern in the traditional REST architecture as well to make routes for retrieving some specific data. This works without an issue for a small application and even theoretically but as the app size grow larger (consider Facebook), connecting wires become more and more complex and you’ll eventually run into a situation where you have to re design the entire system again using something like GraphQL or maybe end up building another GraphQL.
+对于小型应用，这个效果可能不会太明显。但是对于大型的应用来说，您总会想要一个最优的解决方案。由于仅查询需要的字段这个想法本身就很棒，因此这个想法一直都是传统 REST 架构中的一部分，并且为检索某些特定数据的解决方案指明了道路。这对于小型应用程序甚至在理论上都没有问题，但是随着应用程序大小的增加（比如 Facebook），数据传输的连接线会变得越来越复杂，最终您将不得不重新设计整个系统去使用 GraphQL 之类的解决方案，或者最终将导致重新写一个 GraphQL。
 
-And there’s still more to cool stuffs GraphQL ships with (Like Subscriptions) but that can be saved for another articles someday because i wanted to talk on if GraphQL is better than the traditional REST APIs.
+GraphQL 还附带了许多很酷的功能（比如“订阅”），如果有机会我会写一篇文章谈一谈 GraphQL 是否比传统的 REST API 更好。
 
-#### Is GraphQL really a better REST and is going to replace it completely?
+#### GraphQL 是否真的是更好的 REST，并将完全取代它？
 
-I’ll agree on GraphQL being a better version of rest and it’s a really powerful alternative to REST but it’s not going to replace APIs today or anytime soon. And there are a couple of reasons for the same.The major ones being
+我同意 GraphQL 是更好的 REST 版本，它是 REST 的强大替代品，但它不会在今天或不久的将来完全取代 API。造成这种情况的原因有两个。
 
-**For a small application A REST API can do pretty much everything a GraphQL API would.**
+**对于小型应用程序，REST API 几乎可以完成 GraphQL API 的所有工作。**
 
-Since GraphQL bring more power to the clients by allowing them to only query the fields they need. But this powerful features trades off server side performance for the same, if the client request for a lot of nested fields which requires multiple resources like reading from file system or database. And there are millions of millions of such requests with your servers not being able to scale up really fast, you’ll eventually run out of resources.
+由于 GraphQL 通过允许客户端仅查询所需字段来为客户端带来更多功能。但是，如果客户端的请求嵌套大量字段，并且需要涉及多个资源（例如从文件系统或数据库读取），那么这个强大功能将会牺牲掉服务端的性能。而且，假设需要支持数亿个这样的请求，如果您的服务器无法进行快速扩容的话，那么这将会导致服务器的资源被耗尽。
 
-The above reasons are why in **corporate world, GraphQL APIs are used in conjunction with REST API.**
+以上就是为什么在**企业界，GraphQL API 会与 REST API 结合来使用的原因。**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

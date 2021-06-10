@@ -39,7 +39,7 @@ Nooooo！
 
 ![](https://cdn-images-1.medium.com/max/800/1*lcafSsoXqgg7mmAhB6jG9g.png)
 
-图1：SVG 输出的非实际示意图
+图 1：SVG 输出的非实际示意图
 
 让我们理解一下它是怎么实现的。
 

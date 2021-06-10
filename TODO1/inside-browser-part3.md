@@ -165,7 +165,7 @@ CSS 可以使元素浮动到一侧、隐藏溢出的元素、更改书写方向�
 
 ![raster](https://developers.google.com/web/updates/images/inside-browser/part3/raster.png)
 
-图17：光栅线程创建分块的位图并发送到 GPU
+图 17：光栅线程创建分块的位图并发送到 GPU
 
 合成线程会给不同的光栅线程设置优先级，以便视窗（或附近）内的画面可以先被光栅化。图层还具有多个不同分辨率的块，可以处理放大操作等动作。
 

@@ -2,7 +2,7 @@
 * 原文作者 : [Israel Sotomayor](https://github.com/zot24)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [BOBO](https://github.com/CoderBOBO)
-* 校对者: [Adam Shen](https://github.com/shenxn) [iThreeKing](https://github.com/iThreeKing)
+* 校对者: [Adam Shen](https://github.com/shenxn) [joyking7](https://github.com/joyking7)
 
 # 使用 Lua 完成 OAuth2 的身份验证
 

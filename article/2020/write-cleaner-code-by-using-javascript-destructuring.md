@@ -2,16 +2,16 @@
 > * 原文作者：[Juan Cruz Martinez](https://medium.com/@bajcmartinez)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md](https://github.com/xitu/gold-miner/blob/master/article/2020/write-cleaner-code-by-using-javascript-destructuring.md)
-> * 译者：
-> * 校对者：
+> * 译者：[zenblo](https://github.com/zenblo)
+> * 校对者：[NieZhuZhu](https://github.com/NieZhuZhu)、[regon-cao](https://github.com/regon-cao)
 
-# Write Cleaner Code by Using JavaScript Destructuring
+# 使用 JavaScript 解构让代码更优雅
 
-![Photo by the author.](https://cdn-images-1.medium.com/max/2560/1*h-mNn0rVcSdzJ4FZq_Oj9w.jpeg)
+![作者图片](https://cdn-images-1.medium.com/max/2560/1*h-mNn0rVcSdzJ4FZq_Oj9w.jpeg)
 
-Destructuring is one of my favorite tools in JavaScript. In simple terms, destructuring allows you to break down a complex structure (like an array or an object) into simpler parts, though there’s a bit more to it than that.
+解构是我最喜欢的 JavaScript 特性之一。简单地说，解构可以将复杂结构（如数组或对象）分解为更简单的部分，虽然还有很多内容，但是相对简化了代码结构。
 
-Let’s see it better in an example:
+让我们通过一个例子来更好地了解：
 
 ```JavaScript
 const article = {
@@ -22,9 +22,9 @@ const article = {
     twitter: "@bajcmartinez"
   }
 }
-// Now let's print it to the screen
+// 现在把它打印出来
 console.log(`"${article.title}" by ${article.author.name} had ${article.rating} stars`)
-// By using destructuring, we can achieve the same by doing
+// 通过使用解构同样能完成
 const { title, rating, author: { name } } = article
 console.log(`"${title}" by ${name} had ${rating} stars`)
 ------------------------
@@ -34,19 +34,19 @@ Output
 "My Article" by Juan had 5 stars
 ```
 
-Now, some people have been using this feature for some time — perhaps while building React apps — but they don’t quite understand it. For others, it may be the first time. So I’ll guide you through the process from start to finish so that we all have the same level of understanding by the end of this article.
+现在，一部分人已经采用解构开发了一段时间，或许是在构建 React 应用时候，但是他们并不完全了解它。对其他人来说，这可能是第一次用到解构。因此，本文将从头到尾完成整个过程，最终使得大家对解构的认知都能达到同一水平。
 
-## Destructuring Objects
+## 解构对象
 
-In the example above, all the magic happens in the following line:
+在上面的例子中，所有隐藏的内容都发生在下面这行代码：
 
 ```js
 const { title, rating, author: { name } } = article
 ```
 
-Now it may seem a bit weird to have those brackets like that on the left side of the assignment, but that’s how we tell JavaScript that we are destructuring an object.
+现在，在表达式左侧使用这样的大括号似乎有点奇怪，但这就是我们告诉 JavaScript 正在分解对象的方式。
 
-Destructuring objects lets you bind to different properties of an object at any depth. Let’s start with an even simpler example:
+解构对象可以绑定到对象里的任一层级的任何属性上。让我们从一个更简单的示例开始：
 
 ```js
 const me = {
@@ -56,15 +56,15 @@ const me = {
 const { name } = me
 ```
 
-In the case above, we are declaring a variable called `name` that will be initialized from the property with the same name in the object `me` so that when we evaluate the value of `name`, we get `Juan`. Awesome! The same can be applied to any depth. Heading back to our example:
+在上面的例子中，我们声明了一个名为 `name` 的变量，该变量将从对象 `me` 中获得相同名称的初始化属性，因此当我们对 `name` 求值时，我们得到 `Juan`。太棒了！这个操作同样适用于任意层级的属性。回到我们的例子：
 
 ```js
 const { title, rating, author: { name } } = article
 ```
 
-For `title` and `rating`, it’s exactly the same as we already explained. But in `author`, things are a bit different. When we get to a property that is either an object or an array, we can choose whether to create the variable `author` with a reference to the `article.author` object or do a deep destructuring and get immediate access to the properties of the inner object.
+对于 `title` 和 `rating`，和我们之前的讲解一样。但是在 `author` 这里，事情有点不同。当我们遇到一个是对象或数组的属性时，我们可以选择是创建一个变量 `author` 的引用对象 `article.author`，或者进行深度解构并立即访问内部对象的属性。
 
-Accessing the object property:
+访问对象属性：
 
 ```JavaScript
 const { author } = article
@@ -75,7 +75,7 @@ Output
 Juan
 ```
 
-Doing a deep or nested destructuring:
+执行深度或嵌套解构：
 
 ```JavaScript
 const { author: { name } } = article
@@ -88,9 +88,9 @@ Juan
 Uncaught ReferenceError: author is not defined
 ```
 
-Wait, what? If I destructured `author`, why is it not defined? It is actually quite simple. When we ask JavaScript to also destructure the `author` object, that binding itself is not created and we instead get access to all the `author` properties we selected. So please always remember that.
+上面的示例怎么回事？如果解构了 `author`，但是它为什么没有被定义？其实挺简单的。当我们要求 JavaScript 也对 `author` 对象进行解构时，绑定本身并没有被创建，取而代之的是我们可以访问我们选择的所有 `author` 属性，请记住这点。
 
-Spread operator (`…`):
+扩展运算符（`...`）：
 
 ```JavaScript
 const article = {
@@ -109,13 +109,13 @@ My Article
 > {rating: 5, author: {name: "Juan", twitter: "@bajcmartinez" }}
 ```
 
-Additionally, we can use the spread operator `...` to create an object with all the properties that did not get destructured.
+此外，我们可以使用扩展运算符 `...` 创建一个包含所有未被解构属性的对象。
 
-If you are interested in learning more about the spread operator, check out [my article](https://medium.com/@bajcmartinez/how-to-use-the-spread-operator-in-javascript-3aff104adb71).
+如果你有兴趣了解更多关于扩展运算符的知识，请查看[我的文章](https://medium.com/@bajcmartinez/how-to-use-the-spread-operator-in-javascript-3aff104adb71)。
 
-#### Renaming properties
+### 重命名属性
 
-One great property of destructuring is the ability to choose a different name for the variable to the property we are extracting. Let’s look at the following example:
+解构的一个重要特性是：能够为我们提取的属性选择不同的变量名。让我们看看下面的例子：
 
 ```JavaScript
 const me = { name: "Juan" }
@@ -127,11 +127,11 @@ Output
 Juan
 ```
 
-By using `:` on a property, we can provide a new name for it (in our case, `newName`). And then we can access that variable in our code. It’s important to note that a variable with the original property `name` won’t be defined.
+通过在一个属性上使用 `:` 我们可以为它提供一个新的名称（在我们的例子中是 `newName`）。然后我们可以在代码中访问这个变量。需要注意的是，原始属性 `name` 的变量并没有被定义。
 
-#### Missing properties
+### 缺少属性
 
-So what would happen if we tried to destructure a property that is not defined in our object?
+那么，如果我们试图解构一个没有在对象中定义的属性，会发生什么呢？
 
 ```JavaScript
 const { missing } = {}
@@ -142,11 +142,11 @@ Output
 undefined
 ```
 
-In this case, the variable is created with value `undefined`.
+在这种情况下，变量的值是 `undefined`。
 
-#### Default values
+### 默认值
 
-Expanding on missing properties, it’s possible to assign a default value when the property does not exist. Let’s see some examples of this:
+扩展缺失的属性，当属性不存在时，可以指定一个默认值。让我们来看一些例子：
 
 ```JavaScript
 const { missing = "missing default" } = {}
@@ -165,11 +165,11 @@ null
 some string here
 ```
 
-These are some examples of assigning default values to our destructured objects. The default values are only assigned when the property is `undefined`. If the value of the property is `null` or a `string` for instance, the default value won’t be assigned, but the actual value of the property will be.
+这些都是解构对象赋值的例子，默认值仅在属性 `undefined` 分配。例如，如果属性的值为 `null` 或 `string`，则不会分配默认值，但属性的实际值会被分配。
 
-## Destructuring Arrays and Iterables
+## 解构数组和可迭代对象
 
-We already saw some examples of destructuring objects, but the same can apply to arrays or iterables in general. Let’s start with an example:
+我们已经看到了一些解构对象的例子，但是同样的例子也适用于数组或可迭代对象。让我们从一个例子开始：
 
 ```JavaScript
 const arr = [1, 2, 3]
@@ -183,11 +183,11 @@ Output
 2
 ```
 
-When we need to destructure an array, we need to use `[]` instead of `{}`, and we can map each position of the array with a different variable. But there are some nice tricks.
+当我们需要解构一个数组时，我们需要使用 `[]` 而不是 `{}`，我们可以用不同的变量映射数组的每个位置。但是也有一些不错的方法：
 
-#### Skipping elements
+### 跳过元素
 
-By using the `,` operator, we can skip some elements from the iterable as follows:
+通过使用 `,` 运算符，我们可以跳过可迭代数据项中的一些元素，如下所示：
 
 ```JavaScript
 const arr = [1, 2, 3]
@@ -201,9 +201,9 @@ Output
 3
 ```
 
-Note how leaving an empty space between `,` skips the elements. It's subtle but has big consequences on the results.
+请注意，在 `,` 之间留一个空格会跳过元素。这是小细节，但对结果有很大影响。
 
-What else can you do? You can also use the spread operator `...` as follows:
+你还能做什么？你也可以使用扩展运算符 `...` 进行如下操作：
 
 ```JavaScript
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -219,7 +219,7 @@ Output
 (7) [4, 5, 6, 7, 8, 9, 10]
 ```
 
-In this case, `z` will get all the values after `b` as an array. Or maybe you have a more specific need and you want to destructure specific positions in the array. No problem. JavaScript has you covered:
+在这种情况下，`z` 将获得 `b` 之后的所有值成为数组。或者你有一个更具体的需求，你想在数组中的特定位置解构。没问题，JavaScript 依然可以做到：
 
 ```JavaScript
 const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -233,11 +233,11 @@ Output
 10
 ```
 
-If we destructure an array as if it were an object, we can use the indexes as properties and thus access any position within the array.
+如果我们把一个数组当作一个对象来解构，我们可以把索引作为属性，来访问数组中的任何位置的值。
 
-#### Missing properties
+### 缺少属性
 
-As was the case with objects, it is also possible to set default values for undefined elements in the array. Let’s take a look at some examples:
+与对象的情况一样，也可以为数组中未定义的元素设置默认值。让我们看一些例子：
 
 ```JavaScript
 const [missing = 'default missing'] = []
@@ -257,11 +257,11 @@ missing c
 []
 ```
 
-When destructuring arrays, it is also possible to set default values for `undefined` properties. However, it is not possible to set a default when we have the spread operator `...`. In the case of `undefined`, it will return an empty array.
+当解构数组时，也可以为 `undefined` 属性设置默认值。但是，当我们使用扩展运算符 `...` 时，则不能为变量设置默认值。在使用 `...` 解构 `undefined` 时，它将返回一个空数组：
 
-## Swapping Variables
+## 交换变量
 
-This is a fun use case of destructuring. Two variables can be swapped in one single expression:
+这是一个有趣的解构示例。在一个表达式中可以交换两个变量：
 
 ```JavaScript
 let a = 1
@@ -276,11 +276,11 @@ Output
 1
 ```
 
-## Destructuring With Computed Properties
+## 使用计算属性进行解构
 
-Until now, any time we wanted to destructure the properties of an object or the elements of an iterable, we used static keys. If we want dynamic keys (like those stored on a variable), we need to use computed properties.
+直到现在，任何时候我们想要解构一个对象的属性或者一个可迭代的元素，我们都使用静态键。如果我们想要动态键(比如存储在变量中的键)，我们需要使用计算属性：
 
-Here is an example:
+这里有一个示例：
 
 ```JavaScript
 const me = { name: "Juan" }
@@ -293,11 +293,11 @@ Output
 Juan
 ```
 
-Pretty awesome, right? By using a variable between `[]`, we can evaluate its value before doing the assignment. Thus, it’s possible to do dynamic destructuring, though it is mandatory to provide a name for this new variable.
+通过在 `[]` 中使用变量，我们可以在赋值之前计算它的值。因此，尽管必须为该新变量提供名称，但可以进行动态解构。
 
-## Destructuring Function Arguments
+## 解构函数参数
 
-Destructured variables can be placed anywhere we can declare variables (e.g. by using `let`, `const`, or `var`), but it’s also possible to destructure function arguments. Here is a simple example of the concept:
+解构变量可以在我们声明变量的任何地方使用（例如，通过使用 `let`、`const` 或 `var`），也可以解构函数参数。这是一个简单的示例：
 
 ```JavaScript
 const me = { name: "Juan" }
@@ -311,15 +311,15 @@ Output
 Juan
 ```
 
-Very simple and elegant. Also, all the same rules we discussed before apply.
+非常简单。此外，我们之前讨论过的所有规则都适用。
 
-## Conclusion
+## 结论
 
-Destructuring may seem awkward at the beginning, but once you get used to it, there’s no going back. It can really help your code be more readable and it’s a great concept to know.
+在开始使用解构时可能会不舒服，但一旦你习惯了，就再也回不去了。它真的可以让你的代码更简洁，这是一个需要了解的概念。
 
-Did you know you can also use destructuring while importing modules? Check out [my article](https://levelup.gitconnected.com/an-intro-to-javascript-modules-36c07c5d4c9c) on the topic.
+你知道在导入模块时也可以使用解构吗？看看我关于这个话题的[文章](https://levelup.gitconnected.com/an-intro-to-javascript-modules-36c07c5d4c9c)。
 
-Thanks for reading! I hope you enjoyed it.
+感谢阅读！希望你喜欢。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

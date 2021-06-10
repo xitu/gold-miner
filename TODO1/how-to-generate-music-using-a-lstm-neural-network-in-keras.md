@@ -374,7 +374,7 @@ midi_stream.write('midi', fp='test_output.mid')
 
 图 4:通过 LSTM 网络生成的乐谱
 
-这个相对较浅的网络的结果仍然令人印象深刻，从示例音乐中可以听到。对于那些感兴趣的人来说，图4中的乐谱代表了神经网络创作音乐迈出了一大步。
+这个相对较浅的网络的结果仍然令人印象深刻，从示例音乐中可以听到。对于那些感兴趣的人来说，图 4 中的乐谱代表了神经网络创作音乐迈出了一大步。
 
 [https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486](https://w.soundcloud.com/player/?referrer=https%3A%2F%2Ftowardsdatascience.com%2Fmedia%2Fd721bab5c62c8061387ced1869dcdf5b%3FpostId%3D68786834d4c5&amp;show_artwork=true&amp;url=http%3A%2F%2Fapi.soundcloud.com%2Fplaylists%2F362886486)
 

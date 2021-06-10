@@ -2,7 +2,7 @@
 * 原文作者 : [Roger Huang]
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Adam Shen](https://github.com/shenxn)
-* 校对者: [iThreeKing](https://github.com/iThreeKing)，[circlelove](https://github.com/circlelove)
+* 校对者: [joyking7](https://github.com/joyking7)，[circlelove](https://github.com/circlelove)
 
 # 11个顶级设计师分享他们的职业建议
 

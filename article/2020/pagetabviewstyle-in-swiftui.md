@@ -2,37 +2,37 @@
 > * 原文作者：[Kelvin Tan](https://medium.com/@zhiyao92)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/pagetabviewstyle-in-swiftui.md](https://github.com/xitu/gold-miner/blob/master/article/2020/pagetabviewstyle-in-swiftui.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Franz Wang](https://github.com/FranzWang666)
+> * 校对者：[zenblo](https://github.com/zenblo)
 
-# PageTabViewStyle in SwiftUI
+# SwiftUI 中的 PageTabViewStyle
 
 ![Photo by [Charles Deluvio](https://unsplash.com/@charlesdeluvio?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/8512/0*HuDzGczsUftDGQKL)
 
-At the recent WWDC 2020, Apple introduced an additional style for `TabView` called `PageTabViewStyle`. This is equivalent to Horizontal Paging Scroll, which is commonly used for the onboarding screen.
+在最近的 WWDC 2020 大会上，苹果为“TabView”新增了名为“PageTabViewStyle”的样式，类似于水平分页滚动效果，常被用于引导页。
 
-> **“A `TabViewStyle` that implements a paged scrolling `TabView`.” — [Apple Documentation](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
+> **“一种实现了 `TabView` 分页的 `TabViewStyle`。” — [苹果官方文档](https://developer.apple.com/documentation/swiftui/pagetabviewstyle)**
 
-## Prerequisites
+## 预备知识
 
-To follow along with this tutorial, you’ll need some basic knowledge in:
+学习本教程前，你需要掌握以下基础知识：
 
 * Swift
-* At least Xcode 12+
+* Xcode 12+
 
-**Note: This only supports iOS 14+.**
+**注意：仅支持 iOS 14+**
 
-## Getting Started With PageTabViewStyle
+## PageTabViewStyle 入门
 
-Let’s quickly set up four tabs on the `TabView` with the capabilities of showing a filled image when selected and an unfilled image when unselected.
+我们来快速实现一个 `TabView`，底部显示不同图标，选中时填充图片或未选中时不填充。
 
-To have that, you will need to have a state to know what is being selected:
+你需要一个 `state` 来判断是否选中：
 
 ```
 @State private var selected = 0
 ```
 
-With this, the default selected tab is always `0` and you can change this to your preference:
+默认的选中态是 `0`，你可以在设置中更改它：
 
 ```Swift
 TabView() {
@@ -57,7 +57,7 @@ TabView() {
 
 ![](https://cdn-images-1.medium.com/max/2484/1*sKnXiZdPNgiSLQwyjh7auQ.png)
 
-Once you have all these set up, you are ready to implement Horizontal Page Scrolling with just a simple additional modifier. Add .tabViewStyle(PageTabViewStyle()) at the end of `TabView`:
+做完这些之后，你只需要一个简单的 modifier，就可以实现水平滚动页面。在 `TabView` 后面添加 `.tabViewStyle(PageTabViewStyle())`：
 
 ```
 TabView() {
@@ -66,23 +66,23 @@ TabView() {
 }.tabViewStyle(PageTabViewStyle())
 ```
 
-Your tab should be able to scroll horizontally now.
+你的 tab 页面现在可以滚动了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*UEG4z-2uTsEeSx8gMRo2KA.gif)
 
-A Horizontal Page Scrolling is not complete without the page indicator. As a matter of fact, the page indicator is visible, but it’s white. Since the background color is also white, that’s why it’s not visible.
+你还需要一个页面指示器（page indicator）。实际上它已经在那里了，只是颜色和背景色一样是白色的，所以看不见它。
 
-There are multiple ways to address that — either set a different background color or use an additional parameter.
+有多种方法解决这个问题，你可以换一个背景色，也可以改变页面指示器的参数。
 
-By setting the background color as green, you now can see the tab image as the page indicator.
+把背景设置为绿色，可以看到页面指示器，它显示了 tab 对应的图片。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*i406IS9gsRrYLpxZEWPotw.gif)
 
-You may opt for the default page indicator. Simply comment out the tab’s image and it will show a default page indicator:
+你也可以改用默认的页面指示器。只需注释掉 tab 的图标（image）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*QJtPwUw7piYoTKs03Dg3NQ.gif)
 
-The other way is to use an additional modifier for the `TabView`. With this, you will be able to still use a white background:
+如果你还是想用白色背景色，可以给 `TabView` 再添加一个 modifier：
 
 ```
 .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
@@ -90,7 +90,8 @@ The other way is to use an additional modifier for the `TabView`. With this, you
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-06MmT2edIdUxd3pscmxtg.gif)
 
-Who would have thought the process would be made a lot easier and simpler with SwiftUI? This is definitely worth celebrating.
+有了 SwiftUI，实现水平滚动视图变得如此简单。这绝对值得庆祝。
+
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -64,7 +64,7 @@
 
 除了数据探索技术外，还可以使用[模型评估技术](https://sebastianraschka.com/blog/2016/model-evaluation-selection-part1.html)进行简单的模型解释。分析师和数据科学家可能会使用模型比较和评估方法来评估模型的准确性。例如，使用交叉验证和评估指标进行分类和回归，您可以衡量预测模型的[性能](https://www.cs.cornell.edu/courses/cs578/2003fa/performance_measures.pdf)。您可以通过优化超参数调整偏差与方差之间的平衡（请参阅文章[“了解偏差 - 方差取舍”](http://scott.fortmann-roe.com/docs/BiasVariance.html)）。
 
-*   **分类：**如 F1-scores，AUC-ROC，brier-score 等。如图3，该图显示了 AUC-ROC 如何帮助衡量流行虹膜数据集的分类模型的模型性能。ROC AUC 是一种广泛使用的指标，有助于在真阳性率（TPR）和假阳性率（FPR）之间进行平衡。它在处理偏斜类问题上也非常强大。如图 3 所示，86％的 ROC AUC（ 2 类）意味着训练的分类器向正例（属于 2 类）分配较高分数的概率与负例（不属于 2 类）相比约为 86％。这种汇总的性能指标有助于阐明模型的整体性能。但是，如果分类错误，它并不能给出关于错误分类原因的详细信息 —— 为什么属于 0 类的例子被分类为 2 类，属于 2 类的例子却被分为 1 类？不能忽略的事实是，每个错误分类都可能造成不同程度的潜在业务影响。
+*   **分类：**如 F1-scores，AUC-ROC，brier-score 等。如图 3，该图显示了 AUC-ROC 如何帮助衡量流行虹膜数据集的分类模型的模型性能。ROC AUC 是一种广泛使用的指标，有助于在真阳性率（TPR）和假阳性率（FPR）之间进行平衡。它在处理偏斜类问题上也非常强大。如图 3 所示，86％的 ROC AUC（ 2 类）意味着训练的分类器向正例（属于 2 类）分配较高分数的概率与负例（不属于 2 类）相比约为 86％。这种汇总的性能指标有助于阐明模型的整体性能。但是，如果分类错误，它并不能给出关于错误分类原因的详细信息 —— 为什么属于 0 类的例子被分类为 2 类，属于 2 类的例子却被分为 1 类？不能忽略的事实是，每个错误分类都可能造成不同程度的潜在业务影响。
 *   **回归：**例如，r-square 值（[决定系数](http://itfeature.com/correlation-and-regression-analysis/coefficient-of-determination)），均方误差等。
 
 ![使用 ROC 曲线衡量模型性能](https://d3ansictanv2wj.cloudfront.net/Figure3-ed3699bfaad2cc688ba68e0c0bf1dea5.png)

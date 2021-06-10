@@ -1,3 +1,7 @@
+* [Numpy 在 GPU/TPU 上的性能](https://juejin.cn/post/6957526953502982181)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [揭开图着色算法的神秘面纱](https://juejin.cn/post/6924668410416791566)（[zenblo](https://github.com/zenblo) 翻译）
+* [用 JavaScript 实现堆](https://juejin.cn/post/6893475005834330126)（[HurryOwen](https://github.com/HurryOwen) 翻译）
+* [酷毙了的算法：日志结构存储](https://juejin.cn/post/6898766259584761864)（[jackwener](https://github.com/jackwener) 翻译）
 * [7 种有用的时间复杂度](https://juejin.im/post/6873379647125553159)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [在图像中隐藏数据：用 Python 来实现图像隐写术](https://juejin.im/post/5f0bf4fce51d45347500b23d)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [理解 zip 和 gzip 压缩格式背后的压缩算法](https://juejin.im/post/5ecb7f9651882542f4488845)（[JohnieXu](https://github.com/JohnieXu) 翻译）
