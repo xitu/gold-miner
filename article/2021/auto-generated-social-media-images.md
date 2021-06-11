@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/auto-generated-social-media-images.md](https://github.com/xitu/gold-miner/blob/master/article/2021/auto-generated-social-media-images.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 简述自动生成的社交媒体图片
 
-我[总是](https://css-tricks.com/tag/social-media-images/)在思考社交媒体图片的问题。当你在 Twitter、Facebook 或 iMessage 等分享链接时，这些图片可以显示出来。如果没有这些图片，你基本上很难获取注意，因为它们能把一个小链接的普通帖子变成了一个有引人注目的图片的帖子，有一个很大的可点击区域。在网站上的任何图片中，社交媒体图片可能是网站上浏览量最大、记忆度最高、网络需求量最大、排在首位的图片。
+我[总是](https://css-tricks.com/tag/social-media-images/)在思考社交媒体图片的问题。当你在 Twitter、Facebook 或 iMessage 等分享链接时，这些图片是可以显示出来的。如果没有这些图片，你的链接基本上很难获取用户注意，因为它们能把一个小链接的普通帖子变成了一个有引人注目的带有图片的帖子，其有一个很大的可点击区域。在网站的所有图片中，社交媒体呈现的图片可能是该网站上浏览量最大、记忆度最高、网络需求量最大、排在首位的图片。
 
 本质上是以下 HTML 使它们起作用：
 
@@ -17,7 +17,7 @@
 
 要确保[读懂它](https://css-tricks.com/essential-meta-tags-social-media/)，因为还有一堆其他的 HTML 标签需要弄清楚。
 
-我又在思考这个问题了，因为 GitHub 似乎有了新的社交媒体图片。这些是新的吗？
+GitHub 似乎有了新的社交媒体图片，所以我又在思考这个问题了。这些是新的实现方案吗？
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/05/Screen-Shot-2021-05-06-at-10.14.23-AM.png?resize=1024%2C952&ssl=1)
 
@@ -31,18 +31,18 @@
 
 ## 自动生成的方式
 
-虽然我觉得你可以从一个纯手工定制设计的社交媒体图片中得到很多好处，但这对有很多页面的网站来说并不实用：博客、电子商务等。对于这样的网站，最好是通过模板来自动创建。我[过去](https://css-tricks.com/social-cards-as-a-service/)提到过其他人在这方面的做法，让我们回顾一下。
+虽然我知道一个纯手工定制设计的社交媒体图片有很多优点，但这对有很多页面的网站来说并不实用：博客、电子商务等。对于这样的网站，最好是通过模板来自动创建。我[以前](https://css-tricks.com/social-cards-as-a-service/)提到过其他人在这方面的做法，让我们回顾一下。
 
 * Drew McLellan：[动态的社会共享图片](https://24ways.org/2018/dynamic-social-sharing-images/)
 * Vercel：[开放图谱图片作为服务](https://og-image.vercel.app/)
 * Phil Hawksworth：[社交图片生成工具](https://github.com/philhawksworth/social-image-generator)
 * Ryan Filler：[自动分享社交图片](https://www.ryanfiller.com/blog/automatic-social-share-images/)
 
-你知道这些都有什么共同点吗？都使用 [Puppeteer](https://github.com/puppeteer/puppeteer)。
+你知道这些都有什么共同点吗？都使用了 [Puppeteer](https://github.com/puppeteer/puppeteer)。
 
 Puppeteer 是用于旋转和控制 Chrome 浏览器 headless 拷贝。它有一个[非常有用的功能](https://pptr.dev/#?product=Puppeteer&version=v5.2.1&show=api-pagescreenshotoptions)，能够对浏览器窗口进行截图：`await page.screenshot({path: 'screenshot.png'});`。这就是[编码字体网站进行截图的方式](https://github.com/chriscoyier/coding-fonts/blob/master/takeScreenshots.js)。为什么不在 HTML 和 CSS 中设计一个社交媒体模板，然后让 Puppeteer 对其进行截图，并将其作为社交媒体的图片？
 
-我喜欢这个想法，但它意味着可以访问一个 Node 服务器（Puppeteer 在 Node 上运行），这个服务器要么一直在运行，要么可以作为 [serverless 功能](https://serverless.css-tricks.com/services/functions)来使用。因此，难怪这个想法会引起 Jamstack 人群的共鸣，他们已经习惯于做一些事情，如运行构建过程和利用 serverless 功能。
+我喜欢这个想法，但它意味着可以访问一个 Node 服务（Puppeteer 在 Node 上运行），这个服务要么一直在运行，要么可以作为 [serverless 功能](https://serverless.css-tricks.com/services/functions)来使用。因此，也难怪这个想法会引起 Jamstack 人群的共鸣，他们早已习惯于做这类事情，如运行构建过程和利用 serverless 功能。
 
 我认为将 serverless 功能托管在一个 URL 上，并通过 URL 参数将截图中包含的动态值传递给它的想法也很聪明。
 
@@ -58,11 +58,11 @@ George Francis 在博客中写道：[“创建你自己的 SVG 生成社交媒�
 
 不幸的是，SVG 并不是社交媒体图片所支持的图片格式。下面是 Twitter 的具体内容。
 
-> 社交媒体图片中使用图片的 URL。图片必须小于 5MB。支持 JPG、PNG、WEBP 和 GIF 格式。只有 GIF 动画的第一帧会被使用。不支持 SVG。
+> 社交媒体图片中使用图片的 URL。图片必须小于 5MB。支持 JPG、PNG、WEBP 和 GIF 格式。 GIF 动画只有第一帧会被使用。不支持 SVG。
 >
 > [Twitter 文档](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup)
 
-不过，用 SVG 进行组合设计也是很不错的。你可以把它转换为另一种格式以便最终使用。一旦你有了 SVG，从 SVG 到 PNG 的转换几乎是轻而易举的。在我的示例中，我使用了 [svg2png](https://www.npmjs.com/package/svg2png) 和[一个很小的 Gulp 任务](https://github.com/CSS-Tricks/conferences/blob/master/tasks/svg2png.js)，在构建过程中运行。
+不过，用 SVG 进行组合设计也是很不错的。你可以把它转换为另一种格式以便最终使用。一旦你有了 SVG，从 SVG 到 PNG 的转换几乎是轻而易举的。在我的示例中，我使用了 [svg2png](https://www.npmjs.com/package/svg2png) 和在构建过程中运行的[一个很小的 Gulp 任务](https://github.com/CSS-Tricks/conferences/blob/master/tasks/svg2png.js)。
 
 ## 使用 WordPress 的方式
 
@@ -94,7 +94,7 @@ Daniel 亲自帮我创建了一个专门用于 CSS 技巧的定制模板。我�
 
 [Tweet](https://twitter.com/css/status/1391758245178511366)
 
-我明白为什么它必须这样建造：它使用的技术将在 WordPress 可以运行的任何地方工作。这非常符合 WordPress。但它确实让我希望可以用一种更现代的方式来创建模板。比如说，如果社交媒体图片的模板就像 `social-image.php` 一样在主题的根部，像其他模板文件一样，那将是很酷的。然后用所有正常的 WordPress API 来设计这个页面，就像一个 [ACF 块](https://www.advancedcustomfields.com/resources/blocks/)一样。
+我明白为什么它必须这样建造：它使用的技术将在 WordPress 可以运行的任何地方工作。这非常符合 WordPress 的风格。但它确实让我希望可以用一种更现代的方式来创建模板。比如说，如果社交媒体图片的模板就像 `social-image.php` 一样在主题的根部，像其他模板文件一样，那将是很酷的。然后用所有正常的 WordPress API 来设计这个页面，就像一个 [ACF 块](https://www.advancedcustomfields.com/resources/blocks/)一样。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
