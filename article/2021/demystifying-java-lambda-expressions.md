@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-# Demystifying Java Lambda Expressions
+# 解密 Java Lambda 表达式
 
 ![](https://cdn-images-1.medium.com/max/3840/1*fKbNefOZMcHC3B-KMsy9kw.jpeg)
 
-I seem to spend a lot of time explaining Java functional programming. Really, there’s no magic here. You pass functions into functions to adapt their behavior. Why would you want to do that? If you’re using object-oriented development, you’re already doing it but in a very controlled fashion. Java’s polymorphism is implemented by keeping a list of functions that can be replaced by sub-classing. Then other functions of that class might call a function that has been overridden, and thus its behavior is changed even though the outer function wasn’t itself overridden.
+我似乎花了很多时间讲解 Java 中的函数式编程。其实并没有什么深奥难懂的东西。为了使用某些函数的功能，你需要在函数中嵌套定义函数。为什么那样做？当你使用面向对象的方式进行开发，你已经使用了函数式编程的方法，只不过是以一种受控的方式使用。Java 中的多态就是通过保存若干个可以在子类中重写的函数实现的。这样，该类的其他函数可以调用被重写的函数，即使外部函数没有被重写，它的行为也发生了改变。
 
-Let’s take an example of polymorphism and translate that into functions as lambda expressions. Here’s an example:
+我们来举个多态的例子，并将它转换为使用 lambda 表达式的函数。代码如下：
 
 ```Java
 @Slf4j
@@ -35,9 +35,9 @@ public class Application {
 }
 ```
 
-This is pretty classic object orientation, a `Dog` and `Cat` type that implements a `Pet` type. Sound familiar? In this extremely simple example, if you disturb your pet, what does it do? A dog barks and a cat meows.
+这是非常经典的面向对象的例子，即 `Dog` 类和 `Cat` 类继承实现 `Pet` 类的例子。听起来很熟悉？在这个再简单不过的例子中，如果你执行 disturb() 方法，程序会如何运行？结果是：猫和狗各自发出自己的叫声。
 
-But what if you wanted a snake, too? You’d have to create a new class. What if you wanted a thousand types? That’s a lot of boilerplate for each one. If the `Pet` interface only has a single method, Java can treat it like a function. I’m going to move the `disturb` method out of the `Pet` interface (it probably didn’t belong there in the first place, as it’s not a property of the pet). Here’s what it looks like:
+但是，如果你需要一条蛇，该怎么办？你需要新建一个类，如果需要 1000 个类呢？每个类都需要模板文件。如果 `Pet` 接口只有一个简单的方法，Java 也会把它看作一个函数。我把 `Pet`移出 `disturb` 接口（可能它起初不在这里，它不是 `Pet` 的属性）。如下所示：
 
 ```Java
 @Slf4j
@@ -59,9 +59,9 @@ public class Application {
 }
 ```
 
-It’s this odd syntax, `() -> something`, that throws some people for a loop. But all that it does is define a function that takes no parameters and returns something. And since the `Pet` interface only has a single method, that is how you invoke the function you created. Technically, it implements the type `Pet` overriding the `vocalize` function. But for the purposes of our discussion, it is a function that can be passed into another function.
+这种古怪的语法 `() -> something` 令人大吃一惊。但是，它只是定义了一个函数，这个函数没有输入参数，有返回对象。由于 `Pet` 接口只有一个方法，就可以这样来调用方法。从技术角度来看，它实现了 `Pet` 接口，重写了 `vocalize` 函数。但对于我们的讨论的主题来说，它是一个可以嵌入其他函数的函数。
 
-You could reduce this even further since the `Pet` interface can be replaced with a `Supplier` interface that “supplies” the vocalization. Here’s what that looks like:
+由于 `Supplier` 接口可以替代 `Pet` 接口，这段代码还可以进一步精简。如下所示：
 
 ```Java
 @Slf4j
@@ -77,11 +77,11 @@ public class Application {
 }
 ```
 
-The `Supplier` type is provided in the `java.util.function` package because it’s such a common type of function.
+由于`Supplier` 是一个公共接口，它位于 `java.util.function` 包中。
 
-These lambda functions make it look like we’re creating a function out of thin air. But behind the scenes, we’re implementing an interface with a single method and providing the implementation of the single method.
+这些 lambda 函数看起来像是我们无中生有捏造的。但在它们的背后，我们是在利用单一函数去实现接口，并提供单一函数的具体实现。
 
-Let’s take another common function, the `Consumer`. A `Consumer` function takes a value as a parameter and returns nothing, basically consuming the value. If you’ve ever used the `forEach` method of a list or stream, you’ve used a `Consumer`. We’re going to collect up all of your pet’s vocalizations into a list and then invoke each. Here’s what it looks like:
+我们来讨论另一个公共函数 `Consumer`。它把某个值作为输入参数，没有返回值，基本上是消费了这个值。如果你已经使用了列表或流对象的 `forEach` 方法，在这里你可以用 `Consumer`。我们会收集所有的宠物的叫声，存入一个列表，再逐个调用。如下所示：
 
 ```Java
 @Slf4j
@@ -99,20 +99,20 @@ public class Application {
 }
 ```
 
-Now, if you add a bird to your menagerie, you need only add `() -> “chirp”` to the list. Notice that I didn’t put parentheses around the v in the `v -> disturbPet(v)` lambda. For single-parameter lambdas, the parentheses are optional.
+现在，如果你添加一只鸟，只需要在列表中加入 `() -> “chirp”`。注意：表达式 `v -> disturbPet(v)` 中第一个 v 两边不加括号。对包含单一参数的 lambda 表达式而言，括号可以不加。
 
-OK, my example is pretty contrived. I just wanted to walk from the polymorphic functions through to the lambda functions. When would you actually use lambda expressions? There are a few examples that are very common and worth going over. These are used as part of the streams library.
+OK，我展示的例子并不直观。我的目的是从多态函数入手，引入 lambda 表达式的相关内容。何时可以实际使用 lambda 表达式？有一些例子，它们具有通用性，应当反复研究。这些例子也被纳入了 Stream 类库中。
 
-As an example that’s a little less contrived, I’ll get a list of files, remove the ones that don’t start with a dot, and get the name and size of the file. The first chore is to get the array of files from the current directory and turn that into a `Stream` type. We can do that with the `File` type:
+作为一个例子，它直观了一些，在这个例子中，我会获取一系列的文件，删除那些不以点作为开头的文件，并获取文件名和文件大小。第一步比较繁琐，需要从当前目录获取文件列表对象，并将它转为 `Stream` 类型。我们可以使用 `File` 类实现：
 
 ```Java
 File dir = new File(".");
 Stream s = Arrays.stream(dir.listFiles());
 ```
 
-Since a directory is a file, we can operate on it with the `File` type. We also know that “.” is a directory, so we can call `listFiles` on it. But it returns an array, so to use streams to manipulate it, we have to use the `Arrays.stream` function to turn the array into a `Stream`.
+由于目录也是文件对象，我们可以对它执行某些文件对象的操作。同时，“.”表示一个目录，我们也可以调用 `listFiles` 方法。但它会返回一个数组，所以应当使用流来处理，我们需要使用 `Arrays.stream` 方法将数组转为流对象。
 
-Now, let’s remove the files that start with a dot, transform the `File` type to a string with the name and size, sort it in alphabetical order, and log it.
+现在，我们删除以点开头的文件，将 `File` 对象转为一个由其名称和大小组成的字符串，按字母顺序排列，并写入日志。
 
 ```Java
 public class Application {
@@ -128,9 +128,9 @@ public class Application {
 }
 ```
 
-The two new functions that take lambda expressions are `filter` and `map`. The `filter` function takes a `Predicate` type and the `map` function takes a (don’t laugh) `Function` function, both of which are part of `java.util.function` package. Both provide very common operations that you can do on an object, `Predicate` testing some aspect of the object and `Function` transforming it from one thing to another. Both take an object as a parameter, but the `Predicate` returns a boolean and the `Function` returns another object.
+处理 lambda 表达式的两个新方法是 `filter` 和 `map`。`filter` 方法相当于 `Predicate` 类型，`map` 方法相当于 `Function` 类型，它们都属于 `java.util.function` 包。它们都提供了通用的操作对象的方法，`Predicate` 用于测试对象的某些特征，`Function` 用于对象之间的转换。
 
-Notice that I also checked that the item was a file. What should we do with directories? How about if we recurse into the directories? How would you do that with streams? There is a special type of map that adds an inner stream (a subdirectory) into an outer stream. What exactly does that mean? Take a look at this example:
+注意：我也考虑了一个文件的情况。如何处理目录？如果使用递归到目录中会如何？怎样使用流对象处理它？有一种特殊的 map，它可以把一个内部流对象添加到外部流对象中。这意味着什么？我们来看下面的例子：
 
 ```Java
 public static Stream<File> getFiles(File file) {
@@ -147,9 +147,9 @@ public static Stream<File> getFiles(File file) {
  }
 ```
 
-As you can see, the lambda use in the `flatMap` method will recurse if the file in question is a directory and will return the file itself if it’s not. The lambda for the `flatMap` must return a `Stream` of something. So in the case of the single file, we have to wrap it with `Stream.of()` to match the return type of the recursive call of `getFiles()`. Also notice that the lambda is contained within curly braces, so it has to have a return statement if it’s expected to return something.
+如你所见，如果文件对象是一个目录，`flatMap` 方法中使用的 lambda 表达式执行了递归，如果不是，就返回文件对象本身。`flatMap` 方法的 lambda 表达式的返回值必须是某个流对象。所以在单一文件的情况下，我们需要使用 `Stream.of()` 实现返回值类型的匹配。也应该注意到，lambda 表达式包含于花括号内，所以如果需要返回某个对象，应该添加 return 语句。
 
-In order to use this `getFiles` function, we can add it to the main method:
+为了使用 `getFiles` 方法，我们可以把它加入 main 方法。
 
 ```Java
 public static void main(String [] args)  {
@@ -163,11 +163,11 @@ public static void main(String [] args)  {
     }
 ```
 
-We have to go through some machinations to get the relative path into the file name without the full path. But hey, it works.
+在没有全路径的情况下，我们必须通过某些机制获取文件名中的相对路径。但是现在，不需要这么复杂了。
 
-Functions that take functions as parameters are often called **high-order functions**. We have seen several high-order functions: `forEach`, `filter`, `map`, and `flatMap`. Each represents a very common way of operating on an object in an abstract way differentiated by the parameters and return values. We use lambdas to provide the definite operation to be performed. In this way, we can chain operations on sequences of objects to get the desired outcome.
+把其他函数作为参数的函数一般称为 **高阶函数**。我们已经了解了几种高阶函数：`forEach`, `filter`, `map` 和 `flatMap`。它们中的每一个都代表了一种以不同于参数和返回值的抽象方式操作对象的方法。我们使用 lambda，就是要进行明确的操作。利用这种方式，我们还可以把多个操作串联于一系列对象上，以便得到需要的结果。
 
-I hope this has taken some of the mystery out of the lambda function. I think when I was first introduced to it, the name itself was intimidating. Of course, it was borrowed from Alonzo Church’s lambda calculus, but that’s another story. For now, all you need to know is that functions can be conjured from thin air with just a simple syntax.
+我希望本文能向读者揭示 lambda 函数的相关内幕。我想，当第一次引入这个话题，它本身就有些吓人。当然，它是从 Alonzo Church’s lambda calculus 借用过来的，但这又是另一回事了。现在，你应该了解：使用这种简单的语法，函数也可以凭空产生。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
