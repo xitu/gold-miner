@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/three-framework-problem-with-kotlin-multiplatform-mobile.md](https://github.com/xitu/gold-miner/blob/master/article/2021/three-framework-problem-with-kotlin-multiplatform-mobile.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[Kimhooo](https://github.com/Kimhooo)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)、[HumanBeingXenon](https://github.com/HumanBeingXenon)
 
 # Kotlin Multiplatform Mobile 的三模块问题
 
