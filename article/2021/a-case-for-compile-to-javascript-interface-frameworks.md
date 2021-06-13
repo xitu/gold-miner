@@ -27,7 +27,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 这是因为他们可以在代码运行前做很多优化，将代码转变为普通 DOM 操作的 JavaScript，避免使用大型的程序包。
 
-比如，相比于 Svelte 和 Solid这两个框架着重于利用编译，React 和 vue 的设计是用于运行时。
+比如，相比于着重利用编译的两个框架 Svelte 和 Solid ，React 和 vue 的设计更常用于运行时。
 
 * React 使用被编译后的 JSX，但这只是基于调用`createElement` 的基础语法糖。
 
