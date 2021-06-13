@@ -101,7 +101,7 @@ export default function App() {
 
 不幸的是， React 并不能充分利用并优化它，尽管他们最近在新的 JSX 转换方面取得了一些改进。 [Vue Cli](https://cli.vuejs.org/) 也在后台使用 Webpack。这表示虽然你不需要使用编译器，但不管怎样你很可能会用，而且这非常容易设置。
 
-## Conclusion 总结
+## 总结
 
 使用一个编译成 JavaScript 框架不永远是答案。有些不编译成 JavaScript 的框架比那些用编译器的框架更快一些，且使用编译器并不代表它就是一个更好的框架。
 
