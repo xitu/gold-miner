@@ -19,7 +19,7 @@
 
 编译为 JavaScript 用户接口框架的类型有两种。一种是为了实际的逻辑而使用 JavaScript，类似 [Svelte](https://svelte.dev/) 和 [Solid](https://github.com/solidjs/solid)；另一种使用完全不同的语言，比如 [Elm](https://elm-lang.org/) 和 [Mint](https://www.mint-lang.com/)，它们通常不只是为了做声明性标记。这篇文章我们主要着重于前一种框架。现在让我们去了解一下为什么要用这些框架。
 
-Solid 可以被看成是运行时的框架，但由于它常常用于优化代码的编译，在这篇文章我将它看为一种对 JS 框架的编译。
+Solid 可以被看成是运行时的框架，但由于它常常用于优化代码的编译，在这篇文章中，我将它看为一种对 JS 框架的编译。
 
 ## 被编译后的 JavaScript 运行更快
 
