@@ -6,7 +6,7 @@
 > * 校对者：[greycodee](https://github.com/greycodee)，[JohnieXu](https://github.com/JohnieXu)
 # 如何召开在线会议
 
-有时，可以通过举行额外的在线视频通话（例如通过 Zoom 或 Google Meet）来更有效地解决 TC39 中的问题，作为其他沟通形式的辅助手段。
+有时候，可以采用在线视频通话（例如通过 Zoom 或 Google Meet）来更有效地解决 TC39 日常遇到的问题，作为其他沟通形式的辅助手段。
 
 ## 你真的需要开会吗？
 
