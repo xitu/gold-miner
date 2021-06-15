@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-case-for-compile-to-javascript-interface-frameworks.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-case-for-compile-to-javascript-interface-frameworks.md)
 > * 译者：[没事儿](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat) [PassionPenguin](https://github.com/PassionPenguin)
 
 # 一个编译成 JavaScript 接口框架的案例
 
