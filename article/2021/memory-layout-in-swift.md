@@ -100,8 +100,6 @@ This is the main reason why the second example struct has a slightly increased s
 
 This whole problem is real nicely explained on the [\[swift unboxed\]](https://swiftunboxed.com/internals/size-stride-alignment/) blog. I would also like to recommend [this article by Steven Curtis](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f) and there is one more great post about [Unsafe Swift: A road to memory](https://medium.com/swlh/unsafe-swift-a-road-to-memory-15e7d7e701f9). These writings helped me a lot to understand memory layout in Swift. 🙏
 
----
-
 ## Reference types and memory layout in Swift
 
 I mentioned earlier that **classes** behave quite different that's because they are reference types. Let me change the `Example` type to a class and see what happens with the memory layout.
