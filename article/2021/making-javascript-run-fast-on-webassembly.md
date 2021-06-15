@@ -23,7 +23,7 @@ But before we explore how to make this approach run fast, we need to look at how
 
 Whenever you’re running JavaScript, the JS source code needs to be executed one way or another as machine code. This is done by the JS engine using a variety of techniques such as interpreters and JIT compilers. (See [A crash course in just-in-time (JIT) compilers](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/) for more details.)
 
-![Personified JS engine looking at JS source code and speaking the equivalent bytes of machine code out loud](/articles/img/2021-06-02-js-on-wasm/02-02-interp02.png)
+![Personified JS engine looking at JS source code and speaking the equivalent bytes of machine code out loud](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-02-interp02.png)
 
 But what if your target platform doesn’t have a JS engine? Then you need to deploy a JS engine along with your code.
 
@@ -31,11 +31,11 @@ In order to do this, we deploy the JS engine as a WebAssembly module, which make
 
 This means the whole JS environment is bundled up into this WebAssembly instance. Once you deploy it, all you need to do is feed in the JS code, and it will run that code.
 
-![A box representing the Wasm engine wrapping a box representing the JS engine, with a JS file being passed through the Wasm engine to the JS engine.](/articles/img/2021-06-02-js-on-wasm/01-02-how-it-works.png)
+![A box representing the Wasm engine wrapping a box representing the JS engine, with a JS file being passed through the Wasm engine to the JS engine.](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/01-02-how-it-works.png)
 
 Instead of working directly on the machine’s memory, the JS engine puts everything—from bytecode to the GCed objects that the bytecode is manipulating—in the Wasm module’s linear memory.
 
-![The personified JS engine putting translated machine code bytes into the linear memory inside its box](/articles/img/2021-06-02-js-on-wasm/01-03-how-it-works.png)
+![The personified JS engine putting translated machine code bytes into the linear memory inside its box](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/01-03-how-it-works.png)
 
 For our JS engine, we went with SpiderMonkey, which is used in Firefox. It is one of the industrial strength JavaScript VMs, battle-tested in the browser. This kind of battletesting and investment in security is important when you’re running untrusted code, or code that processes untrusted input.
 
@@ -51,7 +51,7 @@ Given this constraint, you might be asking…
 
 Since JITs are how the browsers made JS run fast (and since you can’t JIT compile inside of a WebAssembly module) it may seem counterintuitive to do this.
 
-![A horrified developer screaming "But Why!?"](/articles/img/2021-06-02-js-on-wasm/02-01-but-why.png)
+![A horrified developer screaming "But Why!?"](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-01-but-why.png)
 
 But what if, even despite this, we could make the JS run fast?
 
@@ -61,7 +61,7 @@ Let’s look at a couple of use cases where a fast version of this approach coul
 
 There are some places where you can’t use a JIT due to security concerns—for example, unprivileged iOS apps and some smart TVs and gaming consoles.
 
-![An iPhone, a smart TV, and a gaming controller](/articles/img/2021-06-02-js-on-wasm/02-02-non-jit-devices.png)
+![An iPhone, a smart TV, and a gaming controller](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-02-non-jit-devices.png)
 
 On these platforms, you have to use an interpreter. But the kinds of applications you run on these platforms are long-running, and they require a lot of code… and those are exactly the kinds of conditions where historically you **wouldn’t** want to use an interpreter, because of how much it slows down execution.
 
@@ -71,7 +71,7 @@ If we can make our approach fast, then these developers could use JavaScript on 
 
 There are other places where JITs aren’t an issue, but where start-up time is the problem, like in Serverless functions. This is the cold-start latency problem that you may have heard of.
 
-![A picture of a cloud with lots of edge network nodes around it](/articles/img/2021-06-02-js-on-wasm/02-03-cloud.png)
+![A picture of a cloud with lots of edge network nodes around it](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-03-cloud.png)
 
 Even if you’re using the most paired-down JS environment—an isolate that just starts up a bare JS engine—you’re looking at ~5 milliseconds of startup latency at minimum. This doesn’t even include the time it takes to initialize the application.
 
@@ -81,7 +81,7 @@ Platforms that use these techniques to hide latency also often reuse instances b
 
 Because of this cold-start problem, developers often don’t follow best practices. They stuff a lot of functions into one Serverless deployment. This results in another security issue—a larger blast radius. If one part of that Serverless deployment is exploited, the attacker has access to everything in that deployment.
 
-![On the left, a cartoon captioned "Risk between requests". It shows burgalers in a room filled with papers saying "Oooh payday... check out what they left behind!" On the right, a cartoon captioned "Risk between modules". It shows a tree of modules with a module at the bottom being exploded and other modules in the tree getting hit by shrapnel.](/articles/img/2021-06-02-js-on-wasm/02-04-serverless-at-risk.png)
+![On the left, a cartoon captioned "Risk between requests". It shows burgalers in a room filled with papers saying "Oooh payday... check out what they left behind!" On the right, a cartoon captioned "Risk between modules". It shows a tree of modules with a module at the bottom being exploded and other modules in the tree getting hit by shrapnel.](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-04-serverless-at-risk.png)
 
 But if we can get JS start-up times low enough in these contexts, then we wouldn’t need to hide start-up times with any tricks. We could just start up an instance in microseconds.
 
@@ -89,7 +89,7 @@ With this, we can provide a new instance on each request, which means there’s 
 
 And because the instances are so lightweight, developers could feel free to break up their code into fine-grained pieces, bringing the blast radius to a minimum for any single piece of the code.
 
-![On the left, a cartoon captioed "isolation between requests". It shows the same bugalers, but in a totally clean room saying "Nuthin'... they didn't leave nuthin' behind." On the right, a cartoon captioned "isolation between modules". It shows a module graph with each module having its own box around it, and the explosion from the exploding module being contained to its own box](/articles/img/2021-06-02-js-on-wasm/02-05-serverless-protected.png)
+![On the left, a cartoon captioed "isolation between requests". It shows the same bugalers, but in a totally clean room saying "Nuthin'... they didn't leave nuthin' behind." On the right, a cartoon captioned "isolation between modules". It shows a module graph with each module having its own box around it, and the explosion from the exploding module being contained to its own box](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-05-serverless-protected.png)
 
 And there’s another security benefit to this approach. Beyond just being lightweight and making it possible to have finer-grained isolation, the security boundary a Wasm engine provides is more dependable.
 
@@ -109,7 +109,7 @@ We can break down the work that a JS engine does into roughly two parts: initial
 
 I think of the JS engine as a contractor. This contractor is retained to complete a job—running the JS code and getting to a result.
 
-![The JS engine shaking hands with a JS file and saying "I'm looking forward to helping you with this project!"](/articles/img/2021-06-02-js-on-wasm/03-01-office-handshake.png)
+![The JS engine shaking hands with a JS file and saying "I'm looking forward to helping you with this project!"](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/03-01-office-handshake.png)
 
 ### Initialization phase
 
@@ -121,7 +121,7 @@ For any project, the contractor needs to take a look at the work that the client
 
 For example, the contractor reads through the project briefing and other supporting documents and turns them into something that it can work with, e.g. setting up a project management system with all of the documents stored and organized.
 
-![The JS engine sitting in its office with the JS file and saying "So tell me more about the work you want to get done"](/articles/img/2021-06-02-js-on-wasm/03-03-office-kickoff.png)
+![The JS engine sitting in its office with the JS file and saying "So tell me more about the work you want to get done"](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/03-03-office-kickoff.png)
 
 In the case of the JS engine, this work looks more like reading through the top-level of the source code and parsing functions into bytecode, allocating memory for variables that are declared, and setting values where they are already defined.
 
@@ -133,7 +133,7 @@ This is engine initialization. The JS engine itself needs to be started up in th
 
 I think of this like setting up the office itself—doing things like assembling IKEA chairs and tables—before starting the work.
 
-![The JS engine building the IKEA table for its office](/articles/img/2021-06-02-js-on-wasm/03-02-office-ikea.png)
+![The JS engine building the IKEA table for its office](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/03-02-office-ikea.png)
 
 This can take considerable time, and is part of what can make cold start such an issue for Serverless use cases.
 
@@ -141,7 +141,7 @@ This can take considerable time, and is part of what can make cold start such an
 
 Once the initialization phase is done, the JS engine can start the work of running the code.
 
-![The JS engine moving cards across a Kanban board, all the way to the done position](/articles/img/2021-06-02-js-on-wasm/03-04-office-kanban.png)
+![The JS engine moving cards across a Kanban board, all the way to the done position](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/03-04-office-kanban.png)
 
 The speed of this part of the work is called throughput, and this throughput is affected by lots of different variables. For example:
 
@@ -152,7 +152,7 @@ The speed of this part of the work is called throughput, and this throughput is 
 
 So these are the two phases where the JS engine spends its time.
 
-![A sequence of the three previous images, showing the office building and requirements gathering as initialization, and moving work across the Kanban board as runtime.](/articles/img/2021-06-02-js-on-wasm/03-05-office-sequence.png)
+![A sequence of the three previous images, showing the office building and requirements gathering as initialization, and moving work across the Kanban board as runtime.](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/03-05-office-sequence.png)
 
 How can we make the work in these two phases go faster?
 
@@ -160,7 +160,7 @@ How can we make the work in these two phases go faster?
 
 We started with making initialization fast with a tool called [Wizer](https://github.com/bytecodealliance/wizer). I’m going to explain how, but for those who are impatient, here’s the speed up we see when running a very simple JS app.
 
-![A graph showing startup latency times. JS isolate takes 5ms and JS on Wasm takes 0.36ms.](/articles/img/2021-06-02-js-on-wasm/04-01-startup-latency-vs-isolate.png)
+![A graph showing startup latency times. JS isolate takes 5ms and JS on Wasm takes 0.36ms.](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/04-01-startup-latency-vs-isolate.png)
 
 When running this small application with Wizer, it only takes .36 milliseconds (or 360 microseconds). This is more than 13 times faster than what we’d expect with the JS isolate approach.
 
@@ -174,7 +174,7 @@ Because this linear memory is so self-contained, once all of the values have bee
 
 When the JS engine module is instantiated, it has access to all of the data in the data section. Whenever the engine needs a bit of that memory, it can copy the section (or rather, the memory page) that it needs into its own linear memory. With this, the JS engine doesn’t have to do any setup when it starts up. All of the pre-initialized values are ready and waiting for it.
 
-![A wasm file split between code and data sections, with the data section being poured into linear memory.](/articles/img/2021-06-02-js-on-wasm/04-02-wasm-file-copy-mem.png)
+![A wasm file split between code and data sections, with the data section being poured into linear memory.](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/04-02-wasm-file-copy-mem.png)
 
 Currently, we attach this data section to the same module as the JS engine. But in the future, once [module linking](https://github.com/WebAssembly/module-linking/blob/master/proposals/module-linking/Explainer.md) is in place, we’ll be able to ship the data section as a separate module, allowing the JS engine module to be reused by many different JS applications.
 
@@ -184,11 +184,11 @@ The JS engine module only contains the code for the engine. That means that once
 
 On the other hand, the application-specific module contains no Wasm code. It only contains the linear memory, which in turn contains the JS bytecode, along with the rest of the JS engine state that was initialized. This makes it really easy to move this memory around and send it wherever it needs to go.
 
-![Two wasm files next to each other. The one for the JS engine module only has a code section, the other for the JS application module only has a data section](/articles/img/2021-06-02-js-on-wasm/04-03-wasm-file-data-vs-code.png)
+![Two wasm files next to each other. The one for the JS engine module only has a code section, the other for the JS application module only has a data section](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/04-03-wasm-file-data-vs-code.png)
 
 It’s kind of like the JS engine contractor doesn’t need to even have an office set up at all. It just gets a travel case shipped to it. That travel case has the whole office, with everything in it, all setup and ready for the JS engine to get to work.
 
-![A personified Wasm engine placing a snapshot of the JS engine's office down inside of the Wasm engine and saying "I'll just set this down for you so you can get right to work"](/articles/img/2021-06-02-js-on-wasm/04-04-preinitiatlized-engine.png)
+![A personified Wasm engine placing a snapshot of the JS engine's office down inside of the Wasm engine and saying "I'll just set this down for you so you can get right to work"](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/04-04-preinitiatlized-engine.png)
 
 And the coolest thing about this is that it isn’t JS dependent—it’s just using an existing property of WebAssembly. So you could use this same technique with Python, Ruby, Lua, or other runtimes, too.
 
@@ -206,7 +206,7 @@ As I said above, it’s not possible to JIT compile code within pure WebAssembly
 
 One optimization technique that JITs use is inline caching. With inline caching, the JIT creates a linked list of stubs containing fast machine code paths for all the ways a bit of JS bytecode has been run in the past. (See [A crash course in just-in-time (JIT) compilers](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/) for more details.)
 
-![The personified JS engine standing in front of a matrix of JS bytecode entries and creating machine code stubs for them based on frequency feedback from a monitor](/articles/img/2021-06-02-js-on-wasm/02-06-jit09.png)
+![The personified JS engine standing in front of a matrix of JS bytecode entries and creating machine code stubs for them based on frequency feedback from a monitor](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/02-06-jit09.png)
 
 The reason you need a list is because of the dynamic types in JS. Every time the line of code uses a different type, you need to generate a new stub and add it to the list. But if you’ve run into this type before, then you can just use the stub that was already generated for it.
 
@@ -224,7 +224,7 @@ But for our use cases, it’s especially important. It means that we can bake al
 
 We discovered that with just a few kilobytes of IC stubs, we can cover the vast majority of all JS code. For example, with 2 KB of IC stubs, we can cover 95% of JS in the Google Octane benchmark. And from preliminary tests, this percentage seems to hold for general web browsing as well.
 
-![A small pile of stubs on the left and a large pile of JS files on the right](/articles/img/2021-06-02-js-on-wasm/talk-stub-coverage.png)
+![A small pile of stubs on the left and a large pile of JS files on the right](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/talk-stub-coverage.png)
 
 So using this kind of optimization, we should be able to reach throughput that’s on par with early JITs. Once we’ve completed that work, we’ll add more fine-grained optimizations and polish up the performance, just as the browsers’ JS engine teams did with their early JITs.
 
