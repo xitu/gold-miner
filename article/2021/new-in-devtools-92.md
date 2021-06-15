@@ -17,7 +17,7 @@ A highly requested feature. You can now preview and author CSS Grid with the new
 
 When an HTML element on your page has `display: grid` or `display: inline-grid` applied to it, you can see an icon appear next to it in the Styles pane. Click the icon to toggle the CSS grid editor. Here you can preview the potential changes with the on screen icons (e.g. `justify-content: space-around`) and author the grid appearance with just one click.
 
-Chromium issue: [1203241](https://crbug.com/1203241)
+> Chromium issue: [1203241](https://crbug.com/1203241)
 
 ## Support for `const` redeclarations in the Console 
 
@@ -32,7 +32,7 @@ Refer to the example below. `const` redeclaration is supported **across separate
 
 ![const redeclarations](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/tJCPlokvxw6OWyCAmocM.png?auto=format)
 
-Chromium issue: [1076427](https://crbug.com/1076427)
+> Chromium issue: [1076427](https://crbug.com/1076427)
 
 ## Source order viewer 
 
@@ -42,7 +42,7 @@ You can now view the order of source elements on screen for better accessibility
 
 The order of content in an HTML document is important for search engine optimization and accessibility. The newer CSS features allow developers to create content that looks very different in its on-screen order than what is in the HTML document. This is a big accessibility problem as screen reader users would get a different, most likely confusing experience than sighted users.
 
-Chromium issue: [1094406](https://crbug.com/1094406)
+> Chromium issue: [1094406](https://crbug.com/1094406)
 
 ## New shortcut to view frame details 
 
@@ -54,7 +54,7 @@ This takes you to a view of the iframe's details in the Application panel where 
 
 ![Frame details view](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/YdENg6wjsgPNyMODdOHC.png?auto=format)
 
-Chromium issue: [1192084](https://crbug.com/1192084)
+> Chromium issue: [1192084](https://crbug.com/1192084)
 
 ## Enhanced CORS debugging support 
 
@@ -62,7 +62,7 @@ Cross-origin resource sharing (CORS) errors are now surfaced in the Issues tab. 
 
 ![CORS issues in the Issues tab](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/UpiZQCNnlENB8ZluzeFt.png?auto=format)
 
-Chromium issue: [1141824](https://crbug.com/1141824)
+> Chromium issue: [1141824](https://crbug.com/1141824)
 
 ## Network panel updates 
 
@@ -72,7 +72,7 @@ The XHR label is now renamed to **Fetch/XHR**. This change makes it clearer that
 
 ![Fetch/XHR label](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/I0QOVTO52JRpl0jJO6Zt.png?auto=format)
 
-Chromium issue: [1201398](https://crbug.com/1201398)
+> Chromium issue: [1201398](https://crbug.com/1201398)
 
 ### Filter Wasm resource type in the Network panel 
 
@@ -80,7 +80,7 @@ You can now click on the new **Wasm** button to filter the Wasm network requests
 
 ![Filter by Wasm](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/vuTMcfCjDWFfVtDN6Dpf.png?auto=format)
 
-Chromium issue: [1103638](https://crbug.com/1103638)
+> Chromium issue: [1103638](https://crbug.com/1103638)
 
 ### User-Agent Client Hints for devices in the Network conditions tab 
 
@@ -90,7 +90,7 @@ User-Agent Client Hints are a new expansion to the Client Hints API, that enable
 
 ![User-Agent Client Hints for devices in the Network conditions tab](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/iMlkTtV9OUdfujSWdHnR.png?auto=format)
 
-Chromium issue: [1174299](https://crbug.com/1174299)
+> Chromium issue: [1174299](https://crbug.com/1174299)
 
 ## Report Quirks mode issues in the Issues tab 
 
@@ -102,7 +102,7 @@ When debugging layout issues, developers might think they are caused by user-aut
 
 ![Report Quirks mode issues in the Issues tab](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/XqtqSZPa1S1YnmeIt0ee.png?auto=format)
 
-Chromium issue: [622660](https://crbug.com/622660)
+> Chromium issue: [622660](https://crbug.com/622660)
 
 ## Include Compute Intersections in the Performance panel 
 
@@ -110,7 +110,7 @@ DevTools now show the **Compute Intersections** in the flame chart. These change
 
 ![Compute Intersections in the Performance panel](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/Nx3K0Lpst0lICGbtpzsW.png?auto=format)
 
-Chromium issue: [1199137](https://crbug.com/1199137)
+> Chromium issue: [1199137](https://crbug.com/1199137)
 
 ## Lighthouse 7.5 in the Lighthouse panel 
 
@@ -118,7 +118,7 @@ The Lighthouse panel is now running Lighthouse 7.5. The "missing explicit width 
 
 Check out the [release notes](https://github.com/GoogleChrome/lighthouse/releases/tag/v7.5.0) for a full list of changes.
 
-Chromium issue: [772558](https://crbug.com/772558)
+> Chromium issue: [772558](https://crbug.com/772558)
 
 ## Deprecated "Restart frame" context menu in the call stack 
 
@@ -126,7 +126,7 @@ The **Restart frame** option is now deprecated. This feature requires further de
 
 ![Deprecated Restart frame context menu](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/Alvnt4FkoEFoP0SkdKgi.png?auto=format)
 
-Chromium issue: [1203606](https://crbug.com/1203606)
+> Chromium issue: [1203606](https://crbug.com/1203606)
 
 ## \[Experimental\] Protocol monitor 
 
@@ -140,7 +140,7 @@ The new **Save** button allows you to download the recorded messages as a JSON f
 
 ![Protocol monitor](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/mRVrHC9WEet7cwA7QAeV.png?auto=format)
 
-Chromium issues: [1204004](https://crbug.com/1204004), [1204466](https://crbug.com/1204466)
+> Chromium issues: [1204004](https://crbug.com/1204004), [1204466](https://crbug.com/1204466)
 
 ## \[Experimental\] Puppeteer Recorder 
 
@@ -154,7 +154,7 @@ Please note that this is an early-stage experiment. We plan to improve and expan
 
 ![Puppeteer Recorder](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/kh1Z4jcWxbO6rYCSoIPn.png?auto=format)
 
-Chromium issue: [1199787](https://crbug.com/1199787)
+> Chromium issue: [1199787](https://crbug.com/1199787)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
