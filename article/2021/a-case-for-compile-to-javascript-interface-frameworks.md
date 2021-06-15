@@ -47,7 +47,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 ![Framework startup benchmark](https://cdn-images-1.medium.com/max/2000/1*m5e36L44ph12wCOhCq576Q.png)
 
-![Framework memory benchmark](https://cdn-images-1.medium.com/max/2000/1*EuwkvRIURVuvKk7XqphdYQ.png)
+![框架内存基准对比](https://cdn-images-1.medium.com/max/2000/1*EuwkvRIURVuvKk7XqphdYQ.png)
 
 就像你看到的，在大型 Dom 操作上，启动（受脚本大小和编译时间影响）时间和内存使用方面，Solid 和 Svelte 比 React 和 Vue 表现更佳。
 
