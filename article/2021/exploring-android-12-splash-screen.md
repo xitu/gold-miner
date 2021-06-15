@@ -37,7 +37,7 @@ While this doesn’t look too different from the attribute we saw introduced in 
 
 Over the following sections, let’s take a look at how we can utilise these to provide a customised experience for the launch of our app.
 
-### Displaying a Splash Screen
+## Displaying a Splash Screen
 
 While in previous API versions we needed to provide some form of resource as a theme attribute to be used for the content of our window or splash screen content, this is **no longer a requirement** when it comes to Android 12. So it’s important to know that your launcher activity will display this new Splash Screen **by default** – so if you are currently presenting a custom splash screen in your application, you will need to adapt to these changes coming in Android 12.
 
@@ -47,7 +47,7 @@ While the Splash Screen APIs offer a collection of attributes which can be used 
 
 We can see a couple of things here when it comes to the display of the splash screen – the icon for my application is displayed on top of a background color. In my application I am using an adaptive icon and it appears as though the Splash Screen is directly using that adaptive-icon xml reference to display the icon within the screen. I know this because when I changed the color of the background layer for my launch icon, this was reflected in my splash screen.
 
-### Setting the Background Color
+## Setting the Background Color
 
 As we can see above, the Splash Screen will use a default background color*. In some cases we may want to override this – maybe it needs to match branding colors, or maybe the app icon doesn’t look quite right when displayed on top of the default background color. In either scenario you can utilise the **windowSplashScreenBackground** attribute to override this default color.
 
@@ -59,7 +59,7 @@ As we can see above, the Splash Screen will use a default background color*. In 
 
 > I’m not entirely sure what color is being used for this background color yet, I will update this post once I have clarity here!
 
-### Setting the Splash Icon
+## Setting the Splash Icon
 
 In some cases, you might not want to use your application icon for the icon displayed in the splash screen. If you want to display something else in place of this then you can use the **android:windowSplashScreenAnimedIcon** attribute to do so. I find this name a bit misleading as this icon can actually be a reference to one of two things:
 
@@ -83,7 +83,7 @@ Once we have an asset that we wish to use for the icon of our splash screen, we 
 
 As displayed above, our icon asset will displayed in the center of the splash screen. Using this will completely remove any of the default properties and styling from what was previously being shown in our splash screen.
 
-### Setting the Icon Background Color
+## Setting the Icon Background Color
 
 As we saw above, providing a custom icon allows us to change the default icon that is displayed within our splash screen. However, we can also see above that this might not always render in the best results. The icon I used there does not have a background layer, so it’s a bit tricky to see the icon against the background color being used for the splash screen. While we can customise the background color of the splash screen, we might not want to or be in a position to change this here. In these cases we can utilise the **android:windowSplashScreenIconBackgroundColor** attribute to provide a color to be used for the background of our icon.
 
@@ -95,7 +95,7 @@ As we saw above, providing a custom icon allows us to change the default icon th
 
 When this is applied, we’ll see a shaped background applied to our icon, using the color that we defined in the attribute above. It’s been difficult to test this, but in the case of my device this matches the app icon shape that I have set in my system settings. Currently this is not something that you can override for the splash screen. If you need customisation here, the best approach would be to create a drawable that already has a background layer as a part of the asset.
 
-### Setting a Branding Image
+## Setting a Branding Image
 
 The branding image is an **optional** static asset which can be used to display an image at the base of the Splash Screen. This branding image will be displayed for the entire time that the splash screen is presented on screen.
 
@@ -107,7 +107,7 @@ The branding image is an **optional** static asset which can be used to display 
 
 While the design guidelines state that it is not recommended not to use a branding image within the Splash Screen, this functionality has been provided should you need to present this visual component. Personally I think this adds a nice touch to the splash screen, but realistically in most cases the splash screen will not be displayed long enough for the user to take in all of the content within the screen. If you are not doing any customisation to override the exit time of the splash screen, the splash screen is going to be displayed for about **1 second**. When the splash screen is launched, the user is naturally going to be drawn to the icon that is displayed in the center of the screen – any additional content on the screen is likely going to overwhelm the user and in most cases, probably not going to be seen. With that said, it’s important to think about whether your app really needs to utilise this branding asset within its splash screen.
 
-### Customising the Splash Screen time
+## Customising the Splash Screen time
 
 By default, the Splash Screen will display for ~**1,000 milliseconds** – until the first frame of our application is drawn. However, a lot of applications use their splash screen to initialise default application data or perform asynchronous tasks to configure the app. In these cases, we can prevent the first frame of our app being drawn so that our splash screen remains in view. We can achieve this by using the **ViewTreeObserver** **OnPreDrawListener** – returning false until we are ready to proceed past the splash screen. Returning false here will prevent our
 
@@ -127,7 +127,7 @@ content.viewTreeObserver.addOnPreDrawListener(
 )
 ```
 
-### Accessing the Splash Screen
+## Accessing the Splash Screen
 
 The Activity class has a new getSplashScreen function that can be used to access the splash screen for your activity. As mentioned previously, the splash screen will only be shown for the launcher activity of your application – so accessing this elsewhere does not have any effect.
 
@@ -139,7 +139,7 @@ splashScreen.setOnExitAnimationListener { splashScreenView ->
 }
 ```
 
-### Wrapping Up
+## Wrapping Up
 
 After learning about the Splash Screen APIs, I can now ensure that the [Compose Academy](https://compose.academy/) app will be handling things properly. In most cases you may not even need to change anything, with your users enjoying a smooth launch flow of your app out-of-the-box.
 
