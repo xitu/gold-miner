@@ -43,7 +43,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 另外，Solid 和 Svelte 在运行时都明显更快。 根据 [Krausest Framework Benchmarks](https://krausest.github.io/js-framework-benchmark/2021/table_chrome_90.0.4430.72.html), Solid 和 Svelte 在启动时间，DOM 操作速度以及内存使用方面更快。
 
-![Framework speed benchmark](https://cdn-images-1.medium.com/max/2000/1*cyKBaU7O35rKAPZJ4jsO2A.png)
+![框架速度基准对比](https://cdn-images-1.medium.com/max/2000/1*cyKBaU7O35rKAPZJ4jsO2A.png)
 
 ![框架启动速度对比](https://cdn-images-1.medium.com/max/2000/1*m5e36L44ph12wCOhCq576Q.png)
 
