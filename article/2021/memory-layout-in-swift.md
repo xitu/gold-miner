@@ -98,7 +98,7 @@ What the heck happened here? Why did the size increase? Size is tricky, because 
 
 This is the main reason why the second example struct has a slightly increased size value. Feel free to create other types and practice by drawing the memory layout for them, you can always check if you were correct or not by printing the memory layout at runtime using Swift. 💡
 
-This whole problem is real nicely explained on the [\[swift unboxed\]](https://swiftunboxed.com/internals/size-stride-alignment/) blog. I would also like to recommend [this article by Steven Curtis](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f) and there is one more great post about [Unsafe Swift: A road to memory](https://medium.com/swlh/unsafe-swift-a-road-to-memory-15e7d7e701f9). These writings helped me a lot to understand memory layout in Swift. 🙏
+> This whole problem is real nicely explained on the [\[swift unboxed\]](https://swiftunboxed.com/internals/size-stride-alignment/) blog. I would also like to recommend [this article by Steven Curtis](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f) and there is one more great post about [Unsafe Swift: A road to memory](https://medium.com/swlh/unsafe-swift-a-road-to-memory-15e7d7e701f9). These writings helped me a lot to understand memory layout in Swift. 🙏
 
 ## Reference types and memory layout in Swift
 
