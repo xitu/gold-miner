@@ -5,7 +5,7 @@
 > * 译者：[没事儿](https://github.com/Tong-H)
 > * 校对者：
 
-# 编译成 JavaScript 接口框架的案例
+# 一个编译成 JavaScript 接口框架的案例
 
 ![Photo by [Ferenc Almasi](https://unsplash.com/@flowforfrank?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10296/0*LUP7NJrirKlw-voh)
 
