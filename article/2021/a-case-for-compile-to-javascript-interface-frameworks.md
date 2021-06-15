@@ -45,7 +45,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 ![Framework speed benchmark](https://cdn-images-1.medium.com/max/2000/1*cyKBaU7O35rKAPZJ4jsO2A.png)
 
-![Framework startup benchmark](https://cdn-images-1.medium.com/max/2000/1*m5e36L44ph12wCOhCq576Q.png)
+![框架启动速度对比](https://cdn-images-1.medium.com/max/2000/1*m5e36L44ph12wCOhCq576Q.png)
 
 ![框架内存基准对比](https://cdn-images-1.medium.com/max/2000/1*EuwkvRIURVuvKk7XqphdYQ.png)
 
