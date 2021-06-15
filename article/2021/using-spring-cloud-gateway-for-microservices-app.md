@@ -1,5 +1,4 @@
 > 原文地址：[Using Spring cloud gateway for microservices app](https://sairavvatts.medium.com/using-spring-cloud-gateway-for-microservices-app-40985e8351)
->
 > * 原文作者：[Sairav Vatts](https://sairavvatts.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-spring-cloud-gateway-for-microservices-app.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-spring-cloud-gateway-for-microservices-app.md)
@@ -63,9 +62,11 @@ SCG 支持 [**非阻塞 API**](https://stackoverflow.com/a/56806022/3820753)，�
 
 2. 创建 application.yml:
 
-```
+```yml
 server:  
-  port: 8085spring:  
+  port: 8085
+  
+spring:  
   application:  
     name: gateway     
   cloud:       
@@ -99,9 +100,11 @@ server:
 
 =\> 除了 path 谓词，SCG 还有一些[其他的谓词](https://cloud.spring.io/spring-cloud-gateway/reference/html/#gateway-request-predicates-factories)， 比如像 [主机名模式](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-host-route-predicate-factory) , [before route](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-before-route-predicate-factory)（路由所有在特定时间戳之间到来的请求），[after route](https://cloud.spring.io/spring-cloud-gateway/reference/html/#the-after-route-predicate-factory)（路由所有在特定时间之后到来的请求）等等。所有谓词都可以按以下方式组合：
 
-```
+```yml
 server:  
-  port: 8085spring:  
+  port: 8085
+  
+spring:  
   application:  
     name: gateway     
   cloud:       
@@ -120,9 +123,12 @@ server:
 
 ```
 server:  
-  port: 8085spring:  
+  port: 8085
+
+spring:  
   application:  
-    name: gateway cloud:  
+    name: gateway   
+  cloud:  
     gateway:  
       routes:  
       - id: order-service  
