@@ -188,9 +188,6 @@ Long story short, retain cycles suck, but in most of the cases you can avoid the
 
 Anyway, in a nutshell, this is how the memory layout looks like in the Swift programming language.
 
-[Share this article on Twitter.](https://twitter.com/intent/tweet?via=tiborbodecs&hashtags=SwiftLang&url=https://theswiftdev.com/memory-layout-in-swift/)  
-Thank you. 🙏
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
