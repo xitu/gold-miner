@@ -44,7 +44,7 @@ SCG 支持 [**非阻塞 API**](https://stackoverflow.com/a/56806022/3820753)，�
 
 ## 使用 Spring Cloud Gateway 和 Springboot 来编写代码
 
-> 注意 — 我们有一个程序运行在 9091 端口上。我们的目标是添加一个网关来将我们的请求路由到那个应用程序上。
+> 注意 —— 我们有一个程序运行在 9091 端口上。我们的目标是添加一个网关来将我们的请求路由到那个应用程序上。
 
 1. 使用 [**Spring Initilizr**](https://start.spring.io/) 来创建一个简单的 Springboot 程序，然后在 pom.xml 中添加网关的重要依赖：
 
