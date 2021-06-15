@@ -40,7 +40,7 @@ SCG 支持 [**非阻塞 API**](https://stackoverflow.com/a/56806022/3820753)，�
 
 - **Zuul 网关** —— 阻塞
 
-- **Zuul2 和 Spring Cloud Gateway** — 非阻塞
+- **Zuul2 和 Spring Cloud Gateway** —— 非阻塞
 
 ## 使用 Spring Cloud Gateway 和 Springboot 来编写代码
 
