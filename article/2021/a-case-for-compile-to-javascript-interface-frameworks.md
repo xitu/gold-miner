@@ -35,7 +35,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 ![React’s bundle size](https://cdn-images-1.medium.com/max/2724/1*yWAVUnOXKsrwrRzTSb6kzw.png)
 
-![Vue’s bundle size](https://cdn-images-1.medium.com/max/2684/1*eTVWVuDuNORYhxf1g5bF_w.png)
+![Vue 包大小](https://cdn-images-1.medium.com/max/2684/1*eTVWVuDuNORYhxf1g5bF_w.png)
 
 相比之下，Svelte 除了原生 DOM 操作以外使用的东西很少，所以几乎没有基本的包大小，且对于只有一些小型函数帮助 DOM 更新。
 
