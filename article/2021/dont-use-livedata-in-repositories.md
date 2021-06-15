@@ -75,7 +75,7 @@ Soon after joining the project, we realised that we had a lot of Main Thread blo
 
 This can be very helpful since `LiveData` is often used in the UI Layer. Whenever a new value comes through, you probably want to be on the main thread anyways to display that data. But this threading behavior also shot us in the foot.
 
-#### The Transformation Methods
+### The Transformation Methods
 
 Looking at the code underneath, our `map` function looked like this:
 
@@ -114,7 +114,7 @@ class HelpViewModel(
 
 So we learned to be extremely cautious about threading when running transformations on `LiveData`. We fixed it afterwards — you can learn how in the next part of this post, coming soon.
 
-#### How this even happened
+### How this even happened
 
 Ideally, this wouldn’t have happened in the first place. The `LiveData` documentation clearly states that observers are called on the main thread, so that would have been a great indicator for the previous developer. But sometimes, time-pressure is high, or you might miss something. It happens to everyone and I’m sure there are many codebases out there that look worse than ours.
 
@@ -152,7 +152,7 @@ In our case, those annotations weren’t used, so Android Studio didn’t have a
 
 Coming back to the methods offered by the `Transformations` package, I believe that it shouldn’t call the transformers on the main thread in any case. Transformations most probably shouldn’t be happening in the UI layer in any case, so running them on the main thread doesn’t make lots of sense.
 
-#### A (quick) attempt at fixing the issue
+### A (quick) attempt at fixing the issue
 
 So we needed a quick fix, because who wants to ship apps with main thread blockages?
 
@@ -176,14 +176,14 @@ fun <T, R> map(source: LiveData<T>, mapper: (T) -> R): LiveData<R> {
 We make sure that we call the `mapper` on a background thread and then set the value from the main thread. This might seem a bit complicated but `LiveData#setValue` has to be called from the main thread. Alternatively, we could use `LiveData#postValue` , but this might lead to unexpected behavior like [values being swallowed](https://developer.android.com/reference/androidx/lifecycle/MutableLiveData#postValue(T)).
 Obviously, this is all not great, but it works as a quick fix to help with some main thread blocks.
 
-#### LiveData and Repositories
+### LiveData and Repositories
 
 Apart from the other points, `LiveData` is tied to the Android Lifecycle. This can be a great thing, especially when communicating between ViewModel and components like Activities or Fragments.
 
 The way `LiveData` is architected, observing it mostly makes sense from the UI layer. Even when using `[LiveData#observeForever](https://developer.android.com/reference/android/arch/lifecycle/LiveData#observeforever)` which isn’t bound to a lifecycle, the observer is called on the main thread, so that every time you would have to make sure you’re on the right thread for what you want to do.
 Repositories should be kept free of framework dependencies, and with that also `LiveData` since it is tied to the lifecycle.
 
-#### Flow to the rescue!
+### Flow to the rescue!
 
 [Coroutines Flow](https://kotlinlang.org/docs/reference/coroutines/flow.html) are an awesome alternative here. `Flow`s offer similar functionality: Builders, cold streams, and useful helpers for e.g. transforming data. Unlike `LiveData`, they are not bound to the lifecycle and offer more control over the execution context, which [Roman Elizarov](undefined) wrote a [great post](https://medium.com/@elizarov/execution-context-of-kotlin-flows-b8c151c9309b) about.
 
