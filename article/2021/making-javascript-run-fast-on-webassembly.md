@@ -258,12 +258,6 @@ If you’re part of a language community for a language like Python, Ruby, Lua, 
 
 First, you need to compile your runtime to WebAssembly, using WASI for system calls, as we did with SpiderMonkey. Then, to get the fast startup time with snapshotting, you can [integrate Wizer into a buildtool](https://github.com/bytecodealliance/wizer#using-wizer-as-a-library) to produce the memory snapshot, as described above.
 
-[](/articles/making-javascript-run-fast-on-webassembly)
-
-[Bylaws](/assets/bylaws.pdf) | [IP Policy](/assets/ip-policy.pdf) | Copyright © 2019-2021 the Bytecode Alliance contributors.
-
-document.getElementById("menu-button").addEventListener("click", function() { document.getElementById("nav-entries").classList.toggle("show"); }); document.querySelector('main').focus({ preventScroll: true });
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
