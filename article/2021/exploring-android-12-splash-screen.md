@@ -1,7 +1,7 @@
 > * 原文地址：[Exploring Android 12: Splash Screen](https://joebirch.co/android/exploring-android-12-splash-screen/)
 > * 原文作者：[Joe Birch](https://joebirch.co/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/.md](https://github.com/xitu/gold-miner/blob/master/article/2021/.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md](https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md)
 > * 译者：
 > * 校对者：
 
