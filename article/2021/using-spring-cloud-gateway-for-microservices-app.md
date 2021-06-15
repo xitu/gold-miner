@@ -141,7 +141,7 @@ server:
 
 正如你所见，我们在遵循谓词条件的请求中的 Response 响应头上有额外添加的 header 参数。
 
-[**Youtube 中的 SpringDeveloper **](https://youtu.be/puIJ1Mn9_LE?t=753)演示了一个非常好且易于理解的示例，其中包含在网关应用程序中添加路由的 Java 风格。
+[**Youtube 中的 SpringDeveloper**](https://youtu.be/puIJ1Mn9_LE?t=753) 演示了一个非常好且易于理解的示例，其中包含在网关应用程序中添加路由的 Java 风格。
 
 总而言之，这是对于什么是 API 网关、为什么以及如何使用 Spring Cloud 网关以获得更好的性能和反应式微服务架构的基本示例。
 
