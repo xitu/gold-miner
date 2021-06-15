@@ -33,7 +33,7 @@ Solid 可以被看成是运行时的框架，但由于它常常用于优化代�
 
 根据 BundlePhobia 计算，React 和 vue 的包大小分别是 39.4kb GZip 和 22.9kb GZip。
 
-![React’s bundle size](https://cdn-images-1.medium.com/max/2724/1*yWAVUnOXKsrwrRzTSb6kzw.png)
+![React 包大小](https://cdn-images-1.medium.com/max/2724/1*yWAVUnOXKsrwrRzTSb6kzw.png)
 
 ![Vue 包大小](https://cdn-images-1.medium.com/max/2684/1*eTVWVuDuNORYhxf1g5bF_w.png)
 
