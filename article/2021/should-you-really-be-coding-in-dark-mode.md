@@ -7,21 +7,21 @@
 
 # Should You Really be Coding in Dark Mode?
 
-![Cover image for Should You Really be Coding in Dark Mode?](https://res.cloudinary.com/practicaldev/image/fetch/s--a0VqOvf_--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4a6t7pmm323uaz9rv1rf.png)
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--a0VqOvf_--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4a6t7pmm323uaz9rv1rf.png)
 
 There are few debates as contentious in the development and UX world as color schemes. Among developers, however, there seems to be a pretty significant skew towards coding in a light on dark mode ([This poll](https://css-tricks.com/poll-results-light-on-dark-is-preferred/) found that ⅔ of surveyed developers prefer to use a dark mode in their code editor).
 
-[![Alt Text](https://res.cloudinary.com/practicaldev/image/fetch/s--UJZ5SGo2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wlt8u1cv5hd8ts4nvj5.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--UJZ5SGo2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wlt8u1cv5hd8ts4nvj5.png)
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--UJZ5SGo2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wlt8u1cv5hd8ts4nvj5.png)
 
 Dark mode advocates cite a number of benefits, including reduced eye strain, better sleep, and reduced power consumption. While many of the arguments for dark mode undoubtedly have merit, there is far from a scientific consensus on many of its benefits.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#a-little-bit-of%C2%A0history)A Little Bit of History
+## A Little Bit of History
 
 While we might think of dark mode as a relatively new trend, it was actually the original color scheme that was used for computers. Most early computers used light text on dark background in order to save power. As computers became more consumer-friendly, however, developers began to use black text on white backgrounds to imitate the black ink on white paper that most people were used to.
 
 More recently, countless devices, websites, and apps have added support for dark mode for both optical and aesthetic reasons. Software developers, who spend most of their work time staring at computer screens, have been some of the most fervent advocates for dark mode.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#1-eye-strain-and-readability)1\. Eye Strain and Readability
+## 1\. Eye Strain and Readability
 
 The first argument for dark mode that's worth taking a look at the claim that dark mode is better for your eyes. While there is no doubt that using light mode in a dark room can be blinding, there also seems to be evidence that our brains are just better at reading and comprehending black text on a white screen.
 
@@ -33,7 +33,7 @@ In other words, for substantial digital tasks where you are attentively reading 
 
 What this means in practice is that your eyes and brain may have to work harder to read and write code if your IDE is in dark mode.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#2-blue-light-and-sleep)2\. Blue Light and Sleep
+## 2\. Blue Light and Sleep
 
 Another commonly cited claim is that using your IDE in dark mode reduces blue light consumption, and therefore can help you sleep. While dark mode definitely does reduce blue light, blue light may not be the primary culprit that actually messes up your sleep schedule.
 
@@ -41,17 +41,17 @@ Another commonly cited claim is that using your IDE in dark mode reduces blue li
 
 If you want to get better sleep, dark mode may in fact help, but the real solution is to not use screens altogether before going to bed.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#3-power-consumption)3\. Power Consumption
+## 3\. Power Consumption
 
 Another argument for using dark mode in your IDE is that it can save you money on your power bill. If you are using an OLED display, which most modern monitors do, then this is definitely true.
 
 It is probably important to note, however, that if you are developing software that is computationally heavy, like rendering 3D graphics or training and using machine learning models, the reduced power consumption from dark mode probably won't make any sort of noticeable dent in your power bill.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#4-accessibility)4\. Accessibility
+## 4\. Accessibility
 
 Regardless of what you personally prefer while you code, you should always add support for both dark and light modes in the software that you build. Many people who have certain color blindness or eye conditions can find one of these themes extremely hard or even impossible to use. Giving your users flexibility is therefore very important.
 
-### [](https://dev.to/codesphere/should-you-really-be-coding-in-dark-mode-4ng8#conclusion)Conclusion
+## Conclusion
 
 In summation, the jury is still out on whether dark mode is actually better for coding. While it might save you a tiny amount of power and, if you are using it at night, marginally help your sleep schedule, these benefits don't seem to be that substantial. In addition, reading dark text on a light background may help you read and write code more efficiently.
 
