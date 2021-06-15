@@ -26,7 +26,7 @@ Web 和移动客户端调用网关而不是单个服务主机。
 
 - **\> Spring Framework 5**
 
-- **\> [**Project Reactor**](https://projectreactor.io/) **
+- **\>** [**Project Reactor**](https://projectreactor.io/)
 
 - **\> Spring Boot 2.0** 
 
