@@ -9,17 +9,7 @@
 
 # What's New In DevTools (Chrome 92)
 
-Published on Wednesday, June 2, 2021 • Updated on Wednesday, June 2, 2021
-
-![JecelynYeen](https://developer-chrome-com.imgix.net/image/BrQidfK9jaQyIHwdw91aVpkPiib2/4HPVWldl8gHYH8npWFHu.jpg?auto=format)
-
-Jecelyn Yeen
-
-Developer advocate working on Chrome DevTools at Google.
-
-Interested in helping improve DevTools? Sign up to participate in [Google User Research here](https://google.qualtrics.com/jfe/form/SV_9YbKj35IGoGsDBj?reserved=1&utm_source=Website%20feature&Q_Language=en&utm_medium=own_web&utm_campaign=Q4&productTag=chrm&campaignDate=November2020&referral_code=UXFm430458).
-
-## CSS grid editor [#](#grid-editor)
+## CSS grid editor 
 
 A highly requested feature. You can now preview and author CSS Grid with the new CSS Grid editor!
 
@@ -29,7 +19,7 @@ When an HTML element on your page has `display: grid` or `display: inline-grid` 
 
 Chromium issue: [1203241](https://crbug.com/1203241)
 
-## Support for `const` redeclarations in the Console [#](#const-redeclaration)
+## Support for `const` redeclarations in the Console 
 
 The Console now supports redeclaration of `const` statement, in addition to the existing [`let` and `class` redeclarations](/blog/new-in-devtools-80/#redeclarations). The inability to redeclare was a common annoyance for web developers who use the Console to experiment with new JavaScript code.
 
@@ -44,7 +34,7 @@ Refer to the example below. `const` redeclaration is supported **across separate
 
 Chromium issue: [1076427](https://crbug.com/1076427)
 
-## Source order viewer [#](#source-order)
+## Source order viewer 
 
 You can now view the order of source elements on screen for better accessibility inspection.
 
@@ -54,7 +44,7 @@ The order of content in an HTML document is important for search engine optimiza
 
 Chromium issue: [1094406](https://crbug.com/1094406)
 
-## New shortcut to view frame details [#](#frame-details)
+## New shortcut to view frame details 
 
 View iframe details by right clicking on the iframe element in the Elements panel, and select **Show frame details**.
 
@@ -66,7 +56,7 @@ This takes you to a view of the iframe's details in the Application panel where 
 
 Chromium issue: [1192084](https://crbug.com/1192084)
 
-## Enhanced CORS debugging support [#](#cors)
+## Enhanced CORS debugging support 
 
 Cross-origin resource sharing (CORS) errors are now surfaced in the Issues tab. There are various reasons causing CORS errors. Click to expand each issue to understand the potential causes and solutions.
 
@@ -74,9 +64,9 @@ Cross-origin resource sharing (CORS) errors are now surfaced in the Issues tab. 
 
 Chromium issue: [1141824](https://crbug.com/1141824)
 
-## Network panel updates [#](#network)
+## Network panel updates 
 
-### Rename XHR label to Fetch/XHR [#](#fetch-xhr)
+### Rename XHR label to Fetch/XHR 
 
 The XHR label is now renamed to **Fetch/XHR**. This change makes it clearer that this filter includes both [`XMLHttpRequest`](https://xhr.spec.whatwg.org/) and [Fetch API](https://fetch.spec.whatwg.org/) network requests.
 
@@ -84,7 +74,7 @@ The XHR label is now renamed to **Fetch/XHR**. This change makes it clearer that
 
 Chromium issue: [1201398](https://crbug.com/1201398)
 
-### Filter Wasm resource type in the Network panel [#](#wasm)
+### Filter Wasm resource type in the Network panel 
 
 You can now click on the new **Wasm** button to filter the Wasm network requests.
 
@@ -92,7 +82,7 @@ You can now click on the new **Wasm** button to filter the Wasm network requests
 
 Chromium issue: [1103638](https://crbug.com/1103638)
 
-### User-Agent Client Hints for devices in the Network conditions tab [#](#sec-ua-ch)
+### User-Agent Client Hints for devices in the Network conditions tab 
 
 [User-Agent Client Hints](https://web.dev/user-agent-client-hints) are now applied for devices in the **User agent** field under **Network conditions** tab.
 
@@ -102,7 +92,7 @@ User-Agent Client Hints are a new expansion to the Client Hints API, that enable
 
 Chromium issue: [1174299](https://crbug.com/1174299)
 
-## Report Quirks mode issues in the Issues tab [#](#quirks-mode)
+## Report Quirks mode issues in the Issues tab 
 
 DevTools now reports [Quirks Mode](https://quirks.spec.whatwg.org/) and [Limited-quirks Mode](https://dom.spec.whatwg.org/#concept-document-limited-quirks) issues.
 
@@ -114,7 +104,7 @@ When debugging layout issues, developers might think they are caused by user-aut
 
 Chromium issue: [622660](https://crbug.com/622660)
 
-## Include Compute Intersections in the Performance panel [#](#computed-intersections)
+## Include Compute Intersections in the Performance panel 
 
 DevTools now show the **Compute Intersections** in the flame chart. These changes help you to identify the [intersection observers](https://web.dev/intersectionobserver-v2/) events and debug on its potential performance overheads.
 
@@ -122,7 +112,7 @@ DevTools now show the **Compute Intersections** in the flame chart. These change
 
 Chromium issue: [1199137](https://crbug.com/1199137)
 
-## Lighthouse 7.5 in the Lighthouse panel [#](#lighthouse)
+## Lighthouse 7.5 in the Lighthouse panel 
 
 The Lighthouse panel is now running Lighthouse 7.5. The "missing explicit width and height" warning is now removed for images with `aspect-ratio` defined in CSS. Previously, Lighthouse showed warnings for images without width and height defined.
 
@@ -130,7 +120,7 @@ Check out the [release notes](https://github.com/GoogleChrome/lighthouse/release
 
 Chromium issue: [772558](https://crbug.com/772558)
 
-## Deprecated "Restart frame" context menu in the call stack [#](#restart-frame)
+## Deprecated "Restart frame" context menu in the call stack 
 
 The **Restart frame** option is now deprecated. This feature requires further development to work well, it is currently broken and often crashes.
 
@@ -138,7 +128,7 @@ The **Restart frame** option is now deprecated. This feature requires further de
 
 Chromium issue: [1203606](https://crbug.com/1203606)
 
-## \[Experimental\] Protocol monitor [#](#protocol-monitor)
+## \[Experimental\] Protocol monitor 
 
 To enable the experiment, check the **Protocol Monitor** checkbox under **Settings** \> **Experiments**.
 
@@ -152,7 +142,7 @@ The new **Save** button allows you to download the recorded messages as a JSON f
 
 Chromium issues: [1204004](https://crbug.com/1204004), [1204466](https://crbug.com/1204466)
 
-## \[Experimental\] Puppeteer Recorder [#](#puppeteer-recorder)
+## \[Experimental\] Puppeteer Recorder 
 
 To enable the experiment, check the **Recorder** checkbox under **Settings** \> **Experiments**.
 
