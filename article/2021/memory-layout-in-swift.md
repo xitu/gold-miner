@@ -1,5 +1,5 @@
 > * 原文地址：[Memory layout in Swift](https://theswiftdev.com/memory-layout-in-swift/)
-> * 原文作者：[]()
+> * 原文作者：[Tibor Bödecs](https://theswiftdev.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/memory-layout-in-swift.md](https://github.com/xitu/gold-miner/blob/master/article/2021/memory-layout-in-swift.md)
 > * 译者：
