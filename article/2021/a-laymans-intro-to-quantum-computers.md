@@ -7,10 +7,6 @@
 
 # A Layman’s Intro to Quantum Computers
 
-## A Layman’s Introduction to Quantum Computers
-
-#### Get started with quantum computing—no Ph.D. required
-
 ![Photo by [Zoltan Tasi](https://unsplash.com/@zoltantasi?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9792/0*FPUtmaqNJ12IcZx8)
 
 Quantum computers have the potential to revolutionize information technology. Many analysts view current quantum computers as on par with the room-sized computers of the 1940s. Over the coming decades, they may advance at the same exponential rate as classical computers have done. Unfortunately, literature on quantum computing is often written **by** people with physics degrees **for** people with physics degrees. Here, I will explain quantum computing in layman’s terms: how it works, how it differs from classical computing, and why it will be revolutionary for your business.
@@ -65,7 +61,7 @@ On the right, it shows two entangled qubits. In thiscase, knowing the value of o
 
 Recall that a qubit, when observed, results in a random outcome. You would intuitively think that the qubit was oscillating between the two states, like a coin flipping heads and tails in the air until it lands where a final result can be observed. Yet, in reality, a qubit is both a `0` and `1` at the same time. This is because the particle that stores the qubit information can have different levels of energy or be in different locations at the same time. When the quantum particle interacts with something else, such as a tool that measures its energy or position, it randomly “collapses” to one of those multiple states.
 
-#### Suspend your disbelief
+### Suspend your disbelief
 
 I need to interrupt this description of superposition and address the main stumbling point for most people: disbelief or confusion. Your current thought is probably, “How can something be in two places at once? That’s impossible!”
 
