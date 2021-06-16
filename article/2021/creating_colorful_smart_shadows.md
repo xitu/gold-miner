@@ -7,7 +7,7 @@
 
 # Creating Colorful, Smart Shadows
 
-I was walking through Home Depot (aka the [Toys "R" Us](https://en.wikipedia.org/wiki/Toys_) for big kids!) the other day, and they had a massive display to showcase all the smart lightbulbs they had for sale. One of the display items was for a series of bulbs behind a TV that would project ****i********n the background**** an approximation of the colors being shown on the screen ****in the foreground****. It was [something similar](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221) to the following:
+I was walking through Home Depot (aka the [Toys "R" Us](https://en.wikipedia.org/wiki/Toys_) for big kids!) the other day, and they had a massive display to showcase all the smart lightbulbs they had for sale. One of the display items was for a series of bulbs behind a TV that would project **in the background** an approximation of the colors being shown on the screen **in the foreground**. It was [something similar](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221) to the following:
 
 ![](https://www.kirupa.com/html5/images/lighting_behind_tv.png)
 
@@ -21,7 +21,7 @@ Onwards!
 
 As you will see in the following sections, creating this colorful shadow using CSS may seem like a daunting task at first. As we start getting into it and breaking this nugget of a task into smaller pieces, you'll see that it is all quite digestible. In the next few sections, what we are going to create is the following example:
 
-.parent { display: grid; align-items: center; justify-items: center; } .sushi { margin: 100px; width: 150px; height: 150px; background-image: url("https://www.kirupa.com/icon/1f363.svg"); background-repeat: no-repeat; background-size: contain; } .colorfulShadow { position: relative; } .colorfulShadow::after { content: ""; width: 100%; height: 100%; position: absolute; background: inherit; background-position: center center; filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px); z-index: -1; /* optional */ animation: oscillate 1s cubic-bezier(.17, .67, .45, 1.32) infinite alternate; } @keyframes oscillate { from { transform: scale(1, 1); } to { transform: scale(1.3, 1.3); } }
+![](https://user-images.githubusercontent.com/5164225/122199432-9bf35d80-cecc-11eb-9150-28c7b09c595e.gif)
 
 What you should see is a picture of sushi with a colorful shadow appearing behind. Just to highlight that we are doing this all live, the shadow is animated with a pulsing effect. With the working example out of the way, let’s dive into the implementation and look at how HTML and CSS make this all come alive.
 
@@ -151,7 +151,7 @@ If you want some interactivity without having a constantly looping animation, yo
 
 Pseudo elements allow us to use CSS to accomplish some of the element creation tasks that historically have been within HTML's and JavaScript's domain. For our colorful and smart drop shadow, we relied on the parent element to have a background image set. This allowed us to easily define a child pseudoelement that both inherited the parent's background image details but also allowed us to set a bunch of properties on it for the blur and drop shadow effect. While all of this is good and we minimized a lot of copying & pasting, this approach isn't very flexible.
 
-What if I want to apply a shadow like this to an element that isn't just empty with a background image? What if I have an HTML element like a ****button**** or ****combobox**** that I want to have this drop shadow effect applied to? One solution is to rely on JavaScript to duplicate the appropriate elements in the DOM, position them below the foreground elements, apply the filters, and call it a day. While this works, I always shudder a bit at duplicating DOM elements given how heavy weight the process is. Too bad JavaScript doesn't have the equivalent of [renderTargetBitmap](https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.imaging.rendertargetbitmap?view=net-5.0) where any visual you provide is easily turned into a bitmap that you can then do whatever you want with! 🥶
+What if I want to apply a shadow like this to an element that isn't just empty with a background image? What if I have an HTML element like a **button** or **combobox** that I want to have this drop shadow effect applied to? One solution is to rely on JavaScript to duplicate the appropriate elements in the DOM, position them below the foreground elements, apply the filters, and call it a day. While this works, I always shudder a bit at duplicating DOM elements given how heavy weight the process is. Too bad JavaScript doesn't have the equivalent of [renderTargetBitmap](https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.imaging.rendertargetbitmap?view=net-5.0) where any visual you provide is easily turned into a bitmap that you can then do whatever you want with! 🥶
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
