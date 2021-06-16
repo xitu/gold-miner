@@ -67,13 +67,13 @@
 
 * **动画矢量可绘制** – 用于显示动画图形代替默认应用程序图标
 
-This enables you to replace the default icon (your application icon) that is being displayed in the splash screen with an asset of your choice. If using an animated asset then it’s important to be sure that this does not extend the lifetime of the splash screen (1,000 milliseconds). While the approach here will depend on the kind of animation you are using, there are some general guidelines that come to mind here:
+这使您能够用您选择的资产替换初始屏幕中显示的默认图标（您的应用程序图标）。如果使用动画资源，那么确保这不会延长启动画面的生命周期（1,000 毫秒）很重要。虽然这里的方法取决于你使用的动画类型，但这里有一些通用的指导方针：
 
-* If using an animation that animates a single time from a start to end state, ensure that the animations ends shortly before the 1,000 millisecond time limit.
+* 如果使用从开始状态到结束状态进行一次动画处理的动画，请确保动画在 1,000 毫秒时间限制前不久结束。
 
-* If using an infinitely looping animation, be sure that the animation does not appear to be cut-off once the 1,000 millisecond time limit is hit. For example, an infinitely spinning item being cut-off at the time limit will not appear “janky”, but cutting off the morphing between two shapes could make the transition between the splash screen and your app feel not so smooth.
+* 如果使用无限循环动画，请确保一旦达到 1,000 毫秒的时间限制，动画不会出现中断。例如，无限旋转的 item 在时间限制时被切断不会出现 “janky”，但切断两个形状之间的变形可能会使启动画面和您的应用程序之间的过渡感觉不那么平滑。
 
-Once we have an asset that we wish to use for the icon of our splash screen, we can apply it:
+一旦我们有了希望用于初始屏幕图标的资产，我们就可以应用它：
 
 ```xml
 <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
@@ -81,11 +81,11 @@ Once we have an asset that we wish to use for the icon of our splash screen, we 
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/icon-485x1024.png)
 
-As displayed above, our icon asset will displayed in the center of the splash screen. Using this will completely remove any of the default properties and styling from what was previously being shown in our splash screen.
+如上所示，我们的图标资产将显示在启动画面的中心。使用它会从之前在我们的启动画面中显示的内容中完全删除任何默认属性和样式。
 
-## Setting the Icon Background Color
+## 设置图标背景颜色
 
-As we saw above, providing a custom icon allows us to change the default icon that is displayed within our splash screen. However, we can also see above that this might not always render in the best results. The icon I used there does not have a background layer, so it’s a bit tricky to see the icon against the background color being used for the splash screen. While we can customise the background color of the splash screen, we might not want to or be in a position to change this here. In these cases we can utilise the **android:windowSplashScreenIconBackgroundColor** attribute to provide a color to be used for the background of our icon.
+正如我们在上面看到的，提供自定义图标允许我们更改初始屏幕中显示的默认图标。但是，我们也可以在上面看到，这可能并不总是呈现最佳结果。我在那里使用的图标没有背景层，因此在用于初始屏幕的背景颜色上看到图标有点棘手。虽然我们可以自定义启动画面的背景颜色，但我们可能不想或无法在此处更改此设置。在这些情况下，我们可以利用 **android:windowSplashScreenIconBackgroundColor** 属性来提供用于图标背景的颜色。
 
 ```xml
 <item name="android:windowSplashScreenIconBackgroundColor">@color/black</item>
@@ -93,11 +93,11 @@ As we saw above, providing a custom icon allows us to change the default icon th
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/icon_background-485x1024.png)
 
-When this is applied, we’ll see a shaped background applied to our icon, using the color that we defined in the attribute above. It’s been difficult to test this, but in the case of my device this matches the app icon shape that I have set in my system settings. Currently this is not something that you can override for the splash screen. If you need customisation here, the best approach would be to create a drawable that already has a background layer as a part of the asset.
+应用此选项后，我们将看到一个形状背景应用于我们的图标，使用我们在上面的属性中定义的颜色。很难对此进行测试，但就我的设备而言，这与我在系统设置中设置的应用程序图标形状相匹配。目前，这不是您可以为初始屏幕覆盖的内容。如果您需要在此处进行自定义，最好的方法是创建一个已将背景图层作为资产一部分的可绘制对象。
 
-## Setting a Branding Image
+## 设置品牌形象
 
-The branding image is an **optional** static asset which can be used to display an image at the base of the Splash Screen. This branding image will be displayed for the entire time that the splash screen is presented on screen.
+品牌形象是一个**可选的**静态资产，可用于在启动画面的底部显示图像。该品牌形象将在启动画面出现在屏幕上的整个时间内显示。
 
 ```xml
 <item name="android:windowSplashScreenBrandingImage">@drawable/logo_text</item>
@@ -105,11 +105,11 @@ The branding image is an **optional** static asset which can be used to display 
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/brand-561x1024.png)
 
-While the design guidelines state that it is not recommended not to use a branding image within the Splash Screen, this functionality has been provided should you need to present this visual component. Personally I think this adds a nice touch to the splash screen, but realistically in most cases the splash screen will not be displayed long enough for the user to take in all of the content within the screen. If you are not doing any customisation to override the exit time of the splash screen, the splash screen is going to be displayed for about **1 second**. When the splash screen is launched, the user is naturally going to be drawn to the icon that is displayed in the center of the screen – any additional content on the screen is likely going to overwhelm the user and in most cases, probably not going to be seen. With that said, it’s important to think about whether your app really needs to utilise this branding asset within its splash screen.
+虽然设计指南指出不建议在启动画面中使用品牌图像，但如果您需要展示此视觉组件，则已提供此功能。就我个人而言，我认为这为启动画面增加了一个很好的触感，但实际上在大多数情况下，启动画面不会显示足够长的时间让用户接收屏幕内的所有内容。如果您没有进行任何自定义以覆盖闪屏的退出时间，则闪屏将显示大约 **1 秒**。当启动画面启动时，用户自然会被显示在屏幕中央的图标所吸引——屏幕上的任何额外内容都可能会让用户不知所措，而且在大多数情况下，可能不会可见。话虽如此，重要的是要考虑您的应用程序是否真的需要在其启动画面中利用此品牌资产。
 
-## Customising the Splash Screen time
+## 自定义启动画面时间
 
-By default, the Splash Screen will display for ~**1,000 milliseconds** – until the first frame of our application is drawn. However, a lot of applications use their splash screen to initialise default application data or perform asynchronous tasks to configure the app. In these cases, we can prevent the first frame of our app being drawn so that our splash screen remains in view. We can achieve this by using the **ViewTreeObserver** **OnPreDrawListener** – returning false until we are ready to proceed past the splash screen. Returning false here will prevent our
+默认情况下，启动画面将显示约 **1,000 毫秒**- 直到绘制我们应用程序的第一帧。但是，许多应用程序使用它们的启动画面来初始化默认应用程序数据或执行异步任务来配置应用程序。在这些情况下，我们可以阻止绘制应用程序的第一帧，以便我们的启动画面保持在视图中。我们可以通过使用 **ViewTreeObserver OnPreDrawListener** 来实现这一点——在我们准备好通过启动画面之前返回 false。在这里返回 false 将阻止我们
 
 ```kotlin
 val content: View = findViewById(android.R.id.content)
@@ -127,11 +127,11 @@ content.viewTreeObserver.addOnPreDrawListener(
 )
 ```
 
-## Accessing the Splash Screen
+## 访问启动画面
 
-The Activity class has a new getSplashScreen function that can be used to access the splash screen for your activity. As mentioned previously, the splash screen will only be shown for the launcher activity of your application – so accessing this elsewhere does not have any effect.
+Activity 类有一个新的 getSplashScreen 函数，可用于访问活动的初始屏幕。如前所述，启动画面只会为您的应用程序的启动器活动显示 - 因此在其他地方访问它不会产生任何影响。
 
-You can view a full example of this in the [official documentation](https://developer.android.com/about/versions/12/features/splash-screen#customize-animation), but currently the splashScreen only provides programatic access for applying a listener to the exist animation of the splash screen. This means you can listen for when the splash screen is animating to the content of your app, allowing you to customise this transition.
+您可以在 [官方文档](https://developer.android.com/about/versions/12/features/splash-screen#customize-animation) 中查看完整示例，但目前 splashScreen 仅提供用于将侦听器应用于初始屏幕的现有动画的编程访问。这意味着您可以监听启动画面何时为您的应用程序内容设置动画，从而允许您自定义此过渡。
 
 ```kotlin
 splashScreen.setOnExitAnimationListener { splashScreenView ->
@@ -139,11 +139,11 @@ splashScreen.setOnExitAnimationListener { splashScreenView ->
 }
 ```
 
-## Wrapping Up
+## 总结
 
-After learning about the Splash Screen APIs, I can now ensure that the [Compose Academy](https://compose.academy/) app will be handling things properly. In most cases you may not even need to change anything, with your users enjoying a smooth launch flow of your app out-of-the-box.
+在了解了启动画面 API 之后，我现在可以确保 [Compose Academy](https://compose.academy/) 应用程序能够正确处理事情。在大多数情况下，您甚至可能不需要更改任何内容，您的用户可以享受开箱即用的流畅启动流程。
 
-In future there may be further additions to what applications can customise for the splash screen – having these APIs now means that there is a platform for opening up these things to developers. However, it’s impossible to create a one-size-fits-all implementation and I feel like Google will still want to enforce some kind of standard for splash screens (and not give developers free rein). Regardless, I’m looking forward to seeing how developers utilise these new APIs 😃
+未来可能会有更多应用程序可以为启动画面自定义——现在拥有这些 API 意味着有一个平台可以向开发人员开放这些东西。然而，创建一个通用的实现是不可能的，我觉得谷歌仍然希望为启动画面强制执行某种标准（而不是让开发人员自由发挥）。无论如何，我很期待看到开发人员会如何应用这些新的 API 😃
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
