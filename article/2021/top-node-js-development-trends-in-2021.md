@@ -68,13 +68,10 @@ Almost every big company like **AOL, Netflix, and Telenor takes advantage of ser
 
 **These advantages are as follows:**
 
-• Enhancement in quality of code
-
-• Lessening in project cost
-
-• Saves plenty of time
-
-• Increase in efficiency
+- Enhancement in quality of code
+- Lessening in project cost
+- Saves plenty of time
+- Increase in efficiency
 
 It is amongst the most incredible node.JS development trends that the world will witness in the upcoming days.
 
