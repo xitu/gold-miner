@@ -1,17 +1,17 @@
-> * 原文地址：[Svelte for the Experienced React Dev](https://css-tricks.com/svelte-for-the-experienced-react-dev/)
+> * 原文地址：[Svelte for the Experienced React Dev](https://css-tricks.com/svelte-for-the-experienced-react-dev/)
 > * 原文作者：[Adam Rackis](https://css-tricks.com/author/adam-rackis/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md](https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md)
 > * 译者：
 > * 校对者：
 
-# Svelte for the Experienced React Dev
+# Svelte for the Experienced React Dev
 
 This post is an accelerated introduction to Svelte from the point of view of someone with solid experience with React. I’ll provide a quick introduction, and then shift focus to things like state management and DOM interoperability, among other things. I plan on moving somewhat quickly, so I can cover a lot of topics. At the end of the day, I’m mainly hoping to spark some interest in Svelte.
 
 For a straightforward introduction to Svelte, no blog post could ever beat the official [tutorial](https://svelte.dev/tutorial/basics) or [docs](https://svelte.dev/docs).
 
-### [](#hello-world-svelte-style)“Hello, World!” Svelte style
+### “Hello, World!” Svelte style
 
 Let’s start with a quick tour of what a Svelte component looks like.
 
@@ -52,7 +52,7 @@ Svelte, on the other hand, analyzes your template, and creates targeted DOM upda
 
 But first, let’s talk about …
 
-### [](#state-management)State management
+### State management
 
 In React, when we need to manage state, we use the `useState` hook. We provide it an initial value, and it returns a tuple with the current value, and a function we can use to set a new value. It looks something like this:
 
@@ -103,9 +103,9 @@ But what if we want to pass an updater function to a child component so it can u
 <button on:click={() => setNumber(val => val - 1)}>Decrement</button>
 ```
 
-Now, we pass it where needed — or stay tuned for a more automated solution.
+Now, we pass it where needed — or stay tuned for a more automated solution.
 
-#### [](#reducers-and-stores)Reducers and stores
+#### Reducers and stores
 
 React also has the `useReducer` hook, which allows us to model more complex state. We provide a reducer function, and it gives us the current value, and a dispatch function that allows us to invoke the reducer with a given argument, thereby triggering a state update, to whatever the reducer returns. Our counter example from above might look like this:
 
@@ -166,7 +166,7 @@ Notice that I also added a derived store above. [The docs](https://svelte.dev/do
 
 Stores in Svelte are incredibly flexible. We can pass them to child components, alter, combine them, or even make them read-only by passing through a derived store; we can even re-create some of the React abstractions you might like, or even need, if we’re converting some React code over to Svelte.
 
-#### [](#react-apis-with-svelte)React APIs with Svelte
+#### React APIs with Svelte
 
 With all that out of the way, let’s return to React’s `useReducer` hook from before.
 
@@ -206,7 +206,7 @@ The usage in Svelte is almost identical to React. The only difference is that ou
 <button on:click={() => dispatch("DEC")}>Decrement</button>
 ```
 
-#### [](#what-about-usestate)What about `useState`?
+#### What about `useState`?
 
 If you really love the `useState` hook in React, implementing that is just as straightforward. In practice, I haven’t found this to be a useful abstraction, but it’s a fun exercise that really shows Svelte’s flexibility.
 
@@ -223,7 +223,7 @@ export function useState(initialState) {
 }
 ```
 
-#### [](#are-two-way-bindings-really-evil)Are two-way bindings **really** evil?
+#### Are two-way bindings **really** evil?
 
 Before closing out this state management section, I’d like to touch on one final trick that’s specific to Svelte. We’ve seen that Svelte allows us to pass updater functions down the component tree in any way that we can with React. This is frequently to allow child components to notify their parents of state changes. We’ve all done it a million times. A child component changes state somehow, and then calls a function passed to it from a parent, so the parent can be made aware of that state change.
 
@@ -260,7 +260,7 @@ Here, we’re **binding** a variable in the parent component, to the child’s `
 
 Two-way binding is controversial for some. If you hate this then, by all means, feel free to never use it. But used sparingly, I’ve found it to be an incredibly handy tool to reduce boilerplate.
 
-### [](#side-effects-in-svelte-without-the-tears-or-stale-closures)Side effects in Svelte, without the tears (or stale closures)
+### Side effects in Svelte, without the tears (or stale closures)
 
 In React, we manage side effects with the `useEffect` hook. It looks like this:
 
@@ -297,7 +297,7 @@ No, this won’t lead to an infinite loop: re-assignments from within a reactive
 
 While this works, typically these cleanup effects need to run when your component unmounts, and Svelte has a feature built in for this: it has an [`onMount`](https://svelte.dev/docs#onMount) function, which allows us to return a cleanup function that runs when the component is destroyed, and more directly, it also has an [`onDestroy`](https://svelte.dev/docs#onDestroy) function that does what you’d expect.
 
-#### [](#spicing-things-up-with-actions)Spicing things up with actions
+#### Spicing things up with actions
 
 The above all works well enough, but Svelte really shines with actions. Side effects are frequently tied to our DOM nodes. We might want to integrate an old (but still great) jQuery plugin on a DOM node, and tear it down when that node leaves the DOM. Or maybe we want to set up a `ResizeObserver` for a node, and tear it down when the node leaves the DOM, and so on. This is a common enough requirement that Svelte builds it in with [actions](https://svelte.dev/docs#use_action). Let’s see how.
 
@@ -333,7 +333,7 @@ function myAction(node) {
 
 Now the `destroy()` callback will run when the node leaves the DOM. This is where we tear down our jQuery plugins, etc.
 
-#### [](#but-wait-theres-more)But wait, there’s more!
+#### But wait, there’s more!
 
 We can even pass arguments to an action, like this:
 
@@ -386,7 +386,7 @@ When the argument to our action changes, the update function will run. To pass m
 
 Actions are one of my favorite features of Svelte; they’re incredibly powerful.
 
-### [](#odds-and-ends)Odds and Ends
+### Odds and Ends
 
 Svelte also ships a number of great features that have no counterpart in React. There’s a number of form bindings (which [the tutorial covers](https://svelte.dev/tutorial/text-inputs)), as well as CSS [helpers](https://svelte.dev/docs#class_name).
 
@@ -405,7 +405,7 @@ Lastly, one of my favorite, almost hidden features of Svelte is that it can comp
 }
 ```
 
-### [](#interested-in-giving-svelte-a-try)Interested in giving Svelte a try?
+### Interested in giving Svelte a try?
 
 Any of these items would make a great blog post in and of itself. While we may have only scratched the surface of things like state management and actions, we saw how Svelte’s features not only match up pretty with React, but can even mimic many of React’s APIs. And that’s before we briefly touched on Svelte’s conveniences, like built-in animations (or transitions) and the ability to convert Svelte components into bona fide web components.
 
