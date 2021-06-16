@@ -396,7 +396,7 @@ Svelte’s answer to `React.Chidren` are slots, which can be named or not, and a
 
 Lastly, one of my favorite, almost hidden features of Svelte is that it can compile its components into actual web components. The [`svelte:options`](https://svelte.dev/docs#svelte_options) helper has a `tagName` property that enables this. But be sure to set the corresponding property in the webpack or Rollup config. With webpack, it would look something like this:
 
-```json
+```js
 {
   loader: "svelte-loader",
   options: {
