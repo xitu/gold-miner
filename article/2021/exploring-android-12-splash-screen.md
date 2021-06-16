@@ -57,15 +57,15 @@
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/Screenshot_20210527_061650-485x1024.png)
 
-> I’m not entirely sure what color is being used for this background color yet, I will update this post once I have clarity here!
+> 我还不完全确定此背景颜色使用的是什么颜色，一旦我在这里清楚了，我会更新这篇文章！
 
-## Setting the Splash Icon
+## 设置启动图标
 
-In some cases, you might not want to use your application icon for the icon displayed in the splash screen. If you want to display something else in place of this then you can use the **android:windowSplashScreenAnimedIcon** attribute to do so. I find this name a bit misleading as this icon can actually be a reference to one of two things:
+在某些情况下，您可能不想将应用程序图标用于初始屏幕中显示的图标。如果您想显示其他内容来代替此内容，则可以使用 **android:windowSplashScreenAnimedIcon** 属性来执行此操作。我觉得这个名字有点误导，因为这个图标实际上可以是对两件事之一的引用：
 
-* **A static vector drawable reference** – used to display a static asset in place of the default application icon
+* **静态矢量可绘制参考** – 用于显示静态资产代替默认应用程序图标
 
-* **An animated vector drawable** – used to display an animated graphic in place of the default application icon
+* **动画矢量可绘制** – 用于显示动画图形代替默认应用程序图标
 
 This enables you to replace the default icon (your application icon) that is being displayed in the splash screen with an asset of your choice. If using an animated asset then it’s important to be sure that this does not extend the lifetime of the splash screen (1,000 milliseconds). While the approach here will depend on the kind of animation you are using, there are some general guidelines that come to mind here:
 
