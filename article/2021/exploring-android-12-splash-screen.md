@@ -2,54 +2,54 @@
 > * 原文作者：[Joe Birch](https://joebirch.co/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md](https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md)
-> * 译者：
+> * 译者：[Kimhooo](https://github.com/Kimhooo)
 > * 校对者：
 
-# Exploring Android 12: Splash Screen
+# 探索 ANDROID 12：启动画面
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/header-1-1024x538.png)
 
-With the Android 12 beta now available, we’re starting to learn more about the new features that the latest version of Android gives to us. One of the things that caught my eye here is the introduction of a Splash Screen API – not only providing a standardised way for apps to present splash screens within their apps, but also improve the user experience when it comes to launching apps. I’m in the process of getting the [Compose Academy](https://compose.academy/) app ready for launch, whilst also ensuring things are working properly against the Android 12 APIs – so this was a great chance to learn about the the Splash Screen APIs.
+随着 Android 12 测试版现已推出，我们开始详细了解最新版 Android 为我们提供的新功能。在这里引起我注意的一件事是 Splash Screen API 的引入 —— 不仅为应用程序在其应用程序中呈现启动画面提供了一种标准化的方式，而且还改善了启动应用程序时的用户体验。我正在准备发布 [Compose Academy](https://compose.academy/) 应用程序，同时确保一切针对 Android 12 API 正常运行 - 所以这是了解启动画面相关 API 的绝佳机会。
 
-You may be thinking, I see many splash screens for apps that look great! While that is true, a lot of the time this requires developers to create their own Splash Screen classes. These sometimes only serve the purpose of displaying some form of branding on screen, or even handle more complex scenarios such as performing app initialisation and fetching data before the user is taken into the app. There are also the cases to take into account where apps do not even setup some form of splash screen – because the user may be coming from a cold or warm start when launching an app, this doesn’t always result in a smooth experience. For examples sake, let’s look at what an app will currently look like if you do not setup some kind of splash screen.
+您可能会想，我看到许多看起来很棒的应用程序的启动画面！虽然这是真的，但很多时候这需要开发人员创建自己的启动画面类。这些有时仅用于在屏幕上显示某种形式的品牌，甚至处理更复杂的场景，例如在用户进入应用程序之前执行应用程序初始化和获取数据。还有一些情况需要考虑，应用程序甚至没有设置某种形式的启动画面——因为用户在启动应用程序时可能是从冷启动或热启动，这并不总是能带来流畅的体验。例如，让我们看看如果您不设置某种启动画面，应用程序当前的样子。
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/ezgif-3-8750c93b9fd1.gif)
 
-Personally, this feels a little janky! I get shown a blank screen which doesn’t display any kind of branding while I wait for my app to launch – this isn’t the best experience when it comes to taking the user into our app.
+就个人而言，这感觉有点笨拙！当我等待我的应用程序启动时，我看到一个空白屏幕，它不显示任何类型的品牌 - 这不是将用户带入我们的应用程序的最佳体验。
 
-What a lot of apps started doing here was utilising the **android:windowBackground** attribute inside of a theme, allowing you to essentially set the content that was going to be shown in this blank space while the app loaded. Now, this isn’t exactly official support for “splash screen” content, but is more of a way to avoid that blank space from being shown on screen.
+许多应用程序在这里开始做的是利用主题内的 **android:windowBackground** 属性，允许您基本上设置在应用程序加载时将在此空白空间中显示的内容。现在，这并不是对“闪屏”内容的完全官方支持，而是一种避免在屏幕上显示空白区域的方法。
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/ezgif-3-ec15080396ca.gif)
 
-Now while this doesn’t provide a smooth transition into our app, this definitely looks better than before! The only thing to note here is that because this is just applying some theming to the background of the window, the launch time is going to remain the same – so if we were doing some kind of application setup, we would still need to add some additional changes to have support for these requirements.
+现在，虽然这并不能顺利过渡到我们的应用程序，但这绝对比以前看起来更好！这里唯一需要注意的是，因为这只是将一些主题应用到窗口的背景，启动时间将保持不变 —— 所以如果我们正在做某种应用程序设置，我们仍然需要添加一些其他更改以支持这些要求。
 
-In API level 26, we saw the introduction of the **android:windowSplashScreenContent** attribute. This can be used to show some content as a splash screen while your app is being launched. While this again doesn’t handle the scenario where we might need to handle initilization of our app during this time, it provided a smoother splash screen display and entrance into our app.
+在 API 级别 26 中，我们看到了 **android:windowSplashScreenContent** 属性的引入。这可用于在您的应用程序启动时将某些内容显示为启动画面。虽然这再次无法处理在此期间我们可能需要处理应用程序初始化的场景，但它提供了更流畅的启动画面显示和进入我们的应用程序的入口。
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/ezgif-3-f08bf585309b.gif)
 
-Now come Android 12, we have the new Splash Screen APIs. Without using any of the further customisation that these APIs provide, we can see that we still have a very similar smooth experience that we saw from the attribute added in API 26 except this time out-of-the-box:
+现在来到 Android 12，我们有了新的启动画面 API。在不使用这些 API 提供的任何进一步自定义的情况下，我们可以看到，除了这次开箱即用之外，我们仍然拥有与 API 26 中添加的属性非常相似的流畅体验：
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/ezgif-3-21fac4a28a5e.gif)
 
-While this doesn’t look too different from the attribute we saw introduced in API 26, in the Android 12 we get access to more attributes that allow for further customisation of our Splash screen. These attributes allow us to customise our splash screen in ways that was not previously achievable without providing a custom splash screen activity.
+虽然这看起来与我们在 API 26 中看到的属性没有太大区别，但在 Android 12 中，我们可以访问更多属性，允许进一步自定义我们的启动画面。这些属性允许我们以以前在不提供自定义启动屏幕活动的情况下无法实现的方式自定义启动屏幕。
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/Group-1-1024x733.png)
 
-Over the following sections, let’s take a look at how we can utilise these to provide a customised experience for the launch of our app.
+在接下来的部分中，让我们看看我们如何利用这些来为我们的应用程序的发布提供定制的体验。
 
-## Displaying a Splash Screen
+## 显示启动画面
 
-While in previous API versions we needed to provide some form of resource as a theme attribute to be used for the content of our window or splash screen content, this is **no longer a requirement** when it comes to Android 12. So it’s important to know that your launcher activity will display this new Splash Screen **by default** – so if you are currently presenting a custom splash screen in your application, you will need to adapt to these changes coming in Android 12.
+虽然在以前的 API 版本中，我们需要提供某种形式的资源作为主题属性以用于我们的窗口内容或启动画面内容，但在 Android 12 中 **不再需要**。因此，了解这一点很重要。**默认情况**下，您的启动器 Activity 将显示这个新的启动画面 - 因此，如果您当前在应用程序中显示自定义启动画面，则需要适应 Android 12 中的这些更改。
 
-While the Splash Screen APIs offer a collection of attributes which can be used to fine tune your Splash Screen appearance, if you do not provide values for these then default values and resources from your application will be used. For examples sake, here is the default splash screen displayed when launching my app on a device running Android 12:
+虽然启动画面 API 提供了一组可用于微调启动画面外观的属性，但如果您不为这些属性提供值，则将使用应用程序中的默认值和资源。例如，以下是在运行 Android 12 的设备上启动我的应用时显示的默认启动画面：
 
 ![](https://joebirch.co/wp-content/uploads/2021/05/Screenshot_20210527_061703-485x1024.png)
 
-We can see a couple of things here when it comes to the display of the splash screen – the icon for my application is displayed on top of a background color. In my application I am using an adaptive icon and it appears as though the Splash Screen is directly using that adaptive-icon xml reference to display the icon within the screen. I know this because when I changed the color of the background layer for my launch icon, this was reflected in my splash screen.
+当涉及到启动画面的显示时，我们可以在这里看到一些事情 —— 我的应用程序的图标显示在背景颜色的顶部。在我的应用程序中，我使用了一个自适应图标，看起来好像初始屏幕直接使用该自适应图标 xml 引用来在屏幕内显示图标。我知道这一点是因为当我更改启动图标的背景层颜色时，这反映在我的启动画面中。
 
-## Setting the Background Color
+## 设置背景颜色
 
-As we can see above, the Splash Screen will use a default background color*. In some cases we may want to override this – maybe it needs to match branding colors, or maybe the app icon doesn’t look quite right when displayed on top of the default background color. In either scenario you can utilise the **windowSplashScreenBackground** attribute to override this default color.
+正如我们在上面看到的，启动画面将使用默认的背景颜色*。在某些情况下，我们可能想要覆盖它——也许它需要匹配品牌颜色，或者当应用程序图标显示在默认背景颜色之上时，它看起来不太正确。在任何一种情况下，您都可以利用 **windowSplashScreenBackground** 属性来覆盖此默认颜色。
 
 ```xml
 <item name="android:windowSplashScreenBackground">#000000</item>
