@@ -2,53 +2,57 @@
 > * 原文作者：[Jory Burson](https://medium.com/@jorydotcom)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Revised-Patterns-for-Participation-in-Standards-Committees.md)
-> * 译者：
-> * 校对者：
+> * 译者：[洛竹](https://github.com/youngjuning)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[qq1120637483](https://github.com/qq1120637483)
 
-# Revised Patterns for Participation in Standards Committees
+# 修订后的参与 TC39 标准委员会的模式
 
 ![](https://miro.medium.com/max/1020/1*EnBeLnKvRHmiHvbivS4jzg.jpeg)
 
-<small>*Image from Annual report of the Bureau of ethnology to the secretary of the Smithsonian Institution (1881)*</small>
+<small>*图片来自民族学局提交给史密森学会秘书的年度报告（1881）*</small>
 
-I recently reread [Allen Wirfs-Brock’s](https://twitter.com/awbjs) paper, *[Programming Language Standardization: Patterns for Participation](http://pl.csie.ntut.edu.tw/asianplop2016/proceedings/A14.pdf)*, while preparing for an upcoming talk. Allen’s 20+ years of experience in language standards development, research and documentation is extremely valuable to the JavaScript community and can’t be understated. The paper is an academic approach to guidelines and patterns for those getting started in standards work; in order to make it a bit more actionable and modernize the language for our community, I’ve updated his guidelines below, along with some helpful tips to improve your standards-committee experience.
+我最近重新阅读了 [艾伦·维尔福斯·布洛克](https://twitter.com/awbjs) 的论文 [编程语言的标准化和参与模式](http://pl.csie.ntut.edu.tw/asianplop2016/proceedings/A14.pdf)，同时为即将到来的讲座做准备。艾伦在编程语言标准开发、研究和文档方面有20多年的经验，这对 JavaScript 社区来说是非常有价值且不能被低估的。这篇论文为那些刚开始从事标准制定工作的人提供了学术性的指导方针和模式；为了使其更具有可操作性，并为我们的社区提供现代化的语言，我在下面更新了他的指导方针，以及一些改善大家参与标准委员会体验的有用建议。
 
-The nature of technical standards committees is such that users, implementers, and vendors are in the same room, often with conflicting needs or interests. [Alex Russell](https://twitter.com/slightlylate) does a fantastic job illustrating these tensions in web driven standards organizations in his two part series, *[Effective Standards Work](https://infrequently.org/2018/06/effective-standards-work-part-1-the-lay-of-the-land/)*. It’s important to remember that ultimately we’re all trying to “ship the right thing” — the challenge lies in gaining consensus about what that “right thing” is, and doing so in an inclusive and respectful way. These guidelines are about encouraging social activities that facilitate a professional (and personally rewarding) standards development process.
+技术标准委员会的性质决定了用户、实施者和供应商都在挤在同一个房间里，他们的需求或利益往往是相互冲突的。[亚历克斯·罗素](https://twitter.com/slightlylate) 在他的 [有效的标准工作](https://infrequently.org/2018/06/effective-standards-work-part-1-the-lay-of-the-land/) 系列文章中对网络驱动的标准组织中的这些紧张关系做了很好的说明。重要的是我们要明白，最终大家都在努力做正确的事——挑战在于就什么是正确的事达成共识，并以一种包容和尊重的方式去执行。这些指导方针是关于鼓励社会活动，促进专业（和个人回报）的标准制定过程。
 
-# Seek First to Understand…
+# 首先寻求理解...
 
-**Be an active listener.** Allen’s guidance was to speak up only if you are sure you have something valuable to say, and I wholly agree that it’s time well spent for a newcomer to focus on listening and observing during one’s first meetings. However, I think it’s worth revising this guideline to convey that it’s absolutely, 100% ok to ask questions and get clarification if there’s something you don’t understand (at the appropriate time, of course). In order to ask questions, you have to really listen to what’s being said — both technically and contextually, and this is a great way to get a real feel for the group, too.
+**做一个积极的倾听者**：艾伦的指导意见是，只有当你确定你有有价值的东西需要说的时候才可以发言。我完全同意，对于一个新人来说，在第一次会议上应该专注于倾听和观察。然而，我认为有必要对这一准则进行修订，如果你有不明白的地方，绝对可以提出问题并得到解释（当然是在适当的时候）。为了提出问题，你必须真正倾听别人说的话——无论是技术上的还是背景上的，这也是快速融入小组的好方法。
 
-**Do your research**. This applies not only to specific proposals and ideas you may be interested in putting forward, but also to the organizations, individuals, and history of the group as a whole. Sometimes, this is easier said than done — documentation can be hard to find in a reflector or email group, or the people with real knowledge about something may have moved on. Ecma TC39 (and most all of the W3C working groups) have put a lot of this context online via GitHub, and are working to surface more organizational history for the community. If you stumble into an area where the history is not known, this could be a great opportunity to make a meaningful contribution by filling in the gap.
+**做好研究工作**：这不仅适用于你可能有兴趣提出的具体建议和想法，而且也适用于整个团体的组织、个人和历史。但有时候知易行难，反馈或电子邮件中的文档很难再找到，或者对某件事情有真正了解的人可能已经离开了。Ecma TC39（以及大多数 W3C 工作组）已经通过 GitHub 将大量的背景资料放在网上，并且正在努力为社区呈现更多的组织历史。如果你偶然发现某个领域的历史不为人知，这可能是一个很好的机会，你可以通过填补空白做出有意义的贡献。
 
-**Meet your team.** Allen advises “understanding the other players,” but I prefer to think of it as meeting and getting to know the rest of your new team. All technologies are products of their social environments, so the better you understand that social environment and can contribute positively to it, the more you help your cause. If you don’t know anyone else in the group, send and email and introduce yourself; share what brings you to the table. Invite someone to lunch or coffee. Attend or organize after-meeting events with your new peers. Get to know where they are coming from and what issues are most important to them. It’s easier to forge these connections in person — I highly recommend investing in a trip to attend one or more meetings a year if you can swing it.
+**认识你的团队**：艾伦建议了解其他玩家，但我更愿意把它看作是认识和了解你的新团队的其他人。所有的技术都是其社会环境的产物，所以你越是了解这个社会环境并能对其做出积极的贡献，就越能帮助你的事业。如果你不认识小组中的其他人，请发送电子邮件介绍自己并分享你的想法。邀请某个组员吃顿烧烤或喝杯星巴克。和你的新伙伴一起参加或组织会后活动。了解他们来自哪里，哪些问题对他们来说是最重要的。当面建立这些联系更容易——我强烈建议，如果条件允许，你应该每年都参加一次或多次会议。
 
-# …Then Be Understood
+# ...然后被理解
 
-**Be explicit about your objective.** If you’re trying to get a new feature implemented, come prepared with the clearly defined problem you’re trying to solve and any pertinent use cases. If your solution is well-formed enough, write the tests for it, too. Remember that, depending on where the language is in its lifecycle, real problems are going to be far more compelling than theoretical ones. As Allen notes, *“Development of a language standard is not a green-field development activity… A language standards committee exists to solve problems that arise from the current state of the language.”* So if your objective is to evolve a language a certain way — so it can be implemented on the blockchain, say — you’ll have to be patient! Conversely, if you’ve met your goals, it’s ok to move on to other things. Be purposeful.
+**明确你的目标**：如果你想实现一个新的功能，请准备好你要解决的明确的问题和任何相关的用例。如果你的解决方案的形式足够好，也要记得为它写测试。请记住，根据语言在其生命周期中的位置，实际问题要比理论问题更有说服力。
 
-**Be Open to Change**. Standards work, despite its reputation, is not about competitive arguing (I like to say that TC39 is not about “competitive JavaScripting”). Any two people in the group may solve the same problem different ways, but that doesn’t automatically make one of them wrong. In strategizing ways to get your feature implemented, Allen recommends “Finding Allies,” Picking your Battles,” and having a “Back-Pocket Alternative.” Working with others to develop ideas enriches your understanding of the problem and language, and helps you develop a sensitivity to what issues other organizations will care about (and thus might impact your proposal’s chances of success). This also helps you avoid arguments and debates that don’t matter in the given context. Another important strategy: being open to being wrong, and being willing to say as much. After all, *“Most ideas and designs aren’t good, and most of the ones we eventually accept don’t start good.”<sup>1</sup>* Fostering an environment wherein it is safe to propose, discuss, advance or withdraw ideas is essential for healthy technical dialogue — which requires all parties be willing to change their minds.
+正如艾伦所指出的，“语言标准的制定不是一种绿地开发活动......语言标准委员会的存在是为了解决语言现状所产生的问题”。因此，如果你的目标是以某种方式发展一种语言——比如说，这样它就可以在区块链上实现——你就必须要有耐心。反之，如果你已经达到了你的目标，就可以继续做其他事情了。要有目的性。
 
-**Be a Contributor.** Both Allen and Alex share that, historically, the older the group, the harder it is for new people and ideas to enter that group. Fortunately, there’s a definite culture shift within these groups to open up to new ideas and ways of working.
+> 译者注：绿地项目在软件开发领域，一项绿地工程可能是在全新的环境内开发一个新系统，不需要考虑与其他系统，尤其是与老旧系统（Legacy system）的集成问题。这里作者指的是语言标准的制定是有历史包袱的。
 
-> There are a lot of ways to start contributing to a standards effort that don’t involve writing technical proposals. In fact, this is often the most important and underserved area!
+**对变化持开放的态度**：标准工作尽管其名声在外，但这并不是关于竞争性的争论（我喜欢说，TC39 不是关于“竞争性的 JavaScripting”）。小组中的任何两个人都可能以不同的方式解决同一个问题，但是并不会自动抉择哪个人是正确的。在制定让你的功能得到实施的策略时，艾伦建议寻找盟友、选择你的战斗并有一个备用方案。与他人合作交流想法，可以提升你对问题和语言的理解，并帮助你发展对其他组织关心的问题的敏感性（从而可能影响你的提案的成功机会）。这也有助于你避免在特定背景下不重要的争论和辩论。另一个重要的策略是：对自己的错误持开放态度，并愿意说出来。毕竟，大多数想法和设计都不好，而我们最终接受的大多数想法和设计在开始时也是不好的。<sup>1</sup>营造一个可以安全地提出、讨论、推进或撤回想法的环境，对于健康的技术对话至关重要——这需要所有各方都愿意改变他们的想法。
 
-How you contribute to a standards effort should ultimately be a factor of your strengths, objectives, and the needs of the group. Here are some ways to be a great contributor and boost your credibility *without* writing new proposals:
+**成为贡献者**：艾伦和亚历克斯都认为，从历史上看，团体越老，新人和新想法就越难进入该团体。幸运的是，在这些团体中，有一个明确的向新的想法和工作方式开放的文化转变。
 
-- Volunteer to take notes at meetings.
-- Organize or co-organize social events.
-- Help with meeting planning.
-- Contribute to other committee efforts, like writing documentation.
-- Read proposals and provide critical feedback or use cases for them.
-- Help edit or champion other proposals, or write tests for features or proposals.
-- Help identify “prior art” and/or missing voices — are there examples that can be pulled, or people who can be consulted to help move something forward?
+> 有很多方法可以开始为标准工作做出贡献，而不需要写技术提案。事实上，这往往是最重要也是最缺乏服务的领域!
 
-**Strive to Consensus.** Most web standards committees use a consensus model for decision-making, and how consensus is measured can vary from group to group, but it generally means that a supermajority<sup>2</sup> of the group supports the decision and the remainder is willing to accept the decision. Disagreement and debate is OK, and needed, but it must be professional and respectful. At some point as a delegate, you’ll have to decide if you should actively oppose a decision, but this should be a rare occurrence. Not every proposal will make it into the final specification — in fact, most won’t, and that’s a good thing.
+你如何为一个标准工作做出贡献，最终应该是你的优势、目标和团体的需求的中一个因素。这里有一些方法可以让你成为一个伟大的贡献者，提高你的可信度，而不需要写新的提案。
 
-The guidelines above apply whether you’re brand-new to standards development and looking to find your footing, or you’re an existing participant and want to increase the success of your current efforts. Any organization, committee or team operating a joint open source software project could benefit from these guidelines directly or with modifications to make it more appropriate for your team. Happy standards-making!
+- 会议笔记记录志愿者。
+- 组织或共同组织社会活动。
+- 帮助策划会议。
+- 为委员会的其他工作做出贡献，如编写文件。
+- 阅读提案并提供关键的反馈或使用案例。
+- 帮助编辑或支持其他提案，或为功能和提案编写测试。
+- 帮助识别现有技术和被忽略的声音——是否有可以借鉴的例子，或者可以咨询的人，以帮助推动一些事情的发展？
 
-* <sup>1</sup>: Alex Russell in “[Threading the Needle](https://infrequently.org/2018/06/effective-standards-work-part-2-threading-the-needle/)”
-* <sup>2</sup>: The definition of supermajority varies by organization. It usually requires two-thirds or more of votes cast to pass an issue.
+**力求达成共识**：大多数网络标准委员会使用共识模式进行决策，如何衡量共识，各小组会有所不同，但一般意味着小组的大多数<sup>2</sup>支持该决定，其余人愿意接受该决定。分歧和辩论是可以的，也是需要的，但必须是专业和尊重的。在某些时候，作为代表，你必须决定你是否应该积极反对一项决定，但这应该是一种罕见的情况。并非每项提案都会被纳入最终规范——事实上，大多数都不会，这是件好事。
+
+无论你是第一次参与标准制定并希望找到自己的立足点，还是你是现有的参与者并希望提高你目前工作的成功率，上述准则都适用。任何组织、委员会或运营联合开源软件项目的团队都可以直接从这些指南中受益，或者进行修改，使其更适合你的团队。我们的目标是快乐地制定标准!
+
+* <sup>1</sup>： 亚历克斯·罗素的 [穿针引线](https://infrequently.org/2018/06/effective-standards-work-part-2-threading-the-needle/)
+* <sup>2</sup>：大多数的定义因组织而异。它通常需要三分之二或更多的投票来通过一个问题。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
