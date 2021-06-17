@@ -35,7 +35,6 @@
 
 ![两个经典的逻辑门。图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*nnCAiy_9xEhyqQwmToybyw.png)
 
-A quantum computer operates on its qubits using quantum gates. These move the qubit around the surface of the sphere, meaning the inputs and outputs are the same. For example, one quantum gate might flip the qubit to the opposite part of the sphere or rotate it around one of its axes. Some gates take one input. Others take two or more, where the state of each inputs affects the resulting output state of all. In the image below we see the qubit from before being rotated around its vertical axis by a quantum gate.
 量子计算机使用量子门对其量子比特进行运算。这些计算让量子比特围绕球体表面移动，这意味着输入和输出是同一个量子比特的不同状态。例如，一个量子门可能会将量子比特翻转到球体的另一部分或围绕其轴之一旋转。有些门接受一个输入。有些门需要两个或更多，此时每个输入的状态影响所有输出状态。在下图中，我们看到之前的量子比特在被量子门围绕其垂直轴旋转。
 
 ![量子门使量子比特在球面上移动。图像来源：作者。](https://cdn-images-1.medium.com/max/2000/1*UsZeojy60miuuh5Wmd1tOg.png)
@@ -54,7 +53,6 @@ A quantum computer operates on its qubits using quantum gates. These move the qu
 
 下方的左图显示了两个未纠缠的量子比特 —— 蓝色的 A 和红色的 B。两者都有一半的机会变成 “0” 或 “1”。每种组合的几率是相同的：“00” 的几率为 25%，“01” 的几率为 25%，等等。知道 A 或 B 的值并不能告诉你另一个比特的任何信息。
 
-On the right, it shows two entangled qubits. In thiscase, knowing the value of one qubit also tells you something about the other. If you know that qubit B is `0`, then you also know that qubit A is twice as likely to be `1` than `0`. But if you know qubit B is `1`, then you know qubit A must be `0 `— they are no longer independent.
 在下方右图中，显示了两个纠缠的量子比特。在这种情况下，知道一个量子比特的值也能告诉你关于另一个量子比特的一些信息。如果你知道量子比特 B 为 “0”，那么你也知道量子比特 A 为 “1” 的可能性是 “0” 的两倍。但是如果你知道量子比特 B 是 “1”，那么你知道量子比特 A 一定是 “0” —— 它们不再是独立的。
 
 ![图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*aAorGuHgmX7o-HkKhEJkJg.png)
