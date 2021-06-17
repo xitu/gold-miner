@@ -2,60 +2,62 @@
 > * 原文作者：[David Mooter](https://medium.com/@davidmooter)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-laymans-intro-to-quantum-computers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-laymans-intro-to-quantum-computers.md)
-> * 译者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
 > * 校对者：
 
-# A Layman’s Intro to Quantum Computers
+# 外行说量子计算机
 
-![Photo by [Zoltan Tasi](https://unsplash.com/@zoltantasi?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9792/0*FPUtmaqNJ12IcZx8)
+![照片由 [Zoltan Tasi](https://unsplash.com/@zoltantasi?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9792/0*FPUtmaqNJ12IcZx8)
 
-Quantum computers have the potential to revolutionize information technology. Many analysts view current quantum computers as on par with the room-sized computers of the 1940s. Over the coming decades, they may advance at the same exponential rate as classical computers have done. Unfortunately, literature on quantum computing is often written **by** people with physics degrees **for** people with physics degrees. Here, I will explain quantum computing in layman’s terms: how it works, how it differs from classical computing, and why it will be revolutionary for your business.
+量子计算机具有彻底改变信息技术的潜力。许多分析师认为当前的量子计算机还处于初级阶段，与 1940 年代房间大小的计算机一样。在接下来的几十年里，它们可能会以与经典计算机相同的指数速度发展。不幸的是，关于量子计算的文献通常是**由**内行人（拥有物理学学位的人）**写给**内行人看的。在这里，我将用通俗的语言解释量子计算：它是如何工作的，它与经典计算有何不同，以及为什么它是革命性的。
 
-## Classical Bits vs. Qubits
+## 经典比特 vs 量子比特
 
-A classical computer has a memory made up of bits, where each bit has two states representing either `0` or `1`. As you string together more bits, you can store more combinations of information.
+经典计算机有一个由经典比特组成的内存，其中每个比特都有两种状态，表示 “0” 或 “1” 。随着你使用的比特数越来越多，你可以存储更多的信息。
 
-For example, with two bits you have four possible states: `00 01 10 11`. With three bits you have eight possible states: 000 001 010 011 100 101 110 111.
+例如，对于两个比特，你有四种可能的状态：“00 01 10 11”。使用三个比特，你有八种可能的状态：“000 001 010 011 100 101 110 111”。
 
-At a physical level, these bits are electrical circuits where the `0` and `1` represent different levels of electrical current flowing through them.
+从物理角度理解，这些经典比特可以看做是电流，其中 “0” 和 “1” 代表流过它们的电流的不同大小。
 
-A quantum computer maintains a sequence of qubits which also each have two states that can represent `0` or `1`. These qubits, though, are not electrical circuits. Instead, they are subatomic particles held in one place — immobile. They represent `0` or `1` through various means, depending on the type of quantum computer, but that level of detail is not important for understanding their uses.
+量子计算机维持着一系列的量子比特，每个量子比特也有两种状态，可以用 “0” 或 “1” 表示。然而，这些量子比特并不是电流。相反，它们是固定在一个地方的亚原子粒子 —— 固定不动。它们通过各种方式来表示 “0” 或 “1”，具体取决于量子计算机的类型，但这一细节对于理解它们的用途来说并不重要。
 
-Unlike a classical bit, when you measure the qubit you do not always get the same result. Rather, a qubit’s state can be thought of as being on the surface of a sphere. The north and south poles represent final states `0` and `1`, respectively. When the qubit’s state is closer to a pole, it represents higher odds of going to the `0` state when measured, etc. For example, a qubit on its equator would have a 50/50 chance of going either way. When measuring the qubit in the diagram below, it has a significantly higher chance of coming out `0` (north) than `1` (south) due to being closer to the north pole than the south pole.
+与经典比特不同，当你测量量子比特时，并不总是能得到相同的结果。相反，量子比特的状态可以被认为是在一个球体的表面上。北极和南极分别代表最终状态 “0” 和 “1”。当量子比特的状态更接近北极点时，它表示在测量时进入 “0” 状态的几率更高，以此类推。例如，位于赤道上的量子比特有一半的的机会走向任一方向。在测量下图中的量子比特时，由于离北极更近，它出现 “0”（北）的几率明显高于 “1”（南）。
 
-![A representation of a qubit as a point on the surface of a sphere. Image credit: Author.](https://cdn-images-1.medium.com/max/2000/1*6ek0KRvlg8Q22Bs0vij9YA.png)
+![将量子比特的状态表示为球体表面上的一个点。图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*6ek0KRvlg8Q22Bs0vij9YA.png)
 
-## First Difference: Definite vs. Probabilistic State
+## 第一个区别：确定的状态 vs 概率的状态
 
-This brings us to the first difference from a classical computer. A classical bit holds a definite `0` or `1`. By contrast, a qubit holds a **probability** of becoming `0` or `1`. For example, if a qubit has a 60% probability of becoming `1`, then you can think of it as storing the value `60%`. By repeating a quantum computation many times and observing the outcome, you can determine what that probability is to some degree of certainty. Thus it can store an infinite number of values from zero to one but at the expense of always having some level of statistical uncertainty about what that value truly is. Quantum algorithms are often probabilistic in that they provide the correct solution only within a certain known probability of confidence. In contrast, classical computers are at their heart deterministic systems that output one answer with complete confidence. As any computer scientist knows, making classical computers truly random is quite difficult since they are so oriented towards deterministic “yes” or “no” answers.
+这给我们带来了与经典计算机的第一个区别。经典比特对应明确的 “0” 或 “1”。相比之下，一个量子比特对应成为 “0” 或 “1” 的**概率**。例如，如果一个量子比特有 60% 的概率成为 “1”，那么你可以将其视为存储着 “60%” 这个值。通过重复多次量子计算并观察结果，你可以在一定程度上确定该概率是多少。因此，它可以存储从 0 到 1 的无限数量的值，但代价这一结果始终具有某种程度的统计不确定性。量子算法通常是概率性的，因为它们提供的结果的正确性在某个已知的置信概率内。相比之下，经典计算机的本质是确定性的，可以完全确定的输出一个答案。任何计算机科学家都知道，让经典计算机真正随机化是相当困难的，因为它们非常倾向于给出确定性的答案。
 
-## Classical Gates vs. Quantum Gates
+## 经典逻辑门 vs 量子逻辑门
 
-Computers compute things by running their bits through gates. These usually take two inputs, or sometimes one, and output a new value based on those inputs. For example, the gate called the `AND`gate outputs `1` if both its inputs are also `1`; else it outputs `0`. Two example gates are shown here:
+计算机通过各种逻辑门来进行运算。这些们通常需要两个输入，有时也只需要一个，并根据这些输入输出一个新值。例如，对于“与”们来说，如果两个输入是 “1”，其输出也是 “1”；否则它输出 “0”。下面展示了两个逻辑门：
 
-![Two common classical logic gates. Image credit: Author.](https://cdn-images-1.medium.com/max/2000/1*nnCAiy_9xEhyqQwmToybyw.png)
+![两个经典的逻辑门。图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*nnCAiy_9xEhyqQwmToybyw.png)
 
 A quantum computer operates on its qubits using quantum gates. These move the qubit around the surface of the sphere, meaning the inputs and outputs are the same. For example, one quantum gate might flip the qubit to the opposite part of the sphere or rotate it around one of its axes. Some gates take one input. Others take two or more, where the state of each inputs affects the resulting output state of all. In the image below we see the qubit from before being rotated around its vertical axis by a quantum gate.
+量子计算机使用量子门对其量子比特进行运算。这些计算让量子比特围绕球体表面移动，这意味着输入和输出是同一个量子比特的不同状态。例如，一个量子门可能会将量子比特翻转到球体的另一部分或围绕其轴之一旋转。有些门接受一个输入。有些门需要两个或更多，此时每个输入的状态影响所有输出状态。在下图中，我们看到之前的量子比特在被量子门围绕其垂直轴旋转。
 
-![Quantum gates move the qubit around the surface of the sphere. Image credit: Author.](https://cdn-images-1.medium.com/max/2000/1*UsZeojy60miuuh5Wmd1tOg.png)
+![量子门使量子比特在球面上移动。图像来源：作者。](https://cdn-images-1.medium.com/max/2000/1*UsZeojy60miuuh5Wmd1tOg.png)
 
-## Second Difference: Very Different Gates
+## 第二个区别：十分不同的逻辑门
 
-Classical computer gates output a new bit while leaving their input bits unchanged. A quantum computer changes the state of its input bits without creating new output bits. Furthermore, all quantum gates are reversible, but not all classical gates are (see above diagram of two gates — there is no way to always infer the inputs from the output). Lastly, mathematicians have proven that all classical computer gates can be created using combinations of quantum gates, but some quantum gates cannot be created by classical gates. In other words, quantum gates open up new operations that classical computers just can’t do. This means the potential for new algorithms.
+经典计算机的门在输出一个新比特的同时并不会改变其输入比特。而量子计算机的门直接改变其输入量子比特的状态，并不创造新的量子比特。此外，所有量子门都是可逆的，但并非所有经典门都是可逆的（见上图的两个门 —— 不是总能从输出推断输入）。最后，数学家已经证明，所有经典的逻辑门都可以使用量子门的组合来创建，但有些量子门不能由经典门创建。换句话说，量子门开启了经典计算机无法做到的新操作。这意味着创造新算法的潜力。
 
-## Entanglement
+## 量子纠缠
 
-It is possible for two or more qubits to become entangled. What this means is that measuring one qubit will instantly affect the others even if they are moved to opposite sides of the universe. A simple example is if you have two qubits and observing one will cause the other to always result in the inverse when it is observed. Another could be that the outcome of observing one qubit affects the probability of the other qubit becoming `0` or `1`. This opens up algorithms that operate on the entire system of data, rather than one bit at a time.
+两个或多个量子比特可能会纠缠在一起。这意味着测量一个量子比特会立即影响其他量子比特，即使它们深处宇宙的两侧。一个简单的例子是，如果你有两个量子比特，观察一个会导致另一个在观察时总是产生相反的结果。另一种可能是观察一个量子比特的结果会影响另一个量子比特变为 “0” 或 “1” 的概率。这提供了在整个数据系统上运行的算法，而不是一次一位。
 
-## Third Difference: Dependency Between Bits
+## 第三个区别：比特之间的依赖性
 
-One way to think of it is that the states of the two entangled qubits are no longer independent of each other.
+一种理解方式是，两个纠缠的量子比特的状态不再相互独立。
 
-The left diagram below shows two unentangled qubits — A in blue and B in red. Both have a 50/50 chance of becoming `0` or `1`. The odds of each combination is the same: 25% chance of `00`, 25% chance of `01`, etc. Knowing the value of A or B tells you nothing about the other.
+下方的左图显示了两个未纠缠的量子比特 —— 蓝色的 A 和红色的 B。两者都有一半的机会变成 “0” 或 “1”。每种组合的几率是相同的：“00” 的几率为 25%，“01” 的几率为 25%，等等。知道 A 或 B 的值并不能告诉你另一个比特的任何信息。
 
 On the right, it shows two entangled qubits. In thiscase, knowing the value of one qubit also tells you something about the other. If you know that qubit B is `0`, then you also know that qubit A is twice as likely to be `1` than `0`. But if you know qubit B is `1`, then you know qubit A must be `0 `— they are no longer independent.
+在下方右图中，显示了两个纠缠的量子比特。在这种情况下，知道一个量子比特的值也能告诉你关于另一个量子比特的一些信息。如果你知道量子比特 B 为 “0”，那么你也知道量子比特 A 为 “1” 的可能性是 “0” 的两倍。但是如果你知道量子比特 B 是 “1”，那么你知道量子比特 A 一定是 “0” —— 它们不再是独立的。
 
-![Image credit: Author.](https://cdn-images-1.medium.com/max/2000/1*aAorGuHgmX7o-HkKhEJkJg.png)
+![图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*aAorGuHgmX7o-HkKhEJkJg.png)
 
 ## Superposition
 
