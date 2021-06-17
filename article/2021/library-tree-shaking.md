@@ -178,7 +178,7 @@ __webpack_unused_export__ = getUserPhoneNumber;
 
 Webpack regroups all our code in a single file. Looking at the `getUserPhoneNumber` export, we notice that Webpack has marked it as unused. It will be removed in production mode while `getUserName` is exported as it is used by our `index.js` entry file.
 
-![A simple module graph with a tree shaken library](/654aef253913c52e28cf32f9254b2ed6/simple-export-module-graph.svg)
+![A simple module graph with a tree shaken library](https://blog.theodo.com/654aef253913c52e28cf32f9254b2ed6/simple-export-module-graph.svg)
 
 The library is tree shaken! You may repeat this step but for multiple imports and look at the output code. **The objective is to make sure unused code in the library is marked as unused by Webpack**.
 
@@ -273,9 +273,9 @@ const getUserPhoneNumber = () => '***********'
 const getUserAccount = () => userAccount
 
 module.exports = {
-	getUserName,
-	getUserPhoneNumber,
-	getUserAccount
+  getUserName,
+  getUserPhoneNumber,
+  getUserAccount
 }
 /***/ }),
 
@@ -286,7 +286,7 @@ module.exports = {
 /***/ ((module) => {
 
 const userAccount = {
-	name: 'user account'
+  name: 'user account'
 }
 
 module.exports = { userAccount }
@@ -323,14 +323,14 @@ const getUserAccount = () => userAccount;
 
 /* unused harmony export userAccount */
 const userAccount = {
-	name: 'user account'
+  name: 'user account'
 };
 /***/ })
 ```
 
 Notice that `getUserAccount` and `getUserPhoneNumber` are marked as unused. But so does the `userAccount` export in the other file. Thanks to the `innerGraph` optimization, Webpack is able to link the `userAccount` import in the `index` file to the `getUserAccount` export. **This allows Webpack to work recursively from the entry file and go through all of its dependencies to know which exports are unused in every module**. Since Webpack knows that `getUserAccount` is unused, it can go and check its dependencies in the `userAccount` file and do the same work there etc.
 
-![Exports module graph with ESM library](/78a14d74268a17ddd6a6416474884a5d/esmodules-module-graph.svg)
+![Exports module graph with ESM library](https://blog.theodo.com/78a14d74268a17ddd6a6416474884a5d/esmodules-module-graph.svg)
 
 ES modules allow us to look for exported code that is used or unused in our application explaining why this module system is so important for tree shaking. It also explains why one should use dependencies that export a ES module compatible build such as [`lodash-es`](https://www.npmjs.com/package/lodash-es), the ESM equivalent of the popular [`lodash`](https://lodash.com/) library.
 
@@ -412,7 +412,7 @@ We then rerun our Webpack build:
 
 We see that the `userAccount` file has been removed from the bundle. We still see `getUserAccount` that references `userAccount` but this function has been marked by Webpack as dead code and it will be removed during minification.
 
-![Side effects module graph](/a824f2dc91a5e2f206a71f44adf756f6/side-effects-module-graph.svg)
+![Side effects module graph](https://blog.theodo.com/a824f2dc91a5e2f206a71f44adf756f6/side-effects-module-graph.svg)
 
 **The `sideEffects` flag is especially important for libraries that export their API through an index file** that itself exports functions or variables from internal files. Without the side effects optimization, our bundlers would have to parse all the files where our exported variables are defined.
 
@@ -526,11 +526,11 @@ const userAccount = {
 };
 
 const getUserPhoneNumber = {
-	number: '***********'
+  number: '***********'
 };
 
 const getUserAccount = () => {
-	return userAccount
+  return userAccount
 };
 
 const getUserName = () => 'John Doe';
@@ -585,7 +585,7 @@ export default {
 /* unused harmony export getUserAccount */
 
 const getUserAccount = () => {
-	return userAccount
+  return userAccount
 };
 
 const getUserName = () => 'John Doe';
@@ -595,7 +595,7 @@ const getUserName = () => 'John Doe';
 
 [Lodash](https://lodash.com/) is now skipped along with the `userAccount` module.
 
-![Preserving the module structure improves tree shaking when using CJS dependencies](/5048f04d949bc617ef620574bbc2cec3/split-modules-cjs-module-graph.svg)
+![Preserving the module structure improves tree shaking when using CJS dependencies](https://blog.theodo.com/5048f04d949bc617ef620574bbc2cec3/split-modules-cjs-module-graph.svg)
 
 #### Code splitting
 
@@ -736,7 +736,7 @@ The app bundle now has 3 files: `main.js`, `src_userService1_js.main.js` and `sr
 
 We need to keep in mind that the `usedExports` optimization checks for used exports only within a module's scope. Only from there can Webpack remove unused code. From the perspective of our library module, both `userAccount` and `userPhoneNumber` are actually used. In this case, Webpack is not able to make a difference between the imports of `userService1` and `userService2` as seen on the following graph (both `userAccount` and `userPhoneNumber` are in green):
 
-![Code splitting introduces issues when it comes to tree shaking](/bc749d7936558d17bdb54b5181928046/code-splitting-without-preserving-module-structure-graph.svg)
+![Code splitting introduces issues when it comes to tree shaking](https://blog.theodo.com/bc749d7936558d17bdb54b5181928046/code-splitting-without-preserving-module-structure-graph.svg)
 
 **This means that [Webpack](https://webpack.js.org/) is not able to tree shake the exports of each chunk independently when only relying on the `usedExports` optimization**.
 
@@ -804,7 +804,7 @@ We now preserve our modules when bundling our library to allow for the `sideEffe
 
 `src_userService1_js.main.js` behaves the same way as it includes only the `userAccount` module from our library.
 
-![Preserving the module tree allows Webpack to independently tree shake code splitted chunks](/5fe908acf0f856a1958e77c400f40408/code-splitting-with-preserving-module-structure-graph.svg)
+![Preserving the module tree allows Webpack to independently tree shake code splitted chunks](https://blog.theodo.com/5fe908acf0f856a1958e77c400f40408/code-splitting-with-preserving-module-structure-graph.svg)
 
 Looking at the graph, we still see that `userAccount` and `userPhoneNumber` are still considered as **used exports** as they are used at least once in our application. However, this time the `sideEffects` optimization is able to skip the `userAccount` module because it is never **imported** by `userService2`. The same thing happens for `userPhoneNumber` and `userService1`.
 
@@ -909,7 +909,7 @@ Without the `innerGraph` optimization (eg with Webpack 4):
 /* harmony import */ var _userAccount_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./userAccount.js */ "./node_modules/user-library/dist/userAccount.js");
 
 const getUserAccount = () => {
-	return _userAccount_js__WEBPACK_IMPORTED_MODULE_0__[/* userAccount */ "a"]
+  return _userAccount_js__WEBPACK_IMPORTED_MODULE_0__[/* userAccount */ "a"]
 };
 
 const getUserName = () => 'John Doe';
@@ -927,7 +927,7 @@ const getUserName = () => 'John Doe';
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return userAccount; });
 const userAccount = {
-	name: 'user account'
+  name: 'user account'
 };
 
 /***/ }),
@@ -948,7 +948,7 @@ With the `innerGraph` optimization (eg with Webpack 5):
 /* unused harmony export getUserAccount */
 
 const getUserAccount = () => {
-	return userAccount
+  return userAccount
 };
 
 const getUserName = () => 'John Doe';
@@ -956,7 +956,7 @@ const getUserName = () => 'John Doe';
 /***/ })
 ```
 
-![Illustration of Webpack's innerGraph optimization](/864c647dcd0339a67537c146c6b1dca7/inner-graph-optimization-module-graph.svg)
+![Illustration of Webpack's innerGraph optimization](https://blog.theodo.com/864c647dcd0339a67537c146c6b1dca7/inner-graph-optimization-module-graph.svg)
 
 While Webpack 5 is able to completely eliminate the `userAccount` module, this is not the case for Webpack 4 even though `getUserAccount` is marked as unused. This is because the `innerGraph` algorithm allows webpack 5 to link unused elements of our module with its imports. In our case, the `userAccount` module is used only by the `getUserAccount` function and can therefore be skipped.
 
