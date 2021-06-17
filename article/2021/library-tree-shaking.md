@@ -1,5 +1,5 @@
 > * 原文地址：[How To Make Tree Shakeable Libraries](https://blog.theodo.com/2021/04/library-tree-shaking/)
-> * 原文作者：[]()
+> * 原文作者：[François Hendriks](https://blog.theodo.com/fran%C3%A7ois-hendriks)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/library-tree-shaking.md](https://github.com/xitu/gold-miner/blob/master/article/2021/library-tree-shaking.md)
 > * 译者：
