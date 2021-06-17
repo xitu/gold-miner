@@ -7,11 +7,7 @@
 
 # How To Make Tree Shakeable Libraries
 
-April 13, 2021[François Hendriks](/françois-hendriks)28 min read
-
-![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAACXBIWXMAAAsSAAALEgHS3X78AAADWklEQVQ4y3WUy08bVxjF/Xd00W1X7bLLSlW7q1SpbfpYdJEFTZNWapRFWqT0oQJtpEYoSQWBhOaBmpYAaQilNTaEV7AxAdswMcSOwYMfGBs/xs8Zjx2SX+/Y2MIJndHVfc6533fO+cZUKpUwmqZp1VYbq+ilCgU1TzIXoagVq3NjXds/X2o6X+uNZiodOFDfLOtPyBcVAsFB1qXTeLyd1XlZ30NTi6hqQQDr+5c0g5oOTup9vphByW4iB/8lEBnF86iVrdBdMtkIhaxMMjSALP+Jko8J0PLhERqLxmZBgIXCY2RiLlYjElcdx3C4fsa+2YfT04dd/otw0s7Wo59YD9ygUkF8WzwkQoMTA1AJkcxL2L/4kFs9X+J0DeB89y0WHf1IJz9jovsNRoM32PH3s+bvfhFQK9XI1QU/acVPJGxlOWrBeq8dl/cSSd2P9+4VLNc7sC0OYH/Yi9t7DZ/3ghAs1MRjDXBfLWMjm9shEptmceESD75tYfvOELNnP2HcfJ4V798sDH/DVPv7uPM2QYuVnZhNBPK0qn4900bKhmqVYgG/4sbjH8H+/SnMF04StfSzPDPMQ3mSwMwVHndf5v7Ej0j+20Rjc5TL1OzUSLk60IUYOZT0EvLcbaxn3iFViDI/eh3r2C/8c+0MU0u/4Th7lPttX+E88hFhaQh/qI9AdJJK+VkD1NSwjKoiJyYJ3utg/dxxbB1H8D0YZqW1hfETHxPwTRO1XWSk4yjS7BgzS+cIrgyIbC5WbVa3j+mgZfKFFGk1xJYeYXy+FWnbQliklnDfwdz3A7c6TzAxc56seFd7vsZ56j386VERjNaoHFOzqctUBMmloka6uEEyPU8qJxGXFxlsP05QdjP566dsTI+RT8mENqbIa0qTuV+olKpi+75Uxc1Pn0FwbZnhts/ZVubY6D1NfNaMDkKQPQGmN33fVCn1sSqMaghV0soIPJzmm/Qce5NkfIu4JpEt7VY5P6huU4TP/3GeCPcXimkSmccCVGfwuxY6P3iVbd8axrMnrKLrzYY+tJZrFVNhPfgHN6df4+rUywxZ3qa36xW6ul7i95HXcfjaWNm8TCYXbXD3vz+Heh9LSUSTLuIpDzspF7t5D4nCGjFllfDuApFdB7lCokrL84D/AVdNvo5glABwAAAAAElFTkSuQmCC)![How To Make Tree Shakeable Libraries](/static/dfae80d02f29938244fa328765a243a9/a79d3/tree-shaking.png)
-
-![How To Make Tree Shakeable Libraries](/static/dfae80d02f29938244fa328765a243a9/a79d3/tree-shaking.png)
+![How To Make Tree Shakeable Libraries](https://blog.theodo.com/static/dfae80d02f29938244fa328765a243a9/a79d3/tree-shaking.png)
 
 At [Theodo](https://www.theodo.fr), our aim is to build reliable and fast applications for our customers. Some of our projects include improving the performance of already existing applications. During one of these missions, we managed to reduce the bundle size of all our pages by a whopping **500KB Gzipped by tree shaking our internal libraries**.
 
@@ -42,7 +38,7 @@ Tree shaking is a way to achieve [dead code elimination](https://en.wikipedia.or
 
 There are many articles and resources out there explaining tree shaking and dead code elimination. Here we will be focusing on libraries that are consumed by applications. A library is considered to be tree shakeable if a consumer application can **successfully eliminate the unused parts of the library**.
 
- [![A tree shakeable library example](/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png "A tree shakeable library example")](/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png) 
+ [![A tree shakeable library example](https://blog.theodo.com/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png "A tree shakeable library example")](https://blog.theodo.com/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png) 
 
 But before we try to make a library tree shakeable, let's first see how we can distinguish one.
 
