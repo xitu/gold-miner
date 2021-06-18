@@ -175,7 +175,7 @@ Therefore, you need to remember two things while you reason about actor re-entra
 * Always try to perform the mutation of state in synchronous code (avoid `async` function calls in functions where you’re changing internal state).
 * If you have to perform `async` function calls within a function that changes state, do not make any assumptions about that state after the `await` completes.
 
-## @MainActor
+## \@MainActor
 
 Apple suggests calling all UI code on the main thread. So whenever we need to do heavy data processing or make a network call to fetch data to display our UI, we do so on background threads. Once this processing is done, we usually do the following:
 
@@ -232,7 +232,7 @@ As you’ve seen, `actors` are definitely a much-needed addition to a modern lan
 * Even though actors help you with data races, there are still points of contention where race conditions might occur. Therefore, you should make sure you do not make any assumptions about the actor state whenever you introduce suspension points.
 * Usage of `@MainActor` can help you access properties on the main thread without the `DispatchQueue.main` calls, but only using the new `async/await` call system.
 
-#### Links
+### Links
 
 * [SE-0303 Proposal](https://github.com/apple/swift-evolution/blob/main/proposals/0306-actors.md)
 * [WWDC Talk on Actors](https://developer.apple.com/videos/play/wwdc2021/10133/)
