@@ -85,7 +85,6 @@ We now create our HTML elements for `circle` and `textMessageBox` and add styles
   <div class="position"></div>
 </div>
 </div>
-
 ```
 
 ### Step 3. Add observers
@@ -146,8 +145,6 @@ The downside of this pattern stems from its benefits:
 In this article, we went through what the Observer design pattern is and how to use it within our application. We also implement a demo based on this pattern and learned about some of the advantages and disadvantages of following this approach to designing interactions.
 
 **Thank you for reading.**
-
-If you have any questions or suggestions regarding this article, feel free to comment.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
