@@ -91,22 +91,22 @@
 
 从本质上来说，量子比特的特性来自于能量波，它与池塘中的水波具有相同的特性。有一些复杂的算法（其数学原理超出了本文的范围）通过波的干涉效应来抑制错误的能量状态，同时放大正确的能量状态。通过在测量量子比特之前多次重复该算法，使得错误状态的测量概率下降，期望状态的测量概率上升。即使量子比特同时处于所有状态，你也可以通过在放大你想要的状态的同时抑制不想要的状态，从而在一定的置信度内找到问题的正确答案。
 
-## Applications
+## 应用
 
-Quantum computers are expected to surpass classical computers in certain areas. Here are some examples.
+量子计算机有望在某些领域超越经典计算机。下面是一些例子。
 
-* **Artificial intelligence and data science.** Much of AI is built on complex statistics and searching for patterns in complex data. The ability to search all states simultaneously makes quantum algorithms uniquely suited for finding patterns in complex data, which will have uses not just in AI but in other areas of data science.
-* **Cryptography.** [Shor’s Algorithm](https://en.wikipedia.org/wiki/Shor%27s_algorithm) is a theoretical quantum algorithm that can crack most asymmetrical ciphers. On the other hand, entanglement opens the possibility of new modes of encryption. Two entangled qubits have a correlation with each other even if they move to opposite sides of the universe. Encryption using entangled qubits is mathematically unbreakable since there is no shared key. For example, if I have a pair of entangled qubits such that they always evaluate to the same value, I can give one to my message recipient, then force the other to the value I want. When my recipient reads the value of the other qubit, he gets the same value to which I set mine without any information being passed through a wire.
-* **Financial and weather models.** The random element of qubits makes them more suitable for modeling complex random systems like financial markets and weather. Investors often wish to evaluate the probability of various outcomes under an extremely large number of scenarios generated at random. The weather has so many complex variables that it can take a classical computer more time to compute a forecast than it takes for the weather to evolve. Furthermore, MIT researchers have shown that the equations governing the weather possess a hidden wave nature which is amenable to solution by a quantum computer.
-* **Molecular modeling.** The complexity of molecules is so great that only the simplest of molecules can be modeled in classical computers. Chemistry industries see great potential to harness quantum computers to model complex molecules for the development of new compounds.
+* **人工智能与数据科学** 大部分人工智能都建立在复杂的统计数据和在复杂数据中进行模式搜索的基础上。同时搜索所有状态的能力使量子算法特别适合在复杂数据中查找模式，这不仅可以用于人工智能，还可以用于数据科学的其他领域。
+* **密码学** [Shor 算法](https://en.wikipedia.org/wiki/Shor%27s_algorithm) 是一种理论量子算法，可以破解大多数非对称密码。另一方面，量子纠缠为新加密模式提供了可能性。两个纠缠的量子比特即使分别移动到宇宙的两侧，也相互关联。使用纠缠的量比特加密在数学上是牢不可破的，因为没有共享密钥。例如，如果我有一对纠缠的量子比特，它们的观察值总是相同的。我可以将一个量子比特给我的消息接收者，然后将另一个量子比特改变为我期望的值。当我的接收者读取他的量子比特的值时，他得到的值与我设置的值相同，且不需要任何信息传递。
+* **金融与天气模型** 量子比特的随机性使它们更适合模拟复杂的随机系统，如金融市场和天气。投资者往往希望在随机产生的大量场景下评估各种结果的概率。天气有如此多的复杂变量，以至于传统计算机预测所需的时间比天气演变所需的时间都多。此外，麻省理工学院的研究人员已经表明，控制天气的方程具有隐波性质，可以通过量子计算机进行求解。
+* **分子建模** 分子的复杂性如此之大，以至于经典计算机只有对最简单的分子进行建模。化学工业看到了利用量子计算机对复杂分子建模以开发新化合物的巨大潜力。
 
-## Next Steps for Your IT Org
+## 你的 IT 组织应该如何抉择
 
-There are two key limitations to quantum adoption. The biggest is that quantum computers are still in their infancy. There are very few commercially viable options at this time. The second is that quantum computers will never beat classical computers in all areas. Rather, they are superior only for certain specific types of computational tasks. Classical computers will remain superior to quantum computers for most computational tasks. That means classical computers are here to stay.
+量子计算的应用有两个关键的限制。最大的限制是量子计算机还处于起步阶段，目前很少有商业上可行的选择。第二是量子计算机永远不会在所有领域击败经典计算机。相反，它们仅在某些特定类型的计算任务上有优势。在大多数计算任务中，经典计算机仍将优于量子计算机。这意味着经典计算机将继续存在。
 
-Nonetheless, there are steps your business can take now to beat your competition in quantum. Quantum computers have evolved enough that data scientists can identify algorithms that will be uniquely suited for quantum computers and identify use cases where quantum computers would be beneficial were they to exist now. Begin developing quantum algorithm skills in your data science teams. Have them identify which computation tasks are better suited for quantum. More specifically, identify certain patterns that work better with quantum and document these so that other data scientists can recognize when a data set has the traits that will benefit from quantum. This will allow data teams to create a list of which current business cases (and future business cases as they arise) are suitable for quantum, including what level of maturity quantum computers need to achieve to trigger their viability. Finally, create a strategic plan for exploiting quantum computing based on which business problems your data scientists identify as good candidates for it.
+尽管如此，你的企业现在可以采取一些措施来为量子竞争做准备。量子计算机已经发展到足以让数据科学家识别出特别适合量子计算机的算法，并识别出现有量子计算机能够胜任的用例。开始让你的数据科学团队培养量子算法技能。让他们确定哪些计算任务更适合量子计算。更具体地说，确定某些更适用于量子计算的模式并记录，以便其他数据科学家可以依据这些模式识别出包含这些特征的数据集。这将允许数据团队列出哪些当前的商业案例（以及未来出现的商业案例）适合量子计算，包括量子计算机需要达到什么样的成熟度才能触发其可行性。最后，根据你的数据科学家识别的适合量子计算的业务问题，制定利用量子计算的战略计划。
 
-Some resources where you can begin developing quantum skills include:
+下面的一些资源能够帮助你发展自己的量子技能：
 
 * [Quantum Computing Playground](http://www.quantumplayground.net/) is a quantum simulator you can run in a web browser. It won’t have the power of a real quantum computer, but it’s an opportunity to learn its concepts.
 * Microsoft has released a [quantum language called Q#](https://www.microsoft.com/en-us/quantum/development-kit) that can also run in a quantum computer simulator.
