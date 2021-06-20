@@ -1,5 +1,4 @@
-> * 原文地址：[Microsoft (MSFT) Reportedly Eyeing China Data Center Expansion
-    ](https://www.nasdaq.com/articles/microsoft-msft-reportedly-eyeing-china-data-center-expansion-2021-06-18)
+> * 原文地址：[Microsoft (MSFT) Reportedly Eyeing China Data Center Expansion](https://www.nasdaq.com/articles/microsoft-msft-reportedly-eyeing-china-data-center-expansion-2021-06-18)
 > * 原文作者：[Zacks](https://www.nasdaq.com/publishers/zacks)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/microsoft-reportedly-eyeing-china-data-center-expansion.md](https://github.com/xitu/gold-miner/blob/master/article/2021/microsoft-reportedly-eyeing-china-data-center-expansion.md)
