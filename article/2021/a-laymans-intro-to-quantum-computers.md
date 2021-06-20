@@ -57,21 +57,21 @@
 
 ![图片来源：作者。](https://cdn-images-1.medium.com/max/2000/1*aAorGuHgmX7o-HkKhEJkJg.png)
 
-## Superposition
+## 量子叠加
 
-Recall that a qubit, when observed, results in a random outcome. You would intuitively think that the qubit was oscillating between the two states, like a coin flipping heads and tails in the air until it lands where a final result can be observed. Yet, in reality, a qubit is both a `0` and `1` at the same time. This is because the particle that stores the qubit information can have different levels of energy or be in different locations at the same time. When the quantum particle interacts with something else, such as a tool that measures its energy or position, it randomly “collapses” to one of those multiple states.
+回想一下，当观察到一个量子比特时，会产生一个随机结果。你会直觉地认为量子比特在这两种状态之间振荡，就像硬币在空中翻转、正反交替，直到它落地才能知道最终结果。然而，实际上，一个量子比特同时是 “0” 和 “1”。这是因为存储量子比特信息的粒子可以同时具有不同的能量水平或位于不同的位置。当量子粒子与其他事物（例如测量其能量或位置的工具）相互作用时，它会随机“坍缩”到某个状态。
 
-### Suspend your disbelief
+### 放下你的怀疑
 
-I need to interrupt this description of superposition and address the main stumbling point for most people: disbelief or confusion. Your current thought is probably, “How can something be in two places at once? That’s impossible!”
+我需要打断对叠加态的描述，并解决大多数人的主要绊脚石：难以置信或困惑。你现在的想法可能是，“一个东西怎么会同时出现在两个地方？这不可能！”
 
-I posed this question to three Ph.D. quantum physicists. One responded that you just have to suspend disbelief and trust the math and experiments proving it true. The other two gave a more satisfactory answer. The macro world we live in is just radically different than what happens at the most micro levels, and we cannot apply what we observe at our human-sized level of observation to what happens at the most micro-level of the universe.
+我向三位量子物理学博士提出了这个问题。其中一位回答说，你只需要停止怀疑，相信已有的数学和实验已经证明它是正确的。另外两人给出了比较满意的回答。我们生活的宏观世界与最微观层面发生的事情完全不同，我们无法将我们在宏观上观察到的情况应用到宇宙最微观层面。
 
-To help accept this, think about the most macro aspects of the universe. Einstein proved nothing can move faster than light. That also seems intuitively impossible from our human-sized perspective: Why can’t I just step on the gas a little harder when I’m near light speed? Yet it has become commonly accepted in mainstream culture.
+为了帮助接受这一点，请考虑宇宙最宏观的层面。爱因斯坦证明没有什么能比光速更快。从我们人类大小的角度来看，这在直觉上似乎也是不对的：当我接近光速时，为什么我不能在踩一点油门？然而，这一理论已被普遍接受。
 
-So, when I say a qubit can be in two different locations or have two seemingly contradictory energy levels at the same time, just accept it as true and don’t try to think any deeper why.
+因此，当我说一个量子比特可以同时位于两个不同的位置或同时具有两个看似矛盾的能级时，请接受它，不要试图更深入地思考原因。
 
-Now back to explaining superposition…
+现在在回到介绍叠加态的地方 ...
 
 ## Fourth Difference: Exponential Growth
 
