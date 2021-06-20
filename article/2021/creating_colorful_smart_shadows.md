@@ -30,8 +30,9 @@
 展示我们的寿司的图片对应的 HTML 起始没什么特别的：
 
 ```html
+
 <div class="parent">
-  <div class="colorfulShadow sushi"></div>
+    <div class="colorfulShadow sushi"></div>
 </div>
 ```
 
@@ -39,12 +40,12 @@
 
 ```css
 .sushi {
-  margin: 100px;
-  width: 150px;
-  height: 150px;
-  background-image: url("https://www.kirupa.com/icon/1f363.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
+    margin: 100px;
+    width: 150px;
+    height: 150px;
+    background-image: url("https://www.kirupa.com/icon/1f363.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 ```
 
@@ -64,18 +65,18 @@
 
 ```css
 .colorfulShadow {
-  position: relative;
+    position: relative;
 }
 
 .colorfulShadow::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: inherit;
-  background-position: center center;
-  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
-  z-index: -1;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    background-position: center center;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
+    z-index: -1;
 }
 ```
 
@@ -83,14 +84,14 @@
 
 ```css
 .colorfulShadow::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: inherit;
-  background-position: center center;
-  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
-  z-index: -1;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    background-position: center center;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
+    z-index: -1;
 }
 ```
 
@@ -98,14 +99,14 @@
 
 ```css
 .colorfulShadow::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: inherit;
-  background-position: center center;
-  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
-  z-index: -1;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    background-position: center center;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
+    z-index: -1;
 }
 ```
 
@@ -117,31 +118,31 @@
 
 ```css
 .colorfulShadow {
-  position: relative;
+    position: relative;
 }
 
 .colorfulShadow::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background: inherit;
-  background-position: center center;
-  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
-  z-index: -1;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: inherit;
+    background-position: center center;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.50)) blur(20px);
+    z-index: -1;
 
-  /* animation time! */
-  animation: oscillate 1s cubic-bezier(.17, .67, .45, 1.32) infinite alternate;
+    /* animation time! */
+    animation: oscillate 1s cubic-bezier(.17, .67, .45, 1.32) infinite alternate;
 }
 
 @keyframes oscillate {
-  from {
-    transform: scale(1, 1);
-  }
+    from {
+        transform: scale(1, 1);
+    }
 
-  to {
-    transform: scale(1.3, 1.3);
-  }
+    to {
+        transform: scale(1.3, 1.3);
+    }
 }
 ```
 
