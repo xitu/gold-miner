@@ -73,23 +73,23 @@
 
 现在在回到介绍叠加态的地方 ...
 
-## Fourth Difference: Exponential Growth
+## 第四个区别：指数增长
 
-Whereas a classical bit that can only be in the state corresponding to `0` or the state corresponding to `1`, a qubit may be in a superposition of both states simultaneously. A sequence of 32 bits can be in approximately 4 billion combinations. A classical computer can only evaluate one of them at a time. A series of 32 qubits is in all 4 billion combinations at the same time. This means quantum computing power grows at an exponential rate whereas a classical computer grows linearly.
+经典比特只能处于 “0” 和 “1” 两种确定的状态，而量子比特可能同时处于两种状态的叠加。一个长度为 32 的经典比特序列可以有大约 40 亿种组合。一台经典计算机一次只能评估其中一个。长为 32 的量子比特序列能同时处于所有 40 亿个状态。这意味着量子计算能力呈指数增长，而经典计算机呈线性增长。
 
-For example, if I want to search for some key combination of 8 bits, a 16-bit computer can perform two searches in parallel, going twice as fast as an 8-bit computer. A 32-bit computer would allow four parallel searches, finishing the search four times as fast as an 8-bit computer. This means the power of a classical computer doubles when the number of its bits doubles.
+例如，如果我想搜索某个 8 位的键值，16 位得计算机可以一次执行两次并行搜索，搜索速度是 8 位计算机的两倍。 32 位计算机将允许一次进行四次并行搜索，搜索速度是 8 位计算机的四倍。这意味着当其位数加倍时，经典计算机的能力加倍。
 
-Contrast that to a quantum computer. If a quantum computer has one qubit, then it’s simultaneously storing two states (`0 1`) and so can search both at the same time. If it has two qubits, then it’s simultaneously storing four states (`00 01 10 11`) and again can simultaneously search all four at once, making it twice as fast as a single qubit computer. If it has three qubits, then it’s simultaneously storing eight states (000 001 010 011 100 101 110 111) and again can simultaneously search all eight at once, so it’s eight times faster than a single qubit computer. Thus the power of a quantum computer doubles with every qubit added to it.
+将其与量子计算机进行对比。如果量子计算机有一个量子位，那么它同时存储两个状态（“0 1”），因此可以同时搜索这两个状态。如果它有两个量子比特，那么它会同时存储四个状态（“00 01 10 11”），并且可以同时搜索所有四个状态，使其速度是单个量子比特计算机的两倍。如果它有三个量子比特，那么它会同时存储八个状态 (“000 001 010 011 100 101 110 111”)，并且可以同时搜索所有八个状态，因此它比单个量子比特计算机快 4 倍。因此，每增加一个量子比特，量子计算机的能力就会加倍。
 
-You may recall, though, that there’s one problem with qubits: when we measure them, we get only one of those combinations at random, which isn’t very useful if we want to harness its ability to be in multiple states simultaneously. How do we work around that? The answer is wave interference.
+不过，你可能还记得，量子比特有一个问题：当我们测量它们时，我们只能随机得到这些组合中的一种，如果我们想利用其同时处于多种状态的能力，这不是很有用。我们如何解决这个问题？答案是波干涉。
 
-## Wave Interference
+## 波干涉
 
-In case you forgot from high school science class, let’s review how waves work. You can see in a pool of water that when two waves meet they interfere with each other. When the peaks and troughs of two waves align, they amplify themselves for stronger peaks and troughs. But when a peak meets a trough, they cancel each other out, resulting in no wave.
+如果你忘记了高中科学课，让我们回顾一下波的原理。您可以在水池中看到，当两个波浪相遇时，它们会相互影响。当两个波的波峰和波谷对齐时，它们会相互增强，有更强的波峰和波谷。但是当波峰和波谷对齐时，它们会相互抵消，导致没有波浪。
 
-![Image credit: [Veritasium](https://www.youtube.com/watch?v=Iuv6hY6zsd0) with edits by author](https://cdn-images-1.medium.com/max/2000/1*jR6AB_iN8UKjh-H55KQ3hw.jpeg)
+![图像来源： [Veritasium](https://www.youtube.com/watch?v=Iuv6hY6zsd0) with edits by author](https://cdn-images-1.medium.com/max/2000/1*jR6AB_iN8UKjh-H55KQ3hw.jpeg)
 
-Under the hood, the properties of qubits come from energy waves, which have the same signal interference properties as water waves in a pond. There are complex algorithms (whose math is beyond the scope of this article) that use canceling interference to dampen energy states far from the correct answer while amplifying those closer to the correct answer. By repeating the algorithm multiple times prior to measuring the qubits, the probability of the measurement resulting in an incorrect state goes down while the probability of the measurement resulting in the desired state goes up. Even though the qubits are in all states simultaneously, you can find the correct answer to a problem within a certain degree of confidence by dampening the states you don’t want while amplifying the states you do want.
+从本质上来说，量子比特的特性来自于能量波，它与池塘中的水波具有相同的特性。有一些复杂的算法（其数学原理超出了本文的范围）通过波的干涉效应来抑制错误的能量状态，同时放大正确的能量状态。通过在测量量子比特之前多次重复该算法，使得错误状态的测量概率下降，期望状态的测量概率上升。即使量子比特同时处于所有状态，你也可以通过在放大你想要的状态的同时抑制不想要的状态，从而在一定的置信度内找到问题的正确答案。
 
 ## Applications
 
