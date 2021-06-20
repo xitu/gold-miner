@@ -7,7 +7,7 @@
 
 # 纯 CSS 创建五彩斑斓的智慧阴影！让前景图片自动转化为对应彩色的背景阴影
 
-几天前，我在 Home Depot（aka [Toys "R" Us](http://en.wikipedia.org/wiki/Toys_R_Us) for big kids）处发现，他们有一个巨大的显示器来展示所有这些彩色的供销售的电灯泡！其中一项是一组在电视后面的智能灯泡。它们会在电视的后面投影近似于电视在播出的内容的彩色阴影，与以下内容 [类似](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221)：
+几天前，我在 Home Depot（aka [Toys "R" Us](http://en.wikipedia.org/wiki/Toys_R_Us) for big kids，也就是玩具反斗城）处发现，他们有一个巨大的显示器来展示所有这些彩色的供销售的电灯泡！其中一项是一组在电视后面的智能灯泡。它们会在电视的后面投影近似于电视在播出的内容的彩色阴影，与以下内容 [类似](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221)：
 
 ![](https://www.kirupa.com/html5/images/lighting_behind_tv.png)
 
