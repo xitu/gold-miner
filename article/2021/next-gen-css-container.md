@@ -2,24 +2,28 @@
 > * 原文作者：[Una Kravets](https://css-tricks.com/author/unakravets/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/next-gen-css-containermd](https://github.com/xitu/gold-miner/blob/master/article/2021/next-gen-css-container.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Next Gen CSS: @container
+# 下一代 CSS：@container
 
-Chrome is experimenting with `@container`, a property within the CSS Working Group [Containment Level 3 spec](https://github.com/w3c/csswg-drafts/issues?q=is%3Aissue+label%3Acss-contain-3+) being championed by [Miriam Suzanne](https://twitter.com/TerribleMia) of [Oddbird](https://css.oddbird.net/rwd/query/), and a group of engineers across the web platform. `@container` brings us the ability to **style elements based on the size of their parent container**.
+Chrome 正在试验 CSS `@container` 查询器功能，这是由 [Oddbird](https://css.oddbird.net/rwd/query/) 的 [Miriam Suzanne](https://twitter.com/TerribleMia) 和一群网络平台开发者支持的 CSS 工作组 [Containment Level 3 规范](https://github.com/w3c/csswg-drafts/issues?q=is%3Aissue+label%3Acss-contain-3+)。`@container` 查询器使我们能够**根据父容器的大小来设置元素的样式**。
 
-> The `@container` API is not stable, and is subject to syntax changes. If you try it out on your own, you may encounter a few bugs. Please report those bugs to the appropriate browser engine! **Reported Bugs:** [Chrome](https://bugs.chromium.org/p/chromium/issues/list), [Firefox](https://bugzilla.mozilla.org/home), [Safari](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit).
+> `@container` API 不稳定，会受到语法变化的影响。如果你想要自己尝试一下，可能会遇到一些错误。请将这些错误报告给相应的浏览器引擎！**报告错误的链接如下：**
+>
+> * [Chrome](https://bugs.chromium.org/p/chromium/issues/list)
+> * [Firefox](https://bugzilla.mozilla.org/home)
+> * [Safari](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit)
 
-You can think of these like a media query (`@media`), but instead of relying on the **viewport** to adjust styles, the parent container of the element you’re targeting can adjust those styles.
+你可以把这些想象成一个媒体查询（`@media`），但不是依靠 **viewport** 来调整样式，而是你所瞄准的元素的父容器会调整这些样式。
 
-## Container queries will be the single biggest change in web styling since CSS3, altering our perspective of what “responsive design” means.
+## 容器查询将是自 CSS3 以来 Web 样式的最大变化，改变我们对“响应式设计”含义的看法。
 
-No longer will the viewport and user agent be the only targets we have to create responsive layout and UI styles. With container queries, elements will be able to target their own parents and apply their own styles accordingly. This means that the same element that lives in the sidebar, body, or hero could look completely different based on its available size and dynamics.
+viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯一目标。通过容器查询，元素将能够定位自己的父元素并相应地应用自己的样式。这意味着存在于侧边栏、主体或 Hero 中的相同元素可能会根据其可用大小和动态看起来完全不同。
 
-## `@container` in action
+## `@container` 实例
 
-In [this example](https://codepen.io/una/pen/LYbvKpK), I’m using two cards within a parent with the following markup:
+在 [本示例](https://codepen.io/una/pen/LYbvKpK) 中，我在父级中使用了两张带有以下标记的卡片：
 
 ```html
 <div class="card-container">
@@ -40,7 +44,7 @@ In [this example](https://codepen.io/una/pen/LYbvKpK), I’m using two cards wit
 </div>
 ```
 
-Then, I’m setting containment (the [`contain` property](https://css-tricks.com/almanac/properties/c/contain/)) on the parent on which I’ll be querying the container styles (`.card-container`). I’m also setting a relative grid layout on the parent of `.card-container`, so its `inline-size` will change based on that grid. This is what I’m querying for with `@container`:
+然后，我在我将查询容器样式的父级（ `.card-container`）上设置 Containment（[`contain` 属性](https://css-tricks.com/almanac/properties/c/contain/)）。我还在 `.card-container` 的父级上设置了一个相对网格布局，因此它的 `inline-size` 将根据该网格而改变。这就是我使用 `@container` 查询的内容：
 
 ```css
 .card-container {
@@ -49,12 +53,12 @@ Then, I’m setting containment (the [`contain` property](https://css-tricks.com
 }
 ```
 
-Now, I can query for container styles to adjust styles! This is very similar to how you would set styles using width-based media queries, using `max-width` to set styles when an element is *smaller* than a certain size, and `min-width` when it is *larger*.
+现在，我可以查询容器样式来调整样式！这与使用基于宽度的媒体查询设置样式的方式非常相似，当元素 **小于指定尺寸** 时使用 `max-width` 设置样式，当元素 **大于指定尺寸** 时使用 `min-width`。
 
 ```css
-/* when the parent container is smaller than 850px, 
-remove the .links div and decrease the font size on 
-the episode time marker */
+/* 当父容器宽度小于 850px，
+不再显示 .links
+并且减小 .time 字体尺寸 */
 
 @container (max-width: 850px) {
   .links {
@@ -68,8 +72,8 @@ the episode time marker */
   /* ... */
 }
 
-/* when the parent container is smaller than 650px, 
-decrease the .card element's grid gap to 1rem */
+/* 当父容器宽度小于 650px 时，
+减小 .card 元素之间的网格间距到 1rem */
 
 @container (max-width: 650px) {
   .card {
@@ -82,25 +86,25 @@ decrease the .card element's grid gap to 1rem */
 
 ![1](https://user-images.githubusercontent.com/5164225/120361018-f670b380-c33b-11eb-8c42-38fdbb1b5a8a.gif)
 
-## Container Queries + Media Queries
+## 容器查询 + 媒体查询
 
-One of the best features of container queries is the ability to separate *micro layouts* from *macro layouts*. You can style individual elements with container queries, creating nuanced micro layouts, and style entire page layouts with media queries, the macro layout. This creates a new level of control that enables even more responsive interfaces.
+容器查询的最佳功能之一是能够将 **微观伤的布局** 与 **宏观上的布局** 分开。我们可以使用容器查询设置单个元素的样式，创建细微的微观布局，并使用媒体查询（宏布局）设置整个页面布局的样式。这创造了一个新的控制水平，使界面更具响应性。
 
-Here’s [another example](https://codepen.io/una/pen/RwodQZw) that shows the power of using media queries for macro layout (i.e. the calendar going from single-panel to multi-panel), and micro layout (i.e. the date layout/size and event margins/size shifting), to create a beautiful orchestra of queries.
+这是[另一个示例](https://codepen.io/una/pen/RwodQZw)。它展示了使用媒体查询进行宏观布局（即日历从单面板到多面板）和微观布局（即日期布局/大小和事件边距/大小移动），以创建一个漂亮的和谐的查询。
 
 ![2](https://user-images.githubusercontent.com/5164225/120361024-f8d30d80-c33b-11eb-8bed-4b367965f7be.gif)
 
-## Container Queries + CSS Grid
+## 容器查询 + CSS 网格
 
-One of my personal favorite ways to see the impact of container queries is to see how they work within a grid. Take the following example of a plant commerce UI:
+我个人最喜欢的查看容器查询影响的方法之一是查看它们在网格中的工作方式。以以下植物贸易 UI 为例：
 
 ![3](https://user-images.githubusercontent.com/5164225/120361028-fa9cd100-c33b-11eb-8328-148977357c44.gif)
 
-No media queries are used on this website at all. Instead, we are only using container queries along with CSS grid to display the shopping card component in different views.
+本网站根本没有使用媒体查询。相反，我们只使用容器查询和 CSS 网格来在不同的视图中显示购物卡组件。
 
-In the product grid, the layout is created with `grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));`. This creates a layout that tells the cards to take up the available fractional space until they hit `230px` in size, and then to flow to the next row. Check out more grid tricks at [1linelayouts.com](http://1linelayouts.glitch.me).
+在产品网格中，布局使用了 `grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));` 标记创建。这将创建一个布局，告诉卡片占用可用的小数空间，直到它们的大小达到 `230px`，然后下一格切换到下一行。你可以在 [1linelayouts.com](http://1linelayouts.glitch.me) 上查看更多网格技巧。
 
-Then, we have a container query that styles the cards to take on a vertical block layout when they are less than `350px` wide, and shifts to a horizontal inline layout by applying `display: flex` (which has an inline flow by default).
+然后，我们有一个容器查询，当卡片宽度小于 `350px` 时，它会将卡片样式设置为采用垂直块布局，并通过应用 `display: flex`（默认情况下具有内联流）转换为水平内联布局。
 
 ```css
 @container (min-width: 350px) {
@@ -113,21 +117,21 @@ Then, we have a container query that styles the cards to take on a vertical bloc
 }
 ```
 
-This means that each card *owns its own responsive styling*. This yet another example of where you can create a macro layout with the product grid, and a micro layout with the product cards. Pretty cool!
+这意味着每张卡片**拥有自己的响应式样式**。这是我们使用产品网格创建宏观布局以及使用产品卡片创建微观布局的另一个示例，酷毙了！
 
-## Usage
+## 用法
 
-In order to use `@container`, you first need to create a parent element that has [containment](https://developer.mozilla.org/en-US/docs/Web/CSS/contain). In order to do so, you’ll need to set `contain: layout inline-size` on the parent. You can use `inline-size` since we currently can only apply container queries to the inline axis. This prevents your layout from breaking in the block direction.
+为了使用`@container`，首先需要创建一个具有 [Containment](https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain) 的父元素。为此，我们需要在父级上设置 `contain: layout inline-size`。我们可以使用 `inline-size`，因为我们目前只能将容器查询应用于内联轴。这可以防止我们的布局在块方向上中断。
 
-Setting `contain: layout inline-size` creates a new [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block) and new [block formatting context](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context), letting the browser separate it from the rest of the layout. Now, we can query!
+设置 `contain: layout inline-size` 会创建一个新的 [Containment 块](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block) 和新的 [块格式上下文](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)，让浏览器将其与布局的其余部分分开，现在我们就可以使用容器查询了！
 
-## Limitations
+## 限制
 
-Currently, you cannot use height-based container queries, using only the block axis. In order to make grid children work with `@container`, you’ll need to add a wrapper element. Despite this, adding a wrapper lets you still get the effects you want.
+目前，您不能使用基于高度的容器查询，只能使用块轴方向上的查询。为了让网格子元素与 `@container` 一起工作，我们需要添加一个容器元素。尽管如此，添加容器仍可让我们获得所需的效果。
+ 
+## 试试看
 
-## Try it out
-
-You can experiment with the `@container` property in Chromium today, by navigating to: `chrome://flags` in [Chrome Canary](https://www.google.com/chrome/canary/) and turning on the **#experimental-container-queries** flag.
+您现在可以在 Chromium 中试验 `@container` 属性，方法是导航到：[Chrome Canary](https://www.google.com/chrome/canary/) 中的 `chrome://flags` 页面并打开 **#experimental-container-queries** 标志。
 
 ![](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/05/chrome-canary-conatiner-query-flag.png?resize=1902%2C1510&ssl=1)
 
