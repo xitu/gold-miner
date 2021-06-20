@@ -2,62 +2,59 @@
 > * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-take-notes.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-take-notes.md)
-> * 译者：
-> * 校对者：
+> * 译者：[PingHGao](https://github.com/PingHGao)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[greycodee](https://github.com/greycodee)
 
-# How to take notes
+# 如何做会议记录
 
-### Introduction
+### 简介
 
-During TC39 meetings we aim to take detailed coherent notes about the proceedings, so that people who are interested in what happened in the last meeting can stay updated and involved in the process even if they cannot attend the meeting. Note taking is a great task for someone who is attending their first couple of TC39 meetings as it throws you straight into the action.
+在 TC39 会议期间，我们的目标是对会议进行详细连贯的记录，以便对上次会议感兴趣的人即使没有参加会议也能及时了解最新情况并参与到过程中。对于首次参加 TC39 会议的新人来说，记笔记是一项极好的工作，因为它会让您直接投入到行动中。
 
-### How the notes should be taken
+### 应该如何做记录
 
-It's important to capture what is being said, but it shouldn't be word for word. If someone is
-repeating the same sentiment a few times, do not worry about recording everything they are saying.
-Try to focus on understanding what is being said, and getting the core of it. This way we have less
-work editing the notes for the public! Also, do not worry about noting down where you didn't quite
-understand what was said, others will come along and correct as you go.
+捕捉所说的内容很重要，但不应逐字逐句。如果有人多次重复相同的观点，请不要担心无法记录他们所说的一切。试着专注于理解所说的内容，并掌握核心观点。这样我们就可以减少为公众编辑笔记的工作！另外，不要担心记下您不太明白的内容，其他人会随着您的记录进行纠正。
 
-### Location of notes
+### 记录的位置
 
-Notes are kept in the tc39 etherpad for a given day. *The link to the etherpad should never be shared*. Given the pace of the conversation, notes can become quite messy, and might be incoherent. To give time for the speakers to clarify their intentions within a given conversation, notes are not released to the public for a couple of weeks, and for this reason the etherpad url is private. If you are a new note taker, do not hesitate to ask what the URL is for a given day.
+TC39 某一天的笔记保存在 etherpad 里。 *永远不要分享 etherpad 的链接*。鉴于谈话的节奏，笔记可能会变得非常混乱，并且可能不连贯。为了让演讲者有时间在特定对话中阐明他们的意图，笔记在几周内不会向公众发布，因此 etherpad 网址是私密的。如果您是一个新的笔记记录者，请不要犹豫，询问特定日期的笔记 URL 地址是什么。
 
-## Layout of the notes
+## 笔记的结构
 
-The notes have the following structure:
-- The date
-- The attendee list
-- The notes for the agenda items
+笔记的结构如下：
+- 日期
+- 与会者名单
+- 议程项目的说明
 
-### The date
+### 日期
 
-At the top of the notes, you should see (or add) the date:
+在笔记的顶部，您应该看到（或添加）日期：
 
 ```
-# <month> <day>, <year> Meeting Notes
+# <月> <日>, <年> 会议记录
 -----
 ```
 
-For example `# March 22, 2018 Meeting Notes`
+例如 `# 3月 22, 2018 会议记录`
 
-### The Attendee list
+### 出席者名单
 
 
-People usually add themselves here, with their name first followed by the initials that will be used to identify them in the notes.
+人们通常在此处添加自己的信息，首先是他们的名字，然后是名字的缩写，用于在笔记中识别他们。
 
-Initials must be unique and should be stable across meetings. Otherwise we won't know who is who in the notes. Normally we use three letters: first letter of first name, first letter of last name, last letter of last name. Old-timers are grandfathered-in with two-letter initials.
+姓名缩写必须是唯一的，并且在会议中应该是稳定的。否则我们将无法分辨笔记中的主体。通常我们使用三个字母：名字的第一个字母，姓氏的第一个字母，姓氏的最后一个字母。老前辈们习惯于使用两个单词的首字母缩写。
 
-Usually they look like this (these are not real members):
+通常他们看起来像这样（这些是虚构的成员）：
 
 ```
 Joseph Beuys (JB), Martin Kippenberger (MKR)
 ```
-With Joseph Beuys being an old-timer, and Martin Kippenberger being a new member
+其中 Joseph Beuys 是一个老前辈，Martin Kippenberger 是一个新成员。
 
-### The template
+### 模板
 
-The notes may or may not be initialised yet. If they are not, you can use this template:
+笔记可能已经初始化，也可能尚未初始化。如果没有，您可以使用此模板：
+
 
 ```
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,49 +62,45 @@ Template:
 -------------------------------------------------------------------------------------------------------------------------------------------
     
     
-## X.Y.Z Agenda Item 
+## X.Y.Z 议程项目
  
-(Presenter Full Name)
+(演讲者姓名)
  
- - [proposal](...link to proposal...)
- - [slides](...link to slides...)
+ - [提议](...提议的链接...)
+ - [幻灯片](...幻灯片的链接...)
  
 JB: Ja ja ja....
  
 MKR: Ne! Ne! Ne!
  
-#### Conclusion/Resolution
- 
-- Stage -1 
+#### 结论/决议
+ 
+- 阶段 -1 
 ```
 
-This template breaks down like so
+这个模板可以分解为如下
 
-#### Title
+#### 标题
 
-X.Y.Z should correspond to the agenda number from the agenda, and be followed by the title of the agenda item. For example: `## 8.i.c Expand text included in "function code”`
+X.Y.Z 应与议程中的议程编号相对应，后跟议程项目的标题。例如：`## 8.i.c Expand text included in "function code”`
 
-#### Links
+#### 链接
 
-Any links associate with the agenda item are added to the second segment of each topic. This might include the proposal repository, or a set of slides. It depends on the agenda item
+与议程项目相关的任何链接都被添加到每个主题的第二部分。这可能包括提案存储库或一组幻灯片。这取决于议程项目。
 
-#### Discussion
+#### 讨论
 
-Speakers are identified by the initials which are listed
-in the attendees list. Initials should always be with capital letters. In this case we have [Joseph
-Beuys](https://www.youtube.com/watch?v=py_uEHL-la4) (JB) arguing with [Martin
-Kippenberger](https://www.youtube.com/watch?v=MJxktqTgRlM) (MKR)
+发言人由与会者列表中列出的姓名缩写标识。姓名缩写应始终使用大写字母。在这种情况下，我们有 [Joseph Beuys](https://www.youtube.com/watch?v=py_uEHL-la4) (JB) 与 [Martin Kippenberger](https://www.youtube.com/watch?v=MJxktqTgRlM) (MKR)
 
-#### Conclusion
+#### 结论
 
-Once a discussion reaches its conclusion, we record the decision or outcome of the discussion. this
-should be a one line point, such as a stage advancement, or a need to rework
+一旦讨论得出结论，我们就会记录讨论的决定或结果。这应该是一个单线点，例如阶段推进，或者需要返工。
 
-## Tips
+## 建议
 
-- Try to pair on note taking, but do not have too many people simultaneously
-- With two people, one person can finish writing the last sentence, while the other person can start on the second sentence
-- If too many people are on the etherpad instance, the note takers might be booted — try not to have the notes open if you are not actively taking notes
+- 尝试合作记笔记，但不要同时有太多人。
+- 如果有两个人，可以一个人完成最后一句的同时另一个人开始写第二句。
+- 如果 etherpad 实例上的人太多，记笔记者可能会被锁定 —— 如果你当前不需要记笔记，尽量不要打开笔记。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
