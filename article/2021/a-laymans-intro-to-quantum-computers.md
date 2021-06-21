@@ -108,11 +108,11 @@
 
 下面的一些资源能够帮助你发展自己的量子技能：
 
-* [Quantum Computing Playground](http://www.quantumplayground.net/) is a quantum simulator you can run in a web browser. It won’t have the power of a real quantum computer, but it’s an opportunity to learn its concepts.
-* Microsoft has released a [quantum language called Q#](https://www.microsoft.com/en-us/quantum/development-kit) that can also run in a quantum computer simulator.
-* Finally, the [IBM Quantum Experience](https://quantum-computing.ibm.com/) has a real quantum computer connected to the Internet. With an IBMid account, you can write code to run on their quantum computer and gain access to their quantum community forum.
+* [Quantum Computing Playground](http://www.quantumplayground.net/) 是一个可以在网络浏览器中运行的量子模拟器。它不能如真正的量子计算机那样强大，但提供学习量子计算机概念的机会。
+* 微软发布了一种[称为 Q# 的量子语言](https://www.microsoft.com/en-us/quantum/development-kit)，它也可以在量子计算机模拟器中运行。
+* 最后，[IBM 量子计算机体验中心](https://quantum-computing.ibm.com/)有一台真正的连接到互联网的量子计算机。使用 IBMid 帐户，你可以在他们的量子计算机上运行自己编写的代码并访问他们的量子社区论坛。
 
-Quantum computing is advancing quickly. By planting the seeds of quantum skills in your data science organization and developing this strategic plan now, the day will come when your organization will be able to exploit the benefits of quantum computing while your competition starts from square one.
+量子计算正在快速发展。通过在你的数据科学组织中播下量子技能的种子并立即制定相关的战略计划，终有一天，你的组织将能够得心应手的利用量子计算的优势，而竞争对手则才刚刚开始了解量子计算。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
