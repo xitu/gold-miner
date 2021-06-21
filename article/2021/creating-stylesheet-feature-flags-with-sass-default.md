@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md](https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 用 Sass 的 !default 创建样式表的特征标识
 
@@ -30,7 +30,8 @@ $variable: 'test' !default;
 ## Style libraries and `@use...with`
 ## 样式库和 `@use...with`
 
-Sass 中的 `!default` 是为了方便样式库的使用，并方便地将它们包含到下游应用程序或项目中。通过将一些变量指定为 `!default`，库可以允许导入应用程序自定义或调整这些值，而不需要完全分开样式库。换句话说，`!default` 的变量本质上是作为修改库代码行为的 *形参*。
+Sass 中的 `!default` 是为了方便样式库的使用，并方便地将它们包含到下游应用程序或项目中。通过将一些变量指定为 `!default`，该库可以允许使用其的应用程序进行自定义或调整这些变量值，而不需要完全分开样式库。换句话说，`!default` 的变量本质上是修改库代码行为的 **形参**。
+
 
 Sass 有一个专门用于此目的的特殊语法，它将样式表与相关的变量组合在一起：
 
@@ -51,7 +52,7 @@ $bar: 'world';
 @import 'library';
 ```
 
-这里重要的区别，以及原因是 `@use...with` 是可取的，是关于覆盖的*范围*。 `with` 代码块让 Sass 编译器和任何读取源代码的人都清楚地知道，这些覆盖特别适用于在 `library.scss` 中定义和使用的变量。使用这种方法可以保持全局作用域的整洁，并有助于减少不同库之间的变量命名冲突。
+这里重要的区别以及原因是，关于覆盖的**范围**， `@use...with` 是可自取的。 `with` 代码块让 Sass 编译器和任何阅读源代码的人都清楚地知道，这些覆盖仅仅适用于在 `library.scss` 中定义和使用的变量。使用这种方法可以保持全局作用域的整洁，并有助于减少不同库之间的变量命名冲突。
 
 ## 最常用的例子：自定义主题
 
@@ -68,7 +69,7 @@ $color-secondary: salmon !default;
 );
 ```
 
-这一特性最常见的例子之一是 *主题* 的实现。主题色可以用 Sass 变量来定义，然后用 `!default` 允许自定义的主题色，为其他样式兜底（甚至包括混合或覆盖这些颜色）。
+这一特性最常见的例子之一是 **主题** 的实现。主题色可以用 Sass 变量来定义，然后用 `!default` 允许自定义的主题色，为其他样式兜底（甚至包括混合或覆盖这些颜色）。
 
 Bootstrap 使用 `!default` 标志设置每一项变量，来导出它的[整个 Sass 变量 API](https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss)，包括主题调色板，以及其他共享值，如间距，边框，字体设置，甚至动画渐变方法和时间。这是 `!default` 提供的灵活性的最好例子之一，即使是在一个非常全面的样式框架中。
 
@@ -93,7 +94,7 @@ $disable-font-cdn: false !default;
 
 当 Sass 在 CSS 生命周期中利用它的预处理器时，它开始显示它的优势。假设你公司设计系统的样式库使用了自定义的网页字体。它从谷歌的 CDN 加载——理想的情况是尽快得到资源——但尽管如此，你公司的体验团队对页面加载时间仍然非常关心；每一毫秒对于他们的应用来说都很重要。
 
-为了解决这个问题，你可以在你的样式库中引入一个可选的 *布尔* 标志（与第一个例子中的 CSS 颜色值略有不同）。当默认值设置为 `false` 时，你可以在 Sass `@if` 语句中检查这个特性标志，然后再运行消耗较大的操作，比如外部 HTTP 请求。你的库的普通用户甚至不需要知道这个选项的存在——为他们工作提供默认行为，他们自动从 CDN 加载字体，而其他团队可以访问切换他们需要的，以微调和优化页面加载。
+为了解决这个问题，你可以在你的样式库中引入一个可选的 **布尔** 标志（与第一个例子中的 CSS 颜色值略有不同）。当默认值设置为 `false` 时，你可以在 Sass `@if` 语句中检查这个特性标志，然后再运行消耗较大的操作，比如外部 HTTP 请求。你的库的普通用户甚至不需要知道这个选项的存在——为他们工作提供默认行为，他们自动从 CDN 加载字体，而其他团队可以访问切换他们需要的，以微调和优化页面加载。
 
 一个 CSS 变量不足以解决这个问题——尽管 `font-family` 可以被覆盖，但 HTTP 请求加载了未使用的字体。
 
