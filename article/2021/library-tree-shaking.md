@@ -22,8 +22,6 @@
 * 在转译（transpile）库时，不要丢失模块树或者 ES 模块特征（ES modules characteristics）。
 * 使用最新版的能够支持摇树优化的打包工具。
 
-## What is tree shaking and why is it important?
-
 ## 什么是摇树优化？为什么它很重要？
 
 引用 [MDN 文档](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking)：
