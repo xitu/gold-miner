@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md](https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md)
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat) [nia3y](https://github.com/nia3y)
 
 # 用 Sass 的 !default 创建样式表的特征标识
 
