@@ -359,7 +359,7 @@ function getUserAccount() {
 }
 ```
 
-如果 `getUserAccount` 没有被使用，打包工具是否可以认为 `getUserAccount` 模块可以从打包输出中移除呢？答案是否定的！`getUserAccount` 可以做各种能够影响应用的其他部分的事情。它可以向全局可访问的值里注入一些变量，比如 DOM。它还可以是一个 CSS 模块，会向 `document` 里注入样式。不过我觉得最好的例子是 polyfill。我们通常会像下面这样引入它们：
+如果 `getUserAccount` 没有被使用，打包工具是否可以认为 `userAccount` 模块可以从打包输出中移除呢？答案是否定的！`userAccount` 可以做各种能够影响应用的其他部分的事情。它可以向全局可访问的值里注入一些变量，比如 DOM。它还可以是一个 CSS 模块，会向 `document` 里注入样式。不过我觉得最好的例子是 polyfill。我们通常会像下面这样引入它们：
 
 ```js
 import "myPolyfill";
