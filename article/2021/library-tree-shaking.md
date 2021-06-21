@@ -437,6 +437,7 @@ import "myPolyfill";
 你可能注意到我们在本文先前的例子里的 `user-library` 并没有被打包到一个单独的文件里，而是直接暴露手动加入的 `.js` 源文件。
 
 通常，一个库会由于以下原因被打包：
+
 * 使用了一些自定义的 `import` 路径。
 * 使用的是像 Sass 或者 TypeScript 这样的语言，它们需要转换到比如 CSS 或者 JavaScript 这样的语言。
 * 需要满足于提供多种模块格式（ESM、CJS、IIFE 等）的需求。
