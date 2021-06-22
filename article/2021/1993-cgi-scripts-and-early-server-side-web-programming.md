@@ -2,7 +2,7 @@
 > * 原文作者：[ricmac](https://webdevelopmenthistory.com/author/richardricmac-org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming.md](https://github.com/xitu/gold-miner/blob/master/article/2021/1993-cgi-scripts-and-early-server-side-web-programming.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[Chorer](https://github.com/Chorer)
 
 # 1993 年的 CGI 脚本和早期服务端 Web 编程

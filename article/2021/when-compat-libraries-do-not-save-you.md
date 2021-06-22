@@ -2,7 +2,7 @@
 > * 原文作者：[Danny Preussler](https://dpreussler.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/when-compat-libraries-do-not-save-you.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Kimhooo](https://github.com/Kimhooo)、[greycodee](https://github.com/greycodee)
 
 # 当 Android 的 Compat 库不能拯救你的时候

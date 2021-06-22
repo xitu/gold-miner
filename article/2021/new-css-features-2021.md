@@ -2,7 +2,7 @@
 > * 原文作者：[Nick Schäferhoff](https://torquemag.io/author/NSchaferhoff1234/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/new-css-features-2021.md)
-> * 译者：[霜羽 Hoarfroster](https://github.com/Hoarfroster)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Baddyo](https://github.com/Baddyo)、[nia3y](https://github.com/nia3y)
 
 # 都 2021 年了，你还不知道这 10 个 CSS 功能？

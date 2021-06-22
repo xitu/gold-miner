@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/which-type-of-loop-is-fastest-in-javascript.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[Chorer](https://github.com/Chorer)、[HumanBeing](https://github.com/HumanBeingXenon)
+> * 校对者：[Chorer](https://github.com/Chorer)、[HumanBeing](https://github.com/HumanBeingXenon)、[yoghurt](https://juejin.cn/user/2840793777440296)
 
 # JavaScript 中哪一种循环最快呢？
 
@@ -59,7 +59,7 @@ things.foreach(callbackFun);
       	coding - 2 */
 ```
 
-需要注意的是，如果我们要使用 `forEach`，我们不能使用 JavaScript 的短路运算符，即不能在每一次循环中跳过或结束循环。
+需要注意的是，如果我们要使用 `forEach`，我们不能使用 JavaScript 的短路运算符（||、&&……），即不能在每一次循环中跳过或结束循环。
 
 ### **3. `for…of`**
 
