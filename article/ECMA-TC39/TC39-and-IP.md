@@ -4,21 +4,19 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md)
 > * 译者：
 > * 校对者：
-# TC39 and IP
+# TC39 和 IP
 
-## How TC39 works
+## TC39 是如何运作的
 
-TC39 is a technical committee of Ecma, which creates and maintains ECMA-262, the standard for the JavaScript programming language, and some
-other JavaScript-related specifications such as ECMA-402 ("Intl").
+TC39 是 Ecma 的一个技术委员会，它负责创建和维护 ECMA-262，即JavaScript 编程语言的标准，以及一些其他与 JavaScript 相关的规范，例如 ECMA-402（『国际』）。
 
-### Meetings
+### 会议
 
-TC39 meets once every two months for three days. Meetings are primarily attended by delegates from Ecma member organizations. Non-members who are invited by the committee to attend TC39 can do so in two ways:
-- "Invited Experts" may contribute to the discussions.
-- "Observers" are simply watching a TC39 meeting, without
-contributing.
+TC39 会议每两个月举行一次，会议为期三天。会议主要由 Ecma 成员组织的代表参加。受委员会邀请参加 TC39 的非会员可以通过以下两种方式参加:
+- 『特邀专家』 可以参与讨论.
+- 『观察员』仅能旁听 TC39，不能参与讨论。
 
-In practice, both of these designations are most often used for prospective Ecma members, and rarely for other purposes. In these meetings, we discuss proposals, recommend modifications, and promote proposals through a ["stage" process][1]. When a proposal advances to Stage 4, we add it to the draft specification.
+在实践中，这两种身份通常用于潜在的 Ecma 成员, 而很少用于其他目的. 在这些会议中，我们通过『stage』过程<sup><a href="#note1">[1]</a></sup>讨论提案，提出修改建议，并推动提案。当一个提案进入到 Stage 4 阶段，我们会将它加入到规范草案里。
 
 ### Work on GitHub
 
@@ -79,7 +77,8 @@ ECMAScript specification drafts are licensed under the [draft copyright license]
 
 - 1: Historically, all of TC39's work actually takes place in the TC39 RFTG, with a [separately-tracked membership][8]. Today, the entire committee has converted to an RFTC. The opt-out period begins when the annual version is "branched" off, towards the beginning of the year, and ends before the annual version is ratified by the Ecma General Assembly, typically around the middle of the year.
 
-[1]: http://tc39.es/process-document/
+<a name="note1"></a> [how-to-add-footnotes-to-github-flavoured-markdown](http://tc39.es/process-document/)
+
 [2]: https://github.com/tc39/ecma262/
 [3]: https://github.com/tc39/ecma402/
 [4]: https://github.com/tc39/proposals/
@@ -94,6 +93,7 @@ ECMAScript specification drafts are licensed under the [draft copyright license]
 [13]: https://github.com/IgnoredAmbience/tc39-bot/
 [14]: https://github.com/bterlson/ecmarkup/blob/master/boilerplate/draft-copyright.html
 [15]: https://github.com/bterlson/ecmarkup/blob/master/boilerplate/proposal-copyright.html
+
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
