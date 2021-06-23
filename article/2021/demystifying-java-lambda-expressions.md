@@ -2,8 +2,8 @@
 > * 原文作者：[Randal Kamradt Sr](https://medium.com/@rlkamradt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/demystifying-java-lambda-expressions.md](https://github.com/xitu/gold-miner/blob/master/article/2021/demystifying-java-lambda-expressions.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[Kimhooo](https://github.com/Kimhooo)，[1autodidact](https://github.com/1autodidact)
 
 # 解密 Java Lambda 表达式
 
@@ -59,7 +59,7 @@ public class Application {
 }
 ```
 
-这种古怪的语法 `() -> something` 令人大吃一惊。但是，它只是定义了一个函数，这个函数没有输入参数，有返回对象。由于 `Pet` 接口只有一个方法，就可以这样来调用方法。从技术角度来看，它实现了 `Pet` 接口，重写了 `vocalize` 函数。但对于我们的讨论的主题来说，它是一个可以嵌入其他函数的函数。
+这种古怪的语法 `() -> something` 令人大吃一惊。但是，它只是定义了一个函数，这个函数没有输入参数，有返回对象。由于 `Pet` 接口只有一个方法，开发者就可以通过这种方式来调用方法。从技术角度来看，它实现了 `Pet` 接口，重写了 `vocalize` 函数。但对于我们的讨论的主题来说，它是一个可以嵌入其他函数的函数。
 
 由于 `Supplier` 接口可以替代 `Pet` 接口，这段代码还可以进一步精简。如下所示：
 
@@ -79,9 +79,9 @@ public class Application {
 
 由于`Supplier` 是一个公共接口，它位于 `java.util.function` 包中。
 
-这些 lambda 函数看起来像是我们无中生有捏造的。但在它们的背后，我们是在利用单一函数去实现接口，并提供单一函数的具体实现。
+这些 lambda 函数看起来像是我们凭空捏造的。但在它们的背后，我们是在利用单一函数去实现接口，并提供单一函数的具体实现。
 
-我们来讨论另一个公共函数 `Consumer`。它把某个值作为输入参数，没有返回值，基本上是消费了这个值。如果你已经使用了列表或流对象的 `forEach` 方法，在这里你可以用 `Consumer`。我们会收集所有的宠物的叫声，存入一个列表，再逐个调用。如下所示：
+我们来讨论另一个公共函数 `Consumer`。它把某个值作为输入参数，没有返回值，本质上是消费了这个值。如果你已经使用了列表或流对象的 `forEach` 方法，在这里你可以用 `Consumer`。我们会收集所有的宠物的叫声，存入一个列表，再逐个调用。如下所示：
 
 ```Java
 @Slf4j
@@ -103,7 +103,7 @@ public class Application {
 
 OK，我展示的例子并不直观。我的目的是从多态函数入手，引入 lambda 表达式的相关内容。何时可以实际使用 lambda 表达式？有一些例子，它们具有通用性，应当反复研究。这些例子也被纳入了 Stream 类库中。
 
-作为一个例子，它直观了一些，在这个例子中，我会获取一系列的文件，删除那些不以点作为开头的文件，并获取文件名和文件大小。第一步比较繁琐，需要从当前目录获取文件列表对象，并将它转为 `Stream` 类型。我们可以使用 `File` 类实现：
+这个例子比较直观，我会获取一系列的文件，删除那些不以点作为开头的文件，并获取文件名和文件大小。首先需要从当前目录获取文件数组，并将它转为 `Stream` 类型。我们可以使用 `File` 类实现：
 
 ```Java
 File dir = new File(".");
@@ -167,7 +167,7 @@ public static void main(String [] args)  {
 
 把其他函数作为参数的函数一般称为 **高阶函数**。我们已经了解了几种高阶函数：`forEach`, `filter`, `map` 和 `flatMap`。它们中的每一个都代表了一种以不同于参数和返回值的抽象方式操作对象的方法。我们使用 lambda，就是要进行明确的操作。利用这种方式，我们还可以把多个操作串联于一系列对象上，以便得到需要的结果。
 
-我希望本文能向读者揭示 lambda 函数的相关内幕。我想，当第一次引入这个话题，它本身就有些吓人。当然，它是从 Alonzo Church’s lambda calculus 借用过来的，但这又是另一回事了。现在，你应该了解：使用这种简单的语法，函数也可以凭空产生。
+我希望本文能向读者揭示 lambda 函数的神秘面纱。我想，当第一次引入这个话题，它本身就有些吓人。当然，它是从 Alonzo Church 的 lambda 演算借用过来的，但这又是另一个故事了。现在，你应该了解：使用这种简单的语法，函数也可以凭空产生。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
