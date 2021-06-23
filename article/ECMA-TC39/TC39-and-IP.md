@@ -16,11 +16,11 @@ TC39 会议每两个月举行一次，会议为期三天。会议主要由 Ecma 
 - 『特邀专家』 可以参与讨论.
 - 『观察员』仅能旁听 TC39，不能参与讨论。
 
-在实践中，这两种身份通常用于潜在的 Ecma 成员, 而很少用于其他目的. 在这些会议中，我们通过『stage』过程<sup><a href="#note1">[1]</a></sup>讨论提案，提出修改建议，并推动提案。当一个提案进入到 Stage 4 阶段，我们会将它加入到规范草案里。
+在实践中，这两种身份通常用于潜在的 Ecma 成员, 而很少用于其他目的. 在这些会议中，我们通过[『stage』过程][1]讨论提案，提出修改建议，并推动提案。当一个提案进入到 Stage 4 阶段，我们会将它加入到规范草案里。
 
-### Work on GitHub
+### 在 GitHub 上工作
 
-Most deep technical work in TC39 takes place on GitHub. The [main specification][2] has a GitHub repository, as do other specifications such as [ECMA-402][3]. Small changes to the draft specification are done via GitHub Pull Requests, and larger changes are done via staged proposals which are maintained in [separate GitHub repositories][4].
+TC39 中最深入的技术性工作发生在 GitHub 上。[主要规范][2] 有一个位于 Github 的存储库，并且其他规范也是如此，例如 [ECMA-402][3]. 对规范草案的小改动是通过 GitHub Pull Requests 完成的，而更大的改动则是通过分阶段的提案完成的，这些提案在[单独的 GitHub 存储库][4]中维护。
 
 ### Annual specification releases
 
@@ -77,8 +77,7 @@ ECMAScript specification drafts are licensed under the [draft copyright license]
 
 - 1: Historically, all of TC39's work actually takes place in the TC39 RFTG, with a [separately-tracked membership][8]. Today, the entire committee has converted to an RFTC. The opt-out period begins when the annual version is "branched" off, towards the beginning of the year, and ends before the annual version is ratified by the Ecma General Assembly, typically around the middle of the year.
 
-<a name="note1"></a> [how-to-add-footnotes-to-github-flavoured-markdown](http://tc39.es/process-document/)
-
+[1]: https://github.com/tc39/ecma262/
 [2]: https://github.com/tc39/ecma262/
 [3]: https://github.com/tc39/ecma402/
 [4]: https://github.com/tc39/proposals/
