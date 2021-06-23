@@ -4,16 +4,16 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Becoming-a-TC39-delegate.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Becoming-a-TC39-delegate.md)
 > * 译者：
 > * 校对者：
-# Becoming a TC39 delegate
+# 成为 TC39 代表
 
-TC39 is a part of [Ecma International](http://www.ecma-international.org/). Ecma membership is based on organizations, not individuals. To participate in physical TC39 meetings, join Ecma as a member organization or attend as a delegate of an existing member organization.
+TC39 是 [Ecma International](http://www.ecma-international.org/) 的一部分. Ecma 成员资格是面向组织而非个人的。你需要作为成员组织加入 Ecma 或者作为一个 Ecma 成员组织的代表，才能参加线下的 TC39 会议。
 
-## Joining Ecma
+## 加入 Ecma
 
-Ecma has [several membership tiers](http://www.ecma-international.org/memento/join.htm), including a free tier for not-for-profit organizations and various paid tiers based on company size. To join Ecma,
-- Fill out the [form](http://www.ecma-international.org/memento/join.htm) appropriate to your membership tier.
-- Sign [the royalty-free patent agreement](https://www.ecma-international.org/memento/Policies/Registration%20Form%20for%20the%20Ecma%20Royalty%20Free%20(RF)%20Patent%20Policy.pdf) required for TC39.
-- Forms may be sent either by email to [the Secretary General](mailto:istvan@ecma-international.org) or by mail to
+Ecma 有 [多个成员等级](http://www.ecma-international.org/memento/join.htm)，包括面向非营利组织的免费等级和基于公司规模的各种付费等级。想要加入 Ecma,你需要：
+- 填写符合你成员等级的 [表格](http://www.ecma-international.org/memento/join.htm)。
+- 签订 TC39 所需的 [免版税专利协议](https://www.ecma-international.org/memento/Policies/Registration%20Form%20for%20the%20Ecma%20Royalty%20Free%20(RF)%20Patent%20Policy.pdf)。
+- 通过电子邮件将表格发送给 [秘书长](mailto:istvan@ecma-international.org) 或者将表格邮寄到
 
 The Secretary General
 
@@ -25,18 +25,18 @@ CH-1204 Geneva
 
 Switzerland
 
-- When the Ecma secretariat receives and verifies your form submissions, you'll be able to participate in TC39 activities as members do, though things are formalized some months later.
-- Membership fees are paid annually, starting at the end of the joining year.
+- 当 Ecma 秘书处收到并验证了你提交的表单后，你将能够像正式成员一样参与 TC39 活动，但正式确定会在几个月后。
+- 如果你是付费等级的成员，你需要支付会员费。会员费每年支付一次，从加入年末开始.
 
-## Attending TC39 as a delegate of a member company
+## 作为成员公司的代表参加 TC39 会议
 
-Find the meeting locations, dates and agendas in [the agenda repository](https://github.com/tc39/agendas/). The agenda links to various documents about all of the proposals that will be discussed.
+你可以在 [议程库](https://github.com/tc39/agendas/) 中查询会议的时间、地点和议程。议程的链接将会链接到与将要讨论的所有提案相关的各种文件.
 
-Ecma and TC39 don't set a limit on who attends TC39 from a member organization, but many member organizations coordinate internally with respect to TC39. If you're not the first person in your organization to attend TC39, contact others before attending the meeting to learn more.
+Ecma 和 TC39 不会限制任何成员组织的任何人参加 TC39, 但很多成员组织会处于对 TC39 的尊重进行内部协调。如果你不是你的组织中第一个参加 TC39 会议的成员，请在参会前联系那些之前参加过会议的成员以了解更多信息.
 
-Before attending a meeting, be sure to sign the meeting's Doodle that is sent out to all delegates.
+在参加会议之前，请务必在发送给所有代表的会议涂鸦上签名.
 
-If your organization does not have the right to license the intellectual property that you would contribute to Ecma (most employers do have such an agreement), then sign [the contributor IP form](https://tc39.es/agreements/contributor/).
+如果你的组织无权许可你将贡献给 Ecma 的知识产权（大多数雇主确实有这样的协议），请签署 [贡献者 IP 表](https://tc39.es/agreements/contributor/).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
