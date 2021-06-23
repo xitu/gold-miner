@@ -2,7 +2,7 @@
 > * 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Becoming-a-TC39-delegate.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/Becoming-a-TC39-delegate.md)
-> * 译者：
+> * 译者：[finalwhy](https://github.com/finalwhy)
 > * 校对者：
 # 成为 TC39 代表
 
