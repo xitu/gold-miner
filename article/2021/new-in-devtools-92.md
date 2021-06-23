@@ -7,7 +7,7 @@
 
 ![](https://developer-chrome-com.imgix.net/image/dPDCek3EhZgLQPGtEG3y0fTn4v82/XtJztwxzQqOWhOHrKmhM.jpg?auto=format)
 
-# DevTools 的新功能（Chrome 92）
+# Chrome 92 DevTools 的新功能
 
 ## CSS 网格编辑器
 
