@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/should-you-really-be-coding-in-dark-mode.md](https://github.com/xitu/gold-miner/blob/master/article/2021/should-you-really-be-coding-in-dark-mode.md)
 > * 译者：[kamly](https://github.com/kamly)
-> * 校对者：[Zz招锦](https://github.com/zenblo)
+> * 校对者：[Zz招锦](https://github.com/zenblo), [Kim Yang](https://github.com/KimYangOfCat)
 
 # 你真的应该在黑暗模式下进行编码吗?
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--a0VqOvf_--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/4a6t7pmm323uaz9rv1rf.png)
 
-在关于用户体验的开发中，很少有像色彩模式这样有争议的争论。然而，在开发人员中，似乎有一个很明显的倾向，那就是在浅色和深色模式下进行编码。([这项调查](https://css-tricks.com/poll-results-light-on-dark-is-preferred/) 发现被调查的开发人员中，有 2/3 人更喜欢在他们的代码编辑器中使用黑暗模式)。
+在关于用户体验的开发中，很少有像色彩模式这样有争议的争论。然而，在开发人员中，似乎有一个很明显的倾向，那就是在黑暗模式下进行编码。([这项调查](https://css-tricks.com/poll-results-light-on-dark-is-preferred/) 发现被调查的开发人员中，有 2/3 人更喜欢在他们的代码编辑器中使用黑暗模式)。
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--UJZ5SGo2--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/7wlt8u1cv5hd8ts4nvj5.png)
 
@@ -43,9 +43,9 @@
 
 ## 3. 消耗电量
 
-在你的 IDE 中使用黑暗模式的另一个论点是，它可以为你节省电费。如果你使用的是 OLED 显示器，而大多数现代显示器都是 OLED，那确实可以。
+在你的 IDE 中使用黑暗模式的另一个论点是，它可以为你节省电费。如果你使用的是 OLED 显示器，而大多数现代显示器都是 OLED ，那确实可以。
 
-然而，可能需要注意的是，如果你正在开发计算量大的软件，如渲染3D图形或训练和使用机器学习模型，黑暗模式减少的功耗可能不会对你的电费产生任何明显的影响。
+然而，可能需要注意的是，如果你正在开发计算量大的软件，如渲染 3D 图形或训练和使用机器学习模型，黑暗模式减少的功耗可能不会对你的电费产生任何明显的影响。
 
 ## 4. 无障碍性
 
