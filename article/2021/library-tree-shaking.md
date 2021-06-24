@@ -60,9 +60,9 @@
 3. 仅仅导入库的一个元素，检查应用的打包工具的输出。
 4. 检查输出中是否**只包含**被导入的元素及其依赖。
 
-这个策略能够使测试与我们现有的应用无关。它可以让我们随意地摆弄库而不破坏任何东西。它还能让我们确保出现的问题不是来自于应用打包工具的配置上。
+这个策略能够将测试与我们现有的应用隔离。它可以让我们随意地摆弄库而不破坏任何东西。它还能让我们确保出现的问题不是来自于应用打包工具的配置上。
 
-我们接下来会将这种策略应用到一个叫做 `user-library` 的库上，使用一个由 [Webpack](https://webpack.js.org/) 进行打包的应用 `user-app` 进行测试。你也可以使用别的你更喜欢的打包工具。
+我们接下来会将这种策略应用到一个叫做 `user-library` 的库上，使用一个由 [Webpack](https://webpack.js.org/) 进行打包的应用 `user-app` 进行测试。你也可以使用其他你更喜欢的打包工具。
 
 `user-library` 的代码如下所示：
 
@@ -130,7 +130,7 @@ module.exports = {
 * 对树中的每一个模块，识别出它的哪些 `export` 语句没有被其他模块所导入。
 * 使用像 UglifyJS 或者 Terser 这样的代码最小化（minification）工具来移除未引用的导出项，以及它们的相关代码。
 
-这些步骤仅在**生产模式（production mode）**下才会被执行。
+这些步骤仅在 **生产模式（production mode）** 下才会被执行。
 
 **生产模式的问题在于代码最小化（minification）**。它会让我们难以分辨摇树优化是否生效，因为在打包后的代码里我们看不到原来命名的函数。
 
@@ -186,13 +186,13 @@ Webpack 将我们所有的代码重新组织到了同一个文件里。请看其
 
 ## 使用 ES6 模块来让打包工具得以识别未被使用的 export
 
-这项要求非常常见，而且很多文档都有详细的解释，但在我看来它们却有些误导性。我时常能听到一些开发者说，我们应该使用 ES6 模块来让我们的库能够被摇树优化。虽然这句话本身是完全正确的，但**其中包含一种错误的观念，这种观念以为仅仅使用 ES6 模块就足以让摇树优化很好地工作。**哎，要是真的这么简单，你也绝不会把本文读到这里了！
+这项要求非常常见，而且很多文档都有详细的解释，但在我看来它们却有些误导性。我时常能听到一些开发者说，我们应该使用 ES6 模块来让我们的库能够被摇树优化。虽然这句话本身是完全正确的，但 **其中包含一种错误的观念，这种观念以为仅仅使用 ES6 模块就足以让摇树优化很好地工作。** 哎，要是真的这么简单，你也绝不会阅读本文至此！
 
 不过，使用 ES6 模块确实是摇树优化的必要条件之一。
 
 JavaScript 代码的打包格式有很多种：ESM、CJS、UMD、IIFE 等。
 
-为简单起见，我们只考虑两种格式：ECMA Script 模块（ESM 或 ES6 模块）和 CommonJS 模块（CJS），因为它们在应用库中受到了最为广泛的使用。大多数库会使用 CJS 模块，因为这样能够让它们能够运行在 Node.js 应用里（不过 [Node.js 现在也支持 ESM 了](https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663)）。ES 模块伴随 ECMAScript 2015（也被称作 ES6），在 CJS 诞生很久之后的 2015 年才出现，被认为是 JavaScript 的标准模块系统。
+为简单起见，我们只考虑两种格式：ECMA Script 模块（ESM 或 ES6 模块）和 CommonJS 模块（CJS），因为它们在应用库中受到了最为广泛的使用。大多数库会使用 CJS 模块，因为这样能够让它们能够运行在 Node.js 应用里（不过 [Node.js 现在也支持 ESM 了](https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663)）。在 CJS 诞生很久之后的 2015 年，ES 模块才伴随 ECMAScript 2015（也被称作 ES6）出现，被认为是 JavaScript 的标准模块系统。
 
 CJS 格式的例子：
 
@@ -216,7 +216,7 @@ export const getUserAccount = () => {
 };
 ```
 
-**这两种格式有着很大的区别：ESM 的导入是静态的，而 CJS 的导入是动态的。**这意味着我们可以在 CJS 中做到以下的事情，但是在 ESM 中不行：
+**这两种格式有着很大的区别：ESM 的导入是静态的，而 CJS 的导入是动态的。** 这意味着我们可以在 CJS 中做到以下的事情，但是在 ESM 中不行：
 
 ```js
 if (someCondition) {
@@ -328,7 +328,7 @@ const userAccount = {
 /***/ })
 ```
 
-注意，`getUserAccount` 和 `getUserPhoneNumber` 都被标记为了未引用。而且另一个文件里的 `userAccount` 也被标记了。得益于 `innerGraph` 优化，Webpack 能够将 `index.js` 文件里的 `getUserAccount` 导入项链接到 `userAccount` 导出项。**这让 Webpack 可以从入口文件开始，递归遍历它所有的依赖，进而知道每一个模块的哪些导出项未被引用。**因为 Webpack 知道 `getUserAccount` 没有被使用，所以它可以到 `userAccount` 文件里对 `getUserAccount` 的依赖做相同的检查。
+注意，`getUserAccount` 和 `getUserPhoneNumber` 都被标记为了未引用。而且另一个文件里的 `userAccount` 也被标记了。得益于 `innerGraph` 优化，Webpack 能够将 `index.js` 文件里的 `getUserAccount` 导入项链接到 `userAccount` 导出项。**这让 Webpack 可以从入口文件开始，递归遍历它所有的依赖，进而知道每一个模块的哪些导出项未被引用。** 因为 Webpack 知道 `getUserAccount` 没有被使用，所以它可以到 `userAccount` 文件里对 `getUserAccount` 的依赖做相同的检查。
 
 ![使用 ESM 格式的库的导出模块图](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-3.svg)
 
@@ -339,7 +339,7 @@ ES 模块让我们可以在应用代码里寻找那些被引用的和未被引�
 本文这一部分的总结如下：
 
 * **ESM 是摇树优化的条件之一，但仅凭它不足以让摇树优化达到理想效果。**
-* **确保你的库总是提供一份 ESM 格式的编译产物！**如果你的库的用户需要 ESM 和 CJS 格式的编译产物，可以通过 package.json 中的 [`main` 和 `module` 属性](https://github.com/rollup/rollup/wiki/pkg.module)来设置。
+* **确保你的库总是提供一份 ESM 格式的编译产物！** 如果你的库的用户需要 ESM 和 CJS 格式的编译产物，可以通过 package.json 中的 [`main` 和 `module` 属性](https://github.com/rollup/rollup/wiki/pkg.module)来设置。
 * 如果可以的话，**确保总是使用 ESM 格式的依赖**，否则它们不能被摇树优化。
 
 ## 使用副作用优化来让你的库不包含副作用
@@ -414,7 +414,7 @@ import "myPolyfill";
 
 ![副作用优化下的模块图](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-4.svg)
 
-** `sideEffects` 选项对于那些通过一个 index 文件从其他内部源文件导出 API 的库尤其重要。**如果没有副作用优化，打包工具就必须解析所有包含导出项的源文件。
+** `sideEffects` 选项对于那些通过一个 index 文件从其他内部源文件导出 API 的库尤其重要。** 如果没有副作用优化，打包工具就必须解析所有包含导出项的源文件。
 
 正如 [Webpack 的提示](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects)：**“`sideEffects` 非常地高效，因为它能够让打包工具略过整个的模块或源文件，以及它的整个子树”**
 
@@ -961,7 +961,7 @@ const getUserName = () => 'John Doe';
 
 Webpack 5 能够完全移除 `userAccount` 模块，但是 Webpack 4 不行，即使 `getUserAccount` 被标记为了未引用。这是因为 `inngerGraph` 优化的算法能够让 Webpack 5 将模块中未引用的导出项和它对应的导入项链接起来。在我们的例子里，`userAccount` 模块仅被 `getUserAccount` 函数所使用，因此可以被直接略过。
 
-Webpack 4 则没有这项优化。**开发者在使用这个版本的 Webpack 的时候因此应该提高警惕，限制单个源文件里的导出项数量。**如果一个源文件包含多个导出项，Webpack 会包含所有对应的导入项，即使对于真正被需要的导出项来说有些导入项是多余的。
+Webpack 4 则没有这项优化。**开发者在使用这个版本的 Webpack 的时候因此应该提高警惕，限制单个源文件里的导出项数量。** 如果一个源文件包含多个导出项，Webpack 会包含所有对应的导入项，即使对于真正被需要的导出项来说有些导入项是多余的。
 
 总的来说，我们应该确保总是使用最新版的打包工具，这样我们就能从最新的摇树优化中获益。
 
@@ -970,7 +970,7 @@ Webpack 4 则没有这项优化。**开发者在使用这个版本的 Webpack �
 对一个库进行的摇树优化，并不是在配置文件里随便加一行来启用就能获得很好的效果。它的优化质量取决于多个因素，本文仅仅列出了其中的一小部分。不过，无论我们遇到的问题是什么，本文里做过的以下两件事情是对任何想要对库进行摇树优化的人很重要的：
 
 * **为了确定我们库的摇树优化效果程度，我们需要在一个受控的环境下使用我们了解的打包工具来进行测试。**
-* **为了检查我们库的配置有没有问题，我们不仅仅是需要检查各种配置文件，还要检查打包输出。**我们在本文里一直都在对 `user-library` 和 `user-app` 的例子做这种事情。
+* **为了检查我们库的配置有没有问题，我们不仅仅是需要检查各种配置文件，还要检查打包输出。** 我们在本文里一直都在对 `user-library` 和 `user-app` 的例子做这种事情。
 
 我真切地希望本文能够为你提供帮助，让你正在进行的构建拥优化程度最高的库的任务变得可能！
 
