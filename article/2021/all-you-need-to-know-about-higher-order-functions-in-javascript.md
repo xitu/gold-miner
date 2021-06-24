@@ -3,22 +3,22 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：
+> * 校对者：[chzh9311](https://github.com/chzh9311)
 
 # 简述 JavaScript 高阶函数的开发使用
 
 ![](https://cdn-images-1.medium.com/max/2400/1*KQnA_VQkW6DVV-4zLBu_-Q.png)
 
-作为一个 JavaScript 开发者，会经常使用高阶函数，对这些函数有一个正确的理解是很重要的。目前，我看到部分开发者经常对 `reduce()` 的使用感到困惑。因此，我的这篇文章将会详细说明，大家要试着逐步地去理解它，我相信你一定能掌握。
+作为一个 JavaScript 开发者，会经常使用高阶函数，所以你务必对这些函数有正确的理解。目前，我看到部分开发者经常对 `reduce()` 的使用感到困惑。因此，我的这篇文章将会详细说明，你要试着逐步地去理解它，我相信你一定能掌握。
 
 ## 高阶函数
 
 简而言之，高阶函数是那些将其他函数作为参数或返回其他函数的函数。在高阶函数中作为参数传递的函数被称为回调。
 
-高阶函数的特点：
+高阶函数的优势：
 
 * 它们帮助我们写出简洁的代码。
-* 由于是简洁的代码，它将更容易调试。
+* 由于是简洁的代码，调试工作会更加容易。
 
 现在 JavaScript 有一些内置的高阶函数，你可能已经在不知不觉中就使用它们了，例如 `filter()`、`reduce()`、`sort()` 和 `forEach()`。
 
@@ -26,7 +26,7 @@
 
 `filter` 方法返回一个新的元素数组，该数组通过一个回调函数提供的特定测试。由于 `filter` 需要一个回调函数，因此 `filter()` 被称为高阶函数。
 
-现在，传入 `filter()` 的回调函数被称为高阶函数。
+现在，传入 `filter()` 的回调函数被称为高阶函数：
 
 * 元素的数值（必须）
 * 元素的索引（可选）
@@ -42,9 +42,9 @@ const resultant Array = arr.filter((element ) => {
 console.log(resultantArray); // [4, 5]
 ```
 
-在以上示例中，`arr` 数组中的元素被依次传递到 `filter()` 回调方法中，它们在执行一个特定的测试，即 `element > 3`。那些通过测试的元素被推送到 `resultantArray` 中，这就是为何输出结果是 [4,5] ，因为 4 和 5 是通过测试的元素。
+在以上示例中，`arr` 数组中的元素被依次传递到 `filter()` 回调方法中执行一个特定的测试，即 `element > 3`。那些通过测试的元素被推送到 `resultantArray` 中，这就是为何输出结果是 [4,5] ，因为 4 和 5 是通过测试的元素。
 
-参数 `element` 是依次获得 `arr` 数组的元素值，它首先变成 1，然后测试 `1 > 3`，如果为真，1 将被推到结果数组中，如果为假，将跳到下一个元素。
+参数 `element` 将依次获得 `arr` 数组的元素值，它首先变成 1，然后测试 `1 > 3`，如果为真，1 将被推到结果数组中，否则将跳到下一个元素。
 
 示例：
 
@@ -75,7 +75,7 @@ console.log(positiveArray);
 
 -----------------
 
-// 筛选包含 `sh` 的单词
+// 筛选包含 `sh` 的名字
 
 const namesArray = ["samuel", "rahul", "harsh", "hitesh"]; 
 
@@ -110,7 +110,7 @@ console.log(increasedArray);
 
 就像在 `filter()` 中一样，`numArray` 的元素将被依次传递到 `map()` 回调函数中（作为 `element` 参数），它们将被映射成一个 `element + 1` 的新值，然后它们将被放进 `increasedArray`。
 
-首先 `1` 将得到一个传递的元素参数，它将得到一个新的值，即 `element + 1`，这样 `1 + 1`（因为这里的元素是 `1`），`2` 将被推入增加的 `Array` 中，依次为 `5、3、6、4、7`。
+首先 `1` 将被作为元素参数传递并被映射到一个新的值，即 `element + 1`，这样 `1 + 1`（因为这里的元素是 `1`），即 `2` 将被推入`increasedArray` 中。接下来对 `5、3、6、4、7` 重复以上过程。
 
 示例：
 
@@ -178,13 +178,13 @@ console.log(sum);
 
 现在示例中也没有使用 `initialValue`，当我们不传递 `initialValue` 时，`reduce()` 方法会跳过 `numArray` 的第一个元素成为 `total argument` 的值，这是什么情况？
 
-在示例中，没有传递 `initialValue`，所以 `numArray` 的第一个元素，如 `1` 将成为 `total argument` 的值，`numArray` 的第二个元素将作为 `num` 参数传递，减少将返回 `total + num`，如 `1 + 2 = 3`，`3` 将成为 `total` 的新值，现在 `numArray` 的第三个元素将作为 `num` 参数传递到` reduce()` 回调，再次减少将返回 `total + num`，即 `3 + 3 = 6`，`6` 将成为 `total` 的新值等。
+在示例中，没有传递 `initialValue`，所以 `numArray` 的第一个元素，如 `1` 将成为 `total argument` 的值，`numArray` 的第二个元素将作为 `num` 参数传递， 函数将返回 `total + num`，如 `1 + 2 = 3`，`3` 将成为 `total` 的新值，现在 `numArray` 的第三个元素将作为 `num` 参数传递到` reduce()` 回调，它将再次返回 `total + num`，即 `3 + 3 = 6`，`6` 将成为 `total` 的新值，以此类推。
 
-上述解释有些混乱难懂，如果你尝试逐步地学习，就会掌握` reduce()`。
+上述解释有些混乱难懂，但如果你尝试逐步地学习，就会掌握` reduce()`。
 
 > initialValue（初始值）参数
 >
-> `initialValue` 是 `total argument` 的初始值，当 `reduce()` 第一次运行时，没有先前的返回值，因此现有数组（在示例中是 `numArray`）的第一个元素成为总参数的值，所以可以给总参数一个初始值，而不是这样做（记住 `initialValue` 将是 `total argument` 的初始值，`total argument` 将成为 `reduce()` 的先前返回值）。
+> `initialValue` 是 `total argument` 的初始值，当 `reduce()` 第一次运行时，没有先前的返回值，因此现有数组（在示例中是 `numArray`）的第一个元素成为 `total argument` 的值，所以可以给 ·total argument` 一个初始值，而不是这样做（记住 `initialValue` 将是 `total argument` 的初始值，`total argument` 将成为 `reduce()` 的先前返回值）。
 
 > 注意：当使用 `initialValue` 参数时，`numArray` 不会跳过它的第一个元素，因此每个元素都会被传递到 `reduce()` 回调。
 
