@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md)
 > * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[chzh9311](https://github.com/chzh9311)
+> * 校对者：[chzh9311](https://github.com/chzh9311)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 简述 JavaScript 高阶函数的开发使用
 
@@ -17,7 +17,7 @@
 
 高阶函数的优势：
 
-* 它们帮助我们写出简洁的代码。
+* 它们可以帮助我们写出简洁的代码。
 * 由于是简洁的代码，调试工作会更加容易。
 
 现在 JavaScript 有一些内置的高阶函数，你可能已经在不知不觉中就使用它们了，例如 `filter()`、`reduce()`、`sort()` 和 `forEach()`。
@@ -26,7 +26,7 @@
 
 `filter` 方法返回一个新的元素数组，该数组通过一个回调函数提供的特定测试。由于 `filter` 需要一个回调函数，因此 `filter()` 被称为高阶函数。
 
-现在，传入 `filter()` 的回调函数被称为高阶函数：
+传入高阶函数 `filter()` 的回调函数参数如下：
 
 * 元素的数值（必须）
 * 元素的索引（可选）
