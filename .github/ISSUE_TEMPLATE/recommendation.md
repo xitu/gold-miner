@@ -3,8 +3,8 @@ name: 推荐优秀英文文章
 about: 推荐值得翻译且暂未被翻译的优质英文文章
 title: '推荐前端/后端/AI/Android/iOS/产品/设计/Flutter/Kotlin/其他/资讯优秀英文文章'
 labels:
-- 推荐文章
-assignees: 'lsvih'
+- 文章推荐
+assignees: ''
 ---
 
 - 原文链接：推荐文章前 Google 一下，尽量保证本文未被翻译
