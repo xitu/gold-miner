@@ -4,7 +4,7 @@ about: 写一份译者申请表，向大家介绍一下你吧～
 title: '申请成为译者'
 labels:
 - 申请译者
-assignees: 'itcodes'
+assignees: ''
 ---
 
 - 公司/学校：
