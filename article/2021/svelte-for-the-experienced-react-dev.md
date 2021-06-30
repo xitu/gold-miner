@@ -2,18 +2,18 @@
 > * 原文作者：[Adam Rackis](https://css-tricks.com/author/adam-rackis/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md](https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md)
-> * 译者：
+> * 译者：没事儿[https://github.com/Tong-H]
 > * 校对者：
 
-# Svelte for the Experienced React Dev
+# 面向具有 React 开发经验的开发者介绍 Svelte
 
-This post is an accelerated introduction to Svelte from the point of view of someone with solid experience with React. I’ll provide a quick introduction, and then shift focus to things like state management and DOM interoperability, among other things. I plan on moving somewhat quickly, so I can cover a lot of topics. At the end of the day, I’m mainly hoping to spark some interest in Svelte.
+这篇文章将从富有 React 开发经验的开发者的角度快速的介绍 Sevlte。首先我会做一个简要的介绍，然后将重点转到 state 管理以及 DOM 互操性上。我打算把进度加快一点，这样就能覆盖更多的话题。总之，希望能引起你对 Svelte 的兴趣。
 
-For a straightforward introduction to Svelte, no blog post could ever beat the official [tutorial](https://svelte.dev/tutorial/basics) or [docs](https://svelte.dev/docs).
+关于对 Svelte 的介绍，没有任何博客可以和官方[教程](https://svelte.dev/tutorial/basics)和[文档](https://svelte.dev/docs)相比。
 
-## “Hello, World!” Svelte style
+## “Hello, World!” Svelte 风格
 
-Let’s start with a quick tour of what a Svelte component looks like.
+让我们先快速浏览一遍 Svelte 的组件风格
 
 ```svelte
 <script>
@@ -32,29 +32,29 @@ Let’s start with a quick tour of what a Svelte component looks like.
 <button on:click={() => number--}>Decrement</button> 
 ```
 
-That content goes in a `.svelte` file, and is processed by the [Rollup](https://github.com/sveltejs/rollup-plugin-svelte) or [webpack](https://github.com/sveltejs/svelte-loader) plugin to produce a Svelte component. There’s a few pieces here. Let’s walk through them.
+这个内容被存放在 `.svelte` 文件中，通过 [Rollup](https://github.com/sveltejs/rollup-plugin-svelte) 或 [webpack](https://github.com/sveltejs/svelte-loader) 插件加工后生成 Svelte 组件。我们可以通过一些小片段了解。
 
-First, we add a `<script>` tag with any state we need.
+首先，我们添加一个 `<script>` 标签存放所有我们需要的 state。
 
-We can also add a `<style>` tag with any CSS we want. These styles are **scoped to the component** in such a way that, here, `<h1>` elements in **this** component will be blue. Yes, scoped styles are built into Svelte, without any need for external libraries. With React, you’d typically need to use a third-party solution to achieve scoped styling, such as [css-modules](https://github.com/css-modules/css-modules), [styled-components](https://styled-components.com/), or the like (there are dozens, if not hundreds, of choices).
+我们也可以添加一个 `<style>` 标签存放所有我们需要的 CSS。这些样式 **只作用于这个组件**，所以 `<h1>` 元素在**这个** 组件中将会是蓝色的。是的，被限制作用域的样式内置于 Svelte， 不需要外部软件包。在 React 中，想要达到这样受限制的样式，你需要使用第三方插件类似 [css-modules](https://github.com/css-modules/css-modules), [styled-components](https://styled-components.com/), 或者其他的 (有几十种，甚至上百种选择).
 
-Then there’s the HTML markup. As you’d expect, there are some HTML bindings you’ll need to learn, like `{#if}`, `{#each}`, etc. These domain-specific language features might seem like a step back from React, where everything is “just JavaScript.” But there’s a few things worth noting: Svelte allows you to put arbitrary JavaScript **inside** of these bindings. So something like this is perfectly valid:
+接下来是一些 html 标记，类似`{#if}`, `{#each}`等 html 捆绑方法。相较于在 React 中，一切皆 JavaScript 的概念而言，这类特殊领域的语言功能可能看上去像是一个退步。但值得注意的是，Svelte 允许你在这些捆绑中放入任意的 JavaScript 代码。所以类似下面这类代码是完全有效的。
 
 ```svelte
 {#if childSubjects?.length}
 ```
 
-If you jumped into React from Knockout or Ember and never looked back, this might come as a (happy) surprise to you.
+如果你是从 Knockout 或者 Ember 转移到 React，并且从未回头，那么这可能会令你感到惊喜。
 
-Also, the way Svelte processes its components is very different from React. React re-runs all components any time any state within a component, or anywhere in an ancestor (unless you “memoize”), changes. This can get inefficient, which is why React ships things like `useCallback` and `useMemo` to prevent un-needed re-calculations of data.
+还有，Svelte 处理组件的方法和 React 完全不同。只要一个组件的状态或者父组件中的任何地方(除非你使用了 useMemo())发生了改变，React 会重新运行所有的组件。这可能会导致效率低下，这也是为什么 React 会使用`useCallback`和`useMemo`来防止额外的重新计算数据。
 
-Svelte, on the other hand, analyzes your template, and creates targeted DOM update code whenever any **relevant** state changes. In the component above, Svelte will see the places where `number` changes, and add code to update the `<h1>` text after the mutation is done. This means you never have to worry about memoizing functions or objects. In fact, you don’t even have to worry about side-effect dependency lists, although we’ll get to that in a bit.
+在另一方面，Svelte 会分析你的模板，并且在相关的状态改变时创建目标 DOM 的更新代码。在上面的组件中，Svelte 将会看到 `number`  在哪里改变，然后在变更完成后添加代码去更新`<h1>`的内容，这表示你不需要担心函数或者对象的记忆。事实上，你甚至不需要担心副作用的依赖列表，我们稍后会讨论这个问题。
 
-But first, let’s talk about …
+但是我们先谈论......
 
-## State management
+## State 管理
 
-In React, when we need to manage state, we use the `useState` hook. We provide it an initial value, and it returns a tuple with the current value, and a function we can use to set a new value. It looks something like this:
+在 React 中，当我们需要管理 state 的时候，我们使用 `useState` hook。我们向它提供一个初始值，然后得到一个带有当前值的元组，以及一个可以用于设置新值的函数。看起来可能是这样： 
 
 ```jsx
 import React, { useState } from "react";
@@ -71,9 +71,9 @@ export default function (props) {
 }
 ```
 
-Our `setNumber` function can be passed wherever we’d like, to child components, etc.
+`setNumber`函数可以传递到任何地方，比如子组件等。
 
-Things are simpler in Svelte. We can create a variable, and update it as needed. Svelte’s [ahead-of-time compilation](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) (as opposed to React’s just-in-time compilation) will do the footwork of tracking where it’s updated, and force an update to the DOM. The same simple example from above might look like this:
+这个在 Svelte 中会简单点。我们可以创建一个变量，在需要时更新它。 Svelte 的[提前编译](https://en.wikipedia.org/wiki/Ahead-of-time_compilation)(和 React 适时更新不同)将会追踪变量更新的脚步，然后推动 DOM 更新。和上面一样简单的例子:
 
 ```jsx
 <script>
@@ -85,9 +85,9 @@ Things are simpler in Svelte. We can create a variable, and update it as needed.
 <button on:click={() => number--}>Decrement</button>
 ```
 
-Also of note here is that Svelte requires no single wrapping element like JSX does. Svelte has no equivalent of the React fragment `<></>` syntax, since it’s not needed.
+ 另一个需要注意的是，Svelte 不需要 JSX 那样的单独的包裹元素，也没有 React 片段语法`<></>` 的等价物。
 
-But what if we want to pass an updater function to a child component so it can update this piece of state, like we can with React? We can just write the updater function like this:
+But what if we want to pass an updater function to a child component so it can update this piece of state, like we can with React? We can just write the updater function like this: 但如果我们想要传递一个更新函数给子组件呢？使它能更新这块状态，就像我们用 React 做的那样，我们可以写一个更新函数：
 
 ```svelte
 <script>
@@ -103,11 +103,11 @@ But what if we want to pass an updater function to a child component so it can u
 <button on:click={() => setNumber(val => val - 1)}>Decrement</button>
 ```
 
-Now, we pass it where needed — or stay tuned for a more automated solution.
+现在，我们可以把这个更新函数传递到任何我们需要的地方，或者继续期待一个更自动化的解决方案。
 
-### Reducers and stores
+### Reducer 和 store
 
-React also has the `useReducer` hook, which allows us to model more complex state. We provide a reducer function, and it gives us the current value, and a dispatch function that allows us to invoke the reducer with a given argument, thereby triggering a state update, to whatever the reducer returns. Our counter example from above might look like this:
+React 还有`useReducer` hook，让我们可以塑造更复杂的状态。我们提供一个reducer 函数，然后得到我们当前的值，以及一个 dispatch 函数让我们可以用一个给定的参数去调用 reducer，从而触发一个状态更新，不管 reducer 返回的是什么。我们上面的计数器例子可能看起来会是这样：
 
 ```jsx
 import React, { useReducer } from "react";
@@ -133,11 +133,11 @@ export default function (props) {
 }
 ```
 
-Svelte doesn’t **directly** have something like this, but what it does have is called a **store**. The simplest kind of store is a writable store. It’s an object that holds a value. To set a new value, you can call `set` on the store and pass the new value, or you can call update, and pass in a callback function, which receives the current value, and returns the new value (exactly like React’s `useState`).
+Svelte 没有类似的功能，但是它有一个称为**store**的模块。最简单的是 writable store，是持一个值的 object。想要设置一个新值，你可以调用 store 上的 `set` 方法并传递一个新值，或者调用 update，传入一个回调函数，这个函数接受当前值并且返回新值(和 React的 `useState`一样).
 
-To read the current value of a store at a moment in time, there’s a [`get` function](https://svelte.dev/docs#get) that can be called, which returns its current value. Stores also have a subscribe function, which we can pass a callback to, and that will run whenever the value changes.
+在需要时读取 store 的当前值，可以调用[`get` 函数](https://svelte.dev/docs#get)，它会返回当前值。Store 也有一个 subscribe 函数，我们可以传入一个回调函数，在值改变时被执行。
 
-Svelte being Svelte, there’s some nice syntactic shortcuts to all of this. If you’re inside of a component, for example, you can just prefix a store with the dollar sign to read its value, or directly assign to it, to update its value. Here’s the counter example from above, using a store, with some extra side-effect logging, to demonstrate how subscribe works:
+Svelte 是简洁轻量的，有一些不错的语法快捷方式。如果你在一个组件内部，你可以给 store 加一个 $ 前缀用于读取其值，或者通过直接赋值去更新值。这是上面的计数器例子，使用了一个 store，以及一些额外的副作用日志打印用于展示 subscribe 是如何工作的：
 
 ```svelte
 <script>
@@ -162,15 +162,15 @@ Svelte being Svelte, there’s some nice syntactic shortcuts to all of this. If 
 Double the value is {$doubleValue}
 ```
 
-Notice that I also added a derived store above. [The docs](https://svelte.dev/docs#derived) cover this in depth, but briefly, `derived` stores allow you to project one store (or many stores) to a single, new value, using the same semantics as a writable store.
+[文档](https://svelte.dev/docs#derived)深入的介绍了这个，但简单来说，`derived` store 让你可以使用和 writable store 一样的语法，让一个 store (或许多 store) 呈现出一个新值。
 
-Stores in Svelte are incredibly flexible. We can pass them to child components, alter, combine them, or even make them read-only by passing through a derived store; we can even re-create some of the React abstractions you might like, or even need, if we’re converting some React code over to Svelte.
+Svelte 中的 Store 非常灵活。我们可以将多个 store 传递到子组件中，更改、组合它们，甚至通过传递一个 derived store 使它们只读。如果我们要把一些 React 的代码转化为 Svelte，我们甚至可以重建一些你可能喜欢或需要的 React 抽象。
 
-### React APIs with Svelte
+### React API 与 Svelte
 
-With all that out of the way, let’s return to React’s `useReducer` hook from before.
+说完这些，让我们回到之前 React 的 `useReducer` hook 上。
 
-Let’s say we really like defining reducer functions to maintain and update state. Let’s see how difficult it would be to leverage Svelte stores to mimic React’s `useReducer` API. We basically want to call our own `useReducer`, pass in a reducer function with an initial value, and get back a store with the current value, as well as a dispatch function that invokes the reducer and updates our store. Pulling this off is actually not too bad at all.
+我们的确是真的喜欢通过定义 reducer 函数来维护和更新 state。让我们看看使用 Svelte 的 store 去实现 React 的 `useReducer` 会有多难。我们想要调用我们自己的 `useReducer`，传入一个带有初始值的 reducer 函数，然后得到带有当前值的 store，这和 dispatch 函数调用 reducer 去更新 store 是一样的。
 
 ```jsx
 export function useReducer(reducer, initialState) {
@@ -183,7 +183,7 @@ export function useReducer(reducer, initialState) {
 }
 ```
 
-The usage in Svelte is almost identical to React. The only difference is that our current value is a store, rather than a raw value, so we need to prefix it with the `$` to read the value (or manually call `get` or `subscribe` on it).
+Svelte 的用法和 React 几乎是一样的。唯一的区别是我们当前的值是一个 store，而不是一个原始值，所以我们需要加上一个 `$` 前缀来读取值(或者手动调用 store 上的`get` 或`subscribe` )。
 
 ```svelte
 <script>
@@ -206,9 +206,9 @@ The usage in Svelte is almost identical to React. The only difference is that ou
 <button on:click={() => dispatch("DEC")}>Decrement</button>
 ```
 
-### What about `useState`?
+### 那么`useState`呢?
 
-If you really love the `useState` hook in React, implementing that is just as straightforward. In practice, I haven’t found this to be a useful abstraction, but it’s a fun exercise that really shows Svelte’s flexibility.
+如果你真的喜欢 React 的`useState` hook，实现也很简单。实际上，我并没有觉得这是一个很有用的抽象，但这是个有趣的练习，可以展示 Svelte 的灵活性。
 
 ```svelte
 export function useState(initialState) {
@@ -223,11 +223,11 @@ export function useState(initialState) {
 }
 ```
 
-### Are two-way bindings **really** evil?
+### 双向绑定**真的**糟糕吗?
 
-Before closing out this state management section, I’d like to touch on one final trick that’s specific to Svelte. We’ve seen that Svelte allows us to pass updater functions down the component tree in any way that we can with React. This is frequently to allow child components to notify their parents of state changes. We’ve all done it a million times. A child component changes state somehow, and then calls a function passed to it from a parent, so the parent can be made aware of that state change.
+在结束 state 管理这部分之前，我要提及最后一个对 Svelte 而言比较特殊的技巧。我们已经知道了 Svelte 允许我们使用任何我们能用的 Rect 方法来传递更新函数到组件树。允许子组件通知他们的父组件，state 变化，这是个频繁的操作，我们已经做了几千次。一个子组件改变了 state，然后调用一个父组件传递过来的函数，这样父组件就可以接收 state 改变。
 
-In addition to supporting this passing of callbacks, Svelte also allows a parent component to two-way bind to a child’s state. For example, let’s say we have this component:
+除了支持回调函数的传递，Svelte 也允许父组件与子组件 state 的双向绑定。比如，我们有这样一个组件：
 
 ```svelte
 <!-- Child.svelte -->
@@ -242,7 +242,7 @@ In addition to supporting this passing of callbacks, Svelte also allows a parent
 Child: {val}
 ```
 
-This creates a component, with a `val` prop. The `export` keyword is how components declare props in Svelte. Normally, with props, we **pass them in** to a component, but here we’ll do things a little differently. As we can see, this prop is modified by the child component. In React this code would be wrong and buggy, but with Svelte, a component rendering this component can do this:
+上面的例子创建一个带有`val` 属性的组件。在 Svelte中，`export` 关键字用于组件声明 props。通常，我们会把 props 传入到一个组件中，但这里有点不同。比如上面的例子，`val` prop 被子组件修改了。在 React 中，这是错误的，可能会引发 bug，但在 Svelte 中，渲染这个组件的组件可以做这个。
 
 ```svelte
 <!-- Parent.svelte -->
@@ -256,13 +256,13 @@ This creates a component, with a `val` prop. The `export` keyword is how compone
 Parent Val: {parentVal}
 ```
 
-Here, we’re **binding** a variable in the parent component, to the child’s `val` prop. Now, when the child’s `val` prop changes, our `parentVal` will be updated by Svelte, automatically.
+这里，在父组件中我们为子组件的 `val` prop 重新**绑定**了一个变量。如果子组件的 `val` prop 变化，那么父组件的 `parentVal` 也会自动被 Svelte 更新。
 
-Two-way binding is controversial for some. If you hate this then, by all means, feel free to never use it. But used sparingly, I’ve found it to be an incredibly handy tool to reduce boilerplate.
+双向绑定是存在一些争论。如果你不喜欢，那就不要用它。但是少量使用，我认为这会是一个非常方便的工具，可以减少模板。
 
-## Side effects in Svelte, without the tears (or stale closures)
+## Svelte 中的副作用没有分离(或者过时的闭包)
 
-In React, we manage side effects with the `useEffect` hook. It looks like this:
+在 React 中，我们使用`useEffect` hook 管理副作用。像这样：
 
 ```jsx
 useEffect(() => {
@@ -270,11 +270,11 @@ useEffect(() => {
 }, [number]);
 ```
 
-We write our function with the dependency list at the end. On every render, React inspects each item in the list, and if any are referentially different from the last render, the callback re-runs. If we’d like to cleanup after the last run, we can return a cleanup function from the effect.
+我们写了一个函数，以及依赖列表。每一次渲染，React 都会检查列表中的每一个元素，如果有一个与上一次渲染时不同，那么这个回调函数就会再次运行。如果我们想要在上一次运行后运行一个 cleanup 函数，那么我们可以从 effect 中返回一个 cleanup 函数。
 
-For simple things, like a number changing, it’s easy. But as any experienced React developer knows, `useEffect` can be insidiously difficult for non-trivial use cases. It’s surprisingly easy to accidentally omit something from the dependency array and wind up with a stale closure.
+像数字变化这类简单的需求，这很简单。但是任何有经验的 React 开发者都知道，对于非琐碎的使用案例，`useEffect` 会是个潜在的麻烦。这非常容易，在依赖列表遗漏一些什么从而引发过时的闭包问题。
 
-In Svelte, the most basic form of handling a side effect is a reactive statement, which looks like this:
+在 Svelte 中，操作副作用最基础的形式是反应性的声明。看起来像这样。
 
 ```svelte
 $: {
@@ -282,7 +282,7 @@ $: {
 }
 ```
 
-We prefix a code block with `$:` and put the code we’d like to execute inside of it. Svelte analyzes which dependencies are read, and whenever they change, Svelte re-runs our block. There’s no direct way to have the cleanup run from the last time the reactive block was run, but it’s easy enough to workaround if we really need it:
+给一个代码块加上一个前缀 `$:`，然后放入我们想要执行的代码。Svelte 分析哪个依赖被读，只要它们改变，Svelte 会重新运行这个代码块。没有直接的方法可以在上一次这个反应性代码块运行后去运行 cleanup，如果真的需要可以做一个替代方法，这非常简单。
 
 ```svelte
 let cleanup;
@@ -293,13 +293,13 @@ $: {
 }
 ```
 
-No, this won’t lead to an infinite loop: re-assignments from within a reactive block won’t re-trigger the block.
+这并不会导致无限循环：在一个反应性的代码块内重新赋值不会再引发这个代码块运行。
 
-While this works, typically these cleanup effects need to run when your component unmounts, and Svelte has a feature built in for this: it has an [`onMount`](https://svelte.dev/docs#onMount) function, which allows us to return a cleanup function that runs when the component is destroyed, and more directly, it also has an [`onDestroy`](https://svelte.dev/docs#onDestroy) function that does what you’d expect.
+这是有效的，cleanup effects 通常会用在组件卸载时，Svelte 对此有一个内置功能 [`onMount`函数](https://svelte.dev/docs#onMount)，使我们可以返回一个 cleanup 函数能够在组件销毁时执行，更直接还有一个[`onDestroy`函数](https://svelte.dev/docs#onDestroy)，可以做我们想做的事。
 
-### Spicing things up with actions
+### action 来增加一些趣味
 
-The above all works well enough, but Svelte really shines with actions. Side effects are frequently tied to our DOM nodes. We might want to integrate an old (but still great) jQuery plugin on a DOM node, and tear it down when that node leaves the DOM. Or maybe we want to set up a `ResizeObserver` for a node, and tear it down when the node leaves the DOM, and so on. This is a common enough requirement that Svelte builds it in with [actions](https://svelte.dev/docs#use_action). Let’s see how.
+ 以上的一切都很好用，但 action 真的让 Svelte 闪光。副作用频繁的捆绑 DOM 节点。我们可能想在一个 DOM 节点上集成一个老式的(但仍然很不错) jQuery 插件，然后在节点离开 DOM 的时候拆除它；或者我们想为一个节点设置一个 `ResizeObserver`，然后在节点离开 DOM 的时候分离它，等等。这是非常普通的需求，Svelte 将其内置在 [action](https://svelte.dev/docs#use_action) 中。让我们一起去看看。
 
 ```svelte
 {#if show}
@@ -309,7 +309,7 @@ The above all works well enough, but Svelte really shines with actions. Side eff
 {/if}
 ```
 
-Note the `use:actionName` syntax. Here we’ve associated this `<div>` with an action called `myAction`, which is just a function.
+注意这个语法 `use:actionName`。这里我们将`<div>` 与一个称作`myAction`的 action 捆绑，这个 action 只是个函数。
 
 ```js
 function myAction(node) {
@@ -317,7 +317,7 @@ function myAction(node) {
 }
 ```
 
-This action runs whenever the `<div>` enters the DOM, and passes the DOM node to it. This is our chance to add our jQuery plugins, set up our `ResizeObserver`, etc. Not only that, but we can also return a cleanup function from it, like this:
+只要`<div>` 进入DOM，就会调用这个 action，并且传递这个 DOM 节点给 action。这是一个机会可以添加 jQuery 插件以及设置`ResizeObserver`等等。不只这样，我们还可以从中返回一个 cleanup 函数，比如这样：
 
 ```js
 function myAction(node) {
@@ -331,11 +331,11 @@ function myAction(node) {
 }
 ```
 
-Now the `destroy()` callback will run when the node leaves the DOM. This is where we tear down our jQuery plugins, etc.
+当节点离开 DOM 的时候，`destroy()` 将会执行，这是我们销毁 jQuery 插件的地方。
 
-### But wait, there’s more!
+### 慢着，还有！
 
-We can even pass arguments to an action, like this:
+我们还可以传递参数给 action, 像这样：
 
 ```svelte
 <div use:myAction={number}>
@@ -343,7 +343,7 @@ We can even pass arguments to an action, like this:
 </div>
 ```
 
-That argument will be passed as the second argument to our action function:
+这个参数将作为 action 函数的第二个参数。
 
 ```js
 function myAction(node, param) {
@@ -357,7 +357,7 @@ function myAction(node, param) {
 }
 ```
 
-And if you’d like to do additional work whenever that argument changes, you can return an update function:
+如果你想在参数变化时做额外的工作，你可以返回一个 update 函数。
 
 ```js
 function myAction(node, param) {
@@ -374,7 +374,7 @@ function myAction(node, param) {
 }
 ```
 
-When the argument to our action changes, the update function will run. To pass multiple arguments to an action, we pass an object:
+当传递给 action 的参数变化时，update 函数将会运行。向一个 action 传递多个参数，我们可以传递一个 object。
 
 ```svelte
 <div use:myAction={{number, otherValue}}>
@@ -382,19 +382,19 @@ When the argument to our action changes, the update function will run. To pass m
 </div>
 ```
 
-…and Svelte re-runs our update function whenever any of the object’s properties change.
+只要 object 的属性改变，Svelte 就会再次运行 update 函数。
 
-Actions are one of my favorite features of Svelte; they’re incredibly powerful.
+Actions 是我最喜欢的 Svelte 功能之一，它们非常强大。
 
-## Odds and Ends
+## 其他
 
-Svelte also ships a number of great features that have no counterpart in React. There’s a number of form bindings (which [the tutorial covers](https://svelte.dev/tutorial/text-inputs)), as well as CSS [helpers](https://svelte.dev/docs#class_name).
+Svelte 还有很多其他的，React 没有与之相对的功能。还有很多表单捆绑[教程有涵盖](https://svelte.dev/tutorial/text-inputs))，以及 CSS [辅助](https://svelte.dev/docs#class_name)。
 
-Developers coming from React might be surprised to learn that Svelte also ships animation support out of the box. Rather than searching on npm and hoping for the best, it’s… built in. It even includes support for [spring physics, and enter and exit animations](https://css-tricks.com/svelte-and-spring-animations/), which Svelte calls **transitions**.
+来自 React 的开发者可能会惊喜，Svelte 开箱即用的动画。与其在 npm 里搜索然后希望能找到最好的，不如...内置。它甚至包含了[弹性动画，进入离开的动画](https://css-tricks.com/svelte-and-spring-animations/)，Svelte 称之为**transitions**。
 
-Svelte’s answer to `React.Chidren` are slots, which can be named or not, and are [covered nicely in the Svelte docs](https://svelte.dev/docs#slot). I’ve found them much simpler to reason about than React’s Children API.
+对于 `React.Chidren`，Svelte 与之对应的是 slots，[Svelte 的文档很好的讲解了这个](https://svelte.dev/docs#slot)。我发现它们比 React’s Children API 更简单些。
 
-Lastly, one of my favorite, almost hidden features of Svelte is that it can compile its components into actual web components. The [`svelte:options`](https://svelte.dev/docs#svelte_options) helper has a `tagName` property that enables this. But be sure to set the corresponding property in the webpack or Rollup config. With webpack, it would look something like this:
+最后，我最喜欢的功能之一，几乎算是隐藏的功能，通过[`svelte:options`](https://svelte.dev/docs#svelte_options)的属性`tagName`，Svelte 可以将自己的组件编译为真实的 web 组件。但一定要在 webpack 或 Rollup 配置中设置对应的属性。在 webpack 中是这样的：
 
 ```js
 {
@@ -405,11 +405,11 @@ Lastly, one of my favorite, almost hidden features of Svelte is that it can comp
 }
 ```
 
-## Interested in giving Svelte a try?
+## 有兴趣试试 Svelte 吗
 
-Any of these items would make a great blog post in and of itself. While we may have only scratched the surface of things like state management and actions, we saw how Svelte’s features not only match up pretty with React, but can even mimic many of React’s APIs. And that’s before we briefly touched on Svelte’s conveniences, like built-in animations (or transitions) and the ability to convert Svelte components into bona fide web components.
+这篇文章中的任何一个知识点都可以单独拧出来写一个 blog 了，比如 state 管理和 actions，而我们可能只了解到了一些皮毛，我们看到了 Svelte 的功能，不仅是与 React 相匹配，甚至可以模仿很多 React 的 API。然后之前我们简单的谈到了一些 Svelte 的便利，比如内置动画(或者过渡)以及将 Svelte 组件转化为真实的 web 组件。
 
-I hope I’ve succeeded in sparking some interest, and if I have, there’s no shortage of docs, tutorials, online courses, etc that dive into these topics (and more). Let me know in the comments if you have any questions along the way!
+我希望我成功的激起了你的兴趣，有很多文章，教程或者在线课程等等可以更深入探究。如果你有任何问题可以在评论区告诉我。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
