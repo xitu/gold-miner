@@ -7,8 +7,6 @@
 
 # My Favorite Interservice Communication Patterns for Microservices
 
-#### How do you get your services to talk to each other?
-
 ![](https://cdn-images-1.medium.com/max/10240/1*1aQ46doYRmM-Opgs2mWaHg.png)
 
 Microservices are fun, they allow for the creation of very scalable and efficient architectures. All major platforms take advantage of them because of this. There is no way to have a Netflix or Facebook or Instagram without the help of Microservices.
@@ -18,14 +16,6 @@ However, splitting your business logic into smaller units and deploying them in 
 So how do you make two services talk to each other? The easy answer is to keep using the same API that is presented to the public. For example, if my public-facing API is a REST HTTP API, then by all means, all services will interact with each other through it.
 
 And that is a very valid scenario, but let’s take a look at other ways we can improve on that.
-
-A small sidenote: communication is based on agreed-upon protocols. That’s true for communication between microservices as well as between service and client. One way to ensure protocols are always kept is to share the code that describes them between these decoupled codebases. That could be classes, types, mock data objects, etc. One tool that helps greatly in achieving that is Bit.
-
-Bit source-controls TS/JS modules **independently** and maintains the dependencies between them, even when they are pushed to separate remote hosting. That enables one updated module to cause a ripple effect of CIs running on all its dependent modules.
-[**teambit/bit**
-**Open infrastructure for component-driven applications to speed and scale development. Bit is an OSS Infrastructure for…**github.com](https://github.com/teambit/bit)
-
----
 
 ## HTTP Apis
 
@@ -55,8 +45,6 @@ So an HTTP API is a great solution when you have a fast and reliable business lo
 
 Do not use an HTTP API if you want multiple services to interact with each other or if the business logic inside some of them requires a lot of time to complete.
 
----
-
 ## Asynchronous Messaging
 
 This pattern consists of having a message broker between the producer of the message and the receiving end.
@@ -84,8 +72,6 @@ This is definitely an interesting pattern and one that provides a great deal of 
 
 Granted, the processing can turn out to be slow, but scaling it will become a lot easier with the buffer in place.
 
----
-
 ## Direct socket connection
 
 Going on a completely different route, instead of relying on the good old HTTP to send and receive messages, we can also go with something a bit faster, albeit with less structure: sockets.
@@ -112,8 +98,6 @@ With that being said, let’s take a quick look at the pros and cons of this app
 Socket-based communication is a very efficient way of having your services talk to each other. For instance, Redis uses this method when deployed in a cluster configuration to automatically detect failing nodes and remove them from the cluster. This can be done because the communication is fast and cheap (meaning there is barely any extra latency involved and uses very little network resources).
 
 Go with this approach if you’re able to control the amount of information exchanged between services and you don’t mind defining your own standard protocol.
-
----
 
 ## Lightweight events
 
@@ -145,28 +129,6 @@ The best way to communicate two microservices is the one that gives you what you
 There is no “one pattern to rule them all” even if you, like me, like one more than the rest, realistically speaking, you’ll have to adapt to your context.
 
 That being said, which one is your favorite, and why? Leave a comment and let’s nerd out about ways to get microservices to interact with each other!
-
----
-
-## Share Modules between Microservices using Bit
-
-[**Bit**](https://bit.dev/) is an ultra-extensible tool that lets you create **truly** modular applications ****with **independently** authored, source-controlled, and maintained components/modules.
-
-Use it to build modular apps, author and deliver microservices, or simply share modules between services and applications.
-[**Bit: The platform for the modular web**
-**Bit is a standard infrastructure for components. It's everything your teams need to enjoy autonomous development…**bit.dev](https://bit.dev)
-
----
-
-## Learn More
-[**Component-Driven Development with Bit**
-**Using Bit to solve all major challenges presented by the CDD development strategy.**blog.bitsrc.io](https://blog.bitsrc.io/component-driven-development-with-bit-dd7bc91ae387)
-[**My Favorite Microservice Design Patterns for Node.js**
-**Saying you’re using REST is not good enough anymore**blog.bitsrc.io](https://blog.bitsrc.io/my-favorite-microservice-design-patterns-for-node-js-fe048c635d83)
-[**Independent Components: The Web’s New Building Blocks**
-**Why everything you know about microservices, micro frontends, monorepos, and even plain old component libraries, is…**blog.bitsrc.io](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65)
-[**The Expand and Contract Pattern in JavaScript**
-**Provide the best possible Developer Experience through the use of this pattern**blog.bitsrc.io](https://blog.bitsrc.io/versioning-your-components-through-the-expand-contract-pattern-bc31afaae623)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
