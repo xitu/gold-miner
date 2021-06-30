@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-participate-in-meetings.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[Usualminds](https://github.com/Usualminds)
+> * 校对者：[Kim Yang](https://github.com/KimYangOfCat)，[Usualminds](https://github.com/Usualminds)
 
 # 如何参与会议
 
@@ -43,7 +43,7 @@ _如何使用_：
 
 在演讲期间，如果您对演讲者提到的内容感兴趣，并想要进一步的说明或发表评论，您可以在 queue 中执行此操作。共有三个选项：新主题、问题说明和程序问题。它看起来像这样：
 
-![](./images/queue.png)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1grjeu1jnpwj315x0u0jyq.jpg)
 
 在顶部，我们有正在讨论的议程项目，然后是正在讨论的 queue 条目。之后，我们有一堆按钮！
 
@@ -51,7 +51,7 @@ _如何使用_：
 
 其余四个按钮！
 
-![](./images/queue-buttons.png)
+![](https://tva1.sinaimg.cn/large/008i3skNgy1grjeuf5zw6j310c03m3z4.jpg)
 
 一个与当前主题分开的新主题，并开始一个可能添加问题说明的新线程。新主题按添加到 queue 的时间排序。
 
