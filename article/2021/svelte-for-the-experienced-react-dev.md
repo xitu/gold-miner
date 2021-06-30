@@ -87,7 +87,7 @@ export default function (props) {
 
  另一个需要注意的是，Svelte 不需要 JSX 那样的单独的包裹元素，也没有 React 片段语法`<></>` 的等价物。
 
-But what if we want to pass an updater function to a child component so it can update this piece of state, like we can with React? We can just write the updater function like this: 但如果我们想要传递一个更新函数给子组件呢？使它能更新这块状态，就像我们用 React 做的那样，我们可以写一个更新函数：
+但如果我们想要传递一个更新函数给子组件呢？使它能更新这块的状态，就像我们用 React 做的那样，我们可以写一个更新函数：
 
 ```svelte
 <script>
