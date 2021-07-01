@@ -10,13 +10,6 @@ jobs:
     if: ${{ contains(github.event.issue.title, '申请成为译者') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Label Issue
-        uses: github/issue-labeler@v2.0
-        with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: .github/labeler.yaml
-          enable-versioned-regex: 0
-          
       - name: Close Issue
         uses: peter-evans/close-issue@v1
         with:
