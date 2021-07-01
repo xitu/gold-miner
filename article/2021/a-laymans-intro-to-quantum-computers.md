@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/a-laymans-intro-to-quantum-computers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/a-laymans-intro-to-quantum-computers.md)
 > * 译者：[PingHGao](https://github.com/PingHGao)
-> * 校对者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[samyu2000](https://github.com/samyu2000)，[nia3y](https://github.com/nia3y)
 
 # 外行说量子计算机
 
