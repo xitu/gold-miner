@@ -4,7 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md)
 > * 译者：
 > * 校对者：
-# TC39 和 IP
+# TC39 与知识产权（IP）
 
 ## TC39 是如何运作的
 
@@ -22,20 +22,17 @@ TC39 会议每两个月举行一次，会议为期三天。会议主要由 Ecma 
 
 TC39 中最深入的技术性工作发生在 GitHub 上。[主要规范][2] 有一个位于 Github 的存储库，并且其他规范也是如此，例如 [ECMA-402][3]. 对规范草案的小改动是通过 GitHub Pull Requests 完成的，而更大的改动则是通过分阶段的提案完成的，这些提案在[单独的 GitHub 存储库][4]中维护。
 
-### Annual specification releases
+### 年度规范的发布
 
-Every year, around the end of January or beginning of February, the ECMA-262 editor makes a branch of the ecma262 repository for future as the annual "ECMAScript20xx" standard. Backports of small fixes, both editorial and normative, may be targeted at this branch, but new features are not landed there. In June, this branch is passed on to the Ecma General Assembly for ratification as an Ecma standard.
+在每年的一月末或者二月初，ECMA-262 的维护者会将 ecma262 仓库的一个分支作为本年度的 "ECMAScript20xx" 标准。Backports of small fixes, both editorial and normative, may be targeted at this branch, but new features are not landed there。同年六月，Ecma 大会将批准该分支作为新的 Ecma 标准
 
-## Legal agreements
+## 法律协议
 
-### Ecma membership agreements
+### Ecma 成员协议
 
-Ecma members are organizations, such as corporations or
-universities, which sign up in one of [Ecma's membership categories][5]. There are separate forms for each membership category, but they each contain the following text:
+Ecma 的成员都是注册在某个 [Ecma 成员类别][5] 中的组织，例如一些学校或者公司。每中成员类别都有独立的表格，但每个表格都包含以下内容:
 
-b) We confirm that we have knowledge of the By-laws, Rules and the
-Code of Conduct in Patent Matters of Ecma International and that we
-will comply with them.
+b) 我们确认我们已了解 Ecma International 的章程、规则和专利事务行为准则并且将遵守它们
 c) We irrevocably grant Ecma International the right to use
 contributions, in part or whole, whether adapted or not, that we
 submit to Ecma International, for Ecma International’s purposes of
@@ -44,21 +41,20 @@ contributions.
 
 The above sections grant Ecma the license to copyright over contributions from the member organization. Ecma members who participate in TC39 must sign the RFTC agreement as well, described below, which licenses patents on a royalty-free basis.
 
-### Contributor IPR license
+### 贡献者知识产权（IPR）许可
 
-TC39 is open to individuals who are not associated with Ecma members to contribute, either through comments made in TC39 meetings as invited experts, or as normative patches to the specification made via GitHub. Both of these kinds of contributors are required to sign [the non-member contributor agreement][6].
+TC39 也接受来自与 Ecma 成员无关的个人的贡献，包括作为特邀专家在 TC39 会议上发表评论，或者在 Github 上向规范仓库提交规范补丁。这两种类型的贡献者都需要签署 [非成员贡献者协议][6].
 
 If an individual associated with a Ecma member organization makes a contribution to TC39-associated specifications where the member organization does not have the right to relicense the IPR, but the individual does have this right, then the individual is expected to sign the contributor IPR form as well. If neither has such a right, then the contribution should not be used.
 
 When a non-member contributor works within an organization where they do not have the authorization to license their contributed IPR, the form can be filled out with separate "signatory" and "contributor" fields, where the "contributor" is the participant in TC39 work, and the "signatory" is the member of the organization who is authorized to license the IPR. The form must be signed for each individual contributor who participates in TC39, and does not apply organization-wide.
 
-### Ecma Royalty-Free Technical Committee
-
+### Ecma 免版税技术委员会
 Ecma specifications are generally developed under [Ecma Code of Conduct in Patent Matters](http://www.ecma-international.org/memento/codeofconduct.htm), but TC39 uses a distinct royalty-free policy based on the use of Ecma's ["Ecma International Royalty-Free Patent Policy Extension Option"][7]. TC39 is a Royalty Free Technical Committee (RFTC) within Ecma, meaning that standards produced by Ecma TC39 and approved by the Ecma General Assembly include a "royalty-free patent license statement that applies to any patent claims owned or controlled" by TC39 participants.
 
 Participating organizations in TC39 are required to sign a particular form which includes them in the annual RF patent grant. Ecma's RF patent policy provides for a defined time window during which participants may opt out of providing an RF commitment under certain circumstances. (See footnote 1.) Such an Opt-Out has never been taken in TC39's history.
 
-### Copyright licenses
+### 版权许可
 
 The specification text in annual, GA-approved ECMA-262 and ECMA-402 are licensed under Ecma's [text copyright policy][9], and the contained source code is licensed under [Ecma's software license][10].
 
@@ -68,12 +64,12 @@ The same copyright policy applies to ECMA-404 (JSON) and ECMA-415 (ECMAScript Su
 
 ECMAScript specification drafts are licensed under the [draft copyright license][14]. Proposals have copyright [reserved by their author][15], but many proposal authors secondarily license their proposal with another license, visible in the proposal repository.
 
-### Processes to ensure contributors have granted appropriate licenses
+### 确保贡献者授予正确许可的过程
 
 - In physical meetings, the chair and vice chairs verify that all meeting attendees are either delegates of member companies, or otherwise have chosen among the observer/invited expert options explained above. There is a quick agenda item to clarify the IPR agreements.
 - For contributions on GitHub, there is [a bot in development][13] to check that non-member contributors have signed the appropriate agreement.  Until then, the set of contributions has been manually surveyed going back to the beginning of GitHub use, and all contributors have been verified to have signed the agreement; this manual check continues for current contributions.
 
-#### Footnotes
+#### 脚注
 
 - 1: Historically, all of TC39's work actually takes place in the TC39 RFTG, with a [separately-tracked membership][8]. Today, the entire committee has converted to an RFTC. The opt-out period begins when the annual version is "branched" off, towards the beginning of the year, and ends before the annual version is ratified by the Ecma General Assembly, typically around the middle of the year.
 
