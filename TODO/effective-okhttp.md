@@ -2,7 +2,7 @@
 * 原文作者 : [Michael Parker](http://omgitsmgp.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Brucezz](https://github.com/brucezz)
-* 校对者: [iThreeKing](https://github.com/iThreeKing), [Adam Shen](https://github.com/shenxn), [Jaeger](https://github.com/laobie)
+* 校对者: [joyking7](https://github.com/joyking7), [Adam Shen](https://github.com/shenxn), [Jaeger](https://github.com/laobie)
 
 # 如何更高效地使用 okhttp
 

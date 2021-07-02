@@ -1,3 +1,19 @@
+* [Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％](https://juejin.cn/post/6952819856429285407)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [解密转置卷积](https://juejin.cn/post/6954678998123151390)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [人工智能系统 Project Debater 即将提供 12 个新的云 API](https://juejin.cn/post/6955657126647857159)（[Kimhooo](https://github.com/Kimhooo) 翻译）
+* [谷歌 DeepMind 发布 NFNet：高效的深度网络](https://juejin.cn/post/6947586233522454558)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [斯坦福发布 2021 年人工智能指数报告](https://juejin.cn/post/6942769081363726373)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [让机器学习更加公正](https://juejin.cn/post/6941964171974017031)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [使用 Node.js 实现蒙特卡洛树搜索](https://juejin.cn/post/6944240279784423461)（[zenblo](https://github.com/zenblo) 翻译）
+* [恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
+* [使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [数据科学中的 9 种距离度量](https://juejin.cn/post/6935265008045686815)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [如何利用隐语义模型在图数据库中构建推荐系统](https://juejin.cn/post/6925019556108828685)（[stuchilde](https://github.com/stuchilde) 翻译）
+* [为什么我的数据会漂移？](https://juejin.cn/post/6923824334188314638)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [DeepSpeed：所有人都能用的超大规模模型训练工具](https://juejin.cn/post/6916500899577724942)（[zhuzilin](https://github.com/zhuzilin) 翻译）
+* [寻找最优化 AutoML 库](https://juejin.cn/post/6906859687682965517)（[zhusimaji](https://github.com/zhusimaji) 翻译）
+* [在浏览器中处理自然语言](https://juejin.cn/post/6899707995828174861)（[regon-cao](https://github.com/regon-cao) 翻译）
+* [重现：多样化 Mini-Batch 主动学习](https://juejin.cn/post/6890560237091340302)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
 * [知识的极限](https://juejin.im/post/6874475968325484552)（[QinRoc](https://github.com/QinRoc) 翻译）
 * [让神经网络变得更小巧以方便部署](https://juejin.im/post/6873068232505458701)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [使用合成数据改善机器学习中的极度不平衡数据集](https://juejin.im/post/6872609287802388488)（[PingHGao](https://github.com/PingHGao) 翻译）

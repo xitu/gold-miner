@@ -2,112 +2,112 @@
 > * 原文作者：[Bruno Sampaio](https://medium.com/@bensampaio)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/building-a-design-system-and-a-component-library.md](https://github.com/xitu/gold-miner/blob/master/article/2020/building-a-design-system-and-a-component-library.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Charlo](https://github.com/Charlo-O)，[lsvih](https://github.com/lsvih)
+> * 校对者：[贺雪 Amy](https://github.com/Shirley-He-Maker)，[Chorer](https://github.com/Chorer)
 
-# Building a design system and a component library
+# 构建设计系统和组件库
 
 ![](https://cdn-images-1.medium.com/max/3200/0*d_TQ28ARHmOchSvG)
 
-This post is based on the series of posts: **Modernizing a jQuery frontend with React**. If you want to get a better overview of the motivation for this post we recommend you first read our [initial post](https://medium.com/@bensampaio/8598b252ceb3).
+本文基于系列文章：**用 React 重构 jQuery 前端项目**。如果你想更好地了解我们写这篇文章的动机，建议先阅读[前一篇文章](https://medium.com/@bensampaio/8598b252ceb3)。
 
-When we started rebuilding our frontend in React it wasn’t yet part of our design and development workflow to think about reusable UI components. Our jQuery frontend was built mainly out of Twitter bootstrap components, which were adapted for specific use cases or extended with additional functionality. New designs were created for each new feature by copying some design elements from older designs and improving or adapting them there. As the team and the application kept growing, our components evolved in multiple directions. This resulted in multiple variants of text sizes, colors, buttons and links which led to a disjointed user experience across our application.
+当我们开始在 React 中重构前端项目时，可复用 UI 组件还不在我们设计和开发工作流程之内。我们的 jQuery 前端项目主要是基于 Twitter 的 bootstrap 组件构建的，这些组件针为特定的用例进行了调整，或通过附加功能进行了扩展。我们通过从旧设计中汲取精华并加以改进，让每个特性都有了新的设计。随着团队和应用的不断发展，我们的各个组件朝着不同的方向改进，导致了文本大小、配色、按钮和链接出现了各种各样的变化，最终使得整个应用的用户体验脱节。
 
-Rebuilding our frontend in React was an opportunity for us to rethink our design and development workflow and focus on a more cohesive experience for the user. This was especially important since we knew we needed to make our app more accessible and responsive. This led to the creation of a component library which motivated the need for a design system. That process was difficult and slow at first but became exciting and useful over time.
+在 React 中重构前端项目，给了我们重新思考设计和开发工作流的机会，也让我们有机会将重点放在为用户提供更统一的体验上。这一点非常重要，因为我们所需要做的，就是让应用程序更容易访问和能更快速地响应。这也促使了新的组件库的诞生，并继而驱动了设计系统的需求。这个迭代过程一开始非常困难且缓慢，但随着时间的推移，新的组件库和设计系统变得越来越实用，让开发人员和设计师兴奋不已。
 
-## What is a design system?
+## 什么是设计系统？
 
-A design system is a comprehensive guide on how to create, document and use UI components. It defines a collection of rules, constraints, principles and best practices that apply to all designs. The core element of a design system is a collection of UI components, such as buttons, links and tables. For each designed component you can have usage guidelines that document choices made during design, the rules that define the component, behavior and constraints, use cases and any other details that are easy to communicate through words.
+设计系统是关于如何创建、组织存档和使用 UI 组件的综合指南。它定义了一组适用于所有设计的规则、约束、原则和最佳实践。设计系统的核心元素是一组 UI 组件，如按钮、链接和列表。对每个组件，你都可以为其附上说明，描述在设计期间为这个组件所做选择；以及为每个组件撰写文档，用以定义组件的规则、行为和约束，提供用例和其它可以通过文本描述的细节。
 
-## What is a component library?
+## 什么是组件库？
 
-A component library is a collection of reusable UI components implemented in a programming language. When supported by a design system it can also be seen as an interactive implementation of the designs and their guidelines.
+组件库是用编程语言实现的可复用 UI 组件的集合。当得到设计系统的支持时，它也可以被视为设计及其指导方针的交互式实现。
 
-## Why should you care?
+## 为什么要关心这个？
 
-As [Airbnb’s Karri Saarinen](https://medium.com/airbnb-design/224748775e4e) stated: “A unified design system is essential to building better and faster; better because a cohesive experience is more easily understood by our users, and faster because it gives us a common language to work with”.
+如 [Airbnb 的 Karri Saarinen](https://medium.com/airbnb-design/224748775e4e) 所言，统一的设计系统对于实现更好更快的构建来说，非常重要；更好的原因是用户更容易理解统一的体验，更快的原因是它为我们提供了一种共同的语言来进行协作。
 
-At Karify, it helps us to create and follow our own constraints. It helps us to create a cohesive user experience on a multitude of platforms and devices. And finally, it helps our team work smarter, faster and closer together. These are some of the advantages we found in more detail:
+在 Karify 看来，设计系统可以帮助我们创建并遵循自己的设计准则，也可以帮助我们在多种平台和设备上创建出一个统一的用户体验。最后，它还可以帮助我们的团队更高效、更敏捷、更紧密地合作。以下是我们发现的一些更详细的优势：
 
-* **Communication**: designers understand developers and vice-versa. Concepts that were previously difficult to understand for both sides are now much clearer. Talking about components and using the rules we defined in communication make the process of designing and developing much easier.
-* **Consistency**: the look and feel of the application’s pages became the same. We know exactly what text size we should use for a heading or for normal text, what type of button we should use for a primary action, what colors to use to communicate the type of a certain action or piece of information, and how much spacing there should be between each type of element. If we decide to change any of those, then they can easily be changed across the entire design system, component library and application.
-* **Collaboration**: designers and developers work closer together and are able to share ideas and insights more easily. Since it is easier to communicate it becomes easier to talk about functional constraints and to incorporate those in designs at an earlier phase. The use of a tool like [Zeplin](https://zeplin.io/) makes this process especially faster because it allows you to start a discussion in the context of any kind of detail in a design.
-* **Documentation**: component guidelines provide clear information on how a component should look, be used, behave and why that is. If in the future a component design or implementation raises questions, it becomes easier to find the reasoning behind it and to prevent rethinking what has already been thought through before (unless it no longer makes sense).
-* **Modularity**: all components represent small pieces of design and code with their limited set of rules and concerns. This enforces separation of concerns in both design and code.
-* **Maintainability**: it becomes easier to keep designs and code up to date because when a component is touched all other components that use it are updated. This can also lead to extra work on older components but gives you visibility of the impact of your change.
+* **沟通**：让设计师理解开发人员，也让开发人员理解设计师。以前对双方都很难理解的概念现在清晰多了。讨论组件和使用我们在沟通中约定的规则，会使得设计和开发过程更加容易。
+* **一致性**：应用程序页面的外观和体验变得统一。我们会知道一个标题或正常的文本应该使用的大小、应该为主要操作配置什么类型的按钮、什么颜色用来传达特定操作的类型或信息，以及每种类型的元素之间应该有多少间距。如果我们决定更改其中任何一个规范，就可以很容易地在整个设计系统、组件库和应用程序中对它们进行更改。
+* **协作**：设计师和开发人员工作得更紧密，能够更容易地分享想法和见解。由于沟通变得更容易，因此讨论功能限制以及在早期阶段将它们合并到设计中也变得更容易了。使用 [Zeplin](https://zeplin.io/) 之类的工具会使这个过程更加高效，因为它可以让设计师和开发人员针对设计的任何一处细节进行讨论。
+* **文档**：组件指南提供了关于组件的外观、使用、行为以及为什么这样做的详细信息。如果将来某个组件的设计或实现出现了问题，就更容易找到背后的原因，并避免了再次考虑之前已经考虑过的问题（除非它不再有意义）。
+* **模块化**：所有的组件都使用有限的规则和关注点来表示设计和代码的一小部分。这样就可以在设计和代码中实现关注点分离。
+* **可维护性**：这使设计和代码的更新变得更加容易，因为当一个组件被修改时，使用它的所有其它组件都会更新。虽然在旧组件上需要做一些额外的处理，但可以立竿见影地让你看到自己的修改造成的影响。
 
-As with any other approach we also found some disadvantages to the process of working with a design system:
+与任何其它方法一样，我们在设计系统的开发中也发现了一些缺点：
 
-* **Time consuming**: this was especially true in the beginning. Defining all the rules, constraints and base components like text, color and spacing can take quite a lot of discussion. Over time it becomes faster. It depends on how many new components you need to create before designing a new feature. But once you have a few it becomes super fast to reuse them in existing or new designs. The same applies to the development of the application.
-* **Less creativity**: due to all the rules and constraints there is less space to be creative. However, this could also be seen as an advantage since that often leads to consistency.
-* **Steep learning curve**: this applies mainly to new people joining the team because they will need to get acquainted with a lot of rules before being able to apply them consistently. On the other hand, it also makes it easier for them since the design system communicates the rules.
-* **Complexity**: if there are components with too many dependencies on other components it can also become complex to maintain and reuse them.
+* **耗费时间**：开始的时候尤其如此。定义所有规则、约束和基本组件（如文本、颜色和间距）需要进行大量讨论。随着时间的推移，这个过程会加快。这取决于在设计新特性之前需要创建多少新组件。但是一旦你有了一些组件，在现有的或新的设计中重用它们就会变得非常快。这同样适用于应用程序的开发。
+* **缺乏创造力**：由于受限于所有的规则和约束，创作空间减少了。不过，这也可以被视为一种优势，因为它带来了一致性。
+* **陡峭的学习曲线**：这主要是团队里新人面临的问题，因为他们将需要熟悉许多规则，才能熟练地应用它们。从另一个角度来说，这也使他们的学习更容易，因为设计系统本身已经传达了规则。
+* **复杂性**：如果有太多依赖于其他组件的组件，那么维护和重用它们也会变得很复杂。
 
-Don’t let these disadvantages scare you, though. It is part of the process to learn to minimize them. Over time, the advantages become more apparent than the disadvantages.
+不过，不要让这些缺点吓到你。学习如何让这些缺点最小化，也是我们设计过程的一部分。随着时间的推移，优势变得比劣势更明显。
 
-## How can you get started?
+## 如何开始呢？
 
-First of all, we recommend you get acquainted with the concept of [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/) alongside with [design system best practices](https://airbnb.design/systems-thinking-unlocked/) and examples of design systems like [the one of Airbnb](https://airbnb.design/building-a-visual-language). Additionally, you should also choose a tool where to build your design system. We chose [Sketch](https://www.sketch.com/) but there are other alternatives like [Figma](https://www.figma.com/).
+首先，我们建议你了解[原子设计](https://bradfrost.com/blog/post/atomic-web-design/)的概念以及[设计系统的最佳实践](https://airbnb.design/systems-thinking-unlocked/)和诸如 [Airbnb](https://airbnb.design/building-a-visual-language) 这样的设计系统的例子。此外，你还应该选择用于构建设计系统的工具。我们选择了 [Sketch](https://www.sketch.com/)，但也有其它选择，比如 [Figma](https://www.figma.com/)。
 
-From there you can start defining your set of colors, typography styles and spacing sizes which will be your first atoms. This will allow you to start defining your first molecules like buttons, links, surfaces and so on. It’s likely that you will miss some use cases in this first iteration which will lead to a few more iterations until it all feels right and future proof.
+接着，你就可以开始定义属于你的一套色彩、排版样式和间距尺寸，这将是你的第一个“原子”。它将允许你开始定义你的第一个“分子”，如按钮、链接和页面等。在第一次迭代中，你很可能会遗漏一些用例，因此需要多轮迭代来逐步完善，直到一切都没问题并能经得起时间的考验。
 
-If you already have an application in place and can’t change it all at once then we recommend you base your design system on what you have. For each component, analyze what you have, pick the parts you like and work on improving the ones you don’t. When even this is too much work, split the future components from the legacy components. This way, you can stop yourself from using the legacy components in new components. Slowly, this will allow you to reach your goals.
+如果你已经有了一个应用程序，但不能一次全部更改，那么我们建议你基于现有的设计系统去对它进行改进。对于每个部分，分析你所拥有的，选择你喜欢的部分，改进你不喜欢的部分。即使这个工作很繁琐，也应该将未来的组件从遗留组件中分离出来。这样，你就可以避免在新组件中使用遗留组件。慢慢地，这会让你达到你的目标。
 
-## How did we do it?
+## 我们是怎么做到的？
 
-Our team was composed of two designers and one frontend developer. Later on, one more developer joined the team. This team size was and still is enough to get things done with enough time to care about details. However, we would say the team size depends on the size of the project and the pace of the company.
+我们的团队最初由两名设计师和一名前端开发人员组成，后来又有一名开发人员加入了这个团队。这个团队的规模无论是过去还是现在，都足够完成工作，并且也有充足的时间来处理细节问题。不过，我们认为团队的大小应取决于项目的规模和公司的节奏。
 
-The opportunity to rebuild our frontend from scratch also had the benefit that we could learn from past mistakes. Therefore, we based the design of our new components on the feedback from our users, who frequently mentioned accessibility and responsiveness issues. To tackle those issues we concluded that we needed to redesign our navigation system first and then redesign every page in the application.
+从头开始重构前端项目的机会也让我们可以从过去的错误中吸取教训。因此，我们根据用户的反馈来设计新组件。他们经常提到可访问性和响应性问题，为了解决这些问题，我们认为首先需要重新设计导航系统，然后再重新设计应用程序中的每个页面。
 
-We started by designing our new navigation system as a whole and as it became more solid we started breaking it down into smaller components. This resulted in the intended Atomic Design division between atoms, molecules and organisms. Ideally you should start with the atoms but that was difficult without first knowing exactly which direction we wanted to take. Nowadays, since we already defined several atoms and molecules, it is easier to start composing them into new organisms or pages.
+我们先将新的导航作为一个整体设计，在它的设计稳定下来之后，我们开始将其分解为更小的组件，这就产生为原子设计所分割好的的原子、分子和有机体。虽然在理想情况下，我们应该从原子开始设计，但如果没有明确的方向，这将是非常困难的事；而现在，我们已经通过拆分整体设计定义好了几个原子和分子，再将它们组合成新的有机体或页面就比较容易了。
 
-While creating components, we define them as `symbols` and split them in Sketch library files for `Atoms`, `Molecules` and `Organisms`. Sketch facilitates the reuse of our `Atom` components as a symbol in other `Molecule` or `Organism` components. In Sketch they are then called `nested symbols`. We make sure we use our components in a cascading order, so updates are propagated in one direction only.
+在创建组件时，我们将它们定义为`符号`（`symbols`），并在 Sketch 库文件中把它们分割为`原子`、`分子`和`有机体`。Sketch 有助于将我们的`原子`组件作为符号在其它`分子`或`有机体`组件中使用。在 Sketch 中，它们被称为`嵌套符号`（`nested symbols`）。我们确保按级联顺序使用组件，以保证更新只能是单向进行的。
 
 ![](https://cdn-images-1.medium.com/max/3200/0*oXhrNGXE1iLKgoBL)
 
-**Our Sketch `Molecules` library: the icon component inside the button component is reused from the `Atoms` Sketch library.**
+**我们的 Sketch `分子`库：按钮组件中的图标组件是从 Sketch `原子`库中复用的。**
 
-To document our choices we create guidelines for each component (regardless of whether it’s an atom, molecule or organism) inspired in the Material UI component guidelines. Next to the component guidelines, we also have some generic guidelines which apply to all components because some guidelines are transcending, like accessibility and tone of voice. These guidelines work as our single source of truth. They ensure that nothing can be left to the imagination. To give an impression, they are a simple document with the following sections:
+为了记录我们的选择，我们在 Material UI 组件指南的启发下，为每个组件（不管它是原子、分子还是有机体）创建了设计指南。紧接着，为不同的组件设定不同指导方针，以及定义一些适用于所有组件的通用方针，其中有些通用指导方针是非常重要的（比如可访问性和风格定位）。这些指导方针是我们唯一的事实来源，它们确保很多细节是一览无余的。为了给人留下印象，它们是一份包含以下部分的简单文档：
 
-* Usage
-* Anatomy
-* Placement on different viewports
-* Behavior
-* Accessibility
+* 使用
+* 分解
+* 不同的视图的布局
+* 行为
+* 可访问性
 
-We use our components in `Template` or `Page` files which we create per feature/project we work on. When a component or a page is ready, we share its designs with developers and other stakeholders via [Zeplin](https://zeplin.io/). This tool allows them to extract information from designs like colors, sizes and assets. It also allows for communication per component, which can drastically improve collaboration since it becomes very easy to discuss details for which normally a meeting would be necessary.
+我们在根据每一个功能或者项目而创建的`模板`或`页面`文件中使用组件。当一个组件或页面准备好了，我们通过 [Zeplin](https://zeplin.io/) 与开发人员和其他参与者分享设计。这个工具允许他们从设计中提取信息，比如颜色、大小和资源。它还允许对任一组件发起讨论，这可以极大地提高协作效率，因为这些细节通常是需要通过开会来进行讨论的。
 
 ![](https://cdn-images-1.medium.com/max/3200/0*rp1keWbCPclqMTwx)
 
-**Collaborating on developing button components in Zeplin**
+**在 Zeplin 中协作开发的按钮组件。**
 
-From this point onwards, developers can use the information in Zeplin to start building the corresponding React components. Ideally there should be one React component per design component so that the relation between design and code is as close as possible. For inspiration we often look at how other component libraries did it like [Material-UI](https://material-ui.com/), for instance.
+现在，开发人员可以使用 Zeplin 中的信息来开始构建相应的 React 组件了。理想情况下，每个设计组件都应该只有一个 React 组件，以保证设计和代码之间的关系尽可能地紧密一些。为了获得灵感，我们经常会看看其他组件库是怎么做的，比如 [Material-UI](https://material-ui.com/)。
 
-To ease in this process we use [Storybook](https://storybook.js.org/), which facilitates the development of components in isolation. It also offers a way of visualizing and interacting with all components in our library which can then be used by designers to validate the final implementations.
+为了简化这个过程，我们使用了 [Storybook](https://storybook.js.org/)，它促进了组件的独立开发。它还提供了一种与库中所有组件可视化交互的方法，设计师可以使用这些组件来验证最终的实现。
 
 ![](https://cdn-images-1.medium.com/max/3200/0*QII0QzNhlLMhXNCX)
 
-**The same buttons in Storybook: ready to be reviewed**
+**Storybook 中相同的按钮：准备审核**
 
-In both our design system and our component library we group components by categories like buttons, color, form elements, layout, links, typography and so on. This helps with grouping different atoms, molecules and organisms but also helps, once more, with the communication between designers and developers.
+在我们的设计系统和组件库中，我们都按照类别将组件进行分组，例如按钮、颜色、表单元素、布局、链接、排版等。
 
-In essence these tools helped us develop feedback loops in our work process, which improved communication and collaboration: designers can easily give feedback on the component library through looking at Storybook and developers can easily comment on designs or download assets from Zeplin.
+从本质上讲，这些工具帮助我们在工作过程中建立起反馈循环机制：设计师可以通过查看 Storybook 轻松地对组件库给出反馈，开发人员可以轻松地在 Zeplin 对设计进行评论或者下载资源。
 
-## What could we have done better?
+## 还有哪些可以做得更好的地方？
 
-In general, we feel that we did quite well in this process but we know that there are some things we could have done differently. Below are some of the pain points we came across along the way:
+总的来说，我们觉得现在这个过程已经足够好了，但有些事情还可以做一些变通。下面是我们一路上遇到的痛点：
 
-* **Accessibility guidelines**: we completely underestimated accessibility. There are lots of [WCAG guidelines](https://www.w3.org/TR/WCAG21/) and there’s no way you can implement them all with such a small team. We had to choose which ones were the most important for our users. However, we made this choice very late in the process because it had an impact in our atom components, mainly typography and color, which forced us to rethink several molecules and organisms.
-* **Complex components**: we tried too often to create components with too many responsibilities or too many dependencies on other components. It is better to break them down into smaller components than to try to make them too customizable. It might require some repetition both in design and code but it is easier to understand.
-* **Lack of planning and limitless scope**: for a while the scope of the project only kept on growing. Some things were very important but others not so much. It was difficult to draw a line since there was no end date for the project. Eventually, we started discussing these issues more often in order to prioritize what was really important.
+* **可访问性指南**：我们完全低估了可访问性。[WCAG guidelines](https://www.w3.org/TR/WCAG21/) 有很多指导方针，但你不可能在这么小的团队中全部实现。我们必须选择哪些是对我们的用户最重要的。然而，我们在这个过程中很晚才做出这个选择，因为它对我们的原子组件（主要是字体和颜色）产生了影响，这迫使我们重新考虑一些分子和有机体。
+* **复杂组件**：我们经常尝试创建职责过多或对其它组件有太多依赖的组件。最好将它们分解成更小的组件，而不是盲目提高它们的可定制性。拆分也许会导致设计和代码上出现一些冗余，但这种方式是更容易被理解的。
+* **缺乏计划和无限的范围**：有一段时间，项目的范围只是持续增长。有些事情很重要，但有些就不那么重要了。由于这个项目没有结束日期，很难划定界限。最终，我们开始更频繁地讨论这些问题，以确定哪些是真正重要的。
 
-In the end, we managed to learn and improve upon these issues after finishing redesigning our navigation system. We still come across some complex components now and then but I think it is part of the process to make that mistake and identify it before it’s too late.
+最终，在重新设计完导航系统之后，我们对这些问题进行了学习和改进。我们仍然不时地遇到一些复杂的组件，但我认为尽快地发现并指出错误也是其中的一个过程。
 
-## Conclusion
+## 总结
 
-In our opinion, building a design system and a component library was worth the effort. It brought the consistency in design that we were looking for from the beginning. This doesn’t mean we would recommend it for everyone. Before you get started we truly recommend you make sure this is the right solution for your project. We would say you only need to do it if you know or expect the product to require a lot of different pages with complex interactions that reuse the same components. This is especially relevant to evaluate when you are still a startup or small company and you expect to scale up in the coming years. However, if you expect your product to be a simple website that won’t change much over the years then this would probably be overkill.
+在我们看来，构建一个设计系统和一个组件库是值得的。它带来了我们从一开始就在寻找的一致性设计。这并不意味着我们会把这套方案推荐给所有人。在开始之前，我们建议你先确认这对于你的项目而言是否是正确的解决方案。我们认为，只有当你知道或期望产品需要大量不同的页面，并且这些页面具有复用同一组件的复杂交互时，才需要这样做。如果是一家初创公司或小公司，并希望在未来几年扩大规模时，这一点尤其重要。然而，如果你的产品是一个简单的网站，在几年之内不会有太大的变化，那么这可能是过分的。
 
-I hope this article helps you in the process of making better design decisions. If you have questions, feedback, or suggestions regarding what you read here I would be happy to hear from you in the comment section below.
+我希望本文能够帮助您做出更好的设计决策。如果你对你在这里读到的内容有问题、反馈或建议，我很乐意在下面的评论部分听到你的意见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
