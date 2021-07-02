@@ -24,7 +24,7 @@ TC39 中最深入的技术性工作发生在 GitHub 上。[主要规范][2] 有�
 
 ### 年度规范的发布
 
-在每年的一月末或者二月初，ECMA-262 的维护者会将 ecma262 仓库的一个分支作为本年度的 "ECMAScript20xx" 标准。Backports of small fixes, both editorial and normative, may be targeted at this branch, but new features are not landed there。同年六月，Ecma 大会将批准该分支作为新的 Ecma 标准
+在每年的一月末或者二月初，ECMA-262 的维护者会将 ecma262 仓库的一个分支作为本年度的 "ECMAScript20xx" 标准。此后，该分支可能还有有一些编辑性或规范性的小修改，但不会再有新增的特性。同年六月，Ecma 大会将批准该分支作为新的 Ecma 标准
 
 ## 法律协议
 
@@ -33,23 +33,20 @@ TC39 中最深入的技术性工作发生在 GitHub 上。[主要规范][2] 有�
 Ecma 的成员都是注册在某个 [Ecma 成员类别][5] 中的组织，例如一些学校或者公司。每中成员类别都有独立的表格，但每个表格都包含以下内容:
 
 b) 我们确认我们已了解 Ecma International 的章程、规则和专利事务行为准则并且将遵守它们
-c) We irrevocably grant Ecma International the right to use
-contributions, in part or whole, whether adapted or not, that we
-submit to Ecma International, for Ecma International’s purposes of
-standardisation, while we retain all the rights we may have on those
-contributions.
+c) 为了 Ecma 国际的标准化目标，我们授予 Ecma 国际对我们提交给其的贡献的部分或全部使用权和改编权，同时我们保留对这些贡献的所有权利。
 
-The above sections grant Ecma the license to copyright over contributions from the member organization. Ecma members who participate in TC39 must sign the RFTC agreement as well, described below, which licenses patents on a royalty-free basis.
+上述章节授予 Ecma 对会员组织贡献的版权许可。参与 TC39 的 Ecma 成员还必须签署RFTC协议，该协议在免版税的基础上许可专利。
 
 ### 贡献者知识产权（IPR）许可
 
 TC39 也接受来自与 Ecma 成员无关的个人的贡献，包括作为特邀专家在 TC39 会议上发表评论，或者在 Github 上向规范仓库提交规范补丁。这两种类型的贡献者都需要签署 [非成员贡献者协议][6].
 
-If an individual associated with a Ecma member organization makes a contribution to TC39-associated specifications where the member organization does not have the right to relicense the IPR, but the individual does have this right, then the individual is expected to sign the contributor IPR form as well. If neither has such a right, then the contribution should not be used.
+如果与 Ecma 成员组织相关的个人对 TC39 相关规范做出贡献，而成员组织无权重新授予知识产权，但个人有此权利，那么个人也需要签署贡献者知识产权（IPR）表格。如果两者都没有这样的权利，那么这些贡献则不应被使用。
 
-When a non-member contributor works within an organization where they do not have the authorization to license their contributed IPR, the form can be filled out with separate "signatory" and "contributor" fields, where the "contributor" is the participant in TC39 work, and the "signatory" is the member of the organization who is authorized to license the IPR. The form must be signed for each individual contributor who participates in TC39, and does not apply organization-wide.
+当一个非成员贡献者在没有被授权许可其贡献的知识产权的组织中工作时，表格中可以填写单独的『签署人』和『贡献者』字段，『贡献者』是 TC39 工作的参与者，『签署人』是被授权许可知识产权的成员组织。该表格必须由参与 TC39 的单个贡献者填写，并且不适用于全组织范围。
 
 ### Ecma 免版税技术委员会
+
 Ecma specifications are generally developed under [Ecma Code of Conduct in Patent Matters](http://www.ecma-international.org/memento/codeofconduct.htm), but TC39 uses a distinct royalty-free policy based on the use of Ecma's ["Ecma International Royalty-Free Patent Policy Extension Option"][7]. TC39 is a Royalty Free Technical Committee (RFTC) within Ecma, meaning that standards produced by Ecma TC39 and approved by the Ecma General Assembly include a "royalty-free patent license statement that applies to any patent claims owned or controlled" by TC39 participants.
 
 Participating organizations in TC39 are required to sign a particular form which includes them in the annual RF patent grant. Ecma's RF patent policy provides for a defined time window during which participants may opt out of providing an RF commitment under certain circumstances. (See footnote 1.) Such an Opt-Out has never been taken in TC39's history.
