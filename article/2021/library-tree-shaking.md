@@ -2,69 +2,69 @@
 > * 原文作者：[François Hendriks](https://blog.theodo.com/fran%C3%A7ois-hendriks)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/library-tree-shaking.md](https://github.com/xitu/gold-miner/blob/master/article/2021/library-tree-shaking.md)
-> * 译者：[darkyzhou](https://github.com/darkyzhou)
-> * 校对者：[Usualminds](https://github.com/Usualminds)、[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 译者：
+> * 校对者：
 
-# 如何打造可被摇树优化的库
+# How To Make Tree Shakeable Libraries
 
-![如何打造可被摇树优化的库](https://blog.theodo.com/static/dfae80d02f29938244fa328765a243a9/a79d3/tree-shaking.png)
+![How To Make Tree Shakeable Libraries](https://blog.theodo.com/static/dfae80d02f29938244fa328765a243a9/a79d3/tree-shaking.png)
 
-在 [Theodo](https://www.theodo.fr)，我们致力于为我们的客户打造可靠、快速的应用。我们有一些改进现有应用的性能的项目。在其中一个项目里，**我们通过对内部库进行摇树优化（tree shaking），成功将所有页面的 gzip 压缩后的 bundle 体积减少了足足 500KB。**
+At [Theodo](https://www.theodo.fr), our aim is to build reliable and fast applications for our customers. Some of our projects include improving the performance of already existing applications. During one of these missions, we managed to reduce the bundle size of all our pages by a whopping **500KB Gzipped by tree shaking our internal libraries**.
 
-在做这件事的时候，我们意识到摇树优化并不是一种简单地开启或关闭就会奏效的技术。有很多因素会影响一个库的摇树优化效果。
+While doing so, we realized tree shaking is not something we can simply turn on and off. There are many factors that impact the tree shaking quality of libraries.
 
-**本文的目标是为构建适配摇树优化的库提供详细的指导。其中的步骤的总结如下：**
+**This article's aim is to provide an exhaustive guide on making an optimized tree shakeable library. If I had to summarize the procedure:**
 
-* 在一个受控的环境下，针对一个已知的应用来检查我们的库是否可以被摇树优化。
-* 使用 ES6 模块让打包工具（bundler）得以检测到未引用的 `export` 语句。
-* 使用副作用（side effects）优化，让你的库不包含任何副作用。
-* 将库的代码逻辑分割到若干个小的模块中，同时保留库的模块树（module tree）。
-* 在转译（transpile）库时，不要丢失模块树或者 ES 模块特征（ES modules characteristics）。
-* 使用最新版的能够支持摇树优化的打包工具。
+* Check whether the library is tree shakeable by testing it against a known application in a controlled environment
+* Use ES6 modules so bundlers can detect unused export statements
+* Use the side effects optimization and make your library side effects free
+* Split the library logic in multiple small modules and preserve the library's module tree
+* Do not lose the module tree or the ES modules characteristics when transpiling your library
+* Use the latest version of a tree shaking capable bundler
 
-## 什么是摇树优化？为什么它很重要？
+## What is tree shaking and why is it important?
 
-引用 [MDN 文档](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking)：
+From the [MDN docs](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking):
 
-> Tree shaking 是一个通常用于描述移除 JavaScript 上下文中的未引用代码（dead code）行为的术语。
+> Tree shaking is a term commonly used within a JavaScript context to describe the removal of dead code.
 > 
-> 它依赖于 ES2015 中的 `import` 和 `export` 语句，用来检测代码模块是否被导出、导入，且被 JavaScript 文件使用。
+> It relies on the import and export statements in ES2015 to detect if code modules are exported and imported for use between JavaScript files.
 
-摇树优化是一种实现[移除未引用代码（dead code elimination）](https://en.wikipedia.org/wiki/Dead_code_elimination)的方式，实现的方式是检测哪些导出项（export）在应用代码里未被引用。它会被类似 [Webpack](https://webpack.js.org/) 和 [Rollup](https://rollupjs.org/guide/en/) 这样的打包工具执行，最早由 Rollup 实现。
+Tree shaking is a way to achieve [dead code elimination](https://en.wikipedia.org/wiki/Dead_code_elimination) by detecting which exports are unused in our application. It is performed by application bundlers such as [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/) but was initially implemented by Rollup.
 
-**那么，为什么它叫摇树优化？** 我们可以把应用的导出项（exports）和导入项（imports）想象成一棵树的样子。树上健康的叶子和树枝表示引用了的导入项。而死亡的叶子表示未引用的代码，它们和树的其他部分是分开的。这时候摇动这棵树，那么所有死亡的叶子会被摇下来，即未引用的代码会被移除。
+**So why call it tree shaking?** One can visualize the application's exports and imports in the form of a tree. The healthy leaves and branches represent used imports of the application while dead leaves symbolize unused code separated from the rest of the tree. Shaking the tree would eliminate all our unused code.
 
-**为什么摇树优化很重要？** 它能够对你的浏览器应用产生巨大的影响。如果应用打包了更多的代码，那么浏览器将花费更多时间去下载、解压、转换和执行它们。**因此，对于打造速度最快的应用而言，移除未引用的代码至关重要。**
+**Why is this important?** Tree shaking can have a huge impact on your browser applications. The more code gets bundled in the app, the more time the browser will spend downloading, decompressing, parsing, and executing it. **Removing unused code is thus of the utmost importance to make the fastest applications possible**.
 
-网上有很多解释摇树优化和未引用代码移除的文章和资源。这里我们会集中讨论那些应用里中引用的库。当引用一个库的应用能够**成功地移除这个库中未被引用的部分**时，这个库才能被认为做到了摇树优化（tree shakeable）。
+There are many articles and resources out there explaining tree shaking and dead code elimination. Here we will be focusing on libraries that are consumed by applications. A library is considered to be tree shakeable if a consumer application can **successfully eliminate the unused parts of the library**.
 
- [![一个可摇树优化的库的例子](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-1.png) 
+ [![A tree shakeable library example](https://blog.theodo.com/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png "A tree shakeable library example")](https://blog.theodo.com/static/fc37406e6c71b98a6f32f5b15eafeb71/50383/tree-shakeable-library.png) 
 
-在尝试让一个库变得可被摇树优化之前，我们先来看看如何识别一个可摇树优化的库。
+But before we try to make a library tree shakeable, let's first see how we can distinguish one.
 
-## 在受控环境下识别一个不可摇树优化的库
+## Realize a library is not tree shakeable in a controlled environment
 
-这乍看上去好像很简单，但是我注意到很多开发者都会认为他们的库是可摇树优化的，仅仅是因为它们使用了 ES6 模块（后文会细讲），或者是因为它们有对摇树优化很友好的配置。不幸的是，这并不意味着你的库实际上是可摇树优化的！
+This may sound obvious at first glance. But I noticed a lot of developers assume their library is tree shakeable because it uses ES6 modules (more on that later) or because they have a tree shaking friendly configuration. Unfortunately, this does not automatically imply that your library is in fact tree shakeable!
 
-于是，我们被带到了这个问题上：**如何高效地检查一个库是否可摇树优化？**
+This brings us to the relevant question: **how can one efficiently check that a library is tree shakeable?**
 
-要做到这件事，我们需要理解两件事情：
+To do so, we need to understand two things:
 
-* **最终移除我们库中未引用代码的，是应用程序的打包工具，而不是库自己的打包工具**（如果库有的话）。毕竟，只有应用程序自己知道使用了库的哪部分。
-* **库的职责是确保它自己能够被最终的打包工具进行摇树优化**。
+* **It is the app's bundler that will ultimately tree shake the library's code, not the library's** (if it even has a bundler at all!). After all, only the app knows which parts of our library are used.
+* **The library's job is to make sure it can be tree shaken** by the final bundler
 
-要检查我们的库是否可摇树优化，我们可以将它放在一个受控的环境下，使用一个引用了它的应用进行测试：
+To check whether our library is tree shakeable we will be testing it against a reference application in a controlled environment:
 
-1. 创建一个简单的应用（我们称它为“引用应用”），给它搭配一个你会配置的打包工具，这个打包工具需要支持摇树优化（比如 [Webpack](https://webpack.js.org/) 或者 [Rollup](https://rollupjs.org/guide/en/)）。
-2. 将被检查的库设置为应用的依赖。
-3. 仅仅导入库的一个元素，检查应用的打包工具的输出。
-4. 检查输出中是否**只包含**被导入的元素及其依赖。
+1. Create a simple application (reference app) with a bundler you know how to configure and that supports tree shaking (eg [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/))
+2. Set the library you want to test as a dependency of the created application
+3. Import only one element of the library and check the output of the application's bundler
+4. Check that the bundled output only contains the imported element and its dependencies
 
-这个策略能够将测试与我们现有的应用隔离。它可以让我们随意地摆弄库而不破坏任何东西。它还能让我们确保出现的问题不是来自于应用打包工具的配置上。
+This strategy will make the test independent of our existing applications. It makes it easier but also allows us to play with the library without breaking anything. It also makes sure the issue does not come from the application bundler configuration.
 
-我们接下来会将这种策略应用到一个叫做 `user-library` 的库上，使用一个由 [Webpack](https://webpack.js.org/) 进行打包的应用 `user-app` 进行测试。你也可以使用其他你更喜欢的打包工具。
+We will be doing this for our library called `user-library` that we will test against a `user-app` application bundled with [Webpack](https://webpack.js.org/). You may use whatever bundler you feel more comfortable with.
 
-`user-library` 的代码如下所示：
+The `user-library`'s code looks like this:
 
 ```js
 export const getUserName = () => "John Doe";
@@ -72,9 +72,9 @@ export const getUserName = () => "John Doe";
 export const getUserPhoneNumber = () => "***********";
 ```
 
-它仅仅是在 `index.js` 文件里导出了两个函数，这两个函数可以通过 npm 包来使用。
+It just exports 2 functions in an index file that we can use via an NPM package.
 
-让我们编写简单的 `user-app`：
+Let's make our simple `user-app`:
 
 `package.json`
 
@@ -100,7 +100,7 @@ export const getUserPhoneNumber = () => "***********";
 }
 ```
 
-注意，我们使用 `user-library` 作为依赖。
+Notice we are using `user-library` as a dependency.
 
 `webpack.config.js`
 
@@ -123,18 +123,18 @@ module.exports = {
 };
 ```
 
-要理解上面的 Webpack 配置，我们需要先理解 Webpack 是如何进行摇树优化的。摇树优化进行的步骤如下所示：
+To understand the Webpack configuration of our reference application, we need to understand how Webpack does tree shaking. Tree shaking is performed using the following steps:
 
-* 识别出应用的入口文件（entry file）（由 Webpack 配置文件指定）
-* 通过遍历入口文件导入的所有的依赖和它们各自的依赖，来创建应用的模块树（module tree）
-* 对树中的每一个模块，识别出它的哪些 `export` 语句没有被其他模块所导入。
-* 使用像 UglifyJS 或者 Terser 这样的代码最小化（minification）工具来移除未引用的导出项，以及它们的相关代码。
+* Identify the application entry file (determined in the Webpack configuration)
+* Create an application module tree by looping through all the dependencies and sub dependencies imported by the entry file
+* Identify for each module in the tree which export statements are not imported by the other modules
+* Eliminate the unused exports and their related code using minification tools like UglifyJS or Terser
 
-这些步骤仅在 **生产模式（production mode）** 下才会被执行。
+This process in done only in **production mode**.
 
-**生产模式的问题在于代码最小化（minification）**。它会让我们难以分辨摇树优化是否生效，因为在打包后的代码里我们看不到原来命名的函数。
+**The issue with production mode is minification**. It becomes very hard to see whether our tree shaking worked because we cannot actually see our named functions in our bundled code.
 
-为了绕过这个问题，我们会让 Webpack 运行在开发模式（development mode）下，但仍然让它识别哪些代码未被引用并且会在生产模式下被移除。我们将配置里的 `optimization` 设置成如下所示：
+To get around this, we run Webpack in development mode while still identifying which code is unused and would be removed in production with the `optimization` property set to:
 
 ```js
   optimization: {
@@ -144,9 +144,9 @@ module.exports = {
   }
 ```
 
-其中的 `usedExports` 属性能够让 Webpack 识别哪些模块的导出项没有被其他模块引用。其他两个属性会在后文讨论。现在我们暂且认为它们能够提高我们的应用被摇树优化的效果。
+The `usedExports` property allows Webpack to identify which module exports are not used by other modules. The other two will be discussed later in the article. For now, let's just say they improve the tree shaking quality of our application.
 
-我们 `user-app` 的入口文件：`src/index.js`
+Our `user-app` entry file: `src/index.js`
 
 ```js
 import { getUserName } from "user-library";
@@ -154,7 +154,7 @@ import { getUserName } from "user-library";
 console.log(getUserName());
 ```
 
-打包之后，我们来分析一下输出：
+Once bundled, we now analyze the output:
 
 ```js
 /***/ "./node_modules/user-library/dist/index.js":
@@ -176,25 +176,25 @@ __webpack_unused_export__ = getUserPhoneNumber;
 /***/ })
 ```
 
-Webpack 将我们所有的代码重新组织到了同一个文件里。请看其中的 `getUserPhoneNumer` 导出项，注意到 Webpack 将它标记为了未引用。它会在生产模式下被移除，而 `getUserName` 则会被保留，因为它被我们的入口文件 `index.js` 所使用。
+Webpack regroups all our code in a single file. Looking at the `getUserPhoneNumber` export, we notice that Webpack has marked it as unused. It will be removed in production mode while `getUserName` is exported as it is used by our `index.js` entry file.
 
-![一个摇树优化后的库对应的一张简单的模块图](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-2.svg)
+![A simple module graph with a tree shaken library](https://blog.theodo.com/654aef253913c52e28cf32f9254b2ed6/simple-export-module-graph.svg)
 
-我们的库被摇树优化了！你可以再写一些导入项，重复上面的步骤再查看输出的代码。**我们的目的是知道 Webpack 会把我们库里没有被引用的代码标记为未引用。**
+The library is tree shaken! You may repeat this step but for multiple imports and look at the output code. **The objective is to make sure unused code in the library is marked as unused by Webpack**.
 
-对于我们这个简单的 `user-library` 来说，一切看上去都还不错。让我们将它变得复杂一些，与此同时我们会关注摇树优化的一些条件和优化项。
+Everything looks fine for our very simple `user-library`. Let's make it a bit more complicated and as we do so, we will look at some tree shaking requirements and optimizations.
 
-## 使用 ES6 模块来让打包工具得以识别未被使用的 export
+## Use ES6 modules so bundlers can detect unused exports
 
-这项要求非常常见，而且很多文档都有详细的解释，但在我看来它们却有些误导性。我时常能听到一些开发者说，我们应该使用 ES6 模块来让我们的库能够被摇树优化。虽然这句话本身是完全正确的，但 **其中包含一种错误的观念，这种观念以为仅仅使用 ES6 模块就足以让摇树优化很好地工作。** 哎，要是真的这么简单，你也绝不会阅读本文至此！
+Ok, this requirement is classic and well documented but is in my opinion a bit misleading. I oftentimes hear developers say we need to use ES6 modules so that our library can be tree shaken. While this statement is completely true, **there is this misconception that using ES6 modules is enough to just make tree shaking work**. Well, were it that simple, you definitely would not have gotten this far in the article!
 
-不过，使用 ES6 模块确实是摇树优化的必要条件之一。
+However, using ES6 modules still is a requirement for tree shaking.
 
-JavaScript 代码的打包格式有很多种：ESM、CJS、UMD、IIFE 等。
+There are a lot of formats in which JavaScript can be bundled: ESM, CJS, UMD, IIFE and so on.
 
-为简单起见，我们只考虑两种格式：ECMA Script 模块（ESM 或 ES6 模块）和 CommonJS 模块（CJS），因为它们在应用库中受到了最为广泛的使用。大多数库会使用 CJS 模块，因为这样能够让它们能够运行在 Node.js 应用里（不过 [Node.js 现在也支持 ESM 了](https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663)）。在 CJS 诞生很久之后的 2015 年，ES 模块才伴随 ECMAScript 2015（也被称作 ES6）出现，被认为是 JavaScript 的标准模块系统。
+To make things simple, we will consider only two: Ecma Script Modules (ESM or ES6 modules) and CommonJS modules (CJS) as they are the most widely used for application libraries. Most libraries will use CJS modules because it allows them to be run in a node application ([though Node now supports ESM](https://nodejs.medium.com/announcing-core-node-js-support-for-ecmascript-modules-c5d6dc29b663)). ES modules appeared way later than CJS in 2015 with ECMAScript 2015 (also known as ES6) and is considered to be the standardized module system for JavaScript.
 
-CJS 格式的例子：
+CJS syntax example
 
 ```js
 const { userAccount } = require("./userAccount");
@@ -206,7 +206,7 @@ const getUserAccount = () => {
 module.exports = { getUserAccount };
 ```
 
-ESM 格式的例子：
+ESM syntax example
 
 ```js
 import { userAccount } from "./userAccount";
@@ -216,7 +216,7 @@ export const getUserAccount = () => {
 };
 ```
 
-**这两种格式有着很大的区别：ESM 的导入是静态的，而 CJS 的导入是动态的。** 这意味着我们可以在 CJS 中做到以下的事情，但是在 ESM 中不行：
+**The big difference between both is that ESM imports are `static` whereas CJS imports are `dynamic`** meaning we could do the following with CJS but not with ESM:
 
 ```js
 if (someCondition) {
@@ -224,9 +224,9 @@ if (someCondition) {
 }
 ```
 
-虽然这样看上去更加灵活，但它也意味着**打包工具不能在编译或打包期间构造出一棵有效的模块树**。`someCondition` 这个变量只有在运行时才能知道它的值，导致打包工具在编译期间无论 `someCondition` 的值是什么都会把 `userAccount` 给导入进来。这也导致打包工具无法检查这些导入项是否真的被使用了，于是把所有 CJS 格式的导入项打包进 bundle 里。
+While this seems to be more flexible, it also means **bundlers cannot make a valid application tree at compile or bundle time**. The `someCondition` variable will be known only at runtime forcing the bundler to import `userAccount` in any case at compile time. This leads bundlers to just include all the CJS style imports directly in the bundle without being able to check whether the imports are actually used.
 
-让我们修改 `user-library` 的代码来体现这一点。同时，为了让这个库显得更贴近现实，它现在有两个文件：
+Let's modify our `user-library` to show this. And to make it a little bit more realistic, it will now have two files:
 
 `src/userAccount.js`
 
@@ -256,7 +256,7 @@ module.exports = {
 };
 ```
 
-我们保持 `user-app` 的入口文件不变，这样我们依然不会用到 `getUserAccount` 函数及其依赖。
+We keep the same entry file in our `user-app` so we do not use the `getUserAccount` function nor its dependency.
 
 ```js
 /*!*************************************************!*\
@@ -293,9 +293,9 @@ module.exports = { userAccount }
 /***/ })
 ```
 
-这三个导出项全部都出现在打包输出里，并且没有被 Webpack 标记为未引用。对于源文件 `userAccount` 也是如此。
+All three exports still appear and are not marked by Webpack as unused. This is also the case for our `userAccount` file which will be included in the bundle.
 
-现在，让我们来看看将上面的例子改造成 ESM 之后的结果。我们做的修改是将 `require` 和 `exports` 的语法全部改成对应的 ESM 的语法。
+Now let's look at the same example but with ESM by just replacing the require and exports syntax with their ESM counterparts.
 
 ```js
 /*!*************************************************!*\
@@ -328,28 +328,28 @@ const userAccount = {
 /***/ })
 ```
 
-注意，`getUserAccount` 和 `getUserPhoneNumber` 都被标记为了未引用。而且另一个文件里的 `userAccount` 也被标记了。得益于 `innerGraph` 优化，Webpack 能够将 `index.js` 文件里的 `getUserAccount` 导入项链接到 `userAccount` 导出项。**这让 Webpack 可以从入口文件开始，递归遍历它所有的依赖，进而知道每一个模块的哪些导出项未被引用。** 因为 Webpack 知道 `getUserAccount` 没有被使用，所以它可以到 `userAccount` 文件里对 `getUserAccount` 的依赖做相同的检查。
+Notice that `getUserAccount` and `getUserPhoneNumber` are marked as unused. But so does the `userAccount` export in the other file. Thanks to the `innerGraph` optimization, Webpack is able to link the `userAccount` import in the `index` file to the `getUserAccount` export. **This allows Webpack to work recursively from the entry file and go through all of its dependencies to know which exports are unused in every module**. Since Webpack knows that `getUserAccount` is unused, it can go and check its dependencies in the `userAccount` file and do the same work there etc.
 
-![使用 ESM 格式的库的导出模块图](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-3.svg)
+![Exports module graph with ESM library](https://blog.theodo.com/78a14d74268a17ddd6a6416474884a5d/esmodules-module-graph.svg)
 
-ES 模块让我们可以在应用代码里寻找那些被引用的和未被引用的导出项，这也解释了为什么这种模块系统对于摇树优化是如此的重要。它还解释了为什么我们应该使用像 [`lodash-es`](https://www.npmjs.com/package/lodash-es) 这样导出了兼容 ESM 的构建产物的依赖。这里 lodash-es 库是很受欢迎的 [`lodash`](https://lodash.com/) 库的 ESM 版本。
+ES modules allow us to look for exported code that is used or unused in our application explaining why this module system is so important for tree shaking. It also explains why one should use dependencies that export a ES module compatible build such as [`lodash-es`](https://www.npmjs.com/package/lodash-es), the ESM equivalent of the popular [`lodash`](https://lodash.com/) library.
 
-话虽如此，**针对摇树优化，仅仅使用 ES 模块仍然不是最佳的方法**。在我们的例子里，我们发现 Webpack 会在每个文件递归地检查导出的代码是否被引用。对于我们的例子来说，Webpack 其实可以直接忽略掉 `userAccount` 文件，因为它唯一的导出项是未引用的！这就将我们引入到文章接下来对副作用（side effect）的讨论。
+This being said, **using only ES modules for tree shaking is still a suboptimal approach**. In our example, we noticed Webpack worked recursively in each file to see whether exported code was used or unused. In this case, Webpack could have just totally ignored the `userAccount` file because the only import coming from that file is unused! This leads us to the notion of `side effects` discussed in the next part of the article.
 
-本文这一部分的总结如下：
+**To sum up this first part:**
 
-* **ESM 是摇树优化的条件之一，但仅凭它不足以让摇树优化达到理想效果。**
-* **确保你的库总是提供一份 ESM 格式的编译产物！** 如果你的库的用户需要 ESM 和 CJS 格式的编译产物，可以通过 package.json 中的 [`main` 和 `module` 属性](https://github.com/rollup/rollup/wiki/pkg.module)来设置。
-* 如果可以的话，**确保总是使用 ESM 格式的依赖**，否则它们不能被摇树优化。
+* **ESM is a requirement for tree shaking but is not enough to make it optimal**
+* **Make sure to always provide an ESM build of your library!** If your consumers require both ESM and CJS builds, provide them both through the package.json with [the `main` and `module` fields](https://github.com/rollup/rollup/wiki/pkg.module).
+* **Make sure to use ESM dependencies** when possible as they won't be tree shaked otherwise.
 
-## 使用副作用优化来让你的库不包含副作用
+## Use the side effects optimization to make your library side effects free
 
-根据 [Webpack](https://webpack.js.org/) 的文档，摇树优化可以被分为以下两种优化措施：
+According to the [Webpack](https://webpack.js.org/) docs, tree shaking can be split in two optimizations:
 
-* **引用导出（usedExports）**：判定一个模块的哪些导出项是被引用的或未被引用。
-* **副作用（sideEffects）**：略过那些不包含任何被引用的导出项并且不包含副作用的模块。
+* **usedExports**: Determine which exports of a module are used and unused
+* **sideEffects**: skip over modules that do not have any used exports and that are side effects free
 
-为了阐释副作用的含义，让我们看看之前用到的例子：
+To illustrate side effects, let's take the example that we used before:
 
 ```js
 import { userAccount } from "./userAccount";
@@ -359,19 +359,19 @@ function getUserAccount() {
 }
 ```
 
-如果 `getUserAccount` 没有被使用，打包工具是否可以认为 `userAccount` 模块可以从打包输出中移除呢？答案是否定的！`userAccount` 可以做各种能够影响应用的其他部分的事情。它可以向全局可访问的值里注入一些变量，比如 DOM。它还可以是一个 CSS 模块，会向 `document` 里注入样式。不过我觉得最好的例子是 polyfill。我们通常会像下面这样引入它们：
+If `getUserAccount` is unused, can the bundler assume that the `userAccount` module can be removed as well? The answer is no! `userAccount` could do all kinds of stuff affecting other parts of the app. It could inject some variables inside a globally accessible value, like the DOM for instance. It could also be a css module injecting style inside the document. But I think the best example is polyfills as we usually import them like:
 
 ```js
 import "myPolyfill";
 ```
 
-现在这个模块一定有副作用了，因为一旦它被导入到其他模块，它就会影响到整个应用的代码。打包工具会将这个模块视为可能被删除的候选者，毕竟我们没有使用它的任何导出项。不过移除它会破坏我们应用的正常运行。
+Now this module definitely has side effects as it affects the code of the whole app as soon as it is imported. Bundlers will see this module as a possible candidate for removal as we are not using any of its exports. But removing this would break our app.
 
-**像 [Webpack](https://webpack.js.org/) 和 [Rollup](https://rollupjs.org/guide/en/#treeshake) 这样的打包工具也因此会默认地将我们库中的所有模块视为包含副作用。**
+**Bundlers like [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/guide/en/#treeshake) will therefore see every module of our library as filled with side effects by default.**
 
-但是在前面的例子里，我们知道我们的库不包含任何副作用！因此，我们可以告诉打包工具这一点。大多数打包工具[可以读取 `package.json` 文件里的 `sideEffects` 属性](https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free)。这个属性如果没有指定，那么它默认会被设为 `true`（表示这个包里所有的模块都含有副作用）。我们可以将它设为 `false`（表示所有模块都不包含副作用）或者也可以指定一个数组，列举出含有副作用的源文件。
+In our case, we know that our library is side effect free! We can therefore help our bundler by informing it of this. To do so, most bundlers [can read the `sideEffects` property inside the `package.json` file](https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free). It is by default set to true when unspecified (there are side effects in every module of the package). You can set it to false (no side effects anywhere) or you may specify an array of files that have side effects.
 
-我们将这个属性添加到 `user-library` 库的 `package.json` 中：
+We add this option to the package.json file of our library:
 
 ```json
 {
@@ -388,7 +388,7 @@ import "myPolyfill";
 }
 ```
 
-然后重新运行 Webpack 进行打包：
+We then rerun our Webpack build:
 
 ```js
 /*!*************************************************!*\
@@ -410,49 +410,49 @@ import "myPolyfill";
 };
 ```
 
-我们发现，源文件 `userAccount` 已经在打包输出中被移除了。我们仍然能够看到 `getUserAccount` 函数在引用 `userAccount`，不过此函数已经被 Webpack 标记为了未引用代码，它会在代码最小化的过程中被移除。
+We see that the `userAccount` file has been removed from the bundle. We still see `getUserAccount` that references `userAccount` but this function has been marked by Webpack as dead code and it will be removed during minification.
 
-![副作用优化下的模块图](https://github.com/darkyzhou/blog/raw/master/static/images/uploads/tree-shaking-4.svg)
+![Side effects module graph](https://blog.theodo.com/a824f2dc91a5e2f206a71f44adf756f6/side-effects-module-graph.svg)
 
-** `sideEffects` 选项对于那些通过一个 index 文件从其他内部源文件导出 API 的库尤其重要。** 如果没有副作用优化，打包工具就必须解析所有包含导出项的源文件。
+**The `sideEffects` flag is especially important for libraries that export their API through an index file** that itself exports functions or variables from internal files. Without the side effects optimization, our bundlers would have to parse all the files where our exported variables are defined.
 
-正如 [Webpack 的提示](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects)：**“`sideEffects` 非常地高效，因为它能够让打包工具略过整个的模块或源文件，以及它的整个子树”**
+[As noted by Webpack](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects): **"sideEffects is much more effective since it allows to skip whole modules/files and the complete subtree."**
 
-对于前文介绍的两种优化措施在介入打包过程上的不同之处，简单来说如下所述：
+To better understand the difference between how both optimizations intervene:
 
-* `sideEffects` 让打包工具略过一个被导入的模块，如果从这个模块导入的东西全部都没有被使用的话。
-* `usedExports` 让打包工具移除在一个模块里未被引用的导出项。
+* `sideEffects` allows us to completely skip an imported module if none of its imported contents are used.
+* `usedExports` allows us to completely remove exports that are never imported by any module.
 
-那么，上面两种措施，一个是“略过文件”，一个是“将导出项标记为未被使用”。**前者影响下的打包输出又和后者有什么不同之处呢？**
+Ok but **how is the result of skipping files different from just saying the exports of those files are unused?**
 
-大多数情况下，对一个库进行摇树优化，有和没有副作用优化其实会产生一模一样的输出。最终的 bundle 里包含的代码量是一样的。不过在某些情况下，如果分析未引用的导出项的相关代码的过程过于复杂，那么有和没有副作用优化的结果就不一样了。本文接下来的部分将包含这两种情况的例子，我们将看到只有小的模块和开启副作用优化的组合产生了最好的打包产物。
+Most of the time, tree shaking a library with and without the side effects optimization will give the same result. The same amount of code will be included in the final bundle. However, this is not true in some situations when analyzing the code for unused exports becomes too complex. The next part covers two of these situations where only the combination of small modules with the `sideEffects` optimization provides the best result.
 
-**这一部分的总结如下：**
+**To sum up this part:**
 
-* 摇树优化包含两个部分：**引用导出（used exports）优化**和**副作用（side effects）优化**。
-* side effects 优化相比起检测每个模块中未被使用的导出项，**有更高的效率**。
-* 不要在你的库里引入任何副作用。
-* 一定要通过 `package.json` 文件里的 `sideEffects` 属性告诉打包工具：你的库不包含任何副作用。
+* Tree shaking consists of two parts: the **used exports** optimization and the **side effects** optimization
+* The **side effects optimization is way more effective** than just detecting unused export statements in every module
+* Make your library side effect free
+* Make sure to tell that your library is side effects free through the `sideEffects` property in the `package.json` file.
 
-## 通过保留库的模块树并将代码分割到小的模块中，来让你的库从 `side effects` 优化中充分获益。
+## Preserve the library's module tree and split your code in small modules to fully benefit from the `sideEffects` optimization
 
-你可能注意到我们在本文先前的例子里的 `user-library` 并没有被打包到一个单独的文件里，而是直接暴露手动加入的 `.js` 源文件。
+You may have noticed that the example `user-library` we are using in this article is not bundled. The library just exposes a few JS files that I manually added.
 
-通常，一个库会由于以下原因被打包：
+Oftentimes, libraries will be bundled for multiple reasons:
 
-* 使用了一些自定义的 `import` 路径。
-* 使用的是像 Sass 或者 TypeScript 这样的语言，它们需要转换到比如 CSS 或者 JavaScript 这样的语言。
-* 需要满足于提供多种模块格式（ESM、CJS、IIFE 等）的需求。
+* Manage custom import paths
+* The library uses specific languages like SASS or TS that need to be transformed to CSS or JS for instance
+* The library needs to be available in multiple formats (ESM, CJS, IIFE ...)
 
-像 [Webpack](https://webpack.js.org/)、[Rollup](https://rollupjs.org/guide/en/)、[Parcel](https://parceljs.org/) 和 [ESBuild](https://esbuild.github.io/) 这样的流行的打包工具被设计为用来提供一个能够传输给浏览器使用的 bundle。它们也因此倾向于创建一个单独的的文件，然后将你的所有代码重新组合并输出到这个文件里，从而只有一个单独的 `.js` 文件需要通过网络进行传输。
+Popular bundlers like [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/guide/en/), [Parcel](https://parceljs.org/) or [ESBuild](https://esbuild.github.io/) are made to provide a bundle that can be served to a browser. They will thus have a tendency to create a single file regrouping all of your code so that only a single JS file needs to be sent through the network.
 
-从摇树优化的角度来说，这导致了一个问题：**副作用优化不复存在了**，因为没有模块能够被略过。
+From a tree shaking perspective, this creates one problem: **The side effects optimization is non existent** as no modules can be skipped.
 
-我们将列举两种情况来说明：对摇树优化来说，分割模块搭配副作用优化是必须的。
+We are going to showcase two situations where splitted modules combined with the `sideEffect` optimization are essential for tree shaking.
 
-#### 一个库模块导入一个 CJS 格式的依赖
+#### A library module imports a CJS formatted dependency
 
-为了演示这个问题，我们将使用 [Rollup](https://rollupjs.org/guide/en/) 来打包我们的库。同时，我们将让库的其中一个模块导入一个 CJS 格式的依赖：[Lodash](https://lodash.com)。
+To demonstrate the issue, we are going to bundle our library using [Rollup](https://rollupjs.org/guide/en/). And we are going to have one of our library modules import a CJS formatted dependency: [Lodash](https://lodash.com)
 
 `rollup.config.js`
 
@@ -478,9 +478,9 @@ export const userAccount = {
 };
 ```
 
-注意，我们现在将导出 `checkExistance`，然后将它导入到我们库的 `index.js` 文件里。
+Notice we are now exporting `checkExistance` and we import it in our library `index` file.
 
-以下是打包输出的文件 `dist/index.js`：
+Here is the output in `dist/index.js`
 
 ```js
 import { isNil } from "lodash";
@@ -502,7 +502,7 @@ const getUserName = () => "John Doe";
 export { checkExistance, getUserName, getUserPhoneNumber, getUserAccount };
 ```
 
-所有文件都被打包到了一个单独的文件里。注意 Lodash 也在此文件的顶部被导入。我们在 `user-app` 里仍然导入和以前一样的函数，这意味着 `checkExistance` 函数依然未被引用。然而，在运行 Webpack 打包 `user-app` 之后，我们发现即使 `checkExistance` 函数被标记为了未引用，整个 Lodash 库仍然被导入了：
+Everything is bundled within a single file. Notice also that Lodash is imported at the top. We are still importing the same functions in our application meaning `checkExistance` is not used. However, after running Webpack, we see that the whole `Lodash` library is imported even though `checkExistance` is marked as unused:
 
 ```js
 /***/ "./node_modules/user-library/dist/index.js":
@@ -555,10 +555,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 // ...
 ```
 
-Webpack 无法对 Lodash 进行摇树优化，因为它的模块格式是 CJS。这挺让人失望的，毕竟我们都很明显地组织好了我们的库，让 Lodash 仅在 `userAccount` 模块里被导入，而且这个模块也没有被我们的应用所引用。如果模块结构能够保留，Webpack 就能受益于副作用优化，从而能够检测到 `userAccount` 的导出项都未被引用然后直接略过这个模块，这样的话 Lodash 就不会被打包了。
+Webpack is not able to tree shake `Lodash` because of its CJS format. This is a shame as we explicitly organized our library so `Lodash` would be imported only in the `userAccount` module that is unused in our application. If the module structure was preserved, Webpack would have detected that no `userAccount` exports were used and would simply have skipped the module and thus its `Lodash` import thanks to the `sideEffects` optimization.
 
-在 Rollup 中，我们可以[使用 `preserveModules` 选项来保留库的模块结构](https://rollupjs.org/guide/en/#outputpreservemodules)。其他打包工具也有类似的选项。
-
+[In rollup, we can use the `preserveModules` option to preserve the module structure of our library.](https://rollupjs.org/guide/en/#outputpreservemodules). Equivalents exist for other bundlers.
 
 ```js
 export default {
@@ -571,7 +570,7 @@ export default {
 };
 ```
 
-[Rollup](https://rollupjs.org/guide/en/) 现在能够保留原本的文件结构了，我们再次运行 Webpack，得到以下的打包输出：
+[Rollup](https://rollupjs.org/guide/en/) now keeps the original file structure. We can now run Webpack again:
 
 ```js
 /***/ "./node_modules/user-library/dist/index.js":
@@ -594,15 +593,15 @@ const getUserName = () => 'John Doe';
 /***/ })
 ```
 
-[Lodash](https://lodash.com/) 现在和 `userAccount` 模块一起被略过了。
+[Lodash](https://lodash.com/) is now skipped along with the `userAccount` module.
 
-![在使用 CJS 格式的依赖时，保留模块结构能够改善摇树优化效果](https://raw.githubusercontent.com/darkyzhou/blog/master/static/images/uploads/tree-shaking-5.svg)
+![Preserving the module structure improves tree shaking when using CJS dependencies](https://blog.theodo.com/5048f04d949bc617ef620574bbc2cec3/split-modules-cjs-module-graph.svg)
 
-#### 代码分割
+#### Code splitting
 
-保留分割后的模块结构以及开启副作用优化也有助于 [Webpack 的代码分割](https://webpack.js.org/guides/code-splitting/)。它对于大型应用来说是一个关键的优化措施，被广泛应用于那些含有多个页面的 Web 应用。像 [Nuxt](https://nuxtjs.org/) 和 [Next](https://nextjs.org/) 这样的框架都会给各个页面配置代码分割。
+Preserving splitted module structure alongside the `sideEffects` optimization also benefits [Webpack code splitting](https://webpack.js.org/guides/code-splitting/), a key performance optimization for big applications. Code splitting is widely used in web applications with multiple pages. Frameworks like [Nuxt](https://nuxtjs.org/) or [Next](https://nextjs.org/) both use page by page code splitting.
 
-为了演示代码分割带来的好处，我们先来看看如果我们的库被打包到了一个单独的文件时会发生什么。
+To illustrate the benefit, we will look at what happens when the library is bundled in a single file.
 
 `user-library/src/userAccount.js`
 
@@ -631,7 +630,7 @@ const getUserName = () => "John Doe";
 export { userAccount, getUserName, userPhoneNumber };
 ```
 
-为了对我们的应用进行代码分割，我们会使用 [Webpack 的 `import` 语法](https://webpack.js.org/api/module-methods/#import-1)。
+In order to code split our user application, we will use [the Webpack `import` syntax](https://webpack.js.org/api/module-methods/#import-1).
 
 `user-app/src/userService1.js`
 
@@ -667,7 +666,7 @@ const main = async () => {
 main();
 ```
 
-打包产生的文件现在有三个：`main.js`、`src_userService1_js.main.js` 和 `src_userService2_js.main.js`。仔细查看 `src_userService1_js.main.js` 的内容，我们可以发现整个 `user-library` 都被打包了：
+The app bundle now has 3 files: `main.js`, `src_userService1_js.main.js` and `src_userService2_js.main.js`. Taking a closer look at `src_userService2_js.main.js`, we can see that the entire `user-library` bundle is added:
 
 ```js
 (self["webpackChunkuser_app"] = self["webpackChunkuser_app"] || []).push([
@@ -733,17 +732,17 @@ main();
 ]);
 ```
 
-虽然 `getUserName` 被标记为了未引用，但 `userAccount` 并没有被标记，即使 `userService2` 仅仅使用了 `userPhoneNumber`。为什么会这样呢？（译注：原文中上面的代码是 `userService1` 的而不是 `userService2`）
+`userAccount` is not marked as unused even though `userService2` only uses `userPhoneNumber`... But why ?
 
-我们需要记住，引用导出（used exports）优化在检查导出项是否被引用的时候，是在模块层面上检查的。只有从这个层面上 Webpack 才能移除那些未被使用的代码。对于我们的库模块来说，`userAccount` 和 `userPhoneNumber` 其实都被使用了。在这个情况下，Webpack 并不能区分清 `userService1` 和 `userService2` 在导入项上的区别，正如下图所示（你会发现 `userAccount` 和 `userPhoneNumber` 都被标注为绿色）：
+We need to keep in mind that the `usedExports` optimization checks for used exports only within a module's scope. Only from there can Webpack remove unused code. From the perspective of our library module, both `userAccount` and `userPhoneNumber` are actually used. In this case, Webpack is not able to make a difference between the imports of `userService1` and `userService2` as seen on the following graph (both `userAccount` and `userPhoneNumber` are in green):
 
-![代码分割导致摇树优化出现的问题](https://raw.githubusercontent.com/darkyzhou/blog/master/static/images/uploads/tree-shaking-6.svg)
+![Code splitting introduces issues when it comes to tree shaking](https://blog.theodo.com/bc749d7936558d17bdb54b5181928046/code-splitting-without-preserving-module-structure-graph.svg)
 
-**这意味着 [Webpack](https://webpack.js.org/) 在仅依靠引用导出优化的条件下，并不能独立地针对每个 chunk 进行摇树优化。**
+**This means that [Webpack](https://webpack.js.org/) is not able to tree shake the exports of each chunk independently when only relying on the `usedExports` optimization**.
 
-现在，让我们在打包库时保留模块结构，这样副作用优化就能工作：
+We now preserve our modules when bundling our library to allow for the `sideEffects` optimization:
 
-[Webpack](https://webpack.js.org/) 仍然输出了 3 个文件，不过这一次 `src_userService2_js.main.js` 仅仅包含了 `userPhoneNumber` 里的代码：
+[Webpack](https://webpack.js.org/) still outputs the same 3 files but this time, `src_userService2_js.main.js` only contains the code coming from `userPhoneNumber`:
 
 ```js
 (self["webpackChunkuser_app"] = self["webpackChunkuser_app"] || []).push([
@@ -803,38 +802,38 @@ main();
 ]);
 ```
 
-`src_userService1_js.main.js` 也和上面类似，仅仅包含了我们库里的 `userAccount` 模块。
+`src_userService1_js.main.js` behaves the same way as it includes only the `userAccount` module from our library.
 
-![保留模块树可以让 Webpack 独立地对分割的 chunk 进行摇树优化](https://raw.githubusercontent.com/darkyzhou/blog/master/static/images/uploads/tree-shaking-7.svg)
+![Preserving the module tree allows Webpack to independently tree shake code splitted chunks](https://blog.theodo.com/5fe908acf0f856a1958e77c400f40408/code-splitting-with-preserving-module-structure-graph.svg)
 
-在上图中我们看到，`userAccount` 和 `userPhoneNumber` 仍然被识别为**被引用的导出项**，毕竟它们都在应用里被引用了至少一次。不过，这一次副作用优化让 Webpack 得以略过 `userAccount` 模块，因为它从未被 `userService2` 所导入。同样的事情也发生在了 `userPhoneNumber` 和 `userService1` 之间。
+Looking at the graph, we still see that `userAccount` and `userPhoneNumber` are still considered as **used exports** as they are used at least once in our application. However, this time the `sideEffects` optimization is able to skip the `userAccount` module because it is never **imported** by `userService2`. The same thing happens for `userPhoneNumber` and `userService1`.
 
-我们现在理解了：保留库中原始的模块结构是很重要的。不过，如果原始模块结构里只有一个模块，比如 `index.js` 文件，并且其中包含着所有的代码的话，那么保留这种模块结构是毫无用处的。**要打造一个对摇树优化有着良好适配的库，我们必须将库的代码划分到若干个小的模块中，同时每个模块负责我们代码逻辑的一部分。**
+We can now understand that preserving the original module structure of the library is important. However, preserving this is useless if the original structure only has one module such as an `index.js` file with all the code inside. **In order to make an optimal tree shakeable library, its code should be divided in multiple small modules that each handle one piece of the logic**.
 
-如果要使用“树”的比喻，我们需要将树上每片叶子视为一个模块。更小、更弱的叶子在树被摇动的时候更容易掉落！如果树上的叶子更少、更强，那么摇树的结果可能就不一样了。
+To use the tree analogy, one should see each leaf of the tree as a module. Smaller and weaker leafs will fall better when the tree is shaked! If the tree has fewer and bigger leafs, shaking it will not give the same result.
 
-本部分的总结如下：
+**To sum up this part:**
 
-* 为了能够充分利用副作用优化，**我们应该保留库的模块结构**。
-* **库应该被划分为多个小的模块**，每个模块仅导出整个库的代码逻辑的一小部分。
-* 只有在副作用优化的帮助下，我们在应用里才能对引用的库进行摇树优化。
+* **We should preserve the module structure of the library** in order to fully benefit from the `sideEffects` optimization.
+* **Libraries should be split in multiple small modules**, each module exporting only one piece of logic
+* Tree shaking libraries in applications that use code splitting will only work with the `sideEffects` optimization.
 
-## 在转译库代码时不要丢失模块树以及 ES 模块的特征
+## Do not lose the module tree or the ES modules characteristics when transpiling your library
 
-**打包工具并不是唯一能够影响你的库被摇树优化的东西。**转译工具也会对摇树优化造成负面影响，因为它们会移除 ES 模块，或者丢失模块树。
+**Bundlers are not the only tools that can harm the tree shaking of your library**. Transpilers are also known to have an undesirable effect on tree shaking by removing ES modules and by not preserving the module tree.
 
-转译工具的目的之一是让你的代码能够在那些不支持 ES 模块的浏览器中工作。不过，我们也需要记住：**我们的库并不总会直接地被浏览器所加载**，而是会被应用所导入。所以，鉴于以下两条理由，我们不能针对特定浏览器来转译我们的库代码：
+One of the objectives of transpilers is to make your code compatible for browsers that do not necessarily support ES modules. We should remember though that **our libraries are not meant to be served to browsers directly** but should instead be consumed by applications. So transpiling our libraries to target specific browsers should be forbidden for two reasons:
 
-* 在编写库代码的时候，我们并不知道我们的库会被用到哪些浏览器里，只有使用库的应用才知道。
-* 转译我们的库代码会让它们变得不可被摇树优化。
+* When making a library, one does not know which browser should be targeted, only the application knows that.
+* Transpiling libraries can make them non tree shakeable
 
-如果你的库由于某些原因确实需要被转译，那么你需要保证转译工具不会移除 ES 模块的语法，以及不会移除原本的模块结构，原因正如前文所述。
+If the library needs to be transpiled for some reason, one needs to make sure the transpilation does not remove the ES module syntax or the original module tree for the same reasons explained in the last part of the article.
 
-据我所知，有两个转译工具会移除掉上述的两个内容。
+There are two tools that I know of that transpiled my libraries removing their tree shakeable characteristic.
 
 #### Babel
 
-Babel 能够使用 [Babel preset-env](https://babeljs.io/docs/en/babel-preset-env) 来让你的代码兼容指定的目标浏览器（target browsers）。这个插件默认会将库代码里的 ES 模块移除。为了避免它的发生，我们需要把 [`modules` 选项](https://babeljs.io/docs/en/babel-preset-env#modules)设为 `false`：
+Babel uses [Babel preset-env](https://babeljs.io/docs/en/babel-preset-env) to make your code compatible with one's target browsers. By default, this plugin will remove ES modules from the library. To make sure this does not happen, set the [modules](https://babeljs.io/docs/en/babel-preset-env#modules) option to false:
 
 ```js
 module.exports = {
@@ -853,24 +852,24 @@ module.exports = {
 };
 ```
 
-#### TypeScript
+#### Typescript
 
-在编译你的代码时，TypeScript 会根据 `tsconfig.json` 文件里的 `target` 和 `module` 选项来转换你的模块。
+When compiling your code, typescript will transform your modules depending on the `target` and `module` options you set in the `tsconfig.json` file.
 
-为了避免它的发生，我们要[将 `target` 和 `module` 选项设置到至少 `ES2015` 或 `ES6`](https://www.typescriptlang.org/tsconfig#module)。
+To make sure this does not happen, [set the `target` and `module` options to at least `ES2015` or `ES6`](https://www.typescriptlang.org/tsconfig#module).
 
-**此部分的总结如下：**
+**To sum up:**
 
-* **确保你的转译工具和编译器不会将库代码里的 ES 模块语法移除。**
-* 如果需要检查上述问题是否存在，可以查看库的转译/编译产物里有没有 ES 模块的导入语法。
+* **Make sure your transpilers/compilers do not remove the ES module syntax from your library bundle**.
+* To check whether this happens, look at the library's output bundle and check for ESM import syntax.
 
-## 使用最新版的可进行摇树优化的打包工具
+## Use the latest version of a tree shaking capable bundler
 
-JavaScript 的摇树优化在 [Rollup](https://rollupjs.org/guide/en/) 的带动下流行了起来。[Webpack 自从 v2 以来就支持了摇树优化。](https://webpack.js.org/guides/tree-shaking/)各打包工具都在摇树优化上做得越来越好。
+Tree shaking in javascript was popularized by [Rollup](https://rollupjs.org/guide/en/). [Webpack supports this since version 2](https://webpack.js.org/guides/tree-shaking/) and bundlers keep getting better and better at optimizing tree shaking.
 
-还记得我们在上文讲到的 `innerGraph` 优化吗？它能够让 Webpack 将模块的导出项和其他模块的导入项关联起来。这项优化是在 Webpack 5 中被引入的。我们在本文里虽然一直在使用 Webpack 5，不过还是有必要认识到这项优化改变了整个业界。它能够让 Webpack 递归地寻找未被使用的导出项！
+Remember when we talked about the `innerGraph` optimization that allows Webpack to link module exports to the module's imports? [This optimization was introduced in Webpack 5](https://webpack.js.org/guides/tree-shaking/). We have been using Webpack 5 in this article but it is important to note that this optimization is a game changer as it allows Webpack to recursively look for unused exports!
 
-为了展示它到底是怎么做的，考虑 `user-library` 中的 `index.js` 文件：
+To show what it actually does, we can consider our `index.js` file in our `user-library`:
 
 ```js
 import { userAccount } from "./userAccount";
@@ -884,7 +883,7 @@ const getUserName = () => "John Doe";
 export { getUserName, getUserAccount };
 ```
 
-我们的 `user-app` 仅使用了其中的 `getUserName`：
+Our `user-app` only uses `getUserName`.
 
 ```js
 import { getUserName } from "user-library";
@@ -892,9 +891,9 @@ import { getUserName } from "user-library";
 console.log(getUserName());
 ```
 
-现在，我们对比一下在有和没有 `innerGraph` 优化的情况下，打包输出有什么不同。注意，这里 `usedExports` 和 `sideEffects` 优化都是开启的。
+We can now compare the outputs with and without the `innerGraph` optimization. We are still using both the `usedExports` and `sideEffects` optimizations:
 
-没有 `innerGraph` 优化（比如使用 Webpack 4）：
+Without the `innerGraph` optimization (eg with Webpack 4):
 
 ```js
 /*!*************************************************!*\
@@ -934,7 +933,7 @@ const userAccount = {
 /***/ }),
 ```
 
-有 `innerGraph` 优化（比如使用 Webpack 5）：
+With the `innerGraph` optimization (eg with Webpack 5):
 
 ```js
 /***/ "./node_modules/user-library/dist/index.js":
@@ -957,24 +956,24 @@ const getUserName = () => 'John Doe';
 /***/ })
 ```
 
-![Webpack的 innerGraph 优化示例](https://raw.githubusercontent.com/darkyzhou/blog/master/static/images/uploads/tree-shaking-8.svg)
+![Illustration of Webpack's innerGraph optimization](https://blog.theodo.com/864c647dcd0339a67537c146c6b1dca7/inner-graph-optimization-module-graph.svg)
 
-Webpack 5 能够完全移除 `userAccount` 模块，但是 Webpack 4 不行，即使 `getUserAccount` 被标记为了未引用。这是因为 `inngerGraph` 优化的算法能够让 Webpack 5 将模块中未引用的导出项和它对应的导入项链接起来。在我们的例子里，`userAccount` 模块仅被 `getUserAccount` 函数所使用，因此可以被直接略过。
+While Webpack 5 is able to completely eliminate the `userAccount` module, this is not the case for Webpack 4 even though `getUserAccount` is marked as unused. This is because the `innerGraph` algorithm allows webpack 5 to link unused elements of our module with its imports. In our case, the `userAccount` module is used only by the `getUserAccount` function and can therefore be skipped.
 
-Webpack 4 则没有这项优化。**开发者在使用这个版本的 Webpack 的时候因此应该提高警惕，限制单个源文件里的导出项数量。** 如果一个源文件包含多个导出项，Webpack 会包含所有对应的导入项，即使对于真正被需要的导出项来说有些导入项是多余的。
+This optimization does not work using Webpack 4. **Developers should therefore be careful and limit the number of exports in a single file when using this version of Webpack**. I a file contains multiple exports, Webpack will include all the file imports even though they may not be necessary for the desired export.
 
-总的来说，我们应该确保总是使用最新版的打包工具，这样我们就能从最新的摇树优化中获益。
+In general, we should make sure our bundlers are always up to date to benefit from their latest tree shaking optimizations.
 
-## 总结
+## Conclusion
 
-对一个库进行的摇树优化，并不是在配置文件里随便加一行来启用就能获得很好的效果。它的优化质量取决于多个因素，本文仅仅列出了其中的一小部分。不过，无论我们遇到的问题是什么，本文里做过的以下两件事情是对任何想要对库进行摇树优化的人很重要的：
+Tree shaking a library is not something one just turns on by adding a specific line in a configuration file. Its quality depends on multiple factors and this article presents only a few of them. In the end though, whatever the issue might be, there are two important things we did in this article that can help anyone tree shake their libraries:
 
-* **为了确定我们库的摇树优化效果程度，我们需要在一个受控的环境下使用我们了解的打包工具来进行测试。**
-* **为了检查我们库的配置有没有问题，我们不仅仅是需要检查各种配置文件，还要检查打包输出。** 我们在本文里一直都在对 `user-library` 和 `user-app` 的例子做这种事情。
+* **In order to see how well our library is tree shaked, we test it in a controlled environment using a bundler we know how to use**.
+* **We detect issues with our library setup not by looking at its configuration files but by inspecting its bundled output**. This is what we have been doing all along in this article with our `user-library` and `user-app` examples.
 
-我真切地希望本文能够为你提供帮助，让你正在进行的构建拥优化程度最高的库的任务变得可能！
+I really hope this article helps you in your evergoing quest to make the best and most optimized libraries possible!
 
-### 延申阅读
+### Further Reading
 
 * [Tree-shaking versus dead code elimination](https://medium.com/@Rich_Harris/tree-shaking-versus-dead-code-elimination-d3765df85c80)
 * [Webpack 5 release](https://webpack.js.org/blog/2020-10-10-webpack-5-release/)

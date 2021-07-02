@@ -2,38 +2,38 @@
 > * 原文作者：[Rahul](https://medium.com/@rahulism)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/all-you-need-to-know-about-higher-order-functions-in-javascript.md)
-> * 译者：[Zz招锦](https://github.com/zenblo)
-> * 校对者：[chzh9311](https://github.com/chzh9311)、[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 译者：
+> * 校对者：
 
-# 简述 JavaScript 高阶函数的开发使用
+# All You Need to Know About Higher-Order Functions in JavaScript
 
 ![](https://cdn-images-1.medium.com/max/2400/1*KQnA_VQkW6DVV-4zLBu_-Q.png)
 
-作为一个 JavaScript 开发者，会经常使用高阶函数，所以你务必对这些函数有正确的理解。目前，我看到部分开发者经常对 `reduce()` 的使用感到困惑。因此，我的这篇文章将会详细说明，你要试着逐步地去理解它，我相信你一定能掌握。
+As a JavaScript developer, you will utilize higher-order functions frequently. So, having a decent comprehension of these functions is vital. Presently I see individuals get frequently confounded when finding out about the `reduce()` technique. Yet, I had clarified everything in detail so attempt to comprehend it bit by bit, and I'm certain you will dominate it.
 
-## 高阶函数
+## What are higher-order functions?
 
-简而言之，高阶函数是那些将其他函数作为参数或返回其他函数的函数。在高阶函数中作为参数传递的函数被称为回调。
+In a nutshell, higher-order functions are those functions that take other functions as arguments or return other functions. The function passed as arguments in higher-order function is known as callbacks.
 
-高阶函数的优势：
+**Why use Higher-Order Functions?**
 
-* 它们可以帮助我们写出简洁的代码。
-* 由于是简洁的代码，调试工作会更加容易。
+* They help us to write clean and simple code.
+* Since the code will be clean, it will be easier to debug.
 
-现在 JavaScript 有一些内置的高阶函数，你可能已经在不知不觉中就使用它们了，例如 `filter()`、`reduce()`、`sort()` 和 `forEach()`。
+Now JavaScript has some built-in higher-order functions, you may have already been using them without even realising — (filter(), reduce(), sort(), forEach()).
 
 ## filter()
 
-`filter` 方法返回一个新的元素数组，该数组通过一个回调函数提供的特定测试。由于 `filter` 需要一个回调函数，因此 `filter()` 被称为高阶函数。
+The filter method returns a new array of elements that passes a specific test provided by a callback function. And since `filter` takes a callback function, therefore `filter()` is known as higher-order function.
 
-传入高阶函数 `filter()` 的回调函数参数如下：
+Now the callback function that is passed into `filter()` is known as the higher- order function.
 
-* 元素的数值（必须）
-* 元素的索引（可选）
-* 数组对象（可选）
+* `value of the element` (required)
+* `index of the element` (optional)
+* `the array object` (optional)
 
 ```js
-let arr = [1,2,3,4,5]; 
+let arr [1,2,3,4,5]; 
 
 const resultant Array = arr.filter((element ) => {
     return element > 3; 
@@ -42,14 +42,14 @@ const resultant Array = arr.filter((element ) => {
 console.log(resultantArray); // [4, 5]
 ```
 
-在以上示例中，`arr` 数组中的元素被依次传递到 `filter()` 回调方法中执行一个特定的测试，即 `element > 3`。那些通过测试的元素被推送到 `resultantArray` 中，这就是为何输出结果是 [4,5] ，因为 4 和 5 是通过测试的元素。
+In the above example, what’s happening is that the elements of the `arr` array is getting passed one by one into the `filter()` callback method and they are getting tested for a specific test that is `element > 3`. And those elements which are passing the test are getting pushed in the `resultantArray`, that's why the output is [4,5] since 4 and 5 were the only elements that pass the test.
 
-参数 `element` 将依次获得 `arr` 数组的元素值，它首先变成 1，然后测试 `1 > 3`，如果为真，1 将被推到结果数组中，否则将跳到下一个元素。
+The `element argument` is getting the value of elements of `arr` array one by one, it will first become 1 and then it will test `1>3` if it's true 1 will get pushed in the resultant array and if it's false it will be skipped to the next element.
 
-示例：
+Example:
 
 ```js
-// 筛选年龄小于 18 岁的人
+// filter age that is less than 18
 
 const ageArray = [10, 12, 35, 55, 40, 32, 15]; 
 
@@ -62,7 +62,7 @@ console.log(filterAgeArray);
 
 -----------------
 
-// 筛选正数
+// /filter positive numbers
 
 const numArray = [-2, 1, 50, 20, -47, -40]; 
 
@@ -75,7 +75,7 @@ console.log(positiveArray);
 
 -----------------
 
-// 筛选包含 `sh` 的名字
+// filter names that contains `sh` in it
 
 const namesArray = ["samuel", "rahul", "harsh", "hitesh"]; 
 
@@ -89,13 +89,13 @@ console.log(filterNameArray);
 
 ## map()
 
-顾名思义，`map()` 方法用于将现有数组的值映射为新的值，并将新的值推送到一个新的数组中，然后返回这个新的数组。现在 `map()` 也需要一个回调函数，因此它被称为高阶函数。
+As the name suggests, the `map()` method is used to map the values of an existing array to new values and it pushes that new values to a new array and it returns that new array. Now `map()` also takes a callback function and hence it is known as higher-order function.
 
-现在，传入 `map()` 方法的回调函数需要三个参数：
+Now the callback fucntion that is passed into `map()` method takes three arguments:
 
-* 元素的数值（必须）
-* 元素的索引（可选）
-* 数组对象（可选）
+* `values of the element` (required)
+* `index of the element` (optional)
+* `the array object` (optional)
 
 ```js
 const numArray = [1, 5, 3, 6, 4, 7]; 
@@ -108,14 +108,14 @@ console.log(increasedArray);
 [2, 6, 4, 7, 5, 8]
 ```
 
-就像在 `filter()` 中一样，`numArray` 的元素将被依次传递到 `map()` 回调函数中（作为 `element` 参数），它们将被映射成一个 `element + 1` 的新值，然后它们将被放进 `increasedArray`。
+Just like in `filter()`, the elements of numArray will be passed one by one into the `map()` callback function (as the element argument) and they will get mapped into a new value that is `element + 1` and then they will be pushed into the `increasedArray`.
 
-首先 `1` 将被作为元素参数传递并被映射到一个新的值，即 `element + 1`，这样 `1 + 1`（因为这里的元素是 `1`），即 `2` 将被推入`increasedArray` 中。接下来对 `5、3、6、4、7` 重复以上过程。
+Firstly 1 will get a pass as an element argument and it will get the map to a new value that is `element + 1` such that 1 + 1 (because here element is 1) and the 2 will get pushed into increased Array and so on for 5, 3, 6, 4, 7.
 
-示例：
+Example:
 
 ```js
-// 对数组中的每个数字进行指数化处理
+// exponentiate every number on an array
 
 const numArray = [2, 3, 4, 5, 15]; 
 
@@ -126,7 +126,7 @@ const poweredArray = numArray.map((number) => {
 console.log(poweredArray); 
 // [4, 9 ,16, 25, 144, 225]
 
-// 设置学生的分数
+// extract the marks of student
 
 const studentsArray = [
     {
@@ -153,17 +153,17 @@ console.log(scoreArray);
 
 ## reduce()
 
-`reduce()` 方法用于将数组还原为一个单一的值，就像 `filter()` 和 `map()` 一样，`reduce()` 也需要一个回调函数作为参数，因此它被称为高阶函数。
+The `reduce()` method is used to reduce the array to a single value, just like `filter()` and `map()`, `reduce()` also takes a callback function as an argument hence it is known as a higher-order function.
 
-但是 `reduce()` 除了回调函数之外还需要一个参数，那就是 `initialValue（初始值）`。同样，像 `filter()` 和 `map()` 一样，传递到 `reduce()` 的回调函数需要一些参数，但传递到 `reduce()` 的回调函数需要 `4` 个参数，而不是 `3` 个。
+But `reduce()` takes one more argument other than the callback function and that is `initialValue`. And again like `filter()` and `map()` the callback function passed into `reduce()` takes some arguments but the callback functions passed into reduce takes 4 arguments instead of 3.
 
-* 初始值（必须）
-* 元素的数值（必须）
-* 元素的索引（可选）
-* 数组对象（可选）
+* `total` (required)
+* `value of the elements` (required)
+* `index of the element` (optional)
+* `the array object` (optional)
 
 ```js
-// reduce() 示例
+// A basic example reduce()
 
 const numArray = [1, 2, 3, 4, 5]; 
 
@@ -174,31 +174,31 @@ const sum = numArray.reduce((total, num) => {
 console.log(sum);
 ```
 
-首先了解什么是 `total argument`。`total argument` 是由 `reduce()` 函数返回的前一个值，现在当 `reduce()` 第一次运行时，将没有前一个返回值，因此第一次的 `total argument` 等于 `initialValue`（传入 `reduce()` 的第二个参数）。
+Let’s first understand what **total argument** is: Total argument is the previous value returned by `reduce()` function, now when the `reduce()` will run for the first time there will be no previous returned value therefore for the first time `total argument` is equal to the initialValue(remember the second argument that we passed into `reduce()`).
 
-现在示例中也没有使用 `initialValue`，当我们不传递 `initialValue` 时，`reduce()` 方法会跳过 `numArray` 的第一个元素成为 `total argument` 的值，这是什么情况？
+Now we also haven’t used the initialValue in our example, so what is that **when we don’t pass initialValue, the reduce() method skips the first element of the numArray becomes the value of total argument**.
 
-在示例中，没有传递 `initialValue`，所以 `numArray` 的第一个元素，如 `1` 将成为 `total argument` 的值，`numArray` 的第二个元素将作为 `num` 参数传递， 函数将返回 `total + num`，如 `1 + 2 = 3`，`3` 将成为 `total` 的新值，现在 `numArray` 的第三个元素将作为 `num` 参数传递到` reduce()` 回调，它将再次返回 `total + num`，即 `3 + 3 = 6`，`6` 将成为 `total` 的新值，以此类推。
+Coming to our example, we haven’t passed initialValue so the first element of numArray such that `1` will become the value of total argument and the second element of `numArray` will pass as num argument, and the reduction will return `total + num` such that `1+2 = 3`, 3 will become the new value of total and now the third element from `numArray` will get a pass into `reduce()` callback as **num argument**, again reduce will return **total + num** that is 3 + 3 = 6 and 6 will become the new value of total and so on.
 
-上述解释有些混乱难懂，但如果你尝试逐步地学习，就会掌握` reduce()`。
+(This explanation is a bit tough and confusing. If you try to learn step by step you will master `reduce()`).
 
-> initialValue（初始值）参数
+> **The initialValue argument**
 >
-> `initialValue` 是 `total argument` 的初始值，当 `reduce()` 第一次运行时，没有先前的返回值，因此现有数组（在示例中是 `numArray`）的第一个元素成为 `total argument` 的值，所以可以给 ·total argument` 一个初始值，而不是这样做（记住 `initialValue` 将是 `total argument` 的初始值，`total argument` 将成为 `reduce()` 的先前返回值）。
+> initialValue as the name suggests, is the initial value of the total argument, as we know when `reduce()` runs for the first time there is no previous returned value and hence the first element from existing array **(numArray in our case)** becomes the value of the total argument, so instead of doing that we can give an initial value to the total argument (remember initialValue will be the initial value of the total argument, the total argument will become the previous return value of reduce() later).
 
-> 注意：当使用 `initialValue` 参数时，`numArray` 不会跳过它的第一个元素，因此每个元素都会被传递到 `reduce()` 回调。
+> **Note:** When you will use the initialValue argument, numArray will not skip it’s the first element hence every element will get passed into the `reduce()` callback.
 
-`reduce()` 带有初始值的语法：
+Syntax of reduce() with initial value:
 
 ```js
 const resultantArray = existingArray.reduce((total,element,index.array)=> {
-    // 返回某些东西
+    // return something
 }, initialValue);
 ```
 
 ---
 
-感谢你的阅读！
+Thank you for reading!
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
