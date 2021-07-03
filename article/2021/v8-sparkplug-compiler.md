@@ -7,7 +7,6 @@
 
 # V8 有个非优化的编译阶段去提高性能
 
-
 最新版本的 JavaScript V8 引擎， V8 9.1 ，引用一个过渡编译阶段，叫[火花塞](https://v8.dev/blog/sparkplug) ，据 V8 开发者[Leszek Swirski](https://twitter.com/leszekswirski) 称，它能在现实基准中提升 5-15% 的性能。它会在即将发布的 Chrome 91 中支持。
 
 旧的 V8 架构中包括了两个阶段：点火装置（一个 JavaScript 解释器），和涡扇（一个高度优化的编译器），点火装置使用 JavaScript 抽象语法树去生成 V8 字节码，而涡扇使用这些字节码生成机器码。引用火花塞的原因，在 [火花塞设计](https://docs.google.com/document/d/1NeOsqjPPAcDWbuHxW5MobzVQgj9qZd6NqKUnz0h-fOw/edit) 的概述中有详细的解释。
