@@ -49,27 +49,26 @@ TC39 也接受来自与 Ecma 成员无关的个人的贡献，包括作为特邀
 
 Ecma 规范通常是遵循 [Ecma 专利事务行为守则][16] 而制定的，但 TC39 使用的是基于 Ecma 的 [『Ecma 国际免版税专利政策扩展选项』][7] 的独特的版税政策。TC39 是 Ecma 内的一个免版税的技术委员会（Royalty Free Technical Committee, RFTC），这意味着由 Ecma TC39 制定并经 Ecma 大会批准的所有标准都包含一份适用于任何由 TC39 参与者所拥有或控制的专利的『免版税专利许可声明』。
 
-参与 TC39 的组织都需要签署一份特殊的表格，这份表格表示他们授予 TC39 年度免版税（Royalty Free, RF）授权。
-Ecma's RF patent policy provides for a defined time window during which participants may opt out of providing an RF commitment under certain circumstances. (See footnote 1.) Such an Opt-Out has never been taken in TC39's history.
+参与 TC39 的组织都需要签署一份特殊的表格，这份表格表示他们授予 TC39 年度免版税（Royalty Free, RF）授权。Ecma 的免版税专利政策中提供了一个特定的时间窗口，在此期间参与的成员组织可以在某些情况下选择不提供免版税承诺<sup><a href="#footnote1">[1]</a></sup>。但在 TC39 的历史上从未发生过这样的选择性退出事件。
 
 ### 版权许可
 
-The specification text in annual, GA-approved ECMA-262 and ECMA-402 are licensed under Ecma's [text copyright policy][9], and the contained source code is licensed under [Ecma's software license][10].
+经过 GA 授权的年度 ECMA-262 和 ECMA-402 中的规范文本遵循 Ecma 的 [文字版权政策][9] 许可，其中包含的源代码通过 [Ecma 软件许可][10] 获得许可。
 
-TC39 maintains a test suite for ECMA-262 and ECMA-402, called test262, which is licensed under [Ecma's software license][10]. Contributors to test262 are required to sign the separate [software submitter license][11]. Files added to test262 have a [copyright header indicating an initial author][12].
+TC39 为 ECMA-262 和 ECMA-402 维护了一个名为 test262 的测试套件，它通过 [Ecma 软件许可][10] 获得许可。test262 的贡献者需要签署独立的 [软件提交者许可][11]。向 test262 添加的文件都会有一个 [版权标头指明其原始作者][12]。
 
-The same copyright policy applies to ECMA-404 (JSON) and ECMA-415 (ECMAScript Suite), which are updated only occasionally.
+ECMA-404（JSON） 和 ECMA-415（ECMAScript 套件）也应用了相同的版权政策，这两个标准只会偶尔更新。
 
-ECMAScript specification drafts are licensed under the [draft copyright license][14]. Proposals have copyright [reserved by their author][15], but many proposal authors secondarily license their proposal with another license, visible in the proposal repository.
+ECMAScript 规范草案根据 [版权草案许可][14] 获得许可。提案 [由其作者保留][15] 版权，但许多提案作者会通过另一个许可证二次许可他们的提案，该许可在提案的存储库中可见。
 
-### 确保贡献者授予正确许可的过程
+### 确保贡献者授予正确许可的流程
 
-- In physical meetings, the chair and vice chairs verify that all meeting attendees are either delegates of member companies, or otherwise have chosen among the observer/invited expert options explained above. There is a quick agenda item to clarify the IPR agreements.
-- For contributions on GitHub, there is [a bot in development][13] to check that non-member contributors have signed the appropriate agreement.  Until then, the set of contributions has been manually surveyed going back to the beginning of GitHub use, and all contributors have been verified to have signed the agreement; this manual check continues for current contributions.
+- 在线下会议中，会议主席和副主席将核实所有与会者要么是成员公司的代表，要么是上述的观察员或者特邀专家，然后会有一个快速议程项目来澄清知识产权协议。
+- 对于 GitHub 上的贡献，有 [一个正在开发的机器人][13] 来检查非成员贡献者是否签署了适当的协议。直到贡献集已经被手动检查并回到GitHub使用之初，并且所有贡献者都已被验证已签署适当的协议之后，将会对当前的贡献继续进行手动检查。
 
 #### 脚注
 
-- 1: Historically, all of TC39's work actually takes place in the TC39 RFTG, with a [separately-tracked membership][8]. Today, the entire committee has converted to an RFTC. The opt-out period begins when the annual version is "branched" off, towards the beginning of the year, and ends before the annual version is ratified by the Ecma General Assembly, typically around the middle of the year.
+<a name="note1"></a> 从历史上看，TC39 的所有工作实际上都发生在 TC39 免版税技术委员会中，并具有 [单独跟踪的成员关系][8]。而在今天，整个委员会已转变为一个免版税技术委员会。选择性退出期从年初，每个年度版本确立分支开始，直到年度版本被 Ecma 大会批准之前，通常在年中左右。
 
 [1]: https://github.com/tc39/ecma262/
 [2]: https://github.com/tc39/ecma262/
