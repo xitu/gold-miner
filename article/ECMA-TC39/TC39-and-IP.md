@@ -32,7 +32,7 @@ TC39 中最深入的技术性工作发生在 GitHub 上。[主要规范][2] 有�
 
 Ecma 的成员都是注册在某个 [Ecma 成员类别][5] 中的组织，例如一些学校或者公司。每中成员类别都有独立的表格，但每个表格都包含以下内容:
 
-b) 我们确认我们已了解 Ecma International 的章程、规则和专利事务行为准则并且将遵守它们
+b) 我们确认我们已了解 Ecma International 的章程、规则和专利事务行为守则并且将遵守它们
 c) 为了 Ecma 国际的标准化目标，我们授予 Ecma 国际对我们提交给其的贡献的部分或全部使用权和改编权，同时我们保留对这些贡献的所有权利。
 
 上述章节授予 Ecma 对会员组织贡献的版权许可。参与 TC39 的 Ecma 成员还必须签署RFTC协议，该协议在免版税的基础上许可专利。
@@ -47,9 +47,10 @@ TC39 也接受来自与 Ecma 成员无关的个人的贡献，包括作为特邀
 
 ### Ecma 免版税技术委员会
 
-Ecma specifications are generally developed under [Ecma Code of Conduct in Patent Matters](http://www.ecma-international.org/memento/codeofconduct.htm), but TC39 uses a distinct royalty-free policy based on the use of Ecma's ["Ecma International Royalty-Free Patent Policy Extension Option"][7]. TC39 is a Royalty Free Technical Committee (RFTC) within Ecma, meaning that standards produced by Ecma TC39 and approved by the Ecma General Assembly include a "royalty-free patent license statement that applies to any patent claims owned or controlled" by TC39 participants.
+Ecma 规范通常是遵循 [Ecma 专利事务行为守则][16] 而制定的，但 TC39 使用的是基于 Ecma 的 [『Ecma 国际免版税专利政策扩展选项』][7] 的独特的版税政策。TC39 是 Ecma 内的一个免版税的技术委员会（Royalty Free Technical Committee, RFTC），这意味着由 Ecma TC39 制定并经 Ecma 大会批准的所有标准都包含一份适用于任何由 TC39 参与者所拥有或控制的专利的『免版税专利许可声明』。
 
-Participating organizations in TC39 are required to sign a particular form which includes them in the annual RF patent grant. Ecma's RF patent policy provides for a defined time window during which participants may opt out of providing an RF commitment under certain circumstances. (See footnote 1.) Such an Opt-Out has never been taken in TC39's history.
+参与 TC39 的组织都需要签署一份特殊的表格，这份表格表示他们授予 TC39 年度免版税（Royalty Free, RF）授权。
+Ecma's RF patent policy provides for a defined time window during which participants may opt out of providing an RF commitment under certain circumstances. (See footnote 1.) Such an Opt-Out has never been taken in TC39's history.
 
 ### 版权许可
 
@@ -85,6 +86,7 @@ ECMAScript specification drafts are licensed under the [draft copyright license]
 [13]: https://github.com/IgnoredAmbience/tc39-bot/
 [14]: https://github.com/bterlson/ecmarkup/blob/master/boilerplate/draft-copyright.html
 [15]: https://github.com/bterlson/ecmarkup/blob/master/boilerplate/proposal-copyright.html
+[16]: http://www.ecma-international.org/memento/codeofconduct.htm
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
