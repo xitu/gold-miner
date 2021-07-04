@@ -7,6 +7,8 @@
 
 # Using Interfaces to Write Better PHP Code
 
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--n6v5dklj--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fn6vfrunv49pxpf8xep6.png)
+
 ## Introduction
 
 In programming, it's important to make sure that your code is readable, maintainable, extendable and easily testable. One of the ways that we can improve all of these factors in our code is by using interfaces.
