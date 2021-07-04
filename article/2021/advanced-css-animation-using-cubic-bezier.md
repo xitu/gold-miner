@@ -7,6 +7,8 @@
 
 # Advanced CSS Animation Using cubic-bezier()
 
+![](https://res.cloudinary.com/practicaldev/image/fetch/s--dYUYOuUc--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gtknacqxif7977upw8hy.png)
+
 When dealing with complex CSS animations, there is a tendency to create expansive `@keyframes` with lots of declarations. There are a couple of tricks though that I want to talk about that might help make things easier, while staying in vanilla CSS:
 
 1. Multiple animations
