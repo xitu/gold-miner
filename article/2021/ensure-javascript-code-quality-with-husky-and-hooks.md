@@ -2,68 +2,68 @@
 > * 原文作者：[Viduni Wickramarachchi](https://medium.com/@viduniwickramarachchi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ensure-javascript-code-quality-with-husky-and-hooks.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ensure-javascript-code-quality-with-husky-and-hooks.md)
-> * 译者：
+> * 译者：[Usualminds](https://github.com/Usualminds)
 > * 校对者：
 
-# Ensure JavaScript Code Quality with Husky and Hooks
+# 使用 Husky 和 Hooks 保证 JavaScript 代码质量
 
 ![](https://cdn-images-1.medium.com/max/5760/1*HZ5lACmwUy-Zo8jTzWEmZw.jpeg)
 
-Ensuring code quality is very important for a maintainable and scalable application. But how can we enforce these quality standards?
+对于一个可维护和可扩展的应用程序来讲，保证代码质量无疑至关重要。但我们如何在项目中执行与质量相关的标准呢？
 
-Well, with JavaScript, you can use ESLint to define coding conventions and use Prettier for consistent code formatting. If you have these two configured, the first step is complete.
+在 JavaScript 中，你可以使用 ESLint 来定义编码规范，同时可以使用 Prettier 来实现统一的代码风格配置。如果你已经配置了这两个工具，那就已经完成了保证代码质量的第一步。
 
-Now that we have standards in place, how do we enforce them? This is where Husky comes to play. Husky is used to enforcing standards in Git-based projects. It acts similarly to how [Bit](https://bit.dev) enforces standards on [independent components](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65) before they are tagged with a new release version, end exported to various remote scopes (more on that, later).
+现在我们已经有了相关的质量标准，如何执行它们？这时候就需要 Husky 了。在基于 Git 项目中，Husky 常常用于保证关于质量标准的执行。它的作用类似于 [Bit](https://bit.dev) 在[单组组件](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65) 发布新版本之前需要强制执行代码规范，最终导出在各个远程分支使用。
 
-## What are Hooks?
+## 什么是 Hooks
 
-When you initialize a project with Git (`git init` ), it automatically comes with a feature called Hooks. You can view these in`[projectPath]/.git/hooks` .
+当你使用 Git (`git init` ) 初始化一个项目时，它会自动为你提供一个名为 Hooks 的钩子。你可以在 `[项目根目录]/.git/hooks` 下查看它。
 
-There are many Git Hooks. Some of them are as follows.
+你会看到有许多 Git Hooks。部分如下：
 
-* `pre-commit` — The hook that is used to ensure that all coding standards are enforced before a commit is made. This will run when you make the `git commit` command.
-* `pre-push` — Ensures coding rules are met before pushing to a remote repository.
-* `pre-rebase` — Similar to the above, this enforces the rules before a rebase is done.
+* `pre-commit` —— 用于保证代码提交前执行所有编码规范标准的钩子。它将在你执行 `git commit` 命令时运行。
+* `pre-push` —— 用于保证代码在推送到远程仓库之前符合编码规范。
+* `pre-rebase` —— 类似于上面的作用，它是在 rebase 操作完成之前执行的。
 
-All the Hooks available and their usages can be found [here](https://git-scm.com/docs/githooks).
+所有可用的 Hooks 和它们的用法都可以在[这里](https://git-scm.com/docs/githooks)找到。
 
-However, writing these Hooks manually and ensuring that all developers have them on their machines is a cumbersome process. This is where Husky comes into play.
+然而，手动编写这些 Hooks 并保证所有开发人员都在他们的设备上遵循这些规则是一个极为繁琐的过程。这时候就需要 Husky 了。
 
-## What is Husky?
+## 什么是 Husky
 
-Husky automates the process of adding Hooks. When the project dependencies are installed, Husky will make sure that all Hooks will be installed in the developer’s machine locally for that particular project based on the configs in the `package.json` . This makes it very easy to manage and distribute Hooks as no manual invention is required.
+Husky 让 Hooks 的添加过程自动化了。当项目中的依赖安装完成后，Husky 会保证所有 Hooks 正确地安装在开发者设备的项目中，并且是基于项目中 `package.json` 配置。这使得管理和分发 Hooks 简单了很多，不需要在手动编写了。
 
-With Husky, the following happens.
+使用 Husky，会开启如下的流程：
 
-* Hooks get created locally.
-* Hooks are run when the relevant Git command is called.
-* The policy that defines how someone can contribute to a project is enforced.
+* 本地创建 Hooks 钩子。
+* 相关的 Git 命令调用时会自动执行 Hooks 钩子。
+* 对参与项目代码贡献的人来说，项目中定义的编码规范是强制执行的。
 
-### Setting up Husky in practice
+### 项目中开始使用 Husky
 
-You can install Husky using the following command.
+你可以使用如下的命令安装 Husky。
 
 ```bash
 npm install husky --save-dev
 ```
 
-Configuring Husky is very easy. This can be added to the `package.json` .
+配置 Husky 非常简单。它到配置可以添加到 `package.json` 中。
 
-```
+```javascript
 "husky": {
   "hooks": {
-    "pre-commit": "",  // pre-commit command goes here
-    "pre-push": "",    // pre-push command goes here
+    "pre-commit": "",  // pre-commit 命令添加到这里
+    "pre-push": "",    // pre-push 命令添加到这里
     "...": "..."
   }
 }
 ```
 
-As such, any hook that you require can be included here.
+因此，你需要到任何钩子都可以配置在这里。
 
-Let’s look at an example.
+让我们看一个例子。
 
-If you want to ensure that all the lint rules are met before committing new changes, the following can be done.
+如果你想保证在代码提交前满足所有的 lint 规则校验，可以进入如下操作。
 
 ```json
 {
@@ -78,41 +78,41 @@ If you want to ensure that all the lint rules are met before committing new chan
 }
 ```
 
-This should be included in the `package.json` . This will ensure that you cannot complete a Git commit without the `esLint` checks being passed.
+这个配置应该添加到 `package.json` 中。它会保证代码在没有通过 `esLint` 校验到情况下无法完成 Git 提交。
 
-## More uses of Husky in practice
+## Husky 在实践中到更多应用
 
-So far, we have looked at the most basic use of Husky. Are there more things that we can do with this package? Let’s have a look.
+到目前为止，我们已经了解了 Husky 的基本用法。我们可以用这个包配置做更多的事情吗？让我们看看。
 
-1. Husky has the ability to run any command which is combined with other packages. (E.g.: Prettier, Linters such as EsLint, check linting for the files ready to be committed with lint-staged, etc.)
-2. Husky has the ability to validate commit messages with the use `commit-msg` similar to `pre-commit` rules.
-3. We can use the `pre-commit` command to run all our unit tests and integration tests, which makes sure that we don’t commit any breaking changes.
+1. Husky 能够运行任何命令，它可以和其他包进行组合（比如：Prettier、EsLint，检查 linting 是否使用 lint-staged 提交文件等）。
+2. Husky 能够验证提交信息时使用等 `commit-msg`，类似于 `pre-commit` 校验规则。
+3. 我们可以使用 `pre-commit` 命令运行所有单元测试和集成测试，这就确保不会提交任何破坏性修改。
 
-However, a point to note is that Husky commands can be skipped if you use the `no-verify` flag with your Git command.
+然而，需要注意的是，如果你在 Git 命令中使用了 `no-verify` 标志，就可以跳过 Husky 命令了。
 
-### Supported Hooks
+### 支持的 Hooks
 
-Husky supports all Git Hooks defined [here](https://git-scm.com/docs/githooks). Server-side Hooks (`pre-receive`, `update` and `post-receive`) aren't supported.
+Husky 支持[这里](https://git-scm.com/docs/githooks)定义的所有的 Git Hooks。服务端 Hooks（`pre-receive`、`update` 和 `post-receive`）这些不支持。
 
-## Features of Husky
+## Husky 的特点
 
-There are few highlighted features of Husky that I would like to mention.
+Husky 有几个突出的优势，我想提一下。
 
-* Zero dependencies and lightweight (6KB)
-* Powered by modern new Git feature (`core.hooksPath`)
-* Follows [npm](https://docs.npmjs.com/cli/v7/using-npm/scripts#best-practices) and [Yarn](https://yarnpkg.com/advanced/lifecycle-scripts#a-note-about-postinstall) best practices regarding autoinstall
-* User-friendly messages
-* Optional install
-* Husky 4 supports platforms such as macOS, Linux, and Windows
-* Further, it supports Git GUIs, Custom directories, Monorepos
+* 零依赖和轻量化（6KB）
+* 由当下Git 的新特性 (`core.hooksPath`) 驱动
+* 遵循 [npm](https://docs.npmjs.com/cli/v7/using-npm/scripts#best-practices) 和 [Yarn](https://yarnpkg.com/advanced/lifecycle-scripts#a-note-about-postinstall) 自动安装的最佳实践
+* 友好的用户消息提示
+* 选择性安装
+* Husky 4 支持 macOS、Linux 和 Windows 平台
+* 进一步，它支持 Git GUIs、自定义目录和 Monorepos
 
-## Summary
+## 总结
 
-Using husky and Git Hooks, formatted, lint error-free buildable code can be achieved. This makes enforcing coding conventions very easy and fast.
+使用 Husky 和 Git Hooks 可以实现格式化、符合 lint 规则无错误的代码构建。这让执行编码规范变得非常简单和快速。
 
-Alternatively, you could consider tools like [Bit](https://bitdev) to enforce code quality.
+或者，你可以考虑使用 [Bit](https://bitdev) 之类的工具来提高代码质量。
 
-From the day I started using Husky in my projects (small-scale or enterprise), coding life has gotten easier.
+从我开始在我的项目（小规模或企业级项目）中使用 Husky 的那天起，编码生活变得更简单了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
