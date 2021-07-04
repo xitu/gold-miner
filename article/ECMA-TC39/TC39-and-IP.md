@@ -4,6 +4,7 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md)
 > * 译者：
 > * 校对者：
+
 # TC39 与知识产权（IP）
 
 ## TC39 是如何运作的
