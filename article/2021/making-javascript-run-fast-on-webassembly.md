@@ -75,7 +75,7 @@ SpiderMonkey 还使用了一种叫做精确堆栈扫描的技术，它对我下�
 
 即使你用精简到极致的 JavaScript 环境 —— 一个仅启动纯 JavaScript 引擎的隔离环境，最低延迟也有 5 毫秒左右。这甚至还没有把初始化应用的时间算进去。
 
-倒是有一些办法可以把收到的请求的启动延迟隐藏起来。但随着 QUIC 这类提案所做的在网络层中对连接时长的优化，想要隐藏延迟越来越困难。而当你进行链式执行多个无服务器功能等这类操作时，要隐藏延迟更是难上加难。
+倒是有一些办法可以把收到的请求的启动延迟隐藏起来。但随着 QUIC 这类提案在网络层中对连接时长的优化，想要隐藏延迟越来越困难。而当你链式执行多个无服务器功能等这类操作时，要隐藏延迟更是难上加难。
 
 使用这些技术去隐藏延迟的平台页，常常会在多个请求间复用实例。某些情况下，这意味着在不同请求中都可以观察到全局状态，这就是拿安全当儿戏了。
 
@@ -248,7 +248,7 @@ JavaScript 引擎模块只包含引擎本身的代码。这意味着一经编译
 
 要想在自己的平台运行 JavaScript，你需要嵌入一个支持 WASI 的 WebAssembly 引擎。我们正在使用的是 [Wasmtime](https://github.com/bytecodealliance/wasmtime)。
 
-然后你需要 JavaScript 引擎。在这一步里，我们为 Mozilla 的构建系统添加了对编译 SpiderMonkey 到 WASI 的完全支持。Mozilla 将把 SpiderMonkey 的 WASI 构建添加到用于构建和测试 Firefox 的 CI 设置中。这让 WASI 成为了 SpiderMonkey 的生产质量目标，确保了 WASI 构建能够一直保持运转。这意味着你可以文中所讲的那样使用 [SpiderMonkey](https://spidermonkey.dev/)。
+然后你需要 JavaScript 引擎。在这一步里，我们为 Mozilla 的构建系统添加了对编译 SpiderMonkey 到 WASI 的完全支持。Mozilla 将把 SpiderMonkey 的 WASI 构建添加到用于构建和测试 Firefox 的 CI 设置中。这让 WASI 成为了 SpiderMonkey 的线上质量目标，确保了 WASI 构建能够一直保持运转。这意味着你可以文中所讲的那样使用 [SpiderMonkey](https://spidermonkey.dev/)。
 
 最后，你需要让用户提供预先初始化的 JavaScript 代码。为了能助你一臂之力，我们还开源了 [Wizer](https://github.com/bytecodealliance/wizer)，你可以[集成到构建工具中](https://github.com/bytecodealliance/wizer#using-wizer-as-a-library)，产出针对特定应用的 WebAssembly 模块，以适用于 JavaScript 引擎模块所用的预先初始化内存。
 
