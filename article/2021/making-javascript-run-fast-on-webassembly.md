@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/making-javascript-run-fast-on-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/making-javascript-run-fast-on-webassembly.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # 让 JavaScript 在 WebAssembly 上疾速运行
 
 与二十年前相比，如今 JavaScript 在浏览器中的运行速度要快好多倍。而这多亏了浏览器厂商们在此期间坚持不懈地加强性能优化。
 
-而现在，我们又要开始在完全不同的环境中优化 JavaScript 的性能，这些环境中的游戏规则是截然不同的。而让 JavaScript 能够适应不同环境的，正是 WebAssembly。
+而现在，我们又要开始在完全不同的环境中优化 JavaScript 的性能 —— 这些新环境中的游戏规则是截然不同的。而让 JavaScript 能够适应不同环境的，正是 WebAssembly。
 
-这里我们要明确一点 —— 如果你是在浏览器中运行 JavaScript，那么直接部署 JavaScript 就行了。浏览器中的 JavaScript 引擎已经经过精心调校，可以很快速地运行装载进来的 JavaScript 程序。
+这里我们要明确一点 —— 如果你是在浏览器中运行 JavaScript，那么直接部署 JavaScript 就行了。浏览器中的 JavaScript 引擎已经被精心调校过，可以很快速地运行装载进来的 JavaScript 程序。
 
 但如果是在无服务器（Serverless）功能中运行 JavaScript 呢？又或者说，如果想要在 iOS 或游戏机这类不支持通常的即时编译的环境中运行 JavaScript，又该如何把控性能？
 
@@ -254,7 +254,7 @@ JavaScript 引擎模块只包含引擎本身的代码。这意味着一经编译
 
 ### 对于其他想要使用这种方法的语言
 
-如果你是 Python、Ruby、Lua 等语言的建设者，你也可以针对该语言构建出一个自己的版本。
+如果你是 Python、Ruby、Lua 等语言的使用者，你也可以针对该语言构建出一个自己的版本。
 
 首先，你需要把运行时编译成 WebAssembly，使用 WASI 作为系统调用，可参考我们对 SpiderMonkey 的处理。然后，你可以按照上文所说，[把 Wizer 集成到构建工具中](https://github.com/bytecodealliance/wizer#using-wizer-as-a-library)，生成内存快照，这样就能用快照来加速启动。
 
