@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/making-javascript-run-fast-on-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/making-javascript-run-fast-on-webassembly.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[Usualminds](https://github.com/Usualminds)
 
 # 让 JavaScript 在 WebAssembly 上疾速运行
 
 与二十年前相比，如今 JavaScript 在浏览器中的运行速度要快好多倍。而这多亏了浏览器厂商们在此期间坚持不懈地加强性能优化。
 
-而现在，我们又要开始在完全不同的环境中优化 JavaScript 的性能 —— 这些新环境中的游戏规则是截然不同的。而让 JavaScript 能够适应不同环境的，正是 WebAssembly。
+而现在，我们又要开始在完全不同的运行环境中优化 JavaScript 的性能 —— 这些新环境中的游戏规则是截然不同的。而让 JavaScript 能够适应不同运行环境的，正是 WebAssembly。
 
 这里我们要明确一点 —— 如果你是在浏览器中运行 JavaScript，那么直接部署 JavaScript 就行了。浏览器中的 JavaScript 引擎已经被精心调校过，可以很快速地运行装载进来的 JavaScript 程序。
 
@@ -37,7 +37,7 @@ JavaScript 引擎并不会直接在机器内存中运转，从二进制码到二
 
 ![拟人化的 JavaScript 引擎把转译过的机器编码放入本模块内的线性内存中。](https://bytecodealliance.org/articles/img/2021-06-02-js-on-wasm/01-03-how-it-works.png)
 
-对于 JavaScript 引擎，我们选用了 SpiderMonkey，就是 Firefox 浏览器中用到的那个。SpiderMonkey 是行业级别的 JavaScript 虚拟机（VM）之一，在浏览器领域里是久经沙场的老将。当你运行不可信代码，或者代码会处理不可信输入信息时，这种皮实耐用、安全性高的品质就显得尤为重要了。
+对于 JavaScript 引擎，我们选用了 SpiderMonkey，就是 Firefox 浏览器中用到的那个。SpiderMonkey 是行业级别的 JavaScript 虚拟机（VM）之一，在浏览器领域里是久经沙场的老将。当你运行不可信代码，或者代码会处理不可信输入信息时，这种皮实耐用、安全性高的特性就显得尤为重要了。
 
 SpiderMonkey 还使用了一种叫做精确堆栈扫描的技术，它对我下面将要说到的部分优化点极其重要。SpiderMonkey 还具有包容度极高的代码库，这一点也很重要，因为协作开发者们来自三个不同的组织 —— Fastly、Mozilla 和 Igalia。
 
