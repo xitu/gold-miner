@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/next-gen-css-containermd](https://github.com/xitu/gold-miner/blob/master/article/2021/next-gen-css-container.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[Kim Yang](https://github.com/KimYangOfCat)
 
 # 下一代 CSS：@container
 
@@ -15,15 +15,15 @@ Chrome 正在试验 CSS `@container` 查询器功能，这是由 [Oddbird](https
 > * [Firefox](https://bugzilla.mozilla.org/home)
 > * [Safari](https://bugs.webkit.org/query.cgi?format=specific&product=WebKit)
 
-你可以把这些想象成一个媒体查询（`@media`），但不是依靠 **viewport** 来调整样式，而是你所瞄准的元素的父容器会调整这些样式。
+你可以把这些想象成一个媒体查询（`@media`），但不是依靠 **viewport** 来调整样式，而是你的目标元素的父容器会调整这些样式。
 
-## 容器查询将是自 CSS3 以来 Web 样式的最大变化，改变我们对“响应式设计”含义的看法。
+## 容器查询将是自 CSS3 以来 Web 样式的最大变化，将会改变我们对“响应式设计”含义的看法。
 
-viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯一目标。通过容器查询，元素将能够定位自己的父元素并相应地应用自己的样式。这意味着存在于侧边栏、主体或 Hero 中的相同元素可能会根据其可用大小和动态看起来完全不同。
+viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯一目标。通过容器查询，元素将能够定位自己的父元素并相应地应用自己的样式。这意味着存在于侧边栏、主体或头图中的相同元素可能会根据其可用大小和动态看起来完全不同。
 
 ## `@container` 实例
 
-在 [本示例](https://codepen.io/una/pen/LYbvKpK) 中，我在父级中使用了两张带有以下标记的卡片：
+在[本示例](https://codepen.io/una/pen/LYbvKpK)中，我在父级中使用了两张带有以下标记的卡片：
 
 ```html
 <div class="card-container">
@@ -44,7 +44,7 @@ viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯�
 </div>
 ```
 
-然后，我在我将查询容器样式的父级（ `.card-container`）上设置 Containment（[`contain` 属性](https://css-tricks.com/almanac/properties/c/contain/)）。我还在 `.card-container` 的父级上设置了一个相对网格布局，因此它的 `inline-size` 将根据该网格而改变。这就是我使用 `@container` 查询的内容：
+然后，我在将查询容器样式的父级（`.card-container`）上设置 Containment（[`contain` 属性](https://css-tricks.com/almanac/properties/c/contain/)）。我还在 `.card-container` 的父级上设置了一个相对网格布局，因此它的 `inline-size` 将根据该网格而改变。这就是我使用 `@container` 查询的内容：
 
 ```css
 .card-container {
@@ -53,7 +53,7 @@ viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯�
 }
 ```
 
-现在，我可以查询容器样式来调整样式！这与使用基于宽度的媒体查询设置样式的方式非常相似，当元素 **小于指定尺寸** 时使用 `max-width` 设置样式，当元素 **大于指定尺寸** 时使用 `min-width`。
+现在，我可以查询容器样式来调整样式！这与使用基于宽度的媒体查询设置样式的方式非常相似，当元素**小于指定尺寸**时使用 `max-width` 设置样式，当元素**大于指定尺寸**时使用 `min-width`。
 
 ```css
 /* 当父容器宽度小于 850px，
@@ -88,7 +88,7 @@ viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯�
 
 ## 容器查询 + 媒体查询
 
-容器查询的最佳功能之一是能够将 **微观伤的布局** 与 **宏观上的布局** 分开。我们可以使用容器查询设置单个元素的样式，创建细微的微观布局，并使用媒体查询（宏布局）设置整个页面布局的样式。这创造了一个新的控制水平，使界面更具响应性。
+容器查询的最佳功能之一是能够将 **微观上的布局** 与 **宏观上的布局** 分开。我们可以使用容器查询设置单个元素的样式，创建细微的微观布局，并使用媒体查询（宏布局）设置整个页面布局的样式。这创造了一个新的控制水平，使界面更具响应性。
 
 这是[另一个示例](https://codepen.io/una/pen/RwodQZw)。它展示了使用媒体查询进行宏观布局（即日历从单面板到多面板）和微观布局（即日期布局/大小和事件边距/大小移动），以创建一个漂亮的和谐的查询。
 
@@ -96,7 +96,7 @@ viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯�
 
 ## 容器查询 + CSS 网格
 
-我个人最喜欢的查看容器查询影响的方法之一是查看它们在网格中的工作方式。以以下植物贸易 UI 为例：
+我个人最喜欢的查看容器查询影响的方法之一是查看它们在网格中的工作方式。以下面的植物贸易 UI 为例：
 
 ![3](https://user-images.githubusercontent.com/5164225/120361028-fa9cd100-c33b-11eb-8328-148977357c44.gif)
 
@@ -121,9 +121,9 @@ viewport 和用户代理不再是我们创建响应式布局和 UI 样式的唯�
 
 ## 用法
 
-为了使用`@container`，首先需要创建一个具有 [Containment](https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain) 的父元素。为此，我们需要在父级上设置 `contain: layout inline-size`。我们可以使用 `inline-size`，因为我们目前只能将容器查询应用于内联轴。这可以防止我们的布局在块方向上中断。
+为了使用`@container`，首先需要创建一个具有 [Containment](https://developer.mozilla.org/zh-CN/docs/Web/CSS/contain) 的父元素。为此，我们需要在父级上设置 `contain: layout inline-size`。因为我们目前只能将容器查询应用于内联轴，所以我们只可以使用 `inline-size`。这也可以防止我们的布局在块方向上中断。
 
-设置 `contain: layout inline-size` 会创建一个新的 [Containment 块](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block) 和新的 [块格式上下文](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)，让浏览器将其与布局的其余部分分开，现在我们就可以使用容器查询了！
+设置 `contain: layout inline-size` 会创建一个新的 [Containment 块](https://developer.mozilla.org/zh-CN/docs/Web/CSS/Containing_block) 和新的[块格式上下文](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)，让浏览器将其与布局的其余部分分开，现在我们就可以使用容器查询了！
 
 ## 限制
 
