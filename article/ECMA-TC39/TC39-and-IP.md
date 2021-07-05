@@ -2,8 +2,8 @@
 > - 原文作者：[Ecma TC39](https://github.com/tc39/how-we-work)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/TC39-and-IP.md)
-> - 译者：
-> - 校对者：
+> - 译者：[finalwhy](https://github.com/finalwhy)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # TC39 与知识产权（IP）
 
