@@ -107,7 +107,7 @@ export default function (props) {
 
 ### Reducer 和 store
 
-React 还有`useReducer` hook，让我们可以塑造更复杂的状态。我们提供一个reducer 函数，然后得到我们当前的值，以及一个 dispatch 函数让我们可以用一个给定的参数去调用 reducer，从而触发一个状态更新，不管 reducer 返回的是什么。我们上面的计数器例子可能看起来会是这样：
+React 还有 `useReducer` hook，让我们可以塑造更复杂的状态。我们提供一个 reducer 函数，然后得到我们当前的值，以及一个 dispatch 函数让我们可以用一个给定的参数去调用 reducer，从而触发一个状态更新，不管 reducer 返回的是什么。我们上面的计数器例子可能看起来会是这样：
 
 ```jsx
 import React, { useReducer } from "react";
