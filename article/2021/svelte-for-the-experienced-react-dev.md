@@ -299,7 +299,7 @@ $: {
 
 ### action 来增加一些趣味
 
-以上的一切都很好用，但 action 才是Svelte 的最大亮点。副作用频繁的捆绑 DOM 节点。我们可能想在一个 DOM 节点上集成一个老式的(但仍然很不错) jQuery 插件，然后在节点离开 DOM 的时候拆除它；或者我们想为一个节点设置一个 `ResizeObserver`，然后在节点离开 DOM 的时候分离它，等等。这是非常普通的需求，Svelte 将其内置在 [action](https://svelte.dev/docs#use_action) 中。让我们一起去看看。
+以上的一切都很好用，但 action 才是 Svelte 的最大亮点。副作用频繁的捆绑 DOM 节点。我们可能想在一个 DOM 节点上集成一个老式的(但仍然很不错) jQuery 插件，然后在节点离开 DOM 的时候拆除它；或者我们想为一个节点设置一个 `ResizeObserver`，然后在节点离开 DOM 的时候分离它，等等。这是非常普通的需求，Svelte 将其内置在 [action](https://svelte.dev/docs#use_action) 中。让我们一起去看看。
 
 ```svelte
 {#if show}
