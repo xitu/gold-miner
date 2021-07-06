@@ -38,7 +38,7 @@
 
 我们也可以添加一个 `<style>` 标签存放所有我们需要的 CSS。这些样式 **只作用于这个组件**，所以 `<h1>` 元素在**这个** 组件中将会是蓝色的。是的，被限制作用域的样式内置于 Svelte，不需要外部依赖。在 React 中，想要达到这样受限制的样式，你需要使用第三方插件类似 [css-modules](https://github.com/css-modules/css-modules), [styled-components](https://styled-components.com/), 或者其他的 (有几十种，甚至上百种选择).
 
-接下来是一些 html 标记，类似`{#if}`, `{#each}`等 html 捆绑方法。相较于在 React 中，一切皆 JavaScript 的概念而言，这类特殊领域的语言功能可能看上去像是一个退步。但值得注意的是，Svelte 允许你在这些捆绑中放入任意的 JavaScript 代码。所以类似下面这类代码是完全有效的。
+接下来是一些 html 标记，类似 `{#if}`、`{#each}` 等 html 捆绑方法。相较于在 React 中，一切皆 JavaScript 的概念而言，这类特殊领域的语言功能可能看上去像是一个退步。但值得注意的是，Svelte 允许你在这些捆绑中放入任意的 JavaScript 代码。所以类似下面这类代码是完全有效的。
 
 ```svelte
 {#if childSubjects?.length}
