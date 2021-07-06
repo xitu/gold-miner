@@ -208,7 +208,7 @@ Svelte 的用法和 React 几乎是一样的。唯一的区别是我们当前的
 
 ### 那么`useState` 呢？
 
-如果你真的喜欢 React 的`useState` hook，实现也很简单。实际上，我并没有觉得这是一个很有用的抽象，但这是个有趣的练习，可以展示 Svelte 的灵活性。
+如果你真的喜欢 React 的 `useState` hook，实现也很简单。实际上，我并没有觉得这是一个很有用的抽象，但这是个有趣的练习，可以展示 Svelte 的灵活性。
 
 ```svelte
 export function useState(initialState) {
