@@ -309,7 +309,7 @@ $: {
 {/if}
 ```
 
-注意这个语法 `use:actionName`。这里我们将`<div>` 与一个称作`myAction`的 action 捆绑，这个 action 只是个函数。
+注意这个语法 `use:actionName`。这里我们将 `<div>` 与一个称作 `myAction` 的 action 捆绑，这个 action 只是个函数。
 
 ```js
 function myAction(node) {
