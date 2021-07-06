@@ -7,7 +7,7 @@
 
 # 面向具有 React 开发经验的开发者介绍 Svelte
 
-这篇文章将从富有 React 开发经验的开发者的角度快速的介绍 Sevlte。首先我会做一个概览，然后重点关注 state 管理和 DOM 交互能力。我打算把进度加快一点，这样就能覆盖更多的话题。总之，希望能引起你对 Svelte 的兴趣。
+这篇文章将从富有 React 开发经验的开发者的角度快速的介绍 Sevlte。首先我会做一个概览，然后重点关注 state 管理和 DOM 交互能力等等。我打算把进度加快一点，这样就能覆盖更多的话题。总之，希望能引起你对 Svelte 的兴趣。
 
 关于对 Svelte 的介绍，没有任何博客可以和官方[教程](https://svelte.dev/tutorial/basics)和[文档](https://svelte.dev/docs)相比。
 
@@ -38,7 +38,7 @@
 
 我们也可以添加一个 `<style>` 标签存放所有我们需要的 CSS。这些样式 **只作用于这个组件**，所以 `<h1>` 元素在**这个** 组件中将会是蓝色的。是的，被限制作用域的样式内置于 Svelte，不需要外部依赖。在 React 中，想要达到这样受限制的样式，你需要使用第三方插件类似 [css-modules](https://github.com/css-modules/css-modules), [styled-components](https://styled-components.com/), 或者其他的 (有几十种，甚至上百种选择).
 
-接下来是一些 html 标记，类似 `{#if}`、`{#each}` 等 html 捆绑方法。相较于在 React 中，一切皆 JavaScript 的概念而言，这类特殊领域的语言功能可能看上去像是一个退步。但值得注意的是，Svelte 允许你在这些捆绑中放入任意的 JavaScript 代码。所以类似下面这类代码是完全有效的。
+接下来是一些 html 标记，像你预期的，你将需要学习类似 `{#if}`、`{#each}` 等 html 捆绑方法。相较于在 React 中，一切皆 JavaScript 的概念而言，这类特殊领域的语言功能可能看上去像是一个退步。但有几件事值得注意，Svelte 允许你在这些捆绑中放入任意的 JavaScript 代码。所以类似下面这类代码是完全有效的。
 
 ```svelte
 {#if childSubjects?.length}
@@ -46,7 +46,7 @@
 
 如果你之前是使用 Knockout 或者 Ember，但现在使用并且忠于 React，那么这可能会令你感到惊喜。
 
-还有，Svelte 处理组件的方法和 React 完全不同。只要一个组件的状态或者父组件中的任何地方(除非你使用了 useMemo())发生了改变，React 会重新运行所有的组件。这可能会导致效率低下，这也是为什么 React 会使用 `useCallback` 和 `useMemo` 来防止额外的重新计算数据。
+还有，Svelte 处理组件的方法和 React 完全不同。只要一个组件的状态或者父组件中的任何地方(除非你缓存了)发生了改变，React 会重新运行所有的组件。这可能会导致效率低下，这也是为什么 React 会使用 `useCallback` 和 `useMemo` 来防止额外的重新计算数据。
 
 在另一方面，Svelte 会分析你的模板，并且在相关的状态改变时创建目标 DOM 的更新代码。在上面的组件中，Svelte 将会看到 `number`  在哪里改变，然后在变更完成后添加代码去更新 `<h1>`的内容，这表示你不需要担心函数或者对象的缓存。事实上，你甚至不需要担心副作用的依赖列表，我们稍后会讨论这个问题。
 
@@ -137,7 +137,7 @@ Svelte 没有类似的功能，但是它有一个称为 **store** 的模块。�
 
 在需要时读取 store 的当前值，可以调用[`get` 函数](https://svelte.dev/docs#get)，它会返回当前值。Store 也有一个 subscribe 函数，我们可以传入一个回调函数，在值改变时被执行。
 
-Svelte 是简洁轻量的，有一些不错的语法快捷方式。如果你在一个组件内部，你可以给 store 加一个 $ 前缀用于读取其值，或者通过直接赋值去更新值。这是上面的计数器例子，使用了一个 store，以及一些额外的副作用日志打印用于展示 subscribe 是如何工作的：
+Svelte 是简洁轻量的，其中有一些不错的语法快捷方式。如果你在一个组件内部，你可以给 store 加一个 $ 前缀用于读取其值，或者通过直接赋值去更新值。这是上面的计数器例子，使用了一个 store，以及一些额外的副作用日志打印用于展示 subscribe 是如何工作的：
 
 ```svelte
 <script>
@@ -162,7 +162,7 @@ Svelte 是简洁轻量的，有一些不错的语法快捷方式。如果你在�
 Double the value is {$doubleValue}
 ```
 
-[文档](https://svelte.dev/docs#derived)深入的介绍了这个，但简单来说，`derived` store 让你可以使用和 writable store 一样的语法，让一个 store (或许多 store) 映射出一个新值。
+注意，我在上面添加了一个 `derived` store。[文档](https://svelte.dev/docs#derived)深入的介绍了这个，但简单来说，`derived` store 让你可以使用和 writable store 一样的语法，让一个 store (或许多 store) 映射出一个新值。
 
 Svelte 中的 Store 非常灵活。我们可以将多个 store 传递到子组件中，更改、组合它们，甚至通过传递一个 derived store 使它们只读。如果我们要把一些 React 的代码转化为 Svelte，我们甚至可以重建一些你可能喜欢或需要的 React 抽象。
 
@@ -170,7 +170,7 @@ Svelte 中的 Store 非常灵活。我们可以将多个 store 传递到子组�
 
 说完这些，让我们回到之前 React 的 `useReducer` hook 上。
 
-我们的确是真的喜欢通过定义 reducer 函数来维护和更新 state。让我们看看使用 Svelte 的 store 去实现 React 的 `useReducer` 会有多难。我们想要调用我们自己的 `useReducer`，传入一个带有初始值的 reducer 函数，然后得到带有当前值的 store，这和 dispatch 函数调用 reducer 去更新 store 是一样的。
+我们的确是真的喜欢通过定义 reducer 函数来维护和更新 state。让我们看看使用 Svelte 的 store 去模仿 React 的 `useReducer` 会有多难。我们想要调用我们自己的 `useReducer`，传入一个带有初始值的 reducer 函数，然后得到带有当前值的 store，这和 dispatch 函数调用 reducer 去更新 store 是一样的，完成这个任务实际上不算太糟糕。
 
 ```jsx
 export function useReducer(reducer, initialState) {
@@ -206,7 +206,7 @@ Svelte 的用法和 React 几乎是一样的。唯一的区别是我们当前的
 <button on:click={() => dispatch("DEC")}>Decrement</button>
 ```
 
-### 那么`useState` 呢？
+### 那么 `useState` 呢？
 
 如果你真的喜欢 React 的 `useState` hook，实现也很简单。实际上，我并没有觉得这是一个很有用的抽象，但这是个有趣的练习，可以展示 Svelte 的灵活性。
 
