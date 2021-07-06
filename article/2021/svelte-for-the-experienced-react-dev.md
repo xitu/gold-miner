@@ -262,7 +262,7 @@ Parent Val: {parentVal}
 
 ## Svelte 中的副作用没有分离(或者过时的闭包)
 
-在 React 中，我们使用`useEffect` hook 管理副作用。像这样：
+在 React 中，我们使用 `useEffect` hook 管理副作用。像这样：
 
 ```jsx
 useEffect(() => {
