@@ -133,7 +133,7 @@ export default function (props) {
 }
 ```
 
-Svelte 没有类似的功能，但是它有一个称为**store**的模块。最简单的是 writable store，是持一个值的 object。想要设置一个新值，你可以调用 store 上的 `set` 方法并传递一个新值，或者调用 update，传入一个回调函数，这个函数接受当前值并且返回新值(和 React的 `useState`一样).
+Svelte 没有类似的功能，但是它有一个称为 **store** 的模块。最简单的是 writable store，是持一个值的 object。想要设置一个新值，你可以调用 store 上的 `set` 方法并传递一个新值，或者调用 update，传入一个回调函数，这个函数接受当前值并且返回新值(和 React 的 `useState`一样).
 
 在需要时读取 store 的当前值，可以调用[`get` 函数](https://svelte.dev/docs#get)，它会返回当前值。Store 也有一个 subscribe 函数，我们可以传入一个回调函数，在值改变时被执行。
 
