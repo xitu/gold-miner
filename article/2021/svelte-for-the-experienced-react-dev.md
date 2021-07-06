@@ -7,7 +7,7 @@
 
 # 面向具有 React 开发经验的开发者介绍 Svelte
 
-这篇文章将从富有 React 开发经验的开发者的角度快速的介绍 Sevlte。首先我会做一个概览，然后重点关注state管理和DOM交互能力。我打算把进度加快一点，这样就能覆盖更多的话题。总之，希望能引起你对 Svelte 的兴趣。
+这篇文章将从富有 React 开发经验的开发者的角度快速的介绍 Sevlte。首先我会做一个概览，然后重点关注 state 管理和 DOM 交互能力。我打算把进度加快一点，这样就能覆盖更多的话题。总之，希望能引起你对 Svelte 的兴趣。
 
 关于对 Svelte 的介绍，没有任何博客可以和官方[教程](https://svelte.dev/tutorial/basics)和[文档](https://svelte.dev/docs)相比。
 
