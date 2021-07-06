@@ -394,7 +394,7 @@ Svelte 还有很多其他的，React 没有与之相对的功能。还有很多�
 
 对于 `React.Chidren`，Svelte 与之对应的是 slots，[Svelte 的文档很好的讲解了这个](https://svelte.dev/docs#slot)。我发现它们比 React’s Children API 更简单些。
 
-最后，我最喜欢的功能之一，几乎算是隐藏的功能，通过[`svelte:options`](https://svelte.dev/docs#svelte_options)的属性`tagName`，Svelte 可以将自己的组件编译为真实的 web 组件。但一定要在 webpack 或 Rollup 配置中设置对应的属性。在 webpack 中是这样的：
+最后，我最喜欢的功能之一，几乎算是隐藏的功能，通过 [`svelte:options`](https://svelte.dev/docs#svelte_options) 的属性`tagName`，Svelte 可以将自己的组件编译为真实的 web 组件。但一定要在 webpack 或 Rollup 配置中设置对应的属性。在 webpack 中是这样的：
 
 ```js
 {
