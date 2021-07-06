@@ -183,7 +183,7 @@ export function useReducer(reducer, initialState) {
 }
 ```
 
-Svelte 的用法和 React 几乎是一样的。唯一的区别是我们当前的值是一个 store，而不是一个原始值，所以我们需要加上一个 `$` 前缀来读取值(或者手动调用 store 上的`get` 或`subscribe` )。
+Svelte 的用法和 React 几乎是一样的。唯一的区别是我们当前的值是一个 store，而不是一个原始值，所以我们需要加上一个 `$` 前缀来读取值(或者手动调用 store 上的 `get` 或 `subscribe` )。
 
 ```svelte
 <script>
