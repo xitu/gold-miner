@@ -3,7 +3,8 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/v8-sparkplug-compiler.md](https://github.com/xitu/gold-miner/blob/master/article/2021/v8-sparkplug-compiler.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)
 
 # V8 引入了新的非优化编译器以提高性能
 
