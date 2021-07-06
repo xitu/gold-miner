@@ -317,7 +317,7 @@ function myAction(node) {
 }
 ```
 
-只要`<div>` 进入DOM，就会调用这个 action，并且传递这个 DOM 节点给 action。这是一个时机可以去添加 jQuery 插件以及设置`ResizeObserver`等等。不只这样，我们还可以从中返回一个 cleanup 函数，比如这样：
+只要 `<div>` 进入 DOM，就会调用这个 action，并且传递这个 DOM 节点给 action。这是一个时机可以去添加 jQuery 插件以及设置 `ResizeObserver` 等等。不只这样，我们还可以从中返回一个 cleanup 函数，比如这样：
 
 ```js
 function myAction(node) {
