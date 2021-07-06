@@ -390,7 +390,7 @@ Actions 是我最喜欢的 Svelte 功能之一，它们非常强大。
 
 Svelte 还有很多其他的，React 没有与之相对的功能。还有很多表单捆绑[教程有涵盖](https://svelte.dev/tutorial/text-inputs))，以及 CSS [辅助](https://svelte.dev/docs#class_name)。
 
-来自 React 的开发者可能会惊喜，Svelte 开箱即用的动画。与其在 npm 里搜索然后希望能找到最好的，不如...内置。它甚至包含了[弹性动画，进入离开的动画](https://css-tricks.com/svelte-and-spring-animations/)，Svelte 称之为**transitions**。
+来自 React 的开发者可能会惊喜，Svelte 开箱即用的动画。与其在 npm 里搜索然后希望能找到最好的，不如…内置。它甚至包含了[弹性动画，进入离开的动画](https://css-tricks.com/svelte-and-spring-animations/)，Svelte 称之为**transitions**。
 
 对于 `React.Chidren`，Svelte 与之对应的是 slots，[Svelte 的文档很好的讲解了这个](https://svelte.dev/docs#slot)。我发现它们比 React’s Children API 更简单些。
 
