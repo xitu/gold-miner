@@ -242,7 +242,7 @@ export function useState(initialState) {
 Child: {val}
 ```
 
-上面的例子创建一个带有`val` 属性的组件。在 Svelte中，`export` 关键字用于组件声明 props。通常，我们会把 props 传入到一个组件中，但这里有点不同。比如上面的例子，`val` prop 被子组件修改了。在 React 中，这是错误的，可能会引发 bug，但在 Svelte 中，渲染这个组件的组件可以做这个。
+上面的例子创建一个带有 `val` 属性的组件。在 Svelte 中，`export` 关键字用于组件声明 props。通常，我们会把 props 传入到一个组件中，但这里有点不同。比如上面的例子，`val` prop 被子组件修改了。在 React 中，这是错误的，可能会引发 bug，但在 Svelte 中，渲染这个组件的组件可以做这个。
 
 ```svelte
 <!-- Parent.svelte -->
