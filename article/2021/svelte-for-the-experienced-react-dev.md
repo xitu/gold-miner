@@ -2,7 +2,7 @@
 > * 原文作者：[Adam Rackis](https://css-tricks.com/author/adam-rackis/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md](https://github.com/xitu/gold-miner/blob/master/article/2021/svelte-for-the-experienced-react-dev.md)
-> * 译者：没事儿[https://github.com/Tong-H]
+> * 译者：[没事儿](https://github.com/Tong-H)
 > * 校对者：
 
 # 面向具有 React 开发经验的开发者介绍 Svelte
