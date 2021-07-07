@@ -20,7 +20,6 @@ Let me just get this out there: I’m generally not a fan of sticky headers. I t
 Either way, here’s how to do it *without* JavaScript, starting with the markup. Nothing complicated here — a `<header>` with one descendant `<div>` which, in turn, contains the logo and navigation.
 
 ```html
-
 <header class="header-outer">
     <div class="header-inner">
         <div class="header-logo">...</div>
@@ -66,13 +65,9 @@ Now for the trick! For the inner container to actually stick to the “ceiling�
 } 
 ```
 
-Let’s bring it all together now. The `<header>` slides out of frame, while the inner container places itself neatly at the top of the viewport.
+Let’s bring it all together now. The `<header>` slides out of frame, while the inner container places itself neatly at the top of the viewport. [Please check this Codepen](https://codepen.io/havardob/pen/KKgEJep)
 
-![CodePen havardob/KKgEJep](https://codepen.io/havardob/pen/KKgEJep)
-
-We can extend this to other elements! How about a persistent alert?
-
-![CodePen havardob/KKgYjZN](https://codepen.io/havardob/pen/KKgYjZN)
+We can extend this to other elements! How about a persistent alert? [Please check this Codepen](https://codepen.io/havardob/pen/KKgYjZN)
 
 While it’s pretty awesome we can do this in CSS, it does have limitations. For example, the inner and outer containers use fixed heights. This makes them vulnerable to change, like if the navigation elements wrap because the number of menu items exceeds the amount of space.
 
