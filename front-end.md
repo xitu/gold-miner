@@ -1,3 +1,12 @@
+* [简述自动生成的社交媒体图片](https://juejin.cn/post/6972850971432976392)（[zenblo](https://github.com/zenblo) 翻译）
+* [使用 Web Workers 来加速 JavaScript 应用](https://juejin.cn/post/6965861854023254047)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [TypeScript 中的依赖注入](https://juejin.cn/post/6965857170646630408)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [深入理解 CORS：发展史、工作原理和最佳实践](https://juejin.cn/post/6965042086467633166)（[snowyYU](https://github.com/snowyYU) 翻译）
+* [使用 GPU.js 让你的 Angular.js 程序提速 10 倍](https://juejin.cn/post/6965657517376569380)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [Github Actions 是如何渲染超大日志的](https://juejin.cn/post/6966082485226569759)（[felixliao](https://github.com/felixliao) 翻译）
+* [16px 或更大的字体大小可以避免 iOS 的表单缩放问题](https://juejin.cn/post/6965814008116936718)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [都 2021 年了，你还不知道这些检查 CSS 的工具？](https://juejin.cn/post/6965808560735256607)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何基于 D3.js 使用外部数据源创建图表](https://juejin.cn/post/6931294639609774087)（[Alfxjx](https://github.com/Alfxjx) 翻译）
 * [快停止在 CSS 中使用像素单位](https://juejin.cn/post/6963251861134508045)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [JavaScript 类型化数组](https://juejin.cn/post/6963589759310495774)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [现代化的 React 路由 Hookrouter 开发使用](https://juejin.cn/post/6963445160474574885)（[zenblo](https://github.com/zenblo) 翻译）
