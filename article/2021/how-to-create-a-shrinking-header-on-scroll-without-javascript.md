@@ -65,9 +65,9 @@ Now for the trick! For the inner container to actually stick to the “ceiling�
 } 
 ```
 
-Let’s bring it all together now. The `<header>` slides out of frame, while the inner container places itself neatly at the top of the viewport. [Please check this Codepen](https://codepen.io/havardob/pen/KKgEJep)
+Let’s bring it all together now. The `<header>` slides out of frame, while the inner container places itself neatly at the top of the viewport. [Please check this Codepen](https://codepen.io/havardob/pen/KKgEJep).
 
-We can extend this to other elements! How about a persistent alert? [Please check this Codepen](https://codepen.io/havardob/pen/KKgYjZN)
+We can extend this to other elements! How about a persistent alert? [Please check this Codepen](https://codepen.io/havardob/pen/KKgYjZN).
 
 While it’s pretty awesome we can do this in CSS, it does have limitations. For example, the inner and outer containers use fixed heights. This makes them vulnerable to change, like if the navigation elements wrap because the number of menu items exceeds the amount of space.
 
