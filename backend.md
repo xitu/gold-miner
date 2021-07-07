@@ -1,3 +1,4 @@
+* [我希望多年前就知道的 Nginx 概念](https://juejin.cn/post/6948810167618109448)（[joyking7](https://github.com/joyking7) 翻译）
 * [目录遍历攻击](https://juejin.cn/post/6964198482202755108)（[MoonBall](https://github.com/MoonBall) 翻译）
 * [什么是 SQL 注入攻击？如何阻止它](https://juejin.cn/post/6960849763688251406)（[MoonBall](https://github.com/MoonBall) 翻译）
 * [Postgres 和 MySQL 之间的性能差异](https://juejin.cn/post/6959903781366530079)（[greycodee](https://github.com/greycodee) 翻译）
