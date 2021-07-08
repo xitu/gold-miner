@@ -5,130 +5,130 @@
 > * 译者：
 > * 校对者：
 
-# My Favorite Interservice Communication Patterns for Microservices
+# 我喜欢的微服务间通信模式
 
 ![](https://cdn-images-1.medium.com/max/10240/1*1aQ46doYRmM-Opgs2mWaHg.png)
 
-Microservices are fun, they allow for the creation of very scalable and efficient architectures. All major platforms take advantage of them because of this. There is no way to have a Netflix or Facebook or Instagram without the help of Microservices.
+微服务是有趣的，它有助于建立可扩展的、高效的应用程序架构。因此，一切主流平台都在利用它。如果没有微服务，就不会产生 Netfli、Facebook、Instagram 这些网络巨头。
 
-However, splitting your business logic into smaller units and deploying them in a distributed manner is just step 1. You then have to understand what’s the best way to make them talk to each other. That’s right, Microservices aren’t only meant to be outwards-facing — or in other words, to serve external clients — sometimes they can act as clients to other services within the same architecture.
+无论如何，第一步是把业务逻辑分解为一些小模块，并将它们以分布式系统的形式进行部署。接着，你需要了解使它们互相通信的最佳方法。对了，微服务不仅是面向外部或对客户端提供服务的，在同样的架构下，它有时自身也是客户端，可以访问其他的服务。
 
-So how do you make two services talk to each other? The easy answer is to keep using the same API that is presented to the public. For example, if my public-facing API is a REST HTTP API, then by all means, all services will interact with each other through it.
+那么，如何使两个服务互相通信？有一种简单的办法，就是使用相同的 API，并把它设置为公共的接口。例如，如果公共接口是某个 REST HTTP API，那么其他服务无论如何应当通过它来实现互相通信。
 
-And that is a very valid scenario, but let’s take a look at other ways we can improve on that.
+这种办法很有效，我们来研究一下，有没有更好的方法。
 
-## HTTP Apis
+## HTTP API
 
-Let’s start with the basics, because it’s a very valid use case after all. An HTTP API essentially means having your services send information back and forth like you would through the browser or through a desktop client like [Postman](https://www.postman.com/).
+我们从基础知识入手，毕竟这是非常有效的。从本质上来说，一个 HTTP API 的功能就是来回发送信息，就像你所使用的浏览器或类似于 [Postman](https://www.postman.com/) 那样的桌面客户端。
 
-It uses a client-server approach, which means the communication can only be started by the client. It is also a synchronous type of communication, meaning that once the communication has been initiated by the client, it won’t end until the server sends back the response.
+它使用了客户端-服务器模式，这意味着通信只能由客户端发起。它也是一种同步通信方式，一旦客户端发起通信，只有服务器进行应答，通信才会结束。
 
 ![Classic Client-Server microservice communication](https://cdn-images-1.medium.com/max/2000/1*c_FfYp3-81j3JcfLpg-g4w.png)
 
-This approach is very popular because it’s the way we browse the internet. You can think of HTTP as the backbone of internet, thus all programming languages have some way of providing HTTP capabilities, making it a very popular approach.
+这种方法很流行，它就是我们浏览网页的工作原理。你可以把 HTTP 看作互联网的骨干，因此所有的编程语言都提供了 HTTP 相关的功能模块，令它成为一种流行的方法。
 
-But it’s not perfect either, so let’s analyze it.
+但这种模式并不是完美的，让我们来分析一下。
 
-**Pros**
+**优点**
 
-* **Easy to implement.** The HTTP protocol is not hard to implement and given all major programming languages already have native support for it, developers hardly need to worry about how it works internally. Its complexity is hidden and abstracted away by the libraries they use.
-* **It can be quite standard.** If on top of HTTP you add something like REST (properly implemented that is), then you’ve created a standard API that allows for any client to quickly learn how to communicate with your business logic.
-* **Technology agnostic**. Since HTTP acts as the data-transfer channel between client and server, the technology used to create either of them is irrelevant. You can code your server in Node.js and have the client (or the other services) coded in JAVA or C# for all they care. As long as they follow the same HTTP protocol they’ll be able to communicate with each other.
+* **易于实现** HTTP 实现简单，由于所有的主流编程语言都提供原生的 HTTP 支持，开发者几乎不需要关注其内部的实现机制。它复杂的内部实现是被隐藏的，以类库的形式抽象出来，供程序员使用。
+* **合乎标准** 如果你在 HTTP 协议的顶层加入类似于 REST 的架构，就相当于创建了一个标准的 API，它有助于任何客户端快速了解如何跟你的业务逻辑通信。
+* **跟具体技术无。** 由于 HTTP 的作用相当于客户端和服务器之间的数据传输管道，客户端/服务器使用什么技术都是无关紧要的。你可以使用 Node.js 编写服务端，同时使用 Java 或 C# 编写客户端（或其他服务）。只要它们遵循同样的 HTTP 协议，就可以互相通信。
 
-**Cons**
+**缺点**
 
-* **The channel adds a delay to the business logic.** HTTP it very reliable, but that’s because as part of the protocol, there are a few steps that make sure data is correctly sent through the channel. However, this protocol also adds latency to the communication (extra steps mean extra time). So consider a scenario where 3 or more microservices need to send data between each other until the last one finishes. In other words, having A send data to B so it can send data to C, to only then start sending the responses back. On top of each service’s time, you have to add the latency added by the 3 client-server channels opened between them.
-* **Timeouts**. Although you can configure the timeout time in most scenarios, HTTP by default will cause the client to close the connection if the server is taking too long. How long is “too long”? That depends on the configuration and the service you’re using, however it’ll be there. This adds an extra constraint to your logic: it needs to be fast, otherwise it will fail.
-* **Failures aren’t easy to solve**. It’s not impossible to work around a server failure, but you need to have extra infrastructure in place to solve it. By default the client-server paradigm will not notify the client if the server is down. The client will realize that too late: when they try to reach the server. As I said, there are ways to mitigate this, for example, by using load balancers or API gateways, but that’s extra work that needs to go on top of the client-server communication to make it reliable.
+* **这样的通道令业务逻辑存在延迟** HTTP 是可靠的协议，但是，由于它是整个协议的一部分，所以就有若干个步骤确保数据正确传输。然而，这种协议也造成了通信的延迟（额外的步骤也意味着额外的时间）。考虑这样一种场景：3 个或更多的微服务需要互相传递数据，直到最后一个传递完成为止。换句话说就是让 A 向 B 传输数据，这样它就可以把数据发送给 C，然后才开始发回响应。对于每个服务的执行时间，由于 3 条通信管道的建立都需要时间，也要把它包括在内，因此就造成了延迟。
+* **超时设置**　虽然在大多数场景下，你可以设置超时的时间，但如果服务器太长时间无响应， HTTP 协议默认此时关闭连接。“太长时间”具体是多少时间？这取决于系统配置和使用的服务，即在相应的业务场景下是怎样的。这就对你的业务逻辑造成了限制：它需要快速执行，否则就无法实现。
+* **故障不容易解决** 实现服务器的无故障并非不可能，但这需要额外的基础设施。默认情况下，客户端-服务器模式不会在服务器发生故障时通知客户端。所以当客户端知道服务器发生故障时往往已经迟了。像我说的那样，可以采取措施减少相关困扰，比如，使用负载均衡或 API 网关，但需要在客户机-服务器通信模式之外进行一些额外工作，才能实现。
 
-So an HTTP API is a great solution when you have a fast and reliable business logic that needs to be consumed by many different clients. This is especially helpful because when multiple groups are working on different clients they can work with a channel of communication that they’re familiar with and that is pretty standard.
+所以，当你的业务逻辑是快速可靠的，而且使用它的客户端有多个的情况下，HTTP API 是理想的解决方案。当多个团队使用不同的客户端工作时，可以使用各自熟悉的通信通道，这是标准化的工作流程，所以它很有用。
 
-Do not use an HTTP API if you want multiple services to interact with each other or if the business logic inside some of them requires a lot of time to complete.
+如果需要多个服务互相通信，或服务内的业务逻辑包含耗时操作，就不应使用 HTTP API。
 
-## Asynchronous Messaging
+## 异步消息
 
-This pattern consists of having a message broker between the producer of the message and the receiving end.
+这种模式就是在消息的发送者和接收者之间建立一个消息代理。
 
-This is definitely one of my favorite ways of communicating multiple services with each other, especially when there is a real need to horizontally scale the processing power of the platform.
+这确实是我最喜爱的实现多个服务互相通信的方法，特别是需要水平扩展平台的处理能力时。
 
 ![Asynchronous communication between microservices](https://cdn-images-1.medium.com/max/2000/1*jHO2JfEHmEw6zZeSvdOzeA.png)
 
-This pattern usually requires a message broker to be added into the mix, thus bringing a bit of extra complexity to the table. However, the benefits gained more than makeup for that.
+这种模式通常需要添加消息代理，所以就有一些额外的复杂工作要处理。这样做的结果是获得的好处大于所付出的代价。
 
-**Pros**
+**优点**
 
-* **Easy to scale**. One of the major problems of direct communication between client and server is that for the client to be able to send messages the server needs to have free processing power. But that’s limited by the amount of parallel processing a single service can perform. If the client requires more data to be sent then the service needs to grow and have more processing power. This sometimes is solved by scaling the infrastructure where the service is deployed, giving it a better processor or more memory, however this also has a limitation, since there is so much you can pay for before it becomes unreasonable. Instead, you can keep using lower specs infra and have multiples copies working in parallel. The message broker can distribute the received messages to more than one target service. Thus your copies can either all receive the same data or different messages depending on your particular needs.
-* **Easy to add new services**. Hooking up new services to this workflow is as simple as creating a new service and subscribing to the type of message you’d like to receive. The producer doesn’t need to be aware of it, it just needs to understand what kind of message it needs to send. That’s all.
-* **Easier retry mechanics**. When the message broker allows for it, if the delivery of the message fails due to the server worker being down, the broker can keep trying automatically without us having to write special logic.
-* **Event-driven**. This pattern allows you to create event-driven architectures, which can be some of the most efficient ways of having microservices interact with each other. Instead of having a single service blocked because it’s waiting for a synchronous response, or even worse, having it constantly poll a storage medium waiting for its response, you can code your services so that they get notified once their data is ready. While that happens, they can be working on something else (like the next incoming request). This architecture allows for faster data processing, more efficient use of resources and overall better communication experience.
+* **易于扩展**。客户端与服务端直接通信的主要问题之一是，为了接收客户端发送的消息，服务器需要有空闲的处理能力。但是单个服务的可容纳的并行进程数量是有限的。如果客户端需要发送更多数据，服务器的处理能力也要相应提升。有时候会通过扩展部署服务的基础设施来满足，比如使用高性能的处理器或增大内存，但由于需要支付相应的成本，这种办法也存在局限性。相反地，你也可以继续使用低配置的机器，建立一些并行处理的副本。使用消息代理，可以将收到的消息分发到多个目标服务。因此你的那些副本可能收到相同的数据，也可能收到不同的消息，具体取决于你的需求。
+* **易于添加新服务**。将新服务连接到工作流就跟创建一个新服务并订阅你需要的消息类型一样方便。发送者不需要知道它的存在，只需要知道发送的消息类型。
+* **更方便的重试机制**。在消息代理允许时，如果由于服务器发生故障导致消息发送失败，不需要我们编写相关代码，消息代理就可以自动重发。
+* **事件驱动**。这种支持创建事件驱动的架构是令微服务互相通信的最有效的方法。你可以编写代码，让微服务在数据即将传递时接到通知，而不需要让服务由于等待异步响应而堵塞，更不需要为了等待响应而轮询存储系统。如果能做到那样，就可以解决更多问题（类似于下一个传入请求）。这种架构令数据处理更快，资源使用更有效，通信体验更好。
 
-**Cons**
+**缺点**
 
-* **Debugging gets a bit harder**. Since there is no clear data flow now and messages get processed as soon as they can, debugging the data flow and the path your payload takes can become a nightmare. This is why it’s usually a good idea to generate a unique ID when the message is received, so that you can track the path it takes inside your internal architecture through the logs.
-* **There is no clear direct response.** Given the asynchronous nature of this pattern, once a request is received from a client, the only potential response is “OK, received, I’ll let you know once it’s ready”. You could also validate the schema of the request sending a 400 error (if it’s an invalid request). The point being, the output returned by the logic you’re executing is not directly accessible to the client, instead it needs to be requested separately. As an alternative, the client can also subscribe to the message broker waiting for response-type messages. This way it gets notified immediately once the response message arrives.
-* **The broker becomes a single point of failure**. If you don’t configure the message broker properly, it can become a problem for your architecture. Instead of suffering from unstable services that you wrote, you’re forced to maintain a message broker you barely know how to use.
+* **调试较困难**。由于没有明确的数据流，没有需要处理的数据，调试数据流和测试有效负载的路径可能是一场噩梦。因此，若在收到数据时创建唯一的 ID，可以通过日志跟踪内部架构的相关路径，这是一个好办法。 
+* **不存在直接响应**。考虑到这种模式的异步性，当客户端发出请求时，唯一可能收到的响应是“已接收，当准备就绪，我会通知你”。服务端也有可能会验证请求模式，返回 400 错误信息（如果经验证是非法请求）。问题在于，客户端不能直接获取应用程序的业务逻辑返回的输出数据，这些数据需要另外的单独请求才能获取。另外，客户端也可以向消息代理订阅某些消息。当有响应消息时，客户端会立即收到通知。
+* **消息代理变为失效的单点**。如果消息代理配置不当，它会对整体架构造成影响。此时你不得不对你几乎不了解如何使用的消息代理进行维护。
 
-This is definitely an interesting pattern and one that provides a great deal of flexibility. If you’re hoping to have one end producing a considerable amount of messages then having a buffer-like structure between the producers and consumers will increase the stability of your system.
+这种模式确实很有趣，它提供了很大的灵活性。如果您希望一端产生大量消息，那么在生产者和消费者之间使用类似缓冲区的结构将增加系统的稳定性。
 
-Granted, the processing can turn out to be slow, but scaling it will become a lot easier with the buffer in place.
+当然，处理过程可能比较慢，但有了缓冲区，对它进行扩展会方便得多。
 
-## Direct socket connection
+## 使用直接的 Socket 连接
 
-Going on a completely different route, instead of relying on the good old HTTP to send and receive messages, we can also go with something a bit faster, albeit with less structure: sockets.
+我们继续来了解一种截然不同的方式。我们还可以使用一种更快一些的技术，它的结构更加简单，不需要依赖 HTTP 协议进行发送和接收，它是 Socket。
 
 ![Open channels with sockets for microservice communication](https://cdn-images-1.medium.com/max/2000/1*qpA4fBT_77oXD2xlXrw92w.png)
 
-At a first glance, the socket-based communication looks a lot like the client-server pattern implemented in HTTP, however, if you look closely there are some differences:
+乍一看，基于 Socket 的通信跟基于 HTTP 的客户端/服务器模式很相似，但如果你仔细研究，会发现一些不同之处：
 
-* For starters, the protocol is a lot simpler, which means a lot faster as well. Granted, if you want it to be reliable you need to code a lot more on your part to make it so, however, the inherent latency added by HTTP is gone here.
-* The communication can be started by any actor, not only the client. Through sockets, once you have your channel open, it’ll stay that way until you close it. Think about it as an ongoing phone call, anyone can start the conversation, not only the caller.
+* 对通信的发起者来说，协议简单了一些，速度也快了一些。的确，如果你需要更高的可靠性，就需要编写更多的代码，然而，这里不存在 HTTP 中的延迟现象。
+* 通信可以由任何一方发起，不是只有客户端可以发起通信。通过使用 Socket，当你打开通道，它可以保持其状态，直到你关闭它为止。把它想象为正在进行的通话，任何一方都能发起对话，不是只有打电话者可以发起对话。
 
-With that being said, let’s take a quick look at the pros and cons of this approach:
+结合上述内容，我们来快速了解一下这种方式的优劣：
 
-**Cons**
+**缺点**
 
-* **No real standards in place**. When compared with HTTP, the socket-based communication seems a bit messy because there aren’t any structured standards such as SOAP & REST for HTTP. So it’s really up for the implementing party to define how that structure looks like. This in turn makes it a bit harder for new clients to be created and implemented. However, if you’re doing this so that only your own services can interact with each other, you’re essentially implementing the protocol you defined.
-* **Easy to overload the receiving end.** If one of the services starts producing too many messages for the other to process, you might end up overwhelming the second process and crashing it. This is what the previous pattern solved, by the way. Here you have a very small delay between sending and receiving the message, which means the throughput can be higher, but that also means the receiving service will have to process everything fast enough.
+* **没有现成的标准**。跟 HTTP 相比，基于 Socket 的通信似乎比较混乱，这是由于它没有类似于 HTTP 的 SOAP 和 REST 之类的标准。所以实际上，实现方可以定义协议的结构。这样，新的客户端的创建和实现都比较困难。然而，如果你这样做的目的只是为了让你自己的服务互相通信，你其实是在实现自己定义的协议。
+* **容易令接收端负载过大**。如果其中一个服务开始产生大量信息处理需求，你可能会最终将第二个进程压倒并杀死它。顺便说一下，这是前一种模式能够解决的问题。在此，发送和接收之间有微小的延迟，这意味着吞吐量可能会更高，同时接收端需要以足够快的速度处理一切需求。
 
-**Pros**
+**优点**
 
-* **It’s very lightweight**. Implementing basic socket communication requires very little effort and setup. This, of course, depends on the language you’re using, but some of them, such as Node.js with [Socket.io ](https://socket.io/)allow you to communicate 2 services with but a few lines of code.
-* **Allows for a very optimized communication process**. Since you have a constant open channel between the two services, they’re both able to react to incoming messages the moment they arrive. It’s not like you’re pooling a database asking for new messages, this is a reactive approach, which means you can’t really get faster than this.
+* **它非常轻量级**。实现基础的 Socket 通信不需要安装任何工具。这当然也取决于你使用的语言，但其中有些语言，类似于带有 [Socket.io ](https://socket.io/) 模块的 Node.js，支持两个服务之间的通信，而且只要几行代码即可实现。
+* **支持优化的通信进程**。由于你在两个服务间建立了持续开放的通道，它们都可以在消息到达时立即响应。它不像请求新消息的数据库连接池那样，数据库连接池使用的是反应式的方法，速度不会快。
 
-Socket-based communication is a very efficient way of having your services talk to each other. For instance, Redis uses this method when deployed in a cluster configuration to automatically detect failing nodes and remove them from the cluster. This can be done because the communication is fast and cheap (meaning there is barely any extra latency involved and uses very little network resources).
+基于 Socket 的通信是一种令服务互相通信的有效办法。例如，当  Redis 以集群方式部署时，就使用了这种方法，因此它可以自动检测有缺陷的节点，并把它们移除。这得益于通信的快速和低成本（这意味着几乎不存在额外的延迟，而且对网络资源的占用很少）。
 
-Go with this approach if you’re able to control the amount of information exchanged between services and you don’t mind defining your own standard protocol.
+如果你能控制服务间通信的信息量，并愿意根据实际情况定制协议，可以使用这种模式。
 
-## Lightweight events
+## 轻量级事件
 
-This pattern mixes the first two on this list. On one side, it provides a way of having multiple services communicate with each other through a message bus, thus allowing for asynchronous communication. And on the other side, since it only sends very lightweight payloads through that channel, it requires services to hydrate that payload with extra information through a REST call to the corresponding service.
+这种方式结合了头两种方式的特点。一方面，它提供了通过消息总线实现多个服务互相通信的方法，因此可以进行异步通信。另一方面，由于它只能通过通道发送轻量级信息，需要通过对相应服务的 REST 调用来为该有效负载添加额外的信息。
 
 ![Lightweight events & hydration during microservice communication](https://cdn-images-1.medium.com/max/2000/1*drW47mfHvCmISZdLRBSXNg.png)
 
-This communication pattern can come very handy when you’re aiming to have the network traffic kept under control as much as possible, or when the message queue has packet-size limitations. In those cases, it’s best to keep things as simple as possible and then request the extra information only when required.
+当你需要尽可能控制网络流量时，这种通信模式很有用。在那种情形下，最好的做法是尽可能简单化一切事物，仅在需要时请求额外信息。
 
-**Pros**
+**优点**
 
-* **The best of both worlds**. This approach provides benefits of the asynchronous communication pattern by having 80–90% of the data being sent through the buffer-like structure. And only requiring a small portion of the network traffic to be done through a less efficient, yet standard, API-based approach.
-* **Focused on optimizing the most common scenario**. If you know most of the time your services won’t need to hydrate the event with extra information, keeping it to a bare minimum will help optimize the network traffic and keep the requirements of the message broker very low.
-* **Basic buffer**. Through this approach, the extra details of each event are kept secret and away from the buffer. This in turn breaks the coupling you could have in situations where a schema (for example) needs to be defined for these messages. Keeping the buffer “dumb” makes it a lot easier to exchange with another option given the case of a migration or a scaling requirement (i.e like going from RabbitMQ to AWS SQS).
+* **在两方面都是最优的**。使用这种方式，80–90% 的数据通过类似于 Buffer 的结构发送，因此也能带来异步通信提供的便利。并且，只需要一小部分网络流量通过低效、标准的、基于 API 的方式进行通信。
+* **关注最常见的场景的优化工作**。如果你知道，大多数情况下，服务不需要为事件添加额外的信息，应该把它维持在最低水平，以便优化网络流量，把对消息代理的需求维持在较低水平。
+* **基础的缓冲区**。通过使用这种模式，每个事件的额外的细节信息是保密的，并会离开缓冲区。这反过来就破坏了你需要为这些信息定义模式的情况下建立的结合体。在进行迁移或扩展时，保持缓冲区的“沉默状态”使选项的交换变得更容易（例如从 RabbitMQ 到 AWS SQS）。
 
-**Cons**
+**缺点**
 
-* **You might end up with too many API requests**. If you’re not careful and implement this pattern for a use case that doesn’t fit, you’ll end up with an overhead of API requests that will only add extra latency to your service’s response times. Not to mention the extra network traffic added by all the HTTP requests sent between services. If this is your scenario, think about switching to a fully async-based communication model.
-* **Double communication interface**. Your services will have to provide two different ways of communicating with each other. On one side they’ll implement the asynchronous model required for the message queue, but on the other, they’ll have to have an API-like interface as well. This can become hard to maintain given how different both approaches use-are.
+* **最终可能面临 API 请求过多的情况**。如果你没有仔细研究，在一个不适合的项目中使用了这种方法，后果就是 API 请求的开销过大，这样只会导致服务的响应过程有所延迟。至于在服务之间发送的所有 HTTP 请求所增加的额外网络流量就更多了。如果你的实际情况是这样的，需要考虑改为完全基于异步通信的模型。
+* **需要两种方式的通信接口**。你的服务需要提供两种不同的互相通信的方式。一方面，它们会实现消息队列所需要的异步通信模型，但另一方面，它们也需要类似于 API　的接口。由于两种方式有这么多不同之处，所以难以维护。
 
-This is a very interesting hybrid pattern, one that takes a bit of effort to code (given how you need to have two approaches mixed together).
+这是一种有趣的混合模式，需要付出一定的精力进行编码（这取决于你混合使用两种方法的需要）。
 
-It can be a very good network optimization technique, you have to make sure that for your use case, the hydration of the payloads only happens around 10 to 20% of the time, otherwise, the benefit will not be worth the extra effort required to code it.
+这可能是一种好的优化方法，你需要确保对于你的用例来说，有效载荷发生水合作用只能占 10%-20% 时间，否则，获得的益处不足以补偿编写代码所花费的精力。
 
 ---
 
-The best way to communicate two microservices is the one that gives you what you’re looking for. If that’s performance, reliability, security, that’ll be something you know and the information you’ll have to use to pick the best pattern.
+令两个微服务通信的最好方式应当是能满足你的需求的那个。如果有性能、可靠性、安全性的需求，这些需求和相关信息就是你选择最佳模式的依据。
 
-There is no “one pattern to rule them all” even if you, like me, like one more than the rest, realistically speaking, you’ll have to adapt to your context.
+即使你，像我一样，喜欢其他的某一种方式，也不存在“一种符合所有规则的模式”，确切地说，你应当根据具体情况来选择。
 
-That being said, which one is your favorite, and why? Leave a comment and let’s nerd out about ways to get microservices to interact with each other!
+话虽然这么说，但我们还是可以讨论“你最喜欢的是哪一个，为什么”的问题。你可以留言，我们一起来探讨令微服务互相通信的方法！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
