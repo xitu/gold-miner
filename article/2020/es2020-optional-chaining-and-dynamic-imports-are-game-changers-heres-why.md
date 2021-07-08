@@ -2,26 +2,26 @@
 > * 原文作者：[Mahdhi Rezvi](https://medium.com/@mahdhirezvi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/es2020-optional-chaining-and-dynamic-imports-are-game-changers-heres-why.md](https://github.com/xitu/gold-miner/blob/master/article/2020/es2020-optional-chaining-and-dynamic-imports-are-game-changers-heres-why.md)
-> * 译者：
+> * 译者：[JohnieXu](https://github.com/JohnieXu)
 > * 校对者：
 
-# ES2020 Optional Chaining and Dynamic Imports Are Game-Changers. Here’s Why.
+# 为什么说 ES2020 的可选链和模块动态导入特性将会改变现有生态规则
 
-![Photo by [veeterzy](https://unsplash.com/@veeterzy?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*kgic-88vVUjDQbYC)
+![图由 [veeterzy](https://unsplash.com/@veeterzy?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*kgic-88vVUjDQbYC)
 
-After the release of ES6 in 2015, JavaScript got a few handy upgrades. At the present, a lot of new features were being proposed to be included in the ES2020 version. There are several notable features in the new release and I would love to highlight two of them in this article — Optional Chaining and Dynamic Imports. These two features would have saved me several lines of code and performance if I had used them earlier in my work.
+随着 2015 年的 ES6 语法规范的发布，JavaScript 语法的升级变得非常便利。目前，已经有大量的语法特性提案被纳入到 ES2020 语法规范中。其中有不乏大量著名新特性，我在此文将重点介绍可选链（Optional Chaining）和模块动态导入（Dynamic Imports）这两个特性。如果能在以前的项目中使用上这两大特性，我们所编写的代码量将大大缩减。
 
-Let’s have a look at these awesome two features.
+下面我们一起来看一看这两大特性。
 
-## Optional Chaining
+## 可选链 Optional Chaining
 
-Optional Chaining is simply a feature that allows you to safely access deeply nested properties of an object without having to check for the existence of each of them. Optional Chaining uses the `?.` operator to access the properties of objects. The usage of the `?.` operator is very similar to the typical `.` operator, but when a reference is `undefined` or `null`, rather than throwing an error, it would return `undefined`.
+可选链特性是通过 `?.` 操作符访问对象的属性，它允许在访问嵌套对象的属性时候不需要依次校验每一个属性是否存在。`?.` 操作符与传统的 `.` 操作符十分相似，但是在操作符前面的值为 `undefined` 或 `null` 时该语法不会导致程序报错，并且其获取到的属性值为 `undefined`。
 
-This results in a simpler and cleaner code that guarantees no error will be thrown when exploring objects with uncertain properties.
+使用可选链特性可以确保在访问结构不确定的对象属性时不会报错，同时还能使得代码简洁易懂。
 
-#### Syntax
+#### 语法
 
-As per the documentation, there are several syntaxes for optional chaining. These include usages for accessing objects, arrays, and functions.
+参考官方文档，可选链的语法有如下 4 种，分别为：访问对象属性、访问数组元素、函数调用。
 
 ```js
 obj.val?.prop
@@ -30,11 +30,11 @@ obj.arr?.[index]
 obj.func?.(args)
 ```
 
-#### Usage Examples for the Above
+#### 用法示例
 
-As I have mentioned above, there are 4 possible syntaxes for optional chaining which can be categorized under object access, array access, and function access. Let’s have a look at examples for all of them.
+如上文所述，可选链的语法有 4 种，分为访问对象属性、访问数组元素、函数调用这 3 类。下面一起看下他们的用法示例。
 
-**Object Value Access via Property**
+**通过属性访问对象值**
 
 ```js
 let book = {
@@ -53,14 +53,14 @@ console.log(book.weight);
 //undefined
 
 console.log(book.weight.value);
-//error
+//报错
 
-//With Optional Chaining
+//使用可选链
 console.log(book?.weight?.value);
 //undefined
 ```
 
-**Object Value Access via Expression**
+**通过表达式访问对象值**
 
 ```js
 let book = {
@@ -77,16 +77,16 @@ let userInputProperty = document.getElementById('inputProperty').value;
 let userInputNestedProperty = document.getElementById('inputPropertyNested').value;
 
 console.log(book[userInputProperty][userInputNestedProperty]);
-//if user input not present as a property, then error is thrown
+//如果用户在 input 上输入的属性在对象上不存在，js 将会报错
 
 
-//Using Optional Chaining
+//使用可选链
 console.log(book?.[userInputProperty]?.[userInputNestedProperty]);
-//if user input not present as property, then return undefined
-//else value is returned
+//如果用户在 input 上输入的属性在对象上不存在，将返回 undefined
+//否则返回属性对应的值
 ```
 
-**Array Element Access**
+**数组元素访问**
 
 ```js
 let books = [{
@@ -111,13 +111,13 @@ console.log(books[1].price.value);
 //50
 
 console.log(books[2].price.value);
-//error
+//报错
 
 console.log(books?.[2]?.price?.value);
 //undefined
 ```
 
-**Function Access**
+**函数访问**
 
 ```js
 let bookModule = {
@@ -132,15 +132,15 @@ bookModule.getBooks();
 //"Books returned"
 
 bookModule.getBook();
-//error
+//报错
 
 bookModule?.getBook?.();
 //undefined
 ```
 
-#### Note of Caution
+#### 注意事项
 
-Optional chaining is only valid on the right side of an assignment.
+可选链只在赋值表达式的右侧生效
 
 ```
 let book = {
@@ -153,22 +153,22 @@ let book = {
 };
 
 book?.weight?.value = 650;
-//Syntax error
+//语法错误
 
 book.weight.value = 650;
-//Type error
+//报错 Type error
 
 book.weight = {
   value: 650
 };
-//No error
+//正常
 ```
 
-#### Optional Chaining — Before and After
+#### 使用可选链前后对比
 
-Before the introduction of optional chaining, you have to check whether the property exists at each level to avoid facing an error. As the level of nesting increases, the number of properties you have manually check increases as well. This means that we have to check every level to make sure that it won’t crash when it runs into a `undefined` or `null` object.
+在引入可选链特性之前，通常需要对每一层级的属性值是否存在做校验以避免报错。这会导致随着嵌套层级的增加，需要校验的属性值也随之增加。同时要避免出现获取 `undefined` 或 `null` 的属性值导致程序崩溃，你还不得不对每一层级的属性值获取都进行校验。
 
-Let’s look at an example.
+下面看一下示例。
 
 ```JavaScript
 let book = {
@@ -191,21 +191,21 @@ let book = {
 }
 
 if (book && book.weight && book.weight.version2 && book.weight.version2.value) {
-  //Do something with book.weight.version2.value
+  //使用 book.weight.version2.value
   console.log(book.weight.version2.value);
 }
 
 if (book && book.weight && book.weight.version3 && book.weight.version3.value) {
-  //Since there is no version 3, this block would not run and throw any errors
+  //由于 book.weight 上没有属性 version3，所以以下代码块将不会执行，同时还会报错
   console.log(book.weight.version3.value);
 }
 
-//Accessing without checking
+//直接访问 book.weight.version3 属性不做校验
 console.log(book.weight.version3.value);
-//error
+//报错
 ```
 
-With optional chaining, the exact outcome can be obtained in fewer lines of code
+下面是使用可选链的示例，用更少的代码实现了同样的功能。
 
 ```JavaScript
 let book = {
@@ -227,7 +227,7 @@ let book = {
   }
 }
 
-//Do something with book.weight.version2.value
+//使用 book.weight.version2.value
 console.log(book?.weight?.version2?.value);
 //690
 
@@ -236,37 +236,37 @@ console.log(book?.weight?.version3?.value);
 //undefined
 ```
 
-Although version 3 does not exist in the book object and we do not explicitly check for `null` or `undefined` values, the above code does not throw an error trying to access an `undefined` property. Optional chaining confirms the value is not `undefined` or `null` before accessing the property nested within.
+即使 `book.weight` 上不存在 `version3` 这个属性，并且我们也没有明确的校验 `book.weight.version3` 是否是 `null` 或 `undefined`，但是上述代码还是正常执行没有报错，这是主要是因为可选链在访问属性之前会校验是否是 `undefined` 或 `null`。
 
-#### Browser Compatibility
+#### 浏览器兼容性
 
-![Source: [CanIUse](https://caniuse.com/mdn-javascript_operators_optional_chaining)](https://cdn-images-1.medium.com/max/2462/1*Mk1AKifhJ1TbIjmcnjndBg.png)
+![源自：[CanIUse](https://caniuse.com/mdn-javascript_operators_optional_chaining)](https://cdn-images-1.medium.com/max/2462/1*Mk1AKifhJ1TbIjmcnjndBg.png)
 
-## Dynamic Imports
+## 动态导入 Dynamic Imports
 
-Dynamic Imports allow you to import JS files dynamically as modules in your application natively. Prior to ES2020, your module should be imported whether the module is used or not. This is a feature that would immensely help improve the performance of your website.
+动态导入使得应用可以以原生的方式（译者注：之前的动态导入都是由打包工具，如 webpack 在本地编译打包的方式实现的）把 js 文件作为模块进行动态导入。在 ES2020 之前，模块无论是否被使用到了都会被导入进来。这一特性，将极大的提升网页应用的性能。
 
-#### Why Do We Need Dynamic Imports
+#### 为何需要动态导入
 
-Importing modules earlier were based on static declaration. The static import syntax can only be used in the top level of a file. Furthermore, it requires the module specifier to be passed as a string literal with no variables. This makes the previous less flexible than dynamic imports.
+之前的模块导入是基于静态声明的，所以模块导入语句 import 只能放置在文件的顶部。并且，导入语句 import 要求传入的模块描述符必须是字符串字面量，不能包含变量。这些限制使得现在的动态导入访问远比静态声明的模块导入方案灵活。
 
-But static imports do have their own advantages. They enable use-cases such as static analysis, bundling tools, and tree-shaking.
+但是静态模块导入也有其优点，比如它支持模块静态分析、打包构建工具、摇树优化等。
 
-Yet the static import syntax does not allow
+同样静态模块导入语法还不支持以下特性：
 
-* modules to be imported on-demand or conditionally
-* use variables in the module specifier to decide the value of it in run time
-* importing a module from a regular script
+* 模块按需加载
+* 模块描述符使用运行时的变量值
+* 使用 script 标签导入模块
 
-The introduction of dynamic imports solved the above-mentioned issues.
+动态导入特性的引入完全解决上述几个问题。
 
-Let’s have a look at how dynamic imports can affect our code.
+下面一起看一下模块动态导入引入后对项目代码有何改变。
 
-#### Dynamic Imports — Before and After
+#### 使用模块动态导入前后对比
 
-Let’s assume that our application needs to export documents in either XML or CSV format. Our team of developers has come up with two modules that can achieve this. On the downside, these modules are heavy and would result in a slower page load.
+假设我们的应用有一个导出为 XML 或 CSV 格式文档的功能，团队对实现这两种格式导出功能分别开发了一个模块。按照下面这样的模块加载方式，会导致两个模块都被加载进来增加了页面的模块体积导减缓页面加载速度。
 
-**Before**
+**静态模块加载**
 
 ```JavaScript
 import { exportAsCSV } from './export-as-csv.js';
@@ -280,13 +280,13 @@ exportCSVButton.addEventListener('click', () => { exportAsCSV(dataBlock) });
 exportXMLButton.addEventListener('click', () => { exportAsXML(dataBlock) });
 ```
 
-As you can see above, the modules are imported regardless of whether they are needed or not. In reality, not all of the users would require to use these functions and this would create an unnecessary load on the browser.
+可以看到，`exportAsCSV` 和 `exportAsXML` 模块不管有没有被实际用到都会先加载到应用中。实际上，这两个导出的功能模块并非所有用户都会用到，不会订单用户触发相应导出功能再加载对应模块，这样会使得浏览器加载了一些不必要的资源。
 
-This overhead can be reduced by using lazy loaded modules. This can be achieved with something called **code-splitting** which is already available with the overhead of webpack or other module bundlers.
+这种提前加载资源的方式可以动态懒加载模块来避免，目前已经可以借助 webpack 等模块打包器的**代码分割**功能的来实现。
 
-But with ES2020 we have a native way of doing it, without the need for module bundlers.
+但是在 ES2020 标准规范中，已经原生支持这一特性，必须要借助模块打包器的代码分割功能的支持了。
 
-**After**
+**动态模块加载**
 
 ```JavaScript
 const dataBlock = getData();
@@ -300,7 +300,7 @@ exportCSVButton.addEventListener('click', () => {
             module.exportAsCSV(dataBlock);
         })
         .catch(err => {
-            // handle the error if the module fails to load
+            // 处理模块加载失败的错误
         })
 });
 
@@ -310,20 +310,20 @@ exportXMLButton.addEventListener('click', () => {
             module.exportAsXML(dataBlock);
         })
         .catch(err => {
-            // handle the error if the module fails to load
+            // 处理模块加载失败的错误
         })
 });
 ```
 
-The above code, imports the modules dynamically as per the need, with the help of dynamic imports. You can now lazy load your modules only when they are needed. Thereby reducing overhead and decreasing page load times.
+上面代码中，使用动态导入语法实现了两个模块的动态导入。只有在对应模块对使用到时，其模块代码才会被加载，这样一来减少了页面必须资源的体积缩短了页面加载时间。
 
-#### Browser Compatibility
+#### 浏览器兼容性
 
-![Source: [CanIUse](https://caniuse.com/mdn-javascript_statements_import_dynamic_import)](https://cdn-images-1.medium.com/max/2450/1*0qzbT_iYuZnNDlQz0sx0dQ.png)
+![源自：[CanIUse](https://caniuse.com/mdn-javascript_statements_import_dynamic_import)](https://cdn-images-1.medium.com/max/2450/1*0qzbT_iYuZnNDlQz0sx0dQ.png)
 
-The above two highly anticipated features immensely help you write easier and cleaner code without sacrificing overall performance. Let me know your thoughts in the comments.
+以上两个备受期待的特性能极大地帮助你在不牺牲整体性能的情况下编写更简洁、干净的代码。如果有任何建议和看法，欢迎到评论区留言。
 
-#### Resources
+#### 参考文章
 
 - [MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
 - [ES2020 Proposal](https://github.com/tc39)
