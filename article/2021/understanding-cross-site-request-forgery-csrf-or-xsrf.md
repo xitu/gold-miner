@@ -9,12 +9,6 @@
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--alISht9Q--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l79bx48ccmy0edd6w8xb.png)
 
-> This post is also available in the following languages: [Portuguese](https://danilocsar.medium.com/entendendo-cross-site-request-forgery-csrf-ou-xsrf-1a5f2ed35a0d).
-
-*On the last article we have learned how we can prevent some* Cross-Site Scripting *(XSS) attacks by using proper sanitization techniques on our web server. Now, let's take a look at another vulnerability that also can cause problems on web pages that are not complying with the adequate security methods.*
-
-> 💡 If you did not read the previous article on this series, “[Secure GET and POST requests using PHP](https://dev.to/danilo/secure-get-and-post-requests-using-php-k50)”, I suggest you to do, as some knowledge on what are *HTTP Requests*, and how they do work, may be required in order to understand the following concepts — and, also, it can help you to increase your webpages' security.
-
 ## Introduction
 
 Let's investigate another one of the most common web vulnerabilities: the *Cross-Site Request Forgery* (CSRF), that tricks unwary users by making them execute unwanted actions on other web pages that they are already authenticated.
@@ -23,9 +17,7 @@ For a better illustration on the problem, let's suppose this scenario: you are l
 
 Sounds scary, right? Even that most modern browsers are committed to create “sandboxes” and limiting cookies' usage that are not on same-site's policy, there are many users on the world wide web using outdated web browsers, and clicking on every link that pops up on their monitors — most of them claiming that the user is a winner for entering the site on this specific date and time, or for completing a survey that they did not even hear about.
 
-[![Entrepreneur in Tin Can with String - Vector Image.png](https://res.cloudinary.com/practicaldev/image/fetch/s--CYX-ldPB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200215957/q010wJ8jR.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--CYX-ldPB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200215957/q010wJ8jR.png)
-
-> Tin can conversation. Designed by [Wannapik](https://www.wannapik.com).
+![Entrepreneur in Tin Can with String - Vector Image.png](https://res.cloudinary.com/practicaldev/image/fetch/s--CYX-ldPB--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200215957/q010wJ8jR.png)
 
 In the past, some of the most accessed websites on the internet had suffered some sort of attacks related to CSRF, like [Facebook](http://www.internetnews.com/security/article.php/3835596/Facebook+Hit+by+CrossSite+Request+Forgery+Attack.htm), [Netflix](http://blog.internetnews.com/skerner/2008/02/black-hat-netflix-csrf-vulnera.html), [Gmail](http://www.internetnews.com/security/article.php/3717106), [YouTube, and the New York Times](https://people.eecs.berkeley.edu/~daw/teaching/cs261-f11/reading/csrf.pdf), but also web applications, such as [Mozilla Firefox](http://blog.internetnews.com/skerner/2009/04/mozilla-firefox-309-fixes-xss.html) and the [Apache HTTP Server](http://www.internetnews.com/security/article.php/3777276/Apple+Updates+to+Fix+Open+Source+Security+Issues.htm). According to [this paper](https://people.eecs.berkeley.edu/~daw/teaching/cs261-f11/reading/csrf.pdf), many of them have already solved the problems, and others, thanks to the open developer community, fixed it
 as well.
@@ -44,9 +36,7 @@ The second condition is a request coming from a malicious website that makes the
 
 In simple terms, the *Cross-Site Request Forgery* (CSRF) attack forges the request that is being sent to a trustful web server, so it is “crossing sites”. The following figure explains how does the CSRF attack work: the attacking site uses the users' authenticated session on the web browser in order to execute a trusted action on a trusted website.
 
-[![souza2009.png](https://res.cloudinary.com/practicaldev/image/fetch/s--7_hep-KU--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200278583/do7nHydAP.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--7_hep-KU--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200278583/do7nHydAP.png)
-
-> Image: Souza, 2009.
+![souza2009.png](https://res.cloudinary.com/practicaldev/image/fetch/s--7_hep-KU--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200278583/do7nHydAP.png)
 
 For the purposes of this article, we will not cover this method on real-world applications, as our goal is not exploit any service, but, instead, to develop better implementations for the web.
 
@@ -55,7 +45,6 @@ For the purposes of this article, we will not cover this method on real-world ap
 If the target page isn't CSRF-protected, those bad agents can successfully do whatever they want using the user's credentials. For example:
 
 ```html
-
 <html>
 <body>
 <form id="evil-form" action="http://my.trustful.bank/transfer?amount=123&account=stevie" method="POST">
@@ -74,7 +63,6 @@ In this example, assume the page does really exist on the internet, and so the `
 Those bad agents don't even need the user directly interacting with the submit button in order to achieve the sending result. They could, for example, change it to an `onload` event that fires whenever the user's browser renders the page, like this:
 
 ```html
-
 <html>
 <body onload="document.getElementById('evil-form').submit();">
 <form id="evil-form" action="http://my.trustful.bank/transfer" method="POST">
@@ -93,7 +81,6 @@ Also, many web servers allow both *HTTP* *GET* and *POST* requests, so CSRF atta
 It goes even worse, as bad agents are not limited to the HTML web forms. They can use, for example, a simple `img` tag, like this:
 
 ```html
-
 <html>
 <body>
 <img src="http://my.trustful.bank/transfer?amount=123&to=stevie"/>
@@ -151,7 +138,7 @@ The *Cross-Site Scripting* (XSS) and the *Cross-Site Request Forgery* (CSRF) att
 
 An example of this combination was the “[MySpace Worm](https://www.vice.com/en/article/wnjwb4/the-myspace-worm-that-changed-the-internet-forever)” (also known as “Samy worm”, or “JS.Spacehero worm”), developed by Samy Kamkar, then a 19-year-old developer, in 2005, who created a script by adding a few words that infected some people's profiles to make him friends with, on this social network, but then quickly spread out of control, and he hit almost a million friend requests.
 
-[![myspace_from_vice.png](https://res.cloudinary.com/practicaldev/image/fetch/s--QUaEHk29--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200307528/6mMJhlguu.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--QUaEHk29--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200307528/6mMJhlguu.png)
+![myspace_from_vice.png](https://res.cloudinary.com/practicaldev/image/fetch/s--QUaEHk29--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://cdn.hashnode.com/res/hashnode/image/upload/v1623200307528/6mMJhlguu.png)
 
 > Part of Kamkar's MySpace profile showing how many friends he had after his script, on 2005. Image: [VICE](https://www.vice.com/en/article/wnjwb4/the-myspace-worm-that-changed-the-internet-forever).
 
@@ -212,7 +199,6 @@ The bad agents can't read the token, if used along with the `SameSite` attribute
 This can be done by specifying an *anti-CSRF token*, on the same site as the trustful server, and including it to a new HTML web form, like the following one:
 
 ```html
-
 <html>
 <body>
 <form id="good-form" action="http://my.trustful.bank/transfer" method="POST">
@@ -249,15 +235,10 @@ If you have any questions or suggestions on how to build more secure application
 ### References
 
 * \[1\] Zeller, W., & Felten, E. W. (2008). Cross-site request forgeries: Exploitation and prevention. Bericht, Princeton University. [https://www.cs.memphis.edu/~kanyang/COMP4420/reading/csrf.pdf](https://www.cs.memphis.edu/~kanyang/COMP4420/reading/csrf.pdf).
-
 * \[2\] Souza, J. (2009). Cross-Site Scripting & Cross-Site Request Forgery. Brasília, Universidade de Brasília. [https://cic.unb.br/~rezende/trabs/johnny.pdf](https://cic.unb.br/~rezende/trabs/johnny.pdf).
-
 * \[3\] Seth Fogie, Jeremiah Grossman, Robert Hansen, Anton Rager, and Petko D. Petkov. XSS Attacks: Cross Site Scripting Exploits and Defense. Syngress, 2007.
-
 * \[4\] "Cross-Site Request Forgeries and You", from *Coding Horror*: [https://blog.codinghorror.com/cross-site-request-forgeries-and-you/](https://blog.codinghorror.com/cross-site-request-forgeries-and-you/).
-
 * \[5\] "Using HTTP cookies", from *MDN Web Docs* (Mozilla Developer Network): [https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies).
-
 * \[6\] "CSRF", from *MDN Web Docs* (Mozilla Developer Network): [https://developer.mozilla.org/en-US/docs/Glossary/CSRF](https://developer.mozilla.org/en-US/docs/Glossary/CSRF).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
