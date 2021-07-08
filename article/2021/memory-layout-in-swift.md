@@ -2,22 +2,22 @@
 > * 原文作者：[Tibor Bödecs](https://theswiftdev.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/memory-layout-in-swift.md](https://github.com/xitu/gold-miner/blob/master/article/2021/memory-layout-in-swift.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
+> * 校对者：[liyaxuanliyaxuan](https://github.com/liyaxuanliyaxuan),[PassionPenguin](https://github.com/PassionPenguin)
 
-# Memory layout in Swift
+# Swift 中的内存布局
 
-## Memory layout of value types in Swift
+## Swift 中值类型的内存布局
 
-Memory is just a bunch of \`1\`s and \`0\`s, simply called [bits](https://en.wikipedia.org/wiki/Bit) (binary digits). If we group the flow of bits into groups of 8, we can call this new unit [byte](https://en.wikipedia.org/wiki/Byte) (eight bit is a byte, e.g. binary 10010110 is hex 96). We can also visualize these bytes in a [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) form (e.g. 96 A6 6D 74 B2 4C 4A 15 etc). Now if we put these hexa representations into groups of 8, we'll get a new unit called [word](https://en.wikipedia.org/wiki/Word_(computer_architecture)).
+内存就是是一串 \`1\` 和 \`0\`，简称为 [bits](https://en.wikipedia.org/wiki/Bit)（二进制位）。如果将比特流分成每 8 位一组，我们可以称这个新的单位为[字节](https://en.wikipedia.org/wiki/Byte)（8 位是一个字节，例如二进制 10010110 是十六进制 96）。我们还可以以[十六进制形式](https://en.wikipedia.org/wiki/Hexadecimal)可视化这些字节（例如 96 A6 6D 74 B2 4C 4A 15 等）。现在如果我们把这些可视化字节分成 8 组，我们会得到一个新的单位，成为[单词](https://en.wikipedia.org/wiki/Word_(computer_architecture))。
 
-This 64bit memory (a word represents 64bit) layout is the basic foundation of our modern [x64](https://en.wikipedia.org/wiki/64-bit_computing) CPU architecture. Each word is associated with a virtual memory address which is also represented by a ([usually 64bit](https://superuser.com/questions/1188364/what-is-the-size-of-an-address-of-a-variable-in-memory-on-a-64-bit-processor-in)) hexadecimal number. Before the [x86-64](https://en.wikipedia.org/wiki/X86-64) era the [x32 ABI](https://en.wikipedia.org/wiki/X32_ABI) used 32bit long [addresses](https://en.wikipedia.org/wiki/Byte_addressing), with a maximum memory limitation of 4GiB. Fortunately we use x64 nowadays. 💪
+这种 64 位内存（即一个字代表 64 位）布局是我们现代 [x64](https://en.wikipedia.org/wiki/64-bit_computing) CPU 架构的基本基础。每个字都与一个虚拟内存地址相关联，该地址也由一个（[通常为 64 位](https://superuser.com/questions/1188364/what-is-the-size-of-an-address-of-a-variable-in-memory-on-a-64-bit-processor-in)）十六进制数表示。在 [x86-64](https://en.wikipedia.org/wiki/X86-64) 时代之前，[x32 ABI](https://en.wikipedia.org/wiki/X32_ABI) 使用 32 位长[地址](https://en.wikipedia.org/wiki/Byte_addressing)，其最大内存限制为 4GiB。幸运的是，我们正在使用 x64。💪
 
-So how do we store our data types in this [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory) address space? Well, long story short, we allocate just the right amount of space for each data type and write the hex representation of our values into the memory. It's magic, provided by the operating system and it just works.
+那么，我们如何在[虚拟内存](https://en.wikipedia.org/wiki/Virtual_memory)地址空间中存储数据类型呢？好吧，长话短说，我们为每种数据类型分配了适量的空间，并将值的十六进制表示形式写入内存。这是操作系统提供的魔法，它就是这样工作的。
 
-We could also start talking about [memory segmentation](https://en.wikipedia.org/wiki/Memory_segmentation), paging, and other low level stuff, but honestly speaking I really don't know how those things work just yet. As I'm digging deeper and deeper into [low level stuff](https://en.wikipedia.org/wiki/Low-level_programming_language) like this I'm learning a lot about how computers work under the hood.
+我们也可以开始讨论[内存分段](https://en.wikipedia.org/wiki/Memory_segmentation)、分页和其他底层的东西，但老实说，我真的不知道这些东西是如何工作的。当我越来越深入地研究[这类底层内容](https://en.wikipedia.org/wiki/Low-level_programming_language)时，我学到了很多关于计算机如何在幕后工作的知识。
 
-One important thing is that I already know and I want to share with you. It is all about [memory access](https://cs.stackexchange.com/questions/45083/cpu-reading-cycles) on various architectures. For example if a CPU's bus width is 32bit that means the CPU can only read 32bit words from the memory under 1 read cycle. Now if we simply write every object to the memory without proper data separation that can cause some trouble.
+我想和大家分享一个我已知的很重要的点。这就是关于各种架构上的[内存访问](https://cs.stackexchange.com/questions/45083/cpu-reading-cycles)。例如，如果 CPU 的总线宽度为 32 位，则意味着 CPU 只能在 1 个读取周期内从内存中读取 32 位。现在，如果我们简单地将每个对象写入内存，而不进行适当的数据分离，可能会造成一些麻烦。
 
 ```
 ┌──────────────────────────┬──────┬───────────────────────────┐
@@ -27,7 +27,7 @@ One important thing is that I already know and I want to share with you. It is a
 └──────────────────────────────┴──────────────────────────────┘
 ```
 
-As you can see if our memory data is misaligned, the first 32bit read cycle can only read the very first part of our 4bit data object. It'll take 2 read cycles to get back our data from the given memory space. This is very inefficient and also dangerous, that's why most of the systems won't allow you unaligned access and the program will simply crash. So how does our [memory layout](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f) looks like in Swift? Let's take a quick look at our data types using the built-in [MemoryLayout](https://swiftdoc.org/v3.1/type/memorylayout/) enum type.
+如你所见，如果内存数据未对齐，第一个读取周期只能读取 4 位数据对象的第一部分。需要 2 个读取周期才能从给定的内存空间取回我们的数据。这是非常低效且危险的，这就是为什么大多数操作系统不允许进行非对齐访问，同时也是程序立即崩溃的原因。那么，在 Swift 中的[内存布局](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f)是什么样子呢？让我们使用内置的 [MemoryLayout](https://swiftdoc.org/v3.1/type/memorylayout/) 枚举类型快速浏览一下我们的数据类型。
 
 ```swift
 print(MemoryLayout<Bool>.size)      // 1
@@ -40,9 +40,9 @@ print(MemoryLayout<Int>.stride)     // 8
 print(MemoryLayout<Int>.alignment)  // 8
 ```
 
-As you can see Swift stores a Bool value using 1 byte and (on 64bit systems) Int will be stored using 8 bytes. So, what the heck is the difference between [size, stride and alignment](https://swiftunboxed.com/internals/size-stride-alignment/)?
+如您所见，Swift 使用 1 个字节存储 Bool 值，而用（在 64 位系统上）使用 8 个字节存储 Int  类型。那么，[**size**、**stride**和**alignment**](https://swiftunboxed.com/internals/size-stride-alignment/)之间到底有什么不同呢？ 
 
-The **alignment** will tell you how much memory is needed (multiple of the alignment value) to save things perfectly aligned on a memory buffer. **Size** is the number of bytes required to actually store that type. **Stride** will tell you about the distance between two elements on the buffer. Don't worry if you don't understand a word about these informal definitions, it'll all make sense just in a moment.
+ **alignment** 将告诉你需要多少内存（其值的倍数）才能将完全对齐的内容保存在内存缓冲区中。**size** 是实际存储该类型所需的字节数。 **stride** 会告诉你在缓冲区上两个元素之间的距离。如果你对这些非正式的定义一无所知，也不用担心，一会儿就会明白的。
 
 ```swift
 struct Example {
@@ -55,7 +55,7 @@ print(MemoryLayout<Example>.stride)    // 16
 print(MemoryLayout<Example>.alignment) // 8
 ```
 
-When constructing new data types, a struct in our case (classes work different), we can calculate the memory layout properties, based on the memory layout attributes of the participating variables.
+当构造新的数据类型时，在我们的例子中是一个结构体（类的工作方式有所不同），我们可以根据结构体中的属性的内存布局在计算整个结构体的内存布局。
 
 ```
 ┌─────────────────────────────────────┬─────────────────────────────────────┐
@@ -67,9 +67,9 @@ When constructing new data types, a struct in our case (classes work different),
 └─────────────────────────┴───────────┴─────────────────────────┴───────────┘
 ```
 
-In Swift, simple types have the same alignment value size as their size. If you store standard Swift data types on a contiguous memory buffer there's no padding needed, so every stride will be equal with the alignment for those types.
+在 Swift 中，简单类型的 **alignment** 的大小与其 **size**  相同。如果将标准的 Swift 数据类型存储在一个连续的内存缓冲区中，则不需要填充，因此每一个 **stride** 都将与这些类型的 **alignment** 相等。
 
-When working with compound types, such as the `Example` struct is, the [memory alignment](https://stackoverflow.com/questions/47610995/alignment-vs-stride-in-swift) value for that type will be selected using the maximum value (8) of the properties alignments. Size will be the sum of the properties (8 + 1) and stride can be calculated by rounding up the size to the next the next multiple of the alignment. Is this true in every case? Well, not exactly...
+使用复合类型时，例如示例 `Example` 的结构体，将使用属性 **alignment** 的最大值（8）为该类型的[内存对齐值](https://stackoverflow.com/questions/47610995/alignment-vs-stride-in-swift)。 **size** 是属性的总和 (8 + 1)，**stride** 则可以通过将大小四舍五入到对齐的下一个倍数来计算。在任何情况下都是这样吗？嗯，不完全是...
 
 ```swift
 struct Example {
@@ -82,7 +82,7 @@ print(MemoryLayout<Example>.stride)    // 16
 print(MemoryLayout<Example>.alignment) // 8
 ```
 
-What the heck happened here? Why did the size increase? Size is tricky, because if the padding comes in between the stored variables, then it'll increase the overall size of our type. You can't start with 1 byte then put 8 more bytes next to it, because you'd misalign the integer type, so you need 1 byte, then 7 bytes of padding and finally the 8 bypes to store the integer value.
+这里到底发生了什么事？为什么 **size** 会增加呢？ **size** 的增大变得有些棘手，因为如果填充位于存储的变量之间，那么它会增加我们类型的整体大小。你不能从 1 个字节开始，然后在它后面再加上 8 个字节，因为这样会使整数类型不对齐，所以你需要 1 个字节，然后是 7 个字节的填充，最后是 8 个字节来存储整数值。
 
 ```
 ┌─────────────────────────────────────┬─────────────────────────────────────┐
@@ -96,13 +96,13 @@ What the heck happened here? Why did the size increase? Size is tricky, because 
 └─────────────────────────────────────┴─────────────────────────────────────┘
 ```
 
-This is the main reason why the second example struct has a slightly increased size value. Feel free to create other types and practice by drawing the memory layout for them, you can always check if you were correct or not by printing the memory layout at runtime using Swift. 💡
+这是第二个示例结构的大小值略有增加的主要原因。随意创建其他类型，并通过为其绘制内存布局来进行练习，你可以随时使用 Swift 在运行时打印内存布局来检查你的绘制是否正确。💡
 
-> This whole problem is real nicely explained on the [\[swift unboxed\]](https://swiftunboxed.com/internals/size-stride-alignment/) blog. I would also like to recommend [this article by Steven Curtis](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f) and there is one more great post about [Unsafe Swift: A road to memory](https://medium.com/swlh/unsafe-swift-a-road-to-memory-15e7d7e701f9). These writings helped me a lot to understand memory layout in Swift. 🙏
+> 整个问题在 [[swift unboxed]](https://swiftunboxed.com/internals/size-stride-alignment/) 博客上得到了很好的解释。我还想推荐 [Steven Curtis 的这篇文章](https://stevenpcurtis.medium.com/memorylayout-in-swift-c4e70bb32e3f)，以及这篇关于 [Unsafe Swift: A road to memory](https://medium.com/swlh/unsafe-swift-a-road-to-memory-15e7d7e701f9) 的好文章。这些文章对我理解 Swift 中的内存布局起了很大帮助。🙏
 
-## Reference types and memory layout in Swift
+## Swift 中引用类型的内存布局
 
-I mentioned earlier that **classes** behave quite different that's because they are reference types. Let me change the `Example` type to a class and see what happens with the memory layout.
+我在前面提到过，**类**的表现非常不同，这是因为它们是引用类型。让我将示例类型更改成一个类，看看内存布局会发生什么。
 
 ```swift
 class Example {
@@ -115,11 +115,11 @@ print(MemoryLayout<Example>.stride)    // 8
 print(MemoryLayout<Example>.alignment) // 8
 ```
 
-What, why? We were talking about memory reserved in the [stack](https://stackoverflow.com/questions/27441456/swift-stack-and-heap-understanding), until now. The **stack** memory is reserved for static memory allocation and there's an other thing called **heap** for dynamic memory allocation. We could simply say, that value types (struct, Int, Bool, Float, etc.) live in the stack and reference types (classes) are allocated in the heap, which is not 100% true. Swift is smart enough to perform additional memory optimizations, but for the sake of "simplicity" let's just stop here.
+什么，为什么？直到现在，我们都在谈论[栈](https://stackoverflow.com/questions/27441456/swift-stack-and-heap-understanding)中保留的内存。**栈**内存是为静态内存分配而保留的，还有一个叫做**堆**的东西用于动态内存分配。我们可以简单地说，值类型（struct、Int、Bool、Float 等）存在于栈中，而引用类型（类）则在堆中分配，这并非 100% 正确。Swift 足够聪明，可以执行额外的内存优化，但为了“简单”，我们就到此为止。
 
-You might ask the question: [why is there a stack and a heap](https://stackoverflow.com/questions/7123936/why-is-there-a-stack-and-a-heap)? The answer is that they are quite different. The stack can be faster, because memory allocation happens using push / pop operations, but you can only add or remove items to / from it. The stack size is also limited, have you ever seen a stack overflow error? The heap allows random memory allocations and you have to make sure that you also deallocate what you've reserved. The other downside is that the allocation process has some overhead, but there is no size limitation, except the physical amount of RAM. The [stack and the heap](https://www.guru99.com/stack-vs-heap.html) is quite different, but they are both extremely useful memory storages. 👍
+你可能会问这样的问题： [为什么有一个栈和一个堆](https://stackoverflow.com/questions/7123936/why-is-there-a-stack-and-a-heap)？这是因为它们完全不同。栈可以更快，因为是使用 push/pop 操作进行内存分配的，但你只能向其中添加或从中删除项目。栈大小也是有限的，你遇到过栈溢出错误吗？堆允许随机的内存分配，但是你必须确保会释放你申请的内存。另一个缺点是分配过程会有一些开销，但除了 RAM 的物理容量外，没有大小限制。[栈和堆](https://www.guru99.com/stack-vs-heap.html)完全不同，但它们都是非常有用。👍
 
-Back to the topic, how did we get 8 for every value (size, stride, alignment) here? We can calculate the real [size (in bytes) of an object on the heap](https://stackoverflow.com/questions/40312123/get-the-size-in-bytes-of-an-object-on-the-heap) by using the `class_getInstanceSize` method. A class always has a 16 bytes of metadata (just print the size of an empty class using the get instance size method) plus the calculated size for the instance variables.
+回到整体，这里的每个值（大小、步幅、对齐）都是 8 是如何得到？我们可以使用  `class_getInstanceSize` 方法计算[堆上对象的实际大小（以字节为单位）](https://stackoverflow.com/questions/40312123/get-the-size-in-bytes-of-an-object-on-the-heap)。一个类至少含有 16 字节的元数据（即仅使用 `class_getInstanceSize` 方法打印出空类的大小）加上其实例变量的计算值。
 
 ```swift
 class Empty {}
@@ -132,9 +132,9 @@ class Example {
 print(class_getInstanceSize(Example.self)) // 32 (16 + 16)
 ```
 
-The memory layout of a class is always 8 byte, but the actual size that it'll take from the heap depends on the instance variable types. The other 16 byte comes from the ["is a" pointer](https://stackoverflow.com/questions/10998984/isa-pointer-in-objective-c) and the reference count. If you know about the Objective-C runtime a bit then this can sound familiar, but if not, then don't worry too much about ISA pointers for now. We'll talk about them next time. 😅
+类的内存布局始终为 8 字节，但它从堆中获取的实际大小则取决于实例变量类型。另外的 16 字节来则自[“is a”指针](https://stackoverflow.com/questions/10998984/isa-pointer-in-objective-c)和引用计数。如果你对 Objective-C 运行时有所了解，这听起来可能很熟悉，但是如果不了解，这里也不要太担心 ISA 指针。我们下次再谈这件事。😅
 
-Swift uses [Automatic Reference Counting (ARC)](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html) to track and manage your app's memory usage. In most of the cases you don't have to worry about manual memory management, thanks to ARC. You just have to make sure that you don't create strong reference cycles between class instances. Fortunately those cases can be resolved easily with [weak or unowned references](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html#ID52). 🔄
+Swift 使用[自动引用计数 (ARC)](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html) 来跟踪和管理您的应用程序的内存使用情况。多亏了有 ARC，在大多数情况下，你不必操心于手动内存管理。你只需确保不会在类实例之间创建强的引用循环。而幸运的是，这些情况可以通过[弱引用或无主引用](https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html#ID52)轻松解决。 🔄
 
 ```swift
 class Author {
@@ -171,22 +171,22 @@ author = nil
 /// Author deinit
 ```
 
-As you can see in the example above if we don't use a weak reference then objects will reference each other strongly, this creates a reference cycle and they won't be deallocated (deinit won't be called at all) even if you set individual pointers to nil. This is a very basic example, but the real question is when do I have to use weak, unowned or strong? 🤔
+正如上面的示例中所表现的，如果我们不使用弱引用，那么对象之间将彼此强引用，形成循环引用，那么即使你将单个指针设置为 nil，它们也不会被释放（deinit 根本不会被调用）。这是一个非常基本的例子，但真正的问题是我什么时候需要使用 weak、unowned 或 strong？ 🤔
 
-I don't like to say "it depends", so instead, I'd like to point you into the right direction. If you take a closer look at the official documentation about [Closures](https://docs.swift.org/swift-book/LanguageGuide/Closures.html), you'll see what captures values:
+我不喜欢说“视情况而定”，所以我想为你指明正确的方向。如果你仔细查看有关[闭包](https://docs.swift.org/swift-book/LanguageGuide/Closures.html)的官方文档，你会看到有哪些会捕获值：
 
-* Global functions are closures that have a name and don’t capture any values.
-* Nested functions are closures that have a name and can capture values from their enclosing function.
-* Closure expressions are unnamed closures written in a lightweight syntax that can capture values from their surrounding context.
+* 全局函数是具有名称且不捕获任何值的闭包。
+* 嵌套函数是具有名称的闭包，可以从其封闭函数中捕获值。
+* 闭包表达式是用轻量级语法编写的未命名闭包，可以从其上下文中捕获值。
 
-As you can see [global (static functions) don't increment reference counters](https://stackoverflow.com/questions/28951324/why-is-the-weak-self-reference-in-the-uiview-animation-closure-causing-a-compila/48420485). Nested functions on the other hand will capture values, same thing applies to closure expressions and unnamed closures, but it's a bit more complicated. I'd like to recommend the following two articles to understand more about closures and capturing values:
+如你所见，[全局（静态函数）不会增加引用计数器](https://stackoverflow.com/questions/28951324/why-is-the-weak-self-reference-in-the-uiview-animation-closure-causing-a-compila/48420485)。另一方面，嵌套函数将捕获值，这同样适用于闭包表达式和未命名的闭包，但它稍微复杂一些。为了更多地了解闭包和值捕获，我推荐以下两篇文章：
 
-* [You don't (always) need \[weak self\]](https://medium.com/flawless-app-stories/you-dont-always-need-weak-self-a778bec505ef)
-* [Weak, strong, unowned, oh my!](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
+* [你不（总是）需要 \[weak self\]](https://medium.com/flawless-app-stories/you-dont-always-need-weak-self-a778bec505ef)
+* [Weak、strong、unowned，我的天呐！](https://krakendev.io/blog/weak-and-unowned-references-in-swift)
 
-Long story short, retain cycles suck, but in most of the cases you can avoid them just by using just the right keyword. Under the hood, ARC does a great job, except a few edge cases when you have to break the cycle. Swift is a [memory-safe](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html) programming language by design. The language ensures that every object will be initialized before you could use them, and objects living in the memory that aren't referenced anymore will be deallocated automatically. Array indices are also checked for out-of-bounds errors. This gives us an extra layer of safety, except if you write unsafe Swift code... 🤓
+长话短说，循环引用很糟糕，但在大多数情况下，通过使用正确的关键字就可以避免它们。在幕后，ARC 做得很好，除了一些必须破坏引用循环的情况。Swift 被设计成[内存安全](https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html)的编程语言。该语言确保每个对象在可以使用它们之前都将被初始化，并且将自动释放不再被引用的内存中的对象。 还会检查数组索引是否有越界错误。这为我们提供了额外的安全层，除非是编写不安全的 Swift 代码…🤓
 
-Anyway, in a nutshell, this is how the memory layout looks like in the Swift programming language.
+总之，简而言之，Swift 中的内存布局就是这样的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
