@@ -1,3 +1,11 @@
+* [简述 JavaScript 高阶函数的开发使用](https://juejin.cn/post/6977649537812791303)（[zenblo](https://github.com/zenblo) 翻译）
+* [下一代 CSS：@container](https://juejin.cn/post/6981456441341132837)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [一个编译成 JavaScript 接口框架的案例](https://juejin.cn/post/6974632431290679303)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [用 JavaScript 访问用户设备硬件的新标准](https://juejin.cn/post/6971626604933939231)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [Chrome 浏览器的自定义状态伪类](https://juejin.cn/post/6969923484776398855)（[iceytea](https://github.com/iceytea) 翻译）
+* [使用 CI/CD 优化前端构建的五种策略](https://juejin.cn/post/6969016052894154789)（[zenblo](https://github.com/zenblo) 翻译）
+* [CSS是编程语言吗？](https://juejin.cn/post/6969040502146465829)（[cncuckoo](https://github.com/cncuckoo) 翻译）
+* [什么是 http/3，为什么它很重要？](https://juejin.cn/post/6969399259246690341)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [简述自动生成的社交媒体图片](https://juejin.cn/post/6972850971432976392)（[zenblo](https://github.com/zenblo) 翻译）
 * [使用 Web Workers 来加速 JavaScript 应用](https://juejin.cn/post/6965861854023254047)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [TypeScript 中的依赖注入](https://juejin.cn/post/6965857170646630408)（[Usualminds](https://github.com/Usualminds) 翻译）
