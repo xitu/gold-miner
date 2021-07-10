@@ -17,11 +17,10 @@
         - 在基于 V8 的 Node.js 中，可以像这样直接传递标志；
         - 在 Chrome 中，在 `about:flags` 中启用“实验性 JavaScript 功能”，或使用命令行参数 `--js-flags=--harmony-<flagname>`。
 - 如果缺少实现，你可以自己动手 [添加一个](https://github.com/tc39/how-we-work/blob/master/implement.md)！
-- 当你希望对提案作出一定反馈时，请以反馈作为内容，在提案的 GitHub 存储库中创建一个 issue。
+- 当你希望对提案作出一定反馈时，请以反馈作为内容，在提案的 GitHub 仓库中创建一个 issue。
 
 警告：第 3 阶段及以下阶段的提案可能会发生重大变化或删除。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[区块链](https://github.com/xitu/gold-miner#区块链)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计)、[人工智能](https://github.com/xitu/gold-miner#人工智能)等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)、[官方微博](http://weibo.com/juejinfanyi)、[知乎专栏](https://zhuanlan.zhihu.com/juejinfanyi)。
-
