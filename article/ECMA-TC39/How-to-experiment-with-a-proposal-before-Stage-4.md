@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 如何在第 4 阶段之前试验提案的实现
+# 如何在第 4 阶段之前体验一个提案
 
 对于想要冒险并就提案向 TC39 给予反馈的 JavaScript 程序员而言，可以通过以下的多种方式进行尝试：
 
