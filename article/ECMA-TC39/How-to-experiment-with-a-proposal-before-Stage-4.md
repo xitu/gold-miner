@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-experiment-with-a-proposal-before-Stage-4.md](https://github.com/xitu/gold-miner/blob/master/article/ECMA-TC39/How-to-experiment-with-a-proposal-before-Stage-4.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[finalwhy](https://github.com/finalwhy)，[zaviertang](https://github.com/zaviertang)
 
 # 如何在第 4 阶段之前体验一个提案
 
