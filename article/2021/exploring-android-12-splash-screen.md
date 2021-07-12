@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md](https://github.com/xitu/gold-miner/blob/master/article/2021/exploring-android-12-splash-screen.md)
 > * 译者：[Kimhooo](https://github.com/Kimhooo)
-> * 校对者：
+> * 校对者：[samyu2000](https://github.com/samyu2000),[PassionPenguin](https://github.com/PassionPenguin)
 
 # 探索 ANDROID 12：启动画面
 
