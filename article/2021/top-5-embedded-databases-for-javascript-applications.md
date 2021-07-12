@@ -7,7 +7,7 @@
 
 # 用于 JavaScript 应用的前 5 大嵌入式数据库
 
-![Image by [Pexels](https://pixabay.com/users/pexels-2286921/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594)](https://cdn-images-1.medium.com/max/3840/1*pbWGFLeMU5gfUc7jSLvoPA.jpeg)
+![图源 [Pexels](https://pixabay.com/users/pexels-2286921/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594)，出自 [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594)](https://cdn-images-1.medium.com/max/3840/1*pbWGFLeMU5gfUc7jSLvoPA.jpeg)
 
 我们习惯性的认为数据库是一个大型的存储平台，把我们需要的所有数据都丢进去，然后再通过一些查询语言的形式获得。缩小数据库体积，保持信息的一致性以及容错性就是挑战本身。那么，当我们数据需求量非常少的时候会发生什么？
 
