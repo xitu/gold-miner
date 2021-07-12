@@ -2,7 +2,7 @@
 > * 原文作者：[Very Good Ventures Team](https://medium.com/@vgv_team)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # 我们是怎么做到的：Google I/O Photo Booth
