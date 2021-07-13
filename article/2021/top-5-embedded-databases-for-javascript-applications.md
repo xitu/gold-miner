@@ -105,7 +105,7 @@ Raima 的灵活性使你可以从传统的客户端-服务端模式转到最有�
 
 ## Apache Derby
 
-如果你在寻找另一个小型的，类似 SQL 的数据库，[Apache Derby](http://db.apache.org/derby/) 非常可能是你要的。
+如果你在寻找另一个小型的，类似 SQL 的数据库，[Apache Derby](http://db.apache.org/derby/) 很可能就是你想要的。
 
 Derby 完全是用 JAVA 写的，它声称只占用 3.5MB 内存，这可能有点不太贴合实际。毕竟，不在主系统安装 JVM，你无法运行或使用它。
 
