@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# 缓存踩踏事件如何导致 Facebook 最大的中断之一
+# 缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的
 
 ![由 [Susan Yin](https://unsplash.com/@syinq) 上传至 [Unsplash](https://unsplash.com)(https://unsplash.com)](https://cdn-images-1.medium.com/max/10368/0*FGGy038B4etUbHdm)
 
