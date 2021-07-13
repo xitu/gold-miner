@@ -7,15 +7,11 @@
 
 # 5 Reasons Why Flutter Is Better Than React Native
 
-#### Reasons to choose Flutter for your next cross-platform app, with findings from an in-depth study of both frameworks
-
 ![Photo by [Sandy Millar](https://unsplash.com/@sandym10?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/flutter?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/10368/1*CuHCh8SBH_AY43P5kb2VYg.jpeg)
 
 Nowadays, programmers have two competitive cross-platform application development choices: [Flutter](https://flutter.dev/) and [React Native](https://reactnative.dev/). We can use both frameworks to build cross-platform mobile apps and desktop apps. Both frameworks indeed look similar from the outside and in the available features. Hopefully, you have already read many comparisons and reviews about Flutter and React Native. Many developers think that Flutter won’t be widely used because it uses an unfamiliar programming language, [Dart](https://dart.dev/). A programming language is just an interface for developers to interact with the framework.
 
 How a particular framework solves the cross-platform development problem is more important than the popularity of a specific framework’s programming language. I did some quick research on the internal architecture of both Flutter and React Native. Also, I created several applications on various platforms using both frameworks. Finally, I found the following benefits if you develop your next awesome app with Flutter.
-
----
 
 ## Flutter Has a Near-Native Performance
 
@@ -24,8 +20,6 @@ Nowadays, performance is so underrated because of powerful devices. However, use
 A typical React Native app has two separate modules: native UI and JavaScript engine. React Native renders native platform-specific UI elements based on React state changes. On the other hand, it uses a JavaScript engine (it’s [Hermes](https://github.com/facebook/hermes) in most scenarios) to run the application’s JavaScript. Every JavaScript-to-native and native-to-JavaScript call goes through a JavaScript bridge, similar to Apache Cordova’s design. React Native silently bundles your application with a JavaScript engine at the end.
 
 Flutter apps don’t have any JavaScript runtimes, and Flutter uses binary messaging channels to build a bidirectional communication stream between Dart and native code. Flutter offers near-native performance for calling native code from Dart because of this binary messaging protocol and Dart’s ahead-of-time (AOT) compilation process. React Native apps may perform poorly when there are above-average native calls.
-
----
 
 ## Flutter Apps Have a Consistent UI
 
@@ -45,8 +39,6 @@ Flutter has a widget tree-based layout system. In other words, Flutter developer
 
 You can increase the feature development speed of your cross-platform app thanks to Flutter’s tree-based layout system. When the application layout becomes complex, programmers can group widgets into different sections by assigning them to different Dart variables.
 
----
-
 ## Flutter Officially Supports All Popular Platforms
 
 React Native officially supports only Android and iOS platforms. However, there are several forks of React Native that support desktop platforms. For example, Proton Native generates Qt and wxWidgets-based cross-platform desktop applications from React Native codebases. But Proton Native is not actively maintained now, and there is an active fork of it: Valence Native.
@@ -55,8 +47,6 @@ Also, Microsoft maintains two React Native forks: `[react-native-windows](https:
 
 Flutter officially supports Android, iOS, Linux, Windows, macOS, Fuchsia, and Web. All supported operating systems use the same rendering backend, [Skia](https://skia.org/). Flutter motivates all plugin developers to add implementations for all platforms by providing a high-performance Dart-to-Native binary communication mechanism and compromised documentation. Therefore, almost all popular Flutter plugins will work on all supported platforms.
 
----
-
 ## Your Flutter App Will Natively Run on Fuchsia
 
 Probably you already know that Google is developing a new operating system from scratch, Fuchsia. The microkernel-architecture-based Zircon kernel powers Fuchsia. According to [Wikipedia](https://en.wikipedia.org/wiki/Google_Fuchsia), Google’s idea is to make Fuchsia a universal operating system that supports almost all devices (including embedded devices such as digital watches and traffic light systems). Google is building Fuchsia from many learnings from all existing platforms. Therefore, there is a higher probability for Fuchsia to become successful in the operating systems market.
@@ -64,8 +54,6 @@ Probably you already know that Google is developing a new operating system from 
 Fuchsia is implementing the Starnix module to run Linux binaries inside Fuchsia. The Starnix module is still a very experimental module, according to its design [documentation](https://github.com/vsrinivas/fuchsia/tree/master/src/proc/bin/starnix#starnix). Apparently, they are trying to run Linux binaries by running the Linux kernel in a Docker-like container. Therefore, your React Native app won’t work on Fuchsia as a truly native app. If someone wishes to add a Fuchsia backend for React Native, someone needs to make another fork like `react-native-windows`.
 
 Flutter SDK may become the default GUI application development kit on Fuchsia. Therefore, your Flutter app will work natively on Fuchsia.
-
----
 
 ## Conclusion
 
