@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Rust 与 C 的速度
+# Rust 与 C 的速度比较
 
 用 Rust 编写的程序的运行时速度和内存使用量应该与用 C 编写的程序大致相同，不过由于这些语言的整体编程风格差异很大，我们实际上真的很难概括它们的速度。这就是我对于 Rust 和 C 运行速度究竟是相同，是 C 语言更快还是 Rust 更快的评价。
 
