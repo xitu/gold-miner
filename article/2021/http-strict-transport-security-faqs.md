@@ -19,7 +19,7 @@
 
 它是一个网站返回的响应体，它让浏览器知道，浏览器从现在开始只能尝使用 HTTPS 协议访问网站。
 
-在你的浏览器接收 HSTS 响应头之后，下一次你访问 [http://facebook.com](http://facebook.com)，你的浏览器不会真的发起这个请求，它会做一个”内部重定向“（ HTTP 307 ） 然后请求 [https://facebook.com](https://facebook.com) 来代替。
+在你的浏览器接收 HSTS 报头之后，下一次你访问 [http://facebook.com](http://facebook.com)，你的浏览器不会真的发起这个请求，它会做一个”内部重定向“（ HTTP 307 ） 然后请求 [https://facebook.com](https://facebook.com) 来代替。
 
 ![The browser knows to use HTTPS only, and redirects accordingly](https://cdn-images-1.medium.com/max/2000/1*T8VGnhGEkWqmVR6l0cQVdw.png)
 
@@ -29,7 +29,7 @@
 
 想象一下你在机场，一个黑客在他们的笔记本电脑，设置好一个公共的 Wi-Fi，然后虚拟一个假版本的 [http://facebook.com](http://facebook.com)。你就会访问 [http://facebook.com](http://facebook.com) ，这时，黑客就知道你的用户名和密码了。
 
-由于 HSTS，如果你已经访问过 [https://facebook.com](https://facebook.com)，你的浏览器已经接受了 HSTS 响应头，并知道从那时开始使用 HTTPS 协议。
+由于 HSTS，如果你已经访问过 [https://facebook.com](https://facebook.com)，你的浏览器已经接受了 HSTS 报头，并知道从那时开始使用 HTTPS 协议。
 
 但如果你还没有用 HTTPS 协议访问过呢？
 
@@ -37,13 +37,13 @@
 
 如果一个用户第一次在黑客的公共 Wi-Fi 访问 [http://facebook.com](http://facebook.com)，浏览器不知道重定向到 HTTPS，用户的账号就会被泄露。
 
-这就是预加载解决的问题。 Google 维护一个域名列表，强制放在 Chrome 及其他浏览器中。当你第一次用 HTTP 访问列表里面的其中一个域名，浏览器帮你重定向到 HTTPS 协议，即使你的浏览器还未接收到 HSTS 响应头。
+这就是预加载解决的问题。 Google 维护一个域名列表，强制放在 Chrome 及其他浏览器中。当你第一次用 HTTP 访问列表里面的其中一个域名，浏览器帮你重定向到 HTTPS 协议，即使你的浏览器还未接收到 HSTS 报头。
 
 这解决了前面提到的公共 Wi-Fi 的安全风险。
 
 ## 预加载要求
 
-有一些你可以阅读的预加载的[要求](https://hstspreload.org/) 。一个预加载合法的 HSTS 响应头例子像这样：
+有一些你可以阅读的预加载的[要求](https://hstspreload.org/) 。一个预加载合法的 HSTS 报头例子像这样：
 
 `Strict-Transport-Security:` max-age=63072000; includeSubDomains; preload
 
@@ -76,17 +76,17 @@ http://website1.com (HTTP) 在添加 www 子域名之前，应该立即重定向
 
 如果 Google 让你预加载 [http://website1.com](http://website1.com/) ，那么，所有子域将会内部重定向到 HTTPS 协议，这会导致 [http://sub.website1.com](http://sub.website1.com)，不能再访问，因为用户将会重定向到 [https://sub.website1.com](http://sub.website1.com)。
 
-Google 先强制你找到这些问题（在开启半永久预加载功能你的网站之前），通过强制你让你的用户重定向到 [https://website1.com](https://website1.com/) ，这样，当 HSTS 响应头返回时，浏览器就知道对顶级域名和所有子域名使用 HTTPS。
+Google 先强制你找到这些问题（在开启半永久预加载功能你的网站之前），通过强制你让你的用户重定向到 [https://website1.com](https://website1.com/) ，这样，当 HSTS 报头返回时，浏览器就知道对顶级域名和所有子域名使用 HTTPS。
 
 它的想法是你会找到 HTTP 子域名的问题，然后修复它们，在配置好预加载之前，因为它[一旦配置好就很难移除](https://bugs.chromium.org/p/chromium/issues/detail?id=527947) 。
 
-## 如果我从一个 HTTP 网站返回 HSTS 响应头？
+## 如果我从一个 HTTP 网站返回 HSTS 报头？
 
-如果一个 HTTP 的网站返回 HSTS 响应头，浏览器会忽略它。
+如果一个 HTTP 的网站返回 HSTS 报头，浏览器会忽略它。
 
 这是因为浏览器无法知道这个网站是否真实。你可能会在我们之前描述的恶意公共 Wi-Fi 上。
 
-黑客能注入或移除 HSTS 响应头，所以浏览器没必要去注意它。
+黑客能注入或移除 HSTS 报头，所以浏览器没必要去注意它。
 
 如果一个网站没有配置 HTTPS，浏览器也没有忽略 HTTP 上的 HSTS，那么，黑客就能通过 HTTP 上返回 HSTS 报头，给网站的用户制造问题。下一次用户在自己家里的 Wi-Fi 访问这个网站的时候，浏览器会用 HTTPS 访问一个专门设计为 HTTP 的网站，最终导致 404。
 
@@ -94,7 +94,7 @@ Google 先强制你找到这些问题（在开启半永久预加载功能你的�
 
 HSTS 是一个很棒的安全特性，不过，你真的需要考虑预加载的含义，以及，以后是否不得不移除它的风险，这很困难，和为了特殊情况，添加额外的安全层值不值得的问题。
 
-除非你经营一个知名度很高的网站，不然，你的其中一个用户第一次用公共 Wi-Fi去访问你网站，和刚好有个黑客提供该 Wi-Fi 的几率，非常小。
+除非你经营一个知名度很高的网站，不然，你的其中一个用户第一次用公共 Wi-Fi去访问你网站，并且刚好有个黑客提供该 Wi-Fi 的几率，非常小。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
