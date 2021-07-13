@@ -46,7 +46,7 @@ const title = "This is a test"
 const adapter = new JSONFileSync('file.json')
 const db = new LowSync(adapter)
 
-db.read()  //Load the content of the file into memory
+db.read()  //将 JSON 文件内容读取到内存中
 db.data ||= { posts: [] } //默认值
 
 db.data.posts.push({ title }) // 数据添加
