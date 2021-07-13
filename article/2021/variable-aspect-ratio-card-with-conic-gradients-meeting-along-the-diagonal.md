@@ -2,10 +2,10 @@
 > * 原文作者：[Ana Tudor](https://css-tricks.com/author/thebabydino/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Variable Aspect Ratio Card With Conic Gradients Meeting Along the Diagonal
+# 对角线分割的圆锥渐变式可变纵横比卡片
 
 I recently came across an interesting problem. I had to implement a grid of cards with a variable (user-set) aspect ratio that was stored in a `--ratio` custom property. Boxes with a certain aspect ratio are a classic problem in CSS and one that got easier to solve in recent years, especially since we got `[aspect-ratio](https://css-tricks.com/almanac/properties/a/aspect-ratio/)`, but the tricky part here was that each of the cards needed to have two conic gradients at opposite corners meeting along the diagonal. Something like this:
 
@@ -221,35 +221,35 @@ In the meantime, what we can do to get around this is remove the `box-sizing`, `
 
 [CodePen](https://codepen.io/thebabydino/pen/gOgqewy) for code and preview.
 
-### Rounded corners
+### 圆角
 
-Let’s say we also want our cards to have rounded corners. Since a directional `transform` like the `scaley` on the `::before` pseudo-element that creates our `background` *also distorts corner rounding*, it results that the simplest way to achieve this is to set a `border-radius` on the actual `.card` element and cut out everything outside that rounding with `overflow: hidden`.
+假设我们也希望我们的卡片有圆角。由于像 `::before` 伪元素上我们用 `scaley` 这样的定向的 `transform` 创建的 `background` *也会扭曲圆角*，因此实现这一点的最简单方法是设置一个 `border- radius` 在实际的 `.card` 元素上，并使用 `overflow: hidden` 切掉卡片之外的所有内容。
 
-![Screenshot. Shows an element that's not scaled at all on the left. This has a perfectly circular border-radius. In the right, there's a non-uniform scaled element - its border-radius is not perfectly circular anymore, but instead distorted by the scaling.](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/scaling_altering_corner_rad.png?resize=799%2C391&ssl=1)
+![屏幕截图：左图是一个有一个完美的圆形边界半径没有缩放的元素。右图有一个不均匀缩放的元素 —— 它的边界半径不再是完美的圆形，而是被缩放扭曲了。](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/scaling_altering_corner_rad.png?resize=799%2C391&ssl=1)
 
-<small>Non-uniform scaling distorts corner rounding. ([DEMO](https://codepen.io/thebabydino/pen/VJQMmJ))</small>
+<small>非均匀缩放会扭曲圆角。（[演示](https://codepen.io/thebabydino/pen/VJQMmJ)）</small>
 
-However, this becomes problematic if at some point we want some other descendant of our `.card` to be visible outside of it. So, what we’re going to do is set the `border-radius` directly on the `::before` pseudo that creates the card `background` and reverse the directional scaling `transform` along the y axis on the y component of this `border-radius`:
+但是，如果在某些时候我们希望我们的 `.card` 的其他子代在它之外可见，这就会成为问题。所以，我们要做的是直接在创建卡片背景的 `::before` 伪元素上设置 `border-radius`，并在这个 `border-radius` 上沿 y 轴反转方向缩放 `transform`：
 
 ```scss
 $r: .5rem;
 
 .card {
-    /* same as before */
+    /* 和之前一致 */
 
     &::before {
         border-radius: #{$r}/ calc(#{$r}*var(--ratio));
         transform: scaley(calc(1 / (var(--ratio))));
-        /* same as before */
+        /* 和之前一致 */
     }
 }
 ```
 
-[CodePen](https://codepen.io/thebabydino/pen/RwKdKMv) for code and preview.
+[CodePen](https://codepen.io/thebabydino/pen/RwKdKMv) 供代码参考与效果预览。
 
-## Final result
+## 最终效果
 
-Putting it all together, here’s an interactive demo that allows changing the aspect ratio by dragging a slider – every time the slider value changes, the `--ratio` variable is updated: [CodePen](https://codepen.io/thebabydino/pen/XWpyowX).
+把上面的代码合并起来，这是一个交互式演示，允许通过拖动滑块来更改纵横比 —— 每次滑块值更改时，`--ratio` 变量都会更新：[CodePen](https://codepen.io/thebabydino/pen/XWpyowX)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
