@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-5-embedded-databases-for-javascript-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-5-embedded-databases-for-javascript-applications.md)
 > * 译者：[没事儿](https://github.com/Tong-H/gold-miner)
-> * 校对者：
+> * 校对者：[finalwhy](https://github.com/finalwhy) [PassionPenguin](https://github.com/PassionPenguin)
 
 # 用于 JavaScript 应用的前 5 大嵌入式数据库
 
