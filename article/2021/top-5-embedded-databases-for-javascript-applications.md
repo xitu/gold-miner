@@ -83,7 +83,7 @@ LowDB 具有高度的扩展性并且兼容 TypeScript，后者为了数据存储
 
 数据库的存储架构是围绕于 Log-structured Merge Tree（LSM），这表示最优的使用方法是用于大型连续性而非小型随机的书写操作。
 
-LevelDB 主要的一个限制是，一旦存储开放它会锁定系统，这表示一次只有一个进程可以与其交互。当然，你可以在一个进程内部使用多线程同时操作。但这就是它的程度。
+LevelDB 主要的一个限制是，一旦启动，它就会获得一个系统级的锁，这意味着同一时间只能有一个进程可以与其交互。当然，你可以在一个进程内部使用多线程来并行化某些操作。但也仅限于此。
 
 有趣的是，LevelDB 被 [Chrome 的 IndexedDB](https://blog.openreplay.com/getting-started-with-indexeddb-for-big-data-storage) 作为后端数据库使用，显然 Minecraft Bedrock 版使用它作为某些块和实体数据存储（尽管它们使用的是 Google 实现的[轻微修改后的版本](https://minecraft.fandom.com/wiki/Bedrock_Edition_level_format)）。
 
