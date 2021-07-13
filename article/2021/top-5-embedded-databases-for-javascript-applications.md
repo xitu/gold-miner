@@ -9,7 +9,7 @@
 
 ![图源 [Pexels](https://pixabay.com/users/pexels-2286921/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594)，出自 [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1836594)](https://cdn-images-1.medium.com/max/3840/1*pbWGFLeMU5gfUc7jSLvoPA.jpeg)
 
-我们习惯性的认为数据库是一个大型的存储平台，把我们需要的所有数据都丢进去，然后再通过一些查询语言的形式获得。缩小数据库体积，保持信息的一致性以及容错性就是挑战本身。那么，当我们数据需求量非常少的时候会发生什么？
+我们习惯于将数据库视为一个大型的存储平台，我们把我们需要的所有数据都丢进去，然后再通过使用一些查询语言检索它们。扩展这些数据库，保持信息的一致性以及容错性本身就是一个挑战。那么，当我们数据需求量非常少的时候会发生什么？
 
 当 RedShift、BigQuery 甚至 MySQL 作为一种数据存储的方案用于小型数据需求时太重量型了怎么办？其实还有一类合适的应用。事实上，选项有很多，本文将覆盖适用于小型数据存储需求的前 5 个嵌入式数据库。
 
