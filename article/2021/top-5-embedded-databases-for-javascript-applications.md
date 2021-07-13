@@ -73,7 +73,7 @@ LowDB 具有高度的扩展性并且兼容 TypeScript，后者为了数据存储
 
 ## LevelDB
 
-[LevelDB](https://github.com/google/leveldb) 是由 Google 创建的一个键值对的开源数据库。它旨在成为一个超级快速，但非常受限于数据按键名排序的键值对存储。
+[LevelDB](https://github.com/google/leveldb) 是由 Google 创建的一个键值对的开源数据库。它是一种超快但非常有限的键值存储方案，其中的数据按键排序存储，开箱即用。
 
 它只有三种基础的操作： Put，Get 以及 Delete，少量简洁的 api 这与 LowDB 有点相似。
 
