@@ -89,7 +89,7 @@ LevelDB 主要的一个限制是，一旦启动，它就会获得一个系统级
 
 ## Raima Database Manager
 
-我有提到过 IoT，是吗？[Raima](https://raima.com/) 是最快的数据库管理者之一，对运行于资源受限的 IoT 设备而做了特别优化。
+我有提到过物联网（IoT）不是吗？[Raima](https://raima.com/) 是最快的数据库管理器之一，并且对于在系统资源受限的 IoT 设备上运行做了特别优化。
 
 我说的资源受限的环境指的是什么？Raima 运行只需要 RAM 350kb，这样我可以最简化资源使用。
 
