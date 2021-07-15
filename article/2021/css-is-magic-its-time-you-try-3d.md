@@ -33,7 +33,7 @@ To visualize how `translate` works along the Z-axis, imagine your div moving tow
 
 How is that possible? An website is viewed like a page of a book right? How can anything possibly come out of the screen towards you (or, go away from you)?
 
-Your `div` obviously does not come out in real, it gives you a feeling that it does. Let’s check side by side how altering `translate` values look along different axes —
+Your `div` obviously does not come out in real, it gives you a feeling that it does. Let’s check side by side how altering `translate` values look along different axes:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lNQdNBsRYNzWduwKFCdR5w.gif)
 
@@ -53,7 +53,7 @@ Let’s add the following CSS to the parent element of the three boxes —
 
 ![](https://cdn-images-1.medium.com/max/2724/1*ijVRelbthN6Ivuf5xDs7Iw.png)
 
-And, **voila** —
+And, **voila:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Go0arpobwsP4NtVYPRH4A.gif)
 
@@ -67,7 +67,7 @@ As the name suggests, `rotate` works by rotating the element along one of the th
 
 ### The Cube
 
-Let us finally start with the cube sides! We will have four faces — bottom, front, back and left —
+Let us finally start with the cube sides! We will have four faces — bottom, front, back and left:
 
 ![](https://cdn-images-1.medium.com/max/2388/1*q69vRRksjkM4M2xY0Meycg.png)
 
@@ -77,7 +77,7 @@ I have added some CSS to the main wrapper of the cube as well.
 
 Note that I have added `transform-style: preserve-3d;` to the container. This is a crucial step for rendering 3D children. The size of each face is `200px`in width and height and we need to keep this value in mind as we will have to add `translate` values with respect to the dimensions of the sides.
 
-For our cube, each face is going to be an absolute division and I have added text indicating which face it is. I have added `opacity: 0.5` for each face so that the overlap is clear —
+For our cube, each face is going to be an absolute division and I have added text indicating which face it is. I have added `opacity: 0.5` for each face so that the overlap is clear:
 
 ![](https://cdn-images-1.medium.com/max/2236/1*iygD8k6WIHvobgQKUAc9Ww.png)
 
@@ -89,7 +89,7 @@ Well, this is how it looks. 🙁
 
 So how can we make this 3D-**ish**? Our knowledge of `perspective` comes handy here.
 
-Adding this CSS to our outer —
+Adding this CSS to our outer:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pB8EdPyeKJywcoUVkdNszw.png)
 
@@ -101,13 +101,13 @@ Also, let us make our back-face go backwards. Hence, we will add the opposite of
 
 ![](https://cdn-images-1.medium.com/max/2608/1*q6x7s9gLwwVf3WtIMaQYvg.png)
 
-Are you able to visualize the front face coming towards you and the back face (yellow one) going away? If it is still not visual enough, let us try rotating the cube wrapper a bit -
+Are you able to visualize the front face coming towards you and the back face (yellow one) going away? If it is still not visual enough, let us try rotating the cube wrapper a bit:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jaSlx71f9SunHXIOxGdthg.gif)
 
 Amazing isn’t it?
 
-Next up, we need to fix the bottom face 💁‍♀️. To put the bottom face in place, we are going to rotate it by **90-degrees** along the X-axis —
+Next up, we need to fix the bottom face 💁‍♀️. To put the bottom face in place, we are going to rotate it by **90-degrees** along the X-axis:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*icrwzzydWhtOKhj85QnO1A.gif)
 
@@ -115,31 +115,31 @@ We have to move its position as well so that it sits just between the front and 
 
 **Step — 1: Aligning the bottom face with the front face**
 
-**CSS—**
+**CSS:**
 
 ![Aligning the bottom face with front face](https://cdn-images-1.medium.com/max/2000/1*CBL0oCueX-bgBbVRJXC0dA.png)
 
-**Result —**
+**Result:**
 
 ![Aligning the bottom face with front face](https://cdn-images-1.medium.com/max/2000/1*xLD_mS8WsK3nzScd6tbwKw.gif)
 
 **Step — 2: Rotating bottom face by 90 degrees**
 
-**CSS—**
+**CSS:**
 
 ![Combining both rotate and translate for bottom face](https://cdn-images-1.medium.com/max/2152/1*LVmwdMV9BtJEZYP9u37pmw.png)
 
-**Result —**
+**Result:**
 
 ![Combining both rotate and translate for bottom face](https://cdn-images-1.medium.com/max/2000/1*qsGQ7VjZngLZm9SoU8LuxA.gif)
 
 The bottom face is now safe and sound in its place. But the left face is kinda stuck in the middle. 🙍‍♀️ First, we need to move it to the side and then rotate it. Let’s move it by **-100px** on the X axis and then rotate it on the Y axis.
 
-**CSS**—
+**CSS:**
 
 ![](https://cdn-images-1.medium.com/max/2180/1*5RJvq7AM6mGD5zVVGoXM7w.png)
 
-**Result** —
+**Result:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WnnTtpzcd691KA2qO0b16w.gif)
 
@@ -147,7 +147,7 @@ And **voila**! Our **almost cub**e is almost done. I would suggest you to play a
 
 Now, last but not the least, lets rotate our cube 😍
 
-**CSS**—
+**CSS:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VhF0Ltn-I8vLPhTc6xaj9A.png)
 
@@ -155,7 +155,7 @@ Adding the above animation to our `box-wrapper` —
 
 ![](https://cdn-images-1.medium.com/max/2336/1*RbHF6_VStIc1nYnx5g_pog.png)
 
-And the result 🤜🤛 —
+And the result 🤜🤛:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OZ9tJyqDlJZ5NZhuRT1-wA.gif)
 
