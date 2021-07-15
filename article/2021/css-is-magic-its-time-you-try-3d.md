@@ -19,13 +19,13 @@ Like this one 🙀 —
 But wait, two of the cube’s sides are missing!!!
 I did that deliberately so that it would be easier to understand and visualize. I will add a link to the complete code for getting the above result at the end of the article!
 
-#### First Things First — How does Translate Work?
+### First Things First — How does Translate Work?
 
 The `translate` method basically moves an HTML element from its actual position without messing with any other sibling/parent element on the layout tree. To summarize, the `translateX` method moves the element left and right, whereas the `translateY` method moves it up and down.
 
 ![How translate works in X and Y axis](https://cdn-images-1.medium.com/max/3688/1*cq8Q9DGLScj3v038DnxjhQ.png)
 
-#### But What the Heck is the Z Axis?
+### But What the Heck is the Z Axis?
 
 To visualize how `translate` works along the Z-axis, imagine your div moving towards and away from you instead of top-bottom or left-right in the screen —
 
@@ -41,7 +41,7 @@ I don’t know about you, but the green box does not look like coming towards or
 
 How do we solve this? We need to change our **perspective** a bit. 😉
 
-#### The CSS perspective property
+### The CSS perspective property
 
 You will not be able to visually detect changes in Z-axis without setting the right `perspective` value.
 
@@ -57,7 +57,7 @@ And, **voila** —
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Go0arpobwsP4NtVYPRH4A.gif)
 
-#### The Rotate Method
+### The Rotate Method
 
 As the name suggests, `rotate` works by rotating the element along one of the three axes, given a degree. However, we will need a little visualization on how rotate works along different axes.
 
@@ -65,7 +65,7 @@ As the name suggests, `rotate` works by rotating the element along one of the th
 
 ![Rotation in different axes with perspective](https://cdn-images-1.medium.com/max/2000/1*nu1bM-wUxugvSsDj2H1ZSg.gif)
 
-#### The Cube
+### The Cube
 
 Let us finally start with the cube sides! We will have four faces — bottom, front, back and left —
 
@@ -161,9 +161,7 @@ And the result 🤜🤛 —
 
 Refer to [this repository](https://github.com/ankita1010/css-cube) for a working code of the same and play around because **CSS 3D** is a pool of magic. 💫
 
-**Please note — I have tweaked the perspective value and added animations to achieve final position of the side to illustrate the changes with more clarity. Also, I had rotated the**` box-wrapper `**a little so that the changes are most visible from the right angle.**
-
-Thank you so much for reaching the end of the article. Follow me on [twitter](https://twitter.com/agile_bored) to be in touch. 🤝
+> **Please note** — I have tweaked the perspective value and added animations to achieve final position of the side to illustrate the changes with more clarity. Also, I had rotated the `box-wrapper` a little so that the changes are most visible from the right angle.
 
 Cheers!
 
