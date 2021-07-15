@@ -7,7 +7,7 @@
 
 # HTTP Strict Transport Security （HTTP严格传输安全协议）常见问题解答
 
-![Photo by [Alessandro Sacchi](https://unsplash.com/@alle_sacchi) on [Unsplash](https://unsplash.com/photos/NUFnfYd09iI)](https://cdn-images-1.medium.com/max/2000/0*aQF5O9qqSppIwcdn)
+![图片由 [Alessandro Sacchi](https://unsplash.com/@alle_sacchi) 上传至 [Unsplash](https://unsplash.com/photos/NUFnfYd09iI)](https://cdn-images-1.medium.com/max/2000/0*aQF5O9qqSppIwcdn)
 
 本文是在我学习 HSTS 的时候，我提出的一些问题以及对应的回答。
 
