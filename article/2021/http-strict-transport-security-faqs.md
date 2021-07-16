@@ -2,99 +2,101 @@
 > * 原文作者：[David Klempfner](https://medium.com/@davidklempfner)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/http-strict-transport-security-faqs.md](https://github.com/xitu/gold-miner/blob/master/article/2021/http-strict-transport-security-faqs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
+> * 校对者：[PassionPenguin](https://github.com/PassionPenguin)，[Chorer](https://github.com/Chorer)，(zenblofe)[https://github.com/zenblofe]
 
-# HTTP Strict Transport Security FAQs
+# HTTP Strict Transport Security （HTTP严格传输安全协议）常见问题解答
 
-![Photo by [Alessandro Sacchi](https://unsplash.com/@alle_sacchi) on [Unsplash](https://unsplash.com/photos/NUFnfYd09iI)](https://cdn-images-1.medium.com/max/2000/0*aQF5O9qqSppIwcdn)
+![图片由 [Alessandro Sacchi](https://unsplash.com/@alle_sacchi) 上传至 [Unsplash](https://unsplash.com/photos/NUFnfYd09iI)](https://cdn-images-1.medium.com/max/2000/0*aQF5O9qqSppIwcdn)
 
-Here are some questions I came up with while learning HSTS, and the corresponding answers.
+本文是在我学习 HSTS 的时候，我提出的一些问题以及对应的回答。
 
-## What is HSTS?
+## 什么是 HSTS？
 
-The Strict-Transport-Security header looks like this:
+严格传输安全的响应头头部字段看起来像这样子：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HJgfR4q-W27fCIb-SigmYw.png)
 
-It is returned in the response from a website, to let the browser know that it should only attempt to access the website using HTTPS from now on.
+它是从网站的响应中返回的字段，它告诉浏览器，浏览器从现在开始只能使用 HTTPS 协议访问网站。
 
-After your browser receives the HSTS header, the next time you go to [http://facebook.com,](http://facebook.com,) your browser won’t actually make the request, it’ll do an “internal redirect” (HTTP 307) and request [https://facebook.com](https://facebook.com) instead.
+在你的浏览器接收 HSTS 报头之后，下一次你访问 [http://facebook.com](http://facebook.com)，你的浏览器不会真的发起这个请求，它会做一个”内部重定向“（ HTTP 307 ） 然后请求 [https://facebook.com](https://facebook.com) 来代替。
 
 ![The browser knows to use HTTPS only, and redirects accordingly](https://cdn-images-1.medium.com/max/2000/1*T8VGnhGEkWqmVR6l0cQVdw.png)
 
-This is the same effect as if you had typed [https://facebook.com](https://facebook.com) in your browser’s address bar.
+如果你在浏览器地址栏输入 [https://facebook.com](https://facebook.com)，也是同样的效果。 
 
-## What’s the point of HSTS?
+## HSTS 的作用是什么呢？
 
-Imagine you’re at the airport, a hacker has set up a public Wi-Fi from their laptop and is hosting a fake version of [http://facebook.com](http://facebook.com). You go to [http://facebook.com](http://facebook.com) and the hacker gets your username/password.
+想象一下你在机场，一个黑客在他们的笔记本电脑中设置好一个公共的 Wi-Fi，然后虚拟一个假版本的 [http://facebook.com](http://facebook.com)。你就会访问 [http://facebook.com](http://facebook.com) ，这时，黑客就知道你的用户名和密码了。
 
-Thanks to HSTS, if you have already visited [https://facebook.com,](https://facebook.com,) your browser would already have received the HSTS header, and knows to use the HTTPS version from then on.
+由于 HSTS，如果你已经访问过 [https://facebook.com](https://facebook.com)，那么你的浏览器就已经接受了 HSTS 报头，并从那时开始知道使用 HTTPS 协议。
 
-But what if you haven’t already visited the HTTPS version?
+但如果你还没有用 HTTPS 协议访问过呢？
 
-## Preload
+## 预加载
 
-If a user visits [http://facebook.com](http://facebook.com) for the very first time on the hacker’s public Wi-Fi, the browser doesn’t know to redirect to HTTPS and the user’s account is compromised.
+如果一个用户第一次在黑客的公共 Wi-Fi 访问 [http://facebook.com](http://facebook.com)，浏览器不知道重定向到 HTTPS，用户的账号就会被泄露。
 
-This is where [preload](https://hstspreload.org/) comes to the rescue. Google maintains a list of domains that are hardcoded into Chrome and other browsers. When you go to one of these domains for the first time using HTTP, the browser will redirect you to the HTTPS version, even though your browser hasn’t yet received the HSTS header.
+这就是预加载解决的问题。Google 维护了一个强编码进 Chrome 和其它浏览器中的域名列表。当你第一次用 HTTP 访问列表里面的其中一个域名，即使你的浏览器还未接收到 HSTS 报头，浏览器也会帮你重定向到 HTTPS 协议。
 
-This solves the security risk mentioned earlier with the public Wi-Fi.
+这解决了前面提到的公共 Wi-Fi 的安全风险。
 
-## Preload requirements
+## 预加载要求
 
-There are [requirements](https://hstspreload.org/) for preload which you can read about. An example of a valid HSTS header for preload looks like this:
+有一些你可以了解的预加载的[要求](https://hstspreload.org/)。一个合法的预加载 HSTS 报头的例子是这样的：
 
+```http request
 `Strict-Transport-Security:` max-age=63072000; includeSubDomains; preload
-
-One interesting thing to note is that you can only register the domain name, ie. no subdomains.
-
-## Why can’t I register subdomains?
-
-The HSTS preload list is shipped in binary to billions of browser clients around the world, which places a high premium on controlling the size of this list.
-
-In order to keep this list as small as possible, and to ensure that each entry on the list provides the broadest value to users, the policy for the HSTS preload list is to preload TLDs and registrable domains, commonly referred to as eTLD + 1 (where eTLDs are determined by the [public suffix list](https://publicsuffix.org/) and the +1 means that plus one additional label).
-
-Preloading subdomains would still allow for other subdomains (or the registrable domain itself) to be preloaded in the future, which should instead be handled by preloading the registrable domain with `includeSubDomains` conferring HTTPS enforcement for domains beneath it.
-
-## Error: HTTP redirects to www first
-
-I found this error when checking the eligibility for my website:
-
-```
-Error: HTTP redirects to www first
-
-http://website1.com (HTTP) should immediately redirect to https://website1.com (HTTPS) before adding the www subdomain.
-
-Right now, the first redirect is to https://www.website1.com/.
-The extra redirect is required to ensure that any browser which supports HSTS will record the HSTS entry for the top level domain, not just the subdomain.
 ```
 
-Why can’t [http://website1.com](http://website1.com) just redirect to [https://website1.com](http://website1.com) using preload, regardless of the fact that it currently redirects to [https://www.website1.com](https://www.website1.com/)?
+一个有趣的需要注意的事情是，你只能注册域名。我的意思是，你不能注册子域名。
 
-To answer this, think about what would happen if you had another subdomain, [http://sub.website1.com,](http://sub.website1.com,) that only ran using HTTP.
+## 为什么我不能注册子域名?
 
-If Google let you preload [http://website1.com](http://website1.com/), then all subdomains would be internally redirected to the HTTPS version, which would cause [http://sub.website1.com](http://sub.website1.com,) to no longer work, since users would be redirected to [https://sub.website1.com](http://sub.website1.com,).
+HSTS 预加载列表是以二进制形式发送到全球数十亿客户的浏览器中，因此，需要高度重视限制 HSTS 预加载列表的大小。
 
-Google forces you to find these problems yourself first (before the semi-permanent preload feature is switched on for your site), by forcing you to have your users redirected to [https://website1.com](https://website1.com/), so that when the HSTS header is returned, the browser knows to use HTTPS for the top level, and all subdomains.
+为了保持列表尽可能地的小，保证列表上的每个条目为用户提供最广泛的价值，HSTS 预加载列表的策略是预加载 TLDs （top-level domains）和注册域名，通常被称为 eTLD + 1（eTLDs 是由[公共后缀列表](https://publicsuffix.org/) 确定的，+1 意味着附加额外的标签）。
 
-The idea is that you’ll find issues with HTTP subdomains, and fix them, before getting preload set up, which is [hard to remove once in place](https://bugs.chromium.org/p/chromium/issues/detail?id=527947).
+预加载子域名仍然允许其他子域名（或注册域名本身）在未来被预加载，它应该通过预加载可注册域名，以及 `includeSubDomains` 授予 HTTPS 强制执行其下面的域名等进行处理。
 
-## What happens if I return the HSTS header from an HTTP website?
+## 错误：HTTP 先重定向到 www
 
-Browsers will ignore the HSTS header if returned from a website using HTTP.
+我在检查我的网站的资质时，发现了这个错误：
 
-This is because the browser has no way of knowing if the website is real or not. You could be on a malicious public Wi-Fi like we described earlier.
+```
+错误：HTTP 先重定向到 www
 
-The hacker could inject or remove the HSTS header, so there’s no point in the browser paying any attention to it.
+http://website1.com (HTTP) 在添加 www 子域名之前，应该立即重定向到 https://website1.com (HTTPS)。
 
-If a website did not have HTTPS set up, and browsers didn’t ignore HSTS over HTTP, then the hacker could cause issues for the website’s users, by returning the HSTS header over HTTP. The next time the users went to the website on their home Wi-Fi, the browser would use HTTPS for a site designed only for HTTP, which would result in 404 Not Found.
+现在，第一次重定向是到 https://www.website1.com/。
+额外的重定向需要确保任何支持 HSTS 的浏览器进入顶级域名，会记录 HSTS，不仅仅是子域名。
+```
 
-## Summary
+为什么 [http://website1.com](http://website1.com) 不能用预加载直接重定向到 [https://website1.com](http://website1.com)，无论事实如何，它现在重定向到 [https://www.website1.com](https://www.website1.com/) ？
 
-HSTS is a great security feature, however you really need to think about the implications of preload, and whether the risk of possibly having to remove it later, which is difficult, is worth the reward of that extra layer of security for such a niche situation.
+回答这个之前，想一想如果你有另一个只用 HTTP 运行的子域名会发生什么 [http://sub.website1.com](http://sub.website1.com)。
 
-Unless you run a high profile website, the chance that one of your users will access your website for the first time on a public Wi-Fi, AND that there would be a hacker running that Wi-Fi, is very slim.
+如果 Google 让你预加载 [http://website1.com](http://website1.com/)，那么，所有子域将会内部重定向到 HTTPS 协议，这会导致 [http://sub.website1.com](http://sub.website1.com)，不能再访问，因为用户将会重定向到 [https://sub.website1.com](http://sub.website1.com)。
+
+Google 先强制你找到这些问题（在开启半永久预加载功能你的网站之前），通过强制你让你的用户重定向到 [https://website1.com](https://website1.com/)。这样，当 HSTS 报头返回时，浏览器就知道要对顶级域名和所有子域名使用 HTTPS。
+
+它的想法是你会找到 HTTP 子域名的问题，然后修复它们，在配置好预加载之前，因为它[一旦配置好就很难移除](https://bugs.chromium.org/p/chromium/issues/detail?id=527947)。
+
+## 如果我从一个 HTTP 网站返回 HSTS 报头？
+
+如果一个 HTTP 的网站返回 HSTS 报头，浏览器会忽略它。
+
+这是因为浏览器无法知道这个网站是否真实。你可能会在我们之前描述的恶意公共 Wi-Fi 上。
+
+黑客能注入或移除 HSTS 报头，所以浏览器没必要去注意它。
+
+如果一个网站没有配置 HTTPS，浏览器也没有忽略 HTTP 上的 HSTS，那么，黑客就能通过 HTTP 上返回 HSTS 报头，给网站的用户制造问题。下一次用户在自己家里的 Wi-Fi 访问这个网站的时候，浏览器会用 HTTPS 访问一个专门设计为 HTTP 的网站，最终导致 404。
+
+## 总结
+
+HSTS 是一个很棒的安全特性，不过，你真的需要考虑预加载的含义，也需要考虑以后是否需要移除它的风险。移除你的域名是很困难的，你需要考虑为了特殊情况添加额外的安全层究竟值不值得。
+
+除非你经营一个知名度很高的网站，不然，你的其中一个用户第一次用公共 Wi-Fi 去访问你网站，并且刚好这个 Wi-Fi 被一个黑客所运行的几率实在是太小了。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
