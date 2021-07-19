@@ -13,13 +13,9 @@ Cache is almost inevitable when you're building APIs for a system that requires 
 
 > Having some idea about cache and CDN would be helpful to understand this article. If you’re completely unware, I request you to read just a bit, and then come back here.
 
----
-
 ## A bit of Background
 
 At the time of writing this article, I work with [Glance](https://www.glance.com/) which is the world’s largest lock screen-based content discovery platform, and we have around 140 Million active users at this point. So you can imagine the scale at which our services have to run, and at this scale, even the simplest thing becomes super complex. And as backend developers, we are always striving to build highly optimized APIs to provide a good experience to our users. The story starts from here, how we faced a certain problem and then went about solving it. I hope you will be able to learn a thing or two about System Design at scale after reading this article.
-
----
 
 ## Problem
 
@@ -77,8 +73,6 @@ Also, there are generally two kinds of CDNs conceptually
 
 We are going to use Pull CDN since with the push approach I have to take care of retry, idempotency, and other stuff, which is an additional headache for me and doesn’t really add any value for this use case.
 
----
-
 ## CDN as Read-through Cache
 
 The idea is simple, we put the CDN as the caching layer between users and the actual backend services.
@@ -121,8 +115,6 @@ Let’s dig a bit deeper into this since this is the crux of the design
 
 Not necessarily you have to keep the TTL to 180 seconds only. Choose the TTL based on how long you can serve stale data and be okay with it. And if this raises the question why can’t you invalidate the cache on data change, then wait I will answer that shortly in the downsides section.
 
----
-
 ## Implementation
 
 Till now I have mostly talked about the design and didn’t really go into the actual implementation. The reason being the design is pretty simple to be implemented in any setup. For us, our CDN was on Google cloud, and the Kubernetes cluster where the backend services run, is on Azure, so we made the setup according to our need. You might choose to do it on Cloudflare CDN for example, hence not going into implementation and keeping it abstract. But just for the curious minds, this how our production setup looks like.
@@ -149,8 +141,6 @@ Ok, we are approaching the end now, and any design is incomplete with pros and c
 1. **Cache Invalidation:** Cache invalidation is one of the hardest things to get right, in computer science, and with the CDN becoming the cache it’s even harder. Any impromptu cache invalidation on CDN is an expensive process and generally does not happens in real-time. In case your data changes, since we can’t invalidate the cache on CDN, your clients might get stale data for some bit of time. But that again depends on the TTL you set, if your TTL is in hours, then you can invoke cache invalidation on CDN too. But if the TTL is in seconds/ minutes it would be problematic. Also, keep in mind that not all CDN providers expose API to invalidate the CDN cache.
 2. **Less control:** Since the requests do not land up on our servers now, there would be this feeling that as a developer you don’t have enough control over the system ( or maybe I am just a control freak 😈 ). And observability might take a slight hit, you can always set up logging and monitoring on the CDN but that generally comes with a cost.
 
----
-
 ## A few words of wisdom
 
 Any design in a Distributed World is slightly subjective and always has some tradeoffs. It’s our duty as developers/ architects to weigh in the tradeoffs and choose the design that works for us. Having said that no design is concrete enough to continue forever, so given the constraints, we have chosen a certain design, and depending on how it works for us we might evolve it further as well.
@@ -158,10 +148,6 @@ Any design in a Distributed World is slightly subjective and always has some tra
 ---
 
 Thanks for reading!
-
-> **I am Aritra Das, I am a Developer, and I really enjoy building complex Distributed Systems. Feel free to reach out to me on [Linkedin](https://www.linkedin.com/in/dev-aritra/) or [Twitter](https://twitter.com/aritra__das) for anything related to tech.**
->
-> **Happy learning…**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
