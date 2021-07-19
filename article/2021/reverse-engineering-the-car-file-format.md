@@ -770,7 +770,7 @@ struct renditionFlags {
     uint32_t isTintable:1; 
     uint32_t preservedVectorRepresentation:1; 
     uint32_t reserved:20; 
-} attribute((packed));
+} __attribute__((packed));
 ```
 
 * The `width` and `height` describe the size in pixels of the images. If the asset has no width or height, these values are set to 0.
@@ -829,7 +829,7 @@ struct csimetadata {
     uint16_t layout; 
     uint16_t zero; 
     char name[128]; 
-} attribute((packed)); 
+} __attribute__((packed)); 
 ```
 
 The `layout` field is particularly interesting as it identifies the kind of data stored: image, data, texture, color, ... For images a subtype is stored in the layout:
@@ -882,7 +882,7 @@ struct csibitmaplist {
     uint32_t unknown; 
     uint32_t zero; 
     uint32_t renditionLength; 
-} attribute((packed));
+} __attribute__((packed));
 ```
 
 Using the structure described above, we can create a custom grammar in Synalyze It! Pro to quickly understand the structure:
