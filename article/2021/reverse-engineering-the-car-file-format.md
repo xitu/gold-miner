@@ -20,7 +20,7 @@ In this article I attempt to remedy this lack of information on the car file for
 
 Note that the documentation in this article and the `CARParser` tool are purely meant for educational purpose. You shouldn’t have to directly deal with car files as done here. There are several tools (including my own that I plan to open source at some point) that can dump the content of a car file. But these tools simply use some private APIs from Apple and don’t directly parse the files. Also as always with reverse engineering, there is no guarantee that the data is fully accurate. At the time of publishing, this article should reflect the state in macOS Mojave and iOS 12. It might however become obsolete with future macOS or iOS releases.
 
-# What are Asset Catalogs?
+## What are Asset Catalogs?
 
 Asset Catalogs have been introduced in Xcode 5 and make it easier to manage images especially when dealing with multiple resolutions (@1x, @2x, @3x, …). In Xcode, an asset catalog appears as a .xcassets folder and [its use is well described by Apple](https://help.apple.com/xcode/mac/current/#/dev10510b1f7). The .xcassets format on disk is also well described by Apple in the [Asset Catalog Format Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/index.html).
 
@@ -36,7 +36,7 @@ This asset catalog has its deployment target set to iOS 12 and contains:
 
 ![](DemoAsset.png)
 
-# What is a car file?
+## What is a car file?
 
 When a developer builds an iOS, watchOS, tvOS or macOS app, the asset catalogs containing the various assets (images, icons, textures, …) are not simply copied to the app bundle but they are compiled as car files.
 
@@ -199,7 +199,7 @@ Running `assetutil -I Assets.car` will print some interesting information about 
 
 ```
 
-# A special bom file
+## A special bom file
 
 Opening a car file in [HexFiend](http://ridiculousfish.com/hexfiend/) reveals some useful information:
 
@@ -254,7 +254,7 @@ as well as several databases stored as bom ‘trees’:
 
 Some of the blocks and trees are optionals. In this article I only describe the important blocks: `CARHEADER`, `EXTENDED_METADATA`, `KEYFORMAT` as well as the important trees: `FACETKEYS`, `RENDITIONS` and `APPEARANCEKEYS`. The other blocks and trees are generally absent or empty.
 
-# Parsing the BOM
+## Parsing the BOM
 
 On macOS, the private CoreUI.framework takes care of extracting the assets and thus contains code to parse the BOM. It turns out that it uses the same code as the private Bom.framework located in /System/Library/PrivateFrameworks/Bom.framework. I decided to parse the BOM using this private framework.
 
@@ -381,7 +381,7 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 
 Now that we can access to the content of the BOM, let’s look at the different blocks and trees.
 
-# CARHEADER block
+## CARHEADER block
 
 The `CARHEADER` block contains information about the number of assets in the file as well as versioning information. It has a fixed size of 436 bytes. Accessing the data can be done using the previously explained `GetDataFromBomBlock()`:
 
@@ -438,7 +438,7 @@ CARHEADER:
 
 ```
 
-# EXTENDED_METADATA block
+## EXTENDED_METADATA block
 
 The `EXTENDED_METADATA` block has a fixed size of 1028 bytes and contains a couple of extra information:
 
@@ -468,7 +468,7 @@ EXTENDED_METADATA:
 
 ```
 
-# APPEARANCEKEYS tree
+## APPEARANCEKEYS tree
 
 Before we look at the more complex trees, let’s start with the `APPEARANCEKEYS` tree. This tree is used to support the new Dark Mode in macOS Mojave. Since there is no Dark Mode in iOS, you won’t see a `APPEARANCEKEYS` tree for car files for iOS applications - at least not in iOS 12 and earlier.
 
@@ -500,7 +500,7 @@ Tree APPEARANCEKEYS
 
 ```
 
-# FACETKEYS tree
+## FACETKEYS tree
 
 The `FACETKEYS` tree contains the facet name - which is a synonym for asset name - for the keys and its attributes for the values. For example for the key `MyColor` in the demo asset, we can see the value:
 
@@ -633,7 +633,7 @@ Tree FACETKEYS
 
 ```
 
-# KEYFORMAT block and the rendition keys of the RENDITION tree
+## KEYFORMAT block and the rendition keys of the RENDITION tree
 
 As we will see soon, the `RENDITION` tree stores the pairs (rendition keys, rendition data). A rendition key looks like this:
 
@@ -735,7 +735,7 @@ Now that we have the list of attributes from the `KEYFORMAT` block, we can decod
 
 As we can see, this rendition key corresponds to the facet with the identifier `FE06` and a `scale` of @1x. Using the `FACETKEYS` tree, we can see that this rendition key corresponds to the asset `MyPDF`.
 
-# RENDITION tree
+## RENDITION tree
 
 The `RENDITION` tree is a complex structure containing the data of the assets. The keys are the rendition keys that we already analyzed while the values are the asset data prefixed by some headers.
 
@@ -757,7 +757,7 @@ Here is a screenshot made using Synalyze It! Pro to visualize the 3 parts:
 
 ![](RenditionData.png)
 
-## csiheader
+### csiheader
 
 As already mentioned, the rendition value starts with a fixed length header (184 bytes) containing various information about the asset:
 
@@ -879,7 +879,7 @@ Using the structure described above, we can create a custom grammar in Synalyze 
 
 ![](RenditionText.png)
 
-## TVL
+### TVL
 
 Following the `csibitmaplist` at the end of the `csiheader`, there is a list of TLV (Type-length-value). In the case of the text file, the TLV data is:
 
@@ -954,7 +954,7 @@ tlv:
 
 ```
 
-## The different types of renditions
+### The different types of renditions
 
 The rendition data can be seen after these complex structures. It contains a header specific to the type of the rendition followed by the actual data either compressed or uncompressed. The length is set in the `renditionLength` field of the `csibitmaplist` structure.
 
@@ -999,7 +999,7 @@ The `pixelFormat` and `layout` fields of the `csiheader` header are used to know
 * CUIThemeColorRendition: pixelFormat is 0 and layout to kRenditionLayoutType_Color
 * CUIThemePixelRendition: pixelFormat is set to ‘ARGB’, ‘GA8 ‘, ‘RGB5’, ‘RGBW’ or ‘GA16’ while the layout is set to an image subtype.
 
-## CUIRawDataRendition
+### CUIRawDataRendition
 
 Let’s start with the `CUIRawDataRendition` rendition type which is used by the text file. As we have seen, the structure is simple:
 
@@ -1036,7 +1036,7 @@ if(csiHeader->pixelFormat == 'DATA')
 
 ```
 
-## CUIRawPixelRendition
+### CUIRawPixelRendition
 
 The structure used by CUIRawPixelRendition to store `JPEG` and `HEIF` is identical to the CUIRawDataRendition structure:
 
@@ -1076,7 +1076,7 @@ By running this code in Xcode, we can see the recovered image with QuickLook:
 
 ![](CUIRawPixelRendition.png)
 
-## CUIThemeColorRendition
+### CUIThemeColorRendition
 
 The CUIThemeColorRendition rendition is used to store named colors and contains:
 
@@ -1129,7 +1129,7 @@ By running this code in Xcode, we can see the recovered `CGColorRef` with QuickL
 
 ![](RenditionColor.png)
 
-## CUIThemePixelRendition
+### CUIThemePixelRendition
 
 The CUIThemePixelRendition is slightly more complex and is used for example for the PNG images. As with the other types of renditions, the CUIThemePixelRendition has a specific header:
 
@@ -1167,7 +1167,7 @@ Here is how a png rendition looks like in Synalyze It! Pro. Note in red the raw 
 
 ![](CUIThemePixelRendition.png)
 
-# Conclusion
+## Conclusion
 
 The car files can stored a lot of different types of assets which makes this file format fairly complex. In this article, I described the most important structures and how to dump them. A similar approach could be used to analyze and understand the other structures.
 
@@ -1546,42 +1546,10 @@ Tree 'BITMAPKEYS'
 Tree 'ELEMENT_INFO'
 
 Tree 'PART_INFO'
-
 ```
 
-  
-\*\*Update 12.11.2018:\*\*
 
 You can find my QuickLook plugin to visualize .car files in a new article here: [QuickLook plugin to visualize .car files (compiled Asset Catalogs)](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
-
-Tags: [asset](/tags/asset/), [asset catalogs](/tags/asset-catalogs/), [car](/tags/car/), [file format](/tags/file-format/), [UIImage](/tags/uiimage/), [rendition](/tags/rendition/), [BOM](/tags/bom/), [Bom.framework](/tags/bom.framework/), [Dark Mode](/tags/dark-mode/)
-
-Categories: [iOS](/categories/ios/), [macOS](/categories/macos/), [Programming](/categories/programming/), [Debugging](/categories/debugging/), [Reverse Engineering](/categories/reverse-engineering/)
-
-  
-
-If you enjoyed reading this article, make sure to check out my iOS and macOS apps!  
-For questions or feedback, feel free to reach me out on Twitter [@timacfr](https://twitter.com/timacfr).
-
- [![Dependencies](https://blog.timac.org/Dependencies.png)](https://apps.apple.com/app/dependencies/id1538972026) 
-
-[Dependencies for macOS](https://apps.apple.com/app/dependencies/id1538972026) lets you explore the architecture of your app with an interactive graph and objectively measure its complexity.
-
-[Clatters for iOS](https://apps.apple.com/app/clatters/id1480930237) lets you easily monitor in one place your brand, product or any other keyword on your favorite social networks - Twitter, Reddit, HackerNews and even comments on the iOS App Store.
-
- [![Clatters](https://blog.timac.org/Clatters.png)](https://apps.apple.com/app/clatters/id1480930237) 
-
-[Timac](https://blog.timac.org/ "Timac")
-
-[Clatters for iOS](https://clatters.app)
-
-[Dependencies for macOS](https://dependencies.app)
-
-## [Privacy & Disclaimer](https://blog.timac.org/privacy/ "Privacy & Disclaimer")
-
-  
-
-hljs.initHighlightingOnLoad();
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
