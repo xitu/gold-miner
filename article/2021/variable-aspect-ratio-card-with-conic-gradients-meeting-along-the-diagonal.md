@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)、[Usualminds](https://github.com/Usualminds)
 
-# 对角线分割的圆锥渐变式可变纵横比卡片
+# 对角线分割的圆锥渐变式可变长宽比卡片
 
-我最近遇到了一个有趣的问题 —— 我需要实现一个具有可变纵横比（由用户决定）的卡片，纵横比值是 `--ratio` 自定义属性。具有特定纵横比的卡片是 CSS 中的一个经典问题，也是近年来解决起来容易不少的问题，尤其是在因为我们有了 [`aspect-ratio`](https://css-tricks.com/almanac/properties/a/aspect-ratio/) 之后，但这里棘手的部分是每张卡片都需要在沿对角线相交的对角处要有两个圆锥渐变，如图：
+我最近遇到了一个有趣的问题 —— 我需要实现一个具有可变纵横比（由用户决定）的卡片，且纵横比值定义在了 `--ratio` 这个自定义属性中。具有特定纵横比的卡片是 CSS 中的一个经典问题，也是近年来变得容易解决的问题，尤其是有了 [`aspect-ratio`](https://css-tricks.com/almanac/properties/a/aspect-ratio/) 之后，但这里棘手的部分是我们需要在每张卡片沿对角线交点处分别添加一个圆锥渐变，如图：
 
 ![一个 3 x 3 的正方形卡片网格，带有由圆锥渐变制成的彩色背景。渐变看起来像从卡片的对角延伸的条纹。每张卡片都以精美的字体展示 Hello Gorgeous 的名言。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/var_cards.png?resize=799%2C571&ssl=1)
 
 <small>用户设置的纵横比卡片。</small>
 
-这里的挑战是，沿着可变纵横比框的对角线改变 `linear-gradient` 比较容易，例如使用像“向左上角”这样的方向随纵横比变化，但 `conic-gradient()` 这个需要一个角度或一个百分比来表示它绕了一整圈走了多远的渐变并不好构建。
+这里的挑战是，用 `linear-gradient()` 对沿着可变纵横比框的对角线做唐突的改变，比较容易，例如使用像“向左上角”这样的方向随纵横比变化，但 `conic-gradient()` 需要一个角度或一个百分比来表示它绕了一整圈走了多远的渐变并不好构建。
 
 > 查看 [本指南](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients) 以了解圆锥渐变的工作原理。
 
 ## 简单的解决方案
 
-CSS 规范现在包括了 [三角函数和反三角函数](https://drafts.csswg.org/css-values-4/#trig-funcs)，它*可以*在这里帮助我们 —— 对角线与垂直线的角度是纵横比`atan(var(--ratio))` 的反正切（矩形的左边缘和上边缘与对角线形成直角三角形，其中对角线与垂直线形成的角度的切线是宽度超过高度 —— 正是我们的纵横比）。
+CSS 规范现在包括了 [三角函数和反三角函数](https://drafts.csswg.org/css-values-4/#trig-funcs)，它*可以*在这里帮助我们 —— 对角线与垂直线的角度是纵横比 `atan(var(--ratio))` 的反正切（矩形的左边缘和上边缘与对角线形成直角三角形，其中对角线与垂直线形成的角度的切线是宽度超过高度 —— 正是我们的纵横比）。
 
 ![插图：显示一个宽度为 w 和高度为 h 的矩形，从左下角到右上角绘制一条对角线。这条对角线是直角三角形的斜边，直角三角形的斜边是矩形的左边缘和上边缘。在这个直角三角形中，斜边（原始矩形的对角线）与垂直（原始矩形的左边缘）之间的夹角的切线是左边缘 (h) 上方的上边缘 (w)。](https://css-tricks.com/wp-content/uploads/2021/04/ang_diag.svg)
 
@@ -44,7 +44,7 @@ background:
 
 ## JavaScript 解决方案
 
-我们当然可以使用 JavaScript 根据 `--ratio` 值计算 `--angle`。
+我们当然可以使用 JavaScript 中的 `--ratio` 值来计算 `--angle`。
 
 ```javascript
 let angle = Math.atan(1 / ratio.split('/').map(c => +c.trim()).reduce((a, c) => c / a, 1));
@@ -55,9 +55,9 @@ document.body.style.setProperty('--angle', `${+(180 * angle / Math.PI).toFixed(2
 
 ## hacky CSS 解决方案
 
-这是我从 SVG 渐变的特殊性中得到的一个想法，老实说，当我 [第一次看到这个问题](https://css-tricks.com/state-css-reflections/#the-svg-gradient-problem) 时，我发现它非常令人沮丧.
+这是我从 SVG 渐变的特殊性中得到的一个想法，老实说，当我[第一次看到这个问题](https://css-tricks.com/state-css-reflections/#the-svg-gradient-problem) 时，我发现它非常令人沮丧.
 
-假设我们有一个从底部到顶部的 “50%” 的渐变（因为在 CSS 中，这是一个角度为 “0°” 的渐变）。现在假设我们在 SVG 中有相同的渐变，我们将两个渐变的角度更改为相同的值。
+假设我们有一个从底部到顶部的 `50%` 的渐变（因为在 CSS 中，这是一个角度为 `0°` 的渐变）。现在假设我们在 SVG 中有相同的渐变，我们将两个渐变的角度更改为相同的值。
 
 在 CSS 中，这是：
 
@@ -74,7 +74,7 @@ linear-gradient(45deg, var(--stop-list));
 </linearGradient>
 ```
 
-如下所示，这两个不会给我们相同的结果。虽然 CSS 渐变实际上是在 `45°`，旋转了相同 `45°` 的 SVG 渐变沿着对角线在橙色和红色之间有明显的过渡，即使我们的盒子不是方形的，所以对角线不是在`45°`！
+如下所示，这两个不会给我们相同的结果。虽然 CSS 渐变实际上是在 `45°`，旋转了相同 `45°` 的 SVG 渐变沿着对角线在橙色和红色之间有明显的过渡，即使我们的盒子不是方形的，所以对角线不是在 `45°`！
 
 ![屏幕截图：显示 CSS 渐变为 45°（左）的矩形与从下到上 SVG 渐变旋转 45°（右）的矩形。该角度可通过底部的滑块进行调节。CSS 渐变实际上是 45°，但 SVG 渐变的线垂直于矩形的对角线。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/css_vs_svg_grad.png?resize=999%2C556&ssl=1)
 
@@ -82,11 +82,11 @@ linear-gradient(45deg, var(--stop-list));
 
 这是因为我们的 SVG 渐变被绘制在一个 `1x1` 方形框内，旋转了 `45°`，这使得沿着方形对角线从橙色突然变为红色。然后这个正方形被拉伸以适应矩形，这基本上改变了对角线的角度。
 
-> 请注意，只有当我们不将 `linearGradient` 的 `gradientUnits` 属性从其默认值 `objectBoundingBox` 更改为 `userSpaceOnUse` 时，才会发生这种 SVG 渐变失真。
+> 请注意，只有当我们不会将 `linearGradient` 的 `gradientUnits` 属性从其默认值 `objectBoundingBox` 更改为 `userSpaceOnUse` 时，才会发生 SVG 渐变失真。
 
 ### 基本思路
 
-我们不能在这里使用 SVG，因为它只有线性和径向渐变，而没有圆锥渐变。但是，我们可以将 CSS 圆锥渐变放在一个方形框中，并使用 “45°” 角使它们沿对角线相交：
+我们不能在这里使用 SVG，因为它只有线性和径向渐变，而没有圆锥渐变。但是，我们可以将 CSS 圆锥渐变放在一个方形框中，并使用 `45°` 角使它们沿对角线相交：
 
 ```css
 aspect-ratio: 1/ 1;
@@ -172,7 +172,7 @@ body {
 
 <small>缺少 `padding` 会导致问题。</small>
 
-这应该不会太难修复，对吧？我们只是添加了一个‘padding’，对吧？好吧，当我们这样做时，我们发现布局中断了！
+这应该不会太难修复，对吧？我们只是添加了一个 `padding`，对吧？好吧，当我们这样做时，我们发现布局失效了！
 
 ![GIF：显示开发工具网格覆盖突出显示，虽然背景（使用缩放的伪创建）仍然具有所需的纵横比，但网格单元和其中的实际卡片更高。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/padding_issue.gif?resize=800%2C324&ssl=1)
 
