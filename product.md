@@ -1,3 +1,4 @@
+* [Github Actions 是如何渲染超大日志的](https://juejin.cn/post/6966082485226569759)（[felixliao](https://github.com/felixliao) 翻译）
 * [算法不是产品](https://juejin.im/post/5e398e806fb9a07cb52bb462)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [利用 84 种认知偏见设计更好的产品 —— 第三部分](https://juejin.im/post/5d568c9ce51d453bc64801cd)（[JalanJiang](https://github.com/JalanJiang) 翻译）
 * [想帮助用户做决定？你的 APP 可以这样设计！](https://juejin.im/post/5a7194986fb9a01c9f5bbbb2)（[pthtc](https://github.com/pthtc) 翻译）

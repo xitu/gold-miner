@@ -1,120 +1,120 @@
 > * 原文地址：[Speed of Rust vs. C](https://kornel.ski/rust-c-speed)
-> * 原文作者：kornelski
+> * 原文作者：[kornelski](https://twitter.com/kornelski)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/speed-of-rust-vs-c.md](https://github.com/xitu/gold-miner/blob/master/article/2021/speed-of-rust-vs-c.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[Z招锦](https://github.com/zenblofe)
 
-# Speed of Rust vs. C
+# Rust 与 C 的速度比较
 
-The run-time speed and memory usage of programs written in Rust should about the same as of programs written in C, but overall programming style of these languages is different enough that it's hard to generalize their speed. This is a summary of where they're the same, where C is faster, and where Rust is faster.
+Rust 程序的运行速度和内存使用量应该与 C 程序大致相同，不过由于这些语言的整体编程风格差异很大，我们很难准确地概括它们的速度。这就是我对于 Rust 和 C 运行速度的总结：有时它们相同，有时 C 语言更快，有时 Rust 更快。
 
-Disclaimer: It's not meant to be an objective benchmark uncovering indisputable truths about these languages. There's a significant difference between what these languages can achieve in theory, and how they're used in practice. This particular comparison is based on my own subjective experience that includes having deadlines, writing bugs, and being lazy. I've been using Rust as my main language for over 4 years, and C for a decade before that. I'm specifically comparing to just C here, as a comparison with C++ would have many more "ifs" and "buts" that I don't want to get into.
+免责声明：这并不意味着成为揭示这些语言无可争辩的真相的客观基准。这些语言在理论上可以实现的目标与它们在实践中的使用方式之间存在显着差异。这个对比基于我自己的主观经验，包括有时间上的匆忙、编写错误和我自己的惰性。Rust 作为我的主要编程语言的时间已经长达 4 年多了，而在此之前的十年里，我一直在使用着 C 语言。我在这里专门将 Rust 与 C 进行比较，因为如果改成其与 C++ 比较，会有更多我不想涉及的细节。
 
-In short:
+简而言之：
 
-- Rust's abstractions are a double-edged sword. They can hide suboptimal code, but also make it easier to make algorithmic improvements and take advantage of highly optimized libraries.
-- I'm never worried that I'm going to hit a performance dead-end with Rust. There's always the `unsafe` escape hatch that allows very low-level optimizations (and it's not needed often).
-- Fearless concurrency is real. The occasional awkwardness of the borrow checker pays off in making parallel programming *practical*.
+- Rust 的抽象是一把双刃剑。它们可以隐藏次优代码，但也可以更轻松地进行算法改进，也能更好利用经过高度优化的库。
+- 我从不担心我会在 Rust 中遇到性能死局。总是有一些 `unsafe` 的应急出口，允许我们进行一些非常低级的优化（当然，并不经常需要进行低级优化）。
+- 不需要担心并发这一件事是真实的。偶尔跳出来的让我们感觉笨拙的检查器让我们在并行编程方面更加有效。
 
-My overall feeling is that if I could spend infinite time and effort, my C programs would be as fast or faster than Rust, because theoretically there's nothing that C can't do that Rust can. But in practice C has fewer abstractions, primitive standard library, dreadful dependency situation, and I just don't have the time to reinvent the wheel, optimally, every time.
+我的总体感觉是，如果我可以花费无限的时间和精力，我的 C 程序将可以与 Rust 一样快或更快。因为从理论上讲，没有什么是 C 无法做到而 Rust 可以做到的。但在实践中，C 的抽象较少，标准库原始，依赖情况可怕，而且我也没有时间每次都重新造轮子。
 
-## Both are "portable assemblers"
+## 两者都是“便携式汇编器”
 
-Both Rust and C give control over the layout of data structures, integer sizes, stack vs heap memory allocation, pointer indirections, and generally translate to understandable machine code with little "magic" inserted by the compiler. Rust even admits that bytes have 8 bits and signed integers can overflow!
+Rust 和 C 都可以控制数据结构的布局、整数大小、栈与堆的内存分配、指针间接引用，并且通常能转换为可理解的机器代码，而编译器很少插入奇怪的东西。Rust 甚至允许 8 位字节长度的有符号整数报可能溢出的错误！
 
-Even though Rust has higher-level constructs such as iterators, traits and smart pointers, they're designed to predictably optimize to straightforward machine code (AKA "zero-cost abstractions"). Memory layout of Rust's types is simple, e.g. growable strings and vectors are exactly `{byte*, capacity, length}`. Rust doesn't have any concept like move or copy constructors, so passing of objects is guaranteed to be no more complicated than passing a pointer or `memcpy`.
+尽管 Rust 具有更高级别的构造，比如说迭代器、特征和智能指针，但它们都旨在可预测地优化为简单的机器代码（也被称为“零成本抽象”）。Rust 类型的内存布局很简单，例如可增长的字符串和矢量正好是 `{byte*, capacity, length}`。Rust 没有任何类似移动或复制构造函数的概念，因此它能保证对象的传递不会比传递指针或 `memcpy` 复杂。
 
-Borrow-checking is only a compile-time static analysis. It doesn't *do* anything, and lifetime information is even completely stripped out before code generation. There's no autoboxing or anything clever like that.
+借用检查只会在编译时进行一次静态分析。它不会**做任何事情**，甚至在代码生成之前就完全去除了生命周期信息。它不会自动打包，也不会干其他所谓聪明的事。
 
-One case where Rust falls short of being "dumb" code generator is [unwinding](https://github.com/rust-lang/project-ffi-unwind). While Rust doesn't use exceptions for normal error handling, a panic (unhandled fatal error) may optionally behave like a C++ exception. It can be disabled at compilation time (panic = abort), but even then Rust doesn't like to be mixed with C++ exceptions or `longjmp`.
+Rust 不符合“愚蠢”代码生成器判定的一种情况是 [展开 unwinding](https://github.com/rust-lang/project-ffi-unwind)。虽然 Rust 不使用 exception 进行正常的错误处理，但 panic（未处理的致命错误）可能表现得像 C++ 的 exception。这可以在编译时被禁用（panic = abort），但即便如此，Rust 也不会与 C++ exception 或 `longjmp` 混淆在一起。
 
-## Same old LLVM back-end
+## 相同的旧 LLVM 后端
 
-Rust has a good integration with LLVM, so it supports Link-Time Optimization, including ThinLTO and even inlining across C/C++/Rust language boundaries. There's profile-guided optimization, too. Even though `rustc` generates more verbose LLVM IR than `clang`, the optimizer can still deal with it pretty well.
+Rust 很好的集成了 LLVM，因此 Rust 支持链接时优化，包括 ThinLTO，甚至跨 C/C++/Rust 语言边界内联，还有配置文件引导的优化。即使 `rustc` 会生成比 `clang` 更冗长的 LLVM IR，优化器仍然可以很好地处理它。
 
-Some of my C code is a bit faster when compiled with GCC than LLVM, and there's no Rust front-end for [GCC yet](https://github.com/Rust-GCC/gccrs), so Rust misses out on that.
+我的一些 C 代码在用 GCC 编译时比用 LLVM 快一点，但 [GCC](https://github.com/Rust-GCC/gccrs) 还没有针对 Rust 的前端，不得不说 Rust 错过了 GCC。
 
-In theory, Rust allows even better optimizations than C thanks to stricter immutability and aliasing rules, but in practice this doesn't happen yet. Optimizations beyond what C does are a work-in-progress in LLVM, so Rust still hasn't reached its full potential.
+理论上，由于更严格的不变性和别名规则，Rust 能有比 C 更好的优化，但实际上并没有实现。超出 C 语言以外的优化是 LLVM 中正在进行的工作，因此 Rust 仍未发挥其全部潜力。
 
-## Both allow hand-tuning, with minor exceptions
+## 两者都允许手动调整，只有少数例外
 
-Rust code is low-level and predictable enough that I can hand-tune what assembly it will optimize to. Rust supports SIMD intrinsics, has good control over inlining, calling conventions, etc. Rust is similar enough to C that C profilers usually work with Rust out of the box (e.g. I can use Xcode's Instruments on a program that's a Rust-C-Swift sandwich).
+Rust 代码是低级和可预测的，我可以手动调整它将优化到的程序集。Rust 支持 SIMD 内置函数，对内联、调用约定等有很好的控制。Rust 与 C 非常相似，以至于 C 分析器通常对 Rust 而言是开箱即用（例如，我可以在一个 Rust-C-Swift 互联互通的程序上使用 Xcode 的 Instruments）。
 
-In general, where the performance is absolutely critical and needs to be hand-optimized to the last bit, optimizing Rust isn't much different from C.
+一般来说，在性能绝对关键并且需要手动优化到极致的地方，优化 Rust 与 C 没有太大区别。
 
-There are some low-level features that Rust doesn't have a proper replacement for:
+有一些低层功能 Rust 没有适当的替代品：
 
-- *computed* goto. "Boring" uses of `goto` can be replaced with other constructs in Rust, like `loop {break}`. In C many uses of `goto` are for cleanup, which Rust doesn't need thanks to RAII/destructors. However, there's a non-standard `goto *addr` extension that's very useful for interpreters. Rust can't do it directly (you can write a `match` and *hope* it'll optimize), but OTOH if I needed an interpreter, I'd try to leverage [Cranelift JIT](https://lib.rs/crates/cranelift) instead.
-- `alloca` and C99 variable-length arrays. These are [controversial](https://www.phoronix.com/scan.php?page=news_item&px=Linux-Kills-The-VLA) even in C, so Rust stays away from them.
+- **计算的** `goto`： `goto` 的“无聊”用法可以用 Rust 中的其他构造替换，例如 `loop {break}`。在 C 中，goto 的许多用途是为了清理。但由于 Rust 的 RAII/destructors，Rust 不需要这些。不过有一个非标准的 `goto *addr` 扩展名，对解释器非常有用。Rust 不能直接做到这一点（你可以写一个 `match` 并**希望**它会优化），但如果我需要一个解释器，我会尝试利用 [Cranelift JIT](https://lib.rs/crates/cranelift) 代替。
+- `alloca` 和 C99 的变长数组：即使在 C 中，这些也是 [有争议的](https://www.phoronix.com/scan.php?page=news_item&px=Linux-Kills-The-VLA)，所以 Rust 远离了这两特性。
 
-It's worth noting that Rust currently supports only one 16-bit architecture. The [tier 1 support](https://forge.rust-lang.org/platform-support.html) is focused on 32-bit and 64-bit platforms.
+值得注意的是，Rust 目前仅支持一种 16 位架构。Rust 的 [一级支持](https://forge.rust-lang.org/platform-support.html) 专注于 32 位和 64 位平台。
 
-## Small overheads of Rust
+## Rust 的小开销
 
-However, where Rust isn't hand-tuned, some inefficiencies can creep in:
+然而，在 Rust 非手动调整的地方，一些低效率的事件可能会蔓延：
 
-- Rust's lack of implicit type conversion and indexing only with `usize` nudges users to use just this type, even where smaller types would suffice. That's in contrast with C where a 32-bit `int` is the popular choice. Indexing by `usize` is easier to optimize on 64-bit platforms without relying on undefined behavior, but the extra bits may put more pressure on registers and memory.
-
-
-- Idiomatic Rust always passes pointer *and size* for strings and slices. It wasn't until I ported a couple codebases from C to Rust, that I realized just how many C functions only take a pointer to memory, without a size, and hope for the best (the size is either known indirectly from the context, or just assumed to be large enough for the task).
+- Rust 缺乏隐式类型转换，并且索引只使用 `usize` 会使用户只使用这种类型，即使是较小的类型也够用。这与 C 形成了对比，其中 32 位 `int` 是通常选择。在不依赖未定义行为的情况下，通过 `usize` 索引更容易在 64 位平台上进行优化，但额外的位可能会给寄存器和内存带来更大的消耗。
 
 
-- Not all bounds checks are optimized out. `for item in arr` or `arr.iter().for_each(…)` are as efficient as they can be, but if the form `for i in 0..len {arr[i]}` is needed, then performance depends on the LLVM optimizer being able to prove the length matches. Sometimes it can't, and the bound checks inhibit autovectorization. Of course, there are various workarounds for this, both safe and unsafe.
+- 一般来说 Rust 总会为字符串和切片传递指针**和它们的大小**。直到我将几个代码库从 C 移植到 Rust，我才意识到有多少 C 函数只使用指向内存的指针而没有大小并且期望（大小可以从上下文间接知道，或者只是假设对于任务来说足够大）。
 
-- "Clever" memory use is frowned upon in Rust. In C, anything goes. For example, in C I'd be tempted to reuse a buffer allocated for one purpose for another purpose later (a technique known as HEARTBLEED). It's convenient to have fixed-size buffers for variable-size data (e.g. `PATH_MAX`) to avoid (re)allocation of growing buffers. Idiomatic Rust still gives a lot control over memory allocation, and can do basics like memory pools, combining multiple allocations into one, preallocating space, etc., but in general it steers users towards "boring" use or memory.
 
-- In cases where borrow checking rules make things hard, the easy way out is to do extra copying or use reference counting. Over time I've learned a bunch of borrow-checker tricks, and adjusted my coding style to be borrow-checker friendly, so this doesn't come up often any more. This never becomes a *major* problem, because if necessary, there's always a fallback to "raw" pointers.
+- 并不是所有的边界检查都被优化了。`for item in arr` 或 `arr.iter().for_each(...)` 是尽可能高效的。但如果我们需要 `for i in 0..len {arr[i]}` 形式的循环，则性能取决于 LLVM 优化器是否能够证明长度匹配。有时它不能，并且边界检查会禁止自动矢量化。当然，对此有多种变通方法，包括安全的和不安全的。
 
-    Rust's borrow checker is [infamous for hating doubly-linked lists](https://rust-unofficial.github.io/too-many-lists/), but luckily it happens that linked lists are slow on 21st-century hardware anyway (poor cache locality, no vectorization). Rust's standard library has linked lists, as well as faster and borrow-checker-friendly containers to choose from.
+- 在 Rust 中不提倡“聪明”的内存使用。在 C 中，任何事情都会发生。例如，在 C 中，我很倾向于重用为其它目的分配的缓冲区（一种称为 HEARTBLEED 的技术）。为可变大小的数据（例如 `PATH_MAX`）使用固定大小的缓冲区以避免因为缓冲区的增长导致的（重新）分配是很方便的。但一般而言 Rust 仍然可以对内存分配进行很多控制，并且可以执行诸如内存池、将多个分配合而为一、预分配空间等基础操作。但总的来说，它会将用户引向去“无聊”地使用或内存。
 
-    There are two more cases that the borrow checker can't tolerate: memory-mapped files (magical changes from outside of the process violate immutable^exclusive semantics of references) and self-referential structs (passing of the struct by value would make its inner pointers dangle). These cases are solved either with raw pointers that are as safe as every pointer in C, or mental gymnastics to make safe abstractions around them.
+- 在借用检查规则使事情变得困难的情况下，简单的方法是进行额外的复制或使用引用计数。随着时间的推移，我学会了一堆借用检查器的技巧，并将我的编码风格调整为对借用检查器友好，所以这不再经常出现。这永远不会成为**主要**问题，因为如果有必要，总会有一个兼容可以回退到“原始”指针。
 
-- To Rust, single-threaded programs just don't exist as a concept. Rust allows individual data structures to be non-thread-safe for performance, but anything that is allowed to be shared between threads (including global variables) has to be synchronized or marked as `unsafe`.
-- I keep forgetting that Rust's strings support some cheap in-place operations, such as `make_ascii_lowercase()` (a direct equivalent of what I'd do in C), and unnecessarily use Unicode-aware, copying `.to_lowercase()`. Speaking of strings, the UTF-8 encoding is not as big of a problem as it may seem, because strings have `.as_bytes()` view, so they can be processed in Unicode-ignorant way if needed.
-- libc bends over backwards to make `stdout` and `putc` reasonably fast. Rust's libstd has less magic, so I/O isn't buffered unless wrapped in a `BufWriter`. I've seen people complain that their Rust is slower than Python, and it was because Rust spent 99% of the time flushing the result byte by byte, exactly as told.
+  Rust 的借用检查器 [因讨厌双向链表而臭名昭著](https://rust-unofficial.github.io/too-many-lists/)，但幸运的是，无论如何，链表在 21 世纪的硬件上都是很慢的（缓存局部性差，没有矢量化）。Rust 的标准库有链表以及可供选择的更快且对借用检查器友好的容器。
 
-## Executable sizes
+  还有两种情况是借用检查器不能容忍的：内存映射文件（来自进程外部的神奇更改违反了引用的不可变^独占语义）和自引用结构（按值传递结构会使它的内部指针悬垂）。这些情况要么使用与 C 中的每个指针一样安全的原始指针来解决，要么使用头脑风暴来围绕它们进行安全抽象。
 
-Every operating system ships some built-in standard C library that is ~30MB of code that C executables get for "free", e.g. a small "Hello World" C executable can't actually print anything, it only calls the `printf` shipped with the OS. Rust can't count on OSes having *Rust's* standard library built-in, so Rust executables bundle their own standard library (300KB or more). Fortunately, it's a one-time overhead and [can be reduced](https://github.com/johnthagen/min-sized-rust). For embedded development, the standard library can be turned off and Rust will generate "bare" code.
+- 对 Rust 来说，单线程程序只是不存在的概念。Rust 允许单个数据结构对于性能来说是非线程安全的，但是任何允许在线程之间共享的东西（包括全局变量）都必须同步或标记为 `unsafe`。
+- 我总会忘记 Rust 的字符串支持一些低成本的直接操作，例如 `make_ascii_lowercase()`（与我在 C 中所做的直接等效），并且不必要地使用基于 Unicode 的复制操作来实现 `.to_lowercase()`。说到字符串，UTF-8 编码的问题并不像看起来那么大，因为字符串有 `.as_bytes()` 视图。所以如果需要，它们可以以 Unicode 无关的方式处理。
+- libc 向后兼容以使 `stdout` 和 `putc` 相当快。Rust 的 libstd 没有那么神奇，所以 I/O 不会被缓冲，除非被包裹在一个 `BufWriter` 中。我见过有人抱怨他们的 Rust 比 Python 慢，这是因为 Rust 花费了 99% 的时间逐字节刷新结果，正如所说的那样。
 
-On per-function basis Rust code is about the same size as C, but there's a problem of "generics bloat". Generic functions get optimized versions for each type they're used with, so it's possible to end up with 8 versions of the same function. [`cargo-bloat`](https://lib.rs/cargo-bloat) helps finding these.
+## 可执行文件大小
 
-It's super easy to use dependencies in Rust. Similarly to JS/npm, there's a culture of making small single-purpose libraries, but they do add up. Eventually all my executables end up containing Unicode normalization tables, 7 different random number generators, and an HTTP/2 client with Brotli support. `cargo-tree` is useful for deduping and culling them.
+每个操作系统都附带一些内置的标准 C 库。这些库让 C 可执行文件“免费”获得的大约 30MB 的代码，例如一个小的 “Hello World” C 可执行文件实际上不能打印任何东西，它只能调用操作系统附带的 `printf` 接口。Rust 不能指望操作系统内置了 **Rust** 的标准库，因此 Rust 可执行文件捆绑了自己的标准库（300KB 或更大尺寸）。幸运的是，这是一次性开销并且[可以减少](https://github.com/johnthagen/min-sized-rust)。对于嵌入式开发，我们可以关闭标准库，而 Rust 将会生成“裸”代码。
 
-## Small wins for Rust
+在单个函数的角度来说，Rust 代码的大小与 C 大致相同，但存在“泛型膨胀”的问题。泛型函数会针对它们所使用的每种类型获得优化版本，因此最终可能会有 8 个版本的相同函数。 使用 [`cargo-bloat`](https://lib.rs/cargo-bloat) 有助于帮助我们找到这些函数。
 
-I've talked a lot about overheads, but Rust also has places where it ends up more efficient and faster:
+在 Rust 中使用依赖项非常容易。与 JS/npm 类似，Rust 有一种制作小型单一用途库的文化，但确实综合考虑衡量过。最终，我所有的可执行文件都包含了一张 Unicode 规范化表、7 个不同的随机数生成器和一个支持 Brotli 的 HTTP/2 客户端。我们可使用 `cargo-tree` 以去重。
 
-- C libraries typically return opaque pointers to their data structures, to hide implementation details and ensure there's only one copy of each instance of the struct. This costs heap allocations and pointer indirections. Rust's built-in privacy, single-ownership rules, and coding conventions let libraries expose their objects without indirection, so that callers can decide whether to put them on the heap or on the stack. Objects on the stack can can be optimized very aggressively, and even optimized out entirely.
-- Rust by default can inline functions from the standard library, dependencies, and other compilation units. In C I'm sometimes reluctant to split files or use libraries, because it affects inlining and requires micromanagement of headers and symbol visibility.
-- Struct fields are reordered to minimize padding. Compiling C with `Wpadding` shows how often I forget about this detail.
-- Strings have their size encoded in their "fat" pointer. This makes length checks fast, eliminates risk of [accidental O(n²)](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) string loops, and allows making substrings in-place (e.g. splitting a string into tokens) without modifying memory or copying to add the `\0` terminator.
-- Like C++ templates, Rust generates copies of generic code for each type they're used with, so functions like `sort()` and containers like hash tables are always optimized for their type. In C I have to choose between hacks with macros or less efficient functions that work on `void*` and run-time variable sizes.
-- Rust iterators can be combined into chains that get optimized together as one unit. So instead of a series of calls `buy(it); use(it); break(it); change(it); mail(upgrade(it));` that may end up rewriting the same buffer many times, I can call `it.buy().use().break().change().upgrade().mail()` that compiles to one `buy_use_break_change_mail_upgrade(it)` optimized to do all of that in a single combined pass. `(0..1000).map(|x| x*2).sum()` compiles to `return 999000`.
-- Similarly, there are `Read` and `Write` interfaces that allow functions to stream unbuffered data. They combine nicely, so I can write data to a stream that calculates CRC of the data on the fly, adds framing/escaping if needed, compresses it, and writes it to the network, all in one call. And I can pass such combined stream as an output stream to my HTML templating engine, so now each HTML tag will be smart enough to send itself compressed. The underlying mechanism is just a pyramid of plain `next_stream.write(bytes)` calls, so technically nothing stops me from doing the same in C, except the lack of traits and generics in C means it's very hard to actually do that in practice, other than with callbacks set up at run time, which isn't as efficient.
-- In C it's perfectly rational to overuse linear search and linked lists, because who's going to maintain yet another half-assed implementation of hash table? There are no built-in containers, dependencies are a pain, so I cut corners to get stuff done. Unless absolutely necessary, I won't bother to write a sophisticated implementation of a B-tree. I'll use `qsort` + `bisect` and call it a day. OTOH in Rust it takes only 1 or 2 lines of code to get very high quality implementations all kinds of containers. This means that my Rust programs can afford to use proper, incredibly well-optimized data structures *every time*.
-- These days everything seems to require JSON. Rust's `serde` is one of the fastest JSON parsers in the world, and it parses directly into Rust structs, so use of the parsed data is very fast and efficient, too.
+## Rust 的小胜利
 
-## Big win for Rust
+我已经谈了很多关于开销的问题，但 Rust 也有一些地方可以让它变得更高效、更快：
 
-Rust enforces thread-safety of all code and data, even in 3rd party libraries, even if authors of that code didn't pay attention to thread safety. Everything either upholds specific thread-safety guarantees, or won't be allowed to be used across threads. If I write any code that is not thread safe, the compiler will point out exactly where it is unsafe.
+- C 库通常返回指向其数据结构的不透明指针，以隐藏实现细节并确保结构的每个实例只有一个副本，不过这会消耗堆分配和指针间接。Rust 内置的隐私、单一所有权规则和编码约定让库可以在没有间接的情况下公开它们的对象，以便调用者可以决定是将它们放在堆上还是堆栈上。堆栈上的对象可以非常积极地被优化，甚至可以完全优化。
+- 默认情况下，Rust 可以内联标准库、依赖项和其他编译单元中的函数。在 C 中，我有时不愿意拆分文件或使用库，因为它会影响内联并需要对标头和符号可见性进行微观管理。
+- 结构域被重新排序以最小化填充。用 `Wpadding` 编译 C 表明我经常忘记这个细节。
+- 字符串的大小编码在它们的“胖”指针中。这使得长度检查足够快速，也消除了 [意外的 O(n²)](https://nee.lv/2021/02/28/How-I-cut-GTA-Online-loading-times-by-70/) 的字符串循环的风险，并允许我们在不修改内存或添加 `\0` 终止符的情况下，就地创建子字符串（例如，将字符串拆分为标记）。
+- 与 C++ 模板一样，Rust 为它们使用的每种类型生成通用代码的副本，因此像 `sort()` 这样的函数和像哈希表这样的容器总是会针对它们的类型进行优化。在 C 中，我必须在使用宏的 hack 或处理 `void*` 和运行时变量大小的效率较低的函数之间进行选择。
+- Rust 迭代器可以组合成链，以作为一个单元一起优化。所以，相比一系列的调用 `buy(it);use(it);break(it);change(it);mail(upgrade(it));` 可能会多次重写同一个缓冲区的行为，我可以调用被编译为一个 `buy_use_break_change_mail_upgrade(it)` 函数的 `it.buy().use().break().change().upgrade().mail()` 。再经过优化，我们可以在单个组合通道中完成所有这些操作。`(0..1000).map(|x| x*2).sum()` 会直接被编译为 `return 999000`。
+- 类似地，还有 `Read` 和`Write` 接口允许函数流式传输未缓冲的数据。它们结合得很好，所以我可以将数据写入一个流，动态计算数据的 CRC。如果我们需要添加帧/转义，压缩它，然后将它写入网络，我们只需在一次调用中完成。我可以将这样的组合流作为输出流传递给我的 HTML 模板引擎，所以现在每个 HTML 标签都足够智能，可以将自己压缩。底层机制只是简单的 `next_stream.write(bytes)` 调用的金字塔，所以从技术上讲，没有什么能阻止我在 C 中做同样的事情，除了 C 中缺乏特征和泛型意味着在实践中很难真正做到这一点，除了在运行时需要设置回调，效率不高。
+- 在 C 中过度使用线性搜索和链表是完全合理的，因为没有好的有人维护的哈希表实现。没有内置容器，依赖是一种痛苦，所以我总会偷工减料来完成工作。除非绝对必要，否则我不会费心编写 B 树的复杂实现。我将使用 `qsort` + `bisect` 并称它为一天的成果。Rust 中的 OTOH 只需要 1 或 2 行代码即可获得各种容器的高质量实现。这意味着我的 Rust 程序可以负担得起**每次**都使用正确的、非常优化的数据结构。
+- 现在一切似乎都需要 JSON。Rust 的 `serde` 是世界上最快的 JSON 解析器之一。它支持直接解析 JSON 为 Rust 结构，因此解析数据的使用也非常快速和高效。
 
-That's a dramatically different situation than C. Usually no library functions can be trusted to be thread-safe unless they're clearly documented otherwise. It's up to the programmer to ensure all of the code is correct, and the compiler generally can't help with any of this. Multi-threaded C code carries a lot more responsibility, a lot more risk, so it's appealing to pretend multi-core CPUs are just a fad, and imagine users have better things to do with the remaining 7 or 15 cores.
+## Rust 的巨大胜利
 
-Rust guarantees freedom from data races and memory unsafety (e.g. use-after-free bugs, even across threads). Not just some races that could be found with heuristics or at runtime in instrumented builds, but *all* data races everywhere. This is life-saving, because data races are the worst kind of concurrency bugs. They'll happen on my users' machines, but not in my debugger. There are other kinds of concurrency bugs, such as poor use of locking primitives causing higher-level logical race conditions or deadlocks, and Rust can't eliminate them, but they're usually easier to reproduce and fix.
+Rust 强制所有代码和数据的线程安全，即使是在第三方库中，即使该代码的作者没有注意线程安全也依旧如此。一切要么坚持特定的线程安全保证，要么不允许跨线程使用。如果我编写任何不是线程安全的代码，编译器会准确指出它不安全的地方。
 
-In C I won't dare to do more than a couple of OpenMP pragmas on simple `for` loops. I've tried being more adventurous with tasks and threads, and ended up regretting it every time.
+这与 C 的情况截然不同。通常没有库函数可以被信任为线程安全的，除非它们以其他方式明确记录。由程序员来确保所有代码都是正确的，而编译器通常对此无能为力。多线程 C 代码承担了更多的责任，更多的风险，所以假装多核 CPU 只是一种时尚，并想象用户可以用剩下的 7 或 15 个内核做更好的事情是很有吸引力的。
 
-Rust has has good libraries for data parallelism, thread pools, queues, tasks, lock-free data structures, etc. With the help of such building blocks, and the strong safety net of the type system, I can parallelize Rust programs quite easily. In some cases it's sufficient to replace `iter()` with `par_iter()`, and if it compiles, it works! It's not always a linear speed-up (Amdahl's law is brutal), but it's often a 2×-3× speed-up for relatively little work.
+Rust 可以保证免于数据竞争和内存不安全（例如，释放后使用错误，甚至跨线程）。不仅仅是一些可以通过启发式方法或在运行时在检测构建中找到的竞争，而是无处不在的**所有**数据竞争。这是救命的，因为数据竞争是最严重的并发错误。这些问题可能会发生在我们用户的机器上，但不会发生在我们自己的调试器中。还有其他类型的并发错误，例如锁定原语使用不当导致更高级别的逻辑竞争条件或死锁，Rust 无法消除它们，但它们通常更容易被重现和修复。
 
-There's an interesting difference how Rust and C libraries document thread-safety. Rust has a vocabulary for specific aspects of thread-safety, such as `Send` and `Sync`, guards and cells. In C, there's no word for "you can allocate it on one thread, and free it on another thread, but you can't use it from two threads at once". Rust describes thread-safety in terms of data types, which generalizes to all functions using them. In C thread-safety is talked about in the context of individual functions and configuration flags. Rust's guarantees tend to be compile-time, or at least unconditional. In C it's common to find "this is thread safe only when the turboblub option is set to 7".
+在 C 中，我不敢在简单的 `for` 循环上做超过几个 OpenMP 编译指示。我尝试过在任务和线程上更激进，但每次我都很是后悔。
 
-## To sum it up
+Rust 有很好的数据并行库、线程池、队列、任务、无锁数据结构等。借助这些构建块和类型系统的强大安全网，我可以很容易地并行化 Rust 程序。比如说，在某些情况下，将 `iter()` 替换为 `par_iter()` 就足够了。如果它可以编译，它就可以正常工作！它并不总是线性加速（阿姆达尔定律是残酷的），但对于相对较少的工作，通常能有 2-3 倍的提速。
 
-Rust is low-level enough that if necessary, it can be optimized for maximum performance just as well as C. Higher-level abstractions, easy memory management, and abundance of available libraries tend to make Rust programs have more code, do more, and if left unchecked, can add up to bloat. However, Rust programs also optimize quite well, sometimes better than C. While C is good for writing minimal code on byte-by-byte pointer-by-pointer level, Rust has powerful features for efficiently combining multiple functions or even whole libraries together.
+Rust 和 C 库在记录线程安全方面有一个有趣的区别。 Rust 为线程安全的特定方面提供了词汇表，例如 `Send` 和 `Sync`、`guard` 和 `cell`。在 C 中，没有“你可以在一个线程上分配它，并在另一个线程上释放它，但你不能同时从两个线程使用它”的说法。Rust 用数据类型来描述线程安全，所以这可以推广到所有使用它们的函数。在 C 中，线程安全是在单个函数和配置标志的上下文中讨论的。Rust 的保证往往是编译时的，或者至少是无条件的。而在 C 中，通常会发现“仅当 turboblub 选项设置为 7 时是线程安全的”。
 
-But the biggest potential is in ability to fearlessly parallelize majority of Rust code, even when the equivalent C code would be too risky to parallelize. In this aspect Rust is a much more mature language than C.
+## 小结
+
+Rust 足够低级，如有必要，它可以像 C 一样被优化以获得最大性能。更高级别的抽象、简单的内存管理和丰富的可用库往往使 Rust 程序能拥有更多代码，能做更多事情，并且如果任其发展，可能会导致程序的臃肿。然而，Rust 程序也被优化得很好，有时甚至能比 C 更好。虽然 C 适合在逐字节逐个指针级别编写最少的代码，但 Rust 具有强大的功能，可以有效地将多个函数甚至整个库组合在一起。
+
+但最大的潜力在于能够无畏地并行化大多数 Rust 代码，即使等效的 C 代码风险太大而无法并行化。在这方面，Rust 是一种比 C 成熟得多的语言。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

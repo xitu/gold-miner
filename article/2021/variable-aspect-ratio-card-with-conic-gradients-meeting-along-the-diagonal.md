@@ -2,30 +2,30 @@
 > * 原文作者：[Ana Tudor](https://css-tricks.com/author/thebabydino/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md](https://github.com/xitu/gold-miner/blob/master/article/2021/variable-aspect-ratio-card-with-conic-gradients-meeting-along-the-diagonal.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)、[Usualminds](https://github.com/Usualminds)
 
-# Variable Aspect Ratio Card With Conic Gradients Meeting Along the Diagonal
+# 对角线分割的圆锥渐变式可变长宽比卡片
 
-I recently came across an interesting problem. I had to implement a grid of cards with a variable (user-set) aspect ratio that was stored in a `--ratio` custom property. Boxes with a certain aspect ratio are a classic problem in CSS and one that got easier to solve in recent years, especially since we got `[aspect-ratio](https://css-tricks.com/almanac/properties/a/aspect-ratio/)`, but the tricky part here was that each of the cards needed to have two conic gradients at opposite corners meeting along the diagonal. Something like this:
+我最近遇到了一个有趣的问题 —— 我需要实现一个具有可变纵横比（由用户决定）的卡片，且纵横比值定义在了 `--ratio` 这个自定义属性中。具有特定纵横比的卡片是 CSS 中的一个经典问题，也是近年来变得容易解决的问题，尤其是有了 [`aspect-ratio`](https://css-tricks.com/almanac/properties/a/aspect-ratio/) 之后，但这里棘手的部分是我们需要在每张卡片沿对角线交点处分别添加一个圆锥渐变，如图：
 
-![A 3 by 3 grid of square cards with color backgrounds made from conic gradients. The gradients appear like stripes that extend from opposite corners of the card. Each card reads Hello Gorgeous in a fancy script font.](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/var_cards.png?resize=799%2C571&ssl=1)
+![一个 3 x 3 的正方形卡片网格，带有由圆锥渐变制成的彩色背景。渐变看起来像从卡片的对角延伸的条纹。每张卡片都以精美的字体展示 Hello Gorgeous 的名言。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/var_cards.png?resize=799%2C571&ssl=1)
 
-<small>User set aspect ratio cards.</small>
+<small>用户设置的纵横比卡片。</small>
 
-The challenge here is that, while it’s easy to make an abrupt change in a `linear-gradient()` along the diagonal of a variable aspect ratio box using for example a direction like `to top left` which changes with the aspect ratio, a `conic-gradient()` needs either an angle or a percentage representing how far it has gone around a full circle.
+这里的挑战是，用 `linear-gradient()` 对沿着可变纵横比框的对角线做唐突的改变，比较容易，例如使用像“向左上角”这样的方向随纵横比变化，但 `conic-gradient()` 需要一个角度或一个百分比来表示它绕了一整圈走了多远的渐变并不好构建。
 
-> Check out [this guide](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients) for a refresher on how conic gradients work.
+> 查看 [本指南](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients) 以了解圆锥渐变的工作原理。
 
-## The simple solution
+## 简单的解决方案
 
-The spec now includes [trigonometric and inverse trigonometric functions](https://drafts.csswg.org/css-values-4/#trig-funcs), which *could* help us here — the angle of the diagonal with the vertical is the arctangent of the aspect ratio `atan(var(--ratio))` (the left and top edges of the rectangle and the diagonal form a right triangle where the tangent of the angle formed by the diagonal with the vertical is the width over the height — precisely our aspect ratio).
+CSS 规范现在包括了 [三角函数和反三角函数](https://drafts.csswg.org/css-values-4/#trig-funcs)，它*可以*在这里帮助我们 —— 对角线与垂直线的角度是纵横比 `atan(var(--ratio))` 的反正切（矩形的左边缘和上边缘与对角线形成直角三角形，其中对角线与垂直线形成的角度的切线是宽度超过高度 —— 正是我们的纵横比）。
 
-![Illustration. Shows a rectangle of width w and height h with a diagonal drawn from the bottom left corner to the top right one. This diagonal is the hypotenuse of the right triangle whose catheti are the left and top edges of the rectangle. In this right triangle, the tangent of the angle between the hypotenuse (diagonal of original rectangle) with the vertical (left edge of original rectangle) is the top edge (w) over the left edge (h).](https://css-tricks.com/wp-content/uploads/2021/04/ang_diag.svg)
+![插图：显示一个宽度为 w 和高度为 h 的矩形，从左下角到右上角绘制一条对角线。这条对角线是直角三角形的斜边，直角三角形的斜边是矩形的左边缘和上边缘。在这个直角三角形中，斜边（原始矩形的对角线）与垂直（原始矩形的左边缘）之间的夹角的切线是左边缘 (h) 上方的上边缘 (w)。](https://css-tricks.com/wp-content/uploads/2021/04/ang_diag.svg)
 
-<small>The angle of the diagonal with the vertical (edge).</small>
+<small>对角线与垂直线（边）的夹角。</small>
 
-Putting it into code, we have:
+把它写成代码，我们有：
 
 ```scss
 --ratio: 3/ 2;
@@ -40,97 +40,95 @@ background:
         #ff7a18, #af002d, #319197 calc(90deg - var(--angle)));
 ```
 
-However, no browser currently implements trigonometric and inverse trigonometric functions, so the simple solution is just a future one and not one that would actually work anywhere today.
+然而，目前没有浏览器实现三角函数和反三角函数，所以这个简单的解决方案我们也只能想想，留着未来实现。
 
-## The JavaScript solution
+## JavaScript 解决方案
 
-We can of course compute the `--angle` in the JavaScript from the `--ratio` value.
+我们当然可以使用 JavaScript 中的 `--ratio` 值来计算 `--angle`。
 
 ```javascript
 let angle = Math.atan(1 / ratio.split('/').map(c => +c.trim()).reduce((a, c) => c / a, 1));
 document.body.style.setProperty('--angle', `${+(180 * angle / Math.PI).toFixed(2)}deg`)
 ```
 
-But what if using JavaScript won’t do? What if we really need a pure CSS solution? Well, it’s a bit hacky, but it can be done!
+但是如果使用 JavaScript 不行呢？如果我们真的需要一个纯 CSS 解决方案怎么办？好吧，这有点麻烦，但我们还是可以做到！
 
-## The hacky CSS solution
+## hacky CSS 解决方案
 
-This is an idea I got from a peculiarity of SVG gradients that I honestly found very frustrating when I [first encountered](https://css-tricks.com/state-css-reflections/#the-svg-gradient-problem).
+这是我从 SVG 渐变的特殊性中得到的一个想法，老实说，当我[第一次看到这个问题](https://css-tricks.com/state-css-reflections/#the-svg-gradient-problem) 时，我发现它非常令人沮丧.
 
-Let’s say we have a gradient with a sharp transition at `50%` going from bottom to top since in CSS, that’s a gradient at a `0°` angle. Now let’s say we have the same gradient in SVG and we change the angle of both gradients to the same value.
+假设我们有一个从底部到顶部的 `50%` 的渐变（因为在 CSS 中，这是一个角度为 `0°` 的渐变）。现在假设我们在 SVG 中有相同的渐变，我们将两个渐变的角度更改为相同的值。
 
-In CSS, that’s:
+在 CSS 中，这是：
 
 ```css
 linear-gradient(45deg, var(--stop-list));
 ```
 
-In SVG, we have:
+在 SVG 中，我们有：
 
 ```html
-
 <linearGradient id='g' y1='100%' x2='0%' y2='0%'
                 gradientTransform='rotate(45 .5 .5)'>
-    <!-- the gradient stops -->
+    <!-- 渐变停止 -->
 </linearGradient>
 ```
 
-As it can be seen below, these two don’t give us the same result. While the CSS gradient really is at `45°`, the SVG gradient rotated by the same `45°` has that sharp transition between orange and red along the diagonal, even though our box isn’t square, so the diagonal isn’t at `45°`!
+如下所示，这两个不会给我们相同的结果。虽然 CSS 渐变实际上是在 `45°`，旋转了相同 `45°` 的 SVG 渐变沿着对角线在橙色和红色之间有明显的过渡，即使我们的盒子不是方形的，所以对角线不是在 `45°`！
 
-![Screenshot. Shows a rectangle with a CSS gradient at 45° (left) vs. a rectangle with a bottom to top SVG gradient rotated by 45° (right). This angle is adjustable via the slider at the bottom. The CSS gradient is really at 45°, but the line of the SVG gradient is perpendicular onto the rectangle's diagonal.](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/css_vs_svg_grad.png?resize=999%2C556&ssl=1)
+![屏幕截图：显示 CSS 渐变为 45°（左）的矩形与从下到上 SVG 渐变旋转 45°（右）的矩形。该角度可通过底部的滑块进行调节。CSS 渐变实际上是 45°，但 SVG 渐变的线垂直于矩形的对角线。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/css_vs_svg_grad.png?resize=999%2C556&ssl=1)
 
-<small>`45°` CSS vs. SVG gradient ([DEMO](https://codepen.io/thebabydino/full/pbVdPx)).</small>
+<small>`45°` CSS 与 SVG 渐变（[例子](https://codepen.io/thebabydino/full/pbVdPx)）。</small>
 
-This is because our SVG gradient gets drawn within a `1x1` square box, rotated by `45°`, which puts the abrupt change from orange to red along the square diagonal. Then this square is stretched to fit the rectangle, which basically changes the diagonal angle.
+这是因为我们的 SVG 渐变被绘制在一个 `1x1` 方形框内，旋转了 `45°`，这使得沿着方形对角线从橙色突然变为红色。然后这个正方形被拉伸以适应矩形，这基本上改变了对角线的角度。
 
-> Note that this SVG gradient distortion happens only if we don’t change the `gradientUnits` attribute of the `linearGradient` from its default value of `objectBoundingBox` to `userSpaceOnUse`.
+> 请注意，只有当我们不会将 `linearGradient` 的 `gradientUnits` 属性从其默认值 `objectBoundingBox` 更改为 `userSpaceOnUse` 时，才会发生 SVG 渐变失真。
 
-### Basic idea
+### 基本思路
 
-We cannot use SVG here since it only has linear and radial gradients, but not conic ones. However, we can put our CSS conic gradients in a square box and use the `45°` angle to make them meet along the diagonal:
+我们不能在这里使用 SVG，因为它只有线性和径向渐变，而没有圆锥渐变。但是，我们可以将 CSS 圆锥渐变放在一个方形框中，并使用 `45°` 角使它们沿对角线相交：
 
 ```css
 aspect-ratio: 1/ 1;
 width: 19em;
 background: 
-  /* below the diagonal */
+  /* 对角线之下 */
   conic-gradient(from 45deg at 0 100%, 
       #319197, #ff7a18, #af002d 45deg, transparent 0%), 
-  /* above the diagonal */
+  /* 对角线之上 */
   conic-gradient(from calc(.5turn + 45deg) at 100% 0, 
       #ff7a18, #af002d, #319197 45deg);
-
 ```
 
-Then we can stretch this square box using a scaling `transform` – the trick is that the ‘/’ in the `3/ 2` is a separator when used as an `aspect-ratio` value, but gets parsed as division inside a `calc()`:
+然后我们可以使用缩放 `transform` 来拉伸这个方框 —— 诀窍是 `3/2` 中的 `/` 在用作 `aspect-ratio` 值时是一个分隔符，但在 `calc()` 中被解析为除法：
 
 ```css
 --ratio: 3/ 2;
 transform: scaley(calc(1/(var(--ratio))));
 ```
 
-You can play with changing the value of `--ratio` in the editable code embed below to see that, this way, the two conic gradients always meet along the diagonal: [CodePen](https://codepen.io/thebabydino/pen/QWdzOVg)
+我们可以在下面嵌入的可编辑代码中更改 `--ratio` 的值来查看，这样，两个圆锥渐变总是沿对角线相交：[CodePen](https://codepen.io/thebabydino/pen/QWdzOVg)
 
-> Note that this demo will only work in a browser that [supports](https://caniuse.com/mdn-css_properties_aspect-ratio) `aspect-ratio`. This property is supported out of the box in Chrome 88+ (current version is 90), but Firefox still needs the `layout.css.aspect-ratio.enabled` flag to be set to `true` in about:config. And if you’re using Safari… well, I’m sorry!
+> 请注意，此演示仅适用于 [支持 `aspect-ratio`](https://caniuse.com/mdn-css_properties_aspect-ratio) 的浏览器。此属性在 Chrome 88+ 中支持开箱即用，但 Firefox 仍需要在 about:config 中将 `layout.css.aspect-ratio.enabled` 标志设置为 `true`。如果你使用的是 Safari……好吧，对不起！
 
-![Screenshot showing how to enable the Firefox flag. Go to about:config (type that in the address bar - you may be asked if you're sure you want to mess with that stuff before you're allowed to enter). Use the search bar to look for 'aspect' - this should be enough to bring up the flag. Set its value to true.](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/flag_enable_firefox.png?resize=999%2C206&ssl=1)
+![显示如何启用 Firefox 标志的屏幕截图。转到 about:config（在地址栏中键入该内容 —— 系统可能会询问您是否确定要在允许进入之前弄乱这些内容）。使用搜索栏查找“aspect” —— 这应该足以显示标志。将其值设置为 true。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/flag_enable_firefox.png?resize=999%2C206&ssl=1)
 
-<small>Enabling the flag in Firefox.</small>
+<small>在 Firefox 中启用标志。</small>
 
-### Issues with this approach and how to get around them
+### 这种方法的问题以及如何解决这些问题
 
-Scaling the actual `.card` element would rarely be a good idea though. For my use case, the cards are on a grid and setting a directional scale on them messes up the layout (the grid cells are still square, even though we’ve scaled the `.card` elements in them). They also have text content which gets weirdly stretched by the `scaley()` function.
+不过，缩放实际的 `.card` 元素很少是一个好主意。对于我的用例，卡片位于网格上并且在它们上设置方向比例会弄乱布局（网格单元仍然是方形的，即使我们已经缩放了其中的 `.card` 元素）。它们也有被 `scaley()` 函数奇怪地拉伸的文本内容。
 
-![Screenshot. Shows how the card elements are scaled down vertically, yet the grid cells they're occupying have remained square, just like the cards before the directional scaling.](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/issues_scaling_card_hlight_firefox.png?resize=999%2C367&ssl=1)
+![屏幕截图：显示卡片元素如何垂直缩小，但它们占据的网格单元仍然保持方形，就像定向缩放之前的卡片一样。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/issues_scaling_card_hlight_firefox.png?resize=999%2C367&ssl=1)
 
-<small>The problem with scaling the actual cards ([DEMO](https://codepen.io/thebabydino/pen/BapvOvr))</small>
+<small>缩放实际卡片的问题（[例子](https://codepen.io/thebabydino/pen/BapvOvr)）</small>
 
-The solution is to give the actual cards the desired `aspect-ratio` and use an absolutely positioned `::before` placed behind the text content (using `z-index: -1`) in order to create our `background`. This pseudo-element gets the `width` of its `.card` parent and is initially square. We also set the directional scaling and conic gradients from earlier on it. Note that since our absolutely positioned `::before` is top-aligned with the top edge of its `.card` parent, we should also scale it relative to this edge as well (the `transform-origin` needs to have a value of `0` along the y axis, while the x axis value doesn’t matter and can be anything).
+解决方案是为实际卡片提供所需的 `aspect-ratio`，并使用绝对定位的 `::before` 放置在文本内容后面（`z-index: -1`）以创建我们的 `background`。这个伪元素获得它的 `.card` 父元素的 `width` 并且最初是正方形的。我们还设置了之前的方向缩放和圆锥梯度。请注意，由于我们绝对定位的 `::before` 与它的 `.card` 父级的上边缘顶部对齐，我们也应该相对于这条边缘缩放它（`transform-origin` 需要有一个值沿 y 轴为 `0`，而 x 轴值无关紧要，可以是任何值）。
 
 ```scss
 body {
     --ratio: 3/ 2;
-    /* other layout and prettifying styles */
+    /* 其他装饰用的布局样式 */
 }
 
 .card {
@@ -139,20 +137,20 @@ body {
 
     &::before {
         position: absolute;
-        z-index: -1; /* place it behind text content */
+        z-index: -1; /* 移到文字下方 */
 
-        aspect-ratio: 1/ 1; /* make card square */
+        aspect-ratio: 1/ 1; /* 让卡片成为正方形 */
         width: 100%;
 
-        /* make it scale relative to the top edge it's aligned to */
+        /* 让它缩放到它所对其的顶部边缘 */
         transform-origin: 0 0;
-        /* give it desired aspect ratio with transforms */
+        /* 使用 Transform 给他指定的缩放比 */
         transform: scaley(calc(1 / (var(--ratio))));
-        /* set background */
-        background: /* below the diagonal */
+        /* 设置背景 */
+        background: /* 对角线之下 */
                 conic-gradient(from 45deg at 0 100%,
                         #319197, #af002d, #ff7a18 45deg, transparent 0%),
-                    /* above the diagonal */
+                    /* 对角线之上 */
                 conic-gradient(from calc(.5turn + 45deg) at 100% 0,
                         #ff7a18, #af002d, #319197 45deg);
         content: '';
@@ -160,57 +158,57 @@ body {
 }
 ```
 
-> Note that we’ve moved from CSS to SCSS in this example.
+> 请注意，在此示例中，我们已将样式从原生 CSS 修改为使用 SCSS。
 
-This is much better, as it can be seen in the embed below, which is also editable so you can play with the `--ratio` and see how everything adapts nicely as you change its value.
+这要好得多，因为它可以在下面的嵌入中看到，它也是可编辑的，因此我们可以修改 `--ratio` 并查看当我们更改其值时一切将如何完美地适应。
 
-[CodePen](https://codepen.io/thebabydino/pen/MWJZPLe) for code and preview.
+[CodePen](https://codepen.io/thebabydino/pen/MWJZPLe) 供代码参考与效果预览。
 
-### Padding problems
+### 内边距问题
 
-Since we haven’t set a `padding` on the card, the text may go all the way to the edge and even slightly out of bounds given it’s a bit slanted.
+由于我们没有在卡片上设置 `padding`，文本可能会一直延伸到边缘，甚至稍微超出边界，因为它有点倾斜。
 
-![Screenshot. Shows a case where the text goes all the way to the edge of the card and even goes out a tiny little bit creating an ugly result.](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/need_for_padding.png?resize=799%2C117&ssl=1)
+![屏幕截图：显示了这样一种情况，其中文本一直延伸到卡片的边缘，甚至出现了一点点，从而产生了丑陋的结果。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/need_for_padding.png?resize=799%2C117&ssl=1)
 
-<small>Lack of `padding` causing problems.</small>
+<small>缺少 `padding` 会导致问题。</small>
 
-That shouldn’t be too difficult to fix, right? We just add a `padding`, right? Well, when we do that, we discover the layout breaks!
+这应该不会太难修复，对吧？我们只是添加了一个 `padding`，对吧？好吧，当我们这样做时，我们发现布局失效了！
 
-![Animated gif. Shows the dev tools grid overlay t highlight that, while the background (created with the scaled pseudo) still has the desired aspect ratio, the grid cell and the actual card in it are taller.](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/padding_issue.gif?resize=800%2C324&ssl=1)
+![GIF：显示开发工具网格覆盖突出显示，虽然背景（使用缩放的伪创建）仍然具有所需的纵横比，但网格单元和其中的实际卡片更高。](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/padding_issue.gif?resize=800%2C324&ssl=1)
 
-<small>Adding a `padding` breaks the layout. ([DEMO](https://codepen.io/thebabydino/pen/MWJZxdV))</small>
+<small>添加 `padding` 会破坏布局。（[例子](https://codepen.io/thebabydino/pen/MWJZxdV)）</small>
 
-This is because the `aspect-ratio` we’ve set on our `.card` elements is that of the `.card` box specified by `box-sizing`. Since we haven’t explicitly set any `box-sizing` value, its current value is the default one, `content-box`. Adding a `padding` of the same value around this box gives us a `padding-box` of a different aspect ratio that doesn’t coincide with that of its `::before` pseudo-element anymore.
+这是因为我们在 `.card` 元素上设置的 `aspect-ratio` 是由 `box-sizing` 指定的 `.card` 框的纵横比。由于我们没有明确设置任何 `box-sizing` 值，它的当前值是默认值也就是 `content-box`。在这个框周围添加一个相同值的 `padding` 会给我们一个不同纵横比的 `padding-box`，让它不再与其它的元素的 `::before` 重合。
 
-In order to better understand this, let’s say our `aspect-ratio` is `4/ 1` and the width of the `content-box` is `16rem` (`256px`). This means the height of the `content-box` is a quarter of this width, which computes to `4rem` (`64px`). So the `content-box` is a `16rem×4rem` (`256px×64px`) rectangle.
+为了更好地理解这一点，假设我们的 `aspect-ratio` 为 `4/1`，`content-box` 的宽度为 `16rem`（`256px`）。这意味着 `content-box` 的高度是这个宽度的四分之一，计算得出结果是 `4rem` (`64px`)。所以 `content-box` 是一个 `16rem×4rem`（`256px×64px`）大的矩形。
 
-Now let’s say we add a `padding` of `1rem` (`16px`) along every edge. The width of the `padding-box` is therefore `18rem` (`288px`, as it can be seen in the animated GIF above) — computed as the width of the `content-box`, which is `16rem` (`256px`) plus `1rem` (`16px`) on the left and `1rem` on the right from the `padding`. Similarly, the height of the `padding-box` is `6rem` (`96px`) — computed as the height of the `content-box`, which is `4rem` (`64px`), plus `1rem` (`16px`) at the top and `1rem` at the bottom from the `padding`).
+现在假设我们沿着每条边添加一个 `1rem`（`16px`）的 `padding`。现在，`padding-box` 的宽度为 `18rem`（`288px`，如上面的动画 GIF 所示）—— 计算得出 `content-box` 的宽度为 `16rem`（` 256px`) ，再加上左侧的 `1rem` (`16px`) 和来自 `padding` 的右侧的 `1rem`。类似地，`padding-box` 的高度为 `6rem`（`96px`）—— 计算得出 `content-box` 的高度，即 `4rem`（`64px`），再加上顶部的 `1rem`（` 16px`）和底部的 `1rem` `padding`。
 
-This means the `padding-box` is a `18rem×6rem` (`288px×96px`) rectangle and, since `18 = 3⋅6`, it has a `3/ 1` aspect ratio which is different from the `4/ 1` value we’ve set for the `aspect-ratio` property! At the same time, the `::before` pseudo-element has a width equal to that of its parent’s `padding-box` (which we’ve computed to be `18rem` or `288px`) and its aspect ratio (set by scaling) is still `4/ 1`, so its visual height computes to `4.5rem` (`72px`). This explains why the `background` created with this pseudo — scaled down vertically to a `18rem×4.5rem` (`288px×72px`) rectangle — is now shorter than the actual card — a `18rem×6rem` (`288px×96px`) rectangle now with the `padding`.
+这意味着 `padding-box` 是一个 `18rem×6rem`（`288px×96px`）的矩形，并且由于 `18 = 3⋅6`，它的纵横比为 `3/1`，与我们为 `aspect-ratio` 属性设置的 `4/1` 值不一样！同时，`::before` 伪元素的宽度等于其父元素 `padding-box` 的宽度（我们计算为 `18rem` 或 `288px`），而且它的纵横比（通过缩放设置的）仍然是 `4/1`，所以它的视觉高度计算可得是 `4.5rem`（`72px`）。这就解释了为什么用这个伪元素创建的 `background` —— 垂直缩小到一个 `18rem×4.5rem`（`288px×72px`）的矩形 —— 现在却比实际的卡片 —— 一个带有 `padding` 的 `18rem×6rem`（`288px× 96px`) 矩形 —— 要小。
 
-So, it looks like the solution is pretty straightforward — we need to set `box-sizing` to `border-box` to fix our problem as this applied the `aspect-ratio` on this box (identical to the `padding-box` when we don’t have a `border`).
+因此，看起来解决方案非常简单 —— 我们只需要将 `box-sizing` 设置为 `border-box` 就可以解决我们的问题，因为这会在这个盒子上应用 `aspect-ratio`（与 `padding-box` 当我们没有 `border` 时一致）。
 
-Sure enough, this fixes things… but only in Firefox!
+果然，这可以解决问题……但仅限于 Firefox！
 
-![Screenshot collage. Shows how the text is not middle aligned in Chromium browsers (top), while Firefox (bottom) gets this right.](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/box_sizing_fix_collage.png?resize=799%2C459&ssl=1)
+![屏幕截图：显示文本如何在 Chromium 浏览器（上图）中不居中对齐，而 Firefox（下图）则正确。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/box_sizing_fix_collage.png?resize=799%2C459&ssl=1)
 
-<small>Showing the difference between Chromium (top) and Firefox (bottom).</small>
+<small>显示 Chromium（上图）和 Firefox（下图）之间的区别。</small>
 
-The text should be middle-aligned vertically as we’ve given our `.card` elements a grid layout and set `place-content: center` on them. However, this doesn’t happen in Chromium browsers and it becomes a bit more obvious why when we take out this last declaration — somehow, the cell in the card’s grid gets the `3/ 1` aspect ratio too and overflows the card’s `content-box`:
+文本应该垂直居中对齐，因为我们给了 `.card` 元素一个网格布局，并在它们上设置了 `place-content: center`。然而，这不会发生在 Chromium 浏览器中。当我们删除最后一个声明时，这变得更加明显 —— 不知何故，卡片网格中的单元格也获得了 `3/1` 的纵横比，并溢出了卡片的 `content-box`：
 
-![Animated gif. For some reason, the grid cell inside the card gets the set aspect ratio and overflows the card's content-box.](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/place_content_hint.gif?resize=800%2C300&ssl=1)
+![GIF：由于某种原因，卡片内的网格单元获得设置的纵横比并溢出卡片的内容框。](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/place_content_hint.gif?resize=800%2C300&ssl=1)
 
-<small>Checking the card’s grid with vs. without `place-content: center` ([DEMO](https://codepen.io/thebabydino/pen/vYgvwBJ)).</small>
+<small>使用 `place-content: center` 与否来检查卡片的网格。（[例子](https://codepen.io/thebabydino/pen/vYgvwBJ)）</small>
 
-Fortunately, this is a [known Chromium bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1166875) that [should probably get fixed in the coming months](https://twitter.com/bfgeek/status/1385704283643932672).
+幸运的是，这是一个 [已知的 Chromium 错误](https://bugs.chromium.org/p/chromium/issues/detail?id=1166875)，并且[应该可以在未来几个月内得到修复](https://twitter.com/bfgeek/status/1385704283643932672)。
 
-In the meantime, what we can do to get around this is remove the `box-sizing`, `padding` and `place-content` declarations from the `.card` element, move the text in a child element (or in the `::after` pseudo if it’s just a one-liner and we’re lazy, though an actual child is the better idea if we want the text to stay selectable) and make that a `grid` with a `padding`.
+与此同时，我们可以做的就是从 `.card` 元素中移除 `box-sizing`、`padding` 和 `place-content` 声明，移动子元素（或用 `::after` 伪元素 —— 我指的是，如果只需要一行代码，不过我们很懒惰。当然如果我们希望文本保持可以被选择，则实际的子元素应该是更好的主意）并使其成为带有 `padding` 的 `grid`。
 
 ```scss
 .card {
-    /* same as before, 
-       minus the box-sizing, place-content and padding declarations 
-       the last two of which which we move on the child element */
+    /* 和以前一致，
+       减去 box-sizing、place-content 和内边距定义
+       最后两个我们移动的子元素 */
 
     &__content {
         place-content: center;
@@ -219,37 +217,37 @@ In the meantime, what we can do to get around this is remove the `box-sizing`, `
 }
 ```
 
-[CodePen](https://codepen.io/thebabydino/pen/gOgqewy) for code and preview.
+[CodePen](https://codepen.io/thebabydino/pen/gOgqewy) 供代码参考与效果预览。
 
-### Rounded corners
+### 添加圆角
 
-Let’s say we also want our cards to have rounded corners. Since a directional `transform` like the `scaley` on the `::before` pseudo-element that creates our `background` *also distorts corner rounding*, it results that the simplest way to achieve this is to set a `border-radius` on the actual `.card` element and cut out everything outside that rounding with `overflow: hidden`.
+假设我们也希望我们的卡片有圆角。由于像 `::before` 伪元素上我们用 `scaley` 这样的定向的 `transform` 创建的 `background` *也会扭曲圆角*，因此实现这一点的最简单方法是设置一个 `border- radius` 在实际的 `.card` 元素上，并使用 `overflow: hidden` 切掉卡片之外的所有内容。
 
-![Screenshot. Shows an element that's not scaled at all on the left. This has a perfectly circular border-radius. In the right, there's a non-uniform scaled element - its border-radius is not perfectly circular anymore, but instead distorted by the scaling.](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/scaling_altering_corner_rad.png?resize=799%2C391&ssl=1)
+![屏幕截图：左图是一个有一个完美的圆形边界半径没有缩放的元素。右图有一个不均匀缩放的元素 —— 它的边界半径不再是完美的圆形，而是被缩放扭曲了。](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/scaling_altering_corner_rad.png?resize=799%2C391&ssl=1)
 
-<small>Non-uniform scaling distorts corner rounding. ([DEMO](https://codepen.io/thebabydino/pen/VJQMmJ))</small>
+<small>非均匀缩放会扭曲圆角。（[例子](https://codepen.io/thebabydino/pen/VJQMmJ)）</small>
 
-However, this becomes problematic if at some point we want some other descendant of our `.card` to be visible outside of it. So, what we’re going to do is set the `border-radius` directly on the `::before` pseudo that creates the card `background` and reverse the directional scaling `transform` along the y axis on the y component of this `border-radius`:
+但是，如果在某些时候我们希望我们的 `.card` 的其他子代在它之外可见，这就会成为问题。所以，我们要做的是直接在创建卡片背景的 `::before` 伪元素上设置 `border-radius`，并在这个 `border-radius` 上沿 y 轴反转方向缩放 `transform`：
 
 ```scss
 $r: .5rem;
 
 .card {
-    /* same as before */
+    /* 和之前一致 */
 
     &::before {
         border-radius: #{$r}/ calc(#{$r}*var(--ratio));
         transform: scaley(calc(1 / (var(--ratio))));
-        /* same as before */
+        /* 和之前一致 */
     }
 }
 ```
 
-[CodePen](https://codepen.io/thebabydino/pen/RwKdKMv) for code and preview.
+[CodePen](https://codepen.io/thebabydino/pen/RwKdKMv) 供代码参考与效果预览。
 
-## Final result
+## 最终效果
 
-Putting it all together, here’s an interactive demo that allows changing the aspect ratio by dragging a slider – every time the slider value changes, the `--ratio` variable is updated: [CodePen](https://codepen.io/thebabydino/pen/XWpyowX).
+把上面的代码合并起来，这是一个交互式演示，允许通过拖动滑块来更改纵横比 —— 每次滑块值更改时，`--ratio` 变量都会更新：[CodePen](https://codepen.io/thebabydino/pen/XWpyowX)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
