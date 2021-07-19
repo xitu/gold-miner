@@ -34,7 +34,7 @@ This asset catalog has its deployment target set to iOS 12 and contains:
 * a jpg image
 * a color (red with 50% transparency)
 
-![](DemoAsset.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/DemoAsset.png)
 
 ## What is a car file?
 
@@ -203,7 +203,7 @@ Running `assetutil -I Assets.car` will print some interesting information about 
 
 Opening a car file in [HexFiend](http://ridiculousfish.com/hexfiend/) reveals some useful information:
 
-![](BomStore.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/BomStore.png)
 
 The magic value `BOMStore` tells us that a car file is a special `bom` file. BOM - Bill of Materials - is a file format inherited from NeXTSTEP and still used in the macOS installer to determine which files to install, remove, or upgrade. You can find some basic information in `man 5 bom`:
 
@@ -389,7 +389,7 @@ if(blockData != nil)
 
 To help understand the structures, I used the [Synalyze It! Pro](https://www.synalysis.net) application with custom created grammars to parse the various blocks of data. Here is how the structure of the `CARHEADER` looks in Synalyze It! Pro:
 
-![](carheader.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/carheader.png)
 
 Recovering the structure is straightforward and we can see that the data starts with the tag `CTAR`:
 
@@ -432,7 +432,7 @@ CARHEADER:
 
 The `EXTENDED_METADATA` block has a fixed size of 1028 bytes and contains a couple of extra information:
 
-![](extendedMetadata.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/extendedMetadata.png)
 
 The structure is simple and starts with the tag `META`:
 
@@ -625,7 +625,7 @@ The rendition key is a list of values corresponding to the attributes in the `KE
 
 Here is an example of `KEYFORMAT` block from the demo asset:
 
-![](KeyFormat.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/KeyFormat.png)
 
 The structure of the `KEYFORMAT` block starts with the tag `kfmt`:
 
@@ -716,7 +716,7 @@ The `RENDITION` tree is a complex structure containing the data of the assets. T
 
 Since the structure is complex, let’s start by looking at the rendition of the text file in the demo asset. Here is the rendition data for a text.txt file containing the content `blog.timac.org`:
 
-![](RenditionTextHex.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionTextHex.png)
 
 The rendition value is composed of 3 parts:
 
@@ -730,7 +730,7 @@ Here is a screenshot made using Synalyze It! Pro to visualize the 3 parts:
 * the list of TLV is in green
 * the rendition data is in orange.
 
-![](RenditionData.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionData.png)
 
 ### csiheader
 
@@ -887,7 +887,7 @@ struct csibitmaplist {
 
 Using the structure described above, we can create a custom grammar in Synalyze It! Pro to quickly understand the structure:
 
-![](RenditionText.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionText.png)
 
 ### TVL
 
@@ -1074,7 +1074,7 @@ else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF')
 
 By running this code in Xcode, we can see the recovered image with QuickLook:
 
-![](CUIRawPixelRendition.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIRawPixelRendition.png)
 
 ### CUIThemeColorRendition
 
@@ -1125,7 +1125,7 @@ else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditi
 
 By running this code in Xcode, we can see the recovered `CGColorRef` with QuickLook:
 
-![](RenditionColor.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionColor.png)
 
 ### CUIThemePixelRendition
 
@@ -1167,7 +1167,7 @@ When a compression is used, the raw data is compressed and should be decoded wit
 
 Here is how a png rendition looks like in Synalyze It! Pro. Note in red the raw data compressed:
 
-![](CUIThemePixelRendition.png)
+![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIThemePixelRendition.png)
 
 ## Conclusion
 
