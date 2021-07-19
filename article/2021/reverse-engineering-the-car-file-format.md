@@ -209,7 +209,6 @@ The magic value `BOMStore` tells us that a car file is a special `bom` file. BOM
 
 ```text
 The Mac OS X Installer uses a file system "bill of materials" to determine which files to install, remove, or upgrade. A bill of materials, bom, contains all the files within a directory, along with some information about each file. File information includes: the file's UNIX permissions, its owner and group, its size, its time of last modification, and so on. Also included are a checksum of each file and information about hard links.
-
 ```
 
 macOS contains several closed source tools to manipule bom files like `lsbom` and `mkbom`. It is possible to use `lsbom` to inspect the installer receipts located in `/private/var/db/receipts/`. For example running `lsbom /private/var/db/receipts/com.apple.pkg.Numbers5.bom` will print all the files installed by Apple Numbers (path, permissions, UID/GID, size and CRC32 checksum):
@@ -224,7 +223,6 @@ macOS contains several closed source tools to manipule bom files like `lsbom` an
 ./Applications/Numbers.app/Contents/MacOS/Numbers	100755	0/0	9838697539155192
 ./Applications/Numbers.app/Contents/PkgInfo	100644	0/0	8	3080130777
 [...]
-
 ```
 
 Sadly the bom file format itself is undocumented and the tools to manipule bom files are not working with car files. Joseph Coffland and Julian Devlin [reimplemented lsbom](https://github.com/cooljeanius/osxbom) and the code contains some useful information about the BOM file format. We can see that a BOM can store among other things blocks and trees.
@@ -286,14 +284,12 @@ void * BOMTreeIteratorKey(BOMTreeIterator iterator);
 size_t BOMTreeIteratorKeySize(BOMTreeIterator iterator);
 void * BOMTreeIteratorValue(BOMTreeIterator iterator);
 size_t BOMTreeIteratorValueSize(BOMTreeIterator iterator);
-
 ```
 
 By using the private APIs of the Bom.framework, accessing the data of the `CARHEADER` block is as easy as executing:
 
 ```objc
 NSData *blockData = GetDataFromBomBlock(bomStorage, "CARHEADER");
-
 ```
 
 where the `GetDataFromBomBlock()` method is implemented as:
@@ -319,7 +315,6 @@ NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName)
 	
 	return outData;
 }
-
 ```
 
 Similarly a simple method can be used to get all the keys/values of a BOM tree. For example to get all the keys/values of the `FACETKEYS` tree, the following lines can be executed:
@@ -330,7 +325,6 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 	// This Objective-C block is called for each key found.
 	// The value corresponding to the key is passed as parameter.
 });
-
 ```
 
 where the `ParseBOMTree()` method is implemented as following:
@@ -376,7 +370,6 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 		BOMTreeIteratorNext(bomIterator);
 	}
 }
-
 ```
 
 Now that we can access to the content of the BOM, let’s look at the different blocks and trees.
@@ -392,7 +385,6 @@ if(blockData != nil)
 	struct carheader *carHeader = (struct carheader *)[blockData bytes];
 	[...]
 }
-
 ```
 
 To help understand the structures, I used the [Synalyze It! Pro](https://www.synalysis.net) application with custom created grammars to parse the various blocks of data. Here is how the structure of the `CARHEADER` looks in Synalyze It! Pro:
@@ -417,7 +409,6 @@ struct carheader
     uint32_t colorSpaceID;
     uint32_t keySemantics;
 } __attribute__((packed));
-
 ```
 
 Here is what you would see when parsing the demo asset:
@@ -435,7 +426,6 @@ CARHEADER:
 	 schemaVersion: 2
 	 colorSpaceID: 1
 	 keySemantics: 2
-
 ```
 
 ## EXTENDED_METADATA block
@@ -454,7 +444,6 @@ struct carextendedMetadata {
     char deploymentPlatform[256];
     char authoringTool[256];
 } __attribute__((packed));
-
 ```
 
 Here is what you could see when dumping such a block:
@@ -465,7 +454,6 @@ EXTENDED_METADATA:
 	 deploymentPlatformVersion: 12.0
 	 deploymentPlatform: ios
 	 authoringTool: @(#)PROGRAM:CoreThemeDefinition  PROJECT:CoreThemeDefinition-346.29
-
 ```
 
 ## APPEARANCEKEYS tree
@@ -486,7 +474,6 @@ ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue)
 	
 	fprintf(stderr, "\t '%s': %u\n", [appearanceName UTF8String], appearanceIdentifier);
 });
-
 ```
 
 Running this code on a macOS car file produces for example:
@@ -497,7 +484,6 @@ Tree APPEARANCEKEYS
 	 'NSAppearanceNameAccessibilitySystem': 3
 	 'NSAppearanceNameDarkAqua': 1
 	 'NSAppearanceNameSystem': 0
-
 ```
 
 ## FACETKEYS tree
@@ -506,7 +492,6 @@ The `FACETKEYS` tree contains the facet name - which is a synonym for asset name
 
 ```text
 <00000000 03000100 55000200 D9001100 9FAF>
-
 ```
 
 The value is a `renditionkeytoken` structure containing a list of attributes:
@@ -521,7 +506,6 @@ struct renditionkeytoken {
 	uint16_t numberOfAttributes;
     struct renditionAttribute attributes[];
 } __attribute__((packed));
-
 ```
 
 The `cursorHotSpot` field seems to be a relic of some old cursor features. Following it, we can see the number of attributes followed by the list of attributes. The attributes themselves are key/value pairs with a simple structure with the name and value:
@@ -531,7 +515,6 @@ struct renditionAttribute {
 	uint16_t name;
 	uint16_t value;
 } __attribute__((packed));
-
 ```
 
 There are a bunch of possible attributes name:
@@ -566,7 +549,6 @@ enum RenditionAttributeType
 	kRenditionAttributeType_DisplayGamut			= 24,
 	kRenditionAttributeType_DeploymentTarget		= 25
 };
-
 ```
 
 Once we know the structures, parsing the `FACETKEYS` tree can be done using the following code:
@@ -591,7 +573,6 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 	
 	fprintf(stderr, "\n");
 });
-
 ```
 
 Running this code on the demo asset will print:
@@ -630,7 +611,6 @@ Tree FACETKEYS
 		 Element: 0055
 		 Part: 00B5
 		 Identifier: 56C0
-
 ```
 
 ## KEYFORMAT block and the rendition keys of the RENDITION tree
@@ -639,7 +619,6 @@ As we will see soon, the `RENDITION` tree stores the pairs (rendition keys, rend
 
 ```text
 <00000100 00000000 00000000 00000000 00000000 000006fe 5500b500 00000000 00000000>
-
 ```
 
 The rendition key is a list of values corresponding to the attributes in the `KEYFORMAT` block. In order to understand the rendition key, we first need to understand the `KEYFORMAT` block.
@@ -657,7 +636,6 @@ struct renditionkeyfmt {
     uint32_t maximumRenditionKeyTokenCount;
     uint32_t renditionKeyTokens[];
 } __attribute__((packed));
-
 ```
 
 Parsing this block can be done using the following code:
@@ -679,7 +657,6 @@ if(blockData != nil)
 		[keyFormatStrings addObject:attributeName];
 	}
 }
-
 ```
 
 When running this code on the demo asset, we get:
@@ -705,7 +682,6 @@ KEYFORMAT:
 	 renditionKeyTokens: Value
 	 renditionKeyTokens: Dimension 1
 	 renditionKeyTokens: Dimension 2
-
 ```
 
 Now that we have the list of attributes from the `KEYFORMAT` block, we can decode the example of rendition key from the `RENDITION` tree:
@@ -730,7 +706,6 @@ Now that we have the list of attributes from the `KEYFORMAT` block, we can decod
 	 Value: 0000
 	 Dimension 1: 0000
 	 Dimension 2: 0000
-
 ```
 
 As we can see, this rendition key corresponds to the facet with the identifier `FE06` and a `scale` of @1x. Using the `FACETKEYS` tree, we can see that this rendition key corresponds to the asset `MyPDF`.
@@ -777,103 +752,138 @@ struct csiheader {
     struct csimetadata csimetadata;
     struct csibitmaplist csibitmaplist;
 } __attribute__((packed));
-
 ```
 
 * The `tag` has its value set to `CTSI` which appears to be the acronym for `Core Theme Structured Image`.
-    
 * The `version` is always 1.
-    
 * The `renditionFlags` is a 32-bit integer whose bits indicate some properties of the rendition:
-    
 
-struct renditionFlags { uint32\_t isHeaderFlaggedFPO:1; uint32\_t isExcludedFromContrastFilter:1; uint32\_t isVectorBased:1; uint32\_t isOpaque:1; uint32\_t bitmapEncoding:4; uint32\_t optOutOfThinning:1; uint32\_t isFlippable:1; uint32\_t isTintable:1; uint32\_t preservedVectorRepresentation:1; uint32\_t reserved:20; } **attribute**((packed)); ```
+```c
+struct renditionFlags { 
+    uint32_t isHeaderFlaggedFPO:1; 
+    uint32_t isExcludedFromContrastFilter:1; 
+    uint32_t isVectorBased:1; 
+    uint32_t isOpaque:1; 
+    uint32_t bitmapEncoding:4; 
+    uint32_t optOutOfThinning:1; 
+    uint32_t isFlippable:1; 
+    uint32_t isTintable:1; 
+    uint32_t preservedVectorRepresentation:1; 
+    uint32_t reserved:20; 
+} attribute((packed));
+```
 
 * The `width` and `height` describe the size in pixels of the images. If the asset has no width or height, these values are set to 0.
-    
 * The `scaleFactor` is the scale factor multipled by 100. For example a @2x image has its scaleFactor set to 200.
-    
 * The `pixelFormat` can contain multiple values depending on the type of rendition: ‘ARGB’, ‘GA8 ‘, ‘RGB5’, ‘RGBW’, ‘GA16’, ‘JPEG’, ‘HEIF’, ‘DATA’…
-    
 * The `colorSpaceID` identifies which color space should be used. As of macOS Mojave and iOS 12, there are 6 different possible color spaces supported:
     
+```objc
+NSString *GetColorSpaceNameWithID(int64_t inColorSpaceID) { 
+    switch (inColorSpaceID) { 
+        case 0:
+        default: 
+            {
+                return @"SRGB"; 
+            } 
+            break;
 
-NSString *GetColorSpaceNameWithID(int64_t inColorSpaceID) { switch (inColorSpaceID) { case 0: default: { return @“SRGB”; } break;
+        case 1:
+            {
+                return @"GrayGamma2_2";
+            }
+            break;
 
-```
-    case 1:
-	{
-        return @"GrayGamma2_2";
-	}
-	break;
-	
-	case 2:
-	{
-        return @"DisplayP3";
-	}
-	break;
-	
-	case 3:
-	{
-        return @"ExtendedRangeSRGB";
-	}
-	break;
-	
-	case 4:
-	{
-        return @"ExtendedLinearSRGB";
-	}
-	break;
-	
-	case 5:
-	{
-        return @"ExtendedGray";
-	}
-	break;
+        case 2:
+            {
+                return @"DisplayP3";
+            }
+            break;
+
+        case 3:
+            {
+                return @"ExtendedRangeSRGB";
+            }
+            break;
+
+        case 4:
+            {
+                return @"ExtendedLinearSRGB";
+            }
+            break;
+
+        case 5:
+            {
+                return @"ExtendedGray";
+            }
+            break;
+    }
 }
-
 ```
-
-} ```
 
 * The `csimetadata` structure contains some important informations about the asset: its name, its layout and modification time.
-    
 
-struct csimetadata { uint32\_t modtime; uint16\_t layout; uint16_t zero; char name\[128\]; } **attribute**((packed)); ```
-
+```c
+struct csimetadata { 
+    uint32_t modtime; 
+    uint16_t layout; 
+    uint16_t zero; 
+    char name[128]; 
+} attribute((packed)); 
 ```
+
 The `layout` field is particularly interesting as it identifies the kind of data stored: image, data, texture, color, ... For images a subtype is stored in the layout:
 
 ```c
+enum RenditionLayoutType { 
+    kRenditionLayoutType_TextEffect = 0x007,
+    kRenditionLayoutType_Vector = 0x009,
+    kRenditionLayoutType_Data = 0x3E8,
+    kRenditionLayoutType_ExternalLink = 0x3E9,
+    kRenditionLayoutType_LayerStack = 0x3EA,
+    kRenditionLayoutType_InternalReference = 0x3EB,
+    kRenditionLayoutType_PackedImage = 0x3EC,
+    kRenditionLayoutType_NameList = 0x3ED,
+    kRenditionLayoutType_UnknownAddObject = 0x3EE,
+    kRenditionLayoutType_Texture = 0x3EF,
+    kRenditionLayoutType_TextureImage = 0x3F0,
+    kRenditionLayoutType_Color = 0x3F1,
+    kRenditionLayoutType_MultisizeImage = 0x3F2,
+    kRenditionLayoutType_LayerReference = 0x3F4,
+    kRenditionLayoutType_ContentRendition = 0x3F5,
+    kRenditionLayoutType_RecognitionObject = 0x3F6,
+};
 
+enum CoreThemeImageSubtype {
+    kCoreThemeOnePartFixedSize = 10, 
+    kCoreThemeOnePartTile = 11, 
+    kCoreThemeOnePartScale = 12, 
+    kCoreThemeThreePartHTile = 20, 
+    kCoreThemeThreePartHScale = 21, 
+    kCoreThemeThreePartHUniform = 22, 
+    kCoreThemeThreePartVTile = 23, 
+    kCoreThemeThreePartVScale = 24, 
+    kCoreThemeThreePartVUniform = 25, 
+    kCoreThemeNinePartTile = 30, 
+    kCoreThemeNinePartScale = 31, 
+    kCoreThemeNinePartHorizontalUniformVerticalScale = 32, 
+    kCoreThemeNinePartHorizontalScaleVerticalUniform = 33, 
+    kCoreThemeNinePartEdgesOnly = 34, 
+    kCoreThemeManyPartLayoutUnknown = 40, 
+    kCoreThemeAnimationFilmstrip = 50 
+};
 ```
-
-enum RenditionLayoutType { kRenditionLayoutType\_TextEffect = 0x007, kRenditionLayoutType\_Vector = 0x009,
-
-```
-kRenditionLayoutType_Data					= 0x3E8,
-kRenditionLayoutType_ExternalLink			= 0x3E9,
-kRenditionLayoutType_LayerStack				= 0x3EA,
-kRenditionLayoutType_InternalReference		= 0x3EB,
-kRenditionLayoutType_PackedImage			= 0x3EC,
-kRenditionLayoutType_NameList				= 0x3ED,
-kRenditionLayoutType_UnknownAddObject		= 0x3EE,
-kRenditionLayoutType_Texture				= 0x3EF,
-kRenditionLayoutType_TextureImage			= 0x3F0,
-kRenditionLayoutType_Color					= 0x3F1,
-kRenditionLayoutType_MultisizeImage			= 0x3F2,
-kRenditionLayoutType_LayerReference			= 0x3F4,
-kRenditionLayoutType_ContentRendition		= 0x3F5,
-kRenditionLayoutType_RecognitionObject		= 0x3F6,
-
-```
-
-}; c enum CoreThemeImageSubtype { kCoreThemeOnePartFixedSize = 10, kCoreThemeOnePartTile = 11, kCoreThemeOnePartScale = 12, kCoreThemeThreePartHTile = 20, kCoreThemeThreePartHScale = 21, kCoreThemeThreePartHUniform = 22, kCoreThemeThreePartVTile = 23, kCoreThemeThreePartVScale = 24, kCoreThemeThreePartVUniform = 25, kCoreThemeNinePartTile = 30, kCoreThemeNinePartScale = 31, kCoreThemeNinePartHorizontalUniformVerticalScale = 32, kCoreThemeNinePartHorizontalScaleVerticalUniform = 33, kCoreThemeNinePartEdgesOnly = 34, kCoreThemeManyPartLayoutUnknown = 40, kCoreThemeAnimationFilmstrip = 50 }; ```
 
 * Finally the `csibitmaplist` contains the size of the data of the rendition (renditionLength). This structure is followed by a list of TLV (Type-length-value) whose length is written in the `tvlLength` field:
     
-
-struct csibitmaplist { uint32\_t tvlLength; // Length of all the TLV following the csiheader uint32\_t unknown; uint32\_t zero; uint32\_t renditionLength; } **attribute**((packed)); ```
+```c
+struct csibitmaplist { 
+    uint32_t tvlLength; // Length of all the TLV following the csiheader 
+    uint32_t unknown; 
+    uint32_t zero; 
+    uint32_t renditionLength; 
+} attribute((packed));
+```
 
 Using the structure described above, we can create a custom grammar in Synalyze It! Pro to quickly understand the structure:
 
@@ -885,7 +895,6 @@ Following the `csibitmaplist` at the end of the `csiheader`, there is a list of 
 
 ```text
 <EC030000 08000000 00000000 0000803F EE030000 04000000 01000000>
-
 ```
 
 Here are the list of possible tags:
@@ -901,7 +910,6 @@ enum RenditionTLVType
 	kRenditionTLVType_ExternalTags			= 0x3F0,
 	kRenditionTLVType_Frame					= 0x3F1,
 };
-
 ```
 
 The following code can be used to dump the TLV:
@@ -932,7 +940,6 @@ if(tvlLength > 0)
 		tlvPos += 8 + tlvLength;
 	}
 }
-
 ```
 
 Running this code on the text file gives us:
@@ -941,7 +948,6 @@ Running this code on the text file gives us:
 tlv:
 	BlendModeAndOpacity: 000000000000803F
 	EXIFOrientation: 01000000
-
 ```
 
 On the PDF asset, we clearly see the `com.adobe.pdf` UTI:
@@ -951,7 +957,6 @@ tlv:
 	BlendModeAndOpacity: 000000000000803F
 	UTI: 0E00000000000000636F6D2E61646F62652E70646600
 	EXIFOrientation: 01000000
-
 ```
 
 ### The different types of renditions
@@ -962,7 +967,6 @@ In the case of the text file, the rendition data contains a simple header follow
 
 ```text
 <44574152 00000000 0E000000 626C6F67 2E74696D 61632E6F 7267>
-
 ```
 
 However the rendition data are not always that simple. In fact as of macOS Mojave there are 21 types of renditions:
@@ -1010,7 +1014,6 @@ struct CUIRawDataRendition {
     uint32_t rawDataLength;
 	uint8_t rawData[];
 } __attribute__((packed));
-
 ```
 
 Here is the code to parse the CUIRawDataRendition to recover the original raw data:
@@ -1033,7 +1036,6 @@ if(csiHeader->pixelFormat == 'DATA')
 		}
 	}
 }
-
 ```
 
 ### CUIRawPixelRendition
@@ -1047,7 +1049,6 @@ struct CUIRawPixelRendition {
     uint32_t rawDataLength;
 	uint8_t rawData[];
 } __attribute__((packed));
-
 ```
 
 The code to recover the image is straightforward too:
@@ -1069,7 +1070,6 @@ else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF')
 		CFRelease(sourceRef);
 	}
 }
-
 ```
 
 By running this code in Xcode, we can see the recovered image with QuickLook:
@@ -1096,7 +1096,6 @@ struct csicolor {
 	uint32_t numberOfComponents;
 	double components[];
 } __attribute__((packed));
-
 ```
 
 Accessing the `CGColorRef` can be done with this code:
@@ -1122,7 +1121,6 @@ else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditi
 		fprintf(stderr, "\n\t\t Found Color with colorspace ID %d but with %u components\n", colorRendition->colorSpace.colorSpaceID & 0xFF, colorRendition->numberOfComponents);
 	}
 }
-
 ```
 
 By running this code in Xcode, we can see the recovered `CGColorRef` with QuickLook:
@@ -1141,27 +1139,31 @@ struct CUIThemePixelRendition {
     uint32_t rawDataLength;
 	uint8_t rawData[];
 } __attribute__((packed));
-
 ```
 
 * the `tag` has its value set to `CELM`
-    
 * the `version` is always set to 0
-    
 * the `compressionType` can be set to one of the following:
     
-
-enum RenditionCompressionType { kRenditionCompressionType\_uncompressed = 0, kRenditionCompressionType\_rle, kRenditionCompressionType\_zip, kRenditionCompressionType\_lzvn, kRenditionCompressionType\_lzfse, kRenditionCompressionType\_jpeg\_lzfse, kRenditionCompressionType\_blurred, kRenditionCompressionType\_astc, kRenditionCompressionType\_palette\_img, kRenditionCompressionType\_deepmap_lzfse, }; ```
-
+```c
+enum RenditionCompressionType { 
+    kRenditionCompressionType_uncompressed = 0,
+    kRenditionCompressionType_rle, 
+    kRenditionCompressionType_zip, 
+    kRenditionCompressionType_lzvn, 
+    kRenditionCompressionType_lzfse, 
+    kRenditionCompressionType_jpeg_lzfse, 
+    kRenditionCompressionType_blurred, 
+    kRenditionCompressionType_astc, 
+    kRenditionCompressionType_palette_img, 
+    kRenditionCompressionType_deepmap_lzfse, 
+}; 
 ```
+
 When a compression is used, the raw data is compressed and should be decoded with the corresponding algorithm. The decompression algorithms used is out of the scope of this article.
 
-```
-
-* the `rawDataLength` contains the size of the `rawData`.
-    
+* the `rawDataLength` contains the size of the `rawData`.    
 * Finally the `rawData` contains the real data - either uncompressed or compressed. If the data is compressed, you will need to decompress it using the algorithm specified in the `compressionType` field.
-    
 
 Here is how a png rendition looks like in Synalyze It! Pro. Note in red the raw data compressed:
 
@@ -1176,7 +1178,6 @@ The complete source code of the `CARParser` application can be [downloaded here]
 Here is the output you will see when running `CARParser` on the demo asset:
 
 ```text
-
 CARHEADER:
 	 coreuiVersion: 498
 	 storageVersion: 15
@@ -1547,7 +1548,6 @@ Tree 'ELEMENT_INFO'
 
 Tree 'PART_INFO'
 ```
-
 
 You can find my QuickLook plugin to visualize .car files in a new article here: [QuickLook plugin to visualize .car files (compiled Asset Catalogs)](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
 
