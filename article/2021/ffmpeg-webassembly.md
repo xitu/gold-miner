@@ -12,13 +12,13 @@
 [FFmpeg](https://ffmpeg.org) 是一个强大的命令行工具，它能够处理包括视频、音频和其他多媒体文件，甚至包括流媒体。对于任何视频开发者来说，它都是用于编辑、转化以及混流几乎任何格式的重要工具。它是用 C 开发的，因此可用于绝大多数平台。
 [FFmpeg](https://ffmpeg.org) is a powerful command line tool for handling video, audio and other multimedia files and streams. It is any video developer's utility for editing, transcoding, and remuxing virtually any format. It is developed in C and available for most platforms.
 
-但 FFmpeg 不只是一个命令行工具。它是由被被称为 libav 的一些 FFmpeg 库驱动的。这些库赋予了 FFmpeg 读取、写入和处理多媒体文件的能力。这些库为混合、编/解码、滤码、缩放、色域转换以及底层接口提供功能支持。如果你使用 C/C++ 开发应用，你可以直接调用这些库。很多常见的语言也集成了 libav 库。
+但 FFmpeg 不仅仅†是一个命令行工具。它是由被称为 libav 的一些 FFmpeg 库提供支持。这些库赋予了 FFmpeg 读取、写入和处理多媒体文件的能力。这些库为混流、编/解码、过滤、缩放、色域转换以及底层接口提供功能支持。如果你使用 C/C++ 开发应用，你可以直接调用这些库。很多常见的语言也集成了 libav 库。
 FFmpeg is not just a command line tool, though. It is powered by the FFmpeg libraries known as libav. These libraries enable FFmpeg to read, write and manipulate multimedia files. These libraries provide functionality for remuxing, encoding and decoding, filtering, scaling, colorspace conversion and device interfacing. You can use these libraries directly if you're writing an application in C/C++. There are also libav bindings available for most common languages.
 
 > 假如你能在浏览器中调用 FFmpeg 的库呢？
 > What if you could use FFmpeg's libraries in the browser?
 
-允许在浏览器中的 JavaScript 非常与众不同。它被设计成不能在浏览器环境中运行系统级的应用。那么我们要怎么在浏览器中使用 FFmpeg 呢？答案是使用 WebAssembly！
+运行在浏览器中的 JavaScript 非常与众不同。它被设计成不能在浏览器环境中运行系统级的应用。那么我们要怎么在浏览器中使用 FFmpeg 呢？答案是使用 WebAssembly！
 JavaScript in the browser is a different story. It is not designed to run system applications in the browser environment. So how can we run FFmpeg in the browser? WebAssembly!
 
 WebAssembly（或者叫 Wasm）近年来逐渐流行起来，原因是它能够让我们在浏览器中运行二进制指令。通过一套编译工具链，我们可以将 C/C++ 代码 构建为 Wasm。
@@ -37,10 +37,10 @@ However, this guide's focus will step through the process on building FFmpeg's `
 因为与运行在原生系统环境中相比，在浏览器环境中运行 FFmpeg 并不能发挥其最大的性能，当 FFmpeg 在原生的操作系统环境中运行时，它能充分享受到多线程处理和硬件加速带来的优势。
 FFmpeg in the browser won't have the greatest performance compared to running it natively on a system that can take advantage of threaded processing and hardware acceleration.
 
-通常情况下，你只需要搭建一个后端服务器来运行 FFmpeg，然后与前端对接并发送处理结果。
+通常情况下，你只需要搭建一个包含 FFmpeg 或 libav 的后端服务，然后与前端对接并发送处理结果。
 Normally, you would just build a back-end that wraps FFmpeg or libav and relay to the front-end to provide results.
 
-然而，我们仍然可以使用 FFmpeg 库提供的强大功能，例如解析多媒体文件格式、编码信息、解码音视频帧、对多媒体文件进行滤码等等。想象一下我们能够在浏览器环境中的一个静态 Web 页面上，仅仅使用 JavaScript 就能完成这些。
+然而，我们仍然可以使用 FFmpeg 库提供的强大功能，例如解析多媒体格式、编解码信息、解码音视频帧、使用过滤器等。想象一下，我们能够在浏览器环境中的一个静态 Web 页面上，仅仅使用 JavaScript 就能完成这些操作。
 However, we can still take advantage of the vast features of FFmpeg's libraries such as parsing format and codec information, decoding frames, applying filters and more. Imagine if we can do this purely in JavaScript, within the browser environment on a static webpage.
 
 ## 初尝 `libav`
@@ -85,35 +85,48 @@ int main(int argc, const char *argv[])
 }
 ```
 
+这是一个基础的程序，它读取一个媒体文件作为参数，然后打印出这个媒体文件的格式、时长和流的数量。
 This is a basic program that takes a media file as an argument and prints out the format name, duration and stream count.
 
+让我们来编译并运行这个程序
 Compile and run the program:
 
-[Download Tears of Steel 10s Example](https://github.com/alfg/ffmpeg-webassembly-example/blob/master/tears-of-steel-10s.mp4?raw=true)
+[下载钢铁之泪（时长 10s）样例](https://github.com/alfg/ffmpeg-webassembly-example/blob/master/tears-of-steel-10s.mp4?raw=true)
 
 ```shell
 gcc src/mp4info.c -lavformat -lavutil -o bin/mp4info
 ./bin/mp4info tears-of-steel-10s.mp4
 ```
 
+**构建时需要使用 `gcc`, `ffmpeg` 和 `ffmpeg-dev`**
+
 _`gcc`, `ffmpeg` and `ffmpeg-dev` are required to build._
 
+你应该会得到如下的输出。
 You should get the following output.
 
 ```shell
 format: mov,mp4,m4a,3gp,3g2,mj2, duration: 10000000 us, streams: 2
 ```
 
+非常好！现在我们可以进行下一步了，即使用 Emscripten 来编译 FFmpeg 并为其构建一个包装器，以便在 JavaScript 环境中使用。
+
 Great! Now we can move onto the next step using Emscripten to compile FFmpeg, and build a wrapper for use within a JavaScript environment.
 
 ## Emscripten
 
+Emscripten 是 WebAssembly 的一套编译工具链。我们会使用 [Docker](https://www.docker.com/) 和 [emscripten](https://emscripten.org/) 将 FFmpeg 的 `libav` 库和我们自定义的包装器编译为 Wasm。 让我们先从 FFmpeg 开始。
+
 Emscripten is a compiler toolchain for for WebAssembly. We will use [Docker](https://www.docker.com/) and [emscripten](https://emscripten.org/) to build FFmpeg's `libav` and our custom wrapper code to Wasm. Let's start with FFmpeg first.
+
+## 将 FFmpeg 编译为 WebAssembly
 
 ## Compiling FFmpeg to Web Assembly
 
+在我们的 Dockerfile 中，我们将使用基础的 emscripten emsdk 从源代码构建 FFmpeg，以及最新的稳定版 `libx264` 库。
 In our Dockerfile, we will use the base emscripten emsdk to build FFmpeg from source, along with the latest stable `libx264` version.
 
+由于我们需要编译到 WebAssembly，我们将通过禁用所有程序并仅启用我们需要使用的功能来进行最小构建。这将有助于保持二进制的体积最小和最佳。
 Since we are compiling to WebAssembly, we will make a minimal build by disabling all programs and only enabling the features we are likely to use. This will help keep the binary size small and optimal.
 
 ```dockerfile
@@ -125,10 +138,10 @@ ARG X264_VERSION=20170226-2245-stable
 ARG PREFIX=/opt/ffmpeg
 ARG MAKEFLAGS="-j4"
 
-# Build dependencies.
+# 构建依赖。
 RUN apt-get update && apt-get install -y autoconf libtool build-essential
 
-# Download and build x264.
+# 下载并构建 x264。
 RUN cd /tmp && \
   wget https://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-${X264_VERSION}.tar.bz2 && \
   tar xvfj x264-snapshot-${X264_VERSION}.tar.bz2
@@ -145,7 +158,7 @@ RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
 RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
   emmake make && emmake make install
 
-# Download ffmpeg release source.
+# 下载 ffmpeg 发布的源码
 RUN cd /tmp/ && \
   wget http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz && \
   tar zxf ffmpeg-${FFMPEG_VERSION}.tar.gz && rm ffmpeg-${FFMPEG_VERSION}.tar.gz
@@ -153,7 +166,7 @@ RUN cd /tmp/ && \
 ARG CFLAGS="-s USE_PTHREADS=1 -O3 -I${PREFIX}/include"
 ARG LDFLAGS="$CFLAGS -L${PREFIX}/lib -s INITIAL_MEMORY=33554432"
 
-# Configure and build FFmpeg with emscripten.
+# 使用 emscripten 配置和构建 FFmpeg。
 # Disable all programs and only enable features we will use.
 # https://github.com/FFmpeg/FFmpeg/blob/master/configure
 RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
@@ -205,20 +218,29 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 docker build -t mp4info .
 ```
 
+以上操作会将构建 ffmpeg 的库并安装到 `/opt/ffmpeg` 中。但我们仍然需要使用我们之前编写的 Hello World 示例来编写我们的包装器。
 This will build and install ffmpeg libraries to `/opt/ffmpeg`. However, we still need to write our wrapper using the Hello World example we wrote earlier.
+
+## 编写包装器
 
 ## Writing the Wrapper
 
+现在我们可以将 FFmpeg 的库文件构建为 Wasm 了，我们需要创建一个集成了 emsscripten 功能的包装器，这样方便我们在浏览器中通过 JavaScript 引入和使用。
 Now that we can build the FFmpeg libraries to Wasm, we need to create a wrapper that integrates the functionality of emscipten so we can import and use in JavaScript within the browser.
 
+我们会使用 C++ 编写我们的自定义包装器，并利用 [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html)。
 We will write our custom wrapper in C++ to take advantage of [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html).
 
+在 Embind 的文档中这样写到：
 From the documentation:
 
+> Embind 用于将 C++ 的函数和类绑定到 JavaScript，这样编译产出的代码就可以在 JavaScript 中以常规的方式调用。
 > Embind is used to bind C++ functions and classes to JavaScript, so that the compiled code can be used in a natural way by “normal” JavaScript.
 
+这使得我们能很简单地从 C++ 的结构中创建绑定。所以让我们开始吧！
 This will allow us to easily create bindings from C++ constructs. So let's get started!
 
+将我们的 Hello World 样例该为用 C++ 编写。
 Update our Hello World example to C++:
 
 `mp4info-wrapper.cpp`:
