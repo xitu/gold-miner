@@ -7,10 +7,6 @@
 
 # What is the State of jQuery in 2021?
 
-#### JavaScript
-
-#### Is jQuery still worth learning?
-
 ![Source: [pixabay.com](https://pixabay.com/de/photos/technologie-computer-code-1283624/)](https://cdn-images-1.medium.com/max/3840/1*Tc90FhOr8U4x04kzqguVuA.jpeg)
 
 Normal people think of nostalgia as old photos, music, or places. 
@@ -62,7 +58,7 @@ But why is that? Well, because frameworks & libraries like React, Vue, and Angul
 
 The frameworks are all about reusable components, data binding, state, and single-page apps. jQuery, on the other hand, should always be like an accent for pure JavaScript, as you can see well in the following example:
 
-```
+```js
 let el = document.getElementById('contents'); 
 
 // the jQuery way: 
@@ -104,8 +100,6 @@ If you want to optimize your web app for performance down to the last detail, jQ
 jQuery always was and is more for sites that are about content, not about features. In more complex web apps, the component philosophy of React and co. is a good entry point.
 
 Thank you for reading!
-
-**More content at[** plainenglish.io**](http://plainenglish.io)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
