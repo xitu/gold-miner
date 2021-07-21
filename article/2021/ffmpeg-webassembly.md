@@ -430,7 +430,7 @@ www
 
 在浏览器载入 `index.html` 之前，我们的 Wasm 模块会使用 [PTHREADS](https://emscripten.org/docs/porting/pthreads.html)，但在一些浏览器中会导致一个安全问题。在 Emscripten 文档中：
 
-> 浏览器会在跨源开放者政策（Cross Origin Resource Policy，COOP） 和 跨源嵌入程序政策（Cross Origin Embedder Policy，COEP）请求头通过验证后才会响应 SharedArrayBuffer。除非正确设置这些标头，否则 Pthreads 代码将无法在部署环境中工作。
+> 浏览器会在跨源开放者策略（Cross Origin Opener Policy，COOP）和跨源嵌入程序策略（Cross Origin Embedder Policy，COEP）请求头通过验证后才会响应 SharedArrayBuffer。除非正确设置这些标头，否则 Pthreads 代码将无法在部署环境中工作。
 
 因此当服务器为我们的网页提供响应事需要提供正确的请求头：
 
