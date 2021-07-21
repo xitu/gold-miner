@@ -202,7 +202,7 @@ docker build -t mp4info .
 
 将我们的 Hello World 样例改为用 C++ 编写。
 
-`mp4info-wrapper.cpp`:
+`mp4info-wrapper.cpp`：
 
 ```cpp
 #include <emscripten.h>
