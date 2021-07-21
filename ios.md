@@ -1,3 +1,4 @@
+* [Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
 * [Kotlin Multiplatform Mobile 的三模块问题](https://juejin.cn/post/6973566787799498782)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [React Native：回顾 Udacity 移动工程团队的使用历程](https://juejin.im/post/5b421b606fb9a04fd15ff802)（[pkuwwt](https://github.com/pkuwwt) 翻译）
 * [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
