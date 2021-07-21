@@ -2,28 +2,26 @@
 > * 原文作者：[Jhey Tompkins](https://css-tricks.com/author/jheytompkins/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/css-in-3d-learning-to-think-in-cubes-instead-of-boxes.md](https://github.com/xitu/gold-miner/blob/master/article/2021/css-in-3d-learning-to-think-in-cubes-instead-of-boxes.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# CSS in 3D: Learning to Think in Cubes Instead of Boxes
+# CSS 中的 3D：学习去以立方体而不是盒子的方式考虑问题
 
-My path to learning CSS was a little unorthodox. I didn’t start as a front-end developer. I was a Java developer. In fact, my earliest recollections of CSS were picking colors for things in Visual Studio.
+我学习 CSS 的道路有点不正统。我不是从前端开发人员开始的，而是一名 Java 开发人员。事实上，我最早对 CSS 的回忆是在 Visual Studio 中为挑选颜色。
 
-It wasn’t until later that I got to tackle and find my love for the front end. And exploring CSS came later. When it did, it was around the time CSS3 was taking off. 3D and animation were the cool kids on the block. They almost shaped my learning of CSS. They drew me in and *shaped* (pun intended) my understanding of CSS more than other things, like layout, color, etc.
+直到后来我才开始解决并找到我对前端的热爱。探索 CSS 是后话了。当它完全出现在我世界中时，大概已经是 CSS3 蓬勃发展的时候了。3D 和动画是这个街区的酷孩子，他们几乎塑造了我对 CSS 的学习。他们吸引我并*塑造*了（双关语）我，让对 CSS 的理解比其他东西更重要，比如布局、颜色等。
 
-What I’m getting at is I’ve been doing the whole 3D CSS thing a minute. And as with anything you spend a lot of time with, you end up refining your process over the years as you hone that skill. This article is a look at how I’m currently approaching 3D CSS and goes over some tips and tricks that might help you!
+我的意思是我每一分钟都在做关于 CSS 3D 事情。与你花费大量时间处理的任何事情一样，随着你在这一技能上的磨练，你最终会在多年内完善你的处理能力。这篇文章介绍了我目前是如何处理 CSS 3D 的，并介绍了一些可能对你有所帮助的提示和技巧！
 
 [Codepen jh3y/mLaXRe](https://codepen.io/jh3y/pen/mLaXRe)
 
-## Everything’s a cuboid
+## 一切都是长方体
 
-For most things, we can use a cuboid. We can create more complex shapes, for sure but they usually take a little more consideration. Curves are particularly hard and there are some tricks for handling them (but more on that later).
+对于 3D 中大多数的情况，我们可以使用长方体。我们当然可以创建更复杂的形状，但它们通常需要更多考虑。圆滑弯曲的部分特别的难，有一些处理它们的技巧（我们稍后会做详细介绍）。
 
-We aren’t going to walk through how to make a cuboid in CSS. We can reference [Ana Tudor’s post](https://css-tricks.com/simplifying-css-cubes-custom-properties/) for that, or check out this screencast of me making one:
+我们不会介绍如何在 CSS 中制作长方体。你可以参考 [Ana Tudor 的帖子](https://css-tricks.com/simplifying-css-cubes-custom-properties/)，或者看一下我制作的这个[制作长方体的截屏](https://css-tricks.com/wp-content/uploads/2020/10/use-css-transforms-to-create-configurable-3d-cuboids.mp4)。
 
-[Screencast of making a cuboid](https://css-tricks.com/wp-content/uploads/2020/10/use-css-transforms-to-create-configurable-3d-cuboids.mp4).
-
-At its core, we use one element to wrap our cuboid and then transform six elements within. Each element acts as a side to our cuboid. It’s important that we apply `transform-style: preserve-3d`. And it’s not a bad idea to apply it everywhere. It’s likely we’ll deal with nested cuboids when things get more complex. Trying to debug a missing `transform-style` while hopping between browsers can be painful.
+这里的核心是我们需要使用一个元素来包裹我们的长方体，然后在其中转换六个元素，让每个元素都充当我们长方体的一面。其中，应用 `transform-style:preserve-3d` 是很重要的，而且将它应用于任何地方也不是一个坏主意。当形状变得更复杂时，我们很可能会处理嵌套的长方体。在浏览器之间切换去尝试去调试一个缺失的 `transform-style` 可能会很痛苦。
 
 ```css
 * {
@@ -33,17 +31,17 @@ At its core, we use one element to wrap our cuboid and then transform six elemen
 
 [Codepen jh3y/QWELPQg](https://codepen.io/jh3y/pen/QWELPQg)
 
-For your 3D creations that are more than a few faces, try and imagine the whole scene built from cuboids. For a real example, consider this demo of a 3D book. It’s four cuboids. One for each cover, one for the spine, and one for the pages. The use of `background-image` does the rest for us.
+对于我们的 3D 创作而言，远不止是常见的那几样形状。请尝试想象由长方体构建的整个场景，比如说，让我作一个真实的例子，请考虑在页面上渲染一本 3D 的图书，其中包含四个长方体。正反封面各一个、书脊一个、个书页一张。使用 `background-image` 为我们完成剩下的工作。
 
 [Codepen jh3y/ZEOzNbm](https://codepen.io/jh3y/pen/ZEOzNbm)
 
-## Setting a scene
+## 设置场景
 
-We’re going to use cuboids like LEGO pieces. But, we can make our lives a little easier by setting a scene and creating a plane. That plane is where our creation will sit and makes it easier for us to rotate and move the whole creation.
+我们将使用像乐高积木这样的长方体。但是，我们可以通过设置场景和创建平面来让我们的生活更轻松一些。那个平面是我们的创作所在的地方，让我们更容易旋转和移动整个创作。
 
 [Codepen jh3y/pobzmNx](https://codepen.io/jh3y/pen/pobzmNx)
 
-For me, when I create a scene, I like to rotate it on the X and Y axis first. Then I lay it flat with `rotateX(90deg)`. That way, when I want to add a new cuboid to the scene, I add it inside the plane element. Another thing I will do here is to set `position: absolute` on all cuboids.
+对我来说，当我创建一个场景时，我喜欢先在 X 和 Y 轴上旋转它。然后我会用 `rotateX(90deg)` 把它平放。这样，当我想在场景中添加一个新的长方体时，我可以直接将新元素添加到平面元素中。我将在这里做的另一件事是在所有长方体上设置 `position: absolute`。
 
 ```css
 .plane {
@@ -51,11 +49,11 @@ For me, when I create a scene, I like to rotate it on the X and Y axis first. Th
 }
 ```
 
-## Start with a boilerplate
+## 从样板开始
 
-Creating cuboids of various sizes and across a plane makes for a lot of repetition for each creation. For this reason, I use Pug to create my cuboids via a mixin. If you’re not familiar with Pug, I wrote a [5-minute intro](https://dev.to/jh3y/pug-in-5-minutes-272k).
+在平面上创建各种大小的长方体会导致每次创建都需要大量重复的代码。出于这个原因，我使用 Pug 通过 mixin 创建我的长方体。如果您不熟悉 Pug，我写了一个 [5 分钟的介绍](https://dev.to/jh3y/pug-in-5-minutes-272k)。
 
-A typical scene looks like this:
+一个典型的场景是这样的：
 
 ```pug
 //- Front
@@ -76,11 +74,11 @@ mixin cuboid(className)
     +cuboid('first-cuboid')
 ```
 
-As for the CSS. My cuboid class is currently looking like this:
+至于 CSS，我的长方体类的样式代码目前看起来像这样：
 
 ```css
 .cuboid {
-    /* Defaults */
+    /* 默认样式 */
     --width: 15;
     --height: 10;
     --depth: 4;
@@ -149,25 +147,27 @@ As for the CSS. My cuboid class is currently looking like this:
 }
 ```
 
-Which, by default, gives me something like this:
+默认情况下，它给了我这样的东西：
 
-## Powered by CSS variables
+[Codepen jh3y/abZorVz](https://codepen.io/jh3y/pen/abZorVz)
 
-You may have noticed a fair few CSS variables (aka custom properties) in there. This is a big time-saver. I’m powering my cuboids with CSS variables.
+## 由 CSS 变量提供支持
 
-* `--width`: The width of a cuboid on the plane
-* `--height`: The height of a cuboid on the plane
-* `--depth`: The depth of a cuboid on the plane
-* `--x`: The X position on the plane
-* `--y`: The Y position on the plane
+你可能已经注意到我在 CSS 代码中使用了一些 CSS 变量（也称为自定义属性）。这很大程度上节省了我的时间。我用了不少 CSS 变量助力构建我的长方体。
 
-I use `vmin` mostly as my sizing unit to keep everything responsive. If I’m creating something to scale, I might create a responsive unit. We mentioned this technique in a [previous article](https://css-tricks.com/advice-for-complex-css-illustrations/). Again, I lay the plane down flat. Now I can refer to my cuboids as having height, width, and depth. This demo shows how we can move a cuboid around the plane changing its dimensions.
+* `--width`：平面上长方体的宽度
+* `--height`：平面上长方体的高度
+* `--depth`：平面上长方体的深度
+* `--x`: 平面上的 X 位置
+* `--y`: 平面上的 Y 位置
+
+我主要使用 `vmin` 作为我的大小调整单位，以保持响应式布局。如果我正在创建需要缩放的东西，我可能会创建一个响应式单位。我们在[上一篇文章](https://css-tricks.com/advice-for-complex-css-illustrations/)中提到了这种技术。我再次将形状放平，现在我可以将我的长方体称为具有高度、宽度和深度的形状了。下面的演示展示了我们如何在平面上移动一个长方体来改变它的尺寸。
 
 [Codepen jh3y/BaKqQLJ](https://codepen.io/jh3y/pen/BaKqQLJ)
 
-## Debugging with dat.GUI
+## 使用 dat.GUI 调试
 
-You might have noticed that little panel in the top right for some of the demos we’ve covered. That’s [dat.](https://github.com/dataarts/dat.gui)[GUI](https://github.com/dataarts/dat.gui)[.](https://github.com/dataarts/dat.gui) It’s a lightweight controller library for JavaScript that super useful for debugging 3D CSS. With not much code, we can set up a panel that allows us to change CSS variables at runtime. One thing I like to do is use the panel to rotate the plane on the X and Y-axis. That way, it’s possible to see how things are lining up or work on a part that you might not see at first.
+您可能已经注意到我们介绍的一些演示右上角的小面板。那是 [dat.GUI](https://github.com/dataarts/dat.gui)。这是一个轻量级的 JavaScript 控制器库，对于调试 CSS 3D 来说非常有用。不用太多代码，我们就可以设置一个面板，允许我们在运行时更改 CSS 变量。我喜欢做的一件事是使用面板在 X 和 Y 轴上旋转平面。这样，就可以看到事情如何排列或在我们一开始可能看不到的部分上工作。
 
 ```javascript
 const {
@@ -200,8 +200,8 @@ CUBOID_FOLDER.add(CONFIG, 'cuboid-width', 1, 20, 0.1)
 CUBOID_FOLDER.add(CONFIG, 'cuboid-depth', 1, 20, 0.1)
     .name('Depth (vmin)')
     .onChange(UPDATE)
-// You have a choice at this point. Use x||y on the plane
-// Or, use standard transform with vmin.
+// 在这里你有一个选择，可以使用 x||y
+// 或者使用标准的带有 vmin 的 transform
 CUBOID_FOLDER.add(CONFIG, 'x', 0, 40, 0.1)
     .name('X (vmin)')
     .onChange(UPDATE)
@@ -223,42 +223,42 @@ CUBOID_FOLDER.add(CONFIG, 'rotate-cuboid-z', 0, 360, 1)
 UPDATE()
 ```
 
-If you watch the timelapse video in this tweet. You’ll notice that I rotate the plane a lot as I build up the scene.
+如果您观看此推文中的延时摄影视频。您会注意到我在构建场景时经常旋转平面。
 
-[Twitter jh3yy](https://twitter.com/jh3yy/status/1312126353177673732?s=20)
+[@jh3yy 的一份推文](https://twitter.com/jh3yy/status/1312126353177673732?s=20)
 
-That dat.GUI code is a little repetitive. We can create functions that will take a configuration and generate the controller. It takes a little tinkering to cater to your needs. I started playing with dynamically generated controllers in [this demo](https://codepen.io/jh3y/pen/GRJoWyp).
+dat.GUI 代码有点重复。我们可以创建接受配置并生成控制器的函数，不过需要稍加修改才能满足你的需求。我开始在 [这个演示](https://codepen.io/jh3y/pen/GRJoWyp) 中使用了动态生成的控制器。
 
-## Centering
+## 居中
 
-You may have noticed that by default each cuboid is half under and half above the plane. That’s intentional. It’s also something I only recently started to do. Why? Because we want to use the containing element of our cuboids as the center of the cuboid. This makes animation easier. Especially, if we’re considering rotating around the Z-axis. I found this out when creating “CSS is Cake”. After making the cake, I then decided I wanted each slice to be interactive. I then had to go back and change my implementation to fix the rotation center of the flipping slice.
+你可能已经注意到，默认情况下，每个长方体都位于平面下方和上方的一半。这是我故意设置的，也是我最近才开始做的事情。为什么？因为我们想使用长方体的包含元素作为长方体的中心，而这能够让动画变得更容易。特别是，如果我们考虑绕 Z 轴旋转。我在创建 `CSS is Cake` 时发现了这一点。制作蛋糕后，我决定让每一片蛋糕都是能够交互的，然后我不得不返工更改我的实现，以修复翻转的蛋糕片的旋转中心。
 
 [Codepen jh3y/KKVGoGJ](https://codepen.io/jh3y/pen/KKVGoGJ)
 
-Here I’ve broken that demo down to show the centers and how having an offset center would affect the demo.
+在这里，我拆分了该演示的显示中心以及偏移中心，展示这些会如何影响效果。
 
 [Codepen jh3y/XWKrLwe](https://codepen.io/jh3y/pen/XWKrLwe)
 
-## Positioning
+## 定位
 
-If we are working with a scene that’s more complex, we may split it up into different sections. This is where the concept of sub-planes comes in handy. Consider this demo where I’ve recreated my personal workspace.
+如果我们正在处理一个更复杂的场景 —— 我们可能会将其拆分为不同的部分。这就是子平面的概念派上用场的地方。考虑这个演示，我在其中重新创建了我的个人工作区。
 
-[Twitter jh3yy](https://twitter.com/jh3yy/status/1310658720746045440?s=20).
+[@jh3yy 的一份推文](https://twitter.com/jh3yy/status/1310658720746045440?s=20)。
 
-There’s quite a bit going on here and it’s hard to keep track of all the cuboids. For that, we can introduce sub-planes. Let’s break down that demo. The chair has its own sub-plane. This makes it easier to move it around the scene and rotate it — among other things — without affecting anything else. In fact, we can even spin the top without moving the feet!
+这里发生了很多事情，很难跟踪所有的长方体。为此，我们可以引入子平面。让我们分解那个演示。椅子有自己的子平面。这使得在场景中移动和旋转它变得更容易 —— 除其他外 —— 而不影响其他任何东西。事实上，我们甚至可以在不移动椅子脚的情况下旋转顶部！
 
 [Codepen jh3y/QWELerg](https://codepen.io/jh3y/pen/QWELerg)
 
-## Aesthetics
+## 美学
 
-Once we’ve got a structure, it’s time to work on the aesthetics. This all depends on what you’re making. But you can get some quick wins from using certain techniques. I tend to start by making things “ugly” then go back and make CSS variables for all the colors and apply them. Three shades for a certain thing allows us to differentiate the sides of a cuboid visually. Consider this toaster example. Three shades cover the sides of the toaster:
+一旦我们有了一个结构，就该研究美学了。这一切都取决于你在做什么。但是您可以通过使用某些技术获得一些快速的胜利。我倾向于从让事情变得“丑陋”开始，然后回去为所有颜色创建 CSS 变量并应用它们。特定事物的三种阴影使我们能够在视觉上区分长方体的侧面。考虑这个烤面包机的例子，让我们使用三种色调覆盖烤面包机的侧面：
 
 [Codepen jh3y/KKVjLrx](https://codepen.io/jh3y/pen/KKVjLrx)
 
-Our Pug mixin from earlier allows us to define class names for a cuboid. Applying color to a side usually looks something like this:
+我们之前的 Pug mixin 允许我们为长方体定义类名。将颜色应用到一侧通常看起来像这样：
 
 ```css
-/* The front face uses a linear-gradient to apply the shimmer effect */
+/* 正面使用线性渐变来应用微光效果 */
 .toaster__body > div:nth-of-type(1) {
     background: linear-gradient(120deg, transparent 10%, var(--shine) 10% 20%, transparent 20% 25%, var(--shine) 25% 30%, transparent 30%), var(--shade-one);
 }
@@ -278,51 +278,51 @@ Our Pug mixin from earlier allows us to define class names for a cuboid. Applyin
 }
 ```
 
-It’s a little tricky to include extra elements with our Pug mixin. But let’s not forget, every side to our cuboid offers two pseudo-elements. We can use these for various details. For example, the toaster slot and the slot for the handle on the side are pseudo-elements.
+在我们的 Pug mixin 中包含额外的元素有点棘手。但是我们不要忘记，我们长方体的每一面都提供了两个伪元素。我们可以将这些用于各种细节。例如，烤面包机插槽和侧面的手柄插槽是伪元素。
 
-Another trick is to use `background-image` for adding details. For example, consider the 3D workspace. We can use background layers to create shading. We can use actual images to create textured surfaces. The flooring and the rug are a repeating `background-image`. In fact, using a pseudo-element for textures is great because then we can transform them if needed, like rotating a tiled image. I’ve also found that I get flickering in some cases working directly with a cuboid side.
+另一个技巧是使用 `background-image` 来添加细节。例如，考虑 3D 工作区。我们可以使用背景层来创建阴影。我们可以使用实际图像来创建纹理表面。地板和地毯是重复的 `background-image`。事实上，对纹理使用伪元素是很棒的，因为我们可以在需要时转换它们，比如旋转平铺图像。我还发现，在某些情况下，直接使用长方体侧面工作时会出现渲染上的闪烁。
 
 [Codepen jh3y/XWdQBRx](https://codepen.io/jh3y/pen/XWdQBRx)
 
-One issue with using an image for texture is how we create different shades. We need shades to differentiate the different sides. That’s where the `filter` property can help. Applying a `brightness``()` filter to the different sides of a cuboid can lighten or darken them. Consider this CSS flipping table. All the surfaces are using a texture image. But to differentiate the sides, brightness filters are applied.
+将图像用于纹理的一个问题是我们如何创建不同的阴影。我们需要色调来区分不同的侧面，这就是 `filter` 属性可以提供帮助的地方。让我们将 `brightness()` 过滤器应用于长方体的不同侧面使它们变亮或变暗。考虑这个 CSS 翻转桌子，所有的表面都使用纹理图像。但是为了区分侧面，我们在上面应用了亮度过滤器。
 
 [Codepen jh3y/xJXvjP](https://codepen.io/jh3y/pen/xJXvjP)
 
-How about shapes — or features we want to create that seem impossible — using a finite set of elements? Sometimes we can trick the eye with a little smoke and mirrors. We can provide a “faux” like sense of 3D. The [Z](https://zzz.dog)[dog](https://zzz.dog) [library](https://zzz.dog) does this well and is a good example of this.
+如何使用有限的元素集来创建形状——或者我们想要创建的看似不可能的特征？有时我们可以用一点烟雾和镜像效果来欺骗眼睛。我们可以提供一种伪造的 3D 感觉。[Z dog library](https://zzz.dog) 做得很好，就是一个很好的例子。
 
-Consider this bundle of balloons. The strings holding them use the correct perspective and each has its own rotation, tilt, etc. But the balloons themselves are flat. If we rotate the plane, the balloons maintain the counter plane rotation. And this gives that “faux” 3D impression. Try out the demo and switch off the countering.
+考虑一下我们现在有一捆气球，固定它们的绳子使用了正确的视角，并且每个绳子都有自己的旋转、倾斜等的效果。但气球本身是平的。如果我们旋转平面，气球会保持反平面旋转。这给人一种“虚假”的 3D 感觉，试用演示并解决这一问题。
 
 [Codepen jh3y/NWNVgJw](https://codepen.io/jh3y/pen/NWNVgJw)
 
-Sometimes it takes a little out-of-the-box thinking. I had a house plant suggested to me as I built the 3D workspace. I have a few in the room. My initial thought was, “No, I can make a square pot, and how would I make all the leaves?” Well actually, we can use some eye tricks on this one too. Grab a stock image of some leaves or a plant. Remove the background with a tool like [remove.bg](https://www.remove.bg). Then position many images in the same spot but rotate them each a certain amount. Now, when they’re rotated, we get the impression of a 3D plant.
+有时需要一点开箱即用的思考。我在构建 3D 工作空间时有人向我建议种一些室内植物。在我房间里的确重了一些植物，但我最初的想法是，“不，我可以做一个方形的锅，我怎么做所有的叶子？”实际上，我们也可以在这个上使用一些视觉上的技巧。我们可以获取一些叶子或植物的图片，使用 [remove.bg](https://www.remove.bg) 之类的工具删除背景，然后将许多图像放置在同一位置，但将它们每个旋转一定量。现在，当它们旋转时，我们就能够得到 3D 植物的感觉。
 
 [Codepen jh3y/oNLNZMR](https://codepen.io/jh3y/pen/oNLNZMR)
 
-## Tackling awkward shapes
+## 处理尴尬的形状
 
-Awkward shapes are tough to cover in a generic way. Every creation has its own hurdles. But, there is a couple of examples that could help give you ideas for tackling things. I recently read an article about the [UX of LEGO interface panels](https://www.designedbycave.co.uk/2020/LEGO-Interface-UX/). In fact, approaching 3D CSS work like it’s a LEGO set isn’t a bad idea. But the LEGO interface panel is a shape we could make with CSS (minus the studs — I only recently learned this is what they are called). It’s a cuboid to start with. Then we can clip the top face, make the end face transparent, and rotate a pseudo-element to join it up. We can use the pseudo-element for adding the details with some background layers. Try turning the wireframe on and off in the demo below. If we want the exact heights and angles for the faces, we can use some math to workout the hypoteneuse etc.
+笨拙的形状很难以通用的方式覆盖，每个创作都有自己的障碍。但是，有几个示例可以帮助您提供解决问题的想法。我最近看了一篇关于【乐高界面面板的 UX】的[文章](https://www.designedbycave.co.uk/2020/LEGO-Interface-UX/)。事实上，将 CSS 3D 像乐高玩具一样处理并不是一个坏主意。但是乐高界面面板是我们可以用 CSS 制作的形状（除去螺柱 —— 我最近才知道这是螺栓的名称）。这是一个长方体，然后我们可以裁剪顶面，使端面透明，并旋转一个伪元素将其连接起来。我们可以使用伪元素添加一些背景层的细节。快来尝试在下面的演示中打开和关闭线框。如果我们想要形状的确切高度和角度，我们可以使用一些数学来构建斜边等。
 
 [Codepen jh3y/PozojYe](https://codepen.io/jh3y/pen/PozojYe)
 
-Another awkward thing to cover is curves. Spherical shapes are not in the CSS wheelhouse. We have various options at this point. One option is to embrace that fact and create polygons with a finite number of sides. Another is to create rounded shapes and use the rotation method we mentioned with the plant. Each of these options could work. But again, it’s on a use case basis. Each has pros and cons. With the polygon, we surrender the curves or use so many elements that we get an almost curve. The latter could result in performance issues. With the perspective trick, we may also end up with performance issues depending. We also surrender being able to style the “sides” of the shape as there aren’t any.
+另一个尴尬的事情是曲线 —— 球形不被 CSS 支持。在这一点上，我们有多种选择，一种选择是接受这一事实并创建边数有限的多边形，而另一种是创建圆形并使用我们在植物中提到的旋转方法。这些选项中的每一个都可以工作。但同样，它是基于用例的，各有利弊。有了多边形，我们在使用了很多的元素的情况下，我们几乎可以得到一条曲线，而后者可能会导致性能问题。使用透视技巧，我们最终也可能会遇到性能问题。我们也放弃了设计形状“侧面”的能力，因为没有适宜的方法。
 
 [Codepen jh3y/wvWvqqM](https://codepen.io/jh3y/pen/wvWvqqM)
 
-## Z fighting
+## 与 Z 轴作斗争
 
-Last, but not least, it’s worth mentioning “Z-fighting.” This is where certain elements on a plane may overlap or cause an undesirable flicker. It’s hard to give good examples of this. There’s not a generic solution for it. It’s something to tackle on a case-by-case basis. The main strategy is to order things in the DOM as appropriate. But sometimes that’s not the only issue.
+最后但并非最不重要的是与 Z 轴作斗争。这是平面上的某些元素可能重叠或导致我们不希望看到的渲染闪烁的地方。很难给出很好的例子，也没有通用的解决方案。这是要根据具体情况来解决的问题。主要策略是根据需要对 DOM 中的事物进行排序，但有时这不是唯一的问题。
 
-Being accurate can sometimes cause issues. Let’s refer to the 3D workspace again. Consider the canvas on the wall. The shadow is a pseudo-element. If we place the canvas exactly against the wall, we are going to hit issues. If we do that, the shadow and the wall are going to fight for the front position. To combat this, we can translate things by a slight amount. That will solve the issue and declare what should sit in front.
+做得准确有时也会导致问题，让我们再次参考 3D 工作区的案例。想一想墙上的画布，其中的阴影是一个伪元素。如果我们将画布正好靠在墙上，我们就会遇到问题。如果我们这样做，阴影和墙壁将争夺渲染上的层次问题。为了解决这个问题，我们可以稍微应用 translate。这将解决问题，可以有效声明应该放在前面的内容。
 
 [Codepen jh3y/PozoYWK](https://codepen.io/jh3y/pen/PozoYWK)
 
-Try resizing this demo with the “Canvas offset” on and off. Notice how the shadow flickers when there is no offset? That’s because the shadow and the wall are fighting for view. The offset sets the `--x` to a fraction of `1vmin` that we’ve named `--cm`. That’s a responsive unit being used for that creation.
+尝试在打开和关闭“画布偏移”的情况下调整此演示的大小。注意没有偏移时阴影是如何闪烁的？那是因为阴影和墙壁在争夺层次。偏移量将 `--x` 设置为我们命名为 `--cm` 的 `1vmin` 的一小段长度，即用于该创作的响应单位。
 
-## That’s “it”!
+## 就是这样
 
-Take your CSS to another dimension. Use some of my tips, create your own, share them, and share your 3D creations! Yes, making 3D things in CSS can be tough and is definitely a process that we can refine as we go along. Different approaches work for different people and patience is a required ingredient. I’m interested to see where you take your approach!
+我们现在可以将我们的 CSS 带到另一个维度 —— 3D。使用我的一些技巧，找到属于你自己的技巧，分享这些技巧，并分享你的 3D 创作！是的，在 CSS 中制作 3D 东西可能很困难，但绝对是一个我们可以随着我们进行而改进的能力。不同的方法适用于不同的人，耐心是必需的成分。我很想知道你的方法是什么！
 
-The most important thing? Have fun with it!
+最重要的事情？其实还是玩得开心，哈哈哈！
 
 [Codepen jh3y/MWeWvGO](https://codepen.io/jh3y/pen/MWeWvGO)
 
