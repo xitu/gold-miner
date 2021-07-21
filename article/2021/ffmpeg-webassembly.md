@@ -1,41 +1,41 @@
-> * 原文地址：[FFmpeg + WebAssembly](https://dev.to/alfg/ffmpeg-webassembly-2cbl)
-> * 原文作者：[alfg](https://dev.to/alfg)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ffmpeg-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ffmpeg-webassembly.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[FFmpeg + WebAssembly](https://dev.to/alfg/ffmpeg-webassembly-2cbl)
+> - 原文作者：[alfg](https://dev.to/alfg)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/ffmpeg-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/ffmpeg-webassembly.md)
+> - 译者：[finalwhy](https://github.com/finalwhy)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
 
 # FFmpeg + WebAssembly
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--JZhzlW_S--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dktx72lm8zpz9wodh95m.jpeg)
 
-[FFmpeg](https://ffmpeg.org) is a powerful command line tool for handling video, audio and other multimedia files and streams. It is any video developer's utility for editing, transcoding, and remuxing virtually any format. It is developed in C and available for most platforms.
+[FFmpeg](https://ffmpeg.org) 是一个强大的命令行工具，它能够处理包括视频、音频和其他多媒体文件，甚至包括流媒体。对于任何视频开发者来说，它都是用于编辑、转化以及混流几乎任何格式的重要工具。它是用 C 开发的，因此可用于绝大多数平台。
 
-FFmpeg is not just a command line tool, though. It is powered by the FFmpeg libraries known as libav. These libraries enable FFmpeg to read, write and manipulate multimedia files. These libraries provide functionality for remuxing, encoding and decoding, filtering, scaling, colorspace conversion and device interfacing. You can use these libraries directly if you're writing an application in C/C++. There are also libav bindings available for most common languages.
+但 FFmpeg 不仅仅只是一个命令行工具。它是由被称为 libav 的一些 FFmpeg 库提供支持。这些库赋予了 FFmpeg 读取、写入和处理多媒体文件的能力。这些库为混流、编/解码、过滤、缩放、色域转换以及底层接口提供功能支持。如果你使用 C/C++ 开发应用，你可以直接调用这些库。很多常见的语言也集成了 libav 库。
 
-> What if you could use FFmpeg's libraries in the browser?
+> 假如你能在浏览器中调用 FFmpeg 的库呢？
 
-JavaScript in the browser is a different story. It is not designed to run system applications in the browser environment. So how can we run FFmpeg in the browser? WebAssembly!
+运行在浏览器中的 JavaScript 非常与众不同。它被设计成不能在浏览器环境中运行系统级的应用。那么我们要怎么在浏览器中使用 FFmpeg 呢？答案是使用 WebAssembly！
 
-WebAssembly (or Wasm) has been gaining popularity recently allowing us to run binary instructions in the browser, along with a compiler toolchain, [Emscripten](https://emscripten.org/) to help us build and port C/C++ code to Wasm.
+WebAssembly（或者叫 Wasm）近年来逐渐流行起来，原因是它能够让我们在浏览器中运行二进制指令。通过一套编译工具链，我们可以将 C/C++ 代码构建为 Wasm。
 
-This has already been done before. You can check out [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) for running the FFmpeg CLI in the browser environment.
+这项工作目前已经有人实现了。你可以看一看 [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) ，这个文件能够让你在浏览器环境中运行 FFmpeg CLI 工具。
 
-However, this guide's focus will step through the process on building FFmpeg's `libav` libraries for use in the browser via Web Assembly, rather than the FFmpeg CLI application.
+但是，本文的关注点并非 FFmpeg CLI，而是如何一步步将 FFmpeg 的 `libav` 库编译为 WebAssembly 并在浏览器中使用。
 
-## Why? 🤔
+## 为什么？🤔
 
-FFmpeg in the browser won't have the greatest performance compared to running it natively on a system that can take advantage of threaded processing and hardware acceleration.
+因为与运行在原生系统环境中相比，在浏览器环境中运行 FFmpeg 并不能发挥其最大的性能。当 FFmpeg 在原生的操作系统环境中运行时，它能充分享受到多线程处理和硬件加速带来的优势。
 
-Normally, you would just build a back-end that wraps FFmpeg or libav and relay to the front-end to provide results.
+通常情况下，你只需要搭建一个包含 FFmpeg 或 libav 的后端服务，然后与前端对接并发送处理结果。
 
-However, we can still take advantage of the vast features of FFmpeg's libraries such as parsing format and codec information, decoding frames, applying filters and more. Imagine if we can do this purely in JavaScript, within the browser environment on a static webpage.
+然而，我们仍然可以使用 FFmpeg 库提供的强大功能，例如解析多媒体格式、编解码信息、解码音视频帧、使用过滤器等。想象一下，我们能够在浏览器环境中的一个静态 Web 页面上，仅仅使用 JavaScript 就能完成这些操作。
 
-## Hello World in `libav`
+## 初尝 `libav`
 
-Let's start by writing a simple program in C to print out basic media information using libav. Let's name it `mp4info.c`.
+让我们从一个简单的 C 程序开始，在本程序中我使用 libav 库输出基本的媒体信息。我们将它命名为 `mp4info.c`。
 
-If you are not familiar with `libav`, [ffmpeg-libav-tutorial](https://github.com/leandromoreira/ffmpeg-libav-tutorial) is a great introduction.
+如果你不了解 `libav`，[ffmpeg-libav-tutorial](https://github.com/leandromoreira/ffmpeg-libav-tutorial) 是一份不错的指南。
 
 ```cpp
 #include <stdio.h>
@@ -50,14 +50,14 @@ int main(int argc, const char *argv[])
     return -1;
   }
 
-  // Open the file and read header.
+  // 打开多媒体文件并读取文件头
   int ret;
   if ((ret = avformat_open_input(&fmt_ctx, argv[1], NULL, NULL)) < 0) {
       printf("%s", av_err2str(ret));
       return ret;
   }
 
-  // Read container data.
+  // 读取包含的数据
   printf("format: %s, duration: %ld us, streams: %d\n",
     fmt_ctx->iformat->name,
     fmt_ctx->duration,
@@ -67,36 +67,35 @@ int main(int argc, const char *argv[])
 }
 ```
 
-This is a basic program that takes a media file as an argument and prints out the format name, duration and stream count.
+这是一个基础的程序，它读取一个媒体文件作为参数，然后打印出这个媒体文件的格式、时长和流的数量。
 
-Compile and run the program:
-
-[Download Tears of Steel 10s Example](https://github.com/alfg/ffmpeg-webassembly-example/blob/master/tears-of-steel-10s.mp4?raw=true)
+让我们来编译并运行这个程序：
+[下载钢铁之泪（时长 10s）样例](https://github.com/alfg/ffmpeg-webassembly-example/blob/master/tears-of-steel-10s.mp4?raw=true)
 
 ```shell
 gcc src/mp4info.c -lavformat -lavutil -o bin/mp4info
 ./bin/mp4info tears-of-steel-10s.mp4
 ```
 
-*`gcc`, `ffmpeg` and `ffmpeg-dev` are required to build.*
+**构建时需要使用 `gcc`, `ffmpeg` 和 `ffmpeg-dev`**
 
-You should get the following output.
+你将会得到如下的输出。
 
 ```shell
 format: mov,mp4,m4a,3gp,3g2,mj2, duration: 10000000 us, streams: 2
 ```
 
-Great! Now we can move onto the next step using Emscripten to compile FFmpeg, and build a wrapper for use within a JavaScript environment.
+非常好！现在我们可以进行下一步了，即使用 Emscripten 来编译 FFmpeg 并为其构建一个包装器，以便在 JavaScript 环境中使用。
 
 ## Emscripten
 
-Emscripten is a compiler toolchain for for WebAssembly. We will use [Docker](https://www.docker.com/) and [emscripten](https://emscripten.org/) to build FFmpeg's `libav` and our custom wrapper code to Wasm. Let's start with FFmpeg first.
+Emscripten 是 WebAssembly 的一套编译工具链。我们会使用 [Docker](https://www.docker.com/) 和 [emscripten](https://emscripten.org/) 将 FFmpeg 的 `libav` 库和我们自定义的包装器编译为 Wasm。让我们先从 FFmpeg 开始。
 
-## Compiling FFmpeg to Web Assembly
+## 将 FFmpeg 编译为 WebAssembly
 
-In our Dockerfile, we will use the base emscripten emsdk to build FFmpeg from source, along with the latest stable `libx264` version.
+在我们的 Dockerfile 中，我们将使用基础的 emscripten emsdk 从源代码构建 FFmpeg，以及最新的稳定版 `libx264` 库。
 
-Since we are compiling to WebAssembly, we will make a minimal build by disabling all programs and only enabling the features we are likely to use. This will help keep the binary size small and optimal.
+由于我们需要编译到 WebAssembly，我们将通过禁用所有程序并仅启用我们需要使用的功能来进行最小构建。这将有助于保持二进制的体积最小和最佳。
 
 ```dockerfile
 FROM emscripten/emsdk:2.0.16 as build
@@ -107,10 +106,10 @@ ARG X264_VERSION=20170226-2245-stable
 ARG PREFIX=/opt/ffmpeg
 ARG MAKEFLAGS="-j4"
 
-# Build dependencies.
+# 构建依赖。
 RUN apt-get update && apt-get install -y autoconf libtool build-essential
 
-# Download and build x264.
+# 下载并构建 x264。
 RUN cd /tmp && \
   wget https://download.videolan.org/pub/videolan/x264/snapshots/x264-snapshot-${X264_VERSION}.tar.bz2 && \
   tar xvfj x264-snapshot-${X264_VERSION}.tar.bz2
@@ -125,9 +124,9 @@ RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
   --extra-cflags="-s USE_PTHREADS=1"
 
 RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
-  emmake make && emmake make install 
+  emmake make && emmake make install
 
-# Download ffmpeg release source.
+# 下载 ffmpeg 发布的源码
 RUN cd /tmp/ && \
   wget http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.gz && \
   tar zxf ffmpeg-${FFMPEG_VERSION}.tar.gz && rm ffmpeg-${FFMPEG_VERSION}.tar.gz
@@ -135,8 +134,8 @@ RUN cd /tmp/ && \
 ARG CFLAGS="-s USE_PTHREADS=1 -O3 -I${PREFIX}/include"
 ARG LDFLAGS="$CFLAGS -L${PREFIX}/lib -s INITIAL_MEMORY=33554432"
 
-# Configure and build FFmpeg with emscripten.
-# Disable all programs and only enable features we will use.
+# 使用 emscripten 配置和构建 FFmpeg。
+# 禁用其他所有程序，只开启我们需要的功能
 # https://github.com/FFmpeg/FFmpeg/blob/master/configure
 RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
   emconfigure ./configure \
@@ -187,23 +186,23 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 docker build -t mp4info .
 ```
 
-This will build and install ffmpeg libraries to `/opt/ffmpeg`. However, we still need to write our wrapper using the Hello World example we wrote earlier.
+以上操作会将构建 ffmpeg 的库并安装到 `/opt/ffmpeg` 中。但我们仍然需要使用之前编写的 Hello World 示例来编写包装器。
 
-## Writing the Wrapper
+## 编写包装器
 
-Now that we can build the FFmpeg libraries to Wasm, we need to create a wrapper that integrates the functionality of emscipten so we can import and use in JavaScript within the browser.
+现在我们可以将 FFmpeg 的库文件构建为 Wasm 了，我们需要创建一个集成了 emscripten 功能的包装器，以方便我们在浏览器中通过 JavaScript 引入和使用。
 
-We will write our custom wrapper in C++ to take advantage of [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html).
+我们会使用 C++ 编写自定义包装器，并利用 [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html)。
 
-From the documentation:
+在 Embind 的文档中这样写到：
 
-> Embind is used to bind C++ functions and classes to JavaScript, so that the compiled code can be used in a natural way by “normal” JavaScript.
+> Embind 用于将 C++ 的函数和类绑定到 JavaScript，这样编译产出的代码就可以在 JavaScript 中以常规的方式调用。
 
-This will allow us to easily create bindings from C++ constructs. So let's get started!
+这使得我们能很简单地从 C++ 的结构中创建绑定。所以让我们开始吧！
 
-Update our Hello World example to C++:
+将我们的 Hello World 样例改为用 C++ 编写。
 
-`mp4info-wrapper.cpp`:
+`mp4info-wrapper.cpp`：
 
 ```cpp
 #include <emscripten.h>
@@ -231,20 +230,20 @@ static AVFormatContext *fmt_ctx;
 
 Response run(std::string filename)
 {
-  // Open the file and read header.
+  // 打开文件并读取头信息。
   int ret;
   if ((ret = avformat_open_input(&fmt_ctx, filename.c_str(), NULL, NULL)) < 0)
   {
     printf("%s", av_err2str(ret));
   }
 
-  // Read container data.
+  // 读取容器数据.
   printf("format: %s, duration: %lld us, streams: %d\n",
          fmt_ctx->iformat->name,
          fmt_ctx->duration,
          fmt_ctx->nb_streams);
 
-  // Initialize response struct with format data.
+  // 使用读取到的格式数据填充 response 结构体。
   Response r = {
       .format = fmt_ctx->iformat->name,
       .duration = (int)fmt_ctx->duration,
@@ -264,15 +263,15 @@ EMSCRIPTEN_BINDINGS(structs)
 }
 ```
 
-Some notable changes:
+显著的变化包括:
 
-* C to C++
-* Included the `emscripten` headers
-* Created a `Response` typedef
-* Updated `main` to `run`, taking a filename argument and returns a `Response` struct with format, duration and streams.
-* Added `EMSCRIPTEN_BINDINGS` to export the `run` function with the `Response` type bindings.
+- C 实现变成了 C++ 实现
+- 引入 `emscripten` 头文件
+- 创建了一个 `Response` 类型定义
+- `main` 函数改为 `run` 函数, 接受一个文件名参数并返回一个 `Response` 类型的结构体，其中包含格式、时长和流计数。
+- 增加了 `EMSCRIPTEN_BINDINGS` 用于暴露绑定了 `Response` 类型的 `run` 方法。
 
-Add a `Makefile` for `emcc` to build the wrapper:
+为 `emcc` 增加一个 `Makefile` 文件用于构建这个包装器：
 
 ```make
 dist/mp4info.wasm.js:
@@ -294,7 +293,7 @@ dist/mp4info.wasm.js:
     src/mp4info-wrapper.cpp
 ```
 
-And add the following lines to our Dockerfile:
+然后在我们的 Dockerfile 中添加以下几行：
 
 ```dockerfile
 COPY ./src/mp4info-wrapper.cpp /build/src/mp4info-wrapper.cpp
@@ -303,13 +302,13 @@ COPY ./Makefile /build/Makefile
 WORKDIR /build
 ```
 
-Now let's build via Docker with a mounted volume. This is so we can easily build the artifact from the container to our host:
+现在让我们通过 Docker 构建一个挂载的卷。这样我们就可以轻松地从容器构建一个工件到主机。
 
 ```shell
 docker run -v ${pwd}:/build -it mp4info make
 ```
 
-This will build the following files into `dist/`:
+最终我们会将以下几个文件构建到 `dist/` 目录下：
 
 ```shell
 dist
@@ -318,109 +317,107 @@ dist
 └───mp4info.worker.js
 ```
 
-Your WebAssembly artifacts are now ready for use within JavaScript! 🎉
+现在，你的 WebAssembly 已经可以在 JavaScript 中使用了！🎉
 
-## Writing the JavaScript
+## 编写 JavaScript 代码
 
-In this next step, we'll be creating a static webpage using just HTML and JavaScript.
+接下来，我们将只使用 HTML 和 JavaScript 来构建一个静态网页。
 
-Let's create a basic `index.html` page with a file input and an empty results `div`:
+让我们来创建一个基础的 `index.html` 页面，这个页面中只包含一个用于上传文件的输入框以及一个用于展示结果的 `div`：
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>FFmpeg WebAssembly Example</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-</head>
-<body>
-<div>
-    <input id="file" type="file">
-</div>
-<div id="results"></div>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div>
+      <input id="file" type="file" />
+    </div>
+    <div id="results"></div>
+  </body>
 </html>
 ```
 
-Since our `mp4info` wrapper is compiled from synchronous C++ code, it can block the browser's main thread when executing on larger files. This can lead to the browser's UI locking up and a bad experience for the user.
+因为我们的 `mp4info` 包装器是由同步的 C++ 代码编译而来，所以当它在处理较大的文件时，它会阻塞浏览器的主线程。这将导致浏览器的 UI 被锁定，用户体验较差。
 
-However, we can take advantage of [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) to handle background tasks and simply relay the response to the main thread to prevent any blocking code.
+但是，我们可以利用 [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) 将任务转到后台运行，只将最后的处理结果返回给主线程。这样就能避免因为同步代码导致的线程阻塞。
 
-Let's create a new `worker.js` file with the following:
+我们创建一个新的包含如下代码的 `worker.js` 文件：
 
 ```javascript
-// Run this script as a Web Worker so it doesn't block the
-// browser's main thread.
-// See: index.html.
-onmessage = (e) => {
-    const file = e.data[0];
-    let data;
+// 将以下脚本作为一个 Web Worker 来运行，这样它就不会阻塞
+// 浏览器主线程。
+// 详见：index.html。
+onmessage = e => {
+  const file = e.data[0];
+  let data;
 
-    // Create and mount FS work directory.
-    if (!FS.analyzePath('/work').exists) {
-        FS.mkdir('/work');
-    }
-    FS.mount(WORKERFS, {files: [file]}, '/work');
+  // 创建并挂载 FS 工作目录.
+  if (!FS.analyzePath('/work').exists) {
+    FS.mkdir('/work');
+  }
+  FS.mount(WORKERFS, { files: [file] }, '/work');
 
-    // Run the Wasm function we exported.
-    const info = Module.run('/work/' + file.name);
-    console.log(info);
+  // 运行我们暴露的 Wasm 函数
+  const info = Module.run('/work/' + file.name);
+  console.log(info);
 
-    // Post message back to main thread.
-    postMessage(info);
+  // 将消息发送回主线程
+  postMessage(info);
 
-    // Unmount the work directory.
-    FS.unmount('/work');
-}
+  // 卸载工作目录
+  FS.unmount('/work');
+};
 
-// Import the Wasm loader generated from our Emscripten build.
+// 从 E Emscripten 构建工具生成的代码中引入 Wasm 装载器
 self.importScripts('mp4info.js');
 ```
 
-This contains a message listener to create a virtual file system using the `Emscripten` [Filesystem API](https://emscripten.org/docs/api_reference/Filesystem-API.html), runs our Wasm module code, and send the results back using `postMessage`.
+此处包含一个消息监听器，它使用 `Emscripten` [Filesystem API](https://emscripten.org/docs/api_reference/Filesystem-API.html) 创建了一个虚拟的文件系统，运行我们的 Wasm 模块代码，并使用 `postMessage` 将结果发回主线程。
 
-So let's also add the following code to your `index.html` right before the `</html>` line:
+现在，将以下代码加到你的 `index.html` 中的 `</html>` 行之前：
 
 ```html
-
 <script>
-    // Create a worker for running Wasm code without blocking main thread.
-    const worker = new Worker('worker.js');
+  // 创建一个 web worker 用于运行 Wasm 代码，并且不会阻塞主线程。
+  const worker = new Worker('worker.js');
 
-    const input = document.querySelector('input');
-    input.addEventListener('change', onFileChange);
+  const input = document.querySelector('input');
+  input.addEventListener('change', onFileChange);
 
-    // Listen for messages back from worker and render to DOM.
-    worker.onmessage = (e) => {
-        const data = e.data;
-        const results = document.getElementById('results');
-        const ul = document.createElement('ul');
-        const li = document.createElement('li');
-        li.textContent = "format: " + data.format;
-        const li2 = document.createElement('li');
-        li2.textContent = "duration: " + data.duration;
-        const li3 = document.createElement('li');
-        li3.textContent = "streams: " + data.streams;
-        ul.appendChild(li);
-        ul.appendChild(li2);
-        ul.appendChild(li3);
-        results.appendChild(ul);
-    }
+  // 监听从 worker 中返回的消息，并渲染到 Dom
+  worker.onmessage = e => {
+    const data = e.data;
+    const results = document.getElementById('results');
+    const ul = document.createElement('ul');
+    const li = document.createElement('li');
+    li.textContent = 'format: ' + data.format;
+    const li2 = document.createElement('li');
+    li2.textContent = 'duration: ' + data.duration;
+    const li3 = document.createElement('li');
+    li3.textContent = 'streams: ' + data.streams;
+    ul.appendChild(li);
+    ul.appendChild(li2);
+    ul.appendChild(li3);
+    results.appendChild(ul);
+  };
 
-    // Send file to worker.
-    function onFileChange(event) {
-        const file = input.files[0];
-        worker.postMessage([file]);
-    }
-
+  // 向 worker 发送文件
+  function onFileChange(event) {
+    const file = input.files[0];
+    worker.postMessage([file]);
+  }
 </script>
 ```
 
-This creates a listener on the `input` form element and sends it to the Web Worker. It also creates a listener for messages relayed back from `worker.js` so we can render the results back to the DOM.
+此处在 `input` 表单元素上创建了一个事件监听器用于将上传的文件发送给 Web Worker。同时，也创建了一个消息监听器用于接受从 `worker.js` 中返回的消息，以便我们可以将结果渲染到 DOM 上。
 
-Let's add our `index.html`, `worker.js` and Wasm related files into a new directory `www`:
+接下来我们将 `index.html`、`worker.js` 和 Wasm 相关的文件放到一个新目录 `www` 中：
 
 ```shell
 www
@@ -431,18 +428,18 @@ www
 └───mp4info.worker.js
 ```
 
-Before we load up `index.html` into the browser, our Wasm build uses [PTHREADS](https://emscripten.org/docs/porting/pthreads.html), which raises a security issue with some browsers. From the Emscripten documentation:
+在浏览器载入 `index.html` 之前，我们的 Wasm 模块会使用 [PTHREADS](https://emscripten.org/docs/porting/pthreads.html)，但在一些浏览器中会导致一个安全问题。在 Emscripten 文档中：
 
-> Browsers are currently shipping SharedArrayBuffer gated behind Cross Origin Opener Policy (COOP) and Cross Origin Embedder Policy (COEP) headers. Pthreads code will not work in deployed environment unless these headers are correctly set.
+> 浏览器会在跨源开放者策略（Cross Origin Opener Policy，COOP）和跨源嵌入程序策略（Cross Origin Embedder Policy，COEP）请求头通过验证后才会响应 SharedArrayBuffer。除非正确设置这些标头，否则 Pthreads 代码将无法在部署环境中工作。
 
-So we need to include the proper response headers when serving the webpage:
+因此当服务器为我们的网页提供响应时，需要提供正确的请求头：
 
 ```http request
 Cross-Origin-Opener-Policy: same-origin
 Cross-Origin-Embedder-Policy: require-corp
 ```
 
-We can do this by running simple [NodeJS](https://nodejs.org/en/) server using [Express](https://expressjs.com/), easily:
+在使用 [Express](https://expressjs.com/) 框架的 [NodeJS](https://nodejs.org/en/) 中，我们可以很简单地实现以上操作：
 
 ```javascript
 const express = require('express');
@@ -450,59 +447,59 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.use((req, res, next) => {
-    // CORS headers.
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+  // CORS headers.
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Required headers for SharedArrayBuffer.
-    // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements
-    res.append('Cross-Origin-Opener-Policy', 'same-origin');
-    res.append('Cross-Origin-Embedder-Policy', 'require-corp');
-    next();
+  // Required headers for SharedArrayBuffer.
+  // See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer#security_requirements
+  res.append('Cross-Origin-Opener-Policy', 'same-origin');
+  res.append('Cross-Origin-Embedder-Policy', 'require-corp');
+  next();
 });
 app.use(express.static(__dirname));
 app.listen(port);
 ```
 
-However, keep in mind you will need to add these response headers if deploying to any static webpage provider.
+但是，请记住，如果部署到任何静态网页提供程序，您将需要添加这些响应头。
 
-## Demo Time!
+## 样例时间!
 
-Run the server (requires [NodeJS](https://nodejs.org/en/)):
+启动服务器（需要 [NodeJS](https://nodejs.org/en/)）：
 
 ```shell
 npm install express
 node server.js
 ```
 
-Load up [http://localhost:8080/www](http://localhost:8080/www) in the browser and select an MP4 file.
+在浏览器中输入 [http://localhost:8080/www](http://localhost:8080/www) 并选择一个 mp4 文件。
 
 [![Alt Text](https://res.cloudinary.com/practicaldev/image/fetch/s--7Ux4Erxc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nx1lp38jqe13cdu7a5k1.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--7Ux4Erxc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nx1lp38jqe13cdu7a5k1.png)
 
-**And that's how you run FFmpeg's `libav` in the browser!** ⚡
+**这就是你在浏览器中运行 FFmpeg 的 `libav` 库的结果!** ⚡
 
-This just scratches the surface into the capabilities of FFmpeg + WebAssembly. You can use `libav` to do more than just read format details. Check out more [libav examples](http://ffmpeg.org/doxygen/4.1/examples.html) and try porting them to WebAssembly.
+这只是 FFmpeg + WebAssembly 的能力的皮毛。你可以使用 `libav` 来做更多的事情，而不仅仅是读取媒体格式的详细信息。查看更多 [libav 示例](http://ffmpeg.org/doxygen/4.1/examples.html) 并尝试将它们移植到 WebAssembly。
 
-## Thanks for reading!
+## 感谢阅读!
 
-Check out [https://github.com/alfg/ffmpeg-webassembly-example](https://github.com/alfg/ffmpeg-webassembly-example) for the full demo files in this guide.
+你可以在 [https://github.com/alfg/ffmpeg-webassembly-example](https://github.com/alfg/ffmpeg-webassembly-example) 中找到本文中的完整样例文件。
 
-I also have a more advanced example of using FFProbe via Wasm:  
+我还有一个优秀的例子，是关于通过 Wasm 来使用 FFProbe：
 [https://github.com/alfg/ffprobe-wasm](https://github.com/alfg/ffprobe-wasm)
 
-Find me on GitHub at: [https://github.com/alfg](https://github.com/alfg)
+我的 Github 主页: [https://github.com/alfg](https://github.com/alfg)
 
-## References and Resources
+## 引用和资源
 
-* [https://webassembly.org/](https://webassembly.org/)
-* [https://emscripten.org/](https://emscripten.org/)
-* [http://ffmpeg.org/doxygen/4.1/examples.html](http://ffmpeg.org/doxygen/4.1/examples.html)
-* [https://github.com/alfg/libav-examples](https://github.com/alfg/libav-examples)
-* [https://github.com/alfg/ffprobe-wasm](https://github.com/alfg/ffprobe-wasm)
-* [https://github.com/alfg/ffmpeg-webassembly-example](https://github.com/alfg/ffmpeg-webassembly-example)
+- [https://webassembly.org/](https://webassembly.org/)
+- [https://emscripten.org/](https://emscripten.org/)
+- [http://ffmpeg.org/doxygen/4.1/examples.html](http://ffmpeg.org/doxygen/4.1/examples.html)
+- [https://github.com/alfg/libav-examples](https://github.com/alfg/libav-examples)
+- [https://github.com/alfg/ffprobe-wasm](https://github.com/alfg/ffprobe-wasm)
+- [https://github.com/alfg/ffmpeg-webassembly-example](https://github.com/alfg/ffmpeg-webassembly-example)
 
-Happy Hacking! 🎥
+欢迎指正! 🎥
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
