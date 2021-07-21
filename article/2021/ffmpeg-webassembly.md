@@ -79,8 +79,6 @@ gcc src/mp4info.c -lavformat -lavutil -o bin/mp4info
 
 **构建时需要使用 `gcc`, `ffmpeg` 和 `ffmpeg-dev`**
 
-_`gcc`, `ffmpeg` and `ffmpeg-dev` are required to build._
-
 你将会得到如下的输出。
 
 ```shell
