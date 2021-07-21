@@ -192,7 +192,7 @@ docker build -t mp4info .
 
 现在我们可以将 FFmpeg 的库文件构建为 Wasm 了，我们需要创建一个集成了 emscripten 功能的包装器，以方便我们在浏览器中通过 JavaScript 引入和使用。
 
-我们会使用 C++ 编写我们的自定义包装器，并利用 [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html)。
+我们会使用 C++ 编写自定义包装器，并利用 [Embind](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/embind.html)。
 
 在 Embind 的文档中这样写到：
 
