@@ -1,3 +1,6 @@
+* [Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [我喜欢的微服务间通信模式](https://juejin.cn/post/6984400194615902238)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [什么是服务端请求伪造（SSRF）？](https://juejin.cn/post/6985086955247632398)（[MoonBall](https://github.com/MoonBall) 翻译）
 * [解密 Java Lambda 表达式](https://juejin.cn/post/6976973764277846023)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [使用 Spring Cloud Gateway 作为微服务网关](https://juejin.cn/post/6973911203097608200)（[greycodee](https://github.com/greycodee) 翻译）
 * [什么是 http/3，为什么它很重要？](https://juejin.cn/post/6969399259246690341)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
