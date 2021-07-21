@@ -477,7 +477,7 @@ node server.js
 
 [![Alt Text](https://res.cloudinary.com/practicaldev/image/fetch/s--7Ux4Erxc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nx1lp38jqe13cdu7a5k1.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--7Ux4Erxc--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/nx1lp38jqe13cdu7a5k1.png)
 
-**并且这就是你在浏览器中运行 FFmpeg 的 `libav` 库的结果!** ⚡
+**这就是你在浏览器中运行 FFmpeg 的 `libav` 库的结果!** ⚡
 
 这只是 FFmpeg + WebAssembly 的能力的皮毛。你可以使用 `libav` 来做更多的事情，而不仅仅是读取媒体格式的详细信息。查看更多 [libav 示例](http://ffmpeg.org/doxygen/4.1/examples.html) 并尝试将它们移植到 WebAssembly。
 
