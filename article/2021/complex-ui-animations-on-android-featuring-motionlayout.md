@@ -64,6 +64,8 @@
 
 > 本文中的每个动画（GIF）都将在其下方显示 ConstraintSet 详细信息（例如，`Set 4, Transitioning.., Set 5, etc`），以便在阅读和导航源代码时更容易理解。
 
+---
+
 ## &lt;ConstraintSet />
 
 ConstraintSets 是 MotionLayout 执行动画所需的*构建块*。您可以在此处指定所有约束、布局属性等。
@@ -78,7 +80,7 @@ ConstraintSets 是 MotionLayout 执行动画所需的*构建块*。您可以在�
 
 ![](https://miro.medium.com/max/2000/1*P5OuFMZvsxccOKl5lgSqQg.png)
 
-## app:deriveConstraintsFrom = "……"
+### app:deriveConstraintsFrom = "……"
 
 `deriveConstraintsFrom` 是一个非常有用的标签，它允许我们从任何其他 `<ConstraintSet>` 继承属性。这样，我们不再需要重写所有视图/约束/属性，而只需重写要设置动画的那些相关属性即可。
 
@@ -92,7 +94,7 @@ ConstraintSets 是 MotionLayout 执行动画所需的*构建块*。您可以在�
 
 > **警告：** 当覆盖 `<Layout> <PropertySet> <Transform> <Motion> <CustomAttribute>` 元素之一时，该元素中的所有属性都会被覆盖，因此我们可能必须复制另一个该元素的属性。
 
-## 必要时展平你的试图
+### 必要时展平你的试图
 
 ![](https://miro.medium.com/max/900/1*AuTuPGoxdr0YyejvJ733Dw.gif)
 
@@ -108,7 +110,7 @@ android:outlineProvider="无"
 
 阴影由视图的 `outlineProvider` 创建。如果我们将其设置为 `none`，视图就不会有阴影。
 
-## 自定义属性
+### 自定义属性
 
 MotionLayout 提供了我们可能想要制作动画的大部分基本属性。但它不可能为我们提供*一切*我们想要的动画属性。例如，自定义视图可能需要为某些其他属性设置动画。
 
@@ -122,7 +124,7 @@ MotionLayout 提供了我们可能想要制作动画的大部分基本属性。�
 
 > **注意：** 我们必须使用 Setter Name，而**不是** XML 属性名。例如，CardView 有 `setRadius()` 方法，而对应的 XML 中的属性名是 `app:cardCornerRadius`，那么 CustomAttribute 就应该是参考 Setter 名 —— `radius`。
 
-## `invisible` 和 `gone`
+### `invisible` 和 `gone`
 
 ![](https://miro.medium.com/max/1400/1*ylmvRB33KyE_nQAy1Z3FPQ.gif)
 
@@ -134,7 +136,7 @@ MotionLayout 提供了我们可能想要制作动画的大部分基本属性。�
 
 **✓** `invisible → visible` 只会应用透明度动画。
 
-### &lt;Transition />
+## &lt;Transition />
 
 Transition 是 2 个 ConstraintSet 之间的连接，而 2 个 ConstraintSet 分别指定开始和结束之间的状态。
 
@@ -148,7 +150,7 @@ Transition 是 2 个 ConstraintSet 之间的连接，而 2 个 ConstraintSet 分
 
 我们还可以使用 `<OnClick>` 和 `<OnSwipe>` 元素在过渡中指定滑动和点击相关功能，但**我们不会在本文中讨论它们**，因为它们不是 10 个本文讨论的动画之中。
 
-## Interpolators
+### Interpolator
 
 我们可以使用 `app:motionInterpolator` 为过渡指定 Interpolator。这一属性的属性值可以是 `linear`、`easeIn`、`easeOut` 和 `easeInOut`。不过这些属性其实挺少的，我的意思是，如果让我们把它与 `[AnticipateInterpolator](https://developer.android.com/reference/android/view/animation/AnticipateInterpolator)`、`[BounceInterpolator](https://developer. android.com/reference/android/view/animation/BounceInterpolator)` 这些 Interpolators 相比较的话……
 
@@ -164,7 +166,7 @@ Transition 是 2 个 ConstraintSet 之间的连接，而 2 个 ConstraintSet 分
 app:motionInterpolator=”cubic(0,1,0.5,1)
 ```
 
-## Keyframes
+### Keyframe
 
 有时只有开始和结束状态是不够的。对于更复杂的动画，我们可能希望更详细地指定元素过渡的过程。关键帧能够帮助我们在过渡中指定**检查点**，让我们可以在任何给定时间更改视图的任何属性。
 
@@ -178,7 +180,7 @@ app:motionInterpolator=”cubic(0,1,0.5,1)
 
 如你所见，它们的开始（Set 4）和结束（Set 5）是相同的。但是通过使用关键帧，我们可以更好地控制过渡期间每个元素在任何时候发生的情况。
 
-## 构建关键帧
+### 构建关键帧
 
 每个 `<Transition />` 可以有一个或多个 `<KeyFrameSet />` 元素，其中指定了所有关键帧。对于这个项目，我们只使用了 `<KeyPosition />` 和 `<KeyAttribute />` 元素。
 
@@ -189,7 +191,7 @@ app:motionInterpolator=”cubic(0,1,0.5,1)
 * `<KeyPosition />` 用于指定宽度、高度和 x,y 坐标的变化；
 * `<KeyAttribute />` 用于指定任何其他更改**包括 CustomAttributes**；
 
-## framePosition 的取值 0 和 1
+### framePosition 的取值 0 和 1
 
 有时，我们想在动画的**开始**更改属性。在普通动画中，可以使用 `animator.doOnStart{...}` 或类似的东西完成。让我们尝试使用关键帧实现相同的效果。
 
@@ -213,7 +215,7 @@ app:motionInterpolator=”cubic(0,1,0.5,1)
 </KeyAttribute>
 ```
 
-## 必要时使用自定义视图
+### 必要时使用自定义视图
 
 `CustomAttributes` 的可用性允许我们使用自定义视图进行灵活的布局。
 
@@ -225,7 +227,7 @@ app:motionInterpolator=”cubic(0,1,0.5,1)
 
 `CircleCardView` 通过将半径限制最大值为 `size/2` 来处理这种情况。现在，当 `MotionLayout` 调用  setter 时（还记得 `CustomAttributes` 吗？），我们将不会再遇到任何问题。
 
-# 编排多步动画
+## 编排多步动画
 
 目前，MotionLayout 没有允许受控多步过渡的 API。我们可以使用 `autoTransition`，但它非常有限（我们稍后会介绍）。在伪代码中，我们将这样做：
 
@@ -248,7 +250,7 @@ motionLayout.doOnEnd {
 
 这很快变得丑陋并变成可怕的回调地狱。**Coroutines** 协程，另一方面帮助我们将异步回调代码转换为线性代码。
 
-## MotionLayout.awaitTransitionComplete()
+### MotionLayout.awaitTransitionComplete()
 
 Chris Banes 关于 [Suspending over Views](https://medium.com/androiddevelopers/suspending-over-views-example-260ce3dc9100) 的文章是关于如何在与视图相关的代码中实现协程的必读文章。
 
@@ -260,7 +262,7 @@ Chris Banes 关于 [Suspending over Views](https://medium.com/androiddevelopers/
 
 > **注意：** `awaitTransitionComplete()` 扩展方法使用[修改后的 MotionLayout](https://gist.github.com/chrisbanes/a7371683c224464bf6bda5a25491aee0)，它允许设置多个侦听器，而不是仅设置一个 —— ([功能请求](https://issuetracker.google.com/issues/144714753))。
 
-## 自动转换
+### 自动转换
 
 `autoTransition` 是不使用协程实现多步过渡的最简单方法。假设我们想要让动画实现 `Set7 → Set8 → Set9 → Set10` 以实现**取消过滤**的动画。
 
@@ -272,7 +274,7 @@ Chris Banes 关于 [Suspending over Views](https://medium.com/androiddevelopers/
 
 > `autoTransition` 将在 MotionLayout 到达 `constraintSetStart` 中指定的 ConstraintSet 时自动执行过渡。
 
-## AutoTransition 并不完美
+### AutoTransition 并不完美
 
 如果我们再次观看动画，我们能够注意到背景中的 adapter 的元素正在播放动画。为了与 MotionLayout 转换**并行**完成这些动画，我们将不得不使用协程。只使用 `autoTransition` 是无法正确同步时间的。
 
@@ -298,7 +300,7 @@ private fun unFilterAdapterItems(): Unit = lifecycleScope.launch {
 
 由于 `autoTransition` 在从一个过渡跳转到下一个过渡时不会等待，所以 `awaitTransitionComplete()` 只会让我们知道过渡何时完成。它**不会**在转换结束时实际等待。这就是为什么我们在开始时只使用一次 `transitionToState()`。
 
-## 多步向前和向后转换
+## 多步向前和向后的 Transition
 
 ![](https://miro.medium.com/max/800/1*qB9qCBsilZrracH7BSGYHg.gif)
 
@@ -382,7 +384,7 @@ motionLayout.awaitTransitionComplete(startSet)
 
 ✔️ 这现在允许我们反向逐步执行多个转换，同时保持并行执行其他操作的能力。
 
-## 结论 —— 有和没有 MotionLayout？
+## 结论 —— 有和没有 MotionLayout 的区别？
 
 `MotionLayout` 与协程相结合，可以用很少的代码轻松实现非常复杂的动画，**同时还能保持平面视图层次结构！**
 
