@@ -417,7 +417,7 @@ self.importScripts('mp4info.js');
 
 此处在 `input` 表单元素上创建了一个事件监听器用于将上传的文件发送给 Web Worker。同时，也创建了一个消息监听器用于接受从 `worker.js` 中返回的消息，以便我们可以将结果渲染到 DOM 上。
 
-接下来我们将 `index.html`, `worker.js` 和 Wasm 相关的文件放到一个新目录 `www` 中：
+接下来我们将 `index.html`、`worker.js` 和 Wasm 相关的文件放到一个新目录 `www` 中：
 
 ```shell
 www
