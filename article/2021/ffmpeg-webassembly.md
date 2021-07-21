@@ -186,7 +186,7 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 docker build -t mp4info .
 ```
 
-以上操作会将构建 ffmpeg 的库并安装到 `/opt/ffmpeg` 中。但我们仍然需要使用我们之前编写的 Hello World 示例来编写我们的包装器。
+以上操作会将构建 ffmpeg 的库并安装到 `/opt/ffmpeg` 中。但我们仍然需要使用之前编写的 Hello World 示例来编写包装器。
 
 ## 编写包装器
 
