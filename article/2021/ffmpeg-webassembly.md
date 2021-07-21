@@ -21,7 +21,7 @@ WebAssembly（或者叫 Wasm）近年来逐渐流行起来，原因是它能够�
 
 这项工作目前已经有人实现了。你可以看一看 [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) ，这个文件能够让你在浏览器环境中运行 FFmpeg CLI 工具。
 
-但是，本文的关注点是如何一步步将 FFmpeg 的 `libav` 库编译为 Webassembly 并在浏览器中使用，而非 FFmpeg CLI。
+但是，本文的关注点是如何一步步将 FFmpeg 的 `libav` 库编译为 WebAssembly 并在浏览器中使用，而非 FFmpeg CLI。
 
 ## 为什么？🤔
 
