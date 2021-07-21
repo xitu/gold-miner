@@ -432,7 +432,7 @@ www
 
 > 浏览器会在跨源开放者策略（Cross Origin Opener Policy，COOP）和跨源嵌入程序策略（Cross Origin Embedder Policy，COEP）请求头通过验证后才会响应 SharedArrayBuffer。除非正确设置这些标头，否则 Pthreads 代码将无法在部署环境中工作。
 
-因此当服务器为我们的网页提供响应事需要提供正确的请求头：
+因此当服务器为我们的网页提供响应时，需要提供正确的请求头：
 
 ```http request
 Cross-Origin-Opener-Policy: same-origin
