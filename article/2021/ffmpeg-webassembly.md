@@ -91,7 +91,7 @@ format: mov,mp4,m4a,3gp,3g2,mj2, duration: 10000000 us, streams: 2
 
 ## Emscripten
 
-Emscripten 是 WebAssembly 的一套编译工具链。我们会使用 [Docker](https://www.docker.com/) 和 [emscripten](https://emscripten.org/) 将 FFmpeg 的 `libav` 库和我们自定义的包装器编译为 Wasm。 让我们先从 FFmpeg 开始。
+Emscripten 是 WebAssembly 的一套编译工具链。我们会使用 [Docker](https://www.docker.com/) 和 [emscripten](https://emscripten.org/) 将 FFmpeg 的 `libav` 库和我们自定义的包装器编译为 Wasm。让我们先从 FFmpeg 开始。
 
 ## 将 FFmpeg 编译为 WebAssembly
 
