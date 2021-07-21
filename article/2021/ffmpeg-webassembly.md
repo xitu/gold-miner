@@ -17,7 +17,7 @@
 
 运行在浏览器中的 JavaScript 非常与众不同。它被设计成不能在浏览器环境中运行系统级的应用。那么我们要怎么在浏览器中使用 FFmpeg 呢？答案是使用 WebAssembly！
 
-WebAssembly（或者叫 Wasm）近年来逐渐流行起来，原因是它能够让我们在浏览器中运行二进制指令。通过一套编译工具链，我们可以将 C/C++ 代码 构建为 Wasm。
+WebAssembly（或者叫 Wasm）近年来逐渐流行起来，原因是它能够让我们在浏览器中运行二进制指令。通过一套编译工具链，我们可以将 C/C++ 代码构建为 Wasm。
 
 这项工作目前已经有人实现了。你可以看一看 [ffmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) ，这个文件能够让你在浏览器环境中运行 FFmpeg CLI 工具。
 
