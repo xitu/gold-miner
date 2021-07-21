@@ -232,20 +232,20 @@ static AVFormatContext *fmt_ctx;
 
 Response run(std::string filename)
 {
-  // Open the file and read header.
+  // 打开文件并读取头信息。
   int ret;
   if ((ret = avformat_open_input(&fmt_ctx, filename.c_str(), NULL, NULL)) < 0)
   {
     printf("%s", av_err2str(ret));
   }
 
-  // Read container data.
+  // 读取容器数据.
   printf("format: %s, duration: %lld us, streams: %d\n",
          fmt_ctx->iformat->name,
          fmt_ctx->duration,
          fmt_ctx->nb_streams);
 
-  // Initialize response struct with format data.
+  // 使用读取到的格式数据填充 response 结构体。
   Response r = {
       .format = fmt_ctx->iformat->name,
       .duration = (int)fmt_ctx->duration,
