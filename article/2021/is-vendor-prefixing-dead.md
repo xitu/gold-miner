@@ -2,46 +2,46 @@
 > * 原文作者：[Rob O'Leary](https://css-tricks.com/author/robjoeol/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/is-vendor-prefixing-dead.md](https://github.com/xitu/gold-miner/blob/master/article/2021/is-vendor-prefixing-dead.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Is Vendor Prefixing Dead?
+# 浏览器引擎前缀的时代结束了吗？
 
-Let‘s take a quick stroll down memory-lane to revisit how [vendor prefixing](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix) CSS properties came to be. I hope I don’t trigger PTSD for anyone!
+让我们快速回忆一下记忆中的相关内容，重新审视 [浏览器引擎前缀](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix) CSS 属性是如何形成的。我希望这不会让任何人触发 PTSD！
 
-It‘s not clear who started prefixing, or when it began exactly. What is clear, is that by 2006, prefixed features were in Internet Explorer and Firefox. The *raison d’être* of prefixes was to specify browser-specific features. It was seen as a way to implement non-standard features and offer previews of new standard features.
+目前尚不清楚谁开始添加前缀，或者它何时开始，但很清楚的是，2006 年，Internet Explorer 和 Firefox 中都带有了前缀。前缀的**存在原因**是用于指定浏览器特定的功能。它被视为实现非标准功能并提供新标准功能预览的一种方式。
 
-By 2012, the W3C CSS Working Group was issuing [guidance on the use of vendor prefixes](https://wiki.csswg.org/spec/vendor-prefixes):
+到 2012 年，W3C CSS 工作组发布了[浏览器引擎前缀使用指南](https://wiki.csswg.org/spec/vendor-prefixes)：
 
-> In CSS we use vendor prefixes for properties, values, @-rules that are: – vendor specific extensions (per CSS 2.1), or – experimental implementations (per CSS Snapshot 2010) (e.g. in Working Drafts)
+> 在 CSS 中，我们为属性、值和 `@-` 规则使用浏览器引擎前缀，它们是：—— 浏览器引擎前缀（根据 CSS 2.1），或 —— 实验性实现（根据 CSS Snapshot 2010）（例如在工作草案中）
 
-It became an industry norm. The number of prefixes grew, and with it, things grew confusing. It led to partial implementations of CSS features, introduced bugs, and ultimately created a fracture in the browser ecosystem, which disgruntled developers. Developers responded by making [tools](https://css-tricks.com/how-to-deal-with-vendor-prefixes/) to automate the problem away.
+成为了行业规范。前缀的数量增加了，随之而来的是事情变得混乱。它导致了 CSS 功能的部分实现，引入了错误，并最终在浏览器生态系统中造成了裂痕，这让开发者们感到不满。开发者们通过制作 [解决工具](https://css-tricks.com/how-to-deal-with-vendor-prefixes/) 来自动解决这些问题。
 
-Browser vendors slowly began to move away from prefixing, favoring feature flags inside the browser settings instead. It appeared that the problems created by vendor prefixes would fade away in time. The question is: **has that time come yet?**
+浏览器引擎慢慢开始摆脱前缀，转而支持浏览器设置中的功能 Flags。引擎前缀造成的问题似乎会随着时间而消失，但问题是：**我们现在到了结束浏览器引擎前缀的时候了吗？**
 
-I did some analysis on the [caniuse dataset](https://github.com/Fyrd/caniuse) and [Mozilla Developer Network Compat dataset](https://github.com/mdn/browser-compat-data) to answer this question.
+我对 [caniuse 数据集](https://github.com/Fyrd/caniuse)和 [Mozilla Developer Network Compat dataset](https://github.com/mdn/browser-compat-data) 做了一些分析来回答这个问题。
 
-## Adoption trends
+## 采用趋势
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/04/prefixing-history.png?resize=988%2C506&ssl=1)
 
-You can see the trend of the implementation of prefixed features across the major browsers in the chart above. I have excluded Chrome for Android because of insufficient data.
+我们可以在上图中看到各种主要浏览器的前缀功能实现趋势。由于数据不足，我已将 Chrome for Android 排除在外。
 
-From 2007 until 2011, there was a steady increase in the numbers of prefixed features in all browsers. Internet Explorer only saw an uptick in 2011. Then, in 2012, Mozilla began to remove prefixed features — such as `-moz-border-radius*` and `-moz-box-shadow` — from Firefox. Thereafter, they consistently removed prefixed properties once the standard version of that property was fully implemented.
+从 2007 年到 2011 年，所有浏览器中前缀功能的数量都在稳步增加。Internet Explorer 仅在 2011 年出现增长。然后，在 2012 年，Mozilla 开始从 Firefox 中删除前缀功能，例如 `-moz-border-radius*` 和 `-moz-box-shadow`。此后，一旦完全实现该属性的标准版本，他们就会始终删除前缀属性。
 
-In 2013, Mozilla started to [make features available behind feature flags (pref flags)](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/26#css). That same year, Chrome switched its rendering engine from WebKit to Blink (part of the Chromium project). This was a big turning point in removing some prefixed features.
+2013 年，Mozilla 开始[在功能 Flags（pref 标志）后提供功能](https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/26#css)。同年，Chrome 将其渲染引擎从 WebKit 切换到 Blink（Chromium 项目的一部分）。这是删除一些前缀功能的一个重大转折点。
 
-It was only in April 2016 that [WebKit announced that it would no longer release experimental features with prefixes](https://webkit.org/blog/6131/updating-our-prefixing-policy/):
+直到 2016 年 4 月，[WebKit 宣布不再发布带前缀的实验性功能](https://webkit.org/blog/6131/updating-our-prefixing-policy/)：
 
-> Over time this strategy has turned out not to work so well. Many websites came to depend on prefixed properties. They often used every prefixed variant of a feature, which makes CSS less maintainable and JavaScript programs trickier to write. Sites frequently used just the prefixed version of a feature, which made it hard for browsers to drop support for the prefixed variant when adding support for the unprefixed, standard version. Ultimately, browsers felt pressured by compatibility concerns to implement each other’s prefixes.
+> 随着时间的推移，这种策略效果不佳。许多网站开始依赖于前缀属性。他们经常使用一个特性的每个前缀变体，这使得 CSS 的可维护性和 JavaScript 程序编写起来更加棘手。站点经常只使用功能的前缀版本，这使得浏览器在添加对无前缀标准版本的支持时很难放弃对前缀变体的支持。最终，浏览器因兼容性问题而感到压力，需要实现彼此的前缀。
 
-Because Safari and iOS browsers have always used the WebKit rendering engine, a consistent reduction in the number of prefixes came later to these browsers.
+由于 Safari 和 iOS 浏览器一直使用 WebKit 渲染引擎，因此这些浏览器后来一直在减少前缀数量。
 
-Microsoft was never “gung ho” on prefixing and consistently had the fewest prefixed features. In 2019, Edge switched from its own rendering engine to Blink. In a funny twist, the change actually increased the number of prefixed properties in Edge!
+微软从来没有在前缀上“疯狂”，并且始终拥有最少的前缀功能。2019 年，Edge 从自己的渲染引擎切换到 Blink。有趣的是，这一变化实际上增加了 Edge 中前缀属性的数量！
 
-## Feature trends
+## 功能趋势
 
-The table below contrasts the prefixed features in 2013 (the zenith of prefixing) with 2021.
+下表将 2013 年（前缀的顶峰）与 2021 年的前缀特征进行了对比。
 
 <table>
 <thead>
@@ -53,7 +53,7 @@ The table below contrasts the prefixed features in 2013 (the zenith of prefixing
 </thead>
 <tbody>
 <tr>
-<td>Browsers</td>
+<td>浏览器</td>
 <td>
 <ul>
 <li>Chrome 31</li>
@@ -76,7 +76,7 @@ The table below contrasts the prefixed features in 2013 (the zenith of prefixing
 </td>
 </tr>
 <tr>
-<td>Some prefixing required</td>
+<td>一些需要的前缀</td>
 <td>
 <ul>
 <li><code><a href="https://caniuse.com/CSS%20:any-link%20selector">any-link</a></code></li>
@@ -115,8 +115,8 @@ The table below contrasts the prefixed features in 2013 (the zenith of prefixing
 <li><a href="https://caniuse.com/CSS%20Canvas%20Drawings">CSS Canvas Drawings</a></li>
 <li><a href="https://caniuse.com/CSS%20Device%20Adaptation">CSS Device Adaptation</a>
 </li>
-<li><a href="https://caniuse.com/CSS%20grab%20&amp;%20grabbing%20cursors">CSS Cursors:&nbsp;<code>grab</code>&nbsp;and&nbsp;<code>grabbing</code></a></li>
-<li><a href="https://caniuse.com/CSS3%20Cursors:%20zoom-in%20&amp;%20zoom-out">CSS&nbsp;Cursors: <code>zoom-in</code> and <code>zoom-out</code> cursors</a></li>
+<li><a href="https://caniuse.com/CSS%20grab%20&amp;%20grabbing%20cursors">CSS 光标：&nbsp;<code>grab</code>&nbsp;和&nbsp;<code>grabbing</code></a></li>
+<li><a href="https://caniuse.com/CSS3%20Cursors:%20zoom-in%20&amp;%20zoom-out">CSS&nbsp;光标：<code>zoom-in</code> 和 <code>zoom-out</code> 光标</a></li>
 <li><a href="https://caniuse.com/CSS%20Exclusions%20Level%201">CSS Exclusions Level 1</a></li>
 <li><a href="https://caniuse.com/CSS%20Filter%20Effects">CSS Filter Effects</a>
 </li>
@@ -177,29 +177,29 @@ The table below contrasts the prefixed features in 2013 (the zenith of prefixing
 </td>
 </tr>
 <tr>
-<td>Total features</td>
+<td>总计功能数量</td>
 <td>53</td>
 <td>35</td>
 </tr>
 </tbody>
 </table>
 
-It may be surprising to see the raw numbers. **The number of features that require prefixing fell by ~33% between 2013 and 2021**. That number sounds quite modest to me.
+看到原始数字可能会令人惊讶。**在 2013 年至 2021 年间，需要前缀的功能数量下降了约 33%**。这个数字对我来说听起来很谦虚。
 
-Of course, it could be misleading to focus just on numbers. The impact varies. It could be a family of properties that all require prefixing, such as `animation`; or it could be a feature that only has one property or value that requires a prefix, such as `user-select: none`. Let’s explore the actual features to understand the circumstances better, beginning by looking at what changed in that intervening period.
+当然，只关注数字可能会产生误导。影响各不相同。它可能是一系列都需要前缀的属性，例如 `animation`；或者它可能是一个只有一个属性或值需要前缀的特性，例如 `user-select: none`。让我们探索实际特征以更好地了解情况，首先看看在此期间发生了什么变化。
 
-Twenty features were unprefixed (fully implemented across the major browsers) and three prefixed features were introduced (`backdrop-filter`, CSS `text-orientation`, and CSS `initial-letter`).
+20 项功能不带前缀（在主要浏览器中完全实现），并引入了 3 项带前缀功能（`backdrop-filter`、CSS `text-orientation` 和 CSS `initial-letter`）。
 
-In my opinion, the most notable features that are unprefixed now, which were significant pain points are:
+在我看来，现在没有前缀的最显着的特征是：
 
-1. CSS Flexible Box Layout Module
+1. CSS Flexible Box 布局模块
 2. CSS3 Box Sizing
 3. CSS Animation
-4. CSS3 2D Transforms
-5. CSS3 3D Transforms
-6. CSS Filter Effects
+4. CSS3 2D Transform
+5. CSS3 3D Transform
+6. CSS Filter
 
-The other 14 features are less prominent:
+其他 14 个特征不太突出：
 
 1. `:any-link`
 2. `::placeholder`
@@ -211,28 +211,28 @@ The other 14 features are less prominent:
 8. `font-feature-settings`
 9. `text-align-last`
 10. `writing-mode`
-11. CSS `grab` and `grabbing` cursors
-12. CSS Logical Properties (will be used a lot more in the future, now that support is better)
-13. CSS3 `zoom-in` and `zoom-out` cursors
-14. CSS3 Multiple Column Layout
+11. CSS `grab` 和 `grabbing` 光标
+12. CSS 逻辑属性（以后会用到更多，现在支持更好了）
+13. CSS3 `zoom-in` 和 `zoom-out` 光标
+14. CSS3 多列布局
 
-If you choose not to support Internet Explorer 11 in 2021, then an additional seven features no longer require prefixing. That reduces the number of features that require prefixing in 2021 to 28, which is a 46% reduction since 2013.
+如果你选择在 2021 年不支持 Internet Explorer 11，那么另外七项功能不再需要前缀。这将 2021 年需要添加前缀的功能数量减少到 28 个，比 2013 年减少了 46%。
 
-## Prefixing in 2021
+## 2021 年的前缀
 
-Let‘s look at the properties that require prefixing. It’s a motley group!
+让我们看看需要前缀的属性。这是一个杂七杂八的团体！
 
 <table>
 <thead>
 <tr>
 <th>#</th>
-<th>Name</th>
-<th>Properties/Values</th>
-<th>Description</th>
-<th>Prefix required</th>
-<th>Unprefixed support</th>
-<th>Prefixed support</th>
-<th>Improvement with prefixes</th>
+<th>名称</th>
+<th>属性/取值</th>
+<th>描述</th>
+<th>需要前缀</th>
+<th>支持不前缀</th>
+<th>支持前缀</th>
+<th>对前缀的改进</th>
 </tr>
 </thead>
 <tbody>
@@ -240,7 +240,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>1</td>
 <td><code><a href="https://caniuse.com/CSS%20Appearance">appearance</a></code></td>
 <td><code>appearance</code></td>
-<td>Defines how elements (particularly form controls) appear by default. Setting the value to <code>none</code> causes in the element’s default appearance being entirely redefined using other CSS properties.</td>
+<td>定义默认情况下元素（特别是表单控件）的显示方式。 将该值设置为 <code>none</code> 会导致使用其他 CSS 属性完全重新定义元素的默认外观。</td>
 <td><ul><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Android Browser 2.1-4.4.4 <br>(<code>-webkit</code>)</li></ul></td>
 <td>69.80%</td>
 <td>97.03%</td>
@@ -250,7 +250,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>2</td>
 <td><code><a href="https://caniuse.com/background-clip-text">background-clip-text</a></code></td>
 <td><code>background-clip: text</code></td>
-<td>Non-standard method of clipping a background image to the foreground text.</td>
+<td>将背景图像剪切到前景文本的非标准方法。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li></ul></td>
 <td>3.89%</td>
 <td>96.65%</td>
@@ -260,7 +260,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>3</td>
 <td><code><a href="https://caniuse.com/css-backdrop-filter">backdrop-filter</a></code></td>
 <td><code>backdrop-filter</code></td>
-<td>Method of applying filter effects (like <code>blur</code>, <code>grayscale</code> or <code>hue</code>) to content or elements below the target element.</td>
+<td>将滤镜效果（如 <code>blur</code>、<code>grayscale</code> 或 <code>hue</code>）应用于目标元素下方的内容或元素的方法。</td>
 <td><ul><li>Safari <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li></ul></td>
 <td>70.20%</td>
 <td>88.20%</td>
@@ -270,7 +270,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>4</td>
 <td><code><a href="https://caniuse.com/css-cross-fade">background-image: crossfade()</a></code></td>
 <td><code>background-image: crossfade()</code></td>
-<td>Image function to create a “crossfade” between images. This allows one image to transition (fade) into another based on a percentage value.</td>
+<td>在图像之间创建“交叉淡入淡出”的图像功能。 这允许一个图像根据百分比值过渡（淡入）到另一个图像。</td>
 <td><ul><li>Chrome<br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li></ul></td>
 <td>17.77%</td>
 <td>92.62%</td>
@@ -280,7 +280,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>5</td>
 <td><code><a href="https://caniuse.com/css-image-set">background-image: image-set()</a></code></td>
 <td><code>background-image: image-set()</code></td>
-<td>Method of letting the browser pick the most appropriate CSS background image from a given set, primarily for high <abbr>PPI</abbr> screens.</td>
+<td>让浏览器从给定的集合中选择最合适的 CSS 背景图像的方法，主要用于高 <abbr>PPI</abbr> 屏幕。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>17.77%</td>
 <td>92.48%</td>
@@ -290,7 +290,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>6</td>
 <td><code><a href="https://caniuse.com/css-boxdecorationbreak">box-decoration-break</a></code></td>
 <td><code>box-decoration-break</code></td>
-<td>Controls whether the box’s margins, borders, padding, and other decorations wrap the broken edges of the box fragments, when the box is split by a break, like a page, column, region, or line.</td>
+<td>控制一个盒模型的边距、边框、内边距和其他装饰在盒模型截断（如页面、列、区域或行）分割时是否包裹盒模型的片段。/td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android BrowserOpera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>6.39%</td>
 <td>97.17%</td>
@@ -300,7 +300,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>7</td>
 <td><code><a href="https://caniuse.com/css-clip-path">clip-path</a></code></td>
 <td><code>clip-path</code></td>
-<td>Method of defining the visible region of an HTML element using SVG or a shape definition.</td>
+<td>使用 SVG 或形状定义定义 HTML 元素可见区域的方法。</td>
 <td><ul><li>Safari <br>(<code>-webkit</code>)</li></ul></td>
 <td>72.00%</td>
 <td>96.33%</td>
@@ -310,7 +310,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>8</td>
 <td><code><a href="https://caniuse.com/css-color-adjust">color-adjust</a></code></td>
 <td><code>color-adjust</code></td>
-<td>A non-standard CSS extension that can be used to force background colors and images to print.</td>
+<td>可用于强制打印背景颜色和图像的非标准 CSS 扩展。</td>
 <td><ul><li>Chrome <br>(<code>-webkit-print-color-adjust</code>)</li><li>Edge <br>(<code>-webkit-print-color-adjust</code>)</li><li>Safari <br>(<code>-webkit-print-color-adjust</code>)</li><li>Opera <br>(<code>-webkit-print-color-adjust</code>)</li><li>Android Mobile<br>(<code>-webkit-print-color-adjust</code>)</li></ul></td>
 <td>3.69%</td>
 <td>39.77%</td>
@@ -320,7 +320,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>9</td>
 <td><code><a href="https://caniuse.com/css-element-function">element()</a></code></td>
 <td><code>background: element()</code></td>
-<td>This function renders a live image generated from an arbitrary HTML element</td>
+<td>此函数呈现从任意 HTML 元素生成的实时图像</td>
 <td><ul><li>Firefox <br>(<code>-moz</code>)</li></ul></td>
 <td>0.00%</td>
 <td>4.04%</td>
@@ -330,7 +330,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>10</td>
 <td><code><a href="https://caniuse.com/font-kerning">font-kerning</a></code></td>
 <td><code>font-kerning</code></td>
-<td>Controls the usage of the spacing between lettersstored in the font. Note that this only affects OpenType fonts with kerning information, it has no effect on other fonts.</td>
+<td>控制字体中存储的字母之间的间距的使用。请注意，这只会影响带有字距调整信息的 OpenType 字体，对其他字体没有影响。</td>
 <td><ul><li>Safari iOS<br>(<code>-webkit</code>)</li></ul></td>
 <td>81.73%</td>
 <td>96.03%</td>
@@ -340,7 +340,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>11</td>
 <td><code><a href="https://caniuse.com/font-smooth">font-smooth</a></code></td>
 <td><code>font-smooth</code></td>
-<td>Controls how anti-aliasing is applied when fonts are rendered. Though present in early 2002 drafts of the CSS3 Fonts specification, this property has since been removed and is currently not on the standard track.</td>
+<td>控制在呈现字体时如何应用抗锯齿。虽然出现在 2002 年初的 CSS3 字体规范草案中，但此属性已被删除，目前不在标准支持路径上。</td>
 <td><ul><li>Chrome <br>(<code>-webkit-font-smoothing</code>)</li><li>Edge <br>(<code>-webkit-font-smoothing</code>)</li><li>Firefox <br>(<code>-moz-osx-font-smoothing</code>)</li><li>Safari <br>(<code>-webkit-font-smoothing</code>)</li><li>Opera <br>(<code>-webkit-font-smoothing</code>)</li></ul></td>
 <td>0.00%</td>
 <td>39.64%</td>
@@ -350,7 +350,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>12</td>
 <td><code><a href="https://caniuse.com/css-hyphens">hyphens</a></code></td>
 <td><code>hyphens</code></td>
-<td>Method of controlling when words at the end of lines should be hyphenated.</td>
+<td>控制行尾单词何时应如何连字符的方法。</td>
 <td><ul><li>Internet Explorer 10+ <br>(<code>-ms</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li></ul></td>
 <td>76.49%</td>
 <td>96.51%</td>
@@ -360,7 +360,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>13</td>
 <td><code><a href="https://caniuse.com/css-initial-letter">initial-letter</a></code></td>
 <td><code>initial-letter</code></td>
-<td>Method of creating an enlarged cap, including a drop or raised cap, in a robust way.</td>
+<td>创建扩大的 cap 的方法，包括变小或变大的 cap。</td>
 <td><ul><li>Safari <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li></ul></td>
 <td>0.00%</td>
 <td>18.00%</td>
@@ -370,7 +370,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>14</td>
 <td><code><a href="https://caniuse.com/css-line-clamp">line-clamp</a></code></td>
 <td><code>line-clamp</code></td>
-<td>Contains text to a given amount of lines when used in combination with <code>display: -webkit-box</code>. Any text that overflows the space produces anellipsis when <code>text-overflow: ellipsis</code> is included.</td>
+<td>与 <code>display: -webkit-box</code> 结合使用时，包含给定行数的文本。 当包含 <code>text-overflow: ellipsis</code> 时，任何溢出空格的文本都会产生省略号。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Firefox <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li><li>Firefox for Android <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>0.19%</td>
 <td>96.28%</td>
@@ -380,7 +380,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>15</td>
 <td><code><a href="https://caniuse.com/css-sticky">position: sticky</a></code></td>
 <td><code>position: sticky</code></td>
-<td>Keeps elements positioned as”fixed” or”relative” depending on how it appears in the viewport. As a result the element is “stuck” in place while scrolling.</td>
+<td>将元素定位为“固定 fixed”或“相对 relative”，具体取决于它在视口中的显示方式。 结果，元素在滚动时“卡住”在原地。</td>
 <td><ul><li>Safari 7.1-12.1 <br>(<code>-webkit</code>)</li></ul></td>
 <td>93.50%</td>
 <td>95.36%</td>
@@ -390,7 +390,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>16</td>
 <td><code><a href="https://caniuse.com/css3-tabsize">tab-size</a></code></td>
 <td><code>tab-size</code></td>
-<td>Method of customizing the width of the <kbd>Tab</kbd> character. Only effective alongside <code>white-space: pre</code> or <code>white-space: pre-wrap</code>.</td>
+<td>自定义 <kbd>Tab</kbd> 字符宽度的方法。 仅与 <code>white-space: pre</code> 或 <code>white-space: pre-wrap</code> 一起有效。</td>
 <td><ul><li>Firefox 4+<br>(<code>-moz</code>)</li><li>Firefox for Android <br>(<code>-moz</code>)</li><li>Opera 11.5-12-1 <br>(<code>-o</code>)</li></ul></td>
 <td>92.33%</td>
 <td>97.38%</td>
@@ -400,7 +400,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>17</td>
 <td><code><a href="https://caniuse.com/text-decoration">text-decoration styling</a></code></td>
 <td><code>text-decoration</code><br><code>text-decoration-*</code> properties.</td>
-<td>Method of defining the type, style and color of lines in the <code>text-decoration</code> property. These can be defined as a shorthand (e.g. <code>text-decoration: line-through dashed blue</code>) or as single properties (e.g. <code>text-decoration-color: blue</code>).</td>
+<td>在 <code>text-decoration</code> 属性中定义线条的类型、样式和颜色的方法。 这些可以定义为速记（例如 <code>text-decoration: line-through dashed blue</code>）或单个属性（例如 <code>text-decoration-color: blue</code>）。</td>
 <td><ul><li>Firefox 6-35 <br>(<code>-moz</code>)</li><li>Safari 7.1+<br>(<code>-webkit</code>)</li><li>Safari for iOS 8+ <br>(<code>-webkit</code>)</li></ul></td>
 <td>80.25%</td>
 <td>94.86%</td>
@@ -410,7 +410,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>18</td>
 <td><code><a href="https://caniuse.com/text-emphasis">text-emphasis styling</a></code></td>
 <td><code>text-emphasis</code><br><code>text-emphasis-*</code> properties</td>
-<td>Method of using small symbols next to each glyph to emphasize a run of text, commonly used in East Asian languages. The <code>text-emphasis</code> shorthand property, and its <code>text-emphasis-style</code> and <code>text-emphasis-color</code> constituent properties can be used to apply marks to the text. The <code>text-emphasis-position</code> property, which inherits separately, allows setting theposition ofemphasis marks with respect to the text.</td>
+<td>在每个字形旁边使用小符号来强调一系列文本的方法，常用于东亚语言。 <code>text-emphasis</code> 速记属性及其 <code>text-emphasis-style</code> 和 <code>text-emphasis-color</code> 组成属性可用于将标记应用于 文本。 单独继承的 <code>text-emphasis-position</code> 属性允许设置强调标记相对于文本的位置。</td>
 <td><ul><li>Chrome 25+ <br>(<code>-webkit</code>)</li><li>Edge 79+<br>(<code>-webkit</code>)</li><li>Opera 15+<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>21.96%</td>
 <td>95.99%</td>
@@ -420,7 +420,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>19</td>
 <td><code><a href="https://caniuse.com/css-text-orientation">text-orientation</a></code></td>
 <td><code>text-orientation</code></td>
-<td>Specifies the orientation of text within a line. Current values only have an effect in vertical typographic modes (defined with the <code>writing-mode</code> property).</td>
+<td>指定行内文本的方向。当前值仅在垂直排版模式下有效（使用 <code>writing-mode</code> 属性定义）。</td>
 <td>Safari <br>(<code>-webkit</code>)</td>
 <td>90.88%</td>
 <td>94.84%</td>
@@ -430,7 +430,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>20</td>
 <td><code><a href="https://caniuse.com/text-size-adjust">text-size-adjust</a></code></td>
 <td><code>text-size-adjust</code></td>
-<td>Control if and how the text-inflating algorithm is applied to the textual content of the element it is applied to.</td>
+<td>控制是否以及如何将文本膨胀算法应用于它所应用到的元素的文本内容。</td>
 <td><ul><li>Edge 12-18 <br>(<code>-ms</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Firefox for Android <br>(<code>-moz</code>)</li></ul></td>
 <td>72.75%</td>
 <td>87.48%</td>
@@ -440,7 +440,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>21</td>
 <td><code><a href="https://caniuse.com/user-select-none">user-select: none</a></code></td>
 <td><code>user-select</code></td>
-<td>Method of preventing text or element selection.</td>
+<td>防止文本或元素选择的方法。</td>
 <td><ul><li>Internet Explorer 10-11 <br>(<code>-ms</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser 2.1-4.4.4 <br>(<code>-webkit</code>)</li></ul></td>
 <td>74.81%</td>
 <td>96.49%</td>
@@ -450,7 +450,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>22</td>
 <td><a href="https://caniuse.com/css-canvas">CSS Canvas Drawings</a></td>
 <td><code>background: -webkit-canvas(mycanvas)</code></td>
-<td>Method of using HTML5 Canvas as a background image. Not currently part of any specification.</td>
+<td>使用 HTML5 Canvas 作为背景图像的方法。目前不属于任何规范。</td>
 <td><ul><li>Safari <br>(<code>-webkit</code>)</li></ul></td>
 <td>0.00%</td>
 <td>19.40%</td>
@@ -460,7 +460,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>23</td>
 <td><a href="https://caniuse.com/css-masks">CSS Masks</a></td>
 <td><code>mask mask-*</code> properties</td>
-<td>Method of displaying part of an element, using a selected image as a mask.</td>
+<td>显示元素的一部分的方法，使用选定的图像作为蒙版。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Safari iOSAndroid Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul><p>Partial support in WebKit/Blink browsers refers to supporting the <code>mask-image</code> and <code>mask-box-image</code> properties, but lacking support for other parts of the spec.</p></td>
 <td>4.18%</td>
 <td>96.93%</td>
@@ -470,7 +470,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>24</td>
 <td><a href="https://caniuse.com/css-reflections">CSS Reflections</a></td>
 <td><code>-webkit-box-reflect</code></td>
-<td>Method of displaying a reflection of an element.</td>
+<td>显示元素反射的方法。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>0.00%</td>
 <td>91.20%</td>
@@ -480,7 +480,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>25</td>
 <td><a href="https://caniuse.com/css-scrollbar">CSS Scrollbar Styling</a></td>
 <td><code>scrollbar-color</code><br><code>scollbar-width</code></td>
-<td>Methods of styling scrollbar color and width.</td>
+<td>给滚动条颜色和宽度添加样式的方法。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li></ul></td>
 <td>4.28%</td>
 <td>96.87%</td>
@@ -490,7 +490,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>26</td>
 <td><a href="https://caniuse.com/text-stroke">CSS Text Fill &amp; Stroking</a></td>
 <td><code>text-stroke</code><br><code>text-stroke-*</code> properties</td>
-<td>Method of declaring the outline (stroke) width and color for text.</td>
+<td>声明文本轮廓（描边）宽度和颜色的方法。</td>
 <td><ul><li>Chrome <br>(<code>-webkit</code>)</li><li>Edge <br>(<code>-webkit</code>)</li><li>Firefox <br>(<code>-webkit</code>)</li><li>Safari <br>(<code>-webkit</code>)</li><li>Opera <br>(<code>-webkit</code>)</li><li>Safari iOS<br>(<code>-webkit</code>)</li><li>Android Browser <br>(<code>-webkit</code>)</li><li>Chrome for Android <br>(<code>-webkit</code>)</li><li>Firefox for Android <br>(<code>-webkit</code>)</li><li>Opera Mobile <br>(<code>-webkit</code>)</li></ul></td>
 <td>0.00%</td>
 <td>96.65%</td>
@@ -500,7 +500,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>27</td>
 <td><a href="https://caniuse.com/intrinsic-width">Intrinsic &amp; Extrinsi Sizing</a></td>
 <td><code>max-content</code><br><code>min-content</code><br><code>fit-content</code><br><code>stretch</code> (formerly <code>fill</code>).</td>
-<td>Allows for the height and width of an element to be specified in intrinsic values rather than fixed numeric values.</td>
+<td>允许以本身指定的值而不是固定数值指定元素的高度和宽度。</td>
 <td><ul><li>Chrome 22-45 <br>(<code>-webkit</code>)</li><li>Edge 3-65<br>(<code>-webkit</code>)</li><li>Firefox (-moz-available)</li><li>Opera 15-32 <br>(<code>-webkit</code>)</li><li>Safari 6.1-10-1 <br>(<code>-webkit</code>)</li><li>Safari iOS 7-13.7 <br>(<code>-webkit</code>)</li><li>Androind Browser 4.4-4.4.4 <br>(<code>-webkit</code>)</li></ul></td>
 <td>91.99%</td>
 <td>96.36%</td>
@@ -510,7 +510,7 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 <td>28</td>
 <td><a href="https://caniuse.com/css-media-resolution">Media Queries: Resolution Feature</a></td>
 <td><code>@media (min-resolution: 300dpi)</code> { … }, <code>@media (max-resolution: 300dpi) { … }</code></td>
-<td>Allows a media query to be set based on the device pixels used per CSS unit. While the standard uses <code>min-resolution</code> and <code>max-resolution</code>, some browsers support the older non-standard <code>device-pixel-ratio</code> media query.</td>
+<td>允许根据每个 CSS 单元使用的设备像素设置媒体查询。 虽然标准使用 <code>min-resolution</code> 和 <code>max-resolution</code>，但一些浏览器支持旧的非标准 <code>device-pixel-ratio</code> 媒体查询。</td>
 <td><ul><li>Chrome 4-28 <br>(<code>-webkit</code>)</li><li>Safari 4+ <br>(<code>-webkit</code>)</li><li>Opera 10-11.5 <br>(<code>-webkit</code>)</li><li>Safari iOS <br>(<code>-webkit</code>)</li><li>Android Browser (2.3-4.3) Opera Mobile 12 <br>(<code>-webkit</code>)</li><li>Firefox 3.5-15 <br>(<code>min--moz-device-pixel-ratio</code>)</li></ul><p>Browsers that support <code>-webkit</code> support the non-standard <code>-webkit-min-device-pixel-ratio</code> and <code>webkit-min-device-pixel-ratio</code>.</p></td>
 <td>80.40%</td>
 <td>99.16%</td>
@@ -519,41 +519,41 @@ Let‘s look at the properties that require prefixing. It’s a motley group!
 </tbody>
 </table>
 
-After putting this list together, my initial impression was that these aren’t things that I would bump into very often. Some properties have not been — and probably will not be — fully implemented. I’d say the `element()` function and CSS Canvas Drawings fall into that category. Safari recently dropped prefixing for `position:` `sticky`, so that will likely drop off the list very soon.
+把这个清单放在一起后，我的初步印象是这些不是我经常碰到的东西。一些属性还没有 —— 很可能不会 —— 完全实现。我会说 `element()` 函数和 CSS Canvas 绘图属于该类别。Safari 最近删除了 `position: sticky` 的前缀，因此它可能很快就会从列表中消失。
 
-You can winnow the list down and steer away from certain situations if you want to. You can dismiss it and say it’s not important, so why bother? The reality is that the list is still long enough that manually managing prefixes in your code is not something you want to take on. A pertinent question to answer is: do you want to improve cross-browser support to a high level? If the answer is yes, then you should consider this as part of your development effort.
+如果你愿意，你可以筛选列表并避开某些情况。你可以忽略它并说它不重要，那何必呢？现实情况是，该列表仍然足够长，以至于你不想在代码中手动管理前缀。一个需要回答的相关问题是：你是否想将跨浏览器支持提高到一个高水平吗？如果答案是肯定的，那么你应该将其视为开发工作的一部分。
 
-It is also important to remember that it is not just about these properties and current browsers. There are still people out there using older devices with older browsers, which do not support the unprefixed versions of some features. Take the `animation` property, for example. Chrome was the last browser to unprefix it in 2015. Yet, today, 1.3% of the users worldwide are still using a browser that does not support the unprefixed version.
+同样重要的是要记住，这不仅仅与这些属性和当前浏览器有关。仍然有人使用带有旧浏览器的旧设备，这些设备不支持某些功能的无前缀版本。以 `animation` 属性为例， Chrome 是 2015 年最后一个取消前缀的浏览器。然而，今天，全球仍有 1.3% 的用户仍在使用不支持无前缀版本的浏览器。
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/04/caniuse-css-animation.png?resize=1998%2C314&ssl=1)
 
-I have bumped into a couple of situations recently that required prefixed properties. For example, I was making [a reading progress bar for a blog](https://roboleary.net/programming/2020/04/21/pimp-blog.html) and needed to use `-webkit-appearance: none;` and `-moz-appearance: none;` to reset the default styling for the `progress` element. It also needed sticky positioning, so I had to prefix `position: sticky` to support sticky positioning in Safari.
+我最近遇到了几种需要前缀属性的情况。例如，我正在制作[我的博客的阅读进度条](https://roboleary.net/programming/2020/04/21/pimp-blog.html) 并且需要使用 `-webkit-appearance: none; ` 和 `-moz-appearance: none;` 来重置 `progress` 元素的默认样式。它还需要粘性定位，所以我不得不在 `position:sticky` 前缀以支持 Safari 中的粘性定位。
 
 [CodePen robjoeol/bGVpePR](https://codepen.io/robjoeol/pen/bGVpePR)
 
-Another example? I wanted to use a PNG image as a mask image for a Christmas-themed design and found that `-webkit-mask-image` is the only property that works properly. Masking is generally a bit erratic because most browsers only partially support the spec.
+另一个例子？我想使用 PNG 图像作为圣诞节主题设计的蒙版图像，发现 `-webkit-mask-image` 是唯一可以正常工作的属性。蒙版通常有点不稳定，因为大多数浏览器仅部分支持该规范。
 
 [CodePen robjoeol/WNojGdm](https://codepen.io/robjoeol/pen/WNojGdm)
 
-Here’s yet another: Flavio Copes, in [“How to apply padding to multiple lines in CSS,”](https://flaviocopes.com/css-padding-multiple-lines/) wrote about how he wanted to have the same padding on each line of a multi-line heading. The solution was to use `box-decoration-break: clone`. Most browsers require the `-webkit` prefixed version of this property, so you need to use this.
+这是另一个：Flavio Copes 在[“如何在 CSS 中对多行应用填充”](https://flaviocopes.com/css-padding-multiple-lines/) 中写道，他希望拥有相同的填充在多行标题的每一行上。解决方案是使用 `box-decoration-break: clone`。大多数浏览器需要此属性的 `-webkit` 前缀版本，因此我们还是需要使用前缀。
 
 [CodePen robjoeol/BapdrZw](https://codepen.io/robjoeol/pen/BapdrZw)
 
-## Tools
+## 工具
 
-Some of the [tools](https://css-tricks.com/how-to-deal-with-vendor-prefixes/) that were created to solve issues with prefixing and browser support have fallen by the wayside. I would recommend checking first to see if a tool is up-to-date before using it.
+为解决前缀和浏览器支持问题而创建的一些 [工具](https://css-tricks.com/how-to-deal-with-vendor-prefixes/) 已经咕咕咕了，我建议在使用之前先检查工具是否是最新的。
 
-Certainly, [Autoprefixer](https://github.com/postcss/autoprefixer) (a PostCSS plugin) is maintained and it uses data straight from caniuse to stay current.
+当然，[Autoprefixer](https://github.com/postcss/autoprefixer)（一个  PostCSS 插件）得到了维护，它直接使用来自 caniuse 的数据来保持最新。
 
-[Emmet](https://emmet.io) also has great prefixing capabilities. Specifically, it has a `css.autoInsertVendorPrefixes` preference to automatically insert prefixes for you. I haven’t verified if it is current or not, but it is worth considering as part of your development environment.
+[Emmet](https://emmet.io) 也有强大的前缀功能。具体来说，它有一个 `css.autoInsertVendorPrefixes` 首选项，可以自动为你插入前缀。我还没有验证它是否是最新的，但作为开发环境的一部分值得考虑。
 
-Since most code editors support Emmet, it makes editing prefixed properties a lot easier. Emmet has a `CSS reflect value` command that updates the value of all prefixed versions of the same property in a rule. You can read the [Emmet docs](https://docs.emmet.io/css-abbreviations/vendor-prefixes/) for more info about the prefixing capabilities.
+由于大多数代码编辑器都支持 Emmet，因此可以更轻松地编辑前缀属性。 Emmet 有一个“CSS 反映值”命令，用于更新规则中相同属性的所有前缀版本的值。你可以阅读 [Emmet 文档](https://docs.emmet.io/css-abbreviations/vendor-prefixes/) 了解有关前缀功能的更多信息。
 
-## Conclusion
+## 结论
 
-Vendor prefixing is not dead, unfortunately. We are still living with the legacy. At the same time, we can be grateful that prefixed features are on a steady decline. Some good work has been done by browser vendors to implement unprefixed features in lieu of prefixed features. This has removed the brunt of the burden from developers.
+不幸的是，浏览器引擎前缀并没有消亡。我们仍然生活在这遗留问题中。与此同时，我们很高兴前缀功能总数正在稳步下降，浏览器引擎已经做了一些很好的工作来实现无前缀的功能来代替有前缀的功能，这直接减轻了开发人员的负担。
 
-However, you may bump into scenarios that require prefixes still from time to time. And if you want to support as many browsers as possible, you should continue with an auto-prefixing strategy.
+但是，你可能会不时遇到仍然需要前缀的场景。如果你想支持尽可能多的浏览器，你应该继续使用自动前缀策略。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
