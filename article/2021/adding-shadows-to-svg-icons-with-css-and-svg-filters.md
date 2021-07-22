@@ -2,48 +2,48 @@
 > - 原文作者：[Joel Olawanle ](https://css-tricks.com/author/joelolawanlet/)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/adding-shadows-to-svg-icons-with-css-and-svg-filters.md](https://github.com/xitu/gold-miner/blob/master/article/2021/adding-shadows-to-svg-icons-with-css-and-svg-filters.md)
-> - 译者：
+> - 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > - 校对者：
 
-# Adding Shadows to SVG Icons With CSS and SVG Filters
+# 使用 CSS 和 SVG 滤镜给 SVG 图标添加阴影
 
-Why would we need to apply shadows to SVG?
+为什么我们需要给 SVG 添加阴影？
 
-1. Shadows are a common design feature that can help elements, like icons, stand out. They could be persistent, or applied in different states (e.g. `:hover`, `:focus`, or `:active`) to indicate interaction to users.
-2. Shadows happen in real life, so they can be used on screens to breathe some life into your elements and [add a touch of realism to a design](https://css-tricks.com/getting-deep-into-shadows/).
+1. 阴影是一种常见的设计功能，可以帮助图标等元素脱颖而出。它们可以是持久的，也可以应用于不同的状态（例如专属于 `:hover`、`:focus` 或`:active` 的阴影）以指示与用户的交互。
+2. 阴影发生在现实生活中，因此在页面中应用阴影可以为我们的元素注入活力，并[为设计添加一丝真实感](https://css-tricks.com/getting-deep-into-shadow/)。
 
-Since we’re making lists, there are two primary ways we can apply shadows to an SVG:
+由于我们正在制作列表，因此我们可以通过两种主要方式将阴影应用于 SVG：
 
-1. Using the CSS `[filter()](https://css-tricks.com/almanac/properties/f/filter/)` property
-2. Using an SVG `<filter>`
+1. 使用 CSS `[filter()](https://css-tricks.com/almanac/properties/f/filter/)` 属性；
+2. 使用 SVG `<filter>`；
 
-Yes, both involve filters! And, yes, both CSS and SVG have their own types of filters. But there is some crossover between these as well. For example, a CSS `filter` can refer to an SVG `<filter>`; that is, if we’re working with an inline SVG instead of, say, an SVG used as a background image in CSS.
+是的，两者都涉及滤镜！而且，是的，CSS 和 SVG 都有自己的滤镜类型。但这些之间也有一些交叉。例如，一个 CSS `filter` 可以引用一个 SVG `<filter>`；也就是说，我们可以在 CSS 中使用内联 SVG 而不是别的，比如说，在 CSS 中用作背景图像的 SVG。
 
-**What you can’t use:** the CSS `box-shadow` property. This is commonly used for shadows, but it follows the rectangular outside edge of elements, not the edges of the SVG elements like we want. Here’s Michelle Barker with [a clear explanation](https://css-irl.info/drop-shadow-the-underrated-css-filter/):
+**不能使用的内容：**CSS `box-shadow` 属性。这通常用于阴影，但它只会遵循元素的矩形外边缘，而不是我们所希望它遵循的 SVG 元素的边缘。这是 Michelle Barker 的[清晰解释](https://css-irl.info/drop-shadow-the-underrated-css-filter/)：
 
-![Two flat kitten faces in bright pink showing ears eyes and whiskers. The first kitten has a drop shadow around its box and the second kitten has a drop shadow around its path edges.](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/06/s_EE31147C7EC35BC4B7EE00D7050579562DC2DDDC7CFB621A7904E66DFA700FE7_1622485808504_drop-shadow-01.jpg?resize=1800%2C846&ssl=1)
+![两张亮粉色的扁平小猫脸，露出耳朵、眼睛和胡须。第一只小猫的盒子周围有阴影，第二只小猫的路径边缘有阴影。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/06/s_EE31147C7EC35BC4B7EE00D7050579562DC2DDDC7CFB621A7904E66DFA700FE7_1622485808504_drop-shadow-01.jpg?resize=1800%2C846)
 
-If you’re using an SVG icon font, though, there is always `[text-shadow](https://css-tricks.com/almanac/properties/t/text-shadow/)`. That will indeed work. But let’s focus on those first two as they’re in line with a majority of use cases.
+但是，如果我们使用的是 SVG 图标字体，则 [`text-shadow`](https://css-tricks.com/almanac/properties/t/text-shadow/) 始终都是可选择的添加阴影的方法。那确实会奏效。但是让我们关注前两个，因为它们符合大多数用例。
 
-## Shadows with CSS filters
+## 带有 CSS 滤镜的阴影
 
-The trick to applying a shadow directly to SVG via CSS filters is the `drop-shadow()` function :
+通过 CSS 滤镜将阴影直接应用于 SVG 的技巧是 `drop-shadow()` 函数：
 
 ```css
-svg {
-  filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+SVG {
+  filter: shadow(3px 5px 2px rgb(0 0 0 / 0.4));
 }
 ```
 
-That will apply a shadow that starts at 3px horizontally, 5px down, with 2px of blur, and is 40% black. Here are some examples of that: [Codepen chriscoyier/rNypeeJ]https://codepen.io/chriscoyier/pen/rNypeeJ().
+这将应用一个阴影，从水平方向 3px 开始并向下 5px，模糊半径是 2px，阴影颜色是 40% 的黑色。以下是一些示例：[Codepen chriscoyier/rNypeeJ](https://codepen.io/chriscoyier/pen/rNypeeJ)。
 
-> This browser support data is from [Caniuse](https://caniuse.com/#feat=”css-filters”), which has more detail. A number indicates that browser supports the feature at that version and up.
+> 此浏览器支持数据来自 [Caniuse](https://caniuse.com/#feat=”css-filters”)，其中有更多详细信息。数字表示浏览器支持该版本及更高版本的功能。
 >
 > ![Caniuse](https://i.imgur.com/mqI4fZA.png)
 
-### Call an SVG filter inside a CSS filter
+### 在 CSS 滤镜中调用 SVG 滤镜
 
-Say we have an SVG filter in the HTML:
+假设我们在 HTML 中有一个 SVG 滤镜：
 
 ```svg
 <svg height="0" width="0">
@@ -55,23 +55,23 @@ Say we have an SVG filter in the HTML:
 </svg>
 ```
 
-We can use a CSS filter to call that SVG filter by ID instead of values we saw earlier:
+我们可以使用 CSS 滤镜通过 ID 调用该 SVG 滤镜，而不是我们之前看到的值：
 
 ```css
-svg {
+SVG {
   filter: url(#shadow);
 }
 ```
 
-Now that filter is taken from the HTML and referenced in the CSS, which applies it: [Codepen chriscoyier/yLMpOoP](https://codepen.io/chriscoyier/pen/yLMpOoP).
+现在该滤镜取自 HTML 并在应用它的 CSS 中引用：[Codepen chriscoyier/yLMpOoP](https://codepen.io/chriscoyier/pen/yLMpOoP)。
 
-### Using SVG filter primitives
+### 使用 SVG 滤镜原始类型
 
-You might be wondering how we got that SVG `<filter>` to work. To make a drop shadow with an SVG filter, we make use of a **filter primitive**. A filter primitive in SVG is an element that takes some sort of image or graphic as an input, then outputs that image or graphic it when it’s called. They sort of work like filters in a graphic editing application, but in code and can only be used inside an SVG `[<filter>](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter)` element.
+你可能想知道我们是如何让 SVG `<filter>` 工作的。为了使用 SVG 滤镜制作阴影，我们使用**filter 原始类型**。SVG 中的滤镜原始类型是一种元素，它以某种图像或图形作为输入，然后在调用时输出该图像或图形。它们有点像图形编辑应用程序中的滤镜，但它们是代码中并且只能在 SVG [`<filter>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/filter) 元素中定义。
 
-There are [lots of different filter primitives](https://developer.mozilla.org/en-US/docs/Web/SVG/Element#filter_primitive_elements) in SVG. The one we’re reaching for is `<feDropShadow>`. I’ll let you guess what to does just by looking at the name.
+SVG 中有[许多不同的滤镜原始类型](https://developer.mozilla.org/en-US/docs/Web/SVG/Element#filter_primitive_elements)。我们要接触的是 `<feDropShadow>`。我会让你只看名字就猜到要做什么。
 
-So, similar to how we had something like this did this with a CSS filter:
+因此，类似于我们使用 CSS 滤镜执行此操作的方式：
 
 ```css
 svg {
@@ -79,21 +79,21 @@ svg {
 }
 ```
 
-…we can accomplish the same with the `<feDropShadow>` SVG filter primitive. There are three key attributes worth calling out as they help define the appearance of the drop shadow:
+……我们可以使用 `<feDropShadow>` SVG 滤镜原始类型完成相同的操作。有三个关键属性值得一提，因为它们有助于定义阴影的外观：
 
-- `dx` — This shifts the position of the shadow along the x-axis.
-- `dy` — This shifts the position of the shadow along the y-axis.
-- `stdDeviation` — This defines the standard deviation for the drop shadow’s blur operation. There are other attributes we can use, such as the `flood-color` for setting the drop shadow color, and `flood-opacity` for setting the drop shadow’s opacity.
+- `dx` —— 这会沿 x 轴移动阴影的位置。
+- `dy` —— 这会沿着 y 轴移动阴影的位置。
+- `stdDeviation` —— 这定义了阴影模糊操作的标准偏差。我们还可以使用其他属性，例如用于设置阴影颜色的 `flood-color` 和用于设置阴影不透明度的 `flood-opacity`。
 
 [Codepen olawanlejoel/xxqdaqN](https://codepen.io/olawanlejoel/pen/xxqdaqN)
 
-That example includes three `<filter>` elements, each with their own `<feDropShadow>` filter primitives.
+该示例包括三个 `<filter>` 元素，每个元素都有自己的 `<feDropShadow>` 滤镜原始类型。
 
-## Using SVG filters
+## 使用 SVG 滤镜
 
-SVG filters are very powerful. We just looked at `<feDropShadow>`, which is very useful of course, but there is so much more they can do (including Photoshop-like effects) and the subset of stuff we get just for shadows is extensive. Let’s look at some, like colored shadows and inset shadows.
+SVG 滤镜非常强大。我们刚刚了解了 `<feDropShadow>`，这当然非常有用，但它们可以做的还有很多（包括类似 Photoshop 的效果），而且我们只为阴影获得的东西的子集非常广泛。让我们看一些，比如彩色阴影和插入阴影。
 
-Let’s take the SVG markup for the Twitter logo as an example :
+让我们以 Twitter 徽标的 SVG 标记为例：
 
 ```svg
 <svg class="svg-icon" viewBox="0 0 20 20">
@@ -101,30 +101,30 @@ Let’s take the SVG markup for the Twitter logo as an example :
 </svg>
 ```
 
-We’re going to need a `<filter>` element to do these effects. This needs to be within an `<svg>` element in the HTML. A `<filter>` element is never rendered directly in the browser — it is only used as something that can be referenced via the `filter` attribute in SVG, or the `url()` function in CSS.
+我们需要一个 `<filter>` 元素来实现这些效果。这需要在 HTML 的 `<svg>` 元素中。 `<filter>` 元素永远不会直接在浏览器中呈现 — 它仅用作可以通过 SVG 中的 `filter` 属性或 CSS 中的 `url()` 函数引用的内容。
 
-Here is the syntax showing an SVG filter and applying it to a source image :
+以下是显示 SVG 滤镜并将其应用于源图像的语法：
 
 ```svg
 <svg width="300" height="300" viewBox="0 0 300 300">
 
   <filter id="myfilters">
-    <!-- All filter effects/primitives go in here -->
+    <!-- 所有的滤镜效果/原始类型在此定义 -->
   </filter>
 
   <g filter="url(#myfilters)">
-    <!-- Filter applies to everything in this group -->
-    <path fill="..." d="..." ></path>
+    <!-- 滤镜会应用于这一组下所有的东西 -->
+    <path fill="……" d="……" ></path>
   </g>
 
 </svg>
 ```
 
-The `filter` element is meant to hold **filter primitives** as children. It is a container to a series of filter operations that are combined to create a filter effects.
+`filter` 元素旨在将 **filter 原始类型**作为子元素。它是一系列过滤操作的容器，这些操作组合起来以创建过滤效果。
 
-These filter primitive perform a single fundamental graphical operation (e.g. blurring, moving, filling, combining, or distorting) on one or more inputs. They are like building blocks where each SVG filter can be used to in conjunction with others to create an effect. `<feGaussianBlur>` is a popular filter primitive used to add a blur effect.
+这些滤镜原始类型对一个或多个输入执行单个基本图形操作（例如模糊、移动、填充、组合或扭曲）。它们就像构建块，每个 SVG 滤镜都可以用来与其他滤镜结合使用以创建效果。`<feGaussianBlur>` 是一种流行的滤镜原始类型，用于添加高斯模糊效果。
 
-Let’s say we define the following SVG filter with `<feGaussianBlur>`:
+假设我们使用 `<feGaussianBlur>` 定义了以下 SVG 滤镜：
 
 ```svg
 <svg version="1.1" width="0" height="0">
@@ -134,15 +134,15 @@ Let’s say we define the following SVG filter with `<feGaussianBlur>`:
 </svg>
 ```
 
-When applied on an element, this filter creates a [Gaussian blur](https://www.adobe.com/creativecloud/photography/discover/gaussian-blur.html) that blurs the element on a `1px` radius on the x-axis, but no blurring on the y-axis. Here’s the result, with and without the effect:
+当应用于元素时，此滤镜会创建[高斯模糊](https://www.adobe.com/creativecloud/photography/discover/gaussian-blur.html)效果，在 x 上以 `1px` 的模糊半径模糊元素，但在 y 轴上没有模糊。这是有和没有效果的结果：
 
 [CodePen olawanlejoel/rNyGbjw](https://codepen.io/olawanlejoel/pen/rNyGbjw)
 
-It is possible to use multiple primitives inside a single filter. This will create interesting effects, however, you need to make the different primitives aware of each other. Bence Szabó has a [crazy cool set of patterns](https://css-tricks.com/creating-patterns-with-svg-filters/) he created this way.
+我们可以在单个滤镜中使用多个原始类型。这将创建有趣的效果，但是，我们需要让不同的原始类型相互了解。Bence Szabó 有一套[疯狂酷炫的模式](https://css-tricks.com/creating-patterns-with-svg-filters/)，他是用这种方式创建的：
 
-When combining multiple filter primitives, the first primitive uses the original graphic (`SourceGraphic`) as its graphic input. Any subsequent primitive uses the result of the filter effect before it as its input. And so on. But we can get some flexibility on that with using the `in`, `in2` and `result` attributes on primitive elements. [Steven Bradley has an excellent write-up on filter primitives](https://vanseodesign.com/web-design/svg-filter-primitives-input-output/) that dates back to 2016, but still hold true today.
+当组合多个滤镜原始类型时，第一个原始类型使用原始图形（`SourceGraphic`）作为其图形输入。任何后续原始类型都使用它之前的过滤效果的结果作为其输入。等等。但是我们可以通过在原始元素上使用 `in`、`in2` 和 `result` 属性来获得一些灵活性。[Steven Bradley 有一篇关于滤镜原始类型的优秀文章](https://vanseodesign.com/web-design/svg-filter-primitives-input-output/)可以追溯到 2016 年，但今天仍然适用。
 
-There are 17 primitives we can use today:
+我们今天可以使用 17 个原始类型：
 
 - `<feGaussianBlur>`
 - `<feDropShadow>`
@@ -162,13 +162,13 @@ There are 17 primitives we can use today:
 - `<feComposite>`
 - `<feMerge>`
 
-Notice the `fe` prefix on all of them. That stands for _filter effect_. Understanding SVG filters is challenging. An effect like an inset shadow requires a verbose syntax that is difficult to grasp without a thorough understanding of math and color theory. (Rob O’Leary’s [“Getting Deep Into Shadows”](https://css-tricks.com/getting-deep-into-shadows/) is a good place to start.)
+注意所有这些的 `fe` 前缀。那代表 `过滤效果`（`filter effect`）。理解 SVG 滤镜具有挑战性。像插入阴影这样的效果需要冗长的语法，如果没有对数学和色彩理论的透彻理解，就很难掌握。（Rob O'Leary 的 [“深入阴影”](https://css-tricks.com/getting-deep-into-shadows/) 是一个很好的起点。）
 
-Rather than running down the rabbit hole of all that, we’re going to work with some pre-made filters. Fortunately, there are a lot of ready-to-use SVG filters around.
+我们将使用一些预制的滤镜，而把我们自己带入奇妙的超现实状态或情况的事物之中。幸运的是，我们身边有很多现成的 SVG 滤镜。
 
-### Inset shadows
+### 插入阴影
 
-To use filter effect on the Twitter logo, we need to declare it in our “SVG source document” with a unique ID for referencing in our `<filter>` tag.
+要在 Twitter 徽标上使用过滤效果，我们需要在我们的“SVG 源文档”中声明它，并在我们的 `<filter>` 标签中使用唯一的 ID 进行引用。
 
 ```svg
 <filter id='inset-shadow'>
@@ -178,13 +178,13 @@ To use filter effect on the Twitter logo, we need to declare it in our “SVG so
     dy='0'
   />
 
-  <!-- Shadow blur -->
+  <!-- 阴影半径 -->
   <feGaussianBlur
     stdDeviation='1'
     result='offset-blur'
   />
 
-  <!-- Invert drop shadow to make an inset shadow -->
+  <!-- 反转阴影以制作内嵌的阴影 -->
   <feComposite
     operator='out'
     in='SourceGraphic'
@@ -192,7 +192,7 @@ To use filter effect on the Twitter logo, we need to declare it in our “SVG so
     result='inverse'
   />
 
-  <!-- Cut color inside shadow -->
+  <!-- 修改阴影内的颜色透明度 -->
   <feFlood
     flood-color='black'
     flood-opacity='.95'
@@ -205,7 +205,7 @@ To use filter effect on the Twitter logo, we need to declare it in our “SVG so
     result='shadow'
   />
 
-  <!-- Placing shadow over element -->
+  <!-- 在元素上放置阴影 -->
   <feComposite
     operator='over'
     in='shadow'
@@ -214,7 +214,7 @@ To use filter effect on the Twitter logo, we need to declare it in our “SVG so
 </filter>
 ```
 
-There are four different primitives in there and each one performs a different function. But, taken together, they achieving an inset shadow.
+那里有四种不同的原始类型，每一种都执行不同的功能。 但是，综合起来，它们实现了插入阴影。
 
 <table>
     <tr>
@@ -229,14 +229,14 @@ There are four different primitives in there and each one performs a different f
     </tr>
 </table>
 
-Now that we’ve created this inset shadow filter, we can apply it to our SVG. We’ve already seen how to apply it via CSS. Something like:
+现在我们已经创建了这个插入阴影滤镜，我们可以将它应用到我们的 SVG 中。我们已经看到了如何通过 CSS 应用它。 就像是：
 
 ```css
 .filtered {
   filter: url(#myfilters);
 }
 
-/* Or apply only in certain states, like: */
+/* 或者只应用于特定的状态，比如说： */
 svg:hover,
 svg:focus {
   filter: url(#myfilters);
@@ -245,56 +245,56 @@ svg:focus {
 
 [Codepen olawanlejoel/jOBBRjd](https://codepen.io/olawanlejoel/pen/jOBBRjd)
 
-We can also apply an SVG `<filter>` directly within the SVG syntax with the `filter` attribute. That’s like:
+我们还可以使用 `filter` 属性直接在 SVG 语法中应用 SVG `<filter>`，就像：
 
 ```svg
 <svg>
 
-  <!-- Apply a single filter -->
+  <!-- 应用单一滤镜 -->
   <path d="..." filter="url(#myfilters)" />
 
-  <!-- Or apply to a whole group of elements -->
+  <!-- 或者应用于一组元素 -->
   <g filter="url(#myfilters)">
-    <path d="..." />
-    <path d="..." />
+    <path d="……" />
+    <path d="……" />
   </g>
 </svg>
 ```
 
 [CodePen olawanlejoel/vYxmXVg](https://codepen.io/olawanlejoel/pen/vYxmXVg)
 
-## More examples
+## 更多例子
 
-Here are some more shadow examples from Oleg Solomka:
+以下是来自 Oleg Solomka 的更多阴影示例：
 
-CodePen Embed Fallback
+[CodePen sol0mka/6eca814eda8ec7e758d0feab628bd390](https://codepen.io/sol0mka/pen/6eca814eda8ec7e758d0feab628bd390)
 
-Note that the basic shadows here are probably a bit more complicated than they need to be. For example, a colored shadow can still be done with `<feDropShadow>` like:
+请注意，这里的基本阴影可能比它们需要的要复杂一些。例如，彩色阴影仍然可以使用 `<feDropShadow>` 来完成，例如：
 
 ```svg
 <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0"
   flood-color="pink" flood-opacity="0.5"/>
 ```
 
-But that embossed effect is pretty great as a filter!
+但是这种浮雕效果作为滤镜非常棒！
 
-Also note that you might see SVG filters in SVG syntax like this:
+另请注意，我们可能会在 SVG 语法中看到 SVG 滤镜，如下所示：
 
 ```svg
 <svg height="0" width="0" style="position: absolute; margin-left: -100%;">
   <defs>
     <filter id="my-filters">
-      <!-- ... -->
+      <!-- …… -->
     </filter>
 
     <symbol id="my-icon">
-      <!-- ... -->
+      <!-- …… -->
     </symbol>
   </defs>
 </svg>
 ```
 
-On the first line there, that’s saying: this SVG shouldn’t render at all — it’s just stuff that we intend to use later. The `<defs>` tag says something similar: we’re just defining these things to use later. That way, we don’t have to repeat ourselves by writing things out over and again. We’ll reference the filter by ID, and the symbols as well, perhaps like:
+在第一行，意思是：这个 SVG 根本不应该渲染 —— 它只是我们打算稍后使用的东西。`<defs>` 标签说了类似的话：我们只是定义这些东西以备后用。这样，我们就不必一遍又一遍地写东西来重复自己。我们将通过 ID 和符号引用滤镜，也许像：
 
 ```svg
 <svg>
@@ -302,21 +302,21 @@ On the first line there, that’s saying: this SVG shouldn’t render at all �
 </svg>
 ```
 
-SVG filters have wide support (even in Internet Explorer and Edge!) with very fast performance.
+SVG 滤镜得到广泛支持（甚至在 Internet Explorer 和 Edge 中！），而且性能非常之好。
 
-> This browser support data is from [Caniuse](https://caniuse.com/#feat=”svg-filters”), which has more detail. A number indicates that browser supports the feature at that version and up.
+> 此浏览器支持数据来自 [Caniuse](https://caniuse.com/#feat=”svg-filters”)，其中有更多详细信息。数字表示浏览器支持该版本及更高版本的功能。
 >
 > ![Caniuse](https://i.imgur.com/L7yoVeK.png)
 
-## Wrapping things up
+## 总结一下
 
-A final comparison:
+最后对比：
 
-- CSS filters are easier to use, but are much more limited. I don’t think it’s possible to add an inset shadow with the `drop-shadow()` function, for example.
-- SVG filters are much more robust, but much more complicated as well, and require having the `<filter>` somewhere in the HTML.
-- They both have great browser support and perform well on all modern browsers, though SVG filters have (surprisingly) the deepest browser support.
+- CSS 滤镜更易于使用，但限制更多。例如，我认为不可能使用 `drop-shadow()` 函数添加插入阴影。
+- SVG 滤镜更加健壮，但也更加复杂，并且需要在 HTML 中的某处使用 `<filter>`。
+- 它们都具有出色的浏览器支持并且在所有现代浏览器上都表现良好，尽管 SVG 滤镜（令人惊讶地）拥有最深入的浏览器支持。
 
-In this article, we have seen why and how to apply shadow to SVG icons with examples on each. Have you done this, but did it a different way than anything we looked at? Have you tried to do a shadow effect that you found impossible to pull off? Please share!
+在本文中，我们通过示例了解了为什么以及如何将阴影应用于 SVG 图标。你有没有这样做过，但它的方式与我们所看到的不同吗？你是否尝试过制作无法实现的阴影效果？请分享！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
