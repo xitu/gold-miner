@@ -318,7 +318,7 @@ top: 50% → top: 0% → top: 50% → top: 100% → top:50% → 等等……
 
 我知道不是每个人都有数学头脑，这没关系。有一些工具可以提供帮助，例如 Matthew Lein 的 [Ceaser](https://matthewlein.com/tools/ceaser)，它可以让我们拖动曲线点来获得所需的内容。而且，如果我们还没有为它添加书签，[cubic-bezier.com](https://cubic-bezier.com/) 是另一个选择。如果你想在 CSS 世界之外玩三次贝塞尔曲线，我推荐使用一下 [desmos](https://www.desmos.com/calculator/ebdtbxgbq0?lang=fr)，你可以在那里看到一些数学公式。
 
-不管你如何获得你的 `cubic-bezier()` 值，希望现在你已经了解了它们的力量，以及了解了它们使如何在这个过程中帮助编写更好的代码。
+不管你如何获得你的 `cubic-bezier()` 函数，希望现在你已经了解了它们的力量，以及了解了它们使如何在这个过程中帮助编写更好的代码。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
