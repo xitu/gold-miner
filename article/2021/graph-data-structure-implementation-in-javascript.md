@@ -9,11 +9,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2560/1*2e7obg_rwMw433XVv3_n6A@2x.jpeg)
 
-图形数据结构帮助我们创建许多强大的东西，你使用非线性数据结构的可能性很高。它常用于许多数据节点之间的多重复杂连接，这也使他特别适合表现地图，网络和导航系统。
+图形数据结构帮助我们创建许多强大的东西，你使用它实现非线性数据结构的可能性很高。它常用于许多数据节点之间的多重复杂连接，这也使他特别适合表现地图，网络和导航系统。
 
 > **这篇文章的视频讲解**
 >
-> 这篇文章是 Youtube 上[图形数据结构系列](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1 )的详细的、改进文章版，如果你喜欢视频，你可以观看视频。
+> 这篇文章是 Youtube 上[图形数据结构系列](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1)的详细的、改进文章版，如果你喜欢视频，你可以观看视频。
 >
 > [**观看视频**](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1)
 
@@ -31,9 +31,9 @@
 
 ## 什么时候使用图形数据结构？
 
-在一个[列表数据结构中](https://javascript.plainenglish.io/array-data-structure-in-javascript-9554069c8823 )，你有一个按顺序排列的元素集合，它需要你一个一个遍历，直到你找到你想要的那个元素。在像树一样的分级数据结构中，你有父子关系，可以让你去决定要导航到哪棵子树。在图形数据结构中，你有邻接点。
+在一个[列表数据结构中](https://javascript.plainenglish.io/array-data-structure-in-javascript-9554069c8823)，你有一个按顺序排列的元素集合，它需要你一个一个遍历，直到你找到你想要的那个元素。在像树一样的分层数据结构中，你有父子关系，可以让你去决定要导航到哪棵子树。在图形数据结构中，你有邻接点。
 
-在图中一个元素（或者说一个节点）只知道它连接的节点，这些节点连接更过节点，以此类推。这种复杂关系类型，是数据需要用图表示的主要特征。
+在图中一个元素（或者说一个节点）只知道它连接的节点，这些节点连接更多节点，以此类推。这种复杂关系类型，是数据需要用图表示的主要特征。
 
 一些可以用图表示的例子是 GPS 系统和地图，它将许多节点连接在一起，这样就可以帮助确定如何从一个点到另一个点，以及他们有多长或多远。
 
@@ -41,7 +41,7 @@
 
 互联网是一个大图，搜索引擎通过图表这种方式，来决定网站之间的连接。
 
-当非线性或分级之间存在复杂的联系时，就需要一个图。为了讲得更清晰，一个线性数据结构有起始节点和结束节点，分级结构有一个起始节点，以及许多结束节点，这取决于你遵循的路径。图有多个起始节点和结束节点，如果你的数据遵循这个模式，你可能需要用到图。
+当非线性或分层之间存在复杂的联系时，就需要一个图。更清晰的说，一个线性数据结构有起始节点和结束节点，分层结构有一个起始节点，以及许多结束节点，这取决于你遵循的路径。图有多个起始节点和结束节点，如果你的数据遵循这个模式，你可能需要用到图。
 
 ## 简单实现图
 
@@ -52,14 +52,12 @@
 ![](https://cdn-images-1.medium.com/max/2916/1*_gO8mf8d-cNT2G9qP9Xkeg.png)
 
 * **邻接矩阵**就像一个表，用1表示节点连接，用0表示节点不连接。这种方法很适合表示有限图。
-
-* **邻接表**类似于[字典](https://javascript.plainenglish.io/map-dictionary-data-structure-in-javascript-f9741b905ede )其中每个节点值都是它连接到的所有节点的列表。这是用来表示有限图的另一种方法，它更快，更容易处理。
-
+* **邻接表**类似于[字典](https://javascript.plainenglish.io/map-dictionary-data-structure-in-javascript-f9741b905ede)其中每个节点值都是它连接到的所有节点的列表。这是用来表示有限图的另一种方法，它更快，更容易处理。
 * **关联矩阵**也类似一个表，但不同的是，它追踪两个节点是否连接，它追踪边的方向，1 表示它用边去连接其他的节点，-1 表示别的节点用边连接它，0 表示没有连接到这个节点的边。当你拥有带有方向和值(权重)的边时，这种方法非常适合，用于表示地图和导航系统。
 
 对于这个图的实现，我将会用**邻接列表**去简化，我给你们看的图是通用的，未加权重的。
 
-我们将先声明一个带私有顶点列表的图类，该列表使用 [set 数据结构](https://javascript.plainenglish.io/set-data-structure-in-javascript-6bb27a8e44a )来确保它不会包含重复的边，并且，一个私有邻接列表用 [map 数据结构](https://javascript.plainenglish.io/map-dictionary-data-structure-in-javascript-f9741b905ede )来跟踪节点的连接。
+我们将先声明一个带私有顶点列表的图类，该列表使用 [set 数据结构](https://javascript.plainenglish.io/set-data-structure-in-javascript-6bb27a8e44a)来确保它不会包含重复的边，并且，一个私有邻接列表用 [map 数据结构](https://javascript.plainenglish.io/map-dictionary-data-structure-in-javascript-f9741b905ede)来跟踪节点的连接。
 
 ```
 class Graph {
@@ -82,7 +80,7 @@ class Graph {
 }
 ```
 
-由于他们是私有的，我用 getter 去返回他们，我首先将它们转换为数组和JavaScript对象，因为这些更容易也更常用，并且它还能防止从外部更改这些私有值。
+由于它们是私有的，我用 getter 去返回它们，我首先将它们转换为数组和JavaScript对象，因为它们更容易也更常用，并且它还能防止从外部更改这些私有值。
 
 接下来，我们需要一种方式去添加顶点。
 
@@ -137,9 +135,9 @@ class Graph {
 
 ## 宽度优先遍历
 
-当你有任何类型的数据结构时，就有搜索这些条目（在本例中为节点）的需求，在图中搜索节点的一种方法是使用[宽度优先搜索](https://en.wikipedia.org/wiki/Breadth-first_search )。
+当你有任何类型的数据结构时，就有搜索这些条目（在本例中为节点）的需求，在图中搜索节点的一种方法是使用[宽度优先搜索](https://en.wikipedia.org/wiki/Breadth-first_search)。
 
-这种搜索或遍历被熟知在[树数据结构](https://javascript.plainenglish.io/introduction-to-the-tree-data-structure-16307e3f1967 )领域，树遍历就是一种图遍历。
+这种搜索或遍历被熟知在[树数据结构](https://javascript.plainenglish.io/introduction-to-the-tree-data-structure-16307e3f1967)领域，树遍历就是一种图遍历。
 
 对于这个图，我们将使用颜色的概念来跟踪我们是否完成了对节点邻接表的检查，并避免为了效率而多次访问一个节点。
 
@@ -153,7 +151,7 @@ const COLORS = Object.freeze({
 });
 ```
 
-当你进行宽度优先遍历时，你 **检查** 所有邻接节点，当你检查时，你创建一个[**队列**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19 )，队列里面有下一个要检查的节点。
+当你进行宽度优先遍历时，你**检查**所有邻接节点，当你检查时，你创建一个[**队列**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19)，队列里面有下一个要检查的节点。
 
 > **注意**: 无论何时提到 **check**，它只是表示正在读取节点值。当提到**访问**时，意味着我们正在检查它的邻接节点列表。
 
@@ -192,19 +190,19 @@ function breathFirstSearch(graph, fromVertex, callback) {
 
 它从解构顶点和相邻列表开始，它将是一个数组和一个对象，因为这是我们在getter中定义的。如果没有顶点，它什么也不做就返回。然后，我们把所有节点都涂成绿色，这基本上是一个顶点到颜色的映射，所以我们可以很容易地查询节点的颜色
 
-队列是为了跟踪下一个要访问的顶点，从一开始，提供的顶点就是第一个要访问的顶点。检查[**队列数据结构文章**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19 )以了解它如何工作。
+队列是为了跟踪下一个要访问的顶点，从一开始，提供的顶点就是第一个要访问的顶点。检查[**队列数据结构文章**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19)以了解它如何工作。
 
 当队列中有一些东西时，我们将移动队列以获取前面的顶点，获取其相邻的节点列表，并将其涂成黄色，因为我们已经检查了它的值。每个循环的顶点都排队等待下一次访问，只要它们是绿色的，我们就把它们涂成黄色。
 
 由于我们检查了所有的顶点相邻列表，我们可以将它涂成红色，因为它已经被完全访问了，并使用它的值调用回调函数。此时，队列中应该有一些内容，如果有，进程将继续。
 
-![彩色图宽度优先搜索与队列在右边和访问顺序在左边. [视频](https://www.youtube.com/watch?v=ZJS5gDlT4lA&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=2)](https://cdn-images-1.medium.com/max/2000/1*TB3oNdllYxG7yZzkXbxfzg.gif)
+![彩色图宽度优先搜索与队列在右边和访问顺序在左边。[视频](https://www.youtube.com/watch?v=ZJS5gDlT4lA&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=2)](https://cdn-images-1.medium.com/max/2000/1*TB3oNdllYxG7yZzkXbxfzg.gif)
 
 ## 深度优先遍历
 
-深度优先遍历算法运行有点不同。它不是在访问队列中的下一个节点之前检查所有相邻的列表节点，而是在使用[栈数据结构](https://javascript.plainenglish.io/stack-data-structure-in-javascript-94f4ab4fe1 )检查该节点以跟踪下一个检查哪个节点时立即访问该节点。
+深度优先遍历算法运行有点不同。它不是在访问队列中的下一个节点之前检查所有相邻的列表节点，而是在使用[栈数据结构](https://javascript.plainenglish.io/stack-data-structure-in-javascript-94f4ab4fe1)检查该节点以跟踪下一个检查哪个节点时立即访问该节点。
 
-这里使用了相同的颜色概念，他的实现基于[递归函数](https://www.youtube.com/watch?v=7oLO9iAyYIM )，而不是宽度优先搜索算法中使用的while循环。它看起来像这样：
+这里使用了相同的颜色概念，他的实现基于[递归函数](https://www.youtube.com/watch?v=7oLO9iAyYIM)，而不是宽度优先搜索算法中使用的while循环。它看起来像这样：
 
 ```
 function depthFirstSearch(graph, fromVertex, callback) {
@@ -243,7 +241,7 @@ function depthFirstSearch(graph, fromVertex, callback) {
 
 ## 结论
 
-作为一名开发人员，熟悉所有不同的数据结构并理解[如何处理数据](https://medium.com/codex/you-wont-make-it-far-without-knowing-how-to-work-with-data-8aeb94661d6 )对你的职业生涯进入下一个阶段至关重要，与此同时，也要能够应用不同的数据结构算法需要不同的思维方式，去[解决任何编程问题](https://medium.com/geekculture/how-to-solve-any-programming-problem-44883180c730 )。
+作为一名开发人员，熟悉所有不同的数据结构并理解[如何处理数据](https://medium.com/codex/you-wont-make-it-far-without-knowing-how-to-work-with-data-8aeb94661d6)对你的职业生涯进入下一个阶段至关重要，与此同时，也要能够应用不同的数据结构算法需要不同的思维方式，去[解决任何编程问题](https://medium.com/geekculture/how-to-solve-any-programming-problem-44883180c730)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
