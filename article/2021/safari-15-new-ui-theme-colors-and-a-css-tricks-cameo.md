@@ -2,32 +2,30 @@
 > * 原文作者：[Chris Coyier](https://css-tricks.com/author/chriscoyier/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/safari-15-new-ui-theme-colors-and-a-css-tricks-cameo.md](https://github.com/xitu/gold-miner/blob/master/article/2021/safari-15-new-ui-theme-colors-and-a-css-tricks-cameo.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-# Safari 15: New UI, Theme Colors, and… a CSS-Tricks Cameo!
+# Safari 15：新用户界面、主题颜色和……CSS-Tricks Cameo！
 
-There’s [a 33-minute video](https://developer.apple.com/videos/play/wwdc2021/10029/) (and resources) over on apple.com covering the upcoming Safari changes we saw in the WWDC keynote this year in much more detail. Look who’s got a little cameo in there:
+apple.com 上有 [一段 33 分钟的视频](https://developer.apple.com/videos/play/wwdc2021/10029/)（和相关资源），涵盖了我们在今年 WWDC 主题演讲中看到的即将到来的 Safari 变化更详细。看看谁有一个小客串：
 
-![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/06/Screen-Shot-2021-06-11-at-8.20.24-AM.png?resize=1684%2C970&ssl=1)
+![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/06/Screen-Shot-2021-06-11-at-8.20.24-AM.png?调整大小=1684%2C970&ssl=1)
 
-Perhaps the most noticeable thing there in Safari 15 on iOS is **URL bar at the bottom**! [Dave](https://daverupert.com/) was speculating in our little [Discord](https://www.patreon.com/shoptalkshow) watch party that this probably fixes the [weird issues with `100vh` stuff](https://css-tricks.com/css-fix-for-100vh-in-mobile-webkit/) on iOS. But I really just don’t know, we’ll have to see when it comes out and we can play with it. I’d *guess* the expectation is that, in order for us to do our own fixed-bottom-UI stuff, we’d be doing:
+iOS 版 Safari 15 中最引人注目的可能是**底部的 URL 栏**！[Dave](https://daverupert.com/) 在我们的小型 [Discord](https://www.patreon.com/shoptalkshow) 观看活动中推测这可能解决了在 iOS 上的 [`100vh` 东西的奇怪问题](https://css-tricks.com/css-fix-for-100vh-in-mobile-webkit/)。但我真的不知道，我们必须看看它什么时候出来，我们才能尝试使用它。我**猜测**的想法是，为了让我们做我们自己的固定底部 UI 的东西，我们需要这样写：
 
 ```css
 .bottom-nav { 
-  position: fixed; /* maybe sticky is better if part of overall page layout? */
-  bottom: 100vh; /* fallback? */
-  bottom: calc(100vh - env(safe-area-inset-bottom)); /* new thing */
+  position: fixed; /* 或许 sticky 更好？ */
+  bottom: 100vh; /* 向后兼容？ */
+  bottom: calc(100vh - env(safe-area-inset-bottom)); /* 新东西，OMG */
 }
 ```
 
-On desktop, the most noticeable visual feature is probably the `theme-color` meta tags.
+在桌面上，最引人注目的视觉特征可能是 `theme-color` 元标签。
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/06/Screen-Shot-2021-06-11-at-8.22.55-AM.png?resize=1658%2C948&ssl=1)
 
-![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/06/Screen-Shot-2021-06-11-at-8.22.55-AM.png?resize=1658%2C948&ssl=1)
-
-This isn’t even a brand new Apple-only thing. This is the same `<meta>` tag that Chrome’s Android app has used [since 2014](https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Android), so you might already be sporting it on your own site. The addition is that it supports `media` queries.
+这甚至不是全新的 Apple 独有的东西。这与 Chrome 的 Android 应用 [自 2014 年以来就支持的功能](https://developers.google.com/web/updates/2014/11/Support-for-theme-color-in-Chrome-39-for-Andro)完全一致，因此您可能已经在自己的网站上使用它。此外，它支持媒体查询。
 
 ```html
 <meta name="theme-color" 
@@ -38,9 +36,9 @@ This isn’t even a brand new Apple-only thing. This is the same `<meta>` tag th
       media="(prefers-color-scheme: dark)">
 ```
 
-It’s great to see Safari get `aspect-ratio` and the new fancy color systems like `lab()` and `lch()` as well. Top-level `await` in JavaScript is great as it makes patterns like [conditional imports](https://css-tricks.com/dynamic-conditional-imports/) easier.
+很高兴看到 Safari 获得了 `aspect-ratio` 以及 `lab()` 和 `lch()` 等新的花哨的色彩系统。JavaScript 中的顶级 `await` 很棒，因为它使[条件导入](https://css-tricks.com/dynamic-conditional-imports/)之类的模式更容易。
 
-I don’t think all this would [satisfy Alex](https://infrequently.org/2021/04/progress-delayed/). We didn’t exactly get alternative browser engines on iOS or significant PWA enhancements (both of which would be really great to see). But I applaud it all—it’s good stuff. While I do think Google generally takes privacy more seriously than what general internet chatter would have to believe, it’s notable to compare each company’s newly-released features. If you’ll forgive a bit of cherry-picking, Google is working on [FLoC](https://blog.google/products/chrome/privacy-sustainability-and-the-importance-of-and/), a technology very specifically designed to help targeted advertising. Apple is working on [Private Relay](https://developer.apple.com/videos/play/wwdc2021/10096/), a technology very specifically to making web browsing untrackable.
+我认为这一切都不会[满足亚历克斯](https://infrequently.org/2021/04/progress-delayed/)（或查看本人发表在掘金上的译文 await url []()）。我们并没有完全在 iOS 上获得替代浏览器引擎或显着的 PWA 增强（这两者都非常值得一看），但我为这一切鼓掌 —— 这是好东西。虽然我确实认为谷歌通常比一般的互联网喋喋不休所相信的更重视隐私，但比较每家公司新发布的功能是值得注意的。如果你能原谅一些挑剔的话，谷歌正在研究 [FLoC](https://blog.google/products/chrome/privacy-sustainability-and-the-importance-of-and/)，一种技术非常专门用于帮助有针对性的广告。Apple 正在开发 [Private Relay](https://developer.apple.com/videos/play/wwdc2021/10096/)，这是一项专门用于使网页浏览无法跟踪的技术。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
