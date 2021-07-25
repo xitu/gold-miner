@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/v8-release-92.md](https://github.com/xitu/gold-miner/blob/master/article/2021/v8-release-92.md)
 > - 译者：[finalwhy](https://github.com/finalwhy)
-> - 校对者：
+> - 校对者：[Z招锦](https://github.com/zenblofe)
 
 # V8 v9.2 发布
 
