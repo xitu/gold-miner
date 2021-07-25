@@ -27,13 +27,13 @@ Pointer:    |________base_______|_______index_______|
 
 目前，Isolate（译者注：即一个 V8 运行实例，可参见[V8 bindings 设计 isolate，context，world，frame 之间的关系](https://zhuanlan.zhihu.com/p/54135666)） 在一个 4GB 大小的虚拟内存“笼子”内的 GC 堆中执行所有内存分配，这确保了所有指针具有相同的高 32 位基址。由于基址保持不变，因此 64 位指针在传递时只需要传递 32 位的索引，因为完整的指针地址可以通过「基址+索引」来计算。
 
-在 v9.2 中，默认行为变成了进程内的所有 Isolate 共享同一个 4GB 虚拟内存笼。这样做是为了对 JS 中实验性的共享内存功能进行原型设计。由于每个工作线程都有自己的 Isolate，因此各自的 4GB 虚拟内存笼是相相互独立的，指针无法在各 Isolate 的内存笼之间传递，因为它们不共享相同的基地址。这项改动还带来了一个额外的提升，即在启动程序时减少了虚拟内存的压力。
+在 v9.2 中，默认行为变成了进程内的所有 Isolate 共享同一个 4GB 虚拟内存笼。这样做是为了对 JS 中实验性的共享内存功能进行原型设计。由于每个工作线程都有自己的 Isolate，因此各自的 4GB 虚拟内存笼是相互独立的，指针无法在各 Isolate 的内存笼之间传递，因为它们不共享相同的基地址。这项改动还带来了一个额外的提升，即在启动程序时减少了虚拟内存的压力。
 
-这项改动是出于对 V8 总的堆内存大小限制的权衡，V8 将同一个进程中所有线程锁使用的堆内存大小限制为 4GB。这种限制对于那些每个进程产生多个线程的服务端工作任务来说是很不友好的，因为这样会更快的耗尽虚拟内存。嵌入器可以使用 GN 参数 `v8_enable_pointer_compression_shared_cage = false` 关闭指针压缩笼的共享。
+这项改动是出于对 V8 总的堆内存大小限制的权衡，V8 将同一个进程中所有线程所使用的堆内存大小限制为 4GB。这种限制对于那些每个进程产生多个线程的服务端工作程序来说是很不友好的，因为这样会更快的耗尽虚拟内存。嵌入器可以使用 GN 参数 `v8_enable_pointer_compression_shared_cage = false` 关闭指针压缩笼的共享。
 
 ## V8 API
 
-请使用 `git log branch-heads/9.1..branch-heads/9.2 include/v8.h` API 改动的完整列表。
+请使用 `git log branch-heads/9.1..branch-heads/9.2 include/v8.h` 获取 API 改动的完整列表。
 
 具有一个 V8 活动检出的开发人员可以使用 `git checkout -b 9.2 -t branch-heads/9.2` 来实验 V8 v9.2 中的新功能。你也可以[订阅 Chrome 的 Beta 版频道](https://www.google.com/chrome/browser/beta.html) 以尝鲜新功能。
 
