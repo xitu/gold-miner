@@ -7,7 +7,7 @@
 
 # V8 v9.2 发布
 
-每六周，我们会为 V8 创建一个新的分支作为我们 [发布计划](https://v8.dev/docs/release-process) 的一部分。每个版本都在 Chrome Beta 里程碑之前从 V8 的 master 分支中分支而来。今天我们很荣幸地宣布我们最新的分支，[V8 v9.2](https://chromium.googlesource.com/v8/v8.git/+log/branch-heads/9.2)，它目前仍处于测试阶段，会在几周后随着 Chrome 92 的稳定版一起发布。V8 v9.2 新增了很多面向开发者的新特性。这篇文章提供了预发布中一些亮点的预览。
+每隔六周，我们会为 V8 创建一个新的分支作为 [发布计划](https://v8.dev/docs/release-process) 的一部分。每个版本都在里程碑 Chrome Beta 之前从 V8 的 master 中创建分支。今天我们很荣幸地宣布我们最新的分支：[V8 v9.2](https://chromium.googlesource.com/v8/v8.git/+log/branch-heads/9.2)，它目前仍处于测试阶段，会在几周后随着 Chrome 92 的稳定版一起发布。V8 v9.2 新增了很多面向开发者的新特性。这篇文章提供了发布版本的一些亮点预览。
 
 ## JavaScript
 
