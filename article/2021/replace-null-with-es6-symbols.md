@@ -44,9 +44,7 @@ type Option<T> = { tag: 'none' } | { tag: 'some', value: T }
 
 Usually, you would use a library that defines the type and a bunch of useful utils alongside. [Here is an intro to Option in my favourite fp-ts library](https://dev.to/ryanleecode/practical-guide-to-fp-ts-option-map-flatten-chain-6d5).
 
-The library I was building was small, had zero dependencies, and there was no need for using any Option utility. Therefore, bringing in an Option library would be overkill.
-[**GitHub - robinpokorny/promise-throttle-all: 🤏 Promise.all with limited concurrency**
-**Promise.all with limited concurrency Limit in-progress async operations, like running only few API requests at a time…**github.com](https://github.com/robinpokorny/promise-throttle-all)
+[**The library** I was building](https://github.com/robinpokorny/promise-throttle-all) was small, had zero dependencies, and there was no need for using any Option utility. Therefore, bringing in an Option library would be overkill.
 
 For a while I was thinking about inlining the Option, that is coding it from scratch. For my use case that would be just a few lines. It would complicate the logic of the library a bit, though.
 
@@ -132,9 +130,7 @@ const notSettled = Symbol(`not-settled`)
 
 Potentially, there could be multiple missing values for different domain meanings.
 
-> **Let me know what you think of this use? Is it a good replacement for `null`? Should everybody always use an Option?**
-
-Note: Symbols are not always easy to use, watch my talk **Symbols complicated it all**.
+Let me know what you think of this use? Is it a good replacement for `null`? Should everybody always use an Option?
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
