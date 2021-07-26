@@ -7,7 +7,7 @@
 
 # I Used Python to Create My Own Programming Language
 
-Computers only understand machine code. At the end of the day programming languages are just words that make it’s easier for humans to write what they want computers to do. The real magic is done by compilers and interpreters to bridge the gap. Interpreter reads the code line by line and convert it to machine code. In this article, we will design interpreter that can perform arithmetic operation. We are not going to reinvent the wheel. I will be using the popular PLY ( [Python Lex-Yacc](https://github.com/dabeaz/ply)) by David M. Beazley in this tutorial. Download it using:
+Computers only understand machine code. At the end of the day programming languages are just words that make it’s easier for humans to write what they want computers to do. The real magic is done by compilers and interpreters to bridge the gap. Interpreter reads the code line by line and convert it to machine code. In this article, we will design interpreter that can perform arithmetic operation. We are not going to reinvent the wheel. I will be using the popular PLY ([Python Lex-Yacc](https://github.com/dabeaz/ply)) by David M. Beazley in this tutorial. Download it using:
 
 ```bash
 $ pip install ply
@@ -19,7 +19,7 @@ We will just gloss over the surface to understand the basics of how to create in
 
 ## Token
 
-**`Token`** is the smallest units of characters that gives meaningful information to interpreter. Token contains the pair containing token name and attribute value.
+`Token` is the smallest units of characters that gives meaningful information to interpreter. Token contains the pair containing token name and attribute value.
 
 Let’s start by creating list of token names. It is a compulsory step.
 
@@ -41,7 +41,7 @@ tokens = (
 
 ## Lexer
 
-The process of converting the statement to the token is called `Tokenization` or **`Lexing`**. The program that does `Tokenizer` is `Lexer`.
+The process of converting the statement to the token is called `Tokenization` or `Lexing`. The program that does `Tokenizer` is `Lexer`.
 
 ```Python
 # regular expression for the tokens
@@ -85,7 +85,7 @@ The `t_` is a special prefix indicating the rules for defining the token. Each l
 
 Now that rules are defined we will build the lexer.
 
-```
+```py
 data = 'a = 2 +(10 -8)/1.0'
 
 lexer = lex.lex()
@@ -95,13 +95,11 @@ while tok := lexer.token():
     print(tok)
 ```
 
-To pass the input string we use `lexer.input(data)`.` lexer.token()` returns next instance of `LexToken` and `None` at end. Based on the above rules, the tokens for the code` 2 + ( 10 -8)/1.0` will be
+To pass the input string we use `lexer.input(data)`. `lexer.token()` returns next instance of `LexToken` and `None` at end. Based on the above rules, the tokens for the code `2 + ( 10 -8)/1.0` will be
 
 ![](https://cdn-images-1.medium.com/max/2000/1*59uivI84Mhe-UjeeGs1xoQ.jpeg)
 
 The blue color is the statement, purple color represents then token name.
-
----
 
 ## Backus-Naur Form (BNF)
 
@@ -109,7 +107,7 @@ Most programming languages can be written by `context-free languages`. It is mor
 
 symbol := alternative1| alternative2 …
 
-Based on the production rule the left hand side of `:=` is replaced by value one of the alternative in right hand side which are separated by `**|**`. For the calculator interpreter I am using grammar specification like:
+Based on the production rule the left hand side of `:=` is replaced by value one of the alternative in right hand side which are separated by `|`. For the calculator interpreter I am using grammar specification like:
 
 ```
 expression expression : expression '+' factor
@@ -129,7 +127,7 @@ The input tokens are symbols such as `Num, Float, +, — , *, /. `are `terminals
 
 ## Parser
 
-We will be using `**YACC**` (`Yet another compiler-compiler`) as parser generator. To use it we will use `**import ply.yacc as yacc**`.
+We will be using `YACC` (`Yet another compiler-compiler`) as parser generator. To use it we will use `import ply.yacc as yacc`.
 
 ```Python
 from operator import (add,  sub, mul, truediv, pow) 
