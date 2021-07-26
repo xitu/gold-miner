@@ -35,7 +35,7 @@ Pointer:    |________base_______|_______index_______|
 
 请使用 `git log branch-heads/9.1..branch-heads/9.2 include/v8.h` 获取 API 改动的完整列表。
 
-具有一个 V8 活动检出的开发人员可以使用 `git checkout -b 9.2 -t branch-heads/9.2` 来实验 V8 v9.2 中的新功能。你也可以[订阅 Chrome 的 Beta 版频道](https://www.google.com/chrome/browser/beta.html) 以尝鲜新功能。
+对于拥有活跃的 V8 账号的开发者，可以使用 `git checkout -b 9.2 -t branch-heads/9.2` 来试验 V8 v9.2 的新功能。你也可以[订阅 Chrome 的 Beta 版频道](https://www.google.com/chrome/browser/beta.html) 以便尝试新功能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
