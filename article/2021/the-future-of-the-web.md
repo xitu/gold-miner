@@ -1,13 +1,13 @@
 > * 原文地址：[The Future Of The Web](https://www.hazem.cool/blog/the-future-of-the-web)
-> * 原文作者：[]()
+> * 原文作者：[Hazem Osama](https://www.hazem.cool/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-future-of-the-web.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-future-of-the-web.md)
 > * 译者：
 > * 校对者：
 
-![](https://www.hazem.cool/static/7858b1b89c0b19aeb9c7671418a6e1a7/4ec5b/the%20web%203.0.webp)
-
 # The Future Of The Web
+
+![](https://www.hazem.cool/static/7858b1b89c0b19aeb9c7671418a6e1a7/4ec5b/the%20web%203.0.webp)
 
 ## The Old Web
 
@@ -27,15 +27,11 @@ The web became too commercial, too predictable, too...boring.
 
 ## Things are Changing
 
-
-
 > There exists a future so bright that if you squint your eyes in the right direction you can see it shimmering in the distance.
-> 
-> **— Jesse Jacobs, Safari Honeymoon**
+>
+> --- Jesse Jacobs, Safari Honeymoon
 
 The web is changing, it's on its way to becoming more dynamic, more immersive, more multi-player, in fact, if you take a closer look, you'd see that it already did.
-
-
 
 ### The Death of Desktop
 
@@ -43,9 +39,7 @@ If you look at the apps that you use in your day to day they might be apps like 
 
 can you guess which of those aren't web apps? well, the only one that has a desktop client that isn't based on web technologies is Zoom which can also work on your browser just as well.
 
-Even Microsoft Office applications, the **"de facto"** desktop applications, their interface was [rewritten in react which is a web-based technology](https://react-etc.net/entry/microsoft-office-rewrite-to-react-js-nears-completion).
-
-
+Even Microsoft Office applications, the "de facto" desktop applications, their interface was [rewritten in react which is a web-based technology](https://react-etc.net/entry/microsoft-office-rewrite-to-react-js-nears-completion).
 
 #### Professional Heavy Apps
 
@@ -53,20 +47,18 @@ You could say but apps like Photoshop, After Effects, Final Cut Pro, Blender, an
 
 But if you haven't noticed already, these types of apps are already moving to the web.
 
+- Photoshop, Illustrator, Adobe XD → [Figma](https://www.figma.com/), [Framer](https://login.framer.com/?origin=framer-web&redirect=https%3A%2F%2Fframer.com%2Fprojects%2F) (has one of the [best ad](https://www.youtube.com/watch?v=hAPxeoP8wn8) I've ever seen for a SaaS product), [Photobea](https://www.photopea.com/), and [Avocode](https://avocode.com/)
+- After Effect → [Rive](https://rive.app/)
+- Blender → [Spline](https://spline.design/)
+- Microsoft Office → [Office 365](https://www.office.com/), [Google docs](https://www.google.com/docs/about/), [Google slides](https://www.google.com/slides/about/), [Google sheets](https://www.google.com/sheets/about/), and [Notion](https://www.notion.so/)
+- Skype → [Slack](https://slack.com/), [Teams](https://www.microsoft.com/en-ww/microsoft-teams/group-chat-software), [Zoom](https://zoom.us/), and [Discord](https://discord.com/)
+- Visual Studio & Other IDEs → [CodeSandBox](https://codesandbox.io/), [Github CodeSpaces](https://github.com/features/codespaces), [Glitch](https://glitch.com/), [Git Pod](https://www.gitpod.io/), and [Next.js Live](https://nextjs.org/blog/next-11#nextjs-live-preview-release)
+- Unreal Engine, Unity → [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), and [RogueEngine](https://rogueengine.io/)
+- AutoCad, Sketchup → [AutoCad Web](https://web.autocad.com/) and [Sketchup Web](https://app.sketchup.com/app)
+- Audacity → [Soundation](https://soundation.com/)
+- VLC Media Player → [VLC.js](https://code.videolan.org/jbk/vlc.js)
 
-
-[Photobea](https://www.photopea.com/), and [Avocode](https://avocode.com/)
-* After Effect → [Rive](https://rive.app/)
-* Blender → [Spline](https://spline.design/)
-* Microsoft Office → [Google slides](https://www.google.com/slides/about/), [Google sheets](https://www.google.com/sheets/about/), and [Notion](https://www.notion.so/)
-* Skype → [Slack](https://slack.com/), [Teams](https://www.microsoft.com/en-ww/microsoft-teams/group-chat-software), [Zoom](https://zoom.us/), and [Discord](https://discord.com/)
-* Visual Studio & Other IDEs → [CodeSandBox](https://codesandbox.io/), [Next.js Live](https://nextjs.org/blog/next-11#nextjs-live-preview-release)
-* Unreal Engine, Unity → [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), and [RogueEngine](https://rogueengine.io/)
-* AutoCad, Sketchup → [AutoCad Web](https://web.autocad.com/) and [Sketchup Web](https://app.sketchup.com/app)
-* Audacity → [Soundation](https://soundation.com/)
-* VLC Media Player → [VLC.js](https://code.videolan.org/jbk/vlc.js)
-
-Heck, you can even [SaaS product ad?](https://youtu.be/cxUN1dZ0Edk)).
+Heck, you can even [run your browser on the web](https://www.mightyapp.com/) (Has another awesome [SaaS product ad?](https://youtu.be/cxUN1dZ0Edk)).
 
 There is also a [windows paint clone,](https://jspaint.app/) [windows 98](https://copy.sh/v86/?profile=windows98), and [windows XP](https://winxp.vercel.app/) that can run on your browser.
 
@@ -100,15 +92,15 @@ You might be wondering? Isn't the web slow, chrome is hogging all my CPU and RAM
 
 Web Assembly lets you run compiled code on the web from [multiple languages](https://github.com/appcypher/awesome-wasm-langs) such C++, Rust, Go, Java, etc. at near machine code speed. This will open the door for new types of applications on the web, such as:
 
-* [Figma's rendering engine](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/)
-* [Google porting C++ code from its desktop application to the web](https://web.dev/earth-webassembly/)
-* [Soundation audio computation](https://soundation.com/station/soundation-is-the-first-online-music-production-software-to-implement-webassembly-threads-gains-over-70-performance-improvement/)
-* [Squoosh by Google image compression](https://squoosh.app/) (even with formats not supported natively by the web)
-* [Google Sketchup 3D modeling](https://madewithwebassembly.com/showcase/sketchup/)
-* [VLC media player being ported to the web](https://madewithwebassembly.com/showcase/vlc/)
-* [Lichess chess engine analysis](https://madewithwebassembly.com/showcase/lichess/)
-* [PSPDFKit](https://pspdfkit.com/blog/2017/webassembly-a-new-hope/) & [PDFTron](https://www.pdftron.com/blog/wasm/wasm-vs-pnacl/) PDF rendering engine
-* [TenserFlow now supports web assembly](https://blog.tensorflow.org/2020/03/introducing-webassembly-backend-for-tensorflow-js.html)
+- [Figma's rendering engine](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/)
+- [Google porting C++ code from its desktop application to the web](https://web.dev/earth-webassembly/)
+- [Soundation audio computation](https://soundation.com/station/soundation-is-the-first-online-music-production-software-to-implement-webassembly-threads-gains-over-70-performance-improvement/)
+- [Squoosh by Google image compression](https://squoosh.app/) (even with formats not supported natively by the web)
+- [Google Sketchup 3D modeling](https://madewithwebassembly.com/showcase/sketchup/)
+- [VLC media player being ported to the web](https://madewithwebassembly.com/showcase/vlc/)
+- [Lichess chess engine analysis](https://madewithwebassembly.com/showcase/lichess/)
+- [PSPDFKit](https://pspdfkit.com/blog/2017/webassembly-a-new-hope/) & [PDFTron](https://www.pdftron.com/blog/wasm/wasm-vs-pnacl/) PDF rendering engine
+- [TenserFlow now supports web assembly](https://blog.tensorflow.org/2020/03/introducing-webassembly-backend-for-tensorflow-js.html)
 
 ### The Third Dimension
 
@@ -118,18 +110,18 @@ But 3D has been lurking in the webs for a while and it's not just for purely aes
 
 Here are some examples of 3D experiences on the web:
 
-* [Google Earth](https://earth.google.com/web/) (Obviously 👀)
-* [NASA Mars 2020 simulation](https://eyes.nasa.gov/apps/mars2020/#/home)
-* [NASA Jet Propulsion Laboratory Open Source Rover](https://opensourcerover.jpl.nasa.gov/#!/home)
-* [SpaceX ISS Docking Simulator](https://iss-sim.spacex.com/)
-* [Stars Chrome Experiment](https://stars.chromeexperiments.com/)
-* [Wikiverse](http://wikiverse.io/)
-* [Zenly Landing Page](https://zen.ly/)
-* [Bruno Simon Portfolio](https://bruno-simon.com/)
-* [Lusion Site](https://lusion.co/)
-* [Paper Lanes](https://paperplanes.world/)
-* [Google Arts & Culture - Blob Opera](https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw)
-* [Google Cloud Infrastructure](https://cloud.withgoogle.com/infrastructure/)
+- [Google Earth](https://earth.google.com/web/) (Obviously 👀)
+- [NASA Mars 2020 simulation](https://eyes.nasa.gov/apps/mars2020/#/home)
+- [NASA Jet Propulsion Laboratory Open Source Rover](https://opensourcerover.jpl.nasa.gov/#!/home)
+- [SpaceX ISS Docking Simulator](https://iss-sim.spacex.com/)
+- [Stars Chrome Experiment](https://stars.chromeexperiments.com/)
+- [Wikiverse](http://wikiverse.io/)
+- [Zenly Landing Page](https://zen.ly/)
+- [Bruno Simon Portfolio](https://bruno-simon.com/)
+- [Lusion Site](https://lusion.co/)
+- [Paper Lanes](https://paperplanes.world/)
+- [Google Arts & Culture - Blob Opera](https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw)
+- [Google Cloud Infrastructure](https://cloud.withgoogle.com/infrastructure/)
 
 ### XR Experiences
 
@@ -139,15 +131,15 @@ VR and AR didn't hit mainstream yet, but they'll have their place on the web.
 
 Here are some examples of WebXR experiences:
 
-* [Shopify 3D Product Models](https://www.shopify.com/3d)
-* [A-Painter: Paint in 3D](https://aframe.io/a-painter/)
-* [Spiderman VR Experience](https://spiderman.webvr.link/)
-* [Google WebXR Experiments](https://experiments.withgoogle.com/collection/webxr)
-* [KonterBall: Ping Pong](https://konterball.com/)
-* [Tonite Dance by Google](https://tonite.dance/)
-* [Moon Rider (beat saber clone)](https://moonrider.xyz/)
-* [Hubs: Virtual Room by Mozilla](https://hubs.mozilla.com/)
-* [Plockle: Puzzle Game](https://plockle.com/)
+- [Shopify 3D Product Models](https://www.shopify.com/3d)
+- [A-Painter: Paint in 3D](https://aframe.io/a-painter/)
+- [Spiderman VR Experience](https://spiderman.webvr.link/)
+- [Google WebXR Experiments](https://experiments.withgoogle.com/collection/webxr)
+- [KonterBall: Ping Pong](https://konterball.com/)
+- [Tonite Dance by Google](https://tonite.dance/)
+- [Moon Rider (beat saber clone)](https://moonrider.xyz/)
+- [Hubs: Virtual Room by Mozilla](https://hubs.mozilla.com/)
+- [Plockle: Puzzle Game](https://plockle.com/)
 
 ### The Start of The Web Gaming Era
 
@@ -159,17 +151,17 @@ But with Web Assembly, things are starting to change. Now you can port games tha
 
 Here are some examples of games running on the web:
 
-* [Unity: Angry Bots](https://beta.unity3d.com/jonas/AngryBots/)
-* [Doom 3 (ported via Web Assembly)](https://wasm.continuation-labs.com/d3demo/)
-* [Heraclos](https://heraclosgame.com/)
-* [Ouigo - Pinball](http://letsplay.ouigo.com/)
-* [pmndrs - racing game](https://racing.pmnd.rs/#)
-* [Classic Minecraft](https://classic.minecraft.net/)
-* [After The Flood](https://playcanv.as/p/44MRmJRU/)
-* [Trolli](https://trollideliciouslydarkescape.com/)
-* [HexGL - Racer Game](http://hexgl.bkcore.com/play/)
-* [Robostorm](https://robostorm.io/)
-* [Foosball World Cup](https://www.foosballworldcup18.com/)
+- [Unity: Angry Bots](https://beta.unity3d.com/jonas/AngryBots/)
+- [Doom 3 (ported via Web Assembly)](https://wasm.continuation-labs.com/d3demo/)
+- [Heraclos](https://heraclosgame.com/)
+- [Ouigo - Pinball](http://letsplay.ouigo.com/)
+- [pmndrs - racing game](https://racing.pmnd.rs/#)
+- [Classic Minecraft](https://classic.minecraft.net/)
+- [After The Flood](https://playcanv.as/p/44MRmJRU/)
+- [Trolli](https://trollideliciouslydarkescape.com/)
+- [HexGL - Racer Game](http://hexgl.bkcore.com/play/)
+- [Robostorm](https://robostorm.io/)
+- [Foosball World Cup](https://www.foosballworldcup18.com/)
 
 #### Why The Web is a Good Place for Game Development
 
@@ -207,9 +199,9 @@ The web will never die (unless we all get nuked 💣) and that is because the we
 
 Unlike closed systems, the web is open and accessible from all devices, isn't run by one giant corporation, always backward compatible, there is no middle man between you and the people you want to connect to, and it's constantly evolving.
 
-There was always a dream in the developers' ecosystem of **"write once, run everywhere"** what they didn't realize is that it was always there under their nose, the web has always been cross-platform.
+There was always a dream in the developers' ecosystem of "write once, run everywhere" what they didn't realize is that it was always there under their nose, the web has always been cross-platform.
 
-##  or Fall Behind
+## or Fall Behind
 
 I have a theory that all closed systems eventually die. The only thing they can do is prolong their existence, why so? Although they can keep watering their walled gardens, there will come a time when the weather they grew in won't be the same, so the leaves fall and the apple rots and the garden turns into a museum, a historic site, a reminder of what was.
 
