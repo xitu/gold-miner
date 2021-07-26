@@ -1,62 +1,62 @@
-> * 原文地址：[An Introduction to JetPack Compose for Desktop](https://betterprogramming.pub/an-introduction-to-jetpack-compose-for-desktop-5c3bf8629dc5)
-> * 原文作者：[Siva Ganesh Kantamani](https://medium.com/@sgkantamani)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/an-introduction-to-jetpack-compose-for-desktop.md](https://github.com/xitu/gold-miner/blob/master/article/2021/an-introduction-to-jetpack-compose-for-desktop.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[An Introduction to JetPack Compose for Desktop](https://betterprogramming.pub/an-introduction-to-jetpack-compose-for-desktop-5c3bf8629dc5)
+> - 原文作者：[Siva Ganesh Kantamani](https://medium.com/@sgkantamani)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/an-introduction-to-jetpack-compose-for-desktop.md](https://github.com/xitu/gold-miner/blob/master/article/2021/an-introduction-to-jetpack-compose-for-desktop.md)
+> - 译者：[YueYongDev](https://github.com/YueYongDev)
+> - 校对者：[Hoarfroster]([PassionPenguin (Hoarfroster) (github.com)](https://github.com/PassionPenguin))
 
-# An Introduction to JetPack Compose for Desktop
+# JetPack Compose for Desktop 初体验
 
-![Photo by the author.](https://cdn-images-1.medium.com/max/2738/1*3wOqMMXsvUfkDTWXUri_EQ.png)
+![图源作者](https://cdn-images-1.medium.com/max/2738/1*3wOqMMXsvUfkDTWXUri_EQ.png)
 
-Until now, we’ve only seen [Jetpack Compose](https://developer.android.com/jetpack/compose) in Android development. Today, we’re entering a new phase, as JetBrains announced an early-access version of IntelliJ that allows you to use Jetpack Compose to build Windows applications.
+目前为止，我们只在 Android 开发中看到 [Jetpack Compose](https://developer.android.com/jetpack/compose)。今天，我们将进入一个崭新的阶段，因为 JetBrains 宣布了 IntelliJ 的早期访问版本，允许你使用 Jetpack Compose 来构建 Windows 应用程序。
 
-This is the first of many articles I will write in the coming days explaining how to use Jetpack Compose for desktop. Last month, JetBrains released Compose for desktop Milestone 2, which brings a better development experience and interoperability.
+关于如何使用 Jetpack Compose for desktop，我计划在未来写一些文章加以阐述，本文是这个系列的第一篇文章。上个月，JetBrains 发布了 Compose for desktop Milestone 2，为开发者们带来了更好的开发体验和可操作性。
 
-As always, JetBrains is trying to ease developers’ lives by providing exclusive project wizards. In the early-access version of IntelliJ, they added a desktop project wizard to configure the project within seconds.
+和往常一样，JetBrains 在继续尝试通过提供独家项目引导来简化开发者的开发流程。在 Compose for desktop 的早期版本中，他们为 IntelliJ 增加了一个桌面项目引导，可以让我们在几秒内配置好项目。
 
-To start with the development first, you need to install [IntelliJ IDEA 2020.3](https://www.jetbrains.com/idea/whatsnew/#section=mac).
+在开始开发之前，你需要安装 [IntelliJ IDEA](https://www.jetbrains.com/idea/whatsnew/#section=mac) 2020.3 或更高版本。
 
-## Quick Start With the Project Template
+## 使用项目模版快速开始
 
-As I said earlier, one of the best things about IntelliJ is project templates. After installing the IDE, launch the application. You’ll see the following window:
+正如我前面所说，项目模板是 IntelliJ 最好用的东西之一。安装完 IDE 后，启动应用程序。你会看到如下的界面：
 
 ![](https://cdn-images-1.medium.com/max/2498/1*x-OrVhcmjnr0FKOlNHjNoQ.png)
 
-Then click the “New Project” button in the top bar, which will take you to the window to select the type of application. Have a look at the “New Project” window:
+然后点击顶部栏的 "New Project "按钮，这一操作将会跳转至选择应用程序类型的界面。如下所示：
 
 ![](https://cdn-images-1.medium.com/max/2944/1*M2u_N3K-1DY9Q3WaYBnB0w.png)
 
-First, we need to select Kotlin from the left-side menu. Then update the project name and location. After that, we need to select the project template. This is an important part of configuring the appropriate project. We need to pick the desktop template from the list of project templates, which you’ll find as you scroll down. Then you need to select the project JDK. I would suggest going with JDK 11.
+首先，我们需要从左侧菜单中选择 Kotlin，然后修改项目名称和位置。之后，我们需要选择项目模板。这是配置项目的一个重要步骤。我们需要从项目模板列表中挑选桌面模板，向下滚动就能找到。然后你需要选择项目的 JDK，这里我建议使用 JDK 11。
 
 ![](https://cdn-images-1.medium.com/max/2944/1*XyyhciTuFLCVhk_hF10xCw.png)
 
-Then click the “Next” button, which will bring you to the confirmation window with the Compose module. Now click the “Finish” button, and IntelliJ will set up the project for you by automatically downloading the appropriate gradle.
+然后点击“Next”按钮，这将会跳转至确认 Compose 模块的界面。现在点击“Finish”按钮，IntelliJ 将通过自动下载适当的 gradle 为你配置整个项目。
 
-## Run Your First Desktop Application
+## 运行你的第一个桌面应用
 
-If everything goes as expected, the desktop project setup will be successful and you’ll see the following setup:
+如果进展顺利，整个桌面项目加载完成后你将会看到以下界面：
 
 ![](https://cdn-images-1.medium.com/max/3840/1*iU2it0DXYOt0qxJQB1VgBQ.png)
 
-At this point, you can run the application. For some reason, `Main.kt` is not selected by default in the top right corner beside the “Run” button, so it’ll ask you to configure the project. To resolve this, you need to hit the green “Run” button beside the main function inside the `Main.kt` file.
+此时，你可以运行该应用程序了。由于某些原因，`Main.kt` 在右上角的“运行”按钮旁边没有被默认选中，所以它会要求你配置项目。为了解决这个问题，你需要在 `Main.kt` 文件内的主函数旁边点击绿色的“运行”按钮。
 
-After the successful run, you’ll see the following output with a button containing a “Hello, World!” text. If you click on it, the text inside the button changes to “Hello, Desktop!” Have a look:
+运行成功后，你会看到下面的输出结果，有一个包含“Hello, World!”文字的按钮。如果你点击它，按钮里面的文字就会变成“Hello, Desktop!”，来看一下实际体验的效果吧。
 
 ![](https://cdn-images-1.medium.com/max/2002/1*AMNYP559WHhfKFvpGrmN4g.gif)
 
-## Explore the Code
+## 探究代码
 
-As you can see, it’s a simple Hello World program — nothing complicated. Most of the code is similar to the Jetpack Compose UI for Android applications.
+正如你看到的，这是一个简单的 Hello World 程序 —— 一点也不复杂。大部分的代码与 Android 里面的 Jetpack Compose UI 相似。
 
-`Main.kt` is the Kotlin file that contains the code related to output. It has the main function, which is the entry point for the application to run. The code starts with the `Window` function to open a window with the given content. It takes several parameters to initially configure the window properties, such as `title`, `size`, `location`, `centered`, `content`, etc.
+`Main.kt` 是包含与输出有关的代码 Kotlin 文件。它有一个主函数作为应用程序运行的入口。代码从 `Window` 函数开始，用给定的内容打开一个窗口。它需要几个参数来初步配置窗口的属性，如 `title`、`size`、`location`、`centered`、`content` 等。
 
 ```kt
 fun main() = Window {
 }
 ```
 
-In this case, we’ll only pass the value to the content parameter and leave the rest of the parameters with default values. In the next step, we’ve declared a `text` variable with `remember` capability and the initial value of `Hello, World!`. Have a look:
+在这种情况下，我们只需要把值传给内容参数，其余的参数保留默认值即可。在接下来的代码中，我们声明了一个具有 `remember` 功能的 `text` 变量，其初始值为 `Hello, World!`。如下所示：
 
 ```kt
 fun main() = Window {
@@ -64,13 +64,13 @@ fun main() = Window {
 }
 ```
 
-In a declarative UI system, the code itself describes the UI. We need to describe the UI at any point in time — not just the initial time. We use `remember` as a state for the text to be displayed in the views like buttons, text fields, and more. When we update this `text` variable in the future, the views associated with this variable will also update the display text.
+在一个声明式的 UI 系统中，代码本身就描述了 UI。我们需要描述任何时间点上的 UI —— 不仅仅是初始时间。在诸如按钮、文本字段等 UI 组件中，我们使用 `remember` 作为文本的状态，这样当我们在未来更新这个 `text` 变量时，与该变量相关的视图也会更新显示文本。
 
-To understand it better, I would suggest going through the following article:
+为了更好地理解它，我建议阅读以下文章。
 
-[**Jetpack Compose Components (Part 2)](https://medium.com/better-programming/jetpack-compose-components-part-2-2b3eb135d294)
+[Jetpack Compose Components (Part 2)](https://medium.com/better-programming/jetpack-compose-components-part-2-2b3eb135d294)
 
-The next part of the code is to define a button with the click functionality and apply the material theme to the window. Have a look:
+下一段代码是定义一个具有点击功能的按钮，并将整个应用窗口设置为 Material 主题。如下所示：
 
 ```Kotlin
 fun main() = Window {
@@ -86,21 +86,21 @@ fun main() = Window {
 }
 ```
 
-## Conclusion
+## 总结
 
-Jetpack Compose is at a very early stage for both desktop and Android, but it still shows tremendous progress for building UI. A framework like Jetpack Compose with Kotlin’s powerful features will improve developers’ productivity and provide a way for them to work on different platforms.
+目前，Jetpack Compose 在桌面和安卓上都处于非常早期的阶段，但它仍然展现出为构建 UI 所作出的巨大进步。像 Jetpack Compose 这样的框架配合上 Kotlin 的强大功能将提高开发者的开发效率，并为他们提供在不同平台上工作的方法。
 
-Developers like [Gurupreet Singh](https://twitter.com/_gurupreet) are very active with Compose releases and are creating valuable resources (such as [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)) to help fellow developers. He also created [the Spotify desktop clone](https://github.com/Gurupreet/ComposeSpotifyDesktop) from the Compose Android app, which inspired me a lot.
+像 [Gurupreet Singh](https://twitter.com/_gurupreet) 这样的开发者非常积极地参与 Compose 的发布，并创造了宝贵的资源（如 [ComposeCookBook](https://github.com/Gurupreet/ComposeCookBook)）来帮助其他开发者。他还从 Compose Android 应用中创建了 [the Spotify desktop clone](https://github.com/Gurupreet/ComposeSpotifyDesktop)，这给了我很大的启发。
 
-## Bonus
+## 捐赠
 
-If you’re new to Jetpack Compose, start here:
+如果你刚入门 Jetpack Compose ，可以从这里开始。
 
-* [“Jetpack Compose — A New and Simple Way to Create Material-UI in Android”](https://medium.com/better-programming/jetpack-compose-a-new-and-simple-way-to-create-material-ui-in-android-f49c6fcb448b)
-* [“JetPack Compose With Server Driven UI”](https://medium.com/android-dev-hacks/jetpack-compose-with-server-driven-ui-396a19f0a661)
-* [“Jetpack Compose: How to Build a Messaging App”](https://medium.com/better-programming/jetpack-compose-how-to-build-a-messaging-app-e2cdc828c00f)
+- [“Jetpack Compose — A New and Simple Way to Create Material-UI in Android”](https://medium.com/better-programming/jetpack-compose-a-new-and-simple-way-to-create-material-ui-in-android-f49c6fcb448b)
+- [“JetPack Compose With Server Driven UI”](https://medium.com/android-dev-hacks/jetpack-compose-with-server-driven-ui-396a19f0a661)
+- [“Jetpack Compose: How to Build a Messaging App”](https://medium.com/better-programming/jetpack-compose-how-to-build-a-messaging-app-e2cdc828c00f)
 
-That is all for now. I hope you learned something useful. Thanks for reading.
+以上就是本文的全部内容了，希望本文能对你有所帮助，感谢你的阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
