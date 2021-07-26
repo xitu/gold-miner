@@ -32,7 +32,7 @@ In general, the problem 1 and 2 have the same solution: use a library that imple
 
 ## Why Option was too much
 
-Option (sometimes called Maybe) type has two possibilities: either there is no value ( `None` on `Nothing`) or there is a value ( `Some` or `Just`).
+Option (sometimes called Maybe) type has two possibilities: either there is no value (`None` on `Nothing`) or there is a value (`Some` or `Just`).
 
 In JavaScript/TypeScript this means introducing a new structure that wraps the value. Most commonly an object with a property `tag` that defines what possibility it is.
 
