@@ -122,7 +122,7 @@
 
 ![将 bottom 和 front 对齐](https://cdn-images-1.medium.com/max/2000/1*xLD_mS8WsK3nzScd6tbwKw.gif)
 
-**步骤 — 2: 将 bottom 旋转 90 度**
+**步骤 —— 2: 将 bottom 旋转 90 度**
 
 **CSS:**
 
