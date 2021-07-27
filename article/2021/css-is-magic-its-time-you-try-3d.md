@@ -48,7 +48,7 @@
 >
 > 来源 —— [W3 Schools](https://www.w3schools.com/cssref/css3_pr_perspective.asp)
 
-让我们给这三个方块的父元素加上下面的 CSS —
+让我们给这三个方块的父元素加上下面的 CSS ——
 
 ![](https://cdn-images-1.medium.com/max/2724/1*ijVRelbthN6Ivuf5xDs7Iw.png)
 
