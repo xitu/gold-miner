@@ -66,7 +66,7 @@
 
 ### 立方体
 
-我们终于可以从立方体的面开始了！我们将有四个面 - bottom，front，back，left:
+我们终于可以从立方体的面开始了！我们将有四个面 —— bottom，front，back，left：
 
 ![](https://cdn-images-1.medium.com/max/2388/1*q69vRRksjkM4M2xY0Meycg.png)
 
