@@ -96,7 +96,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*r1-jRUGjUW-8a0-ckLay_Q.png)
 
-**效果 —**
+**效果 ——**
 
 ![](https://cdn-images-1.medium.com/max/2608/1*q6x7s9gLwwVf3WtIMaQYvg.png)
 
