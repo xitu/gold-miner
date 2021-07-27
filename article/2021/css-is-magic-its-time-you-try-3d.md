@@ -100,7 +100,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2608/1*q6x7s9gLwwVf3WtIMaQYvg.png)
 
-你能够想象 front 像你靠近，back （黄色那个）离你远去吗？如果这仍然不足以描绘，那让我们试着把立方体的包裹容器旋转一下：
+你能够想象 front 向你靠近，back （黄色那个）离你远去吗？如果这仍然不足以描绘，那让我们试着把立方体的包裹容器旋转一下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jaSlx71f9SunHXIOxGdthg.gif)
 
