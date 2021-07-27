@@ -46,7 +46,7 @@
 
 > `perspective` 属性定义元素与用户的距离。那么，相比于一个较高的值，一个较低的值产生的 3D 效果会更强烈。
 >
-> 来源 — [W3 Schools](https://www.w3schools.com/cssref/css3_pr_perspective.asp)
+> 来源 —— [W3 Schools](https://www.w3schools.com/cssref/css3_pr_perspective.asp)
 
 让我们给这三个方块的父元素加上下面的 CSS —
 
