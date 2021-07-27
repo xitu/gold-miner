@@ -76,7 +76,7 @@
 
 注意我为容器添加了 `transform-style: preserve-3d;`。这是渲染 3D 子元素的一个重要步骤。每一个面的宽高都是 `200px`，我们需要记住这个值，因为我们将为每个面添加 `translate` 值，这和尺寸有关。
 
-For our cube, each face is going to be an absolute division and I have added text indicating which face it is. I have added `opacity: 0.5` for each face so that the overlap is clear:我们的我们立方体的每一个面都将是一个绝对的划分，我添加了文字用于代表每一个面。我为每一个面添加了 `opacity: 0.5`，这样就能清楚的看到它们之间的重叠了。
+立方体的每一个面都将是一个绝对的划分，我添加了文字用于代表每一个面。我为每一个面添加了 `opacity: 0.5`，这样就能清楚地看到它们之间的重叠了。
 
 ![](https://cdn-images-1.medium.com/max/2236/1*iygD8k6WIHvobgQKUAc9Ww.png)
 
