@@ -26,7 +26,7 @@
 
 ### 但 Z 轴是什么？
 
-为了更形象的了解 `translate` 是如何沿着 Z 轴工作的，想象一下你的 div 在你的屏幕中前后移动而不是上下或左右。
+为了更形象地了解 `translate` 是如何沿着 Z 轴工作的，想象一下你的 `div` 在你的屏幕中前后移动而不是上下或左右。
 
 ![沿着 Z 轴平移](https://cdn-images-1.medium.com/max/4328/1*qXx6HIGzXvPZY4oO_4gEFQ.png)
 
