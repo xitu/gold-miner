@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-a-cache-stampede-caused-one-of-facebooks-biggest-outages.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-a-cache-stampede-caused-one-of-facebooks-biggest-outages.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[kamly](https://github.com/kamly)
+> * 校对者：[kamly](https://github.com/kamly)、[JalanJiang](https://github.com/JalanJiang)
 
 # 缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的
 
@@ -17,7 +17,7 @@
 
 那么，究竟是什么导致了 Facebook 的停运呢？[根据事件发生后的官方分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
 
-> 今天我们对被解释为无效的配置值的永久副本进行了更改。意味着每个客户端都会获得无效值并尝试修复它。由于修复涉及对数据库集群进行查询，因此该集群很快就被每秒数十万个查询所淹没。
+> 今天我们误改了一个配置。这意味着每个客户端都能看到这个错误配置并尝试修复它。由于修复操作涉及对数据库集群进行查询，因此该集群很快就被每秒数十万个查询所淹没。
 
 ---
 
@@ -34,7 +34,7 @@
 3. 收到超时，所有线程重试他们的请求 —— 导致另一次踩踏。
 4. 循环往复。
 
-并不需要拥有 Facebook 那样规模的用户，你一样能够被其折磨它。缓存踩踏与用户规模无关，因此其困扰着初创公司和科技巨头。
+并不需要拥有 Facebook 那样规模的用户，你一样会遭其折磨。缓存踩踏与用户规模无关，因此它同时困扰着初创公司和科技巨头。
 
 ---
 
@@ -60,9 +60,9 @@
 
 ！[图片来源：[https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b](https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash -55bbf596d94b)](https://cdn-images-1.medium.com/max/2000/0*_uJf2mjpAbCLw9hp)
 
-这对于防止频繁访问的数据发生踩踏事件特别有用。即使第 2 层缓存键上的键过期，多个第 1 层缓存可能仍存储该值。这将限制需要重新计算缓存值的线程数。
+这对于防止频繁访问数据时发生踩踏事件特别有用。即使第 2 层缓存上的键过期，一些第 1 层缓存可能仍存储该值。这将限制需要重新计算缓存值的线程数。
 
-但是，这种方法有一些显着的权衡。如果您不小心，在应用程序服务器上缓存内存中的数据可能会导致 [内存不足](https://en.wikipedia.org/wiki/Out_of_memory) 问题，尤其是在缓存大量数据时。
+但是，这种方法有一些方面需要注意权衡。如果您不小心，在应用程序服务器上缓存内存中的数据可能会导致 [内存不足](https://en.wikipedia.org/wiki/Out_of_memory) 问题，尤其是在缓存大量数据时。
 
 此外，这种缓存策略仍然容易受到我所说的追随者踩踏的影响。
 
@@ -80,15 +80,15 @@
 
 ![图片来源：[https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*KThIA3rqDvhQLXHp)
 
-在高并发系统中很常见，一种防止共享资源竞争条件的方法是使用 **锁**。虽然锁通常用于同一台机器上的线程，但也有一些方法可以使用[分布式锁](https://redis.io/topics/distlock) 用于远程缓存。
+在高并发系统中很常见，一种防止共享资源竞争条件的方法是使用**锁**。虽然锁通常用于同一台机器上的线程，但也有一些方法可以使用 [分布式锁](https://redis.io/topics/distlock) 用于远程缓存。
 
-通过在缓存键上加锁，一次只有一个调用者能够访问缓存。如果密钥丢失或过期，调用者就可以生成并缓存数据，同时持有锁。任何其他尝试从同一个密钥读取的进程都必须等到锁空闲。
+通过在缓存键上加锁，限制一次只有一个调用者能够访问缓存。如果缓存键丢失或过期，调用者就可以生成并缓存数据，同时持有锁。任何其他尝试从同一个缓存键读取的进程都必须等到锁空闲。
 
 ![图片来源：[https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb. com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/2000/0*7DqZBIsf7BByzB3q.gif)
 
 使用锁解决了竞争状态问题，但它会产生另一个问题。你如何处理所有等待锁释放的线程？
 
-不知道你是否使用过 [自旋锁](https://en.wikipedia.org/wiki/Spinlock) 模式并让线程不断轮询锁？这将创建一个[忙等待](https://en.wikipedia.org/wiki/Busy_waiting) 场景。
+不知道你是否使用过 [自旋锁](https://en.wikipedia.org/wiki/Spinlock) 模式并让线程不断轮询锁？这将创建一个 [忙等待](https://en.wikipedia.org/wiki/Busy_waiting) 场景。
 
 在检查锁是否空闲之前，你是否让线程休眠了任意时间？这样你就会遇到 [惊群效应问题](https://en.wikipedia.org/wiki/Thundering_herd_problem)。
 
@@ -102,7 +102,7 @@
 
 引用 **[惊群效应问题与 Promise](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)** 来自 Instagram 的工程博客：
 
-> 在 Instagram 上，当建立一个新集群时，我们会遇到 **缓存踩踏** 问题，因为集群的缓存是空的。然后我们使用 Promise 来帮助解决这个问题：**我们没有缓存实际值，而是缓存了一个最终会提供值的 Promise**。当我们以原子方式使用我们的缓存并出现未命中时，我们不会立即进入后端，而是会创建一个 Promise 并将其插入缓存中。然后这个新的 Promise 开始针对后端的工作。这样做的好处是其他并发请求不会错过，因为它们会找到现有的 Promise —— 并且所有这些并发工作人员将等待单个后端请求。
+> 在 Instagram 上，当建立一个新集群时，我们会遇到**缓存踩踏**问题，因为集群的缓存是空的。然后我们使用 Promise 来帮助解决这个问题：**我们没有缓存实际值，而是缓存了一个最终会提供值的 Promise**。当我们以原子方式使用我们的缓存并出现未命中时，我们不会立即进入后端，而是会创建一个 Promise 并将其插入缓存中。然后这个新的 Promise 开始针对后端的工作。这样做的好处是其他并发请求不会错过，因为它们会找到现有的 Promise —— 并且所有这些并发工作人员将等待单个后端请求。
 
 ![图片来源：[https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*I28DPoMELLUV4QWN)
 
@@ -130,7 +130,7 @@
 
 #### 概率早期重新计算
 
-2015 年，一组研究人员发表了名为 「Optimal Probabilistic Cache Stampede Prevention」 的[白皮书](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf)。在其中，他们描述了一种算法，用于优化预测何时在缓存过期之前重新计算缓存值。
+2015 年，一组研究人员发表了名为 「Optimal Probabilistic Cache Stampede Prevention」 的 [白皮书](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf)。在其中，他们描述了一种算法，用于优化预测何时在缓存过期之前重新计算缓存值。
 
 研究论文中有很多数学理论，但算法归结为：
 
@@ -186,7 +186,7 @@ Facebook 的缓存踩踏事件如此具有破坏性的原因之一是，即使�
 
 他们从故障中吸取了哪些教训，他们采取了哪些保护措施来防止再次发生这种情况？
 
-他们的工程帖子，[**幕后：向数百万人广播直播视频**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)，讨论他们对架构所做的改进。它讨论了我们已经讨论过的内容，例如缓存层次结构，但也包括一些新颖的方法，例如 HTTP 请求合并。这篇文章值得一读，但如果你时间不够，这个[视频提供了一个全面的概述](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0)。
+他们的工程帖子，[**幕后：向数百万人广播直播视频**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)，讨论他们对架构所做的改进。它讨论了我们已经讨论过的内容，例如缓存层次结构，但也包括一些新颖的方法，例如 HTTP 请求合并。这篇文章值得一读，但如果你时间不够，这个 [视频提供了一个全面的概述](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0)。
 
 可以说 Facebook 从他们过去的错误中吸取了教训。
 
