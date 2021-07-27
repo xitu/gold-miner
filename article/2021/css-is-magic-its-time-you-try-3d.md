@@ -150,7 +150,7 @@ bottom 看起来现在安全的在自己的位置上了。但 left 好像被困�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VhF0Ltn-I8vLPhTc6xaj9A.png)
 
-将上面的动画添加到我们的 `box-wrapper` 上 —
+将上面的动画添加到我们的 `box-wrapper` 上 ——
 
 ![](https://cdn-images-1.medium.com/max/2336/1*RbHF6_VStIc1nYnx5g_pog.png)
 
