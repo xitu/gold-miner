@@ -53,7 +53,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2724/1*ijVRelbthN6Ivuf5xDs7Iw.png)
 
-**瞧:**
+**瞧：**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Go0arpobwsP4NtVYPRH4A.gif)
 
