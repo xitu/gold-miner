@@ -7,7 +7,7 @@
 
 # CSS 是魔法, 是时候试试 3D 了
 
-![Dog Illustration: [subpng](https://www.subpng.com/), Eyes: [pngegg](https://www.pngegg.com)](https://cdn-images-1.medium.com/max/5440/1*WKVcqB1XHjA5Fbdm-AQU-g.png)
+![小狗插图：[subpng](https://www.subpng.com/)，眼睛插图：[pngegg](https://www.pngegg.com)](https://cdn-images-1.medium.com/max/5440/1*WKVcqB1XHjA5Fbdm-AQU-g.png)
 
 **CSS transform** 是 css 最全能，最神奇的属性之一。它不仅是在你的网站上实现平滑动画的最佳方式，你还能用 **CSS 3D transforms** 创造奇迹。比如这个 🙀 —
 
