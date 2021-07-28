@@ -23,7 +23,7 @@
 
 `translate` 方法主要是将一个 html 元素从它真实的位置上移动，而且不会干扰布局树上的其他兄弟或父级元素。简单来说，`translateX` 方法是将元素左右移动，而 `translateY` 是上下移动元素。
 
-![translate 是如何在 X 轴和 Y 轴中平移的](https://cdn-images-1.medium.com/max/3688/1*cq8Q9DGLScj3v038DnxjhQ.png)
+![translate 是如何使元素在 X 轴和 Y 轴中平移的](https://cdn-images-1.medium.com/max/3688/1*cq8Q9DGLScj3v038DnxjhQ.png)
 
 ### 但 Z 轴是什么？
 
