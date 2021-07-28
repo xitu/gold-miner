@@ -75,7 +75,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*gSM7KPGdGmzmo5D-Jpr_UA.png)
 
-注意我为容器添加了 `transform-style: preserve-3d;`。这是渲染 3D 子元素的一个重要步骤。每一个面的宽高都是 `200px`，我们需要记住这个值，因为我们将为每个面添加 `translate` 值，这和尺寸有关。
+注意我为容器添加了 `transform-style: preserve-3d`，这是渲染 3D 子元素的一个重要步骤。每一个面的宽高都是 `200px`，我们需要记住这个值，因为我们将依据每一个面的尺寸为每个面添加 `translate` 值。
 
 立方体的每一个面都将是一个绝对的划分，我添加了文字用于代表每一个面。我为每一个面添加了 `opacity: 0.5`，这样就能清楚地看到它们之间的重叠了。
 
