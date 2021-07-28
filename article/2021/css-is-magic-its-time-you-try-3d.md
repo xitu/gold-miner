@@ -2,8 +2,8 @@
 > * 原文作者：[Ankita Chakraborty](https://medium.com/@ankitachakraborty)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/css-is-magic-its-time-you-try-3d.md](https://github.com/xitu/gold-miner/blob/master/article/2021/css-is-magic-its-time-you-try-3d.md)
-> * 译者：tong-h[https://github.com/Tong-H]
-> * 校对者：
+> * 译者：[tong-h](https://github.com/Tong-H)
+> * 校对者：[Chorer](https://github.com/Chorer) [PassionPenguin](https://github.com/PassionPenguin)
 
 # CSS 是魔法, 是时候试试 3D 了
 
