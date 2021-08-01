@@ -1,3 +1,4 @@
+* [AI 是否已经成为内容营销的重要组成部分？](https://juejin.cn/post/6964280632801394724)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％](https://juejin.cn/post/6952819856429285407)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [解密转置卷积](https://juejin.cn/post/6954678998123151390)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [人工智能系统 Project Debater 即将提供 12 个新的云 API](https://juejin.cn/post/6955657126647857159)（[Kimhooo](https://github.com/Kimhooo) 翻译）

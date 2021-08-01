@@ -1,3 +1,7 @@
+* [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
+* [你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)（[kamly](https://github.com/kamly) 翻译）
+* [外行人说量子计算机](https://juejin.cn/post/6979953198383497223)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [提高 Firefox 在 Linux 上的稳定性](https://juejin.cn/post/6967580662479978504)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [“绿色”和“棕色”的编程语言](https://juejin.cn/post/6963157486677278757)（[chzh9311](https://github.com/chzh9311) 翻译）
 * [Page Shield：保护浏览器中的用户数据](https://juejin.cn/post/6956969205652520973)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [使用 VPython 进行物理模拟](https://juejin.cn/post/6955292986909409288)（[tmpbook](https://github.com/tmpbook) 翻译）

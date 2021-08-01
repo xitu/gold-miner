@@ -1,3 +1,31 @@
+* [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
+* [对角线分割的圆锥渐变式可变纵横比卡片](https://juejin.cn/post/6986531351184801829)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [使用 Husky 和 Hooks 保证 JavaScript 代码质量](https://juejin.cn/post/6983443137041530887)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [让 JavaScript 在 WebAssembly 上疾速运行](https://juejin.cn/post/6981685894470172679)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [React 18 中新的 Suspense SSR 架构](https://juejin.cn/post/6982010092258328583)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [如何打造可被摇树优化的库](https://juejin.cn/post/6977334810536575013)（[darkyzhou](https://github.com/darkyzhou) 翻译）
+* [Chrome 92 DevTools 的新功能](https://juejin.cn/post/6976944954056638495)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [纯 CSS 创建五彩斑斓的智慧阴影！让前景图片自动转化为对应彩色的背景阴影](https://juejin.cn/post/6975818153376874503)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [简述 JavaScript 高阶函数的开发使用](https://juejin.cn/post/6977649537812791303)（[zenblo](https://github.com/zenblo) 翻译）
+* [下一代 CSS：@container](https://juejin.cn/post/6981456441341132837)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [一个编译成 JavaScript 接口框架的案例](https://juejin.cn/post/6974632431290679303)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [用 JavaScript 访问用户设备硬件的新标准](https://juejin.cn/post/6971626604933939231)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [Chrome 浏览器的自定义状态伪类](https://juejin.cn/post/6969923484776398855)（[iceytea](https://github.com/iceytea) 翻译）
+* [使用 CI/CD 优化前端构建的五种策略](https://juejin.cn/post/6969016052894154789)（[zenblo](https://github.com/zenblo) 翻译）
+* [CSS是编程语言吗？](https://juejin.cn/post/6969040502146465829)（[cncuckoo](https://github.com/cncuckoo) 翻译）
+* [什么是 http/3，为什么它很重要？](https://juejin.cn/post/6969399259246690341)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [简述自动生成的社交媒体图片](https://juejin.cn/post/6972850971432976392)（[zenblo](https://github.com/zenblo) 翻译）
+* [使用 Web Workers 来加速 JavaScript 应用](https://juejin.cn/post/6965861854023254047)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [TypeScript 中的依赖注入](https://juejin.cn/post/6965857170646630408)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [深入理解 CORS：发展史、工作原理和最佳实践](https://juejin.cn/post/6965042086467633166)（[snowyYU](https://github.com/snowyYU) 翻译）
+* [使用 GPU.js 让你的 Angular.js 程序提速 10 倍](https://juejin.cn/post/6965657517376569380)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [Github Actions 是如何渲染超大日志的](https://juejin.cn/post/6966082485226569759)（[felixliao](https://github.com/felixliao) 翻译）
+* [16px 或更大的字体大小可以避免 iOS 的表单缩放问题](https://juejin.cn/post/6965814008116936718)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [都 2021 年了，你还不知道这些检查 CSS 的工具？](https://juejin.cn/post/6965808560735256607)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何基于 D3.js 使用外部数据源创建图表](https://juejin.cn/post/6931294639609774087)（[Alfxjx](https://github.com/Alfxjx) 翻译）
 * [快停止在 CSS 中使用像素单位](https://juejin.cn/post/6963251861134508045)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [JavaScript 类型化数组](https://juejin.cn/post/6963589759310495774)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [现代化的 React 路由 Hookrouter 开发使用](https://juejin.cn/post/6963445160474574885)（[zenblo](https://github.com/zenblo) 翻译）
