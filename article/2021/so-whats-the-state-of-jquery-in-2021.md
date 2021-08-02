@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/so-whats-the-state-of-jquery-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/so-whats-the-state-of-jquery-in-2021.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：[nia3y](https://github.com/nia3y)
+> * 校对者：[nia3y](https://github.com/nia3y)，[zaviertang](https://github.com/zaviertang)
 
 # 2021 年，jQuery 过得还好吗？
 
@@ -20,7 +20,7 @@ jQuery 一度曾在 JavaScript 世界里风头无两。有了它，我们开发�
 
 我做了一番功课：我翻到了 2016 年的 jQuery 官方博客，去看看都有什么更新记录在案。
 
-答案是：实话实说，几乎纹丝没动。确实，jQuery 3 带来了许多更新，但其中没有一个是值得一提的。没有一个更新能与前几年 React.js 引入 Hook 那样的里程碑相提并论。
+答案是：实话实说，几乎纹丝没动。确实，jQuery 3 带来了许多更新，但其中没有一个是值得一提的。没有一个更新能与前几年 React.js 引入 Hooks 那样的里程碑相提并论。
 
 还有一些次要的更新，是支持了在 jQuery 对象上使用 for-of 循环。而在内部实现中，jQuery 现在还使用了 `requestAnimationFrame()` 来运行动画。
 
@@ -30,7 +30,7 @@ jQuery 一度曾在 JavaScript 世界里风头无两。有了它，我们开发�
 
 说起技术选型，行业大厂们总是起着引领潮流的重要作用。一旦那些有话语权的开发者团队选用了某项技术，就会给该技术带来很大的优先选择权重。即使 jQuery 在逐渐走向没落，但它在 Web 领域仍然是举足轻重的角色。
 
-[Wappalyzer 的分析报告](https://www.wappalyzer.com/technologies/javascript-libraries)显示，在所有的使用了 JavaScript 库的网站中，jQuery 仍然占据着超过 34% 之大的份额。
+[Wappalyzer 的分析报告](https://www.wappalyzer.com/technologies/javascript-libraries)显示，在所有的使用了 JavaScript 库的网站中，jQuery 仍然占据着超过 34% 之大的比例。
 
 ![图片来自：[Wappalyzer](https://www.wappalyzer.com/technologies/javascript-libraries)](https://cdn-images-1.medium.com/max/2410/1*TOg5oguzp81TxE6AWYNk0w.png)
 
