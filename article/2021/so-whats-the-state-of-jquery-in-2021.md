@@ -3,14 +3,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/so-whats-the-state-of-jquery-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/so-whats-the-state-of-jquery-in-2021.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
-> * 校对者：
+> * 校对者：[nia3y](https://github.com/nia3y)
 
 # 2021 年，jQuery 过得还好吗？
 
 ![来自：[pixabay.com](https://pixabay.com/de/photos/technologie-computer-code-1283624/)](https://cdn-images-1.medium.com/max/3840/1*Tc90FhOr8U4x04kzqguVuA.jpeg)
 
 通常来说，人们怀旧的对象都是老照片、老歌或者老地方。
-而我的怀旧，则是过了这么多年、经历了这么多项目，我仍然在用 jQuery。这个 JavaScript 于 2006 年问世，其历史比 React、Vue 甚至是 Angular.js 还要悠久。
+而我的怀旧，则是过了这么多年、经历了这么多项目，我仍然在用 jQuery。这个 JavaScript 库于 2006 年问世，其历史比 React、Vue 甚至是 Angular.js 还要悠久。
 
 jQuery 一度曾在 JavaScript 世界里风头无两。有了它，我们开发起动态 Web 应用来更加得心应手。特别是操作 DOM 和发起网络请求时，jQuery 的使用方式更加直观明了。
 
@@ -22,7 +22,7 @@ jQuery 一度曾在 JavaScript 世界里风头无两。有了它，我们开发�
 
 答案是：实话实说，几乎纹丝没动。确实，jQuery 3 带来了许多更新，但其中没有一个是值得一提的。没有一个更新能与前几年 React.js 引入 Hook 那样的里程碑相提并论。
 
-还有一些不那么主要的更新，是支持了 for-of 循环，以便于在 jQuery 对象上使用。而在内部实现中，jQuery 现在还使用了 `requestAnimationFrame()` 来运行动画。
+还有一些次要的更新，是支持了在 jQuery 对象上使用 for-of 循环。而在内部实现中，jQuery 现在还使用了 `requestAnimationFrame()` 来运行动画。
 
 除此之外，就再也没有重大更新了。原因很简单：jQuery 早已经进化到了充分够用的程度了。
 
@@ -73,7 +73,7 @@ let el = $('#contents');
 
 单单 `document.querySelector()` 这一个函数，就让 jQuery 的众多拥趸倒戈投奔原生 JavaScript。（我自己也是因为 `$()` 这个非常实用的语法而经常使用 jQuery。）
 
-JavaScript 的进化，让访问 DOM 愈发容易，可玩性也愈发高了。即使是 jQuery 的拿手好戏 —— 网络请求，在 JavaScript 中也愈发直观易用。
+JavaScript 的进化，让访问 DOM 变得更加容易。即使是 jQuery 的拿手好戏 —— 网络请求，在 JavaScript 中也愈发直观易用。
 
 ## 也许是我们错误估量了 jQuery 对性能的影响
 
