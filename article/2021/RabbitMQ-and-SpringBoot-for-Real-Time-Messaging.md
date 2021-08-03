@@ -29,7 +29,7 @@ These use cases could be developed utilizing different **exchanges** available i
 The codes are available on my [GitHub](https://github.com/iamtanbirahmed/real-time-comm). Here I’m showing codes only necessary for explaining the underlying concepts. Before starting here are the properties files for the Station and the Ships.
 
 
-```
+```yml
 ## application.yml for the ship's application
 ## have to change property values for each ship
 
@@ -83,7 +83,7 @@ Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
 
 ![Using a single routing key to send periodic updates the station](https://cdn-images-1.medium.com/max/2252/1*Zv11CGnppABtBbU2RGOoXQ.png)
 
-```
+```java
 @Component
 @EnableScheduling
 public class UpdateScheduler {
@@ -122,7 +122,7 @@ public class UpdateScheduler {
 
 The implementation for sending messages using RabbitMQ API is fairly simple. However, to receive a message the Station needs to configure the direct exchange and bind the queue to the direct exchange with a routing key. It also needs a callback method to handle the message when it arrives at the queue. Here are the codes:
 
-```
+```java
 @Configuration
 public class BrokerConfiguration {
     static String directExchangeQueue;
@@ -222,7 +222,7 @@ The received message will look like the following in the station's console.
 
 Here is the code of the Station’s application for sending individual messages to the ships. Using a CLI we can take the input in the correct format and using the **MessageHandler** class send the message to the intended ship. The code is very straightforward.
 
-```
+```java
 @Configuration
 public class ChatInterface implements CommandLineRunner {
     private Scanner scanner;
@@ -277,7 +277,7 @@ public class MessageHandler {
 
 To receive the messages the ships need to define it’s own direct exchange, queue, and bind it with a unique routing key. The codes for the ships are almost similar to the station for receiving messages from direct exchange. Hence, only the skeleton is shown here.
 
-```
+```java
 @Configuration
 public class DirectExchangeConfiguration {
 
@@ -319,7 +319,7 @@ public class MessageHandler {
 
 **Ship → Station**: Each ship already has a channel of communication with the station for their regular update. We can take a shortcut here and use the same routing key for sending individual messages to the station.
 
-```
+```java
 @Configuration
 public class ChatInterface implements CommandLineRunner {
 
@@ -362,7 +362,7 @@ For sending a common message to all the ships at a time from the station, we can
 
 For broadcasting just needed to add a new case like the following in the **MessageHandler** class of the ship’s application:
 
-```
+```java
 @Component
 public class MessageHandler {
     
@@ -390,7 +390,7 @@ public class MessageHandler {
 
 The code for receiving the broadcasted message for each ship needs to add the following configurations.
 
-```
+```java
 @Configuration
 public class FanoutExchangeConfiguration {
 
