@@ -1,13 +1,13 @@
->  原文地址：[RabbitMQ and SpringBoot for Real-Time Messaging](https://medium.com/codex/rabbitmq-springboot-for-real-time-messaging-e450bde4e8cc)
->  原文作者：[Tanbir Ahmed](https://tanbir-sagar.medium.com/)
->  译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
->  本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
->  译者：
->  校对者：
+> * 原文地址：[RabbitMQ and SpringBoot for Real-Time Messaging](https://medium.com/codex/rabbitmq-springboot-for-real-time-messaging-e450bde4e8cc)
+> * 原文作者：[Tanbir Ahmed](https://tanbir-sagar.medium.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
+> * 译者：
+> * 校对者：
 
 # RabbitMQ and SpringBoot for Real-Time Messaging
 
-![](https://cdn-images-1.medium.com/max/2000/1EYd1qBpQDCnVlyd_NxAFTQ.png)
+![](https://cdn-images-1.medium.com/max/2000/1*EYd1qBpQDCnVlyd_NxAFTQ.png)
 
 I’ve been watching The Expanse for the last few months. It has space battles, warships, aliens, and lots of other cool sci-fi troops. It also shows some advanced software that allows the space stations to monitor and communicate with all of their space ships and rockets. Got me thinking — do we have the tools to build a backend for something like that today. The first thing that came to my mind —with RabbitMQ and SpringBoot.
 
@@ -81,7 +81,7 @@ Each ship can use a common routing key to send updates. @EnableScheduling & @Sch
 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
 ```
 
-![Using a single routing key to send periodic updates the station](https://cdn-images-1.medium.com/max/2252/1Zv11CGnppABtBbU2RGOoXQ.png)
+![Using a single routing key to send periodic updates the station](https://cdn-images-1.medium.com/max/2252/1*Zv11CGnppABtBbU2RGOoXQ.png)
 
 ```
 @Component
@@ -146,7 +146,7 @@ public class BrokerConfiguration {
 
     @Bean
     DirectExchange directExchange() {
-        return new                       DirectExchange(BrokerConfiguration.directExchange);
+        return new DirectExchange(BrokerConfiguration.directExchange);
     }
 
     @Bean
@@ -218,7 +218,7 @@ Station →Ship: We can again use direct exchange for sending individual message
 @nauvoo: Go to Earth
 ```
 
-![Using different routing keys to send individual messages to the ships](https://cdn-images-1.medium.com/max/2192/1_7GMSs4GSDanzxCxoE59Og.png)
+![Using different routing keys to send individual messages to the ships](https://cdn-images-1.medium.com/max/2192/1*_7GMSs4GSDanzxCxoE59Og.png)
 
 Here is the code of the Station’s application for sending individual messages to the ships. Using a CLI we can take the input in the correct format and using the MessageHandler class send the message to the intended ship. The code is very straightforward.
 
@@ -386,7 +386,7 @@ public class MessageHandler {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/2000/1WV0lW7LyExBHNLoY-gDBzA.png)
+![](https://cdn-images-1.medium.com/max/2000/1*WV0lW7LyExBHNLoY-gDBzA.png)
 
 The code for receiving the broadcasted message for each ship needs to add the following configurations.
 
@@ -415,10 +415,9 @@ public class BrokerConfiguration {
     // add at the end of the class for binding the common queue to           the fanout exhange
 
     @Bean
-    Binding bindingToFanoutExchange(Queue commonQueue,    FanoutExchange fanoutExchange) {
+    Binding bindingToFanoutExchange(Queue commonQueue, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(commonQueue).to(fanoutExchange);
     }
-
 }
 ```
 
