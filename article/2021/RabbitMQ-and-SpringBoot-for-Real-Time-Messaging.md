@@ -9,11 +9,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EYd1qBpQDCnVlyd_NxAFTQ.png)
 
-I’ve been watching The Expanse for the last few months. It has space battles, warships, aliens, and lots of other cool sci-fi troops. It also shows some advanced software that allows the space stations to monitor and communicate with all of their space ships and rockets. Got me thinking — do we have the tools to build a backend for something like that today. The first thing that came to my mind —with RabbitMQ and SpringBoot.
+I’ve been watching **The Expanse** for the last few months. It has space battles, warships, aliens, and lots of other cool sci-fi troops. It also shows some advanced software that allows the space stations to monitor and communicate with all of their space ships and rockets. Got me thinking — do we have the tools to build a backend for something like that today. The first thing that came to my mind — with RabbitMQ and SpringBoot.
 
 ## The Problem Scenario
 
-We want to build a messaging system for the space station Tyco which monitors different parameters of its space ships and sends personal and common messages(and/or commands) to the spaceships. The ships will send a periodic update to the station. They (the ships) can also have one-to-one communication with the station.
+We want to build a messaging system for the space station **Tyco** which monitors different parameters of its space ships and sends personal and common messages(and/or commands) to the spaceships. The ships will send a periodic update to the station. They (the ships) can also have one-to-one communication with the station.
 
 ## Use Cases
 
@@ -21,9 +21,9 @@ Based on the problem scenario we have three major use cases we need to implement
 
 1. The spaceships will send periodic updates to the station.
 2. Each ship and the docking station will have real-time one-to-one messaging (“Instant Messaging” in terms of social networks).
-3. The docking station will broadcast a common message to all the ships.
+3. The docking station will **broadcast a common message** to all the ships.
 
-These use cases could be developed utilizing different exchanges available in RabbitMQ. Each ship and the docking station will act both as consumer and producer because of the two-way communication requirement. Follow up [here](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details on the exchanges, queues, and routing key if you want details on these concepts. In short,
+These use cases could be developed utilizing different **exchanges** available in RabbitMQ. Each ship and the docking station will act both as **consumer** and **producer** because of the two-way communication requirement. Follow up [here](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details on the exchanges, queues, and routing key if you want details on these concepts. In short,
 >  Exchanges send messages to a specific Queue based on the Routing-key attached to the messages. These exchanges differ in their functionality on how they use the routing key to deliver messages to the queues.
 
 The codes are available on my [GitHub](https://github.com/iamtanbirahmed/real-time-comm). Here I’m showing codes only necessary for explaining the underlying concepts. Before starting here are the properties files for the Station and the Ships.
@@ -210,7 +210,7 @@ The received message will look like the following in the station's console.
 
 ## One-to-one communication between ships and the station
 
-Station →Ship: We can again use direct exchange for sending individual messages to the ships using different routing keys. Each of the ships will have its own queue and routing key. We can have any messaging pattern to determine for which ship any message is meant and attach a routing key with the message. I used a messaging pattern like the following.
+**Station → Ship**: We can again use direct exchange for sending individual messages to the ships using different routing keys. Each of the ships will have its own queue and routing key. We can have any messaging pattern to determine for which ship any message is meant and attach a routing key with the message. I used a messaging pattern like the following.
 
 ```
 @rocinante: Go to Mars
@@ -220,7 +220,7 @@ Station →Ship: We can again use direct exchange for sending individual message
 
 ![Using different routing keys to send individual messages to the ships](https://cdn-images-1.medium.com/max/2192/1*_7GMSs4GSDanzxCxoE59Og.png)
 
-Here is the code of the Station’s application for sending individual messages to the ships. Using a CLI we can take the input in the correct format and using the MessageHandler class send the message to the intended ship. The code is very straightforward.
+Here is the code of the Station’s application for sending individual messages to the ships. Using a CLI we can take the input in the correct format and using the **MessageHandler** class send the message to the intended ship. The code is very straightforward.
 
 ```
 @Configuration
@@ -317,7 +317,7 @@ public class MessageHandler {
 }
 ```
 
-Ship → Station: Each ship already has a channel of communication with the station for their regular update. We can take a shortcut here and use the same routing key for sending individual messages to the station.
+**Ship → Station**: Each ship already has a channel of communication with the station for their regular update. We can take a shortcut here and use the same routing key for sending individual messages to the station.
 
 ```
 @Configuration
@@ -360,7 +360,7 @@ For sending a common message to all the ships at a time from the station, we can
 
 >  Fanout Exchange delivers messages to all the queues that are bound to it ignoring the routing key.
 
-For broadcasting just needed to add a new case like the following in the MessageHandler class of the ship’s application:
+For broadcasting just needed to add a new case like the following in the **MessageHandler** class of the ship’s application:
 
 ```
 @Component
@@ -423,9 +423,9 @@ public class BrokerConfiguration {
 
 ## Summary
 
-In this application, each of the ships and the station works both as a consumer and producer. Hence, all of them needed their own queue for keeping the messages. The station needed only one direct exchange and one queue for receiving real-time and scheduled messages. On the other hand, the ships needed two exchanges as there were two types of messages they could receive — individual and common. However, they could use only one queue to bind it to the direct and fanout exchange. The implementation is available here: [GitHub - iamtanbirahmed/real-time-comm](https://github.com/iamtanbirahmed/real-time-comm)
+In this application, each of the ships and the station works both as a consumer and producer. Hence, all of them needed their own queue for keeping the messages. The station needed only one direct exchange and one queue for receiving real-time and scheduled messages. On the other hand, the ships needed two exchanges as there were two types of messages they could receive — individual and common. However, they could use only one queue to bind it to the direct and fanout exchange. The implementation is available here: [**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)
 
-> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 本文永久链接 即为本文在 GitHub 上的 MarkDown 链接。
+> 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
 
