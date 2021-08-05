@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-visualized-the-javascript-engine.md](https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-visualized-the-javascript-engine.md)
 > * 译者：[没事儿](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat) [Usualminds](https://github.com/Usualminds)
 
 # 可视化 JavaScript 引擎
 
