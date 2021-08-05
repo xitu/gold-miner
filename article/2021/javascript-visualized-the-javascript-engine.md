@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*XIjsf6eB35MwgNCg.png)
 
-作为 JavaScript 开发人员，我们通常不需要自己与编译器打交道。但了解 JavaScript 引擎的基础知识，看看它是如何处理我们各自不同的 JS 代码并将其转化为机器能理解的东西，这真的不错！🥳
+作为 JavaScript 开发人员，我们通常不需要亲自与编译器打交道。但知晓 JavaScript 引擎的基础知识，以及了解它是如何处理我们各自不同的 JS 代码并将其转化为机器能理解的东西，也是很好的！🥳
 
 > **注意：** 这篇文章主要基于 Node.js 和以 Chromium 为基础的浏览器使用的 V8 引擎。
 
