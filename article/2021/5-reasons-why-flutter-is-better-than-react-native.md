@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-flutter-is-better-than-react-native.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-reasons-why-flutter-is-better-than-react-native.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[zaviertang](https://github.com/zaviertang)
+> * 校对者：[zaviertang](https://github.com/zaviertang)、[Chorer](https://github.com/Chorer)
 
 # Flutter 比 React Native 更优秀的五个理由
 
@@ -33,15 +33,15 @@ Flutter SDK 定义了自己的 UI 工具包。因此，Flutter 应用程序在�
 
 ## Flutter 提供了一个富有成效的布局体系
 
-React Native 有一个用 [Yoga](https://yogalayout.com/) 布局引擎创建的基于 FlexBox 概念的布局系统。所有的 Web 开发者和 UI 设计师都熟悉 CSS FlexBox 的造型。React Native 的布局语法与 CSS FlexBox 语法类似。许多开发人员经常为高级 CSS 样式而苦恼，他们经常让团队的 UI 开发人员来解决 CSS。因此，如果你使用 React Native 制作你的下一个应用程序，你需要雇用一个 UI 开发人员或要求移动开发人员熟悉 CSS FlexBox 语法。
+React Native 有一个用 [Yoga](https://yogalayout.com/) 布局引擎创建的基于 FlexBox 概念的布局系统。所有的 Web 开发者和 UI 设计师都熟悉 CSS FlexBox 的造型。React Native 的布局语法与 CSS FlexBox 的布局风格。许多开发人员经常为高级 CSS 样式而苦恼，他们经常让团队的 UI 开发人员来解决 CSS。因此，如果你使用 React Native 制作你的下一个应用程序，你需要雇用一个 UI 开发人员或要求移动开发人员熟悉 CSS FlexBox 语法。
 
-Flutter 有一个基于 widget 树的布局系统。换句话说，Flutter 的开发者通常通过覆盖 [`build`](https://api.flutter.dev/flutter/widgets/StatelessWidget/build.html) 方法，在一个类似渲染树的数据结构中定义部件。可以想象每个小部件将如何在屏幕上呈现。如果你选择 Flutter，不需要额外的 UI 开发人员或开发人员拥有 FlexBox 经验。即使是后端工程师也能很快熟悉这种 widget-tree 的概念，而不是 FlexBox 的概念。
+Flutter 有一个基于 widget 树的布局系统。换句话说，Flutter 的开发者通常通过覆盖 [`build`](https://api.flutter.dev/flutter/widgets/StatelessWidget/build.html) 方法，在一个类似渲染树的数据结构中定义部件。可以想象每个小部件将如何在屏幕上呈现。如果你选择 Flutter，不需要额外的 UI 开发人员，也不要求现有的开发人员拥有 FlexBox 开发经验。即使是后端工程师也能很快熟悉这种 widget-tree 的概念，而不是 FlexBox 的概念。
 
-由于 Flutter 的树状布局系统，可以提高跨平台应用程序的功能开发速度。当应用程序的布局变得复杂时，程序员可以通过将小部件分配给不同的 Dart 变量，将它们分组到不同的部分。
+多亏了 Flutter 的树状布局系统，我们可以提高跨平台应用程序的功能开发速度。当应用程序的布局变得复杂时，程序员可以通过将小部件分配给不同的 Dart 变量，将它们分组到不同的部分。
 
 ## Flutter 正式支持所有热门平台
 
-React Native 官方只支持 Android 和 iOS 平台。然而，有几个 React Native 的分支支持桌面平台。例如，Proton Native 可以从 React Native 代码库中生成基于 Qt 和 wxWidgets 的跨平台桌面应用程序。现在 Proton Native 没有被积极维护，而且还有一个活跃的分支：Valence Native。
+React Native 官方只支持 Android 和 iOS 平台。然而，有几个 React Native 的分支支持桌面平台。例如，Proton Native 可以从 React Native 代码库中生成基于 Qt 和 wxWidgets 的跨平台桌面应用程序。现在开发人员并没有积极维护 Proton Native，但还有一个活跃的分支：Valence Native。
 
 同时，微软维护着两个 React Native 分支：[`react-native-windows`](https://github.com/microsoft/react-native-windows) 和 [`react-native-macos`](https://github.com/microsoft/react-native-macos)。如果你想为现有的 React Native 应用建立一个桌面应用，倒是有几个选择。每个流行的 React Native 库都不支持所有这些分支。另外，目前还没有功能完善的 React Native 支持 Linux。
 
@@ -57,7 +57,7 @@ Flutter SDK 可能成为 Fuchsia 上默认的 GUI 应用开发工具包。因此
 
 ## 本文总结
 
-React Native 项目比 Flutter 项目早两年，整个 React 社区都支持它。Flutter 的社区仍然是新的和成长中的，因为 Flutter 没有使用 Angular，而且 Dart 在早期并不是一种像 JavaScript 那样流行的通用编程语言。我们仍然无法将 [Flutter 的功能](https://betterprogramming.pub/stop-comparing-flutters-current-stage-with-other-matured-frameworks-fcdbcf1e204b)与其他成熟的跨平台框架进行比较。但 Flutter 通过最有效的方法解决了跨平台的问题。
+React Native 项目比 Flutter 项目早两年，整个 React 社区都支持它。Flutter 的社区仍然处于新兴成长阶段，因为 Flutter 没有使用 Angular，而且 Dart 在早期并不是一种像 JavaScript 那样流行的通用编程语言。我们仍然无法将 [Flutter 的功能](https://betterprogramming.pub/stop-comparing-flutters-current-stage-with-other-matured-frameworks-fcdbcf1e204b)与其他成熟的跨平台框架进行比较。但 Flutter 通过最有效的方法解决了跨平台的问题。
 
 这两个框架都是在本地主机应用之上运行的。React Native 不能像 Flutter 那样提高性能，因为它是基于 JavaScript 运行时的架构。尝试用 Flutter 构建应用程序，不要由于 Dart 是一种陌生的语言而感到害怕。
 
