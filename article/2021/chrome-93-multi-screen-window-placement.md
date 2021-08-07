@@ -83,13 +83,10 @@ The CSS user preference media feature [`prefers-color-scheme`](https://web.dev/
 
 This version of Chrome adds [four new features and changes](https://www.chromestatus.com/feature/5733498725859328) to the User-Agent client hints API.
 
--   **Sec-CH-UA-Bitness:** a request header that gives a server information about the bitness of the architecture of the platform on which a given user agent is executing. Bitness is the number of bits comprising the basic value a particular system can evaluate.
-
--   **Make Sec-CH-UA-Platform a low-entropy hint: **`Sec-CH-UA-Platform` is a request header that gives a server information about the platform on which a given user agent is executing.
-
--   **Adds low-entropy hints to UADataValues.getHighEntropyValues():** If a hint moves from high to low-entropy, this future proofs any code relying on it.
-
--   **Improves** **NavigatorUAData.toJSON() method:** This method now returns useful data.
+- **Sec-CH-UA-Bitness:** a request header that gives a server information about the bitness of the architecture of the platform on which a given user agent is executing. Bitness is the number of bits comprising the basic value a particular system can evaluate.
+- **Make Sec-CH-UA-Platform a low-entropy hint: **`Sec-CH-UA-Platform` is a request header that gives a server information about the platform on which a given user agent is executing.
+- **Adds low-entropy hints to UADataValues.getHighEntropyValues():** If a hint moves from high to low-entropy, this future proofs any code relying on it.
+- **Improves** **NavigatorUAData.toJSON() method:** This method now returns useful data.
 
 Low-entropy hints are those that don't give away too much information, or give information that would be too easy to discover in other ways to realistically hide. In the context of client hints, this means that these hints are available in every request, whether or not the origin involved requested it or whether the frame involved is a first or third party context.
 
