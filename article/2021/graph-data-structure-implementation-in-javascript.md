@@ -3,25 +3,25 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/graph-data-structure-implementation-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/graph-data-structure-implementation-in-javascript.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[Z招锦](https://github.com/zenblofe) [Hoarfroster](https://github.com/PassionPenguin)
 
-# JavaScript 实现图形数据结构
+# JavaScript 实现图数据结构
 
 ![](https://cdn-images-1.medium.com/max/2560/1*2e7obg_rwMw433XVv3_n6A@2x.jpeg)
 
-图形数据结构帮助我们创建许多强大的东西，你使用它实现非线性数据结构的可能性很高。它常用于许多数据节点之间的多重复杂连接，这也使他特别适合表现地图，网络和导航系统。
+图数据结构帮助我们创建许多强大的东西，你使用它实现非线性数据结构的可能性很高。它常用于许多数据节点之间的多重复杂连接，这也使他特别适合展示地图、网络和导航系统。
 
 > **这篇文章的视频讲解**
 >
-> 这篇文章是 Youtube 上[图形数据结构系列](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1)的详细的、改进文章版，如果你喜欢视频，你可以观看视频。
+> 这篇文章是 Youtube 上[图数据结构系列](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1)的详细的改进文章版，如果你喜欢视频，你可以点击上面的 URL 观看原始视频。。
 >
 > [**观看视频**](https://www.youtube.com/watch?v=5Tx4A08TspQ&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=1)
 
 ## 什么是图？
 
-图是一种非线性抽象数据结构，这意味着它由它的行为定义，而不是由下划线数据模型定义。
+图是一种非线性的抽象数据结构，这意味着它由行为定义，而不是由强调数据模型定义。
 
-它由一组节点组成 — 也被称为由边（线）连接的顶点。如果这些顶点由方向，这个图就被称为有向图，如果两个节点的边间相互指向，那么我们就称这两个节点强连通。
+它由一组节点组成 —— 也被称为由边（线）连接的顶点。如果这些顶点由方向，这个图就被称为有向图，如果两个节点的边间相互指向，那么我们就称这两个节点强连通。
 
 ![](https://cdn-images-1.medium.com/max/2684/1*U5USTriBu91jTbfiTlmSjA.png)
 
@@ -29,13 +29,13 @@
 
 ![](https://cdn-images-1.medium.com/max/2684/1*6mcEKXcT_XvAUt8IIOlYVA.png)
 
-## 什么时候使用图形数据结构？
+## 什么时候使用图数据结构？
 
-在一个[列表数据结构中](https://javascript.plainenglish.io/array-data-structure-in-javascript-9554069c8823)，你有一个按顺序排列的元素集合，它需要你一个一个遍历，直到你找到你想要的那个元素。在像树一样的分层数据结构中，你有父子关系，可以让你去决定要导航到哪棵子树。在图形数据结构中，你有邻接点。
+在一个[列表数据结构中](https://javascript.plainenglish.io/array-data-structure-in-javascript-9554069c8823)，你有一个按顺序排列的元素集合，它需要你一个一个遍历，直到你找到你想要的那个元素。在像树一样的分层数据结构中，你有父子关系，可以让你去决定要导航到哪棵子树。在图数据结构中，你有邻接点。
 
 在图中一个元素（或者说一个节点）只知道它连接的节点，这些节点连接更多节点，以此类推。这种复杂关系类型，是数据需要用图表示的主要特征。
 
-一些可以用图表示的例子是 GPS 系统和地图，它将许多节点连接在一起，这样就可以帮助确定如何从一个点到另一个点，以及他们有多长或多远。
+例如 GPS 系统和地图等可以用图表示，它将许多节点连接在一起，这样就可以帮助确定如何从一个点到达另一个点，以及他们之间有多长或多远。
 
 社交网络以人作为节点，可以用图表来表示，例如，通过校验这些人与谁有联系，来帮助找出两个人有多少共同的朋友或兴趣爱好
 
@@ -51,7 +51,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2916/1*_gO8mf8d-cNT2G9qP9Xkeg.png)
 
-* **邻接矩阵**就像一个表，用1表示节点连接，用0表示节点不连接。这种方法很适合表示有限图。
+* **邻接矩阵**就像一个表，用 1 表示节点连接，用 0 表示节点不连接。这种方法很适合表示有限图。
 * **邻接表**类似于[字典](https://javascript.plainenglish.io/map-dictionary-data-structure-in-javascript-f9741b905ede)其中每个节点值都是它连接到的所有节点的列表。这是用来表示有限图的另一种方法，它更快，更容易处理。
 * **关联矩阵**也类似一个表，但不同的是，它追踪两个节点是否连接，它追踪边的方向，1 表示它用边去连接其他的节点，-1 表示别的节点用边连接它，0 表示没有连接到这个节点的边。当你拥有带有方向和值(权重)的边时，这种方法非常适合，用于表示地图和导航系统。
 
@@ -80,7 +80,7 @@ class Graph {
 }
 ```
 
-由于它们是私有的，我用 getter 去返回它们，我首先将它们转换为数组和JavaScript对象，因为它们更容易也更常用，并且它还能防止从外部更改这些私有值。
+由于它们是私有的，我用 getter 去返回它们，我首先将它们转换为数组和 JavaScript 对象，因为它们更容易也更常用，并且它还能防止从外部更改这些私有值。
 
 接下来，我们需要一种方式去添加顶点。
 
@@ -129,7 +129,7 @@ class Graph {
 }
 ```
 
-这要做的是首先保证两个顶点彼此不同，并且不为空。之后，我们添加他们到顶点列表中，该列表在添加他们之前已经检查这些顶点是否存在列表中。它通过将vertex2添加到vertex1邻接列表，这意味着vertex1连接到vertex2，如果它是定向的，它也使vertex2连接到vertex1的双向连接。
+这要做的是首先保证两个顶点彼此不同，并且不为空。之后，我们添加他们到顶点列表中，该列表在添加他们之前已经检查这些顶点是否存在列表中。它通过将 vertex2 添加到 vertex1 邻接列表，这意味着 vertex1 连接到 vertex2，如果它是定向的，它也使 vertex2 连接到 vertex1 的双向连接。
 
 有了它，图就有了我们想要、需要的一切。
 
@@ -153,7 +153,7 @@ const COLORS = Object.freeze({
 
 当你进行宽度优先遍历时，你**检查**所有邻接节点，当你检查时，你创建一个[**队列**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19)，队列里面有下一个要检查的节点。
 
-> **注意**: 无论何时提到 **check**，它只是表示正在读取节点值。当提到**访问**时，意味着我们正在检查它的邻接节点列表。
+> **注意**: 无论何时提到 **检查**，它只是表示正在读取节点值。当提到**访问**时，意味着我们正在检查它的邻接节点列表。
 
 下面的函数取一个我们刚刚实现的图和要开始查找的顶点，以及一个当我们**检查**节点时将被调用的回调函数。
 
@@ -188,7 +188,7 @@ function breathFirstSearch(graph, fromVertex, callback) {
 }
 ```
 
-它从解构顶点和相邻列表开始，它将是一个数组和一个对象，因为这是我们在getter中定义的。如果没有顶点，它什么也不做就返回。然后，我们把所有节点都涂成绿色，这基本上是一个顶点到颜色的映射，所以我们可以很容易地查询节点的颜色
+它从解构顶点和相邻列表开始，它将是一个数组和一个对象，因为这是我们在 getter 中定义的。如果没有顶点，它什么也不做就返回。然后，我们把所有节点都涂成绿色，这基本上是一个顶点到颜色的映射，所以我们可以很容易地查询节点的颜色
 
 队列是为了跟踪下一个要访问的顶点，从一开始，提供的顶点就是第一个要访问的顶点。检查[**队列数据结构文章**](https://beforesemicolon.medium.com/queue-in-javascript-priority-and-circular-queue-688ec3f97f19)以了解它如何工作。
 
@@ -202,7 +202,7 @@ function breathFirstSearch(graph, fromVertex, callback) {
 
 深度优先遍历算法运行有点不同。它不是在访问队列中的下一个节点之前检查所有相邻的列表节点，而是在使用[栈数据结构](https://javascript.plainenglish.io/stack-data-structure-in-javascript-94f4ab4fe1)检查该节点以跟踪下一个检查哪个节点时立即访问该节点。
 
-这里使用了相同的颜色概念，他的实现基于[递归函数](https://www.youtube.com/watch?v=7oLO9iAyYIM)，而不是宽度优先搜索算法中使用的while循环。它看起来像这样：
+这里使用了相同的颜色概念，他的实现基于[递归函数](https://www.youtube.com/watch?v=7oLO9iAyYIM)，而不是宽度优先搜索算法中使用的 while 循环。它看起来像这样：
 
 ```
 function depthFirstSearch(graph, fromVertex, callback) {
@@ -235,7 +235,7 @@ function depthFirstSearch(graph, fromVertex, callback) {
 
 只有在检查完所有相邻列表节点及其相邻列表节点之后，它才能将节点着色为红色，以此类推。它在处理节点之前先深入搜索，这就是为什么它被称为深度优先搜索算法。
 
-![彩色图形深度优先遍历，右边是一个堆栈，左边是访问顺序。[视频](https://www.youtube.com/watch?v=ZJS5gDlT4lA&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=2)](https://cdn-images-1.medium.com/max/2000/1*3DtU08BXpdcM_0SdOHv48g.gif)
+![彩色图深度优先遍历，右边是一个堆栈，左边是访问顺序。[视频](https://www.youtube.com/watch?v=ZJS5gDlT4lA&list=PLpWvGP6yhJUinXIN5wJQH7tVp3FU4dbAN&index=2)](https://cdn-images-1.medium.com/max/2000/1*3DtU08BXpdcM_0SdOHv48g.gif)
 
 > [**查看这篇文章的所有代码**](https://github.com/beforesemicolon/tutorials-files/blob/master/graph)
 
