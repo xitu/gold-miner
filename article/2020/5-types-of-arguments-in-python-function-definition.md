@@ -2,142 +2,142 @@
 > * 原文作者：[Indhumathy Chelliah](https://medium.com/@IndhumathyChelliah)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/5-types-of-arguments-in-python-function-definition.md](https://github.com/xitu/gold-miner/blob/master/article/2020/5-types-of-arguments-in-python-function-definition.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zhengjian-L](https://github.com/Zhengjian-L)
+> * 校对者：[z0gSh1u](https://github.com/z0gSh1u)，[JalanJiang](https://github.com/JalanJiang)
 
-# 5 Types of Arguments in Python Function Definition
+# 定义 Python 函数时的 5 种参数
 
 ![Photo by [Sharon McCutcheon](https://www.pexels.com/@mccutcheon?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/person-s-hand-with-paints-1174932/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/11232/1*TqNYpk6OZ6qBS8CNPWz1tQ.jpeg)
 
-#### 5 Types of Arguments in Python Function Definition:
+#### Python 定义函数的5种参数：
 
-1. `default arguments`
-2. `keyword arguments`
-3. `positional arguments`
-4. `arbitrary positional arguments`
-5. `arbitrary keyword arguments`
+1. `缺省参数`
+2. `关键字参数`
+3. `位置参数`
+4. `任意位置参数`
+5. `任意关键字参数`
 
-#### Python Function Definition:
+#### Python 函数定义：
 
-The function definition starts with the keyword `def`. It must be followed by the function name and the parenthesized list of formal parameters. The statements that form the body of the function start at the next line and must be indented.
+关键字 `def` 引入一个函数定义。它后面必须跟着函数名称和带括号的形式参数列表。构成函数体的语句从下一行开始，并且必须缩进。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DhAUznkbAFfBUvMqF8rFuw.png)
 
-**Formal parameters** are mentioned in function definition. **Actual parameters(arguments)** are passed during function call.
+在定义的函数中需要提及**形式参数**。**实际参数**在函数调用时传递。 
 
-We can define a function with a variable number of arguments
+我们可以用各种参数来定义函数。
 
-#### 1.default arguments:
+#### 1. 缺省参数：
 
-* default arguments are values that are provided while defining functions.
-* The assignment operator `=` is used to assign a default value to the argument.
-* default arguments become optional during the function calls.
-* If we provide value to the default arguments during function calls, it overrides the default value.
-* The function can have any number of default arguments
-* Default arguments should be followed by non-default arguments.
+* 缺省参数是在定义函数时提供的值。
+* 赋值符号`=`用于声明参数的默认值。
+* 在调用函数时，参数默认值是可变更项。
+* 如果在调用函数时提供缺省参数的值，这个值会替代默认值。
+* 一个函数可以有任意数量的缺省参数。
+* 缺省参数要在非缺省参数之后。
 
-**Example:**
+**例：**
 
-In the below example, the default value is given to argument `b`,`c`
+`b`,`c`在下面的例子中，参数`b`,`c`指定了默认值。
 
 ```py
 def add(a,b=5,c=10):
     return (a+b+c)
 ```
 
-This function can be called in 3 ways
+这个函数有三种调用方式
 
-1. **Giving only the mandatory argument**
+**1. 只给出必需参数**
 
 ```py
 print(add(3))
 #Output:18
 ```
 
-**2. Giving one of the optional arguments.**
-3 is assigned to a, 4 is assigned to b.
+**2. 给出一个可选的参数**
+3 赋值给 a, 4 赋值给 b。
 
 ```py
 print(add(3,4))
 #Output:14
 ```
 
-**3.Giving all the arguments**
+**3.给出所有参数**
 
 ```py
 print(add(2,3,4))
 #Output:9
 ```
 
-**Note:** Default values are evaluated only once at the point of the function definition in the defining scope. So, it makes a difference when we pass mutable objects like list,dictionary as default values.
+**注意：** 默认值在函数定义处的定义过程中只会计算一次。因此，在把如列表、字典等可变对象作为默认值时会有些许不同。
 
-#### 2. Keyword Arguments:
+#### 2. 关键字参数：
 
-Functions can also be called using keyword arguments of the form `kwarg=value.`
+也可以使用形如`kwarg=value`的关键字参数来调用函数。
 
-During function call, values passed through arguments need not be in the order of parameters in the function definition. This can be achieved by keyword arguments. But all the keyword arguments should match the parameters in the function definition.
+在调用函数时，参数值并不需要与函数定义中的参数顺序相同。这可以通过关键字参数实现。但所有的关键字参数必须与函数定义中的参数一一对应。
 
-**Example:**
+**例：**
 
 ```py
 def add(a,b=5,c=10):
     return (a+b+c)
 ```
 
-Calling the `function add` by giving keyword arguments
+调用函数 `function add` 时提供关键字参数
 
-1. All parameters are given as keyword arguments. So no need to maintain the same order.
+1. 所有的参数都是关键字参数，因此不需要固定顺序。
 
 ```py
 print (add(b=10,c=15,a=20))
 #Output:45
 ```
 
-2. During function call, only giving mandatory argument as a keyword argument. Optional default arguments are skipped.
+2. 调用函数时，只给出必要参数作为关键字参数，可选缺省参数就会跳过。
 
 ```py
 print (add(a=10))
 #Output:25
 ```
 
-#### 3. Positional Arguments
+#### 3. 位置参数
 
-During function call, values passed through arguments should be in the order of parameters in the function definition. This is called **positional arguments.**
+调用函数时，参数传递的值的顺序和形式参数的顺序需要对应。这称之为**位置参数**。
 
-Keyword arguments should follow positional arguments only.
+位置参数之后只能是关键字参数。
 
-**Example:**
+**例：**
 
 ```py
 def add(a,b,c):
     return (a+b+c)
 ```
 
-The above function can be called in two ways:
+上面的函数有两种调用的方式：
 
-1. During function call, all arguments are given as positional arguments. Values passed through arguments are passed to parameters by their position. `10` is assigned to` a`,`20` is assigned to` b` and `30` is assigned to `c`
+1. 调用函数时，参数均为位置参数。参数传递的值会通过位置传递到对应参数。`10` 赋值给` a`,`20`赋值给` b` 和 `30` 赋值给 `c`。
 
 ```py
 print (add(10,20,30))
 #Output:60
 ```
 
-2. Giving a mix of positional and keyword arguments. keyword arguments should always follow positional arguments
+2. 在混合使用位置参数和关键字参数时，关键字参数总是在位置参数之后。
 
 ```py
 print (add(10,c=30,b=20))
 #Output:60
 ```
 
-**Default vs positional vs keyword arguments:**
+**缺省参数、位置参数 、关键字参数三者对比：**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fobgfbPcgmE29Oviud5vWw.png)
 
 ---
 
-**Important points to remember:**
+**关键要点：**
 
-**1.default arguments should follow non-default arguments**
+**1. 缺省参数需要在非缺省参数之后**
 
 ```py
 def add(a=5,b,c):
@@ -146,7 +146,7 @@ def add(a=5,b,c):
 #Output:SyntaxError: non-default argument follows default argument
 ```
 
-**2. keyword arguments should follow positional arguments**
+**2. 关键字参数需要在位置参数之后**
 
 ```py
 def add(a,b,c):
@@ -156,7 +156,7 @@ print (add(a=10,3,4))
 #Output:SyntaxError: positional argument follows keyword argument
 ```
 
-**3. All the keyword arguments passed must match one of the arguments accepted by the function and their order is not important.**
+**3. 所有传递的关键字参数必须有对应参数，并且顺序不重要。**
 
 ```py
 def add(a,b,c):
@@ -166,7 +166,7 @@ print (add(a=10,b1=5,c=12))
 #Output:TypeError: add() got an unexpected keyword argument 'b1'
 ```
 
-**4.No argument should receive a value more than once**
+**4. 参数只能赋值一次**
 
 ```py
 def add(a,b,c):
@@ -176,9 +176,9 @@ print (add(a=10,b=5,b=10,c=12))
 #Output:SyntaxError: keyword argument repeated
 ```
 
-**5. Default arguments are optional arguments**
+**5. 缺省参数是可选参数**
 
-**Example 1:** Giving only the mandatory arguments
+**例 1：** 只给必要参数
 
 ```py
 def add(a,b=5,c=10):
@@ -188,7 +188,7 @@ print (add(2))
 #Output:17
 ```
 
-**Example 2:** Giving all arguments(optional and mandatory arguments)
+**例 2：** 给出所有参数（必要参数和可选参数）
 
 ```py
 def add(a,b=5,c=10):
@@ -198,18 +198,18 @@ print (add(2,3,4))
 #Output:9
 ```
 
-#### Variable-length arguments
+#### 可变长度参数
 
-Variable-length arguments are also known as **arbitary arguments**. If we don’t know the number of arguments needed for the function in advance, we can use arbitary arguments
+可变长度参数也称为**任意参数**。如果我们事先不知道函数的参数数量，可以使用任意参数。
 
-**Two types of arbitrary arguments**
+**两种任意参数**
 
-1. arbitary positional arguments
-2. arbitrary keyword arguments
+1. 任意位置参数
+2. 任意关键字参数
 
-#### 4. arbitrary positional arguments:
+#### 4. 任意位置参数：
 
-For arbitrary positional argument, an **asterisk(`*`)** is placed before a parameter in function definition which can hold non-keyword variable-length arguments. These arguments will be wrapped up in a **tuple**. Before the variable number of arguments, zero or more normal arguments may occur.
+对于任意位置参数，函数定义的参数前会有一个**星号（`*`）**，该参数可以包含非关键字可变长度参数。这些参数将包含在一个**元组**中。在可变数量的参数之前，可能会出现零个或多个普通参数。
 
 ```py
 def add(*b):
@@ -225,11 +225,11 @@ print (add(10,20))
 #Output:30
 ```
 
-#### 5.arbitrary keyword arguments:
+#### 5.任意关键字参数：
 
-For arbitrary positional argument, a **double asterisk(`**`)** is placed before a parameter in function which can hold keyword variable-length arguments.
+对于任意关键字参数，函数定义的参数前会有**双星号（`*`）**，该参数可以包含非关键字可变长度参数。
 
-**Example:**
+**例：**
 
 ```py
 def fn(**a):
@@ -244,25 +244,25 @@ Output:
 '''
 ```
 
-#### Special Parameters:
+#### 特殊参数：
 
-As per [Python Documentation](https://docs.python.org/3/tutorial/controlflow.html#special-parameters)
+根据 [Python 手册](https://docs.python.org/3/tutorial/controlflow.html#special-parameters)
 
-> By default, arguments may be passed to a Python function either by position or explicitly by keyword. For readability and performance, it makes sense to restrict the way arguments can be passed so that a developer need only look at the function definition to determine if items are passed by position, by position or keyword, or by keyword.
+> 默认情况下，函数的参数传递形式可以是位置参数或是显式的关键字参数。 为了确保可读性和运行效率，限制允许的参数传递形式是有意义的，这样开发者只需查看函数定义即可确定参数项是仅按位置、按位置也按关键字，还是仅按关键字传递。
 
-A function definition may look like:
+函数的定义看起来可以像是这样：
 
 ![Photo by author](https://cdn-images-1.medium.com/max/2000/1*u2CocaIDBg1ctQBeP_-H6A.png)
 
-where `/` and `*` are optional. If used, these symbols indicate the kind of parameter by how the arguments may be passed to the function: positional-only, positional-or-keyword, and keyword-only.
+在这里` /` 和 `*` 是可选的。 如果使用这些符号则表明可以通过何种形参将参数值传递给函数：仅限位置、位置或关键字，以及仅限关键字。 
 
-1. Positional or keyword arguments
-2. Positional only parameters
-3. keyword-only arguments
+1. 位置或关键字参数
+2. 仅限位置参数
+3. 仅限关键字参数
 
-#### 1.Positional or keyword arguments
+#### 1. 位置或关键字参数
 
-If `/` and `*` are not present in the function definition, arguments may be passed to a function by position or by keyword
+如果函数定义中未使用 `/` 和 `*`，则参数可以按位置或按关键字传递给函数。
 
 ```py
 def add(a,b,c):
@@ -275,9 +275,9 @@ print (add(3,c=1,b=2))
 #Output:6
 ```
 
-**2. Positional only parameters**
+**2. 仅限位置参数**
 
-Positional-only parameters are placed before a `/` (forward-slash)in the function definition. The `/` is used to logically separate the positional-only parameters from the rest of the parameters. Parameters following the `/` may be **positional-or-keyword** or **keyword-only**.
+在定义的函数中，仅限位置参数要放在`/`（正斜杠）之前。这个`/`被用来从逻辑上分隔仅限位置形参和其他形参。在`/`之后的形参可以为**位置或关键字**或者**仅限关键字**。
 
 ```py
 def add(a,b,/,c,d):
@@ -290,7 +290,7 @@ print (add(3,4,c=1,d=2))
 #Output:10
 ```
 
-If we specify keyword arguments for positional only arguments, it will raise **TypeError.**
+如果将关键字参数规定为仅限位置参数，则会导致**TypeError**。
 
 ```py
 def add(a,b,/,c,d):
@@ -300,9 +300,9 @@ print (add(3,b=4,c=1,d=2))
 #Output:TypeError: add() got some positional-only arguments passed as keyword arguments: 'b'
 ```
 
-#### 3. Keyword only arguments
+#### 3. 仅限关键字参数
 
-To mark parameters as **keyword-only**, place an `*` in the arguments list just before the first **keyword-only** parameter.
+要将形参标记为**仅限关键字**，应在参数列表的第一个**仅限关键字**形参前放置一个 `*`。
 
 ```py
 def add(a,b,*,c,d):
@@ -312,7 +312,7 @@ print (add(3,4,c=1,d=2))
 #Output:10
 ```
 
-If we specify positional arguments for keyword-only arguments it will raise **TypeError.**
+如果将位置参数规定为仅限关键字参数，则会导致**TypeError**。
 
 ```py
 def add(a,b,*,c,d):
@@ -322,13 +322,13 @@ print (add(3,4,1,d=2))
 #Output:TypeError: add() takes 2 positional arguments but 3 positional arguments (and 1 keyword-only argument) were given
 ```
 
-**All 3 calling conventions used in the same function**
+**在同一个函数中的拥有三种参数的调用规则**
 
-In the below-given example`,function add` has all three arguments
+在下面的例子中，`function add` 拥有所有三种参数
 
-`a`,`b` — positional only arguments
-`c` - positional or keyword arguments
-`d` - keyword-only arguments
+`a`,`b` — 仅限位置参数
+`c` - 位置或关键字参数
+`d` - 仅限关键字参数
 
 ```py
 def add(a,b,/,c,*,d):
@@ -338,24 +338,24 @@ print (add(3,4,1,d=2))
 #Output:10
 ```
 
-**Important Points to remember:**
+**注意事项：**
 
-1. Use **positional-only** if you want the name of the parameters to not be available to the user. This is useful when parameter names have no real meaning.
-2. Use **positional-only** if you want to enforce the order of the arguments when the function is called.
-3. Use **keyword-only** when names have meaning and the function definition is more understandable by being explicit with names.
-4. Use **keyword-only** when you want to prevent users from relying on the position of the argument being passed.
+1. 当你希望参数的名称对用户不可用时，则使用**仅限位置**。当参数名称没有实际意义时，这很有用。
+2. 如果你想规定调用函数的参数数据时，则使用**仅限位置**。
+3. 当名称有意义且定义的函数通过名称变得更易于理解时，则使用**仅限关键字**。
+4. 当你想要避免用户依赖传递的参数的位置时，则使用**仅限关键字**。
 
-#### Resources(Python Documentation):
+#### 资料来源（Python手册）：
 
-[Defining functions](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
+[定义函数](https://docs.python.org/3/tutorial/controlflow.html#defining-functions)
 
-[default arguments](https://docs.python.org/3/tutorial/controlflow.html#default-argument-values)
+[默认参数](https://docs.python.org/3/tutorial/controlflow.html#default-argument-values)
 
-[keyword arguments](https://docs.python.org/3/tutorial/controlflow.html#keyword-arguments)
+[关键字参数](https://docs.python.org/3/tutorial/controlflow.html#keyword-arguments)
 
-[special parameters](https://docs.python.org/3/tutorial/controlflow.html#special-parameters)
+[特殊参数](https://docs.python.org/3/tutorial/controlflow.html#special-parameters)
 
-[arbitary argument list](https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists)
+[任意参数列表](https://docs.python.org/3/tutorial/controlflow.html#arbitrary-argument-lists)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

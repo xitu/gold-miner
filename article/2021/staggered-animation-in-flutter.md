@@ -2,14 +2,14 @@
 > * 原文作者：[Shaiq khan](https://medium.com/@shaiq_khan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md](https://github.com/xitu/gold-miner/blob/master/article/2021/staggered-animation-in-flutter.md)
-> * 译者：苏苏的 [PassionPenguin](https://github.com/PassionPenguin)
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[lsvih](https://github.com/lsvih)
 
 # Flutter 中的交织动画
 
 ![Flutter 中的交织动画](https://cdn-images-1.medium.com/max/2000/1*icYuiagsCKqcRapvjiLbmw.png)
 
-交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行的动画的每个属性，我们都应该创建一个补间（Tween）。
+交织动画由一个动画序列或重叠的动画组成，而要制作交织的动画，我们需要使用多个或多组动画对象。我们应该使用同一个 `AnimationController` 控制所有动画，每个动画对象都应该指定某个点或锚点在一段时间内的运动，并且对于要执行的动画的每个属性，我们都应该创建一个补间（`Tween`）。
 
 所谓交织动画，直接来说就是：并非在同一时刻发生全部的视觉变化，而是让其随着任务的进行逐步发生。这个动画可能纯粹只是一个顺序动画，视觉上的变化一个接一个的出现；也可能有部分的动画重叠出现，乃至完全重叠。当然，交织动画的动画中同样可能会有一些时刻空着，即在一些间隙中没有发生任何动画。
 
@@ -33,7 +33,7 @@
 * 对于每一个间隔内产生动画的属性，创建一个 `Tween`。 `Tween` 指定此属性的开始值和结束值。
 * `Tween` 产生一个由动画控制器管理的 `Animation` 对象。
 
-#### 要设置这样一个动画：
+#### 要设置这样一个动画
 
 * 创建一个 `AnimationController` 管理所有的 `Animations`。
 * 为每一个有动画的属性创建一个 `Tween`。
@@ -61,7 +61,7 @@ avatarSize = Tween<double>(
 ```
 
 > `AnimationController` 和 `Animation` 定义了类 `AnimationController` 的实例
-> 以下是 `AnimateController` 以及5个用于控制动画的进展的 `Animation` 的实例，其中 `<double>` 用于获取一个用于定义动画过程的数值，该数值必须在 0 到 1 之间。
+> 以下是 `AnimateController` 以及 5 个用于控制动画的进展的 `Animation` 的实例，其中 `<double>` 用于获取一个用于定义动画过程的数值，该数值必须在 0 到 1 之间。
 
 ```dart
 final AnimationController controller;
@@ -151,7 +151,7 @@ class _StaggeredTrekkingAnimationState extends State<StaggeredTrekkingAnimation>
 
 在 Staggered Trekking Enter 动画中，我们使用了补间去决定动画的进展。
 
-接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)** 。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 **builder** 属性.
+接下来，你会完成一个无状态的控件的 [Staggered Trekking 动画](https://github.com/ShaiqAhmedkhan/Flutter_Staggered_Animation/blob/master/lib/trekking/staggered_trekking.dart)。我们会用 `build()` 函数为这个控件的动画初始化定义一个 [**AnimatedBuilder**](https://api.flutter.cn/flutter/widgets/AnimatedBuilder-class.html)。同时，我们需要创建一个名为 `_buildAnimation()` 的函数，负责更新用户界面，并将其分配给 `builder` 属性.
 
 ```Dart
 import 'package:flutter/material.dart';
