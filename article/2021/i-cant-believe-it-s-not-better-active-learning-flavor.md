@@ -29,7 +29,9 @@ In active learning, the value of a sample is equal to its capacity to change the
 
 Mathematically, we can formulate the potential gain of a sample at iteration *i* as the difference between its current predicted probability using classifier *h*, and its ideal predicted probability that we would only reach after an infinite amount of iterations:
 
-![potential gain of a sample](https://miro.medium.com/max/700/1*VX_ybTo4acvoi4yeFaxP_A.png)
+$$
+\text { potential_gain }(x)=h_{\infty}(x)-h_{i}(x)
+$$
 
 If a sample already has a high predicted probability, there is no improvement to expect: those are *easy-to-classify *samples as illustrated in [4]. The bad performance of purely exploratory sampling strategies, such as K-Means, can be explained by their focus on easy samples.
 
@@ -57,19 +59,28 @@ How can we prevent our query sampling strategy from selecting samples that are t
 
 At a high level, the goal of batch active strategies is to select a batch of samples 𝔹 where uncertainty is high, but that is also representative of the unlabeled data 𝔹 ∼ 𝕌 and diverse. For a given notion of similarity "sim" between sets of samples, this leads to the following objective:
 
-![similarity between sets of samples formula](https://miro.medium.com/max/1400/1*X4WkxHiEymh4eDELpk7hgQ.png)
+$$
+\underset{\mathbb{B}}{\arg \max } \operatorname{sim}(\mathbb{B}, \mathbb{U})
+$$
 
 In Amazon's method, the similarity measure is defined as follows:
 
-![Amazon's similarity measure](https://miro.medium.com/max/700/1*J4xJJTyM-V0iQ_kVoLQjmw.png)
+$$
+-\sum_{u \in U} d(u, \mathbb{B})
+$$
 
 A natural proxy for this maximization is given by the K-Means objective. The above objective does not take into account the already labeled data and can lead to suboptimal batches lying in regions with a high-density of labeled samples. A natural refinement is to additionally impose that the selected batch differs from already labeled data 𝕃, *i.e. *to minimize the similarity sim(𝔹, 𝕃):
 
-![minimize the similarity sim formula](https://miro.medium.com/max/700/1*TdkP-_wes9lv4K56ztJPVA.png)
+$$
+\arg \max _{\mathbb{B}} \operatorname{sim}(\mathbb{B}, \mathbb{U}) \\
+\text { subject to } \arg \min _{\mathbb{B}} \operatorname{sim}(\mathbb{B}, \mathbb{L})
+$$
 
 Within Amazon's settings, this can be achieved by simply modifying the similarity in the objective to:
 
-![modifying similarity in Amazon's formula](https://miro.medium.com/max/700/1*kCL0UssH5JwFp4HWPwmpIw.png)
+$$
+-\sum_{u \in \mathbb{U}} d(u, \mathbb{B} \cup \mathbb{L})
+$$
 
 Consequently, we propose to modify the K-Means procedure by adding fixed clusters corresponding to previously labeled samples in its objective. However, we do not select samples in these clusters: they act as *repulsive points* and prevent the procedure from selecting samples nearby already selected ones. We refer to this approach as Incremental WKMeans. Our implementation is available [here](https://github.com/dataiku-research/cardinal/blob/master/cardinal/clustering.py).
 
@@ -96,8 +107,6 @@ Robustness to β parameter. We observed some positive signals: the procedure se
 Accuracy for WKMeans and IWKMeans with β=10 and β=80 on LDPA.
 
 Is IWKMeans converging properly? One could ask if the fixed cluster centers could prevent IWKMeans from converging. In particular, it is easy to conceptualize in 2D that some fixed clusters could prevent a moving cluster to *reach* its best position, as presented in the figure below. We checked and stated that if this can happen in 2D, it is not the case in higher dimensions. K-Means++ initialization also prevents it from happening. We have even tried not to fix the clusters but to reposition them on the fixed position from time to time, and it does not change the performance. See [this example](https://dataiku-research.github.io/cardinal/auto_examples/plot_incr_kmeans.html#sphx-glr-auto-examples-plot-incr-kmeans-py) for more details.
-
-![The moving purple center cannot reach its optimal position in the orange cluster because of the fixed red and blue centers.](https://miro.medium.com/max/60/1*7SqoLt6VxNj44YP8TBWE-A.png?q=20)
 
 ![The moving purple center cannot reach its optimal position in the orange cluster because of the fixed red and blue centers.](https://miro.medium.com/max/478/1*7SqoLt6VxNj44YP8TBWE-A.png)
 
