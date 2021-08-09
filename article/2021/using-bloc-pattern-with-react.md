@@ -7,15 +7,11 @@
 
 # Using BLoC Pattern with React
 
-#### Make Your Business Logic Independent From UI Components
-
 ![](https://cdn-images-1.medium.com/max/5760/1*_x7UbeBdjCqJd3oA5ADpUg.jpeg)
 
 Initially, the Business Logic Component (BLoC) pattern was introduced by Google as a solution to handle states in Flutter applications. It allows you to reduce the workload on UI components by separating the business logic from them.
 
 Over time, other frameworks also started to support the BLoC pattern. And, in this article, I will discuss how we can use this BLoC pattern with React.
-
----
 
 ## Benefits of Using BLoC Pattern with React
 
@@ -25,35 +21,33 @@ The concept behind the BLoC pattern is straightforward. As you can see in the ab
 
 So, let’s look at the advantages of this approach in detail.
 
-#### 1. Flexibility to update application logic
+### 1. Flexibility to update application logic
 
 When the business logic is standalone from UI components, the impact on the application will be minimum. You will be able to change the business logic any time you want without affecting the UI components.
 
-#### 2. Reuse logic
+### 2. Reuse logic
 
 Since the business logic is in one place, UI components can reuse logic without duplicating the code so that the simplicity of the app will increase.
 
-#### 3. Ease of testing
+### 3. Ease of testing
 
 When writing test cases, developers can focus on the BLoC itself. So the code base is not going to be messed up.
 
-#### 4. Scalability
+### 4. Scalability
 
 Over time, application requirements may change, and business logic can keep growing. In such situations, developers can even create multiple BLoCs to maintain the clarity of the codebase.
 
 Moreover, BLoC patterns are platform ****and environment independent so that developers can use the same BLoC pattern in many projects.
 
----
-
 ## Concept into Practice
 
 Let’s build a small counter app to demonstrate the usage of the BLoC pattern.
 
-#### Step 01: Create a React application and structure it.
+### Step 01: Create a React application and structure it.
 
 First, we need to start by setting up a React app. I will name it bloc-counter-app. Also, I will be using `rxjs` as well.
 
-```
+```bash
 // Create React app
 npx create-react-app bloc-counter-app
 
@@ -69,7 +63,7 @@ Then you need to remove all unnecessary code and structure the application as fo
 
 ![Solder Structure](https://cdn-images-1.medium.com/max/2000/1*NGsidZ0MP3iREtYL1mDHUg.png)
 
-#### Step 02: Implementation of the BLoC.
+### Step 02: Implementation of the BLoC.
 
 Now, let’s implement the BLoC class. The BLoC class will be responsible for implementing all subjects related to business logic. In this example, it is responsible for the counter logic.
 
@@ -104,7 +98,7 @@ export default class CounterBloc {
 
 As you can see, there is simple logic in this class. However, when an app grows in size, imagine the complexity if we do not separate the business logic.
 
-#### Step 03: Adding more beauty to the BLoC by an intermediate class.
+### Step 03: Adding more beauty to the BLoC by an intermediate class.
 
 In this step, I will create the `StreamBuilder.js` inside the utils directory to handle the counter request from the UI. Moreover, developers can handle errors and implement customer handlers within this.
 
@@ -207,11 +201,11 @@ export default StreamBuilder;
 
 > **Note:** Ensure to unsubscribe from all the observables and dispose of the BLoCs upon unmounting UI components.
 
-#### Step 04: Implementing UI components.
+### Step 04: Implementing UI components.
 
 As you can see now, `increase()` and `decrease()` methods are called directly within the UI component. However, output data is handle by a stream builder.
 
-> # It is better to have an intermediate layer to implement custom handlers to handle errors.
+> It is better to have an intermediate layer to implement custom handlers to handle errors.
 
 ```JavaScript
 import { Fragment } from 'react';
@@ -264,41 +258,17 @@ That’s it. Now you can treat your business logic as a separate entity outside 
 
 To use and improve this example app please refer to the project [repository](https://github.com/Charuka09/react-counter-bloc) and do not forget to make a PR. 😃
 
----
-
 ## Final Thoughts
 
 Based on my experience, the BLoC pattern could become an overhead for small-scale projects.
 
-> # But, as the project grows, using BLoC patterns helps to build modular applications.
+> But, as the project grows, using BLoC patterns helps to build modular applications.
 
 Also, you must have a basic understanding of rxjs and how observables work to implement the BLoC pattern for your React projects.
 
 So, I invite you to try out BLoC pattern and share your thoughts in the comment section.
 
 Thank you for Reading !!!
-
----
-
-## Build & share independent JS components with Bit
-
-[**Bit**](https://bit.dev/) is an extensible tool that lets you create **truly modular** applications ****with **independently** authored, versioned, and maintained components.
-
-Use it to build modular apps & design systems, author and deliver micro frontends, or simply share components between applications.
-
-![An independently source-controlled and shared “card” component (on the right, its dependency graph, auto-generated by Bit)](https://cdn-images-1.medium.com/max/3840/0*N5fUmljTtoa_XT_f.png)
-[**Bit: The platform for the modular web**
-**Bit is a scalable and collaborative way to build and reuse components. It’s everything you need from local development…**bit.dev](https://bit.dev)
-
----
-
-## Read More
-[**Independent Components: The Web’s New Building Blocks**
-**Why everything you know about microservices, micro frontends, monorepos, and even plain old component libraries, is…**blog.bitsrc.io](https://blog.bitsrc.io/independent-components-the-webs-new-building-blocks-59c893ef0f65)
-[**Redux-free state management with Jotai**
-**Jotai is a state management library for React that will save you from boilerplate tears with its minimalistic API…**blog.bitsrc.io](https://blog.bitsrc.io/redux-free-state-management-with-jotai-2c8f34a6a4a)
-[**Middleware for the Async Flow in Redux**
-**Should we use Thunk, Promises, or Sagas?**blog.bitsrc.io](https://blog.bitsrc.io/middleware-for-the-async-flow-in-redux-175256668981)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
