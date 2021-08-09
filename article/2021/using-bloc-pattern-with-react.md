@@ -37,7 +37,7 @@ When writing test cases, developers can focus on the BLoC itself. So the code ba
 
 Over time, application requirements may change, and business logic can keep growing. In such situations, developers can even create multiple BLoCs to maintain the clarity of the codebase.
 
-Moreover, BLoC patterns are platform ****and environment independent so that developers can use the same BLoC pattern in many projects.
+Moreover, BLoC patterns are platform and environment independent so that developers can use the same BLoC pattern in many projects.
 
 ## Concept into Practice
 
