@@ -15,7 +15,7 @@
 
 <small>Flutter Dash、Firebase Sparky、Android Jetpack 和 Chrome Dino</small>
 
-我们使用 [Flutter Web](https://flutter.dev/web) 和 [Firebase](https://firebase.google.com/) 构建了 I/O Photo Booth 这个软件，因为 [Flutter 现在提供了对 Web 应用程序的支持](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)，我们认为这将是让今年虚拟 Google I/O 的来自全球各地的与会者轻松访问此应用程序的好方法。 Flutter 的网络支持消除了我们必须从应用程序商店安装应用程序的限制，还使我们可以灵活地在指定的设备上运行它：移动端、桌面端或平板电脑端。这让我们可以无需下载，只需使用任何设备上的任何适当的浏览器，浏览我们给出的页面即可体验 I/O Photo Booth！
+我们使用 [Flutter Web](https://flutter.dev/web) 和 [Firebase](https://firebase.google.com/) 构建了 I/O Photo Booth 这个软件，因为 [Flutter 现在提供了对 Web 应用程序的支持](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)，我们认为这将是让今年虚拟 Google I/O 的来自全球各地的与会者轻松访问此应用程序的好方法。Flutter 的网络支持消除了我们必须从应用程序商店安装应用程序的限制，还使我们可以灵活地在指定的设备上运行它：移动端、桌面端或平板电脑端。这让我们可以无需下载，只需使用任何设备上的任何适当的浏览器，浏览我们给出的页面即可体验 I/O Photo Booth！
 
 尽管 I/O Photo Booth 旨在提供 Web 体验，但所有代码都是使用与平台无关的架构编写的。当对相机插件等元素的原生支持可用于各自的平台时，相同的代码适用于所有平台（桌面端、网络端和移动端）。
 
@@ -71,9 +71,9 @@ Camera(
 
 ### 镜像照片
 
-我们的下一个挑战是镜像照片。如果我们保留原样使用相机拍摄照片，那么我们看到的将不是平时在照镜子时所看到的那样，而 [有些设备开放了接口如反转按钮来处理这个](https://9to5mac.com/2020/07/09/iphone-mirror-selfie-photos/)。所以如果你用前置摄像头拍照，拍摄照片时，我们会看到镜像版本。
+我们的下一个挑战是镜像照片。如果我们保留原样使用相机拍摄照片，那么我们看到的将不是平时在照镜子时所看到的那样，而[有些设备开放了接口如反转按钮来处理这个](https://9to5mac.com/2020/07/09/iphone-mirror-selfie-photos/)。所以如果你用前置摄像头拍照，拍摄照片时，我们会看到镜像版本。
 
-在我们的第一种方法中，我们尝试捕捉默认的相机视图，然后围绕 y 轴应用 180 度变换。这似乎有效，但后来我们遇到了 [一个问题](https://github.com/flutter/flutter/issues/79519)，即 Flutter 偶尔会覆盖转换，导致视频恢复到未镜像的版本.
+在我们的第一种方法中，我们尝试捕捉默认的相机视图，然后围绕 y 轴应用 180 度变换。这似乎有效，但后来我们遇到了[一个问题](https://github.com/flutter/flutter/issues/79519)，即 Flutter 偶尔会覆盖转换，导致视频恢复到未镜像的版本.
 
 在 Flutter 团队的帮助下，我们通过将 `VideoElement` 包装在 [`DivElement`](https://api.flutter.dev/flutter/dart-html/DivElement-class.html) 中并更新 `VideoElement` 元素，让 `VideoElement` 填满 `DivElement` 的宽度和高度，解决了这个问题。这允许我们将镜像应用到视频元素，而无需 Flutter 覆盖变换效果，因为父元素是一个 `div`。这种方法为我们提供了所需的镜像相机视图！
 
@@ -87,7 +87,7 @@ Camera(
 
 ### 坚持严格的纵横比
 
-对大屏幕执行严格的 4:3 宽高比，对小屏幕执行严格的 3:4 宽高比比看起来更难！强制执行此比例非常重要，既要遵守 Web 应用程序的整体设计，又要确保照片在社交媒体上分享时看起来像素完美。这是一项具有挑战性的任务，因为设备上内置摄像头的纵横比差异很大。
+对大屏幕执行严格的 4:3 宽高比，对小屏幕执行严格的 3:4 宽高比，这比看起来更难！强制执行此比例非常重要，既要遵守 Web 应用程序的整体设计，又要确保照片在社交媒体上分享时看起来像素完美。这是一项具有挑战性的任务，因为设备上内置摄像头的纵横比差异很大。
 
 为了强制执行严格的纵横比，应用程序首先使用 JavaScript [`getUserMedia` API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)。我们使用这个 API，提供给 `VideoElement` 流，也就是我们在相机视图中看到的（当然是镜像的）。我们还应用了 [`object-fit`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) CSS 属性来确保视频元素覆盖其父容器。我们使用 Flutter 的内置 `AspectRatio` 小部件设置纵横比。因此，相机不会对显示的纵横比做出任何假设；它始终返回支持的最大分辨率，然后符合 Flutter 提供的约束（在本例中为 4:3 或 3:4）。
 
@@ -158,7 +158,7 @@ Transform(
 
 这是我们使用 Flutter 构建的首批纯 Web 项目之一，它与移动应用程序具有不同的特性。
 
-我们需要确保该应用程序对任何设备上的任何浏览器都具有 [响应性和自适应性](https://flutter.dev/docs/development/ui/layout/adaptive-responsive)。也就是说，我们必须确保 I/O Photo Booth 可以根据浏览器大小进行缩放，并且能够处理移动和 Web 输入。我们通过几种方式做到了这一点：
+我们需要确保该应用程序对任何设备上的任何浏览器都具有[响应性和自适应性](https://flutter.dev/docs/development/ui/layout/adaptive-responsive)。也就是说，我们必须确保 I/O Photo Booth 可以根据浏览器大小进行缩放，并且能够处理移动和 Web 输入。我们通过几种方式做到了这一点：
 
 * **响应式调整大小：** 我们应该能够将浏览器的大小调整为所需的大小，并且 UI 应相应地做出响应。如果我们的浏览器窗口为纵向，则相机将从具有 4:3 纵横比的横向视图翻转为具有 3:4 纵横比的纵向视图。
 * **响应式设计：** 桌面浏览器的设计在右侧显示 Dash、Android Jetpack、Dino 和 Sparky，对于移动设备，它们显示在顶部。桌面设计也使用了摄像头右侧的抽屉，移动端使用了 BottomSheet 类。
@@ -166,7 +166,7 @@ Transform(
 
 ### 可扩展架构
 
-我们还使用我们的方法为此应用程序构建可扩展的移动应用程序。我们以强大的基础开始 I/O Photo Booth，包括声音空值安全性、国际化以及从第一次提交开始的 100% 单元和小部件测试覆盖率。我们使用了 [flutter_bloc](https://pub.dev/packages/flutter_bloc) 进行状态管理，因为它允许轻松测试业务逻辑并观察应用程序中的所有状态变化。这对于开发人员日志和可追溯性特别有用，因为我们可以准确地看到状态之间的变化并更快地隔离问题。
+我们还使用了自己的方法为此应用程序构建可扩展的移动应用程序。我们以强大的基础开始 I/O Photo Booth，包括声音空值安全性、国际化以及从第一次提交开始的 100% 单元和小部件测试覆盖率。我们使用了 [flutter_bloc](https://pub.dev/packages/flutter_bloc) 进行状态管理，因为它允许轻松测试业务逻辑并观察应用程序中的所有状态变化。这对于开发人员日志和可追溯性特别有用，因为我们可以准确地看到状态之间的变化并更快地隔离问题。
 
 我们还实现了一个功能驱动的 monorepo 结构。例如，贴纸、分享和实时相机预览都在它们自己的文件夹中实现，其中每个文件夹包含其各自的 UI 组件和业务逻辑。这些与外部依赖项集成，例如位于包子目录中的相机插件。这种架构允许我们的团队并行处理多个功能，而不会中断其他人的工作，最大限度地减少合并冲突，并使我们能够有效地重用代码。例如，UI 组件库是一个单独的包，名为 [`photobooth_ui`](https://github.com/flutter/photobooth/tree/main/packages/photobooth_ui)，相机插件也是单独的。
 
@@ -182,7 +182,7 @@ Photo Booth 利用 Firebase 生态系统进行各种后端集成。[`firebase_au
 
 我们在 Firebase 存储桶上定义了 [Firebase 安全规则](https://firebase.google.com/docs/rules) 以使照片在创建后不可变。这可以防止其他用户修改或删除存储桶中的照片。此外，我们使用 Google Cloud 提供的 [对象生命周期管理](https://cloud.google.com/storage/docs/lifecycle) 来定义删除所有 30 天前的对象的规则，但我们也可以请求按照应用程序中列出的说明尽快删除自己的照片。
 
-此应用程序还使用了 [Firebase Hosting](https://firebase.google.com/docs/hosting) 来快速安全地托管网络应用程序。 [action-hosting-deploy](https://github.com/FirebaseExtended/action-hosting-deploy) GitHub Action 允许我们根据目标分支自动部署到 Firebase 托管。当我们将更改合并到主分支时，该操作会触发一个工作流，该工作流构建应用程序的开发风格并将其部署到 Firebase 托管。类似地，当我们将更改合并到发布分支时，该操作会触发生产部署。 GitHub Action 与 Firebase Hosting 的结合使我们的团队能够快速迭代并始终预览最新版本。
+此应用程序还使用了 [Firebase Hosting](https://firebase.google.com/docs/hosting) 来快速安全地托管网络应用程序。[action-hosting-deploy](https://github.com/FirebaseExtended/action-hosting-deploy) GitHub Action 允许我们根据目标分支自动部署到 Firebase 托管。当我们将更改合并到主分支时，该操作会触发一个工作流，该工作流构建应用程序的开发风格并将其部署到 Firebase 托管。类似地，当我们将更改合并到发布分支时，该操作会触发生产部署。GitHub Action 与 Firebase Hosting 的结合使我们的团队能够快速迭代并始终预览最新版本。
 
 最后，我们使用 [Firebase Performance Monitoring](https://firebase.google.com/products/performance) 来监控关键的 Web 性能指标。
 
@@ -190,7 +190,7 @@ Photo Booth 利用 Firebase 生态系统进行各种后端集成。[`firebase_au
 
 在生成自己的社交帖子之前，我们首先需要确保照片每一个像素都看起来足够完美。最终图像包括一个漂亮的框架以纪念 I/O Photo Booth，并被裁剪为 4:3 或 3:4 的纵横比，以便在社交帖子上看起来很棒。
 
-我们使用 [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas) API 或 [`CanvasElement`](https://developer.mozilla.org/ en-US/docs/Web/HTML/Element/canvas) 作为 polyfill 合成原始照片以及包含我们的朋友和道具的图层，并生成可以下载的单个图像。 [`image_compositor`](https://github.com/flutter/photobooth/tree/main/packages/image_compositor) [包](https://github.com/flutter/photobooth/tree/main/packages/image_compositor ) 处理此处理步骤。
+我们使用 [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas) API 或 [`CanvasElement`](https://developer.mozilla.org/ en-US/docs/Web/HTML/Element/canvas) 作为 polyfill 合成原始照片以及包含我们的朋友和道具的图层，并生成可以下载的单个图像。[`image_compositor`](https://github.com/flutter/photobooth/tree/main/packages/image_compositor) [包](https://github.com/flutter/photobooth/tree/main/packages/image_compositor ) 处理此处理步骤。
 
 然后，我们利用 Firebase 强大的 [Cloud Functions](https://firebase.google.com/docs/functions) 来协助将照片分享到社交媒体。当我们单击共享按钮时，我们将被带到所选平台上的一个新选项卡，其中包含一个预先填充的帖子。该帖子有一个重定向到我们编写的云函数的 URL。浏览器在分析 URL 时，会检测到云函数生成的动态元信息。此信息允许浏览器在我们的社交帖子中显示照片的精美预览图像以及指向共享页面的链接，我们的关注者可以在其中查看照片并导航回 I/O Photo Booth 应用程序以获取他们自己的照片。
 
