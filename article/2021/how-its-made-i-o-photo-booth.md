@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)
 
 # 我们是怎么做到的：Google I/O Photo Booth
 
