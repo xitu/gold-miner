@@ -92,7 +92,7 @@ val graySurface = Color(0xFF202124)
 
 5. 最后，如果您一直按部就班地学习教程，您可能还记得，在上一篇文章中实现时，我们硬编码了卡片的颜色，这并不是一种很好的方法。为了让 `Color.kt` 中的应用程序颜色值在整个应用程序中保持一致，最好使用 `Color.kt` 更改 UI 元素的颜色值，而不是单独更改每个 UI 元素的颜色。
 
-因此，在这一步，我们删除小狗卡片的硬编码颜色，以便卡显示我们刚刚设置的真正的 `surface` 的颜色。
+因此，在这一步，我们删除小狗卡片的硬编码颜色，以便卡片显示我们刚刚设置的真正的 `surface` 的颜色。
 
 1. 打开 `PuppyListItem.kt` 类。
 2. 在 `PuppyListItem` composable函数中，从卡片 composable 中删除此参数：`backgroundColor value: backgroundColor = Color.White`
