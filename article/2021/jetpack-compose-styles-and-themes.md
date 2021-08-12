@@ -138,7 +138,7 @@ val graySurface = Color(0xFF202124)
 现在要更改系统导航栏的颜色：
 
 1. 打开 `themes.xml` 文件。
-2. 为 `navigationBarColor` 添加另一项并将其值设置为 `?android:attr/windowBackground` 属性（是随系统首选项自动更改的颜色值）
+2. 为 `navigationBarColor` 添加另一项并将其值设置为 `?android:attr/windowBackground` 属性（是随系统首选项自动更改的颜色值）。
 
 ```xml
 <item name="android:navigationBarColor">?android:attr/windowBackground</item>
