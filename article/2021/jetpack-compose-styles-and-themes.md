@@ -9,7 +9,7 @@
 
 ![Jetpack Compose：样式和主题（第二部分）](https://www.waseefakhtar.com/content/images/size/w2000/2021/05/Jetpack-Compose-highres-5-3.jpg)
 
-截至[上一篇文章](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md), 我们成功地实现了一个 RecyclerView（在 Compose 中称为 LazyColumn），并且在里面填充了一个供收养的小狗列表。 🐶
+截至[上一篇文章](https://github.com/xitu/gold-miner/blob/master/article/2021/recyclerview-in-jetpack-compose.md)，我们成功地实现了一个 RecyclerView（在 Compose 中称为 LazyColumn），并且在里面填充了一个供收养的小狗列表。 🐶
 
 但是正如我之前提到的，在我们称它为完整的 Composite 应用之前，我们还有一些事情要做。现在剩下的两件事是：
 
