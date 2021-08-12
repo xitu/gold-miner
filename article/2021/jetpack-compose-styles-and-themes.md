@@ -130,7 +130,7 @@ val graySurface = Color(0xFF202124)
 5. 现在添加这个 `statusBarBackground` 属性作为 `android:statusBarColor`。
 
 ```xml
-<!-- Status bar color. -->
+<!-- 状态栏的颜色。 -->
 <item name="statusBarBackground">@color/grey</item>
 <item name="android:statusBarColor" tools:targetApi="l">?attr/statusBarBackground</item>
 ```
