@@ -127,7 +127,7 @@ val graySurface = Color(0xFF202124)
 
 4. 在 `Theme.Bark` 中定义 `statusBarBackground` 属性，并将其值设置为灰色。
 
-5. 现在添加这个 `statusBarBackground` 属性作为 `android:statusBarColor`。
+5. 现在添加这个 `statusBarBackground` 属性作为 `android:statusBarColor` 的值。
 
 ```xml
 <!-- 状态栏的颜色。 -->
