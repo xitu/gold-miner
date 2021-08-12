@@ -148,7 +148,7 @@ val graySurface = Color(0xFF202124)
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/device-2021-05-15-201902.png)
 
-接着…… 给你！这就是我们应用程序最终的样子！ 😍
+你完成啦！这就是我们应用程序最终的样子！ 😍
 
 表扬一下自己，因为你现在已经学会了如何在 Compose 中创建主题和设计风格。 👏
 
