@@ -36,7 +36,7 @@
 
 正如你在最终成果页面上看到的，我们的应用程序看起来像是启用了暗黑模式。如果这是我们想要的最终外观（或者如果我们想要一个支持暗黑模式的应用程序），那么我们的项目最初是如何由 Android Studio 模板设置的就非常简单了。让我们再探讨一下我们的意思。
 
-如果打开项目的目录，你可以看到项目中已经有了 `/ui/theme` 目录，在这个目录中，有几个 Kotlin 类，包括：Color、Shape、theme、Type。
+如果打开项目的目录，你可以看到项目中已经有了 `/ui/theme` 目录。在这个目录中，有几个 Kotlin 类，包括：Color、Shape、Theme、Type。
 
 ![](https://www.waseefakhtar.com/content/images/2021/05/Screen-Shot-2021-05-15-at-5.20.50-PM.png)
 
