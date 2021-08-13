@@ -44,6 +44,7 @@ tokens = (
 将语句转换为标记的过程称为`标记化`或`词法分析`。执行`词法分析`的程序是`词法分析器`。
 
 ```python
+# 标记的正则表达
 t_PLUS = r"\+"
 t_MINUS = r"\-"
 t_MUL = r"\*"
@@ -68,11 +69,14 @@ def t_NUM(t):
     return t
 
 
+# 未定义规则字符的错误处理
 def t_error(t):
+    # 此处的 t.value 包含未标记的其余输入
     print(f"keyword not found: {t.value[0]}\nline {t.lineno}")
     t.lexer.skip(1)
 
 
+# 如果看到 \n 则将其设为新的一行
 def t_newline(t):
     r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
@@ -123,7 +127,7 @@ expression : expression '+' expression
            | FLOAT
 ```
 
-输入的标记是诸如 `NUM`，`FLOAT`，`+`，`-` ，`*`，`/` 之类的符号，称作`终端`（无法继续分解或产生其他符号的字符）。 一个表达式由终端和规则集组成，例如 `expression` 和 `factor`统称为`非终端`。有关 BNF 的更多信息，请参阅[此处](https://isaaccomputerscience.org/concepts/dsa_toc_bnf)。
+输入的标记是诸如 `NUM`，`FLOAT`，`+`，`-` ，`*`，`/` 之类的符号，称作`终端`（无法继续分解或产生其他符号的字符）。 一个表达式由终端和规则集组成，例如 `expression` 则称为`非终端`。有关 BNF 的更多信息，请参阅[此处](https://isaaccomputerscience.org/concepts/dsa_toc_bnf)。
 
 ## 解析器（Parser）
 
@@ -171,19 +175,19 @@ def p_expression_num(p):
     p[0] = p[1]
 
 
-# 语法错误的规则
+# 语法错误时的规则
 def p_error(p):
     print(f"Syntax error in {p.value}")
 ```
 
-在文档字符串中，我们将添加适当的语法规范。`p` 的值与语法符号一一对应，如下所示：
+在文档字符串中，我们将添加适当的语法规范。`p` 列表中的的元素与语法符号一一对应，如下所示：
 
 ```
-expression : expression PLUS  expression
-p[0]         p[1]       p[2]  p[3]
+expression : expression PLUS expression
+p[0]         p[1]       p[2] p[3]
 ```
 
-之后，我们可以添加基于表达式的规则。YACC 允许为每个令牌分配优先级。我们可以使用以下方法设置它：
+在上文中，`%prec UPLUS` 和 `%prec UMINUS` 是用来表示自定义运算的。`%prec` 即是 `precedence` 的缩写。在符号中本来没有`UPLUS` 和 `UMINUS` 这个说法（在本文中这两个自定义运算表示一元正号和符号，其实 `UPLUS` 和 `UMINUS` 只是个名字，想取什么就取什么）。之后，我们可以添加基于表达式的规则。YACC 允许为每个令牌分配优先级。我们可以使用以下方法设置它：
 
 ```python
 precedence = (
@@ -194,7 +198,7 @@ precedence = (
 )
 ```
 
-`PLUS` 和 `MINUS` 优先级相同并且具有左结合性（运算从左至右依次执行）。`MUL` 和 `DIV` 的优先级高于 `PLUS` 和 `MINUS`，也具有左结合性。
+在优先级声明中，标记按优先级从低到高的顺序排列。`PLUS` 和 `MINUS` 优先级相同并且具有左结合性（运算从左至右执行）。`MUL` 和 `DIV` 的优先级高于 `PLUS` 和 `MINUS`，也具有左结合性。`POW` 亦是如此，不过优先级更高。`UPLUS` 和 `UMINUS` 则是具有右结合性（运算从右至左执行）。
 
 要解析输入我们将使用：
 
@@ -270,11 +274,14 @@ def t_NUM(t):
     return t
 
 
+# 未定义规则字符的错误处理
 def t_error(t):
+    # 此处的 t.value 包含未标记的其余输入
     print(f"keyword not found: {t.value[0]}\nline {t.lineno}")
     t.lexer.skip(1)
 
 
+# 如果看到 \n 则将其设为新的一行
 def t_newline(t):
     r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
@@ -324,7 +331,7 @@ def p_expression_num(p):
     p[0] = p[1]
 
 
-# 语法错误的规则
+# 语法错误时的规则
 def p_error(p):
     print(f"Syntax error in {p.value}")
 
