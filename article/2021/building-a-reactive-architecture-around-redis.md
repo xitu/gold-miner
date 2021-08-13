@@ -1,126 +1,129 @@
-> * 原文地址：[Building a Reactive Architecture Around Redis](https://blog.bitsrc.io/building-a-reactive-architecture-around-redis-bc53662b81c8)
-> * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-reactive-architecture-around-redis.md](https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-reactive-architecture-around-redis.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Building a Reactive Architecture Around Redis](https://blog.bitsrc.io/building-a-reactive-architecture-around-redis-bc53662b81c8)
+> - 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-reactive-architecture-around-redis.md](https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-reactive-architecture-around-redis.md)
+> - 译者：[YueYongDev](https://github.com/YueYongDev)
+> - 校对者：[Usualminds](https://github.com/Usualminds)、[jaredliw](https://github.com/jaredliw)
 
-# Building a Reactive Architecture Around Redis
+# 通过 Redis 构建一个响应式架构
 
 ![](https://cdn-images-1.medium.com/max/3840/1*6lsjEFol6Hj11gaifU2feQ.jpeg)
 
-Redis is one of the most powerful and versatile pieces of technology I’ve come across. Sadly, most people only know it because it makes for a good caching solution.
+Redis 是我遇到过的最强大、最通用的技术之一。遗憾的是，大多数人都只是将其作为一个优秀的缓存解决方案来使用。
 
-We need to fix that.
+为此，我们需要去改变这个现状。
 
-In particular, I want to show you that you can create a reactive architecture having Redis as the main component. This is a huge plus, especially if you already have it as part of your infrastructure due to other requirements (i.e the good ol’cache).
+我特别想通过本文告诉你，如何构建一个以 Redis 为核心的响应式架构。尤其是当你因为一些其它的需求（比如高性能的缓存）已经将 Redis 作为你整个应用基础设施的一部分时，这会是一个巨大的优势。
 
-What you use with Redis to interact with the features I’ll be describing here is up to you, honestly at this point any option is as valid as the next one. I tend to prefer using Node.js but that’s me, you’re free to use whatever works best for you.
+我在本文所描述的内容，你可以按照自己的想法采取各种手段来实现，说实话，在这一点上任何选择都是有效的。出于个人观点，我更倾向于使用 Node.js，但这也只是我自己的想法，你可以选择最适合你的方案。
 
-## Building a reactive architecture
+## 构建一个响应式架构
 
-The first thing to understand here is what exactly is a reactive architecture, and why would we want to build one instead of going for a more traditional approach?
+首先要了解的问题是什么是响应式架构，以及为什么我们要构建一个响应式架构而不是采用其他更传统的方案？
 
-Simply put, a reactive architecture is one where every bit of logic gets executed the moment all its pre-conditions are met — I guess I should’ve added quotes around the word “simply”.
+简单来说，一个响应式架构就是让每一个逻辑都在满足所有预设条件的情况下被执行 —— 我想我应该给 “简单” 这个词加一个引号。
 
-Let me put it another way: when you need your logic to be triggered after a particular event happens, you have two options:
+换个其他的说法：为了让你的逻辑在某个特定事件发生后被触发，通常会有两种实现方案：
 
-* Keep checking some kind of flag in regular intervals until it’s ON, meaning the event happened.
-* Sit and wait, until something else notifies your service that the event was triggered.
+- 定期检查某种标志，直到它被打开，这意味着事件发生。
 
-The second part is the key to the Observer pattern in Object Oriented Programming. The observed object lets everyone interested in its internal state know, that it, in fact, was updated.
+- 停下来等待，直到某个东西通知你的服务，事件被触发。
 
-What we’re trying to do here, is to extrapolate that same OOP pattern into an architecture-level design. So instead of having a bit of logic within our program, I’m talking about having a service’s function be triggered once the right event happens.
+第二个是面向对象编程中观察者模式的关键。被观察的对象让所有订阅其内部状态的人知道它更新了。
 
-This is the most efficient way to distribute and scale a platform, due to the fact that:
+我们在这里要做的是，将这种来源于面向对象（OOP）的设计模式推导到架构级的设计中。因此，这里我所谈及的不是程序内的一些逻辑，而是架构级别的，一旦触发响应条件，就运行某项服务。
 
-* You don’t have to waste time and network traffic polling a data source for a particular flag (or whatever you feel like you should be polling). Besides, unrequired polling could cause extra expenses if you’re on a pay-per-use infrastructure, unneeded work on the target service and you might end up having to aggregate events if more than one happens during the time your code is waiting to poll.
-* You can scale up the processing power of the services by adding new ones, working in parallel, and capturing events as fast as they possibly can.
-* The platform is more stable. By working reactively, you can be sure that your services will work at the optimal speed without fear of crashing due to data overload from a client.
+这是分配和扩展平台最有效的方式，原因在于：
 
-Reactive platforms are inherently asynchronous, so any client application that attempts to work with them, needs to also adapt to the same paradigm. The external API might be REST through HTTP, but that doesn’t mean you’ll get your answer as a response, instead, you’ll get a `200 OK` response meaning that your request was received. For your application to get the actual results, it’ll have to subscribe to the particular event that will contain such a response.
+- 你不必浪费时间和流量去轮询一个特定数据源的标志（或任何你觉得应该轮询的东西）。此外，如果你使用的基础设施是按流量付费的，不必要的轮询可能会产生额外的费用，在目标服务上增加不需要的工作，如果在你的代码等待轮询的时间里发生了多个事件，你最终可能还需要聚合这些事件。
 
-Keep that in mind, otherwise, you’ll spend a long time debugging why you’re not getting the response you want.
+- 你可以通过增加新的服务，并行工作，并以尽可能快的速度捕捉事件，来增强服务的处理能力。
 
-## What do we need then?
+- 平台更加稳定。通过响应式工作，你可以确保你的服务以最佳速度运行，而不必担心由于客户的数据过载而崩溃。
 
-With that out of the way, what do we need to make our platform/architecture a reactive one? It’s not ReactJS, that’s for sure. We need a message broker, something that will centralize message distribution between multiple services.
+响应式架构本质上是异步的，所以任何试图与之交流的客户端应用，也需要适应相同的响应范式。你可以通过 HTTP 得到一个来自外部的 REST API，但是你得到的响应结果可能并不是你想要的答案。例如，你可能会得到一个 ”200 OK“ 的响应，意味着你的请求已经收到。为了让你的应用程序得到实际的结果，它必须订阅包含这种响应的特定事件。
 
-With something that can act as a broker, we need to make sure our code is written in a way that it can subscribe to certain events by letting the broker know where it is, and the type of events it needs.
+请记住这一点，否则，你可能会花很长时间来调试为什么没有得到你想要的响应结果。
 
-After that, a notification will be sent to our service, and our logic will be triggered.
+## 接下来我们需要什么？
 
-Sounds easy right? That’s because it is!
+既然如此，我们需要什么来使我们的平台/架构成为一个响应式的平台/架构呢？可以肯定的是，这不是 ReactJS。我们需要一个消息代理，一个能在多个服务之间集中分配消息的东西。
 
-### How does Redis factor in here then?
+对于可以充当代理的东西，我们需要确保我们的代码知道它在哪里，以及他所需要的事件类型，以此来确保订阅到某些事件。
 
-Redis is so much more than a key-value in-memory store, in fact, it has 3 features I love about it and that allow me to create reactive architectures based off of different expected behaviors.
+在此之后，一个通知将被发送到我们的服务，同时触发我们的业务逻辑。
 
-Those 3 features are:
+听起来是不是很容易？那是因为它本就如此！
 
-* [Pub/Sub](https://redis.io/topics/pubsub). Redis has a message queue inside, which allows us to send messages and it’ll distribute them to every subscribed process. This is a fire&forget type of contract, which means if there are no listeners active, then the message will get lost. So take that into consideration when using this channel.
-* Keyspace notifications. Probably my favorite feature from Redis. These bad boys are events created by Redis itself and distributed to every process out there that decided to subscribe to them. And they are about changes on the keyspace, meaning, anything that happens with the data you have stored inside it. For instance, the moment you delete a key, or update it, or when it gets deleted automatically once its TTL counter reaches 0. This allows you to generate timed events. Did you ever have to trigger a bit of logic 3 days after “something” happened? This is how.
-* Redis streams. This is a mixture of Redis’ data types, mixed with keyspace notifications and pub/sub, all put together and working great. Streams try to emulate the behavior a `tail -f` command would have on your terminal. If you’ve never seen that command, that’s a *nix command that shows you the last line of a file, and stays listening for changes on the file, so that when you add a new line, it’ll list it right away. The same happens with streams. They’re very powerful and incredibly useful given the right use case. [You can read more about them here](https://blog.logrocket.com/why-are-we-getting-streams-in-redis-8c36498aaac5/).
+### 那么 Redis 是如何发挥作用的呢？
 
-All these features allow you to communicate with your processes in one way or another and depending on the type of behavior you’re after, you might want to tackle one, or all of them.
+Redis 不仅仅是一个存储在内存上的键值对存储引擎，事实上，它有三个我喜欢的特性，也正因如此，我才愿意使用 Redis 来搭建基于不同预期行为的响应式架构。
 
-Let’s take a quick look at some examples that will give you an idea of what to use and when.
+这三个特点分别是：
 
-## Classic event-based messaging
+- [发布/订阅](https://redis.io/topics/pubsub)。Redis 内部维护着一个消息队列，它允许我们发送消息，并将它们分发到每个订阅的进程。这是一种“发后即忘”类型的约定，这意味着如果没有在线的监听器，那么消息就会丢失。所以在使用时要考虑到这一点。
+- 键空间通知。这可能是 Redis 中我最喜欢的功能。他们是由 Redis 自己创建的事件，并分发给每个决定订阅它们的进程。这个功能和键空间的变化有关，也即存储在 Redis 里面的数据发生的任何变化。例如，当你删除或更新一个键时，或者当它的 TTL 计数器达到 0 自动删除时。这使你能够设定有时间限制的事件。比如说，你是否曾经需要在 "某事 "发生 3 天后触发一点逻辑？通过这种方法就可以实现。
+- Redis 流。这是 Redis 数据类型的混合物，混合了键空间通知和发布/订阅，所有这些都放在一起，工作得很好。Redis 流试图模仿 `tail -f` 命令在你的终端上的行为。如果你从来没有见过这个命令，说明这是一个*nix 命令，它向你显示一个文件的最后一行，并保持监听该文件的变化，每新增一行时，终端会立即显示。Redis 流也是同样的道理。如果使用得当，那么将会是一个强有力的工具。[你可以阅读此处了解更多](https://blog.logrocket.com/why-are-we-getting-streams-in-redis-8c36498aaac5/)。
 
-The easiest example is one where every microservice out there is waiting for something to happen. An event to be triggered, and that event will probably come from the outside, the user or client of the system.
+所有这些特性都使得你可以以各种方式与你的业务逻辑进行适配，根据你所期望的行为类型，解决其中的一个或全部。
+
+让我们快速看一些例子，以便知道该怎么使用以及在什么时候使用。
+
+## 经典案例，基于事件的消息
+
+最简单的例子是，每个微服务都在等待发生什么事情。要触发的事件，该事件可能来自外部，即系统的用户或客户端。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*i3IDQzuBBDTNyI6Dp3YWlQ.png)
 
-Looking at the above diagram, consider the central red tube to be Redis’ Pub/Sub or a Blocking list, which is a custom implementation of a more reliable Pub/Sub.
+如上图所示，可以把中央的红色管看作是 Redis 的发布/订阅流程或阻塞队列，这是一个更可靠的发布/订阅模式的自定义实现。
 
-The flow starts at #1 with the request submitted by the “Client App” and ends, on 9, by the “Client app” getting notified about the response. The rest? I don’t care, and neither should the client app.
+整个过程从步骤 1 开始，由 `Client App` 提交请求，到步骤 9 由  `Client App`  得到响应通知结束。其余的呢？我不关心，客户端 App 也不需要关心。
 
-That’s one of the beauties of this paradigm, the architecture becomes a black box for the client. A single request could trigger hundreds of events or just one, the behavior will be the same: once the response is ready, it’ll be delivered to the client. Instead of the client knowing how long it takes or how often it needs to check if it’s ready. None of that matters here.
+这种模式的好处之一就是使得架构对客户端来说成为一个黑盒。一个请求可以触发数百个事件，也可能只触发一个，但是行为都是一样的：一旦准备好响应，它就会被传递给客户端。而不是让客户端知道需要多长时间或者需要多久检查一次是否准备好。这些在这里都不重要。
 
-Keep in mind the following caveats:
+记住以下几点：
 
-* A message is published by its subscriber into a “channel”. It is advised that you have different channels if you want to publish different types of topics. Also if you require extra granularity to distinguish which consumer will have to take care of processing one particular message, the details will need to be part of the message. This is because all subscribers to a channel will get the same messages, so if you have multiple processes listening for and getting the same message, you might end up re-taking the same actions. A flag can be implemented in Redis with the ID of the message (for example), to make sure that the first process to create it, is the one that will take care of processing the event, while the rest can ignore it. This is a reliable way to do it, because setting a key in Redis is an Atomic process, so concurrency will not play a factor in this.
-* If there are no subscribers listening for one particular channel, the published messages will get lost. This is the case if you use the Pub/Sub mode, because it works under the “fire & forget” mechanism. If you want to make sure your messages remain there until processed, you can go with the “Blocking list” approach. This solution consists of creating a list directly on Redis’ keyspace (i.e a normal list of values) and have processes subscribe to get keyspace notifications around that key. That way they can decide what to do with the inserted data (i.e if they want to ignore it, process it and remove it, etc).
-* If you’re sending a complex message, such as a JSON it needs to be serialized. This is because for both Blocking lists and Pub/Sub the only thing you can send is a string. That being said, if you need to send complex types through the wire without serialization, you could consider using Redis Streams, which is something they allow for. Of course, the restriction there would be that the only allowed types are Redis’ not those of the language you’re using to code the solution.
+- 一条信息由其订阅者发布到一个“频道”。如果你想发布不同类型的主题，建议你创建多个不同的频道。另外，如果你需要额外的粒度来区分哪个消费者必须负责处理某个特定的消息，那么这些细节就需要成为消息的一部分。这是因为一个通道的所有订阅者都会得到相同的消息，所以如果有多个进程侦听和获取相同的消息，那么最终可能会重新执行相同的操作。例如，在 Redis 中可以用消息的 ID 作为一个标志，以确保第一个创建它的进程将负责处理该事件，而其他进程则可以忽略它。这是一个可靠的方法，因为在 Redis 中设置一个键是一个原子过程，所以并发不会在其中起作用。
+- 如果没有订阅者监听某个特定的频道，则发布的消息将丢失。如果你使用发布/订阅模式，就会出现这种情况，因为它是在“发后即忘”机制下工作的。如果你想确保你的信息在被处理之前一直在那里，你可以使用“阻塞队列”的方式。这种解决方案包括直接在 Redis 的键空间上创建一个列表（即一个正常的值列表），并让进程订阅键空间通知。这样他们就可以决定如何处理插入的数据（比如忽略、处理、删除等）。
+- 如果你要发送一个复杂的消息，例如 JSON，那么它需要被序列化。这是因为对于阻塞队列和发布/订阅来说，你能发送的唯一东西是一个字符串。不过如果你想不经过序列化就发送复杂的数据类型，他们允许你使用 Redis Streams。当然，这里的限制是，你只能使用 Redis 自带的数据类型而不是那些编程语言的数据类型。
 
-Let’s now take a look at what happens if your event triggering depends on certain timings.
+接下来让我们来看看，如果你的事件是基于时间触发的，会发生什么。
 
-## Time-based triggering
+## 基于时间触发
 
-Another common behavior for reactive architectures, is to be able to trigger certain events after a pre-defined time has passed. For instance: trigger an alert 10 minutes after a problem with the data has been found. Or wait 30 minutes before triggering an alert that an IoT device has stopped sending data.
+响应式架构的另一个常见行为是，能够在预定义的时间过后触发某些事件。例如：在发现数据问题 10 分钟后触发警报。或等待 30 分钟后触发物联网设备停止发送数据的警报。
 
-These are usually behaviors related to real-world restrictions that take a bit of time to solve or that can even solve themselves out by “waiting a little bit” and restarting the countdown in case they do (like an IoT device that has an unreliable connection).
+这些行为通常与现实世界的限制有关，需要一些时间来解决，或者甚至可以通过“等待一点时间”并重新启动倒计时来解决（就像物联网设备的连接不可靠）。
 
-For this scenario, the architecture remains the same, the only difference is that the central communication hub is definitely using the [keyspace notifications from Redis](https://redis.io/topics/notifications).
+对于这种情况，整体架构保持不变，唯一的区别是中央通信枢纽必须使用[来自 Redis 的键空间通知](https://redis.io/topics/notifications)。
 
-You see, there are two main features about Redis that you need to understand to get this going:
+你看，这里就有两个关于 Redis 的主要特点，你需要了解一下：
 
-1. When you’re setting a key-value pair, you can optionally define a TTL (Time to Live) in seconds. That turns into a countdown that once it reaches 0, the key will be automatically destroyed.
-2. When you’re subscribing to a keyspace (this also works on pub/sub, but we’re not using that here), you can subscribe using a pattern. In other words, instead of subscribing to events for the key “last_connection_time_of_device100002”, you can subscribe to “last_connection_time_of_device*”. Then every key that is created and that matches that pattern will notify you once something happens to it.
+1. 当你设置一个键值对时，你可以选择定义一个 TTL（生存时间），单位是秒。这就变成了一个倒计时，一旦达到 0，这个键就会自动销毁。
+2. 当你订阅一个键空间时（这也适用于 pub/sub，但我们在这里不使用），你可以使用一个模式进行订阅。换句话说，你可以订阅 "last_connection_time_of_device100002" 这个键的事件，而不是订阅 "last_connection_time_of_device"。然后，每一个创建的、符合该模式的键都会在它发生变化时通知你。
 
-With both of these things in mind, you can create services that subscribe to these particular keys and react once they are removed (i.e when the event is triggered). While at the same time, you have the producers constantly updating the keys, which also resets the TTL timer. So if you were tracking the last time a device sent its heartbeat, you could have a key per device like I showed above, and keep updated that key every time you get a new heartbeat. Once the TTL is over that means you haven’t received a new heartbeat within the configured period. Your subscribed process will only receive the key name, so if all you need is the ID of the device, you could structure your keys like I showed, and parse the name to capture the desired information.
+考虑到这两点，你可以创建订阅这些特定键的服务，并在它们被删除后做出反应（即事件被触发时）。同时，生产者不断地更新键，这也重置了 TTL 计时器。因此，如果你要追踪一个设备最后一次发送心跳的时间，你可以像我上面展示的那样，为每个设备准备一个密钥，并且在每次收到新的心跳时不断更新这个密钥。一旦 TTL 过了，就意味着你在配置的时间内没有收到新的心跳。你的订阅进程将只收到密钥名称，所以如果你只需要设备的 ID，你可以像我展示的那样构造你的密钥，并解析名称以捕获所需的信息。
 
-### Shadow key technique
+### 影子键技术
 
-If on the other hand, you’re saving a complex structure inside that key and you need it, you’ll have to change this approach a bit. This is because when the TTL expires, the key is deleted, and thus the data inside it, so you can’t really retrieve it. This is when instead, you use a technique called “shadow key”.
+另一方面，如果你在该键中保存了一个复杂的结构（如果你需要这么做的话），你将不得不改变这种方法。这是因为当 TTL 过期时，键就会被删除，里面的数据也会被删除，所以你无法获取到它。这时，你可以使用一种叫做“影子键”的技术来代替。
 
-A shadow key, is essentially a key that is there to trigger the event, but that really is shadowing the actual key that contains the data you need. So back to our example, consider that the producer every time it receives a heartbeat will update 2 keys:
+影子键，本质上是一个用来触发事件的键，但它实际上是对包含你所需数据的实际密钥的影子。所以回到我们的例子，考虑生产者每次收到心跳时都会更新 2 个键：
 
-* “last_connection_time_of_device100002” with the unix timestamp of the last received payload from the device.
-* “device_data_id100002” with the extra information from the device.
+- “last_connection_time_of_device100002” 是最后一次从设备收到有效载荷的 unix 时间戳。
+- “device_data_id100002” 是与设备的额外信息。
 
-Out of both keys, only the first one will also have a TTL, the second one will not. Thus when you get the expiration notification, you’ll capture the ID from the expired key (last_connection_time_of_device100002) and use it to read the content of the second key. You can then proceed to delete this other key as well if you need to, or leave it there, whatever works for your use case.
+在这两个 key 中，只有第一个有 TTL，第二个没有。因此，当你收到过期通知时，你将从过期的 key 中获取 ID（last_connection_time_of_device100002），并使用它来读取第二个 key 的内容。然后，如果有必要的话，你可以删除这个密钥，或者把它留在那里，这取决于你的使用情况。
 
-The only caveat to consider here, is that if you have Redis configured on Cluster mode, keyspace notifications aren’t propagated throughout the cluster. This means that you’ll have to make sure your consumers connect to every node. Some of these notifications will get lost with no one to receive them otherwise. This is the only downside to this technique, but it’s important to understand it before you spend days debugging your asynchronous logic (been there, done that).
+这里唯一需要考虑的是，如果你把 Redis 配置为集群模式，键空间的通知不会在整个集群中广播。这意味着，你必须确保你的消费者连接到每个节点。通知如果没有人接收就会丢失，这也是这项技术的唯一缺点，但是在你花费数天时间去调试你的异步逻辑前，了解这一点对你来说会有很大帮助（我是过来人）。
 
 ---
 
-As you can see, the complexity in both cases was reduced to just making sure you subscribe to the correct event or distribution channel. If you were to try and do this with a normal SQL database for instance, you’d have to create a lot of logic around your code to efficiently determine when new data has entered, or when a piece of information was deleted.
+正如你所看到的，这两种情况下的复杂性都被降低了 —— 我们只需要确保已经订阅了正确的事件或频道。如果你试图用一个普通的 SQL 数据库来做这件事，你必须通过代码实现非常复杂的逻辑，以便有效地确定何时有新的数据进入，或何时有一条信息被删除。
 
-Instead, all that complexity here is abstracted by Redis and all you need to worry about, is to code your business logic. That to me is gold.
+相反，刚才所提的所有复杂性都被 Redis 抽象化了，你唯一需要担心的，就是编写好你的业务逻辑。对我来说，这就是最重要的事情。
 
-Have you used Redis for any other scenario outside caching? Share your experience with others in the comments, I’d love to know how you’re all using one of my favorites pieces of tech!
+你是否将 Redis 用于缓存之外的其他场景？在评论区与其他人分享你的经验，我很想知道你们是如何使用 Redis 的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
