@@ -17,7 +17,7 @@ $ pip install ply
 
 ![basic representation of interpreter](https://cdn-images-1.medium.com/max/2000/1*fnh2Q_e0lHe8zgqpPPEyRQ.png)
 
-## 标记 （Token）
+## 标记（Token）
 
 `标记`是为解释器提供有意义信息的最小字符单位。 标记包含一对名称和属性值。
 
