@@ -44,36 +44,37 @@ tokens = (
 将语句转换为标记的过程称为`标记化`或`词法分析`。执行`词法分析`的程序是`词法分析器`。
 
 ```python
-# 标记的正则表达
-t_PLUS    =  r"\+"
-t_MINUS   =  r"\-"
-t_MUL     =  r"\*"
-t_DIV     =  r"/"
-t_LPAREN  =  r"\("
-t_RPAREN  =  r"\)"
+t_PLUS = r"\+"
+t_MINUS = r"\-"
+t_MUL = r"\*"
+t_DIV = r"/"
+t_LPAREN = r"\("
+t_RPAREN = r"\)"
+t_POW = r"\^"
 # 忽略空格和制表符
-t_ignore  =  " \t"
+t_ignore = " \t"
+
 
 # 为每个规则添加动作
 def t_FLOAT(t):
-    r"\d+\.\d+"
+    r"""\d+\.\d+"""
     t.value = float(t.value)
     return t
 
+
 def t_NUM(t):
-    r"\d+"
+    r"""\d+"""
     t.value = int(t.value)
     return t
 
-# 未定义规则字符的错误处理
+
 def t_error(t):
-    # 此处的 t.value 包含未标记的其余输入
     print(f"keyword not found: {t.value[0]}\nline {t.lineno}")
     t.lexer.skip(1)
 
-# 如果看到 \n 则将其设为新的一行
+
 def t_newline(t):
-    r"\n+"
+    r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
 ```
 
@@ -110,17 +111,16 @@ while tok := lexer.token():
 根据产生式，`:` 的左侧被替换为右侧的其中一个值替换。右侧的值由 `|` 分隔（可理解为 `symbol` 定义为 `alternative1` 或 `alternative2`或…… 等等）。对于我们的这个算术解释器，语法规格如下：
 
 ```
-expression : expression '+' factor
-           | expression '-' factor
-           | expression '/' factor
-           | expression '*' factor
-           | expression '^' factor
+expression : expression '+' expression
+           | expression '-' expression
+           | expression '/' expression
+           | expression '*' expression
+           | expression '^' expression
+           | +expression
            | -expression
-           | factor
-
-factor : NUM
-       | FLOAT
-       | ( expression )
+           | ( expression )
+           | NUM
+           | FLOAT
 ```
 
 输入的标记是诸如 `NUM`，`FLOAT`，`+`，`-` ，`*`，`/` 之类的符号，称作`终端`（无法继续分解或产生其他符号的字符）。 一个表达式由终端和规则集组成，例如 `expression` 和 `factor`统称为`非终端`。有关 BNF 的更多信息，请参阅[此处](https://isaaccomputerscience.org/concepts/dsa_toc_bnf)。
@@ -134,43 +134,44 @@ from operator import (add, sub, mul, truediv, pow)
 
 # 我们的解释器支持的运算符列表
 ops = {
-    '+': add,
-    '-': sub,
-    '*': mul,
-    '/': truediv,
-    '^': pow,
+    "+": add,
+    "-": sub,
+    "*": mul,
+    "/": truediv,
+    "^": pow,
 }
 
 def p_expression(p):
-    """expression : expression PLUS factor
-                  | expression MINUS factor
-                  | expression DIV factor
-                  | expression MUL factor
-                  | expression POW factor"""
-    if (p[2], p[3]) == ("/",  0):
+    """expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression DIV expression
+                  | expression MUL expression
+                  | expression POW expression"""
+    if (p[2], p[3]) == ("/", 0):
         # 如果除以 0，则将“INF”（无限）作为值
         p[0] = float("INF")
     else:
         p[0] = ops[p[2]](p[1], p[3])
 
+
+def p_expression_uplus_or_expr(p):
+    """expression : PLUS expression %prec UPLUS
+                  | LPAREN expression RPAREN"""
+    p[0] = p[2]
+
+
 def p_expression_uminus(p):
     """expression : MINUS expression %prec UMINUS"""
     p[0] = -p[2]
 
-def p_expression_factor(p):
-    """expression : factor"""
+
+def p_expression_num(p):
+    """expression : NUM
+                  | FLOAT"""
     p[0] = p[1]
 
-def p_factor_num(p):
-    """factor : NUM
-              | FLOAT"""
-    p[0] = p[1]
 
-def p_factor_expr(p):
-    """factor : LPAREN expression RPAREN"""
-    p[0] = p[2]
-
-# 语法错误时的规则
+# 语法错误的规则
 def p_error(p):
     print(f"Syntax error in {p.value}")
 ```
@@ -186,8 +187,10 @@ p[0]         p[1]       p[2]  p[3]
 
 ```python
 precedence = (
-    ('left', 'PLUS', 'MINUS'),
-    ('left', 'MUL', 'DIV')
+    ("left", "PLUS", "MINUS"),
+    ("left", "MUL", "DIV"),
+    ("left", "POW"),
+    ("right", "UPLUS", "UMINUS")
 )
 ```
 
@@ -207,18 +210,19 @@ print(result)
 #####################################
 # 引入模块                           #
 #####################################
-from operator import (add, sub, mul, truediv, pow) 
-import ply.yacc as yacc
-import ply.lex as lex
 from logging import (basicConfig, INFO, getLogger)
+from operator import (add, sub, mul, truediv, pow)
+
+import ply.lex as lex
+import ply.yacc as yacc
 
 # 我们的解释器支持的运算符列表
 ops = {
-    '+' : add,
-    '-' : sub,
-    '*' : mul,
-    '/' : truediv,   
-    '^' : pow,  
+    "+": add,
+    "-": sub,
+    "*": mul,
+    "/": truediv,
+    "^": pow,
 }
 
 #####################################
@@ -227,7 +231,7 @@ ops = {
 tokens = (
     # 数据类型
     "NUM",
-    "FLOAT",    
+    "FLOAT",
     # 算术运算
     "PLUS",
     "MINUS",
@@ -242,79 +246,88 @@ tokens = (
 #####################################
 # 标记的正则表达式                    #
 #####################################
-t_PLUS    =  r"\+"
-t_MINUS   =  r"\-"
-t_MUL     =  r"\*"
-t_DIV     =  r"/"
-t_LPAREN  =  r"\("
-t_RPAREN  =  r"\)"
-t_POW     =  r"\^"
+t_PLUS = r"\+"
+t_MINUS = r"\-"
+t_MUL = r"\*"
+t_DIV = r"/"
+t_LPAREN = r"\("
+t_RPAREN = r"\)"
+t_POW = r"\^"
 # 忽略空格和制表符
-t_ignore  =  " \t"
+t_ignore = " \t"
+
 
 # 为每个规则添加动作
 def t_FLOAT(t):
-    r"\d+\.\d+"
+    r"""\d+\.\d+"""
     t.value = float(t.value)
     return t
 
+
 def t_NUM(t):
-    r"\d+"
+    r"""\d+"""
     t.value = int(t.value)
     return t
+
 
 def t_error(t):
     print(f"keyword not found: {t.value[0]}\nline {t.lineno}")
     t.lexer.skip(1)
 
+
 def t_newline(t):
-    r"\n+"
+    r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
+
 
 #####################################
 # 设置符号优先级                      #
 #####################################
 precedence = (
-    ('left', 'PLUS', 'MINUS'),
-    ('left', 'MUL', 'DIV'),
-    ('right', 'UMINUS')
+    ("left", "PLUS", "MINUS"),
+    ("left", "MUL", "DIV"),
+    ("left", "POW"),
+    ("right", "UPLUS", "UMINUS")
 )
+
 
 #####################################
 # 书写 BNF 规则                      #
 #####################################
 def p_expression(p):
-    """expression : expression PLUS factor
-                  | expression MINUS factor
-                  | expression DIV factor
-                  | expression MUL factor
-                  | expression POW factor"""
-    if (p[2], p[3]) == ("/",  0):
+    """expression : expression PLUS expression
+                  | expression MINUS expression
+                  | expression DIV expression
+                  | expression MUL expression
+                  | expression POW expression"""
+    if (p[2], p[3]) == ("/", 0):
         # 如果除以 0，则将“INF”（无限）作为值
         p[0] = float("INF")
-    else:  
+    else:
         p[0] = ops[p[2]](p[1], p[3])
+
+
+def p_expression_uplus_or_expr(p):
+    """expression : PLUS expression %prec UPLUS
+                  | LPAREN expression RPAREN"""
+    p[0] = p[2]
+
 
 def p_expression_uminus(p):
     """expression : MINUS expression %prec UMINUS"""
     p[0] = -p[2]
 
-def p_expression_factor(p):
-    """expression : factor"""
+
+def p_expression_num(p):
+    """expression : NUM
+                  | FLOAT"""
     p[0] = p[1]
 
-def p_factor_num(p):
-    """factor : NUM
-              | FLOAT"""
-    p[0] = p[1]
-
-def p_factor_expr(p):
-    """factor : LPAREN expression RPAREN"""
-    p[0] = p[2]
 
 # 语法错误的规则
 def p_error(p):
     print(f"Syntax error in {p.value}")
+
 
 #####################################
 # 主程式                             #
@@ -328,7 +341,7 @@ if __name__ == "__main__":
     while True:
         try:
             result = parser.parse(
-                input(">>>"), 
+                input(">>>"),
                 debug=getLogger())
             print(result)
         except AttributeError:
