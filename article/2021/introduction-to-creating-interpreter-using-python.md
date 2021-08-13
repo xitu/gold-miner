@@ -21,7 +21,7 @@ $ pip install ply
 
 `标记`是为解释器提供有意义信息的最小字符单位。标记包含一对名称和属性值。
 
-让我们从创建标记名称列表开始。 这是一个必要的步骤。
+让我们从创建标记名称列表开始。这是一个必要的步骤。
 
 ```Python
 tokens = (
@@ -39,7 +39,7 @@ tokens = (
 )
 ```
 
-## 词法分析器 （Lexer）
+## 词法分析器（Lexer）
 
 将语句转换为标记的过程称为`标记化`或`词法分析`。执行`词法分析`的程序是`词法分析器`。
 
@@ -86,7 +86,7 @@ def t_newline(t):
 
 `import ply.lex as lex`
 
-`t_` 是一个特殊的前缀，表示定义标记的规则。 每条词法规则都是用正则表达式制作的，与 Python 中的 [`re`](https://umangshrestha09.medium.com/list/regex-423b3a281bcc) 模块兼容。 正则表达式能够根据规则扫描输入并搜索符合的符号串。 正则表达式定义的文法称为**正则文法**。正则文法定义的语言则称为**正则语言**。
+`t_` 是一个特殊的前缀，表示定义标记的规则。每条词法规则都是用正则表达式制作的，与 Python 中的 [`re`](https://umangshrestha09.medium.com/list/regex-423b3a281bcc) 模块兼容。正则表达式能够根据规则扫描输入并搜索符合的符号串。正则表达式定义的文法称为**正则文法**。正则文法定义的语言则称为**正则语言**。
 
 定义好了规则，我们将构建词法分析器。
 
@@ -108,7 +108,7 @@ while tok := lexer.token():
 
 ## 巴科斯-诺尔范式（Backus-Naur Form，BNF）
 
-大多数编程语言都可以用`上下文无关文法`来编写。 它比常规语言更复杂。对于`上下文无关文法` ，我们用`上下文无关语法` ，它是描述语言中所有可能语法的规则集。BNF 是一种定义语法的方式，它描述了编程语言的语法。 让我们看看例子：
+大多数编程语言都可以用`上下文无关文法`来编写。它比常规语言更复杂。对于`上下文无关文法`，我们用`上下文无关语法`，它是描述语言中所有可能语法的规则集。BNF 是一种定义语法的方式，它描述了编程语言的语法。让我们看看例子：
 
 `symbol : alternative1 | alternative2 …`
 
@@ -127,11 +127,11 @@ expression : expression '+' expression
            | FLOAT
 ```
 
-输入的标记是诸如 `NUM`，`FLOAT`，`+`，`-` ，`*`，`/` 之类的符号，称作`终端`（无法继续分解或产生其他符号的字符）。 一个表达式由终端和规则集组成，例如 `expression` 则称为`非终端`。有关 BNF 的更多信息，请参阅[此处](https://isaaccomputerscience.org/concepts/dsa_toc_bnf)。
+输入的标记是诸如 `NUM`、`FLOAT`、`+`、`-`、`*`、`/` 之类的符号，称作`终端`（无法继续分解或产生其他符号的字符）。一个表达式由终端和规则集组成，例如 `expression` 则称为`非终端`。有关 BNF 的更多信息，请参阅[此处](https://isaaccomputerscience.org/concepts/dsa_toc_bnf)。
 
 ## 解析器（Parser）
 
-我们将使用 `YACC（Yet Another Compiler Compiler）` 作为解析器生成器。导入模块： `import ply.yacc as yacc`。
+我们将使用 `YACC（Yet Another Compiler Compiler）` 作为解析器生成器。导入模块：`import ply.yacc as yacc`。
 
 ```python
 from operator import (add, sub, mul, truediv, pow)
@@ -187,7 +187,7 @@ expression : expression PLUS expression
 p[0]         p[1]       p[2] p[3]
 ```
 
-在上文中，`%prec UPLUS` 和 `%prec UMINUS` 是用来表示自定义运算的。`%prec` 即是 `precedence` 的缩写。在符号中本来没有`UPLUS` 和 `UMINUS` 这个说法（在本文中这两个自定义运算表示一元正号和符号，其实 `UPLUS` 和 `UMINUS` 只是个名字，想取什么就取什么）。之后，我们可以添加基于表达式的规则。YACC 允许为每个令牌分配优先级。我们可以使用以下方法设置它：
+在上文中，`%prec UPLUS` 和 `%prec UMINUS` 是用来表示自定义运算的。`%prec` 即是 `precedence` 的缩写。在符号中本来没有 `UPLUS` 和 `UMINUS` 这个说法（在本文中这两个自定义运算表示一元正号和符号，其实 `UPLUS` 和 `UMINUS` 只是个名字，想取什么就取什么）。之后，我们可以添加基于表达式的规则。YACC 允许为每个令牌分配优先级。我们可以使用以下方法设置它：
 
 ```python
 precedence = (
