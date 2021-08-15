@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md)
 > * 译者：[flashhu](https://github.com/flashhu)
-> * 校对者：
+> * 校对者：[jaredliw](https://github.com/jaredliw)
 
 # 在 React 中使用 BLoC 模式
 
@@ -15,7 +15,7 @@
 
 ## 在 React 中使用 BLoC 模式的好处
 
-![BLOC architecture diagram](https://cdn-images-1.medium.com/max/5760/1*BaiP-jhLnxgXA1XSU8YY_A.jpeg)
+![BLOC 架构图](https://cdn-images-1.medium.com/max/5760/1*BaiP-jhLnxgXA1XSU8YY_A.jpeg)
 
 BLoC 模式背后的含义与名字所表达的一致。如上图所示，业务逻辑将会从 UI 组件中分离。首先，它们会通过一个观察者（observer）向 BLoC 发送事件。接着，在处理完请求后，BLoC 借助观察项（observable）通知 UI 组件。
 
@@ -61,13 +61,13 @@ yarn add rxjs
 * Components — 存放 UI 组件
 * Utils — 存放项目的实用类文件
 
-![Solder Structure](https://cdn-images-1.medium.com/max/2000/1*NGsidZ0MP3iREtYL1mDHUg.png)
+![文件结构](https://cdn-images-1.medium.com/max/2000/1*NGsidZ0MP3iREtYL1mDHUg.png)
 
 ### 第二步：实现 BLoC
 
 现在，让我们来实现 BLoC 类。BLoC 类将负责实现和业务逻辑相关的所有主题。在本例中，它负责实现计数逻辑。
 
-因此，我在 blocs 文件夹中创建了文件 `CounterBloc.js`，并使用一管道（`pipe`） 将计数器传递给 UI 组件。
+因此，我在 blocs 文件夹中创建了文件 `CounterBloc.js`，并使用一管道（`pipe`）将计数器传递给 UI 组件。
 
 ```JavaScript
 import { Subject } from 'rxjs';
