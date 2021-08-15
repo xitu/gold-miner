@@ -199,7 +199,7 @@ export default StreamBuilder;
 
 ```
 
-> **注意：** 确保在卸载 UI 组件时，取消订阅所有观察项（observable）并处理 BLoC。
+> **注意**： 确保在卸载 UI 组件时，取消订阅所有观察项（observable）并处理 BLoC。
 
 ### 第四步：实现 UI 组件
 
