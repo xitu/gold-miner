@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md)
 > * 译者：[flashhu](https://github.com/flashhu)
-> * 校对者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[jaredliw](https://github.com/jaredliw)，[Tong-H](https://github.com/Tong-H)
 
 # 在 React 中使用 BLoC 模式
 
