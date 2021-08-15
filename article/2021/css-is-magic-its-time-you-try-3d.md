@@ -2,168 +2,169 @@
 > * 原文作者：[Ankita Chakraborty](https://medium.com/@ankitachakraborty)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/css-is-magic-its-time-you-try-3d.md](https://github.com/xitu/gold-miner/blob/master/article/2021/css-is-magic-its-time-you-try-3d.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tong-h](https://github.com/Tong-H)
+> * 校对者：[Chorer](https://github.com/Chorer) [PassionPenguin](https://github.com/PassionPenguin)
 
-# CSS is magic, its time you try 3D
+# CSS 是魔法, 是时候试试 3D 了
 
-![Dog Illustration: [subpng](https://www.subpng.com/), Eyes: [pngegg](https://www.pngegg.com)](https://cdn-images-1.medium.com/max/5440/1*WKVcqB1XHjA5Fbdm-AQU-g.png)
+![小狗插图：[subpng](https://www.subpng.com/)，眼睛插图：[pngegg](https://www.pngegg.com)](https://cdn-images-1.medium.com/max/5440/1*WKVcqB1XHjA5Fbdm-AQU-g.png)
 
-**CSS transform** is the one of the most versatile and magical properties of CSS. Not only is it the best way to implement smooth animations on your website, but also you can do wonders with **CSS 3D transforms.**
-Like this one 🙀 —
+**CSS transform** 是 css 最全能，最神奇的属性之一。它不仅是在你的网站上实现平滑动画的最佳方式，更是你创造奇迹的一种方式。比如这个 🙀 —
 
-![CSS 3D Cube!](https://cdn-images-1.medium.com/max/2000/1*dFJEMRBc7vlHnLf_MYI0Iw.gif)
+![CSS 3D 立方体!](https://cdn-images-1.medium.com/max/2000/1*dFJEMRBc7vlHnLf_MYI0Iw.gif)
 
-> I apologize in advance for the several GIFs coming your way to eat your internet bandwidth, but I hope it’s worth it! 🤜🤛
+> 我先为这几个占了你的网络宽带的动图道歉，但我希望它是值得的！🤜🤛
 
-But wait, two of the cube’s sides are missing!!!
-I did that deliberately so that it would be easier to understand and visualize. I will add a link to the complete code for getting the above result at the end of the article!
+等下，这个立方体的两个面不见了！！！
 
-### First Things First — How does Translate Work?
+我是故意这么做的，这样就会更形象，也更容易理解。我会在文章末尾添加一个链接用于获取上面示例的完整代码！
 
-The `translate` method basically moves an HTML element from its actual position without messing with any other sibling/parent element on the layout tree. To summarize, the `translateX` method moves the element left and right, whereas the `translateY` method moves it up and down.
+### 先说最重要的，Translate 是如何工作的？
 
-![How translate works in X and Y axis](https://cdn-images-1.medium.com/max/3688/1*cq8Q9DGLScj3v038DnxjhQ.png)
+`translate` 方法主要是将一个 html 元素从它真实的位置上移动，而且不会干扰布局树上的其他兄弟或父级元素。简单来说，`translateX` 方法是将元素左右移动，而 `translateY` 是上下移动元素。
 
-### But What the Heck is the Z Axis?
+![translate 是如何使元素在 X 轴和 Y 轴中平移的](https://cdn-images-1.medium.com/max/3688/1*cq8Q9DGLScj3v038DnxjhQ.png)
 
-To visualize how `translate` works along the Z-axis, imagine your div moving towards and away from you instead of top-bottom or left-right in the screen —
+### 但 Z 轴是什么？
 
-![Translate along the Z axis](https://cdn-images-1.medium.com/max/4328/1*qXx6HIGzXvPZY4oO_4gEFQ.png)
+为了更形象地了解 `translate` 是如何沿着 Z 轴工作的，想象一下你的 `div` 在你的屏幕中前后移动而不是上下或左右。
 
-How is that possible? An website is viewed like a page of a book right? How can anything possibly come out of the screen towards you (or, go away from you)?
+![沿着 Z 轴平移](https://cdn-images-1.medium.com/max/4328/1*qXx6HIGzXvPZY4oO_4gEFQ.png)
 
-Your `div` obviously does not come out in real, it gives you a feeling that it does. Let’s check side by side how altering `translate` values look along different axes:
+这怎么可能？一个网站看上去就像是一本书中的一页纸，对吧？怎么可能会有东西从屏幕中跑出来向你靠近（或者远离你）？
+
+你的 `div` 当然不会真的跑出来，但它给你一种感觉好像它会。让我们一起看看沿着不同的轴修改 `translate` 的值会怎样。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lNQdNBsRYNzWduwKFCdR5w.gif)
 
-I don’t know about you, but the green box does not look like coming towards or going away from me. 👺
+我不知道你怎么想，但这个绿色的盒子看起来并不像是在靠近或者远离我。👺
 
-How do we solve this? We need to change our **perspective** a bit. 😉
+如何解决这个问题呢？我们需要改变一下我们的**视角**。😉
 
-### The CSS perspective property
+### CSS 的 perspective 属性
 
-You will not be able to visually detect changes in Z-axis without setting the right `perspective` value.
+如果不设置正确的 `perspective` 值，你无法在视觉上检测到 Z 轴的改变。
 
-> The `perspective` property defines how far the object is away from the user. So, a lower value will result in a more intensive 3D effect than a higher value.
+> `perspective` 属性定义元素与用户的距离。那么，相比于一个较高的值，一个较低的值产生的 3D 效果会更强烈。
 >
-> Source — [W3 Schools](https://www.w3schools.com/cssref/css3_pr_perspective.asp)
+> 来源 —— [W3 Schools](https://www.w3schools.com/cssref/css3_pr_perspective.asp)
 
-Let’s add the following CSS to the parent element of the three boxes —
+让我们给这三个方块的父元素加上下面的 CSS ——
 
 ![](https://cdn-images-1.medium.com/max/2724/1*ijVRelbthN6Ivuf5xDs7Iw.png)
 
-And, **voila:**
+**瞧：**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Go0arpobwsP4NtVYPRH4A.gif)
 
-### The Rotate Method
+### rotate 方法
 
-As the name suggests, `rotate` works by rotating the element along one of the three axes, given a degree. However, we will need a little visualization on how rotate works along different axes.
+顾名思义，`rotate` 根据一个给定的角度，沿着某一个轴旋转元素。但我们需要一点视觉效果来展示 `rotate` 是如何沿着不同的轴工作的。
 
-![Rotation in different axes without perspective](https://cdn-images-1.medium.com/max/2000/1*L06oWqkChV9deUNUVKrITw.gif)
+![在没有 perspective 的情况下沿着不同的轴旋转](https://cdn-images-1.medium.com/max/2000/1*L06oWqkChV9deUNUVKrITw.gif)
 
-![Rotation in different axes with perspective](https://cdn-images-1.medium.com/max/2000/1*nu1bM-wUxugvSsDj2H1ZSg.gif)
+![有 perspective 的情况下沿着不同的轴旋转](https://cdn-images-1.medium.com/max/2000/1*nu1bM-wUxugvSsDj2H1ZSg.gif)
 
-### The Cube
+### 立方体
 
-Let us finally start with the cube sides! We will have four faces — bottom, front, back and left:
+我们终于可以从立方体的面开始了！我们将有四个面 —— bottom，front，back，left：
 
 ![](https://cdn-images-1.medium.com/max/2388/1*q69vRRksjkM4M2xY0Meycg.png)
 
-I have added some CSS to the main wrapper of the cube as well.
+同样的，我为主要的包裹容器 `box-wrapper` 添加了一些 css。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*gSM7KPGdGmzmo5D-Jpr_UA.png)
 
-Note that I have added `transform-style: preserve-3d;` to the container. This is a crucial step for rendering 3D children. The size of each face is `200px`in width and height and we need to keep this value in mind as we will have to add `translate` values with respect to the dimensions of the sides.
+注意我为容器添加了 `transform-style: preserve-3d`，这是渲染 3D 子元素的一个重要步骤。每一个面的宽高都是 `200px`，我们需要记住这个值，因为我们将依据每一个面的尺寸为每个面添加 `translate` 值。
 
-For our cube, each face is going to be an absolute division and I have added text indicating which face it is. I have added `opacity: 0.5` for each face so that the overlap is clear:
+立方体的每一个面都将是一个绝对的划分，我添加了文字用于代表每一个面。我为每一个面添加了 `opacity: 0.5`，这样就能清楚地看到它们之间的重叠了。
 
 ![](https://cdn-images-1.medium.com/max/2236/1*iygD8k6WIHvobgQKUAc9Ww.png)
 
-To bring the front face to the front, we add `translateZ(100px)` to it.
+为了将 front 放到前面，我们为它添加 `translateZ(100px)`。
 
 ![](https://cdn-images-1.medium.com/max/2768/1*-URkuoY7VunPTDHgQzSqsA.png)
 
-Well, this is how it looks. 🙁
+对，看起来就像这样。🙁
 
-So how can we make this 3D-**ish**? Our knowledge of `perspective` comes handy here.
+那么我们怎么使它 3D **化**？我们的 `perspective` 知识在这里要派上用场了。
 
-Adding this CSS to our outer:
+添加这个 css 到包裹容器的父级元素 `box-container`：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*pB8EdPyeKJywcoUVkdNszw.png)
 
-Also, let us make our back-face go backwards. Hence, we will add the opposite of what we added to the front face.
+同样的，为了将 back 调后，我们将为它添加与 front 相反的 css。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*r1-jRUGjUW-8a0-ckLay_Q.png)
 
-**THE RESULT —**
+**效果 ——**
 
 ![](https://cdn-images-1.medium.com/max/2608/1*q6x7s9gLwwVf3WtIMaQYvg.png)
 
-Are you able to visualize the front face coming towards you and the back face (yellow one) going away? If it is still not visual enough, let us try rotating the cube wrapper a bit:
+你能够想象 front 向你靠近，back （黄色那个）离你远去吗？如果这仍然不足以描绘，那让我们试着把立方体的包裹容器旋转一下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jaSlx71f9SunHXIOxGdthg.gif)
 
-Amazing isn’t it?
+很奇妙，对吗？
 
-Next up, we need to fix the bottom face 💁‍♀️. To put the bottom face in place, we are going to rotate it by **90-degrees** along the X-axis:
+下一步，我们需要安顿 bottom 💁‍♀️，为了将 bottom 放到适当的位置，我们把他沿着 X 轴旋转 ** 90 度**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*icrwzzydWhtOKhj85QnO1A.gif)
 
-We have to move its position as well so that it sits just between the front and back face of the cube. What we can do is, move the bottom face in line with the front face and then rotate it. Sounds confusing?
+我们还需要移动它的位置使它能正好在立方体的 front 和 back 之间。我们可以做的是移动 bottom 使其与 front 一致，然后旋转它。听起来有点困惑对吗？
 
-**Step — 1: Aligning the bottom face with the front face**
-
-**CSS:**
-
-![Aligning the bottom face with front face](https://cdn-images-1.medium.com/max/2000/1*CBL0oCueX-bgBbVRJXC0dA.png)
-
-**Result:**
-
-![Aligning the bottom face with front face](https://cdn-images-1.medium.com/max/2000/1*xLD_mS8WsK3nzScd6tbwKw.gif)
-
-**Step — 2: Rotating bottom face by 90 degrees**
+**步骤 —— 1: 将 bottom 和 front 对齐**
 
 **CSS:**
 
-![Combining both rotate and translate for bottom face](https://cdn-images-1.medium.com/max/2152/1*LVmwdMV9BtJEZYP9u37pmw.png)
+![将 bottom 和 front 对齐](https://cdn-images-1.medium.com/max/2000/1*CBL0oCueX-bgBbVRJXC0dA.png)
+
+**效果:**
+
+![将 bottom 和 front 对齐](https://cdn-images-1.medium.com/max/2000/1*xLD_mS8WsK3nzScd6tbwKw.gif)
+
+**步骤 —— 2: 将 bottom 旋转 90 度**
+
+**CSS:**
+
+![将 bottom 的 translate 和 rotate 相结合](https://cdn-images-1.medium.com/max/2152/1*LVmwdMV9BtJEZYP9u37pmw.png)
 
 **Result:**
 
-![Combining both rotate and translate for bottom face](https://cdn-images-1.medium.com/max/2000/1*qsGQ7VjZngLZm9SoU8LuxA.gif)
+![将 bottom 的 translate 和 rotate 相结合](https://cdn-images-1.medium.com/max/2000/1*qsGQ7VjZngLZm9SoU8LuxA.gif)
 
-The bottom face is now safe and sound in its place. But the left face is kinda stuck in the middle. 🙍‍♀️ First, we need to move it to the side and then rotate it. Let’s move it by **-100px** on the X axis and then rotate it on the Y axis.
+bottom 看起来现在安全的在自己的位置上了。但 left 好像被困在了中间。🙍‍♀️ 首先我们需要将它移动到旁边然后旋转它。让我们把他沿着 X 轴移动 **-100px**，然后在 Y 轴上旋转它。
 
 **CSS:**
 
 ![](https://cdn-images-1.medium.com/max/2180/1*5RJvq7AM6mGD5zVVGoXM7w.png)
 
-**Result:**
+**效果:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WnnTtpzcd691KA2qO0b16w.gif)
 
-And **voila**! Our **almost cub**e is almost done. I would suggest you to play around with various values of translate and rotate in every axis and try adding the top and right axis to make a full cube.
+**看**！我们的**近似立方体**已经快完成了。我建议你在每一个轴上都尝试调整一下 translate 和 rotate 的值，尝试添加顶面和右面去做一个完整的立方体。
 
-Now, last but not the least, lets rotate our cube 😍
+现在，最后关键的一步，旋转我们的立方体 😍
 
 **CSS:**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VhF0Ltn-I8vLPhTc6xaj9A.png)
 
-Adding the above animation to our `box-wrapper` —
+将上面的动画添加到我们的 `box-wrapper` 上 ——
 
 ![](https://cdn-images-1.medium.com/max/2336/1*RbHF6_VStIc1nYnx5g_pog.png)
 
-And the result 🤜🤛:
+效果 🤜🤛:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OZ9tJyqDlJZ5NZhuRT1-wA.gif)
 
-Refer to [this repository](https://github.com/ankita1010/css-cube) for a working code of the same and play around because **CSS 3D** is a pool of magic. 💫
+相同的工作代码，参考[GitHub 仓库]](https://github.com/ankita1010/css-cube)，尝试体验一下 **CSS 3D** 这个魔法之池。💫
 
-> **Please note** — I have tweaked the perspective value and added animations to achieve final position of the side to illustrate the changes with more clarity. Also, I had rotated the `box-wrapper` a little so that the changes are most visible from the right angle.
 
-Cheers!
+> **请注意** —— 我调整了 perspective 的值，以及添加了一些动画来达到侧面的最终位置，以更清楚地展示变化。我稍微旋转了 `box-wrapper`，这样从正确的角度看更明显些。
+
+干杯！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -2,203 +2,203 @@
 > * 原文作者：[Sun-Li Beatteay](https://medium.com/@SunnyB)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-a-cache-stampede-caused-one-of-facebooks-biggest-outages.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-a-cache-stampede-caused-one-of-facebooks-biggest-outages.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[kamly](https://github.com/kamly)、[JalanJiang](https://github.com/JalanJiang)
 
-# How A Cache Stampede Caused One Of Facebook’s Biggest Outages
+# 缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的
 
-![Photo by [Susan Yin](https://unsplash.com/@syinq?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*FGGy038B4etUbHdm)
+![由 [Susan Yin](https://unsplash.com/@syinq) 上传至 [Unsplash](https://unsplash.com)(https://unsplash.com)](https://cdn-images-1.medium.com/max/10368/0*FGGy038B4etUbHdm)
 
-On September 23, 2010, Facebook had one of its most severe outages to date. The site was down for four hours. The situation was so drastic that the engineers had to take Facebook offline in order to recover.
+2010 年 9 月 23 日，Facebook 发生了迄今为止最严重的宕机事件之一。在这次事件中，Facebook 关闭了四个小时。情况如此严重，以至于工程师不得不让 Facebook 下线才能恢复。
 
-While Facebook wasn’t as gigantic as it is now, it still had over a billion users and its outage didn’t go unnoticed. People took to Twitter to either complain or jest about the situation.
+虽然 Facebook 那时候还没有现在那么庞大，但它仍然拥有超过 10 亿的用户，并且它的宕机并没有被忽视。人们只是在 Twitter 上抱怨或开玩笑这件事。
 
-![Image Credit: [https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7](https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7)](https://cdn-images-1.medium.com/max/2000/0*_-dYSO7eL_K9Qypi)
+![图片来源：[https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7](https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7)](https://cdn-images-1.medium.com/max/2000/0*_-dYSO7eL_K9Qypi)
 
-So, what actually caused Facebook to go down? [According to the public postmortem that followed the incident](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919):
+那么，究竟是什么导致了 Facebook 的停运呢？[根据事件发生后的官方分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
 
-> Today we made a change to the persistent copy of a configuration value that was interpreted as invalid. This meant that every single client saw the invalid value and attempted to fix it. Because the fix involves making a query to a cluster of databases, that cluster was quickly overwhelmed by hundreds of thousands of queries a second.
-
----
-
-A bad configuration change led to a swarm of requests being funneled to their databases. This stampede of requests is aptly known as a [**cache stampede**](https://en.wikipedia.org/wiki/Cache_stampede). It is a common issue that plagues the tech industry. It has lead to outages at many companies, such as the [Internet Archive](https://archive.org/index.php) in 2016. And many large scale applications fight it on a daily basis, such as Instagram and DoorDash.
-
-## What is a Cache Stampede?
-
-A cache stampede occurs when several threads attempt to access a cache in parallel. If the cached value doesn’t exist, the threads will then attempt to fetch the data from the origin at the same time. The origin is commonly a database but it can also be a web server, third-party API, or anything else that returns data.
-
-One of the main reasons why a cache stampede can be so devastating is because it can lead to a vicious failure loop:
-
-1. A substantial number of concurrent threads get a cache miss, leading to them all calling the database.
-2. The database crashes due to an enormous CPU spike and leads to timeout errors.
-3. Receiving the timeout, all the threads retry their requests — causing another stampede.
-4. On and on the cycle continues.
-
-You don’t need to be the scale of Facebook to suffer from it. It’s scale-agnostic, haunting both startups and tech giants alike.
+> 今天我们误改了一个配置。这意味着每个客户端都能看到这个错误配置并尝试修复它。由于修复操作涉及对数据库集群进行查询，因此该集群很快就被每秒数十万个查询所淹没。
 
 ---
 
-![Image Credit: [https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/2000/0*PYCftRvef9KfysGE.gif)
+错误的配置更改导致大量请求被传送到他们的数据库。这种请求踩踏被恰当地称为 [**缓存踩踏**](https://en.wikipedia.org/wiki/Cache_stampede)。这是困扰科技行业的一个普遍问题，它已经导致许多公司出现故障，例如 2016 年的 [Internet Archive](https://archive.org/index.php)。许多大型应用程序每天都在与它作斗争，如 Instagram 和 DoorDash 。
 
-## How Can You Prevent a Cache Stampede?
+## 什么是缓存踩踏？
 
-That’s an excellent question. That’s the question I asked myself after learning about the Facebook outage. Unsurprisingly, a lot of research has been put into preventing cache stampede since 2010. I read through all of it.
+当多个线程尝试并行访问一个缓存时，会发生缓存踩踏事件。如果缓存值不存在，线程将同时尝试从源获取数据。源通常是一个数据库，但也可以是 Web 服务器、第三方 API 或任何其他返回数据的东西。
 
----
+缓存踩踏之所以如此具有破坏性的主要原因之一是因为它可能导致恶性故障循环：
 
-In this article, we’re going to explore the different strategies for preventing and mitigating cache stampedes. After all, you don’t want to wait for your own outage to learn what safety measures exist.
+1. 大量并发线程缓存未命中，导致它们都请求数据库。
+2. 由于 CPU 峰值过大导致数据库崩溃，并且导致超时错误。
+3. 收到超时，所有线程重试他们的请求 —— 导致另一次踩踏。
+4. 循环往复。
 
-## Add More Caches
-
-A simple solution is to just add more caches. While it may seem counterintuitive, this is similar to how operating systems work.
-
-Operating systems make use of a [cache hierarchy](https://en.wikipedia.org/wiki/Cache_hierarchy) where each component caches its own data for faster access.
-
-![Operating system caches (Image Credit: [https://www.sciencedirect.com](https://www.sciencedirect.com/topics/computer-science/disks-and-data))](https://cdn-images-1.medium.com/max/2000/0*nhc5wYwVVERwqxlv.jpeg)
-
-You can adopt a similar pattern in your applications by incorporating in-memory caches, which can be called Layer 1 (L1) caches. Any remote caches would be considered Layer 2 (L2).
-
-![Image Credit: [https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b](https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b)](https://cdn-images-1.medium.com/max/2000/0*_uJf2mjpAbCLw9hp)
-
-This is particularly useful for preventing stampedes on frequently accessed data. Even if a key on the Layer 2 cache key expires, several of the Layer 1 caches may still have the value stored. This will limit the number of threads that need to recompute the cached value.
-
-However, there are some notable tradeoffs to this approach. Caching data in-memory on your application servers can lead to [out of memory](https://en.wikipedia.org/wiki/Out_of_memory) issues if you aren’t careful. Especially if you’re caching large amounts of data.
-
-Additionally, this caching strategy is still vulnerable to what I call the follower stampede.
-
-![Image Credit: [https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/3060/1*NBJp5l3dOMXcwNT7KCoZfg.gif)
-
-An example of a follower stampede is when a celebrity uploads a new photo or video to their social media account. When all of their followers are notified of the new content, they rush to view it. Since the content is so new, it hasn’t been cached yet, leading to the dreaded cache stampede.
+并不需要拥有 Facebook 那样规模的用户，你一样会遭其折磨。缓存踩踏与用户规模无关，因此它同时困扰着初创公司和科技巨头。
 
 ---
 
-So, what can we do about follower stampedes?
+![图片来源：[https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb. com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/2000/0*PYCftRvef9KfysGE.gif)
 
-## Locks and Promises
+## 如何防止缓存踩踏？
 
-At its core, a cache stampede is a race condition — multiple threads grappling over a shared resource. In this context, the shared resource is the cache.
-
-![Image Credit: [https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*KThIA3rqDvhQLXHp)
-
-As is common in highly concurrent systems, one way to prevent a race condition on a shared resource is to use locks**.** While locks are normally used for threads on the same machine, there are ways to use [distributed locks](https://redis.io/topics/distlock) for remote caches.
-
-By placing a lock on a cache key, only one caller will be able to access the cache at a time. If the key is missing or expired, the caller can then generate and cache the data, all while holding onto the lock. Any other processes that attempt to read from the same key will have to wait until the lock is free.
-
-![Image Credit: [https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/2000/0*7DqZBIsf7BByzB3q.gif)
-
-Using a lock solves the race condition problem, but it creates another one. How do you handle all of the threads that are waiting for the lock to free up?
-
-Do you use a [spinlock](https://en.wikipedia.org/wiki/Spinlock) pattern and have the threads continuously poll for the lock? This will create a [busy waiting](https://en.wikipedia.org/wiki/Busy_waiting) scenario.
-
-Do you have the threads sleep for an arbitrary amount of time before checking if the lock is free? Now you have the [thundering herd problem](https://en.wikipedia.org/wiki/Thundering_herd_problem) on your hands.
-
-Do you introduce [backoff and jitter](https://www.baeldung.com/resilience4j-backoff-jitter) to prevent a thundering herd? That could work, but there’s a more pervasive issue at hand. The thread with the lock has to recompute the value and update the cache key before releasing the lock.
-
-This process could take a while. Especially if the value is expensive to compute or there are network issues. This could still lead to an outage itself if the cache exhausts its available connection pool and user requests get dropped.
-
-Fortunately, there’s a simpler solution that some top engineering organizations are using: promises**.**
-
-#### How promises prevent spinlocks
-
-To quote **[Thundering Herds & Promises](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)** from Instagram’s engineering blog:
-
-> At Instagram, when turning up a new cluster we would run into a [cache stampede] problem as the cluster’s cache was empty. We then used promises to help solve this: **instead of caching the actual value, we cached a Promise that will eventually provide the value**. When we use our cache atomically and get a miss, instead of going immediately to the backend we create a Promise and insert it into the cache. This new Promise then starts the work against the backend. The benefit this provides is other concurrent requests will not miss as they’ll find the existing Promise — and all these simultaneous workers will wait on the single backend request.
-
-![Image Credit: [https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*I28DPoMELLUV4QWN)
-
-By caching promises instead of the actual values, no spin locking is needed. The first thread to get a cache miss will create and cache an asynchronous promise using an atomic operation (such as Java’s [`computeIfAbsent`](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html#computeIfAbsent-K-java.util.function.Function-)). All sequential fetch requests will immediately return the promise.
-
-You would still need to use a lock to prevent multiple threads from accessing the cache key. But assuming that creating a promise is a near-instantaneous operation, the length of time threads stay in a spinlock is negligible.
-
-[This is exactly how DoorDash avoids cache stampedes](https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b).
-
-But what if it takes a relatively long time to recompute the cached value? Even if the threads are able to fetch the cached promise immediately, they will still need to wait for the asynchronous process to finish before returning a value.
+这是一个很好的问题，也是在我了解 Facebook 宕机后询问自己的问题。不出所料，自 2010 年以来，开发者们已经进行了大量防止缓存踩踏的研究。我通读了所有的这些研究。
 
 ---
 
-While this scenario might not necessarily count as an outage, it will impact tail latency and the overall user experience. If keeping tail latency low is important for your application, then there is another strategy to consider.
+在本文中，我们将探讨防止和减轻缓存踩踏的不同策略。毕竟，我们可不想亡羊补牢。
 
-## Early Recomputation
+## 添加更多缓存
 
-The idea behind early recomputation (also known as early expiration) is simple. Before the official expiration of a cache key occurs, the value is recomputed and the expiration is extended. This ensures that the cache is always up-to-date and that cache misses never occur.
+一个简单的解决方案是添加更多缓存。虽然这似乎违反直觉，但这与操作系统的工作方式类似。
 
-The simplest implementation of early recomputation is a background process or cron job. For example, let’s say there’s a cache key whose time-to-live (TTL) expires in an hour and it takes two minutes to compute the value. A cron job could run five minutes before the end of the hour, and extend the TTL another hour after updating.
+操作系统采用了 [缓存层次结构](https://en.wikipedia.org/wiki/Cache_hierarchy)，其中每个组件都缓存自己的数据，因此访问速度被加快。
 
-While this idea is simple in theory, there’s a glaring drawback. Unless you know exactly which cache keys will be used, you will need to recompute every key in the cache. This can be a very laborious and costly process. It also requires maintaining another moving part with no easy recourse if it fails.
+![操作系统缓存（图片来源：[https://www.sciencedirect.com](https://www.sciencedirect.com/topics/computer-science/disks-and-data)）](http://cdn-images-1.medium.com/max/2000/0*nhc5wYwVVERwqxlv.jpeg)
 
-For these reasons, I wasn’t able to find any example of this sort of early recomputation in a production setting. But there’s a kind that **is** used.
+我们可以在我们的应用程序中通过合并内存缓存（第 1 层（L1）缓存）采用类似的模式。任何远程缓存都将被视为第 2 层（L2）。
 
-#### Probabilistic early recomputation
+！[图片来源：[https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b](https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash -55bbf596d94b)](https://cdn-images-1.medium.com/max/2000/0*_uJf2mjpAbCLw9hp)
 
-In 2015, a group of researchers published a whitepaper called [Optimal Probabilistic Cache Stampede Prevention](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf). In it, they describe an algorithm for optimally predicting when to recompute a cache value before its expiration.
+这对于防止频繁访问数据时发生踩踏事件特别有用。即使第 2 层缓存上的键过期，一些第 1 层缓存可能仍存储该值。这将限制需要重新计算缓存值的线程数。
 
-There’s a lot of math theory in the research paper, but the algorithm boils down to this:
+但是，这种方法有一些方面需要注意权衡。如果您不小心，在应用程序服务器上缓存内存中的数据可能会导致 [内存不足](https://en.wikipedia.org/wiki/Out_of_memory) 问题，尤其是在缓存大量数据时。
 
-```
+此外，这种缓存策略仍然容易受到我所说的追随者踩踏的影响。
+
+![图片来源：[https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/3060/1*NBJp5l3dOMXcwNT7KCoZfg.gif)
+
+追随者踩踏的一个例子是当名人将新照片或视频上传到他们的社交媒体帐户。当所有关注者都收到新内容的通知时，他们会争先恐后地查看。由于内容太新，还没有被缓存，就会导致可怕的缓存踩踏事件。
+
+---
+
+那么，对于追随者踩踏事件，我们能做些什么呢？
+
+## 锁 和 Promise
+
+从本质上讲，缓存踩踏是一种竞争状态 —— 多个线程争夺共享资源。在这种情况下，共享的资源是缓存。
+
+![图片来源：[https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*KThIA3rqDvhQLXHp)
+
+在高并发系统中很常见，一种防止共享资源竞争条件的方法是使用**锁**。虽然锁通常用于同一台机器上的线程，但也有一些方法可以使用 [分布式锁](https://redis.io/topics/distlock) 用于远程缓存。
+
+通过在缓存键上加锁，限制一次只有一个调用者能够访问缓存。如果缓存键丢失或过期，调用者就可以生成并缓存数据，同时持有锁。任何其他尝试从同一个缓存键读取的进程都必须等到锁空闲。
+
+![图片来源：[https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb. com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/2000/0*7DqZBIsf7BByzB3q.gif)
+
+使用锁解决了竞争状态问题，但它会产生另一个问题。你如何处理所有等待锁释放的线程？
+
+不知道你是否使用过 [自旋锁](https://en.wikipedia.org/wiki/Spinlock) 模式并让线程不断轮询锁？这将创建一个 [忙等待](https://en.wikipedia.org/wiki/Busy_waiting) 场景。
+
+在检查锁是否空闲之前，你是否让线程休眠了任意时间？这样你就会遇到 [惊群效应问题](https://en.wikipedia.org/wiki/Thundering_herd_problem)。
+
+你是否引入了 [退避和抖动机制](https://www.baeldung.com/resilience4j-backoff-jitter) 以防止惊群效应问题？这可能有效，但还有一个更普遍的问题。拥有锁的线程必须在释放锁之前重新计算值并更新缓存键。
+
+这个过程可能需要一段时间。特别是如果该值的计算成本很高或存在网络问题。如果缓存耗尽其可用连接池并且用户请求被丢弃，这仍然可能导致宕机。
+
+幸运的是，一些顶级公司正在使用一种更简单的解决方案：**Promise**。
+
+#### Promise 如何防止自旋锁
+
+引用 **[惊群效应问题与 Promise](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)** 来自 Instagram 的工程博客：
+
+> 在 Instagram 上，当建立一个新集群时，我们会遇到**缓存踩踏**问题，因为集群的缓存是空的。然后我们使用 Promise 来帮助解决这个问题：**我们没有缓存实际值，而是缓存了一个最终会提供值的 Promise**。当我们以原子方式使用我们的缓存并出现未命中时，我们不会立即进入后端，而是会创建一个 Promise 并将其插入缓存中。然后这个新的 Promise 开始针对后端的工作。这样做的好处是其他并发请求不会错过，因为它们会找到现有的 Promise —— 并且所有这些并发工作人员将等待单个后端请求。
+
+![图片来源：[https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*I28DPoMELLUV4QWN)
+
+通过缓存 Promise 而不是实际值，不需要自旋锁。获取缓存未命中的第一个线程将使用原子操作（例如 Java 的 [`computeIfAbsent`](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html#computeIfAbsent-K-java.util.function.Function-)）。所有顺序获取请求将立即返回 Promise 。
+
+我们仍然需要使用锁来防止多个线程访问缓存键。但是假设创建一个 Promise 是一个近乎即时的操作，线程在自旋锁中停留的时间长度可以忽略不计。
+
+[这正是 DoorDash 避免缓存踩踏的方式](https://medium.com/@DoorDash/avoiding-cache-stampede-at-doordash-55bbf596d94b)。
+
+但是如果重新计算缓存值需要相对较长的时间呢？即使线程能够立即获取缓存的 Promise，它们仍然需要等待异步进程完成才能返回值。
+
+---
+
+虽然这种情况不一定算作中断，但它会影响尾部延迟和整体用户体验。如果保持较低的尾部延迟对您的应用程序很重要，那么还有另一种策略需要考虑。
+
+## 提前重新计算
+
+提前重新计算（Early Re-Computation，也称为提前到期 Early Expiration）背后的想法很简单。在缓存键正式过期之前，重新计算值并延长过期时间。这确保缓存始终是最新的，并且永远不会发生缓存未命中。
+
+早期重新计算的最简单实现是后台进程或定时任务。例如，假设有一个缓存键，其过期时间在一小时内到期，计算该值需要两分钟。定时任务可以在一个小时结束前运行五分钟，并在更新后将过期时间再延长一个小时。
+
+虽然这个想法在理论上很简单，但有一个明显的缺点。除非我们确切知道将使用哪些缓存键，否则我们需要重新计算缓存中的每个键。这可能是一个非常费力且成本高昂的过程。它还需要维护另一个活动部件，如果出现故障，则无法轻松追索。
+
+由于这些原因，我无法在生产环境中找到任何此类早期重新计算的示例。但是也有例外。
+
+#### 概率早期重新计算
+
+2015 年，一组研究人员发表了名为 「Optimal Probabilistic Cache Stampede Prevention」 的 [白皮书](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf)。在其中，他们描述了一种算法，用于优化预测何时在缓存过期之前重新计算缓存值。
+
+研究论文中有很多数学理论，但算法归结为：
+
+```javascript
 currentTime - ( timeToCompute * beta * log(rand()) ) > expiry
 ```
 
-* `currentTime` is the current timestamp.
-* `timeToCompute` is the time it takes to recompute the cached value.
-* `beta` is a non-negative value greater than 0. It defaults to 1 but is configurable.
-* `rand()` is a function that returns a random number between 0 and 1.
-* `expiry` is the future timestamp of when the cached value is set to expire.
+* `currentTime` 是当前时间戳。
+* `timeToCompute` 是重新计算缓存值所需的时间。
+* `beta` 是一个大于 0 的非负值。它默认为 1，但可以配置。
+* `rand()` 是一个返回 0 到 1 之间随机数的函数。
+* `expiry` 是缓存值设置为过期的未来时间戳。
 
-The idea is that every time a thread fetches from the cache, it runs this algorithm. If it returns true, then that thread will volunteer to recompute the value. The odds of this algorithm returning true dramatically increase the closer you are to the expiration time.
+这个想法是每次线程从缓存中获取时，它都会运行这个算法。如果它返回 `true`，那么该线程将自愿重新计算该值。越接近到期时间，此算法返回 `true` 的几率就会显着增加。
 
-While this strategy isn’t the easiest to understand, it’s fairly straightforward to implement and doesn’t require any additional moving parts. It also doesn’t require recomputing every value in the cache.
+虽然这个策略不是最容易理解的，但它实施起来相当简单，不需要任何额外的移动部件。它也不需要重新计算缓存中的每个值。
 
-The [Internet Archive](https://archive.org/index.php) began using this method after an outage during one of the 2016 presidential debates. This [presentation from RedisConf17](https://www.youtube.com/watch?v=1sKn4gWesTw) goes more into the story and gives an excellent overview of how probabilistic early recomputation works. I **highly** recommend [giving it a watch](https://youtu.be/1sKn4gWesTw)
-
----
-
-However, early recomputation assumes there’s a value to recompute — it won’t prevent a follower stampede on its own. For that, you would need to combine it with locks and promises.
-
-## How to Stop a Stampede That’s Ongoing
-
-One of the reasons why Facebook’s cache stampede was so devastating was that even when the engineers found a solution, they couldn’t deploy it because the stampede was still ongoing.
-
-From the [postmortem](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919):
-
-> To make matters worse, every time a client got an error attempting to query one of the databases it interpreted it as an invalid value, and deleted the corresponding cache key. This meant that even after the original problem had been fixed, the stream of queries continued. As long as the databases failed to service some of the requests, they were causing even more requests to themselves. We had entered a feedback loop that didn’t allow the databases to recover.
-
-The reality is that there’s no guarantee that prevention will always work. You also need mitigation. [Defensive programming](https://en.wikipedia.org/wiki/Defensive_programming) dictates that a plan should be in place in case a stampede bypasses your barriers.
-
-Luckily, there’s a known pattern for dealing with this.
-
-#### Circuit breaking
-
-The idea of a circuit breaker in programming isn’t new. It gained popularity after Michael Nygard published [**Release It!**](https://www.amazon.com/gp/product/0978739213) in 2007. As Martin Fowler writes in his article **[CircuitBreaker](https://www.martinfowler.com/bliki/CircuitBreaker.html):**
-
-> The basic idea behind the circuit breaker is very simple. You wrap a protected function call in a circuit breaker object, which monitors for failures. Once the failures reach a certain threshold, the circuit breaker trips, and all further calls to the circuit breaker return with an error, without the protected call being made at all.
-
-![Image Credit: [https://www.martinfowler.com/bliki/CircuitBreaker.html](https://www.martinfowler.com/bliki/CircuitBreaker.html)](https://cdn-images-1.medium.com/max/2000/0*2Jn_bNJ6Vh2-Lwla.png)
-
-Circuit breakers are reactive, meaning they won’t prevent an outage. But they will prevent cascading failures. It provides a kill switch for when things get out of hand. Had Facebook utilized circuit breakers, they could have avoided having to take the entire site offline.
+[互联网档案馆](https://archive.org/index.php) 在 2016 年总统辩论的一次宕机后开始使用这种方法。这个 [RedisConf17 的演讲](https://www.youtube.com/watch?v=1sKn4gWesTw) 更深入地讲述了这个故事，并很好地概述了概率早期重新计算的工作原理。我**强烈**推荐[看看这个视频](https://youtu.be/1sKn4gWesTw)
 
 ---
 
-Granted, circuit breakers weren’t as popular in 2010. Nowadays, there are several libraries that come with circuit breaking baked in, such as [Resilience4j](https://resilience4j.readme.io/), [Istio](https://istio.io/), and [Envoy](https://www.envoyproxy.io/). Several organizations use these services in production, such as [Netflix](https://netflixtechblog.com/making-the-netflix-api-more-resilient-a8ec62159c2d) and [Lyft](https://www.getambassador.io/resources/mechanics-deploying-envoy-lyft-matt-klein/).
+然而，早期重新计算假设有重新计算的价值 —— 它不会单独阻止追随者踩踏。为此，我们需要将它与锁和 Promise 结合起来。
 
-## What Lessons Did Facebook Learn?
+## 如何阻止正在进行的踩踏事件
 
-I’ve talked a lot in this article about different strategies for addressing cache stampedes and how other tech companies are using them. But what about Facebook itself?
+Facebook 的缓存踩踏事件如此具有破坏性的原因之一是，即使工程师找到了解决方案，他们也无法部署它，因为踩踏事件仍在继续。
 
-What lessons did they take away from their outage and what safeguards did they put in place to prevent it from happening again?
+来自 [事后分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
 
-Their engineering post, [**Under the hood: Broadcasting live video to millions**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/), discusses the improvements they’ve made to their architecture. It discusses things we’ve gone over, such as cache hierarchies, but it also includes some novel approaches, such as HTTP request coalescing. The article is worth a read, but if you’re short on time, this [video gives a thorough overview](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0).
+> 更糟糕的是，每次客户端在尝试查询其中一个数据库时出错，它都会将其解释为无效值，并删除相应的缓存键。这意味着即使在解决了原始问题之后，查询流仍在继续。只要数据库无法为某些请求提供服务，它们就会对自己造成更多请求。我们进入了一个不允许数据库恢复的反馈循环。
 
-Suffice it to say that Facebook has learned from their past mistakes.
+现实情况是，无法保证预防永远有效 —— 我们还需要缓解。[防御性编程](https://en.wikipedia.org/wiki/Defensive_programming) 规定应该制定一个计划，以防踩踏事件绕过我们设置的限制。
+
+幸运的是，有一个已知的模式来处理这个问题。
+
+#### 熔断器
+
+在编程中使用熔断器的想法并不新鲜。在 Michael Nygard 于 2007 年发表 [**Release It!**](https://www.amazon.com/gp/product/0978739213) 后，它开始流行。正如 Martin Fowler 在他的文章 **[CircuitBreaker](https://www.martinfowler.com/bliki/CircuitBreaker.html)** 所写的那样：
+
+> 熔断器背后的基本思想非常简单。您将受保护的函数调用包装在熔断器对象中，该对象监视故障。一旦故障达到某个阈值，熔断器就会熔断，并且所有对熔断器的进一步调用都会返回错误，而不会调用到受到熔断器保护的地方。
+
+![图片来源：[https://www.martinfowler.com/bliki/CircuitBreaker.html](https://www.martinfowler.com/bliki/CircuitBreaker.html)](https://cdn-images-1.medium.com/max/2000/0*2Jn_bNJ6Vh2-Lwla.png)
+
+熔断器是被动的，这意味着它们不会阻止宕机，但它们将防止级联故障。当事情失控时，它提供了一个终止开关。如果 Facebook 使用熔断器，他们本可以避免让整个网站脱机。
 
 ---
 
-![Image Credit: [https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/3076/1*8aT7_UKqYmXxdEkoMZBx4g.gif)
+诚然，熔断器在 2010 年并不那么流行。如今，有几个带有熔断器的库，例如 [Resilience4j](https://resilience4j.readme.io/)、[Istio](https://istio.io/) 和 [Envoy](https://www.envoyproxy.io/)。一些组织在生产中使用这些服务，例如 [Netflix](https://netflixtechblog.com/making-the-netflix-api-more-resilient-a8ec62159c2d) 和 [Lyft](https://www.getambassador.io /resources/mechanics-deploying-envoy-lyft-matt-klein/）。
 
-## Parting Thoughts
+## Facebook 买来了什么教训？
 
-While I believe that understanding how cache stampedes can wreak havoc on a system, I don’t believe every tech team must add these measures immediately. How you choose to handle cache stampedes will depend on your use case, architecture, and traffic load.
+我在这篇文章中谈了很多关于解决缓存踩踏的不同策略以及其他科技公司如何使用它们。但是 Facebook 本身呢？
 
-But being aware of cache stampedes and knowledgeable of the possible solutions will benefit you in the future if and when you find yourself battling a thundering herd of your own.
+他们从故障中吸取了哪些教训，他们采取了哪些保护措施来防止再次发生这种情况？
+
+他们的工程帖子，[**幕后：向数百万人广播直播视频**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)，讨论他们对架构所做的改进。它讨论了我们已经讨论过的内容，例如缓存层次结构，但也包括一些新颖的方法，例如 HTTP 请求合并。这篇文章值得一读，但如果你时间不够，这个 [视频提供了一个全面的概述](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0)。
+
+可以说 Facebook 从他们过去的错误中吸取了教训。
+
+---
+
+![图片来源：[https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/](https://engineering.fb. com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)](https://cdn-images-1.medium.com/max/3076/1*8aT7_UKqYmXxdEkoMZBx4g.gif)
+
+## 部分感想
+
+虽然我相信了解缓存踩踏事件如何对系统造成严重破坏，但我不认为每个技术团队都必须立即添加这些措施。我们选择如何处理缓存踩踏将取决于我们项目的用例、架构和流量负载。
+
+但是，当我们发现自己正在与惊群效应问题作斗争，那么了解缓存踩踏事件并了解可能的解决方案将使我们在未来受益。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

@@ -1,3 +1,8 @@
+* [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
+* [对角线分割的圆锥渐变式可变纵横比卡片](https://juejin.cn/post/6986531351184801829)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [使用 Husky 和 Hooks 保证 JavaScript 代码质量](https://juejin.cn/post/6983443137041530887)（[Usualminds](https://github.com/Usualminds) 翻译）
 * [让 JavaScript 在 WebAssembly 上疾速运行](https://juejin.cn/post/6981685894470172679)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [React 18 中新的 Suspense SSR 架构](https://juejin.cn/post/6982010092258328583)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
