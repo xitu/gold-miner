@@ -2,72 +2,72 @@
 > * 原文作者：[Charuka Herath](https://medium.com/@charuka95)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-bloc-pattern-with-react.md)
-> * 译者：
-> * 校对者：
+> * 译者：[flashhu](https://github.com/flashhu)
+> * 校对者：[jaredliw](https://github.com/jaredliw)，[Tong-H](https://github.com/Tong-H)
 
-# Using BLoC Pattern with React
+# 在 React 中使用 BLoC 模式
 
 ![](https://cdn-images-1.medium.com/max/5760/1*_x7UbeBdjCqJd3oA5ADpUg.jpeg)
 
-Initially, the Business Logic Component (BLoC) pattern was introduced by Google as a solution to handle states in Flutter applications. It allows you to reduce the workload on UI components by separating the business logic from them.
+最初，BLoC 模式 （Business Logic Component）由谷歌提出，作为 Flutter 应用中状态管理的解决方案。它能将业务逻辑从 UI 组件中分离，以此减轻 UI 组件的负担。
 
-Over time, other frameworks also started to support the BLoC pattern. And, in this article, I will discuss how we can use this BLoC pattern with React.
+随时间的推移，其他框架也开始支持 BLoC 模式。本文将探讨我们该如何在 React 中使用 BLoC 模式。
 
-## Benefits of Using BLoC Pattern with React
+## 在 React 中使用 BLoC 模式的好处
 
-![BLOC architecture diagram](https://cdn-images-1.medium.com/max/5760/1*BaiP-jhLnxgXA1XSU8YY_A.jpeg)
+![BLOC 架构图](https://cdn-images-1.medium.com/max/5760/1*BaiP-jhLnxgXA1XSU8YY_A.jpeg)
 
-The concept behind the BLoC pattern is straightforward. As you can see in the above figure, business logic will be separated from UI components. First, they will send events to the BLoC using an observer. And then, after processing the request, UI components will be notified by the BLoC using observables**.**
+BLoC 模式背后的含义与名字所表达的一致。如上图所示，业务逻辑将会从 UI 组件中分离。首先，它们会通过一个观察者（observer）向 BLoC 发送事件。接着，在处理完请求后，BLoC 借助观察项（observable）通知 UI 组件。
 
-So, let’s look at the advantages of this approach in detail.
+让我们具体看看这种模式的优点。
 
-### 1. Flexibility to update application logic
+### 1. 更新应用逻辑的灵活性
 
-When the business logic is standalone from UI components, the impact on the application will be minimum. You will be able to change the business logic any time you want without affecting the UI components.
+当业务逻辑独立于 UI 组件时，对应用的影响将是最小的。你将能在任何时候修改业务逻辑而不会影响 UI 组件。
 
-### 2. Reuse logic
+### 2. 复用逻辑
 
-Since the business logic is in one place, UI components can reuse logic without duplicating the code so that the simplicity of the app will increase.
+由于业务逻辑写在一个地方，UI 组件能复用逻辑，不需要再复制代码，从而提高程序的简洁程度。
 
-### 3. Ease of testing
+### 3. 测试的便利性
 
-When writing test cases, developers can focus on the BLoC itself. So the code base is not going to be messed up.
+当编写测试用例时，开发者可以关注 BLoC 本身。所以代码库将不会被弄乱。
 
-### 4. Scalability
+### 4. 可扩展性
 
-Over time, application requirements may change, and business logic can keep growing. In such situations, developers can even create multiple BLoCs to maintain the clarity of the codebase.
+随时间的推移，产品需求可能会改变，业务逻辑也随之增长。在这样的情况下，开发者甚至可以创建多个 BLoC 来保持代码的清晰性。
 
-Moreover, BLoC patterns are platform and environment independent so that developers can use the same BLoC pattern in many projects.
+此外，BLoC 模式是独立于平台和环境的，因此开发者可以在许多项目中使用相同的 BLoC 模式。
 
-## Concept into Practice
+## 将概念投入实践
 
-Let’s build a small counter app to demonstrate the usage of the BLoC pattern.
+让我们构建一个小型计数程序来演示如何使用 BLoC 模式。
 
-### Step 01: Create a React application and structure it.
+### 第一步：创建 React 应用并初始化结构
 
-First, we need to start by setting up a React app. I will name it bloc-counter-app. Also, I will be using `rxjs` as well.
+首先，我们需要新建 React 应用。我将它命名为 `bloc-counter-app`。此外，我将使用 `rxjs`。
 
 ```bash
-// Create React app
+// 新建 React 应用
 npx create-react-app bloc-counter-app
 
-// Install rxjs
+// 安装 rxjs
 yarn add rxjs
 ```
 
-Then you need to remove all unnecessary code and structure the application as follows.
+然后，你需要移除所有不必要的代码，按下图所示调整文件结构。
 
-* Blocs — Keep all the bloc classes we need.
-* Components — Keep the UI components.
-* Utils — Keep utility files of the project.
+* Blocs — 存放我们需要的 bloc 类
+* Components — 存放 UI 组件
+* Utils — 存放项目的实用类文件
 
-![Solder Structure](https://cdn-images-1.medium.com/max/2000/1*NGsidZ0MP3iREtYL1mDHUg.png)
+![文件结构](https://cdn-images-1.medium.com/max/2000/1*NGsidZ0MP3iREtYL1mDHUg.png)
 
-### Step 02: Implementation of the BLoC.
+### 第二步：实现 BLoC
 
-Now, let’s implement the BLoC class. The BLoC class will be responsible for implementing all subjects related to business logic. In this example, it is responsible for the counter logic.
+现在，让我们来实现 BLoC 类。BLoC 类将负责实现和业务逻辑相关的所有 `subject`。在本例中，它负责实现计数逻辑。
 
-So, I have created a file named `CounterBloc.js` inside the bloc directory and used a pipe to pass the counter to the UI components.
+因此，我在 blocs 文件夹中创建了文件 `CounterBloc.js`，并使用 `subject` 上的 `pipe` 方法将计数器传递给 UI 组件。
 
 ```JavaScript
 import { Subject } from 'rxjs';
@@ -96,11 +96,11 @@ export default class CounterBloc {
 }
 ```
 
-As you can see, there is simple logic in this class. However, when an app grows in size, imagine the complexity if we do not separate the business logic.
+正如你看到的，在这个类中有一些简单的逻辑。然而，当应用的规模不断增长，如果我们不分离业务逻辑，那时的应用可以想象有多复杂。
 
-### Step 03: Adding more beauty to the BLoC by an intermediate class.
+### 第三步：增加中间类让代码更优雅
 
-In this step, I will create the `StreamBuilder.js` inside the utils directory to handle the counter request from the UI. Moreover, developers can handle errors and implement customer handlers within this.
+在这一步，我将在 utils 文件夹中创建了文件 `StreamBuilder.js`，用来处理来自 UI 组件的计数请求。此外，开发者能在这里处理错误，实现自定义处理函数。
 
 ```JavaScript
 class AsyncSnapshot {
@@ -129,7 +129,7 @@ class AsyncSnapshot {
 }
 ```
 
-In the `AsyncSnapshot` class, we can initialize a constructor, handle our data (check availability, etc. ), and handle errors. But in this example, I have only returned the data for ease of demonstration.
+在 `AsyncSnapshot` 类中，我们可以初始化构造函数，处理数据（检查可用性等）以及处理错误。但是在本例中，为了方便演示，我只返回了数据。
 
 ```JavaScript
 class StreamBuilder extends Component {
@@ -157,7 +157,7 @@ class StreamBuilder extends Component {
 }
 ```
 
-The initial data is passed into `AysncSnapshot` class and stored in the snapshot state for each subscription. Then it will get rendered in the UI components.
+初始数据被传入 `AysncSnapshot`  类，并存储在每个订阅的快照（`snapshot`）状态中。然后它将渲染到 UI 组件内。
 
 ```JavaScript
 import { Component } from 'react';
@@ -199,13 +199,13 @@ export default StreamBuilder;
 
 ```
 
-> **Note:** Ensure to unsubscribe from all the observables and dispose of the BLoCs upon unmounting UI components.
+> **注意**： 确保在卸载 UI 组件时，取消订阅所有观察项（observable）并处理 BLoC。
 
-### Step 04: Implementing UI components.
+### 第四步：实现 UI 组件
 
-As you can see now, `increase()` and `decrease()` methods are called directly within the UI component. However, output data is handle by a stream builder.
+正如你所见， `increase()` 和 `decrease()` 方法在 UI 组件中被直接调用。然而，输出的数据由流构建器处理（stream builder）。
 
-> It is better to have an intermediate layer to implement custom handlers to handle errors.
+> 最好由中间层实现自定义处理函数来处理错误。
 
 ```JavaScript
 import { Fragment } from 'react';
@@ -230,7 +230,7 @@ const Counter = ({ bloc }) => (
 export default Counter;
 ```
 
-In the `app.js` file, the BLoC is initialized using the `CounterBloc` class. Thus, the `Counter` component is used by passing the BLoC as a prop.
+在 `app.js` 文件中，BLoC 使用 `CounterBloc` 类进行初始化。因此，在使用时，`Counter` 组件接收 BLoC 作为 props。
 
 ```JavaScript
 import React, { Component } from 'react';
@@ -254,21 +254,21 @@ class App extends Component {
 export default App;
 ```
 
-That’s it. Now you can treat your business logic as a separate entity outside your UI components and change it as you need.
+就是这样。现在，你可以将业务逻辑视为 UI 组件外的独立实体，并根据你的需要进行修改。
 
-To use and improve this example app please refer to the project [repository](https://github.com/Charuka09/react-counter-bloc) and do not forget to make a PR. 😃
+如果想使用或改进这个示例应用，请参考[项目仓库](https://github.com/Charuka09/react-counter-bloc)，不要忘记提 PR。😃
 
-## Final Thoughts
+## 最后的想法
 
-Based on my experience, the BLoC pattern could become an overhead for small-scale projects.
+根据我的经验，BLoC 模式能变为小型项目的常用方案。
 
-> But, as the project grows, using BLoC patterns helps to build modular applications.
+> 但是，随着项目发展，使用 BLoC 模式有助于构建模块化应用。
 
-Also, you must have a basic understanding of rxjs and how observables work to implement the BLoC pattern for your React projects.
+另外，你必须对 rxjs 有一定的基本了解，并理解在 React 项目中实现 BLoC 模式的过程中，观察项（observable）是如何工作的。
 
-So, I invite you to try out BLoC pattern and share your thoughts in the comment section.
+因此，我邀请你尝试使用 BLoC 模式，并在评论区分享你的想法。
 
-Thank you for Reading !!!
+非常感谢你的阅读！！！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
