@@ -65,9 +65,9 @@ yarn add rxjs
 
 ### 第二步：实现 BLoC
 
-现在，让我们来实现 BLoC 类。BLoC 类将负责实现和业务逻辑相关的所有主题。在本例中，它负责实现计数逻辑。
+现在，让我们来实现 BLoC 类。BLoC 类将负责实现和业务逻辑相关的所有 `subject`。在本例中，它负责实现计数逻辑。
 
-因此，我在 blocs 文件夹中创建了文件 `CounterBloc.js`，并使用一管道（`pipe`）将计数器传递给 UI 组件。
+因此，我在 blocs 文件夹中创建了文件 `CounterBloc.js`，并使用 `subject` 上的 `pipe` 方法将计数器传递给 UI 组件。
 
 ```JavaScript
 import { Subject } from 'rxjs';
