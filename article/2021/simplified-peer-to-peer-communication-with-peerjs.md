@@ -226,7 +226,7 @@ return (
   );
 ```
 
-就是这样了！现在，一个快速视频聊天已经全部设置好了。最后的成果看起来像这样，你可以在我的 GitHub [仓库](https://github.com/Dulanka-K/video-chat)找到完整的代码。
+就这样！现在，一个快速视频聊天已经全部设置好了。最后的成果看起来像这样，你可以在我的 GitHub [仓库](https://github.com/Dulanka-K/video-chat)找到完整的代码。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*G48OkV0QlFvETj2zqDuqIw.gif)
 
