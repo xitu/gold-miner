@@ -31,7 +31,7 @@ PeerJS 提供一个完整的、可配置的点对点连接的 API， 以及一�
 
 ## 使用 PeerJS 和 React 搭建你的第一个聊天室
 
-### 步骤 1 - 安装 PeerJS
+### 步骤 1 —— 安装 PeerJS
 
 首先，我们需要将 PeerJS 作为一个 node module 安装在你的项目中，并将 [peer](https://www.npmjs.com/package/peer) 作为全局依赖。
 
