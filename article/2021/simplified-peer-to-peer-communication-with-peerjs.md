@@ -15,7 +15,7 @@
 
 ## PeerJS 是如何简化 WebRTC 的？
 
-当在 web 应用中涉及到实时 P2P 通信时，WebRTC 是许多开发者使用的标准。但它包含一些复杂性：
+当在 web 应用中涉及到实时 P2P 通信时，WebRTC 是许多开发者的使用标准。但它包含一些复杂性：
 
 * 如果你使用纯 WebRTC，首先你要定义一个 STUN（Session Traversal Utilities for NAT）服务为通讯中涉及到的每一个节点生成 ICE（Interactive Connectivity Establishment）协议候选者。
 * 然后你需要将这些 ICE 协议候选者的详情存储在你的服务中。
