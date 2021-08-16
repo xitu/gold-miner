@@ -232,7 +232,7 @@ return (
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0epo9iaN7-wx39_FkRTBCw.gif)
 
-> **注意：** 在不是 HTTPS 的连接的情况下，一些浏览器（尤其是手机浏览器）可能不允许使用相机和麦克风。你可以参考这篇[文章](https://blog.bitsrc.io/using-https-for-local-development-for-react-angular-and-node-fdfaf69693cd)，通过几个步骤设置一个本地 HTTPS 连接。
+> **注意**：在不是 HTTPS 连接的情况下，一些浏览器（尤其是手机浏览器）可能不允许使用相机和麦克风。你可以参考这篇[文章](https://blog.bitsrc.io/using-https-for-local-development-for-react-angular-and-node-fdfaf69693cd)，通过几个步骤设置一个本地 HTTPS 连接。
 
 ## 结语
 
