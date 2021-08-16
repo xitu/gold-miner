@@ -236,7 +236,7 @@ return (
 
 ## 结语
 
-Web RTC 是允许 P2P 通信的浏览器标准。但是因为牵涉到 STUN Servers，ICE 协议候选者, SDPs, 以及 WebSockets，所以实现 WebRTC 会有一点复杂。
+WebRTC 是支持 P2P 通信的浏览器标准。但是因为牵涉到 STUN 服务器，ICE 协议候选者，SDPs，以及 WebSockets，所以实现 WebRTC 会有一点复杂。
 
 PeerJS 通过封装 WebRTC 简化了整个流程，为我们提供了更简单的事件和方法。
 
