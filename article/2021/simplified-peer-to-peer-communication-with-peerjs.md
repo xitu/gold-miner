@@ -23,7 +23,7 @@
 
 即使你之前没有接触过 WebRTC，但我相信你已经感受到了实现它的复杂性。但别担心，PeerJS 来解救你了。
 
-> 使用 PeerJs，我们不用担心 STUN，ICE 协议候选者，或者服务器的创建，而且我们甚至可以避免使用 WebSockets。
+> 使用 PeerJS，我们不用担心 STUN，ICE 协议候选者，或者服务器的创建，而且我们甚至可以避免使用 WebSockets。
 
 PeerJs 提供一个完整的、可配置的点对点连接的 API， 以及一个称之为 PeerServer 的服务能够轻松的在 PeerJs 的客户端之间建立连接。
 
