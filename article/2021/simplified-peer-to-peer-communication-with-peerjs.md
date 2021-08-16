@@ -43,7 +43,7 @@ npm i peerjs
 npm i -g peer
 ```
 
-> **注意：** PeerJS 用于在本地启动 PeerServer，但你也可以使用 [PeerServer Cloud](https://peerjs.com/peerserver.html) 实例。
+> **注意**：PeerJS 用于在本地启动 PeerServer，但你也可以使用 [PeerServer Cloud](https://peerjs.com/peerserver.html) 实例。
 
 ### 步骤 2 —— 实现聊天室
 
