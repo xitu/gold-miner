@@ -3,20 +3,20 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/reverse-engineering-the-car-file-format.md](https://github.com/xitu/gold-miner/blob/master/article/2021/reverse-engineering-the-car-file-format.md)
 > * 译者：[LoneyIsError](https://github.com/LoneyIsError)
-> * 校对者：
+> * 校对者：[jaredliw](https://github.com/jaredliw)
 
 # 逆向 `.car` 文件（已编译的 Asset Catalogs）
 
 `Asset Catalog` 是任何 iOS、tvOS、watchOS 和 macOS 应用程序的重要组成部分。它让你可以组织和管理应用程序使用的不同素材，例如图像、Sprites（精灵帧）、纹理、ARKit 资源、颜色和数据。
 
-Apple 每年都还在扩展 Asset Catalogs 功能：
+Apple 每年都还在扩展 Asset Catalogs 的功能：
 
-- Xcode 9 添加了对 Color Asset 的支持并改进了对矢量资源 (PDF) 的支持。参阅 WWDC 2017 session [Cocoa 新功能](https://developer.apple.com/videos/play/wwdc2017/207/).
-- Xcode 10 添加了对高效图像、Apple 深度像素图像压缩以及对 macOS Mojave 暗模式的支持。 参阅 WWDC  2018 session [优化 App 素材](https://developer.apple.com/videos/play/wwdc2018/227/).
+- Xcode 9 添加了对 Color Asset 的支持并改进了对矢量资源（PDF）的支持。参阅 WWDC 2017 session [Cocoa 新功能](https://developer.apple.com/videos/play/wwdc2017/207/)。
+- Xcode 10 添加了对高效图像、Apple 深度像素图像压缩以及对 macOS Mojave 暗模式的支持。 参阅 WWDC 2018 session [优化 App 素材](https://developer.apple.com/videos/play/wwdc2018/227/)。
 
-鲜为人知的是，当使用 Xcode 构建应用程序时，`Asset Catalog` 会被编译为 `.car` 文件。但是，Apple 并没有关于 `.car` 文件的文档，不过令人惊讶的是，我在网上找不到太多信息。
+鲜为人知的是，当使用 Xcode 构建应用程序时，`Asset Catalog` 会被编译成 `.car` 文件。但是，Apple 并没有关于 `.car` 文件的文档，而且令人惊讶的是，我在网上找不到太多信息。
 
-在本文中，我试图通过描述 `.car` 文件的全局结构及其不同元素来弥补有关 `.car` 文件格式信息的不足。在本文中，我构建了一个 `CARParser` 工具来手动解析 `.car` 文件。该工具的完整源代码可在文末下载。 
+在本文中，我试图通过描述 `.car` 文件的全局结构及其不同元素来弥补有关 `.car` 格式文件信息的不足。在本文中，我构建了一个 `CARParser` 工具来手动解析 `.car` 文件。该工具的完整源代码可在文末下载。 
 
 请注意，本文中的文档和 `CARParser` 工具仅用于教育目的。你不应该像这里那样直接处理 `.car` 文件。有几种工具（包括我自己的，我计划在某个时候开源）可以转储 `.car` 文件的内容。但是这些工具只是使用了一些 Apple 的私有 API，并不能直接解析文件。同样，对于逆向工程，谁也不能保证数据是完全准确的。在发布时，本文应反映 macOS Mojave 和 iOS 12 中的状态。然而，它可能会随着未来的 macOS 或 iOS 版本更新而过时。
 
@@ -46,7 +46,7 @@ Xcode 5 中引入了 `Asset Catalog`，可以更轻松地管理图像，尤其�
 UIImage *myImage = [UIImage imageNamed:@"MyImage"];
 ```
 
-执行这行代码时，从私有的 CoreUI.framework（`/System/Library/PrivateFrameworks/CoreUI.framework`）提供与名为 `MyImage` 的素材所对应的最合适的 UIImage。 `MyImage` 是`素材名称`，同样被叫作`维面名称`。 `car` 文件可以包含给定素材名称的多个图像：@1x 分辨率、@2x 分辨率、@3x 分辨率、暗模式、… 这些资源的表示形式称为`副本`。每个副本都有一个唯一的标识符，称为`副本键`。实际上，`副本键` 是描述副本的属性列表：原始纬度、分辨率、…
+执行这行代码时，从私有的 CoreUI.framework（`/System/Library/PrivateFrameworks/CoreUI.framework`）提供与名为 `MyImage` 的素材所对应的最合适的 UIImage。 `MyImage` 是`素材名称`，同样被叫作`维面名称`。 `car` 文件可以包含给定素材名称的多个图像：@1x 分辨率、@2x 分辨率、@3x 分辨率、暗模式、… 这些资源的表示形式称为`副本`。每个副本都有一个唯一的标识符，称为`副本键`。实际上，`副本键`是描述副本的属性列表：原始纬度、分辨率、…
 
 
 `CAR` 扩展是什么意思？以 Xcode 中 IBFoundation 框架中的各种方法的名称为例，它可能代表已编译的素材记录（**C**ompiled **A**sset **R**ecord）。
@@ -229,6 +229,7 @@ macOS 提供了几个闭源工具来处理 bom 文件，比如 `lsbom` 和 `mkbo
 然而，与**常规**的 `bom` 文件相反， `car` 文件中包含多个 `bom` 块：
 
 - CARHEADER
+
 * EXTENDED_METADATA
 * KEYFORMAT
 * CARGLOBALS
@@ -295,18 +296,15 @@ NSData *blockData = GetDataFromBomBlock(bomStorage, "CARHEADER");
 其中 `GetDataFromBomBlock()` 方法实现为：
 
 ```objc
-NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName)
-{
+NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName) {
 	NSData *outData = nil;
 	
 	BOMBlockID blockID = BOMStorageGetNamedBlock(inBOMStorage, inBlockName);
 	size_t blockSize = BOMStorageSizeOfBlock(inBOMStorage, blockID);
-	if(blockSize > 0)
-	{
+	if(blockSize > 0) {
 		void *mallocedBlock = malloc(blockSize);
 		int res = BOMStorageCopyFromBlock(inBOMStorage, blockID, mallocedBlock);
-		if(res == noErr)
-		{
+		if(res == noErr) {
 			outData = [[NSData alloc] initWithBytes:mallocedBlock length:blockSize];
 		}
 		
@@ -320,8 +318,7 @@ NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName)
 类似地，可以使用一个简单的方法来获取 BOM 树的所有键/值。例如要获取 `FACETKEYS` 树的所有键/值，可以执行下面的代码：
 
 ```objc
-ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
-{
+ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue) {
 	// This Objective-C block is called for each key found.
 	// The value corresponding to the key is passed as parameter.
 });
@@ -331,8 +328,7 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 
 ```objc
 typedef void (^ParseBOMTreeCallback)(NSData *inKey, NSData *inValue);
-void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeCallback keyValueCallback)
-{
+void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeCallback keyValueCallback) {
 	NSData *keyData = nil;
 	NSData *keyValue = nil;
 	
@@ -343,8 +339,7 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 
 	// Create a BOMTreeIterator and loop until the end
 	BOMTreeIterator	bomIterator = BOMTreeIteratorNew(bomTree, NULL, NULL, NULL);
-	while(!BOMTreeIteratorIsAtEnd(bomIterator))
-	{
+	while(!BOMTreeIteratorIsAtEnd(bomIterator)) {
 		// Get the key
 		void * key = BOMTreeIteratorKey(bomIterator);
 		size_t keySize = BOMTreeIteratorKeySize(bomIterator);
@@ -352,17 +347,14 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 		
 		// Get the value associated to the key
 		size_t valueSize = BOMTreeIteratorValueSize(bomIterator);
-		if(valueSize > 0)
-		{
+		if(valueSize > 0) {
 			void * value = BOMTreeIteratorValue(bomIterator);
-			if(value != NULL)
-			{
+			if(value != NULL) {
 				keyValue = [NSData dataWithBytes:value length:valueSize];
 			}
 		}
 		
-		if(keyData != nil)
-		{
+		if(keyData != nil) {
 			keyValueCallback(keyData, keyValue);
 		}
 		
@@ -380,8 +372,7 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 
 ```c
 NSData *blockData = GetDataFromBomBlock(bomStorage, "CARHEADER");
-if(blockData != nil)
-{
+if(blockData != nil) {
 	struct carheader *carHeader = (struct carheader *)[blockData bytes];
 	[...]
 }
@@ -394,8 +385,7 @@ if(blockData != nil)
 逆向出的结构很简单，我们可以看到数据以标签 `CTAR` 开头：
 
 ```c
-struct carheader
-{
+struct carheader {
     uint32_t tag;								// 'CTAR'
     uint32_t coreuiVersion;
     uint32_t storageVersion;
@@ -465,12 +455,10 @@ EXTENDED_METADATA:
 在这棵树中，键是外观名称（字符串），而值是外观唯一标识符（uint16_t）。因此解析键/值对是轻而易举的：
 
 ```objc
-ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue)
-{
+ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue) {
 	NSString *appearanceName = [[NSString alloc] initWithBytes:[inKey bytes] length:[inKey length] encoding:NSUTF8StringEncoding];
 	uint16_t appearanceIdentifier = 0;
-	if(inValue != nil)
-	{
+	if(inValue != nil) {
 		appearanceIdentifier = *(uint16_t *)([inValue bytes]);
 	}
 	
@@ -522,34 +510,33 @@ struct renditionAttribute {
 有一组可能的属性名称：
 
 ```c
-enum RenditionAttributeType
-{
-	kRenditionAttributeType_ThemeLook 				= 0,
-	kRenditionAttributeType_Element					= 1,
-	kRenditionAttributeType_Part					= 2,
-	kRenditionAttributeType_Size					= 3,
-	kRenditionAttributeType_Direction				= 4,
+enum RenditionAttributeType {
+	kRenditionAttributeType_ThemeLook 		    = 0,
+	kRenditionAttributeType_Element					  = 1,
+	kRenditionAttributeType_Part					    = 2,
+	kRenditionAttributeType_Size					    = 3,
+	kRenditionAttributeType_Direction				  = 4,
 	kRenditionAttributeType_placeholder				= 5,
-	kRenditionAttributeType_Value					= 6,
-	kRenditionAttributeType_ThemeAppearance			= 7,
+	kRenditionAttributeType_Value					    = 6,
+	kRenditionAttributeType_ThemeAppearance		= 7,
 	kRenditionAttributeType_Dimension1				= 8,
 	kRenditionAttributeType_Dimension2				= 9,
-	kRenditionAttributeType_State					= 10,
-	kRenditionAttributeType_Layer					= 11,
-	kRenditionAttributeType_Scale					= 12,
-	kRenditionAttributeType_Unknown13				= 13,
-	kRenditionAttributeType_PresentationState		= 14,
-	kRenditionAttributeType_Idiom					= 15,
-	kRenditionAttributeType_Subtype					= 16,
+	kRenditionAttributeType_State					    = 10,
+	kRenditionAttributeType_Layer					    = 11,
+	kRenditionAttributeType_Scale					    = 12,
+	kRenditionAttributeType_Unknown13				  = 13,
+	kRenditionAttributeType_PresentationState = 14,
+	kRenditionAttributeType_Idiom					    = 15,
+	kRenditionAttributeType_Subtype					  = 16,
 	kRenditionAttributeType_Identifier				= 17,
 	kRenditionAttributeType_PreviousValue			= 18,
 	kRenditionAttributeType_PreviousState			= 19,
-	kRenditionAttributeType_HorizontalSizeClass		= 20,
-	kRenditionAttributeType_VerticalSizeClass		= 21,
-	kRenditionAttributeType_MemoryLevelClass		= 22,
+	kRenditionAttributeType_HorizontalSizeClass     = 20,
+	kRenditionAttributeType_VerticalSizeClass		    = 21,
+	kRenditionAttributeType_MemoryLevelClass		    = 22,
 	kRenditionAttributeType_GraphicsFeatureSetClass = 23,
-	kRenditionAttributeType_DisplayGamut			= 24,
-	kRenditionAttributeType_DeploymentTarget		= 25
+	kRenditionAttributeType_DisplayGamut			      = 24,
+	kRenditionAttributeType_DeploymentTarget		    = 25
 };
 ```
 
@@ -562,12 +549,10 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 	fprintf(stderr, "\t '%s':", [facetName UTF8String]);
 	
 	const void *bytes = [inValue bytes];
-	if(bytes != NULL)
-	{
+	if(bytes != NULL) {
 		struct renditionkeytoken *renditionkeytoken = (struct renditionkeytoken *)bytes;
 		uint16_t numberOfAttributes = renditionkeytoken->numberOfAttributes;
-		for(uint16_t keyIndex = 0 ; keyIndex < numberOfAttributes ; keyIndex++)
-		{
+		for(uint16_t keyIndex = 0 ; keyIndex < numberOfAttributes ; keyIndex++) {
 			struct renditionAttribute renditionAttribute = renditionkeytoken->attributes[keyIndex];
 			fprintf(stderr, "\n\t\t %s: %04X", [GetNameOfAttributeType(renditionAttribute.name) UTF8String], renditionAttribute.value);
 		}
@@ -644,16 +629,14 @@ struct renditionkeyfmt {
 
 ```objc
 NSData *blockData = GetDataFromBomBlock(bomStorage, "KEYFORMAT");
-if(blockData != nil)
-{
+if(blockData != nil) {
 	struct renditionkeyfmt *keyFormat = (struct renditionkeyfmt *)[blockData bytes];
 	
 	fprintf(stderr, "\nKEYFORMAT:\n"
 		"\t maximumRenditionKeyTokenCount: %u\n",
 		keyFormat->maximumRenditionKeyTokenCount);
 	
-	for(uint32_t renditionKeyTokenIndex = 0 ; renditionKeyTokenIndex < keyFormat->maximumRenditionKeyTokenCount ; renditionKeyTokenIndex++)
-	{
+	for(uint32_t renditionKeyTokenIndex = 0 ; renditionKeyTokenIndex < keyFormat->maximumRenditionKeyTokenCount ; renditionKeyTokenIndex++) {
 		NSString *attributeName = GetNameOfAttributeType(keyFormat->renditionKeyTokens[renditionKeyTokenIndex]);
 		fprintf(stderr, "\t renditionKeyTokens: %s\n", [attributeName UTF8String]);
 		[keyFormatStrings addObject:attributeName];
@@ -779,7 +762,7 @@ struct renditionFlags {
 
 `scaleFactor` 是比例值，其值乘以 100。例如，@2x 图像的 `scaleFactor` 值为 200。
 
- `pixelFormat` 可以包含多个值，具体取决于副本素材的类型，如： `ARGB`，`GA8`，`RGB5`，`RGBW`，`GA16`， `JPEG`， `HEIF`，`DATA`…
+`pixelFormat` 可以包含多个值，具体取决于副本素材的类型，如： `ARGB`，`GA8`，`RGB5`，`RGBW`，`GA16`， `JPEG`， `HEIF`，`DATA`…
 
 `colorSpaceID` 标识应该使用哪个颜色空间。从 MacOS Mojave 和 iOS 12 开始，可以支持 6 种不同的颜色空间：
 
@@ -823,7 +806,7 @@ struct csimetadata {
   uint16_t layout; 
   uint16_t zero; 
   char name[128]; 
-} attribute((packed)); 
+} __attribute__((packed)); 
 ```
 
 `layout`  字段特别有趣，因为它标识存储的**数据**的类型：图像、**数据**、纹理、颜色……对于图像，**子类型存储在**布局中：
@@ -876,7 +859,7 @@ struct csibitmaplist {
   uint32_t unknown; 
   uint32_t zero; 
   uint32_t renditionLength; 
-} attribute((packed));
+} __attribute__((packed));
 ```
 
 使用上述结构，我们可以在 Synalyze It! Pro 中创建自定义语法以快速理解该结构：
@@ -894,8 +877,7 @@ struct csibitmaplist {
 以下是可能的标签列表：
 
 ```c
-enum RenditionTLVType
-{
+enum RenditionTLVType {
 	kRenditionTLVType_Slices 				= 0x3E9,
 	kRenditionTLVType_Metrics 				= 0x3EB,
 	kRenditionTLVType_BlendModeAndOpacity	= 0x3EC,
@@ -911,21 +893,18 @@ enum RenditionTLVType
 ```c
 // Print the TLV
 uint32_t tvlLength = csiHeader->csibitmaplist.tvlLength;
-if(tvlLength > 0)
-{
+if(tvlLength > 0) {
 	fprintf(stderr, "\t\t\t tlv:\n");
 	
 	const void *tlvBytes = valueBytes + sizeof(*csiHeader);
 	const void *tlvPos = tlvBytes;
 	
-	while(tlvBytes + tvlLength > tlvPos)
-	{
+	while(tlvBytes + tvlLength > tlvPos) {
 		uint32_t tlvTag = *(uint32_t *)tlvPos;
 		uint32_t tlvLength = *(uint32_t *)(tlvPos + 4);
 		
 		fprintf(stderr, "\t\t\t\t %s: " , [GetTLVTNameWithType(tlvTag) UTF8String]);
-		for(uint32_t valuePos = 0 ; valuePos < tlvLength ; valuePos++)
-		{
+		for(uint32_t valuePos = 0 ; valuePos < tlvLength ; valuePos++) {
 			fprintf(stderr, "%02X" , *(uint8_t*)(tlvPos + 8 + valuePos));
 		}
 		
@@ -1013,19 +992,15 @@ struct CUIRawDataRendition {
 以下是解析 CUIRawDataRendition 以恢复原始数据的代码：
 
 ```c
-if(csiHeader->pixelFormat == 'DATA')
-{
+if(csiHeader->pixelFormat == 'DATA') {
 	struct CUIRawDataRendition *rawDataRendition = (struct CUIRawDataRendition *)renditionBytes;
-	if(rawDataRendition->tag == 'RAWD')
-	{
+	if(rawDataRendition->tag == 'RAWD') {
 		uint32_t rawDataLength = rawDataRendition->rawDataLength;
 		uint8_t *rawData = rawDataRendition->rawData;
-		if(rawDataLength > 4)
-		{
+		if(rawDataLength > 4) {
 			fprintf(stderr, "\t\t\t Found RawDataRendition with size %u: 0x%02X%02X%02X%02X...\n", rawDataLength, *(uint8_t*)rawData, *(uint8_t*)(rawData + 1), *(uint8_t*)(rawData + 2), *(uint8_t*)(rawData + 3));
 		}
-		else
-		{
+		else {
 			fprintf(stderr, "\t\t\t Found RawDataRendition with size %u\n", rawDataLength);
 		}
 	}
@@ -1047,12 +1022,10 @@ struct CUIRawPixelRendition {
 
 恢复图像的代码也很简单：
 
-```
-else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF')
-{
+```objc
+else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF') {
 	struct CUIRawPixelRendition *rawPixelRendition = (struct CUIRawPixelRendition *)renditionBytes;
-	if(rawPixelRendition->tag == 'RAWD')
-	{
+	if(rawPixelRendition->tag == 'RAWD') {
 		uint32_t rawDataLength = rawPixelRendition->rawDataLength;
 		uint8_t *rawDataBytes = rawPixelRendition->rawData;
 		
@@ -1098,13 +1071,11 @@ struct csicolor {
 
 可以使用以下代码访问 `CGColorRef`：
 
-```c
-else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditionLayoutType_Color)
-{
+```objc
+else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditionLayoutType_Color) {
 	struct csicolor *colorRendition = (struct csicolor *)renditionBytes;
 	
-	if(colorRendition->numberOfComponents == 4)
-	{
+	if(colorRendition->numberOfComponents == 4) {
 		// Use the hardcoded DeviceRGB color space instead of the real colorSpace from the colorSpaceID
 		CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
 		CGColorRef __unused theColor = CGColorCreate(colorSpaceRef, colorRendition->components);
@@ -1114,8 +1085,7 @@ else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditi
 		NSString *colorString = [NSString stringWithFormat:@"%f,%f,%f,%f", colorRendition->components[0], colorRendition->components[1], colorRendition->components[2], colorRendition->components[3]];
 		fprintf(stderr, "\n\t\t Found Color %s with colorspace ID %d\n", [colorString UTF8String], colorRendition->colorSpace.colorSpaceID & 0xFF);
 	}
-	else
-	{
+  else {
 		fprintf(stderr, "\n\t\t Found Color with colorspace ID %d but with %u components\n", colorRendition->colorSpace.colorSpaceID & 0xFF, colorRendition->numberOfComponents);
 	}
 }
@@ -1141,7 +1111,7 @@ struct CUIThemePixelRendition {
 
 - `tag` 的值设为 `CELM`
 
-- `version` 设为 0
+- `version` 始终设为 0
 
 - `compressionType` 被设置为以下某个选项：
 
@@ -1162,9 +1132,9 @@ struct CUIThemePixelRendition {
 
 当**使用**压缩时，原数据会被压缩，然后需要使用相应的算法进行解码。具体所使用的解压缩算法超出了**本文的范围**。
 
-* `rawDataLength` 包含  `rawData` 的大小。
+* `rawDataLength` 包含 `rawData` 的大小。
 
-* 最后 `rawData`  包含真实数据 - 未压缩或压缩。如果数据被压缩，你需要使用  `compressionType`  字段中指定的算法对其进行解压缩。
+* 最后 `rawData` 包含真实数据 —— 未压缩或压缩。如果数据被压缩，你需要使用  `compressionType`  字段中指定的算法对其进行解压缩。
 
 下面是 PNG 格式的副本在 Synalyze It! Pro 中的展示。注：用红色表示的是压缩的原数据：
 
@@ -1172,7 +1142,7 @@ struct CUIThemePixelRendition {
 
 ## 总结
 
-`.car` 文件可以存储许多不同类型的资产，这使得这种文件格式相当复杂。在本文中，我描述了最重要的结构以及如何转储它们。可以使用类似的方法来分析和理解其他结构。
+`.car` 文件可以存储许多不同类型的资产，这使得这种文件格式相当复杂。在本文中，我描述了最重要的结构以及如何转储它们。类似的方法可应用于分析和理解其他结构。
 
 `CARParser` 应用程序的完整源代码可以从[此处下载](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CARParser.zip)。你可以很容易地修改此工具，以生成与 `assetutil -I Assets.car` 相同的输出。
 
@@ -1197,7 +1167,6 @@ EXTENDED_METADATA:
 	 deploymentPlatformVersion: 12.0
 	 deploymentPlatform: ios
 	 authoringTool: @(#)PROGRAM:CoreThemeDefinition  PROJECT:CoreThemeDefinition-346.29
-
 
 KEYFORMAT:
 	 maximumRenditionKeyTokenCount: 18
@@ -1550,7 +1519,7 @@ Tree 'ELEMENT_INFO'
 Tree 'PART_INFO'
 ```
 
-你可以在这篇文章中找到我的可视化 `.car` 文件的 QuickLook 插件  ：[可视化 `.car` 文件的QuickLook插件（编译后的 Asset Catalogs）](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
+你可以在这篇文章中找到我的可视化 `.car` 文件的 QuickLook 插件  ：[可视化 `.car` 文件的 QuickLook 插件（编译后的 Asset Catalogs）](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
