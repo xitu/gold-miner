@@ -11,7 +11,7 @@
 
 实现 P2P 通信是一项具有挑战性的任务，但如果你知道如何使用正确的工具，那么这项任务就变得简单多了。
 
-所以，我将在这篇文章探讨 [PeerJS](https://peerjs.com/)，这是一个封装了 WebRTC 的 JavaScript 库，可以在 web 应用中轻松实现 P2P 通信。
+所以，我将在这篇文章探讨 [PeerJS](https://peerjs.com/)，这是一个封装了 WebRTC 的 JavaScript 库，可以在 web 应用中更加轻松的实现 P2P 通信。
 
 ## PeerJS 是如何简化 WebRTC 的？
 
