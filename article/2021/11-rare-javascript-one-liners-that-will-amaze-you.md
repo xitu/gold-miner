@@ -2,7 +2,7 @@
 > * 原文作者：[Can Durmus](https://medium.com/@candurmuss)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md)
-> * 译者：[jaredliw](https://github.com/jaredl)
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
 # 11 个让你惊叹的罕见 JavaScript 单行代码
@@ -155,7 +155,7 @@ const average = (arr) => arr.reduce((a, b) => a + b) / arr.length
 
 ---
 
-就这样，大家！现在您已经了解了 11 个简单但功能强大的 JavaScript 单行程序。我试着选择那些不是很知名的代码，这样你就可以学习新东西。我每天都在使用它们，我想你也会。
+就这样，大家！现在您已经了解了 11 个简单但功能强大的 JavaScript 单行代码。我试着选择那些不是很知名的代码，这样你就可以学习新东西。我每天都在使用它们，我想你也会。
 
 感谢你的阅读。如果你喜欢这篇文章，记得点赞。如果你对这篇文章有什么想说的，请留言。下一篇文章见。
 
