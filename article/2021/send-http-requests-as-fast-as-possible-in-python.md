@@ -7,8 +7,6 @@
 
 # Send HTTP Requests As Fast As Possible in Python
 
-#### Use Python’s synchronous, multi-threading, queue, and asyncio event loop to make 100 HTTP requests and see which solution performs the best.
-
 ![Who dives faster? by Charles Zhu, my 6yo boy](https://cdn-images-1.medium.com/max/2312/1*EzgpOKoso264gwJa5-r_9w.png)
 
 It is easy to send a single HTTP request by using the `requests `package. What if I want to send hundreds or even millions of HTTP requests asynchronously? This article is an exploring note to find my fastest way to send HTTP requests.
@@ -19,7 +17,7 @@ The code is running in a Linux(Ubuntu) VM host in the cloud with Python 3.7. All
 
 The most simple, easy-to-understand way, but also the slowest way. I forge 100 links for the test by this magic python list operator:
 
-```
+```py
 url_list = ["https://www.google.com/","https://www.bing.com"]*50
 ```
 
@@ -100,7 +98,7 @@ Anyway, I am still going to use Python Thread to do the HTTP request job. I will
 
 To use the Session object, it is a waste to create 10 Session objects for 10 threads, I want one Session object and reuse it for all downloading work. To make it happen, The code will leverage the `local `object from `threading `package, so that 10 thread workers will share one Session object.
 
-```
+```py
 from threading import Thread,local
 ...
 thread_local = local()
@@ -223,7 +221,7 @@ Asyncio is so fast that it can send almost any number of requests to the server,
 
 Too many HTTP requests send will behave like “attacking”. Some web site may ban your IP address if too many requests are detected, even Google will ban you too. To avoid being banned, I use a custom TCP connector object that specified the max TCP connection to 10 only. (it may safe to change it to 20)
 
-```
+```py
 my_conn = aiohttp.TCPConnector(limit=10)
 ```
 
@@ -266,13 +264,13 @@ download 100 links in 0.7412574291229248 seconds
 
 Note that if you are running code in JupyterNotebook or IPython. please also install the`nest-asyncio` package. (Thanks to [this StackOverflow link](https://stackoverflow.com/questions/46827007/runtimeerror-this-event-loop-is-already-running-in-python). Credit to [Diaf Badreddine](https://stackoverflow.com/users/12371243/diaf-badreddine).)
 
-```
+```bash
 pip install nest-asyncio
 ```
 
 and add the following two lines of code at the beginning of the code.
 
-```
+```py
 import nest_asyncio
 nest_asyncio.apply()
 ```
