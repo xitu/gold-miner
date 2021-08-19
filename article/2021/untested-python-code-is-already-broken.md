@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/untested-python-code-is-already-broken.md](https://github.com/xitu/gold-miner/blob/master/article/2021/untested-python-code-is-already-broken.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[ItzMiracleOwO](https://github.com/ItzMiracleOwO)
+> * 校对者：[ItzMiracleOwO](https://github.com/ItzMiracleOwO)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 不经测试的 Python 代码就已离崩溃不远了
 
