@@ -44,7 +44,7 @@ If you’re working on a multi-team project and the product is developed by inde
 
 So to summarize: there is a lot of reasoning for having distributed tracing.
 
-#### An Overview
+### An Overview
 
 If you want to trace your requests over multiple systems, you need to collect data for every step on your route.
 
@@ -66,7 +66,7 @@ Even though it’s not a standard, it’s widely used by a lot of frameworks and
 
 This paragraph gives an introduction to the core concepts and the terminology. We’ll have a detailed look on `Spans`, `Scopes` and `Threads`.
 
-#### Spans
+### Spans
 
 Spans are the fundamental concept of distributed tracing. A span represents a specific amount of executed code or work. Having a look at the OpenTracing specification, it contains:
 
@@ -79,7 +79,7 @@ That means that each component in our ecosystem that is involved in a request sh
 
 ![a span covering a DynamoDB query operation, including name and timestamps](https://cdn-images-1.medium.com/max/2000/1*1pu963Zo2U-ZisazG_XC_A.png)
 
-#### Scopes and Threading
+### Scopes and Threading
 
 Having a look at a dedicated thread in an application, it can only have one active span at a time, called the `ActiveSpan`. That does not mean that there can’t be multiple spans, but other need to be for example blocked or waiting.
 
@@ -92,7 +92,7 @@ Transmitting our context between systems evolves around two different HTTP heade
 * `traceparent`— specifying the request for the tracing system, not dependent on any vendor.
 * `tracestate`— includes vendor-specific details about the request.
 
-#### Trace Parent
+### Trace Parent
 
 The `traceparent` header carriers four different kinds of information: the version, the trace identifier, the parent identifier, and the flags.
 
@@ -105,7 +105,7 @@ The `traceparent` header carriers four different kinds of information: the versi
 
 The trace parent is needed for the tracing system to correlate our requests and aggregate them into a multi-span request.
 
-#### Trace State
+### Trace State
 
 The `tracestate` header is a companion to the Trace Parent, adding vendor-specific trace information.
 
@@ -136,7 +136,7 @@ We can open as many spans as we need in a single system. We just need to make su
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7dx9dp0v8bjChH7zWjxAbg.png)
 
-#### Setting up our trace
+### Setting up our trace
 
 What do we need in the first place if we want to do this in a manual way? We need a stack of all the spans our system has opened and therefore needs to close.
 
@@ -163,7 +163,7 @@ if (!traceParent) {
 
 Now we’ve got our root and we can continue to open spans for operations or processes at our own granularity.
 
-#### Spawning new spans
+### Spawning new spans
 
 For tracking our spans in a single system, we need a stack that saves us our already opened spans as previously described.
 
@@ -184,7 +184,7 @@ const openNewSpan = (spanName) => {
 };
 ```
 
-#### Closing spans & submitting trace information
+### Closing spans & submitting trace information
 
 When we need to close a span the operation or processes ended, we can pop the span from the top of the stack. We can also calculate needed information based on the information we saved at the span or what’s left in our stack.
 
