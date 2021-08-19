@@ -45,7 +45,7 @@ Here we can see that event capturing occurs only until the clicked element or th
 
 We can use the `useCapture` argument of the `addEventListener()`method to register events for capturing phase.
 
-```
+```js
 target.addEventListener(type, listener, useCapture)
 ```
 
@@ -131,7 +131,7 @@ As a solution, we can use a single event listener and make use of event bubbling
 
 So, I have created a single event listener for `table` and it will be used to change the styles of the cells.
 
-```
+```js
 document.querySelector("table").addEventListener("click", (event) =>
   {       
      if (event.target.nodeName == 'TD')
@@ -154,7 +154,7 @@ In the above scenario, when I click the ‘Delete’ button, the `click` event o
 
 > We can use the `stopPropagation()` method to avoid this behavior. It will stop events from propagating further up or down along the DOM tree.
 
-```
+```js
 document.querySelector(".card").addEventListener("click", () => {
     $("#detailsModal").modal();
 });
