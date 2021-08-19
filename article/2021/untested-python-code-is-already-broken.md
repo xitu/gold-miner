@@ -5,15 +5,15 @@
 > * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：[ItzMiracleOwO](https://github.com/ItzMiracleOwO)
 
-# 未经测试的 Python 代码已经损坏
+# 不经测试的 Python 代码就已离崩溃不远了
 
 ![Image by [Hier und jetzt endet leider meine Reise auf Pixabay 😢](https://pixabay.com/users/alexas_fotos-686414/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1873171) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1873171)](https://cdn-images-1.medium.com/max/3840/1*CN92tzyClc_mkk4LWWEXtQ.jpeg)
 
 我的第一位导师极其的令人难以置信。他向我展示了编码、日志记录、文档编制的最佳实践和其带来的收益。但有一件事他一直无法灌输给我，那就是测试。他的测试代码方式很复杂，包括说先写测试程序，然后编码实现！他的方式与我的编码风格对立，这让我觉得："**如果我在写函数前就写好了测试，那么我还不如不写测试。**”…… 这样想让我感觉好多了。
 
-问题在于：你的代码需要测试。这是因为所有代码，即便是好的代码，都与 bug 只有一线之遥。对于新手的解释：bug 是代码中意外的功能或错误。你可能对自己的代码及其局限性非常了解，但是新队友呢？或者，在一年后，你想为一个你已经基本忘记的项目添加一个功能，该怎么办？测试就好比保龄球道上的保险杠，让你每次都可以对提交代码和性能评估充满信心。
+可问题在于：你的代码需要测试。因为所有代码，即便是好的代码，都与 bug 只有一线之隔。对于新手来说：bug 是代码中意外的功能或错误。你可能对自己的代码及其局限性非常了解，但是新队友呢？或者，在一年后，你想为一个你已经基本忘记的项目添加一个功能，该怎么办？测试就好比保龄球道上的保险杠，让你每次都可以对提交的代码获得满分充满信心。
 
-本文将重用我的 Python 学习系列中[第 3 部分](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd)的代码，并使用我在[此处](https://python.plainenglish.io/stop-making-excuses-and-use-make-9da448efed12)介绍的 `Makefile`。如果你是 Python 新手，为何不来看[第 1 部分](https://python.plainenglish.io/create-your-own-dice-roller-with-python-40d65c16eb84)和[第 2 部分](https://python.plainenglish.io/draw-a-random-playing-card-in-python-848393d6d868)？此外，如果你i没有自己的 Python 工作环境，请在[此处](https://python.plainenglish.io/new-python-developers-need-these-tools-979a17cdffc9)查看你所需要的内容。
+本文将重用我的 Python 学习系列中[第 3 部分](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd)的代码，并使用我在[此处](https://python.plainenglish.io/stop-making-excuses-and-use-make-9da448efed12)介绍的 `Makefile`。如果你是 Python 新手，为何不先来看看[第 1 部分](https://python.plainenglish.io/create-your-own-dice-roller-with-python-40d65c16eb84)和[第 2 部分](https://python.plainenglish.io/draw-a-random-playing-card-in-python-848393d6d868)？此外，如果你没有自己的 Python 工作环境，请在[此处](https://python.plainenglish.io/new-python-developers-need-these-tools-979a17cdffc9)查看你所需要的教程。
 
 讨论的课题：
 
@@ -25,11 +25,11 @@
 
 由于这需要一些代码，我已经创建了一个 [Github Project](https://github.com/Tigenzero/medium_test_with_order_taker) 来帮助我们开始这个话题。获取它最简单的方法是通过 Github Desktop 克隆它，或将其下载为 ZIP 文件。文件夹中包含 `order_up.py`、一个 `Makefile` 和一个 `Pipfile`，还有一个 `Solutions` 文件夹，但我们暂时先不管它。
 
-创建一个名为 `tests` 的 Python 包。如何创建？这非常复杂 —— 创建一个文件夹，在里面创建一个名为 `__init__.py` 的空文件。是的，这样就完成了。在新的 `tests` 文件夹中，创建一个名为 `test_order_up.py` 的文件。现在我们可以开始了。注意：unittest（和 pytest）根据以 “test” 开头的文件确定测试的代码，因此在命名非测试文件时请避免这一点！
+创建一个名为 `tests` 的 Python 包。那如何创建？这有些复杂 —— 首先创建一个文件夹，在里面创建一个名为 `__init__.py` 的空文件。是的，这样就完成了。然后在新的 `tests` 文件夹中，再创建一个名为 `test_order_up.py` 的文件。现在我们可以开始了。注意：unittest（和 pytest）根据以 “test” 开头的文件确定测试的代码，因此在命名非测试文件时请避免这一点！
 
 ## 测试是什么？
 
-简而言之，测试回答了“程序的执行结果是否符合我们的期望？”这个问题。要想回答这个问题，我们可以通过使用预选输入来运行一个函数并检查输出是否符合我们的预期。通过运行一个函数并验证输出，确保它不会抛出错误，或者确保它**确实**抛出错误，你能保障代码已被全面的测试。一组好的测试应包含正常用例、边缘用例和创意的用例。你不仅要确保你的代码按原样运行，而且还要确保你的**测试将捕获你或其他人将来所做的任何愚蠢行为**。
+简而言之，测试回答了“程序的执行结果是否符合我们的期望？”这个问题。要想回答这个问题，我们可以通过使用预选输入来运行一个函数并检查输出是否符合我们的预期。你可以通过运行一个函数并验证输出，确保它不会抛出错误，或者确保它**确实**抛出错误，以此来保证代码已被全面的测试。一组好的测试应包含正常用例、边缘用例和有创意的用例。你不仅要确保你的代码按原样运行，而且还要确保你的**测试将捕获你或其他人将来所做的任何愚蠢行为**。
 
 ## Unittest
 
@@ -93,7 +93,7 @@ def test_get_order_not_on_menu(self):
 
 ## Patch
 
-我必须承认：我作弊了一点。如果你将[第 3 部分](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd)中的代码与当前的 `order_up.py` 进行比较，你将我会注意到我添加了一个功能来容纳一个新变量：`test_order`。有了这个新变量，我们可以绕过引入 `input()`，这样我们就不会在每次运行测试时让程序要求用户输入。但是现在我们已经掌握了测试的基础知识，我们可以开始尝试使用 mock。Mock 能模仿并创造函数/对象，使得我们的测试可以专注于逻辑方面。在这种情况下，我们将“补缀” `input()` 函数，或者暂时重写它，以简单地返回我们想要的输出。看看：
+我必须承认：我作了一点弊。如果你将[第 3 部分](https://python.plainenglish.io/build-a-fast-food-order-taker-in-python-87188efcbbdd)中的代码与当前的 `order_up.py` 进行比较，你将我会注意到我添加了一个功能来容纳一个新变量：`test_order`。有了这个新变量，我们可以绕过引入 `input()`，这样我们就不会在每次运行测试时让程序要求用户输入。但是现在我们已经掌握了测试的基础知识，我们可以开始尝试使用 mock。Mock 能模仿并创造函数/对象，使得我们的测试可以专注于逻辑方面。在这种情况下，我们将“补缀” `input()` 函数，或者暂时重写它，以简单地返回我们想要的输出。看看：
 
 ```python
 @patch("builtins.input", return_value="yes")
@@ -126,7 +126,7 @@ def test_get_order_valid(self, input_patch):
 
 > **备注**：你也可以在测试函数中赋值 `side_effect` 或 `return_value`。
 
-`side_effect` 将获取列表中的每个项目，并在每次调用 patch 函数时单独提供它。添加该代码并点击测试按钮/命令！最后一件事：在 “banana” 和 “cookie” 中没有是/否，因为`get_order()`不会询问“你想订购更多吗？”如果 `MENU` 中不存在该项目。 如果你想自己玩弄这个列表，请记住这件事情。
+`side_effect` 将获取列表中的每个项目，并在每次调用 patch 函数时单独提供它。添加该代码并点击测试按钮/命令！最后一件事：在 “banana” 和 “cookie” 中没有是/否，因为如果 `MENU` 中不存在该项目，`get_order()`不会询问“你想订购更多吗？”。如果你想自己玩弄这个列表，请记住这件事情。
 
 ## Makefile
 
