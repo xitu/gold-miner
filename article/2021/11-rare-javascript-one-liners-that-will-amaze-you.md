@@ -7,8 +7,6 @@
 
 # 11 Rare JavaScript One-Liners That Will Amaze You
 
-#### Because who doesn’t love to build things with just a single line
-
 ![Source: [Pexels](https://www.pexels.com/photo/blue-eyed-man-staring-at-the-mirror-54377/)](https://cdn-images-1.medium.com/max/8576/1*-0ag6JFjkLmmXTJVVZPVmA.jpeg)
 
 What is the thing you do if you want to impress a professional developer? It’s simple: Solve a complex problem with simple logic and as few lines of code as possible. With the introduction of ES6 arrow functions, it is possible to create one-liners that look elegant and simple.
@@ -21,7 +19,7 @@ Getting character count is a useful utility and can be useful in many scenarios.
 
 ![](https://cdn-images-1.medium.com/max/2412/1*4JTq7Wv6G1Tu0GUkHjJqNA.png)
 
-```
+```js
 const characterCount = (str, char) => str.split(char).length - 1
 ```
 
@@ -35,7 +33,7 @@ Fortunately, the one-liner below does exactly what we want.
 
 ![](https://cdn-images-1.medium.com/max/3100/1*raLs5fvNEPlEUQnU4z-Chw.png)
 
-```
+```js
 const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === Object
 ```
 
@@ -47,7 +45,7 @@ In this one-liner, we will get our hands dirty with some asynchronous programmin
 
 ![](https://cdn-images-1.medium.com/max/3448/1*zED3kVo1HB1p-rMsEB-rbw.png)
 
-```
+```js
 const wait = async (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 ```
 
@@ -61,7 +59,7 @@ Here is a powerful one-liner to calculate the day difference between two dates. 
 
 ![](https://cdn-images-1.medium.com/max/3416/1*pWjSKnUvpmNYGi2F7VZWLQ.png)
 
-```
+```js
 const daysBetween = (date1, date2) => Math.ceil(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24))
 ```
 
@@ -75,7 +73,7 @@ This one-liner is exactly for the situation I mentioned above but I think you ca
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ab_JYkkPUZ1wdOksFFqGZQ.png)
 
-```
+```js
 const redirect = url => location.href = url
 ```
 
@@ -87,7 +85,7 @@ As the devices that can connect to the internet gets more and more, the necessit
 
 ![](https://cdn-images-1.medium.com/max/4056/1*hCg1ziRq2M2JniqKfc2sBA.png)
 
-```
+```js
 const touchSupported = () => ('ontouchstart' in window || DocumentTouch && document instanceof DocumentTouch)
 ```
 
@@ -101,7 +99,7 @@ Here is a one-liner to inject a string of HTML right after an HTML element. With
 
 ![](https://cdn-images-1.medium.com/max/2840/1*52MWqa-s4AMOMSKOIqgODw.png)
 
-```
+```js
 const insertHTMLAfter = (html, el) => el.insertAdjacentHTML('afterend', html)
 ```
 
@@ -113,7 +111,7 @@ However, here is a `shuffle` one-liner that you can use daily:
 
 ![](https://cdn-images-1.medium.com/max/2336/1*__MeJCilbgX-QPSqpquOYQ.png)
 
-```
+```js
 const shuffle = arr => arr.sort(() => 0.5 - Math.random())
 ```
 
@@ -125,7 +123,7 @@ Browsers have a built-in method named `getSelection` on global `windows` object.
 
 ![](https://cdn-images-1.medium.com/max/2840/1*HKml5QxPBuZWWymaNC26GQ.png)
 
-```
+```js
 const getSelectedText = () => window.getSelection().toString()
 ```
 
@@ -135,7 +133,7 @@ While programming, especially if you’re coding games, there are some times tha
 
 ![](https://cdn-images-1.medium.com/max/2080/1*xpI9zORD0YwiQwtd1Qr_0w.png)
 
-```
+```js
 const getRandomBoolean = () => Math.random() >= 0.5
 ```
 
@@ -149,7 +147,7 @@ The average of an array can be calculated using many ways. But the logic is the 
 
 ![](https://cdn-images-1.medium.com/max/2652/1*z2pUB4_rZKS7vfbW4YDubw.png)
 
-```
+```js
 const average = (arr) => arr.reduce((a, b) => a + b) / arr.length
 ```
 
