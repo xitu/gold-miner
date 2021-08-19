@@ -21,7 +21,7 @@
 * 继承
 * Mocking 和 patch
 * Makefile
-* 什么时候進行测试？
+* 什么时候进行测试？
 
 由于这需要一些代码，我已经创建了一个 [Github Project](https://github.com/Tigenzero/medium_test_with_order_taker) 来帮助我们开始这个话题。获取它最简单的方法是通过 Github Desktop 克隆它，或将其下载为 ZIP 文件。文件夹中包含 `order_up.py`、一个 `Makefile` 和一个 `Pipfile`，还有一个 `Solutions` 文件夹，但我们暂时先不管它。
 
