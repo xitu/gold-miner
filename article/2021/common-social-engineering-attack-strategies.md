@@ -15,25 +15,62 @@
 
 网络犯罪分子利用多种方法来给公司和个人制造问题，其中一种方法被称为社会工程。 让我们来看看这是什么。
 
-## What is Social Engineering?
+## 什么是社会工程？
 
-Although the term “Social Engineering” sounds like some sort of society for engineers, it refers to something else. Social Engineering is the art of manipulating human psychology to accomplish malicious tasks. Social Engineering does not involve any sort of technical hacking in the process.
+尽管“社会工程”一词听起来像是工程师的某种社会，但它指的是其他东西。社会工程学是操纵人类心理以完成恶意任务的艺术。社会工程在此过程中不涉及任何类型的技术黑客攻击。
 
-In a typical hacking scenario, a hacker tries to gain access to a company network by identifying and exploiting a vulnerability in its network. But in a social engineering attack, an attacker would try to manipulate an employee into divulging sensitive information, which can be used by the attacker to execute various actions.
+在典型的黑客攻击场景中，黑客试图通过识别和利用网络中的漏洞来访问公司网络。但是在社会工程攻击中，攻击者会试图操纵员工以泄露敏感信息，攻击者可以利用这些信息来执行各种操作。
 
-Social Engineering attacks have become more and more common these days, where attackers are more focused on finding newer ways of fooling employees. Social Engineering attacks are not simple tasks. The attacker initially selects their target, monitors them for their activities, and finds any sort of psychological weakness. Then the attacker tries to gain the trust of the employee by using their weakness to their advantage. Once the employee falls for it, the attacker makes their move.
+如今，社会工程攻击变得越来越普遍，攻击者更专注于寻找欺骗员工的新方法。社会工程攻击不是件简单的事情。首先，攻击者会选择他们的目标，监视他们的活动，并发现任何形式的心理弱点。然后攻击者试图通过利用它来获得员工的信任。一旦员工掉入陷阱，攻击者就会采取下一步的行动。
 
 ![Social Engineering Attack Lifecycle — Source: [McAfee](https://twitter.com/netsafenz/status/575451458763497473)](https://cdn-images-1.medium.com/max/2000/0*1gqdskcDdajeQwSY)
 
-You can have the best security protocols in your organization, but a skilled social engineer can find their way around your high-end security and still manage to launch an attack. There have been numerous social engineering attacks even on the largest of tech companies. We will look at some of these later below.
+> 图中文字注解：
+>
+> 社会工程攻击可分为四个阶段：
+>
+> 1. 调研（可选）
+>
+>    了解目标以部下成功的圈套。
+>
+>    - 收集有关个人和/或组织的背景信息。
+>    - 选定最容易接近目标的人。
+>    - 计划如何与目标交流，确认他/她能带来的杠杆效应。
+>
+> 2. 部局
+>
+>    为一场成功的攻击做好准备。
+>
+>    - 与目标互动。
+>    - 编造谎言。
+>    - 创造亲密关系。
+>    - 控制交流。
+>
+> 3. 行动
+>
+>    获取信息，并让计划一直持续下去，直到完成。
+>
+>    - 维持伪装。
+>    - 加强关系控制。
+>    - 提取信息。
+>
+> 4. 全身而出
+>
+>    结束交流，不引起对方怀疑。
+>
+>    - 将“游戏”自然地结束。
+>    - 提供一个合理的理由，让目标“保持安静”。
+>    - 掩盖痕迹。
 
-## Who Are Mainly Targeted?
+你可以在你的组织中拥有最好的安全协议，但熟练的社交工程师可以找到方法，绕过你设下的高端的安全措施，并且仍然能设法发起攻击。 即使是最大的科技公司，也发生过了无数次的社会工程攻击。 我们将在下面查看其中的一些例子。
 
-Social Engineering attacks are mainly aimed at employees of organizations with high value and a lot to lose. Attackers would not waste their time exploiting a small-scale business, but rather they try to target large-scale companies and sometimes even governments to cause the most damage.
+## 主要针对哪些人？
 
-Several surveys have revealed that new hires are the most vulnerable to social engineering attacks as they still haven’t mentally prepared themselves for these kinds of attacks. These attacks are so complicated to the fact that you will never realize you are being manipulated until the damage has been caused.
+社会工程学攻击主要针对价值高的组织的员工。 攻击者不会浪费时间利用小型企业，而是会尝试针对大型公司，有时甚至是政府，以造成最大的破坏。
 
-Let’s have a look at the most commonly used attack techniques.
+多项调查显示，新员工最容易受到社会工程攻击，因为他们还没有为此类攻击做好心理准备。这些攻击手段非常复杂，以至于在造成损害之前你永远不会意识到自己正在被操纵。
+
+让我们来看看最常用的攻击技术。
 
 ## Most Commonly Used Attack Techniques
 
