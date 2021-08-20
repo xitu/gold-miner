@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/introduction-to-creating-interpreter-using-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/introduction-to-creating-interpreter-using-python.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 我用 Python 创造了一门自己的编程语言
 
