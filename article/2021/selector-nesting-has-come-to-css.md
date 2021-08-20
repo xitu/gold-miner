@@ -13,13 +13,13 @@ I'm not saying this is a bad thing, it's actually great! This decreases the need
 
 That being said, selector nesting is still in the future. No browsers support it yet, but I expect this to improve. For more information, checkout the [draft](https://drafts.csswg.org/css-nesting-1/).
 
-### [](#what-really-is-nesting)What Really Is nesting???
+## What Really Is nesting???
 
 To explain this effectlively, I'm going to compare two code samples.
 
-##### [](#without-nesting)Without Nesting
+**Without Nesting**:
 
-```
+```css
 button.btn {
   color: blue;
   background: white;
@@ -43,12 +43,11 @@ button.btn-group {
 button.btn-primary {
   /* I promise, this is the last. */ 
 }
-
 ```
 
-Now let me show the same code with nesting.  
+Now let me show the same code **with nesting**.
 
-```
+```css
 .btn {
   color: blue;
   background: white;
@@ -71,13 +70,11 @@ Now let me show the same code with nesting.
     /* You get the point right??? */ 
   }
 }
-
-
 ```
 
 Just like in Sass, The `&` is used to refer to the parent selector(in this case, `.btn`). That's not all, we can also nest multiple levels deep.  
 
-```
+```css
 .btn {
   color: white;
   background: cyan;
@@ -94,14 +91,13 @@ Just like in Sass, The `&` is used to refer to the parent selector(in this case,
     }
   }
 }
-
 ```
 
-### [](#nest)@nest
+## @nest
 
 This is a new `at-rule` that helps us overcome some of the limitations of nesting using the `&`. Look at the following code:  
 
-```
+```css
 .section {
     /* etc ... */
 }
@@ -113,12 +109,11 @@ This is a new `at-rule` that helps us overcome some of the limitations of nestin
         /* We want to reference the blog container which is inside the .section. */
     }
 }
-
 ```
 
 For this, we can use the `@nest` rule. This rule shifts the reference of the `&` to another selector we specify.  
 
-```
+```css
 .main {
     /* etc ... */
 
@@ -129,38 +124,33 @@ For this, we can use the `@nest` rule. This rule shifts the reference of the `&`
         }
     }
 }
-
-
 ```
 
-### [](#nesting-media-queries)Nesting Media Queries
+## Nesting Media Queries
 
 For people who are familiar with Sass, the "normal" code looks like this:  
 
-```
+```css
 .section {
   @media(/* some media query */) {
     /* styles... */
   }
-
 }
-
 ```
 
 However, this is slightly different. In css, the styles must be enclosed in "&".  
 
-```
+```css
   @media(/* some media query */) {
     & {
       /* styles... */
     }
   }
-
 ```
 
 * Normal code
 
-```
+```css
 .table.xyz > th.y > p.abc {
   font-size: 1rem;
   color: white;
@@ -169,12 +159,11 @@ However, this is slightly different. In css, the styles must be enclosed in "&".
 .table.xyz > th.y > p.abc-primary {
   font-size: 1.4rem;
 }
-
 ```
 
 * The Power of nesting 💪 💪 💪
 
-```
+```css
 .table.xyz > th.y > p.abc {
   font-size: 1rem;
   color: white;
@@ -183,18 +172,17 @@ However, this is slightly different. In css, the styles must be enclosed in "&".
     font-size: 1.4rem
   }
 }
-
 ```
 
-#### [](#makes-code-more-readable)Makes code more readable
+### Makes code more readable
 
 As soon as you look the code, you can go "Aha, anything between those outer curly braces is related to buttons or `.btn`! Not my business!"
 
-### [](#a-gotcha)A gotcha
+## A gotcha
 
 One thing to keep in mind is that any css which is after nested selectors is flat out ignored. However, any nesting that is followed is completely valid.  
 
-```
+```css
 .x {
   &-y {
     /* styles... */
@@ -208,7 +196,6 @@ One thing to keep in mind is that any css which is after nested selectors is fla
     /* valid */
   }
 }
-
 ```
 
 That's it guys! Thank you for reading this post.
