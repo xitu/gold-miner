@@ -2,18 +2,18 @@
 > * 原文作者：[Alicia Jones](https://medium.com/@alicia1990jones)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/common-social-engineering-attack-strategies.md](https://github.com/xitu/gold-miner/blob/master/article/2021/common-social-engineering-attack-strategies.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jardliw)
 > * 校对者：
 
-# Common Social Engineering Attack Strategies
+# 常见的社会工程攻击策略
 
 ![Photo by [Sigmund](https://unsplash.com/@sigmund?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10368/0*DLH5MYlvMGvzK8jC)
 
-With the rapid development in technology, we can also expect an equal level of increase in the number of cyber threats faced by us in our daily lives. Our current era is sometimes also referred to as the “Era of Data”. There is so much data out there where experts even consider data as another form of wealth. When there is a lot of wealth in play, the bad guys come into the picture.
+随着技术的飞速发展，我们在日常生活中面临的网络威胁数量也将随之增加。我们当前的时代有时也被称为“数据时代”。网络上充斥着如此多的数据，有些专家甚至将数据视为另一种形式的财富。当事情涉及财富时，坏人就会由此出现。
 
-These cybercriminals try to somehow access this data and use them for their own advantage. This can vary from ransoms to even using the data cause chaos.
+这些网络犯罪分子试图以某种方式访问这些数据并利用它们为自己谋取利益。 这些形式千变万化，从赎金到甚至使用数据导致混乱。
 
-There are several types of methods used by cybercriminals to cause problems for companies and individuals. One such method is known as Social Engineering. Let’s have a look at what this is.
+网络犯罪分子利用多种方法来给公司和个人制造问题，其中一种方法被称为社会工程。 让我们来看看这是什么。
 
 ## What is Social Engineering?
 
