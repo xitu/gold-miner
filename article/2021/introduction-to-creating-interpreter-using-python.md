@@ -5,7 +5,7 @@
 > * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# 我用 Python 创建了一个自己的编程语言
+# 我用 Python 创造了一门自己的编程语言
 
 计算机只能理解机器码。归根结底，编程语言只是一串文字，目的是为了让人类更容易编写他们想让计算机做的事情。真正的魔法是由编译器和解释器完成，它们弥合了两者之间的差距。解释器逐行读取代码并将其转换为机器码。在本文中，我们将设计一个可以执行算术运算的解释器。我们不会重新造轮子。文章将使用由 David M. Beazley 开发的词法解析器 —— PLY（[Python Lex-Yacc](https://github.com/dabeaz/ply)）。PLY 可以通过以下方式下载：
 
@@ -82,7 +82,7 @@ def t_newline(t):
     t.lexer.lineno += t.value.count("\n")
 ```
 
-要导入词法分析器，我们将使用：
+为导入词法分析器，我们将使用：
 
 `import ply.lex as lex`
 
@@ -104,7 +104,7 @@ while tok := lexer.token():
 
 ![](https://cdn-images-1.medium.com/max/2000/1*59uivI84Mhe-UjeeGs1xoQ.jpeg)
 
-紫色字符代表的是标记的名称。
+紫色字符代表的是标记的名称，其后是标记的具体内容。
 
 ## 巴科斯-诺尔范式（Backus-Naur Form，BNF）
 
