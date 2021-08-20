@@ -11,9 +11,9 @@
 
 随着技术的飞速发展，我们在日常生活中面临的网络威胁数量也将随之增加。我们当前的时代有时也被称为“数据时代”。网络上充斥着如此多的数据，有些专家甚至将数据视为另一种形式的财富。当事情涉及财富时，坏人就会由此出现。
 
-这些网络犯罪分子试图以某种方式访问这些数据并利用它们为自己谋取利益。 这些形式千变万化，从赎金到甚至使用数据导致混乱。
+这些网络犯罪分子试图以某种方式访问这些数据并利用它们为自己谋取利益。这些形式千变万化，从勒赎到甚至导致混乱。
 
-网络犯罪分子利用多种方法来给公司和个人制造问题，其中一种方法被称为社会工程。 让我们来看看这是什么。
+网络犯罪分子利用多种方法来给公司和个人制造问题，其中一种方法被称为社会工程。让我们来看看这是什么。
 
 ## 什么是社会工程？
 
@@ -37,7 +37,7 @@
 >    - 选定最容易接近目标的人。
 >    - 计划如何与目标交流，确认他/她能带来的杠杆效应。
 >
-> 2. 部局
+> 2. 部局/下饵
 >
 >    为一场成功的攻击做好准备。
 >
@@ -62,116 +62,116 @@
 >    - 提供一个合理的理由，让目标“保持安静”。
 >    - 掩盖痕迹。
 
-你可以在你的组织中拥有最好的安全协议，但熟练的社交工程师可以找到方法，绕过你设下的高端的安全措施，并且仍然能设法发起攻击。 即使是最大的科技公司，也发生过了无数次的社会工程攻击。 我们将在下面查看其中的一些例子。
+你可以在你的组织中拥有最好的安全协议，但熟练的社会工程师可以找到方法，绕过你设下的高端的安全措施，并且仍然能设法发起攻击。即使是最大的科技公司，也发生过了无数次的社会工程攻击。我们将在下面看到其中的一些例子。
 
 ## 主要针对哪些人？
 
-社会工程学攻击主要针对价值高的组织的员工。 攻击者不会浪费时间利用小型企业，而是会尝试针对大型公司，有时甚至是政府，以造成最大的破坏。
+社会工程学攻击主要针对价值高的组织员工。攻击者不会浪费时间利用小型企业，而是会尝试针对大型公司，有时甚至是政府，以造成最大的破坏。
 
 多项调查显示，新员工最容易受到社会工程攻击，因为他们还没有为此类攻击做好心理准备。这些攻击手段非常复杂，以至于在造成损害之前你永远不会意识到自己正在被操纵。
 
-让我们来看看最常用的攻击技术。
+让我们来看看常用的攻击技术。
 
-## Most Commonly Used Attack Techniques
+## 常用的攻击技术
 
-### Phishing
+### 网络钓鱼
 
-Phishing is one of the most commonly used social engineering attack techniques. Phishing is a fraudulent attempt to extract sensitive information through the means of email or text messages by posing as a legitimate person.
+网络钓鱼是最常用的社会工程攻击技术之一。这是一种冒充合法人，并通过电子邮件或短信方式提取敏感信息的欺诈方式。
 
-Phishing attacks are mostly targeting a huge number of people and there is no single specific target point. Think of it as **Fishing**, where you do not try to catch a specific fish, but rather try to catch any fish. Therefore these phishing campaigns are done in bulk, in order to reach a large number of unsuspecting individuals.
+网络钓鱼攻击主要针对大量人群，并且没有单一的特定目标点。就好比钓鱼，你不会试图钓到一条特定的鱼，而是尝试钓到任何鱼。因此，这些网络钓鱼活动是批量进行的，以覆盖大量毫无戒心的人。
 
-An example of a phishing attack would be an email sent to users highlighting that their PayPal accounts are being blocked due to suspicious behavior. This creates a sense of panic amongst the recipients causing them to not think twice before clicking the links in the email. Once these links have been clicked, you will be redirected to a “**spoof”** website that will look exactly similar to PayPal with a near-identical URL as well. Once you submit the account credentials, the attacker will have access to your credentials as well. Another possible scenario would be that malware would be downloaded once you click on the link and it will execute itself on your local system.
+网络钓鱼攻击的一个例子是通过发送给用户的电邮，强调他们的 PayPal 帐户因可疑行为而被阻止。这会让收件人产生一种恐慌感，使他们在点击电子邮件中的链接之前不会三思。点击这些链接后，你将被重定向到一个**诈骗网站**，该网站看起来与 PayPal 高度相似，就连网址也几乎相同。一旦你提交了帐户凭据，攻击者也将获取你的凭据。另一种可能的情况是，一旦你地点击链接就会下载恶意软件，并在你的本地系统上自行执行。
 
-Since Phishing attacks are done in bulk targeting many users, it is easy for mail servers to detect and block these types of attacks before they cause trouble for the end-user.
+由于网络钓鱼攻击是针对许多用户且是批量进行的，邮件服务商很容易在这些攻击给用户带来麻烦之前就检测到并阻止它们。
 
 ![Photo by [Sticker Mule](https://unsplash.com/@stickermule?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*HF9_pUgDR-gjl9Qj)
 
-### Spear Phishing
+### 鱼叉式网络钓鱼
 
-Spear Phishing is a more targeted version of Phishing where an attacker targets a selected employee or company. This form of attack requires a huge effort from the attacker and can even take several months of planning and preparation. The attacker needs to gather personal information regarding his subjects such as job, personality, characteristics, and even contacts. Once these are collected, the attacker sends a message via email, or text messages similar to Phishing, but these messages are tailormade to each target, making them look less obvious.
+鱼叉式网络钓鱼是一种更有针对性的网络钓鱼版本，攻击者将目标锁定在选定的员工或公司。这种形式的攻击需要攻击者付出巨大的努力，甚至可能需要几个月的计划和准备时间。攻击者需要收集有关他的主题的个人信息，例如工作、个性、特征甚至是联系方式。一旦收集到这些信息，攻击者就会通过电子邮件或短信发送一条消息，情况类似于网络钓鱼，但这些消息是针对每个目标量身定制的，使攻击看起来不那么明显。
 
-These types of attacks are the most successful ones if executed flawlessly. Since they are only sent in small numbers, it is hard for mail servers to detect and block these types of attacks.
+如果没有出现任何的差错，这类型的攻击往往是最成功的。由于邮件只是被少量地发送，邮件服务器很难检测和阻断这类型的攻击。
 
-### Baiting
+### 下饵
 
-Baiting is an attack that uses a false promise to trigger the victim’s greed or curiosity and using it to the attacker’s advantage. Its main characteristic is the promise of goods that hackers use to deceive the victims. The attacker either steals the sensitive information or forces malware onto the unsuspecting victim’s device.
+下饵是一种攻击，利用虚假承诺来触发受害者的贪婪或好奇心，将其变成攻击者的优势。它的主要特征是黑客用来欺骗受害者的善意承诺。攻击者要么窃取敏感信息，要么将恶意软件强加到毫无戒心的受害者设备上。
 
-Baiting attacks are done in the form of physical and online attacks. In a physical attack, a malware-infected device will be kept in a publicly accessible area where potential victims are known to hang around. These devices will look very authentic and will contain labeling that denotes something very interesting.
+下饵攻击以物理和线上攻击的形式进行。在物理攻击中，受恶意软件感染的设备将被放置在公共可访问区域，一些已知潜在受害者常出没的地方。这些设备看起来非常真实，并且包含标签，标注着一些让人感兴趣的东西。
 
-An example scenario would be where an attacker leaves a malware-infected pen drive on a common area accessible to the victim. This pen drive would be labeled as something irresistible like high performing clients of the company, or some pornographic material. Once the victim plugs this device onto their computer, the malware infects the host and allows the attacker to take action.
+一个示例场景是攻击者将受恶意软件感染的 U 盘留在受害者可访问的公共区域。这个 U 盘会被标记上一些令人不可抗拒的东西，比如公司的高绩效客户，或者一些色情材料。 一旦受害者将此设备插入他们的计算机，恶意软件就会感染主机并能让攻击者远程采取行动。
 
-In case of an online attack, the victim will be baited with a “too good to be true” ad that seduces them and leads to malicious sites or encourages users to download a malware-infected application.
+如是线上攻击，受害者将被“好得令人难以置信”的广告引诱，引诱他们访问恶意网站或鼓励用户下载已被恶意软件感染的应用程序。
 
-### Quid Pro Quo
+### 交换条件（Quid Pro Quo）
 
-Quid Pro Quo can be identified as a variant of Baiting. Quid pro quo is a Latin phrase used in English to mean an exchange of services. Instead of promised goods, this form of attack will promise a service or an action from the attackers’ end.
+交换条件可说是下饵的一种变体。Quid Pro Quo 是一个拉丁语短语，在汉语中表示“服务的交换”。这种形式的攻击将承诺提供某种服务，而不是商品。
 
-One of the most common Quid Pro Quo attacks is when attackers impersonate the US Social Security Administration(SSA). These imposters contact unsuspecting individuals and ask them to confirm their social security number citing technical reasons. Once this has been done, the attackers can easily perform identity theft.
+最常见的交换条件攻击之一包括冒充美国社会保障局（SSA）。这些冒名顶替者联系毫无戒心的人，并以技术原因要求他们确认他们的社会保障号码。完成此操作后，攻击者可以轻松进行身份盗用。
 
-In other cases found by the Federal Trade Commission (FTC), fraudulent actors have set up bogus SSA websites that claim they can help people register for new Social Security cards but actually steal their personal details.
+在联邦贸易委员会（FTC）发现的其他案例中，欺诈者建立了虚假的 SSA 网站，声称他们可以帮助人们注册新的社会保障卡，但实际上窃取了他们详细的个人信息。
 
-### Pretexting
+### 假托
 
-Pretexting is a social engineering attack technique that mainly involves the manipulation of a victim solely based on the trust built. Attackers present themselves usually as someone who has a right-to-know authority like co-workers, police, bank, and tax officials. The attacker then asks questions under the pretext of confirming the victim’s identity and then uses sensitive information for their own use.
+假托是一种社会工程攻击技术，主要通过建立信任来操纵单个受害者。攻击者通常将自己表现为拥有知情权的人，例如同事、警察、银行或税务官员，然后攻击者以确认受害者身份为借口提出问题，然后将敏感信息用于自己的用途。
 
-Although these attackers mostly gather only personal data, there have been events where attackers have gained security information related to a physical plant.
+虽然这些攻击者大多只收集个人数据，但也曾有过攻击者通过这种方法来获得与工业工厂相关的安全信息的事件。
 
-The success of this form of attack heavily depends on the level of trust the attacker was able to build with their victims. Many sophisticated types of pretexting attacks attempt to trick the victims into an action that allows the attacker to find and exploit a point of vulnerability within an enterprise.
+这种攻击形式的成功在很大程度上取决于攻击者能够与受害者建立的信任程度。许多复杂类型的假托攻击试图诱使受害者采取行动，使得攻击者能够找到并利用企业内的漏洞。
 
-### Scareware
+### 恐吓软件
 
-Scareware is a type of attack where the victim gets bombarded with popups and emails with false alarms and fictitious threats. These are very common and the least effective. You probably would have seen popups with the text “Your computer may be infected with harmful spyware programs” on several websites. Once you click on these links, you will either be directed to install a “malware removal” application which itself would contain malware or will direct you to a malicious site where your computer becomes infected.
+恐吓软件是一种攻击类型，受害者会被带有虚假警报和虚构威胁的弹出窗口和电邮的轰炸。这些很常见，但效果最差。你可能会在多个网站上看到带有“您的计算机可能感染了有害间谍软件程序”的弹出窗口。单击这些链接后，你将被引导安装“能删除恶意软件”应用程序，该应用程序本身包含恶意软件，或者将你引导至能感染你的计算机的恶意站点。
 
-The other type of scareware is pretty commonly found in your email spam box. Your spam box will be filled with emails from senders promising “too good to be true” offers or bogus threats. Your mail server would probably do a good job identified and isolating these emails, and therefore this form of attack is amongst the least effective.
-
----
-
-Social Engineering attackers use several strategies to implement their attacks successfully. One of the most common strategies is to **offer something irresistible**. This strategy will exploit human greed to achieve the desired outcome. Another common strategy would be to **fake it till you make it**. This strategy involves playing the victim card and eventually making the employee believing in your story. **Showing your level of authority** is also another strategy used by attackers when impersonating someone. As people tend to respect people with **authority** — or show **authority**, this trick works most of the time.
-
-## Most Notable Social Engineering Attacks in History
-
-### Facebook and Google
-
-Both [Facebook and Google were scammed](http://fortune.com/2017/04/27/facebook-google-rimasauskas/) over 100 million USD in a span of over 2 years. A Lithuanian hacker was able to send fake invoices impersonating an Asian vendor of these two companies. This is known as one of the costliest Phishing attacks.
-
-### Barbara Corcoran — Shark Tank
-
-Shark Tank judge Barbara almost got caught in a social engineering attack which [would have cost her a staggering 400,000 USD](https://www.cnbc.com/2020/05/06/how-barbara-corcoran-almost-lost-400000-dollars-to-an-email-scam.html). An attacker had impersonated her assistant and contacted her bookkeeper requesting a payment for the renewal of her real estate investments. The attacker had used an email address very similar to the legitimate assistant’s. This fraud was detected when the bookkeeper had contacted the assistant regarding the wire transfer.
-
-Although the money had left Barbara’s account, they were able to freeze the transaction before it reached the attacker’s account in China.
-
-### Toyota
-
-Toyota Boshoku Corporation is a Japanese automotive component manufacturer. It is a member of the Toyota Group of companies. They were the victims of a [social engineering attack in 2019](https://www.forbes.com/sites/leemathews/2019/09/06/toyota-parts-supplier-hit-by-37-million-email-scam/). They lost around 37 million USD. It is still not known whether Toyota was able to recover the lost money. The attacker was able to convince someone with financial authority to change account information on an electronic funds transfer.
-
-### Ethereum Classic
-
-The [Ethereum Classic website was hacked in 2017](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/ethereum-classic-wallet-a-victim-of-social-engineering) making users lose thousands of dollars worth of cryptocurrency. The social engineering attackers were able to impersonate the owner of the website and gain access to its domain registry. Once they received the access, they redirected the domain to their own server. The attackers were later able to extract the cryptocurrency from the victims after viewing their private transactions.
-
-### Sony Pictures
-
-This social engineering attack was one of the biggest topics during its time. Sony Pictures [was under attack in 2014](https://www.washingtonpost.com/news/the-switch/wp/2014/12/18/the-sony-pictures-hack-explained/) where it had lost several important documents including business agreements, financial documents, and employees’ information. It was later identified that this attack was a spearfishing attack and the targeted employees were lured using Apple product emails.
-
-## How to Stay Safe as an Individual?
-
-* Do not open emails and attachments from suspicious sources. Always make sure to check the email address of the sender. Even an email address from a trusted sender can be spoofed.
-* Use multifactor authentication. Attackers are very interested in your login credentials. But if you use multifactor authentication, the attacker will not able to do anything with your credentials alone.
-* Be careful about “too good to be true” offers. If an offer sounds too good to be true, do a bit of Googling regarding that topic to get an idea on whether the offer is legitimate.
-* Keep your antivirus up to date.
-* Always keep your device locked when not in use.
-* Always be cautious when talking with people. Think before you speak. You might unintentionally say something that may be confidential.
-
-## How to Stay Safe as an Organization?
-
-According to Dan Lohrmann,
-
-* Focus on training your employees, especially the new hires. Ensure that there is a comprehensive security awareness training program in place that is regularly updated to address both the general phishing threats and the new targeted cyber threats. Remember, this is not just about clicking on links.
-* Keep regular “roadshow” briefings explaining the latest attack trends. Make sure all levels of employees attend these briefings, including senior executives and those who have authority over financial transactions.
-* Hire external independent security teams to audit your company security. These audits should happen regularly.
+另一种类型的恐吓软件在你的垃圾邮箱中很常见。你的垃圾邮件箱中充满着“好得令人难以置信”优惠或是虚假的威胁。 你的邮件服务器可能会很好地识别和隔离这些电子邮件，因此这种形式的攻击是最不有效的。
 
 ---
 
-It is essential that we maintain proper security practices to avoid ourselves and our companies from getting into trouble. As we have seen above, these attacks can be very costly. It is up to us to stay safe from all the nasty eyes around us.
+社会工程攻击者使用多种策略来成功实施他们的攻击。最常见的策略之一是**提供不可抗拒的东西**。该策略利用人类的贪婪来实现攻击者想达到的结果。另一个常见的策略是**伪装**。这种策略主打感情牌，将自己伪装成受害者，并最终让员工相信你的故事。**展示权限**也是攻击者在冒充某人时使用的另一种策略。由于人们倾向于尊重具有**权威**的人，或**表现出权威**的人，因此这个技巧在大多数情况下都奏效。
+
+## 历史上最著名的社会工程攻击
+
+### Facebook 和 Google
+
+在 2 年多的时间内，[Facebook 和 Google 被诈骗了](http://fortune.com/2017/04/27/facebook-google-rimasauskas/)超过 1 亿美元。一个立陶宛的黑客冒充这两家公司的亚洲供应商向他们发送虚假发票。这被认为代价最高的网络钓鱼攻击之一。
+
+### 芭芭拉·科克伦（Barbara Corcoran） ——   《创智赢家》
+
+创智赢家》的裁判 —— Barbara 差点陷入社会工程攻击，[这将使她损失 400,000 美元](https://www.cnbc.com/2020/05/06/how-barbara-corcoran-almost-lost-400000-dollars-to-an-email-scam.html）。一名攻击者冒充她的助手，联系她的簿记员，要求支付她的房地产投资的续期费用。 攻击者使用的电邮地址与合法助理的电邮地址非常相似。当簿记员就电汇事宜联系助理时，这才发现了这个诈骗案。
+
+尽管这笔钱已经离开了 Barbara 的账户，但他们还是成功地在这笔交易到达攻击者在中国的账户之前冻结它。
+
+### 丰田（Toyota）
+
+丰田纺织（Toyota Boshoku Corporation）是一家日本汽车零件制造商。它是丰田集团公司的成员。他们在[2019 年社会工程攻击](https://www.forbes.com/sites/leemathews/2019/09/06/toyota-parts-supplier-hit-by-37-million-email-scam/）。中损失了大约 3700 万美元。 目前尚不清楚丰田是否能够追回损失的资金。攻击者说服具有财务权限的人员更改了电子资金转账的帐户信息。
+
+### 以太坊经典（Ethereum Classic）
+
+[以太坊经典的网站在 2017 年被黑客入侵](https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/ethereum-classic-wallet-a-victim-of-social-engineering），使用户损失价值数千美元的加密货币。社会工程攻击者冒充网站的所有者并访问其域名的注册表。当他们收到访问权限后，将域名重定向到自己的服务器。攻击者后来能够查看受害者的私人交易，并从他们那里提取加密货币。
+
+### 索尼影视娱乐（Sony Pictures）
+
+这个社会工程攻击是当时最大的话题之一。索尼影业[在 2014 年受到攻击](https://www.washingtonpost.com/news/the-switch/wp/2014/12/18/the-sony-pictures-hack-explained/)并因此失去了几个重要文件，包括业务协议、财务文件和员工信息。 后来，这次的攻击被确定为是鱼叉式钓鱼攻击，目标员工是通过 Apple 产品的电邮而被引诱的。
+
+## 作为个人，我该如何保持安全？
+
+* 不要打开来自可疑来源的电子邮件和附件。请务必检查发件人的电邮地址，即使是来自受信任发件人的电邮地址也可能存在诈骗。
+* 使用多因素身份验证（MFA）。攻击者对你的登录凭据非常感兴趣。但是，如果你使用多因素身份验证，攻击者将无法单独使用你的凭据执行任何操作。
+* 小心那些“好得令人难以置信”的优惠。如果优惠听起来好得令人难以置信，请在谷歌上搜索有关信息，以了解它是否合法。
+* 确保你的防毒软件保持最新的状态。
+* 不使用设备时，请始终将它锁定。
+* 与人交谈时始终保持谨慎。说话前请三思，你可能会无意中说出一些可能属于机密的内容。
+
+## 作为一个公司/组织，我该如何保持安全？
+
+根据 Dan Lohrmann（Security Mentor 的首席安全官）的说法，
+
+* 专注于培训你的员工，尤其是新员工。确保你有一个全面的安全意识培训计划，并定期更新它们，以解决一般网络钓鱼威胁和新的且有针对性的网络威胁。 请记住，攻击不仅仅发生于点击链接。
+* 定期举行“路演”简报会，解释最新的攻击趋势。 确保所有级别的员工都参加这些简报会，包括高级管理人员和对金融交易有权力的人。
+* 聘请外部独立安全团队来审核你公司的安全。这些审计应定期进行。
+
+---
+
+我们必须保持适当的安全措施，以避免自己和公司陷入困境。正如我们在上面看到的，这些攻击的代价可能非常高。我们有责任保护自己不被潜伏在周围的邪恶眼睛所盯上。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
