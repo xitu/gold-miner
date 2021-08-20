@@ -2,54 +2,54 @@
 > * 原文作者：[Dulanka Karunasena](https://medium.com/@dulanka)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/simplified-peer-to-peer-communication-with-peerjs.md](https://github.com/xitu/gold-miner/blob/master/article/2021/simplified-peer-to-peer-communication-with-peerjs.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tong-h](https://github.com/Tong-H)
+> * 校对者：[jaredliw](https://github.com/jaredliw)，[CarlosChenN](https://github.com/CarlosChenN)
 
-# Simplified Peer to Peer Communication with PeerJS
+# 使用 PeerJS 轻松实现 P2P 通信
 
 ![](https://cdn-images-1.medium.com/max/5760/1*-Rh8z0kzvXKz_BbONP60Yw.jpeg)
 
-Implementing peer-to-peer communication is a challenging task. But, if you know the correct tools, you can make it a whole lot easier.
+实现 P2P 通信是一项具有挑战性的任务，但如果你知道如何使用正确的工具，那么这项任务就变得简单多了。
 
-So, in this article, I will discuss [PeerJS](https://peerjs.com/), a JavaScript library that acts as a wrapper around WebRTC, making it easier to implement peer-to-peer communication in web applications.
+所以，我将在这篇文章探讨 [PeerJS](https://peerjs.com/)，这是一个封装了 WebRTC 的 JavaScript 库，可以在 web 应用中更加轻松的实现 P2P 通信。
 
-## How PeerJS Simplifies WebRTC?
+## PeerJS 是如何简化 WebRTC 的？
 
-When it comes to real-time P2P communication in web applications, WebRTC is the standard used by many developers. But, it comes with some complexities as follows;
+当在 web 应用中涉及到实时 P2P 通信时，WebRTC 是许多开发者的使用标准。但它也自带了一些复杂性：
 
-* If you use pure WebRTC, first, you define a STUN (Session Traversal Utilities for NAT) server to generate ICE (Interactive Connectivity Establishment) candidates for each peer involved in communication.
-* Then you need to use your servers to store these ICE candidate details.
-* Finally, you need to implement WebSockets to handle real-time updates.
+* 如果你使用纯 WebRTC，首先你要定义一个 STUN（Session Traversal Utilities for NAT）服务为通讯中涉及到的每一个节点生成 ICE（Interactive Connectivity Establishment）协议候选者。
+* 然后你需要将这些 ICE 协议候选者的详情存储在你的服务中。
+* 最后，你需要使用 WebSockets 来处理实时更新。
 
-Even you haven’t worked with WebRTC before; I’m sure you must be feeling the complexity of its implementation. But, don’t worry, PeerJS is here for the rescue.
+即使你之前没有接触过 WebRTC，我相信你也已经感受到了实现它的复杂性。但别担心，PeerJS 来解救你了。
 
-> With PeerJS, we don’t have to worry about STUNs, ICE candidates, or server creation. We can even avoid implementing WebSockets as well.
+> 有了 PeerJS，我们不用担心 STUN，ICE 协议候选者，或者服务器的创建，而且我们甚至可以避免使用 WebSockets。
 
-PeerJs provides a complete, configurable peer-to-peer connection API and a server called PeerServer to easily establish connections between PeerJS clients.
+PeerJS 提供一个完整的、可配置的点对点连接的 API， 以及一个称之为 PeerServer 的服务，使得我们能够轻松的在 PeerJS 的客户端之间建立连接。
 
-So, let’s see how we can use PeerJS to create a simple chat application.
+那么就来看看我们如何使用 PeerJS 来创建一个简单的聊天应用。
 
-## Building Your First Chat Room with PeerJS and React
+## 使用 PeerJS 和 React 搭建你的第一个聊天室
 
-### Step 1 — Installing PeerJS
+### 步骤 1 —— 安装 PeerJS
 
-First, we need to install PeerJS library to your project as a node module and the [peer](https://www.npmjs.com/package/peer) library as a global dependency.
+首先，我们需要将 PeerJS 作为一个 node module 安装在你的项目中，并将 [peer](https://www.npmjs.com/package/peer) 作为全局依赖。
 
 ```bash
-// Installing PeerJS
+// 安装 PeerJS
 npm i peerjs
 
-// Installing Peer
+// 安装 Peer
 npm i -g peer
 ```
 
-> **Note:** PeerJS library is used to start the PeerServer locally. You can also use the [PeerServer Cloud](https://peerjs.com/peerserver.html) instance as well.
+> **注意**：PeerJS 用于在本地启动 PeerServer，但你也可以使用 [PeerServer Cloud](https://peerjs.com/peerserver.html) 实例。
 
-#### Step 2 — Implementing the Chat Room
+### 步骤 2 —— 实现聊天室
 
-Now, let’s move to our React application and get things started by initializing the state of the chat component.
+现在，让我们移至 React 应用，先初始化聊天组件的 state。
 
-Inside the state, we will be handling our ID, peer ID, chat messages, and an instance of Peer object.
+我们将在 state 内处理我们自己的 ID，目标节点 ID，聊天信息，以及一个 Peer 对象的实例。
 
 ```js
 state = {
@@ -61,7 +61,7 @@ state = {
 }
 ```
 
-Then we need to create a Peer instance by defining hostname, port, and path to manage our P2P connection. We will use this instance throughout the communication process.
+我们需要通过定义主机名，端口号以及路径来创建一个 Peer 实例用于管理我们的 P2P 连接。在整个通信过程中我们都将使用该实例。
 
 ```js
 const peer = new Peer('', {
@@ -71,11 +71,11 @@ const peer = new Peer('', {
 });
 ```
 
-> **Tip:** You can use your own ID as the first argument or leave it undefined for the PeerServer to generate a random ID. If you use `const peer = new Peer();` you will be connected to PeerServer Cloud.
+> **提示：**你可以使用你自己的 ID 作为第一个参数，或者不传参，让 PeerServer 生成一个随机 ID。如果你使用 `const peer = new Peer();`，你将连接到 PeerServer Cloud。
 
-Peer instance has several methods to handle communication between peers. `peer.on` is used to listen to peer events, and it is useful when receiving calls from remote peers.
+Peer 实例有几个方法去处理 peer 之间的通信。`peer.on` 是用于监听节点的事件，当接收远程节点的通话时该方法很有用。
 
-`open` event will be emitted after successfully connecting to PeerServer, and we will use this event to update the state of myId and peer instance.
+`open` 事件将会在成功连接 PeerServer 后发出，我们将通过该事件去更新 myId 和 peer 实例的 state。
 
 ```js
 peer.on('open', (id) => {
@@ -87,7 +87,7 @@ this.setState({
 });
 ```
 
-Then, we need to use the `connection` event to listen to remote peer connections, and we can use its callback to grab the message sent by the remote peer.
+然后，我们需要通过 `connection` 事件来监听远程节点连接，并通过其回调函数获取远程节点发送的消息。
 
 ```js
 peer.on('connection', (conn) => {
@@ -101,9 +101,9 @@ peer.on('connection', (conn) => {
 });
 ```
 
-Now, we have implemented all the functionalities to receive messages. As the final step, let’s create a method to send a message.
+现在我们已经实现了消息接收的功能。那么在最后一步，让我们创建一个方法用于消息发送。
 
-`peer.connect` method allows us to connect to the peer by specifying peer id. Then it returns a `DataConnection` object which can be used to send message data to the peer.
+`peer.connect` 方法使我们可以通过指定远程节点 id 来连接该节点。然后它将返回一个 `DataConnection` 对象用于向节点发送消息。
 
 ```js
 send = () => {
@@ -127,9 +127,9 @@ send = () => {
 }
 ```
 
-### Step 3 — Video Chat Implementation
+### 步骤 3 —— 实现视频聊天
 
-Now, let’s modify our chat room to send video messages. Implementing it is pretty much similar to what we discussed in the previous step. We can use the `call` event inside `peer.on` method to listen to calls from the remote peer. It will provide a callback with an object named `MediaConnection` and receiver’s video and audio streams are provided to the `answer` method of `MediaConnection` object.
+现在，让我们修改聊天室用于发送视频消息。该功能的的实现与之前我们讨论过的步骤非常相似。我们可以通过 `peer.on` 方法监听 `call` 事件从而获知来自远程节点的来电。该监听事件提供一个携带 `MediaConnection` 对象的回调函数，而接受者的视频流和音频流将提供给 `MediaConnection` 对象的 `answer` 方法。
 
 ```js
 peer.on('call', (call) => {
@@ -152,9 +152,9 @@ getUserMedia({ video: true, audio: true }, (stream) => {
 });
 ```
 
-Now let’s make a video call to the peer from our end. This approach is similar to answering a call. We need to use the `call` method of the initial `peer` instance and provide peer ID and video stream as arguments.
+现在，让我们从我们的端口向远程节点发送一个视频通话。这个方法与来电响应类似。我们需要调用最初的 `peer` 实例上的 `call` 方法并且将提供节点 ID 和视频流作为其参数。
 
-`call` method will then return a `MediaConnection` object which we can use to access the peer’s stream.
+`call` 方法将由此返回一个 `MediaConnection` 对象，我们可以通过该对象使用节点的视频流。
 
 ```js
 videoCall = () => {
@@ -176,9 +176,9 @@ getUserMedia({ video: true, audio: true }, (stream) => {
 }
 ```
 
-### Step 4 — Finalizing Things
+### 步骤 4 —— 最后的事项
 
-Finally, it’s time to add some JSX to render our chat room. Let’s add two input fields for peer ID and chat messages. We will use the `ref` attribute to access the `video` element.
+终于到时候添加一些 JSX 来渲染我们的聊天室了。让我们添加两个输入框用于输入节点 ID 以及聊天信息。我们将使用 `ref` 属性来操作 `video` 元素。
 
 ```js
 return (
@@ -226,23 +226,23 @@ return (
   );
 ```
 
-That’s it! Now we are all set for a quick video chat. The final implementation will look like this and you can find the full code in my GitHub [repository](https://github.com/Dulanka-K/video-chat).
+就这样！现在，一个快速视频聊天已经全部设置好了。最后的成果看起来像这样，你可以在我的 GitHub [仓库](https://github.com/Dulanka-K/video-chat)找到完整的代码。
 
 ![](https://cdn-images-1.medium.com/max/3840/1*G48OkV0QlFvETj2zqDuqIw.gif)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0epo9iaN7-wx39_FkRTBCw.gif)
 
-> **Note:** Some browsers (especially mobile browsers) may not allow camera and microphone access without an HTTPS connection. You can refer to this [article](https://blog.bitsrc.io/using-https-for-local-development-for-react-angular-and-node-fdfaf69693cd) to set up a local HTTPS connection in few steps.
+> **注意**：在不是 HTTPS 连接的情况下，一些浏览器（尤其是手机浏览器）可能不允许使用相机和麦克风。你可以参考这篇[文章](https://blog.bitsrc.io/using-https-for-local-development-for-react-angular-and-node-fdfaf69693cd)，通过几个步骤设置一个本地 HTTPS 连接。
 
-## Final Words
+## 结语
 
-Web RTC is the browser standard that enables real-time peer-to-peer communication. But implementing WebRTC is a bit complex due to the involvement of STUN Servers, ICE candidates, SDPs, and WebSockets.
+WebRTC 是支持 P2P 通信的浏览器标准。但是因为牵涉到 STUN 服务器，ICE 协议候选者，SDPs，以及 WebSockets，所以实现 WebRTC 会有一点复杂。
 
-PeerJS simplifies the whole process by acting as a wrapper to WebRTC and provides us with much simpler events and methods to work.
+PeerJS 通过封装 WebRTC 简化了整个流程，为我们提供了更简单的事件和方法。
 
-So, I invite you to try PeerJS and let me know your thoughts in the comments section.
+所以，我邀请你尝试使用 PeerJS，并在评论区中让我知道你的观点。
 
-Thank you for Reading !!!
+感谢阅读！！！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
