@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Z招锦](https://github.com/zenblofe)
 
 # 11 个让你惊叹的罕见 JavaScript 单行代码
 
 ![Source: [Pexels](https://www.pexels.com/photo/blue-eyed-man-staring-at-the-mirror-54377/)](https://cdn-images-1.medium.com/max/8576/1*-0ag6JFjkLmmXTJVVZPVmA.jpeg)
 
-如果你想给专业开发人员留下深刻印象，你会怎么做？这很简单：用简单的逻辑和尽可能少的代码来解决一个复杂的问题。随着 ES6 引入了箭头函数，我们可以创建看起来优雅又简单的单行代码。
+如果你想给专业开发人员留下深刻印象，你会怎么做？这很简单：用简易的策略和尽量少的代码来解决一个复杂的难题。随着 ES6 引入了箭头函数功能，我们可以创建看起来优雅又简单的单行代码。
 
 在本文中，您将学习 11 种罕见但功能强大的单行代码。那么，准备好，让我们从第一个开始吧！
 
 ## 1. 获取字符串中的字符数
 
-获取字符数是一个有用的实用功能，在许多情况下都很有用。你可以使用它来获取空格数和随后的单词数，或者这可用于获取字符串中某个分隔符的计数。
+获取字符数是一个很实用的功能，在许多场景下都很适用。你可以使用它来获取空格数和随后的单词数，或者用于获取字符串中某个分隔符的统计次数。
 
 ![](https://cdn-images-1.medium.com/max/2412/1*4JTq7Wv6G1Tu0GUkHjJqNA.png)
 
@@ -27,9 +27,9 @@ const characterCount = (str, char) => str.split(char).length - 1
 
 ## 2. 检查对象是否为空
 
-检查对象的空性实际上比看起来要困难得多。每次检查对象是否等于 `{}` 都会返回 `false`，即便该对象为空。
+检查对象是否为空实际上比想像中要困难得多。即使对象为空，但每次检查该对象是否等于 `{}` 都会返回 `false`。
 
-幸运的是，下面的单行代码做了我们想要完成的事。
+幸运的是，下面的单行代码实现了我们想要完成的事。
 
 ![](https://cdn-images-1.medium.com/max/3100/1*raLs5fvNEPlEUQnU4z-Chw.png)
 
@@ -41,7 +41,7 @@ const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === 
 
 ## 3. 等待一定时间后执行
 
-在这个单行代码中，我们将接触一些异步编程。概念很简单。在运行代码时，如果你想等待一定的时间，这是 `wait` 的单行代码：
+在这个单行代码中，我们将接触一些简单的异步编程概念。在运行代码时，如果你想等待一定的时间，这是 `wait` 的单行代码：
 
 ![](https://cdn-images-1.medium.com/max/3448/1*zED3kVo1HB1p-rMsEB-rbw.png)
 
@@ -49,7 +49,7 @@ const isEmpty = obj => Reflect.ownKeys(obj).length === 0 && obj.constructor === 
 const wait = async (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 ```
 
-在 `wait` 这个单行代码中，我们创建一个 Promise 对象并在给定的时间后使用 `setTimeout` 函数解析它。
+在 `wait` 这个单行代码中，我们创建一个 Promise 对象并在给定的时间后使用 `setTimeout` 函数完成它。
 
 ## 4. 获取两个日期之间的天数差
 
@@ -129,7 +129,7 @@ const getSelectedText = () => window.getSelection().toString()
 
 ## 10. 获取一个随机布尔值
 
-在编程时，尤其是在编写游戏时，有时你会想要某些行动被随机的执行。在这种情况下，下面的单行代码让事情变得非常方便。
+在编程时，尤其是在编写游戏时，有时你会想要某些行为被随机的执行。在这种情况下，下面的单行代码让事情变得非常方便。
 
 ![](https://cdn-images-1.medium.com/max/2080/1*xpI9zORD0YwiQwtd1Qr_0w.png)
 
@@ -155,7 +155,7 @@ const average = (arr) => arr.reduce((a, b) => a + b) / arr.length
 
 ---
 
-就这样，大家！现在您已经了解了 11 个简单但功能强大的 JavaScript 单行代码。我试着选择那些不是很知名的代码，这样你就可以学习新东西。我每天都在使用它们，我想你也会。
+就这些了，大家！现在你已经了解了 11 个简单但功能强大的 JavaScript 单行代码。我试着选择了那些不是很知名的代码，这样你就可以学习新东西。我每天都在使用它们，我想你也会。
 
 感谢你的阅读。如果你喜欢这篇文章，记得点赞。如果你对这篇文章有什么想说的，请留言。下一篇文章见。
 
