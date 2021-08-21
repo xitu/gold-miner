@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/common-social-engineering-attack-strategies.md](https://github.com/xitu/gold-miner/blob/master/article/2021/common-social-engineering-attack-strategies.md)
 > * 译者：[jaredliw](https://github.com/jardliw)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 常见的社会工程攻击策略
 
