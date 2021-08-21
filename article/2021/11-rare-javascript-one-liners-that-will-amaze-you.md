@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md](https://github.com/xitu/gold-miner/blob/master/article/2021/11-rare-javascript-one-liners-that-will-amaze-you.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[Z招锦](https://github.com/zenblofe)
+> * 校对者：[Z招锦](https://github.com/zenblofe)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 11 个让你惊叹的罕见 JavaScript 单行代码
 
