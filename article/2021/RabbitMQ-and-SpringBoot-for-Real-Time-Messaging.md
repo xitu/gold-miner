@@ -2,14 +2,14 @@
 > * 原文作者：[Tanbir Ahmed](https://tanbir-sagar.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[jaredliw](https://github.com/jaredliw)
 
 # 使用 RabbitMQ 和 SpringBoot 实现实时消息
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EYd1qBpQDCnVlyd_NxAFTQ.png)
 
-在过去的几个月里，我一直在看《无垠苍穹》。这部剧中有太空战、战舰、外星人和许多其他很酷的科幻部队。其中有一些先进的软件，可以让空间站监视并与所有的宇宙飞船和火箭进行通信。这令我思考：今天是否有工具来为这样的东西建立一个后端。我首先想到的是 RabbitMQ 和 SpringBoot。
+在过去的几个月里，我一直在看《苍穹浩瀚》。这部剧中有太空战、战舰、外星人和许多其他很酷的科幻部队。其中有一些先进的软件，可以让空间站监视并与所有的宇宙飞船和火箭进行通信。这令我思考：今天是否有工具来为这样的东西建立一个后端。我首先想到的是 RabbitMQ 和 SpringBoot。
 
 ## 场景
 
@@ -17,10 +17,10 @@
 
 ## 用例
 
-基于上述场景，我们需要实现三个主要的用例。我们应当关注通信功能，而不是由消息触发的事件（希望在其他项目中可以讲述）。
+基于上述场景，我们需要实现三个主要的用例。我们应当关注通信功能，而不是由消息触发的事件（希望我会在其他项目中讲述这个问题）。
 
 1. 飞船定时向空间站发送更新消息。
-2. 每艘飞船和对接站之间都将实时、一对一地进行通信。
+2. 每艘飞船和对接站之间都将实时、一对一地进行通信。（即社交网络中的“即时消息”）
 3. 对接站将向所有飞船**广播一条公共信息**。
 
 在 RabbitMQ 中，这些用例被视为不同的**交换机**。由于需要双向通信，每搜飞船和对接站就是**消费者**和**生产者**的关系。欲了解关于交换机、队列、路由键的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是，
@@ -31,7 +31,7 @@
 
 ```yml
 ## 飞船程序的 applciation.yml 文件
-## have to change property values for each ship
+## 必须更改每艘船的属性值
 
 ship:
   name: rocinante
@@ -358,7 +358,7 @@ public class ChatInterface implements CommandLineRunner {
 @all: Come back to station
 ```
 
->  Fanout交换机忽略路由键，向所有绑定的队列发送消息。
+>  Fanout 交换机忽略路由键，向所有绑定的队列发送消息。
 
 在飞船程序中，如下所示，在 **MessageHandler** 添加一个实例用于实现广播：
 
