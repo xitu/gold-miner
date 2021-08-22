@@ -61,11 +61,11 @@ NAMES:
   - "Rachel"
   - "Monica"
 ```
-YAML 中的集合不仅可以用数组的形式描述，也可以用映射来描述。例如，
+YAML 中的集合不仅可以用数组的形式描述，也可以用映射来描述。例如，如果我们想描述一个人的邮寄地址。我们先假设一种简单的情况,地址由街道名称、街道号码、城市、州、邮政编码组成。接下来让我们看看如何将此地址转换为 YAML，为了方便，我们将选择美国某处必胜客的地址。
 A collection in YAML is described not only in the form of an array but also can be described with maps. For example if we want to describe a mailing address of a person. Let's keep it simple for now. The address consist of street name, street number, city, state, zip code. Let's see how we can convert this address to YAML, we will choose the address of a Pizza Hut somewhere in the USA.
 
 ```yaml
-# yaml object
+# yaml 对象
 address:
   street_name: North Mathilda Avenue
   street_number: 464
@@ -74,6 +74,7 @@ address:
   zipcode: 94085
 ```
 
+如上，我们有一个键名为 「address」，它的值中声明了多对**键:值**。
 As we can see here, we have a key named 'address' which holds multiple **key:value** pairs inside of it. You need to pay attention to the indentations. When we want to group multiple **key:value** pairs under one logical container that is the parent, we must indent them with preferred 2 space characters and each new line must be aligned vertically otherwise the YAML file will throw an error when it is ready to execute.
 
 This particular description is called a 'Map'. The map name is 'address' and it holds several pieces of data that are in the usual form of **key:value** pairs. You also can pay attention and see that the values are not only of type 'String' but can also be 'Number', either integer or float and also can be boolean. By the way, for strings the quotes are optional. We can also define a Date variable but need to pay attention that the date format must comply to the ISO 8601 standard which looks like this: 'yyyy-mm-dd hh:mm:ss:sss'.
