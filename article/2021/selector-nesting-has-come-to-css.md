@@ -119,7 +119,7 @@ button.btn-primary {
 
     .blog {
         @nest .section & {
-            /* “&”指的是 .section */
+            /* “&”指的是 .blog */
             background: red;
         }
     }
@@ -180,7 +180,7 @@ button.btn-primary {
 
 ## 一个陷阱
 
-要记住的一件事是，嵌套选择器之后的任何 CSS 都会被完全忽略。但是，它之后的任何嵌套都是完全有效的。
+要记住的一件事是，嵌套选择器之后的任何 CSS 样式都会被完全忽略。但是，它之后的任何嵌套都是完全有效的。
 
 ```css
 .x {
