@@ -74,8 +74,9 @@ address:
   zipcode: 94085
 ```
 
-如上，我们有一个键名为 「address」，它的值中声明了多对**键:值**。
+如上，我们有一个键名为 「address」，它的值中声明了多对**键值对**。当你在编写 YAML 文件时，你需要格外注意缩进。当我们想要将多个键值对组合到一个逻辑父容器时，我们必须用长度为 2 的空格字符缩进它们，并且每个新行必须垂直对齐，否则 YAML 文件在准备执行时会报错。
 As we can see here, we have a key named 'address' which holds multiple **key:value** pairs inside of it. You need to pay attention to the indentations. When we want to group multiple **key:value** pairs under one logical container that is the parent, we must indent them with preferred 2 space characters and each new line must be aligned vertically otherwise the YAML file will throw an error when it is ready to execute.
+
 
 This particular description is called a 'Map'. The map name is 'address' and it holds several pieces of data that are in the usual form of **key:value** pairs. You also can pay attention and see that the values are not only of type 'String' but can also be 'Number', either integer or float and also can be boolean. By the way, for strings the quotes are optional. We can also define a Date variable but need to pay attention that the date format must comply to the ISO 8601 standard which looks like this: 'yyyy-mm-dd hh:mm:ss:sss'.
 
