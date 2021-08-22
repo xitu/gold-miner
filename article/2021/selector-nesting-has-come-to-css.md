@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/selector-nesting-has-come-to-css.md](https://github.com/xitu/gold-miner/blob/master/article/2021/selector-nesting-has-come-to-css.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[nia3y](https://github.com/nia3y)
 
 # CSS 选择器嵌套已经来了🤯🤯🤯 ！
 
