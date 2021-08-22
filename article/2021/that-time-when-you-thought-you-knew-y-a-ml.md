@@ -2,38 +2,45 @@
 > * 原文作者：[alxizr](https://dev.to/alxizr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/that-time-when-you-thought-you-knew-y-a-ml.md](https://github.com/xitu/gold-miner/blob/master/article/2021/that-time-when-you-thought-you-knew-y-a-ml.md)
-> * 译者：
+> * 译者：[finalwhy](https://github.com/finalwhy)
 > * 校对者：
 
-# That time when you thought you knew Y(A)ML ❗ 😵
+# 你真的了解 Y(A)ML 吗？❗ 😵
 
+感谢你能来阅读这篇关于 YAML 文件的文章。这是一篇关于 YAML 文件的轻量级教程。在本文中，我们将会介绍什么是 YAML，我们如何编写一个 YAML 文件以及我们可以在哪些场景中使用 YAML 文件，但不会对某些细节介绍的太过深入。
 Thank you for joining in for this article about YAML files. We will make it today a little lightweight tutorial about YAML configurations file. We will see what it is, how we can get started with it and where we use YAML files all around but maybe missed those little nuances.
 
+Y(A)ML 是一种数据序列化语言，它是 JSON（javascript 对象表示法）的严格超集。它是一种面向数据的结构化语言，可以被用作各种应用程序的输入格式。我们由此可以推断出这门语言最终是以**键值对**形式表现的。YML 的目标是以简洁明了的方式提高它的可读性。
 Y(A)ML is a data serialization language and it is a strict superset of JSON (javascript object notation). It is data oriented structured language used as an input format for different software applications. We can deduct that the language in the end of the day consist of **key:value** pairs. YML's goal is to be more human readable in a clean and consise manner.
 
+我们通常会通过与 GUI 界面的交互来使用某些工具软件，但我们通常不会意识到在这背后仅仅只有一个 YAML 文件来存储我们对于特定任务的个性化配置。今天，我们在学习这门语言的同时也为介绍几个实例。
 We often use tools available for us by interacting with a GUI interface, but we don't realize that under the hood there is nothing more than a YAML file that is storing our personal configurations for the given task. We will take a look in a couple of examples here today along side learning the language.
 
+在 YAML 中我们有两种主要的类型：**Scalar（标量）** 和 **Collection（集合）**。在高中的物理课中，我们学过标量仅由描述其大小的值组成，这个概念在 YAML 中也有近似的应用。这意味着我们只能有一个唯一的键来保存一个值，如果我们在文件中重复使用同一个键，我们将会覆盖之前设置的原始值。例如，如果我们在文件中声明了一个名为 「NAME」 的变量，并给它赋值为 「Joey」，之后，「NAME」 这个键值在整个文件中应该是唯一的，并且我们可以在文件中全局地使用它。
 With YAML we have 2 main types: **Scalar** and **Collection**. When we were young and went to high school we had our physics class and we learned that a scalar consist only of value that describes a size, this is not very far fetch with YAML as well. It means that we can have only one unique key that can hold a value and if we use that same key again in our file, we will override the original value we set earlier. For example if we want to declare a variable (key) 'NAME' to the value 'Joey' then this variable, the key itself, is unique and we can use it globally in the file.
 
 ```yaml
-# key : value
+# 键 : 值
 NAME: Joey
 ```
 
+如果我们不小心重复声明了这个变量并赋给它一个新值，例如 「Chandler」，那么（这个变量的）最后一个实例将会覆盖它的初始值。
 If we are not careful and declare that variable again to a different value, for example 'Chandler' then the last instance will override the original value.
 
 ```yaml
 NAME: Joey
 
 # ...
-# other
+# 其他
 # yaml
-# configurations
+# 配置
 
 NAME: Chandler
+# 在该文件被解析的时候，只有这行对 「NAME」 的定义会真实生效。
 # this line will be the only source of truth when the file is evaluated, thus overriding every instance of the key NAME beforehand
 ```
 
+一个集合（**Collection**）同样也是由**键值对**表示的，但是一个 key 可以容纳多个 value。例如下面这个姓名列表。
 A collection is basically the same, it also consist of **key:value** pairs, but one key can hold multiple values. For example a list of names.
 
 ```yaml
@@ -41,6 +48,7 @@ A collection is basically the same, it also consist of **key:value** pairs, but 
 NAMES: ["Joey", "Chandler", "Ross", "Phoebe", "Rachel", "Monica"]
 ```
 
+另一种描述相同的 NAMES 列表或序列的方法是下面这样：
 Another way to describe the same NAMES list or sequence is as such
 
 ```yaml
@@ -53,7 +61,7 @@ NAMES:
   - "Rachel"
   - "Monica"
 ```
-
+YAML 中的集合不仅可以用数组的形式描述，也可以用映射来描述。例如，
 A collection in YAML is described not only in the form of an array but also can be described with maps. For example if we want to describe a mailing address of a person. Let's keep it simple for now. The address consist of street name, street number, city, state, zip code. Let's see how we can convert this address to YAML, we will choose the address of a Pizza Hut somewhere in the USA.
 
 ```yaml
