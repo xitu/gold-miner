@@ -5,13 +5,13 @@
 > * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# 选择器嵌套已经来到 CSS 了🤯🤯🤯 ！
+# CSS 选择器嵌套已经来了🤯🤯🤯 ！
 
-首先 CSS 有了变量，现在也支持嵌套了！似乎在 Sass 和 Less 这样的预处理器中的功能正在慢慢地被引入到 CSS 中。这有点类似于 JavaScript 和 TypeScript 之间发生的事情。你可能注意到，当前的一些 JavaScript 功能在几年前并不存在，但在 TypeScript 中有此实现。
+之前 CSS 有了变量，现在也支持嵌套了！似乎在 Sass 和 Less 这样的预处理器中的功能正在慢慢地被引入到 CSS 中。这有点类似于 JavaScript 和 TypeScript 之间发生的事情。如果你有留意过的话，当前的一些 JavaScript 功能在几年前并不存在，但在 TypeScript 中有此实现。
 
-我不是说这是一件坏事，它实际上很棒！这减少了对 CSS/JavaScript 预处理器的需求。
+我并不是说这是一件坏事，实际上它非常棒！这减少了对 CSS/JavaScript 预处理器的需求。
 
-话虽如此，选择器嵌套仍是个未来。目前尚无浏览器支持它，但我希望这会有所改善。有关更多信息，请查看 [CSS 工作小組的草稿](https://drafts.csswg.org/css-nesting-1/)。
+话虽如此，选择器嵌套仍然只存在于未来。目前尚无浏览器支持它，但我希望这会有所改善。有关更多信息，请查看 [CSS 工作小組的草稿](https://drafts.csswg.org/css-nesting-1/)。
 
 ## 嵌套到底是什么？
 
@@ -45,7 +45,7 @@ button.btn-primary {
 }
 ```
 
-现在让我展示与上方相同的代码，这次**带嵌套**：
+现在让我展示与上方相同的**带嵌套**的代码：
 
 ```css
 .btn {
@@ -106,7 +106,7 @@ button.btn-primary {
     /* etc…… */
 
     .blog {
-        /* 我们想参照 .section 内的 blog 容器。 */
+        /* 我们想引用 .section 内的 blog 容器。 */
     }
 }
 ```
@@ -174,7 +174,7 @@ button.btn-primary {
 }
 ```
 
-### 代码更具可读性
+### 提升代码可读性
 
 在你查看代码时，你就会说“啊哈，这些外花括号之间的任何东西都与按钮或 `.btn` 有关！不关我的事！”
 
