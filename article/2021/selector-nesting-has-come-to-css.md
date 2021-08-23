@@ -2,29 +2,29 @@
 > * 原文作者：[Akash Shyam](https://dev.to/akashshyam)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/selector-nesting-has-come-to-css.md](https://github.com/xitu/gold-miner/blob/master/article/2021/selector-nesting-has-come-to-css.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[nia3y](https://github.com/nia3y)
 
-# Selector Nesting Has Come to CSS 🤯🤯🤯 !!!
+# CSS 选择器嵌套已经来了🤯🤯🤯 ！
 
-First we had variables and now nesting in css! It seems that the functionality we get with pre-processors like Sass and Less are slowly being introduced in CSS. It's similar to what's happening between javascript and typescript. If you have noticed, a few years ago, some of the current javascript features did not exist in javascript but were implemented in typescript.
+之前 CSS 有了变量，现在也支持嵌套了！似乎在 Sass 和 Less 这样的预处理器中的功能正在慢慢地被引入到 CSS 中。这有点类似于 JavaScript 和 TypeScript 之间发生的事情。如果你有留意过的话，当前的一些 JavaScript 功能在几年前并不存在，但在 TypeScript 中有此实现。
 
-I'm not saying this is a bad thing, it's actually great! This decreases the need for pre-proccessors which need to be compiled into CSS/Javascript
+我并不是说这是一件坏事，实际上它非常棒！这减少了对 CSS/JavaScript 预处理器的需求。
 
-That being said, selector nesting is still in the future. No browsers support it yet, but I expect this to improve. For more information, checkout the [draft](https://drafts.csswg.org/css-nesting-1/).
+话虽如此，选择器嵌套仍然只存在于未来。目前尚无浏览器支持它，但我希望这会有所改善。有关更多信息，请查看 [CSS 工作小組的草稿](https://drafts.csswg.org/css-nesting-1/)。
 
-## What Really Is nesting???
+## 嵌套到底是什么？
 
-To explain this effectlively, I'm going to compare two code samples.
+为了有效地解释这一点，我将对比两个代码示例。
 
-**Without Nesting**:
+**无嵌套**：
 
 ```css
 button.btn {
   color: blue;
   background: white;
   transition: .2s all ease-in;
-  /* More styles for the button */
+  /* 更多关于 button 的样式。 */
 }
 
 button.btn:hover {
@@ -33,19 +33,19 @@ button.btn:hover {
 }
 
 button.btn:focus {
-   /* Add more styles */
+   /* 添加更多样式。 */
 }
 
 button.btn-group {
-  /* Some styles */ 
+  /* 一些样式。 */ 
 }
 
 button.btn-primary {
-  /* I promise, this is the last. */ 
+  /* 我保证，这是最后一个了。 */ 
 }
 ```
 
-Now let me show the same code **with nesting**.
+现在让我展示与上方相同的**带嵌套**的代码：
 
 ```css
 .btn {
@@ -59,20 +59,20 @@ Now let me show the same code **with nesting**.
   }
 
   &:focus {
-   /* Add more styles */
+   /* 添加更多样式。 */
   }
 
   &-group {
-    /* Some styles */ 
+    /* 一些样式。 */ 
   }
 
   &-primary {
-    /* You get the point right??? */ 
+    /* 你知道我在说什么，对吧？ */ 
   }
 }
 ```
 
-Just like in Sass, The `&` is used to refer to the parent selector(in this case, `.btn`). That's not all, we can also nest multiple levels deep.  
+就像在 Sass 中一样，`&` 用于引用父选择器（在本例中为 `.btn`）。不止这样，它也支持多层嵌套。
 
 ```css
 .btn {
@@ -83,11 +83,11 @@ Just like in Sass, The `&` is used to refer to the parent selector(in this case,
     margin: 10px 20px;
 
     &:hover {
-      /* Some fancy animation */ 
+      /* 一些花哨的动画。 */ 
     }
 
     & .overlay {
-       /* There should always be an "&" in a nested selectors */
+       /* 嵌套选择器中总有一个“&”。 */
     }
   }
 }
@@ -95,60 +95,60 @@ Just like in Sass, The `&` is used to refer to the parent selector(in this case,
 
 ## @nest
 
-This is a new `at-rule` that helps us overcome some of the limitations of nesting using the `&`. Look at the following code:  
+这是一个新的 `at-rule`，它帮助我们克服了使用 `&` 嵌套的一些限制。看看下面的代码：
 
 ```css
 .section {
-    /* etc ... */
+    /* etc…… */
 }
 
 .section {
-    /* etc ... */
+    /* etc…… */
 
     .blog {
-        /* We want to reference the blog container which is inside the .section. */
+        /* 我们想引用 .section 内的 blog 容器。 */
     }
 }
 ```
 
-For this, we can use the `@nest` rule. This rule shifts the reference of the `&` to another selector we specify.  
+为此，我们可以使用 `@nest` 规则。 此规则将 `&` 的引用转移到我们指定的另一个选择器。
 
 ```css
 .main {
-    /* etc ... */
+    /* etc…… */
 
     .blog {
         @nest .section & {
-                        /* The "&" refers to ".section" */
+            /* “&”指的是 .blog */
             background: red;
         }
     }
 }
 ```
 
-## Nesting Media Queries
+## 嵌套式媒体查询
 
-For people who are familiar with Sass, the "normal" code looks like this:  
+对于熟悉 Sass 的人来说，“正常”的代码是这样的：
 
 ```css
 .section {
-  @media(/* some media query */) {
-    /* styles... */
+  @media(/* 一些媒体查询 */) {
+    /* 样式…… */
   }
 }
 ```
 
-However, this is slightly different. In css, the styles must be enclosed in "&".  
+但是，这在 CSS 里略有不同。在 CSS 中，样式必须用 “&” 括起来。
 
 ```css
-  @media(/* some media query */) {
+  @media(/* 一些媒体查询 */) {
     & {
-      /* styles... */
+      /* 样式…… */
     }
   }
 ```
 
-* Normal code
+* 一般情况下的代码
 
 ```css
 .table.xyz > th.y > p.abc {
@@ -161,7 +161,7 @@ However, this is slightly different. In css, the styles must be enclosed in "&".
 }
 ```
 
-* The Power of nesting 💪 💪 💪
+* 嵌套的力量 💪💪💪
 
 ```css
 .table.xyz > th.y > p.abc {
@@ -169,36 +169,36 @@ However, this is slightly different. In css, the styles must be enclosed in "&".
   color: white;
 
   &-primary {
-    font-size: 1.4rem
+    font-size: 1.4rem;
   }
 }
 ```
 
-### Makes code more readable
+### 提升代码可读性
 
-As soon as you look the code, you can go "Aha, anything between those outer curly braces is related to buttons or `.btn`! Not my business!"
+在你查看代码时，你就会说“啊哈，这些外花括号之间的任何东西都与按钮或 `.btn` 有关！不关我的事！”
 
-## A gotcha
+## 一个陷阱
 
-One thing to keep in mind is that any css which is after nested selectors is flat out ignored. However, any nesting that is followed is completely valid.  
+要记住的一件事是，嵌套选择器之后的任何 CSS 样式都会被完全忽略。但是，它之后的任何嵌套都是完全有效的。
 
 ```css
 .x {
   &-y {
-    /* styles... */
+    /* 样式…… */
   }
 
   a {
-    /* invalid */
+    /* 无效 */
   }
 
   &-z {
-    /* valid */
+    /* 有效 */
   }
 }
 ```
 
-That's it guys! Thank you for reading this post.
+就这些了，大家！感谢你阅读这篇文章。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
