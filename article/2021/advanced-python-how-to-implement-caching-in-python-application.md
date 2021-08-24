@@ -248,59 +248,60 @@ def get_prices(companies):
 
 我们也可以利用记忆化（memoisation）技术。
 
-Memoisation is usually used in recursive function calls where the intermediate results are stored in memory and are returned when they are required.
+记忆化通常用于递归函数调用，其中中间结果存储在内存中，并在需要时返回。
 
-This is where I will introduce the LRU.
+因此我将介绍 LRU。
 
 ### 3.2. LRU 算法
 
 我们可以使用 Python 的内置 LRU 功能。
 
-LRU stands for the least recently used algorithm. LRU can cache the return values of a function that are dependent on the arguments that have been passed to the function.LRU 代表最近最少使用的算法。 LRU 可以缓存依赖于传递给函数的参数的函数的返回值。
+LRU 代表的是 Least Recently Used（最近最少使用）。LRU 可以依赖于函数的参数来缓存返回值。
 
 LRU is particularly useful in recursive CPU bound operations.LRU 在递归 CPU 绑定操作中特别有用。
 
 它本质上是一个装饰器：`[@lru_cache](http://twitter.com/lru_cache)(maxsize, typed)`，我们可以用它来装饰我们的函数。
 
 - `maxsize` 告诉装饰器缓存的最大大小（预设值为 128）。如果我们不想设置大小，那么只需将其设置为 `None`。
-- `typed` is used to indicate whether we want to cache the output as the same values that can be compared values of different types.`typed` 用于指示我们是否要将输出缓存为可以比较不同类型值的相同值。
+- 当缓存比较输入/输出时，`typed` 用于指示是否要将不同数据类型下的相同值分别缓存。（如果 `typed` 设置为 `True`，则不同类型的函数参数将分别缓存。例如，`f(3)` 和 `f(3.0)` 将被视为具有不同结果的不同调用。）
 
-This works when we expect the same output for the same inputs.当我们期望相同的输入有相同的输出时，这是有效的。
+当我们期望相同的输入有相同的输出时，这很好用。
 
-Holding all of the data in your application's memory can be troubling.保存所有数据的应用程序的内存可以困扰。
+保存所有数据的应用程序到内存可能也会造成困扰。
 
-This can become a problem in a distributed application with multiple processes where it is not appropriate to cache all of the results in memory in all of the processes.
+在具有多个进程的分布式应用程序中，这可能会成为一个问题。这种情况下，将所有结果缓存在所有进程的内存中是不合适的。
 
-A good use case is when the application runs on a cluster of machines. We can host caching as a service.
+一个很好的用例是当应用程序在一组机器上运行时，我们可以将缓存托管为服务。
 
-### 3.3. Caching As A Service
+### 3.3. 服务式缓存
 
-The third option is about hosting cached data as an external service. This service can be responsible for storing all of the requests and responses.
-All of the applications can retrieve data via the caching service. It acts as a proxy.
+第三个选项是将缓存数据作为外部服务托管。它充当代理服务器，负责所有的请求和响应，所有应用程序都可以通过它检索数据。
 
-Let's consider that we are building an application as big as Wikipedia and it is expected to service 1000s of requests concurrently and in parallel.
+试考虑一下，我们正在构建一个与 Wikipedia 一样大的应用程序，预计它可以同时、并行地处理 1000 个请求。
 
-We need a caching mechanism and want to distribute the caching across servers.
+我们需要一个缓存机制，并希望在服务器之间分配缓存。
 
-We can use memcache and cache the data.
+我们可以使用 memcached 缓存数据。
 
-Memcached is highly popular in Linux and Windows because:
+memcached 在 Linux 和 Windows 中非常流行，因为：
 
-- It can be used for implementing memoisation caches that have states.
-- It can even be distributed across servers.
-- It is extremely simple to use, it's fast and it is being used across industry in multiple large organisations.
-- It supports auto-expiring the cached data
+- 它可用于实现具有状态的记忆缓存。
+- 它甚至可以跨服务器分布。
+- 它使用起来非常简单，速度很快，并且被整个行业中的多个大型组织使用。
+- 支持缓存数据自动过期。
 
-There is a python library called `pymemcache `which we need to install.
+我们需要安装一个名为 `pymemcache` 的 Python 库。
 
-Memcache requires the data to be either stored as strings or binary. Hence, we would have to serialise the cached objects and deserialise them when we want to retrieve them.
+memcached 要求将数据存储为字符串或二进制。因此，我们必须序列化缓存对象。当我们想要检索它们时，我们必须反序列化它们。
 
-The code snippet shows how we can launch and use the memcache:
+以下的代码段显示了我们如何启动和使用 memcached：
 
 ```python
+from pymemcache.client.base import Client
+
 client = Client(host, serialiser, deserialiser)
-client.set(‘blog’: {‘name’:’caching’, ‘publication’:’fintechexplained’}}
-blog = client.get(‘blog’)
+client.set('blog', {'name': 'caching', 'publication': 'fintechexplained'})
+blog = client.get('blog')
 ```
 
 ### 3.4. Gotcha: Invalidating Cache
