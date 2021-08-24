@@ -53,11 +53,11 @@
 
 ### 问题
 
-从数据库中获取数据是一个 I/O 密集型的操作。因此，它本质上是缓慢的。如果服务端需要频繁地发送请求且服务器跟不上请求的速度，那么我们可以将响应缓存在应用程序的内存中。
+从数据库中获取数据是一个 I/O 密集型的操作。因此，它本质上是缓慢的。如果服务端需要频繁地发送请求且服务器响应跟不上请求的速度，那么我们可以将响应缓存在应用程序的内存中。
 
 与其每次都查询数据库，我们可以将结果缓存，如下所示：
 
-![Data is stored in the temporary Cache](https://miro.medium.com/max/700/1*3mv7SdqieweoDQYEhkNAhA.png)
+![数据存储在临时缓存中](https://miro.medium.com/max/700/1*3mv7SdqieweoDQYEhkNAhA.png)
 
 获取数据的请求必须通过网线，响应也必须通过网线返回。
 
@@ -73,195 +73,201 @@
 
 本文的下一部分：缓存规则。
 
-## 2. Rules Of Caching
+## 2. 缓存规则
 
-In my opinion, there are three rules of caching.
+在我看来，缓存有三个规则。
 
-Before caching is enabled, we need to perform the key step of profiling the application.
+在启用缓存之前，我们需要执行一个关键步骤 —— 分析应用程序。
 
-Therefore the first step before introducing caching in an application is to profile the application.
+因此，在应用程序中引入缓存之前的第一步是分析应用程序。
 
-Only then we can understand how long each function takes and how many times it is getting called.
+只有这样我们才能了解每个函数需要执行多长时间以及它被调用了多少次。
 
-I have explained the art of profiling in [**this article**](https://medium.com/fintechexplained/advanced-python-learn-how-to-profile-python-code-1068055460f9) and I highly recommend it to everyone.
+我在[**这篇文章**](https://medium.com/fintechexplained/advanced-python-learn-how-to-profile-python-code-1068055460f9)中解释了分析的艺术，我强烈将它推荐给大家。
 
-Once the process of profiling is complete, we need to determine what we need to cache.
+分析完成后，我们需要确定需要缓存的内容。
 
-We need a mechanism to link the inputs to the outputs of a function and store them in memory. This brings us to the first rule of caching.
+我们需要一种能将输入链接到函数的输出的机制，并将它们存储在内存中。这就是缓存的第一条规则。
 
-### 2.1. First Rule Of Caching:
+### 2.1. 第一条规则：
 
-The first rule is to ensure that the target function does take a long time to return the output, it is getting executed frequently and the output of the function does not change as often.
+第一条规则是确保目标函数确实需要很长时间才能返回输出，且它会频繁被执行但输出的更动不大。
 
-We do not want to introduce caching for functions that do not take a long time to complete or functions that are hardly getting called in the application or those functions that are returning results which are changing frequently in the source.
+我们不想为不需要很长时间才能完成的函数，或几乎不会在应用程序中调用的函数，或那些返回结果在源中频繁更改的函数引入缓存。
 
-This is an important rule to remember.
+请牢记这条重要的规则。
 
-> Suitable Candidate For Caching = Function Frequently Called, Output Not Changing As Often And It Takes A Long Time To Execute
+> 适合缓存的候选 = 经常调用的函数，输出不经常变化并且需要很长时间执行。
 
-As an instance, if a function is being executed 100 times, and the function takes a long time to return the results and it returns the same results for the given inputs then we can cache the results.
+举例来说，如果一个函数被执行了 100 次，且该函数需要很长时间才能返回结果，并且它为给定的输入返回相同的结果，那么我们可以缓存它。
 
-However, if the value to be returned by a function is updated every second in the source and we get a request to execute the function every minute then it's really important to understand whether we need to cache the results as we might end up sending stale data to the users. This can help us understand whether we need caching or if we need a different communication channel, data structures or serialising mechanism to retrieve data faster, such as sending data by using binary serialiser over sockets vs xml serialisation over http.
+然而，如果函数返回的值在源中每秒更新一次，并且我们每分钟将收到一个执行该函数的请求，那么我们得清楚地明白是否需要缓存结果。这非常重要，因为可能导致应用发送过时的数据给用户。我们得了解是否需要缓存，或者是否需要不同的通信通道、数据结构或序列化机制来更快地检索数据，例如通过 socket 使用二进制序列化器与通过 HTTP 的 XML 序列化发送数据。
 
-Additionally, it's important to know when to invalidate and re-load the cache with the fresh data.
+此外，知道何时废止缓存并重新加载新数据到缓存是非常重要的。
 
-### 2.2. Second Rule:
+### 2.2. 第二条规则：
 
-The second rule is to ensure that it is faster to get the data from the introduced caching mechanism than it takes to execute the target function.
+第二条规则是确保从缓存中获取数据的速度比执行目标函数的速度更快。
 
-We should only introduce caching if the time it takes to retrieve the results from the cache is faster than it takes to retrieve the data from its source.
+如果实践缓存后对检索结果所需的时间有正面的影响，我们才应该引入缓存。
 
-> Caching Should Be Faster Than Getting The Data From The Current Data Source
+> 缓存应该比从当前数据源获取数据更快。
 
-Therefore it is vital to choose the appropriate data structures such as a dictionary or LRU cache as an instance.
+因此，选择合适的数据结构（例如字典或 LRU 缓存）作为缓存的实例至关重要。
 
-### 2.3. Third Rule:
+### 2.3. 第三条规则：
 
-The third important rule is about memory footprint which is often ignored. Are you performing IO operations such as querying databases, web services, or are you performing CPU intensive operations such as crunching the numbers and performing in-memory calculations?
+第三个重要规则是关于内存占用，这很常被忽略。你执行的是 I/O 操作（例如查询数据库、网络服务），还是执行 CPU 密集型操作（例如处理数字和执行内存内计算）？
 
-The memory footprint of the application will increase when we cache the results therefore it's crucial to choose the appropriate data structures and only cache the attributes of the data that are required to be cached.
+当我们缓存结果时，应用程序的内存占用会增加，因此选择合适的数据结构并且只缓存需要缓存的数据是至关重要的。
 
-Sometimes we query multiple tables to create an object of a class. However, we only need to cache the basic attributes in our application.
+有时侯，我们得查询多个表来创建一个类的对象。然而，我们只需要在我们的应用程序中缓存基本属性。
 
-> Caching Impacts Memory Footprint
+> 缓存对内存占用有影响。
 
-As an instance, consider that we built a reporting dashboard that queries the database and retrieves a list of orders. For the sake of illustration, let's also consider that only the order name is displayed on the dashboard.
+例如，假设我们构建了一个报告面板，用于查询数据库并检索订单列表。为了让你有个大致的画面，我们假设面板上仅显示订单名称。
 
-We can, therefore, cache only the name of each order instead of caching the entire order object. Usually, the architects suggest creating a lean data transfer object (DTO) that has `__slots__` attribute to reduce the memory footprint. Named tuples or Python data classes are also used.
+因此，我们可以只缓存每个订单的名称，而不是缓存整个订单对象。通常，架构师建议创建一个具有 `__slots__` 属性的“瘦身版”数据传输对象（DTO）以减少内存占用。命名元组或 `dataclass` 类也有同样的效果。（`dataclass` 类是 Python 3.7 中新增的功能。）
 
-This brings us to the last section of the article outlining the details of how caching can be implemented.
+本文的最后一部分：概述实现缓存的细节。
 
-## 3. How To Implement Caching?
+## 3. 如何实现缓存？
 
-There are multiple ways to implement caching.
+有多种方法可以实现缓存。
 
-We can create local data structures in our Python processes to build the cache or host the cache as a server that acts as a proxy and serves the requests.
+我们可以在 Python 进程中创建本地数据结构来构建缓存，或将缓存作为服务器充当代理并为请求提供服务。
 
-There are built-in Python tools such as using cached_property decorator from functools library. I want to introduce the implementation of caching by providing an overview of the cached decorator property.
+Python 中有相应的内置工具，例如 `functools` 库中的 `cached_property` 装饰器。我将通过它来介绍缓存的实现。（仅适用于 Python 3.8 及更高版本。）
 
-The code snippet below illustrates how cached property works.
+下面的代码段说明了 `cached_property` 如何运作：
 
 ```python
 from functools import cached_property
+
+
 class FinTech:
-  
-  @cached_property
-  def run(self):
-     return list(range(1,100))
+
+    @cached_property
+    def run(self):
+        return list(range(1, 100))
 ```
 
-As a result, the FinTech().run is now cached and the output of range(1,100) will only be generated once. However, we hardly need to cache the properties in real-case scenarios.
+因此，现在 `FinTech().run` 已被缓存，并且 `list(range(1,100))` 将只生成一次。但是，在实际场景中，我们几乎不需要缓存属性。
 
-Let's review other approaches.
+让我们看看其他方法。
 
-### 3.1. Dictionary Approach
+### 3.1. 字典方法
 
-For simplistic use cases, we can create/use a mapping data structure such as a dictionary that we can keep in memory and make it accessible on the global frame.
+对于简单的用例，我们可以创建/使用映射数据结构（例如字典），将数据保存在内存中并使其使其可在全局范围内访问。
 
-There are multiple ways to implement it. The simplest approach is to create a singleton-style module e.g. config.py
+实现方式有多种，最简单的方法是创建一个单例模块，例如：`config.py`。
 
-In the config.py, we can create a field of type dictionary that is populated once at the start.
+在 `config.py` 中，我们可以创建一个字典类型的字段，该字段在开始时被填充一次。
 
-From then on, the dictionary field can be used to get the results.
+以后我们便可以使用字典的字段来获取结果。
 
-As an instance, consider this code.
+举例来说，看看下方的代码。
 
-This is the config.py with a property: cache
+`config.py` 带有 `cache` 属性：
 
 ```python
 cache = {}
 ```
 
-Let's consider that our application attempts to query Yahoo finance web service to get the historic prices of a company via a function: `get_prices(symbol, start_date, end_date)`
+试想一下，我们的应用程序将通过 `get_prices(symbol, start_date, end_date)` 函数查询雅虎财经的网络服务以获取公司的历史价格。
 
-The historical prices are not going to change therefore there is no need in querying the web service every time we need historical prices. We can cache the prices in memory.
+历史价格不会改变，因此我们不需要每次需要历史价格时都查询网络服务。我们可以在内存中缓存价格。
 
-Internally, the function `get_prices(symbol, start_date, end_date)`, can check whether the data is in the cache before it attempts to return the results.
+在内部实践中，函数 `get_prices(symbol, start_date, end_date)` 可以在尝试返回结果之前检查数据是否在缓存中。
 
-Let me explain the strategy via code.
+让我通过代码解释该策略。
 
-The function below `get_prices `accepts a parameter named companies.
+下面的 `get_prices` 函数接受一个名为 `companies` 的参数。
 
-1. Firstly, the function creates a start and end date variable where the start date is set to yesterday and the end date is set to 11 days before yesterday
-2. Then it creates a variable named target_key of type tuple. It is a unique value that is the composite name of the module, function, start and end date
-3. The function first looks for the key in config.cache. If it can find the key then it checks if the cache contains the target company name
-4. If the cache does contain the company name then it returns the prices from the cache. If the cache does not contain the company name then it queries the yahoo finance library and gets the prices. It then saves the prices in the cache for future calls.
-5. If the target_key is not in the cache then it queries yahoo finance for all of the companies and saves the prices in the cache for future calls. Finally, it returns the prices.
+1. 首先，该函数创建一个开始和结束日期的变量，其中开始日期设为昨天，结束日期设为 12 天前。
+2. 然后它创建一个名为 `target_key` 的元组类型变量。它的值唯一，由模块、函数、开始和结束日期组成。
+3. 该函数首先在 `config.cache` 中查找键。如果它找到了，则检查 `cache` 是否包含目标公司名称。
+4. 如果缓存中包含公司名称，它会从缓存中返回价格。
+5. 如果 `target_key` 不在缓存中，那么它通过雅虎财经检索所有公司，并将价格保存在缓存中以备将来调用。最后，函数返回价格。
 
-Therefore, the fundamental rule is to check for the target key in the cache, if it is not there then get it from its source and save it in the cache before returning it.
+因此，基本概念是检查缓存中的目标键，如果不存在，则从源头获取它并在返回之前将其保存在缓存中。
 
-This is how the cache can be built.
+这就是缓存的构建方式：
 
 ```python
+import datetime
+
+import yfinance as yf
+
+import config
+
+
 def get_prices(companies):
-    end_date = datetime.datetime.now()- datetime.timedelta(days=1)
+    end_date = datetime.datetime.now() - datetime.timedelta(days=1)
     start_date = end_date - datetime.timedelta(days=11)
-    target_key = (__name__, '_get_prices_’, 
-                   start_date.strftime("%Y-%m-%d"),
-      end_date.strftime("%Y-%m-%d")) 
+    target_key = (__name__, '_get_prices_',
+                  start_date.strftime("%Y-%m-%d"),
+                  end_date.strftime("%Y-%m-%d"))
 
     if target_key in config.cache:
         cached_prices = config.cache[target_key]
-        #cached_prices is a dictionary where 
-         #key = company symbol and value = prices
+        # cached_prices 是一个字典，其中键为公司符号，值为价格。
         prices = {}
-for company in companies:
-            # for each company, only get the prices 
-            # that are not cached
+        for company in companies:
+            # 对于每个公司，只获取未缓存的价格。
             if company in cached_prices:
-                # we have cached the price for the symbol
-                # set prices in a local variable
+                # 我们已经缓存了价格。
+                # 在局部变量中设置价格。
                 prices[company] = cached_prices[company]
             else:
-                # go to yahoo finance and get the price
-                yahoo_prices = yf.download(company, 
-              start=start_date, end=end_date)
+                # 去雅虎财经得到价格。
+                yahoo_prices = yf.download(company, start=start_date, end=end_date)
                 prices[company] = yahoo_prices['Close']
                 cached_prices[company] = prices[company]
         return prices
     else:
         company_symbols = ' '.join(map(lambda x: x, companies))
         yahoo_prices = yf.download(company_symbols, start=start_date, end=end_date)
-        # now store it in cache for future
+        # 现在将其存储在缓存中以备将来使用。
         prices_per_company = yahoo_prices['Close'].to_dict()
         config.cache[target_key] = prices_per_company
         return prices_per_company
 ```
 
-Note that the chosen key contains the start and end date. I could also include the company name in the key so that we store (company name, start, end, function name) as the key.
+上方的所选键包含开始日期和结束日期。你也可以在键中包含公司名称，存储 `（公司名称，开始日期，结束日期，函数名称）` 作为键。
 
-The key to the data structure needs to be unique. It can also be a tuple.
+数据结构的键必须是唯一的。它可以是一个元组。
 
-The historical prices will not change therefore it is safe to not build the logic to invalidate the cache on a timely basis.
+历史价格不会改变，因此不构建及时使缓存失效的逻辑也是安全的。
 
-This cache is a nested dictionary where the value is also a dictionary. It provides faster lookups as the time complexity of a lookup operation is O(1).
+这个缓存是一个嵌套字典，因为其值是一个字典。它加快了查找的速度，操作的时间复杂度为 `O(1)`。
 
-[Here is a great article](https://medium.com/fintechexplained/time-complexities-of-python-data-structures-ddb7503790ef) that explains time complexities of Python data structures in an easy to understand manner.
+[这里有一篇很棒的文章](https://medium.com/fintechexplained/time-complexities-of-python-data-structures-ddb7503790ef)，它以一种易于理解的方式解释了 Python 数据结构的时间复杂性。
 
-Sometimes the key will get too long, and it's preferred to hash it using MD5, SHA, etc. However, with hashing, we might get a collision whereby two strings yield the same hash.
+有时键会变得太长，最好使用 MD5、SHA 等对其进行散列。但是，使用散列可能会发生冲突，使得两个字符串产生相同的散列。
 
-We can also utilise the technique of memoisation.
+我们也可以利用记忆化（memoisation）技术。
 
 Memoisation is usually used in recursive function calls where the intermediate results are stored in memory and are returned when they are required.
 
 This is where I will introduce the LRU.
 
-### 3.2. Least Recently Used Algorithm
+### 3.2. LRU 算法
 
-We could use the in-built feature of Python called LRU.
+我们可以使用 Python 的内置 LRU 功能。
 
-LRU stands for the least recently used algorithm. LRU can cache the return values of a function that are dependent on the arguments that have been passed to the function.
+LRU stands for the least recently used algorithm. LRU can cache the return values of a function that are dependent on the arguments that have been passed to the function.LRU 代表最近最少使用的算法。 LRU 可以缓存依赖于传递给函数的参数的函数的返回值。
 
-LRU is particularly useful in recursive CPU bound operations.
+LRU is particularly useful in recursive CPU bound operations.LRU 在递归 CPU 绑定操作中特别有用。
 
-It is essentially a decorator: [@lru_cache](http://twitter.com/lru_cache)(maxsize, typed) which we can decorate our functions with.
+它本质上是一个装饰器：`[@lru_cache](http://twitter.com/lru_cache)(maxsize, typed)`，我们可以用它来装饰我们的函数。
 
-- `maxsize` tells the decorator the maximum size of the cache. If we don't want to set the size then simply set it to None.
-- `typed` is used to indicate whether we want to cache the output as the same values that can be compared values of different types.
+- `maxsize` 告诉装饰器缓存的最大大小（预设值为 128）。如果我们不想设置大小，那么只需将其设置为 `None`。
+- `typed` is used to indicate whether we want to cache the output as the same values that can be compared values of different types.`typed` 用于指示我们是否要将输出缓存为可以比较不同类型值的相同值。
 
-This works when we expect the same output for the same inputs.
+This works when we expect the same output for the same inputs.当我们期望相同的输入有相同的输出时，这是有效的。
 
-Holding all of the data in your application's memory can be troubling.
+Holding all of the data in your application's memory can be troubling.保存所有数据的应用程序的内存可以困扰。
 
 This can become a problem in a distributed application with multiple processes where it is not appropriate to cache all of the results in memory in all of the processes.
 
