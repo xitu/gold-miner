@@ -2,24 +2,24 @@
 > * 原文作者：[Farhad Malik](https://medium.com/@farhadmalik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md](https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# Advanced Python: How To Implement Caching In Python Application
+# 进阶 Python：在 Python 应用中实现缓存
 
-Caching is an important concept to understand for every Python programmer.
+缓存对每一个 Python 程序员来说都是一个重要的概念。
 
-In a nutshell, the concept of caching revolves around utilising programming techniques to store data in a temporary location instead of retrieving it from the source each time.
+总的来说，缓存的概念是利用编程技术将数据存储在临时位置，而不是每次从源头检索数据。
 
-Subsequently, caching can provide an application performance boost as it is faster to access data from the temporary location than it is to fetch the data from the source each time, such as from database, web service, etc.
+此外，缓存能提升应用程序的性能，因为从临时位置访问数据总比从源头（数据库，服务器等）获取来得快。
 
-This article aims to explain how caching works in Python.
+这篇文章主要探讨缓存在 Python 中是如何运作的。
 
 ![](https://miro.medium.com/max/671/1*4f9xjNXx1FVXzIoQZ4CdpQ.png)
 
-This is an advanced level topic for Python developers and I recommend it to everyone who is/or intends in using the Python programming language.
+这对 Python 开发者来说是一个进阶的课题。如果你正在使用 Python 或打算使用它，那么你非常适合阅读这篇文章。
 
-If you want to understand the Python programming language from the beginner to an advanced level then I highly recommend [**this article**](https://medium.com/fintechexplained/everything-about-python-from-beginner-to-advance-level-227d52ef32d2).
+如果你想从入门到进阶地了解 Python 程序语言，那么我强烈推荐你阅读[这篇文章](https://medium.com/fintechexplained/everything-about-python-from-beginner-to-advance-level-227d52ef32d2)。
 
 ## Article Aim
 
@@ -313,9 +313,9 @@ There are a few ways to solve it.
 - The first application server can also make a light-weight call to the database server to find the last time when the data was updated and it can then use the time to determine whether it needs to refresh the cache or get the data from the cache.
 - We can also add a timeout that will clear the cache so that the next request can reload it. It is easy to implement but it is not as reliable as the last options I have explained above. This feature can be achieved via signaling library whereby we can subscribe a handler to the signal.alarm(timeout) and after a timeout period is called, we can clear the cache in the handler. We can also run a background thread to invalidate the cache, it's, however, important to ensure appropriate synchronisation objects are used.
 
-## Summary
+## Summary总结
 
-Caching is an important concept to understand for every Python programmer and data scientist.
+缓存是每个 Python 程序员和数据科学家都需要理解的重要概念。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
