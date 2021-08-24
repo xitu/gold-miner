@@ -127,7 +127,7 @@ Sometimes we query multiple tables to create an object of a class. However, we o
 
 As an instance, consider that we built a reporting dashboard that queries the database and retrieves a list of orders. For the sake of illustration, let's also consider that only the order name is displayed on the dashboard.
 
-We can, therefore, cache only the name of each order instead of caching the entire order object. Usually, the architects suggest creating a lean data transfer object (DTO) that has __slots__ attribute to reduce the memory footprint. Named tuples or Python data classes are also used.
+We can, therefore, cache only the name of each order instead of caching the entire order object. Usually, the architects suggest creating a lean data transfer object (DTO) that has `__slots__` attribute to reduce the memory footprint. Named tuples or Python data classes are also used.
 
 This brings us to the last section of the article outlining the details of how caching can be implemented.
 
@@ -141,12 +141,14 @@ There are built-in Python tools such as using cached_property decorator from fun
 
 The code snippet below illustrates how cached property works.
 
-from functools import cached_property\
+```python
+from functools import cached_property
 class FinTech:
-
-  @cached_property\
-  def run(self):\
+  
+  @cached_property
+  def run(self):
      return list(range(1,100))
+```
 
 As a result, the FinTech().run is now cached and the output of range(1,100) will only be generated once. However, we hardly need to cache the properties in real-case scenarios.
 
@@ -166,7 +168,9 @@ As an instance, consider this code.
 
 This is the config.py with a property: cache
 
+```python
 cache = {}
+```
 
 Let's consider that our application attempts to query Yahoo finance web service to get the historic prices of a company via a function: `get_prices(symbol, start_date, end_date)`
 
@@ -188,34 +192,41 @@ Therefore, the fundamental rule is to check for the target key in the cache, if 
 
 This is how the cache can be built.
 
-def get_prices(companies):\
-    end_date = datetime.datetime.now()- datetime.timedelta(days=1)\
-    start_date = end_date - datetime.timedelta(days=11)\
-    target_key = (__name__, '_get_prices_',\
-                   start_date.strftime("%Y-%m-%d"),\
-      end_date.strftime("%Y-%m-%d"))\
-    if target_key in config.cache:\
-        cached_prices = config.cache[target_key]\
-        #cached_prices is a dictionary where\
-         #key = company symbol and value = prices\
-        prices = {}for company in companies:\
-            # for each company, only get the prices\
-            # that are not cached\
-            if company in cached_prices:\
-                # we have cached the price for the symbol\
-                # set prices in a local variable\
-                prices[company] = cached_prices[company]\
-            else:\
-                # go to yahoo finance and get the price\
-                yahoo_prices = yf.download(company,\
-              start=start_date, end=end_date)\
-                prices[company] = yahoo_prices['Close']\
-                cached_prices[company] = prices[company] return prices else:\
-        company_symbols = ' '.join(map(lambda x: x, companies))\
-        yahoo_prices = yf.download(company_symbols, start=start_date, end=end_date) # now store it in cache for future\
-        prices_per_company = yahoo_prices['Close'].to_dict()\
-        config.cache[target_key] = prices_per_company\
+```python
+def get_prices(companies):
+    end_date = datetime.datetime.now()- datetime.timedelta(days=1)
+    start_date = end_date - datetime.timedelta(days=11)
+    target_key = (__name__, '_get_prices_’, 
+                   start_date.strftime("%Y-%m-%d"),
+      end_date.strftime("%Y-%m-%d")) 
+
+    if target_key in config.cache:
+        cached_prices = config.cache[target_key]
+        #cached_prices is a dictionary where 
+         #key = company symbol and value = prices
+        prices = {}
+for company in companies:
+            # for each company, only get the prices 
+            # that are not cached
+            if company in cached_prices:
+                # we have cached the price for the symbol
+                # set prices in a local variable
+                prices[company] = cached_prices[company]
+            else:
+                # go to yahoo finance and get the price
+                yahoo_prices = yf.download(company, 
+              start=start_date, end=end_date)
+                prices[company] = yahoo_prices['Close']
+                cached_prices[company] = prices[company]
+        return prices
+    else:
+        company_symbols = ' '.join(map(lambda x: x, companies))
+        yahoo_prices = yf.download(company_symbols, start=start_date, end=end_date)
+        # now store it in cache for future
+        prices_per_company = yahoo_prices['Close'].to_dict()
+        config.cache[target_key] = prices_per_company
         return prices_per_company
+```
 
 Note that the chosen key contains the start and end date. I could also include the company name in the key so that we store (company name, start, end, function name) as the key.
 
@@ -245,9 +256,10 @@ LRU is particularly useful in recursive CPU bound operations.
 
 It is essentially a decorator: [@lru_cache](http://twitter.com/lru_cache)(maxsize, typed) which we can decorate our functions with.
 
-- `maxsize `tells the decorator the maximum size of the cache. If we don't want to set the size then simply set it to None.
-- `typed `is used to indicate whether we want to cache the output as the same values that can be compared values of different types.\
-    This works when we expect the same output for the same inputs.
+- `maxsize` tells the decorator the maximum size of the cache. If we don't want to set the size then simply set it to None.
+- `typed` is used to indicate whether we want to cache the output as the same values that can be compared values of different types.
+
+This works when we expect the same output for the same inputs.
 
 Holding all of the data in your application's memory can be troubling.
 
@@ -257,7 +269,7 @@ A good use case is when the application runs on a cluster of machines. We can ho
 
 ### 3.3. Caching As A Service
 
-The third option is about hosting cached data as an external service. This service can be responsible for storing all of the requests and responses.\
+The third option is about hosting cached data as an external service. This service can be responsible for storing all of the requests and responses.
 All of the applications can retrieve data via the caching service. It acts as a proxy.
 
 Let's consider that we are building an application as big as Wikipedia and it is expected to service 1000s of requests concurrently and in parallel.
@@ -273,14 +285,17 @@ Memcached is highly popular in Linux and Windows because:
 - It is extremely simple to use, it's fast and it is being used across industry in multiple large organisations.
 - It supports auto-expiring the cached data
 
-There is a python library called `pymemcache `which we need to install.\
+There is a python library called `pymemcache `which we need to install.
+
 Memcache requires the data to be either stored as strings or binary. Hence, we would have to serialise the cached objects and deserialise them when we want to retrieve them.
 
 The code snippet shows how we can launch and use the memcache:
 
-client = Client(host, serialiser, deserialiser)\
-client.set('blog': {'name':'caching', 'publication':'fintechexplained'}}\
-blog = client.get('blog')
+```python
+client = Client(host, serialiser, deserialiser)
+client.set(‘blog’: {‘name’:’caching’, ‘publication’:’fintechexplained’}}
+blog = client.get(‘blog’)
+```
 
 ### 3.4. Gotcha: Invalidating Cache
 
@@ -289,8 +304,6 @@ Lastly, I wanted to quickly provide an overview of the scenarios when the output
 Consider the case whereby two applications are running on two different application servers.
 
 The first application gets the data from the database server and the second application updates the data in the database server. The data is fetched frequently and we want to cache the data in the first application server:
-
-![](https://miro.medium.com/max/29/1*2gi4DqkHWejxgU7sSRoDGQ.png?q=20)
 
 ![](https://miro.medium.com/max/700/1*2gi4DqkHWejxgU7sSRoDGQ.png)
 
