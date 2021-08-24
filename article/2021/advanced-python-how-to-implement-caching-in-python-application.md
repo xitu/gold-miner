@@ -21,57 +21,57 @@
 
 如果你想从入门到进阶地了解 Python 程序语言，那么我强烈推荐你阅读[这篇文章](https://medium.com/fintechexplained/everything-about-python-from-beginner-to-advance-level-227d52ef32d2)。
 
-## Article Aim
+## 文章主旨
 
-In this article, I will explain what caching is, why we need caching and how we can build caching in a Python application.
+在这篇文章中，我会解释什么是缓存，我们为什么需要缓存和如何在 Python 中实现它。
 
-> Caching is required when we want to improve the performance of our application.
+> 我们需要缓存来提高程序的性能。
 
-I will outline the following three key points:
+我将概述以下三个关键点：
 
-1. What And Why Do We Need To Implement Caching?
-2. What Are The Rules Of Caching?
-3. How To Implement Caching?
+1. 什么是缓存以及为什么我们需要实现缓存？
+2. 缓存的规则是什么？
+3. 如何实现缓存？
 
-I will start by explaining what caching is, why we need to introduce caching in our applications, and how to implement caching.
+我将首先解释什么是缓存，为什么我们需要在我们的应用程序中引入缓存，以及如何实现缓存。
 
-## 1. What And Why Do We Need To Implement Caching?
+## 1. 什么是缓存以及为什么我们需要实现缓存？
 
-To understand what caching is and why we need caching, consider the scenario below.
+要想了解缓存是什么以及我们为什么需要缓存，试考虑以下场景：
 
-- We are building an application in Python that will display the list of products to the end-users.
-- This application is going to be accessed multiple times on daily basis by over 100 users
-- The application is going to be hosted on an application server and it will be accessible on the internet
-- The products are going to be stored in a database that will be installed on a database server.
-- Therefore the application server will query the database to fetch the relevant records.
+- 我们正在用 Python 构建一个应用程序，它将向终端用户展示产品列表。
+- 每天将有 100 多个用户多次访问此应用程序。
+- 该应用程序将托管在应用程序服务器上，并可在互联网上访问。
+- 产品的资料将存储在数据库服务器中。
+- 因此应用程序服务器将查询数据库以获取相关记录。
 
-The image below demonstrates how our target application is set up:
+下图展示了我们的目标应用程序是如何配置的：
 
 ![](https://miro.medium.com/max/700/1*XcWM5A0G6yKWqr_yWUfgnw.png)
 
-Image illustrating how the application server gets data from a database server
+上图说明了应用程序服务器如何从数据库服务器获取数据。
 
-### Issue
+### 问题
 
-Fetching the data from a database is an IO-bound operation. Hence it is slow by nature. If the request is sent frequently and the response is not updated as often then we can cache the response within the memory of the application.
+从数据库中获取数据是一个 I/O 密集型的操作。因此，它本质上是缓慢的。如果服务端需要频繁地发送请求且服务器跟不上请求的速度，那么我们可以将响应缓存在应用程序的内存中。
 
-Instead of querying the database each time, we can cache the results as shown below:
+与其每次都查询数据库，我们可以将结果缓存，如下所示：
 
 ![Data is stored in the temporary Cache](https://miro.medium.com/max/700/1*3mv7SdqieweoDQYEhkNAhA.png)
 
-The request to get the data has to go over the wire and the response has to come back over the wire.
+获取数据的请求必须通过网线，响应也必须通过网线返回。
 
-This is slow in nature. Therefore, a cache is introduced.
+这本质上是缓慢的。因此，我们引入了缓存。
 
-> We can cache the results to reduce the computation time and save computer resources.
+> 我们可以缓存结果以减少计算时间并节省计算机资源。
 
-The cache is a temporary storage location. It works in a lazy load manner.
+缓存是一个临时存储位置。它以惰性载入的方式工作。
 
-Initially, the cache is empty. When the application server gets the data from the database server, it populates the cache with the required data set. From then on, the subsequent requests get the data from the cache instead of going all the way to the application server.
+一开始，缓存是空的。当应用程序服务器从数据库服务器获取数据时，数据集将填充缓存。从那以后，后续的请求便能直接从缓存中获取数据。
 
-We also need to invalidate the cache on timely basis to ensure we show up-to-dated information to the end-users.
+我们还需要及时废止缓存，以确保我们向终端用户显示最新信息。
 
-This brings us to the next section of the article: The rules of caching.
+本文的下一部分：缓存规则。
 
 ## 2. Rules Of Caching
 
@@ -313,7 +313,7 @@ There are a few ways to solve it.
 - The first application server can also make a light-weight call to the database server to find the last time when the data was updated and it can then use the time to determine whether it needs to refresh the cache or get the data from the cache.
 - We can also add a timeout that will clear the cache so that the next request can reload it. It is easy to implement but it is not as reliable as the last options I have explained above. This feature can be achieved via signaling library whereby we can subscribe a handler to the signal.alarm(timeout) and after a timeout period is called, we can clear the cache in the handler. We can also run a background thread to invalidate the cache, it's, however, important to ensure appropriate synchronisation objects are used.
 
-## Summary总结
+## 总结
 
 缓存是每个 Python 程序员和数据科学家都需要理解的重要概念。
 
