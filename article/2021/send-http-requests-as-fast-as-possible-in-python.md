@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/send-http-requests-as-fast-as-possible-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/send-http-requests-as-fast-as-possible-in-python.md)
 > * 译者：[ItzMiracleOwO](https://github.com/ItzMiracleOwO)
-> * 校对者：
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 在 Python 中用最快的速度发送 HTTP 请求
 
@@ -105,7 +105,7 @@ thread_local = local()
 ...
 ```
 
-代码 :
+代码：
 
 ```Python
 import requests
@@ -149,7 +149,7 @@ end = time.time()
 print(f'download {len(url_list)} links in {end - start} seconds')
 ```
 
-结果 :
+结果：
 
 ```
 ...
@@ -168,7 +168,7 @@ Python 还提供了 `ThreadPoolExecutor` 来执行多线程工作，我很喜欢
 
 ![How the ThreadPoolExecutor version works](https://cdn-images-1.medium.com/max/2676/1*21PJpOn4vMaFCgJPn1CDbQ.png)
 
-代码 :
+代码：
 
 ```Python
 import requests
@@ -200,7 +200,7 @@ end = time.time()
 print(f'download {len(url_list)} links in {end - start} seconds')
 ```
 
-最后的输出和线程队列版本一样快:
+最后的输出和线程队列版本一样快：
 
 ```
 ...
@@ -225,7 +225,7 @@ Asyncio 非常快，几乎可以向服务器发送任意数量的请求，唯一
 my_conn = aiohttp.TCPConnector(limit=10)
 ```
 
-这个代码非常简短 :
+这个代码非常简短：
 
 ```Python
 import asyncio
@@ -268,14 +268,14 @@ download 100 links in 0.7412574291229248 seconds
 pip install nest-asyncio
 ```
 
-并在代码开头添加以下两行代码 :
+并在代码开头添加以下两行代码：
 
 ```py
 import nest_asyncio
 nest_asyncio.apply()
 ```
 
-## 解决方案#5 ：如果是 Node.js 呢？
+## 解决方案#5：如果是 Node.js 呢？
 
 我想知道，如果我在具有内置事件循环的 Node.js 中做同样的工作会怎样？
 
