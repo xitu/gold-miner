@@ -63,13 +63,13 @@
 
 这本质上是缓慢的。因此，我们引入了缓存。
 
-> 我们可以缓存结果以减少计算时间并节省计算机资源。
+> 我们可以缓存结果以减少运算时间并节省计算机资源。
 
 缓存是一个临时存储位置。它以惰性载入的方式工作。
 
 一开始，缓存是空的。当应用程序服务器从数据库服务器获取数据时，数据集将填充缓存。从那以后，后续的请求便能直接从缓存中获取数据。
 
-我们还需要及时废止缓存，以确保我们向终端用户显示最新信息。
+我们还需要及时使缓存失效，以确保我们向终端用户显示最新信息。
 
 本文的下一部分：缓存规则。
 
@@ -103,7 +103,7 @@
 
 然而，如果函数返回的值在源中每秒更新一次，并且我们每分钟将收到一个执行该函数的请求，那么我们得清楚地明白是否需要缓存结果。这非常重要，因为可能导致应用发送过时的数据给用户。我们得了解是否需要缓存，或者是否需要不同的通信通道、数据结构或序列化机制来更快地检索数据，例如通过 socket 使用二进制序列化器与通过 HTTP 的 XML 序列化发送数据。
 
-此外，知道何时废止缓存并重新加载新数据到缓存是非常重要的。
+此外，知道何时使缓存失效并重新加载新数据到缓存是非常重要的。
 
 ### 2.2. 第二条规则：
 
@@ -188,7 +188,7 @@ cache = {}
 2. 然后它创建一个名为 `target_key` 的元组类型变量。它的值唯一，由模块、函数、开始和结束日期组成。
 3. 该函数首先在 `config.cache` 中查找键。如果它找到了，则检查 `cache` 是否包含目标公司名称。
 4. 如果缓存中包含公司名称，它会从缓存中返回价格。
-5. 如果 `target_key` 不在缓存中，那么它通过雅虎财经检索所有公司，并将价格保存在缓存中以备将来调用。最后，函数返回价格。
+5. 如果 `target_key` 不在缓存中，那么它通过雅虎财经检索所有公司，并将价格保存在缓存中以备将来调用，最后返回价格。
 
 因此，基本概念是检查缓存中的目标键，如果不存在，则从源头获取它并在返回之前将其保存在缓存中。
 
@@ -236,11 +236,11 @@ def get_prices(companies):
 
 上方的所选键包含开始日期和结束日期。你也可以在键中包含公司名称，存储 `（公司名称，开始日期，结束日期，函数名称）` 作为键。
 
-数据结构的键必须是唯一的。它可以是一个元组。
+数据结构的键必须是唯一的，它可以是一个元组。
 
 历史价格不会改变，因此不构建及时使缓存失效的逻辑也是安全的。
 
-这个缓存是一个嵌套字典，因为其值是一个字典。它加快了查找的速度，操作的时间复杂度为 `O(1)`。
+这个缓存是一个嵌套字典，因为其值是一个字典。它加快了查找的速度，使得操作的时间复杂度为 `O(1)`。
 
 [这里有一篇很棒的文章](https://medium.com/fintechexplained/time-complexities-of-python-data-structures-ddb7503790ef)，它以一种易于理解的方式解释了 Python 数据结构的时间复杂性。
 
@@ -248,7 +248,7 @@ def get_prices(companies):
 
 我们也可以利用记忆化（memoisation）技术。
 
-记忆化通常用于递归函数调用，其中中间结果存储在内存中，并在需要时返回。
+记忆化通常用于递归函数调用，中间结果存储在内存中，并在需要时返回。
 
 因此我将介绍 LRU。
 
@@ -256,13 +256,13 @@ def get_prices(companies):
 
 我们可以使用 Python 的内置 LRU 功能。
 
-LRU 代表的是 Least Recently Used（最近最少使用）。LRU 可以依赖于函数的参数来缓存返回值。
+LRU 代表的是 Least Recently Used（最近最少使用）。LRU 可依赖于函数的参数来缓存返回值。
 
-LRU is particularly useful in recursive CPU bound operations.LRU 在递归 CPU 绑定操作中特别有用。
+LRU 在 CPU 密集型的递归操作中特别有用。
 
 它本质上是一个装饰器：`[@lru_cache](http://twitter.com/lru_cache)(maxsize, typed)`，我们可以用它来装饰我们的函数。
 
-- `maxsize` 告诉装饰器缓存的最大大小（预设值为 128）。如果我们不想设置大小，那么只需将其设置为 `None`。
+- `maxsize` 告诉装饰器缓存的最大大小（预设值为 128）。如果我们不想限制大小，那么只需将其设置为 `None`。
 - 当缓存比较输入/输出时，`typed` 用于指示是否要将不同数据类型下的相同值分别缓存。（如果 `typed` 设置为 `True`，则不同类型的函数参数将分别缓存。例如，`f(3)` 和 `f(3.0)` 将被视为具有不同结果的不同调用。）
 
 当我们期望相同的输入有相同的输出时，这很好用。
@@ -277,7 +277,7 @@ LRU is particularly useful in recursive CPU bound operations.LRU 在递归 CPU �
 
 第三个选项是将缓存数据作为外部服务托管。它充当代理服务器，负责所有的请求和响应，所有应用程序都可以通过它检索数据。
 
-试考虑一下，我们正在构建一个与 Wikipedia 一样大的应用程序，预计它可以同时、并行地处理 1000 个请求。
+试考虑一下，我们正在构建一个与维基百科一样大的应用程序，预计它可以同时、并行地处理 1000 个请求。
 
 我们需要一个缓存机制，并希望在服务器之间分配缓存。
 
@@ -294,31 +294,32 @@ memcached 在 Linux 和 Windows 中非常流行，因为：
 
 memcached 要求将数据存储为字符串或二进制。因此，我们必须序列化缓存对象。当我们想要检索它们时，我们必须反序列化它们。
 
-以下的代码段显示了我们如何启动和使用 memcached：
+以下的代码段显示了我们如何启动和使用 memcached：（在执行代码前，你需要下载 memcached 并启动它。关于如何创建 `serialiser` 和 `deserialiser`，请看[这里](https://pymemcache.readthedocs.io/en/stable/apidoc/pymemcache.client.base.html#pymemcache.client.base.Client)。）
 
 ```python
 from pymemcache.client.base import Client
+
 
 client = Client(host, serialiser, deserialiser)
 client.set('blog', {'name': 'caching', 'publication': 'fintechexplained'})
 blog = client.get('blog')
 ```
 
-### 3.4. Gotcha: Invalidating Cache
+### 3.4. 问题：使缓存失效
 
-Lastly, I wanted to quickly provide an overview of the scenarios when the output of a function for the same inputs is changing on timely basis and we want to cache the results for a shorter period of time.
+最后，我想快速地概述一个场景：当相同输入的函数输出频繁更改，且我们希望缩短结果的缓存时间。
 
-Consider the case whereby two applications are running on two different application servers.
+试考虑两个应用程序在两个不同的应用程序服务器上运行的情况。
 
-The first application gets the data from the database server and the second application updates the data in the database server. The data is fetched frequently and we want to cache the data in the first application server:
+第一个应用程序从数据库服务器获取数据，第二个应用程序更新数据库服务器中的数据。数据被频繁获取，我们希望将数据缓存在第一个应用程序服务器中：
 
 ![](https://miro.medium.com/max/700/1*2gi4DqkHWejxgU7sSRoDGQ.png)
 
-There are a few ways to solve it.
+这里有几种方法可以解决它：
 
-- The application in the second application server can notify the first application server whenever new records are stored so that it can refresh its cache. It can post a message to a queue that the first application can subscribe to.
-- The first application server can also make a light-weight call to the database server to find the last time when the data was updated and it can then use the time to determine whether it needs to refresh the cache or get the data from the cache.
-- We can also add a timeout that will clear the cache so that the next request can reload it. It is easy to implement but it is not as reliable as the last options I have explained above. This feature can be achieved via signaling library whereby we can subscribe a handler to the signal.alarm(timeout) and after a timeout period is called, we can clear the cache in the handler. We can also run a background thread to invalidate the cache, it's, however, important to ensure appropriate synchronisation objects are used.
+- 每当存储新记录时，第二个应用服务器中的应用可以通知第一个应用服务器，以便刷新缓存。它可以将消息发布到第一个应用程序可以订阅的队列。
+- 第一个应用服务器还可以对数据库服务器进行轻量级调用以查找上次更新数据的时间，然后它可以使用该时间来确定是否需要刷新缓存或从缓存中获取数据。
+- 我们还可以添加一个超时来清除缓存，以便下一个请求可以重新加载它。它很容易实现，但不如我的上一个选项可靠。它可以通过 `signal` 库实现，我们可以订阅一个 handler 到 `signal.alarm(timeout)`，并在 `timeout` 被调用后，清除 handler 中的缓存。我们还可以运行后台线程来清除缓存，但是，确保你使用了适当的同步对象。
 
 ## 总结
 
