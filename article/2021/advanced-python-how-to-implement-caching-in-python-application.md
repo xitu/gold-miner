@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md](https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 进阶 Python：在 Python 应用中实现缓存
 
@@ -260,7 +260,7 @@ LRU 代表的是 Least Recently Used（最近最少使用）。LRU 可依赖于�
 
 LRU 在 CPU 密集型的递归操作中特别有用。
 
-它本质上是一个装饰器：`[@lru_cache](http://twitter.com/lru_cache)(maxsize, typed)`，我们可以用它来装饰我们的函数。
+它本质上是一个装饰器：[`@lru_cache(maxsize, typed)`](http://twitter.com/lru_cache)，我们可以用它来装饰我们的函数。
 
 - `maxsize` 告诉装饰器缓存的最大大小（预设值为 128）。如果我们不想限制大小，那么只需将其设置为 `None`。
 - 当缓存比较输入/输出时，`typed` 用于指示是否要将不同数据类型下的相同值分别缓存。（如果 `typed` 设置为 `True`，则不同类型的函数参数将分别缓存。例如，`f(3)` 和 `f(3.0)` 将被视为具有不同结果的不同调用。）
@@ -294,7 +294,7 @@ Memcached 在 Linux 和 Windows 中非常流行，因为：
 
 Memcached 要求将数据存储为字符串或二进制。因此，我们必须序列化缓存对象。当我们想要检索它们时，我们必须反序列化它们。
 
-以下的代码段显示了我们如何启动和使用 Memcached：（在执行代码前，你需要下载 memcached 并启动它。关于如何创建 `serialiser` 和 `deserialiser`，请看[这里](https://pymemcache.readthedocs.io/en/stable/apidoc/pymemcache.client.base.html#pymemcache.client.base.Client)。）
+以下的代码段显示了我们如何启动和使用 Memcached：（在执行代码前，你需要下载 Memcached 并启动它。关于如何创建 `serialiser` 和 `deserialiser`，请看[这里](https://pymemcache.readthedocs.io/en/stable/apidoc/pymemcache.client.base.html#pymemcache.client.base.Client)。）
 
 ```python
 from pymemcache.client.base import Client
