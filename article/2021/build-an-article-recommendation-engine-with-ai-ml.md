@@ -2,38 +2,38 @@
 > * 原文作者：[Tyler Hawkins](https://medium.com/@thawkin3)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md](https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# Build an Article Recommendation Engine With AI/ML
+# 使用人工智能/机器学习构建文章推荐引擎
 
 ![Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7998/0*-gsFtRSjNAsy-v6K)
 
-Content platforms thrive on suggesting related content to their users. The more relevant items the platform can provide, the longer the user will stay on the site, which often translates to increased ad revenue for the company.
+内容平台因向用户推荐相关内容而蓬勃发展。平台可以提供的相关项目越多，用户在网站上停留的时间就越长，从而转化为公司的广告收入。 
 
-If you’ve ever visited a news website, online publication, or blogging platform, you’ve likely been exposed to a recommendation engine. Each of these takes input based on your reading history and then suggests more content you might like.
+如果你曾经访问过新闻网站、电子出版社或博客平台，那么你可能已经接触过推荐引擎。每一个平台都根据你的阅读历史记录，推荐你可能喜欢的内容。
 
-As a simple solution, a platform might implement a tag-based recommendation engine — you read a “Business” article, so here are five more articles tagged “Business.” However, an even better approach to building a recommendation engine is to use **similarity search and a machine learning algorithm**.
+作为一个简单的解决方案，一个平台可能会实现一个基于标签的推荐引擎 —— 你阅读了一篇「商业」文章，所以这里还有五篇标记为「商业」的文章。然而，构建推荐引擎的更好方法是使用**相似性搜索和机器学习算法**。
 
-In this article, we’ll build a Python Flask app that uses [Pinecone](https://www.pinecone.io/) — a similarity search service — to create our very own article recommendation engine.
+在本文中，我们将构建一个 Python Flask 应用程序，该应用程序使用 [Pinecone](https://www.pinecone.io/)（一种相似性搜索服务）来创建我们自己的文章推荐引擎。
 
-## Demo App Overview
+## 演示应用程序概览
 
-Below, you can see a brief animation of how our demo app works. Ten articles are initially displayed on the page. The user can choose any combination of those ten articles to represent their reading history. When the user clicks the Submit button, the reading history is used as input to query the article database, and then ten more related articles are displayed to the user.
+下面简短的动画演示了我们的应用程序如何工作。最初有十篇文章显示在页面上。用户可以选择任意组合这十篇文章来代表他们的阅读历史。当用户点击提交按钮时，阅读历史作为输入查询文章数据库，然后再向用户显示十篇相关文章。
 
-![Demo app — article recommendation engine](https://cdn-images-1.medium.com/max/2000/0*jWMKM_QD7TRXYOJK)
+![演示应用 —— 文章推荐引擎](https://cdn-images-1.medium.com/max/2000/0*jWMKM_QD7TRXYOJK)
 
-As you can see, the related articles returned are exceptionally accurate! There are 1,024 possible combinations of reading history that can be used as input in this example, and every combination produces meaningful results.
+可以看到，返回的相关文章异常准确！在此示例中，有 1,024 种可能的阅读历史组合可用作输入，并且每种组合都会产生有意义的结果。
 
-So, how did we do it?
+那么我们是如何做到的呢？
 
-In building the app, we first found a [dataset of news articles](https://www.kaggle.com/snapcrack/all-the-news) from Kaggle. This dataset contains 143,000 news articles from 15 major publications, but we’re just using the first 20,000. (The full dataset that this one is derived from contains over two million articles!)
+在构建应用程序时，我们首先从 Kaggle 找到了一个[新闻文章数据集](https://www.kaggle.com/snapcrack/all-the-news)。该数据集包含来自 15 个主要出版社的 143,000 篇新闻文章，但我们仅使用前 20,000 篇。（完整数据集包含超过 200 万篇文章！）
 
-We then cleaned up the dataset by renaming a couple of columns and dropping those that are unnecessary. Next, we ran the articles through an embedding model to create [vector embeddings](https://www.pinecone.io/learn/vector-embeddings/) — that’s metadata for machine learning algorithms to determine similarities between various inputs. We used the [Average Word Embeddings Model](https://nlp.stanford.edu/projects/glove/). We then inserted these vector embeddings into a [vector index](https://www.pinecone.io/learn/vector-database/) managed by Pinecone.
+之后，我们通过重命名几个列并删除不必要的列来清理数据集。接下来，我们通过嵌入模型运行文章以创建[向量嵌入](https://www.pinecone.io/learn/vector-embeddings/) —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用了[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些向量嵌入插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
 
-With the vector embeddings added to the index, we’re ready to start finding related content. When users submit their reading history, a request is made to an API endpoint that uses Pinecone’s SDK to query the index of vector embeddings. The endpoint returns ten similar news articles and displays them in the app’s UI. That’s it! Simple enough, right?
+将向量嵌入添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询向量嵌入的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。 就是这样！够简单了吧？
 
-If you’d like to try it out for yourself, you can [find the code for this app on GitHub](https://github.com/thawkin3/article-recommendation-service). The `README` contains instructions for how to run the app locally on your own machine.
+如果你想亲自尝试一下，你可以[在 GitHub 上找到此应用程序的源码](https://github.com/thawkin3/article-recommendation-service)。在 `README` 中包含了如何在本地设备上运行应用程序的指示和说明。
 
 ## Demo App Code Walkthrough
 
@@ -204,23 +204,23 @@ For the visual learners out there, here’s a diagram outlining how the app work
 
 ![App architecture and user experience](https://cdn-images-1.medium.com/max/2000/0*9S_7iYqcW3eTghUP)
 
-## Example Scenarios
+## 示例场景
 
-So, putting this all together, what does the user experience look like? Let’s look at three scenarios: a user interested in sports, a user interested in technology, and a user interested in politics.
+那么，将所有的这些综合到一起，用户体验如何？我们来看看三个场景：分别对体育、技术和政治感兴趣的三群用户。
 
-The sports user selects the first two articles about Serena Williams and Andy Murray, two famous tennis players, to use as their reading history. After they submit their choices, the app responds with articles about Wimbledon, the US Open, Roger Federer, and Rafael Nadal. Spot on!
+体育用户选择前两篇关于塞雷娜·威廉姆斯（Serena Williams）和安迪·穆雷（Andy Murray）这两位著名网球运动员的文章作为他们的阅读历史。在他们提交选择后，该应用程序会返回有关温布尔登网球锦标赛、美国公开赛、罗杰·费德勒（Roger Federer）和拉斐尔·纳达尔（Rafael Nadal）的文章。准确！
 
-The technology user selects articles about Samsung and Apple. After they submit their choices, the app responds with articles about Samsung, Apple, Google, Intel, and iPhones. Great recommendations again!
+对技术感兴趣的用户选择了有关三星和苹果的文章。在他们提交选择后，该应用会回复有关三星、苹果、谷歌、英特尔和 iPhone 的文章。又是个很好的推荐！
 
-The politics user selects a single article about voter fraud. After they submit their choice, the app responds with articles about voter ID, the US 2020 election, voter turnout, and claims of illegal voting (and why they don’t hold up).
+对政治感兴趣的用户选择一篇关于选举舞弊的文章。在他们提交他们的选择后，该应用程序会返回有关选民 ID、美国 2020 年大选、选民投票率和非法选举声言（以及他们为什么不阻止）的文章。
 
-Three for three! Our recommendation engine is proving to be incredibly useful.
+三对三！事实证明，我们的推荐引擎非常有用。
 
-## Conclusion
+## 结论
 
-We’ve now created a simple Python app to solve a real-world problem. If content sites can recommend relevant content to their users, users will enjoy the content more and will spend more time on the site, resulting in more revenue for the company. Everyone wins!
+我们现在已经创建了一个简单的 Python 应用程序来解决现实生活中的问题。如果内容网站能够向用户推荐相关内容，用户就会更喜欢这些内容，并会在网站上花费更多时间，从而为公司带来更多收入。双赢局面！
 
-Similarity search helps provide better suggestions for your users. And Pinecone, as a similarity search service, makes it easy for you to provide recommendations to your users so that you can focus on what you do best — building an engaging platform filled with content worth reading.
+相似性搜索有助于为你的用户提供更好的建议。而 Pinecone，作为一个相似性搜索的服务方，可使你能轻松地向用户提供推荐，以便您可以专注于自己最擅长的事情 —— 构建一个充满值得阅读的内容、引人入胜的平台。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
