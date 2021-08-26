@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md](https://github.com/xitu/gold-miner/blob/master/article/2021/advanced-python-how-to-implement-caching-in-python-application.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[greycodee](https://github.com/greycodee)
 
 # 进阶 Python：在 Python 应用中实现缓存
 
 缓存对每一个 Python 程序员来说都是一个值得理解的重要概念。
 
-简而言之，缓存的核心是利用编程技术将数据存储在临时位置，而不是每次从源头检索数据。
+简而言之，缓存就是利用编程技术将数据存储在临时位置，而不是每次都从源数据去检索。
 
 此外，缓存能提升应用程序的性能，因为从临时位置访问数据总比从源头（数据库，服务器等）获取来得快。
 
@@ -17,7 +17,7 @@
 
 ![](https://miro.medium.com/max/671/1*4f9xjNXx1FVXzIoQZ4CdpQ.png)
 
-这对 Python 开发者来说是一个进阶的课题。如果你正在使用 Python 或打算使用它，那么你非常适合阅读本篇文章。
+这对 Python 开发者来说是一个进阶的话题。如果你正在使用 Python 或打算使用它，那么你非常适合阅读本篇文章。
 
 如果你想从入门到进阶地了解 Python 程序语言，那么我强烈推荐你阅读[这篇文章](https://medium.com/fintechexplained/everything-about-python-from-beginner-to-advance-level-227d52ef32d2)。
 
