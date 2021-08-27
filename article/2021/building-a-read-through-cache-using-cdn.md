@@ -7,7 +7,7 @@
 
 # 使用 CDN 构建直读式缓存
 
-![由 Pikisuperstar / Freepik 设计](https://cdn-images-1.medium.com/max/3000/1*vEUuzXh0fRgDxebH95faWg.png)
+![由 Pikisuperstar / Freepik 设计](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/666a1136a4f24df5a94d1f1896c8c82e~tplv-k3u1fbpfcp-zoom-1.image)
 
 当你为需要高吞吐量的系统构建 API 时，缓存几乎是不可避免的。在分布式系统上工作的每个开发者多多少少都在某些时候使用了一些缓存机制。在本文中，我们将了解使用 CDN 构建直读式缓存的设计。这种做法不仅优化了 API，还能降低基础架构成本。
 
@@ -28,7 +28,7 @@
 
 那么你起初看到这个问题时，你想到了什么？对我来说，只要在节点上（由于数据量低）往 API 中添加内存缓存（可能是 Google Guava），使用 Kafka 发送无效消息（因为我喜欢 Kafka 😆 并且它是可靠的），设置为服务实例启动规模自动调节（因为整个日间的流量并不统一）。如图所示：
 
-![设计 v1](https://cdn-images-1.medium.com/max/2000/1*f60s9scn5jvmgutdcowpkg.jpeg)
+![设计 v1](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b2ec526dfe8e4da1b3819f5a6a7f5785~tplv-k3u1fbpfcp-zoom-1.image)
 
 bam！问题解决了！很容易吗？好吧，其实并非如此。正如任何其他设计一样，这一个设计其实也有一些缺陷。例如，这个设计对于简单用例而言有一点点太复杂了，基础设施成本上升了 —— 我们现在需要构建一个 Kafka + Zookeeper 集群，再加上 5 万次请求每秒的规模，我们需要水平缩放我们的服务实例（对我们而言是 Kubernetes Pods）。这将转化为裸机节点或虚拟机数量的增加。
 
@@ -52,7 +52,7 @@ bam！问题解决了！很容易吗？好吧，其实并非如此。正如任�
 
 > user1  -> 只是一个想象中的试图获取的数据
 
-![](https://cdn-images-1.medium.com/max/2000/1*cz3w153osigeqh1u09nfnq.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d9f5f67aa3044da2bb0dfbbf8a9fe686~tplv-k3u1fbpfcp-zoom-1.image)
 
 上图不言自明，用于总结上文。
 
@@ -77,11 +77,11 @@ bam！问题解决了！很容易吗？好吧，其实并非如此。正如任�
 
 这个想法很简单，我们将 CDN 作为用户和实际后端服务之间的缓存层。
 
-![设计 v2](https://cdn-images-1.medium.com/max/2000/1*fn-zmpouy7r3xows5c-mzq.jpeg)
+![设计 v2](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fc4eb816eb2422aa4923f74744d9d5c~tplv-k3u1fbpfcp-zoom-1.image)
 
 正如你可以看到 CDN 位于客户端和后端服务之间，也就成为了缓存。在数据流序列中看起来像这样：
 
-![配图](https://cdn-images-1.medium.com/max/2000/1*47ogxf26v7e7myagkl4mtna.png)
+![配图](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c77364799600400488c491b25a3a5351~tplv-k3u1fbpfcp-zoom-1.image)
 
 让我们更深入地挖掘它，因为这是设计的症结
 
@@ -115,15 +115,31 @@ bam！问题解决了！很容易吗？好吧，其实并非如此。正如任�
 
 你不一定只能将 TTL 保留为 180 秒，而是只需要根据你应该为陈旧数据提供缓存的时间长度来选择 TTL。如果这让你有了这个问题，为什么不能在数据更改时候让缓存无效，稍后我将在缺点部分中回答。
 
-## 执行
+## 实现
 
 到目前为止，我们高谈阔论，一直聊着设计，而没有真正进入实际实现。作为设计的原因非常简单，可以在任何设置中实现。对于我们来说，我们的 CDN 在 Google Cloud 上，后端服务运行的 Kubernetes 集群在 Azure 上，因此我们根据我们的需求进行了设置。例如，你可以选择在 CloudFlare CDN 上执行此操作，因此未进入实施并保持抽象。但只是为了好奇的思想，这是我们的生产设置方式。
 
-![配图](https://cdn-images-1.medium.com/max/3316/1*vrlryfpbkky5iqdbruida.jpeg)
+![配图](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a80b2975e7cd4b2fb2bf62c1818240db~tplv-k3u1fbpfcp-zoom-1.image)
 
 如果你不理解这个，也没关系。而如果你理解了这些概念，那么相关的构建对你来说将会是小菜一碟。
 
 Google Cloud 的这篇优秀的[文档](https://cloud.google.com/cdn/docs/setting-up-cdn-with-external-origin)可以供你了解。
+
+---
+
+## 请求合并
+
+[该部分为 [Abhishek Singla](https://medium.com/u/e006831ceec1) 于评论中提出此问题后添加的内容]
+
+但是仍然存在一个问题，CDN 为我们处理了所有负载，不过我们没有扩展的空间。可是我们的服务器会以 60k qps 的标准运行，意味着在缓存未命中的情况下，60k 调用将会直接访问我们的源服务器（考虑到填充 CDN 缓存需要 1 秒），这可能会使服务不堪重负，对吗？
+
+这就是请求合并起作用的地方。
+
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f9f1c5c96f404979b30393c3554bf4c1~tplv-k3u1fbpfcp-zoom-1.image)
+
+顾名思义，这实际上就是将具有相同查询参数的多个请求组合在一起，以实现只向源服务器发送数量较少的请求。
+
+我们设计的美妙之处在于我们不必自己进行请求合并，CDN 会帮助我们完成。正如我已经提到的，我们正在使用 Google Cloud CDN，它有一个 Request Coalescing 的概念（只是 Request Collapsing 的另一个别称）。因此，当同时发出大量缓存填充请求时，CDN 能够识别出这一情况，然后 CDN 的每个节点就只会向源服务器发送一个请求并使用对应的响应内容，响应所有的请求。这就是它保护我们的源服务器免受高流量影响的方式。
 
 ---
 
