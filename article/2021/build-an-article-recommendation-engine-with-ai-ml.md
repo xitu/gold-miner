@@ -9,13 +9,13 @@
 
 ![Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7998/0*-gsFtRSjNAsy-v6K)
 
-内容平台因向用户推荐相关内容而蓬勃发展。平台可以提供的相关项目越多，用户在网站上停留的时间就越长，从而转化为公司的广告收入。 
+内容平台因向用户推荐相关内容而蓬勃发展。平台可以提供的相关项目越多，用户在网站上停留的时间就越长，这通常会转化为公司的广告收入。
 
 如果你曾经访问过新闻网站、电子出版社或博客平台，那么你可能已经接触过推荐引擎。每一个平台都根据你的阅读历史记录，推荐你可能喜欢的内容。
 
 作为一个简单的解决方案，一个平台可能会实现一个基于标签的推荐引擎 —— 你阅读了一篇「商业」文章，所以这里还有五篇标记为「商业」的文章。然而，构建推荐引擎的更好方法是使用**相似性搜索和机器学习算法**。
 
-在本文中，我们将构建一个 Python Flask 应用程序，该应用程序使用 [Pinecone](https://www.pinecone.io/)（一种相似性搜索服务）来创建我们自己的文章推荐引擎。
+在本文中，我们将构建一个 Python Flask 应用程序，该应用程序使用 [Pinecone](https://www.pinecone.io/)（一个相似性搜索的服务）来创建我们自己的文章推荐引擎。
 
 ## 演示应用程序概览
 
@@ -37,7 +37,7 @@
 
 ## Demo App Code Walkthrough
 
-We’ve gone through the inner workings of the app, but how did we actually build it? As noted earlier, this is a Python Flask app that utilizes the Pinecone SDK. The HTML uses a template file, and the rest of the frontend is built using static CSS and JS assets. To keep things simple, all of the backend code is found in the `app.py` file, which we’ve reproduced in full below:
+我们已经了解了应用程序的内部工作原理，但我们实际上是如何构建它的呢？如前所述，这是一个使用 Pinecone SDK 的 Python Flask 应用程序。HTML 使用模板文件，前端的其余部分使用静态 CSS 和 JavaScript 资产构建。为简单起见，所有后端代码都在 `app.py` 文件中，我将该文件完整地复制在了下面：
 
 ```Python
 from dotenv import load_dotenv
@@ -156,53 +156,55 @@ def search():
     if request.method == "GET":
         return query_pinecone(request.args.get("history", ""))
     return "Only GET and POST methods are allowed for this endpoint"
+
+app.run()
 ```
 
-Let’s go over the important parts of the `app.py` file so that we understand it.
+让我们回顾一下 `app.py` 文件的重要部分，以便我们能理解它。
 
-On lines 1–14, we import our app’s dependencies. Our app relies on the following:
+在第 1 至 14 行，我们引入应用程序的依赖。我们的应用程序依赖以下的包：
 
-* `dotenv` for reading environment variables from the `.env` file
-* `flask` for the web application setup
-* `json` for working with JSON
-* `os` also for getting environment variables
-* `pandas` for working with the dataset
-* `pinecone` for working with the Pinecone SDK
-* `re` for working with regular expressions (RegEx)
-* `requests` for making API requests to download our dataset
-* `statistics` for some handy stats methods
-* `sentence_transformers` for our embedding model
-* `swifter` for working with the pandas dataframe
+* `dotenv` 用于从 `.env` 文件中读取环境变量
+* `flask` 用于设置 Web 应用程序
+* `json` 用于处理 JSON
+* `os` 也用于获取环境变量
+* `pandas` 用于处理数据集
+* `pinecone` 用于使用 Pinecone SDK
+* `re` 用于处理正则表达式（RegEx）
+* `requests` 由于发送 API 请求以下载我们的数据集
+* `statistics` 提供了一些方便的统计函数
+* `sentence_transformers` 用于我们的嵌入模型
+* `swifter` 用于处理 `pandas` 的 `DataFrame`
 
-On line 16, we provide some boilerplate code to tell Flask the name of our app.
+在第 16 行，我们提供了一些样板代码来告诉 Flask 我们应用程序的名称。
 
-On lines 18–20, we define some constants that will be used in the app. These include the name of our Pinecone index, the file name of the dataset, and the number of rows to read from the CSV file.
+在第 18 至 20 行，我们定义了一些将在应用程序中使用的常量，其中包括我们的 Pinecone 索引名称、数据集的文件名以及要从 CSV 文件中读取的行数。
 
-On lines 22–25, our `initialize_pinecone` method gets our API key from the `.env` file and uses it to initialize Pinecone.
+在第 22 至 25 行，我们的 `initialize_pinecone` 方法从 `.env` 文件中获取 API 密钥并使用它来初始化 Pinecone。
 
-On lines 27–29, our delete_existing_pinecone_index method searches our Pinecone instance for indexes with the same name as the one we’re using (“article-recommendation-service”). If an existing index is found, we delete it.
+在第 27 至 29 行，我们的 `delete_existing_pinecone_index` 方法在 Pinecone 实例中搜索与我们正在使用的索引（“article-recommendation-service”）同名的索引。如果找到现有索引，我们将其删除。
 
-On lines 31–35, our `create_pinecone_index` method creates a new index using the name we chose (“article-recommendation-service”), the “cosine” proximity metric, and only one shard.
+在第 31 至 35 行，我们的 `create_pinecone_index` 方法使用我们选择的名称（“article-recommendation-service”）创建一个新索引，使用余弦相似度作为指标，数据分片为 1。
 
-On lines 37–40, our `create_model` method uses the `sentence_transformers` library to work with the Average Word Embeddings Model. We’ll encode our vector embeddings using this model later.
+在第 37 至 40 行，我们的 `create_model` 方法使用 `sentence_transformers` 库来处理平均词嵌入模型。稍后我们将使用这个模型对我们的向量嵌入进行编码。
 
-On lines 62–68, our `process_file` method reads the CSV file and then calls the `prepare_data` and `upload_items` methods on it. Those two methods are described next.
+在第 62 至 68 行，我们的 `process_file` 方法读取 CSV 文件，然后调用 `prepare_data` 和 `upload_items` 方法。这两个方法的介绍在下方。
 
-On lines 42–56, our `prepare_data` method adjusts the dataset by renaming the first “id” column and dropping the “date” column. It then grabs the first four lines of each article and combines them with the article title to create a new field that serves as the data to encode. We could create vector embeddings based on the entire body of the article, but four lines will suffice in order to speed up the encoding process.
+在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 “id” 列并删除 “date” 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建向量嵌入，但为了加快编码过程，四行就足够了。
 
-On lines 58–60, our `upload_items` method creates a vector embedding for each article by encoding it using our model. The vector embeddings are then inserted into the Pinecone index.
+在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个向量嵌入，然后将向量嵌入插入到 Pinecone 索引中。
 
-On lines 70–74, our `map_titles` and `map_publications` methods create some dictionaries of the titles and publication names to make it easier to find articles by their IDs later.
+在第 70 至 74 行，我们的 `map_titles` 和 `map_publications` 方法创建了一些包含标题和出版商的字典，以便以后更容易通过它们的 ID 查找文章。
 
-Each of the methods we’ve described so far is called on lines 98–104 when the backend app is started. This work prepares us for the final step of actually querying the Pinecone index based on user input.
+上方描述的每个方法都会在后端应用程序启动时在第 98 至 104 行调用。这项工作让我们为最后一步 —— 根据用户输入查询 Pinecone 索引，做好准备。
 
-On lines 106–116, we define two routes for our app: one for the home page and one for the API endpoint. The home page serves up the `index.html` template file along with the JS and CSS assets, and the API endpoint provides the search functionality for querying the Pinecone index.
+在第 106 至 116 行，我们为应用程序定义了两条路由：一条用于主页，另一条用于 API 端点。主页提供 `index.html` 模板文件以及 JavaSript 和 CSS 资产，API 端点则提供查询 Pinecone 索引的搜索功能。
 
-Finally, on lines 76–96, our `query_pinecone` method takes the user’s reading history input, converts it into a vector embedding, and then queries the Pinecone index to find similar articles. This method is called when the `/api/search` endpoint is hit, which occurs any time the user submits a new search query.
+最后，在第 76 至 96 行，我们的`query_pinecone` 方法获取用户的阅读历史输入，将其转换为向量嵌入，然后查询 Pinecone 索引以查找相似的文章。获取 `/api/search` 端点时将调用此方法。每当用户提交新的搜索查询时都会调用这个 API。
 
-For the visual learners out there, here’s a diagram outlining how the app works:
+对于视觉学习者，这里提供一个概述应用程序如何工作的图表：
 
-![App architecture and user experience](https://cdn-images-1.medium.com/max/2000/0*9S_7iYqcW3eTghUP)
+![应用架构和用户体验](https://cdn-images-1.medium.com/max/2000/0*9S_7iYqcW3eTghUP)
 
 ## 示例场景
 
