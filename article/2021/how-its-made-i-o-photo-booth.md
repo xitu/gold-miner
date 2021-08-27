@@ -79,7 +79,7 @@ Camera(
 
 ![](https://miro.medium.com/max/2800/0*Zd9s-7LFN9u17Ouo)
 
-<samll>非镜像视图</small>
+<small>非镜像视图</small>
 
 ![](https://miro.medium.com/max/2800/0*kkxXNd0m-t4sjCAo)
 
@@ -170,7 +170,7 @@ Transform(
 
 我们还实现了一个功能驱动的 monorepo 结构。例如，贴纸、分享和实时相机预览都在它们自己的文件夹中实现，其中每个文件夹包含其各自的 UI 组件和业务逻辑。这些与外部依赖项集成，例如位于包子目录中的相机插件。这种架构允许我们的团队并行处理多个功能，而不会中断其他人的工作，最大限度地减少合并冲突，并使我们能够有效地重用代码。例如，UI 组件库是一个单独的包，名为 [`photobooth_ui`](https://github.com/flutter/photobooth/tree/main/packages/photobooth_ui)，相机插件也是单独的。
 
-通过将组件分成独立的包，我们可以提取和开源与此特定项目无关的各个组件。甚至 UI 组件库包也可以为 Flutter 社区开源，类似于 [Material](https://flutter.dev/docs/development/ui/widgets/material) 和 [Cupertino](https://flutter .dev/docs/development/ui/widgets/cupertino) 组件库。
+通过将组件分成独立的包，我们可以提取和开源与此特定项目无关的各个组件。甚至 UI 组件库包也可以为 Flutter 社区开源，类似于 [Material](https://flutter.dev/docs/development/ui/widgets/material) 和 [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) 组件库。
 
 ## Firebase + Flutter = 完美匹配
 
