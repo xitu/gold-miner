@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/introduction-to-creating-interpreter-using-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/introduction-to-creating-interpreter-using-python.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[greycodee](https://github.com/greycodee)
 
 # 我用 Python 创造了一门自己的编程语言
 
@@ -13,9 +13,9 @@
 $ pip install ply
 ```
 
-我们将粗略地浏览一下创建解释器所需的基础知识。欲了解更多，请参阅[这个](https://github.com/dabeaz/ply) GitHub 仓库。
+我们将粗略地浏览一下创建解释器所需的基础知识。欲了解更多，请参阅[这个 GitHub 仓库](https://github.com/dabeaz/ply)。
 
-![basic representation of interpreter](https://cdn-images-1.medium.com/max/2000/1*fnh2Q_e0lHe8zgqpPPEyRQ.png)
+![解释器的基本表示](https://cdn-images-1.medium.com/max/2000/1*fnh2Q_e0lHe8zgqpPPEyRQ.png)
 
 ## 标记（Token）
 
@@ -76,7 +76,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-# 如果看到 \n 则将其设为新的一行
+# 如果遇到 \n 则将其设为新的一行
 def t_newline(t):
     r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
