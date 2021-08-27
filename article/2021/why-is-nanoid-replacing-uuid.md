@@ -2,7 +2,7 @@
 > * 原文作者：[Charuka Herath](https://charuka95.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/why-is-nanoid-replacing-uuid.md](https://github.com/xitu/gold-miner/blob/master/article/2021/why-is-nanoid-replacing-uuid.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
 # 为什么 NanoID 正在取代 UUID？
