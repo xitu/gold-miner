@@ -45,13 +45,13 @@ tokens = (
 
 ```python
 # 标记的正则表达
-t_PLUS = r"\+"
-t_MINUS = r"\-"
-t_MUL = r"\*"
-t_DIV = r"/"
+t_PLUS   = r"\+"
+t_MINUS  = r"\-"
+t_MUL    = r"\*"
+t_DIV    = r"/"
 t_LPAREN = r"\("
 t_RPAREN = r"\)"
-t_POW = r"\^"
+t_POW    = r"\^"
 # 忽略空格和制表符
 t_ignore = " \t"
 
@@ -91,7 +91,7 @@ def t_newline(t):
 定义好了规则，我们将构建词法分析器。
 
 ```python
-data = "a = 2 +(10 -8)/1.0"
+data = 'a = 2 +(10 -8)/1.0'
 
 lexer = lex.lex()
 lexer.input(data)
@@ -250,13 +250,13 @@ tokens = (
 #####################################
 # 标记的正则表达式                    #
 #####################################
-t_PLUS = r"\+"
-t_MINUS = r"\-"
-t_MUL = r"\*"
-t_DIV = r"/"
+t_PLUS   = r"\+"
+t_MINUS  = r"\-"
+t_MUL    = r"\*"
+t_DIV    = r"/"
 t_LPAREN = r"\("
 t_RPAREN = r"\)"
-t_POW = r"\^"
+t_POW    = r"\^"
 # 忽略空格和制表符
 t_ignore = " \t"
 
