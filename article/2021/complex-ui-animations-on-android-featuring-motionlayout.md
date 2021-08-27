@@ -27,10 +27,6 @@
 
 ## 什么是 MotionLayout？快速介绍……
 
-![](https://miro.medium.com/max/60/1*4ddULlE7YKRVeneFY2IDqw.png?q=20)
-
-![](https://miro.medium.com/max/1000/1*4ddULlE7YKRVeneFY2IDqw.png)
-
 ![](https://miro.medium.com/max/1000/1*4ddULlE7YKRVeneFY2IDqw.png)
 
 简单地说，`MotionLayout` 是一个 `ConstraintLayout`，它可以让你轻松地在两个 ConstraintSet 之间进行转换。
