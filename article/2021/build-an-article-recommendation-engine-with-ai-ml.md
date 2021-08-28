@@ -29,9 +29,9 @@
 
 在构建应用程序时，我们首先从 Kaggle 找到了一个[新闻文章数据集](https://www.kaggle.com/snapcrack/all-the-news)。该数据集包含来自 15 个主要出版社的 143,000 篇新闻文章，但我们仅使用前 20,000 篇。（完整数据集包含超过 200 万篇文章！）
 
-之后，我们通过重命名几列并删除不必要的列来清理数据集。接下来，我们通过嵌入可创建[嵌入式向量](https://www.pinecone.io/learn/vector-embeddings/)的模型来管理文章 —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用的是[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些嵌入式向量插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
+之后，我们通过重命名几列并删除不必要的列来清理数据集。接下来，我们通过嵌入可创建[vector embedding](https://www.pinecone.io/learn/vector-embeddings/)的模型来管理文章 —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用的是[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些 vector embedding 插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
 
-将向量嵌入添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询向量嵌入的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。 就是这样！是不是很简单？
+将 vector embedding 添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询 vector embedding 的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。就是这样！是不是很简单？
 
 如果你想亲自尝试一下，你可以[在 GitHub 上找到此应用程序的源码](https://github.com/thawkin3/article-recommendation-service)。在 `README` 中包含了如何在本地设备上运行应用程序的指示和说明。
 
@@ -186,13 +186,13 @@ app.run()
 
 在第 31 至 35 行，我们的 `create_pinecone_index` 方法使用我们选择的名称（“article-recommendation-service”）创建一个新索引，使用余弦相似度作为指标，数据分片为 1。
 
-在第 37 至 40 行，我们的 `create_model` 方法使用 `sentence_transformers` 库来处理平均词嵌入模型。稍后我们将使用这个模型对我们的向量嵌入进行编码。
+在第 37 至 40 行，我们的 `create_model` 方法使用 `sentence_transformers` 库来处理平均词嵌入模型。稍后我们将使用这个模型对我们的 vector embedding 进行编码。
 
 在第 62 至 68 行，我们的 `process_file` 方法读取 CSV 文件，然后调用 `prepare_data` 和 `upload_items` 方法。这两个方法的介绍在下方。
 
-在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建向量嵌入，但为了加快编码过程，四行就足够了。
+在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建 vector embedding，但为了加快编码过程，四行就足够了。
 
-在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个向量嵌入，然后将向量嵌入插入到 Pinecone 索引中。
+在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个vector embedding，然后将 vector embedding 插入到 Pinecone 索引中。
 
 在第 70 至 74 行，我们的 `map_titles` 和 `map_publications` 方法创建了一些包含标题和出版商的字典，以便以后更容易通过它们的 ID 查找文章。
 
@@ -200,7 +200,7 @@ app.run()
 
 在第 106 至 116 行，我们为应用程序定义了两条路由：一条用于主页，另一条用于 API 端点。主页提供 `index.html` 模板文件以及 JavaSript 和 CSS 资产，API 端点则提供查询 Pinecone 索引的搜索功能。
 
-最后，在第 76 至 96 行，我们的`query_pinecone` 方法获取用户的阅读历史输入，将其转换为向量嵌入，然后查询 Pinecone 索引以查找相似的文章。获取 `/api/search` 端点时将调用此方法。每当用户提交新的搜索查询时都会调用这个 API。
+最后，在第 76 至 96 行，我们的`query_pinecone` 方法获取用户的阅读历史输入，将其转换为 vector embedding，然后查询 Pinecone 索引以查找相似的文章。获取 `/api/search` 端点时将调用此方法。每当用户提交新的搜索查询时都会调用这个 API。
 
 对于视觉学习者，这里提供一个概述应用程序如何工作的图表：
 
