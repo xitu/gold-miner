@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md](https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[greycodee](https://github.com/greycodee)
 
 # 使用人工智能/机器学习构建文章推荐引擎
 
 ![Photo by [Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/7998/0*-gsFtRSjNAsy-v6K)
 
-内容平台因向用户推荐相关内容而蓬勃发展。平台可以提供的相关项目越多，用户在网站上停留的时间就越长，这通常会转化为公司的广告收入。
+内容平台在向用户推荐相关内容方面蓬勃发展。平台可以提供的相关内容越多，用户在网站上停留的时间就越长，这通常会转化为公司的广告收入。
 
 如果你曾经访问过新闻网站、电子出版社或博客平台，那么你可能已经接触过推荐引擎。每一个平台都根据你的阅读历史记录，推荐你可能喜欢的内容。
 
-作为一个简单的解决方案，一个平台可能会实现一个基于标签的推荐引擎 —— 你阅读了一篇「商业」文章，所以这里还有五篇标记为「商业」的文章。然而，构建推荐引擎的更好方法是使用**相似性搜索和机器学习算法**。
+作为一个简单的解决方案，一个平台可能会实现一个基于标签的推荐引擎 —— 比如你阅读了一篇「商业」文章，它还会推荐给你五篇标记为「商业」的相关文章。然而，构建推荐引擎的更好方法是使用**相似性搜索和机器学习算法**。
 
 在本文中，我们将构建一个 Python Flask 应用程序，该应用程序使用 [Pinecone](https://www.pinecone.io/)（一个相似性搜索的服务）来创建我们自己的文章推荐引擎。
 
@@ -23,7 +23,7 @@
 
 ![演示应用 —— 文章推荐引擎](https://cdn-images-1.medium.com/max/2000/0*jWMKM_QD7TRXYOJK)
 
-可以看到，返回的相关文章异常准确！在此示例中，有 1,024 种可能的阅读历史组合可用作输入，并且每种组合都会产生有意义的结果。
+可以看到，返回的相关文章非常准确！在此示例中，有 1,024 种可能的阅读历史组合可用作输入，并且每种组合都会产生有意义的结果。
 
 那么我们是如何做到的呢？
 
@@ -31,13 +31,13 @@
 
 之后，我们通过重命名几个列并删除不必要的列来清理数据集。接下来，我们通过嵌入模型运行文章以创建[向量嵌入](https://www.pinecone.io/learn/vector-embeddings/) —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用了[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些向量嵌入插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
 
-将向量嵌入添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询向量嵌入的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。 就是这样！够简单了吧？
+将向量嵌入添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询向量嵌入的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。 就是这样！是不是很简单？
 
 如果你想亲自尝试一下，你可以[在 GitHub 上找到此应用程序的源码](https://github.com/thawkin3/article-recommendation-service)。在 `README` 中包含了如何在本地设备上运行应用程序的指示和说明。
 
-## Demo App Code Walkthrough
+## 代码实现
 
-我们已经了解了应用程序的内部工作原理，但我们实际上是如何构建它的呢？如前所述，这是一个使用 Pinecone SDK 的 Python Flask 应用程序。HTML 使用模板文件，前端的其余部分使用静态 CSS 和 JavaScript 资产构建。为简单起见，所有后端代码都在 `app.py` 文件中，我将该文件完整地复制在了下面：
+我们已经了解了应用程序的内部工作原理，但我们实际上是如何构建它的呢？如前所述，这是一个使用 Pinecone SDK 的 Python Flask 应用程序。HTML 使用模板文件，前端的其余部分使用静态 CSS 和 JavaScript 构建。为简单起见，所有后端代码都在 `app.py` 文件中，我将该文件完整地复制在了下面：
 
 ```Python
 from dotenv import load_dotenv
@@ -171,7 +171,7 @@ app.run()
 * `pandas` 用于处理数据集
 * `pinecone` 用于使用 Pinecone SDK
 * `re` 用于处理正则表达式（RegEx）
-* `requests` 由于发送 API 请求以下载我们的数据集
+* `requests` 用于发送 API 请求以下载我们的数据集
 * `statistics` 提供了一些方便的统计函数
 * `sentence_transformers` 用于我们的嵌入模型
 * `swifter` 用于处理 `pandas` 的 `DataFrame`
@@ -190,7 +190,7 @@ app.run()
 
 在第 62 至 68 行，我们的 `process_file` 方法读取 CSV 文件，然后调用 `prepare_data` 和 `upload_items` 方法。这两个方法的介绍在下方。
 
-在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 “id” 列并删除 “date” 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建向量嵌入，但为了加快编码过程，四行就足够了。
+在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建向量嵌入，但为了加快编码过程，四行就足够了。
 
 在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个向量嵌入，然后将向量嵌入插入到 Pinecone 索引中。
 
@@ -216,13 +216,13 @@ app.run()
 
 对政治感兴趣的用户选择一篇关于选举舞弊的文章。在他们提交他们的选择后，该应用程序会返回有关选民 ID、美国 2020 年大选、选民投票率和非法选举声言（以及他们为什么不阻止）的文章。
 
-三对三！事实证明，我们的推荐引擎非常有用。
+试了三个场景后！事实证明，我们的推荐引擎非常有用。
 
 ## 结论
 
 我们现在已经创建了一个简单的 Python 应用程序来解决现实生活中的问题。如果内容网站能够向用户推荐相关内容，用户就会更喜欢这些内容，并会在网站上花费更多时间，从而为公司带来更多收入。双赢局面！
 
-相似性搜索有助于为你的用户提供更好的建议。而 Pinecone，作为一个相似性搜索的服务方，可使你能轻松地向用户提供推荐，以便您可以专注于自己最擅长的事情 —— 构建一个充满值得阅读的内容、引人入胜的平台。
+相似性搜索有助于为你的用户提供更好的建议。而 Pinecone，作为一个相似性搜索的服务方，可使你能轻松地向用户提供推荐，以便您可以专注于自己最擅长的事情 —— 构建一个充满值得阅读的内容的优质平台。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
