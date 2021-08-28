@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md](https://github.com/xitu/gold-miner/blob/master/article/2021/build-an-article-recommendation-engine-with-ai-ml.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[greycodee](https://github.com/greycodee)
+> * 校对者：[greycodee](https://github.com/greycodee)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 使用人工智能/机器学习构建文章推荐引擎
 
@@ -29,7 +29,7 @@
 
 在构建应用程序时，我们首先从 Kaggle 找到了一个[新闻文章数据集](https://www.kaggle.com/snapcrack/all-the-news)。该数据集包含来自 15 个主要出版社的 143,000 篇新闻文章，但我们仅使用前 20,000 篇。（完整数据集包含超过 200 万篇文章！）
 
-之后，我们通过重命名几列并删除不必要的列来清理数据集。接下来，我们通过嵌入可创建[vector embedding](https://www.pinecone.io/learn/vector-embeddings/)的模型来管理文章 —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用的是[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些 vector embedding 插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
+之后，我们通过重命名几列并删除不必要的列来清理数据集。接下来，我们通过嵌入可创建 [vector embedding](https://www.pinecone.io/learn/vector-embeddings/) 的模型来管理文章 —— 这是机器学习算法确定各种输入之间相似性的元数据。我们使用的是[平均词嵌入模型](https://nlp.stanford.edu/projects/glove/)。然后，我们将这些 vector embedding 插入到由 Pinecone 管理的[向量索引](https://www.pinecone.io/learn/vector-database/)中。
 
 将 vector embedding 添加到索引后，我们就可以开始查找相关内容了。当用户提交他们的阅读历史时，一个请求发送到 API 端点，该端点使用 Pinecone 的 SDK 来查询 vector embedding 的索引。端点返回十篇类似的新闻文章并将它们显示在应用程序的 UI 中。就是这样！是不是很简单？
 
@@ -192,7 +192,7 @@ app.run()
 
 在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建 vector embedding，但为了加快编码过程，四行就足够了。
 
-在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个vector embedding，然后将 vector embedding 插入到 Pinecone 索引中。
+在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个 vector embedding，然后将 vector embedding 插入到 Pinecone 索引中。
 
 在第 70 至 74 行，我们的 `map_titles` 和 `map_publications` 方法创建了一些包含标题和出版商的字典，以便以后更容易通过它们的 ID 查找文章。
 
