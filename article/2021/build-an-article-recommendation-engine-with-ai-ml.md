@@ -82,16 +82,16 @@ def create_model():
     return model
 
 def prepare_data(data):
-    # rename id column and remove unnecessary columns
+    # 重命名 id 列并删除不必要的列
     data.rename(columns={"Unnamed: 0": "article_id"}, inplace = True)
     data.drop(columns=['date'], inplace = True)
 
-    # extract only first few sentences of each article for quicker vector calculations
+    # 仅提取每篇文章的前几句话以加快向量的计算
     data['content'] = data['content'].fillna('')
     data['content'] = data.content.swifter.apply(lambda x: ' '.join(re.split(r'(?<=[.:;])\s', x)[:4]))
     data['title_and_content'] = data['title'] + ' ' + data['content']
 
-    # create a vector embedding based on title and article columns
+    # 基于标题列和文章列，创建 embedding 向量
     encoded_articles = model.encode(data['title_and_content'], show_progress_bar=True)
     data['article_vector'] = pd.Series(encoded_articles.tolist())
 
@@ -186,11 +186,11 @@ app.run()
 
 在第 31 至 35 行，我们的 `create_pinecone_index` 方法使用我们选择的名称（“article-recommendation-service”）创建一个新索引，使用余弦相似度作为指标，数据分片为 1。
 
-在第 37 至 40 行，我们的 `create_model` 方法使用 `sentence_transformers` 库来处理平均词嵌入模型。稍后我们将使用这个模型对我们的 vector embedding 进行编码。
+在第 37 至 40 行，我们的 `create_model` 方法使用 `sentence_transformers` 库来处理平均词嵌入模型。稍后我们将使用这个模型对我们的 embedding 向量进行编码。
 
 在第 62 至 68 行，我们的 `process_file` 方法读取 CSV 文件，然后调用 `prepare_data` 和 `upload_items` 方法。这两个方法的介绍在下方。
 
-在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建 vector embedding，但为了加快编码过程，四行就足够了。
+在第 42 至 56 行，我们的 `prepare_data` 方法通过重命名第一个 `id` 列并删除 `date` 列来调整数据集。然后，它抓取每篇文章的前四行，并将它们与文章标题结合起来，创建一个新字段，作为要编码的数据。我们可以基于文章的整个正文创建 embedding 向量，但为了加快编码过程，四行就足够了。
 
 在第 58 至 60 行，我们的 `upload_items` 方法通过使用我们的模型对其进行编码来为每篇文章创建一个 embedding 向量，然后将 embedding 向量插入到 Pinecone 索引中。
 
@@ -200,7 +200,7 @@ app.run()
 
 在第 106 至 116 行，我们为应用程序定义了两条路由：一条用于主页，另一条用于 API 端点。主页提供 `index.html` 模板文件以及 JavaSript 和 CSS 资产，API 端点则提供查询 Pinecone 索引的搜索功能。
 
-最后，在第 76 至 96 行，我们的`query_pinecone` 方法获取用户的阅读历史输入，将其转换为 vector embedding，然后查询 Pinecone 索引以查找相似的文章。获取 `/api/search` 端点时将调用此方法。每当用户提交新的搜索查询时都会调用这个 API。
+最后，在第 76 至 96 行，我们的`query_pinecone` 方法获取用户的阅读历史输入，将其转换为 embedding 向量，然后查询 Pinecone 索引以查找相似的文章。获取 `/api/search` 端点时将调用此方法。每当用户提交新的搜索查询时都会调用这个 API。
 
 对于视觉学习者，这里提供一个概述应用程序如何工作的图表：
 
