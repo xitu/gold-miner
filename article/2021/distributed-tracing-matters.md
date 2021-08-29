@@ -56,7 +56,7 @@
 
 ## OpenTracing API
 
-[Quoting the introduction](https://opentracing.io/docs/overview/what-is-tracing/):
+[引用介绍](https://opentracing.io/docs/overview/what-is-tracing/)：
 
 > OpenTracing 由 API 规范、实现规范的框架和库以及项目文档组成。OpenTracing 允许开发人员使用 API 将检测添加到他们的应用程序代码中，而这些 API 不限定于任何特定产品或供应商。
 
