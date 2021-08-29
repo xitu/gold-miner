@@ -5,7 +5,7 @@
 > * 译者：[ItzMiracleOwO](https://github.com/itzmiracleowo)
 > * 校对者：[jaredliw](https://github.com/jaredliw)
 
-# 分佈式追踪事項
+# 关于分布式追踪的事项
 
 单体式应用的问题大多是易于排查的。您可以查找执行轨迹，并详细调查错误和瓶颈。有时解决方法可能是快速排查栈追踪，以找出您的业务流程存在什么问题。
 
