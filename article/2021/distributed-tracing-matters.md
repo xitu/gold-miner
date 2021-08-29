@@ -136,7 +136,7 @@ We can identify the parent, the timestamp of the span as well as our vendor. The
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7dx9dp0v8bjChH7zWjxAbg.png)
 
-### 设置我们的跟踪
+### 设置我们的追踪
 
 如果我们想以手动方式执行此操作，我们首先需要什么？ 我们需要一堆我们系统已经打开并因此需要关闭的跨度。
 
