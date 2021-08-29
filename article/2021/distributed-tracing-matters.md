@@ -46,7 +46,7 @@
 
 ### 概述
 
-如果要对多个系统追溯您的请求，则需要收集路由上每一步的数据。
+如果要在多个系统上追踪您的请求，则需要收集路由上每一步的数据。
 
 ![Web Transactions over multiple Services, sending Context information to a Tracing Collector](https://cdn-images-1.medium.com/max/2000/1*jHsAJgif51Gw6ZgvJb9scw.png)
 
