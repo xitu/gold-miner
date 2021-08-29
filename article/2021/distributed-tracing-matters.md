@@ -121,7 +121,7 @@ We can identify the parent, the timestamp of the span as well as our vendor. The
 
 尽管分布式追踪工具为许多不同的语言和框架提供了代理，但如果您需要手动扩展跟踪，这可能很重要。
 
-让我们看一个基本场景，其中我们想要添加到分布式跟踪中的系统仅通过调用另一个外部调用来执行次要业务逻辑。
+让我们看一个基本场景，其中我们想要添加到分布式追踪中的系统仅通过调用另一个外部调用来执行次要业务逻辑。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0o2lIGelr9JtVRFVfuO9ZQ.png)
 
