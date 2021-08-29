@@ -96,7 +96,7 @@
 
 `traceparent` 标头携带四种不同类型的信息：版本、追踪标识符、父标识符和标志。
 
-![Example traceparent HTTP header](https://cdn-images-1.medium.com/max/2000/1*qBXxYI9Qo_8RcohWoRegUQ.png)
+![`traceparent` HTTP 表头示例](https://cdn-images-1.medium.com/max/2000/1*qBXxYI9Qo_8RcohWoRegUQ.png)
 
 * 版本 — 标识版本，当前为 `00`。
 * TraceID — 分布式追踪的唯一标识符。
