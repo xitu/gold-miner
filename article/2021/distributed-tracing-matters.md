@@ -85,7 +85,7 @@
 
 当生成了一个新的跨度时，如果没有另外指定，当前 active 的跨度会自动成为其父跨度。
 
-## 深潛
+## 深入探索
 
 在系统之间传输我们的上下文围绕两个不同的 HTTP 标头演变：`traceparent` 和 `tracestate`。 它将包含有关如何关联所有相关跨度信息的所有信息。在 [W3C 的 Trace Context](https://www.w3.org/TR/trace-context/) 中有详细解说。
 
