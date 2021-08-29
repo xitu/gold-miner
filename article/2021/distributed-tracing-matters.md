@@ -113,7 +113,7 @@
 
 ![由 NewRelic 发送的 `tracestate` HTTP 标头示例](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
 
-We can identify the parent, the timestamp of the span as well as our vendor. There are no fixed rules on which information the trace state header can carry or how it has to look, so it can hugely vary based on the tracing tool you’re using.
+我们可以识别父级、跨度的时间戳以及我们的供应者。 跟踪状态标头可以携带哪些信息或它的外观没有固定的规则，因此它可能会因您使用的跟踪工具而有很大差异。
 
 ## 動手
 
