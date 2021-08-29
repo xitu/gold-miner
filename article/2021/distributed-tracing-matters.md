@@ -132,7 +132,7 @@ We can identify the parent, the timestamp of the span as well as our vendor. The
 * 我们将在完成后关闭我们打开的跨度
 * 我们将跨度详细信息提交给我们的追踪收集器系统
 
-我们可以在单个系统中根据需要打开任意数量的跨度。 我们只需要确保我们正确嵌套它们并分别关闭它们。 因此，手动实现需要跟踪跨度堆栈。
+我们可以在单个系统中根据需要打开任意数量的跨度。我们只需要确保我们正确嵌套它们并分别关闭它们。因此，我们需要手动实现来跟踪跨度堆栈。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7dx9dp0v8bjChH7zWjxAbg.png)
 
