@@ -111,7 +111,7 @@
 
 看看 NewRelic 的一个例子 :
 
-![Example tracestate HTTP header sent by NewRelic](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
+![由 NewRelic 发送的 `tracestate` HTTP 标头示例](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
 
 We can identify the parent, the timestamp of the span as well as our vendor. There are no fixed rules on which information the trace state header can carry or how it has to look, so it can hugely vary based on the tracing tool you’re using.
 
