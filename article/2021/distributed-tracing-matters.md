@@ -36,7 +36,7 @@
 * 消息被加入到 SQS 队列，稍后被另一个 Lambda 函数处理。
 * 调用外部服务，然后进行下一步的传入请求。
 
-尽管操作似乎是解耦的，但它们通常与相同的触发器相关，因此耦合与商业角度来看。出现的问题通常只有在您能够关联整个业务流程中包含的每个操作时才能得到解决。
+尽管操作似乎是解耦的，但它们通常与同一个触发器相关，因此从业务的角度来看是耦合的。您通常需要关联整个业务流程中包含的每个操作才能把问题解决。
 
 ![a process spanning multiple systems of multiple, independent teams](https://cdn-images-1.medium.com/max/2000/1*SHMu84OF4Eg-6eZhqaUugw.png)
 
