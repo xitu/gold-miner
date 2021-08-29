@@ -174,7 +174,7 @@ if (!traceParent) {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZWcuiszwgPfliOMPRAbOVg.png)
 
-我们的根跨度仅用于跟踪我们的跟踪标识符。 最重要的是，我们将跟踪我们打开的所有跨度，并在操作或流程完成时删除每个跨度。
+我们的根跨度仅用于跟踪我们的跟追标识符。最重要的是，我们将跟踪我们打开的所有跨度，并在操作或流程完成时删除每个跨度。
 
 ```JavaScript
 const openNewSpan = (spanName) => {
