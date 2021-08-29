@@ -48,7 +48,7 @@
 
 如果要在多个系统上追踪您的请求，则需要收集路由上每一步的数据。
 
-![Web Transactions over multiple Services, sending Context information to a Tracing Collector](https://cdn-images-1.medium.com/max/2000/1*jHsAJgif51Gw6ZgvJb9scw.png)
+![多个服务上的 Web 事务，将上下文信息发送到追踪收集器](https://cdn-images-1.medium.com/max/2000/1*jHsAJgif51Gw6ZgvJb9scw.png)
 
 我们的浏览器在我们的示例中提交了第一个请求，该请求启动整个操作的上下文。它需要发送请求本身并附加有关上下文的更多信息，以便您的跟踪收集器可以稍后关联请求，并且通过添加有关他们执行的代码的详细信息，所有这些系统都可以扩展。
 
