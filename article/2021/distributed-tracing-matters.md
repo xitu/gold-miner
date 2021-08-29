@@ -89,7 +89,7 @@
 
 在系统之间传输我们的上下文围绕两个不同的 HTTP 标头演变：`traceparent` 和 `tracestate`。它将包含有关如何关联所有相关跨度信息的所有信息。在 [W3C 的 trace context](https://www.w3.org/TR/trace-context/) 中有详细解说。
 
-* `traceparent`— 指定对跟踪系统的请求，不依赖于任何供应者。
+* `traceparent` —— 指定对追踪系统的请求，不依赖于任何供应者。
 * `tracestate`— 包括关于请求供应者特定的信息。
 
 ### 跟踪父级
