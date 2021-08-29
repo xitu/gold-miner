@@ -94,7 +94,7 @@
 
 ### 跟踪父级
 
-标头 `traceparent` 携带四种不同类型的信息：版本、跟踪标识符、父标识符和标志。
+`traceparent` 标头携带四种不同类型的信息：版本、追踪标识符、父标识符和标志。
 
 ![Example traceparent HTTP header](https://cdn-images-1.medium.com/max/2000/1*qBXxYI9Qo_8RcohWoRegUQ.png)
 
