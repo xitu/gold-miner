@@ -107,7 +107,7 @@
 
 ### 追踪的状态
 
-标头 `tracestate` 是伴随 Trace Parent 的，添加特定于供应者的跟踪信息。
+标头 `tracestate` 是伴随 Trace Parent 的，添加特定于供应者的追踪信息。
 
 看看 NewRelic 的一个例子 :
 
