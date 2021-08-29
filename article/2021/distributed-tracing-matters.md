@@ -77,7 +77,7 @@
 
 这意味着，我们生态系统中涉及请求的每个组件都应至少贡献一个跨度。由于跨度可以引用其他跨度，我们可以利用这些跨度来建立一个完整的 stack trace，以覆盖单个请求中的所有操作。跨度的精细程度不限。我们可以在任何地方使用它，从覆盖整个复杂的过程到单个功能甚至操作的跨度。
 
-![a span covering a DynamoDB query operation, including name and timestamps](https://cdn-images-1.medium.com/max/2000/1*1pu963Zo2U-ZisazG_XC_A.png)
+![一个涵盖了 DynamoDB 查询操作的跨度，跨度包含名称和时间戳](https://cdn-images-1.medium.com/max/2000/1*1pu963Zo2U-ZisazG_XC_A.png)
 
 ### Scopes 和 Threading
 
