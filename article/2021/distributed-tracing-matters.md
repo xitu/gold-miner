@@ -259,7 +259,7 @@ const submitTraceInformation = (traceId, spanName, spanId, parentId, duration) =
 }
 ```
 
-就是这样。 你现在只需要在所有地方调用 `openNewSpan` 和 `closeSpan` 方法。 将其放入某个注释中是有意义的，这样您只需注释要跟踪的方法或进程，并且自动调用打开和关闭操作。
+就是这样。 你现在只需要在所有地方调用 `openNewSpan` 和 `closeSpan` 方法。将其放入某个注释中是有意义的，这样您只需注释要跟踪的方法或进程，并且自动调用打开和关闭操作。
 
 ## 关键要点
 
