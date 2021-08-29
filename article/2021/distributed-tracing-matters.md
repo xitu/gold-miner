@@ -28,7 +28,7 @@
 
 这使得调试变成了一个繁琐、复杂的任务。此外，观察单一事务不容易。您不能只依赖单个系统的堆栈痕迹，因为代码在多个系统上执行。
 
-![A distributed system, with multiple decoupled operations](https://cdn-images-1.medium.com/max/2000/1*bbZZ4DGzS9FY3o-Q0WhfwA.png)
+![一个包含多个解耦合操作的分布式系统](https://cdn-images-1.medium.com/max/2000/1*bbZZ4DGzS9FY3o-Q0WhfwA.png)
 
 通过查看 AWS 上一些虚构架构的示例，我们看到在不同的系统中有很多代码只是一个外部触发器。
 
