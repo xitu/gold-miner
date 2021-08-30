@@ -75,10 +75,10 @@ address:
   zipcode: 94085
 ```
 
-如上，我们有一个键名为 「address」，它的值中声明了多对**键值对**。当你在编写 YAML 文件时，你需要格外注意缩进。当我们想要将多个键值对组合到一个逻辑父容器时，我们必须用长度为 2 的空格字符缩进它们，并且每个新行必须垂直对齐，否则 YAML 文件在准备执行时会报错。
+如上，我们有一个键名为 「address」，它的值中声明了多对**键值对**。当你在编写 YAML 文件时，你需要格外注意缩进。当我们想要将多个键值对组合到一个逻辑父容器时，我们必须按照 2 个空格长度缩进它们，并且每个新行必须垂直对齐，否则 YAML 文件会在执行前报错。
 As we can see here, we have a key named 'address' which holds multiple **key:value** pairs inside of it. You need to pay attention to the indentations. When we want to group multiple **key:value** pairs under one logical container that is the parent, we must indent them with preferred 2 space characters and each new line must be aligned vertically otherwise the YAML file will throw an error when it is ready to execute.
 
-这种特殊的描述形式被称为一个『映射』。这个映射名为 「address」，它维护了一组通常以 **key:value** 形式表示的数据。你还可以主要打到，这些值不仅可以是 'String' 类型，还可以是 'Number' 类型，包括整数和浮点数，也可以是布尔值。顺便一提，对于字符串类型的值，引号是可选的。
+这种特殊的描述形式被称为一个『映射』。这个映射名为 「address」，它维护了一组通常以 **key:value** 形式表示的数据。你还可以主要打到，这些值不仅可以是 'String' 类型，还可以是 'Number' 类型，包括整数和浮点数，也可以是布尔值。顺便一提，对于字符串类型的值，引号是可选的。我们还可以定义日期类型的变量，但需要注意，日期的格式必须符合 ISO 8601 规范，既：「yyyy-mm-dd hh:mm:ss:ssss」。
 This particular description is called a 'Map'. The map name is 'address' and it holds several pieces of data that are in the usual form of **key:value** pairs. You also can pay attention and see that the values are not only of type 'String' but can also be 'Number', either integer or float and also can be boolean. By the way, for strings the quotes are optional. We can also define a Date variable but need to pay attention that the date format must comply to the ISO 8601 standard which looks like this: 'yyyy-mm-dd hh:mm:ss:sss'.
 
 ```yaml
@@ -87,16 +87,19 @@ some_date: 2018-30-09
 some_datetime: 2020-10-01 09:10:30
 ```
 
+我们知道，YAML 文件是由**键值对**组成并且是 JSON 的超集，因此我们可以使用 json 格式描述映射对象。
 Since we know that YAML consists of **key:value** pairs and is a superset of JSON, we are able to describe map objects json style.
 
 ```yaml
-# json style map object in YAML
+# YAML 中的 JSON 风格映射对象
 person: { name: "Johnny", age: 35, single: true }
 ```
 
+就个人而言，我更建议不要混合书写这两种风格，因为，说实话，当我们在书写一个非常非常长（译者注：原文是「mile long」，一英里长）的 YML 文件时，凭经验而谈，如果我哪里出错了，混合书写这两种写法会让调试过程变得很糟糕。你可以做一件事并不代表你需要去做它。
 I would prefer not to mix these 2 styles because to be honest, Sometimes we write very large YML files that are mile long and talking from experience here, if i get something wrong it is very unpleasant to debug. The fact that you can do it doesn't mean that you need to do it.
 
 ---
+
 
 So far what we talked about was the types and saw particular samples that are a bit plain. Let's see an example where we can start complexing things. In this first example we will see how we can combine maps and collections. Let's say that i want to represent a list of people and represent this list as a collection of map objects.
 
