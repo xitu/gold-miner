@@ -5,9 +5,9 @@
 > * 译者：[Gesj-yean](https://github.com/Gesj-yean)
 > * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat) [nia3y](https://github.com/nia3y)
 
-# 用 Sass 的 !default 创建样式表的特征标识
+# 用 Sass 的 !default 创建样式表的特性标志
 
-`!default` 是一个 Sass 标志，表明对一个变量 *条件赋值* —— 只有在变量未定义或 `null` 时才赋值。例如以下代码片段:
+`!default` 是一个 Sass 标志，表明对一个变量进行 **条件赋值** —— 只有在变量未定义或为 `null` 时才赋值。例如以下代码片段：
 
 ```scss
 $variable: 'test' !default;
@@ -17,7 +17,7 @@ $variable: 'test' !default;
 
 > **仅当** `$variable` 没有被赋值时，将 `'test'` 赋值给 `$variable`。
 
-这里有一个反例，说明了 `!default` 标志的条件行为：
+这里有一个反例，说明了 `!default` 标志的条件赋值行为的另一种情况：
 
 ```scss
 $variable: 'hello world';
@@ -27,10 +27,9 @@ $variable: 'test' !default;
 
 运行这两行后，`$variable` 的值仍然是第 1 行原始赋值的 `'hello world'`。在这种情况下，第 2 行中 `!default` 的赋值将被忽略，因为已经提供了一个值，就不需要默认值。
 
-## Style libraries and `@use...with`
 ## 样式库和 `@use...with`
 
-Sass 中的 `!default` 是为了方便样式库的使用，并方便地将它们包含到下游应用程序或项目中。通过将一些变量指定为 `!default`，该库可以允许使用其的应用程序进行自定义或调整这些变量值，而不需要完全分开样式库。换句话说，`!default` 的变量本质上是修改库代码行为的 **形参**。
+Sass 中的 `!default` 主要是为了方便样式库的使用，并方便地将它们包含到下游应用程序或项目中。通过将一些变量指定为 `!default`，样式库可以允许导入的应用程序自定义或调整这些变量值，而不需要再完全地 fork 一份样式库。换句话说，`!default` 的变量本质上是作为修改样式库代码行为的 *参数*。
 
 
 Sass 有一个专门用于此目的的特殊语法，它将样式表与相关的变量组合在一起：
@@ -46,7 +45,7 @@ Sass 有一个专门用于此目的的特殊语法，它将样式表与相关的
 这个语句的功能 *几乎* 相同于变量赋值后跟一个 `@import`，如下所示:
 
 ```scss
-// style.scss - 一种不太惯用的导入 `library.scss` 配置的方式
+// style.scss - 一种不太常用的导入 `library.scss` 配置的方式
 $foo: 'hello';
 $bar: 'world';
 @import 'library';
@@ -73,7 +72,6 @@ $color-secondary: salmon !default;
 
 Bootstrap 使用 `!default` 标志设置每一项变量，来导出它的[整个 Sass 变量 API](https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss)，包括主题调色板，以及其他共享值，如间距，边框，字体设置，甚至动画渐变方法和时间。这是 `!default` 提供的灵活性的最好例子之一，即使是在一个非常全面的样式框架中。
 
-However, we’ll examine use cases that can *only* be solved by use of the Sass `!default` flag in the next two examples.
 在现代网络应用中，这种行为本身就可以被[CSS 用户属性](https://css-tricks.com/a-complete-guide-to-custom-properties/)和[回退参数](https://css-tricks.com/a-complete-guide-to-custom-properties/#h-custom-property-fallbacks)复制使用。如果您的工具链还没有使用 Sass，那么现代 CSS 可能已经足够用于主题化的目的。然而，我们将检查那些只能使用 Sass `!default` 的两个例子。
 
 ## 用例 2: 加载网页字体
@@ -94,11 +92,11 @@ $disable-font-cdn: false !default;
 
 当 Sass 在 CSS 生命周期中利用它的预处理器时，它开始显示它的优势。假设你公司设计系统的样式库使用了自定义的网页字体。它从谷歌的 CDN 加载——理想的情况是尽快得到资源——但尽管如此，你公司的体验团队对页面加载时间仍然非常关心；每一毫秒对于他们的应用来说都很重要。
 
-为了解决这个问题，你可以在你的样式库中引入一个可选的 *布尔* 标志（与第一个例子中的 CSS 颜色值略有不同）。当默认值设置为 `false` 时，你可以在 Sass `@if` 语句中检查这个特性标志，然后再运行昂贵的操作，比如外部 HTTP 请求。你的库的普通用户甚至不需要知道这个选项的存在——如果触发了默认行为，则会自动从 CDN 加载字体，而其他团队可以访问切换他们需要的，以微调和优化页面加载。
+为了解决这个问题，你可以在你的样式库中引入一个可选的 **布尔** 标志（与第一个例子中的 CSS 颜色值略有不同）。当默认值设置为 `false` 时，你可以在 Sass `@if` 语句中检查这个特性标志，然后再运行消耗较大的操作，比如外部 HTTP 请求。你的库的普通用户甚至不需要知道这个选项的存在——为他们工作提供默认行为，他们自动从 CDN 加载字体，而其他团队可以访问切换他们需要的，以微调和优化页面加载。
 
 一个 CSS 变量不足以解决这个问题——尽管 `font-family` 可以被覆盖，但 HTTP 请求加载了未使用的字体。
 
-## 用例 3: 调试间隔标记可视化
+## 用例 3： 调试间隔标记可视化
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
 
