@@ -74,7 +74,7 @@ Bootstrap 使用 `!default` 标志设置每一项变量，来导出它的[整个
 
 在现代网络应用中，这种行为本身就可以被[CSS 用户属性](https://css-tricks.com/a-complete-guide-to-custom-properties/)和[回退参数](https://css-tricks.com/a-complete-guide-to-custom-properties/#h-custom-property-fallbacks)复制使用。如果您的工具链还没有使用 Sass，那么现代 CSS 可能已经足够用于主题化的目的。然而，我们将检查那些只能使用 Sass `!default` 的两个例子。
 
-## 用例 2: 加载网页字体
+## 用例 2：加载网页字体
 
 ```scss
 // library.scss
@@ -96,7 +96,7 @@ $disable-font-cdn: false !default;
 
 一个 CSS 变量不足以解决这个问题——尽管 `font-family` 可以被覆盖，但 HTTP 请求加载了未使用的字体。
 
-## 用例 3： 调试间隔标记可视化
+## 用例 3：调试间隔标记可视化
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
 
