@@ -7,8 +7,6 @@
 
 # Don’t Let Carousels Kill Your Application
 
-#### Website carousel best practices for images and banners
-
 ![](https://cdn-images-1.medium.com/max/5760/1*hRv4pMYj7sioqL2FJ2Ww8w.jpeg)
 
 Today, carousels are widely used in web applications as a slideshow component, cycling through a collection of elements.
