@@ -41,20 +41,20 @@ First, let’s build a WebAssmbly-based JavaScript interpreter program for WasmE
 
 Fork or clone [the wasmegde-quickjs Github repository](https://github.com/second-state/wasmedge-quickjs) to get started.
 
-```
+```bash
 $ git clone https://github.com/second-state/wasmedge-quickjs
 ```
 
 Following the instructions from that repo, you will be able to build a JavaScript interpreter for WasmEdge.
 
-```
+```bash
 $ rustup target add wasm32-wasi
 $ cargo build --target wasm32-wasi --release
 ```
 
 The WebAssembly-based JavaScript interpreter program is located in the build target directory.
 
-```
+```bash
 $ ls target/wasm32-wasi/debug/quickjs-rs-wasi.wasm
 ```
 
@@ -64,7 +64,7 @@ Next, let’s try some JavaScript programs.
 
 The interpreter supports the WasmEdge networking socket extension so that your JavaScript can make HTTP connections to the Internet. Here is an example of JavaScript.
 
-```
+```js
 let r = GET("http://18.235.124.214/get?a=123",{"a":"b","c":[1,2,3]})
 print(r.status)
     
@@ -78,7 +78,7 @@ print(String.fromCharCode.apply(null,body_str))
 
 To run the JavaScript in the WasmEdge runtime, you can do this on the CLI.
 
-```
+```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/http_demo.js
 ```
 
@@ -88,7 +88,7 @@ You should now see the HTTP GET result printed on the console.
 
 The interpreter supports the WasmEdge Tensorflow lite inference extension so that your JavaScript can run an ImageNet model for image classification. Here is an example of JavaScript.
 
-```
+```js
 import {TensorflowLiteSession} from 'tensorflow_lite'
 import {Image} from 'image'
 
@@ -115,7 +115,7 @@ print(max,max_idx)
 
 To run the JavaScript in the WasmEdge runtime, you can do this on the CLI.
 
-```
+```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/tensorflow_lite_demo/main.js
 ```
 
@@ -127,7 +127,7 @@ The above two examples demonstrate how to use the pre-built `quickjs-rs-wasi.was
 
 Alternatively, you can create your own Rust function that embeds a JavaScript program as a string variable or takes a JavaScript program from the function input parameter. You can refer to the [main.rs](https://github.com/second-state/wasmedge-quickjs/blob/main/src/main.rs) application in the template, which reads the JavaScript program as a string from a file.
 
-```
+```rs
 fn main() {
     use quickjs_sys as q;
     let mut ctx = q::Context::new();
@@ -158,8 +158,6 @@ Second, for most business logic applications, raw performance is not critical. T
 Third, it is known that [many JavaScript security issues arise from JIT](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/). Maybe turning off JIT in the cloud-native environment is not such a bad idea!
 
 JavaScript in cloud-native WebAssembly is still an emerging area in the next generation of cloud and edge computing infrastructure. We are just getting started! If you are interested, join us in the WasmEdge project (or tell us what you want by raising feature request issues).
-
-**More content at[** plainenglish.io**](http://plainenglish.io/)**
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
