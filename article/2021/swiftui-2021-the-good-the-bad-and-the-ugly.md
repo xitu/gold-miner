@@ -11,7 +11,7 @@
 
 ![Photo by [Maxwell Nelson](https://unsplash.com/@maxcodes?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*Wexfei50ZXms6ocU)
 
-I’ve spent the past 8 months developing complex applications in SwiftUI, including [Fave](https://apps.apple.com/us/app/fave-close-friends-only/id1541952688 https://apps.apple.com/us/app/fave-close-friends-only/id1541952688), which we recently put in the App Store. I’ve bumped into countless limitations and found workarounds to most of the challenges I’ve encountered.
+I’ve spent the past 8 months developing complex applications in SwiftUI, including [Fave](https://apps.apple.com/us/app/fave-close-friends-only/id1541952688), which we recently put in the App Store. I’ve bumped into countless limitations and found workarounds to most of the challenges I’ve encountered.
 
 In short, SwiftUI is a wonderful and very promising framework. I think it’s the future. But, it could be another 3–5 years until it reaches the same reliability and robustness as UIKit. However, that doesn’t mean you shouldn’t use SwiftUI today. My goal here is to help you understand the tradeoffs and drawbacks so you can make a more informed decision about whether SwiftUI is right for your next project.
 
