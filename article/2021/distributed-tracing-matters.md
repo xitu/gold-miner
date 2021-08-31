@@ -263,7 +263,7 @@ const submitTraceInformation = (traceId, spanName, spanId, parentId, duration) =
 
 ## 主要收获
 
-构建分布式系统是一项复杂的任务，但可以通过 AWS、Azure 或 GCP 等云提供商以及利用 CloudFormation 的无服务器框架等高级基础设施作为代码工具来快速完成。请记住，你需要分布式追踪来分析你的系统和完整生态系统的运行方式并系统地调试问题。
+构建分布式系统是一项复杂的任务，但可以通过 AWS、Azure 或 GCP 等云提供商以及利用 CloudFormation 的无服务器框架等高级基础设施作为代码工具来快速完成。请记住，你需要分布式追踪来分析系统的表现，并有条理地调试问题。
 
 本文向你介绍了追踪上下文的标准以及如何将它用于追踪跨系统和服务的请求。
 
