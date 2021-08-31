@@ -7,13 +7,11 @@
 
 # 5 String Manipulation Libraries for JavaScript
 
-#### Handle case conversions, removing diacritic characters, unicode handling, url handling and more
-
 ![](https://cdn-images-1.medium.com/max/2560/1*pdPTFvogzT9vzmc7k-qY2Q.jpeg)
 
 Working with strings can be a cumbersome task as there are many different use cases. For example, a simple task like converting a string to camel case can require several lines of code to achieve the end goal.
 
-```
+```js
 function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
     if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
@@ -30,35 +28,23 @@ This is where string manipulation libraries come to the rescue. They make it eas
 
 Let’s look at a few string manipulation libraries for JavaScript.
 
----
-
-→ **Build from independent components for speed and scale**
-
-Instead of building monolithic apps, build independent components first and compose them into features and applications. It makes development faster and helps teams build more consistent and scalable applications.
-
-OSS Tools like [Bit](https://bit.dev/) offer a great developer experience for building independent components and composing applications. Many teams start by building their Design Systems or Micro Frontends, through components. [Give it a try →](https://github.com/teambit/bit)
-
-![An independent product card component: watch the auto-generated dependency graph](https://cdn-images-1.medium.com/max/3546/1*zGUo5gijshzi_iKEgxg1Ow.png)
-
----
-
 ## 1. String.js
 
 `string.js`, or simply `S` is a lightweight (**\< 5 kb** minified and gzipped) JavaScript library for the browser or for Node.js that provides extra String methods.
 
-#### Installation
+### Installation
 
-```
+```bash
 npm i string
 ```
 
-#### Notable Methods
+### Notable Methods
 
 * between(left, right) — Extracts a string between `left` and `right` strings
 
 This can be used when trying to get the elements between two tags in HTML.
 
-```
+```js
 var S = require('string');
 S('<a>This is a link</a>').between('<a>', '</a>').s 
 // 'This is a link'
@@ -68,7 +54,7 @@ S('<a>This is a link</a>').between('<a>', '</a>').s
 
 This function can be used to solve the problem mentioned at the beginning of this article.
 
-```
+```js
 var S = require('string');
 S('---Foo---bAr---').camelize().s; 
 //'fooBar'
@@ -78,7 +64,7 @@ S('---Foo---bAr---').camelize().s;
 
 This function implemented from scratch would definitely require quite a number of lines of code.
 
-```
+```js
 var S = require('string');
 S('   capitalize dash-CamelCase_underscore trim  ').humanize().s //'Capitalize dash camel case underscore trim'
 ```
@@ -87,7 +73,7 @@ S('   capitalize dash-CamelCase_underscore trim  ').humanize().s //'Capitalize d
 
 If you implement this function from scratch, there is a high chance that you might miss a punctuation.
 
-```
+```js
 var S = require('string');
 S('My, st[ring] *full* of %punct)').stripPunctuation().s; 
 //My string full of punct
@@ -95,25 +81,23 @@ S('My, st[ring] *full* of %punct)').stripPunctuation().s;
 
 You can check out more methods over [here](https://github.com/jprichardson/string.js).
 
----
-
 ## 2. Voca
 
 Voca is a JavaScript string manipulation library. **Change case**, **trim**, **pad**, **slugify**, **latinise**, **sprintf’y**, **truncate**, **escape** and other useful string manipulation methods are available in the Voca library. To reduce application builds, the **modular design** allows you to load the complete library or specific functions. The library has been **completely tested**, is **well documented**, and provides **long-term support**.
 
-#### Installation
+### Installation
 
-```
+```bash
 npm i voca
 ```
 
-#### Notable Methods
+### Notable Methods
 
 * Camel Case(String data)
 
 Converts the data to camel case.
 
-```
+```js
 var v = require('voca');
 v.camelCase('foo Bar');
 // => 'fooBar'
@@ -129,7 +113,7 @@ v.camelCase('---Foo---bAr---');
 
 Latinises the `data` by removing diacritic characters.
 
-```
+```js
 var v = require('voca');
 v.latinise('cafe\u0301'); // or 'café'
 // => 'cafe'
@@ -145,7 +129,7 @@ v.latinise('как прекрасен этот мир');
 
 Checks whether `data` contains only alpha and digit characters. (Alphanumeric)
 
-```
+```js
 var v = require('voca');
 v.isAlphaDigit('year2020');
 // => true
@@ -161,7 +145,7 @@ v.isAlphaDigit('40-20');
 
 Counts the number of words in the `data`.
 
-```
+```js
 var v = require('voca');
 v.countWords('gravity can cross dimensions');
 // => 4
@@ -177,7 +161,7 @@ v.countWords('Gravity - can cross dimensions!');
 
 Escapes the regular expression special characters - [ ] / { } ( ) * + ? . \ ^ $ | in `data`.
 
-```
+```js
 var v = require('voca');
 v.escapeRegExp('(hours)[minutes]{seconds}');
 // => '\(hours\)\[minutes\]\{seconds\}'
@@ -195,15 +179,15 @@ This is a tiny, fast Javascript library that helps detect links / URLs / Emails 
 * Validates IP octet numbers (if present).
 * Works on nonlatin alphabets URLs.
 
-#### Installation
+### Installation
 
-```
+```bash
 npm i anchorme
 ```
 
-#### Usage
+### Usage
 
-```
+```js
 import anchorme from "anchorme"; 
 //or 
 //var anchorme = require("anchorme").default;
@@ -221,19 +205,19 @@ You can pass in additional extensions to customize the function further.
 
 Underscore.string provides you several useful functions: capitalize, clean, includes, count, escapeHTML, unescapeHTML, insert, splice, startsWith, endsWith, titleize, trim, truncate and so on.
 
-#### Installation
+### Installation
 
-```
+```bash
 npm install underscore.string
 ```
 
-#### Notable Methods
+### Notable Methods
 
 * numberFormat(number) — Formats the numbers
 
 Format numbers into strings with decimal and order separation.
 
-```
+```js
 var _ = require("underscore.string");
 
 _.numberFormat(1000, 3)
@@ -247,7 +231,7 @@ _.numberFormat(123456789.123, 5, '.', ',');
 
 Learn more about the levenshtein distance algorithm [here](https://dzone.com/articles/the-levenshtein-algorithm-1).
 
-```
+```js
 var _ = require("underscore.string");
 
 _.levenshtein('kitten', 'kittah');
@@ -256,6 +240,7 @@ _.levenshtein('kitten', 'kittah');
 
 * chop(string, step) — chops the given string into pieces
 
+```js
 _.chop('whitespace', 3);
 => ['whi','tes','pac','e']
 ```
@@ -266,7 +251,7 @@ Learn more about Underscore String over [here](http://gabceb.github.io/underscor
 
 The main highlight of this library is that it is unicode aware. If you run this below code, the output will be 2.
 
-```
+```js
 "🤔".length
 // -> 2
 ```
@@ -275,19 +260,19 @@ This is because String.length() returns the number of code units in the string, 
 
 You can read more about the JavaScript unicode problem [here](https://mathiasbynens.be/notes/javascript-unicode).
 
-#### Installation
+### Installation
 
-```
+```bash
 npm install stringz
 ```
 
-#### Notable Methods
+### Notable Methods
 
 * limit(string, limit, padString, padPosition)
 
 Limit the string to a given width.
 
-```
+```js
 const stringz = require('stringz');
 
 // Truncate:
@@ -311,7 +296,7 @@ stringz.limit('👍🏽👍🏽', 4, '👍🏽');
 
 Convert the string to an Array
 
-```
+```js
 const stringz = require('stringz');
 
 stringz.toArray('abc');
@@ -323,23 +308,6 @@ stringz.toArray('👍🏽🍆🌮');
 ```
 
 To know more about Stringz, visit their Github [here](https://github.com/sallar/stringz).
-
-## Learn More
-[**13 Top Serverless Solutions for 2020**
-**Best serverless solutions for different categories.**blog.bitsrc.io](https://blog.bitsrc.io/13-top-serverless-solutions-for-2020-c84157f8c9d7)
-[**10 Top Javascript Libraries and Tools for an Awesome UI/UX**
-**Recommended tools and libraries that will help you build a stunning web app in 2020**blog.bitsrc.io](https://blog.bitsrc.io/10-top-javascript-libraries-and-tools-for-an-awesome-ui-ux-828a314752cc)
-
----
-
-If you have any suggestions or comments, kindly let me know in the comments.
-
-**Resources
-**[Stringjs](https://www.javascripting.com/view/string-js)
-[Voca](https://vocajs.com/)
-[Stringz](https://github.com/sallar/stringz)
-[Underscore String](http://gabceb.github.io/underscore.string.site/)
-[Anchorme](https://github.com/alexcorvi/anchorme.js)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
