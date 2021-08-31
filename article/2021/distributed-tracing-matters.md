@@ -109,7 +109,7 @@
 
 标头 `tracestate` 是伴随 Trace Parent 的，添加特定供应商的追踪信息。
 
-看看 NewRelic 的一个例子 :
+看看一个 NewRelic 的例子 :
 
 ![由 NewRelic 发送的 `tracestate` HTTP 标头示例](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
 
