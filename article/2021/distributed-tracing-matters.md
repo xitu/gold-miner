@@ -261,7 +261,7 @@ const submitTraceInformation = (traceId, spanName, spanId, parentId, duration) =
 
 就是这样。 你现在只需要在所有地方调用 `openNewSpan` 和 `closeSpan` 函数。把这一点放到一些注释中是有意义的，这样你只需注释要追踪的方法或进程，并且自动调用打开和关闭操作。
 
-## 关键要点
+## 主要收获
 
 构建分布式系统是一项复杂的任务，但可以通过 AWS、Azure 或 GCP 等云提供商以及利用 CloudFormation 的无服务器框架等高级基础设施作为代码工具来快速完成。请记住，你需要分布式追踪来分析你的系统和完整生态系统的运行方式并系统地调试问题。
 
