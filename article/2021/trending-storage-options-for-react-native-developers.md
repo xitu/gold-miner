@@ -21,7 +21,7 @@ The JavaScript code acts as an interface and provides clean promise-based API me
 
 The ideal place to store common data of user, app-logic and others.
 
-[**GitHub - react-native-async-storage/async-storage: An asynchronous, persistent, key-value storage system for React Native](https://github.com/react-native-async-storage/async-storage)
+[**GitHub - react-native-async-storage/async-storage: An asynchronous, persistent, key-value storage system for React Native**](https://github.com/react-native-async-storage/async-storage)
 
 ## Secure Storage
 
@@ -37,9 +37,9 @@ The ideal place to store certificates, tokens, passwords, and any other sensitiv
 
 [**GitHub - oblador/react-native-keychain: Keychain Access for React Native**](https://github.com/oblador/react-native-keychain)
 
-[**GitHub - mCodex/react-native-sensitive-info: Save sensitive data into Android's Shared Preferences with keystore encryption/iOS's Keychain for React Native](https://github.com/mCodex/react-native-sensitive-info)
+[**GitHub - mCodex/react-native-sensitive-info: Save sensitive data into Android's Shared Preferences with keystore encryption/iOS's Keychain for React Native**](https://github.com/mCodex/react-native-sensitive-info)
 
-[**GitHub - emeraldsanto/react-native-encrypted-storage: React Native wrapper around EncryptedSharedPreferences and Keychain to provide a secure alternative to Async Storage.](https://github.com/emeraldsanto/react-native-encrypted-storage)
+[**GitHub - emeraldsanto/react-native-encrypted-storage: React Native wrapper around EncryptedSharedPreferences and Keychain to provide a secure alternative to Async Storage.**](https://github.com/emeraldsanto/react-native-encrypted-storage)
 
 [**SecureStore - Expo Documentation**](https://docs.expo.io/versions/latest/sdk/securestore/)
 
@@ -51,21 +51,23 @@ MMKV uses mmap to keep memory synced with files, and **protobuf** to encode/deco
 
 The ideal place to store common data of users, app-logic, and others. It is an **alternative for Async Storage**.
 
-[**GitHub - ammarahm-ed/react-native-mmkv-storage: An ultra fast (0.0002s read/write), small & encrypted mobile key-value storage framework for React Native written in C++ using JSI](https://github.com/ammarahm-ed/react-native-mmkv-storage)
+[**GitHub - ammarahm-ed/react-native-mmkv-storage: An ultra fast (0.0002s read/write), small & encrypted mobile key-value storage framework for React Native written in C++ using JSI**](https://github.com/ammarahm-ed/react-native-mmkv-storage)
 
-[**GitHub - mrousavy/react-native-mmkv: ⚡️ An extremely fast key/value storage library for React Native. ~30x faster than AsyncStorage!](https://github.com/mrousavy/react-native-mmkv)
+[**GitHub - mrousavy/react-native-mmkv: ⚡️ An extremely fast key/value storage library for React Native. ~30x faster than AsyncStorage!**](https://github.com/mrousavy/react-native-mmkv)
 
 ## SQLite Storage
 
 SQLite is a C-language library that implements a **small, fast, self-contained, high-reliability, full-featured, SQL database engine**. It is the most used database engine. It is **built into all mobile phones** and most computers and comes bundled inside countless other apps that people use every day. The file format is stable, cross-platform, and backward compatible and the developers pledge to keep it that way.
 
 The ideal place to store more data than Async, Secure, and MMKV storage and it can support offline app development.
-[**GitHub - Nozbe/WatermelonDB: 🍉 Reactive & asynchronous database for powerful React and React Native apps ⚡️](https://github.com/Nozbe/WatermelonDB)
 
-[**GitHub - andpor/react-native-sqlite-storage: Full featured SQLite3 Native Plugin for React Native (Android and iOS)](https://github.com/andpor/react-native-sqlite-storage)
+[**GitHub - Nozbe/WatermelonDB: 🍉 Reactive & asynchronous database for powerful React and React Native apps ⚡️**](https://github.com/Nozbe/WatermelonDB)
 
-[**GitHub - craftzdog/react-native-sqlite-2: SQLite3 Native Plugin for React Native for iOS, Android, Windows and macOS.](https://github.com/craftzdog/react-native-sqlite-2)
-[**GitHub - ospfranco/react-native-quick-sqlite:⚡️ The fastest SQLite implementation for react-native](https://github.com/ospfranco/react-native-quick-sqlite)
+[**GitHub - andpor/react-native-sqlite-storage: Full featured SQLite3 Native Plugin for React Native (Android and iOS)**](https://github.com/andpor/react-native-sqlite-storage)
+
+[**GitHub - craftzdog/react-native-sqlite-2: SQLite3 Native Plugin for React Native for iOS, Android, Windows and macOS.**](https://github.com/craftzdog/react-native-sqlite-2)
+
+[**GitHub - ospfranco/react-native-quick-sqlite:⚡️ The fastest SQLite implementation for react-native**](https://github.com/ospfranco/react-native-quick-sqlite)
 
 [**SQLite - Expo Documentation**](https://docs.expo.dev/versions/v42.0.0/sdk/sqlite/)
 
@@ -82,6 +84,7 @@ There are different types of database services available to perform various func
 ### Firebase Firestore
 
 Cloud Firestore is a **NoSQL document database** that lets you easily **store, sync, and query data** for the mobile and web apps at Google scale. Can easily structure the data with collections and documents and use the hierarchies to store and retrieve the data easily using expressive queries.
+
 [**GitHub - react-native-firebase: a NoSQL document database that lets you easily store, sync, and query data for your mobile and web apps**](https://github.com/invertase/react-native-firebase/tree/master/packages/firestore)
 
 ### Firebase Database
@@ -105,9 +108,10 @@ Realm is a mobile database that **runs directly inside phones**, tablets, or wea
 ### Pouch DB
 
 PouchDB is a pocket-sized database that enables apps to store data locally **while offline, then synchronize it with CouchDB** and compatible servers when the app is back online, keeping the user’s data in sync no matter where they next log in. Actually, PouchDB was designed for the web only. But now developer communities have created third-party libraries to support it on React Native too.
+
 [**GitHub - seigel/pouchdb-react-native: Pouchdb with async storage**](https://github.com/seigel/pouchdb-react-native)
 
-[**GitHub - craftzdog/pouchdb-react-native: 🐨 - PouchDB is a pocket-sized database, with some patches for running on React Native](https://github.com/craftzdog/pouchdb-react-native)
+[**GitHub - craftzdog/pouchdb-react-native: 🐨 - PouchDB is a pocket-sized database, with some patches for running on React Native**](https://github.com/craftzdog/pouchdb-react-native)
 
 ## Conclusion
 
