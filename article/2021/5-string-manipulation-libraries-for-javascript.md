@@ -14,7 +14,7 @@
 ```js
 function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    if (+match === 0) return ""; // 或 if (/\s+/.test(match)) 来匹配空白字符
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
 }
