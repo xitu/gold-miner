@@ -169,7 +169,7 @@ if (!traceParent) {
 
 我更喜欢使用有两个专用对象的请求上下文：
 
-* 一个跟踪跨度名称的列表，按照跨度打开时间顺序排列。
+* 一个追踪 span 名称的列表，按照 span 打开时间顺序排列。
 * 一个保存跨度必要细节的对象：打开它时的时间戳和跨度的标识符。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZWcuiszwgPfliOMPRAbOVg.png)
