@@ -121,8 +121,6 @@ Will SwiftUI ever match UIKit? If so, we’re looking at maybe another 3–5 yea
 
 What I’m curious about is how invested Apple is in SwiftUI. Is their long-term plan to have all developers fully adopt SwiftUI, or will it just become another Interface Builder? I really hope not. I hope that they go all in on SwiftUI because the promise of it is just amazing.
 
-For more SwiftUI tips and examples, [follow me on Twitter](http://twitter.com/chrysb).
-
 ## More Perspectives
 
 * [Is SwiftUI Ready?](https://www.jessesquires.com/blog/2021/07/01/is-swiftui-ready/)
