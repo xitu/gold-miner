@@ -30,11 +30,11 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ## 3. ✅ 拉取请求审查
 
-除了在 github.com 上的仓库或文件上点击 `.`，您还可以在查看拉取请求时按下它。 这使您能够使用丰富的多文件视图查看 PR，包括查看和回复评论、建议更改，甚至直接从编辑器批准/合并 PR 的能力。 这有可能通过为开发人员提供更好的工具来减少“肤浅的评论”，而无需克隆或切换分支🙅‍♂️In addition to hitting `.` on a repo or file on github.com, you can also press it when viewing a pull request. This enables you to review the PR using a rich, multi-file view, that includes the ability to view & reply to comments, suggest changes, and even approve/merge the PR directly from the editor. This has to potential to reduce “superficial reviews”, by giving developers better tools, without needing to clone or switch branches 🙅‍♂️
+除了在 github.com 上的仓库或文件上点击 `.`，您还可以在查看拉取请求时按下它。 这使您能够使用丰富的多文件视图查看 PR，包括查看和回复评论、建议更改，甚至直接从编辑器批准/合并 PR 的能力。 这有可能通过为开发人员提供更好的工具来减少“肤浅的评论”，而无需克隆或切换分支🙅‍♂️
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--AYrXWxQm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9I5DW-X0AUINAA.jpg)
 
-> **演示：** 单击 [此链接](https://github.dev/microsoft/codetour/pull/153) 查看将正则表达式解析器添加到 [CodeTour 扩展](https://aka.ms/codetour)的 PR。
+> **演示：** 单击[此链接](https://github.dev/microsoft/codetour/pull/153)查看将正则表达式解析器添加到 [CodeTour 扩展](https://aka.ms/codetour)的 PR。
 
 ## 4. 📊 编辑图像和图表
 
@@ -46,7 +46,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 在每种情况下，您的编辑都会自动保存，您可以通过 `Source Control` 选项卡将更改提交/推送回您的 GitHub 仓库。更酷的是，您可以与他人共享图像/图表的深层链接，只要他们安装必要的扩展程序，他们就可以通过完全相同的体验与您合作。 这有效地使 github.dev 成为存储在 GitHub 中的任何文件类型的可破解『画布』😎
 
-## 5. 🗺 代码库演练
+## 5. 🗺 代码库演示
 
 学习新的代码库很困难，因为通常不清楚从哪里开始，或者各种文件/文件夹如何相互关联。 使用 github.dev，您可以安装 [CodeTour 扩展](https://aka.ms/codetour)，它允许您创建和播放代码库的指导演练。由于 github.dev 完全在浏览器中可用，因此团队中或社区中的任何人都可以轻松快速上手，而无需在本地安装任何东西。
 
@@ -58,11 +58,11 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--W9WuEbZ9--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8w8aCiVoAIYOLl.jpg)
 
-## 7. 🎢 Web Playgrounds + Tutorials
+## 7. 🎢 Web 游乐场和教程
 
-Coding playgrounds (e.g. CodePen, JSFiddle) are a popular way to learn programming languages/libraries, and then share them with others. With github.dev, you can install the [CodeSwing extension](https://aka.ms/codeswing) and begin creating web playgrounds, using your existing editor setup, and with your files persisted back to GitHub.
+编码游乐场（例如 CodePen、JSFiddle）是一种流行的学习编程语言/库，然后与他人分享的方式。 使用 github.dev，您可以安装 [CodeSwing 扩展](https://aka.ms/codeswing) 并开始创建 Web Playground，使用您现有的编辑器设置，并将您的文件保存回 GitHub。
 
-> **Demo:** Open [this repo](https://github.dev/lostintangent/rock-paper-scissors) and install CodeSwing + CodeTour. After a few seconds, you'll be presented with the playground environment.
+> **演示：** 打开[这个仓库](https://github.dev/lostintangent/rock-paper-scissors) 并安装 CodeSwing 和 CodeTour。 几秒钟后，您将看到 Playground 环境。
 
 ## 8. ✏️ 笔记和知识库
 
