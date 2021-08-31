@@ -7,8 +7,6 @@
 
 # Getting Started With SQLDelight in Android Development
 
-#### Power up the databases of your apps
-
 ![Photo by [Boitumelo Phetla](https://unsplash.com/@writecodenow?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*VDd7zDjJaPiGuQbA)
 
 ## Introduction
@@ -176,16 +174,6 @@ val players: Flow<List<MoveItem>> =
     .asObservable()
     .mapToList()
 ```
-
-## Want More?
-
-I recently came across this excellent article published by [Satya Pavan Kantamani](https://medium.com/u/d255c4fc9d76?source=post_page-----4c9f44d04e68--------------------------------) about Jetpack Compose — it’s highly recommended:
-[**Introduction to Jetpack Compose: The Future UI Toolkit for Android**
-**Say goodbye to XML layouts and adopt the modern techniques**betterprogramming.pub](https://betterprogramming.pub/jetpack-compose-androids-modern-toolkit-for-building-ui-82e67d384c26)
-
-That is all for now. I hope you learned something useful.
-
-Thanks for reading.
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
