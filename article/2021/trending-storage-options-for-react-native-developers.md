@@ -47,7 +47,7 @@ The ideal place to store certificates, tokens, passwords, and any other sensitiv
 
 [MMKV](https://github.com/Tencent/MMKV) is an **efficient, small mobile key-value** storage framework that was developed by Tencent to use in WeChat.
 
-MMKV uses mmap to keep memory synced with files, and **protobuf** to encode/decode values, making the most of Android to achieve the best efficiency performance. It supports concurrent read-read and read-write access between processes which allows multi-process concurrency**.** It is easy to keep up the data because of fully synchronous calls.
+MMKV uses mmap to keep memory synced with files, and **protobuf** to encode/decode values, making the most of Android to achieve the best efficiency performance. It supports concurrent read-read and read-write access between processes which allows multi-process concurrency. It is easy to keep up the data because of fully synchronous calls.
 
 The ideal place to store common data of users, app-logic, and others. It is an **alternative for Async Storage**.
 
