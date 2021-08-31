@@ -9,7 +9,7 @@
 
 GitHub recently released [github.dev](https://github.dev), which allows you to press `.` on any repo in order to open it in VS Code, directly from your browser (🤯). This simple gesture provides you with a significant productivity boost for reading, editing, and sharing code on GitHub. Including from an iPad!
 
-> **Note: In addition to the `.` key, you can also change “.com” to “.dev” in your URL bar, in order to achieve the same effect 👍**
+> **Note**: In addition to the `.` key, you can also change “.com” to “.dev” in your URL bar, in order to achieve the same effect 👍
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--VJkNTHVS--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8hp-_MWEAQRYeB.jpg)
 
