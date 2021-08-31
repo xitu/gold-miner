@@ -200,11 +200,11 @@ UIImage *myImage = [UIImage imageNamed:@"MyImage"];
 
 ## 特殊的 BOM 文件
 
-在 [HexFiend](http://ridiculousfish.com/hexfiend/)  中打开 `car` 文件会显示一些有用的信息：
+在 [HexFiend](http://ridiculousfish.com/hexfiend/) 中打开 `car` 文件会显示一些有用的信息：
 
 ![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/BomStore.png)
 
-魔术值 `BOMStore` 告诉我们 `car` 文件是一种特殊的 `bom` 文件。BOM - 物料清单 - 是一种从 NeXTSTEP 继承的文件格式，仍然在 macOS 安装程序中使用，以确定要安装、删除或升级的文件。你可以在 `man 5 bom` 中找到一些基本信息：
+魔术值 `BOMStore` 告诉我们 `car` 文件是一种特殊的 `bom` 文件。BOM（物料清单）是一种从 NeXTSTEP 继承的文件格式，仍然在 macOS 安装程序中使用，以确定要安装、删除或升级的文件。你可以在 `man 5 bom` 中找到一些基本信息：
 
 ```text
 The Mac OS X Installer uses a file system "bill of materials" to determine which files to install, remove, or upgrade. A bill of materials, bom, contains all the files within a directory, along with some information about each file. File information includes: the file's UNIX permissions, its owner and group, its size, its time of last modification, and so on. Also included are a checksum of each file and information about hard links.
@@ -224,11 +224,11 @@ macOS 提供了几个闭源工具来处理 bom 文件，比如 `lsbom` 和 `mkbo
 [...]
 ```
 
-遗憾的是，`bom` 文件格式本身并没有文档记录，操作 `bom` 文件的工具不能处理  `car` 文件。由 Joseph Coffland 和 Julian Devlin [重新实现的 lsbom](https://github.com/cooljeanius/osxbom)，其代码中包含一些关于 BOM 文件格式的有用的信息。 我们可以看到，BOM 可以存储块和树 。
+遗憾的是，`bom` 文件格式本身并没有文档记录，操作 `bom` 文件的工具不能处理 `car` 文件。由 Joseph Coffland 和 Julian Devlin [重新实现的 lsbom](https://github.com/cooljeanius/osxbom)，其代码中包含一些关于 BOM 文件格式的有用的信息。 我们可以看到，BOM 能存储块和树 。
 
 然而，与**常规**的 `bom` 文件相反， `car` 文件中包含多个 `bom` 块：
 
-- CARHEADER
+* CARHEADER
 
 * EXTENDED_METADATA
 * KEYFORMAT
@@ -251,7 +251,7 @@ macOS 提供了几个闭源工具来处理 bom 文件，比如 `lsbom` 和 `mkbo
 * ELEMENT_INFO
 * PART_INFO
 
-一些块和树是可选的。在这篇文章中，我只描述一些重要的块： `CARHEADER`，`EXTENDED_METADATA`，`KEYFORMAT` 以及重要的树：`FACETKEYS`， `RENDITIONS` 和 `APPEARANCEKEYS`。其他的块和树一般都不存在或这是空的。
+一些块和树是可选的。在这篇文章中，我只描述一些重要的块： `CARHEADER`、`EXTENDED_METADATA`、`KEYFORMAT` 以及重要的树：`FACETKEYS`、 `RENDITIONS` 和 `APPEARANCEKEYS`。其他的块和树一般都是空的或不存在。
 
 ## 解析 BOM
 
@@ -378,7 +378,7 @@ if(blockData != nil) {
 }
 ```
 
-为了帮助理解这些结构，我使用了具有自定义创建语法的应用程序 [Synalyze It! Pro](https://www.synalysis.net/) 来解析各种数据块。在 Synalyze It! Pro 中  `CARHEADER`  的结构如下所示：
+为了帮助理解这些结构，我使用了具有自定义创建语法的应用程序 [Synalyze It! Pro](https://www.synalysis.net/) 来解析各种数据块。在 Synalyze It! Pro 中 `CARHEADER`  的结构如下所示：
 
 ![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/carheader.png)
 
@@ -448,9 +448,9 @@ EXTENDED_METADATA:
 
 ## APPEARANCEKEYS 树
 
-在我们查看更复杂的树之前，让我们从 `APPEARANCEKEYS`  树开始。此树用于支持 macOS Mojave 中的新的暗模式。由于 iOS 中没有暗模式，因此你不会从 iOS 应用程序的 `car` 文件的看到 `APPEARANCEKEYS` 树——至少在 iOS 12 及更早版本中不会。
+在我们查看更复杂的树之前，让我们从 `APPEARANCEKEYS`  树开始。此树用于支持 macOS Mojave 中的新的暗模式。由于 iOS 中没有暗模式，因此你不会从 iOS 应用程序的 `car` 文件的看到 `APPEARANCEKEYS` 树 —— 至少在 iOS 12 及更早版本中不会。
 
-> 在 iOS 13 就会了
+> 在 iOS 13 中就会了
 
 在这棵树中，键是外观名称（字符串），而值是外观唯一标识符（uint16_t）。因此解析键/值对是轻而易举的：
 
@@ -478,7 +478,7 @@ Tree APPEARANCEKEYS
 
 ## FACETKEYS 树
 
- `FACETKEYS`  树包含维面名称 - 这是素材名称的同义词 - 用于键及其属性的值。例如，对于演示素材中的键 `MyColor` 来说，我们可以看到其值：
+ `FACETKEYS`  树包含维面名称 —— 这是素材名称的同义词 - 用于键及其属性的值。例如，对于演示素材中的键 `MyColor` 来说，我们可以看到其值：
 
 ```text
 <00000000 03000100 55000200 D9001100 9FAF>
@@ -706,13 +706,13 @@ KEYFORMAT:
 `副本键`由 3 部分组成：
 
 - `csiheader` 报头，适用于所有类型的再现。该报头的固定长度为 184 字节。
-- TLV（类型-长度-值）列表，其长度在 `csiheader`  报头中指定。
+- TLV（类型-长度-值）列表，其长度在 `csiheader`  报头中指定。它包含有关无法容纳在 `csiheader` 报头中的扩展信息，例如素材中的 UTI。
 - 副本数据以特定于副本类型的报头开始，后跟素材的数据。根据副本类型的不同，数据可以是压缩的，也可以是解压缩的。
 
 以下是使用 Synalyze It! Pro 制作的屏幕截图，用于可视化这 3 个部分：
 
-- `csiheader` 头部为蓝色
-- TLV 列表为绿色
+- `csiheader` 头部为蓝色。
+- TLV 列表为绿色。
 - 副本数据为橙色。
 
 ![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionData.png)
@@ -758,7 +758,7 @@ struct renditionFlags {
 } attribute((packed));
 ```
 
-`width` 和 `height` 以像素为单位描述图像的大小。如果该素材没有宽度或高度，值为0。
+`width` 和 `height` 以像素为单位描述图像的大小。如果该素材没有宽度或高度，值为 0。
 
 `scaleFactor` 是比例值，其值乘以 100。例如，@2x 图像的 `scaleFactor` 值为 200。
 
@@ -809,7 +809,7 @@ struct csimetadata {
 } __attribute__((packed)); 
 ```
 
-`layout`  字段特别有趣，因为它标识存储的**数据**的类型：图像、**数据**、纹理、颜色……对于图像，**子类型存储在**布局中：
+`layout` 字段特别有趣，因为它标识存储的**数据**的类型：图像、**数据**、纹理、颜色…… 对于图像，**子类型存储在布局中**：
 
 ```c
 enum RenditionLayoutType { 
@@ -868,7 +868,7 @@ struct csibitmaplist {
 
 ### TVL
 
-紧跟着 `csiheader` 末尾的 `csibitmaplist` 之后，有一个TLV（类型长度值）列表。对于文本文件，TLV 数据为：
+紧跟着 `csiheader` 末尾的 `csibitmaplist` 之后，有一个 TLV（类型长度值）列表。对于文本文件，TLV 数据为：
 
 ```text
 <EC030000 08000000 00000000 0000803F EE030000 04000000 01000000>
@@ -934,7 +934,7 @@ tlv:
 
 ## 不同类型的副本
 
-在这些复杂的结构之后可以看到副本数据。它包含特定副本类型的报头，后跟压缩或未压缩的实际数据。长度设置在  `csibitmaplist` 结构的 `renditionLength` 字段中。
+在这些复杂的结构之后可以看到副本数据。它包含特定副本类型的报头，后跟压缩或未压缩的实际数据。长度设置在 `csibitmaplist` 结构的 `renditionLength` 字段中。
 
 对于文本文件，副本数据包含一个简单的标题，后接字符串 `blog.timac.org`：
 
@@ -969,12 +969,12 @@ tlv:
 - CUILayerStackRendition
 - CUIRecognitionObjectRendition
 
-`csiheader` 报头的 `pixelFormat` 和  `layout`  字段用于了解应使用哪种副本类型。在本文中，我将仅描述 4 种最常见的副本类型：
+`csiheader` 报头的 `pixelFormat` 和 `layout` 字段用于了解应使用哪种副本类型。在本文中，我将仅描述 4 种最常见的副本类型：
 
-- CUIRawDataRendition：pixelFormat 设置为“DATA”，布局设置为 kRenditionLayoutType_Data
-- CUIRawPixelRendition：pixelFormat 为 “JPEG“ 或 “HEIF“。布局设置为图像的子类型。
+- CUIRawDataRendition：pixelFormat 设置为 `DATA`，布局设置为 kRenditionLayoutType_Data
+- CUIRawPixelRendition：pixelFormat 为 `JPEG` 或 `HEIF`。布局设置为图像的子类型。
 - CUIThemeColorRendition：pixelFormat 为 0，布局为 kRenditionLayoutType_Color
-- CUIThemePixelRendition：pixelFormat 设置为“ARGB”、“GA8”、“RGB5”、“RGBW”或“GA16”，而布局设置为图像子类型。
+- CUIThemePixelRendition：pixelFormat 设置为 `ARGB`、`GA8`、`RGB5`、`RGBW` 或 `GA16`，而布局设置为图像子类型。
 
 ### CUIRawDataRendition
 
@@ -1009,7 +1009,7 @@ if(csiHeader->pixelFormat == 'DATA') {
 
 ### CUIRawPixelRendition
 
-用于存储 `JPEG`  和  `HEIF`  的 CUIRawPixelRendition 结构与 CUIRawDataRendition 结构相同：
+用于存储 `JPEG`  和 `HEIF` 的 CUIRawPixelRendition 结构与 CUIRawDataRendition 结构相同：
 
 ```c
 struct CUIRawPixelRendition {
@@ -1049,7 +1049,7 @@ CUIThemeColorRendition 副本用于存储已命名色值并包含：
 
 - 色彩组成的数量
 
-  >  color components  是一种元信息，主要存在于图像文件中，本文中译为色彩组成
+  >  color components 是一种元信息，主要存在于图像文件中，本文中译为色彩组成。
 
 - 色彩组成的值
 
@@ -1097,7 +1097,7 @@ else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditi
 
 ### CUIThemePixelRendition
 
-并不是所有的结构都这么简单，例如用于 PNG 图像的CUIThemePixelRendition 就稍微复杂一些。与其他类型的副本一样，CUIThemePixelRendition 具有特定的报头：
+并不是所有的结构都这么简单，例如用于 PNG 图像的 CUIThemePixelRendition 就稍微复杂一些。与其他类型的副本一样，CUIThemePixelRendition 具有特定的报头：
 
 ```c
 struct CUIThemePixelRendition {
@@ -1519,7 +1519,7 @@ Tree 'ELEMENT_INFO'
 Tree 'PART_INFO'
 ```
 
-你可以在这篇文章中找到我的可视化 `.car` 文件的 QuickLook 插件  ：[可视化 `.car` 文件的 QuickLook 插件（编译后的 Asset Catalogs）](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
+你可以在这篇文章中找到我的可视化 `.car` 文件的 QuickLook 插件：[可视化 `.car` 文件的 QuickLook 插件（编译后的 Asset Catalogs）](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
