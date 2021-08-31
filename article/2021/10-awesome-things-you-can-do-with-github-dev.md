@@ -2,60 +2,59 @@
 > * 原文作者：[Jonathan Carter](https://dev.to/lostintangent)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/10-awesome-things-you-can-do-with-github-dev.md](https://github.com/xitu/gold-miner/blob/master/article/2021/10-awesome-things-you-can-do-with-github-dev.md)
-> * 译者：
+> * 译者：[greycodee](https://github.com/greycodee)
 > * 校对者：
 
-# 10 Fun Things You Can Do With GitHub.dev 😎
+# 可以在 GitHub.dev 做的十件有趣的事😎
 
-GitHub recently released [github.dev](https://github.dev), which allows you to press `.` on any repo in order to open it in VS Code, directly from your browser (🤯). This simple gesture provides you with a significant productivity boost for reading, editing, and sharing code on GitHub. Including from an iPad!
-
-> **Note**: In addition to the `.` key, you can also change “.com” to “.dev” in your URL bar, in order to achieve the same effect 👍
+GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何仓库下按下 `.` 然后直接用浏览器在 VS Code 中打开这个仓库。这个简单的操作显著的提高你在 GitHub 上阅读、编辑和分享代码的效率。包括在 iPad 上你也可以轻松的实现以上操作。
+> **注意**: 除 `.` 键，你也可以在网址栏中将域名后的 `.com` 改为 `.dev` 也可以达到同样的效果👍.
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--VJkNTHVS--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8hp-_MWEAQRYeB.jpg)
 
-However, what might not be immediately obvious, is that github.dev enables something even more compelling: the opportunity to customize and create entirely new **GitHub-native workflows**. Instead of relying on [browser extensions](https://github.com/collections/github-browser-extensions) or 3rd party services to augment github.com, you can simply take advantage of the editor you already love, along with its [**prolific** ecosystem](https://marketplace.visualstudio.com/vscode), to enhance GitHub directly. To illustrate what I mean, let's take a look at 10 examples of what Github.dev makes possible today 🚀
+然而，可能不是很明显的是 github.dev 实现了更引人注目的东西：定制和创建全新的 GitHub 原生工作流的机会。 无需依赖[浏览器扩展](https://github.com/collections/github-browser-extensions)或第三方服务来增强 github.com，您可以简单地利用您喜爱的编辑器及其[丰富的生态系统](https://marketplace.visualstudio.com/vscode)，直接增强 GitHub。 为了说明我的意思，让我们看一下 Github.dev 今天使之成为可能的 10 个例子🚀
 
-## 1. 💄 Personalizations
+## 1. 💄 个性化
 
-Developers **love** to personalize their editor, in order to make it more efficient, ergonomic, and visually appealing. Since github.dev is based on VS Code, you can customize your keybindings, color theme, file icons, snippets, and more. Even cooler, you can enable [settings sync](https://code.visualstudio.com/docs/editor/settings-sync) and roam your personalizations between VS Code, github.dev and [Codespaces](https://github.com/features/codespaces). That way, no matter where you're reading/editing code, you'll immediately feel at home 💖
+开发人员喜欢个性化他们的编辑器，以使其更高效、更符合人体工程学和视觉吸引力。由于 github.dev 基于 VS Code，因此您可以自定义键绑定、颜色主题、文件图标、片段等。 更酷的是，您可以启用 [设置同步](https://code.visualstudio.com/docs/editor/settings-sync) 并在 VS Code、github.dev 和 [Codespaces](https://github.com/features/codespaces) 之间漫游你的设置。 这样，无论您在哪里阅读/编辑代码，您都会立即感到宾至如归💖
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--RSG3mtK5--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9lhmoeXIAM7-Bl.jpg)
 
-## 2. Sharing Deep Links
+## 2.分享深层链接
 
-In addition to pressing `.` from a repo page, you can also press `.` when viewing a specific file on GitHub.com. Furthermore, if you select some text in the currently opened file, and press `.`, then when VS Code is opened, it will focus the file and highlight your text selection. You can then copy the URL in your browser, and send that to others, in order to share that **exact same context**. This can enable new and interesting ways to communicate about code 🔥
+除了在仓库页面按下 `.`，您还可以在查看 GitHub.com 上的特定文件时按 `.`。 此外，如果您在当前打开的文件中选择一些文本，然后按 `.`，那么当 VS Code 被打开时，它将聚焦该文件并突出显示您的文本选择。 然后，您可以在浏览器中复制 URL，并将其发送给其他人，以便共享 **完全相同的上下文**。 这可以开启新的和有趣的方式来交流代码🔥
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--yElJmPGE--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9pdcqiVUAEa13W.jpg)
 
-> **Demo:** Click [this link](https://github.dev/lostintangent/gitdoc/blob/master/src/extension.ts#L26-L27) to see how the [GitDoc extension](https://aka.ms/gitdoc) subscribes to repo events in VS Code.
+> **演示：** 点击 [这个链接](https://github.dev/lostintangent/gitdoc/blob/master/src/extension.ts#L26-L27) 查看 [GitDoc 扩展](https://aka.ms/gitdoc) 如何订阅 VS Code 中的 repo 事件。
 
-## 3. ✅ Pull Request Reviews
+## 3. ✅ 拉取请求审查
 
-In addition to hitting `.` on a repo or file on github.com, you can also press it when viewing a pull request. This enables you to review the PR using a rich, multi-file view, that includes the ability to view & reply to comments, suggest changes, and even approve/merge the PR directly from the editor. This has to potential to reduce “superficial reviews”, by giving developers better tools, without needing to clone or switch branches 🙅‍♂️
+除了在 github.com 上的仓库或文件上点击 `.`，您还可以在查看拉取请求时按下它。 这使您能够使用丰富的多文件视图查看 PR，包括查看和回复评论、建议更改，甚至直接从编辑器批准/合并 PR 的能力。 这有可能通过为开发人员提供更好的工具来减少“肤浅的评论”，而无需克隆或切换分支🙅‍♂️In addition to hitting `.` on a repo or file on github.com, you can also press it when viewing a pull request. This enables you to review the PR using a rich, multi-file view, that includes the ability to view & reply to comments, suggest changes, and even approve/merge the PR directly from the editor. This has to potential to reduce “superficial reviews”, by giving developers better tools, without needing to clone or switch branches 🙅‍♂️
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--AYrXWxQm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9I5DW-X0AUINAA.jpg)
 
-> **Demo:** Click [this link](https://github.dev/microsoft/codetour/pull/153) to review the PR for adding a regex parser to the [CodeTour extension](https://aka.ms/codetour).
+> **演示：** 单击 [此链接](https://github.dev/microsoft/codetour/pull/153) 查看将正则表达式解析器添加到 [CodeTour 扩展](https://aka.ms/codetour)的 PR。
 
-## 4. 📊 Editing Images + Diagrams
+## 4. 📊 编辑图像和图表
 
-Beyond editing text files, VS Code also allows extensions to contribute [custom editors](https://code.visualstudio.com/api/extension-guides/custom-editors), which enables you to edit any file type in your project. For example, if you install the [Drawio extension](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio), you can view and edit rich diagrams.
+除了编辑文本文件，VS Code 还允许添加扩展来[自定义编辑器](https://code.visualstudio.com/api/extension-guides/custom-editors)，这使您可以编辑项目中的任何文件类型。比如安装 [Drawio 扩展](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio)，就可以查看和编辑丰富的图表。
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--WDkqu00U--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8mbuSaX0AAAkEp.jpg)
 
-Additionally, if you install the [Luna Paint extension](https://marketplace.visualstudio.com/items?itemName=Tyriar.luna-paint) you can edit images (PNG, JPG, etc.).
+此外，如果您安装了 [Luna Paint 扩展](https://marketplace.visualstudio.com/items?itemName=Tyriar.luna-paint)，您可以编辑图像（PNG、JPG 等）。
 
-In each case, your edits are automatically saved, and you can commit/push changee back to your GitHub repo via the `Source Control` tab. Even cooler, you can share a deep link for an image/diagram with others, and as long as they install neccessary extension(s), they'll be able to collaborate with you via the exact same experience. This effectively makes github.dev a hackable "canvas" for any file type that is stored in GitHub 😎
+在每种情况下，您的编辑都会自动保存，您可以通过 `Source Control` 选项卡将更改提交/推送回您的 GitHub 仓库。更酷的是，您可以与他人共享图像/图表的深层链接，只要他们安装必要的扩展程序，他们就可以通过完全相同的体验与您合作。 这有效地使 github.dev 成为存储在 GitHub 中的任何文件类型的可破解『画布』😎
 
-## 5. 🗺 Codebase Walkthroughs
+## 5. 🗺 代码库演练
 
-Learning a new codebase is hard, since it's typically unclear where to start, or how various files/folders relate to each other. With github.dev, you can install the [CodeTour extension](https://aka.ms/codetour), which allows you to create and playback guided walkthroughs of a codebase. Since github.dev is available entirely in the browser, this makes it easy for anyone on the team, or in your community, to get up to speed quickly, without needing to install anything locally.
+学习新的代码库很困难，因为通常不清楚从哪里开始，或者各种文件/文件夹如何相互关联。 使用 github.dev，您可以安装 [CodeTour 扩展](https://aka.ms/codetour)，它允许您创建和播放代码库的指导演练。由于 github.dev 完全在浏览器中可用，因此团队中或社区中的任何人都可以轻松快速上手，而无需在本地安装任何东西。
 
-> **Demo:** Open [this repo](https://github.dev/microsoft/codetour) and install CodeTour. You'll be presented with a toast that asks if you'd like to take the `Getting Started` tour.
+> **演示：** 打开 [这个仓库](https://github.dev/microsoft/codetour) 并安装 CodeTour。 您将看到一个弹窗，询问您是否愿意参加**入门**之旅。
 
-## 6. 📕 Code Snippets + Gists
+## 6. 📕 代码片段和 Gists
 
-[Gists](https://gist.github.com) are a popular way for developers to manage and share code snippets, config files, notes, and more. In github.dev, you can install the [GistPad extension](https://aka.ms/gistpad) and view/edit your gists. This allows you to maintain code snippets across multiple repos, and access them from both your desktop editor, as well as whenever you're browsing/editing code on GitHub.
+[Gists](https://gist.github.com) 是开发人员管理和共享代码片段、配置文件、注释等的流行方式。在 github.dev 中，您可以安装 [GistPad 扩展](https://aka.ms/gistpad) 并查看/编辑您的 Gists。这允许您跨多个存储库维护代码片段，并从桌面编辑器以及在 GitHub 上浏览/编辑代码时访问它们。
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--W9WuEbZ9--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8w8aCiVoAIYOLl.jpg)
 
@@ -65,21 +64,21 @@ Coding playgrounds (e.g. CodePen, JSFiddle) are a popular way to learn programmi
 
 > **Demo:** Open [this repo](https://github.dev/lostintangent/rock-paper-scissors) and install CodeSwing + CodeTour. After a few seconds, you'll be presented with the playground environment.
 
-## 8. ✏️ Notetaking + Knowledge Bases
+## 8. ✏️ 笔记和知识库
 
-VS Code is a world-class markdown editor, and therefore, you can start using github.dev to edit and preview all of your personal notes/documentation. Even cooler, you can install the [WikiLens extension](https://aka.ms/wikilens) in order to get a Roam/Obsidian-like editing experience, for maintaining a knowledge base, that's stored in GitHub and is able to benefit from the ecosystem of extensions/personalizations for VS Code.
+VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 github.dev 来编辑和预览您的所有个人笔记/文档。 更酷的是，您可以安装 [WikiLens 扩展](https://aka.ms/wikilens) 以获得类似 [Roam](https://roamresearch.com/) 或 [obsidian](https://obsidian.md/) 的编辑体验，用于维护知识库，该知识库存储在 GitHub 中并能够受益 来自 VS Code 的扩展/个性化生态系统。
 
-## 9. 📓 Jupyter Notebooks
+## 9. 📓 Jupyter 笔记本
 
-In addition to coding playgrounds, another popular way to learn and share code, is via Jupyter notebooks. If you open an `.ipynb` file in github.dev, you can immediately view the cells and cached outputs of the notebook. Even better, you can install the [Pyodide extension](https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide) in order to actually run Python code, entirely in your browser!
+除了编码游乐场之外，另一种流行的学习和共享代码的方式是通过 Jupyter 笔记本。 如果你在 github.dev 中打开一个 `.ipynb` 文件，你可以立即查看笔记本的单元格和缓存输出。 更好的是，您可以安装 [Pyodide 扩展](https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide)，以便完全在您的浏览器中实际运行 Python 代码！
 
-## 10. 🛠 Creating Your Own Extension!
+## 10. 🛠 创建您自己的扩展！
 
-As you probably noticed, most of the items above were enabled by means of an extension, that someone created and published to the marketplace. Since VS Code is [fully extensible](https://code.visualstudio.com/api/references/vscode-api), using simple JavaScript APIs, you can create your own extensions that support not only VS Code desktop, but also, [github.dev](https://github.com/microsoft/vscode-docs/blob/vnext/api/extension-guides/web-extensions.md). So if you have an awesome idea, for how to make coding on GitHub more productive and fun, then you now have everything you need to get started 🏃
+您可能已经注意到，上面的大多数项目都是通过扩展启用的，这是别人创建并发布到市场的。由于 VS Code [完全可扩展](https://code.visualstudio.com/api/references/vscode-api)，使用简单的 JavaScript API，您可以创建自己的扩展，不仅支持 VS Code 桌面，而且还支持 [github.dev](https://github.com/microsoft/vscode-docs/blob/vnext/api/extension-guides/web-extensions.md)。所以，如果你有一个很棒的想法，关于如何使在 GitHub 上编码更高效和有趣，那么你现在拥有开始所需的一切🏃
 
-## 🔮 Looking Forward
+## 🔮 期待
 
-While there’s already a ton of use cases for GitHub.dev, it’s still early days, and so this is a space worth watching, as the ecosystem continues to innovate. For example, I’m excited to see [real-time collaboration](https://aka.ms/vsls), [classroom assignments](https://marketplace.visualstudio.com/items?itemName=GitHub.classroom), and [presentations](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode), become examples of scenarios that can soon be performed 💯 in the browser, and built on top of GitHub repositories. Exciting times 🙌
+虽然 GitHub.dev 已经有大量用法，但它仍处于早期阶段，因此随着生态系统的不断创新，这是一个值得关注的领域。例如，我很高兴看到[实时协作](https://aka.ms/vsls)、[课堂作业](https://marketplace.visualstudio.com/items?itemName=GitHub.classroom) , 和 [presentations](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode) 成为很快可以在浏览器中执行的场景示例💯，并建立在 GitHub 存储库之上，激动人心的时刻🙌
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
