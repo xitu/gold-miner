@@ -75,12 +75,9 @@ export const transaction = async (
     }
     await dbClient.query("COMMIT");
 }
-
 ```
 
 While this is not the worst implementation ever, but not as clean as pythons. It might trigger PTSD if you have been to the [callback hell](https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/) of JavaScript in the days before async/await. Libraries don’t provide this interface, so you have to implement it yourself, or you end up with lots of try/catch blogs for your transactions. I got those wrong at least once, which caused a bug that I luckily caught before it made it to production.
-
----
 
 ## First-order support for types
 
@@ -100,8 +97,6 @@ class AddUserEvent:
 @given(st.builds(AddUserEvent))
 def test_deserialise_is_inverse_of_serialise(addUserEvent):
     assert addUserEvent == deserialise(serialise(addUserEvent))
-
-
 ```
 
 Typescript/Javascript has its own framework, [fast-check](https://github.com/dubzzz/fast-check), and for most parts, it is very similar to hypothesis. One thing it cannot do is generate testing strategies. You have to repeat the schema of your object in the type and in the testing strategy. Every change to the type has to be repeated in the testing strategy. It’s not the end of the world, because if you forget to update one, the compiler will remind you. It is still annoying, and not very DRY.
@@ -126,18 +121,13 @@ test("deserialise is inverse of serialise", () => {
     }),
   );
 });
-
 ```
-
----
 
 ## Database frameworks
 
 I have to talk a bit more about database wrappers. I am mainly looking at libraries for SQL databases, PostgreSQL in particular. Most of the time, a simple SQL database will be sufficient for a project. Python has some pretty mature solutions with [SQLAlchemy](https://www.sqlalchemy.org/) or the ORM that comes with Django. TypeScript/JavaScript is not far behind, with TypeORM being the most popular. Those libraries allow you to evolve your schema over time, a practice coined as [evolutionary database design](https://martinfowler.com/articles/evodb.html). (A more practical example with SQLAlchemy is [here](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4), and [here](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3) is one with TypeORM). With mature solutions in both languages, I still came across a case where the python solution, in my case Django, is more feature-rich than anything I have seen for JavaScript.
 
 After a year or two of active development, you will have created a lot of migrations. I have worked on a Django project where at some point I was confident that the majority of fields and tables added during migrations were also either altered or removed in a later migration. Django actually provides a solution to [squash migrations](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations), to keep the total number of migrations low. You can only squash migrations that have already been applied to all production environments, so squashing is more of a clean-up to keep your code-base tidy, and making it easier to set up a development or testing database from scratch. I have not seen any TypeScript/JavaScript package that even attempts to squash migrations, and without some guard rails, I would not attempt this.
-
----
 
 ## Pytest fixtures
 
@@ -184,8 +174,6 @@ This is common practice, but it is also annoying. Once you have several tests th
 
 There are other popular testing frameworks for TypeScript/JavaScript, like [Mocha](https://mochajs.org/), but to the best of my knowledge, they tend to provide the same [beforeAll/beforeEach hooks](https://mochajs.org/#root-hook-plugins).
 
----
-
 ## Dictionary generators
 
 I often find myself with the following operation in code: I have a collection of objects, and I want to look them up according to a certain object field, usually their ID. Python has a very functional and elegant syntax for this: generators.
@@ -208,8 +196,6 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 On their own, both solutions are clean, functional, and fast. But in comparison to the python generator lodash feels a bit clunky. It does not give you a clear visual mapping of`key: value`. When the lookup is more complicated, with functions modifying the key and value, readability degrades much more.
 
----
-
 ## Do those differences matter?
 
 I have ranted about edge cases where python is more elegant than TypeScript. But focusing on the big picture, I still enjoy coding in TypeScript. There are features where TypeScript is better than python. For example, I found it easier to write more and more accurate types with TypeScript than I do with python and MyPy.
@@ -224,7 +210,7 @@ Does this mean I would choose python over TypeScript for the backend if I had to
 
 If you were looking for a more general comparison between the two languages, then thanks for still reading through this all the way. Hackernoon has a couple of good articles [here](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224) and [here](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4).
 
-#### Resources
+## Resources
 
 * [pythons hypothesis for property-based testing](https://hypothesis.works/)
 * [JavaScripts fast-check for property-based testing](https://github.com/dubzzz/fast-check)
