@@ -2,81 +2,81 @@
 > * 原文作者：[Robin Pokorny](https://medium.com/@robinpokorny)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/replace-null-with-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/article/2021/replace-null-with-es6-symbols.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
-# Replace null with ES6 Symbols
+# 如何使用 ES6 新增 Symbols 代替 null
 
 ![](https://cdn-images-1.medium.com/max/4480/1*cF5KQi37G9SnB99KyYLADQ.jpeg)
 
-When I was working on my small side-project library, I needed to represent a missing value. In the past, I’d used the nullable approach in simple settings and Option (aka Maybe) when I wanted more control.
+当我在做业余项目库时，我需要表示一个缺失的值。在过去，我习惯在设置中使用 `nullable` 方法，而当我想要更多的控制时，则使用 `Option` 方法。
 
-In this case, neither felt correct so I came up with a different approach I’d like to present.
+在这种情况下，我觉得两者都不合适，所以我想出了一个不同的方法，并在本文中分享出来。
 
-## Why Nullable was not enough
+## `nullable` 方法的不足之处
 
-Nullable means that when there is a value it is a string, a number, or an object. When there is no value, we use either `null` or `undefined`.
+`nullable` 方法表示当有一个值时，它是一个字符串、一个数字或一个对象；当没有值时，使用 `null` 或 `undefined`。
 
-> **Tip:** if you work with nullable types in TypeScript, make sure you turn on the `[strictNullChecks](https://www.typescriptlang.org/tsconfig#strictNullChecks)`
+> **提示**：如果你在 `TypeScript` 中使用 `nullable` 类型，请确保开启了 [`strictNullChecks`](https://www.typescriptlang.org/tsconfig#strictNullChecks)。
 
-This is often fine.
+这通常是可行的。
 
-There are, in general, two cases when it’s not:
+通常来说，有两种情况是不可以的：
 
-1. The value **can** be `null` or `undefined`. In the end, these are both valid JavaScript primitives and people can use them in many ways.
-2. You want to add some advanced logic. Writing `x == null` everywhere gets cumbersome.
+1、这个值可以是 `null`，也可以是 `undefined`。这些都是有效的 JavaScript 代码，可以在很多场景使用它们。
+2、你想添加一些高级逻辑，到处写 `x == null` 会很麻烦。
 
-In my case I was handling an output of a Promise, that can return anything. And I could foresee that both of the ‘missing’ will be eventually returned.
+在我的示例中，我正在处理一个 `Promise` 的输出，它可以返回任何内容。而且我可以预见到，这两个空缺值最终都会被返回。
 
-In general, the problem 1 and 2 have the same solution: use a library that implements the Option type.
+通常来说，问题 1 和 2 有相同的解决方案：使用一个实现 `Option` 类型的库。
 
-## Why Option was too much
+## `Option` 方法的冗余之处
 
-Option (sometimes called Maybe) type has two possibilities: either there is no value (`None` on `Nothing`) or there is a value (`Some` or `Just`).
+`Option` 类型有两种可能性：要么没有值（`None` 或 `Nothing`），要么有一个值（`Some` 或 `Just`）。
 
-In JavaScript/TypeScript this means introducing a new structure that wraps the value. Most commonly an object with a property `tag` that defines what possibility it is.
+在 `JavaScript` 或 `TypeScript` 中，这意味着引入一个新的结构来包装这个值。最常见的是一个带有属性 `tag` （标签）的对象，定义了它是什么可能性。
 
-This is how you could quickly implement Option in TypeScript:
+这就是你如何在 `TypeScript` 中快速实现 `Option` 方法：
 
 ```TypeScript
 type Option<T> = { tag: 'none' } | { tag: 'some', value: T }
 ```
 
-Usually, you would use a library that defines the type and a bunch of useful utils alongside. [Here is an intro to Option in my favourite fp-ts library](https://dev.to/ryanleecode/practical-guide-to-fp-ts-option-map-flatten-chain-6d5).
+通常情况下，你会使用一个定义了类型的库，并在旁边提供了一堆有用的工具。[这里有一个关于我最喜欢的 `fp-ts` 库中的 `Option` 介绍](https://dev.to/ryanleecode/practical-guide-to-fp-ts-option-map-flatten-chain-6d5)。
 
-[**The library** I was building](https://github.com/robinpokorny/promise-throttle-all) was small, had zero dependencies, and there was no need for using any Option utility. Therefore, bringing in an Option library would be overkill.
+[我正在建立的这个库](https://github.com/robinpokorny/promise-throttle-all)很小，没有任何依赖性，而且没有必要使用任何 `Option` 工具。因此，引入一个 `Option` 库将是多余的。
 
-For a while I was thinking about inlining the Option, that is coding it from scratch. For my use case that would be just a few lines. It would complicate the logic of the library a bit, though.
+有一段时间，我在考虑对 `Option` 进行内联，也就是从头开始编码。对于我的用例来说，这只是几行而已。不过，这将使库的逻辑变得有点复杂。
 
-Then, I had a better idea!
+然后，我有了一个更好的想法！
 
-## Symbol as the new null
+## 使用 Symbol 代替 null
 
-Coming back to Nullable, the unsolvable problem is that `null` (or `undefined`) is global. It is one value equal to itself. It is the same for everybody.
+回到 `Nullable`，无法解决的问题是 `null`（或 `undefined`）是全局的，它是一个等于自身的值，对每个人都是一样的。
 
-If you return `null` and I return `null`, later, it is not possible to find out where the `null` comes from.
+如果你返回 `null`，我也返回 `null`，以后就不可能找到 `null` 的来源了。
 
-In other words, there is ever only one instance. To solve it, we need to have a new instance of `null`.
+换句话说，永远只有一个实例。为了解决这个问题，我们需要有一个新的 `null` 实例。
 
-Sure, we could use an empty object. In JavaScript each object is a new instance that is not equal to any other object.
+当然，我们可以使用一个空对象。在 `JavaScript` 中，每个对象都是一个新的实例，不等于任何其他对象。
 
-But hey, in ES6 we got a new primitive that does exactly that: Symbol. (Read some [introduction to Symbols](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/))
+但是，在 `ES6` 中，我们得到了一个新的基元：`Symbol`。（阅读一些[关于 `Symbols` 的介绍](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）
 
-What I did was a new constant that represented a missing value, which was a symbol:
+我所做的是使用 `Symbol` 表示一个新的常数，代表一个缺失的值。
 
 ```TypeScript
 const None = Symbol(`None`)
 ```
 
-Let’s look at the benefits:
+让我们来看下有哪些好处：
 
-* It is a simple value, no wrapper needed
-* Anything else is treated as data
-* It’s a private None, the symbol cannot be recreated elsewhere
-* It has no meaning outside our code
-* The label makes debugging easier
+* 它是一个简单的值，不需要封装
+* 其他的都被当作数据来处理
+* 这是一个私人的 `None`，不能在别处重新创建
+* 它在我们的代码之外没有任何意义
+* 标签使调试变得更容易
 
-That is great! Especially the first point allows using None as `null`. See some example use:
+特别是第一点允许使用 `None` 作为 `null`。请看一些使用示例：
 
 ```TypeScript
 const isNone = (value: unknown) => x === None
@@ -96,13 +96,13 @@ const map = <T, S>(
 }
 ```
 
-## Symbols are almost nulls
+## `Symbols` 通常当作是 `nulls`
 
-There are some disadvantages, too.
+`Symbols` 也有一些缺点。
 
-First, which is IMO rare, is that the environment has to [support ES6 Symbols](https://caniuse.com/mdn-javascript_builtins_symbol). That means Node.js >=0.12 (not to be confused with v12).
+首先，开发环境必须[支持 ES6 的 Symbols](https://caniuse.com/mdn-javascript_builtins_symbol)。这意味着 `Node.js` 版本不低于 `0.12`（不要与 `v12` 混淆）。
 
-Second, there are problems with (de)serialisation. Funnily, Symbols behave exactly like `undefined`.
+第二，存在着（去）序列化的问题。有趣的是，`Symbols` 的行为和 `undefined` 完全一样。
 
 ```TypeScript
 JSON.stringify({ x: Symbol(), y: undefined })
@@ -112,25 +112,25 @@ JSON.stringify([Symbol(), undefined])
 // -> "[null,null]"
 ```
 
-So, the information about the instance is, of course, lost. Yet, since it then behaves like `undefined` -the native 'missing value')-makes it well suited for representing a custom 'missing value'.
+所以，关于这个实例的信息当然会丢失。然而，由于它的行为类似于原生的缺失值：`undefined`，使得它很适合代表一个自定义的缺失值。
 
-In contrast, Option is based on structure not instances. Any object with a property `tag` set to `none` is considered None. This allows for easier serialisation and deserialisation.
+相比之下，`Option` 是基于结构而非实例的。任何属性标签设置为无的对象都被认为是无，这使得序列化和反序列化变得更加容易。
 
-## Summary
+## 本文总结
 
-I’m rather happy with this pattern. It seems it’s a safer alternative to `null` in places where no advanced operations on the property are needed.
+我对这种模式相当满意。在不需要对属性进行高级操作的地方，这似乎是一个比 `null` 更安全的选择。
 
-Maybe, I’d avoid it if this custom symbol should leak outside of a module or a library.
+也许，如果这个自定义符号应该在模块或库外泄漏，我会避免它。
 
-I especially like that with the variable name and the symbol label, I can communicate the domain meaning of the missing value. In my small library it represents that the promise is not settled:
+我特别喜欢通过变量名和符号标签，我可以传达缺失值的领域含义。在我的项目库中，它代表着 `promise` 没有被解决。
 
 ```TypeScript
 const notSettled = Symbol(`not-settled`)
 ```
 
-Potentially, there could be multiple missing values for different domain meanings.
+有可能出现不同领域含义的多个缺失值。
 
-Let me know what you think of this use? Is it a good replacement for `null`? Should everybody always use an Option?
+让我知道你对这种用法的看法：它是 `null` 的一个很好的替代吗？每个人都应该总是使用一个 `Option` 吗？
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
