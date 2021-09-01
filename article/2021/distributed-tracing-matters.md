@@ -2,145 +2,145 @@
 > * 原文作者：[Tobias Schmidt](https://medium.com/@tpschmidt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/distributed-tracing-matters.md](https://github.com/xitu/gold-miner/blob/master/article/2021/distributed-tracing-matters.md)
-> * 译者：
-> * 校对者：
+> * 译者：[ItzMiracleOwO](https://github.com/itzmiracleowo)
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
-# Distributed Tracing Matters
+# 关于分布式追踪的事项
 
-Facing issues with a monolith is mostly easy to investigate. You can look up execution traces and have a detailed look into errors and bottlenecks. Sometimes it’s a quick look on the stack trace to find out what’s the issue with your business process.
+单体式应用的问题大多是易于排查的。你可以查找执行轨迹，并详细调查错误和瓶颈。有时只需快速排查堆栈追踪，就能找出你的业务流程中存在什么问题。
 
-For a distributed system, especially serverless cloud architectures, that’s not the case. A single process often invokes several functions or schedules messages resulting in event-driven processing. Debugging such a complex distributed system can be difficult. It’s not a simple task to correlate requests and operations, but exactly that is often needed to find bugs, inconsistencies, or bottlenecks.
+对于分布式系统，尤其是无服务器的云架构，就不是这种情况。单个进程经常调用若干函数或编制事件驱动进程产生的消息。调试这种复杂的分布式系统可能很困难。关联请求和操作并不是一项简单的任务，但你通常需要这样做来找到错误，不一致或瓶颈。
 
-That’s why you need distributed tracing, overarching your team structure and ecosystem. It helps immensely by giving you detailed insights on all executed code for a dedicated request or triggered business process.
+这就是为什么你需要分布式追踪来覆盖你的团队结构和生态系统。它可以让你详细了解一个专项请求或被触发的业务流程的所有已执行代码，从而提供巨大的帮助。
 
-In this article, I want to give you an introduction to the OpenTracing API, W3C’s Trace Context specification, and how you can build your own custom integration which you can use to create and extend trace context for a tracing tool of your choice.
+在本文中，我想向你介绍 OpenTracing API，W3C 的 Trace Context 规范，以及如何构建你自己的自定义集成，你可以将其用来为你选择的追踪工具创建和扩展追踪上下文。
 
-* **Reasoning** — why distributed tracing is important
-* **OpenTracing API**—a vendor-independent framework
-* **Concepts** — Spans, scopes & threads
-* **Deep Dive**— Understanding trace parent & trace state
-* **Hands-On**— Initializing traces, opening & closing spans
-* **Key Takeaways**
+* **论证** —— 为什么分布式追踪很重要
+* **OpenTracing API** —— 一个独立于供应商的框架
+* **概念** —— spans，范围和线程
+* **深入探索** —— 了解追踪父级 span 和追踪状态
+* **实践** —— 初始化追踪器，打开和关闭 spans
+* **主要收获**
 
-## Why distributed tracing is not optional
+## 为什么分布式追踪是必不可少的？
 
-Modern software architectures are often a fusion of multiple systems which are working together. Single requests on one system can result in numerous operations and processes around your ecosystem. Sometimes, they are not even synchronous but completely decoupled via an event-based driven architecture.
+现代软件架构通常是多个系统的融合。在一个系统上的单个请求可能引起生态系统中的许多操作和业务流程。有时，它们甚至不是同步的，而是基于事件的驱动的，完全解耦的。
 
-This makes debugging a tedious and complex task. Also, observing single transactions is not easily possible. You can’t simply rely on stack traces from a single system, because code is executed on multiple systems.
+这使得调试变成了一个繁琐、复杂的任务。此外，观察单一事务也不容易。你不能只依赖单个系统的堆栈追踪，因为代码在多个系统上执行。
 
-![A distributed system, with multiple decoupled operations](https://cdn-images-1.medium.com/max/2000/1*bbZZ4DGzS9FY3o-Q0WhfwA.png)
+![一个包含多个解耦操作的分布式系统](https://cdn-images-1.medium.com/max/2000/1*bbZZ4DGzS9FY3o-Q0WhfwA.png)
 
-Looking at the example for some imaginary architecture on AWS, we see that there’s a lot of code executed on different systems for just a single external trigger.
+通过查看 AWS 上一些虚构架构的示例，我们看到在不同的系统中有很多代码只是一个外部触发器。
 
-* data is written to DynamoDB, but changes are forwarded via Streams.
-* messages are queued to SQS and later processed by another Lambda function.
-* calls to external services are made, which afterward are resulting in further incoming requests.
+* 数据被写入了 DynamoDB，但更动通过 Streams 转发。
+* 消息被加入到 SQS 队列，稍后被另一个 Lambda 函数处理。
+* 外部服务被调用，进而产生下一步的传入请求。
 
-Even though operations seem to be decoupled, they are often related to the same trigger and therefore coupled from a business perspective. Occurring issues can often only be solved if you’re able to correlate every operation that’s included in the complete business process.
+尽管操作似乎是解耦的，但它们通常与同一个触发器相关，因此从业务的角度来看是耦合的。你通常需要关联整个业务流程中包含的每个操作才能把问题解决。
 
-![a process spanning multiple systems of multiple, independent teams](https://cdn-images-1.medium.com/max/2000/1*SHMu84OF4Eg-6eZhqaUugw.png)
+![一个横跨多个系统，多个独立团队的进程](https://cdn-images-1.medium.com/max/2000/1*SHMu84OF4Eg-6eZhqaUugw.png)
 
-If you’re working on a multi-team project and the product is developed by independent teams, it becomes even more obvious. As a matter of fact, each team will monitor its own resources and microservices they are responsible for. But what if there are customer complaints about slow requests and no team has reported any performance bottlenecks? Without any team-overarching correlation of requests, it’s not possible to investigate these issues in detail.
+如果你正在处理一个多团队项目，并且产品是由独立团队开发的，那就更明显了。事实上，每个团队都会监控自己负责的资源和微服务。但是，如果客户抱怨请求缓慢，但没有团队报告任何性能瓶颈时该怎么办？如果请求没有团队总体的相关性，你就不可能详细地调查这些问题。
 
-So to summarize: there is a lot of reasoning for having distributed tracing.
+总而言之：种种原因都促使你需要使用分布式追踪。
 
-### An Overview
+### 概述
 
-If you want to trace your requests over multiple systems, you need to collect data for every step on your route.
+如果要在多个系统上追踪你的请求，则需要收集路由上每一步的数据。
 
-![Web Transactions over multiple Services, sending Context information to a Tracing Collector](https://cdn-images-1.medium.com/max/2000/1*jHsAJgif51Gw6ZgvJb9scw.png)
+![多个服务上的 Web 事务，将上下文信息发送到追踪收集器](https://cdn-images-1.medium.com/max/2000/1*jHsAJgif51Gw6ZgvJb9scw.png)
 
-Our browser submits the first request in our example, which starts the context for the whole operation. It needs to send the request itself and attach further information about the context so that your tracing collector can correlate the request later on and that all following systems can extend it by adding details about the code they execute.
+我们的浏览器在我们的示例中提交了第一个请求，开始了整个操作的追踪上下文。它需要发送请求本身并附加有关上下文的更多信息，以便你的追踪收集器可以稍后关联请求。所有后续系统都可以通过添加有关它们执行的代码的详细信息来扩展它。
 
-Each system involved in the process needs to send its details about the executed code to a central processing instance which we can later use to analyze our results.
+该流程中涉及的每个系统都需要将其有关执行代码的详细信息发送到核心处理实例，我们稍后可以使用该实例来分析我们的结果。
 
-## The OpenTracing API
+## OpenTracing API
 
-[Quoting the introduction](https://opentracing.io/docs/overview/what-is-tracing/):
+[引用介绍](https://opentracing.io/docs/overview/what-is-tracing/)：
 
-> OpenTracing is comprised of an API specification, frameworks and libraries that have implemented the specification, and documentation for the project. OpenTracing allows developers to add instrumentation to their application code using APIs that do not lock them into any one particular product or vendor.
+> OpenTracing 由 API 规范、实现规范的框架和库以及项目文档组成。OpenTracing 允许开发人员使用 API 将检测器添加到他们的应用程序代码中，而这些 API 不限定于任何特定产品或供应商。
 
-Even though it’s not a standard, it’s widely used by a lot of frameworks and services, allowing the creation of customized implementations that follow defined guidelines.
+尽管它不是一个标准，但它仍被许多框架和服务广泛使用，OpenTracing API 允许创建遵循定义指南的自定义实现。
 
-## Concepts
+## 概念
 
-This paragraph gives an introduction to the core concepts and the terminology. We’ll have a detailed look on `Spans`, `Scopes` and `Threads`.
+本段介绍了核心概念和术语。 我们将详细了解 `Spans`、`Scopes` 和 `Threads`。
 
 ### Spans
 
-Spans are the fundamental concept of distributed tracing. A span represents a specific amount of executed code or work. Having a look at the OpenTracing specification, it contains:
+`Spans` 是分布式追踪的基本概念。`Span` 表示特定的执行代码或工作量。看看 OpenTracing 的规范，它包含：
 
-* the name of the operation
-* the start & end time
-* a set of tags (for querying) and logs (for span-specific messages)
-* a context
+* 操作的名称
+* 开始和结束的时间
+* 一组标签（用于查询）和日志（用于特定于跨度的消息）
+* 上下文
 
-That means that each component in our ecosystem that is involved in a request should contribute at least one span. Because a span can reference other spans, we can build a complete stack trace out of those multiple spans to cover all operations in a single request. There’s no limit on how fine-grained a span can be. The line can basically be drawn anywhere, from covering a whole complex process to having spans for single functions or even operations.
+这意味着，我们生态系统中涉及请求的每个组件都应至少贡献一个跨度。由于跨度可以引用其他跨度，我们可以利用这些跨度来建立一个完整的堆栈追踪，以覆盖单个请求中的所有操作。跨度的精细程度不限。我们可以在任何地方使用它，不论是整个复杂的流程，或是单个功能/操作的跨度。
 
-![a span covering a DynamoDB query operation, including name and timestamps](https://cdn-images-1.medium.com/max/2000/1*1pu963Zo2U-ZisazG_XC_A.png)
+![一个涵盖了 DynamoDB 查询操作的 span，包含名称和时间戳](https://cdn-images-1.medium.com/max/2000/1*1pu963Zo2U-ZisazG_XC_A.png)
 
-### Scopes and Threading
+### Scopes 和 Threading
 
-Having a look at a dedicated thread in an application, it can only have one active span at a time, called the `ActiveSpan`. That does not mean that there can’t be multiple spans, but other need to be for example blocked or waiting.
+看看应用程序中的专用线程，它一次只能有一个活跃的 span，称为 `ActiveSpan`。 这并不意味着我们不能有多个 span，而是其他 span 会被阻塞。
 
-If a new span is spawned, the currently active span automatically becomes its parent if it’s not specified otherwise.
+当生成了一个新的 span 时，如果没有另外指定，当前活跃的 span 会自动成为其父 span。
 
-## Deep Dive
+## 深入探索
 
-Transmitting our context between systems evolves around two different HTTP headers: `traceparent` and `tracestate`. It will contain all the information about how to correlate the information about all related spans. It’s specified by [W3C’s Trace Context](https://www.w3.org/TR/trace-context/).
+在系统之间传输我们的上下文是由两个不同的 HTTP 标头实现的：`traceparent` 和 `tracestate`。它将包含如何关联所有相关 span 信息的全部信息。在 [W3C 的 Trace Context](https://www.w3.org/TR/trace-context/) 中有详细解说。
 
-* `traceparent`— specifying the request for the tracing system, not dependent on any vendor.
-* `tracestate`— includes vendor-specific details about the request.
+* `traceparent` —— 指定对追踪系统的请求，不依赖于任何供应商。
+* `tracestate` —— 包括关于请求供应商特定的信息。
 
-### Trace Parent
+### 追踪父级 span
 
-The `traceparent` header carriers four different kinds of information: the version, the trace identifier, the parent identifier, and the flags.
+`traceparent` 标头携带四种不同类型的信息：版本、追踪标识符、父标识符和标志。
 
-![Example traceparent HTTP header](https://cdn-images-1.medium.com/max/2000/1*qBXxYI9Qo_8RcohWoRegUQ.png)
+![`traceparent` HTTP 标头的示例](https://cdn-images-1.medium.com/max/2000/1*qBXxYI9Qo_8RcohWoRegUQ.png)
 
-* Version — identifies the version, currently being `00`.
-* TraceID — unique identifier for the distributed trace.
-* ParentID — identifier of the request as known by the caller.
-* Trace Flags — for specifying options like sampling or trace level.
+* 版本 — 标识版本，当前为 `00`。
+* TraceID — 分布式追踪的唯一标识符。
+* ParentID — 调用者已知的请求标识符。
+* 追踪标志 — 用于指定采样或追踪级别等选项。
 
-The trace parent is needed for the tracing system to correlate our requests and aggregate them into a multi-span request.
+追踪系统需要追踪父级 span 来关联我们的请求并将它们聚合成一个多 span 请求。
 
-### Trace State
+### 追踪状态
 
-The `tracestate` header is a companion to the Trace Parent, adding vendor-specific trace information.
+标头 `tracestate` 是伴随 Trace Parent 的，添加特定供应商的追踪信息。
 
-Having a look at an example by NewRelic:
+看看一个 NewRelic 的例子 :
 
-![Example tracestate HTTP header sent by NewRelic](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
+![由 NewRelic 发送的 `tracestate` HTTP 标头示例](https://cdn-images-1.medium.com/max/2000/1*V5wa57TXTNpOEkE_fKkczw.png)
 
-We can identify the parent, the timestamp of the span as well as our vendor. There are no fixed rules on which information the trace state header can carry or how it has to look, so it can hugely vary based on the tracing tool you’re using.
+我们可以识别父级、span 的时间戳以及我们的供应商。 追踪状态标头可以携带哪些信息或它必须是什么样子都没有固定的规则，因此它可能会因你使用的跟踪工具而有很大差异。
 
-## Hands-On
+## 实践
 
-Now we’ve covered the concepts. Let’s put this into practice by understanding how we can leverage this concept to initialize traces and how to extend them by opening and closing spans ourselves.
+我们已经介绍了这些概念，现在让我们付诸实践，了解如何利用这些概念来初始化追踪器以及如何通过手动打开和关闭 span 来扩展它们。
 
-Even though distributed tracing tools offer agents for a lot of different languages and frameworks, this can be important if you’re in need of extending your traces manually.
+尽管分布式追踪工具为许多不同的语言和框架提供了代理，但如果你需要手动扩展追踪器，以下信息可能很重要。
 
-Let’s have a look at a basic scenario where the system that we want to add to our distributed tracing only does minor business logic by invoking another external call.
+让我们看一个基本场景，其中我们想要添加到分布式追踪中的系统仅通过调用另一个外部调用来执行次要业务逻辑。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0o2lIGelr9JtVRFVfuO9ZQ.png)
 
-This keeps our example small and the basic steps we have to take are fairly simple:
+我们的示例非常简单，因此我们必须采取的基本步骤也相当简单：
 
-* if there’s no trace yet, we’ll initialize a new one (the root span)
-* we can open a new span for every process boundary (e.g. an external call) at each system that works on that request or operation
-* we’ll close the spans we opened after they are finished
-* we submit span details to our tracing collector system
+* 如果还没有跟踪，我们将初始化一个新的（根 span）
+* 我们可以在处理该请求或操作的每个系统上为每个进程边界（例如外部调用）创建一个新的 span
+* 我们将在完成后关闭我们打开的 span
+* 我们将 span 详细信息提交给我们的追踪收集器系统
 
-We can open as many spans as we need in a single system. We just need to make sure that we nest them correctly and close each one separately. Therefore a manual implementation needs to keep track of the span stack.
+我们可以在单个系统中根据需要打开任意数量的 span。我们只需要确保我们正确嵌套它们并分别关闭它们。因此我们需要手动执行追踪 span 堆栈。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*7dx9dp0v8bjChH7zWjxAbg.png)
 
-### Setting up our trace
+### 设置我们的追踪器
 
-What do we need in the first place if we want to do this in a manual way? We need a stack of all the spans our system has opened and therefore needs to close.
+如果我们想以手动方式执行此操作，我们首先需要什么？我们需要一堆我们系统已经打开并因此需要关闭的 span。
 
-If there’s no trace state header incoming into our system, we can easily create a new one by generating it ourselves. If there’s already one, we’ll just extend the trace by opening new spans.
+如果没有跟踪状态头进入我们的系统，我们可以自行通过生成它来轻松地创建一个新的。如果已经有一个，我们将通过打开新的 span 来扩展跟踪。
 
 ```JavaScript
 let traceParent = RequestContext.getHeader('traceparent');
@@ -161,20 +161,20 @@ if (!traceParent) {
 }
 ```
 
-Now we’ve got our root and we can continue to open spans for operations or processes at our own granularity.
+现在我们有了根 span，我们可以继续在自定义的粒度上为操作或流程创建 span。
 
-### Spawning new spans
+### 产生新的 span
 
-For tracking our spans in a single system, we need a stack that saves us our already opened spans as previously described.
+如前所述，为了在单个系统中跟踪我们的 span，我们需要一个堆栈来保存我们已经打开的 span。
 
-I prefer using a request context where I have two dedicated objects
+我更喜欢使用有两个专用对象的请求上下文：
 
-* a list that tracks the name of the spans, in the order of when the span was opened
-* an object that keeps the necessary details for the span: timestamp of when it was opened and the identifier of the span
+* 一个保存跨度必要细节的对象：打开它时的时间戳和跨度的标识符
+* 一个保存 span 必要细节的对象：打开它时的时间戳和 span 的标识符
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZWcuiszwgPfliOMPRAbOVg.png)
 
-Our root is only for tracking our trace identifier. On top of it, we’ll track all spans that we’ve opened and we’ll remove each one at the time when the operation or process finishes.
+我们的根 span 仅用于追踪我们的追踪器标识符。最重要的是，我们将追踪我们打开的所有 span，并在操作或流程完成时删除每个 span。
 
 ```JavaScript
 const openNewSpan = (spanName) => {
@@ -184,15 +184,15 @@ const openNewSpan = (spanName) => {
 };
 ```
 
-### Closing spans & submitting trace information
+### 关闭 span 并提交追踪信息
 
-When we need to close a span the operation or processes ended, we can pop the span from the top of the stack. We can also calculate needed information based on the information we saved at the span or what’s left in our stack.
+当我们需要关闭操作或进程结束的 span 时，我们可以从堆栈顶部弹出 span。我们还可以根据我们在 span 中保存的信息或堆栈中剩余的信息来计算所需的信息。
 
-* the span identifier of our parent — that’s the span which is now on top of the stack
-* the duration of the operation — the difference between now and the timestamp we saved at our span
-* the trace identifier— saved at our root span, which is always the bottom of the stack.
+* 我们父级 span 标识符 —— 这是现在在堆栈顶部的 span。
+* 当前的时间戳和我们在跨度保存的时间戳的差为操作的持续时间。
+* 追踪标识符 —— 保存在我们的根 span 中，它始终在堆栈的底部。
 
-In this example, we’re submitting the span information to NewRelic (with their own format). Depending on the tracing tool you’re using, this will vary.
+在这个例子中，我们将跨度信息以他们自己的格式提交给 NewRelic。根据你使用的追踪工具，这可能会有所不同。
 
 ```JavaScript
 const closeSpan = (spanName) => {
@@ -259,15 +259,15 @@ const submitTraceInformation = (traceId, spanName, spanId, parentId, duration) =
 }
 ```
 
-And that’s it. You now only need to call the`openNewSpan` and `closeSpan` methods at all places. It makes sense to put this into some annotation so that you only have to annotate methods or processes you want to track and that the open and closing operations are called automatically.
+就是这样。 你现在只需要在所有地方调用 `openNewSpan` 和 `closeSpan` 函数。把这一点放到一些注释中是有意义的，这样你只需注释要追踪的方法或进程，并且自动调用打开和关闭操作。
 
-## Key Takeaways
+## 主要收获
 
-Building a distributed system is a complicated task but can be lightning-fast with cloud providers like AWS, Azure, or GCP and advanced infrastructure as code tools like Serverless Framework leveraging CloudFormation. Keep in mind that you need distributed tracing to analyze how your systems and complete ecosystem are performing and to debug issues systematically.
+构建分布式系统是一项复杂的任务，但可以通过 AWS、Azure 或 GCP 等云提供商以及利用 CloudFormation 的无服务器框架等高级基础设施作为代码工具来快速完成。请记住，你需要分布式追踪来分析系统的表现，并有条理地调试问题。
 
-This article gave you an introduction to the trace context standard and how it’s used for tracing requests over multiple systems and services.
+本文向你介绍了追踪上下文的标准以及如何将它用于追踪跨系统和服务的请求。
 
-Thank you for reading.
+感谢你的阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
