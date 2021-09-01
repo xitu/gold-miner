@@ -55,7 +55,7 @@
 
 此外，轮播中的小箭头/图标使得移动端的用户和有障碍的人士难以导览。
 
-![Example for a poorly implemented carousel. Source: [Article](https://www.nngroup.com/articles/auto-forwarding/) by [Jakob Nielsen](https://www.nngroup.com/articles/author/jakob-nielsen/)](https://cdn-images-1.medium.com/max/3840/1*JKO7mieZ-6I_p84CI_obCw.png)
+![一个不佳的轮播示例。来源：[nngroup](https://www.nngroup.com/articles/auto-forwarding/)，作者：[Jakob Nielsen](https://www.nngroup.com/articles/author/jakob-nielsen/)](https://cdn-images-1.medium.com/max/3840/1*JKO7mieZ-6I_p84CI_obCw.png)
 
 > 图中文字注解：自动播放的轮播和扩展面板组件会使用户厌烦并且降低可见度。
 
@@ -101,7 +101,7 @@
 
 提供一些关于幻灯片数量和下一页内容的资讯。这使得用户能更轻松地浏览内容，提高用户参与度。
 
-![The carousel on the [Hilton](https://www.hilton.com/en/) website](https://cdn-images-1.medium.com/max/3786/1*B-yLIKw-RnEbHx8P7lYUcQ.png)
+![在 [Hilton](https://www.hilton.com/en/) 网页上的轮播](https://cdn-images-1.medium.com/max/3786/1*B-yLIKw-RnEbHx8P7lYUcQ.png)
 
 在上方的示例中，轮播中包含极少的幻灯片，并带有指示用户进度的导览控件。
 
