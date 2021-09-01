@@ -2,100 +2,101 @@
 > * 原文作者：[Mike Chen](https://medium.com/@gitgit6)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-string-manipulation-libraries-for-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-string-manipulation-libraries-for-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
-# 5 String Manipulation Libraries for JavaScript
+# 5 个 JavaScript 的字符操作库
 
 ![](https://cdn-images-1.medium.com/max/2560/1*pdPTFvogzT9vzmc7k-qY2Q.jpeg)
 
-Working with strings can be a cumbersome task as there are many different use cases. For example, a simple task like converting a string to camel case can require several lines of code to achieve the end goal.
+处理字符串可能是一项繁琐的任务，因为我们需要考虑许多不同的用例。举例来说，像将字符串转为驼峰格式这样简单的任务就需要好几行代码来实现。
 
 ```js
 function camelize(str) {
   return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
-    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    if (+match === 0) return ""; // 或 if (/\s+/.test(match)) 来匹配空白字符
     return index === 0 ? match.toLowerCase() : match.toUpperCase();
   });
 }
 ```
 
-The above code snippet is the most voted answer in StackOverflow. But that too fails to address cases where the string is `---Foo---bAr---` .
+上方的代码片段是在 Stack Overflow 中最受好评的答案。然而，它无法解决字符串中包含 `---Foo---bAr---` 的用例。
 
-![](https://cdn-images-1.medium.com/max/2000/1*B2BkvkI5nmrksHi8UpLHIQ.png)
+![运行结果](https://cdn-images-1.medium.com/max/2000/1*B2BkvkI5nmrksHi8UpLHIQ.png)
 
-This is where string manipulation libraries come to the rescue. They make it easy to implement complex string manipulations and also consider all possible use cases for a given problem. This helps on your end as you simply need to call a single method to get a working solution.
+这时字符串处理库就派上用场了。这些库考虑了给定问题的每一种可能的用例，使得复杂字符串操作的实现变得简单。这对你很有帮助，因为你只需要调用一个函数就能得到有效的解决方案。
 
-Let’s look at a few string manipulation libraries for JavaScript.
+让我们看看几个 JavaScript 中的几个字符串处理库。
 
 ## 1. String.js
 
-`string.js`, or simply `S` is a lightweight (**\< 5 kb** minified and gzipped) JavaScript library for the browser or for Node.js that provides extra String methods.
+String.js（简称为 `S`）是一个为浏览器或 Node.js 提供额外字符串操作方法的轻量级（压缩后大小小于 5 kB）JavaScript 库。
 
-### Installation
+### 安装方式
 
 ```bash
 npm i string
 ```
 
-### Notable Methods
+### 值得注意的方法
 
-* between(left, right) — Extracts a string between `left` and `right` strings
+* `between(left, right)` —— 提取 `left` 和 `right` 字符串之间的所有字符。
 
-This can be used when trying to get the elements between two tags in HTML.
+这个方法可以用于提取 HTML 标签之间的元素。
 
 ```js
 var S = require('string');
 S('<a>This is a link</a>').between('<a>', '</a>').s 
-// 'This is a link'
+// => 'This is a link'
 ```
 
-* camelize() — Remove any underscores or dashes and convert a string into camel casing.
+* `camelize()` —— 去除所有的下划线和破折号，并将字符串转为驼峰格式。
 
-This function can be used to solve the problem mentioned at the beginning of this article.
+这个方法可以用来解决这篇文章开头时的问题。
 
 ```js
 var S = require('string');
 S('---Foo---bAr---').camelize().s; 
-//'fooBar'
+// => 'fooBar'
 ```
 
-* humanize() — Transforms the input into a human-friendly form.
+* `humanize()` —— 将输入转为人性化的形式。
 
-This function implemented from scratch would definitely require quite a number of lines of code.
+从无到有地实现这个函数必定需要相当多行的代码。
 
 ```js
 var S = require('string');
-S('   capitalize dash-CamelCase_underscore trim  ').humanize().s //'Capitalize dash camel case underscore trim'
+S('   capitalize dash-CamelCase_underscore trim  ').humanize().s
+// => 'Capitalize dash camel case underscore trim'
 ```
 
-* stripPunctuation() — Strip all of the punctuation in the given string.
+* `stripPunctuation()` —— 去除给定字符串的所有标点符号。
 
-If you implement this function from scratch, there is a high chance that you might miss a punctuation.
+如果你从头开始实现这个函数，那么你很可能会错过某个标点符号。
 
 ```js
 var S = require('string');
 S('My, st[ring] *full* of %punct)').stripPunctuation().s; 
-//My string full of punct
+// => 'My string full of punct'
 ```
 
-You can check out more methods over [here](https://github.com/jprichardson/string.js).
+你可以在[这里](https://github.com/jprichardson/string.js)查看更多的方法。
 
 ## 2. Voca
 
-Voca is a JavaScript string manipulation library. **Change case**, **trim**, **pad**, **slugify**, **latinise**, **sprintf’y**, **truncate**, **escape** and other useful string manipulation methods are available in the Voca library. To reduce application builds, the **modular design** allows you to load the complete library or specific functions. The library has been **completely tested**, is **well documented**, and provides **long-term support**.
+Voca 是一个 JavaScript 字符串操作库。这个库包含了**更改大小写**，**修剪**，**填充**，**生成 slug**，**拉丁化**，**sprintf 格式化**，**截断**，**转义**和其他有用的字符串操作方法。为了减少应用程序的构建，Voca 的模块化构建允许你只载入特定的功能。该库已经过**全面的测试**，**文档完整**，且**提供长期的支持**。
 
-### Installation
+### 安装方式
 
 ```bash
 npm i voca
 ```
 
-### Notable Methods
+### 值得注意的方法
 
-* Camel Case(String data)
+* `camelCase(String data)`
 
-Converts the data to camel case.
+将 `data` 转为驼峰格式。
 
 ```js
 var v = require('voca');
@@ -109,9 +110,9 @@ v.camelCase('---Foo---bAr---');
 // => 'fooBar'
 ```
 
-* Latinise(String data)
+* `latinise(String data)`
 
-Latinises the `data` by removing diacritic characters.
+通过删除变音符号来拉丁化 `data`。
 
 ```js
 var v = require('voca');
@@ -125,9 +126,9 @@ v.latinise('как прекрасен этот мир');
 // => 'kak prekrasen etot mir'
 ```
 
-* isAlphaDigit(String data)
+* `isAlphaDigit(String data)`
 
-Checks whether `data` contains only alpha and digit characters. (Alphanumeric)
+检查 `data` 是否只包含字母和数字字符（文数字字符串）。
 
 ```js
 var v = require('voca');
@@ -141,9 +142,9 @@ v.isAlphaDigit('40-20');
 // => false
 ```
 
-* CountWords(String data)
+* `countWords(String data)`
 
-Counts the number of words in the `data`.
+计算 `data` 中的单词数。
 
 ```js
 var v = require('voca');
@@ -157,9 +158,9 @@ v.countWords('Gravity - can cross dimensions!');
 // => 4
 ```
 
-* EscapeRegExp(String data)
+* `escapeRegExp(String data)`
 
-Escapes the regular expression special characters - [ ] / { } ( ) * + ? . \ ^ $ | in `data`.
+转义正则表达式中的特殊字符 —— `- [ ] / { } ( ) * + ? . \ ^ $ |`。
 
 ```js
 var v = require('voca');
@@ -167,134 +168,134 @@ v.escapeRegExp('(hours)[minutes]{seconds}');
 // => '\(hours\)\[minutes\]\{seconds\}'
 ```
 
-You can check out more over [here](https://vocajs.com/#).
+你可以在[此处](https://vocajs.com/#)查看更多的信息。
 
 ## 3. Anchorme.js
 
-This is a tiny, fast Javascript library that helps detect links / URLs / Emails in text and convert them to clickable HTML anchor links.
+这是一个小巧且快速的 JavaScript 库。它能帮助你检测链接、URL、电邮地址等，并将它们转为可点击的 HTML 锚链接。
 
-* It’s Highly sensitive with the least false positives.
-* It validates URLs and Emails against full IANA list.
-* Validates port numbers (if present).
-* Validates IP octet numbers (if present).
-* Works on nonlatin alphabets URLs.
+* 高敏感度，低误报率。
+* 根据完整的 IANA（互联网号码分配局）列表验证 URL 和电邮地址。
+* 验证端口号（如有）。
+* 验证 IP 地址（如有）。
+* 可检测非拉丁字母的 URL。
 
-### Installation
+### 安装方式
 
 ```bash
 npm i anchorme
 ```
 
-### Usage
+### 用法
 
 ```js
 import anchorme from "anchorme"; 
-//or 
-//var anchorme = require("anchorme").default;
+// 或 
+// var anchorme = require("anchorme").default;
 
 const input = "some text with a link.com"; 
 const resultA = anchorme(input);
-//some text with a <a href="http://link.com">link.com</a>
+// => 'some text with a <a href="http://link.com">link.com</a>'
 ```
 
-You can pass in additional extensions to customize the function further.
+你可以传入额外的扩展来进一步地自定义这个功能。
 
-## 4. Underscore String
+## 4. Underscore.string
 
-[Underscore.string](https://github.com/epeli/underscore.string) is string manipulation extension for JavaScript that you can use with or without Underscore.js. Underscore.string is a JavaScript library for comfortable manipulation with strings, an extension for Underscore.js inspired by [Prototype.js](http://api.prototypejs.org/language/String/), [Right.js](http://rightjs.org/docs/string), and [Underscore](http://documentcloud.github.com/underscore/).
+[Underscore.string](https://github.com/epeli/underscore.string) 是 JavaScript 字符串操作扩展，你可以将它与 Underscore.js 配合使用。Underscore.string 是 Underscore.js 的扩展，受 [Prototype.js](http://api.prototypejs.org/language/String/)，[Right.js](http://rightjs.org/docs/string) 和 [Underscore](http://documentcloud.github.com/underscore/) 所启发。这个 JavaScript 库能让你「惬意的」操作字符串。
 
-Underscore.string provides you several useful functions: capitalize, clean, includes, count, escapeHTML, unescapeHTML, insert, splice, startsWith, endsWith, titleize, trim, truncate and so on.
+Underscore.string 为你提供了几个有用的功能，例如：`capitalize`，`clean`，`includes`，`count`，`escapeHTML`，`unescapeHTML`，`insert`，`splice`，`startsWith`，`endsWith`，`titleize`，`trim`，`truncate` 等等。
 
-### Installation
+### 安装方式
 
 ```bash
 npm install underscore.string
 ```
 
-### Notable Methods
+### 值得注意的方法
 
-* numberFormat(number) — Formats the numbers
+* `numberFormat(number)` —— 格式化数字。
 
-Format numbers into strings with decimal and order separation.
+将数字格式化为带有小数点和万位分隔符的字符串。
 
 ```js
 var _ = require("underscore.string");
 
 _.numberFormat(1000, 3)
-=> "1,000.000"
+// => "1,000.000"
 
 _.numberFormat(123456789.123, 5, '.', ',');
-=> "123,456,789.12300"
+// => "123,456,789.12300"
 ```
 
-* levenshtein(string1,string2) — Calculates Levenshtein distance between two strings.
+* `levenshtein(string1, string2)` —— 计算两个字符串的莱文斯坦距离。
 
-Learn more about the levenshtein distance algorithm [here](https://dzone.com/articles/the-levenshtein-algorithm-1).
+你可以在[此处](https://dzone.com/articles/the-levenshtein-algorithm-1)了解更多有关莱文斯坦距离算法的信息。
 
 ```js
 var _ = require("underscore.string");
 
 _.levenshtein('kitten', 'kittah');
-=> 2
+// => 2
 ```
 
-* chop(string, step) — chops the given string into pieces
+* `chop(string, step)` —— 将指定字符串切成多段。
 
 ```js
 _.chop('whitespace', 3);
-=> ['whi','tes','pac','e']
+// => ['whi','tes','pac','e']
 ```
 
-Learn more about Underscore String over [here](http://gabceb.github.io/underscore.string.site/#chop).
+你可以在[此处](http://gabceb.github.io/underscore.string.site)了解更多有关 Underscore String 的信息。
 
 ## 5. Stringz
 
-The main highlight of this library is that it is unicode aware. If you run this below code, the output will be 2.
+这个库的主要亮点在于它可以识别 Unicode。如果你运行以下的代码，输出会是 2。
 
 ```js
-"🤔".length
-// -> 2
+"🤔".length;
+// => 2
 ```
 
-This is because String.length() returns the number of code units in the string, not the number of characters. Actually some chars, in the range **010000–03FFFF** and **040000–10FFFF** can use up to 4 bytes (32 bits) per code point, but this doesn’t change the answer: some chars require more than 2 bytes to be represented, so they need more than 1 code point.
+这是因为 `String.length()` 回传的是字符串中的代码单元数，而不是字符数。实际上，在 **010000 至 03FFFF** 和 **040000 至 10FFFF** 区间中的字符需要 4 个字节（32 位），1 个码位来表示。这对结果毫无影响。然而，有些字符需要超过 2 个字节来表示，一次他们需要 1 个以上的码位。
 
-You can read more about the JavaScript unicode problem [here](https://mathiasbynens.be/notes/javascript-unicode).
+你可以在[此处](https://mathiasbynens.be/notes/javascript-unicode)阅读更多有关 JavaScript Unicode 的问题。
 
-### Installation
+### 安装方式
 
 ```bash
 npm install stringz
 ```
 
-### Notable Methods
+### 值得注意的方法
 
-* limit(string, limit, padString, padPosition)
+* `limit(string, limit, padString, padPosition)`
 
-Limit the string to a given width.
+将字符串长度限制在给定长度内。
 
 ```js
 const stringz = require('stringz');
 
-// Truncate:
+// 截断：
 stringz.limit('Life’s like a box of chocolates.', 20); 
-// "Life's like a box of"
+// => "Life's like a box of"
 
-// Pad:
+// 填充：
 stringz.limit('Everybody loves emojis!', 26, '💩'); 
-// "Everybody loves emojis!💩💩💩"
+// => "Everybody loves emojis!💩💩💩"
 stringz.limit('What are you looking at?', 30, '+', 'left'); 
-// "++++++What are you looking at?"
+// => "++++++What are you looking at?"
 
-// Unicode Aware:
+// 可识别 unicode
 stringz.limit('🤔🤔🤔', 2); 
-// "🤔🤔"
+// => "🤔🤔"
 stringz.limit('👍🏽👍🏽', 4, '👍🏽'); 
-// "👍🏽👍🏽👍🏽👍🏽"
+// => "👍🏽👍🏽👍🏽👍🏽"
 ```
 
-* toArray(string)
+* `toArray(string)`
 
-Convert the string to an Array
+将字符串转为数组：
 
 ```js
 const stringz = require('stringz');
@@ -302,12 +303,12 @@ const stringz = require('stringz');
 stringz.toArray('abc');
 // ['a','b','c']
 
-//Unicode aware
+// 可识别 unicode
 stringz.toArray('👍🏽🍆🌮');
 // ['👍🏽', '🍆', '🌮']
 ```
 
-To know more about Stringz, visit their Github [here](https://github.com/sallar/stringz).
+欲了解更多关于 Stringz 的信息，请访问 [Stringz 的 Github 仓库](https://github.com/sallar/stringz)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
