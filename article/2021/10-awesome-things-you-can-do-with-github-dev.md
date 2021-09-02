@@ -74,7 +74,7 @@ VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 g
 
 ## 10. 🛠 创建您自己的扩展！
 
-您可能已经注意到，上面的大多数项目都是通过扩展启用的，这是别人创建并发布到市场的。由于 VS Code [完全可扩展](https://code.visualstudio.com/api/references/vscode-api)，使用简单的 JavaScript API，您可以创建自己的扩展，不仅支持 VS Code 桌面，而且还支持 [github.dev](https://github.com/microsoft/vscode-docs/blob/vnext/api/extension-guides/web-extensions.md)。所以，如果你有一个很棒的想法，关于如何使在 GitHub 上编码更高效和有趣，那么你现在拥有开始所需的一切🏃
+您可能已经注意到，上面的大多数功能都是通过扩展启用的，这是别人创建并发布到市场的。由于 VS Code [完全可扩展](https://code.visualstudio.com/api/references/vscode-api)，使用简单的 JavaScript API，您可以创建自己的扩展，不仅支持 VS Code 桌面，而且还支持 [github.dev](https://github.com/microsoft/vscode-docs/blob/vnext/api/extension-guides/web-extensions.md)。所以，如果你有一个很棒的想法，关于如何使在 GitHub 上编码更高效和有趣，那么你现在已经拥有起步所需的一切🏃
 
 ## 🔮 期待
 
