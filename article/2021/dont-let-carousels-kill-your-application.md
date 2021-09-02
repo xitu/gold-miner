@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/dont-let-carousels-kill-your-application.md](https://github.com/xitu/gold-miner/blob/master/article/2021/dont-let-carousels-kill-your-application.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[nia3y](https://github.com/nia3y)
 
 # 别让轮播毁了你的应用程序
 
