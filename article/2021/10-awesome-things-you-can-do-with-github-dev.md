@@ -30,7 +30,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ## 3. ✅ 拉取请求审查
 
-除了在 github.com 上的仓库或文件上点击 `.`，您还可以在查看拉取请求时按下它。 这使您能够使用丰富的多文件视图查看 PR，包括查看和回复评论、建议更改，甚至直接从编辑器批准/合并 PR 的能力。 这有可能通过为开发人员提供更好的工具来减少“肤浅的评论”，而无需克隆或切换分支🙅‍♂️
+除了在 github.com 上的仓库或文件上点击 `.`，您还可以在查看拉取请求时按下它。 这使您能够使用丰富的多文件视图查看 PR，包括查看和回复评论、建议更改，甚至直接从编辑器批准/合并 PR 的能力。 这使得通过为开发人员提供更好的工具来减少“肤浅的评论”成为可能，而无需克隆或切换分支🙅‍♂️
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--AYrXWxQm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9I5DW-X0AUINAA.jpg)
 
