@@ -66,7 +66,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ## 8. ✏️ 笔记和知识库
 
-VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 github.dev 来编辑和预览您的所有个人笔记/文档。 更酷的是，您可以安装 [WikiLens 扩展](https://aka.ms/wikilens) 以获得类似 [Roam](https://roamresearch.com/) 或 [obsidian](https://obsidian.md/) 的编辑体验，用于维护知识库，该知识库存储在 GitHub 中并能够受益 来自 VS Code 的扩展/个性化生态系统。
+VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 github.dev 来编辑和预览您的所有个人笔记/文档。 更酷的是，您可以安装 [WikiLens 扩展](https://aka.ms/wikilens) 以获得类似 [Roam](https://roamresearch.com/) 或 [obsidian](https://obsidian.md/) 的编辑体验，来维护一个知识库，不仅能将其存储在 GitHub 中而且能从 VS Code 的扩展/个性化生态系统受益。
 
 ## 9. 📓 Jupyter 笔记本
 
