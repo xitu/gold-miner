@@ -22,7 +22,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ## 2.分享深层链接
 
-除了在仓库页面按下 `.`，您还可以在查看 GitHub.com 上的特定文件时按 `.`。 此外，如果您在当前打开的文件中选择一些文本，然后按 `.`，那么当 VS Code 被打开时，它将聚焦该文件并突出显示您的文本选择。 然后，您可以在浏览器中复制 URL，并将其发送给其他人，以便共享 **完全相同的上下文**。 这可以开启新的和有趣的方式来交流代码🔥
+除了在仓库页面按下 `.`，您还可以在查看 GitHub.com 上的特定文件时按 `.`。 此外，如果您在当前打开的文件中选择一些文本，然后按 `.`，那么当 VS Code 被打开时，它将聚焦该文件并突出显示您的文本选择。 然后，您可以在浏览器中复制 URL，并将其发送给其他人，以便共享 **完全相同的上下文**。 这将开启全新且有趣的方式来交流代码🔥
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--yElJmPGE--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E9pdcqiVUAEa13W.jpg)
 
