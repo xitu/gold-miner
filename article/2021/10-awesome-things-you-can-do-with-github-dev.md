@@ -70,7 +70,7 @@ VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 g
 
 ## 9. 📓 Jupyter 笔记本
 
-除了编码游乐场之外，另一种流行的学习和共享代码的方式是通过 Jupyter 笔记本。 如果你在 github.dev 中打开一个 `.ipynb` 文件，你可以立即查看笔记本的单元格和缓存输出。 更好的是，您可以安装 [Pyodide 扩展](https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide)，以便完全在您的浏览器中实际运行 Python 代码！
+除了编码 playgrounds 之外，另一种流行的学习和共享代码的方式是 Jupyter 笔记本。 如果你在 github.dev 中打开一个 `.ipynb` 文件，你可以立即查看笔记本的单元格和缓存输出。 更好的是，您可以安装 [Pyodide 扩展](https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide)，以便实际运行 Python 代码，且是完全在您的浏览器中运行的！
 
 ## 10. 🛠 创建您自己的扩展！
 
