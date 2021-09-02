@@ -78,7 +78,7 @@ VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 g
 
 ## 🔮 期待
 
-虽然 GitHub.dev 已经有大量用法，但它仍处于早期阶段，因此随着生态系统的不断创新，这是一个值得关注的领域。例如，我很高兴看到[实时协作](https://aka.ms/vsls)、[课堂作业](https://marketplace.visualstudio.com/items?itemName=GitHub.classroom) , 和 [presentations](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode) 成为很快可以在浏览器中执行的场景示例💯，并建立在 GitHub 存储库之上，激动人心的时刻🙌
+虽然 GitHub.dev 已经有大量用法，但它仍处于早期阶段，因此随着生态系统的不断创新，这是一个值得关注的领域。例如，我很高兴看到这样一个激动人心的时刻🙌 ，那就是[实时协作](https://aka.ms/vsls)、[课堂作业](https://marketplace.visualstudio.com/items?itemName=GitHub.classroom) 和 [在线演讲](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode) 可以很快成为能在浏览器中执行的并建立在 GitHub 存储库之上的场景示例💯 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
