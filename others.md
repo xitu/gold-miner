@@ -1,3 +1,4 @@
+* [常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
 * [你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)（[kamly](https://github.com/kamly) 翻译）
 * [外行人说量子计算机](https://juejin.cn/post/6979953198383497223)（[PingHGao](https://github.com/PingHGao) 翻译）
