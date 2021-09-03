@@ -7214,10 +7214,11 @@
 |[一行 JavaScript 代码竟然让 FT.com 网站慢了十倍](https://juejin.im/post/5b7bb6dfe51d4538bf55aa5f)|校对|1|
 |[使用 Web Beacon API 记录活动](https://juejin.im/post/5b694b5de51d4519700fa56a)|校对|1|
 
-## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：105.5 当前积分：70.5
+## 译者：[YueYongDev](https://github.com/YueYongDev) 历史贡献积分：110.5 当前积分：75.5 二零二一：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JetPack Compose for Desktop 初体验](https://juejin.cn/post/6988811890780536839)|翻译|5|
 |[5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)|翻译|5|
 |[在几秒钟内为你的开发环境创建一个私有 PostgreSQL 数据库](https://juejin.cn/post/6899674625325105159)|翻译|8|
 |[从头开始到最初的 10 个客户：我是如何设计并推出一个 SaaS 产品](https://juejin.im/post/6860850397293232141)|翻译|12|
@@ -8981,10 +8982,13 @@
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|翻译|3|
 |[使用 PyTorch 在 MNIST 数据集上进行逻辑回归](https://juejin.im/post/5cc66d946fb9a032286173a7)|校对|1|
 
-## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：167.5 当前积分：147.5 二零二一：87.5
+## 译者：[Chorer](https://github.com/Chorer) 历史贡献积分：175 当前积分：155 二零二一：95
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 比 React Native 更优秀的五个理由](https://juejin.cn/post/6993502936680628238)|校对|3|
+|[CSS 是魔法, 是时候试试 3D 了](https://juejin.cn/post/6989868623196061727)|校对|2.5|
+|[HTTP 严格传输安全协议常见问题解答](https://juejin.cn/post/6987432172512608287)|校对|2|
 |[HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)|校对|4|
 |[FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)|校对|3|
 |[Chrome 92 DevTools 的新功能](https://juejin.cn/post/6976944954056638495)|校对|2|
@@ -9111,10 +9115,11 @@
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|校对|1.5|
 |[使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)|校对|1.5|
 
-## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：271.5 当前积分：71.5 二零二一：36
+## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：276 当前积分：76 二零二一：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2021 年，jQuery 过得还好吗？](https://juejin.cn/post/6992036720783360037)|翻译|4.5|
 |[让 JavaScript 在 WebAssembly 上疾速运行](https://juejin.cn/post/6981685894470172679)|翻译|11|
 |[用 JavaScript 访问用户设备硬件的新标准](https://juejin.cn/post/6971626604933939231)|翻译|4.5|
 |[Chromium 隐私沙盒让用户隐私更安全](https://juejin.cn/post/6958070229956034591)|翻译|7|
@@ -9377,10 +9382,11 @@
 |[改善 Android Studio 的构建速度](https://juejin.im/post/5d1388b1f265da1b6d403560)|校对|1.5|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|1.5|
 
-## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：115.5 当前积分：20.5 二零二一：10.5
+## 译者：[JalanJiang](https://github.com/JalanJiang) 历史贡献积分：120.5 当前积分：25.5 二零二一：15.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)|校对|5|
 |[目录遍历攻击](https://juejin.cn/post/6964198482202755108)|校对|1.5|
 |[上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)|翻译|6|
 |[Python 定义函数的 5 种参数](https://juejin.cn/post/6927094483200770062)|校对|3|
@@ -9867,10 +9873,11 @@
 |[上手 Python 数据类前需要知道的 6 件事](https://juejin.cn/post/6926815217859559438)|校对|3|
 |[为什么自己动手写代码能让你成为更好的开发者](https://juejin.im/post/5de88ed16fb9a016470c151a)|校对|1.5|
 
-## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：155 当前积分：90 二零二一：63.5
+## 译者：[PingHGao](https://github.com/PingHGao) 历史贡献积分：160 当前积分：95 二零二一：68.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)|校对|5|
 |[Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)|校对|3|
 |[外行人说量子计算机](https://juejin.cn/post/6979953198383497223)|翻译|11|
 |[Jetpack Compose：更简便的 RecyclerView（第一部分）](https://juejin.cn/post/6970858140824764424)|校对|4|
@@ -10324,10 +10331,11 @@
 |[什么是无障碍？为什它对于用户体验很重要？](https://juejin.im/post/5ebf96a5f265da7b9754dd7d)|校对|1|
 |[我是如何用 20 小时学会 Sass 的以及为什么你也应该这么做](https://juejin.im/post/5ede14f6e51d4578885ca8fc)|翻译|3.5|
 
-## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：136 当前积分：24 二零二一：22.5
+## 译者：[nia3y](https://github.com/nia3y) 历史贡献积分：138 当前积分：26 二零二一：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2021 年，jQuery 过得还好吗？](https://juejin.cn/post/6992036720783360037)|校对|2|
 |[HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)|校对|4|
 |[外行人说量子计算机](https://juejin.cn/post/6979953198383497223)|校对|5|
 |[都 2021 年了，你还不知道这 10 个 CSS 功能？](https://juejin.cn/post/6946231151874801695)|校对|2|
@@ -10418,10 +10426,14 @@
 |------|-------|-------|
 |[Swift 5.3 的新功能，你了解吗？](https://juejin.im/post/5f158ae4e51d453460293edc)|校对|2.5|
 
-## 译者：[zenblofe](https://github.com/zenblofe) 历史贡献积分：316 当前积分：316 二零二一：175.5
+## 译者：[zenblofe](https://github.com/zenblofe) 历史贡献积分：332.5 当前积分：332.5 二零二一：192
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 比 React Native 更优秀的五个理由](https://juejin.cn/post/6993502936680628238)|翻译|6.5|
+|[V8 v9.2 发布](https://juejin.cn/post/6989053414441222175)|校对|2|
+|[简述 JavaScript 三个不应使用的功能](https://juejin.cn/post/6987713761444364296)|翻译|6|
+|[HTTP 严格传输安全协议常见问题解答](https://juejin.cn/post/6987432172512608287)|校对|2|
 |[Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)|校对|3|
 |[你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)|校对|1.5|
 |[简述 JavaScript 高阶函数的开发使用](https://juejin.cn/post/6977649537812791303)|翻译|5.5|
@@ -10985,10 +10997,14 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：666.5 当前积分：666.5 二零二一：666.5
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：683.5 当前积分：683.5 二零二一：683.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[JetPack Compose for Desktop 初体验](https://juejin.cn/post/6988811890780536839)|校对|2|
+|[CSS 是魔法, 是时候试试 3D 了](https://juejin.cn/post/6989868623196061727)|校对|2|
+|[缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)|翻译|11|
+|[HTTP 严格传输安全协议常见问题解答](https://juejin.cn/post/6987432172512608287)|校对|2|
 |[HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)|翻译|8|
 |[FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)|校对|3|
 |[用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)|校对|4|
@@ -11292,10 +11308,11 @@
 |[Google 的开源模糊测试工具 OSS-Fuzz 现在支持 Java 应用了](https://juejin.cn/post/6942674729597665310)|校对|1|
 |[在商业智能中使用 MongoDB 的 4 种方式 - 如何在非结构化数据中使用结构化查询分析](https://juejin.cn/post/6947820858677133343)|翻译|6|
 
-## 译者：[greycodee](https://github.com/greycodee) 历史贡献积分：44.5 当前积分：44.5 二零二一：44.5
+## 译者：[greycodee](https://github.com/greycodee) 历史贡献积分：46 当前积分：46 二零二一：46
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)|校对|1.5|
 |5 月推荐后端文章 1 篇|奖励|1|
 |[使用 Spring Cloud Gateway 作为微服务网关](https://juejin.cn/post/6973911203097608200)|翻译|5|
 |[什么是 SQL 注入攻击？如何阻止它](https://juejin.cn/post/6960849763688251406)|校对|1.5|
@@ -11394,10 +11411,11 @@
 |[谷歌 DeepMind 发布 NFNet：高效的深度网络](https://juejin.cn/post/6947586233522454558)|校对|1.5|
 |[让机器学习更加公正](https://juejin.cn/post/6941964171974017031)|校对|2|
 
-## 译者：[kamly](https://github.com/kamly) 历史贡献积分：30 当前积分：30 二零二一：30
+## 译者：[kamly](https://github.com/kamly) 历史贡献积分：35 当前积分：35 二零二一：35
 
 |文章|类型|积分|
 |------|-------|-------|
+|[缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)|校对|5|
 |[什么是服务端请求伪造（SSRF）？](https://juejin.cn/post/6985086955247632398)|校对|2|
 |[你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)|翻译|3.5|
 |[Node.js 与 Python：为你的项目选择哪一个？](https://juejin.cn/post/6965821795261743112)|翻译|5|
@@ -11457,10 +11475,12 @@
 |[Apple WWDC 21 回归，6 月 7 日线上不见不散！](https://juejin.cn/post/6945531482551091237)|校对|1|
 |[“高级”黑客使用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户](https://juejin.cn/post/6945702690047557669)|校对|1|
 
-## 译者：[KimYangOfCat](https://github.com/KimYangOfCat) 历史贡献积分：53.5 当前积分：53.5 二零二一：53.5
+## 译者：[KimYangOfCat](https://github.com/KimYangOfCat) 历史贡献积分：60 当前积分：60 二零二一：60
 
 |文章|类型|积分|
 |------|-------|-------|
+|[我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)|校对|1.5|
+|[常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)|校对|5|
 |[如何打造可被摇树优化的库](https://juejin.cn/post/6977334810536575013)|校对|9|
 |[纯 CSS 创建五彩斑斓的智慧阴影！让前景图片自动转化为对应彩色的背景阴影](https://juejin.cn/post/6975818153376874503)|校对|1.5|
 |[你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)|校对|1.5|
@@ -11497,10 +11517,11 @@
 |------|-------|-------|
 |[Chromium 隐私沙盒让用户隐私更安全](https://juejin.cn/post/6958070229956034591)|校对|3|
 
-## 译者：[Tong-H](https://github.com/Tong-H) 历史贡献积分：29.5 当前积分：29.5 二零二一：29.5
+## 译者：[Tong-H](https://github.com/Tong-H) 历史贡献积分：34.5 当前积分：34.5 二零二一：34.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[CSS 是魔法, 是时候试试 3D 了](https://juejin.cn/post/6989868623196061727)|翻译|5|
 |[用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)|翻译|8|
 |[面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)|翻译|8|
 |[一个编译成 JavaScript 接口框架的案例](https://juejin.cn/post/6974632431290679303)|翻译|5.5|
@@ -11549,20 +11570,24 @@
 |------|-------|-------|
 |[使用 Spring Cloud Gateway 作为微服务网关](https://juejin.cn/post/6973911203097608200)|校对|2|
 
-## 译者：[finalwhy](https://github.com/finalwhy) 历史贡献积分：20 当前积分：20 二零二一：20
+## 译者：[finalwhy](https://github.com/finalwhy) 历史贡献积分：27 当前积分：27 二零二一：27
 
 |文章|类型|积分|
 |------|-------|-------|
+|[V8 v9.2 发布](https://juejin.cn/post/6989053414441222175)|翻译|4|
+|[简述 JavaScript 三个不应使用的功能](https://juejin.cn/post/6987713761444364296)|校对|3|
 |[FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)|翻译|7|
 |[用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)|校对|4|
 |[我喜欢的微服务间通信模式](https://juejin.cn/post/6984400194615902238)|校对|5|
 |[使用 Husky 和 Hooks 保证 JavaScript 代码质量](https://juejin.cn/post/6983443137041530887)|校对|2|
 |[Chrome 92 DevTools 的新功能](https://juejin.cn/post/6976944954056638495)|校对|2|
 
-## 译者：[zaviertang](https://github.com/zaviertang) 历史贡献积分：4 当前积分：4 二零二一：4
+## 译者：[zaviertang](https://github.com/zaviertang) 历史贡献积分：9 当前积分：9 二零二一：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[Flutter 比 React Native 更优秀的五个理由](https://juejin.cn/post/6993502936680628238)|校对|3|
+|[2021 年，jQuery 过得还好吗？](https://juejin.cn/post/6992036720783360037)|校对|2|
 |[React 18 中新的 Suspense SSR 架构](https://juejin.cn/post/6982010092258328583)|校对|4|
 
 ## 译者：[liyaxuanliyaxuan](https://github.com/liyaxuanliyaxuan) 历史贡献积分：6 当前积分：6 二零二一：6
@@ -11572,10 +11597,12 @@
 |[Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)|校对|2|
 |[面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)|校对|4|
 
-## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：16.5 当前积分：16.5 二零二一：16.5
+## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：24.5 当前积分：24.5 二零二一：24.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[简述 JavaScript 三个不应使用的功能](https://juejin.cn/post/6987713761444364296)|校对|3|
+|[HTTP 严格传输安全协议常见问题解答](https://juejin.cn/post/6987432172512608287)|翻译|5|
 |[HEX vs RGB vs HSL：设置 CSS 颜色属性的最佳方法是什么](https://juejin.cn/post/6984720412160557063)|校对|4|
 |[我喜欢的微服务间通信模式](https://juejin.cn/post/6984400194615902238)|校对|5|
 |[对角线分割的圆锥渐变式可变纵横比卡片](https://juejin.cn/post/6986531351184801829)|校对|2|
@@ -11587,3 +11614,10 @@
 |文章|类型|积分|
 |------|-------|-------|
 |6 月推荐前端文章 1 篇|奖励|1|
+
+## 译者：[jaredliw](https://github.com/jaredliw) 历史贡献积分：13 当前积分：13 二零二一：13
+
+|文章|类型|积分|
+|------|-------|-------|
+|[我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)|翻译|3|
+|[常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)|翻译|10|
