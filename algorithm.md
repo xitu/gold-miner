@@ -1,3 +1,4 @@
+* [我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [Numpy 在 GPU/TPU 上的性能](https://juejin.cn/post/6957526953502982181)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [揭开图着色算法的神秘面纱](https://juejin.cn/post/6924668410416791566)（[zenblo](https://github.com/zenblo) 翻译）
 * [用 JavaScript 实现堆](https://juejin.cn/post/6893475005834330126)（[HurryOwen](https://github.com/HurryOwen) 翻译）
