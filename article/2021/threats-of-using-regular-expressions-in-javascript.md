@@ -7,22 +7,18 @@
 
 # Threats of Using Regular Expressions in JavaScript
 
-#### How to Avoid Catastrophic Backtracking and ReDos Attacks
-
 ![](https://cdn-images-1.medium.com/max/5760/1*5MYzlcICu2hhNjrtRCjb3A.jpeg)
 
 Regular expressions or regex are widely used in web development for pattern matching and validation purposes. However, using them in practice comes with several security and performance risks that could open doors for attackers.
 
 So, in this article, I will discuss two fundamental issues you need to be aware of before using regular expressions in JavaScript.
 
----
-
 ## Catastrophic Backtracking
 
 There are two regular expression algorithms out there,
 
 * **Deterministic Finite Automaton (DFA)** — Checks a character in a string only once.
-* **Nondeterministic Finite Automaton (NFA) —** Checks a character multiple times until the best match is found.
+* **Nondeterministic Finite Automaton (NFA)** - Checks a character multiple times until the best match is found.
 
 JavaScript uses the NFA approach in its regex engine, and this NFA behavior causes catastrophic backtracking.
 
@@ -34,9 +30,9 @@ To get a better understanding, let’s consider the following regex.
 
 This regex seems simple. But don’t underestimate, it can cost you a lot 😯. So first, let’s understand the meaning behind this regex.
 
-* **(g|i+) —** This is a group that checks if a given string starts with '**g'** or one or more occurrences of '**i'**.
-* The next '**+'** will check for one or more appearances of the previous group.
-* The string should end with the letter '**t.'**
+* **(g|i+)** -- This is a group that checks if a given string starts with 'g' or one or more occurrences of 'i'.
+* The next '+' will check for one or more appearances of the previous group.
+* The string should end with the letter 't.'
 
 The following texts will evaluate as valid under the above regex.
 
@@ -88,23 +84,23 @@ In this example, the date format has 40 characters with 31 additional spaces. Du
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YUOV_B0E8SHaL_6ys3cDhQ.png)
 
-The reason for this issue was the overuse of the '+' operator inside the regex /D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/ that caused this vulnerability. Luckily the issue was fixed on later versions after it was raised by [Snyk](https://snyk.io/) (a vulnerability tracking tool).
+The reason for this issue was the overuse of the '+' operator inside the regex `/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/` that caused this vulnerability. Luckily the issue was fixed on later versions after it was raised by [Snyk](https://snyk.io/) (a vulnerability tracking tool).
 
 ## How to Avoid Regex Vulnerabilities
 
-#### 1. Writing simple regex
+### 1. Writing simple regex
 
-Catastrophic backtracking occurs inside regexes that have at least three characters with two or more occurrences of the *, +, } characters close to each other.
+Catastrophic backtracking occurs inside regexes that have at least three characters with two or more occurrences of the \*, +, } characters close to each other.
 
 So, if you can simplify your regex and avoid the above pattern, you can avoid catastrophic backtracking as well.
 
-#### 2. Use validation libraries
+### 2. Use validation libraries
 
 For the most commonly used validation tasks, we can use third-party libraries like [validator.js](https://www.npmjs.com/package/validator) or [express-validator](https://www.npmjs.com/package/express-validator).
 
 We can depend on them as a large community backs them.
 
-#### 3. Use regex analyzers
+### 3. Use regex analyzers
 
 You can craft your own regex without any vulnerabilities using tools like [safe-regex](https://www.npmjs.com/package/safe-regex) and [rxxr2](https://www.cs.bham.ac.uk/~hxt/research/rxxr2/). They will check your regex for vulnerabilities and return its validity.
 
@@ -115,7 +111,7 @@ var regex = /(g|i+)+t/;
 console.log(safe(regex)); //false
 ```
 
-#### 4. Avoid using Node’s default regex engine
+### 4. Avoid using Node’s default regex engine
 
 Since Node’s default regex engine is vulnerable to ReDos attacks, we can avoid using it and switch to alternatives like google’s [re2](https://www.npmjs.com/package/re2) engine. It ensures that regexes are safe against ReDos attacks, and usage is almost similar to the default Node regex engine.
 
