@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/replace-null-with-es6-symbols.md](https://github.com/xitu/gold-miner/blob/master/article/2021/replace-null-with-es6-symbols.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[jaredliw](https://github.com/jaredliw)
 
 # 如何使用 ES6 新增 Symbols 代替 null
 
@@ -34,7 +34,7 @@
 
 `Option` 类型有两种可能性：要么没有值（`None` 或 `Nothing`），要么有一个值（`Some` 或 `Just`）。
 
-在 `JavaScript` 或 `TypeScript` 中，这意味着引入一个新的结构来包装这个值。最常见的是一个带有属性 `tag` （标签）的对象，定义了它是什么可能性。
+在 `JavaScript` 或 `TypeScript` 中，这意味着引入一个新的结构来包装这个值。最常见的是一个带有属性 `tag`（标签）的对象，定义了它可能是什么。
 
 这就是你如何在 `TypeScript` 中快速实现 `Option` 方法：
 
@@ -42,9 +42,9 @@
 type Option<T> = { tag: 'none' } | { tag: 'some', value: T }
 ```
 
-通常情况下，你会使用一个定义了类型的库，并在旁边提供了一堆有用的工具。[这里有一个关于我最喜欢的 `fp-ts` 库中的 `Option` 介绍](https://dev.to/ryanleecode/practical-guide-to-fp-ts-option-map-flatten-chain-6d5)。
+通常情况下，你会使用一个定义了类型的库，再附带使用一堆有用的工具。[这里有一个关于我最喜欢的 `fp-ts` 库中的 `Option` 介绍](https://dev.to/ryanleecode/practical-guide-to-fp-ts-option-map-flatten-chain-6d5)。
 
-[我正在建立的这个库](https://github.com/robinpokorny/promise-throttle-all)很小，没有任何依赖性，而且没有必要使用任何 `Option` 工具。因此，引入一个 `Option` 库将是多余的。
+[我正在建立的这个库](https://github.com/robinpokorny/promise-throttle-all)很小，没有任何依赖，而且没有必要使用任何 `Option` 工具。因此，引入一个 `Option` 库将是多余的。
 
 有一段时间，我在考虑对 `Option` 进行内联，也就是从头开始编码。对于我的用例来说，这只是几行而已。不过，这将使库的逻辑变得有点复杂。
 
@@ -60,9 +60,9 @@ type Option<T> = { tag: 'none' } | { tag: 'some', value: T }
 
 当然，我们可以使用一个空对象。在 `JavaScript` 中，每个对象都是一个新的实例，不等于任何其他对象。
 
-但是，在 `ES6` 中，我们得到了一个新的基元：`Symbol`。（阅读一些[关于 `Symbols` 的介绍](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）
+但是，在 `ES6` 中，我们得到了一个新的基元：`Symbol`。（这里有一些[关于 `Symbols` 的介绍](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)）
 
-我所做的是使用 `Symbol` 表示一个新的常数，代表一个缺失的值。
+我所做的是使用 `Symbol` 表示一个新的常量，代表一个缺失的值。
 
 ```TypeScript
 const None = Symbol(`None`)
@@ -72,7 +72,7 @@ const None = Symbol(`None`)
 
 * 它是一个简单的值，不需要封装
 * 其他的都被当作数据来处理
-* 这是一个私人的 `None`，不能在别处重新创建
+* 这是一个私有的 `None`，不能在别处重新创建
 * 它在我们的代码之外没有任何意义
 * 标签使调试变得更容易
 
@@ -100,9 +100,9 @@ const map = <T, S>(
 
 `Symbols` 也有一些缺点。
 
-首先，开发环境必须[支持 ES6 的 Symbols](https://caniuse.com/mdn-javascript_builtins_symbol)。这意味着 `Node.js` 版本不低于 `0.12`（不要与 `v12` 混淆）。
+首先，开发环境必须[支持 ES6 的 Symbols](https://caniuse.com/mdn-javascript_builtins_symbol)。在我看来这很罕见，这意味着 `Node.js` 版本不低于 `0.12`（不要与 `v12` 混淆）。
 
-第二，存在着（去）序列化的问题。有趣的是，`Symbols` 的行为和 `undefined` 完全一样。
+第二，存在着序列化或反序列化的问题。有趣的是，`Symbols` 的行为和 `undefined` 完全一样。
 
 ```TypeScript
 JSON.stringify({ x: Symbol(), y: undefined })
@@ -114,7 +114,7 @@ JSON.stringify([Symbol(), undefined])
 
 所以，关于这个实例的信息当然会丢失。然而，由于它的行为类似于原生的缺失值：`undefined`，使得它很适合代表一个自定义的缺失值。
 
-相比之下，`Option` 是基于结构而非实例的。任何属性标签设置为无的对象都被认为是无，这使得序列化和反序列化变得更加容易。
+相比之下，`Option` 是基于结构而非实例的。任何 `tag` 属性设置为 `none` 的对象都被认为是无，这使得序列化和反序列化变得更加容易。
 
 ## 本文总结
 
@@ -122,13 +122,13 @@ JSON.stringify([Symbol(), undefined])
 
 也许，如果这个自定义符号应该在模块或库外泄漏，我会避免它。
 
-我特别喜欢通过变量名和符号标签，我可以传达缺失值的领域含义。在我的项目库中，它代表着 `promise` 没有被解决。
+我特别喜欢用变量名和符号标签，我可以传达缺失值的领域含义。在我的项目库中，它代表着 `promise` 没有被解决。
 
 ```TypeScript
 const notSettled = Symbol(`not-settled`)
 ```
 
-有可能出现不同领域含义的多个缺失值。
+代码中有可能出现不同领域含义的多个缺失值。
 
 让我知道你对这种用法的看法：它是 `null` 的一个很好的替代吗？每个人都应该总是使用一个 `Option` 吗？
 
