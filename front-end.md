@@ -1,3 +1,8 @@
+* [2021 年，jQuery 过得还好吗？](https://juejin.cn/post/6992036720783360037)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [CSS 是魔法, 是时候试试 3D 了](https://juejin.cn/post/6989868623196061727)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [V8 v9.2 发布](https://juejin.cn/post/6989053414441222175)（[finalwhy](https://github.com/finalwhy) 翻译）
+* [简述 JavaScript 三个不应使用的功能](https://juejin.cn/post/6987713761444364296)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [HTTP 严格传输安全协议常见问题解答](https://juejin.cn/post/6987432172512608287)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
 * [对角线分割的圆锥渐变式可变纵横比卡片](https://juejin.cn/post/6986531351184801829)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [用于 JavaScript 应用的前 5 大嵌入式数据库](https://juejin.cn/post/6984313230214578213)（[Tong-H](https://github.com/Tong-H) 翻译）
