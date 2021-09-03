@@ -1,3 +1,5 @@
+* [我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [我喜欢的微服务间通信模式](https://juejin.cn/post/6984400194615902238)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [什么是服务端请求伪造（SSRF）？](https://juejin.cn/post/6985086955247632398)（[MoonBall](https://github.com/MoonBall) 翻译）
