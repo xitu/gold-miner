@@ -2,39 +2,39 @@
 > * 原文作者：[Dulanka Karunasena](https://medium.com/@dulanka)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# Threats of Using Regular Expressions in JavaScript
+# 在 JavaScript 中使用正则表达式的隐患
 
 ![](https://cdn-images-1.medium.com/max/5760/1*5MYzlcICu2hhNjrtRCjb3A.jpeg)
 
-Regular expressions or regex are widely used in web development for pattern matching and validation purposes. However, using them in practice comes with several security and performance risks that could open doors for attackers.
+正则表达式（RegEx）被广泛地运用于 Web 开发中，用作样式匹配及验证目的。然而，在实践中使用它们会带来一些安全和性能上的风险，并向攻击者敞开大门。
 
-So, in this article, I will discuss two fundamental issues you need to be aware of before using regular expressions in JavaScript.
+因此，在这篇文章中，我将讨论使用正则表达式前所需注意的两个基本问题。
 
-## Catastrophic Backtracking
+## 灾难性回溯
 
-There are two regular expression algorithms out there,
+正则表达式的算法有两种：
 
-* **Deterministic Finite Automaton (DFA)** — Checks a character in a string only once.
-* **Nondeterministic Finite Automaton (NFA)** - Checks a character multiple times until the best match is found.
+* **确定有限状态自动机 （DFA）** —— 对于给定字符串，每个字符只检查一次。
+* **非确定有限状态自动机（NFA）** —— 多次检查同一个字符，直到找到最佳匹配。
 
-JavaScript uses the NFA approach in its regex engine, and this NFA behavior causes catastrophic backtracking.
+JavaScript 的 RegEx 引擎使用的是 NFA 算法，这会导致灾难性回溯。
 
-To get a better understanding, let’s consider the following regex.
+为了更好地理解这个问题，让我们考虑以下的 RegEx：
 
-```
+```js
 /(g|i+)+t/
 ```
 
-This regex seems simple. But don’t underestimate, it can cost you a lot 😯. So first, let’s understand the meaning behind this regex.
+这个 RegEx 看起来很简单。但是，请别低估它，它能让你付出代价😯。首先，让我们了解这个 RegEx 背后的含义：
 
-* **(g|i+)** -- This is a group that checks if a given string starts with 'g' or one or more occurrences of 'i'.
-* The next '+' will check for one or more appearances of the previous group.
-* The string should end with the letter 't.'
+* **`(g|i+)`** —— 这个组检查给定字符串是否由 `g` 或至少一个 `i` 开头。
+* 接下来的 `+` 将匹配前面的组一次或多次。
+* 字符串应由字母 `t` 结尾。
 
-The following texts will evaluate as valid under the above regex.
+根据上方的 RegEx，以下的文本被判定为匹配：
 
 ```
 git
@@ -44,35 +44,35 @@ gigiggt
 igggt
 ```
 
-Now let’s check the time taken to execute the above regex on a valid string. I will use the `console.time()` method.
+现在，让我们以一个匹配的字符串作为输入，测试上方的 RegEx。我将使用 `console.time()` 方法：
 
-![Valid text](https://cdn-images-1.medium.com/max/2000/1*f6jb5c3Y3nsF6W1SsZucRw.png)
+![匹配的文本](https://cdn-images-1.medium.com/max/2000/1*f6jb5c3Y3nsF6W1SsZucRw.png)
 
-Here we can see that the execution is pretty fast, even though the string is a bit long.
+我们可以看到执行速度非常快，即使字符串有点长。
 
-> But you will be surprised when you see the time taken to validate an invalid text.
+> 但是，当你看到验证不匹配的文本所花费的时间时，你会感到惊讶。
 
-In the below example, the string ends with a **‘v’** which is invalid according to the regex. Therefore, It took around 429 milliseconds, approximately 400 times slower than the execution time taken to check a valid string.
+在下方的示例中，字符串以 `v` 结尾，因此与 RegEx 不匹配。然而，它花了大约 429 毫秒，差不多是验证匹配字符串的运行时间的 400 倍。
 
-![Invalid text](https://cdn-images-1.medium.com/max/2000/1*zKduT1538LwOWj0x5g9Y7g.png)
+![不匹配的文本](https://cdn-images-1.medium.com/max/2000/1*zKduT1538LwOWj0x5g9Y7g.png)
 
-> The main reason for this performance difference is the NFA algorithm used by JavaScript.
+> 这个性能上的差异来源于 JavaScript 所使用的 NFA 算法。
 
-JavaScript Regex engine validates a sequence of characters on its first successful validation attempt and continues. If it fails at any particular position, it will backtrack to a previous position and find an alternative path.
+在第一次验证成功后，JavaScript 的 RegEx 引擎仍会尝试继续。当它在特定位置失败时，它将回溯到上一个位置并寻找替代路径。
 
-When backtracking becomes too complex, the algorithm will consume more computational power, resulting in **catastrophic backtracking**.
+当回溯变得太复杂时，算法就会消耗更多计算能力，造成**灾难性回溯**。
 
-> **Note:** To understand the complexity of backtracking, you can visit [regex101.com](https://regex101.com/) and test your regex. regex101.com indicates that ten steps are needed to validate `giiiit` using the above-discussed regex, while it took 189 steps to validate `giiiiv`.
+> **备注**：欲了解回溯的复杂度，你可以访问 [regex101.com](https://regex101.com/) 并测试你的 RegEx。[regex101.com](https://regex101.com/) 显示使用上述 RegEx 验证 `giiiit` 只需要 10 个步骤，而验证 `giiiiv` 则需要 189 个步骤。
 
 ---
 
-## ReDos on a NodeJS Environment
+## Node.js 环境上的 ReDoS 攻击
 
-> ReDos attackers use catastrophic backtracking to exploit NodeJS servers.
+> 攻击者能利用灾难性回溯看来攻击 Node.js 服务器。
 
-Since JavaScript is single-threaded, ReDos attacks can exhaust the event loop causing the server to hang until the request is completed.
+由于 JavaScript 是单线程的，ReDoS 攻击能耗尽事件循环，造成服务器无响应，直到请求完成为止。
 
-I will use the Moment.js library to demonstrate this since there is a well-known ReDos vulnerability in Moment.js versions below 2.15.2.
+我将使用 Moment.js 库来演示这一点，因为在低于 2.15.2 的 Moment.js 的版本中存在一个著名的 ReDoS 漏洞。
 
 ```js
 var moment = require('moment');
@@ -80,60 +80,60 @@ moment.locale("be");
 moment().format("D                               MMN MMMM");
 ```
 
-In this example, the date format has 40 characters with 31 additional spaces. Due to catastrophic backtracking, additional space will double the execution time and it took more than 4 minutes to run in my local environment.
+在这个示例中，日期格式有 40 个字符，其中包括 31 个附加空格。由于灾难性回溯，这些空格将使运行时间增加一倍。在我的本地环境中，它耗时超过 4 分钟。
 
-![](https://cdn-images-1.medium.com/max/2000/1*YUOV_B0E8SHaL_6ys3cDhQ.png)
+![运行结果](https://cdn-images-1.medium.com/max/2000/1*YUOV_B0E8SHaL_6ys3cDhQ.png)
 
-The reason for this issue was the overuse of the '+' operator inside the regex `/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/` that caused this vulnerability. Luckily the issue was fixed on later versions after it was raised by [Snyk](https://snyk.io/) (a vulnerability tracking tool).
+`/D[oD]?(\[[^\[\]]*\]|\s+)+MMMM?/` 中 `+` 运算符的过度使用造成了这个漏洞。幸运的是，该问题由 [Snyk](https://snyk.io/)（一个漏洞追踪工具）提出后便在更高的版本中得到了修复。
 
-## How to Avoid Regex Vulnerabilities
+## 如何规避 RegEx 的漏洞
 
-### 1. Writing simple regex
+### 1. 编写简单的 RegEx
 
-Catastrophic backtracking occurs inside regexes that have at least three characters with two or more occurrences of the \*, +, } characters close to each other.
+当 RegEx 中包含至少 3 个字符，且包含至少两个彼此接近的 `*`、`+` 和 `}` 时，灾难性回溯会发生。
 
-So, if you can simplify your regex and avoid the above pattern, you can avoid catastrophic backtracking as well.
+所以，如果你能简化你的 RegEx 并避免使用以上的样式，那么你便能避免灾难性回溯。
 
-### 2. Use validation libraries
+### 2. 使用验证库
 
-For the most commonly used validation tasks, we can use third-party libraries like [validator.js](https://www.npmjs.com/package/validator) or [express-validator](https://www.npmjs.com/package/express-validator).
+对于常用的验证任务，我们可以使用第三方库，例如 [validator.js](https://www.npmjs.com/package/validator) 或 [express-validator](https://www.npmjs.com/package/express-validator)。
 
-We can depend on them as a large community backs them.
+我们可以依赖这些库，因为它们的背后有一个大型社区的支持。
 
-### 3. Use regex analyzers
+### 3. 使用 RegEx 分析器
 
-You can craft your own regex without any vulnerabilities using tools like [safe-regex](https://www.npmjs.com/package/safe-regex) and [rxxr2](https://www.cs.bham.ac.uk/~hxt/research/rxxr2/). They will check your regex for vulnerabilities and return its validity.
+你能通过使用 [safe-regex](https://www.npmjs.com/package/safe-regex)、[rxxr2](https://www.cs.bham.ac.uk/~hxt/research/rxxr2/) 等工具来编写无漏洞的 RegEx。它们将检查你的 RegEx 是否存在漏洞并返回其合法性。
 
 ```js
 var safe = require('safe-regex');
 
 var regex = /(g|i+)+t/;
-console.log(safe(regex)); //false
+console.log(safe(regex)); // false
 ```
 
-### 4. Avoid using Node’s default regex engine
+### 4. 避免使用 Node.js 默认的 RegEx 引擎
 
-Since Node’s default regex engine is vulnerable to ReDos attacks, we can avoid using it and switch to alternatives like google’s [re2](https://www.npmjs.com/package/re2) engine. It ensures that regexes are safe against ReDos attacks, and usage is almost similar to the default Node regex engine.
+由于 Node.js 默认的 RegEx 引擎容易受到 ReDoS 攻击，我们可以避免使用它，并以其他引擎作为替代，例如：Google 的 [re2](https://www.npmjs.com/package/re2) 引擎。它确保 RegEx 可以安全地抵御 ReDoS 攻击，用法也与 Node.js 默认的 RegEx 引擎相似。
 
 ```js
 var RE2 = require('re2');
 
 var re = new RE2(/(g|i+)+t/);
 var result = 'giiiiiiiiiiiiiiiiiiit'.search(re);
-console.log(result); //false
+console.log(result); // false
 ```
 
-This will evaluate to `false` because the regular expression is vulnerable to catastrophic backtracking.
+这将被判定为 `false`，因为这个正则表达式容易受到灾难性回溯的影响。
 
-## Key Takeaways
+## 主要收获
 
-Catastrophic backtracking is the most common issue in regular expressions. It not only affects application performance but also opens the door to ReDos attackers to exploit NodeJs servers.
+灾难性回溯是正则表达式中最常见的问题。它不仅影响应用程序的性能，也向 ReDoS 攻击者敞开大门，导致 Node.js 服务器被攻击。
 
-In this article, we discussed how catastrophic backtracking and ReDos attacks work and how we can avoid those vulnerabilities.
+在这篇文章中，我们讨论了灾难性回溯和 ReDoS 的原理，以及规避这些问题的方法。
 
-I hope this article will help you protect your application against such attacks, and don’t forget to share your thoughts in the comments section.
+我希望这篇文章能帮助你保护你的应用程序免受此类攻击。别忘了在留言区分享你的看法。
 
-Thank you for Reading !!!
+感谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
