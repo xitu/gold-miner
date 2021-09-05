@@ -2,28 +2,28 @@
 > * 原文作者：[Piumi Liyana Gunawardhana](https://medium.com/@piumi-16)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/4-security-concerns-with-iframes-every-web-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/4-security-concerns-with-iframes-every-web-developer-should-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
-# 4 Security Concerns with iframes Every Web Developer Should Know
+# 每个 Web 开发人员都应该知道的 4 个 iframe 安全问题
 
 ![](https://cdn-images-1.medium.com/max/5760/1*2cHSuIdPoIsV-vgCfVp19A.jpeg)
 
-The iframe is one of the oldest and simple content embedding techniques used in web development, even used today. But, using them in practice comes with several security risks that could open doors for attackers.
+iframe 是 Web 开发中最古老、最简单的内容嵌入技术之一，时至今日仍被使用。然而，在实践中使用 iframe 可能会带来一些安全隐患，向攻击者敞开大门。
 
 ---
 
-So, in this article, I will discuss 5 security threats you need to be aware of before using iframes.
+因此，在这篇文章中，我将讨论使用 iframe 前需要注意的 4 个安全风险问题。
 
-## 1. iframe Injection
+## 1. iframe 注入
 
-> iframe injection is a very common cross-site scripting attack.
+> iframe 注入是一个非常常见的跨站脚本攻击（XSS）。
 
-iframes use multiple tags to display HTML documents on web pages and redirect users to different web addresses. This behavior allows 3rd parties to inject malicious executables, viruses, or worms into your application and execute them in user’s devices.
+iframe 使用多个标签在网页上展示 HTML 文档并将用户重定向到其他的网站。此行为允许第三方将恶意的可执行程序、病毒或蠕虫植入你的 web 程序中，并在用户的设备上运行。
 
-We can find the iframe injections by scanning the HTML that your web server sends. All you need to do is open a page in your browser and then enable the “view source” feature to see the HTML. Since these iframes typically point to raw IP addresses, look for the `\<iframe>` tags rather than domain names.
+我们可以通过扫描 Web 服务器发送的 HTML 来找出 iframe 的注入位置。你需要做的只是在你的浏览器中打开一个页面，然后启用 `view source` 功能来查看 HTML。由于这些 iframe 通常指向原生 IP 地址，因此你应该搜索  `<iframe>` 标签，而不是域名。
 
-For example, let’s take the below code:
+举例来说，让我们看看以下的代码：
 
 ```
 ++++%23wp+/+GPL%0A%3CScript+Language%3D%27Javascript%27%3E%0A++++%3C%21–%0A++++document.write%28unescape%28%273c696672616d65207372633d27687474703a2f2f696e666
@@ -32,7 +32,7 @@ f736563696e737469747574652e636f6d2f272077696474683d273127206865696768743d2731272
 ++++//–%3E%0A++++%3C/Script%3E
 ```
 
-It appears to be a common and relevant code for this site. However, it is the source of the issue. If you decode it using the JavaScript decoding function, the output will look like this:
+它看起来很正常，似乎是和这个站点相关的代码。实际上，它就是问题的根源。如果你用 JavaScript 函数对其进行解码，输出结果会是这样的：
 
 ```
 #wp / GPL
@@ -45,7 +45,7 @@ document.write(unescape(‘3c696672616d65207372633d27687474703a2f2f696e666f73656
 </Script>
 ```
 
-Again, it appears to be legit because the attacker has used the terms “GPL” “wp” and the language type as “Javascript”. However, the digits and letters appear to be HEX. So next, we can use a hex decoder to decrypt it, and the final output will look like below.
+同样，这看起来也是合法的，因为攻击者使用了 `GPL` 和 `wp` 并将语言设为 `JavaScript`。这些数字和字母似乎是十六进制的，所以接下来我们可以使用十六进制解码器来将其解码，最终结果如下：
 
 ```html
 <iframe src='https://www.infosecinstitute.com/' width='1' height='1' style='visibility: hidden;'></iframe>
@@ -53,42 +53,42 @@ Again, it appears to be legit because the attacker has used the terms “GPL” 
 
 ---
 
-So, suppose you find an iframe in your HTML and realize that it’s something not put by you. In that case, it’s important to investigate it and eliminate it from the website or database as soon as possible.
+因此，当你在 HTML 中找到一个 iframe，并发现它不是你放置的，你应该尽快调查原因并从网站或数据库中移除它。
 
-## 2. Cross-Frame Scripting
+## 2. 跨框架脚本攻击
 
-> Cross-Frame Scripting (XFS) combines iframes with malicious JavaScript to steal data from users.
+> 跨框架脚本攻击（XFS）结合 iframe 和 JavaScript 恶意脚本，用于窃取用户的资料。
 
-XFS attackers persuade a user to visit a web page regulated by the attacker and loads an iframe combined with malicious JavaScript referring to a legitimate site. The malicious JavaScript code keeps track of the user’s keystrokes after inserting credentials into the legitimate site within the iframe.
+XFS 攻击者说服用户访问由他所控制的网页，并通过 iframe 引用一个结合了恶意脚本的合法站点。当用户在向 iframe 中的合法网站输入凭据时，JavaScript 恶意脚本将记录他们的输入。
 
 ---
 
-XFS attacks can be prevented by including **Content-Security-Policy: frame-ancestors** and **`X-Frame-Options`** headers in web server configuration.
+通过在 Web 服务器配置中设置 **`Content-Security-Policy: frame-ancestors`** 和 **`X-Frame-Options`** 能防止此攻击。
 
-## 3. Clickjacking
+## 3. 点击劫持
 
-A clickjacking attack is when a user is tricked into clicking a hidden webpage element. As a result, users may unintentionally download malware, access malicious web pages, offer passwords or sensitive data, transfer funds, or make online purchases due to this.
+点击劫持攻击能诱骗用户点击隐藏的网页元素。由此一来，用户可能会因此在无意中下载恶意程序，浏览恶意网站，提供密码或敏感信息、转账或进行网络购物。
 
-> Attackers typically perform clickjacking by placing an invisible page or HTML element inside an iframe on top of the user’s page.
+> 攻击者通常会通过 iframe 在网站上覆盖一个不可见的 HTML 元素来执行点击劫持。
 
-Users think that they click on the visible page, but they’re clicking on a hidden element on the additional page overlaid on top of it.
+用户以为他点击了显示的那个页面，然而，他所点击的是覆盖在其之上的隐藏元素。
 
-![Author’s Work](https://cdn-images-1.medium.com/max/2390/1*OxkBOt9qymWtNpds8CZy7g.png)
+![攻击流程](https://cdn-images-1.medium.com/max/2390/1*OxkBOt9qymWtNpds8CZy7g.png)
 
-There are two main strategies to protect yourself from clickjacking:
+有两种主要策略可以保护自己免受点击劫持：
 
-* Client-side methods include Frame Busting, which is the most prevalent. But Client-side methods are not the best solution because they are simply disregarded.
-* X-Frame-Options is the most popular server-side method. Security experts strongly suggest server-side methods as a good way to prevent clickjacking.
+* 客户端中最流行的方法是 Frame Busting，但这并不是最好的解决方法，因为 iframe 只是被忽略了而已。
+* 服务端中的最好办法是使用 `X-Frame-Options`。安全专家强烈地建议从服务端解决点击劫持的问题。
 
-## 4. Iframe Phishing
+## 4. iframe 网络钓鱼
 
-If we consider the social networking platforms, they allow users and developers to incorporate third-party web pages into their fan pages and other apps using iframes.
+试考虑一个社交平台，它允许用户和开发人员使用 iframe 将第三方网页合并到他们的粉丝页面或其他的应用程序中。
 
-> Attackers often exploit this feature by using these incorporated iframes for phishing attacks.
+> 攻击者经常滥用这个功能来将 iframe 用于网络钓鱼攻击。
 
-By default, content from an iframe can trigger top-level navigation. So, an attacker might leverage cross-site scripting (XSS) vulnerability on a web application to insert phishing code as an iframe to lead the user into a phishing website.
+在预设情况下，iframe 中的内容能重定向顶级窗口。因此，攻击者可能会利用跨站脚本（XSS）漏洞来将网络钓鱼的代码当作 iframe 植入到 Web 应用程序中，引导用户进入钓鱼网站。
 
-Let’s consider the below code for an example:
+作为示例，试思考以下代码：
 
 ```html
 <html>
@@ -102,25 +102,25 @@ Let’s consider the below code for an example:
 </html>
 ```
 
-In the above code, there is a phishing site embedded using an iframe. The user will be redirected there, and if the user is not attentive to the address bar, the attacker will easily obtain the user’s credentials.
+上方的代码中包含一个 iframe 嵌入的网络钓鱼站点。用户会被重定向到那里，如果用户没注意网址栏，攻击者将能轻松地获取用户凭据。
 
-> iframe phishing attackers can’t mimic the URL bar, but they can cause a redirect and then manipulate all of the content that users perceive after that.
-
----
-
-This problem can be avoided by replacing `allow-top-navigation` from the `sandbox` attribute value.
-
-## Final Thoughts
-
-iframes are a great option to keep your users more engaged. But, when you use an iframe, you’re handling content from a third-party source that you have no control over. As a result, iframes often pose security threats to the applications.
-
-However, we can’t stop using iframe due to security threats. We need to be aware of them and take preventive actions to secure the applications.
-
-So, I think this article would have helped you identify the safety concerns of using iframes, and let me know your thoughts in the comments section.
+> iframe 网络钓鱼攻击者不能伪造网址栏，但他们能触发重定向，操纵用户之后所接收的内容。
 
 ---
 
-Thank you for Reading !!!
+这个问题可以通过替换 `sandbox` 中的 `allow-top-navigation` 属性值来避免。
+
+## 最后的一些看法
+
+iframe 能提高用户的互动性。但是，当你使用 iframe 的时候，你处理的内容是来自于你无法控制的第三方。因此，iframe 经常会对你的应用程序造成威胁。
+
+然而，我们不能因为安全顾虑就停止使用 iframe。我们需要意识到这些问题并采取防范措施来保护我们的应用程序。
+
+我认为这篇文章能帮你识别使用 iframe 的安全问题。在下方评论区让我知道你的看法。
+
+---
+
+谢谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
