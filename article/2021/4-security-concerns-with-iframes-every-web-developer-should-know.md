@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/4-security-concerns-with-iframes-every-web-developer-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/4-security-concerns-with-iframes-every-web-developer-should-know.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 每个 Web 开发人员都应该知道的 4 个 iframe 安全问题
 
