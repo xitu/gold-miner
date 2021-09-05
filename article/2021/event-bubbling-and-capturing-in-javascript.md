@@ -2,54 +2,54 @@
 > * 原文作者：[Dulanka Karunasena](https://medium.com/@dulanka)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/event-bubbling-and-capturing-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/event-bubbling-and-capturing-in-javascript.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
-# Event Bubbling and Capturing in JavaScript
+# 简述 JavaScript 的事件捕获和事件冒泡
 
 ![](https://cdn-images-1.medium.com/max/5760/1*7Iz_wjlurP2vVhkBpVVzgA.jpeg)
 
-JavaScript event bubbling is there to capture and handle events propagated inside the DOM. But do you know, there are differences between event bubbling and capturing?
+JavaScript 事件冒泡是为了捕捉和处理 DOM 内部传播的事件。但是你知道事件冒泡和事件捕获之间的区别吗？
 
-So, in this article, I will discuss all you need to know about the topic with relevant examples.
+在这篇文章中，我将用相关的示例讨论关于这个主题的全部情况。
 
-## Understanding the Event Flow
+## 事件传播的阶段
 
-Before jumping to bubbling and capturing, let’s find out how an event is propagated inside the DOM.
+在介绍事件捕获和事件冒泡之前，先来看下一个事件是如何在 DOM 内部传播的。
 
-If we have several nested elements handling the same event, we get confused about which event handler will trigger first. This is where understanding the event order becomes necessary.
+如果我们有几个嵌套的元素处理同一个事件，我们会对哪个事件处理程序会先触发感到困惑。这时，理解事件的顺序就变得很有必要。
 
-> Usually, an event is propagated towards the target element starting from its parents, and then it will propagate back towards its parent element.
+> 通常，一个事件从它的父元素开始向目标元素传播，然后它将向它的父元素传播回来。
 
-There are three phases in a JavaScript event,
+在一个 JavaScript 事件中，有三个阶段：
 
-* **Capture Phase:** Event propagates starting from ancestors towards the parent of the target. Propagation starts from `Window` object.
-* **Target Phase:** The event reaches the target element or the element which started the event.
-* **Bubble Phase:** This is the reverse of capture. ****Event is propagated towards ancestors until `Window` object.
+* **捕获阶段：** 事件从父元素开始向目标元素传播，从 `Window` 对象开始传播。
+* **目标阶段：** 该事件到达目标元素或开始该事件的元素。
+* **冒泡阶段：** 这时与捕获阶段相反，事件向父元素传播，直到 `Window` 对象。
 
-The following diagram will give you a further understanding of the event propagation life cycle.
+下图将让你进一步了解事件传播的生命周期：
 
-![DOM event flow](https://cdn-images-1.medium.com/max/2000/1*B0k6-J5ZwfmsxZDXAOCT2Q.jpeg)
+![DOM 事件](https://cdn-images-1.medium.com/max/2000/1*B0k6-J5ZwfmsxZDXAOCT2Q.jpeg)
 
-Since now you understand event flow inside DOM, let’s see how event capturing and bubbling come into the picture.
+现在大概了解 DOM 内部的事件流程，让我们看下事件捕获和冒泡是如何出现的。
 
-## What is Event Capturing?
+## 什么是事件捕获
 
-> Event capturing is the scenario in which the events will propagate, starting from the wrapper elements down to the target element that initiated the event cycle.
+> 事件捕获是事件传播的初始场景，从包装元素开始，一直到启动事件生命周期的目标元素。
 
-If you had an event bound to browser’s `Window`, it would be the first to execute. So, in the following example, the order of event handling will be `Window`, `Document`, `DIV 2`, `DIV 1`, and finally, the `button`.
+如果你有一个与浏览器的 `Window` 对象绑定的事件，它将是第一个被执行的。所以，在下面的例子中，事件处理的顺序将是 `Window`、`Document`、`DIV 2`、`DIV 1`，最后是 `button`。
 
 ![Event capturing sample](https://cdn-images-1.medium.com/max/2000/1*bwNxfZVJ28WSAQ5s1MCc3A.gif)
 
-Here we can see that event capturing occurs only until the clicked element or the target. The event will not propagate to child elements.
+这里我们可以看到，事件捕获只发生在被点击的元素或目标上，该事件不会传播到子元素。
 
-We can use the `useCapture` argument of the `addEventListener()`method to register events for capturing phase.
+我们可以使用 `addEventListener()` 方法的 `useCapture` 参数来注册事件的捕捉阶段。
 
 ```js
 target.addEventListener(type, listener, useCapture)
 ```
 
-You can use the following snippet to test out the above example and get hands-on experience in event capturing.
+你可以使用下面的代码来测试上述示例，并获得事件捕获的实践经验。
 
 ```JavaScript
 window.addEventListener("click", () => {
@@ -73,23 +73,23 @@ document.querySelector("button").addEventListener("click", () => {
   },true);
 ```
 
-## What is Event Bubbling?
+## 什么是事件冒泡
 
-Event bubbling is pretty simple to understand if you know event capturing. It is the exact opposite of event capturing.
+如果你知道事件捕获，事件冒泡就很容易理解，它与事件捕获是完全相反的。
 
-> Event bubbling will start from a child element and propagate up the DOM tree until the topmost ancestor’s event is handled.
+> 事件冒泡将从一个子元素开始，在 DOM 树上传播，直到最上面的父元素事件被处理。
 
-Omitting or setting the `useCapture` argument to ‘false’ inside `addEventListener()` will register events for bubbling. So, the default behavior of Event Listeners is to bubble events.
+在 `addEventListener()` 中省略或将 `useCapture` 参数设置为 `false`，使事件进入冒泡阶段。所以，事件监听器的默认行为是冒泡事件。
 
-![Event bubbling sample](https://cdn-images-1.medium.com/max/2000/1*sfTTnB76jtG7dhfMQa0Zsg.gif)
+![事件冒泡示例](https://cdn-images-1.medium.com/max/2000/1*sfTTnB76jtG7dhfMQa0Zsg.gif)
 
-In our examples, we used either event capturing or event bubbling for all events. But what if we want to handle events inside both phases?
+在我们的示例中，我们对所有的事件使用了事件捕获或事件冒泡。但是如果我们想在两个阶段内都处理事件呢？
 
-Let’s take an example of handling the `click` events of `Document` and `DIV 2` during the bubbling phase while others are handled during capturing.
+让我们举个例子，在冒泡阶段处理 `Document` 和 `DIV 2` 的点击事件，其他事件则在捕获阶段处理。
 
-![Registering events for both phases](https://cdn-images-1.medium.com/max/2000/1*L53X6yq5t-Nw_vl1EH9EWA.gif)
+![注册两个阶段的事件](https://cdn-images-1.medium.com/max/2000/1*L53X6yq5t-Nw_vl1EH9EWA.gif)
 
-The `click` events attached to `Window`, `DIV 1`, and `button` will fire respectively during the capturing, while `DIV 2` and `Document` listeners are fired in order during the bubbling phase.
+连接到 `Window`、`DIV 1` 和 `button` 的点击事件将在捕获过程中分别触发，而 `DIV 2` 和 `Document`监听器则在冒泡阶段依次触发。
 
 ```JavaScript
 window.addEventListener("click", () => {
@@ -98,11 +98,11 @@ window.addEventListener("click", () => {
 
 document.addEventListener("click", () => {
     console.log('Document');
-  }); //registered for bubbling
+  }); // 已注册为冒泡
 
 document.querySelector(".div2").addEventListener("click", () => { 
     console.log('DIV 2');
-  }); //registered for bubbling
+  }); // 已注册为冒泡
 
 document.querySelector(".div1").addEventListener("click", () => {
     console.log('DIV 1');
@@ -113,23 +113,23 @@ document.querySelector("button").addEventListener("click", () => {
   },true);
 ```
 
-I think now you have a good understanding of event flow, event bubbling, and event capturing. So, let’s see when we can use event bubbling and event capturing.
+我想现在你已经对事件流、事件冒泡和事件捕获有了很好的理解。那么，让我们看下什么时候可以使用事件冒泡和事件捕获。
 
-## Usage of Event Capturing & Bubbling?
+## 事件捕获和冒泡的应用
 
-Usually, event propagation can be used whenever we need to execute a function globally. So, for example, we can register document-wide listeners, which will run if an event occurs inside the DOM.
+通常情况下，我们只需要在全局范围内执行一个函数，就可以使用事件传播。例如，我们可以注册文档范围内的监听器，如果 `DOM` 内有事件发生，它就会运行。
 
-> Similarly, we can use bubbling and capturing to perform UI changes.
+> 同样地，我们可以使用事件捕获和冒泡来改变用户界面。
 
-Suppose we have a table that allows users to select cells, and we need to indicate the selected cells to the user.
+假设我们有一个允许用户选择单元格的表格，我们需要向用户显示所选单元格。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZAgwPqbTDtk8TROAUe-tdw.gif)
 
-> In this case, assigning event handlers to each cell will not be a good practice. It will ultimately result in code repetition.
+> 在这种情况下，为每个单元格分配事件处理程序将不是一个好的做法。它最终会导致代码的重复。
 
-As a solution, we can use a single event listener and make use of event bubbling and capturing to handle these events.
+作为一个解决方案，我们可以使用一个单一的事件监听器，并利用事件冒泡和捕获来处理这些事件。
 
-So, I have created a single event listener for `table` and it will be used to change the styles of the cells.
+因此，我为 `table` 创建了一个单一的事件监听器，它将被用来改变单元格的样式。
 
 ```js
 document.querySelector("table").addEventListener("click", (event) =>
@@ -140,19 +140,19 @@ document.querySelector("table").addEventListener("click", (event) =>
 );
 ```
 
-Inside the event listener, I have used `nodeName` to match the clicked cell and if it matches, the cell color will be changed.
+在事件监听器中，我使用 `nodeName` 来匹配被点击的单元格，如果匹配，单元格的颜色就会改变。
 
-## Preventing Event Propagation
+## 如何防止事件传播
 
-> Sometimes event bubbling and capturing can be annoying if it starts to fire events without our control.
+> 有时，如果事件冒泡和捕捉开始不受我们控制地传播事件，就会让人感到厌烦。
 
-This can also cause performance issues if you have a heavily nested element structure because every event will create a new Event Cycle.
+如果你有一个严重嵌套的元素结构，这也会导致性能问题，因为每个事件都会创建一个新的事件周期。
 
-![When bubbling becomes annoying!](https://cdn-images-1.medium.com/max/3840/1*BObT883lMyK8AH2RPaBGdQ.gif)
+![当冒泡变得烦人时](https://cdn-images-1.medium.com/max/3840/1*BObT883lMyK8AH2RPaBGdQ.gif)
 
-In the above scenario, when I click the ‘Delete’ button, the `click` event of the wrapper element is also triggered. This happens due to the event bubbling.
+在上述情况下，当我点击删除按钮时，包装元素的点击事件也被触发了。这是因为事件冒泡导致的。
 
-> We can use the `stopPropagation()` method to avoid this behavior. It will stop events from propagating further up or down along the DOM tree.
+> 我们可以使用 `stopPropagation()` 方法来避免这种行为，它将阻止事件沿着 DOM 树向上或向下进一步传播。
 
 ```js
 document.querySelector(".card").addEventListener("click", () => {
@@ -160,22 +160,22 @@ document.querySelector(".card").addEventListener("click", () => {
 });
 
 document.querySelector("button").addEventListener("click",(event)=>{
-    event.stopPropagation(); //stop bubbling
+    event.stopPropagation(); // 停止冒泡
     $("#deleteModal").modal();
 });
 ```
 
-![After using stopPropagation()](https://cdn-images-1.medium.com/max/3840/1*sDLWoQ_4VjjPiXhUGoY3uA.gif)
+![使用 stopPropagation() 后](https://cdn-images-1.medium.com/max/3840/1*sDLWoQ_4VjjPiXhUGoY3uA.gif)
 
-## Conclusion
+## 本文总结
 
-JavaScript event bubbling and capturing can be used to handle events effectively inside web applications. Understanding the event flow and how capturing and bubbling works will help you optimize your application with correct event handling.
+JavaScript 事件捕获和冒泡可以用来有效地处理 Web 应用程序中的事件。了解事件流以及捕获和冒泡是如何工作的，将有助于你通过正确的事件处理来优化你的应用程序。
 
-For example, if there are any unexpected event firings in your application, understanding event capturing and bubbling can save you time to investigate the issue.
+例如，如果你的应用程序中有任何意外的事件启动，了解事件捕获和冒泡可以节省你排查问题的时间。
 
-So, I invite you to try out the above examples and share your experience in the comments section.
+因此，我希望你尝试上述示例并在评论区分享你的经验。
 
-Thank you for Reading !!!
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
