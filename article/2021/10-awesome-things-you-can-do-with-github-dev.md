@@ -68,7 +68,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 VS Code 是世界一流的 Markdown 编辑器，因此，您可以开始使用 github.dev 来编辑和预览您的所有个人笔记/文档。 更酷的是，您可以安装 [WikiLens 扩展](https://aka.ms/wikilens) 以获得类似 [Roam](https://roamresearch.com/) 或 [obsidian](https://obsidian.md/) 的编辑体验，来维护一个知识库，不仅能将其存储在 GitHub 中而且能从 VS Code 的扩展/个性化生态系统受益。
 
-## 9. 📓 Jupyter 笔记本
+## 9. 📓 Jupyter Notebooks
 
 除了编码 playgrounds 之外，另一种流行的学习和共享代码的方式是 Jupyter 笔记本。 如果你在 github.dev 中打开一个 `.ipynb` 文件，你可以立即查看笔记本的单元格和缓存输出。 更好的是，您可以安装 [Pyodide 扩展](https://marketplace.visualstudio.com/items?itemName=joyceerhl.vscode-pyodide)，以便实际运行 Python 代码，且是完全在您的浏览器中运行的！
 
