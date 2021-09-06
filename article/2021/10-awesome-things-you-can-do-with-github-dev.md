@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/10-awesome-things-you-can-do-with-github-dev.md](https://github.com/xitu/gold-miner/blob/master/article/2021/10-awesome-things-you-can-do-with-github-dev.md)
 > * 译者：[greycodee](https://github.com/greycodee)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[airfri](https://github.com/airfri)
 
 # 可以在 GitHub.dev 做的十件有趣的事😎
 
