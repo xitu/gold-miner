@@ -19,7 +19,7 @@ AsyncStorage 是一个**未加密的、异步的、持久的键值**存储系统
 
 JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、错误对象和 non-multi 功能函数。
 
-此方案是存储用户、应用程序逻辑和其他人的公共数据的理想场所。
+此方案适合存储用户、应用程序逻辑和其他人的公共数据。
 
 [**GitHub - react-native-async-storage/async-storage: 一个用于React Native 的异步的、持久的、键值存储系统。**](https://github.com/react-native-async-storage/async-storage)
 
@@ -33,7 +33,7 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 除了 Shared Preferences，Android 有另一个可用于安全存储的名为[Android Keystore](https://developer.android.com/training/articles/keystore)的系统，用于将加密密钥存储在容器中，使其更难以从设备中提取。并且， [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) 的[一个分支](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)使用的就是 Android Keystore。
 
-此方案是存储证书、令牌、密码和任何其他不属于异步存储的敏感信息的理想场所。
+此方案适合存储证书、令牌、密码和任何其他不适合异步存储的敏感信息。
 
 [**GitHub - oblador/react-native-keychain: React Native 的钥匙链存取**](https://github.com/oblador/react-native-keychain)
 
@@ -49,7 +49,7 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码值，充分利用 Android 实现最佳效率性能。它支持进程间的并发读写访问，允许多进程并发。由于完全同步调用，很容易保持数据。
 
-此方案是存储用户、应用程序逻辑和其他人的公共数据的理想场所。它是 **Async Storage** 的替代品。
+此方案适合存储用户、应用程序逻辑和其他人的公共数据。它可以替代 **Async Storage**。
 
 [**GitHub - ammarahm-ed/react-native-mmkv-storage: 可用于 React Native 的一个超快（0.0002s读/写）、小型、加密的移动键值存储框架，其使用了 JSI 并由 C++ 编写。**](https://github.com/ammarahm-ed/react-native-mmkv-storage)
 
@@ -59,7 +59,7 @@ MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码
 
 SQLite 是一个 C 语言库，它实现了一个**小型、快速、自包含、高可靠性、功能齐全的 SQL 数据库引擎**。它是最常用的数据库引擎。它**内置于所有手机**和大多数计算机中，并捆绑在人们每天使用的无数其他应用程序中。开发人员承诺其文件格式稳定、跨平台且向后兼容。
 
-此方案是存储比异步、安全和 MMKV 存储更多数据的理想场所，它可以支持离线应用程序开发。
+此方案适合存储比异步、安全和 MMKV 存储更多的数据，支持离线应用程序开发。
 
 [**GitHub - Nozbe/WatermelonDB: 🍉 为强大的 React 和 React Native 应用提供反应式异步数据库 ⚡️**](https://github.com/Nozbe/WatermelonDB)
 
@@ -73,7 +73,7 @@ SQLite 是一个 C 语言库，它实现了一个**小型、快速、自包含�
 
 ## 数据库服务
 
-有不同类型的数据库服务可用于通过遵循不同的方法来执行移动应用程序数据层的各种功能。这些都在这里列出。
+有不同类型的数据库服务可用于通过遵循不同的方法来执行移动应用程序数据层的各种功能。全部列出如下：
 
 1. Firebase Firestore
 2. Firebase Database
@@ -115,7 +115,7 @@ PouchDB 是一个袖珍型数据库，使应用程序可以**在离线时**将�
 
 ## 总结
 
-试试这些数据存储库，以增强 React Native 应用程序中的数据存储和检索功能。我相信这些令人兴奋的存储选项对于执行不同面向数据的任务以及创建全面的移动应用程序都非常有用。
+试试数据存储方案来增强 React Native 应用程序中的数据存储和检索功能。我相信这些令人兴奋的存储方案对于执行不同面向数据的任务以及创建全面的移动应用程序都非常有用。
 
 感谢你阅读这篇文章。
 
