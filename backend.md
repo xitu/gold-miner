@@ -1,3 +1,7 @@
+* [在 Python 中用最快的速度发送 HTTP 请求](https://juejin.cn/post/7000315185411915807)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
+* [不经测试的 Python 代码就已离崩溃不远了](https://juejin.cn/post/6998149281576288292)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [通过 Redis 构建一个响应式架构](https://juejin.cn/post/6996660780389122062)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [使用 CDN 构建直读式缓存](https://juejin.cn/post/7001156847176515592)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
