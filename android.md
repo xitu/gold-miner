@@ -1,3 +1,4 @@
+* [Jetpack Compose：样式和主题（第二部分）](https://juejin.cn/post/6995419287435345934)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [探索 ANDROID 12：启动画面](https://juejin.cn/post/6983942336824737822)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [Jetpack Compose：更简便的 RecyclerView（第一部分）](https://juejin.cn/post/6970858140824764424)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [Android 静态分析工具](https://juejin.cn/post/6967219488341098510)（[Kimhooo](https://github.com/Kimhooo) 翻译）
