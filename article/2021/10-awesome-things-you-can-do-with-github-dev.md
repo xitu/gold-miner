@@ -12,7 +12,7 @@ GitHub 最近发布了 [github.dev](https://github.dev)，它允许你在任何�
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--VJkNTHVS--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://pbs.twimg.com/media/E8hp-_MWEAQRYeB.jpg)
 
-但是，也许不太明显的是 github.dev 实现了更扣人心弦的特性：一个定制和创建全新的 GitHub 原生工作流的机会。 无需依赖[浏览器扩展](https://github.com/collections/github-browser-extensions)或第三方服务来增强 github.com，你可以轻松地利用你喜爱的编辑器及其[丰富的生态系统](https://marketplace.visualstudio.com/vscode)，直接增强 GitHub。 为了说明我的意思，让我们看一下 Github.dev 今天使之成为可能的 10 个例子🚀
+然而，可能不是很明显的是 github.dev 实现了更扣人心弦的功能：一个定制和创建全新的 GitHub 原生工作流的机会。 无需依赖[浏览器扩展](https://github.com/collections/github-browser-extensions)或第三方服务来增强 github.com，你可以轻松地利用你喜爱的编辑器及其[丰富的生态系统](https://marketplace.visualstudio.com/vscode)，直接增强 GitHub。 为了说明我的意思，让我们看一下 Github.dev 今天使之成为可能的 10 个例子🚀
 
 ## 1. 💄 个性化
 
