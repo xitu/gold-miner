@@ -15,7 +15,7 @@
 
 AsyncStorage 是一个**未加密的、异步的、持久的键值**存储系统，可以在应用程序上全局访问。
 
-在 iOS 上，由原生代码实现的 AsyncStorage 将小值存储在序列化字典中，并将较大值存储在单独的文件中。在 Android 上，AsyncStorage 将根据可用性使用 [RocksDB](http://rocksdb.org/) 或 SQLite。 AsyncStorage **在 Android 上仅支持 6 MB**，在 iOS 上支持无限量的数据。如果你的目标是构建跨平台应用程序，6MB 是极限。
+在 iOS 上，由原生代码实现的 AsyncStorage 将小值存储在序列化字典中，并将较大值存储在单独的文件中。在安卓上，AsyncStorage 将根据可用性使用 [RocksDB](http://rocksdb.org/) 或 SQLite。 AsyncStorage **在安卓上仅支持 6 MB**，在 iOS 上支持无限量的数据。如果你的目标是构建跨平台应用程序，6MB 是极限。
 
 JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、错误对象和 non-multi 功能函数。
 
@@ -25,21 +25,21 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 ## 安全存储
 
-安全存储有助于存储**加密数据**。React Native 没有附带任何存储敏感数据的方式。然而，在 Android 和 iOS 平台中这个问题已有解决方案。
+安全存储有助于存储**加密数据**。React Native 没有附带任何存储敏感数据的方式。然而，在安卓和 iOS 平台中这个问题已有解决方案。
 
 ![图片来自 iOS 开发者文档](https://cdn-images-1.medium.com/max/2000/1*rQu7_2pJ0VwNqOMe92rbCA.png)
 
-在 iOS 上， [Keychain Services](https://developer.apple.com/documentation/security/keychain_services) 允许安全地存储应用程序的小块敏感信息。在 Android 上， [Shared Preference](https://developer.android.com/reference/android/content/SharedPreferences) 相当于持久键值数据存储，可被用于安全存储。Shared Preference 中的数据默认不加密，但 [Encrypted Shared Preferences](https://developer.android.com/topic/security/data) 包装了 Android 的 Shared Preferences 类，并自动加密键和值。
+在 iOS 上， [钥匙串服务](https://developer.apple.com/documentation/security/keychain_services)允许安全地存储应用程序的小块敏感信息。在安卓上， [Shared Preference](https://developer.android.com/reference/android/content/SharedPreferences) 相当于持久键值数据存储，可被用于安全存储。Shared Preference 中的数据默认不加密，但 [Encrypted Shared Preferences](https://developer.android.com/topic/security/data) 包装了安卓的 Shared Preferences 类，并自动加密键和值。
 
-除了 Shared Preferences，Android 有另一个可用于安全存储的名为[Android Keystore](https://developer.android.com/training/articles/keystore)的系统，用于将加密密钥存储在容器中，使其更难以从设备中提取。并且， [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) 的[一个分支](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)使用的就是 Android Keystore。
+除了 Shared Preferences，安卓有另一个可用于安全存储的名为[安卓 Keystore](https://developer.android.com/training/articles/keystore)的系统，用于将加密密钥存储在容器中，使其更难以从设备中提取。并且， [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) 的[一个分支](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)使用的就是安卓 Keystore。
 
 此方案适合存储证书、令牌、密码和任何其他不适合异步存储的敏感信息。
 
 [**GitHub - oblador/react-native-keychain: React Native 的钥匙串存取**](https://github.com/oblador/react-native-keychain)
 
-[**GitHub - mCodex/react-native-sensitive-info: React Native 用钥匙库加密将敏感数据保存到安卓的 Shared Preferences / iOS 的 Keychain 中**](https://github.com/mCodex/react-native-sensitive-info)
+[**GitHub - mCodex/react-native-sensitive-info: React Native 用钥匙库加密将敏感数据保存到安卓的 Shared Preferences / iOS 的钥匙串中**](https://github.com/mCodex/react-native-sensitive-info)
 
-[**GitHub - emeraldsanto/react-native-encrypted-storage: 围绕 EncryptedSharedPreferences 和 Keychain 的 React Native 包装器，为 Async Storage 提供安全的替代方案。**](https://github.com/emeraldsanto/react-native-encrypted-storage)
+[**GitHub - emeraldsanto/react-native-encrypted-storage: 围绕 EncryptedSharedPreferences 和钥匙串的 React Native 包装器，为 Async Storage 提供安全的替代方案。**](https://github.com/emeraldsanto/react-native-encrypted-storage)
 
 [**SecureStore - Expo 文献**](https://docs.expo.io/versions/latest/sdk/securestore/)
 
@@ -47,7 +47,7 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 [MMKV](https://github.com/Tencent/MMKV) 是腾讯开发的一个**高效、小型的移动键值**存储框架，应用于微信。
 
-MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码值，充分利用 Android 实现最佳效率性能。它支持进程间的并发读写访问，允许多进程并发。由于完全同步调用，很容易保持数据。
+MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码值，充分利用安卓实现最佳效率性能。它支持进程间的并发读写访问，允许多进程并发。由于完全同步调用，很容易保持数据。
 
 此方案适合存储常见的用户数据、应用程序逻辑等等。它可以替代 **Async Storage**。
 
@@ -57,7 +57,7 @@ MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码
 
 ## SQLite 存储
 
-SQLite 是一个 C 语言库，它实现了一个**小型、快速、自包含、高可靠性、功能齐全的 SQL 数据库引擎**。它是最常用的数据库引擎。它**内置于所有手机**和大多数计算机中，并捆绑在人们每天使用的无数其他应用程序中。开发人员承诺其文件格式稳定、跨平台且向后兼容。
+SQLite 是一个 C 语言库，它实现了一个**小型、快速、自包含、高可靠性、功能齐全的 SQL 数据库引擎**。它是最常用的数据库引擎。它**内置于所有手机**和大多数计算机中，并打包于人们每天使用的无数其他应用程序中。开发人员承诺其文件格式将保持稳定、跨平台且向后兼容。
 
 此方案适合存储比异步、安全和 MMKV 存储更多的数据，支持离线应用程序开发。
 
@@ -78,8 +78,8 @@ SQLite 是一个 C 语言库，它实现了一个**小型、快速、自包含�
 1. Firebase Firestore
 2. Firebase Database
 3. Firebase Storage
-4. Realm by Mongo DB
-5. Pouch DB
+4. Realm by MongoDB
+5. PouchDB
 
 ### Firebase Firestore
 
@@ -107,7 +107,7 @@ Realm 是一个**直接在手机**、平板电脑或可穿戴设备中运行的�
 
 ### PouchDB
 
-PouchDB 是一个袖珍型数据库，使应用程序可以**在离线时**将数据存储在本地，然后在应用程序重新上线时将其与 CouchDB 和兼容服务器同步，无论用户下次登录何处，都可以保持用户的数据同步。 实际上，PouchDB 是专为网络设计。但是现在开发者社区已经创建了第三方库来支持 React Native。
+PouchDB 是一个袖珍型数据库，使应用程序可以**在离线时**将数据存储在本地，然后在应用程序重新上线时将其与 CouchDB 和兼容的服务器同步，无论用户下次在何处登录，用户的数据都可以保持同步。。 实际上，PouchDB 是专门为网络而设计的。而且现在开发者社区已经创建了第三方库来支持 React Native。
 
 [**GitHub - seigel/pouchdb-react-native:  支持异步存储的 PouchDB**](https://github.com/seigel/pouchdb-react-native)
 
