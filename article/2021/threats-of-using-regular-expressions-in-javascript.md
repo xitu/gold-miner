@@ -111,6 +111,8 @@ var regex = /(g|i+)+t/;
 console.log(safe(regex)); // false
 ```
 
+这将被判定为 `false`，因为这个正则表达式容易受到灾难性回溯的影响。
+
 ### 4. 避免使用 Node.js 默认的 RegEx 引擎
 
 由于 Node.js 默认的 RegEx 引擎容易受到 ReDoS 攻击，我们可以避免使用它，并以其他引擎作为替代，例如：Google 的 [re2](https://www.npmjs.com/package/re2) 引擎。它确保 RegEx 可以安全地抵御 ReDoS 攻击，用法也与 Node.js 默认的 RegEx 引擎相似。
@@ -120,10 +122,8 @@ var RE2 = require('re2');
 
 var re = new RE2(/(g|i+)+t/);
 var result = 'giiiiiiiiiiiiiiiiiiit'.search(re);
-console.log(result); // false
+console.log(result); // 0
 ```
-
-这将被判定为 `false`，因为这个正则表达式容易受到灾难性回溯的影响。
 
 ## 主要收获
 
