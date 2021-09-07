@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
 
 # 在 JavaScript 中使用正则表达式的隐患
 
@@ -17,7 +17,7 @@
 
 正则表达式的算法有两种：
 
-* **确定性有限状态自动机 （DFA）** —— 对于给定字符串，每个字符只检查一次。
+* **确定性有限状态自动机（DFA）** —— 对于给定字符串，每个字符只检查一次。
 * **非确定性有限状态自动机（NFA）** —— 多次检查同一个字符，直到找到最佳匹配。
 
 JavaScript 的 RegEx 引擎使用的是 NFA 算法，这会导致灾难性回溯。
