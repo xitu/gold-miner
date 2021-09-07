@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/threats-of-using-regular-expressions-in-javascript.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)、[greycodee](https://github.com/greycodee)
 
 # 在 JavaScript 中使用正则表达式的隐患
 
