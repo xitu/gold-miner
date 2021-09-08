@@ -11,15 +11,15 @@
 
 JavaScript 事件冒泡是为了捕捉和处理 DOM 内部传播的事件。但是你知道事件冒泡和事件捕获之间的区别吗？
 
-在这篇文章中，我将用相关的示例讨论关于这个主题的全部情况。
+在这篇文章中，我将用相关的示例来讨论关于这个主题你所需要了解的全部情况。
 
-## 事件传播的阶段
+## 事件流的传播
 
 在介绍事件捕获和事件冒泡之前，先来看下一个事件是如何在 DOM 内部传播的。
 
-如果我们有几个嵌套的元素处理同一个事件，我们会对哪个事件处理程序会先触发感到困惑。这时，理解事件的顺序就变得很有必要。
+如果我们有几个嵌套的元素处理同一个事件，我们会对哪个事件处理程序会先触发的问题感到困惑。这时，理解事件传播顺序就变得很有必要。
 
-> 通常，一个事件从它的父元素开始向目标元素传播，然后它将传播回其父元素。
+> 通常，一个事件会从父元素开始向目标元素传播，然后它将被传播回父元素。
 
 JavaScript 事件分为三个阶段：
 
@@ -31,7 +31,7 @@ JavaScript 事件分为三个阶段：
 
 ![DOM 事件流](https://cdn-images-1.medium.com/max/2000/1*B0k6-J5ZwfmsxZDXAOCT2Q.jpeg)
 
-现在大概了解 DOM 内部的事件流程，让我们看下事件捕获和冒泡是如何出现的。
+现在你大概了解了 DOM 内部的事件流程，让我们再来看下事件捕获和冒泡是如何出现的。
 
 ## 什么是事件捕获
 
@@ -43,7 +43,7 @@ JavaScript 事件分为三个阶段：
 
 这里我们可以看到，事件捕获只发生在被点击的元素或目标上，该事件不会传播到子元素。
 
-我们可以使用 `addEventListener()` 方法的 `useCapture` 参数来注册事件的捕捉阶段。
+我们可以使用 `addEventListener()` 方法的 `useCapture` 参数来注册捕捉阶段的事件。
 
 ```js
 target.addEventListener(type, listener, useCapture)
@@ -79,7 +79,7 @@ document.querySelector("button").addEventListener("click", () => {
 
 > 事件冒泡将从一个子元素开始，在 DOM 树上传播，直到最上面的父元素事件被处理。
 
-在 `addEventListener()` 中省略或将 `useCapture` 参数设置为 `false`，使事件进入冒泡阶段。所以，事件监听器的默认行为是冒泡事件。
+在 `addEventListener()` 中省略或将 `useCapture` 参数设置为 `false`，将注册冒泡阶段的事件。所以，事件监听器默认监听冒泡事件。
 
 ![事件冒泡示例](https://cdn-images-1.medium.com/max/2000/1*sfTTnB76jtG7dhfMQa0Zsg.gif)
 
@@ -127,9 +127,9 @@ document.querySelector("button").addEventListener("click", () => {
 
 > 在这种情况下，为每个单元格分配事件处理程序将不是一个好的做法。它最终会导致代码的重复。
 
-作为一个解决方案，我们可以使用一个单一的事件监听器，并利用事件冒泡和捕获来处理这些事件。
+作为一个解决方案，我们可以使用一个单独的事件监听器，并利用事件冒泡和捕获来处理这些事件。
 
-因此，我为 `table` 创建了一个单一的事件监听器，它将被用来改变单元格的样式。
+因此，我为 `table` 创建了一个单独的事件监听器，它将被用来改变单元格的样式。
 
 ```js
 document.querySelector("table").addEventListener("click", (event) =>
