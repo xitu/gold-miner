@@ -1,3 +1,5 @@
+* [可以在 GitHub.dev 做的十件有趣的事](https://juejin.cn/post/7004738629092261895)（[greycodee](https://github.com/greycodee) 翻译）
+* [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
 * [你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)（[kamly](https://github.com/kamly) 翻译）
