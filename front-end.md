@@ -1,3 +1,7 @@
+* [在 JavaScript 中使用正则表达式的隐患](https://juejin.cn/post/7005168628647591950)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [每个 Web 开发人员都应该知道的 4 个 iframe 安全问题](https://juejin.cn/post/7004430026187735047)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [别让轮播毁了你的应用程序](https://juejin.cn/post/7003637296050225189)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [5 个 JavaScript 的字符操作库](https://juejin.cn/post/7002921261814939661)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [CSS 选择器嵌套已经来了🤯🤯🤯！](https://juejin.cn/post/6999124599938449415)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [11 个让你惊叹的 罕见 JavaScript 单行代码](https://juejin.cn/post/6998734064773660702)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [使用 PeerJS 轻松实现 P2P 通信](https://juejin.cn/post/6997264971415420942)（[Tong-H](https://github.com/Tong-H) 翻译）
