@@ -1,3 +1,4 @@
+* [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [在 Python 中用最快的速度发送 HTTP 请求](https://juejin.cn/post/7000315185411915807)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [不经测试的 Python 代码就已离崩溃不远了](https://juejin.cn/post/6998149281576288292)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [通过 Redis 构建一个响应式架构](https://juejin.cn/post/6996660780389122062)（[YueYongDev](https://github.com/YueYongDev) 翻译）
