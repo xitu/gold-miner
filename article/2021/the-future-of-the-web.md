@@ -2,216 +2,216 @@
 > * 原文作者：[Hazem Osama](https://www.hazem.cool/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-future-of-the-web.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-future-of-the-web.md)
-> * 译者：
+> * 译者：[Gesj-yean](https://github.com/Gesj-yean)
 > * 校对者：
 
-# The Future Of The Web
+# Web 的未来
 
 ![](https://www.hazem.cool/static/7858b1b89c0b19aeb9c7671418a6e1a7/4ec5b/the%20web%203.0.webp)
 
-## The Old Web
+## 旧时 Web
 
-There was a time when the web wasn't a big part of our life as it is today, it was mostly for checking the weather, mail, news, Yahoo answers, downloading an mp3, or playing flash games.
+曾经有一段时间，网络不像今天这样是我们生活的重要组成部分，它主要用于查看天气、邮件、新闻、雅虎回答、下载 mp3 或玩 Flash 游戏。
 
-The web was static, single-player, as if part of the printing era got carried over to the web. though I have to say it was a bit [quirky and fun](https://www.spacejam.com/1996/).
+网络是静态的，单人游戏，好像印刷时代的一部分被带到了网络上。虽然我不得不说这有点[古怪和有趣](https://www.spacejam.com/1996/)。
 
-## The Commercial Web
+## 商业 Web
 
-With the rise of web apps, social media, video streaming, and the move to mobile, the web moved from being a utility to a way of living.
+随着网络应用程序、社交媒体、视频流媒体和移动设备的兴​​起，网络从一种实用工具转变为一种生活方式。
 
-A fountain of gold has erupted, tech companies started funneling in money in the billions. And when there is that amount of money floating around, the emphasis on fun and the end-user privacy and best interest won't really be on the top of their priority list.
+黄金之泉已经喷发，科技公司开始涌入数十亿美元的资金。当有这么多钱在流动时，乐趣、最终用户隐私、最大利益的强调不会真正成为他们优先考虑的事项。
 
-So websites became more addictive. Companies started creating their own website. It's like every company and their dog had a landing page and if you squint your eyes enough it would seem like they all are using the same template with the same headlines of "The All in One Solution for Automated Organizational Collaborative Workplace Remote Communication Delivery.", "Be 10x more productive in 100x less time!!!", or "Toilets...Reinvented!". Other than a few texts, styles, and imagery here and there, It would be hard to spot the difference. It's like someone took the whole internet and bleached all the creativity and fun out of it.
+所以网站变得更容易上瘾。公司开始创建自己的网站。就像每家公司和他们的狗都有一个登陆页面，如果你眯起眼睛，他们似乎都在使用相同的模板，标题相同，都是“自动化组织协作工作场所远程通信交付的多合一解决方案”，“用少于 100 倍的时间提高 10 倍的生产力！！！”，或“厕所......重新发明！”。除了这里和那里的一些文本、样式和图像之外，很难发现差异。这就像有人拿走了整个互联网，并从中消灭了所有的创造力和乐趣。
 
-The web became too commercial, too predictable, too...boring.
+网络变得太商业化、太可预测、太……乏味了。
 
-## Things are Changing
+## 事情正在悄然改变
 
-> There exists a future so bright that if you squint your eyes in the right direction you can see it shimmering in the distance.
+> 有一个如此光明的未来，如果你向正确的方向眯起眼睛，你会看到它在远处闪闪发光。
 >
-> --- Jesse Jacobs, Safari Honeymoon
+> --- 杰西·雅各布, 蜜月旅行
 
-The web is changing, it's on its way to becoming more dynamic, more immersive, more multi-player, in fact, if you take a closer look, you'd see that it already did.
+网络正在发生变化，它正在变得更加动态、更加身临其境、更加多人游戏，事实上，如果你仔细观察，你会发现它已经做到了。
 
-### The Death of Desktop
+### 桌面应用销声匿迹
 
-If you look at the apps that you use in your day to day they might be apps like Twitter, Facebook, Gmail, Zoom, YouTube, Slack, Discord, Microsoft Teams, Google Drive, Google sheets, Office 365, or Notion.
+如果您查看日常使用的应用程序，例如 Twitter、Facebook、Gmail、Zoom、YouTube、Slack、Discord、Microsoft Teams、Google Drive、Google 表格、Office 365 或 Notion 等应用程序。
 
-can you guess which of those aren't web apps? well, the only one that has a desktop client that isn't based on web technologies is Zoom which can also work on your browser just as well.
+你能猜出哪些不是网络应用程序吗？好吧，唯一可以不基于 Web 技术的桌面客户端的是 Zoom，它也可以在您的浏览器上运行。
 
-Even Microsoft Office applications, the "de facto" desktop applications, their interface was [rewritten in react which is a web-based technology](https://react-etc.net/entry/microsoft-office-rewrite-to-react-js-nears-completion).
+即使是 Microsoft Office 应用程序，“事实上的”桌面应用程序，它们的界面也被[基于 Web 的技术 react 重写 ](https://react-etc.net/entry/microsoft-office-rewrite-to-react-js-nears-completion)。
 
-#### Professional Heavy Apps
+#### 专业级的重型应用
 
-You could say but apps like Photoshop, After Effects, Final Cut Pro, Blender, and Visual Studio are desktop applications and they're too heavy and complex to be on the web.
+您可以说 Photoshop、After Effects、Final Cut Pro、Blender 和 Visual Studio 之类的应用程序是桌面应用程序，它们太笨重和复杂，无法在网络上使用。
 
-But if you haven't noticed already, these types of apps are already moving to the web.
+但如果您还没有注意到，这些类型的应用程序已经转移到网络上。
 
-- Photoshop, Illustrator, Adobe XD → [Figma](https://www.figma.com/), [Framer](https://login.framer.com/?origin=framer-web&redirect=https%3A%2F%2Fframer.com%2Fprojects%2F) (has one of the [best ad](https://www.youtube.com/watch?v=hAPxeoP8wn8) I've ever seen for a SaaS product), [Photobea](https://www.photopea.com/), and [Avocode](https://avocode.com/)
+- Photoshop, Illustrator, Adobe XD → [Figma](https://www.figma.com/), [Framer](https://login.framer.com/?origin=framer-web&redirect=https%3A%2F%2Fframer.com%2Fprojects%2F) (有我见过最好的的 SaaS 产品[广告](https://www.youtube.com/watch?v=hAPxeoP8wn8)), [Photobea](https://www.photopea.com/), 和 [Avocode](https://avocode.com/)
 - After Effect → [Rive](https://rive.app/)
 - Blender → [Spline](https://spline.design/)
-- Microsoft Office → [Office 365](https://www.office.com/), [Google docs](https://www.google.com/docs/about/), [Google slides](https://www.google.com/slides/about/), [Google sheets](https://www.google.com/sheets/about/), and [Notion](https://www.notion.so/)
+- Microsoft Office → [Office 365](https://www.office.com/), [Google 文档](https://www.google.com/docs/about/), [Google 幻灯片](https://www.google.com/slides/about/), [Google 表格](https://www.google.com/sheets/about/), 和 [Notion](https://www.notion.so/)
 - Skype → [Slack](https://slack.com/), [Teams](https://www.microsoft.com/en-ww/microsoft-teams/group-chat-software), [Zoom](https://zoom.us/), and [Discord](https://discord.com/)
-- Visual Studio & Other IDEs → [CodeSandBox](https://codesandbox.io/), [Github CodeSpaces](https://github.com/features/codespaces), [Glitch](https://glitch.com/), [Git Pod](https://www.gitpod.io/), and [Next.js Live](https://nextjs.org/blog/next-11#nextjs-live-preview-release)
-- Unreal Engine, Unity → [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), and [RogueEngine](https://rogueengine.io/)
-- AutoCad, Sketchup → [AutoCad Web](https://web.autocad.com/) and [Sketchup Web](https://app.sketchup.com/app)
+- Visual Studio 和其他 IDE → [CodeSandBox](https://codesandbox.io/), [Github CodeSpaces](https://github.com/features/codespaces), [Glitch](https://glitch.com/), [Git Pod](https://www.gitpod.io/), 和 [Next.js Live](https://nextjs.org/blog/next-11#nextjs-live-preview-release)
+- Unreal Engine, Unity → [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), 和 [RogueEngine](https://rogueengine.io/)
+- AutoCad, Sketchup → [AutoCad Web](https://web.autocad.com/) 和 [Sketchup Web](https://app.sketchup.com/app)
 - Audacity → [Soundation](https://soundation.com/)
-- VLC Media Player → [VLC.js](https://code.videolan.org/jbk/vlc.js)
+- VLC 媒体播放器 → [VLC.js](https://code.videolan.org/jbk/vlc.js)
 
-Heck, you can even [run your browser on the web](https://www.mightyapp.com/) (Has another awesome [SaaS product ad?](https://youtu.be/cxUN1dZ0Edk)).
+哎呀，您甚至可以在 [网络上运行浏览器](https://www.mightyapp.com/)（还有另一个很棒的 [SaaS 产品广告](https://youtu.be/cxUN1dZ0Edk)？）。
 
-There is also a [windows paint clone,](https://jspaint.app/) [windows 98](https://copy.sh/v86/?profile=windows98), and [windows XP](https://winxp.vercel.app/) that can run on your browser.
+还有一个 [Windows Paint 克隆](https://jspaint.app/)、 [windows 98](https://copy.sh/v86/?profile=windows98) 和 [windows XP](https://winxp.vercel.app/) 可以在您的浏览器上运行。
 
-If you haven't noticed yet dear reader, traditional desktop apps are already on their way to the digital graveyard.
+亲爱的读者，如果您还没有注意到，传统的桌面应用程序已经走向数字墓地。
 
-### Mobile Isn't That Far From The Reaper
+### 移动应用程序即将消失
 
-Mobile apps have that "Native" feel, they can live on your home screen, send notifications, have access to the camera, contacts, file system, etc. have smooth animations and gestures. things you don't see on your normal clicky and tappy websites.
+移动应用具有“本机”的感觉，它们可以在您的主屏幕上显示、发送通知、访问相机、联系人、文件系统等。具有流畅的动画和手势。您在普通的 clicky 和 ​​tappy 网站上看不到的东西。
 
-When a company wants to support mobile they don't create a mobile-friendly web app, they create a native mobile app. Why? Because the web doesn't have access to the same APIs and features as the native apps, and it's usually thought of as not as performant, and you would have a hard time trying to implement gestures and animation that would work cross-browser and doesn't interfere with the device default gestures, and obviously you can't submit a website to the app store (or can you 👀?)
+当一家公司想要支持移动设备时，他们不会创建适合移动设备的 Web 应用程序，而是创建本机移动应用程序。为什么？因为 Web 无法访问与本机应用程序相同的 API 和功能，并且通常认为它的性能不佳，并且您将很难尝试实现跨浏览器工作且不适用的手势和动画不干扰设备默认手势，显然你不能向应用商店提交网站（或者你可以👀？）
 
-Some frameworks enable you to write cross-platform apps with web technologies like [React Native](https://reactnative.dev/), they mostly give you access to the same APIs and features of native apps, although they are less performant.
+一些框架使您能够使用 [React Native](https://reactnative.dev/)等 Web 技术编写跨平台应用程序，它们主要允许您访问与本机应用程序相同的 API 和功能，尽管它们的性能较低。
 
-Some companies already adopted React Native such as Facebook, Instagram, Discord, Tesla, Skype, Pinterest, and Uber eats.
+一些公司已经采用了 React Native，例如 Facebook、Instagram、Discord、Tesla、Skype、Pinterest 和 Uber Eats。
 
-But I believe there is something better on the horizon, there is a type of web app that can run and feel like a native app and they go by the name of "progressive web apps". They are installable, [have access to APIs such as storage, camera, notifications, etc.](https://whatwebcando.today/) can be instantly updated (unlike native apps that require a build on the app store), don't have to be submitted to an app store, easily accessible (the power of the URL), and with libraries like [use-gestures](https://use-gesture.netlify.app/), [react-spring](https://react-spring.io/), and [framer motion](https://www.framer.com/motion/) you can easily implement smooth animation and gestures (Try out [Bottom Sheet](https://zuwji.csb.app/), [Multi-Gestures](https://rkgzi.csb.app/), [Slide Show](https://v364z.csb.app/), and [App Store Like Cards](https://ecgc2.csb.app/) demos on your phone).
+但我相信有更好的东西即将出现，有一种网络应用程序可以运行并且感觉就像一个本机应用程序，它们被称为“渐进式网络应用程序”。它们是可安装的，可以访问 [诸如存储、相机、通知等 API]((https://whatwebcando.today/))。可以立即更新（与需要在应用商店中构建的原生应用不同），不必提交到应用商店，易于访问（URL 的强大功能），并且使用 [use-gestures](https://use-gesture.netlify.app/)、[react-spring](https://react-spring.io/) 和 [framer motion](https://www.framer.com/motion/) 等库，您可以轻松实现流畅的动画和手势（试用 [Bottom Sheet](https://zuwji.csb.app/)、[Multi-Gestures](https://rkgzi.csb.app/)、[Slide Show](https://v364z.csb.app/) 和 [App Store Like Cards](https://ecgc2.csb.app/) 手机上的演示）。
 
-Probably the most famous example is the Twitter PWA.
+最著名的例子可能是 Twitter PWA。
 
-Google play store and Microsoft store already allow PWAs to be submitted to their marketplace.
+Google Play 商店和 Microsoft 商店已经允许将 PWA 提交到他们的市场。
 
-Let's hope Apple adds more support and lift some of the limitations it has on PWA on iOS soon 🤞.
+让我们希望 Apple 能够尽快添加更多的支持并解除它对 iOS 上 PWA 的一些限制🤞。
 
-With time I predict more companies will move to PWA and we'll see them live side by side with native apps until one day PWA will become a standard (hopefully 😁) and we'll then wonder why the heck were we building the same application multiple times for each platform 😲!
+随着时间的推移，我预测更多的公司将转向 PWA，我们将看到它们与原生应用程序并存，直到有一天 PWA 成为标准（希望😁）然后我们会想知道为什么我们要构建相同的应用程序每个平台多次😲！
 
-## The Immersive Web
+## 沉浸式 Web
 
-### The Web is Getting Powerful
+### Web 正越来越强大
 
-You might be wondering? Isn't the web slow, chrome is hogging all my CPU and RAM and indeed the web wasn't meant for heavy apps but with [Web Assembly](https://webassembly.org/), that doesn't have to be the case anymore.
+你可能想知道？网络是不是很慢，chrome 占用了我所有的 CPU 和 RAM，实际上网络并不适用于繁重的应用程序，但有了 [Web Assembly](https://webassembly.org/)，情况就不必再这样了。
 
-Web Assembly lets you run compiled code on the web from [multiple languages](https://github.com/appcypher/awesome-wasm-langs) such C++, Rust, Go, Java, etc. at near machine code speed. This will open the door for new types of applications on the web, such as:
+Web Assembly 允许您以接近机器代码的速度在 Web 上运行来自 [多种语言](https://github.com/appcypher/awesome-wasm-langs)（如 C++、Rust、Go、Java 等）的编译代码。这将为网络上的新型应用程序打开大门，例如：
 
-- [Figma's rendering engine](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/)
-- [Google porting C++ code from its desktop application to the web](https://web.dev/earth-webassembly/)
-- [Soundation audio computation](https://soundation.com/station/soundation-is-the-first-online-music-production-software-to-implement-webassembly-threads-gains-over-70-performance-improvement/)
-- [Squoosh by Google image compression](https://squoosh.app/) (even with formats not supported natively by the web)
-- [Google Sketchup 3D modeling](https://madewithwebassembly.com/showcase/sketchup/)
-- [VLC media player being ported to the web](https://madewithwebassembly.com/showcase/vlc/)
-- [Lichess chess engine analysis](https://madewithwebassembly.com/showcase/lichess/)
-- [PSPDFKit](https://pspdfkit.com/blog/2017/webassembly-a-new-hope/) & [PDFTron](https://www.pdftron.com/blog/wasm/wasm-vs-pnacl/) PDF rendering engine
-- [TenserFlow now supports web assembly](https://blog.tensorflow.org/2020/03/introducing-webassembly-backend-for-tensorflow-js.html)
+- [Figma 的渲染引擎](https://www.figma.com/blog/webassembly-cut-figmas-load-time-by-3x/)
+- [Google 将 C++ 代码从其桌面应用程序移植到网络](https://web.dev/earth-webassembly/)
+- [发声音频计算](https://soundation.com/station/soundation-is-the-first-online-music-production-software-to-implement-webassembly-threads-gains-over-70-performance-improvement/)
+- [Squoosh by Google 图像压缩](https://squoosh.app/) （即使是网络本身不支持的格式）
+- [Google Sketchup 3D 建模](https://madewithwebassembly.com/showcase/sketchup/)
+- [VLC 媒体播放器被移植到网络](https://madewithwebassembly.com/showcase/vlc/)
+- [Lichess 国际象棋引擎分析](https://madewithwebassembly.com/showcase/lichess/)
+- [PSPDFKit](https://pspdfkit.com/blog/2017/webassembly-a-new-hope/) 和 [PDFTron](https://www.pdftron.com/blog/wasm/wasm-vs-pnacl/) PDF 渲染引擎
+- [TenserFlow 现在支持 Web 程序集](https://blog.tensorflow.org/2020/03/introducing-webassembly-backend-for-tensorflow-js.html)
 
-### The Third Dimension
+### 三维化
 
-The web is traditionally two-dimensional, that's because it was mainly for sharing documents and not for "apps".
+网络传统上是二维的，那是因为它主要用于共享文档而不是“应用程序”。
 
-But 3D has been lurking in the webs for a while and it's not just for purely aesthetic reasons.
+但是 3D 已经潜伏在网络中一段时间​​了，这不仅仅是出于美学原因。
 
-Here are some examples of 3D experiences on the web:
+以下是网络上 3D 体验的一些示例：
 
-- [Google Earth](https://earth.google.com/web/) (Obviously 👀)
-- [NASA Mars 2020 simulation](https://eyes.nasa.gov/apps/mars2020/#/home)
-- [NASA Jet Propulsion Laboratory Open Source Rover](https://opensourcerover.jpl.nasa.gov/#!/home)
-- [SpaceX ISS Docking Simulator](https://iss-sim.spacex.com/)
-- [Stars Chrome Experiment](https://stars.chromeexperiments.com/)
-- [Wikiverse](http://wikiverse.io/)
-- [Zenly Landing Page](https://zen.ly/)
-- [Bruno Simon Portfolio](https://bruno-simon.com/)
-- [Lusion Site](https://lusion.co/)
-- [Paper Lanes](https://paperplanes.world/)
-- [Google Arts & Culture - Blob Opera](https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw)
-- [Google Cloud Infrastructure](https://cloud.withgoogle.com/infrastructure/)
+- [Google 地球](https://earth.google.com/web/) (Obviously 👀)
+- [NASA 火星 2020 模拟](https://eyes.nasa.gov/apps/mars2020/#/home)
+- [NASA 喷气推进实验室开源漫游车](https://opensourcerover.jpl.nasa.gov/#!/home)
+- [SpaceX ISS 对接模拟器](https://iss-sim.spacex.com/)
+- [星星 Chrome 实验](https://stars.chromeexperiments.com/)
+- [维基世界](http://wikiverse.io/)
+- [Zenly 登陆页面](https://zen.ly/)
+- [Bruno Simon 投资组合](https://bruno-simon.com/)
+- [Lusion 站点](https://lusion.co/)
+- [纸道](https://paperplanes.world/)
+- [Google 艺术与文化 - Blob Opera](https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw)
+- [Google 云基础设施](https://cloud.withgoogle.com/infrastructure/)
 
-### XR Experiences
+### XR 体验
 
-VR and AR didn't hit mainstream yet, but they'll have their place on the web.
+VR 和 AR 尚未成为主流，但它们将在网络上占有一席之地。
 
-[WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API) is an API that allows to create mixed reality (VR & AR) experiences on the web, so now we'll be able to create experiences that can work across different headsets and not just exclusive to one.
+[WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API) 是一种允许在网络上创建混合现实（VR 和 AR）体验的 API，因此现在我们将能够创建可以跨不同头显的体验，而不仅仅是一个头显。
 
-Here are some examples of WebXR experiences:
+以下是一些 WebXR 体验示例：
 
-- [Shopify 3D Product Models](https://www.shopify.com/3d)
-- [A-Painter: Paint in 3D](https://aframe.io/a-painter/)
-- [Spiderman VR Experience](https://spiderman.webvr.link/)
-- [Google WebXR Experiments](https://experiments.withgoogle.com/collection/webxr)
-- [KonterBall: Ping Pong](https://konterball.com/)
-- [Tonite Dance by Google](https://tonite.dance/)
-- [Moon Rider (beat saber clone)](https://moonrider.xyz/)
-- [Hubs: Virtual Room by Mozilla](https://hubs.mozilla.com/)
-- [Plockle: Puzzle Game](https://plockle.com/)
+- [Shopify 3D 产品模型](https://www.shopify.com/3d)
+- [A-Painter：3D 绘画](https://aframe.io/a-painter/)
+- [蜘蛛侠 VR 体验](https://spiderman.webvr.link/)
+- [谷歌 WebXR 实验](https://experiments.withgoogle.com/collection/webxr)
+- [康特球：乒乓球](https://konterball.com/)
+- [Google 的 Tonite Dance](https://tonite.dance/)
+- [月亮骑士（击败军刀克隆人）](https://moonrider.xyz/)
+- [集线器：Mozilla 的虚拟房间](https://hubs.mozilla.com/)
+- [普洛克：益智游戏](https://plockle.com/)
 
-### The Start of The Web Gaming Era
+### Web 游戏时代的开始
 
-Video games have always lived on consoles and PCs. The web was left off with just mini flash games, the web wasn't really ready for the video game industry at the time.
+电子游戏一直存在于游戏机和 PC 上。网络只剩下迷你 Flash 游戏，当时网络还没有真正为视频游戏行业做好准备。
 
-But with Web Assembly, things are starting to change. Now you can port games that are written in other languages like C++ directly to the web.
+但是有了 WebAssembly，事情开始发生变化。现在，您可以将用其他语言（如 C++）编写的游戏直接移植到网络上。
 
-[Unity announced that it will support Web Assembly](https://blog.unity.com/technology/webassembly-is-here), and with tools like [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), and [RogueEngine](https://rogueengine.io/), Things look a bit bright for gaming on the web.
+[Unity 宣布它将支持 Web Assembly](https://blog.unity.com/technology/webassembly-is-here), 并且借助 [Three.js](https://threejs.org/), [Babylon](https://www.babylonjs.com/), [Play Canvas](https://playcanvas.com/#!), 和 [RogueEngine](https://rogueengine.io/) 等工具，Web 游戏看起来有点光明。
 
-Here are some examples of games running on the web:
+以下是一些在网络上运行的游戏示例：
 
-- [Unity: Angry Bots](https://beta.unity3d.com/jonas/AngryBots/)
-- [Doom 3 (ported via Web Assembly)](https://wasm.continuation-labs.com/d3demo/)
-- [Heraclos](https://heraclosgame.com/)
-- [Ouigo - Pinball](http://letsplay.ouigo.com/)
-- [pmndrs - racing game](https://racing.pmnd.rs/#)
-- [Classic Minecraft](https://classic.minecraft.net/)
-- [After The Flood](https://playcanv.as/p/44MRmJRU/)
-- [Trolli](https://trollideliciouslydarkescape.com/)
-- [HexGL - Racer Game](http://hexgl.bkcore.com/play/)
-- [Robostorm](https://robostorm.io/)
-- [Foosball World Cup](https://www.foosballworldcup18.com/)
+- [Unity：愤怒的机器人](https://beta.unity3d.com/jonas/AngryBots/)
+- [Doom 3（通过 Web Assembly 移植）](https://wasm.continuation-labs.com/d3demo/)
+- [赫拉克洛斯](https://heraclosgame.com/)
+- [Ouigo - 弹球](http://letsplay.ouigo.com/)
+- [pmndrs - 赛车游戏](https://racing.pmnd.rs/#)
+- [经典我的世界](https://classic.minecraft.net/)
+- [洪水之后](https://playcanv.as/p/44MRmJRU/)
+- [特罗利](https://trollideliciouslydarkescape.com/)
+- [HexGL - 赛车游戏](http://hexgl.bkcore.com/play/)
+- [机器人风暴](https://robostorm.io/)
+- [桌上足球世界杯](https://www.foosballworldcup18.com/)
 
-#### Why The Web is a Good Place for Game Development
+#### 为什么 Web 是游戏开发的好地方
 
-The web is the only platform that is backward compatible, imagine creating a game that will work till the end of the internet!
+网络是唯一向后兼容的平台，想象一下创建一个可以运行到互联网末日的游戏！
 
-You can launch your game to the masses without a publisher or a game store taking 30% out of your hard-earned revenue.
+您可以向大众发布您的游戏，而无需发行商或游戏商店从您辛苦赚来的收入中扣除 30%。
 
-You can run your game technically on any device, no need to port your games to different consoles and architectures, PC gaming won't be exclusive for just windows anymore.
+您可以在技术上在任何设备上运行您的游戏，无需将您的游戏移植到不同的控制台和架构，PC 游戏不再是 Windows 独有的。
 
-Easily accessible, anybody can access your game through a URL, no need to download gigabytes of data to test out a game.
+易于访问，任何人都可以通过 URL 访问您的游戏，无需下载千兆字节的数据来测试游戏。
 
-You can instantly update your game without letting your users wait to download the latest update.
+您可以立即更新您的游戏，无需让您的用户等待下载更新。
 
-You can embrace the web streaming capabilities with code splitting and lazy loading assets, the user can play and test out your game instantly (in theory).
+您可以通过代码拆分和延迟加载资产来使用网络流功能，用户可以立即玩和测试您的游戏（理论上）。
 
-Imagine when wanting to play a game with a friend, you don't see which friend has the same console/PC as you (because most games are not cross-platform), or wait for both of you to download the whole game or download the latest 10GB update! all you need to do is share a URL for your game session and you're in, the gaming barrier will be so low it will essentially be non-existent.
+想象一下，当你想和朋友一起玩游戏时，你看不到哪个朋友和你有相同的游戏机/PC（因为大多数游戏都不是跨平台的），或者等待你们俩下载整个游戏或下载最新的 10GB 更新！您需要做的就是分享您的游戏会话的 URL 并且您进入了，游戏障碍将非常低，基本上不存在。
 
-## Decentralized 🕸, The Giant Slayer
+## 消除中心化 🕸, 终结巨头
 
-Most of the internet is monopolized by 4-5 companies aka FAANG (Facebook, Amazon, Apple, Netflix, and Google).
+大多数互联网被 4-5 家公司（即 FAANG）垄断（Facebook、亚马逊、苹果、Netflix 和谷歌）。
 
-They're pumping Tera-tons of your data into their data centers, they can control what content gets put on and what doesn't in their platform, they can influence your decisions by curating which content you see and which you don't, they can show their products on top when you search for their competitors, they can take a big cut out of your revenue for placing your product in their marketplace, they can lock you in their bubble by taking your data hostage and not letting you easily export it to other applications.
+他们将数以万亿计的数据输送到他们的数据中心，他们可以控制哪些内容可以放在他们的平台上，哪些内容不能放在他们的平台上，他们可以通过管理你看到的内容和你不看到的内容来影响你的决定，当您搜索他们的竞争对手时，他们可以在顶部展示他们的产品，他们可以通过将您的产品投放到他们的市场中使您的收入中大幅减少，他们可以通过将您的数据作为威胁不让您轻松导出来并将您限制在他们的泡沫中到其他应用程序。
 
-So a company having control over something as essential as the internet is let's say rather worrisome 😅.
+因此，一家公司可以控制像互联网这样重要的东西是非常令人担忧的😅。
 
-So what do we do? Are we doomed to follow FAANGs wishes?
+那么我们该怎么办？我们注定要遵循 FAANG 的想法吗？
 
-To that I say imagine a web where your data is truly yours, you can transfer it from one app to another, you don't need to give an application your email, password, phone number, address, social idenitiy, or your picture just to sign up, all you need is your virtual key. Imagine the internet not run by a few obese data-hungry giants but run by all of us. Imagine true anonymity, you choose what to make public and what stays private, no more middlemen.
+对此我说想象一下你的数据真正属于你的网络，你可以将它从一个应用程序转移到另一个应用程序，你不需要向应用程序提供你的电子邮件、密码、电话号码、地址、社交身份或你的照片要注册，您只需要您的虚拟密钥。想象一下互联网不是由数据饥渴的巨头运营，而是由我们所有人运营。想象一下真正的匿名性，您可以选择公开的内容和保密的内容，不再有中间人。
 
-This is what decentralized apps hope to do. You might have known about them from bitcoin but it's way bigger than that, we are just seeing early glimpses of what it could be. And if there is one thing that will save the internet from FAANGs chokehold, it would be decentralized apps that would finally slay the tech giants.
+这就是去中心化应用程序希望做的事情。你可能从比特币中了解到它们，但它比那要大得多，我们只是看到它可能是什么的早期趋势。如果有一件事可以使互联网免于 FAANG 的束缚，那么最终会杀死科技巨头的就是去中心化应用程序。
 
-## Why The Web Survives
+## 为什么 Web 能生存
 
-The web will never die (unless we all get nuked 💣) and that is because the web is an extension of us.
+网络永远不会消亡（除非我们都被炸了💣），那是因为网络是我们的延伸。
 
-Unlike closed systems, the web is open and accessible from all devices, isn't run by one giant corporation, always backward compatible, there is no middle man between you and the people you want to connect to, and it's constantly evolving.
+与封闭系统不同，网络是开放的，可从所有设备访问，不是由一家大公司运营，始终向后兼容，在您和您想要联系的人之间没有中间人，并且它在不断发展。
 
-There was always a dream in the developers' ecosystem of "write once, run everywhere" what they didn't realize is that it was always there under their nose, the web has always been cross-platform.
+在开发人员的生态系统中一直有一个“编写一次，到处运行”的梦想，但他们没有意识到它一直就在他们的眼皮子底下，网络一直是跨平台的。
 
-## or Fall Behind
+## 要么落后
 
-I have a theory that all closed systems eventually die. The only thing they can do is prolong their existence, why so? Although they can keep watering their walled gardens, there will come a time when the weather they grew in won't be the same, so the leaves fall and the apple rots and the garden turns into a museum, a historic site, a reminder of what was.
+我有一个理论，即所有封闭系统最终都会消亡。他们唯一能做的就是延长他们的存在，为什么呢？虽然他们可以继续给围墙花园浇水，但总有一天他们生长的天气会不一样，所以树叶落下，苹果腐烂，花园变成了博物馆，历史遗迹，提醒人们这是什么。
 
-For them to survive they'll have to open their gardens and embrace the seasons and the coming season is all web.
+为了生存，他们必须打开花园并拥抱季节，即将到来的季节都是网络。
 
-## The Final Operating System
+## 最终的操作系统
 
-The web will be the final OS, all connected, forever evolving.
+网络将是最终的操作系统，所有的连接，永远发展。
 
-There will come a time when somebody points to their computer device and they'll not point to their laptop, or their phone, or their glasses, or even their microwave, they'll point to the sky and say "it's somewhere...everywhere!"
+总有一天，有人指着他们的电脑设备，但他们不会指着他们的笔记本电脑、手机、眼镜，甚至微波炉，他们会指着天空说“它在某个地方......到处！”
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
