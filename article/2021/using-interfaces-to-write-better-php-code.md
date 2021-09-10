@@ -5,7 +5,7 @@
 > * 译者：[kamly](https://github.com/kamly)
 > * 校对者：
 
-# 使用接口编写更好的 PHP 代码
+# 使用接口编写更优雅的 PHP 代码
 
 ![](https://res.cloudinary.com/practicaldev/image/fetch/s--n6v5dklj--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fn6vfrunv49pxpf8xep6.png)
 
