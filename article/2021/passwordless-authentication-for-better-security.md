@@ -1,68 +1,68 @@
-> * 原文地址：[Passwordless Authentication for Better Security](https://blog.bitsrc.io/passwordless-authentication-for-better-security-ba986df663b7)
-> * 原文作者：[Pavindu Lakshan](https://medium.com/@pavindulakshan)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md](https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Passwordless Authentication for Better Security](https://blog.bitsrc.io/passwordless-authentication-for-better-security-ba986df663b7)
+> - 原文作者：[Pavindu Lakshan](https://medium.com/@pavindulakshan)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md](https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md)
+> - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
+> - 校对者：
 
-# Passwordless Authentication for Better Security
+# 无密码认证，安全更有保障
 
 ![](https://cdn-images-1.medium.com/max/5760/1*fFag6UPoX_EoUotZnZj9uQ.jpeg)
 
-Passwords are one of the most used authentication mechanisms in web applications. But, using them in practice comes with security risks and complexities.
+密码是网络应用中最常用的认证机制之一。但是在实践中使用它们会带来安全风险和复杂问题。
 
-So, in this article, I will discuss SRP, a Passwordless authentication mechanism to help you address some of the major security challenges in password authentication.
+因此，在这篇文章中，我将讨论 SRP，一种无密码认证机制，帮助你解决密码认证中的一些主要安全挑战。
 
-## What is SRP?
+## 什么是 SRP?
 
-The [Secure Remote Password (SRP) protocol](http://srp.stanford.edu/index.html) is an augmented password-authenticated key exchange protocol.
+[Secure Remote Password (SRP) protocol](http://srp.stanford.edu/index.html) 是一个增强的密码认证的密钥交换协议。
 
-> It is a zero-knowledge-proof authentication protocol, which means both the server and the client don’t need to transmit or store password-related information. But still, they can securely verify the identity of each other.
+> 它是一个[零知识证明](https://baike.baidu.com/item/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/8804311)的认证协议，这意味着服务器和客户端都不需要传输或存储与密码有关的信息。但是，他们仍然可以安全地验证对方的身份。
 
-SRP eases off the complexities of traditional authentication since you don’t need to worry about securing password-related information within the server or in between client-server communication.
+SRP 减轻了传统认证的复杂性，因为你不需要担心在服务器内或在客户 - 服务器通信之间保护与密码有关的信息。
 
-So, let’s see how SRP works and address some of the core security challenges related to passwords.
+因此，让我们看看 SRP 是如何工作的以及是如何解决一些与密码有关的核心安全挑战。
 
-## How SRP works
+## 是如何工作的 SRP
 
-Let’s see how SRP achieves the goal of passwordless authentication. I have described the protocol in three steps for comprehension. For a more in-depth understanding, please refer to the [official documentation](http://srp.stanford.edu/design.html).
+让我们看看 SRP 是如何实现无密码认证的目标的。为了便于理解，我将该协议分为三个步骤进行描述。如需更深入的了解，请参考[官方文档](http://srp.stanford.edu/design.html)。
 
-### Step 1: Registration
+### 步骤 1: 注册
 
-When the user registers with the username and password, a salt (random string) is generated. This salt is used alongside the user credentials to generate a secret key.
+当用户使用用户名和密码注册时，会产生一个 salt（随机字符串）。这个 salt 与用户的证书一起用于生成一个秘密密钥。
 
-Then a verifier is generated using the secret key and a specified SRP group. Finally, the verifier, salt, and the [SRP group](https://datatracker.ietf.org/doc/html/rfc5054#page-16) are sent to the server instead of the actual username and password.
+然后使用秘钥和指定的 SRP 组生成一个验证器。最后，验证器、 salt 和 [SRP 组](https://datatracker.ietf.org/doc/html/rfc5054#page-16)被发送到服务器，而不是实际的用户名和密码。
 
-> So, in a nutshell, no confidential information is sent to the Server. So, no man in the middle can use the verifier salt and SRP group to cause harm.
+> 因此，简而言之，没有机密信息被发送到服务器。因此，没有中间人可以使用验证器 salt 和 SRP 组来造成伤害。
 
 ```js
-salt = client.generateRandomSalt() 
-secret_key = client.KDF(username, password, salt) 
-verifier = client.genVerifier(secret_key,SRP_group)
-client.send_to_server(verifier, salt, SRP_group)
+salt = client.generateRandomSalt();
+secret_key = client.KDF(username, password, salt);
+verifier = client.genVerifier(secret_key, SRP_group);
+client.send_to_server(verifier, salt, SRP_group);
 ```
 
 ![The registration process in the SRP protocol - graphic by author](https://cdn-images-1.medium.com/max/2048/1*3c_w9py-f7jhDEVniLKHLQ.png)
 
-### Step 2: Authentication
+### 第 2 步：认证
 
-When it’s time for authentication, the client requests the server to get the salt and the SRP group for the given username. Using that information, the client calculates a secret key and a public key. The public key is sent to the server, keeping the private key on the client-side.
-
-```js
-salt, SRP_group = client.getData(username) 
-c_secret_key = client.KDF(username, password, salt) 
-c_public_key, c_private_key = client.generateKeyPair(SRP_group)
-client.sendToServer(c_public_key)
-```
-
-The server also will calculate a key pair using the SRP group and send the public key back to the client.
+当认证时间到了，客户端请求服务器为给定的用户名获取 salt 和 SRP 组。利用这些信息，客户端计算出一个秘钥和一个公钥。公钥被发送到服务器，私钥保留在客户端。
 
 ```js
-s_public_key, s_private_key = server.generateKeyPair(SRP_group)
-server.sendToClient(s_public_key)
+salt, (SRP_group = client.getData(username));
+c_secret_key = client.KDF(username, password, salt);
+c_public_key, (c_private_key = client.generateKeyPair(SRP_group));
+client.sendToServer(c_public_key);
 ```
 
-After all, the client and the server will have the following information.
+服务器也将使用 SRP 组计算一个密钥对，并将公钥送回给客户。
+
+```js
+s_public_key, (s_private_key = server.generateKeyPair(SRP_group));
+server.sendToClient(s_public_key);
+```
+
+之后，客户和服务器将拥有以下信息。
 
 ```
 client-side: c_secret_key, c_private_key, s_public_key
@@ -71,33 +71,33 @@ server-side: verifier, s_private_key, c_public_key
 
 ![The authentication process in the SRP protocol - graphic by author](https://cdn-images-1.medium.com/max/2048/1*wp92woniVZBYPsNFI6yMdw.png)
 
-> Again, no confidential information is sent via wire between the client and server.
+> 同样，在客户和服务器之间没有任何机密信息是通过网络发送的。
 
-### Step 3: Verification
+### 第 3 步：验证
 
-Using the information gained during the authentication, the client and the server independently calculate a similar key, called the session encryption key. This is used in the subsequent requests to exchange information between the client and the server.
+利用认证过程中获得的信息，客户和服务器独立计算出一个类似的密钥，称为会话加密密钥。这在随后的请求中被用来在客户和服务器之间交换信息。
 
 ```js
 // client side
-session_key = client.genSessionKey(c_secret_key, c_private_key, s_public_key)
+session_key = client.genSessionKey(c_secret_key, c_private_key, s_public_key);
 
 // server side
-session_key = server.genSessionKey(verifier, s_private_key, c_public_key)
+session_key = server.genSessionKey(verifier, s_private_key, c_public_key);
 ```
 
-> These are called Verifier-based key exchange protocol based on Diffie-Hellman.
+> 这些被称为基于 Diffie-Hellman 的验证者密钥交换协议。
 
-The client encrypts the message using the **session encryption key** and sends it to the server. Then the server decrypts the message and verifies it. If the verification fails, the client’s request is denied. Otherwise, the server encrypts a message using its **session encryption key** and sends it back to the client to decrypt it and verify it.
+客户端使用**会话加密密钥**对信息进行加密，并将其发送给服务器。然后服务器对信息进行解密并进行验证。如果验证失败，客户端的请求被拒绝。否则，服务器使用其**会话加密密钥**对消息进行加密，并将其发回给客户，以解密和验证。
 
-I think now you understand how SRP works, and let’s see how we can implement it in practice.
+我想现在你明白了 SRP 的工作原理，让我们看看如何在实践中实现它。
 
-## Using SRP in Practice
+## 在实践中使用 SRP
 
-> **Note:** Since SRP involves complex cryptography operations, it is encouraged to use existing tried-and-true implementation instead of programming from scratch. There are already [many implementations done in different languages](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol#Implementations) to use one of them in your projects.
+> **注意:** 由于 SRP 涉及复杂的密码学操作，我们鼓励使用现有的经过验证的实现，而不是从头开始编程。已经有[许多用不同语言完成的实现](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol#Implementations)，可以在你的项目中使用其中一个。
 
-For this example, I will be using the [thinbus-srp-npm-starter](https://github.com/simbo1905/thinbus-srp-npm-tester) project, which uses `thinbus-srp-js`, a standard JavaScript SRP implementation.
+在这个例子中，我将使用 [thinbus-srp-npm-starter](https://github.com/simbo1905/thinbus-srp-npm-tester) 项目，它使用 `thinbus-srp-js`，一个标准的 JavaScript SRP 实现。
 
-First, you need to clone the project, install the NPM dependencies and run the project locally.
+首先，你需要克隆项目，安装 NPM 依赖，并在本地运行该项目。
 
 ```bash
 git clone https://github.com/simbo1905/thinbus-srp-npm-tester.git
@@ -106,36 +106,36 @@ npm install
 npm start
 ```
 
-Then, try registering at [http://localhost:8080/register](http://localhost:8080/register) with a username and a password. If we look at the registration network request at this point, it will look like this.
+然后，尝试在 [http://localhost:8080/register](http://localhost:8080/register) 用用户名和密码进行注册。如果我们看一下此时的注册网络请求，它将看起来像这样。
 
 ![registration network request - screenshot by the author](https://cdn-images-1.medium.com/max/2034/1*XEWIcLgoW7cI2sVEzTflIg.png)
 
-When logging in at [http://localhost:8080/login](http://localhost:8080/login), the client will first request the user’s salt and the SRP group from the server via `/challenge` request.
+在 [http://localhost:8080/login](http://localhost:8080/login) 登录时，客户端将首先通过`/challenge`请求向服务器请求用户的 salt 和 SRP 组。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ajRkQhiayDNFMp1pN74vaA.png)
 
-Using that information, the client computes its public key and encrypted message. Then, the client calls the `/authenticate` endpoint with the calculated data and the username.
+利用这些信息，客户端计算出它的公钥和加密的信息。然后，客户端用计算出的数据和用户名调用 `/authenticate` 端点。
 
 ![/authenticate network request - screenshot by the author](https://cdn-images-1.medium.com/max/2190/1*tHtw0uoqUS2q4BeZwPxItw.png)
 
-* A - Public (ephemeral) key that is generated on the client-side
-* M1 - Message that is encrypted on the client-side with the generated session encryption key.
+- A - 在客户端生成的公钥（短暂的）。
+- M1 - 在客户端用生成的会话加密密钥加密的信息。
 
-The server will send a message back (M2), encrypted with the same session encryption key, responding to the client’s request. Then the client decrypts and verifies it using the client’s private key.
+服务器将发送一个消息回来（M2），用相同的会话加密密钥进行加密，以回应客户的请求。然后，客户端使用客户端的私钥对其进行解密和验证。
 
-In the end, the client and server have confirmed each other’s authenticity and continue to share information between them.
+最后，客户端和服务器已经确认了彼此的真实性，并继续在它们之间分享信息。
 
 ![encrypted message from the server - screenshot by the author](https://cdn-images-1.medium.com/max/2000/1*QBhZ1ov9TtiGEA-Z9bu5bQ.png)
 
-## Final Thoughts
+## 最后的思考
 
-Passwords are the most commonly used authentication mechanism used on web applications. However, it's not easy to implement a flawless password authentication mechanism. Despite all the secure transmission and storing techniques, attackers can still access the passwords with enough patience and resources.
+密码是网络应用中最常用的认证机制。然而，要实现一个完美无缺的密码认证机制并不容易。尽管有所有的安全传输和存储技术，攻击者仍然可以用足够的耐心和资源来访问密码。
 
-SRP protocol provides a solution for this by introducing a method to authenticate without transmitting or storing any form of password-related information.
+SRP 协议为此提供了一个解决方案，引入了一种无需传输或存储任何形式的密码相关信息的认证方法。
 
-So, I invite you to try SRP in your next project and experience the difference it makes. Also, don’t forget to share your experience in the comments section as well.
+因此，我邀请你在你的下一个项目中尝试 SRP，体验它带来的不同。另外，别忘了在评论区分享你的经验。
 
-Thank you for reading !!!
+谢谢你的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
