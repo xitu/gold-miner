@@ -206,7 +206,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 ## 结语
 
-如果我需要重新开始，这是否意味着我将选择 python 作为后端而不是 TypeScript ？肯定不是。总的来说，这两种语言的相似之处多于差异。而相比起这些差异，其他因素更重要，比如你的团队更擅长哪一个。我的团队需要同时开发前端和后端，而这一事实使得 TypeScript 成为最适合我们的。
+如果我需要重新开始，这是否意味着我将选择 python 作为后端而不是 TypeScript ？肯定不是。总的来说，这两种语言的相似之处多于差异。而相比起这些差异，其他因素更重要，比如你的团队更擅长哪一个。我的团队需要同时开发前端和后端，而这一事实使得 TypeScript 最适合我们。
 
 如果你在寻找这两种语言之间更综合的比较，那么感谢你仍然阅读这篇文章。Hackernoon 有两篇不错的文章 [这里](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224) 和 [这里](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4)。
 
