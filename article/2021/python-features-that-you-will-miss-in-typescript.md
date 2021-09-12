@@ -125,7 +125,7 @@ test("deserialise is inverse of serialise", () => {
 
 ## 数据库框架
 
-关于封装数据库的库，我必须得说多一点。我主要寻找有关 SQL 数据库的库，特别是 PostgreSQL。通常一个简单的 SQL 数据对于一个项目来说已经足够了。Python 有一些非常成熟的方案 [SQLAlchemy](https://www.sqlalchemy.org/) 或者 Django 的 ORM。TypeScript/JavaScript 也并不差，最流行的是 TypeORM。这些库使你的模式随着时间得到提升，称之为[渐进式数据库设计（evolutionary database design）](https://martinfowler.com/articles/evodb.html)。（一个更实用的 [SQLAlchemy 例子](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)，以及 [TypeORM 的例子](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)。尽管两种语言都有成熟的方案，但我依然遇到过这样的情况，python 解决方案在我的 Django 项目中展现的特性比我在 JavaScript 中见过的更丰富。
+关于封装数据库的库，我必须得说多一点。我主要寻找有关 SQL 数据库的库，特别是 PostgreSQL。通常一个简单的 SQL 数据对于一个项目来说已经足够了。Python 有一些非常成熟的方案 [SQLAlchemy](https://www.sqlalchemy.org/) 或者 Django 的 ORM。TypeScript/JavaScript 也并不差，最流行的是 TypeORM。这些库能够对数据库模型进行增量改进，称之为[渐进式数据库设计（evolutionary database design）](https://martinfowler.com/articles/evodb.html)。（一个更实用的 [SQLAlchemy 例子](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)，以及 [TypeORM 的例子](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)）。尽管两种语言都有成熟的方案，但我依然遇到过这样的情况，python 解决方案在我的 Django 项目中展现的特性比我在 JavaScript 中见过的更丰富。
 
 经过一两年积极的开发后，你会创建很多的迁移。我曾在一个 Django 项目中工作过，某些时候，我确信迁移过程中添加的大部分字段和表在以后迁移时要么被修改要么被删。而实际上 Django 提供了一个解决方案 [squash migrations（压缩迁移）](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations)，用以保持较低的迁移数量。你只能压缩那些已应用于所有产品环境的迁移，所以压缩更多是为了保持整洁的代码基础而做的清理，也使得从零开始开发和测试数据库更容易。我还没有见过 TypeScript/JavaScript 有类似的包，甚至尝试去压缩迁移的包，如果没有防护措施，我不会去尝试。
 
