@@ -20,7 +20,7 @@ TypeScript/JavaScript 和 python 在很多地方都很相似。它们都
 * … 支持使用 promises 和 async/await 异步编程
 * … 很频繁地发布新版本（对于一种语言而言）
 
-当然它们在语言上也存在一些差异，有时候需要拉卡距离才能完全体会到 python 及其生态圈所提供的特性。虽然总体来说我都很喜欢使用 TypeScript 编码，但有时候我会遇到一些问题，而这些问题我知道在  python 中可以很优雅的解决。大部分时候 TypeScript/JavaScript 都能提供一个类似且优雅的解决方案，但有时候我发现自己运气不好，最终我知道有些情况用 python 会简单很多。这里是一个特性列表，当你使用 python 时你会认为是理所当然，但如果编码时没有它们你会想念的：上下文管理器（Context managers），对类型的一阶支持（first-order support for types），数据库框架（database frameworks），单元测试框架 pytest fixtures，以及字典生成器（dictionary generators）。
+当然它们在语言上也存在一些差异，有时候需要拉开距离才能完全体会到 python 及其生态圈所提供的特性。虽然总体来说我很喜欢使用 TypeScript 编码，但有时候我会遇到一些问题，而这些问题我知道在  python 中可以很优雅的解决。大部分时候 TypeScript/JavaScript 都能提供一个类似且优雅的解决方案，但有时候我发现自己运气不好，最终我知道有些情况用 python 会简单很多。这里是一个特性列表，当你使用 python 时你会认为是理所当然，但如果编码时没有它们你会想念的：上下文管理器（Context managers），对类型的一阶支持（first-order support for types），数据库框架（database frameworks），单元测试框架（pytest fixtures），以及字典生成器（dictionary generators）。
 
 ## 上下文管理器
 
