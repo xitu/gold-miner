@@ -149,7 +149,7 @@ def test_with_client(mock_client):
     # ...
 ```
 
-当然，JavaScript 也有办法运行 set-up 和 tear-down。在 jest 中，[beforeAll](https://jestjs.io/docs/api#beforeallfn-timeout)/[beforeEach](https://jestjs.io/docs/api#beforeeachfn-timeout) 和 set-up/tear-down 几乎是一样的，只有一个例外：无法从固件传递对象到测试！通常的做法是在测试以及 set-up/tear-down 函数之间分享变量。
+当然，JavaScript 也有办法运行 set-up 和 tear-down。在 jest 中，[beforeAll](https://jestjs.io/docs/api#beforeallfn-timeout)/[beforeEach](https://jestjs.io/docs/api#beforeeachfn-timeout) 和 set-up/tear-down 几乎是一样的，只有一个例外：无法从 fixture（测试前准备、测试后清理的固定代码，即上面提到的 set-up/tear-down）传递对象到测试用例！通常的做法是在测试用例以及 set-up/tear-down 函数之间分享变量。
 
 ```JavaScript
 describe("Database access function", () => {
