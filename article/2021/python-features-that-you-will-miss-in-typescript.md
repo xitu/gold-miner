@@ -194,7 +194,7 @@ const lookup = _.keyBy(myCollection, 'id')
 const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 ```
 
-就本身而言，两种方法都很干净且快速有效。但相比于 python 的 generator，lodash 没有给你一个清晰的 `key: value` 的视觉映射，会感觉有一点笨重。当查找变得更复杂时，通过函数修改键值，可读性会下降很多。
+就本身而言，两种方法都很干净且快速有效。但相比于 python 的 generator，lodash 没有给你一个清晰的 `key: value` 视觉映射，会感觉有一点笨重。当查找变得更复杂时，通过函数修改键值，可读性会下降很多。
 
 ## 这些差异重要吗？
 
