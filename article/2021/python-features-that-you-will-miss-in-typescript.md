@@ -131,7 +131,7 @@ test("deserialise is inverse of serialise", () => {
 
 ## Pytest fixtures
 
-在我写测试时，我尽量减少每个测试所需的初始化 set-up（初始化） 和 tear-down（拆毁） 的数量，有时它是必须的，而有时你想在测试之间分享 set-up。对此，我首选 [Pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)，它使你 set-up 以及 tear-down 对象，可以是每一个测试，也可以跨模块共享，甚至是所有测试。
+在我写测试时，我尽量减少每个测试所需的初始化 set-up（初始化）和 tear-down（拆毁）的数量，但有时却是必须的，而有时你想在测试之间分享 set-up。对此，我首选 [Pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)，它使你 set-up 以及 tear-down 对象，既是用于单个测试，又可以跨模块共享，甚至运用于所有的测试中。
 
 ```Python
 import pytest
