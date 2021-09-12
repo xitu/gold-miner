@@ -75,7 +75,7 @@ allprojects {
 }
 
 task clean(type: Delete) {
-    delete rootProjectbuildDir
+    delete rootProject.buildDir
 }
 ```
 
@@ -126,7 +126,7 @@ CREATE TABLE moveItem (
 );
 selectAll:
 SELECT *
-FROM mo veItem
+FROM moveItem
 ORDER BY name;
 insertOrReplace:
 INSERT OR REPLACE INTO moveItem(
@@ -183,7 +183,7 @@ Log.d("MovieDatabase", "Movies : $movies")
 ## Coroutines Support
 ## 协程支持
 
-One of the main reasons behind the success of the jetpack Room database library is that it’s easy to use and compatible **with popular frameworks like coroutines, and paging.**
+One of the main reasons behind the success of the jetpack Room database library is that it’s easy to use and compatible ****with popular frameworks like coroutines, and paging.
 
 jetpack Room 数据库库成功背后的主要原因之一是它易于使用，并与**协程**和**分页**等流行框架兼容。
 
