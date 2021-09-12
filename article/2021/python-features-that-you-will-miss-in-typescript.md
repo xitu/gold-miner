@@ -99,7 +99,7 @@ def test_deserialise_is_inverse_of_serialise(addUserEvent):
     assert addUserEvent == deserialise(serialise(addUserEvent))
 ```
 
-Typescript/Javascript 有自己的框架 [fast-check](https://github.com/dubzzz/fast-check)，在很多部分与 hypothesis 非常相似。但它无法生成测试策略。你必须在类型以及测试策略中重复对象的模式。类型的每个改变都必须在测试策略中重复。这还没有结束，如果有一个你忘了更新，编译器就会提醒你。这依然恼人，而且代码复用率并不高。
+Typescript/Javascript 有自己的框架 [fast-check](https://github.com/dubzzz/fast-check)，在很多部分与 hypothesis 非常相似。但它无法生成测试策略。你必须在类型以及测试策略中重复对象的模型（schema）。类型的每个改变都必须在测试策略中重复。这还没有结束，如果有一个你忘了更新，编译器就会提醒你。这依然恼人，而且代码复用率并不高。
 
 ```TypeScript
 type AddUserEvent = {
