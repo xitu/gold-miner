@@ -93,7 +93,7 @@ class AddUserEvent:
     dateOfBirth: date
     
 # 假设策略可以从 dataclass 的类型注解中推断出字段及其类型
-
+dataclass 的类型注释
 @given(st.builds(AddUserEvent))
 def test_deserialise_is_inverse_of_serialise(addUserEvent):
     assert addUserEvent == deserialise(serialise(addUserEvent))
