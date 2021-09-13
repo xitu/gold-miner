@@ -50,7 +50,7 @@ class DBClient:
     self.connection.query("COMMIT")
 ```
 
-在 TypeScript 中，我们使用 [node-postgres](https://node-postgres.com/features/transactions)，最接近于 python 的上下文管理器的解决方案，涉及回调函数。
+在 TypeScript 中，我们使用 [node-postgres](https://node-postgres.com/features/transactions)，最接近于 Python 的上下文管理器的解决方案，涉及回调函数。
 
 ```TypeScript
 
