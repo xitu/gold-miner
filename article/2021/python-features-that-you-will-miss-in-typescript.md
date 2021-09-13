@@ -2,39 +2,39 @@
 > * 原文作者：[Lucas Sonnabend](https://medium.com/@lucas_sonnabend)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[没事儿](https://github.com/Tong-H)
+> * 校对者：[nia3y](https://github.com/nia3y) [greycodee](https://github.com/greycodee)
 
-# Python features that you will miss in TypeScript
+# 使用 TypeScript 时你会想念的 Python 特性
 
-![Photo by [Alex Chumak](https://unsplash.com/@ralexnder?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6758/0*G6G1IweBv411ufK9)
+![图片来自 [Alex Chumak](https://unsplash.com/@ralexnder?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6758/0*G6G1IweBv411ufK9)
 
-Recently I switched from python and django as the main backend language to node.js with TypeScript. After an initial learning period, I can say that I enjoyed the switch. Seeing how different languages and frameworks address similar problems is always fun. As you understand where they agree or differ in their approach, you gain a better understanding of programming itself.
+最近我把主要使用的后端语言从 Python 和 Django 切换到了 Node.js 和 TypeScript。在经过一段初始学习期后，我可以说我很享受这次切换。了解不同的语言和框架如何处理相似的问题总是很有趣。当你理解它们方法之间的一致或差异时，你也会对编程本身有更好的理解。
 
-In many ways TypeScript/JavaScript and python are similar. They both
+TypeScript/JavaScript 和 Python 在很多地方都很相似。它们都
 
-* … have a modern syntax
-* … are best left as a single-threaded application
-* … started off as dynamic languages with static type checking added later
-* … have a large ecosystem with lots of modules/packages
-* … support asynchronous programming with promises and async/await
-* … release new versions quite frequently (for a language)
+* … 包含现代语法
+* … 最好作为一个单线程应用
+* … 一开始是动态语言，而后添加静态类型检查
+* … 拥有一个庞大生态圈，包含大量模块/包
+* … 支持使用 promises 和 async/await 异步编程
+* … 很频繁地发布新版本（对于一种语言而言）
 
-But there are of course some differences in the languages, and sometimes it takes a bit of distance to fully appreciate the features that python and its ecosystem provided. While I enjoy coding in TypeScript in general, sometimes I come across problems where I know that they could be solved very elegantly in python. Most of the time TypeScript/JavaScript provides a similarly elegant solution, but sometimes I find myself out of luck, and I end up with something that I know could have been so much easier in python. Here is my list of features that are easy to take for granted while you are using python, but will be missed when you have to code without them: Context managers, first-order support for types, database frameworks, pytest fixtures, and dictionary generators.
+当然它们在语言上也存在一些差异，有时候需要拉开距离才能完全体会到 Python 及其生态圈所提供的特性。虽然总体来说我很喜欢使用 TypeScript 编码，但有时候我会遇到一些问题，而这些问题我知道在  Python 中可以很优雅的解决。大部分时候 TypeScript/JavaScript 都能提供一个类似且优雅的解决方案，但有时候我发现自己运气不好，最终我知道有些情况用 Python 会简单很多。这里是一个特性列表，当你使用 Python 时你会认为是理所当然，但如果编码时没有它们你会想念的：上下文管理器（Context managers），对类型的一阶支持（first-order support for types），数据库框架（database frameworks），单元测试框架（pytest fixtures），以及字典生成器（dictionary generators）。
 
-## Context managers
+## 上下文管理器
 
-Context managers in python have lots of use-cases, like opening and closing files, protecting your code with a lock, or custom resource management with set-up and tear-down. I really started to miss them when I worked on our backend, and we needed database transactions. In python, this is quite elegantly solved. In fact, a lot of libraries, like [django](https://docs.djangoproject.com/en/3.2/topics/db/transactions/), already provide a context manager for this!
+Python 中的上下文管理器有很多用例，比如打开和关闭文件，用锁保护你的代码，或者通过 set-up 和 tear-down 来自定义资源管理。当我写我们的后端时我真的开始想念它们，而我们需要数据库事务（database transactions）。在 Python 中，这个可以完美解决。实际上，有很多库比如 [django](https://docs.djangoproject.com/en/3.2/topics/db/transactions/)，都提供上下文管理器来解决这个。
 
 ```Python
-# in the code
+# 在你的代码中
 with db_client.transaction():
     db_client.query("UPDATE ...")
     # ....
     db_client.query("UPDATE ...")
     
 
-# in you db client code
+# 在你的数据库客户端代码中
 from contextlib import contextmanager
 
 class DBClient:
@@ -50,18 +50,18 @@ class DBClient:
     self.connection.query("COMMIT")
 ```
 
-With TypeScript, we were using [node-postgres](https://node-postgres.com/features/transactions), and the solution closest to context managers in python involves callbacks.
+在 TypeScript 中，我们使用 [node-postgres](https://node-postgres.com/features/transactions)，最接近于 Python 的上下文管理器的解决方案，涉及回调函数。
 
 ```TypeScript
 
-// in your code
+// 在你的代码中
 await transaction(dbClient, async () => {
     dbClient.query("UPDATE ...");
     // ...
     dbClient.query("UPDATE ...");
 });
 
-// in your db client code
+// 在你的数据库客户端代码中
 export const transaction = async (
     dbClient: DBClient,
     callback: async () => Promise<void>,
@@ -77,13 +77,13 @@ export const transaction = async (
 }
 ```
 
-While this is not the worst implementation ever, but not as clean as pythons. It might trigger PTSD if you have been to the [callback hell](https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/) of JavaScript in the days before async/await. Libraries don’t provide this interface, so you have to implement it yourself, or you end up with lots of try/catch blogs for your transactions. I got those wrong at least once, which caused a bug that I luckily caught before it made it to production.
+虽然这并不是最糟糕的实现，但并不如 Python 干净简洁。如果你曾见识过在 async/await 出现之前 JavaScript 的[回调地狱](https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/), 那这可能会引发你的 PTSD（创伤后应激障碍）。库不提供这个接口，所以你需要自己实现，或者最终在事务中使用大量的 try/catch。这些导致 bug 的错误我至少犯过一次，但幸运的是我在它发生在生产环境前发现了。
 
-## First-order support for types
+## 对类型的一阶支持
 
-In python, I typically use a `dataclass` to define the schema of messages, with TypeScript I declare a `type`. At runtime python still allows me to inspect the `dataclass` class and the type of its fields. With TypeScript, there is no way to do that, as all the type information has been lost when it is compiled down to JavaScript.
+在 Python 中，我通常使用一个 `dataclass` 来定义消息的模型（schema）；在 TypeScript 中，我会声明一个 `type`。在 Python 运行时，我依然可以去检查 `dataclass` 类及其字段类型。而在 TypeScript 中无法这样做，因为所有的类型信息都会在编译为 JavaScript 时丢失。
 
-Now, where is this actually useful? I am a big fan of property-based testing and generating test cases for better coverage. Python has a pretty good testing framework for this called [hypothesis](https://hypothesis.works/). It allows you to create testing strategies from a `dataclass` with type annotation, and these strategies will generate test cases.
+现在这个特性真正有用的地方是哪里呢？我非常喜欢基于属性的测试及生成测试用例以求更好的覆盖范围，对此 Python 有一个非常棒的测试框架 [hypothesis](https://hypothesis.works/)。它可以从带有类型注解的 `dataclass` 生成测试策略，而这些策略将会生成测试用例。
 
 ```Python
 @dataclass(frozen=True)
@@ -92,14 +92,14 @@ class AddUserEvent:
     lastName: str
     dateOfBirth: date
     
-# hypothesis strategy can infer the fields and their  types from 
-# the type annotations of the dataclass
+# 假设策略可以从 dataclass 的类型注解中推断出字段及其类型
+dataclass 的类型注释
 @given(st.builds(AddUserEvent))
 def test_deserialise_is_inverse_of_serialise(addUserEvent):
     assert addUserEvent == deserialise(serialise(addUserEvent))
 ```
 
-Typescript/Javascript has its own framework, [fast-check](https://github.com/dubzzz/fast-check), and for most parts, it is very similar to hypothesis. One thing it cannot do is generate testing strategies. You have to repeat the schema of your object in the type and in the testing strategy. Every change to the type has to be repeated in the testing strategy. It’s not the end of the world, because if you forget to update one, the compiler will remind you. It is still annoying, and not very DRY.
+Typescript/Javascript 有自己的框架 [fast-check](https://github.com/dubzzz/fast-check)，在很多部分与 hypothesis 非常相似。但它无法生成测试策略。你必须在类型以及测试策略中重复对象的模型（schema）。类型的每个改变都必须在测试策略中重复。这还没有结束，如果有一个你忘了更新，编译器就会提醒你。这依然恼人，而且代码复用率并不高。
 
 ```TypeScript
 type AddUserEvent = {
@@ -123,15 +123,15 @@ test("deserialise is inverse of serialise", () => {
 });
 ```
 
-## Database frameworks
+## 数据库框架
 
-I have to talk a bit more about database wrappers. I am mainly looking at libraries for SQL databases, PostgreSQL in particular. Most of the time, a simple SQL database will be sufficient for a project. Python has some pretty mature solutions with [SQLAlchemy](https://www.sqlalchemy.org/) or the ORM that comes with Django. TypeScript/JavaScript is not far behind, with TypeORM being the most popular. Those libraries allow you to evolve your schema over time, a practice coined as [evolutionary database design](https://martinfowler.com/articles/evodb.html). (A more practical example with SQLAlchemy is [here](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4), and [here](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3) is one with TypeORM). With mature solutions in both languages, I still came across a case where the python solution, in my case Django, is more feature-rich than anything I have seen for JavaScript.
+关于封装数据库的库，我必须得说多一点。我主要寻找有关 SQL 数据库的库，特别是 PostgreSQL。通常一个简单的 SQL 数据对于一个项目来说已经足够了。Python 有一些非常成熟的方案 [SQLAlchemy](https://www.sqlalchemy.org/) 或者 Django 的 ORM。TypeScript/JavaScript 也并不差，最流行的是 TypeORM。这些库能够对数据库模型进行增量改进，称之为[渐进式数据库设计（evolutionary database design）](https://martinfowler.com/articles/evodb.html)。（一个更实用的 [SQLAlchemy 例子](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)，以及 [TypeORM 的例子](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)）。尽管两种语言都有成熟的方案，但我依然遇到过这样的情况，Python 解决方案在我的 Django 项目中展现的特性比我在 JavaScript 中见过的更丰富。
 
-After a year or two of active development, you will have created a lot of migrations. I have worked on a Django project where at some point I was confident that the majority of fields and tables added during migrations were also either altered or removed in a later migration. Django actually provides a solution to [squash migrations](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations), to keep the total number of migrations low. You can only squash migrations that have already been applied to all production environments, so squashing is more of a clean-up to keep your code-base tidy, and making it easier to set up a development or testing database from scratch. I have not seen any TypeScript/JavaScript package that even attempts to squash migrations, and without some guard rails, I would not attempt this.
+经过一两年积极的开发后，你会创建很多的迁移。我曾在一个 Django 项目中工作过，某些时候，我确信迁移过程中添加的大部分字段和表在以后迁移时要么被修改要么被删。而实际上 Django 提供了一个解决方案 [squash migrations（压缩迁移）](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations)，用以保持较低的迁移数量。你只能压缩那些已应用于所有产品环境的迁移，所以压缩更多是为了保持整洁的代码基础而做的清理，也使得从零开始开发和测试数据库更容易。我还没有见过 TypeScript/JavaScript 有类似的包，甚至尝试去压缩迁移的包，如果没有防护措施，我不会去尝试。
 
 ## Pytest fixtures
 
-When I write tests, I try to minimise the amount of set-up and tear down each test requires, but sometimes it is inevitable, and sometimes you want to share the setup between tests. P[ytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html) are my preferred tool for this. It allows you to set up and tear down objects, either per test, shared across a module, or even all tests.
+在我写测试时，我尽量减少每个测试所需的初始化 set-up（初始化）和 tear-down（拆毁）的数量，但有时却是必须的，而有时你想在测试之间分享 set-up。对此，我首选 [Pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)，它使你 set-up 以及 tear-down 对象，既是用于单个测试，又可以跨模块共享，甚至运用于所有的测试中。
 
 ```Python
 import pytest
@@ -141,7 +141,7 @@ def mock_client():
     # set-up
     client = mockClient()
     yield client
-    # potential tear-down
+    # 潜在的 tear-down
 
 def test_with_client(mock_client):
     # ...
@@ -149,7 +149,7 @@ def test_with_client(mock_client):
     # ...
 ```
 
-Of course, JavaScript has a way to run set-up and tear-down code for tests. With jest, this is [beforeAll](https://jestjs.io/docs/api#beforeallfn-timeout)/[beforeEach](https://jestjs.io/docs/api#beforeeachfn-timeout) which does almost the same, with one exception: You cannot pass the object from the fixture into the test! The common way around it is to use a variable that is shared between the tests and the setup/tear-down functions.
+当然，JavaScript 也有办法运行 set-up 和 tear-down。在 jest 中，[beforeAll](https://jestjs.io/docs/api#beforeallfn-timeout)/[beforeEach](https://jestjs.io/docs/api#beforeeachfn-timeout) 和 set-up/tear-down 几乎是一样的，只有一个例外：无法从 fixture（测试前准备、测试后清理的固定代码，即上面提到的 set-up/tear-down）传递对象到测试用例！通常的做法是在测试用例以及 set-up/tear-down 函数之间分享变量。
 
 ```JavaScript
 describe("Database access function", () => {
@@ -170,13 +170,13 @@ describe("Database access function", () => {
 });
 ```
 
-This is common practice, but it is also annoying. Once you have several tests that share the same set-up/tear-down code they will all access the same global and mutable variable. This is where my alarm bells start to ring. Tests should be self-contained, without any shared state between them. And because the setup is run before every single test, they don’t actually share the same object. It is just a pity that this cannot be properly expressed in code.
+这是普遍的做法，但依然有点恼人。一旦你有几个测试共享相同的 set-up/tear-down 代码，那它们都会访问相同的全局对象和变量。这是我的警铃开始响起的地方。测试之间应该是彼此独立的，不应该有任何共享的状态。因为 set-up 运行于每个测试之前，所以它们实际上并不共享相同的对象。很遗憾的是不能恰当的表现在代码中。
 
-There are other popular testing frameworks for TypeScript/JavaScript, like [Mocha](https://mochajs.org/), but to the best of my knowledge, they tend to provide the same [beforeAll/beforeEach hooks](https://mochajs.org/#root-hook-plugins).
+TypeScript/JavaScript 还有其他流行的测试框架，比如 [Mocha](https://mochajs.org/)，但据我所知，它们往往提供相同的 [beforeAll/beforeEach 钩子](https://mochajs.org/#root-hook-plugins)。
 
-## Dictionary generators
+## 字典生成器
 
-I often find myself with the following operation in code: I have a collection of objects, and I want to look them up according to a certain object field, usually their ID. Python has a very functional and elegant syntax for this: generators.
+我经常发现自己在代码中有这个操作：我有一个对象集合，然后我想根据对象的一个字段（通常是它们的 ID）查找他们。对此，Python 有一个非常实用和优雅的语法 generators。
 
 ```Python
 lookup = {elem.id: elem for elem in my_collection}
@@ -186,7 +186,7 @@ lookup2 = {
 }
 ```
 
-In JavaScript, you can also achieve this with little code, thanks to the [lodash](https://lodash.com/docs/#keyBy) module.
+在 JavaScript，感谢 [lodash](https://lodash.com/docs/#keyBy) 模块，你也可以使用很少的代码实现这样的功能。
 
 ```TypeScript
 import _ from "lodash"
@@ -194,35 +194,35 @@ const lookup = _.keyBy(myCollection, 'id')
 const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 ```
 
-On their own, both solutions are clean, functional, and fast. But in comparison to the python generator lodash feels a bit clunky. It does not give you a clear visual mapping of`key: value`. When the lookup is more complicated, with functions modifying the key and value, readability degrades much more.
+就本身而言，两种方法都很干净且快速有效。但相比于 Python 的 generator，lodash 没有给你一个清晰的 `key: value` 视觉映射，会感觉有一点笨重。当查找变得更复杂时，通过函数修改键值，可读性会下降很多。
 
-## Do those differences matter?
+## 这些差异重要吗？
 
-I have ranted about edge cases where python is more elegant than TypeScript. But focusing on the big picture, I still enjoy coding in TypeScript. There are features where TypeScript is better than python. For example, I found it easier to write more and more accurate types with TypeScript than I do with python and MyPy.
+我抱怨过在边缘情况下 Python 比 TypeScript 更优雅。但总体来说，我依然很享受使用 TypeScript 编码。在某些功能上，TypeScript 比 Python 更好，比如使用 TypeScript 编写精确的类型比我使用 Python 和 MyPy 更容易。
 
-![Photo by [Piret Ilver](https://unsplash.com/@saltsup?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*wnH40qHfyRl6dnbo)
+![图片来自 [Piret Ilver](https://unsplash.com/@saltsup?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*wnH40qHfyRl6dnbo)
 
-Do those differences matter? They clearly matter to me, otherwise, I would not have written this article. Writing code means expressing what you want a computer to do concisely and legibly. It should be about the “what” as much as possible, and not the “how” it is done in a particular technology. It makes code easier to read, write and maintain, which in the end leads to fewer bugs. In the examples I gave python does a slightly better job than TypeScript.
+这些差异重要吗？对我来说无疑是重要的，否则我就不会写这篇文章了。写代码意味着简洁清晰的表达出你想要电脑去做什么。这个着重点应该尽可能的是“做的内容”，而不是“如何”用某种技术完成的。这会使代码更易读、编写及维护，最终减少 bug 数量。在我给出的例子中，Python 做得比 TypeScript 稍微好些。
 
-## Final Thoughts
+## 结语
 
-Does this mean I would choose python over TypeScript for the backend if I had to start all over? Definitely not. In the end, both languages have more similarities than differences. Other factors are more important, such as the expertise in your team. In our case just the fact that my team would be developing both the frontend and backend at the same time made TypeScript a favourite for us.
+如果我需要重新开始，这是否意味着我将选择 Python 作为后端而不是 TypeScript ？肯定不是。总的来说，这两种语言的相似之处多于差异。而相比起这些差异，其他因素更重要，比如你的团队更擅长哪一个。我的团队需要同时开发前端和后端，而这一事实使得 TypeScript 最适合我们。
 
-If you were looking for a more general comparison between the two languages, then thanks for still reading through this all the way. Hackernoon has a couple of good articles [here](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224) and [here](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4).
+如果你在寻找这两种语言之间更综合的比较，那么感谢你仍然阅读这篇文章。Hackernoon 有两篇不错的文章 [这里](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224) 和 [这里](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4)。
 
-## Resources
+## 资源
 
-* [pythons hypothesis for property-based testing](https://hypothesis.works/)
-* [JavaScripts fast-check for property-based testing](https://github.com/dubzzz/fast-check)
-* [JavaScripts lodash module for efficient list and object manipulation](https://lodash.com/)
+- [Python hypothesis：基于属性的测试（property-based testing）](https://hypothesis.works/)
+- [JavaScript fast-check：基于属性的测试（property-based testing](https://github.com/dubzzz/fast-check)
+- [JavaScripts lodash：高效的列表及对象操作](https://lodash.com/)
 * [pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)
-* [jest JavaScript testing framework](https://jestjs.io/)
-* [evolutionary database design](https://martinfowler.com/articles/evodb.html)
-* [working example of evolutionary database design with SQAlchemy](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)
-* [working example of evolutionary database design with TypeORM](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)
-* [squashing migrations with Django](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations)
-* [python vs javascript article #1](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224)
-* [python vs JavaScript article #2](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4)
+- [jest JavaScript 测试框架](https://jestjs.io/)
+- [渐进式数据库设计](https://martinfowler.com/articles/evodb.html)
+- [使用 SQAlchemy 渐进式数据库设计的案例](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)
+- [使用 TypeORM 渐进式数据库设计的案例](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)
+- [Django 的 squashing migrations ](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations)
+- [Python vs JavaScript 文章 #1](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224)
+- [Python vs JavaScript 文章 #2](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
