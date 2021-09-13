@@ -77,7 +77,7 @@ export const transaction = async (
 }
 ```
 
-虽然这并不是最糟糕的实现，但并不如 python 干净简洁。如果你曾见识过在 async/await 出现之前 JavaScript 的[回调地狱](https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/), 那这可能会引发你的 PTSD（创伤后应激障碍）。库不提供这个接口，所以你需要自己实现，或者最终在事务中使用大量的 try/catch。这些导致 bug 的错误我至少犯过一次，但幸运的是我在它发生在生产环境前发现了。
+虽然这并不是最糟糕的实现，但并不如 Python 干净简洁。如果你曾见识过在 async/await 出现之前 JavaScript 的[回调地狱](https://www.geeksforgeeks.org/what-is-callback-hell-in-node-js/), 那这可能会引发你的 PTSD（创伤后应激障碍）。库不提供这个接口，所以你需要自己实现，或者最终在事务中使用大量的 try/catch。这些导致 bug 的错误我至少犯过一次，但幸运的是我在它发生在生产环境前发现了。
 
 ## 对类型的一阶支持
 
