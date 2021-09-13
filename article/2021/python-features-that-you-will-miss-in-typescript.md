@@ -198,7 +198,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 ## 这些差异重要吗？
 
-我抱怨过在边缘情况下 python 比 TypeScript 更优雅。但总体来说，我依然很享受使用 TypeScript 编码。在某些功能上，TypeScript 比 python 更好，比如使用 TypeScript 编写精确的类型比我使用 python 和 MyPy 更容易。
+我抱怨过在边缘情况下 Python 比 TypeScript 更优雅。但总体来说，我依然很享受使用 TypeScript 编码。在某些功能上，TypeScript 比 Python 更好，比如使用 TypeScript 编写精确的类型比我使用 Python 和 MyPy 更容易。
 
 ![图片来自 [Piret Ilver](https://unsplash.com/@saltsup?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*wnH40qHfyRl6dnbo)
 
