@@ -214,7 +214,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 - [Python hypothesis：基于属性的测试（property-based testing）](https://hypothesis.works/)
 - [JavaScript fast-check：基于属性的测试（property-based testing](https://github.com/dubzzz/fast-check)
-* [JavaScripts lodash：高效的列表及对象操作](https://lodash.com/)
+- [JavaScripts lodash：高效的列表及对象操作](https://lodash.com/)
 * [pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)
 - [jest JavaScript 测试框架](https://jestjs.io/)
 - [渐进式数据库设计](https://martinfowler.com/articles/evodb.html)
