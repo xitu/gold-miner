@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md)
 > * 译者：[没事儿](https://github.com/Tong-H)
-> * 校对者：[greycodee](https://github.com/greycodee)
+> * 校对者：[nia3y](https://github.com/nia3y) [greycodee](https://github.com/greycodee)
 
 # 使用 TypeScript 时你会想念的 Python 特性
 
@@ -11,7 +11,7 @@
 
 最近我把主要使用的后端语言从 Python 和 Django 切换到了 Node.js 和 TypeScript。在经过一段初始学习期后，我可以说我很享受这次切换。了解不同的语言和框架如何处理相似的问题总是很有趣。当你理解它们方法之间的一致或差异时，你也会对编程本身有更好的理解。
 
-TypeScript/JavaScript 和 python 在很多地方都很相似。它们都
+TypeScript/JavaScript 和 Python 在很多地方都很相似。它们都
 
 * … 包含现代语法
 * … 最好作为一个单线程应用
@@ -24,7 +24,7 @@ TypeScript/JavaScript 和 python 在很多地方都很相似。它们都
 
 ## 上下文管理器
 
-python 中的上下文管理器有很多用例，比如打开和关闭文件，用锁保护你的代码，或者通过 set-up 和 tear-down 来自定义资源管理。当我写我们的后端时我真的开始想念它们，而我们需要数据库事务（database transactions）。在 python 中，这个可以完美解决。实际上，有很多库比如 [django](https://docs.djangoproject.com/en/3.2/topics/db/transactions/)，都提供上下文管理器来解决这个。
+Python 中的上下文管理器有很多用例，比如打开和关闭文件，用锁保护你的代码，或者通过 set-up 和 tear-down 来自定义资源管理。当我写我们的后端时我真的开始想念它们，而我们需要数据库事务（database transactions）。在 Python 中，这个可以完美解决。实际上，有很多库比如 [django](https://docs.djangoproject.com/en/3.2/topics/db/transactions/)，都提供上下文管理器来解决这个。
 
 ```Python
 # 在你的代码中
@@ -202,7 +202,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 ![图片来自 [Piret Ilver](https://unsplash.com/@saltsup?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6400/0*wnH40qHfyRl6dnbo)
 
-这些差异重要吗？对我来说无疑是重要的，否则我就不会写这篇文章了。写代码意味着简洁清晰的表达出你想要电脑去做什么。这个着重点应该尽可能的是“做的内容”，而不是“如何”用某种技术完成的。这会使代码更易读、编写及维护，最终减少 bug 数量。在我给出的例子中，python 做得比 TypeScript 稍微好些。
+这些差异重要吗？对我来说无疑是重要的，否则我就不会写这篇文章了。写代码意味着简洁清晰的表达出你想要电脑去做什么。这个着重点应该尽可能的是“做的内容”，而不是“如何”用某种技术完成的。这会使代码更易读、编写及维护，最终减少 bug 数量。在我给出的例子中，Python 做得比 TypeScript 稍微好些。
 
 ## 结语
 
