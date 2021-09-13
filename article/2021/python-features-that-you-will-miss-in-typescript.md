@@ -212,7 +212,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 
 ## 资源
 
-* [python hypothesis：基于属性的测试（property-based testing）](https://hypothesis.works/)
+- [Python hypothesis：基于属性的测试（property-based testing）](https://hypothesis.works/)
 - [JavaScript fast-check：基于属性的测试（property-based testing](https://github.com/dubzzz/fast-check)
 * [JavaScripts lodash：高效的列表及对象操作](https://lodash.com/)
 * [pytest fixtures](https://docs.pytest.org/en/6.2.x/fixture.html)
