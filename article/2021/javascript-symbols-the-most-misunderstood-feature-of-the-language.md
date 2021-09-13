@@ -2,45 +2,45 @@
 > * 原文作者：[Fernando Doglio](https://medium.com/@deleteman123)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-symbols-the-most-misunderstood-feature-of-the-language.md](https://github.com/xitu/gold-miner/blob/master/article/2021/javascript-symbols-the-most-misunderstood-feature-of-the-language.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zavier](https://github.com/zaviertang) 
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[niayyy](https://github.com/nia3y) 
 
-# JavaScript Symbols: the Most Misunderstood Feature of the Language?
+# Symbol：JavaScript 中最容易被误解的特性？
 
 ![Image by [Anemone123](https://pixabay.com/users/anemone123-2637160/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2736480) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=2736480)](https://cdn-images-1.medium.com/max/3840/1*XF06TaFwVn5fEt8pS9syOA.jpeg)
 
-— **”What does the Symbol has that I don’t”** asked the String to the developer, and he answered — **“Well, it is one of a kind”**
+String 问开发者：“Symbol 中的哪个特性是我 String 没有的？”。“额，Symbol 是独一无二的。”
 
-It’s a terrible line, I know, but stick with me for a second, would you? Symbols are one of those strange features of JavaScript that because no one really understands, they don’t use it.
+我知道，这是一个糟糕的回答，但请和我一起来看看，好吗？Symbol 是 JavaScript 中的奇怪特性之一，因为很少有人真正理解它，也不去使用它。
 
-But there is a reason why they’re there, don’t you think? Just like the `with` is there for a reason — whether we like it or not — , Symbols have a purpose. And we’re here to figure it out.
+但是 Symbol 的存在是有原因的，你不觉得吗？就像 `with` 一样有它存在的价值，无论你是否喜欢它。Symbol 也有它存在的价值。这里，我们来分析一下。
 
-## The basics: What are Symbols?
+## Symbol 是什么?
 
-Long story short, Symbols are a fairly new primitive type that you now have access to, next to strings, numbers, booleans, `undefined` and `null` .
+长话短说，Symbol 是一种新的原始数据类型，现在你可以像访问字符串、数值、布尔值、`undefined` 和 `null` 一样去访问它。
 
-Let’s break that down a bit. Primitive values are the actual value assigned to a variable, so in the following code:
+让我们来分析一下。原始数据类型的值是会被直接赋值到变量当中的，如下：
 
 ```js
 let a = "foo"
 ```
 
-The primitive is “foo”, not `a` . The latter is a variable that’s been assigned a primitive value. Why am I making this distinction? Because you don’t normally use primitive values directly, instead you assigned them to variables to give them meaning. In other words, `2` by itself means nothing, but `let double = 2;` suddenly has meaning.
+这里的原始值是指字符串 `"foo"` 而不是 `a`。后者只是一个被赋值为原始值的变量。为什么我要在这里进行这样的区分呢？因为一般你不会直接地使用一个原始值，而是将它赋值给变量并赋予它含义。换句话说，数值 `2` 本身没有任何含义，但 `let double = 2;` 是有含义的。
 
-Another very interesting aspect around this, is that primitives in JavaScript are immutable. That means you can’t change the number `2` ever. Instead, you can **reassign** a variable to have another (immutable) primitive value.
+另一个有趣的点是，在 JavaScript 中原始值是不可变更的。这意味着你永远不能修改数值 `2`。但实际上，你可以为变量**重新赋值**为其他（不可变更的）原始值。
 
-Now, bringing it all into the scope of Symbols we can gather that:
+同样作为原始值的 Symbol 也有以上的特性：
 
-* Symbols are primitive values and can be assigned to variables.
-* Symbols are immutable, you can’t change them, no matter how much you try.
+* Symbol 是一种原始值，可以直接赋值给变量。
+* Symbol 是不可变更的，不管你如何尝试，都无法修改它。
 
-They also have one extra quality: they’re unique across the execution of your script.
+它还有一个额外的特性：Symbol 在全局是唯一的。
 
-The first two characteristics are classic for all values, but the second one isn’t, and that is what makes them so special.
+前两个特性对于所有原始类型来说都是常见的，但第三个特性却不是，这就是它们如此特别的原因。
 
-### The uniqueness of Symbols
+### 独一无二的 Symbol
 
-Let’s do some tests:
+让我们来测试一下：
 
 ```JavaScript
 2 === 2 // TRUE
@@ -51,11 +51,11 @@ null === null // TRUE
 Symbol() === Symbol() // FALSE!
 ```
 
-That result right there is what makes Symbols so special: every time you use them, you’re creating a new one. Even if you give them the same name!
+以上结果就表明 Symbol 独特的特性：每次创建的 Symbol 都是一个新的值，即使你给他们传递了相同的名称。
 
-For debugging purposes, you can provide a single attribute to the `Symbol` constructor, a string. That value is of no use other than debugging.
+如果想调试一下，你可以为 `Symbol` 构造函数提供一个字符串值作为参数。除了调试之外，该值没有任何用处。
 
-So what’s the use of a value that you can’t really match ever again? I mean, it’s not like I can do:
+那么这样一个你永远无法真正匹配的值有什么用呢？
 
 ```js
 let obj = {}
@@ -63,20 +63,20 @@ obj[Symbol()] = 10;
 console.log(obj[Symbol()]);
 ```
 
-That wouldn’t work. Granted, you can save the `Symbol` into a variable, and then use that instead to reference the unique property. But you’d have to keep track of every symbol inside a new variable. It kind of looks like a watered-down version of a String, to be honest, doesn’t it?
+结果不是我们预期的。当然，你可以将 `Symbol` 保存到变量中，然后使用变量去访问唯一的属性值。但是你必须保存每个 Symbol 到变量中。实在的说，它像是字符串的一个变种，不是吗？
 
-That’s only until you learn about the global symbol cache!
+直到你认识到全局 Symbol 缓存后！
 
-Instead of directly creating symbols by calling the `Symbol` function, you can use the `Symbol.for` method.
+你可以通过 `Symbol.for` 方法来创建 Symbol 值，而不是直接调用 `Symbol` 函数。
 
 ```JavaScript
 let obj = {}
 obj[Symbol.for('unique_prop')] = 10;
 
-console.log(Symbol.for('unique_prop')); //This will print 10!
+console.log(obj[Symbol.for('unique_prop')]); // 将输出 10!
 ```
 
-The first call to `for` will create a new symbol, while the second one will only retrieve it. And here is where our little friends start deviating from strings. You see, while the string `"hello"` will always be equal to `"hello"` for obvious reasons, they’re two different strings. So when we do:
+第一次调用 `Symbol.for` 将会创建一个新的 Symbol 值，然后在第二次调用时将会返回它。这里就是 Symbol 偏离字符串的地方。显然，字符串 `"hello"` 和另一个字符串 `"hello"` 是相等的，但他们是不同的字符串。比如当我们：
 
 ```JavaScript
 let obj = {}
@@ -84,34 +84,34 @@ obj["prop"] = 10;
 console.log(obj["prop"]);
 ```
 
-We’re creating:
+我们创建了：
 
-* A primitive value of type number (10)
-* 2 primitive values of type string (the two “prop” strings)
+* 一个 Number 类型的原始值 (`10`)
+* 两个 String 类型的原始值（两个 `"prop"` 字符串）
 
-How relevant is that? Let’s take a look at some use cases for symbols!
+他们之间有什么联系呢？让我们来看一些 Symbol 的例子！
 
-## When would you want to use symbols and why?
+## 何时使用 Symbol？
 
-Look at the last example, how expensive — resource-wise — can that be? How much memory would you say we’ve consumed by creating one extra string? It’s so little that I don’t even want to bother making that calculation.
+在上一个例子里，资源方面的成本有多高？创建一个额外的字符串消耗了多少内存？太少了，我甚至不愿去关注它。
 
-Especially if you’re working on a web dev environment.
+但特别的是，如果它工作在 Web 环境中。
 
-However, if you’re running into some edge cases, like potentially doing some data processing that generates big in-memory dictionaries, or perhaps you’re using JavaScript on edge devices with limited memory, then symbols can be a great way of keeping memory utilization in check.
+或者，如果你遇到一些边缘情况，例如可能需要进行一些数据处理以生成大型内存字典，或者你可能在内存有限的设备上使用 JavaScript，那么 Symbol 可能是维持内存利用率的好方法。
 
-### Adding “invisible” methods
+### 添加“不可见的”方法
 
-Another interesting use case for symbols comes from the fact that they’re so unique. They can be used to provide custom, unique “hooks” to objects. Like the `toString` hook that you can add on a custom object and that will get called by `console.log` when serializing it.
+Symbol 的另一个有趣的用途来自它们是唯一的这样一个特性。它们可用于为对象提供自定义的、唯一的“hooks”。就像你可以在自定义对象上添加的 `toString` 钩子一样，它会在 `console.log` 序列化时被调用。
 
-The key here is that by using symbols, you’re avoiding a potential name collision with whatever name the user gives to their methods. Unless they specifically use your symbol, there won’t be a problem.
+这里的关键是，通过使用 Symbol，你可以避免与用户为其方法提供的任何名称发生潜在的名称冲突。除非他们特意使用你的 Symbol，否则不会有问题。
 
 ```JavaScript
-///Adding the custom hook to "Object"
+// 为 "Object" 添加自定义 hook
 Object.prototype.symbols = {
     serialize: Symbol.for('serialize')
 }
 
-//Your function taking advantage of the hook
+// 在函数中使用 hook
 function myconsol_log(obj) {
     if(typeof obj[Object.symbols.serialize] === 'function') {
         console.log(obj[Object.symbols.serialize]())
@@ -121,7 +121,7 @@ function myconsol_log(obj) {
 }
 
 
-//You overwriting the hook for your own needs
+// 编写你自己的 hook
 class MyObject {
     [Object.symbols.serialize]() {
         return "Damn son!"
@@ -136,19 +136,19 @@ class MyObject {
 myconsol_log(new MyObject())
 ```
 
-Look at that code, what do you think the output will be?
+以上代码，你认为输出会是什么？
 
-It’s going to be `"damn son!` because that’s the method you defined using the unique symbol. The other one is essentially treated as a string, so they’re not the same and you’re not overwriting it.
+将会输出 `"damn son!"`，因为这是你使用 Symbol 定义的方法。而另一个本质上会被视为字符串，因此它们不相同并且你也不会覆盖它。
 
-Note that for the sake of simplicity, I’ve added a property to `Object` and this is not something you’d want to do. Instead create a custom class to properly control who inherits this custom hook.
+注意，为了简单起见，我向 `Object` 添加了一个属性，这不是必要的。相反，你应创建一个自定义类来正确控制谁继承了这个自定义钩子。
 
-### Metadata for your classes
+### 作为类的元数据
 
-The last interesting use case for symbols is adding properties to your classes and objects that are really not part of their “shape”.
+Symbol 的最后一个有趣的用例是向你的类和对象中添加属性，这些属性实际上不属于其”结构“的一部分。
 
-Let me explain: the “shape” of an object is given by its properties. And the only way to add data to the object, without affecting its shape (its original set of properties) is by adding them as symbols. This is because these types of properties won’t show up as part of `for..in` loops, or as a result of calling `Object.keys`
+解释一下：一个对象的“结构”是由它的属性决定的。将数据添加到对象而不影响其结构（其原始属性集）的唯一方法是将它们添加为 Symbol。这是因为这些类型的属性不会作为 `for..in` 循环的一部分出现，也不会作为调用 `Object.keys` 的结果出现。
 
-You can see these properties as living inside a higher abstraction layer than your regular properties.
+你可以将这些属性视为位于比常规属性更高的抽象层中。
 
 ```JavaScript
 const lastAccessedProp = Symbol.for('last_accessed_prop');
@@ -190,16 +190,16 @@ for(k in myUser) {
 }
 ```
 
-Notice how I’m adding two pieces of metadata to my object: the last property accessed through the getters I defined, and the date & time of when that happened. This is metadata because it’s information not relevant to the business needs of my object, but instead, it’s information **about** my object.
+注意，我是如何向我的对象中添加两个元数据的：通过我定义的 getter 方法设置最后一次访问的属性，以及访问的日期和时间。这是元数据，因为它是与我的业务需求无关的信息，而是和对象相关的信息。
 
-After the class definition, I show you a few things:
+在类定义之后，我做了一些操作：
 
-* Symbol properties are public. This is obvious right now, because private properties aren’t yet part of the working ES version. We’ll have to see how this fits into that definition once they’re done testing it.
-* Iterating over all properties of the object in lines 35–37 does not show my custom, symbol-props. This comes in handy if you’re trying to access debug data inside your classes, because you know it won’t affect the regular behavior of your code.
+* Symbol 属性是公开的。这很明显，因为私有属性还不是 ES 标准的一部分。一旦他们完成测试，我们可以看看是如何定义私有属性的。
+* 在上面 `for..in` 迭代的所有属性中不会显示我的自定义 Symbol 属性。如果你尝试访问类中这些作为调试数据的属性，这会派上用场，因为你知道它不会影响代码的正常运行。
 
-As you can see, symbols are probably not the richest feature of JavaScript, but they’re also not the worst. There is a very good reason why Symbols are part of the specs and now that you know some interesting use cases for them, consider taking the time to use them and take advantage of them.
+就像上面提到的，Symbol 不是 JavaScript 最方便的特性，但也不是最差的。Symbol 成为标准的一部分是有充分理由的，现在你知道了它们的一些有趣的用例，考虑花时间去尝试一下吧。
 
-Have you used symbols in any other way in your code? Share your use cases in the comments and let’s show everyone the power of this construct!
+你是否在代码中以任何其他方式使用过 Symbol 呢？在评论中分享你的代码吧，让我们向所有人展示 Symbol 的力量！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
