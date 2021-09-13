@@ -221,7 +221,7 @@ const lookup2 = _.keyBy(myCollection, keyFunc).mapValues(valueFunc)
 - [使用 SQAlchemy 渐进式数据库设计的案例](https://benchling.engineering/move-fast-and-migrate-things-how-we-automated-migrations-in-postgres-d60aba0fc3d4)
 - [使用 TypeORM 渐进式数据库设计的案例](https://betterprogramming.pub/typeorm-migrations-explained-fdb4f27cb1b3)
 - [Django 的 squashing migrations ](https://docs.djangoproject.com/en/3.2/topics/migrations/#squashing-migrations)
-* [python vs javascript 文章 #1](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224)
+- [Python vs JavaScript 文章 #1](https://medium.com/hackernoon/could-pythons-popularity-outperform-javascript-in-the-next-five-years-abed4e307224)
 - [Python vs JavaScript 文章 #2](https://medium.com/hackernoon/javascript-vs-python-in-2017-d31efbb641b4)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
