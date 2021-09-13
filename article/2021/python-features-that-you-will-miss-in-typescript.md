@@ -81,7 +81,7 @@ export const transaction = async (
 
 ## 对类型的一阶支持
 
-在 python 中，我通常使用一个 `dataclass` 来定义消息的模型（schema）；在 TypeScript 中，我会声明一个 `type`。在 python 运行时，我依然可以去检查 `dataclass` 类及其字段类型。而在 TypeScript 中无法这样做，因为所有的类型信息都会在编译为 JavaScript 时丢失。
+在 Python 中，我通常使用一个 `dataclass` 来定义消息的模型（schema）；在 TypeScript 中，我会声明一个 `type`。在 Python 运行时，我依然可以去检查 `dataclass` 类及其字段类型。而在 TypeScript 中无法这样做，因为所有的类型信息都会在编译为 JavaScript 时丢失。
 
 现在这个特性真正有用的地方是哪里呢？我非常喜欢基于属性的测试及生成测试用例以求更好的覆盖范围，对此 Python 有一个非常棒的测试框架 [hypothesis](https://hypothesis.works/)。它可以从带有类型注解的 `dataclass` 生成测试策略，而这些策略将会生成测试用例。
 
