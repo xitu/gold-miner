@@ -9,7 +9,7 @@
 
 ![图片来自 [Alex Chumak](https://unsplash.com/@ralexnder?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/6758/0*G6G1IweBv411ufK9)
 
-最近我把主要使用的后端语言从 python 和 django 切换到了 node.js 和 typescript。在经过一段初始学习期后，我可以说我很享受这次切换。了解不同的语言和框架如何处理相似的问题总是很有趣。当你理解它们方法之间的一致或差异时，你也会对编程本身有更好的理解。
+最近我把主要使用的后端语言从 Python 和 Django 切换到了 Node.js 和 TypeScript。在经过一段初始学习期后，我可以说我很享受这次切换。了解不同的语言和框架如何处理相似的问题总是很有趣。当你理解它们方法之间的一致或差异时，你也会对编程本身有更好的理解。
 
 TypeScript/JavaScript 和 python 在很多地方都很相似。它们都
 
