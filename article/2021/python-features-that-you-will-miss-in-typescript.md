@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/python-features-that-you-will-miss-in-typescript.md)
 > * 译者：[没事儿](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[greycodee](https://github.com/greycodee)
 
 # 使用 TypeScript 时你会想念的 Python 特性
 
