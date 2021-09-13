@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md](https://github.com/xitu/gold-miner/blob/master/article/2021/passwordless-authentication-for-better-security.md)
 > - 译者：[NieZhuZhu（弹铁蛋同学）](https://github.com/NieZhuZhu)
-> - 校对者：
+> - 校对者：[greycodee](https://github.com/greycodee)
 
 # 无密码认证，安全更有保障
 
@@ -15,21 +15,21 @@
 
 ## 什么是 SRP?
 
-[Secure Remote Password (SRP) protocol](http://srp.stanford.edu/index.html) 是一个增强的密码认证的密钥交换协议。
+[[SRP(Secure Remote Password) protocol]](http://srp.stanford.edu/index.html) 是一个增强的密码认证的密钥交换协议。
 
 > 它是一个[零知识证明](https://baike.baidu.com/item/%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E/8804311)的认证协议，这意味着服务器和客户端都不需要传输或存储与密码有关的信息。但是，他们仍然可以安全地验证对方的身份。
 
-SRP 减轻了传统认证的复杂性，因为你不需要担心在服务器内或在客户 - 服务器通信之间保护与密码有关的信息。
+SRP 减轻了传统认证的复杂性，因为你不需要担心在服务器内或在客户与服务器通信之间保护与密码有关的信息。
 
 因此，让我们看看 SRP 是如何工作的以及是如何解决一些与密码有关的核心安全挑战。
 
-## 是如何工作的 SRP
+## SRP 工作原理
 
 让我们看看 SRP 是如何实现无密码认证的目标的。为了便于理解，我将该协议分为三个步骤进行描述。如需更深入的了解，请参考[官方文档](http://srp.stanford.edu/design.html)。
 
 ### 步骤 1: 注册
 
-当用户使用用户名和密码注册时，会产生一个 salt（随机字符串）。这个 salt 与用户的证书一起用于生成一个秘密密钥。
+当用户使用用户名和密码注册时，会产生一个 salt（随机字符串）。这个 salt 与用户的证书一起用于生成一个密钥。
 
 然后使用秘钥和指定的 SRP 组生成一个验证器。最后，验证器、 salt 和 [SRP 组](https://datatracker.ietf.org/doc/html/rfc5054#page-16)被发送到服务器，而不是实际的用户名和密码。
 
@@ -42,16 +42,16 @@ verifier = client.genVerifier(secret_key, SRP_group);
 client.send_to_server(verifier, salt, SRP_group);
 ```
 
-![The registration process in the SRP protocol - graphic by author](https://cdn-images-1.medium.com/max/2048/1*3c_w9py-f7jhDEVniLKHLQ.png)
+![SRP 协议中的注册过程](https://cdn-images-1.medium.com/max/2048/1*3c_w9py-f7jhDEVniLKHLQ.png)
 
 ### 第 2 步：认证
 
 当认证时间到了，客户端请求服务器为给定的用户名获取 salt 和 SRP 组。利用这些信息，客户端计算出一个秘钥和一个公钥。公钥被发送到服务器，私钥保留在客户端。
 
 ```js
-salt, (SRP_group = client.getData(username));
+salt, SRP_group = client.getData(username);
 c_secret_key = client.KDF(username, password, salt);
-c_public_key, (c_private_key = client.generateKeyPair(SRP_group));
+c_public_key, c_private_key = client.generateKeyPair(SRP_group);
 client.sendToServer(c_public_key);
 ```
 
@@ -69,7 +69,7 @@ client-side: c_secret_key, c_private_key, s_public_key
 server-side: verifier, s_private_key, c_public_key
 ```
 
-![The authentication process in the SRP protocol - graphic by author](https://cdn-images-1.medium.com/max/2048/1*wp92woniVZBYPsNFI6yMdw.png)
+![SRP 协议的认证过程](https://cdn-images-1.medium.com/max/2048/1*wp92woniVZBYPsNFI6yMdw.png)
 
 > 同样，在客户和服务器之间没有任何机密信息是通过网络发送的。
 
@@ -108,15 +108,15 @@ npm start
 
 然后，尝试在 [http://localhost:8080/register](http://localhost:8080/register) 用用户名和密码进行注册。如果我们看一下此时的注册网络请求，它将看起来像这样。
 
-![registration network request - screenshot by the author](https://cdn-images-1.medium.com/max/2034/1*XEWIcLgoW7cI2sVEzTflIg.png)
+![注册的网络请求信息](https://cdn-images-1.medium.com/max/2034/1*XEWIcLgoW7cI2sVEzTflIg.png)
 
-在 [http://localhost:8080/login](http://localhost:8080/login) 登录时，客户端将首先通过`/challenge`请求向服务器请求用户的 salt 和 SRP 组。
+在 [http://localhost:8080/login](http://localhost:8080/login) 登录时，客户端将首先通过 `/challenge` 请求向服务器请求用户的 salt 和 SRP 组。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ajRkQhiayDNFMp1pN74vaA.png)
 
 利用这些信息，客户端计算出它的公钥和加密的信息。然后，客户端用计算出的数据和用户名调用 `/authenticate` 端点。
 
-![/authenticate network request - screenshot by the author](https://cdn-images-1.medium.com/max/2190/1*tHtw0uoqUS2q4BeZwPxItw.png)
+![/authenticate 接口请求信息](https://cdn-images-1.medium.com/max/2190/1*tHtw0uoqUS2q4BeZwPxItw.png)
 
 - A - 在客户端生成的公钥（短暂的）。
 - M1 - 在客户端用生成的会话加密密钥加密的信息。
@@ -125,7 +125,7 @@ npm start
 
 最后，客户端和服务器已经确认了彼此的真实性，并继续在它们之间分享信息。
 
-![encrypted message from the server - screenshot by the author](https://cdn-images-1.medium.com/max/2000/1*QBhZ1ov9TtiGEA-Z9bu5bQ.png)
+![来自服务器的加密信息](https://cdn-images-1.medium.com/max/2000/1*QBhZ1ov9TtiGEA-Z9bu5bQ.png)
 
 ## 最后的思考
 
