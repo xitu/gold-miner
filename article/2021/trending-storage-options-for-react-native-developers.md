@@ -31,7 +31,7 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 在 iOS 上， [钥匙串服务](https://developer.apple.com/documentation/security/keychain_services)允许安全地存储应用程序的小块敏感信息。在安卓上， [Shared Preference](https://developer.android.com/reference/android/content/SharedPreferences) 相当于持久键值数据存储，可被用于安全存储。Shared Preference 中的数据默认不加密，但 [Encrypted Shared Preferences](https://developer.android.com/topic/security/data) 包装了安卓的 Shared Preferences 类，并自动加密键和值。
 
-除了 Shared Preferences，安卓有另一个可用于安全存储的名为[安卓 Keystore](https://developer.android.com/training/articles/keystore)的系统，用于将加密密钥存储在容器中，使其更难以从设备中提取。并且， [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) 的[一个分支](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)使用的就是安卓 Keystore。
+除了 Shared Preferences，安卓有另一个可用于安全存储的名为[安卓密钥库](https://developer.android.com/training/articles/keystore)的系统，用于将加密密钥存储在容器中，使其更难以从设备中提取。并且， [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) 的[一个分支](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)使用的就是安卓密钥库。
 
 此方案适合存储证书、令牌、密码和任何其他不适合异步存储的敏感信息。
 
