@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/trending-storage-options-for-react-native-developers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/trending-storage-options-for-react-native-developers.md)
 > - 译者：[KimYangOfCat](https://github.com/KimYangOfCat)
-> - 校对者：[jaredliw](https://github.com/jaredliw)
+> - 校对者：[jaredliw](https://github.com/jaredliw)、[greycodee](https://github.com/greycodee)
 
 # React Native 开发者的流行存储方案
 
 ![封面](https://cdn-images-1.medium.com/max/4480/1*4L_oTx-TV7euxNgR-_8w9A.png)
 
-数据是任何移动应用程序的关键部分。它赋予朴素的用户界面以意义。但是存储、检索和维护数据才是真正的难题。使用不同方式的存储机制（加密存储、离线存储、面向服务的存储、自动同步存储）对于存储各种数据至关重要，并且可以加速移动应用程序开发全过程。因为应用程序的每个用户界面和功能都需要不同的数据存储机制来使该应用程序更自然。我列出了所有现有的可用于提升应用程序可用性的数据存储方法。
+数据是任何移动应用程序的关键部分。它让简单的用户界面变得有意义。但是存储、检索和维护数据才是真正的难题。使用不同方式的存储机制（加密存储、离线存储、面向服务的存储、自动同步存储）对于存储各种数据至关重要，并且可以加速移动应用程序开发全过程。因为应用程序的每个用户界面和功能都需要不同的数据存储机制来使该应用程序更自然。我列出了所有现有的可用于提升应用程序可用性的数据存储方法。
 
 ## 异步存储
 
@@ -45,11 +45,11 @@ JavaScript 代码充当接口并提供清楚的基于 promise 的 API 方法、�
 
 ## MMKV 存储
 
-[MMKV](https://github.com/Tencent/MMKV) 是腾讯开发的一个**高效、小型的移动键值**存储框架，应用于微信。
+[MMKV](https://github.com/Tencent/MMKV) 是腾讯开发用在微信上的一个**高效、小型的移动键值**存储框架
 
 MMKV 使用 mmap 保持内存与文件同步，使用 **protobuf** 编码/解码值，充分利用安卓实现最佳效率性能。它支持进程间的并发读写访问，允许多进程并发。由于完全同步调用，很容易保持数据。
 
-此方案适合存储常见的用户数据、应用程序逻辑等等。它可以替代 **Async Storage**。
+此方案适合存储常见的用户数据、应用程序逻辑等等。它可以替代**异步存储**。
 
 [**GitHub - ammarahm-ed/react-native-mmkv-storage: 可用于 React Native 的一个超快（0.0002s 读/写）、小型、加密的移动键值存储框架，其使用了 JSI 并由 C++ 编写。**](https://github.com/ammarahm-ed/react-native-mmkv-storage)
 
