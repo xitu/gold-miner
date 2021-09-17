@@ -19,7 +19,7 @@
 * 嵌入[用户定义函数 到 SaaS](http://reactor.secondstate.info/en/docs/) 应用程序或数据库
 * 为服务网格中的 [sidecar 应用程序](https://github.com/second-state/dapr-wasm) 提供 runtime
 * web 代理的可编程插件
-* 为边缘设备包括[软件定义交通工具](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/) 和智能工厂提供 runtime
+* 为边缘设备包括[软件定义交通工具](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/)和智能工厂提供 runtime
 
 然而，在这些原生云用例中，开发者常常想用 JavaScript 去写商业应用程序。这意味着，我们现在必须支持用 [JavaScript 编写 WebAssembly](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。不仅如此，我们应该支持运行在 WebAssembly 的 JavaScript 中调用 C/C++ 或者 Rust 函数去获得 WebAssembly 的运行效率。WasmEdge WebAssembly 运行环境允许你去实现它。
 
