@@ -528,40 +528,6 @@ Every time I change the background color (in `Wrapper` and `BlueWrapper`), I als
 
 If you're not experienced with CSS variables, this might seem like total magic. This is just meant as an example, though; feel free to structure things differently!
 
-## Continue the journey
-
-Earlier, I mentioned that my strategy for box shadows used to be “tinker with the values until it looks alright”. If I'm being honest, this was my approach for _all of CSS_. 😅
-
-CSS is a tricky language because it's _implicit_. I learned all about the _properties_, stuff like `position` and `flex` and `overflow`, but I didn't know anything about the _principles_ driving them, things like stacking contexts and hypothetical sizes and scroll containers.
-
-In CSS, the properties are sorta like function parameters. They're the inputs used by layout algorithms and other complex internal mechanisms.
-
-A few years back, I decided to take the time to learn how CSS _really_ works. I went down MDN rabbit holes, occasionally drilling down all the way to the solid core\*. And when I'd run into one of those dastardly situations where things just didn't seem to make sense, I would settle into the problem, determined to poke at it until I understood what was happening.
-
-This was not a quick or easy process, but by golly it was effective. All of a sudden, things started making _so much more sense_. CSS is a language that rewards those who go deep.
-
-About a year ago, I started thinking that maybe my experience could help expedite that process for other devs. After all, most of us don't have the time (or energy!) to spend years spelunking through docs and specs.
-
-I left my job as a staff software engineer at Gatsby Inc., and for the past year, I've been focused full-time on building a CSS course unlike anything else out there.
-
-It's called [CSS for JavaScript Developers](https://css-for-js.dev/), and it's a comprehensive interactive course that shows how CSS really works.
-
-There are over 200 lessons, spread across 10 modules. And you've already finished one of them: this tutorial on shadow design was adapted from the course! Though, in the course, there are also videos and exercises and minigames.
-
-If you find CSS confusing or frustrating, I want to help change that. You can learn more at [css-for-js.dev](https://css-for-js.dev/).
-
-> Josh is one of the brightest authorities on CSS out there, bringing both deep technical insights and a fantastic amount of whimsy to all his work. **I highly recommend checking his course out** if you're looking to level up!
->
-> - [Addy Osmani](https://twitter.com/addyosmani) Engineering Manager at Google
-
-> I had seriously high expectations for Josh’s CSS course. And honestly? **It's exceeded them.** Even the first module is providing clarity on concepts I've used for years but never learned in detail. Mental models are essential, and I may finally have one for CSS.
->
-> - [Laurie Barth](https://twitter.com/laurieontech/status/1368294781684695042) Senior Software Engineer, Netflix
-
-> When I’m learning something from Josh, I know it’s being taught the best way it possibly could be. **There’s no person I’d trust more to really install CSS into my brain.**
->
-> [Adam Wathan](https://twitter.com/adamwathan) - Creator of Tailwind CSS
-
 ## Bonus: drop-shadow
 
 Throughout this tutorial, we've been using the `box-shadow` property. `box-shadow` is a great well-rounded tool, but it's not our only shadow option in CSS. 😮
@@ -681,7 +647,7 @@ body {
 
 One more quick tip: unlike `box-shadow`, the `filter` property is hardware-accelerated in Chrome, and possibly other browsers\*. This means that it's managed by the GPU instead of the CPU. As a result, the performance is often much better, especially when animating. Just be sure to set `will-change: transform` to avoid some Safari glitch bugs.
 
-We're veering too far off-topic, but suffice it to say that the `filter` property is very compelling. I plan on writing more about it in the future. And, naturally, it's covered in depth in [CSS for JavaScript Developers](https://css-for-js.dev/)!
+We're veering too far off-topic, but suffice it to say that the `filter` property is very compelling. I plan on writing more about it in the future.
 
 I hope this tutorial inspired you to add or tweak some shadows! Honestly, _very few developers_ put this level of thought into their shadows. And it means that most users aren't used to seeing lush, realistic shadows. **Our products stand out from the crowd** when we put a bit more effort into our shadows.
 
