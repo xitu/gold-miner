@@ -9,25 +9,25 @@
 
 ![](https://cdn-images-1.medium.com/max/3840/1*P4LKOkLu-MB2QAQb9FaRhQ.png)
 
-[WebAssembly](https://webassembly.org/) 开始是作为浏览器中 JavaScript 的另一种方案。这个想法是将像 C/C++ 或 Rust 编译的高性能应用程序安全的运行在浏览器中。在浏览器中，WebAssembly 和 JavaScript 并行运行。
+[WebAssembly](https://webassembly.org/) 最初是作为浏览器中 JavaScript 的替代语言而设计的。这个想法是让像 C/C++ 或 Rust 编译的高性能应用程序能够安全的运行在浏览器中。在浏览器中，WebAssembly 和 JavaScript 并行运行。
 
-![图片 1. 浏览器中的 WebAssembly 和 JavaScript。](https://cdn-images-1.medium.com/max/2000/1*h59dPAp6HQcaaIQt7GdejA.png)
+![图 1：浏览器中的 WebAssembly 和 JavaScript。](https://cdn-images-1.medium.com/max/2000/1*h59dPAp6HQcaaIQt7GdejA.png)
 
-随着 WebAssembly 越来越多应用在云端，它现在是[原生云应用通用 runtime](https://github.com/WasmEdge/WasmEdge)。与类 Docker 应用容器相比，WebAssembly 运行时有着更低的资源消耗和更高的性能。下面是一个常用的在云端使用 WebAssembly 的例子。
+随着 WebAssembly 越来越多被应用在云端，它现在是[原生云应用通用运行时](https://github.com/WasmEdge/WasmEdge)。与类 Docker 应用容器相比，WebAssembly 运行时有着更低的资源消耗和更高的性能。下面是一个常用的在云端使用 WebAssembly 的例子。
 
-* 为 [serverless function-as-a-service](https://github.com/second-state/aws-lambda-wasm-runtime) (FaaS) 提供 runtime
-* 嵌入[用户定义函数到 SaaS](http://reactor.secondstate.info/en/docs/) 应用程序或数据库
-* 为服务网格中的 [sidecar 应用程序](https://github.com/second-state/dapr-wasm) 提供 runtime
-* web 代理的可编程插件
-* 为边缘设备包括[软件定义交通工具](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/)和智能工厂提供 runtime
+* 为 [serverless function-as-a-service](https://github.com/second-state/aws-lambda-wasm-runtime) (FaaS) 提供运行时。
+* 嵌入[用户定义函数到 SaaS](http://reactor.secondstate.info/en/docs/) 应用程序或数据库。
+* 为服务网格中的 [sidecar 应用程序](https://github.com/second-state/dapr-wasm) 提供运行时。
+* Web 代理的可编程插件。
+* 为边缘设备包括[软件定义交通工具](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/)和智能工厂提供运行时。
 
-然而，在这些原生云用例中，开发者常常想用 JavaScript 去写商业应用程序。这意味着，我们现在必须支持用 [JavaScript 编写 WebAssembly](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。不仅如此，我们应该支持运行在 WebAssembly runtime 中的 JavaScript 调用 C/C++ 或者 Rust 函数去获得 WebAssembly 的运行效率。WasmEdge WebAssembly runtime 允许你去实现它。
+然而，在这些原生云用例中，开发者常常想用 JavaScript 去写商业应用程序。这意味着，我们现在必须支持用 [JavaScript 编写 WebAssembly](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。不仅如此，我们应该让运行在 WebAssembly 运行时中的 JavaScript 调用 C/C++ 或者 Rust 函数，以求最大化利用 WebAssembly 的运行效率。WasmEdge WebAssembly 运行时就允许我们这样去实现它。
 
-![图片 2. 云端中的 WebAssembly 和 JavaScript](https://cdn-images-1.medium.com/max/2000/1*OmqZydcKW18qNIbVKs0J3A.png)
+![图 2：云端中的 WebAssembly 和 JavaScript](https://cdn-images-1.medium.com/max/2000/1*OmqZydcKW18qNIbVKs0J3A.png)
 
 ## WasmEdge
 
-[WasmEdge](https://github.com/WasmEdge/WasmEdge) 是一个由 CNCF(Cloud Native Computing Foundation) / Linux 基金会托管的领先的云原生 WebAssembly runtime。它是目前市场上最快的 WebAssembly runtime。WasmEdge 支持所有标准的 WebAssembly 扩展以及 Tensorflow inference、KV store 和 image processing 等的私有扩展。它的编译工具链不仅仅支持 WebAssembly 语言，像 C/C++、Rust、Swift、Kotlin 以及 AssemblyScript，而且支持[常用的 JavaScript](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。
+[WasmEdge](https://github.com/WasmEdge/WasmEdge) 是一个由 CNCF（Cloud Native Computing Foundation）与  Linux 基金会托管的领先的云原生 WebAssembly 运行时。它是目前市场上最快的 WebAssembly 运行时，支持所有标准的 WebAssembly 扩展以及 Tensorflow inference、KV store 和 image processing 等的私有扩展。它的编译工具链不仅仅支持 WebAssembly 语言如 C/C++、Rust、Swift、Kotlin 以及 AssemblyScript，而且支持[常用的 JavaScript](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。
 
 WasmEdge 应用程序可以被嵌入到 [C](https://github.com/WasmEdge/WasmEdge/blob/master/docs/c_api_quick_start.md)、[Go](https://www.secondstate.io/articles/extend-golang-app-with-webassembly-rust/)、[Rust](https://github.com/WasmEdge/WasmEdge/tree/master/wasmedge-rs) 、[JavaScript](https://www.secondstate.io/articles/getting-started-with-rust-function/) 程序，以及其他操作系统的 [CLI](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run.md)。运行时还可以被 Docker 工具（例如 [CRI-O](https://www.secondstate.io/articles/manage-webassembly-apps-in-wasmedge-using-docker-tools/)），编制工具（例如 K8s），serverless 平台（例如 [Vercel](https://www.secondstate.io/articles/vercel-wasmedge-webassembly-rust/), [Netlify](https://www.secondstate.io/articles/netlify-wasmedge-webassembly-rust-serverless/), [AWS Lambda](https://www.cncf.io/blog/2021/08/25/webassembly-serverless-functions-in-aws-lambda/), [Tencent SCF](https://github.com/second-state/tencent-scf-wasm-runtime)），和数据流工具（例如 [YoMo](https://www.secondstate.io/articles/yomo-wasmedge-real-time-data-streams/) 和 Zenoh）管理。
 
@@ -39,13 +39,13 @@ WasmEdge 应用程序可以被嵌入到 [C](https://github.com/WasmEdge/WasmEdge
 
 > **如果你只想用这个解释器运行 JavaScript 程序，你可以跳过这个部分。**
 
-Fork 或者 clone [the wasmegde-quickjs Github repository](https://github.com/second-state/wasmedge-quickjs) 来开始。
+让我们先从 Fork 或者克隆 [wasmegde-quickjs Github 仓库](https://github.com/second-state/wasmedge-quickjs) 开始。
 
 ```bash
 $ git clone https://github.com/second-state/wasmedge-quickjs
 ```
 
-跟着 repo 的指令，你就能构建一个 WasmEdge 的 JavaScript 解释器。
+跟着仓库里面给出的克隆指令，你就能构建一个 WasmEdge 的 JavaScript 解释器。
 
 ```bash
 $ rustup target add wasm32-wasi
@@ -60,9 +60,9 @@ $ ls target/wasm32-wasi/debug/quickjs-rs-wasi.wasm
 
 接下来，让我们就尝试一些 JavaScript 程序。
 
-## JavaScript 网络例子
+## 一个 JavaScript 网络通信应用的例子
 
-解释器支持  WasmEdge networking socket 扩展，所以你的 JavaScript 能做 HTTP 连接互联网。下面是一个 JavaScript 的例子。
+解释器支持  WasmEdge 网络套接口扩展，所以你的 JavaScript 能做 HTTP 连接互联网。下面是一个 JavaScript 的例子。
 
 ```js
 let r = GET("http://18.235.124.214/get?a=123",{"a":"b","c":[1,2,3]})
@@ -76,7 +76,7 @@ let body_str = new Uint8Array(body)
 print(String.fromCharCode.apply(null,body_str))
 ```
 
-你可以用 CLI 在 WasmEdge runtime 中运行 JavaScript。
+你可以用 CLI 在 WasmEdge 运行时中运行 JavaScript。
 
 ```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/http_demo.js
@@ -113,7 +113,7 @@ for (var i in output_view){
 print(max,max_idx)
 ```
 
-你可以用 CLI 在 WasmEdge runtime 中运行 JavaScript。
+你可以用 CLI 在 WasmEdge 运行时中运行 JavaScript。
 
 ```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/tensorflow_lite_demo/main.js
@@ -151,11 +151,11 @@ fn main() {
 
 现在，选择 QuickJS 当作我们的 JavaScript 引擎可以提高性能。QuickJS 不是因为没有 JIT 支持，而比 v8 慢很多吗？是的，但是……
 
-首先，QuickJS 比 v8 小很多。事实上，他只有 v8 runtime 资源的 1/40 （或 2.5%）。你可以在单个物理机上运行比 v8 更多的 QuickJS 函数。
+首先，QuickJS 比 v8 小很多。事实上，他只有 v8 运行时资源的 1/40 （或 2.5%）。你可以在单个物理机上运行比 v8 更多的 QuickJS 函数。
 
 其次，大多数商业逻辑应用程序，原始性能并不重要。应用程序也许有计算密集形任务，例如 AI 推理。WasmEdge 允许 QuickJS 应用程序在 不容易给 v8 添加这些扩展模块的情况下，使用高性能的 WebAssembly。
 
-最后，我们知道[很多 JavaScript 安全问题发生在 JIT](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/)。也许在云原生环境中关闭 JIT 是个不错的主意！
+最后，我们知道[很多 JavaScript 安全问题在 JIT 上发生了](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/)。也许在云原生环境中关闭 JIT 是个不错的主意！
 
 云原生 WebAssembly 中的 JavaScript 在下一代云计算和边缘计算基础设施中仍然是个新的领域。我们只是刚开始。如果你有兴趣，在 WasmEdge 项目中加入我们（或者提出特性请求 issues 告诉我们你想要什么）。
 
