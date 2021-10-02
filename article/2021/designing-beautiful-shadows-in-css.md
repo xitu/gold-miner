@@ -47,6 +47,8 @@ When I wanted an element to have a shadow, I'd add the `box-shadow` property and
 
 Here's the problem: by creating each shadow in isolation like this, you'll wind up with a mess of incongruous shadows. If our goal is to create the illusion of depth, we need each and every shadow to match. Otherwise, it just looks like a bunch of blurry borders:
 
+![blurry borders](https://i.imgur.com/Gsp4ImY.png)
+
 In the natural world, shadows are cast from a light source. The direction of the shadows depends on the position of the light:
 
 ![Hover, focus, or tap to interact](https://github.com/PassionPenguin/gold-miner-images/blob/master/designing-shadows-light-source.gif?raw=true)
@@ -549,16 +551,16 @@ There are over 200 lessons, spread across 10 modules. And you've already finishe
 If you find CSS confusing or frustrating, I want to help change that. You can learn more at [css-for-js.dev](https://css-for-js.dev/).
 
 > Josh is one of the brightest authorities on CSS out there, bringing both deep technical insights and a fantastic amount of whimsy to all his work. **I highly recommend checking his course out** if you're looking to level up!
-
-![](/avatars/addyosmani.jpg)[Addy Osmani](https://twitter.com/addyosmani)Engineering Manager at Google
+>
+> - [Addy Osmani](https://twitter.com/addyosmani) Engineering Manager at Google
 
 > I had seriously high expectations for Josh’s CSS course. And honestly? **It's exceeded them.** Even the first module is providing clarity on concepts I've used for years but never learned in detail. Mental models are essential, and I may finally have one for CSS.
-
-![](/avatars/laurieontech.png)[Laurie Barth](https://twitter.com/laurieontech/status/1368294781684695042)Senior Software Engineer, Netflix
+>
+> - [Laurie Barth](https://twitter.com/laurieontech/status/1368294781684695042) Senior Software Engineer, Netflix
 
 > When I’m learning something from Josh, I know it’s being taught the best way it possibly could be. **There’s no person I’d trust more to really install CSS into my brain.**
-
-![](/avatars/adamwathan.jpg)[Adam Wathan](https://twitter.com/adamwathan)Creator of Tailwind CSS
+>
+> [Adam Wathan](https://twitter.com/adamwathan) - Creator of Tailwind CSS
 
 ## Bonus: drop-shadow
 
