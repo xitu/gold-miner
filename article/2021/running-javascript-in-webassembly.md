@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/running-javascript-in-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/running-javascript-in-webassembly.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[nia3y](https://github.com/nia3y)、[PassionPenguin](https://github.com/PassionPenguin)
 
 # 使用 WasmEdge 在 WebAssembly 中运行 JavaScript
 
