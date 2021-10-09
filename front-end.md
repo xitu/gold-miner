@@ -1,3 +1,21 @@
+* [使用 TypeScript 时你会想念的 Python 特性](https://juejin.cn/post/7007327298013626399)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [无密码认证，安全更有保障](https://juejin.cn/post/7007820358854115336)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [Symbol：JavaScript 中最容易被误解的特性？](https://juejin.cn/post/7007975053485113381)（[zaviertang](https://github.com/zaviertang) 翻译）
+* [简述 JavaScript 的事件捕获和事件冒泡](https://juejin.cn/post/7005558885947965454)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [如何使用 ES6 新增 Symbols 代替 null](https://juejin.cn/post/7003689525507538958)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [如何在第 4 阶段之前体验一个提案](https://github.com/xitu/gold-miner/pull/8921)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何召开在线会议](https://github.com/xitu/gold-miner/pull/8739)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [如何做会议记录](https://github.com/xitu/gold-miner/pull/8738)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [如何参与会议](https://github.com/xitu/gold-miner/pull/8735)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [如何举办一个 TC39 会议](https://github.com/xitu/gold-miner/pull/8734)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [向 TC39 提交提案](https://github.com/xitu/gold-miner/pull/8686)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [修订后的参与 TC39 标准委员会的模式](https://github.com/xitu/gold-miner/pull/8684)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [阶段 3 提案评审](https://github.com/xitu/gold-miner/pull/8674)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [如何写一个好的说明文件](https://github.com/xitu/gold-miner/pull/8665)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [如何提供有用的反馈](https://github.com/xitu/gold-miner/pull/8653)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何阅读一份提案草案？](https://github.com/xitu/gold-miner/pull/8627)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何针对 ECMAScript 规范创建一个拉取请求](https://github.com/xitu/gold-miner/pull/8626)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [在 TC39 提起一项提案](https://github.com/xitu/gold-miner/pull/8594)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [在 JavaScript 中使用正则表达式的隐患](https://juejin.cn/post/7005168628647591950)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [每个 Web 开发人员都应该知道的 4 个 iframe 安全问题](https://juejin.cn/post/7004430026187735047)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [别让轮播毁了你的应用程序](https://juejin.cn/post/7003637296050225189)（[jaredliw](https://github.com/jaredliw) 翻译）
