@@ -1,3 +1,5 @@
+* [使用 TypeScript 时你会想念的 Python 特性](https://juejin.cn/post/7007327298013626399)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [使用人工智能/机器学习构建文章推荐引擎](https://juejin.cn/post/7001479252163952670)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [在 Python 中用最快的速度发送 HTTP 请求](https://juejin.cn/post/7000315185411915807)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [不经测试的 Python 代码就已离崩溃不远了](https://juejin.cn/post/6998149281576288292)（[jaredliw](https://github.com/jaredliw) 翻译）
