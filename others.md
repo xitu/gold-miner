@@ -1,3 +1,4 @@
+* [Web 的未来](https://juejin.cn/post/7006492657379704846)（[Gesj-yean](https://github.com/Gesj-yean) 翻译）
 * [可以在 GitHub.dev 做的十件有趣的事](https://juejin.cn/post/7004738629092261895)（[greycodee](https://github.com/greycodee) 翻译）
 * [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
 * [常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)（[jaredliw](https://github.com/jaredliw) 翻译）
