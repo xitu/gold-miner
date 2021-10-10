@@ -95,31 +95,32 @@ Since we know that YAML consists of **key:value** pairs and is a superset of JSO
 person: { name: "Johnny", age: 35, single: true }
 ```
 
-就个人而言，我更建议不要混合书写这两种风格，因为，说实话，当我们在书写一个非常非常长（译者注：原文是「mile long」，一英里长）的 YML 文件时，凭经验而谈，如果我哪里出错了，混合书写这两种写法会让调试过程变得很糟糕。你可以做一件事并不代表你需要去做它。
+就个人而言，我更建议不要混合书写这两种风格，因为，说实话，当我们在书写一个非常非常长（译者注：原文是「mile long」，一英里长）的 YML 文件时，凭经验而谈，如果我哪里出错了，混合书写这两种写法会让调试过程变得很糟糕。毕竟，你可以做一件事并不代表你一定要去做它。
 I would prefer not to mix these 2 styles because to be honest, Sometimes we write very large YML files that are mile long and talking from experience here, if i get something wrong it is very unpleasant to debug. The fact that you can do it doesn't mean that you need to do it.
 
 ---
 
-
+到目前为止，我们都在讨论 yaml 中的各种值的类型，并且列举了一些简单的例子。接下来让我们来看一个稍微复杂的例子。在第一个例子中，我们将看到 yaml 中是如何将映射和集合结合使用的。假设我想表示一个人员列表并将此列表表示为地图对象的集合。
 So far what we talked about was the types and saw particular samples that are a bit plain. Let's see an example where we can start complexing things. In this first example we will see how we can combine maps and collections. Let's say that i want to represent a list of people and represent this list as a collection of map objects.
 
 ```yaml
 people:
-  # method 1 - JSON style map object
+  # 方法 1 - JSON 风格的 map 对象
   - { name: Alex, age: 18, single: false }
 
-    # method 2 - YAML map object
+  # 方法 2 - YAML 格式的 map 对象
   - name: Eric
     age: 19
     single: true
 
-    # method 3 - another YAML map object, pay attention to the line break
+  # 方法 3 - 另一种 YAML 格式的 map 对象, 注意此处的换行
   - 
     name: "Sam"
     age: 22
     single: true
 ```
 
+在本例中，我们已经声明了一个名为 'people' 的变量，它维护了多个具有相同结构的对象。应注意到，我们使用了 3 种不同的方式来声明这些具有相同结构的变量，但对于 YAML 来说，它们都是等价的。 值得提醒的一点是，我们可以根据需要尽可能多地嵌套。例如，如果 person 对象具有描述“爱好”的属性，我们可以直接添加它，这样就创建了一个包含列表的列表对象。让我们看一个例子。我将使用上面的集合作为参考。
 As we can see here in this example, we have declared a variable (key) named 'people' and it holds multiple objects that are of the same format. We also can see that the way we declared each map object is different and we use 3 different methods to describe the same format for a map object but they all look the same for the YAML. One point we need to mention is that we can nest as much as we need to. If the person object has a property that describes 'hobbies' for example, we can add it thus creating a list object containing a list. Let's see it in an example. I will use the previous collection as a reference.
 
 ```yaml
@@ -137,7 +138,7 @@ people:
       - sports
       - food
 
-    # pay attention to the nesting
+    # 注意此处的嵌套
   - 
     name: Elaine
     age: 29
@@ -151,10 +152,11 @@ people:
       - food
 ```
 
+到目前为止，我们介绍了 YAML 中的各种数据类型以及如何使用它们。接下来我们来看看 YAML 支持的一些功能。假设我们有一个键需要维护大量的数据，例如对这个特定对象的描述，我们可以有两种方式来格式化地书写它。我们可以使用右尖括号 '>' 或者管道符 '|'。这两种方式最主要的区别在于在解析时是否保留书写时的格式（*译者注：主要是换行符*）。使用右尖括号 '>' 标识不会保留格式（*译者注：即在 YAML 解析引擎解析式，多行文本中的换行符会被替换为**空格***）而使用管道符 '|' 则会保留格式。我们按格式书写的原因是为了使其更具有可读性，但 YAML 解释引擎会将所有的语法解析为一行。让我们结合实践来看一看。
 Thus far we covered the types and how to use them. Now we will take a look at some features YAML supports. We now will take a look at formatting. In case we have a key that should hold large amount of data such as description of the particular object there are 2 ways to format it. We will use either the chevron right '>' or the pipe '|' signs. The main difference between them is that the formatting is either preserved or not. The chevron-right '>' sign will not preserve formatting and the pipe '|' sign will preserve the formatting. The reason we use formatting is make it more readale for us as humans, YAML will render everything in one line under the hood. Let's see it in action
 
 ```yaml
-# no formatting. the text is written in one line
+# 无格式，所有文本都在一行
 
 car:
   model: Toyota
@@ -163,7 +165,7 @@ car:
 ```
 
 ```yaml
-# chevron right '>' sign will not preserve the formatting; no need for quotes
+# 右尖括号 '>' 标识的文本在解析时不会保留书写格式；多行文本无需引号
 
 car:
   description: ">"
@@ -175,7 +177,7 @@ car:
 ```
 
 ```yaml
-# pipe '|' sign will preserve the formatting; no need for quotes
+# 管道符 '|' 标识的文本在解析时会保留书写格式; 多行文本无需引号
 
 car:
   description: "|"
@@ -186,12 +188,16 @@ car:
   year: 2021
 ```
 
+到这里，你已经了解了在日常工作使用 YAML 所需的所有基础知识。我们还有一个需要讨论的主题，稍后我们将对其进行研究。我想事先指出一些细微的差别
 Congratulations! You now covered all the basics to start using YML like a pro for your everyday work. We have one other topic that we need to cover and will take a look at it in just a moment. I would like to point out a small nuances beforehand.
 
-YAML also supports other features which we did not discuss here in this article and the reason i chose not to discuss about them is because the use cases that apply for these features are very marginal when you should justify the use for them. Features like tags that are used for explicit types, tuples, setting keys not as strings, paragraphs and more. You can read more about in the official [YAML docs](https://yaml.org/).
+YAML 还支持一些我们在本文中没有讨论的其他功能，我选择不讨论它们的原因是因为应用这些功能的用例非常边缘，当你需要使用时，可以阅读官方的 [YAML文档]
+YAML also supports other features which we did not discuss here in this article and the reason i chose not to discuss about them is because the use cases that apply for these features are very marginal when you should justify  can read more about in the official [YAML docs](https://yaml.org/).
 
+> 如果你希望我演示一些示例，那么请告诉我，我会另制作一个简短的部分，重点介绍这些功能。
 > If you do want that i will demonstrate some examples then just let me know and i will make another short part focusing on these features.
 
+YAML 还具有被称为锚点的另一大特性，但我经常看到人们由于不同的原因并没有真正使用它。老实说，我真的不知道锚点有什么可怕的，并且认为使用它们能获得的价值是巨大的。锚点使我们能够复制配置或内容，甚至在整个文件中继承属性。我们不仅可以复制一段配置，还可以将覆盖注入已在锚点中定义的特定键，这使变得非常灵活。当然，如果你的 YMAL 文件很小或者只是一些基本的配置文件，那么你没有理由使用它，但是如果我们假设该文件的内容会增长，那么在设置锚点方面进行额外的工作是值得的。
 The one big feature that YAML also has called anchors and i often see that people do not really use it because of different reasons. To be honest i don't really know what is so scary with anchors and think that the value we gain by using them is huge. Anchors enable us to duplicate configurations or content and even inherit properties across the entire file. Not only that we can replicate a piece of configuration but we can inject an override to a specific key that is already defined in the anchor, thus making it very flexible. I agree that if you have some small or basic configuration file then there is no reason to use it, but if we assume that the file will grow in its content then it does worth the extra work in setting up anchors.
 
 The way we work with anchors is by using the '&' sign and the '\*' sign.  
