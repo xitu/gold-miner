@@ -8,16 +8,12 @@
 # 你真的了解 Y(A)ML 吗？❗ 😵
 
 感谢你能来阅读这篇关于 YAML 文件的文章。这是一篇关于 YAML 文件的轻量级教程。在本文中，我们将会介绍什么是 YAML，我们如何编写一个 YAML 文件以及我们可以在哪些场景中使用 YAML 文件，但不会对某些细节介绍的太过深入。
-Thank you for joining in for this article about YAML files. We will make it today a little lightweight tutorial about YAML configurations file. We will see what it is, how we can get started with it and where we use YAML files all around but maybe missed those little nuances.
 
 Y(A)ML 是一种数据序列化语言，它是 JSON（javascript 对象表示法）的严格超集。它是一种面向数据的结构化语言，可以被用作各种应用程序的输入格式。我们由此可以推断出这门语言最终是以**键值对**形式表现的。YML 的目标是以简洁明了的方式提高它的可读性。
-Y(A)ML is a data serialization language and it is a strict superset of JSON (javascript object notation). It is data oriented structured language used as an input format for different software applications. We can deduct that the language in the end of the day consist of **key:value** pairs. YML's goal is to be more human readable in a clean and consise manner.
 
 我们通常会通过与 GUI 界面的交互来使用某些工具软件，但我们通常不会意识到在这背后仅仅只有一个 YAML 文件来存储我们对于特定任务的个性化配置。今天，我们在学习这门语言的同时也为介绍几个实例。
-We often use tools available for us by interacting with a GUI interface, but we don't realize that under the hood there is nothing more than a YAML file that is storing our personal configurations for the given task. We will take a look in a couple of examples here today along side learning the language.
 
 在 YAML 中我们有两种主要的类型：**Scalar（标量）** 和 **Collection（集合）**。在高中的物理课中，我们学过标量仅由描述其大小的值组成，这个概念在 YAML 中也有近似的应用。这意味着我们只能有一个唯一的键来保存一个值，如果我们在文件中重复使用同一个键，我们将会覆盖之前设置的原始值。例如，如果我们在文件中声明了一个名为 「NAME」 的变量，并给它赋值为 「Joey」，之后，「NAME」 这个键值在整个文件中应该是唯一的，并且我们可以在文件中全局地使用它。
-With YAML we have 2 main types: **Scalar** and **Collection**. When we were young and went to high school we had our physics class and we learned that a scalar consist only of value that describes a size, this is not very far fetch with YAML as well. It means that we can have only one unique key that can hold a value and if we use that same key again in our file, we will override the original value we set earlier. For example if we want to declare a variable (key) 'NAME' to the value 'Joey' then this variable, the key itself, is unique and we can use it globally in the file.
 
 ```yaml
 # 键 : 值
@@ -25,7 +21,6 @@ NAME: Joey
 ```
 
 如果我们不小心重复声明了这个变量并赋给它一个新值，例如 「Chandler」，那么（这个变量的）最后一个实例将会覆盖它的初始值。
-If we are not careful and declare that variable again to a different value, for example 'Chandler' then the last instance will override the original value.
 
 ```yaml
 NAME: Joey
@@ -37,11 +32,9 @@ NAME: Joey
 
 NAME: Chandler
 # 在该文件被解析的时候，只有这行对 「NAME」 的定义会真实生效。
-# this line will be the only source of truth when the file is evaluated, thus overriding every instance of the key NAME beforehand
 ```
 
 一个集合（**Collection**）同样也是由**键值对**表示的，但是一个 key 可以容纳多个 value。例如下面这个姓名列表。
-A collection is basically the same, it also consist of **key:value** pairs, but one key can hold multiple values. For example a list of names.
 
 ```yaml
 # list
@@ -49,7 +42,6 @@ NAMES: ["Joey", "Chandler", "Ross", "Phoebe", "Rachel", "Monica"]
 ```
 
 另一种描述相同的 NAMES 列表或序列的方法是下面这样：
-Another way to describe the same NAMES list or sequence is as such
 
 ```yaml
 # list or sequence
@@ -62,8 +54,7 @@ NAMES:
   - "Monica"
 ```
 
-YAML 中的集合不仅可以用数组的形式描述，也可以用映射来描述。例如，如果我们想描述一个人的邮寄地址。我们先假设一种简单的情况,地址由街道名称、街道号码、城市、州、邮政编码组成。接下来让我们看看如何将此地址转换为 YAML，为了方便，我们将选择美国某处必胜客的地址。
-A collection in YAML is described not only in the form of an array but also can be described with maps. For example if we want to describe a mailing address of a person. Let's keep it simple for now. The address consist of street name, street number, city, state, zip code. Let's see how we can convert this address to YAML, we will choose the address of a Pizza Hut somewhere in the USA.
+YAML 中的集合不仅可以用数组的形式描述，也可以用映射来描述。例如，如果我们想描述一个人的邮寄地址。我们先假设一种简单的情况, 地址由街道名称、街道号码、城市、州、邮政编码组成。接下来让我们看看如何将此地址转换为 YAML，为了方便，我们将选择美国某处必胜客的地址。
 
 ```yaml
 # yaml 对象
@@ -76,10 +67,8 @@ address:
 ```
 
 如上，我们有一个键名为 「address」，它的值中声明了多对**键值对**。当你在编写 YAML 文件时，你需要格外注意缩进。当我们想要将多个键值对组合到一个逻辑父容器时，我们必须按照 2 个空格长度缩进它们，并且每个新行必须垂直对齐，否则 YAML 文件会在执行前报错。
-As we can see here, we have a key named 'address' which holds multiple **key:value** pairs inside of it. You need to pay attention to the indentations. When we want to group multiple **key:value** pairs under one logical container that is the parent, we must indent them with preferred 2 space characters and each new line must be aligned vertically otherwise the YAML file will throw an error when it is ready to execute.
 
 这种特殊的描述形式被称为一个『映射』。这个映射名为 「address」，它维护了一组通常以 **key:value** 形式表示的数据。你还可以主要打到，这些值不仅可以是 'String' 类型，还可以是 'Number' 类型，包括整数和浮点数，也可以是布尔值。顺便一提，对于字符串类型的值，引号是可选的。我们还可以定义日期类型的变量，但需要注意，日期的格式必须符合 ISO 8601 规范，既：「yyyy-mm-dd hh:mm:ss:ssss」。
-This particular description is called a 'Map'. The map name is 'address' and it holds several pieces of data that are in the usual form of **key:value** pairs. You also can pay attention and see that the values are not only of type 'String' but can also be 'Number', either integer or float and also can be boolean. By the way, for strings the quotes are optional. We can also define a Date variable but need to pay attention that the date format must comply to the ISO 8601 standard which looks like this: 'yyyy-mm-dd hh:mm:ss:sss'.
 
 ```yaml
 # dates ISO 8601
@@ -88,7 +77,6 @@ some_datetime: 2020-10-01 09:10:30
 ```
 
 我们知道，YAML 文件是由**键值对**组成并且是 JSON 的超集，因此我们可以使用 json 格式描述映射对象。
-Since we know that YAML consists of **key:value** pairs and is a superset of JSON, we are able to describe map objects json style.
 
 ```yaml
 # YAML 中的 JSON 风格映射对象
@@ -96,12 +84,10 @@ person: { name: "Johnny", age: 35, single: true }
 ```
 
 就个人而言，我更建议不要混合书写这两种风格，因为，说实话，当我们在书写一个非常非常长（译者注：原文是「mile long」，一英里长）的 YML 文件时，凭经验而谈，如果我哪里出错了，混合书写这两种写法会让调试过程变得很糟糕。毕竟，你可以做一件事并不代表你一定要去做它。
-I would prefer not to mix these 2 styles because to be honest, Sometimes we write very large YML files that are mile long and talking from experience here, if i get something wrong it is very unpleasant to debug. The fact that you can do it doesn't mean that you need to do it.
 
 ---
 
 到目前为止，我们都在讨论 yaml 中的各种值的类型，并且列举了一些简单的例子。接下来让我们来看一个稍微复杂的例子。在第一个例子中，我们将看到 yaml 中是如何将映射和集合结合使用的。假设我想表示一个人员列表并将此列表表示为地图对象的集合。
-So far what we talked about was the types and saw particular samples that are a bit plain. Let's see an example where we can start complexing things. In this first example we will see how we can combine maps and collections. Let's say that i want to represent a list of people and represent this list as a collection of map objects.
 
 ```yaml
 people:
@@ -121,7 +107,6 @@ people:
 ```
 
 在本例中，我们已经声明了一个名为 'people' 的变量，它维护了多个具有相同结构的对象。应注意到，我们使用了 3 种不同的方式来声明这些具有相同结构的变量，但对于 YAML 来说，它们都是等价的。 值得提醒的一点是，我们可以根据需要尽可能多地嵌套。例如，如果 person 对象具有描述“爱好”的属性，我们可以直接添加它，这样就创建了一个包含列表的列表对象。让我们看一个例子。我将使用上面的集合作为参考。
-As we can see here in this example, we have declared a variable (key) named 'people' and it holds multiple objects that are of the same format. We also can see that the way we declared each map object is different and we use 3 different methods to describe the same format for a map object but they all look the same for the YAML. One point we need to mention is that we can nest as much as we need to. If the person object has a property that describes 'hobbies' for example, we can add it thus creating a list object containing a list. Let's see it in an example. I will use the previous collection as a reference.
 
 ```yaml
 people:
@@ -153,7 +138,6 @@ people:
 ```
 
 到目前为止，我们介绍了 YAML 中的各种数据类型以及如何使用它们。接下来我们来看看 YAML 支持的一些功能。假设我们有一个键需要维护大量的数据，例如对这个特定对象的描述，我们可以有两种方式来格式化地书写它。我们可以使用右尖括号 '>' 或者管道符 '|'。这两种方式最主要的区别在于在解析时是否保留书写时的格式（*译者注：主要是换行符*）。使用右尖括号 '>' 标识不会保留格式（*译者注：即在 YAML 解析引擎解析式，多行文本中的换行符会被替换为**空格***）而使用管道符 '|' 则会保留格式。我们按格式书写的原因是为了使其更具有可读性，但 YAML 解释引擎会将所有的语法解析为一行。让我们结合实践来看一看。
-Thus far we covered the types and how to use them. Now we will take a look at some features YAML supports. We now will take a look at formatting. In case we have a key that should hold large amount of data such as description of the particular object there are 2 ways to format it. We will use either the chevron right '>' or the pipe '|' signs. The main difference between them is that the formatting is either preserved or not. The chevron-right '>' sign will not preserve formatting and the pipe '|' sign will preserve the formatting. The reason we use formatting is make it more readale for us as humans, YAML will render everything in one line under the hood. Let's see it in action
 
 ```yaml
 # 无格式，所有文本都在一行
@@ -188,97 +172,93 @@ car:
   year: 2021
 ```
 
-到这里，你已经了解了在日常工作使用 YAML 所需的所有基础知识。我们还有一个需要讨论的主题，稍后我们将对其进行研究。我想事先指出一些细微的差别
-Congratulations! You now covered all the basics to start using YML like a pro for your everyday work. We have one other topic that we need to cover and will take a look at it in just a moment. I would like to point out a small nuances beforehand.
+到这里，你已经了解了在日常工作使用 YAML 所需的所有基础知识。我们还有一个需要讨论的主题，稍后我们将对其进行研究。我想事先指出一些细微的差别。
 
-YAML 还支持一些我们在本文中没有讨论的其他功能，我选择不讨论它们的原因是因为应用这些功能的用例非常边缘，当你需要使用时，可以阅读官方的 [YAML文档]
-YAML also supports other features which we did not discuss here in this article and the reason i chose not to discuss about them is because the use cases that apply for these features are very marginal when you should justify  can read more about in the official [YAML docs](https://yaml.org/).
+YAML 还支持一些我们在本文中没有讨论的其他功能，我选择不讨论它们的原因是因为应用这些功能的用例非常边缘，当你需要使用时，可以阅读官方的 [YAML文档]。
 
 > 如果你希望我演示一些示例，那么请告诉我，我会另制作一个简短的部分，重点介绍这些功能。
-> If you do want that i will demonstrate some examples then just let me know and i will make another short part focusing on these features.
 
-YAML 还具有被称为锚点的另一大特性，但我经常看到人们由于不同的原因并没有真正使用它。老实说，我真的不知道锚点有什么可怕的，并且认为使用它们能获得的价值是巨大的。锚点使我们能够复制配置或内容，甚至在整个文件中继承属性。我们不仅可以复制一段配置，还可以将覆盖注入已在锚点中定义的特定键，这使变得非常灵活。当然，如果你的 YMAL 文件很小或者只是一些基本的配置文件，那么你没有理由使用它，但是如果我们假设该文件的内容会增长，那么在设置锚点方面进行额外的工作是值得的。
-The one big feature that YAML also has called anchors and i often see that people do not really use it because of different reasons. To be honest i don't really know what is so scary with anchors and think that the value we gain by using them is huge. Anchors enable us to duplicate configurations or content and even inherit properties across the entire file. Not only that we can replicate a piece of configuration but we can inject an override to a specific key that is already defined in the anchor, thus making it very flexible. I agree that if you have some small or basic configuration file then there is no reason to use it, but if we assume that the file will grow in its content then it does worth the extra work in setting up anchors.
+YAML 还具有被称为**锚点**的另一大特性，但我经常看到人们由于不同的原因并没有真正使用它。老实说，我真的不知道锚点有什么可怕的，并且认为使用它们能获得的价值是巨大的。锚点使我们能够复制配置或内容，甚至在整个文件中继承属性。我们不仅可以复制一段配置，还可以将覆盖注入已在锚点中定义的特定键，这使变得非常灵活。当然，如果你的 YMAL 文件很小或者只是一些基本的配置文件，那么你没有理由使用它，但是如果我们假设该文件的内容会增长，那么在设置锚点方面进行额外的工作是值得的。
 
-The way we work with anchors is by using the '&' sign and the '\*' sign.  
-The format to define an anchor is by declaring a key followed by the anchor name preceded with the '&' sign and then the value.
+我们可以通过 '&' 来创建锚点，并通过 '\*' 来引用指定的锚点。 
+定义锚点的格式是声明一个键（变量），后跟以“&”符号开头的锚点名称，然后是这个键的值。
 
 ```yaml
 mykey: &myanchor myvalue
 ```
 
-You can pay attention to the fact that the key and the anchor name don't have to match. When we want to use the anchor we need to assign the anchor name preceded with the '\*' sign as a value to another key.
+你应该也注意到了，键的名字和锚点的名字可以不同。当我们想要使用锚点时，我们需要将前面带有 '\*' 符号的锚点名称作为值分配给另一个键。
 
 ```yaml
 anotherkey: *myanchor
 ```
 
-## Example - YAML Anchors 1
+## 🌰 - YAML 锚点 1
 
 ```yaml
 name: &actor Neo
-movie_charachter: *actor # movie_charachter will hold the value Neo
+movie_charachter: *actor # movie_charachter 的值将会变为 Neo
 ```
 
-As we can see in this simple example this is not really why or when we should use anchors. We are not looking for the simple implementations of anchors. I usually use them when i want to configure an object that has multiple properties, or **key:value** pairs that should not change across the file everywhere we need to duplicate the instance. The way that we ue anchors with complex **key:value** pairs is by using the double chevron-left '<<' signs follow by the anchor.
+这个简单的例子并不是我们应该使用锚点的最恰当的场景。我想要介绍的也并不仅仅是锚点的简单使用。我使用锚点的最常见的场景包括当我需要复用一个具有多个属性的复杂对象，或者复用某些不应在文件中随处被修改的 **键值对** 时。
 
-## Example - YAML Anchors 2
+## 🌰 - YAML 锚点 2
 
 ```yaml
-# global car object that we want to use across
+# 全局的 car 对象
 car: &base_car
   year: 2021
   make: Toyota
   model: Corolla
   color: Grey
 
-# reuse the car object without changing anything
+# 无修改地直接复用 car 对象
 corolla:
   <<: *base_car
 
-# reuse the car object and override one of the properties
+# 复用 car 对象，并覆盖它原本的 model 属性
 runx:
   <<: *base_car
   model: runx
 
-# reuse the car object and override several of the properties
+# 复用 car 对象，并覆盖它原本的 model 属性和 color 属性
 prius:
   <<: *base_car
   model: prius
   color: Red
 
-# reuse the car object, override property and add additional that doesn't exist in the original anchor
+# 复用 car 对象，并覆盖它的 model 属性，并增加一个锚点对象中不存在的新属性 seats
 camry:
   <<: *base_car
   model: camry
   seats: 5
 ```
 
-As we can see in this example, we declared an anchor, used it in the YAML file in different places and also customized it. Pay attention that the customization can apply to nested properties as well. Just read the part where we talked about nesting and implement it. No need to rewrite it again. Each one of the map objects will look the same as the anchor with the adjustments that we added.
+正如我们在这个例子中看到的，我们声明了一个锚点，在 YAML 文件中的不同地方使用它，并且还定制了它。值得注意的事，即使是锚点中的嵌套属性也支持覆写。你可以返回阅读我们讨论嵌套并实现它的部分。无需再次重写。通过使用锚点，每个地图对象都能复用锚点对象的内容。
 
 ---
 
-Let's talk about where you will encounter most likely YAML file configurations in your everyday work. As developers and/or devops engineers we encounter YAML configurations all the time when we need to use Docker, specifically Docker Compose and also in our CI/CD pipelines. These 2 examples are the most common ones.
+接下来我们来说说日常工作中最有可能遇到的 YAML 文件配置。作为开发人员或 DevOps 工程师（也可能两者皆是），当我们需要使用 Docker，特别是 Docker Compose 以及我们的 CI/CD 管道时，我们总是会遇到 YAML 配置。下面这两个例子是最常见的。
 
-## Example - YAML Docker Compose
+## 示例 - YAML Docker Compose
 
-in this example we will take a look at a simple docker compose config file for a local development environment
+在这个例子中，我们来看一下本地开发环境中一个简单的 docker compose 配置文件：
 
 ```yaml
 # docker compose example
 
-# simple key:value pair
+# 简单的键值对
 version: "3"
 
-# complex Map object with nested map objects, each nested object represents a service in docker compose
+# 具有嵌套映射对象的复杂映射对象，每个嵌套对象代表 docker compose 中的一个服务
 services:
-  # service Map object
+  # 服务 Map 对象
   redis_sentinel:
     image: redis:alpine
     volumes:
       - sentinel_data:/data
 
-  # service Map object
+  # 服务 Map 对象
   redis_worker:
     image: redis:alpine
     environment:
@@ -286,17 +266,17 @@ services:
     volumes:
       - worker_data:/data
 
-# another complex Map object with nested map objects. volumes used for persistent storage in docker. docker containers are ephemeral which means that they are not designed to run forever, especially in local dev environment and that is why we need to create a volume and bind the local host's file system into the docker container's file system
+# 另一个具有嵌套映射对象的复杂映射对象。定义用于在 docker 中持久存储的卷。 docker 容器是短暂的，这意味着它们不是为了永远运行而设计的，尤其是在本地开发环境中，这就是为什么我们需要创建一个卷并将本地主机的文件系统绑定到 docker 容器的文件系统。
 volumes:
-  # service Map object
+  # 服务 Map 对象
   sentinel_data:
     driver: local
-  # service Map object
+  # 服务 Map 对象
   worker_data:
     driver: local
 ```
 
-As we can see here in the example, we have a common use case for YAML configurations file that is written in a repetitive fashion. I am sure you are confident enough to try and rewrite this YAML configurations file all by yourselves. Let's give it a try
+正如我们在示例中看到的，我们有一个以同样的方式编写的 YAML 配置文件的常见用例。我相信你有足够的信心自己尝试重写这个 YAML 配置文件。让我们试一试吧：
 
 ```yaml
 # docker compose example
@@ -326,12 +306,12 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
 ```
 
-You can see that i didn't touch the global configurations for volumes because it is very specific to docker and usually you do not want to make it dynamic. However, we can see that the rewrite didn't make too much of a difference, but we need to remember first that this is a very basic docker compose configurations file and if you add another 'service' under 'services' you will see the impact. Also the base\_redis anchor is very light. Imagine that we had 20 properties with nested properties of their own and how would our file would look like.
+你可以看到我没有修改卷的全局配置，因为它对于 docker 非常特定，并且通常你不想让它变动。然而，但是，我们可以看到在覆写时并没有产生太大的不同，但这只是一个非常基本的 docker compose 配置文件，如果您在『服务』下添加另一个『服务』，您将看到影响。base\_redis 锚点指向的对象也很简单。但你可以想象一下，假如我们有 20 个属性，它们都有自己的嵌套属性，我们的文件会是什么样子。
 
-## Example - YAML - CI
+##  示例 - YAML - CI
 
 ```yaml
-# Travis ci example
+# Travis ci 例子
 
 language: node_js
 node_js:
@@ -365,15 +345,15 @@ after_deploy:
   - "./after_deploy_script.sh"
 ```
 
-As you can see the configurations in this file are self explanatory and you can see that the pattern is consistent. We use **key:value** pairs and most of the configurations are complex map objects
+如您所见，上面这份配置是不言自明的，您可以看到模式是一致的。我们使用 **键值对**的形势并且大部分配置都是复杂的映射对象。
 
 ---
 
-And that's all folks! This is all you need to know about YAML. From now on you can and should be more confident when dealing with YAML file configurations and maybe you will have the chance to improve existing files.
+到此为止，这是你需要了解的关于 YAML 的全部内容。从现在开始，你在处理 YAML 文件配置时应该可以更有信心，甚至你能着手开始改进现有文件了。
 
-> A cool tool that i sometime use to validate the YAML files i work on is [this](http://www.yamllint.com/), it check spelling and configurations so you can make sure that you didn't miss anything and in the case you did then an error will be thrown 😄
+> 我平时用来验证我处理的 YAML 文件的是一个很酷的[工具](http://www.yamllint.com/)，它会检查拼写和配置，以便您确保没有遗漏任何内容，如果你这样做了，它就会抛出一个错误😄
 
-By the way, if you asked yourself what YAML stands for, it is Yet Another Markup Language. 😄😄😄
+顺便说一下，如果你问自己 YAML 代表什么，其实它就是另一种标记语言。😄😄😄
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
