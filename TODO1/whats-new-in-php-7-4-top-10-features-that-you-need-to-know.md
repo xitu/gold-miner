@@ -2,7 +2,7 @@
 > * 原文作者：[Daniel Dan](https://medium.com/@daniel.dan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md](https://github.com/xitu/gold-miner/blob/master/TODO1/whats-new-in-php-7-4-top-10-features-that-you-need-to-know.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[江五渣](http://jalan.space)、[suhanyujie](https://github.com/suhanyujie)
 
 # PHP 7.4 有什么新功能？你必须掌握的 10 大特性

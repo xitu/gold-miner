@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md](https://github.com/xitu/gold-miner/blob/master/article/2020/greedy-algorithms-101.md)
 > * 译者：[chaingangway](https://github.com/chaingangway)
-> * 校对者：[PingHGao](https://github.com/PingHGao)、[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[司徒公子](https://github.com/stuchilde)
 
 
 # 贪心算法，你入门了吗？

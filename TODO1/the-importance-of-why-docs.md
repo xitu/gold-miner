@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-importance-of-why-docs.md)
 > * 译者：[Roc](https://github.com/QinRoc)
-> * 校对者：[icy](https://github.com/Raoul1996)，[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[icy](https://github.com/Raoul1996)，[司徒公子](https://github.com/stuchilde)
 
 # “为什么”文档的重要性
 
