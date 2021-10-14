@@ -2,7 +2,7 @@
 > * 原文作者：[Michele Preziuso](https://medium.com/@mpreziuso)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2.md](https://github.com/xitu/gold-miner/blob/master/TODO1/password-hashing-pbkdf2-scrypt-bcrypt-and-argon2.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[xionglong58](https://github.com/xionglong58)、[GJXAIOU](https://github.com/GJXAIOU)
 
 # 密码哈希的方法：PBKDF2，Scrypt，Bcrypt 和 ARGON2

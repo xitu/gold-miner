@@ -9659,7 +9659,7 @@
 |------|-------|-------|
 |推荐前端文章[A Future Without Webpack](https://github.com/xitu/gold-miner/issues/6246)|奖励|1|
 
-## 译者：[todaycoder001](https://github.com/todaycoder001) 历史贡献积分：112.5 当前积分：69.5
+## 译者：[stuchilde](https://github.com/stuchilde) 历史贡献积分：112.5 当前积分：69.5
 
 |文章|类型|积分|
 |------|-------|-------|

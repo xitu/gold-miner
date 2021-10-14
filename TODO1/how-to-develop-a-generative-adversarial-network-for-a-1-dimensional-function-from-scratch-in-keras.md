@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-a-generative-adversarial-network-for-a-1-dimensional-function-from-scratch-in-keras.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-a-generative-adversarial-network-for-a-1-dimensional-function-from-scratch-in-keras.md)
 > * 译者：[TokenJan](https://github.com/TokenJan)
-> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)、[todaycoder001](https://github.com/todaycoder001)
+> * 校对者：[haiyang-tju](https://github.com/haiyang-tju)、[司徒公子](https://github.com/stuchilde)
 
 # 如何用 Keras 从头搭建一维生成对抗网络
 

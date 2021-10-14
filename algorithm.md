@@ -8,11 +8,11 @@
 * [理解 zip 和 gzip 压缩格式背后的压缩算法](https://juejin.im/post/5ecb7f9651882542f4488845)（[JohnieXu](https://github.com/JohnieXu) 翻译）
 * [贪心算法，你入门了吗？](https://juejin.im/post/5ebc0f626fb9a043383d7c2b)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [8 个值得了解的树形数据结构](https://juejin.im/post/5e7dfd0551882573b7535f23)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
-* [密码哈希的方法：PBKDF2，Scrypt，Bcrypt 和 ARGON2](https://juejin.im/post/5e70c152518825491949886e)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [密码哈希的方法：PBKDF2，Scrypt，Bcrypt 和 ARGON2](https://juejin.im/post/5e70c152518825491949886e)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [算法不是产品](https://juejin.im/post/5e398e806fb9a07cb52bb462)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [使用 Python 进行边缘检测](https://juejin.im/post/5e3d4b53e51d4526c26fadd4)（[lsvih](https://github.com/lsvih) 翻译）
 * [动态规划算法的实际应用：接缝裁剪](https://juejin.im/post/5de8b483f265da33d039c618)（[nettee](https://github.com/nettee) 翻译）
-* [如何提升你的数据结构、算法以及解决问题的能力](https://juejin.im/post/5d80fdcbf265da03e83ba163)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [如何提升你的数据结构、算法以及解决问题的能力](https://juejin.im/post/5d80fdcbf265da03e83ba163)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [线性代数：矩阵基本运算](https://juejin.im/post/5d107b00f265da1b67211a21)（[lsvih](https://github.com/lsvih) 翻译）
 * [JavaScript 线性代数：使用 ThreeJS 制作线性变换动画](https://juejin.im/post/5d05dba86fb9a07ece67ce76)（[lsvih](https://github.com/lsvih) 翻译）

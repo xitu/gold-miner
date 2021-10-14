@@ -2,7 +2,7 @@
 > * 原文作者：[Benjamin Morel](https://medium.com/@benmorel)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/high-speed-inserts-with-mysql.md](https://github.com/xitu/gold-miner/blob/master/TODO1/high-speed-inserts-with-mysql.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[GJXAIOU](https://github.com/GJXAIOU)、[QinRoc](https://github.com/QinRoc)
 
 # MySQL 最佳实践 —— 高效插入数据

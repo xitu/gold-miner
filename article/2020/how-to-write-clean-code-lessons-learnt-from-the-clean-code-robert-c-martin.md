@@ -2,7 +2,7 @@
 > * 原文作者：[Shubham Gupta](https://medium.com/@shubham08gupta)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-clean-code-lessons-learnt-from-the-clean-code-robert-c-martin.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-write-clean-code-lessons-learnt-from-the-clean-code-robert-c-martin.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[PingHGao](https://github.com/PingHGao)、[niayyy-S](https://github.com/niayyy-S)
 
 # 如何编写整洁代码？从 Robert C. Martin 的“代码整洁之道”中吸取的教训
