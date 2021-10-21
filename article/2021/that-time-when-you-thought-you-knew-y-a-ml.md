@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/that-time-when-you-thought-you-knew-y-a-ml.md](https://github.com/xitu/gold-miner/blob/master/article/2021/that-time-when-you-thought-you-knew-y-a-ml.md)
 > * 译者：[finalwhy](https://github.com/finalwhy)
-> * 校对者：[CristoMonte](https://github.com/CristoMonte)
+> * 校对者：[CristoMonte](https://github.com/CristoMonte)、[PingHGao](https://github.com/PingHGao)
 
 # 你真的了解 Y(A)ML 吗？❗ 😵
 
