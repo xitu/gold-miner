@@ -34,7 +34,7 @@ MEAN 以及 MERN Stack 都相当强大，而正是 AngularJS 和 React 使其如
 
 AngularJS 使用三种不同的组件：class、template 以及 metadata，来编写简洁清晰的代码。这正好是一个 Model-View-Controller（模型-视图-控制器） 的框架。如果一个 [**NodeJS 开发公司**](https://www.rlogical.com/hire-dedicated-developers/hire-node-js-developer/)的开发者正在处理一个简单的项目，那么双向数据绑定会比较适用。
 
-这表示发生在 model 里的任何修改都将立刻影响视图，反之亦然。而单向数据绑定对开发者来说会非常方便，尤其是用于复杂的项目。使用 Angular 和 Typescript 来创建应用是有可行的。
+这表示发生在模型层里的任何修改都将立刻影响视图层，反之亦然。而单向数据绑定对开发者来说会非常方便，尤其是用于复杂的项目。使用 Angular 和 Typescript 来创建应用是可行的。
 
 MERN，一个相对较新的技术栈，拥有 React 可供使用。通过 React 而增加的用户接受度和流行度对[**MERN stack 发展**](https://www.rlogical.com/hire-dedicated-developers/hire-mern-stack-developer/)相当有帮助。
 
