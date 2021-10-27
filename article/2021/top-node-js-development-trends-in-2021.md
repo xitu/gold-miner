@@ -38,7 +38,7 @@ AngularJS 使用三种不同的组件：class、template 以及 metadata，来�
 
 MERN，一个相对较新的技术栈，拥有 React 可供使用。通过 React 而增加的用户接受度和流行度对[**MERN stack 发展**](https://www.rlogical.com/hire-dedicated-developers/hire-mern-stack-developer/)相当有帮助。
 
- React 的虚拟 DOM 可以非常有效的快速执行修改，这使得 Angular 有点相形见绌。而且，React 使用高级 JavaScript 可以迅速地操作组件。尽管，React 非常强大，但作为一个库而言，它有一定局限性。在某些场景下，React 需要借助第三方服务。
+React 的虚拟 DOM 可以非常有效地快速执行修改，这使得 Angular 有点相形见绌。而且，React 可以使用高级 JavaScript 迅速地操作组件。尽管 React 非常强大，但作为一个库而言，它有一定局限性。在某些场景下，React 需要借助第三方服务。
 
 ### 2. 实时应用
 
