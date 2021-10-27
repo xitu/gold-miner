@@ -44,7 +44,7 @@ React 的虚拟 DOM 可以非常有效地快速执行修改，这使得 Angular 
 
 实时应用是大势所趋，并且将保持在排行榜前列。这些应用需要一个强大且健壮的后端。**即时通信、视频通话和在线游戏，以及许多其他相似的应用**是完美的案例。
 
-Node.js **使用事件 API 以及 Websocket 来双向互动**，这在实时应用中是必不可少的。总的来说，我们可以断言实时应用有一个光明的未来。
+Node.js **使用事件 API 以及 Websocket 实现双向通信**，这在实时应用中是必不可少的。总的来说，我们可以断言实时应用有一个光明的未来。
 
 > **补充阅读: [API 开发：构建健壮的 API 的完整指南](https://www.rlogical.com/blog/api-development-complete-guide-to-building-robust-apis/)**
 
