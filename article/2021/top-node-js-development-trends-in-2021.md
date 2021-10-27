@@ -20,7 +20,7 @@
 - AliExpress、eBay 等知名公司很大程度上依赖于 Node.js。
 - 包括 PayPal、Netflix 和 Groupon 在内的大流量的网站都在使用 Node.js。
   
-* Node.js 自 2009 年在市场上推出就变得非常受欢迎。**Node.js 在 Github 中拥有 75.9k stars，3k watchers，还有 19k forks**，**在 Stack share 中拥有 71.8k 的关注者以及 8.3k 的赞同**。这些数字足以描述 Node.js 流行程度。知名的科技巨头，比如 Netflix 和 Microsoft 都在使用 Node.js。Node.js 成功在 **StackOverflow 2021 年开发者调查中位居榜首**，其中超过 50% 的调查参与者声称正在项目中使用 Node JS。
+* Node.js 自 2009 年在市场上推出就变得非常受欢迎。**Node.js 在 Github 中拥有 75.9k stars、3k watchers，还有 19k forks**，**在 Stack share 中拥有 71.8k 的关注者以及 8.3k 的赞同**。这些数字足以描述 Node.js 流行程度。知名的科技巨头，比如 Netflix 和 Microsoft 都在使用 Node.js。Node.js 成功在 **StackOverflow 2021 年开发者调查中位居榜首**，其中超过 50% 的调查参与者声称正在项目中使用 Node.js。
 
 > **补充阅读: [NodeJS vs. DenoJS：哪个更适合你？](https://www.rlogical.com/blog/nodejs-vs-denojs-which-is-better-for-you/)**
 
