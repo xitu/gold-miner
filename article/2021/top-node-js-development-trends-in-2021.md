@@ -56,7 +56,7 @@ Node.js 正好是一个特性丰富的运行环境，允许开发者使用面向
 
 实时应用需要处理大量的用户请求，因此 Node.js 非常有帮助。除了提供高质量的应用，它同样创建了一个可靠的解决方案。
 
-因此，当你在为自己的消费者 [**构建 IoT（物联网）应用**](https://www.rlogical.com/iot-development/)时，你可以相信 Node.js 对你的支持。
+因此，当你在为自己的消费者[**构建 IoT（物联网）应用**](https://www.rlogical.com/iot-development/)时，你可以相信 Node.js 对你的支持。
 
 ### 4. 无服务解决方案
 
