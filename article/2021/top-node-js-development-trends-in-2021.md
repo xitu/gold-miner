@@ -11,7 +11,7 @@
 
 ## Node.js 为什么如此有名呢？
 
-在近年中，Node.js 的高度灵活性和极其轻量的特性，使其变得非常流行。Node.js 拥有大量的 JavaScript 库用于简化开发流程。因其开源的属性，使得 Node.js 在 [**web 和手机应用开发**](https://www.rlogical.com/)方面变得非常知名。
+近些年来，Node.js 凭借其高度灵活和极其轻量的特性，变得非常流行。Node.js 拥有大量的 JavaScript 库用于简化开发流程。Node.js 的开源属性也使得它在 [**web 和移动应用开发**](https://www.rlogical.com/)方面变得非常知名。
 
 **根据最近的统计，可以看出：**
 
