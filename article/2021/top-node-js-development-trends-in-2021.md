@@ -87,7 +87,7 @@ Node.js 正好是一个特性丰富的运行环境，允许开发者使用面向
 
 GraphQL 每年都在发展，是另一种 Node.js 趋势。它慢慢地引起了世界各地程序员的注意力。我们可以假定，它会以一种显著的速度成长。
 
-GraphQL 可以简化 Windows, Android, 和 iOS 等 不同平台的工作流程，因此，它将会是开发者最喜欢且蓬勃发展的特性。
+GraphQL 可以简化 Windows、Android 和 iOS 等不同平台的工作流程，因此，它将会是开发者最喜欢且蓬勃发展的特性。
 
 > **补充阅读: [GraphQL 和 REST 之间的区别](https://www.rlogical.com/blog/differences-between-graphql-and-rest/)**
 
