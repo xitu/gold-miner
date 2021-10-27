@@ -16,7 +16,7 @@
 **根据最近的统计，可以看出：**
 
 - 目前有超过 50% 的开发者在自己的项目中使用 Node.js。
-- 在美国 Node.js 创建的网站超过 28000 个 。
+- 在美国，基于 Node.js 创建的网站超过 28000 个 。
 - AliExpress、eBay 等知名公司很大程度上依赖于 Node.js。
 - 包括 PayPal、Netflix 和 Groupon 在内的大流量的网站都在使用Node.JS。
   
