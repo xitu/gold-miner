@@ -2,117 +2,117 @@
 > * 原文作者：[Rlogical Techsoft.Pvt.Ltd](https://medium.com/@rlogicaltech)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-development-trends-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-development-trends-in-2021.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tong-h](https://github.com/Tong-H)
+> * 校对者：[Chorer](https://github.com/Chorer) [greycodee](https://github.com/greycodee)
 
-# Top Node.js Development Trends in 2021
+# 2021 年 Node.js 的发展趋势
 
-Lots of predictions for trends in Node.js for the year 2021 are being assumed by developers across the globe. In the following paragraphs, we are going to explain the expected Node.js trends for this year.
+世界各地的开发者对 2021 年 Node.js 的发展趋势做了很多预测。在下文中，我们将解说今年预期的 Node.js 趋势。
 
-## For what reason is Node.js so well-known?
+## Node.js 为什么如此有名呢？
 
-Node.js has become so popular in recent years due to its high flexibility and extremely lightweight property. Node.js features a vast library of JavaScript modules for streamlining the development procedure. Because of its open-source attribute, Node.js has become extremely well-known for [**web and mobile app development**](https://www.rlogical.com/).
+近些年来，Node.js 凭借其高度灵活和极其轻量的特性，变得非常流行。Node.js 拥有大量的 JavaScript 库用于简化开发流程。Node.js 的开源属性也使得它在 [**web 和移动应用开发**](https://www.rlogical.com/)方面变得非常知名。
 
-**According to recent statistics, it has been shown that:**
+**根据最近的统计，可以看出：**
 
-- Over 50% of the developers make use of Node.js in their projects at present.
-- Over 28000 websites have been created on Node.js technology in the USA.
-- Big names such as AliExpress and eBay rely considerably on Node.js.
-- Websites receiving heavy traffic, including PayPal, Netflix, and Groupon, make use of Node.JS.
+- 目前有超过 50% 的开发者在自己的项目中使用 Node.js。
+- 在美国，基于 Node.js 创建的网站超过 28000 个 。
+- AliExpress、eBay 等知名公司很大程度上依赖于 Node.js。
+- 包括 PayPal、Netflix 和 Groupon 在内的大流量的网站都在使用 Node.js。
+  
+* Node.js 自 2009 年在市场上推出就变得非常受欢迎。**Node.js 在 Github 中拥有 75.9k stars、3k watchers，还有 19k forks**，**在 Stack share 中拥有 71.8k 的关注者以及 8.3k 的赞同**。这些数字足以描述 Node.js 流行程度。知名的科技巨头，比如 Netflix 和 Microsoft 都在使用 Node.js。Node.js 成功在 **StackOverflow 2021 年开发者调查中位居榜首**，其中超过 50% 的调查参与者声称正在项目中使用 Node.js。
 
-* Node.js had become extremely popular **since 2009** when it was first introduced on the market. **Node.js has 75.9k stars, 3k watchers, plus 19k forks In Github.** It has got **71.8k followers along with 8.3k votes in Stack share.** These numbers are sufficient to depict how popular Node.js happens to be. Well-known tech giants such as Netflix and Microsoft use Node.js. Node.js succeeded in winning the **top position in the 2020 developer survey of StackOverflow.** More than 50% of the participants in that particular survey reported using Node JS in their projects.
+> **补充阅读: [NodeJS vs. DenoJS：哪个更适合你？](https://www.rlogical.com/blog/nodejs-vs-denojs-which-is-better-for-you/)**
 
-> **Also Read: [NodeJS vs. DenoJS: Which is Better for you?](https://www.rlogical.com/blog/nodejs-vs-denojs-which-is-better-for-you/)**
-
-## Top Node.js Development Trends in 2021
+## Node.js 在 2021 年的发展趋势
 
 ![](https://cdn-images-1.medium.com/max/2400/1*7_yuqUYbAl-9bHsPgtcPgA.png)
 
 ### 1. MEAN & MERN Stack
 
-Both MEAN as well as MERN Stack is quite powerful. And it is AngularJS and React that make it so potent. While **MEAN Stack combines ExpressJS, MongoDB, AngularJS, and NodeJS**, MERN Stack employs React rather than Angular.
+AngularJS 和 React 使得 MEAN 以及 MERN Stack 都相当强大。**MEAN Stack 结合了 ExpressJS、MongoDB、AngularJS 以及 NodeJS**，而 MERN Stack 则使用 React 而不是 Angular。
 
-AngularJS can write easy and clean code using three different components: class, template, and metadata. It happens to be a Model-View-Controller Framework. The 2-way data binding will be appropriate if the developers of a [N**odeJS development company**](https://www.rlogical.com/hire-dedicated-developers/hire-node-js-developer/) are dealing with a simple project.
+AngularJS 使用三种不同的组件：class、template 以及 metadata，来编写简洁清晰的代码。这正好是一个 Model-View-Controller（模型-视图-控制器） 的框架。如果一个 [**NodeJS 开发公司**](https://www.rlogical.com/hire-dedicated-developers/hire-node-js-developer/)的开发者正在处理一个简单的项目，那么双向数据绑定会比较适用。
 
-It implies that any modifications that have taken place within the model will impact the view instantly and vice versa. 1-way data binding happens to be quite handy for developers, particularly for complicated projects. It will be possible to make use of Angular with Typescript for building apps.
+这表示发生在模型层里的任何修改都将立刻影响视图层，反之亦然。而单向数据绑定对开发者来说会非常方便，尤其是用于复杂的项目。使用 Angular 和 Typescript 来创建应用是可行的。
 
-MERN, a comparatively new tech stack, has got React at its disposal. The user acceptance and popularity gained by React are quite useful for [**MERN stack development**](https://www.rlogical.com/hire-dedicated-developers/hire-mern-stack-developer/).
+MERN，一个相对较新的技术栈，拥有 React 可供使用。通过 React 而增加的用户接受度和流行度对[**MERN stack 发展**](https://www.rlogical.com/hire-dedicated-developers/hire-mern-stack-developer/)相当有帮助。
 
-React outshines Angular due to its virtual DOM that is quite effective in performing modifications quickly. Moreover, it employs advanced JavaScript that operates components swiftly. Although React is powerful, being a library, it comes with certain limitations. It needs to take the help of third-party services on some occasions.
+React 的虚拟 DOM 可以非常有效地快速执行修改，这使得 Angular 有点相形见绌。而且，React 可以使用高级 JavaScript 迅速地操作组件。尽管 React 非常强大，但作为一个库而言，它有一定局限性。在某些场景下，React 需要借助第三方服务。
 
-### 2. Real-Time Applications
+### 2. 实时应用
 
-The real-time applications are trending and will be staying on the top of the charts. These apps require a powerful and robust backend. Perfect examples are **Instant Messaging, Video Calling, and Online Gaming, along with lots of other similar applications.**
+实时应用是大势所趋，并且将保持在排行榜前列。这些应用需要一个强大且健壮的后端。**即时通信、视频通话和在线游戏，以及许多其他相似的应用**是完美的案例。
 
-Node.js **uses Event API and Websocket for getting the 2-way interaction** that is essential in real-time applications. In short, it can be asserted that real-time apps have a bright future ahead of them.
+Node.js **使用事件 API 以及 Websocket 实现双向通信**，这在实时应用中是必不可少的。总的来说，我们可以断言实时应用有一个光明的未来。
 
-> **Also Read: [API Development: Complete guide to building robust APIs](https://www.rlogical.com/blog/api-development-complete-guide-to-building-robust-apis/)**
+> **补充阅读: [API 开发：构建健壮的 API 的完整指南](https://www.rlogical.com/blog/api-development-complete-guide-to-building-robust-apis/)**
 
-### 3. Internet of Things
+### 3. 物联网
 
-Nodejs happens to be a runtime environment rich in features and enables developers to apply data-oriented and on-time capabilities, plus microservices.
+Node.js 正好是一个特性丰富的运行环境，允许开发者使用面向数据和及时能力，以及微服务。
 
-The world has accepted technological transformations. If you would like to cope with it, it will be imperative to adapt to this contemporary technology.
+如果你想应付已经接受了技术转型的世界，那么适应当代技术是必不可少的。
 
-Real-time apps have to handle plenty of user requests, and therefore, node.js has become a helping hand. Apart from delivering quality apps, it likewise creates a sure-shot solution.
+实时应用需要处理大量的用户请求，因此 Node.js 非常有帮助。除了提供高质量的应用，它同样创建了一个可靠的解决方案。
 
-As a result, you can have faith in node.js for assisting you in [**creating IoT Apps**](https://www.rlogical.com/iot-development/) for your customers.
+因此，当你在为自己的客户[**构建 IoT（物联网）应用**](https://www.rlogical.com/iot-development/)时，你可以相信 Node.js 能够帮助到你。
 
-### 4. Serverless Solution
+### 4. 无服务解决方案
 
-Every individual likes to save money plus enhance the productivity and efficiency of the developers. Node.js happens to be a fantastic solution when it comes to serverless architecture.
+每个人都喜欢既能省钱还能提高开发者的生产力和效率的方案。而将 Node.js 用于无服务架构正好是一个绝妙的解决方案。
 
-The cost of maintaining it is almost zero, and it doesn’t need companies to consider while deciding their performance. Apart from this, it can boast of having a global community.
+维护成本几乎为零，而且并不需要公司担心其应用的性能。除此之外，还值得一夸的是它的全球社区。
 
-Almost every big company like **AOL, Netflix, and Telenor takes advantage of serverless** architecture.
+几乎所有大型公司，比如 **AOL、Netflix 以及 Telenor 都在使用无服务架构**。
 
-**These advantages are as follows:**
+**优点如下：**
 
-- Enhancement in quality of code
-- Lessening in project cost
-- Saves plenty of time
-- Increase in efficiency
+- 提升代码质量
+- 减少项目成本
+- 节省大量的时间
+- 提高效率
 
-It is amongst the most incredible node.JS development trends that the world will witness in the upcoming days.
+在接下来的日子里，世界将见证最不可思议的 Node.js 发展趋势。
 
-### 5. Cloud Solutions
+### 5. 云解决方案
 
-The point outlined above happens to be the solution for **developing cloud apps**. It will be possible to simplify the cloud app construction by the serverless structure either from the beginning or scaling apps that have been already developed.
+以上概述的要点正好是**开发云应用**的解决方案。无服务结构既可以从一开始就简化云应用的构建，也可以扩展已经开发的应用。
 
-According to the study of the information week, artificial intelligence, cloud computing, plus machine learning models will be ruling the planet.
+根据《信息周刊》的研究，人工智能、云计算以及机器学习模型将会统治地球。
 
 ### 6. GraphQL
 
-GraphQL is known to be a successful option for RESTful API. It enables programmers to precisely elucidate any information needed by it. It is effective in collecting huge information from diverse sources.
+总所周知，GraphQL 是 RESTful API 的一个成功的选项。GraphQL 使程序员可以精确地说明它需要的信息。它可以有效地从不同的渠道收集大量信息。
 
-GraphQL, one more node.js trend, is found to be developing every year. It has slowly caught the attention of programmers around the world. We can presume that it will be growing significantly.
+GraphQL 每年都在发展，是另一种 Node.js 趋势。它慢慢地引起了世界各地程序员的注意力。我们可以假定，它会以一种显著的速度成长。
 
-GraphQL will be able to streamline the workflow of different platforms like Windows, Android, or iOS. Therefore, it will be the favorite and prospering feature of the developers.
+GraphQL 可以简化 Windows、Android 和 iOS 等不同平台的工作流程，因此，它将会是开发者最喜欢且蓬勃发展的特性。
 
-> **Also Read: [Differences Between GraphQL and REST](https://www.rlogical.com/blog/differences-between-graphql-and-rest/)**
+> **补充阅读: [GraphQL 和 REST 之间的区别](https://www.rlogical.com/blog/differences-between-graphql-and-rest/)**
 
-### 7. Microservice
+### 7. 微服务
 
-Microservice, which happens to be a substitute for a serverless approach, is an architectural technique. The code’s maintenance is dependent on microservice, and it deals with the code quality responsibly.
+微服务是一种架构技术，正好是无服务的替代方案。代码维护依赖于微服务，它会负责地处理代码质量。
 
-Furthermore, the microservices enable no-dependency plus free functioning of the apps. You can use microservice for creating top-quality projects.
+而且，微服务使应用可以无依赖且自由运行，你可以使用微服务来创建质量一流的项目。
 
-Microservice architecture is expanding at all times and can prove to be an effective investment.
+微服务架构一直都在扩展，而且可以被证明是一个有效的投资。
 
-## NodeJS — An Appealing Runtime Environment
+## NodeJS —— 一个充满吸引力的运行环境
 
-NodeJS provides quite a few features that outperform other frameworks, and some of them are as follows:
+NodeJS 提供了相当多胜于其他框架的特性，其中一些如下：
 
-- Event-Driven and Asynchronous
-- Full-Stack application development framework
-- Easy to learn as well as demanding in the market
-- Built on top of the V8 engine of Chrome
-- Single-Threaded
-- Huge community support
+- 事件驱动和异步
+- 全栈应用开发框架
+- 易上手且市场要求严格
+- 构建基于谷歌 V8 引擎
+- 单线程
+- 庞大的社区支持
 
-It happens to be a promising application constructor that enables **[web & mobile app developers](https://www.rlogical.com/hire-dedicated-developers)** to use its libraries and various other tools plus technologies.
+Node.js 是一个充满前景的应用建造者，**[web 和移动应用开发者](https://www.rlogical.com/hire-dedicated-developers)**可以使用它的库以及多样的工具和技术。
 
-According to recent statistics, you will find around 194K+ sites that have been built by making use of Node.js, and this demonstrates its popularity.
+根据最近的统计，你会发现使用 Node.js 创建的网站大约有 194k+ 个，这也说明了其火热程度。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
