@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-development-trends-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/top-node-js-development-trends-in-2021.md)
 > * 译者：[tong-h](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer) [greycodee](https://github.com/greycodee)
 
 # 2021 年 Node.js 的发展趋势
 
