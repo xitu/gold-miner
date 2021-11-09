@@ -153,7 +153,7 @@ fn main() {
 
 首先，QuickJS 比 v8 小很多。事实上，他只有 v8 运行时资源的 1/40 （或 2.5%）。你可以在单个物理机上运行比 v8 更多的 QuickJS 函数。
 
-其次，大多数商业逻辑应用程序，原始性能并不重要。应用程序也许有计算密集形任务，例如 AI 推理。WasmEdge 允许 QuickJS 应用程序在 不容易给 v8 添加这些扩展模块的情况下，使用高性能的 WebAssembly。
+其次，大多数商业逻辑应用程序，原始性能并不重要。应用程序也许有计算密集型任务，例如 AI 推理。WasmEdge 允许 QuickJS 应用程序在 不容易给 v8 添加这些扩展模块的情况下，使用高性能的 WebAssembly。
 
 最后，我们知道[很多 JavaScript 安全问题在 JIT 上发生了](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/)。也许在云原生环境中关闭 JIT 是个不错的主意！
 
