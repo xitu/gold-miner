@@ -2,67 +2,67 @@
 > * 原文作者：[Michael Yuan](https://medium.com/@michaelyuan_88928)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/running-javascript-in-webassembly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/running-javascript-in-webassembly.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
+> * 校对者：[nia3y](https://github.com/nia3y)、[PassionPenguin](https://github.com/PassionPenguin)
 
-# Running JavaScript in WebAssembly with WasmEdge
+# 使用 WasmEdge 在 WebAssembly 中运行 JavaScript
 
 ![](https://cdn-images-1.medium.com/max/3840/1*P4LKOkLu-MB2QAQb9FaRhQ.png)
 
-[WebAssembly](https://webassembly.org/) started as a “JavaScript alternative for browsers”. The idea is to run high-performance applications compiled from languages like C/C++ or Rust safely in browsers. In the browser, WebAssembly runs side by side with JavaScript.
+[WebAssembly](https://webassembly.org/) 最初是作为浏览器中 JavaScript 的替代语言而设计的。这个想法是让像 C/C++ 或 Rust 编译的高性能应用程序能够安全的运行在浏览器中。在浏览器中，WebAssembly 和 JavaScript 并行运行。
 
-![Figure 1. WebAssembly and JavaScript in the browser.](https://cdn-images-1.medium.com/max/2000/1*h59dPAp6HQcaaIQt7GdejA.png)
+![图 1：浏览器中的 WebAssembly 和 JavaScript。](https://cdn-images-1.medium.com/max/2000/1*h59dPAp6HQcaaIQt7GdejA.png)
 
-As WebAssembly is increasingly used in the cloud, it is now a [universal runtime for cloud-native applications](https://github.com/WasmEdge/WasmEdge). Compared with Docker-like application containers, WebAssembly runtimes achieve higher performance with lower resource consumption. The common uses cases for WebAssembly in the cloud include the following.
+随着 WebAssembly 越来越多被应用在云端，它现在是[原生云应用通用运行时](https://github.com/WasmEdge/WasmEdge)。与类 Docker 应用容器相比，WebAssembly 运行时有着更低的资源消耗和更高的性能。下面是一个常用的在云端使用 WebAssembly 的例子。
 
-* Runtime for [serverless function-as-a-service](https://github.com/second-state/aws-lambda-wasm-runtime) (FaaS)
-* Embedding [user-defined functions into SaaS](http://reactor.secondstate.info/en/docs/) apps or databases
-* Runtime for [sidecar applications](https://github.com/second-state/dapr-wasm) in a service mesh
-* Programmable plug-ins for web proxies
-* Sandbox runtimes for edge devices including [software-defined vehicles](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/) and smart factories
+* 为 [serverless function-as-a-service](https://github.com/second-state/aws-lambda-wasm-runtime) (FaaS) 提供运行时。
+* 嵌入[用户定义函数到 SaaS](http://reactor.secondstate.info/en/docs/) 应用程序或数据库。
+* 为服务网格中的 [sidecar 应用程序](https://github.com/second-state/dapr-wasm) 提供运行时。
+* Web 代理的可编程插件。
+* 为边缘设备包括[软件定义交通工具](https://www.secondstate.io/articles/second-state-joins-the-autoware-foundation/)和智能工厂提供运行时。
 
-However, in those cloud-native use cases, developers often want to use JavaScript to write business applications. That means we must now support [JavaScript in WebAssembly](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md). Furthermore, we should support calling C/C++ or Rust functions from JavaScript in a WebAssembly runtime to take advantage of WebAssembly’s computational efficiency. The WasmEdge WebAssembly runtime allows you to do exactly that.
+然而，在这些原生云用例中，开发者常常想用 JavaScript 去写商业应用程序。这意味着，我们现在必须支持用 [JavaScript 编写 WebAssembly](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。不仅如此，我们应该让运行在 WebAssembly 运行时中的 JavaScript 调用 C/C++ 或者 Rust 函数，以求最大化利用 WebAssembly 的运行效率。WasmEdge WebAssembly 运行时就允许我们这样去实现它。
 
-![Figure 2. WebAssembly and JavaScript in the cloud.](https://cdn-images-1.medium.com/max/2000/1*OmqZydcKW18qNIbVKs0J3A.png)
+![图 2：云端中的 WebAssembly 和 JavaScript](https://cdn-images-1.medium.com/max/2000/1*OmqZydcKW18qNIbVKs0J3A.png)
 
 ## WasmEdge
 
-[WasmEdge](https://github.com/WasmEdge/WasmEdge) is a leading cloud-native WebAssembly runtime [hosted by the CNCF](https://www.secondstate.io/articles/wasmedge-joins-cncf/) (Cloud Native Computing Foundation) / Linux Foundation. It is the fastest WebAssembly runtime in the market today. WasmEdge supports all standard WebAssembly extensions as well as proprietary extensions for Tensorflow inference, KV store, and image processing, etc. Its compiler toolchain supports not only WebAssembly languages such as C/C++, Rust, Swift, Kotlin, and AssemblyScript but also [regular JavaScript](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md).
+[WasmEdge](https://github.com/WasmEdge/WasmEdge) 是一个由 CNCF（Cloud Native Computing Foundation）与  Linux 基金会托管的领先的云原生 WebAssembly 运行时。它是目前市场上最快的 WebAssembly 运行时，支持所有标准的 WebAssembly 扩展以及 Tensorflow inference、KV store 和 image processing 等的私有扩展。它的编译工具链不仅仅支持 WebAssembly 语言如 C/C++、Rust、Swift、Kotlin 以及 AssemblyScript，而且支持[常用的 JavaScript](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run_javascript.md)。
 
-A WasmEdge application can be embedded into a [C](https://github.com/WasmEdge/WasmEdge/blob/master/docs/c_api_quick_start.md) program, a [Go](https://www.secondstate.io/articles/extend-golang-app-with-webassembly-rust/) program, a [Rust](https://github.com/WasmEdge/WasmEdge/tree/master/wasmedge-rs) program, a [JavaScript](https://www.secondstate.io/articles/getting-started-with-rust-function/) program, or the operating system’s [CLI](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run.md). The runtime can be managed by Docker tools (eg [CRI-O](https://www.secondstate.io/articles/manage-webassembly-apps-in-wasmedge-using-docker-tools/)), orchestration tools (eg K8s), serverless platforms (eg [Vercel](https://www.secondstate.io/articles/vercel-wasmedge-webassembly-rust/), [Netlify](https://www.secondstate.io/articles/netlify-wasmedge-webassembly-rust-serverless/), [AWS Lambda](https://www.cncf.io/blog/2021/08/25/webassembly-serverless-functions-in-aws-lambda/), [Tencent SCF](https://github.com/second-state/tencent-scf-wasm-runtime)), and data streaming frameworks (eg [YoMo](https://www.secondstate.io/articles/yomo-wasmedge-real-time-data-streams/) and Zenoh).
+WasmEdge 应用程序可以被嵌入到 [C](https://github.com/WasmEdge/WasmEdge/blob/master/docs/c_api_quick_start.md)、[Go](https://www.secondstate.io/articles/extend-golang-app-with-webassembly-rust/)、[Rust](https://github.com/WasmEdge/WasmEdge/tree/master/wasmedge-rs) 、[JavaScript](https://www.secondstate.io/articles/getting-started-with-rust-function/) 程序，以及其他操作系统的 [CLI](https://github.com/WasmEdge/WasmEdge/blob/master/docs/run.md)。运行时还可以被 Docker 工具（例如 [CRI-O](https://www.secondstate.io/articles/manage-webassembly-apps-in-wasmedge-using-docker-tools/)），编制工具（例如 K8s），serverless 平台（例如 [Vercel](https://www.secondstate.io/articles/vercel-wasmedge-webassembly-rust/), [Netlify](https://www.secondstate.io/articles/netlify-wasmedge-webassembly-rust-serverless/), [AWS Lambda](https://www.cncf.io/blog/2021/08/25/webassembly-serverless-functions-in-aws-lambda/), [Tencent SCF](https://github.com/second-state/tencent-scf-wasm-runtime)），和数据流工具（例如 [YoMo](https://www.secondstate.io/articles/yomo-wasmedge-real-time-data-streams/) 和 Zenoh）管理。
 
-Now, you can run JavaScript programs in WasmEdge powered serverless functions, microservices, and AIoT applications! It not only runs plain JavaScript programs but also allows developers to use Rust and C/C++ to create new JavaScript APIs within the safety sandbox of WebAssembly.
+现在，你可以在有 serverless functions，微服务，和 AIoT 应用程序功能的 WasmEdge 中运行 JavaScript 程序。它不仅运行简单的 JavaScript 程序，而且允许开发者在安全的 WebAssembly 沙盒中用 Rust 和 C/C++ 去创建新的 JavaScript 接口。
 
-## Building a JavaScript engine in WasmEdge
+## 在 WasmEdge 中构建一个 JavaScript 引擎
 
-First, let’s build a WebAssmbly-based JavaScript interpreter program for WasmEdge. It is based on [QuickJS](https://bellard.org/quickjs/) with WasmEdge extensions, such as [network sockets](https://github.com/second-state/wasmedge_wasi_socket) and [Tensorflow inference](https://www.secondstate.io/articles/wasi-tensorflow/), incorporated into the interpreter as JavaScript APIs. You will need to [install Rust](https://www.rust-lang.org/tools/install) to build the interpreter.
+首先，让我们来为 WasmEdge 构建一个基于 WebAssembly 的 JavaScript 解释器。他是基于附有 WasmEdge 扩展的 [QuickJS](https://bellard.org/quickjs/)，例如 [network sockets](https://github.com/second-state/wasmedge_wasi_socket) 和 [Tensorflow inference](https://www.secondstate.io/articles/wasi-tensorflow/)，被合并封装成 JavaScript APIs 的解释器中。你将需要[安装 Rust](https://www.rust-lang.org/tools/install) 去构建解释器。
 
-> **If you just want to use the interpreter to run JavaScript programs, you can skip this section.**
+> **如果你只想用这个解释器运行 JavaScript 程序，你可以跳过这个部分。**
 
-Fork or clone [the wasmegde-quickjs Github repository](https://github.com/second-state/wasmedge-quickjs) to get started.
+让我们先从 Fork 或者克隆 [wasmegde-quickjs Github 仓库](https://github.com/second-state/wasmedge-quickjs) 开始。
 
 ```bash
 $ git clone https://github.com/second-state/wasmedge-quickjs
 ```
 
-Following the instructions from that repo, you will be able to build a JavaScript interpreter for WasmEdge.
+跟着仓库里面给出的克隆指令，你就能构建一个 WasmEdge 的 JavaScript 解释器。
 
 ```bash
 $ rustup target add wasm32-wasi
 $ cargo build --target wasm32-wasi --release
 ```
 
-The WebAssembly-based JavaScript interpreter program is located in the build target directory.
+基于 WebAssembly 的 JavaScript 解释器程序被放置在构建目标目录中。
 
 ```bash
 $ ls target/wasm32-wasi/debug/quickjs-rs-wasi.wasm
 ```
 
-Next, let’s try some JavaScript programs.
+接下来，让我们就尝试一些 JavaScript 程序。
 
-## A JavaScript networking example
+## 一个 JavaScript 网络通信应用的例子
 
-The interpreter supports the WasmEdge networking socket extension so that your JavaScript can make HTTP connections to the Internet. Here is an example of JavaScript.
+解释器支持  WasmEdge 网络套接口扩展，所以你的 JavaScript 能做 HTTP 连接互联网。下面是一个 JavaScript 的例子。
 
 ```js
 let r = GET("http://18.235.124.214/get?a=123",{"a":"b","c":[1,2,3]})
@@ -76,17 +76,17 @@ let body_str = new Uint8Array(body)
 print(String.fromCharCode.apply(null,body_str))
 ```
 
-To run the JavaScript in the WasmEdge runtime, you can do this on the CLI.
+你可以用 CLI 在 WasmEdge 运行时中运行 JavaScript。
 
 ```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/http_demo.js
 ```
 
-You should now see the HTTP GET result printed on the console.
+你现在应该看到一个 HTTP GET 请求结果打印在控制台中。
 
-## A JavaScript Tensorflow inference example
+## JavaScript Tensorflow inference 例子
 
-The interpreter supports the WasmEdge Tensorflow lite inference extension so that your JavaScript can run an ImageNet model for image classification. Here is an example of JavaScript.
+解释器支持用 WasmEdge Tensorflow 进行简单的推理扩展，所以你可以运行 ImageNet 模型，来进行图像分类。下面是 JavaScript 的例子。
 
 ```js
 import {TensorflowLiteSession} from 'tensorflow_lite'
@@ -113,19 +113,19 @@ for (var i in output_view){
 print(max,max_idx)
 ```
 
-To run the JavaScript in the WasmEdge runtime, you can do this on the CLI.
+你可以用 CLI 在 WasmEdge 运行时中运行 JavaScript。
 
 ```bash
 $ wasmedge --dir .:. target/wasm32-wasi/debug/quickjs-rs-wasi.wasm example_js/tensorflow_lite_demo/main.js
 ```
 
-You should now see the name of the food item recognized by the TensorFlow lite imagenet model.
+你现在应该看到被 TensorFlow 轻量 imagenet 模型识别的食物元素的名字。
 
-## Incorporating JavaScript into Rust
+## 合并 JavaScript 到 Rust
 
-The above two examples demonstrate how to use the pre-built `quickjs-rs-wasi.wasm` application in WasmEdge. Besides using the CLI, you could use Docker / Kubernetes tools to start the WebAssembly application or to embed the application into your own applications or frameworks as we discussed earlier in this article.
+上面两个例子展示了如何在 WasmEdge 里预构建 `quickjs-rs-wasi.wasm` 应用程序。除了使用 CLI，你可以用 Docker / Kubernetes 工具去启动 WebAssembly 应用程序，也可以嵌入到你自己的应用程序或者我们之前在这篇文章导论过的框架中。
 
-Alternatively, you can create your own Rust function that embeds a JavaScript program as a string variable or takes a JavaScript program from the function input parameter. You can refer to the [main.rs](https://github.com/second-state/wasmedge-quickjs/blob/main/src/main.rs) application in the template, which reads the JavaScript program as a string from a file.
+或者，你可以创建你自己的 Rust 函数，这个函数被当作字符串变量嵌入到 JavaScript 程序或者从函数输入参数去获取 JavaScript 程序。你可以参考 [main.rs](https://github.com/second-state/wasmedge-quickjs/blob/main/src/main.rs) 应用模板，它从文件中以字符串的形式读取 JavaScript 程序。
 
 ```rs
 fn main() {
@@ -145,19 +145,19 @@ fn main() {
 }
 ```
 
-This approach enables developers to mix and match high-performance Rust together with easy-to-use JavaScript, and to create a single `.wasm` file for the application so that it can be more easily deployed and managed.
+这种方法能让开发者用简单易用的 JavaScript 混合搭配高性能 Rust，来创建单个 `.wasm` 应用程序文件，可以更简单的部署和管理。
 
-## A note on QuickJS
+## QuickJS 注意事项
 
-Now, the choice of QuickJS as our JavaScript engine might raise the question of performance. Isn’t QuickJS [a lot slower](https://bellard.org/quickjs/bench.html) than v8 due to a lack of JIT support? Yes, but …
+现在，选择 QuickJS 当作我们的 JavaScript 引擎可以提高性能。QuickJS 不是因为没有 JIT 支持，而比 v8 慢很多吗？是的，但是……
 
-First of all, QuickJS is a lot smaller than v8. In fact, it only takes 1/40 (or 2.5%) of the runtime resources v8 consumes. You can run a lot more QuickJS functions than v8 functions on a single physical machine.
+首先，QuickJS 比 v8 小很多。事实上，他只有 v8 运行时资源的 1/40 （或 2.5%）。你可以在单个物理机上运行比 v8 更多的 QuickJS 函数。
 
-Second, for most business logic applications, raw performance is not critical. The application may have computationally intensive tasks, such as AI inference on the fly. WasmEdge allows the QuickJS applications to drop to high-performance WebAssembly for these tasks while it is not so easy with v8 to add such extensions modules.
+其次，大多数商业逻辑应用程序，原始性能并不重要。应用程序也许有计算密集型任务，例如 AI 推理。WasmEdge 允许 QuickJS 应用程序在 不容易给 v8 添加这些扩展模块的情况下，使用高性能的 WebAssembly。
 
-Third, it is known that [many JavaScript security issues arise from JIT](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/). Maybe turning off JIT in the cloud-native environment is not such a bad idea!
+最后，我们知道[很多 JavaScript 安全问题在 JIT 上发生了](https://www.theregister.com/2021/08/06/edge_super_duper_security_mode/)。也许在云原生环境中关闭 JIT 是个不错的主意！
 
-JavaScript in cloud-native WebAssembly is still an emerging area in the next generation of cloud and edge computing infrastructure. We are just getting started! If you are interested, join us in the WasmEdge project (or tell us what you want by raising feature request issues).
+云原生 WebAssembly 中的 JavaScript 在下一代云计算和边缘计算基础设施中仍然是个新的领域。我们只是刚开始。如果你有兴趣，在 WasmEdge 项目中加入我们（或者提出特性请求 issues 告诉我们你想要什么）。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
