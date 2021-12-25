@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md](https://github.com/xitu/gold-miner/blob/master/TODO1/expressive-code-for-state-machines-in-cpp.md)
 > * 译者：[zh1an](https://github.com/zh1an)
-> * 校对者：[todaycoder001](https://github.com/todaycoder001), [PingHGao](https://github.com/PingHGao)
+> * 校对者：[司徒公子](https://github.com/stuchilde), [PingHGao](https://github.com/PingHGao)
 
 # C++ 中清晰明了的状态机代码
 

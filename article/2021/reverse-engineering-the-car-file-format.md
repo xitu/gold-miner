@@ -2,62 +2,62 @@
 > * 原文作者：[Timac](https://blog.timac.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/reverse-engineering-the-car-file-format.md](https://github.com/xitu/gold-miner/blob/master/article/2021/reverse-engineering-the-car-file-format.md)
-> * 译者：
-> * 校对者：
+> * 译者：[LoneyIsError](https://github.com/LoneyIsError)
+> * 校对者：[jaredliw](https://github.com/jaredliw)
 
-# Reverse engineering the .car file format (compiled Asset Catalogs)
+# 逆向 `.car` 文件（已编译的 Asset Catalogs）
 
-An `Asset Catalog` is an important piece of any iOS, tvOS, watchOS and macOS application. It lets you organize and manage the different assets used by an app, such as images, sprites, textures, ARKit resources, colors and data.
+`Asset Catalog` 是任何 iOS、tvOS、watchOS 和 macOS 应用程序的重要组成部分。它让你可以组织和管理应用程序使用的不同素材，例如图像、Sprites（精灵帧）、纹理、ARKit 资源、颜色和数据。
 
-Apple is also extending the asset catalog features each year:
+Apple 每年都还在扩展 Asset Catalogs 的功能：
 
-* Xcode 9 added support for Color Asset and improve support for vector assets (PDF). See the WWDC 2017 session [What’s New in Cocoa](https://developer.apple.com/videos/play/wwdc2017/207/).
-* Xcode 10 added support for High Efficiency Image, Apple Deep Pixel Image Compression, Dark Mode for macOS Mojave. See the WWDC 2018 session [Optimizing App Assets](https://developer.apple.com/videos/play/wwdc2018/227/).
+- Xcode 9 添加了对 Color Asset 的支持并改进了对矢量资源（PDF）的支持。参阅 WWDC 2017 session [Cocoa 新功能](https://developer.apple.com/videos/play/wwdc2017/207/)。
+- Xcode 10 添加了对高效图像、Apple 深度像素图像压缩以及对 macOS Mojave 暗模式的支持。 参阅 WWDC 2018 session [优化 App 素材](https://developer.apple.com/videos/play/wwdc2018/227/)。
 
-It is less known that an asset catalog is compiled to a `.car` file when the application is built with Xcode. The car file format is evidently not documented by Apple and surprisingly I could not find much information online.
+鲜为人知的是，当使用 Xcode 构建应用程序时，`Asset Catalog` 会被编译成 `.car` 文件。但是，Apple 并没有关于 `.car` 文件的文档，而且令人惊讶的是，我在网上找不到太多信息。
 
-In this article I attempt to remedy this lack of information on the car file format by describing its global structure and its different elements. Along the article, I build a tool `CARParser` to manually parse car files. The complete source code of this tool is available for download at the end of the article.
+在本文中，我试图通过描述 `.car` 文件的全局结构及其不同元素来弥补有关 `.car` 格式文件信息的不足。在本文中，我构建了一个 `CARParser` 工具来手动解析 `.car` 文件。该工具的完整源代码可在文末下载。 
 
-Note that the documentation in this article and the `CARParser` tool are purely meant for educational purpose. You shouldn’t have to directly deal with car files as done here. There are several tools (including my own that I plan to open source at some point) that can dump the content of a car file. But these tools simply use some private APIs from Apple and don’t directly parse the files. Also as always with reverse engineering, there is no guarantee that the data is fully accurate. At the time of publishing, this article should reflect the state in macOS Mojave and iOS 12. It might however become obsolete with future macOS or iOS releases.
+请注意，本文中的文档和 `CARParser` 工具仅用于教育目的。你不应该像这里那样直接处理 `.car` 文件。有几种工具（包括我自己的，我计划在某个时候开源）可以转储 `.car` 文件的内容。但是这些工具只是使用了一些 Apple 的私有 API，并不能直接解析文件。同样，对于逆向工程，谁也不能保证数据是完全准确的。在发布时，本文应反映 macOS Mojave 和 iOS 12 中的状态。然而，它可能会随着未来的 macOS 或 iOS 版本更新而过时。
 
-## What are Asset Catalogs?
+## 什么是 Asset Catalogs?
 
-Asset Catalogs have been introduced in Xcode 5 and make it easier to manage images especially when dealing with multiple resolutions (@1x, @2x, @3x, …). In Xcode, an asset catalog appears as a .xcassets folder and [its use is well described by Apple](https://help.apple.com/xcode/mac/current/#/dev10510b1f7). The .xcassets format on disk is also well described by Apple in the [Asset Catalog Format Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/index.html).
+Xcode 5 中引入了 `Asset Catalog`，可以更轻松地管理图像，尤其是在处理多种分辨率的 PNG 图像（@1x、@2x、@3x 等）时。在 Xcode 中， `Asset Catalog` 显示为 `.xcassets` 文件夹，[Apple 详细地描述了它的用途](https://help.apple.com/xcode/mac/current/#/dev10510b1f7)。Apple 在 [Asset Catalog Format Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/index.html) 中也很好地描述了磁盘上的 `.xcassets` 格式。
 
-For the purpose of this article, I created a simple asset catalog containing various types of assets. This sample asset catalog can be [downloaded here](DemoAssets.xcassets.zip). The corresponding car file can be [downloaded here](Assets.car).
+出于本文的目的，我创建了一个包含各种类型素材的示例 `Asset Catalog`。可以在[此处下载](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/DemoAssets.xcassets.zip)此示例 `Asset Catalog`。对应的 `.car` 文件可以在[这里下载](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/Assets.car)。
 
-This asset catalog has its deployment target set to iOS 12 and contains:
+设置为 iOS 12 的 `Asset Catalog` 中包含了以下文件：
 
-* a PNG with 3 resolutions @1x, @2x and @3x
-* a PDF
-* a text file
-* a jpg image
-* a color (red with 50% transparency)
+* 具有 3 个分辨率 @1x、@2x 和 @3x 的 PNG 文件
+* 一个 PDF 文件
+* 一个文本文件
+* 一个 jpg 图片
+* 一个颜色文件（红色，透明度为 50%）
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/DemoAsset.png)
+![DemoAsset](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/DemoAsset.png)
 
-## What is a car file?
+## 什么是 `car` 文件?
 
-When a developer builds an iOS, watchOS, tvOS or macOS app, the asset catalogs containing the various assets (images, icons, textures, …) are not simply copied to the app bundle but they are compiled as car files.
+当开发人员构建 iOS、watchOS、tvOS 或 macOS 应用程序时，包含各种素材（图像、图标、纹理等）的 `Asset Catalog` 不会简单地复制到应用程序包中，而是被编译为 `car` 文件。
 
-When the application runs on iOS, getting an image from a car file is as simple as performing:
+当应用程序在 iOS 上运行时，从 `car` 文件获取图片非常简单，只需执行以下操作：
 
 ```objc
 UIImage *myImage = [UIImage imageNamed:@"MyImage"];
-
 ```
 
-When this line is executed, the private CoreUI.framework (/System/Library/PrivateFrameworks/CoreUI.framework) is asked to give the best UIImage corresponding to the asset named `MyImage`. `MyImage` is the `Asset Name`, also called `Facet Name`. The car file can contain multiple images for a given asset name: @1x resolution, @2x resolution, @3x resolution, dark mode, … These representations of the asset are called `renditions`. Each rendition has a unique identifier called the `rendition key`. The rendition key is in fact a list of attributes describing the properties of the rendition: original facet, resolution, …
+执行这行代码时，从私有的 CoreUI.framework（`/System/Library/PrivateFrameworks/CoreUI.framework`）提供与名为 `MyImage` 的素材所对应的最合适的 UIImage。 `MyImage` 是`素材名称`，同样被叫作`维面名称`。 `car` 文件可以包含给定素材名称的多个图像：@1x 分辨率、@2x 分辨率、@3x 分辨率、暗模式、… 这些资源的表示形式称为`副本`。每个副本都有一个唯一的标识符，称为`副本键`。实际上，`副本键`是描述副本的属性列表：原始纬度、分辨率、…
 
-What is the meaning of the `CAR` extension? It might stand for **C**ompiled **A**sset **R**ecord according to various methods found in the IBFoundation framework in Xcode.
 
-On macOS there are several closed source tools to deal with asset catalogs:
+`CAR` 扩展是什么意思？以 Xcode 中 IBFoundation 框架中的各种方法的名称为例，它可能代表已编译的素材记录（**C**ompiled **A**sset **R**ecord）。
 
-* Xcode lets you edit your asset catalogs and compile them
-* `actool` lets you compile, print, update, and verify asset catalogs
-* `assetutil` lets you process car files. It can remove unneeded assets from a car file but it can also parse a car file and produce a JSON output.
+在 macOS 上，有几个闭源工具来处理 `Asset Catalog`：
 
-Running `assetutil -I Assets.car` will print some interesting information about the car file:
+- Xcode 允许你编辑 `Asset Catalog` 并编译它们
+- `actool` 允许你编译、打印、更新和验证 `Asset Catalog` 
+- `assetutil` 允许你处理 `car` 文件。它可以从 `car` 文件中删除不需要的素材，但也可以解析 `car` 文件并生成  JSON 文件输出。
+
+运行  `assetutil -I Assets.car` 命令将打印一些关于 `car` 文件的有趣信息：
 
 ```json
 [
@@ -196,22 +196,21 @@ Running `assetutil -I Assets.car` will print some interesting information about 
     "Template Mode" : "automatic"
   }
 ]
-
 ```
 
-## A special bom file
+## 特殊的 BOM 文件
 
-Opening a car file in [HexFiend](http://ridiculousfish.com/hexfiend/) reveals some useful information:
+在 [HexFiend](http://ridiculousfish.com/hexfiend/) 中打开 `car` 文件会显示一些有用的信息：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/BomStore.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/BomStore.png)
 
-The magic value `BOMStore` tells us that a car file is a special `bom` file. BOM - Bill of Materials - is a file format inherited from NeXTSTEP and still used in the macOS installer to determine which files to install, remove, or upgrade. You can find some basic information in `man 5 bom`:
+魔术值 `BOMStore` 告诉我们 `car` 文件是一种特殊的 `bom` 文件。BOM（物料清单）是一种从 NeXTSTEP 继承的文件格式，仍然在 macOS 安装程序中使用，以确定要安装、删除或升级的文件。你可以在 `man 5 bom` 中找到一些基本信息：
 
 ```text
 The Mac OS X Installer uses a file system "bill of materials" to determine which files to install, remove, or upgrade. A bill of materials, bom, contains all the files within a directory, along with some information about each file. File information includes: the file's UNIX permissions, its owner and group, its size, its time of last modification, and so on. Also included are a checksum of each file and information about hard links.
 ```
 
-macOS contains several closed source tools to manipule bom files like `lsbom` and `mkbom`. It is possible to use `lsbom` to inspect the installer receipts located in `/private/var/db/receipts/`. For example running `lsbom /private/var/db/receipts/com.apple.pkg.Numbers5.bom` will print all the files installed by Apple Numbers (path, permissions, UID/GID, size and CRC32 checksum):
+macOS 提供了几个闭源工具来处理 bom 文件，比如 `lsbom` 和 `mkbom`。可以使用 `lsbom` 检查位于 /private/var/db/receipts/ 中的安装程序。例如，运行 `lsbom /private/var/db/receipts/com.apple.pkg.Numbers5.bom` 将打印 Apple Numbers 安装的所有文件（路径、权限、UID/GID、大小和 CRC32 校验和）：
 
 ```bash
 .	40775	0/0
@@ -225,20 +224,22 @@ macOS contains several closed source tools to manipule bom files like `lsbom` an
 [...]
 ```
 
-Sadly the bom file format itself is undocumented and the tools to manipule bom files are not working with car files. Joseph Coffland and Julian Devlin [reimplemented lsbom](https://github.com/cooljeanius/osxbom) and the code contains some useful information about the BOM file format. We can see that a BOM can store among other things blocks and trees.
+遗憾的是，`bom` 文件格式本身并没有文档记录，操作 `bom` 文件的工具不能处理 `car` 文件。由 Joseph Coffland 和 Julian Devlin [重新实现的 lsbom](https://github.com/cooljeanius/osxbom)，其代码中包含一些关于 BOM 文件格式的有用的信息。 我们可以看到，BOM 能存储块和树 。
 
-However contrary to a **regular** bom file, a car file contains several bom ‘blocks’:
+然而，与**常规**的 `bom` 文件相反， `car` 文件中包含多个 `bom` 块：
 
 * CARHEADER
+
 * EXTENDED_METADATA
 * KEYFORMAT
 * CARGLOBALS
 * KEYFORMATWORKAROUND
 * EXTERNAL_KEYS
 
-as well as several databases stored as bom ‘trees’:
+以及存储多个数据库的 `bom` 树：
 
 * FACETKEYS
+
 * RENDITIONS
 * APPEARANCEKEYS
 * COLORS
@@ -250,13 +251,13 @@ as well as several databases stored as bom ‘trees’:
 * ELEMENT_INFO
 * PART_INFO
 
-Some of the blocks and trees are optionals. In this article I only describe the important blocks: `CARHEADER`, `EXTENDED_METADATA`, `KEYFORMAT` as well as the important trees: `FACETKEYS`, `RENDITIONS` and `APPEARANCEKEYS`. The other blocks and trees are generally absent or empty.
+一些块和树是可选的。在这篇文章中，我只描述一些重要的块： `CARHEADER`、`EXTENDED_METADATA`、`KEYFORMAT` 以及重要的树：`FACETKEYS`、 `RENDITIONS` 和 `APPEARANCEKEYS`。其他的块和树一般都是空的或不存在。
 
-## Parsing the BOM
+## 解析 BOM
 
-On macOS, the private CoreUI.framework takes care of extracting the assets and thus contains code to parse the BOM. It turns out that it uses the same code as the private Bom.framework located in /System/Library/PrivateFrameworks/Bom.framework. I decided to parse the BOM using this private framework.
+在 macOS 上，私有 CoreUI.framework 负责提取这些素材，因此包含了解析 BOM 的代码。事实证明，它使用与位于 /System/Library/PrivateFrameworks/Bom.framework 中的私有 Bom.framework 相同的代码。我决定使用这个私有框架来解析 BOM。
 
-Reversing the APIs needed to parse a car file is straightforward by looking at the CoreUI framework calls and I ended up with these C APIs:
+通过查看 CoreUI 框架的调用，可以很容易地逆推解析 `car` 文件所需的 API，我最终得到了这些 C 类 API：
 
 ```c
 typedef uint32_t BOMBlockID;
@@ -286,27 +287,24 @@ void * BOMTreeIteratorValue(BOMTreeIterator iterator);
 size_t BOMTreeIteratorValueSize(BOMTreeIterator iterator);
 ```
 
-By using the private APIs of the Bom.framework, accessing the data of the `CARHEADER` block is as easy as executing:
+通过使用 Bom.framework 的私有 API，访问 `CARHEADER` 块的数据就像执行命令一样简单：
 
 ```objc
 NSData *blockData = GetDataFromBomBlock(bomStorage, "CARHEADER");
 ```
 
-where the `GetDataFromBomBlock()` method is implemented as:
+其中 `GetDataFromBomBlock()` 方法实现为：
 
 ```objc
-NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName)
-{
+NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName) {
 	NSData *outData = nil;
 	
 	BOMBlockID blockID = BOMStorageGetNamedBlock(inBOMStorage, inBlockName);
 	size_t blockSize = BOMStorageSizeOfBlock(inBOMStorage, blockID);
-	if(blockSize > 0)
-	{
+	if(blockSize > 0) {
 		void *mallocedBlock = malloc(blockSize);
 		int res = BOMStorageCopyFromBlock(inBOMStorage, blockID, mallocedBlock);
-		if(res == noErr)
-		{
+		if(res == noErr) {
 			outData = [[NSData alloc] initWithBytes:mallocedBlock length:blockSize];
 		}
 		
@@ -317,22 +315,20 @@ NSData *GetDataFromBomBlock(BOMStorage inBOMStorage, const char *inBlockName)
 }
 ```
 
-Similarly a simple method can be used to get all the keys/values of a BOM tree. For example to get all the keys/values of the `FACETKEYS` tree, the following lines can be executed:
+类似地，可以使用一个简单的方法来获取 BOM 树的所有键/值。例如要获取 `FACETKEYS` 树的所有键/值，可以执行下面的代码：
 
 ```objc
-ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
-{
+ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue) {
 	// This Objective-C block is called for each key found.
 	// The value corresponding to the key is passed as parameter.
 });
 ```
 
-where the `ParseBOMTree()` method is implemented as following:
+其中  `ParseBOMTree()` 方法实现如下：
 
 ```objc
 typedef void (^ParseBOMTreeCallback)(NSData *inKey, NSData *inValue);
-void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeCallback keyValueCallback)
-{
+void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeCallback keyValueCallback) {
 	NSData *keyData = nil;
 	NSData *keyValue = nil;
 	
@@ -343,8 +339,7 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 
 	// Create a BOMTreeIterator and loop until the end
 	BOMTreeIterator	bomIterator = BOMTreeIteratorNew(bomTree, NULL, NULL, NULL);
-	while(!BOMTreeIteratorIsAtEnd(bomIterator))
-	{
+	while(!BOMTreeIteratorIsAtEnd(bomIterator)) {
 		// Get the key
 		void * key = BOMTreeIteratorKey(bomIterator);
 		size_t keySize = BOMTreeIteratorKeySize(bomIterator);
@@ -352,17 +347,14 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 		
 		// Get the value associated to the key
 		size_t valueSize = BOMTreeIteratorValueSize(bomIterator);
-		if(valueSize > 0)
-		{
+		if(valueSize > 0) {
 			void * value = BOMTreeIteratorValue(bomIterator);
-			if(value != NULL)
-			{
+			if(value != NULL) {
 				keyValue = [NSData dataWithBytes:value length:valueSize];
 			}
 		}
 		
-		if(keyData != nil)
-		{
+		if(keyData != nil) {
 			keyValueCallback(keyData, keyValue);
 		}
 		
@@ -372,30 +364,28 @@ void ParseBOMTree(BOMStorage inBOMStorage, const char *inTreeName, ParseBOMTreeC
 }
 ```
 
-Now that we can access to the content of the BOM, let’s look at the different blocks and trees.
+现在我们可以访问 BOM 的内容，让我们看看不同的块和树。
 
-## CARHEADER block
+## CARHEADER 块
 
-The `CARHEADER` block contains information about the number of assets in the file as well as versioning information. It has a fixed size of 436 bytes. Accessing the data can be done using the previously explained `GetDataFromBomBlock()`:
+`CARHEADER` 块包含有关文件中素材数量的信息以及版本信息。它的固定大小为 436 字节。 可以使用前面介绍的 `GetDataFromBomBlock()` 方法来访问数据 ：
 
 ```c
 NSData *blockData = GetDataFromBomBlock(bomStorage, "CARHEADER");
-if(blockData != nil)
-{
+if(blockData != nil) {
 	struct carheader *carHeader = (struct carheader *)[blockData bytes];
 	[...]
 }
 ```
 
-To help understand the structures, I used the [Synalyze It! Pro](https://www.synalysis.net) application with custom created grammars to parse the various blocks of data. Here is how the structure of the `CARHEADER` looks in Synalyze It! Pro:
+为了帮助理解这些结构，我使用了具有自定义创建语法的应用程序 [Synalyze It! Pro](https://www.synalysis.net/) 来解析各种数据块。在 Synalyze It! Pro 中 `CARHEADER`  的结构如下所示：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/carheader.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/carheader.png)
 
-Recovering the structure is straightforward and we can see that the data starts with the tag `CTAR`:
+逆向出的结构很简单，我们可以看到数据以标签 `CTAR` 开头：
 
 ```c
-struct carheader
-{
+struct carheader {
     uint32_t tag;								// 'CTAR'
     uint32_t coreuiVersion;
     uint32_t storageVersion;
@@ -411,7 +401,7 @@ struct carheader
 } __attribute__((packed));
 ```
 
-Here is what you would see when parsing the demo asset:
+以下是解析演示素材时看到的内容：
 
 ```text
 CARHEADER:
@@ -428,13 +418,13 @@ CARHEADER:
 	 keySemantics: 2
 ```
 
-## EXTENDED_METADATA block
+## EXTENDED_METADATA 块
 
-The `EXTENDED_METADATA` block has a fixed size of 1028 bytes and contains a couple of extra information:
+The `EXTENDED_METADATA` 块的固定大小为 1028 字节，并包含一些额外信息：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/extendedMetadata.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/extendedMetadata.png)
 
-The structure is simple and starts with the tag `META`:
+结构很简单，并且以标记 `META` 开始:
 
 ```c
 struct carextendedMetadata {
@@ -446,7 +436,7 @@ struct carextendedMetadata {
 } __attribute__((packed));
 ```
 
-Here is what you could see when dumping such a block:
+以下是您在分析此类块时可以看到的内容：
 
 ```text
 EXTENDED_METADATA:
@@ -456,19 +446,19 @@ EXTENDED_METADATA:
 	 authoringTool: @(#)PROGRAM:CoreThemeDefinition  PROJECT:CoreThemeDefinition-346.29
 ```
 
-## APPEARANCEKEYS tree
+## APPEARANCEKEYS 树
 
-Before we look at the more complex trees, let’s start with the `APPEARANCEKEYS` tree. This tree is used to support the new Dark Mode in macOS Mojave. Since there is no Dark Mode in iOS, you won’t see a `APPEARANCEKEYS` tree for car files for iOS applications - at least not in iOS 12 and earlier.
+在我们查看更复杂的树之前，让我们从 `APPEARANCEKEYS`  树开始。此树用于支持 macOS Mojave 中的新的暗模式。由于 iOS 中没有暗模式，因此你不会从 iOS 应用程序的 `car` 文件的看到 `APPEARANCEKEYS` 树 —— 至少在 iOS 12 及更早版本中不会。
 
-In this tree, the keys are the appearance names (strings) while the values are the appareance unique identifiers (uint16_t). Parsing the key/value pairs is thus trivial:
+> 在 iOS 13 中就会了
+
+在这棵树中，键是外观名称（字符串），而值是外观唯一标识符（uint16_t）。因此解析键/值对是轻而易举的：
 
 ```objc
-ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue)
-{
+ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue) {
 	NSString *appearanceName = [[NSString alloc] initWithBytes:[inKey bytes] length:[inKey length] encoding:NSUTF8StringEncoding];
 	uint16_t appearanceIdentifier = 0;
-	if(inValue != nil)
-	{
+	if(inValue != nil) {
 		appearanceIdentifier = *(uint16_t *)([inValue bytes]);
 	}
 	
@@ -476,7 +466,7 @@ ParseBOMTree(bomStorage, "APPEARANCEKEYS", ^(NSData *inKey, NSData *inValue)
 });
 ```
 
-Running this code on a macOS car file produces for example:
+例如，在 macOS `car` 文件上运行此代码会生成：
 
 ```text
 Tree APPEARANCEKEYS
@@ -486,29 +476,29 @@ Tree APPEARANCEKEYS
 	 'NSAppearanceNameSystem': 0
 ```
 
-## FACETKEYS tree
+## FACETKEYS 树
 
-The `FACETKEYS` tree contains the facet name - which is a synonym for asset name - for the keys and its attributes for the values. For example for the key `MyColor` in the demo asset, we can see the value:
+ `FACETKEYS`  树包含维面名称 —— 这是素材名称的同义词 - 用于键及其属性的值。例如，对于演示素材中的键 `MyColor` 来说，我们可以看到其值：
 
 ```text
 <00000000 03000100 55000200 D9001100 9FAF>
 ```
 
-The value is a `renditionkeytoken` structure containing a list of attributes:
+该值是一个包含属性列表的 `renditionkeytoken` 结构：
 
 ```c
 struct renditionkeytoken {
-    struct {
-		uint16_t x;
-        uint16_t y;
-    } cursorHotSpot;
-	
-	uint16_t numberOfAttributes;
-    struct renditionAttribute attributes[];
+  struct {
+    uint16_t x;
+    uint16_t y;
+  } cursorHotSpot;
+  
+  uint16_t numberOfAttributes;
+  struct renditionAttribute attributes[];
 } __attribute__((packed));
 ```
 
-The `cursorHotSpot` field seems to be a relic of some old cursor features. Following it, we can see the number of attributes followed by the list of attributes. The attributes themselves are key/value pairs with a simple structure with the name and value:
+ `cursorHotSpot` 字段似乎是旧光标功能的遗物。在这之后，我们可以看到属性的数量，然后是属性列表。 属性本身是具有名称和值的简单结构的键/值对：
 
 ```c
 struct renditionAttribute {
@@ -517,41 +507,40 @@ struct renditionAttribute {
 } __attribute__((packed));
 ```
 
-There are a bunch of possible attributes name:
+有一组可能的属性名称：
 
 ```c
-enum RenditionAttributeType
-{
-	kRenditionAttributeType_ThemeLook 				= 0,
-	kRenditionAttributeType_Element					= 1,
-	kRenditionAttributeType_Part					= 2,
-	kRenditionAttributeType_Size					= 3,
-	kRenditionAttributeType_Direction				= 4,
-	kRenditionAttributeType_placeholder				= 5,
-	kRenditionAttributeType_Value					= 6,
-	kRenditionAttributeType_ThemeAppearance			= 7,
-	kRenditionAttributeType_Dimension1				= 8,
-	kRenditionAttributeType_Dimension2				= 9,
-	kRenditionAttributeType_State					= 10,
-	kRenditionAttributeType_Layer					= 11,
-	kRenditionAttributeType_Scale					= 12,
-	kRenditionAttributeType_Unknown13				= 13,
-	kRenditionAttributeType_PresentationState		= 14,
-	kRenditionAttributeType_Idiom					= 15,
-	kRenditionAttributeType_Subtype					= 16,
-	kRenditionAttributeType_Identifier				= 17,
-	kRenditionAttributeType_PreviousValue			= 18,
-	kRenditionAttributeType_PreviousState			= 19,
-	kRenditionAttributeType_HorizontalSizeClass		= 20,
-	kRenditionAttributeType_VerticalSizeClass		= 21,
-	kRenditionAttributeType_MemoryLevelClass		= 22,
+enum RenditionAttributeType {
+	kRenditionAttributeType_ThemeLook       = 0,
+	kRenditionAttributeType_Element	        = 1,
+	kRenditionAttributeType_Part		= 2,
+	kRenditionAttributeType_Size		= 3,
+	kRenditionAttributeType_Direction	= 4,
+	kRenditionAttributeType_placeholder	= 5,
+	kRenditionAttributeType_Value	        = 6,
+	kRenditionAttributeType_ThemeAppearance = 7,
+	kRenditionAttributeType_Dimension1  = 8,
+	kRenditionAttributeType_Dimension2  = 9,
+	kRenditionAttributeType_State       = 10,
+	kRenditionAttributeType_Layer       = 11,
+	kRenditionAttributeType_Scale       = 12,
+	kRenditionAttributeType_Unknown13   = 13,
+	kRenditionAttributeType_PresentationState = 14,
+	kRenditionAttributeType_Idiom	          = 15,
+	kRenditionAttributeType_Subtype		  = 16,
+	kRenditionAttributeType_Identifier	  = 17,
+	kRenditionAttributeType_PreviousValue	  = 18,
+	kRenditionAttributeType_PreviousState	  = 19,
+	kRenditionAttributeType_HorizontalSizeClass     = 20,
+	kRenditionAttributeType_VerticalSizeClass	= 21,
+	kRenditionAttributeType_MemoryLevelClass	= 22,
 	kRenditionAttributeType_GraphicsFeatureSetClass = 23,
-	kRenditionAttributeType_DisplayGamut			= 24,
-	kRenditionAttributeType_DeploymentTarget		= 25
+	kRenditionAttributeType_DisplayGamut		= 24,
+	kRenditionAttributeType_DeploymentTarget	= 25
 };
 ```
 
-Once we know the structures, parsing the `FACETKEYS` tree can be done using the following code:
+了解结构后，可以使用以下代码解析 `FACETKEYS` 树：
 
 ```objc
 ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
@@ -560,12 +549,10 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 	fprintf(stderr, "\t '%s':", [facetName UTF8String]);
 	
 	const void *bytes = [inValue bytes];
-	if(bytes != NULL)
-	{
+	if(bytes != NULL) {
 		struct renditionkeytoken *renditionkeytoken = (struct renditionkeytoken *)bytes;
 		uint16_t numberOfAttributes = renditionkeytoken->numberOfAttributes;
-		for(uint16_t keyIndex = 0 ; keyIndex < numberOfAttributes ; keyIndex++)
-		{
+		for(uint16_t keyIndex = 0 ; keyIndex < numberOfAttributes ; keyIndex++) {
 			struct renditionAttribute renditionAttribute = renditionkeytoken->attributes[keyIndex];
 			fprintf(stderr, "\n\t\t %s: %04X", [GetNameOfAttributeType(renditionAttribute.name) UTF8String], renditionAttribute.value);
 		}
@@ -575,7 +562,7 @@ ParseBOMTree(bomStorage, "FACETKEYS", ^(NSData *inKey, NSData *inValue)
 });
 ```
 
-Running this code on the demo asset will print:
+在示例项目上运行此代码将打印：
 
 ```text
 Tree FACETKEYS
@@ -613,21 +600,21 @@ Tree FACETKEYS
 		 Identifier: 56C0
 ```
 
-## KEYFORMAT block and the rendition keys of the RENDITION tree
+## KEYFORMAT 块和 RENDITION 树的`副本键`
 
-As we will see soon, the `RENDITION` tree stores the pairs (rendition keys, rendition data). A rendition key looks like this:
+正如我们很快将看到的，RENDITION 树存储对（`副本键`、`副本值`）。`副本键`如下所示：
 
 ```text
 <00000100 00000000 00000000 00000000 00000000 000006fe 5500b500 00000000 00000000>
 ```
 
-The rendition key is a list of values corresponding to the attributes in the `KEYFORMAT` block. In order to understand the rendition key, we first need to understand the `KEYFORMAT` block.
+`副本键` 是与 `KEYFORMAT`  块中的属性相对应的值列表。为了理解`副本键`，我们首先需要了解一下 `KEYFORMAT` 块。
 
-Here is an example of `KEYFORMAT` block from the demo asset:
+以下是演示项目中 `KEYFORMAT` 块的示例：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/KeyFormat.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/KeyFormat.png)
 
-The structure of the `KEYFORMAT` block starts with the tag `kfmt`:
+`KEYFORMAT` 块的结构以标签 `kfmt` 开头：
 
 ```c
 struct renditionkeyfmt {
@@ -638,20 +625,18 @@ struct renditionkeyfmt {
 } __attribute__((packed));
 ```
 
-Parsing this block can be done using the following code:
+可以使用以下代码解析此块：
 
 ```objc
 NSData *blockData = GetDataFromBomBlock(bomStorage, "KEYFORMAT");
-if(blockData != nil)
-{
+if(blockData != nil) {
 	struct renditionkeyfmt *keyFormat = (struct renditionkeyfmt *)[blockData bytes];
 	
 	fprintf(stderr, "\nKEYFORMAT:\n"
 		"\t maximumRenditionKeyTokenCount: %u\n",
 		keyFormat->maximumRenditionKeyTokenCount);
 	
-	for(uint32_t renditionKeyTokenIndex = 0 ; renditionKeyTokenIndex < keyFormat->maximumRenditionKeyTokenCount ; renditionKeyTokenIndex++)
-	{
+	for(uint32_t renditionKeyTokenIndex = 0 ; renditionKeyTokenIndex < keyFormat->maximumRenditionKeyTokenCount ; renditionKeyTokenIndex++) {
 		NSString *attributeName = GetNameOfAttributeType(keyFormat->renditionKeyTokens[renditionKeyTokenIndex]);
 		fprintf(stderr, "\t renditionKeyTokens: %s\n", [attributeName UTF8String]);
 		[keyFormatStrings addObject:attributeName];
@@ -659,7 +644,7 @@ if(blockData != nil)
 }
 ```
 
-When running this code on the demo asset, we get:
+在示例项目上运行此代码，我们得到：
 
 ```text
 KEYFORMAT:
@@ -684,7 +669,7 @@ KEYFORMAT:
 	 renditionKeyTokens: Dimension 2
 ```
 
-Now that we have the list of attributes from the `KEYFORMAT` block, we can decode the example of rendition key from the `RENDITION` tree:
+现在我们有了来自 `KEYFORMAT` 块的属性列表，我们可以解码来自 `RENDITION` 树的`副本键` 示例：
 
 ```text
  Key '<00000100 00000000 00000000 00000000 00000000 000006fe 5500b500 00000000 00000000>'
@@ -708,33 +693,33 @@ Now that we have the list of attributes from the `KEYFORMAT` block, we can decod
 	 Dimension 2: 0000
 ```
 
-As we can see, this rendition key corresponds to the facet with the identifier `FE06` and a `scale` of @1x. Using the `FACETKEYS` tree, we can see that this rendition key corresponds to the asset `MyPDF`.
+如我们所见，此`副本键`对应于具有标识符 `FE06` 和 `比例`为 @1x 的维面。使用 `FACETKEYS` 树，我们可以看到此`副本键`对应的 `MyPDF` 素材。
 
-## RENDITION tree
+## RENDITION 树
 
-The `RENDITION` tree is a complex structure containing the data of the assets. The keys are the rendition keys that we already analyzed while the values are the asset data prefixed by some headers.
+`RENDITION` 树是一个包含素材数据的复杂结构。键是我们已经分析过的`副本键`，而值是一些报头前缀的素材数据。
 
-Since the structure is complex, let’s start by looking at the rendition of the text file in the demo asset. Here is the rendition data for a text.txt file containing the content `blog.timac.org`:
+由于结构很复杂，我们从查看示例项目中的文本文件开始。这是包含 `blog.timac.org` 内容的 `text.txt` 文件的副本数据：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionTextHex.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionTextHex.png)
 
-The rendition value is composed of 3 parts:
+`副本键`由 3 部分组成：
 
-* the `csiheader` header, common to all the types of renditions. This header has a fixed length of 184 bytes.
-* a list of TLV (Type-length-value) whose length is specified in the `csiheader` header. It contains extended informations about the rendition that could not fit in the 184 bytes of the `csiheader` header, like the UTI of the asset.
-* the rendition data starting with a header specific to the type of the rendition followed by the data of the asset. The data could be compressed or uncompressed depending of the rendition type.
+- `csiheader` 报头，适用于所有类型的再现。该报头的固定长度为 184 字节。
+- TLV（类型-长度-值）列表，其长度在 `csiheader`  报头中指定。它包含有关无法容纳在 `csiheader` 报头中的扩展信息，例如素材中的 UTI。
+- 副本数据以特定于副本类型的报头开始，后跟素材的数据。根据副本类型的不同，数据可以是压缩的，也可以是解压缩的。
 
-Here is a screenshot made using Synalyze It! Pro to visualize the 3 parts:
+以下是使用 Synalyze It! Pro 制作的屏幕截图，用于可视化这 3 个部分：
 
-* the `csiheader` header is in blue
-* the list of TLV is in green
-* the rendition data is in orange.
+- `csiheader` 头部为蓝色。
+- TLV 列表为绿色。
+- 副本数据为橙色。
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionData.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionData.png)
 
 ### csiheader
 
-As already mentioned, the rendition value starts with a fixed length header (184 bytes) containing various information about the asset:
+如前所述，副本的值以包含关于素材的各种信息的固定长度的报头（184 字节）开始：
 
 ```c
 struct csiheader {
@@ -754,85 +739,77 @@ struct csiheader {
 } __attribute__((packed));
 ```
 
-* The `tag` has its value set to `CTSI` which appears to be the acronym for `Core Theme Structured Image`.
-* The `version` is always 1.
-* The `renditionFlags` is a 32-bit integer whose bits indicate some properties of the rendition:
+- 该`标签`的值设置为 `CTSI`，它似乎是 `Core Theme Structured Image` 的首字母缩写。
+- `version` 值始终为 1。
+- `renditionFlags`  是一个 32 位整数，其位表示副本的某些属性：
 
 ```c
 struct renditionFlags { 
-    uint32_t isHeaderFlaggedFPO:1; 
-    uint32_t isExcludedFromContrastFilter:1; 
-    uint32_t isVectorBased:1; 
-    uint32_t isOpaque:1; 
-    uint32_t bitmapEncoding:4; 
-    uint32_t optOutOfThinning:1; 
-    uint32_t isFlippable:1; 
-    uint32_t isTintable:1; 
-    uint32_t preservedVectorRepresentation:1; 
-    uint32_t reserved:20; 
-} __attribute__((packed));
+  uint32_t isHeaderFlaggedFPO:1; 
+  uint32_t isExcludedFromContrastFilter:1; 
+  uint32_t isVectorBased:1; 
+  uint32_t isOpaque:1; 
+  uint32_t bitmapEncoding:4; 
+  uint32_t optOutOfThinning:1; 
+  uint32_t isFlippable:1; 
+  uint32_t isTintable:1; 
+  uint32_t preservedVectorRepresentation:1; 
+  uint32_t reserved:20; 
+} attribute((packed));
 ```
 
-* The `width` and `height` describe the size in pixels of the images. If the asset has no width or height, these values are set to 0.
-* The `scaleFactor` is the scale factor multipled by 100. For example a @2x image has its scaleFactor set to 200.
-* The `pixelFormat` can contain multiple values depending on the type of rendition: ‘ARGB’, ‘GA8 ‘, ‘RGB5’, ‘RGBW’, ‘GA16’, ‘JPEG’, ‘HEIF’, ‘DATA’…
-* The `colorSpaceID` identifies which color space should be used. As of macOS Mojave and iOS 12, there are 6 different possible color spaces supported:
-    
+`width` 和 `height` 以像素为单位描述图像的大小。如果该素材没有宽度或高度，值为 0。
+
+`scaleFactor` 是比例值，其值乘以 100。例如，@2x 图像的 `scaleFactor` 值为 200。
+
+`pixelFormat` 可以包含多个值，具体取决于副本素材的类型，如： `ARGB`，`GA8`，`RGB5`，`RGBW`，`GA16`， `JPEG`， `HEIF`，`DATA`…
+
+`colorSpaceID` 标识应该使用哪个颜色空间。从 MacOS Mojave 和 iOS 12 开始，可以支持 6 种不同的颜色空间：
+
 ```objc
 NSString *GetColorSpaceNameWithID(int64_t inColorSpaceID) { 
-    switch (inColorSpaceID) { 
-        case 0:
-        default: 
-            {
-                return @"SRGB"; 
-            } 
-            break;
-
-        case 1:
-            {
-                return @"GrayGamma2_2";
-            }
-            break;
-
-        case 2:
-            {
-                return @"DisplayP3";
-            }
-            break;
-
-        case 3:
-            {
-                return @"ExtendedRangeSRGB";
-            }
-            break;
-
-        case 4:
-            {
-                return @"ExtendedLinearSRGB";
-            }
-            break;
-
-        case 5:
-            {
-                return @"ExtendedGray";
-            }
-            break;
+  switch (inColorSpaceID) { 
+    case 0: 
+    default: { 
+      return @"SRGB";
+    } 
+      break;
+    case 1: {
+      return @"GrayGamma2_2";
     }
+      break;
+    case 2: {
+        return @"DisplayP3";
+    }
+      break;
+    case 3: {
+      return @"ExtendedRangeSRGB";
+    }
+      break;
+    case 4: {
+      return @"ExtendedLinearSRGB";
+    }
+      break;
+    case 5: {
+      return @"ExtendedGray";
+    }
+      break;
+  }
 }
 ```
 
-* The `csimetadata` structure contains some important informations about the asset: its name, its layout and modification time.
+* `csimetadata` 结构包含有关素材的一些重要信息：名称、布局和修改时间。
 
 ```c
 struct csimetadata { 
-    uint32_t modtime; 
-    uint16_t layout; 
-    uint16_t zero; 
-    char name[128]; 
+  uint32_t modtime; 
+  uint16_t layout; 
+  uint16_t zero; 
+  char name[128]; 
 } __attribute__((packed)); 
 ```
 
-The `layout` field is particularly interesting as it identifies the kind of data stored: image, data, texture, color, ... For images a subtype is stored in the layout:
+`layout` 字段特别有趣，因为它标识存储的**数据**的类型：图像、**数据**、纹理、颜色…… 对于图像，**子类型存储在布局中**：
 
 ```c
 enum RenditionLayoutType { 
@@ -871,37 +848,36 @@ enum CoreThemeImageSubtype {
     kCoreThemeNinePartEdgesOnly = 34, 
     kCoreThemeManyPartLayoutUnknown = 40, 
     kCoreThemeAnimationFilmstrip = 50 
-};
+}; 
 ```
 
-* Finally the `csibitmaplist` contains the size of the data of the rendition (renditionLength). This structure is followed by a list of TLV (Type-length-value) whose length is written in the `tvlLength` field:
-    
+* 最后，`csibitmaplist` 包含副本数据的大小（`renditionLength`）。后面紧跟着 TLV（类型长度值）列表，其长度写在 `tvlLength` 字段中：
+
 ```c
 struct csibitmaplist { 
-    uint32_t tvlLength; // Length of all the TLV following the csiheader 
-    uint32_t unknown; 
-    uint32_t zero; 
-    uint32_t renditionLength; 
+  uint32_t tvlLength; // Length of all the TLV following the csiheader 
+  uint32_t unknown; 
+  uint32_t zero; 
+  uint32_t renditionLength; 
 } __attribute__((packed));
 ```
 
-Using the structure described above, we can create a custom grammar in Synalyze It! Pro to quickly understand the structure:
+使用上述结构，我们可以在 Synalyze It! Pro 中创建自定义语法以快速理解该结构：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionText.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionText.png)
 
 ### TVL
 
-Following the `csibitmaplist` at the end of the `csiheader`, there is a list of TLV (Type-length-value). In the case of the text file, the TLV data is:
+紧跟着 `csiheader` 末尾的 `csibitmaplist` 之后，有一个 TLV（类型长度值）列表。对于文本文件，TLV 数据为：
 
 ```text
 <EC030000 08000000 00000000 0000803F EE030000 04000000 01000000>
 ```
 
-Here are the list of possible tags:
+以下是可能的标签列表：
 
 ```c
-enum RenditionTLVType
-{
+enum RenditionTLVType {
 	kRenditionTLVType_Slices 				= 0x3E9,
 	kRenditionTLVType_Metrics 				= 0x3EB,
 	kRenditionTLVType_BlendModeAndOpacity	= 0x3EC,
@@ -912,26 +888,23 @@ enum RenditionTLVType
 };
 ```
 
-The following code can be used to dump the TLV:
+以下代码可用于转储 TLV：
 
 ```c
 // Print the TLV
 uint32_t tvlLength = csiHeader->csibitmaplist.tvlLength;
-if(tvlLength > 0)
-{
+if(tvlLength > 0) {
 	fprintf(stderr, "\t\t\t tlv:\n");
 	
 	const void *tlvBytes = valueBytes + sizeof(*csiHeader);
 	const void *tlvPos = tlvBytes;
 	
-	while(tlvBytes + tvlLength > tlvPos)
-	{
+	while(tlvBytes + tvlLength > tlvPos) {
 		uint32_t tlvTag = *(uint32_t *)tlvPos;
 		uint32_t tlvLength = *(uint32_t *)(tlvPos + 4);
 		
 		fprintf(stderr, "\t\t\t\t %s: " , [GetTLVTNameWithType(tlvTag) UTF8String]);
-		for(uint32_t valuePos = 0 ; valuePos < tlvLength ; valuePos++)
-		{
+		for(uint32_t valuePos = 0 ; valuePos < tlvLength ; valuePos++) {
 			fprintf(stderr, "%02X" , *(uint8_t*)(tlvPos + 8 + valuePos));
 		}
 		
@@ -942,7 +915,7 @@ if(tvlLength > 0)
 }
 ```
 
-Running this code on the text file gives us:
+在文本文件上运行此代码可以获得以下信息：
 
 ```text
 tlv:
@@ -950,7 +923,7 @@ tlv:
 	EXIFOrientation: 01000000
 ```
 
-On the PDF asset, we clearly see the `com.adobe.pdf` UTI:
+对 PDF 素材来说，我们清楚地看到 `com.adobe.pdf` UTI：
 
 ```text
 tlv:
@@ -959,53 +932,53 @@ tlv:
 	EXIFOrientation: 01000000
 ```
 
-### The different types of renditions
+## 不同类型的副本
 
-The rendition data can be seen after these complex structures. It contains a header specific to the type of the rendition followed by the actual data either compressed or uncompressed. The length is set in the `renditionLength` field of the `csibitmaplist` structure.
+在这些复杂的结构之后可以看到副本数据。它包含特定副本类型的报头，后跟压缩或未压缩的实际数据。长度设置在 `csibitmaplist` 结构的 `renditionLength` 字段中。
 
-In the case of the text file, the rendition data contains a simple header followed by the string `blog.timac.org`:
+对于文本文件，副本数据包含一个简单的标题，后接字符串 `blog.timac.org`：
 
 ```text
 <44574152 00000000 0E000000 626C6F67 2E74696D 61632E6F 7267>
 ```
 
-However the rendition data are not always that simple. In fact as of macOS Mojave there are 21 types of renditions:
+然而，副本数据并不总是那么简单。事实上，截至 macOS Mojave，共有 21 种类型的副本：
 
-* CUIRawDataRendition
-* CUIRawPixelRendition
-* CUIThemeColorRendition
-* CUIThemePixelRendition
-* CUIPDFRendition
-* CUIThemeModelMeshRendition
-* CUIMutableThemeRendition
-* CUIThemeEffectRendition
-* CUIThemeMultisizeImageSetRendition
-* CUIThemeGradientRendition
-* CUIExternalLinkRendition
-* CUIThinningPlaceholderRendition
-* CUIThemeTextureRendition
-* CUIThemeTextureImageRendition
-* CUIInternalLinkRendition
-* CUINameContentRendition
-* CUIThemeSchemaRendition
-* CUIThemeSchemaEffectRendition
-* CUIThemeModelAssetRendition
+- CUIRawDataRendition
+- CUIRawPixelRendition
+- CUIThemeColorRendition
+- CUIThemePixelRendition
+- CUIPDFRendition
+- CUIThemeModelMeshRendition
+- CUIMutableThemeRendition
+- CUIThemeEffectRendition
+- CUIThemeMultisizeImageSetRendition
+- CUIThemeGradientRendition
+- CUIExternalLinkRendition
+- CUIThinningPlaceholderRendition
+- CUIThemeTextureRendition
+- CUIThemeTextureImageRendition
+- CUIInternalLinkRendition
+- CUINameContentRendition
+- CUIThemeSchemaRendition
+- CUIThemeSchemaEffectRendition
+- CUIThemeModelAssetRendition
 
-and 2 subclasses of CUIRawDataRendition:
+和 2 种 CUIRawDataRendition 的子类型：
 
-* CUILayerStackRendition
-* CUIRecognitionObjectRendition
+- CUILayerStackRendition
+- CUIRecognitionObjectRendition
 
-The `pixelFormat` and `layout` fields of the `csiheader` header are used to know which rendition type should be used. In this article I will only describe the 4 most common rendition types:
+`csiheader` 报头的 `pixelFormat` 和 `layout` 字段用于了解应使用哪种副本类型。在本文中，我将仅描述 4 种最常见的副本类型：
 
-* CUIRawDataRendition: pixelFormat is set to ‘DATA’ and layout to kRenditionLayoutType_Data
-* CUIRawPixelRendition: pixelFormat is ‘JPEG’ or ‘HEIF’. The layout is set to an image subtype.
-* CUIThemeColorRendition: pixelFormat is 0 and layout to kRenditionLayoutType_Color
-* CUIThemePixelRendition: pixelFormat is set to ‘ARGB’, ‘GA8 ‘, ‘RGB5’, ‘RGBW’ or ‘GA16’ while the layout is set to an image subtype.
+- CUIRawDataRendition：pixelFormat 设置为 `DATA`，布局设置为 kRenditionLayoutType_Data
+- CUIRawPixelRendition：pixelFormat 为 `JPEG` 或 `HEIF`。布局设置为图像的子类型。
+- CUIThemeColorRendition：pixelFormat 为 0，布局为 kRenditionLayoutType_Color
+- CUIThemePixelRendition：pixelFormat 设置为 `ARGB`、`GA8`、`RGB5`、`RGBW` 或 `GA16`，而布局设置为图像子类型。
 
 ### CUIRawDataRendition
 
-Let’s start with the `CUIRawDataRendition` rendition type which is used by the text file. As we have seen, the structure is simple:
+让我们从文本文件使用的 `CUIRawDataRendition` 副本类型开始。正如我们所见，结构很简单：
 
 ```c
 struct CUIRawDataRendition {
@@ -1016,22 +989,18 @@ struct CUIRawDataRendition {
 } __attribute__((packed));
 ```
 
-Here is the code to parse the CUIRawDataRendition to recover the original raw data:
+以下是解析 CUIRawDataRendition 以恢复原始数据的代码：
 
 ```c
-if(csiHeader->pixelFormat == 'DATA')
-{
+if(csiHeader->pixelFormat == 'DATA') {
 	struct CUIRawDataRendition *rawDataRendition = (struct CUIRawDataRendition *)renditionBytes;
-	if(rawDataRendition->tag == 'RAWD')
-	{
+	if(rawDataRendition->tag == 'RAWD') {
 		uint32_t rawDataLength = rawDataRendition->rawDataLength;
 		uint8_t *rawData = rawDataRendition->rawData;
-		if(rawDataLength > 4)
-		{
+		if(rawDataLength > 4) {
 			fprintf(stderr, "\t\t\t Found RawDataRendition with size %u: 0x%02X%02X%02X%02X...\n", rawDataLength, *(uint8_t*)rawData, *(uint8_t*)(rawData + 1), *(uint8_t*)(rawData + 2), *(uint8_t*)(rawData + 3));
 		}
-		else
-		{
+		else {
 			fprintf(stderr, "\t\t\t Found RawDataRendition with size %u\n", rawDataLength);
 		}
 	}
@@ -1040,7 +1009,7 @@ if(csiHeader->pixelFormat == 'DATA')
 
 ### CUIRawPixelRendition
 
-The structure used by CUIRawPixelRendition to store `JPEG` and `HEIF` is identical to the CUIRawDataRendition structure:
+用于存储 `JPEG`  和 `HEIF` 的 CUIRawPixelRendition 结构与 CUIRawDataRendition 结构相同：
 
 ```c
 struct CUIRawPixelRendition {
@@ -1051,14 +1020,12 @@ struct CUIRawPixelRendition {
 } __attribute__((packed));
 ```
 
-The code to recover the image is straightforward too:
+恢复图像的代码也很简单：
 
-```
-else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF')
-{
+```objc
+else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF') {
 	struct CUIRawPixelRendition *rawPixelRendition = (struct CUIRawPixelRendition *)renditionBytes;
-	if(rawPixelRendition->tag == 'RAWD')
-	{
+	if(rawPixelRendition->tag == 'RAWD') {
 		uint32_t rawDataLength = rawPixelRendition->rawDataLength;
 		uint8_t *rawDataBytes = rawPixelRendition->rawData;
 		
@@ -1072,17 +1039,21 @@ else if(csiHeader->pixelFormat == 'JPEG' || csiHeader->pixelFormat == 'HEIF')
 }
 ```
 
-By running this code in Xcode, we can see the recovered image with QuickLook:
+通过在 Xcode 中运行此代码，我们可以使用 QuickLook 插件查看恢复的图像：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIRawPixelRendition.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIRawPixelRendition.png)
 
 ### CUIThemeColorRendition
 
-The CUIThemeColorRendition rendition is used to store named colors and contains:
+CUIThemeColorRendition 副本用于存储已命名色值并包含：
 
-* the number of color components
-* the values for the color components
-* the color space
+- 色彩组成的数量
+
+  >  color components 是一种元信息，主要存在于图像文件中，本文中译为色彩组成。
+
+- 色彩组成的值
+
+- 色彩空间
 
 ```c
 struct csicolor {
@@ -1098,15 +1069,13 @@ struct csicolor {
 } __attribute__((packed));
 ```
 
-Accessing the `CGColorRef` can be done with this code:
+可以使用以下代码访问 `CGColorRef`：
 
-```c
-else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditionLayoutType_Color)
-{
+```objc
+else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditionLayoutType_Color) {
 	struct csicolor *colorRendition = (struct csicolor *)renditionBytes;
 	
-	if(colorRendition->numberOfComponents == 4)
-	{
+	if(colorRendition->numberOfComponents == 4) {
 		// Use the hardcoded DeviceRGB color space instead of the real colorSpace from the colorSpaceID
 		CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
 		CGColorRef __unused theColor = CGColorCreate(colorSpaceRef, colorRendition->components);
@@ -1116,20 +1085,19 @@ else if(csiHeader->pixelFormat == 0 && csiHeader->csimetadata.layout == kRenditi
 		NSString *colorString = [NSString stringWithFormat:@"%f,%f,%f,%f", colorRendition->components[0], colorRendition->components[1], colorRendition->components[2], colorRendition->components[3]];
 		fprintf(stderr, "\n\t\t Found Color %s with colorspace ID %d\n", [colorString UTF8String], colorRendition->colorSpace.colorSpaceID & 0xFF);
 	}
-	else
-	{
+  else {
 		fprintf(stderr, "\n\t\t Found Color with colorspace ID %d but with %u components\n", colorRendition->colorSpace.colorSpaceID & 0xFF, colorRendition->numberOfComponents);
 	}
 }
 ```
 
-By running this code in Xcode, we can see the recovered `CGColorRef` with QuickLook:
+通过在 Xcode 中运行此代码，可以使用 QuickLook 插件查看恢复的 `CGColorRef`：
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionColor.png)
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/RenditionColor.png)
 
 ### CUIThemePixelRendition
 
-The CUIThemePixelRendition is slightly more complex and is used for example for the PNG images. As with the other types of renditions, the CUIThemePixelRendition has a specific header:
+并不是所有的结构都这么简单，例如用于 PNG 图像的 CUIThemePixelRendition 就稍微复杂一些。与其他类型的副本一样，CUIThemePixelRendition 具有特定的报头：
 
 ```c
 struct CUIThemePixelRendition {
@@ -1141,41 +1109,44 @@ struct CUIThemePixelRendition {
 } __attribute__((packed));
 ```
 
-* the `tag` has its value set to `CELM`
-* the `version` is always set to 0
-* the `compressionType` can be set to one of the following:
-    
-```c
-enum RenditionCompressionType { 
-    kRenditionCompressionType_uncompressed = 0,
-    kRenditionCompressionType_rle, 
-    kRenditionCompressionType_zip, 
-    kRenditionCompressionType_lzvn, 
-    kRenditionCompressionType_lzfse, 
-    kRenditionCompressionType_jpeg_lzfse, 
-    kRenditionCompressionType_blurred, 
-    kRenditionCompressionType_astc, 
-    kRenditionCompressionType_palette_img, 
-    kRenditionCompressionType_deepmap_lzfse, 
-}; 
-```
+- `tag` 的值设为 `CELM`
 
-When a compression is used, the raw data is compressed and should be decoded with the corresponding algorithm. The decompression algorithms used is out of the scope of this article.
+- `version` 始终设为 0
 
-* the `rawDataLength` contains the size of the `rawData`.    
-* Finally the `rawData` contains the real data - either uncompressed or compressed. If the data is compressed, you will need to decompress it using the algorithm specified in the `compressionType` field.
+- `compressionType` 被设置为以下某个选项：
 
-Here is how a png rendition looks like in Synalyze It! Pro. Note in red the raw data compressed:
+  ```c
+  enum RenditionCompressionType { 
+      kRenditionCompressionType_uncompressed = 0,
+      kRenditionCompressionType_rle, 
+      kRenditionCompressionType_zip, 
+      kRenditionCompressionType_lzvn, 
+      kRenditionCompressionType_lzfse, 
+      kRenditionCompressionType_jpeg_lzfse, 
+      kRenditionCompressionType_blurred, 
+      kRenditionCompressionType_astc, 
+      kRenditionCompressionType_palette_img, 
+      kRenditionCompressionType_deepmap_lzfse, 
+  }; 
+  ```
 
-![](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIThemePixelRendition.png)
+当**使用**压缩时，原数据会被压缩，然后需要使用相应的算法进行解码。具体所使用的解压缩算法超出了**本文的范围**。
 
-## Conclusion
+* `rawDataLength` 包含 `rawData` 的大小。
 
-The car files can stored a lot of different types of assets which makes this file format fairly complex. In this article, I described the most important structures and how to dump them. A similar approach could be used to analyze and understand the other structures.
+* 最后 `rawData` 包含真实数据 —— 未压缩或压缩。如果数据被压缩，你需要使用  `compressionType`  字段中指定的算法对其进行解压缩。
 
-The complete source code of the `CARParser` application can be [downloaded here](CARParser.zip). This tool could easily be modified to produce the same output as `assetutil -I Assets.car`.
+下面是 PNG 格式的副本在 Synalyze It! Pro 中的展示。注：用红色表示的是压缩的原数据：
 
-Here is the output you will see when running `CARParser` on the demo asset:
+![img](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CUIThemePixelRendition.png)
+
+## 总结
+
+`.car` 文件可以存储许多不同类型的资产，这使得这种文件格式相当复杂。在本文中，我描述了最重要的结构以及如何转储它们。类似的方法可应用于分析和理解其他结构。
+
+`CARParser` 应用程序的完整源代码可以从[此处下载](https://blog.timac.org/2018/1018-reverse-engineering-the-car-file-format/CARParser.zip)。你可以很容易地修改此工具，以生成与 `assetutil -I Assets.car` 相同的输出。
+
+这是在演示项目上运行 `CARParser` 时你将看到的输出：
 
 ```text
 CARHEADER:
@@ -1196,7 +1167,6 @@ EXTENDED_METADATA:
 	 deploymentPlatformVersion: 12.0
 	 deploymentPlatform: ios
 	 authoringTool: @(#)PROGRAM:CoreThemeDefinition  PROJECT:CoreThemeDefinition-346.29
-
 
 KEYFORMAT:
 	 maximumRenditionKeyTokenCount: 18
@@ -1549,7 +1519,7 @@ Tree 'ELEMENT_INFO'
 Tree 'PART_INFO'
 ```
 
-You can find my QuickLook plugin to visualize .car files in a new article here: [QuickLook plugin to visualize .car files (compiled Asset Catalogs)](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
+你可以在这篇文章中找到我的可视化 `.car` 文件的 QuickLook 插件：[可视化 `.car` 文件的 QuickLook 插件（编译后的 Asset Catalogs）](https://blog.timac.org/2018/1112-quicklook-plugin-to-visualize-car-files/)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

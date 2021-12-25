@@ -2,45 +2,45 @@
 > * 原文作者：[Aritra Das](https://medium.com/@dev.aritradas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-read-through-cache-using-cdn.md](https://github.com/xitu/gold-miner/blob/master/article/2021/building-a-read-through-cache-using-cdn.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Chorer](https://github.com/Chorer)、[zaviertang](https://github.com/zaviertang)
 
-# Building a read-through cache using CDN
+# 使用 CDN 构建直读式缓存
 
-![Designed by pikisuperstar / Freepik](https://cdn-images-1.medium.com/max/3000/1*vEUuzXh0fRgDxebH95faWg.png)
+![由 Pikisuperstar / Freepik 设计](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/666a1136a4f24df5a94d1f1896c8c82e~tplv-k3u1fbpfcp-zoom-1.image)
 
-Cache is almost inevitable when you're building APIs for a system that requires high throughput with minimum response times. Every developer who works on Distributed Systems has had used some caching mechanism at some point. In this article, we will look at a design where you use a CDN to build a read-through cache, that not only optimizes your APIs but reduces your infrastructure cost as well.
+当你为需要高吞吐量的系统构建 API 时，缓存几乎是不可避免的。在分布式系统上工作的每个开发者多多少少都在某些时候使用了一些缓存机制。在本文中，我们将了解使用 CDN 构建直读式缓存的设计。这种做法不仅优化了 API，还能降低基础架构成本。
 
-> Having some idea about cache and CDN would be helpful to understand this article. If you’re completely unware, I request you to read just a bit, and then come back here.
+> 拥有一些关于缓存和 CDN 的了解将有助于理解这篇文章。如果你完全没有了解过这些知识的话，我希望你先稍微了解一点这些知识，然后再回来阅读这篇文章。
 
-## A bit of Background
+## 一点背景
 
-At the time of writing this article, I work with [Glance](https://www.glance.com/) which is the world’s largest lock screen-based content discovery platform, and we have around 140 Million active users at this point. So you can imagine the scale at which our services have to run, and at this scale, even the simplest thing becomes super complex. And as backend developers, we are always striving to build highly optimized APIs to provide a good experience to our users. The story starts from here, how we faced a certain problem and then went about solving it. I hope you will be able to learn a thing or two about System Design at scale after reading this article.
+在撰写本文时，我正与 [Glance](https://www.glance.com/) 合作。Glance 是世界上最大的基于锁屏的内容发现平台，在这一领域上有大约 1.4 亿个活跃的用户。所以你可以想象我们需要运行的服务的规模之大。而且在这种规模中，即使是最简单的事情也能变得超级复杂。作为后端开发者，我们始终努力建立高度优化的 API，为用户提供良好的体验。故事从这里开始，讲述我们如何面对确切的问题，然后我们又是如何解决这些问题的。我希望在阅读本文后，你能在大规模的系统设计上学有所成。
 
-## Problem
+## 问题
 
-We had to develop a couple of APIs that had the following characteristics
+我们需要开发一些具有以下特征的 API：
 
-1. The data was not going to change very often.
-2. The response is the same for all users, with no unexpected query params, simple straight GET APIs.
-3. The response data volume was ~600 Kb at max.
-4. We expected a very high throughput (around 50k — 60k queries/second eventually) from the APIs.
+1. 数据不会经常变化。
+2. 所有用户的响应是相同的，没有意外的查询参数，简单直接获取 API。
+3. 最大响应数据量为 600 kB。
+4. 我们预计 API 会有预期非常高的吞吐量（大约每秒 5～6 万次请求）。
 
-So what comes to your mind when you see this problem first? Well for me it was, just throw in an in-memory cache ( google guava may be )on the nodes (since the data volume is low), use Kafka to send invalidation messages (cause I love Kafka 😆 and it’s reliable), set up autoscaling for the service instances (because the traffic was not uniform throughout the day). Something in the line of like this diagram
+那么你起初看到这个问题时，你想到了什么？对我来说，只要在节点上（由于数据量低）往 API 中添加内存缓存（可能是 Google Guava），使用 Kafka 发送无效消息（因为我喜欢 Kafka 😆 并且它是可靠的），设置为服务实例启动规模自动调节（因为整个日间的流量并不统一）。如图所示：
 
-![Design v1](https://cdn-images-1.medium.com/max/2000/1*F60S9SCN5JVmgutDCOwPKg.jpeg)
+![设计 v1](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b2ec526dfe8e4da1b3819f5a6a7f5785~tplv-k3u1fbpfcp-zoom-1.image)
 
-Bam! Problem solved! easy right? Well, not really, like any other design, this one also came with some flaws. For example, the design is a tiny bit complex for a simple use case, the infrastructure cost is going to go up since now we have to spawn a Kafka + Zookeeper cluster, plus to handle 50k requests/second we need to horizontally scale our service instances (Kubernetes pods for us) a lot, which translates to increased no of bare metal nodes or VMs.
+bam！问题解决了！很容易吗？好吧，其实并非如此。正如任何其他设计一样，这一个设计其实也有一些缺陷。例如，这个设计对于简单用例而言有一点点太复杂了，基础设施成本上升了 —— 我们现在需要构建一个 Kafka + Zookeeper 集群，再加上 5 万次请求每秒的规模，我们需要水平缩放我们的服务实例（对我们而言是 Kubernetes Pods）。这将转化为裸机节点或虚拟机数量的增加。
 
-Hence we looked for a simpler and cost-effective approach, and that is how we ended up developing a solution with “Read through cache using CDN”. I will discuss the details of the architecture and also the tradeoff in a while.
+因此，我们寻找更简单且具有成本效益的方法，这就是我们为何最终会采用“使用 CDN 直读式缓存”这一解决方案。我将讨论架构的细节以及稍后的权衡。
 
 ---
 
-But before going any further let’s understand the building blocks of the design.
+但在进一步阐述之前，让我们先了解设计的构建块。
 
-## Read Through Cache
+## 通过缓存读取
 
-The standard cache update strategies are such
+标准缓存更新策略是这样的
 
 1. **Cache aside**
 2. **Read-through**
@@ -48,106 +48,122 @@ The standard cache update strategies are such
 4. **Write back**
 5. **Refresh ahead**
 
-I will not go into details of the other strategies and will focus on read-through only since this article is about that only. Let’s dig a bit further and understand how it works.
+我不会详细介绍其他策略，而是专注于直读，毕竟这篇文章就是讲这个的。让我们进一步进行挖掘，了解它的工作原理。
 
-> user1 -> just a imaginary piece of data that your’e trying to fetch
+> user1  -> 只是一个想象中的试图获取的数据
 
-![](https://cdn-images-1.medium.com/max/2000/1*CZ3W153osigEQh1u09NFNQ.png)
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d9f5f67aa3044da2bb0dfbbf8a9fe686~tplv-k3u1fbpfcp-zoom-1.image)
 
-The diagram is self-explanatory, but just to summarize
+上图不言自明，用于总结上文。
 
-1. The App never interacts with DB directly but always via Cache.
-2. On a cache miss, the cache will read from DB and enrich the cache storage.
-3. On a cache hit, data is served from the cache.
+1. 应用程序从未直接与数据库进行交互，而是始终与缓存交互。
+2. 没有缓存时，将从数据库读取并丰富缓存。
+3. 有缓存时，数据来自缓存。
 
-You can see, the DB is reached very infrequently and the response is fast since the caches are mostly in-memory (Redis/ Memcached). A lot of problems solved already 😅
+你可以看到，数据库的访问频率很低，并且由于我们的缓存主要都是内存缓存（REDIS / MEMCACHED），因此响应很快。现在我们已经解决了不少问题 😅
 
 ## CDN
 
-The definition of CDN on the internet is “**A content delivery network (CDN) is a globally distributed network of proxy servers, serving content from locations closer to the user, and is used to serve static files such as images, videos, HTML, CSS files**”. But we are going to go against the stream and serve dynamic content (JSON response, not JSON file) using CDN.
+互联网上关于 CDN 的定义是：“**内容分发网络（CDN）是一个全局分布的代理服务器网络，从靠近用户的位置服务于内容，并且用于提供诸如图像、视频、HTML、CSS 之类的静态文件**“。但我们将反向使用 CDN 并为用户提供动态内容（JSON 响应，而不是静态的 JSON 文件）。
 
-Also, there are generally two kinds of CDNs conceptually
+此外，通常有两种 CDN 的概念
 
-1. **Push CDN**: You are responsible to upload data to the CDN servers
-2. **Pull CDN**: The CDN will pull data from your servers (origin servers)
+1. **Push CDN**：负责将数据上传到 CDN 服务器
+2. **Pull CDN**：CDN 将从你的服务器（原始服务器）中提取数据
 
-We are going to use Pull CDN since with the push approach I have to take care of retry, idempotency, and other stuff, which is an additional headache for me and doesn’t really add any value for this use case.
+我们将使用 Pull CDN 自推送方法，我必须处理重试和其他事情，对我来说是一个额外的痛苦，也并没有真正对此用例有什么价值。
 
-## CDN as Read-through Cache
+## 把 CDN 当作直读式缓存
 
-The idea is simple, we put the CDN as the caching layer between users and the actual backend services.
+这个想法很简单，我们将 CDN 作为用户和实际后端服务之间的缓存层。
 
-![Design v2](https://cdn-images-1.medium.com/max/2000/1*fn-zmPouY7r3XoWS5c-mzQ.jpeg)
+![设计 v2](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fc4eb816eb2422aa4923f74744d9d5c~tplv-k3u1fbpfcp-zoom-1.image)
 
-As you can see the CDN sits between the client and our backend service, and thus becomes the cache. In data-flow sequence looks like this
+正如你可以看到 CDN 位于客户端和后端服务之间，也就成为了缓存。在数据流序列中看起来像这样：
 
-![](https://cdn-images-1.medium.com/max/2000/1*4oGxf26V7E7MYAGKl4MtnA.png)
+![配图](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c77364799600400488c491b25a3a5351~tplv-k3u1fbpfcp-zoom-1.image)
 
-Let’s dig a bit deeper into this since this is the crux of the design
+让我们更深入地挖掘它，因为这是设计的症结
 
-#### Abbreviations to be used
+### 要使用的缩写
 
-> **T1** -> Time instace 1 + some milli seconds
+> **T1** -> time instance 1 + 几毫秒
 >
-> **T2** -> Time instace 1 + 1 minute+ some milli seconds
+> **T2** -> time instance 1 + 一分钟 + 几毫秒
 >
-> **TTL** -> Time to live
+> **TTL** -> 留存时间
 >
-> **Origin server** -> Your actual backend service in this case
+> **原始服务器** -> 在这种情况下你的实际后端服务
 
-1. T1: Client makes a call to get user1.
-2. T1: The request lands on the CDN.
-3. T1: The CDN sees it does not have the user1 related key present in its cache-store.
-4. T1: The CDN reaches out to the upstream, which is your actual backend service, to fetch user1.
-5. T1: The backend service returns user1 as a standard JSON response.
-6. T1: CDN receives the JSON, and now it needs to store that.
-7. So now it needs to decide what should be the TTL for this data, how does it do that?
-8. There are generally two ways to do that, either the origin server specifies how long the data should be cached or there is a constant value set on the CDN config, it uses that time to set the TTL.
-9. It’s better to give control to the origin server to set the TTL, that way we have the ability to control the TTL the way we like or have conditional TTL.
-10. Now the question raises how does the origin server specify the TTL. Cache-control headers to the rescue. The response from the origin server can contain cache-control headers like cache-control: public, max-age:180 . This translates to this data can be publicly cached and it’s valid for 180 seconds.
-11. T1: Now the CDN sees this and caches the data with a TTL of 180 seconds.
-12. T1: CDN responds to the caller with the user 1 JSON.
-13. T2: Another client requests for user1.
-14. T2: The request lands on the CDN.
-15. T2: The CDN sees it have the user1 key present in its store, so it does not reach out to the origin server and returns the cached JSON response.
-16. T3: The cache expires on CDN after 180 seconds.
-17. T4: Some client requests for user1, but since the cache is empty the flow again starts from Step 3. And this keeps on repeating.
+1. T1：客户端发起请求获取 user1。
+2. T1：请求转移到 CDN 上。
+3. T1：CDN 发现在缓存中没有 user1 相关的密钥。
+4. T1：CDN 向上请求，即请求你的实际后端服务器，以获取 user1。
+5. T1：后端服务将 user1 以标准 JSON 格式响应返回。
+6. T1：CDN 收到 JSON 并存储该 JSON
+7. 现在它需要决定这个数据的 TTL 应该是什么，它如何做到这一点？
+8. 通常有两种方法可以做到这一点，原始服务器指定应高速缓存的长度或在 CDN 配置上设置了常量值。它会使用该时间来设置 TTL。
+9. 让原始服务器来设置 TTL 是个更好的选择，这样我们就可以以我们喜欢的方式控制 TTL 或有条件地设置 TTL。
+10. 现在问题提出了原始服务器如何指定 TTL。`Cache-control` 标头此时起到了作用。来自原始服务器的响应可以包含 `Cache-control` 标头，如 `Cache-control: Public;Max-Age: 180`，指示 CDN 可以公开地缓存此数据，它有效期为 180 秒。
+11. T1：现在 CDN 得到这个信息，以 180s 的 TTL 缓存数据。
+12. T1：CDN 用 user1 的 JSON 文件响应客户端。
+13. T2：另一个客户端请求 user1。
+14. T2：请求转移到 CDN 上。
+15. T2：CDN 看到它有存储在其存储中的 user1 密钥，因此它不会请求原始服务器以获取 JSON。
+16. T3：高速缓存在 180 秒后在 CDN 上过期。
+17. T4：另一些客户端请求 user1，但由于缓存是空的，因此 CDN 从步骤 3 开始重复步骤，以此往复。
 
-Not necessarily you have to keep the TTL to 180 seconds only. Choose the TTL based on how long you can serve stale data and be okay with it. And if this raises the question why can’t you invalidate the cache on data change, then wait I will answer that shortly in the downsides section.
+你不一定只能将 TTL 保留为 180 秒，而是只需要根据你应该为陈旧数据提供缓存的时间长度来选择 TTL。如果这让你有了这个问题，为什么不能在数据更改时候让缓存无效，稍后我将在缺点部分中回答。
 
-## Implementation
+## 实现
 
-Till now I have mostly talked about the design and didn’t really go into the actual implementation. The reason being the design is pretty simple to be implemented in any setup. For us, our CDN was on Google cloud, and the Kubernetes cluster where the backend services run, is on Azure, so we made the setup according to our need. You might choose to do it on Cloudflare CDN for example, hence not going into implementation and keeping it abstract. But just for the curious minds, this how our production setup looks like.
+到目前为止，我们高谈阔论，一直聊着设计，而没有真正进入实际实现。作为设计的原因非常简单，可以在任何设置中实现。对于我们来说，我们的 CDN 在 Google Cloud 上，后端服务运行的 Kubernetes 集群在 Azure 上，因此我们根据我们的需求进行了设置。例如，你可以选择在 CloudFlare CDN 上执行此操作，因此未进入实施并保持抽象。但只是为了好奇的思想，这是我们的生产设置方式。
 
-![](https://cdn-images-1.medium.com/max/3316/1*vrlRYFpBKKy5IqDSbrUidA.jpeg)
+![配图](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a80b2975e7cd4b2fb2bf62c1818240db~tplv-k3u1fbpfcp-zoom-1.image)
 
-It’s okay if you don’t understand this, if you have understood the concepts, building this would be a piece of cake.
+如果你不理解这个，也没关系。而如果你理解了这些概念，那么相关的构建对你来说将会是小菜一碟。
 
-Here’s a wonderful [doc](https://cloud.google.com/cdn/docs/setting-up-cdn-with-external-origin) from folks at Google Cloud to get you started.
+Google Cloud 的这篇优秀的[文档](https://cloud.google.com/cdn/docs/setting-up-cdn-with-external-origin)可以供你了解。
 
 ---
 
-Ok, we are approaching the end now, and any design is incomplete with pros and cons analysis. So let’s analyze the design a bit and see how it helps and how it does not.
+## 请求合并
 
-## Pros of the design
+[该部分为 [Abhishek Singla](https://medium.com/u/e006831ceec1) 于评论中提出此问题后添加的内容]
 
-1. **Simplicity:** This design is super simple, easy to implement and maintain.
-2. **Response time:** You already know that CDN servers are geographically positioned to optimize the data transfer, and because of that, our response time also became super fast. For example, how does 60ms (Neglecting the TCP connection establishment time) sound like?
-3. **Reduced load:** Since the actual backend servers now receive ~ 1 request/ 180 seconds, the load is super low.
-4. **Infrastructure cost:** If we didn’t do this, then to handle this kind of load we would have to scale our infrastructure a lot, which comes with a significant cost. But at [**Glance**](https://www.glance.com/) we were already heavily invested in CDN since we are a content platform, so why not use that. Cost increase to support these APIs now is insignificant now.
+但是仍然存在一个问题，CDN 为我们处理了所有负载，不过我们没有扩展的空间。可是我们的服务器会以 60k qps 的标准运行，意味着在缓存未命中的情况下，60k 调用将会直接访问我们的源服务器（考虑到填充 CDN 缓存需要 1 秒），这可能会使服务不堪重负，对吗？
 
-## The downside of the design
+这就是请求合并起作用的地方。
 
-1. **Cache Invalidation:** Cache invalidation is one of the hardest things to get right, in computer science, and with the CDN becoming the cache it’s even harder. Any impromptu cache invalidation on CDN is an expensive process and generally does not happens in real-time. In case your data changes, since we can’t invalidate the cache on CDN, your clients might get stale data for some bit of time. But that again depends on the TTL you set, if your TTL is in hours, then you can invoke cache invalidation on CDN too. But if the TTL is in seconds/ minutes it would be problematic. Also, keep in mind that not all CDN providers expose API to invalidate the CDN cache.
-2. **Less control:** Since the requests do not land up on our servers now, there would be this feeling that as a developer you don’t have enough control over the system ( or maybe I am just a control freak 😈 ). And observability might take a slight hit, you can always set up logging and monitoring on the CDN but that generally comes with a cost.
+![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f9f1c5c96f404979b30393c3554bf4c1~tplv-k3u1fbpfcp-zoom-1.image)
 
-## A few words of wisdom
+顾名思义，这实际上就是将具有相同查询参数的多个请求组合在一起，以实现只向源服务器发送数量较少的请求。
 
-Any design in a Distributed World is slightly subjective and always has some tradeoffs. It’s our duty as developers/ architects to weigh in the tradeoffs and choose the design that works for us. Having said that no design is concrete enough to continue forever, so given the constraints, we have chosen a certain design, and depending on how it works for us we might evolve it further as well.
+我们设计的美妙之处在于我们不必自己进行请求合并，CDN 会帮助我们完成。正如我已经提到的，我们正在使用 Google Cloud CDN，它有一个 Request Coalescing 的概念（只是 Request Collapsing 的另一个别称）。因此，当同时发出大量缓存填充请求时，CDN 能够识别出这一情况，然后 CDN 的每个节点就只会向源服务器发送一个请求并使用对应的响应内容，响应所有的请求。这就是它保护我们的源服务器免受高流量影响的方式。
 
 ---
 
-Thanks for reading!
+好了，我们的文章差不多接近尾声了。任何设计，若是少了利弊分析，那都是不完整的。因此，让我们稍微分析一下设计，看看这个设计是怎样帮助我们的，以及它在哪些地方无法给予我们帮助。
+
+## 设计的优点
+
+1. **简单性：**这种设计超级简单，易于实施和维护。
+2. **响应时间：**你知道 CDN 服务器在地理上定位以优化数据传输，因此，我们的响应时间也变得超快速。例如，60ms（忽略 TCP 连接建立时间）是不是很棒？
+3. **减少负载：**由于实际的后端服务器现在每 180s 才收到一次请求，因此负载超低。
+4. **基础设施成本：**如果我们没有这样做，那么处理这种装载我们必须扩展我们的基础架构，这具有很大的成本。但 [**Glance**](https://www.glance.com/) 已经在 CDN 中大量投资。因为我们是一个内容平台，所以为什么不使用这个方法？支持这些 API 的成本增加现在是微不足道的。
+
+## 设计的缺点
+
+1. **缓存失效：**缓存失效是在计算机科学中最难应付的事情之一，而且当 CDN 成为高速缓存后，这个问题甚至更难解决。CDN 上的任何突发的缓存失效是一个成本很高的过程，一般不会实时发生。如果你的数据更改，因为我们无法在 CDN 上使缓存无效，因此你的客户端可能会在某些时间内获得陈旧的数据，不过这取决于你的 TTL。如果你的 TTL 设置在了几小时内，那么你也可以在 CDN 上让缓存失效。但如果 TTL 在几秒钟/分钟内，那就会出大问题！此外，请记住，并非所有 CDN 提供商都会公开使 CDN 缓存失效的 API。
+2. **缺少控制：**由于请求现在没有直接发送到我们的服务器上，我们会感觉，作为开发者，我们没有足够地控制系统（或者只是我这一个人是个控制怪物 😈 想控制一切）。另外，可观察性可能会稍微减小。即便我们可以随时在 CDN 上设置日志记录和监控，但通常这样做会增加一定的成本。
+
+## 几句感想
+
+分布式世界中的任何设计都是略有主观的，并且总是有一些权衡。作为开发者或架构师，我们的职责在这其中权衡并选择针对我们工作的设计。据说，没有设计是具体的，足以永远继续，所以鉴于约束，我们选择了一定的设计，具体取决于它对我们的适用方式我们可能也进一步发展。
+
+---
+
+谢谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

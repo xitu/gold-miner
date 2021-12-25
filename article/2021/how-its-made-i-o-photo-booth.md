@@ -1,34 +1,34 @@
 > * 原文地址：[How It’s Made: I/O Photo Booth](https://medium.com/flutter/how-its-made-i-o-photo-booth-3b8355d35883)
-> * 原文作者：[Very Good Ventures Team](https://medium.com/@vgv_team?source=post_page-----3b8355d35883--------------------------------)
+> * 原文作者：[Very Good Ventures Team](https://medium.com/@vgv_team)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-its-made-i-o-photo-booth.md)
-> * 译者：
-> * 校对者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
+> * 校对者：[Chorer](https://github.com/Chorer)
 
-# How It’s Made: I/O Photo Booth
+# 我们是怎么做到的：Google I/O Photo Booth
 
 ![](https://miro.medium.com/max/2800/0*diM5YKjX2b2OgNvD)
 
-We (the folks at Very Good Ventures) teamed up with Google to bring an interactive experience to this year’s Google I/O: a [photo booth](https://photobooth.flutter.dev/)! You can take pictures with well-known Google mascots: [Flutter’s Dash](https://flutter.dev/dash), Android Jetpack, Chrome’s Dino, and Firebase’s Sparky, and decorate photos with stickers, including party hats, pizza, funky glasses, and more. Finally, you can share photos on social media and download them to update your profile picture for the event!
+我们（Very Good Ventures 开发者们）与 Google 合作，为今年的 Google I/O 带来了互动体验：[Photo Booth](https://photobooth.flutter.dev/)！你现在可以与知名的谷歌吉祥物 [Flutter's Dash](https://flutter.dev/dash)、Android Jetpack、Chrome 的 Dino 和 Firebase 的 Sparky 合影，并用诸如派对帽、披萨、时髦眼镜等等的贴纸装饰照片！最后，你还可以在社交媒体上分享照片，或者选择下载照片以更新你的个人资料照片！
 
 ![](https://miro.medium.com/max/2800/0*OQnK58irOAv-Pjzq)
 
-<small>Flutter’s Dash, Firebase’s Sparky, Android Jetpack, and Chrome’s Dino</small>
+<small>Flutter Dash、Firebase Sparky、Android Jetpack 和 Chrome Dino</small>
 
-We built the I/O Photo Booth using [Flutter on the web](https://flutter.dev/web) and [Firebase](https://firebase.google.com/). Because [Flutter now offers support for web apps](/flutter/whats-new-in-flutter-2-0-fe8e95ecc65), we thought it would be a great way to make this app easily accessible to attendees all over the world for this year’s virtual Google I/O. Flutter’s web support eliminates the barrier of having to install an app from an app store and also gives you the flexibility to run it on your device of choice: mobile, desktop, or tablet. That opens up the I/O Photo Booth experience to anyone with access to any browser and device without requiring a download.
+我们使用 [Flutter Web](https://flutter.dev/web) 和 [Firebase](https://firebase.google.com/) 构建了 I/O Photo Booth 这个软件，因为 [Flutter 现在提供了对 Web 应用程序的支持](https://medium.com/flutter/whats-new-in-flutter-2-0-fe8e95ecc65)，我们认为这将是让今年虚拟 Google I/O 的来自全球各地的与会者轻松访问此应用程序的好方法。Flutter 的网络支持消除了我们必须从应用程序商店安装应用程序的限制，还使我们可以灵活地在指定的设备上运行它：移动端、桌面端或平板电脑端。这让我们可以无需下载，只需使用任何设备上的任何适当的浏览器，浏览我们给出的页面即可体验 I/O Photo Booth！
 
-Even though I/O Photo Booth was designed to be a web experience, all of the code is written with a platform-agnostic architecture. When native support for elements like the camera plugin are available for their respective platforms, the same code works across all platforms (desktop, web, and mobile).
+尽管 I/O Photo Booth 旨在提供 Web 体验，但所有代码都是使用与平台无关的架构编写的。当对相机插件等元素的原生支持可用于各自的平台时，相同的代码适用于所有平台（桌面端、网络端和移动端）。
 
-## Making a virtual photo booth with Flutter
+## 使用 Flutter 制作虚拟照相亭
 
-### Building a Flutter camera plugin for the web
+### 为 Web 构建 Flutter 相机插件
 
-The first challenge came with building a camera plugin for Flutter on the web. Initially, we reached out to the team at [Baseflow](https://www.baseflow.com/), because they maintain the existing open source [Flutter camera plugin](https://github.com/Baseflow/flutter-plugins). While Baseflow works on building top-notch camera plugin support for iOS and Android, we were happy to work in parallel on web support for the plugin using the [federated plugin approach](https://flutter.dev/docs/development/packages-and-plugins/developing-packages#federated-plugins). We stuck as closely as possible to the official plugin interface so that we could merge it back into the official plugin when it was ready.
+第一个挑战是在 Web 上为 Flutter 构建一个相机插件。最初，我们联系了 [Baseflow](https://www.baseflow.com/) 团队，因为他们维护着现有的开源 [Flutter 相机插件](https://github.com/Baseflow/flutter-plugins)。虽然 Baseflow 致力于为 iOS 和 Android 构建一流的相机插件支持，但我们很高兴使用 [联合插件](https://flutter.dev/docs/development/packages-and-plugins/developing-packages#federated-plugins)。我们尽可能贴近官方插件界面，以便我们可以在准备好时将其合并回官方插件。
 
-We identified two APIs that would be critical for building the I/O Photo Booth camera experience in Flutter.
+我们确定了两个对于在 Flutter 中构建 I/O Photo Booth 相机体验至关重要的 API。
 
-1. **Initializing the camera:** The app first needs access to your device camera. On desktop, this is likely the webcam, and on mobile, we chose the front-facing camera. We also provide a desired resolution of 1080p to maximize the camera quality based on your device.
-2. **Taking the photo:** We used the built-in [`HtmlElementView`](https://api.flutter.dev/flutter/widgets/HtmlElementView-class.html) that uses platform views to render native web elements as Flutter widgets. In this project, we render a [`VideoElement`](https://api.flutter.dev/flutter/dart-html/VideoElement-class.html) as a native HTML element, which is what you see on the screen before you take your photo. We use a [`CanvasElement`](https://api.flutter.dev/flutter/dart-html/CanvasElement-class.html) that is rendered as another HTML element. This allows us to capture the image from the media stream when you click the take photo button.
+1. **初始化相机：** 该应用程序首先需要访问我们设备上的相机。在台式机上，这可能是网络摄像头，而在移动设备上，我们选择了前置摄像头。我们还指定分辨率为 1080p，以根据我们的设备最大限度地提高相机质量。
+2. **拍照：** 我们使用了内置的 [`HtmlElementView`](https://api.flutter.dev/flutter/widgets/HtmlElementView-class.html)。它可以使用平台视图来渲染原生 Web 元素作为 Flutter 小部件。在这个项目中，我们渲染了一个 [`VideoElement`](https://api.flutter.dev/flutter/dart-html/VideoElement-class.html) 作为原生 HTML 元素 —— 也就是我们之前在屏幕上看到的你拍你的照片。我们还使用了 [`CanvasElement`](https://api.flutter.dev/flutter/dart-html/CanvasElement-class.html) 作为另一个 HTML 元素呈现方式，让我们可以在单击拍照按钮时从媒体流中捕获图像。
 
 ```dart
 Future<CameraImage> takePicture() async {  
@@ -51,9 +51,9 @@ Future<CameraImage> takePicture() async {
 }
 ```
 
-### Camera permissions
+### 相机权限
 
-After we got the Flutter Camera plugin working on the web, we created an abstraction to display different UIs depending on the camera permissions. For example, while waiting for you to allow or deny browser camera use, or if there are no available cameras to access, we can display an instructional message.
+在我们让 Flutter Camera 插件可以在 Web 上运行后，我们创建了一个抽象来根据相机权限显示不同的 UI。例如，在等待选择是否允许使用浏览器摄像头时，或者如果没有可用的摄像头可供访问，我们可以显示一条说明性消息。
 
 ```dart
 Camera(  
@@ -63,33 +63,33 @@ Camera(
    preview: preview,  
    onSnapPressed: _onSnapPressed,  
  ),  
- error: (context, error) => PhotoboothError(error: error),  
+ error: (context, error) => PhotoboothError(error: error), 
 )
 ```
 
-In this abstraction, the placeholder returns the initial UI as the app waits for you to grant permission to the camera. Preview returns the UI after you grant permission and provides the real-time video stream of the camera. The error builder allows us to capture an error if it occurs and renders a corresponding error message.
+在此抽象中，`placeholder` 在应用程序等待我们授予相机权限时返回初始 UI（`const SizedBox()`）。`preview` 授予权限后返回 UI，并提供摄像机的实时视频流。错误构建器允许我们在发生错误时捕获错误并呈现相应的错误消息。
 
-### Mirroring the photo
+### 镜像照片
 
-Our next challenge was mirroring the photo. If we took the photo using the camera as is, what you’d see isn’t what you’re used to seeing when looking in the mirror. [Some devices have a setting to handle exactly this](https://9to5mac.com/2020/07/09/iphone-mirror-selfie-photos/), so that if you take a photo with the front-facing camera, you’ll see the mirrored version when capturing the photo.
+我们的下一个挑战是镜像照片。如果我们保留原样使用相机拍摄照片，那么我们看到的将不是平时在照镜子时所看到的那样，而[有些设备开放了接口如反转按钮来处理这个](https://9to5mac.com/2020/07/09/iphone-mirror-selfie-photos/)。所以如果你用前置摄像头拍照，拍摄照片时，我们会看到镜像版本。
 
-In our first approach, we tried capturing the default camera view, and then applying a 180-degree transform around the y-axis. This appeared to work, but then we ran into [an issue](https://github.com/flutter/flutter/issues/79519) where Flutter would occasionally override the transform, causing the video to revert to the un-mirrored version.
+在我们的第一种方法中，我们尝试捕捉默认的相机视图，然后围绕 y 轴应用 180 度变换。这似乎有效，但后来我们遇到了[一个问题](https://github.com/flutter/flutter/issues/79519)，即 Flutter 偶尔会覆盖转换，导致视频恢复到未镜像的版本.
 
-With the help of the Flutter team, we addressed this issue by wrapping the `VideoElement` in a [`DivElement`](https://api.flutter.dev/flutter/dart-html/DivElement-class.html) and updating the `VideoElement` to fill the `DivElement`’s width and height. This allowed us to apply the mirror to the video element without Flutter overriding the transform effect, because the parent element is a `div`. This approach gave us the desired mirrored camera view!
+在 Flutter 团队的帮助下，我们通过将 `VideoElement` 包装在 [`DivElement`](https://api.flutter.dev/flutter/dart-html/DivElement-class.html) 中并更新 `VideoElement` 元素，让 `VideoElement` 填满 `DivElement` 的宽度和高度，解决了这个问题。这允许我们将镜像应用到视频元素，而无需 Flutter 覆盖变换效果，因为父元素是一个 `div`。这种方法为我们提供了所需的镜像相机视图！
 
 ![](https://miro.medium.com/max/2800/0*Zd9s-7LFN9u17Ouo)
 
-<samll>Un-mirrored view</small>
+<small>非镜像视图</small>
 
 ![](https://miro.medium.com/max/2800/0*kkxXNd0m-t4sjCAo)
 
-<small>Mirrored view</small>
+<small>镜像视图</small>
 
-### Sticking to a strict aspect ratio
+### 坚持严格的纵横比
 
-Enforcing a strict aspect ratio of 4:3 for large screens and 3:4 for small screens is harder than it seems! It was important to enforce this ratio both to adhere to the overall design for the web app as well as to ensure that the photo looks pixel perfect when you share it on social media. This was a challenging task, because the aspect ratio of the built-in camera on devices varies widely.
+对大屏幕执行严格的 4:3 宽高比，对小屏幕执行严格的 3:4 宽高比，这比看起来更难！强制执行此比例非常重要，既要遵守 Web 应用程序的整体设计，又要确保照片在社交媒体上分享时看起来像素完美。这是一项具有挑战性的任务，因为设备上内置摄像头的纵横比差异很大。
 
-To enforce a strict aspect ratio, the app first requests the maximum resolution possible from the device camera using the JavaScript [`getUserMedia`](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia) [API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia). We then feed this API into the `VideoElement` stream, which is what you see in the camera view (mirrored, of course). We also applied an [`object-fit`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) CSS property to ensure that the video element covers its parent container. This sets the aspect ratio using the built-in `AspectRatio` widget from Flutter. As a result, the camera doesn’t make any assumptions about the aspect ratio being displayed; it always returns the maximum resolution supported, and then conforms to the constraints provided by Flutter (in this case 4:3 or 3:4).
+为了强制执行严格的纵横比，应用程序首先使用 JavaScript [`getUserMedia` API](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)。我们使用这个 API，提供给 `VideoElement` 流，也就是我们在相机视图中看到的（当然是镜像的）。我们还应用了 [`object-fit`](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit) CSS 属性来确保视频元素覆盖其父容器。我们使用 Flutter 的内置 `AspectRatio` 小部件设置纵横比。因此，相机不会对显示的纵横比做出任何假设；它始终返回支持的最大分辨率，然后符合 Flutter 提供的约束（在本例中为 4:3 或 3:4）。
 
 ```dart
 final orientation = MediaQuery.of(context).orientation;  
@@ -114,9 +114,9 @@ return Scaffold(
 );
 ```
 
-### Adding friends and stickers with drag and drop
+### 通过拖放添加朋友和贴纸
 
-A huge part of the I/O Photo Booth experience is taking a photo with your favorite Google friends and adding props. You are able to drag and drop the friends and props within the photo, as well as resize and rotate them until you get an image that you like. You’ll notice that, when adding a friend to the screen, you can drag and resize them. The friends are also animated — sprite sheets to achieve this effect.
+I/O Photo Booth 体验的很大一部分是与我们最喜欢的 Google 朋友合影并添加道具。我们可以在照片中拖放好友和道具，也可以调整大小和旋转它们，直到获得我们喜欢的图像。不难注意到，将朋友添加到屏幕时，我们可以拖动它们并调整其大小。朋友们也有动画 —— 我们使用了雪碧图来实现这种效果。
 
 ```dart
 for (final character in state.characters)  
@@ -134,9 +134,9 @@ for (final character in state.characters)
  ),
 ```
 
-To resize the objects, we created a draggable, resizable widget that can be wrapped around any Flutter widget, in this case, the friends and props. This widget uses a [`LayoutBuilder`](https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html) to handle scaling the widgets based on the constraints of the viewport. Internally, we used [`GestureDetectors`](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) to hook into `onScaleStart`, `onScaleUpdate`, and `onScaleEnd`. These callbacks provide details about the gesture needed to reflect the changes you make to the friends and props.
+为了调整对象的大小，我们创建了一个可拖动、可调整大小的小部件，它可以包裹在任何 Flutter 小部件上，在本例中，这是朋友和道具。这个小部件使用了 [`LayoutBuilder`](https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html) 根据视口的约束来处理小部件的缩放。在其中，我们使用 [`GestureDetectors`](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) 连接到 `onScaleStart`、`onScaleUpdate` 和 `onScaleEnd` 回调。这些回调提供有关反映我们对朋友和道具所做更改所需的手势的详细信息。
 
-The [`Transform`](https://api.flutter.dev/flutter/widgets/Transform-class.html) widget and 4D Matrix transformations handle scaling and rotating the friends and props based on the various gestures that you made, as reported by multiple `GestureDetector`s.
+[`Transform`](https://api.flutter.dev/flutter/widgets/Transform-class.html) 小部件和 4D 矩阵转换将根据我们所做的各种手势处理缩放和旋转朋友和道具，如由多个 `GestureDetector` 报告。
 
 ```dart
 Transform(  
@@ -148,51 +148,51 @@ Transform(
 )
 ```
 
-Finally, we created a separate package to determine whether your device supports touch input. The draggable, resizable widget adapts, based on touch capabilities. On devices with touch input, resizable anchors and a rotation icon aren’t visible, because you can pinch and pan to manipulate the image directly, whereas on devices without touch input (such as your desktop device), the anchors and rotation icon are added to accommodate clicking and dragging.
+最后，我们创建了一个单独的包来确定我们的设备是否支持触摸输入。可拖动、可调整大小的小部件会根据触摸功能进行调整。在具有触摸输入的设备上，可调整大小的锚点和旋转图标不可见，因为我们可以通过捏和平移来直接操纵图像，而在没有触摸输入的设备（例如我们的桌面设备）上，添加了锚点和旋转图标以适应单击和拖动。
 
 ![](https://miro.medium.com/max/3200/0*MVI3wAXUfJdGls5X)
 
-## Prioritizing Flutter on the web
+## 优先考虑网络上的 Flutter
 
-### Web-first development with Flutter
+### 使用 Flutter 进行 Web 优先开发
 
-This was one of the first web-only projects that we’ve built with Flutter, and it has different characteristics to a mobile app.
+这是我们使用 Flutter 构建的首批纯 Web 项目之一，它与移动应用程序具有不同的特性。
 
-We needed to ensure that the app was both [responsive and adaptive](https://flutter.dev/docs/development/ui/layout/adaptive-responsive) for any browser on any device. That is, we had to make sure that I/O Photo Booth would scale according to browser size and be able to handle both mobile and web inputs. We did this in a few ways:
+我们需要确保该应用程序对任何设备上的任何浏览器都具有[响应性和自适应性](https://flutter.dev/docs/development/ui/layout/adaptive-responsive)。也就是说，我们必须确保 I/O Photo Booth 可以根据浏览器大小进行缩放，并且能够处理移动和 Web 输入。我们通过几种方式做到了这一点：
 
-* **Responsive resize:** You should be able to resize your browser to a desired size, and the UI should respond accordingly. If your browser window is in a portrait orientation, the camera flips from a landscape view with the 4:3 aspect ratio to a portrait view with a 3:4 aspect ratio.
-* **Responsive design:** The design for desktop browsers displays Dash, the Android Jetpack, Dino, and Sparky on the right, and for mobile, they appear at the top. The desktop design also uses a drawer on the right side of the camera, and mobile uses the BottomSheet class.
-* **Adaptive input:** If you access the I/O Photo Booth from a desktop, then mouse clicks are considered inputs, and if you are on a tablet or phone, touch input is used. This is especially important when it comes to resizing stickers and placing them within the photo. Mobile devices support pinching and panning, and desktop supports click and drag.
+* **响应式调整大小：** 我们应该能够将浏览器的大小调整为所需的大小，并且 UI 应相应地做出响应。如果我们的浏览器窗口为纵向，则相机将从具有 4:3 纵横比的横向视图翻转为具有 3:4 纵横比的纵向视图。
+* **响应式设计：** 桌面浏览器的设计在右侧显示 Dash、Android Jetpack、Dino 和 Sparky，对于移动设备，它们显示在顶部。桌面设计也使用了摄像头右侧的抽屉，移动端使用了 BottomSheet 类。
+* **自适应输入：** 如果从桌面访问 I/O Photo Booth，则鼠标点击被视为输入设备。而如果使用的是平板电脑或手机，则使用触摸作为输入。在调整贴纸大小并将其放置在照片中时，这一点尤其重要。移动设备端支持捏合和平移，桌面端支持单击和拖动。
 
-### Scalable architecture
+### 可扩展架构
 
-We also used our approach to building scalable mobile apps for this application. We started I/O Photo Booth with a strong foundation, including sound null safety, internationalization, and 100% unit and widget test coverage from the first commit. We used [flutter_bloc](https://pub.dev/packages/flutter_bloc) for state management, because it allowed for easily testing business logic and observes all state changes in the app. This is particularly useful for developer logs and traceability, because we could see exactly what changed from state to state and isolate issues more quickly.
+我们还使用了自己的方法为此应用程序构建可扩展的移动应用程序。我们以强大的基础开始 I/O Photo Booth，包括声音空值安全性、国际化以及从第一次提交开始的 100% 单元和小部件测试覆盖率。我们使用了 [flutter_bloc](https://pub.dev/packages/flutter_bloc) 进行状态管理，因为它允许轻松测试业务逻辑并观察应用程序中的所有状态变化。这对于开发人员日志和可追溯性特别有用，因为我们可以准确地看到状态之间的变化并更快地隔离问题。
 
-We also implemented a feature-driven monorepo structure. For example, stickers, share, and the live camera preview are implemented in their own folders, where each folder contains its respective UI components and business logic. These integrate with external dependencies, such as the camera plugin, which live within the packages subdirectory. This architecture allowed our team to work on multiple features in parallel without disrupting the work of others, minimized merge conflicts, and enabled us to reuse code effectively. For example, the UI component library is a separate package called [`photobooth_ui`](https://github.com/flutter/photobooth/tree/main/packages/photobooth_ui), and the camera plugin is separate as well.
+我们还实现了一个功能驱动的 monorepo 结构。例如，贴纸、分享和实时相机预览都在它们自己的文件夹中实现，其中每个文件夹包含其各自的 UI 组件和业务逻辑。这些与外部依赖项集成，例如位于包子目录中的相机插件。这种架构允许我们的团队并行处理多个功能，而不会中断其他人的工作，最大限度地减少合并冲突，并使我们能够有效地重用代码。例如，UI 组件库是一个单独的包，名为 [`photobooth_ui`](https://github.com/flutter/photobooth/tree/main/packages/photobooth_ui)，相机插件也是单独的。
 
-By separating the components into independent packages, we can extract and open source the individual components that aren’t tied to this specific project. Even the UI component library package can be open sourced for the Flutter community, similar to the [Material](https://flutter.dev/docs/development/ui/widgets/material) and [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) component libraries.
+通过将组件分成独立的包，我们可以提取和开源与此特定项目无关的各个组件。甚至 UI 组件库包也可以为 Flutter 社区开源，类似于 [Material](https://flutter.dev/docs/development/ui/widgets/material) 和 [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) 组件库。
 
-## Firebase + Flutter = A perfect match
+## Firebase + Flutter = 完美匹配
 
-### Firebase Auth, storage, hosting, and more
+### Firebase 身份验证、存储、托管等
 
-Photo Booth leverages the Firebase ecosystem for various backend integrations. The [`firebase_auth`](https://pub.dev/packages/firebase_auth) [package](https://pub.dev/packages/firebase_auth) supports anonymously signing the user in as soon as the app launches. Each session uses Firebase Auth to create an anonymous user with a unique ID.
+Photo Booth 利用 Firebase 生态系统进行各种后端集成。[`firebase_auth` 包](https://pub.dev/packages/firebase_auth) 支持在应用启动后立即匿名登录用户。每个会话都使用 Firebase 身份验证来创建一个具有唯一 ID 的匿名用户。
 
-This comes into play when you arrive at the share page. You can either download your photo to save as your profile picture, or you can share directly to social media. If you download the photo, it’s stored locally on your device. If you share the photo, we store the photo in Firebase using the [`firebase_storage`](https://pub.dev/packages/firebase_storage) [package](https://pub.dev/packages/firebase_storage) so that we can retrieve it later, to populate the social post.
+当我们打开共享页面时，Firebase 就能够起作用了。我们可以下载照片以保存为个人资料图片，也可以直接分享到社交媒体。如果我们选择下载照片，它会本地存储在我们的设备上。如果选择分享照片，应用会使用 [`firebase_storage`](https://pub.dev/packages/firebase_storage) [package](https://pub.dev/packages/firebase_storage) 将照片存储在 Firebase 中，以便我们可以稍后检索它，以填充社交帖子。
 
-We defined [Firebase Security Rules](https://firebase.google.com/docs/rules) on the Firebase storage bucket to make photos immutable after creation. This prevents other users from modifying or deleting photos in the storage bucket. In addition, we use [Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) provided by Google Cloud to define a rule that deletes all objects that are 30 days old, but you can request to have your photos deleted sooner by following the instructions outlined in the app.
+我们在 Firebase 存储桶上定义了 [Firebase 安全规则](https://firebase.google.com/docs/rules) 以使照片在创建后不可变。这可以防止其他用户修改或删除存储桶中的照片。此外，我们使用 Google Cloud 提供的 [对象生命周期管理](https://cloud.google.com/storage/docs/lifecycle) 来定义删除所有 30 天前的对象的规则，但我们也可以请求按照应用程序中列出的说明尽快删除自己的照片。
 
-This application also uses [Firebase Hosting](https://firebase.google.com/docs/hosting) for fast and secure hosting of the web app. The [action-hosting-deploy](https://github.com/FirebaseExtended/action-hosting-deploy) GitHub Action allowed us to automate deployments to Firebase Hosting based on the target branch. When we merge changes into the main branch, the action triggers a workflow that builds and deploys the development flavor of the application to Firebase Hosting. Similarly, when we merge changes into the release branch, the action triggers a production deployment. The combination of the GitHub Action with Firebase Hosting allowed our team to iterate quickly and always have a preview of the latest build.
+此应用程序还使用了 [Firebase Hosting](https://firebase.google.com/docs/hosting) 来快速安全地托管网络应用程序。[action-hosting-deploy](https://github.com/FirebaseExtended/action-hosting-deploy) GitHub Action 允许我们根据目标分支自动部署到 Firebase 托管。当我们将更改合并到主分支时，该操作会触发一个工作流，该工作流构建应用程序的开发风格并将其部署到 Firebase 托管。类似地，当我们将更改合并到发布分支时，该操作会触发生产部署。GitHub Action 与 Firebase Hosting 的结合使我们的团队能够快速迭代并始终预览最新版本。
 
-Finally, we used [Firebase Performance Monitoring](https://firebase.google.com/products/performance) to monitor key web performance metrics.
+最后，我们使用 [Firebase Performance Monitoring](https://firebase.google.com/products/performance) 来监控关键的 Web 性能指标。
 
-### Getting social with Cloud Functions
+### 使用 Cloud Functions 进行社交
 
-Before generating your social post, we first make sure that the photo looks pixel perfect. The final image includes a nice frame to commemorate the I/O Photo Booth and is cropped to the 4:3 or 3:4 aspect ratio so that it looks great on the social post.
+在生成自己的社交帖子之前，我们首先需要确保照片每一个像素都看起来足够完美。最终图像包括一个漂亮的框架以纪念 I/O Photo Booth，并被裁剪为 4:3 或 3:4 的纵横比，以便在社交帖子上看起来很棒。
 
-We use the [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas) API or a [`CanvasElement`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) as a polyfill to composite the original photo, along with the layers, that contain your friends and props, and generate a single image that you can download. The [`image_compositor`](https://github.com/flutter/photobooth/tree/main/packages/image_compositor) [package](https://github.com/flutter/photobooth/tree/main/packages/image_compositor) handles this processing step.
+我们使用 [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas) API 或 [`CanvasElement`](https://developer.mozilla.org/ en-US/docs/Web/HTML/Element/canvas) 作为 polyfill 合成原始照片以及包含我们的朋友和道具的图层，并生成可以下载的单个图像。[`image_compositor`](https://github.com/flutter/photobooth/tree/main/packages/image_compositor) [包](https://github.com/flutter/photobooth/tree/main/packages/image_compositor ) 处理此处理步骤。
 
-We then tap into Firebase’s powerful [Cloud Functions](https://firebase.google.com/docs/functions) to assist with sharing the photo to social media. When you click the share button, you are taken to a new tab on the selected platform with a pre-populated post. The post has a URL that redirects to the cloud function that we wrote. When the browser analyzes the URL, it detects the dynamic meta information that the cloud function generated. This information allows the browser to display a nice preview image of your photo in your social post and a link to a share page where your followers can view the photo and navigate back to the I/O Photo Booth app to take their own.
+然后，我们利用 Firebase 强大的 [Cloud Functions](https://firebase.google.com/docs/functions) 来协助将照片分享到社交媒体。当我们单击共享按钮时，我们将被带到所选平台上的一个新选项卡，其中包含一个预先填充的帖子。该帖子有一个重定向到我们编写的云函数的 URL。浏览器在分析 URL 时，会检测到云函数生成的动态元信息。此信息允许浏览器在我们的社交帖子中显示照片的精美预览图像以及指向共享页面的链接，我们的关注者可以在其中查看照片并导航回 I/O Photo Booth 应用程序以获取他们自己的照片。
 
 ```dart
 function renderSharePage(imageFileName: string, baseUrl: string): string {  
@@ -205,21 +205,21 @@ function renderSharePage(imageFileName: string, baseUrl: string): string {
 }
 ```
 
-The final product looks something like this:
+最终产品看起来像这样：
 
 ![](https://miro.medium.com/max/2800/0*tXpB_n44hmjGxHXf)
 
-For more information about how to use Firebase in your Flutter projects, check out this [codelab](https://firebase.google.com/codelabs/firebase-get-to-know-flutter#0).
+有关如何在 Flutter 项目中使用 Firebase 的更多信息，请查看此 [codelab](https://firebase.google.com/codelabs/firebase-get-to-know-flutter#0)。
 
-## Final product
+## 成品效果
 
-This project was a good example of a web-first approach to building apps. We were pleasantly surprised by how similar our workflow for building this web application was, compared to our experience building mobile applications with Flutter. We had to consider elements like viewport sizes, responsiveness, touch versus mouse input, image load times, browser compatibility, and all the other considerations that come with building for the web. However, we were still writing Flutter code using the same patterns, architecture, and coding standards. We felt at home while building for the web. The tooling and growing ecosystem of Flutter packages, including the Firebase suite of tools, made I/O Photo Booth possible.
+这个项目是构建应用程序的网络优先方法的一个很好的例子。与我们使用 Flutter 构建移动应用程序的经验相比，我们构建这个 Web 应用程序的工作流程是如此相似，这让我们感到惊喜。我们必须考虑诸如视口大小、响应能力、触摸与鼠标输入、图像加载时间、浏览器兼容性以及为 Web 构建所带来的所有其他考虑因素等元素。但是，我们仍然使用相同的模式、架构和编码标准编写 Flutter 代码。我们在为 Web 构建时感到宾至如归。Flutter 软件包的工具和不断发展的生态系统，包括 Firebase 工具套件，使 I/O Photo Booth 成为可能。
 
 ![](https://miro.medium.com/max/3200/0*CN8nNM1HaOjg9SfQ)
 
-<small>Very Good Ventures team who worked on I/O Photo Booth</small>
+<small>在 I/O Photo Booth 工作的非常好的 Ventures 团队</small>
 
-We’ve open sourced all the code. Check out the [photo_booth](https://github.com/flutter/photobooth) project on GitHub!
+我们已经开源了所有代码。查看 GitHub 上的 [photo_booth](https://github.com/flutter/photobooth) 项目！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
