@@ -16,42 +16,57 @@
 
 ## 介绍
 
-Observability, which is comprised of monitoring, logging, tracing, and alerting aspects, is an important architectural concern when using microservices and event-driven architecture (EDA) styles, primarily because:
+在使用微服务和事件驱动架构（EDA）风格时，监控、日志、追踪和警报等方面的可观察性是一个重要的关注点，主要是因为：
 
-- A large number of deployments require automation and centralization of monitoring/observability
-- The asynchronous and distributed nature of the architecture results in difficulties related to correlating metrics produced from multiple components
+* 大量的部署需要集中且自动化的监控与可观测能力
+
+- 架构的异步性和分布式性质使得多个组件产生的相关指标变得困难
+
+解决这一架构问题可以简化管理，快速解决运行时的问题。它还提供了有助于做出明智的架构、设计、部署和基础设施决策的洞察力，以改善平台的非功能特性。此外，通过工程排放、收集和自定义指标的可视化，可以获得有用的业务/运营洞察力。
 
 Addressing this architectural concern provides simplified management and quick turn-around time for resolving runtime issues. It also provides insights that can help in making informed architectural, design, deployment, and infrastructure decisions to improve non-functional characteristics of the platform. Additionally, useful business/operations insights can be obtained by engineering emission, collection ,and visualization of custom metrics.
 
+然而，它往往是一个被忽视的架构问题。本教程介绍了使用Micrometer、Prometheus和Grafana等开源工具对Java和Spring Boot微服务的可观察性进行*监测的准则和最佳实践。
+
 However, it is often a neglected architectural concern. This tutorial describes guidelines and best practices for the *monitoring* aspect of observability for Java and Spring Boot microservices using open source tools such as Micrometer, Prometheus, and Grafana.
 
-## Prerequisites
+## 先决条件
+
+在你开始本教程之前，你需要设置以下环境。
 
 Before you begin this tutorial, you need to set up the following environment:
 
+- 利用Docker Compose 实现的Docker环境
 - A [Docker](https://www.docker.com/) environment with [Docker Compose](https://docs.docker.com/compose/)
+- 一个用于克隆和编辑git repo中的代码的Java IDE
 - A Java IDE for cloning and editing the code in the git repo
 
-## Estimated time
+## 预估时间
 
-It should take you about 2 hours to complete this tutorial.
+完成此教程大约会花费你2小时。
 
-## Brief overview of monitoring
+## 监控工作简介
 
-The main objectives for a monitoring tool are:
+监控工具的主要目标是：
 
-- Monitor the application’s performance
-- Provide self-service to stakeholders (development team, infrastructure team, operational users, maintenance teams, and business users)
-- Assist in performing quick root cause analysis (RCA)
-- Establish the application’s performance baseline
-- If using cloud, provide the ability to monitor cloud usage costs, and monitor different cloud services in an integrated way
+- 监控应用程序性能
+- 为利益相关者（开发团队、基础设施团队、操作用户、维护团队和业务用户）提供自助服务。Provide self-service to stakeholders (development team, infrastructure team, operational users, maintenance teams, and business users)
+- 快速进行问题溯源分析Assist in performing quick root cause analysis (RCA)
+- 建立应用程序的性能基线Establish the application’s performance baseline
+- 如果使用云，提供使用云成本的监测能力，并以综合方式监测不同的云服务If using cloud, provide the ability to monitor cloud usage costs, and monitor different cloud services in an integrated way
 
-Monitoring is mainly comprised of the following four sets of activities:
+整个监控主要分为以下四类行为。Monitoring is mainly comprised of the following four sets of activities:
 
-- ***Instrumentation*** of the application(s) – Instrumenting the application to emit the metrics that are of importance to the application monitoring and maintenance teams, as well as for the business users. There are many non-intrusive ways for emitting metrics, the most popular ones being “byte-code instrumentation,” “aspect-oriented programming,” and “JMX.”
+- 应用程序的 ***仪器化*** ——对应用程序进行仪器化带来的指标度量对应用程序监控和维护团队以及业务用户十分重要。有许多非侵入性的方法来度量指标，最流行的是 "字节码仪表"、"面向切面的编程 "和 "JMX"。
+- Instrumentation*** of the application(s) – Instrumenting the application to emit the metrics that are of importance to the application monitoring and maintenance teams, as well as for the business users. There are many non-intrusive ways for emitting metrics, the most popular ones being “byte-code instrumentation,” “aspect-oriented programming,” and “JMX.”
+- ***指标收集*** —— 从应用程序中收集指标，并将其持久化在一个存储库/数据存储中。然后，存储库提供了一种查询和汇总数据的方法，以实现可视化。一些流行的收集器是Prometheus、StatsD和DataDaog。大多数指标收集工具是时间序列库，并提供高级查询能力。
 - ***Metrics collection*** – Collecting metrics from the applications and persisting them in a repository/data-store. The repository then provides a way to query and aggregate data for visualization. Some of the popular collectors are Prometheus, StatsD, and DataDaog. Most of the metrics collection tools are time-series repositories and provide advanced querying capability.
+- ***指标可视化*** —— 可视化工具查询指标库，建立视图和仪表盘供最终用户使用。它们提供丰富的用户界面，对指标进行各种操作，如汇总、下钻等。
 - ***Metrics visualization*** – Visualization tools query the metrics repository to build views and dashboards for end-user consumption. They provide rich user interface to perform various kinds of operations on the metrics, such as aggregation, drill-down, and so on.
+- ***警报和通知*** —— 当指标超过定义的阈值（例如CPU超过80%超过10分钟），可能需要人工干预。为此，警报和通知很重要。大多数可视化工具提供警报和通知能力。
 - ***Alerts and notifications*** – When metrics breach defined thresholds (for instance CPU is more than 80% for more than 10 minutes), human intervention might be required. For that, alerting and notifications are important. Most visualization tools provide alerting and notification ability.
+
+有许多开放源码和商业产品可用于监测。其中一些著名的商业产品是。AppDynamics, Dynatrace, DataDog, logdna, and sysdig. 开源工具通常被组合使用。一些非常流行的组合是Prometheus和Grafana，Elastic-Logstash-Kibana（ELK），以及StatsD + Graphite。
 
 There are many open source and commercial products available for monitoring. Some of the notable commercial products are: AppDynamics, Dynatrace, DataDog, logdna, and sysdig. Open-source tools are typically used in combination. Some of the very popular combinations are Prometheus and Grafana, Elastic-Logstash-Kibana (ELK), and StatsD + Graphite.
 
