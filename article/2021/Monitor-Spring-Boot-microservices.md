@@ -2,18 +2,19 @@
 > * 原文作者：[Tanmay Ambre](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md)
-> * 译者：
+> * 译者：[YueYongDev](https://github.com/YueYongDev)
 > * 校对者：
-# Monitor Spring Boot microservices
 
-Build comprehensive monitoring capabilities for Spring Boot microservices using Micrometer, Prometheus, and Grafana
+# SpringBoot 微服务监控
 
-By Tanmay Ambre
-Published March 11, 2020
+使用 Micrometer、Prometheus 和 Grafana 为 Spring Boot 微服务构建全面的监控功能
 
-------
+作者：Tanmay Ambre
+发布时间：2020年3月11日
 
-## Introduction
+---
+
+## 介绍
 
 Observability, which is comprised of monitoring, logging, tracing, and alerting aspects, is an important architectural concern when using microservices and event-driven architecture (EDA) styles, primarily because:
 
@@ -69,7 +70,6 @@ Commonly collected metrics relevant to event-driven architrecture (EDA) and micr
   - Resource utilization – CPU, memory, disk utilization, network utilization, etc
   - JVM heap and GC metrics – GC overhead, GC time, heap (and its distinct regions) utilization
   - JVM thread utilization – blocked, runnable, waiting connection use time
-
 - **Application metrics**
 
   Availability, latency, throughput, status, exceptions, and more for different architectural layers of the microservice, such as:
@@ -78,13 +78,11 @@ Commonly collected metrics relevant to event-driven architrecture (EDA) and micr
   - Service layer – for method invocations
   - Data access layer – for method invocations
   - Integration layer – for RPC invocations, HTTP/REST/API calls, messaging publishing, message consumption
-
 - **Technical services utilization metrics** (specific to the technical service)
 
   - Caches – cache hits, misses, puts, deletes, reads
   - Loggers – number of log events per log level
   - Connection pools – connections in use, connection wait time, connection create time, idle connections
-
 - **Middleware metrics**
 
   - Event broker metrics – availability, messages in/out, bytes in/out, consumption lag, (de)-serialization exceptions, cluster status
@@ -204,7 +202,6 @@ To integrate with Metrics Tool, Spring Boot Actuator provides auto-configuration
 Since Prometheus uses polls to collect metrics, it is relatively simple two-step process to integrate Prometheus and Micrometer.
 
 1. Add the `micrometer-registry-prometheus` registry.
-
 2. Declare a bean of type `MeterRegistryCustomizer<PrometheusMeterRegistry>`.
 
    This is an optional step. However, it is recommended, as it provides a mechanism to customize the `MeterRegistry`. This is useful for declaring **common tags (dimensions)** for the metrics data that would be collected by Micrometer. This helps in metrics drill-down. It is especially useful when there are a lot of microservices and/or multiple instances of each microservice. Typical common tags could be `applicationName`, `instanceName`, and `environment`. This would allow you to build aggregated visualizations across instances and applications as well as be able to drill down to a particular instance/application/environment.
@@ -251,13 +248,13 @@ Show more
 
 Some application-level metrics are available out of the box and, for some, a variety of techniques can be employed. This following chart summarizes these features:
 
-| Metrics                                                      | Controllers                                   | Service layer components                           | Data access objects                                | Business components                                | Technical components                                         | Kafka Consumers                               | Kafka Producers                       | Spring integration components | HTTP Client    | Camel routes                                                 |
-| :----------------------------------------------------------- | :-------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :----------------------------------------------------------- | :-------------------------------------------- | :------------------------------------ | :---------------------------- | :------------- | :----------------------------------------------------------- |
-| **Resource utilization** (CPU, threads, file descriptors, heap, GC) | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                              |                                               |                                       |                               |                |                                                              |
-| **Availability**                                             | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                              |                                               |                                       |                               |                |                                                              |
-| **Latency**                                                  | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
-| **Throughput**                                               | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
-| **Exceptions**                                               | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
+| Metrics                                                                   | Controllers                                   | Service layer components                           | Data access objects                                | Business components                                | Technical components                                           | Kafka Consumers                               | Kafka Producers                       | Spring integration components | HTTP Client    | Camel routes                                                          |
+| :------------------------------------------------------------------------ | :-------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :------------------------------------------------------------- | :-------------------------------------------- | :------------------------------------ | :---------------------------- | :------------- | :-------------------------------------------------------------------- |
+| **Resource utilization** (CPU, threads, file descriptors, heap, GC) | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                                |                                               |                                       |                               |                |                                                                       |
+| **Availability**                                                    | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                                |                                               |                                       |                               |                |                                                                       |
+| **Latency**                                                         | Out of the box with `@Timed` annotation     | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
+| **Throughput**                                                      | Out of the box with `@Timed` annotation     | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
+| **Exceptions**                                                      | Out of the box with `@Timed` annotation     | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
 
 #### Instrumenting REST Controllers
 
@@ -268,9 +265,7 @@ The quickest and easiest way to instrument REST controllers is to use the `@Time
 A microservice would typically have *Controller*, *Service*, *DAO*, and *Integration* layers. Controllers don’t require any additional instrumentation when `@Timed` annotation is applied to them. For Service, DAO, and Integration layers, developers create custom beans annotated with `@Service` or `@Component` annotations. Metrics related to latency, throughput, and exceptions can provide vital insights. These can be easily gathered using Micrometer’s `Timer` and `Counter` metrics. However, the code needs to be instrumented for applying these metrics. A common reusable class that instruments services and components can be created using `spring-aop`, which would be reusable across all microservices. Using `@Around` and `@AfterThrowing` advice metrics can be generated without adding any code to the service/component classes and methods. Consider the following guidelines about developing such an aspect:
 
 - Create reusable annotations to apply to different types of Components/Services. For example, custom annotations, such as `@MonitoredService`, `@MonitoredDAO`, and `@MonitoredIntegrationComponent`, can be applied to services, data access objects, and integration components, respectively.
-
 - Define multiple pointcuts to apply advice for different types of components and which have above-mentioned annotations on them.
-
 - Apply appropriate tags to the metric so that drill-down or slicing of metrics is possible. For instance, tags such as `componentClass`, `componentType`, `methodName`, and `exceptionClass` can be used. With these tags and common-tags, the metric would be emitted as follows:
 
   ```
@@ -552,13 +547,10 @@ The following dashboard visualizes metrics at platform level:
 It provides:
 
 - HTTP Request Rate and Kafka Consumption Rate for all REST Controller methods and Kafka Consumers
-
 - Availability status of all microservices instances and Kafka cluster.
 
   Note that each visualization in this is a hyperlink for a particular microservice instance, which provides navigation to the detailed drill-down dashboard of that microservice instance.
-
 - Failed HTTP Requests and Service Errors for all microservices instances.
-
 - A breakdown of exceptions for all microservices instances.
 
 ### Sample microservices drill-down dashboard
