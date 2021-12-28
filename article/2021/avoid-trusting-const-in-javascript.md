@@ -55,8 +55,6 @@ No Addition But Can be Modified.
 **Performance Benefits** 🚀:  
 - The iteration on sealed and frozen objects are faster than normal objects. [https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects](https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects)
 
-**Caviat: Hmmmm, why this world is so rude** 🤯
-
 Object.seal() and Object.freeze() does **shallow** sealing and freezing. Meaning only one level of values are frozen or sealed in a nested object and in array of object, only array will be sealed/frozen, one can still modify objects inside array.
 
 **Solution**: We have to write our own method, which will loop through array and object and froze, seal at every level separately.  
