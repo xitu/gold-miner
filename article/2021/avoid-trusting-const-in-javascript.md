@@ -2,20 +2,20 @@
 > * 原文作者：[rahuulmiishra](https://rahuulmiishra.medium.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/avoid-trusting-const-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/avoid-trusting-const-in-javascript.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw/)
 > * 校对者：
 
 ![](https://miro.medium.com/max/1400/1*iT9aLA6A823qTKMa4jF3Xw.jpeg)
 
-# Avoid trusting const in JavaScript
+# 不要信任 JavaScript 里的 `const`
 
-Hello World!!! 🌏
+Hello world！🌏
 
-In about all of our JavaScript applications we tend to create constants, these constants could be Strings, Objects, Arrays, Numbers or Boolean, in order to save our component or view file from being polluted with large number of magic 🧙🏻‍♂️ values.
+在 JavaScript 应用中，我们常常会声明常量。这些常量可以是字符串、对象、数组亦或是布林值。这样一来，我们能避免我们的组件被大量的“魔法值”污染。
 
-Everything is fine until we start using **Object** and **Arrays** as constant values. Let us see what problem we may encounter in case object and arrays constant:
+当常量值是**对象**或是**数组**时，事情就有点不妙了。让我们看看将对象和数组设为常量时会面临什么问题：
 
-Below are the few code snippets demonstrating the problem with the use of **const** for object and arrays
+下面这几个代码片段演示了将 **`const`** 用于对象和数组时所会产生的问题。
 
 ![](https://miro.medium.com/max/1400/1*SSrNp4tvzDNwdznCyB5J8Q.png)
 
@@ -23,42 +23,46 @@ Below are the few code snippets demonstrating the problem with the use of **cons
 
 ![](https://miro.medium.com/max/1400/1*h0AbFC4Xqp9RvkV2pyWLCg.png)
 
-Basically, what `const` do is, it adds a **restriction** that **we can’t re-assign** something to the created variable.
+基本上，`const` 做的只是添加一个**限制**，让我们不能重新赋值这个变量。
 
-In the above code, I am **not re-assigning** something, I was simply changing the value on an object in other words I am mutating. And due to JavaScript Mutability concept this is possible to do. [Read more about Immutability in JS Here](https://rahuulmiishra.medium.com/immutability-in-javascript-892129a41497).  
-`const` **does not guarantee immutability.**
+在上方的代码中，我并**没有重新赋值变量**，我只是更改了对象中的值；基于 JavaScript 的可变性概念，这是合法的。[阅读更多](https://rahuulmiishra.medium.com/immutability-in-javascript-892129a41497)
 
-We have two ways to overcome modification of Object and Arrays .
+**`const` 不能保证数据不变性。**
 
-## 1. Using **Object.freeze()** ❄️
+我们有两种方法来避免修改对象和数组。
 
-`Object.freeze()` does following things:  
-a. It will make sure the object can’t be modified.  
-b. We won’t be able to change or add keys after freezing an object.
+## 1. 使用 `Object.freeze()` ❄️
 
-No Addition + No Modification
+`Object.freeze()` 做了这几件事：
+a. 它能确保对象不能被修改。
+b. 在冻结对象后，我们不能更改或添加键。
+
+**禁止添加 + 禁止修改**
 
 ![](https://miro.medium.com/max/1096/1*L9Za0baN7NLlqQ1gGH_bgQ.png)
 
-## 2. Using Object.seal() 🔒
+## 2. 使用 `Object.seal()` 🔒
 
-If we seal an object then we won’t be able to add keys, but we can update the data under on key.
+如果我们将一个对象密封起来，满额我们将不能添加新的键，但我们能更新现有键中的值。
 
-No Addition But Can be Modified.
+**禁止添加，但允许修改**
 
 ![](https://miro.medium.com/max/1400/1*P2EXj8JPvqaWFwLG-MioBg.png)
 
-**When to use .seal() and .freeze() methods** 😃.  
-- When you have a large team working on a same code base and you don’t want to risk some changing or updating some config values. In that Case we can seal or freeze our objects.  
-- For high risk config constants, like user Roles, Base URL we can use freezing.
+**何时使用 `.seal()` 和 `.freeze()` 方法？** 😃
 
-**Performance Benefits** 🚀:  
-- The iteration on sealed and frozen objects are faster than normal objects. [https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects](https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects)
+- 当一个大团队共用一个代码库且你不想冒着配置值被修改的风险时，你可以选择密封或冻结对象。
+- 对于高危常量，像是用户角色、根 URL 等，我们可以使用冻结。
 
-Object.seal() and Object.freeze() does **shallow** sealing and freezing. Meaning only one level of values are frozen or sealed in a nested object and in array of object, only array will be sealed/frozen, one can still modify objects inside array.
+**性能优势：** 🚀
 
-**Solution**: We have to write our own method, which will loop through array and object and froze, seal at every level separately.  
-[DeepFreeze code mentioned in MDN Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
+- 遍历密封/冻结的对象比遍历普通对象来得快。[Stack Overflow —— 封锁 JavaScript 对象对性能有什么好处吗？](https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects)
+
+`Object.seal()` 和 `Object.freeze()` 只是**浅**密封/冻结；这意味着只有表层的值被密封/冻结了，我们仍然可以修改数组里的对象。
+
+**解决方案：**我们必须自己实现这个方法；也就是遍历对象/数组，将每层的值单独密封/冻结。
+
+[MDN 文档中提到的深度冻结的代码](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
