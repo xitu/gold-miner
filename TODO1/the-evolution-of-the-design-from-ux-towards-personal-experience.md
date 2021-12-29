@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-evolution-of-the-design-from-ux-towards-personal-experience.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-evolution-of-the-design-from-ux-towards-personal-experience.md)
 > * 译者：[Charlo](https://github.com/Charlo-O)
-> * 校对者：[Baddyo](https://github.com/Baddyo)、[iceytea](https://github.com/iceytea)
+> * 校对者：[Baddyo](https://github.com/Baddyo)、[acev](https://github.com/acev-online)
 
 # 设计的变革 —— 从用户体验到个人体验
 

@@ -150,14 +150,14 @@
 * [Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9)（[nettee](https://github.com/nettee) 翻译）
 * [通过优化 Gunicorn 配置提高性能](https://juejin.im/post/5ce8cab8e51d4577523f22f8)（[shixi-li](https://github.com/shixi-li) 翻译）
-* [Go 语言工具概述](https://juejin.im/post/5ce4dc17518825240245be5b)（[iceytea](https://github.com/iceytea) 翻译）
+* [Go 语言工具概述](https://juejin.im/post/5ce4dc17518825240245be5b)（[acev](https://github.com/acev-online) 翻译）
 * [如果可以，永远不要在生产中直接运行 Node.js](https://juejin.im/post/5cdeb1306fb9a07efd46dbe5)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口](https://juejin.im/post/5cdcc216e51d453a543f9e68)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [使用 Nodemailer 轻松构建能通过电子邮件的重置密码 React 应用程序](https://juejin.im/post/5cdea6e3e51d4510b51279b3)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [模式 — 使用 Typescript 和 Node.js 的通用仓储](https://juejin.im/post/5cc715e1f265da03b36ef390)（[Raoul1996](https://github.com/Raoul1996) 翻译）
 * [自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [Spring 的分布式事务实现 — 使用和不使用 XA — 第一部分](https://juejin.im/post/5cce4659f265da038a1487c9)（[JackEggie](https://github.com/JackEggie) 翻译）
-* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)（[iceytea](https://github.com/iceytea) 翻译）
+* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)（[acev](https://github.com/acev-online) 翻译）
 * [分布式系统如何从故障中恢复？— 重试、超时和退避](https://juejin.im/post/5ccf98ace51d456e6d133541)（[nettee](https://github.com/nettee) 翻译）
 * [减少 Python 中循环的使用](https://juejin.im/post/5cc8e012e51d453b6d4d13fd)（[qiuyuezhong](https://github.com/qiuyuezhong) 翻译）
 * [Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c)（[Mirosalva](https://github.com/Mirosalva) 翻译）

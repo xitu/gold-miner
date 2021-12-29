@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/rust-2018-is-here-but-what-is-it.md](https://github.com/xitu/gold-miner/blob/master/TODO1/rust-2018-is-here-but-what-is-it.md)
 > * 译者：[子非](https://www.github.com/coolrice)
-> * 校对者：[iceytea](https://github.com/iceytea)
+> * 校对者：[acev](https://github.com/acev-online)
 
 # Rust 2018 已经发布……但它到底是什么呢？
 
