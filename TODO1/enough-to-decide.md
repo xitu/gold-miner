@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/enough-to-decide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/enough-to-decide.md)
 > * 译者：[Badd](https://juejin.im/user/5b0f6d4b6fb9a009e405dda1)
-> * 校对者：[jiapengwen](https://github.com/jiapengwen)，[iceytea](https://github.com/iceytea)
+> * 校对者：[jiapengwen](https://github.com/jiapengwen)，[acev](https://github.com/acev-online)
 
 # 这么多编程语言，我该怎么选？
 

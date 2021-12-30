@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md](https://github.com/xitu/gold-miner/blob/master/article/2020/how-to-create-a-reusable-web-scraper.md)
 > - 译者：[YueYongDEV](https://github.com/YueYongDev)
-> - 校对者：[iceytea](https://github.com/iceytea)、[shixi-li](https://github.com/shixi-li)
+> - 校对者：[acev](https://github.com/acev-online)、[shixi-li](https://github.com/shixi-li)
 
 # 如何创建一个可复用的网页爬虫
 
