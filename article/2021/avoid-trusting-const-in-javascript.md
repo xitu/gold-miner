@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/avoid-trusting-const-in-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2021/avoid-trusting-const-in-javascript.md)
 > * 译者：[jaredliw](https://github.com/jaredliw/)
-> * 校对者：
+> * 校对者：[kimberlyohq](https://github.com/kimberlyohq)
 
 ![](https://miro.medium.com/max/1400/1*iT9aLA6A823qTKMa4jF3Xw.jpeg)
 
@@ -11,11 +11,11 @@
 
 Hello world！🌏
 
-在 JavaScript 应用中，我们常常会声明常量。这些常量可以是字符串、对象、数组亦或是布林值。这样一来，我们能避免我们的组件被大量的“魔法值”污染。
+在 JavaScript 应用中，我们常常会声明常量。这些常量可以是字符串、对象、数组亦或是布林值。这样能避免我们的组件被大量的“魔法值”污染。
 
 当常量值是**对象**或是**数组**时，事情就有点不妙了。让我们看看将对象和数组设为常量时会面临什么问题：
 
-下面这几个代码片段演示了将 **`const`** 用于对象和数组时所会产生的问题。
+以下这几个代码片段演示了将 **`const`** 用于对象和数组时所产生的问题。
 
 ![](https://miro.medium.com/max/1400/1*SSrNp4tvzDNwdznCyB5J8Q.png)
 
@@ -23,9 +23,9 @@ Hello world！🌏
 
 ![](https://miro.medium.com/max/1400/1*h0AbFC4Xqp9RvkV2pyWLCg.png)
 
-基本上，`const` 做的只是添加一个**限制**，让我们不能重新赋值这个变量。
+基本上，`const` 只添加了不能重新赋值变量的**限制**。
 
-在上方的代码中，我并**没有重新赋值变量**，我只是更改了对象中的值；基于 JavaScript 的可变性概念，这是合法的。[阅读更多](https://rahuulmiishra.medium.com/immutability-in-javascript-892129a41497)
+在以上的代码，我并**没有重新赋值变量**，我只更改了对象中的值；基于 JavaScript 的可变性概念，这是合法的。[阅读更多](https://rahuulmiishra.medium.com/immutability-in-javascript-892129a41497)
 
 **`const` 不能保证数据不变性。**
 
@@ -33,9 +33,9 @@ Hello world！🌏
 
 ## 1. 使用 `Object.freeze()` ❄️
 
-`Object.freeze()` 做了这几件事：
+`Object.freeze()` 的作用：
 a. 它能确保对象不能被修改。
-b. 在冻结对象后，我们不能更改或添加键。
+b. 冻结对象后，我们不能修改或添加属性。
 
 **禁止添加 + 禁止修改**
 
@@ -43,7 +43,7 @@ b. 在冻结对象后，我们不能更改或添加键。
 
 ## 2. 使用 `Object.seal()` 🔒
 
-如果我们将一个对象密封起来，满额我们将不能添加新的键，但我们能更新现有键中的值。
+如果我们将一个对象密封起来，虽然我们不能添加新的属性，但我们能修改现有属性中的值。
 
 **禁止添加，但允许修改**
 
@@ -52,15 +52,15 @@ b. 在冻结对象后，我们不能更改或添加键。
 **何时使用 `.seal()` 和 `.freeze()` 方法？** 😃
 
 - 当一个大团队共用一个代码库且你不想冒着配置值被修改的风险时，你可以选择密封或冻结对象。
-- 对于高危常量，像是用户角色、根 URL 等，我们可以使用冻结。
+- 对于高危常量，例如用户角色、根 URL 等，我们可以使用冻结。
 
 **性能优势：** 🚀
 
-- 遍历密封/冻结的对象比遍历普通对象来得快。[Stack Overflow —— 封锁 JavaScript 对象对性能有什么好处吗？](https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects)
+- 遍历密封/冻结的对象比遍历普通对象快。[Stack Overflow —— 封锁 JavaScript 对象对性能有什么好处吗？](https://stackoverflow.com/questions/8435080/any-performance-benefit-to-locking-down-javascript-objects)
 
 `Object.seal()` 和 `Object.freeze()` 只是**浅**密封/冻结；这意味着只有表层的值被密封/冻结了，我们仍然可以修改数组里的对象。
 
-**解决方案：**我们必须自己实现这个方法；也就是遍历对象/数组，将每层的值单独密封/冻结。
+**解决方案：**我们需要自己实现这个方法；也就是遍历对象/数组，将每层的值单独密封/冻结。
 
 [MDN 文档中提到的深度冻结的代码](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze)
 
