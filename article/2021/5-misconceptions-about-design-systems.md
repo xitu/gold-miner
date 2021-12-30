@@ -5,11 +5,11 @@
 > * 译者：
 > * 校对者：
 
+![](https://cdn-images-1.medium.com/max/5760/1*Sc7Rrut8tE9_WnWIlLlY4g.jpeg)
+
 # 5 Misconceptions About UI Design Systems
 
-#### Have you heard any of these Design System misconceptions before? Here’s the reality behind them.
-
-![](https://cdn-images-1.medium.com/max/5760/1*Sc7Rrut8tE9_WnWIlLlY4g.jpeg)
+> Have you heard any of these Design System misconceptions before? Here’s the reality behind them.
 
 In modern web development, maintaining a uniform design language across a product is vital. It speeds up the development process, improves user experience, and helps to address design inconsistencies.
 
@@ -32,10 +32,6 @@ Another misconception roaming around is that a Design System limits flexibility 
 On one end, the Design System should be rigid and opinionated for consistency. But at the same time, it should also provide flexibility for things such as theming, typography, colors, borders, etc. In other words, a design system should provide the ability to customize look and feel.
 
 Besides, you shouldn’t be scared to reuse a Design System, allowing your components to inherit their design features. However, if it doesn’t work, you can create your own one.
-
-Modern development tools like [Bit](https://bit.dev), enable developers to be able to create and implement a Design System that is flexible to use across multiple projects.
-[**Building a React Design System for Adoption and Scale**
-**Achieve DS scale and adoption via independent components and a composable architecture — with examples.**blog.bitsrc.io](https://blog.bitsrc.io/building-a-react-design-system-for-adoption-and-scale-1d34538619d1)
 
 ## 3: Design System is just a Style Guide
 
