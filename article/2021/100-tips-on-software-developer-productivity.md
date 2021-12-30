@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md](https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[acev](https://github.com/acev-online)
 
 # 100 个能提升软件开发效率的小技巧
 
