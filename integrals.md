@@ -8406,7 +8406,7 @@
 |------|-------|-------|
 |[谷歌迈出了消除 URL 的第一步](https://juejin.im/post/5c643cb7e51d450dfc6eec1e)|校对|1|
 
-## 译者：[acev](https://github.com/acev-online) 历史贡献积分：50.5 当前积分：32.5 二零二一：4
+## 译者：[acev-online](https://github.com/acev-online) 历史贡献积分：50.5 当前积分：32.5 二零二一：4
 
 |文章|类型|积分|
 |------|-------|-------|
