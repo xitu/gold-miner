@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/simulating-interplanetary-space-travel-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/simulating-interplanetary-space-travel-in-python.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[Chor](https://github.com/Chorer)
 
-# 使用 Python 模拟实现行星际空间旅行
+# 使用 Python 模拟实现星际太空旅行
 
 > 使用 Python 模拟一个虚拟航天器从地球到火星的转移。
 
-在过去的几十年里，霍曼转移一直是所有月球和行星际空间旅行的首选方法。本文将使用 Python 模拟一个虚拟航天器从地球到火星的转移。
+在过去的几十年里，霍曼转移一直是所有月球和星际太空旅行的首选方法。本文将使用 Python 模拟一个虚拟航天器从地球到火星的转移。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fEruasybf-VS0KZEkasYcw.gif)
 
-本文将讨论一种星际空间旅行的方法，以及使用 Python 的模拟实现。
+本文将讨论一种星际太空旅行的方法，以及使用 Python 的模拟实现。
 
 ## 什么是霍曼转移轨道
 
