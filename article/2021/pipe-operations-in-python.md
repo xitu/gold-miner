@@ -2,58 +2,58 @@
 > * 原文作者：[Thuwarakesh Murallie](https://thuwarakesh.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
 ![](https://miro.medium.com/max/1400/1*lHk7fXxqnUjg8C2V2g4FcA.jpeg)
 
-# Use Pipe Operations in Python for More Readable and Faster Coding
+# 如何使用 Python 管道 Pipe 高效编码
 
-> A handy Python package to save a ton of coding time and improve readability with shell-styled pipe operations
+> Pipe 是一个好用的 Python 包，可以通过 shell 风格的管道操作，节省大量的编码时间并提高代码可读性。
 
-Python is already an elegant language to program. But it doesn't mean there is no room for improvement.
+现在 Python 称得上是一门优雅的编程语言，但这并不意味着没有改进的空间。
 
-Pipe is a beautiful package that takes Python's ability to handle data to the next level. It takes a SQL-like declarative approach to manipulate elements in a collection. It could filter, transform, sort, remove duplicates, perform group by operations, and a lot more without needing to write a gazillion lines of code.
+Pipe 是一个好用的 Python 包，它将 Python 处理数据的能力提升到了一个新的水平。Pipe 采用类似 SQL 的声明式方法来操作集合中的元素，它可以过滤、转换、排序、删除重复的内容，执行分组操作以及其它更多的操作，而且不需要写几十行的代码。
 
-In this little post, let's discuss simplifying our python code with Pipe. Most importantly, we'll construct custom reusable pipe operations to reuse in our project.
+在这篇文章中，我们将讨论使用 Pipe 简化 Python 代码。最重要的是，我们将构建可重复使用的自定义管道操作，以便在项目中多次使用。
 
-Let's begin with
+先从以下内容开始：
 
-- an inspirational example;
-- some helpful out-of-the-box pipe operations, and;
-- construct our own pipe operations.
+- 一个引导入门的简单示例；
+- 一些开箱即用的管道操作；
+- 创建自定义的管道操作。
 
-If you're wondering how you'd set it up, you can easily install [Pipe](https://github.com/JulienPalard/Pipe) with PyPI. Here's what you need to do.
+如果你不知道如何设置，可以通过 PyPI 轻松安装 [Pipe](https://github.com/JulienPalard/Pipe)。以下是安装命令：
 
 ```bash
 pip install pipe
 ```
 
-## Start using pipes in Python.
+## 在 Python 中使用管道
 
-Here's an example of using Pipe. Suppose we have a list of numbers, and we want to,
+下面是一个使用 Pipe 的示例。假设有一个数字列表，我们想做以下事情：
 
-- remove all the duplicates;
-- filter for only the odd numbers;
-- square each element in the list, and;
-- sort the values in ascending order;
+- 移除所有重复的数字。
+- 只对奇数进行筛选。
+- 将列表中的每个数字求平方。
+- 按升序对数值进行排序。
 
-here's what we'd typically do in plain Python.
+下面是我们过去在 Python 中的典型做法：
 
 ```python
 num_list_with_duplicates = [1, 4, 2, 27,
                             6, 8, 10, 7, 13, 19, 21, 20, 7, 18, 27]
 
-# Remove duplicates from the list
+# 移除重复数字
 num_list = list(dict.fromkeys(num_list_with_duplicates))
 
-# Filter for odd numbers
+# 筛选奇数
 odd_list = [num for num in num_list if num % 2 == 1]
 
-# Square the numbers
+# 对数字求平方
 odd_square = list(map(lambda x: x**2, odd_list))
 
-# Sort values in ascending order
+# 按升序排列数值
 odd_square.sort()
 
 print(odd_square)
@@ -63,14 +63,14 @@ print(odd_square)
 [1, 49, 169, 361, 441, 729]
 ```
 
-The above code is pretty readable. But here's a better way using Pipe.
+以上代码具有很好的可读性，但是使用管道是一个更好的的方法。
 
 ```python
 from pipe import dedup, where, select, sort
 
 num_list_with_duplicates = [1, 4, 2, 27,
                             6, 8, 10, 7, 13, 19, 21, 20, 7, 18, 27]
-# perform pipe oerations
+# 进行管道操作
 results = list(num_list_with_duplicates 
                 | dedup 
                 | where(lambda x: x % 2 == 1)
@@ -85,21 +85,21 @@ print(results)
 [1, 49, 169, 361, 441, 729]
 ```
 
-Both codes produce the same results. Yet the second one is more intuitive than the first one. Obviously, it has fewer lines of code as well.
+两种方式产生相同的结果。然而，第二个比第一个更直观，而且代码量也更少。
 
-This is how Pipe helps us simplify our codes. We can chain operations on a collection without writing separate lines of code.
+这就是 Pipe 帮助我们简化代码的方式。我们可以在一个集合上进行连续操作，而不需要单独编写代码。
 
-But there are cooler operations available in Pipe like the ones we used in the above example. Also, we can create one if we need something very unique. Let's first explore some pre-built operations.
+但是在 Pipe 中还有一些更酷的操作，比如在上面的示例中使用的操作。此外，如果我们需要一些独特的操作，也可以创建自定义管道。让我们先来看一些经典实用的管道操作。
 
-## Most useful pipe operations
+## 经典实用的管道操作
 
-We've already seen a couple of pipes in action. But there's more. In this section, let's discuss some other useful out-of-the-box operations for data wrangling.
+我们已经学习了几个简单的管道操作。在本节中，接着讨论一些经典实用的管道操作来处理数据。
 
-These aren't the complete list of operations you could get with Pipe installation. For an extensive inventory, please consult the [Pipe's repository on GitHub.](https://github.com/JulienPalard/Pipe)
+这些并不是安装 Pipe 后就可以得到的完整操作列表，要想获得详细的内容，请查阅 [Pipe 的 GitHub 仓库](https://github.com/JulienPalard/Pipe)。
 
-### Group By
+### Group By 方法
 
-I trust this is the most helpful pipe available for data scientists. We prefer doing it in Pandas, and I still like using it. But converting a list to a dataset sometimes feels like overkill. I could use this group-by-pipe operation on the go in all those cases.
+我相信这是对数据科学家最有帮助的管道操作。数据科学家倾向于使用 Pandas，但是把一个列表转换为数据集，有时感觉是过度操作。在绝大多数情况下，我都可以随手使用这个管道操作处理数据。
 
 ```python
 from pipe import dedup, groupby, where, select, sort
@@ -114,7 +114,7 @@ results = list(num_list
 print(results)
 ```
 
-The above code groups our datasets into odd and even numbers. It creates a list of two tuples. Each tuple has the name specified in the lambda function and the grouped objects. Thus the above code produces the following groups.
+以上代码将数据集分为奇数组和偶数组，创建了一个包含两个元组的列表。每个元组都有 lambda 函数中指定的名称和被分组的对象。总之以上代码产生了下面的分组：
 
 ```python
 [
@@ -123,7 +123,7 @@ The above code groups our datasets into odd and even numbers. It creates a list 
 ]
 ```
 
-We can now perform actions separately for each group we created. Here's an example that takes elements from each group and squares them.
+现在可以对创建的每个组分别进行操作。这里有一个示例，从每个组中提取元素，再对元素进行求平方。
 
 ```python
 from pipe import dedup, groupby, where, select, sort
@@ -146,11 +146,11 @@ print(results)
 ]
 ```
 
-### Chain and Traverse
+### Chain 和 Traverse 方法
 
-These two operations make it easy to unfold a nested list and make it flat. The chain does it step by step, and the traverse recursively until the list is not extended further.
+这两个方法能够很容易展开一个嵌套的列表并使其扁平化。链式操作是一步一步进行的，而遍历操作是递归的，直到列表不再继续扩展。
 
-The following is how the chain works.
+以下是使用 chain 的结果：
 
 ```python
 from pipe import chain
@@ -168,17 +168,17 @@ print(unfolded_list)
 [1, 2, 3, 4, 5, 6, 7, [8, 9]]
 ```
 
-As we can see chain has unfolded the list's outermost level. 8 and 9 remain inside a nested list as they were already nested deep one level down.
+可以看到已经展开了列表的最外层，但是 8 和 9 仍然在一个嵌套的列表里面，因为它们已经被嵌套到里面一层。
 
-Here are the results of using traverse instead.
+以下是使用 traverse 的结果：
 
 ```python
-from pipe import chain
+from pipe import traverse
 
 nested_list = [[1, 2, 3], [4, 5, 6], [7, [8, 9]]]
 
 unfolded_list = list(nested_list
-                     | chain
+                     | traverse
                      )
 
 print(unfolded_list)
@@ -188,9 +188,9 @@ print(unfolded_list)
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-Traverse unfolded everything it could.
+Traverse 展开了全部可以展开的内容。
 
-I mostly use list comprehension to unfold lists. But it gets increasingly difficult to read and understand what's happening in the code. Also, it's difficult to recursively extend, as the traverse operation did in the above example when we don't know how many nested levels are there.
+我主要使用列表推导式（list comprehension）来展开列表，但是阅读和理解代码会变得越来越困难。而且，当我们不知道有多少个嵌套层时，很难进行递归扩展，就像上面示例中的遍历操作那样。
 
 ```python
 nested_list = [[1, 2, 3], [4, 5, 6], [7, [8, 9]]]
@@ -200,11 +200,11 @@ unfolded_list = [num for item in nested_list for num in item]
 print(unfolded_list)
 ```
 
-### Take_while and Skip_while
+### Take_while 和 Skip_while 方法
 
-These two operations work like the 'where' operation we used earlier. The critical difference is that take_while and skip_while stop looking into additional elements in the collection if certain conditions are met. While on the other hand evaluates every element in the list.
+这两个操作的工作原理与之前使用的 `where` 操作类似。关键的区别在于 `take_while` 和 `skip_while` 在满足某些条件的情况下，会停止查找集合中的其他元素。而 `while` 则是对列表中的每个元素进行操作。
 
-Here's how both take_while and where works for a simple task of filtering values less than 5.
+以下是 `take_while` 和 `where` 在过滤小于 5 的值这一简单任务中的执行情况：
 
 ```python
 rom pipe import as_list, take_while, where
@@ -217,16 +217,16 @@ result2 = [3, 4, 5, 3] | where(lambda x: x < 5) | as_list
 print(f"where: {result2}")
 ```
 
-The results of the above code would be as follows:
+以上代码的结果如下：
 
 ```
 take_while: [5, 3]
 where: [3, 4, 3]
 ```
 
-Please note that the take_while operation skipped the final '3' whereas the 'where' process includes it.
+请注意 `take_while` 操作跳过了最后的 `3`，而 `where` 操作则包括了它。
 
-Skip_while works much like take_while, except it, only includes elements when certain conditions are met.
+`skip_while` 的工作原理与 `take_while` 很相似，只是它只在满足某些条件时才包括元素。
 
 ```python
 take_while: [5, 3]
@@ -237,13 +237,13 @@ where: [3, 4, 3]
 [5, 3]
 ```
 
-As I mentioned earlier, these aren't the complete list of things you can do with the Pipe library. Please check out the repository for more built-in functions and examples.
+正如前面提到的，这些并不是使用管道库可以完成的全部任务。请查看仓库以便了解更多内置函数和示例。
 
-## Creating a new pipe operation
+## 创建自定义的管道操作
 
-It's relatively easy to create new pipe operations. All we need is to annotate a function with the Pipe class.
+创建新的管道操作是相对容易，只需要使用 Pipe 类对函数进行注释。
 
-In the below example, we convert a regular Python function into a pipe operation. It takes an integer as input and returns the square value of it.
+在以下示例中，我们将 Python 函数转换为管道操作。它接受一个整数作为输入，并返回其平方值。
 
 ```python
 from pipe import Pipe
@@ -258,13 +258,13 @@ result = 10 | sqr
 print(result)
 ```
 
-As we have annotated the function with the `@Pipe` class, it becomes a pipe operation. In line 9, we used it to square a single number.
+当我们使用 `@Pipe` 类注释函数时，它就变成了一个管道操作。在第 9 行，我们用它来对数字求平方。
 
-Pipe operations can take extra arguments as well. The first argument is always the output of its previous operation in the chain. We can have any additional arguments and specify them at the time of using them in the chain.
+管道操作也可以使用额外的参数。第一个参数始终是其在链中的上一个操作的输出。我们可以有其它附加参数，并在链中使用时进行指定。
 
-Extra arguments can even be a function.
+额外的参数甚至可以是一个函数。
 
-In the following example, we create a pipe operation that takes an additional argument. The additional argument is a function. Our pipe operation is to transform every element of the list using the function.
+在以下示例中，我们创建了一个接受附加参数的管道操作，附加参数是一个函数。我们的管道操作是使用函数转换列表中的每个元素。
 
 ```python
 from typing import List
@@ -272,13 +272,13 @@ from pipe import Pipe, as_list, select
 
 
 def fib(n: int = 1):
-    """Recursively create fibonacci number"""
+    """递归创建斐波那契数字"""
     return n if n < 2 else fib(n-1)+fib(n-2)
 
 
 @Pipe
 def apply_fun(nums: List[int], fun):
-    """Apply any function to list elements and create a new list"""
+    """将任何函数应用于列表元素并创建新列表"""
     return nums | select(fun) | as_list
 
 
@@ -288,13 +288,13 @@ result = [5, 10, 15] | apply_fun(fib)
 print(result)
 ```
 
-## Final thoughts
+## 本文总结
 
-It's impressive to see how Python can be further improved.
+看到 Python 能够进一步改进，这令人印象深刻。
 
-As a practicing data scientist, I find Pipe very helpful in many everyday tasks. We could also use Pandas to do most of these tasks. However, Pipe scores excellent on improving code readability. Even novice programmers could understand the transformation.
+作为一名有经验的数据科学家，我发现管道 Pipe 在大量日常任务中都非常有用。我们也可以用 Pandas 来完成大部分任务。然而，管道 Pipe 在提高代码可读性方面表现出色，即使是新手程序员也能理解这种转变。
 
-A note here is that I haven't used Pipe on large-scale projects yet. I'm yet to explore how it would perform on massive datasets and data pipelines. But I do believe this package would play a significant role in offline analytics.
+这里需要注意的是，我还没有在大规模项目中使用 Pipe，也没有探索它在大规模数据集和数据管道上的表现，但是我相信这个软件包会在离线数据分析中发挥重要作用。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
