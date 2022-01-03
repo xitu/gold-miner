@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md](https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[acev](https://github.com/acev-online)
+> * 校对者：[acev](https://github.com/acev-online)、[finalwhy](https://github.com/finalwhy)
 
 # 100 个能提升软件开发效率的小技巧
 
@@ -17,7 +17,7 @@
 
 -    定一个确切的目标能让你行动得更快。
 
--   做事拖延是很平常的事情。（不过请记住，）千里之行始于足下。
+-   做事拖延是很平常的事情。不过请记住，千里之行始于足下。
 
 -   适合别人的东西不一定适合你。
 
