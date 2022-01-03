@@ -2,212 +2,212 @@
 > * 原文作者：[Ari Koponen](https://dev.to/apkoponen)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md](https://github.com/xitu/gold-miner/blob/master/article/2021/100-tips-on-software-developer-productivity.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[acev](https://github.com/acev-online)、[finalwhy](https://github.com/finalwhy)
 
-# 100 Tips on Software Developer Productivity
+# 100 个能提升软件开发效率的小技巧
 
-_I've developed software professionally for the past 10 years. Here's a list of 100 things I've learned about **software developer productivity**._
+过去十年，我一直专职从事软件开发行业，并从中总结出 100 条关于**软件开发效率**的经验：
 
--   At the beginning of your career, learning to "code fast" significantly impacts your productivity. Once you're "good enough," the impact substantially diminishes. Pay attention to when this happens.
-    
--   Don't be too proud to try and" hack your mind." Many productivity tips that sound patronizing actually work.
-    
--   Write your tasks down and use a to-do list.
-    
--   Having a tangible goal will make you move faster.
-    
--   Procastination is normal. Start by writing a single line.
-    
--   What works for someone else might not work for you.
-    
--   Try Pomodoro. It might work for you.
-    
--   Learn what makes you productive.
-    
--   Set boundaries that enable you to work in a way that makes you productive.
-    
--   Strong intrinsic motivation and curiosity trumps all productivity hacks.
-    
--   Learn how to tap into your intrinsic motivation. 
-    
--   Pair program and watch other people code. You might pick up a skill or two that help you work faster.
-    
--   Your intuition affects your productivity more than you know. Pay attention to cultivating a good intuition.
-    
--   Learning out of a bad habit takes work. Invest in learning good habits.
-    
--   Saying "yes" to everything will destroy your productivity. You need a personal WIP limit.
-    
--   Being obsessed about your work will make you temporarily more productive but burn you out if stretched for too long.
-    
--   Physical exercise, eating healthy, and sleeping well do not take away, but _contribute_ to your productivity.
-    
--   Take regular breaks (e.g., 10 minutes every 50 minutes). 
-    
--   Trying to work in too long stretches will teach your brain to start wandering off to memes and hot takes on Twitter.
-    
--   Make sure you have enough focus time for deep work and "flow." 
-    
--   Disable all the notifications you can.
-    
--   Being in "flow" makes you feel productive but does not always mean you're making progress.
-    
--   You can spend hours polishing an abstraction but deliver zero customer and business value.
-    
--   Being productive does not mean you're making an impact. Work hard on things that matter.
-    
--   The more experience I get, the more I'm interested in improving how my team or organization works together vs. optimizing my individual productivity.
-    
--   When solving technical problems that require collaboration, the bottleneck for individual developer productivity is not your ability to write code but the team's ability to create viable solutions.
-    
--   Most problems in building great software products require collaboration. Your ability to collaborate will become a bottleneck.
-    
--   You will be more productive in some teams/companies than others.
-    
--   Eventually, the bottleneck for your productivity will be the team and organization surrounding you.
-    
--   Developer productivity and compensation don't often go hand in hand.
-    
--   Some companies will compensate you more for the same work than others.
-    
--   The best "10x engineers" are the ones who 10x the team and people working around them.
-    
--   Delegate and help other people. Learn to celebrate their success.
-    
--   Learn to use automation. Removing errors and reducing cognitive load has a more significant impact on your productivity than "working faster."
-    
--   Developer experience and ergonomics matter.
-    
--   Automatically format your code with a deterministic code formatter like Prettier or Black.
-    
--   Use a linter. Learn how to write custom rules to match the way your team works.
-    
--   Write automated tests. Life is too short for constantly fixing trivial bugs.
-    
--   Setting up a Continuous Integration (CI) pipeline is likely easier than you think. Learning how to do it will save you time in every future software project.
-    
--   Keep feedback loops fast.
-    
--   Automatically deploy to production.
-    
--   Keep your build times low.
-    
--   Make sure developers can run the test suite on their computers.
-    
--   Enable automatically running related tests on file changes.
-    
--   Use feature flags to allow shipping work faster to production.
-    
--   You might not need a staging environment.
-    
--   You might benefit from a staging environment.
-    
--   It depends.
-    
--   Developers using Vim look like they're much more productive than the rest.
-    
--   Don't always pick the tasks that make you feel most productive. It will stagnate your learning and make you feel that you're not moving forward.
-    
--   Prioritize reviewing code. It will help your team stay productive.
-    
--   Every time a developer prioritizes reviewing code, a new star is born in the Torvalds & Carmack galaxy.
-    
--   Being "agile" has very little practical meaning.
-    
--   Calculating velocity and story points rarely help teams improve their productivity.
-    
--   Small, practical change based on data trump "agile transformation."
-    
--   The goal of planning is to split the elephant into bite-sized pieces.
-    
--   Developers often prefer working alone on large tasks for long periods.
-    
--   Developers working alone on large tasks for long periods rarely result in the smallest possible increment being shipped fast.
-    
--   Working together on a task is often less productive in the short run.
-    
--   Working together on a task improves learning and is often more productive in the long run.
-    
--   With large codebases, developer productivity largely depends on their knowledge of the system.
-    
--   Splitting large codebases into modules helps new developers become productive faster.
-    
--   Modular architecture only works if the API contracts are clear and modules are truly decoupled from each other.
-    
--   Sometimes, a developer is more productive than others only because they have more knowledge and power.
-    
--   A single developer owning a disproportionate amount of knowledge and power in a team will lead to some developers underperforming.
-    
--   A "10x engineer" born out of owning a disproportionate amount of knowledge and power is an anti-pattern and will lead to capable developers leaving your company. Avoid it at all costs.
-    
--   Measuring developer productivity only through activity (e.g. # of commits or PR reviews) does not work.
-    
--   Trying to condense developer productivity into a single metric will fail and make developers lose their trust in the company's management.
-    
--   Measuring individual developer productivity is hard. If you try to do that, you will likely lose more than gain.
-    
--   When trying to measure developer productivity, data quality is crucial. Bad decisions made based on poor data are costly.
-    
--   There is much more reliable research on software developer productivity than most developers realize.
-    
--   Focusing on team and organizational level developer productivity will yield the best results.
-    
--   Reading the book "Accelerate" and understanding the SPACE framework will give you a good start to understanding development team productivity.
-    
--   When measuring developer productivity, you should have multiple metrics that complement and challenge each other.
-    
--   The subjective experience of developers is valuable data.
-    
--   Only relying on the subjective experience of developers is not enough. Especially when trying to improve development productivity across the organization.
-    
--   Improving software team productivity is largely about trying to improve the flow of work while keeping quality high and working at a sustainable pace.
-    
--   Measuring your team's cycle time and deployment frequency will help you improve your flow of work.
-    
--   Knowing how much time your team spends fixing bugs vs. feature work will help you prioritize writing tests, fix technical debt, and keep your quality high.
-    
--   Developing software is a marathon, not a sprint. Optimize accordingly.
-    
--   Teams should be in charge of improving their own productivity and have access to the necessary metrics and tools.
-    
--   Individual developers benefit from understanding what affects their teams' overall productivity.
-    
--   Most teams try to do too many things at the same time. You need a WIP limit.
-    
--   WIP limits improve collaboration and help you ship the most important stuff.
-    
--   WIP limits reduce procrastination on hard tasks.
-    
--   WIP limits combined with good prioritization help individual developers work on things they're not familiar with and encourage learning.
-    
--   Encouraging learning makes software developers more productive in the long run.
-    
--   Consistently good work is better than heroics.
-    
--   Organizations that put heroism above consistently good work perform worse in the long run.
-    
--   Developers love to measure everything else but their own productivity.
-    
--   Early attempts at measuring software developer productivity ruined the whole thing for most developers.
-    
--   It is hard to recover from industry trauma.
-    
--   Don't focus on measuring individual developers if you're trying to improve your company's software development speed.
-    
--   Learning about Lean and Queuing theory is valuable when improving software team productivity.
-    
--   Consultants have done a great job ruining Lean for the rest of us.
-    
--   Measuring software team productivity can make engineering teams happier.
-    
--   Measuring software team productivity only makes teams happier and more productive if they're on board.
-    
--   If developers are not on board, your metrics will be gamed.
-    
--   Not giving your developers proper autonomy and control over their work will make them unhappy. Do not micromanage.
-    
--   Happy engineers are more productive.
+-    在你的职业生涯初期，学习如何“快速地写代码”会显著地你的工作效率。但当你积累了足够的工作经验后，它带给你的影响将大大减少。你需要留意何时会发生这种转变。
+
+-   乐于尝试“打破思维”。很多高大上的小技巧确实是行之有效的。
+
+-   写下待办事项。
+
+-    定一个确切的目标能让你行动得更快。
+
+-   做事拖延是很平常的事情。不过请记住，千里之行始于足下。
+
+-   适合别人的东西不一定适合你。
+
+-   试试番茄工作法，它可能对你有用。
+
+-   发掘能提高效率的事物。
+
+-   设定一些能让你提高效率的界限或规则。
+
+-   强烈的内在动机和好奇心胜过一切提高效率的小技巧。
+
+-   发掘能激发内在动机的方法。
+
+-   尝试结对编程并观察别人是如何写代码的。你可能会从中学到一些提升效率的技巧。
+
+-   努力培养良好的直觉。你的直觉比你想象中更能影响你的效率。
+
+-   改掉坏习惯是需要付出努力的。花时间在培养好习惯中。
+
+-   一味地接受工作会拉低你的效率。你需要设置自己的 [WIP 限制](https://segmentfault.com/a/1190000018186305)。
+
+-   对于工作的痴迷会让你短时间内更有效率，但若持续太久就会使你精疲力竭。      
+
+-   体育运动、均衡饮食和充足的睡眠不仅不会影响、反而有利于你的工作效率。
+
+-   定期休息（例如，每工作 50 分钟休息 10 分钟）。
+
+-   长时间的工作会将你的思绪带到沙雕梗图和微博热搜上。
+
+-   确保你有时间专注于深度工作并进入“心流”状态。
+
+-   尽可能地屏蔽所有通知。
+
+-   在“心流”状态下会让你感到非常有效率，但这并不总是意味着你在向预定目标前进。
+
+-   你在“打磨”抽象类和方法中花费的数小时可能不会对客户和商业带来任何价值。（译者注：即要避免过度设计）
+
+-   有效率并不代表能产生影响。只为重要的事而努力。
+
+-   比起提升个人的效率，有经验的人更注重于提升团队或组织的整体协作水平。
+
+-   当解决需要协作的技术问题时，提供可行方案的能力比写代码的能力更重要。
+
+-   在构建应用产品中，很多问题都需要沟通。你的沟通能力会成为效率的瓶颈。
+
+-   在某些团队或公司中你会更有效率。
+
+-   渐渐地，你效率的瓶颈将会是你周围的团队和组织。
+
+-   开发者的效率和报酬很多时候不一定是同步推进的。
+
+-   对于同一个工作，一些公司开出的薪资可能更高。
+
+-   好的“十倍工程师”（指那些能以一扛十的工程师）是那些有着十倍的团队和人力的人。
+
+-   委派并帮助他人。学会为他人的成功庆祝。
+
+-   学习使用自动化。比起提升写代码的速度，排除 bug 和减少认知负荷（cognitive load）对于效率的影响更大。
+
+-   开发体验和人体工学不容忽视。
+
+-   使用代码美化工具（如 Prettier 或 Black）来自动地格式化代码。
+
+-   使用 linter。学习如何为团队的代码风格编写自定义规则。
+
+-   编写自动化测试。别将生命浪费在修改琐碎的 bug 中。
+
+-   设置一个持续集成（Continuous Integration，CI）流程比你想象的要容易。学习如何使用它能减少你在以后的每个项目中花费的时间。
+
+-   缩短反馈循环。
+
+-   使项目部署自动化。
+
+-   减少构建的次数。
+
+-   确保每个开发者都能在他们的电脑上运行测试。
+
+-   当文件被修改时自动执行相关测试。
+
+-   使用特性切换（feature flag）可以更快地将工作交付到生产中。
+
+-   你可能不需要过渡环境（stagging environment）。
+
+-   你可能会从过渡环境中获益。
+
+-   事无定数，随机应变。
+
+-   使用 Vim 的开发者似乎比其他开发者更有效率。
+
+-   不要只选择哪些让你感觉很有效率的工作。这样会使你的学习停滞，让你感觉自己在原地踏步。
+
+-   注重代码审查。它能帮助你保持团队的效率。
+
+-   每个注重代码审查的开发者都是明日之星。
+
+-   敏捷开发带来的实际效益很小。
+
+-   计算速率（velocity）和故事点（story point）很少能帮助团队提高开发效率。
+
+-   基于数据的实际小改变胜过于“敏捷转型（agile transformation）”。
+
+-   计划的目标是将庞大的项目分割成几个小块。
+
+-   对于时间跨度很长的大型项目，开发者更喜欢自己写自己的代码。
+
+-   长时间单独处理大项目的开发者很少能快速交付小增量。
+
+-   在短期内，共同完成一个项目的效率通常较低。
+
+-   共同完成一个项目能促进学习，从长期来看效率更高。
+
+-   对于大型代码库，开发者的效率在很大程度上取决于他们对系统的了解。
+
+-   将代码库分成好几个模块能帮助新来的开发者更快地提升效率。
+
+-   模块化结构只在 API 文档清晰且模块之间完全解耦合的情况下才有用。
+
+-   有时候，一个开发者比起其他人员更有效率是因为他有更多的知识和能力。
+
+-   在团队中，比例失调的知识和能力会导致开发者表现不佳。
+
+-   由于团队中知识和能力不匀称而产生的“十倍工程师”是一种反面模式，这会导致有能力的开发者离开公司；应该不惜一切代价避免此类状况的发生。
+
+-   只基于开发者的活动量（如，提交或 PR 的次数）来衡量效率是行不通的。
+
+-   尝试将开发者的效率浓缩为一个指标也是行不通的，这会让开发者失去对于公司管理层的信任。
+
+-   衡量每个个体开发者的效率是很困难的。如果你尝试这样做，那你很有可能会得不偿失。
+
+-   当你尝试衡量开发者的效率时，数据质量非常重要。基于错误的数据而做出的错误决定是要付出很大的代价的。
+
+-   关于软件开发效率的研究比大多数开发者想象中的要可靠得多。
+
+-   将注意力放在团队和组织的效率上能产生最好的结果。
+
+-   阅读《Accelerate》并理解 SPACE 框架是你了解开发团队效率的一个好开端。
+
+-   在衡量开发人员效率时，你应该有多个相互弥补、相互对立的指标。
+
+-   开发者的主观体验是宝贵的数据。
+
+-   单单依靠开发者的主观经验是不足够的，尤其是当你想要尝试提升跨组织的开发效率时。
+
+-   提升软件团队的效率主要是努力改善工作流程，同时保持高质量和可持续性的工作步调。
+
+-   衡量你的团队的周期时间和部署频率能帮助你提升工作流程。
+
+-   知悉你的团队在修复 bug 和开发功能中分别花费了多少时间。这能帮助你确定编写测试的优先顺序、偿还技术负债并保持代码高质量。
+
+-   开发软件不是短跑，而是一场马拉松。依据情况来优化。
+
+-   每个团队应该专注于提升自身的效率并使用必要的指标和工具。
+
+-   了解影响团队整体的效率能让开发者受益。
+
+-   很多的团队都想要在一个时间内完成太多的事情。你需要一个 WIP 上限。
+
+-   WIP 上限能促进团队协作并帮助你部署重要的事物。
+
+-   对于难度较高的项目，WIP 上限能减少拖延。
+
+-   WIP 上限和好的优先级处理能鼓励学习，并帮助开发者着手处理他们不熟悉的事情。
+
+-   从长远的角度来说，鼓励学习能让软件开发者更有效率。
+
+-   持续的良好输出比起过往的那一两件“英雄事迹”还来的可贵。
+
+-   从长远来看，将英雄主义置于持续的良好输出之上的组织表现得更差。
+
+-   开发者喜欢衡量除了自身效率以外的各种事物。
+
+-   对于大多数开发者来说，过早地衡量效率会毁了整件事。
+
+-   从行业创伤中恢复过来是很困难的。
+
+-   如果你想提升你的公司的软件开发速度，不要将注意力放在衡量每个个体的开发者的效率。
+
+-   学习关于精益生产（lean production，认为产品的价值需由最终的用户来确定）和排队论（queuing theory，通过对服务对象到来及服务时间的统计研究）的知识对于提升软件团队的效率是有益的。
+
+-   对其余的人来说，顾问很好地破坏了精益生产原则。
+
+-   衡量软件团队的效率能让工程团队感到开心。
+
+-   当软件团队参与其中时，衡量团队效率能让他们感到高兴且更有效率。
+
+-   如果开发者们没有参与，你设立的衡量标准就会被钻空子。
+
+-   不让开发者有适当的自主权并过度地控制他们的工作会让他们感到不满。不要进行微观管理。
+
+-   快乐的开发者更有效率。
 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
