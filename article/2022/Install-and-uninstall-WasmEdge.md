@@ -1,5 +1,5 @@
 > * 原文地址：[Install and uninstall WasmEdge](https://wasmedge.org/book/en/start/install.html)
-> * 原文作者：[wasmedge](https://wasmedge.org/book/)
+> * 原文作者：[wasmedge](https://wasmedge.org/book/en/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md](https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md)
 > * 译者：
