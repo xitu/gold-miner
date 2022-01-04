@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：
+> * 校对者：[jaredliw](https://github.com/jaredliw)
 
 ![](https://miro.medium.com/max/1400/1*lHk7fXxqnUjg8C2V2g4FcA.jpeg)
 
@@ -11,15 +11,15 @@
 
 > Pipe 是一个好用的 Python 包，可以通过 shell 风格的管道操作，节省大量的编码时间并提高代码可读性。
 
-现在 Python 称得上是一门优雅的编程语言，但这并不意味着没有改进的空间。
+现在 Python 称得上是一门优雅的编程语言，但这并不意味着它没有改进的空间。
 
-Pipe 是一个好用的 Python 包，它将 Python 处理数据的能力提升到了一个新的水平。Pipe 采用类似 SQL 的声明式方法来操作集合中的元素，它可以过滤、转换、排序、删除重复的内容，执行分组操作以及其它更多的操作，而且不需要写几十行的代码。
+Pipe 是一个好用的 Python 包，它将 Python 处理数据的能力提升到了一个新的水平。Pipe 采用类似 SQL 的声明式方法来操作集合中的元素。你不需要编写大量的代码就能使用它来执行过滤、转换、排序、去重、分组等操作。
 
-在这篇文章中，我们将讨论使用 Pipe 简化 Python 代码。最重要的是，我们将构建可重复使用的自定义管道操作，以便在项目中多次使用。
+在这篇文章中，我们将讨论如何使用 Pipe 简化 Python 代码。最重要的是，我们将构建可重复使用的自定义管道操作。这些自定义方法能在以后的项目中使用。
 
 先从以下内容开始：
 
-- 一个引导入门的简单示例；
+- 一个具有启发性的示例；
 - 一些开箱即用的管道操作；
 - 创建自定义的管道操作。
 
@@ -33,9 +33,9 @@ pip install pipe
 
 下面是一个使用 Pipe 的示例。假设有一个数字列表，我们想做以下事情：
 
-- 移除所有重复的数字。
-- 只对奇数进行筛选。
-- 将列表中的每个数字求平方。
+- 移除所有重复的值；
+- 筛选奇数；
+- 对列表中的每个数字求平方；
 - 按升序对数值进行排序。
 
 下面是我们过去在 Python 中的典型做法：
@@ -209,11 +209,11 @@ print(unfolded_list)
 ```python
 rom pipe import as_list, take_while, where
 
-result = [3, 4, 5, 3] | take_while(lambda x: x < 5) | as_list
+result = [3, 4, 5, 3]
 print(f"take_while: {result}")
 
 
-result2 = [3, 4, 5, 3] | where(lambda x: x < 5) | as_list
+result2 = [3, 4, 5, 3]
 print(f"where: {result2}")
 ```
 
@@ -254,7 +254,7 @@ def sqr(n: int = 1):
     return n ** 2
 
 
-result = 10 | sqr
+result = 10
 print(result)
 ```
 
@@ -279,10 +279,10 @@ def fib(n: int = 1):
 @Pipe
 def apply_fun(nums: List[int], fun):
     """将任何函数应用于列表元素并创建新列表"""
-    return nums | select(fun) | as_list
+    return nums
 
 
-result = [5, 10, 15] | apply_fun(fib)
+result = [5, 10, 15]
 
 
 print(result)
@@ -292,7 +292,7 @@ print(result)
 
 看到 Python 能够进一步改进，这令人印象深刻。
 
-作为一名有经验的数据科学家，我发现管道 Pipe 在大量日常任务中都非常有用。我们也可以用 Pandas 来完成大部分任务。然而，管道 Pipe 在提高代码可读性方面表现出色，即使是新手程序员也能理解这种转变。
+作为一名执业数据科学家，我发现 Pipe 在大量日常任务中都非常有用。我们也可以用 Pandas 来完成大部分任务。然而，Pipe 在提高代码可读性方面表现出色，即使是新手程序员也能理解这种数据的转换操作。
 
 这里需要注意的是，我还没有在大规模项目中使用 Pipe，也没有探索它在大规模数据集和数据管道上的表现，但是我相信这个软件包会在离线数据分析中发挥重要作用。
 
