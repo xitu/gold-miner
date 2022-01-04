@@ -21,13 +21,13 @@ wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/insta
 wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all
 ```
 
-执行`source $HOME/.wasmedge/env` 命令能使已安装的二进制文件在当前会话中可用。
+执行 `source $HOME/.wasmedge/env` 命令能使已安装的二进制文件在当前会话中可用。
 
 **就这么简单！**你现在可以通过命令行使用 WasmEdge，或者直接将其作为应用打开。要想升级 WasmEdge，你只需要重新执行以上的命令，旧的文件将被覆盖。
 
 ## 为所有用户安装 WasmEdge
 
-在默认情况下，WasmEdge 将安装在 `$HOME/.wasmedge` 目录中。你也可以将它安装在系统目录中，如 `/usr/local`，以便所有用户都能使用 WasmEdge。要想指定一个安装路径，你可以在执行 `install.sh` 脚本时附上 `-p` 参数。由于文件将写入系统目录，你需要以  `root` 用户或 `sudo` 权限执行以下命令：
+在默认情况下，WasmEdge 将安装在 `$HOME/.wasmedge` 目录中。你也可以将它安装在系统目录中，如 `/usr/local`，以便所有用户都能使用 WasmEdge。要想指定一个安装路径，你可以在执行 `install.sh` 脚本时附上 `-p` 参数。由于文件将写入系统目录，你需要以 `root` 用户或 `sudo` 权限执行以下命令：
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
