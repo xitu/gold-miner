@@ -23,7 +23,7 @@ wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/insta
 
 执行 `source $HOME/.wasmedge/env` 命令能使已安装的二进制文件在当前会话中可用。
 
-**就这么简单！**你现在可以通过命令行使用 WasmEdge，或者直接将其作为应用打开。要想升级 WasmEdge，你只需要重新执行以上的命令，旧的文件将被覆盖。
+**就这么简单！**你现在可以通过命令行使用 WasmEdge，或者直接将其作为应用打开。要想升级 WasmEdge，你只需要重新执行以上的命令，它会覆盖旧的文件。
 
 ## 为所有用户安装 WasmEdge
 
