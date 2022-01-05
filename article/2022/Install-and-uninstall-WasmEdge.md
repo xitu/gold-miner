@@ -2,87 +2,85 @@
 > * 原文作者：[wasmedge](https://wasmedge.org/book/en/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md](https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md)
-> * 译者：
-> * 校对者：
-# Install and uninstall WasmEdge
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[Chorer](https://github.com/Chorer)
 
-## Quick install
+# WasmEdge 的安装与卸载
 
-The easiest way to install WasmEdge is to run the following command. Your system should have `git` and `wget` as prerequisites.
+## 快速安装
 
-```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
-```
-
-If you would like to install WasmEdge with its [Tensorflow and image processing extensions](https://www.secondstate.io/articles/wasi-tensorflow/), please run the following command. It will attempt to install Tensorflow and image shared libraries on your system.
+安装 WasmEdge 最简单的方式是执行以下的命令（前提是你的系统已经安装了 `git` 和 `curl`）：
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
 ```
 
-Run the following command to make the installed binary available in the current session `source $HOME/.wasmedge/env`
-
-**That's it!** You can now use WasmEdge from the CLI, or launch it from an application. To update WasmEdge to a new release, just re-run the above command to write over the old files.
-
-## Install for all users
-
-By default, WasmEdge is installed in the `$HOME/.wasmedge` directory. You can install it into a system directory, such as `/usr/local` to make it available to all users. To specify an install directory, you can run the `install.sh` script with the `-p` flag. You will need to run the following commands as the `root` user or `sudo` since they write into system directories.
+如果你希望一并安装 [Tensorflow 和图像处理扩展](https://www.secondstate.io/articles/wasi-tensorflow/)，请执行以下命令。它将尝试在你的系统上安装 Tensorflow 和图像共享库。
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all
 ```
 
-Or, with all extensions
+执行 `source $HOME/.wasmedge/env` 命令能使已安装的二进制文件在当前会话中可用。
+
+**就这么简单！**你现在可以通过命令行使用 WasmEdge，或者直接将其作为应用打开。要想升级 WasmEdge，你只需要重新执行以上的命令，它会覆盖旧的文件。
+
+## 为所有用户安装 WasmEdge
+
+在默认情况下，WasmEdge 将安装在 `$HOME/.wasmedge` 目录中。你也可以将它安装在系统目录中，如 `/usr/local`，以便所有用户都能使用 WasmEdge。要想指定一个安装路径，你可以在执行 `install.sh` 脚本时附上 `-p` 参数。由于文件将写入系统目录，你需要以 `root` 用户或 `sudo` 权限执行以下命令：
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -p /usr/local
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -p /usr/local
 ```
 
-## Install a specific version of WasmEdge
-
-You could install specific versions of WasmEdge, including pre-releases or
-old releases by passing the `-v` argument to the install script. Here is an example.
+或者（包含图像扩展）：
 
 ```bash
-wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -v 0.9.0-rc.5
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -p /usr/local
 ```
 
-If you are interested in the latest builds from the `HEAD` of the `master` branch, which is basically WasmEdge's nightly builds, you can download the 
-release package directly from our Github Action's CI artifact. [Here is an example](https://github.com/WasmEdge/WasmEdge/actions/runs/1521549504#artifacts).
+## 安装指定版本的 WasmEdge
 
-## What's installed
-
-After installation, you have the following directories and files. Here we assume that you installed into the `$HOME/.wasmedge` directory. You could also change it to `/usr/local` if you did a system-wide install.
-
-* The `$HOME/.wasmedge/bin` directory contains the WasmEdge Runtime CLI executable files. You can copy and move them around on your file system.
-  * The `wasmedge` tool is the standard WasmEdge runtime. You can use it from the CLI. `wasmedge --dir .:. app.wasm`
-  * The `wasmedgec` tool is the AOT compiler to compile a `wasm` file into a native `so` file. `wasmedgec app.wasm app.so` The `wasmedge` can then execute the `so` file. `wasmedge --dir .:. app.so`
-  * The `wasmedge-tensorflow`, `wasmedge-tensorflow-lite` and `wasmedgec-tensorflow` tools are runtimes and compilers that support the WasmEdge tensorflow SDK.
-* The `$HOME/.wasmedge/lib` directory contains WasmEdge shared libraries, as well as dependency libraries. They are useful for WasmEdge SDKs to launch WasmEdge programs and functions from host applications.
-* The `$HOME/.wasmedge/include` directory contains the WasmEdge header files. They are useful for WasmEdge SDKs.
-
-
-## Uninstall
-
-To uninstall WasmEdge, you can run the following command.
+你可以将 `-v` 参数传递给 `install.sh` 脚本来安装指定版本的 WasmEdge（包括预发行版本和历史版本）。例子如下：
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh)
+curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -e all -v 0.9.0-rc.5
 ```
 
-If `wasmedge` binary is not in `PATH` and it wasn't installed in the default `$HOME/.wasmedge` folder, then you must provide the installation path.
+如果你对 `master` 分支的 `HEAD` 中的最新的构建感兴趣（也就是 WasmEdge 的 nightly 版本），你可以直接从 Github Action 的 CI artifact 中下载已发布的包。[例子请看这里。](https://github.com/WasmEdge/WasmEdge/actions/runs/1521549504#artifacts)
+
+## 安装内容
+
+安装完成后，你将会得到以下的目录和文件。这里我们假设你将 WasmEdge 安装到 `$HOME/.wasmedge` 目录中。如果你想进行系统范围的安装，你也可以将安装目录更改为 `/usr/local`。
+
+* The `$HOME/.wasmedge/bin` 目录包含 WasmEdge Runtime CLI 可执行文件。你可以拷贝这些文件并放置到任意目录中。
+  * `wasmedge` 工具是标准的 WasmEdge 运行时。你可以在命令行中使用它：`wasmedge --dir .:. app.wasm`。
+  * `wasmedgec` 工具是 AOT 编译器，它能将 `wasm` 文件编译为原生 `so` 文件：`wasmedgec app.wasm app.so`。之后，`wasmedge` 就能执行 `so` 文件了：`wasmedge --dir .:. app.so`。
+  * `wasmedge-tensorflow`、`wasmedge-tensorflow-lite` 和 `wasmedgec-tensorflow` 工具是运行时和编译器。这些工具都支持 WasmEdge Tensorflow SDK。
+* `$HOME/.wasmedge/lib` 目录包含 WasmEdge 的共享库和依赖库。从主程序中启动 WasmEdge 程序和功能会用到这些文件。
+* `$HOME/.wasmedge/include` 目录包含了 WasmEdge 的头文件。这些文件用于 WasmEdge SDK 中。
+
+## 卸载
+
+要想卸载 WasmEdge，你可以执行以下的命令：
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh) -p /path/to/parent/folder
+bash <(curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh)
 ```
 
-If you wish to uninstall uninteractively, you can pass in the `--quick` or `-q` flag.
+如果 `wasmedge` 这个二进制文件不在 `PATH` 中，且 WasmEdge 不是安装在默认的`$HOME/.wasmedge` 目录，那么你必须在执行命令时附上安装路径。
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh) -q
+bash <(curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh) -p /path/to/parent/folder
 ```
 
-> If a parent folder of the `wasmedge` binary contains `.wasmedge`, the folder will be considered for removal. For example, the script removes the default `$HOME/.wasmedge` folder altogether.
+如果你希望以非交互的方式卸载 WasmEdge，你可以附上 `--quick` 或 `-q` 参数。
+
+```bash
+bash <(curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/uninstall.sh) -q
+```
+
+> 如果 `wasmedge` 二进制文件的父目录中包含 `.wasmedge`，那么该目录将会被一并删除。举例来说，该脚本将会完全删除默认的 `$HOME/.wasmedge` 目录。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
