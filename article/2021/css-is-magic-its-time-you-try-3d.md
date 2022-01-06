@@ -159,7 +159,7 @@ bottom 看起来现在安全的在自己的位置上了。但 left 好像被困�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OZ9tJyqDlJZ5NZhuRT1-wA.gif)
 
-相同的工作代码，参考[GitHub 仓库]](https://github.com/ankita1010/css-cube)，尝试体验一下 **CSS 3D** 这个魔法之池。💫
+相同的工作代码，参考[GitHub 仓库](https://github.com/ankita1010/css-cube)，尝试体验一下 **CSS 3D** 这个魔法之池。💫
 
 
 > **请注意** —— 我调整了 perspective 的值，以及添加了一些动画来达到侧面的最终位置，以更清楚地展示变化。我稍微旋转了 `box-wrapper`，这样从正确的角度看更明显些。
