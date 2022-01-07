@@ -209,11 +209,11 @@ print(unfolded_list)
 ```python
 rom pipe import as_list, take_while, where
 
-result = [3, 4, 5, 3] | take_while(lambda x: x < 5)
+result = list([3, 4, 5, 3] | take_while(lambda x: x < 5))
 print(f"take_while: {result}")
 
 
-result2 = [3, 4, 5, 3] | where(lambda x: x < 5)
+result2 = list([3, 4, 5, 3] | where(lambda x: x < 5))
 print(f"where: {result2}")
 ```
 
