@@ -9,18 +9,18 @@
 ![Cover image for Stop Building Your UI Components like this❌](https://res.cloudinary.com/practicaldev/image/fetch/s--PzuOdW7I--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j0zvwcrp5zjkq1dd6yl0.jpg)
 
 
-It is true everyone feels elated abstracting the most often copy-pasted code in the codebase into a reusable component. One bad effect of that is hasty abstractions which is a story for another day, today's agenda is to learn how to make _actually_ reusable components.
+确实，每个人都很乐意将常用的逻辑抽象成可重用的组件。但简单潦草的抽象也容易适得其反，当然这是另一个话题了，今天我们要讨论的是如何设计**真正的**可重用的组件。
 
-Lots of the time while abstracting the reusable component it turns into a mess of props. You've probably seen "reusable" components with over 50 props! Those end up being enormously difficult to use and **maintain**, at the same time it brings performance problems and actual bugs that are hard to track.
+通常我们通过定义一些参数来进行组件的抽象。而且，你很可能也见过拥有超过 50 个参数的所谓的“可重用”组件！这样的组件最终将会变得很难使用和维护，同时也会带来性能问题和难以追踪的 bug。
 
-Adding one prop for a new use-case is not just an if statement and you end up making a lot of changes in the component making the code size huge and unmaintainable.
+为新的需求而增加一个参数不像多写一条 `if` 逻辑这么简单，最终你将会因此增加大量的代码导致组件变得非常庞大和难以维护。
 
-But if we're mindful of the kinds of abstractions we create, then we can make something truly easy to use and maintain, is bug-free, and not so big that users pay the download penalty.
+但是，如果我们谨慎地去设计抽象组件，那么我们就可以写出真正易于使用和维护的组件，没有愚蠢的 bug，而且也不会大到另使用者放弃的地步。
 
-Kent C dodd's has explained the problem in-depth, give it a watch:  
+Kent C dodd's 曾深入分析过这个问题，可以看看：
 [Simply React](https://www.youtube.com/watch?v=AiJ8tRRH0f8&list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf)
 
-### [](https://dev.to/harshkc/stop-building-your-ui-components-like-this-19il#how-does-a-reusable-component-looks-like)How does a reusable component looks like?
+### [](https://dev.to/harshkc/stop-building-your-ui-components-like-this-19il#how-does-a-reusable-component-looks-like)什么才是一个可重用的组件？
 
 We've got a `LoginFormModal` component that's abstracted the modal for the login and registration forms. The component itself isn't all that complicated and only accepts a handful of props, but it's pretty inflexible and we'll need to create more modals throughout the application so we want something that's a lot more flexible.  
 
