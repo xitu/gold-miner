@@ -209,11 +209,11 @@ print(unfolded_list)
 ```python
 rom pipe import as_list, take_while, where
 
-result = [3, 4, 5, 3] | take_while(lambda x: x < 5) | as_list
+result = [3, 4, 5, 3] | take_while(lambda x: x < 5)
 print(f"take_while: {result}")
 
 
-result2 = [3, 4, 5, 3] | where(lambda x: x < 5) | as_list
+result2 = [3, 4, 5, 3] | where(lambda x: x < 5)
 print(f"where: {result2}")
 ```
 
@@ -279,7 +279,7 @@ def fib(n: int = 1):
 @Pipe
 def apply_fun(nums: List[int], fun):
     """将任何函数应用于列表元素并创建新列表"""
-    return nums | select(fun) | as_list
+    return list(nums | select(fun))
 
 
 result = [5, 10, 15] | apply_fun(fib)
