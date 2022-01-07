@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2021/pipe-operations-in-python.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[Adolescent0](https://github.com/Adolescent0)
 
 ![](https://miro.medium.com/max/1400/1*lHk7fXxqnUjg8C2V2g4FcA.jpeg)
 
@@ -63,7 +63,7 @@ print(odd_square)
 [1, 49, 169, 361, 441, 729]
 ```
 
-以上代码具有很好的可读性，但是使用管道是一个更好的的方法。
+以上代码具有很好的可读性，但是使用管道是一个更好的方法。
 
 ```python
 from pipe import dedup, where, select, sort
@@ -95,7 +95,7 @@ print(results)
 
 我们已经学习了几个简单的管道操作。在本节中，接着讨论一些经典实用的管道操作来处理数据。
 
-这些并不是安装 Pipe 后就可以得到的完整操作列表，要想获得详细的内容，请查阅 [Pipe 的 GitHub 仓库](https://github.com/JulienPalard/Pipe)。
+并非安装 Pipe 后就可以得到完整的操作列表，要想获得详细的内容，请查阅 [Pipe 的 GitHub 仓库](https://github.com/JulienPalard/Pipe)。
 
 ### Group By 方法
 
