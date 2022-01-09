@@ -1,4 +1,5 @@
-> - 原文地址：[Monitor Spring Boot microservices](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
+> 原文地址：[Monitor Spring Boot microservices](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
+>
 > - 原文作者：[Tanmay Ambre](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md)
@@ -7,7 +8,7 @@
 
 # SpringBoot 微服务监控
 
-使用 Micrometer、Prometheus 和 Grafana 为 Spring Boot 微服务构建全面的监控功能
+使用 Micrometer、Prometheus 和 Grafana 为 Spring Boot 微服务构建全面的监控能力
 
 作者：Tanmay Ambre
 发布时间：2020 年 3 月 11 日
@@ -16,116 +17,98 @@
 
 ## 介绍
 
-在使用微服务和事件驱动架构（EDA）风格时，监控、日志、追踪和警报等方面的可观察性是一个重要的关注点，主要是因为：
+在使用微服务和事件驱动架构（EDA）时，对于监控、日志、追踪和警报等方面的可观察性是一个架构十分重要的关注点，主要是因为：
 
-- 大量的部署需要集中且自动化的监控与可观测能力
+- 大规模的部署需要集中且自动化的监控与可观测能力
 
-* 架构的异步性和分布式性质使得多个组件产生的相关指标变得困难
+* 架构的异步性和分布式性质使得聚合多个组件产生相关的指标变得困难
 
-解决这一架构问题可以简化管理，快速解决运行时的问题。它还提供了有助于做出明智的架构、设计、部署和基础设施决策的洞察力，以改善平台的非功能特性。此外，通过工程排放、收集和自定义指标的可视化，可以获得有用的业务/运营洞察力。
+解决此类问题可以简化架构管理，并加快解决运行时问题的周转时间。它还有助于做出明智的架构、设计、部署和基础设施，以改善平台的非功能特性。此外，自定义指标的产出、收集和可视化可以为业务或运营带来其他有用的信息。
 
-Addressing this architectural concern provides simplified management and quick turn-around time for resolving runtime issues. It also provides insights that can help in making informed architectural, design, deployment, and infrastructure decisions to improve non-functional characteristics of the platform. Additionally, useful business/operations insights can be obtained by engineering emission, collection ,and visualization of custom metrics.
-
-然而，它往往是一个被忽视的架构问题。本教程介绍了使用 Micrometer、Prometheus 和 Grafana 等开源工具对 Java 和 Spring Boot 微服务的可观察性进行\*监测的准则和最佳实践。
-
-However, it is often a neglected architectural concern. This tutorial describes guidelines and best practices for the _monitoring_ aspect of observability for Java and Spring Boot microservices using open source tools such as Micrometer, Prometheus, and Grafana.
+然而在实际的架构应用中，它通常是一个被忽略的问题。本教程通过使用 Micrometer、Prometheus 和 Grafana 等开源工具对 Java 和 Spring Boot 微服务的可观察性进行*监控*，相信本教程会成为该方面最佳的实践指南。
 
 ## 先决条件
 
-在你开始本教程之前，你需要设置以下环境。
+在你开始本教程之前，你需要设置以下环境：
 
-Before you begin this tutorial, you need to set up the following environment:
-
-- 利用 Docker Compose 实现的 Docker 环境
-- A [Docker](https://www.docker.com/) environment with [Docker Compose](https://docs.docker.com/compose/)
+- 拥有 [Docker Compose](https://docs.docker.com/compose/) 工具的 [Docker](https://www.docker.com/) 环境
 - 一个用于克隆和编辑 git repo 中的代码的 Java IDE
-- A Java IDE for cloning and editing the code in the git repo
 
-## 预估时间
+## 预计时间
 
-完成此教程大约会花费你 2 小时。
+完成本教程大约需要 2 个小时。
 
-## 监控工作简介
+## 监控概述
 
 监控工具的主要目标是：
 
 - 监控应用程序性能
-- 为利益相关者（开发团队、基础设施团队、操作用户、维护团队和业务用户）提供自助服务。Provide self-service to stakeholders (development team, infrastructure team, operational users, maintenance teams, and business users)
-- 快速进行问题溯源分析 Assist in performing quick root cause analysis (RCA)
-- 建立应用程序的性能基线 Establish the application’s performance baseline
-- 如果使用云，提供使用云成本的监测能力，并以综合方式监测不同的云服务 If using cloud, provide the ability to monitor cloud usage costs, and monitor different cloud services in an integrated way
+- 为利益相关者（开发团队、基础架构团队、运营用户、维护团队和业务用户）提供自助服务。
+- 协助进行问题溯源分析（RCA）
+- 建立应用程序的性能基线
+- 如果使用云服务，提供云使用成本的监测能力，并以集成的方式监控不同的云服务
 
-整个监控主要分为以下四类行为。Monitoring is mainly comprised of the following four sets of activities:
+监控主要体现在以下四类行为：
 
-- 应用程序的 **_仪器化_** ——对应用程序进行仪器化带来的指标度量对应用程序监控和维护团队以及业务用户十分重要。有许多非侵入性的方法来度量指标，最流行的是 "字节码仪表"、"面向切面的编程 "和 "JMX"。
-- Instrumentation\*\*\* of the application(s) – Instrumenting the application to emit the metrics that are of importance to the application monitoring and maintenance teams, as well as for the business users. There are many non-intrusive ways for emitting metrics, the most popular ones being “byte-code instrumentation,” “aspect-oriented programming,” and “JMX.”
-- **_指标收集_** —— 从应用程序中收集指标，并将其持久化在一个存储库/数据存储中。然后，存储库提供了一种查询和汇总数据的方法，以实现可视化。一些流行的收集器是 Prometheus、StatsD 和 DataDaog。大多数指标收集工具是时间序列库，并提供高级查询能力。
-- **_Metrics collection_** – Collecting metrics from the applications and persisting them in a repository/data-store. The repository then provides a way to query and aggregate data for visualization. Some of the popular collectors are Prometheus, StatsD, and DataDaog. Most of the metrics collection tools are time-series repositories and provide advanced querying capability.
-- **_指标可视化_** —— 可视化工具查询指标库，建立视图和仪表盘供最终用户使用。它们提供丰富的用户界面，对指标进行各种操作，如汇总、下钻等。
-- **_Metrics visualization_** – Visualization tools query the metrics repository to build views and dashboards for end-user consumption. They provide rich user interface to perform various kinds of operations on the metrics, such as aggregation, drill-down, and so on.
-- **_警报和通知_** —— 当指标超过定义的阈值（例如 CPU 超过 80%超过 10 分钟），可能需要人工干预。为此，警报和通知很重要。大多数可视化工具提供警报和通知能力。
-- **_Alerts and notifications_** – When metrics breach defined thresholds (for instance CPU is more than 80% for more than 10 minutes), human intervention might be required. For that, alerting and notifications are important. Most visualization tools provide alerting and notification ability.
+- 应用的 **_指标化_** ——对应用进行指标化带来的指标度量对监控应用和维护团队以及业务用户十分重要。有许多非侵入性的方法来度量指标，最流行的是 "字节码检测"、"面向切面的编程 "和 "JMX"。
+- **_指标收集_** —— 从应用中收集指标，并将其持久化到相应的存储库中。然后，存储库需要提供一种查询和汇总数据的方法，以实现数据的可视化。市面上流行的收集器有 Prometheus、StatsD 和 DataDaog。大多数指标收集工具是时间序列存储库，并提供高级查询能力。
+- **_指标可视化_** —— 可视化工具指标查询库，建立视图和仪表盘供最终用户使用。它们提供丰富的用户界面来对指标执行各种操作，例如聚合、数据下探等。
+- **_告警和通知_** —— 当指标超过定义的阈值（例如 CPU 超过 80% 且持续 10 分钟），可能需要人工干预。为此，告警和通知很重要。大多数可视化工具提供了告警和通知能力。
 
-有许多开放源码和商业产品可用于监测。其中一些著名的商业产品是。AppDynamics, Dynatrace, DataDog, logdna, and sysdig. 开源工具通常被组合使用。一些非常流行的组合是 Prometheus 和 Grafana，Elastic-Logstash-Kibana（ELK），以及 StatsD + Graphite。
-
-There are many open source and commercial products available for monitoring. Some of the notable commercial products are: AppDynamics, Dynatrace, DataDog, logdna, and sysdig. Open-source tools are typically used in combination. Some of the very popular combinations are Prometheus and Grafana, Elastic-Logstash-Kibana (ELK), and StatsD + Graphite.
+许多开源和商业产品可用于应用控。一些著名的商业产品有：AppDynamics、Dynatrace、DataDog、logdna 和 sysdig。开源工具通常被组合使用。一些非常流行的组合是 Prometheus 和 Grafana、Elastic-Logstash-Kibana (ELK) 和 StatsD + Graphite。
 
 ## 微服务监控指南
 
-我们鼓励在所有微服务中收集统一的指标类型。这有助于提高监控大盘的复用性，并简化指标的汇总和挖掘，以便在不同层面上对其进行可视化。
+我们鼓励在所有微服务中将收集的指标类型保持一致。这有助于提高监控大盘的复用性，并简化指标的聚合和下探（drill-down），以便在不同层面上对其进行可视化。
 
-### 要监控一些什么
+### 要监控什么
 
-微服务将暴露一个 API 和/或消费事件和消息。在处理过程中，它可能会调用自己的业务组件，例如连接到数据库，调用第三方服务（缓存、审核等），调用其他微服务，和/或发布事件和消息。在这些不同的处理阶段监测指标是有益的，因为它有助于提供关于性能和异常情况的汇总分析。这反过来又有助于快速分析问题。
+微服务暴露一个 API 和（或）消费事件和消息。在处理过程中，它可能会调用自己的业务组件，例如连接到数据库，调用技术服务（缓存、审核等），调用其他微服务和（或）发送事件和消息。在这些不同的处理阶段监测指标是有益的，因为它有助于提供关于性能和异常情况的汇总分析。这反过来又有助于快速分析问题。
 
-与事件驱动架构(EDA)和微服务相关的常用度量包括：
+与事件驱动架构（EDA）和微服务相关的常用指标包括：
 
 - **资源利用率指标**
 
   - 资源利用率——CPU、内存、磁盘利用率、网络利用率等
-  - JVM 堆和 GC 指标——GC 开销、GC 时间、堆(及其不同区域)利用率
-  - JVM 线程利用率——阻塞的、可运行的、等待的连接使用时间
+  - JVM 堆和 GC 指标——GC 开销、GC 时间、堆（及其不同区域）利用率
+  - JVM 线程利用率——阻塞、可运行、等待连接使用时间
 
 - **应用程序指标**
 
   微服务不同架构层的可用性、延迟、吞吐量、状态、异常等，例如:
 
   - 控制器层——用于 HTTP/REST 方法调用
-  - 服务层--用于方法调用
-  - 数据访问层--用于方法调用
-  - 集成层--用于 RPC 调用、HTTP/REST/API 调用、消息发布、消息消费
+  - 服务层——用于方法调用
+  - 数据访问层——用于方法调用
+  - 集成层——用于 RPC 调用、HTTP/REST/API 调用、消息发布、消息消费
 
-- **技术服务利用指标** （具体到对应的技术服务）
+- **技术服务利用率指标** （具体到对应的技术服务）
 
-  - 缓存 - 缓存的命中率、丢失率、写入率、清理率、读取率
-  - 日志 – 每个日志级别的日志事件数
-  - 连接池 - 连接池的使用率、连接等待时间、连接创建时间、空闲置连接数
+  - 缓存——缓存的命中率、丢失率、写入率、清理率、读取率
+  - 日志——每个日志级别的日志事件数
+  - 连接池——连接池的使用率、连接等待时间、连接创建时间、空闲置连接数
 
 - **中间件指标**
-  - 事件中心（Event broker）度量 - 可用性、信息吞吐、字节吞吐、消费滞后、（去）序列化异常、集群状态
+  - 事件代理（Event broker）指标——可用性、信息吞吐、字节吞吐、消费滞后、（反）序列化异常、集群状态
   - 数据库指标
 
-对于应用指标，理想情况下，微服务的每个 _架构层_ 的入口和出口点都应该被检测。
+对于应用指标，理想情况下，微服务中每个*架构层*的入口和出口点都应该被检测。
 
-### 微服务的关键度量特征
+### 微服务的关键指标特征
 
-在监控微服务时，以下三个指标的特点尤为重要：
+在监控微服务时，指标的以下三个特征很重要：
 
 - 维度
 - 时间序列/速率汇总
-- 计量学观点
+- 指标观点
 
 #### 维度
 
-维度控制了一个指标的汇总方式，以及一个特定指标的深入程度。它是通过向一个指标添加标签来实现的。标签是一组键值对信息（如 `name-value` ）。标签被用来限定通过对监控系统的查询来获取或聚集指标。由于有大量的部署，它是监测微服务的一个重要特征。换句话说，在一个微服务生态中，多个微服务（甚至一个微服务的不同组件）会具有相同名称的指标。为了区分它们，你需用维度来限定指标。
+维度控制了一个指标的聚合方式，以及特定指标的深入程度。它是通过向一个指标添加标签来实现的。标签是一组键值对信息（如 `name-value` ）。标签被用来限定通过对监控系统的查询来获取或聚合指标。由于大量的部署，它是监控微服务的重要特征。换句话说，在微服务生态中，多个微服务（甚至一个微服务的不同组件）会出现同名的指标。为了区分它们，你需用维度来限定指标。
 
-Dimensions control how a metric is aggregated as well as the extent of drill-down of a particular metric. It is realized by adding tags to a metric. Tags is a `name=value` pair of information. Tags are used to qualify fetching or aggregation of metrics through queries to the monitoring system. It is an important characteristic for monitoring microservices due to large number of deployments. In other words, in an eco-system of microservices, multiple microservices (or even different components of a microservice) would emit metrics with same names. To distinguish between them, you qualify the metrics with dimensions.
+例如，对于 `http_server_requests_seconds_count` 这个指标。如果有多个 API 节点（在微服务生态里这种情况很常见），那么在没有维度的情况下，就只能在平台层面查看这个指标的聚合值。无法获得该指标在不同 API 节点分布的具体情况。在编辑指标的时候，给指标添加一个 `uri` 标签，就可以获取对应的分布。看看下面的例子，它解释了这个特性。
 
-例如，对于`http_server_requests_seconds_count`这个指标。如果有一个以上的 API 节点（在微服务生态里这种情况很常见），那么如果没有维度，就只能在平台层面上查看这个指标的汇总值。无法获得该指标在不同 API 节点分布的具体情况。在编辑指标的时候，给指标添加一个`uri`标签，就可以获取这个分布。通常下面的例子来理解该特性。
-
-For instance, consider the metric `http_server_requests_seconds_count`. If there are more than one API endpoints (which is the case in an eco-system of microservices), then without dimensions, one can only view the aggregated values of this metric at the platform level. It won’t be possible to get a distribution across different API endpoints. Adding a `uri` tag to the metric while emitting it would enable fetching this distribution. Take a look at the following example, which explains this characteristic.
-
-If `http_server_requests_seconds_count` is emitted with the following tags:
+如果 `http_server_requests_seconds_count` 使用以下标签产出指标数据：
 
 ```
 http_server_requests_seconds_count{appName="samplemicrosvc",env="local",exception="None",instanceId="1",method="GET",outcome="SUCCESS",status="200",uri="/addressDetails/{addressId}",} 67.0
@@ -135,9 +118,7 @@ http_server_requests_seconds_count{appName="samplemicrosvc",env="local",exceptio
 http_server_requests_seconds_count{appName="samplemicrosvc",env="local",exception="IllegalStateException",instanceId="1",method="GET",outcome="SERVER_ERROR",status="500",uri="/addressDetails/{addressId}",} 26.0
 ```
 
-Show more
-
-Then the `http_server_requests_seconds_count` can be aggregated at the `appName` level, at the `instanceId` level, by HTTP response `status`, or by `outcome`, as demonstrated by the following queries:
+那么通过 HTTP 响应`状态`或`结果`即可将 `http_server_requests_seconds_count` 指标在 `appName` 级别、`instanceId` 级别下聚合，查询语句如下：
 
 ```
 # Count distribution by status for a given environment
@@ -150,29 +131,27 @@ sum by (uri, status) (http_server_requests_seconds_count{env="$env"})
 sum by (uri, status, appName) (http_server_requests_seconds_count{env="$env"})
 ```
 
-Show more
+标签也可以用作查询条件。请注意 `env` 标签的用法，其中 `$env` 是 Grafana 仪表板用于用户输入“环境”的变量。
 
-Tags can also be used as query criteria. Note the usage of the `env` tag, where `$env` is a Grafana dashboard’s variable for user input “_environment_.”
+#### 时间序列/速率聚合
 
-#### Time series/Rate aggregation
+随时间聚合指标的能力对于应用的性能分析非常重要，例如将性能与负载模式相关联，构建天/周/月的性能配置文件，以及创建应用程序的性能基线。
 
-The ability to aggregate metrics over time is important for identifying patterns in the application’s performance, such as correlating performance with load patterns, building performance profile for a day/week/month, and creating application’s performance baseline.
+#### 指标视角
 
-#### Metrics viewpoints
+这是一个派生的特征，并提供了将度量组合在一起以便于可视化和使用的能力。例如：
 
-This is a derived characteristic and provides the ability to group metrics together for ease of visualization and use. For instance:
+- 描述平台所有微服务可用性状态的仪表盘
+- 每个微服务的下探（详细）视图，用于查看微服务的详细指标
+- 中间件组件的集群视图和详细视图，例如 Event Broker
 
-- A dashboard that depicts the availability status of all microservices of the platform
-- A drill-down (detailed) view per microservice to view the detailed metrics of a microservice
-- A view cluster level and detailed view of metrics of middleware components, such as Event Broker
+## 检测 Spring Boot 微服务
 
-## Instrumenting a Spring Boot microservice
+本节介绍微服务及其 REST 控制器、服务 bean、组件 bean 和数据访问对象的检测。本文还介绍了与 EDA 或集成相关的一些组件，例如 `kafka` 中的生产者与消费者，`spring-cloud-stream` 或 `Apache Camel` 中的 camel 路由。
 
-This section covers instrumentation of a microservice and its rest controllers, service beans, component beans, and data access objects. This section also covers instrumentation of kafka-consumer, kafka-producer, and camel routes, which are relevant if `kafka`, `spring-cloud-stream`, or `Apache Camel` are used for integration or EDA.
+为了实现对微服务的监控和管理，这里我们使用了 [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready) 服务。这是一个开箱即用的、使用多个 HTTP 和 JMX 节点来监控应用程序的第三方组件，可以实现对微服务的健康状况、bean 信息、应用程序信息和环境信息的基本监控。
 
-To help with the monitoring and management of a microservice, enable the [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready) by adding `spring-boot-starter-actuator` as a dependency. Multiple HTTP and JMX endpoints to monitor the application are available out of the box, including basic monitoring of a microservice’s health, beans, application information, and environment information.
-
-Dependency addition is as follows:
+为了启用该功能，我们需要将 `spring-boot-starter-actuator` 添加为应用的依赖：
 
 ```xml
 <dependency>
@@ -181,24 +160,22 @@ Dependency addition is as follows:
 </dependency>
 ```
 
-Show more
+### 开箱即用的 Actuator 指标
 
-### Metrics available out of the box with Actuator
+将 Spring Boot Actuator 添加到微服务后，以下指标可以被直接使用：
 
-Once the Spring Boot Actuator is added to the microservice, the following metrics are enabled out of the box:
+- JVM 指标（与 GC 和线程利用率相关）
+- 资源利用率指标（CPU、线程、文件描述符、JVM 堆和垃圾收集指标）
+- Kafka 消费者指标
+- 日志指标（Log4j2、Logback）
+- 可用性指标（进程正常运行时间）
+- 缓存指标（Caffeine、EhCache2、Hazelcast 或任何符合 JSR-107 的缓存）
+- Tomcat 指标
+- Spring 集成指标
 
-- JVM metrics (related to GC and thread utilization)
-- Resource utilization metrics (CPU, threads, file descriptors, JVM heap, and garbage collection metrics)
-- Kafka consumer metrics
-- Logger metrics (Log4j2, Logback)
-- Availability metrics (process up-time)
-- Cache metrics (out of the box for Caffeine, EhCache2, Hazelcast, or any JSR-107-compliant cache)
-- Tomcat metrics
-- Spring integration metrics
+### 自定义指标节点
 
-### Metrics endpoint
-
-Actuator also creates an endpoint for metrics. By default, it is `/actuator/metrics`. It needs to be exposed through Spring configuration. The following is a sample configuration:
+Actuator 还为指标创建自定义节点。默认情况下，它存储在 `/actuator/metrics` 中。需要通过 Spring 配置暴露出来。以下是示例配置：
 
 ```yaml
 management:
@@ -219,28 +196,26 @@ management:
           ]
 ```
 
-Show more
-
 ### Micrometer
 
-To integrate with Metrics Tool, Spring Boot Actuator provides auto-configuration for [Micrometer](https://micrometer.io/). Micrometer provides a facade for a plethora of monitoring systems, including Prometheus. This tutorial assumes some level of familiarity with [Micrometer concepts](https://micrometer.io/docs/concepts). Micrometer provides three mechanisms to collect metrics:
+为了与度量工具集成，Spring Boot Actuator 为 [Micrometer](https://micrometer.io/) 提供了自动配置。Micrometer 为包括 Prometheus 在内的大量监控系统提供了一个外观。本教程假定你对 [Micrometer 的概念](https://micrometer.io/docs/concepts) 有一定的了解。Micrometer 提供了三种收集指标的机制：
 
-- Counter – typically used to count occurrences, method executions, exceptions, and so on
-- Timer – used for measuring time duration and also occurrences; typically used for measuring latencies
-- Gauge – single point in time metric; for instance, number of threads
+- 计数器（Counter）——通常用于计数出现、方法执行、异常等
+- 计时器（Timer）——用于测量持续时间和发生次数；通常用于测量延迟
+- 量规（Gauge）——单点时间度量；例如，线程数
 
-### Integration with Prometheus
+### 与 Prometheus 集成
 
-Since Prometheus uses polls to collect metrics, it is relatively simple two-step process to integrate Prometheus and Micrometer.
+由于 Prometheus 使用拉模式（pull）来收集指标，因此集成 Prometheus 和 Micrometer 是相对简单的两步过程。
 
-1. Add the `micrometer-registry-prometheus` registry.
-2. Declare a bean of type `MeterRegistryCustomizer<PrometheusMeterRegistry>`.
+1. 添加 `micrometer-registry-prometheus` 注册。
+2. 声明一个 `MeterRegistryCustomizer<PrometheusMeterRegistry>` 类型的 bean。
 
-   This is an optional step. However, it is recommended, as it provides a mechanism to customize the `MeterRegistry`. This is useful for declaring **common tags (dimensions)** for the metrics data that would be collected by Micrometer. This helps in metrics drill-down. It is especially useful when there are a lot of microservices and/or multiple instances of each microservice. Typical common tags could be `applicationName`, `instanceName`, and `environment`. This would allow you to build aggregated visualizations across instances and applications as well as be able to drill down to a particular instance/application/environment.
+这是一个可选操作。但是，我推荐你这样做，因为它提供了一种自定义 `MeterRegistry`。这对通过 Micrometer 收集的指标数据而声明的**通用标签（维度）**很有用。尤其是当有很多微服务或每个微服务有多个实例时，这样做有助于数据指标的下探，常用的标记通常包括 `applicationName`、`instanceName` 和 `environment`。这允许你跨应用与实例来构建聚合数据的可视化，并能够深入到特定的实例、应用程序或环境。
 
-Once configured, Actuator will expose an endpoint `/actuator/prometheus`, which should be enabled in Spring configuration. A job needs to be added in Prometheus through its configuration to _scrape_ this endpoint at the specified frequency.
+配置完成后，Actuator 将暴露一个 `/actuator/prometheus` 中配置的节点 ，该端点应在 Spring 配置中启用。然后我们需要在 Prometheus 中配置一个 job，以便以指定的频率获取该节点产出的数据。
 
-#### Add Prometheus dependency to pom
+#### 将 Prometheus 依赖添加到 pom
 
 ```xml
 <dependency>
@@ -249,11 +224,9 @@ Once configured, Actuator will expose an endpoint `/actuator/prometheus`, which 
 </dependency>
 ```
 
-Show more
+#### 自定义 MetricsRegistry
 
-#### Customize the MetricsRegistry
-
-The configuration class that declares the `MetricsRegistryCustomizer` can be written as part of framework so that all MicroServices implementation can reuse it. Tag values can be supplied using system/application properties.
+利用 `MetricsRegistryCustomizer` 声明的配置类可以作为框架的一部分，以便所有微服务实现都可以复用它。可以使用系统/应用属性作为标签。
 
 ```java
 @Configuration
@@ -274,39 +247,37 @@ public class MicroSvcMeterRegistryConfig {
     }
 ```
 
-Show more
+### 应用程序级别指标的检测
 
-### Instrumentation of application-level metrics
+一些应用程序级别的指标是开箱即用的，在某些情况下，可以采用多种指标。下表总结了这些功能：
 
-Some application-level metrics are available out of the box and, for some, a variety of techniques can be employed. This following chart summarizes these features:
+| 指标                                            | 控制器                   | 服务层组件                             | 数据访问对象                           | 业务组件                               | 技术组件                               | Kafka 消费者                             | Kafka 生产者                     | Spring 集成组件 | HTTP 客户端 | Camel 路由                         |
+| :---------------------------------------------- | :----------------------- | :------------------------------------- | :------------------------------------- | :------------------------------------- | :------------------------------------- | :--------------------------------------- | :------------------------------- | :-------------- | :---------- | :--------------------------------- |
+| **资源利用率**（CPU、线程、文件描述符、堆、GC） | 开箱即用的微服务实例级别 |                                        |                                        |                                        |                                        |                                          |                                  |                 |             |                                    |
+| **可用性**                                      | 开箱即用的微服务实例级别 |                                        |                                        |                                        |                                        |                                          |                                  |                 |             |                                    |
+| **潜伏**                                        | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
+| **吞吐量**                                      | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
+| **例外**                                        | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
 
-| Metrics                                                             | Controllers                                   | Service layer components                           | Data access objects                                | Business components                                | Technical components                                           | Kafka Consumers                               | Kafka Producers                       | Spring integration components | HTTP Client    | Camel routes                                                          |
-| :------------------------------------------------------------------ | :-------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :------------------------------------------------- | :------------------------------------------------------------- | :-------------------------------------------- | :------------------------------------ | :---------------------------- | :------------- | :-------------------------------------------------------------------- |
-| **Resource utilization** (CPU, threads, file descriptors, heap, GC) | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                                |                                               |                                       |                               |                |                                                                       |
-| **Availability**                                                    | Out of the box at microservice instance level |                                                    |                                                    |                                                    |                                                                |                                               |                                       |                               |                |                                                                       |
-| **Latency**                                                         | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
-| **Throughput**                                                      | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
-| **Exceptions**                                                      | Out of the box with `@Timed` annotation       | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Done through custom reusable aspects of Spring-AOP | Out of the box for logging, caching, and JDBC connection pools | Out of the box if spring-cloud-stream is used | Done through custom MeterBinder beans | Out of the box                | Out of the box | Partial support available. Custom instrumentation of routes required. |
+#### 检测 REST 服务的控制器
 
-#### Instrumenting REST Controllers
+检测 REST 控制器的最快、最简单的方法是使用 `@Timed` 注解标记在控制器或控制器的各个方法上。一旦添加到 `exception`、`method`、 `outcome`、`status`和 `uri` 这些标签上后，`@Timed` 注解将会自动生效。当然也可以在其他标签上添加 `@Timed` 注解。
 
-The quickest and easiest way to instrument REST controllers is to use the `@Timed` annotation on the controller or on individual methods of the controller. `@Timed` automatically adds these tags to the timer: `exception`, `method`, `outcome`, `status`, `uri`. It is also possible to supply additional tags to the `@Timed` annotation.
+#### 检测微服务的不同架构层
 
-#### Instrumenting different architectural layers of a microservice
+微服务通常具有`控制器层（Controller）`、`服务层（Service）`、`数据访问层（DAO）`和`集成层（Integration）`。添加了 `@Timed` 注解的控制器层通常不需要任何额外的检测，而对于服务层、数据访问层和集成层，开发人员通常会使用`@Service` 或者 `@Component` 注解创建自定义的 bean。与延迟、吞吐量和异常相关的指标可以为系统分析提供重要的信息。这些可以很容易地使用 Micrometer 的 `Timer` 和 `Counter` 来收集。但是，需要对代码进行检测才能应用这些指标。这时就需要使用 `spring-aop` 创建检测服务和组件的复用类，以便于在所有的微服务中使用。使用 `@Around` 和`@AfterThrowing` 注解则可以无需向服务/组件的类和方法添加任何代码生成建议指标。以下是参考指南：
 
-A microservice would typically have _Controller_, _Service_, _DAO_, and _Integration_ layers. Controllers don’t require any additional instrumentation when `@Timed` annotation is applied to them. For Service, DAO, and Integration layers, developers create custom beans annotated with `@Service` or `@Component` annotations. Metrics related to latency, throughput, and exceptions can provide vital insights. These can be easily gathered using Micrometer’s `Timer` and `Counter` metrics. However, the code needs to be instrumented for applying these metrics. A common reusable class that instruments services and components can be created using `spring-aop`, which would be reusable across all microservices. Using `@Around` and `@AfterThrowing` advice metrics can be generated without adding any code to the service/component classes and methods. Consider the following guidelines about developing such an aspect:
+- 创建可复用的注解以应用于不同类型的组件/服务。例如 `@MonitoredService`、`@MonitoredDAO` 和`@MonitoredIntegrationComponent` 这样的自定义注解，分别添加到服务，数据访问对象，和集成组件上。
 
-- Create reusable annotations to apply to different types of Components/Services. For example, custom annotations, such as `@MonitoredService`, `@MonitoredDAO`, and `@MonitoredIntegrationComponent`, can be applied to services, data access objects, and integration components, respectively.
-- Define multiple pointcuts to apply advice for different types of components and which have above-mentioned annotations on them.
-- Apply appropriate tags to the metric so that drill-down or slicing of metrics is possible. For instance, tags such as `componentClass`, `componentType`, `methodName`, and `exceptionClass` can be used. With these tags and common-tags, the metric would be emitted as follows:
+- 定义多个切点来为不同类型的组件应用建议，并且这些组件包含上述注解。
+
+- 将适当的标签应用于指标，以便可以对指标进行深入分析或切片。例如，诸如 `componentClass`、`componentType`、`methodName` 和 `exceptionClass` 的标记可以使用。使用这些自定标签和公共标签，指标将按如下方式产出：
 
   ```
    component_invocation_timer_count{env="local", instanceId="1", appName="samplemicrosvc", componentClass="SampleService", componentType="service", methodName="getUserInformation"} 26.0
   ```
 
-  Show more
-
-Take a look at the following sample annotation:
+查看以下示例注释：
 
 ```java
 @Target({ElementType.TYPE})
@@ -315,9 +286,7 @@ public @interface MonitoredService {
 }
 ```
 
-Show more
-
-The following code shows a sample reusable aspect that can instrument the Service classes:
+下面的示例代码展示了一个简单的可复用的切面，用于检测服务类
 
 ```java
 @Configuration
@@ -373,11 +342,9 @@ public class MonitoringAOPConfig {
 }
 ```
 
-Show more
+这会将微服务中的所有检测逻辑抽象为一组可复用的切面和注解。微服务开发人员只需在类上添加相应的注解即可。
 
-This would abstract out all the instrumentation logic from microservices into a set of reusable aspects and annotations. The microservices developer just has to apply the respective annotations on his or her classes.
-
-A sample instrumented Service class will have the following annotations on it. Automatically, all the methods in this Service class will become candidates for applying the `serviceResponseTimeAdvice` and `serviceExceptionMonitoringAdvice`.
+该注解的使用实例如下，通过在 SampleService 类上标注该注解，这个类中的所有方法都会被自动作为 `serviceResponseTimeAdvice` 和 `serviceExceptionMonitoringAdvice` 的备选者。
 
 ```java
 @Service
@@ -387,13 +354,11 @@ public class SampleService {
 }
 ```
 
-Show more
+#### 检测出站 HTTP/REST 调用
 
-#### Instrumenting outbound HTTP/REST calls
+出站 HTTP/REST 调用的检测由 `spring-actuator` 执行。但是，要使其正常工作，`RestTemplate` 应该从一个名为`RestTemplateBuilder` 的 bean 中获得。此外，如果提供了自定义类型的 `RestTemplateExchangeTagsProvider` bean，则可以将自定义标签添加到指标中。
 
-Instrumentation of outbound HTTP/REST calls is provided out of the box by `spring-actuator`. However, for this to work, `RestTemplate` should be obtained from a bean `RestTemplateBuilder`. Additionally, custom tags can be added to the metrics if a custom bean of type `RestTemplateExchangeTagsProvider` is provided.
-
-The following configuration class illustrates this:
+以下配置类说明了这一点：
 
 ```java
     @Bean
@@ -422,17 +387,15 @@ The following configuration class illustrates this:
     }
 ```
 
-Show more
+#### 检测 Kafka 消费者
 
-#### Instrumenting Kafka Consumers
+Kafka Consumers 默认由 Actuator 检测。Actuator 和 Micrometer 收集了 30 多个与 Kafka Consumers 相关的指标。通用标签也适用于 Kafka 消费者。一些显著的指标包括 `kafka_consumer_records_consumed_total_records_total`、`kafka_consumer_bytes_consumed_total_bytes_total` 和 `kafka_consumer_records_lag_avg_records`。然后，可以按 Kafka-Topics、Kafka-partitions 等维度对它们进行分组。
 
-Kafka Consumers are instrumented by default by Actuator. More than 30 metrics related to Kafka Consumers are collected by Actuator and Micrometer. The common tags are also applied on the Kafka Consumers. Some of the notable metrics are `kafka_consumer_records_consumed_total_records_total`, `kafka_consumer_bytes_consumed_total_bytes_total`, and `kafka_consumer_records_lag_avg_records`. Then, using dimensions, one can group them by Kafka-Topics, Kafka-partitions, and more.
+#### 检测 Kafka 生产者
 
-#### Instrumenting Kafka Producers
+默认情况下，Actuator 不检测 Kafka 生产者。Kafka Producer 有自己的 Metrics 实现。要使用 Micrometer 注册这些指标，需要为每一个 `KafkaProducer<?,?>` 定义一个 `MeterBinder` 类型的 bean。这个 `MeterBinder`通过 `Micrometer Registry` 完成`量规（Gauges）`的创建与注册。使用这种方法，可以收集 50 多个 Kafka Producer 指标。通用标签和附加标签（在构建仪表期间）将为这些指标提供多个维度。
 
-Kafka Producers are _NOT_ instrumented by Actuator by default. Kafka Producer has its own implementation of Metrics. To register these metrics with Micrometer, define a bean of type `MeterBinder` for each `KafkaProducer<?,?>`. This `MeterBinder` will create and register `Gauges` with Micrometer `Registry`. With this approach, more than 50 Kafka Producer metrics can be collected. The common tags and additional tags (during building the gauges) would provide multiple dimensions to these metrics.
-
-The following code shows what a typical implementation of MeterBinder would look like:
+以下代码显示了一个常见的 MeterBinder 实现是什么样的：
 
 ```java
 public class KafkaProducerMonitor implements MeterBinder {
@@ -468,15 +431,13 @@ public class KafkaProducerMonitor implements MeterBinder {
 }
 ```
 
-Show more
+**注意：** _还有其他第三方组件会生成指标但未与 Micrometer 集成。在这种情况下，可以利用上述模式；一个例子是`Apache Ignite`。_
 
-**Note:** _There are other third-party components that emit metrics but are not integrated with Micrometer. In such cases, the pattern mentioned above can be leveraged; one example being `Apache Ignite`._
+#### 集成 Camel
 
-#### Camel integration
+如果需要集成 Apache Camel ，则需要在应用程序中对`路由`进行集成和处理。在路由级别获取指标也是有意义的。Camel 通过其 [`camel-micrometer`组件](https://camel.apache.org/components/latest/micrometer-component.html)为 Micrometer 提供端点。在应用程序的 pom 中添加 `camel-micrometer` 依赖项使 Micrometer 端点能够启动或停止计时器和递增计数器。这些可用于收集路由级别的指标。其他特定于 Camel 的 bean，例如 `org.apache.camel.Processor`那些 type 的，可以使用前面描述的 AOP 方法检测。
 
-If Apache Camel is being used for integration, there would be integration and processing `Routes` in the application. It makes sense to have metrics at Route level as well. Camel provides endpoints for Micrometer through its [`camel-micrometer` component](https://camel.apache.org/components/latest/micrometer-component.html). Adding the `camel-micrometer` dependency in the application’s pom enables Micrometer endpoints to start/stop timers and increment counters. These can be used to collect route-level metrics. Other Camel-specific beans, such as those of type `org.apache.camel.Processor`, can be instrumented using the AOP approach previously described.
-
-To enable micrometer endpoints, add `camel-micrometer` dependency as follows:
+要启用 micrometer 服务，请添加 `camel-micrometer` 依赖项，如下所示：
 
 ```xml
 <dependency>
@@ -485,9 +446,7 @@ To enable micrometer endpoints, add `camel-micrometer` dependency as follows:
 </dependency>
 ```
 
-Show more
-
-To publish metrics for a route, `RouteBuilder` should send messages to Micrometer, as shown in the following code:
+要发布路由的指标，`RouteBuilder` 应向 Micrometer 发送消息，代码如下：
 
 ```java
 @Override
@@ -503,146 +462,140 @@ public void configure() throws Exception {
 }
 ```
 
-Show more
+#### 仪器摘要
 
-#### Instrumentation summary
+如你所见，可以使用以下方法收集大量指标并将其推送到 Prometheus：
 
-As you can see, a large number of metrics can be collected and pushed to Prometheus using:
+- Actuator 提供的开箱即用指标。
+- 通过使用 AOP 和 `MeterBinder`。所有这些自定义检测代码都是可复用的，并且可以封装为一个库，供所有微服务实现使用。
 
-- Out-of-the-box metrics provided by Actuator.
-- Custom metrics through instrumenting the code using AOP and `MeterBinder`. All of this custom instrumentation code is reusable and can be built as a library, which is consumed by all microservices implementations.
+这两种方法都提供了一种一致且侵入性最小的方式来收集跨多个微服务及其多个实例的指标。
 
-Both methods provide a consistent and minimally intrusive way of collecting metrics across multiple microservices and their multiple instances.
+## Prometheus 与其他第三方系统的集成
 
-## Prometheus integration with other third-party systems
+Prometheus 有一个健康的发展生态系统。有多个库和服务器可用于将第三方系统的指标导出到 Prometheus，这些库和服务器在 [Prometheus Exporters](https://prometheus.io/docs/instrumenting/exporters/) 进行了编排。例如，`mongodb_exporter` 可用于将 MongoDB 指标导出到 Prometheus。
 
-Prometheus has a healthy development ecosystem. There are multiple libraries and servers that are available for exporting metrics of third-party systems to Prometheus, which are catalogued at [Prometheus Exporters](https://prometheus.io/docs/instrumenting/exporters/). For instance, the `mongodb_exporter` can be used to export MongoDB metrics into Prometheus.
+`Apache Kafka` 使其指标可用于 JMX，它们可以导出到 Prometheus，下个章节将会介绍。
 
-`Apache Kafka` makes its metrics available with JMX. They can be exported into Prometheus as described in the following sections.
+### 将 Kafka 与 Prometheus 集成
 
-### Integrating Kafka with Prometheus
+如果您使用 Kafka 作为消息/事件代理，那么 Kafka 指标与 Prometheus 的集成并不是开箱即用的，需要使用到 [`jmx_exporter`](https://github.com/prometheus/jmx_exporter) 这个组件。同时还需要在 Kafka 的 Brokers 上进行配置，然后 Brokers 将通过 HTTP 提供指标。`jmx_exporter` 需要配置文件 ( `.yml`)。示例代码库的`examples` 文件夹中提供了示例配置 `jmx_exporter`。
 
-If you are using Kafka as your message/event broker, then integration of Kafka metrics with Prometheus is not out of the box. A [`jmx_exporter`](https://github.com/prometheus/jmx_exporter) needs to be used. This needs to be configured on the Kafka Brokers, and then the brokers will start exposing metrics over HTTP. `jmx_exporter` requires a configuration file (`.yml`). A sample configuration is provided in the `examples` folder of the `jmx_exporter` repository.
+在本教程中，我们构建自定义 Kafka 映像仅用于演示目的。`jmx_exporter` 代码存储库的 README.md 中提供了构建自定义 Kafka 映像的说明。
 
-For this tutorial, we build a custom Kafka image only for the purpose of demonstration. Instructions for building a custom Kafka image with `jmx_exporter` are provided in the code repository’s README.md
+## 在 Grafana 中构建仪表盘
 
-## Building Dashboards in Grafana
+一旦指标在 Prometheus Meter Registry 中注册并且 Prometheus 成功启动并运行，它将开始收集指标。这些指标现在可用于在 Grafana 中构建不同的监控仪表盘。不同的端点需要多个仪表板。建议创建以下这些仪表盘：
 
-Once the metrics are registered with Prometheus Meter Registry and Prometheus is up and running, it will start collecting the metrics. These metrics can now be used to build different monitoring dashboards in Grafana. Multiple dashboards are required for different viewpoints. It is a good practice to have these dashboards:
+- **平台概览仪表盘**，提供每个微服务和平台其他软件组件（例如 Kafka）的可用性状态。这种类型的仪表板还可以报告平台级别的聚合指标`请求率`（HTTP 请求率、Kafka 消费请求率等）和`异常数量`.
+- **微服务下探仪表盘**，提供微服务实例的详细指标。 `variables`在 Grafana 中声明很重要，它们对应于指标中使用的不同标签。例如 `appName`，`env`，`instanceId` 等。
+- **中间件监控仪表盘**，提供中间件组件的详细下探视图。这些特定于中间件（例如，Kafka 仪表盘）。在这里，`变量`声明很重要，以便可以在`集群`级别和`实例`级别上观察指标。
 
-- **Platform overview dashboard**, which provides availability status of each microservice and other software components of the platform (for example, Kafka). This type of dashboard can also report aggregated metrics at the platform level for `request-rates` (HTTP request rates, Kafka consumption request rates, and more), and `exception counts`.
-- **Microservices drill-down dashboard**, provides detailed metrics of an instance of a microservice. It is important to declare `variables` in Grafana, which correspond to different tags used in the metrics. For example, `appName`, `env`, `instanceId`, and more.
-- **Middleware monitoring dashboard**, which provides a detailed drill-down view of the middleware components. These are specific to the middleware (for example, Kafka dashboard). Here, also, it is important to declare `variables` so that metrics can be observed at `cluster` level as well as at `instance` level.
+### 使用维度进行下探和聚合
 
-### Using dimensionality for drill-down and aggregation
-
-While reporting metrics, tags are added to the metrics. These tags can be used in Prometheus queries to aggregate or drill down on the metrics. For instance, at the platform overview level, one would like to view the total number of exceptions in the platform. This can be easily done using the following query:
+在报告指标时，会将标签添加到指标中。这些标签可在 Prometheus 查询中用于聚合或深入了解指标。例如，在平台级别，人们想查看平台中的异常总数。这可以使用以下查询轻松完成：
 
 ```
 sum(component_invocation_exception_counter_total{env="$env"})
 ```
 
-Show more
-
-This will show the count as:
+结果为：
 
 ![Aggregated Error Count](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Aggregated-Error-Count.PNG)
 
-Now to drill down the same metric at method- and exception-type level, the Prometheus query would be as follows:
+现在要在方法和异常类型级别深入研究相同的指标，Prometheus 查询将如下所示：
 
 ```
 sum by(appName, instanceId, componentClass, methodName, exceptionClass)(component_invocation_exception_counter_total{env="$env", appName="$application", instance="$instance"})
 ```
 
-Show more
-
-It would produce the details as:
+细节信息如下：
 
 ![Error Details](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Error-Details-Metrics.PNG)
 
-Note the `$` variables. These are defined as variables in the dashboard. Grafana will populate them based on different metrics available in Prometheus. The user of the dashboard can choose their respective values, and that can be used to dynamically change the metric visualization without creating new visualizations in Grafana.
+注意 `$` 变量。在仪表盘中该符号可以被定义为变量。 Grafana 将根据 Prometheus 中可用的不同指标填充它们。仪表盘的用户可以选择他们各自的填充值，这可用于动态更改指标可视化，而无需在 Grafana 中创建新的可视化。
 
-As an another example, consider the below prometheus query for visualizing the throughput of service beans in a particular microservice instance.
+作为另一个示例，以下 prometheus 查询可用于可视化特定微服务实例中服务 bean 的吞吐量。
 
 ```
 rate(component_invocation_timer_seconds_count{instance="$instance", appName="$application", componentType="service"}[1m])",
 ```
 
-Show more
+### 仪表盘示例
 
-### Sample platform overview dashboard
-
-The following dashboard visualizes metrics at platform level:
+以下仪表盘在平台级别可视化指标：
 
 ![Sample MicroServices Platform Overview Dashboard](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Platform-Overview-Dashboard.PNG)
 
-It provides:
+该仪表盘提供：
 
-- HTTP Request Rate and Kafka Consumption Rate for all REST Controller methods and Kafka Consumers
-- Availability status of all microservices instances and Kafka cluster.
+- 所有 REST 控制器方法的 HTTP 请求率和 Kafka 消费者的消费率
 
-  Note that each visualization in this is a hyperlink for a particular microservice instance, which provides navigation to the detailed drill-down dashboard of that microservice instance.
+- 所有微服务实例和 Kafka 集群的可用性状态。
 
-- Failed HTTP Requests and Service Errors for all microservices instances.
-- A breakdown of exceptions for all microservices instances.
+  请注意，这里的每个可视化都是特定微服务实例的超链接，它提供导航到该微服务实例下探的详细仪表盘。
 
-### Sample microservices drill-down dashboard
+- 所有微服务实例失败的 HTTP 请求和服务错误。
 
-This dashboard is organized into multiple sections, called “rows” in Grafana. This dashboard provides all the metrics of a particular instance of a microservice. Note that it is a single dashboard having user inputs for environment, microservice, instanceId, and so on. By changing the values in these user inputs, one can view metrics for any microservice of the platform.
+- 所有微服务实例的异常细分。
 
-**Note:** _There are multiple screenshots, since there are many metrics that have been visualized for demonstration._
+### 微服务下探仪表盘示例
 
-##### Different metrics sections
+该仪表盘被分成多个部分，在 Grafana 中称为“行”。此仪表盘提供微服务特定实例的所有指标。请注意，它是一个单一的仪表板，具有环境、微服务、instanceId 等的用户输入。通过更改这些用户输入中的值，可以查看平台任何微服务的指标。
+
+**注意：** _有多个屏幕截图，因为有许多指标已被可视化以进行演示。_
+
+##### 不同的指标部分
 
 ![Different metrics sections](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-00.PNG)
 
-##### Microservice instance level metrics
+##### 微服务实例级别指标
 
 ![Microservice instance level metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-01.PNG)
 
-##### HTTP controller metrics
+##### HTTP 控制器指标
 
 ![HTTP controller metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-02.PNG)
 
-##### Service metrics
+##### 服务指标
 
 ![Service metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-03.PNG)
 
-##### HTTP client metrics
+##### HTTP 客户端指标
 
 ![HTTP client metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-04.PNG)
 
-##### Kafka Producer metrics
+##### Kafka 生产者指标
 
 ![Kafka Producer metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-05.PNG)
 
-##### JDBC connection pool metrics
+##### JDBC 连接池指标
 
 ![JDBC connection pool metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-06.PNG)
 
-### Sample Kafka monitoring dashboard
+### Kafka 监控大盘示例
 
-##### Kafka broker metrics
+##### Kafka broker 指标
 
 ![Kafka Broker metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-Kafka-Monitoring-Dashboard-01.PNG)
 
-##### Kafka messaging statistics
+##### Kafka 消息统计
 
 ![Kafka messaging statistics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-Kafka-Monitoring-Dashboard-02.PNG)
 
-## Conclusion
+## 总结
 
-Monitoring of Spring Boot microservices is made easy and simple with `spring-boot-actuator`, `micrometer`, and `spring-aop`. Combining these powerful frameworks provides a way for building comprehensive monitoring capabilities for microservices.
+通过 `spring-boot-actuator`、`micrometer` 和 `spring-aop`，监控 Spring Boot 微服务变得轻松简单。利用这些强大的框架，就可以为微服务建立全面的监控能力。
 
-An important aspect of monitoring is consistency of metrics across multiple microservices and their multiple instances, which makes monitoring and trouble-shooting easy and intuitive even when there are hundreds of microservices.
+监控的一个重点是跨多个微服务及其多个实例的指标的一致性，即使有数百个微服务，这也会使得监控和故障排除变得容易和直观。
 
-Another important aspect of monitoring is different viewpoints. This can be achieved by using dimensionality and rate aggregation characteristics of metrics. Tools such as Prometheus and Grafana support this out of the box. Developers just need to ensure that the metrics being emitted have the correct set of tags on them (this in turn can be achieved easily through reusable and common aspects, and Spring configuration).
+监测的另一个重点是不同的视角（viewpoints）。这可以通过使用指标的维度和速率聚合特性来实现。Prometheus 和 Grafana 等工具开箱即用地支持这一点。开发人员只需要确保产出的指标上有正确的标签（这又可以通过通用的或可复用的切面以及 Spring 配置来轻松实现）。
 
-By applying this guidance, it is possible to have consistent and comprehensive monitoring for all microservices with zero to minimal intrusive glue code.
+通过应用此指南，可以对所有微服务进行一致且全面的监控，而将侵入性的胶水代码减到最少。
 
-#### Sample code
+#### 示例代码
 
-The code examples provided in this tutorial are available in [GitHub](https://github.com/IBM/microsvcengineering)
+本教程中提供的代码示例可在[GitHub](https://github.com/IBM/microsvcengineering)中找到。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
