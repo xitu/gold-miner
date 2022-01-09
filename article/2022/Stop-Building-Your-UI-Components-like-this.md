@@ -5,7 +5,7 @@
 > * 译者：[Zavier](https://github.com/zaviertang)
 > * 校对者：
 
-# Stop Building Your UI Components like this❌
+# 停止这样构建你的组件❌
 ![Cover image for Stop Building Your UI Components like this❌](https://res.cloudinary.com/practicaldev/image/fetch/s--PzuOdW7I--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j0zvwcrp5zjkq1dd6yl0.jpg)
 
 
