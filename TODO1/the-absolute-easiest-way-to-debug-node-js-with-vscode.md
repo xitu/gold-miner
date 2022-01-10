@@ -2,7 +2,7 @@
 > * 原文作者：[Paige Niedringhaus](https://medium.com/@paigen11)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-absolute-easiest-way-to-debug-node-js-with-vscode.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-absolute-easiest-way-to-debug-node-js-with-vscode.md)
-> * 译者：[iceytea](https://github.com/iceytea/)
+> * 译者：[acev](https://github.com/acev-online/)
 > * 校对者：[fireairforce](https://github.com/fireairforce), [cyz980908](https://github.com/cyz980908)
 
 # 使用 VS Code 调试 Node.js 的超简单方法

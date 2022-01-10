@@ -2,7 +2,7 @@
 > * 原文作者：[Margarita Obraztsova](https://hackernoon.com/@riittagirl)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-tale-of-webpack-4-and-how-to-finally-configure-it-in-the-right-way.md)
-> * 译者：[iceytea](https://github.com/iceytea)
+> * 译者：[acev](https://github.com/acev-online)
 > * 校对者：[jerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
 
 # Webpack 4 的故事以及如何用正确的方式去最终配置它【更新版】

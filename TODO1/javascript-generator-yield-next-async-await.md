@@ -2,7 +2,7 @@
 > * 原文作者：[Deepak Gupta](https://codeburst.io/@ideepak.jsd)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-generator-yield-next-async-await.md](https://github.com/xitu/gold-miner/blob/master/TODO1/javascript-generator-yield-next-async-await.md)
-> * 译者：[iceytea](https://github.com/iceytea)
+> * 译者：[acev](https://github.com/acev-online)
 > * 校对者：[huimingwu](https://github.com/huimingwu), [zsky](https://github.com/zsky)
 
 # Javascript - Generator-Yield/Next 和 Async-Await

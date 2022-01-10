@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-develop-react-js-apps-fast-using-webpack-4.md)
 > * 译者：[JerryOnlyZRJ](https://github.com/jerryOnlyZRJ)
-> * 校对者：[iceytea](https://github.com/iceytea)，[xilihuasi](https://github.com/xilihuasi)
+> * 校对者：[acev](https://github.com/acev-online)，[xilihuasi](https://github.com/xilihuasi)
 
 # 如何利用 Webpack4 提升你的 React.js 开发效率
 
