@@ -45,7 +45,7 @@ HTTP（超文本传输协议 1.0）的[第一个正式版本](https://datatracke
 
 HTTP/2 的最大卖点就是多路复用。它将格式切换为允许多路复用文件下载的二进制传输格式，解决了**应用层**的队头阻塞的问题。也就是说，客户端可以同时请求所有的 10 个文件，并通过一个 TCP 连接并行地下载所有的 10 个文件。
 
-不幸的是，HTTP/2 仍有队头阻塞的问题，问题就在它的一层之下 —— TCP；它变成了链上最脆弱的一环。任何丢包的数据流都需要等待该包[重新传输后才能继续](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-prior-versions-of-http)。
+不幸的是，HTTP/2 仍有队头阻塞的问题，问题就在之前的传输层；TCP 变成了链上最脆弱的一环。任何丢包的数据流都需要等待该包[重新传输后才能继续](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-prior-versions-of-http)。
 
 > 然而，由于 HTTP/2 多路复用的并行特性不能覆盖到 TCP 的丢包恢复机制，一个丢失或顺序不对的数据包会导致所有运行中的业务停顿，无论其是否受到丢包的直接影响。
 
@@ -53,7 +53,7 @@ HTTP/2 的最大卖点就是多路复用。它将格式切换为允许多路复�
 
 ### QUIC 和 HTTP/3 中真正的多路复用
 
-HTTP/3 到来了。HTTP/2 和 HTTP/3 的主要区别在于所使用的协议。与之前的 TCP 协议不同，HTTP/3 使用了一个全新的协议 —— [QUIC](https://www.rfc-editor.org/rfc/rfc9000.html)。QUIC 是一个通用的传输协议，解决了 HTTP/2 因为 TCP 而产生的队头阻塞问题。这个协议能让你通过 UDP（与 TCP 相似）创建[一系列带状态的流](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-delegation-to-quic)。
+HTTP/3 到来了。HTTP/2 和 HTTP/3 的主要区别在于所使用的传输协议。与之前的 TCP 协议不同，HTTP/3 使用了一个全新的协议 —— [QUIC](https://www.rfc-editor.org/rfc/rfc9000.html)。QUIC 是一个通用的传输协议，解决了 HTTP/2 因为 TCP 而产生的队头阻塞问题。这个协议能让你通过 UDP（与 TCP 相似）创建[一系列带状态的流](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-delegation-to-quic)。
 
 ![](https://requestmetrics.com/assets/images/webperf/http3/udp-joke.min.png)
 
@@ -125,11 +125,11 @@ HTTP/3 在……
 
 ![](https://requestmetrics.com/assets/images/webperf/http3/london-all-protocols.png)
 
-正如你所见，当网络的距离更远时，速度的差距更明显了。
+正如你所见，当网络的距离更远时，速度的提高更明显了。
 
-* 小型站点快了**600 毫秒**（与纽约相比 **3 倍** 更快）
-* 内容站点快了**1200 毫秒**（与纽约相比 **3.5 倍** 更快）
-* 单页面应用快了**1000 毫秒**（与纽约相比 **3 倍** 更快）
+* 小型站点快了**600 毫秒**（速度是纽约的 **3 倍**）
+* 内容站点快了**1200 毫秒**（速度是纽约的 **3.5 倍**）
+* 单页面应用快了**1000 毫秒**（速度是纽约的 **3 倍**）
 
 ### 印度班加罗尔
 
