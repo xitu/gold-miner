@@ -3,26 +3,26 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/Stop-Building-Your-UI-Components-like-this❌.md](https://github.com/xitu/gold-miner/blob/master/article/2022/Stop-Building-Your-UI-Components-like-this❌.md)
 > * 译者：[Zavier](https://github.com/zaviertang)
-> * 校对者：
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[tinnkm](https://github.com/tinnkm)
 
 # 停止这样构建你的组件❌
 ![Cover image for Stop Building Your UI Components like this❌](https://res.cloudinary.com/practicaldev/image/fetch/s--PzuOdW7I--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/j0zvwcrp5zjkq1dd6yl0.jpg)
 
 
-确实，每个人都很乐意将常用的逻辑抽象成可重用的组件。但简单潦草的抽象也容易适得其反，当然这是另一个话题了，今天我们要讨论的是如何设计**真正的**可重用的组件。
+确实，每个人都很乐意将常用的逻辑抽象成可重用的组件。但简单潦草的抽象也容易适得其反，当然这是另一个话题了，今天我们要讨论的是如何设计**真正**可重用的组件。
 
 通常我们通过定义一些参数来进行组件的抽象。而且，你很可能也见过拥有超过 50 个参数的所谓的“可重用”组件！这样的组件最终将会变得很难使用和维护，同时也会带来性能问题和难以追踪的 bug。
 
-为新的需求而增加一个参数不像多写一条 `if` 逻辑这么简单，最终你将会因此增加大量的代码导致组件变得非常庞大和难以维护。
+为满足新的需求而增加一个参数不像多写一条 `if` 逻辑这么简单，最终你将会因此增加大量的代码导致组件变得非常庞大和难以维护。
 
-但是，如果我们谨慎地去设计抽象组件，那么我们就可以写出真正易于使用和维护的组件，没有愚蠢的 bug，而且也不会大到另使用者放弃的地步。
+但是，如果我们谨慎地去设计抽象组件，我们就可以写出真正易于使用和维护的组件，没有愚蠢的 bug，也不会复杂到令使用者望而却步。
 
 Kent C dodd's 曾深入分析过这个问题，可以看看：
 [Simply React](https://www.youtube.com/watch?v=AiJ8tRRH0f8&list=PLV5CVI1eNcJgNqzNwcs4UKrlJdhfDjshf)
 
 ### [](https://dev.to/harshkc/stop-building-your-ui-components-like-this-19il#how-does-a-reusable-component-looks-like)可重用的组件是什么样的？
 
-这里有一个 `LoginFormModal` 组件，它抽象了登录和注册表单的模态框。组件本身并不是那么复杂，只接受少数几个属性，但它非常不灵活，我们需要在整个应用程序中创建更多的模态框，所以我们想要一种更灵活的组件。 
+这里有一个 `LoginFormModal` 组件，它抽象了登录和注册表单的模态框。组件本身并不是那么复杂，只接受少数几个属性，但它非常不灵活。在我们的应用中可能需要创建大量的模态框，所以我们想要一种更灵活的组件。 
 
 ```jsx
 <LoginFormModal
@@ -55,9 +55,9 @@ Kent C dodd's 曾深入分析过这个问题，可以看看：
 ```
 
 
-但是，这并不是从代码量上看起来更复杂了。我们已将能力赋予给了组件的使用者而不是创建者，这称为控制反转。它肯定比我们现有的 `LoginFormModal` 组件有更多的代码，但它更简单，更灵活，适合我们未来的用例，而且不会变得更加复杂。
+但是，这并不是从代码量上看起来更复杂了。我们已将控制组件行为的能力赋予给了组件的使用者而不是创建者，这称为控制反转。它肯定比我们现有的 `LoginFormModal` 组件有更多的代码，但它更简单，更灵活，适合我们未来的用例，而且不会变得更加复杂。
 
-例如，考虑这样一种情况：我们不想只渲染表单，而是想要渲染我们喜欢的任何内容。我们的 `Modal` 支持这一点，但 `LoginFormModal` 需要接受一个新的参数。或者，如果我们希望关闭按钮显示在内容的下方，该怎么办？我们需要一个名为 `renderCloseBelow` 的特殊参数。但是对于我们的 `Modal`，这是显而易见的可以轻松做到。你只需将 `ModalCloseButton` 组件移动到所需的位置即可。
+例如，考虑这样一种情况：我们不想只渲染表单，而是想要渲染我们喜欢的任何内容。我们的 `Modal` 支持这一点，但 `LoginFormModal` 需要接受一个新的参数。或者，如果我们希望关闭按钮显示在内容的下方，该怎么办？我们需要一个名为 `renderCloseBelow` 的特殊参数。但是对于我们的 `Modal`，这显而易见可以轻松做到。你只需将 `ModalCloseButton` 组件移动到所需的位置即可。
 
 更加灵活，更少的接口暴露。
 
