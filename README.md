@@ -128,4 +128,4 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 # 合作伙伴
 
 <a href="http://www.ituring.com.cn/" target="_blank"><img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/></a>
-<a href="https://www.zcfy.cc/" target="_blank"><img src="https://s4.ssl.qhres.com/static/4c3fe1d5645dd9e8.svg" width="240px;" target="_blank"/></a>
+
