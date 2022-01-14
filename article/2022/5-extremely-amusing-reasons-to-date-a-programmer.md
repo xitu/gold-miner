@@ -2,96 +2,96 @@
 > * 原文作者：[Sanjay Priyadarshi](https://medium.com/@sanjay-priyadarshi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md](https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
 ![Photo by [vjapratama](https://www.pexels.com/@vijarindo?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/photo-of-man-giving-flowers-to-woman-935824/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/9964/1*6M3SAnkXfskmXh-XR-Htdw.jpeg)
 
-# 5 Extremely Amusing Reasons to Date a Programmer
+# 5 个原因告诉你：找对象就得找程序员！
 
-> Date a developer...
+> 和程序员谈个恋爱吧……
 >
 > We break code, not hearts.
 
-Developers are creative and learn new things every day. They are fast learners.
+程序员是个有创意的人，他们每天都会学习新的事物。他们是学习能力很强的人。
 
-But most people consider them geeks and nerds. They imagine that it won’t be fun to hang out with the programmers, that they won’t care, and that they will talk about boring things.
+然而，很多人都把他们当成极客亦或是书呆子。他们觉得与程序员出去玩不是件有趣的事，觉得程序员一直谈论无聊的事情，对其他事漠不关心。
 
-However, the developers are quite opposed to that. It’s fun hanging out with us and of course, we love memes.
+然而，程序员的性格与其恰恰相反。与我们出去是很有趣的。当然，我们也喜欢玩梗。
 
-## 1. They use logical thinking in their life
+## 1. 他们在生活中应用逻辑思维
 
-Programmers in their daily work use logic more than any other professional. We spend a lot of time writing logic code. You can notice this in a simple if-else statement.
+比起其他的专业，程序员在日常工作中更常使用逻辑。我们将很多的时间花费在编写代码逻辑中。if-else 语句可以很好的证明这一点。
 
-As programmers, we understand the if-else statement well. If a certain condition is true, the block of code available under it will be executed. Otherwise, the code inside the else statement will be executed.
+作为程序员，我们清楚理解 if-else 语句的使用。如果一个特定的条件为真，在其之下的代码块就会执行。否则，else 语句里的代码将执行。
 
-Programmers write meaningful names for functions names so that when someone reads them later. It will not be difficult for them to understand it. We keep the codebase organized.
+程序员会为变量取有意义的名字，以便之后阅读代码时能理解。我们保持代码库条理性。
 
-When you carry this habit of thinking logically into developers dating life. You will understand that they will maintain logical thinking with their partners. They will remove the drama from there, as well as the lives of their partners.
+当你也将这种思维习惯带入感情方面时，你就会明白他们为什么对另一半也会保持这种逻辑思维了。正是这样，他们在感情里不会有太多的“戏”，在和另一半生活时也是如此。
 
-They will keep everything simple and will not try to complicate things in their partner’s life.
+他们会让一切事物保持简单，且也不会复杂化另一半生活中的事情。
 
-## 2. They are down-to-earth human beings.
+## 2. 他们是务实的人
 
-I have met several developers in my life. I have asked different types of programmers on the internet for help. You know what’s unique about them, all of them at least tried to help.
+我遇过很多的程序员，也曾在网络上寻求过各类型的程序员的帮助。独特之处在于 —— 他们至少都会尝试帮助你。
 
-If they didn’t have answers to my questions. They told me directly that they do not have the answer to those questions. The coding community is the most realistic community on the Internet.
+如果他们不能回答我的问题，他们会直接告诉你他们不知道。编程社区是互联网上最务实的社区。
 
-If you try to get help from a lead software engineer in a company and if they can help you. They will surely help you. Some of them even guide you to the right resources or the right people who can help you.
+如果你尝试向公司里的软件工程师寻求帮助，他们一定会帮你，更有甚者会指导你找到对你哦有帮助的人和资源。
 
-Even if you take an example of a stack overflow website. It is the best technical support in the world that you will ever get. I have never seen so many unknown people helping unknown people without asking for money or anything tangible.
+以 StackOverflow（能为你最好的技术支持的网站）作为例子，我从来没在其他地方见过这么多互不认识的人在不要求金钱或任何有形的东西的情况下帮助他人。
 
-It means that when you date a programmer, they will do a lot of nice things for you without expecting anything in return. They will help you on your worst days in any way possible.
+这意味着当你找一个程序员对象时，他会对你好并且不期望任何回报。他们会在你最糟糕的时刻用尽一切方法来帮你。
 
-They will understand your situation whenever you need something. They will stay on your side. They will not make decisions that may upset you in any way. They will take care of you.
+当你需要帮助时，他们能明白你的情况。他们会站在你这里。他们不会做使你难过的事情。他们会照顾你。
 
-## 3. You could go on a world tour with a programmer
+## 3. 你可以和程序员环球旅行
 
-Skilled programmers are always in demand. Almost all companies want to hire good programmers who can build products. Programmers create applications that could make people’s lives easier.
+技术好的程序员的市场需求很高。几乎所有的公司都想聘请能开发产品的优秀程序员。程序员能开发应用并让人们的生活变得更好。
 
-Programmers only need two things to work. All they need is a laptop (preferably a MacBook) and an internet connection. With just these two things they can make great products for any business.
+程序员只需要两样东西就能工作了：一是电脑（有 MacBook 更好），二是网络。就这两样东西，他们能为任何的企业构建很好的产品。
 
-Since the programmers do not need to be present in the office. They can work remotely for the long term. Companies like Google have given programmers to work remotely for their entire careers.
+程序员不一定需要呆在办公室，他么能长期地远程工作。一些公司，如谷歌，已允许程序员在他们的整个职业生涯中远程工作。
 
-The programmer does not need to be present in a specific place to do their work. Along with that, the programmers are very well paid. If a programmer has great skills, he can easily crack good company interviews.
+程序员不需要在一个特定的地点才能工作。与此同时，程序员的薪资待遇也很好；如果他有很好的技术水平，他将能轻易地通过公司面试。
 
-By working totally remotely and earning a good amount of money. They can afford to go on a world tour with their partners. Even while working remotely, they will be able to work for their dream companies.
+由于他们能完全远程工作且工资也不错，他们绝对可以负担得起与另一半一起环游世界的费用。旅游的同时，他们也能在他们理想的公司工作。
 
-So if you are looking to date someone who can afford to go on a world tour with you. In addition to offering a great lifestyle. Pick a programmer to date. They can make your dream come true.
+所以，如果你正想找个能与你环游世界且生活方式不错的另一半，那就考虑考虑程序员吧，他们能让你的梦想成真。
 
-## 4. Latest gadgets all over your home
+## 4. 家中充满最新的科技产品
 
-In a programmer’s life, be it for our work purpose or for fun. You will find the latest gadgets in a programmer's house. Programmers make a lot of money and can afford the latest gadgets.
+在程序员的生活中，这些东西既用于工作，也能作为娱乐。你能在他们的家中找到最新的小玩意儿。程序员赚很多钱，他们能负担得起这些最新的科技产品。
 
-They love exploring new technologies and are willing to pay the price for the latest products.
+他们喜欢探索新科技并愿意斥资购买最新的科技产品。
 
-This curiosity to explore and discover new technological products makes them connoisseurs of different types of products. You can take programmers’ recommendations very seriously.
+这种探索和发现新科技产品的好奇心让他们成为各类产品的鉴赏家。你可以非常认真地相信程序员的建议。
 
-As it is very likely that either they have used the product personally or that some of their developer friends have used them. Since the coding community is always trying to be helpful, you will get amazing suggestions.
+这是因为他们很可能已经自己用过这些产品，或者他们的程序员朋友用过。由于编程社区一直都非常乐意提供帮助，因此你能在里面得到很好的建议。
 
-If you will have a partner who has the latest knowledge about technology products. Your life will become easy. All products are becoming dependent on technology day by day. You will have someone to discuss and make a purchase decision.
+所有产品都日益依赖技术。如果你的另一半有最新科技产品知识，那你的生活会轻松很多。在购物时，你能与他讨论并做出好的决定。
 
-Along with that, your home will be full of tech products. All programmers love to own all the latest and geeky products. Your home will be a fun place to be.
+与此同时，你的家里将会充满科技产品。所有程序员都喜欢拥有最新、最极客的产品。你的家将会是一个有趣的地方。
 
-## 5. They can learn a new language fast
+## 5. 他们能很快地学习一门语言
 
-A programmer may only speak one language. They still dominate many other programming languages. Consider a web developer, for example, he or she will know HTML (I don’t know whether to call it a language), CSS, and Javascript.
+程序员也许只会说一门语言，但他们仍主宰很多其他的编程语言。以 Web 程序员为例子，他将了解 HTML（我不知道该不该把它称作一门语言）、CSS 和 JavaScript。
 
-Even to do basic work, a web developer must learn all of the above languages. To do advanced work, a web developer has to learn frameworks like React and other things.
+即使任务很简单，一个 Web 程序员也得学习以上的所有语言。对于更高阶的工作，他们需要学习一些框架，如 React 等。
 
-Programmers are very quick to learn new languages. Not only will they master the new language learned, but they will still remember the languages they learned in the past.
+程序员能很快的学习一门新的语言。他们在掌握新语言的同时也会记得之前所学过的语言。
 
-If you take it to romance, even if the programmer can’t speak the language of love, he can learn it pretty quickly. They will do their best to learn a new language and will try to communicate clearly with their partner.
+如果将其带到恋爱中，即使程序员不懂“爱的语言”，但他也能轻易的学会它。他们将会尽全力地学习一门新的语言并尝试与另一半清楚的沟通。
 
-They can also help you learn a programming language. Yes, they are quite addictive that way. They will be able to convince their partner to learn a programming language.
+他们也能帮你学习一门编程语言。的确，他们挺执迷于这方面；他们绝对能说服他们的另一半学习编程。
 
-## Summary
+## 总结
 
-1. They use logical thinking.
-2. They are down-to-earth human beings.
-3. You could go on a world tour with a programmer.
-4. All the latest gadgets will be available at home.
-5. They can quickly learn to speak romantically.
+1. 他们在生活中应用逻辑思维。
+2. 他们是务实的人。
+3. 你可以和他们环游世界。
+4. 所有最新的科技产品都能在家里找到。
+5. 他们可以很快学会浪漫地说话。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
