@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md](https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[luochen1992](https://github.com/luochen1992)
 
-![Photo by [vjapratama](https://www.pexels.com/@vijarindo?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels) from [Pexels](https://www.pexels.com/photo/photo-of-man-giving-flowers-to-woman-935824/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/9964/1*6M3SAnkXfskmXh-XR-Htdw.jpeg)
+![图片来源：[Pexels](https://www.pexels.com/photo/photo-of-man-giving-flowers-to-woman-935824/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)，作者：[vjapratama](https://www.pexels.com/@vijarindo?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/9964/1*6M3SAnkXfskmXh-XR-Htdw.jpeg)
 
 # 5 个原因告诉你：找对象就得找程序员！
 
@@ -13,7 +13,7 @@
 >
 > We break code, not hearts.
 
-程序员是个有创意的人，他们每天都会学习新的事物。他们是学习能力很强的人。
+程序员们都很有创意，他们每天都会学习新的事物。他们是学习能力很强的人。
 
 然而，很多人都把他们当成极客亦或是书呆子。他们觉得与程序员出去玩不是件有趣的事，觉得程序员一直谈论无聊的事情，对其他事漠不关心。
 
@@ -37,7 +37,7 @@
 
 如果他们不能回答我的问题，他们会直接告诉你他们不知道。编程社区是互联网上最务实的社区。
 
-如果你尝试向公司里的软件工程师寻求帮助，他们一定会帮你，更有甚者会指导你找到对你哦有帮助的人和资源。
+如果你尝试向公司里的软件工程师寻求帮助，他们一定会帮你，更有甚者会指导你找到对你有帮助的人和资源。
 
 以 StackOverflow（能为你最好的技术支持的网站）作为例子，我从来没在其他地方见过这么多互不认识的人在不要求金钱或任何有形的东西的情况下帮助他人。
 
@@ -51,7 +51,7 @@
 
 程序员只需要两样东西就能工作了：一是电脑（有 MacBook 更好），二是网络。就这两样东西，他们能为任何的企业构建很好的产品。
 
-程序员不一定需要呆在办公室，他么能长期地远程工作。一些公司，如谷歌，已允许程序员在他们的整个职业生涯中远程工作。
+程序员不一定需要呆在办公室，他们能长期地远程工作。一些公司，如谷歌，已允许程序员在他们的整个职业生涯中远程工作。
 
 程序员不需要在一个特定的地点才能工作。与此同时，程序员的薪资待遇也很好；如果他有很好的技术水平，他将能轻易地通过公司面试。
 
