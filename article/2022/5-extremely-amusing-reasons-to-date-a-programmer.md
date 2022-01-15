@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md](https://github.com/xitu/gold-miner/blob/master/article/2022/5-extremely-amusing-reasons-to-date-a-programmer.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[luochen1992](https://github.com/luochen1992)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[Liang2028](https://github.com/Liang2028)
 
 ![图片来源：[Pexels](https://www.pexels.com/photo/photo-of-man-giving-flowers-to-woman-935824/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)，作者：[vjapratama](https://www.pexels.com/@vijarindo?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels)](https://cdn-images-1.medium.com/max/9964/1*6M3SAnkXfskmXh-XR-Htdw.jpeg)
 
