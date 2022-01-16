@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-build-gui-with-python.md](https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-build-gui-with-python.md)
 > - 译者：[YueYongDev](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[LJC](https://github.com/luochen1992), [Liang2028](https://github.com/Liang2028)
 
 # 如何使用 Python 构建 GUI（Graphical User Interface）程序
 
