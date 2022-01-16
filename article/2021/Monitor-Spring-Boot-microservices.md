@@ -17,15 +17,15 @@
 
 ## 介绍
 
-在使用微服务和事件驱动架构（EDA）时，对于监控、日志、追踪和警报等方面的可观察性是一个架构十分重要的关注点，主要是因为：
+在使用微服务和事件驱动架构（EDA）时，包括监控、日志、追踪和警报等方面的可观察性是一个架构十分重要的关注点，主要是因为：
 
 - 大规模的部署需要集中且自动化的监控与可观测能力
 
-* 架构的异步性和分布式性质使得聚合多个组件产生相关的指标变得困难
+* 架构的异步性和分布式性质使得关联多个组件产生的指标变得困难
 
-解决此类问题可以简化架构管理，并加快解决运行时问题的周转时间。它还有助于做出明智的架构、设计、部署和基础设施，以改善平台的非功能特性。此外，自定义指标的产出、收集和可视化可以为业务或运营带来其他有用的信息。
+解决这个架构问题可以简化架构管理，并加快解决运行时问题的周转时间。它还有助于做出明智的架构、设计、部署和基础设施，以改善平台的非功能特性。此外，自定义指标的产出、收集和可视化可以为业务或运营带来其他有用的信息。
 
-然而在实际的架构应用中，它通常是一个被忽略的问题。本教程通过使用 Micrometer、Prometheus 和 Grafana 等开源工具对 Java 和 Spring Boot 微服务的可观察性进行*监控*，相信本教程会成为该方面最佳的实践指南。
+然而在实际的架构应用中，这个问题经常被忽略。本教程通过使用 Micrometer、Prometheus 和 Grafana 等开源工具对 Java 和 Spring Boot 微服务的可观察性进行*监控*，相信会成为该方面最佳的实践指南。
 
 ## 先决条件
 
@@ -44,7 +44,7 @@
 
 - 监控应用程序性能
 - 为利益相关者（开发团队、基础架构团队、运营用户、维护团队和业务用户）提供自助服务。
-- 协助进行问题溯源分析（RCA）
+- 协助进行快速问题溯源分析（RCA）
 - 建立应用程序的性能基线
 - 如果使用云服务，提供云使用成本的监测能力，并以集成的方式监控不同的云服务
 
@@ -55,11 +55,11 @@
 - **_指标可视化_** —— 可视化工具指标查询库，建立视图和仪表盘供最终用户使用。它们提供丰富的用户界面来对指标执行各种操作，例如聚合、数据下探等。
 - **_告警和通知_** —— 当指标超过定义的阈值（例如 CPU 超过 80% 且持续 10 分钟），可能需要人工干预。为此，告警和通知很重要。大多数可视化工具提供了告警和通知能力。
 
-许多开源和商业产品可用于应用控。一些著名的商业产品有：AppDynamics、Dynatrace、DataDog、logdna 和 sysdig。开源工具通常被组合使用。一些非常流行的组合是 Prometheus 和 Grafana、Elastic-Logstash-Kibana (ELK) 和 StatsD + Graphite。
+许多开源和商业产品可用于监控。一些著名的商业产品有：AppDynamics、Dynatrace、DataDog、logdna 和 sysdig。开源工具通常被组合使用。一些非常流行的组合是 Prometheus 和 Grafana、Elastic-Logstash-Kibana (ELK) 和 StatsD + Graphite。
 
 ## 微服务监控指南
 
-我们鼓励在所有微服务中将收集的指标类型保持一致。这有助于提高监控大盘的复用性，并简化指标的聚合和下探（drill-down），以便在不同层面上对其进行可视化。
+我们鼓励在所有微服务中将收集的指标类型保持一致。这有助于提高监控仪表盘的复用性，并简化指标的聚合和下探（drill-down），以便在不同层面上对其进行可视化。
 
 ### 要监控什么
 
@@ -89,7 +89,7 @@
   - 连接池——连接池的使用率、连接等待时间、连接创建时间、空闲置连接数
 
 - **中间件指标**
-  - 事件代理（Event broker）指标——可用性、信息吞吐、字节吞吐、消费滞后、（反）序列化异常、集群状态
+  - 事件代理（Event broker）指标——可用性、消息吞吐、字节吞吐、消费滞后、（反）序列化异常、集群状态
   - 数据库指标
 
 对于应用指标，理想情况下，微服务中每个*架构层*的入口和出口点都应该被检测。
@@ -104,9 +104,9 @@
 
 #### 维度
 
-维度控制了一个指标的聚合方式，以及特定指标的深入程度。它是通过向一个指标添加标签来实现的。标签是一组键值对信息（如 `name-value` ）。标签被用来限定通过对监控系统的查询来获取或聚合指标。由于大量的部署，它是监控微服务的重要特征。换句话说，在微服务生态中，多个微服务（甚至一个微服务的不同组件）会出现同名的指标。为了区分它们，你需用维度来限定指标。
+维度控制了一个指标的聚合方式，以及特定指标的深入程度。它是通过向一个指标添加标签来实现的。标签是一组键值对信息（如 `name-value` ）。标签被用来限定通过对监控系统的查询来获取或聚合指标。由于大量的部署，它是监控微服务的重要特征。换句话说，多个微服务（甚至一个微服务的不同组件）会发送同名的指标。为了区分它们，你需用维度来限定指标。
 
-例如，对于 `http_server_requests_seconds_count` 这个指标。如果有多个 API 节点（在微服务生态里这种情况很常见），那么在没有维度的情况下，就只能在平台层面查看这个指标的聚合值。无法获得该指标在不同 API 节点分布的具体情况。在编辑指标的时候，给指标添加一个 `uri` 标签，就可以获取对应的分布。看看下面的例子，它解释了这个特性。
+例如，对于 `http_server_requests_seconds_count` 这个指标。如果有多个 API 节点（在微服务生态中就是如此），那么在没有维度的情况下，就只能在平台层面查看这个指标的聚合值。无法获得该指标在不同 API 节点分布的具体情况。在发送指标的时候，给指标添加一个 `uri` 标签，就可以获取对应的分布。看看下面的例子，它解释了这个特性。
 
 如果 `http_server_requests_seconds_count` 使用以下标签产出指标数据：
 
@@ -149,7 +149,7 @@ sum by (uri, status, appName) (http_server_requests_seconds_count{env="$env"})
 
 本节介绍微服务及其 REST 控制器、服务 bean、组件 bean 和数据访问对象的检测。本文还介绍了与 EDA 或集成相关的一些组件，例如 `kafka` 中的生产者与消费者，`spring-cloud-stream` 或 `Apache Camel` 中的 camel 路由。
 
-为了实现对微服务的监控和管理，这里我们使用了 [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready) 服务。这是一个开箱即用的、使用多个 HTTP 和 JMX 节点来监控应用程序的第三方组件，可以实现对微服务的健康状况、bean 信息、应用程序信息和环境信息的基本监控。
+为了帮助微服务的监控和管理，这里我们使用了 [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready) 服务。这是一个开箱即用的、使用多个 HTTP 和 JMX 节点来监控应用程序的第三方组件，可以实现对微服务的健康状况、bean 信息、应用程序信息和环境信息的基本监控。
 
 为了启用该功能，我们需要将 `spring-boot-starter-actuator` 添加为应用的依赖：
 
@@ -206,7 +206,7 @@ management:
 
 ### 与 Prometheus 集成
 
-由于 Prometheus 使用拉模式（pull）来收集指标，因此集成 Prometheus 和 Micrometer 是相对简单的两步过程。
+由于 Prometheus 使用轮询的方式来收集指标，因此集成 Prometheus 和 Micrometer 是相对简单的两步过程。
 
 1. 添加 `micrometer-registry-prometheus` 注册。
 2. 声明一个 `MeterRegistryCustomizer<PrometheusMeterRegistry>` 类型的 bean。
@@ -261,7 +261,7 @@ public class MicroSvcMeterRegistryConfig {
 
 #### 检测 REST 服务的控制器
 
-检测 REST 控制器的最快、最简单的方法是使用 `@Timed` 注解标记在控制器或控制器的各个方法上。一旦添加到 `exception`、`method`、 `outcome`、`status`和 `uri` 这些标签上后，`@Timed` 注解将会自动生效。当然也可以在其他标签上添加 `@Timed` 注解。
+检测 REST 控制器的最快、最简单的方法是使用 `@Timed` 注解标记在控制器或控制器的各个方法上。 `@Timed` 注解自动添加 `exception`、`method`、 `outcome`、`status`和 `uri` 标签到定时器。添加额外的标签到 `@Timed` 注解也是可以的。
 
 #### 检测微服务的不同架构层
 
@@ -488,7 +488,7 @@ Prometheus 有一个健康的发展生态系统。有多个库和服务器可用
 一旦指标在 Prometheus Meter Registry 中注册并且 Prometheus 成功启动并运行，它将开始收集指标。这些指标现在可用于在 Grafana 中构建不同的监控仪表盘。不同的端点需要多个仪表板。建议创建以下这些仪表盘：
 
 - **平台概览仪表盘**，提供每个微服务和平台其他软件组件（例如 Kafka）的可用性状态。这种类型的仪表板还可以报告平台级别的聚合指标`请求率`（HTTP 请求率、Kafka 消费请求率等）和`异常数量`.
-- **微服务下探仪表盘**，提供微服务实例的详细指标。 `variables`在 Grafana 中声明很重要，它们对应于指标中使用的不同标签。例如 `appName`，`env`，`instanceId` 等。
+- **微服务下探仪表盘**，提供微服务实例的详细指标。 在 Grafana 中声明 `variables` 很重要，它们对应于指标中使用的不同标签。例如 `appName`，`env`，`instanceId` 等。
 - **中间件监控仪表盘**，提供中间件组件的详细下探视图。这些特定于中间件（例如，Kafka 仪表盘）。在这里，`变量`声明很重要，以便可以在`集群`级别和`实例`级别上观察指标。
 
 ### 使用维度进行下探和聚合
@@ -573,7 +573,7 @@ rate(component_invocation_timer_seconds_count{instance="$instance", appName="$ap
 
 ![JDBC connection pool metrics](https://developer.ibm.com/developer/default/tutorials/monitor-spring-boot-microservices/images/Sample-MicroServices-Drilldown-Dashboard-06.PNG)
 
-### Kafka 监控大盘示例
+### Kafka 仪表盘示例
 
 ##### Kafka broker 指标
 
