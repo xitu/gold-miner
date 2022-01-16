@@ -4,7 +4,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md)
 > - 译者：[YueYongDev](https://github.com/YueYongDev)
-> - 校对者：
+> - 校对者：[Liang2028](https://github.com/Liang2028)
 
 # SpringBoot 微服务监控
 
