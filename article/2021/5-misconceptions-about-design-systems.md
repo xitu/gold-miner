@@ -2,76 +2,76 @@
 > * 原文作者：[Nethmi Wijesinghe](https://medium.com/@wnethmi96)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-misconceptions-about-design-systems.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-misconceptions-about-design-systems.md)
-> * 译者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
 > * 校对者：
 
 ![](https://cdn-images-1.medium.com/max/5760/1*Sc7Rrut8tE9_WnWIlLlY4g.jpeg)
 
-# 5 Misconceptions About UI Design Systems
+# 5个关于 UI 设计系统的误解
 
-> Have you heard any of these Design System misconceptions before? Here’s the reality behind them.
+> 你之前是否听过这些设计系统的误解？下面是他们背后的现实。
 
-In modern web development, maintaining a uniform design language across a product is vital. It speeds up the development process, improves user experience, and helps to address design inconsistencies.
+在现代 web 开发，在一个产品中，维持统一的设计语言是至关重要的。它可以加快开发进程，提高用户体验，和帮助处理设计矛盾。
 
-However, there are many misconceptions roaming around Design Systems that may mislead developers. Here are five misconceptions you should be aware of.
+然而，有许多围绕着设计系统的误解，可能会误导开发者。这里是 5 个你应该注意的误解。
 
-## 1. Aren’t Design Systems just for Designers?
+## 1. 设计系统是不是为了设计师而设计的？
 
-One of the common misconceptions about design systems is that Designers develop the Design System, and developers just use it. This is mainly due to a misunderstanding for the boundaries of a Design System.
+其中一个有关设计系统常见的误解是设计师开发设计系统，而开发者只是使用它。这主要是因为对于设计系统边界的误解。
 
-While a Design System starts with the Product Design or UX team, it doesn’t end there.
+虽然设计系统从产品设计或用户体验团队开始，但它并未就此结束。
 
-Since modern web applications are developed from a collection of UI components, the scope of a design system spans across humble UI elements such as a button or paragraph, all the way up to the entire application.
+鉴于现代 web 应用是用 UI 组件集合开发的，设计系统的范围跨越简单的 UI 元素，比如按钮或者段落，一直到整个应用。
 
-Therefore, developing a Design System demands involvement and insight from both developers and designers.
+因此，开发一个设计系统需要开发者和设计师的参与和洞悉。
 
-## 2. Design Systems limit flexibility
+## 2. 设计系统限制灵活性
 
-Another misconception roaming around is that a Design System limits flexibility when it comes to things such as trying to evolve or improve on a design.
+另一个有关设计系统常见的误解是在尝试升级或者改进一个设计的时候，设计系统限制了灵活性。
 
-On one end, the Design System should be rigid and opinionated for consistency. But at the same time, it should also provide flexibility for things such as theming, typography, colors, borders, etc. In other words, a design system should provide the ability to customize look and feel.
+一方面，为了一致性，设计系统应该是精确和不变的。但于此同时，它也应该为主题、段落、颜色、边框等等提供灵活性。用另一句话来说，一个设计系统应该提供自定义外观和感觉的能力。
 
-Besides, you shouldn’t be scared to reuse a Design System, allowing your components to inherit their design features. However, if it doesn’t work, you can create your own one.
+除此之外，你不应该害怕重用设计系统，允许你的组件继承自他们的设计特征。无论如何，如果它不起作用，你可以自己创建一个。
 
-## 3: Design System is just a Style Guide
+## 3: 设计系统只是一个风格引导
 
-This is one of the most common misconceptions regarding Design Systems. A component library or a style guide can significantly influence a Design System’s content.
+这是关于设计系统误解中，最常见的一个。一个组件库或者一个设计只能可以很大程度上影响一个设计系统内容。
 
-However, a proper Design System contains much more, such as:
+然而，一个合适的设计系统包含更多内容，例如：
 
-* Design Tokens
-* Brand Guidelines
-* Rules, Constraints and Principles
-* UI Kit
-* Code Components
+* 设计令牌
+* 品牌规范
+* 规则、约束和原则
+* UI 工具
+* 代码组件
 
-These features in a Design System are needed to establish standards across an application.
+在一个设计系统中，这些特征是建立整个应用的标准所必需的。
 
-## 4: Design Systems are set in stone
+## 4: 设计系统是固定的
 
-Indeed, the styles of a Design System don’t need to change every other day. But there should be the ability to constantly improve and change the Design System, to match current trends and user behaviors under the same building blocks — Rules, Constraints, and Principles.
+确实，一个设计系统的风格不需要每隔一天就改变。但应该能够在同一个构建模块中，不断的改进和改变设计系统，去适应当前的趋势和用户行为 — 规则、约束和原则
 
-A significant advantage of having a Design System is that enhancements can be done fast and require a minimum effort, because Design Systems are typically built upon reusable components.
+有一个设计系统的一个显著优势是，增强可以只用少量的工作就快速完成，因为设计系统是在可重用组件的基础上构建的。
 
-## 5: A Design System should be unique per product
+## 5: 每个产品的设计系统应该是独一无二的
 
-Each product is unique, and sometimes what works for a product doesn’t work for another. But that doesn’t mean a Design System can’t be reused across products.
+每一个产品都是独一无二的，并且有时候适用于一个产品的功能，并不适用于另一个。但那不代表一个设计系统不能在产品之间重用。
 
-In some cases, it makes sense to create a different Design System for a unique product. But if a company has a connected product portfolio, reusing a single Design System is often the best solution for ensuring that brand guidelines are adhered to.
+在某些例子中，为每个独一无二的产品设计不同的设计系统是合理的。但如果一个公司有一个相互关联的产品组合，重用一个单一的设计系统，通常是确保遵循品牌规范的最佳方案。
 
-The biggest plus here is that a company doesn’t have to start working from scratch every time they work on a new product.
+最大的好处是，公司不必每次开发新产品时都要从头开始。
 
-Instead, they can use their Design System to reference and reuse previously created components to develop new features as required.
+反而，他们可以使用他们的设计系统引用和重用以前创建的组件，根据需求开发新的特性。
 
-## Final Words
+## 最后的话
 
-Building a Design System can be lengthy in the beginning, but the longterm payoff makes it worthwhile. Good Design Systems bridge the gap between designers and developers, allowing them to be more productive.
+构建一个设计系统一开始可能是漫长的，但长期来看，收获是值得的。好的设计系统弥合了设计师和开发人员之间的差距，让他们更有效率。
 
-Design Systems facilitates alignment between departments, which results in consistent UI and UX across every touchpoint of a product.
+设计系统有助于部门间的协调，从而在产品的每个接触点上产生一致的 UI 和 UX。
 
-Therefore, it’s essential to have collaboration between developers and designers to build better Design Systems. So whether you’re a Designer, or a Developer, don’t let the misconceptions outlined here put you off from creating and championing a Design System.
+因此，开发人员和设计人员之间的协作对于构建更好的设计系统至关重要。所以，不管你是设计师还是开发者，不要让这里列出的误解阻碍你创建和维护设计系统。
 
-Thank you for reading!
+感谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
