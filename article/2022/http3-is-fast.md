@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/http3-is-fast.md](https://github.com/xitu/gold-miner/blob/master/article/2022/http3-is-fast.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[luochen1992](https://github.com/luochen1992)
+> * 校对者：[luochen1992](https://github.com/luochen1992)、[finalwhy](https://github.com/finalwhy)
 
 # HTTP/3 为什么这么快？
 
@@ -17,9 +17,9 @@ HTTP/3 已经来临，这对 Web 性能是件大事。让我们看看它能让�
 
 ## 预览
 
-在我们深入细节之前，让我们快速预览一下基准测试的结果。在下方的图表中，我们在相同的网络中使用相同的浏览器请求相同的站点，唯一不同的只是 HTTP 协议的版本。每个站点被检索 20 次，响应时间通过性能 API 测量。（更多关于基准测试的细节在下方。）
+在我们深入细节之前，让我们快速预览一下基准测试的结果。在下方的图表中，我们在相同的网络中使用相同的浏览器请求相同的站点，唯一不同的只是 HTTP 协议的版本。每个站点都被重复请求 20 次，响应时间通过浏览器的 Performance API 测量。（更多关于基准测试的细节在下方。）
 
-你可以清楚的看到 HTTP 在性能上的进步：
+你可以清楚地看到使用每个新版本的 HTTP 协议（相较于 HTTP/1.1）带来的性能提升
 
 ![](https://requestmetrics.com/assets/images/webperf/http3/ny-all-protocols.png)
 
@@ -33,11 +33,11 @@ HTTP（超文本传输协议 1.0）的[第一个正式版本](https://datatracke
 
 > 然而，HTTP/1.0 没有充分考虑分层代理、缓存、持久连接的需求和虚拟主机的影响。此外，将自身标榜为 "HTTP/1.0" 但又没完全实践 HTTP/1.0 的应用数量急剧增加；为了能确认通信双方真实的“通信实力”，一个新版本的协议非常需要。
 
-如果网页需要 10 个 JavaScript 文件，则浏览器需要在页面完成加载之前检索这 10 个文件。18 年后，新版本的 HTTP 发布了。在 2015 年，[RFC 7540](https://datatracker.ietf.org/doc/html/rfc7540) 大张旗鼓地将 HTTP/2 标准化为协议的下一个主要版本。
+18 年后，新版本的 HTTP 发布了。在 2015 年，[RFC 7540](https://datatracker.ietf.org/doc/html/rfc7540) 大张旗鼓地宣布，会将 HTTP/2 标准化为协议的下一个主要版本。
 
 ### 一个连接，一个文件
 
-如果一个网页需要 10 个 JavaScript 文件，那么浏览器就需要检索所有的 10 个文件才能完成加载。在 HTTP/1.1 那个时代，一次与服务器的 TCP 连接只能下载一个文件。这意味着文件是依次下载的，只要有一个文件出现延迟，后面的所有下载都会被阻塞。这个现象被称为[队头阻塞](https://en.wikipedia.org/wiki/Head-of-line_blocking)；这对性能有负面的影响。
+如果一个网页需要 10 个 JavaScript 文件，那么浏览器就需要检索所有的 10 个文件才能完成加载。在 HTTP/1.1 那个时代，一次与服务器的 TCP 连接只能下载一个文件。这意味着文件是依次下载的，只要有一个文件出现延迟，后面的所有下载都会被阻塞。这个现象被称为[队头阻塞](https://en.wikipedia.org/wiki/Head-of-line_blocking)；这对页面性能是不利的。
 
 为了解决这个问题，浏览器可以打开多个 TCP 连接以并行化数据检索。然而，这是种资源密集型的方法。每个新的 TCP 连接都会消耗客户端和服务端的资源；当你添加 TLS 时将会发生大量的 SSL 协商。我们需要一种更好的解决方案。
 
@@ -45,19 +45,19 @@ HTTP（超文本传输协议 1.0）的[第一个正式版本](https://datatracke
 
 HTTP/2 的最大卖点就是多路复用。它将格式切换为允许多路复用文件下载的二进制传输格式，解决了**应用层**的队头阻塞的问题。也就是说，客户端可以同时请求所有的 10 个文件，并通过一个 TCP 连接并行地下载所有的 10 个文件。
 
-不幸的是，HTTP/2 仍有队头阻塞的问题，问题就在之前的传输层；TCP 变成了链上最脆弱的一环。任何丢包的数据流都需要等待该包[重新传输后才能继续](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-prior-versions-of-http)。
+不幸的是，HTTP/2 的通信过程中仍存在队头阻塞的问题，而源头就出现在它的下一层 —— TCP 变成了传输链上最脆弱的一环。任何出现了丢包的数据流都需要等待该包[重新传输后才能继续](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-prior-versions-of-http)。
 
-> 然而，由于 HTTP/2 多路复用的并行特性不能覆盖到 TCP 的丢包恢复机制，一个丢失或顺序不对的数据包会导致所有运行中的业务停顿，无论其是否受到丢包的直接影响。
+> 然而，由于 HTTP/2 多路复用的并行特性对于 TCP 的丢包恢复机制是不可见的，一个丢失或顺序不对的数据包会导致所有活动的事务停顿，无论其是否受到丢包的直接影响。
 
-事实上，在高丢包的环境下，HTTP/1.1 表现得更好，因为 HTTP/2 开了太多并行的 TCP 连接！
+事实上，在高丢包的环境下，HTTP/1.1 反而表现得更好，正是因为 HTTP/2 开了太多并行的 TCP 连接！
 
 ### QUIC 和 HTTP/3 中真正的多路复用
 
-HTTP/3 到来了。HTTP/2 和 HTTP/3 的主要区别在于所使用的传输协议。与之前的 TCP 协议不同，HTTP/3 使用了一个全新的协议 —— [QUIC](https://www.rfc-editor.org/rfc/rfc9000.html)。QUIC 是一个通用的传输协议，解决了 HTTP/2 因为 TCP 而产生的队头阻塞问题。这个协议能让你通过 UDP（与 TCP 相似）创建[一系列带状态的流](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-delegation-to-quic)。
+现在说到 HTTP/3。HTTP/2 和 HTTP/3 的主要区别在于所使用的传输协议。与之前的 TCP 协议不同，HTTP/3 使用了一个全新的协议 —— [QUIC](https://www.rfc-editor.org/rfc/rfc9000.html)。QUIC 是一个通用的传输协议，解决了 HTTP/2 因为 TCP 而产生的队头阻塞问题。这个协议能让你通过 UDP 创建[一系列带状态的流](https://quicwg.org/base-drafts/draft-ietf-quic-http.html#name-delegation-to-quic)（这与 TCP 很相似）。
 
 ![](https://requestmetrics.com/assets/images/webperf/http3/udp-joke.min.png)
 
-> 与 HTTP/2 相似，QUIC 传输协议也包含流复用。通过提供流级别的可靠性及整个连接的拥塞控制，比起 TCP 映射，**QUIC 更能提高 HTTP 的性能**。
+> QUIC 传输协议包含流的复用和对每个流的流量控制，这两者与 HTTP/2 中实现的类似。通过在整个连接中提供流级别的可靠性和拥塞控制，比起 TCP 映射，**QUIC 更能提高 HTTP 的性能**。
 
 如果你不关心测试是怎么进行的，那就跳到下方的结果吧！
 
@@ -111,11 +111,11 @@ HTTP/3 到来了。HTTP/2 和 HTTP/3 的主要区别在于所使用的传输协�
 
 ![](https://requestmetrics.com/assets/images/webperf/http3/ny-http2and3.png)
 
-HTTP/3 在……
+HTTP/3 在：
 
 * 小型站点快了 **200 毫秒**
-* 内容站点快了**325 毫秒**
-* 单页面应用快了**300 毫秒**
+* 内容站点快了 **325 毫秒**
+* 单页面应用快了 **300 毫秒**
 
 明尼苏达州距离纽约 1000 英里（约等于 160 公里）；这长度对于网络连接来说不算什么。然而重要的是，即使在相对较短的距离内，HTTP/3 也能够将性能提高这么多。
 
@@ -127,9 +127,9 @@ HTTP/3 在……
 
 正如你所见，当网络的距离更远时，速度的提高更明显了。
 
-* 小型站点快了**600 毫秒**（速度是纽约的 **3 倍**）
-* 内容站点快了**1200 毫秒**（速度是纽约的 **3.5 倍**）
-* 单页面应用快了**1000 毫秒**（速度是纽约的 **3 倍**）
+* 小型站点快了 **600 毫秒**（速度是纽约的 **3 倍**）
+* 内容站点快了 **1200 毫秒**（速度是纽约的 **3.5 倍**）
+* 单页面应用快了 **1000 毫秒**（速度是纽约的 **3 倍**）
 
 ### 印度班加罗尔
 
@@ -168,7 +168,7 @@ HTTP/3 真正的多路复用特性意味着堆栈上的任何地方都不会发�
 
 Nginx 对 HTTP/3 也有实验性的支持，且正在[朝向将发布的 HTTP/3（它就在不久的将来）迈进](https://www.nginx.com/blog/our-roadmap-quic-http-3-support-nginx/)。
 
-像是谷歌和 Facebook 这些科技巨擘已经通过 HTTP/3 提供服务了。在现代的浏览器中，[Google.com](https://google.com) 已完全使用 HTTP/3。
+像是谷歌和 Facebook 这些科技巨擘已经通过 HTTP/3 提供服务了。在现代浏览器中，[Google.com](https://google.com) 已完全使用 HTTP/3。
 
 对于那些“困在”微软生态系统中的用户，据说 Windows Server 2022 将会支持 HTTP/3，但你需要执行一些[“深奥”的步骤](https://techcommunity.microsoft.com/t5/networking-blog/enabling-http-3-support-on-windows-server-2022/ba-p/2676880)来启用它。
 
