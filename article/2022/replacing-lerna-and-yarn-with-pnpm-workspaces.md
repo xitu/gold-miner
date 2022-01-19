@@ -5,8 +5,6 @@
 > * 译者：
 > * 校对者：
 
-![Featured image](https://res.cloudinary.com/duzei21zt/image/upload/v1637180072/site/pnpm_cover_5eea33c4b8.png&w=3840&q=75)
-
 # Replacing Lerna + Yarn with PNPM Workspaces
 
 Monorepo architecture has become more popular over the years, which is understandable considering the problem it solves. The biggest challenge, though, is finding an easy-to-use tool for handling such a structure.
@@ -114,7 +112,6 @@ Let's see this in practice. The following `package.json:
     "unified": "10.1.0"
   }
 }
-
 ```
 
 After running `npm install`, will result in the following `node_modules`:
@@ -131,7 +128,6 @@ node_modules
 ├── unist-util-stringify-position
 ├── vfile
 └── vfile-message
-
 ```
 
 Though this approach has been working for years, it can lead to some problems called "phantom dependency".
