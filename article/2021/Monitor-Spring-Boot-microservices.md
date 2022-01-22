@@ -17,13 +17,13 @@
 
 ## 介绍
 
-在使用微服务和事件驱动架构（EDA）时，包括监控、日志、追踪和警报等方面的可观察性是一个架构十分重要的关注点，主要是因为：
+在使用微服务和事件驱动架构（EDA）时，监控、日志、追踪和告警等方面的可观察性是一个架构十分重要的关注点，主要是因为：
 
 - 大规模的部署需要集中且自动化的监控与可观测能力
 
 * 架构的异步性和分布式性质使得关联多个组件产生的指标变得困难
 
-解决这个架构问题可以简化架构管理，并加快解决运行时问题的周转时间。它还有助于做出明智的架构、设计、部署和基础设施，以改善平台的非功能特性。此外，自定义指标的产出、收集和可视化可以为业务或运营带来其他有用的信息。
+解决这个架构问题可以简化架构管理，并加快解决运行时问题的周转时间。还能提供有助于做出明智的架构、设计、部署和基础设施的见解，，以改善平台的非功能特性。此外，自定义指标的产出、收集和可视化可以为业务或运营带来其他有用的信息。
 
 然而在实际的架构应用中，这个问题经常被忽略。本教程通过使用 Micrometer、Prometheus 和 Grafana 等开源工具对 Java 和 Spring Boot 微服务的可观察性进行*监控*，相信会成为该方面最佳的实践指南。
 
@@ -43,14 +43,14 @@
 监控工具的主要目标是：
 
 - 监控应用程序性能
-- 为利益相关者（开发团队、基础架构团队、运营用户、维护团队和业务用户）提供自助服务。
+- 为利益相关者（开发团队、基础架构团队、运营用户、维护团队和商业用户）提供自助服务。
 - 协助进行快速问题溯源分析（RCA）
 - 建立应用程序的性能基线
-- 如果使用云服务，提供云使用成本的监测能力，并以集成的方式监控不同的云服务
+- 如果使用云服务，提供云服务使用成本的监测能力，并以集成的方式监控不同的云服务
 
 监控主要体现在以下四类行为：
 
-- 应用的 **_指标化_** ——对应用进行指标化带来的指标度量对监控应用和维护团队以及业务用户十分重要。有许多非侵入性的方法来度量指标，最流行的是 "字节码检测"、"面向切面的编程 "和 "JMX"。
+- 应用的 **_指标化_** ——对应用进行指标化带来的指标度量对监控应用和维护团队以及业务用户十分重要。有许多非侵入性的方法来度量指标，最流行的是“字节码检测”、“面向切面的编程”和“JMX”。
 - **_指标收集_** —— 从应用中收集指标，并将其持久化到相应的存储库中。然后，存储库需要提供一种查询和汇总数据的方法，以实现数据的可视化。市面上流行的收集器有 Prometheus、StatsD 和 DataDaog。大多数指标收集工具是时间序列存储库，并提供高级查询能力。
 - **_指标可视化_** —— 可视化工具指标查询库，建立视图和仪表盘供最终用户使用。它们提供丰富的用户界面来对指标执行各种操作，例如聚合、数据下探等。
 - **_告警和通知_** —— 当指标超过定义的阈值（例如 CPU 超过 80% 且持续 10 分钟），可能需要人工干预。为此，告警和通知很重要。大多数可视化工具提供了告警和通知能力。
@@ -255,13 +255,13 @@ public class MicroSvcMeterRegistryConfig {
 | :---------------------------------------------- | :----------------------- | :------------------------------------- | :------------------------------------- | :------------------------------------- | :------------------------------------- | :--------------------------------------- | :------------------------------- | :-------------- | :---------- | :--------------------------------- |
 | **资源利用率**（CPU、线程、文件描述符、堆、GC） | 开箱即用的微服务实例级别 |                                        |                                        |                                        |                                        |                                          |                                  |                 |             |                                    |
 | **可用性**                                      | 开箱即用的微服务实例级别 |                                        |                                        |                                        |                                        |                                          |                                  |                 |             |                                    |
-| **潜伏**                                        | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
+| **延迟**                                        | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
 | **吞吐量**                                      | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
 | **例外**                                        | 开箱即用的`@Timed`注释   | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 通过 Spring-AOP 的自定义可重用方面完成 | 开箱即用的日志记录、缓存和 JDBC 连接池 | 如果使用 spring-cloud-stream，则开箱即用 | 通过自定义 MeterBinder bean 完成 | 开箱即用        | 开箱即用    | 提供部分支持。需要自定义路线仪表。 |
 
 #### 检测 REST 服务的控制器
 
-检测 REST 控制器的最快、最简单的方法是使用 `@Timed` 注解标记在控制器或控制器的各个方法上。 `@Timed` 注解自动添加 `exception`、`method`、 `outcome`、`status`和 `uri` 标签到定时器。添加额外的标签到 `@Timed` 注解也是可以的。
+检测 REST 控制器的最快、最简单的方法是使用 `@Timed` 注解标记在控制器或控制器的各个方法上。 `@Timed` 注解自动添加 `exception`、`method`、 `outcome`、`status`和 `uri` 标签到定时器。`@Timed` 注解也可以添加额外的标签。
 
 #### 检测微服务的不同架构层
 
@@ -271,7 +271,7 @@ public class MicroSvcMeterRegistryConfig {
 
 - 定义多个切点来为不同类型的组件应用建议，并且这些组件包含上述注解。
 
-- 将适当的标签应用于指标，以便可以对指标进行深入分析或切片。例如，诸如 `componentClass`、`componentType`、`methodName` 和 `exceptionClass` 的标记可以使用。使用这些自定标签和公共标签，指标将按如下方式产出：
+- 将适当的标签应用于指标，以便可以对指标进行深入分析或切片。例如，可以使用 `componentClass`、`componentType`、`methodName` 和 `exceptionClass` 标签。使用这些自定标签和公共标签，指标将按如下方式产出：
 
   ```
    component_invocation_timer_count{env="local", instanceId="1", appName="samplemicrosvc", componentClass="SampleService", componentType="service", methodName="getUserInformation"} 26.0
@@ -435,7 +435,7 @@ public class KafkaProducerMonitor implements MeterBinder {
 
 #### 集成 Camel
 
-如果需要集成 Apache Camel ，则需要在应用程序中对`路由`进行集成和处理。在路由级别获取指标也是有意义的。Camel 通过其 [`camel-micrometer`组件](https://camel.apache.org/components/latest/micrometer-component.html)为 Micrometer 提供端点。在应用程序的 pom 中添加 `camel-micrometer` 依赖项使 Micrometer 端点能够启动或停止计时器和递增计数器。这些可用于收集路由级别的指标。其他特定于 Camel 的 bean，例如 `org.apache.camel.Processor`那些 type 的，可以使用前面描述的 AOP 方法检测。
+如果需要集成 Apache Camel ，则需要在应用程序中对 `Routes` 进行集成和处理。在路由级别获取指标也是有意义的。Camel 通过其 [`camel-micrometer`组件](https://camel.apache.org/components/latest/micrometer-component.html)为 Micrometer 提供端点。在应用程序的 pom 中添加 `camel-micrometer` 依赖项使 Micrometer 端点能够启动或停止计时器和递增计数器。这些可用于收集路由级别的指标。其他特定于 Camel 的 bean，例如 `org.apache.camel.Processor`那些 type 的，可以使用前面描述的 AOP 方法检测。
 
 要启用 micrometer 服务，请添加 `camel-micrometer` 依赖项，如下所示：
 
@@ -479,7 +479,7 @@ Prometheus 有一个健康的发展生态系统。有多个库和服务器可用
 
 ### 将 Kafka 与 Prometheus 集成
 
-如果您使用 Kafka 作为消息/事件代理，那么 Kafka 指标与 Prometheus 的集成并不是开箱即用的，需要使用到 [`jmx_exporter`](https://github.com/prometheus/jmx_exporter) 这个组件。同时还需要在 Kafka 的 Brokers 上进行配置，然后 Brokers 将通过 HTTP 提供指标。`jmx_exporter` 需要配置文件 ( `.yml`)。示例代码库的`examples` 文件夹中提供了示例配置 `jmx_exporter`。
+如果您使用 Kafka 作为消息/事件代理，那么 Kafka 指标与 Prometheus 的集成并不是开箱即用的，需要使用到 [`jmx_exporter`](https://github.com/prometheus/jmx_exporter) 这个组件。同时还需要在 Kafka 的 Brokers 上进行配置，然后 Brokers 将通过 HTTP 提供指标。`jmx_exporter` 需要配置文件 (`.yml`)。示例代码库的 `examples` 文件夹中提供了示例配置 `jmx_exporter`。
 
 在本教程中，我们构建自定义 Kafka 映像仅用于演示目的。`jmx_exporter` 代码存储库的 README.md 中提供了构建自定义 Kafka 映像的说明。
 
