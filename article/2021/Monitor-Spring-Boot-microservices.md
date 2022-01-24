@@ -1,19 +1,13 @@
-> 原文地址：[Monitor Spring Boot microservices](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
->
-> - 原文作者：[Tanmay Ambre](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
-> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md)
-> - 译者：[YueYongDev](https://github.com/YueYongDev)
-> - 校对者：[Liang2028](https://github.com/Liang2028), [niayyy](https://github.com/nia3y)
+> * 原文地址：[Monitor Spring Boot microservices](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
+> * 原文作者：[Tanmay Ambre](https://developer.ibm.com/tutorials/monitor-spring-boot-microservices/?mhsrc=ibmsearch_a&mhq=spring)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Monitor-Spring-Boot-microservices.md)
+> * 译者：[YueYongDev](https://github.com/YueYongDev)
+> * 校对者：[Liang2028](https://github.com/Liang2028), [niayyy](https://github.com/nia3y)
 
 # SpringBoot 微服务监控
 
-使用 Micrometer、Prometheus 和 Grafana 为 Spring Boot 微服务构建全面的监控能力
-
-作者：Tanmay Ambre
-发布时间：2020 年 3 月 11 日
-
----
+> 使用 Micrometer、Prometheus 和 Grafana 为 Spring Boot 微服务构建全面的监控能力
 
 ## 介绍
 
