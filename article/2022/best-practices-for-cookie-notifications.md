@@ -127,7 +127,7 @@ By default, enable the essential cookies to run the website and allow users to p
 
 The website [StackExchange](https://stackexchange.com/) has non-essential cookies disabled and essential cookies enabled by default.
 
-*Note:** If the website only collects anonymous data that doesn't violate GDPR, you can avoid the usage of cookie notifications.*
+> Note: If the website only collects anonymous data that doesn't violate GDPR, you can avoid the usage of cookie notifications.
 
 The majority of cookies exist solely for persistence. Cookies allow you to stay logged in until you log out of a website like Facebook or Twitter. This means that you will be logged in every time you visit that site, saving you the time and effort of having to re-enter your password. You will be logged out if you erase your cookies.
 
