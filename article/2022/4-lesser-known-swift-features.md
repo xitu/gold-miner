@@ -13,7 +13,7 @@ Many developers work with standard technologies and are often unaware of the man
 
 Many developers know that recursion might be an imperfect tool, as the function call stack can overflow uncontrollably and crash due to a Segmentation fault. One type of recursion is Tail Recursion, where a function calls itself at the end of the function itself.
 
-```
+```swift
 func tailRecursion(n: Int) {
   guard n != 0 else { return }
   print(n)
@@ -23,7 +23,7 @@ func tailRecursion(n: Int) {
 
 in contrast with usual recursion:
 
-```
+```swift
 func usualRecursion(n: Int) {
   if n > 0 {
     usualRecursion(n: n-1)
@@ -39,7 +39,7 @@ In the previous examples, `usualRecursion(n: 300000)` crashes with a “Segmenta
 The experiments were performed on my computer; the results for these parameters may vary on other computers.
 You can see the optimisation in the generated assembler code.
 
-```
+```bash
 xcrun swiftc -O -S File.swift > main.asm
 ```
 
@@ -71,7 +71,7 @@ If we want to convert the bit representation of 11110001 to decimal format, then
 
 This representation of numbers allows performing arithmetic operations faster at a low level.
 
-```
+```swift
 // The way to get inner representation of a negative number:
 String(UInt8(bitPattern: Int8(-15)), radix: 2)
 ```
@@ -82,7 +82,7 @@ Swift offers various collection protocols that often share the same functionalit
 
 For example, the suffix function on the Sequence protocol works with O(n) complexity, while the same function on the RandomAccessCollection protocol (which inherits from Sequence; an example of a structure that conforms to this protocol is a regular Array) already works with complexity O(1). On large amounts of data, this difference will be clearly visible. Therefore, be mindful of the protocol you want to work with.
 
-```
+```swift
 // define an array
 let array = 0...100_000
 
