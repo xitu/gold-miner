@@ -2,54 +2,88 @@
 > * 原文作者：[Mikhail Boutylin](https://medium.com/@lahmataja-pa4vara)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/.md](https://github.com/xitu/gold-miner/blob/master/article/2022/two-way-binding-will-make-your-react-code-better.md)
-> * 译者：
+> * 译者：[tong-h](https://github.com/Tong-H)
 > * 校对者：
 
-# Two-way binding will make your React code better
+# 双向绑定会使你的 React 代码更棒
 
 ![](https://miro.medium.com/max/1400/1*qAhyHG_kc614Tm-dkgVbZg.jpeg)
 
-Two-way binding allows creating synchronization between 2 entities, for example, application data and view. React out of the box, provides an api to get one-way binding. When we want to mutate the state, we need explicitly call updating callback:
+双向绑定使两个对象之间可以保持同步，比如应用数据和视图。React 提供了单向绑定的 api，开箱即用。当我们想要修改 state 时，我们需要显式的调用更新回调：
 
-![](https://miro.medium.com/max/1400/1*pe6DJAtMp35-T2_3m5mYeg.png)
+``` js
+const UserName = ({ name, onChange }) => {
+	return <input onChange={onChange} value={name} />
+}
+const App = () => {
+	const [user, setUser] = useState({ name: "" })
+	return <UserName name={user.name} onChange={(e) => setUser({ name: e.target.value })} />
+}
+```
 
-This is done to provide owner to child update experience. So when the root state of the app gets updated, changes will propagate to children. This makes application data flow clear and predictable, however increases the amount of code to write.  
-In order to make a two-way binding match with react update philosophy, I’ve built a library called `mlyn`. The main paradigm is that every piece of the state is readable and writable. However when you write to it, the change will bubble to the root of the state, and the root state will be updated:
+这为子元素的更新提供了渠道，所以修改会在 App 的根 state 更新后传播给子元素。这使得应用数据流变得明确清晰且可预测，但增加了代码量。
+为了使双向绑定与 React 的更新哲学相匹配，我创建了一个库 `mlyn`。主要的范式在于每一部分 state 都是可读写的。当你写入 state 时，这个修改将会冒泡上升至根 state，并导致其更新：
 
-![](https://miro.medium.com/max/1400/1*4Bkc9QVW0BuaAnkkV0uArQ.png)
+``` js
+// 末尾符号 $ 代表该值是可监控的
+const UserName = ({ name$ }) => {
+	return <Mlyn.Input bindValue={name$} />
+}
+const App = () => {
+	const user$ = useSubject({ name: "" })
+	return <UserName name$={user$.name} />
+}
+```
 
-That’s it, the engine will update the state in the same way as on the plain react example above.
+就这样，引擎会用与上述普通 React 示例一样的方法去更新 state。
 
 ![](https://miro.medium.com/max/1400/1*SMBgiqvVPFNu42bMUDUJ6w.png)
 
-However two-way binding is not limited to the communication with UI. You can easily bind your value to the local storage. Let say you have a hook that accepts a portion of mlyn state, and target local storage key:
+但双向绑定并不仅限于与 UI 交互，你可以轻松地将你的值与 localStorage 绑定。你有一个 hook，该 hook 接受一个 mlyn 的 state 以及目标 localStorage 的 key：
 
-![](https://miro.medium.com/max/1400/1*Jk5jq8PlcKF3o-MR0ZwC7Q.png)
+``` js
+const useSyncronize = (subject$, key) => {
+	useEffect(() => {
+		// 如果 state 存在，即为其写入
+		if (localStorage[key]) {
+			subject$(JSON.parse(localstorage[key]))
+		}
+	}, [])
+	useMlynEffect(() => {
+		// state 更新，即更新 localStorage
+		localStorage[key] = JSoN.stringify(subject$())
+	})
+}
+```
 
-Now you can easily bind user name to it:
+现在你可以轻松地绑定用户名称到 localStorage：
 
-![](https://miro.medium.com/max/1400/1*t31zC1_DLjuGXP0LJ31BgA.png)
+``` js
+useSyncronize(user$.name, "userName");
+```
 
-Note that you don’t need to create/pass any callbacks to update the value, it just works.  
-Another use-case is when you want to make changes of the state undoable / re-doable. Once again, just pass this state to the appropriate history management hooks.
+注意，你不需要创建或传递任何回调函数用于更新值，它就会生效。
+另一个使用案例是当你想要使 state 的修改可撤销或可重写时，你只需要将该 state 再一次传递给正确的历史管理 hook。
 
-![](https://miro.medium.com/max/1400/1*YXmAnheb4irSgooDWp1YPg.png)
+``` js
+const history = useHistory(state$.name);
+```
 
-The `history` object will contain the api to jump to any step of the state. However, it's a bit customized 2-way binding. Whenever state gets updated, the value is pushed to the history:
+`history` 对象包含一个 api `jumpTo` 可以跳转至 state 的任何阶段，但这是一个带有一点自定义的双向绑定。只要 state 被更新，新的快照就会被推送到 history 中：
 
 ![](https://miro.medium.com/max/1400/1*GhiJOFZ096s0132YjIIm_A.jpeg)
 
-When a history entry is selected, this entry is written back to the state:
+当你选中一个历史状态，该状态将会重新赋值给 state：
 
 ![](https://miro.medium.com/max/1400/1*6TQ_Iwan_oX8Zdqcm9QOuA.jpeg)
 
-And note again that we don’t write a custom boilerplate for the state update, just connecting the dots. Check this [code sandbox](https://codesandbox.io/s/react-mlyn-todo-mvc-with-history-lr34k?file=/src/App.js:1514-1555) with history management for a TodoMVC app:
+再次注意，我们没有因为 state 的更新而去写一个自定义样板，只是把历史快照串联起来而已。看看这个 TodoMVC 应用的历史记录管理 [code sandbox](https://codesandbox.io/s/react-mlyn-todo-mvc-with-history-lr34k?file=/src/App.js:1514-1555)：
 
 ![](https://miro.medium.com/freeze/max/60/1*kkac5rgo0BbEfB-8VfFDrg.gif?q=20)
 
 ![](https://miro.medium.com/max/1400/1*kkac5rgo0BbEfB-8VfFDrg.gif)
 
-For more examples on 2-way binding and `mlyn` visit [react-mlyn repo](https://github.com/vaukalak/react-mlyn).
+关于更多双向绑定以及 `mlyn` 的例子，请访问 [react-mlyn](https://github.com/vaukalak/react-mlyn)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
