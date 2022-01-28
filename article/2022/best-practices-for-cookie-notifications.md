@@ -2,160 +2,166 @@
 > * 原文作者：[Ravidu Perera](https://raviduperera.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/best-practices-for-cookie-notifications.md](https://github.com/xitu/gold-miner/blob/master/article/2022/best-practices-for-cookie-notifications.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# Best Practices for Cookie Notifications
+# Cookie 通知的最佳实践方案
 
 ![](https://miro.medium.com/max/1400/1*F3LnyRex1n6ymjO0kAK8uQ.jpeg)
 
-Cookies are small text strings primarily used for authentication to establish a user session. Lately, they have been used primarily for tracking unique details about users such as settings and preferences on their browsers to enhance the UX of a website.
+Cookie 是一些简短字符串，主要用于身份验证以建立用户会话。近些年来，cookie 也用于追踪用户信息（例如浏览器的设置和偏好）来提升网站的用户体验。
 
-With the legislation of the [General Data Protection Regulation (GDPR)](https://gdpr.eu/), all websites must notify the users about the data they are tracking in cookies.
+根据[通用数据保护条例 (GDPR)](https://gdpr.eu/) ，所有的网站都必须通知用户他们在 cookie 中追踪的数据。
 
-This article will discuss some best practices to follow when implementing these cookie notifications to have a minimum impact on the UX and UI.
+这篇文章会探讨一些 cookie 通知的最佳实践，以尽量减少其对用户体验和 UI 的影响。
 
-## Can Cookie Notifications Disrupt UX?
+## Cookie 通知会破坏用户体验吗？
 
-Even though it's essential to inform the user about the data tracked using cookies, they can affect UX if not implemented correctly.
+通知用户 cookie 所追踪的数据非常重要；但如果其没有正确地实现，用户体验将会受到影响。
 
-Here are some scenarios where cookie notifications are hindering the UX.
+以下是 cookie 通知阻碍用户体验的一些场景。
 
-### 1. Intrusive cookie notifications on mobiles
+### 1. 移动端上突兀的 cookie 通知
+
+例子：
 
 ![](https://miro.medium.com/max/648/1*fIM25m26dEOvn9AXxg6Cyw.jpeg)
 
-Screenshot from mobile of an intrusive cookie notification
+上图这种通知会遮挡大部分的屏幕空间，从而阻碍用户访问页面上的内容。此类通知将会影响网站的可用性。
 
-Notifications similar to the above, blocking a large portion of the screen, prevent the user from accessing the content on the page. Such notifications obstruct the usability of the website.
+### 2. 形同虚设的选项
 
-### 2. Cookie notifications with the illusion of choice
+没有拒绝选项的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*VrClO6qQqkadtc-IglOJyA.gif)
 
-Cookie notifications without an option to reject
+如上所示，没有适当的 cookie 使用描述、没有更改偏好或是拒绝选项的 cookie 通知将误导用户，并最终迫使他们接受所有的 cookie。
 
-Cookie notifications without a proper description of the usage and options to change the cookie preferences or refuse cookies, as shown above, can mislead the users and ultimately force them to accept the cookies.
+强制用户接受条款的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*RvjGTBhLkxPwXVhQQer9mQ.jpeg)
 
-Cookie notification forcefully asking to accept
+## 构建 cookie 通知的最佳实践
 
-## Best Practices for Building Cookie Notifications
+让我们看看一些 cookie 通知的最佳实践吧！
 
-Let's go through some best practices to implement cookie notifications with the options to accept, reject or quickly change the settings of cookies.
+### 1. 正确地放置通知
 
-### 1. Proper placement
+Cookie 通知通常放置在 header、footer 或者页面的角落。这样一来，网站的主要内容就不会被通知阻挡。
 
-Cookie notifications are commonly placed in the header, footer, or corner of the page where the notice won't hinder the main content.
+放在页面角落的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*ZJGlv46qCAV3vJMZD4qHcA.jpeg)
 
-Cookie notification placed in the corner of the page
+最好的实践方式是将通知放在 footer；这样一来，主要内容仍然能按预期展示，并且通知在页面中不会显得那么突兀。
 
-It's best to put the notice in the footer, where the main content is still displayed as intended, and the notice is less intrusive.
+推荐的 cookie 通知放置位置：
 
 ![](https://miro.medium.com/max/1400/1*j-YvaPBrmDfOi7DLlpYU9w.jpeg)
 
-Recommended placement for cookie notifications
+不管通知的位置如何，确保其占用最小的空间是非常重要的。
 
-Regardless of where it's placed, it is crucial to ensure that the notification occupies minimum space.
+Cookie 通知也可以通过弹窗（modal view）展示。然而，这会将用户的注意力从内容上移开；我们应该谨慎地使用这种方式。可惜的是，弹窗展示现如今仍是大多数需要 cookie 同意的网站所采用的策略。
 
-Cookie notices are also displayed in modals. However, this draws the user's attention away from the content. Thus, it should be used with caution. Unfortunately, this is the strategy adopted by most websites that require cookie consent.
+一个占用太多不必要空间的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*WqUQXE96jIhEzT-i2osw9Q.jpeg)
 
-A cookie notification occupies an unnecessary amount of space. Source: [awin.com](https://www.awin.com/gb)
+（图片来源：[awin.com](https://www.awin.com/gb)）
 
-### 2. Mobile responsiveness
+### 2. 移动端适配
 
-When viewed on a mobile device, even a footer or header can occupy a lot of space on the page.
+在移动端浏览网页时，就算是一个 header 或 footer 都可能占用页面大部分的空间。
 
-Therefore, it is essential to ensure that the notification is mobile responsive and covers a minimum area of the mobile screen.
+因此，我们需要确保通知是响应式的，且在移动设备上占用最少的屏幕空间。
+
+移动端上的通知大小对比：
 
 ![](https://miro.medium.com/max/1400/1*-ytctuRnGgmqsAJ_H_rWVg.png)
 
-Comparison of the size of the notification on mobile devices
+上方的例子说明了在移动端上占用更少空间的 cookie 通知（图 2）能让用户感到更舒服且也不那么突兀。
 
-The above example shows that a cookie notification occupying less space on a mobile device (Image 2) is much more comfortable and less disruptive.
+### 3. 正确且具描述性的按钮
 
-### 3. Proper, descriptive call-to-action buttons
+> 为用户提供简短的 cookie 使用描述和允许/拒绝/更改设定的选项。
 
-Provide the user a short description of the usage of cookies and options to allow, reject or change settings of the cookies according to their preference.
+具描述性的 cookie 通知：
 
 ![](https://miro.medium.com/max/1204/1*WWWk7cHB5d1gi7y04qaSgg.png)
 
-Descriptive cookie notification
+包含自定义选项和具描述性的按钮的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*Erxgrbp_Oe81dKbetM_YeA.jpeg)
 
-Cookie notification with options to customize and descriptive buttons
+### 4. 提供灵活的自定义功能
 
-### 4. Provide flexible customization
+> 提供用户自定义 cookie 偏好的选项能让用户更好地掌控网站追踪的数据。
 
-Providing the users an option to customize their cookie preferences will give users control over the data tracked by the website.
+这些功能包括：
 
-Some of the features that can offer to the users are:
+- 更改 cookie 偏好的设置；
+- 让用户能启用非必要的 cookie 以提升用户体验；
+- 不同 cookie 类别的功能概述，并附上推荐类别的指示。
 
-- Change cookie preferences from the default ones
-- Ability to turn on non-essential cookies that can aid in enhancing the UX
-- An overview of the functionalities of different groups of cookies with an indication for recommended categories
+包含自定义选项的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*aEoLyNmfTCbcybVjiM801g.gif)
 
-Cookie notification with an option to customize the settings
+在 cookie 设置里，将选项分组是非常重要的；它能帮助用户快速地确认并选择需要的组别，而不是手动选择/取消每一个子选项。
 
-In the cookie settings, it's essential to group the options by purpose so that users can quickly identify and select the necessary categories rather than select or deselect each child option manually.
+一般的 cookie 是很容易就能被删除的，但删除它们可能导致部分网站难以浏览。此外，如果不使用 cookie，用户在每次浏览网站时都得重新输入他们的数据。不同的浏览器将 cookie 存储在不同的地方。
 
-Regular cookies are simple to delete, but they may make specific websites more challenging to navigate. In addition, users may have to re-enter their data for each visit if cookies are not used. Cookies are stored in various locations by different browsers.
+将 cookie 设置分组的例子：
 
 ![](https://miro.medium.com/max/612/1*OsxtTBCotBzRNnPPNNQR6g.png)
 
-Example for categorized cookie settings
+为每一个 cookie 类别添加简短的说明能帮助用户确定选择哪些类别以获得更好的用户体验。
 
-Adding a short description of each category of cookies can help the users identify which categories to choose for better functionality.
+为每个 cookie 类别提供描述信息以更好地指引用户：
 
 ![](https://miro.medium.com/max/946/1*G2CCo0IbJ1VKnxxeQCwnvw.jpeg)
 
-Provide descriptions of cookie categories in the settings for better guidance for the user
+### 5. 默认禁用非必要的 cookie
 
-### 5. Turn off non-essential cookies by default
+> 默认启用运行网站必要的 cookie，并允许用户在设定里选择启用其他非必要的 cookie。
 
-By default, enable the essential cookies to run the website and allow users to proceed or toggle the non-essential cookies from settings.
+[StackExchange](https://stackexchange.com/) 默认禁用了非必要的 cookie：
 
 ![](https://miro.medium.com/max/1400/1*FjvcIYXsa0dthqNKalbc5A.jpeg)
 
-The website [StackExchange](https://stackexchange.com/) has non-essential cookies disabled and essential cookies enabled by default.
+> 注：如果网站只收集匿名数据且不违反 GDPR，你可以选择不展现 cookie 通知。
 
-> Note: If the website only collects anonymous data that doesn't violate GDPR, you can avoid the usage of cookie notifications.
+大部分的 cookie 仅用于持久化状态。Cookie 能让你在网站上保持登录状态。这意味着你每次浏览该网站时都会处于登录状态，节省了重新输入密码的时间和精力。你的账号将被退出如果你删除了你的 cookie。
 
-The majority of cookies exist solely for persistence. Cookies allow you to stay logged in until you log out of a website like Facebook or Twitter. This means that you will be logged in every time you visit that site, saving you the time and effort of having to re-enter your password. You will be logged out if you erase your cookies.
+某些网站也可能会使用第三方 cookie；这些 cookie 不会侵犯你的隐私，禁用这些 cookie 可能会导致网站出现问题。
 
-You should also be aware that some websites may utilize third-party cookies that aren't harmful to your privacy. However, disabling these cookies may result in issues.
+### 6. 提高 cookie 通知的性能
 
-### 6. Improve the performance of cookie notifications
+一些网站会使用第三方管理 cookie 脚本或服务来管理 cookie 通知。
 
-Websites frequently utilize third-party scripts or services that leverage cookies to manage cookie notices.
+通过异步加载 cookie 脚本，我们能确保这些脚本不会阻碍页面的加载。
 
-Ensure that these scripts do not obstruct the loading of the website's actual scripts by loading the cookie scripts asynchronously.
+异步加载第三方脚本：
 
-Asynchronous loading of third-party scripts
+```html
+<script src="https://mycookies.com/add-new-script.js" async>
+```
 
-However, asynchronously loading could generate a "flicker" on the page, where the original page loads first, followed by the variation page shortly after.
+然而，异步加载可能导致页面闪烁；这是因为在原始网站加载完成的不久以后页面又发生了变化。
 
-Tools such as a `[Cookie script generator](https://cookie-script.com/)` can be used to check the performance and usage of cookies and enhance the performance of the cookies.
+我们可以透过一些工具（如 [CookieScript 扫描](https://cookie-script.com/)）查看 cookie 的使用情况，协助我们提升 cookie 的性能。
+
+[Medium](https://medium.com/) 的 cookie 报告：
 
 ![](https://miro.medium.com/max/1120/1*-WPvGdDywd4kCxvLKLzPCA.png)
 
-Cookie report for the author's medium page
+# 总结
 
-# Conclusion
+Cookie 在维持网站动态性中扮演了重要的角色。因此，网站应通过 cookie 通知告诉用户有关网站上的个人数据存储，并获取他们的同意。
 
-Cookies are essential to maintain the dynamic nature of a website. Therefore, it is necessary to inform the user about the personal data stored on a website and get consent via cookie notifications.
+开发者有责任将这些必要的通知以一种使用者有好的方式展现，尽可能地减少其对 UI 和用户体验的影响。
 
-It's the responsibility of developers to implement these essential notifications in a user-friendly manner, with minimum damages to the UI/UX of the website.
-
-We hope that the best practices discussed in this article will help you build cookie notifications with the UI/UX in mind.
+希望文章中讨论的这些最佳实践方案能帮助你在考虑 UI 及用户体验的情况下更好地构建 cookie 通知功能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
