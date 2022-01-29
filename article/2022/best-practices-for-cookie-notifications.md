@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/best-practices-for-cookie-notifications.md](https://github.com/xitu/gold-miner/blob/master/article/2022/best-practices-for-cookie-notifications.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Z招锦](https://github.com/zenblofe)
 
 # Cookie 通知的最佳实践方案
 
@@ -11,9 +11,9 @@
 
 Cookie 是一些简短字符串，主要用于身份验证以建立用户会话。近些年来，cookie 也用于追踪用户信息（例如浏览器的设置和偏好）来提升网站的用户体验。
 
-根据[通用数据保护条例 (GDPR)](https://gdpr.eu/) ，所有的网站都必须通知用户他们在 cookie 中追踪的数据。
+根据[通用数据保护条例 (GDPR)](https://gdpr.eu/) ，所有的网站都必须通知用户关于网站在 cookie 中追踪的数据内容。
 
-这篇文章会探讨一些 cookie 通知的最佳实践，以尽量减少其对用户体验和 UI 的影响。
+这篇文章会探讨一些 cookie 通知的最佳实践，以尽量减少其对用户体验（UX）和用户界面（UI）的影响。
 
 ## Cookie 通知会破坏用户体验吗？
 
@@ -47,13 +47,13 @@ Cookie 是一些简短字符串，主要用于身份验证以建立用户会话�
 
 ### 1. 正确地放置通知
 
-Cookie 通知通常放置在 header、footer 或者页面的角落。这样一来，网站的主要内容就不会被通知阻挡。
+Cookie 通知通常放置在页面顶部、页面底部或者页面角落。这样使得网站的主要内容不会被通知阻挡。
 
 放在页面角落的 cookie 通知：
 
 ![](https://miro.medium.com/max/1400/1*ZJGlv46qCAV3vJMZD4qHcA.jpeg)
 
-最好的实践方式是将通知放在 footer；这样一来，主要内容仍然能按预期展示，并且通知在页面中不会显得那么突兀。
+最好的实践方式是将通知放在页面底部；这样一来，主要内容仍然能按预期展示，并且通知在页面中不会显得那么突兀。
 
 推荐的 cookie 通知放置位置：
 
@@ -159,9 +159,9 @@ Cookie 通知也可以通过弹窗（modal view）展示。然而，这会将用
 
 Cookie 在维持网站动态性中扮演了重要的角色。因此，网站应通过 cookie 通知告诉用户有关网站上的个人数据存储，并获取他们的同意。
 
-开发者有责任将这些必要的通知以一种使用者有好的方式展现，尽可能地减少其对 UI 和用户体验的影响。
+开发者有责任将这些必要的通知以一种使用者有好的方式展现，尽可能地减少其对用户界面和用户体验（UI/UX）的影响。
 
-希望文章中讨论的这些最佳实践方案能帮助你在考虑 UI 及用户体验的情况下更好地构建 cookie 通知功能。
+希望文章中讨论的这些最佳实践方案能帮助你在考虑用户界面及用户体验（UI/UX）的情况下更好地构建 cookie 通知功能。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
