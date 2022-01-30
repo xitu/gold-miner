@@ -9,7 +9,7 @@
 
 ![](https://miro.medium.com/max/1400/1*qAhyHG_kc614Tm-dkgVbZg.jpeg)
 
-双向绑定使两个对象之间可以保持同步，比如应用数据和视图。React 提供了单向绑定的 api，开箱即用。当我们想要修改 state 时，我们需要显式的调用更新回调：
+双向绑定可以让两个实体间保持同步，比如：应用程序的数据层和视图层。React 提供了开箱即用的单向绑定的 api，开箱即用。当我们想要修改 state 时，我们需要显式的调用更新回调：
 
 ``` js
 const UserName = ({ name, onChange }) => {
