@@ -39,7 +39,7 @@ const App = () => {
 
 ![](https://miro.medium.com/max/1400/1*SMBgiqvVPFNu42bMUDUJ6w.png)
 
-但双向绑定并不仅限于与 UI 交互，你可以轻松地将你的值与 localStorage 绑定。你有一个 hook，该 hook 接受一个 mlyn 的 state 以及目标 localStorage 的 key：
+双向绑定并不局限于与 UI 交互，你可以轻松地将你的值与 localStorage 绑定。你有一个 hook，可以接收 mlyn state 的 一部分，以及目标 localStorage 的 key：
 
 ``` js
 const useSyncronize = (subject$, key) => {
