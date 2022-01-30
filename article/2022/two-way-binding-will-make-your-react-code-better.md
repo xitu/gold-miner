@@ -73,7 +73,7 @@ const history = useHistory(state$.name);
 
 ![](https://miro.medium.com/max/1400/1*GhiJOFZ096s0132YjIIm_A.jpeg)
 
-当你选中一个历史状态，该状态将会重新赋值给 state：
+当你选中一个历史状态，该状态将会重写回 state：
 
 ![](https://miro.medium.com/max/1400/1*6TQ_Iwan_oX8Zdqcm9QOuA.jpeg)
 
