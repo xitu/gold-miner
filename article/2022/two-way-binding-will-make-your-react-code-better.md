@@ -69,7 +69,7 @@ useSyncronize(user$.name, "userName");
 const history = useHistory(state$.name);
 ```
 
-`history` 对象包含一个 api `jumpTo` 可以跳转至 state 的任何阶段，但这是一个带有一点自定义的双向绑定。只要 state 被更新，新的快照就会被推送到 history 中：
+`history` 对象包含一个 api `jumpTo` 可以跳转至 state 的任何阶段，但这是一个带有一点自定义的双向绑定。只要 state 被更新，新的快照就会被推入到 history 中：
 
 ![](https://miro.medium.com/max/1400/1*GhiJOFZ096s0132YjIIm_A.jpeg)
 
