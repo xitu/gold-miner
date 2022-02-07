@@ -84,7 +84,6 @@ The result of this in the DOM will be:
 This is a minor example. Real React apps are way more complex. You can have a deeply nested parent-children relationships between components. For example:
 
 ```jsx
-
 return (
     <div>
       <h1>This is heading</h1>
