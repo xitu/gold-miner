@@ -3,8 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/5-misconceptions-about-design-systems.md](https://github.com/xitu/gold-miner/blob/master/article/2021/5-misconceptions-about-design-systems.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[zaviertang](https://github.com/zaviertang)
+> * 校对者：[Z招锦](https://github.com/zenblofe)，[zaviertang](https://github.com/zaviertang)
 
 ![](https://cdn-images-1.medium.com/max/5760/1*Sc7Rrut8tE9_WnWIlLlY4g.jpeg)
 
