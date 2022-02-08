@@ -2,7 +2,7 @@
 > - 原文作者：[Deb Knobelman, PhD](https://medium.com/@knobelman)
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md](https://github.com/xitu/gold-miner/blob/master/TODO1/this-is-how-to-plan-a-day.md)
-> - 译者：[司徒公子](https://github.com/todaycoder001)
+> - 译者：[司徒公子](https://github.com/stuchilde)
 > - 校对者：[秦圆圆](https://github.com/scarqin)、[孙不服](https://github.com/sunbufu)
 
 # 如何计划你的一天 —— 这里有一份攻略请查收

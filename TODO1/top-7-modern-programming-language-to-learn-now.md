@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/top-7-modern-programming-language-to-learn-now.md](https://github.com/xitu/gold-miner/blob/master/TODO1/top-7-modern-programming-language-to-learn-now.md)
 > * 译者：[lihaobhsfer](https://github.com/lihaobhsfer)
-> * 校对者：[impactCn](https://github.com/impactCn)、[司徒公子](https://github.com/todaycoder001)
+> * 校对者：[impactCn](https://github.com/impactCn)、[司徒公子](https://github.com/stuchilde)
 
 # 现在就该学习的 7 门现代编程语言
 

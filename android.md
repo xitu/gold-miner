@@ -1,3 +1,18 @@
+* [React Native 开发者的流行存储方案](https://juejin.cn/post/7008020729832669191)（[KimYangOfCat](https://github.com/KimYangOfCat) 翻译）
+* [Jetpack Compose：样式和主题（第二部分）](https://juejin.cn/post/6995419287435345934)（[Kimhooo](https://github.com/Kimhooo) 翻译）
+* [探索 ANDROID 12：启动画面](https://juejin.cn/post/6983942336824737822)（[Kimhooo](https://github.com/Kimhooo) 翻译）
+* [Jetpack Compose：更简便的 RecyclerView（第一部分）](https://juejin.cn/post/6970858140824764424)（[Kimhooo](https://github.com/Kimhooo) 翻译）
+* [Android 静态分析工具](https://juejin.cn/post/6967219488341098510)（[Kimhooo](https://github.com/Kimhooo) 翻译）
+* [Kotlin Multiplatform Mobile 的三模块问题](https://juejin.cn/post/6973566787799498782)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [构建和 Telegram 一样的上传动画](https://juejin.cn/post/6956899614385504293)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [当 Android 的 Compat 库不能拯救你的时候](https://juejin.cn/post/6955828449210548261)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Android 启动技巧：不要使用 Kotlin 协程](https://juejin.cn/post/6940071555330211847)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [5 个 Kotlin 扩展技巧让你的 Android 代码更具表现力](https://juejin.cn/post/6939089593111166984)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [使用 Android 11 进行机器学习：新功能](https://juejin.cn/post/6933208209259757581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [构建像 `Messenger` 短信软件那样的 ImageView](https://juejin.cn/post/6933957885642670093)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Android 中的意料之外的应用崩溃以及解决它们的方法](https://juejin.cn/post/6925336143953133581)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Flutter 可能是下一个大事件，但 Kotlin Multiplatform 一直都是大事件](https://juejin.cn/post/6916418157641105421)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [探索 Android 中的 ConstraintLayout 2.0](https://juejin.cn/post/6906770827228741646)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [如何避免 Android 设备的 WiFi 扫描节流](https://juejin.cn/post/6900807946884612104)（[regon-cao](https://github.com/regon-cao) 翻译）
 * [在你的 Instant 体验中使用 showInstallPrompt 的 5 个技巧](https://juejin.im/post/5dac5bc86fb9a04e1b57fa33)（[Fxy4ever](https://github.com/Fxy4ever) 翻译）
 * [Android 应用程序的订阅 101 系列视频](https://juejin.im/post/5d490c9ae51d4561e224a2cb)（[Fxy4ever](https://github.com/Fxy4ever) 翻译）

@@ -2,14 +2,14 @@
 > * 原文作者：[Maria Valcam](https://medium.com/@mariavalerocam)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-prioritize-your-teams-work.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-prioritize-your-teams-work.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[sunbufu](https://github.com/sunbufu), [Baddyo](https://github.com/Baddyo)
 
 # 如何确定团队工作的优先级
 
 > 先了解你公司的目标以及你团队的目标
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20191124002420.jpeg)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20191124002420.jpeg)
 
 ---
 
@@ -47,7 +47,7 @@ OKRs 有两个部分：
 
 约翰·杜尔在他的著作《衡量事项》中定义了它们。观看此视频以进行快速总结。
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20191124002837.jpg)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20191124002837.jpg)
 
 ---
 
@@ -74,7 +74,7 @@ OKRs 有两个部分：
 
 你觉不觉得和 PM 达成一致是一件困难的事情？提醒他们，内部工作也能为客户带来价值，所以错过它们对公司来说也是致命的。
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20191124003216.jpeg)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20191124003216.jpeg)
 
 您可以添加以下目标：
 

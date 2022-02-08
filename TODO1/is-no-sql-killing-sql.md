@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/is-no-sql-killing-sql.md](https://github.com/xitu/gold-miner/blob/master/TODO1/is-no-sql-killing-sql.md)
 > * 译者：[江不知](http://jalan.space)
-> * 校对者：[Jessica](https://github.com/cyz980908), [司徒公子](https://github.com/todaycoder001)
+> * 校对者：[Jessica](https://github.com/cyz980908), [司徒公子](https://github.com/stuchilde)
 
 # SQL 将死于 No-SQL 之手？
 

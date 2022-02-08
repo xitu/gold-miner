@@ -2,7 +2,7 @@
 > * 原文作者：[Steven Bradley](https://www.vanseodesign.com/about/) 
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md](https://github.com/xitu/gold-miner/blob/master/TODO1/4-css-filters-for-adjusting-color.md)
-> * 译者：[iceytea](https://github.com/iceytea)
+> * 译者：[acev](https://github.com/acev-online)
 > * 校对者：[lgh757079506](https://github.com/lgh757079506), [Baddyo](https://github.com/Baddyo)
 
 # 4 个 CSS 调色滤镜

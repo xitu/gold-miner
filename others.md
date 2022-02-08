@@ -1,3 +1,41 @@
+* [Web 的未来](https://juejin.cn/post/7006492657379704846)（[Gesj-yean](https://github.com/Gesj-yean) 翻译）
+* [可以在 GitHub.dev 做的十件有趣的事](https://juejin.cn/post/7004738629092261895)（[greycodee](https://github.com/greycodee) 翻译）
+* [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
+* [常见的社会工程攻击策略](https://juejin.cn/post/6999561784705155102)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [FFmpeg + WebAssembly](https://juejin.cn/post/6987338848023871524)（[finalwhy](https://github.com/finalwhy) 翻译）
+* [你真的应该在黑暗模式下进行编码吗？](https://juejin.cn/post/6977639449580699684)（[kamly](https://github.com/kamly) 翻译）
+* [外行人说量子计算机](https://juejin.cn/post/6979953198383497223)（[PingHGao](https://github.com/PingHGao) 翻译）
+* [提高 Firefox 在 Linux 上的稳定性](https://juejin.cn/post/6967580662479978504)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [“绿色”和“棕色”的编程语言](https://juejin.cn/post/6963157486677278757)（[chzh9311](https://github.com/chzh9311) 翻译）
+* [Page Shield：保护浏览器中的用户数据](https://juejin.cn/post/6956969205652520973)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [使用 VPython 进行物理模拟](https://juejin.cn/post/6955292986909409288)（[tmpbook](https://github.com/tmpbook) 翻译）
+* [Mozilla 对行业最大的贡献是 Rust，而不是火狐浏览器](https://juejin.cn/post/6952819591269580813)（[greycodee](https://github.com/greycodee) 翻译）
+* [使用 GitHub 代码扫描和 CodeQL 工具检测 Solorigate 等后门程序](https://juejin.cn/post/6952677372604710925)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [没有 UI 团队怎么办？分享 6 款能为独立网页开发者提效的免费工具](https://juejin.cn/post/6951207758997913636)（[5Reasons](https://github.com/5Reasons) 翻译）
+* [是时候该罢黜 JPEG，独尊新编码了](https://juejin.cn/post/6951062279760642062)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何打造一个好的 GitHub 用户档案？](https://juejin.cn/post/6950529817469157384)（[caiyundong](https://github.com/caiyundong) 翻译）
+* [解决方案架构师技巧：架构图的 5 种类型](https://juejin.cn/post/6949879274157539358)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Rust 1.51.0 发布](https://juejin.cn/post/6944238705078960165)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Git 2.31 中的闪光点](https://juejin.cn/post/6944951701942042660)（[Baddyo](https://github.com/Baddyo) 翻译）
+* [为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [“高级”黑客使用 11 个零日漏洞去感染 Windows、iOS 还有 Android 用户](https://juejin.cn/post/6945702690047557669)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2020 年 Go 语言开发者调查报告](https://juejin.cn/post/6943540695030300708)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [React Native 0.64 发布，已在 iOS 支持 Hermes](https://juejin.cn/post/6939117135331328030)（[youngjuning](https://github.com/youngjuning) 翻译）
+* [Raspberry Pi 九岁啦：你可能不知道的 9 件事](https://juejin.cn/post/6939451780610654245)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [Chrome 88 DevTools 中的新功能](https://juejin.cn/post/6938248665219727391)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [2021 年 1 月 RedMonk 编程语言排名](https://juejin.cn/post/6937849069721092110)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [为什么我还在用Lisp（而且你也应该用）](https://juejin.cn/post/6935225210278772766)（[elliott-zhao](https://github.com/elliott-zhao) 翻译）
+* [恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)（[Amberlin1970](https://github.com/Amberlin1970) 翻译）
+* [代码可视化 － 使用图技术为 Python 项目绘制结构图](https://juejin.cn/post/6935232492299354120)（[Ashira97](https://github.com/Ashira97) 翻译）
+* [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [恭喜 Safari 荣获「第二个 Internet Explorer」的美誉](https://juejin.cn/post/6929754875001569294)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [基于 50 万个浏览器指纹的新发现](https://juejin.cn/post/6930974348002590733)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [我拒绝了 MIT 的 Offer，依然是一个高价值的开发者](https://juejin.cn/post/6924489699641786375)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
+* [你应该知道的 3 个罕见的 Bash 技巧](https://juejin.cn/post/6923190362706018318)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [10 个你应该现在启用的绝佳的 Chrome Flags](https://juejin.cn/post/6923198038894706701)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [如何成为谷歌开发专家（GDE）— 实用指南](https://juejin.cn/post/6918640631317266439)（[Usualminds](https://github.com/Usualminds) 翻译）
+* [为什么要让你的代码尽可能简单](https://juejin.cn/post/6914669681500487687)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
+* [迪米特法则](https://juejin.cn/post/6890050952049950733)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [5 分钟内从单体架构迁移到微服务架构](https://juejin.cn/post/6900884077226917901)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [大数据：简述 Lambda 架构](https://juejin.cn/post/6887845604886741006)（[jackwener](https://github.com/jackwener) 翻译）
 * [MVC，MVP，MVVM 对比](https://juejin.cn/post/6883088734699388941)（[snowyYU](https://github.com/snowyYU) 翻译）
@@ -10,7 +48,7 @@
 * [Ubuntu 20.04 会不会偷走更多的 Windows 用户？](https://juejin.im/post/5ec4e7926fb9a0480067b602)（[z0gSh1u](https://github.com/z0gSh1u) 翻译）
 * [如何编写可节省您时间的日志文件](https://juejin.im/post/5edf8d636fb9a047cd65d136)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [理解 zip 和 gzip 压缩格式背后的压缩算法](https://juejin.im/post/5ecb7f9651882542f4488845)（[JohnieXu](https://github.com/JohnieXu) 翻译）
-* [如何编写整洁代码？从 Robert C. Martin 的“代码整洁之道”中吸取的教训](https://juejin.im/post/5eb78370f265da7be959ffc2)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [如何编写整洁代码？从 Robert C. Martin 的“代码整洁之道”中吸取的教训](https://juejin.im/post/5eb78370f265da7be959ffc2)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [如何在自己的计算机上模拟 UDP Flood DoS 攻击](https://juejin.im/post/5eb8fb09e51d4540bb6172e1)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [Google Tag Manager 的真相大揭秘](https://juejin.im/post/5ea41a43f265da47c15cdc53)（[zhanght9527](https://github.com/zhanght9527) 翻译）
 * [开发者应该写博客的各种原因](https://juejin.im/post/5ea7eb586fb9a043867d4763)（[PingHGao](https://github.com/PingHGao) 翻译）
@@ -21,15 +59,15 @@
 * [云服务如何帮助你提高业务效率？](https://juejin.im/post/5e8d07a96fb9a03c73797cef)（[QinRoc](https://github.com/QinRoc) 翻译）
 * [作为 2020 年的开发者，你应该学习 VIM 吗？](https://juejin.im/post/5e8d3205518825737a314e58)（[chaingangway](https://github.com/chaingangway) 翻译）
 * [Git 的历史：软件版本控制的统治之路](https://juejin.im/post/5e69ce5af265da576e64b326)（[fireairforce](https://github.com/fireairforce) 翻译）
-* [2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [2020 年要学习的 7 种编程语言和框架](https://juejin.im/post/5e663cec518825496e786051)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [如何写出优雅且有意义的 README.md](https://juejin.im/post/5e3a7363e51d452701795512)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [再见，整洁的代码](https://juejin.im/post/5e2411e0f265da3e4244e683)（[zh1an](https://github.com/zh1an) 翻译）
 * [现在就该学习的 7 门现代编程语言](https://juejin.im/post/5e1e00fee51d4577794c04f8)（[lihaobhsfer](https://github.com/lihaobhsfer) 翻译）
 * [如何为求职准备你的 GitHub](https://juejin.im/post/5e1310a8f265da5d7275de8e)（[nettee](https://github.com/nettee) 翻译）
 * [我个人的 Git 技巧备忘录](https://juejin.im/post/5e006ad4e51d45582248e63f)（[Pingren](https://github.com/Pingren) 翻译）
-* [如何确定团队工作的优先级](https://juejin.im/post/5de4fc675188252edd0e2828)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [如何确定团队工作的优先级](https://juejin.im/post/5de4fc675188252edd0e2828)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [为什么自己动手写代码能让你成为更好的开发者](https://juejin.im/post/5de88ed16fb9a016470c151a)（[quzhen12](https://github.com/quzhen12) 翻译）
-* [如何计划你的一天 —— 这里有一份攻略请查收](https://juejin.im/post/5db16664f265da4d4c201997)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [如何计划你的一天 —— 这里有一份攻略请查收](https://juejin.im/post/5db16664f265da4d4c201997)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [设置 git 别名](https://juejin.im/post/5dafc502f265da5b783f1ae1)（[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译）
 * [冲冠一怒为代码：论程序员与负能量](https://juejin.im/post/5d67540df265da039d32e0cc)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [HTTP Security Headers 完整指南](https://juejin.im/post/5d648e766fb9a06b122f4ab4)（[cyz980908](https://github.com/cyz980908) 翻译）

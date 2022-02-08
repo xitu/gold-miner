@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md](https://github.com/xitu/gold-miner/blob/master/TODO1/writing-a-compiler-in-rust.md)
 > * 译者：[suhanyujie](https://www.github.com/suhanyujie)
-> * 校对者：[todaycoder001](https://github.com/todaycoder001)，[githubmnume](https://github.com/githubmnume)
+> * 校对者：[司徒公子](https://github.com/stuchilde)，[githubmnume](https://github.com/githubmnume)
 
 # 用 Rust 写编译器
 
