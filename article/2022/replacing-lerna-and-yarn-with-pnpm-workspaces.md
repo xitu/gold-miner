@@ -2,46 +2,46 @@
 > * 原文作者：[Raul Melo](https://www.raulmelo.dev/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/replacing-lerna-and-yarn-with-pnpm-workspaces.md](https://github.com/xitu/gold-miner/blob/master/article/2022/replacing-lerna-and-yarn-with-pnpm-workspaces.md)
-> * 译者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
 > * 校对者：
 
-# Replacing Lerna + Yarn with PNPM Workspaces
+# 用 PNPM Workspaces 替换 Lerna + Yarn
 
-Monorepo architecture has become more popular over the years, which is understandable considering the problem it solves. The biggest challenge, though, is finding an easy-to-use tool for handling such a structure.
+近年来，Monorepo 架构以越来越流行，鉴于它解决的问题，这是可以理解的。然而，最大的挑战是找到一个简单易用的工具去处理类似的架构。
 
-If you Google "monorepo tool javascript", you'll find many articles showing the most popular options we have, and curiously each one attempts to solve that problem in a very different way.
+如果你 Google “monorepo tool javascript”，你会找到许多文章描述我们现有最流行的选项，每个都尝试使用不同的方式去解决这个问题。
 
-From the options we have, some are there for a while (like Lerna) but no longer actively maintained; others never went out from draft (like Bolt), others are working fine but only for a specific kind of project.
+从我们现有的选项，一些已经存在一段时间（像 Lerna），但已经不再持续维护了；一些还没渡过方案（像 Bolt），一些在运行，但只适用于某种特定的项目。
 
-Unfortunately, we don't have a killer tool that fits all types of JavaScript/Typescript projects and all sizes of teams, and that's understandable.
+不幸的是，我们没有一个好的工具匹配所有 JavaScript/Typescript 类型的项目和所有团队规模，这是可以理解的。
 
-Yet there's one ("new") option that might help us in most cases: **pnpm workspaces**.
+然而，现在有一个新选项，可能在大多数例子中，对我们有所帮助：**pnpm workspaces**。
 
-But before talking about pnpm, let me tell you my monorepo/workspaces usage and how I managed to solve that in the first place.
+但在谈到 pnpm 之前，让我告诉你，我的 monorepo/workspaces 用法，以及我是如何一开始就解决这个问题的。
 
-## My Blog
+## 我的博客
 
-When I first created my blog, I bootstrapped a Next.js application, put it into a git repository, and pushed the scaffolding code there.
+在我第一次创建我的博客，我自己做了一个 Next.js 应用，把他放到一个 git 仓库，还推一些脚手架代码在那里。
 
-After a while, I needed to set up the CMS to hold my content. Then I created a Strapi application, put it into another git repository, and pushed it to another Github repo.
+在此之后，我需要建立一个 CMS（内容管理系统）去存放我的内容。然后，我创建一个 Strapi 应用，把它放到另一个 git 仓库，然后将它推送到另一个 Github 仓库。
 
-Then, I decided to fork a library called `mdx-prism` to fix some minor problems and automate its deployment. Once again, another new git repository containing its code and setup.
+然后，我决定 fork 一个叫 `mdx-prism` 的仓库去修复一些小问题和自动化部署。再一次，建立另一个新的包含它的代码的 git 仓库。
 
-I had 3 git repos implied that I had 3 eslint, prettier, jest, babel, and typescript configs, but I handled it for a while.
+我有 3 个 git 仓库，意味着，我有了三个 eslint，prettier，jest，babel，和 typescript 配置，我处理了一阵子。
 
-Soon, I became bothered by every dependency update (like TypeScript); I had to update in all repositories (three pull requests). Every new thing I learned like a new eslint rule, I agree, I had to go in there and change three times and so on.
+很快的，我被每个依赖更新（像 TypeScript）感到烦恼；我不得不更新所有仓库（三次 pull 请求）。我学到每个新事物像新的 eslint 规则，我同意，我不得不到里面改三次等等。
 
-My first instinct was:
+我的第一反应是：
 
-> What if I put all projects inside a single folder and repository, create my base config and use it to extend each project's config?
+> 如果我把所有项目放到一个单独的文件夹和仓库里，创建我的基础配置，然后用它去扩展到每个项目配置里呢？
 
-Unfortunately, I couldn't simply drop the files there, extend, and hope it works because things are more complex than that. The tools need module/file resolution, and I didn't want to ship all projects when I was about to deploy.
+不幸的是，我无法简单放一些文件在那，扩展，希望它运行，因为实际比那复杂得多。工具需要 module/file 解决方案，我不想在我想要部署的时候，传送到所有的项目里。
 
-At that moment, I realized I needed a monorepo tool to do this linking and make my experience better.
+在那瞬间，我意识到我需要一个 monorepo 工具去链接，让我的体验更好。
 
-I tried some solutions, and the easiest way to get up and running was Lerna + Yarn Workspaces.
+我尝试一些解决方案，最简单构建和运行的方式 Lerna + Yarn Workspaces。
 
-Of course, along the setup process, I had had some gotchas like understanding why some builds were failing (not all apps likes hoisted dependencies), had to adapt my pipelines, and how I deployed each project. Still, I managed everything and had a decent setup.
+当然，在构建流程中，我有一些感悟，比如理解为什么有些构建失败（不是所有的应用喜欢提升依赖关系），必须适配我的管道，以及如何我如何部署每个项目。尽管如此，我还是管理所有东西，并有个合适的配置。
 
 With the bare minimum setup, I started to create even more small independent modules/apps to re-use, extend and try out new tools without impacting my existing code. That was the moment I saw with my own eyes how amazing it's working a monorepo.
 
