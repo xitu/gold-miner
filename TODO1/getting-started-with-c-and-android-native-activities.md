@@ -61,7 +61,7 @@ NativeActivity 自 Android Gingerbread 开始就有了，如果你刚开始学�
 
 创建一个简单的 CMake 文件：
 
-```
+```cmake
 cmake_minimum_required(VERSION 3.6.0)
 
 add_library(helloworld-c
@@ -84,7 +84,7 @@ add_library(helloworld-c
 
 再加入少量内容以告诉我们是否构建成功：
 
-```
+```cpp
 //
 // Created by Patrick Martin on 1/30/19.
 //
@@ -108,7 +108,7 @@ add_library(helloworld-c
 
 至于在你的构建脚本中发生了什么变化，如果你打开 app 下的 build.gradle 文件，你会看到 `externalNativeBuild`：
 
-```
+```gradle
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -141,7 +141,7 @@ android {
 
 创建一个本地 Activity 最好的方式是包含 `native_app_glue`。很多示例程序将其从 SDK 拷贝至他们的工程中。这没什么错，但是我个人更愿意将其做为我的游戏可以依赖的库。我把它做成静态库，所以不需要动态库调用的额外开销：
 
-```
+```cmake
 cmake_minimum_required(VERSION 3.6.0)
 
 add_library(native_app_glue STATIC
@@ -174,7 +174,7 @@ target_link_libraries(helloworld-c
 
 现在一切就绪，构建我们的 app 吧！
 
-```
+```cpp
 //
 // Created by Patrick Martin on 1/30/19.
 //
@@ -222,7 +222,7 @@ void android_main(struct android_app *pApp) {
 
 首先我们告诉系统是哪个本地 Activity（名为 “android.app.NativeActivity”) 并在屏幕方向变化或者键盘状态变化的时候不销毁这个 Activity：
 
-```
+```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pux0r3.helloworldc">
 
@@ -242,7 +242,7 @@ void android_main(struct android_app *pApp) {
 
 然后我们告诉该本地 Activity 去哪里找我们想运行的代码。如果你忘了名字的话，去检查你的 CMakeLists.txt 文件吧！
 
-```
+```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pux0r3.helloworldc">
 
@@ -267,7 +267,7 @@ void android_main(struct android_app *pApp) {
 
 我们还告诉 Android 操作系统这是启动 Activity 也是主 Activity：
 
-```
+```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pux0r3.helloworldc">
 
@@ -313,7 +313,7 @@ void android_main(struct android_app *pApp) {
 
 接下来，我创建了一个名为 `Renderer` 的类来处理渲染逻辑。如果你建了一个类，它用构造器来初始渲染器、用析构器来销毁它、用 `render()` 方法来渲染，那么我建议你的 app 看起来应该像这样：
 
-```
+```cpp
 extern "C" {
 void handle_cmd(android_app *pApp, int32_t cmd) {
     switch (cmd) {

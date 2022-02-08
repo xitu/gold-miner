@@ -1,0 +1,26 @@
+name: Mark stale issues
+
+on:
+  schedule:
+  - cron: '0 6,18 * * *'
+  
+permissions:
+  issues: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        days-before-issue-stale: 7
+        stale-issue-label: "stale"
+        stale-issue-message: "Inactive Issue"
+        skip-stale-issue-message: true
+        days-before-issue-close: 0
+        close-issue-message: 'This issue was closed because it has been open 7 days with no activity.'
+        only-issue-labels: '文章推荐'
+        exempt-issue-labels: '标注'
+        days-before-pr-stale: -1
+        days-before-pr-close: -1

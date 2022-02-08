@@ -2,7 +2,7 @@
 > * 原文作者：[Fabian Terh](https://medium.com/@fabianterh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-improve-your-data-structures-algorithms-and-problem-solving-skills.md](https://github.com/xitu/gold-miner/blob/master/TODO1/how-to-improve-your-data-structures-algorithms-and-problem-solving-skills.md)
-> * 译者：[todaycoder001](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[江五渣](http://jalan.space)、[xurui1995](https://github.com/xurui1995)
 
 

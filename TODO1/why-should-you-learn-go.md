@@ -2,12 +2,12 @@
 > * 原文作者：[Keval Patel](https://medium.com/@kevalpatel2106)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/why-should-you-learn-go.md](https://github.com/xitu/gold-miner/blob/master/TODO1/why-should-you-learn-go.md)
-> * 译者：[todaycoder001](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[TokenJan](https://github.com/TokenJan)，[JackEggie](https://github.com/JackEggie)
 
 # 为什么你要学习 Go？
 
-![Image from: [http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682](http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682)](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902123731.png)
+![Image from: [http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682](http://kirael-art.deviantart.com/art/Go-lang-Mascot-458285682)](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902123731.png)
 
 > “[Go will be the server language of the future.](https://twitter.com/tobi/status/326086379207536640)” — Tobias Lütke, Shopify
 
@@ -21,7 +21,7 @@
 
 英特尔公司在 [2004 年推出](http://www.informit.com/articles/article.aspx?p=339073)了第一款具有 3.0 GHz时钟速度的奔腾 4 处理器。如今，我的 [2016款 MacBook Pro](http://www.apple.com/macbook-pro/specs/) 的时钟速度为 2.9 GHz。因此，差不多十年，原始处理能力都没有太多的增加。你可以在下图中看到处理能力的增长与时间的关系。
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902125732.png)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902125732.png)
 
 从上面的图表可以看出，单线程的性能和处理器的频率在近十年几乎保持稳定。如果你认为添加更多的晶体管是一种解决问题的方法，那你就错了。这是因为在微观尺度上，量子特性开始显现（例如：量子隧道穿越），放更多的晶体管代价也会越多([为什么？](https://www.quora.com/What-is-Quantum-Tunneling-Limit-How-does-it-limit-the-size-of-a-transistor))，而且，每美元可以添加晶体管的数量也开始下降。
 
@@ -47,7 +47,7 @@
 
 另一方面，Go 于 2009 年发布，那时多核处理器已经上市了。这也是为什么 Go 是在考虑并发的基础上构建的。Go 用 goroutine 来替代线程，它们从堆中消耗了大约 2 KB 的内存。因此你可以随时启动上百万个 goroutine。
 
-![Goroutine 是怎样工作的呢？参考：[http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902125813.png)
+![Goroutine 是怎样工作的呢？参考：[http://golangtutorials.blogspot.in/2011/06/goroutines.html](http://golangtutorials.blogspot.in/2011/06/goroutines.html)](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902125813.png)
 
 **其他的好处：**
 
@@ -61,7 +61,7 @@
 
 以上这些点，能使 Go 能像 Java、C 或者 C++ 一样拥有强大的并发处理能力，同时在保证并发执行代码严谨性的基础上，像 Erlang 一样优美。
 
-![Go takes good of both the worlds. Easy to write concurrent and efficient to manage concurrency](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902125953.png)
+![Go takes good of both the worlds. Easy to write concurrent and efficient to manage concurrency](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902125953.png)
 
 ## Go 直接在底层硬件上运行
 
@@ -69,11 +69,11 @@
 
 处理器能理解二进制文件。通常来说，当你编译一个用 Java 或者其他基于 JVM 的语言构建的应用程序，它将人类可读的代码编译为字节代码，这可以被 JVM 或者在底层操作系统之上运行的其他虚拟机所理解。当执行的时候，虚拟机解释这些字节码并且将他们转化为处理器能理解的二进制文件。
 
-![基于虚拟机语言的执行步骤](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902130150.png)
+![基于虚拟机语言的执行步骤](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902130150.png)
 
 而另一个方面，C/C++ 不会在 VM 上执行，并且从执行周期中删除（编译为字节代码）这一步提高性能。它直接将人类可读的代码编译为二进制文件。
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902130237.png)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902130237.png)
 
 但是，在这些语言中释放和分配变量是一件极其痛苦的事情。虽然大部分编程语言都使用垃圾回收器或者引用计数的算法来处理对象的分配和移除。
 
@@ -96,7 +96,7 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 以上这些改变使得 Go 与其他语言截然不同，这使得用 Go 编程与其他语言很不一样。你可能不喜欢以上的一些观点。但是，并不是说没有上述这些特性，你就无法对你的应用程序编码。你要做的就是多写几行代码，但从积极的一面，它将使你的代码更加清晰，为代码添加更多的清晰度。
 
-![代码的可读性和效率的对比](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902130259.png)
+![代码的可读性和效率的对比](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902130259.png)
 
 如上图所示，Go 几乎与 C/C++ 一样高效，同时像 Ruby、Python 以及其他一些语言一样保持代码语法的简洁，对于人类和处理器来说，这是一个双赢的局面！！！
 
@@ -116,7 +116,7 @@ Go 有意的忽视了许多现代面向对象语言的一些特性。
 
 **~如果你喜欢这篇文章，点击下方的💚以便于更多的人看到它！此外，你也可以在 [Medium](http://bit.ly/2h9p8o2) 或者[我的博客](http://bit.ly/2iTjfui)关注我，以便于你及时获取 Go 的更新的文章！！~**
 
-![](https://raw.githubusercontent.com/todaycoder001/public-images/master/img/20190902130516.png)
+![](https://raw.githubusercontent.com/stuchilde/public-images/master/img/20190902130516.png)
 
 ## 参考文献
 

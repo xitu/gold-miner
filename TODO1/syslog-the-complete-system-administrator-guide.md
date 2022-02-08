@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md](https://github.com/xitu/gold-miner/blob/master/TODO1/syslog-the-complete-system-administrator-guide.md)
 > * 译者：[githubmnume](https://github.com/githubmnume)
-> * 校对者：[todaycoder001](https://github.com/todaycoder001), [shixi-li](https://github.com/shixi-li), [portandbridge](https://github.com/portandbridge)
+> * 校对者：[司徒公子](https://github.com/stuchilde), [shixi-li](https://github.com/shixi-li), [portandbridge](https://github.com/portandbridge)
 
 # Syslog：系统管理员完整指南
 

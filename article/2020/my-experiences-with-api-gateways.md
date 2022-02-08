@@ -2,7 +2,7 @@
 > * 原文作者：[Mahesh Mahadevan](https://medium.com/@mahesh.mahadevan)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md](https://github.com/xitu/gold-miner/blob/master/article/2020/my-experiences-with-api-gateways.md)
-> * 译者：[司徒公子](https://github.com/todaycoder001)
+> * 译者：[司徒公子](https://github.com/stuchilde)
 > * 校对者：[刘海东](https://github.com/lhd951220), [shixi-li](https://github.com/shixi-li)
 
 # 记一次 —— 构建 API 网关服务的经历......

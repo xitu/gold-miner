@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/btc-history-git.md](https://github.com/xitu/gold-miner/blob/master/TODO1/btc-history-git.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[Long Xiong](https://github.com/xionglong58), [司徒公子](http://github.com/todaycoder001) 
+> * 校对者：[Long Xiong](https://github.com/xionglong58), [司徒公子](http://github.com/stuchilde) 
 
 # Git 的历史: 软件版本控制的统治之路
 

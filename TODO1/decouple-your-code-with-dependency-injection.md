@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/decouple-your-code-with-dependency-injection.md](https://github.com/xitu/gold-miner/blob/master/TODO1/decouple-your-code-with-dependency-injection.md)
 > * 译者：[江不知](https://juejin.im/user/5ae03306f265da0b702592d1)
-> * 校对者：[GJXAIOU](https://github.com/GJXAIOU), [司徒公子](https://github.com/todaycoder001)
+> * 校对者：[GJXAIOU](https://github.com/GJXAIOU), [司徒公子](https://github.com/stuchilde)
 
 # 用依赖注入解耦你的代码
 

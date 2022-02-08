@@ -2,7 +2,7 @@
 > * 原文作者：[Kent Sia](https://medium.com/@kentscg)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-7-programming-languages-frameworks-to-learn-in-2020.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-7-programming-languages-frameworks-to-learn-in-2020.md)
-> * 译者：[司徒公子](http://github.com/todaycoder001)
+> * 译者：[司徒公子](http://github.com/stuchilde)
 > * 校对者：[GJXAIOU](https://github.com/GJXAIOU)、[niayyy](https://github.com/niayyy-S)
 
 # 2020 年要学习的 7 种编程语言和框架

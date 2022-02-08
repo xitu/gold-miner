@@ -2,7 +2,7 @@
 > * 原文作者：[Alex Edwards](https://www.alexedwards.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md](https://github.com/xitu/gold-miner/blob/master/TODO1/an-overview-of-go-tooling.md)
-> * 译者：[iceytea](https://github.com/iceytea)
+> * 译者：[acev](https://github.com/acev-online)
 > * 校对者：[jianboy](https://github.com/jianboy), [cyril](https://github.com/shixi-li)
 
 # Go 语言命令概览
