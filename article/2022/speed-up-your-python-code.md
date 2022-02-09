@@ -2,54 +2,54 @@
 > * 原文作者：[Haseeb Kamal](https://medium.com/@haseebkamal98)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/speed-up-your-python-code.md](https://github.com/xitu/gold-miner/blob/master/article/2022/speed-up-your-python-code.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
-# Speed Up Your Python Code With 100% Thread Utilization Using This Library
+# 使用 FastAPI 提升 Python 代码的运行性能
 
 ![](https://miro.medium.com/max/1400/0*oZRuzTJK7hDpZ_-E)
 
-Python has many web frameworks the most popular being Django and Flask. I am most familiar with Flask myself and used it extensively to build hobby projects and improve my programming skills.
+Python 有很多 web 框架，最流行的是 Django 和 Flask。我是对 Flask 最熟悉，并大量使用它来构建业余项目来提升代码技能。
 
-However, as with all things in tech, new frameworks are constantly being developed. As a programmer, it is important to be up to date with the latest and greatest of what is out there.
+然而，随着技术领域的发展变化，新的框架正在不断被开发。作为一个程序员，了解最新和最棒的技术是很重要的。
 
-[FastAPI](https://fastapi.tiangolo.com/) is a web framework for Python and in many ways resembles the simplicity of Flask. What makes FastAPI different is that it runs on ASGI web servers (such as uvicorn) while Flask only runs on WSGI web servers. This difference can result in a huge performance gap.
+[FastAPI](https://fastapi.tiangolo.com/) 是一个使用 Python 的 web 框架，在很多方面和简易的 Flask 类似。FastAPI 的不同之处在于，它可以在 ASGI 网络服务器（如 uvicorn）上运行，而 Flask 只能在 WSGI 网络服务器上运行。这种差异会导致巨大的性能差距。
 
-ASGI is an emerging trend in Python so it is important that you learn about it. Developing high-performance Python applications becomes super easy with FastAPI and ASGI. We will see how you can develop a simple API in FastAPI and then we will benchmark it against Flask to see exactly how much faster it is.
+ASGI 是 Python 的一个新兴发展趋势，你很有必要了解它。使用 FastAPI 和 ASGI，能够非常容易地开发高性能的 Python 应用程序。本文会教你如何在 FastAPI 中开发一个简单的 API，然后将把它与 Flask 进行比较，看下 FastAPI 到底有多快。
 
-Let's get onto it!
+让我们开始吧！
 
-First, a quick introduction to WSGI vs. ASGI.
+首先，简单介绍一下 WSGI 与 ASGI。
 
-# WSGI vs. ASGI
+## WSGI 与 ASGI
 
-WSGI stands for Web Server Gateway Interface. Put simply, this piece of software sits between a webserver (like nginx) and your Python web framework (like Flask). It specifies how the web server should forward requests to the web framework. WSGI was first released in 2003 so you can imagine how old it is. WSGI is inherently synchronous. This can result in slow execution.
+WSGI 是 Web Server Gateway Interface 的缩写。简单地说，WSGI 位于 web 服务器（如 nginx）和 Python 的 web 框架（如 Flask）之间。它指定了 web 服务器应该如何将请求转发给 web 框架。WSGI 是在 2003 年首次发布，所以你可以想象它有多老。WSGI 本质上是同步的，这可能会导致执行缓慢。
 
-ASGI stands for Asynchronous Server Gateway Interface. ASGI is the emerging trend that will replace WSGI. The crucial difference is that ASGI supports web frameworks with asynchronous code. That is, it is inherently asynchronous. This can speed up execution if your code is asynchronous (i.e. if it uses `async await`)
+ASGI 是 Asynchronous Server Gateway Interface 的缩写。ASGI 是新兴发展趋势，将取代 WSGI。这两者之间的关键区别在于，ASGI 支持具有异步代码的 web 框架。也就是说，它本身就是异步的。如果你的代码是异步的（例如使用 `async await`），这也可以加快执行速度。
 
-Confused? No worries. Here's a short illustration to highlight the difference between synchronous and asynchronous execution.
+感到困惑吗？不用担心。这里有一个简明的插图来强调说明同步和异步执行之间的区别。
 
 ![](https://miro.medium.com/max/1400/0*s2OdGt1kp2_3FNVR.png)
 
-> Synchronous vs asynchronous execution. Notice the huge time savings with async.
+> 同步与异步的执行对比。请注意，异步执行可以节省大量时间。
 
-As you can see, in synchronous execution (WSGI) a single thread can only handle one request at a time. So, if the current request has some blocking code where it needs to wait for some results a lot of time is wasted (as can be seen in the waiting block in the diagram above). Only once the entire of task A is finished, can the thread move to task B.
+可以看到，在同步执行（WSGI）中，一个线程一次只能处理一个请求。因此，如果当前的请求有一些阻塞代码，需要等待一些执行结果，就会浪费很多时间（如上图中的等待块）。只有当整个任务 A 完成后，线程才能转移到任务 B。
 
-On the other hand, in asynchronous execution (ASGI) a single thread can handle multiple requests. While the execution is waiting on task A the thread can jump on task B and finish it in the time it takes for task A to return. The thread then jumps back to task A and completes it. From the diagram above, we see that we save a lot of time in this way with asynchronous execution. More importantly, with asynchronous execution we are utilizing 100\% of the thread which means *less waiting and more doing*. This results in a huge performance boost for certain applications.
+另一方面，在异步执行（ASGI）中，一个线程可以处理多个请求。当执行任务 A 时，线程可以跳到任务 B 上，在任务 A 返回的时间内完成它，然后线程再跳回任务 A 并完成它。从上图中，我们可以看到，通过这种方式，异步执行可以节省大量的时间。更重要的是，通过异步执行，我们充分的利用了线程，这意味着更少的等待和完成更多的工作。这使得某些应用程序的性能得到了巨大的提升。
 
-In short: With asynchronous code, threads can do more work in the same amount of time. This results in more work done per unit time. This is where the performance boost comes from.
+简而言之：通过异步代码，线程可以在相同的时间内做更多的工作。这使得每单位时间内完成更多工作。这就是性能提升的来源。
 
-# Benchmarking
+## 对比分析
 
-Theory is nice and all but it's much more fun to see a real example illustrating the performance difference.
+从理论上看是好的，但是能有一个说明性能差异的真实示例会更有趣。
 
-Begin by installing the following libraries for FastAPI:
+首先安装 FastAPI 库：
 
 ```
 pip3 install fastapi[all]
 ```
 
-We use the following code for FastAPI:
+我们在 FastAPI 中使用以下代码：
 
 ```python
 import os
@@ -90,13 +90,13 @@ def heavy_func():
     return "ok"
 ```
 
-We have two endpoints: the root `/` and a secondary endpoint `dummy`. The root endpoint does some heavy work which we simulate by setting a timer to 20 seconds.
+我们有两个端点（endpoint）：root 端点 `/` 和一个备用端点 `dummy`。根端点做一些繁重的工作，我们通过设置一个 20 秒定时器来模拟。
 
-We define the endpoints themselves to be `async` and use the `await` keyword to signal that the thread can go and do other work while this call finishes returning. We also use the sleep function from `asyncio` since it supports `async` and `await`. The `dummy` endpoint simply returns a message.
+我们将端点本身定义为异步，并使用 `async` 关键字来表示线程可以在这个调用完成返回时去做其他工作。我们还使用了 `asyncio` 的 sleep 函数，因为它支持 `async` 和 `await`。这个 `dummy` 端点只是返回一个消息。
 
-As you can see defining an API in FastAPI is pretty simple. We just need to initialize a FastAPI app and define the endpoints with the `@app` notation.
+正如你所看到的，在 FastAPI 中定义一个 API 是非常简单的。我们只需要初始化一个 FastAPI 应用程序，并用 `@app` 符号来定义端点。
 
-The following code is used for Flask:
+以下是用于 Flask 的代码：
 
 ```python
 import os
@@ -137,75 +137,75 @@ def heavy_func():
     return "ok"
 ```
 
-The code is identical to the FastAPI one.
+该代码与 FastAPI 的代码相同。
 
-The idea is that, we call the root endpoint and while it is waiting for 20 seconds we make a call to the `dummy` endpoint.
+我们的想法是，调用 root 端点，在它等待 20 秒时，我们调用 `dummy` 端点。
 
-Here's the key point: If the interface is asynchronous (ASGI), the call to `dummy` should return immediately.
+这里有一个关键点：如果接口是异步的（ASGI），对 `dummy` 的调用应该立即返回。
 
-> Note: We are setting the `threaded` flag to false in Flask because we only want to test single-threaded performance for learning purposes. The key takeaway should still be the same for multi-threaded applications.
+> 注意：我们将 Flask 中的线程（`threaded`）标志设置为 false，因为我们只想测试单线程的性能，以达到学习的目的。对于多线程应用程序来说，关键的要点应该还是一样的。
 
-Start the FastAPI server with:
+用以下方法启动 FastAPI 服务：
 
 ```bash
 uvicorn tfastapi:app --reload
 ```
 
-You can check in the console what port it is running on. Default is port `8000`.
+你可以在控制台中检查它是在哪个端口上运行的，默认是 8000 端口。
 
-Next, open up two terminal windows. (I use PowerShell on Windows, you can also use Git Bash or a Linux or macOS terminal)
+接下来，打开两个终端窗口。(我在 Windows 上使用 PowerShell，你也可以使用 Git Bash、Linux 或 macOS 终端)
 
-In the first one paste the curl command:
+在第一个中执行以下 curl 命令：
 
 ```bash
 curl http://localhost:8000/
 ```
 
-In the second one, paste the following curl command to hit the `dummy` endpoint:
+在第二个中，执行以下 curl 命令生成 `dummy` 端点：
 
 ```bash
 curl http://localhost:8000/dummy
 ```
 
-Press `Enter` on the first window and then on the second window. You should notice that the request to `dummy` returns almost immediately:
+在第一个窗口按 `Enter` 回车，然后在第二个窗口按 `Enter` 回车。你应该注意到，对 `dummy` 的请求几乎立即返回。
 
 ![](https://miro.medium.com/max/1400/0*dn-fLnKEE6QKBmEG.png)
 
-> Immediate return of asynchronous endpoint in FastAPI
+> 在 FastAPI 中立即返回异步端点
 
-If you wait 20 seconds, the call to root should return.
+如果你等待 20 秒，对 root 的调用应该会返回。
 
-What is happening here? The thread first handles the call to the root. While it is waiting on the sleep function, a call is made to the `dummy/`endpoint. The thread then jumps to handle the request. Once it is handled, the thread returns to handle the root request.
+这里发生了什么？线程首先处理对 root 的调用。当它在等待 sleep 函数的时候，有一个对 `dummy` 端点的调用。然后线程跳转来处理这个请求。一旦它被处理了，线程就返回来处理对 root 的请求。
 
-Now let's see what happens in the case of Flask.
+现在让我们看下 Flask 的情况会怎样。
 
-You can run the Flask server with:
+你可以用以下方式运行 Flask 服务器：
 
 ```bash
 py tflask.py
 ```
 
-It should run on port `5000`.
+它应该运行在 `5000` 端口。
 
-Next, do as before and copy and paste the curl request to root and then the curl request to `dummy`. Run the root request first and then the other one.
+接下来，像以前一样，复制并粘贴 curl 请求到 root，然后再复制 curl 请求到 `dummy`。先运行 root 请求，然后再运行另一个。
 
-You will notice, the call to `dummy/` does not return immediately! It takes 20 seconds for both requests to return. What is happening here?
+你会注意到，对 `dummy` 的调用并没有立即返回! 两个请求都需要 20 秒才能返回。这里发生了什么？
 
-Even though the code is asynchronous, Flask uses a WSGI implementation of the server-framework interface. This means the endpoints in Flask are not really asynchronous. We make a request to root and it waits. When we make a second request to the thread *does not* jump to handle that request. It sits and waits for the request to root to be handled. In other words, the code sits and waits for the 20 seconds to be over before doing anything else. In this time period, the thread is doing no work apart from waiting! So inefficient!
+尽管代码是异步的，但 Flask 使用了 server-framework 接口的 WSGI 实现。这意味着 Flask 中的端点并不是真正的异步。我们向 root 发出一个请求，它就会等待。当我们向线程发出第二个请求时，线程不会跳转来处理这个请求。它坐在那里，等待对 root 的请求被处理。换句话说，在做其他事情之前，代码坐在那里等待 20 秒的结束。在这段时间里，线程除了等待之外，没有做任何工作！这是很低效的。效率太低了！
 
-# Conclusion
+## 本文总结
 
-In this post, we got a refresher on synchronous vs. asynchronous code. We also learned about WSGI and ASGI interface implementations.
+在这篇文章中，我们学习了同步与异步代码对比，还了解了 WSGI 和 ASGI 接口的实现。
 
-We learned how FastAPI can help achieve 100\% thread utilization and dramatically speed up slow code.
+我们知道了 FastAPI 如何帮助实现完全的线程利用率，并极大地加快代码的执行速度。
 
-All you need to do to utilize FastAPI is to use `async` in front of every endpoint and also make sure your code is asynchronous. Actually, I would like to expand on this last point and make some general remarks:
+使用 FastAPI 时所需要做的就是在每个端点前面使用 `async`，同时确保代码是异步的。实际上，我想对最后一点进行扩展，并做一些总结。
 
-- ASGI is still very new so it might be harder to find documentation for it. It is also less tested when compared to WSGI.
-- If you want to gain performance boosts, your code needs to be asynchronous. Not all libraries support this yet. Certain database libraries for Python for example only have synchronous implementations. In such cases, you likely won't get much of a performance boost.
-- Lastly, FastAPI supports type hinting and integrates quite well with Pydantic. You can check my post [here ](https://betterprogramming.pub/writing-robust-and-error-free-python-code-using-pydantic-151a135a9ff0)for more on that.
+- ASGI 仍然很新，所以可能更难找到它的文档。与 WSGI 相比，它的测试也比较少。
+- 如果想获得性能提升，你的代码需要是异步的，现在还不是所有的库都支持这个。例如，某些 Python 的数据库依赖只有同步实现。在这种情况下，你可能不会得到太多的性能提升。
+- 最后，FastAPI 支持类型提示，并且与 Pydantic 整合得相当好。你可以在[这里](https://betterprogramming.pub/writing-robust-and-error-free-python-code-using-pydantic-151a135a9ff0)查看我的帖子，了解更多这方面的信息。
 
-Thank you for reading.
+感谢您的阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
