@@ -4,8 +4,8 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/Create-A-Real-Time-Medical-App-With-React-Native.md](https://github.com/xitu/gold-miner/blob/master/article/2022/Create-A-Real-Time-Medical-App-With-React-Native.md)
 > * 译者：[Badd](https://juejin.cn/user/1134351730353207)
 > * 校对者：[chaxus](https://github.com/chaxus)
+
 # 用 React Native 创建实时医疗应用
-## **用 React Native 开发一个健康应用：它的成本、流程和功能**
 
 ![](https://miro.medium.com/max/1280/1*_IpH2_91cvm-PQfSljRyaQ.png)
 
@@ -183,11 +183,6 @@
 使用 React Native 开发一个有实际效益的健康应用，不仅可以满足市场不断增长的需求，还可以为用户带来价值，这不是一件容易的事。虽然它涉及很多开发步骤、特性和功能等等，但如果你选择聘请[**应用开发公司**](https://www.xicom.biz/services/mobile-app-development/)使用 React Native 定制应用功能，这就容易得多了。
 
 要做出成功的医疗保健应用，你需要找一位对医疗保健行业有深刻了解并具备出色开发技能的专家，来打造出超越一流质量的解决方案。
-
-\=======================================
-
-更多内容请看 [plainenglish.io](http://plainenglish.io/)。欢迎注册我们的[每周免费资讯](http://newsletter.plainenglish.io/)。欢迎来 [Discord 社区](https://discord.gg/GtDtUAvyhW)获得专属的写作机会和建议。
-
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
