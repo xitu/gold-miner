@@ -3,11 +3,11 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/4-lesser-known-swift-features.md](https://github.com/xitu/gold-miner/blob/master/article/2022/4-lesser-known-swift-features.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Z招锦](https://github.com/zenblofe)
 
 # 4 个鲜为人知的 Swift 特性
 
-许多开发人员在使用标准技术时通常都不了解隐藏在友好的语言和库之下的许多出色特性。这些特性对于一些读者来说可能已经非常熟悉了，但这对我来说这是最近的一个小发现。
+许多开发人员在使用标准技术时，通常都没有意识到在友好的语言和库之下隐藏的许多出色特性。这些特性对于一些读者来说可能已经非常熟悉了，但对我来说这是最近的一个小发现。
 
 ## 尾递归优化
 
@@ -21,7 +21,7 @@ func tailRecursion(n: Int) {
 }
 ```
 
-与一般递归做对比：
+与普通递归做对比：
 
 ```swift
 func usualRecursion(n: Int) {
@@ -44,9 +44,9 @@ Swift 使用尾递归优化策略；在递归时，Swift 不会向内存中的�
 xcrun swiftc -O -S File.swift > main.asm
 ```
 
-即使你不懂汇编语言，你也可以在  `main.asm` 文件里看到其中一个 “jamp” 命令（以 “j” 开头的函数）在尾递归时执行了，而普通的递归则执行了标准的 `callq` 函数调用指令。
+即使你不懂汇编语言，你也可以在  `main.asm` 文件里看到其中一个 “jamp” 命令（以 “j” 开头的函数）在尾递归时执行了，而普通递归则执行了标准的 `callq` 函数调用命令。
 
-基于这种优化，我们可以得出结论 —— 尽可能的在函数的末尾进行递归。
+基于这种优化，我们可以得出结论 —— 尽可能的在函数中使用尾递归。
 
 ## 负数的存储
 
