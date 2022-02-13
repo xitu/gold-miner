@@ -43,68 +43,68 @@
 
 当然，在构建流程中，我有一些感悟，比如理解为什么有些构建失败（不是所有的应用喜欢提升依赖关系），必须适配我的管道，以及如何我如何部署每个项目。尽管如此，我还是管理所有东西，并有个合适的配置。
 
-With the bare minimum setup, I started to create even more small independent modules/apps to re-use, extend and try out new tools without impacting my existing code. That was the moment I saw with my own eyes how amazing it's working a monorepo.
+有了之前最简单的设置，我开始创建更小的独立模块/应用去复用，扩展，尝试提炼不会对我现有代码产生影响的新工具。这是我亲眼见证它在一个 monorepo 运行得让人惊讶的时刻。
 
-## About Lerna + Yarn Workspaces
+## 关于 Lerna + Yarn Workspaces
 
-Lerna is a high-level monorepo tool that provides abstractions to simultaneously manage a single or multiple apps/packages.
+Lerna 是一个高级 monorepo 工具，它提供同时管理一个或多个应用/包的抽象。 
 
-You can run commands (e.g., build, test, lint) for all the projects you control with a single command-line instruction, or if you prefer, you can even filter a specific project with the flag `--scope`.
+你可以运行命令（e.g., build, test, lint），用一条命令指示所有你控制的项目，如果你想，你甚至可以用标记 `--scope`过滤一个指定的项目。
 
-Yarn Workspaces is a low-level tool that handles the packages installation, creates a symlink between projects, and allocates the modules in root and controlled projects folders.
+Yarn Workspaces 是一个低级工具，它操纵包的安装，在项目之间创建符号链接，和在根中分配模块，控制项目文件夹。
 
-You can use either Lerna or Yarn Workspaces to manage your repository, but you may have noticed that they are more complementary than exclusionary. In other words, they work really well together.
+你能用整个 Lerna 或者 Yarn Workspaces 去管理你的仓库，但你可能注意到他们的互补大于他们的互斥。换句话说，它们一起运行的很好。
 
-Even nowadays, this combination is still a good choice, but some "problems" might be highlighted:
+甚至现在，这个结合仍然是好选择，但一些问题可能还是突出：
 
-* Yarn Workspaces (at least for v1) is no longer receiving new features and improvements (the last update was from 2018);
-* Lerna documentation is OK, but you have to figure out a lot of things by yourself;
-* Lerna publishing system is not as simple as it seems, especially to generate automated publishes with commit lint;
-* You can easily get lost on understanding the commands you have to run or what commands are being run by other commands you invoke;
-* Lerna CLI has problems like [you cannot install multiple dependencies at the same time](https://github.com/lerna/lerna/issues/2004);
-* Lerna CLI `--scope` is not reliable and hard to understand and use;
-* There's a [wizard](https://github.com/webuniverseio/lerna-wizard) to help us with regular tasks, but it seems to be being maintained outside the main repo;
-* [Lerna is currently unmaintained](https://github.com/lerna/lerna/issues/2703#issuecomment-744601134);
+* Yarn Workspaces（至少对 v1）不再接收新特性和改进（上次更新是在 2018）；
+* Lerna 文档是可以的，但你需要自己弄明白很多问题；
+* Lerna 发布系统并不是它看到的那么简单，特别是用 commit lint 引发自动发布。
+* 你必须运行的命令或者你调用别的命令开始运行时，会很容易在理解中迷失；
+* Lerna CLI 有一些像[你无法在同一时间安装多个依赖](https://github.com/lerna/lerna/issues/2004) 等问题。
+* Lerna CLI `--scope`并不可靠并且难以理解和使用；
+* 有一个 [wizard](https://github.com/webuniverseio/lerna-wizard) 在常见任务中帮助我们，但它更像是在主仓库之外维护的。
+* [Lerna 目前是没有维护的](https://github.com/lerna/lerna/issues/2703#issuecomment-744601134);
 
-By the time it was created (in 2015), Lerna had come up to help us with this lack of tooling to manage JS monorepos, and it did amazingly well.
+在它创建的时候（在 2015 年），Lerna帮助解决了缺少工具管理 JS monorepos 的问题，并且做得很好。
 
-Though because they might not have a dedicated team (or a few people) to work on that, plan the future of the tool, Lerna is slowly dying.
+虽然因为它们可能没有一个专注团队（或者几个人）去维护它，规划工具的未来，Lerna 正在慢慢死亡。
 
-I'm not here to blame creators and maintainers, the open-source world has a lot of problems, but this is a subject for another post.
+我在这里不是抱怨创建者和维护者，开源的世界有许多的问题，但这是另一篇文章的主题。
 
-You're probably now thinking:
+你也许不会想：
 
-> If Lerna is in this stage, what's the option we have now?
+> 如果 Lerna 在这个时代，我们现在有什么选项？
 
-## pnpm Introduction
+## pnpm 简介
 
-In case you don't know, like **npm** and **Yarn**, **pnpm** is also a package manager tool for JavaScript projects. It does the same job but in a more efficient way.
+以防你不知道，像 **npm** 和 **Yarn**，**pnpm** 也是一个 JavaScript 项目的包管理工具。它用高效的方式做同样的工作。
 
-The biggest deal around **pnpm** was that they solved one problem that **npm** introduced and that **Yarn** copied, which it's the way of installing dependencies.
+**pnpm** 最大的问题是，它解决一个 npm 引入和 Yarn 复制的问题，这个问题是安装依赖的方式。
 
-There are two big problems that **pnpm** comes to solve:
+**pnpm** 有两个大问题需要解决：
 
-### Disk Space
+### 磁盘空间
 
-Let's say you have five projects that have `react@17.0.2` as a dependency.
+比如说你有 5 个包含 `react@17.0.2` 作为依赖的项目。
 
-When you **npm** or **Yarn** install in all projects, each will have its copy of React inside `node_modules`. Considering that React has approximately **6.9kB**, in 5 repositories, we'll have **34.5kB** of the same dependency in your disk.
+当你在所有项目里  **npm** or **Yarn** install 时，每个项目将会在  `node_modules` 中有它自己的 React 副本。考虑到 React 大概有 **6.9kB**，在 5 个仓库中，我们将在你的磁盘中有 **34.5kB** 的相同依赖。
 
-This example seems too little, but everyone that works with JS knows that sometimes `node_modules` can easily hit gigabytes.
+这个例子看起来很小，但每个使用 JS 的 人知道，有时候 `node_modules` 能简单得达到 GB 级别。
 
-Installing dependencies with **pnpm**, it first downloads it in its own "store" (`~/.pnpm-store`). After downloading it there, it creates a hard link from that module to the node_module in your project.
+使用 **pnpm** 安装依赖，它先是在它本身的存储（`~/.pnpm-store`）中下载。在那下载之后，它在你的项目中创建一个一个从 module 到 node_module 的硬链接.
 
-In the same example as before, **pnpm** will install `react@17.0.2` on its store and, when we install the project dependencies, it'll first check if React at version 17.0.2 is already saved. If so, it creates a hard link (pointing to a file in disk) in the projects `node_modules`.
+在之前相同的例子中，**pnpm** 将在它自身的存储中安装 `react@17.0.2`，当我们安装项目的依赖时，它会先检查 17.0.2 版本的 React 是否已经保存。如果是的话，它会在项目的 `node_modules` 创建一个硬链接（指出磁盘中的文件）。
 
-Now, instead of having five `react@17.0.2` copies (**34.5kB**) in our disk, we'll have a single version (**6.9kB**) on the pnpm store folder and a hard link (which does the same job as a copied file) in every project that uses react in this version.
+现在，相比 5 份 `react@17.0.2` 副本 （**34.5kB**） 在我们的磁盘中，我们将有 1 个版本（**6.9kB**）在 pnpm 仓库文件夹和一个硬链接（它与副本文件做同样的工作）在每个用这个版本 React 项目的项目中。
 
-Consequently, we save a lot of disk space and have much faster installation for new projects that use dependencies we already have installed.
+因此，我们节省了很多磁盘空间和为我们已经安装好的依赖的新项目，提供更快的安装速度
 
-## Phantom dependencies
+## Phantom 依赖
 
-When we install dependencies with **npm**, it downloads all dependencies and dependencies and puts everything inside `node_modules`. This is what they call the "flat way".
+当我们用 **npm** 安装依赖时，它下载所有依赖，依赖把所有东西推到  `node_modules` 里。这就是它们所称的 "flat way"。
 
-Let's see this in practice. The following `package.json:
+让我们在练习中来看这个。下面是 `package.json`： 
 
 ```json
 {
@@ -114,7 +114,7 @@ Let's see this in practice. The following `package.json:
 }
 ```
 
-After running `npm install`, will result in the following `node_modules`:
+在运行 `npm install` 之后，`node_modules` 会变成下面这样： 
 
 ```text
 node_modules
@@ -130,9 +130,9 @@ node_modules
 └── vfile-message
 ```
 
-Though this approach has been working for years, it can lead to some problems called "phantom dependency".
+虽然这种方式已经工作了许多年，它能导致一些叫做 “phantom dependency” 的问题。
 
-The only dependency we have declared in our project is `unified`, but we still can import `is-plain-obj` (dependency of unified) in our code:
+在我们项目中声明的唯一依赖是`统一的`，但在我们的项目中，仍然能在我们的代码中导入`is-plain-obj` (统一的依赖)：
 
 ```js
 import ob from "is-plain-obj";
@@ -140,11 +140,11 @@ import ob from "is-plain-obj";
 console.log(ob); // [Function: isPlainObject]
 ```
 
-Because this is possible, our dependencies and the dependencies of our dependencies can also make this mistake and import something from `node_modules` without declaring it as dependency/peerDependency.
+因为这是可能发生的，我们的依赖和我们的依赖的依赖也能出这个错误，从 `node_modules`导入一些东西，而不将其声明为 dependency/peerDependency。
 
-Now, let's see how **pnpm** does that.
+现在，让我们看看 **pnpm** 是如何做到的。
 
-Using the same `package.json` and running `pnpm install`, we'll have the following `node_modules`:
+用相同的 `package.json`，然后运行 `pnpm install`，我们将会有下面的 `node_modules`：
 
 ```text
 node_modules
@@ -154,9 +154,9 @@ node_modules
 └── .modules.yaml
 ```
 
-As you can see, the only dependency we have is `unified`, and it's "the one" we have, but... there is this arrow that indicates this module is a symlink.
+正如你所看到的，对于唯一的依赖，我们用的是统一的，这也是我们仅有的，但是……有一个箭头指明这个模块的是一个符号链接。
 
-Let's then inspect what's inside `.pnpm`:
+然后，观察 `.pnpm` 里面有什么：
 
 ```text
 node_modules
@@ -179,9 +179,9 @@ node_modules
 └── .modules.yaml
 ```
 
-**pnpm** installs every dependency with its version as suffix inside the `.pnpm` folder and only moves to the `node_modules` root what's actually defined in your package.json.
+**pnpm** 将每个依赖项作为后缀安装在 `.pnpm` 文件夹中，然后，将它们移动到在你的 package.json 中准确定义的 `node_modules` 根目录。
 
-Now, if we try to do the same code as before, we'll get an error because `is-plain-obj` is not inside `node_modules`:
+现在，如果我们尝试像以前一样写相同的代码，我们将会得到一个错误，因为 `is-plain-obj` 没有安装在 `node_modules` 中：
 
 ```
 internal/process/esm_loader.js:74
@@ -191,61 +191,61 @@ internal/process/esm_loader.js:74
 Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'is-plain-obj' imported from /Users/raulmelo/development/sandbox/test-pnpm-npm/pnpm/index.js
 ```
 
-Although installing `node_modules` in this way is more reliable, this may break compatibility with some apps that may have been built on top of the flat `node_modules`.
+虽然用这种方式 安装 `node_modules` 更加可靠，这可能破环一些已经用上面的 flat `node_modules` 构建的应用兼容性。
 
-> An example of it is Strapi v3. As you can see [here](https://github.com/strapi/strapi/issues/9604), they are aware about that and will fix some day.
+> 一个例子就是 Strapi v3。你可以在[这](https://github.com/strapi/strapi/issues/9604)看到, 他们也意识到了这一点，在将来某天也会解决的。
 
-For our luck, **pnpm** took those cases into account and provided a flag called [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist).
+好运的是，**pnpm** 用了这些例子到账号里，然后提供一个标记叫 [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) 。
 
-The dependencies will be installed in the "flat way" when we use this flag, and apps like Strapi will just work.
+当我们用这个标记时，依赖会用”flat way“安装依赖，应用会像 Strapi 运行。
 
 ## pnpm Workspaces
 
-**pnpm** introduced workspaces feature on v2.
+**pnpm** 在 v2 中引入的工作区特性。
 
-Its goal was to fill this gap of the easy-to-use and well-maintained monorepo tool we currently have.
+它的目标是填补我们目前拥有的易于使用和维护良好的 monorepo 工具的差距。
 
-Since they already had the low-level part (package manager), they only added a new module to handle workspaces whenever you have a `pnpm-workspace.yaml` file in the root level of your project.
+由于它们已经有低级部分（package manager）了，它们只要添加一个新模块去处理你项目根目录级中有的 `pnpm-workspace.yaml` 文件工作区。
 
-It's almost the exact config as Lerna + Yarn Workspaces with the three significant advantages:
+它与 Lerna + Yarn Workspaces 的配置几乎一样，有三个显著的优势：
 
-1. We grasp from **pnpm** disk space fix;
-2. We use their nifty CLI (it's well-built and has an excellent DX);
-3. It solves many Lerna CLI problems like filtering, installing multiple versions.
+1. 我们从 **pnpm** 控制磁盘空间修复;
+2. 我们用它们很棒的 CLI （这是内置好的，并且有特别棒的 DX）；
+3. 它解决了许多 Lerna CLI 像过滤，安装多版本的问题。
 
-In (almost) all commands, **pnpm** allow us to run with a flag called `--filter`. I think it's self-explanatory, but it runs that command for the filtered repositories.
+在（几乎）所有命令， **pnpm** 允许我们用一个叫 `--filter` 的标识运行。我认为这是不言自明的，但它会为过滤后的仓库运行该命令。
 
-So imagine you have two full apps which have two separated pipelines. With Lerna + **npm** or **Yarn**, we install dependencies for every single project when we run an installation.
+所以想象你有两条独立 pipelines 的两个完整应用。用 Lerna + **npm** 或者 **Yarn**，在我们运行安装命令时，我们给每个项目安装依赖。
 
-This means, in some cases, downloading 1GB of dependencies instead of 300MB.
+这意味着，在一些例子中，下载 1GB 的依赖可以降到 300MB。
 
-With **pnpm** though, I can simply run:
+有了 **pnpm**，我可以简单的运行：
 
 ```bash
 pnpm install --filter website
 ```
 
-And now, only the root dependencies and the dependencies from my website will be installed.
+现在，只有根目录依赖和我的网站的依赖会被安装。
 
-The filter command is already good enough, but it goes beyond and offers much more flexibility.
+过滤的命令已经足够好了，但是它超越并且提供更多的灵活性。
 
-I do recommend you to take a look at [pnpm's "Filtering" documentation](https://pnpm.io/filtering) and take a look at how amazing it's.
+我建议你阅读一下 [pnpm's "Filtering" 文档](https://pnpm.io/filtering) 然后看一下它是有多么令人惊讶。
 
-> Another recommendation: ["pnpm vs Lerna: filtering in a multi-package repository"](https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a)
+> 另一个建议：["pnpm vs Lerna：多包仓库中筛选"](https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a)
 
-It seems a minimal thing, but those little details make a lot of difference while working in different environments.
+这看起来是一件特别小的事情，但是这些小细节在不同环境中，在整个工作中造成了很大的不同。
 
-## Migration
+## 迁移
 
-If you want to see the PR I've merged containing the whole migration, you can check it [here](https://github.com/raulfdm/raulmelo-studio/pull/803). I'll only highlight the overall changes I needed to perform.
+如果你想看我已经合并包含整个迁移 PR，你可以看[这里](https://github.com/raulfdm/raulmelo-studio/pull/803) 。我将只高亮所有我需要展示的改变。
 
-### Replacing Commands
+### 替代命令
 
-I had a bunch of scripts that invoke `yarn` CLI. For those, I only need to replace with `pnpm <command>` or `pnpm run <command>`;
+我有一堆脚本，执行 `yarn` CLI。对于这些，我只需要用 `pnpm <command>` 或者 `pnpm run <command>` 替换；
 
-### Removing Yarn Workspace config
+### 移除 Yarn Workspace 配置
 
-In my package.json, I had declared the workspaces field for Yarn and also defined some packages not to hoist to root node_modules:
+在我的 package.json，我已经为 Yarn 声明工作区区域并且定义一些没有提升到根 node_modules 的包；
 
 ```json
 {
@@ -262,11 +262,11 @@ In my package.json, I had declared the workspaces field for Yarn and also define
 }
 ```
 
-All this was gone.
+这一切都过去了。
 
-### Replacing `lerna.json` with `pnpm-workspace.yml`
+### 用 `pnpm-workspace.yml` 代替 `lerna.json` 
 
-I've removed the following config:
+我已经移除了下面的配置：
 
 ```json
 {
@@ -287,7 +287,7 @@ I've removed the following config:
 }
 ```
 
-With:
+换成:
 
 ```yml
 prefer-workspace-packages: true
@@ -296,25 +296,25 @@ packages:
   - 'apps/*'
 ```
 
-### Adapting pipelines, Dockerfile, and Host platform
+### 适配 pipelines，Dockerfile，和主平台
 
-One thing I had to change was to make sure I always install `pnpm` before installing the dependencies in my Github Actions, Docker image, and Vercel's install script:
+一件事我必须改变的是确保我一直在安装 `pnpm` 之前，安装我 Github Actions 里的依赖，Docker 镜像，和 Vercel's 安装脚本：
 
 ```bash
 npm install -g pnpm && pnpm install --filter <project-name>
 ```
 
-It's an essential step because most of the environment contains yarn out-of-the-box but not pnpm (I hope this will change soon).
+这是必不可少的步骤因为大多数环境包含开箱即用的 yarn，而不是 pnpm（我希望这会很快改变）。
 
-### Remove `yarn.lock` file
+### 移除 `yarn.lock` 文件
 
-This file is no longer needed. Pnpm creates its own `pnpm-lock.yaml` lock file to control the dependencies version.
+这个文件已经不再需要了。Pnpm 创建了它自身的 `pnpm-lock.yaml` 锁文件去控制依赖版本。
 
-### Adapt build command
+### 适配构建命令
 
-When I run `lerna run build` for my website, it automatically understands that it also has to build the packages my website uses.
+在我为我的网站运行 `lerna run build` 时，它自动理解，它必须构建我的网站使用的包。
 
-With **pnpm**, I have to make this explicit:
+对于 **pnpm**，我必须明确说明：
 
 ```bash
 pnpm run build --filter website # Only build the website
@@ -322,45 +322,47 @@ pnpm run build --filter website # Only build the website
 pnpm run build --filter website... # Builds first all dependencies from the website and only then, the website
 ```
 
-This is important because not all packages I publish to NPM.
+这是重要的，因为我不是把所有包发布在 NPM。
 
-### Add a `.npmrc`
+### 添加 `.npmrc`
 
-pnpm accepts a bunch of flags and options via CLI. If we don't want to pass them all the time, we can define all of them inside a `.npmrc` file.
+pnpm 通过 CLI 接收一堆标识和选项。如果我不想一直通过它们，我们可以在一个 `.npmrc` 文件中定义它们。
 
-The only option I added there was:
+我添加在那里的唯一选项是：
 
 ```bash
 shamefully-hoist=true
 ```
 
-As I explained before, Strapi doesn't work with pnpm's way of installing node_modules which is ashamed.
+就像我前面解释的，Strapi 并不能使用 pnpm 的安装 node_modules 方式，这是惭愧的。
 
-By committing this file, I ensure that the dependencies are correctly installed everywhere I run `pnpm install`.
+通过提交这些文件，我确保了，无论在哪，我运行 `pnpm install` 时，依赖会被正确的安装。
 
-### Replacing semantic-release with Changesets
+### 用 Changesets 替换 semantic-release
 
-I have to confess that I haven't fully tested this yet.
+我必须坦白，我现在还没有完全测试这个。
 
-To summarize, in my previous setup, I was forced to write commits in a specific way so that semantic release could checkout my changes, understand automatically what has changed by reading the messages, bump a version and publish my package.
+总结，在我之前的步骤，我被迫以一种特定的方式编写提交，以便语义发布能够检查我的更改，通过读取消息自动知道更改了什么，更改版本并发布我的包。
 
-It was working fine, but some gotchas, especially considering how the Github Actions environment works.
+我之前运行得很好，但一些陷阱，特别是考虑 Github Actions 环境是如何工作的。
 
 Though, Pnpm recommends we use [changesets from Atlassian](https://pnpm.io/using-changesets).
 
-The approach is a bit different. Now, if I do a change, I have to create a .md file with some meta info and description and changesets will, based on this file, understand how to generate change longs and which version should be bumped.
+虽然，Pnpm 建议我们用 [Atlassian 的 changesets](https://pnpm.io/using-changesets) 。
 
-I still have to finish this setup and maybe write an article about that. 😅
+这个方式有点不同。现在如果我做一个改变，我必须创建一个带有一些 meta 信息和描述哪些改变的 .md 文件，基于这个文件，明白如何生成改变 long，以及应该更改哪个版本。
 
-## Conclusion
+我仍然需要完成这个准备工作和可能写一篇关于那个的文章。 😅
 
-And that's was basically all I needed to replace Lerna + Yarn Workspaces with **pnpm** workspaces.
+## 结论
 
-To be honest, it was easier than I initially thought.
+这就是我需要用 **pnpm** workspaces 代替 Lerna + Yarn Workspaces 的全部基本知识。
 
-The more I use **pnpm**, the more I enjoy it. The project is solid, and the user experience is joyful.
+诚实讲，它比我最初设想的更简单。
 
-## References
+我用 **pnpm** 更多，我更享受它。项目是可靠的，用户体验是令人愉快的。
+
+## 参考
 
 * [https://pnpm.io](https://pnpm.io)
 * [https://github.com/lerna/lerna](https://github.com/lerna/lerna)
