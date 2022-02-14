@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/.md](https://github.com/xitu/gold-miner/blob/master/article/2022/two-way-binding-will-make-your-react-code-better.md)
 > * 译者：[tong-h](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[nia3y](https://github.com/nia3y)
 
 # 双向绑定会使你的 React 代码更棒
 
