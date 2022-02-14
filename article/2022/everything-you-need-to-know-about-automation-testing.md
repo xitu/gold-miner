@@ -5,219 +5,219 @@
 > * 译者：
 > * 校对者：
 
-# Automation Testing: Everything You Should Know
+# 自动化测试：你应当了解的一切
 
-We’ve long believed that automation testing is a wonderful formula for improving the quality of apps right from the start.
+我们一直认为，自动化测试有助于提升应用程序的质量。
 
-However, it is only when we begin automating that we grasp the true reality.
+然而，有一些真实情况，我们只有开始进行自动化测试时才会发现。
 
-We frequently confront issues such as deciding when to start automating tests, what tests to automate, how to choose the correct technology, and how to write automation test scripts that follow the best practices.
+我们通常需要处理的问题有：决定何时进行自动化测试、哪些测试需要自动化、如何选择合适的技术以及如何编写符合最佳实践的自动化测试脚本。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5deSGTLdumw11ET2Mi5goA.png)
 
-So let’s discuss all this in detail in this article.
+在我们来详细讨论这些问题。
 
-### What is Automation Testing and How Does It Work?
+### 什么是自动化测试，它是如何工作的？
 
-It is a method in which automation tools run a test suite, perform predetermined actions on a software application, report on the results, compare them, and generate detailed test reports.
+它是自动化工具运行测试套件，在应用程序中执行预定的操作，报告执行结果并比较，最后生成详细的测试报告的一套方法。
 
-Test automation requires financial and human resources, long development cycles, and repeated executions. However, before we begin automating tests, we must first determine the best time for automation, the breadth of automation, and the best tool for automation. It might lead your project to unexpected additional costs if this process is not done properly from the beginning.
+测试自动化需要花费一定的人力财力，也需要较长的开发周期，还会包含一些重复的操作。无论如何，在开始自动化测试前，我们必须首先确定自动化的最佳时机、自动化的范围和最合适的工具。如果这项工作没做好，就会给项目带来意想不到的额外成本。
 
-Automated tests can be done across several servers during off-peak hours (midnight) and consume a fraction of the time that manual testing takes. This implies that the developer and tester’s time is used in the most efficient way possible, and the team receives faster feedback on code quality.
+自动化测试可以在非高峰时段（午夜）、在多台服务器上进行，所以花费的时间比手动测试少得多。这意味着开发人员和测试人员都能高效利用时间，团队也可以更快获得质量反馈。
 
-## Criteria for Automation
+## 自动化的标准
 
-To be automated, a test must match certain conditions; otherwise, it may wind up costing more than it saves. After all, saving time, effort, and money is a fundamental purpose of automation.
+测试需要满足一定的条件才能自动化；否则，其结果就是付出的代价多于节省的资源。毕竟，自动化的根本目标是节省时间、人力和财力。
 
-Here are some general test automation criteria. Keep in mind that these are only suggestions. Depending on your circumstances, your criteria may differ.
+本文列举一些通用的测试自动化的标准。记住，这只是一些建议，标准也因使用场景而异。
 
-### Repeatable
+### 重复性
 
-The test must be able to be repeated. Automating a test that can only be run once makes no sense. The following three steps comprise a repeatable test:
+测试必须是可重复进行的。将只能运行一次的测试操作自动化是毫无意义的。创建一个可重复的测试操作，需要进行以下三步：
 
-* Configure the test, including the data and the environment.
-* Execute the function and determine the outcome.
-* Clean up the data as well as the surroundings.
+* 对测试进行配置，包括所需的数据和环境；
+* 执行函数并得到结果；
+* 清除相关数据和环境。
 
-We want to be able to make the environment consistent in the initial phase.
+我们需要使环境跟初始阶段一致。
 
-### Determinant
+### 确定性
 
-When a function is a determinant, the result is the same each time it is performed with the same input. The same may be said for automated tests.
+只要输入参数相同，每次执行函数的结果也都相同，这样的函数就是有确定性的。对于自动化测试来说也一样。
 
-Let’s imagine we wish to put an additional function to the test. We now know that 1+1=2, and that 394.19 + 5.81 = 400.00. The function of addition is determinant.
+我们设想在测试程序中加入一个额外的函数。例如两个数相加，1+1=2,394.19 + 5.81 = 400.00。这个函数就是确定性的。
 
-Software, on the other hand, may have such a large number of varied inputs that getting the same result over time is challenging. Some variables may be completely random, making it difficult to predict a specific outcome.
+换句话说，软件会有很多个输入参数，随着时间的推移，要得到同样的结果是很有挑战性的。某些变量的值是随机的，所以很难预测函数执行结果。
 
-### Unopinionated
+### 非主观性
 
-You cannot automate matters of opinion. This is where usability testing, beta testing, and so forth really shine. User feedback is important, but it just can’t be automated … sorry!
+观点是不可自动化的。这就是可用性测试、beta测试等其他主观性事物的亮点所在。用户体验固然重要，但它是不可自动化的。 
 
-Most devs say software test automation demands considerable investments of money and resources.
+大多数开发者认为软件测试自动化需要投入大量的资金和资源。
 
-## Testing at different levels
+## 不同级别的测试
 
-A strategy to decide the number of tests to automate is the test automation pyramid. This strategy suggests writing three types of tests with different levels of granularity. The higher the level, the fewer tests there are to write.
+决定自动化测试程序的数量的一种策略是测试自动化金字塔。这种策略建议人们以不同粒度的级别把测试分为三类。级别越高，需要写的测试程序越少。
 
-## Type of automation tests
+## 自动化测试的类型
 
-Knowing what are the different forms of automated testing is critical when it comes to integrating test automation in your QA department. This will give you a good idea of how comprehensive a test automation program is, and if you can integrate it into your present quality assurance procedures or not. Furthermore, understanding the various sorts of tests allows you to make informed decisions about which types of testing would produce the best results for your organization.
+如果涉及到 QA 部门进行的集成测试，理解自动化测试的不同形式是非常重要的。它有助于你形成对自动化测试的综合性的认识，无论你是否将自动化测试跟你现在的 QA 程序结合。更进一步，需要理解各种类别的测试，从而选择一种能为公司带来最大收益的测试类型。
 
-There are many different types of test automation. The following is a comprehensive list of the most common ones:
+测试自动化的种类有很多。最常见的有以下几种：
 
-### Code Analysis
+### 代码分析
 
-Static and dynamic code analysis tools are just two of the numerous types of code analysis tools available. Some of these checks are for security issues, while others are for style and form.
+静态代码分析工具和动态代码分析工具是现有的众多代码分析工具中的两种。这些检查工具中，有的侧重于安全问题，有的侧重于风格和形式。
 
-When a developer checks in code, these tests are run. There isn’t much test writing to perform with these automated tests other than configuring rules and keeping the tools up to date.
+当开发者检入代码，这些测试程序也同时运行。对于这些自动化测试，除了配置规则和保持工具的更新之外，并没有太多的测试编写需要执行。
 
-### Unit Testing
+### 单元测试
 
-Unit testing is doing tests on individual components in isolation to ensure that they function properly. It is commonly the first type of automated testing performed on an application because it is usually done during the development phase.
+单元测试是对各个组件进行独立测试，确保它们正常运行。因为单元测试通常已在开发阶段完成，所以它通常是第一类运行于应用程序的自动化测试程序。
 
-### Integration Testing
+### 集成测试
 
-Integration testing entails testing the application’s various elements as a whole.
+集成测试是把应用程序的多个元素作为一个整体进行测试。
 
-When it comes to automation, integration tests are a unique kind. Integration tests, often known as end-to-end tests, are more difficult to put up since they must interface with external dependencies.
+涉及到自动化，集成测试就是一个独有的种类。集成测试，通常称为端到端测试，由于涉及到外部依赖，它较难进行。
 
-When working with resources that aren’t under your control, it’s often beneficial to construct false external resources.
+当涉及到你无法获取的资源，通常较妥当的做法是构造虚拟的外部资源。
 
-### Performance Testing
+### 性能测试
 
-Performance testing is putting a piece of software through its paces, stability, and responsiveness while under load.
+性能测试是测试软件在一定负载下的运行速度、稳定性和响应性。
 
-The fundamental goal of performance testing is to detect and eliminate any potential performance bottlenecks so that the program can offer the best results to the end-user.
+性能测试的基本目标是监测潜在的性能问题并消除它，令程序为用户提供最佳的使用体验。
 
-Performance testing is an important part of assuring a product’s market success since it helps uncover potential issues that consumers may encounter, such as slow software functioning under a heavy workload.
+由于性能测试有助于发现用户可能遇到的潜在问题（例如在高负载状态下运行缓慢），性能测试对于确保软件产品的成功销售非常重要。
 
-### Regression Testing
+### 回归测试
 
-Regression testing is a sort of maintenance testing. It entails running functional and non-functional tests again to see if the software behaves the same way it did previously after a code or program change.
+回归测试是一种维护测试。在修改代码后再次运行功能性和非功能性测试，旨在查看在某些代码或程序更改后软件的功能是否跟修改前一致。
 
-The software is said to have regressed if the performance is no longer the same.
+如果前后的功能不相同，就称该软件倒退了。
 
-The primary goal of regression testing is to guarantee that existing functionality is not harmed as a result of code changes.
+回归测试的主要目的是确保代码修改后，原有的功能没有受到影响。
 
-### Smoke Testing
+### 冒烟测试
 
-Smoke testing, also known as “Build Verification Testing” and “Confidence Testing,” is a series of tests designed to evaluate the stability and viability of the software’s delivered build.
+冒烟测试，也称为“构建验证测试”和“可信度测试”，是一系列用来评估软件交付构建的稳定性和可行性的测试。
 
-Smoke testing is used to determine whether an application should be shelved due to lack of functioning or moved on to the next stage of testing. Once the generated software functions have been merged with the software build, smoke testing is performed.
+冒烟测试用于评估应用程序在缺少某种功能时，应当搁置还是转移到下一个测试阶段。当某种功能已经合并到软件构建版本时，需要进行冒烟测试。
 
-Any failures in testing at this stage will almost always result in the application being sent back to the development team for changes.
+本阶段出现的任何错误都会导致应用程序退回至开发团队，进行修改。
 
-## Why use automated tests?
+## 为何使用自动化测试
 
-### Pocket-friendly
+### 低成本
 
-Contrary to popular belief, automated testing can be less expensive than manual testing. You can’t conduct repeating tests with manual testing. In reality, the cost of manually testing your application increases over time.
+与普通人的认识相反，自动化测试的成本比手工测试低。如果采用手工测试的方式，你无法进行重复的测试。实际上，手工测试的成本是随着时间推移而增加的。
 
-Automated testing, on the other hand, is less expensive in the long run since once you’ve built your test scripts, you can reuse them at any time without incurring additional costs. True, automation adoption is initially costly, but it will quickly pay for itself.
+另一方面，只要你构建了测试脚本，自动化测试的长期成本是较低的，任何时候你都可以反复使用，没有额外成本。
 
-It’s important to remember that the amount of the automated testing ROI is determined by the extent of automation adoption. The bigger the return on investment is, the more automated test cases you create and use.
+记住，自动化测试的投入产出比取决于自动化的程度，这很重要。预期的投资回报越高，你需要创建和使用的自动化测试用例就越多。
 
-### Time-Saving
+### 节省时间
 
-You can save time by automating your tests. Automated tests are quick to complete and can be repeated. To put it another way, you won’t have to wait weeks to do the tests again — only a few hours will be enough.
+你可以借助自动化测试节省工作时间。自动化测试执行快，也可以重复执行。换句话说，等待下一次测试的时间不再是若干周——只需要几个小时就够了。
 
-Automated testing accelerates development by taking advantage of their quick execution and repeatability. Transitioning from manual testing to automation will shorten your development time and increase your productivity.
+自动化测试以其执行速度快、可重复的优势提高了开发效率。从手工测试转向自动化测试可以缩短开发时间，提高产出。
 
-### Better Accuracy
+### 精确度更高
 
-You’re more likely to have error-free releases if you use test automation. Automated testing is more accurate than manual testing because it requires less human intervention.
+如果你使用自动化测试，很可能得到无错误的版本。由于自动化测试需要的人为干预少，所以它比手工测试更精确。
 
-The problem is that a human tester can make mistakes at any stage of the review process.
+问题是，人工测试在任何阶段都会出错。
 
-The machine, on the other hand, will not cooperate. Because generated test cases are more precise than human testers, you can lower the likelihood of failure by removing human errors.
+另一方面，机器不会合作。由于创建好的测试用例比人工测试更精确，你可以通过排除人为错误降低出现错误的可能性。
 
-### Immediate Feedback
+### 即时反馈
 
-Another advantage of automated testing is that it provides immediate feedback.
+自动化测试的另一个优势是，它提供即时的反馈。
 
-Developers receive testing reports instantaneously with fast test execution, so they can react swiftly if a problem happens. Forget about deciphering the code that was written three weeks ago.
+由于测试程序执行得快，开发者可以立刻收到测试报告，如果存在问题，就可以快速做出响应。别想着破译三周前写的代码了。
 
-When your app is already on the market, immediate feedback is very useful. Manual testing can simply slow down the process if you need to fix some errors immediately.
+当你得应用程序已经面市，即时反馈也是很有用得。如果需要立刻修复一些错误，手工测试会令整个过程进展缓慢。
 
-Test automation, on the other hand, will allow you to make quick changes to your application.
+此外，测试自动化也有助于你快速修改应用程序。
 
-As a result, automated testing leads to increased team responsiveness, improved user experience, and increased customer satisfaction.
+所以，自动化测试提高了团队的响应能力，改善了用户体验和客户满意度。
 
-### DevOps Implementation
+### DevOps的实现
 
-Every commit to the source code must be tested as part of the CI/CD pipeline, and there’s no other way to accomplish it fast and efficiently than with test automation.
+所有对源代码的提交都需要作为 CI/CD 流水线的一部分进行测试，只有自动化测试才可以快速高效实现。
 
-As a result, once you’ve deployed automated testing, transitioning to Continuous Testing and Delivery will be simple.
+所以，当你已经部署了自动化测试，过渡到持续测试和交付的阶段是很方便的。
 
-When the complexity of the code and the number of test cases increases, it becomes increasingly difficult to manage.
+当代码的复杂度和测试用例数量增加，就越来越难以管理。
 
-## When to use automated testing
+## 何时使用自动化测试
 
-If you’re running the same test again and again without altering it, it’s likely that automating it would save you a lot of time. That’s because having a manual task done on a frequent basis wastes your team’s time and is likely to result in additional errors due to inattention.
+如果你反复运行相同的测试程序，而且不对它进行改动，自动化可能令你节省很多时间。那是因为，经常进行手工测试是浪费时间的，而且可能由于疏忽会导致额外的错误。
 
-Human error is no longer a possibility thanks to automation. As a result, the adoption of automated testing can drastically increase quality in particular cases.
+有了自动化，人为错误就不再会发生了。所以，在某些情况下，使用自动化测试能大大提升项目质量。
 
-The bottom line is that if you can save money while still delivering a high-quality product, do so. This is where automation really shines. Most automation technologies aren’t cheap, so the project must be large enough to justify the investment.
+如果能交付高质量的产品，同时能够节省成本，当然应该这么做。这就是自动化的优势。大多数自动化技术都不便宜，所以项目应当足够大，才有可能实现盈利。
 
-## Common Misconceptions about Automation testing
+## 关于自动化测试的认识误区
 
-It is both true and incorrect that test automation will allow you to have more free time. The majority of manual testing time is spent on exploratory and functional testing, which involves manually searching for faults.
+的确，测试自动化能令你节省时间。如果实施手工测试，大部分时间会花在探索性问题和功能测试（排查错误）上。
 
-Once that process is finished, the manual tester must perform the identical actions over and over again. That time is greatly reduced with automated testing. Instead of writing tests, automation testers spend their time coding them and improving them as needed.
+当完成这些过程，测试人员仍然需要反复进行相同的操作。如果使用自动化测试，所花费的时间就会少很多。测试人员可以重点关注代码，并根据需要进行优化，而不需要写大量测试程序。
 
-However, after the test is completed, automated testing enables for the reuse of tests, eliminating the need to repeat the entire procedure.
+然而，测试完成后，自动化测试工具可以重用测试程序，而不需要重复进行某些操作。
 
-Automated testing allows you to concentrate on more important topics like client needs, functionality, and enhancements.
+自动化测试能令你关注更重要的事项，例如客户需求、功能和性能优化。
 
-Furthermore, the software tests can be run each time the source code is amended. Manually performing these tests is time-consuming and expensive, whereas automated tests can be done repeatedly at no additional cost.
+更进一步，源代码一旦修改，测试程序都会运行一遍。手工运行这些测试程序费时费力，而自动化测试就能反复运行，无额外成本。
 
-Another prevalent misunderstanding concerning automated testing is that it eliminates the need for human involvement.
+关于自动化测试的另外一个认识误区是：它会减少人工干预的需要。
 
-In all honesty, automated testing is more precise and faster than what people can accomplish without incurring significant human error, thus this misunderstanding is acceptable.
+实话实说，自动化测试比人工测试更精准、更快，而且不会犯人工可能出现的错误，所以有这种认识误区很正常。
 
-This does not replace the need for face-to-face communication in software development. Instead, it increases that aspect by giving an additional communication route.
+但这代替不料软件开发中的面对面的沟通。相反，由于它开辟了额外的沟通渠道，沟通就变得更重要了。
 
-## What to and what not to automate
+## 哪些模块需要自动化
 
-Without necessarily automating tests end-to-end, testing tools can assist with tasks such as product installation, test data creation, GUI interaction, problem detection (think parsing or polling agents equipped with test oracles), defect tracking, and so on.
+测试工具不必实现端到端的自动化测试，就可以辅助执行某些任务，比如产品安装、测试数据创建、用户界面、问题检测（用于测试 Oracle 的解析或轮询代理）、错误跟踪等。
 
-We shouldn’t try to automate negative or failover tests since they need testers to think analytically, and negative tests aren’t always easy to offer a pass or fail result that can help us.
+我们不应该尝试自动化负面或故障转移测试，因为它们需要测试人员进行分析性的思考，而负面测试无法得到某些通过或失败的结果。
 
-## Who should be involved with test automation?
+## 谁应该参与测试自动化工具的开发？
 
-With short Agile iterations, testing frequently needs a “shift left” strategy. Because of the shift to the left in the agile development process, testing can begin considerably earlier in the application lifetime.
+在短期的敏捷迭代中，测试经常需要奉行“向左移”策略。测试工作在敏捷开发过程中向左转移，就可以在应用程序生命周期的早期阶端开始。
 
-As a result of this strategy, developers with strong technical skills are increasingly being held responsible for testing, and they frequently collaborate with testers to design test automation frameworks.
+所以，技术较好的开发人员也会对测试负责，会与测试人员频繁沟通，旨在帮助他们开发自动化测试框架。
 
-When assessing a testing solution, it’s critical to find one that meets the requirements of all team members who will be involved in the testing process. Manual testers, automation engineers, and developers are among them.
+当评估一套测试方案是，需要满足所有会参与到测试工作中的团队成员的需求。手工测试人员、自动化工程师、开发者都包括在内。
 
-## How to automate your tests?
+## 如何使测试程序自动化
 
-If you are wondering how to start with automation testing, you can follow this easy 5 step process.
+如果你想了解如何令测试程序自动化，需要进行以下5个简单步骤：
 
-### 1. Select software or tools for testing
+### 1. 选择用于测试的软件或工具
 
-After you’ve decided which test to automate, you may look at the various testing tools accessible. Consider how a tool will operate with your present software platform before selecting one, as certain tools are better suited to a specific platform.
+在你决定哪些测试程序需要自动化后，你可以找到很多测试工具可供使用。选择之前，你需要考虑工具如何在你现有的软件平台上运行，也就是哪种工具跟软件平台更适配。
 
-### 2. Determine which tests should be automated
+### 2. 决定哪些测试程序可以自动化
 
-Choose which test you wish to automate first. Manual and automated testing are used by many software engineers. Certain functionality may need to be manually tested. With UI-licious, you can get started with 0 coding knowledge.
+首先，选择你需要自动化的测试程序。许多软件工程师同时使用手工测试和自动化测试。某些功能可能需要手工测试。有了UI-licious，你可以从0编码知识开始。
 
-### 3. Plans, Designs, and Scripts
+### 3. 计划，设计并编写脚本
 
-After you have chosen your tools for automation, plan the design of the framework and its features. Then you can plan automation things that are in-scope and out-of-scope. Next, you can start scripting and execution of schedules and timelines
+选定了自动化测试工具后，对框架的设计及其特点进行规划。接着你可以规划自动化测试的相关事项（in-scope 和 out-of-scope）。然后，你可以开始编写脚本并执行程序。
 
-### 4. Execute your automated tests
+### 4. 执行测试程序
 
-During this phase, automation scripts are run. Before they may be set to run, some scripts require input test data. Once they’ve been run, they generate extensive test reports you can easily analyze and share with your team.
+在这个阶段，你运行了自动化脚本。在脚本程序可运行前，有的脚本是需要带输入参数的。当它们运行后，会生成测试报告，你可以方便地分析测试报告，并与你的团队共享。
 
-### 5. Maintain your test scripts
+### 5. 维护你的测试脚本
 
-The Test Automation Maintenance Approach is a phase of automation testing that is used to see if the new features added to the software are working properly. When new automation scripts are added, they must be reviewed and maintained in order to improve the effectiveness of automation scripts with each release cycle.
+自动化测试脚本的维护阶段，需要留意软件中加入的新特性是否正常运行。当新的测试脚本添加进来，为了提升每个周期的自动化脚本运行效率，必须对其进行复查和维护。
 
-## Conclusion
+## 结论
 
-Test automation allows testers to devote more time to exploratory tests, which often uncover more flaws than any automated test. Because of these and other factors, test automation can make you save time and money on all your projects.
+测试自动化令测试人员可以进行更多的探索性测试，从而发现更多自动化测试发现不了的缺陷。因此，无论什么项目，自动化测试都是有助于节省时间和成本的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
