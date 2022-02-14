@@ -2,8 +2,8 @@
 > * 原文作者：[Sunil Sandhu](https://medium.com/@sunilsandhu)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/heres-a-list-of-technologies-i-wasted-my-time-learning-as-a-web-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/heres-a-list-of-technologies-i-wasted-my-time-learning-as-a-web-developer.md)
-> * 译者：airfri
-> * 校对者：KimYangOfCat luochen1992
+> * 译者：[airfri](https://github.com/airfri)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[luochen1992](https://github.com/luochen1992)
 
 ![](https://cdn-images-1.medium.com/max/2560/1*szP5mmBU8NjkLbO2HE3bJw.png)
 
