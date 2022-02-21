@@ -1,3 +1,8 @@
+* [双向绑定会使你的 React 代码更棒](https://juejin.cn/post/7064371133243457544)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [何时能有更快更强的前端开发框架](https://juejin.cn/post/7057126478600732708)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [如何使用 Python 构建 GUI 程序](https://juejin.cn/post/7055662437315379231)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [2021 年 Node.js 的发展趋势](https://juejin.cn/post/7024755055244869639/)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [使用 WasmEdge 在 WebAssembly 中运行 JavaScript](https://juejin.cn/post/7014413285600526343)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [使用 TypeScript 时你会想念的 Python 特性](https://juejin.cn/post/7007327298013626399)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [无密码认证，安全更有保障](https://juejin.cn/post/7007820358854115336)（[NieZhuZhu](https://github.com/NieZhuZhu) 翻译）
 * [Symbol：JavaScript 中最容易被误解的特性？](https://juejin.cn/post/7007975053485113381)（[zaviertang](https://github.com/zaviertang) 翻译）
