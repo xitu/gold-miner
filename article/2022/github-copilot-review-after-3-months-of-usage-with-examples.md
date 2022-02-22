@@ -60,11 +60,11 @@ Github Copilot 现在仍在技术预览的状态下；这只对部分的测试�
 
 Github Copilot 带来的最大的价值是节省你查阅文档的时间。举例来说，在处理键盘事件时，你是否记得方向键的键码？我可不记得。幸运的是，有了 Copilot，**你就不必记住或上网搜索这些键码了**。反之，你只需要将你的需求写成注释即可。
 
-![Keyboard events handling with 使用 Copilot 处理键盘事件](https://cdn-images-1.medium.com/max/3060/1*kVU6LD8_Ze7Qr8PbV21K3g.gif)
+![使用 Copilot 处理键盘事件](https://cdn-images-1.medium.com/max/3060/1*kVU6LD8_Ze7Qr8PbV21K3g.gif)
 
 此外，你也不需要搜索**公式**，如**华氏度和摄氏度之间的转换**。
 
-![Convert Fahrenheit to Celsius degrees with Copilot](https://cdn-images-1.medium.com/max/2532/1*xPZF0vI-C5IUwJ1rEFO8Hg.gif)
+![使用 Copilot 将华氏度转换为摄氏度](https://cdn-images-1.medium.com/max/2532/1*xPZF0vI-C5IUwJ1rEFO8Hg.gif)
 
 很棒对吧？
 
