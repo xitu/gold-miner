@@ -3,15 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/github-copilot-review-after-3-months-of-usage-with-examples.md](https://github.com/xitu/gold-miner/blob/master/article/2022/github-copilot-review-after-3-months-of-usage-with-examples.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Alfxjx](https://github.com/Alfxjx)
 
 # 使用了三个月的 Github Copilot，这是我的一些看法……
 
 ![在 Shutterstock 上购买的图片，由我编辑 😊](https://cdn-images-1.medium.com/max/2000/1*XADRDVUDatfS1oSAn_Cn8A.png)
 
-三个月前，我被允许加入到 Github Copilot 的测试项目中了。在此期间，我在 Angular、基于 LitElement 的 web 组件、Node.js（TypeScript）和 Vanilla JavaScript 项目中测试了 Copilot。
-
-AI 结对编程如何能协助我们？它真的有用吗？让我们一起看下去吧。
+三个月前，我被允许加入到 Github Copilot 的测试项目中了。在此期间，我在 Angular、基于 LitElement 的 web 组件、Node.js（TypeScript）和 Vanilla JavaScript 项目中测试了 Copilot。AI 结对编程如何能协助我们？它真的有用吗？让我们一起看下去吧。
 
 ## GitHub Copilot 到底是什么？
 
@@ -104,7 +102,7 @@ Github Copilot v.s. Tabine 的话题在网上常有讨论，甚至 Tabnine 的�
 
 ---
 
-Copilot 也为公司留下了一个“陷阱”。在面试中，公司时常会要求面试者完成一个测试任务，像是编写算法或是实现 polyfill 等。
+Copilot 也为公司留下了一个“陷阱”。在面试中，公司时常会要求面试者完成一个测试题，像是编写算法或是实现 polyfill 等。
 
 如果面试者的电脑上装有 Copilot，那么他只需要简单地将任务输入成注释，其余的工作将由 Copilot 完成。我已经在正真的面试中遇到过如此“机智”的面试者。
 
