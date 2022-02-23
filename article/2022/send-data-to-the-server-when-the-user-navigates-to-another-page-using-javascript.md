@@ -82,8 +82,6 @@ For more information, refer to the Mozilla docs given below:
 - [**Document.onvisibilitychange - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
 - [**Navigator.sendBeacon() - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon)
 
-**More content at[** plainenglish.io**](http://plainenglish.io/). Sign up for our[** free weekly newsletter**](http://newsletter.plainenglish.io/). Get exclusive access to writing opportunities and advice in our[** community Discord**](https://discord.gg/GtDtUAvyhW).**
-
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
