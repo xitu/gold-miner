@@ -2,50 +2,50 @@
 > * 原文作者：[Sunil Sandhu](https://medium.com/@sunilsandhu)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/heres-a-list-of-technologies-i-wasted-my-time-learning-as-a-web-developer.md](https://github.com/xitu/gold-miner/blob/master/article/2021/heres-a-list-of-technologies-i-wasted-my-time-learning-as-a-web-developer.md)
-> * 译者：
-> * 校对者：
+> * 译者：[airfri](https://github.com/airfri)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat)，[luochen1992](https://github.com/luochen1992)
 
 ![](https://cdn-images-1.medium.com/max/2560/1*szP5mmBU8NjkLbO2HE3bJw.png)
 
-# Here’s a list of technologies I wasted time learning as a Web Developer
+# 作为一名前端工程师我浪费时间学习了这些技术
 
-**Don’t make the same mistakes I made.**
+**不要犯我曾经犯过的错误！**
 
-When I started learning Web Development back in 2015, I wasted a lot of time learning whatever technologies I came across in articles and tutorials online.
+我2015年刚刚开始学习前端开发的时候，我在文档和在线教程上了解到了许多技术，我浪费大量时间去学习这些技术。
 
-In an industry with an ever growing number of technologies, libraries, and frameworks, being efficient with your learning is key. So whether you’re new to Web Development, or you already have some skin in the game, here’s a list of things that I either wasted my time learning and never actually used in my professional career, or are things that are no longer relevant in 2021 (ie, you can get away with not knowing).
+在一个技术、库和框架数量不断增长的行业中，高效地学习才是关键。不管你是新的Web开发人员，还是你已经入门前端并有了一些开发经验，都可以了解一下，以下列出的技术，要么是我花费时间学习但从未在我的职业生涯中实际使用过的，要么是2021年不再重要的事情(也就是说，你可以不知道)。
 
 ## Ruby / Ruby-on-rails
 
-Ruby-on-Rails was big in the late 2000s. I wasted several months trying to build applications with Ruby-on-Rails. While some big tech companies will still have some Rails code in their codebase, I’ve rarely come across any companies in recent years making use of it. In fact, six years into my professional career and I’ve not once had to use Rails. And even more so, I wouldn’t want to.
+Ruby-on-Rails在本世纪早期非常流行。我花了几个月的时间尝试用Ruby-on-Rails构建应用程序。虽然一些大型科技公司的代码库中仍然会有一些Rails代码，但近年来我很少遇到使用Rails代码的公司。事实上，在我六年的职业生涯中，我一次也没有使用过Rails。更重要的是，我不想这么做。
 
 ## AngularJS
 
-Not to be confused with Angular. AngularJS was replaced with Angular from version 2 onwards. Don’t bother wasting your time learning AngularJS for this reason, you’ll find very few companies using it today.
+不要把AngularJS和Angular混淆。AngularJS从版本2开始就被Angular取代了。不要因为这个原因而浪费时间学习AngularJS，你会发现现在很少有公司在使用它。
 
 ## jQuery
 
-jQuery is still the most popular JavaScript library, but this is more a technicality rather than by relevance (ie a lot of old websites made 10–15 years ago still make use of it). In recent years, a lot of big tech companies have shifted their code away from using jQuery in favour of regular JavaScript. A lot of the benefits that jQuery used to provide are not as relevant as they used to be (such as writing code that works on all types of browsers — this used to be more of a problem back in the day when browsers had very different specs).
+jQuery仍然是最流行的JavaScript库，但这是一个技术上的历史遗留问题，而非真的很流行(只是很多10-15年前的老网站仍然使用它)。近年来，许多大型科技公司的代码都不再使用jQuery，而是使用常规的JavaScript。jQuery过去提供的许多好处已经不像以前那么关键了(比如能编写在所有类型的浏览器上都能工作的代码，在浏览器有非常不同的规范的年代，这是一个大的问题)。
 
 ## Ember
 
-The fire went out on ember a long time ago. If you need to pick up a JavaScript library, reach for React (or maybe Vue.js).
+学习Ember的热火很久以前就熄灭了。如果你需要一个JavaScript库，那就去学习React(或者Vue.js)。
 
 ## React class components
 
-If you’re using React at work, you might still find some React class components lying around. Therefore, it’s probably still nice to have an understanding of how they work and their lifecycle methods. But if you’re writing new React components, you should be using functional components with React hooks.
+如果你在工作中使用React，你可能仍然会发现一些React类组件。因此，理解它们是如何工作的以及它们的生命周期方法可能仍然是很好的。但如果你正在编写新的React组件，你应该使用带有React hook的功能性组件。 
 
 ## PHP
 
-Lord give me strength. PHP isn’t that bad, to be fair. I did have to use it quite a bit in my first web developer job (along with Laravel). But nowadays, web developers should aim to be more efficient with learning by reaching for Node.js. If you’re already learning JavaScript, why add a server side language on top such as PHP, when you can now use JavaScript on the server?
+坦诚的说，PHP并没有那么糟糕。在我的第一份网页开发工作中(和Laravel一起)，我确实需要经常使用它。但是现在，web开发者应该着眼于更有效地学习 Node.js。如果你已经在学习JavaScript，为什么还要在服务器端添加PHP之类的服务器端语言呢？现在你可以在服务器端使用JavaScript了。  
 
 ## Deno
 
-Deno is new, and it could be big in years to come. However, don’t fall for the hype just yet. Few companies are using Deno today. Therefore, if you’re new to Web Development, just go ahead and learn Node.js (aka server-side JavaScript). Deno could be something you choose to learn in the coming years though.
+Deno是一家新公司，在未来几年可能会成为一家大公司。然而，不要轻信炒作。现在很少有公司在使用Deno。因此，如果你是Web开发新手，那就继续学习Node.js(又名服务器端JavaScript)。不过，Deno可能是你在未来几年选择学习的东西。  
 
 ## Conclusion
 
-So that’s my shortlist of technologies I wouldn’t bother with today. I’m sure there are plenty more than can be added to the list — feel free to leave your thoughts in the comments. I’m sure there will also be some debate over the technologies listed here — Ruby developers are easily frustrated. You’re welcome to debate that in the comments too. It’s all just opinions, right?
+这就是我今天想说的技术。我相信还有很多东西可以添加到技术列表中——请在评论中留下你的想法。我相信对于这里列出的技术也会有一些争论——Ruby开发者更容易破防。你也可以在评论中进行讨论，这些都是宝贵的意见。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

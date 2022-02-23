@@ -1,3 +1,7 @@
+* [5 个有趣的原因告诉你：找对象就得找程序员！](https://juejin.cn/post/7053326045352558599)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [WasmEdge 的安装与卸载](https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [使用 Python 模拟实现行星际空间旅行](https://juejin.cn/post/7047685861365776414)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [100 个能提升软件开发效率的小技巧](https://juejin.cn/post/7049260702850105374)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [Web 的未来](https://juejin.cn/post/7006492657379704846)（[Gesj-yean](https://github.com/Gesj-yean) 翻译）
 * [可以在 GitHub.dev 做的十件有趣的事](https://juejin.cn/post/7004738629092261895)（[greycodee](https://github.com/greycodee) 翻译）
 * [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
