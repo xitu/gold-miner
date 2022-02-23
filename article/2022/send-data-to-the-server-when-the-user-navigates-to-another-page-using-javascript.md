@@ -37,7 +37,7 @@ document.addEventListener('visibilitychange', function() {
 });
 ```
 
-There is an event handler called **onvisibilitychange** which can be used to observe visibility changes on the **visibilitychange** event property**.**
+There is an event handler called **onvisibilitychange** which can be used to observe visibility changes on the **visibilitychange** event property.
 
 ```js
 document.onvisibilitychange = function() {
@@ -77,12 +77,10 @@ document.addEventListener('visibilitychange', function() {
 ---
 
 For more information, refer to the Mozilla docs given below:
-[**Document: visibilitychange event - Web APIs | MDN**
-**The visibilitychange event is fired at the document when the contents of its tab have become visible or have been…**developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
-[**Document.onvisibilitychange - Web APIs | MDN**
-**The Document.onvisibilitychange property represents the event handler that is called when avisibilitychange event…**developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
-[**Navigator.sendBeacon() - Web APIs | MDN**
-**The navigator.sendBeacon() method asynchronously sends an HTTP POST request containing a small amount of data to a web…**developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon)
+
+- [**Document: visibilitychange event - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
+- [**Document.onvisibilitychange - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
+- [**Navigator.sendBeacon() - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon)
 
 **More content at[** plainenglish.io**](http://plainenglish.io/). Sign up for our[** free weekly newsletter**](http://newsletter.plainenglish.io/). Get exclusive access to writing opportunities and advice in our[** community Discord**](https://discord.gg/GtDtUAvyhW).**
 
