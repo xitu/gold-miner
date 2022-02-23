@@ -2,33 +2,33 @@
 > * 原文作者：[Aditya Tyagi](https://medium.com/@aditya-tyagi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-write-cleaner-react-code.md](https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-write-cleaner-react-code.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
 ![](https://miro.medium.com/max/1400/1*hSeo2BvnGmzh-ORp8mVEXQ.png)
 
-# How to Write Cleaner React code
+# 如何编写更简洁优雅的 React 代码
 
-## Avoid unnecessary tags in React
+## 避免使用不必要的标签
 
-After getting my hands dirty with over 10 production level React projects, one thing that was consistent with most of them was the use of unnecessary HTML elements/tags. It is highly important that your code is easier to maintain, write, read and debug. As a thumb rule, you can follow this to identify if your code follows clean code guidelines:
+在接触了十多个生产级别的 React 项目之后，我发现在大多数项目中都存在一个问题，那就是使用了不必要的 HTML 元素或标记。保持代码容易维护、编写、阅读和调试是非常重要的，你可以按照以下方法，来识别代码是否遵循清洁代码准则。
 
 ![](https://miro.medium.com/max/1280/1*i2B00WGhKkEWP-HhQGkc5A.jpeg)
 
-These tags were polluting the DOM for no reason at all. But they introduced these tags to overcome the drawback of JSX in React. The drawback is that JSX should always [return a single root HTML element](https://adityatyagi.com/index.php/2022/01/15/need-for-jsx-in-react/).
+这些不必要的标签造成了 DOM 污染。虽然引入这些标签是为了克服 React 中 JSX 的缺点（JSX 应该总是[返回单个 HTML 根元素](https://adityatyagi.com/index.php/2022/01/15/need-for-jsx-in-react/)）。
 
-In other words, this is invalid JSX:
+换句话说，这是无效的 JSX：
 
 ```jsx
-// The parenthesis helps to write multi-line HTML
+// 括号有助于编写多行 HTML
 const element = (
   
-  // 1st div block
+  // 第 1 个 div 块
   <div>
     <h1>Hello!</h1>
     <h2>Good to see you here.</h2>
   </div>
-  // 2st div block
+  // 第 2 个 div 块
   <div>
     <h1>Sibling element</h1>
     <h2>I will break JSX element</h2>
@@ -36,19 +36,19 @@ const element = (
 );
 ```
 
-Because of this drawback, many developers add `div` tags to wrap enormous blocks of code. Hence, resolving the drawback of JSX.
+很多开发者通过添加 `div` 标签包裹代码块来解决 JSX 的这个缺点。
 
 ```jsx
 const element = (
   
-  // The wrapper
+  // div 包裹
   <div>
-      // 1st div block
+      // 第 1 个 div 块
       <div>
         <h1>Hello!</h1>
         <h2>Good to see you here.</h2>
       </div>
-      // 2st div block
+      // 第 2 个 div 块
       <div>
         <h1>Sibling element</h1>
         <h2>I will break JSX element</h2>
@@ -57,19 +57,19 @@ const element = (
 );
 ```
 
-Now, this works for minor projects. I am guilty of going this route as well. Won't lie. But then as I started working on gigantic React oriented projects, I found the DOM code filled with `div` tags throughout. This sooner or later resulted in a "*div soup*"
+目前这个方法适用于小型项目。当我开始在大型 React 项目上工作时，我发现 DOM 代码中充满了 div 标签。这迟早会导致一个 `div soup`。
 
 ![](https://miro.medium.com/max/1400/0*wV-LndzxvOaGKBmT.png)
 
-## What is a div soup?
+## 什么是 `div soup`
 
-An example will make it much clearer than me slapping the keyboard to vomit out explanatory paragraphs!
+接下来看一个示例。
 
-Consider this piece of React code:
+请看以下这段 React 代码：
 
 ```jsx
 return (
-    // This div does nothing but wraps the two children
+    // 这个 div 什么也没做，只是包裹了两个子标签
     <div>
       <h1>This is heading</h1>
       <h2>This is a sub-heading</h2>
@@ -77,11 +77,11 @@ return (
   )
 ```
 
-The result of this in the DOM will be:
+这在 DOM 中的结果将会是这样：
 
 ![](https://miro.medium.com/max/646/0*WmEjvNdAptr1Y7CH.png)
 
-This is a minor example. Real React apps are way more complex. You can have a deeply nested parent-children relationships between components. For example:
+这只是一个小示例，真正的 React 应用要复杂得多。你可以在组件之间有一个深度嵌套的父子关系。例如：
 
 ```jsx
 return (
@@ -99,14 +99,14 @@ return (
   )
 ```
 
-Where the children are:
+再来看子标签的代码：
 
 ```jsx
-// Every React JSX element inherently receives the "props" argument
+// 每个 React JSX 元素都接收 props 参数
 const Child1 = (props) => (
   <div>
     <h3>I am child 1</h3>
-    {/* Anything that is passed between <Child1> and </Child1> */}
+    {/* 在 <Child1> 和 </Child1> 之间传递的任何内容 */}
     {props.children}
   </div>
 );
@@ -129,39 +129,39 @@ const Child4 = () => (
 );
 ```
 
-This will produce DOM:
+最终的 DOM 将会是这样：
 
 ![](https://miro.medium.com/max/714/1*dvdO6M6jYg608Nb4zR2HVA.png)
 
-If you carefully check the generated DOM, you'll see a ton of `div` tags which serves has no purpose but to wrap the code and overcome the JSX limitation. Eventually, this will cause a div soup.
+如果你仔细检查生成的 DOM，会看到大量的 div 标签，这些标签没有任何作用，只是为了包裹代码和克服 JSX 的限制。最终，这将会导致一个 `div soup`。
 
-This can exponentially increase the time of debugging and hence can affect faster delivery and bug-fixes!
+这可能会成倍地增加调试时间，对更快的交付和错误修复造成影响。
 
 ![](https://miro.medium.com/max/1400/1*Js5FBm_cgl9py24Uyf9zRg.png)
 
-## Avoid a DIV soup
+## 如何避免 div soup
 
-Eagle-eyed readers must have noticed the solution in the problematic code itself. All we have to do is create a wrapper React component which returns the passed component without the `div`:
+目光敏锐的读者一定已经注意到了问题代码的解决方案。我们所要做的就是创建一个封装的 React 组件，它可以返回不带 `div` 的传递组件：
 
 ```jsx
-// Wrapper component that returns any DOM element passed between <Wrapper> and </Wrapper>
-// The props inherently have the children property on it
-// All react JSX elements should be Capitalized as a naming convention 
+// 包裹组件，返回 <Wrapper> 和 </Wrapper> 之间传递的任何 DOM 元素
+// 在 props 上本来就有 children 属性
+// 所有的 React JSX 元素都应该大写，作为一种命名规范
 
 const Wrapper = (props) => {
   return props.children;
 }
 ```
 
-Refactoring the previous code:
+重构之前的代码：
 
 ```jsx
-// Children with Wrapper component
-// Every React JSX element inherently receives the "props" argument
+// 带有 Wrapper 组件的 Children
+// 每个 React JSX 元素都接收 props 参数
 const Child1 = (props) => (
   <Wrapper>
     <h3>I am child 1</h3>
-    {/* Anything that is passed between <Child1> and </Child1> */}
+    {/* 在 <Child1> 和 </Child1> 之间传递的任何内容 */}
     {props.children}
   </Wrapper>
 );
@@ -184,10 +184,10 @@ const Child4 = () => (
 );
 ```
 
-and:
+同时：
 
 ```jsx
-// Parent component with Wrapper
+// 带有 Wrapper 组件的 Parent
 return (
     <Wrapper>
       <h1>This is heading</h1>
@@ -203,31 +203,31 @@ return (
   )
 ```
 
-This will remove the unnecessary `div` tags and hence prevent the soup!
+这将删除不必要的 `div` 标签，从而防止出现 `div soup`。
 
 ![](https://miro.medium.com/max/800/0*ARchCEaEa-0P10M_.png)
 
-# React Fragments
+# 使用 React Fragments
 
-It will be difficult and an added effort to introduce this `Wrapper` component in every React project, and we developers try to avoid exactly such situations.
+在每个 React 项目中引入这个 `Wrapper` 组件是很困难的，也是一种额外的耗费，开发者正是要避免这种情况。
 
-Introducing React Fragments.
+React Fragments 的简介。
 
-According to the official documentation:
+根据官方文档的说明：
 
-> A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+> React 中一个常见的模式是一个组件返回多个元素。Fragments 可以对子元素列表进行分组，而无需向 DOM 添加额外的节点。
 >
 > -- [ReactJs.org](https://reactjs.org/docs/fragments.html)
 
-You can do this in two ways:
+可以通过两种方式来实现：
 
-1. Using `[React.Fragment](https://reactjs.org/docs/fragments.html)`
-2. Using a [short syntax](https://reactjs.org/docs/fragments.html#short-syntax) of `React.Fragment` which is `<>` and `</>`
+1. 使用 [`React.Fragment`](https://reactjs.org/docs/fragments.html)
+2. 使用 `React.Fragment` 的[简写语法](https://reactjs.org/docs/fragments.html#short-syntax)，即 `<>` 和 `</>`。
 
-Let me show you via our code above with this:
+通过代码示例来说明：
 
 ```jsx
-// Parent component wrapper with React.Fragment
+// 使用 React.Fragment 包裹 Parent 组件
 return (
     <React.Fragment>
       <h1>This is heading</h1>
@@ -243,10 +243,10 @@ return (
   )
 ```
 
-Using a short-hand is much better for lazy developers like me:
+使用使用 React.Fragment 简写语法会更好。
 
 ```jsx
-// Parent with shorthand of React.Fragment
+// 使用 React.Fragment 简写语法的 Parent 组件
 return (
     <>
       <h1>This is heading</h1>
@@ -263,14 +263,14 @@ return (
   )
 ```
 
-The final code will look like this:
+最终的代码将是这样：
 
 ```jsx
-// Children with shorthand
+//  使用 React.Fragment 简写语法的 Children 组件
 const Child1 = (props) => (
   <>
     <h3>I am child 1</h3>
-    {/* Anything that is passed between <Child1> and </Child1> */}
+    {/* 在 <Child1> 和 </Child1> 之间传递的任何内容 */}
     {props.children}
   </>
 );
@@ -293,7 +293,7 @@ const Child4 = () => (
 );
 ```
 
-This will help you get the same results, avoiding the `div` soup.
+这将帮助你获得同样的结果，避免了 `div soup`。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
