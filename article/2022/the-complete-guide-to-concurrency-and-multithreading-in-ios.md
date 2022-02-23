@@ -254,6 +254,8 @@ You can set the concurrent operation count to 1 so it will work as a serial queu
 queue.maxConcurrentOperationCount = 1
 ```
 
+Serial OperationQueue:
+
 ```Swift
 let task1 = BlockOperation {
     print("Task 1")
@@ -268,6 +270,8 @@ let tasks = [task1, task2]
 serialOperationQueue.addOperations(tasks, waitUntilFinished: false)
 ```
 
+Concurrent OperationQueue:
+
 ```Swift
 let task1 = BlockOperation {
     print("Task 1")
@@ -280,6 +284,8 @@ concurrentOperationQueue.maxConcurrentOperationCount = 2
 let tasks = [task1, task2]
 concurrentOperationQueue.addOperations(tasks, waitUntilFinished: false)
 ```
+
+Group Concurrent OperationQueue:
 
 ```Swift
 let task1 = BlockOperation {
