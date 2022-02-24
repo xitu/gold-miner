@@ -2,75 +2,75 @@
 > * 原文作者：[Doug Foo](https://medium.com/@doug-foo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/how-slow-is-python.md](https://github.com/xitu/gold-miner/blob/master/article/2022/how-slow-is-python.md)
-> * 译者：
+> * 译者：[Alfxjx](https://github.com/Alfxjx)
 > * 校对者：
 
-# How Slow is Python?
+# 多语言横向对比 Python 有多慢？
 
 ![Photo by [Alex Blăjan](https://unsplash.com/@alexb?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/13886/0*kOjDXNW1V5aQYWmI)
 
-We all know it is slower than C, Java, Rust, but just how slow?
+我们都知道它比 C、Java、Rust 慢，但到底有多慢呢？
 
-Just as I started thinking about this article, my feed produces a joker post “Python isn’t actually slow” — I read it even though I knew it was not true and was just clickbait. When it comes to Python you are dealing with a snail, and while you can train the heck out of a snail you cannot escape its fundamental genetics (unlike Ethan Hawke in the classic movie Gattaca).
+就在我开始思考这篇文章的时候，我的信息流里刷出了一个笑话帖子 “Python 实际上并不慢” —— 我读了它，即使我知道它不是真的而且只是在吸引点击。 当谈到 Python 时，您正在与蜗牛打交道，虽然您可以训练出蜗牛，但您无法摆脱它的基本遗传学特性（与经典电影千钧一发 中的伊桑•霍克不同）。
 
-## Benchmarking
+## 基准测试
 
-I started writing a few simple benchmarks to cross-test in C, Rust, Java, and Python. I think the main categories to evaluate:
+于是我开始编写一些简单的基准测试来交叉测试 C、Rust、Java 和 Python。以下是我的主要评判标准：
 
-* Managing memory pressure (object creation/destruction)
-* String processing like JSON
-* Loops and compute-intensive operations
+* 管理内存压力（对象创建/销毁）
+* 类似 JSON 的字符串处理
+* 循环和计算密集型操作
 
-For reference, there is a great [GitHub project](https://github.com/kostya/benchmarks) evaluating performance across a dozen+ languages. The summary table is included below, and if C++ is a baseline of 1, then Python is a whopping 227x slower on the [brainf test](https://gist.github.com/roachhd/dce54bec8ba55fb17d3a) (which is a pretty interesting **Turing Machine** interpreter).
+作为参考，有一个很棒的 [GitHub 项目](https://github.com/kostya/benchmarks) 评估了十几种语言的性能，性能的结果如下表。如果把 C++ 的性能作为基线 1，那么 Python 在 [brainf 测试](https://gist.github.com/roachhd/dce54bec8ba55fb17d3a)（一个很有趣的**图灵机**解释器） 上的速度要慢 227 倍。
 
-![Courtesy of github project by [Kostya M](https://github.com/kostya/benchmarks)](https://cdn-images-1.medium.com/max/2000/1*1YFqFHxz77sbFp-v_8k7Ow.png)
+![由 github 项目 [Kostya M](https://github.com/kostya/benchmarks) 提供](https://cdn-images-1.medium.com/max/2000/1*1YFqFHxz77sbFp-v_8k7Ow.png)
 
-I wound up writing super basic snippet tests because I realize I forgot how to program in most of these languages. I had to reset my ambition to match my feeble skills...
+我最终编写了非常简单的代码片段来进行测试，因为我发现我忘记了如何用大多数这些语言进行编程。我不得不重新设定我的测试目标以匹配我微弱的技能……
 
 ![© Doug Foo Labs](https://cdn-images-1.medium.com/max/3450/1*sc0AvOEI6nBMLr0a_iyCMg.png)
 
-## Insights from test results
+## 测试结果的分析
 
-**I’ll link to my GitHub for the really hacky tests in the References section. I hope the naming is self-explanatory.**
+**我将链接到我的 GitHub 以在参考部分中进行真正的 hacky 测试。 我希望命名是不言自明的。**
 
-These are my takeaways across languages:
+以下是我对不同语言性能的总结：
 
-1. **Python File I/O is comparably fast** since the limiting factor is disk
-2. **Python is unusually slow at recursion**, doing a recursive Fibonacci gets infeasibly slow at just fib(30)
-3. **Python function calls are slow** — contributing to the recursion issue
-4. **Java w/o JIT optimization** can be really slow, even slower than Python for some things
-5. **Java native String** + is still deathly slow (100x), using StringBuilder makes it reasonably fast, but slower than Python
-6. **Java w/ JIT is quite fast** these days, almost not worth using C anymore…
-7. **Rust is really fast**, could be faster if I knew how to code in it better…
+1. **Python 文件 I/O 相当快** 因为限制因素是磁盘
+2. **Python 在递归时异常缓慢**，`fib(30)` 级别的递归斐波那契数列就会变得非常慢
+3. **Python 函数调用很慢** —— 递归问题的原因
+4. **Java w/o JIT 优化** 可能真的很慢，在某些方面甚至比 Python 还要慢
+5. **Java 原生 String** + 仍然非常慢（100 倍），尽管使用 StringBuilder 使其快了很多，但仍旧比 Python 慢
+6. **Java w/ JIT 现在相当快**，因此几乎不值得再使用 C...
+7. **Rust 真的很快**，当然如果我能知道怎样更好的写 Rust 代码的话，可能会更快......
 
-The 200x slower benchmark hasn’t been proven in my small kit, but obviously, a few extra function calls and recursions and you’ll easily get there.
+虽然慢 200 倍的基准测试尚未在我的小测试中得到证明，但显然，如果再增加一些额外的函数调用和递归，就会很容易得到这样的结果。
 
-## So why is Python slow?
+## 那么为什么 Python 很慢呢？
 
-Most things are obvious but let me list them:
+大多数原因都是显而易见的，但也让我列出它们：
 
-1. Python is **interpreted** and while byte-compiled it is not really optimized
-2. It is **garbage collected**, but it primarily uses reference counting so it is a bit faster or at least more deterministic than Java
-3. By default it has **no JIT compiler** — seems to be critical for an interpreted language (**PyPy** uses this to give it a 10x boost)
-4. Being an **untyped dynamic language** has its slow points (and makes it harder to build a JIT)
-5. Implementation of **function calls are unusually slow** (perhaps some stack frame allocation complexity?)
+1. Python 是一门**解释型**语言，虽然是字节码编译的，但它并没有进行真正优化
+2. Python 使用**垃圾收集**，但主要使用引用计数，因此它比 Java 表现得更快、或者说至少更具有确定性
+3. 默认**没有 JIT 编译器** —— 似乎对于解释型语言至关重要（**PyPy** 使用它来提升 10 倍）
+4. 作为一种**无类型的动态语言**有它的慢点（并且使得构建 JIT 变得更加困难）
+5. **函数调用的实现异常缓慢**（也许有些堆栈帧分配算法比较复杂？）
 
-Note we did not even test multithreaded or multi-programming since we all know Python has the **GIL (Global Interpreter Lock)** issue as well.
+请注意，我们甚至没有测试多线程或多编程，因为我们都知道 Python 也有 **GIL（全局解释器锁）** 问题。
 
-## How to optimize Python
+## 如何优化 Python 的运行速度？
 
-There are a few tricks to speed Python, but most aren’t that great.
+有一些技巧可以提高 Python 的运行速度，但大多数都不是很好。
 
-1. Use multi-processing to spawn off workers (but beware you will be limited by the GIL )
-2. Write native C code and link it to Python
-3. Use native Python functions (which are written in the runtime in C)
-4. 1-liner list comprehensions seem to be performance-optimized so they aren’t just cool tricks it seems
+1. 使用多进程来处理 worker（但要注意你会受到 GIL 的限制）
+2. 编写原生 C 代码并链接到 Python
+3. 使用原生 Python 函数（在运行时用 C 编写）
+4. 单行的列表推导式似乎是性能优化的，所以它们看起来不仅仅是很酷的技巧
 
-I honestly did not see a lot of great tips… some of the tips were like “use O(n) and O(n-log n) algorithms instead of O(n²)” … perhaps the first tip should be to **study some computer science**?
+老实说，我没有看到很多很棒的技巧…… 有些技巧就像“使用 O(n) 和 O(n-log n) 算法而不是 O(n²)”…… 也许第一个技巧应该是**学习一些计算机科学知识**？
 
 ---
 
-## References
+## 参考文章
 
 1. Making Python fast— [https://github.com/ajcr/ajcr.github.io/blob/master/_posts/2016-04-01-fast-inverse-square-root-python.md](https://www.kdnuggets.com/2021/06/make-python-code-run-incredibly-fast.html)
 2. Python Slowness — [https://medium.com/analytics-vidhya/is-python-really-very-slow-2-major-problems-to-know-which-makes-python-very-slow-9e92653265ea](https://towardsdatascience.com/why-is-python-so-slow-and-how-to-speed-it-up-485b5a84154e)
