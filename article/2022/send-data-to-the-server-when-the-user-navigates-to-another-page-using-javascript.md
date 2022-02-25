@@ -15,7 +15,7 @@
 
 **visibilitychange** 方法是用于记录 tab 上的显隐行为。这个方法可以在所有的现代浏览器中获取到，并且可以直接通过 document 对象来调用。
 
-调用**visibilitychange**方法只可能得到两个可能的值： visible （显示）和 hidden（隐藏）。
+调用 **visibilitychange** 方法只可能得到两个可能的值： visible （显示）和 hidden（隐藏）。
 
 如果调用 visibilitychange 方法的返回的结果是 hidden ，表示用户很有可能要离开当前页面。
 
@@ -37,7 +37,7 @@ document.addEventListener('visibilitychange', function () {
 });
 ```
 
-有一个叫做**onvisibilitychange**的事件处理方法可以用来监听**visibilitychange**方法属性显隐的变化。
+有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听**visibilitychange**方法属性显隐的变化。
 
 ```js
 document.onvisibilitychange = function () {
@@ -47,7 +47,7 @@ document.onvisibilitychange = function () {
 
 ## 把分析后的数据发送给服务端
 
-Web APIs 提供了一个 **navigator** 对象，这个对象包含了**sendBeacon()**方法。**sendBeacon()**方法允许我们异步地把少量数据发送给服务器。
+Web APIs 提供了一个 **navigator** 对象，这个对象包含了 **sendBeacon()** 方法。**sendBeacon()** 方法允许我们异步地把少量数据发送给服务器。
 
 sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
@@ -56,9 +56,9 @@ sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
 第二个参数 data 接收的数据类型有 **ArrayBuffer**, **ArrayBufferView**, **Blob**, **DOMString**, **FormData** 或者 **URLSearchParams**。
 
-如果数据成功发送到指定的 url 进行数据传输， **sendBeacon()**会返回 true。否则，就会返回 false 。
+如果数据成功发送到指定的 url 进行数据传输， **sendBeacon()** 会返回 true。否则，就会返回 false 。
 
-和其它传统技术（像 XMLHttpRequest）相比, sendBeacon 方法是一种更好的发送分析数据的方式。因为通过 XMLHTTPRequest 发送的请求会在页面未被加载时会被取消，而**sendBeacon**确保了在它在给服务器发请求时不被打断。
+和其它传统技术（像 XMLHttpRequest）相比, sendBeacon 方法是一种更好的发送分析数据的方式。因为通过 XMLHTTPRequest 发送的请求会在页面未被加载时会被取消，而 **sendBeacon** 确保了在它在给服务器发请求时不被打断。
 
 通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，也就是说只要网络连接是可用的，即使用户关闭了 app , 数据还是会被传输给 app 。
 
