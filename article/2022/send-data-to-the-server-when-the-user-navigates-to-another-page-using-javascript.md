@@ -51,7 +51,7 @@ Web APIs 提供了一个 **navigator** 对象，这个对象包含了**sendBeaco
 
 sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
-1. url ： 将接收数据的相对的或绝对的 URl。
+1. url: 将接收数据的相对的或绝对的 URl。
 2. 数据：包含用于服务器的数据的对象。
 
 第二个参数 data 接收的数据类型有 **ArrayBuffer**, **ArrayBufferView**, **Blob**, **DOMString**, **FormData** 或者 **URLSearchParams**。
