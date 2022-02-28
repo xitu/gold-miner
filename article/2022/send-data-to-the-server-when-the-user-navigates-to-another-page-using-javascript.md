@@ -9,7 +9,7 @@
 
 ![Photo by [Edho Pratama](https://unsplash.com/@edhoradic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9044/0*0RbNvyMds_7IaOac)
 
-作为一个开发者，你可能会碰到这样的场景：在 PC 端，浏览器需要监听用户是否到了新页面？还是切换/关闭了 Tab？亦或是缩小/关闭了浏览器？或者在移动端，监听用户是否从浏览器切换到了其它 App。在这篇文章中，我们将会研究如何判断 Tab 上内容的是显示或隐藏状态，然后把分析数据发送给服务器。
+作为一个开发者，你可能会碰到这样的场景：在 PC 端，浏览器需要监听用户是否跳转到了新页面？还是切换/关闭了 Tab？亦或是缩小/关闭了浏览器？或者在移动端，监听用户是否从浏览器切换到了其它 App。在这篇文章中，我们将会研究如何判断 Tab 上内容的是显示或隐藏状态，然后把分析数据发送给服务器。
 
 ## 监听页面的变化
 
@@ -17,7 +17,7 @@
 
 调用 **visibilitychange** 方法只可能得到两个可能的值： visible （显示）和 hidden（隐藏）。
 
-如果 `visibilitychange` 事件的值变为 `hidden`（译者注：实际上，`visibilitychange` 事件的回调函数是没有传入标明当前页面可见性的参数的，开发者需要在回调函数中访问 `document.visibilityState` 变量来获取当前具体的页面可见状态），则可能意味着用户要离开这个页面了。
+如果 `visibilitychange` 事件的值变为 hidden ，则可能意味着用户要离开这个页面了（译者注：实际上，visibilitychange 事件的回调函数是没有传入标明当前页面可见性的参数的，开发者需要在回调函数中访问 document.visibilityState 变量来获取当前具体的页面可见状态）。
 
 ```js
 document.addEventListener('visibilitychange', function() {
@@ -27,7 +27,7 @@ document.addEventListener('visibilitychange', function() {
 });
 ```
 
-另外，如果调用 visibilitychange 方法返回的结果是 visible，那这就意味着用户又回到了当前页面。
+另外，如果调用 visibilitychange 事件返回的结果是 visible，那这就意味着用户又回到了当前页面。
 
 ```js
 document.addEventListener('visibilitychange', function() {
@@ -49,7 +49,7 @@ document.onvisibilitychange = function() {
 
 Web APIs 提供了一个 **navigator** 对象，这个对象包含了 **sendBeacon()** 方法。**sendBeacon()** 方法允许我们异步地把少量数据发送给服务器。
 
-sendBeacon 方法接受两个参数，参数以及参数的解释如下：
+sendBeacon 方法接受两个参数：
 
 1. **Url**: 将接收数据的相对或绝对 URl。
 2. **Data**：含有作用于服务器数据的对象。
