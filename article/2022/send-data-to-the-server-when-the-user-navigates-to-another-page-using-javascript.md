@@ -3,17 +3,17 @@
 > -   译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > -   本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md)
 > -   译者：娇娇娇娇
-> -   校对者：
+> -   校对者：[Z招锦](https://github.com/zenblofe)
 
-# 当用户跳转到其它页面时，使用 JavaScript 发送数据给服务器
+# 使用 JavaScript 处理用户页面跳转时的数据发送
 
 ![Photo by [Edho Pratama](https://unsplash.com/@edhoradic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9044/0*0RbNvyMds_7IaOac)
 
-作为一个开发者，你可能会碰到这样一种场景：就是去判断用户是导航到了新页面，是切换了 tab，还是关闭了 tab，是缩小还是关闭了浏览器；或者判断用户在移动端上是否从浏览器切换到了其它 app 上。在这篇文章中我们将会研究如何判断 tab 上内容的是显示还是隐藏状态，然后把分析之后的数据发送给服务器。
+作为一个开发者，你可能会碰到这样的场景：判断用户是导航到了新页面，还是切换了 Tab？是关闭了 Tab，还是缩小或关闭了浏览器？或者判断用户在移动端上是否从浏览器切换到了其它 App。在这篇文章中，我们将会研究如何判断 Tab 上内容的是显示或隐藏状态，然后把分析之后的数据发送给服务器。
 
-## 察觉页面的变化
+## 监听页面的变化
 
-**visibilitychange** 方法是用于记录 tab 上的显隐行为。这个方法可以在所有的现代浏览器中获取到，并且可以直接通过 document 对象来调用。
+**visibilitychange** 方法是用于记录 Tab 上的显示或隐藏行为。这个方法可以在当前所有的浏览器中获取到，并且可以直接通过 document 对象来调用。
 
 调用 **visibilitychange** 方法只可能得到两个可能的值： visible （显示）和 hidden（隐藏）。
 
@@ -37,7 +37,7 @@ document.addEventListener('visibilitychange', function () {
 });
 ```
 
-有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听**visibilitychange**方法属性显隐的变化。
+有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听**visibilitychange**方法的显示或隐藏属性变化。
 
 ```js
 document.onvisibilitychange = function () {
@@ -45,14 +45,14 @@ document.onvisibilitychange = function () {
 };
 ```
 
-## 把分析后的数据发送给服务端
+## 发送分析数据到服务端
 
 Web APIs 提供了一个 **navigator** 对象，这个对象包含了 **sendBeacon()** 方法。**sendBeacon()** 方法允许我们异步地把少量数据发送给服务器。
 
 sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
-1. url: 将接收数据的相对的或绝对的 URl。
-2. 数据：包含用于服务器的数据的对象。
+1. Url: 将接收数据的相对或绝对 URl。
+2. Data：含有作用于服务器数据的对象。
 
 第二个参数 data 接收的数据类型有 **ArrayBuffer**, **ArrayBufferView**, **Blob**, **DOMString**, **FormData** 或者 **URLSearchParams**。
 
@@ -60,7 +60,7 @@ sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
 和其它传统技术（像 XMLHttpRequest）相比, sendBeacon 方法是一种更好的发送分析数据的方式。因为通过 XMLHTTPRequest 发送的请求会在页面未被加载时会被取消，而 **sendBeacon** 确保了在它在给服务器发请求时不被打断。
 
-通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，也就是说只要网络连接是可用的，即使用户关闭了 app , 数据还是会被传输给 app 。
+通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，也就意味着只要网络是可用的，即使用户关闭了 App , 数据也会被传输给 App 。
 
 当 visibilityState 方法的返回结果变为隐藏时，就会触发 sendBeacon 方法把分析数据发送给服务器。
 
