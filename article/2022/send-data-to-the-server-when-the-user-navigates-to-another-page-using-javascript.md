@@ -1,9 +1,9 @@
-> -   原文地址：[Send Data to the Server When the User Navigates to Another Page using JavaScript](https://javascript.plainenglish.io/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript-d98a0a4a0539)
-> -   原文作者：[Jatin](https://medium.com/@jatin.krr)
-> -   译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> -   本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md)
-> -   译者：娇娇娇娇
-> -   校对者：[Z招锦](https://github.com/zenblofe)
+> * 原文地址：[Send Data to the Server When the User Navigates to Another Page using JavaScript](https://javascript.plainenglish.io/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript-d98a0a4a0539)
+> * 原文作者：[Jatin](https://medium.com/@jatin.krr)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md)
+> * 译者：[jjCatherine](https://github.com/xyj1020)
+> * 校对者：[Z招锦](https://github.com/zenblofe)
 
 # 使用 JavaScript 处理用户页面跳转时的数据发送
 
@@ -20,28 +20,28 @@
 如果调用 visibilitychange 方法的返回的结果是 hidden ，表示用户很有可能要离开当前页面。
 
 ```js
-document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'hidden') {
-        // user session ended
-    }
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') {
+    // user session ended
+  }
 });
 ```
 
 另外，如果调用 visibilitychange 方法返回的结果是 visible，那这就意味着用户又回到了当前页面。
 
 ```js
-document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'visible') {
-        // user is back
-    }
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'visible') {
+    // user is back
+  }
 });
 ```
 
-有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听**visibilitychange**方法的显示或隐藏属性变化。
+有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听 **visibilitychange** 方法的显示或隐藏属性变化。
 
 ```js
-document.onvisibilitychange = function () {
-    // visibility of page has changed
+document.onvisibilitychange = function() {
+  // visibility of page has changed
 };
 ```
 
@@ -60,17 +60,17 @@ sendBeacon 方法接受两个参数，参数以及参数的解释如下：
 
 和其它传统技术（像 XMLHttpRequest）相比, sendBeacon 方法是一种更好的发送分析数据的方式。因为通过 XMLHTTPRequest 发送的请求会在页面未被加载时会被取消，而 **sendBeacon** 确保了在它在给服务器发请求时不被打断。
 
-通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，也就意味着只要网络是可用的，即使用户关闭了 App , 数据也会被传输给 App 。
+通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，也就意味着只要网络是可用的，即使用户关闭了 App，数据也会被传输给 App。
 
 当 visibilityState 方法的返回结果变为隐藏时，就会触发 sendBeacon 方法把分析数据发送给服务器。
 
 代码实现如下：
 
 ```js
-document.addEventListener('visibilitychange', function () {
-    if (document.visibilityState === 'hidden') {
-        navigator.sendBeacon('/analyticslog', data);
-    }
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') {
+    navigator.sendBeacon('/analyticslog', data);
+  }
 });
 ```
 
@@ -78,9 +78,9 @@ document.addEventListener('visibilitychange', function () {
 
 想了解更多的信息，请参考下面给出的文档：
 
--   [**Document: visibilitychange event - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
--   [**Document.onvisibilitychange - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
--   [**Navigator.sendBeacon() - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon)
+- [**Document: visibilitychange event - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
+- [**Document.onvisibilitychange - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
+- [**Navigator.sendBeacon() - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
