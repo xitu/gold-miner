@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/replacing-lerna-and-yarn-with-pnpm-workspaces.md](https://github.com/xitu/gold-miner/blob/master/article/2022/replacing-lerna-and-yarn-with-pnpm-workspaces.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：[xyj1020](https://github.com/xyj1020)
+> * 校对者：[xyj1020](https://github.com/xyj1020) [finalwhy](https://github.com/finalwhy)
 
 # 用 PNPM Workspaces 替换 Lerna + Yarn
 
@@ -11,7 +11,7 @@
 
 如果你搜索 “monorepo tool javascript”，你会发现有很多文章都在向我们展示当下非常流行的一些工具，但是奇怪的是每一种工具都在用一种截然不同的方式去解决 monorepo 能解决的问题。
 
-从我们现有的选项来看，一些像 Lerna 一样的工具已经存在一段时间，但已经不再持续维护了；一些类似于 Bolt 的工具，方案还没有被通过；还有一些工具可以运行，但只适用于某种特定的项目。
+从我们现有的选项来看，一些工具（例如 Lerna）已经存在一段时间，但已经不再持续维护了；另一些工具（例如 Bolt），方案还没有被通过；还有一些工具可以运行，但只适用于某种特定的项目。
 
 不幸的是，我们没有一个好的工具适用于所有 JavaScript/Typescript 类型的项目和所有团队规模，但这是可以理解的。
 
@@ -21,7 +21,7 @@
 
 ## 我的博客
 
-在我第一次创建我的博客，我自己做了一个 Next.js 应用，把他放到一个 git 仓库，并且同时把脚手架的代码提交（或者 push）进了同一个仓库。
+在我第一次创建我的博客，我创建了一个 Next.js 应用，把它放到一个 git 仓库，并且同时把脚手架的代码提交（或者 push）进了同一个仓库。
 
 在此之后，我需要建立一个 CMS（内容管理系统）存放我的内容。然后，我创建一个 Strapi 应用，把它放到另一个 git 仓库，然后将它推送到另一个 Github 仓库。
 
@@ -35,9 +35,9 @@
 
 > 如果我把所有项目放到一个单独的文件夹和仓库里，创建我的基础配置，然后用它去扩展到每个项目配置里呢？
 
-不幸的是，我无法简单放一些文件在那，扩展，希望它运行，因为实际比那复杂得多。工具需要 module/file 解决方案，我不想在我想要部署的时候，传送到所有的项目里。
+不幸的是，我不能简单地将文件放在一起，扩展配置，然后希望它能够运行，因为实际比那复杂得多。工具需要 module/file 解决方案，并且我也不想在即将部署服务前发布所有项目。
 
-在那瞬间，我意识到我需要一个 monorepo 工具去连接分散的各个项目，让我的体验更好。
+这时，我意识到我需要一个 monorepo 工具去连接分散的各个项目，让我的体验更好。
 
 我尝试一些解决方案，最简单构建和运行的方式是 Lerna + Yarn Workspaces。
 
@@ -49,20 +49,20 @@
 
 Lerna 是一个高级 monorepo 工具，它提供同时管理一个或多个应用/包的抽象。 
 
-你可以运行命令（像 build, test, lint 等），用一条命令指示所有你控制的项目，如果你想，你甚至可以用标记 `--scope`过滤一个指定的项目。
+你可以通过运行用一条命令（例如：build, test, lint 等），来控制你所有的项目，或者根据你的需要，通过 `--scope` 标记了来过滤某个指定的项目。
 
-Yarn Workspaces 是一个低级工具，它处理包的安装，在项目之间创建符号链接，和在根中分配模块，控制项目文件夹。
+Yarn Workspaces 是一个底层的工具，它负责处理包的安装、在项目之间创建符号链接，和在根目录和受控的项目文件夹下中分配模块。
 
-你能用整个 Lerna 或者 Yarn Workspaces 去管理你的仓库，但你可能注意到，相比于这两个工具的排他性来说，它们之间的互补性是更加突出的。换句话说，它们一起运行的很好。
+你可以使用 Lerna 或者 Yarn Workspaces 去管理你的仓库，但你可能注意到，相比于这两个工具的排他性来说，它们之间的互补性是更加突出的。换句话说，它们一起运行的很好。
 
-甚至现在，这个组合仍然是好选择，但一些问题可能还是突出：
+直到现在，这个组合仍然是一个实践 monorepo 的好选择，但可能会突现出一些“问题”：
 
-* Yarn Workspaces（至少对 v1）不再接收新特性和改进（上次更新是在 2018）；
-* Lerna 文档是可以的，但你需要自己弄明白很多问题；
-* Lerna 发布系统并不是它看到的那么简单，特别是用 commit lint 引发自动发布。
+* Yarn Workspaces（v1）已经不再维护（上次更新是在 2018）；
+* Lerna 文档是可以的（但不够详细），你需要自己弄明白很多问题；
+* Lerna 发布系统并不像看上去那么简单，特别是用 commit lint 生成自动发布时。
 * 你可能会不太理解你需要运行的命令是什么意思或者你不知道你在运行其它命令的时候，还有什么命令正在运行中；
 * Lerna CLI 有一些像[你无法在同一时间安装多个依赖](https://github.com/lerna/lerna/issues/2004) 等问题。
-* Lerna CLI `--scope`并不可靠并且难以理解和使用；
+* Lerna CLI `--scope` 并不可靠并且难以理解和使用；
 * 有一个 [wizard](https://github.com/webuniverseio/lerna-wizard) 在常见任务中帮助我们，但它更像是在主仓库之外维护的。
 * [Lerna 目前是没有维护的](https://github.com/lerna/lerna/issues/2703#issuecomment-744601134);
 
@@ -78,9 +78,9 @@ Lerna是于 2015 年创建的，这个工具的出现帮助我们解决了缺少
 
 ## pnpm 简介
 
-以防你不知道，像 **npm** 和 **Yarn**，**pnpm** 也是一个 JavaScript 项目的包管理工具。它用高效的方式做同样的工作。
+如果你不知道，像 **npm** 和 **Yarn**，**pnpm** 一样，也是一个 JavaScript 项目的包管理工具。它和前两者做的是一样的事，只是更加高效。
 
-使用 **pnpm** 最大的好处是 **pnpm** 解决了 npm 引入和 Yarn 复制的问题，即 npm 和 Yarn 安装依赖项的方式。
+使用 **pnpm** 最大的好处是 **pnpm** 解决了 npm 引入和并且也被 Yarn 复制了的问题，即 npm 和 Yarn 安装依赖项的方式。
 
 **pnpm** 旨在解决两个大问题：
 
@@ -90,11 +90,11 @@ Lerna是于 2015 年创建的，这个工具的出现帮助我们解决了缺少
 
 当你在所有项目里  **npm** or **Yarn** install 时，每个项目将会在  `node_modules` 中有它自己的 React 副本。考虑到一个 React 包的大小大概是 **6.9kB**， 那么在5个仓库中，我们的磁盘中就会有 **34.5kB** 相同的依赖。
 
-这个例子看起来很小，但每个使用 JS 的 人知道，有时候 `node_modules` 很容易达到 GB 级别。
+这个例子看起来很小，但每个使用 JS 的人知道，有时候 `node_modules` 目录的体积很容易达到 GB 级别。
 
-如果使用 **pnpm** 安装依赖的话，pnpm 会先把它下载的依赖存储在它自己的 store 中，也就是存在（`~/.pnpm-store`）中。依赖下载完成存储在（`~/.pnpm-store 之后，pnpm 会建立一个强链接用来链接 ~/.pnpm-store`) 中的模块和你项目中的 node-modules。
+如果使用 **pnpm** 安装依赖的话，它首先会将依赖下载到它自己的「仓库」（`~/.pnpm-store`）中。之后，pnpm 将在你的项目中的 `node_modules` 中创建一个该模块的硬链接。
 
-拿之前的例子举例，**pnpm** 将在它自身的存储中安装 `react@17.0.2`，当我们安装项目的依赖时，它会先检查 17.0.2 版本的 React 是否已经保存。如果是的话，它会在项目的 `node_modules` 创建一个硬链接（指向磁盘中的文件）。
+拿之前的例子举例，**pnpm** 将在它自己的存储文件夹中安装 `react@17.0.2`，当我们安装项目的依赖时，它会先检查 17.0.2 版本的 React 是否已经保存。如果是，则它会在项目的 `node_modules` 创建一个硬链接（指向磁盘中的某个文件）。
 
 相比于在磁盘中有 5 个 `react@17.0.2` 的副本 （**34.5kB**） 在我们的磁盘中，现在我们只有 1 个版本（**6.9kB**）存在 pnpm 的 store 和在每个项目中都有一个和 react 的副本文件有相同功能的强链接。
 
