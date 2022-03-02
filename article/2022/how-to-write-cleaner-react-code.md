@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-write-cleaner-react-code.md](https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-write-cleaner-react-code.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：
+> * 校对者：[zaviertang](https://github.com/zaviertang)
 
 ![](https://miro.medium.com/max/1400/1*hSeo2BvnGmzh-ORp8mVEXQ.png)
 
@@ -11,7 +11,7 @@
 
 ## 避免使用不必要的标签
 
-在接触了十多个生产级别的 React 项目之后，我发现在大多数项目中都存在一个问题，那就是使用了不必要的 HTML 元素或标签。保持代码容易维护、编写、阅读和调试是非常重要的，你可以按照以下方法，来识别代码是否遵循清洁代码准则。
+在接触了十多个生产级别的 React 项目之后，我发现在大多数项目中都存在一个问题，那就是使用了不必要的 HTML 元素或标签。保持代码容易维护、编写、阅读和调试是非常重要的，你可以按照以下方法，来判断代码是否遵循清洁代码准则。
 
 ![](https://miro.medium.com/max/1280/1*i2B00WGhKkEWP-HhQGkc5A.jpeg)
 
@@ -57,7 +57,7 @@ const element = (
 );
 ```
 
-目前这个方法适用于小型项目。当我开始在开发大型 React 项目时，发现 DOM 代码中充满了 div 标签。这迟早会导致出现 `div soup`。
+目前这个方法适用于小型项目。当我开始在开发大型 React 项目时，发现代码中充满了 div 标签。这迟早会导致出现 `div soup`。
 
 ![](https://miro.medium.com/max/1400/0*wV-LndzxvOaGKBmT.png)
 
