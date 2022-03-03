@@ -35,7 +35,7 @@
 
 > 如果我把所有项目放到一个单独的文件夹和仓库里，创建我的基础配置，然后用它去扩展到每个项目配置里呢？
 
-不幸的是，我不能简单地将文件放在一起，扩展配置，然后希望它能够运行，因为实际比那复杂得多。工具需要 module/file 解决方案，并且我也不想在即将部署服务前发布所有项目。
+不幸的是，我不能简单地将文件放在一起，扩展配置，然后希望它能够运行，因为实际比那复杂得多。这些工具需要模块/文件进行解析，并且我也不想在即将部署服务前发布所有项目。
 
 这时，我意识到我需要一个 monorepo 工具去连接分散的各个项目，让我的体验更好。
 
@@ -96,13 +96,13 @@ Lerna是于 2015 年创建的，这个工具的出现帮助我们解决了缺少
 
 拿之前的例子举例，**pnpm** 将在它自己的存储文件夹中安装 `react@17.0.2`，当我们安装项目的依赖时，它会先检查 17.0.2 版本的 React 是否已经保存。如果是，则它会在项目的 `node_modules` 创建一个硬链接（指向磁盘中的某个文件）。
 
-相比于在磁盘中有 5 个 `react@17.0.2` 的副本 （**34.5kB**） 在我们的磁盘中，现在我们只有 1 个版本（**6.9kB**）存在 pnpm 的 store 和在每个项目中都有一个和 react 的副本文件有相同功能的强链接。
+相比于在磁盘中保存 5 个 `react@17.0.2` 的副本（**34.5kB**），现在我们只有 1 个存放在 pnpm 的 store 的版本（**6.9kB**）以及在每个项目中都有一个和 react 的副本文件有相同功能的硬链接（hard link）。
 
 因此，我们节省了很多磁盘空间，并且如果我们的新项目使用了我们已经安装过的依赖，那么新项目安装依赖的速度会更加的快。
 
-## Phantom 依赖
+## 幽灵依赖
 
-当我们用 **npm** 安装依赖时，他会把所有的依赖和依赖中的所有东西都打包到 `node_modules` 文件夹下。这种方式就是我们的说的扁平化方式。
+当我们用 **npm** 安装依赖时，他会把所有的依赖和依赖中的所有东西都打包到 `node_modules` 文件夹下。这种方式就是所谓的“扁平化方式”。
 
 让我们在实践中来看看。下面是 `package.json`： 
 
@@ -132,7 +132,7 @@ node_modules
 
 虽然这种方式已经工作了许多年，但是这种方式会导致一些问题，我们称这种问题叫做：“幽灵依赖”。
 
-在我们项目中声明的唯一依赖是`统一的`，但在我们的项目中，仍然能在我们的代码中导入`is-plain-obj` (unified 依赖)：
+（例如）在我们项目中声明的唯一的依赖是 `unified`，但我们仍然能在我们的项目代码中引用到 `is-plain-obj` 模块 (unified 的依赖)：
 
 ```js
 import ob from "is-plain-obj";
@@ -140,9 +140,9 @@ import ob from "is-plain-obj";
 console.log(ob); // [Function: isPlainObject]
 ```
 
-因为这是可能发生的，所以我们的依赖以及依赖的依赖也能出现这种在没有声明一个依赖作为依赖或同等依赖的前提下，可以从 `node_modules` 中引入某个依赖的问题。
+因为上述这种情况是可能发生的，所以我们声明的依赖以及依赖的依赖也可能出现这种问题，即在没有声明某个依赖作为依赖或对等依赖（peerDependency）的前提下，从 `node_modules` 中引入了这个依赖。
 
-现在，让我们看看 **pnpm** 是如何做到的。
+现在，让我们看看 **pnpm** 是如何处理的。
 
 用相同的 `package.json`，然后运行 `pnpm install`，我们将会有下面的 `node_modules`：
 
@@ -154,9 +154,9 @@ node_modules
 └── .modules.yaml
 ```
 
-正如你所看到的，对于唯一的依赖，我们用的是 `unified`，这也是我们仅有的，但是……有一个箭头指明这个模块的是一个符号链接。
+如你所见，`node_module` 中有且仅有 `unified` 这一个依赖，但有一个箭头表明这个模块是一个符号链接。
 
-然后，观察 `.pnpm` 里面有什么：
+然后，让我们看看 `.pnpm` 里面有什么：
 
 ```text
 node_modules
@@ -179,7 +179,7 @@ node_modules
 └── .modules.yaml
 ```
 
-**pnpm** 将每个依赖项作为后缀安装在 `.pnpm` 文件夹中，然后，将它们移动到在你的 package.json 中准确定义的 `node_modules` 根目录。
+**pnpm** 会将每个依赖项安装在 `.pnpm` 的对应目录（包名+版本）中，然后将你已经在项目的 package.json 中明确定义的那些依赖“移动”（译者注：实际上是创建一个符号链接指向 `.pnpm` 中的对应模块）到项目的 `node_modules` 中。
 
 现在，如果我们尝试像以前一样写相同的代码，我们将会得到一个错误，因为 `is-plain-obj` 没有安装在 `node_modules` 中：
 
@@ -191,35 +191,35 @@ internal/process/esm_loader.js:74
 Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'is-plain-obj' imported from /Users/raulmelo/development/sandbox/test-pnpm-npm/pnpm/index.js
 ```
 
-虽然用这种方式 安装 `node_modules` 更加可靠，但这可能破环一些已经用上面的扁平化 `node_modules` 构建的应用兼容性。
+虽然用这种方式安装 `node_modules` 更加可靠，但这可能破坏 pnpm 与那些基于扁平化 `node_modules` 结构构建的应用的兼容性。
 
 > 一个例子就是 Strapi v3。你可以在[这](https://github.com/strapi/strapi/issues/9604)看到, 他们也意识到了这一点，在将来某天也会解决的。
 
 幸运的是，**pnpm** 考虑了这些问题，并且提供了个叫 [`shamefully-hoist`](https://pnpm.io/npmrc#shamefully-hoist) 的标记来解决这些问题。
 
-当我们用这个标记时，依赖会用”扁平化的方式“安装依赖，应用会像 Strapi 运行。
+当我们用这个标记时，项目依赖会依照“扁平化的方式”被安装，这使得诸如 Strapi 这样的应用能够正常工作。
 
 ## pnpm Workspaces
 
-**pnpm** 在 v2 中引入的工作区特性。
+**pnpm** 在 v2 中引入了工作区特性。
 
-它的目标是填补我们目前拥有的易于使用和维护良好的 monorepo 工具的差距。
+它旨在填补当下易于使用和维护良好的 monorepo 工具的空缺。
 
-由于它们已经有了低级的包管理工具了，无论何时你只需要在你项目的根目录下创建一个 `pnpm-workspace.yaml` 文件，他们就只需要创建一个新模块来处理工作区。
+因为它们（指 pnpm 的开发者）已经有了底层工具（即包管理器），所以他们旨在在 pnpm 中新加入一个新模块来处理工作区，只要你在项目的根目录下创建一个 `pnpm-workspace.yaml` 文件。
 
-它与 Lerna + Yarn Workspaces 的配置几乎一样，有三个显著的优势：
+它与 Lerna + Yarn Workspaces 的配置几乎一样，但有三个显著的优势：
 
 1. 我们从 **pnpm** 控制磁盘空间修复;
-2. 我们用它们很棒的 CLI （这是内置好的，并且有特别棒的 DX）；
-3. 它解决了许多 Lerna CLI 像过滤，安装多版本的问题。
+2. pnpm CLI 很好用（它是内置的）；
+3. 它解决了许多 Lerna CLI 存在的问题，像过滤、安装同一个包的多个版本。
 
-在（几乎）所有命令， **pnpm** 允许我们用一个叫 `--filter` 的标识运行。我认为这是不言自明的，但它会为过滤后的仓库运行该命令。
+（几乎）**pnpm** 所有的命令都支持 `--filter` 标识符。我认为这个标识符的意思是不言自明的，（但还是要说一下），它表示只会为过滤后的仓库执行这条命令。
 
-假设你有两个完整的应用，这两个完整的应用都有独立的流水线。使用 Lerna + **npm** 或者 **Yarn** 为每个项目安装依赖。
+假设你有两个完整的应用，两者都有独立的流水线。使用 Lerna + **npm** 或者 **Yarn**，当我们执行安装时，我们会为每个项目都单独安装一次依赖。
 
-这意味着，在一些例子中，下载 1GB 的依赖可以降到 300MB。
+这意味着，在某些情况下，我们会下载 1GB 的依赖文件而非 300MB。
 
-有了 **pnpm**，我可以简单的运行下面的指令：
+有了 **pnpm**，我可以简单地运行下面的指令：
 
 ```bash
 pnpm install --filter website
@@ -227,25 +227,25 @@ pnpm install --filter website
 
 现在，只有根目录依赖和我的网站的依赖会被安装。
 
-过滤的命令已经足够好了，但是它超越并且提供更多的灵活性。
+`filter` 命令已经足够便捷了，但是它的好处不止于此，并且还提供了更多的灵活性。
 
 我十分建议你阅读一下 [pnpm's "Filtering" 文档](https://pnpm.io/filtering) 然后看一下它是有多么令人惊讶。
 
-> 另一个建议：["pnpm vs Lerna：多包仓库中筛选"](https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a)
+> 另一个建议：["pnpm vs Lerna：在多包仓库中筛选"](https://medium.com/pnpm/pnpm-vs-lerna-filtering-in-a-multi-package-repository-1f68bc644d6a)
 
-这看起来是一件特别小的事情，但是这些小细节在不同环境中，在整个工作中造成了很大的不同。
+这看起来是一件特别小的事情，但当你在不同工作环境中工作时，正是这些小细节会产生很大的不同。
 
 ## 迁移
 
-如果你想看我已经合并包含整个迁移 PR，你可以看[这里](https://github.com/raulfdm/raulmelo-studio/pull/803) 。我将只高亮所有我需要展示的改变。
+如果你查看我已经合并的包含所有迁移改动的 PR，你可以看[这里](https://github.com/raulfdm/raulmelo-studio/pull/803) 。我将只高亮所有我需要展示的改动。
 
-### 替代命令
+### 替换命令
 
-我有一堆脚本，执行 `yarn` CLI。对于这些，我只需要用 `pnpm <command>` 或者 `pnpm run <command>` 替换；
+我有很多执行 `yarn` CLI的脚本。对于这些，我只需要用 `pnpm <command>` 或者 `pnpm run <command>` 替换掉；
 
 ### 移除 Yarn Workspace 配置
 
-在我的 package.json，我已经为 Yarn 声明工作区区域并且定义一些没有提升到根 node_modules 的包；
+在我的 package.json，我已经为 Yarn 定义了工作区目录并且定义一些不需要提升到根 node_modules 目录下的包；
 
 ```json
 {
@@ -262,7 +262,7 @@ pnpm install --filter website
 }
 ```
 
-这一切都过去了。
+所有的这些设置都成为了过去式（即不再需要了）
 
 ### 用 `pnpm-workspace.yml` 代替 `lerna.json` 
 
@@ -298,7 +298,7 @@ packages:
 
 ### 适配 pipelines，Dockerfile，和主平台
 
-一件事我必须改变的是，在安装我 Github Actions 里的依赖，Docker 镜像，和 Vercel's 安装脚本之前，确保我安装了 `pnpm`：
+一件事我必须改变的是，在我的 Github Actions、Docker 镜像和 Vercel 的安装脚本中确保在安装项目依赖前已经安装了 `pnpm`：
 
 ```bash
 npm install -g pnpm && pnpm install --filter <project-name>
@@ -312,14 +312,14 @@ npm install -g pnpm && pnpm install --filter <project-name>
 
 ### 适配构建命令
 
-在我为我的网站运行 `lerna run build` 时，它自动理解，它必须构建我的网站使用的包。
+在我为我的网站运行 `lerna run build` 时，它同时也会自动构建那些我的网站项目中使用到的包。
 
 对于 **pnpm**，我必须明确说明：
 
 ```bash
-pnpm run build --filter website # Only build the website
+pnpm run build --filter website # 只构建网站
 
-pnpm run build --filter website... # Builds first all dependencies from the website and only then, the website
+pnpm run build --filter website... # 首先构建网站项目用到的所有依赖，此后，才开始执行我的网站项目的构建
 ```
 
 这些声明是十分重要的，因为我不是把所有包发布在 NPM。
@@ -334,23 +334,23 @@ pnpm 通过 CLI 接收一堆标识和选项。如果我不想一直通过它们�
 shamefully-hoist=true
 ```
 
-就像我前面解释的，Strapi 并不能使用 pnpm 的安装 node_modules 方式，这是惭愧的。
+正如我前面所说，Strapi 并不适配 pnpm 安装 node_modules 的方式，这很尴尬。
 
-通过提交这些文件，我确保了，无论在哪，我运行 `pnpm install` 时，依赖会被正确的安装。
+提交这些文件后，我保证了无论在哪，我运行 `pnpm install` 时，依赖都会被正确地安装。
 
 ### 用 Changesets 替换 semantic-release
 
-我必须坦白，我现在还没有完全测试这个。
+我必须坦白，我现在还没有完全测试过这个。
 
-总结，在我之前的步骤，我被迫以一种特定的方式编写提交，以便语义发布能够检查我的更改，通过读取消息自动知道更改了什么，更改版本并发布我的包。
+总而言之，在我之前的设置中，我被迫以一种特定的方式编写提交信息，以便语义发布能够检查我的更改，通过读取提交信息自动识别更改了什么，更改版本号并发布我的包。
 
-我之前运行得很好，但一些陷阱，特别是考虑 Github Actions 环境是如何工作的。
+它一直运行的很好，但仍存在一些问题，特别是考虑到 Github Actions 环境的工作方式。
 
-虽然，Pnpm 建议我们用 [Atlassian 的 changesets](https://pnpm.io/using-changesets) 。
+因此，Pnpm 建议我们用 [Atlassian 的 changesets](https://pnpm.io/using-changesets) 。
 
-这个方式有点不同。现在如果我做一个改变，我必须创建一个带有一些 meta 信息和描述哪些改变的 .md 文件，基于这个文件，明白如何生成改变 long，以及应该更改哪个版本。
+这个方式有点不同。现在如果我提交了一次改动，我必须创建一个带有一些元信息和描述的 .md 文件，changesets 将会基于这个文件，明白如何生成改动日志，以及应该更改哪个版本。
 
-我仍然需要完成这个准备工作和可能写一篇关于那个的文章。 😅
+我仍然需要完成这个设置，以及可能写一篇关于它的文章。 😅
 
 ## 结论
 
@@ -358,7 +358,7 @@ shamefully-hoist=true
 
 诚实讲，它比我最初设想的更简单。
 
-我用 **pnpm** 更多，我更享受它。项目是可靠的，用户体验是令人愉快的。
+我越使用 **pnpm** ，越享受它。这个项目很可靠，用户体验也很愉快。
 
 ## 参考
 
