@@ -7,8 +7,6 @@
 
 # Why does console.log() return ‘undefined’?
 
-![Photo by [Priscilla Du Preez](https://unsplash.com/@priscilladupreez?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*3wb7W2zcwSqVlmiy)
-
 If you’ve spent time exploring your browser’s console, or the Node.js command line tool in your terminal, you may have seen some strange behavior relating to a common JavaScript method. If you enter `console.log()` in the terminal, you will get back two values, though you may have only expected to receive one.
 
 The first value printed if you enter `console.log(‘hello world’)` will be `‘hello world’`. Just what you expected, right?
