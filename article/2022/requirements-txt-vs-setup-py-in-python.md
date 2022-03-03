@@ -13,7 +13,7 @@
 
 Managing dependencies in Python projects could be quite challenging, especially for people new to the language. When developing a new Python package, then chances are you will also need to utilize some other packages that will eventually help you write less code (in less time) so that you don’t have to re-invent the wheel. Additionally, your Python package may also be used as a dependency in future projects.
 
-In today’s article, we will discuss how to properly manage dependencies for Python projects. More specifically, we will discuss the purpose of `**requirements.txt**` the file and how to use `**setuptools**` in order to distribute your Python package and let other users develop it further. Therefore, we will also be discussing the purpose of setup files (namely `**setup.cfg**` and `**setup.py**`) and how they can be used along with requirements files in order to make package development and redistribution easier.
+In today’s article, we will discuss how to properly manage dependencies for Python projects. More specifically, we will discuss the purpose of `requirements.txt` the file and how to use `setuptools` in order to distribute your Python package and let other users develop it further. Therefore, we will also be discussing the purpose of setup files (namely `setup.cfg` and `setup.py`) and how they can be used along with requirements files in order to make package development and redistribution easier.
 
 ## What are the dependencies of Python projects?
 
@@ -56,7 +56,7 @@ The requirements file is extremely useful but in most cases, it must be used for
 
 ## setuptools in Python
 
-`[setuptools](https://setuptools.pypa.io/en/latest/)` is a package built on top of `distutils` that allows developers to develop and distribute Python packages. It also offers functionality that makes dependency management easier.
+[setuptools](https://setuptools.pypa.io/en/latest/) is a package built on top of `distutils` that allows developers to develop and distribute Python packages. It also offers functionality that makes dependency management easier.
 
 When you want to release a package, you normally need some **metadata** including the package name, version, dependencies, entry points, etc. and `setuptools` offers the functionality to do exactly this.
 
