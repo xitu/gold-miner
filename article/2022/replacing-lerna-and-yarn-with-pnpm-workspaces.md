@@ -287,7 +287,7 @@ pnpm install --filter website
 }
 ```
 
-换成:
+换成：
 
 ```yml
 prefer-workspace-packages: true
