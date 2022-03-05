@@ -17,7 +17,7 @@
 
 ### 什么是 REPL？
 
-你可能在想 REPL 是什么意思。REPL 是由 Read （读）, Evaluate （评估/理解）, Print （打印）, Loop （循环） 首字母的缩写组成的。REPLs 是一种编码环境工具，也是脚本语言的共同特征。无论使用 Ruby 的 'irb' 、JavaScript 的 'node' 、还是 Python 的 'python' 访问它，只要进入了 REPL，都会为创建一个沙箱环境来探索代码。
+你可能在想 REPL 是什么意思。REPL 是由 Read（读）, Evaluate（评估/理解）, Print（打印）, Loop（循环）首字母的缩写组成的。REPLs 是一种编码环境工具，也是脚本语言的共同特征。无论使用 Ruby 的 'irb' 、JavaScript 的 'node' 、还是 Python 的 'python' 访问它，只要进入了 REPL，都会为创建一个沙箱环境来探索代码。
 
 这个探索过程包括观察内置的类和函数，构建和测试函数甚至评估（理解）简单和复杂的表达式。如果你了解数学领域 PEMDAS 的概念，那 REPL 将会非常有意义。
 
