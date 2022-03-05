@@ -5,83 +5,83 @@
 > * 译者：
 > * 校对者：
 
-# New Features In Python 3.10 You Should Know
+# 你需要了解的 Python 3.10 新特性
 
 ![](https://cdn-images-1.medium.com/max/3838/1*gcuS-mdPrHGeHLZHfacbUg.jpeg)
 
-**Hello all and welcome back to another post. In this post, we will be looking at all the important changes in Python 3.10.**
+**在本文中，我们将了解 Python 3.10 中的重大变化。**
 
-The new version brings some great new features and improvements. Let’s check them out.
+在这个新版本中，有一些新的特性，程序的性能也有所改进。我们来了解一下。
 
-## Structural Pattern Matching
+## 结构化模式匹配
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KAPJdxfXRc-EIza11iPcSA.png)
 
-This lets you map variables against a set of different possible values like the switch case in other languages. You can use this feature with the match statement and case statements of patterns with associated actions.
+您可以将变量映射到一组不同的可能值，类似于他语言中的 switch-case 语句。可以将这种特性与带有关联操作模式的 match 语句和 case 语句配合使用。 
 
-In this example, notice how you can combine several literals in a single pattern using the pipe operator but you can match it not only against a simple value but also match against patterns of values which can be a tuple or a class.
+在这个例子中，需要注意的是，你如何使用管道操作把几个有序集合组合在一起，但你不仅可以将它跟一个单一值匹配，还可以跟一个集合或一个类进行匹配。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3t1DQqu4Xl5kdgmhjUYzmA.png)
 
-Pattern matching is the most interesting new feature and I can see it has been used in many different scenarios.
+模式匹配是最有趣的新特性，它已经被应用于很多不同的场景。
 
-## Parenthesized Context Managers
+## 括号内上下文管理器
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZsR8sWRgOwRVU8jQYICLWQ.png)
 
-Now you can use enclosing parenthesis around context managers when you use them with the statement. This allows formatting a long collection of context managers in multiple lines.
+当上下文管理器与语句一起使用时，可以把上下文管理器放在括号内。同时也支持在多行中格式化一连串的上下文管理器。
 
-## Strict argument for zip function
+## zip 函数的参数
 
 ![](https://cdn-images-1.medium.com/max/2000/1*oJNMeoq2Q5vWmYcbIOhhKw.png)
 
-An optional strict boolean keyword was added to the zip method to ensure all iterables have the same length. Zip cerates one single iterator that aggregates elements from multiple iterables. The default behavior is to stop when the end of the shorter iterable is reached. In the example above, it will combine the first two elements and discard the third name.
+在 zip 方法中添加了一个可选的严格布尔关键字，确保所有可迭代对象具有相同的长度。Zip 方法创建一个迭代器，聚合来自多个可迭代对象的元素。默认行为是当到达长度较短可迭代对象的末尾时停止。在上面的示例中，它合并了两个数组中前两个元素并丢弃 name 数组中的第三个元素。
 
-## Improved Error messages
+## 改进的错误提示
 
-This is another improvement I find really helpful. Many of the error messages have improved not only delivering more precise information about the error but also more precise information about where the error actually occurs.
+这是我发现的又一个有用的改进。很多错误提示不但传递了与错误有关的准确信息，而且提示了错误发生的准确位置。
 
-For example, in this code with a missing parenthesis, the old error was just an invalid syntax message, not even with the correct line number.
+例如，在这段代码中，缺少了一个括号，以前的错误提示只显示语法错误，连发生错误的行号都没有。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fMuajdCWcyJjUOJhtQ3VBg.png)
 
-Now, we can see the correct line number, correct position, and the good error description.
+现在，我们可以看到发生错误的行号、具体位置以及错误描述。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*s1eC1iVuXEIdTBIfX3SV5w.png)
 
-## New typing features
+## 新的类型特性
 
-The typing module provides runtime support for typing and got a few additions in Python 3.10 a new type union operator was introduced which enables the syntax **x pipe y.** This provides a cleaner way of expressing either `type x` or `type y` instead of using `typing.union`
+类型模块为类型相关的操作提供了运行时支持，在 Python 3.10 引入了一种新的类型操作符，支持形如 **x pipe y** 的语句。这提供了一种更简洁的方式来表示类型 x 或类型 y，因此就不需要使用 type.union 了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Q5cvcYoyKneH6MK9OIswAQ.png)
 
-Additionally, this new syntax is also accepted as the second argument to its instance and the subclass. Now the typing module has a special value type `alias` that lets you declare type aliases more explicitly. This is useful for type checkers to distinguish between type aliases and ordinary assignments.
+另外，这种新的语法也可用于它的实例或子类的第二个参数。现在，类型模块有一种特殊的值类型 `alias`，可以用于声明类型别名。这对类型检查很有用，可以用来区分类型别名和普通赋值。
 
-## Updates and Deprecations
+## 更新和弃用
 
-Python now requires Open SSL 111 or newer. Older versions are no longer supported. This affects the **hash lib, hmac, and SS**L module and modernizes one of C Python’s key dependencies. Also, the entire disk-utils package is deprecated and will be removed in Python 3.12.
+如今，Python 的 OpenSSL 环境要求是 111 或更新版本，不再支持较老的版本。这会影响其中的 **hash lib, hmac, SSL** 等模块，同时升级了 CPython 的一个关键依赖。整个 disk-utils 包也被弃用，在 3.12 版中将被移除。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*grIH2jt1WZzDMV7i2oLGCA.png)
 
-## Improvements
+## 改进
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YsQU3mf0oXIl1kHzj_T9NQ.png)
 
-No new modules are added but a lot of modules have been improved. Here is a brief list of the most improved ones.
+Python 3.10 没有添加新模块，而是更新了很多现有模块。这里有一张更新的模块的列表。
 
-## Optimizations
+## 优化
 
 ![](https://cdn-images-1.medium.com/max/2000/1*FCjAgP7lsTVK0NmqyK9xAQ.png)
 
-Multiple optimizations were implemented to make Python faster, the most important ones are the constructors for string, bytes, and byte array are now faster around 30–40% for small objects and the run pi module now imports fewer modules.
+为了加快 Python 的速度，人们对它进行了各种优化，其中最重要的是，字符串、字节型数据和字节数组的构造速度加快了30%-40%。
 
-Python 3.10 brings many great new features, optimizations, and improvements. The most interesting one is the pattern matching feature and I also like the improved error messages a lot.
+Python 3.10实现了很多新特性，性能也有了极大的优化。最有趣的是模式匹配，我也很喜欢该版本中改进的错误信息。
 
-**Let me know in the comments which new feature you like the most and if you plan to upgrade to the new version anytime soon or if you are already using it.**
+**你可以在评论中谈谈自己喜欢的特性，你是否期待新版本中的升级，或者你是否已经在使用它。**
 
-## Gracias
+## 谢谢
 
-Enjoyed the read? Leave some ‘claps’ below so others can find this post. 🙂
+喜欢本文吗？在下面点个赞，让其他读者也能看到。🙂
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
