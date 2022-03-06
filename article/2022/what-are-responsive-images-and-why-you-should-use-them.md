@@ -2,60 +2,60 @@
 > * 原文作者：[Nainy Sewaney](https://medium.com/@nainysewaney)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md)
-> * 译者：
+> * 译者：[Z招锦](https://github.com/zenblofe)
 > * 校对者：
 
-# What Are Responsive Images And Why You Should Use Them
+# 如何在网页中使用响应式图像
 
 ![Photo by [UX Store](https://unsplash.com/@uxstore?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*hgrV7tfWod03eJTb)
 
-You might have come across the term 'responsive design' in the web design world.
+或许你已经在网页设计领域见过响应式设计（responsive design）这个术语。
 
-Responsive design is nothing but adapting your web design to display optimally on multiple screen devices and sizes. i.e., your web design **responds** to the device's dimensions.
+响应式设计是指你的网页设计在不同设备屏幕尺寸上能得到最佳展示，也就是说你的网页设计能对设备屏幕的尺寸进行自适应应。
 
-But what are responsive images?
+但是，什么是响应式图像？
 
-Do they have anything to do with responsive design, and why should we use them?
+响应式图像与响应式设计有什么关系吗？我们为什么要使用它们？
 
-To answer these questions, let's dive right in.
+为了回答这些问题，让我们直接开始本文内容。
 
-## What Are Responsive Images?
+## 什么是响应式图像
 
-In today's world, images have become the heart of web design.
+如今，图像已成为网页设计的核心。
 
-It's uncommon to find a website without any images.
+很少看到一个没有任何图像的网站。
 
-But do you know that although your website layout is adaptive to the device dimensions, the images displayed aren't?
+然而你是否知道，尽管你的网站布局可以适应设备尺寸，但显示的图像却不是自适应的？
 
-No matter the device, the same image is downloaded across mobile, tablets, and desktops.
+无论使用何种设备，都可以在移动设备、平板电脑和台式机下载相同的图像。
 
-For example, if the image size is 2MB, those 2MBs of data will be downloaded across all devices.
+例如，如果图像大小为 2 MB，那么将在所有设备下载这 2 MB 的图像数据。
 
-You could decide to show a fraction of that image on mobile devices, but still, you need to download the entire 2MB image.
+你可以尝试在移动设备上显示该图像的一部分，但是仍然需要下载整个 2 MB 图像数据。
 
-That's not fair now.
+这是不合时宜的。
 
-What if there are multiple images to download for the same webpage?
+如果要为同一个网页下载多个图像怎么办？
 
-Downloading a plethora of large images meant to be displayed smaller will affect the website performance across mobiles and tablets.
+下载大量旨在显示较小的大图像，显然会影响网站在手机和平板电脑的性能。
 
-What if we could have different images for different device widths like a small one for mobile, a medium-sized image for tablets and a large one for desktops?
+如果我们可以为不同宽度的设备提供不同的图像，例如移动设备的小图像、平板电脑的中尺寸图像和台式机的大图像，该怎么办？
 
-That way, we could avoid downloading unnecessary bytes of data on smaller devices and improve the performance of our website across those devices.
+通过使用响应式图像，我们可以避免在较小的设备上下载不必要的图像数据，并提高网站在这些设备上的性能。
 
-Let's have a look to see how we could achieve that.
+让我们看看如何实现这一目标。
 
-## Responsive Images In HTML
+## HTML 中的响应式图像
 
 ![Photo by [Gary Bendig](https://unsplash.com/@kris_ricepees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/10944/0*rVwyAfwIstLALepi)
 
-Consider the image above.
+以上面的图像为例。
 
-Suppose this image is what we need to show on desktops. To cut back on downloading bytes of data on smaller devices, we could display a cropped version of it like below instead of downloading the full version of the image.
+如果这个图像是我们需要在桌面上显示的，为了减少在较小设备下载图像数据，我们可以显示如下所示的裁剪版本，而不是下载图像的完整版本。
 
 ![Photo by [Gary Bendig](https://unsplash.com/@kris_ricepees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*J6RbwtrbpoMW949lWH0crA.jpeg)
 
-We could write something like this in our HTML to download different images across different viewports.
+我们可以在 HTML 中编写以下内容，以便在不同的尺寸屏幕中下载不同大小的图像。
 
 ```html
 <img src="racoon.jpg" alt="Cute racoon"
@@ -64,15 +64,15 @@ We could write something like this in our HTML to download different images acro
              large-racoon.jpg 1500w" sizes="60vw"/>
 ```
 
-Let's understand what this code snippet does.
+让我们看下这段代码的作用。
 
-The <img> tag is responsible for rendering images in HTML, and the src attribute tells the browser which image to display by default. In this case, the src attribute is defaulted to if the srcset attribute is not browser-supported.
+`<img>` 标签负责在 HTML 中渲染图像，`src` 属性告诉浏览器默认显示哪个图像。在这种情况下，如果浏览器不支持 `srcset` 属性，则默认为 `src` 属性。
 
-The srcset attribute is one of prime importance here.
+在这段代码中 `srcset` 属性是最重要的属性之一。
 
-It informs the browser of the width of the images without the browser having to download them. After going through srcset, the browser decides which image to download and display for that viewport width.
+`srcset` 属性通知浏览器图像的宽度，而无需浏览器下载它们。通过 `srcset` 属性，浏览器决定下载哪个图像并显示该视口宽度。
 
-You might also notice a 'w' descriptor for each image size in the srcset.
+你可能还注意到 `srcset` 中每个图像大小的 `w` 描述符。
 
 ```
 srcset="small-racoon.jpg 500w,
@@ -80,51 +80,51 @@ srcset="small-racoon.jpg 500w,
         large-racoon.jsp 1500w"
 ```
 
-The 'w' in the above snippet specifies **the image's width in the srcset in pixels.**
+上面代码片段中的 `w` 指定了 `srcset` 中图像的宽度（以像素为单位）。
 
-There is a sizes attribute as well. It informs the browser of the size of the \<img> element that has the srcset attribute.
+还有一个 `sizes` 属性,它通知浏览器具有 `srcset` 属性的 `<img>` 元素的大小。
 
 ```
 sizes="60vw"
 ```
 
-Here, the sizes attribute has a value of 60vw, which tells the browser that the image will be at 60% of the viewport width. The sizes attribute assists the browser in choosing the best possible image from the srcset for that viewport width.
+在这里，`sizes` 属性的值为 `60vw`，它告诉浏览器图像的宽度为视口的 `60%`。`size` 属性帮助浏览器从 `srcset` 中为该视口宽度选择最佳图像。
 
-For example, if the browser viewport width is at 992px, then
+例如，如果浏览器视口宽度为 `992 px`，那么
 
-60% of 992px
+`992 px` 的 `60%`
 
-= 592px
+= `592 px`
 
-As per the above calculation, the browser would then pick the image of width 500w or 500px, closest to 592px, to display on the viewport.
+根据上面的计算，浏览器将选择宽度为 `500w` 或 `500px`，最接近 `592px` 的图像显示在屏幕上。
 
-Ultimately it's the browser's decision regarding which image to pick.
+最终由浏览器决定选择哪个图像。
 
-Keep in mind that this decision-making logic of picking out images for different viewport widths might differ for browsers, and you might see varied results.
+注意，为不同视口宽度选择图像的决策逻辑可能因浏览器而异，你可能会看到不同的结果。
 
-Downloading fewer bytes of data for smaller devices allows the browser to display those images quickly, which improves the performance of your website.
+为较小的设备下载较少的图像数据，可以让浏览器快速显示这些图像，从而提高网站的性能。
 
-## Takeaway
+## 本文总结
 
-The most significant cause of slow loading websites is downloading images which are MBs of data.
+网站加载缓慢的最主要原因是下载了 MB 级数据的图像。
 
-Using responsive images avoids fetching unnecessary bytes of data that improve your website's load time and provide a great user experience.
+使用响应式图像可以避免下载不必要的图像数据，从而减少网站的加载时间并提供更好的用户体验。
 
-The only con is that we give up complete control to the browser to choose which image to display for specific viewport width.
+唯一的缺点是我们放弃了对浏览器的完全控制，让浏览器选择要在特定视口宽度下显示的图像。
 
-Each browser has a different implementation for choosing the appropriate responsive image. That's why you might see different images loaded for the same resolution across different browsers.
+每个浏览器都有不同的策略来选择适当的响应式图像。这就是为什么你可能会在不同的浏览器中，看到以相同分辨率加载的不同图像。
 
-Giving up control to the browser to display images as per the viewport width for performance benefits is a trade-off you might consider for your use case.
+放弃对浏览器的控制，根据视口宽度显示图像以获得性能优势，这是你需要在实际应用时做权衡考虑。
 
 ---
 
-That's it, folks. I hope you did get a good overview of what responsive images are and why you should consider using them for your websites.
+我希望通过本文，你能对响应式图像有进一步的了解，知道为什么应该考虑将它们应用于网站。
 
-If you have any questions, suggestions, comments, feel free to share them in the comments section below.
+如果你有任何问题、建议或意见，请随时在下面的评论区留言分享。
 
-Till then, Happy Coding!
+感谢你的阅读！
 
-**References:**
+本文参考：
 
 Image Optimization — Addy Osmani
 
