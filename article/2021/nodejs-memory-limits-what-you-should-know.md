@@ -129,8 +129,6 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 
 进程可能也会消耗更多内存，去处理更多数据。如果资源消耗持续增长，就可能是时候把这个庞然大物打造成微服务了。这可以在单个进程中减少内存压力，并且允许 nodes 水平扩展。
 
-## How to Keep Track of Node.js Memory Leaks
-
 ## 如何跟踪 Node.js 中的内存泄漏
 
 `process.memoryUsage` 函数里的 `heapUsed` 字段就派上用场了。调试内存泄漏的一种方法是将内存指标放在另一个工具中进行进一步处理。因为这个实现并不复杂，所以大多数地分析仍然是一个手工过程。
