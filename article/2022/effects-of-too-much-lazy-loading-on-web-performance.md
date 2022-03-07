@@ -2,24 +2,24 @@
 > * 原文作者：[Yasas Sri Wickramasinghe](https://medium.com/@yasassri)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/effects-of-too-much-lazy-loading-on-web-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2022/effects-of-too-much-lazy-loading-on-web-performance.md)
-> * 译者：
+> * 译者：[tong-h](https://github.com/Tong-H)
 > * 校对者：
 
-# Effects of Too Much Lazy Loading on Web Performance
+# 过度使用懒加载对 Web 性能的影响
 
 ![](https://cdn-images-1.medium.com/max/5856/0*u6JBhsu5xQWO8ZfH.jpg)
 
-Today, lazy loading is widely used in web applications to improve application performance. It helps developers reduce loading times, optimize data usage and improve the user experience.
+如今为了提升应用性能，懒加载被广泛使用于 Web 应用中。它帮助开发者减少网站加载时间，优化数据使用以及提升用户体验。
 
-However, overusing lazy loading can affect the application performance negatively. So, in this article, I will discuss the performance effects of lazy loading to help you understand when to use it.
+但懒加载的过度使用会给应用性能带来负面影响。所以在这篇文章中，我会详述懒加载对性能的影响，来帮助你理解应该何时使用它。
 
-## What is Lazy Loading?
+## 什么是懒加载？
 
 ![](https://cdn-images-1.medium.com/max/4320/0*CUGBWo-mhr1DT-wY.png)
 
-Lazy-loading is a handy technique to reduce the data consumption of a webpage by temporarily deferring resource fetching until the required resources are needed.
+懒加载是一种便利的技术，通过按需加载资源来减少网页的数据使用。
 
-Nowadays, this is a web standard, and most of the major web browsers support lazy loading by using the `loading="lazy"` attribute.
+如今懒加载已经是一种 Web 标准，大部分的主流浏览器都支持通过  `loading="lazy"` 属性使用懒加载。
 
 ```html
 // with img tag
@@ -40,78 +40,78 @@ Nowadays, this is a web standard, and most of the major web browsers support laz
 </iframe>
 ```
 
-Once the lazy loading is enabled, the content will only be displayed when the user scrolls to where the content is required to show.
+一旦启用懒加载，只有当用户滚动到需要该内容显示的地方才会出现。
 
-![**How lazy-loading works**](https://miro.medium.com/proxy/1*hG44JzeROyaiqZteU6Kr8A.gif)
+![**懒加载是如何工作的**](https://miro.medium.com/proxy/1*hG44JzeROyaiqZteU6Kr8A.gif)
 
-As you can see, lazy loading surely improves the application performance and user experience. That’s why developers choose lazy-loading as an obvious choice for their applications.
+如你所见，懒加载肯定可以提升应用性能以及用户体验。这也是为什么开发者选择在应用中使用懒加载。
 
-However, lazy loading does not always guarantee to improve the application’s performance. So, let’s see what the performance effects of lazy loading are.
+但懒加载并不总是保证提升应用性能。那么让我们看看懒加载的性能影响到底是什么。
 
-## Performance Effects of the Lazy Loading
+## 懒加载的性能影响
 
-According to many studies, there are two main advantages that any developer can achieve by lazy loading.
+许多研究表示，开发者通过懒加载可以实现两种优势。
 
-* **Reduced page load time (PLT):** We can reduce the initial page load time by delaying the resource loading.
-* **Resource usage optimization:** By lazy loading resources, we can optimize the system resource usage. This works well with mobile devices with lower memory and processing capabilities.
+* **减少页面加载时间（PLT）：**通过延迟资源加载减少首屏页面加载时间。
+* **优化资源使用：**通过资源懒加载优化系统资源使用，这在内存以及处理能力较低的移动设备上效果比较好。
 
-On the other hand, some significant performance impacts can occur if we overuse lazy loading.
+在另一方面，如果过度使用懒加载会产生一些明显的性能影响。
 
-### Slows down quick scrolling
+### 减慢快速滚动的速度
 
-If you have a web application such as an online store, you need to allow users to scroll up down quickly and navigate.
+如果你有一个 Web 应用，比如在线商店，你需要让用户可以快速上下滚动以及导航。
 
-Using lazy loading for such applications can slow down the scrolling experience since we need to wait until the data loads. This will decrease the application performance and cause user experience issues.
+对这样的应用使用懒加载会减慢滚动速度，因为我们需要等待数据加载完成。这会降低应用性能以及引发用户体验问题。
 
-### Delays due to content shifting
+### 因为内容变化而导致的延迟
 
-If you have not defined the image width and height properties for lazy loading images, noticeable delays can occur during the image rendering process. Since the resources are not downloading at the initial page load, the browser cannot know the content size to fit into the page layout.
+如果你还没有为懒加载的图片定义的 `width` 和 `height` 属性，那么在图片渲染过程中会出现明显的延迟。因为资源在页面初始化时没有加载，浏览器不知道适用于页面布局的内容尺寸。
 
-Once the resource is loaded, and a user is scrolled to that particular viewport, the browser needs to process the content and change the page’s layout again. This will cause other elements to shift and bring about a bad user experience.
+一旦内容加载完成，而用户滚动到特定视图中，浏览器需要处理内容以及再一次改变页面布局。这会使其他元素移位，也会带来糟糕的用户体验。
 
-### Content buffering
+### 内容缓冲
 
-If you have used lazy loading unnecessary in your application, it can cause content buffering. This happens when the users scroll down fast while the resources are still downloading.
+如果你在应用中使用非必要的懒加载，这会导致内容缓冲。当用户快速向下滚动而资源却还在下载中时会发生这种情况。
 
-This situation can occur especially for slow bandwidth connections, and it will impact the speed of webpage rendering.
+尤其是带宽连接较慢时会发生这种情况，这会影响网页渲染速度。
 
-## When to use the Lazy Loading Technique
+## 应该何时使用懒加载
 
-Now, you must be thinking about how to decide the right amount of lazy loading to get the best out of it with better web performance.
+你现在肯定在想如何决定懒加载的正确用量，使其发挥最大的效果从而创造更好的 Web 性能。
 
-The following suggestions will be helpful to find the sweet spot.
+下面的一些建议有助于找到最佳着手点。
 
-### 1. Lazy loading right resources at right place
+### 1. 在正确的地方懒加载正确的资源
 
-If you have a lengthy webpage with many resources, you can consider adding lazy loading. However, add lazy loading only for the content below the fold or outside the users’ viewpoint.
+如果你有一个需要很多资源的冗长的网页，那你可以考虑使用懒加载，但只能针对用户视图外或者被折叠的内容使用。
 
 ![](https://cdn-images-1.medium.com/max/2410/0*xq-umzzOZLKPagKn.png)
 
-Make sure that you never Lazy-load any resource required to execute background tasks. For example, it can be a JavaScript component, background image, or other multimedia content. Further, you must not delay the loading for those.
+确保你没有懒加载后台任务执行所需的资源，比如 JavaScript 组件，背景图片或者其他多媒体内容。而且，你一定不能延迟这些资源的加载。
 
-You can use the Lighthouse tool of Chrome browser to perform an audit and identify possible resources to add the Lazy-loading attribute.
+你可以使用谷歌浏览器的 Lighthouse 工具来检查，识别那些可添加懒加载属性的资源。
 
-### 2. Lazy-load contents which are not blockers to use the web page
+### 2. 懒加载那些不妨碍网页使用的内容
 
-It is always better to try lazy loading for non-critical web resources instead of the essential ones. And also, don’t forget to have error handling and a good user experience if the resource does not lazy load as expected.
+懒加载最好是用于不重要的非必需的 Web 资源。另外，如果资源没有像预期那样懒加载，那么不要忘记报错处理和提供良好的用户体验。
 
-Please note that native lazy loading is still not universally supported by all platforms and browsers. Moreover, if you are using a library or JavaScript custom implementation, it will not work for all users. Especially, the JavaScript-disabled browsers will face issues with this technique.
+请注意，原生懒加载依然没有被所有平台和浏览器普遍支持。而且，如果你在使用一个库或者自定义的 JavaScript 执行方案，那么这不会对所有用户都生效。尤其，那些禁止 JavaScript 的浏览器会面临懒加载技术上的问题。
 
-### 3. Lazy load contents which are not important for Search Engine Optimization (SEO)
+### 3. 懒加载对搜索引擎优化（SEO）而言不重要的资源
 
-With lazy loading of the content, your website will render gradually. That is to say, some of the content is not available at the initial page load. At a glance, it may sound like lazy loading helps improve the SEO page rank because it makes your page load so much faster. But, if you are overusing the lazy loading, there is a negative impact.
+随着内容懒加载，网站将逐渐渲染，这也就是说，某些内容在首屏加载时并不可用。咋一听，好像是懒加载有助于提升 SEO 网页排名，因为它使页面加载速度大大加快。但如果你过度使用懒加载，会产生一些负面影响。
 
-When SEO indexing is in progress, search engines crawl the site to find website data for indexing the page. But due to lazy loading, web crawlers can’t see all the page data. Because they are not available unless a user interacts with the page. Therefore, that information will not be ignored for SEO.
+当 SEO 索引时，搜索引擎爬行网站抓取数据以便索引页面，但由于懒加载，网络爬虫无法获取所有页面数据。除非用户与页面进行互动，这样 SEO 就不会忽略这些信息。
 
-As developers, we do not want our essential business data to be missed out for SEO. So I recommend not to use lazy loading for SEO-targeted content like keywords and business information.
+但作为开发者，我们并不希望 SEO 遗漏我们重要的业务数据。所以我建议不要将懒加载用在针对 SEO 的内容上，比如关键词或者商业信息。
 
-## Conclusion
+## 总结
 
-Lazy loading is a smart tool for web developers to improve the usability and performance of a webpage. However, just like “too many cooks spoil the soup,” overusing this technique can reduce the site’s performance.
+懒加载可以提升网页使用率以及性能，对  Web 开发者而言是一个称手的工具。但如同“过度烹饪烧坏汤”，过度使用这项技术也会减少网站性能。
 
-In this article, I have focussed your attention on the performance impact of lazy loading with some suggestions to understand when to use it. If you use this technique with care, knowing when and where to use it, you will achieve significant performance.
+在这篇文章中，我将你的注意力点集中在懒加载的性能影响上，通过几个建议帮助你理解应该何时使用它。如果你谨慎的使用这项技术，明白何时何地使用它，你的网站会得到明显的性能提升。
 
-I hope you have found this article helpful. Thank you for reading!
+希望你有从中得到有用的知识点，感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
