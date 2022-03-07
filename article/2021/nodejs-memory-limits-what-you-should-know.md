@@ -94,8 +94,6 @@ FATAL ERROR: CALL_AND_RETRY_LAST Allocation failed - JavaScript heap out of memo
 
 这里，垃圾回收器在放弃并抛出“内存栈溢出”异常之前，会尝试压缩内存作为最后手段。这个过程达到了 4.1GB 的限制，并且用了 26.6 秒意识到，是时候消亡了。
 
-The reasons for this are somewhat unknown. The V8 garbage collector originally ran in a 32-bit browser process with strict memory restrictions. These results suggest that the memory limit might have carried over from legacy code.
-
 具体原因尚不清楚。V8 垃圾回收器一开始运行在 32 位的浏览器，并且有严格的内存限制。这些结果表明内存现实也许来之遗留代码。
 
 在写这篇文章的时候，脚本运行在最新的 LTS Node 版本，并且用的是 64 位的环境。理论上，64 位进程应该能分配对于 4GB 的内存，并且很容易地扩展到 16TB 的地址空间。
