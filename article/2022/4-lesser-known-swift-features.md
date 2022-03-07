@@ -2,121 +2,121 @@
 > * 原文作者：[Pavel Plotnikov](https://medium.com/@pavelplotnikov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/4-lesser-known-swift-features.md](https://github.com/xitu/gold-miner/blob/master/article/2022/4-lesser-known-swift-features.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[Z招锦](https://github.com/zenblofe)
 
-# 4 Lesser-Known Swift Features
+# 4 个鲜为人知的 Swift 特性
 
-Many developers work with standard technologies and are often unaware of the many outstanding features hidden under friendly languages and libraries. These features may already be familiar for some readers, but it has been a small discovery lately for me.
+许多开发人员在使用标准技术时，通常都没有意识到在友好的语言和库之下隐藏的许多出色特性。这些特性对于一些读者来说可能已经非常熟悉了，但对我来说这是最近的一个小发现。
 
-## Tail Recursion Optimization
+## 尾递归优化
 
-Many developers know that recursion might be an imperfect tool, as the function call stack can overflow uncontrollably and crash due to a Segmentation fault. One type of recursion is Tail Recursion, where a function calls itself at the end of the function itself.
+大家都知道递归或许是一个不完美的实现方案，因为函数调用栈可能会溢出，导致段错误（segmentation fault）并崩溃。其中一种递归称为尾递归；这种递归的函数在自身末尾调用其自身。
 
 ```swift
 func tailRecursion(n: Int) {
   guard n != 0 else { return }
   print(n)
-  tailRecursion(n: n-1)
+  tailRecursion(n: n - 1)
 }
 ```
 
-in contrast with usual recursion:
+与普通递归做对比：
 
 ```swift
 func usualRecursion(n: Int) {
   if n > 0 {
-    usualRecursion(n: n-1)
+    usualRecursion(n: n - 1)
   }
   print(n)
 }
 ```
 
-Swift uses Tail Recursion Optimization, which doesn’t add a method call to the call stack in memory but jumps to the beginning of the function. It consumes significantly less stack memory.
+Swift 使用尾递归优化策略；在递归时，Swift 不会向内存中的调用栈添加方法调用，而是直接跳转到函数的开头。这样一来，栈内存的消耗将能显著地减少。
 
-In the previous examples, `usualRecursion(n: 300000)` crashes with a “Segmentation fault”, while `tailRecursion(n: 1000000)` is running normally.
+在之前的例子中，`usualRecursion(n: 300000)`  因段错误而崩溃了，但 `tailRecursion(n: 1000000)` 依然正常运行。
 
-The experiments were performed on my computer; the results for these parameters may vary on other computers.
-You can see the optimisation in the generated assembler code.
+该测试是在我电脑上进行的；这些参数的结果在其他电脑上可能会有所不同。
+
+你可以在生成的汇编代码中看到这个优化：
 
 ```bash
 xcrun swiftc -O -S File.swift > main.asm
 ```
 
-Even if you don’t know the assembly language, you can see it in the main.asm file that one of the ‘jamp’ command (functions starting with ‘j’) is executed for the tail recursion, while the standard callq function call command invokes the usual recursion.
+即使你不懂汇编语言，你也可以在  `main.asm` 文件里看到 `jne` 命令在尾递归时执行了，而普通递归则执行了标准的 `callq` 函数调用命令。
 
-Based on this optimization, we can conclude that if it is possible to recurse at the end of the function itself, then it is better to do just that.
+基于这种优化，我们可以得出结论 —— 尽可能的在函数中使用尾递归。
 
-## Storing Negative Numbers
+## 负数的存储
 
-In many programming languages, signed numbers are stored as a set of bits, where the first bit is the sign of a number (0 is a positive number, 1 is a negative number).
+在许多的编程语言中，有符号数通常以一组比特的方式存储，第一位比特表示数的符号（0 为正数，1 为负数）。
 
-The remaining bits represent the value. For example, in a type that stores 1 byte 00000001 is the number 1, 10000001 is the number -1.
+其余的比特则表示该数的值。举例来说，一个字节的 00000001 表示 1，10000001 则表示 -1。
 
-But in Swift, the storage system is optimized for fast operations, and numbers are stored in a method called two’s complement. To describe a negative number in this system, you need to write this number into a bit representation, then invert the bits and add 1. For example, if this number is -15:
+但在 Swift 里，存储系统针对快速运算进行了优化 —— 数字是以一种叫做二进制补码的方式进行存储。要想在这个系统中描述一个负数，你需要将这个数表示为二进制，然后按位取反并加 1。这里以数值 -15 作为例子：
 
-* write out the bits of decimal 15: 0001111
-* invert bits: 1110000
-* add number 1: 1110001
-* and, as already mentioned, at the beginning of the presentation, you need to add bit 1
+* 将十进制数 15 以二进制表示：0001111
+* 按位取反：1110000
+* 加 1：1110001（如上所述，你需要加上一个 1 比特）
 
-The final result will be 11110001.
+最终结果为 11110001。
 
-If we want to convert the bit representation of 11110001 to decimal format, then we need to
+如果我们想将 11110001 的比特表达形式转换为十进制格式则需要：
 
-* invert bits: 0001110 (we should omit the first bit as it represents the sign of the number)
-* add 1: 0001111
-* convert to decimal format: 15
-* and add a sign: -15
+* 按位取反：0001110（舍弃最高位，因为它表示的是数值的符号）
+* 加 1：0001111
+* 转换为十进制：15
+* 加上符号：-15
 
-This representation of numbers allows performing arithmetic operations faster at a low level.
+这种数的表达方式能让底层的算数运算更快。
 
 ```swift
-// The way to get inner representation of a negative number:
+// 获取负数内在表达形式的方式
 String(UInt8(bitPattern: Int8(-15)), radix: 2)
 ```
 
-## One function can work at a different speed
+## 相同函数，不同速度
 
-Swift offers various collection protocols that often share the same functionality. At first glance, they work in the same way, but in reality, the operation of these functions can differ significantly depending on the protocol.
+Swift 提供不同的集合协议；这些协议经常共享一些函数。乍一看它们的运作模式相同，但实际上这些函数的操作可能因协议而异。
 
-For example, the suffix function on the Sequence protocol works with O(n) complexity, while the same function on the RandomAccessCollection protocol (which inherits from Sequence; an example of a structure that conforms to this protocol is a regular Array) already works with complexity O(1). On large amounts of data, this difference will be clearly visible. Therefore, be mindful of the protocol you want to work with.
+举例来说，Sequence 协议的 `suffix` 函数的时间复杂度为 O(n)，但相同的函数在 RandomAccessCollection 协议（继承自 Sequence 协议，符合此协议的结构包括常规的数组）。这种差异在数据量很大时将变得尤为明显。因此，我们在使用结构时应注意其所使用的协议。
 
 ```swift
-// define an array
+// 定义数组
 let array = 0...100_000
 
-print("start array suffix \(Date())")
-// suffix(5) works O(1)
+print("开始 array.suffix \(Date())")
+// suffix(5) 的时间复杂度为 O(1)
 array.suffix(5)
-print("end array suffix \(Date())")
+print("结束 array.suffix \(Date())")
 
-// define a sequence
-let seq = sequence(first: 0, next: { $0 < 100_000 ? $0 + 1 : nil})
+// 定义序列
+let seq = sequence(first: 0, next: { $0 < 100_000 ? $0 + 1 : nil })
 
-print("start sequence suffix \(Date())")
-// suffix(5) works O(n), iterates every element of the sequence
+print("开始 sequence.suffix \(Date())")
+// suffix(5) 的时间复杂度为 O(n)；函数将遍历序列的每个元素
 seq.suffix(5)
-print("end sequence suffix \(Date())")
+print("结束 sequence.suffix \(Date())")
 ```
 
-## Collision Resolve in Dictionary
+## 字典里哈希冲突的解决方案
 
-As we know, storing elements in a Dictionary can be collisions. The hash values of different elements can match, which is a typical situation that is resolved especially (for this, the key element must implement the `==` operation).
+我们知道，将元素存储在字典里可能会引发冲突。不同元素的哈希值可能会相同；我们需要特别去解决这种情况（为此，键必须实现 `==` 操作）。
 
-A typical theoretical implementation of collision storage, which can be often heard, for example, in interviews with candidates, is when storage items are lined up in a Linked List, also called Separate Chaining.
+存储冲突的典型理论实现是将冲突的元素存储在一个链表里；这也称为分离链（separate chaining）。我们经常能听到这种方法，尤其是在面试时。
 
-When you search for an element by key, but the Dictionary already has other elements by hash, we will have the following situation. A typical algorithm traverses the linked list and tests for equality against elements until it encounters an equivalent one or checks all items with the same hash. This method is good and relatively simple to explain, but Swift has a different implementation in reality.
+当你通过键搜索元素但字典里已有另一个与其哈希相同的键时，我们就会遇到以上的情况。经典的算法是遍历整个链表，测试元素是否相等，直到找到为止。这种方法相对来说很容易理解，但 Swift 采用另一种不同的实现方式。
 
-Simply speaking, all records are stored in a single array, accessed by a key hash. If a collision occurs, you should write a new element to the same array but at a certain distance from the item with which there was a collision. If this cell is also busy, check the next cell in the same distance, etc. These checks can wrap around the end of the array to the beginning of it (a logical ring). The name of the collision resolution method is Open Addressing with Linear Probing. In this solution, all items are stored in a shared space, and no additional memory is needed to keep the LinkedList running.
+简单来说，所有的数据都存储在一个数组中，并通过键索引值。如果冲突发生了，新的元素仍写入同一个数组里，但位置与发生冲突的元素偏移了一定距离。如果这个单元格已被占用，则检查相同距离之后的下一个单元格，以此类推。检查将环绕数组的末尾到其开头（一个逻辑上的闭环）。这种冲突的解决方法称为**线性开型寻址（Open Addressing with Linear Probing）**。在这个解决方案中，所有的元素都存储在一个共享空间里，我们不需要额外的内存来维持链表。
 
-You can see the implementation [here](https://github.com/apple/swift/blob/main/stdlib/public/core/Dictionary.swift).
+你可以在[这里](https://github.com/apple/swift/blob/main/stdlib/public/core/Dictionary.swift)看到具体实现。
 
-## Swift is Open Source
+## Swift 是开源的
 
-You may not be aware, but Swift is an open-source project that you can also contribute. You can participate in implementing the standard libraries and offer your ideas that may appear in the future with new versions of Swift. Implementation of Swift’s common types you can easily find in the link [https://github.com/apple/swift/tree/main/stdlib/public/core](https://github.com/apple/swift/tree/main/stdlib/public/core)
+你可能没有发觉，但 Swift 确实是一个开源项目。你可以参与标准库的实现并发表你的看法；说不定未来版本的 Swift 会实现它噢！你可以在这个链接中找到 Swift 中常见类型的实现：[https://github.com/apple/swift/tree/main/stdlib/public/core](https://github.com/apple/swift/tree/main/stdlib/public/core)。
 
-In addition, you can develop several libraries together with the community, among which are: swift-markdown, swift-algorithms, swift-numerics, swift-collections, swift-atomics.
+此外，你也可以与社区携手开发一些库，其中包括 swift-markdown、swift-algorithms、swift-numerics、swift-collections、swift-atomics 等等。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

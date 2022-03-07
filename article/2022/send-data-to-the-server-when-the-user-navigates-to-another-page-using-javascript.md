@@ -2,22 +2,22 @@
 > * 原文作者：[Jatin](https://medium.com/@jatin.krr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md](https://github.com/xitu/gold-miner/blob/master/article/2022/send-data-to-the-server-when-the-user-navigates-to-another-page-using-javascript.md)
-> * 译者：
-> * 校对者：
+> * 译者：[jjCatherine](https://github.com/xyj1020)
+> * 校对者：[Z招锦](https://github.com/zenblofe)、[finalwhy](https://github.com/finalwhy)
 
-# Send Data to the Server When the User Navigates to Another Page using JavaScript
+# 使用 JavaScript 处理用户页面跳转时的数据发送
 
 ![Photo by [Edho Pratama](https://unsplash.com/@edhoradic?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9044/0*0RbNvyMds_7IaOac)
 
-As a developer, you might have come across a use case to detect if the user navigates to a new page, switches tabs, closes the tab, minimizes or closes the browser, or, on mobile, switches from the browser to a different app. In this article, we will be looking at how to detect if contents of the tab have become visible or have been hidden and then transmit the analytics data to the server.
+作为一个开发者，你可能会碰到这样的场景：在 PC 端，浏览器需要监听用户是否跳转到了新页面？还是切换/关闭了 Tab？亦或是缩小/关闭了浏览器？或者在移动端，监听用户是否从浏览器切换到了其它 App。在这篇文章中，我们将会研究如何判断 Tab 上内容的是显示或隐藏状态，然后把分析数据发送给服务器。
 
-## Detecting changes on the page
+## 监听页面的变化
 
-The **visibilitychange** event is used to track hidden/visible behaviour on the tab. This event is available in all modern browsers and can be called directly through the** document **object.
+**visibilitychange** 事件可用于记录 Tab 页的显示/隐藏行为。这个事件在所有现代浏览器中都是可用的，并且可以直接通过 document 对象来调用（译者注：即可直接通过 `document.addEventListener('visibilitychange', ... ) ` 注册事件处理函数）。
 
-The **visibilitychange** event can have only two possible values which are **visible** and **hidden**.
+调用 **visibilitychange** 方法只可能得到两个可能的值： visible （显示）和 hidden（隐藏）。
 
-If the value of the visibilitychange event changes to “hidden”, then it's likely the end of the user’s session.
+如果 `visibilitychange` 事件的值变为 hidden ，则可能意味着用户要离开这个页面了（译者注：实际上，visibilitychange 事件的回调函数是没有传入标明当前页面可见性的参数的，开发者需要在回调函数中访问 document.visibilityState 变量来获取当前具体的页面可见状态）。
 
 ```js
 document.addEventListener('visibilitychange', function() {
@@ -27,7 +27,7 @@ document.addEventListener('visibilitychange', function() {
 });
 ```
 
-Alternatively, if the value of the visibilitychange event changes to “visible”, then it means the user is back on the page.
+另外，如果调用 visibilitychange 事件返回的结果是 visible，那这就意味着用户又回到了当前页面。
 
 ```js
 document.addEventListener('visibilitychange', function() {
@@ -37,7 +37,7 @@ document.addEventListener('visibilitychange', function() {
 });
 ```
 
-There is an event handler called **onvisibilitychange** which can be used to observe visibility changes on the **visibilitychange** event property.
+有一个叫做 **onvisibilitychange** 的事件处理方法可以用来监听 **visibilitychange** 方法的显示或隐藏属性变化。
 
 ```js
 document.onvisibilitychange = function() {
@@ -45,26 +45,26 @@ document.onvisibilitychange = function() {
 };
 ```
 
-## Transmitting analytical data to the server
+## 发送分析数据到服务端
 
-The Web APIs provide a **navigator** object which contains **sendBeacon()** method that enables us to send a small amount of data to the web server asynchronously.
+Web APIs 提供了一个 **navigator** 对象，这个对象包含了 **sendBeacon()** 方法。**sendBeacon()** 方法允许我们异步地把少量数据发送给服务器。
 
-The sendBeacon accepts two parameters, given below:
+sendBeacon 方法接受两个参数：
 
-* **Url**: The relative or absolute URL that will receive the data.
-* **Data**: An object containing the data which is intended for the server.
+1. **Url**: 将接收数据的相对或绝对 URl。
+2. **Data**：含有作用于服务器数据的对象。
 
-Supported data types are **ArrayBuffer**, **ArrayBufferView**, **Blob**, **DOMString**, **FormData** or **URLSearchParams**.
+第二个参数 data 接收的数据类型有 **ArrayBuffer**, **ArrayBufferView**, **Blob**, **DOMString**, **FormData** 或者 **URLSearchParams**。
 
-The **sendBeacon()** method returns **true** if the data is successfully sent to the given URL for transfer. Otherwise, it returns **false**.
+如果数据成功发送到指定的 url 进行数据传输， **sendBeacon()** 会返回 true。否则，就会返回 false 。
 
-The sendBeacon method is a better way of sending analytics data as compared to other legacy techniques for sending analytics such as XMLHttpRequest. Unlike an XMLHTTPRequest which can be cancelled when the page is unloaded, **sendBeacon** request ensures the request is sent to the server without being interrupted.
+和其它传统技术（像 XMLHttpRequest）相比, sendBeacon 方法是一种更好的发送分析数据的方式。因为通过 XMLHTTPRequest 发送的请求在页面未被加载时会被取消，而 **sendBeacon** 确保了在给服务器发请求时不被打断。
 
-The request sent through the sendBeacon method will be queued by the user agent which means the data will be sent as long as the network connection is available even if the user closes the web app, the data will be transmitted eventually.
+通过 sendBeacon 方法发送的请求会被用户代理存储在队列中，这也就意味着只要网络是可用的，即使用户关闭了 App，数据最终也会被传输。
 
-The **sendBeacon** method can be triggered when the **visibilityState** event changes to the “hidden” to send the analytics data to the server.
+当 visibilityState 的值变为 hidden 时，（开发者）就可以调用 sendBeacon 方法把分析数据发送给服务端。
 
-**Code implementation**
+代码实现如下：
 
 ```js
 document.addEventListener('visibilitychange', function() {
@@ -76,7 +76,7 @@ document.addEventListener('visibilitychange', function() {
 
 ---
 
-For more information, refer to the Mozilla docs given below:
+想了解更多的信息，请参考以下 Mozilla 文档：
 
 - [**Document: visibilitychange event - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/visibilitychange_event)
 - [**Document.onvisibilitychange - Web APIs | MDN**](https://developer.mozilla.org/en-US/docs/Web/API/Document/onvisibilitychange)
