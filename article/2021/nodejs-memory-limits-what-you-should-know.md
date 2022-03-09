@@ -146,7 +146,7 @@ const LOG_FILE = path.join(__dirname, "memory-usage.csv");
 fs.writeFile(LOG_FILE, "Time Alive (secs),Memory GB" + os.EOL, () => {}); // fire-and-forget
 ```
 
-为了避免将堆分配指标放在内存中，让我们选择性写入 CSV 文件以方便数据的使用。使用 async `writeFile` 函数用作回调函数。回调函数为空以写入文件，并且持续执行，不进行任何进一步处理。
+为了避免将堆分配指标放在内存中，让我们选择性的将其写入 CSV 文件以方便数据的使用。使用携带回调函数的异步 `writeFile` 函数，其回调函数留空，且不做进一步处理继续执行。
 
 为了获取渐变的内存指标，在 `console.log` 上添加这些代码：
 
