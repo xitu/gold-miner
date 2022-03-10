@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：
+> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)
 
 # 如何在网页中使用响应式图像
 
-![Photo by [UX Store](https://unsplash.com/@uxstore?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*hgrV7tfWod03eJTb)
+![图片源自 [UX Store](https://unsplash.com/@uxstore?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/15904/0*hgrV7tfWod03eJTb)
 
 或许你已经在网页设计领域见过响应式设计（responsive design）这个术语。
 
 响应式设计是指你的网页设计在不同设备屏幕尺寸上能得到最佳展示，也就是说你的网页设计能对设备屏幕的尺寸进行自适应应。
 
-但是，什么是响应式图像？
+那么，什么是响应式图像呢？
 
 响应式图像与响应式设计有什么关系吗？我们为什么要使用它们？
 
@@ -37,7 +37,7 @@
 
 如果要为同一个网页下载多个图像怎么办？
 
-下载大量旨在显示较小的大图像，显然会影响网站在手机和平板电脑的性能。
+下载大量本应显示较小尺寸的大图像，显然会影响网站在手机和平板电脑的性能。
 
 如果我们可以为不同宽度的设备提供不同的图像，例如移动设备的小图像、平板电脑的中尺寸图像和台式机的大图像，该怎么办？
 
@@ -55,7 +55,7 @@
 
 ![Photo by [Gary Bendig](https://unsplash.com/@kris_ricepees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*J6RbwtrbpoMW949lWH0crA.jpeg)
 
-我们可以在 HTML 中编写以下内容，以便在不同的尺寸屏幕中下载不同大小的图像。
+我们可以在 HTML 中编写以下内容，以便在不同的尺寸屏幕中下载不同的图像。
 
 ```html
 <img src="racoon.jpg" alt="Cute racoon"
@@ -66,7 +66,7 @@
 
 让我们看下这段代码的作用。
 
-`<img>` 标签负责在 HTML 中渲染图像，`src` 属性告诉浏览器默认显示哪个图像。在这种情况下，如果浏览器不支持 `srcset` 属性，则默认为 `src` 属性。
+`<img>` 标签负责在 HTML 中渲染图像，而 `src` 属性告诉浏览器默认显示哪个图像。在这种情况下，如果浏览器不支持 `srcset` 属性，则默认为 `src` 属性。
 
 在这段代码中 `srcset` 属性是最重要的属性之一。
 
@@ -118,7 +118,7 @@ sizes="60vw"
 
 ---
 
-我希望通过本文，你能对响应式图像有进一步的了解，知道为什么应该考虑将它们应用于网站。
+以上就是本文全部内容，我希望通过本文，你能对响应式图像有进一步的了解，知道为什么应该考虑将它们应用于网站。
 
 如果你有任何问题、建议或意见，请随时在下面的评论区留言分享。
 
