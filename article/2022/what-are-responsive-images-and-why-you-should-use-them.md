@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)、[samyu2000](https://github.com/samyu2000)
+> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)、[samyu2000](https://github.com/samyu2000)、[xionglong58](https://github.com/xionglong58)
 
 # 如何在网页中使用响应式图像
 
@@ -51,7 +51,7 @@
 
 以上面的图像为例。
 
-本来这幅图像是需要在桌面上显示的。在小屏设备上就需要对它的大小进行压缩，我们可以对这幅图像进行裁剪，而非下载完整的图像。
+这幅图像是为桌面应用设计的，在小屏幕设备上就需要对图像大小进行压缩，我们可以对这幅图像进行裁剪，而非下载完整的图像。
 
 ![Photo by [Gary Bendig](https://unsplash.com/@kris_ricepees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*J6RbwtrbpoMW949lWH0crA.jpeg)
 
@@ -88,7 +88,7 @@ srcset="small-racoon.jpg 500w,
 sizes="60vw"
 ```
 
-在这里，`sizes` 属性的值为 `60vw`，它告诉浏览器图像的宽度为视口的 `60%`。`size` 属性帮助浏览器从 `srcset` 中为该视口宽度选择最佳图像。
+在这里，`sizes` 属性的值为 `60 vw`，它告诉浏览器图像的宽度为视口的 `60%`。`size` 属性帮助浏览器从 `srcset` 中为该视口宽度选择最佳图像。
 
 例如，如果浏览器视口宽度为 `992 px`，那么
 
@@ -96,7 +96,7 @@ sizes="60vw"
 
 = `592 px`
 
-根据上面的计算，浏览器将选择宽度为 `500w` 或 `500px`，最接近 `592px` 的图像显示在屏幕上。
+根据上面的计算，浏览器将选择宽度为 `500 w` 或 `500 px`，最接近 `592 px` 的图像显示在屏幕上。
 
 最终由浏览器决定选择哪个图像。
 
@@ -114,7 +114,7 @@ sizes="60vw"
 
 每个浏览器都有不同的策略来选择适当的响应式图像。这就是为什么你可能会在不同的浏览器中，看到以相同分辨率加载的不同图像。
 
-放弃对浏览器的控制，根据视口宽度显示图像以获得性能优势，这是你需要在实际应用时做权衡考虑。
+放弃对浏览器的控制，根据视口宽度显示图像以获得性能优势，你需要在实际应用时做权衡考虑。
 
 ---
 
