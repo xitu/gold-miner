@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md](https://github.com/xitu/gold-miner/blob/master/article/2022/what-are-responsive-images-and-why-you-should-use-them.md)
 > * 译者：[Z招锦](https://github.com/zenblofe)
-> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)
+> * 校对者：[CarlosChenN](https://github.com/CarlosChenN)、[samyu2000](https://github.com/samyu2000)
 
 # 如何在网页中使用响应式图像
 
@@ -21,25 +21,25 @@
 
 ## 什么是响应式图像
 
-如今，图像已成为网页设计的核心。
+如今，图像已成为网页设计中必不可少的元素之一。
 
-很少看到一个没有任何图像的网站。
+绝大多数的网站都会使用图像。
 
 然而你是否知道，尽管你的网站布局可以适应设备尺寸，但显示的图像却不是自适应的？
 
-无论使用何种设备，都可以在移动设备、平板电脑和台式机下载相同的图像。
+无论使用何种设备（移动设备、平板或台式机），默认下载的都是相同的图像。
 
-例如，如果图像大小为 2 MB，那么将在所有设备下载这 2 MB 的图像数据。
+例如，如果图像大小为 2 MB，那么无论在何种设备上，下载的都是 2 MB 的图像数据。
 
-你可以尝试在移动设备上显示该图像的一部分，但是仍然需要下载整个 2 MB 图像数据。
+开发者可以编写代码，在移动设备上显示该图像的一部分，但是仍然需要下载整个 2 MB 图像数据。
 
 这是不合时宜的。
 
-如果要为同一个网页下载多个图像怎么办？
+如果要为同一个网页下载多个图像，应该如何实现？
 
-下载大量本应显示较小尺寸的大图像，显然会影响网站在手机和平板电脑的性能。
+手机和平板上的图像本来应该是较小尺寸的，如果下载了大量较大尺寸的图像，肯定会影响性能。
 
-如果我们可以为不同宽度的设备提供不同的图像，例如移动设备的小图像、平板电脑的中尺寸图像和台式机的大图像，该怎么办？
+我们需要为不同尺寸的设备提供不同尺寸的图像，移动设备显示小尺寸图像，平板显示中等尺寸的图像，台式机显示大尺寸的图像，该如何实现？
 
 通过使用响应式图像，我们可以避免在较小的设备上下载不必要的图像数据，并提高网站在这些设备上的性能。
 
@@ -51,7 +51,7 @@
 
 以上面的图像为例。
 
-如果这个图像是我们需要在桌面上显示的，为了减少在较小设备下载图像数据，我们可以显示如下所示的裁剪版本，而不是下载图像的完整版本。
+本来这幅图像是需要在桌面上显示的。在小屏设备上就需要对它的大小进行压缩，我们可以对这幅图像进行裁剪，而非下载完整的图像。
 
 ![Photo by [Gary Bendig](https://unsplash.com/@kris_ricepees?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/2000/1*J6RbwtrbpoMW949lWH0crA.jpeg)
 
@@ -70,7 +70,7 @@
 
 在这段代码中 `srcset` 属性是最重要的属性之一。
 
-`srcset` 属性通知浏览器图像的宽度，而无需浏览器下载它们。通过 `srcset` 属性，浏览器决定下载哪个图像并显示该视口宽度。
+`srcset` 属性通知浏览器图像的合适宽度，浏览器不需要下载所有图像。通过 `srcset` 属性，浏览器决定下载哪个图像并且适应该视口宽度。
 
 你可能还注意到 `srcset` 中每个图像大小的 `w` 描述符。
 
