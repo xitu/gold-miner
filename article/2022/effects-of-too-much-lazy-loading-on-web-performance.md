@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/effects-of-too-much-lazy-loading-on-web-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2022/effects-of-too-much-lazy-loading-on-web-performance.md)
 > * 译者：[tong-h](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[Isildur46](https://github.com/Isildur46) [xionglong58](https://github.com/xionglong58)
 
 # 过度使用懒加载对 Web 性能的影响
 
