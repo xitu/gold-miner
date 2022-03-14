@@ -212,7 +212,7 @@ RangeError [ERR_FS_FILE_TOO_LARGE]: File size (4294967296) is greater than 2 GB
 }
 ```
 
-以上报错之所以发生是因为 JavaScript 运行时无法处理随机的大型缓冲。运行时可以处理的最大尺寸的缓冲取决于你的操作系统结构。你可以通过使用内建的 `buffer` 模块里的 [`buffer.constants.MAX_LENGTH`](https://nodejs.org/api/buffer.html#bufferconstantsmax_length) 变量来检查。
+以上报错之所以发生是因为 JavaScript 运行时无法处理随机的大型缓冲。运行时可以处理的最大尺寸的缓冲取决于你的操作系统结构。你可以通过使用内建的 `buffer` 模块里的 [`buffer.constants.MAX_LENGTH`](https://nodejs.org/api/buffer.html#bufferconstantsmax_length) 变量来查看你操作系统缓存的最大尺寸。
 
 即使上述报错没有发生，在内存中保留大型文件也是有问题的。我们所拥有的可用的物理内存会限制我们应用能使用的内存量。高内存使用率也会造成应用在 CPU 使用方面性能低下，因为垃圾回收会变得昂贵。
 
