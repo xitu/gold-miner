@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/use-streams-to-build-high-performing-nodejs-applications.md](https://github.com/xitu/gold-miner/blob/master/article/2022/use-streams-to-build-high-performing-nodejs-applications.md)
 > * 译者：[tong-h](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[CarlosChen](https://github.com/CarlosChenN)
 
 # 使用 Stream 构建高性能的 Node.js 应用
 
