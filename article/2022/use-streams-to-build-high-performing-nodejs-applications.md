@@ -28,7 +28,7 @@ Node.js `stream` 提供了四种类型的流
 
 [更多详情请查看 Node.js 官方文档](https://nodejs.org/api/stream.html#stream_types_of_streams)
 
-让我们以一种高水平看下每一种流类型。
+让我们以一种高水准来看，每一种流类型。
 
 ### 可读流
 
