@@ -188,7 +188,7 @@ Read 5 bytes
 * On macOS: `mkfile -n 4g 4gb_file`
 * On Linux: `xfs_mkfile 4096m 4gb_file`
 
-在我们创建了假的 `4gb_file` 后，让我们在不使用 `stream` 模块的情况下来生成来文件的 SHA-256 hash。
+在我们创建了假文件 `4gb_file` 后，让我们在不使用 `stream` 模块的情况下来生成来文件的 SHA-256 hash。
 
 ```js
 const fs = require("fs");
