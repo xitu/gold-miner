@@ -154,7 +154,7 @@ readable.on('data', (chunk) => {
 console.log(`after attaching 'data' handler. is flowing: ${readable.readableFlowing}`);
 ```
 
-在这个例子中，我们从一个可读流中读取  `myfile` ，但在读取 60 个字节后，我们临时暂停了数据流 1 秒。我们也在不同的时间打印了 `readableFlowing` 属性的值去理解他是如何变化的。
+在这个例子中，我们从一个可读流中读取  `myfile`，但在读取 60 个字节后，我们临时暂停了数据流 1 秒。我们也在不同的时间打印了 `readableFlowing` 属性的值去理解他是如何变化的。
 
 如果你运行上述程序，你会得到以下输出：
 
