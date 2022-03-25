@@ -2,41 +2,41 @@
 > * 原文作者：[Nida Khan](https://www.sitepoint.com/author/nkhan/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/implement-memoization-in-react-to-improve-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2022/implement-memoization-in-react-to-improve-performance.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Zavier](https://github.com/zaviertang)
+> * 校对者：[jjCatherine](https://github.com/xyj1020)、[finalwhy](https://github.com/finalwhy)
 
-# How to Implement Memoization in React to Improve Performance
+# 如何用 React 实现 Memoization 以提高性能
 
-> **In this tutorial, we’ll learn how to implement memoization in React. Memoization improves performance by storing the results of expensive function calls and returning those cached results when they’re needed again.**
+> **在本教程中，我们将学习如何在 React 中实现 Memoization。Memoization 通过缓存函数调用的结果并在再次需要时返回这些缓存的结果来提高性能。**
 
-We’ll cover the following:
+我们将介绍以下内容：
 
-* how React renders the UI
-* why there’s a need for React memoization
-* how we can implement memoization for functional and class components
-* things to keep in mind regarding memoization
+* React 是如何渲染视图的？
+* 为什么需要 Memoization？
+* 如何在函数组件和类组件中实现 Memoization？
+* 注意事项
 
-This article assumes you have a basic understanding of class and functional components in React. If you’d like to brush up on those topics, check out the official React docs on [components and props](https://reactjs.org/docs/components-and-props.html).
+本文假设你对 React 中的类和函数组件有基本的了解。如果你想查阅这些主题，可以查看 React 官方文档 [components and props](https://reactjs.org/docs/components-and-props.html)。
 
 ![Memoization in React](https://uploads.sitepoint.com/wp-content/uploads/2021/11/1635996790memoization-in-react.jpg)
 
-## How React Renders the UI
+## React 是如何渲染视图的？
 
-Before going into the details of memoization in React, let’s first have a look at how React renders the UI using a virtual DOM.
+在讨论 React 中的 Memoization 细节之前，让我们先来看看 React 是如何使用虚拟 DOM 渲染 UI 的。
 
-The regular DOM basically contains a set of nodes represented as a tree. Each node in the DOM is a representation of a UI element. Whenever there’s a state change in your application, the respective node for that UI element and all its children get updated in the DOM and then the UI is re-painted to reflect the updated changes.
+常规 DOM 基本上包含一组用树的形式保存的节点。DOM 中的每个节点代表一个 UI 元素。每当应用程序中出现状态变更时，该 UI 元素及其所有子元素的相应节点都会在 DOM 树中更新，然后会触发 UI 重绘。
 
-Updating the nodes is faster with the help of efficient tree algorithms, but the re-painting is slow and can have a performance impact when that DOM has a large number of UI elements. Therefore, the virtual DOM was introduced in React.
+在高效的 DOM 树算法的帮助下，更新节点的速度更快，但重绘的速度很慢，并且当该 DOM 具有大量 UI 元素时，可能会影响性能。因此，在 React 中引入了虚拟 DOM。
 
-This is a virtual representation of the real DOM. Now, whenever there’s any change in the application’s state, instead of directly updating the real DOM, React creates a new virtual DOM. React then compares this new virtual DOM with the previously created virtual DOM to find the differences that need to be repainted.
+这是真实 DOM 的虚拟表示。现在，每当应用程序的状态有任何变化时，React 不会直接更新真正的 DOM，而是创建一个新的虚拟 DOM。然后 React 会将此新的虚拟 DOM 与之前创建的虚拟 DOM 进行比较，找到有差异的地方（译者注：也就是找到需要被更新节点），然后进行重绘。
 
-Using these differences, the virtual DOM will update the real DOM efficiently with the changes. This improves performance, because instead of simply updating the UI element and all its children, the virtual DOM will efficiently update only the necessary and minimal changes in the real DOM.
+根据这些差异，虚拟 DOM 能更高效地更新真正的 DOM。这样提高了性能，因为虚拟 DOM 不会简单地更新 UI 元素及其所有子元素，而是有效地仅更新实际 DOM 中必要且最小的更改。
 
-## Why We Need Memoization in React
+## 为什么需要 Memoization？
 
-In the previous section, we saw how React efficiently performs DOM updates using a virtual DOM to improve performance. In this section, we’ll look at a use case that explains the need for memoization for further performance boost.
+在上一节中，我们看到了 React 如何使用虚拟 DOM 有效地执行 DOM 更新操作来提高性能。在本节中，我们将介绍一个例子，该例子解释了为了进一步提高性能而需要使用 Memoization。
 
-We’ll create a parent class that contains a button to increment a state variable called `count`. The parent component also has a call to a child component, passing a prop to it. We’ve also added `console.log()` statements in render the method of both the classes:
+我们将创建一个父类，包含一个按钮，用于递增名为 `count` 的变量。父组件还调用了子组件，并向其传递参数。我们还在 `render` 方法中添加了 `console.log()` 语句：
 
 ```jsx
 //Parent.js
@@ -67,9 +67,9 @@ class Parent extends React.Component {
 export default Parent;
 ```
 
-The complete code for this example is available on [CodeSandbox](https://codesandbox.io/s/adoring-flower-c7zu0).
+此示例的完整代码可在 [CodeSandbox](https://codesandbox.io/s/adoring-flower-c7zu0) 上查看。
 
-We’ll create a `Child` class that accepts a prop passed by the parent component and displays it in the UI:
+我们将创建一个 `Child` 类，该类接受父组件传递的参数并将其显示在 UI 中：
 
 ```jsx
 //Child.js
@@ -87,9 +87,9 @@ class Child extends React.Component {
 export default Child;
 ```
 
-Whenever we click the button in the parent component, the count value changes. Since this is a state change, the parent component’s render method is called.
+每当我们点击父组件中的按钮时，`count` 值都会更改。由于 state 变化了，因此父组件的 `render` 方法被执行了。
 
-The props passed to the child class remain the same for every parent re-render, so the child component should not re-render. Yet, when we run the above code and keep incrementing the count, we get the following output:
+传递给子组件的参数在每次父组件重新渲染时都没有改变，因此子组件不应重新渲染。然而，当我们运行上面的代码并继续递增 `count` 时，我们得到了以下输出：
 
 ```
 Parent render
@@ -100,27 +100,27 @@ Parent render
 Child render
 ```
 
-You can increment the count for the above example yourself in the following [this sandbox](https://j2x3z.csb.app/) and see the console for the output.
+你可以在这个 [sandbox](https://j2x3z.csb.app/) 中体验上述示例，并查看控制台的输出结果。
 
-From this output, we can see that, when the parent component re-renders, it will also re-render the child component — even when the props passed to the child component are unchanged. This will cause the child’s virtual DOM to perform a difference check with the previous virtual DOM. Since we have no difference in the child component — as the props are the same for all re-renders — the real DOM isn’t updated.
+从输出中，我们可以看到，当父组件重新渲染时，即使传递给子组件的参数保持不变，子组件也会重新渲染。这将导致子组件的虚拟 DOM 与以前的虚拟 DOM 执行差异检查。由于我们的子组件中没有变更且重新渲染时的所有 props 都没有变，所以真正的 DOM 不会被更新。
 
-We do have a performance benefit where the real DOM is not updated unnecessarily, but we can see here that, even when there was no actual change in the child component, the new virtual DOM was created and a difference check was performed. For small React components, this performance is negligible, but for large components, the performance impact is significant. To avoid this re-render and virtual DOM check, we use memoization.
+真正的 DOM 不会进行不必要地更新对性能确实是有好处，但是我们可以看到，即使子组件中没有实际更改，也会创建新的虚拟 DOM 并执行差异检查。对于小型 React 组件，这种性能消耗可以忽略不计，但对于大型组件，性能影响会很大。为了避免这种重新渲染和虚拟 DOM 的差异检查，我们使用 Memoization。
 
-### Memoization in React
+### React 中的 Memoization
 
-In the context of a React app, memoization is a technique where, whenever the parent component re-renders, the child component re-renders only if there’s a change in the props. If there’s no change in the props, it won’t execute the render method and will return the cached result. Since the render method isn’t executed, there won’t be a virtual DOM creation and difference checks — thus giving us a performance boost.
+在 React 应用的上下文中，Memoization 是一种手段，每当父组件重新渲染时，子组件仅在它所依赖的 props 发生变化时才会重新渲染。如果子组件所依赖的 props 中没有更改，则它不会执行 render 方法，并将返回缓存的结果。由于渲染方法未执行，因此不会有虚拟 DOM 创建和差异检查，从而实现性能的提升。
 
-Now, let’s see how to implement memoization in class and functional React components to avoid this unnecessary re-render.
+现在，让我们看看如何在类和函数组件中实现 Memoization，以避免这种不必要的重新渲染。
 
-## Implementing Memoization in a Class Component
+## 类组件实现 Memoization
 
-To implement memoization in a class component, we’ll use [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent). `React.PureComponent` implements [shouldComponentUpdate()](https://reactjs.org/docs/react-component.html#shouldcomponentupdate), which does a shallow comparison on state and props and renders the React component only if there’s a change in the props or state.
+为了在类组件中实现 Memoization，我们将使用 [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)。`React.PureComponent` 实现了 [shouldComponentUpdate()](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)，它对 `state` 和 `props` 进行了浅比较，并且仅在 props 或 state 发生更改时才重新渲染 React 组件。
 
-Change the child component to the code shown below:
+将子组件更改为如下所示的代码：
 
 ```jsx
 //Child.js
-class Child extends React.PureComponent { // Here we change React.Component to React.PureComponent
+class Child extends React.PureComponent { // 这里我们把 React.Component 改成了 React.PureComponent
   render() {
     console.log("Child render");
     return (
@@ -134,9 +134,9 @@ class Child extends React.PureComponent { // Here we change React.Component to R
 export default Child;
 ```
 
-The complete code for this example is shown in [this sandbox](https://jwt2q.csb.app/).
+此示例的完整代码显示在这个 [sandbox](https://jwt2q.csb.app/) 中。
 
-The parent component remains unchanged. Now, when we increment the count in parent component, the output in the console is as follows:
+父组件保持不变。现在，当我们在父组件中增加 `count` 时，控制台中的输出如下所示：
 
 ```
 Parent render
@@ -145,15 +145,15 @@ Parent render
 Parent render
 ```
 
-For the first render, it calls both parent and child component’s render method.
+对于首次渲染，它同时调用父组件和子组件的 `render` 方法。
 
-For subsequent re-render on every increment, only the parent component’s `render` function is called. The child component isn’t re-rendered.
+对于每次增加 `count` 后的重新渲染，仅调用父组件的 `render` 函数。子组件不会重新渲染。
 
-## Implementing Memoization in a Functional Component
+## 函数组件实现 Memoization
 
-To implement memoization in functional React components, we’ll use [React.memo()](https://reactjs.org/docs/react-api.html#reactmemo).`React.memo()` is a [higher order component](https://www.sitepoint.com/react-higher-order-components/) (HOC) that does a similar job to `PureComponent`, avoiding unnecessary re-renders.
+为了在函数组件中实现 Memoization，我们将使用 [React.memo()](https://reactjs.org/docs/react-api.html#reactmemo)。`React.memo()` 是一个[高阶组件](https://www.sitepoint.com/react-higher-order-components/)（HOC），它执行与 `PureComponent` 类似的工作，来避免不必要的重新渲染。
 
-Below is the code for a functional component:
+以下是函数组件的代码：
 
 ```jsx
 //Child.js
@@ -166,10 +166,10 @@ export function Child(props) {
   );
 }
 
-export default React.memo(Child); // Here we add HOC to the child component for memoization
+export default React.memo(Child); // 这里我们给子组件添加 HOC 实现 Memoization
 ```
 
-We also convert the parent component to a functional component, as shown below:
+同时还将父组件转换为了函数组件，如下所示：
 
 ```jsx
 //Parent.js
@@ -189,9 +189,9 @@ export default function Parent() {
 }
 ```
 
-The complete code for this example can be seen in [this sandbox](https://z42uj.csb.app/).
+此示例的完整代码可以在这个 [sandbox](https://z42uj.csb.app/) 中看到。
 
-Now, when we increment the count in the parent component, the following is output to the console:
+现在，当我们递增父组件中的 `count` 时，以下内容将输出到控制台：
 
 ```
 Parent render
@@ -201,13 +201,13 @@ Parent render
 Parent render
 ```
 
-## The Problem with React.memo() for Function Props
+## React.memo() 存在的问题
 
-In the above example, we saw that when we used the `React.memo()` HOC for the child component, the child component didn’t re-render, even if the parent component did.
+在上面的示例中，我们看到，当我们对子组件使用 `React.memo()` HOC 时，子组件没有重新渲染，即使父组件重新渲染了。
 
-A small caveat to be aware of, however, is that if we pass a function as prop to child component, even after using `React.memo()`, the child component will re-render. Let’s see an example of this.
+但是，需要注意的一个小问题是，如果我们将函数作为参数传递给子组件，即使在使用 `React.memo()` 之后，子组件也会重新渲染。让我们看一个这样的例子。
 
-We’ll change the parent component as shown below. Here, we’ve added a handler function that we’ll pass to the child component as props:
+我们将更改父组件，如下所示。在这里，我们添加了一个处理函数，并作为参数传递给子组件：
 
 ```jsx
 //Parent.js
@@ -218,7 +218,7 @@ export default function Parent() {
   };
 
   const handler = () => {
-    console.log("handler");    // This is the new handler that will be passed to the child
+    console.log("handler");    // 这里的 handler 函数将会被传递给子组件
   };
 
   console.log("Parent render");
@@ -232,7 +232,7 @@ export default function Parent() {
 }
 ```
 
-The child component code remains as it is. We don’t use the function we’ve passed as props in the child component:
+子组件代码将保持原样。我们不会在子组件中使用父组件传递来的函数：
 
 ```jsx
 //Child.js
@@ -248,21 +248,21 @@ export function Child(props) {
 export default React.memo(Child);
 ```
 
-Now, when we increment the count in parent component, it re-renders and also re-renders the child component, even though there’s no change in the props passed.
+现在，当我们递增父组件中的 `count` 时，它会重新渲染并同时重新渲染子组件，即使传递的参数中没有更改。
 
-So, what caused the child to re-render? The answer is that, every time the parent component re-renders, a new handler function is created and passed to the child. Now, since the handler function is recreated on every re-render, the child, on a shallow comparison of props, finds that the handler reference has changed and re-renders the child component.
+那么，是什么原因导致子组件重新渲染的呢？答案是，每次父组件重新渲染时，都会创建一个新的 `handler` 函数并将其传递给子组件。现在，由于每次重新渲染时都会重新创建 `handle` 函数，因此子组件在对 props 进行浅比较时会发现 `handler` 引用已更改，并重新渲染子组件。
 
-In the next section, we’ll see how to fix this issue.
+接下来，我们将介绍如何解决此问题。
 
-## `useCallback()` to Avoid Further Re-rendering
+## 通过 `useCallback()` 来避免更多的重复渲染
 
-The main issue that caused the child to re-render is the recreation of the handler function, which changed the reference passed to the child. So, we need to have a way to avoid this recreation. If the handler isn’t recreated, the reference to the handler won’t change — so the child won’t re-render.
+导致子组件重新渲染的主要问题是重新创建了 `handler` 函数，这更改了传递给子组件的引用。因此，我们需要有一种方法来避免这种重复创建。如果未重新创建 `handler` 函数，则对 `handler` 函数的引用不会更改，因此子组件不会重新渲染。
 
-To avoid recreating the function every time when the parent component is rendered, we’ll use a React hook called [useCallback()](https://reactjs.org/docs/hooks-reference.html#usecallback). Hooks were introduced in React 16. To learn more about hooks, you can have a look at the React’s official [hooks documentation](https://reactjs.org/docs/hooks-intro.html), or check out “[React Hooks: How to Get Started & Build Your Own](https://www.sitepoint.com/react-hooks/)”.
+为了避免每次渲染父组件时都重新创建函数，我们将使用一个名为 [useCallback()](https://reactjs.org/docs/hooks-reference.html#usecallback) 的 React Hook。Hooks 是在 React 16 中引入的。要了解有关 Hooks 的更多信息，你可以查看 React 的官方 [hooks 文档](https://reactjs.org/docs/hooks-intro.html)，或者查看 `[React Hooks: How to Get Started & Build Your Own](https://www.sitepoint.com/react-hooks/)"。
 
-The `useCallback()` hook takes two arguments: the callback function, and a list of dependencies.
+`useCallback()` 钩子传入两个参数：回调函数和依赖项列表。
 
-Consider the following example of `useCallback(`):
+以下是 `useCallback()` 示例：
 
 ```jsx
 const handleClick = useCallback(() => {
@@ -270,9 +270,9 @@ const handleClick = useCallback(() => {
 }, [x,y]);
 ```
 
-Here, `useCallback()` is added to the `handleClick()` function. The second argument `[x,y]` could be an empty array, a single dependency, or a list of dependencies. Whenever any dependency mentioned in the second argument changes, only then will the `handleClick()` function be recreated.
+在这里，`useCallback()` 被添加到 `handleClick()` 函数中。第二个参数 `[x, y]` 可以是空数组、单个依赖项或依赖项列表。每当第二个参数中提到的任何依赖项发生更改时，才会重新创建 `handleClick()` 函数。
 
-If the dependencies mentioned in `useCallback()` don’t change, a memoized version of the callback that’s mentioned as the first argument is returned. We’ll change our parent functional component to use the `useCallback()` hook for the handler that’s passed to the child component:
+如果 `useCallback()` 中提到的依赖项没有更改，则返回作为第一个参数提及的回调函数的 Memoization 版本。我们将更改父组件，以便对传递给子组件的处理程序使用 `useCallback()` 钩子：
 
 ```JSX
 //Parent.js
@@ -282,7 +282,7 @@ export default function Parent() {
     setCount(count + 1);
   };
 
-  const handler = useCallback(() => { //using useCallback() for the handler function
+  const handler = useCallback(() => { // 给 handler 函数使用 useCallback()
     console.log("handler");
   }, []);
 
@@ -297,11 +297,11 @@ export default function Parent() {
 }
 ```
 
-The child component code remains as it is.
+子组件代码将保持原样。
 
-The complete code for this example is shown in [this sandbox](https://r797x.csb.app/).
+此示例的完整代码这个 [sandbox](https://r797x.csb.app/) 中。
 
-When we increment the count in the parent component for the code above, we can see the following output:
+当我们在上述代码的父组件中增加 `count` 时，我们可以看到以下输出：
 
 ```
 Parent render
@@ -311,27 +311,27 @@ Parent render
 Parent render
 ```
 
-Since we used the `useCallback()` hook for the parent handler, every time the parent re-renders, the handler function won’t be recreated, and a memoized version of the handler is sent down to the child. The child component will do a shallow comparison and notice that handler function’s reference hasn’t changed — so it won’t call the `render` method.
+由于我们对父组件中的 `handler` 使用了 `useCallback()` 钩子，因此每次父组件重新渲染时，都不会重新创建 `handler` 函数，并且会将 `handler` 的 Memoization 版本传递到子组件。子组件将进行浅比较，并注意到 `handler` 函数的引用没有更改，因此它不会调用 `render` 方法。
 
-## Things to Remember
+## 值得注意的事
 
-Memoization is a good technique for improving performance in React apps by avoiding unnecessary re-renders of a component if its props or state haven’t changed. You might think of just adding memoization for all the components, but that’s not a good way to build your React components. You should use memoization only in cases where the component:
+Memoization 是一种很好的手段，可以避免在组件的 state 或 props 没有改变时对组件进行不必要的重新渲染，从而提高 React 应用的性能。你可能会考虑为所有组件添加 Memoization，但这并不一定是构建高性能 React 组件的方法。只有在组件出现以下情况时，才应使用 Memoization：
 
-* returns the same output when given the same props
-* has multiple UI elements and a virtual DOM check will impact performance
-* is often provided the same props
+* 固定的输入有固定的输出时
+* 具有较多 UI 元素，虚拟 DOM 检查将影响性能
+* 多次传递相同的参数
 
-## Conclusion
+## 总结
 
-In this tutorial, we’ve seen:
+在本教程中，我们理解了：
 
-* how React renders the UI
-* why memoization is needed
-* how to implement memoization in React through `React.memo()` for a functional React component and `React.PureComponent` for a class component
-* a use case where, even after using `React.memo()`, the child component will re-render
-* how to use the `useCallback()` hook to avoid re-rendering when a function is passed as props to a child component.
+* React 是如何渲染 UI 的
+* 为什么需要 Memoization
+* 如何在 React 中通过函数组件的 `React.memo()` 和类组件的 `React.PureComponent` 实现 Memoization
+* 通过一个例子展示，即使在使用 `React.memo()` 之后，子组件也会重新渲染
+* 如何使用 `useCallback()` 钩子来避免在函数作为 props 传递给子组件时产生重新渲染的问题
 
-I hope you’ve found this introduction to React memoization useful!
+希望这篇 React Memoization 的介绍对你有帮助！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
