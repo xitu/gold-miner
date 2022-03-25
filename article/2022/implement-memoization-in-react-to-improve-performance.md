@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/implement-memoization-in-react-to-improve-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2022/implement-memoization-in-react-to-improve-performance.md)
 > * 译者：[Zavier](https://github.com/zaviertang)
-> * 校对者：[jjCatherine](https://github.com/xyj1020)
+> * 校对者：[jjCatherine](https://github.com/xyj1020)、[finalwhy](https://github.com/finalwhy)
 
 # 如何用 React 实现 Memoization 以提高性能
 
