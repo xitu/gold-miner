@@ -1,3 +1,6 @@
+* [使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)（[Alfxjx](https://github.com/Alfxjx) 翻译）
+* [使用 FastAPI 提升 Python 代码的运行性能](https://juejin.cn/post/7068865005436796958)（[zenblofe](https://github.com/zenblofe) 翻译）
 * [HTTP/3 为什么这么快？](https://juejin.cn/post/7055178022445383694)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [SpringBoot 微服务监控](https://juejin.cn/post/7056817945787236389)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [如何使用 Python 管道 Pipe 高效编码](https://juejin.cn/post/7051051681357758494)（[zenblofe](https://github.com/zenblofe) 翻译）
