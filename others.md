@@ -1,3 +1,5 @@
+* [自动化测试：你应当了解的一切](https://juejin.cn/post/7084071159821500447)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [使用了三个月的 Github Copilot，这是我的一些看法……](https://juejin.cn/post/7067817036738461732)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [5 个有趣的原因告诉你：找对象就得找程序员！](https://juejin.cn/post/7053326045352558599)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [WasmEdge 的安装与卸载](https://github.com/xitu/gold-miner/blob/master/article/2022/Install-and-uninstall-WasmEdge.md)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [使用 Python 模拟实现行星际空间旅行](https://juejin.cn/post/7047685861365776414)（[zenblofe](https://github.com/zenblofe) 翻译）
