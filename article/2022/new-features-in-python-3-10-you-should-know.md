@@ -2,14 +2,14 @@
 > * 原文作者：[Tola Ore-Aruwaji](https://medium.com/@thecraftman)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/new-features-in-python-3-10-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2022/new-features-in-python-3-10-you-should-know.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)
+> * 校对者：[Chorer](https://github.com/Chorer), [w1187501630](https://github.com/w1187501630)
 
 # 你需要了解的 Python 3.10 新特性
 
 ![](https://cdn-images-1.medium.com/max/3838/1*gcuS-mdPrHGeHLZHfacbUg.jpeg)
 
-**在本文中，我们将了解 Python 3.10 中的重大变化。**
+**大家好，欢迎关注本文。在本文中，我们将了解 Python 3.10 中的重大变化。**
 
 在这个新版本中，有一些新的特性，程序的性能也有所改进。我们来了解一下。
 
@@ -17,7 +17,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*KAPJdxfXRc-EIza11iPcSA.png)
 
-您可以将变量映射到一组不同的可能值，类似于他语言中的 switch-case 语句。可以将这种特性与带有关联操作模式的 match 语句和 case 语句配合使用。 
+您可以将变量映射到一组不同的可能值，类似于他语言中的 switch-case 语句。你可以将这种特性与带有关联操作模式的 match 语句和 case 语句配合使用。 
 
 在这个例子中，需要注意的是，你如何使用管道操作把几个有序集合组合在一起，但你不仅可以将它跟一个单一值匹配，还可以跟一个集合或一个类进行匹配。
 
@@ -41,7 +41,7 @@
 
 这是我发现的又一个有用的改进。很多错误提示不但传递了与错误有关的准确信息，而且提示了错误发生的准确位置。
 
-例如，在这段代码中，缺少了一个括号，以前的错误提示只显示语法错误，连发生错误的行号都没有。
+例如，在这段代码中，缺少了一个括号，以前的错误提示只显示语法错误，甚至连发生错误的行号都没有。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*fMuajdCWcyJjUOJhtQ3VBg.png)
 
@@ -59,7 +59,7 @@
 
 ## 更新和弃用
 
-如今，Python 的 OpenSSL 环境要求是 111 或更新版本，不再支持较老的版本。这会影响其中的 **hash lib, hmac, SSL** 等模块，同时升级了 CPython 的一个关键依赖。整个 disk-utils 包也被弃用，在 3.12 版中将被移除。
+如今，Python 的 OpenSSL 环境要求是 111 或更新版本，不再支持较老的版本。这会影响其中的 **hash lib、hmac、SSL** 等模块，同时升级了 CPython 的一个关键依赖。整个 disk-utils 包也被弃用，在 3.12 版中将被移除。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*grIH2jt1WZzDMV7i2oLGCA.png)
 
@@ -73,9 +73,9 @@ Python 3.10 没有添加新模块，而是更新了很多现有模块。这里�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*FCjAgP7lsTVK0NmqyK9xAQ.png)
 
-为了加快 Python 的速度，人们对它进行了各种优化，其中最重要的是，字符串、字节型数据和字节数组的构造速度加快了30%-40%。
+为了加快 Python 的速度，人们对它进行了各种优化，其中最重要的是，字符串、字节型数据和字节数组的构造速度加快了 30%~40%。
 
-Python 3.10实现了很多新特性，性能也有了极大的优化。最有趣的是模式匹配，我也很喜欢该版本中改进的错误信息。
+Python 3.10 实现了很多新特性，性能也有了极大的优化。最有趣的是模式匹配，我也很喜欢该版本中改进的错误信息。
 
 **你可以在评论中谈谈自己喜欢的特性，你是否期待新版本中的升级，或者你是否已经在使用它。**
 
