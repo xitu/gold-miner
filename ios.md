@@ -1,3 +1,4 @@
+* [4 个鲜为人知的 Swift 特性](https://juejin.cn/post/7069326429397205005)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [React Native 开发者的流行存储方案](https://juejin.cn/post/7008020729832669191)（[KimYangOfCat](https://github.com/KimYangOfCat) 翻译）
 * [逆向 `.car` 文件（已编译的 Asset Catalogs）](https://juejin.cn/post/7002491722550919198)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
 * [Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
