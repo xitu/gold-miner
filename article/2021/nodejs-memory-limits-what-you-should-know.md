@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/nodejs-memory-limits-what-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2021/nodejs-memory-limits-what-you-should-know.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[Tong-H](https://github.com/Tong-H), [finalwhy](https://github.com/finalwhy)
 
 # 你应该知道的 Node.js 内存限制
 
