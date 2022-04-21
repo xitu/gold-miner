@@ -121,7 +121,7 @@ public class UpdateScheduler {
 ```java
 @Configuration
 public class BrokerConfiguration {
-    
+
     static String directExchangeQueue;
     static String directExchange;
     static String directRoutingKey;
@@ -154,9 +154,9 @@ public class BrokerConfiguration {
     @Bean
     Binding updateQueueBinding(Queue directExchangeQueue, DirectExchange directExchange) {
         return BindingBuilder
-                    .bind(directExchangeQueue)
-                    .to(directExchange)
-                    .with(BrokerConfiguration.directRoutingKey);
+            .bind(directExchangeQueue)
+            .to(directExchange)
+            .with(BrokerConfiguration.directRoutingKey);
     }
 }
 
@@ -175,14 +175,14 @@ public class MessageListenerConfiguration {
 
     @Bean
     SimpleMessageListenerContainer container(
-       ConnectionFactory connectionFactory,
-       MessageListenerAdapter listenerAdapter) {
+        ConnectionFactory connectionFactory,
+        MessageListenerAdapter listenerAdapter) {
 
-       SimpleMessageListenerContainer container = new  SimpleMessageListenerContainer();
-       container.setConnectionFactory(connectionFactory);
-       container.setQueueNames(brokerConfiguration.directExchangeQueue);
-       container.setMessageListener(listenerAdapter);
-       return container;
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(brokerConfiguration.directExchangeQueue);
+        container.setMessageListener(listenerAdapter);
+        return container;
     }
 }
 
@@ -227,13 +227,13 @@ public class ChatInterface implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String...args) {
         System.out.println("Send message...");
         while (true) {
             String msg = scanner.nextLine();
-            if(msg.contains(":")){
+            if (msg.contains(":")) {
                 messageHandler.sendMessage(msg);
-            }else{
+            } else {
                 System.out.println("Message format not correct!!");
             }
 
@@ -250,22 +250,22 @@ public class MessageHandler {
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(String cmd) {
-      String to = cmd.split(":")[0];
-      String msg = cmd.split(":")[1];
-      switch(to){
+        String to = cmd.split(":")[0];
+        String msg = cmd.split(":")[1];
+        switch (to) {
         case "@rocinante":
-            rabbitTemplate.convertAndSend("rocinante-direct-exchange", "__rocinante", "Station-021: "+msg);
+            rabbitTemplate.convertAndSend("rocinante-direct-exchange", "__rocinante", "Station-021: " + msg);
             break;
         case "@razorback":
-            rabbitTemplate.convertAndSend("razorback-direct-exchange", "__razorback", "Station-O21: "+msg);
+            rabbitTemplate.convertAndSend("razorback-direct-exchange", "__razorback", "Station-O21: " + msg);
             break;
         case "@nauvoo":
-            rabbitTemplate.convertAndSend("nauvoo-direct-exchange", "__nauvoo", "Station-O21: "+msg);
+            rabbitTemplate.convertAndSend("nauvoo-direct-exchange", "__nauvoo", "Station-O21: " + msg);
             break;
         default:
             System.out.println("Message format not correct!!");
+        }
     }
-  }
 }
 ```
 
@@ -302,7 +302,7 @@ public class MessageListenerConfiguration {
 
 @Component
 public class MessageHandler {
-    
+
     // 处理接收到的消息的回调方法
     public void receiveMessage(String message) {
         System.out.println("> " + message);
@@ -333,7 +333,7 @@ public class ChatInterface implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String...args) {
         System.out.println("Booting up: " + shipName.toUpperCase());
         System.out.println("Please enter the message..");
         while (true) {
@@ -359,22 +359,22 @@ public class ChatInterface implements CommandLineRunner {
 ```java
 @Component
 public class MessageHandler {
-    
+
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(String cmd) {
         String to = cmd.split(":")[0];
         String msg = cmd.split(":")[1];
-        switch(to){
+        switch (to) {
             ....
 
             // 添加一个新的 case
             case "@all":
-                rabbitTemplate.convertAndSend("tyco-fanout-exchange", "","Station: "+msg);
-                break;
-            default:
-                System.out.println("Message format not correct!!");
+                rabbitTemplate.convertAndSend("tyco-fanout-exchange", "", "Station: " + msg);
+            break;
+        default:
+            System.out.println("Message format not correct!!");
         }
     }
 }
