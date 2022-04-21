@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
 > * 译者：[samyu2000](https://github.com/samyu2000)
-> * 校对者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：[jaredliw](https://github.com/jaredliw)、[Usualminds](https://github.com/Usualminds)
 
 # 使用 RabbitMQ 和 SpringBoot 实现实时消息
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EYd1qBpQDCnVlyd_NxAFTQ.png)
 
-在过去的几个月里，我一直在看《苍穹浩瀚》。这部剧中有太空战、战舰、外星人和许多其他很酷的科幻部队。其中有一些先进的软件，可以让空间站监视并与所有的宇宙飞船和火箭进行通信。这令我思考：今天是否有工具来为这样的东西建立一个后端。我首先想到的是 RabbitMQ 和 SpringBoot。
+在过去的几个月里，我一直在看《苍穹浩瀚》。这部剧中有太空战、战舰、外星人和许多其他很酷的科幻部队。其中有一些先进的软件，可以让空间站对所有的宇宙飞船和火箭进行监视与通信。这让我想到：有没有类似的后端开发工具可以像它这样。我首先想到的是 RabbitMQ 和 SpringBoot。
 
 ## 场景
 
@@ -21,12 +21,12 @@
 
 1. 飞船定时向空间站发送更新消息。
 2. 每艘飞船和对接站之间都将实时、一对一地进行通信。（即社交网络中的“即时消息”）
-3. 对接站将向所有飞船**广播一条公共信息**。
+3. 对接站将向所有飞船**广播一条公共消息**。
 
-在 RabbitMQ 中，这些用例被视为不同的**交换机**。由于需要双向通信，每搜飞船和对接站就是**消费者**和**生产者**的关系。欲了解关于交换机、队列、路由键的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是，
->  交换机向一个由路由绑定地队列发送消息。这些交换机功能各有不同，它们根据不同的路由键向队列发送消息。
+在 RabbitMQ 中，这些用例被视为不同的**交换机**。由于需要双向通信，每艘飞船和对接站就是**消费者**和**生产者**的关系。想要了解关于交换机、队列、路由器的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是：
+> 交换机向一个由路由绑定的队列发送消息。这些交换机功能各有不同，它们根据不同的路由键向队列发送消息。
 
-在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示讲解相关概念所必要的代码。在开始讲解前，我先展示空间站和飞船的属性配置文件。
+在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与讲解相关概念所必要的代码。在开始讲解前，我先展示空间站和飞船的属性的配置文件。
 
 
 ```yml
@@ -75,7 +75,7 @@ broker:
 
 >  直接交换机基于绑定的路由键，精确匹配，向相应的队列发消息。
 
-每艘飞船都可以使用公共的路由键发送更新消息。@EnableScheduling 和 @Scheduled 注解用于设置定时任务。简单的来说，我们需要发送参数和用冒号加标点的飞船名称。在 ParameterFactory 类中，需要创建具有随机双精度值的虚拟参数。举例如下：
+每艘飞船都可以使用公共的路由键发送更新消息。@EnableScheduling 和 @Scheduled 注解用于设置定时任务。简单的来说，我们需要发送用冒号分割隔的参数和飞船名称。在 ParameterFactory 类中，需要创建具有随机双精度值的虚拟参数。举例如下：
 
 ```
 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
@@ -423,7 +423,7 @@ public class BrokerConfiguration {
 
 ## 总结
 
-在本应用程序中，每艘飞船和空间站都同时扮演生产者和消费者。所以，它们都需要自己的队列来保存消息。空间站只需要一个直接交换机和一个队列，用于接收实时消息和定时发送的消息。另一方面，由于飞船接收的消息存在两种类型———单一的和公共的，就需要两个交换机。然而它们只能跟一个队列绑定，队列再跟直接交换机和 Fanout 交换机进行绑定。本项目的实现代码：[**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)。
+在本应用程序中，每艘飞船和空间站都同时扮演生产者和消费者。所以，它们都需要自己的队列来保存消息。空间站只需要一个直接交换机和一个队列，用于接收实时消息和定时发送消息。另一方面，由于飞船接收的消息存在两种类型———单一的和公共的，就需要两个交换机。然而它们只能跟一个队列绑定，队列再跟直接交换机和 Fanout 交换机进行绑定。本项目的实现代码：[**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
