@@ -26,12 +26,12 @@
 在 RabbitMQ 中，这些用例被视为不同的**交换机**。由于需要双向通信，每艘飞船和对接站就是**消费者**和**生产者**的关系。想要了解关于交换机、队列、路由器的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是：
 > 交换机向一个由路由绑定的队列发送消息。这些交换机功能各有不同，它们根据不同的路由键向队列发送消息。
 
-在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与讲解相关概念所必要的代码。在开始讲解前，我先展示空间站和飞船的属性的配置文件。
+在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与讲解相关概念所必要的代码。在开始讲解前，我先展示空间站和飞船的属性的配置文件：
 
 
 ```yml
 ## 飞船程序的 application.yml 文件
-## 每艘船的属性值都需要更改
+## 每艘飞船的属性值都需要更改
 
 ship:
   name: rocinante
@@ -85,7 +85,6 @@ Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
 @Component
 @EnableScheduling
 public class UpdateScheduler {
-
     @Value("${ship.name}")
     private String shipName;
 
@@ -121,7 +120,6 @@ public class UpdateScheduler {
 ```java
 @Configuration
 public class BrokerConfiguration {
-
     static String directExchangeQueue;
     static String directExchange;
     static String directRoutingKey;
@@ -161,10 +159,8 @@ public class BrokerConfiguration {
 }
 
 // 消息监听配置
-
 @Configuration
 public class MessageListenerConfiguration {
-
     @Autowired
     private final BrokerConfiguration brokerConfiguration;
 
@@ -195,7 +191,7 @@ public class MessageHandler {
 }
 ```
 
-空间站的控制台输出接收到的消息，如下所示.
+空间站的控制台输出接收到的消息，如下所示：
 
 ```
 > rocinante: Update at Sat Jul 31 17:35:15 CDT 2021 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
@@ -203,7 +199,7 @@ public class MessageHandler {
 
 ## 飞船和空间站之间的一对一通信
 
-**空间站 → 飞船**：我们可以再次使用直接交换机，以不同的路由键向飞船发消息。每艘飞船有它自己的队列和路由键。我们可以使用任一消息模式，使任意消息都能发送至某一艘飞船，并在消息中附加一个路由键。我使用如下的消息模式：
+**空间站 → 飞船**：我们可以再次使用直接交换机，以不同的路由键向飞船发消息。每艘飞船有它自己的队列和路由键。我们可以使用任意消息模式来确定消息是发送至哪艘飞船的，并在消息中附加一个路由键。我使用如下的消息模式：
 
 ```
 @rocinante: Go to Mars
@@ -242,10 +238,8 @@ public class ChatInterface implements CommandLineRunner {
 }
 
 // 处理向特定主题发送消息的类
-
 @Component
 public class MessageHandler {
-
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
@@ -274,7 +268,6 @@ public class MessageHandler {
 ```java
 @Configuration
 public class DirectExchangeConfiguration {
-
     private static String directExchange;
 
     @Value("${broker.exchange.direct.ship.name}")
@@ -290,19 +283,16 @@ public class DirectExchangeConfiguration {
 
 @Configuration
 public class BrokerConfiguration {
-
     // 类似于 Ships 的代理配置
 }
 
 @Configuration
 public class MessageListenerConfiguration {
-
     // 类似于 Ships 的消息监听器配置
 }
 
 @Component
 public class MessageHandler {
-
     // 处理接收到的消息的回调方法
     public void receiveMessage(String message) {
         System.out.println("> " + message);
@@ -316,14 +306,15 @@ public class MessageHandler {
 ```java
 @Configuration
 public class ChatInterface implements CommandLineRunner {
-
     private final RabbitTemplate rabbitTemplate;
     private final Scanner scanner;
 
     @Value("${ship.name}")
     private String shipName;
+    
     @Value("${broker.exchange.direct.station.name}")
     private String directExchange;
+    
     @Value("${broker.exchange.direct.station.routing-key}")
     private String directExchangeRoutingKey;
 
@@ -333,7 +324,7 @@ public class ChatInterface implements CommandLineRunner {
     }
 
     @Override
-    public void run(String...args) {
+    public void run(String... args) {
         System.out.println("Booting up: " + shipName.toUpperCase());
         System.out.println("Please enter the message..");
         while (true) {
@@ -346,7 +337,7 @@ public class ChatInterface implements CommandLineRunner {
 
 ## 向所有飞船广播消息
 
-为了在同一时间从空间站向所有船只发送一条公共的信息，我们可以使用扇形交换机。扇形交换机将消息传递给与它绑定的所有队列，忽略路由键。飞船可以将已经存在的用于一对一消息传递的队列绑定到一个特定的扇形交换机上，省去任何路由键，空间站可以直接向交换器抛出消息，而不用担心路由键。在我的应用程序中，使用了下面的消息模式来从空间站广播消息。
+为了在同一时间从空间站向所飞船只发送一条公共的信息，我们可以使用扇形交换机。扇形交换机将消息传递给与它绑定的所有队列，忽略路由键。飞船可以将之前用于一对一消息传递的队列绑定到一个特定的扇形交换机上。这样一来，空间站可以直接向交换机抛出消息，而不用考虑路由键。在我的应用程序中，使用了下面的消息模式来从空间站广播消息：
 
 ```
 @all: Come back to station
@@ -359,7 +350,6 @@ public class ChatInterface implements CommandLineRunner {
 ```java
 @Component
 public class MessageHandler {
-
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
@@ -387,7 +377,6 @@ public class MessageHandler {
 ```java
 @Configuration
 public class FanoutExchangeConfiguration {
-
     private static String fanoutExchange;
 
     @Value("${broker.exchange.fanout.name}")
@@ -403,11 +392,9 @@ public class FanoutExchangeConfiguration {
 
 @Configuration
 public class BrokerConfiguration {
-
     ...
 
     // 将公共队列绑定到扇形交换机
-
     @Bean
     Binding bindingToFanoutExchange(Queue commonQueue, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(commonQueue).to(fanoutExchange);
