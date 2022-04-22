@@ -5,11 +5,11 @@
 > * 译者：[JohnieXu](https://github.com/JohnieXu)、[jaredliw](https://github.com/jaredliw)
 > * 校对者：[ghost](https://github.com/ghost)、[wuyanan](https://github.com/wuyanan)
 
-# 为什么说 ES2020 的可选链和模块动态导入特性将会改变现有生态规则
+# 为什么说 ES2020 的可选链和模块动态导入特性改变了已有的生态规则？
 
 ![图由 [veeterzy](https://unsplash.com/@veeterzy?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*kgic-88vVUjDQbYC)
 
-自从 2015 年发布 ES6 语法规范以来，JavaScript 又进行了几次升级。目前，已经有大量的语法特性提案被纳入到 ES2020 语法规范中。其中有不乏大量著名新特性，我在此文将重点介绍可选链（Optional Chaining）和模块动态导入（Dynamic Imports）这两个特性。如果能在以前的项目中使用上这两大特性，我们所编写的代码量将大大缩减。
+自从 2015 年发布 ES6 语法规范以来，JavaScript 又进行了几次升级。之后，大量的语法特性提案也被纳入到 ES2020 语法规范中。其中有不乏大量著名新特性，我在此文将重点介绍可选链（Optional Chaining）和模块动态导入（Dynamic Imports）这两个特性。如果能在以前的项目中使用上这两大特性，我们所编写的代码量将大大缩减。
 
 下面我们一起来看一看这两大特性。
 
@@ -32,7 +32,7 @@ obj.func?.(args)
 
 #### 用法示例
 
-如上文所述，可选链的语法分为访问对象属性、访问数组元素、函数调用这 3 类。下面一起看下他们的用法示例。
+如上文所述，可选链的语法分为访问对象属性、访问数组元素和函数调用这 3 类。下面一起看下他们的用法示例。
 
 **通过属性访问对象值**
 
@@ -47,17 +47,17 @@ let book = {
 };
 
 console.log(book.price.value);
-//50
+// 50
 
 console.log(book.weight);
-//undefined
+// undefined
 
 console.log(book.weight.value);
-//报错
+// 报错
 
-//使用可选链
+// 使用可选链
 console.log(book?.weight?.value);
-//undefined
+// undefined
 ```
 
 **通过表达式访问对象值**
@@ -76,12 +76,12 @@ let userInputProperty = document.getElementById('inputProperty').value;
 let userInputNestedProperty = document.getElementById('inputPropertyNested').value;
 
 console.log(book[userInputProperty][userInputNestedProperty]);
-//如果用户在 input 上输入的属性在对象上不存在，js 将会报错
+// 如果用户在 input 上输入的属性在对象上不存在，JavaScript 将会报错
 
-//使用可选链
+// 使用可选链
 console.log(book?.[userInputProperty]?.[userInputNestedProperty]);
-//如果用户在 input 上输入的属性在对象上不存在，将返回 undefined
-//否则返回属性对应的值
+// 如果用户在 input 上输入的属性在对象上不存在，将返回 undefined
+// 否则返回属性对应的值
 ```
 
 **数组元素访问**
@@ -106,13 +106,13 @@ let books = [{
 ];
 
 console.log(books[1].price.value);
-//50
+// 50
 
 console.log(books[2].price.value);
-//报错
+// 报错
 
 console.log(books?.[2]?.price?.value);
-//undefined
+// undefined
 ```
 
 **函数访问**
@@ -127,18 +127,18 @@ let bookModule = {
 
 
 bookModule.getBooks();
-//"Books returned"
+// "Books returned"
 
 bookModule.getBook();
-//报错
+// 报错
 
 bookModule?.getBook?.();
-//undefined
+// undefined
 ```
 
 #### 注意事项
 
-可选链只在赋值表达式的右侧生效
+可选链只在赋值表达式的右侧生效。
 
 ```js
 let book = {
@@ -151,15 +151,15 @@ let book = {
 };
 
 book?.weight?.value = 650;
-//语法错误
+// 语法错误
 
 book.weight.value = 650;
-//报错 Type error
+// 报错：TypeError
 
 book.weight = {
   value: 650
 };
-//正常
+// 正常
 ```
 
 #### 使用可选链前后对比
@@ -189,18 +189,18 @@ let book = {
 }
 
 if (book && book.weight && book.weight.version2 && book.weight.version2.value) {
-  //使用 book.weight.version2.value
+  // 操作 book.weight.version2.value
   console.log(book.weight.version2.value);
 }
 
 if (book && book.weight && book.weight.version3 && book.weight.version3.value) {
-  //由于 book.weight 上没有属性 version3，所以以下代码块将不会执行，同时还会报错
+  // 由于 book.weight 上没有属性 version3，所以以下代码块将不会执行，同时还会报错
   console.log(book.weight.version3.value);
 }
 
-//直接访问 book.weight.version3 属性不做校验
+// 直接访问 book.weight.version3 属性，不做校验
 console.log(book.weight.version3.value);
-//报错
+// 报错
 ```
 
 下面是使用可选链的示例，用更少的代码实现了同样的功能。
@@ -225,13 +225,12 @@ let book = {
   }
 }
 
-//使用 book.weight.version2.value
+// 操作 book.weight.version2.value
 console.log(book?.weight?.version2?.value);
-//690
-
+// 690
 
 console.log(book?.weight?.version3?.value);
-//undefined
+// undefined
 ```
 
 即使 `book.weight` 上不存在 `version3` 这个属性，并且我们也没有明确的校验 `book.weight.version3` 是否是 `null` 或 `undefined`，但是上述代码还是正常执行没有报错，这是主要是因为可选链在访问属性之前会校验是否是 `undefined` 或 `null`。
@@ -240,21 +239,21 @@ console.log(book?.weight?.version3?.value);
 
 ![源自：[CanIUse](https://caniuse.com/mdn-javascript_operators_optional_chaining)](https://cdn-images-1.medium.com/max/2462/1*Mk1AKifhJ1TbIjmcnjndBg.png)
 
-## 动态导入 Dynamic Imports
+## 动态导入
 
-动态导入使得应用可以以原生的方式（译者注：之前的动态导入都是由打包工具，如 webpack 在本地编译打包的方式实现的）把 js 文件作为模块进行动态导入。在 ES2020 之前，模块无论是否被使用到了都会被导入进来。这一特性，将极大的提升网页应用的性能。
+动态导入使得应用可以以原生的方式（译者注：之前的动态导入都是由打包工具，如 webpack 在本地编译打包的方式实现的）把 .js 文件作为模块进行动态导入。在 ES2020 之前，模块无论是否被使用到了都会被导入进来。这一特性，将极大的提升网页应用的性能。
 
 #### 为何需要动态导入
 
-之前的模块导入是基于静态声明的，所以模块导入语句 import 只能放置在文件的顶部。并且，导入语句 import 要求传入的模块描述符必须是字符串字面量，不能包含变量。这些限制使得现在的动态导入访问远比静态声明的模块导入方案灵活。
+之前的模块导入是基于静态声明的，所以 `import` 模块导入语句只能放置在文件的顶部。并且，`import` 要求传入的模块描述符必须是字符串字面量，不能包含变量。这些限制使得现在的动态导入访问远比静态声明的模块导入方案灵活。
 
 但是静态模块导入也有其优点，比如它支持模块静态分析、打包构建工具、Tree-Shaking 优化等。
 
 同样静态模块导入语法还不支持以下特性：
 
-* 模块按需加载
-* 模块描述符使用运行时的变量值
-* 使用 script 标签导入模块
+* 模块按需加载；
+* 模块描述符使用运行时的变量值；
+* 使用 `script` 标签导入模块。
 
 使用动态导入特性就能解决上述几个问题。
 
