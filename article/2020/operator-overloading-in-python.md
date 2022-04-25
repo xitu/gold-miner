@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/operator-overloading-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2020/operator-overloading-in-python.md)
 > * 译者：[samyu2000](https://github.com/samyu2000)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[zhuzilin](https://github.com/zhuzilin)
+> * 校对者：[zhuzilin](https://github.com/zhuzilin)、[WangNing](https://github.com/w1187501630)
 
 # Python 中的运算符重载
 
