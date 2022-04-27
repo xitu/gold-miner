@@ -48,7 +48,7 @@ interface DownloadableReport
 根据 [php.net](https://www.php.net/manual/en/language.oop5.interfaces.php) 文档我们可以知道，接口有两个主要用途：
 
 1. 允许开发者创建不同类别的对象，这些对象可以互换使用，因为它们实现了相同的一个或多个接口。常见的例子包含：多个数据库访问服务、多个支付网关、不同的缓存策略等。不同的实现之间可以互换，而不需要对使用它们的代码进行任何修改。
-2. 允许函数或方法接受符合接口的参数并对其进行操作，而不关心该对象还可以做什么或它是如何实现的。这些接口通常被命名为 `Iterable`、`Cacheable`、`Renderable` 等，以描述行为的重要性。
+2. 允许函数或方法接受符合接口的参数并对其进行操作，而不关心该对象还可以做什么或它是如何实现的。这些接口通常被命名为 `Iterable`、`Cacheable`、`Renderable` 等，来说明这些接口的实际含义。
 
 ## 在 PHP 中使用接口
 
@@ -78,7 +78,7 @@ class ReportDownloadService
 }
 ```
 
-尽管上面的代码正常运行，但我们设想一下，现在想扩展下载用户报告的功能，需要对 `UsersReport` 类进行操作。当然，我们不能使用 `ReportDownloadService` 中的现有方法，因为我们已经强制规定方法只能传递 `BlogReport` 类。因此，我们必须添加一个类似的方法，如下所示：
+尽管上面的代码正常运行，但我们设想一下，现在想给 `UsersReport` 类中增加下载用户报告的功能。显然，我们不能使用 `ReportDownloadService` 中的现有方法，因为我们已经强制规定方法只能传递 `BlogReport` 类。因此，我们必须修改把原有的下载方法名称改掉（避免重名），然后另外再添加一个类似的方法，如下所示：
 
 ```php
 class ReportDownloadService
@@ -99,9 +99,9 @@ class ReportDownloadService
 }
 ```
 
-假设上面的方法中的其余部分（注释所代表的部分）也使用相同的代码来构建这个功能。虽然我们可以将共享代码提升为一个方法，但我们仍会有一些相同的代码（译者注：指的是每个方法中都会有 `$name = $report->getName();`）。除此之外，我们还将有多个进入运行几乎相同代码的类的入口点。这可能会在将来尝试扩展代码或添加测试时导致额外的工作。
+假设上面的方法中的下载文件部分（注释掉的部分）使用了相同的代码，而且我们可以将这些相同的代码单独写成一个方法，但我们仍会有一些重复的代码（译者注：指的是每个方法中都会有 `$name = $report->getName();`）以及有多个几乎相同的类的入口。这可能会给将来扩展代码或测试带来额外的工作量。
 
-例如，假设我们创建了一个新的 `AnalyticsReport`；我们现在需要向该类添加一个新的 `downloadAnalyticsReportPDF()` 方法。由此可见，PHP 文件的数量将开始快速的增长。这可能是一个使用接口的完美场景！
+例如，假设我们创建了一个新的 `AnalyticsReport`；我们现在需要向该类添加一个新的 `downloadAnalyticsReportPDF()` 方法。你可以清晰的看到这个文件将如何膨胀（译者注：指每增加一个类型，就要增加一个下载方法）。这就是一个使用接口的完美场景！
 
 让我们从创建第一个接口开始：让我们将其命名为 `DownloadableReport`，定义如下：
 
@@ -116,7 +116,7 @@ interface DownloadableReport
 }
 ```
 
-我们现在可以更新 `BlogReport` 和 `UsersReport` 来实现 `DownloadableReport` 接口，如下例所示。但是请注意，作为演示用途，我故意把 `UsersReport` 代码写错了：
+我们现在可以更新 `BlogReport` 和 `UsersReport` 来实现 `DownloadableReport` 接口，如下例所示。但是请注意，作为演示用途，我故意把 `UsersReport` 中的代码写错了：
 
 ```php
 class BlogReport implements DownloadableReport
@@ -181,7 +181,7 @@ class UsersReport implements DownloadableReport
 }
 ```
 
-现在两个报表类都实现了相同的接口，我们可以这样更新我们的 `ReportDownloadService`：
+现在两个报告类都实现了相同的接口，我们可以这样更新我们的 `ReportDownloadService`：
 
 ```php
 class ReportDownloadService
@@ -198,7 +198,7 @@ class ReportDownloadService
 
 我们现在可以把 `UsersReport` 或 `BlogReport` 对象传入 `downloadReportPDF` 方法中，而且不会出现任何错误。这是因为我们知道该对象实现了报告类的必要方法，并且将返回我们期望的数据类型。
 
-由于向方法传递了一个接口，而不是一个类，这使得我们可以根据方法的**作用**（而不是方法的**原理**）松耦合 `ReportDownloadService` 和报告类。
+通过向方法传递了一个接口，而不是一个具体的类，我们可以根据方法的**实际作用**（而不是方法的**实现原理**）来解耦 `ReportDownloadService`类和这些报告类。
 
 如果我们想创建一个新的 `AnalyticsReport`，我们可以让它实现相同的接口。这样一来，我们不必添加任何新的方法，只需要将报告对象传递给同一个的 `downloadReportPDF()` 方法。如果你正在构建你自己的包或框架，接口可能对你特别有用。你只需要告诉使用者要实现哪个接口，然后他们就可以创建自己的类。例如，在 [Laravel](https://laravel.com/docs/8.x/cache#adding-custom-cache-drivers) 中，我们可以通过实现 `Illuminate\Contracts\Cache\Store` 接口来创建自己的自定义缓存驱动类。
 
@@ -210,7 +210,7 @@ class ReportDownloadService
 
 希望通过阅读这篇文章，你能对什么是接口、如何在 PHP 中使用接口以及使用接口的好处有一个简单的了解。
 
-Laravel 的读者朋友们，我将会在下周写一篇新文章，告诉你如何在 Laravel 中使用接口实现桥接模式。如果你对此感兴趣，欢迎[订阅我的网站](https://ashallendesign.co.uk/blog)，以便能及时获取我的发布通知。
+对于读者朋友们中的 Laravel 开发者，我将会在下周写一篇新文章，告诉你如何在 Laravel 中使用接口实现桥接模式。如果你对此感兴趣，欢迎[订阅我的网站](https://ashallendesign.co.uk/blog)，以便能及时获取我的发布通知。
 
 希望这篇文章对你理解接口有所帮助。让我们一起继续构建令人惊叹的东西吧！🚀
 
