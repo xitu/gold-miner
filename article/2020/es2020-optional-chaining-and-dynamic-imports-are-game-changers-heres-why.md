@@ -3,19 +3,19 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/es2020-optional-chaining-and-dynamic-imports-are-game-changers-heres-why.md](https://github.com/xitu/gold-miner/blob/master/article/2020/es2020-optional-chaining-and-dynamic-imports-are-game-changers-heres-why.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[ghost](https://github.com/ghost)、[wuyanan](https://github.com/wuyanan)
+> * 校对者：[ghost](https://github.com/ghost)、[wuyanan](https://github.com/wuyanan)、[Yang Mao](https://github.com/leo-mao)
 
 # 为什么说 ES2020 的可选链和模块动态导入特性改变了已有的生态规则？
 
 ![图由 [veeterzy](https://unsplash.com/@veeterzy?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11520/0*kgic-88vVUjDQbYC)
 
-自从 2015 年发布 ES6 语法规范以来，JavaScript 又进行了几次升级。之后，大量的语法特性提案也被纳入到 ES2020 语法规范中。其中有不乏大量著名新特性，我在此文将重点介绍可选链（Optional Chaining）和模块动态导入（Dynamic Imports）这两个特性。如果能在以前的项目中使用上这两大特性，我们所编写的代码量将大大缩减。
+自从 2015 年发布 ES6 语法规范以来，JavaScript 又进行了几次升级。之后，大量的语法特性提案也被纳入到 ES2020 语法规范中。其中有不少值得一提的新特性，我在此文将重点介绍可选链（Optional Chaining）和模块动态导入（Dynamic Imports）这两个特性。如果能在以前的项目中使用上这两大特性，代码量将会大大缩减。
 
 下面我们一起来看一看这两大特性。
 
 ## 可选链
 
-可选链特性是通过 `?.` 操作符访问对象的属性，它允许在不依次校验每一个属性是否存在的情况下，直接访问嵌套对象的属性。`?.` 操作符与传统的 `.` 操作符十分相似，但是在操作符前面的值为 `undefined` 或 `null` 时该语法不会导致程序报错，并且其获取到的属性值为 `undefined`。
+借助可选链特性我们可以通过 ?. 操作符在访问对象嵌套的属性而不需要校验这些属性是否存在。`?.` 操作符与传统的 `.` 操作符十分相似，但是在操作符前面的值为 `undefined` 或 `null` 时该语法不会导致程序报错，并且其获取到的属性值为 `undefined`。
 
 使用可选链特性可以用更加简洁的代码保证在访问不确定属性的对象时不会报错。
 
@@ -233,7 +233,7 @@ console.log(book?.weight?.version3?.value);
 // undefined
 ```
 
-即使 `book.weight` 上不存在 `version3` 这个属性，并且我们也没有明确的校验 `book.weight.version3` 是否是 `null` 或 `undefined`，但是上述代码还是正常执行没有报错，这是主要是因为可选链在访问属性之前会校验是否是 `undefined` 或 `null`。
+即使 `book.weight` 上不存在 `version3` 这个属性，并且我们也没有显式的校验 `book.weight.version3` 是否是 `null` 或 `undefined`，但是上述代码还是正常执行没有报错，这是主要是因为可选链在访问属性之前会校验是否是 `undefined` 或 `null`。
 
 #### 浏览器兼容性
 
@@ -241,18 +241,18 @@ console.log(book?.weight?.version3?.value);
 
 ## 动态导入
 
-动态导入使得应用可以以原生的方式（译者注：之前的动态导入都是由打包工具，如 webpack 在本地编译打包的方式实现的）把 .js 文件作为模块进行动态导入。在 ES2020 之前，模块无论是否被使用到了都会被导入进来。这一特性，将极大的提升网页应用的性能。
+动态导入使得应用可以以原生的方式（译者注：之前的动态导入都是由打包工具，如 webpack 在本地编译打包的方式实现的）把 .js 文件作为模块动态地进行导入。在 ES2020 之前，模块无论是否被使用到了都会被导入进来。这一特性，将极大的提升网页应用的性能。
 
 #### 为何需要动态导入
 
-之前的模块导入是基于静态声明的，所以 `import` 模块导入语句只能放置在文件的顶部。并且，`import` 要求传入的模块描述符必须是字符串字面量，不能包含变量。这些限制使得现在的动态导入访问远比静态声明的模块导入方案灵活。
+之前的模块导入是基于静态声明的，而 `import` 语句只能放置在文件的顶部。并且，`import` 要求传入的模块描述符必须是字符串字面量，不能包含变量。这些限制使得现在的动态导入访问远比静态声明的模块导入方案灵活。
 
 但是静态模块导入也有其优点，比如它支持模块静态分析、打包构建工具、Tree-Shaking 优化等。
 
-同样静态模块导入语法还不支持以下特性：
+不过静态模块导入语法不支持以下特性：
 
-* 模块按需加载；
-* 模块描述符使用运行时的变量值；
+* 模块按需导入；
+* 在模块描述符中使用变量，具体值在运行时才确定；
 * 使用 `script` 标签导入模块。
 
 使用动态导入特性就能解决上述几个问题。
@@ -261,9 +261,9 @@ console.log(book?.weight?.version3?.value);
 
 #### 使用模块动态导入前后对比
 
-假设我们的应用有一个导出为 XML 或 CSV 格式文档的功能，团队对实现这两种格式导出功能分别开发了一个模块。按照这样的加载方式，模块代码量将变大从而减缓页面加载。
+假设我们的应用有一个导出为 XML 或 CSV 格式文档的功能，团队对实现这两种格式导出功能分别开发了一个模块。按之前的导入方式，模块代码量会很大并且导致页面加载缓慢。
 
-**静态模块加载**
+**静态模块导入**
 
 ```JavaScript
 import { exportAsCSV } from './export-as-csv.js';
@@ -277,13 +277,13 @@ exportCSVButton.addEventListener('click', () => { exportAsCSV(dataBlock) });
 exportXMLButton.addEventListener('click', () => { exportAsXML(dataBlock) });
 ```
 
-可以看到，`exportAsCSV` 和 `exportAsXML` 模块不管有没有被实际用到都会先加载到应用中。实际上，并非所有用户都会用到这些功能，这种方式将会下载一些无用的代码到浏览器。
+可以看到，`exportAsCSV` 和 `exportAsXML` 模块不管有没有被实际用到都会先导入到应用中。实际上，并非所有用户都会用到这些功能，这会给浏览器增加不必要的负担。
 
-这种提前加载资源的方式可以动态懒加载模块来避免，目前已经可以借助 webpack 等模块打包器的**代码分割**功能的来实现。
+这种额外的负担可以通过模块的推迟加载来避免，目前已经可以借助 webpack 等模块打包器的**代码分割**功能的来实现。
 
 但是在 ES2020 标准规范中，已经原生支持这一特性，就不需要使用模块打包器的代码分割功能了。
 
-**动态模块加载**
+**动态模块导入**
 
 ```JavaScript
 const dataBlock = getData();
