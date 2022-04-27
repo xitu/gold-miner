@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/using-interfaces-to-write-better-php-code.md](https://github.com/xitu/gold-miner/blob/master/article/2021/using-interfaces-to-write-better-php-code.md)
 > * 译者：[kamly](https://github.com/kamly)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[Adolescent0](https://github.com/Adolescent0)
+> * 校对者：[Adolescent0](https://github.com/Adolescent0)、[Yang Mao](https://github.com/leo-mao)
 
 # 使用接口编写更优雅的 PHP 代码
 
