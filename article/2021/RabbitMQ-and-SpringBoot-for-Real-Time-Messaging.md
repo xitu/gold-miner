@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
 > * 译者：[samyu2000](https://github.com/samyu2000)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[Usualminds](https://github.com/Usualminds)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[zhangchunxing](https://github.com/zhangchunxing)
 
 # 使用 RabbitMQ 和 SpringBoot 实现实时消息
 
@@ -13,7 +13,7 @@
 
 ## 问题场景
 
-我们需要为空间站建立一个消息系统，它能控制宇宙飞船的各项参数，并向宇宙飞船发送各种信息和命令。飞船会定时向空间站发送更新消息。飞船也可以跟空间站进行一对一的通信。
+我们想为 **Tycho** 空间站建立一个消息系统，这样空间站就能监控宇宙飞船的各项参数，并向宇宙飞船发送各种信息和命令。飞船会定时向空间站发送更新消息。飞船也可以跟空间站进行一对一的通信。
 
 ## 用例
 
@@ -23,10 +23,10 @@
 2. 每艘飞船和对接站之间都将实时、一对一地进行通信（即社交网络中的“即时消息”）。
 3. 对接站将向所有飞船**广播一条公共消息**。
 
-在 RabbitMQ 中，这些用例被视为不同的**交换机**。由于需要双向通信，每艘飞船和对接站就是**消费者**和**生产者**的关系。想要了解关于交换机、队列、路由器的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是：
-> 交换机向一个由路由绑定的队列发送消息。这些交换机功能各有不同，它们根据不同的路由键向队列发送消息。
+我们可以通过在 RabbitMQ 中设置不同的**交换机**来实现上面的用例。由于需要双向通信，所以每艘飞船和对接站都是**消费者**和**生产者**的关系。想要了解关于交换机、队列、路由键的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是：
+> 通过消息上的路由键，交换机就可以将消息发送到对应的队列上。这些交换机的功能是有差异的，区别就在于怎么使用路由键来向队列传递消息。
 
-在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与讲解相关概念所必要的代码。在开始讲解前，我先展示空间站和飞船的属性的配置文件：
+在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与底层概念相关的代码。以下是空间站和飞船的属性配置文件：
 
 
 ```yml
@@ -71,9 +71,9 @@ broker:
 
 我们使用直接交换模式，定期从飞船向空间站发送消息。
 
->  直接交换机基于绑定的路由键，精确匹配，向相应的队列发消息。
+>  直接交换机通过对关联的路由键的精确匹配来将消息发送到队列上。
 
-每艘飞船都可以使用公共的路由键发送更新消息。`@EnableScheduling` 和 `@Scheduled` 注解用于设置定时任务。简单的来说，我们需要发送用冒号分割隔的参数和飞船名称。`ParameterFactory` 类创建了随机双精度值的虚拟参数。举例如下：
+每艘飞船都可以使用公共的路由键发送更新消息。`@EnableScheduling` 和 `@Scheduled` 注解用于设置定时任务。简单来说，我们只需要发送用冒号分隔的参数和飞船名称。`ParameterFactory` 用来创建随机的双精度值的虚拟参数。举例如下：
 
 ```
 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
@@ -199,7 +199,7 @@ public class MessageHandler {
 
 ## 飞船和空间站之间的一对一通信
 
-**空间站 → 飞船**：我们可以再次使用直接交换机，以不同的路由键向飞船发消息。每艘飞船有它自己的队列和路由键。我们可以使用任意消息模式来确定消息是发送至哪艘飞船的，并在消息中附加一个路由键。我使用如下的消息模式：
+**空间站 → 飞船**：我们依然使用直接交换机，通过不同的路由键向飞船发送单独的消息。每艘飞船都有自己的队列和路由键。我们可以使用任意消息模式来确定消息是发送至哪艘飞船的，并在消息中附加一个路由键。我使用如下的消息模式：
 
 ```
 @rocinante: Go to Mars
@@ -209,7 +209,7 @@ public class MessageHandler {
 
 ![使用不同的路由键向飞船发送单独的消息](https://cdn-images-1.medium.com/max/2192/1*_7GMSs4GSDanzxCxoE59Og.png)
 
-这是空间站程序的代码，它实现了向飞船发送独立消息的功能。我们可以使用 CLI 以正确的格式输入消息，并使用 `MessageHandler` 类向特定飞船发送消息。它的代码非常清晰明了：
+这是空间站程序的代码，它实现了向飞船发送单独消息的功能。我们可以使用 CLI 以正确的格式输入消息，并使用 `MessageHandler` 类向目标飞船发送消息。它的代码非常清晰明了：
 
 ```java
 @Configuration
@@ -301,7 +301,7 @@ public class MessageHandler {
 }
 ```
 
-**飞船 → 空间站**：每艘飞船已经有一条跟空间站通信的通道了。在此，我们可以走捷径，使用相同的路由键来向空间站发送单独的消息。
+**飞船 → 空间站**：每艘飞船已经有一条跟空间站通信的通道了。我们可以复用这个通道，使用相同的路由键来向空间站发送单独的消息。
 
 ```java
 @Configuration
@@ -343,9 +343,9 @@ public class ChatInterface implements CommandLineRunner {
 @all: Come back to station
 ```
 
->  扇形交换机忽略路由键，向所有绑定的队列发送消息。
+>  扇形交换机将忽略路由键并向所有绑定的队列发送消息。
 
-在飞船程序中，如下所示，在 `MessageHandler` 添加一个实例用于实现广播：
+为了实现广播，我们只需要在飞船应用中的 `MessageHandler` 类中新增一段逻辑，如下所示：
 
 ```java
 @Component
@@ -404,7 +404,7 @@ public class BrokerConfiguration {
 
 ## 总结
 
-在本应用程序中，每艘飞船和空间站都同时扮演生产者和消费者。所以，它们都需要自己的队列来保存消息。空间站只需要一个直接交换机和一个队列，用于接收实时消息和定时发送消息。另一方面，由于飞船接收的消息存在两种类型 —— 单一的和公共的，就需要两个交换机。然而它们只能跟一个队列绑定，队列再跟直接交换机和扇形交换机进行绑定。本项目的实现代码：[**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)。
+在本应用程序中，每艘飞船和空间站都同时扮演着生产者和消费者。因此，它们都需要自己的队列来保存消息。空间站只需要一个直接交换机和一个队列，用于接收实时消息和周期消息。但是，飞船因为要接收两种类型的消息 —— 单独的和公共的，所以需要两个交换机。然而它们只使用一个队列，这个队列同时跟直接交换机和扇形交换机进行绑定。本项目的实现代码：[**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
