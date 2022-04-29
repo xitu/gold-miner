@@ -1,3 +1,5 @@
+* [如何使用 Python 管道 Pipe 高效编码](https://juejin.cn/post/7051051681357758494)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [使用人工智能/机器学习构建文章推荐引擎](https://juejin.cn/post/7001479252163952670)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [AI 是否已经成为内容营销的重要组成部分？](https://juejin.cn/post/6964280632801394724)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [Google 的 Apollo 芯片设计人工智能框架将深度学习芯片的性能提高了 25％](https://juejin.cn/post/6952819856429285407)（[PingHGao](https://github.com/PingHGao) 翻译）
 * [解密转置卷积](https://juejin.cn/post/6954678998123151390)（[PingHGao](https://github.com/PingHGao) 翻译）

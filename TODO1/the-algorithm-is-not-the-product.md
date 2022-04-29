@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/the-algorithm-is-not-the-product.md](https://github.com/xitu/gold-miner/blob/master/TODO1/the-algorithm-is-not-the-product.md)
 > * 译者：[fireairforce](https://github.com/fireairforce)
-> * 校对者：[Shuyun6](https://github.com/Shuyun6), [司徒公子](https://github.com/todaycoder001)
+> * 校对者：[Shuyun6](https://github.com/Shuyun6), [司徒公子](https://github.com/stuchilde)
 
 # 算法不是产品
 

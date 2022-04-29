@@ -1,3 +1,18 @@
+* [使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)（[Alfxjx](https://github.com/Alfxjx) 翻译）
+* [使用 FastAPI 提升 Python 代码的运行性能](https://juejin.cn/post/7068865005436796958)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [HTTP/3 为什么这么快？](https://juejin.cn/post/7055178022445383694)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [SpringBoot 微服务监控](https://juejin.cn/post/7056817945787236389)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [如何使用 Python 管道 Pipe 高效编码](https://juejin.cn/post/7051051681357758494)（[zenblofe](https://github.com/zenblofe) 翻译）
+* [使用 TypeScript 时你会想念的 Python 特性](https://juejin.cn/post/7007327298013626399)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [使用人工智能/机器学习构建文章推荐引擎](https://juejin.cn/post/7001479252163952670)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [分布式追踪事项](https://juejin.cn/post/7002917628326969381)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
+* [在 Python 中用最快的速度发送 HTTP 请求](https://juejin.cn/post/7000315185411915807)（[ItzMiracleOwO](https://github.com/ItzMiracleOwO) 翻译）
+* [不经测试的 Python 代码就已离崩溃不远了](https://juejin.cn/post/6998149281576288292)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [通过 Redis 构建一个响应式架构](https://juejin.cn/post/6996660780389122062)（[YueYongDev](https://github.com/YueYongDev) 翻译）
+* [使用 CDN 构建直读式缓存](https://juejin.cn/post/7001156847176515592)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
+* [我用 Python 创造了一门自己的编程语言](https://juejin.cn/post/7001316107768463368)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [缓存踩踏事件是如何导致 Facebook 最大的宕机事件之一发生的](https://juejin.cn/post/6989528598365339662)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [Rust 与 C 的速度比较](https://juejin.cn/post/6986521840621453343)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [我喜欢的微服务间通信模式](https://juejin.cn/post/6984400194615902238)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [什么是服务端请求伪造（SSRF）？](https://juejin.cn/post/6985086955247632398)（[MoonBall](https://github.com/MoonBall) 翻译）
@@ -65,7 +80,7 @@
 * [Python：使用 locals() 和 globals() 巧妙编程](https://github.com/xitu/gold-miner/blob/master/article/2020/python-smart-coding-with-locals-and-global.md)（[actini](https://github.com/actini) 翻译）
 * [如何创建一个可复用的网页爬虫](https://juejin.im/post/6860354555759869966)（[YueYongDev](https://github.com/YueYongDev) 翻译）
 * [写给工程师的《系统性能兵法》](https://juejin.im/post/6858061688386617358)（[lhd951220](https://github.com/lhd951220) 翻译）
-* [记一次 —— 构建 API 网关服务的经历](https://juejin.im/post/5ef078666fb9a0589364a46b)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [记一次 —— 构建 API 网关服务的经历](https://juejin.im/post/5ef078666fb9a0589364a46b)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [Schema.org：你未曾耳闻的流行网页标准 🤫](https://juejin.im/post/5ee4ce2df265da770c0f08b6)（[lhd951220](https://github.com/lhd951220) 翻译）
 * [如何使用 Python 生成随机文本验证码](https://juejin.im/post/5f1567a3f265da22db2c351d)（[lhd951220](https://github.com/lhd951220) 翻译）
 * [鲜为人知的 GraphQL 特性](https://juejin.im/post/5edbaf2751882543281f73fc)（[hansonfang](https://github.com/hansonfang) 翻译）
@@ -79,8 +94,8 @@
 * [使用 Django 构建一个简单的邮件服务](https://juejin.im/post/5eb6171c5188256d7a3cac97)（[shixi-li](https://github.com/shixi-li) 翻译）
 * [在 Node.js 中用 Puppeteer 实现网络爬虫](https://juejin.im/post/5eb25a806fb9a04356087809)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [Kafka vs. RabbitMQ：为什么使用 Kafka？](https://juejin.im/post/5e9e29c8f265da47a831421a)（[QinRoc](https://github.com/QinRoc) 翻译）
-* [MySQL 最佳实践 — 高效插入数据](https://juejin.im/post/5e8dc755e51d4546d32bcdd1)（[todaycoder001](https://github.com/todaycoder001) 翻译）
-* [Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [MySQL 最佳实践 — 高效插入数据](https://juejin.im/post/5e8dc755e51d4546d32bcdd1)（[司徒公子](https://github.com/stuchilde) 翻译）
+* [Go 发布新版 Protobuf API](https://juejin.im/post/5e83e1176fb9a03c80278e6d)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [用依赖注入来解耦你的代码](https://juejin.im/post/5e80a1d46fb9a03c8c03fe51)（[JalanJiang](https://github.com/JalanJiang) 翻译）
 * [给 NodeJS 的 Logs 点颜色看看！](https://juejin.im/post/5e6f01b151882549422ef315)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [停止在任何地方使用 ===](https://juejin.im/post/5e5fb5e951882549522ac8a2)（[ZavierTang](https://github.com/ZavierTang) 翻译）
@@ -91,14 +106,14 @@
 * [如何选择合适的数据库](https://juejin.im/post/5e3c10e6518825494f7de8ff)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [如何用 Nest.js、MongoDB 和 Vue.js 搭建一个博客](https://juejin.im/post/5e1820a951882526334a1d1f)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [C++ 中清晰明了的状态机代码](https://juejin.im/post/5e0ad822e51d45414f5c7fc1)（[zh1an](https://github.com/zh1an) 翻译）
-* [PHP 7.4 有什么新功能？你必须掌握的 10 大特性](https://juejin.im/post/5dfa04316fb9a0160770a501)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [PHP 7.4 有什么新功能？你必须掌握的 10 大特性](https://juejin.im/post/5dfa04316fb9a0160770a501)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [将 GraphQL 概念可视化](https://juejin.im/post/5de480d7f265da05ce3b7368)（[cyz980908](https://github.com/cyz980908) 翻译）
 * [你不需要 passport.js — node.js 认证指南](https://juejin.im/post/5e060589f265da33b0718f55)（[HytonightYX](https://github.com/HytonightYX) 翻译）
 * [动态规划算法的实际应用：接缝裁剪](https://juejin.im/post/5de8b483f265da33d039c618)（[nettee](https://github.com/nettee) 翻译）
 * [Node.js 新特性将颠覆 AI、物联网等更多惊人领域](https://juejin.im/post/5dbb8d70f265da4d12067a3e)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [如何使用 Mountebank 和 Node.js 来 Mock 服务](https://juejin.im/post/5dad5a6951882509674032cd)（[Pingren](https://github.com/Pingren) 翻译）
 * [Syslog：系统管理员完整指南](https://juejin.im/post/6858168312388386824)（[githubmnume](https://github.com/githubmnume) 翻译）
-* [为什么你要学习 Go？](https://juejin.im/post/5d6ce211f265da03cd0a99be)（[todaycoder001](https://github.com/todaycoder001) 翻译）
+* [为什么你要学习 Go？](https://juejin.im/post/5d6ce211f265da03cd0a99be)（[司徒公子](https://github.com/stuchilde) 翻译）
 * [使用因果分析优化 Go HTTP/2 服务器](https://juejin.im/post/5dc3e5faf265da4d144e86c2)（[JackEggie](https://github.com/JackEggie) 翻译）
 * [如何杀死一个进程和它的所有子进程](https://juejin.im/post/5d68a1a951882525830c7093)（[JalanJiang](https://github.com/JalanJiang) 翻译）
 * [Python 的打包现状（写于 2019 年）](https://juejin.im/post/5d72104851882572ed0004d2)（[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译）
@@ -141,14 +156,14 @@
 * [Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [超快速的分析器（一）：优化扫描器](https://juejin.im/post/5ce8cbd9e51d4556bb4cd2f9)（[nettee](https://github.com/nettee) 翻译）
 * [通过优化 Gunicorn 配置提高性能](https://juejin.im/post/5ce8cab8e51d4577523f22f8)（[shixi-li](https://github.com/shixi-li) 翻译）
-* [Go 语言工具概述](https://juejin.im/post/5ce4dc17518825240245be5b)（[iceytea](https://github.com/iceytea) 翻译）
+* [Go 语言工具概述](https://juejin.im/post/5ce4dc17518825240245be5b)（[acev](https://github.com/acev-online) 翻译）
 * [如果可以，永远不要在生产中直接运行 Node.js](https://juejin.im/post/5cdeb1306fb9a07efd46dbe5)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口](https://juejin.im/post/5cdcc216e51d453a543f9e68)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [使用 Nodemailer 轻松构建能通过电子邮件的重置密码 React 应用程序](https://juejin.im/post/5cdea6e3e51d4510b51279b3)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [模式 — 使用 Typescript 和 Node.js 的通用仓储](https://juejin.im/post/5cc715e1f265da03b36ef390)（[Raoul1996](https://github.com/Raoul1996) 翻译）
 * [自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)（[fireairforce](https://github.com/fireairforce) 翻译）
 * [Spring 的分布式事务实现 — 使用和不使用 XA — 第一部分](https://juejin.im/post/5cce4659f265da038a1487c9)（[JackEggie](https://github.com/JackEggie) 翻译）
-* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)（[iceytea](https://github.com/iceytea) 翻译）
+* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)（[acev](https://github.com/acev-online) 翻译）
 * [分布式系统如何从故障中恢复？— 重试、超时和退避](https://juejin.im/post/5ccf98ace51d456e6d133541)（[nettee](https://github.com/nettee) 翻译）
 * [减少 Python 中循环的使用](https://juejin.im/post/5cc8e012e51d453b6d4d13fd)（[qiuyuezhong](https://github.com/qiuyuezhong) 翻译）
 * [Node.js 提供百万的活跃 WebSocket 连接](https://juejin.im/post/5cbeb2f45188250ab65f1d0c)（[Mirosalva](https://github.com/Mirosalva) 翻译）

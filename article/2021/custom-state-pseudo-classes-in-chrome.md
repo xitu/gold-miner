@@ -2,7 +2,7 @@
 > * 原文作者：[Šime Vidas](https://css-tricks.com/author/simevidas/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/custom-state-pseudo-classes-in-chrome.md](https://github.com/xitu/gold-miner/blob/master/article/2021/custom-state-pseudo-classes-in-chrome.md)
-> * 译者：[iceytea](https://github.com/iceytea)
+> * 译者：[acev](https://github.com/acev-online)
 > * 校对者：[darkyzhou](https://github.com/darkyzhou)、[Chor](https://github.com/Chorer)、[Kim Yang](https://github.com/KimYangOfCat)
 
 # Chrome 浏览器的自定义状态伪类

@@ -2,36 +2,37 @@
 > * 原文作者：[Nathan Babcock](https://css-tricks.com/author/nathanbabcock/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md](https://github.com/xitu/gold-miner/blob/master/article/2021/creating-stylesheet-feature-flags-with-sass-default.md)
-> * 译者：
-> * 校对者：
+> * 译者：[Gesj-yean](https://github.com/Gesj-yean)
+> * 校对者：[KimYangOfCat](https://github.com/KimYangOfCat) [nia3y](https://github.com/nia3y)
 
-# Creating Stylesheet Feature Flags With Sass !default
+# 用 Sass 的 !default 创建样式表的特性标志
 
-`!default` is a Sass flag that indicates *conditional assignment* to a variable — it assigns a value only if the variable was previously undefined or `null`. Consider this code snippet:
+`!default` 是一个 Sass 标志，表明对一个变量进行 **条件赋值** —— 只有在变量未定义或为 `null` 时才赋值。例如以下代码片段：
 
 ```scss
 $variable: 'test' !default;
 ```
 
-To the Sass compiler, this line says:
+对于 Sass 编译器来说，这一行表示：
 
-> Assign `$variable` to value `'test'`, **but only if** `$variable` is not already assigned.
+> **仅当** `$variable` 没有被赋值时，将 `'test'` 赋值给 `$variable`。
 
-Here’s the counter-example, illustrating the other side of the `!default` flag’s conditional behavior:
+这里有一个反例，说明了 `!default` 标志的条件赋值行为的另一种情况：
 
 ```scss
 $variable: 'hello world';
 $variable: 'test' !default;
-// $variable still contains `hello world`
+// $variable 仍然为 `hello world`
 ```
 
-After running these two lines, the value of `$variable` is still `'hello world'` from the original assignment on line 1. In this case, the `!default` assignment on line 2 is ignored since a value has already been provided, and no default value is needed.
+运行这两行后，`$variable` 的值仍然是第 1 行原始赋值的 `'hello world'`。在这种情况下，第 2 行中 `!default` 的赋值将被忽略，因为已经提供了一个值，就不需要默认值。
 
-## Style libraries and `@use...with`
+## 样式库和 `@use...with`
 
-The primary motivation behind `!default` in Sass is to facilitate the usage of style libraries, and their convenient inclusion into downstream applications or projects. By specifying some of its variables as `!default`, the library can allow the importing application to customize or adjust these values, without completely forking the style library. In other words, `!default` variables essentially function as *parameters* which modify the behavior of the library code.
+Sass 中的 `!default` 主要是为了方便样式库的使用，并方便地将它们包含到下游应用程序或项目中。通过将一些变量指定为 `!default`，样式库可以允许导入的应用程序自定义或调整这些变量值，而不需要再完全地 fork 一份样式库。换句话说，`!default` 的变量本质上是作为修改样式库代码行为的 *参数*。
 
-Sass has a special syntax just for this purpose, which combines a stylesheet import with its related variable overrides:
+
+Sass 有一个专门用于此目的的特殊语法，它将样式表与相关的变量组合在一起：
 
 ```scss
 // style.scss
@@ -41,18 +42,18 @@ Sass has a special syntax just for this purpose, which combines a stylesheet imp
 );
 ```
 
-This statement functions *almost* the same as a variable assignment followed by an `@import`, like so:
+这个语句的功能 *几乎* 相同于变量赋值后跟一个 `@import`，如下所示:
 
 ```scss
-// style.scss - a less idiomatic way of importing `library.scss` with configuration
+// style.scss - 一种不太常用的导入 `library.scss` 配置的方式
 $foo: 'hello';
 $bar: 'world';
 @import 'library';
 ```
 
-The important distinction here, and the reason `@use...with` is preferable, is about the *scope* of the overrides. The `with` block makes it crystal clear — to both the Sass compiler and anyone reading the source code — that the overrides apply specifically to variables which are defined and used inside of `library.scss`. Using this method keeps the global scope uncluttered and helps mitigate variable naming collisions between different libraries.
+这里重要的区别以及原因是，关于覆盖的**范围**， `@use...with` 是可自取的。 `with` 代码块让 Sass 编译器和任何阅读源代码的人都清楚地知道，这些覆盖仅仅适用于在 `library.scss` 中定义和使用的变量。使用这种方法可以保持全局作用域的整洁，并有助于减少不同库之间的变量命名冲突。
 
-## Most common use case: Theme customization
+## 最常用的例子：自定义主题
 
 ```scss
 // library.scss
@@ -67,13 +68,13 @@ $color-secondary: salmon !default;
 );
 ```
 
-One of the most ubiquitous examples of this feature in action is the implementation of **theming**. A color palette may be defined in terms of Sass variables, with `!default` allowing customization of that color palette while all other styling remains the same (even including mixing or overlaying those colors).
+这一特性最常见的例子之一是 **主题** 的实现。主题色可以用 Sass 变量来定义，然后用 `!default` 允许自定义的主题色，为其他样式兜底（甚至包括混合或覆盖这些颜色）。
 
-Bootstrap exports its [entire Sass variable API](https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss) with the `!default` flag set on every item, including the theme color palette, as well as other shared values such as spacing, borders, font settings, and even animation easing functions and timings. This is one of the best examples of the flexibility provided by `!default`, even in an extremely comprehensive styling framework.
+Bootstrap 使用 `!default` 标志设置每一项变量，来导出它的[整个 Sass 变量 API](https://github.com/twbs/bootstrap/blob/main/scss/_variables.scss)，包括主题调色板，以及其他共享值，如间距，边框，字体设置，甚至动画渐变方法和时间。这是 `!default` 提供的灵活性的最好例子之一，即使是在一个非常全面的样式框架中。
 
-In modern web apps, this behavior by itself could be replicated using [CSS Custom Properties](https://css-tricks.com/a-complete-guide-to-custom-properties/) with a [fallback parameter](https://css-tricks.com/a-complete-guide-to-custom-properties/#h-custom-property-fallbacks). If your toolchain doesn’t already make use of Sass, modern CSS may be sufficient for the purposes of theming. However, we’ll examine use cases that can *only* be solved by use of the Sass `!default` flag in the next two examples.
+在现代网络应用中，这种行为本身就可以被[CSS 用户属性](https://css-tricks.com/a-complete-guide-to-custom-properties/)和[回退参数](https://css-tricks.com/a-complete-guide-to-custom-properties/#h-custom-property-fallbacks)复制使用。如果您的工具链还没有使用 Sass，那么现代 CSS 可能已经足够用于主题化的目的。然而，我们将检查那些只能使用 Sass `!default` 的两个例子。
 
-## Use case 2: Loading webfonts conditionally
+## 用例 2：加载网页字体
 
 ```scss
 // library.scss
@@ -86,35 +87,35 @@ $disable-font-cdn: false !default;
 @use 'library' with (
   $disable-font-cdn: true
 );
-// no external HTTP request is made
+// 没有额外的 http 请求
 ```
 
-Sass starts to show its strength when it leverages its preprocessor appearance in the CSS lifecycle. Suppose the style library for your company’s design system makes use of a custom webfont. It’s loaded from a Google’s CDN — ideally as quick as it gets — but nevertheless a separate mobile experience team at your company has concerns about page load time; every millisecond matters for their app.
+当 Sass 在 CSS 生命周期中利用它的预处理器时，它开始显示它的优势。假设你公司设计系统的样式库使用了自定义的网页字体。它从谷歌的 CDN 加载——理想的情况是尽快得到资源——但尽管如此，你公司的体验团队对页面加载时间仍然非常关心；每一毫秒对于他们的应用来说都很重要。
 
-To solve this, you can introduce an optional *boolean* flag in your style library (slightly different from the CSS color values from the first example). With the default value set to `false`, you can check this feature flag in a Sass `@if` statement before running expensive operations such as external HTTP requests. Ordinary consumers of your library don’t even need to know that the option exists — the default behavior works for them and they automatically load the font from the CDN, while other teams have access to the toggle what they need in order to fine tune and optimize page loading.
+为了解决这个问题，你可以在你的样式库中引入一个可选的 **布尔** 标志（与第一个例子中的 CSS 颜色值略有不同）。当默认值设置为 `false` 时，你可以在 Sass `@if` 语句中检查这个特性标志，然后再运行消耗较大的操作，比如外部 HTTP 请求。你的库的普通用户甚至不需要知道这个选项的存在——为他们工作提供默认行为，他们自动从 CDN 加载字体，而其他团队可以访问切换他们需要的，以微调和优化页面加载。
 
-A CSS variable would not be sufficient to solve this problem — although the `font-family` could be overridden, the HTTP request would have already gone out to load the unused font.
+一个 CSS 变量不足以解决这个问题——尽管 `font-family` 可以被覆盖，但 HTTP 请求加载了未使用的字体。
 
-## Use case 3: Visually debugging spacing tokens
+## 用例 3：调试间隔标记可视化
 
 ![](https://i1.wp.com/css-tricks.com/wp-content/uploads/2021/05/sass-default-visually-debugging.png?resize=1808%2C468&ssl=1)
 
-[View live demo](https://codepen.io/nathanbabcock/project/editor/AYYygg)
+[查看演示](https://codepen.io/nathanbabcock/project/editor/AYYygg)
 
-`!default` feature flags can also be used to create debugging tools for use during development. In this example, a visual debugging tool creates color-coded overlays for spacing tokens. The foundation is a set of spacing tokens defined in terms of ascending “t-shirt sizes” (aka “xs”/”extra-small” through “xl”/”extra-large”). From this single token set, a Sass `@each` loop generates every combination of utility classes applying that particular token to padding or margin, on every side (top, right, bottom, and left individually, or all four at once).
+`!default` 的特性标志也可以用来创建调试工具，以便在开发过程中使用。在本例中，可视化调试工具为间距标记创建颜色编码的覆盖。该基础是一组根据“T恤尺寸”（即“xs”或“最小码”到“xl”/“超大码”）升格定义的间距标记。从这个单一的标记集合，Sass `@each` 循环生成实用程序类的每个组合，将特定标志应用于每边（分别为上、右、下和左，或同时应用所有四个）的 padding 或 margin。
 
-Since these selectors are all constructed dynamically in a nested loop, and single `!default` flag can switch the rendering behavior from standard (margin plus padding) to the colored debug view (using transparent borders with the same sizes). This color-coded view may look very similar to the deliverables and wireframes which a designer might hand off for development — especially if you are already sharing the same spacing values between design and dev. Placing the visual debug view side-by-side with the mockup can help quickly and intuitively spot discrepancies, as well as debug more complex styling issues, such as [margin collapse](https://css-tricks.com/what-you-should-know-about-collapsing-margins/) behavior.
+因为这些选择器都是在嵌套循环中动态构造的，并且只有一个 `!default` 标志可以将渲染行为从标准（margin 加 padding）切换到彩色调试视图（相同的尺寸使用相同大小的透明边框）。这种颜色编码的视图可能看起来非常类似于设计师移交给开发的可交付成果和线框图——特别是如果你已经对设计和开发们共享了相同的间距值。将视觉调试视图与模型并排可以快速直观地发现差异，以及调试更复杂的样式问题，如[margin 塌陷](https://css-tricks.com/what-you-should-know-about-collapsing-margins/)行为。
 
-Again — by the time this code is compiled for production, none of the debugging visualization will be anywhere in the resulting CSS since it will be completely replaced by the corresponding margin or padding statement.
+再次说明——当此代码被编译为生产代码时，调试可视化将不会出现在结果 CSS 中的任何地方，因为它将被相应的 margin 或 padding 语句完全取代。
 
-## Further reading
+## 进一步阅读
 
-These are just a few examples of Sass `!default` in the wild. Refer to these documentation resources and usage examples as you adapt the technique to your own variations.
+这些只是 Sass `!default` 的几个例子。当你将该技术应用于自己的项目时，请参考这些文档资源和使用示例。
 
-* [`!default` documentation](https://sass-lang.com/documentation/variables#default-values)
-* [`@use with` documentation](https://sass-lang.com/documentation/at-rules/use#configuration)
-* [Bootstrap variable defaults](https://getbootstrap.com/docs/4.0/getting-started/theming/#variable-defaults)
-* [A Sass `default` use case](https://thoughtbot.com/blog/sass-default) (thoughtbot)
+* [`!default` 文档](https://sass-lang.com/documentation/variables#default-values)
+* [`@use with` 文档](https://sass-lang.com/documentation/at-rules/use#configuration)
+* [Bootstrap 中的变量默认值](https://getbootstrap.com/docs/4.0/getting-started/theming/#variable-defaults)
+* [一个 Sass `default` 使用案例](https://thoughtbot.com/blog/sass-default) (thoughtbot)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

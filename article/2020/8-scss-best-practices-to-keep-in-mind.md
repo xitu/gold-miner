@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/8-scss-best-practices-to-keep-in-mind.md](https://github.com/xitu/gold-miner/blob/master/article/2020/8-scss-best-practices-to-keep-in-mind.md)
 > * 译者：[snowyYU](https://github.com/snowyYU)
-> * 校对者：[onlinelei](https://github.com/onlinelei)，[iceytea](https://github.com/iceytea)
+> * 校对者：[onlinelei](https://github.com/onlinelei)，[acev](https://github.com/acev-online)
 
 # 8 个有用的 SCSS 最佳实践
 

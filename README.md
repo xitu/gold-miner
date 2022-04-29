@@ -94,7 +94,7 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 * [Node.js 日志记录指南](https://juejin.im/post/5cf213e4e51d4577407b1cda) ([fireairforce](https://github.com/fireairforce) 翻译)
 * [化 Markdown 为 HTML：用 Node.js 和 Express 搭建接口](https://juejin.im/post/5cdcc216e51d453a543f9e68) ([Baddyo](https://github.com/Baddyo) 翻译)
 * [使用 Nodemailer 轻松构建能通过电子邮件的重置密码 React 应用程序](https://juejin.im/post/5cdea6e3e51d4510b51279b3) ([fireairforce](https://github.com/fireairforce) 翻译)
-* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4) ([iceytea](https://github.com/iceytea) 翻译)
+* [使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4) ([acev](https://github.com/acev-online) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 设计
@@ -128,4 +128,4 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 # 合作伙伴
 
 <a href="http://www.ituring.com.cn/" target="_blank"><img src="https://i.loli.net/2018/03/21/5ab1c8723d6de.jpg" width="130px;"/></a>
-<a href="https://www.zcfy.cc/" target="_blank"><img src="https://s4.ssl.qhres.com/static/4c3fe1d5645dd9e8.svg" width="240px;" target="_blank"/></a>
+
