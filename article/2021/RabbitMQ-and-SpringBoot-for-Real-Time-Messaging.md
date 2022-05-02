@@ -2,36 +2,36 @@
 > * 原文作者：[Tanbir Ahmed](https://tanbir-sagar.medium.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md](https://github.com/xitu/gold-miner/blob/master/article/2021/RabbitMQ-and-SpringBoot-for-Real-Time-Messaging.md)
-> * 译者：
-> * 校对者：
+> * 译者：[samyu2000](https://github.com/samyu2000)、[jaredliw](https://github.com/jaredliw)
+> * 校对者：[Usualminds](https://github.com/Usualminds)、[zhangchunxing](https://github.com/zhangchunxing)
 
-# RabbitMQ and SpringBoot for Real-Time Messaging
+# 使用 RabbitMQ 和 SpringBoot 实现实时消息
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EYd1qBpQDCnVlyd_NxAFTQ.png)
 
-I’ve been watching **The Expanse** for the last few months. It has space battles, warships, aliens, and lots of other cool sci-fi troops. It also shows some advanced software that allows the space stations to monitor and communicate with all of their space ships and rockets. Got me thinking — do we have the tools to build a backend for something like that today. The first thing that came to my mind — with RabbitMQ and SpringBoot.
+在过去的几个月里，我一直在看《苍穹浩瀚》。这部剧中包含太空战、战舰、外星人和许多其他很酷的科幻部队。剧中展示了一些先进的软件，可以让空间站对所有的宇宙飞船和火箭进行监控与通信。这让我开始思考 —— 现今我们有没有像这样的后端开发工具？我首先想到的是 RabbitMQ 和 SpringBoot。
 
-## The Problem Scenario
+## 问题场景
 
-We want to build a messaging system for the space station **Tyco** which monitors different parameters of its space ships and sends personal and common messages(and/or commands) to the spaceships. The ships will send a periodic update to the station. They (the ships) can also have one-to-one communication with the station.
+我们想为 **Tycho** 空间站建立一个消息系统，这样空间站就能监控宇宙飞船的各项参数，并向宇宙飞船发送各种信息和命令。飞船会定时向空间站发送更新消息。飞船也可以跟空间站进行一对一的通信。
 
-## Use Cases
+## 用例
 
-Based on the problem scenario we have three major use cases we need to implement. We are focusing on messaging, not the events triggered by the messages (Hopefully I’ll talk about that in another project)
+基于上述场景，我们需要实现三个主要的用例。我们应当关注通信功能，而不是由消息触发的事件（希望我会在其他项目中讲述这个问题）。
 
-1. The spaceships will send periodic updates to the station.
-2. Each ship and the docking station will have real-time one-to-one messaging (“Instant Messaging” in terms of social networks).
-3. The docking station will **broadcast a common message** to all the ships.
+1. 飞船定时向空间站发送更新消息。
+2. 每艘飞船和对接站之间都将实时、一对一地进行通信（即社交网络中的“即时消息”）。
+3. 对接站将向所有飞船**广播一条公共消息**。
 
-These use cases could be developed utilizing different **exchanges** available in RabbitMQ. Each ship and the docking station will act both as **consumer** and **producer** because of the two-way communication requirement. Follow up [here](https://www.rabbitmq.com/tutorials/amqp-concepts.html) for more details on the exchanges, queues, and routing key if you want details on these concepts. In short,
->  Exchanges send messages to a specific Queue based on the Routing-key attached to the messages. These exchanges differ in their functionality on how they use the routing key to deliver messages to the queues.
+我们可以通过在 RabbitMQ 中设置不同的**交换机**来实现上面的用例。由于需要双向通信，所以每艘飞船和对接站都是**消费者**和**生产者**的关系。想要了解关于交换机、队列、路由键的更多详情，可以访问[这个链接](https://www.rabbitmq.com/tutorials/amqp-concepts.html)。概括起来就是：
+> 通过消息上的路由键，交换机就可以将消息发送到对应的队列上。这些交换机的功能是有差异的，区别就在于怎么使用路由键来向队列传递消息。
 
-The codes are available on my [GitHub](https://github.com/iamtanbirahmed/real-time-comm). Here I’m showing codes only necessary for explaining the underlying concepts. Before starting here are the properties files for the Station and the Ships.
+在我的 [GitHub 仓库](https://github.com/iamtanbirahmed/real-time-comm)有相应的代码。在这里我只展示与底层概念相关的代码。以下是空间站和飞船的属性配置文件：
 
 
 ```yml
-## application.yml for the ship's application
-## have to change property values for each ship
+## 飞船程序的 application.yml 文件
+## 每艘飞船的属性值都需要更改
 
 ship:
   name: rocinante
@@ -51,9 +51,7 @@ broker:
     queue:
       name: rocinante
 
- #.                         ---X----
-
-## applciation.yml for the station's applciation
+## 空间站程序的 application.yml 文件
 
 station:
   name: Tyco
@@ -69,25 +67,24 @@ broker:
       name: tyco-fanout-exchange
 ```
 
-## Send periodic updates to the docking station
+## 定期向对接站发送最新消息
 
-We will use the Direct Exchange for sending periodic updates from the spaceships to the station.
+我们使用直接交换模式，定期从飞船向空间站发送消息。
 
->  Direct Exchange delivers messages to the queues based on the exact match of the attached routing-key.
+>  直接交换机通过对关联的路由键的精确匹配来将消息发送到队列上。
 
-Each ship can use a common routing key to send updates. @EnableScheduling & @Scheduled annotation could be used to schedule a periodic task. For simplicity, we just send the parameters along with the ship’s name punctuated by a colon (:). The class ParameterFactory creates dummy parameters with random double values. Here is an example:
+每艘飞船都可以使用公共的路由键发送更新消息。`@EnableScheduling` 和 `@Scheduled` 注解用于设置定时任务。简单来说，我们只需要发送用冒号分隔的参数和飞船名称。`ParameterFactory` 用来创建随机的双精度值的虚拟参数。举例如下：
 
 ```
 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
 ```
 
-![Using a single routing key to send periodic updates the station](https://cdn-images-1.medium.com/max/2252/1*Zv11CGnppABtBbU2RGOoXQ.png)
+![使用单个路由键向空间站发送定期更新](https://cdn-images-1.medium.com/max/2252/1*Zv11CGnppABtBbU2RGOoXQ.png)
 
 ```java
 @Component
 @EnableScheduling
 public class UpdateScheduler {
-
     @Value("${ship.name}")
     private String shipName;
 
@@ -107,7 +104,6 @@ public class UpdateScheduler {
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
-
     @SneakyThrows
     @Scheduled(fixedDelay = 1)
     public void sendUpdates() {
@@ -116,11 +112,10 @@ public class UpdateScheduler {
         rabbitTemplate.convertAndSend(directExchange, directExchangeRoutingKey, updateMessage);
         Thread.sleep(shipUpdateFrequency);
     }
-
 }
 ```
 
-The implementation for sending messages using RabbitMQ API is fairly simple. However, to receive a message the Station needs to configure the direct exchange and bind the queue to the direct exchange with a routing key. It also needs a callback method to handle the message when it arrives at the queue. Here are the codes:
+使用 RabbitMQ API 实现发送消息的功能非常简单。然而，为了接收消息，空间站需要配置直接交换机并通过路由键与队列绑定。为了在消息到达时进行处理，它也需要定义一个回调方法。下面是相关代码：
 
 ```java
 @Configuration
@@ -157,18 +152,15 @@ public class BrokerConfiguration {
     @Bean
     Binding updateQueueBinding(Queue directExchangeQueue, DirectExchange directExchange) {
         return BindingBuilder
-                    .bind(directExchangeQueue)
-                    .to(directExchange)
-                    .with(BrokerConfiguration.directRoutingKey);
+            .bind(directExchangeQueue)
+            .to(directExchange)
+            .with(BrokerConfiguration.directRoutingKey);
     }
-
 }
 
-// message listener configuration
-
+// 消息监听配置
 @Configuration
 public class MessageListenerConfiguration {
-
     @Autowired
     private final BrokerConfiguration brokerConfiguration;
 
@@ -179,38 +171,35 @@ public class MessageListenerConfiguration {
 
     @Bean
     SimpleMessageListenerContainer container(
-       ConnectionFactory connectionFactory,
-       MessageListenerAdapter listenerAdapter) {
+        ConnectionFactory connectionFactory,
+        MessageListenerAdapter listenerAdapter) {
 
-       SimpleMessageListenerContainer container = new  SimpleMessageListenerContainer();
- container.setConnectionFactory(connectionFactory);
- container.setQueueNames(brokerConfiguration.directExchangeQueue);
- container.setMessageListener(listenerAdapter);
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(brokerConfiguration.directExchangeQueue);
+        container.setMessageListener(listenerAdapter);
         return container;
     }
 }
 
 @Component
 public class MessageHandler {
-
-    // Callback method to handle the recived messages
-
+    // 处理接收消息的回调方法
     public void receiveMessage(String message) {
         System.out.println("> " + message);
     }
-
 }
 ```
 
-The received message will look like the following in the station's console.
+空间站的控制台输出接收到的消息，如下所示：
 
 ```
 > rocinante: Update at Sat Jul 31 17:35:15 CDT 2021 Parameters{x=0.9688891, y=0.82120174, z=0.6792371, fuelPercentage=0.2711178}
 ```
 
-## One-to-one communication between ships and the station
+## 飞船和空间站之间的一对一通信
 
-**Station → Ship**: We can again use direct exchange for sending individual messages to the ships using different routing keys. Each of the ships will have its own queue and routing key. We can have any messaging pattern to determine for which ship any message is meant and attach a routing key with the message. I used a messaging pattern like the following.
+**空间站 → 飞船**：我们依然使用直接交换机，通过不同的路由键向飞船发送单独的消息。每艘飞船都有自己的队列和路由键。我们可以使用任意消息模式来确定消息是发送至哪艘飞船的，并在消息中附加一个路由键。我使用如下的消息模式：
 
 ```
 @rocinante: Go to Mars
@@ -218,9 +207,9 @@ The received message will look like the following in the station's console.
 @nauvoo: Go to Earth
 ```
 
-![Using different routing keys to send individual messages to the ships](https://cdn-images-1.medium.com/max/2192/1*_7GMSs4GSDanzxCxoE59Og.png)
+![使用不同的路由键向飞船发送单独的消息](https://cdn-images-1.medium.com/max/2192/1*_7GMSs4GSDanzxCxoE59Og.png)
 
-Here is the code of the Station’s application for sending individual messages to the ships. Using a CLI we can take the input in the correct format and using the **MessageHandler** class send the message to the intended ship. The code is very straightforward.
+这是空间站程序的代码，它实现了向飞船发送单独消息的功能。我们可以使用 CLI 以正确的格式输入消息，并使用 `MessageHandler` 类向目标飞船发送消息。它的代码非常清晰明了：
 
 ```java
 @Configuration
@@ -234,13 +223,13 @@ public class ChatInterface implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String...args) {
         System.out.println("Send message...");
         while (true) {
             String msg = scanner.nextLine();
-            if(msg.contains(":")){
+            if (msg.contains(":")) {
                 messageHandler.sendMessage(msg);
-            }else{
+            } else {
                 System.out.println("Message format not correct!!");
             }
 
@@ -248,39 +237,37 @@ public class ChatInterface implements CommandLineRunner {
     }
 }
 
-// Class to handle sending messaging to specific topic
+// 处理向特定主题发送消息的类
 @Component
 public class MessageHandler {
-
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(String cmd) {
-      String to = cmd.split(":")[0];
-      String msg = cmd.split(":")[1];
-      switch(to){
+        String to = cmd.split(":")[0];
+        String msg = cmd.split(":")[1];
+        switch (to) {
         case "@rocinante":
-            rabbitTemplate.convertAndSend("rocinante-direct-exchange", "__rocinante", "Station-021: "+msg);
+            rabbitTemplate.convertAndSend("rocinante-direct-exchange", "__rocinante", "Station-021: " + msg);
             break;
         case "@razorback":
-            rabbitTemplate.convertAndSend("razorback-direct-exchange", "__razorback", "Station-O21: "+msg);
+            rabbitTemplate.convertAndSend("razorback-direct-exchange", "__razorback", "Station-O21: " + msg);
             break;
         case "@nauvoo":
-            rabbitTemplate.convertAndSend("nauvoo-direct-exchange", "__nauvoo", "Station-O21: "+msg);
+            rabbitTemplate.convertAndSend("nauvoo-direct-exchange", "__nauvoo", "Station-O21: " + msg);
             break;
         default:
             System.out.println("Message format not correct!!");
+        }
     }
-  }
 }
 ```
 
-To receive the messages the ships need to define it’s own direct exchange, queue, and bind it with a unique routing key. The codes for the ships are almost similar to the station for receiving messages from direct exchange. Hence, only the skeleton is shown here.
+为了接收消息，飞船需要定义自身的交换机、队列，并将队列跟一个唯一的路由键绑定。飞船将从直接交换机接收消息，其代码和空间站的类似。因此，这里只展示基本框架。
 
 ```java
 @Configuration
 public class DirectExchangeConfiguration {
-
     private static String directExchange;
 
     @Value("${broker.exchange.direct.ship.name}")
@@ -296,20 +283,17 @@ public class DirectExchangeConfiguration {
 
 @Configuration
 public class BrokerConfiguration {
-
-    // Similar to the Ships broker configuration
+    // 类似于 Ships 的代理配置
 }
+
 @Configuration
 public class MessageListenerConfiguration {
-
-    // Similar to the Ships message listener configuration
+    // 类似于 Ships 的消息监听器配置
 }
 
 @Component
 public class MessageHandler {
-
-    // Callback method to handle the recived messages
-
+    // 处理接收到的消息的回调方法
     public void receiveMessage(String message) {
         System.out.println("> " + message);
     }
@@ -317,19 +301,20 @@ public class MessageHandler {
 }
 ```
 
-**Ship → Station**: Each ship already has a channel of communication with the station for their regular update. We can take a shortcut here and use the same routing key for sending individual messages to the station.
+**飞船 → 空间站**：每艘飞船已经有一条跟空间站通信的通道了。我们可以复用这个通道，使用相同的路由键来向空间站发送单独的消息。
 
 ```java
 @Configuration
 public class ChatInterface implements CommandLineRunner {
-
     private final RabbitTemplate rabbitTemplate;
     private final Scanner scanner;
 
     @Value("${ship.name}")
     private String shipName;
+    
     @Value("${broker.exchange.direct.station.name}")
     private String directExchange;
+    
     @Value("${broker.exchange.direct.station.routing-key}")
     private String directExchangeRoutingKey;
 
@@ -350,37 +335,36 @@ public class ChatInterface implements CommandLineRunner {
 }
 ```
 
-## Broadcast a message to the spaceships
+## 向所有飞船广播消息
 
-For sending a common message to all the ships at a time from the station, we can use a Fanout Exchange. Fanout exchange delivers messages to all the queues that are bound to it ignoring the routing key. The ships can bind the already existing queue they used for One-to-One messaging to a specific fanout exchange whit out any routing key and the station can just throw a message to the exchange without worrying about the routing key. In my application, I used the following messaging pattern to signal the station to broadcast the message.
+我们希望空间站能同一时间向所有飞船发送一条公共消息。因此，我们可以通过使用扇形交换机来实现这一用例。扇形交换机会忽略路由键并将消息传递给与它绑定的所有队列。飞船可以将之前用于一对一通信的队列绑定到一个特定的扇形交换机上，而不用设置任何路由键。这样一来，空间站可以直接向该交换机抛出消息，不用考虑路由键。在我的应用程序中，使用了下面的消息格式向空间站发送信号，完成广播消息。
 
 ```
 @all: Come back to station
 ```
 
->  Fanout Exchange delivers messages to all the queues that are bound to it ignoring the routing key.
+>  扇形交换机将忽略路由键并向所有绑定的队列发送消息。
 
-For broadcasting just needed to add a new case like the following in the **MessageHandler** class of the ship’s application:
+为了实现广播，我们只需要在空间站应用中的 `MessageHandler` 类中新增一段逻辑，如下所示：
 
 ```java
 @Component
 public class MessageHandler {
-    
     @Autowired
     private final RabbitTemplate rabbitTemplate;
 
     public void sendMessage(String cmd) {
         String to = cmd.split(":")[0];
         String msg = cmd.split(":")[1];
-        switch(to){
+        switch (to) {
             ....
 
-            // add a new case
+            // 添加一个新的 case
             case "@all":
-                rabbitTemplate.convertAndSend("tyco-fanout-exchange", "","Station: "+msg);
-                break;
-            default:
-                System.out.println("Message format not correct!!");
+                rabbitTemplate.convertAndSend("tyco-fanout-exchange", "", "Station: " + msg);
+            break;
+        default:
+            System.out.println("Message format not correct!!");
         }
     }
 }
@@ -388,12 +372,11 @@ public class MessageHandler {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WV0lW7LyExBHNLoY-gDBzA.png)
 
-The code for receiving the broadcasted message for each ship needs to add the following configurations.
+飞船接收广播消息的代码需要添加如下的配置：
 
 ```java
 @Configuration
 public class FanoutExchangeConfiguration {
-
     private static String fanoutExchange;
 
     @Value("${broker.exchange.fanout.name}")
@@ -409,11 +392,9 @@ public class FanoutExchangeConfiguration {
 
 @Configuration
 public class BrokerConfiguration {
-
     ...
 
-    // add at the end of the class for binding the common queue to           the fanout exhange
-
+    // 将公共队列绑定到扇形交换机
     @Bean
     Binding bindingToFanoutExchange(Queue commonQueue, FanoutExchange fanoutExchange) {
         return BindingBuilder.bind(commonQueue).to(fanoutExchange);
@@ -421,9 +402,9 @@ public class BrokerConfiguration {
 }
 ```
 
-## Summary
+## 总结
 
-In this application, each of the ships and the station works both as a consumer and producer. Hence, all of them needed their own queue for keeping the messages. The station needed only one direct exchange and one queue for receiving real-time and scheduled messages. On the other hand, the ships needed two exchanges as there were two types of messages they could receive — individual and common. However, they could use only one queue to bind it to the direct and fanout exchange. The implementation is available here: [**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)
+在本应用程序中，每艘飞船和空间站都同时扮演着生产者和消费者。因此，它们都需要自己的队列来保存消息。空间站只需要一个直接交换机和一个队列，用于接收实时消息和周期消息。但是，飞船因为要接收两种类型的消息 —— 单独的和公共的，所以需要两个交换机。然而它们只使用一个队列，这个队列同时跟直接交换机和扇形交换机进行绑定。本项目的实现代码：[**GitHub - iamtanbirahmed/real-time-comm**](https://github.com/iamtanbirahmed/real-time-comm)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
