@@ -7,7 +7,6 @@
 
 ![Photo by [Emile Perron](https://unsplash.com/@emilep) from [Unplash](https://unsplash.com/photos/xrVDYZRGdw4)](https://cdn-images-1.medium.com/max/11014/1*ieXaavHBhInXJiKyK4RTEA.jpeg)
 
-
 # 10 Hardest Python Questions
 
 Regardless of whether you are preparing for an interview or playing with code snippets, sometimes even languages as transparent and well-structured as Python can create a real challenge.
