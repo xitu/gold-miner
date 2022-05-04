@@ -13,7 +13,7 @@
 
 ## 具有未知参数的泛型接口
 
-这是一个人为的例子。`IQuery`，它旨在描述查询事物的函数的形状。它总是返回一个 Promise 并且使用一个 [泛型](https://www.typescriptlang.org/docs/handbook/generics.html) 来描述这个 Promise 发出的的内容（`TReturn`）。该接口对于没有参数或者未知数量的参数（`UParams extends any[] = []`）的场景也足够灵活。
+这是一个人为的例子。`IQuery`，它旨在描述查询事物的函数的形状。它总是返回一个 Promise 并且使用一个 [泛型](https://www.typescriptlang.org/docs/handbook/generics.html) 来描述这个 Promise 发出的内容（`TReturn`）。该接口对于没有参数或者未知数量的参数（`UParams extends any[] = []`）的场景也足够灵活。
 
 ```ts
 interface IQuery<TReturn, UParams extends any[] = []> {
@@ -63,7 +63,7 @@ const findSongAlbum: IQuery<Album> = (title, artist) => {
 
 你还想定义其他参数及其类型。在这种情况下，`title` 和 `artist` 都是字符串。你定义了一个新类型 `Params`，并将其作为 `IQuery` 的第二个参数传递。
 
-在示例中，**TypeScript 4.0 发布以前**，`Params` 将会被定义成一个类型列表。列表中定义的的每一项都和参数列表中顺序一致。这种类型的输入称为 [元组](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) 类型。
+在示例中，**TypeScript 4.0 发布以前**，`Params` 将会被定义成一个类型列表。列表中定义的每一项都和参数列表中顺序一致。这种类型的输入称为 [元组](https://www.typescriptlang.org/docs/handbook/basic-types.html#tuple) 类型。
 
 ```ts
 type Params: [string, string]
