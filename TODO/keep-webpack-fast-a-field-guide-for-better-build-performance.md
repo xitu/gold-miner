@@ -182,7 +182,7 @@ webpack 会在查找依赖关系的同时，将每个 JavaScript 文件解析为
 
 #### **使用记录来稳定模块 ID**
 
-webpack 为依赖关系树中的每个模块分配一个 ID。随着新模块的添加以及其他模块的移除，树会发生变化，同时也会改变其中每个模块的 ID。这些 ID 被置入每个 webpack 发出的文件中，而高级别的模块混合（译者注：应指交叉依赖，npm 一直以来的的一大严重问题）可能导致不必要的重建。 通过使用 [records](https://webpack.js.org/configuration/other-options/#recordspath) 来防止这种情况，在构建之间稳定您的模块ID。
+webpack 为依赖关系树中的每个模块分配一个 ID。随着新模块的添加以及其他模块的移除，树会发生变化，同时也会改变其中每个模块的 ID。这些 ID 被置入每个 webpack 发出的文件中，而高级别的模块混合（译者注：应指交叉依赖，npm 一直以来的一大严重问题）可能导致不必要的重建。 通过使用 [records](https://webpack.js.org/configuration/other-options/#recordspath) 来防止这种情况，在构建之间稳定您的模块ID。
 
 #### **创建一个清单块**
 

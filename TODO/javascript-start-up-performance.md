@@ -70,7 +70,7 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GvwfE2GjKQyLBKPmmfRwuA.png">
 
-**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会减少 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
+**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会减少 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的解析和编译时间。
 
 ### **当前如何测量 JavaScript 的解析和编译** ###
 

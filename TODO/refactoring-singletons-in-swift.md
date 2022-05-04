@@ -78,7 +78,7 @@ class MyViewController: UIViewController {
 
 ```
 
-这个类不不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于 `CurrentUserManager`，`UserDefaults` 和 `URLSession`，但是这些依赖关系并没有表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
+这个类不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于 `CurrentUserManager`，`UserDefaults` 和 `URLSession`，但是这些依赖关系并没有表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
 ```
 let controller = MyViewController(userManager: .shared, defaults: .standard, urlSession: .shared)
 

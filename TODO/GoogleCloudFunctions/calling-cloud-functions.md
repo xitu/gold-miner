@@ -71,7 +71,7 @@ Cloud Functions 可以由 HTTP POST 方法同步的触发。为你的函数添�
 
 ##其它触发器 
 
-由于 Cloud Functions 可以由 Cloud Pub/Sub 主题消息触发，因此你可以把它和任何其它支持 Cloud Pub/Sub 作为事件总线的的 Google 服务整合起来。 借助于 HTTP 触发方式，你可以把任何其它提供 HTTP 回调(webhooks) 的服务整合起来。
+由于 Cloud Functions 可以由 Cloud Pub/Sub 主题消息触发，因此你可以把它和任何其它支持 Cloud Pub/Sub 作为事件总线的 Google 服务整合起来。 借助于 HTTP 触发方式，你可以把任何其它提供 HTTP 回调(webhooks) 的服务整合起来。
 
 ###Cloud 日志
 

@@ -44,7 +44,7 @@ Web 应用程序中的现代 UI 在结构和行为上可能很复杂。这通常
 
 ![](https://cdn-images-1.medium.com/max/800/1*Cqmpew82Wo_znz_lCYz3xQ.jpeg)
 
-普通的做法是是将需要的数据存储在应用程序状态的某处，并在 **View** 组件中编写这样的代码：`const saveButtonDisabled = !description && !date && !dateIsValid(date)`。 但问题就出在保存按钮被禁用了，因为**业务要求**必须输入所有的描述以及有效的日期。
+普通的做法是将需要的数据存储在应用程序状态的某处，并在 **View** 组件中编写这样的代码：`const saveButtonDisabled = !description && !date && !dateIsValid(date)`。 但问题就出在保存按钮被禁用了，因为**业务要求**必须输入所有的描述以及有效的日期。
 
 因此，在这种情况下，禁用按钮的逻辑应该放在待执行任务的**模型**中。 该模型可以如下表示：
 

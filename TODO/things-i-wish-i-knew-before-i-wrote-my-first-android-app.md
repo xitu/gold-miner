@@ -39,7 +39,7 @@
         }
     }
 
-这可能看起来是一个谁也不可能犯的错误. 然而并不是. 我就犯过这样的错误. 我也看到过别人出这样的错误, 我也遇到过不能一下子指出为什么这(对 Contexts 的静态引用)是一个错误的的人. 不要这么做. 这是一个极其愚蠢的行为.
+这可能看起来是一个谁也不可能犯的错误. 然而并不是. 我就犯过这样的错误. 我也看到过别人出这样的错误, 我也遇到过不能一下子指出为什么这(对 Contexts 的静态引用)是一个错误的人. 不要这么做. 这是一个极其愚蠢的行为.
 
 如果 MeTrackerStore 类一直持有 Activity 传递进它的构造函数的引用. 这个 Activity 将永远不会被垃圾回收. (除非这个静态的变量被分配给一个不同的 Activity.) 这是因为 mMeTrackerStore 是静态的, 在第一次运行应用的时候内存就会被分配给这个静态变量, 并且直到应用的进程退出这些资源才会被回收.
 
@@ -71,7 +71,7 @@
 
 在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有个DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
 
-这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当地创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它隐式引用的对象也无法被回收.
+这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当地创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它隐式引用的对象也无法被回收.
 
 这有一个非常棒的Google IO 视频  [that explains why this sort of thing happens]
 (https://www.youtube.com/watch?v=_CruQY55HOk).

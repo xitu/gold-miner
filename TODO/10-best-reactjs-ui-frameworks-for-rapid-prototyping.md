@@ -14,7 +14,7 @@
 
 ## Material UI
 
-Material-UI 是基于 Google 的质感设计（Material Design）产生的的一套丰富的 React 组件。
+Material-UI 是基于 Google 的质感设计（Material Design）产生的一套丰富的 React 组件。
 
 在数以百计的 UI 框架中，Material UI 是最准确的实现了质感设计的一个 UI 框架。
 
@@ -129,7 +129,7 @@ React Toolbox 又是一个采用 Google 的 Material Design 的 UI 库，并且�
 
 ## Ant Design of React
 
-Ant Design 是一个中国公司（蚂蚁金服）设计的的 React 库，基于他们自己项目的设计规范。是一套由 React 构建的漂亮的完整 UI 组件，采用 Material Design 设计原则。
+Ant Design 是一个中国公司（蚂蚁金服）设计的 React 库，基于他们自己项目的设计规范。是一套由 React 构建的漂亮的完整 UI 组件，采用 Material Design 设计原则。
 
 他们正在寻找志愿者来完善他们的英文翻译（例如，时间选择器组件需要翻译），如果你有兴趣，请查看 [这个issue](https://github.com/ant-design/ant-design/issues/1471)。
 

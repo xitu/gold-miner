@@ -374,7 +374,7 @@ let dataSource = PhotosDataSource(collectionView: collectionView, array: viewMod
 
 ### 结论
 
-在这篇文章中，我介绍了一些我做的抽取封装，以简化使用泛型数据源的 collectionView 。所提出的实现都是基于我在构建 iOS app 时遇到的重复代码的场景。一些更高级的的功能可能需要进一步的自定义。我相信，继续优化所得到的代码抽取，或者构建新的代码抽取，来简化处理不同的 collectionView 模式都是可能的。但这已经超出了这篇文章的范围。
+在这篇文章中，我介绍了一些我做的抽取封装，以简化使用泛型数据源的 collectionView 。所提出的实现都是基于我在构建 iOS app 时遇到的重复代码的场景。一些更高级的功能可能需要进一步的自定义。我相信，继续优化所得到的代码抽取，或者构建新的代码抽取，来简化处理不同的 collectionView 模式都是可能的。但这已经超出了这篇文章的范围。
 
 所有的通用数据源代码和示例工程都在 [GitHub](https://github.com/andrea-prearo/GenericDataSource) 并且是遵守 MIT 协议的。你可以直接使用和修改它们。欢迎所有的反馈意见和建议的贡献，并非常感谢你这么做。如果你有足够的兴趣，我将很乐意添加所需的配置，使代码与Cocoapods和Carthage一起使用，并允许使用这种依赖关系管理工具导入通用数据源。或者，这可能是一个很好的起点去为这个项目做出贡献。
 

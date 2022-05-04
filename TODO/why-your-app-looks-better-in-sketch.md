@@ -52,7 +52,7 @@ APP 为什么有可能看起来并不像原始设计稿那样好，这是有很�
 
 ![](https://cdn-images-1.medium.com/max/1000/1*1hmlpwlESTIIh7jOHL57Ug.jpeg)
 
-上面这个例子中最大的不同就是换行的位置。设计图中的第三组以 “This text is SF Semibold” 开始的文字，在 “25” 后面进行换行，但在 app 中，换行是在 “points” 后进行的。这个相同的问题会发生在那些换行不一致的的文字段落中。
+上面这个例子中最大的不同就是换行的位置。设计图中的第三组以 “This text is SF Semibold” 开始的文字，在 “25” 后面进行换行，但在 app 中，换行是在 “points” 后进行的。这个相同的问题会发生在那些换行不一致的文字段落中。
 另一个比较小的不同是 leading（行间距）和 tracking（字符间距）在 Sketch 中稍大一些。
 
 当他们直接被覆盖时，这些不同会被更容易看到：

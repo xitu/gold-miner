@@ -249,7 +249,7 @@ Current breakpoints:
 2.1: where = LLDB-Debugger-Exploration`LLDB_Debugger_Exploration.ViewController.viewDidLoad () -> () + 521 at ViewController.swift:60, address = 0x0000000107f3e609, resolved, hit count = 1
 ```
 
-列表中的第一个数字是是断点的 ID，你可以通过这个 ID 引用到指定的断点。现在让我们在控制台中设置一些新的断点：
+列表中的第一个数字是断点的 ID，你可以通过这个 ID 引用到指定的断点。现在让我们在控制台中设置一些新的断点：
 
 ```
 (lldb) breakpoint set -f ViewController.swift -l 96

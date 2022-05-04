@@ -52,7 +52,7 @@
 
 **AAA** 是单元测试中代码格式与排版的一种模式。
 
-如果你只用 XCTests 去编写的的测试代码，你应该将功能部份并为一组，用空白行分隔：
+如果你只用 XCTests 去编写的测试代码，你应该将功能部份并为一组，用空白行分隔：
 
 - **Arrange** 所有必要的预处理与输入
 
@@ -213,7 +213,7 @@ RSpec 的测试风格可以提高你部分的测试用例。
 
 #### RSpec / BDD ####
 
-[RSpec](http://rspec.info)是常见的行为驱动开发（BDD）方式，去写人类可读的的规范，可以专注于你应用的开发。
+[RSpec](http://rspec.info)是常见的行为驱动开发（BDD）方式，去写人类可读的规范，可以专注于你应用的开发。
 
 在 iOS 上，我更喜欢 [Quick](https://github.com/Quick/Quick) 这个进行 BDD 测试的框架和一个叫做 [Nimble](https://github.com/Quick/Nimble) 的 “matcher 框架”.
 

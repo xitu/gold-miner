@@ -12,7 +12,7 @@
 
 ## 常规断点
 
-当创建一个常规断点时，它们会出现在 Xcode 的断点导航器中，分列在工作区或者工程下，这取决于你当前所工作的位置。你可以通过点击列表中或者它所指向的代码旁边的的断点符号来激活或禁用一个断点。
+当创建一个常规断点时，它们会出现在 Xcode 的断点导航器中，分列在工作区或者工程下，这取决于你当前所工作的位置。你可以通过点击列表中或者它所指向的代码旁边的断点符号来激活或禁用一个断点。
 
 ![A regular breakpoint](https://pspdfkit.com/images/blog/2017/user-breakpoints-in-xcode/regular-breakpoint@2x-a201ce1c.png)
 

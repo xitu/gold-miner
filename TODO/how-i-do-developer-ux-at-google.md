@@ -133,7 +133,7 @@ new Card(
 然而，在前几次的用户测试研究中，研究小组对一些参与者在文件保存时触发 Hot Reload 的预期感到困惑。尽管事实上，Hot Reload 按钮启动指令时就显示在 入门引导的 gif 动画中，他们怎么会看不到 Hot Reload 按钮呢？
 ![](https://cdn-images-1.medium.com/max/1600/1*oE-etcL1SzjYrNWTac9RtQ.gif)
 
-结果表明，无视 Hot Reload 按钮并期望在保存时触发重新加载的的参与者是 React Native 的用户。他们告诉我们，在 React Native 中，Hot Reload 是在文件保存时自动执行的。
+结果表明，无视 Hot Reload 按钮并期望在保存时触发重新加载的参与者是 React Native 的用户。他们告诉我们，在 React Native 中，Hot Reload 是在文件保存时自动执行的。
 
 开发人员预先存在的心智模型会改变他们的感知，并在一定程度上对 UI 元素产生『盲目性』。团队增加了更多的视觉提示来帮助发现 Hot Reload 按钮。此外，一些工程师一直在研究一种可靠的方法，为需要它的用户提供保存时重新加载的功能。
 

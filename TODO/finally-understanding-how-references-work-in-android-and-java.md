@@ -27,7 +27,7 @@ Java 默认有 4 种类型的引用：**强引用（StrongReference）**、**软
 
     MyObject object = new MyObject();
 
-一个新的 **MyObject** 对象被创建，指向它的强引用保存在 **object** 中。你还在看吧？ 嗯，更有意思的事情来了，这个 **object** 是可以**强行到达**的——意思就是，它可以通过一系列强引用找到，这将会阻止垃圾回收机制回收它，然而，这正是是我们最想要的。现在，我们来看个例子。
+一个新的 **MyObject** 对象被创建，指向它的强引用保存在 **object** 中。你还在看吧？ 嗯，更有意思的事情来了，这个 **object** 是可以**强行到达**的——意思就是，它可以通过一系列强引用找到，这将会阻止垃圾回收机制回收它，然而，这正是我们最想要的。现在，我们来看个例子。
 
     public class MainActivity extends Activity {
         @Override
