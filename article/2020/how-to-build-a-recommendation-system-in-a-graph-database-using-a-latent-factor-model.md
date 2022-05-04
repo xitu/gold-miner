@@ -38,7 +38,7 @@
 ![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*T2BPqSnRLLUpGHMa.png)
 <div style="font-size:12px">图 2（图片由作者提供），表格展示了 4 位用户对 6 部电影的评分记录，评分范围从 0 到 5，缺少评分的部分用问号表示。θ(j) 和 x(i) 表示隐语义向量，爱丽丝的评分预测是根据潜在因子计算的，并且以橙色字体显示在真实值旁边。</div>
 
-图 2 中的例子仅仅是说明了因子分解方法的直观性。在实践中，每个向量元素的含义通常是未知的。这些向量实际上是随机初始化的，并通过最小化以下的的损失函数来“训练”^[1]^。
+图 2 中的例子仅仅是说明了因子分解方法的直观性。在实践中，每个向量元素的含义通常是未知的。这些向量实际上是随机初始化的，并通过最小化以下的损失函数来“训练”^[1]^。
 
 ![](https://blog-private.oss-cn-shanghai.aliyuncs.com/images/0*Mhilgi_E_Xo1XymH.png)
 
