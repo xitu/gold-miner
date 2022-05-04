@@ -203,7 +203,7 @@ iOS 7 的设计真的让背景模糊化变得流行起来，虽然 Windows Vista
 
 从 [hugeinc.com](http://hugeinc.com/case-study/material-design) 来的案例分析。
 
-“材料设计”（Material Design）里有很多 up-pop 的的内容。它是**大**的；它是**高对比度**的；它是**非常****粗**的。
+“材料设计”（Material Design）里有很多 up-pop 的内容。它是**大**的；它是**高对比度**的；它是**非常****粗**的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yVbtuu-qvhFRXNwWKBvL-A.png)
 

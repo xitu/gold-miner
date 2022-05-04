@@ -79,7 +79,7 @@ plt.show()
 
 [karpathy/char-rnn](https://github.com/karpathy/char-rnn) 是最早在字符级处理文本的 NLP 模型之一。它通过输入文本训练了一个循环神经网络（RNN），给定一段字符序列就能够预测下一个符号。[Character-Level Deep Learning in Sentiment Analysis](https://offbit.github.io/how-to-read/) 也是基于 RNN 的字符级语言模型。有时，我们会用卷积神经网络（CNNs）处理字符序列，请查阅 [Character-Aware Neural Language Models](https://arxiv.org/pdf/1508.06615v4.pdf)；[Character-level Convolutional Networks for Text Classification](https://arxiv.org/pdf/1509.01626.pdf) 这篇论文也是一个使用 CNN 进行文本分类的例子。
 
-Facebook 的 [fastText](https://github.com/facebookresearch/fastText) 库中实现的模型是基于字符的语言模型的典范。fastText 模型会创建符号词嵌入，然后基于符号表示来解决文本分类的问题。这种技术基于对多种 n 元语法生成词的分析，而不依赖于 RNN，避免了模型对于排印错误和拼写错误过于敏感的问题，也就不会对 n 元语法生成词的范围造成太大的影响。不过这个模型提供了语言词汇表中缺失的单词对应的的词嵌入。
+Facebook 的 [fastText](https://github.com/facebookresearch/fastText) 库中实现的模型是基于字符的语言模型的典范。fastText 模型会创建符号词嵌入，然后基于符号表示来解决文本分类的问题。这种技术基于对多种 n 元语法生成词的分析，而不依赖于 RNN，避免了模型对于排印错误和拼写错误过于敏感的问题，也就不会对 n 元语法生成词的范围造成太大的影响。不过这个模型提供了语言词汇表中缺失的单词对应的词嵌入。
 
 ## 模型结构
 

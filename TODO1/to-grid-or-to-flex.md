@@ -7,7 +7,7 @@
 
 # 选择 Grid 还是 Flex？
 
-一个最近由 Chris Coyier 发起的的 [推特话题](https://twitter.com/chriscoyier/status/1088827201468813312) 使我开始思考人们通常在什么情况下使用 CSS Grid 布局还是 Flexbox 布局:
+一个最近由 Chris Coyier 发起的 [推特话题](https://twitter.com/chriscoyier/status/1088827201468813312) 使我开始思考人们通常在什么情况下使用 CSS Grid 布局还是 Flexbox 布局:
 
 > 对于已经理解了 CSS grid 和 flexbox 的你们来说，最喜欢的描述二者之间差异的方法是什么？
 > 

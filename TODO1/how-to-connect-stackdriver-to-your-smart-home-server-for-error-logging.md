@@ -56,7 +56,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/0*_LSoY1bG3eenfsRN)
 
-这里，你可以新建一个订阅。对于交付类型，输入用于接收订阅的的 URL。为了进行验证域名验证，你必须拥有自己的服务器：
+这里，你可以新建一个订阅。对于交付类型，输入用于接收订阅的 URL。为了进行验证域名验证，你必须拥有自己的服务器：
 
 ![](https://cdn-images-1.medium.com/max/800/0*h30i-CpLpUr6LnXR)
 

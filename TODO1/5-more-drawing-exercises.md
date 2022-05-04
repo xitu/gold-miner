@@ -111,7 +111,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*mNhkP2Tty9WtrVK0a1VT1w.gif)
 
-很少有能比得上在大自然中静静地画上几个小时的植物的乐趣。也很少有需要我们如此专注的的时候。我们需要全神贯注，避免陷入平庸的象征性表达。
+很少有能比得上在大自然中静静地画上几个小时的植物的乐趣。也很少有需要我们如此专注的时候。我们需要全神贯注，避免陷入平庸的象征性表达。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sLpTjiAxJNXNb9TEI0BZ7Q.png)
 

@@ -8,7 +8,7 @@
 
 ![](https://9to5mac.files.wordpress.com/2017/09/apple-watch-series-31.jpg?quality=82&w=1024#038;strip=all&w=1600)
 
-我们距离 2018 年 WWDC 只有两个月的时间，苹果将推出其操作系统的下一个主要版本，而 watchOS 可以说是苹果的能力最弱的的平台。Apple Watch Series 3 是最具能力的版本，拥有蜂窝连接和更快的芯片，而 watchOS 5 可以通过该硬件释放更多潜能。请阅读我在 watchOS 5 中看到的内容：
+我们距离 2018 年 WWDC 只有两个月的时间，苹果将推出其操作系统的下一个主要版本，而 watchOS 可以说是苹果的能力最弱的平台。Apple Watch Series 3 是最具能力的版本，拥有蜂窝连接和更快的芯片，而 watchOS 5 可以通过该硬件释放更多潜能。请阅读我在 watchOS 5 中看到的内容：
 
 ### 更多音频流
 

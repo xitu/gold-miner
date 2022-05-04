@@ -116,7 +116,7 @@ mutationObserver.disconnect();
 
 #### Polling
 
-最简单的最接近原生的方法是 polling。使用浏览器的 setInterval web 接口你可以设置一个在一段时间后检查是否有变化发生的的任务。自然，这个方法将会严重的降低应用或者网站的性能。
+最简单的最接近原生的方法是 polling。使用浏览器的 setInterval web 接口你可以设置一个在一段时间后检查是否有变化发生的任务。自然，这个方法将会严重的降低应用或者网站的性能。
 
 #### MutationEvents
 

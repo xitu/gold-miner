@@ -258,7 +258,7 @@ end
 
 这个测试案例，通过查询来得到一组帖子信息的方式来测试我们的终端。我们首先在数据库中插入一些帖子的记录，然后写一个查询语句，接着通过 POST 方法将语句发送给服务器，最后检查服务器的回复，确保返回的结果符合预期。
 
-这里还有一个非常相似的案例，测试是否能查询得到单个帖子信息。这里我们就不再赘述（如果你想了解所有的集成测试，你可以查看[这里](https://github.com/schneidmaster/socializer/tree/master/test/socializer_web/integration)）。下面让我们看一下为创建帖子的 Mutation 所做的的集成测试。
+这里还有一个非常相似的案例，测试是否能查询得到单个帖子信息。这里我们就不再赘述（如果你想了解所有的集成测试，你可以查看[这里](https://github.com/schneidmaster/socializer/tree/master/test/socializer_web/integration)）。下面让我们看一下为创建帖子的 Mutation 所做的集成测试。
 
 ```elixir
 # test/socializer_web/integration/post_resolver_test.exs
@@ -1007,7 +1007,7 @@ describe("Posts", () => {
 });
 ```
 
-我们的第一个测试检查了加载的的状态。我们必须把它包裹在几个高阶函数里 —— `MemoryRouter`，给 React Router 的 `Link` 和 `Route` 提供了一个模拟的路由；`AuthContext.Provider`，提供了认证的状态，和 Apollo 的 `MockedProvider`。因为我们已拍了一个即时的快照并返回，我们事实上不需要模拟任何事情；一个即时的快照会在 Apollo 有机会执行 query 查询之前捕捉到加载的状态。
+我们的第一个测试检查了加载的状态。我们必须把它包裹在几个高阶函数里 —— `MemoryRouter`，给 React Router 的 `Link` 和 `Route` 提供了一个模拟的路由；`AuthContext.Provider`，提供了认证的状态，和 Apollo 的 `MockedProvider`。因为我们已拍了一个即时的快照并返回，我们事实上不需要模拟任何事情；一个即时的快照会在 Apollo 有机会执行 query 查询之前捕捉到加载的状态。
 
 ```javascript
 // client/src/components/Posts.test.js

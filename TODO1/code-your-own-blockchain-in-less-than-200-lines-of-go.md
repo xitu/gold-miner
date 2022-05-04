@@ -250,7 +250,7 @@ func handleGetBlockchain(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-我们只需以 JSON 格式回写完整的的区块链，就可以通过访问 `localhost:8080` 在任意浏览器中能够查看。我们在 `.env` 文件中将 `ADDR` 变量设置为 8080，如果您更改它，请确保访问您的正确端口。
+我们只需以 JSON 格式回写完整的区块链，就可以通过访问 `localhost:8080` 在任意浏览器中能够查看。我们在 `.env` 文件中将 `ADDR` 变量设置为 8080，如果您更改它，请确保访问您的正确端口。
 
 我们的 `POST` 请求有些复杂（复杂情况并不多）。首先，我们需要一个新的 `Message` `struct`。稍后我们会解释为什么我们需要它。
 

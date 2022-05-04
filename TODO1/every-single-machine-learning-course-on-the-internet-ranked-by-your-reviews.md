@@ -37,7 +37,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 2.  **必须按需或每隔几个月提供一次。**
 3.  **必须是可交互的在线课程，不能使用书本或只读的指南**。尽管那些也是学习的途径，但是这里只关注课程。完全的视频教程（也就是说没有测验或课后作业等）也要排除。
 
-我相信我们已经包含了所有符合上述准则值得关注的的课程。[Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面有几百门课程，我们只选择其中留言最多、评分最高的课程。
+我相信我们已经包含了所有符合上述准则值得关注的课程。[Udemy](https://click.linksynergy.com/fs-bin/click?id=SAyYsTvLiGQ&subid=&offerid=323058.1&type=10&u1=medium-career-guide-machine-learning&tmpid=14494&RD_PARM1=https%253A%252F%252Fwww.udemy.com%252F) 上面有几百门课程，我们只选择其中留言最多、评分最高的课程。
 
 不过由于精力有限，一定还是有可能我们会忽略掉某课程的。如果你发现我们漏掉了一门好课程，请在评论区留言让我们知道。
 
@@ -55,7 +55,7 @@ _Kaboompics_ **的[木头人](https://www.pexels.com/photo/wooden-robot-6069/)**
 
 一个流行的定义起源于 1959 年 [Arthur Samuel](https://en.wikipedia.org/wiki/Arthur_Samuel "Arthur Samuel") 的说法：机器学习是计算机科学的一个分支，能够“**让计算机自主学习而无需显式编程**”。实践中，这意味着开发的计算机程序可以根据数据进行预测。就像人类可以根据经验学习一样，计算机也可以。对于计算机，数据 = 经验。
 
-机器学习工作流程是执行机器学习项目所需的过程。尽管单个项目可能不同，但是绝大多数工作流程都需要这么几个通用任务：问题评估，数据探索，数据预处理，模型训练、测试、部署，等等。下面你会看到这些核心步骤有用的的可视化展示：
+机器学习工作流程是执行机器学习项目所需的过程。尽管单个项目可能不同，但是绝大多数工作流程都需要这么几个通用任务：问题评估，数据探索，数据预处理，模型训练、测试、部署，等等。下面你会看到这些核心步骤有用的可视化展示：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*KzmIUYPmxgEHhXX7SlbP4w.jpeg)
 
@@ -128,7 +128,7 @@ Andrew Ng 的[机器学习](https://www.class-central.com/mooc/835/coursera-mach
 
 它的毕业评估由 11 次测验、4 次编程作业和期末考试组成。学员们可自行选择 Python、Octave 或 MATLAB 完成作业。课程的总预计时长是 12 周，每周 8 到 10 课时。课程本身是免费的，不过提供认证证书可供购买。
 
-下面是一些上文提到的课程的的高质量[评论](https://www.coursetalk.com/providers/edx/courses/machine-learning-5)：
+下面是一些上文提到的课程的高质量[评论](https://www.coursetalk.com/providers/edx/courses/machine-learning-5)：
 
 > 在当学生的这些年，我经历了各种教授：不够杰出的教授、自身杰出但是授课能力一般的教授、杰出而又擅长授课的教授。Paisley 博士就属于第三种。
 

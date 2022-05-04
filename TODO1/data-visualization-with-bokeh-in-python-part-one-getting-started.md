@@ -120,7 +120,7 @@ show(p)
 
 生成此图的大部分工作都是在数据格式化过程中进行的，这在数据科学中并不常见！从我们的绘图中可以看出，延迟到达几乎是正态分布的，[右侧有一个轻微的正斜度或重尾巴](http://www.statisticshowto.com/probability-and-statistics/skewed-distribution/)。
 
-有更简单的方法可以在 Python 中创建柱状图，也可以使用几行 `[matplotlib](https://en.wikipedia.org/wiki/Matplotlib)` 来获取相同的结果。但是，Bokeh 绘图所带来的的开发的好处在于，它可以提供将数据交互轻松地添加到图形中的工具和方法。
+有更简单的方法可以在 Python 中创建柱状图，也可以使用几行 `[matplotlib](https://en.wikipedia.org/wiki/Matplotlib)` 来获取相同的结果。但是，Bokeh 绘图所带来的开发的好处在于，它可以提供将数据交互轻松地添加到图形中的工具和方法。
 
 ### 添加交互性
 
