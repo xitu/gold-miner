@@ -87,7 +87,7 @@
 * [类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)（[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译）
 * [Git：透过命令学概念 —— 第一部分](https://juejin.im/post/5d0b3c7ce51d4577531381e3)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [10 分钟爆改终端](https://juejin.im/post/5d053fc56fb9a07ee85c283d)（[lihaobhsfer](https://github.com/lihaobhsfer) 翻译）
-* [剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)（[whatbeg](https://github.com/whatbeg) 翻译）
+* [剖析 Stack Overflow，开发者遇到最多的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)（[whatbeg](https://github.com/whatbeg) 翻译）
 * [帮你高效使用 VS Code 的秘诀](https://juejin.im/post/5cd8fcedf265da03761eaa45)（[Baddyo](https://github.com/Baddyo) 翻译）
 * [我们从招聘技术经理的过程中学到了什么](https://juejin.im/post/5cdcf463f265da0392580820)（[JackEggie](https://github.com/JackEggie) 翻译）
 * [最优控制：LQR](https://juejin.im/post/5cdfe49c6fb9a07eee5e9de6)（[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译）
@@ -101,7 +101,7 @@
 * [如何写一篇软件工程必杀简历](https://juejin.im/post/5c6ca8b9f265da2dc13c7a10)（[EmilyQiRabbit](https://github.com/EmilyQiRabbit) 翻译）
 * [提高营销效率的工程（第一部分）](https://juejin.im/post/5c403b5ce51d452c8e6d3dc4)（[Starriers](https://github.com/Starriers) 翻译）
 * [讨论 JS ⚡：文档](https://juejin.im/post/5c4039bbe51d4551733494a6)（[Starriers](https://github.com/Starriers) 翻译）
-* [我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)（[Starriers](https://github.com/Starriers) 翻译）
+* [我无法想象没有 Git 别名的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)（[Starriers](https://github.com/Starriers) 翻译）
 * [三人研发小组的高效研发尝试](https://juejin.im/post/5c19d1846fb9a049f06a33fc)（[yuwhuawang](https://github.com/yuwhuawang) 翻译）
 * [理解编译器 — 从人类的角度（版本 2）](https://juejin.im/post/5c10b2f6e51d452ad958631f)（[Starriers](https://github.com/Starriers) 翻译）
 * [深度专注的工作 — 成为 10 倍效率的开发者的秘密武器](https://juejin.im/post/5bffb3f5f265da613a53bd4b)（[tmpbook](https://github.com/tmpbook) 翻译）
