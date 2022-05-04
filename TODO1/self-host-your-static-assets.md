@@ -144,7 +144,7 @@ OK，不是很糟，但是我的一个客户 Trainline 发现为了降低 300ms 
 
 大致上说，静态资源主机很适用于建立长期 `max-age` 指令。这很自然，因为版本化 URL 上的静态资源（如上）从来不会变。因此使用适度激进的缓存策略是安全合理的。
 
-话虽这么讲，也不是所有情况都适用，而且用自托管资源你可以设计出[更有针对性的的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
+话虽这么讲，也不是所有情况都适用，而且用自托管资源你可以设计出[更有针对性的缓存策略](https://csswizardry.com/2019/03/cache-control-for-civilians/)。
 
 ## 神话：跨域缓存
 

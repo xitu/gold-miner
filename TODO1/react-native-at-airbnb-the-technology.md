@@ -19,7 +19,7 @@ React Native 本身在 Android，iOS，Web 和跨平台框架的各个部分上�
 
 #### 跨平台
 
-React Native 的主要好处在于，你所编写的代码能够同时在 Andriod 和 iOS 上运行。使用 React Native 的大多数功能都可以实现 **95 - 100% 的共享代码**，和 **0.2% 不同平台需要用的的文件**（**.android.js/.ios.js**）。
+React Native 的主要好处在于，你所编写的代码能够同时在 Andriod 和 iOS 上运行。使用 React Native 的大多数功能都可以实现 **95 - 100% 的共享代码**，和 **0.2% 不同平台需要用的文件**（**.android.js/.ios.js**）。
 
 #### 统一设计语言系统（DLS）
 

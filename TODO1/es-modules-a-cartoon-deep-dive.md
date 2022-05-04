@@ -173,7 +173,7 @@ CommonJS 方法有一些隐式特性，稍后我会解释。其中一个是，�
 
 为了让 ES 模块支持这个，有一个名为 [动态导入](https://github.com/tc39/proposal-dynamic-import) 的提案。有了它，你可以像 ``import(`${path}`/foo.js`` 这样使用 import 语句。
 
-它的原理是，任何通过 `import()` 加载的的文件都会被作为一个独立的依赖图的入口。动态导入的模块开启一个新的依赖图，并单独处理。
+它的原理是，任何通过 `import()` 加载的文件都会被作为一个独立的依赖图的入口。动态导入的模块开启一个新的依赖图，并单独处理。
 
 [![Two module graphs with a dependency between them, labeled with a dynamic import statement](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/14dynamic_import_graph-500x389.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/03/14dynamic_import_graph.png)
 

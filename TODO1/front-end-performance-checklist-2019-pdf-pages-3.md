@@ -131,7 +131,7 @@ Zach Leatherman 的[字体加载策略综合指南](https://www.zachleat.com/web
 
 [WOFF2 的支持性](http://caniuse.com/#search=woff2)是最好的，你可以使用 WOFF 作为不支持 WOFF2 的浏览器的备用选项 — 毕竟，系统字体对遗留的浏览器版本会更友好。Web 字体的加载有**很多，很多，很多**的选项。你可以从 Zach Leatherman 的 "[字体加载策略综合指南](https://www.zachleat.com/web/comprehensive-webfonts/)"中选择一种策略（代码片段也可以在 [Web 字体加载](https://github.com/zachleat/web-font-loading-recipes)中找到）。
 
-现在，更好的选项应该是[使用 Critical FOFT 结合 `preload`](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-preload) 和 ["The Compromise" 方法](https://www.zachleat.com/web/the-compromise/)。它们都使用两阶段渲染来逐步提供 Web 字体 —— 首先是使用 Web 字体快速准确地渲染页面所需的小超集，然后再异步加载剩余部分，不同的是 "The Compromise" 技术只在[字体加载事件](https://www.igvita.com/2014/01/31/optimizing-web-font-rendering-performance/#font-load-events)不受支持的的情况下才异步加载 polyfill，所以默认情况下不需要加载 polyfill。需要快速入门？Zach Leatherman 有一个 [快速入门的 23 分钟教程和案例研究](https://www.zachleat.com/web/23-minutes/)来帮助你使用字体。
+现在，更好的选项应该是[使用 Critical FOFT 结合 `preload`](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-preload) 和 ["The Compromise" 方法](https://www.zachleat.com/web/the-compromise/)。它们都使用两阶段渲染来逐步提供 Web 字体 —— 首先是使用 Web 字体快速准确地渲染页面所需的小超集，然后再异步加载剩余部分，不同的是 "The Compromise" 技术只在[字体加载事件](https://www.igvita.com/2014/01/31/optimizing-web-font-rendering-performance/#font-load-events)不受支持的情况下才异步加载 polyfill，所以默认情况下不需要加载 polyfill。需要快速入门？Zach Leatherman 有一个 [快速入门的 23 分钟教程和案例研究](https://www.zachleat.com/web/23-minutes/)来帮助你使用字体。
 
 一般而言，使用 `preload` 资源提示来预加载字体是个好主意，但需要在你的标记中包含 CSS 和 JavaScript 的链接。否则，字体加载会在第一次渲染时消耗时间。尽管如此，[有选择性](https://youtu.be/FbguhX3n3Uc?t=1637)地选择重要文件是个好主意。比如，渲染至关重要的文件会有助于你避免可视化和具有破坏性的文本刷新文件。总之，Zach 建议**预加载每个系列的一到两个字体**。如果这些字体不是很关键的话，延迟加载一些字体也是有意义的。
 

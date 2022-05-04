@@ -213,7 +213,7 @@ const subscription = listen(inputElement, “keydown”).subscribe({
 
 subscribe() 函数返回了一个订阅对象。这个对象具有取消订阅的方法。
 
-Observable 不应混淆于 [已废弃的 Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 函数，Object.observe 是可以观察对象变化的一种方法。其已被 ECMAScript 2015 中更通用的的实现 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 所替代。
+Observable 不应混淆于 [已废弃的 Object.observe](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 函数，Object.observe 是可以观察对象变化的一种方法。其已被 ECMAScript 2015 中更通用的实现 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/observe) 所替代。
 
 Observable 目前处于 stage 1，但它已被 TC39 委员会标记为 “ready to advance” 并获得了浏览器厂商的大力支持，因此有望很快推进到下一阶段。现在你就已经可以开始使用这一提案的特性了，有[三种 polyfill 实现](https://github.com/tc39/proposal-observable#implementations) 可供选择。
 

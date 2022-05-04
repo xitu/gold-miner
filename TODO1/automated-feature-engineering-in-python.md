@@ -64,7 +64,7 @@ stats.head(10)
 
 首先，让我们看看我们的数据。之前我们已经看到了一些数据集，完整的表集合如下所示：
 
-*   `clients` : 客户在信用社的的基本信息。每个客户在这个 dataframe 中仅占一行
+*   `clients` : 客户在信用社的基本信息。每个客户在这个 dataframe 中仅占一行
 
 ![](https://cdn-images-1.medium.com/max/800/1*FHR7tlD4FuGKt8n5UHUpqw.png)
 

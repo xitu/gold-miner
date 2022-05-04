@@ -26,8 +26,7 @@
 上面已经提到了，纵向扩展意味着从配置低的计算机扩展到配置高的计算机。下面是传统计算机体系结构的各个层次：
 
 ![Computer architecture - vertical scaling.](http://tutorials.jenkov.com/images/data-streaming/data-streaming-scalability-3.jpg)
-
-数据离 CPU 越远，CPU 访问它的的速度就越慢。在上图中，数据离最底层越近，CPU 访问速度越慢。
+数据离 CPU 越远，CPU 访问它的速度就越慢。在上图中，数据离最底层越近，CPU 访问速度越慢。
 
 上述计算机体系结构的每一层都经过了优化，以便串行读取数据。这意味着，顺序读取位于磁盘上，RAM 或 L3、L2、L1 高速缓存中的数据比读取随机分布在磁盘、RAM 和高速缓存的数据要快。将数据顺序写入磁盘也要比随机写入磁盘各个部分要快得多。
 

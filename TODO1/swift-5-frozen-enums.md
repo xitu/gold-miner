@@ -57,7 +57,7 @@ case .regular:
 
 **Swift 中的一个 `switch` 语句必须是详尽的或者包含一个默认的 default case 来处理其他所有情况**。我原来的 switch 语句把在 Apple 在 iOS 12 的 `UIKit` 中定义的 `UIUserInterfaceSizeClass` 的所有可能值都进行了枚举。
 
-如果 Apple 在 iOS 13 中引入了 `.tiny` 或 `.large`，那会发生什么呢？使用新版本的 SDK 编译时，编译器会因 switch 语句不再详尽而报错。解决错误的的一种方法是引入一个 `default:` case。我可以重写我的 switch 语句：
+如果 Apple 在 iOS 13 中引入了 `.tiny` 或 `.large`，那会发生什么呢？使用新版本的 SDK 编译时，编译器会因 switch 语句不再详尽而报错。解决错误的一种方法是引入一个 `default:` case。我可以重写我的 switch 语句：
 
 ```swift
 switch sizeClass {

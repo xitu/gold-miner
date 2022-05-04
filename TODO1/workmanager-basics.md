@@ -211,7 +211,7 @@ WorkManager.getInstance().enqueue(uploadWorkRequest)
 
 或者，你可以使用 [`ListenableWorker`](https://developer.android.com/reference/androidx/work/ListenableWorker) 准确指定工作的执行方式。`Worker` 实际上是 `ListenableWorker` 的一个实现，它默认在默认的 `Executor` 上运行你的工作，因此是同步的。所以，如果你想要完全控制工作的线程策略或异步运行工作，你可以将 `ListenableWorker` 子类化（具体细节将在后面的文章中讨论）。
 
-WorkManager 虽然将所有工作信息保存到数据库中有些麻烦，但它还是会做，这使得它成了非常适合需要保障执行的任务。这也是使得 WorkManager 轻松应对对于不需要保障且只需要在后台线程上执行的任务的的原因。例如，假设你已经下载了图像，并且希望根据该图像更改 UI 部分的颜色。这是应该脱离主线程运行的工作，但是，因为它与 UI 直接相关，所以如果关闭应用程序则不需要继续。所以在这样的情况下，不要使用 WorkManager —— 坚持使用像 [Kotlin 协程](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)那样轻量的东西或创建自己的 `Executor`。
+WorkManager 虽然将所有工作信息保存到数据库中有些麻烦，但它还是会做，这使得它成了非常适合需要保障执行的任务。这也是使得 WorkManager 轻松应对对于不需要保障且只需要在后台线程上执行的任务的原因。例如，假设你已经下载了图像，并且希望根据该图像更改 UI 部分的颜色。这是应该脱离主线程运行的工作，但是，因为它与 UI 直接相关，所以如果关闭应用程序则不需要继续。所以在这样的情况下，不要使用 WorkManager —— 坚持使用像 [Kotlin 协程](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)那样轻量的东西或创建自己的 `Executor`。
 
 ### 使用链进行依赖性工作
 

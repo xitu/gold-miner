@@ -1026,7 +1026,7 @@ export const calculateNextPosition = (x, y, angle, divisor = 300) => {
 };
 ```
 
-> **提示：** 要学习上面工作的的公式，[看这里](https://answers.unity.com/questions/491719/how-to-calculate-a-new-position-having-angle-and-d.html)
+> **提示：** 要学习上面工作的公式，[看这里](https://answers.unity.com/questions/491719/how-to-calculate-a-new-position-having-angle-and-d.html)
 
 你将在新的名为 `moveCannonBalls.js` 的文件中使用 `calculateNextPosition` 方法。所以，在 `./src/reducers/` 目录中创建这个文件，并加入以下代码：
 

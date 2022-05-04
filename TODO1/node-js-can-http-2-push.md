@@ -11,7 +11,7 @@
 
 自从 [2017 年 7 月](https://medium.com/the-node-js-collection/say-hello-to-http-2-for-node-js-core-261ba493846e) Node.js 中引入 HTTP/2 以来，该实践经历了好几轮的改进。现在我们基本已经准备好去掉“实验性”标志。当然最好使用 Node.js 版本 9 来尝试 HTTP/2 支持，因为这个版本有着最新的修复和改进的内容。
 
-最简单的入门方法是使用新版 http2 核心模块部分提供的的[兼容层](https://zh.wikipedia.org/wiki/%E5%85%BC%E5%AE%B9%E5%B1%82)：
+最简单的入门方法是使用新版 http2 核心模块部分提供的[兼容层](https://zh.wikipedia.org/wiki/%E5%85%BC%E5%AE%B9%E5%B1%82)：
 
 ```js
 const http2 = require('http2');

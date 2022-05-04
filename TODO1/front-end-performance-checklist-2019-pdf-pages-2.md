@@ -155,7 +155,7 @@ REST 和 GraphQL 之间的区别，就如左图 Redux + REST 之间的对话与�
 
 根据你的组织的优先级和策略，你可能需要考虑使用 Google 的 [AMP](https://www.ampproject.org/) 或者 Facebook 的 [Instant Articles](https://instantarticles.fb.com/) 或者 Apple 的 [Apple News](https://www.apple.com/news/)。如果没有它们，你也获得良好的性能，但 AMP 确实提供了一个可靠的性能框架和免费的内容分发网络（CDN），而 Instant Articles 将提高你在 Facebook 上的可见性和性能。
 
-对于用户来说，这些技术最直观的的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
+对于用户来说，这些技术最直观的好处是保证了性能。 所以比起“正常“的和可能膨胀的页面，有时用户甚至更喜欢 AMP/Apple News/Instant Pages 链接。对于处理大量第三方内容的内容繁重的网站，这些选项可能有助于大幅加快渲染时间。
 
 [除非他们不这样做](https://timkadlec.com/remembers/2018-03-19-how-fast-is-amp-really/)。例如，根据 Tim Kadlec的说法，“AMP 文档往往比同行更快，但并不一定意味着页面具有高性能。在性能方面，AMP 不是最大的差异。”
 

@@ -5,7 +5,7 @@
 > * 译者：[whatbeg](https://github.com/whatbeg)
 > * 校对者：[Endone](https://github.com/Endone), [JalanJiang](https://github.com/JalanJiang)
 
-# 剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？
+# 剖析 Stack Overflow，开发者遇到最多的 Bug 是哪些？
 
 Stack Overflow 自 2008 年成立以来，一直在迅速拯救各种类型的开发者。从那时起，开发者在所有开发领域中提出了数以百万计的不同问题。
 

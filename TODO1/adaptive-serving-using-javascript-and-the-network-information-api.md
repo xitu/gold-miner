@@ -24,7 +24,7 @@ console.log(navigator.connection.effectiveType); // 4G
 
 Chrome 的有效连接类型目前是使用最近观察到的往返时间（rtt）和下行链路值的组合来确定。
 
-它将测量到的网络连接性能总结为最接近的蜂窝网络连接类型（比如 2G），即使你实际连接的的 WiFi。如图所示，你连接了星巴克的WiFi，但是实际上你的有效网络类型是 2G 或者 3G。
+它将测量到的网络连接性能总结为最接近的蜂窝网络连接类型（比如 2G），即使你实际连接的 WiFi。如图所示，你连接了星巴克的WiFi，但是实际上你的有效网络类型是 2G 或者 3G。
 
 [![](https://res.cloudinary.com/practicaldev/image/fetch/s--T54UF-7H--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/wqeuhx12frs3k126bmrv.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--T54UF-7H--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://thepracticaldev.s3.amazonaws.com/i/wqeuhx12frs3k126bmrv.png)
 

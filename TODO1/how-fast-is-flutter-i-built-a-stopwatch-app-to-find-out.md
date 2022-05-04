@@ -157,7 +157,7 @@ class TimerTextState extends State<TimerText> {
 
 ![](https://cdn-images-1.medium.com/max/800/1*YrJV5E7jWzr3K0kjPBs1Mg.png)
 
-创建一个独立的的 `TimerText` 类来封装定时器的逻辑，可以降低 CPU 负担。
+创建一个独立的 `TimerText` 类来封装定时器的逻辑，可以降低 CPU 负担。
 
 换句话说：
 

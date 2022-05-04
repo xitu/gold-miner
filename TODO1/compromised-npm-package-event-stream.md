@@ -188,7 +188,7 @@ window.cordova
 
 ### 如何防御这次攻击？
 
-通过使用静态分析工具来扫描 npm 包可能是个很棒的想法。但此次攻击对恶意的源代码进行了加密以避免被检测到。为了防止这种攻击，我们必须采取其他的的方法...
+通过使用静态分析工具来扫描 npm 包可能是个很棒的想法。但此次攻击对恶意的源代码进行了加密以避免被检测到。为了防止这种攻击，我们必须采取其他的方法...
 
 这次特定攻击看起来可以同时在传统 web 页面和通过 Cordova（一个将 web App 打包成移动端 App 的工具）构建的 App 中运行。我们已经发现了这次攻击可以通过使用 [CSP (Content Security Policy)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) 来阻止。这是用来指定页面可以与哪些 url 通信并将这些设定通过 web 服务器响应头来指定的标准。Cordova 甚至有其自身的方法 [mechanism](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist/index.html#navigation-whitelist) 来指定哪些第三方服务可以使用。然而，[Copay App 似乎禁用了这个特性](https://github.com/bitpay/copay/blob/72a9e176c12c77b5dfc4590c88de73f28fa301b7/app-template/config-template.xml#L121)。
 

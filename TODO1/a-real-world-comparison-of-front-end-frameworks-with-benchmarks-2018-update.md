@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*0aM-p4OCCxRMXroYn0qPVA.png)
 
-本文是是对 2017 年 12 月发表的 [前端开发框架的实战对比](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c) 一文的更新。
+本文是对 2017 年 12 月发表的 [前端开发框架的实战对比](https://medium.freecodecamp.org/a-real-world-comparison-of-front-end-frameworks-with-benchmarks-e1cb62fd526c) 一文的更新。
 
 在对比中，我们将展示不同框架之间去实现几乎相同的 [实战示例应用](https://github.com/gothinkster/realworld) 有怎样的差别。
 
@@ -36,7 +36,7 @@
 ### 我们看什么指标？
 
 1.  **性能：** 应用需要多长时间能显示出页面内容并可用？
-2.  **大小：** 应用程序多大？我们只会比较已编译过的的 JavaScript 文件大小。 CSS 对于所有不同实现框架都是通用的，并且从 CDN (内容分发网络)下载。 HTML 也是通用的。所有技术都编译或转换成 JavaScript，因此我们只计算这些文件的大小。
+2.  **大小：** 应用程序多大？我们只会比较已编译过的 JavaScript 文件大小。 CSS 对于所有不同实现框架都是通用的，并且从 CDN (内容分发网络)下载。 HTML 也是通用的。所有技术都编译或转换成 JavaScript，因此我们只计算这些文件的大小。
 3.  **代码行数：** 开发者根据开发指南需要写多少行代码来做一个实战应用？为了公平，虽然有些应用程序有一些花里胡哨的东西，但它不应该对结果产生影响。所以我们唯一量化的目录只用每个 app 中的 src/ 目录。
 
 ### 指标 ＃1：**性能**

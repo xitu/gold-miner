@@ -47,7 +47,7 @@
 
 作为产品负责人，你可能参与定义你们公司的目标，或者负责产品的愿景，或者是可能已被设定的一个东西。无论如何，你的工作是确保团队的方向一直存在，如“北极星”一样，领导团队的其他成员支持你，自己的团队也理解你。这非常重要，可以确保他们最终制定的任何计划都朝着同一个共同目标前进。你需要不断的讲述产品的故事，并表明人们每天的工作正朝着这个目标前进。
 
-在 FutureLearn，我们有一个目标（我们为什么存在），一个愿景（我我们力求创造什么）和一个使命（我们在未来几年如何做到它）。
+在 FutureLearn，我们有一个目标（我们为什么存在），一个愿景（我们力求创造什么）和一个使命（我们在未来几年如何做到它）。
 
 ![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/ea563095-d70b-409d-83de-85e73b31526b_TVzdhRAKnkR7PSndihh8wk0UG_8EiY-9rTEKyIQWEs3Xiuh6LQZoJYhzQh77IDBjXj4vT02azaeJHmsWzhV35iDUkVxvEq2iduNXdjEAQANiz629r9gBqDC8VgUbGncXwmIiIqz_.jpg)![](https://3lsqjy1sj7i027fcn749gutj-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/86c0d9af-d44d-4484-9cf2-b07e35679149_Wl1oaE_Dj7VUxQylr9mfCkUVjDeuvW2hfa_ZAfxitmF2Dn0k4o4bppe_WgoVmd6nBcKespLnutXyiDiw2YtcBl7BRK7MC-QTp9jwy5jpZlKILYS43Hs_KyY1pNyQpKAUkk1HK4Zf.jpg)
 

@@ -262,7 +262,7 @@ npm install pino-debug
 DEBUG=mylib:randomid node -r pino-debug index.js | ./node_modules/.bin/pino-colada
 ```
 
-你现在就可以用和应用程序日志相同的格式来查看库的的调试日志。
+你现在就可以用和应用程序日志相同的格式来查看库的调试日志。
 
 ![Screenshot of debug logs working with pino and pino-colada](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/Y0rx6dlEkHTU-jFtPLPJDLCoy3itkF8Y06mjqJ0ArOUffq.width-500.png)
 
