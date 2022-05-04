@@ -127,7 +127,7 @@ registerPaint('bubble', Bubble);
 
 ## 生成的图片
 
-我们所编写的的代码的运行效果应该是这样的：
+我们所编写的代码的运行效果应该是这样的：
 
 ![[在编辑器中查看](https://codepen.io/viduni94/pen/jOMgpNX)](https://cdn-images-1.medium.com/max/2448/1*vvLIdPpqWdRWswddJ9CgUw.png)
 

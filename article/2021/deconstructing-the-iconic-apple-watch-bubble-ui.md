@@ -141,7 +141,7 @@ translation_magnitude = distance_to_middle_region / fringe_width * max_size
 
 #### 引力
 
-这个特性是我用自己的想象力想象出来的一个概念 —— Apple 的气泡布局不一定会展示它。尽管如此，我想通过将远处的气泡吸引到中心区域来进一步提高气泡之间的的紧凑性。
+这个特性是我用自己的想象力想象出来的一个概念 —— Apple 的气泡布局不一定会展示它。尽管如此，我想通过将远处的气泡吸引到中心区域来进一步提高气泡之间的紧凑性。
 
 ![无重力（左）与高重力（右）](https://cdn-images-1.medium.com/max/2000/1*Ii03shSoDoKudknlylZcxw.gif)
 
