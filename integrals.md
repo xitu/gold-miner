@@ -3603,7 +3603,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|翻译|3.5|
+|[剖析 Stack Overflow，开发者遇到最多的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|翻译|3.5|
 |[如何避免我作为初级开发者时所犯下的 7 个错误](https://juejin.im/post/5cbea729e51d456e8240dcfa)|翻译|5.5|
 |[伟大设计与好设计之间区别是什么？这里告诉你真相](https://juejin.im/post/5cc15d1c5188252d6a6b1886)|校对|2|
 |[连接数据流](https://juejin.im/post/5c8efcbee51d457cb772778f)|翻译|4.5|
@@ -5674,7 +5674,7 @@
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|翻译|5|
 |[如何使用 Dask Dataframes 在 Python 中运行并行数据分析](https://juejin.im/post/5c1feeaf5188257f9242b65c)|翻译|4|
 |[理解编译器 — 从人类的角度（版本 2）](https://juejin.im/post/5c10b2f6e51d452ad958631f)|翻译|5|
-|[我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|翻译|4|
+|[我无法想象没有 Git 别名的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|翻译|4|
 |[关于 HTTP/3 的一些心得](https://juejin.im/post/5bfb519ef265da610f636596)|翻译|5|
 |[在远程工作中领悟到的 10 件事](https://juejin.im/post/5bf7a79f51882511a8528cf0)|翻译|4|
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|17|
@@ -6032,7 +6032,7 @@
 |2020 年 1 月推荐文章 1 篇|奖励|1|
 |2019 年 10 至 12 月推荐文章 5 篇|奖励|5|
 |[深入解析 Flutter Provider 包](https://juejin.im/post/5e01a677518825124c50e99d)|翻译|6.5|
-|[类型及其在参数中的应用：能优化代码的的 Dart 特性](https://juejin.im/post/5dea0a4551882512252db2d7)|翻译|3|
+|[类型及其在参数中的应用：能优化代码的 Dart 特性](https://juejin.im/post/5dea0a4551882512252db2d7)|翻译|3|
 |[设计离线优先的网络应用](https://juejin.im/post/5dd608eef265da47f12cb018)|翻译|4.5|
 |[JavaScript 的发布者/订阅者（Publisher/Subscriber）模式](https://juejin.im/post/5dbff49ff265da4d3761dd27)|翻译|3|
 |[关于现代应用样式的探讨](https://juejin.im/post/5db93b67f265da4d417648a1)|翻译|13|
@@ -7278,7 +7278,7 @@
 |[X 为啥不是 hook？](https://juejin.im/post/5c6ca856f265da2dce1f3af9)|校对|2|
 |2019 年 1 月兑 树莓派大套装 1 个|减去积分|70|
 |推荐优秀英文文章三篇|奖励|3|
-|[我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|校对|2|
+|[我无法想象没有 Git 别名的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|校对|2|
 |[柯里化与函数组合](https://juejin.im/post/5c1a0d516fb9a049d05daee9)|翻译|6|
 |[写给 React 开发者的自定义元素指南](https://juejin.im/post/5c0873a8e51d451de96890dc)|翻译|4|
 |[如何让高效的代码评审成为一种文化](https://juejin.im/post/5bfc9ff9e51d454b6c371f5d)|翻译|5|
@@ -7351,7 +7351,7 @@
 |[无容器下的云计算](https://juejin.im/post/5c24800a518825673b02dcfe)|翻译|5.5|
 |[通过集成学习提高机器学习效果](https://juejin.im/post/5c0909d951882548e93806e0)|校对|1.5|
 |[支持向量机（SVM） 教程](http://5a77c24cf265da4e747f92e8/)|校对|3.5|
-|[我无法想象没有 Git 别名的的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|校对|1.5|
+|[我无法想象没有 Git 别名的场景](https://juejin.im/post/5c207bd4e51d452b7b032cf6)|校对|1.5|
 |[TensorFlow 官方文档翻译](https://github.com/xitu/tensorflow-docs)|翻译校对|3|
 |[鲜为人知的数据科学 Python 库](https://juejin.im/post/5c075e09518825159512715f)|校对|1|
 |[使用递归神经网络（LSTMs）对时序数据进行预测](https://juejin.im/post/5bf8a70cf265da61776ba1dc)|校对|2.5|
@@ -8665,7 +8665,7 @@
 |------|-------|-------|
 |[Google 的 Pagespeed 的工作原理：提升你的分数和搜索引擎排名](https://juejin.im/post/5d36903ce51d4510803ce491)|校对|2|
 |[使用 Swift 5 构建一个 iOS 移动端群聊应用程序](https://juejin.im/post/5d2c6e846fb9a07ebb0564ae)|校对|3|
-|[剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
+|[剖析 Stack Overflow，开发者遇到最多的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
 |[JavaScript 线性代数：向量](https://juejin.im/post/5cf61bf8e51d45775653674e)|校对|1.5|
 |[自动补全规则](https://juejin.im/post/5cd556ef6fb9a03218556cb7)|校对|1|
 |[Node.js 会永远只是慢的 Golang 吗？](https://juejin.im/post/5cc811fc6fb9a0322415a70d)|校对|1.5|
@@ -9443,7 +9443,7 @@
 |推荐英文文章一篇|奖励|1|
 |[WebSockets 与长轮询的较量](https://juejin.im/post/5d0b1381e51d455a694f9544)|翻译|5|
 |[Python 实现排序算法](https://juejin.im/post/5d1323b6e51d45108b2caeaf)|校对|6.5|
-|[剖析 Stack Overflow，开发者遇到最多的的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
+|[剖析 Stack Overflow，开发者遇到最多的 Bug 是哪些？](https://juejin.im/post/5d087a32518825403d14758b)|校对|1.5|
 |[类（Class）与数据结构（Data Structures）](https://juejin.im/post/5d12efe7e51d455c8838e193)|校对|2|
 |[揭秘变量提升](https://juejin.im/post/5d026b71518825710d2b1f63)|校对|2|
 
@@ -9799,7 +9799,7 @@
 
 |文章|类型|积分|
 |------|-------|-------|
-|[类型及其在参数中的应用：能优化代码的的 Dart 特性](https://juejin.im/post/5dea0a4551882512252db2d7)|校对|1|
+|[类型及其在参数中的应用：能优化代码的 Dart 特性](https://juejin.im/post/5dea0a4551882512252db2d7)|校对|1|
 |[TypeScript 3.7 Beta 版发布](https://juejin.im/post/5db2537d6fb9a0208b11f94f)|校对|3|
 |[如何设计一款讨人喜欢的暗色主题](https://juejin.im/post/5dad4ef1f265da5bb86ad294)|校对|2|
 
