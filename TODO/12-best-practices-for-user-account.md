@@ -25,7 +25,7 @@
 
 使用第三方提供身份验证，你就可以依赖一个可靠的外部服务来对用户的身份进行验证。Google、Facebook 和 Twitter 都是常用的身份验证提供者。
 
-你可以使用 [Firebase Auth](https://firebase.google.com/docs/auth/) 这样的平台在已有的身份验证体系的基础上再添加额外的身份验证方式。使用 Firebase Auth 有许多好处，比如更简单的管理、更小的受攻击面和一个多平台的 SDK。通过这个清单我们可以接触更多的益处。查看我们专为企业设计的的 [案例](https://firebase.google.com/docs/auth/case-studies/)，可以让你在一日之内集成 Firebase Auth。
+你可以使用 [Firebase Auth](https://firebase.google.com/docs/auth/) 这样的平台在已有的身份验证体系的基础上再添加额外的身份验证方式。使用 Firebase Auth 有许多好处，比如更简单的管理、更小的受攻击面和一个多平台的 SDK。通过这个清单我们可以接触更多的益处。查看我们专为企业设计的 [案例](https://firebase.google.com/docs/auth/case-studies/)，可以让你在一日之内集成 Firebase Auth。
 
 ## 区分用户身份和用户账户的概念
 

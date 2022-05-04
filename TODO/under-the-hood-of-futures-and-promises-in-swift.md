@@ -315,7 +315,7 @@ class UserLoader {
 - [When](https://github.com/vadymmarkov/When)
 - [Then](https://github.com/freshOS/then)
 
-你也可以在 [GitHub](https://github.com/JohnSundell/SwiftBySundell/blob/master/Blog/Under-the-hood-of-Futures-and-Promises.swift) 上找到该篇文章涉及的的所有代码。
+你也可以在 [GitHub](https://github.com/JohnSundell/SwiftBySundell/blob/master/Blog/Under-the-hood-of-Futures-and-Promises.swift) 上找到该篇文章涉及的所有代码。
 
 如果有问题，欢迎留言。我非常希望听到你的建议！👍你可以在下面留言，或者在 Twitter [@johnsundell](https://twitter.com/johnsundell) 联系我。
 

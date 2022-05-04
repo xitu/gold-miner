@@ -80,5 +80,5 @@ Bill Sourour  [Twitter/Bill Sourour](https://twitter.com/BillSourour)
 
 Sourour 呼吁所有培训班和在线教学网站“开始讨论与代码伴随而来的责任”。
 
-但 Martin 和 Sourour 都相信，程序员们真正需要的是一个像其他行业一样的，可以管理和规范他们职业生涯的的组织。目前没有与之相似的，尽管 [（美国）计算机协会](http://www.acm.org/about/se-code) 和 [IEEE](http://www.ieee.org/about/corporate/governance/p7-8.html) 都已经开始起步，有了一些道德准则文档和某种程度上的训练。
+但 Martin 和 Sourour 都相信，程序员们真正需要的是一个像其他行业一样的，可以管理和规范他们职业生涯的组织。目前没有与之相似的，尽管 [（美国）计算机协会](http://www.acm.org/about/se-code) 和 [IEEE](http://www.ieee.org/about/corporate/governance/p7-8.html) 都已经开始起步，有了一些道德准则文档和某种程度上的训练。
 

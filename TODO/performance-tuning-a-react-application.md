@@ -402,7 +402,7 @@ Webpack 使得这很容易实现；你可以通过定义 _externals_ 关键字�
 
 举个例子，在一些传统的观念看来，服务端渲染是一个必经之路。但是我在的应用里，基于 local-storage 或者 service-workers 来做前端渲染则是一个更好的选择！也许你可以在编译时做一些工作，减少 SSR 的耗时，又或者学习 Netflix，[完全不将 React 传递给前端](https://jakearchibald.com/2017/netflix-and-react/)！
 	
-	当你做性能优化时，你会发现这非常需要创造力和开阔的思路，而这也是它最有趣的的地方。
+	当你做性能优化时，你会发现这非常需要创造力和开阔的思路，而这也是它最有趣的地方。
 
 > 非常感谢您的阅读！我希望这篇文章能给您带来帮助:)。如果您有什么想法可以联系我的
 [Twitter](http://twitter.com/joshwcomeau) 。

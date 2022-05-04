@@ -73,7 +73,7 @@ GoogleMap map=...// 获得地图
 
 ## MapOverlayLayout
 
-该怎么办呢？其实很简单，但我还是花了点时间才弄明白。我们需要在 SupportMapFragment 上（注：也就是上一篇提到的 MapFragment）添加一层使用谷歌地图 API 所获得的 MapOverlayLayout，在该层上添加地图的映射（映射是用来转换屏幕上的的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection)）。
+该怎么办呢？其实很简单，但我还是花了点时间才弄明白。我们需要在 SupportMapFragment 上（注：也就是上一篇提到的 MapFragment）添加一层使用谷歌地图 API 所获得的 MapOverlayLayout，在该层上添加地图的映射（映射是用来转换屏幕上的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection)）。
 
 **注：此处作者 via以后就没东西了，我估计是手滑写错了。下面有个一模一样的句子，但是多了一个说明，故此处按照下文翻译。**
 
@@ -286,7 +286,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
 那么它究竟是如何工作的呢？
 
-通过地图映射(映射是用来转换屏幕上的的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection))。我们可以拿到标记的横坐标与纵坐标，通过坐标来在 MapOverlayLayout 上放置标记的自定义 View。
+通过地图映射(映射是用来转换屏幕上的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection))。我们可以拿到标记的横坐标与纵坐标，通过坐标来在 MapOverlayLayout 上放置标记的自定义 View。
 
 这种做法可以让我们使用比如自定义 View 的属性动画（ViewPropertyAnimator ）API 创建动画效果。
 

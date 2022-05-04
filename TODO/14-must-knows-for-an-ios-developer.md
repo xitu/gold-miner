@@ -275,7 +275,7 @@ CocoaPods 和 Carthage 是 Swift 和 Objective-C Cocoa 项目里最常见的依�
        func handleEmergency()
     }
 
-消防站将处理紧急情况的的行动委托给消防员。
+消防站将处理紧急情况的行动委托给消防员。
 
     class FireStation {
        var delegate: FireStationDelegate?

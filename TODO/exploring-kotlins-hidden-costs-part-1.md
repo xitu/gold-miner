@@ -81,7 +81,7 @@ val deletedRows = transaction(db) {
 
 #### Function 对象
 
-这是上面的的 lamdba 表达式编译之后的 Java 表现形式。
+这是上面的 lamdba 表达式编译之后的 Java 表现形式。
 
 ```
 class MyClass$myMethod$1 implements Function1 {
@@ -331,7 +331,7 @@ class MyClass() : Parcelable {
 
 ---
 
-这就是第一篇文章的全部内容了。希望这可以让你更好的理解使用这些 Kotlin 特性的影响。牢记这一点以便在不损失可读性和性能的情况下编写更智能的的代码。
+这就是第一篇文章的全部内容了。希望这可以让你更好的理解使用这些 Kotlin 特性的影响。牢记这一点以便在不损失可读性和性能的情况下编写更智能的代码。
 
 继续阅读[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md)：**局部函数**，**空值安全**，**可变参数**。
 

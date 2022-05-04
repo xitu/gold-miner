@@ -139,7 +139,7 @@ Android Studio 集成的 [APK Analyzer](https://developer.android.com/studio/bui
 
 使用 `-whyareyoukeeping <class-specification>` 选项来观察为什么这些类没有被移除。
 
-如果您实在不确定为什么 ProGuard 没有移除您期望它移除的代码，，您可以添加 [**-whyareyoukeeping**](https://www.guardsquare.com/en/proguard/manual/usage#whyareyoukeeping) 选项至 ProGuard 配置文件中，然后重新构建您的应用。在构建输出中，您会看到是什么调用链决定了 ProGuard 保留这些代码。
+如果您实在不确定为什么 ProGuard 没有移除您期望它移除的代码，您可以添加 [**-whyareyoukeeping**](https://www.guardsquare.com/en/proguard/manual/usage#whyareyoukeeping) 选项至 ProGuard 配置文件中，然后重新构建您的应用。在构建输出中，您会看到是什么调用链决定了 ProGuard 保留这些代码。
 
 ![](https://cdn-images-1.medium.com/max/800/0*SFubaEvLatNnVmDr.)
 

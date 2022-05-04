@@ -391,7 +391,7 @@ iflet dlock = dlock {
 
 对于建立并发数据结构来讲，他们是非常有用的，因为处理并发所需的开销被降低到最低。
 
-OSAtomic 在 macOS 10.12 已经被舍弃使用，而在 Linux 上从来都不可以使用，但是一些开源的的项目，比如[这个](https://github.com/glessard/swift-atomics)提供了实用的 Swift 扩展，或者[这个](https://github.com/bignerdranch/AtomicSwift)提供了类似的功能。
+OSAtomic 在 macOS 10.12 已经被舍弃使用，而在 Linux 上从来都不可以使用，但是一些开源的项目，比如[这个](https://github.com/glessard/swift-atomics)提供了实用的 Swift 扩展，或者[这个](https://github.com/bignerdranch/AtomicSwift)提供了类似的功能。
 
 ### 同步块 ###
 

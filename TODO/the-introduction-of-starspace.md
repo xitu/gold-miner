@@ -275,7 +275,7 @@ StarSpace 支持下列几种训练模式（默认是第一个）：
       -trainMode       选择 [0, 1, 2, 3, 4, 5] 中的一个值，参见训练模式一节，默认为 0。
       -fileFormat      当前支持‘fastText’和‘labelDoc’，参见文件格式一节，默认为 fastText。
       -saveEveryEpoch  在每次迭代后保存中间模型，默认为 false。
-      -saveTempModel   在每次迭代之后用包括迭代词的的唯一名字保存中间模型，默认为 false。
+      -saveTempModel   在每次迭代之后用包括迭代词的唯一名字保存中间模型，默认为 false。
       -lr              学习速度，默认为 0.01。
       -dim             嵌入矢量的大小，默认为 10。
       -epoch           迭代次数，默认为 5。

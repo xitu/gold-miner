@@ -59,7 +59,7 @@
 
 
 
-但是，如果你想指定哪个身份来使用任意 git 命令时，带有 IdentityFile 的配置文件的使用[差不多是你唯一的选择](https://git.wiki.kernel.org/index.php/GitTips#How_to_pass_ssh_options_in_git.3F) 。这也启发了基于每个项目或组织来进一步细分的的有趣设想。
+但是，如果你想指定哪个身份来使用任意 git 命令时，带有 IdentityFile 的配置文件的使用[差不多是你唯一的选择](https://git.wiki.kernel.org/index.php/GitTips#How_to_pass_ssh_options_in_git.3F) 。这也启发了基于每个项目或组织来进一步细分的有趣设想。
 
     Host github-project1
         User git

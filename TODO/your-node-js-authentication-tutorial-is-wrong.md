@@ -56,7 +56,7 @@ Node.js 开发中一个更有问题的事情就是身份验证的程序很大程
 
 我们将转移到 **npm** 一秒钟，并[重新查找密码重置](https://www.npmjs.com/search?q=password%20reset&amp;page=1&amp;ranking=popularity)，看看是否已有人做到这一点。有一个已有五年历史的 package（通常意味着它很棒）。在 Node.js 的时间轴上，这个模块就像是侏罗纪时代的，如果我想要鸡蛋里挑骨头，[Math.random() 可以在 V8 中预测](https://security.stackexchange.com/questions/84906/predicting-math-random-numbers)，因此[它不应该用于令牌生成码](https://github.com/substack/node-password-reset/blob/master/index.js#L73)。此外，它不使用 Passport，所以我们继续前进。
 
-Stack Overflow 上获取不了太多的帮助，因为一个名叫 Stormpath 的公司的开发人员喜欢在可以想象到的每一个跟这个相关的的帖子上都插入他们的 IaaS 启动教程。[他们的文档也随处可见](https://docs.stormpath.com/client-api/product-guide/late%20Passwordword_reset.html)，他们也有[关于密码重置的博客广告](https：//stormpath.com/blog/the-pain-of-password-reset)。但是，所有这一切都随着 Stormpath 的停业已经停止了，它们公司于 2017 年 8 月 17 日[完全关闭](https://stormpath.com/)。
+Stack Overflow 上获取不了太多的帮助，因为一个名叫 Stormpath 的公司的开发人员喜欢在可以想象到的每一个跟这个相关的帖子上都插入他们的 IaaS 启动教程。[他们的文档也随处可见](https://docs.stormpath.com/client-api/product-guide/late%20Passwordword_reset.html)，他们也有[关于密码重置的博客广告](https：//stormpath.com/blog/the-pain-of-password-reset)。但是，所有这一切都随着 Stormpath 的停业已经停止了，它们公司于 2017 年 8 月 17 日[完全关闭](https://stormpath.com/)。
 
 好的，回到谷歌，这里似乎存在唯一的教程。我们找到了 Google 搜索 **express passport 密码重置的**[第一个结果](http://sahatyalkabov.com/how-to-implement-password-reset-in-nodejs/)。还是我们的老朋友 **bcrypt**。文章中使用了更小的成本因子 5，这远远低于了现代使用的成本因素。
 

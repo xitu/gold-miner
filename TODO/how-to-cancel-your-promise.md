@@ -54,7 +54,7 @@ function updateUser() {
 
 这样的代码不仅更简洁，可读性更强，而且可以轻松切换回调的顺序，同时执行回调或删除不必要的回调（或者在回调链中间新增一个回调）。
 
-> 使用 Promise 链式写法的一个缺点是我们无法访问每个回调函数的作用域（或者其中未返回的的变量），你可以阅读 Alex Rauschmayer 博士这篇 [a great article](http://2ality.com/2017/08/promise-callback-data-flow.html) 来解决这个问题。
+> 使用 Promise 链式写法的一个缺点是我们无法访问每个回调函数的作用域（或者其中未返回的变量），你可以阅读 Alex Rauschmayer 博士这篇 [a great article](http://2ality.com/2017/08/promise-callback-data-flow.html) 来解决这个问题。
 
 但是，我发现了 [这个问题](https://stackoverflow.com/questions/30233302/promise-is-it-possible-to-force-cancel-a-promise)，你不能取消 Promise，这是一个很关键的问题。有时你**需要**取消 Promise，你要构建变通的方法 — 工作量取决于你多长时间使用一次这个功能。
 
