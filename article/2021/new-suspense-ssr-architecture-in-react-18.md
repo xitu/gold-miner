@@ -326,7 +326,7 @@ React 会**记录**点击，并优先给评论进行 hydration，因为它更紧
 
 ![](https://camo.githubusercontent.com/dbbedbfe934b41a8b4e4ed663d66e94c3e748170df599c20e259680037bc506c/68747470733a2f2f717569702e636f6d2f626c6f622f5963474141416b314234322f6c5559557157304a38525634354a39505364315f4a513f613d39535352654f4a733057513275614468356f6932376e61324265574d447a775261393739576e566e52684561)
 
-在这个例子中，用户点击第一条评论时，正好是 hydration 的开始。React 会优先给所有父级 Suspense 边界的内容进行 hydration，但会跳过任何不相关的兄弟节点。因为交互路径上的组件优先被 hydrated，这创造了 hydration 是即时的的错觉。React 会在之后对应用程序的其他部分进行 hydration。
+在这个例子中，用户点击第一条评论时，正好是 hydration 的开始。React 会优先给所有父级 Suspense 边界的内容进行 hydration，但会跳过任何不相关的兄弟节点。因为交互路径上的组件优先被 hydrated，这创造了 hydration 是即时的错觉。React 会在之后对应用程序的其他部分进行 hydration。
 
 在实践中，你可能会在你的应用程序的根部附近添加 Suspense：
 

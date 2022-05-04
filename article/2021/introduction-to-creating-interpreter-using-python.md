@@ -180,7 +180,7 @@ def p_error(p):
     print(f"Syntax error in {p.value}")
 ```
 
-在文档字符串中，我们将添加适当的语法规范。`p` 列表中的的元素与语法符号一一对应，如下所示：
+在文档字符串中，我们将添加适当的语法规范。`p` 列表中的元素与语法符号一一对应，如下所示：
 
 ```
 expression : expression PLUS expression

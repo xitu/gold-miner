@@ -47,7 +47,7 @@ Web 正在发生变化，它正在变得更加动态、更加身临其境、更�
 
 但不知你是否已经注意到，这些类型的应用程序已经转移到 Web 上了。
 
-- Photoshop，Illustrator 和 Adobe XD → [Figma](https://www.figma.com/)，[Framer](https://login.framer.com/?origin=framer-web&redirect=https%3A%2F%2Fframer.com%2Fprojects%2F)（有我见过最好的的 SaaS 产品[广告](https://www.youtube.com/watch?v=hAPxeoP8wn8)），[Photobea](https://www.photopea.com/) 和 [Avocode](https://avocode.com/)
+- Photoshop，Illustrator 和 Adobe XD → [Figma](https://www.figma.com/)，[Framer](https://login.framer.com/?origin=framer-web&redirect=https%3A%2F%2Fframer.com%2Fprojects%2F)（有我见过最好的 SaaS 产品[广告](https://www.youtube.com/watch?v=hAPxeoP8wn8)），[Photobea](https://www.photopea.com/) 和 [Avocode](https://avocode.com/)
 - After Effect → [Rive](https://rive.app/)
 - Blender → [Spline](https://spline.design/)
 - Microsoft Office → [Office 365](https://www.office.com/)，[Google 文档](https://www.google.com/docs/about/)，[Google 幻灯片](https://www.google.com/slides/about/)，[Google 表格](https://www.google.com/sheets/about/) 和 [Notion](https://www.notion.so/)

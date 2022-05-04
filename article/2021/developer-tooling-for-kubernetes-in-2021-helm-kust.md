@@ -23,7 +23,7 @@
 
 1. 你可以使用自定义参数让你的服务在部署时候可配置。要做到这一点，你需要使用 [模板](https://helm.sh/docs/chart_template_guide/) 。
 2. 你可以用版本化和可跟踪的方式将服务发布到私有或公有仓库中。
-3. 你可以让你的服务依赖于其他的的 Helm chart。
+3. 你可以让你的服务依赖于其他的 Helm chart。
 4. 总的来说，Helm 为你提供了强大的封装能力，以确保你的服务按预期部署。
 
 作为安装包的使用者，[安装 Helm chart](https://helm.sh/docs/helm/helm_install/) 可以为你提供更多：

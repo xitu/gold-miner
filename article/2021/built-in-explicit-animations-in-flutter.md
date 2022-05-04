@@ -13,7 +13,7 @@
 
 对于部分动画来说，使用补间动画是极好的选择。当然，我们也可以用另外一种方式重新开始制作新的动画。
 
-Flutter 有很多带有过渡动画的控件，而它们都以 `Transition` 结尾，它们包括了 [`ScaleTransition`](https://api.flutter.cn/flutter/widgets/ScaleTransition-class.html)、[`SizeTransition`](https://api.flutter.cn/flutter/widgets/SizeTransition-class.html)、[`DecoratedBoxTransition`](https://api.flutter.cn/flutter/widgets/DecoratedBoxTransition-class.html)。它们与我们所创作的的 `AnimateBlah` 控件非常类似。
+Flutter 有很多带有过渡动画的控件，而它们都以 `Transition` 结尾，它们包括了 [`ScaleTransition`](https://api.flutter.cn/flutter/widgets/ScaleTransition-class.html)、[`SizeTransition`](https://api.flutter.cn/flutter/widgets/SizeTransition-class.html)、[`DecoratedBoxTransition`](https://api.flutter.cn/flutter/widgets/DecoratedBoxTransition-class.html)。它们与我们所创作的 `AnimateBlah` 控件非常类似。
 
 例如说 [`PositionedTransition`](https://api.flutter.cn/flutter/widgets/PositionedTransition-class.html)，它可以产生在各个位置移动的小部件的动画。这些动画与补间动画很是相像，但是有明显的不同：这些 `Transition` 控件应该在 [`AnimatedWidget`](https://api.flutter.cn/flutter/widgets/AnimatedWidget-class.htmlhttps://api.flutter.dev/flutter/widgets/AnimatedWidget-class.html) 的构造中使用，而这就是显式动画。
 

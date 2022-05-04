@@ -106,7 +106,7 @@ python-rapidjson 将自身标记为 alpha，但是一位维护人员说这是一
   你可以将 bar 序列化为与 JSON `foo` 等效的 JSON，但 bar 不是 JSON,这是一个 Python 对象，很像一个字典对象，就将它当作 `foo_json`。
 - 属性会在各处进行检查：如果你收到 JSON 数据，很轻松就可以转换为 Python 对象（例如字典）并使用它。这对于概念验证代码或很小的 JSON 字符串来说是很好的选择。如果你不将其转换为 [dataclass](https://docs.python.org/3/library/dataclasses.html) 之类的，它将一团糟。
 
-[pydantic](https://github.com/samuelcolvin/pydantic) 是一个超级有用的验证库。你可以使用自己喜欢的 JSON 库将 JSON 字符串解析为带有 字典/列表/字符串/数字/布尔值的 Python 基本表示形式，然后再使用 Pydantic 对其进行解析。这样做的好处是你知道以后要处理的内容。不再只是将 `Dict[str, Any]` 用作 [type annotation](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d),不再用没用的的编辑器自动完成，不再检查属性是否在整个代码中都存在。
+[pydantic](https://github.com/samuelcolvin/pydantic) 是一个超级有用的验证库。你可以使用自己喜欢的 JSON 库将 JSON 字符串解析为带有 字典/列表/字符串/数字/布尔值的 Python 基本表示形式，然后再使用 Pydantic 对其进行解析。这样做的好处是你知道以后要处理的内容。不再只是将 `Dict[str, Any]` 用作 [type annotation](https://medium.com/analytics-vidhya/type-annotations-in-python-3-8-3b401384403d),不再用没用的编辑器自动完成，不再检查属性是否在整个代码中都存在。
 
 要引入除默认 `json` 以外的其他 json 包，我建议使用此模式
 
