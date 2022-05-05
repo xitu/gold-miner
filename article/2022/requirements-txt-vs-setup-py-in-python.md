@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/requirements-txt-vs-setup-py-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2022/requirements-txt-vs-setup-py-in-python.md)
 > * 译者：[WangNing](https://github.com/w1187501630)
-> * 校对者：
+> * 校对者：[DylanXie123](https://github.com/DylanXie123)
 
 # Python 中 requirements.txt 与 setup.py 的对比 
 
