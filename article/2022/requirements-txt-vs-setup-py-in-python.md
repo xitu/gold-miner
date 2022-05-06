@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/requirements-txt-vs-setup-py-in-python.md](https://github.com/xitu/gold-miner/blob/master/article/2022/requirements-txt-vs-setup-py-in-python.md)
 > * 译者：[WangNing](https://github.com/w1187501630)
-> * 校对者：[DylanXie123](https://github.com/DylanXie123)
+> * 校对者：[DylanXie123](https://github.com/DylanXie123)、[FYJNEVERFOLLOWS](https://github.com/FYJNEVERFOLLOWS)
 
 # Python 中 requirements.txt 与 setup.py 的对比 
 
@@ -21,7 +21,7 @@
 
 简单来说，依赖项是我们为了完成工作而在我们的 Python 项目中所依赖的外部 Python 包。在 Python 中，这些依赖通常可以在 Python 包索引（PyPI）或其他的管理工具中找到（例如 `Nexus`）。
 
-例如，考虑开发一个使用 pandas DataFrames 的 Python 项目，那么 `pandas` 包就是该项目的依赖，如果我们没有预先安装 `pandas`，我们的项目将无法正常工作。
+例如，我们考虑开发一个使用 pandas DataFrames 的 Python 项目，那么 `pandas` 包就是该项目的依赖，如果我们没有预先安装 `pandas`，我们的项目将无法正常工作。
 
 每一个依赖项本身就是一个 Python 包，它也可能有其他的依赖项。因此，为了避免在安装或者更新包时出现问题，依赖管理有时也会变得非常棘手或具有挑战性，需要我们妥善的进行处理。
 
