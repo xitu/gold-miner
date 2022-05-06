@@ -26,9 +26,9 @@
 
 在 JavaScript 中，有几组数据类型：
 
-1. **原生（基本）类型**— Boolean, Number, String
-2. **非原始（引用）类型或对象** — Object, Array, Function
-3. **特殊**— Null, Undefined
+1. **原生（基本）类型** —— Boolean, Number, String
+2. **非原始（引用）类型或对象** —— Object, Array, Function
+3. **特殊** —— Null, Undefined
 
 **提示：你可以使用 console.log(typeof unknownVar) 来获取你正在使用的变量的数据类型**
 
