@@ -34,9 +34,9 @@
 
 #### 原生数据类型默认是不可变的
 
-对于原生数据类型而言 (如 boolean, number 和 string), 如果使用常量来声明的话，它们是**不可变**的。因为对于这些数据类型而言，你不能加入额外的属性，或改动已有的属性。
+对于原生数据类型而言 (如 boolean、number、string 等), 如果使用常量来声明的话，它们是**不可变**的。因为对于这些数据类型而言，你不能加入额外的属性，或改动已有的属性。
 
-要 「改变」基本类型，你就需要重新赋值。这只有在作为变量声明的时候才有可能。
+要「改变」原生数据类型，你就需要重新赋值。这只有在将其作为变量声明的时候才有可能。
 
 ```js
 let var1 = 'apple' //'apple' is stored in memory location A
@@ -48,19 +48,19 @@ var2 = 'orange' // ERROR: Re-assignment not allowed for constants
 
 ![](https://cdn-images-1.medium.com/max/2464/1*xyaMxzBMpouTQbMr-O0pXg.png)
 
-在上述例子中，如果我们修改 var1 这个 string, JavaScript 将会在内存中的另一个位置创造另一个 string，而 var1 将会指向这个新的内存位置，这被称为 **重新赋值**。这对于所有 **原生数据类型** 都适用，无论是被声明为变量还是常量。
+在上述例子中，如果我们修改 var1 这个 string，JavaScript 将会在内存中的另一个位置创造另一个 string，而 var1 将会指向这个新的内存位置，这被称为 **重新赋值**。这对于所有 **原生数据类型** 都适用，无论是被声明为变量还是常量。
 
-所有的常量都不能被重新赋值。
+而所有的常量都不能被重新赋值。
 
 ## 在 JavaScript 中，对象是引用传递的
 
 当我们在处理**对象**时，问题开始出现了……
 
-#### 对象是不可变的
+#### 对象并非不可变的
 
-对象基本上指的是非原生的数据类型 (对象, 数组 和 函数), 哪怕被作为常量声明，它们也是可变的。
+对象基本上指的是非原生的数据类型 （对象、 数组 和 函数），哪怕被作为常量声明，它们也是可变的。
 
-**(在本文的剩余部分，我将以对象数据类型举例。因为大多数问题是出在这里的。对于数组和函数而言，概念也会是一样的)**
+**（在本文的剩余部分，我将以对象数据类型举例。因为大多数问题是出在这里的。对于数组和函数而言，概念也会是一样的）**
 
 所以这是什么意思？
 
@@ -72,11 +72,11 @@ console.log(profile1) //{'username':'tom'}
 
 ![](https://cdn-images-1.medium.com/max/3448/1*FluTwbCYFCQO6pW5enoLoQ.png)
 
-在这种情况下， profile1 一直指向位于同一内存位置的对象。我们所做的是修改位于内存该位置的对象的属性。
+在这种情况下，profile1 一直指向位于同一内存位置的对象。我们所做的是修改位于内存该位置的对象的属性。
 
 好吧，这看起来非常简单，但为什么会有问题呢？
 
-#### 当修改对象出了问题……
+#### 当对对象的修改出现了问题……
 
 ```js
 const sampleprofile = {'username':'name', 'pw': '123'}
@@ -94,7 +94,7 @@ console.log(sampleprofile) // {'username':'harry', 'pw': '123'}
 
 ![](https://cdn-images-1.medium.com/max/3720/1*K7JS9v4pbm1b0W4yaf-fZQ.png)
 
-这里所谓的 「**引用传递**」 是指，我们把对常量 sampleprofile 的引用传递给 profile1。换句话说，profile1 和 sampleprofile 两个常量指向 **位于同一内存位置** 的同一个对象。
+这里所谓的「**引用传递**」是指，我们把对常量 sampleprofile 的引用传递给 profile1。换句话说，profile1 和 sampleprofile 两个常量指向 **位于同一内存位置** 的同一个对象。
 
 所以，当我们修改常量 profile1 的属性时，它同时也影响了 sampleprofile，因为它们都指向同一个对象。
 
@@ -111,13 +111,13 @@ console.log(sampleprofile===profile1)//true
 * **通过冻结对象来防止修改**
 * **使用浅拷贝和深拷贝**
 
-我将向你展示一些使用 JavaScript 实现的例子，包括使用 vanilla JavaScript （）方法，以及一些我们可以使用的有用的三方库。
+我将向你展示一些使用 JavaScript 实现的例子，包括使用 vanilla JavaScript 方法，以及一些我们可以使用的有用的三方库。
 
 ## 防止修改对象
 
 #### 1. 使用 Object.freeze() 方法
 
-如果你想要防止一个对象的属性被改变，你可以使用 `Object.freeze()` 。它的作用是，防止对象已有的属性被改变。任何改变的尝试都会"默默地失败"，意味着它不会成功，也不会有任何警告。
+如果你想要防止一个对象的属性被改变，你可以使用 `Object.freeze()` 。它的作用是，防止对象已有的属性被改变。任何改变的尝试都会静默失败，意味着它不会成功，也不会有任何警告。
 
 
 ```js
@@ -130,7 +130,7 @@ sampleprofile.username = 'another name' // no effect
 console.log(sampleprofile) // {'username':'name', 'pw': '123'}
 ```
 
-但是，这是一种 **浅冻结**，而且它对于深层嵌套的对象将不会有用：
+但是，这是一种 **浅冻结**，即它对于深层嵌套的对象将不会有用：
 
 ```js
 const sampleprofile = {
@@ -166,11 +166,11 @@ console.log(sampleprofile)
 
 在上面的例子中，嵌套对象的属性仍然可以改变。
 
-你可以创造一个简单的函数来递归地冻结嵌套的对象, 但如果你比较懒的话，可以使用以下这些库：
+你可以创造一个简单的函数来递归地冻结嵌套的对象，但如果你比较懒的话，可以使用以下这些库：
 
 #### 2. 使用深层冻结
 
-但说真的，如果你看看 [深层冻结](https://www.npmjs.com/package/deep-freeze) 的[源代码](https://github.com/substack/deep-freeze/blob/master/index.js), 它基本上只是一个简单的递归调用函数，但不管怎样，你可以简单地使用它..
+但说真的，如果你看看 [深层冻结](https://www.npmjs.com/package/deep-freeze) 的[源代码](https://github.com/substack/deep-freeze/blob/master/index.js), 它基本上只是一个简单的递归调用函数，但不管怎样，这是一种更便捷的选择...
 
 ```js
 var deepFreeze = require('deep-freeze');
@@ -192,7 +192,7 @@ deepFreeze(sampleprofile)
 
 关键在于理解 JavaScript 中的 **深浅 拷贝/克隆/融合**。
 
-你可能会使用浅拷贝或使用深拷贝，这取决于你程序中对象的具体实现方式，。也可能存在内存或性能方面的考虑，会影响你对深拷贝和浅拷贝的选择。但我会在涉及到的时候再讲的 😉
+你可能会使用浅拷贝或使用深拷贝，这取决于你程序中对象的具体实现方式，也可能存在内存或性能方面的考虑，会影响你对深拷贝和浅拷贝的选择。但我会在涉及到的时候再讲的 😉。
 
 让我们从浅拷贝开始，然后再到深拷贝。
 
@@ -212,7 +212,7 @@ console.log(firstSetCopy) // [1, 2, 3]
 console.log(resultSet) // [1,2,3,4,5,6]
 ```
 
-ES2018 把展开操作符扩展到了对象字面量，所以我们可以对对象做同样的事。所有对象的属性将被融合在一起，但对于冲突的属性，后展开的对象有更高的优先级。
+ES2018 把展开操作符扩展到了对象字面量，所以我们可以对对象做同样的事。所有对象的属性将被合并在一起，但对于冲突的属性，后展开的对象有更高的优先级。
 
 ```js
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
@@ -253,7 +253,7 @@ console.log(firstSet===firstSetCopy) // false
 
 #### 4. 使用 lodash.clone()
 
-注意，lodash 也有一种方法可以做浅克隆。我觉得这有些小题大做了(除非你已经引入了 lodash)，但我仍然要在这里留一个例子。
+注意，lodash 也有一种方法可以做浅克隆。我觉得这有些小题大做了（除非你已经引入了 lodash），但我仍然要在这里留一个例子。
 
 ```js
 const clone = require('lodash/clone')
@@ -266,7 +266,7 @@ const profile1Copy = clone(profile1)
 
 #### 浅克隆的问题:
 
-对于所有这些浅克隆的例子，一旦涉及 **对象更深的嵌套**，问题就开始出现了，就像下面的例子一样。
+对于所有这些浅克隆的例子，一旦涉及 **对象的深层嵌套**，问题就开始出现了，就像下面的例子一样。
 
 ```js
 const sampleprofile = {
@@ -300,13 +300,13 @@ console.log(profile1)
 console.log(sampleprofile.particulars===profile1.particulars) //true
 ```
 
-注意，修改 `profile1` 的嵌套属性 (‘firstname’)，同样会影响 `sampleprofile`。
+注意，修改 `profile1` 的嵌套属性 `firstname`，同样会影响 `sampleprofile`。
 
 ![](https://cdn-images-1.medium.com/max/4912/1*7QbV9c0-yJ98rgeciFYgCg.png)
 
 对于浅克隆，对于嵌套对象的复制也是复制引用。 所以 `sampleprofile` 和 `profile1` 的 ‘particulars’ 指向位于内存同个位置的对象。
 
-为防止它发生，如果你想要 100% 真实的拷贝，没有外部引用，我们需要使用 **深拷贝**。
+为防止上述问题发生，并实现 100% 真实的拷贝，没有外部引用，我们需要使用 **深拷贝**。
 
 ## 深拷贝
 
@@ -355,7 +355,7 @@ console.log(profile1)
 
 如果你不想要下载一个库来做深拷贝，你也完全可以使用简单的递归函数。
 
-下面的代码 (虽然不包括所有情况) 给出了一个大概的想法。
+下面的代码（虽然不包括所有情况）给出了一个大概的想法。
 
 ```js
 function clone(obj) {
