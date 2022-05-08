@@ -1,26 +1,26 @@
-> * 原文地址：[PyScript — unleash the power of Python in your browser](https://towardsdatascience.com/pyscript-unleash-the-power-of-python-in-your-browser-6e0123c6dc3f)
+> * 原文地址：[PyScript — unleash the power of Python in your browser](https://towardsdatascience.com/pyscript-unleash-the-power-of-python-in-your-browser-6e0123c6dc3f)
 > * 原文作者：[Eryk Lewinson](https://medium.com/@eryk-lewinson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/pyscript-unleash-the-power-of-python-in-your-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2022/pyscript-unleash-the-power-of-python-in-your-browser.md)
 > * 译者：
 > * 校对者：
 
-# PyScript — unleash the power of Python in your browser
+# PyScript — unleash the power of Python in your browser
 
 ![Source: [source: pyscript.net](https://pyscript.net/)](https://cdn-images-1.medium.com/max/2904/1*WNbl_1riOiUbZvMTMrsEHA.png)
 
-#### A sneak peek at how to run Python from HTML code
+## A sneak peek at how to run Python from HTML code
 
 During a keynote speech at PyCon US 2022, Anaconda’s CEO Peter Wang unveiled quite a surprising project — [PyScript](https://pyscript.net/). It is a JavaScript framework that allows users to create Python applications in the browser using a mix of Python and standard HTML. The project’s ultimate goal is to allow a much wider audience (for example, front-end developers) to benefit from the power of Python and its various libraries (statistical, ML/DL, etc.).
 
-#### The key things to know about PyScript
+## The key things to know about PyScript
 
 * Allows us to use Python and its vast ecosystem of libraries (including `numpy`, `pandas`, `scikit-learn`) from within the browser.
 * By using environment management ****users can decide which packages and files are available when running the page’s code.
 * We can use some of the curated UI components out-of-the-box, for example: buttons, containers, text boxes, etc.
 * We do not have to worry about deployment as with PyScript everything will happen in our web browsers. As data scientists, we could share HTML files containing dashboards and/or models with our stakeholders, who will be able to run those in their browsers without any complicated setup.
 
-#### How does it work?
+## How does it work?
 
 PyScript is built on [Pyodide](https://pyodide.org/en/stable/). I hope I am not in the vast minority of data scientists who were not really familiar with what **Pyodide** actually is. So it is a Python distribution (port of CPython) for the browser and Node.js based on WebAssembly. Which brings the next question: what is WebAssembly?
 
@@ -36,7 +36,7 @@ For the time being, PyScript supports writing and running Python code in a brows
 
 This is also where a potential limitation comes into play. Currently, when using PyScript we can only use the libraries that are supported by Pyodide. You can find the entire list [here](https://github.com/pyodide/pyodide/tree/main/packages).
 
-#### Taking it for a spin
+## Taking it for a spin
 
 PyScript it currently in the alpha stage, but we can already give it a go and potentially suggest any improvements on its [GitHub repo](https://github.com/pyscript/pyscript). We can download a zipped folder containing all the code and assets directly from [PyScript’s website](http://Taking it for a spin).
 
@@ -98,21 +98,19 @@ This time, we also did the following:
 
 Naturally, as our codebase grows bigger, we do not have to embed it entirely in the HTML file. We can use the following block structure to load any `.py` script:
 
-```
+```html
 <py-script src="/our_script.py"> </py-script>
 ```
 
 You can find quite a lot of examples of using PyScript [here](https://pyscript.net/examples/) (already running in the browser) and [here](https://github.com/pyscript/pyscript/tree/main/pyscriptjs/examples) (code on GitHub).
 
-#### Wrapping up
+## Wrapping up
 
 * with PyScript we will be able to run Python (and not only) code straight from our browsers,
 * the project is developed by Anaconda,
 * the project is still in the alpha stage, but we can already play around with a selection of libraries supported by Pyodide.
 
 Personally, I am not sure what to think about PyScript at this point in time. It seems promising, but it can potentially open quite a lot of new security issues. And at this time, we can also see that even running some simple scripts already generates a significant overhead in terms of execution time. So I am not sure how practical it will be to run larger chunks of code from within the browser.
-
-I am curious to hear what are your thoughts about this new piece of technology! Please let me know in the comments or on [Twitter](https://twitter.com/erykml1?source=post_page---------------------------).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
