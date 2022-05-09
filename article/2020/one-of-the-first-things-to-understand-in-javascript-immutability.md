@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/one-of-the-first-things-to-understand-in-javascript-immutability.md](https://github.com/xitu/gold-miner/blob/master/article/2020/one-of-the-first-things-to-understand-in-javascript-immutability.md)
 > * 译者：[tanglie1993](https://github.com/tanglie1993)
-> * 校对者：[finalwhy](https://githu.com/finalwhy)
+> * 校对者：[finalwhy](https://githu.com/finalwhy)、[DylanXie123](https://github.com/DylanXie123)
 
 # JavaScript 首要知识之不可变性
 
