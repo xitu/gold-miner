@@ -2,41 +2,41 @@
 > * 原文作者：[Daryll Wong](https://medium.com/@daryllwong)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/one-of-the-first-things-to-understand-in-javascript-immutability.md](https://github.com/xitu/gold-miner/blob/master/article/2020/one-of-the-first-things-to-understand-in-javascript-immutability.md)
-> * 译者：
-> * 校对者：
+> * 译者：[tanglie1993](https://github.com/tanglie1993)、[finalwhy](https://githu.com/finalwhy)
+> * 校对者：[finalwhy](https://githu.com/finalwhy)、[DylanXie123](https://github.com/DylanXie123)
 
-# One of the first things to understand in JavaScript — Immutability
+# JavaScript 首要知识之不可变性
 
 ![](https://cdn-images-1.medium.com/max/6136/1*4PrMNL-FF9Z5G5BXJliAYg.png)
 
-Let us go back to basics: “In JavaScript, are variables or constants immutable?”
+我们来回顾一下基础：“在 JavaScript 中，变量和常量是不可变的吗？”
 
-The answer is **neither**, and if you even have a little hesitation on your answer, read on. Every programming language have different flavors and characteristics, and in JavaScript, this is one of the most important things to be aware of, especially while we are picking up a few languages like Python, Java, etc.
+答案是 **都不是**，如果你对这个答案有任何疑惑，请继续读下去。每种编程语言有自己的特性，在 JavaScript 中，这是最值得注意的几件事情之一，尤其是当我们正在学习另一些语言（如 Python, Java 等）的时候。
 
-You may not necessarily change how you code in JavaScript immediately, but in knowing this early, it will prevent you from getting into nasty situations that are difficult to debug later on. I will include some ways you can adopt to prevent getting into such problems as well — different ways to do shallow & deep copy.
+你不必立即改变编写 JavaScript 代码的方式，但是尽早地了解这一点，将会防止你在未来陷入难以调试的困难局面。我也会介绍一些能够防止你陷入这种问题的方法 —— 浅拷贝和深拷贝的一些不同的方法。
 
-Just a quick summary before we begin:
+我们在开始之前，先快速浏览一下摘要：
 
-**Variables** (initialised with `let`) — Re-assignable & Mutable
-**Constants** (initialised with `const`) — Non re-assignable & Mutable
+**变量**（使用 `let` 初始化）—— 可变，可重新赋值
+**常量**（使用 `const` 初始化）—— 不可变，不可重新赋值
 
 ---
 
-Before we explain mutability in JavaScript, let us quickly go through some basics… You may skip this part.
+在我们开始解释 JavaScript 的可变性之前，首先看一下基础知识…… 你可以略过这部分。
 
-There are broadly a few groups of data types in JavaScript:
+在 JavaScript 中，有几组数据类型：
 
-1. **Primitive (primary)**— Boolean, Number, String
-2. **Non-primitive (reference) or Objects** — Object, Array, Function
-3. **Special**— Null, Undefined
+1. **原生（基本）类型** —— Boolean, Number, String
+2. **非原始（引用）类型或对象** —— Object, Array, Function
+3. **特殊** —— Null, Undefined
 
-**Quick tip, you can use console.log(typeof unknownVar) to figure out the data type of the variable you are dealing with**
+**提示：你可以使用 console.log(typeof unknownVar) 来获取你正在使用的变量的数据类型**
 
-#### Primitive data types are Immutable by default
+#### 原生数据类型默认是不可变的
 
-For primitive data types (like boolean, number and strings), they are **immutable** if they are declared as constants because for these data types, you cannot add any additional properties or mutate certain properties.
+对于原生数据类型而言 (如 boolean、number、string 等), 如果使用常量来声明的话，它们是**不可变**的。因为对于这些数据类型而言，你不能加入额外的属性，或改动已有的属性。
 
-To ‘change/alter’ primitives, it simply means you have to reassign them, which is only possible if they are declared as variables.
+要「改变」原生数据类型，你就需要重新赋值。这只有在将其作为变量声明的时候才有可能。
 
 ```js
 let var1 = 'apple' //'apple' is stored in memory location A
@@ -48,21 +48,21 @@ var2 = 'orange' // ERROR: Re-assignment not allowed for constants
 
 ![](https://cdn-images-1.medium.com/max/2464/1*xyaMxzBMpouTQbMr-O0pXg.png)
 
-In the example above, if we edit the string for var1, JavaScript will simply create another string at another memory location and var1 will point to this new memory location, and this is called **Re-assignment**. This applies for all **primitive data types** regardless if they are declared as variables or constants.
+在上述例子中，如果我们修改 var1 这个 string，JavaScript 将会在内存中的另一个位置创造另一个 string，而 var1 将会指向这个新的内存位置，这被称为 **重新赋值**。这对于所有 **原生数据类型** 都适用，无论是被声明为变量还是常量。
 
-And all constants cannot be re-assigned.
+而所有的常量都不能被重新赋值。
 
-## In JavaScript, Objects are Passed By Reference
+## 在 JavaScript 中，对象是引用传递的
 
-Problems start to occur when we are dealing with **objects**…
+当我们在处理**对象**时，问题开始出现了……
 
-#### Objects are not Immutable
+#### 对象并非不可变的
 
-Objects generally refer to the non-primitive data types (Object, Array and Function), and they are mutable even if they are declared as constants with `const`
+对象基本上指的是非原生的数据类型 （对象、 数组 和 函数），哪怕被作为常量声明，它们也是可变的。
 
-**(For the rest of this article, I will give examples for the Object data type as problems arise the most here. The concepts will be the same for Arrays and Functions)**
+**（在本文的剩余部分，我将以对象数据类型举例。因为大多数问题是出在这里的。对于数组和函数而言，概念也会是一样的）**
 
-So what does this mean?
+所以这是什么意思？
 
 ```js
 const profile1 = {'username':'peter'}
@@ -72,11 +72,11 @@ console.log(profile1) //{'username':'tom'}
 
 ![](https://cdn-images-1.medium.com/max/3448/1*FluTwbCYFCQO6pW5enoLoQ.png)
 
-In this case, profile1 is pointing to the object located at the same memory location and what we have done is to mutate the properties of this object at the same memory location.
+在这种情况下，profile1 一直指向位于同一内存位置的对象。我们所做的是修改位于内存该位置的对象的属性。
 
-Okay this looks simple enough, why would this be problematic?
+好吧，这看起来非常简单，但为什么会有问题呢？
 
-#### When Mutation in Objects become a PROBLEM…
+#### 当对对象的修改出现了问题……
 
 ```js
 const sampleprofile = {'username':'name', 'pw': '123'}
@@ -88,36 +88,37 @@ console.log(profile1) // {'username':'harry', 'pw': '123'}
 console.log(sampleprofile) // {'username':'harry', 'pw': '123'}
 ```
 
-**Looks like a simple piece of code that you may potentially & innocently write right? Guess what, there’s already an issue here!**
+**看起来像是几行你可能会不小心写下的代码，对吧？其实，这里已经有一个问题了！**
 
-This is because Objects are **passed by reference** in JavaScript.
+因为对象在 JavaScript 中是引用传递的。
 
 ![](https://cdn-images-1.medium.com/max/3720/1*K7JS9v4pbm1b0W4yaf-fZQ.png)
 
-What is meant by ‘**passing by reference**’ in this case is, we are passing the reference of the constant sampleprofile to profile1. In other words, the constants of both profile1 and sampleprofile are pointed to the same object **located at the** **same memory location**.
+这里所谓的「**引用传递**」是指，我们把对常量 sampleprofile 的引用传递给 profile1。换句话说，profile1 和 sampleprofile 两个常量指向 **位于同一内存位置** 的同一个对象。
 
-Hence, when we change the property of the object of the constant profile1, it also affects sampleprofile because both of them are pointed to the same object.
+所以，当我们修改常量 profile1 的属性时，它同时也影响了 sampleprofile，因为它们都指向同一个对象。
 
 ```js
 console.log(sampleprofile===profile1)//true
 ```
 
-**This is just a simple example of how passing by reference (and hence mutation) can potentially be problematic. But we can imagine how this can get really gnarly when our code gets more complex and large, and if we are not too aware of this fact, it will be hard for us to solve certain bugs.**
+**这只是引用传递（也是修改变量）会造成问题的一个简单例子。我们可以想象，当代码逐步变得复杂时，情况将变得多么危险。如果我们不清楚这一点，修复特定 bug 将变得相当困难。**
 
-So, how do we prevent or try to avoid from potentially facing such issues?
+所以，我们如何避免这些潜在的问题呢？
 
-There are two concepts that we should be aware of in order to effectively face potential issues related to Mutation in Objects:
+为了更有效地面对修改对象的问题，有两个概念我们应当清楚：
 
-* **Preventing Mutation by Freezing Objects**
-* **Using Shallow & Deep copy**
+* **通过冻结对象来防止修改**
+* **使用浅拷贝和深拷贝**
 
-I will show you some examples of implementation in JavaScript, using vanilla JavaScript methods, as well as some useful libraries we could use.
+我将向你展示一些使用 JavaScript 实现的例子，包括使用 vanilla JavaScript 方法，以及一些我们可以使用的有用的三方库。
 
-## Preventing Mutation in Objects
+## 防止修改对象
 
-#### 1. Using Object.freeze() Method
+#### 1. 使用 Object.freeze() 方法
 
-If you want to prevent an object from changing properties, you can use `Object.freeze()` . What this does is it will not allow the existing properties of the object to alter. Any attempts to do so will cause it to ‘silently fail’, meaning it will not be successful but and there will not be any warnings as well.
+如果你想要防止一个对象的属性被改变，你可以使用 `Object.freeze()` 。它的作用是，防止对象已有的属性被改变。任何改变的尝试都会静默失败，意味着它不会成功，也不会有任何警告。
+
 
 ```js
 const sampleprofile = {'username':'name', 'pw': '123'}
@@ -129,12 +130,12 @@ sampleprofile.username = 'another name' // no effect
 console.log(sampleprofile) // {'username':'name', 'pw': '123'}
 ```
 
-HOWEVER, this is a form of **shallow freeze** and this will not work with deeply nested objects:
+但是，这是一种 **浅冻结**，即它对于深层嵌套的对象将不会有用：
 
 ```js
 const sampleprofile = {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 
@@ -145,8 +146,8 @@ console.log(sampleprofile)
 
 /*
 {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 */
@@ -156,50 +157,50 @@ console.log(sampleprofile)
 
 /*
 {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'changedName', 'lastname':'name'}
 }
 */
 ```
 
-In the above example, the properties of the nested object is still able to change.
+在上面的例子中，嵌套对象的属性仍然可以改变。
 
-You can potentially create a simple function to recursively freeze the nested objects (you can try this on your own and comment your answers in this article? 😊), but if you are lazy here are some libraries you could use:
+你可以创造一个简单的函数来递归地冻结嵌套的对象，但如果你比较懒的话，可以使用以下这些库：
 
-#### 2. Using deep-freeze
+#### 2. 使用深层冻结
 
-But seriously, if you look at the [source code](https://github.com/substack/deep-freeze/blob/master/index.js) of [deep-freeze](https://www.npmjs.com/package/deep-freeze), it is essentially just a simple recursion function, but anyway this is how you can use it easily..
+但说真的，如果你看看 [深层冻结](https://www.npmjs.com/package/deep-freeze) 的[源代码](https://github.com/substack/deep-freeze/blob/master/index.js), 它基本上只是一个简单的递归调用函数，但不管怎样，这是一种更便捷的选择...
 
 ```js
 var deepFreeze = require('deep-freeze');
 
 const sampleprofile = {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 
 deepFreeze(sampleprofile)
 ```
 
-Another alternative to deep-freeze is [ImmutableJS](https://immutable-js.github.io/immutable-js/) which some of you may prefer because it will help to throw an error whenever you try to mutate an object that you have created with the library.
+深层冻结的另一个选择是 [ImmutableJS](https://immutable-js.github.io/immutable-js/) ，一些人可能更喜欢使用它，因为当你试图修改一个用这个库创造的对象时，它会抛出错误。
 
 ---
 
-## Avoiding problems related to Passing By Reference
+## 避免和引用传递相关的问题
 
-The key is in understanding **shallow and deep copying/cloning/merging** in JavaScript.
+关键在于理解 JavaScript 中的 **深浅 拷贝/克隆/融合**。
 
-Depending on your individual implementation of the objects in your program, you may want to use shallow or deep copying. There may also be other considerations pertaining to memory and performance, which will affect your choice of shallow or deep copy and even libraries to use. But we shall leave this to another day when we get there 😉
+你可能会使用浅拷贝或使用深拷贝，这取决于你程序中对象的具体实现方式，也可能存在内存或性能方面的考虑，会影响你对深拷贝和浅拷贝的选择。但我会在涉及到的时候再讲的 😉。
 
-Let’s start off with shallow copying, followed by deep copying.
+让我们从浅拷贝开始，然后再到深拷贝。
 
-## Shallow Copying
+## 浅拷贝
 
-#### 1. Using spread operator (…)
+#### 1. 使用展开操作符 (…)
 
-The spread operator introduced with ES6 provides us with a cleaner way to combine arrays and objects.
+ES6 引入的展开操作符给我们提供了一种更干净的方式来合并数组和对象。
 
 ```js
 const firstSet = [1, 2, 3];
@@ -211,7 +212,7 @@ console.log(firstSetCopy) // [1, 2, 3]
 console.log(resultSet) // [1,2,3,4,5,6]
 ```
 
-ES2018 also extended spread properties to object literals, so we can also do the same for objects. The properties of all the objects will be merged but for conflicting properties, the subsequent objects will take precedence.
+ES2018 把展开操作符扩展到了对象字面量，所以我们可以对对象做同样的事。所有对象的属性将被合并在一起，但对于冲突的属性，后展开的对象有更高的优先级。
 
 ```js
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
@@ -223,9 +224,9 @@ console.log(profile1Copy) // {'username':'name', 'pw': '123', 'age': 16}
 console.log(resultProfile) // {'username':'tom', 'pw': '1234', 'age': 16}
 ```
 
-#### 2. Using Object.assign() Method
+#### 2. 使用 Object.assign() 方法
 
-This is similar to using the spread operators above, which can be used for both arrays and objects.
+这和使用上面的展开操作符相似，可以被用于数组和对象。
 
 ```js
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
@@ -234,11 +235,11 @@ const profile1Copy = Object.assign({}, profile1)
 const resultProfile = Object.assign({},...profile1, ...profile2)
 ```
 
-Note that I have used an empty object `{}` as the first input because this method updates the first input from the result of the shallow merge.
+注意，我使用了一个空对象 `{}` 作为第一个输入，因为这个方法使用浅融合的结果更新第一个输入。
 
-#### 3. Using .slice()
+#### 3. 使用 Array.slice()
 
-This is just a convenient method just for **shallow cloning arrays**!
+这只是 **浅克隆数组** 的一种简便方法！
 
 ```js
 const firstSet = [1, 2, 3];
@@ -250,26 +251,27 @@ console.log(firstSetCopy) // [1, 2, 3]
 console.log(firstSet===firstSetCopy) // false
 ```
 
-#### 4. Using lodash.clone()
+#### 4. 使用 lodash.clone()
 
-Also note there is a method in lodash to do shallow cloning as well. I think it is a little overkill to use this (unless you already have lodash included) but I’ll just leave an example here.
+注意，lodash 也有一种方法可以做浅克隆。我觉得这有些小题大做了（除非你已经引入了 lodash），但我仍然要在这里留一个例子。
 
 ```js
 const clone = require('lodash/clone')
 
 const profile1 = {'username':'name', 'pw': '123', 'age': 16}
 const profile1Copy = clone(profile1)
-...
+
+// ...
 ```
 
-#### Problem of Shallow Cloning:
+#### 浅克隆的问题:
 
-For all of these examples of Shallow Cloning, issues start to come if we have **deeper nesting of objects**, like this example below.
+对于所有这些浅克隆的例子，一旦涉及 **对象的深层嵌套**，问题就开始出现了，就像下面的例子一样。
 
 ```js
 const sampleprofile = {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 
@@ -280,8 +282,8 @@ profile1.particulars.firstname='Wong'
 console.log(sampleprofile)
 /*
 {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'Wong', 'lastname':'name'}
 }
 */
@@ -289,8 +291,8 @@ console.log(sampleprofile)
 console.log(profile1)
 /*
 {
-  'username':'tom', 
-  'pw': '123', 
+  'username':'tom',
+  'pw': '123',
   'particulars':{'firstname':'Wong', 'lastname':'name'}
 }
 */
@@ -298,29 +300,29 @@ console.log(profile1)
 console.log(sampleprofile.particulars===profile1.particulars) //true
 ```
 
-Note how mutating the nested property (‘firstname’) of `profile1`, also affects `sampleprofile`.
+注意，修改 `profile1` 的嵌套属性 `firstname`，同样会影响 `sampleprofile`。
 
 ![](https://cdn-images-1.medium.com/max/4912/1*7QbV9c0-yJ98rgeciFYgCg.png)
 
-For Shallow Cloning, the nested object’s references are copied. So the objects of ‘particulars’ for both `sampleprofile` and `profile1` refer to the same object located at the same memory location.
+对于浅克隆，对于嵌套对象的复制也是复制引用。 所以 `sampleprofile` 和 `profile1` 的 ‘particulars’ 指向位于内存同个位置的对象。
 
-To prevent such a thing from happening and if you want a 100% true copy with no external references, we need to use **Deep Copy**.
+为防止上述问题发生，并实现 100% 真实的拷贝，没有外部引用，我们需要使用 **深拷贝**。
 
-## Deep Copying
+## 深拷贝
 
-#### 1. Using JSON.stringify() & JSON.parse()
+#### 1. 使用 JSON.stringify() 和 JSON.parse()
 
-This was not possible previously but for ES6, JSON.stringify() method is able to do deep copying of nested objects as well. However, note that this method only works great for Number, String and Boolean data types. Here’s an example in JSFiddle, try playing around to see what is copied and what’s not.
+这在之前是不可能的，但是对于 ES6 而言，JSON.stringify() 方法也可以做嵌套对象的深拷贝。但是，注意这个方法只对于 Number, String 和 Boolean 数据类型适用。这是一个 JSFiddle 中的例子，你可以用它来试试什么被拷贝了，什么没有。
 
-Generally if you are only working with primitive data types and a simple object, this is a short & simple one-liner code to do the job!
+基本上如果你只使用原生数据类型和简单的对象，可以简单地用一行代码搞定。
 
-#### 2. Using lodash.deepclone()
+#### 2. 使用 lodash.deepclone()
 
 ```js
 const cloneDeep = require('lodash/clonedeep')
 const sampleprofile = {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 
@@ -331,8 +333,8 @@ profile1.particulars.firstname='Wong'
 console.log(sampleprofile)
 /*
 {
-  'username':'name', 
-  'pw': '123', 
+  'username':'name',
+  'pw': '123',
   'particulars':{'firstname':'name', 'lastname':'name'}
 }
 */
@@ -340,20 +342,20 @@ console.log(sampleprofile)
 console.log(profile1)
 /*
 {
-  'username':'tom', 
-  'pw': '123', 
+  'username':'tom',
+  'pw': '123',
   'particulars':{'firstname':'Wong', 'lastname':'name'}
 }
 */
 ```
 
-**FYI, lodash is included in react apps created with create-react-app**
+**供参考，lodash 包含在通过 create-react-app 创建的 react app 中**
 
-#### 3. Custom Recursion Function
+#### 3. 自定义递归函数
 
-If you don’t want to download a library just to do a deep copy, feel free to create a simple recursion function too!
+如果你不想要下载一个库来做深拷贝，你也完全可以使用简单的递归函数。
 
-The code below (though doesn't cover all cases) gives a rough idea of how you can create this yourself.
+下面的代码（虽然不包括所有情况）给出了一个大概的想法。
 
 ```js
 function clone(obj) {
@@ -377,11 +379,11 @@ function clone(obj) {
 // taken from https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
 ```
 
-Perhaps it is simpler to just download a library to implement deep cloning? There are other **micro-libraries** like [rfdc](https://www.npmjs.com/package/rfdc), [clone](https://www.npmjs.com/package/clone), [deepmerge](https://www.npmjs.com/package/deepmerge) that does the job, in a smaller package size than lodash. You don’t have to download lodash just to use one function.
+也许下载一个库来实现深克隆更简单？也有其他的 **微型库** 像 [rfdc](https://www.npmjs.com/package/rfdc), [clone](https://www.npmjs.com/package/clone), [deepmerge](https://www.npmjs.com/package/deepmerge) 等可以做这件事，而且比 lodash 小很多。你不必为了使用一个函数而下载整个 lodash 库。
 
 ---
 
-Hope this gives you a perspective of the Object-Oriented nature of JavaScript, and how to handle bugs related to mutation in objects! This is a popular JavaScript interview question too. Thanks for reading! :)
+希望这可以帮助你理解 JavaScript 面向对象特性，以及如何处理涉及到修改对象的 bug。这也是常见的 JavaScript 面试问题。感谢阅读！ :)
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
