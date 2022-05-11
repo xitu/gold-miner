@@ -2,12 +2,12 @@
 > * 原文作者：[Christian Hubbs](https://medium.com/@christiandhubbs)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md)
-> * 译者：[JohnieXu](https://github.com/JohnieXu)
-> * 校对者：
+> * 译者：[JohnieXu](https://github.com/JohnieXu)、[WangNing](https://github.com/w1187501630)
+> * 校对者：[PorridgeZero](https://github.com/chzh9311)、[ghost](https://github.com/ghost)
 
 # Python 模拟动力系统的初学者指南
 
-> Python 中对二阶常微分方程进行数值积分运算
+> 使用 Python 对二阶常微分方程进行数值积分运算
 
 ![图由 [Dan Meyers](https://unsplash.com/@dmey503?utm_source=medium&utm_medium=referral) 发布于 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*GZYR2gufn9IzhkSu)
 
@@ -15,23 +15,23 @@
 
 ![](https://cdn-images-1.medium.com/max/2048/0*7CYBv0aAMnMcHQr9.png)
 
-一根长度为 L 的绳子下方悬挂一个质量为 m 的重物，来回往复摆动。
+一根长度为 L 的绳子下方悬挂一个质量为 m 的重物，绳子来回往复摆动。
 
 这基本上是我们能够上手实践的最简单的系统，但是也不能被其表象上的简易程度所蒙蔽，因为它可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论并将其和连续控制强化学习做对比。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
 
-## 全文总结
+## 摘要总结
 
-我们推导出了单摆系统的动力学模型，并且分别使用 Python 的集成包和欧拉法创建了两个仿真模型。机器控制系统中的许多关节和系统都可以采用单摆进行建模，因此这里的仿真模型可以作为分析复杂系统的垫脚石。
+我们推导出了单摆系统的动力学模型，并且分别使用 Python 的集成包和欧拉法创建了两个仿真模型。机器控制系统中的许多关节和系统都可以采用单摆进行建模，因此这里的仿真模型可以作为分析复杂系统的基础。
 
 原文对文章的公式显示更友好，你可以[点击这里](https://www.datahubbs.com/simulating-dynamical-systems-with-python/)阅读。
 
-## 摇摆动力学
+## 摆动力学
 
-若要对单摆系统进行仿真，则首先需要理解摇摆动力学。首先，我们画出单摆系统的受力分析图。其中摆绳的长度、小球的质量、重力及其他作用在这个系统上的力如下图所示。
+若要对单摆系统进行仿真，则首先需要理解摆动力学。首先，我们画出单摆系统的受力分析图。其中摆绳的长度、小球的质量、重力及其他作用在这个系统上的力如下图所示。
 
 ![Free-body diagram of the simple pendulum.](https://cdn-images-1.medium.com/max/2000/0*8vEjw63JJBOSvML0)
 
-绘制受力分析图有助于明确所有力，以确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下：
+绘制受力分析图有助于明确所有作用力，确保我们不会有所遗漏。接下来就可以使用牛顿第二运动定律来分析其动力学。牛顿第二运动定律的形式为 `F = ma`，我们使用其变体——[转动定律](https://brilliant.org/wiki/rotational-form-of-newtons-second-law/)表达如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*3xMMMwDVq4IbHx-ku6Z-0g.png)
 
@@ -88,7 +88,7 @@ t = np.linspace(0, t_max, t_max/delta_t)
 
 ## Scipy 数值积分
 
-使用 `scipy` 进行数值积分方法，我们需要为模型构建一个积分函数，称为 `int_pendulum_sim`。该模型将采用 θ_1 和 θ_2 的初始值 (代码中记为 `theta_init`) 对时间间隔（Δt）进行积分，然后返回对应的 theta 值。这个函数正好就是我们上面推导出的 θ˙_ 1 和 θ˙_ 2 的两个方程。
+使用 `scipy` 进行数值积分方法，我们需要为模型构建一个积分函数，称为 `int_pendulum_sim`。该模型将采用 θ_1 和 θ_2 的初始值 (代码中记为 `theta_init`) 对时间间隔（Δt）进行积分，然后返回对应的 theta 值。这个函数正好就是我们上面推导出的 θ˙_1 和 θ˙_2 的两个方程。
 
 ```python
 def int_pendulum_sim(theta_init, t, L=1, m=1, b=0, g=9.81):
@@ -109,11 +109,10 @@ theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 
 ![](https://cdn-images-1.medium.com/max/2000/0*eYACTeCtD68Nw88v)
 
-我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果你增加初始速度，比如：10 rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
+我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果增加初始速度，比如：10 rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
 
 ## 半隐式欧拉法
 
-Solving the model via integration is relatively easy, but integration can be very expensive, particularly for larger models. If we want to see the long-term dynamics of the model, we can use [欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method) to integrate and simulate the system instead. This is how control problems such as Cart-Pole are solved in OpenAI and allows us to set-up problems for RL control.
 通过数值积分来分析这类模型比较简单，但是积分计算的成本相对较大，尤其是处理较大的模型。如果我们想看到模型的长期动态图，我们可以使用[欧拉法](https://en.wikipedia.org/wiki/Semi-implicit_Euler_method)代替数值积分法来进行模拟。欧拉法也是在 OpenAI 中解决像 [Card-Pole](https://gym.openai.com/envs/CartPole-v1/) 这类控制问题的方法，它能解决强化学习（RL）中的控制问题。
 
 首先需要得到上述常微分方程的[泰勒级数展开式](https://en.wikipedia.org/wiki/Taylor_series)。这种计算方法是一种近似法，因此展开式项越多得出的结果也越准确。考虑到当我们当前的场景，只需要扩展到一阶导数并截去高阶项。
@@ -130,11 +129,11 @@ Solving the model via integration is relatively easy, but integration can be ver
 
 ![](https://cdn-images-1.medium.com/max/2000/1*BwSlCyQugIxY_XuSpdFA2A.png)
 
-这样我们就得到了一种更方便的方法，可以在每个时间间隔中更新模型以获取 θ _1(t) 的最新值。重复 θ˙(t) 的展开和替换，可以得到以下结果：
+这样我们就得到了一种更方便的方法，可以在每个时间间隔中更新模型以获取 θ_1(t) 的最新值。重复 θ˙(t) 的展开和替换，可以得到以下结果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JT45PanYmNHq0-o6brpZnQ.png)
 
-在模拟中遍历的过程中，我们将更新 t_0 作为上一个时间步，因此我们将逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会发散。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 -- 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
+在模拟中遍历的过程中，我们将更新 t_0 作为上一个时间步，并逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会发散。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 -- 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
 
 ```python
 def euler_pendulum_sim(theta_init, t, L=1, g=9.81):
@@ -158,7 +157,7 @@ theta_vals_euler = euler_pendulum_sim(theta_init, t)
 
 ![](https://cdn-images-1.medium.com/max/2000/0*0IZ-Dh71fulbtlEn)
 
-绘制的图看起来还不错，下面看下是否和之前方法一的结果相符合。
+绘制的图看起来还不错，让我们看下是否和之前方法一的结果相符合。
 
 ```python
 mse_pos = np.power(
@@ -174,7 +173,7 @@ MSE Velocity:	0.0000
 
 不同方法之间的均方误差非常接近，这说明我们得到了一个很好的近似值。
 
-我们使用了两种不同的方法，分别为常微分方法法和欧拉法，其中欧拉法要比常微分方程法 `odeint` 求解速度快。下面我们来测试并验证一下是否真的速度要快些。
+我们使用了两种不同的方法，分别为常微分方程法和欧拉法，其中欧拉法要比常微分方程法 `odeint` 求解速度快。下面我们来测试并验证一下是否真的速度要快些。
 
 ```
 %timeit euler_pendulum_sim(theta_init, t)
@@ -188,7 +187,7 @@ MSE Velocity:	0.0000
 
 与常微分方程的数值积分相比，欧拉方法的速度提高了约 2 倍。
 
-通过以上这些，我们学会了如何微积分的第一法则建立和模拟动态模型，并将其应用于一个简单的无摩擦单摆系统。
+通过以上这些，我们学会了如何使用微积分的第一法则建立和模拟动态模型，并将其应用于一个简单的无摩擦单摆系统。
 
 像这样的动力系统对于理解自然科学是非常有用的。我最近用同样的技术写了一篇文章，展示了我们如何模拟[病毒在人群中的爆发性传播](https://towardsdatascience.com/how-quickly-does-an-influenza-epidemic-grow-7e95786115b3) 。常微分方程（ODE）也非常适合于反馈控制以及机器人技术和工程领域的其他相关应用，因此必须掌握基本的数值积分原理!
 
