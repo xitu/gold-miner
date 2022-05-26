@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)、[WangNing](https://github.com/w1187501630)
-> * 校对者：[PorridgeZero](https://github.com/chzh9311)、[ghost](https://github.com/ghost)、[DylanXie123](https://github.com/DylanXie123)
+> * 校对者：[PorridgeZero](https://github.com/chzh9311)、[DylanXie123](https://github.com/DylanXie123)
 
 # Python 模拟动力系统的初学者指南
 
