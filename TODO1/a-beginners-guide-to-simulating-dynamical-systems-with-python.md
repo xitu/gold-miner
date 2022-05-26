@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md](https://github.com/xitu/gold-miner/blob/master/TODO1/a-beginners-guide-to-simulating-dynamical-systems-with-python.md)
 > * 译者：[JohnieXu](https://github.com/JohnieXu)、[WangNing](https://github.com/w1187501630)
-> * 校对者：[PorridgeZero](https://github.com/chzh9311)、[ghost](https://github.com/ghost)
+> * 校对者：[PorridgeZero](https://github.com/chzh9311)、[ghost](https://github.com/ghost)、[ylanXie123](https://github.com/DylanXie123)
 
 # Python 模拟动力系统的初学者指南
 
@@ -17,7 +17,7 @@
 
 一根长度为 L 的绳子下方悬挂一个质量为 m 的重物，绳子来回往复摆动。
 
-这基本上是我们能够上手实践的最简单的系统，但是也不能被其表象上的简易程度所蒙蔽，因为它可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论并将其和连续控制强化学习做对比。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
+这基本上是我们能够上手实践的最简单的系统，但是也不能被其表象上的简单所蒙蔽，因为它可以创建一个有趣的动力系统。我们将以此为起点来介绍一些基本的控制理论并将其和连续控制强化学习做对比。在此之前，我们有必要先花点时间了解下单摆的运动模型以及如何对其进行运动仿真。
 
 ## 摘要总结
 
@@ -39,7 +39,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZY8xoZWK0WQw6Kr78RlTvQ.png)
 
-为了完整性，我们还可以考虑钟摆上的摩擦，这样就得到：
+为了完整性，我们还可以考虑单摆上的摩擦，这样就得到：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*GfLPH68C4RaMzFkjE_y51Q.png)
 
@@ -109,7 +109,7 @@ theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 
 ![](https://cdn-images-1.medium.com/max/2000/0*eYACTeCtD68Nw88v)
 
-我们的模型中是没有考虑摩擦力或其他力的，所以钟摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果增加初始速度，比如：10 rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
+我们的模型中是没有考虑摩擦力或其他力的，所以单摆只会在 -π/2 和 π/2 之间往复地来回摆动。如果增加初始速度，比如：10 rad/s，会看到单摆的运动位置会随着往复来回摆动不断增加。
 
 ## 半隐式欧拉法
 
@@ -133,7 +133,7 @@ theta_vals_int = integrate.odeint(int_pendulum_sim, theta_init, t)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JT45PanYmNHq0-o6brpZnQ.png)
 
-在模拟中遍历的过程中，我们将更新 t_0 作为上一个时间步，并逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会发散。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 -- 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
+在模拟中遍历的过程中，我们将更新 t_0 作为上一个时间步，并逐步向前移动模型。另外，请注意，这是**半隐式欧拉方法** ,这意味着在我们的第二个方程中，我们使用的是最新的 θ_1(t) 而非 θ_1(t_0) 带入到泰勒展开式（TSE）中。我们做出这种微妙的替代是因为，如果没有它，我们的模型将会发散。本质上，我们使用泰勒展开式（TSE）进行的近似计算有一些误差（还记得，前面提到丢弃了那些高阶项）。在这个应用中，这些错误将新能量引入到了的单摆上 —— 这显然违反了热力学第一定律。进行这种替换可以解决所有这些问题。
 
 ```python
 def euler_pendulum_sim(theta_init, t, L=1, g=9.81):
