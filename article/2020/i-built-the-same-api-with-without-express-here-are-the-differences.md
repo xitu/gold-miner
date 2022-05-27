@@ -2,8 +2,8 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/i-built-the-same-api-with-without-express-here-are-the-differences.md](https://github.com/xitu/gold-miner/blob/master/article/2020/i-built-the-same-api-with-without-express-here-are-the-differences.md)
-> * 译者：[lhd951220](https://github.com/lhd951220)
-> * 校对者：
+> * 译者：[lhd951220](https://github.com/lhd951220)、[finalwhy](ttps://github.com/finalwhy)
+> * 校对者：[Cygra](https://github.com/Cygra)
 
 # Express vs. http - API 基准测试
 
