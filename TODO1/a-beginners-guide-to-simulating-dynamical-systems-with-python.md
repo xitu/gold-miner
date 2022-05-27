@@ -5,7 +5,7 @@
 > * 译者：[JohnieXu](https://github.com/JohnieXu)、[WangNing](https://github.com/w1187501630)
 > * 校对者：[PorridgeZero](https://github.com/chzh9311)、[DylanXie123](https://github.com/DylanXie123)
 
-# Python 模拟动力系统的初学者指南
+# 使用 Python 模拟动力系统的初学者指南
 
 > 使用 Python 对二阶常微分方程进行数值积分运算
 
