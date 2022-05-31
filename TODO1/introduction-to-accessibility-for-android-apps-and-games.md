@@ -75,7 +75,7 @@
 
 ### 一款有用的开发者工具，用于测试您的应用和游戏的无障碍功能
 
-测试您的应用程序的无障碍功能是您开发过程中的的关键部分。我们发布了 [入门指南](https://developer.android.com/training/accessibility/testing#top_of_page)，强调手动测试，使用者以及自动化测试相结合的重要性，以便发现可能会遗漏的无障碍问题。
+测试您的应用程序的无障碍功能是您开发过程中的关键部分。我们发布了 [入门指南](https://developer.android.com/training/accessibility/testing#top_of_page)，强调手动测试，使用者以及自动化测试相结合的重要性，以便发现可能会遗漏的无障碍问题。
 
 [谷歌无障碍扫描程序](https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor) 使用了 [无障碍测试框架](https://github.com/google/Accessibility-Test-Framework-for-Android)，并会对您手机上安装的任何安卓应用提出改善建议，而这不需要任何技术能力。它通过查看内容标签，可点击项目，对比度等内容后会提供可行的建议。
 

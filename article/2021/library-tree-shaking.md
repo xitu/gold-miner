@@ -444,7 +444,7 @@ import "myPolyfill";
 * 使用的是像 Sass 或者 TypeScript 这样的语言，它们需要转换到比如 CSS 或者 JavaScript 这样的语言。
 * 需要满足于提供多种模块格式（ESM、CJS、IIFE 等）的需求。
 
-像 [Webpack](https://webpack.js.org/)、[Rollup](https://rollupjs.org/guide/en/)、[Parcel](https://parceljs.org/) 和 [ESBuild](https://esbuild.github.io/) 这样的流行的打包工具被设计为用来提供一个能够传输给浏览器使用的 bundle。它们也因此倾向于创建一个单独的的文件，然后将你的所有代码重新组合并输出到这个文件里，从而只有一个单独的 `.js` 文件需要通过网络进行传输。
+像 [Webpack](https://webpack.js.org/)、[Rollup](https://rollupjs.org/guide/en/)、[Parcel](https://parceljs.org/) 和 [ESBuild](https://esbuild.github.io/) 这样的流行的打包工具被设计为用来提供一个能够传输给浏览器使用的 bundle。它们也因此倾向于创建一个单独的文件，然后将你的所有代码重新组合并输出到这个文件里，从而只有一个单独的 `.js` 文件需要通过网络进行传输。
 
 从摇树优化的角度来说，这导致了一个问题：**副作用优化不复存在了**，因为没有模块能够被略过。
 

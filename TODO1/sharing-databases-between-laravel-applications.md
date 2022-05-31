@@ -24,7 +24,7 @@ CRM 是在我为现在的老板打工之前建立起来的，而会员区是我�
 
 这个包中的模型每个都从它们自己的基础模型扩展而来，它为每个数据库设置连接，并包含可以将它们连接在一起的最少量的逻辑。
 
-我们试着让包模型仅仅包含互相之间的关系，和一些通用的方法和行为。思路就是是，每个使用它们的应用程序都会根据需要扩展它们并实现它们自己的特定逻辑。
+我们试着让包模型仅仅包含互相之间的关系，和一些通用的方法和行为。思路就是，每个使用它们的应用程序都会根据需要扩展它们并实现它们自己的特定逻辑。
 
 ### 迁移
 
@@ -96,7 +96,7 @@ database/migrations/
 
 这意味着如果我们对使用自己的数据库以及共享数据库的应用程序进行测试，则每次测试都将失败，因为 Laravel 会尝试运行未丢弃连接的迁移。对此，[Sepehr Lajevardi](https://twitter.com/sepehrlajevardi) 有一个[解决方案](https://github.com/laravel/framework/issues/21063#issuecomment-360616841)，[Keith Damiani](https://twitter.com/keithdamiani) 为我指出明路。
 
-Sepehr 的建议中提及的的特性使用一个从待删表的连接数组中查找属性的方法覆盖 Laravel 的默认 `refreshTestDatabase` 方法。
+Sepehr 的建议中提及的特性使用一个从待删表的连接数组中查找属性的方法覆盖 Laravel 的默认 `refreshTestDatabase` 方法。
 
 ### 数据库配置
 

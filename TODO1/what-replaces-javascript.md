@@ -101,7 +101,7 @@ Blazor 并不是唯一一个由 WebAssembly 支持的实验。以 [Pyodide](http
 
 如果你认为这条 WebAssembly 的发展之路看起来漫长而且令人怀疑，那么想想 JavaScript 的例子吧。首先，我们看到，如果有些事情 JavaScript 可以做到，那么它就会被完成。然后，我们了解到，如果浏览器频繁做某件事，那么浏览器会让它工作得更高效更好，等等。所以说，如果 WebAssembly 流行了，它将进入一个良性循环的发展过程，并且很容易超越 JavaScript 的固有优势。
 
-人们常说，WebAssembly 不是用来替代 JavaScript 的。但这适用于之前的每一个发生革命性改变的的平台。JavaScript 不是用来取代浏览器嵌入 Java 的。Web 应用程序也不是为了取代桌面应用程序而设计的。但一旦它们可以，它们就会替代。
+人们常说，WebAssembly 不是用来替代 JavaScript 的。但这适用于之前的每一个发生革命性改变的平台。JavaScript 不是用来取代浏览器嵌入 Java 的。Web 应用程序也不是为了取代桌面应用程序而设计的。但一旦它们可以，它们就会替代。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

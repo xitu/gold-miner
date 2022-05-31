@@ -21,7 +21,7 @@ TensorFlow 源自 Google DistBelief，它是由 Google Brain 项目组开发并�
 
 深度学习神经网络通常是由多个层组成。它们使用多维数组在层之间传递数据或执行操作。一个 tensor 在神经网络的各层之间“流动”（Flow）。因此，命名为 TensorFlow。
 
-TensorFlow 使用的主要编程语言是 Python。为 `C`++、 Java® 语言和 Go 提供了可用但不保证稳定性的的应用程序接口（API），同样也有很多为 `C`#，Haskell， Julia，Rust，Ruby，Scala，R 甚至是 PHP 设计的第三方的绑定。Google 近来发布了一个为移动设备优化的 TensorFlow-Lite 库，以使 TensorFlow 应用程序能在 Android 上运行。
+TensorFlow 使用的主要编程语言是 Python。为 `C`++、 Java® 语言和 Go 提供了可用但不保证稳定性的应用程序接口（API），同样也有很多为 `C`#，Haskell， Julia，Rust，Ruby，Scala，R 甚至是 PHP 设计的第三方的绑定。Google 近来发布了一个为移动设备优化的 TensorFlow-Lite 库，以使 TensorFlow 应用程序能在 Android 上运行。
 
 这个教程提供了 TensorFlow 系统的概述，包括框架的优点，支持的平台，安装的注意事项以及支持的语言和绑定。
 
@@ -37,7 +37,7 @@ TensorFlow 为开发者提供了很多的好处：
 
 ## TensorFlow 应用
 
-本节将介绍 TensorFlow 擅长的应用程序。显然，由于 Google 使用其专有版本的 TensorFlow 开发文本和语音搜索，语言翻译，和图像搜索的应用程序，因此 TensorFlow 的的主要优势在于分类和推测。例如，Google 在 TensorFlow 中应用 RankBrain（Google 的搜索结果排名引擎）。
+本节将介绍 TensorFlow 擅长的应用程序。显然，由于 Google 使用其专有版本的 TensorFlow 开发文本和语音搜索，语言翻译，和图像搜索的应用程序，因此 TensorFlow 的主要优势在于分类和推测。例如，Google 在 TensorFlow 中应用 RankBrain（Google 的搜索结果排名引擎）。
 
 TensorFlow 可用于优化语音识别和语音合成，比如区分多重声音或者在高噪背景下过滤噪声提取语音，在文本生成语音过程中模拟语音模式以获得更自然的语音。另外，它能够处理不同语言中的句型结构以生成更好的翻译效果。它也同样能被用于图像和视频识别以及对象、地标、人物、情绪、或活动的分类。这带来了图像和视频搜索的重大改进。
 

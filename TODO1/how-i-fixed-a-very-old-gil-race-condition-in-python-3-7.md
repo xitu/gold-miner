@@ -25,7 +25,7 @@
 
 ## PyGILState_Ensure() 修复方案
 
-两年内我我就忘了这个 bug 。到了 2016 年 3 月份，我修改了 Steve 的测试代码，以兼容 Linux (当时的测试代码是在 Windows 上写的)。我成功地在我的电脑上重现了这个 bug ，然后写了个 `PyGILState_Ensure()` 的修复补丁。
+两年内我就忘了这个 bug 。到了 2016 年 3 月份，我修改了 Steve 的测试代码，以兼容 Linux (当时的测试代码是在 Windows 上写的)。我成功地在我的电脑上重现了这个 bug ，然后写了个 `PyGILState_Ensure()` 的修复补丁。
 
 一年后，也就是 2017 年 11 月，**Marcin Kasperski** 问道：
 

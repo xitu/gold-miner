@@ -196,7 +196,7 @@ public int squre(int x){
 }
 ```
 
-因为副作用而非纯的的函数；
+因为副作用而非纯的函数；
 
 ```
 public int squre(int x){

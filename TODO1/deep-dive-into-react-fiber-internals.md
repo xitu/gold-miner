@@ -165,7 +165,7 @@ JavaScript 引擎首先创建一个全局执行上下文，并将其推入执行
 
 ![执行栈图](https://i2.wp.com/blog.logrocket.com/wp-content/uploads/2019/11/execution-stack.png?resize=534%2C822&ssl=1)
 
-但是，当浏览器发出像 [HTTP 请求](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)这样的的异步事件时会发生什么？JS 引擎是存储执行栈并处理异步事件，还是等到事件完成？
+但是，当浏览器发出像 [HTTP 请求](https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/)这样的异步事件时会发生什么？JS 引擎是存储执行栈并处理异步事件，还是等到事件完成？
 
 JS 引擎在这里做了一些不同的事情。在执行堆栈的顶部，JS 引擎具有队列数据结构，也称为事件队列。事件队列处理进入浏览器的异步调用，例如 HTTP 请求或网络事件。
 

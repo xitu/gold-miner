@@ -40,7 +40,7 @@ Basecamp 是这么做的，Wordpress 是这么做的，甚至连 Mac App Store �
 
 但大概是为了支持比较早的版本，这层 layer 到了 Mac 上就变成非必须的了，甚至就算你启用了这个动画层，你也会感觉到他们也是建立在 _NSView_ 上面的。
 
-当然也存在一些重新实现 UIKit 的的库，比如 [TwUI](https://github.com/twitter/twui) 和 [Chameleon](http://chameleonproject.org)，后者意在寻求相同的 API。理论上，你可以在不同的平台上共享 100% 的 UI 代码。但实际上，这些框架是往往是费力不讨好的，因为他们都是第三方的。
+当然也存在一些重新实现 UIKit 的库，比如 [TwUI](https://github.com/twitter/twui) 和 [Chameleon](http://chameleonproject.org)，后者意在寻求相同的 API。理论上，你可以在不同的平台上共享 100% 的 UI 代码。但实际上，这些框架是往往是费力不讨好的，因为他们都是第三方的。
 
 即便是在 Mac 的开发者中，也有对 UIKit 架构的需求。去年，苹果官方的应用 Photos 就包含了[UXKit](https://sixcolors.com/post/2015/02/new-apple-photos-app-contains-uxkit-framework/)，而游戏中心则采用了[UICollectionView](https://twitter.com/steipete/status/740065011712806912)做替代。
 

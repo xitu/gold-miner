@@ -303,7 +303,7 @@ function fulfil(promise, value) {
     promise.value = value;
     // 依赖关系可以添加其他的依赖到这个promise当中，
     // 因此我们需要清理依赖列表，
-    // 把列表复制出来以避免我们的的迭代受影响。
+    // 把列表复制出来以避免我们的迭代受影响。
     var dependencies = promise.dependencies;
     promise.dependencies = [];
     dependencies.forEach(function(expression) {

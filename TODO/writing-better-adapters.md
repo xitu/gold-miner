@@ -48,7 +48,7 @@ RecyclerView （ ListView 也适用）基本使用方式如下：
  
 
 
-让我们来看一些代码。当你的 item 有两个以上的类型时，，由于它们的默认实现总是返回零，你通常需要通过覆写这个方法来声明它们：
+让我们来看一些代码。当你的 item 有两个以上的类型时，由于它们的默认实现总是返回零，你通常需要通过覆写这个方法来声明它们：
 
     override fun getItemViewType(position: Int) : Int
 
@@ -192,7 +192,7 @@ RecyclerView （ ListView 也适用）基本使用方式如下：
 现在你可能会问你在这里这样做有什么好处，因为工厂方法仍然需要给不同的 item 类型分流，就像在最开始的时候 adapter 做的一样，是这样么？
 
 
-不，这完全不一样！这个方法是建立在[访问者模式](https://en.wikipedia.org/wiki/Visitor_pattern)之上的，一个典型的[四人帮设计模式](https://en.wikipedia.org/wiki/Design_Patterns)。所有的 model 都会调用如下方法：：
+不，这完全不一样！这个方法是建立在[访问者模式](https://en.wikipedia.org/wiki/Visitor_pattern)之上的，一个典型的[四人帮设计模式](https://en.wikipedia.org/wiki/Design_Patterns)。所有的 model 都会调用如下方法：
 
     interface Animal : Visitable
         interface Car : Visitable

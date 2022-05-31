@@ -173,7 +173,7 @@ document.getElementById("division").textContent = quotient(x, y);
 <script type="module" src="script.js"></script>
 ```
 
-刷新页面以重新加载代码，这时页面就会使用模块进行加载。虽然浏览器对模块的支持度很高，但是我们可以通过 [caniuse](https://caniuse.com/?search=modules) 检查不同浏览器的支持度。请注意，如果将文件作为本地文件的的直链，就会遇到这个错误：
+刷新页面以重新加载代码，这时页面就会使用模块进行加载。虽然浏览器对模块的支持度很高，但是我们可以通过 [caniuse](https://caniuse.com/?search=modules) 检查不同浏览器的支持度。请注意，如果将文件作为本地文件的直链，就会遇到这个错误：
 
 ```
 OutputAccess to script at 'file:///Users/your_file_path/script.js' from origin 'null' has been blocked by CORS policy: Cross-origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.

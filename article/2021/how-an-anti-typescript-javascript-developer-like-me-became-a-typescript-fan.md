@@ -20,7 +20,7 @@
 
 由于上述的原因，即使我通过观看一些在线的教程或是尝试去阅读书籍来学习 TypeScript，我也从未主导或参与过任何使用 TypeScript 编写的企业应用程序的开发之中。实际上，我过去常常选择 JavaScript 而不是 TypeScript（如果可以选择）去完成家庭作业这一公司面试过程的一部分 🙈。
 
-但是，当我转任现职时，我失去了使用 JavaScript 的权利！因为我将要处理的所有应用程序都是用 TypeScript 编写的（JavaScript 部分都是些旧代码）。我对 TypeScript 的仇恨，与日俱增！但在几个月后，我终于明白了为什么会有人更喜欢 TypeScript，而不是喜欢 JavaScript 的原因，明白了使用 TypeScript 的好处和一些激励我去尝试使用的的理由。这些内容我将在下面的部分中列出：
+但是，当我转任现职时，我失去了使用 JavaScript 的权利！因为我将要处理的所有应用程序都是用 TypeScript 编写的（JavaScript 部分都是些旧代码）。我对 TypeScript 的仇恨，与日俱增！但在几个月后，我终于明白了为什么会有人更喜欢 TypeScript，而不是喜欢 JavaScript 的原因，明白了使用 TypeScript 的好处和一些激励我去尝试使用的理由。这些内容我将在下面的部分中列出：
 
 ## **我成为 TypeScript 粉丝的三大原因**
 

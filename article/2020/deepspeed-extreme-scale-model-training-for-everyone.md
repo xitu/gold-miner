@@ -12,7 +12,7 @@
 今天，我们非常开心地跟大家分享一些新的进展，这些进展不仅会推动深度学习训练走向极致，同时也让这份技术的使用范围更加广泛——上至数据科学家们在超算上训练，下至在低端集群甚至仅仅一张 GPU 上训练。具体来说，DeepSpeed 加入了 4 项系统性新技术来进一步拓展我们的 [AI at Scale](https://www.microsoft.com/en-us/research/project/ai-at-scale/) 倡议。它们也推动了微软的AI产品与平台的创新。这些技术提供了极为高效的计算、显存和通信的利用效率，并助力我们训练有着十亿至万亿量级参数的模型。这些技术也支持超长输入序列，并且无论在单卡GPU、千卡GPU的高端集群上，还是在慢速以太网的低端集群上均可以使用。
 
 * **用 3D 并行化实现万亿参数模型训练：** DeepSpeed 实现了三种并行方法的灵活组合：ZeRO 支持的数据并行，流水线并行和张量切片模型并行。3D 并行性适应了不同工作负载的需求，以支持具有**万亿**参数的**超大型模型**，同时实现了近乎完美的显存扩展性和吞吐量扩展效率。此外，其提高的通信效率使用户可以在网络带宽有限的常规群集上以 2-7 倍的速度训练有数十亿参数的模型。
-* **ZeRO-Offload 使 GPU 单卡能够训练 10 倍大的模型：** 为了同时利用 CPU 和 GPU 内存来训练大型模型，我们扩展了 ZeRO-2。我们的用户在使用带有**单张英伟达 V100 GPU** 的机器时，可以在不耗尽显存的情况下运行**多达 130 亿个参数的模型**，模型规模扩展至现有方法的10倍，并保持有竞争力的吞吐量。此功能使数十亿参数的模型训练更加大众化，，并为许多深度学习从业人员打开了一扇探索更大更好的模型的窗户。
+* **ZeRO-Offload 使 GPU 单卡能够训练 10 倍大的模型：** 为了同时利用 CPU 和 GPU 内存来训练大型模型，我们扩展了 ZeRO-2。我们的用户在使用带有**单张英伟达 V100 GPU** 的机器时，可以在不耗尽显存的情况下运行**多达 130 亿个参数的模型**，模型规模扩展至现有方法的10倍，并保持有竞争力的吞吐量。此功能使数十亿参数的模型训练更加大众化，并为许多深度学习从业人员打开了一扇探索更大更好的模型的窗户。
 * **通过 DeepSpeed Sparse Attention 用6倍速度执行10倍长的序列：** DeepSpeed提供了稀疏 attention kernel ——一种工具性技术，可支持长序列的模型输入，包括文本输入，图像输入和语音输入。与经典的稠密 Transformer 相比，它支持的**输入序列长一个数量级**，并在保持相当的精度下获得最高 6 倍的执行速度提升。它还比最新的稀疏实现快 1.5–3 倍。此外，我们的稀疏 kernel 灵活支持稀疏格式，使用户能够通过自定义稀疏结构进行创新。
 * **1 比特 Adam 减少 5 倍通信量：** Adam 是一个在大规模深度学习模型训练场景下的有效的（也许是最广为应用的）优化器。然而，它与通信效率优化算法往往不兼容。因此，在跨设备进行分布式扩展时，通信开销可能成为瓶颈。我们推出了一种 1 比特 Adam 新算法，以及其高效实现。该算法**最多可减少 5 倍通信量**，同时实现了与Adam相似的收敛率。在通信受限的场景下，我们观察到分布式训练速度提升了 3.5 倍，这使得该算法可以扩展到不同类型的 GPU 群集和网络环境。
 
@@ -158,7 +158,7 @@ ZeRO-Offload 让单 GPU 可以进行大模型训练，从而使这种训练变�
 
 ZeRO-Offload 是 ZeRO-2 的完美补充，支持在少量 GPU 上高效训练大型模型。通过利用 CPU 内存来减少了模型所需的 GPU 显存，ZeRO-Offload 让在 1 到 16 个 GPU 上训练大模型变得可行。在 32 个 GPU 上，ZeRO-Offload 的性能略高于 ZeRO-2; 性能提升来源于 ZeRO-Offload 节省的 GPU 显存，它们让我们可以在更大 batch 下训练了模型，因此尽管存在拷贝至 CPU 的开销，GPU 计算效率仍然可以提高。在有更多的 GPU（例如 64 和 128）的情况下，ZeRO-2 的性能优于 ZeRO-Offload，因为两者现在都可以运行类似大小的batch，ZeRO-2 没有将数据移至 CPU 的开销，并且 GPU 上进行优化器更新要比 CPU 上快得多。总而言之，ZeRO-Offload 是 ZeRO-2 的补充，并扩展了 ZeRO 家族的优化范围，从单台设备到数千台设备，都有大型模型训练的优化方案。
 
-![使用 ZeRO-Offload 和 ZeRO-2 在 128 张 GPU 上训练有 100 亿参数的 GPT-2 模型的的吞吐量的柱状图。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure8_HighRes-1024x403.jpg)
+![使用 ZeRO-Offload 和 ZeRO-2 在 128 张 GPU 上训练有 100 亿参数的 GPT-2 模型的吞吐量的柱状图。](https://www.microsoft.com/en-us/research/uploads/prod/2020/09/Blog_DeepSpeed3_Figure8_HighRes-1024x403.jpg)
 
 图 8：使用 128 张 GPU 训练 100 亿参数 GPT-2 模型的 ZeRO-Offload 和 ZeRO-2 的训练吞吐量比较。
 
@@ -306,7 +306,7 @@ ZeRO-Offload 是 ZeRO-2 的完美补充，支持在少量 GPU 上高效训练大
 ### 关于我们出色的合作者们：
 
 * 我们在此致谢学界合作者，来自哈佛大学的 Philippe Tillet。他通过 [Triton](http://www.eecs.harvard.edu/~htk/publication/2019-mapl-tillet-kung-cox.pdf) 编译器和我们一同开发了稀疏注意力算法的 kernel。
-* ZeRO-Offload 是和来自 UC Merced 的实习生 Jie Ren 共同开发的。我们同时也感谢来自 UC Merced 的 Dong Li，以及来自微软的的 Bharadwaj Pudipeddi 和 Maral Mesmakhouroshahi [L2L work](https://arxiv.org/abs/2002.05645)，感谢他们在这个主题上的讨论。
+* ZeRO-Offload 是和来自 UC Merced 的实习生 Jie Ren 共同开发的。我们同时也感谢来自 UC Merced 的 Dong Li，以及来自微软的 Bharadwaj Pudipeddi 和 Maral Mesmakhouroshahi [L2L work](https://arxiv.org/abs/2002.05645)，感谢他们在这个主题上的讨论。
 * 1 比特 Adam 由来自罗切斯特大学的实习生 Hanlin Tang 共同开发。
 * 我们同时感谢来自英伟达的强力合作，尤其是 Megatron-LM 团队。
 

@@ -112,7 +112,7 @@ fs.writeFile("./netflixscrape.json", JSON.stringify(movies, null, 3), (err) => {
 
 1) 要新建的文件的名称
 
-2) **JSON.stringify()** 方法把 JavaScript 对象转换为 **JSON** 字符串。它接收 3 个参数。要转换的对象：`movies` 对象，替换参数（用于把你不想要的属性过滤掉）：`null`，空格（用于在输出的 JSON 字符串中插入空格，增加易读性）：`3`。这样生成的的 JSON 文件就会又好看又整洁。
+2) **JSON.stringify()** 方法把 JavaScript 对象转换为 **JSON** 字符串。它接收 3 个参数。要转换的对象：`movies` 对象，替换参数（用于把你不想要的属性过滤掉）：`null`，空格（用于在输出的 JSON 字符串中插入空格，增加易读性）：`3`。这样生成的 JSON 文件就会又好看又整洁。
 
 3) `err`，处理报错情况
 

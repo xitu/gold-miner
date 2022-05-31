@@ -383,7 +383,7 @@ Output:
 Event 10
 Process finished with exit code 0
 
-在这里，你可以看到在值为 10 的时候以完成标识结束了 Subject 并且在程序完成后和程序退出之前，我得到了输出的 Event 10 ，所以这意味着它的意思是任何时候我想要通过 Subject 获得最后一次发布的的数据值可以使用 Async Subject。
+在这里，你可以看到在值为 10 的时候以完成标识结束了 Subject 并且在程序完成后和程序退出之前，我得到了输出的 Event 10 ，所以这意味着它的意思是任何时候我想要通过 Subject 获得最后一次发布的数据值可以使用 Async Subject。
 
 再次重复一下：
 Publish Subject: 我不关心之前的发布历史，我只关心新的或者最新的值。

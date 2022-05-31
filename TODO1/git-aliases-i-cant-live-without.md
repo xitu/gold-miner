@@ -5,7 +5,7 @@
 > * 译者：[Starrier](https://github.com/Starriers)
 > * 校对者：[TrWestdoor](https://github.com/TrWestdoor)，[CoolRice](https://github.com/CoolRice)
 
-# 我无法想象没有 Git 别名的的场景
+# 我无法想象没有 Git 别名的场景
 
 大家看到我的 Git 工作流时，总是充满了惊讶与好奇：
 
@@ -49,7 +49,7 @@
 
 `alias gcm = git checkout master`
 
-如果我们经常在一些有明确定义的的分支之间进行切换，那么我们为什么不使其尽可能简单一些呢？根据你的工作流，你也可以找出其他相似的有用别名：`gcd` (**develop**)、`gcu` (**uat**)、`gcs` (**stable**)。
+如果我们经常在一些有明确定义的分支之间进行切换，那么我们为什么不使其尽可能简单一些呢？根据你的工作流，你也可以找出其他相似的有用别名：`gcd` (**develop**)、`gcu` (**uat**)、`gcs` (**stable**)。
 
 ### 6. 我在哪？发生了什么？
 

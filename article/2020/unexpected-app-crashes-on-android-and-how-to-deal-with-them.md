@@ -89,7 +89,7 @@ adb shell am kill com.darktheme.example
 
 * 通过覆写 `onSaveInstanceState()` 功能，你可以将你的 PID 打包保存下来。
 * 在 `onCreate()` 方法中，你需要比较当前 PID 和打包保存的 PID。
-* 如果当前进程是是重新创建的流程，则重定向导航到 Splash Activity。
+* 如果当前进程是重新创建的流程，则重定向导航到 Splash Activity。
 
 当用户从后台导航回被结束了的应用程序时候，该应用程序将从 SplashActivity 重新启动，就像是一次新的启动。
 

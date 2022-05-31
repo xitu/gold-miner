@@ -182,7 +182,7 @@ parseSsn 和 parsePhone 和之前用正则表达式的 exec 函数一样可用�
 
 我们通过将 10 作为参数传给 makeAddr，创建了 add10 函数，它接受任意值作为参数，并与 10 求和返回。
 
-需要注意的是，，即使在 makeAddr 返回后，函数 addr 仍可以获取到 constantValue 参数的值。这是因为 constantValue 在 addr 函数被创建时的作用域中。
+需要注意的是，即使在 makeAddr 返回后，函数 addr 仍可以获取到 constantValue 参数的值。这是因为 constantValue 在 addr 函数被创建时的作用域中。
 
 这种行为非常重要，因为如果不是这样，将函数作为返回值返回的函数就没有多大用处了。所以我们理解它的工作原理非常重要。
 

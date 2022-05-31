@@ -21,7 +21,7 @@
 
 ## 2 使用 Chrono
 
-在 crates.io 中搜索“日期”将得到[一个名为 chrono 的包](https://crates.io/search?q=date)。它热度很高，更新频繁，所以这看起来是一个好的候选方案。 从 README 文件来看，它有着很棒的的日期、时间输出功能。
+在 crates.io 中搜索“日期”将得到[一个名为 chrono 的包](https://crates.io/search?q=date)。它热度很高，更新频繁，所以这看起来是一个好的候选方案。 从 README 文件来看，它有着很棒的日期、时间输出功能。
 
 第一件事情是在 `Cargo.toml` 中添加 Chrono 依赖，但在此之前，我们先把旧的 `main.rs` 移出，腾出空间用于实验：
 

@@ -437,7 +437,7 @@ GitHubComponent gitHubComponent = DaggerGitHubComponent.builder()
 
 ![Dagger 子组件](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
 
-使用子组件是扩展组件对象图的另一种方式。就像带有依赖的组件一样，子组件有自己的的生命周期，而且在所有对子组件的引用都失效之后，可以被垃圾回收。此外它们作用域的限制也一样。使用这个方式的一个优点是你不需要定义所有的下游组件。
+使用子组件是扩展组件对象图的另一种方式。就像带有依赖的组件一样，子组件有自己的生命周期，而且在所有对子组件的引用都失效之后，可以被垃圾回收。此外它们作用域的限制也一样。使用这个方式的一个优点是你不需要定义所有的下游组件。
 
 另一个主要的不同是，子组件需要在父组件中声明。
 

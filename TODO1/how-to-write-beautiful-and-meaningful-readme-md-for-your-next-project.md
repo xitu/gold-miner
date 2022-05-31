@@ -57,7 +57,7 @@ README（顾名思义：“read me“）是启动新项目时应该阅读的第�
 
 ## 让我们深入探讨技术细节
 
-我将使用我的这个项目作为参考，我认为它是我写过甚至遇到过的的最漂亮的 Readme 文件之一。你可以在这里查看它的 Readme.md 文件的代码: [**silent-lad/VueSolitaire**](https://github.com/silent-lad/VueSolitaire)
+我将使用我的这个项目作为参考，我认为它是我写过甚至遇到过的最漂亮的 Readme 文件之一。你可以在这里查看它的 Readme.md 文件的代码: [**silent-lad/VueSolitaire**](https://github.com/silent-lad/VueSolitaire)
 
 使用铅笔图标来显示 markdown 代码：
 
@@ -85,7 +85,7 @@ Readme 文件上的徽章会使游客有一定的真实感。您可以从下面�
 
 ![](https://cdn-images-1.medium.com/max/2000/1*iGaDiLE_BwCbSROvPT8XKg.png)
 
-你还可以设置个性化的盾牌，如仓库的的星星数量和代码百分比指标。
+你还可以设置个性化的盾牌，如仓库的星星数量和代码百分比指标。
 
 ## 3. 增加一个在线演示 Demo
 

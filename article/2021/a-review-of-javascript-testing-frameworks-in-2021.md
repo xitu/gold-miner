@@ -23,7 +23,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ORx4FzFx1702SS1x.png)
 
-Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
+Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
 
 Jest 是我最喜欢的框架之一，因为它快速、安全，易于使用而且它还为我们提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-Hans)，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
 

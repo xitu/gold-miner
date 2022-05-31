@@ -161,7 +161,7 @@ interface SearchComponent : BaseActivityComponent<SearchActivity>
 
 ![组件依赖与它们各自为 SearchActivity 提供实现方法的模块（绿色）](https://cdn-images-1.medium.com/max/2000/1*EQ12g7x545uJfb6Y0KjjUw.png)
 
-这样做的的一个好处是：在功能图中无需重复 `@Modules` ，却可以通过 `CoreComponent` 或其他与之绑定的模块来透明地提供出去。
+这样做的一个好处是：在功能图中无需重复 `@Modules` ，却可以通过 `CoreComponent` 或其他与之绑定的模块来透明地提供出去。
 
 例如，`CoreDataModule` 绑定在 `CoreComponent` 中，并提供 `Retrofit` 等。`Retrofit` 实例现在可以被任何与 `CoreComponent` 合并的组件访问到。
 

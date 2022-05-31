@@ -148,7 +148,7 @@ one_grams_tube = (tubes.Each(FILES)
 )
 ```
 
-这返回了 13 亿行数据（1800 年以前只有 3.7% 的的占比）
+这返回了 13 亿行数据（1800 年以前只有 3.7% 的占比）
 
 ![](https://cdn-images-1.medium.com/max/800/1*rVjNfqQb0j-5S_opj4oTIA.png)
 

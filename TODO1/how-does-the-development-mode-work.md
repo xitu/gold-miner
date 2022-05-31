@@ -175,7 +175,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 早期的 JavaScript 打包工具比如 browserify 想要在前端工程中使用 npm 中的代码。（是的，[那时候](https://blog.npmjs.org/post/101775448305/npm-and-front-end-packaging) 在前端中几乎没人使用 npm！你可以想象吗？）所以它们拓展了当时在 Node.js 生态系统中的约定，将之应用于前端代码中。
 
-最初的 “envify” 变革是在 [2013 正式版](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97)。React 就是在差不多那个时候开源的，并且在那个时代 npm 和 browserify 看起来是是打包前端 CommonJS 代码的最佳解决方案。
+最初的 “envify” 变革是在 [2013 正式版](https://github.com/hughsk/envify/commit/ae8aa26b759cd2115eccbed96f70e7bbdceded97)。React 就是在差不多那个时候开源的，并且在那个时代 npm 和 browserify 看起来是打包前端 CommonJS 代码的最佳解决方案。
 
 React 在很早的时候就提供 npm 版本（还有 `<script>` 标签版本）。随着 React 变得流行起来，使用 CommonJS 模块来写 JavaScript 的模块化代码、并使用 npm 来管理发布代码也变成了最佳实践。
 

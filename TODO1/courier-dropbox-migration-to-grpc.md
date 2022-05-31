@@ -15,7 +15,7 @@ Dropbox 运行着几百个服务，它们由不同的语言编写，每秒会交
 
 ## The road to gRPC
 
-Courier 不是 Dropbox 的第一个 RPC 框架。在我们正式开始将庞大的的 Python 程序拆成多个服务之前，我们就认识到服务之间的通信需要有牢固的基础，所以选择一个高可靠性的 RPC 框架就显得尤其关键。
+Courier 不是 Dropbox 的第一个 RPC 框架。在我们正式开始将庞大的 Python 程序拆成多个服务之前，我们就认识到服务之间的通信需要有牢固的基础，所以选择一个高可靠性的 RPC 框架就显得尤其关键。
 
 开始之前，Dropbox 调研了多个 RPC 框架。首先，我们从传统的手动序列化和反序列化的协议着手，比如我们用 [Apache Thrift](https://github.com/apache/thrift) 搭建的[基于 Scribe 的日志管道](https://blogs.dropbox.com/tech/2015/05/how-to-write-a-better-scribe/)之类的服务。但我们主要的 RPC 框架（传统的 RPC）是基于 HTTP/1.1 协议并使用 protobuf 编码消息。
 
