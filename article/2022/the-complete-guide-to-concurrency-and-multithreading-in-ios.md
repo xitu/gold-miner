@@ -5,7 +5,7 @@
 > * 译者：
 > * 校对者：
 
-# The Complete Guide to Concurrency and Multithreading in iOS
+# iOS中并发和多线程的完整指南
 
 ![Photo by [John Anvik](https://unsplash.com/@redviking509?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8634/0*OUahLXqbffAW6U5y)
 
