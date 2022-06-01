@@ -5,13 +5,13 @@
 > * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# PyScript — 在浏览器中释放 Python 的力量
+# PyScript —— 在浏览器中释放 Python 的力量
 
 ![来源：[pyscript.net](https://pyscript.net/)](https://cdn-images-1.medium.com/max/2904/1*WNbl_1riOiUbZvMTMrsEHA.png)
 
 ## 一窥如何在 HTML 中运行 Python
 
-在 PyCon US 2022 的主题演讲中，Anaconda 的首席执行官 Peter Wang 公布了一个出人意料的项目 —— [PyScript](https://pyscript.net/)。PyScript 是一个 JavaScript 框架；它能让开发者混合使用 Python 和 HTML 来创建 Python 应用。该项目的最终目标是让更广的受众（如前端开发人员）获益于 Python 及其各种库（统计、机器学习、深度学习等）的强大功能。
+在 PyCon US 2022 的主题演讲中，Anaconda 的首席执行官 Peter Wang 公布了一个出人意料的项目 —— [PyScript](https://pyscript.net/)。PyScript 是一个 JavaScript 框架，它能让开发者混合使用 Python 和 HTML 来创建 Python 应用。该项目的最终目标是让更广的受众（如前端开发人员）获益于 Python 及其各种库（统计、机器学习、深度学习等）的强大功能。
 
 ## PyScript 的几个关键点
 
@@ -26,13 +26,13 @@ PyScript 建立于 [Pyodide](https://pyodide.org/en/stable/) 之上。Pyodide �
 
 **WebAssembly** 这项技术让在网页中编写 Python 成为可能。它所使用的是可读的 `.wat` 文本格式语言，接着再将其转换为浏览器可以运行的二进制 `.wasm` 格式。多亏了这一点，我们可以用任何语言编写代码，并将其编译为 WebAssembly，然后在 Web 浏览器中运行。
 
-下图展现了 PyScript 的技术栈，我们可以看到 [**Emscripten**](https://emscripten.org/) 库；它能让你将任何可移植的 C/C++ 代码库编译成 WebAssembly。
+下图展现了 PyScript 的技术栈，我们可以看到 [**Emscripten**](https://emscripten.org/) 库，它能让你将任何可移植的 C/C++ 代码库编译成 WebAssembly。
 
 值得庆幸的是，作为终端用户，我们不必了解其底层原理。然而，出于安全考量等，这些内容绝对是非常重要的。
 
 ![来源：[https://anaconda.cloud/pyscript-python-in-the-browser](https://anaconda.cloud/pyscript-python-in-the-browser)](https://cdn-images-1.medium.com/max/2600/1*UCcZYRB6nqayqIfB_110Qg.png)
 
-就现在来说，PyScript 已支持在浏览器中编写和运行 Python 代码；其未来的目标是提供对其他语言的支持。
+就现在来说，PyScript 已支持在浏览器中编写和运行 Python 代码。其未来的目标是提供对其他语言的支持。
 
 PyScript 也将带来一个潜在限制 —— 目前，我们只能使用 Pyodide 支持的库。你可以在[这里](https://github.com/pyodide/pyodide/tree/main/packages)找到完整的列表。
 
@@ -56,11 +56,11 @@ PyScript 官网中提供的最基本的示例如下：
 </html>
 ```
 
-我们可以看到，Python 代码嵌入在 `<py-script>` 块中。接着，在浏览器中打开文件（或使用 VS Code 的 Life Saver 插件）；实际结果如下：
+我们可以看到，Python 代码嵌入在 `<py-script>` 块中。接着，在浏览器中打开文件（或使用 VS Code 的 Life Saver 插件），实际结果如下：
 
 ![图片由作者提供](https://cdn-images-1.medium.com/max/2772/1*t6LKreo694VqHUfvoopEuA.png)
 
-让我们更进一步；我们将使用 NumPy 生成标准正态分布，并使用 Matplotlib 绘图。代码如下：
+让我们更进一步。我们将使用 NumPy 生成标准正态分布，并使用 Matplotlib 绘图。代码如下：
 
 ```HTML
 <html>
@@ -91,9 +91,9 @@ PyScript 官网中提供的最基本的示例如下：
 </html>
 ```
 
-在这个例子中，我们做了以下的几件事：
+在这个例子中，我们做了以下几件事：
 
-* 我们在 `<py-env>` 块中列出了我们想要在 Python 环境中使用的库；
+* 我们在 `<py-env>` 块中列出了想要在 Python 环境中使用的库；
 * 我们在 `<py-script>` 块中指定了输出为一个图：`<py-script output="plot">`。
 
 ![图片由作者提供](https://cdn-images-1.medium.com/max/3180/1*EmAbw6whRSYRxbBC7JtVdQ.png)
@@ -112,7 +112,7 @@ PyScript 官网中提供的最基本的示例如下：
 * 项目由 Anaconda 开发；
 * 项目仍在 alpha 阶段，但我们已经可以试用部分由 Pyodide 支持的库。
 
-就我来说，我不确定目前对 PyScript 有什么看法。这项目看起来很有潜力，但它也可能引发更多新的安全问题。我们可以看到，即使是运行一些简单的脚本，PyScript 在执行时间方面已经产生了很大的开销。因此，我不太确定使用它来运行更大的代码块会不会是一个切实际的方式。
+就我来说，我不确定目前对 PyScript 有什么看法。这项目看起来很有潜力，但它也可能引发更多新的安全问题。我们可以看到，即使是运行一些简单的脚本，PyScript 在执行时间方面已经产生了很大的开销。因此，我不太确定使用它来运行更大的代码块会不会是一个符合实际的方式。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
