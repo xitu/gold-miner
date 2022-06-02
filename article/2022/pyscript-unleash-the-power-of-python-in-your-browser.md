@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/pyscript-unleash-the-power-of-python-in-your-browser.md](https://github.com/xitu/gold-miner/blob/master/article/2022/pyscript-unleash-the-power-of-python-in-your-browser.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Chorer](https://github.com/Chorer)、[Baddyo](https://github.com/Baddyo)
 
 # PyScript —— 在浏览器中释放 Python 的力量
 
@@ -22,11 +22,11 @@
 
 ## PyScript 是怎么运作的？
 
-PyScript 建立于 [Pyodide](https://pyodide.org/en/stable/) 之上。Pyodide 是基于 WebAssembly 和 Node.js 的 Python 发行版，对接 Cpython 与 WebAssembly。这就引出了下一个问题：什么是 WebAssembly？
+PyScript 建立于 [Pyodide](https://pyodide.org/en/stable/) 之上。我希望我不是那一小部分不懂 **Pyodide** 实际上是什么的数据科学家。Pyodide 是基于 WebAssembly 和 Node.js 的 Python 发行版，对接 Cpython 与 WebAssembly。这就引出了下一个问题：什么是 WebAssembly？
 
 **WebAssembly** 这项技术让在网页中编写 Python 成为可能。它所使用的是可读的 `.wat` 文本格式语言，接着再将其转换为浏览器可以运行的二进制 `.wasm` 格式。多亏了这一点，我们可以用任何语言编写代码，并将其编译为 WebAssembly，然后在 Web 浏览器中运行。
 
-下图展现了 PyScript 的技术栈，我们可以看到 [**Emscripten**](https://emscripten.org/) 库，它能让你将任何可移植的 C/C++ 代码库编译成 WebAssembly。
+下图展现了 PyScript 的技术栈，我们可以看到 [**Emscripten**](https://emscripten.org/) 库。这是一个开源编译工具链，它能让你将任何可移植的 C/C++ 代码库编译成 WebAssembly。
 
 值得庆幸的是，作为终端用户，我们不必了解其底层原理。然而，出于安全考量等，这些内容绝对是非常重要的。
 
@@ -38,7 +38,7 @@ PyScript 也将带来一个潜在限制 —— 目前，我们只能使用 Pyodi
 
 ## 上手试用
 
-PyScript 现仍在 alpha 阶段，但大家已经可以试用并在 [Github 仓库](https://github.com/pyscript/pyscript) 提出改善建议。我们可以直接从 [PyScript 官网](https://pyscript.net/)下载包含所有代码和资源的压缩包。
+PyScript 现仍在 alpha 阶段，但大家已经可以试用并在 [GitHub 仓库](https://github.com/pyscript/pyscript)提出改善建议。我们可以直接从 [PyScript 官网](https://pyscript.net/)下载包含所有代码和资源的压缩包。
 
 PyScript 官网中提供的最基本的示例如下：
 
