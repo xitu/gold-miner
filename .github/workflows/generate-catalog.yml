@@ -69,6 +69,7 @@ jobs:
           push: true
   reindex:
     if: github.repository == 'xitu/gold-miner'
+    needs: generate
     runs-on: ubuntu-latest
     steps:
       - name: Set up Python
