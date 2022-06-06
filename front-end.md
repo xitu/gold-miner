@@ -1,3 +1,4 @@
+* [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
 * [过度使用懒加载对 Web 性能的影响](https://juejin.cn/post/7074759905197948935)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [如何在网页中使用响应式图像](https://juejin.cn/post/7074199947477778439)（[zenblofe](https://github.com/zenblofe) 翻译）
 * [如何编写更简洁优雅的 React 代码](https://juejin.cn/post/7070479272380465166)（[zenblofe](https://github.com/zenblofe) 翻译）
