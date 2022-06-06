@@ -1,3 +1,7 @@
+* [你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
+* [你需要了解的 Python 3.10 新特性](https://juejin.cn/post/7089649375692980231)（[samyu2000](https://github.com/samyu2000) 翻译）
+* [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
+* [SREs 和 DevOps 十大开源项目](https://juejin.cn/post/7089270839475978253)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)（[Alfxjx](https://github.com/Alfxjx) 翻译）
 * [使用 FastAPI 提升 Python 代码的运行性能](https://juejin.cn/post/7068865005436796958)（[zenblofe](https://github.com/zenblofe) 翻译）
