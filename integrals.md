@@ -3863,10 +3863,11 @@
 |------|-------|-------|
 |[深度学习的未来](https://juejin.im/post/597843506fb9a06ba4747db5)|校对|2|
 
-## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：105.8 当前积分：65.8
+## 译者：[sunshine940326](https://github.com/sunshine940326) 历史贡献积分：105.8 当前积分：30.8
 
 |文章|类型|积分|
 |------|-------|-------|
+|2022 年 6 月兑换小米米家台灯|减去积分|35|
 |[./dogs.html 和 /dogs.html 间有什么区别？](https://juejin.im/post/5ba7a5dfe51d450e4a1bc136)|校对|1|
 |[前端开发者指南 2018](https://github.com/xitu/front-end-handbook-2018)|翻译校对|5|
 |[使用 SVG 符号和 CSS 变量实现多彩图标](https://juejin.im/post/5a8409e06fb9a063342672b6)|校对|1.5|
