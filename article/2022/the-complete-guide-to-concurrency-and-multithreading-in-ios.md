@@ -2,18 +2,18 @@
 > * 原文作者：[Varga Zolt](https://medium.com/@varga-zolt)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md)
-> * 译者：
+> * 译者：[YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
-# iOS中并发和多线程的完整指南
+# iOS 并发与多线程完整指南
 
 ![Photo by [John Anvik](https://unsplash.com/@redviking509?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/8634/0*OUahLXqbffAW6U5y)
 
-> Main thread vs. background thread. Async/await and Actor. GCD vs. OperationQueue. Group dispatch, how to empower background thread, and more
+> 主线程 vs 后台线程。 Async/await 和 Actor。 GCD vs 操作队列（OperationQueue） 分组调度（Group dispatch），如何授权后台线程，以及其他
 
-## Introduction
+## 说明
 
-In this article, we will learn the following:
+在本文中，我们将会学习以下内容：
 
 ```
 TABLE OF CONTENTS
@@ -38,29 +38,31 @@ Threads in Xcode (How To Debug Threads)
 Async / Await / Actor Is iOS13+
 ```
 
-I know there are lots of topics. If something is already familiar to you, skip it and read the unknown parts. There are tricks and tips.
+本文设计较多主题。如果有些内容你已经很熟悉了，可以尝试跳过它，阅读你还未熟悉的部分。会有一些技巧和提示。
 
-## Multithreading in Real-World Examples
+## 现实世界中的多线程实例
 
-Imagine you have a restaurant. The waiter is gathering the orders. The kitchen is preparing the food, the bartender is making the coffee and the cocktails.
+假设你有一个餐厅。服务员正在收集订单。厨房在准备食物，酒保在制作咖啡和鸡尾酒。
 
-At some point, lots of people will order coffee and food. That needs more time to get prepared. Suddenly the bell rings that 5x food is ready and 4x coffees. The waiter will need to serve the tables one by one even if all the products are prepared. This is the **Serial Queue**. With a serial queue, you are limited to only one waiter.
+在某些时候，很多人都会点咖啡和食物。这需要更多的时间来准备。此时钟声突然响起，5份食物和4份咖啡已经准备完成。但是，即使所有的产品都已备齐，服务员也需要逐一送到不同的餐桌上。这就是**串行队列**。使用串行队列，你只能有一个服务员。
 
-Now imagine there are two or three waiters. They can serve the tables much faster at the same time. This is **Parallelism**. Using multiple CPUs for operating multiple processes.
+现在假设有两个或三个服务员。他们可以在同一时间以更快的速度为各桌服务。这就是**并行**。即使用多个CPU来操作多个进程。
 
-Now imagine one waiter will not serve one table at once, but will first serve all the coffees to all tables. Then, they will ask for the orders for some of the new tables, then serve all the food. This concept is called **Concurrency.** It is context switching, managing, and running many computations at the same time. It doesn’t necessarily mean they’ll ever both be running at the same instant. For example, multitasking on a single-core machine.
+接下来继续假设一下，一个服务员不会同时为一个桌子服务，而是先为所有桌子的人送上所有的咖啡。然后，他们会询问一些新桌子的订单，然后为所有的食物服务。这个概念被称为**并发**。即在同一时间段内进行上下文切换，管理以及多计算任务。这并不一定意味着它们会在同一时刻都在运行。例如，在一个单核机器上进行多任务。
 
-Today’s devices all have multiple CPUs ([Central Processing Unit](https://en.wikipedia.org/wiki/Central_processing_unit)). To be able to create apps with seamless flows, we need to understand the concept of **Multithreading**. It is a way how we will treat some tasks in the application. It is important to understand that if something “works,” maybe it is not the best, desired way. Lots of times I see a long-running task that is happening on the UI thread and blocking the execution of the application for a couple of seconds. Nowadays it could be the no-go moment. Users could delete your application as they feel that other apps start up faster, make faster fetch of the books, music. Competition is big, and high standards are expected.
+如今的设备都有多个CPU（[中央处理器](https://en.wikipedia.org/wiki/Central_processing_unit)）。为了能够创建具有无缝流转的应用程序，我们需要了解**多线程**的概念。这是应用程序中处理多任务的一种方式。很重要的一点是，我们需要明白，如果某个东西 "有效"，它也许不是最好的、最理想的方式。很多时候，我看到一个长期运行的任务发生在UI线程上，并且阻塞了应用程序几秒钟。现在，对于用户来说，这可能是一个抉择的时刻。用户可能会删除你的应用程序，因为他们觉得其他的应用程序启动得更快，获取书籍、下载音乐的速度更快。竞争是巨大的，人们都追求着更优秀的体验。
+
 
 ![Thread execution types](https://cdn-images-1.medium.com/max/2000/1*VAGYSwgHGTHvAPhP1m204Q.png)
 
-You can see the “Serial 6" task if it is scheduled at the current time. It will be added to the list in the **FIFO** manner and waiting to be executed in the future.
+你可以看到 "第六节 "任务，如果它是在当前时间安排的。它将以 **FIFO** 的方式添加到列表中，并等待在未来执行。
 
-## Basics of Multithreading
+## 多线程的基础
 
-One thing I have struggled with is that there is no standard terminology. To help with that for these subjects I will first write down the synonyms, examples. If you come from some other technology than iOS, you could still understand the concept and transfer it as the basics are the same. I had luck that early in my career I was working with C, C++, C#, node.js, Java(Android), etc. so I got used to this context switching.
+我一直纠结的一件事是，没有标准的术语。为了帮助解决这个问题，对于这些主题，我将首先写下同义词、例子。如果你使用iOS以外的其他技术，你仍然可以理解这个概念并将其映射，因为基本原理是相同的。幸运的是，在我职业生涯的早期，我一直在使用C、C++、C#、node.js、Java（Android）等技术栈，所以我已经习惯了这种上下文切换。
 
-* **Main thread / UI Thread:** This is the thread that is started with the application, pre-defined serial thread. It listens for user interaction and UI changes. All the changes immediately need a response. Need to care not to add a huge job to this thread as the app can freeze.
+* **主线程 / UI 线程：** 这是一个预先定义好的串行线程，与应用程序一起启动。它监听用户交互和用户界面的变化。所有的变化都需要一个响应。需要注意的是，不要让这个线程执行较多的耗时任务，因为应用程序会卡死。
+
 
 ![Long-running task on UI Thread (wrong and should not do this)](https://cdn-images-1.medium.com/max/2000/1*xz9E1Nuw29R-rcINHsnUlA.png)
 
@@ -70,7 +72,7 @@ DispatchQueue.main.async {
 }
 ```
 
-* **Background Thread (global):** Predefined. Mostly we create tasks on new threads based on our needs. For example, if we need to download some image that is big. This is done on the background thread. Or any API call. We don’t want to block users from waiting for this task to be finished. We will call an API call to fetch a list of movies data on the background thread. When it arrives and parsing is done then we switch and update the UI on the main thread.
+* **后台线程（全局）:** 预定义的。大多数情况下，我们根据自己的需要在新线程上创建任务。例如，如果我们需要下载体积较大的图片。这是在后台线程上完成，或者调用一些API。我们不想因为等待这个任务的完成而阻止用户的操作。我们将在后台线程上调用一个API来获取一个电影数据的列表。当收到响应并完成数据解析后，我们便切换至主线程上并更新用户界面。
 
 ![Long-running task (done the right way on Background Thread)](https://cdn-images-1.medium.com/max/2000/1*WqeTWiks2f1AXxy2uAdWUQ.png)
 
@@ -82,20 +84,21 @@ DispatchQueue.global(qos: .background).async {
 
 ![Example of SerialQueue](https://cdn-images-1.medium.com/max/2216/1*VnKZUZS-ZeYlZ9CHgsxCgw.png)
 
-In the picture above, we added a breakpoint to line 56. When it is hit and the application stops, we can see this on the panel on the left side of the threads.
+在上面的图片中，我们在第56行添加了一个断点。当它被执行到时，应用程序将会中断，我们可以在左侧的线程信息面板上看到这一点。
 
-1. You can see the name of the DispatchQueue(label: “com.kraken.serial”). The label is the identifier.
-2. These buttons can be useful to turn off / filter out the system method calls to see just user-initiated ones.
-3. You can see that we have added `sleep(1)`. This stops the execution of the code for 1 second.
-4. And if you watch the order it is still triggered in a serial manner.
 
-Based on the previous iOS, one of the two most used terms are the Serial Queue and Concurrent Queue.
+1. 你可以看到调度队列（DispatchQueue）的定义（label: “com.kraken.serial”）。 label是该队列的标识符。
+2. 这些按钮可以用来关闭/过滤掉系统方法调用，只看到用户发起的方法。
+3. 你可以看到，我们添加了`sleep(1)`。这段代码将会使应用程序停止1秒。
+4. 如果你看了这个命令，它仍然是以串行方式触发的。
+
+基于之前的iOS，最常用的两个术语之一是串行队列和并发队列。
 
 ![Example of ConcurrentQueue](https://cdn-images-1.medium.com/max/2488/1*bnTmlYColH5efxcnLtJBzQ.png)
 
-1. This is result one of Concurrent Queue. You can see above the Serial / Main Thread also (**com.apple.main-thread**).
-2. The `sleep(2)` is added to this point.
-3. You see there is no order. It was finished async on the background thread.
+1. 这就是并发队列的结果之一。你可以看到上面的串行/主线程也是（**com.apple.main-thread**）。
+2. `sleep(2)`被添加到这个断点上。
+3. 整个过程没有任何顺序。它是在后台线程上以异步方式完成的。
 
 ```
 let mainQueue = DispatchQueue.main
@@ -104,30 +107,30 @@ let serialQueue = DispatchQueue(label: “com.kraken.serial”)
 let concurQueue = DispatchQueue(label: “com.kraken.concurrent”, attributes: .concurrent)
 ```
 
-We can also create a private queue that could be serial and concurrent also.
+我们还可以创建一个私有队列，它也可以是串行和并发的。
 
 ## GCD (Grand Central Dispatch)
 
-GCD is Apple’s low-level threading interface for supporting concurrent code execution on multicore hardware. In a simple manner, GCD enables your phone to download a video in the background while keeping the user interface responsive.
+GCD是苹果的低级线程接口，用于支持多核硬件上的并发代码执行。GCD以一种简单的方式，让你的手机可以在后台下载视频的同时保持用户界面的响应。
 
-> “DispatchQueue is an object that manages the execution of tasks serially or concurrently on your app’s main thread or on a background thread.” — Apple Developer
+> "DispatchQueue是一个管理应用程序的主线程或后台线程任务的串行或并发执行的对象。" —— Apple Developer
 
-If you noticed in the code example above, you can see “qos.” This means Quality of Service. With this parameter, we can define the priority as follows:
+如果你注意到上面的代码示例，你可以看到 "qos"。这指的是服务质量。通过这个参数，我们可以定义如下的优先级。
 
-* **background** — we can use this when a task is not time-sensitive or when the user can do some other interaction while this is happening. Like pre-fetching some images, loading, or processing some data in this background. This work takes significant time, seconds, minutes, and hours.
-* **utility** — long-running task. Some process what the user can see. For example, downloading some maps with indicators. When a task takes a couple of seconds and eventually a couple of minutes.
-* **userInitiated** — when the user starts some task from UI and waits for the result to continue interacting with the app. This task takes a couple of seconds or an instant.
-* **userInteractive** — when a user needs some task to be finished immediately to be able to proceed to the next interaction with the app. Instant task.
+* **background** — 当一个任务对时间不敏感，或者当用户可以在这个过程中做一些其他的互动时，我们可以使用这个方法。比如预先获取一些图片，加载，或者在这个后台处理一些数据。这项工作需要大量的时间，秒、分钟、小时。
+* **utility** — 长期运行的任务。一些处理用户可以看到的东西。例如，下载一些带有指标的地图。当一个任务需要几秒钟，最终需要几十分钟。
+* **userInitiated** — 当用户从用户界面启动一些任务并等待结果以继续与应用程序互动时。这个任务需要几秒钟或一瞬间。
+* **userInteractive** — 当用户需要立即完成某些任务，以便能够继续与应用程序进行下一次互动。即时任务。
 
-It’s useful is also to label the `DispatchQueue`. This could help us to identify the thread when we need it.
+标记 "DispatchQueue "很有用。这可以帮助我们在需要时识别线程。
 
-## DispatchGroup
+## 调度组（DispatchGroup）
 
-Often we need to start multiple async processes, but we need just one event when all are finished. This can be achieved by DispatchGroup.
+通常我们需要启动多个异步进程，但当所有进程完成后，我们只需要一个事件。这可以通过DispatchGroup来实现。
 
-> “A group of tasks that you monitor as a single unit.”— Apple Docs
+> "一组任务作为一个监控单元" —— Apple Docs
 
-For example, sometimes you need to make multiple API calls on the background thread. Before the app is ready for user interaction or to update the UI on the main thread. Here’s some code:
+例如，有时候在应用程序准备好与用户互动或在主线程上更新用户界面之前，你需要在后台线程上进行多个API调用。这里有一些示例代码。
 
 ```Swift
 // 1. Create Dispatch Group
@@ -161,18 +164,18 @@ group.notify(queue: queueType) {
 }
 ```
 
-* **Step 1.** Create `DispatchGroup`
-* **Step 2.** Then for that group need to call `group.enter()` event for every task started
-* **Step 3.** For every `group.enter()` needs to be called also the `group.leave()` when the task is finished.
-* **Step 4.** When all the enter-leave pairs are finished then `group.notify` is called. If you notice it is done on the background thread. You can configure per your need.
+* **步骤 1.** 新建 `DispatchGroup`
+* **步骤 2.** 然后，对于该组需要为每个任务调用`group.enter()`事件来启动任务。
+* **步骤 3.** 对于每一个`group.enter()`都需要在任务完成后调用`group.leave()`。
+* **步骤 4.** 当所有的enter-leave任务对完成后，`group.notify`被调用。如果你注意到它是在后台线程中完成的。你可以根据你的需要进行配置。
 
 ![Dispatch Group. Task one by one and all by notify.](https://cdn-images-1.medium.com/max/3028/1*5abBihhgOraZToTOi4lwVA.gif)
 
-It’s worth mentioning the `wait(timeout:)` option. It will wait some time for the task to finish but after timeout, it will continue.
+值得一提的是`wait(timeout:)`选项。它将等待一些时间来完成任务，但在超时后，它会继续执行下去。
 
-## DispatchSemaphore
+## 调度信号量(DispatchSemaphore)
 
-> “An object that controls access to a resource across multiple execution contexts through use of a traditional counting semaphore.” — Apple Docs
+> "一个通过使用传统的计数信号来控制跨多个执行环境对资源的访问的对象。" —— Apple Docs
 
 ```Swift
 let semaphore = DispatchSemaphore(value: 1)
@@ -181,40 +184,40 @@ task { (result) in
     semaphore.signal()
 }
 ```
+每次访问某些共享资源时，调用`wait()`。
 
-Call `wait()` every time accessing some shared resource.
+当我们准备释放共享资源时，调用`signal()`。
 
-Call `signal()` when we are ready to release the shared resource.
-
-The `value` in `DispatchSemaphore` indicates the number of concurrent tasks.
+`DispatchSemaphore` 的 `value` 表示并发任务的数量。
 
 ## DispatchWorkItem
 
-A common belief is that when a GCD task is scheduled it can’t be cancelled. But this is not true. It was true before iOS8.
+一个普遍的看法是，当一个GCD任务被安排后，它就不能被取消。但这是不正确的。因为只有在iOS8之前是这样的。
 
-> “The work you want to perform, encapsulated in a way that lets you attach a completion handle or execution dependencies.” — Apple Docs
+> "你想执行的工作，以一种让你附加完成柄或执行依赖的方式进行封装。" —— Apple Docs
 
-For example, if you are using a search bar. Every letter typing calls an API call to ask from the server-side for a list of movies. So, imagine if you are typing “Batman.” “B,” “Ba,” “Bat”… every letter will trigger a network call. We don’t want this. We can simply cancel the previous call if, for example, another letter is typed within that one-second range. If time passes the one second and the user does not type a new letter, then we consider that API call needs to be executed.
+举个例子，如果你正在使用一个搜索栏。每一个字母的输入都会调用一个用来查询电影列表的API。所以，想象一下，如果你正在输入 "蝙蝠侠"。"B"、"Ba"、"Bat"......每个字母都会触发一个网络调用。我们不希望这样。我们可以简单地取消之前的调用，例如，如果在那一秒的范围内输入了另一个字母。如果时间过了一秒，而用户没有输入新的字母，那么我们认为需要执行那个API调用。
 
 ![SearchBar. Simulation “Debounce” with DispatchWorkItem](https://cdn-images-1.medium.com/max/2480/1*kurFvLtoj7jovJcKT1P4tg.gif)
 
-Of course, using Functional Programming like RxSwift / Combine we have better options like debounce(for:scheduler:options:).
+当然，如果借助RxSwift/Combine这样的函数式编程，我们会有更好的选择，比如debounce(for:scheduler:options:)。
 
-## Dispatch Barrier
 
-Dispatch Barriers is resolving the problem with a read/write lock. This makes sure that only this DispatchWorkItem will be executed.
+## 调度障碍 Dispatch Barrier
 
-> “This makes thread-unsafe objects thread-safe.” — Apple Docs
+Dispatch Barriers正在用一个读/写锁来解决这个问题。这保证了只有这个DispatchWorkItem会被执行。
+
+> “这会使线程不安全对象变得线程安全。” —— Apple Docs
 
 ![Dispatch Barrier](https://cdn-images-1.medium.com/max/2000/1*WlHRf0N33mKFj_GHm91Wyg.png)
 
 ![Barrier Timeline](https://cdn-images-1.medium.com/max/4268/1*GiFY0BTDW2guffVbajIPJw.png)
 
-For example, if we want to save the game, we want to write to some opened shared file, resource.
+例如，如果我们要保存游戏，我们要写到一些打开的共享文件，资源。
 
 ## AsyncAfter
 
-We can use this code to delay some task execution:
+我们可以用如下代码来延迟一些任务的执行：
 
 ```Swift
 // 1. Time
@@ -226,11 +229,13 @@ DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
 }
 ```
 
-From my perspective, this is the source of all evil, with respect for exceptions. For every async task that needs a delay, I would suggest thinking through this, and if it is possible use some state management system. Don’t pick this option as the first choice. Usually, there is another way.
+我的观点是，就异常而言，这是万恶之源。对于每一个需要延迟的异步任务，我建议要考虑清楚，如果可能的话，可以使用一些状态管理。不要把这个选项作为第一选择。通常情况下，会有其他解法。
+
 
 ## (NS)Operation and (NS)OperationQueue
 
-If you are using NSOperation that means you are using GCD below the surface, as NSOperation is built on top of GCD. Some NSOperation benefits are that it has a more user-friendly interface for Dependencies(executes a task in a specific order), it is Observable (KVO to observe properties), has Pause, Cancel, Resume, and Control (you can specify the number of tasks in a queue).
+如果你正在使用NSOperation，这意味着你在页面逻辑背后使用了GCD，因为NSOperation是建立在GCD之上的。NSOperation的一些好处是，它有一个更友好的接口来处理Dependencies（按特定顺序执行任务），它是可观察的（KVO来观察属性），有暂停、取消、恢复和控制（你可以指定队列中任务的数量）。
+
 
 ```Swift
 var queue = OperationQueue()
@@ -248,13 +253,13 @@ queue.addOperationWithBlock { () -> Void in
  }
 ```
 
-You can set the concurrent operation count to 1 so it will work as a serial queue.
+你可以把并发操作数设置为1，这样它就可以作为一个串行队列工作。
 
 ```
 queue.maxConcurrentOperationCount = 1
 ```
 
-Serial OperationQueue:
+串行 OperationQueue:
 
 ```Swift
 let task1 = BlockOperation {
@@ -270,7 +275,7 @@ let tasks = [task1, task2]
 serialOperationQueue.addOperations(tasks, waitUntilFinished: false)
 ```
 
-Concurrent OperationQueue:
+同步 OperationQueue:
 
 ```Swift
 let task1 = BlockOperation {
@@ -285,7 +290,7 @@ let tasks = [task1, task2]
 concurrentOperationQueue.addOperations(tasks, waitUntilFinished: false)
 ```
 
-Group Concurrent OperationQueue:
+组并发 OperationQueue:
 
 ```Swift
 let task1 = BlockOperation {
@@ -305,11 +310,11 @@ let tasks = [task1, task2, taskCombine]
 operationQueue.addOperations(tasks, waitUntilFinished: false)
 ```
 
-This last is the Dispatch Group. The only difference is that it is much easier to write complex tasks.
+最后这个是调度组。唯一的区别是，它更容易编写复杂的任务。
 
-## DispatchSource
+## 调度源（DispatchSource）
 
-DispatchSource is used for detecting changes in files and folders. It has many variations depending on our needs. I will just show one example below:
+DispatchSource用于检测文件和文件夹的变化。根据我们的需要，它有许多变化。我将只在下面展示一个例子。
 
 ```Swift
 let urlPath = URL(fileURLWithPath: "/PathToYourFile/log.txt")
@@ -329,9 +334,9 @@ do {
 }
 ```
 
-## Deadlock
+## 死锁（Deadlock）
 
-There is a situation when two tasks can wait for each other to finish. This is called Deadlock. The task will never be executed and will block the app.
+有一种情况是，两个任务可以互相等待对方完成。这被称为死锁。该任务将永远不会被执行，并会阻塞应用程序。
 
 ```Swift
 // 1. Deadlock
@@ -342,13 +347,13 @@ serialQueue.sync {
 }
 ```
 
-Never call sync tasks on the main queue; it will cause deadlock.
+千万不要在主队列上调用同步任务，这将导致死锁。
 
-## Main Thread Checker
+## 主线程检查器（Main Thread Checker）
 
-There is a way to get a warning that we did something wrong. This is a really useful option, and I recommend using it. It can easily catch some unwanted issues.
+有一种方法可以得到一个警告，说我们做错了什么。这是一个非常有用的选项，我建议使用它。它可以很容易地抓住一些不需要的问题。
 
-If you open on the target and edit the scheme as on the next image, turn on the Main Thread Checker, then when we do some UI update on background, this option on runtime will notify us. See the image below for the purple notification:
+如果你在目标上打开并编辑下一张图片上的方案，打开主线程检查器，那么当我们在后台做一些UI更新时，运行时的这个选项会通知我们。请看下图中的紫色通知。
 
 ![Main Thread Checker](https://cdn-images-1.medium.com/max/2000/1*iIBFEKYQx3iX0eaOWuVwPw.png)
 
@@ -356,17 +361,17 @@ If you open on the target and edit the scheme as on the next image, turn on the 
 
 ![Method name where is the issue can be seen](https://cdn-images-1.medium.com/max/2262/1*jQORZnI8tlPbxYRmkuwN6A.png)
 
-You can also see in the Xcode terminal what is wrong. For newcomers, it is maybe a bit of a strange message, but fast you will get used to it. But you can connect that inside that line there is the name of the method where the issue is.
+你也可以在Xcode终端看到什么是错误的。对于新手来说，这可能是一个有点奇怪的信息，但很快你就会习惯它。但是你可以在这一行中看到问题所在的方法的名称。
 
-## Threads in Xcode
+## Xcode中对于线程的表述
 
-While debugging, there are a couple of tricks that can help us.
+在调试的时候，有几个小技巧可以帮助我们。
 
-If you add a breakpoint and stop at some line. In the Xcode terminal you can type the command `thread info.` It will print out some details of the current thread.
+如果你添加一个断点并在某一行停止。在Xcode终端，你可以输入命令`thread info.`它将打印出当前线程的一些细节。
 
 ![Debug the Threads in Code Terminal](https://cdn-images-1.medium.com/max/2628/1*17YeQlxRG8Dtt4cD9zpzOw.png)
 
-Here are some more useful commands for the terminal:
+下面是一些对终端有用的命令：
 
 `po Thread.isMainThread`
 
@@ -376,13 +381,13 @@ Here are some more useful commands for the terminal:
 
 `po Thread.main`
 
-Maybe you had a similar situation — when the app crashed and in the error log you could see something like com.alamofire.error.serialization.response. This means the framework created some custom thread and this is the identifier.
+也许你有过类似的情况--当应用程序崩溃时，在错误日志中你可以看到类似com.alamofire.error.serialization.response的东西。这意味着框架创建了一些自定义线程，这就是标识符。
 
 ## Async / Await
 
-With iOS13 and Swift 5.5, the long-awaited Async / Await was introduced. It was nice of Apple that they recognized the issue that when something new is introduced then a long delay is happening till it can be used on production as we usually need to support more iOS versions.
+随着iOS13和Swift 5.5的推出，人们期待已久的Async / Await被引入。苹果公司很机智的认识到了一个问题，那就是当新的东西被引入时，会有一个很长的缓冲时间，直到它可以在生产中使用，因为我们通常需要支持更多的iOS版本。
 
-Async / Await is a way to run asynchronous code without completion handlers.
+Async / Await是一种运行异步代码的方式，不需要回调处理程序。
 
 ```Swift
 func exampleAsyncAwait() {
@@ -400,14 +405,14 @@ func make() async -> Bool { // 1. Create method what rsult is async
 }
 ```
 
-Here is some code worth mentioning:
+这里有一些值得一提的代码：
 
 * `Task.isCancelled`
 * Task.init(priority: .background) {}
 * Task.detached(priority: .userInitiated) {}
 * `Task.cancel()`
 
-I would highlight TaskGroup. This is the “DispatchGroup” in the Await / Async world. I have found that Paul Hudson has a really nice example on this [link](https://www.hackingwithswift.com/quick-start/concurrency/how-to-create-a-task-group-and-add-tasks-to-it).
+我想强调一下TaskGroup。这是Awaiting/Async世界中的 "DispatchGroup"。我发现Paul Hudson在这方面有一个非常好的例子[链接](https://www.hackingwithswift.com/quick-start/concurrency/how-to-create-a-task-group-and-add-tasks-to-it)。
 
 ```Swift
 func printMessage() async {
@@ -435,9 +440,9 @@ await printMessage()
 
 ## Actor
 
-Actors are classes, reference types that are thread-safe. They handle data race and concurrency issues. As you can see below, accessing the property of the actor is done with `await` keyword.
+Actors，是线程安全的引用类型。他们处理数据竞争和并发问题。正如你在下面看到的，访问actor的属性是通过`await`关键字完成的。
 
-> “Actors allow only one task to access their mutable state at a time.” — Apple Docs
+> “Actors一次只允许一个任务访问其可变状态。 ” — Apple Docs
 
 ```Swift
 actor TemperatureLogger {
@@ -457,11 +462,11 @@ print(await logger.max) // Access with await
 // Prints "25"
 ```
 
-## Conclusion
+## 结论
 
-We’ve covered lots of multithreading topics — from UI and Background Thread to Deadlocks and DispatchGroup. But I’m sure you are now on your way to being an expert or at least prepared for iOS interview questions about multithreading topics.
+我们已经聊了很多多线程的话题--从UI和后台线程到死锁和DispatchGroup。我相信你现在已经在成为专家的路上了，或者至少为iOS面试中关于多线程主题的问题做好准备。
 
-The whole code sample can be found on the next link: [GitHub](https://github.com/skyspirit86/Multithreading). I hope it will be valuable to play with it yourself.
+整个代码示例可以在下面的链接中找到：[GitHub](https://github.com/skyspirit86/Multithreading)。我希望这对你来说是有价值的。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
