@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/demystifying-the-0-1-knapsack-problem.md](https://github.com/xitu/gold-miner/blob/master/article/2020/demystifying-the-0-1-knapsack-problem.md)
 > * 译者：[Usualminds](https://github.com/Usualminds)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[Lokfar](https://github.com/Lokfar)、
+> * 校对者：[Lokfar](https://github.com/Lokfar)、[DylanXie123](https://github.com/DylanXie123)
 
 # 0-1 背包问题解读
 
