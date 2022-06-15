@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/the-javascript-landscape-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/the-javascript-landscape-in-2021.md)
 > - 译者：[regon-cao](https://github.com/regon-cao)、[jaredliw](https://github.com/jaredliw)
-> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)
+> - 校对者：[PassionPenguin](https://github.com/PassionPenguin)、[Chorer](https://github.com/Chorer)、[Mordomo](https://github.com/Mordomo)
 
 # 2021 年 JavaScript 的前景
 
