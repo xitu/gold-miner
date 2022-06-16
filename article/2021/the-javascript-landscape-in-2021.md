@@ -11,7 +11,7 @@
 
 Web 开发领域的变化很快，那么我们能确定 2021 年 Web 会带来什么呢？通过仔细研究 2020 年开发者调查的数据，我重点挑出了 JavaScript 可能出现的大变化。
 
-在深入讨论细节之前，先简要介绍一下 JavaScript 调查。遗憾的是，这份优秀的[《2019 年前端工具调查》](https://ashleynolan.co.uk/blog/frontend-tooling-survey-2019-results)的下一版在一段时间内不会发布，这使得探寻 JavaScript 的趋势变得有点困难。虽然我们可能失去了一个很好的调查，但一个新的调查 —— [《2020 年前端状态》](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf) 出现并取代了它。虽然没有之前的年度数据帮助我们了解趋势，但它是由来自世界各地的 4500 名开发者填写的，所以绝对能够算得上是一份有价值的参考资料。
+在深入讨论细节之前，先简要介绍一下 JavaScript 调查。遗憾的是，这份优秀的[《2019 年前端工具调查》](https://ashleynolan.co.uk/blog/frontend-tooling-survey-2019-results)的下一版在一段时间内不会发布，这使得探寻 JavaScript 的趋势变得有点困难。虽然我们可能失去了一个很好的调查，但一个新的调查 ——[《2020 年前端状态》](https://github.com/xitu/Annual-Survey/blob/main/2020/frontend/State-of-Frontend-2020-by-TSH.pdf) 出现并取代了它。虽然没有之前的年度数据帮助我们了解趋势，但它是由来自世界各地的 4500 名开发者填写的，所以绝对能够算得上是一份有价值的参考资料。
 
 让我们深入了解我从数据中获得的一些看法。
 
@@ -37,12 +37,12 @@ Web 开发领域的变化很快，那么我们能确定 2021 年 Web 会带来�
 
 ## UI 框架
 
-[Vue](https://vuejs.org/)是 2019 年最受欢迎的框架，这在当时是一个大新闻，传递了一个明确的信息：开发者**喜欢**它。
+[Vue](https://vuejs.org/) 是 2019 年最受欢迎的框架，这在当时是一个大新闻，传递了一个明确的信息：开发者**喜欢**它。
 [2020 年依然如此](https://risingstars.js.org/2020/en#section-framework)。然而，从 [NPM 下载量](https://www.npmtrends.com/react-vs-vue-vs-svelte)来看，[React](https://reactjs.org/) 的市场份额仍然很大。
 
 ![React 在过去一年的下载量](https://cdn-images-1.medium.com/max/2332/1*PJFyaoF6Bz3AKmt9Npzx6w.png)
 
-另外，GitHub 上的标签和招聘广告也是两个有用的指标。目前 Github 上有超过 80k 个仓库带有 React 标签，而 Vue 只有 25k。纵观就业市场，去年 5 月 Career Karma 在 Indeed.com 上公布了 [10005](https://www.decise.com/q-React-Developer-jobs.html?vjk=2873485b3446c4bc）个在美 React 开发者职位，而 Vue 只有 [1025](https://www.decise.com/q-Vue-Js-Developer-jobs.html?vjk=9216260d28c3fda3）个。 React 无处不在，并且竞争激烈。
+另外，GitHub 上的标签和招聘广告也是两个有用的指标。目前 Github 上有超过 80k 个仓库带有 React 标签，而 Vue 只有 25k。纵观就业市场，去年 5 月 Career Karma 在 Indeed.com 上公布了 [10005](https://www.decise.com/q-React-Developer-jobs.html?vjk=2873485b3446c4bc) 个在美 React 开发者职位，而 Vue 只有 [1025](https://www.decise.com/q-Vue-Js-Developer-jobs.html?vjk=9216260d28c3fda3) 个。React 无处不在，并且竞争激烈。
 
 在结束本节之前，我还需要提及 [Svelte](https://svelte.dev/) 和 [Angular](https://angularjs.org/)。Angular 仍然很受欢迎 —— [去年新增了 13.3k 的 star](https://risingstars.js.org/2020/en#section-framework)，并且在 NPM 上一周有差不多 250 万的下载量。考虑到 React 的主导地位，这可能会让一些人感到惊讶，但这些数据是值得认可的。相比之下，Svelte 非常年轻，但是[在《JavaScript 现状调查》的满意度排行榜上名列前茅](https://2020.stateofjs.com/en-US/technologies/front-end-frameworks/)。不管怎样，由于 React 和 Vue 的学习曲线陡峭，我预计它在 2021 年只会有适度的增长。
 
@@ -64,7 +64,7 @@ Web 开发领域的变化很快，那么我们能确定 2021 年 Web 会带来�
 
 没有状态管理，UI 框架又岂能完整？撇开关于复杂性和面向未来性（future-proof）的争论不谈，这个领域特别有趣，因为 Redux 正受到来自 React 内部和其他独立框架的双重挑战。
 
-从个人经验来说，React 的钩子和 Context API 的确很强大，但它们都有其局限性。不管怎样，它们肯定在 React 开发者中广受青睐，毕竟[几乎一半的前端状态调查的参与者](https://tsh.io/state of frontend/#frameworks/)都声称使用过它们。
+从个人经验来说，React 的钩子和 Context API 的确很强大，但它们都有其局限性。不管怎样，它们肯定在 React 开发者中广受青睐，毕竟[几乎一半的前端状态调查的参与者](https://tsh.io/state-of-frontend/#frameworks/)都声称使用过它们。
 
 ![《2020 年前端状态调查》，状态管理类别](https://cdn-images-1.medium.com/max/2000/1*GbKC2D1NEt8Fj_bjNwHmKA.png)
 
