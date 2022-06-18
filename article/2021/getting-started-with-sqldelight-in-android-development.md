@@ -27,7 +27,7 @@ SQLDelight 需要开发者能自己编写 SQL 查询，这既是 SQLDelight 的�
 
 把 SQLDelight 插件添加到项目级 Gradle 文件中，如下代码：
 
-```Gradle
+```groovy
 // 顶级构建文件，可以在其中添加所有子项目/模块的通用配置选项。
 buildscript {
     ext.kotlin_version = "1.4.32"
@@ -64,7 +64,7 @@ task clean(type: Delete) {
 
 生成特定平台的代码的过程之所以有效，是因为最终执行的都是 SQL 查询，在某种程度上，这与 Room 数据库等平台特定库是相似的。看看下面的代码：
 
-```
+```groovy
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -74,7 +74,7 @@ plugins {
 
 上面的操作已经集成了通用的 SQLDelight 支持，现在需要添加 Android 支持库 —— `AndroidSqliteDriver` ，在依赖项节点应用程序级 Gradle 文件下添加以下代码：
 
-```
+```groovy
 implementation "com.squareup.sqldelight:android-driver:1.3.0"
 ```
 
@@ -88,23 +88,26 @@ src/main/sqldelight
 
 紧接着，创建 `MovieItem.sql` 文件，然后把下面的代码添加到该文件中：
 
-```SQL
+```sql
 CREATE TABLE moveItem (
     name TEXT NOT NULL UNIQUE PRIMARY KEY,
     image TEXT NOT NULL,
     rating INTEGER NOT NULL DEFAULT 0
 );
+
 selectAll:
 SELECT *
 FROM moveItem
 ORDER BY name;
+
 insertOrReplace:
-INSERT OR REPLACE INTO moveItem(
+INSERT OR REPLACE INTO moveItem (
   name,
   image,
   rating
 )
 VALUES (?, ?, ?);
+
 selectByName:
 SELECT *
 FROM moveItem
@@ -120,7 +123,7 @@ DELETE FROM moveItem;
 
 如上文所述，我们需要用 `AndroidSqliteDriver` 把数据写进 Android 数据库，该数据库在应用程序启动期间持续存在。首先，创建 `AndroidSqliteDriver` 实例：
 
-```
+```kotlin
 val androidSqlDriver = AndroidSqliteDriver(
     schema = Database.Schema,
     context = applicationContext,
@@ -130,13 +133,13 @@ val androidSqlDriver = AndroidSqliteDriver(
 
 接着，需要获取在 `MovieItem.sql` 文件中创建的查询语句。代码如下：
 
-```
+```kotlin
 val queries = Database(androidSqlDriver).movieItemQueries
 ```
 
 然后，直接执行 `MovieItem.sql` 文件中的 `selectAll` 函数，代码如下：
 
-```
+```kotlin
 val movies: List = queries.selectAll().executeAsList()
 Log.d("MovieDatabase", "Movies : $movies")
 ```
@@ -147,13 +150,13 @@ Room 库成功背后的主要原因之一是它易于使用，而且与 `corouti
 
 SQLDelight 也有这个好处；我们只需要在应用程序级别的 Gradle 文件的 `dependencies` 节点下添加以下这行代码就可以了：
 
-```
+```groovy
 implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.0"
 ```
 
 现在就像在 Room 库中使用协程一样简单。代码如下:
 
-```
+```kotlin
 val players: Flow<List<MoveItem>> = 
   queries.selectAll()
     .asFlow()
@@ -162,13 +165,13 @@ val players: Flow<List<MoveItem>> =
 
 如果你还在使用 RxJava，那么你可以添加以下这行来集成 RxJava 支持到 SQLDelight：
 
-```
+```groovy
 implementation "com.squareup.sqldelight:rxjava3-extensions:1.5.0"
 ```
 
 现在来观察这个查询，我们可以使用 RxJava 扩展构件，如下所示：
 
-```
+```kotlin
 val players: Flow<List<MoveItem>> = 
   queries.selectAll()
     .asObservable()
