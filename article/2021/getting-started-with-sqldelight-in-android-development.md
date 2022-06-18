@@ -5,59 +5,36 @@
 > * 译者：[airfri](https://github.com/airfri)、[jaredliw](https://github.com/jaredliw)
 > * 校对者：[greycodee](https://github.com/greycodee)
 
-# Getting Started With SQLDelight in Android Development
-
 # 在安卓开发中使用SQLDelight入门
 
 ![图片由 [Boitumelo Phetla](https://unsplash.com/@writecodenow?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/12000/0*VDd7zDjJaPiGuQbA)
 
-## Introduction
-
 ## 简介
-
-SQLDelight is a cross-platform database library. It’s quite opposite to the traditional approach of ow annotation processes and reflections generate the code.
 
 SQLDelight 是一个跨平台的数据库，而它在注释过程和反射生成代码方面与传统方法完全相反！
 
-What makes it unique, even more than the fact that it supports cross-platform is that it takes SQL code and converts it into Kotlin/Java/Native code which supports different platforms like Android, iOS, web.
-
 比起支持跨平台这一特点，SQLDelight 有一个更为重要的特点：它能够将 SQL 代码转换为 Kotlin/Java/Native 代码，从而支持 Android、iOS、Web 等不同的平台。
-
-When it comes to traditional platform-specific libraries like Room database, they make it easy to create the database tables and operations because you’re writing code in the same language.
 
 就算使用诸如 Room 数据库之类的传统平台的特定库，也可以仅用 SQL 这一门语言轻松地创建数据库表和操作。
 
-But when it comes to SQLDelight, you need to be able to write SQL queries by yourself. In my opinion, it’s both the strength and weakness of the library. I don’t prefer writing code other than Kotlin/Java as an Android developer, but on the other hand, it gives me the opportunity to support multiple platforms.
-
 SQLDelight 需要开发者能自己编写 SQL 查询，这既是 SQLDelight 的优势也是它的劣势。因为，一方面，SQLDelight 可以使开发者编写的代码支持多个平台；但从另一方面来讲，有许多 Android 开发人员不喜欢编写除了 Kotlin/Java 以外的代码。
-
-To be frank, when you’re developing a mobile app, you won’t need that much in-depth knowledge regarding SQL, basic coding, and syntactical knowledge to make it work.
 
 但是说实话，开发者开发一个移动端 APP 时，就算对 SQL 的基础编程方法和语法了解地不深入，也可以写出 SQL 代码并运行编译。
 
-So, without any delay, let’s get started:
-
 所以还在等什么，让我们开始吧：
 
-## Integration
-
 ## 集成
-
-Add the SQLDelight plugin in the project level Gradle file, as shown below:
 
 把 SQLDelight 插件添加到项目级 Gradle 文件中，如下代码：
 
 ```Gradle
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 // 顶级构建文件，可以在其中添加所有子项目/模块的通用配置选项。
-
 buildscript {
     ext.kotlin_version = "1.4.32"
     repositories {
         google()
         jcenter()
-        // SQL Delight support repositories
-        // SQL Delight支持存储库
+        // SQL Delight 支持存储库
         mavenCentral()
         maven { url 'https://www.jetbrains.com/intellij-repository/releases' }
         maven { url "https://jetbrains.bintray.com/intellij-third-party-dependencies" }
@@ -65,7 +42,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.3"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // SQL Delight plugin
         // SQL Delight 插件
         classpath 'com.squareup.sqldelight:gradle-plugin:1.5.0'
 
@@ -84,11 +60,7 @@ task clean(type: Delete) {
 }
 ```
 
-As a second step, we need to apply the SQLDelight plug-in on the app-level Gradle file to support code generation. SQL delight won’t base on annotation processors like `kapt` for code generation.
-
 第二步，需要在应用级 Gradle 文件上应用 SQLDelight 插件来支持代码生成。 SQLDelight 不会基于 `kapt` 这样的注释处理器来生成代码。
-
-The process of generating platform-specific code works because, in the end, you’re executing SQL queries. This is somewhat the same behavior when compared to platform-specific libraries like the Room database. Have a look at the following code:
 
 生成特定平台的代码的过程之所以有效，是因为最终正在执行 SQL 查询，在某种程度上，这与 Room 数据库等特定平台的库是相似的。看看下面的代码：
 
@@ -100,27 +72,19 @@ plugins {
 }
 ```
 
-Until now we’ve integrated generic SQL Delight support, now we need to add the Android support library. `AndroidSqliteDriver` is what we need here. We need to add the following line under dependencies node in-app level Gradle file:
-
 上面的操作已经集成了通用 SQL Delight 支持，现在需要添加 Android 支持库 —— `AndroidSqliteDriver` ，在依赖项节点应用程序级 Gradle 文件下添加以下代码：
 
 ```
 implementation "com.squareup.sqldelight:android-driver:1.3.0"
 ```
 
-## Write the SQL Code
-
 ## 编写 SQL 代码
-
-As a first to create the database, we should write the SQL code. The question is where should locate the (*.sq) files. We need to create a separate directory with the name `sqldelight` under the main directory, similar to java and Kotlin, and host all our (*.sq) files inside it.
 
 写SQL代码来创建数据库，首先应该定位 *.sq 文件。在主目录下创建一个名为 `sqldelight` 的单独目录，类似于 Java 和 Kotlin 也要单独的文件夹存放代码，并将所有的 *.sq 文件存放其中。
 
 ```
 src/main/sqldelight
 ```
-
-Now without any further delay, let’s create our MovieItem.sql file. Add the following code inside the file:
 
 紧接着，创建 MovieItem.sql 文件，然后把下面的代码添加到该文件中：
 
@@ -150,15 +114,9 @@ empty:
 DELETE FROM moveItem;
 ```
 
-Once you add the above code, you’ll be shown a suggestion to Install the SQLDelight Android Studio Plugin. It’s not mandatory but makes it easy to understand the syntax. I recommend installing the plugin.
-
 添加了上述代码后，将会弹出提示安装 SQLDelight Android Studio 插件，这不是强制性的，但为了可以更容易地理解语法。我建议安装该插件。
 
-## Android Code
-
 ## Android 代码
-
-As I said earlier, we need to use `AndroidSqliteDriver` to write the data into the android database which persists across app launches. First, create the `AndroidSqliteDriver` instance as shown below:
 
 如上文所述，需要用 `AndroidSqliteDriver` 把数据写进 Android 数据库，该数据库在 APP 启动期间持续存在。首先，创建 `AndroidSqliteDriver` 实例：
 
@@ -170,15 +128,11 @@ val androidSqlDriver = AndroidSqliteDriver(
 )
 ```
 
-Then we need to get hold of the queries that we’ve created inside movieitem.sql file. Have a look at the code:
-
 接着，需要获取在 Movieitem.sql 文件中创建的查询语句。代码如下：
 
 ```
 val queries = Database(androidSqlDriver).movieItemQueries
 ```
-
-Then we can directly execute all the functionalities that we created in our movieItem SQL file. Have a look at the code:
 
 然后，直接执行 MovieItem.sql 文件中的 selectAll 函数，代码如下：
 
@@ -187,23 +141,15 @@ val movies: List = queries.selectAll().executeAsList()
 Log.d("MovieDatabase", "Movies : $movies")
 ```
 
-## Coroutines Support
-
 ## 协程支持
 
-One of the main reasons behind the success of the jetpack Room database library is that it’s easy to use and compatible ****with popular frameworks like coroutines, and paging.
-
 Jetpack Room 数据库库成功背后的主要原因之一是它易于使用，而且它与**协程**和**分页**等流行框架相兼容。
-
-SQL Delight also has that benefit; we only need to add the following line under the dependencies node inside the app level Gradle file to make it work.
 
 SQL Delight 也有这个好处；我们只需要在应用级 Gradle 文件的依赖项节点下添加以下代码行就可以了：
 
 ```
 implementation "com.squareup.sqldelight:coroutines-extensions-jvm:1.5.0"
 ```
-
-Now it’s as simple as using coroutines with Room library. Here’s the code:
 
 现在就像在 Room 库中使用协程一样简单。代码如下:
 
@@ -214,15 +160,11 @@ val players: Flow<List<MoveItem>> =
     .mapToList()
 ```
 
-If you’re still using RxJava, then you can add the following line to integrate Rxjava support to SQL Delight:
-
 如果你还在使用 RxJava，那么你可以添加以下一行来集成 RxJava 支持到 SQL Delight：
 
 ```
 implementation "com.squareup.sqldelight:rxjava3-extensions:1.5.0"
 ```
-
-Now to observe the query, we can use RxJava extensions artifact, as shown below:
 
 现在来观察这个查询，我们可以使用 RxJava 扩展构件，如下所示：
 
