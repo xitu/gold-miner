@@ -3,7 +3,7 @@
 > - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md)
 > - 译者：[YueYong](https://github.com/YueYongDev)
-> - 校对者：[haiyang-tju](https://github.com/haiyang-tju)
+> - 校对者：[haiyang-tju](https://github.com/haiyang-tju)、[DylanXie123](https://github.com/DylanXie123)
 
 # iOS 并发与多线程完整指南
 
