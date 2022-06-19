@@ -67,3 +67,34 @@ jobs:
           add: '*.md'
           cwd: './gold-miner/'
           push: true
+  reindex:
+    if: github.repository == 'xitu/gold-miner'
+    needs: generate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - uses: actions/checkout@master
+        with:
+          repository: xitu/juejin-integral-database
+          path: ./juejin-integral-database
+      - uses: actions/checkout@master
+        with:
+          path: ./gold-miner
+          token: ${{ secrets.LSVIH_PAT }}
+
+      - name: Reindex catalogues
+        run: |
+          cd juejin-integral-database
+          python reindex.py
+      - name: Commit Catalog
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: '更新最新文章索引'
+          author_name: 'lsvih'
+          author_email: 'lsvih@qq.com'
+          add: 'README.md'
+          cwd: './gold-miner/'
+          push: true
