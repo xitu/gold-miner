@@ -1,9 +1,9 @@
-> * 原文地址：[The Complete Guide to Concurrency and Multithreading in iOS](https://betterprogramming.pub/the-complete-guide-to-concurrency-and-multithreading-in-ios-59c5606795ca)
-> * 原文作者：[Varga Zolt](https://medium.com/@varga-zolt)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md)
-> * 译者：[YueYong](https://github.com/YueYongDev)
-> * 校对者：
+> - 原文地址：[The Complete Guide to Concurrency and Multithreading in iOS](https://betterprogramming.pub/the-complete-guide-to-concurrency-and-multithreading-in-ios-59c5606795ca)
+> - 原文作者：[Varga Zolt](https://medium.com/@varga-zolt)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md](https://github.com/xitu/gold-miner/blob/master/article/2022/the-complete-guide-to-concurrency-and-multithreading-in-ios.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：[haiyang-tju](https://github.com/haiyang-tju)
 
 # iOS 并发与多线程完整指南
 
@@ -38,33 +38,31 @@ Threads in Xcode (How To Debug Threads)
 Async / Await / Actor Is iOS13+
 ```
 
-本文设计较多主题。如果有些内容你已经很熟悉了，可以尝试跳过它，阅读你还未熟悉的部分。会有一些技巧和提示。
+本文涉及较多主题。如果有些内容你已经很熟悉了，可以尝试跳过它，阅读你还未熟悉的部分。会有一些技巧和提示。
 
 ## 现实世界中的多线程实例
 
-假设你有一个餐厅。服务员正在收集订单。厨房在准备食物，酒保在制作咖啡和鸡尾酒。
+假设你有一个餐厅，服务员在收集订单。厨房在准备食物，酒保在制作咖啡和鸡尾酒。
 
-在某些时候，很多人都会点咖啡和食物。这需要更多的时间来准备。此时钟声突然响起，5份食物和4份咖啡已经准备完成。但是，即使所有的产品都已备齐，服务员也需要逐一送到不同的餐桌上。这就是**串行队列**。使用串行队列，你只能有一个服务员。
+有时，会有很多人点咖啡和食物这些需要很多时间来准备的东西。此时铃声突然响起，5 份食物和 4 份咖啡已经准备完成。但是，即使所有的产品都已备齐，服务员也要逐一送到不同的餐桌上。这就是**串行队列**。使用串行队列，你只能有一个服务员。
 
-现在假设有两个或三个服务员。他们可以在同一时间以更快的速度为各桌服务。这就是**并行**。即使用多个CPU来操作多个进程。
+现在假设你有两个或三个服务员。他们可以在同一时间以更快的速度为各桌服务。这就是**并行**。即，使用多个 CPU 来操作多个进程。
 
-接下来继续假设一下，一个服务员不会同时为一个桌子服务，而是先为所有桌子的人送上所有的咖啡。然后，他们会询问一些新桌子的订单，然后为所有的食物服务。这个概念被称为**并发**。即在同一时间段内进行上下文切换，管理以及多计算任务。这并不一定意味着它们会在同一时刻都在运行。例如，在一个单核机器上进行多任务。
+继续假设，一个服务员不只服务一个桌子，而是先为所有桌子的人送上所有的咖啡，然后，他们会为一些新来桌子的顾客进行点单，最后才供应所有的食物。这个概念被称为**并发**。即在同一时间段内进行上下文切换，管理以及多计算任务。这并不一定意味着它们会在同一时刻都在运行。例如，在单核机器上进行的多任务处理。
 
-如今的设备都有多个CPU（[中央处理器](https://en.wikipedia.org/wiki/Central_processing_unit)）。为了能够创建具有无缝流转的应用程序，我们需要了解**多线程**的概念。这是应用程序中处理多任务的一种方式。很重要的一点是，我们需要明白，如果某个东西 "有效"，它也许不是最好的、最理想的方式。很多时候，我看到一个长期运行的任务发生在UI线程上，并且阻塞了应用程序几秒钟。现在，对于用户来说，这可能是一个抉择的时刻。用户可能会删除你的应用程序，因为他们觉得其他的应用程序启动得更快，获取书籍、下载音乐的速度更快。竞争是巨大的，人们都追求着更优秀的体验。
+如今的设备都有多个 CPU（[中央处理器](https://en.wikipedia.org/wiki/Central_processing_unit)）。为了能够创建具有无缝流转的应用程序，我们需要了解**多线程**的概念。这是应用程序中处理多任务的一种方式。很重要的一点是，我们需要明白，如果某个东西 "有效"，它也许不是最好的、最理想的方式。很多时候，我看到一个任务长期运行在 UI 线程上，并且阻塞了应用程序几秒钟。现在，对于用户来说，这可能是一个抉择的时刻。用户可能会删除你的应用程序，因为他们觉得其他的应用程序启动得更快，可以更快地获取书籍、下载音乐等。竞争激烈，人们都追求着更优秀的体验。
 
+![线程执行类型](https://cdn-images-1.medium.com/max/2000/1*VAGYSwgHGTHvAPhP1m204Q.png)
 
-![Thread execution types](https://cdn-images-1.medium.com/max/2000/1*VAGYSwgHGTHvAPhP1m204Q.png)
-
-你可以看到 "第六节 "任务，如果它是在当前时间安排的。它将以 **FIFO** 的方式添加到列表中，并等待在未来执行。
+如果 "Serial 6" 的任务是在当前时间安排的，那么你就可以看到它了。它将以 **FIFO** 的方式添加到列表中，并等待将来的执行。
 
 ## 多线程的基础
 
-我一直纠结的一件事是，没有标准的术语。为了帮助解决这个问题，对于这些主题，我将首先写下同义词、例子。如果你使用iOS以外的其他技术，你仍然可以理解这个概念并将其映射，因为基本原理是相同的。幸运的是，在我职业生涯的早期，我一直在使用C、C++、C#、node.js、Java（Android）等技术栈，所以我已经习惯了这种上下文切换。
+我一直纠结的一件事是，没有标准的术语。为了帮助解决这个问题，对于这些主题，我将首先写下同义词、例子。如果你使用 iOS 以外的其他技术，你仍然可以理解这个概念并将其延伸到其他技术的理解与使用上，因为基本原理是相同的。幸运的是，在我职业生涯的早期，我一直在使用 C、C++、C#、node.js、Java（Android） 等技术栈，所以我已经习惯了这种上下文的切换。
 
-* **主线程 / UI 线程：** 这是一个预先定义好的串行线程，与应用程序一起启动。它监听用户交互和用户界面的变化。所有的变化都需要一个响应。需要注意的是，不要让这个线程执行较多的耗时任务，因为应用程序会卡死。
+- **主线程 / UI 线程：** 这是一个预先定义好的串行线程，与应用程序一起启动。它监听用户交互和用户界面的变化。所有的变化都需要一个即时的响应。需要注意的是，不要让这个线程执行较多的耗时任务，因为应用程序会卡死。
 
-
-![Long-running task on UI Thread (wrong and should not do this)](https://cdn-images-1.medium.com/max/2000/1*xz9E1Nuw29R-rcINHsnUlA.png)
+![在 UI 线程上运行耗时任务（错误的做法）](https://cdn-images-1.medium.com/max/2000/1*xz9E1Nuw29R-rcINHsnUlA.png)
 
 ```
 DispatchQueue.main.async {
@@ -72,9 +70,9 @@ DispatchQueue.main.async {
 }
 ```
 
-* **后台线程（全局）:** 预定义的。大多数情况下，我们根据自己的需要在新线程上创建任务。例如，如果我们需要下载体积较大的图片。这是在后台线程上完成，或者调用一些API。我们不想因为等待这个任务的完成而阻止用户的操作。我们将在后台线程上调用一个API来获取一个电影数据的列表。当收到响应并完成数据解析后，我们便切换至主线程上并更新用户界面。
+- **后台线程（全局）:** 预定义的。大多数情况下，我们根据自己的需要在新线程上创建任务。例如，如果我们需要下载体积较大的图片，这是在后台线程上完成的。又例如当调用一些 API 时，我们不想因为等待这个任务的完成而阻止用户的操作。我们将在后台线程上调用一个 API 来获取一个电影数据的列表。当收到响应并完成数据解析后，我们便切换至主线程上并更新用户界面。
 
-![Long-running task (done the right way on Background Thread)](https://cdn-images-1.medium.com/max/2000/1*WqeTWiks2f1AXxy2uAdWUQ.png)
+![长时间运行的任务（正确的做法是在后台线程上执行）](https://cdn-images-1.medium.com/max/2000/1*WqeTWiks2f1AXxy2uAdWUQ.png)
 
 ```
 DispatchQueue.global(qos: .background).async {
@@ -82,21 +80,20 @@ DispatchQueue.global(qos: .background).async {
 }
 ```
 
-![Example of SerialQueue](https://cdn-images-1.medium.com/max/2216/1*VnKZUZS-ZeYlZ9CHgsxCgw.png)
+![一个 SerialQueue 的例子](https://cdn-images-1.medium.com/max/2216/1*VnKZUZS-ZeYlZ9CHgsxCgw.png)
 
-在上面的图片中，我们在第56行添加了一个断点。当它被执行到时，应用程序将会中断，我们可以在左侧的线程信息面板上看到这一点。
+在上面的图片中，我们在第 56 行添加了一个断点。当它被执行到时，应用程序将会中断，我们可以在左侧的线程信息面板上看到这一点。
 
-
-1. 你可以看到调度队列（DispatchQueue）的定义（label: “com.kraken.serial”）。 label是该队列的标识符。
+1. 你可以看到调度队列（DispatchQueue）的定义（label: “com.kraken.serial”）。 label 是该队列的标识符。
 2. 这些按钮可以用来关闭/过滤掉系统方法调用，只看到用户发起的方法。
-3. 你可以看到，我们添加了`sleep(1)`。这段代码将会使应用程序停止1秒。
+3. 你可以看到，我们添加了`sleep(1)`。这段代码将会使应用程序停止 1 秒。
 4. 如果你看了这个命令，它仍然是以串行方式触发的。
 
-基于之前的iOS，最常用的两个术语之一是串行队列和并发队列。
+基于之前的 iOS，最常用的两个术语之一是串行队列和并发队列。
 
-![Example of ConcurrentQueue](https://cdn-images-1.medium.com/max/2488/1*bnTmlYColH5efxcnLtJBzQ.png)
+![一个 ConcurrentQueue 的例子](https://cdn-images-1.medium.com/max/2488/1*bnTmlYColH5efxcnLtJBzQ.png)
 
-1. 这就是并发队列的结果之一。你可以看到上面的串行/主线程也是（**com.apple.main-thread**）。
+1. 这就是并发队列的结果之一。你可以看到上面的串行/主线程也是这样的（**com.apple.main-thread**）。
 2. `sleep(2)`被添加到这个断点上。
 3. 整个过程没有任何顺序。它是在后台线程上以异步方式完成的。
 
@@ -111,26 +108,26 @@ let concurQueue = DispatchQueue(label: “com.kraken.concurrent”, attributes: 
 
 ## GCD (Grand Central Dispatch)
 
-GCD是苹果的低级线程接口，用于支持多核硬件上的并发代码执行。GCD以一种简单的方式，让你的手机可以在后台下载视频的同时保持用户界面的响应。
+GCD 是苹果的低级线程接口，用于支持多核硬件上的并发代码执行。GCD 以一种简单的方式，让你的手机可以在后台下载视频的同时保持用户界面的响应。
 
-> "DispatchQueue是一个管理应用程序的主线程或后台线程任务的串行或并发执行的对象。" —— Apple Developer
+> "DispatchQueue 是一个管理应用程序的主线程或后台线程任务的串行或并发执行的对象。" —— Apple Developer
 
-如果你注意到上面的代码示例，你可以看到 "qos"。这指的是服务质量。通过这个参数，我们可以定义如下的优先级。
+如果你注意到上面的代码示例，你可以看到 “qos” 这个词。它指的是服务质量。通过这个参数，我们可以定义如下的优先级。
 
-* **background** — 当一个任务对时间不敏感，或者当用户可以在这个过程中做一些其他的互动时，我们可以使用这个方法。比如预先获取一些图片，加载，或者在这个后台处理一些数据。这项工作需要大量的时间，秒、分钟、小时。
-* **utility** — 长期运行的任务。一些处理用户可以看到的东西。例如，下载一些带有指标的地图。当一个任务需要几秒钟，最终需要几十分钟。
-* **userInitiated** — 当用户从用户界面启动一些任务并等待结果以继续与应用程序互动时。这个任务需要几秒钟或一瞬间。
-* **userInteractive** — 当用户需要立即完成某些任务，以便能够继续与应用程序进行下一次互动。即时任务。
+- **background** — 当一个任务对时间不敏感，或者当用户可以在这个过程中做一些其他的互动时，我们可以使用这个方法。比如预先获取一些图片做预加载，或者在后台处理一些数据。这个任务的执行需要一定的时间，几秒或者几分钟，甚至几个小时。
+- **utility** — 长期运行的任务。一些用户可以看到处理过程。例如，下载一些带有指标的地图。这个任务可能需要几秒钟甚至几十分钟的时间。
+- **userInitiated** — 用户从用户界面启动一些任务并等待结果以继续与应用程序交互。这个任务需要几秒钟或一瞬间。
+- **userInteractive** — 用户需要立即完成某些任务，以便能够继续与应用程序进行下一次交互。是一个即时任务。
 
-标记 "DispatchQueue "很有用。这可以帮助我们在需要时识别线程。
+标记 "DispatchQueue "很有用。这可以帮助我们在需要时识别不同的线程类型。
 
 ## 调度组（DispatchGroup）
 
-通常我们需要启动多个异步进程，但当所有进程完成后，我们只需要一个事件。这可以通过DispatchGroup来实现。
+通常我们需要启动多个异步进程，但当所有进程完成后，我们只需要一个事件。这可以通过 DispatchGroup 来实现。
 
-> "一组任务作为一个监控单元" —— Apple Docs
+> “作为一个单元监控的一组任务。” —— Apple Docs
 
-例如，有时候在应用程序准备好与用户互动或在主线程上更新用户界面之前，你需要在后台线程上进行多个API调用。这里有一些示例代码。
+例如，有时候在应用程序准备好与用户互动或在主线程上更新用户界面之前，你需要在后台线程上进行多个 API 调用。这里有一些示例代码。
 
 ```Swift
 // 1. Create Dispatch Group
@@ -164,16 +161,16 @@ group.notify(queue: queueType) {
 }
 ```
 
-* **步骤 1.** 新建 `DispatchGroup`
-* **步骤 2.** 然后，对于该组需要为每个任务调用`group.enter()`事件来启动任务。
-* **步骤 3.** 对于每一个`group.enter()`都需要在任务完成后调用`group.leave()`。
-* **步骤 4.** 当所有的enter-leave任务对完成后，`group.notify`被调用。如果你注意到它是在后台线程中完成的。你可以根据你的需要进行配置。
+- **步骤 1.** 新建 `DispatchGroup`
+- **步骤 2.** 然后，对于该组需要为每个任务调用 `group.enter()` 事件来启动任务。
+- **步骤 3.** 对于每一个 `group.enter()` 都需要在任务完成后调用 `group.leave()`。
+- **步骤 4.** 当所有的 enter-leave 任务对完成后，`group.notify` 被调用。如果你注意到它是在后台线程中完成的。你可以根据你的需要进行配置。
 
-![Dispatch Group. Task one by one and all by notify.](https://cdn-images-1.medium.com/max/3028/1*5abBihhgOraZToTOi4lwVA.gif)
+![调度组。任务依次执行，通知统一发送](https://cdn-images-1.medium.com/max/3028/1*5abBihhgOraZToTOi4lwVA.gif)
 
-值得一提的是`wait(timeout:)`选项。它将等待一些时间来完成任务，但在超时后，它会继续执行下去。
+值得一提的是 `wait(timeout:)` 选项。它将等待一些时间来完成任务，但在超时后，它会继续执行下去。
 
-## 调度信号量(DispatchSemaphore)
+## 调度信号量（DispatchSemaphore）
 
 > "一个通过使用传统的计数信号来控制跨多个执行环境对资源的访问的对象。" —— Apple Docs
 
@@ -184,28 +181,28 @@ task { (result) in
     semaphore.signal()
 }
 ```
-每次访问某些共享资源时，调用`wait()`。
 
-当我们准备释放共享资源时，调用`signal()`。
+每次访问某些共享资源时，调用 `wait()`。
+
+当我们准备释放共享资源时，调用 `signal()`。
 
 `DispatchSemaphore` 的 `value` 表示并发任务的数量。
 
 ## DispatchWorkItem
 
-一个普遍的看法是，当一个GCD任务被安排后，它就不能被取消。但这是不正确的。因为只有在iOS8之前是这样的。
+一个普遍的看法是，当一个 GCD 任务被安排后，它就不能被取消。但这是不正确的。因为只有在 iOS8 之前是这样的。
 
-> "你想执行的工作，以一种让你附加完成柄或执行依赖的方式进行封装。" —— Apple Docs
+> "你想执行的工作，以一种可以附加完成句柄或执行依赖项的方式封装。" —— Apple Docs
 
-举个例子，如果你正在使用一个搜索栏。每一个字母的输入都会调用一个用来查询电影列表的API。所以，想象一下，如果你正在输入 "蝙蝠侠"。"B"、"Ba"、"Bat"......每个字母都会触发一个网络调用。我们不希望这样。我们可以简单地取消之前的调用，例如，如果在那一秒的范围内输入了另一个字母。如果时间过了一秒，而用户没有输入新的字母，那么我们认为需要执行那个API调用。
+举个例子，如果你正在使用一个搜索栏。每一个字母的输入都会调用一次查询电影列表的 API。假设你正在输入 "蝙蝠侠"。"B"、"Ba"、"Bat"......每个字母的输入都会触发一次网络请求，但事实上我们不希望这样。我们可以简单地取消之前的调用，例如，如果在那一秒的范围内输入了另一个字母。只有当输入的间隔时间超过一秒，而用户没有输入新的字母时，那么我们才认为需要调用那个 API。
 
-![SearchBar. Simulation “Debounce” with DispatchWorkItem](https://cdn-images-1.medium.com/max/2480/1*kurFvLtoj7jovJcKT1P4tg.gif)
+![搜索栏。使用 DispatchWorkItem 模拟 “Debounce” ](https://cdn-images-1.medium.com/max/2480/1*kurFvLtoj7jovJcKT1P4tg.gif)
 
-当然，如果借助RxSwift/Combine这样的函数式编程，我们会有更好的选择，比如debounce(for:scheduler:options:)。
-
+当然，如果借助 RxSwift/Combine 这样的函数式编程，我们会有更好的选择，比如 debounce(for:scheduler:options:)。
 
 ## 调度障碍 Dispatch Barrier
 
-Dispatch Barriers正在用一个读/写锁来解决这个问题。这保证了只有这个DispatchWorkItem会被执行。
+Dispatch Barriers 尝试用一个读/写锁来解决这个问题。这保证了只有这个 DispatchWorkItem 会被执行。
 
 > “这会使线程不安全对象变得线程安全。” —— Apple Docs
 
@@ -223,24 +220,22 @@ Dispatch Barriers正在用一个读/写锁来解决这个问题。这保证了�
 // 1. Time
 let delay = 2.0
 
-// 2. Schedule 
+// 2. Schedule
 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
     // Execute some task with delay
 }
 ```
 
-我的观点是，就异常而言，这是万恶之源。对于每一个需要延迟的异步任务，我建议要考虑清楚，如果可能的话，可以使用一些状态管理。不要把这个选项作为第一选择。通常情况下，会有其他解法。
-
+在我看来，就异常而言，这是万恶之源。对于每一个需要延迟的异步任务，我建议要考虑清楚，如果可能的话，可以使用一些状态管理系统，但不要把这个作为第一选择。通常情况下，还会有其他解法。
 
 ## (NS)Operation and (NS)OperationQueue
 
-如果你正在使用NSOperation，这意味着你在页面逻辑背后使用了GCD，因为NSOperation是建立在GCD之上的。NSOperation的一些好处是，它有一个更友好的接口来处理Dependencies（按特定顺序执行任务），它是可观察的（KVO来观察属性），有暂停、取消、恢复和控制（你可以指定队列中任务的数量）。
-
+如果你正在使用 NSOperation，这意味着你在页面逻辑背后使用了 GCD，因为 NSOperation 是建立在 GCD 之上的。NSOperation 的一些好处是，它有一个更友好的接口来处理 Dependencies（按特定顺序执行任务），它是可观察的（KVO 来观察属性），有暂停、取消、恢复和控制（你可以指定队列中任务的数量）。
 
 ```Swift
 var queue = OperationQueue()
-queue.addOperationWithBlock { () -> Void in  
-    // Background URL 1 
+queue.addOperationWithBlock { () -> Void in
+    // Background URL 1
     OperationQueue.mainQueue().addOperationWithBlock({
         // Update UI with URL 1 response
     })
@@ -253,7 +248,7 @@ queue.addOperationWithBlock { () -> Void in
  }
 ```
 
-你可以把并发操作数设置为1，这样它就可以作为一个串行队列工作。
+你可以把并发操作数设置为 1，这样它就可以作为一个串行队列工作。
 
 ```
 queue.maxConcurrentOperationCount = 1
@@ -314,7 +309,7 @@ operationQueue.addOperations(tasks, waitUntilFinished: false)
 
 ## 调度源（DispatchSource）
 
-DispatchSource用于检测文件和文件夹的变化。根据我们的需要，它有许多变化。我将只在下面展示一个例子。
+DispatchSource 用于检测文件和文件夹的变化。针对不同的需求，可以检测不同的变化。篇幅有限，下面我只展示一个例子。
 
 ```Swift
 let urlPath = URL(fileURLWithPath: "/PathToYourFile/log.txt")
@@ -336,7 +331,7 @@ do {
 
 ## 死锁（Deadlock）
 
-有一种情况是，两个任务可以互相等待对方完成。这被称为死锁。该任务将永远不会被执行，并会阻塞应用程序。
+有一种情况是，两个任务会互相等待对方完成。这被称为死锁。该任务将永远不会被执行，并会阻塞应用程序。
 
 ```Swift
 // 1. Deadlock
@@ -351,25 +346,25 @@ serialQueue.sync {
 
 ## 主线程检查器（Main Thread Checker）
 
-有一种方法可以得到一个警告，说我们做错了什么。这是一个非常有用的选项，我建议使用它。它可以很容易地抓住一些不需要的问题。
+有一种方法可以警告我们哪里做错了。这是一个非常实用的功能，它可以轻松捕获一些不重要的问题。
 
-如果你在目标上打开并编辑下一张图片上的方案，打开主线程检查器，那么当我们在后台做一些UI更新时，运行时的这个选项会通知我们。请看下图中的紫色通知。
+如果你在目标上打开并编辑下一张图片上的方案，此时打开主线程检查器，那么当我们在后台做一些 UI 上的更新时，运行时的这个选项会通知我们。请看下图中的紫色通知。
 
-![Main Thread Checker](https://cdn-images-1.medium.com/max/2000/1*iIBFEKYQx3iX0eaOWuVwPw.png)
+![主线程检查器](https://cdn-images-1.medium.com/max/2000/1*iIBFEKYQx3iX0eaOWuVwPw.png)
 
-![Main Thread Checker result](https://cdn-images-1.medium.com/max/2416/1*l_UquEAZtmgM7bMSYb2vWg.png)
+![主线程检查结果](https://cdn-images-1.medium.com/max/2416/1*l_UquEAZtmgM7bMSYb2vWg.png)
 
-![Method name where is the issue can be seen](https://cdn-images-1.medium.com/max/2262/1*jQORZnI8tlPbxYRmkuwN6A.png)
+![可以看到问题所在的方法名称](https://cdn-images-1.medium.com/max/2262/1*jQORZnI8tlPbxYRmkuwN6A.png)
 
-你也可以在Xcode终端看到什么是错误的。对于新手来说，这可能是一个有点奇怪的信息，但很快你就会习惯它。但是你可以在这一行中看到问题所在的方法的名称。
+你也可以在 Xcode 终端看到什么是错误的。对于新手来说，这可能是一个有点奇怪的信息，但很快你就会习惯它。但是你可以在这一行中看到问题所在的方法的名称。
 
-## Xcode中对于线程的表述
+## Xcode 中的线程
 
 在调试的时候，有几个小技巧可以帮助我们。
 
-如果你添加一个断点并在某一行停止。在Xcode终端，你可以输入命令`thread info.`它将打印出当前线程的一些细节。
+如果你添加一个断点并在某一行停止。在 Xcode 终端中，你可以输入命令 `thread info` 它将打印出当前线程的一些细节。
 
-![Debug the Threads in Code Terminal](https://cdn-images-1.medium.com/max/2628/1*17YeQlxRG8Dtt4cD9zpzOw.png)
+![在代码终端调试线程](https://cdn-images-1.medium.com/max/2628/1*17YeQlxRG8Dtt4cD9zpzOw.png)
 
 下面是一些对终端有用的命令：
 
@@ -381,13 +376,13 @@ serialQueue.sync {
 
 `po Thread.main`
 
-也许你有过类似的情况--当应用程序崩溃时，在错误日志中你可以看到类似com.alamofire.error.serialization.response的东西。这意味着框架创建了一些自定义线程，这就是标识符。
+也许你也有过类似的情况——当应用程序崩溃时，在错误日志中你可以看到诸如 com.alamofire.error.serialization.response 的东西。这意味着框架创建了一些自定义线程，这就是标识符。
 
 ## Async / Await
 
-随着iOS13和Swift 5.5的推出，人们期待已久的Async / Await被引入。苹果公司很机智的认识到了一个问题，那就是当新的东西被引入时，会有一个很长的缓冲时间，直到它可以在生产中使用，因为我们通常需要支持更多的iOS版本。
+在 iOS13 和 Swift 5.5 中，引入了人们期待已久的 Async / Await。苹果公司机智的意识到了一个问题，那就是当新的东西被引入时，在它可以被运用到实际的生产使用前，会有一个很长的缓冲时间，因为我们通常需要支持更多的 iOS 版本。
 
-Async / Await是一种运行异步代码的方式，不需要回调处理程序。
+Async / Await 是一种运行异步代码的方式，不需要回调处理程序。
 
 ```Swift
 func exampleAsyncAwait() {
@@ -407,12 +402,12 @@ func make() async -> Bool { // 1. Create method what rsult is async
 
 这里有一些值得一提的代码：
 
-* `Task.isCancelled`
-* Task.init(priority: .background) {}
-* Task.detached(priority: .userInitiated) {}
-* `Task.cancel()`
+- `Task.isCancelled`
+- Task.init(priority: .background) {}
+- Task.detached(priority: .userInitiated) {}
+- `Task.cancel()`
 
-我想强调一下TaskGroup。这是Awaiting/Async世界中的 "DispatchGroup"。我发现Paul Hudson在这方面有一个非常好的例子[链接](https://www.hackingwithswift.com/quick-start/concurrency/how-to-create-a-task-group-and-add-tasks-to-it)。
+我想强调一下 TaskGroup。这是 Awaiting/Async 世界中的 “DispatchGroup”。我发现 Paul Hudson 在这方面有一个非常好的例子[链接](https://www.hackingwithswift.com/quick-start/concurrency/how-to-create-a-task-group-and-add-tasks-to-it)。
 
 ```Swift
 func printMessage() async {
@@ -440,9 +435,9 @@ await printMessage()
 
 ## Actor
 
-Actors，是线程安全的引用类型。他们处理数据竞争和并发问题。正如你在下面看到的，访问actor的属性是通过`await`关键字完成的。
+Actors 是一个类，它是线程安全的引用类型。它被用来处理数据竞争和并发问题。正如你在下面看到的，访问 actor 的属性是通过 `await` 关键字完成的。
 
-> “Actors一次只允许一个任务访问其可变状态。 ” — Apple Docs
+> “Actors 一次只允许一个任务访问其可变状态。 ” — Apple Docs
 
 ```Swift
 actor TemperatureLogger {
@@ -464,7 +459,7 @@ print(await logger.max) // Access with await
 
 ## 结论
 
-我们已经聊了很多多线程的话题--从UI和后台线程到死锁和DispatchGroup。我相信你现在已经在成为专家的路上了，或者至少为iOS面试中关于多线程主题的问题做好准备。
+我们已经聊了很多多线程的话题——从 UI 和后台线程到死锁和 DispatchGroup。我相信你现在已经在成为专家的路上了，或者至少为 iOS 面试中关于多线程主题的问题做好准备。
 
 整个代码示例可以在下面的链接中找到：[GitHub](https://github.com/skyspirit86/Multithreading)。我希望这对你来说是有价值的。
 
