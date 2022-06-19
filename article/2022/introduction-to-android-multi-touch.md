@@ -2,10 +2,10 @@
 > * 原文作者：[ZhangKe](https://medium.com/@kezhang404)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md](https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md)
-> * 译者：
+> * 译者：[YueYong](https://github.com/YueYongDev)
 > * 校对者：
 
-# Introduction to Android Multi-Touch
+# 安卓多点触控指南
 
 ![](https://cdn-images-1.medium.com/max/2880/1*q056ZGQtRdsHt-0o1_gZ3g.png)
 
