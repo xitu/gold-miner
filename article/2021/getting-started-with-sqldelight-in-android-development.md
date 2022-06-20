@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/getting-started-with-sqldelight-in-android-development.md](https://github.com/xitu/gold-miner/blob/master/article/2021/getting-started-with-sqldelight-in-android-development.md)
 > * 译者：[airfri](https://github.com/airfri)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[greycodee](https://github.com/greycodee)
+> * 校对者：[greycodee](https://github.com/greycodee)、[haiyang-tju](https://github.com/haiyang-tju)
 
 # Android 开发中的 SQLDelight 入门
 
@@ -13,19 +13,19 @@
 
 SQLDelight 是一个跨平台的数据库，它与传统的注释处理和反射生成代码的方式完全相反。
 
-比起支持跨平台这一特点，SQLDelight 有一个更为重要的特点：它能够将 SQL 代码转换为 Kotlin/Java/原生代码，从而支持 Android、iOS、Web 等不同的平台。
+比起支持跨平台这一特点，SQLDelight 有一个更为重要的特点：它能够将 SQL 代码转换为 Kotlin、Java 或者原生代码，从而支持 Android、iOS、Web 等不同的平台。
 
 就算使用诸如 Room 数据库之类的传统的、平台特定的库，也可以仅用 SQL 这一门语言轻松地创建数据库表和操作。
 
-SQLDelight 需要开发者能自己编写 SQL 查询，这既是 SQLDelight 的优势也是它的劣势。因为，一方面，SQLDelight 可以使开发者编写的代码支持多个平台；但从另一方面来讲，有许多 Android 开发人员不喜欢编写除了 Kotlin/Java 以外的代码。
+SQLDelight 需要开发者能自己编写 SQL 查询，这既是 SQLDelight 的优势也是它的劣势。作为一名 Android 开发人员，我不喜欢编写除了 Kotlin/Java 以外的代码，但另一方面，它给了我支持跨平台的机会。
 
 但是说实话，开发者开发一个移动端应用程序时，就算对 SQL 的基础编程方法和语法了解地不深入，也可以写出 SQL 代码并运行编译。
 
-所以还在等什么，让我们开始吧：
+所以还在等什么，让我们开始吧。
 
 ## 集成
 
-把 SQLDelight 插件添加到项目级 Gradle 文件中，如下代码：
+把 SQLDelight 插件添加到项目级 Gradle 文件中，如下面的代码所示：
 
 ```groovy
 // 顶级构建文件，可以在其中添加所有子项目/模块的通用配置选项。
@@ -117,7 +117,7 @@ empty:
 DELETE FROM moveItem;
 ```
 
-添加了上述代码后，将会弹出提示安装 SQLDelight Android Studio 插件，这不是强制性的，但为了可以更容易地理解语法。我建议安装该插件。
+添加了上述代码后，将会弹出提示安装 SQLDelight Android Studio 插件。这不是强制性的，但它可以让你更容易理解 SQL 语法。我建议安装该插件。
 
 ## Android 代码
 
@@ -163,7 +163,7 @@ val players: Flow<List<MoveItem>> =
     .mapToList()
 ```
 
-如果你还在使用 RxJava，那么你可以添加以下这行来集成 RxJava 支持到 SQLDelight：
+如果你仍在使用 RxJava，那么你可以添加下面这行代码，以便将 RxJava 支持集成到 SQLDelight 中：
 
 ```groovy
 implementation "com.squareup.sqldelight:rxjava3-extensions:1.5.0"
