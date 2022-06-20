@@ -178,6 +178,10 @@ val players: Flow<List<MoveItem>> =
     .mapToList()
 ```
 
+这就是目前的全部内容，希望你能有所收获。
+
+感谢阅读。
+
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
