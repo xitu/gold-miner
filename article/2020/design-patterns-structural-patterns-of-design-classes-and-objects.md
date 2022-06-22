@@ -3,9 +3,9 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/design-patterns-structural-patterns-of-design-classes-and-objects.md](https://github.com/xitu/gold-miner/blob/master/article/2020/design-patterns-structural-patterns-of-design-classes-and-objects.md)
 > * 译者：[lhd951220](https://github.com/lhd951220)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[PingHGao](https://github.com/PingHGao)、[jackwener](https://github.com/jackwener)
+> * 校对者：[PingHGao](https://github.com/PingHGao)、[jackwener](https://github.com/jackwener)、[finalwhy](https://github.com/finalwhy)
 
-# 设计模式：设计类和对象的结构型模式
+# 设计类和对象的结构型模式
 
 ![设计类和对象的结构型模式](https://cdn-images-1.medium.com/max/2730/1*ZQBbxCUNxO7McfVcgL7B3w.png)
 
@@ -13,7 +13,7 @@
 
 结构性设计模式主要关注如何通过组合类与对象形成更大的结构。它们能让你在不重写或者不自定义代码的情况下创建系统，因为这些模式提高了系统的复用性和健壮性。
 
-> 每一个模式都描述了在我们周围环境中反复发生的问题与其核心的解决方案。通过这样的方式，你可以反复地使用这些方案，而不需要重复相同的工作。—— **克里斯托弗·亚历山大**
+> 每一个模式都描述了一种在我们周围环境中反复出现的问题与解决此类问题的方案的核心。通过这样的方式，你可以反复地使用这些方案，而不需要重复相同的（寻找解决之道的）工作。—— **克里斯托弗·亚历山大**
 
 本文将讨论以下几种设计模式和原则。
 
@@ -240,14 +240,14 @@ public class BridgeClient {
 
 ![组合模式](https://cdn-images-1.medium.com/max/2730/1*_qUxlkDYSv9MVdNEeVPuDw.png)
 
-* **`Component`** 是节点的抽象。它定义了对象必须实现的接口。
+* **`Component`** 是对整个树形结构中各个组分的抽象。它定义了任何组分必须实现的接口。
 * **`Leaf`** 是没有 `children` 属性的对象。他们实现了由 `Component` 接口描述的服务。
 * **`Composite`** 存储子组件，并且实现了 `Component` 接口定义的方法。它通过委派子组件来实现 `Component` 接口中定义的方法。除此之外，它也提供了添加、删除和获取组件的方法。
 * **`Client`** 使用组件接口来控制层级中的对象。
 
 **实际案例**
 
-组织中会有总经理；在总经理之下，还有管理者；在管理者之下，还有开发人员。现在，你可以设置一个树形结构，然后要求每个节点执行通用的操作，比如：`printStructure()`。
+组织中会有总经理；在总经理之下，还有经理；在经理之下，还有开发人员。现在，你可以设置一个树形结构，然后要求每个节点执行通用的操作，比如：`printStructure()`。
 
 **`Component`**：IEmployee.java
 
@@ -330,7 +330,7 @@ class Employee implements IEmployee {
 
 **用例**
 
-- 你想要表示对象的整个或部分层次结构，使得客户端可以忽略不同组合对象以及某个组合对象中各个组件之间的区别。
+- 你想要表示对象的整个或部分层次结构。客户端（在访问时）可以忽略对象组合与独立对象之间的差异。
 - 你可以将这个模式应用在具有任意复杂度等级的结构上。
 
 ### 装饰器模式
@@ -343,7 +343,7 @@ class Employee implements IEmployee {
 
 ![装饰器模式](https://cdn-images-1.medium.com/max/2730/1*dMtzsvYbWYueZi2_1qQa-g.png)
 
-它通过使用原始类的子类实例来将操作委托给原始对象，从而改变一个对象的功能且对客户端不产生任何影响。
+它通过使用原始类的子类实例来将操作委托给原始对象，从而以对客户端透明的方式来改变一个对象的功能。
 
 * **`Component`** 是对象的接口，可以动态添加功能。
 * **`ConcreteComponent`** 定义了一个可以添加其他职责的对象。
