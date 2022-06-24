@@ -30,7 +30,7 @@ Express.js 默认携带了一个仅仅用于“装饰”的请求头 —— `X-P
 
 现在，这两个不同服务器的响应大小应该是完全相同的。让我们来看一下代码：
 
-**The Express.js API:**
+**基于 Express.js 实现的 API:**
 
 ```js
 const express = require("express")
@@ -43,7 +43,7 @@ app.get("/api", (req, res) => {
 app.listen(5000)
 ```
 
-**The API without Express.js:**
+**不基于 Express.js 实现的 API:**
 
 ```js
 const http = require("http")
