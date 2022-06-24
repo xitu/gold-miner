@@ -39,49 +39,48 @@
 
 ```Java
 static class Point {
-        int x;
-        int y;
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        // more like a deep clone
-        public Point(Point p) {
-            this.x = p.x;
-            this.y = p.y;
-        }
-
-        @Override
-        public String toString() {
-            return "x: " + x + " y: " + y;
-        }
+    int x;
+    int y;
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
+
+    // 更像是一个深拷贝
+    public Point(Point p) {
+        this.x = p.x;
+        this.y = p.y;
+    }
+
+    @Override
+    public String toString() {
+        return "x: " + x + " y: " + y;
+    }
+}
 ```
 
 ## QuadNode 类
 
 ```Java
 static class QuadNode<T> {
-        T data;
-        Point point;
+    T data;
+    Point point;
 
-        public QuadNode(Point p, T data) {
-            this.data = data;
-            this.point = p;
-        }
-
-        public QuadNode(int x, int y, T data) {
-            this.data = data;
-            this.point = new Point(x, y);
-        }
-
-        @Override
-        public String toString() {
-            return "data " + data + " point " + point;
-        }
+    public QuadNode(Point p, T data) {
+        this.data = data;
+        this.point = p;
     }
 
+    public QuadNode(int x, int y, T data) {
+        this.data = data;
+        this.point = new Point(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "data: " + data + " point: " + point;
+    }
+}
 ```
 
 ## QuadTree 类
@@ -115,45 +114,45 @@ class QuadTree<P> {
 
 ```Java
 public void insert(Point p, P data) {
-        QuadTree<P> curr = this;
+    QuadTree<P> curr = this;
 
-        while(!curr.isLeaf()) {
-            System.out.println("Inserting " + p + " data " + data);
+    while (!curr.isLeaf()) {
+        System.out.println("Inserting " + p + " data " + data);
 
-            // 根据 x 来检查左上角和右下角的值
-            if(p.x < (curr.topLeft.x + curr.bottomRight.x) / 2) {
-                // 通过比对 y 来检查左上角和左下角的数据
-                if(p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) { // 是左上角
-                    System.out.println("Is within topLeftTree py: " + p.y + " " + " mid: " + ((curr.topLeft.y + curr.bottomRight.y) / 2));
-                    curr = curr.topLeftTree;
-                } else { // 是左下角
-                    System.out.println("Is within bottomLeft");
-                    curr = curr.bottomLeftTree;
-                }
+        // 根据 x 来检查左上角和右下角的值
+        if (p.x < (curr.topLeft.x + curr.bottomRight.x) / 2) {
+            // 通过比对 y 来检查左上角和左下角的数据
+            if (p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) { // 是左上角
+                System.out.println("Is within topLeftTree py: " + p.y + " " + " mid: " + ((curr.topLeft.y + curr.bottomRight.y) / 2));
+                curr = curr.topLeftTree;
+            } else { // 是左下角
+                System.out.println("Is within bottomLeft");
+                curr = curr.bottomLeftTree;
+            }
 
-            } else { // 检查右上角和右下角的数据
-                // 通过比对 y 来检查右上角和右下角的数据
-                if(p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) { // 是右上角
-                    System.out.println("Is within topRight");
-                    curr = curr.topRightTree;
+        } else { // 检查右上角和右下角的数据
+            // 通过比对 y 来检查右上角和右下角的数据
+            if (p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) { // 是右上角
+                System.out.println("Is within topRight");
+                curr = curr.topRightTree;
 
-                } else { // 在右下角中
-                    System.out.println("Is within bottomRight");
-                    curr = curr.bottomRightTree;
-                }
+            } else { // 在右下角中
+                System.out.println("Is within bottomRight");
+                curr = curr.bottomRightTree;
             }
         }
-
-        // 当前是叶子
-        QuadNode<P> quadNode = new QuadNode<>(p, data);
-        curr.nodes.add(quadNode);
-        // System.out.println("curr " + curr);
-        // 如果当坐标是 maxLen，那我们就需要做进一步的划分
-        if(curr.shouldSubDivide()) {
-            // System.out.println("data " + data +  " need to be subdivide");
-            curr.subDivide();
-        }
     }
+
+    // 当前是叶子
+    QuadNode < P > quadNode = new QuadNode < > (p, data);
+    curr.nodes.add(quadNode);
+    // System.out.println("curr " + curr);
+    // 如果当坐标是 maxLen，那我们就需要做进一步的划分
+    if (curr.shouldSubDivide()) {
+        // System.out.println("data " + data +  " need to be subdivide");
+        curr.subDivide();
+    }
+}
 ```
 
 ## 搜索
@@ -162,28 +161,26 @@ public void insert(Point p, P data) {
 
 ```Java
 public Set<QuadNode<P>> search(Point p) {
-        QuadTree<P> curr = this;
+    QuadTree<P> curr = this;
 
-        while(!curr.isLeaf()) {
-            
-            // 通过检查是否在边界内来进行递归
-            if(p.x < (curr.topLeft.x + curr.bottomRight.x) / 2) {
-                if(p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) {
-                    curr = curr.topLeftTree;
-                } else {
-                    curr = curr.bottomLeftTree;
-                }
+    while (!curr.isLeaf()) {
+        // 通过检查是否在边界内来进行递归
+        if (p.x < (curr.topLeft.x + curr.bottomRight.x) / 2) {
+            if (p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) {
+                curr = curr.topLeftTree;
             } else {
-                if(p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) {
-                    curr = curr.topRightTree;
-                } else {
-                    curr = curr.bottomRightTree;
-                }
-
+                curr = curr.bottomLeftTree;
+            }
+        } else {
+            if (p.y < (curr.topLeft.y + curr.bottomRight.y) / 2) {
+                curr = curr.topRightTree;
+            } else {
+                curr = curr.bottomRightTree;
             }
         }
-  return curr.node;
- }
+    }
+    return curr.node;
+}
 ```
 
 ## 总结
