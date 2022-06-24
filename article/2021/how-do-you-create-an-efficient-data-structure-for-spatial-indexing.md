@@ -2,34 +2,34 @@
 > * 原文作者：[Edward Huang](https://edward-huang.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md)
-> * 译者：[Starriers](https://github.com/Starriers)
-> * 校对者：
+> * 译者：[Starriers](https://github.com/Starriers)、[jaredliw](https://github.com/jaredliw)
+> * 校对者：[zhangcong2711](https://github.com/zhangcong2711)、[PassionPenguin](https://github.com/PassionPenguin)
 
-# 如何为空间索引创建高教的数据结构
+# 如何为空间索引创建高效的数据结构？
 
-数据结构不仅可以帮我们存储值，还可以作为我们进行功能性（逻辑性）操作时的辅助工具。比如我们想存储一维数据，那么就可能需要绘制一行自然数或者一个字符串来处理,通常我们使用 [1D](https://medium.com/javarevisited/20-array-coding-problems-and-questions-from-programming-interviews-869b475b9121) 数组来存储数据。我们一般会使用自然次序索引（1 \< 2 \< 3)） 或者是像 [二叉树](https://medium.com/javarevisited/20-binary-tree-algorithms-problems-from-coding-interviews-c5e5a384df30) 这样的数据结构来创建快速索引（检索）。
+数据结构不仅可以帮我们存储值，还可以帮助我们高效地对需要的数据进行操作。比如，我们想存储一维数据点、画在一条直线上的自然数，或是一个字符串，我们通常使用一维数组来存储这些数据。我们一般会使用自然次序索引（1 \< 2 \< 3）或者是像前缀树或[二叉树](https://medium.com/javarevisited/20-binary-tree-algorithms-problems-from-coding-interviews-c5e5a384df30)这样的数据结构来创建快速索引（检索）。
 
 假如我们需要使用 2D 空间存储数据，那我们该如何设计一个快速索引？假如我们需要邻近度排序，比方说是需要找到当前定位点附近所有的临近点，那又该如何设计？
 
-由于我们需要使用一个 X 坐标和一个 Y 坐标来表示坐标的原因，所以在真实场景中，我们并不会使用自然次序。我们会在数据集中根据输入来搜索所有空间符合 `X + delta` 和 `Y + delta` 的数据点并以此来获取交集。
+由于我们需要使用一个 X 和一个 Y 来表示坐标，所以在真实场景中，我们并不会使用自然次序。如果那样的话，我们不得不根据输入，在数据集中搜索所有符合 `X + delta` 和 `Y + delta` 的空间，并以此来获取交集。
 
 是的，我们需要空间索引。
 
-**空间索引**通常作为 2D 空间高效索引的手段。空间索引的实际应用场景包括但不限于：共享骑行（`Lyft`，`Uber`），需要获取最近餐点的餐饮配送（`Door dash`），`Yelp` 帮助你了解距离最近的餐饮店位置，等。
+**空间索引**通常作为2D空间高效访问的手段。空间索引的实际应用场景包括但不限于：共享骑行（Lyft、Uber），需要获取最近餐点的餐饮配送（DoorDash），Yelp 也借此帮助你了解距离最近的餐饮店位置。诸如此类的都是空间索引的实际应用场景。
 
 类似的应用程序还包括**查找附近的邻居** —— 一款从当前目标获取最近邻居的应用。
 
-**范围查询:**查找一个包含给定坐标（坐标查询）的目标或者是坐标与一个区域有所关联的的重叠目标（窗口查询）。
+**范围查询**：查找一个包含给定坐标（坐标查询）的目标或者是坐标与一个区域有所关联的的重叠目标（窗口查询）。
 
-**空间连接**: 查找在空间上相互影响的对象对。使用空间谓词的相交，邻接和包含来执行空间连接。
+**空间连接**：查找在空间上相互影响的对象对。使用空间谓词的相交，邻接和包含来执行空间连接。
 
-现在你已经了解了什么事空间索引，下面我接着讨论数据结构的种类。我们需要存储这些坐标来达到快速索引的目的。如果你第一时间想到的是四叉树，那么恭喜你，你是正确的。接下来的内容，我会解释什么是四叉树，以及它是如何存储稀疏数据来实现索引的。
+现在你已经了解了什么是空间索引，下面我接着讨论数据结构的种类。我们需要存储这些坐标来达到快速索引的目的。如果你第一时间想到的是四叉树，那么恭喜你，你是正确的。接下来的内容，我会解释什么是四叉树，以及它是如何存储稀疏数据来实现索引的。
 
 ## 什么是四叉树？
 
-因为四叉树是一种划分空间的方法，因此更容易遍历和搜索。它是一种将值划分为四个部分的树形数据结构。叶节点保存的值取决于你具体实现的应用程序。被划分的区域可以是正方形也可以是矩形。四叉树和字典树类似，它们与常规树不同之处在于它们只有四个子级，并且确定这些子级必须要符合某些条件。比方说，某点的条件符合符合左象限的规则，那么就遍历左象限。
+因为四叉树是一种划分空间的方法，因此更容易遍历和搜索。它是一种将值划分为四个部分的树形数据结构。叶节点保存的值取决于你具体实现的应用程序。被划分的区域可以是正方形也可以是矩形。四叉树和字典树类似，不同之处在于它们只有四个子级，并且确定这些子级必须要符合某些条件。比方说，某点的条件符合符合左象限的规则，那么就遍历左象限。
 
-对于需要进行搜索的稀疏数据，四叉树是一种很好的选择。它保留了数据属性之间的联系，像素（图像处理）等。
+对于需要进行搜索的稀疏数据，四叉树是一种很好的选择。它可以保存化学反应中的数据片段，图像处理中的像素等等。
 
 我会在本中说明如何实现一个四叉树。
 
@@ -59,7 +59,7 @@ static class Point {
     }
 ```
 
-## QuadNode Class
+## QuadNode 类
 
 ```Java
 static class QuadNode<T> {
@@ -109,9 +109,9 @@ class QuadTree<P> {
 
 ## 插入
 
-和[二叉搜索树](https://javarevisited.blogspot.com/2015/10/how-to-implement-binary-search-tree-in-java-example.html) 一样，我们需要从根节点开始，查找当前坐标所属的节点，然后递归遍历当前节点，直到到达叶节点。
+和[二叉搜索树](https://javarevisited.blogspot.com/2015/10/how-to-implement-binary-search-tree-in-java-example.html)一样，我们需要从根节点开始，查找当前坐标所属的节点，然后递归遍历当前节点，直到到达叶节点。
 
-然后我们将坐标插入到四叉树中，检查是否需要进一步`细分`。如果需要进一步`细分`，我们需要将该区域细分为四个象限，并将内部值重新分配给子级。
+然后我们将坐标插入到四叉树中，检查是否需要进一步**细分**。如果需要进一步细分，我们需要将该区域细分为四个象限，并将内部值重新分配给子级。
 
 ```Java
 public void insert(Point p, P data) {
@@ -189,7 +189,7 @@ public Set<QuadNode<P>> search(Point p) {
 ## 总结
 
 * 在地理存储领域，自然次序搜索并不能满足实际的需求。因此我们一般使用空间索引来搜索 2D 空间。
-* 四叉树等效于一维空间中二叉树的[数据结构](https://medium.com/javarevisited/7-best-courses-to-learn-data-structure-and-algorithms-d5379ae2588) ，因此，只要你对稀疏数据有搜索要求，我们就可以使用四叉树。
+* 四叉树等效于一维空间中二叉树的[数据结构](https://medium.com/javarevisited/7-best-courses-to-learn-data-structure-and-algorithms-d5379ae2588)。然而，只要你对稀疏数据有搜索要求，我们就可以使用四叉树。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
