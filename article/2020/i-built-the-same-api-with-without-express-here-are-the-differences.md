@@ -2,35 +2,35 @@
 > * 原文作者：[Louis Petrik](https://medium.com/@louispetrik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2020/i-built-the-same-api-with-without-express-here-are-the-differences.md](https://github.com/xitu/gold-miner/blob/master/article/2020/i-built-the-same-api-with-without-express-here-are-the-differences.md)
-> * 译者：
-> * 校对者：
+> * 译者：[lhd951220](https://github.com/lhd951220)、[finalwhy](ttps://github.com/finalwhy)
+> * 校对者：[Cygra](https://github.com/Cygra)、[jaredliw](https://github/jaredliw)
 
-# Express vs. http - API Benchmark
+# Express vs. http - API 基准测试
 
 ![Source: The author](https://cdn-images-1.medium.com/max/2794/1*UwjbdzSkB6KnS9SCM-wx3Q.png)
 
-Express.js is now the standard in the Node.js world. If backend wants to develop applications for the web, the `npm install express` is pre-programmed and has become routine for most of us.
+Express.js 如今是 Node.js 世界中的标杆。如果后端开发工程师想要开发 web 相关的应用，执行 `npm install express` 来初始化项目已经成为大多数人们的日常。
 
-Admittedly, working with Express.js is much more pleasant — when I learned Node.js, I went straight into Express. Before this experiment, I probably never wrote anything without Express.js.
+诚然，使用 Express.js 通常都会更愉快，当我开始学习 Node.js 的时候是从 Express.js 入手。（甚至于）在做这个实验之前，我写的任何东西都离不开 Express.js。
 
-That’s why I had a great desire to put Express to the test — and test it in the form of a small API with a native approach.
+这也是为什么我会非常渴望对 Express 进行测试。本次的测试方式为在本地环境下访问一个简单的 API。
 
-So I built the same API twice, once with and once without Express. You can see the code below — first a little tip.
+我创建了两个相同的 API，一个使用 Express，一个不使用，你可以在下面看到相关代码。但在此之前，我有一个小小的提示。
 
-When I gave both APIs a test run, I noticed the following: **The response of the Express app is about 15% higher.**
+当我给这两个 APIs 运行测试，我注意到以下情况：**Express 应用程序的响应（体积）要高出约 15%。**
 
-This is of course problematic if you want to make a fair benchmark that measures the performance of the server. 
-The different size is not due to the content of our response, because we send the same from both servers with `res.end()`, but to the headers.
+如果你想得到一个公平的基准以测试服务的性能，这肯定是有问题的。
+不同的大小并不是响应体内容引起的，因为我们在两份服务器代码中使用 `res.end()` 发送了相同的内容。造成响应体积不同的原因来自于响应头。
 
-Express.js comes with something in the header by default, which is only meant cosmetically — the `X-Powered-By` tag.
+Express.js 默认携带了一个仅仅用于“装饰”的请求头 —— `X-Powered-By` 标签。
 
-![X-Powered-By Express.js Tag](https://cdn-images-1.medium.com/max/2000/1*jVTQ2oCR5H5tufnSpffdGQ.png)
+![Express.js 的 `X-Powered-By` 标签](https://cdn-images-1.medium.com/max/2000/1*jVTQ2oCR5H5tufnSpffdGQ.png)
 
-But we can simply deactivate it:`app.disable('x-powered-by')`
+但我们可以通过 `app.disable('x-powered-by')` 来禁用它。
 
-Then the two responses of the different servers should be exactly the same size. Let’s have a look at the code.
+现在，这两个不同服务器的响应大小应该是完全相同的。让我们来看一下代码：
 
-**The Express.js API:**
+**基于 Express.js 实现的 API:**
 
 ```js
 const express = require("express")
@@ -43,7 +43,7 @@ app.get("/api", (req, res) => {
 app.listen(5000)
 ```
 
-**The API without Express.js:**
+**不基于 Express.js 实现的 API:**
 
 ```js
 const http = require("http")
@@ -60,26 +60,26 @@ const app = http.createServer((req, res) => {
 app.listen(5000)
 ```
 
-Logically, both APIs do absolutely the same thing. They only respond to the **/api-route** and return the query parameters they receive.
+在逻辑上，两个 API 做了绝对相同的事情。他们仅仅对 **`/api-route`** 进行响应，并且返回它们接收到的查询参数。
 
-## Benchmark and Results
+## 基准测试和结果
 
-As a benchmark tool, I decided to use Apache Bench. It is a simple command-line tool that is pre-installed on most systems (except for Windows).
+在基准测试上，我决定使用 Apache Bench。它是一个预安装在大多数系统（除了 Windows）上的简单命令行工具。
 
 ```
 ab -n 10000 -c 100 <url>
 ```
 
-The **-n 10000** are the requests we send in total, **-c 100** stands for the connections we open at the same time — to really heat up the server.
+**-n 10000** 是我们发送的总请求数，**-c 100** 表示我们同时打开的连接数，如此设置是为了让服务器程序发挥所有性能。
 
-Apache Bench then outputs some data as a result. The most important ones are listed below.
+Apache Bench 会输出一些数据作为结果。最重要的数据如下所示：
 
-* The more **requests per second** the better, the same applies to the **transfer rate.**
-* The less **time per request**, the better — the single request should be processed as fast as possible.
+*  **requests per second（每秒请求数）** 越多越好，**transfer rate（传输率）** 也是如此。
+*  **time per request（单个请求花费时间）** 越少越好，单个请求应该尽可能快的被处理。
 
-First I tested the native server, which is the one without Express.
+首先，我对原生 Node 模块实现的服务器程序进行测试：
 
-**Benchmark 1:**
+**基准测试 1：**
 
 ```
 Requests per second: 10882.52 [#/sec] (mean)
@@ -106,7 +106,7 @@ Time per request: 0.092 [ms] (mean, across all concurrent requests)
 Transfer rate: 992.55 [Kbytes/sec] received
 ```
 
-Now follows the Express.js API.
+接下来是 Express.js API 的结果。
 
 **Benchmark 1:**
 
@@ -135,30 +135,29 @@ Time per request: 0.191 [ms] (mean, across all concurrent requests)
 Transfer rate: 476.73 [Kbytes/sec] received
 ```
 
-The pure Node.js implementation of the server, completely without a framework like Express.js is much faster.
+纯 Node.js 实现、不使用框架的服务器速度要快得多。
 
-At first sight, I couldn’t believe it, and again I made sure that I created the same conditions for both servers.
-So I ran the benchmark many many times — but the result remains the same.
+一开始，我并不相信这个结果。之后，在确定两个服务器条件相同的情况下，我又执行了很多次基准测试，但是得到的结果都是相同的。
 
-I then ran the same benchmark on my Raspberry Pi 3B — just to see if the differences there were as huge.
+然后，我在我的 Raspberry Pi 3B 上运行相同的基准测试，只是为了看看两者之间的差异是否同样如此巨大。
 
-While the native server is almost twice as fast in the benchmark on my MacBook Pro, the native server on the Raspberry Pi is only about 25% faster.
+原生模块实现的服务器在我的 MacBook Pro 上运行的基准测试快了近 2 倍，而在 Raspberry Pi 上仅仅快了 25%。
 
-However, there is a significant difference — Express does not come close to the performance of a simple Node.js server in any benchmark.
+但是，两者之间存在显著差异 — Express 在任何基准测试中都无法接近简单 Node.js 服务器的性能。
 
-Personally, I had expected Express.js to be slower — but not that the difference is sometimes so noticeable. In the end, Express.js takes a detour and builds on the HTTP module of Node.js, which we used for the native server.
+在我看来，我预期 Express.js 会更慢，但差异并非如此明显。最后，Express.js 走了点弯路，它使用 Node.js 的 HTTP 模块构建，该模块在我们的原生服务器上也有使用。
 
-## Summing up
+## 结论
 
-Should we learn from this to never use Express.js again? No, definitely not. Express.js is great — it makes developing backend applications very easy.
+学习了这篇文章之后，我们应该不再使用 Express.js 了吗？不，当然不。Express.js 很好，它能让开发后端应用变得非常简单。
 
-Performance at any price does not always make sense — after all, an Express app is also much easier to maintain and faster to develop, which can cost and save time on the other side.
+不惜一切代价来换取性能并非总是有意义的。毕竟，Express 应用更易于维护和开发，这可以节省成本和时间。
 
-The documentation and resources found on the Internet for Express alone are numerous and well explained.
+网络上有关 Express 的文档和资源非常多，并且都解释得很好。
 
-Sending 10000 requests to a server in such a short time is also a rather unrealistic scenario — of course, the response time with Express is also higher, but under normal circumstances, this should not cause any problems for anyone.
+在如此短的时间发送 10000 个请求给服务器是一个不切实际的应用场景 — 当然，Express 的响应时间确实更高，但在正常情况下，这不会造成任何问题。
 
-Thank you for reading!
+感谢阅读！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
