@@ -1,3 +1,4 @@
+* [5个关于 UI 设计系统的误解](https://juejin.cn/post/7086291006286462990)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [别让轮播毁了你的应用程序](https://juejin.cn/post/7003637296050225189)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [为 Web 开发同学准备的 11 个简单实用的 UI 设计小技巧](https://juejin.cn/post/6960922956876742669)（[5Reasons](https://github.com/5Reasons) 翻译）
 * [你有设计作品的作品集吗？挺好的，但这还不够](https://juejin.cn/post/6934328263011467277)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
