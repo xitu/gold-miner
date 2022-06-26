@@ -74,7 +74,7 @@ public boolean onTouchEvent(MotionEvent event) {
 
 我们可以通过`PointerId`来识别一个手指。对于同一个手指，在从按下到抬起的整个过程中，`PointerId`是固定的。
 
-还要注意，这个值可以重复使用，例如，一个`id`为 0 的手指在被抬起后重新按压时，`id`也可能为 0。
+还要注意，这个值可以重复使用，例如，一个`id`为0的手指在被抬起后重新按压时，`id`也可能为0。
 
 ## PointerIndex (finger index)
 
@@ -111,25 +111,25 @@ float getY(int pointerIndex);
 float getHistoricalX(int pointerIndex, int pos);
 ```
 
-第一个参数，`pointerIndex`，很容易解决。第一个问题已经提到过了，主要是第二个参数。
+The first parameter, `pointerIndex`, is easy to solve. The first question has already been mentioned, mainly the second parameter.
 
-因为`HistoricalX`是一个列表，我们需要通过索引逐一读取，第二个 pos 参数是索引，但前提是我们知道列表的长度。这只需要一个`for`循环就可以解决。
+Because `HistoricalX` is a list, we need to read one by one through the index, and the second pos parameter is the index, but only if we know the length of the list. This can be solved with only one `for` loop.
 
-`MotionEvent`提供了一个方法来获取这个列表的长度。
+`MotionEvent` provides a method to get the length of this list:
 
 ```
 int getHistorySize();
 ```
 
-但是这提供了这个方法，没有其他的重载，所以你不能通过`pointerIndex` 来获得某个手指这次滑动的历史轨迹列表的长度!
+But this provides this method, there are no other overloads, so you can’t get the length of the history track list of a certain finger’s slide this time through `pointerIndex`!
 
-然而，经过我的测试，无论哪个手指滑动，你都可以通过`getHistorySize`方法得到历史轨迹的长度，然后调用`getHistoricalX`方法得到历史轨迹的坐标。
+However, after my test, no matter which finger slides, you can get the length of the historical track through the `getHistorySize` method, and then call the `getHistoricalX` method to obtain the coordinates of the historical track.
 
-虽然我不知道为什么这样设计，但它确实解决了这个问题。
+Although I don’t know why it is designed this way, it does solve this problem.
 
-## 完成
+## Accomplish
 
-我们首先定义一个内层类，作为绘图元数据。
+We first define an inner class to act as drawing metadata:
 
 ```Java
 private static class DrawPath {
@@ -152,9 +152,9 @@ private static class DrawPath {
 }
 ```
 
-上述`DrawPath`对应于手指滑动的生命周期，也就是中间经历的从下降到上升的轨迹。
+The above `DrawPath` corresponds to the life cycle of a finger slide, that is, the trajectory experienced in the middle from DOWN to UP.
 
-然后定义一个`DrawPath`和变量的列表，如画笔、轨道颜色阵列等。
+Then define a list of `DrawPath` and variables such as brushes, track color arrays, etc.:
 
 ```Java
 private Paint mPaint = new Paint();
@@ -164,7 +164,7 @@ private List<DrawPath> mDrawMoveHistory = new ArrayList<>();
 private Random random = new Random();
 ```
 
-初始化：
+Initialize it:
 
 ```Java
 private void init() {
@@ -175,7 +175,7 @@ private void init() {
 }
 ```
 
-现在让我们重写`onTouchEvent`方法。
+Now let’s override the `onTouchEvent` method:
 
 ```Java
 @Override
@@ -242,9 +242,9 @@ public boolean onTouchEvent(MotionEvent event) {
 }
 ```
 
-上面的代码有注释，这里我就不细说了。
+There are comments above, so I won’t go into detail.
 
-然后重写`onDraw`方法。虽然这是一个绘制轨迹的控件，但在`onDraw`方法中没有太多代码:
+Then rewrite the `onDraw` method. Although this is a control for drawing tracks, there is not much code in the `onDraw` method:
 
 ```Java
 @Override
@@ -260,11 +260,11 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 
-通过这种方式，了一个简单的支持多指绘制的控件就实现了，我们还可以添加一些方法，如撤销上一步。这里我就不多讲了。
+In this way, a simple control that supports multi-finger drawing is realized, and we can also add some methods such as undoing the previous step to it. I won’t talk about it here.
 
-`DrawView`的完整代码已放在 GitHub 上。
+The complete code for `DrawView` has been put on GitHub.
 
-欢迎你[查看访问](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java)。
+You’re welcome to [check it out](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

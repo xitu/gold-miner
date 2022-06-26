@@ -244,7 +244,10 @@ public boolean onTouchEvent(MotionEvent event) {
 
 上面的代码有注释，这里我就不细说了。
 
-然后重写`onDraw`方法。虽然这是一个绘制轨迹的控件，但在`onDraw`方法中没有太多代码:
+
+There are comments above, so I won’t go into detail.
+
+Then rewrite the `onDraw` method. Although this is a control for drawing tracks, there is not much code in the `onDraw` method:
 
 ```Java
 @Override
@@ -260,11 +263,11 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 
-通过这种方式，了一个简单的支持多指绘制的控件就实现了，我们还可以添加一些方法，如撤销上一步。这里我就不多讲了。
+In this way, a simple control that supports multi-finger drawing is realized, and we can also add some methods such as undoing the previous step to it. I won’t talk about it here.
 
-`DrawView`的完整代码已放在 GitHub 上。
+The complete code for `DrawView` has been put on GitHub.
 
-欢迎你[查看访问](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java)。
+You’re welcome to [check it out](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java).
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
