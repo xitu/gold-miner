@@ -180,7 +180,7 @@ console.log(StaticPublicFieldClass['quoted field key']) //输出 -> 2
 console.log(StaticPublicFieldClass[computedFieldKey]) //输出 -> 3
 ```
 
-- 私有插槽是新特性，可以通用以下方式创建
+- 私有 slots 是新特性，可以通用以下方式创建
     - 实例化私有字段
 
 ```js
