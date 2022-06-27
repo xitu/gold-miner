@@ -5,13 +5,13 @@
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
 > * 校对者：
 
-# ES2022 有什么新特性? 🤔
+# ES2022 有什么新特性？ 🤔
 
 很快，最新版本的 ECMA Script 将在几个月内成为标准。让我们来看看 ES2022 中会包含什么特性吧。
 
 ## 1. `.at()` 索引对应值方法。
 
-这个函数，让我们读取给定索引处的元素。它可以接受负数索引，传负数时，会从给与的数据类型末尾读取元素。
+这个函数能够让我们读取给定索引处的元素。它可以接受负数索引，传负数时，会从给与的数据类型末尾读取元素。
 
 举个例子
 
@@ -21,15 +21,15 @@
 [1,2,3,4,5].at(-2)   // 返回 4
 ```
 
-支持这个函数的数据类型。
+支持这个函数的数据类型：
 
 - String
 - Array
-- 所有类数组类: Uint8Array 等等。
+- 所有类数组类：Uint8Array 等等。
 
 ## 2. RegExp 匹配索引
 
-向正则表达式 添加 `/d` 标识，会生成匹配对象，用于记录每个捕获组的开始和结束。
+向正则表达式添加 `/d` 标识，会生成匹配对象，用于记录每个捕获组的开始和结束。
 
 匹配索引的不同方式
 
@@ -45,7 +45,7 @@ console.log(matchObj);
 */
 ```
 
-由于正则表达式的 `/d` 标识符，匹配对象也有 .indices 属性，用于记录每个在输入字符串中被捕获的编号组。
+由于正则表达式设置了 `/d` 标识符，匹配对象也具有 .indices 属性，用于记录每个在输入字符串中被捕获的编号组。
 
 ```js
 matchObj.indices[1];
@@ -79,7 +79,7 @@ matchObj.indices.groups;
 
 ## 3. `Object.hasOwn(obj, propKey)`
 
-这是一个安全的方式，去检查 `propKey` 是否为 `obj` 对象的自身属性。它与 `Object.prototype.hasOwnProperty` 类似，但它支持所有对象类型。
+这是检查 `propKey` 是否为 `obj` 对象的自身属性的安全方式。它与 `Object.prototype.hasOwnProperty` 类似，但它支持所有对象类型。
 
 ```js
 const proto = {
@@ -98,7 +98,7 @@ console.log(Object.hasOwn(proto, 'protoProp')); // 输出 - true.
 
 ## 4. `error.cause`
 
-错误与它的子集，现在我们可以明确指出错误背后的原因。这在深度嵌套函数中非常有用，我们可以通过链接错误块来快速找到错误。[更多信息](https://2ality.com/2021/06/error-cause.html)
+现在，我们可以明确指出 Error 及其子类导致错误的原因。这在深度嵌套函数中非常有用，我们可以通过链接错误块来快速找到错误。[更多信息见此](https://2ality.com/2021/06/error-cause.html)
 
 ```js
 function readFiles(filePaths) {
@@ -180,13 +180,13 @@ console.log(StaticPublicFieldClass['quoted field key']) //输出 -> 2
 console.log(StaticPublicFieldClass[computedFieldKey]) //输出 -> 3
 ```
 
-- 私有 slots 是新特性，可以通用以下方式创建
+- 新增私有 slot 特性，可以通用以下方式创建
     - 实例化私有字段
 
 ```js
 class InstPrivateClass {
   #privateField1 = 'private field 1'; // (A)
-  #privateField2; // (B) 必须!
+  #privateField2; // (B) 必要字段!
   constructor(value) {
     this.#privateField2 = value; // (C)
   }
@@ -206,7 +206,6 @@ const inst = new InstPrivateClass('constructor argument');
 console.log("inst", Object.keys(inst).length === 0) //输出 -> inst, true
 ```
 
-- Instance and static private fields
 - 实例化静态私有字段
 
 ```js
@@ -283,7 +282,7 @@ console.log(Translator.englishWords, Translator.germanWords)
 //Output -> ["yes", "no", "maybe"], ["ja", "nein", "vielleicht"]
 ```
 
-- 私有 slot 检查 - 这个功能帮助我们检查对象是否有给定的私有 slot。
+- 私有 slot 检查 —— 这个功能帮助我们检查对象是否有给定的私有 slot。
 
 ```js
 class C1 {
@@ -296,7 +295,7 @@ class C1 {
 console.log(C1.check(new C1())) // 输出 true
 ```
 
-这些惊人的特性将帮助我们增强我们的项目，并且提高我们的编码技巧。我非常兴奋，在我的项目中尝试这些特性。💃
+这些惊人的特性将帮助我们提升项目水准，并且提高我们的编码技巧。我非常兴奋，我真的是迫不及待地想在我的项目中试试这些特性了。💃
 
 快乐编码! 👩🏻‍💻
 
