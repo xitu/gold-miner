@@ -9,9 +9,9 @@
 
 很快，最新版本的 ECMA Script 将在几个月内成为标准。让我们来看看 ES2022 中会包含什么特性吧。
 
-## 1. `.at()` 索引对应值方法。
+## 1. 可索引值的 `.at()` 方法。
 
-这个函数能够让我们读取给定索引处的元素。它可以接受负数索引，传负数时，会从给与的数据类型末尾读取元素。
+这个函数能够让我们读取给定索引处的元素。它可以接受负数索引，传负数时，会从给定的数据类型末尾读取元素。
 
 举个例子
 
@@ -29,7 +29,7 @@
 
 ## 2. RegExp 匹配索引
 
-向正则表达式添加 `/d` 标识，会生成匹配对象，用于记录每个捕获组的开始和结束。
+向正则表达式添加 `/d` 标识，生成的匹配对象里，记录着每个匹配组的起始索引。
 
 匹配索引的不同方式
 
@@ -45,7 +45,7 @@ console.log(matchObj);
 */
 ```
 
-由于正则表达式设置了 `/d` 标识符，匹配对象也具有 .indices 属性，用于记录每个在输入字符串中被捕获的编号组。
+由于正则表达式设置了 `/d` 标识符，匹配对象会额外具有 .indices 属性，用于记录每个在输入字符串中被捕获的编号组的位置。
 
 ```js
 matchObj.indices[1];
@@ -118,7 +118,7 @@ function readFiles(filePaths) {
 
 ## 5. 顶级 await 模块
 
-我们现在可以在顶级模块中使用 await，并且无需再内嵌到 async 函数或模块中。
+我们现在可以在顶级模块中使用 await，无需再内嵌到 async 函数或模块中。
 
 - 动态加载模块
 
@@ -148,7 +148,7 @@ const resource = await Promise.any([
 ]);
 ```
 
-## 6. classes 的新成员
+## 6. Class 的新成员
 
 - 公共属性可以通过实例的公共字段创建
 
@@ -186,7 +186,7 @@ console.log(StaticPublicFieldClass[computedFieldKey]) //输出 -> 3
 ```js
 class InstPrivateClass {
   #privateField1 = 'private field 1'; // (A)
-  #privateField2; // (B) 必要字段!
+  #privateField2; // (B) 必要字段！
   constructor(value) {
     this.#privateField2 = value; // (C)
   }
@@ -297,7 +297,7 @@ console.log(C1.check(new C1())) // 输出 true
 
 这些惊人的特性将帮助我们提升项目水准，并且提高我们的编码技巧。我非常兴奋，我真的是迫不及待地想在我的项目中试试这些特性了。💃
 
-快乐编码! 👩🏻‍💻
+祝快乐编码! 👩🏻‍💻
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
