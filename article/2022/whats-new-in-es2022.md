@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/whats-new-in-es2022.md](https://github.com/xitu/gold-miner/blob/master/article/2022/whats-new-in-es2022.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[DylanXie123](https://github.com/DylanXie123) [Baddyo](https://github.com/Baddyo)
 
 # ES2022 有什么新特性？ 🤔
 
