@@ -2,50 +2,50 @@
 > * 原文作者：[Jasmin Virdi](https://dev.to/jasmin)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/whats-new-in-es2022.md](https://github.com/xitu/gold-miner/blob/master/article/2022/whats-new-in-es2022.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
+> * 校对者：[DylanXie123](https://github.com/DylanXie123) [Baddyo](https://github.com/Baddyo)
 
-# What's new in ES2022? 🤔
+# ES2022 有什么新特性？ 🤔
 
-Soon the new version of ECMA Script will become standard in few months. So let's take a glimpse at the features that will be part of ES2022.
+很快，最新版本的 ECMA Script 将在几个月内成为标准。让我们来看看 ES2022 中会包含什么特性吧。
 
-## 1. Method `.at()` of indexable values.
+## 1. 可索引值的 `.at()` 方法。
 
-This function let's us reads an element at the given index. It can accept negative indexes to read elements from the end of the given datatype.
+这个函数能够让我们读取给定索引处的元素。它可以接受负数索引，传负数时，会从给定的数据类型末尾读取元素。
 
-For example
+举个例子
 
 ```js
-[1,2,3,4,5].at(3)  // returns 4
+[1,2,3,4,5].at(3)  // 返回 4
 
-[1,2,3,4,5].at(-2)   // returns 4
+[1,2,3,4,5].at(-2)   // 返回 4
 ```
 
-Datatypes supporting this function.
+支持这个函数的数据类型：
 
 - String
 - Array
-- All Typed Array classes: Uint8Array etc.
+- 所有类数组类：Uint8Array 等等。
 
-## 2. RegExp match indices
+## 2. RegExp 匹配索引
 
-Adding a flag `/d` to a regular expression produces match objects that records the start and end of each group capture.
+向正则表达式添加 `/d` 标识，生成的匹配对象里，记录着每个匹配组的起始索引。
 
-There are different ways to match indices
+匹配索引的不同方式
 
-- Match indices for numbered group
+- 编号组的匹配索引
 
 ```js
 const matchObj = /(a+)(b+)/d.exec('aaaabb');
 
 console.log(matchObj);
 /*
-Output -
+输出 -
 ['aaaabb', 'aaaa', 'bb', index: 0, input: 'aaaabb', groups: undefined, indices: Array(3)]
 */
 ```
 
-Due to the regular expression flag `/d`, matchObj also has a property .indices that records for each numbered group where it was captured in the input string.
+由于正则表达式设置了 `/d` 标识符，匹配对象会额外具有 .indices 属性，用于记录每个在输入字符串中被捕获的编号组的位置。
 
 ```js
 matchObj.indices[1];
@@ -55,7 +55,7 @@ Output -
 */
 ```
 
-- Match indices for named groups
+- 命名组的匹配索引
 
 ```js
 const matchObj = /(?<as>a+)(?<bs>b+)/d.exec('aaaabb');
@@ -67,19 +67,19 @@ Output -
 */
 ```
 
-Their indices are stored in `matchObj.indices.groups`
+它们的索引存储在 `matchObj.indices.groups`
 
 ```js
 matchObj.indices.groups;
 /*
-Output -
+输出 -
 { as: [0,4], bs: [4,6] }
 */
 ```
 
 ## 3. `Object.hasOwn(obj, propKey)`
 
-It is a safe way to check that `propKey` is the own property of `obj` object. It is similar to `Object.prototype.hasOwnProperty` but it supports all object types.
+这是检查 `propKey` 是否为 `obj` 对象的自身属性的安全方式。它与 `Object.prototype.hasOwnProperty` 类似，但它支持所有对象类型。
 
 ```js
 const proto = {
@@ -91,14 +91,14 @@ const obj = {
   objProp: 'objProp',
 };
 
-console.log('protoProp' in obj); // output - true.
-console.log(Object.hasOwn(obj, 'protoProp')) // output - false
-console.log(Object.hasOwn(proto, 'protoProp')); // output - true.
+console.log('protoProp' in obj); // 输出 - true.
+console.log(Object.hasOwn(obj, 'protoProp')) // 输出 - false
+console.log(Object.hasOwn(proto, 'protoProp')); // 输出 - true.
 ```
 
 ## 4. `error.cause`
 
-Error and it's subclasses now let us specify the reason behind the error. This is useful in deeply nested function where we have chained error blocks to quickly find the error. [Read here for more info](https://2ality.com/2021/06/error-cause.html)
+现在，我们可以明确指出 Error 及其子类导致错误的原因。这在深度嵌套函数中非常有用，我们可以通过链接错误块来快速找到错误。[更多信息见此](https://2ality.com/2021/06/error-cause.html)
 
 ```js
 function readFiles(filePaths) {
@@ -116,17 +116,17 @@ function readFiles(filePaths) {
 }
 ```
 
-## 5. Top-level await modules
+## 5. 顶级 await 模块
 
-We can now use await at the top levels of modules and don't have to enter async functions or methods anymore.
+我们现在可以在顶级模块中使用 await，无需再内嵌到 async 函数或模块中。
 
-- Loading modules dynamically
+- 动态加载模块
 
 ```js
 const messages = await import(`./messages-${language}.mjs`);
 ```
 
-- Using a fallback if module loading fails
+- 如果模块加载失败，则使用兜底方案
 
 ```js
 let lodash;
@@ -137,7 +137,7 @@ try {
 }
 ```
 
-- Using whichever resource loads fastest
+- 使用加载最快的资源
 
 ```js
 const resource = await Promise.any([
@@ -148,18 +148,17 @@ const resource = await Promise.any([
 ]);
 ```
 
-## 6. New members of classes
+## 6. Class 的新成员
 
-- Public properties can be created via
-    - Instance public fields
+- 公共属性可以通过实例的公共字段创建
 
 ```js
 class InstPublicClass {
-  // Instance public field
+  // 实例化公共字段
   instancePublicField = 0; // (A)
 
   constructor(value) {
-    // We don't need to mention .property elsewhere!
+    // 我们无需在别的地方提及 .property！
     this.property = value; // (B)
   }
 }
@@ -167,7 +166,7 @@ class InstPublicClass {
 const inst = new InstPublicClass('constrArg');
 ```
 
-- Static public fields
+- 也可以通过静态公共字段创建
 
 ```js
 const computedFieldKey = Symbol('computedFieldKey');
@@ -176,27 +175,27 @@ class StaticPublicFieldClass {
   static 'quoted field key' = 2;
   static [computedFieldKey] = 3;
 }
-console.log(StaticPublicFieldClass.identifierFieldKey) //output -> 1
-console.log(StaticPublicFieldClass['quoted field key']) //output -> 2
-console.log(StaticPublicFieldClass[computedFieldKey]) //output -> 3
+console.log(StaticPublicFieldClass.identifierFieldKey) //输出 -> 1
+console.log(StaticPublicFieldClass['quoted field key']) //输出 -> 2
+console.log(StaticPublicFieldClass[computedFieldKey]) //输出 -> 3
 ```
 
-- Private slots are new and can be created via
-    - Instance private fields
+- 新增私有 slot 特性，可以通用以下方式创建
+    - 实例化私有字段
 
 ```js
 class InstPrivateClass {
   #privateField1 = 'private field 1'; // (A)
-  #privateField2; // (B) required!
+  #privateField2; // (B) 必要字段！
   constructor(value) {
     this.#privateField2 = value; // (C)
   }
   /**
-   * Private fields are not accessible outside the class body.
+   * 私有字段不可以在类主体外部访问
    */
   checkPrivateValues() {
-  console.log(this.#privateField1); // output -> 'private field 1'
-  console.log(this.#privateField2); // output -> 'constructor argument'
+  console.log(this.#privateField1); // 输出 -> 'private field 1'
+  console.log(this.#privateField2); // 输出 -> 'constructor argument'
 
   }
 }
@@ -204,10 +203,10 @@ class InstPrivateClass {
 const inst = new InstPrivateClass('constructor argument');
   inst.checkPrivateValues();
 
-console.log("inst", Object.keys(inst).length === 0) //output -> inst, true
+console.log("inst", Object.keys(inst).length === 0) //输出 -> inst, true
 ```
 
-- Instance and static private fields
+- 实例化静态私有字段
 
 ```js
 class InstPrivateClass {
@@ -218,11 +217,11 @@ class InstPrivateClass {
     this.#privateField2 = value; // (C)
   }
   /**
-   * Private fields are not accessible outside the class body.
+   * 私有字段不可以在类主体外部访问
    */
   checkPrivateValues() {
-    console.log(this.#privateField1); // output -> 'private field 1'
-    console.log(this.#privateField2); // output -> 'constructor argument'
+    console.log(this.#privateField1); // 输出 -> 'private field 1'
+    console.log(this.#privateField2); // 输出 -> 'constructor argument'
 
   }
 
@@ -238,11 +237,11 @@ class InstPrivateClass {
 const inst = new InstPrivateClass('constructor argument');
 inst.checkPrivateValues();
 
-console.log("inst", Object.keys(inst).length === 0) //output -> "inst", true
-console.log(InstPrivateClass.getResultTwice()); // output -> "hello hello"
+console.log("inst", Object.keys(inst).length === 0) //输出 -> "inst", true
+console.log(InstPrivateClass.getResultTwice()); // 输出 -> "hello hello"
 ```
 
-- Private methods and accessors
+- 私有方法和访问器
 
 ```js
 class MyClass {
@@ -250,17 +249,17 @@ class MyClass {
   static check() {
     const inst = new MyClass();
 
-    console.log(#privateMethod in inst) // output-> true
+    console.log(#privateMethod in inst) // 输出-> true
 
-    console.log(#privateMethod in MyClass.prototype) // output-> false
+    console.log(#privateMethod in MyClass.prototype) // 输出-> false
 
-    console.log(#privateMethod in MyClass) // output-> false
+    console.log(#privateMethod in MyClass) // 输出-> false
   }
 }
 MyClass.check();
 ```
 
-- Static initialisation blocks in classes. For static data we have Static fieldsand Static Blocks that are executed when the class is created.
+- 类中的静态初始化块。对于静态数据，我们可以在类创建的时候会执行的静态字段和静态块做处理。
 
 ```js
 class Translator {
@@ -283,7 +282,7 @@ console.log(Translator.englishWords, Translator.germanWords)
 //Output -> ["yes", "no", "maybe"], ["ja", "nein", "vielleicht"]
 ```
 
-- Private slot checks - This functionality helps us to check that the object has the given private slot in it.
+- 私有 slot 检查 —— 这个功能帮助我们检查对象是否有给定的私有 slot。
 
 ```js
 class C1 {
@@ -293,12 +292,12 @@ class C1 {
   }
 }
 
-console.log(C1.check(new C1())) // output true
+console.log(C1.check(new C1())) // 输出 true
 ```
 
-These amazing features will help us to enhance our projects and improve our coding techniques. I am really excited to try these features out in my project. 💃
+这些惊人的特性将帮助我们提升项目水准，并且提高我们的编码技巧。我非常兴奋，我真的是迫不及待地想在我的项目中试试这些特性了。💃
 
-Happy Coding! 👩🏻‍💻
+祝快乐编码! 👩🏻‍💻
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
