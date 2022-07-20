@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/10-hardest-python-questions.md](https://github.com/xitu/gold-miner/blob/master/article/2022/10-hardest-python-questions.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[DylanXie123](https://github.com/DylanXie123)
 
 ![图片由 [Emile Perron](https://unsplash.com/@emilep) 发布于 [Unplash](https://unsplash.com/photos/xrVDYZRGdw4)](https://cdn-images-1.medium.com/max/11014/1*ieXaavHBhInXJiKyK4RTEA.jpeg)
 
@@ -96,7 +96,7 @@ print(A() + 5)
 
 **答案：`16`（因为 21 - 5 = 16）**
 
-在查找属性时，Python 将在实例级别中搜索，接着是类级别，再到父类。然而，**dunder** 方法却是个例外。在查找 dunder 方法时，Python 会跳过实例查找，直接在类中搜索。
+在查找属性时，Python 将首先在实例级别中搜索，接着是类级别，再到父类。然而，**dunder** 方法却是个例外。在查找 dunder 方法时，Python 会跳过实例查找，直接在类中搜索。
 
 ## 5. 求和
 
@@ -110,13 +110,13 @@ print(A() + 5)
 
 **答案：`0`，`[]`，`{}`**
 
-为了能更了解这里发生了什么，我们需要检索 `sum` 函数的签名：
+为了能更了解这里发生了什么，我们需要查看 `sum` 函数的签名：
 
 > `sum(iterable, /, start=0)`
 >
-> 从 `start` 开始自左向右对 `iterable` 的项求和并返回总计值。`iterable` 的项通常为数字，而  `start` 值则不允许为字符串。
+> `sum` 函数从 `start` 开始自左向右对 `iterable` 的项求和并返回总计值。`iterable` 的项通常为数字，而 `start` 值则不允许为字符串。
 
-在以上的情况中，`''` （空字符串）都会被当成空序列，所以 `sum` 会返回`start` 参数作为加总的结果。在第一中情况中，`start` 的默认值是 `0`。对于第二及第三种情况，`start` 的参数分别是一个空列表和一个空字典。
+在以上的情况中，`''`（空字符串）都会被当成空序列，所以 `sum` 会返回 `start` 参数作为加总的结果。在第一中情况中，`start` 的默认值是 `0`。对于第二及第三种情况，`start` 的参数分别是一个空列表和一个空字典。
 
 ## 6. 属性不存在？
 
@@ -133,7 +133,7 @@ print(A() + 5)
 
 **答案：`0.0`**
 
-这段代码不会导致 `AttributeError`。Python 中的所有数字类型（`int`，`real`，`float`） 都继承自 `object` 基类。尽管如此，这些类型都支持 `real` 和 `imag` 属性， 分别返回数字的实数和虚数部分。**Infinity** 和 **NaN** 也支持这一点（译者注：因为两者均为 `float` 类型）。
+这段代码不会导致 `AttributeError`。Python 中的所有数字类型（`int`，`real`，`float`）都继承自 `object` 基类。尽管如此，这些类型都支持 `real` 和 `imag` 属性，分别返回数字的实数和虚数部分。**Infinity** 和 **NaN** 也支持这一点（译者注：因为两者均为 `float` 类型）。
 
 ## 7. 惰性 Python
 
@@ -165,7 +165,10 @@ Python 函数中的代码只会在调用时执行，这就意味着所有的 `Na
 
 从 [Python 文档](https://docs.python.org/3/library/stdtypes.html)中我们可以得知：
 
-> 小于 `0` 的 **n** 值会被当作 `0` 来处理（生成一个与 **s** 同类型的空序列）。
+> **操作**：`s * n` 或 `n * s`（`s` 为序列，`n` 为整数）
+> **结果**：相当于 `s` 与自身进行 `n` 次拼接
+>
+> 小于 `0` 的 `n` 值会被当作 `0` 来处理（生成一个与 `s` 同类型的空序列）。
 
 其他的序列类型也符合这一特性。
 
@@ -209,7 +212,7 @@ Python 函数中的代码只会在调用时执行，这就意味着所有的 `Na
 
 ## 结论
 
-尽管如此，作为最清晰透明的编程语言，Python 依然实至名归。在写这篇文章时，我也遇到了其他的一些违反直觉的代码片段。其中的一些在新的版本中都得到了解决，另一些则由社区给出解释。上方的这些示例代表了 Python 使用中的边缘情况，你在实际的商业项目中遇到它们的机率相对较小。
+尽管如此，作为最清晰透明的编程语言，Python 依然实至名归。在写这篇文章时，我也遇到了其他的一些违反直觉的代码片段。其中的一些在新的版本中都得到了解决，另一些则由社区给出解释。前文的这些例子代表了 Python 使用中的边缘情况，你在实际的商业项目中遇到它们的机率相对较小。
 
 话虽如此，检查和理解这些“坑”能帮助你更好地了解语言的内部结构，并在项目中避免可能导致异常或者 bug 的实践。
 
