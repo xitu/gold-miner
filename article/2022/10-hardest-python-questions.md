@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/10-hardest-python-questions.md](https://github.com/xitu/gold-miner/blob/master/article/2022/10-hardest-python-questions.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[DylanXie123](https://github.com/DylanXie123)
+> * 校对者：[DylanXie123](https://github.com/DylanXie123)、[haiyang-tju](https://github.com/haiyang-tju)
 
 ![图片由 [Emile Perron](https://unsplash.com/@emilep) 发布于 [Unplash](https://unsplash.com/photos/xrVDYZRGdw4)](https://cdn-images-1.medium.com/max/11014/1*ieXaavHBhInXJiKyK4RTEA.jpeg)
 
@@ -63,6 +63,8 @@ Python 中的逻辑运算符是惰性的。Python 将查找第一个值为**真*
 `all` 的例子稍微有点复杂，因为它代表的是[虚真（vacuous truth）](https://en.wikipedia.org/wiki/Vacuous_truth)的概念（译者注：虚真指的是如果一个论断的前提条件不能满足时，该论断为真）。与惰性的链式逻辑运算符一样，Python 将查找第一个值为**假**的元素，如果没有找到，则返回 `True`。由于空序列中没有元素为**假**，`all([])` 返回 `True`。
 
 ## 3. 数值修约
+
+译者注：数值修约是通过省略及调整原数值的最后若干位数字，使最后所得到的值最接近原数值的过程。
 
 译者注：数值修约是通过省略及调整原数值的最后若干位数字，使最后所得到的值最接近原数值的过程。
 
