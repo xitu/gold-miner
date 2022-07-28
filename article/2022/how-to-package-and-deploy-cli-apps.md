@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-package-and-deploy-cli-apps.md](https://github.com/xitu/gold-miner/blob/master/article/2022/how-to-package-and-deploy-cli-apps.md)
 > * 译者：[haiyang-tju](https://github.com/haiyang-tju)
-> * 校对者：
+> * 校对者：[DylanXie123](https://github.com/DylanXie123)、[earthaYan](https://github.com/earthaYan)
 
 # 如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序
 
