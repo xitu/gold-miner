@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md](https://github.com/xitu/gold-miner/blob/master/article/2021/how-do-you-create-an-efficient-data-structure-for-spatial-indexing.md)
 > * 译者：[Starriers](https://github.com/Starriers)、[jaredliw](https://github.com/jaredliw)
-> * 校对者：[zhangcong2711](https://github.com/zhangcong2711)、[PassionPenguin](https://github.com/PassionPenguin)
+> * 校对者：[zhangcong2711](https://github.com/zhangcong2711)、[PassionPenguin](https://github.com/PassionPenguin)、[haiyang-tju](https://github.com/haiyang-tju)、[timerring](https://github.com/timerring)
 
 # 如何为空间索引创建高效的数据结构？
 
@@ -13,9 +13,9 @@
 
 按自然次序检索是行不通的，因为我们将有两个不同的索引 —— 一个用于横坐标，另一个用于纵坐标。这样一来，我们就必须在数据库中搜索所有位置为 `X + delta` 或 `Y + delta` 的点，之后再对两个集合进行交集操作。
 
-这时我们需要空间索引。
+这时我们需要采用空间索引的方法。
 
-**空间索引**通常作为二维空间高效访问的手段。空间索引的实际应用场景包括但不限于：共享骑行（来福车、优步）、餐饮配送（DoorDash、Yelp）等。举例来说，DoorDash 通过空间索引来获取最靠近的配送点，Yelp 也利用空间索引搜寻离你最近的餐饮店的位置。
+**空间索引**通常作为二维空间高效访问的手段。空间索引的实际应用场景包括但不限于：共享汽车（来福车、优步）、餐饮配送（DoorDash、Yelp）等。举例来说，DoorDash 通过空间索引来获取最靠近的配送点，Yelp 也利用空间索引搜寻离你最近的餐饮店的位置。
 
 类似的应用还包括 **KNN 算法**，该算法用于搜索给定样本在特征空间中的所有邻近样本。
 
@@ -23,11 +23,11 @@
 
 **空间连接**：查找在空间上相互影响的对象对。我们能从空间方面了解对象之间的相交、邻近和包含关系。
 
-现在你已经了解了什么是空间索引，那么什么数据结构能提高索引数据点的效率呢？如果你第一时间想到的是四叉树，那么恭喜你，你是正确的。在接下来的内容中，我们将讨论什么是四叉树，以及它是如何存储稀疏数据来实现索引的。
+现在你已经知道了什么是空间索引，那么哪种数据结构能提高索引数据点的效率呢？如果你想到了四叉树，那么恭喜你，回答正确。在接下来的内容中，我们将讨论什么是四叉树，以及它是如何存储稀疏数据来实现索引的。
 
 ## 什么是四叉树？
 
-四叉树通过划分空间来提高遍历和搜索的效率。它是一种将数据划分为四个部分的树形数据结构。叶节点中保存的值取决于具体的应用场景。被细分的区域可以是正方形也可以是矩形。四叉树和字典树类似，不同之处在于四叉树只有四个子节点，并且子节点需要按照某些特征决定存储位置。比方说，如果某点的条件符合左象限的范围，那么就遍历左象限。
+四叉树通过划分空间来提高遍历和搜索的效率。它是一种将数据划分为四个部分的树形数据结构。叶节点中保存的值取决于具体的应用场景。被细分的区域可以是正方形也可以是矩形。四叉树和字典树类似，不同之处在于四叉树只有四个子节点，并且子节点需要按照某些特征决定存储位置。比方说，如果某点的条件符合左上象限的范围，那么就遍历左上象限。
 
 对于需要进行搜索的稀疏数据，四叉树可以是一个很好的选择。它可以保存化学反应中的数据片段，图像处理中的像素等等。
 
@@ -92,14 +92,14 @@ static class QuadNode<T> {
 }
 ```
 
-## QuadTree 类
+## `QuadTree` 类
 
 ```Java
 class QuadTree<P> {    
     Point topLeft;
     Point bottomRight;
     Set<QuadNode<P>> nodes;
-    // 子树
+    // 子树（这也可以像字典树一样使用，它是一个四叉树数组）
     QuadTree<P> topLeftTree;
     QuadTree<P> topRightTree;
     QuadTree<P> bottomLeftTree;
@@ -242,8 +242,8 @@ public Set<QuadNode<P>> search(Point p) {
 
 ## 总结
 
-* 在地理存储领域，自然次序搜索并不能满足实际的需求。因此我们一般使用空间索引来搜索二维空间。
-* 四叉树等效于一维空间中的二叉树。只要你对稀疏数据有搜索要求，你可以考虑使用四叉树。
+* 在需要存储地理位置信息时，自然次序搜索并不能满足实际的需求。因此我们一般使用空间索引来搜索二维空间。
+* 四叉树等效于一维空间中的二叉树。当你对稀疏数据有搜索要求时，不妨考虑使用四叉树。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
