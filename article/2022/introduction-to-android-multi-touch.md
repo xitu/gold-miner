@@ -1,42 +1,42 @@
-> * 原文地址：[Introduction to Android Multi-Touch](https://medium.com/better-programming/introduction-to-android-multi-touch-bdae5f8002f4)
-> * 原文作者：[ZhangKe](https://medium.com/@kezhang404)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md](https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md)
-> * 译者：
-> * 校对者：
+> - 原文地址：[Introduction to Android Multi-Touch](https://medium.com/better-programming/introduction-to-android-multi-touch-bdae5f8002f4)
+> - 原文作者：[ZhangKe](https://medium.com/@kezhang404)
+> - 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> - 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md](https://github.com/xitu/gold-miner/blob/master/article/2022/introduction-to-android-multi-touch.md)
+> - 译者：[YueYong](https://github.com/YueYongDev)
+> - 校对者：[haiyang-tju](https://github.com/haiyang-tju)
 
-# Introduction to Android Multi-Touch
+# 安卓多点触控介绍
 
 ![](https://cdn-images-1.medium.com/max/2880/1*q056ZGQtRdsHt-0o1_gZ3g.png)
 
-Multi-finger touch refers to monitoring the touch events of multiple fingers. We can override the `onTouchEvent` method in `View`, or use the `setOnTouchListener` method to handle touch events.
+多点触摸是指监控多个手指的触摸事件。我们可以重写（Override） `View` 中的 `onTouchEvent` 方法，或者使用 `setOnTouchListener` 方法来处理触摸事件。
 
-First, let’s take a look at how to determine the event type of multi-finger touch.
+首先，让我们看一下如何定义多指触摸的事件类型。
 
-## Event Types in MotionEvent
+## MotionEvent 中的事件类型
 
-Generally speaking, we judge the type of input event by judging the action of `MotionEvent`, so as to make corresponding processing.
-Without considering multiple fingers, we generally only focus on the following event types:
+一般来说，我们通过判断 `MotionEvent` 的动作来判断输入事件的类型，从而做出相应的处理。
+在不考虑多指的情况下，我们一般只关注以下事件类型：
 
-* `MotionEvent.ACTION_DOWN`
-Tap the screen with the first finger
-* `MotionEvent.ACTION_UP`
-The last finger leaves the screen
-* `MotionEvent.ACTION_MOVE`
-A finger is swiping on the screen
-* `MotionEvent.ACTION_CANCEL`
-event blocked
+- `MotionEvent.ACTION_DOWN`
+  用第一根手指点击屏幕
+- `MotionEvent.ACTION_UP`
+  最后一根手指离开屏幕
+- `MotionEvent.ACTION_MOVE`
+  一根手指在屏幕上划动
+- `MotionEvent.ACTION_CANCEL`
+  事件被阻断
 
-So for multi-finger touch, in addition to the above-mentioned common event types, we also need to pay attention to two other event types:
+所以对于多点触控，除了上述常见的事件类型外，我们还需要注意另外两种事件类型。
 
-* MotionEvent.ACTION_POINTER_DOWN
-A finger already exists on the screen before the tap
-* `MotionEvent.ACTION_POINTER_UP`
-When one finger on the screen is lifted, there are still other fingers on the screen
+- `MotionEvent.ACTION_POINTER_DOWN`
+  在点击之前，屏幕上已经有一个手指存在。
+- `MotionEvent.ACTION_POINTER_UP`
+  当屏幕上的一个手指被抬起时，屏幕上仍有其他手指。
 
-It should be noted that the above two types cannot be obtained by using the `MotionEvent#getAction` method as before, and need to use `getActionMasked`.
+需要注意的是，以上两种类型不能像以前那样通过使用 `MotionEvent#getAction` 方法获得，需要使用 `getActionMasked`。
 
-So when dealing with multi-finger touch, our `onTouch` method can generally be written like this:
+所以在处理多指触摸时，我们的 `onTouch` 方法一般可以这样写。
 
 ```Text
 public boolean onTouchEvent(MotionEvent event) {
@@ -51,85 +51,85 @@ public boolean onTouchEvent(MotionEvent event) {
 }
 ```
 
-When multiple fingers touch the screen at the same time, we need to track different fingers. There are several other concepts involved here.
+当多个手指同时接触屏幕时，我们需要跟踪不同的手指。这里还涉及其他几个概念。
 
-## Finger Tracking
+## 手指追踪
 
-There are several methods for tracking different fingers in `MotionEvent`.
+在 `MotionEvent` 中，有几种方法可以追踪不同的手指。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*h597DR0PR1XCmQCwy2dN9g.png)
 
-## ActionIndex (event index)
+## ActionIndex (事件索引)
 
-`ActionIndex` can be obtained directly through the `getActionIndex` method, which can be roughly understood as describing the number of fingers that the current event occurs on. For example, when we monitor the finger lift, we may want to know which finger is lifted, then it can be judged by `ActionIndex`.
+`ActionIndex` 可以直接通过 `getActionIndex` 方法获得，可以粗略理解为描述当前事件发生在哪个手指上。例如，当我们监测到手指被抬起时，我们可能想知道哪个手指被抬起，那么可以通过`ActionIndex'来判断。
 
-In addition, for the same finger, the value of `ActionIndex` may change as the finger is pressed and lifted, so we cannot use it to identify a finger.
-It seems that the only purpose of `ActionIndex` is to get the `PointerId`.
+此外，对于同一个手指，`ActionIndex` 的值可能会随着手指的按压和抬起而改变，所以我们不能用它来识别一个手指。
+似乎 `ActionIndex` 的唯一目的是为了获得 `PointerId`。
 
-In particular, it should be noted that this method is only valid for the `ACTION_POINTER_DOWN` and `ACTION_POINTER_UP` events. The `ACTION_MOVE` event cannot accurately obtain the value. We need to make a comprehensive judgment in combination with other events.
+特别要注意的是，这个方法只对 `ACTION_POINTER_DOWN` 和 `ACTION_POINTER_UP` 事件有效。 `ACTION_MOVE` 事件不能准确获得数值。我们需要结合其他事件来进行综合判断。
 
-## PointerId (finger ID)
+## PointerId (手指 ID)
 
-The `PointerId` is obtained through the `getPointerId(int)` method, and the parameter is `ActionIndex`.
+通过 `getPointerId(int)` 方法获得 `PointerId`，参数是 `ActionIndex`。
 
-We can identify a finger by `PointerId`. For the same finger, the `PointerId` is fixed throughout the process from pressing to lifting.
+我们可以通过 `PointerId` 来识别一个手指。对于同一个手指，在从按下到抬起的整个过程中，`PointerId` 是固定的。
 
-Also note that this value may be reused, for example, a finger with an `id` of 0 may also have an `id` of 0 when a finger is re-pressed after it has been lifted.
+还要注意，这个值可以重复使用，例如，一个 `id` 为 0 的手指在被抬起后重新按压时，`id` 也可能为 0。
 
 ## PointerIndex (finger index)
 
-`PointerIndex` is obtained through `findPointerIndex(int)`, the parameter is `PointerId`.
+`PointerIndex` 通过 `findPointerIndex(int)` 获得，参数是 `PointerId`。
 
-This value is used to get more content of the event.
+该值用于获取事件的更多内容。
 
-If we want to get the click point position of the event, when we get the coordinates through the `getX()`/`getY()` method, we can only get the position of the first finger, but these two methods provide an overload:
+当我们通过 `getX()` / `getY()` 方法获得坐标时，如果我们想获得事件的点击位置，我们只能获得第一个手指的位置，但这两个方法提供了一个重载。
 
 ```
 float getX(int pointerIndex);
 float getY(int pointerIndex);
 ```
 
-## Use
+## 使用
 
-Through the above introduction, we have roughly understood some key points of multi-touch, and now let’s apply them in practice.
+通过上面的介绍，我们已经大致了解了多点触控的一些关键点，现在让我们实际体验一下。
 
-Here I will make a `DrawView` for drawing finger movement trajectory, and it can track the trajectory of multiple fingers at the same time. The effect is as follows:
+这里我将制作一个 `DrawView`，用于绘制手指运动轨迹，它可以同时跟踪多个手指的运动轨迹。效果如下：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0XEBZxtsJDA-iKdKU3QXbg.gif)
 
-The picture above is the effect when swiping four fingers at the same time.
+上图是四个手指同时移动时的效果。
 
-## Analyze
+## 分析
 
-To achieve this effect, there are two main issues to consider:
+为了达到这一效果，有两个核心问题需要考虑。
 
-The first is how to accurately track the sliding trajectory of a finger, because as mentioned above, `ACTION_MOVE` cannot obtain `ActionIndex`. But when God closes the door, he will definitely open a window. We can track it through `PointerId`. First, listen to the two events of `ACTION_DOWN` and `ACTION_POINTER_DOWN`, get the `PointerId` of the new finger here, traverse all the fingers in the `ACTION_MOVE` event, and then compare `PointerId` can be either.
+首先是如何准确追踪手指的滑动轨迹，因为如上所述，`ACTION_MOVE` 不能获得 `ActionIndex`。但是当上帝关上了门，他一定会打开一扇窗。我们可以通过 `PointerId` 跟踪它。首先，监听 `ACTION_DOWN` 和 `ACTION_POINTER_DOWN` 两个事件，在这里获得新手指的 `PointerId`，在 `ACTION_MOVE` 事件中遍历所有的手指，然后比较 `PointerId` 可以是其中之一。
 
-Second, because `MotionEvent` will package multiple consecutive sliding trajectories into one `MotionEvent`, we need to use `getHistoricalX` to get the historical trajectory of this sliding. The method signature is as follows:
+其次，由于 `MotionEvent` 会将多个连续的滑动轨迹打包成一个 `MotionEvent`，我们需要使用 `getHistoricalX` 来获得这个滑动的历史轨迹。该方法的签名如下。
 
 ```
 float getHistoricalX(int pointerIndex, int pos);
 ```
 
-The first parameter, `pointerIndex`, is easy to solve. The first question has already been mentioned, mainly the second parameter.
+第一个参数，`pointerIndex`，很容易解决。第一个问题已经提到过了，主要是第二个参数。
 
-Because `HistoricalX` is a list, we need to read one by one through the index, and the second pos parameter is the index, but only if we know the length of the list. This can be solved with only one `for` loop.
+因为 `HistoricalX` 是一个列表，我们需要通过索引逐一读取，第二个 pos 参数是索引，但前提是我们知道列表的长度。这只需要一个 `for` 循环就可以解决。
 
-`MotionEvent` provides a method to get the length of this list:
+`MotionEvent` 提供了一个方法来获取这个列表的长度。
 
 ```
 int getHistorySize();
 ```
 
-But this provides this method, there are no other overloads, so you can’t get the length of the history track list of a certain finger’s slide this time through `pointerIndex`!
+但是这提供了这个方法，没有其他的重载，所以你不能通过 `pointerIndex` 来获得某个手指这次滑动的历史轨迹列表的长度!
 
-However, after my test, no matter which finger slides, you can get the length of the historical track through the `getHistorySize` method, and then call the `getHistoricalX` method to obtain the coordinates of the historical track.
+然而，经过我的测试，无论哪个手指滑动，你都可以通过 `getHistorySize` 方法得到历史轨迹的长度，然后调用 `getHistoricalX` 方法得到历史轨迹的坐标。
 
-Although I don’t know why it is designed this way, it does solve this problem.
+虽然我不知道为什么这样设计，但它确实解决了这个问题。
 
-## Accomplish
+## 完成
 
-We first define an inner class to act as drawing metadata:
+我们首先定义一个内层类，作为绘图元数据。
 
 ```Java
 private static class DrawPath {
@@ -152,9 +152,9 @@ private static class DrawPath {
 }
 ```
 
-The above `DrawPath` corresponds to the life cycle of a finger slide, that is, the trajectory experienced in the middle from DOWN to UP.
+上述 `DrawPath` 对应于手指滑动的生命周期，也就是中间经历的从下降到上升的轨迹。
 
-Then define a list of `DrawPath` and variables such as brushes, track color arrays, etc.:
+然后定义一个 `DrawPath` 和变量的列表，如画笔、轨道颜色阵列等。
 
 ```Java
 private Paint mPaint = new Paint();
@@ -164,7 +164,7 @@ private List<DrawPath> mDrawMoveHistory = new ArrayList<>();
 private Random random = new Random();
 ```
 
-Initialize it:
+初始化：
 
 ```Java
 private void init() {
@@ -175,7 +175,7 @@ private void init() {
 }
 ```
 
-Now let’s override the `onTouchEvent` method:
+现在让我们重写 `onTouchEvent` 方法。
 
 ```Java
 @Override
@@ -242,9 +242,9 @@ public boolean onTouchEvent(MotionEvent event) {
 }
 ```
 
-There are comments above, so I won’t go into detail.
+上面的代码有注释，这里我就不细说了。
 
-Then rewrite the `onDraw` method. Although this is a control for drawing tracks, there is not much code in the `onDraw` method:
+然后重写 `onDraw` 方法。虽然这是一个绘制轨迹的控件，但在 `onDraw` 方法中没有太多代码:
 
 ```Java
 @Override
@@ -260,11 +260,11 @@ protected void onDraw(Canvas canvas) {
 }
 ```
 
-In this way, a simple control that supports multi-finger drawing is realized, and we can also add some methods such as undoing the previous step to it. I won’t talk about it here.
+通过这种方式，了一个简单的支持多指绘制的控件就实现了，我们还可以添加一些方法，如撤销上一步。这里我就不多讲了。
 
-The complete code for `DrawView` has been put on GitHub.
+`DrawView` 的完整代码已放在 GitHub 上。
 
-You’re welcome to [check it out](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java).
+欢迎你[查看访问](https://github.com/0xZhangKe/Collection/blob/master/DrawView/DrawView.java)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
