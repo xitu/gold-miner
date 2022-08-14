@@ -100,41 +100,61 @@ Instead of rewriting their entire monolith as microservices, [Shopify chose modu
 <small>模块化有助于设计更好的单体架构和微服务架构。如果没有仔细的进行模块化的区分，我们可能会调入传统的分层单体架构的陷阱，甚至是结合了单体架构和微服务架构缺点的分布式单体架构</small>
 
 Modularization is a lot of work, that’s true. But it also adds a ton of value because it makes development more straightforward. New developers do not have to know the whole application before they can start making changes. They only need to be familiar with one module at a time. Modularity makes a large monolith feel small.
+的确，模块化是一个大工程。但它也是值得的，因为这能让开发的过程更加简洁明了。新的开发者不需要了解整个应用，他们每次只需要了解一个模块。这让一个大的单体架构应用变得更小。
 
 Modularization is a required step before transitioning to microservices, and it may be a better solution than microservices. The modular monolith, like in microservices, solves the tangled codebase problem by splitting the code into independent modules. Unlike with microservices, where communication happens over a network, the modules in the monolith communicate over internal API calls.
+模块化是转向微服务架构过程中的一个必须步骤，而且可能是比微服务架构更好的解决方案。模块化的单体架构应用也能像微服务架构一样，通过姜代码分割成独立的模块，解决复杂代码库的问题。与微服务架构通过网络进行通讯不同，单体架构中的模块通过内部的 API 调用进行通讯。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/layered-vs-modular-1-1056x723.jpg)
 
 <small>Layered vs modular monoliths. Modularized monoliths share many of the characteristics of microservice architecture sans the most difficult challenges.</small>
+<small>分层单体架构与模块化单体架构对比。模块化单体架构有许多微服务架构的优点且没有微服务架构所面临的问题</small>
 
 ### Monoliths can scale
+### 单体架构也是可扩展的
 
 Another misconception about monoliths is that they can’t scale. If you’re experiencing performance issues and think that microservices are the only way out, think again. Shopify has shown us that sound engineering can make a monolith on work on a mind-boggling scale:
+另一个关于单体架构的错误观点就是它不具备可扩展性。如果你遇到了性能问题，认为微服务架构是唯一的解决方案，那你需要重新想想。Shopify 的例子已经向我们证明，单体架构也能扩展到一个令人难以置信的量级：
 
 > 2021 was our biggest Black Friday Cyber Monday ever! Together with our friends at [@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw) we achieved near-perfect uptime while averaging ~30TB/min of egress traffic across our infrastructure. That’s a massive ~43PB/day!  
 > 
 > — Twitter from Shopify Engineering (@ShopifyEng)
+> 2021 年是我们最大的xxx！和我们在[@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw)的朋友一起，我们在平均 30TB/min 出口流量的条件下实现了几乎完美的启动时间，
+> 
+> — 来自 Shopify Engineering 团队的 Twitter (@ShopifyEng)
 
 The architecture and technology stack will determine how the monolith can be optimized; a process that almost invariably will start with modularization and can leverage cloud technologies for scaling:
+采用的架构和技术栈决定了单体架构能在多大程度上被优化，
+xxx 是一个往往从模块化开始的过程
 
 * Deploying multiple instances of the monolith and using load balancing to distribute the traffic.
 * Distributing static assets and frontend code using CDNs.
 * Using caching to reduce the load on the database.
 * Implementing high-demand features with edge computing or serverless functions.
+* 部署多个单体架构，使用负载均衡来平衡流量。
+* 利用 CDNs 分发静态内容和前端代码。
+* 使用缓存来减少数据库的负载。
+* 利用边缘计算和无服务函数来实现高性能要求的功能。
 
 ## If it’s working, don’t fix it
+## 如果它是有效的，就不要修复它
 
 If we measure productivity as the number of value-adding features implemented over time, then it follows that switching architecture makes little sense while productivity is strong.
+如果我们以单位时间内添加的有价值功能为指标来衡量生产率，那么在高生产率的时候切换架构就显得毫无意义。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/productivity.jpg)
 
 <small>Microservices are initially the less productive architecture due to maintenance overhead. As the monolith grows, it gets more complex, and it’s harder to add new features. Microservice only pays off after the lines cross.</small>
+<small>由于更大的维护成本，微服务架构不可避免的是一种生产率更低的架构。随着一个单体架构不断增长变得复杂，添加新功能会变得更加复杂。微服务架构仅在穿过那条线之后才能更有价值。</small>
 
 True, something will have to change eventually. But that could be years from now, and by then, requirements may have changed — and who knows what new architecture models may emerge in the meantime?
+的确，一些东西最终会变化。但那可能是好几年之后的事，那时的要哦求可能也发生了变化 —— 谁知道在这段时间内会不会有新架构出现呢？
 
 ## Brooke’s Law and developer productivity
+## 布鲁克斯法则和程序员的生产率
 
 In [**The Mythical Man Month**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#month) (1975), Fred Brook Jr stated that “adding manpower to a late software project makes it later”. This happens because new developers must be mentored before they can work on a complex codebase. Also, as the team grows, the communication overhead increases. It’s harder to get organized and make decisions.
+在 [**人月神话**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#month) (1975)一书中，Fred Brook Jr 表示，“向进度落后的项目中增加人手，只会使进度更加落后”。因为新的程序员必须要经过指导才能开始在一个复杂的代码库中开展工作。同时，随着团队的增长，沟通成本也会增加，更加难以组织起来并做出决定。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/brooke.jpg)
 
