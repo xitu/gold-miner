@@ -5656,10 +5656,11 @@
 |[使用 MVI 开发响应式 APP - 第三部分 - 状态减少（state reducer）](https://juejin.im/post/5a955c50f265da4e853d856a)|翻译|4|
 |[二十年后比特币会变成什么样？- 第二部分](https://juejin.im/post/5a955721f265da4e826377b6)|翻译|6|
 
-## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：488 当前积分：212
+## 译者：[Starriers](https://github.com/Starriers) 历史贡献积分：491 当前积分：215 二零二二：3
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|3|
 |[使用 What-If 工具来研究机器学习模型](https://juejin.im/post/5d143abff265da1bb80c4005)|翻译|5|
 |[尝试 DevOps：最适合你的是什么样的工具？](https://juejin.im/post/5cfd4aa3f265da1bb277233e)|翻译|4|
 |2019 年 6 月兑 Kindle Paper White 1 个|减去积分|200|
@@ -7583,10 +7584,13 @@
 |[The JavaScript Tutorial 翻译](https://github.com/xitu/javascript-tutorial-en)|翻译校对|7|
 |[我在阅读 MDN 时发现的 3 个 Input 元素属性](https://juejin.im/post/5bbc6f035188255c5d56b160)|校对|1|
 
-## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：99.5 当前积分：99.5 二零二二：6.5
+## 译者：[haiyang-tju](https://github.com/haiyang-tju) 历史贡献积分：113.5 当前积分：113.5 二零二二：20.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)|翻译|10|
+|[10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)|校对|2|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|2|
 |[Android 开发中的 SQLDelight 入门](https://juejin.cn/post/7111246458895990792)|校对|1.5|
 |[什么是移动端 DevOps，为什么值得你关注？](https://juejin.cn/post/7113577700543397918)|校对|5|
 |[恋爱 5 年的消息看起来是什么样](https://juejin.cn/post/6944711045449515038)|校对|3|
@@ -9143,10 +9147,11 @@
 |[在数据可视化中，我们曾经“画”下的那些错误](https://juejin.im/post/5cd39e1de51d453a3a0acb7b)|校对|1.5|
 |[使用 VS Code 调试 Node.js 的超简单方法](https://juejin.im/post/5cce9b976fb9a0322415aba4)|校对|1.5|
 
-## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：283.5 当前积分：83.5 二零二二：7.5
+## 译者：[Baddyo](https://github.com/Baddyo) 历史贡献积分：285 当前积分：85 二零二二：9
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)|校对|1.5|
 |[PyScript — 在浏览器中释放 Python 的力量](https://juejin.cn/post/7104639085058211848)|校对|1.5|
 |[用 React Native 创建实时医疗应用](https://juejin.cn/post/7063002112925859853)|翻译|6|
 |[2021 年，jQuery 过得还好吗？](https://juejin.cn/post/6992036720783360037)|翻译|4.5|
@@ -11102,10 +11107,11 @@
 |------|-------|-------|
 |[四个优秀 Vue.js 静态站点生成器](https://juejin.cn/post/6903309715309068295)|校对|1.5|
 
-## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：752 当前积分：752 二零二二：5.5
+## 译者：[PassionPenguin](https://github.com/PassionPenguin) 历史贡献积分：754 当前积分：754 二零二二：7.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|2|
 |[2021 年 JavaScript 的前景](https://juejin.cn/post/7109458654444650532)|校对|2|
 |[V8 有个非优化的编译阶段去提高性能](https://juejin.cn/post/7088956826263224350)|校对|1.5|
 |[使用 WasmEdge 在 WebAssembly 中运行 JavaScript](https://juejin.cn/post/7014413285600526343)|校对|2|
@@ -11575,10 +11581,11 @@
 |[Applets 应用程序的终结](https://juejin.cn/post/6949497811817725959)|校对|2|
 |[为什么 Java 在 25 年之后依旧如此年轻：一个架构师的看法](https://juejin.cn/post/6943795842918645773)|校对|2|
 
-## 译者：[zhangcong2711](https://github.com/zhangcong2711) 历史贡献积分：1.5 当前积分：1.5
+## 译者：[zhangcong2711](https://github.com/zhangcong2711) 历史贡献积分：3.5 当前积分：3.5 二零二二：2
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|2|
 |[斯坦福发布 2021 年人工智能指数报告](https://juejin.cn/post/6942769081363726373)|校对|1.5|
 
 ## 译者：[Kimhooo](https://github.com/Kimhooo) 历史贡献积分：107 当前积分：107 二零二二：10
@@ -11809,10 +11816,11 @@
 |[Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)|校对|2|
 |[面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)|校对|4|
 
-## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：65 当前积分：65 二零二二：37
+## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：68.5 当前积分：68.5 二零二二：40.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)|翻译|3.5|
 |[5个关于 UI 设计系统的误解](https://juejin.cn/post/7086291006286462990)|翻译|4|
 |[你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)|翻译|6|
 |[V8 有个非优化的编译阶段去提高性能](https://juejin.cn/post/7088956826263224350)|翻译|3|
@@ -11837,10 +11845,12 @@
 |------|-------|-------|
 |6 月推荐前端文章 1 篇|奖励|1|
 
-## 译者：[jaredliw](https://github.com/jaredliw) 历史贡献积分：212.5 当前积分：132.5 二零二二：113.5
+## 译者：[jaredliw](https://github.com/jaredliw) 历史贡献积分：220.5 当前积分：140.5 二零二二：121.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)|翻译|4|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|翻译|4|
 |[Android 开发中的 SQLDelight 入门](https://juejin.cn/post/7111246458895990792)|翻译|3|
 |[什么是移动端 DevOps，为什么值得你关注？](https://juejin.cn/post/7113577700543397918)|翻译|11|
 |[2021 年 JavaScript 的前景](https://juejin.cn/post/7109458654444650532)|翻译|5|
@@ -11961,10 +11971,13 @@
 |------|-------|-------|
 |[多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)|校对|2|
 
-## 译者：[DylanXie123](https://github.com/DylanXie123) 历史贡献积分：18 当前积分：18 二零二二：18
+## 译者：[DylanXie123](https://github.com/DylanXie123) 历史贡献积分：26.5 当前积分：26.5 二零二二：26.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)|校对|5|
+|[ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)|校对|1.5|
+|[10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)|校对|2|
 |[什么是移动端 DevOps，为什么值得你关注？](https://juejin.cn/post/7113577700543397918)|校对|5|
 |[0-1 背包问题解读](https://juejin.cn/post/7108719165527031815)|校对|3|
 |[Python 中 requirements.txt 与 setup.py 的对比](https://juejin.cn/post/7094470396073738277)|校对|3|
@@ -12016,3 +12029,21 @@
 |文章|类型|积分|
 |------|-------|-------|
 |[0-1 背包问题解读](https://juejin.cn/post/7108719165527031815)|校对|3|
+
+## 译者：[timerring](https://github.com/timerring) 历史贡献积分：2 当前积分：2 二零二二：2
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|2|
+
+## 译者：[earthaYan](https://github.com/earthaYan) 历史贡献积分：5 当前积分：5 二零二二：5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)|校对|5|
+
+## 译者：[wangxuanni](https://github.com/wangxuanni) 历史贡献积分：1 当前积分：1 二零二二：1
+
+|文章|类型|积分|
+|------|-------|-------|
+|8 月推荐后端文章 1 篇|奖励|1|
