@@ -1,3 +1,5 @@
+* [如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
+* [10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [你需要了解的 Python 3.10 新特性](https://juejin.cn/post/7089649375692980231)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
