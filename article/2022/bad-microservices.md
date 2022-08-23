@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/bad-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2022/bad-microservices.md)
 > * 译者：[DylanXie123](https://github.com/DylanXie123)
-> * 校对者：
+> * 校对者：[wangxuanni](https://github.com/wangxuanni)
 
 # 微服务架构何时会是一种坏选择
 
@@ -80,7 +80,7 @@
 
 另一个关于单体架构的错误观点就是它不具备可扩展性。如果你遇到了性能问题，认为微服务架构是唯一的解决方案，那你需要重新想想。Shopify 的例子已经向我们证明，单体架构也能扩展到一个令人难以置信的量级：
 
->2021年我们的黑色星期五和网络星期一是有史以来最大规模的！和我们在[@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw)的朋友一起，我们在平均 30 TB/min 出口流量的条件下实现了几乎完美的启动时间，
+> 2021年我们的黑色星期五和网络星期一是有史以来最大规模的！和我们在[@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw)的朋友一起，我们在平均 30 TB/min，也就是43 PB/天的出口流量条件下，实现了几乎完美的启动时间，
 > 
 > — 来自 Shopify Engineering 团队的 Twitter（@ShopifyEng）
 
