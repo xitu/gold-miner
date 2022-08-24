@@ -94,7 +94,7 @@ SwiftUI 提供了一系列新的手势(即 `DragGesture`，`LongPressGesture`)�
 * 不能向后兼容
 * `UIVisualEffectsView` 会导致滚动延迟 (h/t @[AlanPegoli](https://twitter.com/alanpegoli？lang=en))
 
-## 丑处
+## 缺陷
 
 ### 1. ScrollView
 
