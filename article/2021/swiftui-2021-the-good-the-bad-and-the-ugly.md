@@ -55,7 +55,7 @@ SwiftUI 有许多组件缺失，不完整或者过于简单，我将在下面详
 
 如果你想要在 iPad 上拥有一个 SplitView，目前还不能以纵向模式同时展示主视图和详情视图。他们选择用一个简陋的按钮展示默认关闭的抽屉。显然，你可以通过添加 padding 来解决这个问题，它可以突出显示你在使用 SwiftUI 时必须做的事情。
 
-当你想使用编程式导航的时候，`NavigationLink` 是一种时髦的解决方案。这里有一个[有趣的讨论](https://forums.swift.org/t/implementing-complex-navigation-stack-in-swiftui-and-the-composable-architecture/39352)。
+当你想使用编程式导航的时候，`NavigationLink` 是一种流行的解决方案。这里有一个[有趣的讨论](https://forums.swift.org/t/implementing-complex-navigation-stack-in-swiftui-and-the-composable-architecture/39352)。
 
 ### 3. 文本输入十分受限
 
