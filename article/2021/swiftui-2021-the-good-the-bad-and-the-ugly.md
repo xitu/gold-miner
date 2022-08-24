@@ -51,7 +51,7 @@ SwiftUI 有许多组件缺失，不完整或者过于简单，我将在下面详
 
 ### 2. NavigationView 还没有真正实现
 
-如果你想在隐藏导航栏的同时仍然支持滑动手势，这是不可能的。我最终参考一些找到的代码创建了一个 [UINavigationController 包装器](https://gist.github.com/chrysb/d7d85e20d8c94fd3e0b753a4abd1c941)。尽管可以起作用，但这不是一个长远的解决方案。
+如果你想在隐藏导航栏的同时仍然支持滑动手势，这是不可能的。我最终参考一些找到的代码创建了一个 [UINavigationController wrapper](https://gist.github.com/chrysb/d7d85e20d8c94fd3e0b753a4abd1c941)。尽管可以起作用，但这不是一个长远的解决方案。
 
 如果你想要在 iPad 上拥有一个 SplitView，目前还不能以纵向模式同时展示主视图和详情视图。他们选择用一个简陋的按钮展示默认关闭的抽屉。显然，你可以通过添加 padding 来解决这个问题，它可以突出显示你在使用 SwiftUI 时必须做的事情。
 
