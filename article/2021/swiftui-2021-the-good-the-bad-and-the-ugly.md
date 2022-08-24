@@ -59,7 +59,7 @@ SwiftUI 有许多组件缺失，不完整或者过于简单，我将在下面详
 
 ### 3. 文本输入十分受限
 
-`TextField` 和 `TextEditor` 现在都太简单了，最终你还是会退回到 UIKit。所以我不得不为 `UITextField` 和 `UITextView` 构建自己的 `UIViewRepresentable`(自动增长支持)。要点如下：
+`TextField` 和 `TextEditor` 现在都太简单了，最终你还是会退回到 UIKit。所以我不得不为 `UITextField` 和 `UITextView` 构建自己的 `UIViewRepresentable` 协议(以实现文本行数的自动增加))。要点如下：
 
 ### 4. 编译器困境
 
@@ -117,7 +117,7 @@ SwiftUI 已经为简单的应用程序做好了准备，但是在写这篇文章
 
 当开始着手我们项目的下一次大迭代的时候。我知道这个新项目的交互范围不在 SwiftUI 目前支持的范围之内。即使当我知道 SwiftUI 在某些关键方面存在不足的时候，我的心都碎了，但是我还是不打算退回到 UIKit，因为我知道当 SwiftUI 运行起来时，构建它是一件多么快乐的事情。它的速度如此之快。
 
-SwiftUI 会兼容 UIKit 么？ 如果这样的话，我们可能需要等待 SwiftUI 使用 3-5 年的时间来移植所有必要的 UIKit api。如果SwiftUI不准备兼容 UIkit，那你也能通过 SwiftUI 封装的方式使用 UIKit。
+SwiftUI 会兼容 UIKit 么？ 如果这样的话，我们可能需要等待 SwiftUI 使用 3-5 年的时间来移植所有必要的 UIKit api。如果 SwiftUI 不准备兼容  UIkit，那你也能通过 SwiftUI 封装的方式使用 UIKit。
 
 我好奇的是 Apple 会在 SwiftUI 上投入多少。他们是否有让所有的开发者采用 SwiftUI 的长期计划，或者说SwiftUI只是另一个界面构建器而已？ 我希望不是，我希望他们能全心投入 SwiftUI，因为它的前景是非常诱人的。
 
