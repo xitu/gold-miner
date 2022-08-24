@@ -35,9 +35,9 @@ That’s why Java 9 introduced a few very concise factory methods.
 
 ```java
 Map<String, Integer> countriesByPopulation = Map.of("Bangladesh", 164_689_383,
-                                                            "Canada", 37_742_154,
-                                                            "United States", 331_002_651,
-                                                            "Tuvalu", 11_792);
+                                                    "Canada", 37_742_154,
+                                                    "United States", 331_002_651,
+                                                    "Tuvalu", 11_792);
 ```
 
   
