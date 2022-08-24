@@ -31,7 +31,7 @@
 
 ### 4. UI 是完全由状态驱动并且是响应式的
 
-如果你熟悉 React的话，SwiftUI 也是一样的。当你监听整个 UI “react”，动画和所有一切的时候，你只需要修改 `@State` 和 `@Binding` 以及 `@Published` 属性，而不是使用回调地狱。充分利用 `Combine` 和`ObservableObject` 以及 `@StateObject` 的能力。这方面是和 UIKit 最酷的区别之一，强大到不可思议。
+如果你熟悉 React的话，SwiftUI 在这一点上完全类似。当你监听整个 UI 的”反应“，动画和所有一切的时候，你只需要修改 `@State` 和 `@Binding` 以及 `@Published` 属性，而不是使用多达几十层的嵌套回调函数。使用SwiftUI，你可以体会到 `Combine` 、`ObservableObject` 以及 `@StateObject` 的强大。这方面是SwiftUI和 UIKit 最酷的区别之一，强大到不可思议。
 
 ### 5. 社区正在拥抱 SwiftUI
 
