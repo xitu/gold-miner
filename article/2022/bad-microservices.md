@@ -3,136 +3,136 @@
 > * 原文审校：[Dan Ackerson](https://semaphoreci.com/author/dan-ackerson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/bad-microservices.md](https://github.com/xitu/gold-miner/blob/master/article/2022/bad-microservices.md)
-> * 译者：
-> * 校对者：
+> * 译者：[DylanXie123](https://github.com/DylanXie123)
+> * 校对者：[wangxuanni](https://github.com/wangxuanni)、[Quincy-Ye](https://github.com/Quincy-Ye)
 
-# When Microservices Are a Bad Idea
+# 微服务架构何时会是一种坏选择
 
-On paper, microservices sound wonderful. They are modular, scalable, and fault tolerant. A lot of companies have had great success using this model, so microservices might naturally seem to be the superior architecture and the best way to start new applications.
+单单是纸上谈兵的话，微服务听起来很好，它是模块化、可扩展的，而且具有容错性。许多公司利用微服务这一模式取得了巨大的成功，所以微服务似乎自然而然的成为了一种优秀的软件架构模式和启动一个新软件项目时的最好方法。
 
-However, most firms that have succeeded with microservices did not begin with them. Consider the examples of Airbnb and Twitter, which went the microservice route after outgrowing their monoliths and are now [battling its complexities](https://thenewstack.io/how-airbnb-and-twitter-cut-back-on-microservice-complexities). Even successful companies that use microservices appear to still be figuring out the best way to make them work. It is evident that microservices come with their share of tradeoffs.
+然而，许多依靠微服务取得成功的公司并没有在一开始就采用这一架构。以 Airbnb 和 Twitter 为例，他们是在快速增长的单体架构无法满足需求后才切换到了微服务架构，而如今他们也正在努力[降低微服务架构的复杂性](https://thenewstack.io/how-airbnb-and-twitter-cut-back-on-microservice-complexities)。即使那些使用微服务架构取得成功的公司也似乎正在寻找微服务架构的最佳实践。很明显，微服务架构也有它的利和弊。
 
-Migrating from a monolith to microservices is also not a simple task, and creating an untested product as a new microservice is even more complicated. Microservices should only be seriously considered after evaluating the alternative paths.
+从单体架构迁移到微服务架构不是一件简单的事，用微服务的方式创建未经测试的产品则会更加复杂。只有在评估了其他技术路线后，才应认真考虑微服务架构。
 
-## Microservices are only viable for mature products
+## 微服务只适用于成熟的产品
 
-On the topic of starting from a microservice design, [Martin Fowler observed that](https://martinfowler.com/bliki/MonolithFirst.html):
+在设计一个微服务架构时，[Martin Fowler 注意到](https://martinfowler.com/bliki/MonolithFirst.html)：
 
-1. Almost all the successful microservice stories started with a monolith that got too big and was broken up.
-2. Almost all the cases where a system that was built as a microservice system from scratch, ended up in serious trouble.
+1. 几乎所有成功的微服务架构都起始于一个规模过大以至于要崩溃的单体架构。
+2. 几乎所有以微服务架构为起点的系统，最终都会面临着严重的问题。
  
-This pattern has led many to argue that you shouldn’t start a new project with microservices, even if you’re sure your application will be big enough to make it worthwhile.
+这一规律让很多人认为，即使你十分确定你的应用会大到值得采用微服务架构，你也不应该在一开始就采用微服务架构。
 
-The first design is rarely fully optimized. The first few iterations of any new product are spent finding what users really need. Therefore, success hinges on staying agile and being able to quickly improve, redesign, and refactor. In this regard, microservices are manifestly worse than a monolith. If you don’t nail the initial design, you’re in for a rough start, as it’s much harder to refactor a microservice than a monolith.
+最初的设计很少是被充分优化的。任何新产品的前几次设计都是为了挖掘用户的真实需求。因此要的是保持敏捷、能够对产品进行快速的改进、重新设计和重构。在这一方面，微服务架构比单体架构要差得多。如果你没能很好的完成初始的设计，那之后采用微服务将会很艰难，因为重构一个微服务架构比重构一个单体架构要困难的多。
 
-### Are you a startup or working on a greenfield project?
+### 你是在初创公司还是在开发一个新的项目？
 
-As a startup (not likely in this economy), you already are running against the clock, looking for a breakthrough before the next bad thing happens. You don’t need the scalability at this point (and probably not for a few years yet), so why ignore your customers by using a complicated architecture model?
+如果是在初创公司（在当今的经济条件下不太可能），你已经在没日没夜的加班，期望能在下一件坏事发生之前找到突破口。在这一阶段（甚至是之后的好几年），你需要的不是可扩展性，所以为什么要忽视客户的需求而去采用一个复杂的架构模型呢？
 
-A similar argument can be made when working on greenfield projects, which are unconstrained by earlier work and hence have nothing upon which to base decisions. Sam Newman, author of [**Building Microservices**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#building-microservices-designing-fine-grained-systems-by-sam-newman)**: Designing Fine-Grained Systems**, stated that it is very difficult to [build a greenfield project with microservices](https://samnewman.io/blog/2015/04/07/microservices-for-greenfield/):
+在那些既不受早期工程限制，也没有前期经验可参考的新项目中，也可以提出相似的观点。Sam Newman, 《[**构建微服务**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#building-microservices-designing-fine-grained-systems-by-sam-newman)**: 设计细微化的系统**》一书的作者表示，[采用微服务架构进行绿地软件项目的开发](https://samnewman.io/blog/2015/04/07/microservices-for-greenfield/)十分困难：
 
-> I remain convinced that it is much easier to partition an existing “brownfield” system than to do so upfront with a new, greenfield system. You have more to work with. You have code you can examine, you can speak to people who use and maintain the system. You also know what ‘good’ looks like – you have a working system to change, making it easier for you to know when you may have got something wrong or been too aggressive in your decision-making process.
+> 我仍然认为划分一个旧系统要比划分一个处于前期的新系统要容易的多。你有更多的内容可以参考，有更多的代码可以查看，还可以与之前维护系统的人去交流。你还能知道“好”的系统应该是怎样的 —— 你有一个现成的系统，这能让你更轻松的意识到是否出现了问题，或采取的措施是否过于激进。
 
-## Microservices aren’t the best for on-premise
+## 微服务不适用于本地部署
 
-Microservice deployments need robust automation because of all the moving parts. Under normal circumstances, we can rely on [continuous deployment pipelines](https://semaphoreci.com/blog/cicd-pipeline) for the job–Developers deploy the microservices and customers just use the application online.
+由于所有的部件是可移动的，微服务部署需要可靠的自动化流程。在正常情况下，我们可以依赖于[持续集成流水线](https://semaphoreci.com/blog/cicd-pipeline) —— 开发者将微服务部署，客户只需要在线上使用软件即可。
 
-This won’t fly for on-premise applications, where developers publish a package and it’s up to the customer to manually deploy and configure everything on their own on their private systems. Microservices make all these tasks especially challenging, so this is a release model that does not fit nicely with microservice architecture.
+这并不适用于本地部署的应用，因为在开发者发布一个软件包后，需要由客户在自己的私有系统中手动部署和配置。微服务架构将会让这一过程变得非常复杂，所以，微服务架构并不适用于这一发行模式。
 
-To be clear, developing an on-premise microservice application is entirely viable. Semaphore is accomplishing just that with [Semaphore On-Premise](https://semaphoreci.com/enterprise/on-premise). However, as we realized along the way, there are [several challenges to overcome](https://semaphoreci.com/blog/release-management-microservices). Consider the following before deciding to adopt microservices on-premise:
+要明确的是，开发一个本地部署的微服务架构是完全可行的。Semaphore 正是通过 [Semaphore On-Premise](https://semaphoreci.com/enterprise/on-premise) 这样完成的。然而，我们逐渐意识到有[几个问题需要解决](https://semaphoreci.com/blog/release-management-microservices)。在采用微服务本地部署的方式前，不妨考虑以下的几个问题：
 
-* Versioning rules for on-premise microservices are more stringent. You must track each individual microservice that participates in a release.
-* You must carry out thorough integration and end-to-end testing, as you can’t test in production.
-* Troubleshooting a microservice application is substantially more difficult without direct access to the production environment.
+* 微服务本地部署模式的版本规则要更加的严格。你必须要能追踪发行版本中的每一个单独的微服务。
+* 你必须有贯穿全线和端到端的测试，因为你无法在生产模式中进行测试。
+* 由于不能直接访问生产模式，在微服务架构的软件中定位问题更加困难。
 
-## Your monolith might have life left
+## 你的单体应用也许还够用
 
-Every piece of software has a lifecycle. You might be tempted to scrap a monolith because it’s old and has its share of complications. But tossing a working product is wasteful. With a little effort, you might be able to squeeze a few more good years out of your current system.
+每一个软件都有生命周期。你可能因为单体架构的老旧和复杂感到厌烦，但直接放弃已有的产品是一种浪费。也许多花一点时间，你就能让现有的系统多存活几年时间。
 
-There are two moments when it might seem that microservices are the only way forward:
+在以下的两个时刻，微服务架构可能会成为唯一的选择：
 
-* **Tangled codebase**: it’s hard to make changes and add features without breaking other functionality.
-* **Performance**: you’re having trouble scaling the monolith.
+* **混乱的代码库**：很难在不破坏其他功能的前提下进行修改和添加新功能。
+* **性能**：扩展单体架构应用时遇到困难。
 
-### Modularizing the monolith
+### 模块化单体架构
 
-A common reason developers want to avoid monoliths is their proclivity to deteriorate into a tangle of code. It’s challenging to add new features when we get to this point since everything is interconnected.
+开发者不想使用单体架构的一个常见原因就是它会容易让代码变得混乱。当我们陷入这种情况时，很难再往其中添加新的功能，因为所有的东西都相互耦合在了一起。
 
-But a monolith does not have to be a mess. Take the example of Shopify: with over 3 million lines of code, theirs is one of the largest Rails monoliths in the world. At one point, the system grew so large it [caused much grief to developers](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity):
+但是一个单体架构的应用不一定意味着混乱。以 Shopify 为例：他们的单体架构有超过 3 百万行的代码，是世界上最大的 Rails 单体架构之一。到了某一时刻，它们的系统增长的过于巨大以致于[给开发者造成了极大的痛苦](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity)：
 
-> The application was extremely fragile with new code having unexpected repercussions. Making a seemingly innocuous change could trigger a cascade of unrelated test failures. For example, if the code that calculates our shipping rate is called into the code that calculates tax rates, then making changes to how we calculate tax rates could affect the outcome of shipping rate calculations, but it might not be obvious why. This was a result of high coupling and a lack of boundaries, which also resulted in tests that were difficult to write, and very slow to run on CI.
+> 这样的应用极其脆弱，添加新的代码就会造成意想不到的结果。一个小小的改动可能会让一连串不相关的测试失败。举例来说，如果计算运费的代码在计算税率的代码中被调用，那么改动计算税率的代码将会影响运费计算的结果，但其原因却不得而知。这就是高耦合且没有边界的结果，代码的测试变得非常难写，在 CI 中运行也很缓慢。
 
-Instead of rewriting their entire monolith as microservices, [Shopify chose modularization](https://shopify.engineering/shopify-monolith) as the solution.
+[Shopify 选择了模块化](https://shopify.engineering/shopify-monolith)的解决方案，而不是将整个单体架构的应用重写。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/module-vs-units.jpg)
 
-<small>Modularization helps design better monoliths and microservices. Without carefully defined modules, we either fall into the traditional layered monolith (the big ball of mud) or, even worse, as a distributed monolith, which combines the worst features of monoliths and microservices.</small>
+<small>模块化有助于设计更好的单体架构和微服务架构。如果没有仔细的进行模块化的区分，我们可能会掉入传统的分层单体架构的陷阱，甚至是变成结合了单体架构和微服务架构缺点的分布式单体架构。</small>
 
-Modularization is a lot of work, that’s true. But it also adds a ton of value because it makes development more straightforward. New developers do not have to know the whole application before they can start making changes. They only need to be familiar with one module at a time. Modularity makes a large monolith feel small.
+的确，模块化是一个大工程。但它也是值得的，因为这能让开发的过程更加简洁明了。新的开发者不需要了解整个应用，他们每次只需要了解一个模块。这让一个大的单体架构应用感觉起来变小了。
 
-Modularization is a required step before transitioning to microservices, and it may be a better solution than microservices. The modular monolith, like in microservices, solves the tangled codebase problem by splitting the code into independent modules. Unlike with microservices, where communication happens over a network, the modules in the monolith communicate over internal API calls.
+模块化是转向微服务架构过程中的一个必须步骤，而且可能是比微服务架构更好的解决方案。模块化的单体架构应用也能像微服务架构一样，通过将代码分割成独立的模块，解决复杂代码库的问题。与微服务架构通过网络进行通讯不同，单体架构中的模块通过内部的 API 调用进行通讯。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/layered-vs-modular-1-1056x723.jpg)
 
-<small>Layered vs modular monoliths. Modularized monoliths share many of the characteristics of microservice architecture sans the most difficult challenges.</small>
+<small>分层单体架构与模块化单体架构对比。模块化单体架构有许多微服务架构的优点且没有微服务架构所面临的问题。</small>
 
-### Monoliths can scale
+### 单体架构也是可扩展的
 
-Another misconception about monoliths is that they can’t scale. If you’re experiencing performance issues and think that microservices are the only way out, think again. Shopify has shown us that sound engineering can make a monolith on work on a mind-boggling scale:
+另一个关于单体架构的错误观点就是它不具备可扩展性。如果你遇到了性能问题，认为微服务架构是唯一的解决方案，那你需要重新想想。Shopify 的例子已经向我们证明，单体架构也能扩展到一个令人难以置信的量级：
 
-> 2021 was our biggest Black Friday Cyber Monday ever! Together with our friends at [@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw) we achieved near-perfect uptime while averaging ~30TB/min of egress traffic across our infrastructure. That’s a massive ~43PB/day!  
+> 2021年我们的黑色星期五和网络星期一是有史以来最大规模的！和我们在[@GoogleCloud](https://twitter.com/googlecloud?ref_src=twsrc%5Etfw)的朋友一起，我们在平均 30 TB/min，也就是43 PB/天的出口流量条件下，实现了几乎完美的启动时间，
 > 
-> — Twitter from Shopify Engineering (@ShopifyEng)
+> — 来自 Shopify Engineering 团队的 Twitter（@ShopifyEng）
 
-The architecture and technology stack will determine how the monolith can be optimized; a process that almost invariably will start with modularization and can leverage cloud technologies for scaling:
+采用的架构和技术栈决定了单体架构能在多大程度上被优化，而优化往往是一个从模块化开始并利用云技术进行拓展的过程：
 
-* Deploying multiple instances of the monolith and using load balancing to distribute the traffic.
-* Distributing static assets and frontend code using CDNs.
-* Using caching to reduce the load on the database.
-* Implementing high-demand features with edge computing or serverless functions.
+* 部署多个单体架构应用，使用负载均衡来平衡流量。
+* 利用 CDNs 分发静态内容和前端代码。
+* 使用缓存来减少数据库的负载。
+* 利用边缘计算和无服务器函数来实现高性能要求的功能。
 
-## If it’s working, don’t fix it
+## 如果它能用，就不要动它
 
-If we measure productivity as the number of value-adding features implemented over time, then it follows that switching architecture makes little sense while productivity is strong.
+如果我们以单位时间内添加的有价值功能为指标来衡量生产率，那么在高生产率的时候切换架构就显得毫无意义。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/productivity.jpg)
 
-<small>Microservices are initially the less productive architecture due to maintenance overhead. As the monolith grows, it gets more complex, and it’s harder to add new features. Microservice only pays off after the lines cross.</small>
+<small>由于更大的维护成本，微服务架构不可避免的是一种生产率更低的架构。随着一个单体架构不断增长变得复杂，添加新功能会变得更加复杂。微服务架构仅在穿过那条线之后才能更有价值。</small>
 
-True, something will have to change eventually. But that could be years from now, and by then, requirements may have changed — and who knows what new architecture models may emerge in the meantime?
+的确，一些东西最终会变化。但那可能是好几年之后的事，那时的要求可能也发生了变化 —— 而且谁知道在这段时间内会不会有新架构出现呢？
 
-## Brooke’s Law and developer productivity
+## 布鲁克斯法则和程序员的生产率
 
-In [**The Mythical Man Month**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#month) (1975), Fred Brook Jr stated that “adding manpower to a late software project makes it later”. This happens because new developers must be mentored before they can work on a complex codebase. Also, as the team grows, the communication overhead increases. It’s harder to get organized and make decisions.
+在《[**人月神话**](https://semaphoreci.com/blog/books-every-senior-engineer-should-read#month)》（1975）一书中，Fred Brook Jr 表示，“向进度落后的项目中增加人手，只会使进度更加落后”。因为新的程序员必须要经过指导才能开始在一个复杂的代码库中开展工作。同时，随着团队的增长，沟通成本也会增加，更加难以组织起来并做出决定。
 
 ![](https://wpblog.semaphoreci.com/wp-content/uploads/2022/07/brooke.jpg)
 
-<small>Brook’s law applied to complex software development states that adding more developers to a late software project only makes it take longer.</small>
+<small>软件开发中的布鲁克斯法则表明，向进度落后的项目中增加人手，只会使进度更加落后。</small>
 
-Microservices are one method of reducing the impact of Brooke’s Law. However, this effect is only visible in complicated and huge codebases where everything is interconnected, because we cannot divide development into discrete tasks in such a scenario.
+微服务是一种减少布鲁克斯法则影响的方法。但是，这只在复杂和大型的代码库中才有效，因为代码之间相互耦合，难以将其分割为独立的任务。
 
-Before deciding on using microservices, you must determine if Brooke’s Law is affecting your monolith. Switching to microservices too soon would not add much value.
+在转向使用微服务之前，你必须考虑布鲁克斯法则是否影响了你的单体架构应用的开发。过早的迁移到微服务架构并不会有多少好处。
 
-## Are you ready to transition?
+## 做好准备迁移了吗？
 
-Some conditions must be met before you can begin working with microservices. Along with [preparing your monolith](https://semaphoreci.com/blog/monolith-microservices), you’ll need to:
+在你准备采用微服务架构之前，有几点要求必须要达到。除了[改进你的单体架构应用](https://semaphoreci.com/blog/monolith-microservices)，你还需要：
 
-* Set up [continuous integration and continuous delivery](https://semaphoreci.com/cicd) for automatic deployment.
-* Implement quick provisioning to build infrastructure on demand.
-* Learn about cloud-native tech stacks, including containers, Kubernetes, and serverless.
-* Get acquainted with [Domain-Driven Design](https://semaphoreci.com/blog/domain-driven-design-microservices), [Test-Driven Development](https://semaphoreci.com/blog/test-driven-development), and [Behavior-Driven Development](https://semaphoreci.com/community/tutorials/behavior-driven-development).
-* Reorganize the teams to be [cross-functional](https://kanbanize.com/blog/cross-functional-teams/), removing silos and flattening hierarchies to allow for innovation.
-* Foster a DevOps culture in which the lines between developer and operations jobs are blurred.
+* 建立[持续集成 CI 和持续交付 CD](https://semaphoreci.com/cicd) 以完成自动部署。
+* 实施快速配置以按需构建基础架构。
+* 掌握云原生技术栈，包括容器（containers），Kubernetes，和无服务器（serverless）。
+* 熟悉[领域驱动开发](https://semaphoreci.com/blog/domain-driven-design-microservices)，[测试驱动开发](https://semaphoreci.com/blog/test-driven-development)和[行为驱动开发](https://semaphoreci.com/community/tutorials/behavior-driven-development)。
+* 重组开发团队以构建[多功能型团队](https://kanbanize.com/blog/cross-functional-teams/)，摒弃缺乏联系的开发模式，扁平化管理层级以鼓励创新。
+* 培养开发运维（DevOps）的文化，让开发者和运维人员的界限模糊化。
 
-Changing the culture of an organization can take years. Learning all that there is to know will take months. Without preparation, transitioning to microservices is unlikely to succeed.
+改变一个公司的文化可能要花上数年的时间，学习所有的知识可能会花费好几个月的时间。如果没有这些准备，迁移到微服务架构将不太可能取得成功。
 
-## Conclusion
+## 结论
 
-We can summarize this whole discussion about transitioning to microservices in one sentence: don’t do it unless you have a good reason. Companies that embark on the journey to microservices unprepared and without a solid design will have a very tough time of it. You need to achieve a critical mass of engineering culture and scaling know-how before microservices should be considered as an option.
+我们可以将以上这些关于迁移到微服务架构的讨论总结成一句话：除非你有一个很好的理由，否则不要这么做。那些没有好好准备就直接迁移到微服务架构的公司将会发现这非常困难。在将微服务架构作为一种选择之前，你需要大量的工程师文化和如何对应用进行扩展的知识。
 
-In the meantime, why change if your system is performing well and you’re still developing features at a decent pace?
+同时，如果你的系统能好好的运行且仍然能够添加新功能，为什么要去改变它呢？
 
-Thanks for reading, and happy coding!
+感谢您的阅读，祝快乐编码！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
