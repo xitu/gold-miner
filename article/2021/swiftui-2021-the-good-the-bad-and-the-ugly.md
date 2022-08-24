@@ -85,7 +85,7 @@ SwiftUI 提供了一系列新的手势(即 `DragGesture`，`LongPressGesture`)�
 
 ### 7. 分享扩展中的SwiftUI
 
-我可能错了，但是 Share Extensions 仍然使用 UIKit。我通过 `UIHostingController` 用 SwiftUI 构建了一个分享扩展，当分享扩展加载完毕后，有一个非常明显的延迟，用户体验较差。你可以尝试通过在视图中添加动画去掩饰，但是仍然有 500 ms 左右的延迟。
+我可能错了，但是 我在构建Share Extensions 时仍然使用了 UIKit。我通过 `UIHostingController` 用 SwiftUI 构建了一个分享扩展，当分享扩展加载完毕后，有一个非常明显的延迟，用户体验较差。你可以尝试通过在视图中添加动画去掩饰，但是仍然有 500 ms 左右的延迟。
 
 ### 值得一提的点
 
