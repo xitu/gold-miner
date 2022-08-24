@@ -105,7 +105,7 @@ SwiftUI 提供了一系列新的手势(即 `DragGesture`，`LongPressGesture`)�
 * **Paging:** 原生不支持分页滚动视图。所以忘记类似可滑动的媒体库吧（但是如果你想要关闭一些东西的时候，可以使用 `[SwiftUIPager](https://github.com/fermoya/SwiftUIPager)`）。在技术上你可以使用  `TabView` 加 `PageTabViewStyle`，但是我认为它更适合少部分的一些元素，而不是大的数据集。
 * **性能:** 使用 `List` 是性能最好的，并且避免了 `LazyVStack` 的卡顿问题，但由于转换的工作方式，它仍然不适合显示可变大小的内容。例如，在构建聊天视图时，其过渡很奇怪，会裁剪子视图，并且您无法控制插入动画样式。
 
-## 定案
+## 结论
 
 毫无疑问我觉得应该学习 SwiftUI ，自己去理解它，并享受乐趣。但是先别急着全盘接受。
 
