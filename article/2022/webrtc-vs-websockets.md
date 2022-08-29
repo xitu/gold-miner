@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/webrtc-vs-websockets.md](https://github.com/xitu/gold-miner/blob/master/article/2022/webrtc-vs-websockets.md)
 > * 译者：[DylanXie123](https://github.com/DylanXie123)
-> * 校对者：
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye)
 
 # WebRTC 与 WebSockets 教程 — Web 端的实时通信
 
@@ -13,11 +13,11 @@
 
 让我们从 WebRTC 的定义开始。它是一种实时的直接媒体传输技术，最初是一个开源项目，主要目标是为浏览器和移动应用程序提供建立连接的方法。一个连接是通过指示信号和同步信号建立的，这个过程被称为信令。
 
-为了在两个设备之间建立 WebRTC 连接，需要一个信令服务器。它是一个中间件，除了承担建立连接的主要功能外，还能降低重要、机密数据泄露的风险。
+为了在两个设备之间建立 WebRTC 连接，需要一个信令服务器。它是一个中间件，除了承担建立连接的主要功能外，还最大程度上降低了有价值的信息和机密数据泄露的风险。
 
-WebRTC 规范没有具体说明使用什么方式来传输信令数据：[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket_API)，[XMLHttpRequest](https://developer.mozilla.org/ru/docs/Web/API/XMLHttpRequest) 或其他虚拟传输方法都是可选的方案。
+WebRTC 规范没有具体说明使用什么方式来传输信令数据：[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket_API)，[XMLHttpRequest](https://developer.mozilla.org/ru/docs/Web/API/XMLHttpRequest) 或者提供其他虚拟传输方法。
 
-什么是 WebSocket 呢？WebRTC 和 WebSocket 都是通信技术。那它们之间的区别呢？WebSocket 是一种计算机通信协议，可以进行通信和数据传输。将此 Web 通信方案和 WebRTC 技术相结合，现代 Web 应用程序允许您与大量用户实时传输音频和视频内容。
+什么是 WebSocket 呢？WebRTC 和 WebSocket 都是通信技术。那它们之间的区别呢？WebSocket 是一种计算机通信协议，可以进行通信和数据传输。借助着 Web 通信方案和 WebRTC 技术相结合，现代 Web 应用程序允许您与大量用户实时传输音频和视频内容。
 
 WebSockets 最显着的优势和特性是在单个 [TCP 连接](https://techterms.com/definition/tcp) 中提供两种通信方法。
 
@@ -70,7 +70,7 @@ Web Sockets 与 WebRTC 操作之间的区别
 
 ### WebSockets 的优点
 
-WebSockets API 和协议以被 IETF 和 W3C 标准化。[我们公司的专家](http://requestum.com/)已经认可了这一技术在 Web 端，桌面端和移动端中的可用性。该通信协议的主要优点包括：
+WebSockets API 和协议以被 IETF 和 W3C 标准化。[我们公司的专家](http://requestum.com/)已经验证了这一技术在 Web 端，桌面端和移动端中的可用性。该通信协议的主要优点包括：
 
 1. 跨域通信（CORS）—— 它会产生一定的安全风险，但这在复杂功能的项目中是必须的；
 2. 跨平台兼容性（Web，电脑和移动设备）；
@@ -100,7 +100,7 @@ WebSockets 的其他安全问题：
 
 最初，WebRTC 是作为点对点技术开发的。因此，开发的很大一部分集中在客户端设备上。
 
-如今，我们可以定义三种主要的 WebRTC 架构：点对点、多点会议单元和选择性转发单元。它们中的每一个在使用中都有自己的特点、优点和缺点。
+如今，我们可以定义三种主要的 WebRTC 架构：点对点、多点会议单元和选择性转发单元。在使用过程中，它们各自有各自的特点、优点和缺点。
 
 ### 点对点 WebRTC 架构
 意味着在两个浏览器之间直接传输媒体内容。这种架构的主要优点是易于实现及开发成本低，因为它不需要大型内部基础设施。此外，由于不使用中介，接收方之间的安全性得到了保证。
@@ -121,9 +121,10 @@ SFU 是最流行的现代方法。在这种架构中，用户将媒体流发送�
 
 ## 2020 年 Websocket 的替代方案
 
-在开发需要实时数据的 Web 应用程序时，公司面临的问题是：如何将数据从服务端传递到客户端？标准方法是通过 WebSockets。那有没有其他的好选择呢？事实上，是有的。
+在开发需要实时数据的 Web 应用程序时，公司面临的问题是：如何将数据从服务端传递到客户端？标准方法是通过 WebSockets。那有没有其他的好选择吗？事实上，是有的。
 
 首先，确定您计划使用的提交机制很重要。有两种选择：客户端拉取（浏览器中的网站向服务器请求信息）和服务器推送（服务器向网站发送相关数据）。 在 2020 年，可用的解决方案如下：
+1. WebSockets（服务端推送）；
 2. 长/短轮询（客户端拉取）；
 3. 服务器发送事件（服务端推送）。
 
