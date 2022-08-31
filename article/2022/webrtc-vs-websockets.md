@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/webrtc-vs-websockets.md](https://github.com/xitu/gold-miner/blob/master/article/2022/webrtc-vs-websockets.md)
 > * 译者：[DylanXie123](https://github.com/DylanXie123)
-> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye)
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye)、[CarlosChen](https://github.com/CarlosChenN)
 
 # WebRTC 与 WebSockets 教程 — Web 端的实时通信
 
@@ -25,14 +25,14 @@ WebSockets 最显着的优势和特性是在单个 [TCP 连接](https://techterm
 
 既然我们已经认识到不能混淆这两个技术概念，就让我们来思考一下两者的主要区别吧。
 
-WebSockets 的核心应用场景是 Web 应用程序，而 WebRTC 的重点则是实现快速和简单的点对点连接。
+WebSockets 的核心应用场景是富 Web 应用程序，而 WebRTC 的重点则是实现快速和简单的点对点连接。
 
 1. WebSockets 的开发环境为 Java，JMS 和 C++；而 WebRTC 则是 Java 和 HTML；
 2. WebRTC 更加安全；
 3. 目前 WebRTC 只被部分浏览器支持，而 WebSockets 几乎与目前所有的浏览器兼容；
 4. 在可扩展性方面，WebSockets 的每个会话都会有一个对应的服务端，而 WebRTC 则是点对点式的。
 
-[我们自己的专家](https://requestum.com/about-us)认为 WebSockets 是最优的连接协议，它的优点包括：
+[我们自己的专家](https://requestum.com/about-us)常用 WebSockets 作为最优的连接协议，它的优点包括：
 
 * 实时的数据传输；
 * 可交互性；
@@ -41,7 +41,7 @@ WebSockets 的核心应用场景是 Web 应用程序，而 WebRTC 的重点则�
 
 然而，该解决方案的许多方面可能与 WebRTC 的功能重合，这就是为什么很容易将它们混淆。
 
-Web Sockets 与 WebRTC 操作之间的区别
+Web Sockets 与 WebRTC 操作之间的区别。Web sockets 的标准模式
 
 ![Web Sockets 的标准模式](https://requestum.com/images/blogposts/webrtc-vs-websockets/web-sockets.svg)
 ![WebRTC 的标准模式](https://requestum.com/images/blogposts/webrtc-vs-websockets/web-rtc.svg)
