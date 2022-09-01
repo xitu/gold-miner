@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/swiftui-2021-the-good-the-bad-and-the-ugly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/swiftui-2021-the-good-the-bad-and-the-ugly.md)
 > * 译者：[earthaYan](https://github.com/earthaYan)
-> * 校对者：
+> * 校对者：[Lokfar](https://github.com/Lokfar)、[lsvih](https://github.com/lsvih)
 
 # 2021年 的 SwiftUI: 优势、劣势和缺陷
 
@@ -27,7 +27,7 @@
 
 ### 3. 你可以免费获取漂亮的转场效果，动画和组件
 
-你可以把 SwiftUI 当作一个 UI 工具箱，这个工具箱提供了开发专业 app 需要的所有构建块。另外，如果你熟悉 CSS 的Transition属性，你会发现SwiftUI也有一套类似的方法，可以轻松创建优雅的交互过程。声明式语法的魅力在于你只需要描述你需要什么样的效果，效果就实现了，这看上去像魔法一样，但是也有不好的一面，我之后将会介绍。
+你可以把 SwiftUI 当作一个 UI 工具箱，这个工具箱提供了开发专业 app 需要的所有构建块。另外，如果你熟悉 CSS 的Transition属性，你会发现 SwiftUI 也有一套类似的方法，可以轻松创建优雅的交互过程。声明式语法的魅力在于你只需要描述你需要什么样的效果，效果就实现了，这看上去像魔法一样，但是也有不好的一面，我之后将会介绍。
 
 ### 4. UI 是完全由状态驱动并且是响应式的
 
