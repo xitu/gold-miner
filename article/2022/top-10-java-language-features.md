@@ -451,7 +451,7 @@ String[] list = directory.list((dir, name) -> name.endsWith(".java"));
 
 ## Stream API
 
-> ”在 Java 8 中，lambda 表达式只是药引子，Stream API 才是真正的处方。“ —— Venkat Subramaniam
+> “在 Java 8 中，lambda 表达式只是药引子，Stream API 才是真正的处方。” —— Venkat Subramaniam
 
 在日常的编程工作中，我们经常需要做的一项任务是处理一组组的数据。一些常见的操作有：过滤、转换和收集结果。
 
