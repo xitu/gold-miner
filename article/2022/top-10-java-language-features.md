@@ -2,36 +2,40 @@
 > * 原文作者：[A N M Bazlur Rahman](https://foojay.io/today/author/bazlur-rahman/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/top-10-java-language-features.md](https://github.com/xitu/gold-miner/blob/master/article/2022/top-10-java-language-features.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
 > * 校对者：
 
-# Top 10 Java Language Features
+# 十大 Java 语言特性
 
-Every programming language provides ways to express our ideas and then translate them into reality.
+每种编程语言都提供了表达我们的想法并将其转化为现实的方式。
 
-Some are unique to that particular language and some are common to many other programming languages.
+然而，其中一些方法是某个特定语言所独有的，而另一些则是相通的。
 
-In this article, I will explore ten Java programming features used frequently by developers in their day-to-day programming jobs.
+在本文中，我们将探讨开发人员在日常编程工作中经常使用的十个 Java 语言特性。
 
-## Collection’s Factory Method
+## `Collections` 工厂方法
 
-Collections are the most frequently used feature in our daily coding. They are used as a container where we store objects and pass them along.
+`Collection` 是我们每天写代码中最常用到的特性。它用于作为一种储存和传递多个对象的容器。
 
-Collections are also used to sort, search, and iterate objects, making the programmer's life easier. It provides a few basic interfaces, such as List, Set, Map, etc., and multiple implementations.
+`Collection` 也能用于排序、搜索和遍历对象，让我们的工作更轻松些。它提供了几个基本的接口，如 `List`、`Set`、`Map` 等。
 
-The traditional way of creating `Collections` and `Maps` may look verbose to many developers.
+对于很多开发者来说，传统的创建 `Map` 的方法可能看起来很冗长。
 
-That’s why Java 9 introduced a few very concise factory methods.
+正因如此，Java 9 引入了一些非常简洁的工厂方法。
 
-**List:**
+**列表：**
 
-`List countries = List.of("Bangladesh", "Canada", "United States", "Tuvalu"); `
+```java
+List countries = List.of("Bangladesh", "Canada", "United States", "Tuvalu");
+```
 
-**Set:**
+**集合：**
 
-`Set countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu"); `
+```java
+Set countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
+```
 
-**Map:**
+**映射：**
 
 ```java
 Map<String, Integer> countriesByPopulation = Map.of("Bangladesh", 164_689_383,
@@ -40,47 +44,52 @@ Map<String, Integer> countriesByPopulation = Map.of("Bangladesh", 164_689_383,
                                                     "Tuvalu", 11_792);
 ```
 
-  
+当我们想要创建不可变容器时，这些方法非常方便。但是，如果是可变集合，我还是建议使用传统的方法。
 
-These are very convenient when we want to create immutable containers. However, if we're going to create mutable collections, the traditional approach is advised.
+如果你想要了解更多关于集合框架的内容，请访问：[Java 官方教程 —— 集合框架](https://dev.java/learn/the-collections-framework/)。
 
-If you want to learn more about the collection framework, please visit here: [The collection framework](https://dev.java/learn/the-collections-framework/).
+## 局部变量类型推断
 
-## Local Type Inference
+Java 10 引入了局部变量类型推断（LVTI）。这对开发者来说真的非常方便！
 
-Java 10 introduced type inference for local variables, which is super convenient for developers.
+传统上，Java 是一种强类型语言，开发人员在声明和初始化对象时必须两次指定类型。这似乎很乏味。看看下面的例子：
 
-Traditionally, Java is a strongly typed language, and developers have to specify types twice while declaring and initializing an object. It seems tedious. Look at the following example:
+```java
+Map<String, Map<String, Integer>> properties = new HashMap<>();
+```
 
-`Map<String, Map<String, Integer>> properties = new HashMap<>();`
+在上方代码的中，我们在语句的左右两边都指明了变量类型。如果我们在一个地方定义它，我们很容易理解这必须是一个 `Map` 类型。Java 语言已经很成熟了，编译器应该足够智能地去识别这一点。LVTI 特性做的正是这一点。上方的代码可以这样写：
 
-We specified the type of information on both sides in the above statement. If we define it in one place, our eyes can easily interpret that this has to be a `Map` type. The Java language has matured enough, and the Java compiler should be smart enough to understand that. The Local Type Inference does precisely that.  
-The above code can now be written as follows:
+```java
+var properties = new HashMap<String, Map<String, Integer>>(); 
+```
 
-`var properties = new HashMap<String, Map<String, Integer>>(); `
+现在我们只需要写一次类型了。这似乎也没好太多。但是，当我们调用方法并将结果存储在变量中时，它会缩短很多。例子：
 
-Now we have to write and type once. The above code may not look a lot less bad. However, it makes it a lot shorter when we call a method and store the result in a variable. Example:
+```java
+var properties = getProperties();
+```
 
-`var properties = getProperties();`
+类似地，
 
-Similarly,
+```java
+var countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
+```
 
-`var countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu"); `
+虽然这看起来是个方便的特性，但它也备受诟病。一些开发者会争辩说：LVTI 可能会降低可读性，这可比那一点点的便利重要得多。
 
-Although this seems like a handy feature, there is some criticism as well. Some developers would argue that this may reduce readability, which is more important than this little convenience.
+更多资讯请看：
 
-To learn more about it, visit: 
+* [Open JDK —— LVTI 常问问题](https://openjdk.java.net/projects/amber/guides/lvti-faq)
+* [Open JDK —— LVTI 编码风格指南](https://openjdk.java.net/projects/amber/guides/lvti-style-guide)
 
-* [Open JDK Lvti-Faq](https://openjdk.java.net/projects/amber/guides/lvti-faq)
-* [Open JDK Lvti-style-guide](https://openjdk.java.net/projects/amber/guides/lvti-style-guide)
+## 增强的 `switch` 语句
 
-## Enhanced Switch Expressions
+传统的 switch 语句从一开始就存在了，类似于 C 和 C++。这挺 OK 的，但随着语言的发展，它一直以来都没有什么改进，直到 Java 14 的发布。在此之前，`switch` 语句肯定是有一些局限性的，其中最臭名昭著的就属[穿透问题](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html)。
 
-The traditional switch statement has been in Java from the beginning, which resembled C and C++. It was OK, but as the language evolved, it hasn’t offered us any improvement until Java 14. It certainly has some limitations as well. The most infamous was the [fall-through](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html.):
+为了解决这个问题，我们需要使用许多的 `break` 语句，它们几乎成为了模板代码。然而，Java 14 引入了一个看待 `switch` 语句的方式，并提供了更丰富的功能。
 
-To tackle the issue, we use break statements, which are pretty much boilerplate code. However, Java 14 introduced a new way of looking at this switch statement, and it offers many more rich features.
-
-We no longer need to add break statements; it solves the fall-through problem. On top of that, a switch statement can return a value, which means we can use it as an expression and assign it to a variable.
+我们不再需要添加 `break` 语句，新特性解决了穿透问题。最重要的是，switch 语句可以返回值了。这意味着我们可以将 switch 语句作为一个表达式并赋值给变量。
 
 ```java
 int day = 5;
@@ -91,17 +100,15 @@ String result = switch (day) {
 };
 ```
 
-* Read more about it: [Branching with Switch Expressions](https://dev.java/learn/branching-with-switch-expressions/).
+* 阅读更多：[Java 官方教程 —— 分支结构与 `switch` 表达式](https://dev.java/learn/branching-with-switch-expressions/)。
 
-## Records
+## `Record` 类
 
-Although records are relatively new features in Java, released in Java 16, many developers find it super helpful to create immutable objects.
+尽管 `Record` 类是 Java 中相对较新的功能（在 Java 16 中发布），但许多开发人员发现创建不可变对象非常有用。
 
-Often we need data career objects in our program to hold or pass values from one method to another. For example, a class to carry x, y, and z coordinates, which we would write as follows.
+通常，我们需要在程序中使用数据载体对象来保存或将值从一种方法传递到另一种方法。举例来说，一个带有 x、y、z 轴数据的类可以这么写：
 
 ```java
-package ca.bazlur.playground;
-
 import java.util.Objects;
 
 public final class Point {
@@ -149,28 +156,23 @@ public final class Point {
                 "y=" + y + ", " +
                 "z=" + z + ']';
     }
-
 }
 ```
 
-  
-
-The class seems super verbose and has little to do with our whole intention. This entire code can be replaced with the following code -
+整个类看起来超级冗长且和我们的想实现的东西关系不大。整个代码可以用以下代码替换：
 
 ```java
-package ca.bazlur.playground;
-
 public record Point(int x, int y, int z) {
 }
 ```
 
-* Read more about records here: [Java record semantics](https://nipafx.dev/java-record-semantics/).
+* 阅读更多有关记录类的资讯: [niparfx 的部落格 —— Java `Record` 类语义](https://nipafx.dev/java-record-semantics/)。
 
-## Optional
+## `Optional` 类
 
-A method is a contract: we put thought into it when defining one. We specify parameters with their type and also a return type. We expect it to behave according to the contract when we invoke a method. If it doesn’t, it’s a violation of the contract.
+方法是一种约定：在定义方法时我们需要考虑到这一点。我们指定了一个方法的参数以及返回类型。当我们调用它时，我们期望它按照约定行事。如果没有，它则违反了约定。
 
-However, we often get null from a method instead of a value of the specified type. This is a violation. An invoker cannot know upfront unless it invokes it. To tackle this violation, the invoker usually tests the value with an if condition, whether this value is null or not. Example:
+然而，我们经常从一个方法中得到返回值 `null`，而不是先前所指定的类型。这是一种打破规矩的行为。调用者不能预先知道，除非它调用了该方法。为了解决这个问题，调用者通常用一个 `if` 条件来测试返回值是否为 `null`。例子：
 
 ```java
 public class Playground {
@@ -188,9 +190,9 @@ public class Playground {
 }
 ```
 
-Look at the above code. The `findName()` method is supposed to return a `String` value, but it returns null. The invoker now has to check nulls first to deal with it. If an invokes forgets to do so, they will end up getting `NullPointerException` which is not expected behavior.
+瞧瞧上面的代码。`findName()` 方法应该返回一个 `String` 值，但它却返回了 `null`。调用者现在必须先检查空值后再处理这个值。如果调用者忘记那么做了，它可能会得到一个预料之外的 `NullPointerException` 异常。
 
-On the other hand, if the method signature would specify the possibility of not being able to return the value, it would solve all the confusion. And that’s where `Optional` comes into play.
+另一方面，如果方法签名能说明方法有不返回值的可能性，所有的困惑将迎刃而解。这正是 `Optional` 类发挥作用的地方。
 
 ```java
 import java.util.Optional;
@@ -210,32 +212,33 @@ public class Playground {
 }
 ```
 
-Now we have rewritten the `findName()` method with Optional, which specified the possibility of not returning any value, and we can deal with it. That gives an upfront warning to the programmers and fixes the violation.
+现在我们用 `Optional` 类重写了 `findName()` 方法，说明了方法有不返回任何值的可能性。这给了程序员一个预先的警告，并解决了违反约定的问题。
 
-* [Read more about Optional](https://dzone.com/articles/optional-in-java).
+* [阅读更多有关 `Optional` 类的内容](https://dzone.com/articles/optional-in-java)。
 
-## Java Date Time API
+## 日期和时间的 API
 
-Every developer is confused with date-time calculation to some degree. This isn’t an overstatement. This was mainly due to not having a good Java API for dealing with Dates and times in Java for a long time.
+每个开发人员都在某种程度上对日期和时间计算感到困惑。我所说的并不夸张。这主要是由于长期以来没有一个好的 Java API 来处理日期和时间。
 
-However, the problem no longer exists because Java 8 brings an excellent API set in **java.time** package that solves all the date and time-related issues.
+然而，这个问题已经不复存在，因为 Java 8 在 **java.time** 包中带来了一套优秀的 API，解决了所有与日期和时间有关的问题。
 
-**The java.time** package provides many interfaces and classes that solve most problems dealing with date and time, including timezone (which is crazy complex at some point). However, primarily, we use the following classes -
+**java.time** 包提供了许多的接口和类，解决了大多数处理日期和时间的问题，包括时区（在某些时候，这东西是令人抓狂的复杂）。其中常用的类有：
 
-* LocalDate
-* LocalTime
-* LocalDateTime
-* Duration
-* Period
-* ZonedDateTime etc.
+* `LocalDate`
+* `LocalTime`
+* `LocalDateTime`
+* `Duration`
+* `Period`
+* `ZonedDateTime `等等
 
-These classes are designed to have all the methods that are commonly needed. e.g.
+这些类囊括了所有常用的方法，例如：
 
 ```java
 import java.time.LocalDate;
 import java.time.Month;
 
-public class Playground3 {
+public class Playground {
+    
     public static void main(String[] args) {
         LocalDate date = LocalDate.of(2022, Month.APRIL, 4);
         System.out.println("year = " + date.getYear());
@@ -247,7 +250,7 @@ public class Playground3 {
 }
 ```
 
-Similarly, LocalTime has all the methods required for calculating time.
+同样地，`LocalTime` 也有所有用于计算时间的方法。
 
 ```java
 LocalTime time = LocalTime.of(20, 30);
@@ -257,14 +260,14 @@ time = time.withSecond(6);
 time = time.plusMinutes(3);
 ```
 
-We can combine both of them:
+我们可以将两者组合：
 
 ```java
 LocalDateTime dateTime1 = LocalDateTime.of(2022, Month.APRIL, 4, 20, 30);
 LocalDateTime dateTime2 = LocalDateTime.of(date, time);
 ```
 
-How do we include timezone:
+如何加上时区：
 
 ```java
 ZoneId zone = ZoneId.of("Canada/Eastern");
@@ -272,16 +275,16 @@ LocalDate localDate = LocalDate.of(2022, Month.APRIL, 4);
 ZonedDateTime zonedDateTime = date.atStartOfDay(zone);
 ```
 
-* [Read more about Java Date Time](https://docs.oracle.com/javase/tutorial/datetime/TOC.html).
+* [阅读更多有关 Java 日期和时间的内容](https://docs.oracle.com/javase/tutorial/datetime/TOC.html)。
 
-## Helpful NullPointerException
+## 增强 `NullPointerException` 的错误信息
 
-Every developer hates the Null Pointer Exception. It becomes challenging when StackTrace doesn’t provide helpful information. To demonstrate the problem, let’s see an example:
+每个开发者都痛恨空指针异常。当栈追踪没有提供任何有用的信息时，事情就变得更有挑战性了。为了演示这个问题，让我们来看一段代码：
 
 ```java
 package com.bazlur;
 
-public class Main {
+public class Playground {
 
     public static void main(String[] args) {
         User user = null;
@@ -302,8 +305,8 @@ class User {
         this.email = email;
     }
 
-   //getter
-   //setter
+   // getter
+   // setter
 }
 
 class Name {
@@ -315,12 +318,12 @@ class Name {
         this.lastName = lastName;
     }
 
-   //getter
-   //setter
+   // getter
+   // setter
 }
 ```
 
-Look at the main method of the above code. We can see that we will get a null pointer exception. If we run and compile the code with pre-Java 14, we will get the following StackTrace:
+看看上方代码中的 `main()` 方法。我们可以预测到我们会得到一个空指针异常。如果我们在 Java 14 之前的环境中编译及运行这段代码，我们会得到下面这段栈追踪：
 
 ```
 Exception in thread "main" java.lang.NullPointerException
@@ -328,9 +331,9 @@ at com.bazlur.Main.getLengthOfUsersName(Main.java:11)
 at com.bazlur.Main.main(Main.java:7)
 ```
 
-This stack trace is okay, but it does not have much information about where and why this NullPointerException happened.
+这个栈追踪没什么问题，但它并没有告诉我们 `NullPointerException` 发生的位置和原因。
 
-However, in Java 14 and onward, we get much more information in the stack trace, which is super convenient. In Java 14, we will get:
+然而，在 Java 14 及更高的版本中，我们会在栈追踪中得到更多的信息，非常方便。
 
 ```
 Exception in thread "main" java.lang.NullPointerException: Cannot invoke "ca.bazlur.playground.User.getName()" because "user" is null
@@ -338,23 +341,21 @@ at ca.bazlur.playground.Main.getLengthOfUsersName(Main.java:12)
 at ca.bazlur.playground.Main.main(Main.java:8)
 ```
 
-* [Read more about it](https://openjdk.java.net/jeps/358).
+* [阅读更多](https://openjdk.java.net/jeps/358)。
 
-## CompletableFuture
+## `CompletableFuture`
 
-We write programs line by line, and typically they get executed line by line. However, there are times when we want relatively parallel execution to make the program faster. To accomplish that, we usually consult the Java Thread.
+我们一行行地编写代码，程序一行行地执行它们。然而，有些时候，我们希望它相对平行地执行，使得程序能快一些。为了达到这个目的，我们通常会考虑 Java 线程。
 
-Well, Java thread programming is not always about parallel programming. Instead, it gives us a way to compose multiple independent units of a program to be executed independently to make progress along with others, and often they run asynchronously.
+Java 线程编程并不总是关乎于并行编程。相反，它提供了一种方法，使程序的多个单元能独立执行，与其他单元同时进展。不仅如此，它们通常是异步运行的。
 
-However, thread programming and its intricacies seem dreadful. Most junior and intermediate developers struggle with it. That’s why Java 8 brings a more straightforward API that lets us accomplish a portion of the program run asynchronously. Let’s see an example:
+可是，线程编程及其错综复杂的问题似乎很可怕。大多数开发人员都为此而挣扎。这就是为什么 Java 8 带来了一个更直接的 API，让我们完成部分程序的异步运行。让我们看一个例子。
 
-Let’s assume we have to call three REST APIs and then combine the results. We can call them one by one. If each of them takes around 200 milliseconds, then the total time to fetch all of them would take 600 milliseconds.
+假设我们要调用三个 REST API，然后把结果组合起来。我们可以逐个调用它们。如果它们每个都需要 200 毫秒左右，那么获取所有结果的总时间就是 600 毫秒。
 
-What if we could run them in parallel? As modern CPUs have multicores in them, they can easily handle three rest calls on three different CPUs. Using the CompletableFuture, we can easily accomplish that.
+如果我们并行地运行它们呢？由于现代的 CPU 有多个核，它可以很容易地在不同的核上处理三个 REST 调用。使用 `CompletableFuture`，我们可以很轻易地完成这个任务。
 
 ```java
-package ca.bazlur.playground;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -363,6 +364,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class SocialMediaService {
+    
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         var service = new SocialMediaService();
 
@@ -410,17 +412,17 @@ public class SocialMediaService {
 }
 ```
 
-* [Read more: Asynchronous programming in Java with CompletableFuture](https://www.linkedin.com/pulse/asynchronous-programming-java-completablefuture-aliaksandr-liakh/).
+* [阅读更多：Java 异步编程与 `CompletableFuture`](https://www.linkedin.com/pulse/asynchronous-programming-java-completablefuture-aliaksandr-liakh/)。
 
-## Lambda Expression
+## lambda 表达式
 
-Lambda Expression is probably the most powerful feature in the Java language. It reshaped the way we write code. A Lambda expression is like an anonymous function that can take arguments and return a value.
+lambda 表达式或许是 Java 语言中最强大的特性。它重塑了我们编写代码的方式。一个 lambda 表达式是一个接受参数并返回值的匿名函数。
 
-We can assign the function to a variable and pass it to a method as arguments, and a method can return it. It has a body. The only difference from a method is that it doesn’t have a name.
+我们可以将函数赋值给一个变量，也可以将其作为参数传递给方法。lambda 表达式有函数体，和方法唯一的差别是它没有名字。
 
-The expressions are short and concise. It usually doesn’t contain much boilerplate code. Let’s see an example:
+lambda 表达式短小精悍，通常不需要样板代码。让我们看一个例子：
 
-We want to list all the files in a directory with the.java extension.
+我们想要列出所有扩展名是 `.java` 的文件。
 
 ```java
 var directory = new File("./src/main/java/ca/bazlur/playground");
@@ -432,33 +434,32 @@ String[] list = directory.list(new FilenameFilter() {
 });
 ```
 
-If you carefully look at the piece of the code, we passed an anonymous inner class to the method `list()`. In the inner class, we put the logic to filter out the files.
+仔细看看上方的代码，我们将一个匿名内部类传给了 `list()` 方法。在内部类中，我们编写了过滤文件的逻辑。
 
-Essentially, we are interested in this piece of logic, not the boilerplate around the logic.
+本质上，我们只对这段逻辑感兴趣，而不是那些样板代码。
 
-The lambda expression, in fact, allows us to remove all the boilerplate, and we can write the code that we care about. Example:
+lambda 表达式能让我们移除所有的样板代码，我们只需把重心放在主要的逻辑上。例子：
 
 ```java
 var directory = new File("./src/main/java/ca/bazlur/playground");
-String[] list = directory.list((dir, name) -> name.endsWith(“.java"));
+String[] list = directory.list((dir, name) -> name.endsWith(".java"));
 ```
 
-Well, I have just shown you one example here, but there are plenty of other benefits of the lambda expression.
+我这里只展示了其中一个示例，但 lambda 表达式还有很多其他的好处。
 
-* [Read more about Lambda expressions](https://dev.java/learn/lambda-expressions/).
+* [阅读更多有关 lambda 表达式的内容](https://dev.java/learn/lambda-expressions/)。
 
 ## Stream API
 
-> "Lambda Expressions are the gateway drug to Java 8, but Streams are the real addiction."  
-> - Venkat Subramaniam.
+> ”在 Java 8 中，lambda 表达式只是药引子，Stream API 才是真正的处方。“ —— Venkat Subramaniam
 
-In our day-to-day programming jobs, one common task we do frequently is to process a collection of data. There are a few common operations, such as filtering, converting, and collecting the result.
+在日常的编程工作中，我们经常需要做的一项任务是处理一组组的数据。一些常见的操作有：过滤、转换和收集结果。
 
-Before Java 8, these sorts of operations were inherently imperative. We had to write code for our intention (aka what we wanted to achieve) and how we wanted it.
+在 Java 8 之前，这些操作一直以来都是命令式的。我们需要表示清楚我们的意图（也就是我们想达成的东西）和方式。
 
-With the invention of the Lambda expression and stream API, we can now write out data processing functionality rather declaratively. We only specify our intention, but we don’t have to write down how we get the result. Let’s see an example:
+随着 lambda 表达式和 Stream API 的引入，我们可以以声明的形式来编写数据处理的代码。我们只需指明意图，而不必编写如何得到结果。让我们看个例子：
 
-We have a list of books, and we want to find all the Java books’ names comma-separated and sorted.
+我们有一个书籍列表。我们想要找到所有 Java 书籍的名称，排序，并用逗号分隔。
 
 ```java
 public static String getJavaBooks(List<Book> books) {
@@ -470,7 +471,7 @@ public static String getJavaBooks(List<Book> books) {
 }
 ```
 
-The above code is simple, readable, and concise. The alternative imperative code would be-
+上方的代码简单、易读还简洁。另一种命令式的写法是：
 
 ```java
 public static String getJavaBooksImperatively(List<Book> books) {
@@ -496,14 +497,14 @@ public static String getJavaBooksImperatively(List<Book> books) {
 }
 ```
 
-Although both methods return the same value, we see the difference clearly.[ Learn more about stream API](https://dev.java/learn/the-stream-api/). That’s all for today. Cheers!
+虽然两个方法都返回了相同的值，但两者之间的差别是显而易见的。
 
-Learn more about stream API:
+学习更多有关流 API：
 
-- [https://dev.java/learn/the-stream-api/](https://dev.java/learn/the-stream-api/)
-- [https://jenkov.com/tutorials/java-functional-programming/streams.html](https://jenkov.com/tutorials/java-functional-programming/streams.html)
+- [Java 官方教程 —— Stream API](https://dev.java/learn/the-stream-api/)
+- [jenkov 教程 —— Java Stream API](https://jenkov.com/tutorials/java-functional-programming/streams.html)
 
-That’s all for today. Cheers!
+这就是今天的全部内容。拜拜！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
