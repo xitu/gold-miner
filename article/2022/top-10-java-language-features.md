@@ -23,7 +23,7 @@
 
 正因如此，Java 9 引入了一些非常简洁的工厂方法。
 
-**列表：**
+**List：**
 
 ```java
 List countries = List.of("Bangladesh", "Canada", "United States", "Tuvalu");
