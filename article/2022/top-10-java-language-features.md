@@ -3,17 +3,17 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/top-10-java-language-features.md](https://github.com/xitu/gold-miner/blob/master/article/2022/top-10-java-language-features.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye)
 
 # 十大 Java 语言特性
 
 每种编程语言都提供了表达我们的想法并将其转化为现实的方式。
 
-然而，其中一些方法是某个特定语言所独有的，而另一些则是相通的。
+其中一些特性是某些语言独有的，而另一些特性则是大多数语言相通的。
 
 在本文中，我们将探讨开发人员在日常编程工作中经常使用的十个 Java 语言特性。
 
-## `Collections` 工厂方法
+## `Collection` 的工厂方法
 
 `Collection` 是我们每天写代码中最常用到的特性。它用于作为一种储存和传递多个对象的容器。
 
@@ -35,7 +35,7 @@ List countries = List.of("Bangladesh", "Canada", "United States", "Tuvalu");
 Set countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
 ```
 
-**映射：**
+**Map: **
 
 ```java
 Map<String, Integer> countriesByPopulation = Map.of("Bangladesh", 164_689_383,
@@ -64,7 +64,7 @@ Map<String, Map<String, Integer>> properties = new HashMap<>();
 var properties = new HashMap<String, Map<String, Integer>>(); 
 ```
 
-现在我们只需要写一次类型了。这似乎也没好太多。但是，当我们调用方法并将结果存储在变量中时，它会缩短很多。例子：
+现在我们只需要写一次类型了。这似乎也没好太多。但是，当我们调用方法并将结果存储在变量中时，它会缩短很多。例如：
 
 ```java
 var properties = getProperties();
@@ -76,7 +76,7 @@ var properties = getProperties();
 var countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
 ```
 
-虽然这看起来是个方便的特性，但它也备受诟病。一些开发者会争辩说：LVTI 可能会降低可读性，这可比那一点点的便利重要得多。
+虽然这看起来是个方便的特性，但它也备受诟病。一些开发者认为：LVTI 可能会降低可读性，这可比那一点点的便利重要得多。
 
 更多资讯请看：
 
@@ -85,11 +85,11 @@ var countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
 
 ## 增强的 `switch` 语句
 
-传统的 switch 语句从一开始就存在了，类似于 C 和 C++。这挺 OK 的，但随着语言的发展，它一直以来都没有什么改进，直到 Java 14 的发布。在此之前，`switch` 语句肯定是有一些局限性的，其中最臭名昭著的就属[穿透问题](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html)。
+传统的 `switch` 语句从一开始就存在了，类似于 C 和 C++。过去，它没啥问题，但随着语言的发展，在 Java 14 发布之前，它一直都没有什么改进。`switch` 语句也确实一直存在一些局限性，其中最臭名昭著的就属[穿透问题](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/switch.html)
 
 为了解决这个问题，我们需要使用许多的 `break` 语句，它们几乎成为了模板代码。然而，Java 14 引入了一个看待 `switch` 语句的方式，并提供了更丰富的功能。
 
-我们不再需要添加 `break` 语句，新特性解决了穿透问题。最重要的是，switch 语句可以返回值了。这意味着我们可以将 switch 语句作为一个表达式并赋值给变量。
+我们不再需要添加 `break` 语句，新特性解决了穿透问题。最重要的是，`switch` 语句可以返回值了。这意味着我们可以将 `switch` 语句作为一个表达式并赋值给变量。
 
 ```java
 int day = 5;
@@ -104,7 +104,7 @@ String result = switch (day) {
 
 ## `Record` 类
 
-尽管 `Record` 类是 Java 中相对较新的功能（在 Java 16 中发布），但许多开发人员发现创建不可变对象非常有用。
+尽管 `Record` 类是 Java 中相对较新的功能（在 Java 16 中发布），但许多开发人员发现在创建不可变的 `Record` 对象非常有用。
 
 通常，我们需要在程序中使用数据载体对象来保存或将值从一种方法传递到另一种方法。举例来说，一个带有 x、y、z 轴数据的类可以这么写：
 
@@ -159,7 +159,7 @@ public final class Point {
 }
 ```
 
-整个类看起来超级冗长且和我们的想实现的东西关系不大。整个代码可以用以下代码替换：
+整个类看起来超级冗长且和我们的想实现的东西关系不大。可以将上面的代码改成下面的写法：
 
 ```java
 public record Point(int x, int y, int z) {
@@ -260,7 +260,7 @@ time = time.withSecond(6);
 time = time.plusMinutes(3);
 ```
 
-我们可以将两者组合：
+我们可以将两者组合起来使用：
 
 ```java
 LocalDateTime dateTime1 = LocalDateTime.of(2022, Month.APRIL, 4, 20, 30);
@@ -345,9 +345,9 @@ at ca.bazlur.playground.Main.main(Main.java:8)
 
 ## `CompletableFuture`
 
-我们一行行地编写代码，程序一行行地执行它们。然而，有些时候，我们希望它相对平行地执行，使得程序能快一些。为了达到这个目的，我们通常会考虑 Java 线程。
+我们一行行地编写代码，程序一行行地执行它们。然而，有些时候，我们希望它相对并行地执行，使得程序能快一些。为了达到这个目的，我们通常会考虑使用 Java 线程。
 
-Java 线程编程并不总是关乎于并行编程。相反，它提供了一种方法，使程序的多个单元能独立执行，与其他单元同时进展。不仅如此，它们通常是异步运行的。
+Java 线程编程并不总是与并行编程有关。相反，它提供了一种方法，使程序的多个单元能独立执行，与其他单元同时进展。不仅如此，它们通常是异步运行的。
 
 可是，线程编程及其错综复杂的问题似乎很可怕。大多数开发人员都为此而挣扎。这就是为什么 Java 8 带来了一个更直接的 API，让我们完成部分程序的异步运行。让我们看一个例子。
 
