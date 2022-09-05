@@ -29,7 +29,7 @@
 List countries = List.of("Bangladesh", "Canada", "United States", "Tuvalu");
 ```
 
-**集合：**
+**Set：**
 
 ```java
 Set countries = Set.of("Bangladesh", "Canada", "United States", "Tuvalu");
