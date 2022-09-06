@@ -92,7 +92,7 @@ SwiftUI 提供了一系列新的手势（即 `DragGesture` 和 `LongPressGesture
 * 无法访问状态栏 (不能修改颜色或拦截点击)
 * 由于缺少 `App`，我们仍然需要 `@UIApplicationDelegateAdaptor`
 * 不能向后兼容
-* `UIVisualEffectsView` 会导致滚动延迟 (h/t @[AlanPegoli](https://twitter.com/alanpegoli？lang=en))
+* `UIVisualEffectsView` 会导致滚动延迟（来源于推特：@[AlanPegoli](https://twitter.com/alanpegoli?lang=en)）
 
 ## 缺陷
 
