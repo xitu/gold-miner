@@ -102,7 +102,7 @@ SwiftUI 提供了一系列新的手势(即 `DragGesture`，`LongPressGesture`)�
 
 * **主要的障碍:**  视图中的 `LazyVStack` 导致[卡顿、抖动和一些意外的行为](https://stackoverflow.com/questions/66523786/swiftui-putting-a-lazyvstack-or-lazyhstack-in-a-scrollview-causes-stuttering-a/67895804)。LazyVStacks 对于需要滚动的混合内容(如新闻提要)的长列表至关重要。**仅凭这一点，SwiftUI 就还没准备好投入生产环境:**  Apple 已经证实，这是 SwiftUI 自身的漏洞。尚未清楚他们什么时候会修复，但是一旦修复了，这将是一个巨大的胜利。
 * **滚动状态:** 原生不支持解析滚动的状态 (滚动视图是否正在被拖拽？ 滚动？ 偏移多少？)。尽管有一些解决方案，但是还是很繁琐且不稳定。
-* **Paging:** 原生不支持分页滚动视图。所以忘记类似可滑动的媒体库吧（但是如果你想要关闭一些东西的时候，可以使用 `[SwiftUIPager](https://github.com/fermoya/SwiftUIPager)`）。在技术上你可以使用  `TabView` 加 `PageTabViewStyle`，但是我认为它更适合少部分的一些元素，而不是大的数据集。
+* **分页**：原生不支持分页滚动视图。所以打消实现类似于可滑动的媒体库的念头吧（但是如果你想要关闭一些东西的时候，可以使用 [`SwiftUIPager`](https://github.com/fermoya/SwiftUIPager)）。在技术上你可以使用  `TabView` 加 `PageTabViewStyle`，但是我认为它更适合少部分的元素，而不是大的数据集。
 * **性能:** 使用 `List` 是性能最好的，并且避免了 `LazyVStack` 的卡顿问题，但由于转换的工作方式，它仍然不适合显示可变大小的内容。例如，在构建聊天视图时，其过渡很奇怪，会裁剪子视图，并且您无法控制插入动画样式。
 
 ## 结论
