@@ -45,7 +45,7 @@
 
 在 SwiftUI 中有许多缺失、不完整或者过于简单的组件，我将在下面详细介绍其中一部分。
 
-使用 `UIViewRepresentable` 、`UIViewControllerRepresentable` 和 `UIHostingController` 协议可以解决这一问题。前两个让你可以在 SwiftUI 视图层中嵌入 UIKit 视图和控制器。最后一个可以让你在 UIKit 中嵌入 SwiftUI 视图。在 Mac 开发中也存在类似的三种协议 (`NSViewRepresentable`等)。
+使用 `UIViewRepresentable`、`UIViewControllerRepresentable` 和 `UIHostingController` 协议可以解决这一问题。前两个让你可以在 SwiftUI 视图层中嵌入 UIKit 视图和控制器。最后一个可以让你在 UIKit 中嵌入 SwiftUI 视图。在 Mac 开发中也存在类似的三种协议 (`NSViewRepresentable` 等)。
 
 这些协议是弥补 SwiftUI 功能缺失的权宜之计，但并不是一直天衣无缝。而且，尽管 SwiftUI 的跨平台承诺很好，但是如果某些功能不可用的话，你仍然需要为 iOS 和 Mac 分别实现协议代码。
 
