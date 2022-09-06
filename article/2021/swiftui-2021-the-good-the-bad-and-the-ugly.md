@@ -59,7 +59,7 @@
 
 ### 3. 文本输入十分受限
 
-`TextField` 和 `TextEditor` 现在都太简单了，最终你还是会退回到 UIKit。所以我不得不为 `UITextField` 和 `UITextView` 构建自己的 `UIViewRepresentable` 协议(以实现文本行数的自动增加))。要点如下：
+`TextField` 和 `TextEditor` 现在都太简单了，最终你还是会退回到 UIKit。所以我不得不为 `UITextField` 和 `UITextView` 构建自己的 `UIViewRepresentable` 协议（以实现文本行数的自动增加）。
 
 ### 4. 编译器困境
 
