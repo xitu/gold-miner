@@ -5,7 +5,7 @@
 > * 译者：[earthaYan](https://github.com/earthaYan)
 > * 校对者：[Lokfar](https://github.com/Lokfar)、[lsvih](https://github.com/lsvih)
 
-# 2021年 的 SwiftUI: 优势、劣势和缺陷
+# 2021 年的 SwiftUI: 优势、劣势和缺陷
 
 > 生产环境使用 SwiftUI？**仍然不可行。**
 
