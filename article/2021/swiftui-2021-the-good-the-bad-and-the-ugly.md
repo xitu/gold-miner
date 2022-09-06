@@ -65,7 +65,7 @@
 
 当视图开始变得笨重，并且你已经竭尽所能去提取分解，编译器仍然会冲着你咆哮：
 
-> 编译器不能在合理时间内对表达式进行类型检查……
+> The compiler is unable to type-check this expression in reasonable time; try breaking up the expression into distinct sub-expressions.
 
 这个问题已经多次拖慢进度。由于这个问题，我已经很擅长注释代码定位到引起问题的那一行，但是 2021 年了还在用这种方法调试代码感觉非常落后。
 
