@@ -119,7 +119,7 @@ SwiftUI 已经为简单的应用程序做好了准备，但是在写这篇文章
 
 SwiftUI 会兼容 UIKit 么？ 如果这样的话，我们可能需要等待 SwiftUI 使用 3-5 年的时间来移植所有必要的 UIKit api。如果 SwiftUI 不准备兼容  UIkit，那你也能通过 SwiftUI 封装的方式使用 UIKit。
 
-我好奇的是 Apple 会在 SwiftUI 上投入多少。他们是否有让所有的开发者采用 SwiftUI 的长期计划，或者说SwiftUI只是另一个界面构建器而已？ 我希望不是，我希望他们能全心投入 SwiftUI，因为它的前景是非常诱人的。
+我好奇的是 Apple 会在 SwiftUI 上投入多少。他们是否有让所有的开发者采用 SwiftUI 的长期计划，或者说 SwiftUI 只是另一个界面构建器而已？我希望不是，也希望他们能全心投入 SwiftUI，因为它的前景是非常诱人的。
 
 ## 更多看法
 
