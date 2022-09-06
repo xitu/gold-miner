@@ -77,7 +77,7 @@
 
 ### 6. 对手势的支持有限
 
-SwiftUI 提供了一系列新的手势(即 `DragGesture`，`LongPressGesture`)，这些手势可以通过像 `tapGesture` 和 `longPressGesture` 这样的 `gesture` 修饰符被添加到视图中。他们都能正常工作，除非你想要做更复杂的交互。
+SwiftUI 提供了一系列新的手势（即 `DragGesture` 和 `LongPressGesture`）。这些手势可以通过 `gesture` 修饰符（如 `tapGesture` 和 `longPressGesture`）添加到视图中。它们都能正常工作，除非你想要做更复杂的交互。
 
 比如，`DragGesture` 和 `ScrollView` 交互就不是很好。即使有了 `simultaneousGesture` 修饰符，在 ScrollView 中放一个 `DragGesture` 还是会阻止滚动。在其他情况下，拖动手势可以在没有任何通知的情况下被取消，使得手势处于不完整状态。
 
