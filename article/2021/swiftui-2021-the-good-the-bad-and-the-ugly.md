@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/swiftui-2021-the-good-the-bad-and-the-ugly.md](https://github.com/xitu/gold-miner/blob/master/article/2021/swiftui-2021-the-good-the-bad-and-the-ugly.md)
 > * 译者：[earthaYan](https://github.com/earthaYan)
-> * 校对者：[Lokfar](https://github.com/Lokfar)、[lsvih](https://github.com/lsvih)
+> * 校对者：[Lokfar](https://github.com/Lokfar)、[lsvih](https://github.com/lsvih)、[jaredliw](https://github.com/jaredliw)
 
 # 2021 年的 SwiftUI: 优势、劣势和缺陷
 
