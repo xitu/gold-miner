@@ -111,7 +111,7 @@ SwiftUI 提供了一系列新的手势（即 `DragGesture` 和 `LongPressGesture
 
 SwiftUI 已经为简单的应用程序做好了准备，但是在写这篇文章的时候（iOS 15，beta 4 版本），我不认为它已经适合复杂应用程序的生产环境，主要是由于 `ScrollView` 的问题和对 `UIViewRepresentable` 的严重依赖。我很遗憾，尤其是像即时通信产品，新闻摘要，以及严重依赖复杂视图或者想要创建手势驱动的定制体验产品，目前还不适合使用 SwiftUI。
 
-如果你想要精细的控制和无限的可能性，我建议在可预见的未来坚持使用 UIKit。 你可以在一些视图（类似设置分页）里通过使用 `UIHostingController`包裹 SwiftUI 视图获得 SwiftUI 的好处。
+如果你想要精细的控制和无限的可能性，我建议在可预见的未来坚持使用 UIKit。你可以在一些视图（如设置页）里通过使用 `UIHostingController` 包装 SwiftUI 视图以获得 SwiftUI 的好处。
 
 ## 未来会发生什么？
 
