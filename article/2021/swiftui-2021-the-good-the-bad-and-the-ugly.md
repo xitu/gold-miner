@@ -100,18 +100,18 @@ SwiftUI 提供了一系列新的手势（即 `DragGesture` 和 `LongPressGesture
 
 这是迄今为止最大的缺点之一。任何一个构建过定制化 iOS 应用的人都知道我们有多依赖 ScrollView 去支持交互。
 
-* **主要的障碍:**  视图中的 `LazyVStack` 导致[卡顿、抖动和一些意外的行为](https://stackoverflow.com/questions/66523786/swiftui-putting-a-lazyvstack-or-lazyhstack-in-a-scrollview-causes-stuttering-a/67895804)。LazyVStacks 对于需要滚动的混合内容(如新闻提要)的长列表至关重要。**仅凭这一点，SwiftUI 就还没准备好投入生产环境:**  Apple 已经证实，这是 SwiftUI 自身的漏洞。尚未清楚他们什么时候会修复，但是一旦修复了，这将是一个巨大的胜利。
+* **主要的障碍**：视图中的 `LazyVStack` 导致[卡顿、抖动和一些意外的行为](https://stackoverflow.com/questions/66523786/swiftui-putting-a-lazyvstack-or-lazyhstack-in-a-scrollview-causes-stuttering-a/67895804)。`LazyVStack` 对于需要滚动的混合内容（如新闻提要）的长列表至关重要。**仅凭这一点，SwiftUI 就还没准备好投入生产环境：** Apple 已经证实，这是 SwiftUI 自身的漏洞。尚未清楚他们什么时候会修复，但是一旦修复了，这将是一个巨大的胜利。
 * **滚动状态**：原生不支持解析滚动的状态（滚动视图是否正在被拖拽？滚动？偏移多少？）。尽管有一些解决方案，但是还是很繁琐且不稳定。
 * **分页**：原生不支持分页滚动视图。所以打消实现类似于可滑动的媒体库的念头吧（但是如果你想要关闭一些东西的时候，可以使用 [`SwiftUIPager`](https://github.com/fermoya/SwiftUIPager)）。在技术上你可以使用  `TabView` 加 `PageTabViewStyle`，但是我认为它更适合少部分的元素，而不是大的数据集。
-* **性能:** 使用 `List` 是性能最好的，并且避免了 `LazyVStack` 的卡顿问题，但由于转换的工作方式，它仍然不适合显示可变大小的内容。例如，在构建聊天视图时，其过渡很奇怪，会裁剪子视图，并且您无法控制插入动画样式。
+* **性能**：使用 `List` 是性能最好的，并且避免了 `LazyVStack` 的卡顿问题，但由于工作方式的转换，它仍然不适合显示可变大小的内容。例如，在构建聊天视图时，其过渡很奇怪，会裁剪子视图，并且无法控制插入的动画样式。
 
 ## 结论
 
-毫无疑问我觉得应该学习 SwiftUI ，自己去理解它，并享受乐趣。但是先别急着全盘接受。
+毫无疑问我觉得应该学习 SwiftUI ，自己去理解它，并享受乐趣。但是先别急着全盘采用。
 
-SwiftUI 已经为简单的应用程序做好了准备，但是在写这篇文章的时候 (iOS 15, beta 4)，我不认为它已经适合复杂应用程序的生产环境，主要是由于`ScrollViews` 的问题和对 `UIViewRepresentable` 的严重依赖。我很遗憾，尤其是像即时通信产品，新闻订阅，以及严重依赖复杂视图或者想要创建手势驱动的定制体验产品，目前还不适合使用 SwiftUI。
+SwiftUI 已经为简单的应用程序做好了准备，但是在写这篇文章的时候（iOS 15，beta 4 版本），我不认为它已经适合复杂应用程序的生产环境，主要是由于 `ScrollView` 的问题和对 `UIViewRepresentable` 的严重依赖。我很遗憾，尤其是像即时通信产品，新闻摘要，以及严重依赖复杂视图或者想要创建手势驱动的定制体验产品，目前还不适合使用 SwiftUI。
 
-如果你想要精细的控制和无限的可能性，我建议在可预见的未来坚持使用 UIKit。 你可以在一些视图（类似设置分页）里通过使用 `UIHostingController`包裹 SwiftUI 视图获得 SwiftUI 的好处。
+如果你想要精细的控制和无限的可能性，我建议在可预见的未来坚持使用 UIKit。你可以在一些视图（如设置页）里通过使用 `UIHostingController` 包装 SwiftUI 视图以获得 SwiftUI 的好处。
 
 ## 未来会发生什么？
 
