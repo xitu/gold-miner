@@ -123,7 +123,7 @@ SwiftUI 会兼容 UIKit 么？如果这样的话，我们可能需要等待 Swif
 
 ## 更多看法
 
-* [Is SwiftUI Ready？](https://www.jessesquires.com/blog/2021/07/01/is-swiftui-ready/)
+* [Is SwiftUI Ready?](https://www.jessesquires.com/blog/2021/07/01/is-swiftui-ready/)
 * [SwiftUI Drawbacks: Why SwiftUI Is Not Ready for Production Yet](https://www.iosapptemplates.com/blog/swiftui/swiftui-drawbacks)
 * [My takeaway from working with SwiftUI](https://link.medium.com/isXKLhaaCib)
 
