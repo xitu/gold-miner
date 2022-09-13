@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2400/0*eyCD7K2DQ8AS0GpE.png)
 
-自从 Google 发布了 [Jetpack Compose stable 1.0](https://android-developers.googleblog.com/2021/07/jetpack-compose-announcement.html), 很多公司开始在他们的项目中采用 Jetpack Compose. 根据[Google’s What developers are saying](https://developer.android.com/jetpack/compose/adopt#what-developers-are-saying), Jetpack Compose 提高了他们的生产力和代码质量。
+自从 Google 发布了 [Jetpack Compose stable 1.0](https://android-developers.googleblog.com/2021/07/jetpack-compose-announcement.html), 很多公司开始在他们的项目中使用 Jetpack Compose. 如 [Google’s What developers are saying](https://developer.android.com/jetpack/compose/adopt#what-developers-are-saying) 所说, Jetpack Compose 提高了他们的生产效率和代码质量。
 
 Jetpack Compose 有一个专门的优化系统，但了解 Jetpack Compose 的渲染机制对于正确提高你 app 的性能至关重要。
 
