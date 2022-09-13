@@ -248,7 +248,7 @@ fun CarState.toCar(): Car
 
 目前，有两种选择，更直接的一种包括使用 Kotlin’s [不可变集合](https://github.com/Kotlin/kotlinx.collections.immutable) 。但是，这些仍然是预发布的，可能行不通。
 
-另一种解决方案是，把 `list` 包装起来，并且标记为 `@Immutable` 。这种方法是一种虽然没有被官方推荐，但是社区已经使用了这样的做法。
+另一种解决方案是，把 `list` 包装起来，并且标记为 `@Immutable` 。这种方法已经被社区采用，但是并未被官方认可。
 ```Kotlin
 @Immutable
 data class WrappedList(
