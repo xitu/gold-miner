@@ -600,7 +600,7 @@ fun SlidingComposable(scrollPositionProvider: () -> Int) {
 
 在本文中，你可以学到 Jetpack Compose 的整体渲染过程，以及如何按照 [Stream](https://getstream.io/) 的 Jetpack Compose 指南优化你的应用性能。 
 
-Stream 的 Jetpack Compose 团队目标是构建高性能的聊天 API，为 SDK 用户提供最佳的开发者体验。如果你有兴趣了解更多详细，请查看 [Compose SDK 指南](https://github.com/GetStream/stream-chat-android/blob/main/stream-chat-android-compose/GUIDELINES.md#project-structure)。
+Stream 的 Jetpack Compose 团队目标是构建高性能的聊天 API，为 SDK 用户提供最佳的开发者体验。如果你有兴趣了解更多指南内容，请查看 [Compose SDK 指南](https://github.com/GetStream/stream-chat-android/blob/main/stream-chat-android-compose/GUIDELINES.md#project-structure)。
 
 **本文发表于 [GetStream.io**/blog](https://getstream.io/blog/jetpack-compose-guidelines/)**。**
 
