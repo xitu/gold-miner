@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/retries.md](https://github.com/xitu/gold-miner/blob/master/article/2022/retries.md)
 > * 译者：[wangxuanni](https://github.com/wangxuanni)
-> * 校对者：
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye)
 
 # 使用令牌桶和熔断器进行重试
 
