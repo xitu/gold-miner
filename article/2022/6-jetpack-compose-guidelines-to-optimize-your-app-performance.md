@@ -5,7 +5,7 @@
 > * 译者：[Quincy-Ye](https://github.com/Quincy-Ye)
 > * 校对者：
 
-# 6 条 Jetpack Compose 指南帮你优化 App 性能
+# 6 条 Jetpack Compose 使用指南助你优化 App 性能
 
 ![](https://cdn-images-1.medium.com/max/2400/0*eyCD7K2DQ8AS0GpE.png)
 
