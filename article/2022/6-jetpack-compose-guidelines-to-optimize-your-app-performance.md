@@ -15,7 +15,7 @@ Jetpack Compose 有一个专门的优化系统，但理解 Jetpack Compose 的�
 
 在本文中，你将了解 Jetpack Compose 的整体渲染过程，以及如何按照 [Stream](https://getstream.io/) 的 Compose 团队制定的 Jetpack Compose 指南优化你的 app 性能。
 
-如果你想详细了解整个指南, 请查看 [Stream’s Compose SDK Guidelines](https://github.com/GetStream/stream-chat-android/blob/main/stream-chat-android-compose/GUIDELINES.md).
+如果你想进一步了解完整指南, 请查看 [Stream’s Compose SDK Guidelines](https://github.com/GetStream/stream-chat-android/blob/main/stream-chat-android-compose/GUIDELINES.md).
 
 在深入研究之前，我们先看看 Jetpack Compose 编译器是如何在运行时渲染 UI 元素的。
 
