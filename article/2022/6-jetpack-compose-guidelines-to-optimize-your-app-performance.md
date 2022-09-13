@@ -454,7 +454,7 @@ fun ConcertPerformers(venueName: String, performers: State<PersistentList<String
 
 ## 6. 尽可能延后读取
 
-这小节主要是简化挂官方提供的示例，请参阅 [尽可能延后读取](https://developer.android.com/jetpack/compose/performance#defer-reads).
+本节是官方提供示例的一个简化，官方示例详情请参阅 [尽可能延后读取](https://developer.android.com/jetpack/compose/performance#defer-reads).
 
 创建一个简单的可组合项，这个组件主要是滑出动画的处理：
 
