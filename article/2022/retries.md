@@ -2,67 +2,67 @@
 > * 原文作者：[Marc Brooker](https://brooker.co.za/blog/publications.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/retries.md](https://github.com/xitu/gold-miner/blob/master/article/2022/retries.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wangxuanni](https://github.com/wangxuanni)
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye) [timerring](https://github.com/timerring)
 
-# Fixing retries with token buckets and circuit breakers
+# 使用令牌桶和熔断器进行重试
 
-After my last post on [circuit breakers](https://brooker.co.za/blog/2022/02/16/circuit-breakers.html), a couple of people reached out to recommend using circuit breakers only to break retries, and still send normal first try traffic no matter the failure rate. That's a nice approach. It provides possible solutions to the core problem with client-side circuit breakers (they may make partial outages worse), and to the retry problem (where retries increase load on already-overloaded downstream services). To see how well that works, we can compare it to my favorite **better retries** approach: a token bucket.
+在我发表上一篇关于[熔断](https://brooker.co.za/blog/2022/02/16/circuit-breakers.html)的文章之后，有人推荐我在中断重试只使用熔断，并且不管失败率仍然发送一次正常的尝试请求。这是一个不错的方法。在客户端熔断（可能会造成资源的浪费）和重试（重试会给已经过载的下游应用增加负担）的关键问题上，这提供了一些可能解决的方案。为了看看效果如何，我们可以将它和我最喜欢的**更好重试**方法：令牌桶做比较。
 
-First, let's formally introduce the players:
+首先，正式介绍一下待比较的对象：
 
-* **No retries**. When a client wants to make a call, it makes that call as normal. If it fails, the client moves on without retrying.
-* **N retries**. When a client wants to make a call, it makes that call as normal. If it fails, the client makes a maximum of N retries of the call.
-* **Adaptive Retries** (aka the **retry token bucket**). When a client wants to make a call, it makes that call as normal. If it succeeds, it drops part of a token into a limited-size [token bucket](https://en.wikipedia.org/wiki/Token_bucket). If the call fails, retry up to N times as long as there are (whole) tokens in the bucket. For example, each success could deposit 0.1 tokens, and each retry could consume 1 token.
-* **Retry circuit breaker**. When a client wants to make a call, it makes that call as normal. On success or failure, it updates statistics which track the (recent) failure rate. If that failure rate is below a threshold, it retries up to N times. If it's above the threshold, it doesn't retry at all.
+* **不重试** 。当客户端想发起一个请求的时候，它照常发起一个请求。如果请求失败，客户端不重试并且继续执行。
+* **N 次重试。**当客户端想发起一个请求的时候，它照常发起一个请求。如果请求失败，客户端最多重试 N 次。
+* **自适应重试** （又称**令牌桶重试**）。当客户端想发起一个请求的时候，它照常发起一个请求。如果请求成功，它将一部分令牌放进有大小有限的[令牌桶](https://en.wikipedia.org/wiki/Token_bucket)。如果请求失败，只有当桶里有完整的令牌时就重试 N 次（ N 为完整令牌的数量）。例如，每次成功请求会存储 0.1 个令牌，每次重试会消耗 1 个令牌。
+* **熔断重试**。 客户端想发起一个请求的时候，它照常发起一个请求。在成功或者失败时，它会更新（最近）用于记录失败率的数据。如果失败率低于阈值，则最多重试 N 次。如果它高于阈值，不进行重试。
 
-**Think it through**
+**思考**
 
-First, let's try think through how each of these would perform.
+首先，来试着思考一下每种的表现。
 
-No retries is the easiest. If the downstream failure rate is x%, the effective failure rate is x%.
+不重试是最简单的，如果下游的失败率是 x%，失败率实际就是 x%。
 
-N retries is the next easiest. If the downstream failure rate is x%, the effective failure rate is (1-x)N, but with significant additional work. At 100% failure rate, the system does 1+N times as much work.
+N 次重试次之，如果下游的失败率是 x%，失败率实际是(1-x)N，但是会产生许多额外的工作。当失败率达到100%时，系统的工作量将是原来的 1+N 倍。
 
-The adaptive strategy is a little difficult to think about, but the rough idea is that it behaves like **N retries** when failure rates are low, and "some percent retries" when the failure rate is higher. For example, if each successful calls puts 10% of a token into the bucket, adaptive behaves like **N retries** a lot below 10% failure rate, and like "0.1 retries" much above 10% failure rate.
+分析自适应策略有点困难，但一个大致的想法是：当失败率较低的时候，它会表现的像N次重试；当失败率较高的时候，它表现地类似于“按一定百分比的重试”。例如，如果每个成功的调用都将 10% 的令牌放入桶中，则低于 10% 的失败率的时候自适应行为像N次重试，远高于 10% 的失败率时它就像“ 0.1 次重试”。
 
-The circuit breaker strategy is somewhat similar. At low rates (below the threshold) it behaves like **N retries**. Above the threshold it behaves like **no retries**. This is a little complicate by the fact that each client doesn't know the true failure rate, and instead makes its decision based on a local sampling of the failure rate (which may vary substantially from the true rate for small clients).
+熔断策略有些地方是相似的。低失败率（低于阈值）时，它表现的像 **N 次重试**。高于阈值时，它表现的像**不重试**。这有点复杂，因为每个客户端都不知道真实的故障率，而是根据对失败率的本地采样（可能与小型客户端的真实失败率有很大差异）做出决定。
 
-Closed-form reasoning about these dynamics are difficult. Instead of trying to reason about it, we can simulate the effects with a small event-driven simulation of a service and clients. I'll write more in future about this simulation approach, but will start with some results.
+由于整个过程是动态的，因此封闭式推理很困难。我们可以通过对服务和客户端的小型事件驱动模拟来观察效果，而不是尝试推理它。我之后会写更多关于模拟的方法，但先从一些结果开始吧。
 
-**Simulating Performance**
+**性能模拟分析**
 
-Let's consider a model with a single abstract service, which randomly fails calls at some rate. The service is called by 100 independent clients, each starting new attempts at some rate[1](#foot1). We're concerned with two results: the success rate the client sees, and the load the server sees from the clients. In particular, we're concerned with how those things vary with the failure rate.
+让我们考虑一个具有单个抽象服务的模型，它处理的请求会以一定的比率随机失败。这个服务被 100 个依赖的客户端调用，每一个客户端都以某种速率开始新的尝试。我们关心两种结果：客户端看到的成功率，还有服务器从客户端看见的负载。特别是，我们关注它们如何随失败率变化。
 
-![Graph of failure rates and load for four retry strategies](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results.png)
+![四种重试策略的失败率和负载率图](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results.png)
 
-We can immediately see a couple of expected things, and a few interesting things. As expected, **no retries** does no extra work, and provides availability that drops linearly with the failure rate. **Three retries** does a lot of extra work, and provides the best robustness against errors. The breaker strategy does extra work, and provides extra robustness at low failure rates, but drops down to match **no retries** after a threshold.
+我们可以立刻看到一些符合预期的事，和一些有意思的事。正如预期，**不重试**不会做额外的工作，并提供随失败率线性下降的可用性。**三次重试**做了很多额外的工作，提供了最佳的鲁棒性以对抗失败。熔断策略做了额外的工作，在低失败率时提供了额外的鲁棒性，但是超过阈值后下降到和**不重试**一样。
 
-Let's zoom in a bit to the lower rates:
+让我们放大一点到较低的失败率：
 
-![Graph of failure rates and load for four retry strategies](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results_zoomed.png)
+![四种重试策略的失败率和负载率图](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results_zoomed.png)
 
-We can see the strategies start to diverge. The first interesting observation is that the breaker strategy starts tripping a little early: around half the expected rate. That's because each client is breaking independently. In this low-failure regime, the **adaptive** strategy is very similar to **three retries**, but slowly starting to diverge.
+我们可以看到策略出现的分叉。第一个有趣的观察结果是，熔断策略比较早开始分叉，大约是预期比率的一半。这是因为每个客户端都是独立熔断的。在低失败率的情况下，**自适应**策略非常像**三次重试**，但是慢慢开始出现分叉。
 
-**The effect of client count**
+**客户端数量的影响**
 
-Both the **adaptive** and **circuit breaker** approach depend on per-client estimates of the failure rate, either expressed explicitly with the circuit breaker failure threshold, or implicitly with the contents of the token bucket. When the number of clients is low, it's reasonable to expect that that these per-client estimates will converge on the true failure rate. With larger numbers of clients sending small volumes of traffic, estimates will vary more widely. This is especially important in serverless and container-based architectures, where clients may be numerous and short-lived, with each doing relatively little work (compared, say, to a multi-threaded monolith where a single client may see the work of very large numbers of threads).
+**自适应**和熔断器方法都依赖于每一个客户端估算的失败率。要么用熔断器失败阈值显式表示，要么用令牌桶的内容隐式表示。当客户端的数量不多的时候，针对每个客户端，可以合理地预估真实的失败率。随着大量客户端发送少量流量，估计值的差异会更大。这在云服务和基于容器的架构中尤其重要，在这种架构中，客户端可能很多但存活时间较短，每个客户端所做的工作相对较少（与多线程实例相比，单个客户端可能会看到大量线程的工作）。
 
-We can simulate the effects of client count on the performance of our **adaptive** and **circuit breaker** strategies. Here, we've got the same total number of requests divided among 10, 100, and 1000 clients:
+我们可以模拟出在自适应和熔断器策略下客户端数量的影响。在这里，我们会在 10，100 和 1000 台客户端之间分配相同总数的请求。
 
-![Graph of failure rates and loads for different numbers of clients](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results_clients.png)
+![不同客户端数量下失败率和负载的图片](https://mbrooker-blog-images.s3.amazonaws.com/retry_simulation_results_clients.png)
 
-What's interesting here is that the two approaches have the opposite behavior. The **circuit breaker** strategy is tripping too early, and approaching the performance of the **no retries** approach. The **token bucket** strategy (starting with a full bucket) doesn't deplete its bucket fast enough, converging on the behavior of **n retries**. Clearly, neither does a perfect job of solving the retry problem with limited per-client knowledge. A model with state shared between clients would change these results, but also significantly increase the complexity of the system (because clients would need to discover and talk to each other).
+有趣的是这两种方式有着截然相反的表现。**熔断器**策略会早早分叉，并接近**不重试**方法的表现。**令牌桶**策略（从有一个完整的桶开始）没有足够快地耗尽它的桶，接近 **n 次重试**的曲线。显然，在每个客户端所知有限的情况下解决重试问题是不完美的。在客户端之间共享状态的模型会改变这些结果。也会明显的增长系统的复杂度（因为客户端需要彼此发现并交流）。
 
-**Which one is better?**
+**哪一个更好？**
 
-Choosing the right retry strategy depends on what we want to achieve. The ideal is to have a solution with no additional load and 100% success rate no matter the service failure rate. That's clearly unachievable for a simple reason: clients don't have any way to know which requests will succeed. The only mechanism they have is trying.
+选择正确的重试策略取决于我们想要实现的目标。理想的解决方案是无论服务失败率是多少，都不增加额外的负担并且达到成功率 100 %。但这显然是无法实现的，原因很简单：客户端无法知道哪些请求会成功，它们唯一的机制就是不断重试。
 
-Short of that ideal, what can we have? What most applications want is to have a high success rate when the server failure rate is low, and not too much additional load. **No retries** fails on the first criterion, and **N retries** fails on the second. Both the **adaptive** and **circuit breaker** strategies succeed to different extents. The circuit breaker approach gives no additional load at high failure rates, which is great. But it suffers from some modality (it's either retrying or not retrying, and might switch back and forth between the two). The **adaptive** strategy isn't modal in the same way, and seems to perform better at lower failure rates, but does give some (tunable) additional load at higher rates.
+除了这样的理想方案，我们能做到什么？大多数应用程序想要的是在服务器失败率较低的情况下具有较高的成功率，而不是过多的额外负载。不重试达不到第一条标准，n 次重试达不到第二条标准。自适应和熔断策略在不同程度上达标。熔断器可以做到在高失败率时不增加额外的负担，但它受到某种形式的影响（它要么重试，要么不重试，并且可能在两者之间来回切换）。自适应策略不是同一种模式，它在低失败率下表现的更好，但是在失败率高的时候会增加额外的（可调节的）负担。
 
-**Footnotes**
+**脚注**
 
-1. In other words, each client presents independent Poisson-process arrivals, and keeps its own retry state. The Poisson model here isn't entirely accurate, but doesn't matter because we're not (yet) modelling overload or concurrency.
+1. 换句话说，每个客户端呈现独立的泊松过程，并且保持它自己的重试状态，这里泊松模型不是非常准确，但也没有关系，因为我们（还）没有对于高负载或者并发情况进行建模。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
