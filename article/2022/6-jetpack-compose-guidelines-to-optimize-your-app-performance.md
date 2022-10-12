@@ -11,7 +11,7 @@
 
 自从 Google 发布了 [Jetpack Compose stable 1.0](https://android-developers.googleblog.com/2021/07/jetpack-compose-announcement.html), 很多公司开始在他们的项目中使用 Jetpack Compose. 如 [Google’s What developers are saying](https://developer.android.com/jetpack/compose/adopt#what-developers-are-saying) 所说, Jetpack Compose 提高了他们的生产效率和代码质量。
 
-虽然Jetpack Compose 有一个专门的优化系统，但是理解 Jetpack Compose 的渲染机制对于正确提高你 app 的性能至关重要。
+虽然 Jetpack Compose 有一个专门的优化系统，但是理解 Jetpack Compose 的渲染机制对于正确提高你 app 的性能至关重要。
 
 在本文中，你将了解 Jetpack Compose 的整体渲染过程，以及如何按照 [Stream](https://getstream.io/) 的 Compose 团队制定的 Jetpack Compose 指南优化你的 app 性能。
 
