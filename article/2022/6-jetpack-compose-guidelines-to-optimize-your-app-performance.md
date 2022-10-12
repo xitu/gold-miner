@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/6-jetpack-compose-guidelines-to-optimize-your-app-performance.md](https://github.com/xitu/gold-miner/blob/master/article/2022/6-jetpack-compose-guidelines-to-optimize-your-app-performance.md)
 > * 译者：[Quincy-Ye](https://github.com/Quincy-Ye)
-> * 校对者：
+> * 校对者：[gs666](https://github.com/gs666) [timerring](https://github.com/timerring)
 
 # 6 条 Jetpack Compose 使用指南助你优化 App 性能
 
