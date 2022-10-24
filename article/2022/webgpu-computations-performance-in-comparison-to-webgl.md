@@ -7,13 +7,13 @@
 
 # WebGPU 与 WebGL 的计算性能差异
 
-WebGPU - WebGL 的替代者，一个在浏览器中调用 GPUs 的全新 API。WebGPU 将在 2022 第一季度的常规 Chrome 中可用。与 WebGl 相比，WebGPU 有着更好的性能以及与现代硬件有着更好的兼容性，WebGPU 最显著的特性是一个在 GPU 中执行计算的特殊 API。
+WebGPU - WebGL 的替代者，一个在浏览器中调用 GPUs 的全新 API。WebGPU 将在 2022 第一季度的常规 Chrome 中可用。与 WebGL 相比，WebGPU 有着更好的性能以及与现代硬件有着更好的兼容性，WebGPU 最显著的特性是一个在 GPU 中执行计算的特殊 API。
 
 [![Matrices multiplication WebGPU vs WebGL](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)
 
 ## WebGL 没有相同的特性吗？
 
-是也不是。WebGL 没有用于计算的特殊 API，但有一种取巧的方式让它变得可能。将数据转换为一张图像。图像作为一个纹理上传到 GPU，随着像素着色器实际计算过程中，纹理进行同步渲染。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步读取，将颜色代码转换回你的数据。看起来效率很低，是不？
+是也不是。WebGL 没有用于计算的特殊 API，但有一种使之成为可能的技巧。就是将数据转换为一张图像。图像作为一个纹理上传到 GPU，随着像素着色器实际计算过程中，纹理进行同步渲染。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步读取，将颜色代码转换回你的数据。看起来效率很低，对吧？
 
 [![WebGL computation pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)
 
@@ -31,7 +31,7 @@ WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略�
 4. 我们无需做昂贵的、同步的 getPixelsData 操作
 5. 我们无需花费时间在像素转换回值数据上
 
-所以 WebGPU 承诺我们可以无需阻塞主线程进行更快的计算，但，能快多少呢？
+所以 WebGPU 可以让我们无需阻塞主线程进行更快的计算，但，能快多少呢？
 
 ## 我们如何做基准测试呢？
 
@@ -59,7 +59,7 @@ WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略�
 
 ## 结论
 
-实验证明，WebGPU 计算着色器比使用像素着色器的 WebGL 计算速度快3.5倍，同时在处理大量数据量方面有明显更高的限制，并且它不会阻塞主线程。这允许在浏览器中执行新类型任务：视频与音频编辑，实时物理模拟器，以及更逼真的视觉效果，机器学习。这是可以从 WebGPU 中得到益处的不完整的任务列表，我们可以期待新一代应用的出现，以及在 Web 上可能做的事情的边界显著扩展。
+实验证明，WebGPU 计算着色器比使用像素着色器的 WebGL 计算速度快 3.5 倍，同时在处理大量数据量方面有明显更高的限制，并且它不会阻塞主线程。这允许在浏览器中执行新类型任务：视频与音频编辑，实时物理模拟器，以及更逼真的视觉效果，机器学习。这是可以从 WebGPU 中得到益处的不完整的任务列表，我们可以期待新一代应用的出现，以及在 Web 上可能做的事情的边界显著扩展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
