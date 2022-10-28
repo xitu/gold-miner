@@ -92,7 +92,6 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 
 * 你是否测试过你的应用程序/服务在遇到故障时的行为？ 如果没有，请一定测试！ 使用 Redis 的MemoryDB和ElastiCache，你可以利用 [Failover API](https://docs.aws.amazon.com/memorydb/latest/devguide/autofailover.html#auto-failover-test) 模拟主节点故障 并触发故障转移。
 * 你有副本节点吗？ 如果你只有一个带有单个主节点的分片，而该节点发生故障，你肯定会停机。
-
 * 你有多个分片吗？ 如果你只有一个分片（主分片和副本分片），则在该分片的主节点故障的情况下，集群将无法接受任何写入。
 * 你的分片是否跨越多个可用区？ 如果你有跨多个 AZ 的分片，你将更好地应对 AZ 故障。
 
