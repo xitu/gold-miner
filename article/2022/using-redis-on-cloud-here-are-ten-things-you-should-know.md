@@ -5,17 +5,17 @@
 > * 译者：[timerring](https://github.com/timerring)
 > * 校对者：
 
-# 云上使用 Redis？你应该知道这十件事
+# 在云端使用 Redis？你应该知道这十件事
 
 ![Photo by [Ian Battaglia](https://unsplash.com/@ianjbattaglia?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/5936/0*lgkpH3OZWmszU6L4)
 
 大规模操作有状态的分布式系统通常是很难的，Redis 也不例外。 尽管托管数据库通过承担大部分的繁杂工作使生活变得更加轻松。 但是你仍然需要一个完善的架构使它在服务器（Redis）和客户端（application）上得到最佳的应用实践。
 
-本文主要讲一系列与 Redis 相关的最佳实践、提示和技巧，包括集群可扩展性、客户端配置、集成、指标等。虽然我时常会引用Redis的 [Amazon MemoryDB](https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb-for-redis.html) 和 [ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html), 但是大多数（可能不是全部）通常适用于 Redis 集群。
+本篇博客涵盖了一系列与 Redis 相关的最佳实践、提示和技巧，包括集群可扩展性、客户端配置、集成、指标等。虽然我在下文将时不时引用 Redis 的 [Amazon MemoryDB](https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb-for-redis.html) 和 [ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html)，但是大部分（可能不是全部）通常适用于 Redis 集群。
 
-> **这并不是一个详尽的清单。 我只是选择了 10 条，因为10是一个完美有益的数字！**
+> **这并不是一个详尽的清单。 我只是选择了 10 条，因为 10 是一个完美有益的数字！**
 
-让我们深入了解一下在扩展 Redis 集群方面你有哪些选择。
+让我们深入了解并从扩展 Redis 集群有哪些选择方面开始说起。
 
 ## 1. 可扩展性选项
 
@@ -59,7 +59,7 @@ client := redis.NewClusterClient(
 
 你的应用程序有可能从副本中读取过时的数据——这就是**一致性**的作用。 由于主节点到副本节点的复制是**异步的**，因此你发送到主节点的写入可能还没有反映在只读副本中。 当你有大量只读副本，特别是当跨多个可用区时，很可能会出现这种情况。 如果这对于你的实例来说是不可接受的，那么你讲不得不求助于使用主节点进行读取。
 
-MemoryDB 或 ElastiCache for Redis 中的 [ReplicationLag 指标](https://docs.aws.amazon.com/memorydb/latest/devguide/metrics.memorydb.html) 可用于检查副本落后多远（以秒为单位） 正在应用来自主节点的更改。
+MemoryDB 或 ElastiCache for Redis 中的 [ReplicationLag 指标](https://docs.aws.amazon.com/memorydb/latest/devguide/metrics.memorydb.html) 可用于副本的变化相对于主节点发生变化的延迟（以秒为单位）。
 
 如果是强一致性呢？
 
@@ -90,7 +90,7 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 
 面对现实吧，失败是不可避免的。 重要的是你是否已经为之做好准备？ 对于你的 Redis 集群，需要考虑以下几点：
 
-* 你是否测试过你的应用程序/服务在遇到故障时的行为？ 如果没有，请一定测试！ 使用 Redis 的MemoryDB和ElastiCache，你可以利用 [Failover API](https://docs.aws.amazon.com/memorydb/latest/devguide/autofailover.html#auto-failover-test) 模拟主节点故障 并触发故障转移。
+* 你是否测试过你的应用程序/服务在遇到故障时的行为？ 如果没有，请一定测试！ 使用 Redis 的MemoryDB和ElastiCache，你可以利用 [Failover API](https://docs.aws.amazon.com/memorydb/latest/devguide/autofailover.html#auto-failover-test) 模拟主节点故障并触发故障转移。
 * 你有副本节点吗？ 如果你只有一个带有单个主节点的分片，而该节点发生故障，你肯定会停机。
 * 你有多个分片吗？ 如果你只有一个分片（主分片和副本分片），则在该分片的主节点故障的情况下，集群将无法接受任何写入。
 * 你的分片是否跨越多个可用区？ 如果你有跨多个 AZ 的分片，你将更好地应对 AZ 故障。
@@ -101,11 +101,11 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 
 > **简单地说: 可能是网络/安全配置的问题**
 
-这是一直困扰人们的事情！使用 `MemoryDB` 和 `ElastiCache`, 你的 [Redis 节点位于 VPC 中](https://docs.aws.amazon.com/memorydb/latest/devguide/vpcs.html). 如果你将客户端应用程序部署到例如 [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html), [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html), [ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html), [App Runner](https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html) 等计算服务上, 你需要确保你拥有正确的配置——特别是在 VPC 和安全组方面。
+这是一直困扰人们的事情！使用 `MemoryDB` 和 `ElastiCache`, 你的 [Redis 节点位于 VPC 中](https://docs.aws.amazon.com/memorydb/latest/devguide/vpcs.html). 如果你将客户端应用程序部署到例如 [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html), [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html), [ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html), [App Runner](https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html) 等计算服务上, 你需要确保你拥有正确的配置 —— 特别是在 VPC 和安全组方面。
 
 当然这可能因你使用的计算平台而异。例如, [配置 Lambda 函数以访问 VPC 中的资源](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html) 与 App Runner（通过[VPC 连接器](https://docs.aws.amazon.com/apprunner/latest/dg/network-vpc.html)），或者 EKS（尽管从概念上讲，它们是相同的）的做法略有不同。
 
-## 8. Redis 6 带有访问控制列表——善于使用它!
+## 8. Redis 6 带有访问控制列表 —— 使用它!
 
 要对 Redis 集群应用身份验证（用户名/密码）和授权（基于 ACL 的权限）。`MemoryDB` 符合 Redis 6 并且[支持 ACL](https://docs.aws.amazon.com/memorydb/latest/devguide/clusters.acls.html)。 但是，为了符合旧的 Redis 版本，它为每个帐户配置一个 **default** 用户（使用默认用户名）和一个名为 `open-access` 的不可变 ACL。 如果你创建一个 `MemoryDB` 集群并将其与此 ACL 关联:
 
@@ -118,7 +118,7 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 * 添加用户（连同密码）
 * 根据你的安全要求配置访问字符串。
 
-你应该监控身份验证失败。 例如，MemoryDB 中的 [AuthenticationFailures](https://docs.aws.amazon.com/memorydb/latest/devguide/metrics.memorydb.html) 指标为你提供失败的身份验证尝试总数——可以设置警报来检测未经授权的访问尝试。
+你应该监控身份验证失败。 例如，MemoryDB 中的 [AuthenticationFailures](https://docs.aws.amazon.com/memorydb/latest/devguide/metrics.memorydb.html) 指标为你提供失败的身份验证尝试总数 —— 可以设置警报来检测未经授权的访问尝试。
 
 不要忘记周边安全。
 
