@@ -15,7 +15,7 @@
 
 > **这并不是一个详尽的清单。 我只是选择了 10 条，因为 10 是一个完美有益的数字！**
 
-让我们深入了解并从扩展 Redis 集群有哪些选择方面开始说起。
+让我们深入了解一下从扩展 Redis 集群有哪些选择。
 
 ## 1. 可扩展性选项
 
@@ -28,7 +28,7 @@
 
 如果你需要处理**读取繁重的**工作负载，你可以选择添加更多副本节点。 这适用于 Redis 集群设置（如`MemoryDB`）或非集群主副本模式，例如[禁用集群模式的 ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Replication.Redis-RedisCluster.html)。
 
-如果你想增加 **写入** 的容量，你会发现自己受到主副本模式的限制，并且应该选择基于 Redis 集群的设置。 你可以增加集群中的分片数量——这是因为只有主节点可以接受写入，并且每个分片只能有一个主节点。
+如果你想增加 **写入** 的容量，你会发现自己受到主副本模式的限制，并且应该选择基于 Redis 集群的设置。 你可以增加集群中的分片数量 —— 这是因为只有主节点可以接受写入，并且每个分片只能有一个主节点。
 
 > **这还具有增加整体的高可用性的好处。**
 
@@ -40,7 +40,7 @@
 
 为了确保处理所有读取请求的副本不只是被动参与者，你需要切换到 [READONLY](https://redis.io/commands/readonly/) 模式。 确保正确配置你的 Redis 客户端——这将因客户端和编程语言而异。
 
-例如，在[Go Redis客户端](https://github.com/go-redis/redis)中，可以将`ReadOnly`设置为`true`：
+例如，在[Go Redis 客户端](https://github.com/go-redis/redis)中，可以将`ReadOnly`设置为`true`：
 
 ```
 client := redis.NewClusterClient(
@@ -73,7 +73,7 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 
 ## 5. 是否考虑过缩减规模？
 
-想象这样一个场景，你的应用很成功，它有很多的用户和巨大流量. 你扩展了集群并且事情进展顺利。 棒极了！
+想象这样一个场景，你的应用很成功，有很多的用户和巨大流量。你扩展了集群并且所有事情进展都很顺利。 棒极了！
 
 但是，如果你需要缩减规模怎么办？
 
@@ -90,14 +90,14 @@ Redis 没有使用一致性哈希（像许多其他分布式数据库一样）�
 
 面对现实吧，失败是不可避免的。 重要的是你是否已经为之做好准备？ 对于你的 Redis 集群，需要考虑以下几点：
 
-* 你是否测试过你的应用程序/服务在遇到故障时的行为？ 如果没有，请一定测试！ 使用 Redis 的MemoryDB和ElastiCache，你可以利用 [Failover API](https://docs.aws.amazon.com/memorydb/latest/devguide/autofailover.html#auto-failover-test) 模拟主节点故障并触发故障转移。
+* 你是否测试过你的应用程序/服务在遇到故障时的行为？ 如果没有，请一定要测试！ 使用 Redis 的MemoryDB和ElastiCache，你可以利用 [Failover API](https://docs.aws.amazon.com/memorydb/latest/devguide/autofailover.html#auto-failover-test) 模拟主节点故障并触发故障转移。
 * 你有副本节点吗？ 如果你只有一个带有单个主节点的分片，而该节点发生故障，你肯定会停机。
 * 你有多个分片吗？ 如果你只有一个分片（主分片和副本分片），则在该分片的主节点故障的情况下，集群将无法接受任何写入。
 * 你的分片是否跨越多个可用区？ 如果你有跨多个 AZ 的分片，你将更好地应对 AZ 故障。
 
 > **在所有情况下，`MemoryDB` 都将确保在节点替换或故障转移期间不会丢失数据**
 
-## 7. 无法连接到 Redis，求助！
+## 7. 无法连接到 Redis，怎么办？
 
 > **简单地说: 可能是网络/安全配置的问题**
 
