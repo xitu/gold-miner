@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/using-redis-on-cloud-here-are-ten-things-you-should-know.md](https://github.com/xitu/gold-miner/blob/master/article/2022/using-redis-on-cloud-here-are-ten-things-you-should-know.md)
 > * 译者：[timerring](https://github.com/timerring)
-> * 校对者：
+> * 校对者：[CompetitiveLin](https://github.com/CompetitiveLin)  [Quincy-Ye](https://github.com/Quincy-Ye)
 
 # 在云端使用 Redis？你应该知道这十件事
 
