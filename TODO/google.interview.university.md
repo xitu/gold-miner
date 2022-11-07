@@ -454,6 +454,7 @@
         - [ ] [哈希表的语言支持（视频）](https://www.lynda.com/Developer-Programming-Foundations-tutorials/Language-support-hash-tables/149042/177129-4.html)
         - [ ] [基本哈希表（视频）](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/m7UuP/core-hash-tables)
         - [ ] [数据结构（视频）](https://www.coursera.org/learn/data-structures/home/week/3)
+        - [ ] [学习数据结构](https://www.scaler.com/topics/data-structures/)
         - [ ] [电话薄问题（Phone Book Problem）（视频）](https://www.coursera.org/learn/data-structures/lecture/NYZZP/phone-book-problem)
         - [ ] 分布式哈希表：
             - [Dropbox 中的瞬时上传及存储优化（视频）](https://www.coursera.org/learn/data-structures/lecture/DvaIb/instant-uploads-and-storage-optimization-in-dropbox)
