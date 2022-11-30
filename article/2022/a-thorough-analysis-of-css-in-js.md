@@ -2,159 +2,157 @@
 > * 原文作者：[Andrei Pfeiffer](https://css-tricks.com/author/andreipfeiffer/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/a-thorough-analysis-of-css-in-js.md](https://github.com/xitu/gold-miner/blob/master/article/2022/a-thorough-analysis-of-css-in-js.md)
-> * 译者：
+> * 译者：[tong-h](https://github.com/Tong-H)
 > * 校对者：
 
-# A Thorough Analysis of CSS-in-JS
+# 全面刨析 CSS-in-JS
 
-DigitalOcean provides cloud products for every stage of your journey. Get started with [$200 in free credit!](https://try.digitalocean.com/css-tricks/?utm_medium=content_acq&utm_source=css-tricks&utm_campaign=global_brand_ad_en&utm_content=conversion_prearticle_everystage)
+比选择一个 JavaScript 框架更有挑战的是什么呢？你猜对了：选择一个 CSS-in-JS 方案。为什么？因为现在已经有 [50 个以上的库](http://michelebertoli.github.io/css-in-js/)，而且每个库都有独一无二的特色。
 
-Wondering what’s even more challenging than choosing a JavaScript framework? You guessed it: choosing a CSS-in-JS solution. Why? Because there are more than [50 libraries](http://michelebertoli.github.io/css-in-js/) out there, each of them offering a unique set of features.
+我们测试了 [10 个不同的库](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview)（排列没有特定的顺序）：[Styled JSX](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-jsx)，[styled-components](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-components)，[Emotion](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#emotion)，[Treat](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)，[TypeStyle](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#typestyle)，[Fela](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela)，[Stitches](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stitches)，[JSS](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#jss)，[Goober](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#goober)，以及 [Compiled](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#compiled)。我们发现，尽管每一个库都提供了一系列不同的功能，但事实上很多功能和其他的库是一样的。
 
-We tested [10 different libraries](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview), which are listed here in no particular order: [Styled JSX](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-jsx), [styled-components](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-components), [Emotion](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#emotion), [Treat](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat), [TypeStyle](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#typestyle), [Fela](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela), [Stitches](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stitches), [JSS](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#jss), [Goober](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#goober), and [Compiled](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#compiled). We found that, although each library provides a diverse set of features, many of those features are actually commonly shared between most other libraries.
+所以比起单独评估每一个库，我们会分析最突出的功能。这可以帮助我们更好的理解，在特定的使用场景下哪一个库最适合。
 
-So instead of reviewing each library individually, we’ll analyse the features that stand out the most. This will help us to better understand which one fits best for a specific use case.
+**注意**：在这篇文章里，我们假定你已经熟悉 CSS-in-JS 了。如果你想寻找一篇更基础的文章，可以看下 [CSS-in-JS 简介](https://webdesign.tutsplus.com/articles/an-introduction-to-css-in-js-examples-pros-and-cons--cms-33574)
 
-**Note**: We assume that if you’re here, you’re already familiar with CSS-in-JS. If you’re looking for a more elementary post, you can check out [“An Introduction to CSS-in-JS.”](https://webdesign.tutsplus.com/articles/an-introduction-to-css-in-js-examples-pros-and-cons--cms-33574)
+## 常见的 CSS-in-JS 功能
 
-## Common CSS-in-JS features
-
-Most actively maintained libraries that tackle CSS-in-JS support all the following features, so we can consider them de-facto.
+大多数积极维护的 CSS-in-JS 库都支持以下功能，所以我们可以把这些功能视为事实。
 
 ### Scoped CSS
 
-All CSS-in-JS libraries generate unique CSS class names, a technique pioneered by **CSS modules**. All styles are scoped to their respective component, providing encapsulation without affecting any styling defined outside the component.
+**CSS 模块**开创的一项技术，所有的 CSS-in-JS 库都会生成独一无二的 CSS class 名。在不影响其他定义于组件之外的样式的情况下的组件样式封装，使其样式只作用于各自的组件。
 
-With this feature built-in, we never have to worry about CSS class name collisions, specificity wars, or wasted time spent coming up with unique class names across the entire codebase.
+有了这个内建功能，我们再也不用担心 CSS 类名重名，特性冲突，或者为了想一个整个代码库中独特的类名而耗费时间。
 
-This feature is invaluable for component-based development.
+这个功能对基于组件的开发非常宝贵。
 
-### SSR (Server-Side Rendering)
+### SSR (服务端渲染)
 
-When considering Single Page Apps (SPAs) — where the HTTP server only delivers an initial empty HTML page and all rendering is performed in the browser — Server-Side Rendering (SSR) might not be very useful. However, any website or application that needs to be **parsed and indexed by search engines** must have SSR pages and styles need to be generated on the server as well.
+在单页面应用（SPAs）里，HTTP 服务只提供基础的空白 HTML 页面，所有的渲染都由浏览器执行。相比之下，在服务端渲染可能不是很有用。但任何需要被搜索引擎**解析和索引**的网站或应用都必须有 SSR 页面，而样式也需要在服务端生成。
 
-The same principle applies to Static Site Generators (SSG), where pages along with any CSS code are pre-generated as static HTML files at build time.
+与适用于静态网站生成器（SSG）的原则一样，页面会与CSS代码在打包时一起预先生成，用作静态 HTML 文件。
 
-The good news is that **all libraries we’ve tested support SSR**, making them eligible for basically any type of project.
+好消息是**我们测试过的所有库都支持 SSR**，这使得它们几乎适用于所有类型的项目。
 
-### Automatic vendor prefixes
+### 自动添加浏览器引擎前缀
 
-Because of the complex [CSS standardization process](https://www.youtube.com/watch?v=TQ7NqpFMbFs), it might take years for any new CSS feature to become available in all popular browsers. One approach aimed at providing early access to experimental features is to ship non-standard CSS syntax under a [vendor prefix](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix):
+由于复杂的 [CSS 标准化流程](https://www.youtube.com/watch?v=TQ7NqpFMbFs)，新的 CSS 功能可能需要几年时间才能在所有流行的浏览器中使用。在非标准的 CSS 语法前添加[浏览器引擎前缀](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)是一种使我们提前使用实验性功能的方法：
 
 ```css
-/* WebKit browsers: Chrome, Safari, most iOS browsers, etc */
+/* WebKit 浏览器：Chrome, Safari, most iOS browsers, 等等 */
 -webkit-transition: all 1s ease;
 
 /* Firefox */
 -moz-transition: all 1s ease;
 
-/* Internet Explorer and Microsoft Edge */
+/* Internet Explorer 和 Microsoft Edge */
 -ms-transition: all 1s ease;
 
-/* old pre-WebKit versions of Opera */
+/* Opera 的旧 pre-WebKit 版本 */
 -o-transition: all 1s ease;
 
-/* standard */
+/* 标准格式 */
 transition: all 1s ease; 
 ```
 
-However, it turns out that [vendor prefixes are problematic](https://css-tricks.com/is-vendor-prefixing-dead/) and the CSS Working Group intends to stop using them in the future. If we want to fully support older browsers that don’t implement the standard specification, we’ll need to know [which features require a vendor prefix](http://shouldiprefix.com/).
+然而，[添加浏览器引擎前缀这种方式仍然是问题重重](https://css-tricks.com/is-vendor-prefixing-dead/)，CSS 工作组打算在未来停止使用这种方式。如果我们想要完全支持那些没有实施标准规范的旧浏览器，那我们需要知道[哪些功能要求添加浏览器引擎前缀](http://shouldiprefix.com/)。
 
-Fortunately, there are tools that allow us to use the standard syntax in our source code, generating the required vendor prefixed CSS properties automatically. **All CSS-in-JS libraries also provide this feature out-of-the-box.**
+幸运的是，有一些工具通过自动生成携带浏览器引擎前缀的 CSS 属性，让我们可以在源代码中使用标准语法。**所有的 CSS-in-JS 库都提供该功能，开箱即用**。
 
-### No inline styles
+### 没有内联样式
 
-There are some CSS-in-JS libraries, like Radium or Glamor, that output all style definitions as inline styles. This technique has a huge limitation, because it’s impossible to define pseudo classes, pseudo-elements, or media queries using inline styles. So, these libraries had to hack these features by adding DOM event listeners and triggering style updates from JavaScript,  essentially reinventing native CSS features like `:hover`, `:focus` and many more.
+一些 CSS-in-JS 库，比如Radium 或 Glamor，将所有样式的定义以内联样式的方式输出。这种技术有巨大的局限性，因为无法通过内联样式来定义伪类、伪元素或者媒体查询。所以，这些库不得不通过添加 DOM 事件监听以及从 JavaScript 中触发样式更新的方式来处理这些功能，基本上是重新创建类似 `:hover`、 `:focus` 之类的原生 CSS 功能。
 
-It’s also generally accepted that inline styles are [less performant](https://esbench.com/bench/5908f78199634800a0347e94) than class names. It’s usually a [discouraged practice](https://reactjs.org/docs/dom-elements.html#style) to use them as a primary approach for styling components.
+这也是一个普遍的认知，内联样式比 class [性能更差](https://esbench.com/bench/5908f78199634800a0347e94)。使用内联样式作为主要的方式为组件定义样式，这通常是[不鼓励的做法](https://reactjs.org/docs/dom-elements.html#style) .
 
-**All current CSS-in-JS libraries have stepped away from using inline styles**, adopting CSS class names to apply style definitions.
+**目前所有的 CSS-in-JS 库都不再使用内联样式**，而是采用 CSS class 的方式来定义样式。
 
-### Full CSS support
+### 全面的 CSS 支持
 
-A consequence of using CSS classes instead of inline styles is that there’s no limitation regarding what [CSS properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) we can and can’t use. During our analysis we were specifically interested in:
+使用 CSS class 而不是内联样式的结果是，关于 [CSS 属性](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) 的使用没有限制。在分析期间，我们主要感兴趣的是：
 
-* pseudo classes and elements;
-* media queries;
-* keyframe animations.
+* 伪类和伪元素
+* 媒体查询
+* CSS 动画
 
-**All the libraries we’ve analyzed offer full support for all CSS properties.**
+*我们解析过的所有库都全面支持所有的 CSS 属性。**
 
-## Differentiating features
+## 差异化的功能
 
-This is where it gets even more interesting. Almost every library offers a unique set of features that can highly influence our decision when choosing the appropriate solution for a particular project. Some libraries pioneered a specific feature, while others chose to borrow or even improve certain features.
+这就是变得更有趣的地方。几乎每个库都提供了一套独具特色的功能，在为特定项目选择合适的解决方案时，这些功能会大大的影响我们的决定。一些库开创了一个特别的功能，而其他库可以选择借用甚至改进某些功能。
 
-### React-specific or framework-agnostic?
+### 特定于 React 还是与框架无关？
 
-It’s not a secret that CSS-in-JS is more prevalent within the React ecosystem. That’s why some libraries are **specifically built for React**: [**Styled JSX**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-jsx), [**styled-components**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-components), and [**Stitches**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stitches).
+CSS-in-JS 在 React 生态圈中更流行，这并不是秘密。 这也是为什么有些库是 **特别为 React 构建**：[**Styled JSX**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-jsx)，[**styled-components**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-components)，以及 [**Stitches**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stitches)。
 
-However, there are plenty of libraries that are **framework-agnostic**, making them applicable to any project: [**Emotion**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#emotion), [**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat), [**TypeStyle**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#typestyle), [**Fela**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela), [**JSS**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#jss) or [**Goober**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#goober).
+但也有很多库是 **无关框架的**，这使得它们可以应用于所有项目： [**Emotion**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#emotion)，[**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)，[**TypeStyle**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#typestyle)，[**Fela**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela)，[**JSS**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#jss) 或 [**Goober**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#goober)。
 
-If we need to support vanilla JavaScript code or frameworks other than React, the decision is simple: we should choose a framework-agnostic library. But when dealing with a React application, we have a much wider range of options which ultimately makes the decision more difficult. So let’s explore other criteria.
+如果我们需要支持原生 JavaScript 代码或者其他非 React 的框架，那决定就很简单：我们应该选择一个无关框架的库。但针对 React 应用，我们有更广泛的选择，那做决定就比较困难了。那就让我们来探索一下其他标准吧。
 
 ### Styles/Component co-location
 
-The ability to define styles along with their components is a very convenient feature, removing the need to switch back-and-forth between two different files: the `.css` or `.less`/`.scss` file containing the styles and the component file containing the markup and behavior.
+跟随组件定义样式是非常便利的功能，这样就不需要在两个不同的文件中反复切换：包含样式的 `.css` 或 `.less` / `.scss` 文件，与包含指令和行为的组件文件。
 
-[React Native StyleSheets](https://reactnative.dev/docs/stylesheet), [Vue.js SFCs](https://vuejs.org/v2/guide/single-file-components.html), or [Angular Components](https://angular.io/guide/component-styles) support co-location of styles by default, which proves to be a real benefit during both the development and the maintenance phases. We always have the option to extract the styles into a separate file, in case we feel that they’re obscuring the rest of the code.
+[React Native StyleSheets](https://reactnative.dev/docs/stylesheet)，[Vue.js SFCs](https://vuejs.org/v2/guide/single-file-components.html)，或者 [Angular Components](https://angular.io/guide/component-styles) 默认支持样式的共同定位，不论是开发还是维护阶段都能真正从中受益。我们依然可以选择将样式提取到一个单独的文件中，以防我们觉得它们掩盖了代码的其他部分。
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/05/aKsPahlPZ8qr6R8aVCancNsC_LOuKlcpBo-Ys44a1ya3QDvoLabbiBTYf36xX90hAfgMxgvBjMxxuBgIGnzH-_NId-71NfK7hh-ZFBJizZF6l3A4sLgb2vyYKgwnod86YBoLsE4.png?resize=800%2C589&ssl=1)
 
-Almost all CSS-in-JS libraries support co-location of styles. The only exception we encountered was [**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat), which requires us to define the styles in a separate `.treat.ts` file, similarly to how CSS Modules work.
+几乎所有的 CSS-in-JS 库都支持样式的共同定位。我们遇到的唯一一个例外是 [**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)，类似于 CSS Modules 的工作原理，它要求我们在一个单独的 `.treat.ts` 文件中定义样式。
 
-### Styles definition syntax
+### 样式定义的语法
 
-There are two different methods we can use to define our styles. Some libraries support only one method, while others are quite flexible and support both of them.
+我们可以用两种不同的方式来定义我们的样式。有些库只支持一种方法，而有些库则相当灵活，同时支持这两种方法。
 
-#### Tagged Templates syntax
+#### 标签模板语法
 
-The **Tagged Templates** syntax allows us to define styles as a string of plain CSS code inside a standard [ES Template Literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals):
+**标签模板**语法让我们可以将样式定义为标准 [ES 模板字面量](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)内的一串普通 CSS 代码。
 
 ```js
-// consider "css" being the API of a generic CSS-in-JS library
+// 将 "css " 视作一个通用的 CSS-in-JS 库的 API
 const heading = css`
   font-size: 2em;
   color: ${myTheme.color};
 `;
 ```
 
-We can see that:
+我们可以发现：
 
-* CSS properties are written in kebab case just like regular CSS;
-* JavaScript values can be interpolated;
-* we can easily migrate existing CSS code without rewriting it.
+* CSS 属性就像普通的 CSS 一样用 kebab-case （短横线命名）编写。
+* 可以对 JavaScript 值进行插值替换。
+* 我们可以很容易地迁移现有的CSS代码，而不需要重写它。
 
-Some things to keep in mind:
+需要记住：
 
-* In order to get **syntax highlight** and **code suggestions,** an additional editor plugin is required; but this plugin is usually available for popular editors like VSCode, WebStorm, and others.
-* Since the final code must be eventually executed in JavaScript, the style definitions need to be **parsed and converted to JavaScript code**. This can be done either at runtime, or at build time, incurring a small overhead in bundle size, or computation.
+* 为了获得**语法高亮和**代码提示**，还需要一个额外的编辑器插件。这个插件通常可用于流行的编辑器，如VSCode、WebStorm 等等。
+* 由于最终的代码必须由 JavaScript 执行，所以样式定义需要被**解析并转换为 JavaScript 代码**。运行时或者构建时都可以完成，这会在包大小或计算上产生少量的开销。
 
-#### Object Styles syntax
+#### 样式对象语法
 
-The **Object Styles** syntax allows us to define styles as regular JavaScript Objects:
+**样式对象** 语法使我们可以像定义普通 JavaScript 对象一样定义样式：
 
 ```js
-// consider "css" being the API of a generic CSS-in-JS library
+// 将 "css " 视作一个通用的 CSS-in-JS 库的 API
 const heading = css({
   fontSize: "2em",
   color: myTheme.color,
 });
 ```
 
-We can see that:
+我们可以发现：
 
-* CSS properties are written in camelCase and string values must be wrapped in quotes;
-* JavaScript values can be referenced as expected;
-* it doesn’t feel like writing CSS, as instead we define **styles** using a slightly different syntax but with the same property names and values available in CSS (don’t feel intimidated by this, you’ll get used to it in no time);
-* migrating existing CSS would require a rewrite in this new syntax.
+* CSS属性用 camel-case （驼峰命令）书写，字符串值必须用引号包裹。
+* JavaScript 值可以像预期的那样被引用。
+* **样式**定义的语法有点差异，感觉好像不是在写 CSS，但又与CSS中的属性名和值相同（不要被这个吓到，你很快就会习惯的）。
+* 迁移现有的 CSS 需要用这种新的语法重写。
 
-Some things to keep in mind:
+需要记住：
 
-* **Syntax highlighting** comes out-of-the-box, because we’re actually writing JavaScript code.
-* To get **code completion**, the library must ship CSS types definitions, most of them extending the popular [CSSType](https://www.npmjs.com/package/csstype) package.
-* Since the styles are already written in JavaScript, there’s no additional parsing or conversion required.
+* **语法高亮** 是开箱即用的功能，因为我们实际上是在写 JavaScript 代码.
+* *为了**代码补全**功能，该库必须装载 CSS 类型定义，其中大部分是扩展了通用的类型包 [CSSType](https://www.npmjs.com/package/csstype)。
+* 因为样式已经是用 JavaScript 写好了，所以不需要额外的解析或转换。
 
-| Library | Tagged template | Object styles |
+| 库 | 标签模板 | 样式对象 |
 | --- | --- | --- |
 | styled-components | ✅ | ✅ |
 | Emotion | ✅ | ✅ |
@@ -167,68 +165,68 @@ Some things to keep in mind:
 | Stitches | ❌ | ✅ |
 | Styled JSX | ✅ | ❌ |
 
-> ✅  Full support         🟠  Requires plugin          ❌  Unsupported
+> ✅  全面支持         🟠  插件要求          ❌  不支持
 
-### Styles applying method
+### 样式应用方式
 
-Now that we know what options are available for style definition, let’s have a look at how to apply them to our components and elements.
+现在我们知道有哪些可用的样式定义选项，让我们看看如何将它们应用于我们的组件和元素。
 
-#### Using a class attribute / className prop
+#### 使用 class 属性 / className prop
 
-The easiest and most intuitive way to apply the styles is to simply attach them as classnames. Libraries that support this approach provide an API that returns a string which will output the generated unique classnames:
+最简单和最直观的应用样式的方式是将它们与 class 名关联。支持这种方法的库提供一个API，返回生成的唯一的 class 名。
 
 ```js
-// consider "css" being the API of a generic CSS-in-JS library
+// 将 "css " 视作一个通用的 CSS-in-JS 库的 API
 const heading_style = css({
   color: "blue"
 });
 ```
 
-Next, we can take the `heading_style`, which contains a string of generated CSS class names, and apply it to our HTML element:
+`heading_style` 包含一串自动生成的 CSS class 名，接下来我们可以把 `heading_style` 应用于我们的 HTML 元素。
 
 ```js
-// Vanilla DOM usage
+// 原生 DOM 使用方式
 const heading = `<h1 class="${heading_style}">Title</h1>`;
 
-// React-specific JSX usage
+// 特定于 React 的 JSX 使用方式
 function Heading() {
   return <h1 className={heading_style}>Title</h1>;
 }
 ```
 
-As we can see, this method pretty much resembles the traditional styling: first we define the styles, then we attach the styles where we need them. The learning curve is low for anyone who has written CSS before.
+正如我们所看到的，这种方法与传统的样式使用方法非常相似：首先我们定义样式，然后在我们需要的地方使用。这对于以前写过 CSS 的人来说，学习曲线很低。
 
-#### Using a `<Styled />` component
+#### 使用一个 `<Styled />` 组件
 
-Another popular method, that was first introduced by the [styled-components](https://styled-components.com/docs/basics#getting-started) library (and named after it), takes a different approach.
+另一种流行的方法是由 [styled-components](https://styled-components.com/docs/basics#getting-started) 库首先引入的（并以其命名），它采取了一种不同的方法。
 
 ```js
-// consider "styled" being the API for a generic CSS-in-JS library
+// 将 "styled " 视作一个通用的 CSS-in-JS 库的 API
 const Heading = styled("h1")({
   color: "blue"
 });
 ```
 
-Instead of defining the styles separately and attaching them to existing components or HTML elements, we use a special API by specifying what type of element we want to create and the styles we want to attach to it.
+比起单独定义样式并将它们添加到现有的组件或 HTML 元素上，我们倾向于通过指定要创建的元素类型和要添加的样式来使用一个特殊的 API。
 
-The API will **return a new component,** having classname(s) already applied, that we can render like any other component in our application. This basically removes the mapping between the component and its styles.
+这个 API 将 **返回一个已经应用了类名的新组件**，我们可以像渲染我们的应用程序中的其他组件一样进行渲染。这基本上就删除了组件和其样式之间的映射关系。
 
-#### Using the `css` prop
+#### 使用 `css` prop
 
-A newer method, popularised by [Emotion](https://emotion.sh/docs/css-prop), allows us to pass the styles to a special prop, usually named `css`. This API is available only for JSX-based syntax.
+一种较新的方法，由 [Emotion](https://emotion.sh/docs/css-prop) 推广，使我们可以将样式传递给一个特殊的 prop，通常名为 `css`。这个 API 只适用于基于 JSX 的语法。
 
 ```js
-// React-specific JSX syntax
+// 针对于 React JSX 语法
 function Heading() {
   return <h1 css={{ color: "blue" }}>Title</h1>;
 }
 ```
 
-This approach has a certain ergonomic benefit, because we don’t have to import and use any special API from the library itself. We can simply pass the styles to this `css` prop, similarly to how we would use inline styles.
+这种方法有一定的人性化优势，因为我们不需要从库导入和使用任何特殊的API。我们可以简单地将样式传递给这个 `css` prop，就像我们使用内联样式一样。
 
-Note that this custom `css` prop is not a standard HTML attribute, and needs to be enabled and supported via a separate Babel plugin provided by the library.
+请注意，这个自定义的 `css` prop 不是一个标准的 HTML 属性，需要通过库提供的单独的 Babel 插件来启用和支持。
 
-| Library | Tagged template | Object styles |
+| 库 | 标签模板 | 对象样式 |
 | --- | --- | --- |
 | styled-components | ✅ | ✅ |
 | Emotion | ✅ | ✅ |
@@ -240,10 +238,10 @@ Note that this custom `css` prop is not a standard HTML attribute, and needs to 
 | TypeStyle | ❌ | ✅ |
 | Stitches | ❌ | ✅ |
 | Styled JSX | ✅ | ❌ |
- 
-> ✅  Full support         🟠  Requires plugin          ❌  Unsupported
 
-| Library | `className` | `<Styled />` | `css` prop |
+> ✅  全面支持         🟠  插件要求          ❌  不支持
+
+| 库 | `className` | `<Styled />` | `css` prop |
 | --- | --- | --- | --- |
 | styled-components | ❌ | ✅ | ✅ |
 | Emotion | ✅ | ✅ | ✅ |
@@ -256,100 +254,100 @@ Note that this custom `css` prop is not a standard HTML attribute, and needs to 
 | Stitches | ✅ | ✅ | 🟠 1 |
 | Styled JSX | ✅ | ❌ | ❌ |
 
-> ✅  Full support          🟠 1  Limited support          🟠 2  Requires plugin          ❌  Unsupported
+> ✅  全面支持         🟠 1  支持受限          🟠 2  插件要求          ❌  不支持
 
-### Styles output
+### 样式输出
 
-There are two mutually exclusive methods to generate and ship styles to the browser. Both methods have benefits and downsides, so let’s analyze them in detail.
+这里有两种互斥的方法可以生成并向浏览器发送样式。这两种方法都有好处和坏处，所以让我们详细分析一下。
 
-#### `<style>`-injected DOM styles
+#### `<style>`- DOM 样式注入
 
-Most CSS-in-JS libraries inject styles into the DOM at runtime, using either one or more [`<style>` tags](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#1-using-style-tags), or using the [`CSSStyleSheet`](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#2-using-cssstylesheet-api) API to manage styles directly within the CSSOM. During SSR, styles are always appended as a `<style>` tag inside the `<head>` of the rendered HTML page.
+大部分 CSS-in-JS 库会在运行时向 DOM 注入样式，使用一个或多个 [`<style>` 标签](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#1-using-style-tags)，或使用 [`CSSStyleSheet`](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#2-using-cssstylesheet-api) API 直接在 CSSOM 中管理样式。在 SSR 中，样式总是作为 `<style>` 标签添加在需要渲染的 HTML 页面的 `<head>` 中。
 
-There are a few **key advantages** and **preferred use cases** for this approach:
+这种方法有几个**关键优势**和**首选用例**：
 
-1. Inlining the styles during SSR provides an [increase in page loading performance metrics](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#2-style-tag-injected-styles) such as **FCP** (First Contentful Paint), because rendering is not blocked by fetching a separate `.css` file from the server.
-2. It provides out-of-the-box [**critical CSS extraction**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#-critical-css-extraction) during SSR by inlining only the styles required to render the initial HTML page. It also removes any dynamic styles, thus further improving loading time by downloading less code.
-3. **Dynamic styling** is usually easier to implement, as this approach appears to be more suited for highly interactive user interfaces and **Single-Page Applications** (SPA), where most components are **client-side rendered**.
+1. 在 SSR 中内嵌样式可以 [提高网页加载性能指标](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#2-style-tag-injected-styles)，比如 **FCP** (First Contentful Paint)，因为从服务器上获取单独的 `.css` 文件不会阻碍渲染。
+2. SSR 项目中，通过内联初始 HTML 渲染所需的样式，达到了开箱即用的[**关键 CSS 提取**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#-critical-css-extraction)，。它还删除了动态样式，从而通过下载更少的代码进一步改善加载时间。
+3. **动态样式**通常更容易实现，这种方法似乎更适用于高交互性的用户界面和**单页应用（SPA）**，因为 SPA 应用中的大多数组件都是**客户端渲染。
 
-The drawbacks are generally related to the total bundle size:
+弊端一般与总包大小有关：
 
-* an additional **runtime library** is required for handling dynamic styling in the browser;
-* the inlined SSR styles won’t be cached out-of-the-box and they will need to be shipped to the browser upon each request since they’re part of the `.html` file rendered by the server;
-* the SSR styles that are inlined in the `.html` page will be sent to the browser again as JavaScript resources during the [rehydration](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration-issues) process.
+* 需要一个额外的**运行时库**来处理浏览器中的动态样式。
+* 内联的 SSR 样式不会被直接缓存，它们需要在每次请求时被传送到浏览器，因为它们属于服务器渲染的 `.html` 文件的一部分。
+* 在 `.html` 页面中内联的 SSR 样式将在 [rehydration](https://developers.google.com/web/updates/2019/02/rendering-on-the-web#rehydration-issues) 过程中作为 JavaScript 资源再次发送到浏览器。
 
-#### Static `.css` file extraction
+#### 静态 `.css` 文件提取
 
-There’s a very small number of libraries that take a totally different approach. Instead of injecting the styles in the DOM, they generate static `.css` files. From a loading performance point of view, we get the same advantages and drawbacks that come with writing plain CSS files.
+有极少数的库采取了完全不同的方法。相比于往 DOM 中注入样式，他们选择去生成静态的 `.css` 文件。从加载性能的角度来看，优缺点与编写普通 CSS 文件是一样的。
 
-1. The **total amount of shipped code is much smaller**, since there is no need for additional runtime code or rehydration overhead.
-2. Static `.css` files benefit from out-of-the-box caching inside the browser, so subsequent requests to the same page won’t fetch the styles again.
-3. This approach seems to be more appealing when dealing with **SSR pages** or **Static Generated pages** since they benefit from default caching mechanisms.
+1.由于不再需要额外的运行时代码或 Rehydration 开销，所以**传输的代码总量要小很多**。
+2.静态的 `.css` 文件受益于浏览器内部开箱即用的缓存，因此同一页面的后续请求不会再次去服务器请求该样式。
+3.这种方法对 **SSR 页面**或**静态生成的页面**似乎更有帮助，因为它们受益于默认的缓存机制。
 
-However, there are some important drawbacks we need to take note of:
+然而，有一些重要的弊端我们需要注意一下：
 
-* The first visit to a page, with an empty cache, will [usually have a longer **FCP**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#1-css-file-extraction) when using this method compared to the one mentioned previously; so deciding if we want to optimize for **first-time users** or **returning visitors** could play a crucial role when choosing this approach.
-* All dynamic styles that can be used on the page will be included in the pre-generated bundle, potentially leading to larger `.css` resources that need to be loaded up front.
+* 和前面提到的几种方法相比，使用这个方法，在没有缓存的情况下第一次访问该页面会有较长的 [**FCP**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#1-css-file-extraction)。因此，是为**首次访问的用户**还是为**再次访问的用户**进行优化，这个因素对是否选择这种方法起到至关重要的作用。
+* 所有会在页面上使用的动态样式都将包含在预先生成的包中，这可能会导致前台需要加载更大的 `.css` 资源。
 
-Almost all the libraries that we tested implement the first method, injecting the styles into the DOM. The only tested library which supports static `.css` file extraction is [Treat](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat). There are other libraries that support this feature, like [Astroturf](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#astroturf), [Linaria](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#linaria), and [style9](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#style9), which were not included in our final analysis.
+我们测试过的所有库，几乎都实施了第一种方法，将样式注入到 DOM 中，其中唯一支持静态 `.css` 文件提取的库是 [Treat](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)。也有些其他的支持这个功能的库，比如 [Astroturf](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#astroturf)，[Linaria](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#linaria)，和没有包含在我们最后分析中的 [style9](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#style9)。
 
-### Atomic CSS
+### Atomic CSS（原子化 CSS）
 
-Some libraries took optimizations one step further, implementing a technique called [**atomic CSS-in-JS**](https://sebastienlorber.com/atomic-css-in-js), inspired by frameworks such as [Tachyons](https://tachyons.io/) or [Tailwind](https://tailwindcss.com/).
+有些库为了进一步优化，实现了一种技术叫做 [**Atomic CSS-in-JS（原子化 CSS）**](https://sebastienlorber.com/atomic-css-in-js)，其灵感来自 [Tachyons](https://tachyons.io/) 或 [Tailwind](https://tailwindcss.com/)这样的框架。
 
-Instead of generating CSS classes containing all the properties that were defined for a specific element, they generate a unique CSS class for each unique CSS property/value combination.
+相比于为某个的标签定义一个包含所有属性的 CSS class，Atomic CSS 为每一个的 CSS 键值对生成一个唯一的 CSS class。
 
 ```css
-/* classic, non-atomic CSS class */
+/* 非 Atomic CSS class */
 ._wqdGktJ {
   color: blue;
   display: block;
   padding: 1em 2em;
 }
 
-/* atomic CSS classes */
+/* Atomic CSS class */
 ._ktJqdG { color: blue; }
 ._garIHZ { display: block; }
-/* short-hand properties are usually expanded */
+/* 简写的属性通常会被展开 */
 ._kZbibd { padding-right: 2em; }
 ._jcgYzk { padding-left: 2em; }
 ._ekAjen { padding-bottom: 1em; }
 ._ibmHGN { padding-top: 1em; }
 ```
 
-This enables a high degree of reusability because each of these individual CSS classes can be reused anywhere in the code base.
+每一个单独的 CSS class 都可以在代码库任何地方复用，这大大提高了复用率。
 
-In theory, this works really great in the case of large applications. Why? Because there’s a finite number of unique CSS properties that are needed for an entire application. Thus, the scaling factor is not linear, but rather **logarithmic**, resulting in less CSS output compared to non-atomic CSS.
+理论上，这个方法很适合大型应用。为什么？因为整个应用所需的 CSS 属性是有限的，所以增长规模是**对数型**，而非线性。因此 Atomic CSS 比非 Atomic CSS 输出的 CSS 代码更少。
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/05/kwyuFPAdFlkMaYo7vYFufdUG3WP4mp7_bbAsQnU7sVCnGH31dDmSgYp5KHqX4tQQR60KfzWV890kBXDPC68H4rLuYvMeVEhItg_oBFt59mCJmsN8giiB6HogBD9F7h6p2aMbs7Q.png?resize=800%2C449&ssl=1)
 
-But there is a catch: individual class names must be applied to each element that requires them, resulting in slightly larger HTML files:
+但是这里有个隐患：单独的 class 名必须应用于每一个需要它们的元素，这会导致 HTML 文件更大些：
 
 ```html
-<!-- with classic, non-atomic CSS classes -->
+<!-- 非 Atomic CSS class -->
 <h1 class="_wqdGktJ">...</h1>
 
-<!-- with atomic CSS classes -->
+<!-- Atomic CSS class -->
 <h1 class="_ktJqdG _garIHZ _kZbibd _jcgYzk _ekAjen _ibmHGN">...</h1>
 ```
 
-So basically, we’re moving code from CSS to HTML. The resulting difference in size depends on too many aspects for us to draw a definite conclusion, but generally speaking, it **should decrease** the total amount of bytes shipped to the browser.
+所以基本上，我们是把代码从 CSS 转移到 HTML 。由此产生的大小差异取决于太多方面，我们无法得出一个明确的结论。但总的来说，Atomic CSS **应该会减少**传输给浏览器的总字节量。
 
-## Conclusion
+## 结论
 
-CSS-in-JS will dramatically change the way we author CSS, providing many benefits and improving our overall development experience.
+CSS-in-JS 将极大地改变我们编写 CSS 的方式，可以提供许多好处以及改善我们的整体开发体验。
 
-However, choosing which library to adopt is not straightforward and all choices come with many technical compromises. In order to identify the library that is best suited for our needs, we have to understand the project requirements and its use cases:
+然而，选择采用哪个库并不简单，所有的选择都伴随着许多技术上的妥协。为了识别最适合我们需求的库，我们必须了解项目要求以及库的使用情况：
 
-* **Are we using React or not?** React applications have a wider range of options, while non-React solutions have to use a framework agnostic library.
-* **Are we dealing with a highly interactive application, with client-side rendering?** In this case, we probably aren’t very concerned about the overhead of rehydration, or care that much about extracting static `.css` files.
-* **Are we building a dynamic website with SSR pages?** Then, extracting static `.css` files may probably be a better option, as it would allow us to benefit from caching.
-* **Do we need to migrate existing CSS code?** Using a library that supports Tagged Templates would make the migration easier and faster.
-* **Do we want to optimize for first-time users or returning visitors?** Static `.css` files offer the best experience for returning visitors by caching the resources, but the first visit requires an additional HTTP request that blocks page rendering.
-* **Do we update our styles frequently?** All cached `.css` files are worthless if we frequently update our styles, thus invalidating any cache.
-* **Do we re-use a lot of styles and components?** Atomic CSS shines if we reuse a lot of CSS properties in our codebase.
+* **我们是否使用 React？** React 应用有更广泛的选择，而非 React 的解决方案需要使用无关框架的库。
+* **我们是否在处理一个高互动性的应用，并在客户端进行渲染？** 在这种情况下，我们可能不是很关心 Rehydration 的开销以及静态的 `.css` 文件的提取。
+* **我们是否要用 SSR 建立一个动态网站？** 那么，静态 `.css` 文件提取可能是一个更好的选择，因为它可以让我们从缓存中受益。
+* **我们需要迁移现有的CSS代码吗？** 使用支持标签模板的库会使迁移更快更容易。
+* **我们要优化首次访问或再次访问的用户体验吗？** 通过资源缓存，静态的 `.css` 文件为再次访问的用户提供最好的体验，但首次访问需要一个额外的 HTTP 请求，这会阻碍页面渲染。
+* ***我们是否频繁更新样式？** 如果我们频繁更新样式，导致缓存失效，那么 `.css` 文件缓存就毫无价值。
+* **我们是否重复使用大量的样式和组件？** 如果我们在代码库中重复使用大量的 CSS 属性，Atomic CSS 将大放异彩。
 
-Answering the above questions will help us decide what features to look for when choosing a CSS-in-JS solution, allowing us to make more educated decisions.
+回答上述问题可以帮助我们明确，在选择 CSS-in-JS 的解决方案时应该关注哪些功能，使我们能够做出更有根据的决定。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
