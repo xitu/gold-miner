@@ -12,7 +12,7 @@
 
 我们测试了 [10 个不同的库](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#overview)（排列没有特定的顺序）：[Styled JSX](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-jsx)、[styled-components](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#styled-components)、[Emotion](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#emotion)、[Treat](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)、[TypeStyle](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#typestyle)、[Fela](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#fela)、[Stitches](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#stitches)、[JSS](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#jss)、[Goober](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#goober) 以及 [Compiled](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#compiled)。我们发现，尽管每一个库都提供了一系列不同的功能，但事实上很多功能和其他的库是一样的。
 
-所以比起单独评估每一个库，我们会分析最突出的功能。这可以帮助我们更好的理解，在特定的使用场景下哪一个库最适合。
+所以比起单独评估每一个库，我们会分析最突出的功能。这可以帮助我们更好地理解，在特定的使用场景下哪一个库最适合。
 
 **注意**：在这篇文章里，我们假定你已经熟悉 CSS-in-JS 了。如果你想寻找一篇更基础的文章，可以看下 [CSS-in-JS 简介](https://webdesign.tutsplus.com/articles/an-introduction-to-css-in-js-examples-pros-and-cons--cms-33574)
 
