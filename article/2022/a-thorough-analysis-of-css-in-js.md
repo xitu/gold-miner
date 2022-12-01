@@ -174,7 +174,7 @@ const heading = css({
 
 #### 使用 class 属性 / className prop
 
-最简单和最直观的应用样式的方式是将它们与 class 名关联。支持这种方法的库提供一个API，返回生成的唯一的 class 名。
+最简单和最直观的应用样式的方式是将它们与 class 名关联。支持这种方法的库提供一个 API，返回生成的唯一的 class 名。
 
 ```js
 // 将 "css " 视作一个通用的 CSS-in-JS 库的 API
