@@ -16,7 +16,7 @@
 
 **注意**：在这篇文章里，我们假定你已经熟悉 CSS-in-JS 了。如果你想寻找一篇更基础的文章，可以看下 [CSS-in-JS 简介](https://webdesign.tutsplus.com/articles/an-introduction-to-css-in-js-examples-pros-and-cons--cms-33574)
 
-## 常见的 CSS-in-JS 功能
+## 常见的 CSS-in-JS 特性
 
 大多数积极维护的处理 CSS-in-JS 的库都支持以下功能，所以我们可以把这些功能视为事实。
 
