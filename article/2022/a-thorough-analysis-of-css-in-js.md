@@ -268,7 +268,7 @@ function Heading() {
 这种方法有几个**关键优势**和**首选用例**：
 
 1. 在 SSR 中内嵌样式可以 [提高网页加载性能指标](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#2-style-tag-injected-styles)，比如 **FCP** (First Contentful Paint)，因为从服务器上获取单独的 `.css` 文件不会阻碍渲染。
-2. SSR 项目中，通过内联初始 HTML 渲染所需的样式，达到了开箱即用的[**关键 CSS 提取**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#-critical-css-extraction)，。它还删除了动态样式，从而通过下载更少的代码进一步改善加载时间。
+2. SSR 项目中，通过内联初始 HTML 渲染所需的样式，达到了开箱即用的[**关键 CSS 提取**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#-critical-css-extraction)。它还删除了动态样式，从而通过下载更少的代码进一步改善加载时间。
 3. **动态样式**通常更容易实现，这种方法似乎更适用于高交互性的用户界面和**单页应用（SPA）**，因为 SPA 应用中的大多数组件都是**客户端渲染。
 
 弊端一般与总包大小有关：
