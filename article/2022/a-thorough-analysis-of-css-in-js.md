@@ -71,7 +71,7 @@ transition: all 1s ease;
 
 ### 全面的 CSS 支持
 
-使用 CSS class 而不是内联样式的结果是，关于 [CSS 属性](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) 的使用没有限制。在分析期间，我们主要感兴趣的是：
+使用 CSS class 而不是内联样式的结果是，[CSS 属性](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) 的使用没有限制。在分析期间，我们主要感兴趣的是：
 
 * 伪类和伪元素
 * 媒体查询
