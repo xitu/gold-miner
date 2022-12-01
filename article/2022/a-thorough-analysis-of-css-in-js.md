@@ -5,7 +5,7 @@
 > * 译者：[tong-h](https://github.com/Tong-H)
 > * 校对者：
 
-# 全面刨析 CSS-in-JS
+# 深入分析 CSS-in-JS
 
 
 比选择一个 JavaScript 框架更有挑战的是什么呢？你猜对了：选择一个 CSS-in-JS 方案。为什么？因为现在已经有 [50 个以上的库](http://michelebertoli.github.io/css-in-js/)，而且每个库都有独一无二的特色。
