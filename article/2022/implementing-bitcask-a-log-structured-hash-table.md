@@ -24,7 +24,7 @@
 
 我为一个其他项目提供一些大的值数据，而不是使用 SQLite 之类的东西构建 MVP，我 [yak 了](https://seths.blog/2005/03/dont_shave_that/) 一个数据库。
 
-在 bitcask-lite 中，键和元数据存在于基于 [orcaman/concurrent-map](https://github.com/orcaman/concurrent-map) 的并发映射中——映射分片的映射。Go 不允许并发的读取和写入映射——因此每个映射分片都需要独立锁定，以避免将 bitcask-lite 的并发限制为单个请求。
+在 bitcask-lite 中，键和元数据存在于基于 [orcaman/concurrent-map](https://github.com/orcaman/concurrent-map) 的并发映射中——映射分片的映射。Go 不允许并发地读取和写入映射——因此每个映射分片都需要独立锁定，以避免将 bitcask-lite 的并发限制为单个请求。
 
 ```
 type ConcurrentMap[V any] []*MapShard[V]
@@ -35,7 +35,7 @@ type MapShard[V any] struct {
 }
 ```
 
-这个数据库是包含一个或者多个日志文件的目录。数据使用schema写入活跃日志文件：（`expire, keySize, valueSize, key, value,`我是人类可读数据的忠实拥护者）。
+这个数据库是包含一个或者多个日志文件的目录。数据使用 schema 写入活跃日志文件：（`expire, keySize, valueSize, key, value,`我是人类可读数据的忠实拥护者）。
 
 数据键为`a`，值为`b`，于 2022 年 8 月 10 日到期，如下所示：
 
@@ -43,7 +43,7 @@ type MapShard[V any] struct {
 1759300313415,1,1,a,b,
 ```
 
-日志文件是 append-only （只许追加），所以不需要为*获取*值而上锁， 但是当*设置*值时，会为活跃日志文件上一个锁，以确保数据库相对于传入请求的顺序是正确的。不幸地是，这意味着重写的负载将比重读的负载表现更差。
+日志文件是 append-only （只许追加），所以不需要为获取值而上锁， 但是当设置值时，会为活跃日志文件上一个锁，以确保数据库相对于传入请求的顺序是正确的。不幸地是，这意味着重写的负载将比重读的负载表现更差。
 
 我真的很喜欢 Go 用于读取/写入文件的 API。对我来说，这是明智的、一致的和显而易见的。它可以是很冗长的（尤其是错误处理），但我属于那个特性阵营。有时候说清楚会更好。
 
@@ -99,7 +99,7 @@ func (logStore *LogStore) StreamGet(key string, w io.Writer) (bool, error) {
 
 ## HTTP API
 
-我在一张便利贴上勾勒出 API 来开始这个项目。
+我在一张便利贴上草拟了一下 API 就开始了这个项目。
 
 ```
 /get?key=a
@@ -109,7 +109,7 @@ func (logStore *LogStore) StreamGet(key string, w io.Writer) (bool, error) {
   - expire is optional (default is infinite)
 ```
 
-完成之后，我看到测试代码的行数超过了其他的代码。这大体上说明了软件的复杂度。我可以一口气描述这个 API，但我花了好几个小时来用测试和修复每个边缘情况。
+完成之后，我看到测试代码的行数超过了其他的代码。这大体上说明了软件的复杂度。我可以一口气描述这个 API，但我花了好几个小时来用测试和修复来覆盖每个边界值用例。
 
 服务器代码位于`func main()`并使用普通的旧 [net/http](https://pkg.go.dev/net/http) 。由于无法从 Go 中测试主要功能，我使用了一个我之前在其实项目中使用过的测试模式，它是一个用 Python 编写的端到端的测试脚本，它生成一个服务器进程，点击它，然后可以断言事件。
 
@@ -149,7 +149,7 @@ if err != nil {
 }
 ```
 
-我对我走的捷径很满意。到目前为止，我的玩具数据库一直运转良好。
+我对我走的捷径很满意。到目前为止，我的“玩具”数据库一直运转良好。
 
 当然，将 SQLite 与单个表一起使用会更快。但我主要是为了好玩写这个数据库。[我确实想知道 bitcask-lite ](https://github.com/healeycodes/bitcask-lite)和 SQLite+server 之间的性能比较。我要设置一些基准时，无法弄清楚是否可以将单个 SQLite 值流式传输到客户端。如果你知道，请[告诉我](mailto:healeycodes@gmail.com)！
 
