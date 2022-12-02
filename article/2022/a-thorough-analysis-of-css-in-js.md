@@ -99,7 +99,7 @@ CSS-in-JS 在 React 生态圈中更流行，这并不是秘密。 这也是为�
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/05/aKsPahlPZ8qr6R8aVCancNsC_LOuKlcpBo-Ys44a1ya3QDvoLabbiBTYf36xX90hAfgMxgvBjMxxuBgIGnzH-_NId-71NfK7hh-ZFBJizZF6l3A4sLgb2vyYKgwnod86YBoLsE4.png?resize=800%2C589&ssl=1)
 
-几乎所有的 CSS-in-JS 库都支持样式的共同定位。我们遇到的唯一一个例外是 [**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)，类似于 CSS Modules 的工作原理，它要求我们在一个单独的 `.treat.ts` 文件中定义样式。
+几乎所有的 CSS-in-JS 库都支持样式的共置。我们遇到的唯一一个例外是 [**Treat**](https://github.com/andreipfeiffer/css-in-js/blob/main/README.md#treat)，类似于 CSS Modules 的工作原理，它要求我们在一个单独的 `.treat.ts` 文件中定义样式。
 
 ### 样式定义的语法
 
