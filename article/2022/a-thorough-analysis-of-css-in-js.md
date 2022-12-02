@@ -95,7 +95,7 @@ CSS-in-JS 在 React 生态圈中更流行，这并不是秘密。 这也是为�
 
 跟随组件定义样式是非常便利的功能，这样就不需要在两个不同的文件中反复切换：包含样式的 `.css` 或 `.less` / `.scss` 文件，与包含指令和行为的组件文件。
 
-[React Native StyleSheets](https://reactnative.dev/docs/stylesheet)，[Vue.js SFCs](https://vuejs.org/v2/guide/single-file-components.html)，或者 [Angular Components](https://angular.io/guide/component-styles) 默认支持样式的共同定位，不论是开发还是维护阶段都能真正从中受益。我们依然可以选择将样式提取到一个单独的文件中，以防我们觉得它们掩盖了代码的其他部分。
+[React Native StyleSheets](https://reactnative.dev/docs/stylesheet)、[Vue.js SFCs](https://vuejs.org/v2/guide/single-file-components.html) 或者 [Angular Components](https://angular.io/guide/component-styles) 默认支持样式共置，不论是开发还是维护阶段都能真正从中受益。我们依然可以选择将样式提取到一个单独的文件中，以防我们觉得它们掩盖了代码的其他部分。
 
 ![](https://i0.wp.com/css-tricks.com/wp-content/uploads/2021/05/aKsPahlPZ8qr6R8aVCancNsC_LOuKlcpBo-Ys44a1ya3QDvoLabbiBTYf36xX90hAfgMxgvBjMxxuBgIGnzH-_NId-71NfK7hh-ZFBJizZF6l3A4sLgb2vyYKgwnod86YBoLsE4.png?resize=800%2C589&ssl=1)
 
