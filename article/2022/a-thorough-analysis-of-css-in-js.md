@@ -65,7 +65,7 @@ transition: all 1s ease;
 
 一些 CSS-in-JS 库，比如 Radium 或 Glamor，将所有样式的定义以内联样式的方式输出。这种技术有巨大的局限性，因为无法通过内联样式来定义伪类、伪元素或者媒体查询。所以，这些库不得不通过添加 DOM 事件监听以及从 JavaScript 中触发样式更新的方式来处理这些功能，本质上是重新创建例如 `:hover`、 `:focus` 之类的原生 CSS 功能。
 
-这也是一个普遍的认知，内联样式比 class [性能更差](https://esbench.com/bench/5908f78199634800a0347e94)。使用内联样式作为主要的方式为组件定义样式，这通常是[不鼓励的做法](https://reactjs.org/docs/dom-elements.html#style) .
+人们普遍认为，内联样式的性能比 class [性能更差](https://esbench.com/bench/5908f78199634800a0347e94)。使用内联样式作为主要的方式为组件定义样式通常是一种[不鼓励的做法](https://reactjs.org/docs/dom-elements.html#style) .
 
 **目前所有的 CSS-in-JS 库都不再使用内联样式**，而是采用 CSS class 的方式来定义样式。
 
