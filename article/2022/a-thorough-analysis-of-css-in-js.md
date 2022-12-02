@@ -38,7 +38,7 @@
 
 ### 自动添加浏览器引擎前缀
 
-由于复杂的 [CSS 标准化流程](https://www.youtube.com/watch?v=TQ7NqpFMbFs)，新的 CSS 功能可能需要几年时间才能在所有流行的浏览器中使用。在非标准的 CSS 语法前添加[浏览器引擎前缀](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)是一种使我们提前使用实验性功能的方法：
+由于复杂的 [CSS 标准化流程](https://www.youtube.com/watch?v=TQ7NqpFMbFs)，任何新的 CSS 功能可能需要几年时间才能在所有流行的浏览器中使用。在非标准的 CSS 语法前添加[浏览器引擎前缀](https://developer.mozilla.org/en-US/docs/Glossary/Vendor_Prefix)是一种使我们提前使用实验性功能的方法：
 
 ```css
 /* WebKit 浏览器：Chrome, Safari, most iOS browsers, 等等 */
