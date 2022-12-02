@@ -57,7 +57,7 @@
 transition: all 1s ease; 
 ```
 
-然而，[添加浏览器引擎前缀这种方式仍然是问题重重](https://css-tricks.com/is-vendor-prefixing-dead/)，CSS 工作组打算在未来停止使用这种方式。如果我们想要完全支持那些没有实施标准规范的旧浏览器，那我们需要知道[哪些功能要求添加浏览器引擎前缀](http://shouldiprefix.com/)。
+然而，事实证明[添加浏览器引擎前缀是有问题的](https://css-tricks.com/is-vendor-prefixing-dead/)，CSS 工作组打算在未来停止使用这种方式。如果我们想要完全支持那些没有实施标准规范的旧浏览器，那我们需要知道[哪些功能要求添加浏览器引擎前缀](http://shouldiprefix.com/)。
 
 幸运的是，有一些工具通过自动生成携带浏览器引擎前缀的 CSS 属性，让我们可以在源代码中使用标准语法。**所有的 CSS-in-JS 库都提供该功能，开箱即用**。
 
