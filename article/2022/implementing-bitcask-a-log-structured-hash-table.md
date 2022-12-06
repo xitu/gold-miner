@@ -2,29 +2,29 @@
 > * 原文作者：[Andrew Healey](https://healeycodes.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/implementing-bitcask-a-log-structured-hash-table.md](https://github.com/xitu/gold-miner/blob/master/article/2022/implementing-bitcask-a-log-structured-hash-table.md)
-> * 译者：
-> * 校对者：
+> * 译者：[wangxuanni](https://github.com/wangxuanni)
+> * 校对者：[Quincy_Ye](https://github.com/Quincy-Ye)，[CompetitiveLin](https://github.com/CompetitiveLin)
 
-# Implementing Bitcask, a Log-Structured Hash Table
+# 实现 Bitcask ，一种日志结构的哈希表
 
-[Bitcask](https://en.wikipedia.org/wiki/Bitcask) is an application for storing and retrieving key/value data using log-structured hash tables. It stores keys and metadata in memory with the values on disk. Retrieving a value is fast because it requires a single disk seek.
+[Bitcask](https://en.wikipedia.org/wiki/Bitcask) 是一种使用日志结构哈希表，用于存储和检索数据的应用。它将键和元数据存储在内存里，将值存储在磁盘里。检索值的速度很快，因为它只需要一次磁盘寻址。
 
-The key benefits are:
+主要的好处是：
 
-* Low latency per item read or written
-* Consistent performance
-* Handles datasets larger than RAM
-* Small design specification
+* 每一个数据低延时的读取或写入
+* 一致的性能
+* 能处理大于 RAM 的数据集
+* 设计规格小
 
-The main drawback is:
+主要的缺点是：
 
-* All your keys must fit in RAM
+* 所有的键都必须放进 RAM
 
-Over the weekend, I implemented part of Bitcask's [design specification](https://riak.com/assets/bitcask-intro.pdf) in a project called [bitcask-lite](https://github.com/healeycodes/bitcask-lite) — a key/value database and server using the Go standard library.
+周末，我在一个名为 [bitcask-lite](https://github.com/healeycodes/bitcask-lite) 的项目（一个使用 Go 标准库的键/值数据库和服务器）中实现了 Bitcask 的部分[设计规范](https://riak.com/assets/bitcask-intro.pdf)。
 
-I needed to serve some largeish values for a side project and instead of building an MVP with something like SQLite, I [yak shaved](https://seths.blog/2005/03/dont_shave_that/) a database.
+我需要为一个其他项目提供一些值较大的数据，而不是使用 SQLite 之类的东西构建最小可行产品，我[在前人的基础上修补了](https://seths.blog/2005/03/dont_shave_that/)一个数据库。
 
-In bitcask-lite, keys and metadata live in a concurrent map based on [orcaman/concurrent-map](https://github.com/orcaman/concurrent-map) — a map of map shards. Go doesn't allow concurrent reading and writing of maps — so each map shard needs to be locked independently to avoid limiting bitcask-lite's concurrency to a single request.
+在 bitcask-lite 中，键和元数据存在于基于 [orcaman/concurrent-map](https://github.com/orcaman/concurrent-map) 的并发映射中 —— 映射分片的映射。Go 不允许并发地读取和写入映射 —— 因此每个映射分片都需要独立锁定，以避免将 bitcask-lite 的并发限制为单个请求。
 
 ```
 type ConcurrentMap[V any] []*MapShard[V]
@@ -35,34 +35,34 @@ type MapShard[V any] struct {
 }
 ```
 
-The database is a directory with one or many log files. Items get written to the active log file with the schema: `expire, keySize, valueSize, key, value,` (I'm a big fan of human-readable data).
+这个数据库是包含一个或者多个日志文件的目录。数据使用 schema 写入活跃日志文件：`expire, keySize, valueSize, key, value,`（我是人类可读数据的忠实拥护者）。
 
-An item with a key of `a` and a value of `b` that expires on 10 Aug 2022 looks like this:
+键为`a`，值为`b`，于 2022 年 8 月 10 日到期的数据如下所示：[]()
 
 ```
 1759300313415,1,1,a,b,
 ```
 
-Log files are append-only and don't need to be locked for **getting** values but when **setting** values there's a lock on the active log file to ensure that the database is correct relative to the order of incoming requests. Unfortunately, this means that write-heavy workloads will perform worse than read-heavy ones.
+日志文件是 append-only （只许追加），所以不需要为**获取**值而上锁，但是当**设置**值时，会为活跃日志文件上一个锁，以确保数据库相对于传入请求的顺序是正确的。不幸地是，这意味着大量写的负载将比大量读的负载表现更差。
 
-I really like Go's API for reading/writing to files. For me, it's sensible, consistent, and obvious. It can be verbose (especially error handling) but I'm in the that's-a-feature camp. Sometimes it's better to be clear.
+我真的很喜欢 Go 用于读取/写入文件的 API。对我来说，这是明智的、一致的和显而易见的。它可以是很冗长的（尤其是错误处理），但我认为那是个特点。有时候表达清晰会更好。
 
-The following snippet details the hot path for handling `/get` requests. I've added some extra comments and trimmed error handling.
+以下代码段详细说明了处理`/get`请求的热路径。我添加了一些额外的注释并减少了错误处理。
 
 ```
-// StreamGet gets a value from a log store
+// StreamGet 从一个日志存储里获取一个值
 func (logStore *LogStore) StreamGet(key string, w io.Writer) (bool, error) {
 
-  // Lock the map shard
+  // 锁住这个 map 分片
   access := logStore.keys.AccessShard(key)
   defer access.Unlock()
   item, found := logStore.keys.Get(key)
 
   if !found {
-    // Key not found
+    // Key 没找到
     return false, nil
   } else if int(time.Now().UnixMilli()) >= item.expire {
-    // Key found but it's expired..
+    // Key 找到了但是过期了
     // so we can clean it up (aka lazy garbage collection!)
     logStore.keys.Delete(key)
     return false, nil
@@ -83,10 +83,10 @@ func (logStore *LogStore) StreamGet(key string, w io.Writer) (bool, error) {
 }
 ```
 
-The trickiest part of this project was parsing the log files; largely due to off-by-one errors. The algorithm I used is fairly naive. It makes too many system calls but I wanted to ship rather than optimize early. My gut says that reading into a buffer and parsing is faster but the real performance win would be parsing log files in parallel so if startup time bothers me I'll fix that first!
+这个项目最棘手的部分是解析日志文件；主要是由于差一错误。我使用的算法相当幼稚。它进行了太多的系统调用，但我想尽早发布而不是优化。我的直觉是读入缓冲区因此解析速度更快，但真正的性能胜利是并行解析日志文件，所以如果启动时间困扰了我，我会优先解决这个问题！
 
 ```
-// Parsing a bitcask-lite log file
+// 解析一个 bitcask-lite 的日志文件
 
 // Loop:
 // - expire    = ReadBytes(COMMA)
@@ -99,7 +99,7 @@ The trickiest part of this project was parsing the log files; largely due to off
 
 ## HTTP API
 
-I started this project with the API sketched out on a single sticky note.
+我在一张便利贴上草拟了一下 API 就开始了这个项目。
 
 ```
 /get?key=a
@@ -109,38 +109,38 @@ I started this project with the API sketched out on a single sticky note.
   - expire is optional (default is infinite)
 ```
 
-After finishing it, I saw there were more lines of test code than other code — which says a lot about software complexity in general. I can describe this API in a single breath but it took me a good few hours to cover every edge case with tests and fixtures.
+完成之后，我看到测试代码的行数超过了其他的代码。这大体上说明了软件的复杂度。我可以一口气描述这个 API，但我花了好几个小时来用测试和修复来覆盖每个边界值用例。
 
-The server code lives in `func main()` and uses plain old [net/http](https://pkg.go.dev/net/http). Since main functions can't be tested from within Go, I went with a test pattern I've used in side projects before which is a end-to-end test script written in Python that spawns a server process, hits it, and asserts things.
+服务器代码位于`func main()`并使用普通的旧 [net/http](https://pkg.go.dev/net/http) 。由于无法从 Go 中测试主要功能，我使用了一个我之前在其实项目中使用过的测试模式，它是一个用 Python 编写的端到端的测试脚本，它生成一个服务器进程，点击它，然后可以进行断言测试。
 
 ```
-# dev command to start server
+# 用 dev 命令去启动服务器
 proc = subprocess.Popen(
     ["go", "run", "."], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
 )
 
-# test getting a missing key
+# 测试获取一个缺失的键
 g = requests.get(f"{addr}/get?key=z")
 print(g.status_code, g.text)
 assert g.status_code == 404
 
-# ^ failing asserts exit with a non-zero exit code
-# which fails any continuous integration (CI) process
-# or other test runner
+# ^ 失败断言以非零退出代码退出
+# 导致任何持续集成 (CI) 流程失败
+# 或其他测试运行器
 ```
 
-## The Missing Parts
+## 缺失的部分
 
-Bitcask's [design specification](https://riak.com/assets/bitcask-intro.pdf) also describes how the database can be cleaned up over time. Currently, bitcask-lite grows and grows. Expired keys live on disk forever.
+Bitcask 的[设计规范](https://riak.com/assets/bitcask-intro.pdf)还描述了如何随着时间的推移清理数据库。现在，bitcask-lite 越来越大。过期的数据们永远存在于磁盘上。
 
-Bitcask can merge several files into a more compact form and produce hintfiles for faster start up times — deleting expired keys in the process. This merge process has a slight performance hit but it can be performed during low traffic periods.
+Bitcask 可以将多个文件合并成更紧凑的形式，并生成提示文件以加快启动时间 —— 在此过程中删除过期的密钥。此合并过程对性能有轻微影响，但可以在低流量期间执行。
 
-> In order to cope with a high volume of writes without performance degradation during the day, you might want to limit merging to in non-peak periods. Setting the merge window to hours of the day when traffic is low will help.
+> 为了在白天处理大量写入而不降低性能，您可能希望将合并限制在非高峰期。将合并窗口设置为一天中流量较低的时间会有所帮助。
 
-I also skipped adding CRCs (cyclic redundancy checks), and instead of setting tombstone values for my delete operation I just pretend that an key has been set to zero bytes with an expire of 1970.
+我还跳过了添加 CRC（循环冗余校验），我不是设置逻辑删除值，我只是假装一个密钥已设置为零字节，过期时间为 1970 年。
 
 ```
-// Set takes key, expire, value
+// Set 处理 key, expire, value
 err := logStore.Set(key, 0, []byte(""))
 if err != nil {
   log.Printf("couldn't delete %s: %s", key, err)
@@ -149,9 +149,9 @@ if err != nil {
 }
 ```
 
-I'm happy with the shortcuts I took. And so far, my toy database has been humming along just fine.
+我对我走的捷径很满意。到目前为止，我的“玩具”数据库一直运转良好。
 
-Sure, using SQLite with a single table would have gotten me up and going much quicker. But I mostly took this database detour for fun. I do wonder about the performance comparison between [bitcask-lite](https://github.com/healeycodes/bitcask-lite) and SQLite+server. I was about to set up some benchmarks when I couldn't figure out if you can stream individual SQLite values to a client. If you know, [let me know](mailto:healeycodes@gmail.com)!
+当然，将 SQLite 与单个表一起使用会更快。但我主要是为了好玩写这个数据库。我确实想好奇 [bitcask-lite](https://github.com/healeycodes/bitcask-lite) 和 SQLite + server 之间的性能变化。当我无法弄清楚是否可以将单个 SQLite 值流式传输到客户端时，我准备设置一些基准。如果你知道，请[告诉我](mailto:healeycodes@gmail.com)！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
