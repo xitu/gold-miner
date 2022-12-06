@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/implementing-bitcask-a-log-structured-hash-table.md](https://github.com/xitu/gold-miner/blob/master/article/2022/implementing-bitcask-a-log-structured-hash-table.md)
 > * 译者：[wangxuanni](https://github.com/wangxuanni)
-> * 校对者：[Quincy_Ye](https://github.com/Quincy-Ye) ,[CompetitiveLin](https://github.com/CompetitiveLin)
+> * 校对者：[Quincy_Ye](https://github.com/Quincy-Ye)，[CompetitiveLin](https://github.com/CompetitiveLin)
 
 # 实现 Bitcask ，一种日志结构的哈希表
 
