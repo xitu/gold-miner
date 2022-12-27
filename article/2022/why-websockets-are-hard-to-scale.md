@@ -1,7 +1,7 @@
 > * 原文地址：[hy Websockets are Hard To Scale？](https://dev.to/nooptoday/why-websockets-are-hard-to-scale-1267)
 > * 原文作者：[nooptoday](https://dev.to/nooptoday)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/10-hardest-python-questions.md](https://github.com/xitu/gold-miner/blob/master/article/2022/why-websockets-are-hard-to-scale)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/why-websockets-are-hard-to-scale.md](hhttps://github.com/xitu/gold-miner/blob/master/article/2022/why-websockets-are-hard-to-scale.md)
 > * 译者：
 > * 校对者：
 
