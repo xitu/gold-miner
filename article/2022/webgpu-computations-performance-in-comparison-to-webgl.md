@@ -13,21 +13,21 @@ WebGPU - WebGL 的替代者，一个在浏览器中调用 GPUs 的全新 API。W
 
 ## WebGL 没有相同的特性吗？
 
-是也不是。WebGL 没有用于计算的特殊 API，但有一种使之成为可能的技巧。就是将数据转换为一张图像。图像作为一个纹理上传到 GPU，随着像素着色器实际计算过程中，纹理进行同步渲染。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步读取，将颜色代码转换回你的数据。看起来效率很低，对吧？
+是也不是。WebGL 没有用于(GPU)计算的特殊 API，但仍然存在一种较为“hack”的方法可以实现这一功能。即将数据转换为一张图像，图像作为一个纹理上传到 GPU，随着纹理着色器不断地进行计算，纹理同时会被渲染出来。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步地读取，然后将颜色代码转换回你的数据。这看起来效率很低，对吧？
 
 [![WebGL computation pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)
 
 ## WebGPU 有什么不同呢？
 
-WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略改进的重要性，但无论如何，它赋予开发者全新的特性。它的工作方式是这样的：
+WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略改进的重要性，但同时，它为开发者提供了全新的功能。它的工作方式是这样的：
 
 [![WebGPU computations pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-4.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-4.png)
 
 ## 两种方式的差异
 
-1. 数据作为缓存（buffer）上传到 GPU，你无需将它转换成像素，所以它实现成本更低
-2. 计算是异步执行的，它不会阻塞 JS 主线程（以 60 FPS 进行实时后置处理与复杂的物理模拟器的时代已经到来）
-3. 我们无需 canvas 元素，我们也可以避免它的大小限制
+1. 数据将作为缓存（buffer）上传到 GPU，你无需再将它转换成一张图片，所以它的性能开销更小
+2. 计算是异步执行的，它不会阻塞 JS 主线程（这意味着以 60 帧进行实时后置处理与复杂的物理模拟器的时代已经到来！）
+3. 我们将再也不需要创建 canvas 元素了，因此我们可以避开它对于图像尺寸的限制
 4. 我们无需做昂贵的、同步的 getPixelsData 操作
 5. 我们无需花费时间在像素转换回值数据上
 
@@ -35,11 +35,11 @@ WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略�
 
 ## 我们如何做基准测试呢？
 
-作为基准测试，我们用矩阵乘法，这让我们更容易地扩展计算的复杂性与数量。
+作为基准测试，我们用矩阵乘法，这让我们更轻松地提高计算的复杂性与计算量。
 
 举个例子，16×16 矩阵乘法需要 7936 次乘法运算，60×60 需要 428400 次乘法运算。
 
-当然，我们需要在一个合适的浏览器中运行测试，带有 `#unsafe-webgpu-enabled` 标志的 Chrome Canary。
+当然，我们需要在一个合适的浏览器中运行测试，此处我们选用开启了 `#unsafe-webgpu-enabled` 选项的 Chrome Canary。
 
 ## 结果
 
@@ -51,15 +51,15 @@ WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略�
 
 [![Matrices multiplication WebGPU vs WebGL](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)
 
-这是令人震惊的也是预料到的。WebGPU 初始化与数据传输时间非常短，因为我们不需要转换数据为纹理，也无需从像素中读取它。WebGPU 性能明显更高，并且比 WebGL 快 3.5 倍的同时，不阻塞主线程。
+这是意料之外，但也在情理之中。WebGPU 初始化与数据传输时间非常短，因为我们不需要转换数据为纹理，也无需从像素中读取它。WebGPU 性能明显更高，比 WebGL 快 3.5 倍有余 ，同时它不会阻塞主线程。
 
-另一间有趣的事是，由于 canvas 和纹理的大小限制，WebGL 在矩阵超过 4096×4096 之后就会失败，同时 WebGPU 能够执行到 5000×5000 的矩阵，这听起来差不多，但实际上多出了 112552823744 次运算和 817216 个值要持有。
+另一件有趣的事是，由于 canvas 和纹理的大小限制，WebGL 在矩阵超过 4096×4096 之后就会失败，同时 WebGPU 能够执行到 5000×5000 的矩阵，这听起来差不多，但实际上多出了 112552823744 次运算和 817216 个值要维护。
 
 一个小但有趣的事实 - WebGL 与 WebGPU 都需要一些时间进行预热操作，而 JS 则可以直接全速运行。
 
 ## 结论
 
-实验证明，WebGPU 计算着色器比使用像素着色器的 WebGL 计算速度快 3.5 倍，同时在处理大量数据量方面有明显更高的限制，并且它不会阻塞主线程。这允许在浏览器中执行新类型任务：视频与音频编辑，实时物理模拟器，以及更逼真的视觉效果，机器学习。这是可以从 WebGPU 中得到益处的不完整的任务列表，我们可以期待新一代应用的出现，以及在 Web 上可能做的事情的边界显著扩展。
+实验证明，WebGPU 计算着色器比使用像素着色器的 WebGL 计算速度快 3.5 倍，同时在处理大量数据量方面有明显更高的限制，并且它不会阻塞主线程。这允许在浏览器中执行新类型任务：视频与音频编辑，实时物理模拟器，以及更逼真的视觉效果，机器学习。而这仅仅是（目前可以想到的）能从 WebGPU 中获益的部分业务，我们可以期待新一代应用的出现，以及在 Web 上可能做的事情的边界显著扩展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
