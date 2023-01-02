@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md](https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye) [finalwhy](https://github.com/finalwhy)
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye) 、[finalwhy](https://github.com/finalwhy)
 
 # WebGPU 与 WebGL 的计算性能差异
 
