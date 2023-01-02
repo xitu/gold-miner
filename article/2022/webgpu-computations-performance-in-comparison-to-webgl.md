@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md](https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md)
 > * 译者：[CarlosChenN](https://github.com/CarlosChenN)
-> * 校对者：
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye) [finalwhy](https://github.com/finalwhy)
 
 # WebGPU 与 WebGL 的计算性能差异
 
@@ -13,7 +13,7 @@ WebGPU - WebGL 的替代者，一个在浏览器中调用 GPUs 的全新 API。W
 
 ## WebGL 没有相同的特性吗？
 
-是也不是。WebGL 没有用于(GPU)计算的特殊 API，但仍然存在一种较为“hack”的方法可以实现这一功能。即将数据转换为一张图像，图像作为一个纹理上传到 GPU，随着纹理着色器不断地进行计算，纹理同时会被渲染出来。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步地读取，然后将颜色代码转换回你的数据。这看起来效率很低，对吧？
+是也不是。WebGL 没有用于（GPU）计算的特殊 API，但仍然存在一种较为“hack”的方法可以实现这一功能。即将数据转换为一张图像，图像作为一个纹理上传到 GPU，随着纹理着色器不断地进行计算，纹理同时会被渲染出来。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步地读取，然后将颜色代码转换回你的数据。这看起来效率很低，对吧？
 
 [![WebGL computation pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)
 
