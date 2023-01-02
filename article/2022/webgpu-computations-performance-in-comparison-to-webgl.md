@@ -2,64 +2,64 @@
 > * 原文作者：[Pixels Commander](http://pixelscommander.com)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md](https://github.com/xitu/gold-miner/blob/master/article/2022/webgpu-computations-performance-in-comparison-to-webgl.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CarlosChenN](https://github.com/CarlosChenN)
+> * 校对者：[Quincy-Ye](https://github.com/Quincy-Ye) 、[finalwhy](https://github.com/finalwhy)
 
-# WebGPU computations performance in comparison to WebGL
+# WebGPU 与 WebGL 的计算性能差异
 
-WebGPU – the successor of WebGL, a brand new API to utilize GPUs in the browser. It is promised to be available in regular Chrome in Q1 2022. In comparison to WebGL, WebGPU promises better performance and better compatibility with modern hardware, but the most recognizable feature of WebGPU is a special API for performing computations on GPU.
+WebGPU - WebGL 的替代者，一个在浏览器中调用 GPUs 的全新 API。WebGPU 将在 2022 第一季度的常规 Chrome 中可用。与 WebGL 相比，WebGPU 有着更好的性能以及与现代硬件有着更好的兼容性，WebGPU 最显著的特性是一个在 GPU 中执行计算的特殊 API。
 
 [![Matrices multiplication WebGPU vs WebGL](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)
 
-## Does not WebGL have the same feature?
+## WebGL 没有相同的特性吗？
 
-Yes and no. WebGL does not have a special API for computation but still, there is a hack that makes it possible. Data is being converted into an image, image uploaded to GPU as a texture, texture rendered synchronously with a pixel shader that does an actual computation. Then the result of computation we have as a set of pixels on a `<canvas>` element and we have to read it synchronously with `getPixelsData` then color codes to be converted back to your data. Looks like an inefficient mess, right?
+是也不是。WebGL 没有用于（GPU）计算的特殊 API，但仍然存在一种较为“hack”的方法可以实现这一功能。即将数据转换为一张图像，图像作为一个纹理上传到 GPU，随着纹理着色器不断地进行计算，纹理同时会被渲染出来。最后，我们得到的计算结果是 `<canvas>` 元素中的一组像素，我们必须用 `getPixelsData` 同步地读取，然后将颜色代码转换回你的数据。这看起来效率很低，对吧？
 
 [![WebGL computation pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-3.png)
 
-## How WebGPU is different?
+## WebGPU 有什么不同呢？
 
-API WebGPU provides for computations (compute shaders) is different in the way it is easy to miss the importance of the improvements, however, it empowers developers with absolutely new features. The way it works is:
+WebGPU 为（计算着色器）提供的 API 是不同的，它很容易忽略改进的重要性，但同时，它为开发者提供了全新的功能。它的工作方式是这样的：
 
 [![WebGPU computations pipeline](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-4.png)](http://pixelscommander.com/wp-content/uploads/2021/11/computation_schemas-4.png)
 
-## The differences
+## 两种方式的差异
 
-1. Data uploaded to GPU as a buffer, you do not convert it to pixels so it is cheaper
-2. Computation is being performed asynchronously and does not block JS main thread (say hi to real-time post-processing and complex physics simulation at 60FPS)
-3. We do not need canvas element and we avoid its limitation on size
-4. We do not do expensive and synchronous getPixelsData
-5. We do not spend time converting pixels values back to data
+1. 数据将作为缓存（buffer）上传到 GPU，你无需再将它转换成一张图片，所以它的性能开销更小
+2. 计算是异步执行的，它不会阻塞 JS 主线程（这意味着以 60 帧进行实时后置处理与复杂的物理模拟器的时代已经到来！）
+3. 我们将再也不需要创建 canvas 元素了，因此我们可以避开它对于图像尺寸的限制
+4. 我们无需做昂贵的、同步的 getPixelsData 操作
+5. 我们无需花费时间在像素转换回值数据上
 
-So WebGPU’s promise is that we can compute without blocking the main thread and compute faster, but how much faster?
+所以 WebGPU 可以让我们无需阻塞主线程进行更快的计算，但，能快多少呢？
 
-## How do we benchmark?
+## 我们如何做基准测试呢？
 
-As a benchmark, we use matrix multiplication which lets us scale the complexity and amount of computations easily.
+作为基准测试，我们用矩阵乘法，这让我们更轻松地提高计算的复杂性与计算量。
 
-For example, 16×16 matrix multiplication requires 7936 multiplication operations and 60×60 already gets us 428400 operations.
+举个例子，16×16 矩阵乘法需要 7936 次乘法运算，60×60 需要 428400 次乘法运算。
 
-Sure thing we run the test in an appropriate browser which is Chrome Canary with `#unsafe-webgpu-enabled` flag on.
+当然，我们需要在一个合适的浏览器中运行测试，此处我们选用开启了 `#unsafe-webgpu-enabled` 选项的 Chrome Canary。
 
-## Results
+## 结果
 
-The first results were discouraging and WebGL outperformed WebGPU at the bigger numbers:
+首次结果让人诅丧，WebGL 在更大的数字上表现优于 WebGPU：
 
 [![Matrices multiplication benchmark WebGPU incorrect](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-2.png)](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-2.png)
 
-Then I found that the size of a working group (number of operations to calculate in a single batch) is set in code to be as big as the matrix side. It works fine until the matrix side is lower than the number of ALUs on GPU (arithmetic logical unit) which is reflected in WebGPU API as a maximumWorkingGroupSize property. For me, it was 256. Once the working group was set to be less or equal to 256 this is the result we get:
+然后，我发现一个工作组的大小(在单个批处理中要计算的操作数量)在代码中被设置为与矩阵边一样大。它可以正常运行，直到矩阵侧低于 GPU 上的 ALUs（运算逻辑单位）数量，这在 WebGPU 中反映为 maximumWorkingGroupSize 属性。对于我，它是 256。当工作组设置小于等于 256 时，这是我们得到的结果：
 
 [![Matrices multiplication WebGPU vs WebGL](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)](http://pixelscommander.com/wp-content/uploads/2021/10/Matrices-multiplication-benchmark-1.png)
 
-This is quite impressive while is expected. WebGPU initialization and data transfer times are remarkably lower because we do not convert data to textures and do not read it from pixels. WebGPU performance is significantly higher and gets to 3.5x faster compared to WebGL while it does not block the main thread.
+这是意料之外，但也在情理之中。WebGPU 初始化与数据传输时间非常短，因为我们不需要转换数据为纹理，也无需从像素中读取它。WebGPU 性能明显更高，比 WebGL 快 3.5 倍有余 ，同时它不会阻塞主线程。
 
-It is also interesting to see WebGL failing after matrix size gets over 4096×4096 because of canvas and texture size limitations while WebGPU is capable to perform for matrices up to 5000×5000 which sounds not much of a difference but actually is 112552823744 more operations to perform and 817216 more values to hold.
+另一件有趣的事是，由于 canvas 和纹理的大小限制，WebGL 在矩阵超过 4096×4096 之后就会失败，同时 WebGPU 能够执行到 5000×5000 的矩阵，这听起来差不多，但实际上多出了 112552823744 次运算和 817216 个值要维护。
 
-Small but interesting fact – both WebGL / WebGPU require some time to warm up while JS goes full power straight away.
+一个小但有趣的事实 - WebGL 与 WebGPU 都需要一些时间进行预热操作，而 JS 则可以直接全速运行。
 
-## Conclusion
+## 结论
 
-The experiment proved that WebGPU compute shaders are in practice 3.5x faster than WebGL computing with pixel shaders while having significantly higher limits regarding the amount of data to process also it does not block the main thread. This allows new kinds of tasks in the browser: video and audio editing, real-time physics simulation, and more realistic visual effects, machine learning. This is the incomplete list of jobs to benefit from WebGPU where we can expect the new generation of apps to appear and the boundaries of what is possible to do on the Web significantly expanded.
+实验证明，WebGPU 计算着色器比使用像素着色器的 WebGL 计算速度快 3.5 倍，同时在处理大量数据量方面有明显更高的限制，并且它不会阻塞主线程。这允许在浏览器中执行新类型任务：视频与音频编辑，实时物理模拟器，以及更逼真的视觉效果，机器学习。而这仅仅是（目前可以想到的）能从 WebGPU 中获益的部分业务，我们可以期待新一代应用的出现，以及在 Web 上可能做的事情的边界显著扩展。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
