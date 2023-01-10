@@ -2507,10 +2507,11 @@
 |[防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069)|校对|1|
 |[为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6)|校对|1|
 
-## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：45.5 当前积分：25.5
+## 译者：[vuuihc](https://github.com/vuuihc) 历史贡献积分：49.5 当前积分：29.5 二零二二：4
 
 |文章|类型|积分|
 |------|-------|-------|
+|[用 Isabelle/HOL 验证分布式系统](https://juejin.cn/post/7166450887626326030)|校对|4|
 |2018 年 9 月兑套头衫 M 号 1 个|减去积分|20|
 |[[字幕翻译] Graham Dumpleton — Secrets of a WSGI master. — PyCon 2018](https://github.com/xitu/gold-miner/blob/master/TODO1/secrets-of-a-wsgi-master-pycon-2018.md)|翻译|9|
 |[用 Python 做一个 H5 游戏机器人](https://juejin.im/post/5aa9e7645188257bf550c745)|校对|1.5|
@@ -2988,10 +2989,11 @@
 |[你正在阅读的用户体验文章是不是在向你进行推销？](https://juejin.im/post/58d4c501a22b9d00645544d9)|校对|2|
 |[震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722)|翻译|3|
 
-## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：513.5 当前积分：433.5
+## 译者：[lsvih](https://github.com/lsvih) 历史贡献积分：517 当前积分：437 二零二二：3.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2021 的 SwiftUI：好处、坏处以及丑处](https://juejin.cn/post/7140825514108780580)|校对|3.5|
 |[Jetpack Compose：更简便的 RecyclerView（第一部分）](https://juejin.cn/post/6970858140824764424)|校对|4|
 |[跨站脚本攻击（XSS）](https://juejin.cn/post/6959080994653601806)|校对|1|
 |[解密转置卷积](https://juejin.cn/post/6954678998123151390)|校对|1|
@@ -7987,10 +7989,11 @@
 |[了解 Android 的矢量图片格式：`VectorDrawable`](https://juejin.im/post/5c1a21ff5188252eb759600e)|校对|2.5|
 |[当 Kotlin 中的监听器包含多个方法时，如何让它 “巧夺天工”？](https://juejin.im/post/5c1e43646fb9a04a102f45ab)|校对|1.5|
 
-## 译者：[gs666](https://github.com/gs666) 历史贡献积分：42 当前积分：32
+## 译者：[gs666](https://github.com/gs666) 历史贡献积分：47 当前积分：37 二零二二：5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[6 条 Jetpack Compose 指南帮你优化 App 性能](https://juejin.cn/post/7153803045418041358)|校对|5|
 |[Android 数据绑定库  — 从可观察域到 LiveData 仅需两步](https://juejin.im/post/5d12d76cf265da1b8b2b6d6e)|翻译|2|
 |[WorkManager 基础入门](https://juejin.im/post/5ce4da6a6fb9a07ea712e712)|翻译|8|
 |推荐英文文章一篇|奖励|1|
@@ -11701,10 +11704,11 @@
 |[你真的了解 Y(A)ML 吗？](https://juejin.cn/post/7021380596077166622/)|校对|3.5|
 |[Chromium 隐私沙盒让用户隐私更安全](https://juejin.cn/post/6958070229956034591)|校对|3|
 
-## 译者：[Tong-H](https://github.com/Tong-H) 历史贡献积分：75 当前积分：75 二零二二：23.5
+## 译者：[Tong-H](https://github.com/Tong-H) 历史贡献积分：87 当前积分：87 二零二二：35.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[全面刨析 CSS-in-JS](https://juejin.cn/post/7172360607201493029)|翻译|12|
 |[你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)|校对|3|
 |[过度使用懒加载对 Web 性能的影响](https://juejin.cn/post/7074759905197948935)|翻译|5|
 |[使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)|翻译|8.5|
@@ -11769,10 +11773,11 @@
 |[修订后的参与 TC39 标准委员会的模式](https://github.com/xitu/gold-miner/pull/8684)|校对|3|
 |[使用 Spring Cloud Gateway 作为微服务网关](https://juejin.cn/post/6973911203097608200)|校对|2|
 
-## 译者：[finalwhy](https://github.com/finalwhy) 历史贡献积分：80 当前积分：80 二零二二：43.5
+## 译者：[finalwhy](https://github.com/finalwhy) 历史贡献积分：81.5 当前积分：81.5 二零二二：45
 
 |文章|类型|积分|
 |------|-------|-------|
+|[WebGPU 与 WebGL 的计算性能差异](https://juejin.cn/post/7184099035018428472)|校对|1.5|
 |[设计类和对象的结构型模式](https://juejin.cn/post/7112103577967362084)|校对|4|
 |[Express vs. http - API 基准测试](https://juejin.cn/post/7113566528519274533)|翻译|3|
 |[你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)|校对|3|
@@ -11816,10 +11821,13 @@
 |[Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)|校对|2|
 |[面向具有 React 开发经验的开发者介绍 Svelte](https://juejin.cn/post/6981693237484339207)|校对|4|
 
-## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：68.5 当前积分：68.5 二零二二：40.5
+## 译者：[CarlosChenN](https://github.com/CarlosChenN) 历史贡献积分：77.5 当前积分：77.5 二零二二：49.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐前端文章 2 篇|奖励|2|
+|[WebGPU 与 WebGL 的计算性能差异](https://juejin.cn/post/7184099035018428472)|翻译|3.5|
+|[WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)|校对|3.5|
 |[ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)|翻译|3.5|
 |[5个关于 UI 设计系统的误解](https://juejin.cn/post/7086291006286462990)|翻译|4|
 |[你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)|翻译|6|
@@ -11845,10 +11853,12 @@
 |------|-------|-------|
 |6 月推荐前端文章 1 篇|奖励|1|
 
-## 译者：[jaredliw](https://github.com/jaredliw) 历史贡献积分：220.5 当前积分：140.5 二零二二：121.5
+## 译者：[jaredliw](https://github.com/jaredliw) 历史贡献积分：232 当前积分：152 二零二二：133
 
 |文章|类型|积分|
 |------|-------|-------|
+|[十大 Java 语言特性](https://juejin.cn/post/7140097107000000520)|翻译|8|
+|[2021 的 SwiftUI：好处、坏处以及丑处](https://juejin.cn/post/7140825514108780580)|校对|3.5|
 |[10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)|翻译|4|
 |[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|翻译|4|
 |[Android 开发中的 SQLDelight 入门](https://juejin.cn/post/7111246458895990792)|翻译|3|
@@ -11971,10 +11981,13 @@
 |------|-------|-------|
 |[多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)|校对|2|
 
-## 译者：[DylanXie123](https://github.com/DylanXie123) 历史贡献积分：26.5 当前积分：26.5 二零二二：26.5
+## 译者：[DylanXie123](https://github.com/DylanXie123) 历史贡献积分：50.5 当前积分：50.5 二零二二：50.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[全面刨析 CSS-in-JS](https://juejin.cn/post/7172360607201493029)|校对|6|
+|[WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)|翻译|7|
+|[微服务架构何时会是一种坏选择](https://juejin.cn/post/7135364257918484488)|翻译|11|
 |[如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)|校对|5|
 |[ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)|校对|1.5|
 |[10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)|校对|2|
@@ -12024,26 +12037,59 @@
 |------|-------|-------|
 |[Express vs. http - API 基准测试](https://juejin.cn/post/7113566528519274533)|校对|1.5|
 
-## 译者：[Lokfar](https://github.com/Lokfar) 历史贡献积分：3 当前积分：3 二零二二：3
+## 译者：[Lokfar](https://github.com/Lokfar) 历史贡献积分：6.5 当前积分：6.5 二零二二：6.5
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2021 的 SwiftUI：好处、坏处以及丑处](https://juejin.cn/post/7140825514108780580)|校对|3.5|
 |[0-1 背包问题解读](https://juejin.cn/post/7108719165527031815)|校对|3|
 
-## 译者：[timerring](https://github.com/timerring) 历史贡献积分：2 当前积分：2 二零二二：2
+## 译者：[timerring](https://github.com/timerring) 历史贡献积分：19 当前积分：19 二零二二：19
 
 |文章|类型|积分|
 |------|-------|-------|
+|[在云端使用 Redis？你应该知道这十件事](https://juejin.cn/post/7163213655662657566)|翻译|9|
+|[6 条 Jetpack Compose 指南帮你优化 App 性能](https://juejin.cn/post/7153803045418041358)|校对|5|
+|[使用令牌桶和熔断器进行重试](https://juejin.cn/post/7153093426446237727)|校对|3|
 |[如何为空间索引创建高效的数据结构？](https://juejin.cn/post/7115063278060961799)|校对|2|
 
-## 译者：[earthaYan](https://github.com/earthaYan) 历史贡献积分：5 当前积分：5 二零二二：5
+## 译者：[earthaYan](https://github.com/earthaYan) 历史贡献积分：12 当前积分：12 二零二二：12
 
 |文章|类型|积分|
 |------|-------|-------|
+|[2021 的 SwiftUI：好处、坏处以及丑处](https://juejin.cn/post/7140825514108780580)|翻译|7|
 |[如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)|校对|5|
 
-## 译者：[wangxuanni](https://github.com/wangxuanni) 历史贡献积分：1 当前积分：1 二零二二：1
+## 译者：[wangxuanni](https://github.com/wangxuanni) 历史贡献积分：31 当前积分：31 二零二二：31
 
 |文章|类型|积分|
 |------|-------|-------|
+|推荐后端文章 7 篇|奖励|7|
+|[实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)|翻译|3.5|
+|[用 Isabelle/HOL 验证分布式系统](https://juejin.cn/post/7166450887626326030)|翻译|8.5|
+|[使用令牌桶和熔断器进行重试](https://juejin.cn/post/7153093426446237727)|翻译|6|
+|[微服务架构何时会是一种坏选择](https://juejin.cn/post/7135364257918484488)|校对|5|
 |8 月推荐后端文章 1 篇|奖励|1|
+
+## 译者：[Quincy-Ye](https://github.com/Quincy-Ye) 历史贡献积分：44 当前积分：44 二零二二：44
+
+|文章|类型|积分|
+|------|-------|-------|
+|推荐 Android 文章 1 篇|奖励|1|
+|[实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)|校对|1.5|
+|[全面刨析 CSS-in-JS](https://juejin.cn/post/7172360607201493029)|校对|6|
+|[WebGPU 与 WebGL 的计算性能差异](https://juejin.cn/post/7184099035018428472)|校对|1.5|
+|[用 Isabelle/HOL 验证分布式系统](https://juejin.cn/post/7166450887626326030)|校对|4|
+|[在云端使用 Redis？你应该知道这十件事](https://juejin.cn/post/7163213655662657566)|校对|4|
+|[6 条 Jetpack Compose 指南帮你优化 App 性能](https://juejin.cn/post/7153803045418041358)|翻译|10.5|
+|[WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)|校对|3.5|
+|[十大 Java 语言特性](https://juejin.cn/post/7140097107000000520)|校对|4|
+|[使用令牌桶和熔断器进行重试](https://juejin.cn/post/7153093426446237727)|校对|3|
+|[微服务架构何时会是一种坏选择](https://juejin.cn/post/7135364257918484488)|校对|5|
+
+## 译者：[CompetitiveLin](https://github.com/CompetitiveLin) 历史贡献积分：5.5 当前积分：5.5 二零二二：5.5
+
+|文章|类型|积分|
+|------|-------|-------|
+|[实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)|校对|1.5|
+|[在云端使用 Redis？你应该知道这十件事](https://juejin.cn/post/7163213655662657566)|校对|4|
