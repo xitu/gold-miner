@@ -85,6 +85,7 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 
 ## 前端
 
+* [ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
 * [过度使用懒加载对 Web 性能的影响](https://juejin.cn/post/7074759905197948935)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [如何在网页中使用响应式图像](https://juejin.cn/post/7074199947477778439)（[zenblofe](https://github.com/zenblofe) 翻译）
@@ -92,19 +93,18 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 * [用 PNPM Workspaces 替换 Lerna + Yarn](https://juejin.cn/post/7071992448511279141)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [停止这样构建你的组件❌](https://juejin.cn/post/7085634227177259022)（[zaviertang](https://github.com/zaviertang) 翻译）
 * [双向绑定会使你的 React 代码更棒](https://juejin.cn/post/7064371133243457544)（[Tong-H](https://github.com/Tong-H) 翻译）
-* [何时能有更快更强的前端开发框架](https://juejin.cn/post/7057126478600732708)（[zenblofe](https://github.com/zenblofe) 翻译）
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端
 
+* [如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
+* [10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [你需要了解的 Python 3.10 新特性](https://juejin.cn/post/7089649375692980231)（[samyu2000](https://github.com/samyu2000) 翻译）
 * [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
 * [SREs 和 DevOps 十大开源项目](https://juejin.cn/post/7089270839475978253)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
 * [使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)（[Alfxjx](https://github.com/Alfxjx) 翻译）
-* [使用 FastAPI 提升 Python 代码的运行性能](https://juejin.cn/post/7068865005436796958)（[zenblofe](https://github.com/zenblofe) 翻译）
-* [HTTP/3 为什么这么快？](https://juejin.cn/post/7055178022445383694)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 设计
