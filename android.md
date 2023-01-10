@@ -1,3 +1,4 @@
+* [6 条 Jetpack Compose 指南帮你优化 App 性能](https://juejin.cn/post/7153803045418041358)（[Quincy-Ye](https://github.com/Quincy-Ye) 翻译）
 * [React Native 开发者的流行存储方案](https://juejin.cn/post/7008020729832669191)（[KimYangOfCat](https://github.com/KimYangOfCat) 翻译）
 * [Jetpack Compose：样式和主题（第二部分）](https://juejin.cn/post/6995419287435345934)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [探索 ANDROID 12：启动画面](https://juejin.cn/post/6983942336824737822)（[Kimhooo](https://github.com/Kimhooo) 翻译）
