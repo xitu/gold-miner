@@ -1,3 +1,9 @@
+* [实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [用 Isabelle/HOL 验证分布式系统](https://juejin.cn/post/7166450887626326030)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [十大 Java 语言特性](https://juejin.cn/post/7140097107000000520)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [使用令牌桶和熔断器进行重试](https://juejin.cn/post/7153093426446237727)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)（[DylanXie123](https://github.com/DylanXie123) 翻译）
+* [微服务架构何时会是一种坏选择](https://juejin.cn/post/7135364257918484488)（[DylanXie123](https://github.com/DylanXie123) 翻译）
 * [如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
 * [10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
