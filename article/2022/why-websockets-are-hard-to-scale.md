@@ -13,7 +13,7 @@
 
 Websockets 提供了一个重要的特性：双向通信。这使得服务器在不需要客户机请求的情况下向客户机**推送**事件。
 
-Websockets 这种**双向**的特性既是一种恩赐也是一种诅咒！尽管这种特性为 websockets 提供了大量的用例，但与 HTTP 服务器相比，实现一个可伸缩的 websockets 服务器要困难得多。
+Websockets 这种**双向**的特性是一把双刃剑！尽管这种特性为 websockets 提供了大量的用例，但与 HTTP 服务器相比，实现一个可伸缩的 websockets 服务器要困难得多。
 
 > _无耻的自我推销：_ 我认为 websockets 是 web 网页的一个重要部分并且它们需要在软件开发界得到更多的认可。我正在计划发布更多的有关于 websockets 的文章。如果你不想错过这些文章，你可以访问 [https://nooptoday.com/](https://nooptoday.com/) 并且订阅我的邮箱列表！
 
