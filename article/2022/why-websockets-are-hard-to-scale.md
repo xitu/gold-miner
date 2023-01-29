@@ -140,7 +140,7 @@ Discord 管理大量 Websocket 连接。他们是如何解决负载均衡的问�
 如果你研究了[开发者文档](https://discord.com/developers/docs/topics/gateway#get-gateway)关于如何建立 websocket 连接，下面是他们是如何做到的：
 
 -   发送一个 HTTP 的 GET 请求到  `/gateway` 端点，接收可用的 Websocket 服务器 url。
--   连接到 Websocket 服务器
+-   连接到 Websocket 服务器。
 
 这个解决方案的神奇之处在于，你可以控制新客户端应该连接哪台服务器。如果添加新服务器，则可以将所有新连接定向到新服务器。如果你想将 500 个连接从**服务器 1** 移动到**服务器 2**，只需从**服务器 1** 删除500个连接，并从 `/gateway` 端点提供**服务器 2** 地址。
 
