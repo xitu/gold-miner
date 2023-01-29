@@ -64,7 +64,7 @@ ___
 
 **无状态的 HTTP：** 另一方面，HTTP 是一个令人心碎的协议，它希望尽快结束所有事情。打开 HTTP 连接后，客户端发送请求，服务器一响应，连接就会关闭。
 
-OK，我不开玩笑了，但是记住，Websocket 连接_通常_是长连接，而 HTTP 连接注定是尽早结束的。当你把 Websocket 引入到你的应用程序时，它就变成了**有状态的**。
+OK，我不开玩笑了，但是记住，Websocket 连接**通常**是长连接，而 HTTP 连接注定是尽早结束的。当你把 Websocket 引入到你的应用程序时，它就变成了**有状态的**。
 
 #### [](https://dev.to/nooptoday/why-websockets-are-hard-to-scale-1267#in-case-you-wonder)如果你想知道
 
