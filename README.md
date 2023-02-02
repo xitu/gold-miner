@@ -67,44 +67,44 @@ https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&bod
 
 ## Android
 
+* [6 条 Jetpack Compose 指南帮你优化 App 性能](https://juejin.cn/post/7153803045418041358)（[Quincy-Ye](https://github.com/Quincy-Ye) 翻译）
 * [React Native 开发者的流行存储方案](https://juejin.cn/post/7008020729832669191)（[KimYangOfCat](https://github.com/KimYangOfCat) 翻译）
 * [Jetpack Compose：样式和主题（第二部分）](https://juejin.cn/post/6995419287435345934)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [探索 ANDROID 12：启动画面](https://juejin.cn/post/6983942336824737822)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [Jetpack Compose：更简便的 RecyclerView（第一部分）](https://juejin.cn/post/6970858140824764424)（[Kimhooo](https://github.com/Kimhooo) 翻译）
-* [Android 静态分析工具](https://juejin.cn/post/6967219488341098510)（[Kimhooo](https://github.com/Kimhooo) 翻译）
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 ## iOS
 
+* [2021 的 SwiftUI：好处、坏处以及丑处](https://juejin.cn/post/7140825514108780580)（[earthaYan](https://github.com/earthaYan) 翻译）
 * [4 个鲜为人知的 Swift 特性](https://juejin.cn/post/7069326429397205005)（[jaredliw](https://github.com/jaredliw) 翻译）
 * [React Native 开发者的流行存储方案](https://juejin.cn/post/7008020729832669191)（[KimYangOfCat](https://github.com/KimYangOfCat) 翻译）
 * [逆向 `.car` 文件（已编译的 Asset Catalogs）](https://juejin.cn/post/7002491722550919198)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
 * [Swift 中的内存布局](https://juejin.cn/post/6986520506002472973)（[LoneyIsError](https://github.com/LoneyIsError) 翻译）
-* [Kotlin Multiplatform Mobile 的三模块问题](https://juejin.cn/post/6973566787799498782)（[PassionPenguin](https://github.com/PassionPenguin) 翻译）
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
+* [全面刨析 CSS-in-JS](https://juejin.cn/post/7172360607201493029)（[Tong-H](https://github.com/Tong-H) 翻译）
+* [WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)（[DylanXie123](https://github.com/DylanXie123) 翻译）
 * [ES2022 有什么新特性？](https://juejin.cn/post/7114676836851777566)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
 * [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
 * [过度使用懒加载对 Web 性能的影响](https://juejin.cn/post/7074759905197948935)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [如何在网页中使用响应式图像](https://juejin.cn/post/7074199947477778439)（[zenblofe](https://github.com/zenblofe) 翻译）
 * [如何编写更简洁优雅的 React 代码](https://juejin.cn/post/7070479272380465166)（[zenblofe](https://github.com/zenblofe) 翻译）
 * [用 PNPM Workspaces 替换 Lerna + Yarn](https://juejin.cn/post/7071992448511279141)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
-* [停止这样构建你的组件❌](https://juejin.cn/post/7085634227177259022)（[zaviertang](https://github.com/zaviertang) 翻译）
-* [双向绑定会使你的 React 代码更棒](https://juejin.cn/post/7064371133243457544)（[Tong-H](https://github.com/Tong-H) 翻译）
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## 后端
 
+* [实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [用 Isabelle/HOL 验证分布式系统](https://juejin.cn/post/7166450887626326030)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [十大 Java 语言特性](https://juejin.cn/post/7140097107000000520)（[jaredliw](https://github.com/jaredliw) 翻译）
+* [使用令牌桶和熔断器进行重试](https://juejin.cn/post/7153093426446237727)（[wangxuanni](https://github.com/wangxuanni) 翻译）
+* [WebRTC 与 WebSockets 教程 — Web 端的实时通信](https://juejin.cn/post/7138015673850003493)（[DylanXie123](https://github.com/DylanXie123) 翻译）
+* [微服务架构何时会是一种坏选择](https://juejin.cn/post/7135364257918484488)（[DylanXie123](https://github.com/DylanXie123) 翻译）
 * [如何使用 Python 中的 PyPA setuptools 打包和部署 CLI 应用程序](https://juejin.cn/post/7125323312321789989)（[haiyang-tju](https://github.com/haiyang-tju) 翻译）
 * [10 个最难的 Python 问题](https://juejin.cn/post/7124285689717325831)（[jaredliw](https://github.com/jaredliw) 翻译）
-* [你应该知道的 Node.js 内存限制](https://juejin.cn/post/7087578623393136670)（[CarlosChenN](https://github.com/CarlosChenN) 翻译）
-* [你需要了解的 Python 3.10 新特性](https://juejin.cn/post/7089649375692980231)（[samyu2000](https://github.com/samyu2000) 翻译）
-* [作为一名前端工程师我浪费时间学习了这些技术](https://juejin.cn/post/7086019601372282888)（[airfri](https://github.com/airfri) 翻译）
-* [SREs 和 DevOps 十大开源项目](https://juejin.cn/post/7089270839475978253)（[keepmovingljzy](https://github.com/keepmovingljzy) 翻译）
-* [使用 Stream 构建高性能的 Node.js 应用](https://juejin.cn/post/7078964784980295694)（[Tong-H](https://github.com/Tong-H) 翻译）
-* [多语言横向对比 Python 有多慢？](https://juejin.cn/post/7073001978929872927)（[Alfxjx](https://github.com/Alfxjx) 翻译）
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 设计
