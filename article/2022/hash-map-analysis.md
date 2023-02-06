@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2022/hash-map-analysis.md](https://github.com/xitu/gold-miner/blob/master/article/2022/hash-map-analysis.md)
 > * 译者：[wangxuanni](https://github.com/wangxuanni)
-> * 校对者：
+> * 校对者：[Quincy_Ye](https://github.com/Quincy-Ye)，[CompetitiveLin](https://github.com/CompetitiveLin)
 
 # 分析哈希表在主流语言中的实现
 
 在现实世界的开发中，很少有数据结构比哈希表更常见。几乎每一个主流的编程都会在标准库中实现或内置到运行时中。然而现在还没有一个最佳、一致的实现策略，所以主流的编程语言在实现上大相径庭！我对 Go、Python、Ruby、Java、C#、C++ 和 Scala 中的哈希表实现进行了调查，比较和对比它们的实现方式。
 
-**注意：本文的其余部分假定您了解哈希表如何工作以及实现它们的最常见方案的知识。**如您需要重温， [维基百科](https://en.wikipedia.org/wiki/Hash_table)提供了一个相当易读的解释。除了基础知识之外，关于[链表](https://en.wikipedia.org/wiki/Hash_table#Separate_chaining)和[开放寻址法](https://en.wikipedia.org/wiki/Hash_table#Open_addressing) 也提供足够的背景知识。
+**注意：本文的其余部分假定您了解哈希表如何工作以及实现它们的最常见方案的知识。** 如您需要重温， [维基百科](https://en.wikipedia.org/wiki/Hash_table)提供了一个相当易读的解释。除了基础知识之外，关于[链表](https://en.wikipedia.org/wiki/Hash_table#Separate_chaining)和[开放寻址法](https://en.wikipedia.org/wiki/Hash_table#Open_addressing) 也提供足够的背景知识。
 
 对于每一个哈希表我会比较：
 
@@ -61,7 +61,7 @@ next = ((5*prev) + 1 + perturb) % TABLE_SIZE
 
 [源代码](https://github.com/ruby/ruby/blob/trunk/st.c) [注释](https://github.com/ruby/ruby/blob/trunk/st.c#L1-L96)
 
-**方案：**开放寻址法使用`j = ((5*j) + 1 + perturb) mod TABLE_SIZE` 。这与 Python 结构大体相同，但它们使用的扰动策略有些不同。
+**方案放寻址法：** 开放寻址法使用`j = ((5*j) + 1 + perturb) mod TABLE_SIZE` 。这与 Python 结构大体相同，但它们使用的扰动策略有些不同。
 
 **增长率：** 2x。插槽数始终是 2 的幂。
 
@@ -76,7 +76,7 @@ next = ((5*prev) + 1 + perturb) % TABLE_SIZE
 
 ## Java
 
-**方案：**链表，当链表的长度大于 8 时，链表转换为 TreeMap 。这种转换在以下情况下最有帮助：
+**方案：** 链表，当链表的长度大于 8 时，链表转换为 TreeMap 。这种转换在以下情况下最有帮助：
 
 * K 实现 `Comparable<>` 接口
 * 哈希码与表的大小取模时发生碰撞，但哈希码与表的大小不相等
@@ -109,7 +109,7 @@ Scala 还提供了一个可变的哈希表。由于它缺乏那些我看过语�
 
 [源代码](https://github.com/scala/scala/blob/2.12.x/src/library/scala/collection/mutable/HashTable.scala)
 
-**方案：**使用链表链接
+**方案：** 使用链表链接
 
 **增长率：** 2x
 
