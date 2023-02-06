@@ -7,9 +7,9 @@
 
 # 分析哈希表在主流语言中的实现
 
-在现实世界的开发中，很少有数据结构比哈希表更常见。几乎每一个主流的编程都会在标准库中实现或内置到运行时中。然而现在还没有一个最佳实现策略的结论，所以主流的编程语言在实现上大相径庭！我对 Go、Python、Ruby、Java、C#、C++ 和 Scala 中的哈希表实现进行了调查，比较和对比它们的实现方式。
+在现实世界的开发中，很少有数据结构比哈希表更常见。几乎每一个主流的编程都会在标准库中实现或内置到运行时中。然而现在还没有一个最佳、一致的实现策略，所以主流的编程语言在实现上大相径庭！我对 Go、Python、Ruby、Java、C#、C++ 和 Scala 中的哈希表实现进行了调查，比较和对比它们的实现方式。
 
-**注意：本文的其余部分假定您了解哈希表如何工作以及实现它们的最常见方案的知识。**如您需要重温， [维基百科](https://en.wikipedia.org/wiki/Hash_table)提供了一个相当易读的解释。除了基础知识之外，关于[链表](https://en.wikipedia.org/wiki/Hash_table#Separate_chaining)和[开发寻址法](https://en.wikipedia.org/wiki/Hash_table#Open_addressing) 也应该有足够的背景知识。
+**注意：本文的其余部分假定您了解哈希表如何工作以及实现它们的最常见方案的知识。**如您需要重温， [维基百科](https://en.wikipedia.org/wiki/Hash_table)提供了一个相当易读的解释。除了基础知识之外，关于[链表](https://en.wikipedia.org/wiki/Hash_table#Separate_chaining)和[开放寻址法](https://en.wikipedia.org/wiki/Hash_table#Open_addressing) 也提供足够的背景知识。
 
 对于每一个哈希表我会比较：
 
@@ -19,7 +19,7 @@
 
 要记住的一些词汇：
 
-* **扰动函数**: 下面许多哈希表的大小永远是是 2 的幂。因此 `n % (i**2)` 相当于没有使用高位的比特。为了解决这个问题，哈希表通过异或或简单的数字加法将哈希码的某些部分与自身结合起来。以确保不会丢失来自高位比特的影响。
+* **扰动函数**: 下面许多哈希表的大小永远是 2 的幂。因此 `n % (i**2)` 相当于没有使用高位的比特。为了解决这个问题，哈希表通过异或或简单的数字加法将哈希码的某些部分与自身结合起来。以确保不会丢失来自高位比特的影响。
 * **逻辑删除**：在开放寻址法中，当一个元素被删除时，它必须被标记为已删除而不是实际物理删除。这样一来，搜索处于链中更下游的元素时，会在命中“逻辑删除”时继续。
 
 尽管所有的实现都有很大不同，但仍然存在某些共同点：
@@ -43,19 +43,19 @@ next = ((5*prev) + 1 + perturb) % TABLE_SIZE
 
 `perturb` 最初是哈希码。 对于链中的每个连续元素， `perturb = perturb >> 5`。如果 perturb 从 2^32 开始，它将影响链表中的前 7 个元素。这很有趣，因为它不是每个人都在学校学习过线性或二次探测。
 
-**增长率** 至少两倍，并且大小永远是 2 的平方。在没有删除的情况下，大小会翻倍。由于是逻辑删除的（见上文对逻辑删除的解释），我们有可能有很长的链表而实际大小不满足负载因子。增长率是 `NUM_ITEMS*2+capacity/2`.[1](#fn:3) 通过考虑哈希表的大小，确保在触发扩容时哈希表始终增长。
+**增长率：** 至少两倍，并且大小永远是 2 的平方。在没有删除的情况下，大小会翻倍。由于是逻辑删除的（见上文对逻辑删除的解释），我们有可能有很长的链表而实际大小不满足负载因子。增长率是 `NUM_ITEMS*2+capacity/2`.[^1]  通过考虑哈希表的大小，确保在触发扩容时哈希表始终增长。
 
 **负载因子：** 0.66
 
 其他注意事项：
 
 * 尽管 Ruby 使用不同的扰动策略，但它们都使用相同的底层探测方案 `next = (prev * 5) + 1 mod TABLE_SIZE)`
-* 实现键是 unicode 字符串 [2](#fn:2) 的特殊情况哈希表。这样做的动机来自于这样一个事实，即 Python 内部许多都依赖于带有 unicode 键的字典（例如，查找局部变量）[3](#fn:5)
+* 实现键是 unicode 字符串 [^2] 的特殊情况哈希表。这样做的动机来自于这样一个事实，即 Python 内部许多都依赖于带有 unicode 键的字典（例如，查找局部变量）[^3]
     * 只有字符串键，键直接存储到数组中，指向值的指针存储在单独的数组中。这启用了一些优化，并且意味着在读取键时不需要指针取消引用。
     * 对于非字符串键，键值对一起存储在一个结构中，并使这些结构位于一个数组中。
 * 因 Python 中的整数 hash(i) == i 表现不佳的哈希函数，关注和大量调整了扰动策略。
-* 根据经验调整了很多魔法数[4](#fn:4)
-* 在 `3.3.0`.[1](#fn:3)，增长率从 `used*4` 变为 `used*2` 
+* 根据经验调整了很多魔法数[^4]
+* 在 `3.3.0`.[^1]，增长率从 `used*4` 变为 `used*2` 
 
 ## Ruby
 
@@ -69,17 +69,17 @@ next = ((5*prev) + 1 + perturb) % TABLE_SIZE
 
 其他注意事项：
 
-* 旧实现使用链表。据说新实现快 40 %[5](#fn:1)
+* 旧实现使用链表。据说新实现快 40%[^5]
 * Entries 数组（用于快速迭代）从 bins 数组中拆分出来用于哈希查找
 * 小的数组没有使用 bin，而是使用了线性扫描。
-* Ruby 尝试了二次规划（你可以在编译时打开它`#define QUADRATIC_PROBE`），但实践中速度较慢。[6](#fn:7)
+* Ruby 尝试了二次规划（你可以在编译时打开它`#define QUADRATIC_PROBE`），但实践中速度较慢。[^6]
 
 ## Java
 
-**方案：**链表，当链表的长度 > 8 时，链表转换为 TreeMap 。这种转换在以下情况下最有帮助：
+**方案：**链表，当链表的长度大于 8 时，链表转换为 TreeMap 。这种转换在以下情况下最有帮助：
 
-* K 实现了 `Comparable<>`接口
-* 哈希码与表的大小取模时发生碰撞，但哈希吗与表的大小不相等
+* K 实现 `Comparable<>` 接口
+* 哈希码与表的大小取模时发生碰撞，但哈希码与表的大小不相等
 
 **增长率：** 2x。插槽数始终是 2 的幂。
 
@@ -87,7 +87,7 @@ next = ((5*prev) + 1 + perturb) % TABLE_SIZE
 
 其他注意事项：
 
-* 由于 Java 哈希表的大小始终为 2 的幂，因此当使用 hash_code % tablesize 时，高位比特没有派上用场，直到哈希表为 2^32 。为了解决这个问题，Java 将哈希码与自身进行异或运算，右移 16 位。这确保了高位比特具有一定的影响。 int h = key.hashCode(); h = h ^ h >>> 16;`
+* 由于 Java 哈希表的大小始终为 2 的幂，因此当使用 hash_code % tablesize 时，高位比特没有派上用场，直到哈希表为 2^32 。为了解决这个问题，Java 将哈希码与自身进行异或运算，右移 16 位。这确保了高位比特具有一定的影响。 `int h = key.hashCode(); h = h ^ h >>> 16;`
 * 当扩容时，元素会进入两个位置之一， `k` or `k+oldSize`。这是每次扩容两倍的便利之处。
 * 代码真的很难理解，主要是因为树和链表之间相互转化。
 
@@ -154,9 +154,9 @@ h ^ (h >>> 10)
 
 **方案:** 链表
 
-**增长率** >2x。新大小是大于旧大小 2 倍的最小素数。
+**增长率:** >2x。新大小是大于旧大小 2 倍的最小素数。
 
-**Load Factor:** 1
+**负载因子:** 1
 
 注意事项：
 
@@ -186,30 +186,28 @@ private struct Entry
 
 **方案:** 链表
 
-**增长率** >2x。新大小是大于旧大小 2 倍的最小素数。
+**增长率:** >2x。新大小是大于旧大小 2 倍的最小素数。
 
-**Load Factor:** 1
+**负载因子:** 1
 
 注意事项：
 
 * C++ 标准库没有实现，但是标准库看起来要求是链表。如 [stack overflow 回答里说的那样](https://stackoverflow.com/questions/31112852/how-stdunordered-map-is-implemented)。 [往 spec 增加哈希表](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1456.html)的提案排除看直接把开放寻址法实现 c++ 标准库哈希表。
 * 增长行为类似于 C#
-* 表大小始终是质数。[7](#fn:6) 这让我很吃惊，因为我认为 C++ 会尝试对齐 2 的幂来帮助 malloc。
+* 表大小始终是质数。[^7] 这让我很吃惊，因为我认为 C++ 会尝试对齐 2 的幂来帮助 malloc。
 * C++ 标准库是很难读懂 ;-)
 
 ### 总结
 
 我发现在生产语言中使用的哈希表有这么多不同的实现很有意思。Ruby 从链表到开放寻址法的转变特别有趣，因为它显然在基准测试上有了相当大的改进。为 Java 或 Go 编写一个开放寻址的哈希表并比较性能将会很有趣。
 
-
-
-1. https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L398-L408 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:3)
-2. https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L54-L63 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:2)
-3. 也许你会惊讶，启动 Python 解释器并运行几个与字典无关的命令会导致大约 100 次字典查找。 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:5)
-4. https://github.com/python/cpython/blob/master/Objects/dictnotes.txt#L70 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:4)
-5. https://github.com/ruby/ruby/blob/fc939f6/st.c#L93-L94 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:1)
-6. https://github.com/ruby/ruby/blob/fc939f6/st.c#L842-L845FF [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:7)
-7. https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/unordered_map.h#L53 [[return\]](https://rcoh.me/posts/hash-map-analysis/#fnref:6)
+1. https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L398-L408 
+2. https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L54-L63 
+3. 也许你会惊讶，启动 Python 解释器并运行几个与字典无关的命令会导致大约 100 次字典查找。
+4. https://github.com/python/cpython/blob/master/Objects/dictnotes.txt#L70 
+5. https://github.com/ruby/ruby/blob/fc939f6/st.c#L93-L94 
+6. https://github.com/ruby/ruby/blob/fc939f6/st.c#L842-L845FF 
+7. https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/unordered_map.h#L53 
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
