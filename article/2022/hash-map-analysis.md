@@ -201,13 +201,13 @@ private struct Entry
 
 我发现在生产语言中使用的哈希表有这么多不同的实现很有意思。Ruby 从链表到开放寻址法的转变特别有趣，因为它显然在基准测试上有了相当大的改进。为 Java 或 Go 编写一个开放寻址的哈希表并比较性能将会很有趣。
 
-[^1]:https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L398-L408
-[^2]:https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L54-L63
-[^3]:也许你会惊讶，启动 Python 解释器并运行几个与字典无关的命令会导致大约 100 次字典查找
-[^4]:https://github.com/python/cpython/blob/master/Objects/dictnotes.txt#L70
-[^5]:https://github.com/ruby/ruby/blob/fc939f6/st.c#L93-L94
-[^6]:https://github.com/ruby/ruby/blob/fc939f6/st.c#L842-L845FF
-[^7]:https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/unordered_map.h#L53
+[^1]: https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L398-L408
+[^2]: https://github.com/python/cpython/blob/60c3d35/Objects/dictobject.c#L54-L63
+[^3]: 也许你会惊讶，启动 Python 解释器并运行几个与字典无关的命令会导致大约 100 次字典查找
+[^4]: https://github.com/python/cpython/blob/master/Objects/dictnotes.txt#L70
+[^5]: https://github.com/ruby/ruby/blob/fc939f6/st.c#L93-L94
+[^6]: https://github.com/ruby/ruby/blob/fc939f6/st.c#L842-L845FF
+[^7]: https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/unordered_map.h#L53
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
