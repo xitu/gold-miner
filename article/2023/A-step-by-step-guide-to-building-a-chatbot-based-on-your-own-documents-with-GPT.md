@@ -1,7 +1,7 @@
 > * 原文地址：[A step-by-step guide to building a chatbot based on your own documents with GPT](https://bootcamp.uxdesign.cc/a-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-gpt-2d550534eea5)
 > * 原文作者：[Guodong (Troy) Zhao](https://medium.com/@guodong_zhao)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md](https://github.com/xitu/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md)
+> * 本文永久链接：[https://github.com/itcodes/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md](https://github.com/itcodes/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md)
 > * 译者：
 > * 校对者：
 
