@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md](https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 5 个例子告诉你如何使用 ChatGPT 提高生产力
 
@@ -17,7 +17,7 @@
 
 举例来说，你可以这么问：
 
-> 我想要变得更健壮。我需要一个采用 SMART 方法的具体的、可达成的目标。给我一个最好的计划并以表格形式呈现。表格应使用 Markdown 书写。
+> I want to improve my fitness. I need very specific, achievable goals that subscribes to the SMART goals method. Give me a plan with the best quality and in a table format. The table should be in markdown code.
 
 ChatGPT 回答：
 
@@ -42,7 +42,7 @@ ChatGPT 回答：
 
 举例来说，你可以这样请求 ChatGPT：
 
-> 我需要完成一个报告，回复一些电邮和安排一场会议。生成一个展示如何确定最重要的任务并制定应对计划。任务表必须是具体、明确和可执行的。
+> I need to finish a report, respond to some emails, and schedule a meeting. Generate me a table and show me how to identify your most important tasks and create a plan for tackling them. Must be specific, with precise and executable timetable.
 
 ChatGPT 回答：
 
@@ -64,7 +64,7 @@ ChatGPT 回答：
 
 询问 ChatGPT：
 
-> 根据我在上方提供的每日事项和行程，生成一个 Markdown 表格来帮我就建立良好的习惯并保持正轨。创建一个包含运动的日程。我比较喜欢在早上运动，但我不能早起。
+> Based on the daily tasks and routine I give you above, generate a markdown table that help me establish good habits and stay on track. Create a daily routine that includes exercise. I prefer to exercise in the morning, but I struggle to wake up early.
 
 ChatGPT 回答：
 
@@ -91,7 +91,7 @@ ChatGPT 回答：
 
 询问 ChatGPT：
 
-> 我想学习 JavaScript 编程。现在我仍处于新手阶段，对其不太了解。给我一个具体的、Markdown 格式的时间表，其中包含可执行的步骤、教程与材料。
+> I want to know how to code in JavaScript. Currently, I am at beginner level without too much knowledge about it. Give me a concrete timeline table in markdown format with executable steps, tutorials, materials.
 
 ChatGPT 回答：
 
