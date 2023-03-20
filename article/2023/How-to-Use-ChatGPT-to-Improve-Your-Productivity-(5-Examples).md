@@ -107,7 +107,7 @@ ChatGPT 回答：
 显然，ChatGPT 没有提供我们哪里可以找到这些教程。 
 你可以继续问：
 
-> 我需要知道在哪里可以找到这些资源。你能告诉我每周需要学习的资料或 YouTube 频道吗？
+> I need to know where I can find these materials. Can you show me the learning materials or YouTube channels that I need to learn from for each week?
 
 ChatGPT 回复：
 
