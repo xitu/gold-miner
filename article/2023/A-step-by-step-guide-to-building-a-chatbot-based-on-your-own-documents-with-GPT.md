@@ -118,7 +118,7 @@ response = index.query("What features do users want to see in the app?")print(re
 
 上面的步骤仅仅展示了 LlamaIndex 和 GPT 非常简单的回答问题的入门用法。但你可以做更多。事实上，你可以配置 LlamaIndex 去使用不同的大型语言模型（LLM），使用不同类型的索引去做不同的任务，用一个新的索引来更新现有的索引等等。如果你感兴趣，可以阅读他们的文档 [https://gpt-index.readthedocs.io/en/latest/index.html](https://gpt-index.readthedocs.io/en/latest/index.html)。
 
-** 结语
+## 结语
 
 在这篇文章中，我们看到了如何将 GPT 与 LlamaIndex 结合起来，建立一个文档问答聊天机器人。虽然 GPT（和其他 LLM）本身就很强大，但如果我们把它与其他工具、数据或进程结合起来，它的力量就可以大大放大。
 
