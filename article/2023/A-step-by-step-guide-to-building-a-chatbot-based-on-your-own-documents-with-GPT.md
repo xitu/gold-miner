@@ -94,7 +94,7 @@ LlamaIndex 也提供多种不同的数据连接器，包括 Notion，Asana，Goo
 index = GPTSimpleVectorIndex(documents)
 ```
 
-如果你想要保存索引并加载它以便后续使用，你可以使用以下方法
+如果你想要保存索引以便后续加载使用，你可以使用以下方法
 
 ```
 index.save_to_disk('index.json')index = GPTSimpleVectorIndex.load_from_disk('index.json')
