@@ -31,7 +31,7 @@
 
 （如果你想要学习更多关于 GPT 的微调和提示工程，你可以阅读这篇文章：[为个人业务量身定制的基础语言模型（如GPT）的3种方法](https://medium.com/design-bootcamp/3-ways-to-tailor-foundation-language-models-like-gpt-for-your-business-e68530a763bd)）
 
-由于提示受限于输入符号数量，所以我有一个想法，首先使用算法搜索文档，并选择相关的摘要，然后只将这些相关的内容以及我的问题传递给 GPT。当我研究这个想法的时候，我偶然发现一个叫 gpt-index 的库（现在更名为 LlamaIndex），这个库完全符合我的想法，而且使用简单 \[2\]。
+由于提示对输入 token 数量有限制，所以我想出了一个主意，首先使用算法搜索文档并选择相关的摘要，然后只将这些相关的内容以及我的问题传递给 GPT。当我研究这个想法的时候，我偶然发现一个叫 gpt-index 的库（现在更名为 LlamaIndex），这个库完全符合我的想法，而且使用简单 \[2\]。
 
 ![](https://miro.medium.com/v2/resize:fit:1400/1*Zi85PvOv8tpaB4SvpTRlHw.png)
 
