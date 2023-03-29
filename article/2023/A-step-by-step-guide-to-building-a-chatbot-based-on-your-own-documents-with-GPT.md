@@ -120,7 +120,7 @@ response = index.query("What features do users want to see in the app?")print(re
 
 ## 结语
 
-在这篇文章中，我们看到了如何将 GPT 与 LlamaIndex 结合起来，建立一个文档问答聊天机器人。虽然 GPT（和其他 LLM）本身就很强大，但如果我们把它与其他工具、数据或进程结合起来，它的力量就可以大大放大。
+在这篇文章中，我们看到了如何将 GPT 与 LlamaIndex 结合起来，来建立一个文档问答聊天机器人。虽然 GPT（和其他 LLM）本身就很强大，但如果我们把它与其他工具、数据或流程结合起来，它的能力就可以大大放大。
 
 你会用一个文档问答聊天机器人做什么？
 
