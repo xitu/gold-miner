@@ -112,7 +112,7 @@ response = index.query("What features do users want to see in the app?")print(re
 
 一个回复案例
 
-然后就可以了！你会得到打印的答案。在后台，LlamaIndex 会接受你的提示并在索引中搜索相关的语块，然后将你的提示以及相关的语块传递给 GPT。
+然后就可以了！你就能得到回答了。在后台，LlamaIndex 会接受你的提示并在索引中搜索相关的语块，然后将你的提示以及相关的语块传递给 GPT。
 
 **一些关于高级使用的说明**
 
