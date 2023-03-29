@@ -124,6 +124,8 @@ response = index.query("What features do users want to see in the app?")print(re
 
 你会用一个文档问答聊天机器人做什么？
 
+1. <a name="note1"></a> [What Is Question Answering? — Hugging Face. 5 Dec. 2022](https://huggingface.co/tasks/question-answering)
+2. <a name="note2"></a> [Liu, Jerry. LlamaIndex. Nov. 2022. GitHub](https://github.com/jerryjliu/llama_index)
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
 ---
