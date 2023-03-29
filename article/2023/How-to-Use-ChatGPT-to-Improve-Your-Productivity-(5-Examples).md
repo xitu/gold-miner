@@ -3,13 +3,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md](https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 5 个例子告诉你如何使用 ChatGPT 提高生产力
 
 ![封面](https://res.cloudinary.com/practicaldev/image/fetch/s--uaV5SLq5--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/t2c656ze0c411gitgz0t.jpg)
 
-在日常生活中，我们都想要提高自己的生产力，但有时候如何开始是一件困难的事。幸运的是，有了 ChatGPT（一个由人工智能驱动的对话媒介）的协助，你可以制定策略来提高你的工作效率并实现你的目标。这里提供几个使用 ChatGPT 改变生活的思路：
+在日常生活中，我们都想要提高自己的生产力，但有时候如何开始是一件困难的事。幸运的是，有了 ChatGPT（一个由人工智能驱动的对话机器人）的协助，你可以制定策略来提高你的工作效率并实现你的目标。这里提供几个使用 ChatGPT 改变生活的思路：
 
 ## 1. 使用 ChatGPT 设定 SMART 目标
 
@@ -17,7 +17,7 @@
 
 举例来说，你可以这么问：
 
-> 我想要变得更健壮。我需要一个采用 SMART 方法的具体的、可达成的目标。给我一个最好的计划并以表格形式呈现。表格应使用 Markdown 书写。
+> I want to improve my fitness. I need very specific, achievable goals that subscribes to the SMART goals method. Give me a plan with the best quality and in a table format. The table should be in markdown code.
 
 ChatGPT 回答：
 
@@ -25,7 +25,7 @@ ChatGPT 回答：
 | ----------- | ----------- | ------- | ----------------- | ------------- | ------- |
 | 1\. 增加心血管耐力 | 30 分钟无间断的跑步 | 时间和距离   | 逐渐增加时长和强度         | 对整体健康非常重要     | 12 周内达成 |
 | 2\. 增强肌肉力量  | 连续做 10 次俯卧撑 | 重复次数    | 持之以恒的训练与正确的形式     | 加强日常活动和避免受伤   | 6 周内达成  |
-| 3\.提高灵活性    | 直膝弯腰碰脚趾     | 手和脚趾的距离 | 经常拉伸并保持健康饮食       | 加强活动范围和减少肌肉紧绷 | 12周内达成  |
+| 3\.提高灵活性    | 直膝弯腰碰脚趾     | 手和脚趾的距离 | 经常拉伸并保持健康饮食       | 加强活动范围和减少肌肉紧绷 | 12 周内达成  |
 | 4\. 降低体脂率   | 每周减少 1 磅的脂肪 | 体重和体脂率  | 持续保持在热量不足的状态并经常运动 | 改善整体健康和外观     | 12 周内达成 |
 
 - 增加心血管耐力：目标是 30 分钟无间断的跑步。这可以通过记录每次跑步的时间和距离来衡量。逐渐增加时长和强度能使得这一目标可以实现。心血管耐力对整体健康非常重要。这个目标可以在 12 周内达成。
@@ -36,13 +36,14 @@ ChatGPT 回答：
 
 - 降低体脂率：目标是每周减少 1 磅的脂肪。这可以通过追踪体重和体脂率来衡量。持续保持在热量不足的状态并经常运动能使得这一目标可以实现。降低体脂率能改善整体健康和外观。这个目标可以在 12 周内达成。
 
+
 ## 2. 使用 ChatGPT 确定任务的优先级
 
 为了能保持高效和按计划执行工作，任务的优先级排序至关重要。ChatGPT 可以帮助你确认最重要的任务并制定解决这些任务的计划。
 
 举例来说，你可以这样请求 ChatGPT：
 
-> 我需要完成一个报告，回复一些电邮和安排一场会议。生成一个展示如何确定最重要的任务并制定应对计划。任务表必须是具体、明确和可执行的。
+> I need to finish a report, respond to some emails, and schedule a meeting. Generate me a table and show me how to identify your most important tasks and create a plan for tackling them. Must be specific, with precise and executable timetable.
 
 ChatGPT 回答：
 
@@ -58,13 +59,14 @@ ChatGPT 回答：
 
 3. 安排一场会议：安排一场会议具有高重要性和中等紧急性，截止时间为 48 小时内。行动计划是根据参与者的情况确认可能的会议时间、使用日程安排工具发送邀请并确认参与者是否出席、为会议设定一个明确的议程、为会议设定一个明确的议程，并提前与所有参与者分享和跟进会议后的行动项目与后续事项。
 
+
 ## 3. 使用 ChatGPT 创建一个行程
 
 创建一个每日行程能帮助你建立良好的习惯并保持正轨。ChatGPT 能帮你建立一个符合你生活习惯和目标的行程。
 
 询问 ChatGPT：
 
-> 根据我在上方提供的每日事项和行程，生成一个 Markdown 表格来帮我就建立良好的习惯并保持正轨。创建一个包含运动的日程。我比较喜欢在早上运动，但我不能早起。
+> Based on the daily tasks and routine I give you above, generate a markdown table that help me establish good habits and stay on track. Create a daily routine that includes exercise. I prefer to exercise in the morning, but I struggle to wake up early.
 
 ChatGPT 回答：
 
@@ -91,7 +93,7 @@ ChatGPT 回答：
 
 询问 ChatGPT：
 
-> 我想学习 JavaScript 编程。现在我仍处于新手阶段，对其不太了解。给我一个具体的、Markdown 格式的时间表，其中包含可执行的步骤、教程与材料。
+> I want to know how to code in JavaScript. Currently, I am at beginner level without too much knowledge about it. Give me a concrete timeline table in markdown format with executable steps, tutorials, materials.
 
 ChatGPT 回答：
 
@@ -107,7 +109,7 @@ ChatGPT 回答：
 显然，ChatGPT 没有提供我们哪里可以找到这些教程。 
 你可以继续问：
 
-> 我需要知道在哪里可以找到这些资源。你能告诉我每周需要学习的资料或 YouTube 频道吗？
+> I need to know where I can find these materials. Can you show me the learning materials or YouTube channels that I need to learn from for each week?
 
 ChatGPT 回复：
 
@@ -132,6 +134,8 @@ ChatGPT 回复：
 TypeError: 'int' object is not callable
 ```
 
+
+
 你可以将错误消息复制粘贴到 ChatGPT 中以寻求帮助。ChatGPT 做出如下响应：
 
 > 发生这个错误是因为你尝试将整数作为函数使用。以下是解决这个问题得一些步骤：
@@ -143,6 +147,7 @@ TypeError: 'int' object is not callable
 > - 检查函数调用：如果你正在调用函数，请确保使用正确的语法并且函数已被正确定义。
 > 
 > - 检查是否有拼写错误：确保代码中没有拼写错误或语法错误。
+> 
 > 
 > 在这个情况下，错误信息表明问题与函数调用有关。仔细检查你是否尝试将整数用作函数，或者代码中是否存在任何语法错误或拼写错误。你可能需要重新定义变量或使用不同的函数来解决这个错误。
 
