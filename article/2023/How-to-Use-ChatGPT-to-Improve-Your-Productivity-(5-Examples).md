@@ -21,12 +21,12 @@
 
 ChatGPT 回答：
 
-| 目标          | 细节          | 可衡量性    | 可实现性              | 相关性           | 时限性     |
-| ----------- | ----------- | ------- | ----------------- | ------------- | ------- |
-| 1\. 增加心血管耐力 | 30 分钟无间断的跑步 | 时间和距离   | 逐渐增加时长和强度         | 对整体健康非常重要     | 12 周内达成 |
-| 2\. 增强肌肉力量  | 连续做 10 次俯卧撑 | 重复次数    | 持之以恒的训练与正确的形式     | 加强日常活动和避免受伤   | 6 周内达成  |
-| 3\.提高灵活性    | 直膝弯腰碰脚趾     | 手和脚趾的距离 | 经常拉伸并保持健康饮食       | 加强活动范围和减少肌肉紧绷 | 12 周内达成  |
-| 4\. 降低体脂率   | 每周减少 1 磅的脂肪 | 体重和体脂率  | 持续保持在热量不足的状态并经常运动 | 改善整体健康和外观     | 12 周内达成 |
+| 目标 | 细节 | 可衡量性 | 可实现性 | 相关性 | 时限性 |
+| --- | --- | --- | --- | --- | --- |
+| 1\. 增加心血管耐力 | 30 分钟无间断的跑步 | 时间和距离 | 逐渐增加时长和强度         | 对整体健康非常重要 | 12 周内达成 |
+| 2\. 增强肌肉力量 | 连续做 10 次俯卧撑 | 重复次数 | 持之以恒的训练与正确的形式     | 加强日常活动和避免受伤 | 6 周内达成 |
+| 3\.提高灵活性 | 直膝弯腰碰脚趾 | 手和脚趾的距离 | 经常拉伸并保持健康饮食       | 加强活动范围和减少肌肉紧绷 | 12 周内达成 |
+| 4\. 降低体脂率 | 每周减少 1 磅的脂肪 | 体重和体脂率 | 持续保持在热量不足的状态并经常运动 | 改善整体健康和外观 | 12 周内达成 |
 
 - 增加心血管耐力：目标是 30 分钟无间断的跑步。这可以通过记录每次跑步的时间和距离来衡量。逐渐增加时长和强度能使得这一目标可以实现。心血管耐力对整体健康非常重要。这个目标可以在 12 周内达成。
 
@@ -47,11 +47,11 @@ ChatGPT 回答：
 
 ChatGPT 回答：
 
-| 任务     | 重要性 | 紧急性 | 截止时间   | 行动计划                                                                                              |
-| ------ | --- | --- | ------ | ------------------------------------------------------------------------------------------------- |
-| 完成报告   | 高   | 高   | 今天之前   | 在早上抽出两个小时不受打扰的时间专注于报告。将报告拆分成几个更小且易于掌握的部分，并为每个部分分配时间。每完成一个部分后休息一下，避免过度疲劳。在一天结束前检查和编辑报告。            |
-| 回复电邮   | 中   | 高   | 24 小时内 | 安排早上 30 分钟和下午 30 分钟的时间来回复电邮。优先回复紧急的电邮。设置过滤来分类和安排优先级。设置过滤器以分类和优先处理刚收到的电邮。设置自动回复以满足发件人的期望和避免电子邮件过载。 |
-| 安排一场会议 | 高   | 中   | 48 小时内 | 根据参与者的情况确认可能的会议时间。使用日程安排工具发送邀请并确认参与者是否出席。为会议设定一个明确的议程，并提前与所有参与者分享。跟进会议后的行动项目与后续事项。                |
+| 任务 | 重要性 | 紧急性 | 截止时间 | 行动计划 |
+| --- | --- | --- | --- | --- |
+| 完成报告 | 高 | 高 | 今天之前 | 在早上抽出两个小时不受打扰的时间专注于报告。将报告拆分成几个更小且易于掌握的部分，并为每个部分分配时间。每完成一个部分后休息一下，避免过度疲劳。在一天结束前检查和编辑报告。 |
+| 回复电邮 | 中 | 高 | 24 小时内 | 安排早上 30 分钟和下午 30 分钟的时间来回复电邮。优先回复紧急的电邮。设置过滤来分类和安排优先级。设置过滤器以分类和优先处理刚收到的电邮。设置自动回复以满足发件人的期望和避免电子邮件过载。 |
+| 安排一场会议 | 高 | 中 | 48 小时内 | 根据参与者的情况确认可能的会议时间。使用日程安排工具发送邀请并确认参与者是否出席。为会议设定一个明确的议程，并提前与所有参与者分享。跟进会议后的行动项目与后续事项。 |
 
 1. 完成报告：完成报告有高重要性和高紧急性，截止时间为今天之前。行动计划是在早上抽出两个小时不受打扰的时间专注于报告、将报告拆分成几个更小且易于掌握的部分，并为每个部分分配时间、每完成一个部分后休息一下，避免过度疲劳和在一天结束前检查和编辑报告。
 
@@ -70,20 +70,20 @@ ChatGPT 回答：
 
 ChatGPT 回答：
 
-| 时间                 | 任务       | 行动计划                                                                                     |
-| ------------------ | -------- | ---------------------------------------------------------------------------------------- |
-| 6:30 AM - 7:00 AM  | 起床       | 把闹钟放在房间的另一头，强迫自己起床。开启明亮的灯光，让自己清醒起来。                                                      |
-| 7:00 AM - 7:30 AM  | 运动       | 以轻伸展作为开始，接着是 20 分钟有氧运动（如慢跑、开合跳或一个健身短片），最后用 10 分钟做瑜伽或冥想来放松。选择一种你喜欢的运动方式并进行一些变化以避免让自己感觉无聊。 |
-| 7:30 AM - 8:00 AM  | 洗漱、吃早餐   | 洗个提神的澡让自己清醒，然后吃健康的早餐（如燕麦粥、鸡蛋或奶昔），为全天提供能量。                                                |
-| 8:00 AM - 9:00 AM  | 回复电邮、做计划 | 优先回复紧急的电邮并为一天做好安排。将重要的任务列为首要事项，并将它们安排在你的日历中。                                             |
-| 9:00 AM - 12:00 PM | 工作       | 在这段时间里专注于最重要的任务。每隔一个小时休息一下，以保持头脑清醒，预防过度劳累。                                               |
-| 12:00 PM - 1:00 PM | 吃午餐、散步   | 停下手里的活并出去走走。吃一个健康的午餐（如沙拉或卷饼）来为身体补充能量。                                                    |
-| 1:00 PM - 4:00 PM  | 工作       | 继续完成你的任务。在此期间，尽量避免能干扰你的事物，如社交媒体或个人电子邮件。                                                  |
-| 4:00 PM - 5:00 PM  | 运动、休闲活动  | 暂停工作，进行一个快速的锻炼或参与你喜欢的休闲活动，如阅读或听音乐。                                                       |
-| 5:00 PM - 6:00 PM  | 准备晚餐     | 计划并准备一个健康的晚餐。利用这段时间来实验新食谱和尝试不同的食物。                                                       |
-| 6:00 PM - 7:00 PM  | 吃晚餐、放松身心 | 与家人或朋友共进晚餐，或者利用这个时间来放松身心。避免在这段时间工作。                                                      |
-| 7:00 PM - 9:00 PM  | 休闲活动     | 进行你喜欢的休闲活动，比如看电影或散步。在此期间避免使用电子设备，以促进平静舒适的睡眠。                                             |
-| 9:00 PM - 10:00 PM | 放松身心、睡觉  | 睡前可以洗一个热水澡、读一本书或冥想来放松身心。关闭所有电子设备。每天按固定时间上床睡觉。                                            |
+| 时间 | 任务 | 行动计划 |
+| --- | --- | --- |
+| 6:30 AM - 7:00 AM  | 起床 | 把闹钟放在房间的另一头，强迫自己起床。开启明亮的灯光，让自己清醒起来。 |
+| 7:00 AM - 7:30 AM  | 运动 | 以轻伸展作为开始，接着是 20 分钟有氧运动（如慢跑、开合跳或一个健身短片），最后用 10 分钟做瑜伽或冥想来放松。选择一种你喜欢的运动方式并进行一些变化以避免让自己感觉无聊。 |
+| 7:30 AM - 8:00 AM | 洗漱、吃早餐 | 洗个提神的澡让自己清醒，然后吃健康的早餐（如燕麦粥、鸡蛋或奶昔），为全天提供能量。 |
+| 8:00 AM - 9:00 AM  | 回复电邮、做计划 | 优先回复紧急的电邮并为一天做好安排。将重要的任务列为首要事项，并将它们安排在你的日历中。|
+| 9:00 AM - 12:00 PM | 工作 | 在这段时间里专注于最重要的任务。每隔一个小时休息一下，以保持头脑清醒，预防过度劳累。|
+| 12:00 PM - 1:00 PM | 吃午餐、散步 | 停下手里的活并出去走走。吃一个健康的午餐（如沙拉或卷饼）来为身体补充能量。|
+| 1:00 PM - 4:00 PM  | 工作 | 继续完成你的任务。在此期间，尽量避免能干扰你的事物，如社交媒体或个人电子邮件。|
+| 4:00 PM - 5:00 PM  | 运动、休闲活动 | 暂停工作，进行一个快速的锻炼或参与你喜欢的休闲活动，如阅读或听音乐。|
+| 5:00 PM - 6:00 PM  | 准备晚餐 | 计划并准备一个健康的晚餐。利用这段时间来实验新食谱和尝试不同的食物。|
+| 6:00 PM - 7:00 PM  | 吃晚餐、放松身心 | 与家人或朋友共进晚餐，或者利用这个时间来放松身心。避免在这段时间工作。|
+| 7:00 PM - 9:00 PM  | 休闲活动 | 进行你喜欢的休闲活动，比如看电影或散步。在此期间避免使用电子设备，以促进平静舒适的睡眠。|
+| 9:00 PM - 10:00 PM | 放松身心、睡觉 | 睡前可以洗一个热水澡、读一本书或冥想来放松身心。关闭所有电子设备。每天按固定时间上床睡觉。|
 
 这个日程包含晨间运动，能帮助你建立良好的生活习惯并保持正轨。祝你生活愉快！
 
@@ -97,14 +97,14 @@ ChatGPT 回答：
 
 ChatGPT 回答：
 
-| 时间          | 任务                 | 行动计划                                                     | 资源                                        |
-| ----------- | ------------------ | -------------------------------------------------------- | ----------------------------------------- |
-| 第 1 周       | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。 | Codecademy、 MDN、W3Schools                 |
-| 第 2 至第 3 周  | 语法、变量和操作符          | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。                | JavaScript.info、FreeCodeCamp、Udemy        |
-| 第 4 至第 5 周  | 函数和控制流             | 学习 JavaScript 中的函数、循环和条件语句。                              | JavaScript.info、 FreeCodeCamp、Udemy       |
-| 第 6 周       | 中级概念和库             | 熟悉 JavaScript 中级概念和库，如对象、数组和 jQuery。                     | JavaScript.info、FreeCodeCamp、Udemy、jQuery |
-| 第 7 至第 8 周  | JavaScript 框架和库    | 探索流行的 JavaScript 框架和库，如：React、Angular 和 Vue。             | React、Angular、Vue、Udemy                   |
-| 第 9 至第 10 周 | 构建项目和个人作品选辑        | 利用你所学的内容构建你自己的项目和工具。创建一个个人作品选集以展现你所学内容。                  | Github、Codepen、个人作评选辑的例子                  |
+| 时间 | 任务 | 行动计划 | 资源 |
+| --- | --- | --- | --- | --- |
+| 第 1 周 | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。 | Codecademy、 MDN、W3Schools |
+| 第 2 至第 3 周 | 语法、变量和操作符 | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。 | JavaScript.info、FreeCodeCamp、Udemy |
+| 第 4 至第 5 周  | 函数和控制流 | 学习 JavaScript 中的函数、循环和条件语句。 | JavaScript.info、 FreeCodeCamp、Udemy |
+| 第 6 周 | 中级概念和库 | 熟悉 JavaScript 中级概念和库，如对象、数组和 jQuery。| JavaScript.info、FreeCodeCamp、Udemy、jQuery |
+| 第 7 至第 8 周 | JavaScript 框架和库 | 探索流行的 JavaScript 框架和库，如：React、Angular 和 Vue。| React、Angular、Vue、Udemy |
+| 第 9 至第 10 周 | 构建项目和个人作品选辑 | 利用你所学的内容构建你自己的项目和工具。创建一个个人作品选集以展现你所学内容。| Github、Codepen、个人作评选辑的例子 |
 
 显然，ChatGPT 没有提供我们哪里可以找到这些教程。 
 你可以继续问：
@@ -113,14 +113,14 @@ ChatGPT 回答：
 
 ChatGPT 回复：
 
-| 时间          | 任务                 | 行动计划                                                     | 资源                                                                                                                                                                                                                                              |
-| ----------- | ------------------ | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 第 1 周       | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。 | [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript)、[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)、[W3Schools](https://www.w3schools.com/js/)                                                             |
-| 第 2 至第 3 周  | 语法、变量和操作符          | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。                | [JavaScript.info](https://javascript.info/first-steps)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)、[Udemy](https://www.udemy.com/topic/javascript/)                                           |
-| 第 4 至第 5 周  | 函数和控制流             | 学习 JavaScript 中的函数、循环和条件语句。                              | [JavaScript.info](https://javascript.info/function-basics)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/)、[Udemy](https://www.udemy.com/topic/javascript/)                      |
-| 第 6 周       | 中级概念和库             | 熟悉 JavaScript 中级概念和库，如对象、数组和 jQuery。                     | [JavaScript.info](https://javascript.info/object)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/)、[Udemy](https://www.udemy.com/topic/javascript/)、[jQuery](https://jquery.com/) |
-| 第 7 至第 8 周  | JavaScript 框架和库    | 探索流行的 JavaScript 框架和库，如：React、Angular 和 Vue。             | [React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/)、[Udemy](https://www.udemy.com/topic/javascript/)                                                                                                         |
-| 第 9 至第 10 周 | 构建项目和个人作品选辑        | 利用你所学的内容构建你自己的项目和工具。创建一个个人作品选集以展现你所学内容。                  | [Github](https://github.com/)、[Codepen](https://codepen.io/)、[个人作品选辑的例子](https://www.sitebuilderreport.com/inspiration/portfolio-website-examples)                                                                                              |
+| 时间 | 任务 | 行动计划 | 资源 |
+| --- | --- | --- | --- | --- |
+| 第 1 周 | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。| [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript)、[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)、[W3Schools](https://www.w3schools.com/js/) |
+| 第 2 至第 3 周 | 语法、变量和操作符 | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。 | [JavaScript.info](https://javascript.info/first-steps)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)、[Udemy](https://www.udemy.com/topic/javascript/) |
+| 第 4 至第 5 周 | 函数和控制流 | 学习 JavaScript 中的函数、循环和条件语句。 | [JavaScript.info](https://javascript.info/function-basics)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/)、[Udemy](https://www.udemy.com/topic/javascript/) |
+| 第 6 周 | 中级概念和库 | 熟悉 JavaScript 中级概念和库，如对象、数组和 jQuery。 | [JavaScript.info](https://javascript.info/object)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/)、[Udemy](https://www.udemy.com/topic/javascript/)、[jQuery](https://jquery.com/) |
+| 第 7 至第 8 周 | JavaScript 框架和库 | 探索流行的 JavaScript 框架和库，如：React、Angular 和 Vue。 | [React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/)、[Udemy](https://www.udemy.com/topic/javascript/) |
+| 第 9 至第 10 周 | 构建项目和个人作品选辑 | 利用你所学的内容构建你自己的项目和工具。创建一个个人作品选集以展现你所学内容。 | [Github](https://github.com/)、[Codepen](https://codepen.io/)、[个人作品选辑的例子](https://www.sitebuilderreport.com/inspiration/portfolio-website-examples) |
 
 请注意，这些只是建议，网上还有许多其他资源。找到最适合你和你的学习方式的学习材料和渠道非常重要。祝你的 JavaScript 学习之旅好运！
 
