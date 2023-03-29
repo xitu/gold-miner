@@ -88,7 +88,7 @@ documents = SimpleDirectoryReader('your_directory').load_data()text_list = [text
 
 LlamaIndex 也提供多种不同的数据连接器，包括 Notion，Asana，Google Drive，Obsidian 等等。你可以在 [https://llamahub.ai/](https://llamahub.ai/) 中找到可用的数据连接器。
 
-在文档加载后，我们可以用以下方法简单的构建索引
+在文档加载后，我们可以用以下方法简单地构建索引
 
 ```
 index = GPTSimpleVectorIndex(documents)
