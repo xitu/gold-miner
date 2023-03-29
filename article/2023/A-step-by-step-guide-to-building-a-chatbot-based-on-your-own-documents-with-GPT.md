@@ -11,7 +11,7 @@
 
 ![](https://miro.medium.com/v2/resize:fit:1400/1*gUE4sFAEIhoR07IMUhzLaA.jpeg)
 
-向机器人询问与文档有关的问题。用稳定扩散法生成的图像。
+向机器人询问与文档有关的问题。由 Stable Diffusion 生成的图像。
 
 在本文中，我将探讨如何基于自己的数据创建自己的问答机器人，包括为什么有些方法不生效，以及使用 llama-index 和 GPT API 高效的创建文档问答聊天机器人的逐步引导
 
