@@ -98,7 +98,7 @@ ChatGPT 回答：
 ChatGPT 回答：
 
 | 时间 | 任务 | 行动计划 | 资源 |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | 第 1 周 | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。 | Codecademy、 MDN、W3Schools |
 | 第 2 至第 3 周 | 语法、变量和操作符 | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。 | JavaScript.info、FreeCodeCamp、Udemy |
 | 第 4 至第 5 周  | 函数和控制流 | 学习 JavaScript 中的函数、循环和条件语句。 | JavaScript.info、 FreeCodeCamp、Udemy |
@@ -114,7 +114,7 @@ ChatGPT 回答：
 ChatGPT 回复：
 
 | 时间 | 任务 | 行动计划 | 资源 |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | 第 1 周 | JavaScript 和基本概念介绍 | 观看关于 JavaScript 概述的在线教程或文章，如：Codecademy、MDN 或 W3Schools。| [Codecademy](https://www.codecademy.com/learn/introduction-to-javascript)、[MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)、[W3Schools](https://www.w3schools.com/js/) |
 | 第 2 至第 3 周 | 语法、变量和操作符 | 跟随一个系统的教程系列，其中内容应包含 JavaScript 语法、变量和操作符。 | [JavaScript.info](https://javascript.info/first-steps)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/)、[Udemy](https://www.udemy.com/topic/javascript/) |
 | 第 4 至第 5 周 | 函数和控制流 | 学习 JavaScript 中的函数、循环和条件语句。 | [JavaScript.info](https://javascript.info/function-basics)、[FreeCodeCamp](https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/)、[Udemy](https://www.udemy.com/topic/javascript/) |
