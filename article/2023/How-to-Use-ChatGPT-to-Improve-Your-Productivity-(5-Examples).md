@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md](https://github.com/xitu/gold-miner/blob/master/article/2023/How-to-Use-ChatGPT-to-Improve-Your-Productivity-(5-Examples).md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：[lsvih](https://github.com/lsvih)
+> * 校对者：[lsvih](https://github.com/lsvih)、[Quincy-Ye](https://github.com/Quincy-Ye)
 
 # 5 个例子告诉你如何使用 ChatGPT 提高生产力
 
@@ -83,7 +83,7 @@ ChatGPT 回答：
 | 5:00 PM - 6:00 PM  | 准备晚餐 | 计划并准备一个健康的晚餐。利用这段时间来实验新食谱和尝试不同的食物。|
 | 6:00 PM - 7:00 PM  | 吃晚餐、放松身心 | 与家人或朋友共进晚餐，或者利用这个时间来放松身心。避免在这段时间工作。|
 | 7:00 PM - 9:00 PM  | 休闲活动 | 进行你喜欢的休闲活动，比如看电影或散步。在此期间避免使用电子设备，以促进平静舒适的睡眠。|
-| 9:00 PM - 10:00 PM | 放松身心、睡觉 | 睡前可以洗一个热水澡、读一本书或冥想来放松身心。关闭所有电子设备。每天按固定时间上床睡觉。|
+| 9:00 PM - 10:00 PM | 放松身心、睡觉 | 睡前可以洗一个热水澡、读一本书或冥想来放松身心。关闭所有电子设备并且每天按固定时间上床睡觉。|
 
 这个日程包含晨间运动，能帮助你建立良好的生活习惯并保持正轨。祝你生活愉快！
 
