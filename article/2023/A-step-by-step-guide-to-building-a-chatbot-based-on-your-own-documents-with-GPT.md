@@ -3,7 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/itcodes/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md](https://github.com/itcodes/gold-miner/blob/master/article/2023/A-step-by-step-guide-to-building-a-chatbot-based-on-your-own-documents-with-GPT.md)
 > * 译者：[tong-h](https://github.com/Tong-H)
-> * 校对者：
+> * 校对者：[grejioh](https://github.com/grejioh) [Quincy-Ye](https://github.com/Quincy-Ye)
 
 与 ChatGPT 聊天是有趣且丰富的，过去一段时间我一直在与它闲聊并探索新的想法。但这些都是比较随意的用例，新奇感很快就减弱，尤其是当你意识到它可以产生幻觉的时候。
 
