@@ -48,7 +48,7 @@
 在开始之前，我们需要准备一些东西：
 
 - 你的 OpenAI API Key，可以在 [https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys) 中找到。
-- 你的文档的数据库。LlamaIndex 支持多种不同的数据来源，比如 Notion，Google Docs，Asana 等等 \[3\]。在本教程中，我们只使用一个简单的 text 文件来做示范。
+- 你的文档的数据库。LlamaIndex 支持多种不同的数据来源，比如 Notion、Google Docs、Asana 等等 \[3\]。在本教程中，我们只使用一个简单的 text 文件来做示范。
 -  一个本地 Python 环境或者在线 [Google Colab notebook](https://colab.research.google.com/)。
 
 ## 工作流程
