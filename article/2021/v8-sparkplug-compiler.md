@@ -19,7 +19,7 @@
 
 Leszek [提到](https://news.ycombinator.com/item?id=27312037) FCG 被抛弃而不是改进的原因是它巨大的技术负担，特别是与 Sparkplug 编译器和 FCG 不得不从源码编译，然后把输出提供给 TurboFan 有关，因为这导致了各种各样的复杂情况。这同样也[让 FCG 更难跟上 JavaScript 的新特性](https://v8project.blogspot.com/2017/05/launching-ignition-and-turbofan.html) 。
 
-Swirski 称，Sparkplug 的速度来源于两个因素。首先，它依赖于 TurboFan 生成的字节码，这意味着大量的工作已经完成了，包括变量解析、判断圆括号是否是箭头函数、为解构声明语句进行脱糖等等。此外，Sparkplug 并不生成任何中间产物，而是在一个单一的线性通道中输出机器码。这种方式意味着 Sparkplug 不能做任何基于中间产物的高级优化，它必须全面移植到每个新的平台上。
+Swirski 称，Sparkplug 的速度来源于两个因素。首先，它依赖于 Ignition 生成的字节码，这意味着大量的工作已经完成了，包括变量解析、判断圆括号是否是箭头函数、为解构声明语句进行脱糖等等。此外，Sparkplug 并不生成任何中间产物，而是在一个单一的线性通道中输出机器码。这种方式意味着 Sparkplug 不能做任何基于中间产物的高级优化，它必须全面移植到每个新的平台上。
 
 在性能方面，Sparkplug 改进了 [Speedometer](https://browserbench.org/Speedometer2.0) 以及 V8 团队使用的一组现实的基准测试。根据测试机器和网站的不同，性能的提高范围在 5~15% 之间。谷歌尚未发布各种管道组件性能的官方低级基准。不过 Leszek [在这解释过](https://news.ycombinator.com/item?id=27308038) ：
 
