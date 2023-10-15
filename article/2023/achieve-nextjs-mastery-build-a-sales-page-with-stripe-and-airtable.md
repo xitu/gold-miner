@@ -3,9 +3,6 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md)
 > * 译者：
-[![Cover image for 🚀 Achieve NextJS Mastery: Build a Sales Page with Stripe and Airtable 🧙♂️🪄✨](https://res.cloudinary.com/practicaldev/image/fetch/s--Abr2wFVs--/c_imagga_scale,f_auto,fl_progressive,h_420,q_66,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v8vie90lgs0iaqw62f3p.gif)](https://res.cloudinary.com/practicaldev/image/fetch/s--Abr2wFVs--/c_imagga_scale,f_auto,fl_progressive,h_420,q_66,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/v8vie90lgs0iaqw62f3p.gif)
-
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#tldr)TL;DR
 
 In this tutorial, you'll learn how to build a sales landing page:
 
