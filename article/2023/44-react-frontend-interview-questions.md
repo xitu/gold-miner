@@ -1,7 +1,6 @@
 > * 原文地址：[44 React Frontend Interview Questions](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63)
 > * 原文作者：[TYan Levin](https://dev.to/m_midas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-<<<<<<< HEAD
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/44-react-frontend-interview-questions.md](https://github.com/xitu/gold-miner/blob/master/article/2023/44-react-frontend-interview-questions-2o63.md)
 > * 译者：
 > * 校对者：
