@@ -12093,3 +12093,9 @@
 |------|-------|-------|
 |[实现 Bitcask ，一种日志结构的哈希表](https://juejin.cn/post/7174345557861728292)|校对|1.5|
 |[在云端使用 Redis？你应该知道这十件事](https://juejin.cn/post/7163213655662657566)|校对|4|
+
+## 译者：[Alex0x26](https://github.com/Alex0x26) 历史贡献积分：200 当前积分：200
+|文章|类型|积分|
+|------|-------|-------|
+|[44 React Frontend Interview Questions](https://github.com/xitu/gold-miner/issues/9526)|内容管理|内容管理|
+|[Achieve NextJS Mastery: Build a Sales Page with Stripe and Airtable](https://github.com/xitu/gold-miner/issues/9527)|内容管理|内容管理|
