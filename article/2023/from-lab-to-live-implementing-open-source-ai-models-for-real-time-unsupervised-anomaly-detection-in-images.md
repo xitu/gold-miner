@@ -5,6 +5,7 @@
 > * 译者：
 
 
+From Lab to Live: Implementing Open-Source AI Models for Real-Time Unsupervised Anomaly Detection in Images
 [![Cover image for From Lab to Live: Implementing Open-Source AI Models for Real-Time Unsupervised Anomaly Detection in Images](https://res.cloudinary.com/practicaldev/image/fetch/s--zQp0paJn--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d9xks1imvt9tttp8ykqa.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--zQp0paJn--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/d9xks1imvt9tttp8ykqa.png)
 
 The journey of taking an open-source artificial intelligence (AI) model from a laboratory setting to real-world implementation can seem daunting. However, with the right understanding and approach, this transition becomes a manageable task.
