@@ -1,7 +1,7 @@
 > * 原文地址：[From Lab to Live: Implementing Open-Source AI Models for Real-Time Unsupervised Anomaly Detection in Images](https://dev.to/reductstore/from-lab-to-live-implementing-open-source-ai-models-for-real-time-unsupervised-anomaly-detection-in-images-2h18)
 > * 原文作者：[AnthonyCvn](https://dev.to/anthonycvn)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/from-lab-to-live-implementing-open-source-ai-models-for-real-time-unsupervised-anomaly-detection-in-images.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/from-lab-to-live-implementing-open-source-ai-models-for-real-time-unsupervised-anomaly-detection-in-images.md](https://github.com/xitu/gold-miner/blob/master/article/2023/from-lab-to-live-implementing-open-source-ai-models-for-real-time-unsupervised-anomaly-detection-in-images.md)
 > * 译者：
 
 
