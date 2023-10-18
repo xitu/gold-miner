@@ -5,15 +5,15 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[Chorer](https://github.com/Chorer)、[sin7777](https://github.com/sin7777)
 
-# 3 种在任何浏览器中使用 CSS 网格的后备方案
+# 3 种在任何浏览器中使用 CSS Grid 的备选方案
 
 ![由 [John Schnobrich](https://unsplash.com/@johnschno?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9662/0*z99PsHMNipBY051X)
 
 如今，CSS Grid 在浏览器中已经广受支持 —— 支持 Grid 基本功能的浏览器占比约为 95％。不过有时我们无法忽略剩下的 5％，因为我们可能希望自己的 Web 应用的布局在所有浏览器中看起来都一样的棒，而且我们甚至还可能希望去使用一些支持度较低的 Grid 的新功能。
 
-那我们应该做什么？我们应该避免在生产中使用 Grid 布局吗？我们应该抛弃使用旧版浏览器的用户吗？我们应该等待功能得到更好的覆盖吗？当然不，有很多后备方案可以帮助我们克服这些问题。
+那我们应该做什么？我们应该避免在生产中使用 Grid 布局吗？我们应该抛弃使用旧版浏览器的用户吗？我们应该等待功能得到更好的覆盖吗？当然不，有很多备选方案可以帮助我们解决这些问题。
 
-在本文中，我们将探讨最重要的三种技术。它们将帮助我们在 Grid 布局上轻松兼容旧版浏览器，这样我们就可以根据可用的浏览器功能，调整我们的网页设计。这一切都将是渐进式适应的。
+在本文中，我们将探讨最重要的三种可以帮助我们在旧版浏览器上轻松兼容 Grid 布局的方案，这样我们就可以根据可用的浏览器功能，调整我们的网页设计。这一切都将是渐进式适应的。
 
 在深入探讨技术方面的内容之前，我们需要制定一个策略。制定适当的策略是成功的关键，因为这将使我们有方向感和一致性。
 
@@ -23,27 +23,29 @@ Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布
 
 我们可以尝试使用 Flexbox 重现相同的布局，不过这样做会增加过多的代码。此外，Flexbox 也不是为了栅格布局而开发的功能，如果使用它，我们可能会遇到一些困难。
 
-现在我们该怎么办？解决方案非常简单：作为后备方案，只需向用户展示移动端的布局即可，而只有使用过时浏览器的桌面端用户才会注意到这些改变。他们在我们的总用户数量中占比非常低。你的站点对于所有人来说应该都是可以使用且一致的，而这就是一个公平的权衡。
+现在我们该怎么办？解决方案非常简单：作为备选方案，只需向用户展示移动端的布局即可，而只有使用过时浏览器的桌面端用户才会注意到这些改变。他们在我们的总用户数量中占比非常低。你的站点对于所有人来说应该都是可以使用且一致的，而这就是一个合理的折衷。
 
 那么如何使用最新的 Grid 功能？直接采取相同的策略：尝试回退到一个相似的布局。
 
 总结：我们的布局应该逐步增强。使用较旧浏览器的用户可能只能看到一个更简单但可用的版式，而那些使用最新浏览器的用户将获得完整的用户体验。
 
-让我们来看一下可以使用的前 3 种后备工具。
+让我们来看一下可以使用的前 3 种备选方案。
 
 ## 1. 使用 CSS 特性查询
 
 让我们从下面的这段描述开始了解：
 
-> “**特性查询** 是使用 CSS 的 at 规则 [`@supports`](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) 创建的。它给予 Web 开发者一种有效的方法去测试浏览器是否支持某个确定特性，而后提供基于测试结果生效的 CSS 。在此指南中你将学习如何使用特性查询实现渐进式增强。” — [MDN Web文档]（https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Conditional_Rules/Using_Feature_Queries）
+> “**特性查询** 是使用 CSS 的 at 规则 [`@supports`](https://developer.mozilla.org/en-US/docs/Web/CSS/@supports) 创建的一种用于判断是否支持某个特性的工具。它给予 Web 开发者一种有效的方法去测试浏览器是否支持某个确定特性，而后提供基于测试结果生效的 CSS 。在此指南中你将学习如何使用特性查询实现渐进式增强。” — [MDN Web文档]（https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Conditional_Rules/Using_Feature_Queries）
 
 如果你曾经使用过媒体查询，那么我想，你也会非常熟悉 `@supports` 的语法，毕竟两者是很相似的。不过在这里我们使用 `@supports` 不是希望基于浏览器的视口大小来调整布局，而是希望基于 CSS 属性的支持与否来定义指定的样式。
 
 根据我们的策略：
 
-1.我们将使用 Flexbox 构建移动布局版本，并将其用作默认版本。 2.通过使用 `@supports`，我们将检查浏览器是否支持 Grid。如果支持，我们就会使用 Grid 来增强布局。
+1. 我们将使用 Flexbox 构建移动布局版本，并将其用作默认版本。
 
-在此示例中，由于我们仅需关注标准的 Grid 行为。在这里我们可以向 `@supports` 查询基本的 `display：grid` 功能：
+2. 通过使用 `@supports`，我们将检查浏览器是否支持 Grid。如果支持，我们就会使用 Grid 来增强布局。
+
+在此示例中，由于我们仅需关注标准的 Grid 行为。在这里我们可以向 `@supports` 查询基本的 `display: grid` 功能：
 
 ```css
 @supports (display: grid) {
@@ -57,7 +59,7 @@ Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生产中的 Grid</title>
+    <title>生产实践中的 Grid</title>
     <meta charset="UTF-8"/>
 </head>
 
@@ -119,7 +121,7 @@ Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布
 </html>
 ```
 
-注意，我们并没有断言 Grid 特性 `grid-template-columns`。如果浏览器不支持该怎么办？在这种情况下，Grid 将退回到默认的定位算法 —— 它将堆叠 `div`。在我们的示例中，该方法可以正常运行，因此我们不需要再去进行额外的工作。
+注意，我们并没有断言 Grid 特性 `grid-template-columns` 可用。如果浏览器不支持该怎么办？在这种情况下，Grid 将退回到默认的定位算法 —— 它将堆叠 `div`。在我们的示例中，该方法可以正常运行，因此我们不需要再去进行额外的工作。
 
 让我们看看结果，这是支持 Grid 的浏览器的桌面端视图结果：
 
@@ -133,7 +135,7 @@ Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布
 
 ![Fallback 布局](https://cdn-images-1.medium.com/max/2000/1*YfV-AKl5U5bRzX9BVYtMGg.png)
 
-布局没有被破坏，仍然可用于所有浏览器引擎。只有从桌面端访问它的用户才能看到区别。
+布局没有被破坏，并且仍然可用于所有浏览器引擎。只有从桌面端访问它的用户才能看到区别。
 
 ## 2. 以编程方式使用 CSS 功能查询
 
@@ -141,7 +143,7 @@ Grid 中最常见的用处是构建适合用户屏幕分辨率的多维栅格布
 
 幸运的是，可以在 JavaScript 以编程方式调用 CSS 功能。我们可以通过 CSS 对象模型接口 [`CSSSupportsRule`](https://developer.mozilla.org/zh-CN/docs/Web/API/CSSSupportsRule) 来访问 `@supports`。
 
-> `CSSSupportsRule` 接口代表一个 CSS `@supports` 和 `at-rule` — [MDN Web文档]（https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule）
+> `CSSSupportsRule` 接口呈现了一个 CSS `@supports` 的 `at-rule` — [MDN Web文档]（https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule）
 
 让我们看一下它的定义：
 
@@ -167,7 +169,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生产中的 Grid</title>
+    <title>生产实践中的 Grid</title>
     <meta charset="UTF-8"/>
 </head>
 <body>
@@ -235,7 +237,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 </html>
 ```
 
-`CSS.supports` 是用于以编程方式创建后备布局的优秀工具。如果我们必须处理非常复杂的布局，那么我们可能需要选用此方法而不是 CSS 特性查询。有了这种程序化的后备方案，我们可以使用它来创建 Web 组件。
+`CSS.supports` 是用于以编程方式创建备选布局的优秀工具。如果我们必须处理非常复杂的布局，那么我们可能需要选用此方法而不是 CSS 特性查询。有了这种程序化的后备方案，我们可以使用它来创建 Web 组件。
 
 ## 3. 属性覆盖
 
@@ -258,7 +260,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>生产中的 Grid</title>
+    <title>生产实践中的 Grid</title>
     <meta charset="UTF-8"/>
 </head>
 <body>
@@ -321,7 +323,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 </html>
 ```
 
-这种后备方案虽然简单但是功能强大。在许多情况下它很有用 —— 毕竟我们可能无法对所有要使用的 Grid 功能都进行查询。
+这种备选方案虽然简单但是功能强大。在许多情况下它很有用 —— 毕竟我们可能无法对所有要使用的 Grid 功能都进行查询。
 
 让我们用它从最新的 Grid 功能之一：`subgrid` 进行回退吧。我们应该如何使用呢？
 
@@ -434,7 +436,7 @@ if (!CSS || !CSS.supports('display', 'grid')) {
 
 ![`subgrid` 不可用时](https://cdn-images-1.medium.com/max/2000/1*j8rPVYjENApqFPg--2Be_A.png)
 
-如你所见，结果看起来是完全一致的，但其实只是非常相似而已，这就是我们的目标。随着越来越多的浏览器采用 `subgrid`，更多的用户都可以看到布局的像素级完美版本！
+如你所见，结果看起来是完全一致的，但其实只是非常相似而已，这就是我们希望的目标。随着越来越多的浏览器采用 `subgrid`，更多的用户都可以看到布局的像素级完美版本！
 
 ## 结论
 
@@ -444,7 +446,7 @@ Grid 和 Flexbox 旨在解决不同的情况。我们无法一直使用 Flexbox 
 
 这些策略不仅仅是为了添加基本的 Grid 功能。只要我们提供合理的后备方案，我们就可以利用诸如 `subgrid` 之类的最新功能。
 
-我希望这能鼓励你在需要时去生产环境中逐渐应用 Grid。现在，我们不必再躲在 Flexbox 后面了！
+我希望这能鼓励你在需要时去生产环境中逐渐应用 Grid。现在，我们不必再躲在 Flexbox 后面了期望靠 Flexbox 实现一切了！
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
