@@ -7,7 +7,7 @@
 
 # Node.js 缓冲区的完整指南
 
-二进制流是大量的二进制数据的集合。由于通常情况下二进制流的大小挺大的，因此二进制流一般不会一起运送，而会在运输前切分成小块然后逐一发送。
+二进制流是大量的二进制数据的集合。由于通常情况下二进制流的大小挺大的，因此二进制流一般不会一起同时传输，而会在传输前切分成小块然后逐一传输。
 
 当数据处理单元暂时不再接收其他数据流时，剩余的数据将会被保留在缓存中，直到数据处理单元准备好接收更多数据为止。
 
@@ -48,26 +48,24 @@ console.log(buffLen) // 10
 
 #### `Buffer.compare()`
 
-通过使用 `Buffer.compare()` 我们可以比较两个缓冲区，此方法的返回值是 `-1`，`0`，`1` 中的一个。
-
-译者注：`buf.compare(otherBuffer);` 这一句调用会返回一个数字 `-1`，`0`，`1`，分别对应 `buf` 在 `otherBuffer` 之前，之后或相同。
+通过使用 `Buffer.compare()` 我们可以比较两个缓冲区，此方法的返回值是 `0`、`1` 或 `-1`。（注：分别对应 `buf` 与 `otherBuffer` 相同，`buf`、`otherBuffer` 在进行排序后 `buf` 在 `otherBuffer` 之前或之后。）
 
 ```js
 var buf1 = Buffer.from('Harsh')
 var buf2 = Buffer.from('Harsg')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) // 这会打印 0
+console.log(a) // 这会输出 0
 
 var buf1 = Buffer.from('a')
 var buf2 = Buffer.from('b')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) // 这会打印 -1
+console.log(a) // 这会输出 -1
 
 
 var buf1 = Buffer.from('b')
 var buf2 = Buffer.from('a')
 var a = Buffer.compare(buf1, buf2)
-console.log(a) // 这会打印 1
+console.log(a) // 这会输出 1
 ```
 
 #### `Buffer.concat()`
@@ -87,12 +85,12 @@ console.log(arr)
 var buf = Buffer.concat(arr)
 
 console.log(buf)
-// <Buffer 78 79 7a> concat successful
+// <Buffer 78 79 7a>（成功被连接在一起了）
 ```
 
 #### `Buffer.entries()`
 
-`Buffer.entries()` 会用这一缓冲区的内容创建并返回一个 [index, byte] 形式的迭代器。
+`Buffer.entries()` 可以帮你在这个缓冲区上作循环。
 
 ```js
 var buf = Buffer.from('xyz')
@@ -105,7 +103,7 @@ for (a of buf.entries()) {
 
 #### `Buffer.fill()`
 
-我们可以使用 `Buffer.fill()` 这个函数将数据插入或填充到缓冲区中。更多信息请参见下文。
+我们可以使用 `Buffer.fill()` 这个方法将数据插入或填充到缓冲区中。更多信息请参见下文。
 
 ```js
 const b = Buffer.alloc(10).fill('a')
@@ -116,7 +114,7 @@ console.log(b.toString())
 
 #### `Buffer.includes()`
 
-像字符串一样，它将确认缓冲区是否具有该值。我们可以使用 `Buffer.includes()` 方法来实现这一点，给定方法根据搜索返回一个布尔值，即 `true` 或 `false`。
+像字符串一样，这个方法将确认缓冲区是否具有该值。我们可以使用 `Buffer.includes()` 方法来实现这一点，给定方法根据搜索返回一个布尔值，即 `true` 或 `false`。
 
 ```js
 const buf = Buffer.from('this is a buffer')
@@ -147,7 +145,7 @@ console.log(Buffer.isEncoding('hey'))
 
 #### `Buffer.slice()`
 
-`buf.slice()` 将用于使用缓冲区的选定元素创建一个新缓冲区 —— 对缓冲区进行切割时，将创建一个新缓冲区，其中包含要在新缓冲区切片中找到的项目的列表。
+`buf.slice()` 将用于使用缓冲区的选定元素创建一个新缓冲区 —— 当你对缓冲区进行切片时，将创建一个新缓冲区，其中包含要在新缓冲区切片中找到的项目的列表。
 
 ```js
 var a = Buffer.from('uvwxyz');
