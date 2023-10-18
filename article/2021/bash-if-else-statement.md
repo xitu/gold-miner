@@ -5,19 +5,19 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[flying-yogurt](https://github.com/flying-yogurt)、[lsvih](https://github.com/lsvih)
 
-# Bash 中的 if else 语句
+# Bash 中的 if-else 语句
 
-![Bash 中的 if else 语句](https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg)
+![Bash 中的 if-else 语句](https://linuxize.com/post/bash-if-else-statement/featured_hu91e1d6741dfcdbd79b4fecce3479ee44_25821_480x0_resize_q75_lanczos.jpg)
 
 在本篇教程中，我们会逐步深入 Bash 中的 if 语句基础，带着大家一起学习如何在 Shell 脚本中使用 if 语句。
 
-决策，计算机程序中的一个最基础的要素。就如同其他的编程语言一样，通过使用 `if`、`if..else`、`if..elif..else` 以及嵌套 `if` 语句，我们可以在 Bash 中基于特定条件执行对应的代码。
+决策，计算机程序中的一个最基础的要素。就如同其他的编程语言一样，通过使用 `if`、`if-else`、`if-elif-else` 以及嵌套 `if` 语句，我们可以在 Bash 中基于特定条件执行对应的代码。
 
 ## `if` 语句
 
 Bash 中的 `if` 条件语句拥有不同的实现格式。例如最基本的形式：
 
-```zsh
+```bash
 if TEST-COMMAND
 then
   STATEMENTS
@@ -28,12 +28,12 @@ fi
 
 如果 `TEST-COMMAND` 执行后为真，那么相应地， `STATEMENTS` 就会被执行；而如果为假，则 `STATEMENTS` 会被忽略。
 
-大多数情况下，（在原文件中）保持你的代码拥有优秀的缩进及空行，可是个很好的习惯，能让你的代码具有更强的可读性和组织性结构性。大多数人都是用 4 个空格或 2 个空格的缩进。
+大多数情况下，（在原文件中）保持你的代码拥有优秀的缩进及空行，可是个很好的习惯。这能让你的代码具有更强的可读性和组织性结构性。大多数人都是用 4 个空格或 2 个空格的缩进。
 
 让我们看看如下用于检查给定数字是否大于 10 的一段代码：
 
-```zsh
-#!/bin/zsh
+```bash
+#!/bin/bash
 
 echo -n "输入一个数字："
 read VAR
@@ -46,7 +46,7 @@ fi
 
 保存上面的代码并在命令行中执行它：
 
-```zsh
+```bash
 # 注意，在运行该段代码前，你可能需要先赋予其相应权限。
 # chmod +x test.sh
 # ./test.sh
@@ -58,15 +58,15 @@ bash test.sh
 
 因此上述代码的输出是：
 
-```zsh
+```bash
 该变量大于 10。
 ```
 
-## `if..else` 语句
+## `if-else` 语句
 
-Bash 中的 `if..else` 语句是这个样子的：
+Bash 中的 `if-else` 语句是这个样子的：
 
-```zsh
+```bash
 if TEST-COMMAND
 then
   STATEMENTS1
@@ -79,7 +79,7 @@ fi
 
 让我们给上一个例子加一个 `else` 语句：
 
-```
+```bash
 #!/bin/bash
 
 echo -n "输入一个数字："
@@ -93,13 +93,13 @@ else
 fi
 ```
 
-如果你执行上述代码并输入一段数字，脚本会给予你输入的数字与 10 之间的大小关系输出不同的信息。
+如果你执行上述代码并输入一段数字，那么这段脚本会给予你输入的数字与 10 之间的大小关系输出不同的信息。
 
-## `if..elif..else` 语句
+## `if-elif-else` 语句
 
-Bash 的 `if..elif..else` 语句是这样子的：
+Bash 的 `if-elif-else` 语句是这样子的：
 
-```
+```bash
 if TEST-COMMAND1
 then
   STATEMENTS1
@@ -111,15 +111,15 @@ else
 fi
 ```
 
-如果 `TEST-COMMAND1` 条件为真，那么 `STATEMENTS1` 就会被执行。若为假，则继续如下判断：如果 `TEST-COMMAND2` 条件为真，那么 `STATEMENTS2` 就会被执行。否则，`STATEMENTS3` 将会被执行。
+如果 `TEST-COMMAND1` 条件为真，那么 `STATEMENTS1` 就会被执行。若为假，则继续如下判断：如果 `TEST-COMMAND2` 条件为真，那么 `STATEMENTS2` 就会被执行，否则 `STATEMENTS3` 将会被执行。
 
-你可以拥有一个或多个 `elif` 语句在一段语句中，而 `else` 则是可有可无的。
+在一段语句中你可以拥有一个或多个 `elif` 语句。`else` 则是可有可无的。
 
 这些条件判断语句是按顺序执行的，一旦其中一个条件从句是真，那么剩下的判断都不会执行，并且程序会在执行完语句以后，直接跳转到 `if` 整个段落的末尾，执行下一段代码。
 
 让我们给上一个例子添加 `elif` 语句吧：
 
-```
+```bash
 #!/bin/bash
 
 echo -n "输入一个数字："
@@ -142,7 +142,7 @@ Bash 允许在一个 `if` 语句中嵌套一个或多个`if` 语句。
 
 下面的脚本会要求你输入三个数字，然后会打印其中最大的数字：
 
-```
+```bash
 #!/bin/bash
 
 echo -n "输入一个数字："
@@ -165,7 +165,7 @@ fi
 
 而输出就是这样子的：
 
-```
+```bash
 7 是最大的数字。
 ```
 
@@ -177,7 +177,7 @@ fi
 
 下面就是获取三个数中最大数字的另一种写法，而在这个版本中，我们用了逻辑 `AND`（`&&`） 运算符而非嵌套 `if` 语句。
 
-```
+```bash
 #!/bin/bash
 
 echo -n "输入一个数字："
@@ -202,11 +202,13 @@ fi
 
 在 Bash 中，`test` 语句可以长这样的：
 
-`test EXPRESSION
+```bash
+test EXPRESSION
 [ EXPRESSION ]
-[[ EXPRESSION ]]`
+[[ EXPRESSION ]]
+```
 
-为了使我们的脚本可移植，最好使用兼容所有 POSIX shell 的旧版本 `[` …… `]`语句。使用 Bash、Zsh、Ksh 作为默认 shell 的大多数现代系统都支持 `[[` …… `]]`（双括号）新版语法。
+为了使我们的脚本可移植，最好使用兼容所有 POSIX 终端的旧版本 `[` …… `]`语句。使用 Bash、Zsh、Ksh 作为默认终端的大多数现代系统都支持 `[[` …… `]]`（双括号）新版语法。
 
 要否定测试表达式，请使用逻辑 `NOT`（`!`）运算符。在[比较字符串](https://linuxize.com/post/how-to-compare-strings-in-bash/)时，请始终使用单引号或双引号，以避免单词拆分和乱码问题。
 
@@ -231,7 +233,7 @@ fi
 
 ## 结论
 
-`if`、`if..else` 和 `if..elif..else` 语句让我们能够基于不同的判断条件来控制 Bash 脚本中逻辑语句的执行。
+`if`、`if-else` 和 `if-elif-else` 语句让我们能够基于不同的判断条件来控制 Bash 脚本中逻辑语句的执行。
 
 如果你有任何疑问或反馈，请随时发表评论。
 
