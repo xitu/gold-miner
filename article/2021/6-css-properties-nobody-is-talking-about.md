@@ -5,7 +5,7 @@
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)、[Chorer](https://github.com/Chorer)
 
-# 6 个没人讲过的 CSS 属性
+# 6 个没人讨论的 CSS 属性
 
 ![由 [Kristina Flour](https://unsplash.com/@tinaflour?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/9640/0*bs0OAqfhQkkn-9YY)
 
@@ -64,12 +64,12 @@
 
 该属性支持以下值：
 
-* `sideways-rl`：文本和其他内容从上到下垂直排列，并向右横向放置。
-* `sideways-lr`：和 `sideways-rl` 一样，文本和其他内容从上到下垂直排列，但向左倾斜。
+* `sideways-rl`：文本和其他内容从上到下垂直排列，并向右横向拓展。
+* `sideways-lr`：和 `sideways-rl` 一样，文本和其他内容从上到下垂直排列，但向左横向拓展。
 * `vertical-rl`：文本和其他内容从上到下垂直排列，从右到左水平排列。如果有两行或更多行，则这些行会被**放置在前一行的左侧**。
-* `vertical-lr`：与 `vertical-rl` 不同，水平地将文本从左到右排列，并且如果有两行或更多行，则这些行会被放置在前一行的右侧。
+* `vertical-lr`：与 `vertical-rl` 不同，这会水平地将文本从左到右排列，并且如果有两行或更多行，则这些行会被放置在前一行的右侧。
 
-`horizontal-tb` 属性则实现默认排列文本的效果。
+还有另外一个值 `horizontal-tb`，实现的是默认排列文本的效果。
 
 ![来源：[MDN Web 文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/writing-mode)](https://cdn-images-1.medium.com/max/2000/1*enCsNGgsHPLsCxLnu0-FJA.png)
 
@@ -166,7 +166,7 @@ p {
 
 ## 5. `white-space`
 
-在使用 `text-overflow` 的时候，该属性非常有用，因为它允许我们控制元素的文本流。
+在使用 `text-overflow` 的时候，`white-space` 这个属性也非常有用，因为它允许我们控制元素的文本流。
 
 它接受 `nowrap`、`pre`、`pre-wrap`、`pre-line` 和 `normal` 作为属性值。
 
@@ -240,9 +240,9 @@ p {
 
 ## 6. `border-image`
 
-此属性非常适合设计我们的网站，我们可以使用此属性在元素周围创建漂亮的边框 —— `border-image` 允许你将自定义图像设置为边框。
+此属性非常适合设计我们的网站，因为我们可以使用此属性在元素周围创建漂亮的边框 —— `border-image` 允许你将自定义图像设置为边框。
 
-下面的图像就展示了这个属性的应用：
+下面的图片中就展示了这个属性的应用：
 
 ![图源: [MDN 网站](https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-image)](https://cdn-images-1.medium.com/max/2000/1*7SOVwmouXHD1lxWGVeSEMw.png)
 
@@ -267,7 +267,7 @@ h1 {
 
 ![图源作者](https://cdn-images-1.medium.com/max/2716/1*go4Ajp41jzEj5bPsHAnOkQ.jpeg)
 
-此属性可用于创建精美卡片或强调部分文本。
+此属性可用于创建精美卡片或强调部分的文本。
 
 ## 最后的想法
 
@@ -275,9 +275,9 @@ h1 {
 
 尽管我分享了一些较少被人们所提及的 CSS 属性，但这样的属性还有很多。
 
-虽然 CSS 已有 20 多年的历史了，但它仍然具有许多奇技淫巧。
+虽然 CSS 已有 20 多年的历史了，但它仍然具有许多“奇技淫巧”。
 
-知道这些 CSS 属性可以实现具有艺术气息的网站。
+了解这些 CSS 属性可以帮助我们实现具有艺术气息的网站。
 
 感谢阅读！
 
