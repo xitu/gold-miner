@@ -7,12 +7,12 @@
 
 # SQLite 3.35 版本有什么新的东西？
 
-SQLite 开发者通常更喜欢实现数据库的核心组件，而对于外部观察者来说，什么都没有真正的改变。2020 年是一个令人愉快的例外 —— SQLite为普通用户提供了许多不错的功能，例如自动生成列，`UPDATE FROM` 以及 Shell 中 `.mode box` 这个出色的功能。
+SQLite 开发者通常更喜欢实现数据库的核心组件，而对于外部观察者来说，什么都没有真正的改变。2020 年是一个令人愉快的例外 —— SQLite 为普通用户提供了许多不错的功能，例如自动生成列，`UPDATE FROM` 以及 Shell 中 `.mode box` 这个出色的功能。
 
 2021 年极有可能延续这一风格，以下是 3.35 版本中提供的内容：
 
 * 添加了内置的 SQL 数学函数 ‼️️
-* 增加了对 `ALTER TABLE DROP COLUMN` 的支持。 ❗
+* 增加了对 `ALTER TABLE DROP COLUMN` 的支持 ❗
 * 在 `DELETE`、`INSERT` 和 `UPDATE` 语句上添加对 `RETURNING` 子句的支持。
 * 支持 CTE 公用表表达式 `MATERIALIZED` 和 `NOT_MATERIALIZED` 提示。
 
@@ -26,9 +26,9 @@ SQLite 开发者通常更喜欢实现数据库的核心组件，而对于外部�
 
 这确实是一个可以理解的立场。但是拒绝添加平方根？但是却又同时实现窗口函数、递归查询和其他高级 SQL 功能吗？你认真的吗？
 
-也许 SQLite 开发人员更喜欢专注于大客户愿意花钱购买的功能。无论如何，20 年后，我们现在有了数学函数！
+也许 SQLite 开发人员更喜欢专注于大客户愿意花钱购买的功能。无论如何，在等待 20 年后，我们现在终于可以使用数学函数了！
 
-以下是完整列表：
+以下是支持的函数的完整列表：
 
 ```sql
 acos(X)
@@ -140,7 +140,7 @@ select ... from history where ...
 ;
 ```
 
-四大功能，一次满足，针不戳 ツ
+四大功能，一次满足，真的太棒了！
 
 [SQLite 3.35.0 发行公告（草案）](https://sqlite.org/releaselog/3_35_0.html) ｜ [下载 SQLite 最新版本](https://sqlite.org/download.html)
 
