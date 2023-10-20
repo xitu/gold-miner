@@ -11,7 +11,7 @@
 
 ![图自 [Maail](https://unsplash.com/@maail?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 源 [Unsplash](https://unsplash.com/s/photos/feathers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)](https://cdn-images-1.medium.com/max/9562/1*fzMDTQAsZ8D9O3YXJwLW5A.jpeg)
 
-我真的不喜欢幻数这个词 —— 我看到太多人都理解错了。我见过这么一种代码审查，一看见代码中或者注释中有数字就评论：“哦，这是个幻数呢，请您务必给它取个名并放在代码头部”，我好多的代码里也会有这样的评论。
+我真的不喜欢幻数这个词 —— 我看到太多人都理解错了。我见证也参与过几次，看见有人一见着代码中或者注释中有数字就评论：“哦，这是个幻数呢，请你务必给它取个名并放在代码头部”的代码审查。
 
 （我也很不喜欢有的时候我们会有应该要把所有的变量放在一个文件的顶部的想法，但这是另一个故事。）
 
