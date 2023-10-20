@@ -7,21 +7,21 @@
 
 # 当 Android 的 Compat 库不能拯救你的时候
 
-—— 还有为什么你应该避免使用 `NewApi` 抑制警告！
+—— 还有为什么你应该避免忽略 `NewApi` 警告！
 
 ![图源 [Unsplash](https://unsplash.com/photos/EgGIPA68Nwo)](https://miro.medium.com/max/12000/1*_UZ7BojQmk2vRCTx6XIdLA.jpeg)
 
-Compat 支持库的概念可能是 Android 主导手机领域的重要方面之一。不像是 iOS，Android 用户往往因为他们的手机不允许更新而在新版本推出后不能更新他们的操作系统，而这就是 Android 的[碎片化](https://www.androidauthority.com/android-fragmentation-linux-kernel-1057450/)问题。不过开发者们还是希望在他们的应用程序中使用最新的功能来竞争，而解决方法很简单：我们不需要在操作系统中添加新的 API，而是可以直接通过使用谷歌向我们提供的 "回溯" 版本，直接将这些 API 和你的应用一起打包部署。
+Compat 支持库的概念可能是 Android 主导手机领域的重要方面之一。不像是 iOS，Android 用户往往因为他们的手机不允许更新而在新版本推出后不能更新他们的操作系统，而这就是 Android 的[碎片化](https://www.androidauthority.com/android-fragmentation-linux-kernel-1057450/)问题。不过开发者们还是希望在他们的应用程序中使用最新的功能来竞争，而解决方法很简单：我们不需要在操作系统中添加新的 API，而是可以直接通过使用谷歌向我们提供的 "向后移植" 版本，直接将这些 API 和你的应用一起打包部署。
 
 这一切都始于 [Jake Wharton](https://medium.com/u/8ddd94878165) 开发的 [ActionBar Sherlock](https://github.com/JakeWharton/ActionBarSherlock) 项目。这个项目后来被 Google 采纳，放到了他们的 **支持库** 中。再后来，这个支持库被镜像为 **Jetpack** 下的 **AndroidX** 项目。
 
 ## 相同，但也不同
 
-从表面上看，并不是所有的 Compat API 都是以同样的方式构建的。有些 API，比如 Fragment 的，是由完整的代码拷贝构建的。你要么使用操作系统中的 `android.app.Fragment`（实际上已经废弃）类，要么使用 `androidx.fragment.app.Fragment` 类。两者都不互相共享任何代码，也没有共同的基类（这就是为什么我们有两个版本的 `FragmentManager`）。
+从表面上看，并不是所有的 Compat API 都是以同样的方式构建的。有些 API，比如 Fragment 的，是由完整的代码拷贝构建的。你要么使用操作系统中的 `android.app.Fragment`（实际上已经废弃）类，要么使用 `androidx.fragment.app.Fragment` 类。两者都不互相共享任何代码，也没有共同的基类（这也是为什么我们有两个版本的 `FragmentManager`）。
 
 另一方面，例如 `AppCompatActivity` 这个类就是简单地扩展了原来的 `Activity` 类。另外 `AppCompatImageButton` 仍然是一个 `ImageButton`!
 
-我们可以看到，有时这些 Compat 类只是起到一个桥梁的作用，用来添加缺失的功能，而有时它们甚至是完全一样的。
+我们可以看到，有时这些 Compat 类只是起到一个桥梁的作用，用来添加缺失的功能，而有时它们效果是完全一样的。
 
 ## 让我们看看另一个例子！
 
@@ -48,9 +48,9 @@ public List<NotificationChannelGroup> getNotificationChannelGroups() {
 
 如果我们是在 API 26 之前，我们只会得到一个空的列表，如果不是我们就会得到在 API 26 中引入的新通道组。
 
-你可以在 [NotificationManagerCompat](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationManagerCompat.java#L230) 代码处找到更复杂的检查。
+你可以在 [NotificationManagerCompat](https://github.com/androidx/androidx/blob/androidx-main/core/core/src/main/java/androidx/core/app/NotificationManagerCompat.java#L230) 代码处找到甚至比这个还要复杂的检查。
 
-但如果你仔细观察，`NotificationManagerCompat` 会返回我们实际的 API 类。在上面的示例代码中列出了 `NotificationChannelGroup`，这并不是一个复制的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
+但如果你仔细观察，`NotificationManagerCompat` 会返回我们实际的 API 类。在上面的示例代码中，返回的是一个关于 `NotificationChannelGroup` 的 `List`。这并不是一个复制过来的 Compat 版本，不过因为它检查了 API 的可用性，我们可以安全使用它。
 
 ```kotlin
 val groups = notificationManagerCompat.notificationChannelGroups
@@ -59,7 +59,7 @@ val channels = groups.flatMap {
 }
 ```
 
-这里我们只需要那些正在触发灯光的渠道组，也就是 API 26 及以上。由于我们使用的是比最低 SDK 级别更高的 API 级别的类，编译器会在这里警告我们：
+这里我们只需要那些可以触发灯光的通知渠道组（需要 API 26 及以上）。而 由于我们使用的是比最低 SDK 级别更高的 API 级别的类，编译器会在这里警告我们：
 
 ![](https://miro.medium.com/max/1692/1*WWdcZVLzzaXduUd1RT0vBg.png)
 
@@ -103,7 +103,7 @@ private fun checkChannels() {
 
 ## 你完了！
 
-但我们刚刚引入了一个**崩溃**! 
+我们刚刚引入了一个**崩溃**! 
 
 原因是：`isBlocked` 是在 API 28 才引入的，而我们没有进行检查! 尽管我们使用了 `NotificationManagerCompat`，但我们还是遇到了 API 级别上的问题!
 
@@ -131,7 +131,7 @@ private fun List<NotificationChannel>.filterLightingOnes() =
 
 ![](https://miro.medium.com/max/3032/1*OpkxXOXSGueoW_TyJyXw3A.png)
 
-当然，这对于我们开发者来说多了很多工作，但是我们的用户会很喜欢一个无崩溃的应用。
+当然，这对于我们开发者来说多了很多工作，但是我们的用户会很喜欢使用一个不会崩溃的应用。
 
 ## The Linter
 
