@@ -24,7 +24,7 @@
 
 ## HMR 功能是怎么工作的？
 
-HMR 让我们可以在应用程序运行时交换、添加或删除 JavaScript 模块，而无需重新加载浏览器。在 Webpack 中是通过在 Webpack 开发服务器（[webpack-dev-server](https://github.com/webpack/webpack-dev-server)）中创建一个 **HMR 服务器**实现的，而该服务器会通过 Websocket 与浏览器中的 **HMR 运行时**进行通信。
+HMR 让我们可以在应用程序运行时交换、添加或删除 JavaScript 模块，而无需重新加载浏览器。在 Webpack 中，这种效果是通过在 Webpack 开发服务器（[webpack-dev-server](https://github.com/webpack/webpack-dev-server)）中创建一个 **HMR 服务器**实现的，而该服务器会通过 Websocket 与浏览器中的 **HMR 运行时**进行通信。
 
 ![简述 HMR 工作的方式](https://cdn-images-1.medium.com/max/3840/1*UGYFDKGrQF6ID3CofCHUwg.png)
 
@@ -91,13 +91,13 @@ if (module.hot) {
 
 不过在我们尝试自己实施 HMR 之前，建议你先为我们的项目寻找一下可用的解决方案，因为 HMR 已经集成到许多流行的 JavaScript 应用程序生成器中。
 
-Create React App 和 Next.js 都内置了 React Fast Refresh，React 特定的热重载实现。而 Vue CLI 3 的 HMR 则是通过 [vue-loader](https://github.com/vuejs/vue-loader) 实现的。[Svelte](https://github.com/sveltejs/svelte-loader) 和 [Angular](https://github.com/PatrickJS/angular-hmr) 也有自己的 HMR 集成，因此我们没有必要从头开始编写集成。
+Create React App 和 Next.js 都内置了 React Fast Refresh，一种 React 专有的热重载实现。而 Vue CLI 3 的 HMR 则是通过 [vue-loader](https://github.com/vuejs/vue-loader) 实现的。[Svelte](https://github.com/sveltejs/svelte-loader) 和 [Angular](https://github.com/PatrickJS/angular-hmr) 也有自己的 HMR 集成，因此我们没有必要从头开始编写集成。
 
 ## 小结
 
 热模块替换能让我们无需刷新浏览器即可在浏览器中查看代码更改所带来的效果，从而可以保留前端应用程序的状态。
 
-但是实现 HMR 可能很棘手，因为它会产生一些副作用。幸运的是，HMR 已在许多 JavaScript 应用程序生成器中实现。因此我们可以直接享受此功能，而不必自己实现。
+但是实现 HMR 可能很棘手，因为它可能会产生一些副作用。幸运的是，HMR 已在许多 JavaScript 应用程序生成器中实现。因此我们可以直接享受此功能，而不必自己实现。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
