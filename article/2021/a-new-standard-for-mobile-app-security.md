@@ -19,7 +19,7 @@ ioXt 的 [移动应用程序标准 （Mobile Application Profile）](https://sta
 
 认证允许开发人员展示他们产品的安全性。我们感到很高兴有机会推动该行业向前发展。我们也观察到，应用程序开发人员对在黑盒评估期间根据这一新标准发现的任何问题都可以非常迅速地解决（通常在几天内就能解决问题）。在发布时，以下应用程序已通过认证：[Comcast](https://compliance.ioxtalliance.org/product/157)、[ExpressVPN](https://compliance.ioxtalliance.org/product/135)、[GreenMAX ](https://compliance.ioxtalliance.org/product/68)、[Hubspace](https://compliance.ioxtalliance.org/product/174)、[McAfee Innovations](https://compliance.ioxtalliance.org/product/173)、[NordVPN](https://compliance.ioxtalliance.org/product/107)、[OpenVPN for Android](https://compliance.ioxtalliance.org/product/144)、[Private Internet Access](https://compliance.ioxtalliance.org/product/141)、[VPN Private](https://compliance.ioxtalliance.org/product/169)，以及 [Google One](https://compliance.ioxtalliance.org/product/143) 应用程序，包括 [VPN by Google One](https://compliance.ioxtalliance.org/product/143)。
 
-我们期待看到标准的采用率随着时间的推移而增长，并且对于那些已经在安全最佳实践上投资的应用程序开发人员，他们能够突出显示他们的努力。该标准会像灯塔一样，激励更多开发人员投入到移动应用程序安全之中。如果您有兴趣了解有关 ioXt 联盟的更多信息以及如何获得您的应用程序认证，请访问 [https://compliance.ioxtalliance.org/sign-up](https://compliance.ioxtalliance.org/sign-up) 并查阅在 Android 平台上的关于构建安全应用程序的[指南](https://developer.android.com/security)。
+我们期待看到标准的采用率随着时间的推移而增长，并且对于那些已经在安全最佳实践上投资的应用程序开发人员，他们能够突出显示他们的努力。该标准会像灯塔一样，激励更多开发人员投入到移动应用程序安全之中。如果你有兴趣了解有关 ioXt 联盟的更多信息以及如何获得你的应用程序认证，请访问 [https://compliance.ioxtalliance.org/sign-up](https://compliance.ioxtalliance.org/sign-up) 并查阅在 Android 平台上的关于构建安全应用程序的[指南](https://developer.android.com/security)。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
