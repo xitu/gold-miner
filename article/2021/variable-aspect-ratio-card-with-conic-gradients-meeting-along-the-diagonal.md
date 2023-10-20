@@ -13,9 +13,9 @@
 
 <small>用户设置的纵横比卡片。</small>
 
-这里的挑战是，用 `linear-gradient()` 对沿着可变纵横比框的对角线做唐突的改变，比较容易，例如使用像“向左上角”这样的方向随纵横比变化，但 `conic-gradient()` 需要一个角度或一个百分比来表示它绕了一整圈走了多远的渐变并不好构建。
+这里的挑战是，用 `linear-gradient()` 对沿着可变纵横比框的对角线做唐突的改变，比较容易，例如使用像“向左上角”这样的方向随纵横比变化，但 `conic-gradient()` 这个需要一个角度或一个百分比来表示它绕了一整圈走了多远的渐变并不好构建。
 
-> 查看 [本指南](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients) 以了解圆锥渐变的工作原理。
+> 查看[这篇指南](https://css-tricks.com/a-complete-guide-to-css-gradients/#h-conic-gradients)以了解圆锥渐变的工作原理。
 
 ## 简单的解决方案
 
@@ -111,7 +111,7 @@ transform: scaley(calc(1/(var(--ratio))));
 
 > 请注意，此演示仅适用于 [支持 `aspect-ratio`](https://caniuse.com/mdn-css_properties_aspect-ratio) 的浏览器。此属性在 Chrome 88+ 中支持开箱即用，但 Firefox 仍需要在 about:config 中将 `layout.css.aspect-ratio.enabled` 标志设置为 `true`。如果你使用的是 Safari……好吧，对不起！
 
-![显示如何启用 Firefox 标志的屏幕截图。转到 about:config（在地址栏中键入该内容 —— 系统可能会询问您是否确定要在允许进入之前弄乱这些内容）。使用搜索栏查找“aspect” —— 这应该足以显示标志。将其值设置为 true。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/flag_enable_firefox.png?resize=999%2C206&ssl=1)
+![显示如何启用 Firefox 标志的屏幕截图。转到 about:config（在地址栏中键入该内容 —— 系统可能会询问你是否确定要在允许进入之前弄乱这些内容）。使用搜索栏查找“aspect” —— 这应该足以显示标志。将其值设置为 true。](https://i2.wp.com/css-tricks.com/wp-content/uploads/2021/04/flag_enable_firefox.png?resize=999%2C206&ssl=1)
 
 <small>在 Firefox 中启用标志。</small>
 
