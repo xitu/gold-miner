@@ -13,7 +13,7 @@
 
 ## 新的功能
 
-### 1. String.replaceAll( )
+### 1. String.replaceAll()
 
 将查找到的目标字符串的所有实例替换为所需的字符串：
 
@@ -37,7 +37,7 @@ console.log(fact.replace("JavaScript", "TypeScript"));
 // "TypeScript is the best web scripting language. JavaScript can be used for both front end and backend";
 ```
 
-### 2. Promise.any( )
+### 2. Promise.any()
 
 只要所提供的`Promise` 中的任何一个得到解决，`Promise.any()` 就会直接被解决，而 `Promise.all()` 则等待所有的 `Promise` 都得到解决后才会标记为解决，基本上与 `Promise.all()` 相反。
 
@@ -131,7 +131,7 @@ console.log(budget); // 会打印正常数字：
 // 1000000000000
 ```
 
-希望本文能帮助您了解 ECMAScript 的最新版本。感谢您的阅读，如有任何疑问，请随时发表评论。
+希望本文能帮助你了解 ECMAScript 的最新版本。感谢你的阅读，如有任何疑问，请随时发表评论。
 
 参考资料：
 
