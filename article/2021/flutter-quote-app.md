@@ -356,7 +356,7 @@ PageView buildPageView(AsyncSnapshot<List<Quotes>> snapshot) {
 
 ![](https://miro.medium.com/max/1200/1*PvXgGVrBtx31_HFm_mcWtg.gif)
 
-瞧! 您已经创建了第一个名言名句应用程序。
+瞧! 你已经创建了第一个名言名句应用程序。
 
 本文代码：[**flutter-devs/flutter_quote_app**](https://github.com/flutter-devs/flutter_quote_app.git)
 
