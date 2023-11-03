@@ -151,7 +151,7 @@ class HomeViewController: UIViewController {
 有两种方法可以尝试：
 
 1. 在原始 ViewModel 中给绑定了 `Driver` （或`Observable`）的 `@Published` 的变量绑定一个新的 `ObservableObject`。
-   2.在 SwiftUI 的视图内，将每个 `Driver` 适配为 `Publisher` 并绑定到 `@State`。
+2.在 SwiftUI 的视图内，将每个 `Driver` 适配为 `Publisher` 并绑定到 `@State`。
 
 ## 由 `Observable` 到 `@Published` 的迁移
 
