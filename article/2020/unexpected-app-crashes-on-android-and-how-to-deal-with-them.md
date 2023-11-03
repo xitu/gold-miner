@@ -9,15 +9,17 @@
 
 ![图自 [testbytes](https://pixabay.com/users/testbytes-1013799/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486) 源于 [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=762486)](https://cdn-images-1.medium.com/max/2560/1*4WT3_B3SVKgvexQOTE_ZqQ.jpeg)
 
-如果问前端、后端甚至游戏开发人员之间存在什么共同点，那就是我们都讨厌应用产品出现 Bug，尤其是当这些错误导致应用崩溃时。而在应用发布后，监视应用程序中这些不断增加的崩溃是一种极其不愉快的体验。
+如果问前端、后端甚至游戏开发人员之间存在什么共同点，那就是我们大家都讨厌应用产品出现 Bug，尤其是如果这些错误会导致应用崩溃。而在应用发布后，监视应用程序中这些不断增加的崩溃也是一种极其不愉快的体验。
 
-不管应用程序的业务逻辑如何，都可能会因为运行的系统或平台问题而导致出现某些奇怪的崩溃现象。在 Android 中，从后台状态恢复应用程序时可能会产生崩溃 —— 此类崩溃是意外发生的，而且仅通过查看崩溃日志，我们很难理解崩溃的具体原因以及解决问题，而本文讨论了此类问题及其解决方法。
+不管应用程序的业务逻辑如何，都可能会因为运行的系统或平台问题而导致出现某些奇怪的崩溃现象。在 Android 中，从后台状态恢复应用程序时可能会产生崩溃 —— 此类崩溃是意外发生的，而且仅通过查看崩溃日志，我们很难理解崩溃的具体原因以及处理这个崩溃。
+
+本文讨论的正是此类问题及其解决方法。
 
 ## 问题
 
-在监视产品的崩溃日志时，我注意到一些问题与日俱增。该应用在正常测试条件下似乎运行良好，并且崩溃不可复现，直到应用程序从后台任务中进入前台。
+在监视产品的崩溃日志时，我注意到一些崩溃的次数每天都在增加。这个应用程序在正常测试条件下似乎运行良好，并且也复现不了崩溃 —— 直到应用程序从后台任务中进入前台。
 
-每个 Android 应用程序都在其自己的进程中运行，并且操作系统已为该进程分配了一些内存。当用户与其他应用程序交互时将应用程序置于后台时，如果应用程序没有足够的可用内存，则操作系统会终止你的应用程序进程。而这一情况通常发生在前台运行另一个需要更大手机内存 (RAM) 的应用程序时。
+每个 Android 应用程序都在其自己的进程中运行，并且操作系统已为该进程分配了一些内存。当用户与其他应用程序交互时将应用程序置于后台时，如果应用程序没有足够的可用内存，那么操作系统就会终止你的应用程序进程。而这一情况通常发生在前台运行另一个需要更多手机内存 (RAM) 的应用程序时。
 
 当应用程序进程被终止的时候，所有的单例对象和临时数据都同时丢失了，而现在如果你返回你的应用程序，系统会创建一个新的进程，而你的应用程序会从你退出时候的 Activity 栈顶执行 Resume 函数恢复该 Activity。
 
@@ -27,7 +29,7 @@
 
 ## 复现崩溃
 
-1. 在模拟器或通过 USB 电缆（译者注：Android 11 也可使用 Wi-Fi 连接设备调试）连接的实际设备上使用 ADB 运行指令（如 Android Studio）运行的任何应用程序。
+1. 在模拟器或通过 USB 电缆连接的实际设备上使用 ADB 运行指令（如 Android Studio）运行的任何应用程序。
 2. 导航到任意一个页面，然后按下“主页”按钮。
 3. 打开终端，键入以下命令，我们就可以获取应用程序的进程 ID（PID）。
 
@@ -35,7 +37,7 @@
 adb shell pidof com.darktheme.example
 ```
 
-该命令的语法为 `adb shell pidof APP_BUNDLE_ID`
+该命令的语法为 `adb shell pidof APP_BUNDLE_ID`。
 
 请记下你在终端窗口上看到的 PID（这可用于验证现有的应用程序进程是否已被终止，并在我们恢复应用程序时启动了新的进程）。
 
@@ -49,7 +51,7 @@ adb shell am kill com.darktheme.example
 
 ![执行 kill 命令后的命令行窗口](https://cdn-images-1.medium.com/max/2276/1*pYpZN8FbnrYeo_6QPGqc0g.png)
 
-现在，从后台任务中打开你的应用程序，并检查该应用程序是否崩溃。如果是，请不要担心，我们将在下一部分中讨论如何处理此问题。如果没有，你可以松一口气了，因为这是你应得的。
+现在，从后台任务中打开你的应用程序，并检查该应用程序是否崩溃。如果是，请不要担心，我们将在下一部分中讨论如何处理此问题。如果没有，你可以松一口气了，因为你很好的避免了崩溃的发生。
 
 需要注意的是，从后台打开应用后，请重新获取应用所属进程的 PID。如果你在第 3 步中记下的 PID 与新的 PID 相等，则该过程并没有被终止。
 
@@ -59,7 +61,7 @@ adb shell am kill com.darktheme.example
 
 #### 解决方案 1：
 
-一种简便的解决方案是，当用户从后台恢复应用程序时，让应用程序检查我们现有的应用程序进程是否被结束并重新创建。如果是，则可以导航回启动界面，使其看起来像是一个应用程序的初始化界面。
+一种简便的解决方案是，当用户从后台恢复应用程序时，让应用程序检查我们现有的应用程序进程是否被结束并重新创建。如果是，则可以导航回启动界面，使其看起来像是一个应用程序的初始化面。
 
 你可以将以下代码放在 BaseActivity 中：
 
@@ -70,9 +72,9 @@ adb shell am kill com.darktheme.example
             // 获取当前 PID
             val currentPID = android.os.Process.myPid().toString()
             
-            // 比较当前 PID 与 保存的 PID 是否一致
+            // 比较当前 PID 与保存的 PID 是否一致
             if (currentPID != savedInstanceState.getString(PID)) {
-                // 如果当前 PID 与 保存的 PID 不相同，意味着新的进程被创建，从 SplashActivity 重启应用
+                // 如果当前 PID 与保存的 PID 不相同，意味着创建了新的进程运行你的程序，那就从 SplashActivity 重启应用
                 val intent = Intent(applicationContext, SplashActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
@@ -87,7 +89,7 @@ adb shell am kill com.darktheme.example
     }
 ```
 
-* 通过覆写 `onSaveInstanceState()` 功能，你可以将你的 PID 打包保存下来。
+* 通过覆写 `onSaveInstanceState()` 函数，你可以将你的 PID 打包保存下来。
 * 在 `onCreate()` 方法中，你需要比较当前 PID 和打包保存的 PID。
 * 如果当前进程是重新创建的流程，则重定向导航到 Splash Activity。
 
@@ -101,9 +103,9 @@ adb shell am kill com.darktheme.example
 
 #### 解决方案 2：
 
-现在，你肯定已经注意到可以利用“包”对象保存和访问数据。与前面的示例中的操作类似，将每个 Activity / Fragment 中所有必要的信息保存下来。
+现在，你肯定已经注意到可以利用 `Bundle` 对象保存和访问数据。与前面的示例中的操作类似，将每个 Activity / Fragment 中所有必要的信息保存下来。
 
-由于我们访问是被保存在“包”中的数据，这会避免应用程序崩溃，并且应用程序能从中断处恢复。所有其他 Activity / Fragment 也会被重新创建。
+由于我们访问是被保存在 `Bundle` 中的数据，这会避免应用程序崩溃，并且应用程序能从中断处恢复。所有其他 Activity / Fragment 也会被重新创建。
 
 对于 Fragment 中的 RecyclerView，做法应该是：
 
@@ -122,7 +124,7 @@ adb shell am kill com.darktheme.example
     }
 ```
 
-* 通过覆写 `onSaveInstanceState()` 功能，我们可以将所需信息保存在 Bundle 对象中。
+* 通过覆写 `onSaveInstanceState()` 函数，我们可以将所需信息保存在 `Bundle` 对象中。
 * 我们会让应用程序检查 `onViewCreated()` 函数中捆绑包中的数据是否可用，如果不可用，则会通过访问 ViewModel 的方法获取数据。
 
 ## 结论
