@@ -10,7 +10,7 @@
 
 ![由 [Szabo Viktor](https://unsplash.com/@vmxhu?utm_source=medium&utm_medium=referral) 上传至 [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)](https://cdn-images-1.medium.com/max/11232/0*LmCaetpJHYbKh2bn)
 
-渐进式 Web 应用程序正通过 Web 形式为我们提供类似于原生应用程序的体验，改变了我们对应用程序的理解。这种方式让应用程序得以利用现代浏览器支持的新功能，包括 Service Worker 和 Web App Manifest，并且还允许用户无需考虑其原生的操作系统，将 Web 应用程序升级为渐进式 Web 应用程序。
+渐进式 Web 应用程序正通过 Web 为我们提供类似于原生应用程序的体验，改变了我们对应用程序的理解。这种方式让应用程序得以利用现代浏览器支持的新功能，包括 Service Worker 和 Web App Manifest，并且还允许用户无需考虑其原生的操作系统，将 Web 应用程序升级为渐进式 Web 应用程序。
 
 但是，PWA 在这些年也引发了一些隐私问题，导致 Apple 停用了 Safari 上的一些 PWA 功能。你可以在[另一篇文章中](https://blog.bitsrc.io/the-darker-side-of-pwas-you-might-not-be-aware-of-ffa7b1d08888)了解更多相关信息。
 
@@ -56,11 +56,11 @@ SSB 是一项实验性功能，允许任何网站以其独有的窗口在桌面�
 
 你可以将这个趋势与一些值得注意的事件相联系，例如取消耳机插孔，取消手机中的主页按钮以及最近的趋势 —— 取消充电器。
 
-Mozilla 提到，移除 SSB 的原因是这个功能造成了麻烦，并且浪费了宝贵的时间。在这种情况下，Chrome 和 Edge 等同类产品也可能会认为采取同样的行为对他们有利，并且由于过去发生过类似的事件，我们可能会在一段时间内失去桌面端的 PWA。尽管这几乎不可能发生，但还是不排除有一定的几率，尤其是在科技领域。
+Mozilla 提到，移除 SSB 的原因是这个功能造成了麻烦，并且浪费了宝贵的时间。在这种情况下，Chrome 和 Edge 等同类产品也可能会认为采取同样的行为对他们有利，并且由于过去发生过类似的事件，我们可能会在一段时间内失去桌面端的 PWA 的支持。尽管这几乎不可能发生，但还是不排除有一定的几率，尤其是在科技领域。
 
 你如何看待 Mozilla 的举措？在下面评论区分享你的看法吧。
 
-感谢您的阅读。
+感谢你的阅读。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 
