@@ -9,19 +9,19 @@
 
 ![由 [Susan Yin](https://unsplash.com/@syinq) 上传至 [Unsplash](https://unsplash.com)(https://unsplash.com)](https://cdn-images-1.medium.com/max/10368/0*FGGy038B4etUbHdm)
 
-2010 年 9 月 23 日，Facebook 发生了迄今为止最严重的宕机事件之一。在这次事件中，Facebook 关闭了四个小时。情况如此严重，以至于工程师不得不让 Facebook 下线才能恢复。
+2010 年 9 月 23 日，Facebook 发生了迄今为止最严重的宕机事件之一。在这次事件中，Facebook 关闭了四个小时。情况如此严重，以至于工程师不得不让 Facebook 下线才得以恢复系统。
 
-虽然 Facebook 那时候还没有现在那么庞大，但它仍然拥有超过 10 亿的用户，并且它的宕机并没有被忽视。人们只是在 Twitter 上抱怨或开玩笑这件事。
+虽然 Facebook 那时候还没有现在那么庞大，但它当时仍然拥有超过 10 亿的用户，并且它的宕机并没有被忽视。人们只是在 Twitter 上或抱怨或开这件事的玩笑。
 
 ![图片来源：[https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7](https://www.businessinsider.com/how-we-weathered-the-great-facebook-outage-of-2010-2010-9#the-outage-had-far-reaching-consequences-7)](https://cdn-images-1.medium.com/max/2000/0*_-dYSO7eL_K9Qypi)
 
 那么，究竟是什么导致了 Facebook 的停运呢？[根据事件发生后的官方分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
 
-> 今天我们误改了一个配置。这意味着每个客户端都能看到这个错误配置并尝试修复它。由于修复操作涉及对数据库集群进行查询，因此该集群很快就被每秒数十万个查询所淹没。
+> 今天我们误改了一个配置。这意味着每个客户端都能收到这个错误配置并尝试修复它。由于修复操作涉及对数据库集群进行查询，因此该集群很快就被每秒数十万个查询所淹没。
 
 ---
 
-错误的配置更改导致大量请求被传送到他们的数据库。这种请求踩踏被恰当地称为 [**缓存踩踏**](https://en.wikipedia.org/wiki/Cache_stampede)。这是困扰科技行业的一个普遍问题，它已经导致许多公司出现故障，例如 2016 年的 [Internet Archive](https://archive.org/index.php)。许多大型应用程序每天都在与它作斗争，如 Instagram 和 DoorDash 。
+错误的配置更改导致大量请求被传送到他们的数据库。这种请求踩踏被恰当地称为 [**缓存踩踏**](https://en.wikipedia.org/wiki/Cache_stampede)。这是困扰科技行业的一个普遍问题，它已经导致许多系统发生故障，例如 2016 年的 [Internet Archive](https://archive.org/index.php)。许多大型应用程序每天都在为此防范着，如 Instagram 和 DoorDash 。
 
 ## 什么是缓存踩踏？
 
@@ -34,7 +34,7 @@
 3. 收到超时，所有线程重试他们的请求 —— 导致另一次踩踏。
 4. 循环往复。
 
-并不需要拥有 Facebook 那样规模的用户，你一样会遭其折磨。缓存踩踏与用户规模无关，因此它同时困扰着初创公司和科技巨头。
+你不需要拥有 Facebook 那样规模的用户也一样会遭其折磨。缓存踩踏与用户规模无关，因此它同时困扰着初创公司和科技巨头。
 
 ---
 
@@ -62,7 +62,7 @@
 
 这对于防止频繁访问数据时发生踩踏事件特别有用。即使第 2 层缓存上的键过期，一些第 1 层缓存可能仍存储该值。这将限制需要重新计算缓存值的线程数。
 
-但是，这种方法有一些方面需要注意权衡。如果您不小心，在应用程序服务器上缓存内存中的数据可能会导致 [内存不足](https://en.wikipedia.org/wiki/Out_of_memory) 问题，尤其是在缓存大量数据时。
+但是，这种方法有一些方面需要注意权衡。如果你不小心，在应用程序服务器上缓存内存中的数据可能会导致 [内存不足](https://en.wikipedia.org/wiki/Out_of_memory) 问题，尤其是在缓存大量数据时。
 
 此外，这种缓存策略仍然容易受到我所说的追随者踩踏的影响。
 
@@ -74,13 +74,13 @@
 
 那么，对于追随者踩踏事件，我们能做些什么呢？
 
-## 锁 和 Promise
+## Lock 和 Promise
 
 从本质上讲，缓存踩踏是一种竞争状态 —— 多个线程争夺共享资源。在这种情况下，共享的资源是缓存。
 
 ![图片来源：[https://instagram-engineering.com/thundering-herds-promises-82191c8af57d](https://instagram-engineering.com/thundering-herds-promises-82191c8af57d)](https://cdn-images-1.medium.com/max/2000/0*KThIA3rqDvhQLXHp)
 
-在高并发系统中很常见，一种防止共享资源竞争条件的方法是使用**锁**。虽然锁通常用于同一台机器上的线程，但也有一些方法可以使用 [分布式锁](https://redis.io/topics/distlock) 用于远程缓存。
+在高并发系统中很常见，一种防止共享资源竞争条件的方法是使用**锁**。虽然锁通常用于同一台机器上的线程，但也有一些方法可以使用[分布式锁](https://redis.io/topics/distlock) 用于远程缓存。
 
 通过在缓存键上加锁，限制一次只有一个调用者能够访问缓存。如果缓存键丢失或过期，调用者就可以生成并缓存数据，同时持有锁。任何其他尝试从同一个缓存键读取的进程都必须等到锁空闲。
 
@@ -88,11 +88,11 @@
 
 使用锁解决了竞争状态问题，但它会产生另一个问题。你如何处理所有等待锁释放的线程？
 
-不知道你是否使用过 [自旋锁](https://en.wikipedia.org/wiki/Spinlock) 模式并让线程不断轮询锁？这将创建一个 [忙等待](https://en.wikipedia.org/wiki/Busy_waiting) 场景。
+不知道你是否使用过[自旋锁](https://en.wikipedia.org/wiki/Spinlock) 模式并让线程不断轮询锁？这将创建一个[忙等待](https://en.wikipedia.org/wiki/Busy_waiting) 场景。
 
-在检查锁是否空闲之前，你是否让线程休眠了任意时间？这样你就会遇到 [惊群效应问题](https://en.wikipedia.org/wiki/Thundering_herd_problem)。
+在检查锁是否空闲之前，你是否让线程休眠了任意时间？这样你就会遇到[惊群效应问题](https://en.wikipedia.org/wiki/Thundering_herd_problem)。
 
-你是否引入了 [退避和抖动机制](https://www.baeldung.com/resilience4j-backoff-jitter) 以防止惊群效应问题？这可能有效，但还有一个更普遍的问题。拥有锁的线程必须在释放锁之前重新计算值并更新缓存键。
+你是否引入了[退避和抖动机制](https://www.baeldung.com/resilience4j-backoff-jitter)以防止惊群效应问题？这可能有效，但还有一个更普遍的问题。拥有锁的线程必须在释放锁之前重新计算值并更新缓存键。
 
 这个过程可能需要一段时间。特别是如果该值的计算成本很高或存在网络问题。如果缓存耗尽其可用连接池并且用户请求被丢弃，这仍然可能导致宕机。
 
@@ -116,7 +116,7 @@
 
 ---
 
-虽然这种情况不一定算作中断，但它会影响尾部延迟和整体用户体验。如果保持较低的尾部延迟对您的应用程序很重要，那么还有另一种策略需要考虑。
+虽然这种情况不一定算作中断，但它会影响尾部延迟和整体用户体验。如果保持较低的尾部延迟对你的应用程序很重要，那么还有另一种策略需要考虑。
 
 ## 提前重新计算
 
@@ -130,7 +130,7 @@
 
 #### 概率早期重新计算
 
-2015 年，一组研究人员发表了名为 「Optimal Probabilistic Cache Stampede Prevention」 的 [白皮书](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf)。在其中，他们描述了一种算法，用于优化预测何时在缓存过期之前重新计算缓存值。
+2015 年，一组研究人员发表了名为 「Optimal Probabilistic Cache Stampede Prevention」 的[白皮书](https://cseweb.ucsd.edu/~avattani/papers/cache_stampede.pdf)。在其中，他们描述了一种算法，用于优化预测何时在缓存过期之前重新计算缓存值。
 
 研究论文中有很多数学理论，但算法归结为：
 
@@ -158,11 +158,11 @@ currentTime - ( timeToCompute * beta * log(rand()) ) > expiry
 
 Facebook 的缓存踩踏事件如此具有破坏性的原因之一是，即使工程师找到了解决方案，他们也无法部署它，因为踩踏事件仍在继续。
 
-来自 [事后分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
+根据[事后分析](https://www.facebook.com/notes/facebook-engineering/more-details-on-todays-outage/431441338919)：
 
 > 更糟糕的是，每次客户端在尝试查询其中一个数据库时出错，它都会将其解释为无效值，并删除相应的缓存键。这意味着即使在解决了原始问题之后，查询流仍在继续。只要数据库无法为某些请求提供服务，它们就会对自己造成更多请求。我们进入了一个不允许数据库恢复的反馈循环。
 
-现实情况是，无法保证预防永远有效 —— 我们还需要缓解。[防御性编程](https://en.wikipedia.org/wiki/Defensive_programming) 规定应该制定一个计划，以防踩踏事件绕过我们设置的限制。
+现实情况是，无法保证预防永远有效 —— 我们还需要缓解。[防御性编程](https://en.wikipedia.org/wiki/Defensive_programming)规定应该制定一个计划，以防踩踏事件绕过我们设置的限制。
 
 幸运的是，有一个已知的模式来处理这个问题。
 
@@ -170,7 +170,7 @@ Facebook 的缓存踩踏事件如此具有破坏性的原因之一是，即使�
 
 在编程中使用熔断器的想法并不新鲜。在 Michael Nygard 于 2007 年发表 [**Release It!**](https://www.amazon.com/gp/product/0978739213) 后，它开始流行。正如 Martin Fowler 在他的文章 **[CircuitBreaker](https://www.martinfowler.com/bliki/CircuitBreaker.html)** 所写的那样：
 
-> 熔断器背后的基本思想非常简单。您将受保护的函数调用包装在熔断器对象中，该对象监视故障。一旦故障达到某个阈值，熔断器就会熔断，并且所有对熔断器的进一步调用都会返回错误，而不会调用到受到熔断器保护的地方。
+> 熔断器背后的基本思想非常简单。你将受保护的函数调用包装在熔断器对象中，该对象监视故障。一旦故障达到某个阈值，熔断器就会熔断，并且所有对熔断器的进一步调用都会返回错误，而不会调用到受到熔断器保护的地方。
 
 ![图片来源：[https://www.martinfowler.com/bliki/CircuitBreaker.html](https://www.martinfowler.com/bliki/CircuitBreaker.html)](https://cdn-images-1.medium.com/max/2000/0*2Jn_bNJ6Vh2-Lwla.png)
 
@@ -186,7 +186,7 @@ Facebook 的缓存踩踏事件如此具有破坏性的原因之一是，即使�
 
 他们从故障中吸取了哪些教训，他们采取了哪些保护措施来防止再次发生这种情况？
 
-他们的工程帖子，[**幕后：向数百万人广播直播视频**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)，讨论他们对架构所做的改进。它讨论了我们已经讨论过的内容，例如缓存层次结构，但也包括一些新颖的方法，例如 HTTP 请求合并。这篇文章值得一读，但如果你时间不够，这个 [视频提供了一个全面的概述](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0)。
+他们的工程帖子，[**幕后：向数百万人广播直播视频**](https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/)，讨论他们对架构所做的改进。它讨论了我们已经讨论过的内容，例如缓存层次结构，但也包括一些新颖的方法，例如 HTTP 请求合并。这篇文章值得一读，但如果你时间不够，这个[视频提供了一个全面的概述](https://www.facebook.com/Engineering/videos/10153675295382200/?t=0)。
 
 可以说 Facebook 从他们过去的错误中吸取了教训。
 
