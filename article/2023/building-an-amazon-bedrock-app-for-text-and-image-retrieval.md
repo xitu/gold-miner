@@ -93,8 +93,6 @@ export async function handler(event: any) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 ### [](https://dev.to/aws-builders/building-an-amazon-bedrock-app-for-text-and-image-retrieval-3hal#image-lambda)Image Lambda
 
 ```
@@ -145,8 +143,6 @@ export async function handler(event: any) {
 
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Now deploy your Lambdas, if you're using Serverless Framework you can use the following configuration:  
 
 ```
@@ -181,8 +177,6 @@ functions:
           method: post
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Let's test our functions in Postman:
 
 ### [](https://dev.to/aws-builders/building-an-amazon-bedrock-app-for-text-and-image-retrieval-3hal#text)Text
@@ -198,8 +192,6 @@ Create a new POST request with the following data:
 }
 
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ### [](https://dev.to/aws-builders/building-an-amazon-bedrock-app-for-text-and-image-retrieval-3hal#images)Images
 
@@ -220,8 +212,6 @@ Create a new POST request with the following data:
     "steps": 50
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Now that your functions are prepared to be utilized with API Gateway, you can begin integrating them into your applications, much like the example I presented in the beginning of this article.
 

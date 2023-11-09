@@ -36,15 +36,11 @@ Create a new TypeScript Next.js project by running the code snippet below.
 npx create-next-app course-page
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Install the [React Icons](https://react-icons.github.io/react-icons) package to enable us to use different kinds of icons within the application.  
 
 ```shell
 npm install react-icons --save
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 The application is divided into two pages: the Home page, representing the course landing page, and the Success page, which is displayed to the user after making a payment.
 
@@ -77,8 +73,6 @@ export default function Home() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Replace the `Navigation bar` placeholder with the code snippet below.  
 
 ```html
@@ -89,8 +83,6 @@ Replace the `Navigation bar` placeholder with the code snippet below.
     </button>
 </nav>
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Copy the code snippet below into the `Header` section. You can get the [image from its GitHub repository](https://github.com/triggerdotdev/blog/tree/main/sales-page/src/images).  
 
@@ -113,8 +105,6 @@ Copy the code snippet below into the `Header` section. You can get the [image fr
     </div>
 </header>
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 The `Features Section` displays some of the reasons why a customer should purchase the course.  
 
@@ -160,8 +150,6 @@ The `Features Section` displays some of the reasons why a customer should purcha
     </div>
 </section>
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Copy the code snippet below into the `Purchase Now Section` placeholder.  
 
@@ -209,8 +197,6 @@ Copy the code snippet below into the `Purchase Now Section` placeholder.
 </div>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Finally, update the `Footer section` as done below.  
 
 ```html
@@ -220,8 +206,6 @@ Finally, update the `Footer section` as done below.
     </p>
 </footer>
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ### Success 🚀
 
@@ -248,8 +232,6 @@ export default function Success() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Congratulations!🎉 You've successfully created the user interface for the application.
 
 ___
@@ -274,8 +256,6 @@ Create a `.env.local` file and copy the product ID into the file.
 PRODUCT_ID=<YOUR_PRODUCT_ID>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Next, click `Developers` from the top menu, select `API keys`, and create a new secret key.
 
 [![ProdId](https://res.cloudinary.com/practicaldev/image/fetch/s--n5pEQe8h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hipric4ehzdjirxk8pgx.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--n5pEQe8h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hipric4ehzdjirxk8pgx.png)
@@ -286,8 +266,6 @@ Save the secret key into the `.env.local` file. It authenticates and enables you
 STRIPE_API_KEY=<YOUR_STRIPE_SECRET_KEY>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 ### Adding Stripe checkout page to Next.js
 
 To do this, install the Stripe Node.js library.  
@@ -295,8 +273,6 @@ To do this, install the Stripe Node.js library.
 ```shell
 npm install stripe
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Create an API endpoint - `api/payment` within the Next.js application and copy the code below into the file.  
 
@@ -327,8 +303,6 @@ export default async function handler(
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 The code snippet above creates a checkout session for the product and returns the session URL. The session URL is the link where payments for a product are collected, and you need to redirect users to this URL.
 
 Create a function within the `index.tsx` file that retrieves the session URL from the API endpoint and redirects the user to the page. Execute the function when a user clicks any of the buttons on the web page.  
@@ -344,8 +318,6 @@ const handlePayment = async () => {
     }
 };
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ![Stripe](https://res.cloudinary.com/practicaldev/image/fetch/s--rewk5cZw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/01xw1l2ypai8wnj7ttfh.gif)
 
@@ -388,23 +360,17 @@ Copy your DEV server API key and run the code snippet below to install Trigger.d
 npx @trigger.dev/cli@latest init
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Start your Next.js project.  
 
 ```shell
 npm run dev
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In another terminal, run the following code snippet to establish a tunnel between Trigger.dev and your Next.js project.  
 
 ```shell
 npx @trigger.dev/cli@latest dev
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Finally, rename the `jobs/examples.ts` file to `jobs/functions.ts`. This is where all the jobs are processed.
 
@@ -417,8 +383,6 @@ Install the Stripe package provided by Trigger.dev.
 ```shell
 npm install @trigger.dev/stripe@latest
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Update the `jobs/functions.ts` file as shown below.  
 
@@ -449,8 +413,6 @@ client.defineJob({
     },
 });
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 The code snippet automatically creates a Stripe webhook that listens for checkout completion events, triggered when a user makes a payment.
 
@@ -485,8 +447,6 @@ AIRTABLE_BASE_ID=<YOUR_AIRTABLE_BASE_ID>
 AIRTABLE_TABLE_ID=<YOUR_AIRTABLE_TABLE_ID>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Next, create a personal access token by clicking on your avatar and selecting `Developer Hub`. Give the token a read-and-write scope.
 
 [![Next](https://res.cloudinary.com/practicaldev/image/fetch/s--wpNk8h69--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/povizzzv0004tf8hj4uo.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--wpNk8h69--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/povizzzv0004tf8hj4uo.png)
@@ -497,15 +457,11 @@ Save the newly generated token into the `.env.local` file.
 AIRTABLE_TOKEN=<YOUR_PERSONAL_ACCESS_TOKEN>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Then, install the Airtable package provided by Trigger.dev.  
 
 ```shell
 npm install @trigger.dev/airtable
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Update the `jobs/functions.js` file to save the user's name and email to Airtable after completing the payment checkout.  
 
@@ -559,8 +515,6 @@ client.defineJob({
     },
 });
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 The code snippet above integrates Airtable to Trigger.dev, access the table, and it with the customer's name and email.
 
