@@ -7,11 +7,11 @@
 
 # Flutter 动画：构建一个和 Medium 一样的鼓掌动画
 
-在这篇文章中，我们将从零开始探索 Flutter 动画。我们将通过在 Flutter 中模仿制作 Medium 的鼓掌动画，学习一些关于动画的核心概念。
+在这篇文章中，我们将从零开始探索 Flutter 动画。我们将通过在 Flutter 中模仿制作 Medium 的鼓掌动画，同时学习一些关于动画的核心概念。
 
 正如标题所说，这篇文章将更多地关注动画，而不是 Flutter 的基础知识。
 
-## 入门
+## 开始
 
 我们会从新建一个 Flutter 项目开始。每当我们新建一个 Flutter 项目，我们就会看到这段代码：
 
@@ -82,22 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-Flutter 为我们提供了一份免费的入门代码午餐～它已经管理了点击次数的状态，并为我们创建了一个浮动的动作按钮。
+Flutter 为我们提供了一份免费的入门代码午餐～它已经写了用于管理点击次数的状态的代码，也为我们创建了一个浮动的动作按钮。
 
 ![我们目前有的按钮](https://miro.medium.com/max/110/1*TpeTkSaUBAfKctD802YCtA.png)
 
 下面是我们想要达到的最终效果：
 
-![](https://miro.medium.com/max/1600/1*Hnkdb5BSXFmjVitdYQiirQ.gif)
-
-我们将会创建的动画。作者：[**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)
+![我们将会创建的动画。作者：[**Thuy Gia Nguyen**](https://dribbble.com/shots/4294768-Medium-Claps-Made-in-Flinto)](https://miro.medium.com/max/1600/1*Hnkdb5BSXFmjVitdYQiirQ.gif)
 
 在添加动画之前，我们先来快速浏览并解决一些简单的问题。
 
 1. 改变按钮图标和背景。
 2. 当我们按住按钮时，按钮应该继续添加计数。
 
-让我们添加这 2 个快速修复，然后开始制作动画：
+让我们添上这两个更改，然后开始着手制作动画：
 
 ```dart
 // main.dart
@@ -123,18 +121,17 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onTapDown(TapDownDetails tap) {
-    // User pressed the button. This can be a tap or a hold.
-    increment(null); // Take care of tap
-    timer = new Timer.periodic(duration, increment); // Takes care of hold
+    // 用户按下了按钮（要么是轻触，要么是长按）
+    increment(null); // 负责于轻触
+    timer = new Timer.periodic(duration, increment); // 负责于长按
   }
 
   void onTapUp(TapUpDetails tap) {
-    // User removed his finger from button.
+    // 用户的触控结束
     timer.cancel();
   }
 
   Widget getScoreButton() {
-
     return new Positioned(
         child: new Opacity(opacity: 1.0, child: new Container(
             height: 50.0 ,
@@ -156,8 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget getClapButton() {
-    // Using custom gesture detector because we want to keep increasing the claps
-    // when user holds the button.
+    // 因为我们希望保持鼓掌次数的增加，我们在这里应用了自定义的 GestureDetector
+    // 当用户长按按钮的时候
     return new GestureDetector(
         onTapUp: onTapUp,
         onTapDown: onTapDown,
@@ -219,7 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-从最终的产品来看，我们需要补充 3 点。
+从我们希望实现的效果来看，我们仍需要做出 3 点修正。
 
 1. 改变 Widget 的大小
 2. 当按钮被按下时，显示那个展示鼓掌次数的 Widget，并在按钮释放时隐藏这个 Widget
@@ -278,20 +275,20 @@ scoreInAnimationController.addListener(() {
 scoreInAnimationController.forward(from: 0.0);
 
 /* OUTPUT
-I/flutter ( 1913): 0.0
-I/flutter ( 1913): 0.0
-I/flutter ( 1913): 0.22297333333333333
-I/flutter ( 1913): 0.3344533333333333
-I/flutter ( 1913): 0.4459333333333334
-I/flutter ( 1913): 0.5574133333333334
-I/flutter ( 1913): 0.6688933333333335
-I/flutter ( 1913): 0.7803666666666668
-I/flutter ( 1913): 0.8918466666666668
-I/flutter ( 1913): 1.0
+I/flutter (1913): 0.0
+I/flutter (1913): 0.0
+I/flutter (1913): 0.22297333333333333
+I/flutter (1913): 0.3344533333333333
+I/flutter (1913): 0.4459333333333334
+I/flutter (1913): 0.5574133333333334
+I/flutter (1913): 0.6688933333333335
+I/flutter (1913): 0.7803666666666668
+I/flutter (1913): 0.8918466666666668
+I/flutter (1913): 1.0
 */
 ```
 
-**控制器在 150 毫秒内产生了从 0.0 到 1.0 的数字** —— 请注意，产生的数值几乎是线性的（0.2, 0.3, 0.4……）。我们如何改变这种行为？这将由第二个 Widget `CurvedAnimation` 来完成：
+**控制器在 150 毫秒内产生了从 0.0 到 1.0 的数字** —— 请注意，产生的数值几乎是线性的（0.2, 0.3, 0.4……）。我们如何改变这个输出？这将由第二个 Widget `CurvedAnimation` 来完成：
 
 ```dart
 bounceInAnimation = new CurvedAnimation(parent: scoreInAnimationController, curve: Curves.bounceIn);
@@ -300,14 +297,14 @@ bounceInAnimation.addListener(() {
 });
 
 /* OUTPUT
-I/flutter ( 5221): 0.0
-I/flutter ( 5221): 0.0
-I/flutter ( 5221): 0.24945376519722218
-I/flutter ( 5221): 0.16975716286388898
-I/flutter ( 5221): 0.17177866222222238
-I/flutter ( 5221): 0.6359024059750003
-I/flutter ( 5221): 0.9119433941222221
-I/flutter ( 5221): 1.0
+I/flutter (5221): 0.0
+I/flutter (5221): 0.0
+I/flutter (5221): 0.24945376519722218
+I/flutter (5221): 0.16975716286388898
+I/flutter (5221): 0.17177866222222238
+I/flutter (5221): 0.6359024059750003
+I/flutter (5221): 0.9119433941222221
+I/flutter (5221): 1.0
 */
 ```
 
@@ -322,21 +319,21 @@ tweenAnimation.addListener(() {
 });
 
 /* Output 
-I/flutter ( 2639): 0.0
-I/flutter ( 2639): 0.0
-I/flutter ( 2639): 33.452000000000005
-I/flutter ( 2639): 44.602000000000004
-I/flutter ( 2639): 55.75133333333334
-I/flutter ( 2639): 66.90133333333334
-I/flutter ( 2639): 78.05133333333333
-I/flutter ( 2639): 89.20066666666668
-I/flutter ( 2639): 100.0
+I/flutter (2639): 0.0
+I/flutter (2639): 0.0
+I/flutter (2639): 33.452000000000005
+I/flutter (2639): 44.602000000000004
+I/flutter (2639): 55.75133333333334
+I/flutter (2639): 66.90133333333334
+I/flutter (2639): 78.05133333333333
+I/flutter (2639): 89.20066666666668
+I/flutter (2639): 100.0
 */
 ```
 
 `Tween` 类生成了从 `begin` 到 `end` 的值。我们使用了前面的 `scoreInAnimationController` ，它使用了一条线性曲线。（当然我们也可以使用我们的反弹曲线来获得不同的值）。`Tween` 的优势并不止于此 —— 你还可以 `Tween` 其他东西。[你可以直接 `Tween` 颜色、偏移、位置以及其他继承了 `Tween` 基类的 Widget 属性](https://docs.flutter.io/flutter/animation/Tween-class.html)。
 
-**展示鼓掌次数的 Widget 的位置动画**
+### 展示鼓掌次数的 Widget 的位置动画
 
 在这一点上，我们已经有足够的知识让我们的展示鼓掌次数的 Widget 在我们按下按钮时从底部弹出，而在我们释放按钮的时候隐藏。
 
@@ -345,7 +342,7 @@ initState() {
   super.initState();
   scoreInAnimationController = new AnimationController(duration: new Duration(milliseconds: 150), vsync: this);
   scoreInAnimationController.addListener((){
-    setState(() {}); // 调用渲染函数（译者注：其实是更新状态）
+    setState(() {}); // 调用渲染函数
   });
 }
 
@@ -373,7 +370,7 @@ Widget getScoreButton() {
 
 现在，让我们为展示鼓掌次数的 Widget 添加输出动画。
 
-首先，我们添加一个枚举来更容易地管理展示鼓掌次数的 Widget 的状态。
+首先，我们添加一个枚举来帮助我们更轻松地管理展示鼓掌次数的 Widget 的状态。
 
 ```dart
 enum ScoreWidgetStatus {
@@ -417,7 +414,7 @@ void onTapUp(TapUpDetails tap) {
 
 ```dart
 void onTapDown(TapDownDetails tap) {
-  // 用户点按了按钮 —— 不管是长按还是点按
+  // 用户点按了按钮 —— 不管是长按还是触控
   if (scoreOutETA != null) scoreOutETA.cancel(); // 我们不希望次数消失！
   if (_scoreWidgetStatus == ScoreWidgetStatus.HIDDEN) {
     scoreInAnimationController.forward(from: 0.0);
@@ -449,13 +446,13 @@ Widget getScoreButton() {
 }
 ```
 
-当前输出：
+现在我们得到的效果：
 
 ![](https://miro.medium.com/max/732/1*RNvj1meQIy6nCn5d-S74qQ.gif)
 
 最后，我们需要选择我们需要使用哪个控制器的值来设置展示鼓掌次数的 Widget 的位置和不透明度 —— 它应该弹出+淡出。
 
-**展示鼓掌次数的 Widget 大小动画**
+### 展示鼓掌次数的 Widget 大小动画
 
 在这一点上，当次数增加时我们也知道如何改变大小。让我们快速添加大小动画，然后我们转到撒花动画上。
 
@@ -490,7 +487,7 @@ void increment(Timer t) {
 
 ```dart
 void onTapDown(TapDownDetails tap) {
-  // 用户点按了按钮 —— 不管是长按还是点按
+  // 用户点按了按钮 —— 不管是长按还是触控
   if (scoreOutETA != null) scoreOutETA.cancel(); // 我们不希望次数消失！
   if(_scoreWidgetStatus == ScoreWidgetStatus.BECOMING_INVISIBLE) {
     // 在 Widget 向上飞入的时候点击了按钮，把那玩意暂停掉！
@@ -501,7 +498,7 @@ void onTapDown(TapDownDetails tap) {
     _scoreWidgetStatus = ScoreWidgetStatus.BECOMING_VISIBLE;
     scoreInAnimationController.forward(from: 0.0);
   }
-  increment(null); // 关注点按
+  increment(null); // 关注触控
   holdTimer = new Timer.periodic(duration, increment); // 关注长按
 }
 ```
@@ -535,7 +532,7 @@ width: 50.0  + extraSize,
 3. 我们需要随着时间增加圆的半径。
 4. 我们需要根据角度和半径找到坐标。
 
-简单的三角学给我们提供了根据角度的正弦和余弦得到 x 和 y 坐标的公式。
+简单的三角学知识给我们提供了根据角度的正弦和余弦得到 x 和 y 坐标的公式。
 
 ```dart
 var sparklesWidget =
@@ -545,11 +542,11 @@ var sparklesWidget =
       child : new Image.asset("images/sparkles.png", width: 14.0, height: 14.0, ))
     ),
     left:(sparkleRadius*cos(currentAngle)) + 20,
-    top: (sparkleRadius* sin(currentAngle)) + 20 ,
+    top: (sparkleRadius*sin(currentAngle)) + 20 ,
   );
 ```
 
-现在，我们需要创建 5 个这样的 Widget，而每个 Widget 都应该有不同的角度。一个简单的 `for` 循环就可以了。
+现在，我们需要创建 5 个这样的 Widget，而每个 Widget 都应该有不同的角度。一个简单的 `for` 循环就可以实现啦。
 
 ```dart
 for(int i = 0;i < 5; ++i) {
@@ -559,7 +556,7 @@ for(int i = 0;i < 5; ++i) {
 }
 ```
 
-我们只需将 `2*pi`（360 度）分成 5 份，并据此创建一个 Widget。然后，我们将这些 Widget 添加到一个数组中，这个数组将作为栈的孩子。
+我们只需将 `2*pi`（360 度）分成 5 份，并据此创建一个 Widget。然后，我们将这些 Widget 添加到一个数组中，作为 `Stack` 的子 Widgets。
 
 现在，在这一点上，大部分的工作已经完成。我们只需要对 `sparkleRadius` 进行动画处理，并在分数递增时生成一个新的 `firstAngle`。
 
@@ -587,7 +584,7 @@ Widget getScoreButton() {
 }
 ```
 
-![最终结果](https://miro.medium.com/max/788/1*O5FNILFgN18aAbfbTVfsDA.gif)
+![最终效果](https://miro.medium.com/max/788/1*O5FNILFgN18aAbfbTVfsDA.gif)
 
 这就是我们对 Flutter 中**基本动画的介绍**。我们未来还会继续探索更多的 Flutter 知识，以学习创建更高级的 UI。
 
