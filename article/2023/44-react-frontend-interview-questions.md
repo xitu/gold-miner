@@ -56,8 +56,6 @@ function App() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/rendering-lists)
 
 ### 4. What is the difference between controlled and uncontrolled components?
@@ -82,8 +80,6 @@ function App() {
 } 
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Uncontrolled components, on the other hand, manage their own state internally using refs or other methods. They store and update their state independently, without relying on props or callbacks. The parent component has less control over the state of uncontrolled components.  
 
 ```tsx
@@ -102,8 +98,6 @@ function App() {
 } 
 
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components)
 
@@ -138,8 +132,6 @@ class App extends React.Component {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Functional components, on the other hand, are defined as simple JavaScript functions. They take in props as arguments and return JSX directly. Functional components do not have access to lifecycle methods or state. However, with the introduction of React Hooks in React 16.8, functional components can now manage state and use other features such as context and effects.  
 
 ```tsx
@@ -162,8 +154,6 @@ const App = () => {
   );
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 In general, functional components are considered simpler and easier to read and test. It is recommended to use functional components whenever possible, unless there is a specific need for class-based components.
 
@@ -196,8 +186,6 @@ As for "this," it refers to the current instance of a class component. It allows
 const [value, setValue] = useState('Some state');
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 During the initial rendering, the returned state matches the value passed as the first argument. The `setState` function is used to update the state. It takes a new state value as a parameter and **queues a re-render of the component**. The `setState` function can also accept a callback function as a parameter, which takes the previous state value as a parameter.  
 
 [Learn more](https://react.dev/reference/react/useState)
@@ -213,8 +201,6 @@ useEffect(() => {
   console.log('Logging something');
 }, [])
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/reference/react/useEffect)
 
@@ -235,8 +221,6 @@ useEffect(() => {
   };
 })
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ### 10. What are props in React?
 
@@ -260,8 +244,6 @@ const Child = ({ data }) => {
   return <div>{data}</div>;
 };
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/learn/passing-props-to-a-component)
 
@@ -296,8 +278,6 @@ export default function appReducer(state = initialState, action) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
 ### 14. What is an action and how can you change the state in Redux?
@@ -311,8 +291,6 @@ a type.
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 You can also optionally add some data as **payload**. In order to  
 change the state, it is necessary to call the dispatch function, to which we pass  
 action  
@@ -323,8 +301,6 @@ action
   payload: "Any payload",
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
@@ -366,8 +342,6 @@ store.myVariable = 'Hi Mobx';
 console.log(store.capitalizedVariable); // Output: HI MOBX
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the `myVariable` is defined as an observable using the `observable` decorator. You can then access the variable using `store.myVariable`. Any changes made to `myVariable` will automatically trigger updates in dependent components or reactions.  
 
 [Learn more](https://mobx.js.org/actions.html)
@@ -389,8 +363,6 @@ const someElement = React.createElement(
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 But we are used to seeing it like this  
 
 ```tsx
@@ -398,8 +370,6 @@ const someElement = (
   <h3 className='title__value'>Some Title Value</h3>
 );
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 This is exactly what the markup is called jsx. This is a kind of language extension  
 that simplifies the perception of code and development  
@@ -437,8 +407,6 @@ const ChildB = ({ data }) => {
 };
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the `data` prop is passed from the Parent component to ChildA, and then from ChildA to ChildB even though ChildA doesn't directly use the prop. This can become problematic when there are many levels of nesting or when the data needs to be accessed by components further down the component tree. It can make the code harder to maintain and understand.
 
 Props drilling can be mitigated by using other patterns like context or state management libraries like Redux or MobX. These approaches allow data to be accessed by components without the need for passing props through every intermediate component.
@@ -455,8 +423,6 @@ return (
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 ```tsx
 return (
   <div>
@@ -464,8 +430,6 @@ return (
   </div>
 );
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ```tsx
 if (isOnline) {
@@ -481,8 +445,6 @@ return (
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/conditional-rendering)
 
 ### 23. What is useMemo used for and how does it work?
@@ -497,8 +459,6 @@ With the first parameter, the function accepts a callback in which calculations 
 const memoValue = useMemo(() => computeFunc(paramA, paramB), [paramA, paramB]);
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useMemo)
 
 ### 24. What is useCallback used for and how does it work?
@@ -509,8 +469,6 @@ This is useful when passing callbacks to optimized child components that rely on
 ```ts
 const callbackValue = useCallback(() => computeFunc(paramA, paramB), [paramA, paramB]);
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/reference/react/useCallback)
 
@@ -554,8 +512,6 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useContext)
 
 ### 28. What is useRef used for and how does it work?
@@ -581,8 +537,6 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useRef)
 
 ### 29. What is React.memo()?
@@ -596,8 +550,6 @@ const MemoComponent = memo(MemoComponent = (props) => {
   // ...
 });
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/reference/react/memo)
 
@@ -616,8 +568,6 @@ Returning multiple elements from a component is a common practice in React. Frag
   <AnotherChild />
 </React.Fragment>
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://react.dev/reference/react/Fragment)
 
@@ -662,8 +612,6 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key)
 
 ### 33. How to handle asynchronous actions in Redux Thunk?
@@ -690,8 +638,6 @@ export const addUser = ({ firstName, lastName }) => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://redux.js.org/usage/writing-logic-thunks)
 
 ### 34. How to track changes in a field of an object in a functional component?
@@ -703,8 +649,6 @@ useEffect(() => {
   console.log('Changed!')
 }, [obj.someField])
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ### 35. How to access a DOM element?
 
@@ -729,8 +673,6 @@ const App = () => {
 export default App;
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 ### 36. What is a custom hook?
 
 Custom hook is a function that allows you to reuse logic between different components. It is a way to encapsulate reusable logic so that it can be easily shared and reused across multiple components. Custom hooks are functions that typically start with the word \*_use \*_ and can call other hooks if needed.  
@@ -754,8 +696,6 @@ export function calculateSum(a, b) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the index.js file acts as a Public API where the functions `greet()` and `calculateSum()` are exported and can be accessed from other modules by importing them. Other modules can import and use these functions as part of their implementation:  
 
 ```js
@@ -766,8 +706,6 @@ import { greet, calculateSum } from './index.js';
 console.log(greet('John')); // Hello, John!
 console.log(calculateSum(5, 3)); // 8
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 By exporting specific functions from the index file, we are defining the Public API of the module, allowing other modules to use those functions.
 
@@ -821,8 +759,6 @@ export async function getStaticProps() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 1.  `getServerSideProps`: This method is used to fetch data on each request and pre-render the page on the server. It can be used when you need to fetch data that might change frequently or is user-specific.
 
 ```ts
@@ -837,8 +773,6 @@ export async function getServerSideProps() {
   };
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 1.  `getStaticPaths`: This method is used in dynamic routes to specify a list of paths that should be pre-rendered at build time. It is commonly used to fetch data for dynamic routes with parameters.
 
@@ -857,8 +791,6 @@ export async function getStaticPaths() {
   };
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 [Learn more](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
 

@@ -56,8 +56,6 @@ The easiest way to get started with Anomalib, is to clone their [repository from
 python tools/train.py --config <path/to/model/config.yaml> --model <model name>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Sample config files are available in the repo, and it lets you set the paths of the folders containing your pictures for training and testing. Then, once your model is trained and validated, you can use the inference script to test it under simulated conditions on a single image or a folder of images. For example, with [PyTorch](https://pytorch.org/), you can run the inference script as follows:  
 
 ```
@@ -66,8 +64,6 @@ python tools/inference/torch_inference.py \
     --input your/image.png \
     --output results
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 This will generate a visualization that highlights the areas of the image that the model has identified as anomalies. You can set the flag `--visualization_mode` between `full` and `simple` to change the visualization mode. Select `full` to view the original image with its mask, heatmap, and segmentation.
 
@@ -85,8 +81,6 @@ To convert your model, you will need to add this configuration to your `config.y
 optimization:
   export_mode: < openvino or onnx >
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 Once converted, the model can be embedded in your application with ONNX Runtime or OpenVINO Inference Engine respectively.
 

@@ -29,8 +29,6 @@ async function demo (a, b) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 What is wrong with this code?
 
 1.  The name of the function `demo` is **very vague**: it could stand for “demolish”, or as in “giving a demo/presentation”, … .
@@ -54,8 +52,6 @@ async function fetchDemographicStatsForFirstAndLastName (
   };
 }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 What did we do?
 
@@ -83,8 +79,6 @@ async function getJobId (
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, we are ignoring the implementation details and will focus just on getting the name and arguments right.
 
 What is wrong with this code?
@@ -103,8 +97,6 @@ async function procureFreeMachineAndSetUpTheDockerWorkerThenStartExecutingTheJob
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 **Uff, that is one long and complicated name**. But the truth is, that we can’t really make it shorter without losing valuable information about what this function does and what we can expect from it. Therefore, **we are stuck**, we can’t find a better name! What now?
 
 The thing is, **you can't give a good name if you don't have clean code behind it**. So a bad name is not just a naming mishap, but often also an indicator of problematic code behind it, a failure in design. Code so problematic, that you don’t even know what to name it → there is no straightforward name to give to it, because it is not a straightforward code!
@@ -120,8 +112,6 @@ async function procureFreeMachine (type, region) { ... }
 async function setUpDockerWorker (machineId, dockerImage, setupCmd) { ... }
 async function startExecutingJob (workerId, jobDescription) { ... }
 ```
-
-Enter fullscreen mode Exit fullscreen mode
 
 ## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#what-is-a-good-name)What is a good name?
 
