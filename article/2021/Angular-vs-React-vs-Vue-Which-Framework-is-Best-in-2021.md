@@ -3,23 +3,23 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md](https://github.com/xitu/gold-miner/blob/master/article/2021/Angular-vs-React-vs-Vue-Which-Framework-is-Best-in-2021.md)
 > * 译者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)
-> * 校对者：[zenblo](https://github.com/zenblo)、[霜羽 Hoarfroster](https://github.com/PassionPenguin)、[felixliao](https://github.com/felixliao)
+> * 校对者：[zenblo](https://github.com/zenblo)、[felixliao](https://github.com/felixliao)
 
-# 2021 年 Angular vs. React vs. Vue 前端框架对比
+# 2021 年 Angular、React 和 Vue 哪一个框架更好？
 
 > 一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。
 
-你可能是一个 React 开发者，可能是一个 Vue 开发者，也可能是一个只专注于技术的 Angular 开发者。不过，你还是不能忽视开发社区不断进行的框架比较。有充分的理由认为：他们三个框架，一个是 UI 库（React），另一个是成熟的前端框架（Angular），而其中最年轻的（Vue）则可以称之为渐进式框架。每一个框架都拥有一些独特的优势和性能指标。正是这些不可忽略的优势和指标，我们不能不对这三种框架进行对比分析。
+你可能是一个 React 开发者，可能是一个 Vue 开发者，也可能是一个只专注于技术的 Angular 开发者。不过，你还是不能忽视开发社区不断进行的对这些框架的比较。这些比较出于很好的理由：他们三个框架，一个是 UI 库（React），另一个是存在很久的成熟的前端框架（Angular），而其中最年轻的（Vue）我们也可以称之为渐进式框架。每一个框架都拥有一些独特的优势和性能指标。正是这些不可忽略的优势和指标，让我们不能不对这三种框架进行对比分析。
 
 这几个框架都是基于组件的框架，都有快速创建 UI 的功能。大部分时间，它们可以相互替代来用于构建前端应用。然而它们并非 100% 相同。
 
-这就是为什么我们决定为你创建一个简短的指南，但最重要的是，为你提供一个参考帮助你在未来进行技术选择。
+这就是为什么我们决定为你创建一个简短的指南，但最重要的是，希望能够为你提供一个参考帮助你在未来进行技术选择。
 
 让我们开始吧！
 
-## 许可证
+## 授权许可
 
-当然，在使用一个开源框架或库之前，一定要彻底检查许可证。幸运的是，React、Angular 和 Vue 都使用 [MIT 许可证](https://opensource.org/licenses/MIT)。它提供了有限的复用限制，而且我们甚至还可以在专有软件中使用。在使用任何框架或软件之前，一定要留心，注意了解许可证的内容。
+当然，在使用一个开源框架或库之前，一定要彻底检查授权许可。幸运的是，React、Angular 和 Vue 都使用 [MIT 授权许可](https://opensource.org/licenses/MIT)。它提供了有限的复用限制，而且我们甚至还可以在专有软件中使用。在使用任何框架或软件之前，一定要留心，注意了解许可证的内容。
 
 ## 架构设计
 
@@ -27,25 +27,25 @@
 
 Angular 框架属于 MEAN 框架，是如今创业公司最热门的技术栈。Angular 是一个完整的基于 TypeScript 的 Web 应用开发框架，主要用于构建单页 Web 应用（SPA）。
 
-与 AngularJS 这一早期的框架不同，Angular2 是基于组件的，与 MV* 模式没有什么关联。Angular 的结构方式包括模块、组件和服务。
+与 AngularJS 这一早期的框架不同，Angular2 是基于组件的，与 MV*-模式没有什么关联。Angular 的结构方式包括模块、组件和服务。
 
-在 Angular 框架中，每个组件都有一个类或模板，定义了应用逻辑和 MetaData（装饰器）。组件的这些元数据为创建和呈现其视图所需的构件在哪里提供了指引。
+在 Angular 框架中，每个组件都有一个类或模板，定义了应用逻辑和 MetaData（修饰器）。组件的这些元数据为创建和呈现其视图所需的构件在哪里提供了指引。
 
 Angular 架构的另一个重要因素是，模板是用 HTML 编写的。它们还可以包含 Angular 模板语法，并带有特殊指令以输出响应式数据，并且可以渲染多个元素。
 
-服务 —— Angular 应用中的一个独特元素，被 Components 用于委托业务逻辑任务，如获取数据或验证输入。虽然使用服务并没有严格执行，但是将应用程序结构作为一组可复用的不同服务则是比较明智的。
+服务 —— Angular 应用中的一个独特元素，被 Components 用于委托业务逻辑任务，如获取数据或验证输入。虽然并没有强制让你去使用服务，但是将应用程序结构作为一组可复用的不同服务则是比较明智的。
 
 ### React
 
 React 是一个开源的前端库，主要用于开发用户界面。这种灵活的前端解决方案并不强制执行特定的项目结构。一个 React 开发者可能只需要几行代码就可以开始使用它。
 
-React 是基于 JavaScript 的，但在大多数情况下，它与 JSX（JavaScript XML）相结合。JSX 是一种语法扩展，允许开发人员同时创建包含 HTML 和 JavaScript 的元素。实际上，开发者可以用 JSX 创建的任何东西也可以用 `React JavaScript API` 创建。React 元素比 DOM 元素更强大，它们是 React 应用的最小组成部分，即组件。
+React 是基于 JavaScript 的，但在大多数情况下，它与 JSX（JavaScript XML）相结合。JSX 是一种语法扩展，允许开发人员同时创建包含 HTML 和 JavaScript 的元素。实际上，开发者可以用 JSX 创建的任何东西也可以用 React JavaScript API 创建。React 元素比 DOM 元素更强大，它们是 React 应用的最小组成部分，即组件。
 
-React 组件是一种构建模块，它决定了在整个 Web 应用中使用独立和可重用的组件。
+React 组件是一些构建模块用于决定在整个 Web 应用中所需要使用到的独立和可重用的组件。
 
 ### Vue
 
-用于开发用户界面和单页 Web 应用，Vue 是一个开源的 `Model-View-View-Model` (MVVM) 前端 JavaScript 库。它被称为渐进式框架，与其它工具一起被用于前端开发。Vue 的多用途、高性能和它在 Web 应用程序上的最佳用户体验成就了它的流行。
+被用于开发用户界面和单页 Web 应用，Vue 是一个开源的 Model-View-View-Model 前端 JavaScript 库。它被称为渐进式框架，可以与其它工具一起被用于前端开发。Vue 的多用途、高性能和它在 Web 应用程序上的最佳用户体验成就了它的流行。
 
 使用 Vue 时，开发者主要在 ViewModel 层上工作，以确保应用数据的处理方式能让框架呈现最新的视图。
 
@@ -53,7 +53,7 @@ Vue 的模板语法将可识别的 HTML 与特殊的指令和功能相结合。�
 
 现在 Vue 中的组件是小巧、自成一体和可复用的。单文件组件（SFC）使用扩展名 `.vue` ，包含 HTML、JavaScript 和 CSS，因此所有相关代码都存放在同一个文件中。
 
-在大型的 Vue.js 项目中，我们通常推荐使用 SFC 来组织代码。要将 SFC 移植到工作的 JavaScript 代码中，你需要 Webpack 或 Browserify 这样的构建工具。
+在大型的 Vue.js 项目中，我们通常推荐使用单文件组件来组织代码。要将单文件组件移植到工作的 JavaScript 代码中，你需要 Webpack 或 Browserify 这样的构建工具。
 
 ## 适用目标和范围
 
@@ -68,11 +68,11 @@ Angular 最适合大型和高级项目。这些可能包括但不限于：
 
 ### React
 
-React 来自 MERN 架构，一种以构建复杂的业务应用程序而闻名的技术架构。当将它与 Redux、MobX 或其它 flux 模式的状态管理库一起使用时，React 就能够成为强大的工具。React 最适合以下项目：
+React 基于 MERN 架构，一种以构建复杂的业务应用程序而闻名的技术架构。当将它与 Redux、MobX 或其它 flux 模式的状态管理库一起使用时，React 就能够成为强大的工具。React 最适合以下项目：
 
 * 对于涉及包含导航项，折叠或展开的手风琴分节，可用或不可用状态，动态输入，可用或不可用按钮，用户登录，用户访问权限等的许多组件的应用程序。
-* 对于具有扩展和增长可能的项目，因为 React 组件具有声明性，因此它可以轻松处理此类复杂结构。
-* 当 UI 是网络应用程序的中心时。
+* 对于具有扩展和增长可能的项目。因为 React 组件具有声明性，因此它可以轻松处理此类复杂结构。
+* 当 UI 是网络应用程序的核心时。
 
 ### Vue
 
@@ -91,7 +91,7 @@ Angular 性能方面的一些亮点包括：
 
 * 有无缝的第三方集成，以增强产品或应用程序的功能。
 * 提供强大的组件集合，从而简化了编写，更改和使用代码的过程。
-* 它的“提前编译器”赋予了应用程序更快的加载时间和安全性。
+* 它的“预先编译器”赋予了应用程序更快的加载时间和更高的安全性。
 * MVC 模型通过允许视图分离来帮助减少后台查询。
 * 促进使用将依赖项注入的外部元素来让组件解耦，从而为可复用性以及简化管理和测试铺平了道路。
 * 通过将任务分成逻辑块来减少网页的初始加载时间。
@@ -157,7 +157,7 @@ Gitlab | Spendesk | Behance | 9Gag | Wizzair | Nintendo
 
 ### 社区支持与学习曲线
 
-React JS 库是由 Facebook 创建的，拥有大量的贡献者以及一个庞大的开发者社区，为各种问题贡献他们的解决方案。Angular 也有一个庞大的开发者社区，对最具挑战性和最怪异的案例都有解决方案。Vue 具有良好的生态系统，并具有 React 和 Angular 框架的所有特性。说到学习曲线，React 无疑是开发者能够最快学习和适应的，其次是 Vue 和 Angular。
+React JS 库是由 Facebook 创建的，拥有着大量的贡献者以及一个庞大的开发者社区，为各种问题贡献他们的解决方案。Angular 也有一个庞大的开发者社区，对最具挑战性和最怪异的案例都有解决方案。Vue 具有良好的生态系统，并具有 React 和 Angular 框架的所有特性。说到学习曲线，React 无疑是开发者能够最快学习和适应的，其次是 Vue 和 Angular。
 
 ## 本文总结
 

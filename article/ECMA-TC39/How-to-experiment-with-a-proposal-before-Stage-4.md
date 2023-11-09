@@ -19,7 +19,7 @@
 - 如果缺少实现，你可以自己动手 [添加一个](https://github.com/tc39/how-we-work/blob/master/implement.md)！
 - 如果你想给提案提出一些反馈，可以在 GitHub 仓库中创建一个 issue。
 
-警告：第 3 阶段及以下阶段的提案可能会发生重大变化或删除。
+警告：第 3 阶段及以下阶段的提案可能会发生重大变化或被删除。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 ---

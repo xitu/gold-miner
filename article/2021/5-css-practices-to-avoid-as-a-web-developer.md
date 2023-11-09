@@ -9,15 +9,15 @@
 
 ![图源 [Pankaj Patel](https://unsplash.com/@pankajpatel)，上传至 [Unsplash](https://unsplash.com/?utm_source=medium&utm_medium=referral).](https://cdn-images-1.medium.com/max/9874/1*0Ca38BL7C5MRI0qsdAQT3Q.jpeg)
 
-有人认为 CSS 很难学习，觉得 CSS 有很多的坑，甚至还有一点儿魔幻，难以理解，很容易会搬起石头砸自己的脚。对此我感到难过，毕竟，我可不这么认为。
+有人认为 CSS 很难学习。他们觉得 CSS 里面有着很多的坑，甚至还有一点儿魔幻，让人很容易会搬起石头砸自己的脚。对此我感到难过，毕竟，我可不这么认为。
 
-在考虑了可以做什么之后，我提出了五个我挺讨厌的 CSS 的做法，希望帮助大家避免这些习惯。
+在考虑了可以做什么之后，我想到了 5 个我所讨厌的 CSS 的做法，希望帮助大家避免这些习惯。
 
-## 1. 设置内外边距，然后将其重置
+## 1. 设置内外边距，然后又将其重置
 
 我经常看到人们为所有元素设置内外边距，然后为第一个元素或者最后一个元素清除刚刚写的边距。我不知道为什么你非要在一条规则就可以解决问题的情况下写两条规则。一次为所有必需的元素设置边距明显容易得多！
 
-为简化 CSS，你可以选用以下几种选择器：`nth-child` 或 `nth-of-type` 选择器，还有 `:not()` 伪类或相邻元素组合器（即 `+`）。
+为简化 CSS，你可以选用以下几种选择器：`nth-child` 或 `nth-of-type` 选择器，还有 `:not()` 伪类或相邻元素组合器（也就是 `+`）。
 
 不要这么写：
 
@@ -55,7 +55,7 @@
 }
 ```
 
-## 2. 为 `position` 为 `fixed` 或 `absolute` 的元素添加 `display:block`
+## 2. 为 `position` 为 `fixed` 或 `absolute` 的元素添加 `display: block`
 
 你知道吗？其实你无需为 `position` 为 `fixed` 或 `absolute` 的元素添加 `display:block`，因为这是默认发生的。
 
@@ -66,7 +66,7 @@
 * `inline-grid` -> `grid`
 * `inline-table` -> `table`
 
-因此，对于 `position` 为 `fixed` 或 `absolute` 的元素，你只需在要使用 flex 布局或者 grid 布局的时候设置  `display`。
+因此，对于 `position` 为 `fixed` 或 `absolute` 的元素，你只需在要使用 `flex` 布局或者 `grid` 布局的时候设置 `display`。
 
 不要这样写：
 
@@ -108,7 +108,7 @@
 
 ## 3. 使用 `transform: translate(-50%, -50%)` 实现居中
 
-曾几何时，有一个非常普遍的问题让开发者们烦恼不已。这种情况一直持续到 2015 年，而在此之前，该问题的所有解决方案或多或少都有毛病。这个问题就是 —— 将未指定高度的元素在水平和竖直方向居中。
+曾几何时，有一个非常普遍的问题弄出了不少毛病。这种情况一直持续到 2015 年，而在此之前，该问题的所有解决方案或多或少都有毛病。这个问题就是 —— 将未指定高度的元素在水平和竖直方向居中。
 
 特别地，一种解决方案是结合使用绝对定位和 `transform` 属性。此技术在基于 Chromium 的浏览器中会导致文本的模糊问题。
 
@@ -147,14 +147,13 @@
 
 我们经常使用 `flexbox` 创建一个多列网格，然后转换为单列网格。
 
-为了将多列网格转换为单列网格，开发人员使用了 `width：100％`。我不明白他们为什么这么做 —— 网格元素是块元素，默认情况下的宽度就是 `100%`，而无需使用其他属性。
+为了将多列网格转换为单列网格，开发人员使用了 `width: 100％`。我不明白他们为什么这么做 —— 网格元素是块元素，默认情况下的宽度就是 `100%`，我们完全无需使用其他属性来做到这一点。
 
-因此，我们不需要使用 `width：100％`，而是应该编写媒体查询，以便 `flexbox` 仅用于创建多列网格。
+因此，我们不需要使用 `width：100％`，而是应该编写媒体查询，以便使 `flexbox` 仅用于创建多列网格。
 
 不要这样写：
 
 ```HTML
-
 <div class="parent">
     <div class="child">Item 1</div>
     <div class="child">Item 2</div>
@@ -183,7 +182,6 @@
 直接这样写：
 
 ```HTML
-
 <div class="parent">
     <div class="child">Item 1</div>
     <div class="child">Item 2</div>
@@ -216,7 +214,7 @@
 * `inline-grid` -> `grid`
 * `inline-table` -> `table`
 
-因此，无需在 `flex` 项目中添加 `display：block`，浏览器将为你完成此操作。
+因此，无需在 `flex` 项目中添加 `display: block`，浏览器将为你完成此操作。
 
 不要这样做：
 

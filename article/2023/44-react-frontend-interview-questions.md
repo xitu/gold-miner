@@ -5,13 +5,13 @@
 > * 译者：
 > * 校对者：
 
-## [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#introduction)Introduction
+## Introduction
 
 When it comes to interviewing for a React frontend developer position, being well-prepared for the technical questions is crucial. React has become one of the most popular JavaScript libraries for building user interfaces, and employers often focus on assessing a candidate's understanding of React's core concepts, best practices, and related technologies. In this article, we will explore a comprehensive list of questions commonly asked during React frontend developer interviews. By familiarizing yourself with these questions and their answers, you can enhance your chances of success and demonstrate your proficiency in React development. So, let's dive in and explore the key topics that you should be ready to tackle in a React Frontend Developer interview.
 
 ![](https://i.giphy.com/media/AYECTMLNS4o67dCoeY/giphy.gif)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#1-what-react-hooks-do-you-know)1\. What React hooks do you know?
+### 1. What React hooks do you know?
 
 -   `useState`: Used for managing state in functional components.
 -   `useEffect`: Used for performing side effects in functional components, such as fetching data or subscribing to events.
@@ -23,9 +23,10 @@ When it comes to interviewing for a React frontend developer position, being wel
 -   `useLayoutEffect`: Similar to useEffect, but the effect runs synchronously after all DOM mutations.
 
 These hooks provide powerful tools for managing state, handling side effects, and reusing logic in React functional components.  
+
 [Learn more](https://react.dev/reference/react)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#2-what-is-virtual-dom)2\. What is Virtual DOM?
+### 2. What is Virtual DOM?
 
 Virtual DOM is a concept in React where a lightweight, virtual representation of the actual DOM (Document Object Model) is created and stored in memory. It is a programming technique used to optimize the performance of web applications.
 
@@ -35,11 +36,11 @@ Once the differences are identified, React efficiently updates only the necessar
 
 By using the virtual DOM, React provides a way to create dynamic and interactive user interfaces while ensuring optimal efficiency and rendering speed.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#3-how-to-render-an-array-of-elements)3\. How to render an array of elements?
+### 3. How to render an array of elements?
 
 To render an array of elements, you can use the `map()` method to iterate over the array and return a new array of React elements.  
 
-```
+```tsx
 const languages = [
   "JavaScript",
   "TypeScript",
@@ -55,17 +56,15 @@ function App() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/rendering-lists)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#4-what-is-the-difference-between-controlled-and-uncontrolled-components)4\. What is the difference between controlled and uncontrolled components?
+### 4. What is the difference between controlled and uncontrolled components?
 
 The difference between controlled and uncontrolled components lies in **how they manage and update their state**.
 
 Controlled components are components where the state is controlled by React. The component receives its current value and updates it through props. It also triggers a callback function when the value changes. This means that the component doesn't store its own internal state. Instead, the parent component manages and passes the value down to the controlled component.  
 
-```
+```tsx
 import { useState } from 'react'; 
 
 function App() { 
@@ -81,11 +80,9 @@ function App() {
 } 
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Uncontrolled components, on the other hand, manage their own state internally using refs or other methods. They store and update their state independently, without relying on props or callbacks. The parent component has less control over the state of uncontrolled components.  
 
-```
+```tsx
 import { useRef } from 'react'; 
 
 function App() { 
@@ -102,17 +99,15 @@ function App() {
 
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#5-what-is-the-difference-between-classbased-and-functional-react-components)5\. What is the difference between class-based and functional React components?
+### 5. What is the difference between class-based and functional React components?
 
 The main difference between class-based and functional components is **how they are defined and the syntax they use.**
 
 Class-based components are defined as ES6 classes and extend the `React.Component` class. They use the `render` method to return the JSX (JavaScript XML) that defines the component's output. Class components have access to component lifecycle methods and state management through `this.state` and `this.setState()`.  
 
-```
+```tsx
 class App extends React.Component {
   state = {
     value: 0,
@@ -137,11 +132,9 @@ class App extends React.Component {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 Functional components, on the other hand, are defined as simple JavaScript functions. They take in props as arguments and return JSX directly. Functional components do not have access to lifecycle methods or state. However, with the introduction of React Hooks in React 16.8, functional components can now manage state and use other features such as context and effects.  
 
-```
+```tsx
 import { useState } from 'react';
 
 const App = () => {
@@ -162,11 +155,9 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In general, functional components are considered simpler and easier to read and test. It is recommended to use functional components whenever possible, unless there is a specific need for class-based components.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#6-what-are-the-lifecycle-methods-of-a-component)6\. What are the lifecycle methods of a component?
+### 6. What are the lifecycle methods of a component?
 
 Lifecycle methods are a way to hook into the different stages of a component's life cycle, allowing you to execute specific code at specific times.
 
@@ -187,41 +178,38 @@ Some lifecycle methods, like `componentWillMount`, `componentWillReceiveProps`, 
 
 As for "this," it refers to the current instance of a class component. It allows you to access properties and methods within the component. In functional components, "this" is not used as functions are not bound to a specific instance.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#7-what-are-the-peculiarities-of-using-usestate)7\. What are the peculiarities of using useState?
+### 7. What are the peculiarities of using useState?
 
 `useState` returns a state value and a function to update it.  
 
-```
+```ts
 const [value, setValue] = useState('Some state');
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 During the initial rendering, the returned state matches the value passed as the first argument. The `setState` function is used to update the state. It takes a new state value as a parameter and **queues a re-render of the component**. The `setState` function can also accept a callback function as a parameter, which takes the previous state value as a parameter.  
+
 [Learn more](https://react.dev/reference/react/useState)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#8-what-are-the-peculiarities-of-using-useeffect)8\. What are the peculiarities of using useEffect?
+### 8. What are the peculiarities of using useEffect?
 
 The `useEffect` hook allows you to perform side effects in a functional component.  
 Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of a functional component known as the React rendering phase. This can lead to confusing errors and inconsistencies in the user interface.  
 Instead, it is recommended to use useEffect. The function passed to useEffect will be executed after the render is committed to the screen, or if you pass an array of dependencies as the second parameter, the function will be called every time one of the dependencies changes.  
 
-```
+```ts
 useEffect(() => {
   console.log('Logging something');
 }, [])
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useEffect)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#9-how-to-track-the-unmounting-of-a-functional-component)9\. How to track the unmounting of a functional component?
+### 9. How to track the unmounting of a functional component?
 
 Often, `useEffect` create resources that need to be cleaned up or reset before the component leaves the screen, such as a subscription or a timer identifier.  
 In order to do this, the function passed to `useEffect` can return a **cleanup function**. The cleanup function is run before the component is removed from the user interface to prevent memory leaks. Additionally, if the component renders multiple times (as is usually the case), the previous effect is cleaned up before the next effect is executed.  
 
-```
+```ts
 useEffect(() => {
   function handleChange(value) {
     setValue(value);
@@ -234,14 +222,12 @@ useEffect(() => {
 })
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#10-what-are-props-in-react)10\. What are props in React?
+### 10. What are props in React?
 
 Props are data that is passed to the component from the parent. Props  
 are read-only and cannot be changed.  
 
-```
+```tsx
 // Parent component
 const Parent = () => {
   const data = "Hello, World!";
@@ -259,27 +245,27 @@ const Child = ({ data }) => {
 };
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/passing-props-to-a-component)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#11-what-is-a-state-manager-and-which-ones-have-you-worked-with-or-know)11\. What is a state manager and which ones have you worked with or know?
+### 11. What is a state manager and which ones have you worked with or know?
 
 State manager is a tool or library that helps manage the state of an application. It provides a centralized store or container for storing and managing data that can be accessed and updated by different components in the application.  
 A state manager solves several problems. Firstly, it is a good practice to separate data and the logic related to it from components. Secondly, when using local state and passing it between components, the code can become convoluted due to the potential for deep nesting of components. By having a global store, we can access and modify data from any component.  
 Alongside React Context, Redux or MobX are commonly used as state management libraries.  
+
 [Learn more](https://mobx.js.org/README.html)  
+
 [Learn more](https://redux-toolkit.js.org/)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#12-in-which-cases-can-you-use-local-state-and-when-should-you-use-global-state)12\. In which cases can you use local state and when should you use global state?
+### 12. In which cases can you use local state and when should you use global state?
 
 Local state is recommended to be used in cases where it is only used within one component and there are no plans to pass it to other components. Local state is also used in a component representing an individual item in a list. However, if component decomposition involves nested components with data being passed down the hierarchy, it is better to use global state.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#13-what-is-a-reducer-in-redux-and-what-parameters-does-it-take)13\. What is a reducer in Redux and what parameters does it take?
+### 13. What is a reducer in Redux and what parameters does it take?
 
 A reducer is a pure function that takes the state and action as parameters. Inside the reducer, we track the type of the received action and, depending on it, we modify the state and return a new state object.  
 
-```
+```ts
 export default function appReducer(state = initialState, action) {
   // The reducer normally looks at the action type field to decide what happens
   switch (action.type) {
@@ -292,57 +278,53 @@ export default function appReducer(state = initialState, action) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#14-what-is-an-action-and-how-can-you-change-the-state-in-redux)14\. What is an action and how can you change the state in Redux?
+### 14. What is an action and how can you change the state in Redux?
 
 Action is a simple JavaScript object that must have a field with  
 a type.  
 
-```
+```ts
 {
   type: "SOME_TYPE"
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 You can also optionally add some data as **payload**. In order to  
 change the state, it is necessary to call the dispatch function, to which we pass  
 action  
 
-```
+```ts
 {
   type: "SOME_TYPE",
   payload: "Any payload",
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#15-which-pattern-does-redux-implement)15\. Which pattern does Redux implement?
+### 15. Which pattern does Redux implement?
 
 Redux implements the **Flux pattern**, which is a predictable state management pattern for applications. It helps in managing the state of an application by introducing a unidirectional data flow and a centralized store for the application's state.  
+
 [Learn more](https://www.newline.co/fullstack-react/30-days-of-react/day-18/#:~:text=Flux%20is%20a%20pattern%20for,default%20method%20for%20handling%20data.)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#16-which-pattern-does-mobx-implement)16\. Which pattern does Mobx implement?
+### 16. Which pattern does Mobx implement?
 
 Mobx implements the **Observer pattern**, also known as the Publish-Subscribe pattern.  
+
 [Learn more](https://www.patterns.dev/posts/observer-pattern)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#17-what-are-the-peculiarities-of-working-with-mobx)17\. What are the peculiarities of working with Mobx?
+### 17. What are the peculiarities of working with Mobx?
 
 Mobx provides decorators like `observable` and `computed` to define observable state and reactive functions. Actions decorated with action are used to modify the state, ensuring that all changes are tracked. Mobx also offers automatic dependency tracking, different types of reactions, fine-grained control over reactivity, and seamless integration with React through the mobx-react package. Overall, Mobx simplifies state management by automating the update process based on changes in observable state.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#18-how-to-access-a-variable-in-mobx-state)18\. How to access a variable in Mobx state?
+### 18. How to access a variable in Mobx state?
 
 You can access a variable in the state by using the `observable` decorator to define the variable as observable. Here's an example:  
 
-```
+```ts
 import { observable, computed } from 'mobx';
 
 class MyStore {
@@ -360,21 +342,20 @@ store.myVariable = 'Hi Mobx';
 console.log(store.capitalizedVariable); // Output: HI MOBX
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the `myVariable` is defined as an observable using the `observable` decorator. You can then access the variable using `store.myVariable`. Any changes made to `myVariable` will automatically trigger updates in dependent components or reactions.  
+
 [Learn more](https://mobx.js.org/actions.html)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#19-what-is-the-difference-between-redux-and-mobx)19\. What is the difference between Redux and Mobx?
+### 19. What is the difference between Redux and Mobx?
 
 Redux is a simpler and more opinionated state management library that follows a strict unidirectional data flow and promotes immutability. It requires more boilerplate code and explicit updates but has excellent integration with React.  
 Mobx, on the other hand, provides a more flexible and intuitive API with less boilerplate code. It allows you to directly modify the state and automatically tracks changes for better performance. The choice between Redux and Mobx depends on your specific needs and preferences.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#20-what-is-jsx)20\. What is JSX?
+### 20. What is JSX?
 
 By default, the following syntax is used to create elements in react.  
 
-```
+```tsx
 const someElement = React.createElement(
   'h3',
   {className: 'title__value'},
@@ -382,27 +363,24 @@ const someElement = React.createElement(
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 But we are used to seeing it like this  
 
-```
+```tsx
 const someElement = (
   <h3 className='title__value'>Some Title Value</h3>
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 This is exactly what the markup is called jsx. This is a kind of language extension  
 that simplifies the perception of code and development  
+
 [Learn more](https://react.dev/learn/writing-markup-with-jsx#jsx-putting-markup-into-javascript)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#21-what-is-props-drilling)21\. What is props drilling?
+### 21. What is props drilling?
 
 Props drilling refers to the process of passing props through multiple levels of nested components, even if some intermediate components do not directly use those props. This can lead to a complex and cumbersome code structure.  
 
-```
+```tsx
 // Parent component
 const Parent = () => {
   const data = "Hello, World!";
@@ -429,17 +407,15 @@ const ChildB = ({ data }) => {
 };
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the `data` prop is passed from the Parent component to ChildA, and then from ChildA to ChildB even though ChildA doesn't directly use the prop. This can become problematic when there are many levels of nesting or when the data needs to be accessed by components further down the component tree. It can make the code harder to maintain and understand.
 
 Props drilling can be mitigated by using other patterns like context or state management libraries like Redux or MobX. These approaches allow data to be accessed by components without the need for passing props through every intermediate component.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#22-how-to-render-an-element-conditionally)22\. How to render an element conditionally?
+### 22. How to render an element conditionally?
 
 You can use any conditional operators, including ternary.  
 
-```
+```tsx
 return (
   <div>
     {isVisible && <span>I'm visible!</span>}
@@ -447,9 +423,7 @@ return (
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
-```
+```tsx
 return (
   <div>
     {isOnline ? <span>I'm online!</span> : <span>I'm offline</span>}
@@ -457,9 +431,7 @@ return (
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
-```
+```tsx
 if (isOnline) {
   element = <span>I'm online!</span>;
 } else {
@@ -473,11 +445,9 @@ return (
 );
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/conditional-rendering)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#23-what-is-usememo-used-for-and-how-does-it-work)23\. What is useMemo used for and how does it work?
+### 23. What is useMemo used for and how does it work?
 
 `useMemo` is used to cache and memorize the  
 result of calculations.  
@@ -485,34 +455,30 @@ Pass the creating function and an array of dependencies. `useMemo` will recalcul
 costly calculations with each render.  
 With the first parameter, the function accepts a callback in which calculations are performed, and with the second an array of dependencies, the function will re-perform calculations only when at least one of the dependencies is changed.  
 
-```
+```ts
 const memoValue = useMemo(() => computeFunc(paramA, paramB), [paramA, paramB]);
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useMemo)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#24-what-is-usecallback-used-for-and-how-does-it-work)24\. What is useCallback used for and how does it work?
+### 24. What is useCallback used for and how does it work?
 
 The `useCallback` hook will return a memoized version of the callback, which changes only if the values of one of the dependencies change.  
 This is useful when passing callbacks to optimized child components that rely on link equality to prevent unnecessary renderings.  
 
-```
+```ts
 const callbackValue = useCallback(() => computeFunc(paramA, paramB), [paramA, paramB]);
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useCallback)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#25-what-is-the-difference-between-usememo-and-usecallback)25\. What is the difference between useMemo and useCallback?
+### 25. What is the difference between useMemo and useCallback?
 
 1.  `useMemo` is used to memoize the result of a computation, while `useCallback` is used to memoize a function itself.
 2.  `useMemo` caches the computed value and returns it on subsequent renders if the dependencies haven't changed.
 3.  `useCallback` caches the function itself and returns the same instance unless the dependencies have changed.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#26-what-is-react-context)26\. What is React Context?
+### 26. What is React Context?
 
 React Context is a feature that provides a way to pass data through the component tree without manually passing props at every level. It allows you to create a global state that can be accessed by any component within the tree, regardless of its position. Context is useful when you need to share data between multiple components that are not directly connected through props.
 
@@ -523,9 +489,10 @@ The React Context API consists of three main parts:
 3.  `Context.Consumer` or `useContext` hook: This component or hook is used to consume the value from the context. It can be used within any component within the context's provider.
 
 By using React Context, you can avoid prop drilling (passing props through multiple levels of components) and easily manage state at a higher level, making your code more organized and efficient.  
+
 [Learn more](https://react.dev/learn/passing-data-deeply-with-context)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#27-what-is-usecontext-used-for-and-how-does-it-work)27\. What is useContext used for and how does it work?
+### 27. What is useContext used for and how does it work?
 
 In a typical React application, data is passed from top to bottom (from parent to child component) using props. However, such a method of use may be too cumbersome for some types of props  
 (for example, the selected language, UI theme), which must be passed to many components in the application. The context provides a way to share such data between components without having to explicitly pass the props through  
@@ -533,7 +500,7 @@ each level of the tree.
 The component calling useContext will always be re-rendered when  
 the context value changes. If re-rendering a component is costly, you can optimize it using memoization.  
 
-```
+```tsx
 const App = () => {
   const theme = useContext(ThemeContext);
 
@@ -545,17 +512,15 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useContext)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#28-what-is-useref-used-for-and-how-does-it-work)28\. What is useRef used for and how does it work?
+### 28. What is useRef used for and how does it work?
 
 `useRef` returns a modifiable ref object, a property. The current of which is initialized by the passed argument. The returned object will persist for the entire lifetime of the component and will not change from render to render.  
 The usual use case is to access the descendant in an imperative  
 style. I.e. using ref, we can explicitly refer to the DOM element.  
 
-```
+```tsx
 const App = () => {
   const inputRef = useRef(null);
 
@@ -572,15 +537,13 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/useRef)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#29-what-is-reactmemo)29\. What is React.memo()?
+### 29. What is React.memo()?
 
 `React.memo()` is a higher—order component. If your component always renders the same thing with non-changing props, you can wrap it in a `React.memo()` call to improve performance in some cases, thereby memorizing the result. This means that React will use the result of the last render, avoiding re-rendering. `React.memo()` only affects changes to the props. If a functional component is wrapped in React.memo and uses useState, useReducer, or useContext, it will be re-rendered when the state or context changes.  
 
-```
+```tsx
 import { memo } from 'react';
 
 const MemoComponent = memo(MemoComponent = (props) => {
@@ -588,15 +551,13 @@ const MemoComponent = memo(MemoComponent = (props) => {
 });
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/memo)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#30-what-is-react-fragment)30\. What is React Fragment?
+### 30. What is React Fragment?
 
-Returning multiple elements from a component is a common practice in React. Fragments allow you to form a list of child elements without creating unnecessary nodes in the DOM.  
+Returning multiple elements from a component is a common practice in React. Fragments allow you to form a list of child elements without creating unnecessary nodes in the DOM.
 
-```
+```tsx
 <>
   <OneChild />
   <AnotherChild />
@@ -608,23 +569,22 @@ Returning multiple elements from a component is a common practice in React. Frag
 </React.Fragment>
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/reference/react/Fragment)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#31-what-is-react-reconciliation)31\. What is React Reconciliation?
+### 31. What is React Reconciliation?
 
 Reconciliation is a React algorithm used to distinguish one tree of elements from another to determine the parts that will need to be replaced.  
 Reconciliation is the algorithm behind what we used to call Virtual DOM. The definition sounds something like this: when you render a React application, the element tree that describes the application is generated in reserved memory. This tree is then included in the rendering environment - for example, a browser application, it is translated into a set of DOM operations. When the application state is updated, a new tree is generated. The new tree is compared with the previous one in order to calculate and enable exactly the operations that are needed to redraw the updated application.  
+
 [Learn more](https://react.dev/learn/preserving-and-resetting-state)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#32-why-do-we-need-keys-in-lists-when-using-map)32\. Why do we need keys in lists when using map()?
+### 32. Why do we need keys in lists when using map()?
 
 The keys help React determine which elements have been changed,  
 added, or removed. They must be specified so that React can match  
 array elements over time. The best way to choose a key is to use a string that will clearly distinguish the list item from its neighbors. Most often, you will use the IDs from your data as keys.  
 
-```
+```tsx
 const languages = [
   {
     id: 1,
@@ -652,15 +612,13 @@ const App = () => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#33-how-to-handle-asynchronous-actions-in-redux-thunk)33\. How to handle asynchronous actions in Redux Thunk?
+### 33. How to handle asynchronous actions in Redux Thunk?
 
 To use Redux Thunk, you need to import it as middleware. Action creators should return not just an object but a function that takes dispatch as a parameter.  
 
-```
+```ts
 export const addUser = ({ firstName, lastName }) => {
   return dispatch => {
     dispatch(addUserStart());
@@ -680,27 +638,23 @@ export const addUser = ({ firstName, lastName }) => {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://redux.js.org/usage/writing-logic-thunks)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#34-how-to-track-changes-in-a-field-of-an-object-in-a-functional-component)34\. How to track changes in a field of an object in a functional component?
+### 34. How to track changes in a field of an object in a functional component?
 
 To do this, you need to use the `useEffect` hook and pass the field of the object as a dependency array.  
 
-```
+```ts
 useEffect(() => {
   console.log('Changed!')
 }, [obj.someField])
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#35-how-to-access-a-dom-element)35\. How to access a DOM element?
+### 35. How to access a DOM element?
 
 Refs are created using `React.createRef()` or the `useRef()` hook and attached to React elements through the ref attribute. By accessing the created reference, we can gain access to the DOM element using `ref.current`.  
 
-```
+```tsx
 const App = () => {
   const myRef = useRef(null);
 
@@ -719,19 +673,18 @@ const App = () => {
 export default App;
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#36-what-is-a-custom-hook)36\. What is a custom hook?
+### 36. What is a custom hook?
 
 Custom hook is a function that allows you to reuse logic between different components. It is a way to encapsulate reusable logic so that it can be easily shared and reused across multiple components. Custom hooks are functions that typically start with the word \*_use \*_ and can call other hooks if needed.  
+
 [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#37-what-is-public-api)37\. What is Public API?
+### 37. What is Public API?
 
 In the context of index files, a Public API typically refers to the interface or functions that are exposed and accessible to external modules or components.  
 Here's a code example of an index file representing a Public API:  
 
-```
+```js
 // index.js
 
 export function greet(name) {
@@ -743,11 +696,9 @@ export function calculateSum(a, b) {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 In this example, the index.js file acts as a Public API where the functions `greet()` and `calculateSum()` are exported and can be accessed from other modules by importing them. Other modules can import and use these functions as part of their implementation:  
 
-```
+```js
 // main.js
 
 import { greet, calculateSum } from './index.js';
@@ -756,11 +707,9 @@ console.log(greet('John')); // Hello, John!
 console.log(calculateSum(5, 3)); // 8
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 By exporting specific functions from the index file, we are defining the Public API of the module, allowing other modules to use those functions.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#38-what-are-the-rules-for-creating-a-custom-hook)38\. What are the rules for creating a custom hook?
+### 38. What are the rules for creating a custom hook?
 
 1.  Start the hook name with "use".
 2.  Use existing hooks if needed.
@@ -770,7 +719,7 @@ By exporting specific functions from the index file, we are defining the Public 
 6.  Custom hooks can return values or other hooks.
 7.  Name the custom hook descriptively. [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#39-what-is-ssr-serverside-rendering)39\. What is SSR (Server-Side Rendering)?
+### 39. What is SSR (Server-Side Rendering)?
 
 Server-Side Rendering (SSR) is a technique used to render pages on the server and send the fully rendered page to the client for display. It allows the server to generate the complete HTML markup of a web page, including its dynamic content, and send it to the client as a response to a request.
 
@@ -780,7 +729,7 @@ With SSR, the server takes care of rendering the web page by executing the neces
 
 SSR is commonly used in frameworks and libraries like Next.js for React and Nuxt.js for Vue.js to enable server-side rendering capabilities. These frameworks handle the server-side rendering logic for you, making it easier to implement SSR.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#40-what-are-the-benefits-of-using-ssr)40\. What are the benefits of using SSR?
+### 40. What are the benefits of using SSR?
 
 1.  **Improved initial loading times**: SSR allows the server to send a fully rendered HTML page to the client, reducing the amount of processing required on the client-side. This improves the initial loading times, as the user sees a complete page more quickly.
     
@@ -793,11 +742,11 @@ SSR is commonly used in frameworks and libraries like Next.js for React and Nuxt
 
 While SSR offers these benefits, it's important to note that it may introduce more server load and maintenance complexity compared to client-side rendering methods. Careful consideration should be given to factors such as caching, scalability, and server-side rendering performance optimizations.
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#41-what-are-the-main-functions-of-nextjs-that-you-know)41\. What are the main functions of Next.js that you know?
+### 41. What are the main functions of Next.js that you know?
 
 1.  `getStaticProps`: This method is used to fetch data at build time and pre-render a page as static HTML. It ensures that the data is available at build time and does not change on subsequent requests.
 
-```
+```tsx
 export async function getStaticProps() {
   const res = await fetch('https://api.example.com/data');
   const data = await res.json();
@@ -810,11 +759,9 @@ export async function getStaticProps() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 1.  `getServerSideProps`: This method is used to fetch data on each request and pre-render the page on the server. It can be used when you need to fetch data that might change frequently or is user-specific.
 
-```
+```ts
 export async function getServerSideProps() {
   const res = await fetch('https://api.example.com/data');
   const data = await res.json();
@@ -827,11 +774,9 @@ export async function getServerSideProps() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 1.  `getStaticPaths`: This method is used in dynamic routes to specify a list of paths that should be pre-rendered at build time. It is commonly used to fetch data for dynamic routes with parameters.
 
-```
+```ts
 export async function getStaticPaths() {
   const res = await fetch('https://api.example.com/posts');
   const posts = await res.json();
@@ -847,11 +792,9 @@ export async function getStaticPaths() {
 }
 ```
 
-Enter fullscreen mode Exit fullscreen mode
-
 [Learn more](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#42-what-are-linters)42\. What are linters?
+### 42. What are linters?
 
 Linters are tools used to check source code for potential errors, bugs, stylistic inconsistencies, and maintainability issues. They help enforce coding standards and ensure code quality and consistency across a codebase.
 
@@ -869,9 +812,10 @@ Using a linter can provide several benefits:
     
 
 Some popular linters are ESLint for JavaScript and Stylelint for CSS and Sass.  
+
 [Learn more](https://eslint.org/docs/latest/use/getting-started)
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#43-what-architectural-solutions-for-react-do-you-know)43\. What architectural solutions for React do you know?
+### 43. What architectural solutions for React do you know?
 
 There are several architectural solutions and patterns for building React projects. Some popular ones include:
 
@@ -886,7 +830,7 @@ There are several architectural solutions and patterns for building React projec
 5.  **Feature-Sliced Design**: It is a modern architectural approach used to organize and structure React applications. It aims to address the challenges of scalability, maintainability, and reusability by dividing the application codebase based on features or modules.
     
 
-### [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#44-what-is-featuresliced-design)44\. What is Feature-Sliced Design?
+### 44. What is Feature-Sliced Design?
 
 It is a modern architectural approach used to organize and structure React applications. It aims to address the challenges of scalability, maintainability, and reusability by dividing the application codebase based on features or modules.
 
@@ -897,13 +841,14 @@ Feature-Sliced Design promotes a clear separation of concerns and encapsulates t
 [![Feature-Sliced Design](https://res.cloudinary.com/practicaldev/image/fetch/s--Cuy79Z1p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/amysbtftfjkuss87yu8v.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Cuy79Z1p--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/amysbtftfjkuss87yu8v.png)
 
 **I highy recommend to click on the Learn more button to learn about Feature-Sliced Design**  
+
 [Learn more](https://dev.to/m_midas/feature-sliced-design-the-best-frontend-architecture-4noj)
 
-## [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#learn-more)Learn more
+## Learn more
 
 I strongly recommend reading the rest of my articles on frontend interview questions, if you haven't already.
 
-## [](https://dev.to/m_midas/44-react-frontend-interview-questions-2o63#conclusion)Conclusion
+## Conclusion
 
 In conclusion, interviewing for a React Frontend Developer position requires a solid understanding of the framework's core concepts, principles, and related technologies. By preparing for the questions discussed in this article, you can showcase your React knowledge and demonstrate your ability to create efficient and maintainable user interfaces. Remember to not only focus on memorizing answers but also understanding the underlying concepts and being able to explain them clearly.  
 Additionally, keep in mind that interviews are not just about the technical aspects but also about showcasing your problem-solving skills, communication abilities, and how well you can work in a team. By combining technical expertise with a strong overall skill set, you'll be well-equipped to excel in React frontend developer interviews and land your dream job in this exciting and rapidly evolving field.  

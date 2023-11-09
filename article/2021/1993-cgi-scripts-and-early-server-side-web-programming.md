@@ -25,7 +25,7 @@ CGI 于 1993 年诞生于美国国家超级计算应用中心（NCSA），开创
 
 > "我已经花了一些时间为服务器网关接口写了一份正式的规范，而我希望大家能对这份规范给出一些评论和建议。这是通用网关协议（Common Gateway Protocol）或 CGP 的初步规范。本规范所定义的版本将是 CGP/1.0。"
 
-几天后，在邮件列表中得到一些初步反馈后，[McCool 写道](http://1997.webhistory.org/www.lists/www-talk.1993q4/0540.html)：
+几天后，在邮件列表中得到一些初步反馈后，[McCool 写到](http://1997.webhistory.org/www.lists/www-talk.1993q4/0540.html)：
 
 > "我想了想，这并不是一个真正的协议，而是一个接口，你们觉得把它改成 CGI/1.0 怎么样？"
 
@@ -37,7 +37,7 @@ CGI 于 1993 年诞生于美国国家超级计算应用中心（NCSA），开创
 
 ![](https://webdevelopmenthistory.com/wp-content/uploads/2021/03/cgi1-1024x733.png)
 
-通过超链接启动的 CGI 程序；[图源 Michael Grobe](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml)，堪萨斯大学的"1994 年的某个时候"
+通过超链接启动的 CGI 程序；[图源 Michael Grobe](http://condor.cc.ku.edu/~grobe/docs/forms-intro.shtml)，堪萨斯大学（"1994 年的某个时候"）。
 
 到 [1993 年 12 月初](http://1997.webhistory.org/www.lists/www-talk.1993q4/0685.html)，McCool "将 CGI 规范写成了一套 HTML 文件，网址是 http://hoohoo.ncsa.uiuc.edu/cgi/"。虽然该网页早已从网上消失，但 Wayback Machine 有一份 [1997 年 4 月](https://web.archive.org/web/19970414060000/http://hoohoo.ncsa.uiuc.edu/cgi/)的副本。在那里我们可以看到 McCool 如何定义 CGI。
 
@@ -63,7 +63,7 @@ McCool 的[规范](https://web.archive.org/web/19971210170807/http://hoohoo.ncsa
 
 但实际上，许多 CGI 应用程序是用脚本语言 Perl 编写的（这也是它们被称为 CGI 脚本的部分原因）。事实上，Perl 对 CGI 的创建有很大的影响，正如 Michael Stevenson 在 openource.com 上的[这篇 2016 年的文章](https://opensource.com/life/16/11/perl-and-birth-dynamic-web)所解释的那样。他引用了 Jim Davis 的 [Gateway to the U Mich Geography server](https://lists.w3.org/Archives/Public/www-talk/1992NovDec/0060.html) 一文（于 1992 年 11 月发布到 WWW-talk 邮件列表中）：
 
-> "戴维斯的脚本是用 Perl 写的，实现了一种原始的 Web API，根据格式化的用户查询从另一个服务器上获取数据。"
+> "戴维斯的用 Perl 写的脚本，实现了一种原始的 Web API，根据格式化的用户查询从另一个服务器上获取数据。"
 
 毫不奇怪，CGI 的第一个用例是专注于将一个应用程序连接到数据库上。因此，CGI 被用来创建像联系表、留言簿、调查或搜索框这样的东西。任何需要用户输入并促使用户从网页到数据库再回到网页的东西，都是使用 CGI 的好选择。
 
@@ -75,7 +75,7 @@ McCool 的[规范](https://web.archive.org/web/19971210170807/http://hoohoo.ncsa
 
 > 在这张图中，运行在计算机 A 上的 Web 客户端从运行在计算机 B 上的某个 Web 服务器上获取了一个表单。它会显示该表单，用户输入数据，然后客户端将输入的信息发送到运行在计算机 C 上的 HTTP 服务器上。
 
-与 JavaScript 类似，CGI 脚本可以由非程序员复制并粘贴到网站中。因此，如果你需要一个联系表格，你就会在网上搜索，直到找到一个可以实现这个功能的 CGI 脚本。通常它是一个 Perl 脚本，随着时间的推移，出现了像 [Matt's Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/)这样的网站来提供这些代码片段。
+与 JavaScript 类似，CGI 脚本可以由非程序员复制并粘贴到网站中。因此，如果你需要一个联系表格，你就会在网上搜索，直到找到一个可以实现这个功能的 CGI 脚本。它通常是一个 Perl 脚本，而随着时间的推移，网络上出现了出现了像 [Matt's Script Archive](https://web.archive.org/web/19980709151514/http://scriptarchive.com/) 这样的网站来提供这些代码片段。
 
 [Matt Wright](https://web.archive.org/web/19970130232402/http://www.worldwidemart.com/mattw/) 在 1995 年创办 Matt's Script Archive 时，还是科罗拉多州柯林斯堡的一名高中生。他最受欢迎的脚本之一是一个名为 [FormMail](http://www.scriptarchive.com/formmail.html) 的联系表格，该脚本用 Perl 编写，被描述为"一个通用的 HTML 表格连接到电子邮件网关的脚本，支持解析任何表格的结果，并将它们发送给指定的用户"。不过不幸的是，FormMail 本身就不安全，很快就被垃圾邮件发送者利用来发送垃圾邮件。
 
@@ -87,15 +87,15 @@ FormMail 强调了早年 CGI 脚本的一个问题：由于设计上它们允许
 
 > "绝大多数下载和运行这些脚本的用户并不具备任何编程知识，因此，他们缺乏对安全风险、Y2K bug 的认知，以及经常出现无法应对错误处理。"
 
-最终，Perl 社区的成员创办了一个名为 [Not Matt's Scripts](http://nms-cgi.sourceforge.net/) 的网站，为 Matt Wright 那日益流行的 CGI 脚本们提供替代品。该网站最后一次更新是在 2004 年。有趣的是，[Matt's Script Archive](http://www.scriptarchive.com/) 的程序什么的更新持续了五年（尽管它现在包含安全警告）。
+最终，Perl 社区的成员创办了一个名为 [Not Matt's Scripts](http://nms-cgi.sourceforge.net/) 的网站，为 Matt Wright 那日益流行的 CGI 脚本们提供替代品。该网站最后一次更新是在 2004 年。有趣的是，[Matt's Script Archive](http://www.scriptarchive.com/) 的程序的更新比前者多了五年（尽管它现在仍然包含安全警告）。
 
 ## 结语
 
-我在以前关于 Netscape 和微软的文章中探讨过 90 年代中期 web 开发的主题之一，就是 web 应用的复杂性越来越高。前端（web 浏览器）越来越多地与后端技术相连，包括微软的操作系统。[到 1997年](https://webdevelopmenthistory.com/1997-netscape-crossware-vs-the-windows-web/)，Netscape 推行了一个叫做 "crossware" 的概念（Marc Andreessen 将其定义为"跨网络和操作系统运行的按需应用程序"），与此同时，微软正在建立其与 Windows 集成的 ActiveX 技术。
+我在以前关于 Netscape 和微软的文章中探讨过 90 年代中期 Web 开发的主题之一，就是 Web 应用的复杂性越来越高。前端（Web 浏览器）越来越多地与后端技术相连，包括微软的操作系统。[到 1997年](https://webdevelopmenthistory.com/1997-netscape-crossware-vs-the-windows-web/)，Netscape 推行了一个叫做 "crossware" 的概念（Marc Andreessen 将其定义为"跨网络和操作系统运行的按需应用程序"），与此同时，微软正在建立其与 Windows 集成的 ActiveX 技术。
 
-但是 CGI 提供了一种简单的方式来通过网页访问后端功能，从而在很多方面都绕开了这种复杂化的运动。网关"实际上只是一个从浏览器到服务器的虚拟管道，它可以执行一个脚本，然后将结果送回浏览器。这种简单性使得 20 世纪 90 年代有影响力的网站，如 Yahoo!、eBay 和 Craigslist 等得以摆脱 Netscape 或微软，获得蓬勃的发展。
+但是 CGI 通过提供一种简单的方式来通过网页访问后端功能，从而将这个趋势导向复杂化。“网关”实际上只是一个从浏览器到服务器的虚拟管道，它可以执行一个脚本，然后将结果送回浏览器。这种简单性使得 20 世纪 90 年代有影响力的网站，如 Yahoo!、eBay 和 Craigslist 等得以摆脱 Netscape 或微软，获得蓬勃的发展。
 
-但网络发展的另一个主题是，事物不会静止太久! 1994 年出现了一种新的脚本语言，它是基于 CGI 的 —— [PHP](https://www.php.net/manual/en/history.php.php)，一个名字最初是"个人主页工具 "的意思的语言。随着时间的推移，PHP 在很多情况下成为了 Perl CGI 脚本的替代品。我将在本系列关于服务器端 Web 开发的下一篇文章中深入探讨*这个故事*。
+但网络发展的另一个主题是，一件事情不会持续太久！在 1994 年就出现了一种新的脚本语言。它也是基于 CGI 的 —— [PHP](https://www.php.net/manual/en/history.php.php)，一个名字最初是“个人主页工具”的意思的语言。随着时间的推移，PHP 在很多情况下成为了 Perl CGI 脚本的替代品。我将在本系列关于服务器端 Web 开发的下一篇文章中深入探讨*这个故事*。
 
 > 如果发现译文存在错误或其他需要改进的地方，欢迎到 [掘金翻译计划](https://github.com/xitu/gold-miner) 对译文进行修改并 PR，也可获得相应奖励积分。文章开头的 **本文永久链接** 即为本文在 GitHub 上的 MarkDown 链接。
 

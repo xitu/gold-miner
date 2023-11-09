@@ -23,9 +23,9 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/0*ORx4FzFx1702SS1x.png)
 
-Jest 是一个易于操作的，delightful 的 JavaScript 测试框架。它的特性是易于操作。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
+Jest 是一个易于操作的超棒的 JavaScript 测试框架。我们可以在：[Babel](https://babeljs.io/)、[TypeScript](https://www.typescriptlang.org/)、[Node](https://nodejs.org/en/)、[React](https://reactjs.org/)、[Angular](https://angular.io/)、[Vue](https://vuejs.org/) 等项目中使用它！
 
-Jest 是我最喜欢的框架之一，因为它快速、安全，易于使用而且它还为我们提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-Hans)，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
+Jest 也是我最喜欢的框架之一，因为它快速、安全，易于使用而且它还为我们提供了大量文档。基于 [2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-Hans)，它是 JavaScript 开发人员中最常用的测试框架之一。而且调查显示，大多数开发人员都感兴趣于学习它。
 
 ![JavaScript 测试框架的使用情况，数据来源《2020 年 Javascript 状况调查》](https://github.com/PassionPenguin/gold-miner-images/blob/master/a-review-of-javascript-testing-frameworks-in-2021-UsageRanking.jpg?raw=true)
 
@@ -35,15 +35,17 @@ Jest 是我最喜欢的框架之一，因为它快速、安全，易于使用而
 
 ![Mocha Logo](https://cdn-images-1.medium.com/max/2000/1*if41jUf_RLXNEjCSz-2aBQ.png)
 
-Mocha 是 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。
+Mocha 是针对 Node.js 程序的 JavaScript 测试框架，支持浏览器、异步测试、测试覆盖率报告以及任何断言库的使用。
 
-它简单、灵活、有趣，而且适用于 Node.js 和浏览器。[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-Hans) 显示，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
+它简单、灵活、有趣，而且适用于 Node.js 和浏览器。
+
+[2020 年 Javascript 状况调查](https://2020.stateofjs.com/zh-Hans) 显示，它是仅次于 Jest 的 JavaScript 开发人员中第二常用的测试框架。
 
 ### 3. Jasmine
 
 **GitHub Stars**：**15k**
 
-![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ffd4f0612a61489d901fa29b153a3dbe~tplv-k3u1fbpfcp-watermark.image)
+![](https://cdn-images-1.medium.com/max/NaN/1*4deASSS8X3i5_G0zBiYXDA.png)
 
 Jasmine 是一个用于测试 JavaScript 代码的行为驱动开发框架。它不依赖于任何其他 JavaScript 框架。它不需要 DOM 节点，而且它的语法清晰明了，因此我们可以轻松使用它进行测试。
 
@@ -65,7 +67,7 @@ AVA 是 Node.js 的测试框架。它拥有简洁的 API、详细的错误输出
 
 ![](https://cdn-images-1.medium.com/max/2560/0*gfOux77U2JV6g3C5)
 
-Puppeteer 是一个 Node.js 库，提供了高级的 API，通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或 Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) 上，但我们也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
+Puppeteer 是一个提供高级的 API 的 Node.js 库，通过 [DevTools 协议](https://chromedevtools.github.io/devtools-protocol/) 控制 Chrome 或 Chromium。Puppeteer 默认运行在 [Headless Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome) 上，但我们也可以通过配置它，让它运行在完整的 Chrome 或 Chromium 上。
 
 ---
 
@@ -73,7 +75,7 @@ Puppeteer 是一个 Node.js 库，提供了高级的 API，通过 [DevTools 协�
 
 ## 结论
 
-不必要被这些测试框架所搞混，套进去。他们所做的，甚至最多能够做的，也只是提供一个更好的用于测试我们的代码的环境。调查也同时显示，Jest 已成为开发人员最爱的测试框架，而我也一直在使用 Jest 测试我的 Node 应用程序。
+不必要被这些测试框架所搞混，套进去。它们所做的，甚至最多能够做的，也只是提供一个更好的用于测试我们的代码的环境。调查也同时显示，Jest 已成为开发人员最爱的测试框架，而我也一直在使用 Jest 测试我的 Node 应用程序。
 
 如果你是 Node.js 开发人员或 React 开发人员，我强烈推介你使用 Jest。
 

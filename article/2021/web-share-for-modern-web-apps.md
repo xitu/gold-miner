@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png)
 
-> 最近，Windows 和 Chrome OS（译者注：其实还有 macOS）开始支持 Web 分享 和 Web Share API，这吸引了不少 Web 开发者的目光。
+> 最近，Windows 和 Chrome OS开始支持 Web 分享 和 Web Share API，这吸引了不少 Web 开发者的目光。
 
 不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。
 
@@ -54,7 +54,7 @@ if (navigator.canShare && navigator.canShare({files: fileArr})) {
     navigator.share({
         files: fileArr,
         title: '我的相片集',
-        text: '北极de假期',
+        text: '在北极的假期',
     }).then(() => console.log('分享成功！'))
         .catch((error) => console.log('分享时候遇到了错误……', error));
 } else {
@@ -124,7 +124,6 @@ async function share(title, text, url) {
 
 * 首先，只有通过 https 访问的网站才能使用 Web Share。
 * 还有一点就是，你不能用类似于 `onload` 的操作来调用它，它必须通过用户的交互行为进行调用。比如说，用户可以通过点击调用它。
-
 * 另外，Mac 平台的 Chrome 的这个功能还在开发中。
 
 ## 小结

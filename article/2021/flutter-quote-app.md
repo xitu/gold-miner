@@ -11,9 +11,9 @@
 
 ## 引言
 
-在过去的 8 个月里，我一直在探索 Flutter。今天我将带着大家开始一段旅程，制作一个属于自己的简单而又漂亮的应用，并同时学会进行 API 请求。
+在过去的 8 个月里，我一直在探索 Flutter。今天我将带着大家开始一段学习的旅程，制作一个属于自己的简单而又漂亮的应用，并同时学会如何进行 API 请求。
 
-## 目录 TOC
+## 目录
 
 > 从互联网上获取数据。
 > 设计应用程序的用户界面。
@@ -23,7 +23,7 @@
 
 ## 初步设置
 
-在我们深入研究之前，不要忘记将这些包添加到你的项目中：
+在我们深入研究之前，不要忘记将这些 packages 添加到你的项目中：
 
 ```yaml
 animated_text_kit: ^3.1.0
@@ -33,9 +33,9 @@ http: ^0.12.2
 
 ## 创建一个新的 Flutter 项目
 
-打开你最喜欢的 IDE（VScode 或 Android Studio），创建一个新的 Flutter 应用，并给它取一个你喜欢的名字，保存在本地磁盘的某个地方。
+打开你最喜欢的 IDE（VSCode 或 Android Studio），创建一个新的 Flutter 应用，并给它取一个你喜欢的名字，保存在本地磁盘的某个地方。
 
-首先我们删除掉默认生成的计数器应用代码，并创建一个主函数来运行我们的 Material 应用程序。
+首先我们删除掉默认生成的计数器应用代码，同时让我们创建一个主函数来运行我们的 Material 应用程序。
 
 ```dart
 // main.dart
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
 
 为了获得数据，我们需要一个 API 以获得名言名句的 JSON 格式的原始数据。
 
-获取数据的 API 是 [**https://zenquotes.io/api/quotes**](https://zenquotes.io/api/quotes)。当你打开这个链接时，它会向你显示名言名句的原始数据。选择所有的文本复制一下，然后在另一个标签页中打开 [**quicktype**](https://app.quicktype.io/) 并粘贴进去，我们就可以立即生成我们的**Dart Model**。
+在这里我使用了 [**https://zenquotes.io/api/quotes**](https://zenquotes.io/api/quotes) 作为获取数据的 API。当你打开这个链接时，它会向你展示名言名句的原始数据。选择所有的文本复制一下，然后在另一个标签页中打开 [**quicktype**](https://app.quicktype.io/) 并粘贴进去，我们就可以立即生成我们的**Dart Model**。
 
 ![](https://miro.medium.com/max/3840/1*zp9nqjB8poJ2Lb8gS-Zw3A.png)
 
@@ -109,7 +109,7 @@ class Quotes {
 }
 ```
 
-以上是生成的 Dart 模型类。
+上述内容是生成的 Dart 模型类。
 
 ### 让我们创建一个函数来请求 API 获取数据
 
@@ -122,12 +122,12 @@ static Future<List<Quotes>> fetchQuotes() async {
     print(quotesFromJson(response.body).length);
     return quotesFromJson(response.body);
   } else {
-    throw Exception('失败加载名言名句');
+    throw Exception('加载名言名句失败');
   }
 }
 ```
 
-在上面的代码中，我们有一个异步方法，作出一个 GET 请求。如果响应的状态码是 `200`，它就会返回**名言名句**的列表，否则就抛出一个异常。
+在上面的代码中，我们构建了一个异步方法，作出一个 GET 请求。如果响应的状态码是 `200`，它就会返回**名言名句**的列表，否则就抛出一个异常。
 
 ## 设计 UI
 
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 ```
 
-在这里，我们使用 `Column` 作为 `Scaffold` 的 `body` 属性值，包含两个 `Expanded` 子 Widget，一个有 `flex: 8`，另一个没有 `flex` 不过有一个 `Container` 作为子 Widget。
+在这里，我们使用 `Column` 作为 `Scaffold` 的 `body` 属性值，包含两个 `Expanded` 子 Widget，其中一个有 `flex: 8`，另一个没有 `flex` 不过有一个 `Container` 作为子 Widget。
 
 另外，如果你看到上面的代码，我们有一个 `void` 返回值的 `initState`。它将在我们导航到 `HomeScreen` 时运行。它有我们的 `fetchQuotes` 方法，在 Widget 被插入到树中之前被调用。
 
@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
       print(quotesFromJson(response.body).length);
       return quotesFromJson(response.body);
     } else {
-      throw Exception('失败加载名言名句');
+      throw Exception('加载名言名句失败');
     }
   }
 
@@ -286,7 +286,7 @@ builder: (BuildContext context, AsyncSnapshot<List<Quotes>> snapshot) {
 }
 ```
 
-在这里，我们已经创建了我的 `PageView` Widget 构造器 `buildPageView()`，并将其传递给子 Widget。
+在这里，我们已经创建了 `PageView` Widget 构造器 `buildPageView()`，并将其传递给子 Widget。
 
 ## 样式化文本
 
