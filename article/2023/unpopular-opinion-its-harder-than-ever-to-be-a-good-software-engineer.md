@@ -3,6 +3,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer.md](https://github.com/xitu/gold-miner/blob/master/article/2023/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer.md)
 > * 译者：
+> * 校对者：
 
 [![Cover image for Unpopular Opinion: It’s harder than ever to be a good software engineer](https://res.cloudinary.com/practicaldev/image/fetch/s--rkh8tLqx--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9re3vj1nlkfezgxeilxu.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rkh8tLqx--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9re3vj1nlkfezgxeilxu.png)
 
@@ -10,7 +11,7 @@ Working in a startup environment for almost a decade has given me privileged acc
 
 Looking back at the journey of my peers, mentees, and my own, it seems harder than ever to be a _good_ engineer.
 
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#defining-a-good-engineer)Defining a _good_ engineer
+## Defining a _good_ engineer
 
 **What does it mean to be an engineer?** As software engineers, we are:
 
@@ -32,7 +33,7 @@ Highly experienced engineers place an enormous focus on bringing value. Sometime
 
 Although there are always exceptions to the rule, we can say that **a good engineer is one that efficiently focuses their effort to bring maximum value in achieving a goal.**
 
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#growing-markets-and-competition)Growing markets and competition
+## Growing markets and competition
 
 **The tech market is constantly evolving.** We have all seen massive successes over the years: from WhatsApp to Uber, Airbnb, and TikTok. While these may be exceptions, such examples often set the north star for people – something they should strive for. This way of thinking puts extra pressure on engineers. They feel stress from inside, thinking they're doing something wrong, and from outside, with people comparing their company to many competitors.
 
@@ -44,7 +45,7 @@ To succeed in such an environment, companies needed to “move fast and break th
 
 **By moving away from the core principle** – how can we bring more value to our customers – and moving towards beating the competition on the hype train, **we get engineers building functionalities that are doomed to fail.**
 
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#world-is-a-confusing-place)World is a confusing place
+## World is a confusing place
 
 What should an enthusiast such as myself do to become a better engineer? Apart from the obvious choice of perfecting coding skills by improving clean code and architecture philosophies, nowadays, there are lots of temptations lurking. Learning TypeScript and that one latest framework that changes everything, diving into the world of blockchain and crypto, experimenting with a myriad of AI products… Options are endless.
 
@@ -60,7 +61,7 @@ Programming languages and constant releases of new frameworks also add to the co
 
 My advice is - **don’t get caught up in new trends and hypes to the point where you lose focus on bringing value.**
 
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#fast-pace-and-high-expectations)Fast pace and high expectations
+## Fast pace and high expectations
 
 **When seeking new challenges, it can be difficult to strive for positive stress, while avoiding negative stress.** Positive stress is one where we perceive a stressful situation as an opportunity leading to a good outcome, while negative stress is one that can have detrimental physical and mental health effects, as seen in the image below. Continuously delivering results on a tight schedule is stressful, and building features for the wrong reasons sways towards the latter.
 
@@ -72,7 +73,7 @@ Still, things will go wrong. When they do, we cut scope, involve people who can 
 
 **Pressure is higher than ever, coming both from within and without. Stay focused and surround yourself with a supportive team optimizing long-term.**
 
-## [](https://dev.to/mjuraj/unpopular-opinion-its-harder-than-ever-to-be-a-good-software-engineer-32ek#how-can-we-do-better)How can we do better?
+## How can we do better?
 
 We all have our down moments – feeling like inadequate engineers, mentors, or colleagues. Things will never be perfect or easy, and they shouldn’t. Without making mistakes and hard times, we don’t learn. But there are some things I find can increase efficiency.
 
