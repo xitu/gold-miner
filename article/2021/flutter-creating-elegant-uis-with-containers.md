@@ -1,13 +1,13 @@
-> * 原文地址：[Flutter — Creating Elegant UIs with Containers](https://maneesha-erandi.medium.com/flutter-creating-elegant-uis-with-containers-1d05ca90fccf)
+> * 原文地址：[Flutter — Creating Elegant UIs with Containers](https://maneesha-erandi.medium.com/flutter-creating-elegant-uis-with-containers-1d05ca90fccf)
 > * 原文作者：[Maneesha Erandi](https://medium.com/@maneesha-erandi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md](https://github.com/xitu/gold-miner/blob/master/article/2021/flutter-creating-elegant-uis-with-containers.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：[zenblo](https://github.com/zenblo)
 
-# 使用 Flutter 的 `Container` 控件构建优美的用户界面
+# 使用 Flutter 的 Container 控件构建优美的用户界面
 
-当我们使用 Flutter 构建绝佳的 UI 界面的时候，`Container` 扮演着重要的角色。我真的极度喜欢在任何地方添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
+当我们使用 Flutter 构建绝佳的 UI 界面的时候，`Container` 扮演着重要的角色。我真的超级喜欢到处添加 `Container` 控件，而这也是因为它确实能够在快速简单地创建 UI 界面上帮上我大忙。
 
 我真心希望本文内容能对初学者们有所帮助！
 
@@ -126,7 +126,7 @@ Widget containerWithShadow() {
 }
 ```
 
-在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。这里大家可以试着找找两张图片中 `Container` 的区别，探究添加的装饰是如何被应用到控件上的：
+在一个 `Container` 控件中，我们可以通过使用 `BoxDecoration` 以及 `DecorationImage` 给它添加装饰图片。这里大家可以试着找找两张图片中 `Container` 的区别，思考一下添加的装饰是如何被应用到控件上的：
 
 ![](https://cdn-images-1.medium.com/max/2224/1*W0xtgxhy3hLNkrcHbZEGhQ.png)
 
