@@ -4,7 +4,8 @@
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-Next.js-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/achieve-Next.js-mastery-build-a-sales-page-with-stripe-and-airtable.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
-实现熟练使用 Next.js：使用 Stripe 和 Airtable 搭建一个销售页面
+
+# 实现熟练使用 Next.js：使用 Stripe 和 Airtable 搭建一个销售页面
 
 在这个教程中，你将学习如何构建一个销售落地页：
 
