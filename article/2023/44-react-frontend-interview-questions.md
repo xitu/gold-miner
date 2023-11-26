@@ -5,40 +5,40 @@
 > * 译者：
 > * 校对者：
 
-## Introduction
+## 介绍
 
-When it comes to interviewing for a React frontend developer position, being well-prepared for the technical questions is crucial. React has become one of the most popular JavaScript libraries for building user interfaces, and employers often focus on assessing a candidate's understanding of React's core concepts, best practices, and related technologies. In this article, we will explore a comprehensive list of questions commonly asked during React frontend developer interviews. By familiarizing yourself with these questions and their answers, you can enhance your chances of success and demonstrate your proficiency in React development. So, let's dive in and explore the key topics that you should be ready to tackle in a React Frontend Developer interview.
+当面试 React 前端开发人员职位时，为技术问题做好充分准备是至关重要的。React 已经成为最流行的用于构建用户界面的 JavaScript 库之一，雇主经常关注于评估应聘者对 React 的核心概念、最佳实践和相关技术的理解程度。在这篇文章中，我们将探讨一下React 前端开发面试中涉及到的一系列问题。通过了解这些问题的答案，你可以提高你面试成功的次数，并展示你在 React 开发中的熟练程度。因此，让我们深入探讨一下您在 React 前端开发面试中应该准备好的题目。
 
 ![](https://i.giphy.com/media/AYECTMLNS4o67dCoeY/giphy.gif)
 
-### 1. What React hooks do you know?
+### 1. 你知道那些 React 钩子?
 
--   `useState`: Used for managing state in functional components.
--   `useEffect`: Used for performing side effects in functional components, such as fetching data or subscribing to events.
--   `useContext`: Used for accessing the value of a React context within a functional component.
--   `useRef`: Used for creating mutable references to elements or values that persist across renders.
--   `useCallback`: Used for memoizing functions to prevent unnecessary re-renders.
--   `useMemo`: Used for memoizing values to improve performance by caching expensive computations.
--   `useReducer`: Used for managing state with a reducer function, similar to how Redux works.
--   `useLayoutEffect`: Similar to useEffect, but the effect runs synchronously after all DOM mutations.
+-   `useState`: 管理函数组件中的状态。
+-   `useEffect`: 在函数组件中执行副作用，例如获取数据或订阅事件。
+-   `useContext`: 访问函数组件中的 React 上下文的值。
+-   `useRef`: 创建渲染过程持久存在的元素或者值的可变的引用。
+-   `useCallback`: 缓存函数以防止不必要的重新渲染。
+-   `useMemo`: 缓存值，通过缓存昂贵的计算结果来提高性能。
+-   `useReducer`: 使用 reducer 函数管理状态，类似于 Redux 的工作方式。
+-   `useLayoutEffect`: 类似于 useEffect，但是在所有 DOM 更新之后会同步执行副作用函数。
 
-These hooks provide powerful tools for managing state, handling side effects, and reusing logic in React functional components.  
+这些钩子为React 函数组件提供了强有力的工具，以用来管理状态、处理副作用和复用逻辑。
 
 [Learn more](https://react.dev/reference/react)
 
-### 2. What is Virtual DOM?
+### 2. 什么是虚拟 DOM?
 
-Virtual DOM is a concept in React where a lightweight, virtual representation of the actual DOM (Document Object Model) is created and stored in memory. It is a programming technique used to optimize the performance of web applications.
+虚拟DOM 是 React 中的一个概念，它存储在内存中，并且可以更加轻量地表达真实的 DOM 结构（文档对象模型）。它是一种用于优化 Web 应用程序性能的编程技术。
 
-When changes are made to the data or state of a React component, the virtual DOM is updated instead of directly manipulating the real DOM. The virtual DOM then calculates the difference between the previous and updated state of the component, known as the "diffing" process.
+当对 React 组件的数据或状态进行更改时，将更新虚拟 DOM，而不是直接操作实际的 DOM。然后，虚拟 DOM 对比组件的旧状态和新状态之间的差异，这就是我们熟知的“diff”过程。
 
-Once the differences are identified, React efficiently updates only the necessary parts of the real DOM to reflect the changes. This approach minimizes the number of actual DOM manipulations and improves the overall performance of the application.
+一旦对比出差异之后，React 就会高效地更新 DOM 实际发生改变的部分。这种方法将DOM 操作的次数降到了最少，提高了应用程序的整体性能。
 
-By using the virtual DOM, React provides a way to create dynamic and interactive user interfaces while ensuring optimal efficiency and rendering speed.
+通过使用虚拟 DOM，React 提供了一种创建动态和交互式用户界面的方法，同时确保了最佳的效率和渲染速度。
 
-### 3. How to render an array of elements?
+### 3. 怎么渲染数组类型的元素?
 
-To render an array of elements, you can use the `map()` method to iterate over the array and return a new array of React elements.  
+要渲染一个数组类型的元素，你可以使用 `map()` 方法遍历数组并返回一个新数组，数组每一项都是一个 React 元素。
 
 ```tsx
 const languages = [
@@ -58,11 +58,11 @@ function App() {
 
 [Learn more](https://react.dev/learn/rendering-lists)
 
-### 4. What is the difference between controlled and uncontrolled components?
+### 4. 受控组件与非受控组件有什么区别?
 
-The difference between controlled and uncontrolled components lies in **how they manage and update their state**.
+受控组件和不受控组件之间的区别在于它们如何管理和更新状态。
 
-Controlled components are components where the state is controlled by React. The component receives its current value and updates it through props. It also triggers a callback function when the value changes. This means that the component doesn't store its own internal state. Instead, the parent component manages and passes the value down to the controlled component.  
+受控组件的状态由 React 控制。组件接收最新的状态值并通过props 进行更新。当值更改时，它还会触发一个回调函数。这意味着组件不存储它自己的内部状态，而是交给父组件管理状态，然后父组件将最新的状态值其传递给受控组件。
 
 ```tsx
 import { useState } from 'react'; 
@@ -80,7 +80,7 @@ function App() {
 } 
 ```
 
-Uncontrolled components, on the other hand, manage their own state internally using refs or other methods. They store and update their state independently, without relying on props or callbacks. The parent component has less control over the state of uncontrolled components.  
+另一方面，非受控组件通过引用或其他方法在内部管理自己的状态。它们独立存储和更新状态，不依赖于props或回调。父组件对非受控组件的状态的控制较少。
 
 ```tsx
 import { useRef } from 'react'; 
@@ -101,11 +101,11 @@ function App() {
 
 [Learn more](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components)
 
-### 5. What is the difference between class-based and functional React components?
+### 5. 类组件和函数组件的区别?
 
-The main difference between class-based and functional components is **how they are defined and the syntax they use.**
+类组件和函数组件的主要区别在于 **声明它们的方式以及它们的语法。**
 
-Class-based components are defined as ES6 classes and extend the `React.Component` class. They use the `render` method to return the JSX (JavaScript XML) that defines the component's output. Class components have access to component lifecycle methods and state management through `this.state` and `this.setState()`.  
+类组件由 ES6 中的类构造出来，并继承了`React.Component` 类。他们使用“render”方法 来返回 JSX (JavaScriptXML)，这个JSX 定义了组件的输出。类组件可以通过‘ this. state’和‘ this.setState ()’访问组件生命周期方法和状态管理。
 
 ```tsx
 class App extends React.Component {
@@ -132,7 +132,7 @@ class App extends React.Component {
 }
 ```
 
-Functional components, on the other hand, are defined as simple JavaScript functions. They take in props as arguments and return JSX directly. Functional components do not have access to lifecycle methods or state. However, with the introduction of React Hooks in React 16.8, functional components can now manage state and use other features such as context and effects.  
+与类组件不同的是，函数组件由简单的 JavaScript 函数定义。它们以参数形式接收 props，并直接返回 JSX。函数式组件不能访问生命周期方法或者状态。但是，随着 React 16.8 中引入的 React Hooks，函数式组件现在可以管理状态，并使用诸如context和effects等特性
 
 ```tsx
 import { useState } from 'react';
@@ -155,46 +155,46 @@ const App = () => {
 }
 ```
 
-In general, functional components are considered simpler and easier to read and test. It is recommended to use functional components whenever possible, unless there is a specific need for class-based components.
+总体上来说，函数式组件比类组件更简单，更容易阅读和测试。除非有特定需要，否则建议尽可能使用函数式组件。
 
-### 6. What are the lifecycle methods of a component?
+### 6. 组件有哪些生命周期?
 
-Lifecycle methods are a way to hook into the different stages of a component's life cycle, allowing you to execute specific code at specific times.
+生命周期方法是一种连接到组件生命周期的不同阶段的方法，允许您在特定的时间执行特定的代码。
 
-Here is the list of the major lifecycle methods:
+下面是主要的生命周期方法列表:
 
-1.  `constructor`: This is the first method called when a component is created. It is used for initializing state and binding event handlers. In functional components, you would use the `useState` hook for similar purposes.
+1.  `constructor`: 这是在创建组件时调用的第一个方法。它用于初始化状态和绑定事件处理程序。在函数组件中，可以使用‘ useState’钩子来实现类似的目的。
     
-2.  `render`: This method is responsible for rendering JSX markup and returns the content to be displayed on the screen.
+2.  `render`: 这个方法负责渲染 JSX 标记，并返回要显示在屏幕上的内容。
     
-3.  `componentDidMount`: This method is called immediately after the component is rendered in the DOM. It is commonly used for initialization tasks, such as API calls or setting up event listeners.
+3.  `componentDidMount`: 在 DOM 中渲染组件之后立即调用这个方法。它通常用于初始化任务，例如 API 调用或设置事件侦听器。
     
-4.  `componentDidUpdate`: This method is invoked when the component's props or state change. It allows you to perform side effects, update the component based on the changes, or trigger additional API calls.
+4.  `componentDidUpdate`: 当组件的props或state发生变化时调用这个方法。它允许您执行副作用、基于数据改变更新组件或触发其他 API 调用。
     
-5.  `componentWillUnmount`: This method is called right before the component is removed from the DOM. It is used to clean up any resources that were set up in `componentDidMount`, such as removing event listeners or canceling timers.
+5.  `componentWillUnmount`: 从 DOM 中卸载组件之前调用这个方法。它用于清理在“componentDidMount”中设置的所有任务，例如删除事件侦听器或取消计时器。
     
 
-Some lifecycle methods, like `componentWillMount`, `componentWillReceiveProps`, and `componentWillUpdate`, have been deprecated or replaced with alternative methods or hooks.
+一些生命周期方法，比如 `componentWillMount`, `componentWillReceiveProps`, 和 `componentWillUpdate`, 已经被弃用或替换为替代方法或钩子。
 
-As for "this," it refers to the current instance of a class component. It allows you to access properties and methods within the component. In functional components, "this" is not used as functions are not bound to a specific instance.
+至于“this”，它指的是类组件的当前实例。它允许您访问组件中的属性和方法。在函数组件中，不使用“this”，因为函数不绑定到特定的实例。
 
-### 7. What are the peculiarities of using useState?
+### 7. 如何使用 useState?
 
-`useState` returns a state value and a function to update it.  
+`useState` 返回了一个状态和一个更新状态的函数。  
 
 ```ts
 const [value, setValue] = useState('Some state');
 ```
 
-During the initial rendering, the returned state matches the value passed as the first argument. The `setState` function is used to update the state. It takes a new state value as a parameter and **queues a re-render of the component**. The `setState` function can also accept a callback function as a parameter, which takes the previous state value as a parameter.  
+在 首次渲染时，组件将以useState第一个参数的值作为state返回。 `setState` 函数用于更新状态。 它接受一个新的状态值作为参数 并且 **会触发一个队列去重新渲染组件**. `setState` 函数还可以接受一个回调函数作为参数，它以前面的状态值作为参数。
 
 [Learn more](https://react.dev/reference/react/useState)
 
-### 8. What are the peculiarities of using useEffect?
+### 8. 如何使用 useEffect?
 
-The `useEffect` hook allows you to perform side effects in a functional component.  
-Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of a functional component known as the React rendering phase. This can lead to confusing errors and inconsistencies in the user interface.  
-Instead, it is recommended to use useEffect. The function passed to useEffect will be executed after the render is committed to the screen, or if you pass an array of dependencies as the second parameter, the function will be called every time one of the dependencies changes.  
+`useEffect` 钩子允许您在函数组件中执行副作用。 
+在 React 渲染阶段，在函数组件的函数体内不允许执行Mutations, subscriptions, timers, logging或者其他副作用。这可能导致用户界面产生异常以及状态与渲染 的不一致。
+这种场景下建议使用 useEffect。传递给 useEffect 的函数将在渲染更新之后执行，或者如果您将依赖项数组作为第二个参数传递，那么每当依赖项之一发生更改时，就会调用该函数。
 
 ```ts
 useEffect(() => {
@@ -204,10 +204,11 @@ useEffect(() => {
 
 [Learn more](https://react.dev/reference/react/useEffect)
 
-### 9. How to track the unmounting of a functional component?
+### 9. 如何追踪函数组件的卸载?
 
-Often, `useEffect` create resources that need to be cleaned up or reset before the component leaves the screen, such as a subscription or a timer identifier.  
-In order to do this, the function passed to `useEffect` can return a **cleanup function**. The cleanup function is run before the component is removed from the user interface to prevent memory leaks. Additionally, if the component renders multiple times (as is usually the case), the previous effect is cleaned up before the next effect is executed.  
+通常，“useEffect”会创建一些任务，这些任务一般都会在关闭界面之后被重置或者清理掉，例如订阅或者定时器标识符。
+为了做到这一点，传递给 `useEffect` 的函数可以返回一个 **清理函数**。这个函数在组件卸载之前执行，以防止内存泄漏。
+此外，如果组件渲染多次(通常是这种情况) ，则在执行下一个副作用之前清除前一个副作用。
 
 ```ts
 useEffect(() => {
@@ -222,10 +223,9 @@ useEffect(() => {
 })
 ```
 
-### 10. What are props in React?
+### 10. React 中的 props 是什么?
 
-Props are data that is passed to the component from the parent. Props  
-are read-only and cannot be changed.  
+Props 是从父组件传递过来的数据，它是只读的，不能在子组件内修改。
 
 ```tsx
 // Parent component
@@ -247,21 +247,23 @@ const Child = ({ data }) => {
 
 [Learn more](https://react.dev/learn/passing-props-to-a-component)
 
-### 11. What is a state manager and which ones have you worked with or know?
+### 11. 什么是状态管理，你使用过或者了解过哪些状态管理工具?
 
-State manager is a tool or library that helps manage the state of an application. It provides a centralized store or container for storing and managing data that can be accessed and updated by different components in the application.  
-A state manager solves several problems. Firstly, it is a good practice to separate data and the logic related to it from components. Secondly, when using local state and passing it between components, the code can become convoluted due to the potential for deep nesting of components. By having a global store, we can access and modify data from any component.  
-Alongside React Context, Redux or MobX are commonly used as state management libraries.  
+状态管理器是帮助应用程序管理状态的工具或库。它提供了一个集中的仓库或容器，用于存储和管理应用程序中不同组件都可以访问和更新的数据。
+
+状态管理器可以解决几个问题。首先，将数据和与之相关的逻辑从组件中分离出来是一个很好的做法。其次，当使用局部状态并在组件之间传递时，由于组件可能进行深度嵌套，代码可能会变得复杂。通过全局状态管理，我们可以访问和修改来自任何组件的数据。
+
+和 React Context 一样，Redux 或 MobX 也是常用状态管理库之一。
 
 [Learn more](https://mobx.js.org/README.html)  
 
 [Learn more](https://redux-toolkit.js.org/)
 
-### 12. In which cases can you use local state and when should you use global state?
+### 12. 什么情况下应该使用本地状态和全局状态?
 
-Local state is recommended to be used in cases where it is only used within one component and there are no plans to pass it to other components. Local state is also used in a component representing an individual item in a list. However, if component decomposition involves nested components with data being passed down the hierarchy, it is better to use global state.
+如果状态仅仅被一个组件使用并且不会传递给其他组件，此时推荐使用本地状态。本地状态还用来渲染列表项。然而，如果组件之间的组合导致数据需要在多个嵌套组件之间传递，那么推荐使用全局状态。
 
-### 13. What is a reducer in Redux and what parameters does it take?
+### 13. 在 Redux 中什么是 reducer，它接收哪些参数?
 
 A reducer is a pure function that takes the state and action as parameters. Inside the reducer, we track the type of the received action and, depending on it, we modify the state and return a new state object.  
 
