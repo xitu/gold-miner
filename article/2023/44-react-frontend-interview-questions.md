@@ -558,7 +558,6 @@ const MemoComponent = memo(MemoComponent = (props) => {
 
 ### 30. 什么是 React Fragment?
 
-Returning multiple elements from a component is a common practice in React. Fragments allow you to form a list of child elements without creating unnecessary nodes in the DOM.
 在 React 的一个组件中返回多个元素是很常见的。Fragments允许你创建一个子元素列表，而无需在 DOM 中创建不必要的节点。
 
 ```tsx
@@ -577,8 +576,8 @@ Returning multiple elements from a component is a common practice in React. Frag
 
 ### 31. 什么是 React Reconciliation?
 
-Reconciliation is a React algorithm used to distinguish one tree of elements from another to determine the parts that will need to be replaced.  
-Reconciliation is the algorithm behind what we used to call Virtual DOM. The definition sounds something like this: when you render a React application, the element tree that describes the application is generated in reserved memory. This tree is then included in the rendering environment - for example, a browser application, it is translated into a set of DOM operations. When the application state is updated, a new tree is generated. The new tree is compared with the previous one in order to calculate and enable exactly the operations that are needed to redraw the updated application.  
+Reconciliation是 React 中的一个算法，用来从组件树中筛选出需要被替换的部分。
+Reconciliation是 以前我们所谓的虚拟 DOM 背后的算法。它的定义类似于这样: 当你渲染一个 React 程序, 描述应用程序的元素树是在内存中生成并保留的。 This tree is then included in the rendering environment - for example, a browser application, it is translated into a set of DOM operations. When the application state is updated, a new tree is generated. The new tree is compared with the previous one in order to calculate and enable exactly the operations that are needed to redraw the updated application.  
 
 [Learn more](https://react.dev/learn/preserving-and-resetting-state)
 
