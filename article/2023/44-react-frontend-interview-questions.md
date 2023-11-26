@@ -265,7 +265,8 @@ const Child = ({ data }) => {
 
 ### 13. 在 Redux 中什么是 reducer，它接收哪些参数?
 
-A reducer is a pure function that takes the state and action as parameters. Inside the reducer, we track the type of the received action and, depending on it, we modify the state and return a new state object.  
+reducer是一个接收 state 和 action 作为参数的纯函数。
+在 reducer 内部，我们获取到 action 的type，根据不同的类型我们去修改 state 并返回新的 state。
 
 ```ts
 export default function appReducer(state = initialState, action) {
@@ -282,10 +283,9 @@ export default function appReducer(state = initialState, action) {
 
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
-### 14. What is an action and how can you change the state in Redux?
-
-Action is a simple JavaScript object that must have a field with  
-a type.  
+### 14.  在Redux中什么是 action，如何修改 state?
+ 
+Action 是一个含有 type 属性的 js 对象
 
 ```ts
 {
@@ -293,9 +293,7 @@ a type.
 }
 ```
 
-You can also optionally add some data as **payload**. In order to  
-change the state, it is necessary to call the dispatch function, to which we pass  
-action  
+你还可以选择性地新增一些数据 例如 **payload**. 为了改变 state，我们必须调用 dispatch 函数，这个函数会帮助我们传递 action 对象
 
 ```ts
 {
@@ -306,25 +304,26 @@ action
 
 [Learn more](https://redux.js.org/tutorials/fundamentals/part-3-state-actions-reducers)
 
-### 15. Which pattern does Redux implement?
+### 15. Redux 实现了什么模式?
 
-Redux implements the **Flux pattern**, which is a predictable state management pattern for applications. It helps in managing the state of an application by introducing a unidirectional data flow and a centralized store for the application's state.  
+Redux 实现了 **Flux 模式**, 它是应用程序中的一种可预测的状态管理模式。它通过引入单向数据流和应用程序状态的集中存储来帮助管理应用程序的状态。
 
 [Learn more](https://www.newline.co/fullstack-react/30-days-of-react/day-18/#:~:text=Flux%20is%20a%20pattern%20for,default%20method%20for%20handling%20data.)
 
-### 16. Which pattern does Mobx implement?
+### 16. Mobx 实现了什么模式?
 
-Mobx implements the **Observer pattern**, also known as the Publish-Subscribe pattern.  
+Mobx 实现了 **观察者模式**, 也被称作发布订阅模式。  
 
 [Learn more](https://www.patterns.dev/posts/observer-pattern)
 
-### 17. What are the peculiarities of working with Mobx?
+### 17. 使用Mobx有什么特点?
 
-Mobx provides decorators like `observable` and `computed` to define observable state and reactive functions. Actions decorated with action are used to modify the state, ensuring that all changes are tracked. Mobx also offers automatic dependency tracking, different types of reactions, fine-grained control over reactivity, and seamless integration with React through the mobx-react package. Overall, Mobx simplifies state management by automating the update process based on changes in observable state.
+Mobx 提供了`observable` 和 `computed`等装饰器来定义可观察的状态和响应式函数。装饰之后的 action 被用来修改 state，以确保所有的改变都能够被追踪到。Mobx Mobx 还提供了自动追踪依赖、不同类型的响应式、对响应式的细粒度的控制，以及通过 mobx-react 库与 React 无缝集成。总的来说，Mobx 通过监听 observable state 的变化自动触发状态更新来简化状态管理。
 
-### 18. How to access a variable in Mobx state?
+### 18. 在 Mobx 状态中如何访问一个变量?
 
-You can access a variable in the state by using the `observable` decorator to define the variable as observable. Here's an example:  
+You can access a variable in the state by using the `observable` decorator to define the variable as observable. 
+你可以使用`observable`这个装饰器将变量变为可观察状态，从而在 state 中访问这个变量。举例说明:  
 
 ```ts
 import { observable, computed } from 'mobx';
@@ -344,18 +343,18 @@ store.myVariable = 'Hi Mobx';
 console.log(store.capitalizedVariable); // Output: HI MOBX
 ```
 
-In this example, the `myVariable` is defined as an observable using the `observable` decorator. You can then access the variable using `store.myVariable`. Any changes made to `myVariable` will automatically trigger updates in dependent components or reactions.  
+在这个例子中, 通过`observable`装饰器，`myVariable` 被定义为可观察的变量.然后你可以通过`store.myVariable`访问这个变量。任何对`myVariable`变量的修改都会自动触发组件或者副作用的更新 。
 
 [Learn more](https://mobx.js.org/actions.html)
 
-### 19. What is the difference between Redux and Mobx?
+### 19. Redux 和 Mobx有什么区别?
 
-Redux is a simpler and more opinionated state management library that follows a strict unidirectional data flow and promotes immutability. It requires more boilerplate code and explicit updates but has excellent integration with React.  
-Mobx, on the other hand, provides a more flexible and intuitive API with less boilerplate code. It allows you to directly modify the state and automatically tracks changes for better performance. The choice between Redux and Mobx depends on your specific needs and preferences.
+Redux 是一个更简单、更保守的状态管理库，它遵循严格的单向数据流，并提高了不可变性。它需要更多的样板代码和显式的更新，但是与 React 有很好的集成
+另一方面，Mobx 提供了一个更加灵活和直观的 API，而且样板代码更少。它允许您直接修改状态并自动跟踪更改以获得更好的性能。Redux 和 Mobx 之间的选择取决于您的具体需求和偏好。
 
-### 20. What is JSX?
+### 20. 什么是 JSX?
 
-By default, the following syntax is used to create elements in react.  
+默认情况下, 在 react 中可以用下面的语法来创建元素。
 
 ```tsx
 const someElement = React.createElement(
@@ -365,22 +364,22 @@ const someElement = React.createElement(
 );
 ```
 
-But we are used to seeing it like this  
+但是我们是这样创建元素的：
 
 ```tsx
 const someElement = (
   <h3 className='title__value'>Some Title Value</h3>
 );
 ```
-
-This is exactly what the markup is called jsx. This is a kind of language extension  
-that simplifies the perception of code and development  
+ 
+这就是所谓的 jsx，它是一种语言扩展
+简化了对代码和开发的理解
 
 [Learn more](https://react.dev/learn/writing-markup-with-jsx#jsx-putting-markup-into-javascript)
 
-### 21. What is props drilling?
+### 21. 什么是 props drilling?
 
-Props drilling refers to the process of passing props through multiple levels of nested components, even if some intermediate components do not directly use those props. This can lead to a complex and cumbersome code structure.  
+Props drilling 指的是多级嵌套的组件之间层层传递 props 的一种情况, 即使某些组件并不会直接使用这些 props。 这可能导致代码结构非常复杂和冗余。 
 
 ```tsx
 // Parent component
@@ -409,13 +408,13 @@ const ChildB = ({ data }) => {
 };
 ```
 
-In this example, the `data` prop is passed from the Parent component to ChildA, and then from ChildA to ChildB even though ChildA doesn't directly use the prop. This can become problematic when there are many levels of nesting or when the data needs to be accessed by components further down the component tree. It can make the code harder to maintain and understand.
+在这个例子中，`data` prop从 Parent 组件传递给 ChildA，然后从 ChildA 传递给 ChildB，尽管 ChildA 并没有直接使用该prop。当嵌套层次很多，或者需要在非常深的层级中访问数据时，这可能会成为问题。这会使代码更难维护和理解。
 
-Props drilling can be mitigated by using other patterns like context or state management libraries like Redux or MobX. These approaches allow data to be accessed by components without the need for passing props through every intermediate component.
+通过使用其他模式，如context或状态管理库(如 Redux 或 MobX) ，可以减少Props drilling。这些方法允许组件访问数据，而无需通过每个中间组件传递props。
 
-### 22. How to render an element conditionally?
-
-You can use any conditional operators, including ternary.  
+### 22.  如何条件渲染?
+ 
+你可以使用任何条件操作符，包括三元表达式。
 
 ```tsx
 return (
@@ -449,13 +448,12 @@ return (
 
 [Learn more](https://react.dev/learn/conditional-rendering)
 
-### 23. What is useMemo used for and how does it work?
+### 23. useMemo 用处是什么，它是如何运作的?
 
-`useMemo` is used to cache and memorize the  
-result of calculations.  
-Pass the creating function and an array of dependencies. `useMemo` will recalculate the memoized value only when the value of any of the dependencies has changed. This optimization helps to avoid  
-costly calculations with each render.  
-With the first parameter, the function accepts a callback in which calculations are performed, and with the second an array of dependencies, the function will re-perform calculations only when at least one of the dependencies is changed.  
+`useMemo`被用来缓存计算结果。
+需要传递一个创建值的函数以及一个依赖数组。只有当依赖数组中的值发生变化时`useMemo`才会重新计算被缓存的数据。
+这个优化帮助 React 应用程序降低了渲染时的计算开销。
+对于第一个参数，函数接受执行计算的回调，对于第二个参数，函数接受依赖项数组，只有当至少一个依赖项被更改时，函数才会重新执行计算。
 
 ```ts
 const memoValue = useMemo(() => computeFunc(paramA, paramB), [paramA, paramB]);
@@ -463,10 +461,10 @@ const memoValue = useMemo(() => computeFunc(paramA, paramB), [paramA, paramB]);
 
 [Learn more](https://react.dev/reference/react/useMemo)
 
-### 24. What is useCallback used for and how does it work?
+### 24. useCallback是什么，它是如何运作的?
 
-The `useCallback` hook will return a memoized version of the callback, which changes only if the values of one of the dependencies change.  
-This is useful when passing callbacks to optimized child components that rely on link equality to prevent unnecessary renderings.  
+`useCallback`钩子会返回一个被缓存的回调函数，这个回调函数只有在依赖数组中任何一个值发生改变时才会更新。
+当需要传递给子组件函数时，使用它可以减少不必要的重新渲染。
 
 ```ts
 const callbackValue = useCallback(() => computeFunc(paramA, paramB), [paramA, paramB]);
@@ -474,11 +472,11 @@ const callbackValue = useCallback(() => computeFunc(paramA, paramB), [paramA, pa
 
 [Learn more](https://react.dev/reference/react/useCallback)
 
-### 25. What is the difference between useMemo and useCallback?
+### 25. useMemo and useCallback有什么不同?
 
-1.  `useMemo` is used to memoize the result of a computation, while `useCallback` is used to memoize a function itself.
-2.  `useMemo` caches the computed value and returns it on subsequent renders if the dependencies haven't changed.
-3.  `useCallback` caches the function itself and returns the same instance unless the dependencies have changed.
+1.  `useMemo` 用来缓存计算结果, 而 `useCallback` 用来缓存函数。
+2.  如果依赖没有发生变化，`useMemo` 会缓存计算值并且在后续的渲染中都会返回这个值。
+3.  如果依赖没有发生变化，`useCallback` 会缓存这个函数，并且在后续渲染中都会返回同一个函数。
 
 ### 26. What is React Context?
 
