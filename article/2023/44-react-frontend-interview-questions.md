@@ -480,7 +480,6 @@ const callbackValue = useCallback(() => computeFunc(paramA, paramB), [paramA, pa
 
 ### 26. 什么是 React Context?
 
-React Context is a feature that provides a way to pass data through the component tree without manually passing props at every level. It allows you to create a global state that can be accessed by any component within the tree, regardless of its position. Context is useful when you need to share data between multiple components that are not directly connected through props.
 React Context 是一个特性，它提供了一种通过组件树传递数据的方法，而无需在每个层级手动传递props。它允许你创建一个全局状态，该状态可以被树中的任何组件访问，而不管其位置如何。当你需要在组件之间共享数据并且这些组件无法直接通过 props 进行传递时 context 就可以派上用场了。
 
 React Context API 包括以下三个主要部分:
@@ -495,7 +494,6 @@ React Context API 包括以下三个主要部分:
 
 ### 27. useContext的用处，它是如何运行的?
 
-In a typical React application, data is passed from top to bottom (from parent to child component) using props. However, such a method of use may be too cumbersome for some types of props  
 在一个典型的 React 应用中，一般都是使用 props 将数据自顶向下传递（从父组件到子组件）。然而，这样的使用方法对于某些类型的props（例如，选中的语言，UI 主题）来说可能太麻烦了
 ，在这些情况下props 需要在应用程序中多个组件之间传递。context 提供了一种组件树各个层级之间共享数据的方式。
 调用 useContext 的组件会在 context 值改变时重新渲染。如果重新渲染组件非常消耗性能的话你可以通过缓存值来进行优化。
@@ -516,11 +514,8 @@ const App = () => {
 
 ### 28. useRef 的用处，它是如何运行的?
 
-`useRef` returns a modifiable ref object, a property. The current of which is initialized by the passed argument. The returned object will persist for the entire lifetime of the component and will not change from render to render.  
-The usual use case is to access the descendant in an imperative  
-style. I.e. using ref, we can explicitly refer to the DOM element.  
 `useRef` 返回一个可修改的 ref 对象，一个属性。其当前值由传递的参数初始化。返回的对象将在组件的整个生存期内持续存在，并且不会随着渲染的不同而改变。
-通常的用例是以命令形式访问子代。
+通常的案例是命令式访问子代。
 例如，使用 ref，我们可以显式地引用 DOM 元素。
 ```tsx
 const App = () => {
@@ -577,15 +572,15 @@ const MemoComponent = memo(MemoComponent = (props) => {
 ### 31. 什么是 React Reconciliation?
 
 Reconciliation是 React 中的一个算法，用来从组件树中筛选出需要被替换的部分。
-Reconciliation是 以前我们所谓的虚拟 DOM 背后的算法。它的定义类似于这样: 当你渲染一个 React 程序, 描述应用程序的元素树是在内存中生成并保留的。 This tree is then included in the rendering environment - for example, a browser application, it is translated into a set of DOM operations. When the application state is updated, a new tree is generated. The new tree is compared with the previous one in order to calculate and enable exactly the operations that are needed to redraw the updated application.  
+Reconciliation是 以前我们所谓的虚拟 DOM 背后的算法。它的定义类似于这样: 当你渲染一个 React 程序, 描述应用程序的元素树是在内存中生成并保留的。这棵树被囊括在渲染环境中，例如在一个浏览器应用程序，这棵树被转化为一系列的 DOM 操作。
+当应用程序的状态更新时，一棵新的树就会生成。然后将新旧树进行对比，准确地计算出下一次渲染更新需要做那些操作。
+
 
 [Learn more](https://react.dev/learn/preserving-and-resetting-state)
 
-### 32. Why do we need keys in lists when using map()?
+### 32. 在列表中使用 map() 为什么需要 key?
 
-The keys help React determine which elements have been changed,  
-added, or removed. They must be specified so that React can match  
-array elements over time. The best way to choose a key is to use a string that will clearly distinguish the list item from its neighbors. Most often, you will use the IDs from your data as keys.  
+key 帮助 React 确定哪些元素被改变了，新增了那些元素，删除了哪些元素。这些元素必须被准确地标记出来，这样React 才能够匹配不断更新的数组元素。选择 key 最好的方式是用一个能区别其他所有元素的字符串。通常，你会使用数据中的 ID 作为key。
 
 ```tsx
 const languages = [
@@ -617,9 +612,9 @@ const App = () => {
 
 [Learn more](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key)
 
-### 33. How to handle asynchronous actions in Redux Thunk?
+### 33. 在 Redux Thunk 中怎么处理异步 actions?
 
-To use Redux Thunk, you need to import it as middleware. Action creators should return not just an object but a function that takes dispatch as a parameter.  
+要使用 Redux Thunk, 你需要把它作为一个中间件导入进来。 Action creators 不应该仅仅返回一个对象而是一个接收 dispatch 参数的函数。  
 
 ```ts
 export const addUser = ({ firstName, lastName }) => {
@@ -643,9 +638,9 @@ export const addUser = ({ firstName, lastName }) => {
 
 [Learn more](https://redux.js.org/usage/writing-logic-thunks)
 
-### 34. How to track changes in a field of an object in a functional component?
+### 34. 在函数式组件中怎么追踪对象中某个字段的变化?
 
-To do this, you need to use the `useEffect` hook and pass the field of the object as a dependency array.  
+要做到这一点, 你需要使用 `useEffect` 钩子并且把该字段传入依赖数组。  
 
 ```ts
 useEffect(() => {
@@ -653,9 +648,9 @@ useEffect(() => {
 }, [obj.someField])
 ```
 
-### 35. How to access a DOM element?
+### 35. 怎么访问一个 DOM 节点?
 
-Refs are created using `React.createRef()` or the `useRef()` hook and attached to React elements through the ref attribute. By accessing the created reference, we can gain access to the DOM element using `ref.current`.  
+Refs 可以通过 `React.createRef()` 或者 `useRef()` 钩子创建，它可以通过 ref 属性应用到 React 元素上。 通过访问创建的 ref 的引用, 我们可以使用 `ref.current` 访问 DOM 节点。  
 
 ```tsx
 const App = () => {
@@ -676,9 +671,11 @@ const App = () => {
 export default App;
 ```
 
-### 36. What is a custom hook?
+### 36. 什么是自定义钩子?
 
-Custom hook is a function that allows you to reuse logic between different components. It is a way to encapsulate reusable logic so that it can be easily shared and reused across multiple components. Custom hooks are functions that typically start with the word \*_use \*_ and can call other hooks if needed.  
+自定义钩子是一个函数，这个函数允许你在不同组件之间复用代码逻辑。
+它是封装可复用逻辑的一种方法，这样就可以方便地跨多个组件共享和复用它。
+自定义钩子是通常以单词 * _ use * _ 开头的函数，如果需要，也可以调用其他钩子。
 
 [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
 
