@@ -679,10 +679,12 @@ export default App;
 
 [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
 
-### 37. What is Public API?
+### 37. 什么是 Public API?
 
 In the context of index files, a Public API typically refers to the interface or functions that are exposed and accessible to external modules or components.  
 Here's a code example of an index file representing a Public API:  
+在索引文件的上下文中，Public API 通常指的是外部模块或组件可以公开和访问的接口或函数。
+下面是表示Public API 的索引文件的代码示例
 
 ```js
 // index.js
@@ -696,7 +698,7 @@ export function calculateSum(a, b) {
 }
 ```
 
-In this example, the index.js file acts as a Public API where the functions `greet()` and `calculateSum()` are exported and can be accessed from other modules by importing them. Other modules can import and use these functions as part of their implementation:  
+在这个示例中，index.js 文件充当一个公共 API，其中导出了函数`greet()`和`calculateSum()`，并且可以通过导入它们从其他模块访问它们。其他模块可以导入并使用这些函数作为其实现的一部分
 
 ```js
 // main.js
@@ -707,19 +709,19 @@ console.log(greet('John')); // Hello, John!
 console.log(calculateSum(5, 3)); // 8
 ```
 
-By exporting specific functions from the index file, we are defining the Public API of the module, allowing other modules to use those functions.
+通过从索引文件导出特定的函数，我们定义了模块的 Public API，允许其他模块使用这些函数。
 
-### 38. What are the rules for creating a custom hook?
+### 38. 创建一个自定义 hook 有哪些规则?
 
-1.  Start the hook name with "use".
-2.  Use existing hooks if needed.
-3.  Don't call hooks conditionally.
-4.  Extract reusable logic into the custom hook.
-5.  Custom hooks must be pure functions.
-6.  Custom hooks can return values or other hooks.
-7.  Name the custom hook descriptively. [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
+1.  以 use 开头来命名 hook。
+2.  如果需要的话使用已有的 hook。
+3.  不要在条件语句中调用 hook。
+4.  把可复用的逻辑抽离到自定义 hook 中。
+5.  自定义 hook 必须是纯函数。
+6.  自定义 hook 可以返回值或者其他 hook。
+7.  描述性地命名自定义hook。 [Learn more](https://react.dev/learn/reusing-logic-with-custom-hooks)
 
-### 39. What is SSR (Server-Side Rendering)?
+### 39. 什么是 SSR (Server-Side Rendering)?
 
 Server-Side Rendering (SSR) is a technique used to render pages on the server and send the fully rendered page to the client for display. It allows the server to generate the complete HTML markup of a web page, including its dynamic content, and send it to the client as a response to a request.
 
