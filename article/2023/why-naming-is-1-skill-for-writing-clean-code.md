@@ -116,22 +116,22 @@ async function startExecutingJob (workerId, jobDescription) { ... }
 
 ## 怎么才算是一个好的名称？
 
-But let’s take a step back - what is a bad name, and what is a good name? What does that mean, how do we recognize them?
+让我们退一步来说，什么是坏名称，什么是好名称？我们又该如何分辨？
 
-**Good name doesn’t misdirect, doesn’t omit, and doesn’t assume**.
+**好名字不误导、不遗漏、不假设。**
 
-A good name should give you a good idea about what the variable contains or function does. A good name will tell you all there is to know or will tell you enough to know where to look next. It will not let you guess, or wonder. It will not misguide you. A good name is obvious, and expected. It is consistent. Not overly creative. It will not assume context or knowledge that the reader is not likely to have.
+一个好的名称应该能让你更好地了解变量所包含的内容或函数的作用。一个好的名称会告诉你所有需要知道的事情，或者会告诉你足够多的信息，让你知道下一步该关注什么。它不会让你猜测或感到疑惑，更不会误导你。一个好的名字是显而易见的，是意料之内的，是统一的，不会太过“创意”。它也不会假设读者不可能拥有的背景或知识。
 
-Also, **context is king:** you can’t evaluate the name without the context in which it is read. `verifyOrganizationChainCredentials` could be a terrible name or a great name. `a` could be a great name or a terrible name. It depends on the story, the surroundings, on the problem the code is solving. Names tell a story, and they need to fit together like a story.
+此外，在没有阅读上下文的情况下是无法评估一个名称的好坏的。`verifyOrganizationChainCredentials` 可以是一个糟糕的名称，也可以是一个很好的名称。`a` 可以是一个糟糕的名称，也可以是一个很好的名称。这取决于“故事”、环境以及代码要解决的问题。名字讲述一个故事，它们需要像故事一样组合在一起。
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#examples-of-famous-bad-names)Examples of famous bad names
+## 一些著名的糟糕名称
 
 -   **JavaScript**
-    -   I was the victim of this bad naming myself: my parents bought me a book about JavaScript while I wanted to learn Java.
--   **HTTP Authorization header**
-    -   It is named `Authorization`, but is used for authentication! And those are not the same: authentication is about identifying yourself, and authorization is about granting permissions. More about it can be found here: [https://stackoverflow.com/questions/30062024/why-is-the-http-header-for-authentication-called-authorization](https://stackoverflow.com/questions/30062024/why-is-the-http-header-for-authentication-called-authorization) .
+    -   我就是这个糟糕的名字的受害者：当我想学习 Java 时，我的父母给我买了一本关于 JavaScript 的书。
+-   **HTTP Authorization 请求标头**
+    -   虽然称为 `Authorization`（授权）但却用于身份验证（authentication）！二者有别：身份验证是关于识别你的身份，而授权是关于授予权限。更多内容请看：[https://stackoverflow.com/questions/30062024/why-is-the-http-header-for-authentication-called-authorization](https://stackoverflow.com/questions/30062024/why-is-the-http-header-for-authentication-called-authorization) .
 -   **Wasp-lang**:
-    -   This one is my fault: [Wasp](https://wasp-lang.dev/) is a full-stack JS web framework that uses a custom config language as only a small part of its codebase, but I put `-lang` in the name and scared a lot of people away because they thought it was a whole new general programming language!
+    -   这是我的错：[Wasp](https://wasp-lang.dev/) 是一个全栈的 JavaScript Web 框架。它使用了自定义配置语言作为其代码库的一小部分，但我在名称中添加了 `-lang`。这吓跑了很多人，因为他们认为这是一种全新的通用编程语言！
 
 ## 如何取一个好名字？
 
