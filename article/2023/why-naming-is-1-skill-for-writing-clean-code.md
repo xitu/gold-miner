@@ -68,10 +68,9 @@ async function fetchDemographicStatsForFirstAndLastName (
 ## 例 #2
 
 ```
-// Find a free machine and use it, or create a new machine
-// if needed. Then on that machine, set up the new worker 
-// with the given Docker image and setup cmd. Finally,
-// start executing a job on that worker and return its id.
+// 找到一个闲置 machine，如无则创建一个。
+// 在该 machine 上，根据给定的 Docker 镜像配置新的 worker 和 CMD。
+// 最后，在 worker 上开始执行任务并返回其 ID。
 async function getJobId (
   machineType, machineRegion,
   workerDockerImage, workerSetupCmd,
@@ -85,7 +84,7 @@ async function getJobId (
 
 这个代码有什么问题？
 
-1.  **这个函数名称隐藏了许多具体操作的细节。**It doesn’t mention at all that we have to procure the machine or set up the worker, or that function will result in the creation of a job that will continue executing somewhere in the background. 相反，由于动词“get”，它给人一种这件事很简单的感觉：我们只是获取一个已经存在的任务的 id。想象一下在代码中的某个地方看到对此函数的调用：`getJobId(...)` → **你应该预料不到它会花费很长的时间，也不了解它具体干了什么，这是件很糟糕的事**。
+1.  **这个函数名称隐藏了许多具体操作的细节。**它并没有说明它可能创建 machine 和 worker。它也没有说明该功能可能会创建一项任务并在后台运行。相反，由于动词“get”，它给人一种这件事很简单的感觉：我们只是获取一个已经存在的任务的 ID。想象一下在代码中的某个地方看到对此函数的调用：`getJobId(...)` → **你应该预料不到它会花费很长的时间，也不了解它具体干了什么，这是件很糟糕的事**。
 
 好吧，这似乎很容易解决，让我们给它起一个更好的名字吧！
 
@@ -99,13 +98,13 @@ async function procureFreeMachineAndSetUpTheDockerWorkerThenStartExecutingTheJob
 }
 ```
 
-**呃，这是一个又长又复杂的名字……**但是，问题在于，我们好像不能再缩短了But the truth is, that we can’t really make it shorter without losing valuable information about what this function does and what we can expect from it. Therefore, **we are stuck**, we can’t find a better name! What now?
+**呃，这是一个又长又复杂的名字……**但是，如果我们缩短这个函数名，那么就会丢失关于这个函数的实际操作和有用的信息。**进退两难**，我们找不到一个更好的名称！现在又该怎么办？
 
-问题在于，**you can't give a good name if you don't have clean code behind it**. 因此，一个糟糕的名字不仅仅是命名失误，而且通常也表明其背后的代码有问题，是设计上的失败。代码是有问题的，以至于你甚至不知道如何命名 → there is no straightforward name to give to it, because it is not a straightforward code!
+问题在于，**如果代码不够清晰，那又如何能给出一个好的名称呢**？因此，一个糟糕的名字不仅仅是命名失误，而且通常也表明其背后的代码有问题，是设计上的失败。代码存在问题，以至于你甚至不知道如何命名 → 我们找不到一个直接的名字，因为这不是一段直接的代码！
 
-[![Bad name is hiding bad code](https://res.cloudinary.com/practicaldev/image/fetch/s--PHgCAaqW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/asuebjrs1mwtnrk2jdw4.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--PHgCAaqW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/asuebjrs1mwtnrk2jdw4.png)
+![糟糕的名称隐藏着糟糕的代码](https://res.cloudinary.com/practicaldev/image/fetch/s--PHgCAaqW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/asuebjrs1mwtnrk2jdw4.png)
 
-在这个例子中，问题来源于这个**函数一次做太多件事了**。冗长的函数名和 A long name and many arguments are indicators of this, although these can be okay in some situations. Stronger indicators are the usage of words “and” and “then” in the name, as well as argument names that can be grouped by prefixes (`machine`, `worker`).
+在这个例子中，问题来源于这个**函数一次做太多件事了**。冗长的函数名是一个很好的信号（在一些情况中这是 OK 的）。此外，名称中的“and”和“then”，还有参数的前缀（“machine”和“worker”）都暗示了这点。
 
 解决方案是，将函数分解为多个较小的函数：
 
