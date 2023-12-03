@@ -2,24 +2,26 @@
 > * 原文作者：[Martin Šošić](https://dev.to/martinsos)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/why-naming-is-1-skill-for-writing-clean-code.md](https://github.com/xitu/gold-miner/blob/master/article/2023/why-naming-is-1-skill-for-writing-clean-code.md)
-> * 译者：
+> * 译者：[jaredliw](https://github.com/jaredliw)
+> * 校对者：
 
-In stories, you will often find the motif of a powerful demon that **can be controlled only by knowing its true name**. Once the hero finds out that name, through cunning dialogue or by investigating ancient tomes, they can turn things around and banish the demon!
+在童话故事中，我们常常可以看到这么一个设定：**只要知道了恶魔的真名，我们便可以控制它**。无论是通过调查古籍还是巧妙的对话诱骗恶魔，一旦主角找到了这个名字，他便可以扭转局面，赶走恶魔！
 
-I firmly believe writing code is not much different: through finding good names for functions, variables, and other constructs, we truly recognize the essence of the problem we are solving. **The consequence of clarity gained is not just good names but also cleaner code and improved architecture**.
+我始终相信，写代码也亦是如此：只要我们能够为函数、变量和结构体找到好的名称，我们就能真正认识到问题的本质。**清晰之道不仅反映出好的名称，还有更整洁的代码和更稳健的架构。**
 
-[![The power of correct naming in programming](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)
+![取名在编程中的重要性](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)
 
-I would go as far as to say that **90% of writing clean code is “just” naming things correctly**.  
-Sounds simple, but it is really not!
+我甚至可以说，**要想写好整洁的代码，仅仅是取好名称就已完成 90% 了。**
 
-Let’s take a look at a couple of examples.
+这听起来很简单，但其实并不容易！
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#example-1)Example #1
+让我们看看几个例子。
+
+## 例 #1
 
 ```
-// Given first and last name of a person, returns the
-// demographic statistics for all matching people.
+// 传入名和姓，
+// 返回所有匹配人员的人口统计（demography）数据。
 async function demo (a, b) {
   const c = await users(a, b);
   return [
@@ -29,15 +31,15 @@ async function demo (a, b) {
 }
 ```
 
-What is wrong with this code?
+这个代码有什么问题？
 
-1.  The name of the function `demo` is **very vague**: it could stand for “demolish”, or as in “giving a demo/presentation”, … .
-2.  Names `a`, `b`, and `c` are **completely uninformative**.
-3.  `a` is reused in lambda inside the `map`, **shadowing** the `a` that is a function argument, confusing the reader and making it easier to make a mistake when modifying the code in the future and reference the wrong variable.
-4.  The returned object doesn’t have any info about what it contains, instead, **you need to be careful about the order of its elements** when using it later.
-5.  The name of the field `.info` in the result of a call to `users()` function gives us **no information as to what it contains**, which is made further worse by its elements being accessed by their position, also hiding any information about them and making our code prone to silently work wrong if their ordering changes.
+1.  函数名称 `demo` 的语义**非常模糊**：它可以表示“拆除（demolish）”，或者“演示（demonstration）”等等。
+2.  变量名称 `a`、`b` 和 `c` **完全不能提供任何信息**。
+3.  `map` 中的匿名函数重复使用了名称 `a`, **遮蔽（shadowing）**了作为函数参数的 `a`，使读者感到困惑，并可能导致我们在未来修改代码时引用错误的变量。
+4.  返回的数组并不能提供它的内容信息，相反地，**在使用时需小心元素的排列顺序**。
+5.  `.info` 字段这个名称也**不能告诉我们任何有关其内容的信息**。更糟糕的是，由于我们是通过下标访问元素，如果他们的顺序发生变化，我们的代码将会在毫无征兆下出错。
 
-Let’s fix it:  
+让我们修改一下：
 
 ```
 async function fetchDemographicStatsForFirstAndLastName (
@@ -53,17 +55,17 @@ async function fetchDemographicStatsForFirstAndLastName (
 }
 ```
 
-What did we do?
+我们做了什么？
 
-1.  **The name of the function now exactly reflects what it does, no more no less**. `fetch` in the name even indicates it does some IO (input/output, in this case fetching from the database), which can be good to know since IO is relatively slow/expensive compared to pure code.
-2.  **We made other names informative enough**: not too much, not too little.
-    -   Notice how **we used the name `users` for fetched users**, and not something longer like `usersWithSpecifiedFirstAndLastName` or `fetchedUsers`: there is no need for a longer name, as this variable is very local, short-lived, and there is enough context around it to make it clear what it is about.
-    -   **Inside lambda, we went with a single-letter name**, `u`, which might seem like bad practice. But, here, it is perfect: this variable is extremely short-lived, and it is clear from context what it stands for. Also, we picked specifically the letter `u` for a reason, as it is the first letter of `user`, therefore making that connection obvious.
-3.  **We named values in the object that we return**: `averageAge` and `medianSalary`. Now any code that will use our function won’t need to rely on the ordering of items in the result, and also will be easy and informative to read.
+1.  **函数的名称准确的反映了其功能。**名称中的 `fetch` 表示执行了 I/O 操作（从数据库中获取记录）。这个信息是值得被告知的，因为 I/O 操作较为昂贵，比起一般代码花费更多时间。
+2.  **我们为其他名称提供了足够的信息**：不多不少，正好。
+    -   **我们使用 `users` 来表示取到的用户**，而不是像 `usersWithSpecifiedFirstAndLastName` 或者 `fetchedUsers` 这样更长的名称：这是因为这个变量是局部的，存活时间很短，且上下文能清楚地表明这个变量是关于什么的。
+    -   **在匿名函数中，我们使用了一个单字母的名称**，`u`。你可能觉得这做法并不好，但是，在这里，这并没什么问题：这个变量的存活时间非常短暂，并且从上下文中我们能很清楚地知道它代表什么。此外，我们也特意选择了字母“u”，因为它是“user”的首字母，使得这种联系更加显而易见。
+3.  **我们在返回的的对象中命名了其包含的值**：`averageAge` 和 `medianSalary`。现在，任何使用我们的函数的代码都不需要依赖返回结果中项目顺序，提高了可读性。
 
-Finally, notice how there is no comment above the function anymore. The thing is, **the comment is not needed anymore**: it is all clear from the function name and arguments!
+最后，留意到这次我们已经不写注释了吗？**我们不需要注释了**：函数的名称和参数已非常简洁明了！
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#example-2)Example 2
+## 例 #2
 
 ```
 // Find a free machine and use it, or create a new machine
@@ -79,13 +81,13 @@ async function getJobId (
 }
 ```
 
-In this example, we are ignoring the implementation details and will focus just on getting the name and arguments right.
+在此示例中，我们忽略具体的实现细节，仅关注名称和参数。
 
-What is wrong with this code?
+这个代码有什么问题？
 
-1.  **The function name is hiding a lot of details about what it is doing**. It doesn’t mention at all that we have to procure the machine or set up the worker, or that function will result in the creation of a job that will continue executing somewhere in the background. Instead, it gives a feeling that we are doing something simple, due to the verb `get`: we are just obtaining an id of an already existing job. Imagine seeing a call to this function somewhere in the code: `getJobId(...)` → **you are not expecting it to take long or do all of the stuff that it really does, which is bad**.
+1.  **这个函数名称隐藏了许多具体操作的细节。**It doesn’t mention at all that we have to procure the machine or set up the worker, or that function will result in the creation of a job that will continue executing somewhere in the background. 相反，由于动词“get”，它给人一种这件事很简单的感觉：我们只是获取一个已经存在的任务的 id。想象一下在代码中的某个地方看到对此函数的调用：`getJobId(...)` → **你应该预料不到它会花费很长的时间，也不了解它具体干了什么，这是件很糟糕的事**。
 
-Ok, this sounds easy to fix, let’s give it a better name!  
+好吧，这似乎很容易解决，让我们给它起一个更好的名字吧！
 
 ```
 async function procureFreeMachineAndSetUpTheDockerWorkerThenStartExecutingTheJob (
@@ -97,15 +99,15 @@ async function procureFreeMachineAndSetUpTheDockerWorkerThenStartExecutingTheJob
 }
 ```
 
-**Uff, that is one long and complicated name**. But the truth is, that we can’t really make it shorter without losing valuable information about what this function does and what we can expect from it. Therefore, **we are stuck**, we can’t find a better name! What now?
+**呃，这是一个又长又复杂的名字……**但是，问题在于，我们好像不能再缩短了But the truth is, that we can’t really make it shorter without losing valuable information about what this function does and what we can expect from it. Therefore, **we are stuck**, we can’t find a better name! What now?
 
-The thing is, **you can't give a good name if you don't have clean code behind it**. So a bad name is not just a naming mishap, but often also an indicator of problematic code behind it, a failure in design. Code so problematic, that you don’t even know what to name it → there is no straightforward name to give to it, because it is not a straightforward code!
+问题在于，**you can't give a good name if you don't have clean code behind it**. 因此，一个糟糕的名字不仅仅是命名失误，而且通常也表明其背后的代码有问题，是设计上的失败。代码是有问题的，以至于你甚至不知道如何命名 → there is no straightforward name to give to it, because it is not a straightforward code!
 
 [![Bad name is hiding bad code](https://res.cloudinary.com/practicaldev/image/fetch/s--PHgCAaqW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/asuebjrs1mwtnrk2jdw4.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--PHgCAaqW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/asuebjrs1mwtnrk2jdw4.png)
 
-In our case, the problem is that this **function is trying to do too much at once**. A long name and many arguments are indicators of this, although these can be okay in some situations. Stronger indicators are the usage of words “and” and “then” in the name, as well as argument names that can be grouped by prefixes (`machine`, `worker`).
+在这个例子中，问题来源于这个**函数一次做太多件事了**。冗长的函数名和 A long name and many arguments are indicators of this, although these can be okay in some situations. Stronger indicators are the usage of words “and” and “then” in the name, as well as argument names that can be grouped by prefixes (`machine`, `worker`).
 
-The solution here is to clean up the code by breaking down the function into multiple smaller functions:  
+解决方案是，将函数分解为多个较小的函数：
 
 ```
 async function procureFreeMachine (type, region) { ... }
@@ -113,7 +115,7 @@ async function setUpDockerWorker (machineId, dockerImage, setupCmd) { ... }
 async function startExecutingJob (workerId, jobDescription) { ... }
 ```
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#what-is-a-good-name)What is a good name?
+## 怎么才算是一个好的名称？
 
 But let’s take a step back - what is a bad name, and what is a good name? What does that mean, how do we recognize them?
 
@@ -132,23 +134,15 @@ Also, **context is king:** you can’t evaluate the name without the context in 
 -   **Wasp-lang**:
     -   This one is my fault: [Wasp](https://wasp-lang.dev/) is a full-stack JS web framework that uses a custom config language as only a small part of its codebase, but I put `-lang` in the name and scared a lot of people away because they thought it was a whole new general programming language!
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#support-us-%EF%B8%8F)Support us! 🙏⭐️
+## 如何取一个好名字？
 
-![GH star click](https://res.cloudinary.com/practicaldev/image/fetch/s--V5AGmRxg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/id9s6t8rcvfxty40bv2m.gif)
-
-To help us improve our name at Wasp-lang 😁, [consider giving us a star on Github](https://github.com/wasp-lang/wasp)! Everything we do at Wasp is open source, and your support helps us make web development easier and motivates us to write more articles like this one.
-
-![Image description](https://res.cloudinary.com/practicaldev/image/fetch/s--xlfkBbiL--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/qgbmn45pia04bxt6zf83.gif)
-
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#how-to-come-up-with-a-good-name)How to come up with a good name
-
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#dont-give-a-name-find-it)Don’t give a name, find it
+## Don’t give a name, find it
 
 The best advice is maybe not to give a name, but instead to **find out** a name. You shouldn’t be making up an original name, as if you are naming a pet or a child; **you are instead looking for the essence of the thing you are naming, and the name should present itself based on it**. If you don’t like the name you discovered, it means you don’t like the thing you are naming, and you should change that thing by improving the design of your code (as we did in the example #2).
 
 [![You shouldn't name your variables the same way you name your pets, and vice versa](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#things-to-look-out-for-when-figuring-out-a-name)Things to look out for when figuring out a name
+## 起名时应考虑的事项
 
 1.  **First, make sure it is not a bad name :)**. Remember: don’t misdirect, don’t omit, don’t assume.
 2.  **Make it reflect what it represents.** Find the essence of it, capture it in the name. Name is still ugly? Improve the code. You have also other things to help you here → type signature, and comments. But those come secondary.
@@ -179,9 +173,9 @@ Once you start thinking a lot about naming, you will see how it will change your
 
 Inspecting a name is a single point of pressure, that untangles the whole mess behind it. Search for bad names, and you will sooner or later uncover the bad code if there is some.
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#further-reading)Further reading
+## 增广
 
-If you haven’t yet read it, I would recommend reading the book **Clean Code by Robert Martin**. It has a great chapter on naming and also goes much further on how to write code that you and others will enjoy reading and maintaining.
+我推荐 Robert Martin 的《代码整洁之道》If you haven’t yet read it, I would recommend reading the book **Clean Code by Robert Martin**. It has a great chapter on naming and also goes much further on how to write code that you and others will enjoy reading and maintaining.
 
 Also, [A popular joke about naming being hard](https://martinfowler.com/bliki/TwoHardThings.html).
 
