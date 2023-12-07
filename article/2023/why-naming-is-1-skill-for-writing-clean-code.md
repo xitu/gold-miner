@@ -139,20 +139,20 @@ async function startExecutingJob (workerId, jobDescription) { ... }
 
 The best advice is maybe not to give a name, but instead to **find out** a name. You shouldn’t be making up an original name, as if you are naming a pet or a child; **you are instead looking for the essence of the thing you are naming, and the name should present itself based on it**. If you don’t like the name you discovered, it means you don’t like the thing you are naming, and you should change that thing by improving the design of your code (as we did in the example #2).
 
-[![You shouldn't name your variables the same way you name your pets, and vice versa](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
+![You shouldn't name your variables the same way you name your pets, and vice versa](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
 
 ## 起名时应考虑的事项
 
-1.  **First, make sure it is not a bad name :)**. Remember: don’t misdirect, don’t omit, don’t assume.
-2.  **Make it reflect what it represents.** Find the essence of it, capture it in the name. Name is still ugly? Improve the code. You have also other things to help you here → type signature, and comments. But those come secondary.
-3.  **Make it play nicely with the other names around it.** It should have a clear relation to them - be in the same “world”. It should be similar to similar stuff, opposite to opposite stuff. It should make a story together with other names around it. It should take into account the context it is in.
-4.  **Length follows the scope**. In general, the shorter-lived the name is, and the smaller its scope is, the shorter the name can/should be, and vice versa. This is why it can be ok to use one-letter variables in short lambda functions. If not sure, go for the longer name.
-5.  **Stick to the terminology you use in the codebase**. If you so far used the term `server`, don’t for no reason start using the term `backend` instead. Also, if you use `server` as a term, you likely shouldn't go with `frontend`: instead, you will likely want to use `client`, which is a term more closely related to the `server`.
-6.  **Stick to the conventions you use in the codebase**. Examples of some of the conventions that I often use in my codebases:
-    -   prefix `is` when the variable is Bool (e.g. `isAuthEnabled`)
-    -   prefix `ensure` for the functions that are idempotent, that will do something (e.g allocate a resource) only if it hasn’t been set up so far (e.g. `ensureServerIsRunning`).
+1.  **首先，确保这不是一个糟糕的名字 :)**。记得：不误导、不遗漏、不假设。
+2.  **确保名称表示它所代表的内容。**找到它的本质，在名称中反映出来。名称还是很丑吗？改进代码。你也可以善用类型签名和注释，当然这些都是次要的。
+3.  **让名称与周围融合。**它应该与其他名称有明确的关系，即，在同一个“世界”里。它应该与相似的事物相似，与相反的事物相反。它应该与周围的其他名称组成一个“故事”。它应该考虑所处的上下文。
+4.  **名称长度遵循变量的作用范围。**一般来说，变量的寿命越短，范围越小，名称也可（应）以（该）越短，反之亦然。这就是为什么在简短的匿名函数中可以使用单字母变量名称。如果不确定，请选择较长的名称。
+5.  **贯彻你在代码库中使用的术语。**如果你一直以来使用的术语是 `server` 请不要混用 `backend`。此外，如果你使用了 `server` 一词，你或许不应该使用 `frontend`。`client` 这一术语与 `server` 更相关。
+6.  **贯彻你在代码库中的使用的约定。**举例来说，以下是我在代码库中的一些常用约定：
+    -   当变量是布尔值是添加前缀 `is`（例：`isAuthEnabled`）
+    -   为幂等函数添加前缀 `ensure` (例：`ensureServerIsRunning`)；这一类函数只有在尚未设置情况下才会执行操作（如分配资源），不会重复执行操作。
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#the-simple-technique-for-figuring-out-a-name-every-time)The simple technique for figuring out a name every time
+## The simple technique for figuring out a name every time
 
 If you are ever having trouble coming up with a name, do the following:
 
@@ -164,9 +164,9 @@ If you are ever having trouble coming up with a name, do the following:
 
 Don’t get overly stuck on always figuring out the perfect name at the get-go → it is okay to do multiple iterations of your code, with both your code and name improving with each iteration.
 
-## [](https://dev.to/wasp/why-naming-is-1-skill-for-writing-clean-code-4a5p#reviewing-code-with-naming-in-mind)Reviewing code with naming in mind
+## Reviewing code with naming in mind
 
-Once you start thinking a lot about naming, you will see how it will change your code review process: focus shifts from looking at implementation details to looking at names first.
+一旦您开始深入思索命名的问题，you will see how it will change your code review process: focus shifts from looking at implementation details to looking at names first.
 
 **When I am doing a code review, there is one predominant thought I will be thinking about: “Is this name clear?”**. From there, the whole review evolves and results in clean code.
 
