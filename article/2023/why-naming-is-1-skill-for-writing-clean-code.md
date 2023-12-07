@@ -135,11 +135,11 @@ async function startExecutingJob (workerId, jobDescription) { ... }
 
 ## 如何取一个好名字？
 
-### Don’t give a name, find it
+### 不要起名字，而是"找出"一个名字
 
-The best advice is maybe not to give a name, but instead to **find out** a name. You shouldn’t be making up an original name, as if you are naming a pet or a child; **you are instead looking for the essence of the thing you are naming, and the name should present itself based on it**. If you don’t like the name you discovered, it means you don’t like the thing you are naming, and you should change that thing by improving the design of your code (as we did in the example #2).
+最好的建议是，不要起名字，而是**找出**一个名字。你不应该像给宠物或孩子命名一样随意起一个自己的名字；相反，**你应寻找你所命名的事物的本质，并且名称应该基于它来呈现**。如果你不喜欢你找到的名称，则意味着你不喜欢你所命名的事物，并且你应该通过改进代码的设计来更改该名称（就像我们在例 #2 中所做的那样）。
 
-![You shouldn't name your variables the same way you name your pets, and vice versa](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
+![你不应该像给宠物命名一样命名你的变量，反之亦然](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
 
 ### 起名时应考虑的事项
 
