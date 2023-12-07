@@ -174,9 +174,9 @@ The best advice is maybe not to give a name, but instead to **find out** a name.
 
 ## 增广
 
-我推荐 Robert Martin 的《代码整洁之道》If you haven’t yet read it, I would recommend reading the book **Clean Code by Robert Martin**. It has a great chapter on naming and also goes much further on how to write code that you and others will enjoy reading and maintaining.
+我推荐 **Robert Martin 的《代码整洁之道》**。其中命名一章非常精彩，并且还进一步介绍了如何编写易于阅读和维护的代码。
 
-Also, [A popular joke about naming being hard](https://martinfowler.com/bliki/TwoHardThings.html).
+最后的最后，[一个关于命名困难的笑话](https://martinfowler.com/bliki/TwoHardThings.html)。
 
 ---
 
