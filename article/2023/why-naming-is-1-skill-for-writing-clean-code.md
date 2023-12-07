@@ -164,13 +164,13 @@ The best advice is maybe not to give a name, but instead to **find out** a name.
 
 不要过分坚持从一开始就找出完美的名称 → 你可以对代码进行多次迭代，每次迭代都会改进你的代码和名称。
 
-## Reviewing code with naming in mind
+## 在考虑命名的情况下审查代码
 
-一旦您开始深入思索命名的问题，you will see how it will change your code review process: focus shifts from looking at implementation details to looking at names first.
+一旦您开始深入思索命名的问题，你将见识到它如何改变你的代码审查过程：焦点从查看实现细节转移到首先查看名称。
 
-**When I am doing a code review, there is one predominant thought I will be thinking about: “Is this name clear?”**. From there, the whole review evolves and results in clean code.
+**当我进行代码审查时，我的主要想法是：“这个名字清楚吗？”。**从这开始，整个审查不断发展并导向整洁的代码。
 
-Inspecting a name is a single point of pressure, that untangles the whole mess behind it. Search for bad names, and you will sooner or later uncover the bad code if there is some.
+检查名称是一个单一的压力点，它可以解开其背后的整个混乱局面。寻找糟糕的名字，如果存在，你迟早会发现糟糕的代码。
 
 ## 增广
 
