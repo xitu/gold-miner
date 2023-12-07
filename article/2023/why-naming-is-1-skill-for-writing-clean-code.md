@@ -135,13 +135,13 @@ async function startExecutingJob (workerId, jobDescription) { ... }
 
 ## 如何取一个好名字？
 
-## Don’t give a name, find it
+### Don’t give a name, find it
 
 The best advice is maybe not to give a name, but instead to **find out** a name. You shouldn’t be making up an original name, as if you are naming a pet or a child; **you are instead looking for the essence of the thing you are naming, and the name should present itself based on it**. If you don’t like the name you discovered, it means you don’t like the thing you are naming, and you should change that thing by improving the design of your code (as we did in the example #2).
 
 ![You shouldn't name your variables the same way you name your pets, and vice versa](https://res.cloudinary.com/practicaldev/image/fetch/s--6nM5W6XW--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/svd322vp7ho9holekwbp.png)
 
-## 起名时应考虑的事项
+### 起名时应考虑的事项
 
 1.  **首先，确保这不是一个糟糕的名字 :)**。记得：不误导、不遗漏、不假设。
 2.  **确保名称表示它所代表的内容。**找到它的本质，在名称中反映出来。名称还是很丑吗？改进代码。你也可以善用类型签名和注释，当然这些都是次要的。
@@ -152,17 +152,17 @@ The best advice is maybe not to give a name, but instead to **find out** a name.
     -   当变量是布尔值是添加前缀 `is`（例：`isAuthEnabled`）
     -   为幂等函数添加前缀 `ensure` (例：`ensureServerIsRunning`)；这一类函数只有在尚未设置情况下才会执行操作（如分配资源），不会重复执行操作。
 
-## The simple technique for figuring out a name every time
+### 取名的技巧
 
-If you are ever having trouble coming up with a name, do the following:
+如果你在起名字时遇到困难，请执行以下操作：
 
-1.  Write a comment above the function/variable where you **describe what it is, in human language**, as if you were describing it to your colleague. It might be one sentence or multiple sentences. This is the essence of what your function/variable does, what it is.
-2.  Now, you take the role of the sculptor, and you chisel at and **shape that description of your function/variable until you get a name**, by taking pieces of it away. You stop when you feel that one more hit of your imagined chisel at it would take too much away.
-3.  Is your name still too complex/confusing? If that is so, that means that the code behind is too complex, and should be reorganized! **Go refactor it**.
-4.  **Ok, all done** → you have a nice name!
-5.  That comment above the function/variable? Remove everything from it that is now captured in the name + arguments + type signature. If you can remove the whole comment, great. Sometimes you can’t, because some stuff can’t be captured in the name (e.g. certain assumptions, explanations, examples, …), and that is also okay. But don’t repeat in the comment what you can say in the name instead. **Comments are a necessary evil and are here to capture knowledge that you can’t capture in your names and/or types**.
+1.  在函数/变量上方写下注释，**用人类语言描述它是什么**，就像你向同事描述它一样。它可以是一个句子，也可以是多个句子。这就是函数/变量的本质，它是什么。
+2.  现在，你是个雕刻家，通过将这些描述一块一块凿掉，塑造成一个函数/变量名称。当你觉得你的的“凿子”再敲击一下就会带走太多东西时，你就应该停下来了。
+3.  你的名称还是太令人困惑吗？如果是这样，那就说明后面的代码太复杂了，你应该重新整理一下！**去重构代码吧。**
+4.  **OK，全部完成** → 你有一个很好的名称了！
+5.  函数/变量上方的注释呢？把一切能从名称 + 参数 + 类型签名中反映出来的东西删掉。此时，如果你可以删除整个注释那就太好了。但有时你不能，因为有些东西无法在名称中捕获（例如某些假设、解释、示例……），但这也没关系。但不要在注释中重复你可以在名称中表达的事物。**有时候，注释是不得不写的，它可以捕获你在名称和类型中不能传达的信息。**
 
-Don’t get overly stuck on always figuring out the perfect name at the get-go → it is okay to do multiple iterations of your code, with both your code and name improving with each iteration.
+不要过分坚持从一开始就找出完美的名称 → 你可以对代码进行多次迭代，每次迭代都会改进你的代码和名称。
 
 ## Reviewing code with naming in mind
 
