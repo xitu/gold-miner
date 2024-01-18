@@ -1,7 +1,7 @@
-> * 原文地址：[Achieve Next.js Mastery: Build a Sales Page with Stripe and Airtable](https://dev.to/triggerdotdev/achieve-Next.js-mastery-build-a-sales-page-with-stripe-and-airtable-1p5m)
+> * 原文地址：[Achieve Next.js Mastery: Build a Sales Page with Stripe and Airtable](https://dev.to/triggerdotdev/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable-1p5m)
 > * 原文作者：[Eric Allam](https://dev.to/maverickdotdev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-Next.js-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/achieve-Next.js-mastery-build-a-sales-page-with-stripe-and-airtable.md)
+> * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md)
 > * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
@@ -19,7 +19,7 @@ ___
 
 ## 你的 Next.js 后台作业管理系统
 
-[Trigger.dev](https://trigger.dev/) 是一个可以让你在 Next.js、Remix、Astro 等应用中创建和监视长时间运行的作业的开源库！
+[Trigger.dev](https://trigger.dev/) 是一个可以让你在 Next.js、Remix、Astro 等应用中创建和监视长时间运行任务的开源库！
 
 如果你愿意花一点时间来给我点个 Star，我将不胜感激 💖
 [https://github.com/triggerdotdev/trigger.dev](https://github.com/triggerdotdev/trigger.dev)
@@ -534,7 +534,7 @@ ___
 
 Trigger.dev 提供三种通信方法：Webhook、Schedule 和 Event。Schedule 适用于定期任务，Event 在发送有效负载时激活作业，而 Webhooks在特定事件发生时触发实时作业。
 
-作为一名开源开发者，欢迎加入我们的[社区](https://discord.gg/nkqV9xBYWy)与维护人员一起贡献和交流。不要犹豫访问我们的 [GitHub Repo](https://github.com/triggerdotdev/trigger.dev) 以贡献并创建与 Trigger.dev 相关的问题。
+作为一名开源开发者，欢迎加入我们的[社区](https://discord.gg/nkqV9xBYWy)与维护人员一起贡献和交流。不要犹豫访问我们的 [GitHub Repo](https://github.com/triggerdotdev/trigger.dev)，来一起为这个项目贡献自己力量，或者提出与 Trigger.dev 有关的 issue！
 
 本教程的源代码可以在这里获得：https://github.com/triggerdotdev/blog/tree/main/sales-page
 
