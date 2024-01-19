@@ -7,7 +7,7 @@
 
 在童话故事中，我们常常可以看到这么一个设定：**只要知道了恶魔的真名，我们便可以控制它**。无论是通过调查古籍还是巧妙的对话诱骗恶魔，一旦主角找到了这个名字，他便可以扭转局面，赶走恶魔！
 
-我始终相信，写代码也亦是如此：只要我们能够为函数、变量和结构体找到好的名称，我们就能真正认识到问题的本质。**清晰的结果不仅是好的名称，还有更整洁的代码和更稳健的架构。**
+我始终相信，写代码也亦是如此：只要我们能够为函数、变量和结构体找到好的名称，我们就能真正认识到我们在解决的问题的本质。**清晰之道不仅反映出好的名称，还有更整洁的代码和更稳健的架构。**
 
 ![命名在编程中的重要性](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)
 
@@ -108,7 +108,7 @@ async function procureFreeMachineAndSetUpTheDockerWorkerThenStartExecutingTheJob
 
 解决方案是，将函数分解为多个较小的函数：
 
-```
+```javascript
 async function procureFreeMachine (type, region) { ... }
 async function setUpDockerWorker (machineId, dockerImage, setupCmd) { ... }
 async function startExecutingJob (workerId, jobDescription) { ... }
