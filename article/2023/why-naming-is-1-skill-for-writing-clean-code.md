@@ -3,15 +3,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/why-naming-is-1-skill-for-writing-clean-code.md](https://github.com/xitu/gold-miner/blob/master/article/2023/why-naming-is-1-skill-for-writing-clean-code.md)
 > * 译者：[jaredliw](https://github.com/jaredliw)
-> * 校对者：
+> * 校对者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 
 在童话故事中，我们常常可以看到这么一个设定：**只要知道了恶魔的真名，我们便可以控制它**。无论是通过调查古籍还是巧妙的对话诱骗恶魔，一旦主角找到了这个名字，他便可以扭转局面，赶走恶魔！
 
 我始终相信，写代码也亦是如此：只要我们能够为函数、变量和结构体找到好的名称，我们就能真正认识到问题的本质。**清晰的结果不仅是好的名称，还有更整洁的代码和更稳健的架构。**
 
-![取名在编程中的重要性](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)
+![命名在编程中的重要性](https://res.cloudinary.com/practicaldev/image/fetch/s--V94wO-D0--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/i9egdxs8uo4256ioir3x.png)
 
-我甚至可以说，**要想写好整洁的代码，仅仅是取好名称就已完成 90% 了。**
+我甚至可以说，**要想写好整洁的代码，仅仅是取好名称就已完成 90% 了**。
 
 这听起来很简单，但其实并不容易！
 
@@ -31,13 +31,13 @@ async function demo (a, b) {
 }
 ```
 
-这个代码有什么问题？
+这段代码有什么问题？
 
 1.  函数名称 `demo` 的语义**非常模糊**：它可以表示“拆除（demolish）”，或者“演示（demonstration）”等等。
 2.  变量名称 `a`、`b` 和 `c` **完全不能提供任何信息**。
 3.  `map` 中的匿名函数重复使用了名称 `a`，**遮蔽（shadowing）​**了作为函数参数的 `a`，使读者感到困惑，并可能导致我们在未来修改代码时引用错误的变量。
 4.  返回的数组并不能提供它的内容信息，相反地，**在使用时需小心元素的排列顺序**。
-5.  `.info` 字段这个名称也**不能告诉我们任何有关其内容的信息**。更糟糕的是，由于我们是通过下标访问元素，如果他们的顺序发生变化，我们的代码将会在毫无征兆下出错。
+5.  `.info` 字段这个名称也**不能告诉我们任何有关其内容的信息**。更糟糕的是，由于我们是通过下标访问元素，如果它们的顺序有所变更，我们的代码将更倾向于在不被发现的情况下错误运行。
 
 让我们修改一下：
 
@@ -152,7 +152,7 @@ async function startExecutingJob (workerId, jobDescription) { ... }
     -   当变量是布尔值是添加前缀 `is`（例：`isAuthEnabled`）
     -   为幂等函数添加前缀 `ensure` (例：`ensureServerIsRunning`)；这一类函数只有在尚未设置情况下才会执行操作（如分配资源），不会重复执行操作。
 
-### 取名的技巧
+### 命名的技巧
 
 如果你在起名字时遇到困难，请执行以下操作：
 
@@ -166,13 +166,13 @@ async function startExecutingJob (workerId, jobDescription) { ... }
 
 ## 在考虑命名的情况下审查代码
 
-一旦您开始深入思索命名的问题，你将见识到它如何改变你的代码审查过程：焦点从查看实现细节转移到首先查看名称。
+一旦你开始深入思索命名的问题，你将见识到它如何改变你的代码审查过程：焦点从查看实现细节转移到首先查看名称。
 
 **当我进行代码审查时，我的主要想法是：“这个名字清楚吗？”​**从这开始，整个审查不断发展并导向整洁的代码。
 
 检查名称是一个单一的压力点，它可以解开其背后的整个混乱局面。寻找糟糕的名字，如果存在，你迟早会发现糟糕的代码。
 
-## 增广
+## 延伸阅读
 
 我推荐 **Robert Martin 的《代码整洁之道》**。其中命名一章非常精彩，并且还进一步介绍了如何编写易于阅读和维护的代码。
 
