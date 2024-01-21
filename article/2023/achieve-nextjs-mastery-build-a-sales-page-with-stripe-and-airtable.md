@@ -1,56 +1,58 @@
-> * 原文地址：[Achieve NextJS Mastery: Build a Sales Page with Stripe and Airtable](https://dev.to/triggerdotdev/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable-1p5m)
+> * 原文地址：[Achieve Next.js Mastery: Build a Sales Page with Stripe and Airtable](https://dev.to/triggerdotdev/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable-1p5m)
 > * 原文作者：[Eric Allam](https://dev.to/maverickdotdev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/article/2023/4achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md](https://github.com/xitu/gold-miner/blob/master/article/2023/achieve-nextjs-mastery-build-a-sales-page-with-stripe-and-airtable.md)
-> * 译者：
+> * 译者：[霜羽 Hoarfroster](https://github.com/PassionPenguin)
 > * 校对者：
 
-In this tutorial, you'll learn how to build a sales landing page:
+# 实现熟练使用 Next.js：使用 Stripe 和 Airtable 搭建一个销售页面
 
--   Build an entire sales-page with NextJS.
--   Make payments via Stripe.
--   Save their details to an Airtable database.
+在这个教程中，你将学习如何构建一个销售落地页：
+
+- 使用 Next.js 构建整个销售页面。
+- 通过 Stripe 进行支付。
+- 将支付的详细信息保存到 Airtable 数据库中。
 
 ![Price](https://res.cloudinary.com/practicaldev/image/fetch/s--hSROD7md--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rl8xnljxxmiww802y6rw.gif)
 
 ___
 
-## Your background job management for NextJS
+## 你的 Next.js 后台作业管理系统
 
-[Trigger.dev](https://trigger.dev/) is an open-source library that enables you to create and monitor long-running jobs for your app with NextJS, Remix, Astro, and so many more!
+[Trigger.dev](https://trigger.dev/) 是一个可以让你在 Next.js、Remix、Astro 等应用中创建和监视长时间运行任务的开源库！
 
-If you can spend 10 seconds giving us a star, I would be super grateful 💖  
+如果你愿意花一点时间来给我点个 Star，我将不胜感激 💖
 [https://github.com/triggerdotdev/trigger.dev](https://github.com/triggerdotdev/trigger.dev)
 
 [![GiveStar](https://res.cloudinary.com/practicaldev/image/fetch/s--jmfYPyVI--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9wsljq85zi71b0pksld7.png)](https://github.com/triggerdotdev/trigger.dev)
 
 ___
 
-## Let's set it up 🔥
+## 让我们来设置一下🔥
 
-Here, I'll walk you through creating the user interface for the course landing page.
+在这里，我将带你逐步创建课程主页的用户界面。
 
-Create a new TypeScript Next.js project by running the code snippet below.  
+通过运行下面的代码片段创建一个新的 TypeScript Next.js 项目。
 
 ```shell
 npx create-next-app course-page
 ```
 
-Install the [React Icons](https://react-icons.github.io/react-icons) package to enable us to use different kinds of icons within the application.  
+安装 [React Icons](https://react-icons.github.io/react-icons) package，这样让我们在应用程序中可以使用各式的 Icon。
 
 ```shell
 npm install react-icons --save
 ```
 
-The application is divided into two pages: the Home page, representing the course landing page, and the Success page, which is displayed to the user after making a payment.
+应用分为两个页面：主页，代表课程的着陆页面，和成功页面，用户在付款后会显示。
 
-### Home page 🏠
+### 主页 🏠
 
-The Home page is divided into five sections - the navigation bar, header, features, purchase, and footer sections.
+主页分为五个部分 - 导航栏、页眉、功能展示、购买部分和页脚。
 
 ![Scroll](https://res.cloudinary.com/practicaldev/image/fetch/s--9CdteCXn--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cex2b139qxtv48vbf0mj.gif)
 
-Update the `index.tsx` file, as done below. The placeholders represent each section of the landing page.  
+更新 `index.tsx` 文件（如下所示）。占位符代表着首页的每个部分。
 
 ```tsx
 import { Inter } from "next/font/google";
@@ -73,9 +75,9 @@ export default function Home() {
 }
 ```
 
-Replace the `Navigation bar` placeholder with the code snippet below.  
+用下面的代码段替换 `Navigation bar` 占位符.
 
-```html
+```tsx
 <nav className='md:h-[12vh] w-full md:p-8 p-4 flex items-center justify-between border-b-[1px] border-b-gray-200 bg-white sticky top-0 z-20'>
     <h2 className='text-2xl font-bold text-purple-600'>TechGrow</h2>
     <button className='bg-purple-600 hover:bg-purple-800 text-white px-5 py-3 rounded-2xl'>
@@ -84,9 +86,9 @@ Replace the `Navigation bar` placeholder with the code snippet below.
 </nav>
 ```
 
-Copy the code snippet below into the `Header` section. You can get the [image from its GitHub repository](https://github.com/triggerdotdev/blog/tree/main/sales-page/src/images).  
+将以下代码片段复制到 `Header` 部分。你可以从 GitHub Repo 中获取这些[图片](https://github.com/triggerdotdev/blog/tree/main/sales-page/src/images).
 
-```html
+```tsx
 <header className='min-h-[88vh] w-full md:px-8 px-4 py-12 flex md:flex-row flex-col items-center justify-between'>
     <div className='md:w-[60%] w-full md:pr-6 md:mb-0 mb-8'>
         <h2 className='font-extrabold text-5xl mb-4'>
@@ -106,9 +108,9 @@ Copy the code snippet below into the `Header` section. You can get the [image fr
 </header>
 ```
 
-The `Features Section` displays some of the reasons why a customer should purchase the course.  
+`Feature` 展示部分可以给用户展现为什么他们应该购买这一课程的原因。
 
-```html
+```tsx
 <section className='w-full min-h-[88vh] bg-purple-50 md:px-8 px-4 py-14 '>
     <h2 className='font-extrabold text-3xl text-center mb-4'>Why Choose Us?</h2>
     <p className='opacity-50 text-center'>
@@ -151,9 +153,9 @@ The `Features Section` displays some of the reasons why a customer should purcha
 </section>
 ```
 
-Copy the code snippet below into the `Purchase Now Section` placeholder.  
+用下面的代码段替换 `Purchase Now` 占位符。
 
-```html
+```tsx
 <div className='w-full min-h-[70vh] py-14 md:px-12 px-4 bg-purple-700 flex md:flex-row flex-col items-center justify-between'>
     <div className='md:w-[50%] w-full md:pr-6 md:mb-0 mb-8'>
         <h2 className='font-extrabold text-5xl mb-4 text-purple-50'>
@@ -197,9 +199,9 @@ Copy the code snippet below into the `Purchase Now Section` placeholder.
 </div>
 ```
 
-Finally, update the `Footer section` as done below.  
+最后，用下面的代码更新 `Footer` 部分。
 
-```html
+```tsx
 <footer className='w-full flex items-center justify-center min-h-[10vh] bg-white'>
     <p className='text-purple-800 text-sm'>
         Copyright, &copy; {new Date().getFullYear()} All Rights Reserved Tech Grow
@@ -207,11 +209,11 @@ Finally, update the `Footer section` as done below.
 </footer>
 ```
 
-### Success 🚀
+### 成功  🚀
 
-After a successful payment, users are redirected to the Success page.
+支付成功后，用户将被重定向到成功页面。
 
-Create a `success.tsx` file and copy the code below into the file.  
+创建一个名为 `success.tsx` 的文件，并将下面的代码复制到文件中。
 
 ```tsx
 import React from "react";
@@ -232,49 +234,50 @@ export default function Success() {
 }
 ```
 
-Congratulations!🎉 You've successfully created the user interface for the application.
+恭喜！🎉 你已成功为应用程序创建了用户界面。
 
 ___
 
-## Start collecting payments 💰
+## 开始收款 💰
 
-[Stripe](https://stripe.com/) is a popular online payment processing platform that enables you to create products and integrate both one-time and recurring payment methods into your application.
+[Stripe](https://stripe.com/) 是一个流行的在线支付处理平台，可以让你创建产品，并将一次性和定期支付方式集成到你的应用程序中。
 
-Here, I'll walk you through how to create a product on Stripe and how to add the Stripe checkout page to your Next.js application.
+在这里，我将为你介绍如何在 Stripe 上创建产品，以及如何将 Stripe 支付页面添加到你的 Next.js 应用程序中。
 
-First, you need to [create a Stripe account](https://dashboard.stripe.com/login). You can use a test mode account for this tutorial.
+首先，你需要[创建一个账户](https://dashboard.stripe.com/login)。你可以在本教程中使用测试模式账户。
 
 [![first](https://res.cloudinary.com/practicaldev/image/fetch/s--Xpis-Gpl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hpg6nrxfuhjodgz1qv6g.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--Xpis-Gpl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hpg6nrxfuhjodgz1qv6g.png)
 
-Select `Products` from the top menu and click the `Add Product` button to create a new product. Provide the product name, price, description, and payment option. Select `one-time` as the payment option.
+从顶部菜单选择 `Product`，然后点击 `Add Product` 按钮创建新产品。提供产品名称、价格、描述和付款选项。选择 `One-Time` 作为付款选项。
+
 
 [![Select Products](https://res.cloudinary.com/practicaldev/image/fetch/s--RX98AGTw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jrfuxt87igu801cp0y0x.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--RX98AGTw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/jrfuxt87igu801cp0y0x.png)
 
-Create a `.env.local` file and copy the product ID into the file.  
+创建一个 `.env.local` 环境文件并拷贝你的 `PRODUCT_ID` 进去：
 
 ```dotenv
 PRODUCT_ID=<YOUR_PRODUCT_ID>
 ```
 
-Next, click `Developers` from the top menu, select `API keys`, and create a new secret key.
+然后从顶部菜单点选 `Developers`，选择 `API keys`，然后创建一个新的密钥。
 
 [![ProdId](https://res.cloudinary.com/practicaldev/image/fetch/s--n5pEQe8h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hipric4ehzdjirxk8pgx.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--n5pEQe8h--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/hipric4ehzdjirxk8pgx.png)
 
-Save the secret key into the `.env.local` file. It authenticates and enables you to access Stripe from the application.  
+把这个密钥保存到 `.env.local` 文件中，以让你的应用程序可以在 Strip 处通过认证并使用其服务。
 
 ```dotenv
 STRIPE_API_KEY=<YOUR_STRIPE_SECRET_KEY>
 ```
 
-### Adding Stripe checkout page to Next.js
+### 为 Next.js 添加 Stripe 结帐页面
 
-To do this, install the Stripe Node.js library.  
+要做到这一点，请安装 Stripe Node.js 库。
 
 ```shell
 npm install stripe
 ```
 
-Create an API endpoint - `api/payment` within the Next.js application and copy the code below into the file.  
+在 Next.js 应用程序中创建一个API端点 - `api/payment`，并将下面的代码复制到文件中：
 
 ```ts
 //👉🏻  Within the api/payment.ts file
@@ -303,9 +306,9 @@ export default async function handler(
 }
 ```
 
-The code snippet above creates a checkout session for the product and returns the session URL. The session URL is the link where payments for a product are collected, and you need to redirect users to this URL.
+以上的代码片段创建了一个产品的结账会话，并返回会话 URL（收款的链接）。你需要将用户重定向到此 URL 以让用户可以付款。
 
-Create a function within the `index.tsx` file that retrieves the session URL from the API endpoint and redirects the user to the page. Execute the function when a user clicks any of the buttons on the web page.  
+在 `index.tsx` 文件中创建一个函数，该函数从 API 端点检索会话 URL 并将用户重定向到页面。当用户单击 Web 页面上的任何按钮时执行该函数。
 
 ```ts
 const handlePayment = async () => {
@@ -321,70 +324,69 @@ const handlePayment = async () => {
 
 ![Stripe](https://res.cloudinary.com/practicaldev/image/fetch/s--rewk5cZw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/01xw1l2ypai8wnj7ttfh.gif)
 
-Congratulations!🎉 You've successfully added the Stripe checkout page to your application.  
-In the upcoming sections, you'll learn how to handle payments and save users' details to an Airtable database using Trigger.dev.
+恭喜你！🎉 你成功地将 Stripe 结帐页面添加到你的应用程序中。在接下来的部分，你将学习如何使用 Trigger.dev 处理付款并将用户详细信息保存到 Airtable 数据库。
 
 ___
 
-## Process payments with Trigger.dev
+## 使用Trigger.dev处理付款
 
-[Trigger.dev](https://trigger.dev/) is an open-source library that enables you to create and monitor long-running jobs for your app with NextJS, Remix, Astro, and so many more! With Trigger.dev, you can automate, schedule, and delay tasks within your codebase and in services like GitHub repositories, Slack channels, etc.
+[Trigger.dev](https://trigger.dev/) 是一个开源库，可以让你在 Next.js、Remix、Astro 等应用程序中创建和监视长时间运行的作业！通过 Trigger.dev，你可以在代码库和 GitHub Repo、Slack 频道等服务中自动执行、安排和延迟任务。
 
-## Connect stripe to Trigger.dev ✨
+## 将Stripe连接到Trigger.dev ✨
 
-Here, you'll learn how to handle Stripe payments within your application using Trigger.dev webhooks.
+在这里，你将学习如何使用 Trigger.dev Webhooks 在你的应用程序中处理 Stripe 付款。
 
-[Trigger.dev webhooks](https://trigger.dev/docs/documentation/introductionhttps://trigger.dev/docs/documentation/concepts/triggers/webhooks) are user-friendly, managing both the registration and un-registration processes for you. Additionally, if there's an error, it attempts to resend the event until successful.
+[Trigger.dev webhooks](https://trigger.dev/docs/documentation/introductionhttps://trigger.dev/docs/documentation/concepts/triggers/webhooks) 是用户友好的，可以为你管理注册和注销流程。此外，如果出现错误，它会尝试重新发送事件直到成功为止。
 
-All you have to do is [specify the service](https://trigger.dev/docs/integrations/introduction) and events you want to listen to; Trigger.dev takes care of the configurations.
+你只需要[指定服务](https://trigger.dev/docs/integrations/introduction)和要监听的事件，而 Trigger.dev 会为你配置好。
 
-### Adding Trigger.dev to a Next.js app
+### 将 Trigger.dev 添加到 Next.js 应用程序
 
-Before we proceed, you need to create a [Trigger.dev account](https://trigger.dev/).
+在我们继续之前，你需要创建一个 [Trigger.dev 账户](https://trigger.dev/)。
 
-Create an organization and project name for your jobs.
+为你的任务创建组织和项目名称。
 
 [![Create org](https://res.cloudinary.com/practicaldev/image/fetch/s--rEmyYjpZ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vyb6eskgqhpxv5etm0mk.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--rEmyYjpZ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vyb6eskgqhpxv5etm0mk.png)
 
-Follow the steps provided. Once you've completed them, feel free to move on to the next section of this article.
+按照提供的步骤进行。
 
 [![Org2](https://res.cloudinary.com/practicaldev/image/fetch/s--UnTM7AHG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0dwbs7tfk8swg8ziedax.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--UnTM7AHG--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0dwbs7tfk8swg8ziedax.png)
 
-Otherwise, click `Environments & API Keys` on the sidebar menu of your project dashboard.
+或者在你的项目仪表盘的侧边栏点击 `Environments & API Keys`。
 
 [![EnvApiKeys](https://res.cloudinary.com/practicaldev/image/fetch/s--z2jzAKWa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wsxvinx16hoqlsc2ccl5.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--z2jzAKWa--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/wsxvinx16hoqlsc2ccl5.png)
 
-Copy your DEV server API key and run the code snippet below to install Trigger.dev. Follow the instructions carefully.  
+复制你的 DEV 服务器 API 密钥，然后运行下面的代码片段安装 Trigger.dev。请仔细按照说明操作。
 
 ```shell
 npx @trigger.dev/cli@latest init
 ```
 
-Start your Next.js project.  
+运行你的 Next.js 项目。
 
 ```shell
 npm run dev
 ```
 
-In another terminal, run the following code snippet to establish a tunnel between Trigger.dev and your Next.js project.  
+在另一个终端中运行以下代码片段，以在 Trigger.dev 和你的 Next.js 项目之间建立隧道。
 
 ```shell
 npx @trigger.dev/cli@latest dev
 ```
 
-Finally, rename the `jobs/examples.ts` file to `jobs/functions.ts`. This is where all the jobs are processed.
+最后，将 `jobs/examples.ts` 文件重命名为 `jobs/functions.ts`。这将是处理所有任务的地方。
 
-Congratulations!🎉 You've successfully added Trigger.dev to your Next.js app.
+恭喜你！🎉 你已成功将 Trigger.dev 添加到你的 Next.js 应用中。
 
-### Listen to stripe successful payments
+### 监听 Stripe 的成功付款
 
-Install the Stripe package provided by Trigger.dev.  
+安装 Trigger.dev 提供的 Stripe package。
 
 ```shell
 npm install @trigger.dev/stripe@latest
 ```
 
-Update the `jobs/functions.ts` file as shown below.  
+按照如下代码更新 `jobs/functions.ts` 文件。
 
 ```ts
 import { client } from "@/trigger";
@@ -414,56 +416,56 @@ client.defineJob({
 });
 ```
 
-The code snippet automatically creates a Stripe webhook that listens for checkout completion events, triggered when a user makes a payment.
+这段代码片段会自动创建一个 Stripe Webhook，用于监听结账完成事件，当用户进行付款时触发。
 
 [![Stripe Webhook](https://res.cloudinary.com/practicaldev/image/fetch/s--cq1WBvt3--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u7oenhtrf5vj753ddunu.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--cq1WBvt3--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u7oenhtrf5vj753ddunu.png)
 
-After the user makes a payment, their details are logged to the job console on Trigger.dev.
+用户付款后，他们的详细信息将被记录在 Trigger.dev 的作业控制台上。
 
 ![Stripe5](https://res.cloudinary.com/practicaldev/image/fetch/s--fo6CKVR4--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/uzinnyp1tdw7djq6guyo.gif)
 
-## Save the customer information 💾
+## 存储用户信息 💾
 
-After retrieving the customer's details from the Stripe webhook, the next step is to save these details to a database. In this section, you will learn how to integrate Airtable into a Next.js app and interact with it using Trigger.dev.
+在从 Stripe webhook 中检索到用户的详细信息之后，下一步是将这些详细信息保存到数据库中。在本节中，你将学习如何将 Airtable 集成到 Next.js 应用程序中，并使用 Trigger.dev 与其进行交互。
 
-[Airtable](https://airtable.com/) is an easy-to-use cloud-based software that helps you organize information into customizable tables. It's like a mix between a spreadsheet and a database, allowing you to manage data, tasks, or projects collaboratively in a visually appealing way.
+[Airtable](https://airtable.com/) 是一款易于使用的基于云的软件，可帮助你将信息组织成可自定义的表格。它就像是电子表格和数据库的混合体，让你以视觉上令人愉悦的方式协同管理数据、任务或项目。
 
-To get started, create an [Airtable account](https://airtable.com/) and set up a workspace and a base. An Airtable workspace serves as a folder containing multiple databases, known as bases. Each base can contain several tables.
+要开始，请创建一个 [Airtable 账户](https://airtable.com/)，并设置一个工作区和一个数据库。Airtable 工作区充当包含多个数据库（称为 bases）的文件夹。每个数据库可以包含多个表格。
 
 [![Bases](https://res.cloudinary.com/practicaldev/image/fetch/s--phZWcV6o--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rtfq2u88e6lcgi7dmdoz.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--phZWcV6o--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rtfq2u88e6lcgi7dmdoz.png)
 
-Within the base, create a table containing a `Name` and `Email` columns. This is where the customer's name and email retrieved from Stripe will be stored.
+在 Bases 中，创建一个包含 `Name` 和 `Email` 列的 Table。这将是从 Stripe 检索到的用户姓名和电子邮件将被存储的地方。
 
 [![Airtable](https://res.cloudinary.com/practicaldev/image/fetch/s--77c5oAVv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l5ghzs8xy825vl9ckomh.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--77c5oAVv--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/l5ghzs8xy825vl9ckomh.png)
 
-Click the `Help` button on the navigation bar, and select `API Documentation`.
+在导航栏处点击 `Help` 按钮，然后选择 `API Documentation`.
 
 [![Help](https://res.cloudinary.com/practicaldev/image/fetch/s--YCdpGAr---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/imv2u146bzqtupwdk8x1.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--YCdpGAr---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/imv2u146bzqtupwdk8x1.png)
 
-Scroll through the page, find and copy the base and table ID, and save them into the `.env.local` file.  
+滑动页面，找到并复制 Base ID 和 Table ID，然后保存到 `.env.local` 文件中。
 
 ```dotenv
 AIRTABLE_BASE_ID=<YOUR_AIRTABLE_BASE_ID>
 AIRTABLE_TABLE_ID=<YOUR_AIRTABLE_TABLE_ID>
 ```
 
-Next, create a personal access token by clicking on your avatar and selecting `Developer Hub`. Give the token a read-and-write scope.
+好的，接下来，通过点击你的头像并选择 `Developer Hub` 来创建一个个人访问令牌。为令牌赋予读写权限。
 
 [![Next](https://res.cloudinary.com/practicaldev/image/fetch/s--wpNk8h69--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/povizzzv0004tf8hj4uo.png)](https://res.cloudinary.com/practicaldev/image/fetch/s--wpNk8h69--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/povizzzv0004tf8hj4uo.png)
 
-Save the newly generated token into the `.env.local` file.  
+在 `.env.local` 文件中保存刚刚创建的令牌。
 
 ```dotenv
 AIRTABLE_TOKEN=<YOUR_PERSONAL_ACCESS_TOKEN>
 ```
 
-Then, install the Airtable package provided by Trigger.dev.  
+然后安装 Trigger.dev 提供的 Airtable package。
 
 ```shell
 npm install @trigger.dev/airtable
 ```
 
-Update the `jobs/functions.js` file to save the user's name and email to Airtable after completing the payment checkout.  
+更新 `jobs/functions.js` 文件，以此在用户完成付款后保存用户名称与邮箱到 Airtable 之中。
 
 ```ts
 import { Airtable } from "@trigger.dev/airtable";
@@ -516,27 +518,27 @@ client.defineJob({
 });
 ```
 
-The code snippet above integrates Airtable to Trigger.dev, access the table, and it with the customer's name and email.
+这段代码片段将 Airtable 集成到 Trigger.dev 中，访问数据库的 Table，并将用户的姓名和电子邮件保存到表中。
 
-Congratulations! You have completed the project for this tutorial.
+恭喜！你已经完成了本教程的项目。
 
 ___
 
-## Conclusion
+## 结论
 
-So far, you've learned how to
+到目前为止，你已经学会了如何
 
--   add a Stripe checkout page to your Next.js app,
--   handle payments with Trigger.dev, and
--   save data to Airtable via Trigger.dev.
+-   在你的 Next.js 应用中添加 Stripe 结账页面，
+-   使用 Trigger.dev 处理付款，并且
+-   通过 Trigger.dev 将数据保存到 Airtable。
 
-Trigger.dev offers three communication methods: webhook, schedule, and event. Schedule is ideal for recurring tasks, events activate a job upon sending a payload, and webhooks trigger real-time jobs when specific events occur.
+Trigger.dev 提供三种通信方法：Webhook、Schedule 和 Event。Schedule 适用于定期任务，Event 在发送有效负载时激活作业，而 Webhooks在特定事件发生时触发实时作业。
 
-As an open-source developer, you're invited to join our [community](https://discord.gg/nkqV9xBYWy) to contribute and engage with maintainers. Don't hesitate to visit our [GitHub repository](https://github.com/triggerdotdev/trigger.dev) to contribute and create issues related to Trigger.dev.
+作为一名开源开发者，欢迎加入我们的[社区](https://discord.gg/nkqV9xBYWy)与维护人员一起贡献和交流。不要犹豫访问我们的 [GitHub Repo](https://github.com/triggerdotdev/trigger.dev)，来一起为这个项目贡献自己力量，或者提出与 Trigger.dev 有关的 issue！
 
-The source for this tutorial is available here: [https://github.com/triggerdotdev/blog/tree/main/sales-page](https://github.com/triggerdotdev/blog/tree/main/sales-page)
+本教程的源代码可以在这里获得：https://github.com/triggerdotdev/blog/tree/main/sales-page
 
-Thank your for reading!
+感谢你的阅读！
 
 ---
 
