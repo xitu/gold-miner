@@ -105,7 +105,7 @@ function App() {
 
 类组件和函数组件的主要区别在于 **声明它们的方式以及它们的语法**。
 
-类组件由 ES6 中的类构造出来，并继承了`React.Component` 类。他们使用`render`方法 来返回定义了组件输出的 JSX (JavaScript XML)。类组件可以通过`this. state`和`this.setState ()`访问组件生命周期方法和状态管理。
+类组件由 ES6 中的类构造出来，并继承了`React.Component` 类。他们使用`render`方法 来返回定义了组件输出的 JSX (JavaScript XML)。类组件可以通过`this.state`和`this.setState()`访问组件生命周期方法和状态管理。
 
 ```tsx
 class App extends React.Component {
