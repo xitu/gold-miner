@@ -322,7 +322,7 @@ Mobx 提供了`observable` 和 `computed` 等装饰器来定义可观察的状�
 
 ### 18. 在 Mobx 状态中如何访问一个变量？
 
-你可以使用“observable“这个装饰器将变量变为可观察状态，从而在 state 中访问这个变量。举例说明:  
+你可以使用`observable`这个装饰器将变量变为可观察状态，从而在 state 中访问这个变量。举例说明:  
 
 ```ts
 import { observable, computed } from 'mobx';
@@ -484,7 +484,7 @@ React Context API 包括以下三个主要部分:
 
 1.  `createContext`: 该函数用来创建一个新的 context 对象。
 2.  `Context.Provider`: 该组件用来为 context 提供值。它包裹了需要访问该值的组件。
-3.  `Context.Consumer` or `useContext` hook: 该组件或者钩子用来消费来自 context 的值。他能在任何组件中使用，只要被包裹在 context 的 provider 中。
+3.  `Context.Consumer` 或 `useContext` hook: 该组件或者钩子用来消费来自 context 的值。他能在任何组件中使用，只要被包裹在 context 的 provider 中。
 
 通过使用 React Context，你可以避免 prop drilling（在多个层级组件之间传递 props），可以在更高层级方便地管理状态，并且可以让你的代码更有条理也更高效。
 
@@ -800,7 +800,7 @@ Linters 是用来检查源代码是否存在潜在错误、 bug、风格不一�
 
 Linters 通过扫描源代码并将其与一组预定义的规则或指南进行比较来工作。这些规则包含语法和格式约定、最佳实践、潜在的 bug 和代码异味。当一个 linter 辨别出不符合规则的代码，它会生成一个警告或错误，高亮展示需要注意的特定行或代码行。
 
-使用Linter可以带来几个好处:
+使用 Linter 可以带来几个好处:
 
 1.  **代码质量**: Linters 有助于识别和防止潜在的 bug、代码味道和反模式，从而提高代码质量。
     
@@ -811,7 +811,7 @@ Linters 通过扫描源代码并将其与一组预定义的规则或指南进行
 4.  **高效性**: 通过自动化代码审查过程和在常见错误导致开发过程或生产过程中出现问题之前捕捉常见错误，Linters 可以节省开发人员的时间。
     
 
-一些流行的linters有用于 JavaScript 的 ESLint 和用于 CSS 和 Sass 的 Stylelint。
+一些流行的 linters 有用于 JavaScript 的 ESLint 和用于 CSS 和 Sass 的 Stylelint。
 
 [了解更多](https://eslint.org/docs/latest/use/getting-started)
 
