@@ -13,14 +13,14 @@
 
 ### 1. 你知道那些 React 钩子?
 
--   “useState”: 管理函数组件中的状态。
--   “useEffect“: 在函数组件中执行副作用，例如获取数据或订阅事件。
--   “useContext“: 访问函数组件中的 React 上下文的值。
--   “useRef“: 创建渲染过程持久存在的元素或者值的可变的引用。
--   “useCallback“: 缓存函数以防止不必要的重新渲染。
--   “useMemo“: 缓存值，通过缓存昂贵的计算结果来提高性能。
--   “useReducer“: 使用 reducer 函数管理状态，类似于 Redux 的工作方式。
--   “useLayoutEffect“: 类似于 useEffect，但是在所有 DOM 更新之后会同步执行副作用函数。
+-   `useState`: 管理函数组件中的状态。
+-   `useEffect`: 在函数组件中执行副作用，例如获取数据或订阅事件。
+-   `useContext`: 访问函数组件中的 React 上下文的值。
+-   `useRef`: 创建渲染过程持久存在的元素或者值的可变的引用。
+-   `useCallback`: 缓存函数以防止不必要的重新渲染。
+-   `useMemo`: 缓存值，通过缓存昂贵的计算结果来提高性能。
+-   `useReducer`: 使用 reducer 函数管理状态，类似于 Redux 的工作方式。
+-   `useLayoutEffect`: 类似于 useEffect，但是在所有 DOM 更新之后会同步执行副作用函数。
 
 这些钩子为 React 函数组件提供了强有力的工具，用来管理状态、处理副作用和复用逻辑。
 
@@ -38,9 +38,9 @@
 
 ### 3. 怎么渲染数组类型的元素？
 
-要渲染一个数组类型的元素，你可以使用 “map()“ 方法遍历数组并返回一个新数组，在这个新数组中每一项都是一个 React 元素。
+要渲染一个数组类型的元素，你可以使用 `map()` 方法遍历数组并返回一个新数组，在这个新数组中每一项都是一个 React 元素。
 
-“““tsx
+```tsx
 const languages = [
   "JavaScript",
   "TypeScript",
@@ -54,7 +54,7 @@ function App() {
     </div>
   );
 }
-“““
+```
 
 [了解更多](https://react.dev/learn/rendering-lists)
 
@@ -64,7 +64,7 @@ function App() {
 
 受控组件的状态由 React 控制。组件接收最新的状态值并通过 props 进行更新。当值更改时，它还会触发一个回调函数。这意味着组件不存储它自己的内部状态，而是交给父组件管理状态，然后父组件将最新的状态值其传递给受控组件。
 
-“““tsx
+```tsx
 import { useState } from 'react'; 
 
 function App() { 
@@ -78,11 +78,11 @@ function App() {
     </div> 
   ); 
 } 
-“““
+```
 
 另一方面，非受控组件通过引用或其他方法在内部管理自己的状态。它们独立存储和更新状态，不依赖于 props 或回调。父组件对非受控组件的状态的控制较少。
 
-“““tsx
+```tsx
 import { useRef } from 'react'; 
 
 function App() { 
@@ -97,7 +97,7 @@ function App() {
   ); 
 } 
 
-“““
+```
 
 [了解更多](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components)
 
@@ -105,9 +105,9 @@ function App() {
 
 类组件和函数组件的主要区别在于 **声明它们的方式以及它们的语法**。
 
-类组件由 ES6 中的类构造出来，并继承了“React.Component“ 类。他们使用“render”方法 来返回定义了组件输出的 JSX (JavaScript XML)。类组件可以通过‘ this. state’和‘ this.setState ()’访问组件生命周期方法和状态管理。
+类组件由 ES6 中的类构造出来，并继承了`React.Component` 类。他们使用`render`方法 来返回定义了组件输出的 JSX (JavaScript XML)。类组件可以通过`this. state`和`this.setState ()`访问组件生命周期方法和状态管理。
 
-“““tsx
+```tsx
 class App extends React.Component {
   state = {
     value: 0,
@@ -130,11 +130,11 @@ class App extends React.Component {
     );
   }
 }
-“““
+```
 
 与类组件不同的是，函数组件由简单的 JavaScript 函数定义。它们以参数形式接收 props，并直接返回 JSX。函数式组件不能访问生命周期方法或者状态。但是，随着 React 16.8 中引入的 React Hooks，函数式组件现在可以管理状态，并使用诸如 context 和 effects 等特性
 
-“““tsx
+```tsx
 import { useState } from 'react';
 
 const App = () => {
@@ -153,7 +153,7 @@ const App = () => {
       </>
   );
 }
-“““
+```
 
 总体上来说，函数式组件比类组件更简单，更容易阅读和测试。除非有特定需要，否则建议尽可能使用函数式组件。
 
@@ -163,30 +163,30 @@ const App = () => {
 
 下面是主要的生命周期方法列表:
 
-1.  “constructor“: 这是在创建组件时调用的第一个方法。它用于初始化状态和绑定事件处理程序。在函数组件中，可以使用”useState“钩子来实现类似的目的。
+1.  `constructor`: 这是在创建组件时调用的第一个方法。它用于初始化状态和绑定事件处理程序。在函数组件中，可以使用`useState`钩子来实现类似的目的。
     
-2.  “render“: 这个方法负责渲染 JSX 标记，并返回要显示在屏幕上的内容。
+2.  `render`: 这个方法负责渲染 JSX 标记，并返回要显示在屏幕上的内容。
     
-3.  “componentDidMount“: 在 DOM 中渲染组件之后立即调用这个方法。它通常用于初始化任务，例如 API 调用或设置事件侦听器。
+3.  `componentDidMount`: 在 DOM 中渲染组件之后立即调用这个方法。它通常用于初始化任务，例如 API 调用或设置事件侦听器。
     
-4.  “componentDidUpdate“: 当组件的 props 或 state 发生变化时调用这个方法。它允许你执行副作用、基于数据改变更新组件或触发其他 API 调用。
+4.  `componentDidUpdate`: 当组件的 props 或 state 发生变化时调用这个方法。它允许你执行副作用、基于数据改变更新组件或触发其他 API 调用。
     
-5.  “componentWillUnmount“: 从 DOM 中卸载组件之前调用这个方法。它用于清理在“componentDidMount”中设置的所有任务，例如删除事件侦听器或取消计时器。
+5.  `componentWillUnmount`: 从 DOM 中卸载组件之前调用这个方法。它用于清理在`componentDidMount`中设置的所有任务，例如删除事件侦听器或取消计时器。
     
 
-一些生命周期方法，比如 “componentWillMount“、“componentWillReceiveProps“ 和 “componentWillUpdate“, 已经被弃用或替换为替代方法或钩子。
+一些生命周期方法，比如 `componentWillMount`、`componentWillReceiveProps` 和 `componentWillUpdate`, 已经被弃用或替换为替代方法或钩子。
 
-至于“this”，它指的是类组件的当前实例。它允许你访问组件中的属性和方法。在函数组件中，不使用“this”，因为函数不绑定到特定的实例。
+至于`this`，它指的是类组件的当前实例。它允许你访问组件中的属性和方法。在函数组件中，不使用`this`，因为函数不绑定到特定的实例。
 
 ### 7. 如何使用 useState?
 
-“useState“ 返回了一个状态和一个更新状态的函数。  
+`useState` 返回了一个状态和一个更新状态的函数。  
 
-“““ts
+```ts
 const [value, setValue] = useState('Some state');
-“““
+```
 
-在首次渲染时，组件将以 useState 第一个参数的值作为 state 返回。 “setState“ 函数用于更新状态。 它接受一个新的状态值作为参数 并且 **会触发一个队列去重新渲染组件**。“setState“ 函数还可以接受一个回调函数作为参数，这个回调函数以最新的 state 为参数。
+在首次渲染时，组件将以 useState 第一个参数的值作为 state 返回。 `setState` 函数用于更新状态。 它接受一个新的状态值作为参数 并且 **会触发一个队列去重新渲染组件**。`setState` 函数还可以接受一个回调函数作为参数，这个回调函数以最新的 state 为参数。
 
 [了解更多](https://react.dev/reference/react/useState)
 
